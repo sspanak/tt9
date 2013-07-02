@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Traditional T9</string>
+    <string name="ime_name">Traditional T9</string>
+    <string name="ime_english">English</string>
+    <string name="ime_number">Numbers</string>
+    <string name="pref_inputmode">Default Input Mode</string>
+    <string name="pref_inputmode_desc">Default mode used for \'normal\' text entry</string>
+    <string name="traditionalt9_settings">Traditional T9 Settings</string>
+    <string name="main_left_insert">Insert symbol</string>
+    <string name="main_left_addword">Add word</string>
+    <string name="main_mid">Done</string>
+    <string name="main_mid_commit">Commit</string>
+    <string name="main_right_upper">Cycle Mode</string>
+    <string name="main_right_lower">Change IME</string>
+    <string name="main_left_notfound">Add word?</string>
+    <string name="ricon_desc">Hold Icon</string>
+    <string name="symbol_next">Next Page</string>
+    <string name="symbol_prev">Prev Page</string>
+    <string name="add_word">Add word</string>
+    <string name="ok">OK</string>
+    <string name="add_word_blank">Blank word not added.</string>
+    <string name="add_word_exist1">Word (</string>
+    <string name="add_word_exist2">) already in DB.</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_activity_add_word">Add Word</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="pref_loaddict">Load dictionary</string>
+    <string name="pref_nukedict">Nuke dictionary</string>
+    <string name="pref_backupdict">Backup dictionary</string>
+    <string name="pref_restoredict">Restore dictionary</string>
+    <string name="pref_querytest">Query test</string>
+    
+    <string name="pref_loadingdict">Loading dictionary…</string>
+    <string name="pref_loadingbackup">Restoring dictionary…</string>
+    <string name="pref_savingbackup">Backing up dictionary…</string>
+    <string name="pref_nukingdict">Nuking dictionary… Please wait…</string>
+    
+    <string name="pref_backup_warn">Warning: An existing database backup exists. Do you wish to overwrite?</string>
+    <string name="pref_backup_title">Backup IME database</string>
+    <string name="pref_backup_noext">Error: No external storage available for backup. Backup will not continue.</string>
+    <string name="pref_restore_warn">Backup database entries will overwrite existing database entries. Entries not in the backup will be retained. If that is not desired behaviour select \"%1$s\" before selecting this option.</string>
+    <string name="pref_restore_title">Restore IME database</string>
+    <string name="pref_restore_noext">Error: No external storage available for restoring. Restore will not continue.</string>
+    <string name="pref_restore_nofile">Error: Backup file not found.</string>
+    <string name="pref_nuke_warn">Warning: This will delete your entire dictionary. Do you wish to continue?</string>
+    <string name="pref_nuke_title">Nuke IME dictionary</string>
+    
+    <string name="hello_world">Hello world!</string>
+
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:key="first_preferencescreen">
+        <ListPreference
+	        android:key="pref_inputmode"
+	        android:title="@string/pref_inputmode"
+	        android:dialogTitle="@string/pref_inputmode"
+	        android:entries="@array/pref_inputmode_entries"
+	        android:entryValues="@array/pref_inputmode_values"
+	        android:defaultValue="0" android:summary="@string/pref_inputmode_desc"/>
+      	<Preference android:title="@string/pref_loaddict" android:key="loaddict"/>
+      	<Preference android:title="@string/pref_nukedict" android:key="nukedict"/>
+      	<Preference android:title="@string/pref_backupdict" android:key="backupdict"/>
+      	<Preference android:title="@string/pref_restoredict" android:key="restoredict"/>
+      	<Preference android:title="@string/pref_querytest" android:key="querytest"/>
+</PreferenceScreen> 

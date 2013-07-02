@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.nyanya.android.traditionalt9"
+    android:versionCode="2"
+    android:versionName="1.2" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="10" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/ime_name"
+        android:theme="@style/AppTheme" >
+        <service
+            android:name="org.nyanya.android.traditionalt9.TraditionalT9"
+            android:permission="android.permission.BIND_INPUT_METHOD" >
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/method" />
+        </service>
+
+        <activity
+            android:name="org.nyanya.android.traditionalt9.TraditionalT9Settings"
+            
+            android:label="@string/traditionalt9_settings" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:theme="@android:style/Theme.Dialog"
+            android:name="org.nyanya.android.traditionalt9.AddWordAct"
+            android:label="@string/title_activity_add_word" >
+        </activity>
+    </application>
+
+</manifest>
