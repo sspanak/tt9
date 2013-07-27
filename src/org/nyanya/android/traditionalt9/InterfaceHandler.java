@@ -14,27 +14,27 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
 	private TraditionalT9 parent;
 	private View mainview;
-	
+
 	public InterfaceHandler(View mainview, TraditionalT9 iparent) {
 		this.parent = iparent;
 		changeView(mainview);
 	}
-	
+
 	protected View getMainview() {
 		return mainview;
 	}
-	
+
 	protected void clearParent() {
-		ViewGroup vg = ((ViewGroup)mainview.getParent());
+		ViewGroup vg = ((ViewGroup) mainview.getParent());
 		if (vg != null) {
 			vg.removeView(mainview);
 		}
 	}
-	
-	protected void changeView(View v){
+
+	protected void changeView(View v) {
 		this.mainview = v;
 		View button;
-		for (int x = 0; x < buttons.length; x++){
+		for (int x = 0; x < buttons.length; x++) {
 			button = v.findViewById(buttons[x]);
 			button.setOnClickListener(this);
 			if (!parent.mAddingWord) {
@@ -42,9 +42,10 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 			}
 		}
 	}
-	protected void setPressed(int keyCode, boolean pressed){
+
+	protected void setPressed(int keyCode, boolean pressed) {
 		int id = 0;
-		switch(keyCode) {
+		switch (keyCode) {
 		case KeyEvent.KEYCODE_SOFT_LEFT:
 			id = R.id.main_left;
 			break;
@@ -59,51 +60,56 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 			((View) mainview.findViewById(id)).setPressed(pressed);
 		}
 	}
-	
-	protected void showNotFound(boolean notfound){
+
+	protected void showNotFound(boolean notfound) {
 		if (notfound) {
-			((TextView) mainview.findViewById(R.id.left_hold_upper)).setText(R.string.main_left_notfound);
-			((TextView) mainview.findViewById(R.id.left_hold_lower)).setText(R.string.main_left_insert);
+			((TextView) mainview.findViewById(R.id.left_hold_upper))
+				.setText(R.string.main_left_notfound);
+			((TextView) mainview.findViewById(R.id.left_hold_lower))
+				.setText(R.string.main_left_insert);
 		} else {
-			((TextView) mainview.findViewById(R.id.left_hold_upper)).setText(R.string.main_left_insert);
-			((TextView) mainview.findViewById(R.id.left_hold_lower)).setText(R.string.main_left_addword);
+			((TextView) mainview.findViewById(R.id.left_hold_upper))
+				.setText(R.string.main_left_insert);
+			((TextView) mainview.findViewById(R.id.left_hold_lower))
+				.setText(R.string.main_left_addword);
 		}
 	}
-	
+
 	protected void emulateMiddleButton() {
 		((Button) mainview.findViewById(R.id.main_mid)).performClick();
 	}
-	
-	protected void midButtonUpdate(boolean composing){
+
+	protected void midButtonUpdate(boolean composing) {
 		if (composing) {
 			((Button) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid_commit);
 		} else {
 			((Button) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid);
 		}
 	}
-	
-	@Override public void onClick(View v) {
+
+	@Override
+	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.main_left:
-				if (parent.mAddingWord) {
+		case R.id.main_left:
+			if (parent.mAddingWord) {
+				parent.showSymbolPage();
+			} else {
+				if (parent.mWordFound) {
 					parent.showSymbolPage();
 				} else {
-					if (parent.mWordFound) {
-						parent.showSymbolPage();
-					} else {
-						parent.showAddWord();
-					}
+					parent.showAddWord();
 				}
-				break;
-			case R.id.main_mid:
-				parent.handleMidButton();
-				break;
-			case R.id.main_right:
-				parent.nextKeyMode();
-				break;
+			}
+			break;
+		case R.id.main_mid:
+			parent.handleMidButton();
+			break;
+		case R.id.main_right:
+			parent.nextKeyMode();
+			break;
 		}
 	}
-	
+
 	protected void showHold(boolean show) {
 		ViewSwitcher vs = (ViewSwitcher) mainview.findViewById(R.id.main_left);
 		if (show) {
@@ -113,16 +119,18 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 		}
 	}
 
-	@Override public boolean onLongClick(View v) {
+	@Override
+	public boolean onLongClick(View v) {
 		switch (v.getId()) {
-			case R.id.main_left:
-				parent.showAddWord();
-				break;
-			case R.id.main_right:
-				((InputMethodManager) parent.getSystemService (Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
-				break;
-			default:
-				return false;
+		case R.id.main_left:
+			parent.showAddWord();
+			break;
+		case R.id.main_right:
+			((InputMethodManager) parent.getSystemService(Context.INPUT_METHOD_SERVICE))
+				.showInputMethodPicker();
+			break;
+		default:
+			return false;
 		}
 		return true;
 	}

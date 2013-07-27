@@ -15,6 +15,7 @@ import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,8 +27,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
-public class TraditionalT9 extends InputMethodService 
-implements KeyboardView.OnKeyboardActionListener {
+public class TraditionalT9 extends InputMethodService implements
+	KeyboardView.OnKeyboardActionListener {
 
 	private CandidateView mCandidateView;
 	private InterfaceHandler interfacehandler = null;
@@ -39,78 +40,70 @@ implements KeyboardView.OnKeyboardActionListener {
 	private ArrayList<Integer> mSuggestionInts = new ArrayList<Integer>(10);
 	private ArrayList<String> mSuggestionSym = new ArrayList<String>(16);
 
-	
-	private static final int NON_EDIT       = 0;
-	private static final int EDITING        = 1;
+	private static final int NON_EDIT = 0;
+	private static final int EDITING = 1;
 	private static final int EDITING_NOSHOW = 2;
 	private int mEditing = NON_EDIT;
-	
+
 	private boolean mFirstPress = false;
-	
+
 	private boolean mIgnoreDPADKeyUp = false;
 	private KeyEvent mDPADkeyEvent = null;
-	
+
 	protected boolean mWordFound = true;
-	
+
 	private AbsSymDialog mSymbolPopup = null;
 	private AbsSymDialog mSmileyPopup = null;
 	protected boolean mAddingWord = false;
-	//private boolean mAddingSkipInput = false;
+	// private boolean mAddingSkipInput = false;
 	private int mPrevious;
 	private int mCharIndex;
 
 	private int mCapsMode;
-	private static final int CAPS_OFF     = 0;
-	private static final int CAPS_SINGLE  = 1;
-	private static final int CAPS_ALL     = 2;
+	private static final int CAPS_OFF = 0;
+	private static final int CAPS_SINGLE = 1;
+	private static final int CAPS_ALL = 2;
 	private final static int[] CAPS_CYCLE = { CAPS_OFF, CAPS_SINGLE, CAPS_ALL };
 
-	final Handler t9releasehandler = new Handler(); 
-	Runnable mt9release = new Runnable() { 
-		public void run() { 
+	final Handler t9releasehandler = new Handler();
+	Runnable mt9release = new Runnable() {
+		@Override
+		public void run() {
 			commitReset();
-		}   
+		}
 	};
 
 	private T9DB db;
 
 	protected static TraditionalT9 ghettoaccess;
-	
-	public static final int MODE_EN     = 0;
-	public static final int MODE_TEXT   = 1;
-	public static final int MODE_NUM    = 2;
+
+	public static final int MODE_EN = 0;
+	public static final int MODE_TEXT = 1;
+	public static final int MODE_NUM = 2;
 	private static final int[] MODE_CYCLE = { MODE_EN, MODE_TEXT, MODE_NUM };
 	private int mKeyMode;
 
-	
 	/**
-	 * Main initialization of the input method component.  Be sure to call
-	 * to super class.
+	 * Main initialization of the input method component. Be sure to call to
+	 * super class.
 	 */
-	@Override public void onCreate() {
+	@Override
+	public void onCreate() {
 		super.onCreate();
 
 		mPrevious = -1;
 		mCharIndex = 0;
 		db = new T9DB(this);
 		db.init();
-		
+
 		if (interfacehandler == null) {
-			interfacehandler = new InterfaceHandler(
-					getLayoutInflater().inflate(R.layout.mainview, null), this);
+			interfacehandler = new InterfaceHandler(getLayoutInflater().inflate(R.layout.mainview,
+				null), this);
 		}
 	}
 
-	/**
-	 * This is the point where you can do all of your UI initialization.  It
-	 * is called after creation and any configuration change.
-	 */
-//	@Override public void onInitializeInterface() {
-//		//maybe do some stuff
-//
-//	}
-	
-	@Override public boolean onEvaluateInputViewShown (){
+	@Override
+	public boolean onEvaluateInputViewShown() {
 		if (mEditing == EDITING_NOSHOW) {
 			return false;
 		}
@@ -118,12 +111,13 @@ implements KeyboardView.OnKeyboardActionListener {
 	}
 
 	/**
-	 * Called by the framework when your view for creating input needs to
-	 * be generated.  This will be called the first time your input method
-	 * is displayed, and every time it needs to be re-created such as due to
-	 * a configuration change.
+	 * Called by the framework when your view for creating input needs to be
+	 * generated. This will be called the first time your input method is
+	 * displayed, and every time it needs to be re-created such as due to a
+	 * configuration change.
 	 */
-	@Override public View onCreateInputView() {
+	@Override
+	public View onCreateInputView() {
 		updateKeyMode();
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
@@ -135,30 +129,32 @@ implements KeyboardView.OnKeyboardActionListener {
 		return v;
 	}
 
-
 	/**
-	 * Called by the framework when your view for showing candidates needs to
-	 * be generated, like {@link #onCreateInputView}.
+	 * Called by the framework when your view for showing candidates needs to be
+	 * generated, like {@link #onCreateInputView}.
 	 */
-	@Override public View onCreateCandidatesView() {
+	@Override
+	public View onCreateCandidatesView() {
 		mCandidateView = new CandidateView(this);
-		mCandidateView.setService(this);
 		return mCandidateView;
 	}
 
 	protected void showSymbolPage() {
 		if (mSymbolPopup == null) {
-			mSymbolPopup = new SymbolDialog(this, getLayoutInflater().inflate(R.layout.symbolview, null));
+			mSymbolPopup = new SymbolDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
+				null));
 		}
 		mSymbolPopup.doShow(getWindow().getWindow().getDecorView());
 	}
+
 	protected void showSmileyPage() {
 		if (mSmileyPopup == null) {
-			mSmileyPopup = new SmileyDialog(this, getLayoutInflater().inflate(R.layout.symbolview, null));
+			mSmileyPopup = new SmileyDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
+				null));
 		}
 		mSmileyPopup.doShow(getWindow().getWindow().getDecorView());
 	}
-	
+
 	protected void showAddWord() {
 		if (mKeyMode == MODE_EN) {
 			ghettoaccess = this;
@@ -167,49 +163,52 @@ implements KeyboardView.OnKeyboardActionListener {
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			awintent.putExtra("org.nyanya.android.traditionalt9.word", mComposing.toString());
 			startActivity(awintent);
-		} 
+		}
 	}
-	
+
 	public void doAddWord(String text) {
 		try {
 			db.addWord(text);
 		} catch (DBException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(e.getMessage())
-		       .setTitle(R.string.add_word).setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                       dialog.dismiss();
-                   }
-               });
+			builder.setMessage(e.getMessage()).setTitle(R.string.add_word)
+				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 			AlertDialog dialog = builder.create();
-			//so many ghettos to display dialogs from IME
+			// so many ghettos to display dialogs from IME
 			Window win = dialog.getWindow();
 			WindowManager.LayoutParams lp = win.getAttributes();
-	        lp.token = getWindow().getWindow().getDecorView().getWindowToken();
-	        lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-	        win.setAttributes(lp);
-	        win.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-	        
+			lp.token = getWindow().getWindow().getDecorView().getWindowToken();
+			lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
+			win.setAttributes(lp);
+			win.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
 			dialog.show();
 		}
 	}
-	
+
 	protected void addCancel() {
 		interfacehandler.showNotFound(false);
 		ghettoaccess = null;
 	}
-	
+
 	/**
 	 * This is the main point where we do our initialization of the input method
-	 * to begin operating on an application.  At this point we have been
-	 * bound to the client, and are now receiving all of the detailed information
-	 * about the target of our edits.
+	 * to begin operating on an application. At this point we have been bound to
+	 * the client, and are now receiving all of the detailed information about
+	 * the target of our edits.
 	 */
-	@Override public void onStartInput(EditorInfo attribute, boolean restarting) {
+	@Override
+	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		super.onStartInput(attribute, restarting);
-		//Log.d("onStartInput", "attribute.inputType: " + attribute.inputType + " restarting? " + restarting);
+		// Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
+		// " restarting? " + restarting);
 		if (attribute.inputType == 0) {
-			//don't do anything when not in any kind of edit field.
+			// don't do anything when not in any kind of edit field.
 			// should also turn off input screen and stuff
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
@@ -218,14 +217,15 @@ implements KeyboardView.OnKeyboardActionListener {
 		}
 		mFirstPress = true;
 		mEditing = EDITING;
-		// Reset our state.  We want to do this even if restarting, because
-		// the underlying state of the text editor could have changed in any way.
+		// Reset our state. We want to do this even if restarting, because
+		// the underlying state of the text editor could have changed in any
+		// way.
 		mSuggestionStrings.clear();
 		mSuggestionInts.clear();
 		mSuggestionSym.clear();
 		mComposing.setLength(0);
 		mComposingI.setLength(0);
-		
+
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
 		updateCandidates();
 
@@ -237,22 +237,22 @@ implements KeyboardView.OnKeyboardActionListener {
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
-		switch (attribute.inputType & EditorInfo.TYPE_MASK_CLASS) {
-		case EditorInfo.TYPE_CLASS_NUMBER:
-		case EditorInfo.TYPE_CLASS_DATETIME:
+		switch (attribute.inputType & InputType.TYPE_MASK_CLASS) {
+		case InputType.TYPE_CLASS_NUMBER:
+		case InputType.TYPE_CLASS_DATETIME:
 			// Numbers and dates default to the symbols keyboard, with
 			// no extra features.
 			mKeyMode = MODE_NUM;
 			break;
 
-		case EditorInfo.TYPE_CLASS_PHONE:
+		case InputType.TYPE_CLASS_PHONE:
 			// Phones will also default to the symbols keyboard, though
 			// often you will want to have a dedicated phone keyboard.
 			mKeyMode = MODE_NUM;
 			break;
 
-		case EditorInfo.TYPE_CLASS_TEXT:
-			// This is general text editing.  We will default to the
+		case InputType.TYPE_CLASS_TEXT:
+			// This is general text editing. We will default to the
 			// normal alphabetic keyboard, and assume that we should
 			// be doing predictive text (showing candidates as the
 			// user types).
@@ -260,34 +260,35 @@ implements KeyboardView.OnKeyboardActionListener {
 
 			// We now look for a few special variations of text that will
 			// modify our behavior.
-			int variation = attribute.inputType & EditorInfo.TYPE_MASK_VARIATION;
-			if (variation == EditorInfo.TYPE_TEXT_VARIATION_PASSWORD ||
-					variation == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+			int variation = attribute.inputType & InputType.TYPE_MASK_VARIATION;
+			if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
+				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 				// Do not display predictions / what the user is typing
 				// when they are entering a password.
 				mKeyMode = MODE_TEXT;
 			}
 
-			if (variation == EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS 
-					|| variation == EditorInfo.TYPE_TEXT_VARIATION_URI
-					|| variation == EditorInfo.TYPE_TEXT_VARIATION_FILTER) {
+			if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+				|| variation == InputType.TYPE_TEXT_VARIATION_URI
+				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
 				// Our predictions are not useful for e-mail addresses
 				// or URIs.
 				mKeyMode = MODE_TEXT;
 			}
 
-			if ((attribute.inputType & EditorInfo.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
+			if ((attribute.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
 				// If this is an auto-complete text view, then our predictions
 				// will not be shown and instead we will allow the editor
-				// to supply their own.  We only show the editor's
+				// to supply their own. We only show the editor's
 				// candidates when in fullscreen mode, otherwise relying
 				// own it displaying its own UI.
 				// ????
 				mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
 			}
-			
-			//handle filter list cases... do not hijack DPAD center and make sure back's go through proper
-			if ((attribute.inputType & EditorInfo.TYPE_TEXT_VARIATION_FILTER) != 0) {
+
+			// handle filter list cases... do not hijack DPAD center and make
+			// sure back's go through proper
+			if ((attribute.inputType & InputType.TYPE_TEXT_VARIATION_FILTER) != 0) {
 				mEditing = EDITING_NOSHOW;
 			}
 
@@ -303,20 +304,20 @@ implements KeyboardView.OnKeyboardActionListener {
 			// keyboard with no special features.
 			updateShiftKeyState(attribute);
 		}
-		if (attribute.privateImeOptions != null && 
-				attribute.privateImeOptions.equals("org.nyanya.android.traditionalt9.addword=true")) {
+		if (attribute.privateImeOptions != null
+			&& attribute.privateImeOptions.equals("org.nyanya.android.traditionalt9.addword=true")) {
 			mAddingWord = true;
-			//mAddingSkipInput = true;
-			//Log.d("onStartInput", "ADDING WORD");
+			// mAddingSkipInput = true;
+			// Log.d("onStartInput", "ADDING WORD");
 			mKeyMode = MODE_TEXT;
 		} else {
 			mAddingWord = false;
-			//Log.d("onStartInput", "not adding word");
+			// Log.d("onStartInput", "not adding word");
 		}
-		
+
 		// Update the label on the enter key, depending on what the application
 		// says it will do.
-		//mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
+		// mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
 		setSuggestions(null, -1);
 		setCandidatesViewShown(false);
 		mSuggestionStrings.clear();
@@ -325,72 +326,75 @@ implements KeyboardView.OnKeyboardActionListener {
 		if (interfacehandler != null) {
 			interfacehandler.midButtonUpdate(false);
 		}
-		
+
 		updateKeyMode();
-		//show Window()?
-		
+		// show Window()?
 	}
 
 	/**
-	 * This is called when the user is done editing a field.  We can use
-	 * this to reset our state.
+	 * This is called when the user is done editing a field. We can use this to
+	 * reset our state.
 	 */
-	@Override public void onFinishInput() {
+	@Override
+	public void onFinishInput() {
 		super.onFinishInput();
-		//Log.d("onFinishInput", "When is this called?");
+		// Log.d("onFinishInput", "When is this called?");
 		if (mEditing == EDITING) {
 			commitTyped();
 			finish();
 		}
 	}
 
-//	@Override public void onFinishInputView (boolean finishingInput) {
-//		Log.d("onFinishInputView", "? " + finishingInput);
-//	}
+	// @Override public void onFinishInputView (boolean finishingInput) {
+	// Log.d("onFinishInputView", "? " + finishingInput);
+	// }
 
 	private void finish() {
-		//Log.d("finish", "why?");
+		// Log.d("finish", "why?");
 		// Clear current composing text and candidates.
 		pickSelectedCandidate(getCurrentInputConnection());
 		mComposing.setLength(0);
 		mComposingI.setLength(0);
-		//updateCandidates();
+		// updateCandidates();
 
 		// We only hide the candidates window when finishing input on
 		// a particular editor, to avoid popping the underlying application
 		// up and down if the user is entering text into the bottom of
 		// its window.
-		//setCandidatesViewShown(false);
-		
-		//TODO: check this?
+		// setCandidatesViewShown(false);
+
+		// TODO: check this?
 		mEditing = NON_EDIT;
 		hideWindow();
 		hideStatusIcon();
 	}
 
-	@Override public void onDestroy() {
+	@Override
+	public void onDestroy() {
 		db.close();
 		super.onDestroy();
 	}
 
-//	@Override public void onStartInputView(EditorInfo attribute, boolean restarting) {
-//		Log.d("onStartInputView", "attribute.inputType: " + attribute.inputType + " restarting? " + restarting);
-//		//super.onStartInputView(attribute, restarting);
-//	}
+	// @Override public void onStartInputView(EditorInfo attribute, boolean
+	// restarting) {
+	// Log.d("onStartInputView", "attribute.inputType: " + attribute.inputType +
+	// " restarting? " + restarting);
+	// //super.onStartInputView(attribute, restarting);
+	// }
 
 	/**
 	 * Deal with the editor reporting movement of its cursor.
 	 */
-	@Override public void onUpdateSelection(int oldSelStart, int oldSelEnd,
-			int newSelStart, int newSelEnd,
-			int candidatesStart, int candidatesEnd) {
-		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd,
-				candidatesStart, candidatesEnd);
+	@Override
+	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd,
+		int candidatesStart, int candidatesEnd) {
+		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart,
+			candidatesEnd);
 
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
-		if ((mComposing.length() > 0 || mComposingI.length() > 0) && (newSelStart != candidatesEnd
-				|| newSelEnd != candidatesEnd)) {
+		if ((mComposing.length() > 0 || mComposingI.length() > 0)
+			&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
 			updateCandidates();
@@ -402,37 +406,33 @@ implements KeyboardView.OnKeyboardActionListener {
 	}
 
 	/**
-	 * This tells us about completions that the editor has determined based
-	 * on the current text in it.  We want to use this in fullscreen mode
-	 * to show the completions ourself, since the editor can not be seen
-	 * in that situation.
+	 * This tells us about completions that the editor has determined based on
+	 * the current text in it. We want to use this in fullscreen mode to show
+	 * the completions ourself, since the editor can not be seen in that
+	 * situation.
 	 */
-	@Override public void onDisplayCompletions(CompletionInfo[] completions) {
-		//??????????????
+	@Override
+	public void onDisplayCompletions(CompletionInfo[] completions) {
+		// ??????????????
 	}
 
 	/**
-	 * Use this to monitor key events being delivered to the application.
-	 * We get first crack at them, and can either resume them or let them
-	 * continue to the app.
+	 * Use this to monitor key events being delivered to the application. We get
+	 * first crack at them, and can either resume them or let them continue to
+	 * the app.
 	 */
-	@Override public boolean onKeyDown(int keyCode, KeyEvent event) {
-		//Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
-		//Log.d("onKeyDown", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Log.d("onKeyDown", "Key: " + event + " repeat?: " +
+		// event.getRepeatCount() + " long-time: " + event.isLongPress());
 		if (mEditing == NON_EDIT) {
-//			// catch for UI weirdness on up event thing
-//			if (mButtonClose && keyCode != KeyEvent.KEYCODE_DPAD_CENTER) {
-//				mButtonClose = false;
-//				return false;
-//			}
-			//Log.d("onKeyDown", "returned false");
-			//return super.onKeyDown(keyCode, event);
+			// // catch for UI weirdness on up event thing
 			return false;
 		}
 		mFirstPress = false;
-		
-		//Log.d("onKeyDown", "Key: " + keyCode);
-		//TODO: remove emulator special keys
+
+		// Log.d("onKeyDown", "Key: " + keyCode);
+		// TODO: remove emulator special keys
 		switch (keyCode) {
 		case 75:
 			keyCode = KeyEvent.KEYCODE_POUND;
@@ -447,55 +447,55 @@ implements KeyboardView.OnKeyboardActionListener {
 			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
 			break;
 		}
-		
+
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_DPAD_CENTER:
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, true);
-			} //pass-through
+			} // pass-through
 		case KeyEvent.KEYCODE_DPAD_DOWN:
 		case KeyEvent.KEYCODE_DPAD_UP:
 		case KeyEvent.KEYCODE_DPAD_LEFT:
 		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			if (mEditing == EDITING_NOSHOW){
+			if (mEditing == EDITING_NOSHOW) {
 				return false;
 			}
 			return handleDPAD(keyCode, event, true);
-			
+
 		case KeyEvent.KEYCODE_SOFT_RIGHT:
 		case KeyEvent.KEYCODE_SOFT_LEFT:
 			if (!isInputViewShown()) {
 				return super.onKeyDown(keyCode, event);
 			}
-		
+			break;
+
 		case KeyEvent.KEYCODE_DEL:
 			// Special handling of the delete key: if we currently are
 			// composing text for the user, we want to modify that instead
 			// of let the application to the delete itself.
-			//if (mComposing.length() > 0) {
+			// if (mComposing.length() > 0) {
 			onKey(keyCode, null);
 			return true;
-			//}
-			//break;
+			// }
+			// break;
 		}
-		
-		
-		//only handle first press except for delete
+
+		// only handle first press except for delete
 		if (event.getRepeatCount() != 0) {
 			return true;
 		}
-		if (mKeyMode == MODE_TEXT){
+		if (mKeyMode == MODE_TEXT) {
 			t9releasehandler.removeCallbacks(mt9release);
 		}
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
 			// The InputMethodService already takes care of the back
 			// key for us, to dismiss the input method if it is shown.
-			// but we will manage it ourselves because native Android handling of
-			// the input view is ... flakey at best.
-			//Log.d("onKeyDown", "back pres");
+			// but we will manage it ourselves because native Android handling
+			// of the input view is ... flakey at best.
+			// Log.d("onKeyDown", "back pres");
 			if (isInputViewShown()) {
-				//Log.d("inKeyDown", "input shown");
+				// Log.d("inKeyDown", "input shown");
 				return true;
 			}
 			return false;
@@ -503,14 +503,14 @@ implements KeyboardView.OnKeyboardActionListener {
 		case KeyEvent.KEYCODE_ENTER:
 			// Let the underlying text editor always handle these.
 			return false;
-			
-			//special case for softkeys
+
+			// special case for softkeys
 		case KeyEvent.KEYCODE_SOFT_RIGHT:
 		case KeyEvent.KEYCODE_SOFT_LEFT:
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, true);
 			}
-			//pass-through
+			// pass-through
 		case KeyEvent.KEYCODE_0:
 		case KeyEvent.KEYCODE_1:
 		case KeyEvent.KEYCODE_2:
@@ -526,20 +526,22 @@ implements KeyboardView.OnKeyboardActionListener {
 			event.startTracking();
 			return true;
 		default:
-			//KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
-			//Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
+			// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
+			// Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" +
+			// event.toString() + ")");
 		}
 		Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
 		return super.onKeyDown(keyCode, event);
 	}
-	
+
 	@Override
-	  public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		//consume since we will assume we have already handled the long press if greater than 1
+	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+		// consume since we will assume we have already handled the long press
+		// if greater than 1
 		if (event.getRepeatCount() != 1) {
 			return true;
 		}
-		//TODO: remove emulator special keys
+		// TODO: remove emulator special keys
 		switch (keyCode) {
 		case 75:
 			keyCode = KeyEvent.KEYCODE_POUND;
@@ -554,9 +556,9 @@ implements KeyboardView.OnKeyboardActionListener {
 			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
 			break;
 		}
-				
-		//Log.d("onLongPress", "LONG PRESS: " + keyCode);
-		//HANDLE SPECIAL KEYS
+
+		// Log.d("onLongPress", "LONG PRESS: " + keyCode);
+		// HANDLE SPECIAL KEYS
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_POUND:
 			commitReset();
@@ -584,8 +586,9 @@ implements KeyboardView.OnKeyboardActionListener {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
-			((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
-			//show IME
+			((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
+				.showInputMethodPicker();
+			// show IME
 			return true;
 		}
 		if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
@@ -593,33 +596,35 @@ implements KeyboardView.OnKeyboardActionListener {
 
 			} else if (mKeyMode == MODE_TEXT) {
 				commitReset();
-				onText(String.valueOf(keyCode-KeyEvent.KEYCODE_0));
+				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
 			}
 		}
 		return true;
 	}
 
 	/**
-	 * Use this to monitor key events being delivered to the application.
-	 * We get first crack at them, and can either resume them or let them
-	 * continue to the app.
+	 * Use this to monitor key events being delivered to the application. We get
+	 * first crack at them, and can either resume them or let them continue to
+	 * the app.
 	 */
-	@Override public boolean onKeyUp(int keyCode, KeyEvent event) {
-		//Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
+		// event.getRepeatCount());
 		if (mEditing == NON_EDIT) {
-//			if (mButtonClose) {
-//				//handle UI weirdness on up event
-//				mButtonClose = false;
-//				return true;
-//			}
-			//Log.d("onKeyDown", "returned false");
+			// if (mButtonClose) {
+			// //handle UI weirdness on up event
+			// mButtonClose = false;
+			// return true;
+			// }
+			// Log.d("onKeyDown", "returned false");
 			return false;
 		} else if (mFirstPress) {
 			// to make sure changing between input UI elements works correctly.
 			return super.onKeyUp(keyCode, event);
 		}
-		
-		//TODO: remove emulator special keys
+
+		// TODO: remove emulator special keys
 		switch (keyCode) {
 		case 75:
 			keyCode = KeyEvent.KEYCODE_POUND;
@@ -633,8 +638,8 @@ implements KeyboardView.OnKeyboardActionListener {
 		case 71:
 			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
 			break;
-		}	
-		
+		}
+
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_DPAD_CENTER:
 			if (interfacehandler != null) {
@@ -648,24 +653,26 @@ implements KeyboardView.OnKeyboardActionListener {
 				return false;
 			}
 			return handleDPAD(keyCode, event, false);
-		
+
 		case KeyEvent.KEYCODE_SOFT_RIGHT:
 		case KeyEvent.KEYCODE_SOFT_LEFT:
 			if (!isInputViewShown()) {
 				return super.onKeyDown(keyCode, event);
 			}
+			break;
 		}
-		//Log.d("onKeyUp", "Key: " + keyCode);
-		//Log.d("onKeyUp", "Key: " + event + " cancelled?: " + event.isCanceled());
-		if (event.isCanceled()){
+		// Log.d("onKeyUp", "Key: " + keyCode);
+		// Log.d("onKeyUp", "Key: " + event + " cancelled?: " +
+		// event.isCanceled());
+		if (event.isCanceled()) {
 			return true;
 		}
 
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_BACK:
-			//Log.d("onKeyUp", "back pres");
+			// Log.d("onKeyUp", "back pres");
 			if (isInputViewShown()) {
-				//Log.d("onKeyUp", "input shown");
+				// Log.d("onKeyUp", "input shown");
 				hideWindow();
 				return true;
 			}
@@ -675,20 +682,21 @@ implements KeyboardView.OnKeyboardActionListener {
 		case KeyEvent.KEYCODE_ENTER:
 			return false;
 
-			//special case for softkeys
+			// special case for softkeys
 		case KeyEvent.KEYCODE_SOFT_RIGHT:
 		case KeyEvent.KEYCODE_SOFT_LEFT:
-//			if (mAddingWord){
-//				Log.d("onKeyUp", "key: " + keyCode + " skip: " + mAddingSkipInput);
-//				if (mAddingSkipInput) {
-//					//mAddingSkipInput = false;
-//					return true;
-//				}
-//			}
+			// if (mAddingWord){
+			// Log.d("onKeyUp", "key: " + keyCode + " skip: " +
+			// mAddingSkipInput);
+			// if (mAddingSkipInput) {
+			// //mAddingSkipInput = false;
+			// return true;
+			// }
+			// }
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
-			//pass-through
+			// pass-through
 		case KeyEvent.KEYCODE_0:
 		case KeyEvent.KEYCODE_1:
 		case KeyEvent.KEYCODE_2:
@@ -701,14 +709,14 @@ implements KeyboardView.OnKeyboardActionListener {
 		case KeyEvent.KEYCODE_9:
 		case KeyEvent.KEYCODE_POUND:
 		case KeyEvent.KEYCODE_STAR:
-//			if (!isInputViewShown()){
-//				Log.d("onKeyUp", "showing window.");
-//				//showWindow(true);
-//			}
+			// if (!isInputViewShown()){
+			// Log.d("onKeyUp", "showing window.");
+			// //showWindow(true);
+			// }
 			onKey(keyCode, null);
 			return true;
 		default:
-			//KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
+			// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
 			Log.w("onKeyUp", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
 		}
 		return super.onKeyUp(keyCode, event);
@@ -720,6 +728,7 @@ implements KeyboardView.OnKeyboardActionListener {
 	private void commitTyped() {
 		commitTyped(getCurrentInputConnection());
 	}
+
 	private void commitTyped(InputConnection ic) {
 		if (interfacehandler != null) {
 			interfacehandler.midButtonUpdate(false);
@@ -739,14 +748,14 @@ implements KeyboardView.OnKeyboardActionListener {
 	 * editor state.
 	 */
 	private void updateShiftKeyState(EditorInfo attr) {
-		//Log.d("updateShift", "CM start: " + mCapsMode);
+		// Log.d("updateShift", "CM start: " + mCapsMode);
 		if (attr != null && mCapsMode != CAPS_ALL) {
 			int caps = 0;
-			if (attr != null && attr.inputType != EditorInfo.TYPE_NULL) {
+			if (attr != null && attr.inputType != InputType.TYPE_NULL) {
 				caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
 			}
-			//            mInputView.setShifted(mCapsLock || caps != 0);
-			//Log.d("updateShift", "caps: " + caps);
+			// mInputView.setShifted(mCapsLock || caps != 0);
+			// Log.d("updateShift", "caps: " + caps);
 			if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
 				mCapsMode = CAPS_ALL;
 			} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
@@ -758,52 +767,36 @@ implements KeyboardView.OnKeyboardActionListener {
 			}
 			updateKeyMode();
 		}
-		//Log.d("updateShift", "CM end: " + mCapsMode);
+		// Log.d("updateShift", "CM end: " + mCapsMode);
 	}
 
 	/**
-	 * Helper to send a key down / key up pair to the current editor.
-	 * NOTE: Not supposed to use this apparently. Need to use it for DEL.
-	 * For other things I'll have to onText
+	 * Helper to send a key down / key up pair to the current editor. NOTE: Not
+	 * supposed to use this apparently. Need to use it for DEL. For other things
+	 * I'll have to onText
 	 */
 	private void keyDownUp(int keyEventCode) {
 		InputConnection ic = getCurrentInputConnection();
-		KeyEvent kv = KeyEvent.changeFlags(
-				new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode), KeyEvent.FLAG_SOFT_KEYBOARD);
+		KeyEvent kv = KeyEvent.changeFlags(new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode),
+			KeyEvent.FLAG_SOFT_KEYBOARD);
 		ic.sendKeyEvent(kv);
-		kv = KeyEvent.changeFlags(
-				new KeyEvent(KeyEvent.ACTION_UP, keyEventCode), KeyEvent.FLAG_SOFT_KEYBOARD);
+		kv = KeyEvent.changeFlags(new KeyEvent(KeyEvent.ACTION_UP, keyEventCode),
+			KeyEvent.FLAG_SOFT_KEYBOARD);
 		ic.sendKeyEvent(kv);
 	}
 
-	//    /**
-	//     * Helper to send a character to the editor as raw key events.
-	//     */
-	//    private void sendKey(int keyCode) {
-	//        switch (keyCode) {
-	//            case '\n':
-	//                keyDownUp(KeyEvent.KEYCODE_ENTER);
-	//                break;
-	//            default:
-	//                if (keyCode >= '0' && keyCode <= '9') {
-	//                    keyDownUp(keyCode - '0' + KeyEvent.KEYCODE_0);
-	//                } else {
-	//                    getCurrentInputConnection().commitText(String.valueOf((char) keyCode), 1);
-	//                }
-	//                break;
-	//        }
-	//    }
 
 	// Implementation of KeyboardViewListener
+	@Override
 	public void onKey(int keyCode, int[] keyCodes) {
-		//Log.d("OnKey", "pri: " + keyCode);
-		//Log.d("onKey", "START Cm: " + mCapsMode);
-		//HANDLE SPECIAL KEYS
+		// Log.d("OnKey", "pri: " + keyCode);
+		// Log.d("onKey", "START Cm: " + mCapsMode);
+		// HANDLE SPECIAL KEYS
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_DEL:
 			handleBackspace();
 			break;
-			//change case
+		// change case
 		case KeyEvent.KEYCODE_STAR:
 			if (mKeyMode == MODE_NUM) {
 				handleCharacter(KeyEvent.KEYCODE_STAR);
@@ -814,7 +807,7 @@ implements KeyboardView.OnKeyboardActionListener {
 		case KeyEvent.KEYCODE_BACK:
 			handleClose();
 			break;
-			//space
+		// space
 		case KeyEvent.KEYCODE_POUND:
 			handleCharacter(KeyEvent.KEYCODE_POUND);
 			break;
@@ -835,12 +828,14 @@ implements KeyboardView.OnKeyboardActionListener {
 				Log.e("onKey", "This shouldn't happen, unknown key");
 			}
 		}
-		//Log.d("onKey", "END Cm: " + mCapsMode);
+		// Log.d("onKey", "END Cm: " + mCapsMode);
 	}
 
+	@Override
 	public void onText(CharSequence text) {
 		InputConnection ic = getCurrentInputConnection();
-		if (ic == null) return;
+		if (ic == null)
+			return;
 		ic.beginBatchEdit();
 		if (mComposing.length() > 0 || mComposingI.length() > 0) {
 			commitTyped(ic);
@@ -851,14 +846,15 @@ implements KeyboardView.OnKeyboardActionListener {
 	}
 
 	/**
-	 * Used from interface to either close the input UI if not composing text or to accept the composing text
+	 * Used from interface to either close the input UI if not composing text or
+	 * to accept the composing text
 	 */
 	protected void handleMidButton() {
 		if (!isInputViewShown()) {
 			showWindow(true);
 			return;
 		}
-		if (mComposing.length() > 0){
+		if (mComposing.length() > 0) {
 			switch (mKeyMode) {
 			case MODE_EN:
 				commitTyped();
@@ -868,53 +864,57 @@ implements KeyboardView.OnKeyboardActionListener {
 				charReset();
 				break;
 			case MODE_NUM:
-				//shouldn't happen
+				// shouldn't happen
 				break;
 			}
 		} else {
 			hideWindow();
-		}	 
+		}
 	}
 
 	/**
-	 * Update the list of available candidates from the current composing
-	 * text.  This will need to be filled in by however you are determining
-	 * candidates.
+	 * Update the list of available candidates from the current composing text.
+	 * This will need to be filled in by however you are determining candidates.
 	 */
 	private void updateCandidates() {
 		if (mKeyMode == MODE_EN) {
 			int len = mComposingI.length();
 			if (len > 0) {
-				if (mComposingI.charAt(len-1) == '1') {
+				if (mComposingI.charAt(len - 1) == '1') {
 					boolean nosuggestion = mSuggestionStrings.isEmpty();
 					String prefix = "";
 					if (!nosuggestion) {
 						prefix = mSuggestionStrings.get(mCandidateView.mSelectedIndex);
+					} else if (len > 1) {
+						prefix = db.getWord(mComposingI.substring(0, len - 1));
 					}
 					mSuggestionInts.clear();
 					mSuggestionStrings.clear();
 					mSuggestionSym.clear();
 					db.updateWords("1", mSuggestionSym, mSuggestionInts, mCapsMode);
-					for (String a : mSuggestionSym){
-						if (!nosuggestion) {
-							mSuggestionStrings.add(prefix+a);
+					for (String a : mSuggestionSym) {
+						if (prefix != "") {
+							mSuggestionStrings.add(prefix + a);
 						} else {
 							mSuggestionStrings.add(String.valueOf(a));
+							mComposingI.setLength(0);
+							mComposingI.append("1");
 						}
 					}
 				} else {
-					db.updateWords(mComposingI.toString(), mSuggestionStrings, mSuggestionInts, mCapsMode);
+					db.updateWords(mComposingI.toString(), mSuggestionStrings, mSuggestionInts,
+						mCapsMode);
 				}
 				if (!mSuggestionStrings.isEmpty()) {
 					mWordFound = true;
 					mComposing.setLength(0);
-					mComposing.append(mSuggestionStrings.get(0).substring(0, len));
+					mComposing.append(mSuggestionStrings.get(0));
 					if (interfacehandler != null) {
 						interfacehandler.showNotFound(false);
 					}
 				} else {
 					mWordFound = false;
-					mComposingI.setLength(len-1);
+					mComposingI.setLength(len - 1);
 					setCandidatesViewShown(false);
 					if (interfacehandler != null) {
 						interfacehandler.showNotFound(true);
@@ -928,12 +928,11 @@ implements KeyboardView.OnKeyboardActionListener {
 					interfacehandler.showNotFound(false);
 				}
 			}
-		}
-		else if (mKeyMode == MODE_TEXT) {
+		} else if (mKeyMode == MODE_TEXT) {
 			if (mComposing.length() > 0) {
 				mSuggestionStrings.clear();
 				char[] ca = CharMap.T9TABLE[mPrevious];
-				for (int i = 0; i < ca.length; i++){
+				for (int i = 0; i < ca.length; i++) {
 					mSuggestionStrings.add(String.valueOf(ca[i]));
 				}
 				setSuggestions(mSuggestionStrings, mCharIndex);
@@ -964,9 +963,10 @@ implements KeyboardView.OnKeyboardActionListener {
 		}
 
 		if (length > 1 || length2 > 1) {
-			//Log.d("BS", "comp: " + length + " compI: " + length2);
+			// Log.d("BS", "comp: " + length + " compI: " + length2);
 			mComposing.delete(length - 1, length);
 			mComposingI.delete(length2 - 1, length2);
+			mSuggestionStrings.clear();
 			updateCandidates();
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		} else if (length > 0 || length2 > 0) {
@@ -974,13 +974,14 @@ implements KeyboardView.OnKeyboardActionListener {
 			mComposingI.setLength(0);
 			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
+			mSuggestionStrings.clear();
 			getCurrentInputConnection().commitText("", 0);
 			updateCandidates();
 		} else {
 			keyDownUp(KeyEvent.KEYCODE_DEL);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
-		//Log.d("handleBS", "Cm: " + mCapsMode);
+		// Log.d("handleBS", "Cm: " + mCapsMode);
 		// Why do I need to call this twice, android...
 		updateShiftKeyState(getCurrentInputEditorInfo());
 	}
@@ -989,12 +990,11 @@ implements KeyboardView.OnKeyboardActionListener {
 		// do my own thing here
 		if (mCapsMode == CAPS_CYCLE.length - 1) {
 			mCapsMode = 0;
-		}
-		else {
-			mCapsMode++; 
+		} else {
+			mCapsMode++;
 		}
 
-		if (mKeyMode == MODE_EN && mComposing.length() > 0){
+		if (mKeyMode == MODE_EN && mComposing.length() > 0) {
 			updateCandidates();
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		}
@@ -1002,26 +1002,26 @@ implements KeyboardView.OnKeyboardActionListener {
 	}
 
 	/**
-	 * handle input of a character.
-	 * Precondition: ONLY 0-9 AND *# ARE ALLOWED
+	 * handle input of a character. Precondition: ONLY 0-9 AND *# ARE ALLOWED
+	 * 
 	 * @param keyCode
 	 */
 	private void handleCharacter(int keyCode) {
-		//        if (mInputView.isShifted()) {
-		//            primaryCode = Character.toUpperCase(primaryCode);
-		//        }
+		// if (mInputView.isShifted()) {
+		// primaryCode = Character.toUpperCase(primaryCode);
+		// }
 		switch (mKeyMode) {
 		case MODE_EN:
-			//it begins
+			// it begins
 			// on POUND commit and space
-			if (keyCode == KeyEvent.KEYCODE_POUND){
+			if (keyCode == KeyEvent.KEYCODE_POUND) {
 				if (mComposing.length() > 0) {
 					commitTyped();
 				}
-				//Log.d("handleChar", "SENDING SPACE?");
+				// Log.d("handleChar", "SENDING SPACE?");
 				onText(" ");
 			} else {
-				//do things
+				// do things
 				if (interfacehandler != null) {
 					interfacehandler.midButtonUpdate(true);
 				}
@@ -1039,27 +1039,27 @@ implements KeyboardView.OnKeyboardActionListener {
 				keyCode--;
 			}
 			keyCode = keyCode - KeyEvent.KEYCODE_0;
-			//Log.d("handleChar", "PRIMARY CODE (num): " + keyCode);
+			// Log.d("handleChar", "PRIMARY CODE (num): " + keyCode);
 
 			boolean newChar = false;
-			if (mPrevious == keyCode){
+			if (mPrevious == keyCode) {
 				mCharIndex++;
 			} else {
 				commitTyped(getCurrentInputConnection());
-				//updateShiftKeyState(getCurrentInputEditorInfo());
+				// updateShiftKeyState(getCurrentInputEditorInfo());
 				newChar = true;
 				mCharIndex = 0;
 				mPrevious = keyCode;
 			}
 
 			// start at caps if CapMode
-			//Log.d("handleChar", "Cm: " + mCapsMode);
+			// Log.d("handleChar", "Cm: " + mCapsMode);
 			if (mCharIndex == 0 && mCapsMode != CAPS_OFF) {
 				mCharIndex = CharMap.T9CAPSTART[keyCode];
 			}
 
-			//        	private int mPrevious;
-			//        	private int mCharindex;
+			// private int mPrevious;
+			// private int mCharindex;
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
 			char[] ca = CharMap.T9TABLE[keyCode];
@@ -1074,7 +1074,7 @@ implements KeyboardView.OnKeyboardActionListener {
 			t9releasehandler.postDelayed(mt9release, 1500);
 			if (newChar) {
 				// consume single caps
-				if (mCapsMode == CAPS_SINGLE){
+				if (mCapsMode == CAPS_SINGLE) {
 					mCapsMode = CAPS_OFF;
 				}
 			}
@@ -1084,7 +1084,7 @@ implements KeyboardView.OnKeyboardActionListener {
 
 		case MODE_NUM:
 			switch (keyCode) {
-			//Manual this
+			// Manual this
 			case KeyEvent.KEYCODE_POUND:
 				onText("#");
 				break;
@@ -1092,7 +1092,7 @@ implements KeyboardView.OnKeyboardActionListener {
 				onText("*");
 				break;
 			default:
-				onText(String.valueOf(keyCode-KeyEvent.KEYCODE_0));
+				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
 
 			}
 			break;
@@ -1107,9 +1107,11 @@ implements KeyboardView.OnKeyboardActionListener {
 	// the underlying edit box in a somewhat reliable manner.
 	// (somewhat because there are a few cases where this doesn't work properly or acts strangely.)
 	private boolean handleDPAD(int keyCode, KeyEvent event, boolean keyDown) {
-		//Log.d("handleConsumeDPAD", "keyCode: " + keyCode + " isKeyDown: " + isKeyDown);
+		// Log.d("handleConsumeDPAD", "keyCode: " + keyCode + " isKeyDown: " +
+		// isKeyDown);
 		if (keyDown) {
-			//track key, if seeing repeat count < 0, start sending this event and previous to super
+			// track key, if seeing repeat count < 0, start sending this event
+			// and previous to super
 			if (event.getRepeatCount() == 0) {
 				// store event
 				mDPADkeyEvent = event;
@@ -1126,7 +1128,8 @@ implements KeyboardView.OnKeyboardActionListener {
 				}
 			}
 		} else {
-			// if we have been sending previous down events to super, do the same for up, else process the event
+			// if we have been sending previous down events to super, do the
+			// same for up, else process the event
 			if (mIgnoreDPADKeyUp) {
 				mIgnoreDPADKeyUp = false;
 				return super.onKeyUp(keyCode, event);
@@ -1142,45 +1145,49 @@ implements KeyboardView.OnKeyboardActionListener {
 					case KeyEvent.KEYCODE_DPAD_LEFT:
 					case KeyEvent.KEYCODE_DPAD_RIGHT:
 						commitTyped();
-//						getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
-//						return super.onKeyUp(keyCode, event);
+						// getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
+						// return super.onKeyUp(keyCode, event);
 						return true;
 					}
 				}
-				switch(keyCode) {
+				switch (keyCode) {
 				case KeyEvent.KEYCODE_DPAD_CENTER:
 					handleMidButton();
 					return true;
-					default:
-						//Send stored event to input connection then pass current event onto super
-						getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
-						return super.onKeyUp(keyCode, event);
+				default:
+					// Send stored event to input connection then pass current
+					// event onto super
+					getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
+					return super.onKeyUp(keyCode, event);
 				}
 			}
 		}
 	}
+
 	private void commitReset() {
 		commitTyped(getCurrentInputConnection());
 		charReset();
 		if (mCapsMode == CAPS_SINGLE) {
 			mCapsMode = CAPS_OFF;
 		}
-		//Log.d("commitReset", "CM pre: " + mCapsMode);
+		// Log.d("commitReset", "CM pre: " + mCapsMode);
 		updateShiftKeyState(getCurrentInputEditorInfo());
-		//Log.d("commitReset", "CM post: " + mCapsMode);
+		// Log.d("commitReset", "CM post: " + mCapsMode);
 	}
+
 	private void charReset() {
 		t9releasehandler.removeCallbacks(mt9release);
 		mPrevious = -1;
 		mCharIndex = 0;
 	}
+
 	private void handleClose() {
 		commitTyped(getCurrentInputConnection());
 		requestHideSelf(0);
 	}
 
 	protected void nextKeyMode() {
-		if (mKeyMode == MODE_CYCLE.length - 1) 
+		if (mKeyMode == MODE_CYCLE.length - 1)
 			mKeyMode = 0;
 		else
 			mKeyMode++;
@@ -1197,9 +1204,10 @@ implements KeyboardView.OnKeyboardActionListener {
 		mComposingI.setLength(0);
 		getCurrentInputConnection().finishComposingText();
 	}
+
 	/**
-	 * Set the status icon that is appropriate in current mode
-	 * (based on openwmm-legacy)
+	 * Set the status icon that is appropriate in current mode (based on
+	 * openwmm-legacy)
 	 */
 	private void updateKeyMode() {
 		int icon = 0;
@@ -1225,7 +1233,7 @@ implements KeyboardView.OnKeyboardActionListener {
 			} else {
 				interfacehandler.showHold(true);
 			}
-			switch (mCapsMode){
+			switch (mCapsMode) {
 			case CAPS_ALL:
 				icon = R.drawable.ime_en_upper;
 				break;
@@ -1248,62 +1256,67 @@ implements KeyboardView.OnKeyboardActionListener {
 		showStatusIcon(icon);
 	}
 
-
 	private void pickSelectedCandidate(InputConnection ic) {
 		pickSuggestionManually(-1, ic);
 	}
 
 	public void pickSuggestionManually(int index, InputConnection ic) {
-		//Log.d("pickSuggestMan", "Doing");
+		// Log.d("pickSuggestMan", "Doing");
 		if (mComposing.length() > 0 || mComposingI.length() > 0) {
 			// If we were generating candidate suggestions for the current
-			// text, we would commit one of them here.  But for this sample,
+			// text, we would commit one of them here. But for this sample,
 			// we will just commit the current text.
 			if (!mSuggestionStrings.isEmpty()) {
 				if (index < 0) {
-					//Log.d("pickSuggestMan", "picking SELECTED: " + mSuggestionStrings.get(mCandidateView.mSelectedIndex));
-					//get and commit selected suggestion
+					// Log.d("pickSuggestMan", "picking SELECTED: " +
+					// mSuggestionStrings.get(mCandidateView.mSelectedIndex));
+					// get and commit selected suggestion
 					ic.commitText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 					if (mKeyMode == MODE_EN) {
-						//update freq
+						// update freq
 						db.incrementWord(mSuggestionInts.get(mCandidateView.mSelectedIndex));
 					}
 				} else {
-					//commit suggestion index
+					// commit suggestion index
 					ic.commitText(mSuggestionStrings.get(index), 1);
 					if (mKeyMode == MODE_EN) {
 						db.incrementWord(mSuggestionInts.get(index));
 					}
 				}
 			}
-		} 
+		}
 	}
 
 	/**
 	 * Ignore this for now.
 	 */
+	@Override
 	public void swipeRight() {
-		//        if (mPredictionOn) {
-		//            pickDefaultCandidate();
-		//        }
+		// if (mPredictionOn) {
+		// pickDefaultCandidate();
+		// }
 	}
 
+	@Override
 	public void swipeLeft() {
 		handleBackspace();
 	}
 
+	@Override
 	public void swipeDown() {
 		handleClose();
 	}
 
+	@Override
 	public void swipeUp() {
 	}
 
+	@Override
 	public void onPress(int primaryCode) {
 	}
 
+	@Override
 	public void onRelease(int primaryCode) {
 	}
 
 }
-

@@ -3,18 +3,16 @@ package org.nyanya.android.traditionalt9;
 import android.content.Context;
 import android.view.View;
 
-
 public class SymbolDialog extends AbsSymDialog {
-	
-    private static final char[] symbols = {
-    	'.', ',', '!', '?', '$', '&', '%', '#', '@', '"', '\'', ':', ';', '(', ')', '/', '\\', 
-    	'-', '+', '=', '*', '<', '>', '[', ']', '{', '}', '^', '|', '_', '~', '`'
-    }; //32
-    private static final int MAX_PAGE = (int)Math.ceil(symbols.length / 10.0);
-	
+
+	private static final char[] symbols = { 
+		'.', ',', '!', '?', '$', '&', '%', '#', '@', '"', '\'',	':', ';', '(', ')', '/', '\\', 
+		'-', '+', '=', '*', '<', '>', '[', ']', '{', '}', '^', '|', '_', '~', '`' }; // 32
+	private static final int MAX_PAGE = (int) Math.ceil(symbols.length / 10.0);
+
 	public SymbolDialog(Context c, View mv) {
-    	super(c, mv);
-    }
+		super(c, mv);
+	}
 
 	@Override
 	protected String getSymbol(int index) {
@@ -36,6 +34,4 @@ public class SymbolDialog extends AbsSymDialog {
 		return MAX_PAGE;
 	}
 
-	
-    
 }

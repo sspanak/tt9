@@ -21,6 +21,7 @@
     <string name="add_word">Add word</string>
     <string name="ok">OK</string>
     <string name="add_word_blank">Blank word not added.</string>
+    <string name="add_word_badchar">Cannot add word with unmappable symbol.</string>
     <string name="add_word_exist1">Word (</string>
     <string name="add_word_exist2">) already in DB.</string>
     <string name="cancel">Cancel</string>
