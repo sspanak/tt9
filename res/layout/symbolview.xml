@@ -1,202 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="2dp" >
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
+	android:padding="2dp" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp" >
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingBottom="5dp"
+		android:paddingLeft="2dp"
+		android:paddingRight="2dp" >
 
-        <TextView
-            android:id="@+id/text_keyone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/key_one"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyone"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:background="@drawable/key_one"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keytwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="false"
-            android:background="@drawable/key_two"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keytwo"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_centerInParent="false"
+			android:background="@drawable/key_two"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keythree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/key_three"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keythree"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:background="@drawable/key_three"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-    </RelativeLayout>
+	</RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp" >
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingBottom="5dp"
+		android:paddingLeft="2dp"
+		android:paddingRight="2dp" >
 
-        <TextView
-            android:id="@+id/text_keyfour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/key_four"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyfour"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:background="@drawable/key_four"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keyfive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/key_five"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyfive"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/key_five"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keysix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/key_six"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keysix"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:background="@drawable/key_six"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-    </RelativeLayout>
+	</RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp" >
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingBottom="5dp"
+		android:paddingLeft="2dp"
+		android:paddingRight="2dp" >
 
-        <TextView
-            android:id="@+id/text_keyseven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/key_seven"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyseven"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:background="@drawable/key_seven"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keyeight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/key_eight"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyeight"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/key_eight"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keynine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/key_nine"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keynine"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:background="@drawable/key_nine"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-    </RelativeLayout>
+	</RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp" >
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:paddingBottom="5dp"
+		android:paddingLeft="2dp"
+		android:paddingRight="2dp" >
 
-        <TextView
-            android:id="@+id/text_keystar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/key_star"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="@string/symbol_prev"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text" />
+		<TextView
+			android:id="@+id/text_keystar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:background="@drawable/key_star"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:text="@string/symbol_prev"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text" />
 
-        <TextView
-            android:id="@+id/text_keyzero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/key_zero"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text"
-            android:textSize="30sp" />
+		<TextView
+			android:id="@+id/text_keyzero"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/key_zero"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text"
+			android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/text_keypound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/key_pound"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:text="@string/symbol_next"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/key_text" />
+		<TextView
+			android:id="@+id/text_keypound"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:background="@drawable/key_pound"
+			android:clickable="true"
+			android:focusable="true"
+			android:gravity="center"
+			android:text="@string/symbol_next"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="@color/key_text" />
 
-    </RelativeLayout>
+	</RelativeLayout>
 
 </LinearLayout>

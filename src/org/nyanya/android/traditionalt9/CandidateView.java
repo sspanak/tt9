@@ -46,16 +46,15 @@ public class CandidateView extends View {
 
 	/**
 	 * Construct a CandidateView for showing suggested words for completion.
-	 * 
+	 *
 	 * @param context
-	 * @param attrs
 	 */
 	public CandidateView(Context context) {
 		super(context);
 		mSelectionHighlight = context.getResources().getDrawable(
 			android.R.drawable.list_selector_background);
-		mSelectionHighlight.setState(new int[] { 
-			android.R.attr.state_enabled, android.R.attr.state_focused, 
+		mSelectionHighlight.setState(new int[] {
+			android.R.attr.state_enabled, android.R.attr.state_focused,
 			android.R.attr.state_window_focused, android.R.attr.state_pressed });
 
 		Resources r = context.getResources();

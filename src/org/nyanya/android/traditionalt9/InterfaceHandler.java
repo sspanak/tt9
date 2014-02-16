@@ -126,8 +126,7 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 			parent.showAddWord();
 			break;
 		case R.id.main_right:
-			((InputMethodManager) parent.getSystemService(Context.INPUT_METHOD_SERVICE))
-				.showInputMethodPicker();
+			parent.launchOptions();
 			break;
 		default:
 			return false;

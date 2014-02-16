@@ -1,16 +1,13 @@
 package org.nyanya.android.traditionalt9;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.nyanya.android.traditionalt9.CandidateView;
-import org.nyanya.android.traditionalt9.R;
-
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
@@ -20,15 +17,17 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
+
+import pl.wavesoftware.widget.MultiSelectListPreference;
 
 public class TraditionalT9 extends InputMethodService implements
-	KeyboardView.OnKeyboardActionListener {
+		KeyboardView.OnKeyboardActionListener {
 
 	private CandidateView mCandidateView;
 	private InterfaceHandler interfacehandler = null;
@@ -45,6 +44,8 @@ public class TraditionalT9 extends InputMethodService implements
 	private static final int EDITING_NOSHOW = 2;
 	private int mEditing = NON_EDIT;
 
+	private boolean mGaveUpdateWarn = false;
+
 	private boolean mFirstPress = false;
 
 	private boolean mIgnoreDPADKeyUp = false;
@@ -59,12 +60,20 @@ public class TraditionalT9 extends InputMethodService implements
 	private int mPrevious;
 	private int mCharIndex;
 
+	private String mPreviousWord = "";
+
 	private int mCapsMode;
+	private int mLang;
+	private int mLangIndex;
+
+	private int[] mLangsAvailable = null;
+
 	private static final int CAPS_OFF = 0;
 	private static final int CAPS_SINGLE = 1;
 	private static final int CAPS_ALL = 2;
 	private final static int[] CAPS_CYCLE = { CAPS_OFF, CAPS_SINGLE, CAPS_ALL };
 
+	private final static int T9DELAY = 1200;
 	final Handler t9releasehandler = new Handler();
 	Runnable mt9release = new Runnable() {
 		@Override
@@ -75,14 +84,13 @@ public class TraditionalT9 extends InputMethodService implements
 
 	private T9DB db;
 
-	protected static TraditionalT9 ghettoaccess;
-
-	public static final int MODE_EN = 0;
+	public static final int MODE_LANG = 0;
 	public static final int MODE_TEXT = 1;
 	public static final int MODE_NUM = 2;
-	private static final int[] MODE_CYCLE = { MODE_EN, MODE_TEXT, MODE_NUM };
+	private static final int[] MODE_CYCLE = { MODE_LANG, MODE_TEXT, MODE_NUM };
 	private int mKeyMode;
 
+	private SharedPreferences pref;
 	/**
 	 * Main initialization of the input method component. Be sure to call to
 	 * super class.
@@ -90,16 +98,42 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
 		mPrevious = -1;
 		mCharIndex = 0;
-		db = new T9DB(this);
-		db.init();
+		db = T9DB.getInstance(this);
+
+		pref = PreferenceManager.getDefaultSharedPreferences(this);
+		buildLangs();
 
 		if (interfacehandler == null) {
 			interfacehandler = new InterfaceHandler(getLayoutInflater().inflate(R.layout.mainview,
-				null), this);
+					null), this);
 		}
+	}
+
+	//build and filter Langs
+	private void buildLangs() {
+
+		int[] ia = MultiSelectListPreference.defaultunpack2Int(pref.getString("pref_lang_support", null));
+		int num = 0;
+		int i;
+		//calc size of filtered array
+		for (int x=0; x<ia.length; x++) {
+			i = ia[x];
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				num++;
+			}
+		}
+		int[] ian = new int[num];
+		int iansize = 0;
+		for (int x=0; x<ia.length; x++) {
+			i = ia[x];
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				ian[iansize] = i;
+				iansize++;
+			}
+		}
+		mLangsAvailable = ian;
 	}
 
 	@Override
@@ -121,7 +155,7 @@ public class TraditionalT9 extends InputMethodService implements
 		updateKeyMode();
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
-		if (mKeyMode == MODE_EN) {
+		if (mKeyMode == MODE_LANG) {
 			interfacehandler.showHold(true);
 		} else {
 			interfacehandler.showHold(false);
@@ -142,7 +176,7 @@ public class TraditionalT9 extends InputMethodService implements
 	protected void showSymbolPage() {
 		if (mSymbolPopup == null) {
 			mSymbolPopup = new SymbolDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
-				null));
+					null));
 		}
 		mSymbolPopup.doShow(getWindow().getWindow().getDecorView());
 	}
@@ -150,52 +184,59 @@ public class TraditionalT9 extends InputMethodService implements
 	protected void showSmileyPage() {
 		if (mSmileyPopup == null) {
 			mSmileyPopup = new SmileyDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
-				null));
+					null));
 		}
 		mSmileyPopup.doShow(getWindow().getWindow().getDecorView());
 	}
 
+	private void clearState() {
+		mSuggestionStrings.clear();
+		mSuggestionInts.clear();
+		mSuggestionSym.clear();
+		mPreviousWord = "";
+		mComposing.setLength(0);
+		mComposingI.setLength(0);
+		mWordFound = true;
+	}
 	protected void showAddWord() {
-		if (mKeyMode == MODE_EN) {
-			ghettoaccess = this;
+		if (mKeyMode == MODE_LANG) {
 			Intent awintent = new Intent(this, AddWordAct.class);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			awintent.putExtra("org.nyanya.android.traditionalt9.word", mComposing.toString());
+			awintent.putExtra("org.nyanya.android.traditionalt9.lang", mLang);
+			clearState();
+			InputConnection ic = getCurrentInputConnection();
+			ic.setComposingText("", 0);
+			ic.finishComposingText();
+			updateCandidates();
+			//onFinishInput();
+			mWordFound = true;
 			startActivity(awintent);
 		}
 	}
 
-	public void doAddWord(String text) {
-		try {
-			db.addWord(text);
-		} catch (DBException e) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(e.getMessage()).setTitle(R.string.add_word)
-				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int id) {
-						dialog.dismiss();
-					}
-				});
-			AlertDialog dialog = builder.create();
-			// so many ghettos to display dialogs from IME
-			Window win = dialog.getWindow();
-			WindowManager.LayoutParams lp = win.getAttributes();
-			lp.token = getWindow().getWindow().getDecorView().getWindowToken();
-			lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-			win.setAttributes(lp);
-			win.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
-			dialog.show();
+	// sanitize lang and set index for cycling lang
+	// Need to check if last lang is available, if not, set index to -1 and set lang to default to 0
+	private int sanitizeLang(int lang) {
+		if (mLangsAvailable.length < 1 || lang == -1) {
+			Log.w("T9.sanitizeLang", "This shouldn't happen.");
+			return 0;
+		}
+		if (lang >= LangHelper.NLANGS) {
+			Log.w("T9.sanitizeLang", "Previous lang not supported: " + lang + " langs: " + Arrays.toString(LangHelper.LANGS));
+			return mLangsAvailable[0];
+		} else {
+			int index = Arrays.asList(mLangsAvailable).indexOf(lang);
+			if (index == -1) {
+				mLangIndex = 0;
+				return mLangsAvailable[mLangIndex];
+			} else {
+				mLangIndex = index;
+				return lang;
+			}
 		}
 	}
-
-	protected void addCancel() {
-		interfacehandler.showNotFound(false);
-		ghettoaccess = null;
-	}
-
 	/**
 	 * This is the main point where we do our initialization of the input method
 	 * to begin operating on an application. At this point we have been bound to
@@ -205,8 +246,10 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		super.onStartInput(attribute, restarting);
-		// Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
-		// " restarting? " + restarting);
+//		Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
+//			" restarting? " + restarting);
+		//Utils.printFlags(attribute.inputType);
+
 		if (attribute.inputType == 0) {
 			// don't do anything when not in any kind of edit field.
 			// should also turn off input screen and stuff
@@ -220,13 +263,11 @@ public class TraditionalT9 extends InputMethodService implements
 		// Reset our state. We want to do this even if restarting, because
 		// the underlying state of the text editor could have changed in any
 		// way.
-		mSuggestionStrings.clear();
-		mSuggestionInts.clear();
-		mSuggestionSym.clear();
-		mComposing.setLength(0);
-		mComposingI.setLength(0);
+		clearState();
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		buildLangs();
+		mLang = sanitizeLang(pref.getInt("last_lang", 0));
+
 		updateCandidates();
 
 		if (!restarting) {
@@ -238,74 +279,79 @@ public class TraditionalT9 extends InputMethodService implements
 		// We are now going to initialize our state based on the type of
 		// text being edited.
 		switch (attribute.inputType & InputType.TYPE_MASK_CLASS) {
-		case InputType.TYPE_CLASS_NUMBER:
-		case InputType.TYPE_CLASS_DATETIME:
-			// Numbers and dates default to the symbols keyboard, with
-			// no extra features.
-			mKeyMode = MODE_NUM;
-			break;
+			case InputType.TYPE_CLASS_NUMBER:
+			case InputType.TYPE_CLASS_DATETIME:
+				// Numbers and dates default to the symbols keyboard, with
+				// no extra features.
+				mKeyMode = MODE_NUM;
+				break;
 
-		case InputType.TYPE_CLASS_PHONE:
-			// Phones will also default to the symbols keyboard, though
-			// often you will want to have a dedicated phone keyboard.
-			mKeyMode = MODE_NUM;
-			break;
+			case InputType.TYPE_CLASS_PHONE:
+				// Phones will also default to the symbols keyboard, though
+				// often you will want to have a dedicated phone keyboard.
+				mKeyMode = MODE_NUM;
+				break;
 
-		case InputType.TYPE_CLASS_TEXT:
-			// This is general text editing. We will default to the
-			// normal alphabetic keyboard, and assume that we should
-			// be doing predictive text (showing candidates as the
-			// user types).
-			mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
-
-			// We now look for a few special variations of text that will
-			// modify our behavior.
-			int variation = attribute.inputType & InputType.TYPE_MASK_VARIATION;
-			if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-				// Do not display predictions / what the user is typing
-				// when they are entering a password.
-				mKeyMode = MODE_TEXT;
-			}
-
-			if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-				|| variation == InputType.TYPE_TEXT_VARIATION_URI
-				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
-				// Our predictions are not useful for e-mail addresses
-				// or URIs.
-				mKeyMode = MODE_TEXT;
-			}
-
-			if ((attribute.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
-				// If this is an auto-complete text view, then our predictions
-				// will not be shown and instead we will allow the editor
-				// to supply their own. We only show the editor's
-				// candidates when in fullscreen mode, otherwise relying
-				// own it displaying its own UI.
-				// ????
+			case InputType.TYPE_CLASS_TEXT:
+				// This is general text editing. We will default to the
+				// normal alphabetic keyboard, and assume that we should
+				// be doing predictive text (showing candidates as the
+				// user types).
 				mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
-			}
 
-			// handle filter list cases... do not hijack DPAD center and make
-			// sure back's go through proper
-			if ((attribute.inputType & InputType.TYPE_TEXT_VARIATION_FILTER) != 0) {
-				mEditing = EDITING_NOSHOW;
-			}
+				// We now look for a few special variations of text that will
+				// modify our behavior.
+				int variation = attribute.inputType & InputType.TYPE_MASK_VARIATION;
+				if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
+						|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+					// Do not display predictions / what the user is typing
+					// when they are entering a password.
+					mKeyMode = MODE_TEXT;
+				}
 
-			// We also want to look at the current state of the editor
-			// to decide whether our alphabetic keyboard should start out
-			// shifted.
-			updateShiftKeyState(attribute);
-			break;
+				if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+						|| variation == InputType.TYPE_TEXT_VARIATION_URI
+						|| variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
+					// Our predictions are not useful for e-mail addresses
+					// or URIs.
+					mKeyMode = MODE_TEXT;
+				}
 
-		default:
-			Log.d("onStartInput", "defaulting");
-			// For all unknown input types, default to the alphabetic
-			// keyboard with no special features.
-			updateShiftKeyState(attribute);
+				if ((attribute.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
+					// If this is an auto-complete text view, then our predictions
+					// will not be shown and instead we will allow the editor
+					// to supply their own. We only show the editor's
+					// candidates when in fullscreen mode, otherwise relying
+					// own it displaying its own UI.
+					// ????
+					mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
+				}
+
+				// handle filter list cases... do not hijack DPAD center and make
+				// sure back's go through proper
+				if ((attribute.inputType & InputType.TYPE_TEXT_VARIATION_FILTER) != 0) {
+					mEditing = EDITING_NOSHOW;
+				}
+
+				// We also want to look at the current state of the editor
+				// to decide whether our alphabetic keyboard should start out
+				// shifted.
+				updateShiftKeyState(attribute);
+				break;
+
+			default:
+				Log.d("onStartInput", "defaulting");
+				// For all unknown input types, default to the alphabetic
+				// keyboard with no special features.
+				updateShiftKeyState(attribute);
 		}
+		// Special case for Softbank Sharp 007SH phone book.
+		if (attribute.inputType == 65633) {
+			mKeyMode = MODE_TEXT;
+		}
+		String prevword = null;
 		if (attribute.privateImeOptions != null
-			&& attribute.privateImeOptions.equals("org.nyanya.android.traditionalt9.addword=true")) {
+				&& attribute.privateImeOptions.equals("org.nyanya.android.traditionalt9.addword=true")) {
 			mAddingWord = true;
 			// mAddingSkipInput = true;
 			// Log.d("onStartInput", "ADDING WORD");
@@ -313,6 +359,13 @@ public class TraditionalT9 extends InputMethodService implements
 		} else {
 			mAddingWord = false;
 			// Log.d("onStartInput", "not adding word");
+			prevword = pref.getString("last_word", null);
+			if (prevword != null) {
+				onText(prevword);
+				Editor prefedit = pref.edit();
+				prefedit.remove("last_word");
+				prefedit.commit();
+			}
 		}
 
 		// Update the label on the enter key, depending on what the application
@@ -339,6 +392,9 @@ public class TraditionalT9 extends InputMethodService implements
 	public void onFinishInput() {
 		super.onFinishInput();
 		// Log.d("onFinishInput", "When is this called?");
+		Editor prefedit = pref.edit();
+		prefedit.putInt("last_lang", mLang);
+		prefedit.commit();
 		if (mEditing == EDITING) {
 			commitTyped();
 			finish();
@@ -353,8 +409,7 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("finish", "why?");
 		// Clear current composing text and candidates.
 		pickSelectedCandidate(getCurrentInputConnection());
-		mComposing.setLength(0);
-		mComposingI.setLength(0);
+		clearState();
 		// updateCandidates();
 
 		// We only hide the candidates window when finishing input on
@@ -387,14 +442,14 @@ public class TraditionalT9 extends InputMethodService implements
 	 */
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd,
-		int candidatesStart, int candidatesEnd) {
+								  int candidatesStart, int candidatesEnd) {
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart,
-			candidatesEnd);
+				candidatesEnd);
 
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
 		if ((mComposing.length() > 0 || mComposingI.length() > 0)
-			&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
+				&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
 			updateCandidates();
@@ -423,8 +478,8 @@ public class TraditionalT9 extends InputMethodService implements
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Log.d("onKeyDown", "Key: " + event + " repeat?: " +
-		// event.getRepeatCount() + " long-time: " + event.isLongPress());
+//		Log.d("onKeyDown", "Key: " + event + " repeat?: " +
+//			event.getRepeatCount() + " long-time: " + event.isLongPress());
 		if (mEditing == NON_EDIT) {
 			// // catch for UI weirdness on up event thing
 			return false;
@@ -434,48 +489,48 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("onKeyDown", "Key: " + keyCode);
 		// TODO: remove emulator special keys
 		switch (keyCode) {
-		case 75:
-			keyCode = KeyEvent.KEYCODE_POUND;
-			break;
-		case 74:
-			keyCode = KeyEvent.KEYCODE_STAR;
-			break;
-		case 72:
-			keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
-			break;
-		case 71:
-			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
-			break;
+			case 75:
+				keyCode = KeyEvent.KEYCODE_POUND;
+				break;
+			case 74:
+				keyCode = KeyEvent.KEYCODE_STAR;
+				break;
+			case 72:
+				keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
+				break;
+			case 71:
+				keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
+				break;
 		}
 
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_DPAD_CENTER:
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, true);
-			} // pass-through
-		case KeyEvent.KEYCODE_DPAD_DOWN:
-		case KeyEvent.KEYCODE_DPAD_UP:
-		case KeyEvent.KEYCODE_DPAD_LEFT:
-		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			if (mEditing == EDITING_NOSHOW) {
-				return false;
-			}
-			return handleDPAD(keyCode, event, true);
+			case KeyEvent.KEYCODE_DPAD_CENTER:
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, true);
+				} // pass-through
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+			case KeyEvent.KEYCODE_DPAD_UP:
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				if (mEditing == EDITING_NOSHOW) {
+					return false;
+				}
+				return handleDPAD(keyCode, event, true);
 
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			if (!isInputViewShown()) {
-				return super.onKeyDown(keyCode, event);
-			}
-			break;
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				if (!isInputViewShown()) {
+					return super.onKeyDown(keyCode, event);
+				}
+				break;
 
-		case KeyEvent.KEYCODE_DEL:
-			// Special handling of the delete key: if we currently are
-			// composing text for the user, we want to modify that instead
-			// of let the application to the delete itself.
-			// if (mComposing.length() > 0) {
-			onKey(keyCode, null);
-			return true;
+			case KeyEvent.KEYCODE_DEL:
+				// Special handling of the delete key: if we currently are
+				// composing text for the user, we want to modify that instead
+				// of let the application to the delete itself.
+				// if (mComposing.length() > 0) {
+				onKey(keyCode, null);
+				return true;
 			// }
 			// break;
 		}
@@ -488,52 +543,63 @@ public class TraditionalT9 extends InputMethodService implements
 			t9releasehandler.removeCallbacks(mt9release);
 		}
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_BACK:
-			// The InputMethodService already takes care of the back
-			// key for us, to dismiss the input method if it is shown.
-			// but we will manage it ourselves because native Android handling
-			// of the input view is ... flakey at best.
-			// Log.d("onKeyDown", "back pres");
-			if (isInputViewShown()) {
-				// Log.d("inKeyDown", "input shown");
-				return true;
-			}
-			return false;
+			case KeyEvent.KEYCODE_BACK:
+				// The InputMethodService already takes care of the back
+				// key for us, to dismiss the input method if it is shown.
+				// but we will manage it ourselves because native Android handling
+				// of the input view is ... flakey at best.
+				// Log.d("onKeyDown", "back pres");
+				if (isInputViewShown()) {
+					// Log.d("inKeyDown", "input shown");
+					return true;
+				}
+				return false;
 
-		case KeyEvent.KEYCODE_ENTER:
-			// Let the underlying text editor always handle these.
-			return false;
+			case KeyEvent.KEYCODE_ENTER:
+				// Let the underlying text editor always handle these.
+				return false;
 
 			// special case for softkeys
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, true);
-			}
-			// pass-through
-		case KeyEvent.KEYCODE_0:
-		case KeyEvent.KEYCODE_1:
-		case KeyEvent.KEYCODE_2:
-		case KeyEvent.KEYCODE_3:
-		case KeyEvent.KEYCODE_4:
-		case KeyEvent.KEYCODE_5:
-		case KeyEvent.KEYCODE_6:
-		case KeyEvent.KEYCODE_7:
-		case KeyEvent.KEYCODE_8:
-		case KeyEvent.KEYCODE_9:
-		case KeyEvent.KEYCODE_POUND:
-		case KeyEvent.KEYCODE_STAR:
-			event.startTracking();
-			return true;
-		default:
-			// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
-			// Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" +
-			// event.toString() + ")");
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, true);
+				}
+				// pass-through
+			case KeyEvent.KEYCODE_0:
+			case KeyEvent.KEYCODE_1:
+			case KeyEvent.KEYCODE_2:
+			case KeyEvent.KEYCODE_3:
+			case KeyEvent.KEYCODE_4:
+			case KeyEvent.KEYCODE_5:
+			case KeyEvent.KEYCODE_6:
+			case KeyEvent.KEYCODE_7:
+			case KeyEvent.KEYCODE_8:
+			case KeyEvent.KEYCODE_9:
+			case KeyEvent.KEYCODE_POUND:
+			case KeyEvent.KEYCODE_STAR:
+				event.startTracking();
+				return true;
+			default:
+				// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
+				// Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" +
+				// event.toString() + ")");
 		}
 		Log.w("onKeyDown", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
+		commitReset();
 		return super.onKeyDown(keyCode, event);
 	}
 
+	protected void launchOptions() {
+		Intent awintent = new Intent(this, TraditionalT9Settings.class);
+		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		if (interfacehandler != null) {
+			interfacehandler.setPressed(KeyEvent.KEYCODE_SOFT_RIGHT, false);
+		}
+		hideWindow();
+		startActivity(awintent);
+	}
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 		// consume since we will assume we have already handled the long press
@@ -543,60 +609,68 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		// TODO: remove emulator special keys
 		switch (keyCode) {
-		case 75:
-			keyCode = KeyEvent.KEYCODE_POUND;
-			break;
-		case 74:
-			keyCode = KeyEvent.KEYCODE_STAR;
-			break;
-		case 72:
-			keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
-			break;
-		case 71:
-			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
-			break;
+			case 75:
+				keyCode = KeyEvent.KEYCODE_POUND;
+				break;
+			case 74:
+				keyCode = KeyEvent.KEYCODE_STAR;
+				break;
+			case 72:
+				keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
+				break;
+			case 71:
+				keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
+				break;
 		}
 
 		// Log.d("onLongPress", "LONG PRESS: " + keyCode);
 		// HANDLE SPECIAL KEYS
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_POUND:
-			commitReset();
-			onText("\n");
-			return true;
-		case KeyEvent.KEYCODE_STAR:
-			if (mKeyMode != MODE_NUM) {
-				showSmileyPage();
+			case KeyEvent.KEYCODE_POUND:
+				commitReset();
+				onText("\n");
 				return true;
-			}
-			break;
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, false);
-			}
-			if (mKeyMode == MODE_EN) {
-				if (mWordFound) {
-					showAddWord();
-				} else {
-					showSymbolPage();
+			case KeyEvent.KEYCODE_STAR:
+				if (mKeyMode != MODE_NUM) {
+					if (mLangsAvailable.length > 1){
+						nextLang();
+					} else {
+						showSmileyPage(); // TODO: replace with lang select if lang thing
+					}
+					return true;
 				}
-			}
-			break;
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, false);
-			}
-			((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
-				.showInputMethodPicker();
-			// show IME
-			return true;
+				break;
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, false);
+				}
+				if (mKeyMode == MODE_LANG) {
+					if (mWordFound) {
+						showAddWord();
+					} else {
+						showSymbolPage();
+					}
+				}
+				break;
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, false);
+				}
+				launchOptions();
+				// show Options
+				return true;
 		}
 		if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
-			if (mKeyMode == MODE_EN) {
-
+			if (mKeyMode == MODE_LANG) {
+				commitTyped();
+				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
 			} else if (mKeyMode == MODE_TEXT) {
 				commitReset();
 				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
+			} else if (mKeyMode == MODE_NUM) {
+				if (keyCode == KeyEvent.KEYCODE_0) {
+					onText("+");
+				}
 			}
 		}
 		return true;
@@ -609,8 +683,8 @@ public class TraditionalT9 extends InputMethodService implements
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		// Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
-		// event.getRepeatCount());
+//		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
+//			event.getRepeatCount());
 		if (mEditing == NON_EDIT) {
 			// if (mButtonClose) {
 			// //handle UI weirdness on up event
@@ -626,99 +700,96 @@ public class TraditionalT9 extends InputMethodService implements
 
 		// TODO: remove emulator special keys
 		switch (keyCode) {
-		case 75:
-			keyCode = KeyEvent.KEYCODE_POUND;
-			break;
-		case 74:
-			keyCode = KeyEvent.KEYCODE_STAR;
-			break;
-		case 72:
-			keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
-			break;
-		case 71:
-			keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
-			break;
+			case 75:
+				keyCode = KeyEvent.KEYCODE_POUND;
+				break;
+			case 74:
+				keyCode = KeyEvent.KEYCODE_STAR;
+				break;
+			case 72:
+				keyCode = KeyEvent.KEYCODE_SOFT_RIGHT;
+				break;
+			case 71:
+				keyCode = KeyEvent.KEYCODE_SOFT_LEFT;
+				break;
 		}
 
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_DPAD_CENTER:
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, false);
-			}
-		case KeyEvent.KEYCODE_DPAD_DOWN:
-		case KeyEvent.KEYCODE_DPAD_UP:
-		case KeyEvent.KEYCODE_DPAD_LEFT:
-		case KeyEvent.KEYCODE_DPAD_RIGHT:
-			if (mEditing == EDITING_NOSHOW) {
-				return false;
-			}
-			return handleDPAD(keyCode, event, false);
+			case KeyEvent.KEYCODE_DPAD_CENTER:
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, false);
+				}
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+			case KeyEvent.KEYCODE_DPAD_UP:
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+			case KeyEvent.KEYCODE_DPAD_RIGHT:
+				if (mEditing == EDITING_NOSHOW) {
+					return false;
+				}
+				return handleDPAD(keyCode, event, false);
 
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			if (!isInputViewShown()) {
-				return super.onKeyDown(keyCode, event);
-			}
-			break;
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				if (!isInputViewShown()) {
+					return super.onKeyDown(keyCode, event);
+				}
+				break;
 		}
-		// Log.d("onKeyUp", "Key: " + keyCode);
-		// Log.d("onKeyUp", "Key: " + event + " cancelled?: " +
-		// event.isCanceled());
+
 		if (event.isCanceled()) {
 			return true;
 		}
 
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_BACK:
-			// Log.d("onKeyUp", "back pres");
-			if (isInputViewShown()) {
-				// Log.d("onKeyUp", "input shown");
-				hideWindow();
+			case KeyEvent.KEYCODE_BACK:
+				if (isInputViewShown()) {
+					hideWindow();
+					return true;
+				}
+				return false;
+			case KeyEvent.KEYCODE_DEL:
 				return true;
-			}
-			return false;
-		case KeyEvent.KEYCODE_DEL:
-			break;
-		case KeyEvent.KEYCODE_ENTER:
-			return false;
+			case KeyEvent.KEYCODE_ENTER:
+				return false;
 
 			// special case for softkeys
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			// if (mAddingWord){
-			// Log.d("onKeyUp", "key: " + keyCode + " skip: " +
-			// mAddingSkipInput);
-			// if (mAddingSkipInput) {
-			// //mAddingSkipInput = false;
-			// return true;
-			// }
-			// }
-			if (interfacehandler != null) {
-				interfacehandler.setPressed(keyCode, false);
-			}
-			// pass-through
-		case KeyEvent.KEYCODE_0:
-		case KeyEvent.KEYCODE_1:
-		case KeyEvent.KEYCODE_2:
-		case KeyEvent.KEYCODE_3:
-		case KeyEvent.KEYCODE_4:
-		case KeyEvent.KEYCODE_5:
-		case KeyEvent.KEYCODE_6:
-		case KeyEvent.KEYCODE_7:
-		case KeyEvent.KEYCODE_8:
-		case KeyEvent.KEYCODE_9:
-		case KeyEvent.KEYCODE_POUND:
-		case KeyEvent.KEYCODE_STAR:
-			// if (!isInputViewShown()){
-			// Log.d("onKeyUp", "showing window.");
-			// //showWindow(true);
-			// }
-			onKey(keyCode, null);
-			return true;
-		default:
-			// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
-			Log.w("onKeyUp", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				// if (mAddingWord){
+				// Log.d("onKeyUp", "key: " + keyCode + " skip: " +
+				// mAddingSkipInput);
+				// if (mAddingSkipInput) {
+				// //mAddingSkipInput = false;
+				// return true;
+				// }
+				// }
+				if (interfacehandler != null) {
+					interfacehandler.setPressed(keyCode, false);
+				}
+				// pass-through
+			case KeyEvent.KEYCODE_0:
+			case KeyEvent.KEYCODE_1:
+			case KeyEvent.KEYCODE_2:
+			case KeyEvent.KEYCODE_3:
+			case KeyEvent.KEYCODE_4:
+			case KeyEvent.KEYCODE_5:
+			case KeyEvent.KEYCODE_6:
+			case KeyEvent.KEYCODE_7:
+			case KeyEvent.KEYCODE_8:
+			case KeyEvent.KEYCODE_9:
+			case KeyEvent.KEYCODE_POUND:
+			case KeyEvent.KEYCODE_STAR:
+				// if (!isInputViewShown()){
+				// Log.d("onKeyUp", "showing window.");
+				// //showWindow(true);
+				// }
+				onKey(keyCode, null);
+				return true;
+			default:
+				// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
+				Log.w("onKeyUp", "Unhandled Key: " + keyCode + "(" + event.toString() + ")");
 		}
+		commitReset();
 		return super.onKeyUp(keyCode, event);
 	}
 
@@ -732,13 +803,10 @@ public class TraditionalT9 extends InputMethodService implements
 	private void commitTyped(InputConnection ic) {
 		if (interfacehandler != null) {
 			interfacehandler.midButtonUpdate(false);
+			interfacehandler.showNotFound(false);
 		}
 		pickSelectedCandidate(ic);
-		mComposing.setLength(0);
-		mSuggestionStrings.clear();
-		mSuggestionInts.clear();
-		mSuggestionSym.clear();
-		mComposingI.setLength(0);
+		clearState();
 		updateCandidates();
 		setCandidatesViewShown(false);
 	}
@@ -778,10 +846,10 @@ public class TraditionalT9 extends InputMethodService implements
 	private void keyDownUp(int keyEventCode) {
 		InputConnection ic = getCurrentInputConnection();
 		KeyEvent kv = KeyEvent.changeFlags(new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode),
-			KeyEvent.FLAG_SOFT_KEYBOARD);
+				KeyEvent.FLAG_SOFT_KEYBOARD);
 		ic.sendKeyEvent(kv);
 		kv = KeyEvent.changeFlags(new KeyEvent(KeyEvent.ACTION_UP, keyEventCode),
-			KeyEvent.FLAG_SOFT_KEYBOARD);
+				KeyEvent.FLAG_SOFT_KEYBOARD);
 		ic.sendKeyEvent(kv);
 	}
 
@@ -793,40 +861,40 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("onKey", "START Cm: " + mCapsMode);
 		// HANDLE SPECIAL KEYS
 		switch (keyCode) {
-		case KeyEvent.KEYCODE_DEL:
-			handleBackspace();
-			break;
-		// change case
-		case KeyEvent.KEYCODE_STAR:
-			if (mKeyMode == MODE_NUM) {
-				handleCharacter(KeyEvent.KEYCODE_STAR);
-			} else {
-				handleShift();
-			}
-			break;
-		case KeyEvent.KEYCODE_BACK:
-			handleClose();
-			break;
-		// space
-		case KeyEvent.KEYCODE_POUND:
-			handleCharacter(KeyEvent.KEYCODE_POUND);
-			break;
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			if (mWordFound) {
-				showSymbolPage();
-			} else {
-				showAddWord();
-			}
-			break;
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-			nextKeyMode();
-			break;
-		default:
-			if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
-				handleCharacter(keyCode);
-			} else {
-				Log.e("onKey", "This shouldn't happen, unknown key");
-			}
+			case KeyEvent.KEYCODE_DEL:
+				handleBackspace();
+				break;
+			// change case
+			case KeyEvent.KEYCODE_STAR:
+				if (mKeyMode == MODE_NUM) {
+					handleCharacter(KeyEvent.KEYCODE_STAR);
+				} else {
+					handleShift();
+				}
+				break;
+			case KeyEvent.KEYCODE_BACK:
+				handleClose();
+				break;
+			// space
+			case KeyEvent.KEYCODE_POUND:
+				handleCharacter(KeyEvent.KEYCODE_POUND);
+				break;
+			case KeyEvent.KEYCODE_SOFT_LEFT:
+				if (mWordFound) {
+					showSymbolPage();
+				} else {
+					showAddWord();
+				}
+				break;
+			case KeyEvent.KEYCODE_SOFT_RIGHT:
+				nextKeyMode();
+				break;
+			default:
+				if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
+					handleCharacter(keyCode);
+				} else {
+					Log.e("onKey", "This shouldn't happen, unknown key");
+				}
 		}
 		// Log.d("onKey", "END Cm: " + mCapsMode);
 	}
@@ -856,16 +924,16 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		if (mComposing.length() > 0) {
 			switch (mKeyMode) {
-			case MODE_EN:
-				commitTyped();
-				break;
-			case MODE_TEXT:
-				commitTyped();
-				charReset();
-				break;
-			case MODE_NUM:
-				// shouldn't happen
-				break;
+				case MODE_LANG:
+					commitTyped();
+					break;
+				case MODE_TEXT:
+					commitTyped();
+					charReset();
+					break;
+				case MODE_NUM:
+					// shouldn't happen
+					break;
 			}
 		} else {
 			hideWindow();
@@ -874,26 +942,39 @@ public class TraditionalT9 extends InputMethodService implements
 
 	/**
 	 * Update the list of available candidates from the current composing text.
-	 * This will need to be filled in by however you are determining candidates.
+	 * Do a lot of complicated stuffs.
 	 */
 	private void updateCandidates() {
-		if (mKeyMode == MODE_EN) {
+		updateCandidates(false);
+	}
+	private void updateCandidates(boolean backspace) {
+		if (mKeyMode == MODE_LANG) {
 			int len = mComposingI.length();
 			if (len > 0) {
 				if (mComposingI.charAt(len - 1) == '1') {
-					boolean nosuggestion = mSuggestionStrings.isEmpty();
+					boolean suggestions = !mSuggestionStrings.isEmpty();
 					String prefix = "";
-					if (!nosuggestion) {
-						prefix = mSuggestionStrings.get(mCandidateView.mSelectedIndex);
-					} else if (len > 1) {
-						prefix = db.getWord(mComposingI.substring(0, len - 1));
+					if (mPreviousWord.length() == 0) {
+						if (suggestions && !backspace) {
+							prefix = mPreviousWord = mSuggestionStrings.get(mCandidateView.mSelectedIndex);
+						}
+					} else {
+						if (backspace) {
+							prefix = mPreviousWord;
+						} else {
+							if (suggestions) {
+								prefix = mPreviousWord = mSuggestionStrings.get(mCandidateView.mSelectedIndex);
+							} else {
+								prefix = mPreviousWord;
+							}
+						}
 					}
 					mSuggestionInts.clear();
 					mSuggestionStrings.clear();
 					mSuggestionSym.clear();
-					db.updateWords("1", mSuggestionSym, mSuggestionInts, mCapsMode);
+					db.updateWords("1", mSuggestionSym, mSuggestionInts, mCapsMode, mLang);
 					for (String a : mSuggestionSym) {
-						if (prefix != "") {
+						if (!prefix.equals("")) {
 							mSuggestionStrings.add(prefix + a);
 						} else {
 							mSuggestionStrings.add(String.valueOf(a));
@@ -903,7 +984,7 @@ public class TraditionalT9 extends InputMethodService implements
 					}
 				} else {
 					db.updateWords(mComposingI.toString(), mSuggestionStrings, mSuggestionInts,
-						mCapsMode);
+							mCapsMode, mLang);
 				}
 				if (!mSuggestionStrings.isEmpty()) {
 					mWordFound = true;
@@ -931,7 +1012,7 @@ public class TraditionalT9 extends InputMethodService implements
 		} else if (mKeyMode == MODE_TEXT) {
 			if (mComposing.length() > 0) {
 				mSuggestionStrings.clear();
-				char[] ca = CharMap.T9TABLE[mPrevious];
+				char[] ca = CharMap.T9TABLE[mLang][mPrevious];
 				for (int i = 0; i < ca.length; i++) {
 					mSuggestionStrings.add(String.valueOf(ca[i]));
 				}
@@ -961,13 +1042,23 @@ public class TraditionalT9 extends InputMethodService implements
 			}
 			setCandidatesViewShown(false);
 		}
-
-		if (length > 1 || length2 > 1) {
-			// Log.d("BS", "comp: " + length + " compI: " + length2);
-			mComposing.delete(length - 1, length);
+		if (length2 > 1) {
+			if (mComposingI.charAt(length2-1) == '1' ) {
+				// revert previous word
+				mPreviousWord = mPreviousWord.substring(0, mPreviousWord.length()-1);
+			}
 			mComposingI.delete(length2 - 1, length2);
-			mSuggestionStrings.clear();
-			updateCandidates();
+			if (length2-1 > 1) {
+				if (mComposingI.charAt(length2-2) != '1') {
+					if (mComposingI.indexOf("1") == -1) {
+						// no longer contains punctuation so we no longer care
+						mPreviousWord = "";
+					}
+				}
+			} else {
+				mPreviousWord = "";
+			}
+			updateCandidates(true);
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		} else if (length > 0 || length2 > 0) {
 			mComposing.setLength(0);
@@ -975,9 +1066,11 @@ public class TraditionalT9 extends InputMethodService implements
 			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
 			mSuggestionStrings.clear();
+			mPreviousWord = "";
 			getCurrentInputConnection().commitText("", 0);
 			updateCandidates();
 		} else {
+			mPreviousWord = "";
 			keyDownUp(KeyEvent.KEYCODE_DEL);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
@@ -994,7 +1087,7 @@ public class TraditionalT9 extends InputMethodService implements
 			mCapsMode++;
 		}
 
-		if (mKeyMode == MODE_EN && mComposing.length() > 0) {
+		if (mKeyMode == MODE_LANG && mComposing.length() > 0) {
 			updateCandidates();
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		}
@@ -1003,102 +1096,97 @@ public class TraditionalT9 extends InputMethodService implements
 
 	/**
 	 * handle input of a character. Precondition: ONLY 0-9 AND *# ARE ALLOWED
-	 * 
+	 *
 	 * @param keyCode
 	 */
 	private void handleCharacter(int keyCode) {
-		// if (mInputView.isShifted()) {
-		// primaryCode = Character.toUpperCase(primaryCode);
-		// }
 		switch (mKeyMode) {
-		case MODE_EN:
-			// it begins
-			// on POUND commit and space
-			if (keyCode == KeyEvent.KEYCODE_POUND) {
-				if (mComposing.length() > 0) {
-					commitTyped();
+			case MODE_LANG:
+				// it begins
+				// on POUND commit and space
+				if (keyCode == KeyEvent.KEYCODE_POUND) {
+					if (mComposing.length() > 0) {
+						commitTyped();
+					}
+					onText(" ");
+				} else {
+					// do things
+					if (interfacehandler != null) {
+						interfacehandler.midButtonUpdate(true);
+					}
+					keyCode = keyCode - KeyEvent.KEYCODE_0;
+					mComposingI.append(keyCode);
+					updateCandidates();
+					getCurrentInputConnection().setComposingText(mComposing, 1);
 				}
-				// Log.d("handleChar", "SENDING SPACE?");
-				onText(" ");
-			} else {
-				// do things
-				if (interfacehandler != null) {
-					interfacehandler.midButtonUpdate(true);
+
+				break;
+
+			case MODE_TEXT:
+				t9releasehandler.removeCallbacks(mt9release);
+				if (keyCode == KeyEvent.KEYCODE_POUND) {
+					keyCode--;
 				}
 				keyCode = keyCode - KeyEvent.KEYCODE_0;
-				mComposingI.append(keyCode);
-				updateCandidates();
-				getCurrentInputConnection().setComposingText(mComposing, 1);
-			}
+				// Log.d("handleChar", "PRIMARY CODE (num): " + keyCode);
 
-			break;
-
-		case MODE_TEXT:
-			t9releasehandler.removeCallbacks(mt9release);
-			if (keyCode == KeyEvent.KEYCODE_POUND) {
-				keyCode--;
-			}
-			keyCode = keyCode - KeyEvent.KEYCODE_0;
-			// Log.d("handleChar", "PRIMARY CODE (num): " + keyCode);
-
-			boolean newChar = false;
-			if (mPrevious == keyCode) {
-				mCharIndex++;
-			} else {
-				commitTyped(getCurrentInputConnection());
-				// updateShiftKeyState(getCurrentInputEditorInfo());
-				newChar = true;
-				mCharIndex = 0;
-				mPrevious = keyCode;
-			}
-
-			// start at caps if CapMode
-			// Log.d("handleChar", "Cm: " + mCapsMode);
-			if (mCharIndex == 0 && mCapsMode != CAPS_OFF) {
-				mCharIndex = CharMap.T9CAPSTART[keyCode];
-			}
-
-			// private int mPrevious;
-			// private int mCharindex;
-			mComposing.setLength(0);
-			mComposingI.setLength(0);
-			char[] ca = CharMap.T9TABLE[keyCode];
-			if (mCharIndex >= ca.length) {
-				mCharIndex = 0;
-			}
-
-			mComposing.append(ca[mCharIndex]);
-			mComposingI.append(keyCode);
-			getCurrentInputConnection().setComposingText(mComposing, 1);
-
-			t9releasehandler.postDelayed(mt9release, 1500);
-			if (newChar) {
-				// consume single caps
-				if (mCapsMode == CAPS_SINGLE) {
-					mCapsMode = CAPS_OFF;
+				boolean newChar = false;
+				if (mPrevious == keyCode) {
+					mCharIndex++;
+				} else {
+					commitTyped(getCurrentInputConnection());
+					// updateShiftKeyState(getCurrentInputEditorInfo());
+					newChar = true;
+					mCharIndex = 0;
+					mPrevious = keyCode;
 				}
-			}
-			updateCandidates();
-			updateShiftKeyState(getCurrentInputEditorInfo());
-			break;
 
-		case MODE_NUM:
-			switch (keyCode) {
-			// Manual this
-			case KeyEvent.KEYCODE_POUND:
-				onText("#");
+				// start at caps if CapMode
+				// Log.d("handleChar", "Cm: " + mCapsMode);
+				if (mCharIndex == 0 && mCapsMode != CAPS_OFF) {
+					mCharIndex = CharMap.T9CAPSTART[mLang][keyCode];
+				}
+
+				// private int mPrevious;
+				// private int mCharindex;
+				mComposing.setLength(0);
+				mComposingI.setLength(0);
+				char[] ca = CharMap.T9TABLE[mLang][keyCode];
+				if (mCharIndex >= ca.length) {
+					mCharIndex = 0;
+				}
+
+				mComposing.append(ca[mCharIndex]);
+				mComposingI.append(keyCode);
+				getCurrentInputConnection().setComposingText(mComposing, 1);
+
+				t9releasehandler.postDelayed(mt9release, T9DELAY);
+				if (newChar) {
+					// consume single caps
+					if (mCapsMode == CAPS_SINGLE) {
+						mCapsMode = CAPS_OFF;
+					}
+				}
+				updateCandidates();
+				updateShiftKeyState(getCurrentInputEditorInfo());
 				break;
-			case KeyEvent.KEYCODE_STAR:
-				onText("*");
+
+			case MODE_NUM:
+				switch (keyCode) {
+					// Manual this
+					case KeyEvent.KEYCODE_POUND:
+						onText("#");
+						break;
+					case KeyEvent.KEYCODE_STAR:
+						onText("*");
+						break;
+					default:
+						onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
+				}
 				break;
+
 			default:
-				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
-
-			}
-			break;
-
-		default:
-			Log.e("handleCharacter", "Unknown input?");
+				Log.e("handleCharacter", "Unknown input?");
 		}
 
 	}
@@ -1136,29 +1224,33 @@ public class TraditionalT9 extends InputMethodService implements
 			} else {
 				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
 					switch (keyCode) {
-					case KeyEvent.KEYCODE_DPAD_DOWN:
-						mCandidateView.scrollSuggestion(1);
-						return true;
-					case KeyEvent.KEYCODE_DPAD_UP:
-						mCandidateView.scrollSuggestion(-1);
-						return true;
-					case KeyEvent.KEYCODE_DPAD_LEFT:
-					case KeyEvent.KEYCODE_DPAD_RIGHT:
-						commitTyped();
-						// getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
-						// return super.onKeyUp(keyCode, event);
-						return true;
+						case KeyEvent.KEYCODE_DPAD_DOWN:
+							mCandidateView.scrollSuggestion(1);
+							return true;
+						case KeyEvent.KEYCODE_DPAD_UP:
+							mCandidateView.scrollSuggestion(-1);
+							return true;
+						case KeyEvent.KEYCODE_DPAD_LEFT:
+						case KeyEvent.KEYCODE_DPAD_RIGHT:
+							if (mKeyMode == MODE_LANG) {
+								commitTyped();
+							} else if (mKeyMode == MODE_TEXT) {
+								commitReset();
+							}
+							// getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
+							// return super.onKeyUp(keyCode, event);
+							return true;
 					}
 				}
 				switch (keyCode) {
-				case KeyEvent.KEYCODE_DPAD_CENTER:
-					handleMidButton();
-					return true;
-				default:
-					// Send stored event to input connection then pass current
-					// event onto super
-					getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
-					return super.onKeyUp(keyCode, event);
+					case KeyEvent.KEYCODE_DPAD_CENTER:
+						handleMidButton();
+						return true;
+					default:
+						// Send stored event to input connection then pass current
+						// event onto super
+						getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
+						return super.onKeyUp(keyCode, event);
 				}
 			}
 		}
@@ -1187,12 +1279,23 @@ public class TraditionalT9 extends InputMethodService implements
 	}
 
 	protected void nextKeyMode() {
-		if (mKeyMode == MODE_CYCLE.length - 1)
+		if (mKeyMode == MODE_CYCLE.length - 1) {
 			mKeyMode = 0;
-		else
+		}
+		else {
 			mKeyMode++;
+		}
 		updateKeyMode();
 		resetKeyMode();
+	}
+
+	private void nextLang() {
+		mLangIndex++;
+		if (mLangIndex == mLangsAvailable.length) {
+			mLangIndex = 0;
+		}
+		mLang = mLangsAvailable[mLangIndex];
+		updateKeyMode();
 	}
 
 	private void resetKeyMode() {
@@ -1213,45 +1316,39 @@ public class TraditionalT9 extends InputMethodService implements
 		int icon = 0;
 
 		switch (mKeyMode) {
-		case MODE_TEXT:
-			interfacehandler.showHold(false);
-			switch (mCapsMode) {
-			case CAPS_OFF:
-				icon = R.drawable.ime_text_lower;
-				break;
-			case CAPS_ALL:
-				icon = R.drawable.ime_text_upper;
-				break;
-			case CAPS_SINGLE:
-				icon = R.drawable.ime_text_single;
-				break;
-			}
-			break;
-		case MODE_EN:
-			if (mAddingWord) {
+			case MODE_TEXT:
 				interfacehandler.showHold(false);
-			} else {
-				interfacehandler.showHold(true);
-			}
-			switch (mCapsMode) {
-			case CAPS_ALL:
-				icon = R.drawable.ime_en_upper;
+				icon = LangHelper.ICONMAP[mLang][mKeyMode][mCapsMode];
 				break;
-			case CAPS_SINGLE:
-				icon = R.drawable.ime_en_single;
+			case MODE_LANG:
+				if (!db.ready) {
+					if (!mGaveUpdateWarn) {
+						Toast.makeText(this, getText(R.string.updating_database_unavailable), Toast.LENGTH_LONG).show();
+						mGaveUpdateWarn = true;
+					}
+					nextKeyMode();
+					return;
+				}
+				if (mLangIndex == -1) {
+					nextKeyMode();
+					return;
+				}
+				if (mAddingWord) {
+					interfacehandler.showHold(false);
+				} else {
+					interfacehandler.showHold(true);
+				}
+				//Log.d("T9.updateKeyMode", "lang: " + mLang + " mKeyMode: " + mKeyMode + " mCapsMode"
+				// + mCapsMode);
+				icon = LangHelper.ICONMAP[mLang][mKeyMode][mCapsMode];
 				break;
-			case CAPS_OFF:
-				icon = R.drawable.ime_en_lower;
+			case MODE_NUM:
+				interfacehandler.showHold(false);
+				icon = R.drawable.ime_number;
 				break;
-			}
-			break;
-		case MODE_NUM:
-			interfacehandler.showHold(false);
-			icon = R.drawable.ime_number;
-			break;
-		default:
-			Log.e("updateKeyMode", "How.");
-			break;
+			default:
+				Log.e("updateKeyMode", "How.");
+				break;
 		}
 		showStatusIcon(icon);
 	}
@@ -1272,14 +1369,14 @@ public class TraditionalT9 extends InputMethodService implements
 					// mSuggestionStrings.get(mCandidateView.mSelectedIndex));
 					// get and commit selected suggestion
 					ic.commitText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
-					if (mKeyMode == MODE_EN) {
+					if (mKeyMode == MODE_LANG) {
 						// update freq
 						db.incrementWord(mSuggestionInts.get(mCandidateView.mSelectedIndex));
 					}
 				} else {
 					// commit suggestion index
 					ic.commitText(mSuggestionStrings.get(index), 1);
-					if (mKeyMode == MODE_EN) {
+					if (mKeyMode == MODE_LANG) {
 						db.incrementWord(mSuggestionInts.get(index));
 					}
 				}

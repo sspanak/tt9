@@ -26,9 +26,10 @@
                 android:resource="@xml/method" />
         </service>
 
+		<service android:name=".DBUpdateService" />
+
         <activity
             android:name="org.nyanya.android.traditionalt9.TraditionalT9Settings"
-            
             android:label="@string/traditionalt9_settings" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,8 +38,9 @@
         <activity
             android:theme="@android:style/Theme.Dialog"
             android:name="org.nyanya.android.traditionalt9.AddWordAct"
-            android:label="@string/title_activity_add_word" >
+            android:label="@string/title_activity_add_word"
+			android:excludeFromRecents="true" >
         </activity>
-    </application>
+	</application>
 
 </manifest>

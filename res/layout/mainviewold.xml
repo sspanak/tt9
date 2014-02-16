@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="0dp"
-    android:layout_marginRight="0dp"
-    android:layout_marginTop="0dp"
-    android:background="@drawable/bggradient"
-    android:baselineAligned="true"
-    android:gravity="bottom"
-    android:orientation="horizontal" >
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginLeft="0dp"
+	android:layout_marginRight="0dp"
+	android:layout_marginTop="0dp"
+	android:background="@drawable/bggradient"
+	android:baselineAligned="true"
+	android:gravity="bottom"
+	android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/main_leftold"
-        android:layout_width="190px"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
-        android:background="@drawable/button_custom"
-        android:focusable="false"
-        android:longClickable="true"
-        android:text="@string/main_left_insert"
-        android:textColor="@color/button_text" />
+	<Button
+		android:id="@+id/main_leftold"
+		android:layout_width="190px"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="1px"
+		android:layout_marginRight="1px"
+		android:background="@drawable/button_custom"
+		android:focusable="false"
+		android:longClickable="true"
+		android:text="@string/main_left_insert"
+		android:textColor="@color/button_text" />
 
-    <Button
-        android:id="@+id/main_mid"
-        android:layout_width="94px"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="1px"
-        android:layout_marginRight="1px"
-        android:background="@drawable/button_custom"
-        android:focusable="false"
-        android:longClickable="true"
-        android:text="@string/main_mid"
-        android:textColor="@color/button_text" />
+	<Button
+		android:id="@+id/main_mid"
+		android:layout_width="94px"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="1px"
+		android:layout_marginRight="1px"
+		android:background="@drawable/button_custom"
+		android:focusable="false"
+		android:longClickable="true"
+		android:text="@string/main_mid"
+		android:textColor="@color/button_text" />
 
-    <RelativeLayout
-        android:id="@+id/main_right"
-        android:layout_width="190px"
-        android:layout_height="58dp"
-        android:layout_marginLeft="1px"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/button_custom"
-        android:clickable="true"
-        android:focusable="false"
-        android:longClickable="true"
-        android:paddingLeft="2dp"
-        android:paddingTop="1dp" >
+	<RelativeLayout
+		android:id="@+id/main_right"
+		android:layout_width="190px"
+		android:layout_height="58dp"
+		android:layout_marginLeft="1px"
+		android:layout_marginTop="0dp"
+		android:background="@drawable/button_custom"
+		android:clickable="true"
+		android:focusable="false"
+		android:longClickable="true"
+		android:paddingLeft="2dp"
+		android:paddingTop="1dp" >
 
-        <include
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            layout="@layout/rbutton" />
-    </RelativeLayout>
+		<include
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="0dp"
+			layout="@layout/rbutton" />
+	</RelativeLayout>
 
 </LinearLayout>

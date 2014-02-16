@@ -14,48 +14,161 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.AssetFileDescriptor;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DatabaseUtils.InsertHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.stackoverflow.answer.UnicodeBOMInputStream;
+
+import pl.wavesoftware.widget.MultiSelectListPreference;
 
 public class TraditionalT9Settings extends PreferenceActivity implements
-	DialogInterface.OnCancelListener {
+		DialogInterface.OnCancelListener {
 
-	ProgressDialog pd = null;
 	AsyncTask<String, Integer, Reply> task = null;
-	final String dictname = "dict50-utf8.jet";
-	final String backupname = "t9backup.txt";
-	final String backupdir = "traditionalt9";
+	final static String dictname = "%s-utf8.txt";
+	final static String userdictname = "user.%s.dict";
+	final static String backupname = "t9backup.txt";
+	final static String sddir = "traditionalt9";
 
 	final int BACKUP_Q_LIMIT = 1000;
 
-	Context caller = null;
+	Context mContext = null;
+
+	public class LoadException extends Exception {
+		private static final long serialVersionUID = 3323913652550046354L;
+
+		public LoadException() {
+			super();
+		}
+
+		public LoadException(String message) {
+			super(message);
+		}
+
+		public LoadException(String message, Throwable cause) {
+			super(message, cause);
+		}
+
+		public LoadException(Throwable cause) {
+			super(cause);
+		}
+	}
 
 	private class Reply {
 		public boolean status;
-		public String message;
+		private List<String> msgs;
 
 		protected Reply() {
 			this.status = true;
-			this.message = "None";
+			this.msgs = new LinkedList<String>();
 		}
 
+		protected void addMsg(String msg) throws LoadException {
+			msgs.add(msg);
+			if (msgs.size() > 6) {
+				msgs.add("Too many errors, bailing.");
+				throw new LoadException();
+			}
+		}
+		protected void forceMsg(String msg) {
+			msgs.add(msg);
+		}
+
+	}
+
+	private void finishAndShowError(ProgressDialog pd, Reply result, int title){
+		if (pd == null) {
+			// Log.d("onPostExecute", "pd");
+		} else {
+			// Log.d("onPostExecute", "pd");
+			if (pd.isShowing()) {
+				pd.dismiss();
+			}
+		}
+		if (result == null) {
+			// bad thing happened
+			Log.e("onPostExecute", "Bad things happen?");
+		} else {
+			String msg = TextUtils.join("\n", result.msgs);
+			Log.d("onPostExecute", "Result: " + result.status + " " + msg);
+			if (!result.status) {
+				showErrorDialog(getResources().getString(title), msg);
+			}
+		}
+	}
+
+	private long getDictSizes(boolean internal, boolean restore, String[] dicts) {
+		if (internal) {
+			InputStream input;
+			Properties props = new Properties();
+			try {
+				input = getAssets().open("dict.properties");
+				props.load(input);
+				long total = 0;
+				for (int x=0; x<dicts.length; x++) {
+					total = total + Long.parseLong(props.getProperty("size." + dicts[x]));
+				}
+				return total;
+
+			} catch (IOException e) {
+				Log.e("getDictSizes", "Unable to get dict sizes");
+				e.printStackTrace();
+				return -1;
+			} catch (NumberFormatException e) {
+				Log.e("getDictSizes", "Unable to parse sizes");
+				return -1;
+			}
+		} else {
+			File backupfile = new File(Environment.getExternalStorageDirectory(), sddir);
+			if (restore) {
+				// using external backup
+				backupfile = new File(backupfile, backupname);
+				if (backupfile.exists() && backupfile.isFile()) {
+					return backupfile.length();
+				} else {
+					return -1;
+				}
+			} else {
+				long total = 0;
+				File f;
+				for (int x=0; x<dicts.length; x++) {
+					f = new File(backupfile, dicts[x]);
+					if (f.exists() && f.isFile()) {
+						total = total + f.length();
+					} else {
+						total = total + 0;
+					}
+				}
+				return total;
+			}
+		}
 	}
 
 	private void closeStream(Closeable is, Reply reply) {
@@ -65,9 +178,8 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		try {
 			is.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			reply.message = reply.message + "\n & Couldn't close stream: " + e.getMessage();
+			reply.forceMsg("Couldn't close stream: " + e.getMessage());
 		}
 	}
 
@@ -76,119 +188,201 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		 * The system calls this to perform work in a worker thread and delivers
 		 * it the parameters given to AsyncTask.execute()
 		 */
+		ProgressDialog pd;
+		long size;
+		long pos;
+		boolean internal;
+		boolean restore;
+		String[] dicts;
+		int[] mSupportedLanguages;
+
+		LoadDictTask(int msgid, boolean intern, boolean restorebackup, int[] supportedLanguages) {
+			internal = intern;
+			restore = restorebackup;
+
+			int suplanglen = supportedLanguages.length;
+			dicts = new String[suplanglen];
+			for (int x=0; x<suplanglen; x++) {
+				if (intern) {
+					dicts[x] = String.format(dictname,
+							LangHelper.LANGS[supportedLanguages[x]].toLowerCase(Locale.ENGLISH));
+				} else {
+					dicts[x] = String.format(userdictname,
+							LangHelper.LANGS[supportedLanguages[x]].toLowerCase(Locale.ENGLISH));
+				}
+			}
+			mSupportedLanguages = supportedLanguages;
+
+			pd = new ProgressDialog(TraditionalT9Settings.this);
+			pd.setMessage(getResources().getString(msgid));
+			pd.setOnCancelListener(TraditionalT9Settings.this);
+		}
+
+		@Override protected void onPreExecute() {
+			size = getDictSizes(internal, restore, dicts);
+			pos = 0;
+			if ( size >= 0 ) {
+				pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+				pd.setMax(10000);
+			} else {
+				pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			}
+			pd.show();
+		}
+
 		@Override
 		protected Reply doInBackground(String... mode) {
 			Reply reply = new Reply();
 			SQLiteDatabase db;
-			db = T9DB.getSQLDB(caller);
-			long fsize;
-			long pos = 0;
-			long last = 0;
-			File backupfile = new File(Environment.getExternalStorageDirectory(), backupdir);
-
-			if (mode[0].equals("backup")) {
-				// using external backup
-				backupfile = new File(backupfile, backupname);
-				fsize = backupfile.length();
-			} else {
-				// using asset:
-				AssetFileDescriptor descriptor;
-				try {
-					descriptor = getAssets().openFd(dictname);
-					fsize = descriptor.getLength();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					reply.status = false;
-					reply.message = e.getLocalizedMessage();
-					db.close();
-					return reply;
-				}
+			db = T9DB.getSQLDB(mContext);
+			if (db == null) {
+				reply.forceMsg("Database unavailable at this time. (May be updating)");
+				reply.status = false;
+				return reply;
 			}
-
 			db.setLockingEnabled(false);
 
+			long startnow, endnow;
+			startnow = SystemClock.uptimeMillis();
+
+			// add characters first, then dictionary:
+			Log.d("doInBackground", "Adding characters...");
+			// load characters from supported langs
+			for (int x=0; x<mSupportedLanguages.length; x++) {
+				processChars(reply, db, mSupportedLanguages[x]);
+			}
+			Log.d("doInBackground", "done.");
+
+			Log.d("doInBackground", "Adding dict(s)...");
+
+			InputStream dictstream = null;
+
+			try {
+				if (restore) {
+					try {
+						dictstream = new FileInputStream(new File(
+								new File(Environment.getExternalStorageDirectory(), sddir),	backupname));
+						reply = processFile(dictstream, reply, db, -1, backupname);
+					} catch (FileNotFoundException e) {
+						reply.status = false;
+						reply.forceMsg("Backup file not found: " + e.getMessage());
+						closeStream(dictstream, reply); // this is silly but it
+						return reply;					// stops IDE nagging at me.
+					} catch (IOException e) {
+						reply.status = false;
+						reply.forceMsg("IO Error: " + e.getMessage());
+						closeStream(dictstream, reply); // this is silly but it
+						return reply;					// stops IDE nagging at me.
+					}
+					closeStream(dictstream, reply);
+				} else {
+					for (int x=0; x<dicts.length; x++) {
+						if (internal) {
+							try {
+								dictstream = getAssets().open(dicts[x]);
+								reply = processFile(dictstream, reply, db, mSupportedLanguages[x], dicts[x]);
+							} catch (IOException e) {
+								e.printStackTrace();
+								reply.status = false;
+								reply.forceMsg("IO Error: " + e.getMessage());
+							}
+						} else {
+							try {
+								dictstream = new FileInputStream(new File(
+										new File(Environment.getExternalStorageDirectory(), sddir),	dicts[x]));
+								reply = processFile(dictstream, reply, db, mSupportedLanguages[x], dicts[x]);
+							} catch (FileNotFoundException e) {
+								reply.status = false;
+								reply.forceMsg("File not found: " + e.getMessage());
+								final String msg = mContext.getString(R.string.pref_loaduser_notfound, dicts[x]);
+								//Log.d("T9Setting.load", "Built string. Calling Toast.");
+								((PreferenceActivity) mContext).runOnUiThread(new Runnable() {
+									@Override
+									public void run() {
+										Toast.makeText(mContext,
+												msg,
+												Toast.LENGTH_SHORT).show();
+									}
+								});
+
+								closeStream(dictstream, reply); // this is silly but it
+								// stops IDE nagging at me.
+							} catch (IOException e) {
+								reply.status = false;
+								reply.forceMsg("IO Error: " + e.getMessage());
+								closeStream(dictstream, reply); // this is silly but it
+								return reply;					// stops IDE nagging at me.
+							}
+						}
+						closeStream(dictstream, reply);
+					}
+				}
+			} catch (LoadException e) {
+				// too many errors, bail
+				closeStream(dictstream, reply);
+			}
+			endnow = SystemClock.uptimeMillis();
+			Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
+			return reply;
+		}
+
+		private void processChars(Reply rpl, SQLiteDatabase db, int lang) {
 			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
 
 			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
+			final int langColumn = wordhelp.getColumnIndex(T9DB.COLUMN_LANG);
 			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
 			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
-			// add characters first, then dictionary:
-			Log.d("doInBakground", "Adding characters...");
-			for (Map.Entry<Character, Integer> entry : CharMap.CHARTABLE.entrySet()) {
-				wordhelp.prepareForReplace();
-				wordhelp.bind(seqColumn, Integer.toString(entry.getValue()));
 
+			for (Map.Entry<Character, Integer> entry : CharMap.CHARTABLE.get(lang).entrySet()) {
+				wordhelp.prepareForReplace();
+				wordhelp.bind(langColumn, Integer.toString(lang));
+				wordhelp.bind(seqColumn, Integer.toString(entry.getValue()));
 				wordhelp.bind(wordColumn, Character.toString(entry.getKey()));
 				wordhelp.bind(freqColumn, 0);
 				wordhelp.execute();
 			}
-			Log.d("doInBakground", "done.");
-			Log.d("doInBakground", "Adding dict...");
-			BufferedReader br;
-			InputStream dictstream = null;
+		}
 
-			if (mode[0].equals("backup")) {
-				try {
-					dictstream = new FileInputStream(backupfile);
-				} catch (FileNotFoundException e) {
-					reply.status = false;
-					reply.message = "Backup file not found: " + e.getMessage();
-					db.close();
-					closeStream(dictstream, reply); // this is silly but it
-													// stops IDE nagging at me.
-					return reply;
-				}
-			} else {
-				try {
-					dictstream = getAssets().open(dictname);
-				} catch (IOException e) {
-					e.printStackTrace();
-					reply.status = false;
-					reply.message = "IO Error: " + e.getMessage();
-					db.close();
-					return reply;
-				}
-			}
-
+		private String getLine(BufferedReader br, Reply rpl, String fname) throws LoadException {
 			try {
-				br = new BufferedReader(new InputStreamReader(dictstream, "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-				reply.status = false;
-				reply.message = "UnsupportedEncodingException Error: " + e.getMessage();
-				db.close();
-				closeStream(dictstream, reply);
-				return reply;
-			}
-
-			String word;
-			String[] ws;
-			int freq;
-			try {
-				word = br.readLine();
+				return br.readLine();
 			} catch (IOException e) {
 				e.printStackTrace();
-				reply.status = false;
-				reply.message = "IO Error: " + e.getMessage();
-				db.close();
-				closeStream(dictstream, reply);
-				return reply;
+				rpl.status = false;
+				rpl.addMsg("IO Error ("+fname+"): " + e.getMessage());
 			}
+			return null;
+		}
+
+		private Reply processFile(InputStream is, Reply rpl, SQLiteDatabase db, int lang, String fname)
+				throws LoadException, IOException {
+			long last = 0;
+			UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(is);
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(ubis));
+			ubis.skipBOM();
+
+			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
+			final int langColumn = wordhelp.getColumnIndex(T9DB.COLUMN_LANG);
+			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
+			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
+			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
+
+			String[] ws;
+			int freq;
 			String seq;
 			int linecount = 1;
 			int wordlen;
+			String word = getLine(br, rpl, fname);
 
-			long startnow, endnow;
-			startnow = SystemClock.uptimeMillis();
 			db.beginTransaction();
+
 			try {
 				while (word != null) {
 					if (isCancelled()) {
-						// this is useless because of dumb android bug that
-						// doesn't call onCancelled after this method finishes.
-						reply.status = false;
-						reply.message = "User cancelled.";
+						rpl.status = false;
+						rpl.addMsg("User cancelled.");
 						break;
 					}
 					if (word.contains(" ")) {
@@ -197,38 +391,54 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 						try {
 							freq = Integer.parseInt(ws[1]);
 						} catch (NumberFormatException e) {
-							reply.status = false;
-							reply.message = "Number error.";
-							return reply;
+							rpl.status = false;
+							rpl.addMsg("Number error ("+fname+") at line " + linecount+". Using 0 for frequency.");
+							freq = 0;
+						}
+						if (lang == -1 && ws.length == 3) {
+							try {
+								lang = Integer.parseInt(ws[2]);
+							} catch (NumberFormatException e) {
+								rpl.status = false;
+								rpl.addMsg("Number error ("+fname+") at line " + linecount+". Using 0 (en) for language.");
+								lang = 0;
+							}
+							if (lang >= LangHelper.LANGS.length) {
+								rpl.status = false;
+								rpl.addMsg("Unsupported language ("+fname+") at line " + linecount+". Trying 0 (en) for language.");
+								lang = 0;
+							}
+						} else if (lang == -1) {
+							lang = 0;
 						}
 					} else {
 						freq = 0;
 					}
-					linecount++;
+
 					try {
 						wordlen = word.getBytes("UTF-8").length;
 					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
-						reply.status = false;
-						reply.message = "UnsupportedEncodingException Error: " + e.getMessage();
-						db.close();
-						closeStream(dictstream, reply);
-						return reply;
+						rpl.status = false;
+						rpl.addMsg("Encoding Error("+fname+") line "+linecount+": " + e.getMessage());
+						wordlen = word.length();
 					}
 					pos += wordlen;
+					// replace junk characters:
+					word = word.replace("\uFEFF", "");
 					try {
-						seq = CharMap.getStringSequence(word);
+						seq = CharMap.getStringSequence(word, lang);
 					} catch (NullPointerException e) {
-						reply.status = false;
-						reply.message = "Error on word: " + word;
-						db.close();
-						closeStream(dictstream, reply);
-						return reply;
+						rpl.status = false;
+						rpl.addMsg("Error on word ("+word+") line "+
+								linecount+" in (" +	fname+"): "+
+								getResources().getString(R.string.add_word_badchar, LangHelper.LANGS[lang]));
+						break;
 					}
-
+					linecount++;
 					wordhelp.prepareForReplace();
 					wordhelp.bind(seqColumn, seq);
-
+					wordhelp.bind(langColumn, lang);
 					wordhelp.bind(wordColumn, word);
 					wordhelp.bind(freqColumn, freq);
 					wordhelp.execute();
@@ -238,33 +448,23 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 					if ((pos - last) > 4096) {
 						// Log.d("doInBackground", "line: " + linecount);
 						// Log.d("doInBackground", "word: " + word);
-						publishProgress((int) ((float) pos / fsize * 10000));
+						publishProgress((int) ((float) pos / size * 10000));
 						last = pos;
 					}
-					try {
-						word = br.readLine();
-					} catch (IOException e) {
-						e.printStackTrace();
-						reply.status = false;
-						reply.message = "IO Error: " + e.getMessage();
-						db.close();
-						closeStream(dictstream, reply);
-						return reply;
-					}
+					word = getLine(br, rpl, fname);
 				}
 				publishProgress(10000);
 				db.setTransactionSuccessful();
 			} finally {
 				db.setLockingEnabled(true);
 				db.endTransaction();
+				br.close();
+				is.close();
+				ubis.close();
+				is.close();
 				wordhelp.close();
 			}
-			endnow = SystemClock.uptimeMillis();
-			Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
-			Log.d("doInBackground", "line: " + linecount);
-			db.close();
-			closeStream(dictstream, reply);
-			return reply;
+			return rpl;
 		}
 
 		@Override
@@ -275,57 +475,49 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		}
 
 		@Override
-		protected void onCancelled() {
-			// Pointless callback. Thanks android.
-		}
-
-		/**
-		 * The system calls this to perform work in the UI thread and delivers
-		 * the result from doInBackground()
-		 */
-		@Override
 		protected void onPostExecute(Reply result) {
-			if (pd == null) {
-				// Log.d("onPostExecute", "pd");
+			if (restore) {
+				finishAndShowError(pd, result, R.string.pref_restore_title);
 			} else {
-				// Log.d("onPostExecute", "pd");
-				if (pd.isShowing()) {
-					pd.dismiss();
-				}
-			}
-			if (result == null) {
-				// bad thing happened
-				Log.e("onPostExecute", "Bad things happen?");
-			} else {
-				Log.d("onPostExecute", "Result: " + result.status + " " + result.message);
-				if (!result.status) {
-					showErrorDialog(caller.getResources().getString(R.string.pref_restore_title),
-						result.message);
-				}
+				finishAndShowError(pd, result, R.string.pref_load_title);
 			}
 		}
 	}
 
 	private class DumpDictTask extends AsyncTask<String, Integer, Reply> {
-		/**
-		 * The system calls this to perform work in a worker thread and delivers
-		 * it the parameters given to AsyncTask.execute()
-		 */
+
+		ProgressDialog pd;
+
+		DumpDictTask(int msgid) {
+			pd = new ProgressDialog(TraditionalT9Settings.this);
+			pd.setMessage(getResources().getString(msgid));
+			pd.setOnCancelListener(TraditionalT9Settings.this);
+		}
+
+		@Override protected void onPreExecute() {
+			pd.show();
+		}
+
 		@Override
 		protected Reply doInBackground(String... ignore) {
 			Reply reply = new Reply();
 			SQLiteDatabase db;
-			db = T9DB.getSQLDB(caller);
+			db = T9DB.getSQLDB(mContext);
+			if (db == null) {
+				reply.forceMsg("Database unavailable at this time. (May be updating)");
+				reply.status = false;
+				return reply;
+			}
 			long entries;
 			int current = 0;
 			int pos = 0;
 			int last = 0;
 			File backupfile = new File(new File(Environment.getExternalStorageDirectory(),
-				backupdir), backupname);
+					sddir), backupname);
 
 			db.setLockingEnabled(false);
 
-			Log.d("doInBakground", "Dumping dict...");
+			Log.d("doInBackground", "Dumping dict...");
 			BufferedWriter bw;
 			OutputStream dictstream = null;
 
@@ -333,10 +525,9 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 				dictstream = new FileOutputStream(backupfile);
 			} catch (FileNotFoundException e) {
 				reply.status = false;
-				reply.message = "Backup file error: " + e.getMessage();
-				db.close();
+				reply.forceMsg("Backup file error: " + e.getMessage());
 				closeStream(dictstream, reply); // this is silly but it stops
-												// IDE nagging at me.
+				// IDE nagging at me.
 				return reply;
 			}
 
@@ -345,8 +536,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 				reply.status = false;
-				reply.message = "UnsupportedEncodingException Error: " + e.getMessage();
-				db.close();
+				reply.forceMsg("Encoding Error (backupfile): " + e.getMessage());
 				closeStream(dictstream, reply);
 				return reply;
 			}
@@ -359,52 +549,57 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			entries = cur.getInt(0);
 			// pd.setMax((int)entries);
 			cur.close();
-
-			while (current < entries) {
-				q = "SELECT " + T9DB.COLUMN_ID + ", " + T9DB.COLUMN_WORD + ", "
-					+ T9DB.COLUMN_FREQUENCY + " FROM " + T9DB.WORD_TABLE_NAME + " WHERE "
-					+ T9DB.COLUMN_ID + ">" + current + " ORDER BY " + T9DB.COLUMN_ID + " LIMIT "
-					+ BACKUP_Q_LIMIT;
-				cur = db.rawQuery(q, null);
-				for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
-					if (isCancelled()) {
-						// this is useless because of dumb android bug that
-						// doesn't
-						// call onCancelled after this method finishes.
-						reply.status = false;
-						reply.message = "User cancelled.";
-						break;
+			try {
+				while (pos < entries) {
+					q = "SELECT " + T9DB.COLUMN_ID + ", " + T9DB.COLUMN_LANG + ", " +
+							T9DB.COLUMN_WORD + ", " + T9DB.COLUMN_FREQUENCY +
+							" FROM " + T9DB.WORD_TABLE_NAME +
+							" WHERE " + T9DB.COLUMN_ID + ">" + current +
+							" ORDER BY " + T9DB.COLUMN_ID +	" LIMIT " + BACKUP_Q_LIMIT;
+					cur = db.rawQuery(q, null);
+					for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
+						if (isCancelled()) {
+							reply.status = false;
+							reply.forceMsg("User cancelled.");
+							break;
+						}
+						current = cur.getInt(0);
+						pos++;
+						try {
+							bw.write(cur.getString(2)); // write word
+							bw.write(" ");
+							bw.write(Integer.toString(cur.getInt(3))); // then freq
+							bw.write(" ");
+							bw.write(Integer.toString(cur.getInt(1))); // then lang
+							bw.newLine();
+						} catch (Exception e) {
+							e.printStackTrace();
+							reply.status = false;
+							reply.forceMsg("Error: " + e.getMessage());
+							closeStream(dictstream, reply);
+						}
+						if ((pos - last) > 80) {
+							publishProgress((int) ((float) pos / entries * 10000));
+							last = pos;
+						}
 					}
-					current = cur.getInt(0);
-					pos++;
-					try {
-						bw.write(cur.getString(1));
-						bw.write(" ");
-						bw.write(Integer.toString(cur.getInt(2)));
-						bw.newLine();
-					} catch (IOException e) {
-						e.printStackTrace();
-						reply.status = false;
-						reply.message = "IO Error: " + e.getMessage();
-						db.close();
-						closeStream(dictstream, reply);
-						return reply; // why complain? I closed the stream above
-					}
-					if ((pos - last) > 80) {
-						publishProgress((int) ((float) current / entries * 10000));
-						last = current;
-					}
+					cur.close();
 				}
-				cur.close();
+			} finally {
+
 			}
-			publishProgress(100);
+			publishProgress(10000);
 
 			endnow = SystemClock.uptimeMillis();
-			Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
+			Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 			Log.d("doInBackground", "entries: " + entries + " last: " + pos);
-			db.close();
 			try {
 				bw.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -419,52 +614,43 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			}
 		}
 
-		@Override
-		protected void onCancelled() {
-			// Pointless callback. Thanks android.
-		}
-
 		/**
 		 * The system calls this to perform work in the UI thread and delivers
 		 * the result from doInBackground()
 		 */
 		@Override
 		protected void onPostExecute(Reply result) {
-			if (pd == null) {
-				// Log.d("onPostExecute", "pd");
-			} else {
-				// Log.d("onPostExecute", "pd");
-				pd.dismiss();
-			}
-			if (result == null) {
-				// bad thing happened
-				Log.e("onPostExecute", "Bad things happen?");
-			} else {
-				Log.d("onPostExecute", "Result: " + result.status + " " + result.message);
-				if (!result.status) {
-					showErrorDialog(caller.getResources().getString(R.string.pref_backup_title),
-						result.message);
-				}
-			}
+			finishAndShowError(pd, result, R.string.pref_backup_title);
 		}
 	}
 
 	private class NukeDictTask extends AsyncTask<String, Integer, Reply> {
-		/**
-		 * The system calls this to perform work in a worker thread and delivers
-		 * it the parameters given to AsyncTask.execute()
-		 */
+
+		ProgressDialog pd;
+
+		NukeDictTask(int msgid) {
+			pd = new ProgressDialog(TraditionalT9Settings.this);
+			pd.setMessage(getResources().getString(msgid));
+			pd.setCancelable(false);
+			pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+		}
+
+		@Override protected void onPreExecute() {
+			pd.show();
+		}
+
 		@Override
 		protected Reply doInBackground(String... ignore) {
 			Reply reply = new Reply();
-			Log.d("doInBakground", "Nuking dict...");
+			Log.d("doInBackground", "Nuking dict...");
 			long startnow, endnow;
 			startnow = SystemClock.uptimeMillis();
-			T9DB t9db = new T9DB(caller);
+			T9DB t9db = T9DB.getInstance(mContext);
 			t9db.nuke();
 
 			endnow = SystemClock.uptimeMillis();
-			Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
+			Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 			return reply;
 		}
 
@@ -479,22 +665,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		 */
 		@Override
 		protected void onPostExecute(Reply result) {
-			if (pd == null) {
-				// Log.d("onPostExecute", "pd");
-			} else {
-				// Log.d("onPostExecute", "pd");
-				pd.dismiss();
-			}
-			if (result == null) {
-				// bad thing happened
-				Log.e("onPostExecute", "Bad things happen?");
-			} else {
-				Log.d("onPostExecute", "Result: " + result.status + " " + result.message);
-				if (!result.status) {
-					showErrorDialog(caller.getResources().getString(R.string.pref_nuke_title),
-						result.message);
-				}
-			}
+			finishAndShowError(pd, result, R.string.pref_nuke_title);
 		}
 	}
 
@@ -502,16 +673,40 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.prefs);
-		Preference button = getPreferenceManager().findPreference("loaddict");
+
+		Preference button = getPreferenceManager().findPreference("help");
 		if (button != null) {
 			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference arg0) {
-					loadDict();
+					openHelp();
 					return true;
 				}
 			});
 		}
+
+		button = getPreferenceManager().findPreference("loaddict");
+		if (button != null) {
+			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference arg0) {
+					preloader(R.string.pref_loadingdict, true, false);
+					return true;
+				}
+			});
+		}
+
+		button = getPreferenceManager().findPreference("loaduserdict");
+		if (button != null) {
+			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference arg0) {
+					preloader(R.string.pref_loadinguserdict, false, false);
+					return true;
+				}
+			});
+		}
+
 		button = getPreferenceManager().findPreference("nukedict");
 		if (button != null) {
 			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
@@ -550,66 +745,77 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference arg0) {
-					queryTestSingle();
+					test();
 					return true;
 				}
 			});
 		}
 
-		caller = this;
+		mContext = this;
 	}
 
-	private void loadDict() {
-		preloader(R.string.pref_loadingdict, "");
+	//build and filter Langs. (This should be refactored to a common method for base T9 module, too.
+	private int[] buildLangs(String s) {
+		int[] ia = MultiSelectListPreference.defaultunpack2Int(s);
+		int num = 0;
+		int i;
+		//calc size of filtered array
+		for (int x=0; x<ia.length; x++) {
+			i = ia[x];
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				num++;
+			}
+		}
+		int[] ian = new int[num];
+		int iansize = 0;
+		for (int x=0; x<ia.length; x++) {
+			i = ia[x];
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				ian[iansize] = i;
+				iansize++;
+			}
+		}
+		return ian;
 	}
 
-	private void preloader(int msgid, String mode) {
-		pd = new ProgressDialog(this);
-		pd.setMessage(getResources().getString(msgid));
-		pd.setOnCancelListener(this);
-		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		pd.setMax(10000);
-		pd.show();
-		task = new LoadDictTask();
-		task.execute(mode);
+	private void openHelp() {
+		Intent i = new Intent(Intent.ACTION_VIEW);
+		i.setData(Uri.parse(getString(R.string.help_url)));
+		startActivity(i);
+	}
+
+	// LoadDictTask(int msgid, boolean intern, boolean restorebackup, CheckBoxPreference setting)
+	private void preloader(int msgid, boolean internal, boolean restorebackup) {
+
+		task = new LoadDictTask(msgid, internal, restorebackup,
+				buildLangs(((MultiSelectListPreference) findPreference("pref_lang_support")).getValue()));
+		task.execute();
 	}
 
 	private void predumper(int msgid) {
-		pd = new ProgressDialog(this);
-		pd.setMessage(getResources().getString(msgid));
-		pd.setOnCancelListener(this);
-		// pd.setProgressNumberFormat(null); Why added in API11...
-		pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-		pd.setMax(10000);
-		pd.show();
-		task = new DumpDictTask();
-		task.execute("");
+		task = new DumpDictTask(msgid);
+		task.execute();
 	}
 
 	private void prenuke(int msgid) {
-		pd = new ProgressDialog(this);
-		pd.setMessage(getResources().getString(msgid));
-		pd.setCancelable(false);
-		pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		pd.show();
-		task = new NukeDictTask();
-		task.execute("");
+		task = new NukeDictTask(msgid);
+		task.execute();
 	}
 
 	private void nukeDict() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.pref_nuke_warn).setTitle(R.string.pref_nuke_title)
-			.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int id) {
-					prenuke(R.string.pref_nukingdict);
-				}
-			}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.dismiss();
-				}
-			});
+				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						prenuke(R.string.pref_nukingdict);
+					}
+				}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				dialog.dismiss();
+			}
+		});
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
@@ -618,7 +824,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
 
-			File saveloc = new File(Environment.getExternalStorageDirectory(), backupdir);
+			File saveloc = new File(Environment.getExternalStorageDirectory(), sddir);
 			saveloc.mkdirs();
 			if (!saveloc.canWrite()) {
 				Log.e("backupDict", "can't write : " + saveloc.getAbsolutePath());
@@ -629,17 +835,17 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			saveloc = new File(saveloc, backupname);
 			if (saveloc.exists()) {
 				builder.setMessage(R.string.pref_backup_warn).setTitle(R.string.pref_backup_title)
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							predumper(R.string.pref_savingbackup);
-						}
-					}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.dismiss();
-						}
-					});
+						.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int id) {
+								predumper(R.string.pref_savingbackup);
+							}
+						}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 				AlertDialog dialog = builder.create();
 				dialog.show();
 			} else {
@@ -656,24 +862,24 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 
 	private void showErrorDialog(AlertDialog.Builder builder, String title, String msg) {
 		builder.setMessage(msg).setTitle(title)
-			.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.dismiss();
-				}
-			});
+				.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
 
 	private void showErrorDialogID(AlertDialog.Builder builder, int titleid, int msgid) {
 		builder.setMessage(msgid).setTitle(titleid)
-			.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.dismiss();
-				}
-			});
+				.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
@@ -683,31 +889,31 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		// Environment.MEDIA_MOUNTED;
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())
-			|| Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-			if ((new File(new File(Environment.getExternalStorageDirectory(), backupdir),
-				backupname)).exists()) {
+				|| Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+			if ((new File(new File(Environment.getExternalStorageDirectory(), sddir),
+					backupname)).exists()) {
 				Resources res = getResources();
 				builder
-					.setMessage(
-						res.getString(R.string.pref_restore_warn,
-							res.getString(R.string.pref_nukedict)))
-					.setTitle(R.string.pref_restore_title)
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							preloader(R.string.pref_loadingbackup, "backup");
-						}
-					}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.dismiss();
-						}
-					});
+						.setMessage(
+								res.getString(R.string.pref_restore_warn,
+										res.getString(R.string.pref_nukedict)))
+						.setTitle(R.string.pref_restore_title)
+						.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int id) {
+								preloader(R.string.pref_loadingbackup, false, true);
+							}
+						}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.dismiss();
+					}
+				});
 				AlertDialog dialog = builder.create();
 				dialog.show();
 			} else {
 				showErrorDialogID(builder, R.string.pref_restore_title,
-					R.string.pref_restore_nofile);
+						R.string.pref_restore_nofile);
 			}
 		} else {
 			showErrorDialogID(builder, R.string.pref_restore_title, R.string.pref_restore_noext);
@@ -722,27 +928,25 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 
 		startnow = SystemClock.uptimeMillis();
 
-		T9DB tdb = new T9DB(this);
-		tdb.init();
+		T9DB tdb = T9DB.getInstance(this);
 		Log.d("queryTestDebug", "Testing...");
-		tdb.updateWords("123", words, ids, 0);
+		tdb.updateWords("123", words, ids, 0, LangHelper.EN);
 		Log.d("queryTestDebug", "123->" + words.toString());
 		Log.d("queryTestDebug", "269->");
-		tdb.updateWords("269", words, ids, 0);
+		tdb.updateWords("269", words, ids, 0, LangHelper.EN);
 		Iterator<String> i = words.iterator();
 		while (i.hasNext()) {
 			Log.d("queryTestDebug", "word: " + i.next());
 		}
 
 		Log.d("queryTestDebug", "228->");
-		tdb.updateWords("228", words, ids, 0);
+		tdb.updateWords("228", words, ids, 0, LangHelper.EN);
 		i = words.iterator();
 		while (i.hasNext()) {
 			Log.d("queryTestDebug", "word: " + i.next());
 		}
 		endnow = SystemClock.uptimeMillis();
-		Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
-		tdb.close();
+		Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 	}
 
 	@SuppressWarnings("unused")
@@ -750,8 +954,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		long startnow, endnow;
 		startnow = SystemClock.uptimeMillis();
 
-		T9DB tdb = new T9DB(this);
-		tdb.init();
+		T9DB tdb = T9DB.getInstance(this);
 
 		// tdb.getWords("123").iterator();
 		// tdb.getWords("269").iterator();
@@ -762,8 +965,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		// tdb.getWords("22637").iterator();
 
 		endnow = SystemClock.uptimeMillis();
-		Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
-		tdb.close();
+		Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 	}
 
 	private void queryTestSingle() {
@@ -773,10 +975,9 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		ArrayList<Integer> ids = new ArrayList<Integer>(8);
 		startnow = SystemClock.uptimeMillis();
 
-		T9DB tdb = new T9DB(this);
-		tdb.init();
+		T9DB tdb = T9DB.getInstance(this);
 
-		tdb.updateWords("222", words, ids, 0);
+		tdb.updateWords("222", words, ids, 0, LangHelper.EN);
 		size = ids.size();
 		if (size > 0) {
 			tdb.incrementWord(ids.get(0));
@@ -789,20 +990,25 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		}
 
 		endnow = SystemClock.uptimeMillis();
-		Log.d("TIMING", "Excution time: " + (endnow - startnow) + " ms");
+		Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 
 		ArrayList<Integer> freqs = new ArrayList<Integer>(8);
-		tdb.updateWordsW("222", words, ids, freqs);
+		tdb.updateWordsW("222", words, ids, freqs, LangHelper.EN);
 		Log.d("VALUES", "...");
 		size = freqs.size();
 		for (int x = 0; x < size; x++) {
 			Log.d("VALUES",
-				"Word: " + words.get(x) + " id: " + ids.get(x) + " freq: " + freqs.get(x));
+					"Word: " + words.get(x) + " id: " + ids.get(x) + " freq: " + freqs.get(x));
 		}
 		Log.d("queryTestSingle", "done.");
-		tdb.close();
 	}
-
+	private void test() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+		if ( "".equalsIgnoreCase(pref.getString("pref_lang_support", null)) ) {
+			Log.d("T9Settings.test", "AAAAAAAAAA blank string");
+		}
+		Log.d("T9Settings.test", pref.getString("pref_lang_support", "aaaaaaaaaa"));
+	}
 	@Override
 	public void onCancel(DialogInterface dint) {
 		task.cancel(false);

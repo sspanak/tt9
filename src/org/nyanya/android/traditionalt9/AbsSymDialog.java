@@ -2,11 +2,14 @@ package org.nyanya.android.traditionalt9;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import java.util.Arrays;
 
 public abstract class AbsSymDialog extends Dialog implements
 		View.OnClickListener {
@@ -20,15 +23,15 @@ public abstract class AbsSymDialog extends Dialog implements
 	private String title;
 	private boolean started;
 
-	private static final int[] buttons = { 
+	private static final int[] buttons = {
 		R.id.text_keyone,   R.id.text_keytwo,
 		R.id.text_keythree, R.id.text_keyfour,  R.id.text_keyfive,
 		R.id.text_keysix,   R.id.text_keyseven, R.id.text_keyeight,
-		R.id.text_keynine,  R.id.text_keyzero 
+		R.id.text_keynine,  R.id.text_keyzero
 	};
-	private static final int[] buttons2 = { 
+	private static final int[] buttons2 = {
 		R.id.text_keystar,
-		R.id.text_keypound 
+		R.id.text_keypound
 	};
 
 	public AbsSymDialog(Context c, View mv) {
@@ -279,6 +282,11 @@ public abstract class AbsSymDialog extends Dialog implements
 		win.setAttributes(lp);
 		win.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		updateButtons();
-		show();
+		try {
+			show();
+		} catch (Exception e) {
+			Log.e("AbsSymDialog", "Cannot create Dialog:");
+			Log.e("AbsSymDialog", Arrays.toString(e.getStackTrace()));
+		}
 	}
 }
