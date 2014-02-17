@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_inputmode_entries">
+        <item>Словарь</item>
+        <item>Текст</item>
+        <item>Цифры</item>
+    </string-array>
+    <string-array name="pref_inputmode_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="pref_lang_defaults">
+        <item>0</item>
+    </string-array>
+    <string-array name="pref_lang_titles">
+        <item>English</item>
+        <item>Русский</item>
+    </string-array>
+    <string-array name="pref_lang_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+</resources>

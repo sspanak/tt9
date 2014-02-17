@@ -34,12 +34,12 @@
 	<string name="no_keyboard">This device does not have a hardware keyboard/keypad, therefore it will not function in any useful way.
 Sorry for the inconvenience.</string>
 
-	<string name="updating_database_title">Updating dictionary database...</string>
+	<string name="updating_database_title">Updating dictionary database…</string>
 	<string name="updating_database">Updating dictionary database, this might take a while.</string>
 	<string name="updating_database_done">Updating dictionary database complete.</string>
 	<string name="updating_database_unavailable">Updating dictionary database, word input unavailable at this time.</string>
 
-	<string name="pref_lang_title">Multilingual support...</string>
+	<string name="pref_lang_title">Multilingual support…</string>
 	<string name="pref_help">"Show help</string>
 	<string name="pref_loaddict">Load dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
