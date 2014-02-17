@@ -62,13 +62,13 @@ def getProps() {
 }
 
 def saveProps(Properties props) {
-	props.store(new FileOutputStream(new File("t9build.properties")))
+	props.store(new FileOutputStream(new File("t9build.properties")), null)
 }
 
 def computeVersionNumber = { ->
 	Properties props = getProps()
 	int verNum = Integer.valueOf(props.getProperty("verNum", "0"))
-	if (hasProperty('incrementBuildNumber')) {
+	if (project.hasProperty('incrementBuildNumber')) {
 		verNum++
 		props.setProperty("verNum", String.valueOf(verNum))
 		saveProps(props)
