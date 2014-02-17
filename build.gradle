@@ -40,7 +40,7 @@ def computeVersionName = { ->
 	String ver = "git-source"
 	try {
 		if (execThing(" git status -z").toString().trim().equals("")) {
-			return execThing(' git log -1 --format="%h"').toString().trim()
+			return "git-" + execThing(' git log -1 --format="%h"').toString().trim()
 		} else {
 			return ver
 		}
