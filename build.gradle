@@ -17,6 +17,65 @@ dependencies {
 	compile fileTree(dir: 'libs', include: '*.jar')
 }
 
+def execThing ( String cmdStr ) {
+	def stdout = new ByteArrayOutputStream()
+	String prefix = System.getenv("GITCMDPREFIX")
+	if (prefix != null) {
+		String cmd = prefix + cmdStr
+		exec {
+			commandLine cmd.tokenize()
+			standardOutput = stdout
+		}
+	} else {
+		exec {
+			commandLine cmdStr.tokenize()
+			standardOutput = stdout
+		}
+	}
+	return stdout
+}
+
+def computeVersionName = { ->
+
+	String ver = "git-source"
+	try {
+		if (execThing(" git status -z").toString().trim().equals("")) {
+			return execThing(' git log -1 --format="%h"').toString().trim()
+		} else {
+			return ver
+		}
+	} catch (all) {
+		ant.echo("Cannot run git (not in path?), using default versioning")
+	}
+
+	return ver
+}
+
+def getProps() {
+	Properties props = new Properties()
+	File f = new File("t9build.properties")
+	if (!f.exists()) {
+		f.createNewFile()
+	}
+	props.load(new FileInputStream(f))
+	return props
+}
+
+def saveProps(Properties props) {
+	props.store(new FileOutputStream(new File("t9build.properties")))
+}
+
+def computeVersionNumber = { ->
+	Properties props = getProps()
+	int verNum = Integer.valueOf(props.getProperty("verNum", "0"))
+	if (hasProperty('incrementBuildNumber')) {
+		verNum++
+		props.setProperty("verNum", String.valueOf(verNum))
+		saveProps(props)
+	}
+	return verNum
+}
+
 android {
 	compileSdkVersion 10
 	buildToolsVersion "19.0.0"
@@ -45,6 +104,12 @@ android {
 		release.setRoot('build-types/release')
 
 	}
+
+	defaultConfig {
+		versionCode computeVersionNumber()
+		versionName computeVersionName()
+	}
+
 	// http://stackoverflow.com/a/19130098
 	signingConfigs {
 		release {
@@ -62,15 +127,10 @@ android {
 	}
 }
 
-
 task getDictSizes {
 	inputs.files 'assets/en-utf8.txt', 'assets/ru-utf8.txt'
-	outputs.file "assets/dict.properties"
+	outputs.file "t9build.properties"
 	doLast {
-		ant.echo("Deleting old file...")
-
-		delete 'assets/dict.properties'
-
 		ant.echo("Calculating dict size...")
 
 		FileCollection dicts = files("assets/en-utf8.txt", "assets/ru-utf8.txt")

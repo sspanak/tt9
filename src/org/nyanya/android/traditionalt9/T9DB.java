@@ -32,6 +32,8 @@ public class T9DB {
 	// 50k, 10k
 	private static final int FREQ_MAX = 50000;
 	private static final int FREQ_DIV = 10000;
+	// This seems to be pretty fast on my phone. 10 is pretty slow (Might be because > MAX_RESULTS (8).)
+	private static final int MINHITS = 4;
 
 	protected static final String COLUMN_ID = BaseColumns._ID;
 	protected static final String COLUMN_LANG = "lang";
@@ -257,8 +259,7 @@ public class T9DB {
 		}
 		cur.close();
 
-		// TODO: profile this and if it takes too long to only do it when hits is super low...
-		if (hits < 10) {
+		if (hits < MINHITS) {
 			char c = is.charAt(islen - 1);
 			c++;
 			String q = "SELECT " + COLUMN_ID + ", " + COLUMN_WORD +
@@ -363,7 +364,7 @@ public class T9DB {
 			hits++;
 		}
 		cur.close();
-		if (hits < 4) {
+		if (hits < MINHITS) {
 			char c = is.charAt(islen - 1);
 			c++;
 			q = "SELECT " + COLUMN_ID + ", " + COLUMN_WORD + ", " + COLUMN_FREQUENCY +

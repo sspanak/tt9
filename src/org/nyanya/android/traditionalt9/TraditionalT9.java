@@ -270,9 +270,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 		updateCandidates();
 
-		if (!restarting) {
-			// Clear shift states.
-		}
+		//TODO: Check if "restarting" variable will make things faster/more effecient
 
 		mKeyMode = MODE_TEXT;
 

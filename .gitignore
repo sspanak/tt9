@@ -31,3 +31,4 @@ proguard/
 #Other
 .gradle/
 assets/dict.properties
+t9build.properties
