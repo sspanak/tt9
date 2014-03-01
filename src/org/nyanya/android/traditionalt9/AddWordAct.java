@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddWordAct extends Activity {
 
@@ -63,12 +62,6 @@ public class AddWordAct extends Activity {
 						}
 					});
 			AlertDialog dialog = builder.create();
-//			Window win = dialog.getWindow();
-//			WindowManager.LayoutParams lp = win.getAttributes();
-//			lp.token = getWindow().getWindow().getDecorView().getWindowToken();
-//			lp.type = WindowManager.LayoutParams.TYPE_APPLICATION_ATTACHED_DIALOG;
-//			win.setAttributes(lp);
-//			win.addFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 			dialog.show();
 		}
 		SharedPreferences.Editor prefedit = pref.edit();

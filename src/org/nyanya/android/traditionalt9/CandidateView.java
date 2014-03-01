@@ -3,8 +3,6 @@ package org.nyanya.android.traditionalt9;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.nyanya.android.traditionalt9.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -15,7 +13,6 @@ import android.view.View;
 
 public class CandidateView extends View {
 
-	// private TraditionalT9 mService;
 	private List<String> mSuggestions;
 	protected int mSelectedIndex;
 
@@ -179,7 +176,7 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
-	public void setSuggestions(List<String> suggestions, int initialSel) {
+	protected void setSuggestions(List<String> suggestions, int initialSel) {
 		clear();
 		if (suggestions != null) {
 			mSuggestions = suggestions;
@@ -193,7 +190,7 @@ public class CandidateView extends View {
 		requestLayout();
 	}
 
-	public void clear() {
+	protected void clear() {
 		mSuggestions = EMPTY_LIST;
 		mSelectedIndex = -1;
 		invalidate();

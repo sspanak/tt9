@@ -2,6 +2,7 @@ package org.nyanya.android.traditionalt9;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.inputmethodservice.KeyboardView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 public abstract class AbsSymDialog extends Dialog implements
 		View.OnClickListener {
 
-	private TraditionalT9 parent;
+	private KeyboardView.OnKeyboardActionListener parent;
 	private View mainview;
 	private int pagenum = 1;
 	private int pageoffset = (pagenum - 1) * 10;
@@ -36,18 +37,18 @@ public abstract class AbsSymDialog extends Dialog implements
 
 	public AbsSymDialog(Context c, View mv) {
 		super(c);
-		parent = (TraditionalT9) c;
+		parent = (KeyboardView.OnKeyboardActionListener) c;
 		mainview = mv;
 		started = true;
 		setContentView(mv);
 
 		View button;
-		for (int x = 0; x < buttons.length; x++) {
-			button = mv.findViewById(buttons[x]);
+		for (int butt : buttons) {
+			button = mv.findViewById(butt);
 			button.setOnClickListener(this);
 		}
-		for (int x = 0; x < buttons2.length; x++) {
-			button = mv.findViewById(buttons2[x]);
+		for (int butt : buttons2) {
+			button = mv.findViewById(butt);
 			button.setOnClickListener(this);
 		}
 		MAX_PAGE = getMaxPage();
@@ -59,7 +60,7 @@ public abstract class AbsSymDialog extends Dialog implements
 		// Log.d("SymbolPopup - onClick", "click happen: " + v);
 		switch (v.getId()) {
 		case R.id.text_keyone:
-			sendChar(pageoffset + 0);
+			sendChar(pageoffset);
 			break;
 		case R.id.text_keytwo:
 			sendChar(pageoffset + 1);
@@ -234,7 +235,7 @@ public abstract class AbsSymDialog extends Dialog implements
 		// HANDLE SPECIAL KEYS
 		switch (keyCode) {
 		case KeyEvent.KEYCODE_1:
-			sendChar(pageoffset + 0);
+			sendChar(pageoffset);
 			break;
 		case KeyEvent.KEYCODE_2:
 			sendChar(pageoffset + 1);

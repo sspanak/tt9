@@ -24,18 +24,12 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 		return mainview;
 	}
 
-	protected void clearParent() {
-		ViewGroup vg = ((ViewGroup) mainview.getParent());
-		if (vg != null) {
-			vg.removeView(mainview);
-		}
-	}
 
 	protected void changeView(View v) {
 		this.mainview = v;
 		View button;
-		for (int x = 0; x < buttons.length; x++) {
-			button = v.findViewById(buttons[x]);
+		for (int buttid : buttons) {
+			button = v.findViewById(buttid);
 			button.setOnClickListener(this);
 			if (!parent.mAddingWord) {
 				button.setOnLongClickListener(this);
@@ -81,9 +75,9 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 
 	protected void midButtonUpdate(boolean composing) {
 		if (composing) {
-			((Button) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid_commit);
+			((TextView) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid_commit);
 		} else {
-			((Button) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid);
+			((TextView) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid);
 		}
 	}
 
@@ -132,5 +126,9 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 			return false;
 		}
 		return true;
+	}
+
+	protected void hideView() {
+		mainview.setVisibility(View.GONE);
 	}
 }

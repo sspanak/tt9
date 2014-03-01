@@ -1,15 +1,15 @@
 package org.nyanya.android.traditionalt9;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import android.util.Log;
 
 public class CharMap {
-    protected static final ArrayList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(2);
+    protected static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(2);
     static {
         Map<Character, Integer> enMap = new HashMap<Character, Integer>();
         enMap.put('.', 1); enMap.put(',', 1); enMap.put('!', 1); enMap.put('?', 1);

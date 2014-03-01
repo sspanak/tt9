@@ -1,5 +1,10 @@
 package org.nyanya.android.traditionalt9;
 
+/*
+	Source for English dictionary: http://wordlist.sourceforge.net/
+	Source for Russian dictionary: Various sources from Russian user
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -13,8 +18,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +27,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -37,6 +43,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
@@ -67,18 +74,6 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		public LoadException() {
 			super();
 		}
-
-		public LoadException(String message) {
-			super(message);
-		}
-
-		public LoadException(String message, Throwable cause) {
-			super(message, cause);
-		}
-
-		public LoadException(Throwable cause) {
-			super(cause);
-		}
 	}
 
 	private class Reply {
@@ -104,9 +99,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 	}
 
 	private void finishAndShowError(ProgressDialog pd, Reply result, int title){
-		if (pd == null) {
-			// Log.d("onPostExecute", "pd");
-		} else {
+		if (pd != null) {
 			// Log.d("onPostExecute", "pd");
 			if (pd.isShowing()) {
 				pd.dismiss();
@@ -120,53 +113,6 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			Log.d("onPostExecute", "Result: " + result.status + " " + msg);
 			if (!result.status) {
 				showErrorDialog(getResources().getString(title), msg);
-			}
-		}
-	}
-
-	private long getDictSizes(boolean internal, boolean restore, String[] dicts) {
-		if (internal) {
-			InputStream input;
-			Properties props = new Properties();
-			try {
-				input = getAssets().open("dict.properties");
-				props.load(input);
-				long total = 0;
-				for (int x=0; x<dicts.length; x++) {
-					total = total + Long.parseLong(props.getProperty("size." + dicts[x]));
-				}
-				return total;
-
-			} catch (IOException e) {
-				Log.e("getDictSizes", "Unable to get dict sizes");
-				e.printStackTrace();
-				return -1;
-			} catch (NumberFormatException e) {
-				Log.e("getDictSizes", "Unable to parse sizes");
-				return -1;
-			}
-		} else {
-			File backupfile = new File(Environment.getExternalStorageDirectory(), sddir);
-			if (restore) {
-				// using external backup
-				backupfile = new File(backupfile, backupname);
-				if (backupfile.exists() && backupfile.isFile()) {
-					return backupfile.length();
-				} else {
-					return -1;
-				}
-			} else {
-				long total = 0;
-				File f;
-				for (int x=0; x<dicts.length; x++) {
-					f = new File(backupfile, dicts[x]);
-					if (f.exists() && f.isFile()) {
-						total = total + f.length();
-					} else {
-						total = total + 0;
-					}
-				}
-				return total;
 			}
 		}
 	}
@@ -218,6 +164,53 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			pd.setOnCancelListener(TraditionalT9Settings.this);
 		}
 
+		private long getDictSizes(boolean internal, boolean restore, String[] dicts) {
+			if (internal) {
+				InputStream input;
+				Properties props = new Properties();
+				try {
+					input = getAssets().open("dict.properties");
+					props.load(input);
+					long total = 0;
+					for (String dict : dicts) {
+						total += Long.parseLong(props.getProperty("size." + dict));
+					}
+					return total;
+
+				} catch (IOException e) {
+					Log.e("getDictSizes", "Unable to get dict sizes");
+					e.printStackTrace();
+					return -1;
+				} catch (NumberFormatException e) {
+					Log.e("getDictSizes", "Unable to parse sizes");
+					return -1;
+				}
+			} else {
+				File backupfile = new File(Environment.getExternalStorageDirectory(), sddir);
+				if (restore) {
+					// using external backup
+					backupfile = new File(backupfile, backupname);
+					if (backupfile.exists() && backupfile.isFile()) {
+						return backupfile.length();
+					} else {
+						return -1;
+					}
+				} else {
+					long total = 0;
+					File f;
+					for (String dict : dicts) {
+						f = new File(backupfile, dict);
+						if (f.exists() && f.isFile()) {
+							total = total + f.length();
+						} else {
+							total = total + 0;
+						}
+					}
+					return total;
+				}
+			}
+		}
+
 		@Override protected void onPreExecute() {
 			size = getDictSizes(internal, restore, dicts);
 			pos = 0;
@@ -248,8 +241,8 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			// add characters first, then dictionary:
 			Log.d("doInBackground", "Adding characters...");
 			// load characters from supported langs
-			for (int x=0; x<mSupportedLanguages.length; x++) {
-				processChars(reply, db, mSupportedLanguages[x]);
+			for (int lang : mSupportedLanguages) {
+				processChars(db, lang);
 			}
 			Log.d("doInBackground", "done.");
 
@@ -296,7 +289,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 								reply.forceMsg("File not found: " + e.getMessage());
 								final String msg = mContext.getString(R.string.pref_loaduser_notfound, dicts[x]);
 								//Log.d("T9Setting.load", "Built string. Calling Toast.");
-								((PreferenceActivity) mContext).runOnUiThread(new Runnable() {
+								((Activity) mContext).runOnUiThread(new Runnable() {
 									@Override
 									public void run() {
 										Toast.makeText(mContext,
@@ -326,7 +319,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			return reply;
 		}
 
-		private void processChars(Reply rpl, SQLiteDatabase db, int lang) {
+		private void processChars(SQLiteDatabase db, int lang) {
 			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
 
 			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
@@ -526,8 +519,6 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			} catch (FileNotFoundException e) {
 				reply.status = false;
 				reply.forceMsg("Backup file error: " + e.getMessage());
-				closeStream(dictstream, reply); // this is silly but it stops
-				// IDE nagging at me.
 				return reply;
 			}
 
@@ -754,30 +745,6 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		mContext = this;
 	}
 
-	//build and filter Langs. (This should be refactored to a common method for base T9 module, too.
-	private int[] buildLangs(String s) {
-		int[] ia = MultiSelectListPreference.defaultunpack2Int(s);
-		int num = 0;
-		int i;
-		//calc size of filtered array
-		for (int x=0; x<ia.length; x++) {
-			i = ia[x];
-			if (i >= 0 && i < LangHelper.NLANGS) {
-				num++;
-			}
-		}
-		int[] ian = new int[num];
-		int iansize = 0;
-		for (int x=0; x<ia.length; x++) {
-			i = ia[x];
-			if (i >= 0 && i < LangHelper.NLANGS) {
-				ian[iansize] = i;
-				iansize++;
-			}
-		}
-		return ian;
-	}
-
 	private void openHelp() {
 		Intent i = new Intent(Intent.ACTION_VIEW);
 		i.setData(Uri.parse(getString(R.string.help_url)));
@@ -788,17 +755,12 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 	private void preloader(int msgid, boolean internal, boolean restorebackup) {
 
 		task = new LoadDictTask(msgid, internal, restorebackup,
-				buildLangs(((MultiSelectListPreference) findPreference("pref_lang_support")).getValue()));
+				LangHelper.buildLangs(((ListPreference) findPreference("pref_lang_support")).getValue()));
 		task.execute();
 	}
 
 	private void predumper(int msgid) {
 		task = new DumpDictTask(msgid);
-		task.execute();
-	}
-
-	private void prenuke(int msgid) {
-		task = new NukeDictTask(msgid);
 		task.execute();
 	}
 
@@ -808,7 +770,8 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 				.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int id) {
-						prenuke(R.string.pref_nukingdict);
+						task = new NukeDictTask(R.string.pref_nukingdict);
+						task.execute();
 					}
 				}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
@@ -856,11 +819,11 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		}
 	}
 
-	private void showErrorDialog(String title, String msg) {
+	private void showErrorDialog(CharSequence title, CharSequence msg) {
 		showErrorDialog(new AlertDialog.Builder(this), title, msg);
 	}
 
-	private void showErrorDialog(AlertDialog.Builder builder, String title, String msg) {
+	private void showErrorDialog(AlertDialog.Builder builder, CharSequence title, CharSequence msg) {
 		builder.setMessage(msg).setTitle(title)
 				.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
 					@Override
@@ -923,8 +886,8 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 	@SuppressWarnings("unused")
 	private void queryTestDebug() {
 		long startnow, endnow;
-		ArrayList<String> words = new ArrayList<String>();
-		ArrayList<Integer> ids = new ArrayList<Integer>();
+		AbstractList<String> words = new ArrayList<String>();
+		List<Integer> ids = new ArrayList<Integer>();
 
 		startnow = SystemClock.uptimeMillis();
 
@@ -968,10 +931,11 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 	}
 
+	@SuppressWarnings("unused")
 	private void queryTestSingle() {
 		long startnow, endnow;
 		int size;
-		ArrayList<String> words = new ArrayList<String>(8);
+		AbstractList<String> words = new ArrayList<String>(8);
 		ArrayList<Integer> ids = new ArrayList<Integer>(8);
 		startnow = SystemClock.uptimeMillis();
 
@@ -992,7 +956,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 		endnow = SystemClock.uptimeMillis();
 		Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 
-		ArrayList<Integer> freqs = new ArrayList<Integer>(8);
+		List<Integer> freqs = new ArrayList<Integer>(8);
 		tdb.updateWordsW("222", words, ids, freqs, LangHelper.EN);
 		Log.d("VALUES", "...");
 		size = freqs.size();

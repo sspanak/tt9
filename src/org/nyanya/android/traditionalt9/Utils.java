@@ -3,7 +3,8 @@ package org.nyanya.android.traditionalt9;
 import android.text.InputType;
 import android.util.Log;
 
-public class Utils {
+@SuppressWarnings("unused")
+class Utils {
 
 	public static void printFlags(int inputType) {
 		if ((inputType & InputType.TYPE_CLASS_DATETIME) == InputType.TYPE_CLASS_DATETIME)

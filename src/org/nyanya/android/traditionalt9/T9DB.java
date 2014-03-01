@@ -1,13 +1,10 @@
 package org.nyanya.android.traditionalt9;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.AbstractList;
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.Locale;
+import java.util.List;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -62,7 +59,7 @@ public class T9DB {
 		mOpenHelper = new DatabaseHelper(caller);
 	}
 
-	public static T9DB getInstance(Context caller) {
+	protected static T9DB getInstance(Context caller) {
 		if (instance == null) {
 			synchronized (T9DB.class){
 				if (instance == null) {
@@ -74,7 +71,7 @@ public class T9DB {
 		return instance;
 	}
 
-	public static SQLiteDatabase getSQLDB(Context caller) {
+	protected static SQLiteDatabase getSQLDB(Context caller) {
 		T9DB t9dbhelper = getInstance(caller);
 		//Log.d("T9DB.getSQLDB", "db:" + t9dbhelper.db.isOpen());
 		return t9dbhelper.db;
@@ -88,7 +85,7 @@ public class T9DB {
 			if (db != null) {
 				try {
 				db.close();
-				} catch (NullPointerException e) { }
+				} catch (NullPointerException ignored) { }
 				db = null;
 			}
 			Intent intent = new Intent(mContext, DBUpdateService.class);
@@ -122,13 +119,13 @@ public class T9DB {
 		}
 	}
 
-	public void close() {
+	protected void close() {
 		try { db.close(); }
-		catch (NullPointerException e) { }
+		catch (NullPointerException ignored) { }
 		db = null;
 	}
 
-	public void nuke() {
+	protected void nuke() {
 		Log.i("T9DB.nuke", "Deleting database...");
 		synchronized (T9DB.class){
 			if (db != null) {
@@ -147,7 +144,7 @@ public class T9DB {
 		Log.i("T9DB.nuke", "Done...");
 	}
 
-	public void addWord(String iword, int lang) throws DBException {
+	protected void addWord(String iword, int lang) throws DBException {
 		Resources r = mContext.getResources();
 		if (iword.equals("")) {
 			throw new DBException(r.getString(R.string.add_word_blank));
@@ -180,7 +177,7 @@ public class T9DB {
 		}
 	}
 
-	public void incrementWord(int id) {
+	protected void incrementWord(int id) {
 		if (!checkReady()) {
 			Log.e("T9DB.incrementWord", "not ready");
 			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
@@ -234,7 +231,7 @@ public class T9DB {
 		return result;
 	}
 
-	public void updateWords(String is, ArrayList<String> stringList, ArrayList<Integer> intList,
+	protected void updateWords(String is, AbstractList<String> stringList, List<Integer> intList,
 							int capsMode, int lang) {
 		stringList.clear();
 		intList.clear();
@@ -333,11 +330,10 @@ public class T9DB {
 			}
 		}
 		//Log.d("T9DB.updateWords", "i:" + is + " words:" + Arrays.toString(stringList.toArray()));
-		return;
 	}
 
-	protected void updateWordsW(String is, ArrayList<String> stringList,
-								ArrayList<Integer> intList, ArrayList<Integer> freq, int lang) {
+	protected void updateWordsW(String is, Collection<String> stringList,
+								Collection<Integer> intList, Collection<Integer> freq, int lang) {
 		stringList.clear();
 		intList.clear();
 		freq.clear();
@@ -386,7 +382,6 @@ public class T9DB {
 			}
 			cur.close();
 		}
-		return;
 	}
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -405,12 +400,7 @@ public class T9DB {
 				SQLiteDatabase db = mContext.openOrCreateDatabase(DATABASE_NAME, 0, null);
 				int version = db.getVersion();
 				db.close();
-				if (version < DATABASE_VERSION) {
-					return true;
-				}
-				else {
-					return false;
-				}
+				return version < DATABASE_VERSION;
 			} else {
 				return false;
 			}

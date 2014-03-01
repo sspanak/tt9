@@ -1,10 +1,10 @@
 package org.nyanya.android.traditionalt9;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -17,11 +17,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import pl.wavesoftware.widget.MultiSelectListPreference;
@@ -37,7 +35,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 	private ArrayList<String> mSuggestionStrings = new ArrayList<String>(10);
 	private ArrayList<Integer> mSuggestionInts = new ArrayList<Integer>(10);
-	private ArrayList<String> mSuggestionSym = new ArrayList<String>(16);
+	private AbstractList<String> mSuggestionSym = new ArrayList<String>(16);
 
 	private static final int NON_EDIT = 0;
 	private static final int EDITING = 1;
@@ -103,37 +101,12 @@ public class TraditionalT9 extends InputMethodService implements
 		db = T9DB.getInstance(this);
 
 		pref = PreferenceManager.getDefaultSharedPreferences(this);
-		buildLangs();
+		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
 
 		if (interfacehandler == null) {
 			interfacehandler = new InterfaceHandler(getLayoutInflater().inflate(R.layout.mainview,
 					null), this);
 		}
-	}
-
-	//build and filter Langs
-	private void buildLangs() {
-
-		int[] ia = MultiSelectListPreference.defaultunpack2Int(pref.getString("pref_lang_support", null));
-		int num = 0;
-		int i;
-		//calc size of filtered array
-		for (int x=0; x<ia.length; x++) {
-			i = ia[x];
-			if (i >= 0 && i < LangHelper.NLANGS) {
-				num++;
-			}
-		}
-		int[] ian = new int[num];
-		int iansize = 0;
-		for (int x=0; x<ia.length; x++) {
-			i = ia[x];
-			if (i >= 0 && i < LangHelper.NLANGS) {
-				ian[iansize] = i;
-				iansize++;
-			}
-		}
-		mLangsAvailable = ian;
 	}
 
 	@Override
@@ -256,6 +229,9 @@ public class TraditionalT9 extends InputMethodService implements
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
 			hideStatusIcon();
+			if (interfacehandler != null) {
+				interfacehandler.hideView();
+			}
 			return;
 		}
 		mFirstPress = true;
@@ -265,7 +241,7 @@ public class TraditionalT9 extends InputMethodService implements
 		// way.
 		clearState();
 
-		buildLangs();
+		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
 		mLang = sanitizeLang(pref.getInt("last_lang", 0));
 
 		updateCandidates();
@@ -547,11 +523,7 @@ public class TraditionalT9 extends InputMethodService implements
 				// but we will manage it ourselves because native Android handling
 				// of the input view is ... flakey at best.
 				// Log.d("onKeyDown", "back pres");
-				if (isInputViewShown()) {
-					// Log.d("inKeyDown", "input shown");
-					return true;
-				}
-				return false;
+				return isInputViewShown();
 
 			case KeyEvent.KEYCODE_ENTER:
 				// Let the underlying text editor always handle these.
@@ -817,7 +789,7 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("updateShift", "CM start: " + mCapsMode);
 		if (attr != null && mCapsMode != CAPS_ALL) {
 			int caps = 0;
-			if (attr != null && attr.inputType != InputType.TYPE_NULL) {
+			if (attr.inputType != InputType.TYPE_NULL) {
 				caps = getCurrentInputConnection().getCursorCapsMode(attr.inputType);
 			}
 			// mInputView.setShifted(mCapsLock || caps != 0);
@@ -1011,8 +983,8 @@ public class TraditionalT9 extends InputMethodService implements
 			if (mComposing.length() > 0) {
 				mSuggestionStrings.clear();
 				char[] ca = CharMap.T9TABLE[mLang][mPrevious];
-				for (int i = 0; i < ca.length; i++) {
-					mSuggestionStrings.add(String.valueOf(ca[i]));
+				for (char c : ca) {
+					mSuggestionStrings.add(String.valueOf(c));
 				}
 				setSuggestions(mSuggestionStrings, mCharIndex);
 			} else {
@@ -1355,7 +1327,7 @@ public class TraditionalT9 extends InputMethodService implements
 		pickSuggestionManually(-1, ic);
 	}
 
-	public void pickSuggestionManually(int index, InputConnection ic) {
+	private void pickSuggestionManually(int index, InputConnection ic) {
 		// Log.d("pickSuggestMan", "Doing");
 		if (mComposing.length() > 0 || mComposingI.length() > 0) {
 			// If we were generating candidate suggestions for the current

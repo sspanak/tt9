@@ -2,6 +2,8 @@ package org.nyanya.android.traditionalt9;
 
 import java.util.Locale;
 
+import pl.wavesoftware.widget.MultiSelectListPreference;
+
 public class LangHelper {
     protected static final Locale RUSSIAN = new Locale("ru","RU");
     protected static final int EN = 0;
@@ -31,4 +33,24 @@ public class LangHelper {
                     {R.drawable.ime_number}, //NUM
             }
     };
+
+	protected static int[] buildLangs(CharSequence s) {
+		int[] ia = MultiSelectListPreference.defaultunpack2Int(s);
+		int num = 0;
+		//calc size of filtered array
+		for (int i : ia) {
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				num++;
+			}
+		}
+		int[] ian = new int[num];
+		int iansize = 0;
+		for (int i : ia) {
+			if (i >= 0 && i < LangHelper.NLANGS) {
+				ian[iansize] = i;
+				iansize++;
+			}
+		}
+	return ian;
+	}
 }
