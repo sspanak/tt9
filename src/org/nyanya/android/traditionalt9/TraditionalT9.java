@@ -111,8 +111,12 @@ public class TraditionalT9 extends InputMethodService implements
 
 	@Override
 	public boolean onEvaluateInputViewShown() {
+		Log.d("T9.onEvaluateInputViewShown", "whatis");
 		if (mEditing == EDITING_NOSHOW) {
 			return false;
+		}
+		if (interfacehandler != null) {
+			interfacehandler.showView();
 		}
 		return true;
 	}

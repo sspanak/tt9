@@ -131,4 +131,8 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 	protected void hideView() {
 		mainview.setVisibility(View.GONE);
 	}
+
+	protected void showView() {
+		mainview.setVisibility(View.VISIBLE);
+	}
 }
