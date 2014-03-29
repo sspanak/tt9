@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="help_url">https://github.com/Clam-/TraditionalT9/wiki/Traditional-T9-keypad-IME-for-Android</string>
+	<string translatable="false" name="help_url">https://github.com/Clam-/TraditionalT9/wiki/Traditional-T9-keypad-IME-for-Android</string>
 	<string name="app_name">Traditional T9</string>
 	<string name="ime_name">Traditional T9</string>
 	<string name="ime_english">English</string>
@@ -34,13 +34,9 @@
 	<string name="action_settings">Settings</string>
 	<string name="database_notready">Database unavailable.</string>
 
-	<string name="no_keyboard_title">Warning: No keypad/keyboard</string>
-	<string name="no_keyboard">This device does not have a hardware keyboard/keypad, therefore it will not function in any useful way.
-Sorry for the inconvenience.</string>
-
 	<string name="updating_database_title">Updating dictionary database…</string>
 	<string name="updating_database">Updating dictionary database, this might take a while.</string>
-	<string name="updating_database_done">Updating dictionary database complete.</string>
+	<string name="updating_database_done">Completed updating dictionary database.</string>
 	<string name="updating_database_unavailable">Updating dictionary database, word input unavailable at this time.</string>
 
 	<string name="pref_lang_title">Multilingual support…</string>
