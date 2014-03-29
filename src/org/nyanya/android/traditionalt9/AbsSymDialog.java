@@ -15,13 +15,12 @@ import java.util.Arrays;
 public abstract class AbsSymDialog extends Dialog implements
 		View.OnClickListener {
 
-	private KeyboardView.OnKeyboardActionListener parent;
+	protected Context context;
 	private View mainview;
 	private int pagenum = 1;
 	private int pageoffset = (pagenum - 1) * 10;
 
 	private int MAX_PAGE;
-	private String title;
 	private boolean started;
 
 	private static final int[] buttons = {
@@ -37,7 +36,7 @@ public abstract class AbsSymDialog extends Dialog implements
 
 	public AbsSymDialog(Context c, View mv) {
 		super(c);
-		parent = (KeyboardView.OnKeyboardActionListener) c;
+		context = c;
 		mainview = mv;
 		started = true;
 		setContentView(mv);
@@ -52,8 +51,10 @@ public abstract class AbsSymDialog extends Dialog implements
 			button.setOnClickListener(this);
 		}
 		MAX_PAGE = getMaxPage();
-		title = getTitleText();
 	}
+
+	// must return a string array the same size as the length of the button string array.
+	abstract String[] getContentDescription();
 
 	@Override
 	public void onClick(View v) {
@@ -108,7 +109,7 @@ public abstract class AbsSymDialog extends Dialog implements
 		// Log.d("SymbolDialog - sendChar", "Sending index: " + index);
 
 		if (index < getSymbolSize()) {
-			parent.onText(getSymbol(index));
+			((KeyboardView.OnKeyboardActionListener) context).onText(getSymbol(index));
 			// then close
 			pagenum = 1;
 			pageoffset = (pagenum - 1) * 10;
@@ -129,7 +130,8 @@ public abstract class AbsSymDialog extends Dialog implements
 
 	private void updateButtons() {
 		// set page number text
-		setTitle("Insert " + title + "\t\tPage " + pagenum + "/" + MAX_PAGE);
+		setTitle(String.format("%s\t\t%s", getTitleText(),
+				context.getResources().getString(R.string.symbol_page, pagenum, MAX_PAGE)));
 		// update button labels
 		int symbx = pageoffset;
 		int stop = symbx + 9;
@@ -138,14 +140,20 @@ public abstract class AbsSymDialog extends Dialog implements
 		if (nomore >= symsize - 1) {
 			nomore = symsize - 1;
 		}
+		TextView tv;
+		String[] cd = getContentDescription();
+
 		for (int buttx = 0; symbx <= stop; symbx++) {
 			// Log.d("SymbolDialog - updateButtons", "buttx: " + buttx +
 			// " symbx: " + symbx);
 			if (symbx > nomore) {
 				((TextView) mainview.findViewById(buttons[buttx])).setText("");
 			} else {
-				((TextView) mainview.findViewById(buttons[buttx]))
-						.setText(String.valueOf(getSymbol(symbx)));
+				tv = (TextView) mainview.findViewById(buttons[buttx]);
+				tv.setText(String.valueOf(getSymbol(symbx)));
+				if (cd != null) {
+					tv.setContentDescription(cd[symbx]);
+				}
 			}
 			buttx++;
 		}

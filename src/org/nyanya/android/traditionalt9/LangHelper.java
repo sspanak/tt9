@@ -51,6 +51,14 @@ public class LangHelper {
 				iansize++;
 			}
 		}
-	return ian;
+		return ian;
+	}
+
+	protected static int findIndex(int[] ia, int target) {
+		for (int x=0; x<ia.length; x++) {
+			if (ia[x] == target)
+				return x;
+		}
+		return -1;
 	}
 }

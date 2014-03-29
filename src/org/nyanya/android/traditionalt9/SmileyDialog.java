@@ -7,19 +7,23 @@ public class SmileyDialog extends AbsSymDialog {
 
 	private static final String[] symbols = {
 		// lol wiki http://en.wikipedia.org/wiki/List_of_emoticons
-		":-)", ":)", ":o)", ":]", ":3", ":c)", ":>", "=]", "=)", ":}", ":-D", ":D", "8-D",
-		"8D", "X-D", "XD", "=-D", "=D", "B^D", ">:[", ":-(", ":(", ":c", ":-<", ":<", ":-[",
-		":[", ":{", ":'-(", ":'(", ":'-)", ":')", ":@", "D:<", "D:", "D8", "D;", "D=", "DX",
-		"v.v", "D-':", ">:O", ":-O", ":O", ":O", "o_O", "o_0", "o.O", "8-0", ":*", ";-)", ";)",
-		";-]", ";]", ";D", ">:P", ":-P", ":P", "XP", "xp", ":-p", ":p", "=p", ":-b", ":b",
-		">:\\", ">:/", ":-/", ":-.", ":/", ":\\", "=/", "=\\", ":L", "=L", ":S", ">.<", ":|",
-		":-|", ":$", ":-X", ":X", ":-#", ":#", "O:-)", "0:-3", "0:3", "0:-)", "0:)", ">:)",
-		">;)", ">:-)", ">_>", "<_<", "\\o/", "<3", "</3", "=-3", "=3", };
+		":-)", ":o)", ":]", ":3", ":c)", ":>", "=]", "=)", ":}", ":-D",
+		"8-D", "X-D", "=-D", "B^D", "<:-)", ">:-[", ":-(", ":-<", ":o(", ":{",
+		":'-(", ":'-)", ":@", "D:<", "D8", "v.v","D-':", ">:O", ":-O", "o_0",
+		":*", ";-)", ";-D", ">:-P", ":-P", "X-P", "=p", ">:-/", ":-/", ":-.",
+		":S", ">.<", ":-|", ":$", ":-X", ":-#", ":-%", ":С", ":-E", ":-*",
+		"0:-3", "0:-)", ">;-)", ">:-)", ">_>", "*<|:-)", "\\o/", "<3", "</3", "=-3", };
 
 	private static final int MAX_PAGE = (int) Math.ceil(symbols.length / 10.0);
 
 	public SmileyDialog(Context c, View mv) {
 		super(c, mv);
+
+	}
+
+	@Override
+	String[] getContentDescription() {
+		return context.getResources().getStringArray(R.array.smileyContentDescription);
 	}
 
 	@Override
@@ -29,7 +33,7 @@ public class SmileyDialog extends AbsSymDialog {
 
 	@Override
 	protected String getTitleText() {
-		return "Smiley";
+		return context.getString(R.string.smiley_insert);
 	}
 
 	@Override

@@ -112,12 +112,15 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		Log.d("T9.onEvaluateInputViewShown", "whatis");
+		Log.d("T9.onEval", "fullscreen?: " + isFullscreenMode() + " isshow?: " + isInputViewShown() + " isrequestedshow?: " + isShowInputRequested());
+		Log.d("T9.onEval", "noshow?: " + mEditing);
 		if (mEditing == EDITING_NOSHOW) {
 			return false;
 		}
-		if (interfacehandler != null) {
-			interfacehandler.showView();
-		}
+		// TODO: Verify if need this:
+//		if (interfacehandler != null) {
+//			interfacehandler.showView();
+//		}
 		return true;
 	}
 
@@ -196,17 +199,17 @@ public class TraditionalT9 extends InputMethodService implements
 	// sanitize lang and set index for cycling lang
 	// Need to check if last lang is available, if not, set index to -1 and set lang to default to 0
 	private int sanitizeLang(int lang) {
+		mLangIndex = 0;
 		if (mLangsAvailable.length < 1 || lang == -1) {
-			Log.w("T9.sanitizeLang", "This shouldn't happen.");
+			Log.e("T9.sanitizeLang", "This shouldn't happen.");
 			return 0;
 		}
 		if (lang >= LangHelper.NLANGS) {
 			Log.w("T9.sanitizeLang", "Previous lang not supported: " + lang + " langs: " + Arrays.toString(LangHelper.LANGS));
 			return mLangsAvailable[0];
 		} else {
-			int index = Arrays.asList(mLangsAvailable).indexOf(lang);
+			int index = LangHelper.findIndex(mLangsAvailable, lang);
 			if (index == -1) {
-				mLangIndex = 0;
 				return mLangsAvailable[mLangIndex];
 			} else {
 				mLangIndex = index;
@@ -223,9 +226,9 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		super.onStartInput(attribute, restarting);
-//		Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
-//			" restarting? " + restarting);
-		//Utils.printFlags(attribute.inputType);
+		Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
+			" restarting? " + restarting);
+		Utils.printFlags(attribute.inputType);
 
 		if (attribute.inputType == 0) {
 			// don't do anything when not in any kind of edit field.
@@ -233,9 +236,10 @@ public class TraditionalT9 extends InputMethodService implements
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
 			hideStatusIcon();
-			if (interfacehandler != null) {
-				interfacehandler.hideView();
-			}
+			// TODO: verify if need this
+//			if (interfacehandler != null) {
+//				interfacehandler.hideView();
+//			}
 			return;
 		}
 		mFirstPress = true;
@@ -248,6 +252,7 @@ public class TraditionalT9 extends InputMethodService implements
 		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
 		mLang = sanitizeLang(pref.getInt("last_lang", 0));
 
+		Log.d("onStartInput", "lang: " + mLang);
 		updateCandidates();
 
 		//TODO: Check if "restarting" variable will make things faster/more effecient
@@ -305,11 +310,12 @@ public class TraditionalT9 extends InputMethodService implements
 					mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
 				}
 
+				// TODO: Do we need the following:
 				// handle filter list cases... do not hijack DPAD center and make
 				// sure back's go through proper
-				if ((attribute.inputType & InputType.TYPE_TEXT_VARIATION_FILTER) != 0) {
-					mEditing = EDITING_NOSHOW;
-				}
+				//if (variation ==  InputType.TYPE_TEXT_VARIATION_FILTER) {
+				//	mEditing = EDITING_NOSHOW;
+				//}
 
 				// We also want to look at the current state of the editor
 				// to decide whether our alphabetic keyboard should start out
@@ -372,6 +378,7 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("onFinishInput", "When is this called?");
 		Editor prefedit = pref.edit();
 		prefedit.putInt("last_lang", mLang);
+		Log.d("onFinishInput", "last_lang: " + mLang);
 		prefedit.commit();
 		if (mEditing == EDITING) {
 			commitTyped();
@@ -757,6 +764,9 @@ public class TraditionalT9 extends InputMethodService implements
 				// Log.d("onKeyUp", "showing window.");
 				// //showWindow(true);
 				// }
+				if (! isInputViewShown ()) {
+					showWindow (true);
+				}
 				onKey(keyCode, null);
 				return true;
 			default:
@@ -1200,9 +1210,11 @@ public class TraditionalT9 extends InputMethodService implements
 					switch (keyCode) {
 						case KeyEvent.KEYCODE_DPAD_DOWN:
 							mCandidateView.scrollSuggestion(1);
+							getCurrentInputConnection().setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 							return true;
 						case KeyEvent.KEYCODE_DPAD_UP:
 							mCandidateView.scrollSuggestion(-1);
+							getCurrentInputConnection().setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 							return true;
 						case KeyEvent.KEYCODE_DPAD_LEFT:
 						case KeyEvent.KEYCODE_DPAD_RIGHT:

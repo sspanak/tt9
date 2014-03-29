@@ -10,6 +10,7 @@
 		android:dialogTitle="@string/pref_inputmode"
 		android:entries="@array/pref_inputmode_entries"
 		android:entryValues="@array/pref_inputmode_values"
+		android:persistent="true"
 		android:defaultValue="0" android:summary="@string/pref_inputmode_desc"/>
 	<pl.wavesoftware.widget.MultiSelectListPreference
 		android:defaultValue="@array/pref_lang_defaults"

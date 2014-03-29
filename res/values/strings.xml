@@ -18,6 +18,10 @@
 	<string name="ricon_desc">Hold Icon</string>
 	<string name="symbol_next">Next Page</string>
 	<string name="symbol_prev">Prev Page</string>
+	<string name="symbol_insert">Insert Symbol</string>
+	<string name="smiley_insert">Insert Smiley</string>
+	<string name="symbol_page">Page: %1$s/%2$s</string>
+
 	<string name="add_word">Add word</string>
 	<string name="ok">OK</string>
 	<string name="close">Close</string>
