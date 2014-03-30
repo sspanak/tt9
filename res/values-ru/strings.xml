@@ -55,6 +55,16 @@
 	<string name="smiley_insert">Вставить смайл</string>
 	<string name="symbol_page">Стр: %1$s/%2$s</string>
 
+	<string name="close">Закрыть</string>
+	<string name="database_notready">База данных недоступна.</string>
+	<string name="updating_database_title">Обновление базы данных словаря…</string>
+	<string name="updating_database"> Выполняется обновление базы данных словаря… \n Это может занять некоторое время.</string>
+	<string name="updating_database_done">Обновление базы данных словаря выполнено успешно.</string>
+	<string name="updating_database_unavailable">Обновление базы данных словаря недоступно.</string>
+	<string name="pref_loaduser_notfound"> Ошибка. \n Словарь %1$s не найден. </string>
+	<string name="pref_mode_notify_subtitle">Используется для озвучивания изменения режима ввода.</string>
+	<string name="pref_mode_notify">Режим уведомления</string>
+
     <string name="title_activity_add_word">Добавить слово</string>
     <string name="traditionalt9_settings">Traditional T9 настройки</string>
 
