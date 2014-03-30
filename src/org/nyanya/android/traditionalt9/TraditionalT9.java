@@ -320,12 +320,11 @@ public class TraditionalT9 extends InputMethodService implements
 					mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
 				}
 
-				// TODO: Do we need the following:
 				// handle filter list cases... do not hijack DPAD center and make
 				// sure back's go through proper
-				//if (variation ==  InputType.TYPE_TEXT_VARIATION_FILTER) {
-				//	mEditing = EDITING_NOSHOW;
-				//}
+				if (variation ==  InputType.TYPE_TEXT_VARIATION_FILTER) {
+					mEditing = EDITING_NOSHOW;
+				}
 
 				// We also want to look at the current state of the editor
 				// to decide whether our alphabetic keyboard should start out
