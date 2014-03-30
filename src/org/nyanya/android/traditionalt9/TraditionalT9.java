@@ -115,7 +115,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 	@Override
 	public boolean onEvaluateInputViewShown() {
-		Log.d("T9.onEvaluateInputViewShown", "whatis");
+		//Log.d("T9.onEvaluateInputViewShown", "whatis");
 		//Log.d("T9.onEval", "fullscreen?: " + isFullscreenMode() + " isshow?: " + isInputViewShown() + " isrequestedshow?: " + isShowInputRequested());
 		if (mEditing == EDITING_NOSHOW) {
 			return false;
@@ -255,7 +255,6 @@ public class TraditionalT9 extends InputMethodService implements
 		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
 		mLang = sanitizeLang(pref.getInt("last_lang", 0));
 
-		Log.d("onStartInput", "lang: " + mLang);
 		updateCandidates();
 
 		//TODO: Check if "restarting" variable will make things faster/more effecient
@@ -396,7 +395,6 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("onFinishInput", "When is this called?");
 		Editor prefedit = pref.edit();
 		prefedit.putInt("last_lang", mLang);
-		Log.d("onFinishInput", "last_lang: " + mLang);
 		prefedit.commit();
 		if (mEditing == EDITING) {
 			commitTyped();
@@ -564,6 +562,7 @@ public class TraditionalT9 extends InputMethodService implements
 				if (interfacehandler != null) {
 					interfacehandler.setPressed(keyCode, true);
 				}
+			case KeyEvent.KEYCODE_FOCUS:
 				// pass-through
 			case KeyEvent.KEYCODE_0:
 			case KeyEvent.KEYCODE_1:
@@ -627,7 +626,10 @@ public class TraditionalT9 extends InputMethodService implements
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_POUND:
 				commitReset();
-				onText("\n");
+				// do default action or insert new line
+				if (!sendDefaultEditorAction(true)) {
+					onText("\n");
+				}
 				return true;
 			case KeyEvent.KEYCODE_STAR:
 				if (mKeyMode != MODE_NUM) {
@@ -778,6 +780,7 @@ public class TraditionalT9 extends InputMethodService implements
 			case KeyEvent.KEYCODE_9:
 			case KeyEvent.KEYCODE_POUND:
 			case KeyEvent.KEYCODE_STAR:
+			case KeyEvent.KEYCODE_FOCUS:
 				// if (!isInputViewShown()){
 				// Log.d("onKeyUp", "showing window.");
 				// //showWindow(true);
@@ -890,6 +893,10 @@ public class TraditionalT9 extends InputMethodService implements
 				break;
 			case KeyEvent.KEYCODE_SOFT_RIGHT:
 				nextKeyMode();
+				break;
+			case KeyEvent.KEYCODE_FOCUS:
+				// do IME action
+
 				break;
 			default:
 				if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
