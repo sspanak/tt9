@@ -23,6 +23,17 @@
 		<item >1</item>
 	</string-array>
 
+	<string-array name="capsMode">
+		<item>Caps off</item>
+		<item>Single capital</item>
+		<item>All caps</item>
+	</string-array>
+
+	<string-array name="keyMode">
+		<item>Dictionary</item>
+		<item>Text</item>
+		<item>Number</item>
+	</string-array>
 
 	<string-array name="smileyContentDescription">
 		<item> Smile </item>

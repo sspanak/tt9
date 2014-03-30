@@ -19,6 +19,13 @@
 		android:key="pref_lang_support"
 		android:persistent="true"
 		android:title="@string/pref_lang_title" />
+	<CheckBoxPreference
+		android:key="pref_mode_notify"
+		android:title="@string/pref_mode_notify"
+		android:summary="@string/pref_mode_notify_subtitle"
+		android:persistent="true"
+		android:defaultValue="false"
+		/>
 	<Preference android:title="@string/pref_loaddict" android:key="loaddict"/>
 	<Preference android:title="@string/pref_loaduserdict" android:summary="@string/pref_loaduserdictdesc" android:key="loaduserdict"/>
 	<Preference android:title="@string/pref_nukedict" android:key="nukedict"/>

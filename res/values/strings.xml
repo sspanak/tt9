@@ -50,6 +50,9 @@
 	<string name="pref_querytest">Query test</string>
 	<string name="pref_testfunc">Test func</string>
 
+	<string name="pref_mode_notify">Mode notifications</string>
+	<string name="pref_mode_notify_subtitle">Used for vocalization of mode changes</string>
+
 	<string name="pref_loadingdict">Loading dictionary…</string>
 	<string name="pref_loadinguserdict">Loading user dictionary…</string>
 	<string name="pref_load_title">Load IME dictionary</string>

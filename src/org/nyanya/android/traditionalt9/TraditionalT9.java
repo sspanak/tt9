@@ -8,6 +8,7 @@ import java.util.List;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
@@ -89,6 +90,9 @@ public class TraditionalT9 extends InputMethodService implements
 	private int mKeyMode;
 
 	private SharedPreferences pref;
+
+	private Toast modeNotification = null;
+
 	/**
 	 * Main initialization of the input method component. Be sure to call to
 	 * super class.
@@ -112,8 +116,7 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		Log.d("T9.onEvaluateInputViewShown", "whatis");
-		Log.d("T9.onEval", "fullscreen?: " + isFullscreenMode() + " isshow?: " + isInputViewShown() + " isrequestedshow?: " + isShowInputRequested());
-		Log.d("T9.onEval", "noshow?: " + mEditing);
+		//Log.d("T9.onEval", "fullscreen?: " + isFullscreenMode() + " isshow?: " + isInputViewShown() + " isrequestedshow?: " + isShowInputRequested());
 		if (mEditing == EDITING_NOSHOW) {
 			return false;
 		}
@@ -226,9 +229,9 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		super.onStartInput(attribute, restarting);
-		Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
-			" restarting? " + restarting);
-		Utils.printFlags(attribute.inputType);
+		//Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
+		//	" restarting? " + restarting);
+		//Utils.printFlags(attribute.inputType);
 
 		if (attribute.inputType == 0) {
 			// don't do anything when not in any kind of edit field.
@@ -258,6 +261,13 @@ public class TraditionalT9 extends InputMethodService implements
 		//TODO: Check if "restarting" variable will make things faster/more effecient
 
 		mKeyMode = MODE_TEXT;
+
+		boolean modenotify = pref.getBoolean("pref_mode_notify", false);
+		if (!modenotify && modeNotification != null) {
+			modeNotification = null;
+		} else if (modenotify && modeNotification == null){
+			modeNotification = Toast.makeText(this, "", Toast.LENGTH_SHORT);
+		}
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
@@ -349,6 +359,15 @@ public class TraditionalT9 extends InputMethodService implements
 				Editor prefedit = pref.edit();
 				prefedit.remove("last_word");
 				prefedit.commit();
+			}
+			if (modenotify) {
+				Resources r = getResources();
+				if (mKeyMode != MODE_NUM)
+					modeNotify(String.format("%s %s %s", r.getStringArray(R.array.pref_lang_titles)[mLang],
+							r.getStringArray(R.array.keyMode)[mKeyMode], r.getStringArray(R.array.capsMode)[mCapsMode]));
+				else
+					modeNotify(String.format("%s %s", r.getStringArray(R.array.pref_lang_titles)[mLang],
+							r.getStringArray(R.array.keyMode)[mKeyMode]));
 			}
 		}
 
@@ -1076,6 +1095,8 @@ public class TraditionalT9 extends InputMethodService implements
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		}
 		updateKeyMode();
+		if (modeNotification != null)
+			modeNotify(getResources().getStringArray(R.array.capsMode)[mCapsMode]);
 	}
 
 	/**
@@ -1273,6 +1294,15 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		updateKeyMode();
 		resetKeyMode();
+		if (modeNotification != null)
+			modeNotify(getResources().getStringArray(R.array.keyMode)[mKeyMode]);
+	}
+
+	private void modeNotify(String s) {
+		modeNotification.setText(s);
+		modeNotification.show();
+		modeNotification.cancel(); 	// TODO: This will not always hide the Toast.
+									// will probably need to implement custom view
 	}
 
 	private void nextLang() {
@@ -1282,6 +1312,9 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		mLang = mLangsAvailable[mLangIndex];
 		updateKeyMode();
+		if (modeNotification != null) {
+			modeNotify(getResources().getStringArray(R.array.pref_lang_titles)[mLang]);
+		}
 	}
 
 	private void resetKeyMode() {
