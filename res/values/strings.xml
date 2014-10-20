@@ -3,7 +3,6 @@
 	<string translatable="false" name="help_url">https://github.com/Clam-/TraditionalT9/wiki/Traditional-T9-keypad-IME-for-Android</string>
 	<string name="app_name">Traditional T9</string>
 	<string name="ime_name">Traditional T9</string>
-	<string name="ime_english">English</string>
 	<string name="ime_number">Numbers</string>
 	<string name="pref_inputmode">Default Input Mode</string>
 	<string name="pref_inputmode_desc">Default mode used for \'normal\' text entry</string>
@@ -26,7 +25,7 @@
 	<string name="ok">OK</string>
 	<string name="close">Close</string>
 	<string name="add_word_blank">Blank word not added.</string>
-	<string name="add_word_badchar">Cannot add word with unmappable symbol for %1$s.</string>
+	<string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
 	<string name="add_word_exist1">Word (%1$s) already in DB.</string>
 	<string name="add_word_exist2">Word (%1$s) already in DB for %2$s.</string>
 	<string name="cancel">Cancel</string>
@@ -43,7 +42,7 @@
 	<string name="pref_help">"Show help</string>
 	<string name="pref_loaddict">Load dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
-	<string name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru)</string>
+	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de)</string>
 	<string name="pref_nukedict">Nuke dictionary</string>
 	<string name="pref_backupdict">Backup dictionary</string>
 	<string name="pref_restoredict">Restore dictionary</string>

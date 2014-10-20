@@ -5,21 +5,11 @@
         <item>Текст</item>
         <item>Цифры</item>
     </string-array>
-    <string-array name="pref_inputmode_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="pref_lang_defaults">
-        <item>0</item>
-    </string-array>
+
     <string-array name="pref_lang_titles">
         <item>English</item>
         <item>Русский</item>
-    </string-array>
-    <string-array name="pref_lang_values">
-        <item>0</item>
-        <item>1</item>
+		<item>Немецкий</item>
     </string-array>
 
 	<string-array name="capsMode">

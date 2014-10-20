@@ -562,8 +562,7 @@ public class TraditionalT9 extends InputMethodService implements
 				if (interfacehandler != null) {
 					interfacehandler.setPressed(keyCode, true);
 				}
-			case KeyEvent.KEYCODE_FOCUS:
-				// pass-through
+			// pass-through
 			case KeyEvent.KEYCODE_0:
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
@@ -767,7 +766,7 @@ public class TraditionalT9 extends InputMethodService implements
 				if (interfacehandler != null) {
 					interfacehandler.setPressed(keyCode, false);
 				}
-				// pass-through
+			// pass-through
 			case KeyEvent.KEYCODE_0:
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
@@ -780,7 +779,7 @@ public class TraditionalT9 extends InputMethodService implements
 			case KeyEvent.KEYCODE_9:
 			case KeyEvent.KEYCODE_POUND:
 			case KeyEvent.KEYCODE_STAR:
-			case KeyEvent.KEYCODE_FOCUS:
+			//case KeyEvent.KEYCODE_FOCUS:
 				// if (!isInputViewShown()){
 				// Log.d("onKeyUp", "showing window.");
 				// //showWindow(true);

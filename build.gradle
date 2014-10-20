@@ -3,7 +3,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:0.9.0'
+		classpath 'com.android.tools.build:gradle:0.13.2'
 	}
 }
 apply plugin: 'android'
@@ -65,6 +65,7 @@ def saveProps(Properties props) {
 	props.store(new FileOutputStream(new File("t9build.properties")), null)
 }
 
+// -PincrementBuildNumber assembleRelease
 def computeVersionNumber = { ->
 	Properties props = getProps()
 	int verNum = Integer.valueOf(props.getProperty("verNum", "0"))
@@ -77,8 +78,8 @@ def computeVersionNumber = { ->
 }
 
 android {
-	compileSdkVersion 10
-	buildToolsVersion "19.0.0"
+	compileSdkVersion 8
+	buildToolsVersion "19.1"
 
 	sourceSets {
 		main {
@@ -128,14 +129,13 @@ android {
 }
 
 task getDictSizes {
-	inputs.files 'assets/en-utf8.txt', 'assets/ru-utf8.txt'
+	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "t9build.properties"
 	doLast {
 		ant.echo("Calculating dict size...")
 
-		FileCollection dicts = files("assets/en-utf8.txt", "assets/ru-utf8.txt")
-
-		dicts.each {File file ->
+		inputs.getFiles().each {File file ->
+			ant.echo("dict: "+ file.name)
 			ant.propertyfile(file:"assets/dict.properties") {
 				entry(key: "size."+ file.name, value: file.length())
 			}

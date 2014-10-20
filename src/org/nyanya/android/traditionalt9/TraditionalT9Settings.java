@@ -327,6 +327,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
 			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
 
+			// load CHARTABLE and then load T9table, just to cover all bases.
 			for (Map.Entry<Character, Integer> entry : CharMap.CHARTABLE.get(lang).entrySet()) {
 				wordhelp.prepareForReplace();
 				wordhelp.bind(langColumn, Integer.toString(lang));
@@ -334,6 +335,25 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 				wordhelp.bind(wordColumn, Character.toString(entry.getKey()));
 				wordhelp.bind(freqColumn, 0);
 				wordhelp.execute();
+				// upper case
+				wordhelp.prepareForReplace();
+				wordhelp.bind(langColumn, Integer.toString(lang));
+				wordhelp.bind(seqColumn, Integer.toString(entry.getValue()));
+				wordhelp.bind(wordColumn, Character.toString(Character.toUpperCase(entry.getKey())));
+				wordhelp.bind(freqColumn, 0);
+				wordhelp.execute();
+			}
+			char[][] chartable = CharMap.T9TABLE[lang];
+			for (int numkey=0; numkey<chartable.length; numkey++) {
+				char[] chars = chartable[numkey];
+				for (int charindex=0; charindex<chars.length; charindex++) {
+					wordhelp.prepareForReplace();
+					wordhelp.bind(langColumn, Integer.toString(lang));
+					wordhelp.bind(seqColumn, Integer.toString(numkey));
+					wordhelp.bind(wordColumn, Character.toString(chars[charindex]));
+					wordhelp.bind(freqColumn, 0);
+					wordhelp.execute();
+				}
 			}
 		}
 
@@ -425,7 +445,7 @@ public class TraditionalT9Settings extends PreferenceActivity implements
 						rpl.status = false;
 						rpl.addMsg("Error on word ("+word+") line "+
 								linecount+" in (" +	fname+"): "+
-								getResources().getString(R.string.add_word_badchar, LangHelper.LANGS[lang]));
+								getResources().getString(R.string.add_word_badchar, LangHelper.LANGS[lang], word));
 						break;
 					}
 					linecount++;

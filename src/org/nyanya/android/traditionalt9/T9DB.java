@@ -154,7 +154,7 @@ public class T9DB {
 		try {
 			seq = CharMap.getStringSequence(iword, lang);
 		} catch (NullPointerException e) {
-			throw new DBException(r.getString(R.string.add_word_badchar, LangHelper.LANGS[lang]));
+			throw new DBException(r.getString(R.string.add_word_badchar, LangHelper.LANGS[lang], iword));
 		}
 		// add int sequence into num table
 		ContentValues values = new ContentValues();
@@ -211,22 +211,24 @@ public class T9DB {
 			return result;
 		} else {
 			int islen = is.length();
-			char c = is.charAt(islen - 1);
-			c++;
-			q = "SELECT " + COLUMN_WORD + " FROM " + WORD_TABLE_NAME +
-					" WHERE " + COLUMN_LANG + "=? AND " + COLUMN_SEQ + " >= '" + is + "1" +
-					"' AND " + COLUMN_SEQ + " < '" + is.substring(0, islen - 1) + c + "'" +
-					" ORDER BY " + COLUMN_FREQUENCY	+ " DESC, " + COLUMN_SEQ + " ASC" +
-					" LIMIT " + (MAX_RESULTS - hits);
-			cur = db.rawQuery(q, new String[] { String.valueOf(lang) });
+			if (islen >= 2) {
+				char c = is.charAt(islen - 1);
+				c++;
+				q = "SELECT " + COLUMN_WORD + " FROM " + WORD_TABLE_NAME +
+						" WHERE " + COLUMN_LANG + "=? AND " + COLUMN_SEQ + " >= '" + is + "1" +
+						"' AND " + COLUMN_SEQ + " < '" + is.substring(0, islen - 1) + c + "'" +
+						" ORDER BY " + COLUMN_FREQUENCY + " DESC, " + COLUMN_SEQ + " ASC" +
+						" LIMIT " + (MAX_RESULTS - hits);
+				cur = db.rawQuery(q, new String[]{String.valueOf(lang)});
 
-			if (cur.moveToFirst()) {
-				result = cur.getString(0);
+				if (cur.moveToFirst()) {
+					result = cur.getString(0);
+				}
+				if (result == null) {
+					result = "";
+				}
+				cur.close();
 			}
-			if (result == null) {
-				result = "";
-			}
-			cur.close();
 		}
 		return result;
 	}
@@ -256,7 +258,7 @@ public class T9DB {
 		}
 		cur.close();
 
-		if (hits < MINHITS) {
+		if ((hits < MINHITS) && (islen <= 2)) {
 			char c = is.charAt(islen - 1);
 			c++;
 			String q = "SELECT " + COLUMN_ID + ", " + COLUMN_WORD +
