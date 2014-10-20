@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Traditional T9</string>
+	<string name="ime_name">Traditional T9</string>
+	<string name="ime_number">Zahlen</string>
+	<string name="pref_inputmode">Standard Eingabemodus</string>
+	<string name="pref_inputmode_desc">Standardmodus für \'normale\' Texteingabe</string>
+	<string name="traditionalt9_settings">Traditional T9 Einstellungen</string>
+	<string name="main_left_insert">Symbole</string>
+	<string name="main_left_addword">Wort hinzu</string>
+	<string name="main_mid">Fertig</string>
+	<string name="main_mid_commit">Eingabe</string>
+	<string name="main_right_upper">Modus</string>
+	<string name="main_right_lower">Optionen</string>
+	<string name="main_left_notfound">Wort hinzu?</string>
+	<string name="ricon_desc">Halten Icon</string>
+	<string name="symbol_next">Weiter</string>
+	<string name="symbol_prev">Zurück</string>
+	<string name="symbol_insert">Symbol einfügen</string>
+	<string name="smiley_insert">Smiley einfügen</string>
+	<string name="symbol_page">Seite: %1$s/%2$s</string>
+
+	<string name="add_word">Wort hinzufügen</string>
+	<string name="ok">OK</string>
+	<string name="close">Schließen</string>
+	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
+	<string name="add_word_badchar">Wort mit nicht zuordbarem Buchstaben für %1$s (%2$s) kann nicht hinzugefügt werden.</string>
+	<string name="add_word_exist1">Das Wort (%1$s) ist bereits in der DB.</string>
+	<string name="add_word_exist2">Das Wort (%1$s) ist bereits für %2$s in der DB.</string>
+	<string name="cancel">Abbrechen</string>
+	<string name="title_activity_add_word">Wort hinzufügen</string>
+	<string name="action_settings">Einstellungen</string>
+	<string name="database_notready">Datenbank nicht verfügbar.</string>
+
+	<string name="updating_database_title">Wörterbuch-Datenbank wird aktualisiert…</string>
+	<string name="updating_database">Aktualisiere Wörterbuch-Datenbank. Das könnte einen Moment dauern.</string>
+	<string name="updating_database_done">Aktualisierung der Wörterbuch-Datenbank abgeschlossen.</string>
+	<string name="updating_database_unavailable">Wörterbuch-Datenbank wird aktualisiert. Worteingabe momentan nicht verfügbar.</string>
+
+	<string name="pref_lang_title">Sprachen…</string>
+	<string name="pref_help">"Hilfe anzeigen</string>
+	<string name="pref_loaddict">Wörterbuch laden</string>
+	<string name="pref_loaduserdict">Benutzerwörterbuch laden</string>
+	<string name="pref_nukedict">Wörterbuch löschen</string>
+	<string name="pref_backupdict">Wörterbuch sichern</string>
+	<string name="pref_restoredict">Wörterbuch wiederherstellen</string>
+	<string name="pref_querytest">Query test</string>
+	<string name="pref_testfunc">Test func</string>
+
+	<string name="pref_mode_notify">Modus-Benachrichtigungen</string>
+	<string name="pref_mode_notify_subtitle">Genutzt für die Vokalisierung von Modusänderungen</string>
+
+	<string name="pref_loadingdict">Lade Wörterbuch…</string>
+	<string name="pref_loadinguserdict">Lade Benutzerwörterbuch…</string>
+	<string name="pref_load_title">IME-Wörterbuch laden</string>
+	<string name="pref_loadingbackup">Stelle Wörterbuch wiederher…</string>
+	<string name="pref_savingbackup">Sichere Wörterbuch…</string>
+	<string name="pref_nukingdict">Lösche Wörterbuch… Bitte warten…</string>
+	<string name="pref_loaduser_notfound">Wörterbuch für %1$s nicht gefunden. Wird nicht geladen.</string>
+
+	<string name="pref_backup_warn">Warnung: Es existiert bereits ein Datenbank-Backup. Soll es überschrieben werden?</string>
+	<string name="pref_backup_title">IME-Datenbank sichern</string>
+	<string name="pref_backup_noext">Fehler: Für das Backup ist kein externer Speicher verfügbar. Sicherung kann nicht fortfahren.</string>
+	<string name="pref_restore_warn">Einträge aus der Sicherungsdatenbank werden existierende Datenbankeinträge überschreiben. Einträge, die nicht in der Sicherung sind, bleiben erhalten. Falls dies nicht gewünscht ist, bitte \"%1$s\" wählen, bevor diese Option gewählt wird.</string>
+	<string name="pref_restore_title">IME-Datenbank wiederherstellen</string>
+	<string name="pref_restore_noext">Fehler: Für die Wiederherstellung ist kein externer Speicher verfügbar. Wiederherstellung kann nicht fortfahren.</string>
+	<string name="pref_restore_nofile">Fehler: Sicherungsdatei nicht gefunden.</string>
+	<string name="pref_nuke_warn">Warnung: Dies wird das gesamte Wörterbuch löschen. Fortfahren?</string>
+	<string name="pref_nuke_title">IME-Wörterbuch löschen</string>
+
+	<string name="hello_world">Hallo Welt!</string>
+
+</resources>

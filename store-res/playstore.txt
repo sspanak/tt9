@@ -1,0 +1,22 @@
+Title 
+Traditional T9 Keypad IME
+
+
+Description 
+T9 predictive text input method using your hardware keypad. This is not a software/on screen keyboard.
+Only makes sense to install this on a device with a hardware keypad.
+Input is only available via the numeric keypad.
+See website for help and support.
+
+Multilingual support (English and Russian)
+
+
+Promo text
+T9 predictive text input using your phone keypad! (English, Russian)
+
+
+Recent changes
+Multilingual support (English, Russian)
+Other fixes.
+
+See github for commit history and other history info.
