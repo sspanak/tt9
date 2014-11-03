@@ -6,13 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,7 +20,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
-import pl.wavesoftware.widget.MultiSelectListPreference;
+import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
+import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
 
 public class TraditionalT9 extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener {
@@ -62,10 +60,10 @@ public class TraditionalT9 extends InputMethodService implements
 	private String mPreviousWord = "";
 
 	private int mCapsMode;
-	private int mLang;
+	private LANGUAGE mLang;
 	private int mLangIndex;
 
-	private int[] mLangsAvailable = null;
+	private LANGUAGE[] mLangsAvailable = null;
 
 	private static final int CAPS_OFF = 0;
 	private static final int CAPS_SINGLE = 1;
@@ -89,8 +87,6 @@ public class TraditionalT9 extends InputMethodService implements
 	private static final int[] MODE_CYCLE = { MODE_LANG, MODE_TEXT, MODE_NUM };
 	private int mKeyMode;
 
-	private SharedPreferences pref;
-
 	private Toast modeNotification = null;
 
 	/**
@@ -103,9 +99,6 @@ public class TraditionalT9 extends InputMethodService implements
 		mPrevious = -1;
 		mCharIndex = 0;
 		db = T9DB.getInstance(this);
-
-		pref = PreferenceManager.getDefaultSharedPreferences(this);
-		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
 
 		if (interfacehandler == null) {
 			interfacehandler = new InterfaceHandler(getLayoutInflater().inflate(R.layout.mainview,
@@ -187,7 +180,7 @@ public class TraditionalT9 extends InputMethodService implements
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 			awintent.putExtra("org.nyanya.android.traditionalt9.word", mComposing.toString());
-			awintent.putExtra("org.nyanya.android.traditionalt9.lang", mLang);
+			awintent.putExtra("org.nyanya.android.traditionalt9.lang", mLang.id);
 			clearState();
 			InputConnection ic = getCurrentInputConnection();
 			ic.setComposingText("", 0);
@@ -201,23 +194,16 @@ public class TraditionalT9 extends InputMethodService implements
 
 	// sanitize lang and set index for cycling lang
 	// Need to check if last lang is available, if not, set index to -1 and set lang to default to 0
-	private int sanitizeLang(int lang) {
+	private LANGUAGE sanitizeLang(LANGUAGE lang) {
 		mLangIndex = 0;
-		if (mLangsAvailable.length < 1 || lang == -1) {
+		if (mLangsAvailable.length < 1 || lang == LANGUAGE.NONE) {
 			Log.e("T9.sanitizeLang", "This shouldn't happen.");
-			return 0;
-		}
-		if (lang >= LangHelper.NLANGS) {
-			Log.w("T9.sanitizeLang", "Previous lang not supported: " + lang + " langs: " + Arrays.toString(LangHelper.LANGS));
 			return mLangsAvailable[0];
-		} else {
+		}
+		else {
 			int index = LangHelper.findIndex(mLangsAvailable, lang);
-			if (index == -1) {
-				return mLangsAvailable[mLangIndex];
-			} else {
-				mLangIndex = index;
-				return lang;
-			}
+			mLangIndex = index;
+			return mLangsAvailable[index];
 		}
 	}
 	/**
@@ -252,8 +238,15 @@ public class TraditionalT9 extends InputMethodService implements
 		// way.
 		clearState();
 
-		mLangsAvailable = LangHelper.buildLangs(pref.getString("pref_lang_support", null));
-		mLang = sanitizeLang(pref.getInt("last_lang", 0));
+		// get settings
+		Object[] settings = db.getSettings(new SETTING[]
+				// 0, 1, 2,
+				{SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
+					// 3, 4
+					SETTING.INPUT_MODE, SETTING.LAST_WORD} );
+
+		mLangsAvailable = LangHelper.buildLangs((Integer)settings[0]);
+		mLang = sanitizeLang(LANGUAGE.get((Integer)settings[1]));
 
 		updateCandidates();
 
@@ -261,7 +254,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 		mKeyMode = MODE_TEXT;
 
-		boolean modenotify = pref.getBoolean("pref_mode_notify", false);
+		boolean modenotify = settings[2].equals("1");
 		if (!modenotify && modeNotification != null) {
 			modeNotification = null;
 		} else if (modenotify && modeNotification == null){
@@ -289,7 +282,7 @@ public class TraditionalT9 extends InputMethodService implements
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
-				mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
+				mKeyMode = (Integer)settings[3];
 
 				// We now look for a few special variations of text that will
 				// modify our behavior.
@@ -316,7 +309,7 @@ public class TraditionalT9 extends InputMethodService implements
 					// candidates when in fullscreen mode, otherwise relying
 					// own it displaying its own UI.
 					// ????
-					mKeyMode = Integer.parseInt(pref.getString("pref_inputmode", "0"));
+					mKeyMode = (Integer)settings[3];
 				}
 
 				// handle filter list cases... do not hijack DPAD center and make
@@ -351,20 +344,18 @@ public class TraditionalT9 extends InputMethodService implements
 		} else {
 			mAddingWord = false;
 			// Log.d("onStartInput", "not adding word");
-			prevword = pref.getString("last_word", null);
+			prevword = (String)settings[4];
 			if (prevword != null) {
 				onText(prevword);
-				Editor prefedit = pref.edit();
-				prefedit.remove("last_word");
-				prefedit.commit();
+				db.storeSettingString(SETTING.LAST_WORD, null);
 			}
 			if (modenotify) {
 				Resources r = getResources();
 				if (mKeyMode != MODE_NUM)
-					modeNotify(String.format("%s %s %s", r.getStringArray(R.array.pref_lang_titles)[mLang],
+					modeNotify(String.format("%s %s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
 							r.getStringArray(R.array.keyMode)[mKeyMode], r.getStringArray(R.array.capsMode)[mCapsMode]));
 				else
-					modeNotify(String.format("%s %s", r.getStringArray(R.array.pref_lang_titles)[mLang],
+					modeNotify(String.format("%s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
 							r.getStringArray(R.array.keyMode)[mKeyMode]));
 			}
 		}
@@ -393,9 +384,7 @@ public class TraditionalT9 extends InputMethodService implements
 	public void onFinishInput() {
 		super.onFinishInput();
 		// Log.d("onFinishInput", "When is this called?");
-		Editor prefedit = pref.edit();
-		prefedit.putInt("last_lang", mLang);
-		prefedit.commit();
+		db.storeSettingInt(SETTING.LAST_LANG, mLang.id);
 		if (mEditing == EDITING) {
 			commitTyped();
 			finish();
@@ -575,6 +564,7 @@ public class TraditionalT9 extends InputMethodService implements
 			case KeyEvent.KEYCODE_9:
 			case KeyEvent.KEYCODE_POUND:
 			case KeyEvent.KEYCODE_STAR:
+			case 94:
 				event.startTracking();
 				return true;
 			default:
@@ -779,6 +769,7 @@ public class TraditionalT9 extends InputMethodService implements
 			case KeyEvent.KEYCODE_9:
 			case KeyEvent.KEYCODE_POUND:
 			case KeyEvent.KEYCODE_STAR:
+			case 94:
 			//case KeyEvent.KEYCODE_FOCUS:
 				// if (!isInputViewShown()){
 				// Log.d("onKeyUp", "showing window.");
@@ -892,10 +883,6 @@ public class TraditionalT9 extends InputMethodService implements
 				break;
 			case KeyEvent.KEYCODE_SOFT_RIGHT:
 				nextKeyMode();
-				break;
-			case KeyEvent.KEYCODE_FOCUS:
-				// do IME action
-
 				break;
 			default:
 				if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
@@ -1020,7 +1007,8 @@ public class TraditionalT9 extends InputMethodService implements
 		} else if (mKeyMode == MODE_TEXT) {
 			if (mComposing.length() > 0) {
 				mSuggestionStrings.clear();
-				char[] ca = CharMap.T9TABLE[mLang][mPrevious];
+
+				char[] ca = CharMap.T9TABLE[mLang.index][mPrevious];
 				for (char c : ca) {
 					mSuggestionStrings.add(String.valueOf(c));
 				}
@@ -1050,14 +1038,16 @@ public class TraditionalT9 extends InputMethodService implements
 			}
 			setCandidatesViewShown(false);
 		}
+		Log.d("handleBS", "Stage1: (" + length + "," + length2 + ")");
+		Log.d("handleBS", "Stage1: (" + mComposingI.toString() + ")");
 		if (length2 > 1) {
-			if (mComposingI.charAt(length2-1) == '1' ) {
+			if (mComposingI.charAt(length2 - 1) == '1') {
 				// revert previous word
-				mPreviousWord = mPreviousWord.substring(0, mPreviousWord.length()-1);
+				mPreviousWord = mPreviousWord.substring(0, mPreviousWord.length() - 1);
 			}
 			mComposingI.delete(length2 - 1, length2);
-			if (length2-1 > 1) {
-				if (mComposingI.charAt(length2-2) != '1') {
+			if (length2 - 1 > 1) {
+				if (mComposingI.charAt(length2 - 2) != '1') {
 					if (mComposingI.indexOf("1") == -1) {
 						// no longer contains punctuation so we no longer care
 						mPreviousWord = "";
@@ -1069,6 +1059,7 @@ public class TraditionalT9 extends InputMethodService implements
 			updateCandidates(true);
 			getCurrentInputConnection().setComposingText(mComposing, 1);
 		} else if (length > 0 || length2 > 0) {
+			Log.d("handleBS", "resetting thing");
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
 			interfacehandler.midButtonUpdate(false);
@@ -1129,7 +1120,6 @@ public class TraditionalT9 extends InputMethodService implements
 					updateCandidates();
 					getCurrentInputConnection().setComposingText(mComposing, 1);
 				}
-
 				break;
 
 			case MODE_TEXT:
@@ -1154,20 +1144,19 @@ public class TraditionalT9 extends InputMethodService implements
 				// start at caps if CapMode
 				// Log.d("handleChar", "Cm: " + mCapsMode);
 				if (mCharIndex == 0 && mCapsMode != CAPS_OFF) {
-					mCharIndex = CharMap.T9CAPSTART[mLang][keyCode];
+					mCharIndex = CharMap.T9CAPSTART[mLang.index][keyCode];
 				}
 
 				// private int mPrevious;
 				// private int mCharindex;
 				mComposing.setLength(0);
 				mComposingI.setLength(0);
-				char[] ca = CharMap.T9TABLE[mLang][keyCode];
+				char[] ca = CharMap.T9TABLE[mLang.index][keyCode];
 				if (mCharIndex >= ca.length) {
 					mCharIndex = 0;
 				}
 
 				mComposing.append(ca[mCharIndex]);
-				mComposingI.append(keyCode);
 				getCurrentInputConnection().setComposingText(mComposing, 1);
 
 				t9releasehandler.postDelayed(mt9release, T9DELAY);
@@ -1318,7 +1307,7 @@ public class TraditionalT9 extends InputMethodService implements
 		mLang = mLangsAvailable[mLangIndex];
 		updateKeyMode();
 		if (modeNotification != null) {
-			modeNotify(getResources().getStringArray(R.array.pref_lang_titles)[mLang]);
+			modeNotify(getResources().getStringArray(R.array.pref_lang_titles)[mLang.index]);
 		}
 	}
 
@@ -1342,7 +1331,7 @@ public class TraditionalT9 extends InputMethodService implements
 		switch (mKeyMode) {
 			case MODE_TEXT:
 				interfacehandler.showHold(false);
-				icon = LangHelper.ICONMAP[mLang][mKeyMode][mCapsMode];
+				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
 			case MODE_LANG:
 				if (!db.ready) {
@@ -1364,7 +1353,7 @@ public class TraditionalT9 extends InputMethodService implements
 				}
 				//Log.d("T9.updateKeyMode", "lang: " + mLang + " mKeyMode: " + mKeyMode + " mCapsMode"
 				// + mCapsMode);
-				icon = LangHelper.ICONMAP[mLang][mKeyMode][mCapsMode];
+				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
 			case MODE_NUM:
 				interfacehandler.showHold(false);

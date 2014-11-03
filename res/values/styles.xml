@@ -17,4 +17,8 @@
 		<!-- All customizations that are NOT specific to a particular API-level can go here. -->
 	</style>
 
+	<declare-styleable name="PrefItem">
+		<attr name="title" format="string" />
+		<attr name="summary" format="string" />
+	</declare-styleable>
 </resources>

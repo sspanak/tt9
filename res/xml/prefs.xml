@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:key="first_preferencescreen">
-	<Preference android:title="@string/pref_help" android:key="help"/>
-	<ListPreference
-		android:key="pref_inputmode"
-		android:title="@string/pref_inputmode"
-		android:dialogTitle="@string/pref_inputmode"
-		android:entries="@array/pref_inputmode_entries"
-		android:entryValues="@array/pref_inputmode_values"
-		android:persistent="true"
-		android:defaultValue="0" android:summary="@string/pref_inputmode_desc"/>
-	<pl.wavesoftware.widget.MultiSelectListPreference
-		android:defaultValue="@array/pref_lang_defaults"
-		android:entries="@array/pref_lang_titles"
-		android:entryValues="@array/pref_lang_values"
-		android:key="pref_lang_support"
-		android:persistent="true"
-		android:title="@string/pref_lang_title" />
-	<CheckBoxPreference
-		android:key="pref_mode_notify"
-		android:title="@string/pref_mode_notify"
-		android:summary="@string/pref_mode_notify_subtitle"
-		android:persistent="true"
-		android:defaultValue="false"
+<!-- WHEN ADDING NEW SETTING KEY THAT STORES VALUE, ADD KEY AND QUERY TO T9DB -->
+<Settings>
+	<Setting title="@string/pref_help" id="help" />
+	<SettingList
+		id="pref_inputmode"
+		title="@string/pref_inputmode"
+		entries="@array/pref_inputmode_entries"
+		entryValues="@array/pref_inputmode_values"
+		defaultValue="@integer/INPUT_DEFAULT"
+		summary="@string/pref_inputmode_desc"/>
+	<SettingMultiList
+		id="pref_lang_support"
+		defaultValue="@integer/LANG_DEFAULT"
+		entries="@array/pref_lang_titles"
+		entryValues="@array/pref_lang_values"
+		title="@string/pref_lang_title" />
+	<SettingCheck
+		id="pref_mode_notify"
+		title="@string/pref_mode_notify"
+		summary="@string/pref_mode_notify_subtitle"
+		defaultValue="false"
 		/>
-	<Preference android:title="@string/pref_loaddict" android:key="loaddict"/>
-	<Preference android:title="@string/pref_loaduserdict" android:summary="@string/pref_loaduserdictdesc" android:key="loaduserdict"/>
-	<Preference android:title="@string/pref_nukedict" android:key="nukedict"/>
-	<Preference android:title="@string/pref_backupdict" android:key="backupdict"/>
-	<Preference android:title="@string/pref_restoredict" android:key="restoredict"/>
-	<Preference android:title="@string/pref_querytest" android:key="querytest"/>
-</PreferenceScreen>
+	<Setting title="@string/pref_loaddict" id="loaddict"/>
+	<Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/>
+	<Setting title="@string/pref_nukedict" id="nukedict"/>
+	<Setting title="@string/pref_backupdict" id="backupdict"/>
+	<Setting title="@string/pref_restoredict" id="restoredict"/>
+</Settings>

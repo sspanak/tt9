@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- taken from Sharp 007SH -->
+<ImageView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_gravity="center_vertical"
+	android:background="@drawable/btn_circle"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_marginRight="4.0dip"
+	android:src="@drawable/ic_btn_round_more"/>

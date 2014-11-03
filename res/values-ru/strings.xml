@@ -7,7 +7,6 @@
     <string name="add_word_exist1">Слово (%1$s) уже есть в словаре.</string>
     <string name="add_word_exist2">Слово (%1$s) уже есть в словаре %2$s.</string>
     <string name="app_name">Traditional T9</string>
-    <string name="cancel">Отмена</string>
     <string name="hello_world">Hello world!</string>
     <string name="ime_name">Клавиатура T9</string>
     <string name="ime_number">Цифры</string>
@@ -18,7 +17,6 @@
     <string name="main_mid_commit">Commit</string>
     <string name="main_right_lower">Изменить IME</string>
     <string name="main_right_upper">Режим ввода</string>
-    <string name="ok">OK</string>
     <string name="pref_backup_noext">Ошибка: Внешняя память недоступна. Резервное копирование невозможно невозможно.</string>
     <string name="pref_backup_title">Резервное копирование базы данных IME</string>
     <string name="pref_backup_warn">Предупреждение: Существующая копия базы данных будет перезаписана. Продолжить?</string>
@@ -62,6 +60,7 @@
 	<string name="pref_loaduser_notfound"> Ошибка. \n Словарь %1$s не найден. </string>
 	<string name="pref_mode_notify_subtitle">Используется для озвучивания изменения режима ввода.</string>
 	<string name="pref_mode_notify">Режим уведомления</string>
+	<string name="database_settings_notready">Database unavailable. Using default settings.</string>
 
     <string name="title_activity_add_word">Добавить слово</string>
     <string name="traditionalt9_settings">Traditional T9 настройки</string>

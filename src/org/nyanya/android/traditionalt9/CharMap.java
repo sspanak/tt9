@@ -8,6 +8,8 @@ import java.util.Map;
 
 import android.util.Log;
 
+import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
+
 public class CharMap {
 	protected static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(LangHelper.NLANGS);
 	static {
@@ -16,12 +18,10 @@ public class CharMap {
 		enMap.put('.', 1); enMap.put(',', 1); enMap.put('!', 1); enMap.put('?', 1);
 		enMap.put('-', 1); enMap.put('"', 1); enMap.put('\'', 1); enMap.put('@', 1);
 		enMap.put('#', 1); enMap.put('$', 1); enMap.put('%', 1); enMap.put('&', 1);
-		enMap.put('*', 1); enMap.put('(', 1); enMap.put(')', 1); enMap.put('1', 1);
-		enMap.put(':', 1); enMap.put(';', 1); enMap.put('/', 1); enMap.put('\\', 1);
-		enMap.put('+', 1); enMap.put('=', 1); enMap.put('<', 1); enMap.put('>', 1);
-		enMap.put('[', 1); enMap.put(']', 1); enMap.put('{', 1); enMap.put('}', 1);
-		enMap.put('^', 1); enMap.put('|', 1); enMap.put('_', 1); enMap.put('~', 1);
-		enMap.put('`', 1);
+		enMap.put('*', 1); enMap.put('(', 1); enMap.put(')', 1); enMap.put(':', 1);
+		enMap.put(';', 1); enMap.put('/', 1); enMap.put('+', 1); enMap.put('=', 1);
+		enMap.put('<', 1); enMap.put('>', 1); enMap.put('^', 1); enMap.put('_', 1);
+		enMap.put('~', 1); enMap.put('1', 1);
 		enMap.put('a', 2); enMap.put('á', 2); enMap.put('ä', 2); enMap.put('â', 2);
 		enMap.put('à', 2); enMap.put('å', 2); enMap.put('b', 2); enMap.put('c', 2);
 		enMap.put('ç', 2); enMap.put('2', 2);
@@ -48,12 +48,10 @@ public class CharMap {
 		ruMap.put('.', 1); ruMap.put(',', 1); ruMap.put('!', 1); ruMap.put('?', 1);
 		ruMap.put('-', 1); ruMap.put('"', 1); ruMap.put('\'', 1); ruMap.put('@', 1);
 		ruMap.put('#', 1); ruMap.put('$', 1); ruMap.put('%', 1); ruMap.put('&', 1);
-		ruMap.put('*', 1); ruMap.put('(', 1); ruMap.put(')', 1); ruMap.put('1', 1);
-		ruMap.put(':', 1); ruMap.put(';', 1); ruMap.put('/', 1); ruMap.put('\\', 1);
-		ruMap.put('+', 1); ruMap.put('=', 1); ruMap.put('<', 1); ruMap.put('>', 1);
-		ruMap.put('[', 1); ruMap.put(']', 1); ruMap.put('{', 1); ruMap.put('}', 1);
-		ruMap.put('^', 1); ruMap.put('|', 1); ruMap.put('_', 1); ruMap.put('~', 1);
-		ruMap.put('`', 1); ruMap.put('1', 1);
+		ruMap.put('*', 1); ruMap.put('(', 1); ruMap.put(')', 1); ruMap.put(':', 1);
+		ruMap.put(';', 1); ruMap.put('/', 1); ruMap.put('+', 1); ruMap.put('=', 1);
+		ruMap.put('<', 1); ruMap.put('>', 1); ruMap.put('^', 1); ruMap.put('_', 1);
+		ruMap.put('~', 1); ruMap.put('1', 1);
 		ruMap.put('а', 2); ruMap.put('б', 2); ruMap.put('в', 2); ruMap.put('г', 2);
 		ruMap.put('2', 2);
 		ruMap.put('д', 3); ruMap.put('е', 3); ruMap.put('ё', 3); ruMap.put('ж', 3);
@@ -92,33 +90,33 @@ public class CharMap {
 		{ 'ш', 'щ', 'ъ', 'ы', 'Ш', 'Щ', 'Ъ', 'Ы', '8' }, { 'ь', 'э', 'ю', 'я', 'Ь', 'Э', 'Ю', 'Я', '9' },
 		{ ' ', '\n' } };
 	protected static final char[][] DET9TABLE = {
-		{ '0', '+' },
-		{ '.', ',', '?', '!', '"', '\'', '-', '@', '€', '$', '%', '&', '*', '(', ')', '_', '1' },
-		{ 'a', 'á', 'ä', 'â', 'à', 'å', 'b', 'c', 'ç', 'A', 'Á', 'Ä', 'Â', 'À', 'Å', 'B', 'C', 'Ç', '2' },
-		{ 'd', 'e', 'é','ë','è','ê', 'f', 'D', 'E', 'É', 'Ë', 'È', 'Ê', 'F', '3' },
-		{ 'g', 'h', 'i', 'í', 'ï', 'G', 'H', 'I', 'Í', 'Ï', '4' },
+		{ ' ', '+', '0' },
+		{ '.', ',', '?', '!', ':', ';', '"', '\'', '-', '@', '^', '€', '$', '%', '&', '*', '(', ')', '_', '1' },
+		{ 'a', 'b', 'c', 'A', 'B', 'C', 'ä', 'Ä','á', 'â', 'à', 'å', 'ç', 'Á', 'Â', 'À', 'Å', 'Ç', '2' },
+		{ 'd', 'e', 'f', 'D', 'E', 'F', 'é','ë','è','ê', 'É', 'Ë', 'È', 'Ê', '3' },
+		{ 'g', 'h', 'i', 'G', 'H', 'I', 'í', 'ï', 'Í', 'Ï', '4' },
 		{ 'j', 'k', 'l', 'J', 'K', 'L', '5' },
-		{ 'm', 'n', 'ñ', 'o', 'ó','ö','ô', 'M', 'N', 'Ñ', 'O', 'Ó', 'Ö', 'Ô', '6' },
-		{ 'p', 'q', 'r', 's', 'ß', 'P', 'Q', 'R', 'S', '7' },
-		{ 't', 'u', 'û','ü', 'v', 'T', 'U', 'Û', 'Ü', 'V', '8' },
+		{ 'm', 'n', 'o', 'M', 'N', 'O', 'ö', 'Ö', 'ñ','ó','ô', 'Ñ', 'Ó', 'Ô', '6' },
+		{ 'p', 'q', 'r', 's', 'P', 'Q', 'R', 'S', 'ß', '7' },
+		{ 't', 'u', 'v', 'T', 'U', 'V', 'ü', 'Ü', 'û', 'Û', '8' },
 		{ 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
-		{ ' ', '\n' } };
+		{ '\n' } };
 	protected static final char[][][] T9TABLE = {ENT9TABLE, RUT9TABLE, DET9TABLE};
 
 	protected static final int[] ENT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int [] RUT9CAPSTART = {0, 0, 4, 5, 4, 4, 4, 4, 4, 4, 0};
-	protected static final int[] DET9CAPSTART = { 0, 0, 9, 7, 5, 3, 7, 5, 5, 4, 0 };
+	protected static final int[] DET9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART};
 
-	protected static String getStringSequence(String word, int lang) {
+	protected static String getStringSequence(String word, LANGUAGE lang) {
 		StringBuilder seq = new StringBuilder();
-		String tword = word.toLowerCase(LangHelper.LOCALES[lang]);
+		String tword = word.toLowerCase(LangHelper.LOCALES[lang.index]);
 		for (int i = 0; i < word.length(); i++) {
 			char c = tword.charAt(i);
-			Integer z = CharMap.CHARTABLE.get(lang).get(c);
+			Integer z = CharMap.CHARTABLE.get(lang.index).get(c);
 			if (z == null) {
 				Log.e("getStringSequence",
-						"ERROR: " + (int) c + " NOT FOUND FOR [" + lang + "] (" + Integer.toHexString((int) c) + ") Index: " + i);
+						"ERROR: " + (int) c + " NOT FOUND FOR [" + lang.name() + "] (" + Integer.toHexString((int) c) + ") Index: " + i);
 				throw new NullPointerException();
 			}
 			seq.append(z.toString());

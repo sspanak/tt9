@@ -12,13 +12,14 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
 import android.content.res.TypedArray;
 import android.preference.ListPreference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 
 public class MultiSelectListPreference extends ListPreference {
 
 	private String separator;
-	private static final String DEFAULT_SEPARATOR = "\u0001\u0007\u001D\u0007\u0001";
+	private static final String DEFAULT_SEPARATOR = "|";
 	private boolean[] entryChecked;
 
 	public MultiSelectListPreference(Context context, AttributeSet attributeSet) {
@@ -55,7 +56,7 @@ public class MultiSelectListPreference extends ListPreference {
 		if (val == null || "".equals(val)) {
 			return new CharSequence[0];
 		} else {
-			return ((String) val).split(separator);
+			return ((String) val).split("\\"+separator);
 		}
 	}
 
@@ -65,7 +66,7 @@ public class MultiSelectListPreference extends ListPreference {
 			//Log.w("MultiSelectPref.defaultunpack", "val is null or empty");
 			return new int[] {0}; //default pref
 		} else {
-			String[] sa = ((String) val).split(DEFAULT_SEPARATOR);
+			String[] sa = ((String) val).split("\\"+DEFAULT_SEPARATOR);
 			if (sa.length < 1) {
 				Log.w("MultiSelectPref.defaultunpack", "split is less than 1");
 				return new int[] {0}; //default pref
@@ -115,7 +116,7 @@ public class MultiSelectListPreference extends ListPreference {
 				}
 			}
 
-			String value = join(values, separator);
+			String value = TextUtils.join(separator, values);
 			setSummary(prepareSummary(values));
 			setValueAndEvent(value);
 		}
@@ -143,7 +144,7 @@ public class MultiSelectListPreference extends ListPreference {
 			}
 			ix += 1;
 		}
-		return join(titles, ", ");
+		return TextUtils.join(", ", titles);
 	}
 
 	@Override
@@ -157,12 +158,11 @@ public class MultiSelectListPreference extends ListPreference {
 		String value = null;
 		CharSequence[] defaultValue;
 		if (rawDefaultValue == null) {
-			defaultValue = new CharSequence[0];
+			defaultValue = new CharSequence[] {"0"};
 		} else {
 			defaultValue = (CharSequence[]) rawDefaultValue;
 		}
-		List<CharSequence> joined = Arrays.asList(defaultValue);
-		String joinedDefaultValue = join(joined, separator);
+		String joinedDefaultValue = TextUtils.join(separator, defaultValue);
 		if (restoreValue) {
 			value = getPersistedString(joinedDefaultValue);
 		} else {
@@ -171,28 +171,6 @@ public class MultiSelectListPreference extends ListPreference {
 
 		setSummary(prepareSummary(Arrays.asList(unpack(value))));
 		setValueAndEvent(value);
-	}
-
-	/**
-	 * Joins array of object to single string by separator
-	 *
-	 * Credits to kurellajunior on this post
-	 * http://snippets.dzone.com/posts/show/91
-	 *
-	 * @param iterable
-	 *            any kind of iterable ex.: <code>["a", "b", "c"]</code>
-	 * @param separator
-	 *            separetes entries ex.: <code>","</code>
-	 * @return joined string ex.: <code>"a,b,c"</code>
-	 */
-	protected static String join(Iterable<?> iterable, String separator) {
-		Iterator<?> oIter;
-		if (iterable == null || (!(oIter = iterable.iterator()).hasNext()))
-			return "";
-		StringBuilder oBuilder = new StringBuilder(String.valueOf(oIter.next()));
-		while (oIter.hasNext())
-			oBuilder.append(separator).append(oIter.next());
-		return oBuilder.toString();
 	}
 
 }

@@ -1,22 +1,44 @@
 package org.nyanya.android.traditionalt9;
 
+import android.util.Log;
+
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import pl.wavesoftware.widget.MultiSelectListPreference;
 
 public class LangHelper {
     protected static final Locale RUSSIAN = new Locale("ru","RU");
-    protected static final int EN = 0;
-    protected static final int RU = 1;
-	protected static final int DE = 1;
-    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN};
-    protected static final String[] LANGS = {"EN", "RU", "DE"};
+	public enum LANGUAGE {
+		// MAKE SURE THESE MATCH WITH values/const.xml
+		NONE(-1, -1), EN(0,1), RU(1,2), DE(2,4), ;
+		public final int id;
+		public final int index;
+		// lookup map
+		private static final Map<Integer, LANGUAGE> lookup = new HashMap<Integer, LANGUAGE>();
+		private static final LANGUAGE[] ids = LANGUAGE.values();
+		static { for (LANGUAGE l : ids) lookup.put(l.id, l); }
 
-    protected static final int NLANGS = LANGS.length;
+		private LANGUAGE(int index, int id) { this.index = index; this.id = id; }
+
+		public static LANGUAGE get(int i) { return lookup.get(i);}
+	}
+
+    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN};
+    //protected static final String[] LANGS = {"EN", "RU", "DE"};
+
+	public static final int LANG_DEFAULT = LANGUAGE.EN.id;
+
+	protected static final int NLANGS = LANGUAGE.lookup.size();
 
 	protected static String getString(int lang) {
-        return LANGS[lang];
+        return LANGUAGE.get(lang).name();
     }
+
+	protected static int getIndex(LANGUAGE l) {
+		return l.index;
+	}
 
     //[LANG][MODE][CAPSMODE] = iconref
     // first group en, first line LANG, second line TEXT, last line NUM
@@ -42,31 +64,43 @@ public class LangHelper {
 
     };
 
-	protected static int[] buildLangs(CharSequence s) {
-		int[] ia = MultiSelectListPreference.defaultunpack2Int(s);
+	public static LANGUAGE[] buildLangs(int i) {
 		int num = 0;
 		//calc size of filtered array
-		for (int i : ia) {
-			if (i >= 0 && i < LangHelper.NLANGS) {
+		for (LANGUAGE l : LANGUAGE.ids) {
+			if ((i & l.id) == l.id) {
 				num++;
 			}
 		}
-		int[] ian = new int[num];
-		int iansize = 0;
-		for (int i : ia) {
-			if (i >= 0 && i < LangHelper.NLANGS) {
-				ian[iansize] = i;
-				iansize++;
+		LANGUAGE[] la = new LANGUAGE[num];
+		int lai = 0;
+		for (LANGUAGE l : LANGUAGE.ids) {
+			if ((i & l.id) == l.id) {
+				la[lai] = l;
+				lai++;
 			}
 		}
-		return ian;
+		return la;
 	}
 
-	protected static int findIndex(int[] ia, int target) {
+	public static int shrinkLangs(LANGUAGE[] langs) {
+		int i = 0;
+		for (LANGUAGE l : langs)
+			i = i | l.id;
+		return i;
+	}
+	public static int shrinkLangs(int[] langs) {
+		int i = 0;
+		for (int l : langs)
+			i = i | l;
+		return i;
+	}
+
+	protected static int findIndex(LANGUAGE[] ia, LANGUAGE target) {
 		for (int x=0; x<ia.length; x++) {
 			if (ia[x] == target)
 				return x;
 		}
-		return -1;
+		return 0;
 	}
 }

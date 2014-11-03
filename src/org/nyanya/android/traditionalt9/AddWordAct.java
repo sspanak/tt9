@@ -3,20 +3,19 @@ package org.nyanya.android.traditionalt9;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
+
 public class AddWordAct extends Activity {
 
 	View main;
 	int lang;
-	SharedPreferences pref;
 	String origword;
 
 	@Override
@@ -36,7 +35,6 @@ public class AddWordAct extends Activity {
 		et.setSelection(origword.length());
 		setContentView(v);
 		main = v;
-		pref = PreferenceManager.getDefaultSharedPreferences(this);
 	}
 
 	public void addWordButton(View v) {
@@ -49,13 +47,13 @@ public class AddWordAct extends Activity {
 	public void doAddWord(String text) {
 		T9DB db = T9DB.getInstance(this);
 		try {
-			db.addWord(text, lang);
+			db.addWord(text, LangHelper.LANGUAGE.get(lang));
 		} catch (DBException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			String msg = e.getMessage();
 			//Log.e("AddWord.doAddWord", msg);
 			builder.setMessage(msg).setTitle(R.string.add_word)
-					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+					.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int id) {
 							dialog.dismiss();
@@ -64,9 +62,7 @@ public class AddWordAct extends Activity {
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
-		SharedPreferences.Editor prefedit = pref.edit();
-		prefedit.putString("last_word", text);
-		prefedit.commit();
+		db.storeSettingString(SETTING.LAST_WORD, text);
 	}
 
 
