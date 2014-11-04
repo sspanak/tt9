@@ -720,6 +720,8 @@ public class TraditionalT9Settings extends ListActivity implements
 			backupDict();
 		else if (s.id.equals("restoredict"))
 			restoreDict();
+		else if (s.id.equals("reloadKeys"))
+			KeyMap.setKeys();
 		else
 			s.clicked(mContext);
 	}

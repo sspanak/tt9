@@ -61,6 +61,7 @@
 	<string name="pref_mode_notify_subtitle">Используется для озвучивания изменения режима ввода.</string>
 	<string name="pref_mode_notify">Режим уведомления</string>
 	<string name="database_settings_notready">Database unavailable. Using default settings.</string>
+	<string name="pref_reloadKeys">Force reload of key overrides</string>
 
     <string name="title_activity_add_word">Добавить слово</string>
     <string name="traditionalt9_settings">Traditional T9 настройки</string>

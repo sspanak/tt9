@@ -66,6 +66,7 @@
 	<string name="pref_restore_nofile">Fehler: Sicherungsdatei nicht gefunden.</string>
 	<string name="pref_nuke_warn">Warnung: Dies wird das gesamte Wörterbuch löschen. Fortfahren?</string>
 	<string name="pref_nuke_title">IME-Wörterbuch löschen</string>
+	<string name="pref_reloadKeys">Force reload of key overrides</string>
 
 	<string name="hello_world">Hallo Welt!</string>
 
