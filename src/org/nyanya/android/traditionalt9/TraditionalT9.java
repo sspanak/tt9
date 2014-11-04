@@ -220,6 +220,7 @@ public class TraditionalT9 extends InputMethodService implements
 		//Utils.printFlags(attribute.inputType);
 
 		if (attribute.inputType == 0) {
+			mLang = null;
 			// don't do anything when not in any kind of edit field.
 			// should also turn off input screen and stuff
 			mEditing = NON_EDIT;
@@ -254,7 +255,8 @@ public class TraditionalT9 extends InputMethodService implements
 
 		mKeyMode = MODE_TEXT;
 
-		boolean modenotify = settings[2].equals("1");
+		boolean modenotify = settings[2].equals(1);
+
 		if (!modenotify && modeNotification != null) {
 			modeNotification = null;
 		} else if (modenotify && modeNotification == null){
@@ -384,8 +386,8 @@ public class TraditionalT9 extends InputMethodService implements
 	public void onFinishInput() {
 		super.onFinishInput();
 		// Log.d("onFinishInput", "When is this called?");
-		db.storeSettingInt(SETTING.LAST_LANG, mLang.id);
-		if (mEditing == EDITING) {
+		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
+			db.storeSettingInt(SETTING.LAST_LANG, mLang.id);
 			commitTyped();
 			finish();
 		}
@@ -1293,6 +1295,7 @@ public class TraditionalT9 extends InputMethodService implements
 	}
 
 	private void modeNotify(String s) {
+		Log.d("T9.modeNotify", "Notifying:"+s);
 		modeNotification.setText(s);
 		modeNotification.show();
 		modeNotification.cancel(); 	// TODO: This will not always hide the Toast.

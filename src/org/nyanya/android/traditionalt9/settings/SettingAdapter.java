@@ -38,7 +38,7 @@ public class SettingAdapter extends ArrayAdapter<Setting> {
 			final ViewGroup widgetFrame = (ViewGroup) convertView.findViewById(R.id.widget_frame);
 			layoutInflater.inflate(setting.widgetID, widgetFrame);
 		}
-
+		setting.init();
 		// Return the completed view to render on screen
 		return convertView;
 	}

@@ -38,4 +38,5 @@ public class Setting {
 	public void setView(View view) {
 		this.view = view;
 	}
+	public void init() {};
 }

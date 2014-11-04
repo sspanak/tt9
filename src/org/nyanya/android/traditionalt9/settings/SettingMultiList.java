@@ -18,9 +18,7 @@ public class SettingMultiList extends SettingList {
 	public SettingMultiList (Context context, AttributeSet attrs, Object[] isettings) {
 		super(context, attrs, isettings);
 		selectedEntries = new boolean[entries.length];
-		Log.d("Multi", "len:" + entries.length + " setting:" + isettings[1]);
 		for (LangHelper.LANGUAGE l : LangHelper.buildLangs((Integer)isettings[1])) {
-			Log.d("Multi", "index:" + l.index);
 			selectedEntries[l.index] = true;
 		}
 		summary = buildItems();

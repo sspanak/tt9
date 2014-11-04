@@ -66,7 +66,7 @@ public class T9DB {
 
 	public static class DBSettings {
 		public enum SETTING {
-			INPUT_MODE("pref_inputmode", 1),
+			INPUT_MODE("pref_inputmode", 0),
 			LANG_SUPPORT("pref_lang_support", 1),
 			MODE_NOTIFY("pref_mode_notify", 0),
 			LAST_LANG("set_last_lang", 1),
@@ -514,10 +514,10 @@ public class T9DB {
 			if (oldVersion == 2) {
 				// ADDED SETTINGS, CHANGED LANG VALUE
 				db.execSQL("DROP INDEX IF EXISTS idx");
-				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.EN.id +
-				" WHERE " + COLUMN_LANG + "=0");
 				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.RU.id +
 						" WHERE " + COLUMN_LANG + "=1");
+				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.EN.id +
+				" WHERE " + COLUMN_LANG + "=0");
 				onCreate(db);
 			}
 			Log.i("T9DB.onUpgrade", "Done.");
