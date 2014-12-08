@@ -23,7 +23,8 @@ public class KeyMap {
 	public static int DEL = KeyEvent.KEYCODE_DEL;
 	public static int BACK = KeyEvent.KEYCODE_BACK;
 	public static int ENTER = KeyEvent.KEYCODE_ENTER;
-
+	public static int STAR = KeyEvent.KEYCODE_STAR;
+	public static int POUND = KeyEvent.KEYCODE_POUND;
 	static {
 		setKeys();
 	}
@@ -45,6 +46,7 @@ public class KeyMap {
 						while ((line = br.readLine()) != null) {
 							String[] ws = line.split(" ");
 							if (ws.length != 2) {continue;}
+							else if (line.startsWith("#")) {continue;}
 							try {
 								if (ws[0].equals("DPAD_CENTER")) {
 									DPAD_CENTER = Integer.parseInt(ws[1]);
@@ -66,6 +68,10 @@ public class KeyMap {
 									BACK = Integer.parseInt(ws[1]);
 								} else if (ws[0].equals("ENTER")) {
 									ENTER = Integer.parseInt(ws[1]);
+								} else if (ws[0].equals("STAR")) {
+									STAR = Integer.parseInt(ws[1]);
+								} else if (ws[0].equals("POUND")) {
+									POUND = Integer.parseInt(ws[1]);
 								}
 							} catch (NumberFormatException _ignore) {
 								Log.w("T9.KeyMap", "Invalid number found");
