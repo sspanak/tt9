@@ -3,7 +3,40 @@ package org.nyanya.android.traditionalt9;
 /*
 	Source for English dictionary: http://wordlist.sourceforge.net/
 	Source for Russian dictionary: Various sources from Russian user
+	Source for German dictionary: Modified version from http://www.winedt.org/Dict/
+	Source for French dictionary: http://www.pallier.org/ressources/dicofr/dicofr.html
  */
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ListActivity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.DatabaseUtils.InsertHelper;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.SystemClock;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.stackoverflow.answer.UnicodeBOMInputStream;
+
+import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
+import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
+import org.nyanya.android.traditionalt9.settings.CustomInflater;
+import org.nyanya.android.traditionalt9.settings.Setting;
+import org.nyanya.android.traditionalt9.settings.SettingAdapter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -25,38 +58,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.DatabaseUtils.InsertHelper;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.SystemClock;
-import android.text.TextUtils;
-import android.util.Log;
-
-import android.view.View;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import com.stackoverflow.answer.UnicodeBOMInputStream;
-
-import org.nyanya.android.traditionalt9.settings.CustomInflater;
-import org.nyanya.android.traditionalt9.settings.Setting;
-import org.nyanya.android.traditionalt9.settings.SettingAdapter;
-import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
-import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
 
 public class TraditionalT9Settings extends ListActivity implements
 		DialogInterface.OnCancelListener {
@@ -466,12 +467,12 @@ public class TraditionalT9Settings extends ListActivity implements
 					if ((pos - last) > 4096) {
 						// Log.d("doInBackground", "line: " + linecount);
 						// Log.d("doInBackground", "word: " + word);
-						publishProgress((int) ((float) pos / size * 10000));
+						if (size >= 0) { publishProgress((int) ((float) pos / size * 10000)); }
 						last = pos;
 					}
 					word = getLine(br, rpl, fname);
 				}
-				publishProgress(10000);
+				publishProgress((int) ((float) pos / size * 10000));
 				db.setTransactionSuccessful();
 			} finally {
 				db.setLockingEnabled(true);

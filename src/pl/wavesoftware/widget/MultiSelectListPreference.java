@@ -1,10 +1,6 @@
 package pl.wavesoftware.widget;
 // https://gist.github.com/cardil/4754571/07b4b6ffd37b440bbdec2cafa1ab7411c5ad3873
 // modified to work specifically for this service
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -15,6 +11,10 @@ import android.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MultiSelectListPreference extends ListPreference {
 
@@ -68,7 +68,7 @@ public class MultiSelectListPreference extends ListPreference {
 		} else {
 			String[] sa = ((String) val).split("\\"+DEFAULT_SEPARATOR);
 			if (sa.length < 1) {
-				Log.w("MultiSelectPref.defaultunpack", "split is less than 1");
+				Log.w("MSLPref.defaultunpack", "split is less than 1");
 				return new int[] {0}; //default pref
 			}
 			int[] ia = new int[sa.length];

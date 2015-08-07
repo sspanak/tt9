@@ -1,20 +1,20 @@
 package org.nyanya.android.traditionalt9;
 
-import android.util.Log;
-
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import pl.wavesoftware.widget.MultiSelectListPreference;
 
 public class LangHelper {
     protected static final Locale RUSSIAN = new Locale("ru","RU");
 	public enum LANGUAGE {
 		// MAKE SURE THESE MATCH WITH values/const.xml
-		NONE(-1, -1), EN(0,1), RU(1,2), DE(2,4), ;
-		public final int id;
+		// (index, id) Where index is index in arrays like LOCALES and MUST increment and MUST be in
+		// the same order as arrays.xml/pref_lang_values, and id is the identifier used in
+		// the database and such. id should never change unless database update is done.
+		// id MUST increment in doubles (as the enabled languages are stored as an integer)
+		NONE(-1, -1), EN(0,1), RU(1,2), DE(2,4), FR(3,8);
 		public final int index;
+		public final int id;
 		// lookup map
 		private static final Map<Integer, LANGUAGE> lookup = new HashMap<Integer, LANGUAGE>();
 		private static final LANGUAGE[] ids = LANGUAGE.values();
@@ -25,7 +25,7 @@ public class LangHelper {
 		public static LANGUAGE get(int i) { return lookup.get(i);}
 	}
 
-    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN};
+    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH};
     //protected static final String[] LANGS = {"EN", "RU", "DE"};
 
 	public static final int LANG_DEFAULT = LANGUAGE.EN.id;
@@ -43,20 +43,26 @@ public class LangHelper {
     //[LANG][MODE][CAPSMODE] = iconref
     // first group en, first line LANG, second line TEXT, last line NUM
     protected static final int[][][] ICONMAP = {
-            {
-                    //English resources
+			{
+					//English resources
 					{R.drawable.ime_en_lang_lower, R.drawable.ime_en_lang_single, R.drawable.ime_en_lang_upper},
-                    {R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper},
-                    {R.drawable.ime_number},
-            },
-            {
-                    // Russian resources
+					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper},
+					{R.drawable.ime_number},
+			},
+			{
+					// Russian resources
 					{R.drawable.ime_ru_lang_lower, R.drawable.ime_ru_lang_single, R.drawable.ime_ru_lang_upper}, //LANG
-                    {R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
-                    {R.drawable.ime_number}, //NUM
-            },
+					{R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
+					{R.drawable.ime_number}, //NUM
+			},
 			{
 					// German resources
+					{R.drawable.ime_de_lang_lower, R.drawable.ime_de_lang_single, R.drawable.ime_de_lang_upper}, //LANG
+					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
+					{R.drawable.ime_number}, //NUM
+			},
+			{
+					// French resources
 					{R.drawable.ime_de_lang_lower, R.drawable.ime_de_lang_single, R.drawable.ime_de_lang_upper}, //LANG
 					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM

@@ -5,9 +5,7 @@ package org.nyanya.android.traditionalt9.settings;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
-import android.util.Log;
 
-import org.nyanya.android.traditionalt9.R;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.lang.reflect.Constructor;

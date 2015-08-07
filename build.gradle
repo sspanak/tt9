@@ -1,9 +1,10 @@
+import groovy.swing.SwingBuilder
 buildscript {
 	repositories {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:0.14.0'
+		classpath 'com.android.tools.build:gradle:1.0.0'
 	}
 }
 apply plugin: 'android'
@@ -114,10 +115,10 @@ android {
 	// http://stackoverflow.com/a/19130098
 	signingConfigs {
 		release {
-			storeFile file(System.getenv("KEYSTORE"))
-			storePassword project.ext.keyStorePass
-			keyAlias System.getenv("KEYALIAS")
-			keyPassword project.ext.keyPass
+			//storeFile file(System.getenv("KEYSTORE"))
+			//storePassword project.ext.keyStorePass
+			//keyAlias System.getenv("KEYALIAS")
+			//keyPassword project.ext.keyPass
 		}
 	}
 
@@ -144,8 +145,39 @@ task getDictSizes {
 }
 
 task readPasswordFromInput << {
-	android.signingConfigs.release.storePassword = String.valueOf(System.console().readPassword("\nKeyStore Password: "))
-	android.signingConfigs.release.keyPassword =  String.valueOf(System.console().readPassword("\nKey Password: "))
+	// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
+	new SwingBuilder().edt {
+		dialog(modal: true, // Otherwise the build will continue running before you closed the dialog
+				title: 'KeyStore password', // Dialog title
+				alwaysOnTop: true, // pretty much what the name says
+				resizable: false, // Don't allow the user to resize the dialog
+				locationRelativeTo: null, // Place dialog in center of the screen
+				pack: true, // We need to pack the dialog (so it will take the size of it's children
+				show: true // Let's show it
+		) {
+			vbox { // Put everything below each other
+				label(text: "Please enter key passphrase:")
+				input = passwordField()
+				button(defaultButton: true, text: 'OK', actionPerformed: {
+					android.signingConfigs.release.storePassword = input.password; // Set pass variable to value of input field
+					dispose(); // Close dialog
+				})
+			}
+		}
+	}
+	new SwingBuilder().edt {
+		dialog(modal: true, title: 'Key password', alwaysOnTop: true, resizable: false,
+			locationRelativeTo: null, pack: true, show: true // Let's show it
+		) {
+			vbox { // Put everything below each other
+				label(text: "Please enter key passphrase:")
+				input = passwordField()
+				button(defaultButton: true, text: 'OK', actionPerformed: {
+					android.signingConfigs.release.keyPassword = input.password; dispose();
+				})
+			}
+		}
+	}
 }
 
 //http://stackoverflow.com/a/17484331

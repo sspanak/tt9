@@ -1,10 +1,5 @@
 package org.nyanya.android.traditionalt9;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import android.content.Intent;
 import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
@@ -22,6 +17,10 @@ import android.widget.Toast;
 
 import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
 import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
+
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TraditionalT9 extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener {

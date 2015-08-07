@@ -41,7 +41,7 @@
 	<string name="pref_help">"Show help</string>
 	<string name="pref_loaddict">Load dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
-	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de)</string>
+	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
 	<string name="pref_nukedict">Nuke dictionary</string>
 	<string name="pref_backupdict">Backup dictionary</string>
 	<string name="pref_restoredict">Restore dictionary</string>

@@ -3,7 +3,6 @@ package org.nyanya.android.traditionalt9.settings;
 // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

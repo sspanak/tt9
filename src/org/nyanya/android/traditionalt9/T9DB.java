@@ -1,12 +1,5 @@
 package org.nyanya.android.traditionalt9;
 
-import java.util.AbstractList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +14,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
+
+import java.util.AbstractList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class T9DB {
 

@@ -1,14 +1,14 @@
 package org.nyanya.android.traditionalt9;
 
+import android.util.Log;
+
+import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import android.util.Log;
-
-import org.nyanya.android.traditionalt9.LangHelper.LANGUAGE;
 
 public class CharMap {
 	protected static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(LangHelper.NLANGS);
@@ -38,10 +38,11 @@ public class CharMap {
 		enMap.put('v', 8); enMap.put('8', 8); enMap.put('w', 9);
 		enMap.put('x', 9); enMap.put('y', 9); enMap.put('z', 9);
 		enMap.put('9', 9); enMap.put('+', 0); enMap.put('0', 0);
-		// for German support reusing the same table since it already had special characters
-		enMap.put('€', 1);
-		enMap.put('ß', 7);
-		CHARTABLE.add(0, Collections.unmodifiableMap(enMap));
+		// add extra characters for German and French maps.
+		enMap.put('€', 1); enMap.put('ß', 7); // German chars
+		enMap.put('î', 4); enMap.put('ù', 8); // French chars
+		Map<Character, Integer> endefrmap = Collections.unmodifiableMap(enMap);
+		CHARTABLE.add(0, endefrmap);
 
 		// Russian
 		Map<Character, Integer> ruMap = new HashMap<Character, Integer>();
@@ -68,22 +69,23 @@ public class CharMap {
 		ruMap.put('8', 8);
 		ruMap.put('ь', 9); ruMap.put('э', 9); ruMap.put('ю', 9); ruMap.put('я', 9);
 		ruMap.put('9', 9);
-		ruMap.put('+', 0); ruMap.put('0', 0);
+		ruMap.put('+', 0);
+		ruMap.put('0', 0);
 		CHARTABLE.add(1, Collections.unmodifiableMap(ruMap));
 
-		//German (lol pretty simple, hopefully.)
-		CHARTABLE.add(2, Collections.unmodifiableMap(enMap));
+		CHARTABLE.add(2, Collections.unmodifiableMap(endefrmap));
+		CHARTABLE.add(3, Collections.unmodifiableMap(endefrmap));
 	}
 
 	protected static final char[][] ENT9TABLE = { { '0', '+' },
-		{ '.', ',', '?', '!', '"', '\'', '-', '@', '$', '%', '&', '*', '(', ')', '_', '1' },
+		{ '.', ',', '?', '!', '"', '/', '-', '@', '$', '%', '&', '*', '(', ')', '_', '1' },
 		{ 'a', 'b', 'c', 'A', 'B', 'C', '2' }, { 'd', 'e', 'f', 'D', 'E', 'F', '3' },
 		{ 'g', 'h', 'i', 'G', 'H', 'I', '4' }, { 'j', 'k', 'l', 'J', 'K', 'L', '5' },
 		{ 'm', 'n', 'o', 'M', 'N', 'O', '6' }, { 'p', 'q', 'r', 's', 'P', 'Q', 'R', 'S', '7' },
 		{ 't', 'u', 'v', 'T', 'U', 'V', '8' }, { 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
 		{ ' ', '\n' } };
 	protected static final char[][] RUT9TABLE = { { '0', '+' },
-		{ '.', ',', '?', '!', '"', '\'', '-', '@', '$', '%', '&', '*', '(', ')', '_', '1' },
+		{ '.', ',', '?', '!', '"', '/', '-', '@', '$', '%', '&', '*', '(', ')', '_', '1' },
 		{ 'а', 'б', 'в', 'г', 'А', 'Б', 'В', 'Г', '2' }, { 'д', 'е', 'ё', 'ж', 'з', 'Д', 'Е', 'Ё', 'Ж', 'З', '3' },
 		{ 'и', 'й', 'к', 'л', 'И', 'Й', 'К', 'Л', '4' }, { 'м', 'н', 'о', 'п', 'М', 'Н', 'О', 'П', '5' },
 		{ 'р', 'с', 'т', 'у', 'Р', 'С', 'Т', 'У', '6' }, { 'ф', 'х', 'ц', 'ч', 'Ф', 'Х', 'Ц', 'Ч', '7' },
@@ -101,7 +103,20 @@ public class CharMap {
 		{ 't', 'u', 'v', 'T', 'U', 'V', 'ü', 'Ü', 'û', 'Û', '8' },
 		{ 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
 		{ '\n' } };
-	protected static final char[][][] T9TABLE = {ENT9TABLE, RUT9TABLE, DET9TABLE};
+
+	protected static final char[][] FRT9TABLE = {
+		{ ' ', '+', '0' },
+		{ '.', ',', '?', '!', ':', ';', '"', '/', '-', '@', '^', '€', '$', '%', '&', '*', '(', ')', '_', '1' },
+		{ 'a', 'b', 'c', 'A', 'B', 'C', 'ä', 'Ä','á', 'â', 'à', 'å', 'ç', 'Á', 'Â', 'À', 'Å', 'Ç', '2' },
+		{ 'd', 'e', 'f', 'D', 'E', 'F', 'é','ë','è','ê', 'É', 'Ë', 'È', 'Ê', '3' },
+		{ 'g', 'h', 'i', 'G', 'H', 'I', 'í', 'ï', 'Í', 'Ï', '4' },
+		{ 'j', 'k', 'l', 'J', 'K', 'L', '5' },
+		{ 'm', 'n', 'o', 'M', 'N', 'O', 'ö', 'Ö', 'ñ','ó','ô', 'Ñ', 'Ó', 'Ô', '6' },
+		{ 'p', 'q', 'r', 's', 'P', 'Q', 'R', 'S', 'ß', '7' },
+		{ 't', 'u', 'v', 'T', 'U', 'V', 'ü', 'Ü', 'û', 'Û', '8' },
+		{ 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
+		{ '\n' } };
+	protected static final char[][][] T9TABLE = {ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE};
 
 	protected static final int[] ENT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int [] RUT9CAPSTART = {0, 0, 4, 5, 4, 4, 4, 4, 4, 4, 0};
