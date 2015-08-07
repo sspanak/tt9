@@ -9,11 +9,6 @@ buildscript {
 }
 apply plugin: 'android'
 
-ext {
-	keyStorePass = ''
-	keyPass = ''
-}
-
 dependencies {
 	compile fileTree(dir: 'libs', include: '*.jar')
 }
@@ -46,7 +41,7 @@ def computeVersionName = { ->
 			return ver
 		}
 	} catch (all) {
-		ant.echo("Cannot run git (not in path?), using default versioning")
+		println "Cannot run git (not in path?), using default versioning"
 	}
 
 	return ver
@@ -115,16 +110,24 @@ android {
 	// http://stackoverflow.com/a/19130098
 	signingConfigs {
 		release {
-			//storeFile file(System.getenv("KEYSTORE"))
-			//storePassword project.ext.keyStorePass
-			//keyAlias System.getenv("KEYALIAS")
-			//keyPassword project.ext.keyPass
+			storeFile file(System.getenv("KEYSTORE"))
+			storePassword ''
+			keyAlias System.getenv("KEYALIAS")
+			keyPassword ''
 		}
 	}
 
 	buildTypes {
 		release {
 			signingConfig android.signingConfigs.release
+			// http://stackoverflow.com/a/24650026
+			applicationVariants.all { variant ->
+				variant.outputs.each { output ->
+					output.outputFile = new File(output.outputFile.parent,
+							output.outputFile.name.replace("-release", "-" + android.defaultConfig.versionName)
+					)
+				}
+			}
 		}
 	}
 }
@@ -133,10 +136,10 @@ task getDictSizes {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "t9build.properties"
 	doLast {
-		ant.echo("Calculating dict size...")
+		println "Calculating dict size..."
 
 		inputs.getFiles().each {File file ->
-			ant.echo("dict: "+ file.name)
+			println "dict: "+ file.name
 			ant.propertyfile(file:"assets/dict.properties") {
 				entry(key: "size."+ file.name, value: file.length())
 			}
@@ -144,48 +147,46 @@ task getDictSizes {
 	}
 }
 
-task readPasswordFromInput << {
-	// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
-	new SwingBuilder().edt {
-		dialog(modal: true, // Otherwise the build will continue running before you closed the dialog
-				title: 'KeyStore password', // Dialog title
-				alwaysOnTop: true, // pretty much what the name says
-				resizable: false, // Don't allow the user to resize the dialog
-				locationRelativeTo: null, // Place dialog in center of the screen
-				pack: true, // We need to pack the dialog (so it will take the size of it's children
-				show: true // Let's show it
-		) {
-			vbox { // Put everything below each other
-				label(text: "Please enter key passphrase:")
-				input = passwordField()
-				button(defaultButton: true, text: 'OK', actionPerformed: {
-					android.signingConfigs.release.storePassword = input.password; // Set pass variable to value of input field
-					dispose(); // Close dialog
-				})
-			}
-		}
-	}
-	new SwingBuilder().edt {
-		dialog(modal: true, title: 'Key password', alwaysOnTop: true, resizable: false,
-			locationRelativeTo: null, pack: true, show: true // Let's show it
-		) {
-			vbox { // Put everything below each other
-				label(text: "Please enter key passphrase:")
-				input = passwordField()
-				button(defaultButton: true, text: 'OK', actionPerformed: {
-					android.signingConfigs.release.keyPassword = input.password; dispose();
-				})
-			}
-		}
-	}
-}
-
-//http://stackoverflow.com/a/17484331
-tasks.whenTaskAdded { task ->
-	if (task.name == 'packageRelease') {
-		task.dependsOn readPasswordFromInput
-	}
-}
-
 preBuild.dependsOn getDictSizes
 preBuild.mustRunAfter getDictSizes
+
+// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
+def getPass(String msg) {
+	def pass = ''
+	if(System.console() == null) {
+		new SwingBuilder().edt {
+			dialog(modal: true, // Otherwise the build will continue running before you closed the dialog
+					title: 'Enter password', // Dialog title
+					alwaysOnTop: true, // pretty much what the name says
+					resizable: false, // Don't allow the user to resize the dialog
+					locationRelativeTo: null, // Place dialog in center of the screen
+					pack: true, // We need to pack the dialog (so it will take the size of it's children)
+					show: true // Let's show it
+			) {
+				vbox { // Put everything below each other
+					label(text: msg)
+					input = passwordField()
+					button(defaultButton: true, text: 'OK', actionPerformed: {
+						pass = new String(input.password); // Set pass variable to value of input field
+						dispose(); // Close dialog
+					})
+				} // vbox end
+			} // dialog end
+		} // edt end
+	} else {
+		pass = System.console().readPassword("\nPlease enter key passphrase: ")
+		pass = new String(pass)
+	}
+
+	if(pass.size() <= 0) {
+		throw new InvalidUserDataException("You must enter a password to proceed.")
+	}
+	return pass
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+	if(taskGraph.hasTask(':assembleRelease')) {
+		android.signingConfigs.release.storePassword = getPass("Please enter Key Store passphrase:")
+		android.signingConfigs.release.keyPassword = getPass("Please enter Key passphrase:")
+	} // end if has task
+} // end whenReady
