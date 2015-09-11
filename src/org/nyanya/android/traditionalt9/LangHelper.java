@@ -63,7 +63,7 @@ public class LangHelper {
 			},
 			{
 					// French resources
-					{R.drawable.ime_de_lang_lower, R.drawable.ime_de_lang_single, R.drawable.ime_de_lang_upper}, //LANG
+					{R.drawable.ime_fr_lang_lower, R.drawable.ime_fr_lang_single, R.drawable.ime_fr_lang_upper}, //LANG
 					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},

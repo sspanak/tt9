@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
@@ -167,25 +168,23 @@ public class T9DB {
 	protected void nuke() {
 		Log.i("T9DB.nuke", "Deleting database...");
 		synchronized (T9DB.class){
-			if (db != null) {
-				db.close();
-			}
 			String[] oldSettings = getSettings();
-			if (!mContext.deleteDatabase(DATABASE_NAME)) {
-				Log.e("T9DB", "Couldn't delete database.");
-			}
+			if (oldSettings == null) { Log.e("T9DB", "Couldn't get old settings"); }
+			if (db != null) { db.close(); }
+			if (!mContext.deleteDatabase(DATABASE_NAME)) { Log.e("T9DB", "Couldn't delete database."); }
 			Log.i("T9DB.nuke", "Preparing database...");
 			getWritableDatabase().close();
 
 			db = null;
 			ready = true;
 			init();
-			StringBuilder sb = new StringBuilder("INSERT OR REPLACE INTO ");
-			sb.append(SETTING_TABLE_NAME); sb.append(" ("); sb.append(COLUMN_ID); sb.append(",");
-			sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
-			sb.append(") VALUES ("); sb.append(TextUtils.join(",", oldSettings));
-			sb.append(")");
-			db.execSQL(sb.toString());
+			if (oldSettings != null) {
+				StringBuilder sb = new StringBuilder("INSERT OR REPLACE INTO ");
+				sb.append(SETTING_TABLE_NAME); sb.append(" (");	sb.append(COLUMN_ID); sb.append(",");
+				sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
+				sb.append(") VALUES ("); sb.append(TextUtils.join(",", oldSettings)); sb.append(")");
+				db.execSQL(sb.toString());
+			}
 		}
 		Log.i("T9DB.nuke", "Done...");
 	}
@@ -269,18 +268,31 @@ public class T9DB {
 	}
 
 	private String[] getSettings() {
-		int len = DBSettings.SETTING.settings.length;
-		String[] settings = new String[len+1];
-		StringBuilder sb = new StringBuilder("SELECT ");
+		if (!checkReady()) {
+			Log.e("T9DB.getSetting", "not ready");
+			return null;
+		}
+		int len = DBSettings.SETTING.settings.length+1;
+		String[] settings = new String[len];
+		StringBuilder sb = new StringBuilder("SELECT "); sb.append(COLUMN_ID); sb.append(",");
 		sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
-		sb.append("FROM "); sb.append(SETTING_TABLE_NAME); sb.append(" WHERE "); sb.append(COLUMN_ID); sb.append("=1");
-		Cursor cur = db.rawQuery(sb.toString(),null);
+		sb.append(" FROM "); sb.append(SETTING_TABLE_NAME); sb.append(" WHERE "); sb.append(COLUMN_ID);
+		sb.append("=1");
+
+		Cursor cur = null;
+		cur = db.rawQuery(sb.toString(),null);
+		try { cur = db.rawQuery(sb.toString(),null); }
+		catch (SQLiteException e) {
+			if (cur != null) { cur.close(); }
+			return null;
+		}
 		if (cur.moveToFirst()) {
 			for (int x = 0; x < len; x++)
 				settings[x] = cur.getString(x);
 		} else {
 			Log.w("T9DB.getSettings", "COULDN'T RETRIEVE SETTINGS?");
-			for (int x = 0; x < len; x++) {
+			for (int x = 1; x < len; x++) {
+				settings[0] = "1"; // COLUMN_ID
 				if (DBSettings.SETTING.settings[x].defvalue == null)
 					settings[x] = null;
 				else

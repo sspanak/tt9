@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -747,6 +748,7 @@ public class TraditionalT9Settings extends ListActivity implements
 	}
 
 	private void nukeDict() {
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(R.string.pref_nuke_warn).setTitle(R.string.pref_nuke_title)
 				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -754,6 +756,13 @@ public class TraditionalT9Settings extends ListActivity implements
 					public void onClick(DialogInterface dialog, int id) {
 						task = new NukeDictTask(R.string.pref_nukingdict);
 						task.execute();
+						// restart settings to get fresh settings.
+						TraditionalT9Settings.this.finish();
+						new Handler().postDelayed(new Runnable() {
+							@Override
+							public void run() {
+								startActivity(new Intent(TraditionalT9Settings.this, TraditionalT9Settings.class));
+							}}, 1000);
 					}
 				}).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 			@Override
