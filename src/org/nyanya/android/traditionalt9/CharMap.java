@@ -116,12 +116,13 @@ public class CharMap {
 		{ 't', 'u', 'v', 'T', 'U', 'V', 'ü', 'Ü', 'û', 'Û', '8' },
 		{ 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
 		{ '\n' } };
-	protected static final char[][][] T9TABLE = {ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE};
+	protected static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE };
 
 	protected static final int[] ENT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int [] RUT9CAPSTART = {0, 0, 4, 5, 4, 4, 4, 4, 4, 4, 0};
 	protected static final int[] DET9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
-	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART};
+	protected static final int[] FRT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
+	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART, FRT9CAPSTART};
 
 	protected static String getStringSequence(String word, LANGUAGE lang) {
 		StringBuilder seq = new StringBuilder();

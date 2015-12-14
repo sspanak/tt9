@@ -1088,7 +1088,8 @@ public class TraditionalT9 extends InputMethodService implements
 				mComposing.append(ca[mCharIndex]);
 				getCurrentInputConnection().setComposingText(mComposing, 1);
 
-				t9releasehandler.postDelayed(mt9release, T9DELAY);
+				// TODO: Find reliable way to do this:
+				// t9releasehandler.postDelayed(mt9release, T9DELAY);
 				if (newChar) {
 					// consume single caps
 					if (mCapsMode == CAPS_SINGLE) {

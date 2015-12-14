@@ -4,7 +4,7 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:1.0.0'
+		classpath 'com.android.tools.build:gradle:1.5.0'
 	}
 }
 apply plugin: 'android'
@@ -67,9 +67,9 @@ def computeVersionNumber = { ->
 	int verNum = Integer.valueOf(props.getProperty("verNum", "0"))
 	if (project.hasProperty('incrementBuildNumber')) {
 		verNum++
-		props.setProperty("verNum", String.valueOf(verNum))
-		saveProps(props)
 	}
+	props.setProperty("verNum", String.valueOf(verNum))
+	saveProps(props)
 	return verNum
 }
 
