@@ -25,17 +25,27 @@ public class SettingAdapter extends ArrayAdapter<Setting> {
 		final LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 		// Check if an existing view is being reused, otherwise inflate the view
 		if (convertView == null) {
-			convertView = layoutInflater.inflate(setting.layout, parent, false);
+			convertView = layoutInflater.inflate(R.layout.setting_widget, parent, false);
 		}
 		setting.setView(convertView);
 		// Lookup view for data population
 		((TextView) convertView.findViewById(R.id.title)).setText(setting.title);
-		if (setting.summary != null)
-			((TextView) convertView.findViewById(R.id.summary)).setText(setting.summary);
+		View sv = convertView.findViewById(R.id.summary);
+		if (setting.summary != null && sv != null) {
+			((TextView) sv).setText(setting.summary);
+			sv.setVisibility(View.VISIBLE);
+		}
+		else if (sv != null) { sv.setVisibility(View.GONE); }
 
+		final ViewGroup widgetFrame = (ViewGroup) convertView.findViewById(R.id.widget_frame);
 		if (setting.widgetID != 0) {
-			final ViewGroup widgetFrame = (ViewGroup) convertView.findViewById(R.id.widget_frame);
+			widgetFrame.removeAllViews();
 			layoutInflater.inflate(setting.widgetID, widgetFrame);
+			widgetFrame.setVisibility(View.VISIBLE);
+		}
+		else {
+			// hide the widget area
+			widgetFrame.setVisibility(View.GONE);
 		}
 		setting.init();
 		// Return the completed view to render on screen

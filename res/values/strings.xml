@@ -68,7 +68,8 @@
 	<string name="pref_restore_nofile">Error: Backup file not found.</string>
 	<string name="pref_nuke_warn">Warning: This will delete your entire dictionary. Do you wish to continue?</string>
 	<string name="pref_nuke_title">Nuke IME dictionary</string>
-	<string name="pref_reloadKeys">Force reload of key overrides</string>
+	<string name="pref_reloadKeys">Reload KeyMap</string>
+	<string name="pref_reloadKeysSum" translatable="false">Force reload of key mapping overrides</string>
 
 	<string name="hello_world">Hello world!</string>
 

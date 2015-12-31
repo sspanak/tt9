@@ -26,5 +26,5 @@
 	<Setting title="@string/pref_nukedict" id="nukedict"/>
 	<Setting title="@string/pref_backupdict" id="backupdict"/>
 	<Setting title="@string/pref_restoredict" id="restoredict"/>
-	<Setting title="@string/pref_reloadKeys" id="reloadKeys"/>
+	<Setting title="@string/pref_reloadKeys" summary="@string/pref_reloadKeysSum" id="reloadKeys"/>
 </Settings>
