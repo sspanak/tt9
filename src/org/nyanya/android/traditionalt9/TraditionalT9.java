@@ -1146,11 +1146,13 @@ public class TraditionalT9 extends InputMethodService implements
 				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
 					if (keyCode == KeyMap.DPAD_DOWN) {
 						mCandidateView.scrollSuggestion(1);
-						currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
+						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
+							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
 					} else if (keyCode == KeyMap.DPAD_UP) {
 						mCandidateView.scrollSuggestion(-1);
-						currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
+						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
+							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
 					} else if (keyCode == KeyMap.DPAD_LEFT || keyCode == KeyMap.DPAD_RIGHT) {
 						if (mKeyMode == MODE_LANG) {
