@@ -130,7 +130,7 @@ public class TraditionalT9 extends InputMethodService implements
 	 */
 	@Override
 	public View onCreateInputView() {
-		updateKeyMode();
+		//updateKeyMode();
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
 		if (mKeyMode == MODE_LANG) {
