@@ -41,8 +41,9 @@ public class CharMap {
 		// add extra characters for German and French maps.
 		enMap.put('€', 1); enMap.put('ß', 7); // German chars
 		enMap.put('î', 4); enMap.put('ù', 8); // French chars
-		Map<Character, Integer> endefrmap = Collections.unmodifiableMap(enMap);
-		CHARTABLE.add(0, endefrmap);
+		enMap.put('ì', 4); enMap.put('ò', 8); // Italian chars
+		Map<Character, Integer> endefritmap = Collections.unmodifiableMap(enMap);
+		CHARTABLE.add(0, endefritmap);
 
 		// Russian
 		Map<Character, Integer> ruMap = new HashMap<Character, Integer>();
@@ -73,8 +74,9 @@ public class CharMap {
 		ruMap.put('0', 0);
 		CHARTABLE.add(1, Collections.unmodifiableMap(ruMap));
 
-		CHARTABLE.add(2, Collections.unmodifiableMap(endefrmap));
-		CHARTABLE.add(3, Collections.unmodifiableMap(endefrmap));
+		CHARTABLE.add(2, Collections.unmodifiableMap(endefritmap));
+		CHARTABLE.add(3, Collections.unmodifiableMap(endefritmap));
+		CHARTABLE.add(4, Collections.unmodifiableMap(endefritmap));
 	}
 
 	protected static final char[][] ENT9TABLE = { { '0', '+' },
@@ -116,13 +118,23 @@ public class CharMap {
 		{ 't', 'u', 'v', 'T', 'U', 'V', 'ü', 'Ü', 'û', 'Û', '8' },
 		{ 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
 		{ '\n' } };
-	protected static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE };
+		
+	protected static final char[][] ITT9TABLE = {
+		{ ' ', '+', '0' },
+		{ '.', ',', '?', '!', ':', ';', '"', '/', '-', '@', '^', '€', '$', '%', '&', '*', '(', ')', '_', '1' },
+		{ 'a', 'b', 'c', 'A', 'B', 'C', 'à', 'À', '2' }, { 'd', 'e', 'f', 'D', 'E', 'F', 'é', 'è', 'É', 'È', '3' },
+		{ 'g', 'h', 'i', 'G', 'H', 'I', 'ì', 'Ì', '4' }, { 'j', 'k', 'l', 'J', 'K', 'L', '5' },
+		{ 'm', 'n', 'o', 'M', 'N', 'O', 'ò', 'Ò', '6' }, { 'p', 'q', 'r', 's', 'P', 'Q', 'R', 'S', '7' },
+		{ 't', 'u', 'v', 'T', 'U', 'V', 'ù', 'Ù', '8' }, { 'w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z', '9' },
+		{ '\n' } };
+	protected static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE, ITT9TABLE };
 
 	protected static final int[] ENT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int [] RUT9CAPSTART = {0, 0, 4, 5, 4, 4, 4, 4, 4, 4, 0};
 	protected static final int[] DET9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
 	protected static final int[] FRT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
-	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART, FRT9CAPSTART};
+	protected static final int[] ITT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0 };
+	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART, FRT9CAPSTART, ITT9CAPSTART};
 
 	protected static String getStringSequence(String word, LANGUAGE lang) {
 		StringBuilder seq = new StringBuilder();

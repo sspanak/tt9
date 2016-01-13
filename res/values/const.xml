@@ -5,6 +5,7 @@
 	<integer name="LANG_RU">2</integer>
 	<integer name="LANG_DE">4</integer>
 	<integer name="LANG_FR">8</integer>
+	<integer name="LANG_IT">16</integer>
 
 	<integer name="INPUT_DICT">0</integer>
 	<integer name="INPUT_TEXT">1</integer>

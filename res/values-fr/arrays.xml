@@ -17,12 +17,6 @@
 		<item>German</item>
 		<item>French</item>
 	</string-array>
-	<integer-array translatable="false" name="pref_lang_values">
-		<item>@integer/LANG_EN</item>
-		<item>@integer/LANG_RU</item>
-		<item>@integer/LANG_DE</item>
-		<item>@integer/LANG_FR</item>
-	</integer-array>
 
 	<string-array name="capsMode">
 		<item>Maj déver</item>

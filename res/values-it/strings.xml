@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Traditional T9</string>
+    <string name="ime_name">Traditional T9</string>
+    <string name="ime_number">Numeri</string>
+    <string name="pref_inputmode">Modalità inserimento standard</string>
+    <string name="pref_inputmode_desc">Modalità utilizzata per l\'inserimento di testo \'normale\' </string>
+    <string name="traditionalt9_settings">Traditional T9 Impostazioni</string>
+    <string name="main_left_insert">Ins. simbolo</string>
+    <string name="main_left_addword">Agg. parola</string>
+    <string name="main_mid">Fatto</string>
+    <string name="main_mid_commit">Accettare</string>
+    <string name="main_right_upper">Cambia modalità</string>
+    <string name="main_right_lower">Opzioni</string>
+    <string name="main_left_notfound">Agg. parola?</string>
+    <string name="ricon_desc">Mantenere Icona</string>
+    <string name="symbol_next">Pag. successiva</string>
+    <string name="symbol_prev">Pag. preceente</string>
+    <string name="symbol_insert">Ins. simbolo</string>
+    <string name="smiley_insert">Ins. Smiley</string>
+    <string name="symbol_page">Pag.: %1$s/%2$s</string>
+
+    <string name="add_word">Agg. parola</string>
+    <string name="close">Chiudi</string>
+    <string name="add_word_blank">Nessuna parola da aggiungere.</string>
+    <string name="add_word_badchar">Impossibile aggiungere parola con caratteri inesistenti per %1$s (%2$s).</string>
+    <string name="add_word_exist1">Parola (%1$s) già nel database.</string>
+    <string name="add_word_exist2">Parola (%1$s) già nel database per %2$s.</string>
+    <string name="title_activity_add_word">Aggiungi parola</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="database_notready">Database non disponibile.</string>
+    <string name="database_settings_notready">Database non disponibile. Utilizzo impostazioni di base.</string>
+
+    <string name="updating_database_title">Aggiornamento database dizionario…</string>
+    <string name="updating_database">Aggiornamento database dizionario, potrebbe volerci un po\'.</string>
+    <string name="updating_database_done">Aggiornamento database dizionario completato.</string>
+    <string name="updating_database_unavailable">Aggiornamento database dizionario, inserimento parole non disponibile al momento.</string>
+
+    <string name="pref_lang_title">Supporto multilingue…</string>
+    <string name="pref_help">"Mostra aiuto</string>
+    <string name="pref_loaddict">Carica dizionario</string>
+    <string name="pref_loaduserdict">Carica dizionario utente</string>
+    <string name="pref_nukedict">Elimina dizionario</string>
+    <string name="pref_backupdict">Salvataggio dizionario</string>
+    <string name="pref_restoredict">Ripristina dizionario</string>
+    <string name="pref_querytest">Test ricerca</string>
+    <string name="pref_testfunc">Test func</string>
+
+    <string name="pref_mode_notify">Modalità notifiche</string>
+    <string name="pref_mode_notify_subtitle">Usato per la vocalizzazione del cambio modalità</string>
+
+    <string name="pref_loadingdict">Caricamento dizionario…</string>
+    <string name="pref_loadinguserdict">Caricamento dizionario utente…</string>
+    <string name="pref_load_title">Caricamento dizionario IME</string>
+    <string name="pref_loadingbackup">Ripristino dizionario…</string>
+    <string name="pref_savingbackup">Salvataggio dizionario…</string>
+    <string name="pref_nukingdict">Eliminazione dizionario… Attendere prego…</string>
+    <string name="pref_loaduser_notfound">Dizionario per %1$s non trovato. Impossibile caricare.</string>
+
+    <string name="pref_backup_warn">Attenzione: salvataggio già esistente. Sovrascrivere ?</string>
+    <string name="pref_backup_title">Salvataggio database IME </string>
+    <string name="pref_backup_noext">Errore: Nessuna unità esterna disponibile per il salvataggio. Il salvataggio verrà interrotto.</string>
+    <string name="pref_restore_warn">I dati presenti nel salvataggio sostituiranno i dati esistenti. I dati non presenti nel salvataggio verranno mantenuti. In alternativa utilizzare \"%1$s\" prima di effettuare il ripristino.</string>
+    <string name="pref_restore_title">Ripristino database IME </string>
+    <string name="pref_restore_noext">Errore: Nessuna unità esterna disponibile per il ripristino. Il ripristino verrà interrotto.</string>
+    <string name="pref_restore_nofile">Errore: File di salvataggio non trovato.</string>
+    <string name="pref_nuke_warn">Attenzione: L\'intero dizionario sarà cancellato. Continuare ?</string>
+    <string name="pref_nuke_title">Elimina dizionario IME </string>
+    <string name="pref_reloadKeys">Ricaricamento KeyMap</string>
+
+    <string name="hello_world">Ciao mondo!</string>
+
+</resources>
+

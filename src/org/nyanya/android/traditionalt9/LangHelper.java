@@ -12,7 +12,7 @@ public class LangHelper {
 		// the same order as arrays.xml/pref_lang_values, and id is the identifier used in
 		// the database and such. id should never change unless database update is done.
 		// id MUST increment in doubles (as the enabled languages are stored as an integer)
-		NONE(-1, -1), EN(0,1), RU(1,2), DE(2,4), FR(3,8);
+		NONE(-1, -1), EN(0,1), RU(1,2), DE(2,4), FR(3,8), IT(4,16);
 		public final int index;
 		public final int id;
 		// lookup map
@@ -25,7 +25,7 @@ public class LangHelper {
 		public static LANGUAGE get(int i) { return lookup.get(i);}
 	}
 
-    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH};
+    protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH, Locale.ITALIAN};
     //protected static final String[] LANGS = {"EN", "RU", "DE"};
 
 	public static final int LANG_DEFAULT = LANGUAGE.EN.id;
@@ -67,7 +67,12 @@ public class LangHelper {
 					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
-
+			{
+					// Italian resources
+					{R.drawable.ime_it_lang_lower, R.drawable.ime_it_lang_single, R.drawable.ime_it_lang_upper}, //LANG
+					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
+					{R.drawable.ime_number}, //NUM
+			},
     };
 
 	public static LANGUAGE[] buildLangs(int i) {

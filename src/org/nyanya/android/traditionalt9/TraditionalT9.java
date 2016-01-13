@@ -23,6 +23,8 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.text.TextUtils;
+
 public class TraditionalT9 extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener {
 
@@ -176,12 +178,42 @@ public class TraditionalT9 extends InputMethodService implements
 		mComposingI.setLength(0);
 		mWordFound = true;
 	}
+
+	private String getSurroundingWord() {
+		CharSequence before = currentInputConnection.getTextBeforeCursor(50, 0);
+		CharSequence after = currentInputConnection.getTextAfterCursor(50, 0);
+		int bounds = -1;
+		if (!TextUtils.isEmpty(before)) {
+			bounds = before.length() -1;
+			while (bounds > 0 && !Character.isWhitespace(before.charAt(bounds))) {
+				bounds--;
+			}
+			before = before.subSequence(bounds, before.length());
+		}
+		if (!TextUtils.isEmpty(after)) {
+			bounds = 0;
+			while (bounds < after.length() && !Character.isWhitespace(after.charAt(bounds))) {
+				bounds++;
+			}
+			Log.d("getSurroundingWord", "after:"+after.toString());
+			after = after.subSequence(0, bounds);
+		}
+		return before.toString().trim() + after.toString().trim();
+	}
+
 	protected void showAddWord() {
 		if (mKeyMode == MODE_LANG) {
+			// decide if we are going to look for work to base on
+			String template = mComposing.toString();
+			if (template.length() == 0) {
+				//get surrounding word:
+				template = getSurroundingWord();
+			}
+			Log.d("showAddWord", "WORD: "+template);
 			Intent awintent = new Intent(this, AddWordAct.class);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-			awintent.putExtra("org.nyanya.android.traditionalt9.word", mComposing.toString());
+			awintent.putExtra("org.nyanya.android.traditionalt9.word", template);
 			awintent.putExtra("org.nyanya.android.traditionalt9.lang", mLang.id);
 			clearState();
 			currentInputConnection.setComposingText("", 0);
@@ -883,6 +915,7 @@ public class TraditionalT9 extends InputMethodService implements
 							prefix = mPreviousWord;
 						} else {
 							if (suggestions) {
+								if (mCandidateView.mSelectedIndex == -1) { mCandidateView.mSelectedIndex = 0; }
 								prefix = mPreviousWord = mSuggestionStrings.get(mCandidateView.mSelectedIndex);
 							} else {
 								prefix = mPreviousWord;
@@ -922,7 +955,7 @@ public class TraditionalT9 extends InputMethodService implements
 					}
 				}
 				setSuggestions(mSuggestionStrings, 0);
-			} else {
+				} else {
 				setSuggestions(null, -1);
 				setCandidatesViewShown(false);
 				if (interfacehandler != null) {
