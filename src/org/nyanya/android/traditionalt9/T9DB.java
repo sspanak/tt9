@@ -28,7 +28,7 @@ public class T9DB {
 	protected boolean ready = true;
 
 	protected static final String DATABASE_NAME = "t9dict.db";
-	protected static final int DATABASE_VERSION = 3;
+	protected static final int DATABASE_VERSION = 4;
 	protected static final String WORD_TABLE_NAME = "word";
 	protected static final String SETTING_TABLE_NAME = "setting";
 	protected static final String FREQ_TRIGGER_NAME = "freqtrigger";
@@ -66,19 +66,26 @@ public class T9DB {
 
 	public static class DBSettings {
 		public enum SETTING {
-			INPUT_MODE("pref_inputmode", 0),
-			LANG_SUPPORT("pref_lang_support", 1),
-			MODE_NOTIFY("pref_mode_notify", 0),
-			LAST_LANG("set_last_lang", 1),
-			LAST_WORD("set_last_word", null);
+			INPUT_MODE("pref_inputmode", 0, 0),
+			LANG_SUPPORT("pref_lang_support", 1, 1),
+			MODE_NOTIFY("pref_mode_notify", 0, 2),
+			LAST_LANG("set_last_lang", 1, 5),
+			LAST_WORD("set_last_word", null, 6),
+			SPACE_ZERO("pref_spaceOnZero", 0, 4),
+			KEY_REMAP("pref_keyMap", 0, 3);
+
 			public final String id;
 			public final Integer defvalue;
+			public final int sqOrder; // used for building SettingsUI
+
 			// lookup map
 			private static final Map<String, SETTING> lookup = new HashMap<String, SETTING>();
 			private static final SETTING[] settings = SETTING.values();
 			static { for (SETTING l : settings) lookup.put(l.id, l); }
 
-			private SETTING(String id, Integer defval) { this.id = id; this.defvalue = defval;}
+			private SETTING(String id, Integer defval, int sqOrder) {
+				this.id = id; this.defvalue = defval; this.sqOrder = sqOrder;
+			}
 
 			public static SETTING get(String i) { return lookup.get(i);}
 			public static StringBuilder join(SETTING[] settings, StringBuilder sb) {
@@ -485,14 +492,9 @@ public class T9DB {
 					+ COLUMN_FREQUENCY + " / " + FREQ_DIV +
 					" WHERE " + COLUMN_SEQ + " = NEW." + COLUMN_SEQ + ";" +
 					" END;");
-			// protected static final String[] setting_keys = {INPUT_MODE, LANG_SUPPORT, MODE_NOTIFY, LAST_LANG};
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + SETTING_TABLE_NAME + " (" +
-					COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					DBSettings.SETTING.INPUT_MODE.id + " INTEGER, " +
-					DBSettings.SETTING.LANG_SUPPORT.id + " INTEGER, " +
-					DBSettings.SETTING.MODE_NOTIFY.id	+ " INTEGER, " +
-					DBSettings.SETTING.LAST_LANG.id	+ " INTEGER, " +
-					DBSettings.SETTING.LAST_WORD.id	+ " TEXT )");
+
+			createSettingsTable(db);
+
 			StringBuilder sb = new StringBuilder("INSERT OR IGNORE INTO "); sb.append(SETTING_TABLE_NAME);
 			sb.append(" ("); sb.append(COLUMN_ID); sb.append(", ");
 			sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
@@ -508,10 +510,22 @@ public class T9DB {
 			db.execSQL(sb.toString());
 		}
 
+		private void createSettingsTable(SQLiteDatabase db) {
+			db.execSQL("CREATE TABLE IF NOT EXISTS " + SETTING_TABLE_NAME + " (" +
+					COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+					DBSettings.SETTING.INPUT_MODE.id + " INTEGER, " +
+					DBSettings.SETTING.LANG_SUPPORT.id + " INTEGER, " +
+					DBSettings.SETTING.MODE_NOTIFY.id	+ " INTEGER, " +
+					DBSettings.SETTING.LAST_LANG.id	+ " INTEGER, " +
+					DBSettings.SETTING.KEY_REMAP.id	+ " INTEGER, " +
+					DBSettings.SETTING.SPACE_ZERO.id	+ " INTEGER, " +
+					DBSettings.SETTING.LAST_WORD.id	+ " TEXT )");
+		}
+
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.i("T9DB.onUpgrade", "Upgrading database from version " + oldVersion + " to " + newVersion);
-			if (oldVersion == 1) {
+			if (oldVersion <= 1) {
 				// ADDED LANG
 				db.execSQL("DROP INDEX IF EXISTS idx");
 				db.execSQL("ALTER TABLE " + WORD_TABLE_NAME + " ADD COLUMN " +
@@ -519,18 +533,28 @@ public class T9DB {
 				ContentValues updatedata = new ContentValues();
 				updatedata.put(COLUMN_LANG, 0);
 				db.update(WORD_TABLE_NAME, updatedata, null, null);
-				onCreate(db);
-				oldVersion = 2;
 			}
-			if (oldVersion == 2) {
+			if (oldVersion <= 2) {
 				// ADDED SETTINGS, CHANGED LANG VALUE
 				db.execSQL("DROP INDEX IF EXISTS idx");
 				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.RU.id +
 						" WHERE " + COLUMN_LANG + "=1");
 				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.EN.id +
-				" WHERE " + COLUMN_LANG + "=0");
-				onCreate(db);
+						" WHERE " + COLUMN_LANG + "=0");
+				createSettingsTable(db);
 			}
+			if (oldVersion == 3) {
+				// ADDED REMAP OPTION and SPACEONZERO
+				db.execSQL("ALTER TABLE " + SETTING_TABLE_NAME + " ADD COLUMN " +
+					DBSettings.SETTING.KEY_REMAP.id + " INTEGER");
+				db.execSQL("ALTER TABLE " + SETTING_TABLE_NAME + " ADD COLUMN " +
+						DBSettings.SETTING.SPACE_ZERO.id + " INTEGER");
+				ContentValues updatedata = new ContentValues();
+				updatedata.put(DBSettings.SETTING.KEY_REMAP.id, 0);
+				updatedata.put(DBSettings.SETTING.SPACE_ZERO.id, 0);
+				db.update(SETTING_TABLE_NAME, updatedata, null, null);
+			}
+			onCreate(db);
 			Log.i("T9DB.onUpgrade", "Done.");
 		}
 	}

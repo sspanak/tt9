@@ -16,6 +16,12 @@
 		entryValues="@array/pref_lang_values"
 		title="@string/pref_lang_title" />
 	<SettingCheck
+		id="pref_spaceOnZero"
+		title="@string/pref_spaceOnZero"
+		summary="@string/pref_keyRemapSum"
+		defaultValue="false"
+		/>
+	<SettingCheck
 		id="pref_mode_notify"
 		title="@string/pref_mode_notify"
 		summary="@string/pref_mode_notify_subtitle"
@@ -27,4 +33,10 @@
 	<Setting title="@string/pref_backupdict" id="backupdict"/>
 	<Setting title="@string/pref_restoredict" id="restoredict"/>
 	<Setting title="@string/pref_reloadKeys" summary="@string/pref_reloadKeysSum" id="reloadKeys"/>
+	<SettingCheck
+		id="pref_keyMap"
+		title="@string/pref_keyRemap"
+		summary="@string/pref_keyRemapSum"
+		defaultValue="false"
+		/>
 </Settings>
