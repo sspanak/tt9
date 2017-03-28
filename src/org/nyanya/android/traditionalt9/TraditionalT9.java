@@ -23,8 +23,6 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.text.TextUtils;
-
 public class TraditionalT9 extends InputMethodService implements
 		KeyboardView.OnKeyboardActionListener {
 
@@ -46,6 +44,9 @@ public class TraditionalT9 extends InputMethodService implements
 	private boolean mGaveUpdateWarn = false;
 
 	private boolean mFirstPress = false;
+	private boolean keyRemap = false;
+
+	private boolean spaceOnZero = false;
 
 	private boolean mIgnoreDPADKeyUp = false;
 	private KeyEvent mDPADkeyEvent = null;
@@ -195,7 +196,6 @@ public class TraditionalT9 extends InputMethodService implements
 			while (bounds < after.length() && !Character.isWhitespace(after.charAt(bounds))) {
 				bounds++;
 			}
-			Log.d("getSurroundingWord", "after:"+after.toString());
 			after = after.subSequence(0, bounds);
 		}
 		return before.toString().trim() + after.toString().trim();
@@ -248,14 +248,13 @@ public class TraditionalT9 extends InputMethodService implements
 	@Override
 	public void onStartInput(EditorInfo attribute, boolean restarting) {
 		super.onStartInput(attribute, restarting);
-		//Log.d("onStartInput", "attribute.inputType: " + attribute.inputType +
-		//	" restarting? " + restarting);
-		//Utils.printFlags(attribute.inputType);
 		currentInputConnection = getCurrentInputConnection();
-
-		if (attribute.inputType == 0) {
+		//Log.d("T9.onStartInput", "INPUTTYPE: " + attribute.inputType + " FIELDID: " + attribute.fieldId +
+		//	" FIELDNAME: " + attribute.fieldName + " PACKAGE NAME: " + attribute.packageName);
+		if (attribute.inputType == 0 || attribute.inputType == 3) {
 			mLang = null;
 			// don't do anything when not in any kind of edit field.
+			// OR in dialer-type inputs. Hopefully OS will translate longpress 0 to +
 			// should also turn off input screen and stuff
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
@@ -264,6 +263,9 @@ public class TraditionalT9 extends InputMethodService implements
 //			if (interfacehandler != null) {
 //				interfacehandler.hideView();
 //			}
+			// Get keyMap setting:
+			Object[] setting = db.getSettings(new SETTING[] {SETTING.KEY_REMAP} );
+			keyRemap = setting[0].equals(1);
 			return;
 		}
 		mFirstPress = true;
@@ -274,12 +276,14 @@ public class TraditionalT9 extends InputMethodService implements
 		clearState();
 
 		// get settings
-		Object[] settings = db.getSettings(new SETTING[]
-				// 0, 1, 2,
-				{SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
-					// 3, 4
-					SETTING.INPUT_MODE, SETTING.LAST_WORD} );
+		Object[] settings = db.getSettings(new SETTING[] {
+			// 0, 1, 2,
+			SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
+			// 3, 4, 5
+			SETTING.INPUT_MODE, SETTING.LAST_WORD, SETTING.SPACE_ZERO
+		});
 
+		spaceOnZero = settings[5].equals(1);
 		mLangsAvailable = LangHelper.buildLangs((Integer)settings[0]);
 		mLang = sanitizeLang(LANGUAGE.get((Integer)settings[1]));
 
@@ -496,14 +500,18 @@ public class TraditionalT9 extends InputMethodService implements
 		// ??????????????
 	}
 
-	/**
-	 * Use this to monitor key events being delivered to the application. We get
-	 * first crack at them, and can either resume them or let them continue to
-	 * the app.
-	 */
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-//		Log.d("onKeyDown", "Key: " + event + " repeat?: " +
+	private KeyEvent TranslateKey(int keyCode, KeyEvent event) {
+		KeyEvent key = event;
+		if (KeyMap.keyMapping.containsKey(keyCode)) {
+			key = new KeyEvent(event.getDownTime(), event.getEventTime(), event.getAction(),
+					KeyMap.keyMapping.get(keyCode), event.getRepeatCount(), event.getMetaState(),
+					event.getDeviceId(), 0, event.getFlags());
+		}
+		return key;
+	}
+
+	private boolean onKeyDown_(int keyCode, KeyEvent event) {
+		//		Log.d("onKeyDown", "Key: " + event + " repeat?: " +
 //				event.getRepeatCount() + " long-time: " + event.isLongPress());
 		if (mEditing == NON_EDIT) {
 			// // catch for UI weirdness on up event thing
@@ -511,7 +519,7 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		mFirstPress = false;
 
-		if (keyCode == KeyMap.DPAD_CENTER) {
+		if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, true);
 			} // pass-through
@@ -521,17 +529,17 @@ public class TraditionalT9 extends InputMethodService implements
 				return false;
 			}
 			return handleDPAD(keyCode, event, true);
-		} else if (keyCode == KeyMap.DPAD_DOWN || keyCode == KeyMap.DPAD_UP || keyCode == KeyMap.DPAD_LEFT || keyCode == KeyMap.DPAD_RIGHT) {
+		} else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 			if (mEditing == EDITING_NOSHOW) {
 				return false;
 			}
 			return handleDPAD(keyCode, event, true);
-		} else if (keyCode == KeyMap.SOFT_RIGHT || keyCode == KeyMap.SOFT_LEFT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {
 			if (!isInputViewShown()) {
 				return super.onKeyDown(keyCode, event);
 			}
 
-		} else if (keyCode == KeyMap.DEL) {// Special handling of the delete key: if we currently are
+		} else if (keyCode == KeyEvent.KEYCODE_DEL) {// Special handling of the delete key: if we currently are
 			// composing text for the user, we want to modify that instead
 			// of let the application do the delete itself.
 			// if (mComposing.length() > 0) {
@@ -548,17 +556,17 @@ public class TraditionalT9 extends InputMethodService implements
 		if (mKeyMode == MODE_TEXT) {
 			t9releasehandler.removeCallbacks(mt9release);
 		}
-		if (keyCode == KeyMap.BACK) {// The InputMethodService already takes care of the back
+		if (keyCode == KeyEvent.KEYCODE_BACK) {// The InputMethodService already takes care of the back
 			// key for us, to dismiss the input method if it is shown.
 			// but we will manage it ourselves because native Android handling
 			// of the input view is ... flakey at best.
 			// Log.d("onKeyDown", "back pres");
 			return isInputViewShown();
-		} else if (keyCode == KeyMap.ENTER) {// Let the underlying text editor always handle these.
+		} else if (keyCode == KeyEvent.KEYCODE_ENTER) {// Let the underlying text editor always handle these.
 			return false;
 
 			// special case for softkeys
-		} else if (keyCode == KeyMap.SOFT_RIGHT || keyCode == KeyMap.SOFT_LEFT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, true);
 			}
@@ -570,7 +578,7 @@ public class TraditionalT9 extends InputMethodService implements
 		} else if (keyCode == KeyEvent.KEYCODE_0 || keyCode == KeyEvent.KEYCODE_1 || keyCode == KeyEvent.KEYCODE_2 ||
 				keyCode == KeyEvent.KEYCODE_3 || keyCode == KeyEvent.KEYCODE_4 || keyCode == KeyEvent.KEYCODE_5 ||
 				keyCode == KeyEvent.KEYCODE_6 || keyCode == KeyEvent.KEYCODE_7 || keyCode == KeyEvent.KEYCODE_8 ||
-				keyCode == KeyEvent.KEYCODE_9 || keyCode == KeyMap.POUND || keyCode == KeyMap.STAR) {
+				keyCode == KeyEvent.KEYCODE_9 || keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_STAR) {
 			event.startTracking();
 			return true;
 		} else {// KeyCharacterMap.load(KeyCharacterMap.BUILT_IN_KEYBOARD).getNumber(keyCode)
@@ -581,13 +589,42 @@ public class TraditionalT9 extends InputMethodService implements
 		commitReset();
 		return super.onKeyDown(keyCode, event);
 	}
+	/**
+	 * Use this to monitor key events being delivered to the application. We get
+	 * first crack at them, and can either resume them or let them continue to
+	 * the app.
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// Translate key
+		KeyEvent key = TranslateKey(keyCode, event);
+		if (key != null) {
+			keyCode = key.getKeyCode();
+			event = key;
+		}
+
+		if (!onKeyDown_(keyCode, event)) {
+			if (key == null || keyRemap) {
+				return false;
+			}
+			else {
+				// push key to lower level
+				// dumb handling of null for edge weird timing cases.
+				if (currentInputConnection == null)
+					currentInputConnection = getCurrentInputConnection();
+				if (currentInputConnection != null)
+					currentInputConnection.sendKeyEvent(event);
+			}
+		}
+		return true;
+	}
 
 	protected void launchOptions() {
 		Intent awintent = new Intent(this, TraditionalT9Settings.class);
 		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		if (interfacehandler != null) {
-			interfacehandler.setPressed(KeyMap.SOFT_RIGHT, false);
+			interfacehandler.setPressed(KeyEvent.KEYCODE_SOFT_RIGHT, false);
 		}
 		hideWindow();
 		startActivity(awintent);
@@ -602,14 +639,14 @@ public class TraditionalT9 extends InputMethodService implements
 
 		// Log.d("onLongPress", "LONG PRESS: " + keyCode);
 		// HANDLE SPECIAL KEYS
-		if (keyCode == KeyMap.POUND) {
+		if (keyCode == KeyEvent.KEYCODE_POUND) {
 			commitReset();
 			// do default action or insert new line
 			if (!sendDefaultEditorAction(true)) {
 				onText("\n");
 			}
 			return true;
-		} else if (keyCode == KeyMap.STAR) {
+		} else if (keyCode == KeyEvent.KEYCODE_STAR) {
 			if (mKeyMode != MODE_NUM) {
 				if (mLangsAvailable.length > 1) {
 					nextLang();
@@ -619,7 +656,7 @@ public class TraditionalT9 extends InputMethodService implements
 				return true;
 			}
 
-		} else if (keyCode == KeyMap.SOFT_LEFT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
@@ -631,7 +668,7 @@ public class TraditionalT9 extends InputMethodService implements
 				}
 			}
 
-		} else if (keyCode == KeyMap.SOFT_RIGHT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT) {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
@@ -655,15 +692,9 @@ public class TraditionalT9 extends InputMethodService implements
 		return true;
 	}
 
-	/**
-	 * Use this to monitor key events being delivered to the application. We get
-	 * first crack at them, and can either resume them or let them continue to
-	 * the app.
-	 */
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-//		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
-//			event.getRepeatCount());
+	private boolean onKeyUp_(int keyCode, KeyEvent event) {
+	//		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
+	//			event.getRepeatCount());
 		if (mEditing == NON_EDIT) {
 			// if (mButtonClose) {
 			// //handle UI weirdness on up event
@@ -677,7 +708,7 @@ public class TraditionalT9 extends InputMethodService implements
 			return super.onKeyUp(keyCode, event);
 		}
 
-		if (keyCode == KeyMap.DPAD_CENTER) {
+		if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
@@ -685,35 +716,34 @@ public class TraditionalT9 extends InputMethodService implements
 				return false;
 			}
 			return handleDPAD(keyCode, event, false);
-		} else if (keyCode == KeyMap.DPAD_DOWN || keyCode == KeyMap.DPAD_UP || keyCode == KeyMap.DPAD_LEFT || keyCode == KeyMap.DPAD_RIGHT) {
+		} else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 			if (mEditing == EDITING_NOSHOW) {
 				return false;
 			}
 			return handleDPAD(keyCode, event, false);
-		} else if (keyCode == KeyMap.SOFT_RIGHT || keyCode == KeyMap.SOFT_LEFT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {
 			if (!isInputViewShown()) {
 				return super.onKeyDown(keyCode, event);
 			}
-
 		}
 
 		if (event.isCanceled()) {
 			return true;
 		}
 
-		if (keyCode == KeyMap.BACK) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (isInputViewShown()) {
 				hideWindow();
 				return true;
 			}
 			return false;
-		} else if (keyCode == KeyMap.DEL) {
+		} else if (keyCode == KeyEvent.KEYCODE_DEL) {
 			return true;
-		} else if (keyCode == KeyMap.ENTER) {
+		} else if (keyCode == KeyEvent.KEYCODE_ENTER) {
 			return false;
 
 			// special case for softkeys
-		} else if (keyCode == KeyMap.SOFT_RIGHT || keyCode == KeyMap.SOFT_LEFT) {// if (mAddingWord){
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT || keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {// if (mAddingWord){
 			// Log.d("onKeyUp", "key: " + keyCode + " skip: " +
 			// mAddingSkipInput);
 			// if (mAddingSkipInput) {
@@ -734,7 +764,7 @@ public class TraditionalT9 extends InputMethodService implements
 		} else if (keyCode == KeyEvent.KEYCODE_0 || keyCode == KeyEvent.KEYCODE_1 || keyCode == KeyEvent.KEYCODE_2
 				|| keyCode == KeyEvent.KEYCODE_3 || keyCode == KeyEvent.KEYCODE_4 || keyCode == KeyEvent.KEYCODE_5 ||
 				keyCode == KeyEvent.KEYCODE_6 || keyCode == KeyEvent.KEYCODE_7 || keyCode == KeyEvent.KEYCODE_8 ||
-				keyCode == KeyEvent.KEYCODE_9 || keyCode == KeyMap.POUND || keyCode == KeyMap.STAR) {
+				keyCode == KeyEvent.KEYCODE_9 || keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_STAR) {
 			// if (!isInputViewShown()){
 			// Log.d("onKeyUp", "showing window.");
 			// //showWindow(true);
@@ -749,6 +779,35 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		commitReset();
 		return super.onKeyUp(keyCode, event);
+	}
+	/**
+	 * Use this to monitor key events being delivered to the application. We get
+	 * first crack at them, and can either resume them or let them continue to
+	 * the app.
+	 */
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// Translate key
+		KeyEvent key = TranslateKey(keyCode, event);
+		if (key != null) {
+			keyCode = key.getKeyCode();
+			event = key;
+		}
+
+		if (!onKeyUp_(keyCode, event)) {
+			if (key == null || keyRemap) {
+				return false;
+			}
+			else {
+				// push key to lower level
+				// dumb handling of null for edge weird timing cases.
+				if (currentInputConnection == null)
+					currentInputConnection = getCurrentInputConnection();
+				if (currentInputConnection != null)
+					currentInputConnection.sendKeyEvent(event);
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -814,32 +873,28 @@ public class TraditionalT9 extends InputMethodService implements
 		// Log.d("OnKey", "pri: " + keyCode);
 		// Log.d("onKey", "START Cm: " + mCapsMode);
 		// HANDLE SPECIAL KEYS
-		if (keyCode == KeyMap.DEL) {
+		if (keyCode == KeyEvent.KEYCODE_DEL) {
 			handleBackspace();
-
+		} else if (keyCode == KeyEvent.KEYCODE_STAR) {
 			// change case
-		} else if (keyCode == KeyMap.STAR) {
 			if (mKeyMode == MODE_NUM) {
-				handleCharacter(KeyMap.STAR);
+				handleCharacter(KeyEvent.KEYCODE_STAR);
 			} else {
 				handleShift();
 			}
-
-		} else if (keyCode == KeyMap.BACK) {
+		} else if (keyCode == KeyEvent.KEYCODE_BACK) {
 			handleClose();
-
+		} else if (keyCode == KeyEvent.KEYCODE_POUND) {
 			// space
-		} else if (keyCode == KeyMap.POUND) {
-			handleCharacter(KeyMap.POUND);
-
-		} else if (keyCode == KeyMap.SOFT_LEFT) {
+			handleCharacter(KeyEvent.KEYCODE_POUND);
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_LEFT) {
 			if (mWordFound) {
 				showSymbolPage();
 			} else {
 				showAddWord();
 			}
 
-		} else if (keyCode == KeyMap.SOFT_RIGHT) {
+		} else if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT) {
 			nextKeyMode();
 
 		} else {
@@ -1030,7 +1085,7 @@ public class TraditionalT9 extends InputMethodService implements
 			updateCandidates();
 		} else {
 			mPreviousWord = "";
-			keyDownUp(KeyMap.DEL);
+			keyDownUp(KeyEvent.KEYCODE_DEL);
 		}
 		updateShiftKeyState(getCurrentInputEditorInfo());
 		// Log.d("handleBS", "Cm: " + mCapsMode);
@@ -1064,8 +1119,9 @@ public class TraditionalT9 extends InputMethodService implements
 		switch (mKeyMode) {
 			case MODE_LANG:
 				// it begins
-				// on POUND commit and space
-				if (keyCode == KeyMap.POUND) {
+				// take note of spaceOnZero
+				if (keyCode == KeyEvent.KEYCODE_POUND ||
+						( spaceOnZero && (keyCode == KeyEvent.KEYCODE_0) )) {
 					if (mComposing.length() > 0) {
 						commitTyped();
 					}
@@ -1084,10 +1140,17 @@ public class TraditionalT9 extends InputMethodService implements
 
 			case MODE_TEXT:
 				t9releasehandler.removeCallbacks(mt9release);
-				if (keyCode == KeyMap.POUND) {
+				if (keyCode == KeyEvent.KEYCODE_POUND) {
 					keyCode = 10;
 				} else {
 					keyCode = keyCode - KeyEvent.KEYCODE_0;
+				}
+				// special translation of that keyCode (which is now T9TABLE index
+				if (spaceOnZero) {
+					if (keyCode == 0)
+						keyCode = 11;
+					if (keyCode == 10)
+						keyCode = 12;
 				}
 				//Log.d("handleChar", "Key: " + keyCode + "Previous Key: " + mPrevious + " Index:" + mCharIndex);
 
@@ -1132,9 +1195,9 @@ public class TraditionalT9 extends InputMethodService implements
 				break;
 
 			case MODE_NUM:
-				if (keyCode == KeyMap.POUND) {
+				if (keyCode == KeyEvent.KEYCODE_POUND) {
 					onText("#");
-				} else if (keyCode == KeyMap.STAR) {
+				} else if (keyCode == KeyEvent.KEYCODE_STAR) {
 					onText("*");
 				} else {
 					onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
@@ -1177,17 +1240,17 @@ public class TraditionalT9 extends InputMethodService implements
 				return super.onKeyUp(keyCode, event);
 			} else {
 				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
-					if (keyCode == KeyMap.DPAD_DOWN) {
+					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
 						mCandidateView.scrollSuggestion(1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
-					} else if (keyCode == KeyMap.DPAD_UP) {
+					} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 						mCandidateView.scrollSuggestion(-1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
-					} else if (keyCode == KeyMap.DPAD_LEFT || keyCode == KeyMap.DPAD_RIGHT) {
+					} else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
 						if (mKeyMode == MODE_LANG) {
 							commitTyped();
 						} else if (mKeyMode == MODE_TEXT) {
@@ -1198,7 +1261,7 @@ public class TraditionalT9 extends InputMethodService implements
 						return true;
 					}
 				}
-				if (keyCode == KeyMap.DPAD_CENTER) {
+				if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
 					handleMidButton();
 					return true;
 				} else {// Send stored event to input connection then pass current

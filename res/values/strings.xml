@@ -70,6 +70,12 @@
 	<string name="pref_nuke_title">Nuke IME dictionary</string>
 	<string name="pref_reloadKeys">Reload KeyMap</string>
 	<string name="pref_reloadKeysSum" translatable="false">Force reload of key mapping overrides</string>
+	<string name="pref_reloadKeysDone" translatable="false">Reload complete.</string>
+	<string name="pref_reloadKeysDoneWE" translatable="false">Reload complete with errors (check logcat.)</string>
+	<string name="pref_reloadKeysNoFile" translatable="false">No keymap.txt file found.</string>
+	<string name="pref_keyRemap" translatable="false">Translate keys</string>
+	<string name="pref_keyRemapSum" translatable="false">Enable to send translated keys to apps, otherwise keymap is for IME only.</string>
+	<string name="pref_spaceOnZero" translatable="false">Space on 0 key</string>
 
 	<string name="hello_world">Hello world!</string>
 

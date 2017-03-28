@@ -1,13 +1,7 @@
-# Default keycodes
-DPAD_CENTER 23
-DPAD_DOWN 20
-DPAD_UP 19
-DPAD_LEFT 21
-DPAD_RIGHT 22
-SOFT_RIGHT 2
-SOFT_LEFT 1
-DEL 67
-BACK 4
-ENTER 66
-POUND 18
-STAR 17
+# Remap left to right, and right to left
+# lines that begin with a hash are ignored
+# [keycode of original key](space)[keycode of new key]
+#DPAD_LEFT
+21 22
+#DPAD_RIGHT
+22 21

@@ -692,8 +692,8 @@ public class TraditionalT9Settings extends ListActivity implements
 
 		// get settings
 		Object[] settings = T9DB.getInstance(this).getSettings(new SETTING[]
-				// 0, 1, 2
-				{SETTING.INPUT_MODE, SETTING.LANG_SUPPORT, SETTING.MODE_NOTIFY});
+				// Order should be based on SETTING.sqOrder
+				{SETTING.INPUT_MODE, SETTING.LANG_SUPPORT, SETTING.MODE_NOTIFY, SETTING.KEY_REMAP, SETTING.SPACE_ZERO});
 		ListAdapter settingitems;
 		try {
 			settingitems = new SettingAdapter(this, CustomInflater.inflate(this, R.xml.prefs, settings));
@@ -722,8 +722,12 @@ public class TraditionalT9Settings extends ListActivity implements
 			backupDict();
 		else if (s.id.equals("restoredict"))
 			restoreDict();
-		else if (s.id.equals("reloadKeys"))
-			KeyMap.setKeys();
+		else if (s.id.equals("reloadKeys")) {
+			int msg = KeyMap.setKeys();
+			if (msg != 0) {
+				Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+			}
+		}
 		else
 			s.clicked(mContext);
 	}
