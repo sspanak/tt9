@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Налаштування</string>
+    <string name="add_word">Додати слово</string>
+    <string name="add_word_badchar">Неможливо додати слово з таким символом %1$s (%2$s).</string>
+    <string name="add_word_blank">Неможливо додати слово.</string>
+    <string name="add_word_exist1">Слово (%1$s) вже є в словнику.</string>
+    <string name="add_word_exist2">Слово (%1$s) вже є в словнику %2$s.</string>
+    <string name="app_name">Traditional T9</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="ime_name">Клавіатура T9</string>
+    <string name="ime_number">Цифри</string>
+    <string name="main_left_addword">Додати слово</string>
+    <string name="main_left_insert">Вставити символ</string>
+    <string name="main_left_notfound">Додати слово?</string>
+    <string name="main_mid">Готово</string>
+    <string name="main_mid_commit">Застосувати</string>
+    <string name="main_right_lower">Змінити IME</string>
+    <string name="main_right_upper">Режим введення</string>
+    <string name="pref_backup_noext">Помилка: Зовнышня пам\'ять недоступна. Резервне копіювання неможливе.</string>
+    <string name="pref_backup_title">Резервне копіювання бази даних IME</string>
+    <string name="pref_backup_warn">Попередження: Існуюча копія бази даних буде перезаписана. Продовжити?</string>
+    <string name="pref_backupdict">Бекап словника</string>
+    <string name="pref_inputmode">Режим введення за замовчуванням</string>
+    <string name="pref_inputmode_desc">Режим введення за замовчуванням</string>
+    <string name="pref_load_title">Завантажити словник IME</string>
+    <string name="pref_loaddict">Завантажити словник</string>
+    <string name="pref_loadingbackup">Відновлення словника…</string>
+    <string name="pref_loadingdict">Завантаження словника</string>
+    <string name="pref_loadinguserdict">Завантаження словника користувача…</string>
+    <string name="pref_loaduserdict">Завантажити свій словник</string>
+    <string name="pref_lang_title">Багатомовна підтримка</string>
+    <string name="pref_nuke_title">Очистити IME словник</string>
+    <string name="pref_nuke_warn">Попередження: Буде виконана очистка словника. Продовжити?</string>
+    <string name="pref_nukedict">Очистка словника</string>
+    <string name="pref_nukingdict">Очистка словника… Будь-ласка, зачекайте…</string>
+    <string name="pref_querytest">Тестовий запит</string>
+    <string name="pref_restore_noext">Помилка: Зовнішня память недоступна. Відновлення неможливе.</string>
+    <string name="pref_restore_nofile">Помилка: Файл відновлення не знайдений.</string>
+    <string name="pref_restore_title">Відновити базу даних IME</string>
+    <string name="pref_restore_warn">При відновленні існуюча база даних буде витерта. Если это нежелательно, то сначала выберите \"%1$s\" перед использованием этой опции.</string>
+    <string name="pref_restoredict">Зберегти словник</string>
+    <string name="pref_savingbackup">Збереження словника…</string>
+    <string name="pref_testfunc">Test func</string>
+    <string name="ricon_desc">Hold Icon</string>
+    <string name="pref_help">Про програму</string>
+    <string name="symbol_next">Наступне</string>
+    <string name="symbol_prev">Попереднє</string>
+
+  <string name="symbol_insert">Вставити символ</string>
+  <string name="smiley_insert">Вставити смайл</string>
+  <string name="symbol_page">Стор: %1$s/%2$s</string>
+
+  <string name="close">Закрити</string>
+  <string name="database_notready">База даних недоступна.</string>
+  <string name="updating_database_title">Оновлення бази даних словника…</string>
+  <string name="updating_database">Виконується оновлення бази даних словника… \n Це займе деякий час.</string>
+  <string name="updating_database_done">Оновлення бази даних словника виконано успішно.</string>
+  <string name="updating_database_unavailable">Оновлення бізи даних словника недоступне.</string>
+  <string name="pref_loaduser_notfound"> Помилка. \n Словник %1$s не знайдено. </string>
+  <string name="pref_mode_notify_subtitle">Використовується для індикації зміни режима введення.</string>
+  <string name="pref_mode_notify">Режим індикації</string>
+  <string name="database_settings_notready">База даних недоступна. Використовуюься значення за замовчуванням.</string>
+  <string name="pref_reloadKeys">Перезавантажити значення клавіш</string>
+
+    <string name="title_activity_add_word">Додати слово</string>
+    <string name="traditionalt9_settings">Налаштування Traditional T9</string>
+
+</resources>
