@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_inputmode_entries">
+        <item>Словник</item>
+        <item>Текст</item>
+        <item>Цифри</item>
+    </string-array>
+
+    <string-array name="pref_lang_titles">
+    <item>English</item>
+    <item>Російська</item>
+    <item>Німецька</item>
+    <item>Французька</item>
+    <item>Італійська</item>
+    <item>Українська</item>
+    </string-array>
+
+  <string-array name="capsMode">
+    <item>Нижній регістр</item>
+    <item>Починати з великої літери</item>
+    <item>Всі великі літери</item>
+  </string-array>
+
+  <string-array name="keyMode">
+    <item>Словник</item>
+    <item>Літери</item>
+    <item>Цифри</item>
+  </string-array>
+
+  <string-array name="smileyContentDescription">
+    <item>усмішка</item>
+    <item>клоун</item>
+    <item>дурненький</item>
+    <item>няшний</item>
+    <item>вусатий смайл</item>
+    <item>зловтіха</item>
+    <item>дуже щасливий</item>
+    <item>щасливий</item>
+    <item>вусань</item>
+    <item>сміється</item>
+
+    <item>сміється з розплющеними очима</item>
+    <item>сміється з заплющеними очима</item>
+    <item>в захваті</item>
+    <item>крутий</item>
+    <item>вчений</item>
+    <item>похмурий погляд</item>
+    <item>сумний</item>
+    <item>зневіра</item>
+    <item>сумний клоун</item>
+    <item>засмучений вусань</item>
+
+    <item>плаче</item>
+    <item>сміх до сліз</item>
+    <item>лається</item>
+    <item>страх</item>
+    <item>жах</item>
+    <item>кошмар</item>
+    <item>тривога</item>
+    <item>відкрив рота від обурення</item>
+    <item>шок</item>
+    <item>подив</item>
+
+    <item>поцілунок</item>
+    <item>посміхається підморгуючи</item>
+    <item>сміється підморгуючи</item>
+    <item>грайливий</item>
+    <item>показати язика</item>
+    <item>дражниться</item>
+    <item>киска с языком</item>
+    <item>раздратований</item>
+    <item>скептик</item>
+    <item>неопределился</item>
+
+    <item>не зрозумів</item>
+    <item>закрив очі</item>
+    <item>без відчуттів</item>
+    <item>рот зі скріпкою</item>
+    <item>німий як могила</item>
+    <item>в підтяжках</item>
+    <item>банкір</item>
+    <item>лежень</item>
+    <item>зубатий вампір</item>
+    <item>з\'їв кисле</item>
+
+    <item>святий</item>
+    <item>невинуватий</item>
+    <item>диявол підморгує</item>
+    <item>диявол</item>
+    <item>підозрілий</item>
+    <item>день народження</item>
+    <item>ура</item>
+    <item>серце</item>
+    <item>розбите серце</item>
+    <item>милий</item>
+  </string-array>
+</resources>
