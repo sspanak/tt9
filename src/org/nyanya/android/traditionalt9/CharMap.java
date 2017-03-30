@@ -1,4 +1,4 @@
-﻿package org.nyanya.android.traditionalt9;
+package org.nyanya.android.traditionalt9;
 
 import android.util.Log;
 
