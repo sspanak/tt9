@@ -5,8 +5,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class LangHelper {
-		protected static final Locale RUSSIAN = new Locale("ru","RU");
-		protected static final Locale UKRAINIAN = new Locale("uk","UA");		
+    protected static final Locale RUSSIAN = new Locale("ru","RU");
+    protected static final Locale UKRAINIAN = new Locale("uk","UA");		
 	public enum LANGUAGE {
 		// MAKE SURE THESE MATCH WITH values/const.xml
 		// (index, id) Where index is index in arrays like LOCALES and MUST increment and MUST be in
@@ -33,16 +33,16 @@ public class LangHelper {
 	protected static final int NLANGS = LANGUAGE.lookup.size();
 
 	protected static String getString(int lang) {
-				return LANGUAGE.get(lang).name();
-		}
+        return LANGUAGE.get(lang).name();
+    }
 
 	protected static int getIndex(LANGUAGE l) {
 		return l.index;
 	}
 
-		//[LANG][MODE][CAPSMODE] = iconref
-		// first group en, first line LANG, second line TEXT, last line NUM
-		protected static final int[][][] ICONMAP = {
+	    //[LANG][MODE][CAPSMODE] = iconref
+	    // first group en, first line LANG, second line TEXT, last line NUM
+	    protected static final int[][][] ICONMAP = {
 			{
 					//English resources
 					{R.drawable.ime_en_lang_lower, R.drawable.ime_en_lang_single, R.drawable.ime_en_lang_upper},
@@ -79,7 +79,7 @@ public class LangHelper {
 					{R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
-		};
+	    };
 
 	public static LANGUAGE[] buildLangs(int i) {
 		int num = 0;
