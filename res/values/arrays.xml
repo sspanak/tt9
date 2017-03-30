@@ -22,7 +22,7 @@
 	<!--pref_lang_titles pair with pref_lang_values -->
 	<integer-array translatable="false" name="pref_lang_values">
 		<item>@integer/LANG_EN</item>
-		<item>@integer/LANG_RU</item> 
+		<item>@integer/LANG_RU</item>
 		<item>@integer/LANG_DE</item>
 		<item>@integer/LANG_FR</item>
 		<item>@integer/LANG_IT</item>
