@@ -83,7 +83,7 @@ public class CharMap {
 		CHARTABLE.add(2, Collections.unmodifiableMap(endefritmap));
 		CHARTABLE.add(3, Collections.unmodifiableMap(endefritmap));
 		CHARTABLE.add(4, Collections.unmodifiableMap(endefritmap));
-		
+		CHARTABLE.add(5, Collections.unmodifiableMap(ruMap));	
 	}
 
 	protected static final char[][] ENT9TABLE = { { '0', '+' },
