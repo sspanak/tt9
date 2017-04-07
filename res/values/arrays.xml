@@ -1,111 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string-array name="pref_inputmode_entries">
-    <item>Dictionary</item>
-    <item>Text</item>
-    <item>Number</item>
-  </string-array>
-  <integer-array translatable="false" name="pref_inputmode_values">
-    <item>@integer/INPUT_DICT</item>
-    <item>@integer/INPUT_TEXT</item>
-    <item>@integer/INPUT_NUM</item>
-  </integer-array>
+	<string-array name="pref_inputmode_entries">
+		<item>Dictionary</item>
+		<item>Text</item>
+		<item>Number</item>
+	</string-array>
+	<integer-array translatable="false" name="pref_inputmode_values">
+		<item>@integer/INPUT_DICT</item>
+		<item>@integer/INPUT_TEXT</item>
+		<item>@integer/INPUT_NUM</item>
+	</integer-array>
 
-  <string-array name="pref_lang_titles">
-    <item>English</item>
-    <item>Russian</item>
-    <item>German</item>
-    <item>French</item>
-    <item>Italian</item>
-    <item>Ukrainian</item>
-  </string-array>
-  <!--pref_lang_titles pair with pref_lang_values -->
-  <integer-array translatable="false" name="pref_lang_values">
-    <item>@integer/LANG_EN</item>
-    <item>@integer/LANG_RU</item> 
-    <item>@integer/LANG_DE</item>
-    <item>@integer/LANG_FR</item>
-    <item>@integer/LANG_IT</item>
-    <item>@integer/LANG_UK</item>
-  </integer-array>
+	<string-array name="pref_lang_titles">
+		<item>English</item>
+		<item>Russian</item>
+		<item>German</item>
+		<item>French</item>
+		<item>Italian</item>
+		<item>Ukrainian</item>
+	</string-array>
+	<!--pref_lang_titles pair with pref_lang_values -->
+	<integer-array translatable="false" name="pref_lang_values">
+		<item>@integer/LANG_EN</item>
+		<item>@integer/LANG_RU</item>
+		<item>@integer/LANG_DE</item>
+		<item>@integer/LANG_FR</item>
+		<item>@integer/LANG_IT</item>
+		<item>@integer/LANG_UK</item>
+	</integer-array>
 
-  <string-array name="capsMode">
-    <item>Caps off</item>
-    <item>Single capital</item>
-    <item>All caps</item>
-  </string-array>
+	<string-array name="capsMode">
+		<item>Caps off</item>
+		<item>Single capital</item>
+		<item>All caps</item>
+	</string-array>
 
-  <string-array name="keyMode">
-    <item>Dictionary</item>
-    <item>Text</item>
-    <item>Number</item>
-  </string-array>
+	<string-array name="keyMode">
+		<item>Dictionary</item>
+		<item>Text</item>
+		<item>Number</item>
+	</string-array>
 
-  <string-array name="smileyContentDescription">
-    <item> Smile </item>
-    <item> Clown </item>
-    <item> Sharp grin </item>
-    <item> Cat </item>
-    <item> Half nose </item>
-    <item> Schadenfreude </item>
-    <item> Big eye sharp grin </item>
-    <item> Big eye smile </item>
-    <item> Cheeky smile </item>
-    <item> Laughing </item>
+	<string-array name="smileyContentDescription">
+		<item> Smile </item>
+		<item> Clown </item>
+		<item> Sharp grin </item>
+		<item> Cat </item>
+		<item> Half nose </item>
+		<item> Schadenfreude </item>
+		<item> Big eye sharp grin </item>
+		<item> Big eye smile </item>
+		<item> Cheeky smile </item>
+		<item> Laughing </item>
 
-    <item> Bug eye laughing </item>
-    <item> Laughing with eyes closed </item>
-    <item> Big eye laughing </item>
-    <item> Glasses pointy nose laughing </item>
-    <item> Pointed hat smile </item>
-    <item> Frown </item>
-    <item> Sad </item>
-    <item> Disheartened </item>
-    <item> Sad clown </item>
-    <item> Sad cheeky </item>
+		<item> Bug eye laughing </item>
+		<item> Laughing with eyes closed </item>
+		<item> Big eye laughing </item>
+		<item> Glasses pointy nose laughing </item>
+		<item> Pointed hat smile </item>
+		<item> Frown </item>
+		<item> Sad </item>
+		<item> Disheartened </item>
+		<item> Sad clown </item>
+		<item> Sad cheeky </item>
 
-    <item> Crying </item>
-    <item> Laughing to tears </item>
-    <item> Expletive </item>
-    <item> Shocked frown </item>
-    <item> Bug eye\'d frown </item>
-    <item> Sad with eyes closed </item>
-    <item> Crying with mouth open </item>
-    <item> Frown with mouth open </item>
-    <item> Shocked </item>
-    <item> Surprised </item>
+		<item> Crying </item>
+		<item> Laughing to tears </item>
+		<item> Expletive </item>
+		<item> Shocked frown </item>
+		<item> Bug eye\'d frown </item>
+		<item> Sad with eyes closed </item>
+		<item> Crying with mouth open </item>
+		<item> Frown with mouth open </item>
+		<item> Shocked </item>
+		<item> Surprised </item>
 
-    <item> Kiss </item>
-    <item> Winking smile </item>
-    <item> Winking laugh </item>
-    <item> Cheeky tongue out </item>
-    <item> Tongue out </item>
-    <item> Teasing </item>
-    <item> Big eye\'d tongue out </item>
-    <item> Annoyed </item>
-    <item> Skeptic </item>
-    <item> Undecided </item>
+		<item> Kiss </item>
+		<item> Winking smile </item>
+		<item> Winking laugh </item>
+		<item> Cheeky tongue out </item>
+		<item> Tongue out </item>
+		<item> Teasing </item>
+		<item> Big eye\'d tongue out </item>
+		<item> Annoyed </item>
+		<item> Skeptic </item>
+		<item> Undecided </item>
 
-    <item> Confused </item>
-    <item> Closed eyes </item>
-    <item> Unimpressed </item>
-    <item> Bashful </item>
-    <item> Mouth shut </item>
-    <item> Censored </item>
-    <item> Banker </item>
-    <item> Very big sad mouth </item>
-    <item> Mischievous/sarcasm </item>
-    <item> Sour face </item>
+		<item> Confused </item>
+		<item> Closed eyes </item>
+		<item> Unimpressed </item>
+		<item> Bashful </item>
+		<item> Mouth shut </item>
+		<item> Censored </item>
+		<item> Banker </item>
+		<item> Very big sad mouth </item>
+		<item> Mischievous/sarcasm </item>
+		<item> Sour face </item>
 
-    <item> Innocent cat </item>
-    <item> Innocent smile </item>
-    <item> Evil wink </item>
-    <item> Evil grin </item>
-    <item> Shifty eyes </item>
-    <item> Party hat smile </item>
-    <item> Arms up cheering </item>
-    <item> Heart </item>
-    <item> Broken heart </item>
-    <item> big eye\'d cat </item>
-  </string-array>
+		<item> Innocent cat </item>
+		<item> Innocent smile </item>
+		<item> Evil wink </item>
+		<item> Evil grin </item>
+		<item> Shifty eyes </item>
+		<item> Party hat smile </item>
+		<item> Arms up cheering </item>
+		<item> Heart </item>
+		<item> Broken heart </item>
+		<item> big eye\'d cat </item>
+	</string-array>
 </resources>
