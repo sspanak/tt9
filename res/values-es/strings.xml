@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_settings">Configuración de Traditional T9</string>
+	<string name="add_word_add">Agregar palabra</string>
+	<string name="close">Cerrar</string>
+	<string name="add_word_blank">Palabra en blanco no agregada.</string>
+	<string name="add_word_badchar">No puedo agregar una palabra cn un caracter no mapeabe %1$s (%2$s).</string>
+	<string name="pref_help">Ayuda</string>
+	<string name="completed">Acabado</string>
+	<string name="error_unexpected">Ocurrió un error inesperado.</string>
+	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
+	<string name="add_word_title">Agregar palabra</string>
+	<string name="pref_category_appearance">Apariencia</string>
+	<string name="pref_category_dictionaries">Diccionarios</string>
+	<string name="pref_category_function_keys">Teclas de acceso rápido</string>
+	<string name="pref_category_predictive_mode">Texto predictivo</string>
+	<string name="pref_category_keypad">Teclado</string>
+	<string name="pref_choose_languages">Idiomas</string>
+	<string name="pref_dark_theme">Tema oscuro</string>
+	<string name="char_space">Espacio</string>
+	<string name="char_newline">Nueva línea</string>
+	<string name="dictionary_load_title">Cargar diccionario</string>
+	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
+	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
+	<string name="pref_category_about">Sobre esta aplicación</string>
+	<string name="dictionary_truncate_title">Eliminar el diccionario</string>
+	<string name="dictionary_truncated">Diccionario eliminado con éxito.</string>
+	<string name="dictionary_cancel_load">Cancelar la carga</string>
+	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
+	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>
+	<string name="pref_auto_space">Espacio automático</string>
+	<string name="pref_auto_space_summary">Insertar un espacio automático después des palabras y signos de puntuación.</string>
+	<string name="pref_double_zero_char">Carácter cuando se presiona 0 dos veces</string>
+	<string name="pref_show_soft_function_keys">Teclado en pantalla</string>
+	<string name="dictionary_loaded">Diccionario cargado con éxito.</string>
+</resources>
