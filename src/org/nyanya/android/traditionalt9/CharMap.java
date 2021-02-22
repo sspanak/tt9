@@ -73,8 +73,7 @@ public class CharMap {
 		ruMap.put('+', 0);
 		ruMap.put('0', 0);
 	
-		// add extra characters for other Cyrillic maps.
-		ruMap.put('ґ', 2); ruMap.put('є', 3); ruMap.put('і', 4); ruMap.put('ї', 4);// Ukrainian chars
+
 		// Stub for Bulgarian chars
 		// Stub for Bielorussian chars	
 		// etc
@@ -83,7 +82,11 @@ public class CharMap {
 		CHARTABLE.add(2, Collections.unmodifiableMap(endefritmap));
 		CHARTABLE.add(3, Collections.unmodifiableMap(endefritmap));
 		CHARTABLE.add(4, Collections.unmodifiableMap(endefritmap));
-		CHARTABLE.add(5, Collections.unmodifiableMap(ruMap));	
+
+		// add extra characters for other Cyrillic maps.
+		Map<Character, Integer> ukMap = new HashMap<Character, Integer>(ruMap);
+		ukMap.put('ґ', 2); ukMap.put('є', 3); ukMap.put('і', 4); ukMap.put('ї', 4);// Ukrainian chars
+		CHARTABLE.add(5, Collections.unmodifiableMap(ukMap));
 	}
 
 	protected static final char[][] ENT9TABLE = { { '0', '+' },
