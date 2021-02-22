@@ -18,7 +18,7 @@
 	<SettingCheck
 		id="pref_spaceOnZero"
 		title="@string/pref_spaceOnZero"
-		summary="@string/pref_keyRemapSum"
+		summary="@string/pref_spaceOnZeroSum"
 		defaultValue="false"
 		/>
 	<SettingCheck
