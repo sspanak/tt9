@@ -13,31 +13,39 @@ import java.util.Map;
 public class CharMap {
 	protected static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(LangHelper.NLANGS);
 	static {
+		// Punctuation
+		Map<Character, Integer> commonMap = new HashMap<Character, Integer>();
+		commonMap.put('.', 1); commonMap.put(',', 1); commonMap.put('!', 1); commonMap.put('?', 1);
+		commonMap.put('-', 1); commonMap.put('"', 1); commonMap.put('\'', 1); commonMap.put('@', 1);
+		commonMap.put('#', 1); commonMap.put('$', 1); commonMap.put('%', 1); commonMap.put('&', 1);
+		commonMap.put('*', 1); commonMap.put('(', 1); commonMap.put(')', 1); commonMap.put(':', 1);
+		commonMap.put(';', 1); commonMap.put('/', 1); commonMap.put('+', 1); commonMap.put('=', 1);
+		commonMap.put('<', 1); commonMap.put('>', 1); commonMap.put('^', 1); commonMap.put('_', 1);
+		commonMap.put('~', 1);
+		commonMap.put('1', 1); commonMap.put('2', 2); commonMap.put('3', 3);
+		commonMap.put('4', 4); commonMap.put('5', 5); commonMap.put('6', 6);
+		commonMap.put('7', 7); commonMap.put('8', 8); commonMap.put('9', 9);
+		commonMap.put('+', 0); commonMap.put('0', 0); // not sure why "+" is both on 1 on 0, but kept it anyway
+
 		// English
-		Map<Character, Integer> enMap = new HashMap<Character, Integer>();
-		enMap.put('.', 1); enMap.put(',', 1); enMap.put('!', 1); enMap.put('?', 1);
-		enMap.put('-', 1); enMap.put('"', 1); enMap.put('\'', 1); enMap.put('@', 1);
-		enMap.put('#', 1); enMap.put('$', 1); enMap.put('%', 1); enMap.put('&', 1);
-		enMap.put('*', 1); enMap.put('(', 1); enMap.put(')', 1); enMap.put(':', 1);
-		enMap.put(';', 1); enMap.put('/', 1); enMap.put('+', 1); enMap.put('=', 1);
-		enMap.put('<', 1); enMap.put('>', 1); enMap.put('^', 1); enMap.put('_', 1);
-		enMap.put('~', 1); enMap.put('1', 1);
+		// the English dictionary contains foreign words with their original spelling,
+		// so non-English characters must be inside the map
+		Map<Character, Integer> enMap = new HashMap<Character, Integer>(commonMap);
 		enMap.put('a', 2); enMap.put('á', 2); enMap.put('ä', 2); enMap.put('â', 2);
 		enMap.put('à', 2); enMap.put('å', 2); enMap.put('b', 2); enMap.put('c', 2);
-		enMap.put('ç', 2); enMap.put('2', 2);
+		enMap.put('ç', 2);
 		enMap.put('d', 3); enMap.put('e', 3); enMap.put('é', 3); enMap.put('ë', 3);
-		enMap.put('è', 3); enMap.put('ê', 3); enMap.put('f', 3); enMap.put('3', 3);
+		enMap.put('è', 3); enMap.put('ê', 3); enMap.put('f', 3);
 		enMap.put('g', 4); enMap.put('h', 4); enMap.put('i', 4); enMap.put('í', 4);
-		enMap.put('ï', 4); enMap.put('4', 4);
+		enMap.put('ï', 4);
 		enMap.put('j', 5); enMap.put('k', 5); enMap.put('l', 5); enMap.put('5', 5);
 		enMap.put('m', 6); enMap.put('n', 6); enMap.put('ñ', 6); enMap.put('o', 6);
-		enMap.put('ó', 6); enMap.put('ö', 6); enMap.put('ô', 6); enMap.put('6', 6);
+		enMap.put('ó', 6); enMap.put('ö', 6); enMap.put('ô', 6);
 		enMap.put('p', 7); enMap.put('q', 7); enMap.put('r', 7); enMap.put('s', 7);
-		enMap.put('7', 7);
 		enMap.put('t', 8); enMap.put('u', 8); enMap.put('û', 6); enMap.put('ü', 8);
-		enMap.put('v', 8); enMap.put('8', 8); enMap.put('w', 9);
-		enMap.put('x', 9); enMap.put('y', 9); enMap.put('z', 9);
-		enMap.put('9', 9); enMap.put('+', 0); enMap.put('0', 0);
+		enMap.put('v', 8);
+		enMap.put('w', 9); enMap.put('x', 9); enMap.put('y', 9); enMap.put('z', 9);
+
 		// add extra characters for German and French maps.
 		enMap.put('€', 1); enMap.put('ß', 7); // German chars
 		enMap.put('æ', 1); enMap.put('î', 4); enMap.put('ù', 8); enMap.put('œ', 6);	// French chars
@@ -46,36 +54,19 @@ public class CharMap {
 		CHARTABLE.add(0, endefritmap);
 
 		// Russian
-		Map<Character, Integer> ruMap = new HashMap<Character, Integer>();
-		ruMap.put('.', 1); ruMap.put(',', 1); ruMap.put('!', 1); ruMap.put('?', 1);
-		ruMap.put('-', 1); ruMap.put('"', 1); ruMap.put('\'', 1); ruMap.put('@', 1);
-		ruMap.put('#', 1); ruMap.put('$', 1); ruMap.put('%', 1); ruMap.put('&', 1);
-		ruMap.put('*', 1); ruMap.put('(', 1); ruMap.put(')', 1); ruMap.put(':', 1);
-		ruMap.put(';', 1); ruMap.put('/', 1); ruMap.put('+', 1); ruMap.put('=', 1);
-		ruMap.put('<', 1); ruMap.put('>', 1); ruMap.put('^', 1); ruMap.put('_', 1);
-		ruMap.put('~', 1); ruMap.put('1', 1);
+		Map<Character, Integer> ruMap = new HashMap<Character, Integer>(commonMap);
 		ruMap.put('а', 2); ruMap.put('б', 2); ruMap.put('в', 2); ruMap.put('г', 2);
-		ruMap.put('2', 2);
-		ruMap.put('д', 3); ruMap.put('е', 3); ruMap.put('ё', 3); ruMap.put('ж', 3);
-		ruMap.put('з', 3); ruMap.put('3', 3);
+		ruMap.put('д', 3); ruMap.put('е', 3); ruMap.put('ё', 3); ruMap.put('ж', 3); ruMap.put('з', 3);
 		ruMap.put('и', 4); ruMap.put('й', 4); ruMap.put('к', 4); ruMap.put('л', 4);
-		ruMap.put('4', 4);
 		ruMap.put('м', 5); ruMap.put('н', 5); ruMap.put('о', 5); ruMap.put('п', 5);
-		ruMap.put('5', 5);
 		ruMap.put('р', 6); ruMap.put('с', 6); ruMap.put('т', 6); ruMap.put('у', 6);
-		ruMap.put('6', 6);
 		ruMap.put('ф', 7); ruMap.put('х', 7); ruMap.put('ц', 7); ruMap.put('ч', 7);
-		ruMap.put('7', 7);
 		ruMap.put('ш', 8); ruMap.put('щ', 8); ruMap.put('ъ', 8); ruMap.put('ы', 8);
-		ruMap.put('8', 8);
 		ruMap.put('ь', 9); ruMap.put('э', 9); ruMap.put('ю', 9); ruMap.put('я', 9);
-		ruMap.put('9', 9);
-		ruMap.put('+', 0);
-		ruMap.put('0', 0);
-	
+
 
 		// Stub for Bulgarian chars
-		// Stub for Bielorussian chars	
+		// Stub for Bielorussian chars
 		// etc
 		CHARTABLE.add(1, Collections.unmodifiableMap(ruMap));
 
@@ -146,7 +137,7 @@ public class CharMap {
 		{ 'р', 'с', 'т', 'у', 'Р', 'С', 'Т', 'У', '6' }, { 'ф', 'х', 'ц', 'ч', 'Ф', 'Х', 'Ц', 'Ч', '7' },
 		{ 'ш', 'щ', 'Ш', 'Щ', '8' }, { 'ь', 'ю', 'я', 'Ь', 'Ю', 'Я', '9' },
 		{ ' ', '\n' }, { ' ', '0', '+' }, { '\n' } }; // LAST TWO SPACE ON 0
-		
+
 	protected static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE, ITT9TABLE, UKT9TABLE };
 
 	// last 2 don't matter, are for spaceOnZero extra 'slots' 0 position, and 10 position
