@@ -1,16 +1,21 @@
-import groovy.swing.SwingBuilder
 buildscript {
 	repositories {
 		mavenCentral()
+		google()
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:1.5.0'
+		classpath 'com.android.tools.build:gradle:7.2.1'
 	}
 }
 apply plugin: 'android'
 
 dependencies {
-	compile fileTree(dir: 'libs', include: '*.jar')
+	implementation "androidx.core:core:1.5.0"
+}
+
+repositories {
+	mavenCentral()
+	google()
 }
 
 def execThing ( String cmdStr ) {
@@ -74,8 +79,8 @@ def computeVersionNumber = { ->
 }
 
 android {
-	compileSdkVersion 8
-	buildToolsVersion "19.1"
+	compileSdkVersion 30
+	buildToolsVersion "32.0.0"
 
 	sourceSets {
 		main {
@@ -88,9 +93,6 @@ android {
 			assets.srcDirs = ['assets']
 		}
 
-		// Move the tests to tests/java, tests/res, etc...
-		instrumentTest.setRoot('tests')
-
 		// Move the build types to build-types/<type>
 		// For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
 		// This moves them out of them default location under src/<type>/... which would
@@ -99,10 +101,11 @@ android {
 		// by a similar customization.
 		debug.setRoot('build-types/debug')
 		release.setRoot('build-types/release')
-
 	}
 
 	defaultConfig {
+		minSdkVersion 19
+		targetSdk 30
 		versionCode computeVersionNumber()
 		versionName computeVersionName()
 	}
@@ -111,23 +114,15 @@ android {
 	signingConfigs {
 		release {
 			storeFile file(System.getenv("KEYSTORE"))
-			storePassword ''
+			storePassword System.getenv("KEYSTORE_PASS")
 			keyAlias System.getenv("KEYALIAS")
-			keyPassword ''
+			keyPassword System.getenv("KEYALIAS_PASS")
 		}
 	}
 
 	buildTypes {
 		release {
 			signingConfig android.signingConfigs.release
-			// http://stackoverflow.com/a/24650026
-			applicationVariants.all { variant ->
-				variant.outputs.each { output ->
-					output.outputFile = new File(output.outputFile.parent,
-							output.outputFile.name.replace("-release", "-" + android.defaultConfig.versionName)
-					)
-				}
-			}
 		}
 	}
 }
@@ -149,44 +144,3 @@ task getDictSizes {
 
 preBuild.dependsOn getDictSizes
 preBuild.mustRunAfter getDictSizes
-
-// https://www.timroes.de/2014/01/19/using-password-prompts-with-gradle-build-files/
-def getPass(String msg) {
-	def pass = ''
-	if(System.console() == null) {
-		new SwingBuilder().edt {
-			dialog(modal: true, // Otherwise the build will continue running before you closed the dialog
-					title: 'Enter password', // Dialog title
-					alwaysOnTop: true, // pretty much what the name says
-					resizable: false, // Don't allow the user to resize the dialog
-					locationRelativeTo: null, // Place dialog in center of the screen
-					pack: true, // We need to pack the dialog (so it will take the size of it's children)
-					show: true // Let's show it
-			) {
-				vbox { // Put everything below each other
-					label(text: msg)
-					input = passwordField()
-					button(defaultButton: true, text: 'OK', actionPerformed: {
-						pass = new String(input.password); // Set pass variable to value of input field
-						dispose(); // Close dialog
-					})
-				} // vbox end
-			} // dialog end
-		} // edt end
-	} else {
-		pass = System.console().readPassword("\nPlease enter key passphrase: ")
-		pass = new String(pass)
-	}
-
-	if(pass.size() <= 0) {
-		throw new InvalidUserDataException("You must enter a password to proceed.")
-	}
-	return pass
-}
-
-gradle.taskGraph.whenReady { taskGraph ->
-	if(taskGraph.hasTask(':assembleRelease')) {
-		android.signingConfigs.release.storePassword = getPass("Please enter Key Store passphrase:")
-		android.signingConfigs.release.keyPassword = getPass("Please enter Key passphrase:")
-	} // end if has task
-} // end whenReady

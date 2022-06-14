@@ -33,3 +33,4 @@ proguard/
 #Other
 assets/dict.properties
 t9build.properties
+*.keystore
