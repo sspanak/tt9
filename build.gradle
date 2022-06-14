@@ -111,20 +111,20 @@ android {
 	}
 
 	// http://stackoverflow.com/a/19130098
-	signingConfigs {
-		release {
-			storeFile file(System.getenv("KEYSTORE"))
-			storePassword System.getenv("KEYSTORE_PASS")
-			keyAlias System.getenv("KEYALIAS")
-			keyPassword System.getenv("KEYALIAS_PASS")
-		}
-	}
-
-	buildTypes {
-		release {
-			signingConfig android.signingConfigs.release
-		}
-	}
+//	signingConfigs {
+//		release {
+//			storeFile file(System.getenv("KEYSTORE"))
+//			storePassword System.getenv("KEYSTORE_PASS")
+//			keyAlias System.getenv("KEYALIAS")
+//			keyPassword System.getenv("KEYALIAS_PASS")
+//		}
+//	}
+//
+//	buildTypes {
+//		release {
+//			signingConfig android.signingConfigs.release
+//		}
+//	}
 }
 
 task getDictSizes {
