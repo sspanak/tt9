@@ -48,44 +48,44 @@ public class LangHelper {
 	    protected static final int[][][] ICONMAP = {
 			{
 					//English resources
-					{R.drawable.ime_en_lang_lower, R.drawable.ime_en_lang_single, R.drawable.ime_en_lang_upper},
-					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper},
+					{R.drawable.ime_lang_en_lower, R.drawable.ime_lang_en_single, R.drawable.ime_lang_en_upper},
+					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper},
 					{R.drawable.ime_number},
 			},
 			{
 					// Russian resources
-					{R.drawable.ime_ru_lang_lower, R.drawable.ime_ru_lang_single, R.drawable.ime_ru_lang_upper}, //LANG
-					{R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
+					{R.drawable.ime_lang_ru_lower, R.drawable.ime_lang_ru_single, R.drawable.ime_lang_ru_upper}, //LANG
+					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 			{
 					// German resources
-					{R.drawable.ime_de_lang_lower, R.drawable.ime_de_lang_single, R.drawable.ime_de_lang_upper}, //LANG
-					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
+					{R.drawable.ime_lang_de_lower, R.drawable.ime_lang_de_single, R.drawable.ime_lang_de_upper}, //LANG
+					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 			{
 					// French resources
-					{R.drawable.ime_fr_lang_lower, R.drawable.ime_fr_lang_single, R.drawable.ime_fr_lang_upper}, //LANG
-					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
+					{R.drawable.ime_lang_fr_lower, R.drawable.ime_lang_fr_single, R.drawable.ime_lang_fr_upper}, //LANG
+					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 			{
 					// Italian resources
-					{R.drawable.ime_it_lang_lower, R.drawable.ime_it_lang_single, R.drawable.ime_it_lang_upper}, //LANG
-					{R.drawable.ime_en_text_lower, R.drawable.ime_en_text_single, R.drawable.ime_en_text_upper}, //TEXT
+					{R.drawable.ime_lang_it_lower, R.drawable.ime_lang_it_single, R.drawable.ime_lang_it_upper}, //LANG
+					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 			{
 					// Ukrainian resources
-					{R.drawable.ime_uk_lang_lower, R.drawable.ime_uk_lang_single, R.drawable.ime_uk_lang_upper}, //LANG
-					{R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
+					{R.drawable.ime_lang_uk_lower, R.drawable.ime_lang_uk_single, R.drawable.ime_lang_uk_upper}, //LANG
+					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 			{
 					// Bulgarian resources
-					{R.drawable.ime_bg_lang_lower, R.drawable.ime_bg_lang_single, R.drawable.ime_bg_lang_upper}, //LANG
-					{R.drawable.ime_ru_text_lower, R.drawable.ime_ru_text_single, R.drawable.ime_ru_text_upper}, //TEXT
+					{R.drawable.ime_lang_bg_lower, R.drawable.ime_lang_bg_single, R.drawable.ime_lang_bg_upper}, //LANG
+					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
 					{R.drawable.ime_number}, //NUM
 			},
 	    };
