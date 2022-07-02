@@ -62,7 +62,7 @@ public class DBUpdateService extends IntentService {
 				.setContentIntent(pendingIntent)
 				.setContentTitle(getText(R.string.updating_database_title))
 				.setContentText(getText(R.string.updating_database))
-				.setSmallIcon(R.drawable.ime_en_lang_lower)
+				.setSmallIcon(R.drawable.ime_lang_en_lower)
 				.getNotification();
 
 		notificationManager.notify(UPDATING_NOTIFICATION_ID, notification);
