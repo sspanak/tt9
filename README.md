@@ -7,6 +7,21 @@ traditional-t9 is an Input Method Editor for Android that implements predictive 
 
 Original Wiki: [Traditional T9 keypad IME for Android](https://github.com/Clam-/TraditionalT9/wiki/Traditional-T9-keypad-IME-for-Android)
 
+## Building
+The recommended way of building is using Android Studio.
+
+### Building a Debug .apk
+Clone and Build instructions ...
+
+### Building a Release .apk
+The project is configured to build an unsigned release variant by default. You just need to select the "release" variant from Android Studio options, then `Build -> Rebuild Project`. After that, just ignore all warnings until you get to the end of the process. You will find the `.apk` in the generated 'build/' folder.
+
+### Building a Signed .apk
+- Make sure you have a signing key. If you don't have one, follow the [official manual](https://developer.android.com/studio/publish/app-signing#sign-apk).
+- In `build.gradle` find the `signingConfigs` and `buildTypes` sections and uncomment them.
+- Set properly the environment variables listed in `signingConfigs.release` _(You may need to restart Android Studio after that)_. Alternatively, you may simply type the actual key path, alias and passwords there. **Just make sure not to commit them!**
+- Build the project normally. Android Studio should show you where it has generated the signed `.apk` file. If not, look for it in the `build/` folder.
+
 ## Adding a new language
 To support a new language one needs to:
 
