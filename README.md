@@ -8,7 +8,7 @@ traditional-t9 is an Input Method Editor for Android that implements predictive 
 Original Wiki: [Traditional T9 keypad IME for Android](https://github.com/Clam-/TraditionalT9/wiki/Traditional-T9-keypad-IME-for-Android)
 
 ## Building
-The recommended way of building is using Android Studio.
+The recommended way of building is using Android Studio. As the of time of writing this, the current version is Android Studio Chipmunk | 2021.2.1 Patch 1.
 
 ### Building a Debug .apk
 Clone and Build instructions ...
