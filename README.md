@@ -52,13 +52,7 @@ To support a new language one needs to:
 That should be it? I hope.
 
 ## Using the app
-TODO: Initial config, loading a dictionary...
-#### Configuration Options
-TODO...
-#### Hotkeys
-See [the original manual](https://github.com/Clam-/TraditionalT9/wiki/Hotkeys).
-#### Key Remapping
-See [the original manual](https://github.com/Clam-/TraditionalT9/wiki/Key-remapping).
+See the [user manual](docs/user-manual.md).
 
 ## Word Lists
 Here is detailed information and licenses about the word lists used:

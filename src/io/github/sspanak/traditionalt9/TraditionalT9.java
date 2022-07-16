@@ -13,11 +13,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 import io.github.sspanak.traditionalt9.LangHelper.LANGUAGE;
 import io.github.sspanak.traditionalt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.traditionalt9.Utils.SpecialInputType;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -246,16 +249,18 @@ public class TraditionalT9 extends InputMethodService implements
 	 * the target of our edits.
 	 */
 	@Override
-	public void onStartInput(EditorInfo attribute, boolean restarting) {
-		super.onStartInput(attribute, restarting);
+	public void onStartInput(EditorInfo inputField, boolean restarting) {
+		super.onStartInput(inputField, restarting);
 		currentInputConnection = getCurrentInputConnection();
-		//Log.d("T9.onStartInput", "INPUTTYPE: " + attribute.inputType + " FIELDID: " + attribute.fieldId +
-		//	" FIELDNAME: " + attribute.fieldName + " PACKAGE NAME: " + attribute.packageName);
-		if (attribute.inputType == 0 || attribute.inputType == 3) {
+		//Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
+		//	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
+
+		// https://developer.android.com/reference/android/text/InputType#TYPE_NULL
+		// Special or limited input type. This means the input connection is not rich,
+		// or it can not process or show things like candidate text, nor retrieve the current text.
+		// We just let Android handle this input.
+		if (inputField.inputType == InputType.TYPE_NULL) {
 			mLang = null;
-			// don't do anything when not in any kind of edit field.
-			// OR in dialer-type inputs. Hopefully OS will translate longpress 0 to +
-			// should also turn off input screen and stuff
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
 			hideStatusIcon();
@@ -268,6 +273,7 @@ public class TraditionalT9 extends InputMethodService implements
 			keyRemap = setting[0].equals(1);
 			return;
 		}
+
 		mFirstPress = true;
 		mEditing = EDITING;
 		// Reset our state. We want to do this even if restarting, because
@@ -303,7 +309,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
-		switch (attribute.inputType & InputType.TYPE_MASK_CLASS) {
+		switch (inputField.inputType & InputType.TYPE_MASK_CLASS) {
 			case InputType.TYPE_CLASS_NUMBER:
 			case InputType.TYPE_CLASS_DATETIME:
 				// Numbers and dates default to the symbols keyboard, with
@@ -326,7 +332,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 				// We now look for a few special variations of text that will
 				// modify our behavior.
-				int variation = attribute.inputType & InputType.TYPE_MASK_VARIATION;
+				int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
 				if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
 						|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 					// Do not display predictions / what the user is typing
@@ -342,7 +348,7 @@ public class TraditionalT9 extends InputMethodService implements
 					mKeyMode = MODE_TEXT;
 				}
 
-				if ((attribute.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
+				if ((inputField.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
 					// If this is an auto-complete text view, then our predictions
 					// will not be shown and instead we will allow the editor
 					// to supply their own. We only show the editor's
@@ -361,22 +367,21 @@ public class TraditionalT9 extends InputMethodService implements
 				// We also want to look at the current state of the editor
 				// to decide whether our alphabetic keyboard should start out
 				// shifted.
-				updateShiftKeyState(attribute);
+				updateShiftKeyState(inputField);
 				break;
 
 			default:
 				Log.d("onStartInput", "defaulting");
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
-				updateShiftKeyState(attribute);
+				updateShiftKeyState(inputField);
 		}
-		// Special case for Softbank Sharp 007SH phone book.
-		if (attribute.inputType == 65633) {
+		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
 			mKeyMode = MODE_TEXT;
 		}
 		String prevword = null;
-		if (attribute.privateImeOptions != null
-				&& attribute.privateImeOptions.equals("io.github.sspanak.traditionalt9.addword=true")) {
+		if (inputField.privateImeOptions != null
+				&& inputField.privateImeOptions.equals("io.github.sspanak.traditionalt9.addword=true")) {
 			mAddingWord = true;
 			// mAddingSkipInput = true;
 			// Log.d("onStartInput", "ADDING WORD");
@@ -402,7 +407,7 @@ public class TraditionalT9 extends InputMethodService implements
 
 		// Update the label on the enter key, depending on what the application
 		// says it will do.
-		// mCurKeyboard.setImeOptions(getResources(), attribute.imeOptions);
+		// mCurKeyboard.setImeOptions(getResources(), inputField.imeOptions);
 		setSuggestions(null, -1);
 		setCandidatesViewShown(false);
 		mSuggestionStrings.clear();
@@ -556,12 +561,10 @@ public class TraditionalT9 extends InputMethodService implements
 		if (mKeyMode == MODE_TEXT) {
 			t9releasehandler.removeCallbacks(mt9release);
 		}
-		if (keyCode == KeyEvent.KEYCODE_BACK) {// The InputMethodService already takes care of the back
-			// key for us, to dismiss the input method if it is shown.
-			// but we will manage it ourselves because native Android handling
-			// of the input view is ... flakey at best.
-			// Log.d("onKeyDown", "back pres");
-			return isInputViewShown();
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// handle Back ourselves while typing, so that it can be used to delete text
+			// or let it be, when not typing
+			return isThereText();
 		} else if (keyCode == KeyEvent.KEYCODE_ENTER) {// Let the underlying text editor always handle these.
 			return false;
 
@@ -732,10 +735,13 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (isInputViewShown()) {
-				hideWindow();
+			if (isThereText()) {
+				handleBackspace();
 				return true;
+			} else if (isInputViewShown()) {
+				hideWindow();
 			}
+
 			return false;
 		} else if (keyCode == KeyEvent.KEYCODE_DEL) {
 			return true;
@@ -1271,6 +1277,15 @@ public class TraditionalT9 extends InputMethodService implements
 				}
 			}
 		}
+	}
+
+	private boolean isThereText() {
+		if (getCurrentInputConnection() == null) {
+			return false;
+		}
+
+		ExtractedText extractedText = getCurrentInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
+		return extractedText != null && extractedText.text.length() > 0;
 	}
 
 	private void commitReset() {
