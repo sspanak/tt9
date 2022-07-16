@@ -1,13 +1,13 @@
-package org.nyanya.android.traditionalt9.settings;
+package io.github.sspanak.traditionalt9.settings;
 
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.CheckBox;
 
-import org.nyanya.android.traditionalt9.R;
-import org.nyanya.android.traditionalt9.T9DB;
-import org.nyanya.android.traditionalt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.traditionalt9.R;
+import io.github.sspanak.traditionalt9.T9DB;
+import io.github.sspanak.traditionalt9.T9DB.DBSettings.SETTING;
 
 public class SettingCheck extends Setting {
 	boolean value;

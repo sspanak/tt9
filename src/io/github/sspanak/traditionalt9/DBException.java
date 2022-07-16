@@ -1,4 +1,4 @@
-package org.nyanya.android.traditionalt9;
+package io.github.sspanak.traditionalt9;
 
 public class DBException extends Exception {
 	private static final long serialVersionUID = 376752656441823823L;

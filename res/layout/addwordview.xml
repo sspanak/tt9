@@ -9,7 +9,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:inputType="text"
-		android:privateImeOptions="org.nyanya.android.traditionalt9.addword=true" >
+		android:privateImeOptions="io.github.sspanak.traditionalt9.addword=true" >
 
 		<requestFocus />
 	</EditText>
