@@ -1,12 +1,5 @@
 package io.github.sspanak.traditionalt9;
 
-/*
-	Source for English dictionary: http://wordlist.sourceforge.net/
-	Source for Russian dictionary: Various sources from Russian user
-	Source for German dictionary: Modified version from http://www.winedt.org/Dict/
-	Source for French dictionary: http://www.pallier.org/ressources/dicofr/dicofr.html
- */
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
