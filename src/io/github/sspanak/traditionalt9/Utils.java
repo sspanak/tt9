@@ -3,9 +3,12 @@ package io.github.sspanak.traditionalt9;
 import android.text.InputType;
 import android.util.Log;
 
-@SuppressWarnings("unused")
 class Utils {
+	interface SpecialInputType extends InputType {
+		public static final int TYPE_SHARP_007H_PHONE_BOOK = 65633;
+	}
 
+	@SuppressWarnings("unused")
 	public static void printFlags(int inputType) {
 		if ((inputType & InputType.TYPE_CLASS_DATETIME) == InputType.TYPE_CLASS_DATETIME)
 			Log.i("Utils.printFlags", "TYPE_CLASS_DATETIME");
