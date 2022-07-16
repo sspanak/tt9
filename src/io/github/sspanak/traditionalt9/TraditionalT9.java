@@ -13,6 +13,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
@@ -556,12 +558,10 @@ public class TraditionalT9 extends InputMethodService implements
 		if (mKeyMode == MODE_TEXT) {
 			t9releasehandler.removeCallbacks(mt9release);
 		}
-		if (keyCode == KeyEvent.KEYCODE_BACK) {// The InputMethodService already takes care of the back
-			// key for us, to dismiss the input method if it is shown.
-			// but we will manage it ourselves because native Android handling
-			// of the input view is ... flakey at best.
-			// Log.d("onKeyDown", "back pres");
-			return isInputViewShown();
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			// handle Back ourselves while typing, so that it can be used to delete text
+			// or let it be, when not typing
+			return isThereText();
 		} else if (keyCode == KeyEvent.KEYCODE_ENTER) {// Let the underlying text editor always handle these.
 			return false;
 
@@ -732,10 +732,13 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (isInputViewShown()) {
-				hideWindow();
+			if (isThereText()) {
+				handleBackspace();
 				return true;
+			} else if (isInputViewShown()) {
+				hideWindow();
 			}
+
 			return false;
 		} else if (keyCode == KeyEvent.KEYCODE_DEL) {
 			return true;
@@ -1271,6 +1274,15 @@ public class TraditionalT9 extends InputMethodService implements
 				}
 			}
 		}
+	}
+
+	private boolean isThereText() {
+		if (getCurrentInputConnection() == null) {
+			return false;
+		}
+
+		ExtractedText extractedText = getCurrentInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
+		return extractedText != null && extractedText.text.length() > 0;
 	}
 
 	private void commitReset() {
