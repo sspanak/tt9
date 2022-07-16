@@ -1,4 +1,4 @@
-package org.nyanya.android.traditionalt9;
+package io.github.sspanak.traditionalt9;
 
 import android.os.Environment;
 import android.util.Log;

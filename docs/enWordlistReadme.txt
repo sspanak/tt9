@@ -1,4 +1,6 @@
-﻿Spell Checking Oriented Word Lists (SCOWL)
+﻿// Source for English dictionary: http://wordlist.sourceforge.net/
+
+Spell Checking Oriented Word Lists (SCOWL)
 Revision 7.1 (SVN Revision 161)
 January 6, 2011
 by Kevin Atkinson (kevina@gnu.org)

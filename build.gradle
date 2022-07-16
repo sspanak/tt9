@@ -7,10 +7,10 @@ buildscript {
 		classpath 'com.android.tools.build:gradle:7.2.1'
 	}
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
-	implementation "androidx.core:core:1.5.0"
+	implementation "androidx.core:core:1.6.0"
 }
 
 repositories {
@@ -33,49 +33,22 @@ def execThing ( String cmdStr ) {
 			standardOutput = stdout
 		}
 	}
-	return stdout
+	return stdout.toString().trim()
+}
+
+def computeVersionCode = { ->
+	String commitsCount = execThing("git rev-list --count HEAD")
+
+	return Integer.valueOf(commitsCount)
 }
 
 def computeVersionName = { ->
+	String tagsCount = execThing('git tag').split('\n').size() + 1 // initially, versions were 1-based
+	String lastTag = execThing('git describe --tags --abbrev=0')
+	String commitsSinceLastTag = execThing("git log $lastTag..HEAD --oneline").split('\n').size() + 1
+	String currentHash = execThing('git log -1 --format=%h')
 
-	String ver = "git-source"
-	try {
-		if (execThing(" git status -z").toString().trim().equals("")) {
-			return "git-" + execThing(' git log -1 --format="%h"').toString().trim()
-		} else {
-			return ver
-		}
-	} catch (all) {
-		println "Cannot run git (not in path?), using default versioning"
-	}
-
-	return ver
-}
-
-def getProps() {
-	Properties props = new Properties()
-	File f = new File("t9build.properties")
-	if (!f.exists()) {
-		f.createNewFile()
-	}
-	props.load(new FileInputStream(f))
-	return props
-}
-
-def saveProps(Properties props) {
-	props.store(new FileOutputStream(new File("t9build.properties")), null)
-}
-
-// -PincrementBuildNumber assembleRelease
-def computeVersionNumber = { ->
-	Properties props = getProps()
-	int verNum = Integer.valueOf(props.getProperty("verNum", "0"))
-	if (project.hasProperty('incrementBuildNumber')) {
-		verNum++
-	}
-	props.setProperty("verNum", String.valueOf(verNum))
-	saveProps(props)
-	return verNum
+	return "$tagsCount.$commitsSinceLastTag ($currentHash)"
 }
 
 android {
@@ -106,7 +79,7 @@ android {
 	defaultConfig {
 		minSdkVersion 19
 		targetSdk 30
-		versionCode computeVersionNumber()
+		versionCode computeVersionCode()
 		versionName computeVersionName()
 	}
 
