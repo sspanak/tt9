@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-& source: http://www.winedt.org/Dict/
+& source: http://www.winedt.org/dict/
 % file:    de_neu.dic (de)
-% version: 5 Jan 2005 / with modifications
+% version: 5 Jan 2005
 % New German spelling wordlist for WinEdt (or compatible) spellcheckers
 % wordcount: 532273 words
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
