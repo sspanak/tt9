@@ -1,8 +1,8 @@
-package io.github.sspanak.traditionalt9;
+package io.github.sspanak.tt9;
 
 import android.util.Log;
 
-import io.github.sspanak.traditionalt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 
 import java.util.AbstractList;
 import java.util.ArrayList;

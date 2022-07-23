@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9.settings;
+package io.github.sspanak.tt9.settings;
 
 // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import io.github.sspanak.traditionalt9.R;
+import io.github.sspanak.tt9.R;
 
 import java.util.ArrayList;
 

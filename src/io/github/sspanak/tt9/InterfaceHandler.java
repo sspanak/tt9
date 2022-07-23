@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9;
+package io.github.sspanak.tt9;
 
 import android.view.KeyEvent;
 import android.view.View;

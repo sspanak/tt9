@@ -1,10 +1,10 @@
-package io.github.sspanak.traditionalt9.settings;
+package io.github.sspanak.tt9.settings;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import io.github.sspanak.traditionalt9.R;
+import io.github.sspanak.tt9.R;
 
 public class Setting {
 	String title;

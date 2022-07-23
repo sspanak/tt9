@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<string translatable="false" name="help_url">https://github.com/sspanak/traditional-t9/blob/master/docs/user-manual.md</string>
+	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
 	<string name="app_name">Traditional T9</string>
 	<string name="ime_name">Traditional T9</string>
 	<string name="ime_number">Numbers</string>

@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9.settings;
+package io.github.sspanak.tt9.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import io.github.sspanak.traditionalt9.LangHelper;
-import io.github.sspanak.traditionalt9.R;
-import io.github.sspanak.traditionalt9.T9DB;
-import io.github.sspanak.traditionalt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.LangHelper;
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.T9DB;
+import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
 
 public class SettingMultiList extends SettingList {
 	boolean[] selectedEntries = new boolean[0];

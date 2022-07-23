@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9;
+package io.github.sspanak.tt9;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,7 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import io.github.sspanak.traditionalt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 
 import java.util.AbstractList;
 import java.util.HashMap;

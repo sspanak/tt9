@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9;
+package io.github.sspanak.tt9;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,9 +18,9 @@ import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
-import io.github.sspanak.traditionalt9.LangHelper.LANGUAGE;
-import io.github.sspanak.traditionalt9.T9DB.DBSettings.SETTING;
-import io.github.sspanak.traditionalt9.Utils.SpecialInputType;
+import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.Utils.SpecialInputType;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
@@ -216,8 +216,8 @@ public class TraditionalT9 extends InputMethodService implements
 			Intent awintent = new Intent(this, AddWordAct.class);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-			awintent.putExtra("io.github.sspanak.traditionalt9.word", template);
-			awintent.putExtra("io.github.sspanak.traditionalt9.lang", mLang.id);
+			awintent.putExtra("io.github.sspanak.tt9.word", template);
+			awintent.putExtra("io.github.sspanak.tt9.lang", mLang.id);
 			clearState();
 			currentInputConnection.setComposingText("", 0);
 			currentInputConnection.finishComposingText();
@@ -381,7 +381,7 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		String prevword = null;
 		if (inputField.privateImeOptions != null
-				&& inputField.privateImeOptions.equals("io.github.sspanak.traditionalt9.addword=true")) {
+				&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
 			mAddingWord = true;
 			// mAddingSkipInput = true;
 			// Log.d("onStartInput", "ADDING WORD");

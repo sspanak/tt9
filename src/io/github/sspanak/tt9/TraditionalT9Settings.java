@@ -1,4 +1,4 @@
-package io.github.sspanak.traditionalt9;
+package io.github.sspanak.tt9;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,11 +26,11 @@ import android.widget.Toast;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
-import io.github.sspanak.traditionalt9.LangHelper.LANGUAGE;
-import io.github.sspanak.traditionalt9.T9DB.DBSettings.SETTING;
-import io.github.sspanak.traditionalt9.settings.CustomInflater;
-import io.github.sspanak.traditionalt9.settings.Setting;
-import io.github.sspanak.traditionalt9.settings.SettingAdapter;
+import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.settings.CustomInflater;
+import io.github.sspanak.tt9.settings.Setting;
+import io.github.sspanak.tt9.settings.SettingAdapter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -60,7 +60,7 @@ public class TraditionalT9Settings extends ListActivity implements
 	final static String dictname = "%s-utf8.txt";
 	final static String userdictname = "user.%s.dict";
 	final static String backupname = "t9backup.txt";
-	final static String sddir = "traditionalt9";
+	final static String sddir = "tt9";
 
 	final int BACKUP_Q_LIMIT = 1000;
 

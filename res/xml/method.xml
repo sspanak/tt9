@@ -21,5 +21,5 @@
 <!-- for the Search Manager. -->
 
 <input-method xmlns:android="http://schemas.android.com/apk/res/android" 
-	android:settingsActivity="io.github.sspanak.traditionalt9.TraditionalT9Settings" >
+	android:settingsActivity="io.github.sspanak.tt9.TraditionalT9Settings" >
 </input-method>

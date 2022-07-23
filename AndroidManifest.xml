@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.sspanak.traditionalt9"
+    package="io.github.sspanak.tt9"
     android:versionCode="4"
     android:versionName="git" >
 
@@ -22,7 +22,7 @@
         android:label="@string/ime_name"
         android:theme="@style/AppTheme" >
         <service
-            android:name="io.github.sspanak.traditionalt9.TraditionalT9"
+            android:name="io.github.sspanak.tt9.TraditionalT9"
             android:permission="android.permission.BIND_INPUT_METHOD" >
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
@@ -36,7 +36,7 @@
 		<service android:name=".DBUpdateService" />
 
         <activity
-            android:name="io.github.sspanak.traditionalt9.TraditionalT9Settings"
+            android:name="io.github.sspanak.tt9.TraditionalT9Settings"
             android:label="@string/traditionalt9_settings" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +44,7 @@
         </activity>
         <activity
             android:theme="@android:style/Theme.Dialog"
-            android:name="io.github.sspanak.traditionalt9.AddWordAct"
+            android:name="io.github.sspanak.tt9.AddWordAct"
             android:label="@string/title_activity_add_word"
 			android:excludeFromRecents="true" >
         </activity>
