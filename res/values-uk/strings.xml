@@ -13,8 +13,6 @@
     <string name="main_left_addword">Додати слово</string>
     <string name="main_left_insert">Вставити символ</string>
     <string name="main_left_notfound">Додати слово?</string>
-    <string name="main_mid">Готово</string>
-    <string name="main_mid_commit">Застосувати</string>
     <string name="main_right_lower">Змінити IME</string>
     <string name="main_right_upper">Режим введення</string>
     <string name="pref_backup_noext">Помилка: Зовнішня пам\'ять недоступна. Резервне копіювання неможливе.</string>

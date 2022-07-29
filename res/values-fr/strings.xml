@@ -8,8 +8,6 @@
 	<string name="traditionalt9_settings">Configuration Traditional T9 </string>
 	<string name="main_left_insert">Ins. symbole</string>
 	<string name="main_left_addword">Aj. mot</string>
-	<string name="main_mid">Terminer</string>
-	<string name="main_mid_commit">Accepter</string>
 	<string name="main_right_upper">Changer de mode</string>
 	<string name="main_right_lower">Options</string>
 	<string name="main_left_notfound">Aj. mot?</string>

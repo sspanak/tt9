@@ -13,8 +13,6 @@
     <string name="main_left_addword">Добавить слово</string>
     <string name="main_left_insert">Вставить символ</string>
     <string name="main_left_notfound">Добавить слово?</string>
-    <string name="main_mid">Готово</string>
-    <string name="main_mid_commit">Принять</string>
     <string name="main_right_lower">Изменить IME</string>
     <string name="main_right_upper">Режим ввода</string>
     <string name="pref_backup_noext">Ошибка: Внешняя память недоступна. Резервное копирование невозможно невозможно.</string>

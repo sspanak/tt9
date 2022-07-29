@@ -8,8 +8,6 @@
 	<string name="traditionalt9_settings">Настройки на Traditional T9</string>
 	<string name="main_left_insert">Въведи символ</string>
 	<string name="main_left_addword">Нова дума</string>
-	<string name="main_mid">Готово</string>
-	<string name="main_mid_commit">Въведи</string>
 	<string name="main_right_upper">Режим</string>
 	<string name="main_right_lower">Настройки</string>
 	<string name="main_left_notfound">Добавяне на дума?</string>

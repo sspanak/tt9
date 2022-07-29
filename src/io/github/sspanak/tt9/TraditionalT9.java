@@ -394,9 +394,6 @@ public class TraditionalT9 extends InputMethodService implements
 		mSuggestionStrings.clear();
 		mSuggestionInts.clear();
 		mSuggestionSym.clear();
-		if (interfacehandler != null) {
-			interfacehandler.midButtonUpdate(false);
-		}
 
 		updateKeyMode();
 		// show Window()?
@@ -803,7 +800,6 @@ public class TraditionalT9 extends InputMethodService implements
 	// private void commitTyped() { commitTyped(getCurrentInputConnection()); }
 	private void commitTyped() {
 		if (interfacehandler != null) {
-			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
 		}
 
@@ -1035,9 +1031,6 @@ public class TraditionalT9 extends InputMethodService implements
 		final int length2 = mComposingI.length();
 		if (mKeyMode == MODE_TEXT) {
 			charReset();
-			if (interfacehandler != null) {
-				interfacehandler.midButtonUpdate(false);
-			}
 			setCandidatesViewShown(false);
 		}
 		//Log.d("handleBS", "Stage1: (" + length + "," + length2 + ")");
@@ -1064,7 +1057,6 @@ public class TraditionalT9 extends InputMethodService implements
 			//Log.d("handleBS", "resetting thing");
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
-			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
 			mSuggestionStrings.clear();
 			mPreviousWord = "";
@@ -1113,9 +1105,6 @@ public class TraditionalT9 extends InputMethodService implements
 					onText(" ");
 				} else {
 					// do things
-					if (interfacehandler != null) {
-						interfacehandler.midButtonUpdate(true);
-					}
 					keyCode = keyCode - KeyEvent.KEYCODE_0;
 					mComposingI.append(keyCode);
 					updateCandidates();

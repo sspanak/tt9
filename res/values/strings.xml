@@ -9,8 +9,7 @@
 	<string name="traditionalt9_settings">Traditional T9 Settings</string>
 	<string name="main_left_insert">Insert symbol</string>
 	<string name="main_left_addword">Add word</string>
-	<string name="main_mid">Done</string>
-	<string name="main_mid_commit">Commit</string>
+	<string name="main_mid" translatable="false">OK</string>
 	<string name="main_right_upper">Cycle Mode</string>
 	<string name="main_right_lower">Options</string>
 	<string name="main_left_notfound">Add word?</string>
