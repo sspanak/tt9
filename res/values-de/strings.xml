@@ -46,9 +46,6 @@
 	<string name="pref_querytest">Query test</string>
 	<string name="pref_testfunc">Test func</string>
 
-	<string name="pref_mode_notify">Modus-Benachrichtigungen</string>
-	<string name="pref_mode_notify_subtitle">Genutzt für die Vokalisierung von Modusänderungen</string>
-
 	<string name="pref_loadingdict">Lade Wörterbuch…</string>
 	<string name="pref_loadinguserdict">Lade Benutzerwörterbuch…</string>
 	<string name="pref_load_title">IME-Wörterbuch laden</string>

@@ -686,6 +686,7 @@ public class TraditionalT9Settings extends ListActivity implements
 		// get settings
 		Object[] settings = T9DB.getInstance(this).getSettings(new SETTING[]
 				// Order should be based on SETTING.sqOrder
+				// "MODE_NOTIFY" is no longer in use; delete in #7
 				{SETTING.INPUT_MODE, SETTING.LANG_SUPPORT, SETTING.MODE_NOTIFY, SETTING.KEY_REMAP, SETTING.SPACE_ZERO});
 		ListAdapter settingitems;
 		try {

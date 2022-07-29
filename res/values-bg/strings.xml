@@ -46,9 +46,6 @@
 	<string name="pref_querytest">Query test</string>
 	<string name="pref_testfunc">Test func</string>
 
-	<string name="pref_mode_notify">Показвай режима</string>
-	<string name="pref_mode_notify_subtitle">Ще се показва икона с текущият режим на писане</string>
-
 	<string name="pref_loadingdict">Зареждане на речник…</string>
 	<string name="pref_loadinguserdict">Зареждане на вашия речник…</string>
 	<string name="pref_load_title">Зареди речник</string>

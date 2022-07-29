@@ -46,9 +46,6 @@
 	<string name="pref_querytest">Tester le clavier</string>
 	<string name="pref_testfunc">Teste fonc</string>
 
-	<string name="pref_mode_notify">Mode notifications</string>
-	<string name="pref_mode_notify_subtitle">Utilisé pour la vocalisation de changement de mode</string>
-
 	<string name="pref_loadingdict">Chargement du dictionnaire…</string>
 	<string name="pref_loadinguserdict">Chargement du dictionnaire utilisateur…</string>
 	<string name="pref_load_title">Charger le dictionnaire IME</string>

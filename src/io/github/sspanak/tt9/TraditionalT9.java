@@ -95,8 +95,6 @@ public class TraditionalT9 extends InputMethodService implements
 
 	private InputConnection currentInputConnection = null;
 
-	private Toast modeNotification = null;
-
 	/**
 	 * Main initialization of the input method component. Be sure to call to
 	 * super class.
@@ -284,6 +282,7 @@ public class TraditionalT9 extends InputMethodService implements
 		// get settings
 		Object[] settings = db.getSettings(new SETTING[] {
 			// 0, 1, 2,
+			// "2" is no longer in use; delete in #7
 			SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
 			// 3, 4, 5
 			SETTING.INPUT_MODE, SETTING.LAST_WORD, SETTING.SPACE_ZERO
@@ -298,14 +297,6 @@ public class TraditionalT9 extends InputMethodService implements
 		//TODO: Check if "restarting" variable will make things faster/more effecient
 
 		mKeyMode = MODE_TEXT;
-
-		boolean modenotify = settings[2].equals(1);
-
-		if (!modenotify && modeNotification != null) {
-			modeNotification = null;
-		} else if (modenotify && modeNotification == null){
-			modeNotification = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-		}
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
@@ -393,15 +384,6 @@ public class TraditionalT9 extends InputMethodService implements
 			if (prevword != null) {
 				onText(prevword);
 				db.storeSettingString(SETTING.LAST_WORD, null);
-			}
-			if (modenotify) {
-				Resources r = getResources();
-				if (mKeyMode != MODE_NUM)
-					modeNotify(String.format("%s %s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
-							r.getStringArray(R.array.keyMode)[mKeyMode], r.getStringArray(R.array.capsMode)[mCapsMode]));
-				else
-					modeNotify(String.format("%s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
-							r.getStringArray(R.array.keyMode)[mKeyMode]));
 			}
 		}
 
@@ -1112,8 +1094,6 @@ public class TraditionalT9 extends InputMethodService implements
 			currentInputConnection.setComposingText(mComposing, 1);
 		}
 		updateKeyMode();
-		if (modeNotification != null)
-			modeNotify(getResources().getStringArray(R.array.capsMode)[mCapsMode]);
 	}
 
 	/**
@@ -1319,15 +1299,6 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		updateKeyMode();
 		resetKeyMode();
-		if (modeNotification != null)
-			modeNotify(getResources().getStringArray(R.array.keyMode)[mKeyMode]);
-	}
-
-	private void modeNotify(String s) {
-		modeNotification.setText(s);
-		modeNotification.show();
-		modeNotification.cancel(); 	// TODO: This will not always hide the Toast.
-									// will probably need to implement custom view
 	}
 
 	private void nextLang() {
@@ -1337,9 +1308,6 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		mLang = mLangsAvailable[mLangIndex];
 		updateKeyMode();
-		if (modeNotification != null) {
-			modeNotify(getResources().getStringArray(R.array.pref_lang_titles)[mLang.index]);
-		}
 	}
 
 	private void resetKeyMode() {

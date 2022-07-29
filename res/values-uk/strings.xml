@@ -58,8 +58,6 @@
   <string name="updating_database_done">Оновлення бази даних словника виконано успішно.</string>
   <string name="updating_database_unavailable">Оновлення бізи даних словника недоступне.</string>
   <string name="pref_loaduser_notfound"> Помилка. \n Словник %1$s не знайдено. </string>
-  <string name="pref_mode_notify_subtitle">Використовується для індикації зміни режима введення.</string>
-  <string name="pref_mode_notify">Режим індикації</string>
   <string name="database_settings_notready">База даних недоступна. Використовуюься значення за замовчуванням.</string>
   <string name="pref_reloadKeys">Перезавантажити значення клавіш</string>
 

@@ -21,12 +21,6 @@
 		summary="@string/pref_spaceOnZeroSum"
 		defaultValue="false"
 		/>
-	<SettingCheck
-		id="pref_mode_notify"
-		title="@string/pref_mode_notify"
-		summary="@string/pref_mode_notify_subtitle"
-		defaultValue="false"
-		/>
 	<Setting title="@string/pref_loaddict" id="loaddict"/>
 	<Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/>
 	<Setting title="@string/pref_nukedict" id="nukedict"/>

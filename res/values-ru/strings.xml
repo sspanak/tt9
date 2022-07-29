@@ -58,8 +58,6 @@
 	<string name="updating_database_done">Обновление базы данных словаря выполнено успешно.</string>
 	<string name="updating_database_unavailable">Обновление базы данных словаря недоступно.</string>
 	<string name="pref_loaduser_notfound"> Ошибка. \n Словарь %1$s не найден. </string>
-	<string name="pref_mode_notify_subtitle">Используется для озвучивания изменения режима ввода.</string>
-	<string name="pref_mode_notify">Режим уведомления</string>
 	<string name="database_settings_notready">Database unavailable. Using default settings.</string>
 	<string name="pref_reloadKeys">Force reload of key overrides</string>
 
