@@ -7,11 +7,11 @@
 	<string name="pref_inputmode_desc">Дали да е включено или не подсказването на думи, когато започнете да пишете</string>
 	<string name="traditionalt9_settings">Настройки на Traditional T9</string>
 	<string name="main_left_insert">Въведи символ</string>
-	<string name="main_left_addword">Добави дума</string>
+	<string name="main_left_addword">Нова дума</string>
 	<string name="main_mid">Готово</string>
 	<string name="main_mid_commit">Въведи</string>
-	<string name="main_right_upper">Следващ режим</string>
-	<string name="main_right_lower">Избор</string>
+	<string name="main_right_upper">Режим</string>
+	<string name="main_right_lower">Настройки</string>
 	<string name="main_left_notfound">Добавяне на дума?</string>
 	<string name="ricon_desc">Hold Icon</string>
 	<string name="symbol_next">Следващи</string>
@@ -20,7 +20,7 @@
 	<string name="smiley_insert">Въведи усмивка</string>
 	<string name="symbol_page">Страница: %1$s/%2$s</string>
 
-	<string name="add_word">Добави дума</string>
+	<string name="add_word">Добави</string>
 	<string name="close">Затвори</string>
 	<string name="add_word_blank">Не може да се въведе никаква дума.</string>
 	<string name="add_word_badchar">Не може да се въведе дума с непозволени символи за %1$s (%2$s).</string>
