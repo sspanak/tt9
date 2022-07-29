@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
@@ -1227,12 +1226,12 @@ public class TraditionalT9 extends InputMethodService implements
 			} else {
 				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
 					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-						mCandidateView.scrollSuggestion(1);
+						mCandidateView.scrollToSuggestion(1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
 					} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-						mCandidateView.scrollSuggestion(-1);
+						mCandidateView.scrollToSuggestion(-1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
