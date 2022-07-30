@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- WHEN ADDING NEW SETTING KEY THAT STORES VALUE, ADD KEY AND QUERY TO T9DB -->
 <Settings>
 	<Setting title="@string/pref_help" id="help" />
 	<SettingList
@@ -21,10 +20,4 @@
 	<Setting title="@string/pref_backupdict" id="backupdict"/>
 	<Setting title="@string/pref_restoredict" id="restoredict"/>
 	<Setting title="@string/pref_reloadKeys" summary="@string/pref_reloadKeysSum" id="reloadKeys"/>
-	<SettingCheck
-		id="pref_keyMap"
-		title="@string/pref_keyRemap"
-		summary="@string/pref_keyRemapSum"
-		defaultValue="false"
-		/>
 </Settings>

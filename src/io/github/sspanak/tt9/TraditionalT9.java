@@ -46,7 +46,6 @@ public class TraditionalT9 extends InputMethodService implements
 	private boolean mGaveUpdateWarn = false;
 
 	private boolean mFirstPress = false;
-	private boolean keyRemap = false;
 
 	private boolean mIgnoreDPADKeyUp = false;
 	private KeyEvent mDPADkeyEvent = null;
@@ -263,9 +262,6 @@ public class TraditionalT9 extends InputMethodService implements
 //			if (interfacehandler != null) {
 //				interfacehandler.hideView();
 //			}
-			// Get keyMap setting:
-			Object[] setting = db.getSettings(new SETTING[] {SETTING.KEY_REMAP} );
-			keyRemap = setting[0].equals(1);
 			return;
 		}
 
@@ -574,28 +570,13 @@ public class TraditionalT9 extends InputMethodService implements
 	 * the app.
 	 */
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Translate key
-		KeyEvent key = TranslateKey(keyCode, event);
-		if (key != null) {
-			keyCode = key.getKeyCode();
-			event = key;
+	public boolean onKeyDown(int inputKeyCode, KeyEvent inputEvent) {
+		KeyEvent event = TranslateKey(inputKeyCode, inputEvent);
+		if (event != null) {
+			return onKeyDown_(event.getKeyCode(), event);
 		}
 
-		if (!onKeyDown_(keyCode, event)) {
-			if (key == null || !keyRemap) {
-				return false;
-			}
-			else {
-				// push key to lower level
-				// dumb handling of null for edge weird timing cases.
-				if (currentInputConnection == null)
-					currentInputConnection = getCurrentInputConnection();
-				if (currentInputConnection != null)
-					currentInputConnection.sendKeyEvent(event);
-			}
-		}
-		return true;
+		return onKeyDown_(inputKeyCode, inputEvent);
 	}
 
 	protected void launchOptions() {
@@ -768,28 +749,13 @@ public class TraditionalT9 extends InputMethodService implements
 	 * the app.
 	 */
 	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		// Translate key
-		KeyEvent key = TranslateKey(keyCode, event);
-		if (key != null) {
-			keyCode = key.getKeyCode();
-			event = key;
+	public boolean onKeyUp(int inputKeyCode, KeyEvent inputEvent) {
+		KeyEvent event = TranslateKey(inputKeyCode, inputEvent);
+		if (event != null) {
+			return onKeyUp_(event.getKeyCode(), event);
 		}
 
-		if (!onKeyUp_(keyCode, event)) {
-			if (key == null || !keyRemap) {
-				return false;
-			}
-			else {
-				// push key to lower level
-				// dumb handling of null for edge weird timing cases.
-				if (currentInputConnection == null)
-					currentInputConnection = getCurrentInputConnection();
-				if (currentInputConnection != null)
-					currentInputConnection.sendKeyEvent(event);
-			}
-		}
-		return true;
+		return onKeyUp_(inputKeyCode, inputEvent);
 	}
 
 	/**

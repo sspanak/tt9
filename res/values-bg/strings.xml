@@ -66,8 +66,6 @@
 	<string name="pref_reloadKeysDone">Упешно зареждане.</string>
 	<string name="pref_reloadKeysDoneWE">Имаше грешки при зареждане (виж logcat.)</string>
 	<string name="pref_reloadKeysNoFile">Няма файл keymap.txt.</string>
-	<string name="pref_keyRemap">Смени клавиши</string>
-	<string name="pref_keyRemapSum">Ако е избрано, сменените клавиши ще важат не само при писане, но и във всички приложения.</string>
 
 	<string name="hello_world">Работи!</string>
 
