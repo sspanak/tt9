@@ -70,14 +70,6 @@ public class InterfaceHandler implements View.OnClickListener, View.OnLongClickL
 		((Button) mainview.findViewById(R.id.main_mid)).performClick();
 	}
 
-	protected void midButtonUpdate(boolean composing) {
-		if (composing) {
-			((TextView) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid_commit);
-		} else {
-			((TextView) mainview.findViewById(R.id.main_mid)).setText(R.string.main_mid);
-		}
-	}
-
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

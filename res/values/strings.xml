@@ -9,8 +9,7 @@
 	<string name="traditionalt9_settings">Traditional T9 Settings</string>
 	<string name="main_left_insert">Insert symbol</string>
 	<string name="main_left_addword">Add word</string>
-	<string name="main_mid">Done</string>
-	<string name="main_mid_commit">Commit</string>
+	<string name="main_mid" translatable="false">OK</string>
 	<string name="main_right_upper">Cycle Mode</string>
 	<string name="main_right_lower">Options</string>
 	<string name="main_left_notfound">Add word?</string>
@@ -48,9 +47,6 @@
 	<string name="pref_querytest">Query test</string>
 	<string name="pref_testfunc">Test func</string>
 
-	<string name="pref_mode_notify">Mode notifications</string>
-	<string name="pref_mode_notify_subtitle">Used for vocalization of mode changes</string>
-
 	<string name="pref_loadingdict">Loading dictionary…</string>
 	<string name="pref_loadinguserdict">Loading user dictionary…</string>
 	<string name="pref_load_title">Load IME dictionary</string>
@@ -73,10 +69,6 @@
 	<string name="pref_reloadKeysDone" translatable="false">Reload complete.</string>
 	<string name="pref_reloadKeysDoneWE" translatable="false">Reload complete with errors (check logcat.)</string>
 	<string name="pref_reloadKeysNoFile" translatable="false">No keymap.txt file found.</string>
-	<string name="pref_keyRemap" translatable="false">Translate keys</string>
-	<string name="pref_keyRemapSum" translatable="false">Enable to send translated keys to apps, otherwise keymap is for IME only.</string>
-	<string name="pref_spaceOnZero" translatable="false">Space on 0 key</string>
-	<string name="pref_spaceOnZeroSum" tools:ignore="MissingTranslation">Map space to 0 key if checked, otherwise to # key.</string>
 
 	<string name="hello_world">Hello world!</string>
 

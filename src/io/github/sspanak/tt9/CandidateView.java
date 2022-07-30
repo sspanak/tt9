@@ -21,7 +21,7 @@ public class CandidateView extends View {
 	private Rect mBgPadding;
 
 	private static final int MAX_SUGGESTIONS = 32;
-	private static final int SCROLL_PIXELS = 20;
+	private static final int CANDIDATE_SCROLL_STEP = 20; // px
 
 	private int[] mWordWidth = new int[MAX_SUGGESTIONS];
 	private int[] mWordX = new int[MAX_SUGGESTIONS];
@@ -152,27 +152,21 @@ public class CandidateView extends View {
 			x += wordWidth;
 		}
 		mTotalWidth = x;
-		if (mTargetScrollX != getScrollX()) {
-			scrollToTarget();
-		}
+		scrollTargetIntoView();
 	}
 
-	private void scrollToTarget() {
-		int sx = getScrollX();
-		if (mTargetScrollX > sx) {
-			sx += SCROLL_PIXELS;
-			if (sx >= mTargetScrollX) {
-				sx = mTargetScrollX;
-				requestLayout();
-			}
-		} else {
-			sx -= SCROLL_PIXELS;
-			if (sx <= mTargetScrollX) {
-				sx = mTargetScrollX;
-				requestLayout();
-			}
+	private void scrollTargetIntoView() {
+		int currentX = getScrollX();
+		int scrollDistance = mTargetScrollX - currentX;
+
+		if (scrollDistance == 0) {
+			return;
 		}
-		scrollTo(sx, getScrollY());
+
+		int maxStepX = (Math.abs(scrollDistance) > getWidth() * 0.5) ? (int)(CANDIDATE_SCROLL_STEP * 2.25) : CANDIDATE_SCROLL_STEP;
+		int stepX = Integer.signum(scrollDistance) * Math.min(Math.abs(scrollDistance), maxStepX);
+
+		scrollTo(currentX + stepX, getScrollY());
 		invalidate();
 	}
 
@@ -196,7 +190,7 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
-	protected void scrollSuggestion(int increment) {
+	protected void scrollToSuggestion(int increment) {
 		if (mSuggestions != null && mSuggestions.size() > 1) {
 			mSelectedIndex = mSelectedIndex + increment;
 			if (mSelectedIndex == mSuggestions.size()) {

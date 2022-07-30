@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
@@ -47,9 +46,6 @@ public class TraditionalT9 extends InputMethodService implements
 	private boolean mGaveUpdateWarn = false;
 
 	private boolean mFirstPress = false;
-	private boolean keyRemap = false;
-
-	private boolean spaceOnZero = false;
 
 	private boolean mIgnoreDPADKeyUp = false;
 	private KeyEvent mDPADkeyEvent = null;
@@ -94,8 +90,6 @@ public class TraditionalT9 extends InputMethodService implements
 	private int mKeyMode;
 
 	private InputConnection currentInputConnection = null;
-
-	private Toast modeNotification = null;
 
 	/**
 	 * Main initialization of the input method component. Be sure to call to
@@ -268,9 +262,6 @@ public class TraditionalT9 extends InputMethodService implements
 //			if (interfacehandler != null) {
 //				interfacehandler.hideView();
 //			}
-			// Get keyMap setting:
-			Object[] setting = db.getSettings(new SETTING[] {SETTING.KEY_REMAP} );
-			keyRemap = setting[0].equals(1);
 			return;
 		}
 
@@ -284,12 +275,13 @@ public class TraditionalT9 extends InputMethodService implements
 		// get settings
 		Object[] settings = db.getSettings(new SETTING[] {
 			// 0, 1, 2,
+			// "2" is no longer in use; delete in #7
 			SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
 			// 3, 4, 5
+			// "5" is no longer in use; delete in #7
 			SETTING.INPUT_MODE, SETTING.LAST_WORD, SETTING.SPACE_ZERO
 		});
 
-		spaceOnZero = settings[5].equals(1);
 		mLangsAvailable = LangHelper.buildLangs((Integer)settings[0]);
 		mLang = sanitizeLang(LANGUAGE.get((Integer)settings[1]));
 
@@ -298,14 +290,6 @@ public class TraditionalT9 extends InputMethodService implements
 		//TODO: Check if "restarting" variable will make things faster/more effecient
 
 		mKeyMode = MODE_TEXT;
-
-		boolean modenotify = settings[2].equals(1);
-
-		if (!modenotify && modeNotification != null) {
-			modeNotification = null;
-		} else if (modenotify && modeNotification == null){
-			modeNotification = Toast.makeText(this, "", Toast.LENGTH_SHORT);
-		}
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
@@ -394,15 +378,6 @@ public class TraditionalT9 extends InputMethodService implements
 				onText(prevword);
 				db.storeSettingString(SETTING.LAST_WORD, null);
 			}
-			if (modenotify) {
-				Resources r = getResources();
-				if (mKeyMode != MODE_NUM)
-					modeNotify(String.format("%s %s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
-							r.getStringArray(R.array.keyMode)[mKeyMode], r.getStringArray(R.array.capsMode)[mCapsMode]));
-				else
-					modeNotify(String.format("%s %s", r.getStringArray(R.array.pref_lang_titles)[mLang.index],
-							r.getStringArray(R.array.keyMode)[mKeyMode]));
-			}
 		}
 
 		// Update the label on the enter key, depending on what the application
@@ -413,9 +388,6 @@ public class TraditionalT9 extends InputMethodService implements
 		mSuggestionStrings.clear();
 		mSuggestionInts.clear();
 		mSuggestionSym.clear();
-		if (interfacehandler != null) {
-			interfacehandler.midButtonUpdate(false);
-		}
 
 		updateKeyMode();
 		// show Window()?
@@ -598,28 +570,13 @@ public class TraditionalT9 extends InputMethodService implements
 	 * the app.
 	 */
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Translate key
-		KeyEvent key = TranslateKey(keyCode, event);
-		if (key != null) {
-			keyCode = key.getKeyCode();
-			event = key;
+	public boolean onKeyDown(int inputKeyCode, KeyEvent inputEvent) {
+		KeyEvent event = TranslateKey(inputKeyCode, inputEvent);
+		if (event != null) {
+			return onKeyDown_(event.getKeyCode(), event);
 		}
 
-		if (!onKeyDown_(keyCode, event)) {
-			if (key == null || !keyRemap) {
-				return false;
-			}
-			else {
-				// push key to lower level
-				// dumb handling of null for edge weird timing cases.
-				if (currentInputConnection == null)
-					currentInputConnection = getCurrentInputConnection();
-				if (currentInputConnection != null)
-					currentInputConnection.sendKeyEvent(event);
-			}
-		}
-		return true;
+		return onKeyDown_(inputKeyCode, inputEvent);
 	}
 
 	protected void launchOptions() {
@@ -792,28 +749,13 @@ public class TraditionalT9 extends InputMethodService implements
 	 * the app.
 	 */
 	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		// Translate key
-		KeyEvent key = TranslateKey(keyCode, event);
-		if (key != null) {
-			keyCode = key.getKeyCode();
-			event = key;
+	public boolean onKeyUp(int inputKeyCode, KeyEvent inputEvent) {
+		KeyEvent event = TranslateKey(inputKeyCode, inputEvent);
+		if (event != null) {
+			return onKeyUp_(event.getKeyCode(), event);
 		}
 
-		if (!onKeyUp_(keyCode, event)) {
-			if (key == null || !keyRemap) {
-				return false;
-			}
-			else {
-				// push key to lower level
-				// dumb handling of null for edge weird timing cases.
-				if (currentInputConnection == null)
-					currentInputConnection = getCurrentInputConnection();
-				if (currentInputConnection != null)
-					currentInputConnection.sendKeyEvent(event);
-			}
-		}
-		return true;
+		return onKeyUp_(inputKeyCode, inputEvent);
 	}
 
 	/**
@@ -822,7 +764,6 @@ public class TraditionalT9 extends InputMethodService implements
 	// private void commitTyped() { commitTyped(getCurrentInputConnection()); }
 	private void commitTyped() {
 		if (interfacehandler != null) {
-			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
 		}
 
@@ -1054,9 +995,6 @@ public class TraditionalT9 extends InputMethodService implements
 		final int length2 = mComposingI.length();
 		if (mKeyMode == MODE_TEXT) {
 			charReset();
-			if (interfacehandler != null) {
-				interfacehandler.midButtonUpdate(false);
-			}
 			setCandidatesViewShown(false);
 		}
 		//Log.d("handleBS", "Stage1: (" + length + "," + length2 + ")");
@@ -1083,7 +1021,6 @@ public class TraditionalT9 extends InputMethodService implements
 			//Log.d("handleBS", "resetting thing");
 			mComposing.setLength(0);
 			mComposingI.setLength(0);
-			interfacehandler.midButtonUpdate(false);
 			interfacehandler.showNotFound(false);
 			mSuggestionStrings.clear();
 			mPreviousWord = "";
@@ -1112,8 +1049,6 @@ public class TraditionalT9 extends InputMethodService implements
 			currentInputConnection.setComposingText(mComposing, 1);
 		}
 		updateKeyMode();
-		if (modeNotification != null)
-			modeNotify(getResources().getStringArray(R.array.capsMode)[mCapsMode]);
 	}
 
 	/**
@@ -1125,18 +1060,13 @@ public class TraditionalT9 extends InputMethodService implements
 		switch (mKeyMode) {
 			case MODE_LANG:
 				// it begins
-				// take note of spaceOnZero
-				if (keyCode == KeyEvent.KEYCODE_POUND ||
-						( spaceOnZero && (keyCode == KeyEvent.KEYCODE_0) )) {
+				if (keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_0) {
 					if (mComposing.length() > 0) {
 						commitTyped();
 					}
 					onText(" ");
 				} else {
 					// do things
-					if (interfacehandler != null) {
-						interfacehandler.midButtonUpdate(true);
-					}
 					keyCode = keyCode - KeyEvent.KEYCODE_0;
 					mComposingI.append(keyCode);
 					updateCandidates();
@@ -1152,12 +1082,10 @@ public class TraditionalT9 extends InputMethodService implements
 					keyCode = keyCode - KeyEvent.KEYCODE_0;
 				}
 				// special translation of that keyCode (which is now T9TABLE index
-				if (spaceOnZero) {
-					if (keyCode == 0)
-						keyCode = 11;
-					if (keyCode == 10)
-						keyCode = 12;
-				}
+				if (keyCode == 0)
+					keyCode = 11;
+				if (keyCode == 10)
+					keyCode = 12;
 				//Log.d("handleChar", "Key: " + keyCode + "Previous Key: " + mPrevious + " Index:" + mCharIndex);
 
 				boolean newChar = false;
@@ -1247,12 +1175,12 @@ public class TraditionalT9 extends InputMethodService implements
 			} else {
 				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
 					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-						mCandidateView.scrollSuggestion(1);
+						mCandidateView.scrollToSuggestion(1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
 					} else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-						mCandidateView.scrollSuggestion(-1);
+						mCandidateView.scrollToSuggestion(-1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
@@ -1319,15 +1247,6 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		updateKeyMode();
 		resetKeyMode();
-		if (modeNotification != null)
-			modeNotify(getResources().getStringArray(R.array.keyMode)[mKeyMode]);
-	}
-
-	private void modeNotify(String s) {
-		modeNotification.setText(s);
-		modeNotification.show();
-		modeNotification.cancel(); 	// TODO: This will not always hide the Toast.
-									// will probably need to implement custom view
 	}
 
 	private void nextLang() {
@@ -1337,9 +1256,6 @@ public class TraditionalT9 extends InputMethodService implements
 		}
 		mLang = mLangsAvailable[mLangIndex];
 		updateKeyMode();
-		if (modeNotification != null) {
-			modeNotify(getResources().getStringArray(R.array.pref_lang_titles)[mLang.index]);
-		}
 	}
 
 	private void resetKeyMode() {

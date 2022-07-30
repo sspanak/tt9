@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- WHEN ADDING NEW SETTING KEY THAT STORES VALUE, ADD KEY AND QUERY TO T9DB -->
 <Settings>
 	<Setting title="@string/pref_help" id="help" />
 	<SettingList
@@ -15,28 +14,10 @@
 		entries="@array/pref_lang_titles"
 		entryValues="@array/pref_lang_values"
 		title="@string/pref_lang_title" />
-	<SettingCheck
-		id="pref_spaceOnZero"
-		title="@string/pref_spaceOnZero"
-		summary="@string/pref_spaceOnZeroSum"
-		defaultValue="false"
-		/>
-	<SettingCheck
-		id="pref_mode_notify"
-		title="@string/pref_mode_notify"
-		summary="@string/pref_mode_notify_subtitle"
-		defaultValue="false"
-		/>
 	<Setting title="@string/pref_loaddict" id="loaddict"/>
 	<Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/>
 	<Setting title="@string/pref_nukedict" id="nukedict"/>
 	<Setting title="@string/pref_backupdict" id="backupdict"/>
 	<Setting title="@string/pref_restoredict" id="restoredict"/>
 	<Setting title="@string/pref_reloadKeys" summary="@string/pref_reloadKeysSum" id="reloadKeys"/>
-	<SettingCheck
-		id="pref_keyMap"
-		title="@string/pref_keyRemap"
-		summary="@string/pref_keyRemapSum"
-		defaultValue="false"
-		/>
 </Settings>

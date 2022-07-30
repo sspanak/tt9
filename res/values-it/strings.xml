@@ -8,8 +8,6 @@
     <string name="traditionalt9_settings">Traditional T9 Impostazioni</string>
     <string name="main_left_insert">Ins. simbolo</string>
     <string name="main_left_addword">Agg. parola</string>
-    <string name="main_mid">Fatto</string>
-    <string name="main_mid_commit">Accettare</string>
     <string name="main_right_upper">Cambia modalità</string>
     <string name="main_right_lower">Opzioni</string>
     <string name="main_left_notfound">Agg. parola?</string>
@@ -45,9 +43,6 @@
     <string name="pref_restoredict">Ripristina dizionario</string>
     <string name="pref_querytest">Test ricerca</string>
     <string name="pref_testfunc">Test func</string>
-
-    <string name="pref_mode_notify">Modalità notifiche</string>
-    <string name="pref_mode_notify_subtitle">Usato per la vocalizzazione del cambio modalità</string>
 
     <string name="pref_loadingdict">Caricamento dizionario…</string>
     <string name="pref_loadinguserdict">Caricamento dizionario utente…</string>

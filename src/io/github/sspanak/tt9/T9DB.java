@@ -68,11 +68,11 @@ public class T9DB {
 		public enum SETTING {
 			INPUT_MODE("pref_inputmode", 0, 0),
 			LANG_SUPPORT("pref_lang_support", 1, 1),
-			MODE_NOTIFY("pref_mode_notify", 0, 2),
+			MODE_NOTIFY("pref_mode_notify", 0, 2), // no longer in use; delete in #7
 			LAST_LANG("set_last_lang", 1, 5),
 			LAST_WORD("set_last_word", null, 6),
-			SPACE_ZERO("pref_spaceOnZero", 0, 4),
-			KEY_REMAP("pref_keyMap", 0, 3);
+			SPACE_ZERO("pref_spaceOnZero", 0, 4), // no longer in use; delete in #7
+			KEY_REMAP("pref_keyMap", 0, 3); // no longer in use; delete in #7
 
 			public final String id;
 			public final Integer defvalue;
@@ -515,10 +515,10 @@ public class T9DB {
 					COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					DBSettings.SETTING.INPUT_MODE.id + " INTEGER, " +
 					DBSettings.SETTING.LANG_SUPPORT.id + " INTEGER, " +
-					DBSettings.SETTING.MODE_NOTIFY.id	+ " INTEGER, " +
+					DBSettings.SETTING.MODE_NOTIFY.id	+ " INTEGER, " + // no longer in use; delete in #7
 					DBSettings.SETTING.LAST_LANG.id	+ " INTEGER, " +
-					DBSettings.SETTING.KEY_REMAP.id	+ " INTEGER, " +
-					DBSettings.SETTING.SPACE_ZERO.id	+ " INTEGER, " +
+					DBSettings.SETTING.KEY_REMAP.id	+ " INTEGER, " + // no longer in use; delete in #7
+					DBSettings.SETTING.SPACE_ZERO.id	+ " INTEGER, " + // no longer in use; delete in #7
 					DBSettings.SETTING.LAST_WORD.id	+ " TEXT )");
 		}
 
