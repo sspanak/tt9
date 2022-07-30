@@ -68,8 +68,6 @@
 	<string name="pref_reloadKeysNoFile">Няма файл keymap.txt.</string>
 	<string name="pref_keyRemap">Смени клавиши</string>
 	<string name="pref_keyRemapSum">Ако е избрано, сменените клавиши ще важат не само при писане, но и във всички приложения.</string>
-	<string name="pref_spaceOnZero">Интервал с 0</string>
-	<string name="pref_spaceOnZeroSum" tools:ignore="MissingTranslation">Ако е избрано, ще пишете интервал с 0, вместо с #.</string>
 
 	<string name="hello_world">Работи!</string>
 

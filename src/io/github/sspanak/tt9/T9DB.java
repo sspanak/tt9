@@ -71,7 +71,7 @@ public class T9DB {
 			MODE_NOTIFY("pref_mode_notify", 0, 2), // no longer in use; delete in #7
 			LAST_LANG("set_last_lang", 1, 5),
 			LAST_WORD("set_last_word", null, 6),
-			SPACE_ZERO("pref_spaceOnZero", 0, 4),
+			SPACE_ZERO("pref_spaceOnZero", 0, 4), // no longer in use; delete in #7
 			KEY_REMAP("pref_keyMap", 0, 3);
 
 			public final String id;

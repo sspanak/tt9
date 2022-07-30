@@ -71,8 +71,6 @@
 	<string name="pref_reloadKeysNoFile" translatable="false">No keymap.txt file found.</string>
 	<string name="pref_keyRemap" translatable="false">Translate keys</string>
 	<string name="pref_keyRemapSum" translatable="false">Enable to send translated keys to apps, otherwise keymap is for IME only.</string>
-	<string name="pref_spaceOnZero" translatable="false">Space on 0 key</string>
-	<string name="pref_spaceOnZeroSum" tools:ignore="MissingTranslation">Map space to 0 key if checked, otherwise to # key.</string>
 
 	<string name="hello_world">Hello world!</string>
 

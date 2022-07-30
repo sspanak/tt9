@@ -48,8 +48,6 @@ public class TraditionalT9 extends InputMethodService implements
 	private boolean mFirstPress = false;
 	private boolean keyRemap = false;
 
-	private boolean spaceOnZero = false;
-
 	private boolean mIgnoreDPADKeyUp = false;
 	private KeyEvent mDPADkeyEvent = null;
 
@@ -284,10 +282,10 @@ public class TraditionalT9 extends InputMethodService implements
 			// "2" is no longer in use; delete in #7
 			SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
 			// 3, 4, 5
+			// "5" is no longer in use; delete in #7
 			SETTING.INPUT_MODE, SETTING.LAST_WORD, SETTING.SPACE_ZERO
 		});
 
-		spaceOnZero = settings[5].equals(1);
 		mLangsAvailable = LangHelper.buildLangs((Integer)settings[0]);
 		mLang = sanitizeLang(LANGUAGE.get((Integer)settings[1]));
 
@@ -1096,9 +1094,7 @@ public class TraditionalT9 extends InputMethodService implements
 		switch (mKeyMode) {
 			case MODE_LANG:
 				// it begins
-				// take note of spaceOnZero
-				if (keyCode == KeyEvent.KEYCODE_POUND ||
-						( spaceOnZero && (keyCode == KeyEvent.KEYCODE_0) )) {
+				if (keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_0) {
 					if (mComposing.length() > 0) {
 						commitTyped();
 					}
@@ -1120,12 +1116,10 @@ public class TraditionalT9 extends InputMethodService implements
 					keyCode = keyCode - KeyEvent.KEYCODE_0;
 				}
 				// special translation of that keyCode (which is now T9TABLE index
-				if (spaceOnZero) {
-					if (keyCode == 0)
-						keyCode = 11;
-					if (keyCode == 10)
-						keyCode = 12;
-				}
+				if (keyCode == 0)
+					keyCode = 11;
+				if (keyCode == 10)
+					keyCode = 12;
 				//Log.d("handleChar", "Key: " + keyCode + "Previous Key: " + mPrevious + " Index:" + mCharIndex);
 
 				boolean newChar = false;
