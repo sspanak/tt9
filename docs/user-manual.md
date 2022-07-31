@@ -1,7 +1,7 @@
 # Traditional T9
 TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It supports multiple languages and predictive text typing. _NOTE: TT9 is not usable on touchscreen-only devices._
 
-Source code and documentation are available in Github:
+Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
 TODO: Initial config, loading a dictionary...
@@ -49,4 +49,4 @@ See [the original manual](https://github.com/Clam-/TraditionalT9/wiki/Key-remapp
 - The word lists / dictionaries are licensed under the licenses provided in the respective readme files found in the source code, where applicable.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Roboto" font is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-- "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt)
+- "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](desktop-ebook-EULA-1.8.txt)
