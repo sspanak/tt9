@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class AddWordAct extends Activity {
 
@@ -45,9 +45,8 @@ public class AddWordAct extends Activity {
 	}
 
 	public void doAddWord(String text) {
-		T9DB db = T9DB.getInstance(this);
 		try {
-			db.addWord(text, LangHelper.LANGUAGE.get(lang));
+			T9DB.getInstance(this).addWord(text, LangHelper.LANGUAGE.get(lang));
 		} catch (DBException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			String msg = e.getMessage();
@@ -62,7 +61,7 @@ public class AddWordAct extends Activity {
 			AlertDialog dialog = builder.create();
 			dialog.show();
 		}
-		db.storeSettingString(SETTING.LAST_WORD, text);
+		T9Preferences.getInstance(this).setLastWord(text);
 	}
 
 

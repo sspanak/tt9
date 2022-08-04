@@ -4,10 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.T9DB;
-import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class SettingList extends Setting {
 	String[] entries;
@@ -56,7 +56,13 @@ public class SettingList extends Setting {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
-						T9DB.getInstance(context).storeSettingInt(SETTING.get(id), entryValues[which]);
+						if (id.equals("pref_inputmode")) {
+							try {
+								T9Preferences.getInstance(context).setInputMode(entryValues[which]);
+							} catch (Exception e) {
+								Log.e("SettingsList", e.getMessage());
+							}
+						}
 						value = entryValues[which];
 						dialog.dismiss();
 					}

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
 import java.util.HashMap;
@@ -54,10 +55,6 @@ public class T9DB {
 
 	private static final int MAX_RESULTS = 8;
 	private static final int MAX_MAX_RESULTS = 30; // to make sure we don't exceed candidate view array.
-
-	private static final int CAPS_OFF = 0;
-	private static final int CAPS_SINGLE = 1;
-	private static final int CAPS_ALL = 2;
 
 	private DatabaseHelper mOpenHelper;
 	private SQLiteDatabase db;
@@ -398,7 +395,7 @@ public class T9DB {
 			cur.close();
 		}
 		// Log.d("T9DB.updateWords", "pre: " + stringList);
-		if (capsMode == CAPS_OFF) {
+		if (capsMode == T9Preferences.CASE_LOWER) {
 			return;
 		}
 		// Log.d("T9DB.updateWords", "filtering...");
@@ -411,7 +408,7 @@ public class T9DB {
 		while (iter.hasNext()) {
 			word = iter.next();
 			switch (capsMode) {
-				case CAPS_ALL:
+				case T9Preferences.CASE_UPPER:
 					wordtemp = word.toUpperCase(LangHelper.LOCALES[lang.index]);
 					if (wordtemp.equals(word)) {
 						index++;
@@ -424,7 +421,7 @@ public class T9DB {
 						stringList.set(index, wordtemp);
 					}
 					break;
-				case CAPS_SINGLE:
+				case T9Preferences.CASE_CAPITALIZE:
 					if (word.length() > 1) {
 						wordtemp = word.substring(0, 1).toUpperCase(LangHelper.LOCALES[lang.index]) + word.substring(1);
 					} else {

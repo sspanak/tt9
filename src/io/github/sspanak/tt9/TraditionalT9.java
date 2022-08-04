@@ -18,7 +18,6 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
-import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
 import io.github.sspanak.tt9.Utils.SpecialInputType;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
@@ -66,10 +65,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 
 	private LANGUAGE[] mLangsAvailable = null;
 
-	private static final int CAPS_OFF = 0;
-	private static final int CAPS_SINGLE = 1;
-	private static final int CAPS_ALL = 2;
-	private final static int[] CAPS_CYCLE = { CAPS_OFF, CAPS_SINGLE, CAPS_ALL };
+	private final static int[] CAPS_CYCLE = { T9Preferences.CASE_LOWER, T9Preferences.CASE_CAPITALIZE, T9Preferences.CASE_UPPER };
 
 	private final static int T9DELAY = 900;
 	final Handler t9releasehandler = new Handler();
@@ -83,10 +79,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	private T9DB db;
 	private T9Preferences prefs;
 
-	public static final int MODE_LANG = 0;
-	public static final int MODE_TEXT = 1;
-	public static final int MODE_NUM = 2;
-	private static final int[] MODE_CYCLE = { MODE_LANG, MODE_TEXT, MODE_NUM };
+	private static final int[] MODE_CYCLE = { T9Preferences.MODE_PREDICTIVE, T9Preferences.MODE_ABC, T9Preferences.MODE_123 };
 	private int mKeyMode;
 
 	private InputConnection currentInputConnection = null;
@@ -134,7 +127,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		//updateKeyMode();
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
-		if (mKeyMode == MODE_LANG) {
+		if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 			interfacehandler.showHold(true);
 		} else {
 			interfacehandler.showHold(false);
@@ -200,7 +193,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	}
 
 	protected void showAddWord() {
-		if (mKeyMode == MODE_LANG) {
+		if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 			// decide if we are going to look for work to base on
 			String template = mComposing.toString();
 			if (template.length() == 0) {
@@ -274,24 +267,14 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		// way.
 		clearState();
 
-		// get settings
-		Object[] settings = db.getSettings(new SETTING[] {
-			// 0, 1, 2,
-			// "2" is no longer in use; delete in #7
-			SETTING.LANG_SUPPORT, SETTING.LAST_LANG, SETTING.MODE_NOTIFY,
-			// 3, 4, 5
-			// "5" is no longer in use; delete in #7
-			SETTING.INPUT_MODE, SETTING.LAST_WORD, SETTING.SPACE_ZERO
-		});
-
-		mLangsAvailable = LangHelper.buildLangs((Integer)settings[0]);
-		mLang = sanitizeLang(LANGUAGE.get((Integer)settings[1]));
+		mLangsAvailable = LangHelper.buildLangs(prefs.getEnabledLanguages());
+		mLang = sanitizeLang(LANGUAGE.get(prefs.getInputLanguage()));
 
 		updateCandidates();
 
 		//TODO: Check if "restarting" variable will make things faster/more effecient
 
-		mKeyMode = MODE_TEXT;
+		mKeyMode = T9Preferences.MODE_ABC;
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
@@ -300,13 +283,13 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			case InputType.TYPE_CLASS_DATETIME:
 				// Numbers and dates default to the symbols keyboard, with
 				// no extra features.
-				mKeyMode = MODE_NUM;
+				mKeyMode = T9Preferences.MODE_123;
 				break;
 
 			case InputType.TYPE_CLASS_PHONE:
 				// Phones will also default to the symbols keyboard, though
 				// often you will want to have a dedicated phone keyboard.
-				mKeyMode = MODE_NUM;
+				mKeyMode = T9Preferences.MODE_123;
 				break;
 
 			case InputType.TYPE_CLASS_TEXT:
@@ -314,7 +297,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
-				mKeyMode = (Integer)settings[3];
+				mKeyMode = prefs.getInputMode();
 
 				// We now look for a few special variations of text that will
 				// modify our behavior.
@@ -323,7 +306,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 						|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
 					// Do not display predictions / what the user is typing
 					// when they are entering a password.
-					mKeyMode = MODE_TEXT;
+					mKeyMode = T9Preferences.MODE_ABC;
 				}
 
 				if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
@@ -331,7 +314,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 						|| variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
 					// Our predictions are not useful for e-mail addresses
 					// or URIs.
-					mKeyMode = MODE_TEXT;
+					mKeyMode = T9Preferences.MODE_ABC;
 				}
 
 				if ((inputField.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
@@ -341,7 +324,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 					// candidates when in fullscreen mode, otherwise relying
 					// own it displaying its own UI.
 					// ????
-					mKeyMode = (Integer)settings[3];
+					mKeyMode = prefs.getInputMode();
 				}
 
 				// handle filter list cases... do not hijack DPAD center and make
@@ -363,22 +346,23 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				updateShiftKeyState(inputField);
 		}
 		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
-			mKeyMode = MODE_TEXT;
+			mKeyMode = T9Preferences.MODE_ABC;
 		}
-		String prevword = null;
-		if (inputField.privateImeOptions != null
-				&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
+		if (
+			inputField.privateImeOptions != null
+			&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
+		) {
 			mAddingWord = true;
 			// mAddingSkipInput = true;
 			// Log.d("onStartInput", "ADDING WORD");
-			mKeyMode = MODE_TEXT;
+			mKeyMode = T9Preferences.MODE_ABC;
 		} else {
 			mAddingWord = false;
 			// Log.d("onStartInput", "not adding word");
-			prevword = (String)settings[4];
-			if (prevword != null) {
+			String prevword = prefs.getLastWord();
+			if (prevword != "") {
 				onText(prevword);
-				db.storeSettingString(SETTING.LAST_WORD, null);
+				prefs.setLastWord("");
 			}
 		}
 
@@ -404,7 +388,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		super.onFinishInput();
 		// Log.d("onFinishInput", "When is this called?");
 		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
-			db.storeSettingInt(SETTING.LAST_LANG, mLang.id);
+			prefs.setInputLanguage(mLang.id);
 			commitTyped();
 			finish();
 		}
@@ -454,7 +438,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 								  int candidatesStart, int candidatesEnd) {
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart,
 				candidatesEnd);
-		if (mKeyMode == MODE_TEXT) { return; } // stops the ghost fast-type commit
+		if (mKeyMode == T9Preferences.MODE_ABC) { return; } // stops the ghost fast-type commit
 		// If the current selection in the text view changes, we should
 		// clear whatever candidate text we have.
 		if ((mComposing.length() > 0 || mComposingI.length() > 0)
@@ -528,7 +512,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		if (event.getRepeatCount() != 0) {
 			return true;
 		}
-		if (mKeyMode == MODE_TEXT) {
+		if (mKeyMode == T9Preferences.MODE_ABC) {
 			t9releasehandler.removeCallbacks(mt9release);
 		}
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -591,7 +575,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			}
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_STAR) {
-			if (mKeyMode != MODE_NUM) {
+			if (mKeyMode != T9Preferences.MODE_123) {
 				if (mLangsAvailable.length > 1) {
 					nextLang();
 				} else {
@@ -604,7 +588,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			if (interfacehandler != null) {
 				interfacehandler.setPressed(keyCode, false);
 			}
-			if (mKeyMode == MODE_LANG) {
+			if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 				if (mWordFound) {
 					showAddWord();
 				} else {
@@ -621,13 +605,13 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			return true;
 		}
 		if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
-			if (mKeyMode == MODE_LANG) {
+			if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 				commitTyped();
 				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
-			} else if (mKeyMode == MODE_TEXT) {
+			} else if (mKeyMode == T9Preferences.MODE_ABC) {
 				commitReset();
 				onText(String.valueOf(keyCode - KeyEvent.KEYCODE_0));
-			} else if (mKeyMode == MODE_NUM) {
+			} else if (mKeyMode == T9Preferences.MODE_123) {
 				if (keyCode == KeyEvent.KEYCODE_0) {
 					onText("+");
 				}
@@ -755,7 +739,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 */
 	private void updateShiftKeyState(EditorInfo attr) {
 		// Log.d("updateShift", "CM start: " + mCapsMode);
-		if (attr != null && mCapsMode != CAPS_ALL) {
+		if (attr != null && mCapsMode != T9Preferences.CASE_UPPER) {
 			int caps = 0;
 			if (attr.inputType != InputType.TYPE_NULL) {
 				caps = currentInputConnection.getCursorCapsMode(attr.inputType);
@@ -763,13 +747,13 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			// mInputView.setShifted(mCapsLock || caps != 0);
 			// Log.d("updateShift", "caps: " + caps);
 			if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
-				mCapsMode = CAPS_ALL;
+				mCapsMode = T9Preferences.CASE_UPPER;
 			} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
-				mCapsMode = CAPS_SINGLE;
+				mCapsMode = T9Preferences.CASE_CAPITALIZE;
 			} else if ((caps & TextUtils.CAP_MODE_WORDS) == TextUtils.CAP_MODE_WORDS) {
-				mCapsMode = CAPS_SINGLE;
+				mCapsMode = T9Preferences.CASE_CAPITALIZE;
 			} else {
-				mCapsMode = CAPS_OFF;
+				mCapsMode = T9Preferences.CASE_LOWER;
 			}
 			updateKeyMode();
 		}
@@ -799,7 +783,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			handleBackspace();
 		} else if (keyCode == KeyEvent.KEYCODE_STAR) {
 			// change case
-			if (mKeyMode == MODE_NUM) {
+			if (mKeyMode == T9Preferences.MODE_123) {
 				handleCharacter(KeyEvent.KEYCODE_STAR);
 			} else {
 				handleShift();
@@ -853,14 +837,14 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		}
 		if (mComposing.length() > 0) {
 			switch (mKeyMode) {
-				case MODE_LANG:
+				case T9Preferences.MODE_PREDICTIVE:
 					commitTyped();
 					break;
-				case MODE_TEXT:
+				case T9Preferences.MODE_ABC:
 					commitTyped();
 					charReset();
 					break;
-				case MODE_NUM:
+				case T9Preferences.MODE_123:
 					// shouldn't happen
 					break;
 			}
@@ -877,7 +861,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		updateCandidates(false);
 	}
 	private void updateCandidates(boolean backspace) {
-		if (mKeyMode == MODE_LANG) {
+		if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 			int len = mComposingI.length();
 			if (len > 0) {
 				if (mComposingI.charAt(len - 1) == '1') {
@@ -939,7 +923,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 					interfacehandler.showNotFound(false);
 				}
 			}
-		} else if (mKeyMode == MODE_TEXT) {
+		} else if (mKeyMode == T9Preferences.MODE_ABC) {
 			if (mComposing.length() > 0) {
 				//Log.d("updateCandidates", "Previous: " + mComposing.toString());
 				mSuggestionStrings.clear();
@@ -968,7 +952,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	private void handleBackspace() {
 		final int length = mComposing.length();
 		final int length2 = mComposingI.length();
-		if (mKeyMode == MODE_TEXT) {
+		if (mKeyMode == T9Preferences.MODE_ABC) {
 			charReset();
 			setCandidatesViewShown(false);
 		}
@@ -1019,7 +1003,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			mCapsMode++;
 		}
 
-		if (mKeyMode == MODE_LANG && mComposing.length() > 0) {
+		if (mKeyMode == T9Preferences.MODE_PREDICTIVE && mComposing.length() > 0) {
 			updateCandidates();
 			currentInputConnection.setComposingText(mComposing, 1);
 		}
@@ -1033,7 +1017,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 */
 	private void handleCharacter(int keyCode) {
 		switch (mKeyMode) {
-			case MODE_LANG:
+			case T9Preferences.MODE_PREDICTIVE:
 				// it begins
 				if (keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_0) {
 					if (mComposing.length() > 0) {
@@ -1049,7 +1033,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				}
 				break;
 
-			case MODE_TEXT:
+			case T9Preferences.MODE_ABC:
 				t9releasehandler.removeCallbacks(mt9release);
 				if (keyCode == KeyEvent.KEYCODE_POUND) {
 					keyCode = 10;
@@ -1077,7 +1061,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 
 				// start at caps if CapMode
 				// Log.d("handleChar", "Cm: " + mCapsMode);
-				if (mCharIndex == 0 && mCapsMode != CAPS_OFF) {
+				if (mCharIndex == 0 && mCapsMode != T9Preferences.CASE_LOWER) {
 					mCharIndex = CharMap.T9CAPSTART[mLang.index][keyCode];
 				}
 
@@ -1095,15 +1079,15 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				t9releasehandler.postDelayed(mt9release, T9DELAY);
 				if (newChar) {
 					// consume single caps
-					if (mCapsMode == CAPS_SINGLE) {
-						mCapsMode = CAPS_OFF;
+					if (mCapsMode == T9Preferences.CASE_CAPITALIZE) {
+						mCapsMode = T9Preferences.CASE_LOWER;
 					}
 				}
 				updateCandidates();
 				updateShiftKeyState(getCurrentInputEditorInfo());
 				break;
 
-			case MODE_NUM:
+			case T9Preferences.MODE_123:
 				if (keyCode == KeyEvent.KEYCODE_POUND) {
 					onText("#");
 				} else if (keyCode == KeyEvent.KEYCODE_STAR) {
@@ -1148,7 +1132,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				mIgnoreDPADKeyUp = false;
 				return super.onKeyUp(keyCode, event);
 			} else {
-				if (mKeyMode != MODE_NUM && mComposing.length() > 0) {
+				if (mKeyMode != T9Preferences.MODE_123 && mComposing.length() > 0) {
 					if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
 						mCandidateView.scrollToSuggestion(1);
 						if (mSuggestionStrings.size() > mCandidateView.mSelectedIndex)
@@ -1160,9 +1144,9 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 							currentInputConnection.setComposingText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
 						return true;
 					} else if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-						if (mKeyMode == MODE_LANG) {
+						if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 							commitTyped();
-						} else if (mKeyMode == MODE_TEXT) {
+						} else if (mKeyMode == T9Preferences.MODE_ABC) {
 							commitReset();
 						}
 						// getCurrentInputConnection().sendKeyEvent(mDPADkeyEvent);
@@ -1194,8 +1178,8 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	private void commitReset() {
 		commitTyped();
 		charReset();
-		if (mCapsMode == CAPS_SINGLE) {
-			mCapsMode = CAPS_OFF;
+		if (mCapsMode == T9Preferences.CASE_CAPITALIZE) {
+			mCapsMode = T9Preferences.CASE_LOWER;
 		}
 		// Log.d("commitReset", "CM pre: " + mCapsMode);
 		updateShiftKeyState(getCurrentInputEditorInfo());
@@ -1235,7 +1219,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 
 	private void resetKeyMode() {
 		charReset();
-		if (mKeyMode != MODE_NUM) {
+		if (mKeyMode != T9Preferences.MODE_123) {
 			commitTyped();
 		}
 		mComposing.setLength(0);
@@ -1251,11 +1235,11 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		int icon = 0;
 
 		switch (mKeyMode) {
-			case MODE_TEXT:
+			case T9Preferences.MODE_ABC:
 				interfacehandler.showHold(false);
 				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
-			case MODE_LANG:
+			case T9Preferences.MODE_PREDICTIVE:
 				if (!db.ready) {
 					if (!mGaveUpdateWarn) {
 						Toast.makeText(this, getText(R.string.updating_database_unavailable), Toast.LENGTH_LONG).show();
@@ -1277,7 +1261,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				// + mCapsMode);
 				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
-			case MODE_NUM:
+			case T9Preferences.MODE_123:
 				interfacehandler.showHold(false);
 				icon = R.drawable.ime_number;
 				break;
@@ -1304,14 +1288,14 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 					// mSuggestionStrings.get(mCandidateView.mSelectedIndex));
 					// get and commit selected suggestion
 					ic.commitText(mSuggestionStrings.get(mCandidateView.mSelectedIndex), 1);
-					if (mKeyMode == MODE_LANG) {
+					if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 						// update freq
 						db.incrementWord(mSuggestionInts.get(mCandidateView.mSelectedIndex));
 					}
 				} else {
 					// commit suggestion index
 					ic.commitText(mSuggestionStrings.get(index), 1);
-					if (mKeyMode == MODE_LANG) {
+					if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 						db.incrementWord(mSuggestionInts.get(index));
 					}
 				}

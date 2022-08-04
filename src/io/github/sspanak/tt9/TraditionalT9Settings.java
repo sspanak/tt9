@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
-import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.settings.CustomInflater;
 import io.github.sspanak.tt9.settings.Setting;
 import io.github.sspanak.tt9.settings.SettingAdapter;
@@ -44,8 +44,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-public class TraditionalT9Settings extends ListActivity implements
-		DialogInterface.OnCancelListener {
+public class TraditionalT9Settings extends ListActivity implements DialogInterface.OnCancelListener {
 
 	AsyncTask<String, Integer, Reply> task = null;
 	final static String dictname = "%s-utf8.txt";
@@ -460,10 +459,14 @@ public class TraditionalT9Settings extends ListActivity implements
 		// http://stackoverflow.com/questions/7645880/listview-with-onitemclicklistener-android
 
 		// get settings
-		Object[] settings = T9DB.getInstance(this).getSettings(new SETTING[]
-				// Order should be based on SETTING.sqOrder
-				// "MODE_NOTIFY", "SPACE_ZERO" and "KEY_REMAP" are no longer in use; delete in #7
-				{SETTING.INPUT_MODE, SETTING.LANG_SUPPORT, SETTING.MODE_NOTIFY, SETTING.KEY_REMAP, SETTING.SPACE_ZERO});
+		T9Preferences prefs = new T9Preferences(this);
+		Object[] settings = {
+			prefs.getInputMode(),
+			prefs.getEnabledLanguages(),
+			null, // MODE_NOTIFY; not used, remove in #29
+			false, // KEY_REMAP; not used, remove in #29
+			true, // SPACE_ZERO; not used, remove in #29
+		};
 		ListAdapter settingitems;
 		try {
 			settingitems = new SettingAdapter(this, CustomInflater.inflate(this, R.xml.prefs, settings));
@@ -498,10 +501,11 @@ public class TraditionalT9Settings extends ListActivity implements
 
 	private void preloader(int msgid, boolean internal) {
 
+
 		task = new LoadDictTask(
 			msgid,
 			internal,
-			LangHelper.buildLangs(T9DB.getInstance(mContext).getSettingInt(SETTING.LANG_SUPPORT))
+			LangHelper.buildLangs(T9Preferences.getInstance(mContext).getEnabledLanguages())
 		);
 		task.execute();
 	}
