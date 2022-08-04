@@ -477,14 +477,9 @@ public class TraditionalT9 extends InputMethodService implements
 		// ??????????????
 	}
 
+	// deprecated, delete in #7
 	private KeyEvent TranslateKey(int keyCode, KeyEvent event) {
-		KeyEvent key = event;
-		if (KeyMap.keyMapping.containsKey(keyCode)) {
-			key = new KeyEvent(event.getDownTime(), event.getEventTime(), event.getAction(),
-					KeyMap.keyMapping.get(keyCode), event.getRepeatCount(), event.getMetaState(),
-					event.getDeviceId(), 0, event.getFlags());
-		}
-		return key;
+		return event;
 	}
 
 	private boolean onKeyDown_(int keyCode, KeyEvent event) {

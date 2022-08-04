@@ -7,7 +7,6 @@
     <string name="add_word_exist1">Слово (%1$s) уже есть в словаре.</string>
     <string name="add_word_exist2">Слово (%1$s) уже есть в словаре %2$s.</string>
     <string name="app_name">Traditional T9</string>
-    <string name="hello_world">Hello world!</string>
     <string name="ime_name">Клавиатура T9</string>
     <string name="ime_number">Цифры</string>
     <string name="main_left_addword">Добавить слово</string>
@@ -15,31 +14,14 @@
     <string name="main_left_notfound">Добавить слово?</string>
     <string name="main_right_lower">Изменить IME</string>
     <string name="main_right_upper">Режим ввода</string>
-    <string name="pref_backup_noext">Ошибка: Внешняя память недоступна. Резервное копирование невозможно невозможно.</string>
-    <string name="pref_backup_title">Резервное копирование базы данных IME</string>
-    <string name="pref_backup_warn">Предупреждение: Существующая копия базы данных будет перезаписана. Продолжить?</string>
-    <string name="pref_backupdict">Бэкап словаря</string>
     <string name="pref_inputmode">Режим ввода по умолчанию</string>
     <string name="pref_inputmode_desc">Режим ввода по умолчанию</string>
     <string name="pref_load_title">Загрузить словарь IME</string>
     <string name="pref_loaddict">Загрузить словарь</string>
-    <string name="pref_loadingbackup">Восстановление словаря…</string>
     <string name="pref_loadingdict">Загрузка словаря</string>
     <string name="pref_loadinguserdict">Загрузка пользовательского словаря…</string>
     <string name="pref_loaduserdict">Загрузить свой словарь</string>
     <string name="pref_lang_title">Мультиязычная поддержка</string>
-    <string name="pref_nuke_title">Очистить IME словарь</string>
-    <string name="pref_nuke_warn">Предупреждение: Будет выполнена очстка словаря. Продолжить?</string>
-    <string name="pref_nukedict">Очистить словарь</string>
-    <string name="pref_nukingdict">Очистка словаря… Пожалуйста, подождите…</string>
-    <string name="pref_querytest">Query test</string>
-    <string name="pref_restore_noext">Ошибка: Внешняя память недоступна. Восстановление невозможно.</string>
-    <string name="pref_restore_nofile">Ошибка: Файл встановления не найден.</string>
-    <string name="pref_restore_title">Восстановить базу данных IME</string>
-    <string name="pref_restore_warn">При восстановлении существующая база данных будет очищена. Если это нежелательно, то сначала выберите \"%1$s\" перед использованием этой опции.</string>
-    <string name="pref_restoredict">Сохранить словарь</string>
-    <string name="pref_savingbackup">Сохранение словаря…</string>
-    <string name="pref_testfunc">Test func</string>
     <string name="ricon_desc">Hold Icon</string>
     <string name="pref_help">О программе</string>
     <string name="symbol_next">Следущая страница</string>
@@ -57,7 +39,6 @@
 	<string name="updating_database_unavailable">Обновление базы данных словаря недоступно.</string>
 	<string name="pref_loaduser_notfound"> Ошибка. \n Словарь %1$s не найден. </string>
 	<string name="database_settings_notready">База данных недоступна. Используем значения по умолчанию.</string>
-	<string name="pref_reloadKeys">>Перезагрузить кеймап</string>
 
 	<string name="title_activity_add_word">Добавить слово</string>
 	<string name="traditionalt9_settings">Traditional T9 настройки</string>

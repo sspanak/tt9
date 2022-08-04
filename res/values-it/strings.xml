@@ -38,32 +38,11 @@
     <string name="pref_help">"Mostra aiuto</string>
     <string name="pref_loaddict">Carica dizionario</string>
     <string name="pref_loaduserdict">Carica dizionario utente</string>
-    <string name="pref_nukedict">Elimina dizionario</string>
-    <string name="pref_backupdict">Salvataggio dizionario</string>
-    <string name="pref_restoredict">Ripristina dizionario</string>
-    <string name="pref_querytest">Test ricerca</string>
-    <string name="pref_testfunc">Test func</string>
 
     <string name="pref_loadingdict">Caricamento dizionario…</string>
     <string name="pref_loadinguserdict">Caricamento dizionario utente…</string>
     <string name="pref_load_title">Caricamento dizionario IME</string>
-    <string name="pref_loadingbackup">Ripristino dizionario…</string>
-    <string name="pref_savingbackup">Salvataggio dizionario…</string>
-    <string name="pref_nukingdict">Eliminazione dizionario… Attendere prego…</string>
     <string name="pref_loaduser_notfound">Dizionario per %1$s non trovato. Impossibile caricare.</string>
-
-    <string name="pref_backup_warn">Attenzione: salvataggio già esistente. Sovrascrivere ?</string>
-    <string name="pref_backup_title">Salvataggio database IME </string>
-    <string name="pref_backup_noext">Errore: Nessuna unità esterna disponibile per il salvataggio. Il salvataggio verrà interrotto.</string>
-    <string name="pref_restore_warn">I dati presenti nel salvataggio sostituiranno i dati esistenti. I dati non presenti nel salvataggio verranno mantenuti. In alternativa utilizzare \"%1$s\" prima di effettuare il ripristino.</string>
-    <string name="pref_restore_title">Ripristino database IME </string>
-    <string name="pref_restore_noext">Errore: Nessuna unità esterna disponibile per il ripristino. Il ripristino verrà interrotto.</string>
-    <string name="pref_restore_nofile">Errore: File di salvataggio non trovato.</string>
-    <string name="pref_nuke_warn">Attenzione: L\'intero dizionario sarà cancellato. Continuare ?</string>
-    <string name="pref_nuke_title">Elimina dizionario IME </string>
-    <string name="pref_reloadKeys">Ricaricamento KeyMap</string>
-
-    <string name="hello_world">Ciao mondo!</string>
 
 </resources>
 

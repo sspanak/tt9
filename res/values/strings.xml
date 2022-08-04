@@ -41,35 +41,10 @@
 	<string name="pref_loaddict">Load dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
 	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
-	<string name="pref_nukedict">Nuke dictionary</string>
-	<string name="pref_backupdict">Backup dictionary</string>
-	<string name="pref_restoredict">Restore dictionary</string>
-	<string name="pref_querytest">Query test</string>
-	<string name="pref_testfunc">Test func</string>
 
 	<string name="pref_loadingdict">Loading dictionary…</string>
 	<string name="pref_loadinguserdict">Loading user dictionary…</string>
 	<string name="pref_load_title">Load IME dictionary</string>
-	<string name="pref_loadingbackup">Restoring dictionary…</string>
-	<string name="pref_savingbackup">Backing up dictionary…</string>
-	<string name="pref_nukingdict">Nuking dictionary… Please wait…</string>
 	<string name="pref_loaduser_notfound">Dictionary for %1$s not found. Not loading.</string>
-
-	<string name="pref_backup_warn">Warning: An existing database backup exists. Do you wish to overwrite?</string>
-	<string name="pref_backup_title">Backup IME database</string>
-	<string name="pref_backup_noext">Error: No external storage available for backup. Backup will not continue.</string>
-	<string name="pref_restore_warn">Backup database entries will overwrite existing database entries. Entries not in the backup will be retained. If that is not desired behaviour select \"%1$s\" before selecting this option.</string>
-	<string name="pref_restore_title">Restore IME database</string>
-	<string name="pref_restore_noext">Error: No external storage available for restoring. Restore will not continue.</string>
-	<string name="pref_restore_nofile">Error: Backup file not found.</string>
-	<string name="pref_nuke_warn">Warning: This will delete your entire dictionary. Do you wish to continue?</string>
-	<string name="pref_nuke_title">Nuke IME dictionary</string>
-	<string name="pref_reloadKeys">Reload KeyMap</string>
-	<string name="pref_reloadKeysSum" translatable="false">Force reload of key mapping overrides</string>
-	<string name="pref_reloadKeysDone" translatable="false">Reload complete.</string>
-	<string name="pref_reloadKeysDoneWE" translatable="false">Reload complete with errors (check logcat.)</string>
-	<string name="pref_reloadKeysNoFile" translatable="false">No keymap.txt file found.</string>
-
-	<string name="hello_world">Hello world!</string>
 
 </resources>
