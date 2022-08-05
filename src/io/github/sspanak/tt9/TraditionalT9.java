@@ -2,7 +2,6 @@ package io.github.sspanak.tt9;
 
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -26,7 +25,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraditionalT9 extends InputMethodService implements KeyboardView.OnKeyboardActionListener {
+public class TraditionalT9 extends InputMethodService {
 	private CandidateView mCandidateView;
 	private InterfaceHandler interfacehandler = null;
 
@@ -774,8 +773,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		currentInputConnection.sendKeyEvent(new KeyEvent(SystemClock.uptimeMillis(), keys, 0, 0));
 	}
 
-	// Implementation of KeyboardViewListener
-	@Override
 	public void onKey(int keyCode, int[] keyCodes) {
 		// Log.d("OnKey", "pri: " + keyCode);
 		// Log.d("onKey", "START Cm: " + mCapsMode);
@@ -814,7 +811,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		// Log.d("onKey", "END Cm: " + mCapsMode);
 	}
 
-	@Override
 	public void onText(CharSequence text) {
 		if (currentInputConnection == null)
 			return;
@@ -1302,38 +1298,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				}
 			}
 		}
-	}
-
-	/**
-	 * Ignore this for now.
-	 */
-	@Override
-	public void swipeRight() {
-		// if (mPredictionOn) {
-		// pickDefaultCandidate();
-		// }
-	}
-
-	@Override
-	public void swipeLeft() {
-		handleBackspace();
-	}
-
-	@Override
-	public void swipeDown() {
-		handleClose();
-	}
-
-	@Override
-	public void swipeUp() {
-	}
-
-	@Override
-	public void onPress(int primaryCode) {
-	}
-
-	@Override
-	public void onRelease(int primaryCode) {
 	}
 
 }
