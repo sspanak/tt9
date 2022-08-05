@@ -27,7 +27,6 @@
     <string name="title_activity_add_word">Aggiungi parola</string>
     <string name="action_settings">Impostazioni</string>
     <string name="database_notready">Database non disponibile.</string>
-    <string name="database_settings_notready">Database non disponibile. Utilizzo impostazioni di base.</string>
 
     <string name="updating_database_title">Aggiornamento database dizionario…</string>
     <string name="updating_database">Aggiornamento database dizionario, potrebbe volerci un po\'.</string>

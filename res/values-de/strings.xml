@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Wort hinzufügen</string>
 	<string name="action_settings">Einstellungen</string>
 	<string name="database_notready">Datenbank nicht verfügbar.</string>
-	<string name="database_settings_notready">Database unavailable. Using default settings.</string>
 
 	<string name="updating_database_title">Wörterbuch-Datenbank wird aktualisiert…</string>
 	<string name="updating_database">Aktualisiere Wörterbuch-Datenbank. Das könnte einen Moment dauern.</string>

@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Добавяне на дума</string>
 	<string name="action_settings">Настройки</string>
 	<string name="database_notready">Базата данни е недостъпна.</string>
-	<string name="database_settings_notready">Базата данни е недостъпна. Зареждане на стандартни настройки.</string>
 
 	<string name="updating_database_title">Обновяване на речника…</string>
 	<string name="updating_database">Речникът се обновява, моля изчакайте…</string>

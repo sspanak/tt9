@@ -38,7 +38,6 @@
   <string name="updating_database_done">Оновлення бази даних словника виконано успішно.</string>
   <string name="updating_database_unavailable">Оновлення бізи даних словника недоступне.</string>
   <string name="pref_loaduser_notfound"> Помилка. \n Словник %1$s не знайдено. </string>
-  <string name="database_settings_notready">База даних недоступна. Використовуюься значення за замовчуванням.</string>
 
     <string name="title_activity_add_word">Додати слово</string>
     <string name="traditionalt9_settings">Налаштування Traditional T9</string>

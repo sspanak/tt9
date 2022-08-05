@@ -7,10 +7,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,10 +16,8 @@ import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class T9DB {
 
@@ -29,9 +25,12 @@ public class T9DB {
 	protected boolean ready = true;
 
 	protected static final String DATABASE_NAME = "t9dict.db";
-	protected static final int DATABASE_VERSION = 4;
+	protected static final int DATABASE_VERSION = 5;	// Versions < 5 belong to the original project. We don't care about
+																										// them and we don't migrate them, because the APP ID used to be
+																										// different. This means the TT9 must be installed as a new application
+																										// since version 5, which eliminates the possibility of reusing any
+																										// legacy data.
 	protected static final String WORD_TABLE_NAME = "word";
-	protected static final String SETTING_TABLE_NAME = "setting";
 	protected static final String FREQ_TRIGGER_NAME = "freqtrigger";
 	// 50k, 10k
 	private static final int FREQ_MAX = 50000;
@@ -45,13 +44,16 @@ public class T9DB {
 	protected static final String COLUMN_WORD = "word";
 	protected static final String COLUMN_FREQUENCY = "freq";
 
-	private static final String QUERY1 = "SELECT " + COLUMN_ID + ", " + COLUMN_WORD + " FROM " + WORD_TABLE_NAME +
-			" WHERE " + COLUMN_LANG + "=? AND " + COLUMN_SEQ + "=?" +
-			" ORDER BY " + COLUMN_FREQUENCY + " DESC";
+	private static final String QUERY1 =
+		"SELECT " + COLUMN_ID + ", " + COLUMN_WORD +
+		" FROM " + WORD_TABLE_NAME +
+		" WHERE " + COLUMN_LANG + "=? AND " + COLUMN_SEQ + "=?" +
+		" ORDER BY " + COLUMN_FREQUENCY + " DESC";
 
-	private static final String UPDATEQ = "UPDATE " + WORD_TABLE_NAME +
-			" SET " + COLUMN_FREQUENCY + " = " + COLUMN_FREQUENCY + "+1" +
-			" WHERE " + COLUMN_ID + "=";
+	private static final String UPDATEQ =
+		"UPDATE " + WORD_TABLE_NAME +
+		" SET " + COLUMN_FREQUENCY + " = " + COLUMN_FREQUENCY + "+1" +
+		" WHERE " + COLUMN_ID + "=";
 
 	private static final int MAX_RESULTS = 8;
 	private static final int MAX_MAX_RESULTS = 30; // to make sure we don't exceed candidate view array.
@@ -60,43 +62,6 @@ public class T9DB {
 	private SQLiteDatabase db;
 
 	private Context mContext;
-
-	public static class DBSettings {
-		public enum SETTING {
-			INPUT_MODE("pref_inputmode", 0, 0),
-			LANG_SUPPORT("pref_lang_support", 1, 1),
-			MODE_NOTIFY("pref_mode_notify", 0, 2), // no longer in use; delete in #7
-			LAST_LANG("set_last_lang", 1, 5),
-			LAST_WORD("set_last_word", null, 6),
-			SPACE_ZERO("pref_spaceOnZero", 0, 4), // no longer in use; delete in #7
-			KEY_REMAP("pref_keyMap", 0, 3); // no longer in use; delete in #7
-
-			public final String id;
-			public final Integer defvalue;
-			public final int sqOrder; // used for building SettingsUI
-
-			// lookup map
-			private static final Map<String, SETTING> lookup = new HashMap<String, SETTING>();
-			private static final SETTING[] settings = SETTING.values();
-			static { for (SETTING l : settings) lookup.put(l.id, l); }
-
-			private SETTING(String id, Integer defval, int sqOrder) {
-				this.id = id; this.defvalue = defval; this.sqOrder = sqOrder;
-			}
-
-			public static SETTING get(String i) { return lookup.get(i);}
-			public static StringBuilder join(SETTING[] settings, StringBuilder sb) {
-				for (int x=0; x<settings.length; x++) {
-					sb.append(settings[x].id);
-					if (x < settings.length-1)
-						sb.append(", ");
-				}
-				return sb;
-			}
-		}
-		protected static final String SETTINGQUERY = " FROM " + SETTING_TABLE_NAME +
-				" WHERE " + COLUMN_ID + "=1";
-	}
 
 	public T9DB(Context caller) {
 		// create db
@@ -169,142 +134,19 @@ public class T9DB {
 		db = null;
 	}
 
-	protected void nuke() {
-		Log.i("T9DB.nuke", "Deleting database...");
-		synchronized (T9DB.class){
-			String[] oldSettings = getSettings();
-			if (oldSettings == null) { Log.e("T9DB", "Couldn't get old settings"); }
-			if (db != null) { db.close(); }
-			if (!mContext.deleteDatabase(DATABASE_NAME)) { Log.e("T9DB", "Couldn't delete database."); }
-			Log.i("T9DB.nuke", "Preparing database...");
-			getWritableDatabase().close();
-
-			db = null;
+	protected void truncate() {
+		Log.i("T9DB.truncate", "Truncating words table...");
+		synchronized (T9DB.class) {
+			ready = false;
+			db = getWritableDatabase();
+			db.delete(WORD_TABLE_NAME, null, null);
 			ready = true;
-			init();
-			if (oldSettings != null) {
-				StringBuilder sb = new StringBuilder("INSERT OR REPLACE INTO ");
-				sb.append(SETTING_TABLE_NAME); sb.append(" (");	sb.append(COLUMN_ID); sb.append(",");
-				sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
-				sb.append(") VALUES ("); sb.append(TextUtils.join(",", oldSettings)); sb.append(")");
-				db.execSQL(sb.toString());
-			}
 		}
-		Log.i("T9DB.nuke", "Done...");
+		Log.i("T9DB.truncate", "Done...");
 	}
 
 	public void showDBaccessError() {
 		Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
-	}
-
-	public boolean storeSettingString(DBSettings.SETTING key, String value) {
-		ContentValues updatedata = new ContentValues();
-		updatedata.put(key.id, value);
-		return storeSetting(updatedata);
-	}
-
-	public boolean storeSettingInt(DBSettings.SETTING key, int value) {
-		ContentValues updatedata = new ContentValues();
-		updatedata.put(key.id, value);
-		return storeSetting(updatedata);
-	}
-
-	public boolean storeSetting(ContentValues updatedata) {
-		if (!checkReady()) {
-			Log.e("T9DB.storeSetting", "not ready");
-			return false;
-		}
-		db.update(SETTING_TABLE_NAME, updatedata, null, null);
-		return true;
-	}
-
-	// CHECK READY BEFORE CALLING THIS SO CAN SHOW USER MESSAGE IF NOT READY
-	public int getSettingInt(DBSettings.SETTING key) {
-		Cursor cur = db.rawQuery((new StringBuilder("SELECT ")).append(key.id)
-				.append(DBSettings.SETTINGQUERY).toString(), null);
-		if (cur.moveToFirst()) {
-			int value = cur.getInt(0);
-			cur.close();
-			return value;
-		}
-		return key.defvalue;
-	}
-	public String getSettingString(DBSettings.SETTING key) {
-		if (!checkReady()) {
-			return null;
-		}
-		Cursor cur = db.rawQuery((new StringBuilder("SELECT ")).append(key.id)
-				.append(DBSettings.SETTINGQUERY).toString(), null);
-		if (cur.moveToFirst()) {
-			String value = cur.getString(0);
-			cur.close();
-			return value;
-		}
-		return null;
-	}
-
-
-	public Object[] getSettings(DBSettings.SETTING[] keys) {
-		if (checkReady()) {
-			StringBuilder sb = new StringBuilder("SELECT ");
-			sb = DBSettings.SETTING.join(keys, sb);
-			Cursor cur = db.rawQuery(sb.append(DBSettings.SETTINGQUERY).toString(), null);
-			if (cur.moveToFirst()) {
-				Object[] values = new Object[keys.length];
-				for (int x=0;x<keys.length;x++){
-					if (keys[x] == DBSettings.SETTING.LAST_WORD)
-						values[x] = cur.getString(x);
-					else
-						values[x] = cur.getInt(x);
-				}
-				cur.close();
-				return values;
-			}
-		} else {
-			Log.e("T9DB.getSettings", "not ready");
-			Toast.makeText(mContext, R.string.database_settings_notready, Toast.LENGTH_SHORT).show();
-		}
-		Object[] values = new Object[keys.length];
-		for (int x=0;x<keys.length;x++) {
-			values[x] = keys[x].defvalue;
-		}
-		return values;
-	}
-
-	private String[] getSettings() {
-		if (!checkReady()) {
-			Log.e("T9DB.getSetting", "not ready");
-			return null;
-		}
-		int len = DBSettings.SETTING.settings.length+1;
-		String[] settings = new String[len];
-		StringBuilder sb = new StringBuilder("SELECT "); sb.append(COLUMN_ID); sb.append(",");
-		sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
-		sb.append(" FROM "); sb.append(SETTING_TABLE_NAME); sb.append(" WHERE "); sb.append(COLUMN_ID);
-		sb.append("=1");
-
-		Cursor cur = null;
-		cur = db.rawQuery(sb.toString(),null);
-		try { cur = db.rawQuery(sb.toString(),null); }
-		catch (SQLiteException e) {
-			if (cur != null) { cur.close(); }
-			return null;
-		}
-		if (cur.moveToFirst()) {
-			for (int x = 0; x < len; x++)
-				settings[x] = cur.getString(x);
-		} else {
-			Log.w("T9DB.getSettings", "COULDN'T RETRIEVE SETTINGS?");
-			for (int x = 1; x < len; x++) {
-				settings[0] = "1"; // COLUMN_ID
-				if (DBSettings.SETTING.settings[x].defvalue == null)
-					settings[x] = null;
-				else
-					settings[x] = DBSettings.SETTING.settings[x].defvalue.toString();
-			}
-		}
-		cur.close();
-		return settings;
 	}
 
 	protected void addWord(String iword, LANGUAGE lang) throws DBException {
@@ -489,69 +331,13 @@ public class T9DB {
 					+ COLUMN_FREQUENCY + " / " + FREQ_DIV +
 					" WHERE " + COLUMN_SEQ + " = NEW." + COLUMN_SEQ + ";" +
 					" END;");
-
-			createSettingsTable(db);
-
-			StringBuilder sb = new StringBuilder("INSERT OR IGNORE INTO "); sb.append(SETTING_TABLE_NAME);
-			sb.append(" ("); sb.append(COLUMN_ID); sb.append(", ");
-			sb = DBSettings.SETTING.join(DBSettings.SETTING.settings, sb);
-			sb.append(") VALUES (1,");
-			for (int x=0;x<DBSettings.SETTING.settings.length; x++) {
-				if (DBSettings.SETTING.settings[x].defvalue == null)
-					sb.append("NULL");
-				else
-					sb.append(DBSettings.SETTING.settings[x].defvalue);
-				if (x<DBSettings.SETTING.settings.length-1) sb.append(",");
-			}
-			sb.append(")");
-			db.execSQL(sb.toString());
-		}
-
-		private void createSettingsTable(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + SETTING_TABLE_NAME + " (" +
-					COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					DBSettings.SETTING.INPUT_MODE.id + " INTEGER, " +
-					DBSettings.SETTING.LANG_SUPPORT.id + " INTEGER, " +
-					DBSettings.SETTING.MODE_NOTIFY.id	+ " INTEGER, " + // no longer in use; delete in #7
-					DBSettings.SETTING.LAST_LANG.id	+ " INTEGER, " +
-					DBSettings.SETTING.KEY_REMAP.id	+ " INTEGER, " + // no longer in use; delete in #7
-					DBSettings.SETTING.SPACE_ZERO.id	+ " INTEGER, " + // no longer in use; delete in #7
-					DBSettings.SETTING.LAST_WORD.id	+ " TEXT )");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.i("T9DB.onUpgrade", "Upgrading database from version " + oldVersion + " to " + newVersion);
-			if (oldVersion <= 1) {
-				// ADDED LANG
-				db.execSQL("DROP INDEX IF EXISTS idx");
-				db.execSQL("ALTER TABLE " + WORD_TABLE_NAME + " ADD COLUMN " +
-						COLUMN_LANG + " INTEGER");
-				ContentValues updatedata = new ContentValues();
-				updatedata.put(COLUMN_LANG, 0);
-				db.update(WORD_TABLE_NAME, updatedata, null, null);
-			}
-			if (oldVersion <= 2) {
-				// ADDED SETTINGS, CHANGED LANG VALUE
-				db.execSQL("DROP INDEX IF EXISTS idx");
-				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.RU.id +
-						" WHERE " + COLUMN_LANG + "=1");
-				db.execSQL("UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_LANG + "=" + LANGUAGE.EN.id +
-						" WHERE " + COLUMN_LANG + "=0");
-				createSettingsTable(db);
-			}
-			if (oldVersion == 3) {
-				// ADDED REMAP OPTION and SPACEONZERO
-				db.execSQL("ALTER TABLE " + SETTING_TABLE_NAME + " ADD COLUMN " +
-					DBSettings.SETTING.KEY_REMAP.id + " INTEGER");
-				db.execSQL("ALTER TABLE " + SETTING_TABLE_NAME + " ADD COLUMN " +
-						DBSettings.SETTING.SPACE_ZERO.id + " INTEGER");
-				ContentValues updatedata = new ContentValues();
-				updatedata.put(DBSettings.SETTING.KEY_REMAP.id, 0);
-				updatedata.put(DBSettings.SETTING.SPACE_ZERO.id, 0);
-				db.update(SETTING_TABLE_NAME, updatedata, null, null);
-			}
 			onCreate(db);
+			// subsequent database migrations go here
 			Log.i("T9DB.onUpgrade", "Done.");
 		}
 	}

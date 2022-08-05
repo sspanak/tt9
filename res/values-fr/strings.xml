@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Aj. mot</string>
 	<string name="action_settings">Paramètres</string>
 	<string name="database_notready">Base de données indisponible</string>
-	<string name="database_settings_notready">Base de données indisponible. Options par défaut utilisées.</string>
 
 	<string name="updating_database_title">Mise à jour de la base de données du dictionnaire…</string>
 	<string name="updating_database">Mise à jour de la base de données du dictionnaire, cela peut prendre un certain temps.</string>
