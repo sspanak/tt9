@@ -176,7 +176,7 @@ public class T9DB {
 		values.put(COLUMN_FREQUENCY, 1);
 		if (!ensureDb()) {
 			Log.e("T9DB.addWord", "not ready");
-			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
+			this.showDBaccessError();
 			return;
 		}
 		try {
@@ -191,7 +191,7 @@ public class T9DB {
 	public void incrementWord(int id) {
 		if (!ensureDb()) {
 			Log.e("T9DB.incrementWord", "not ready");
-			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
+			this.showDBaccessError();
 			return;
 		}
 		db.execSQL(UPDATEQ + id);
@@ -207,7 +207,7 @@ public class T9DB {
 
 		if (!ensureDb()) {
 			Log.e("T9DB.updateWords", "not ready");
-			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
+			this.showDBaccessError();
 			return;
 		}
 		Cursor cur = db.rawQuery(QUERY1, new String[] { String.valueOf(lang.id), is  });
