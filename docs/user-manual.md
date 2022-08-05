@@ -41,9 +41,6 @@ Insert symbol or Add word depending on state and context. Add word only availabl
 ## Configuration Options
 TODO...
 
-### Key Remapping
-See [the original manual](https://github.com/Clam-/TraditionalT9/wiki/Key-remapping).
-
 ## License
 - The source code, the logo image and the icons are licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 - The word lists / dictionaries are licensed under the licenses provided in the respective readme files found in the source code, where applicable.

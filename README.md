@@ -46,7 +46,6 @@ To support a new language one needs to:
 - Add translations for arrays.xml and strings.xml in to new files in the appropriate locale folder (e.g. res/values-de/arrays.xml.) AndroidStudio has a cute/nice Translation Editor which might be handy.
     - Edit the base arrays.xml file to add the new language. (pref_lang_titles, pref_lang_values)
     - Exclude translatable="false" items from the new locale arrays.xml file.
-    - Also make sure the new language is added to pref_loaduserdictdesc (base non-locale strings.xml)
 - Find a suitable dictionary and add it to assets
 
 That should be it? I hope.

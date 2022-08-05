@@ -15,9 +15,6 @@
 		entryValues="@array/pref_lang_values"
 		title="@string/pref_lang_title" />
 	<Setting title="@string/pref_loaddict" id="loaddict"/>
-	<Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/>
-	<Setting title="@string/pref_nukedict" id="nukedict"/>
-	<Setting title="@string/pref_backupdict" id="backupdict"/>
-	<Setting title="@string/pref_restoredict" id="restoredict"/>
-	<Setting title="@string/pref_reloadKeys" summary="@string/pref_reloadKeysSum" id="reloadKeys"/>
+	<!-- Take care of dictionary loading in #26 -->
+	<!-- <Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/> -->
 </Settings>

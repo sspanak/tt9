@@ -163,7 +163,7 @@ public class CharMap {
 	protected static final int[] BGT9CAPSTART = { 0, 0, 4, 4, 4, 4, 4, 4, 3, 3, 0,	 0, 0 };
 	protected static final int[][] T9CAPSTART = {ENT9CAPSTART, RUT9CAPSTART, DET9CAPSTART, FRT9CAPSTART, ITT9CAPSTART, UKT9CAPSTART, BGT9CAPSTART};
 
-	protected static String getStringSequence(String word, LANGUAGE lang) {
+	public static String getStringSequence(String word, LANGUAGE lang) {
 		StringBuilder seq = new StringBuilder();
 		String tword = word.toLowerCase(LangHelper.LOCALES[lang.index]);
 		for (int i = 0; i < word.length(); i++) {

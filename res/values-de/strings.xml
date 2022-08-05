@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Wort hinzufügen</string>
 	<string name="action_settings">Einstellungen</string>
 	<string name="database_notready">Datenbank nicht verfügbar.</string>
-	<string name="database_settings_notready">Database unavailable. Using default settings.</string>
 
 	<string name="updating_database_title">Wörterbuch-Datenbank wird aktualisiert…</string>
 	<string name="updating_database">Aktualisiere Wörterbuch-Datenbank. Das könnte einen Moment dauern.</string>
@@ -38,31 +37,10 @@
 	<string name="pref_help">"Hilfe anzeigen</string>
 	<string name="pref_loaddict">Wörterbuch laden</string>
 	<string name="pref_loaduserdict">Benutzerwörterbuch laden</string>
-	<string name="pref_nukedict">Wörterbuch löschen</string>
-	<string name="pref_backupdict">Wörterbuch sichern</string>
-	<string name="pref_restoredict">Wörterbuch wiederherstellen</string>
-	<string name="pref_querytest">Query test</string>
-	<string name="pref_testfunc">Test func</string>
 
 	<string name="pref_loadingdict">Lade Wörterbuch…</string>
 	<string name="pref_loadinguserdict">Lade Benutzerwörterbuch…</string>
 	<string name="pref_load_title">IME-Wörterbuch laden</string>
-	<string name="pref_loadingbackup">Stelle Wörterbuch wiederher…</string>
-	<string name="pref_savingbackup">Sichere Wörterbuch…</string>
-	<string name="pref_nukingdict">Lösche Wörterbuch… Bitte warten…</string>
 	<string name="pref_loaduser_notfound">Wörterbuch für %1$s nicht gefunden. Wird nicht geladen.</string>
-
-	<string name="pref_backup_warn">Warnung: Es existiert bereits ein Datenbank-Backup. Soll es überschrieben werden?</string>
-	<string name="pref_backup_title">IME-Datenbank sichern</string>
-	<string name="pref_backup_noext">Fehler: Für das Backup ist kein externer Speicher verfügbar. Sicherung kann nicht fortfahren.</string>
-	<string name="pref_restore_warn">Einträge aus der Sicherungsdatenbank werden existierende Datenbankeinträge überschreiben. Einträge, die nicht in der Sicherung sind, bleiben erhalten. Falls dies nicht gewünscht ist, bitte \"%1$s\" wählen, bevor diese Option gewählt wird.</string>
-	<string name="pref_restore_title">IME-Datenbank wiederherstellen</string>
-	<string name="pref_restore_noext">Fehler: Für die Wiederherstellung ist kein externer Speicher verfügbar. Wiederherstellung kann nicht fortfahren.</string>
-	<string name="pref_restore_nofile">Fehler: Sicherungsdatei nicht gefunden.</string>
-	<string name="pref_nuke_warn">Warnung: Dies wird das gesamte Wörterbuch löschen. Fortfahren?</string>
-	<string name="pref_nuke_title">IME-Wörterbuch löschen</string>
-	<string name="pref_reloadKeys">Force reload of key overrides</string>
-
-	<string name="hello_world">Hallo Welt!</string>
 
 </resources>

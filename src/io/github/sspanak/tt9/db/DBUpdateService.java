@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.db;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
+
+import io.github.sspanak.tt9.R;
 
 public class DBUpdateService extends IntentService {
 	private static final int UPDATING_NOTIFICATION_ID = 9640142;

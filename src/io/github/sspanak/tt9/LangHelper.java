@@ -29,7 +29,7 @@ public class LangHelper {
 		public static LANGUAGE get(int i) { return lookup.get(i);}
 	}
 
-	protected static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH, Locale.ITALIAN, UKRAINIAN, BULGARIAN};
+	public static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH, Locale.ITALIAN, UKRAINIAN, BULGARIAN};
 
 	public static final int LANG_DEFAULT = LANGUAGE.EN.id;
 

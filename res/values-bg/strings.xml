@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Добавяне на дума</string>
 	<string name="action_settings">Настройки</string>
 	<string name="database_notready">Базата данни е недостъпна.</string>
-	<string name="database_settings_notready">Базата данни е недостъпна. Зареждане на стандартни настройки.</string>
 
 	<string name="updating_database_title">Обновяване на речника…</string>
 	<string name="updating_database">Речникът се обновява, моля изчакайте…</string>
@@ -38,35 +37,10 @@
 	<string name="pref_help">Помощ</string>
 	<string name="pref_loaddict">Зареди заводски речник</string>
 	<string name="pref_loaduserdict">Зареди собствен речник</string>
-	<string name="pref_nukedict">Изтрий собствен речник</string>
-	<string name="pref_backupdict">Резервно копие на речник</string>
-	<string name="pref_restoredict">Възстанови копие</string>
-	<string name="pref_querytest">Query test</string>
-	<string name="pref_testfunc">Test func</string>
 
 	<string name="pref_loadingdict">Зареждане на речник…</string>
 	<string name="pref_loadinguserdict">Зареждане на вашия речник…</string>
 	<string name="pref_load_title">Зареди речник</string>
-	<string name="pref_loadingbackup">Възстановяване на речник…</string>
-	<string name="pref_savingbackup">Създаване на резервно копие…</string>
-	<string name="pref_nukingdict">Изтриване на речник…</string>
 	<string name="pref_loaduser_notfound">Няма речник за %1$s. Не може да се зареди такъв.</string>
-
-	<string name="pref_backup_warn">Внимание! Вече съществува резервно копие на речника. Моля потвърдете презаписването му</string>
-	<string name="pref_backup_title">Създаване на резервно копие</string>
-	<string name="pref_backup_noext">Грешка! Няма външна памет, за да се запише резервното копие.</string>
-	<string name="pref_restore_warn">Ако имате думи в речника на телефона, те ще бъдат заменени със същите от резервното копие. Ако не желаете това, моля изберете \"%1$s\" преди възстановяването..</string>
-	<string name="pref_restore_title">Възстановяване на резервно копие</string>
-	<string name="pref_restore_noext">Грешка! Няма външна памет, от която да се възстанови резервното копие на речника.</string>
-	<string name="pref_restore_nofile">Грешка! Не е открито резервно копие.</string>
-	<string name="pref_nuke_warn">Внимание! Всички думи от Вашия речник ще бъдат изтрити. Потвърждавате ли?</string>
-	<string name="pref_nuke_title">Изтрий собствения речник</string>
-	<string name="pref_reloadKeys">Зареди keymap.txt</string>
-	<string name="pref_reloadKeysSum">Зарежда повторно файла с разменени клавиши</string>
-	<string name="pref_reloadKeysDone">Упешно зареждане.</string>
-	<string name="pref_reloadKeysDoneWE">Имаше грешки при зареждане (виж logcat.)</string>
-	<string name="pref_reloadKeysNoFile">Няма файл keymap.txt.</string>
-
-	<string name="hello_world">Работи!</string>
 
 </resources>

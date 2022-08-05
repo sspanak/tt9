@@ -27,7 +27,6 @@
 	<string name="title_activity_add_word">Aj. mot</string>
 	<string name="action_settings">Paramètres</string>
 	<string name="database_notready">Base de données indisponible</string>
-	<string name="database_settings_notready">Base de données indisponible. Options par défaut utilisées.</string>
 
 	<string name="updating_database_title">Mise à jour de la base de données du dictionnaire…</string>
 	<string name="updating_database">Mise à jour de la base de données du dictionnaire, cela peut prendre un certain temps.</string>
@@ -38,31 +37,10 @@
 	<string name="pref_help">"Afficher l\'aide</string>
 	<string name="pref_loaddict">Charger le dictionnaire</string>
 	<string name="pref_loaduserdict">Charger le dictionnaire utilisateur</string>
-	<string name="pref_nukedict">Détruire le dictionnaire</string>
-	<string name="pref_backupdict">Sauvegarder le dictionnaire</string>
-	<string name="pref_restoredict">Restaurer le dictionnaire</string>
-	<string name="pref_querytest">Tester le clavier</string>
-	<string name="pref_testfunc">Teste fonc</string>
 
 	<string name="pref_loadingdict">Chargement du dictionnaire…</string>
 	<string name="pref_loadinguserdict">Chargement du dictionnaire utilisateur…</string>
 	<string name="pref_load_title">Charger le dictionnaire IME</string>
-	<string name="pref_loadingbackup">Restauration du dictionnaire…</string>
-	<string name="pref_savingbackup">Sauvegarde du dictionnaire…</string>
-	<string name="pref_nukingdict">Destruction du dictionary… Attendez s\'il vous plaît…</string>
 	<string name="pref_loaduser_notfound">Dictionnaire %1$s introuvable. Chargement annulé.</string>
-
-	<string name="pref_backup_warn">Attention: Une sauvegarde de la base de données est déjà présente. Souhaitez-vous la réécrire ?</string>
-	<string name="pref_backup_title">Sauvegarde de la base de données IME</string>
-	<string name="pref_backup_noext">Erreur: Pas de stockage externe disponible pour la sauvegarde. Sauvegarde annulée.</string>
-	<string name="pref_restore_warn">Les entrée de la sauvegarde vont réécrire les entrées existantes. Les entrées qui ne sont pas présentes dans la sauvegarde seront conservées. Si ce n\'est pas ce que vous souhaitez, selectionnez \"%1$s\" avant de selectionner cette option.</string>
-	<string name="pref_restore_title">Restaurer la base de données IME</string>
-	<string name="pref_restore_noext">Erreur: Pas de stockage externe pour la restauration. Restauration annulée</string>
-	<string name="pref_restore_nofile">Erreur: Fichier de sauvegarde introuvable.</string>
-	<string name="pref_nuke_warn">Attention: Votre ditionnaire sera entièrement effacé. Voulez-vous continuer ?</string>
-	<string name="pref_nuke_title">Détruire le dictionnaire IME</string>
-	<string name="pref_reloadKeys">Forcer le rechargement de la surcharge des touches</string>
-
-	<string name="hello_world">Bonjour monde !</string>
 
 </resources>

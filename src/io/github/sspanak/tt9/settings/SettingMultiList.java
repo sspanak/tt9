@@ -8,8 +8,7 @@ import android.widget.TextView;
 
 import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.T9DB;
-import io.github.sspanak.tt9.T9DB.DBSettings.SETTING;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class SettingMultiList extends SettingList {
 	boolean[] selectedEntries = new boolean[0];
@@ -38,7 +37,9 @@ public class SettingMultiList extends SettingList {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						T9DB.getInstance(context).storeSettingInt(SETTING.get(id), LangHelper.shrinkLangs(buildSelection()));
+						if (id.equals("pref_lang_support")) {
+							T9Preferences.getInstance(context).setEnabledLanguages(LangHelper.shrinkLangs(buildSelection()));
+						}
 						summary = buildItems();
 						dialog.dismiss();
 						((TextView)view.findViewById(R.id.summary)).setText(summary);
