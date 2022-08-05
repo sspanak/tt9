@@ -238,11 +238,9 @@ public class TraditionalT9 extends InputMethodService {
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		super.onStartInput(inputField, restarting);
-
 		currentInputConnection = getCurrentInputConnection();
-		//Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
-		//	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
+		// Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
+		// 	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
 
 		// https://developer.android.com/reference/android/text/InputType#TYPE_NULL
 		// Special or limited input type. This means the input connection is not rich,
@@ -270,11 +268,8 @@ public class TraditionalT9 extends InputMethodService {
 		mLangsAvailable = LangHelper.buildLangs(prefs.getEnabledLanguages());
 		mLang = sanitizeLang(LANGUAGE.get(prefs.getInputLanguage()));
 
+		requestShowSelf(1);
 		updateCandidates();
-
-		//TODO: Check if "restarting" variable will make things faster/more effecient
-
-		mKeyMode = T9Preferences.MODE_ABC;
 
 		// We are now going to initialize our state based on the type of
 		// text being edited.
@@ -343,6 +338,7 @@ public class TraditionalT9 extends InputMethodService {
 				Log.d("onStartInput", "defaulting");
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
+				mKeyMode = T9Preferences.MODE_ABC;
 				updateShiftKeyState(inputField);
 		}
 		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
