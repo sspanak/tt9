@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,12 +7,14 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.util.Log;
 import android.widget.Toast;
 
+import io.github.sspanak.tt9.CharMap;
+import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
@@ -24,25 +26,25 @@ public class T9DB {
 	private static volatile T9DB instance = null;
 	protected boolean ready = true;
 
-	protected static final String DATABASE_NAME = "t9dict.db";
-	protected static final int DATABASE_VERSION = 5;	// Versions < 5 belong to the original project. We don't care about
+	public static final String DATABASE_NAME = "t9dict.db";
+	public static final int DATABASE_VERSION = 5;	// Versions < 5 belong to the original project. We don't care about
 																										// them and we don't migrate them, because the APP ID used to be
 																										// different. This means the TT9 must be installed as a new application
 																										// since version 5, which eliminates the possibility of reusing any
 																										// legacy data.
-	protected static final String WORD_TABLE_NAME = "word";
-	protected static final String FREQ_TRIGGER_NAME = "freqtrigger";
+	public static final String WORD_TABLE_NAME = "word";
+	public static final String FREQ_TRIGGER_NAME = "freqtrigger";
 	// 50k, 10k
-	private static final int FREQ_MAX = 50000;
-	private static final int FREQ_DIV = 10000;
+	public static final int FREQ_MAX = 50000;
+	public static final int FREQ_DIV = 10000;
 	// This seems to be pretty fast on my phone. 10 is pretty slow (Might be because > MAX_RESULTS (8).)
 	private static final int MINHITS = 4;
 
-	protected static final String COLUMN_ID = BaseColumns._ID;
-	protected static final String COLUMN_LANG = "lang";
-	protected static final String COLUMN_SEQ = "seq";
-	protected static final String COLUMN_WORD = "word";
-	protected static final String COLUMN_FREQUENCY = "freq";
+	public static final String COLUMN_ID = BaseColumns._ID;
+	public static final String COLUMN_LANG = "lang";
+	public static final String COLUMN_SEQ = "seq";
+	public static final String COLUMN_WORD = "word";
+	public static final String COLUMN_FREQUENCY = "freq";
 
 	private static final String QUERY1 =
 		"SELECT " + COLUMN_ID + ", " + COLUMN_WORD +
@@ -81,7 +83,7 @@ public class T9DB {
 		return instance;
 	}
 
-	protected static SQLiteDatabase getSQLDB(Context caller) {
+	public static SQLiteDatabase getSQLDB(Context caller) {
 		T9DB t9dbhelper = getInstance(caller);
 		//Log.d("T9DB.getSQLDB", "db:" + t9dbhelper.db.isOpen());
 		return t9dbhelper.db;
@@ -106,7 +108,7 @@ public class T9DB {
 		}
 	}
 
-	public boolean checkReady() {
+	private boolean ensureDb() {
 		if (ready) {
 			if (db == null) {
 				db = getWritableDatabase();
@@ -128,13 +130,17 @@ public class T9DB {
 		}
 	}
 
-	protected void close() {
+	public boolean isReady() {
+		return this.ready;
+	}
+
+	public void close() {
 		try { db.close(); }
 		catch (NullPointerException ignored) { }
 		db = null;
 	}
 
-	protected void truncate() {
+	public void truncate() {
 		Log.i("T9DB.truncate", "Truncating words table...");
 		synchronized (T9DB.class) {
 			ready = false;
@@ -149,7 +155,7 @@ public class T9DB {
 		Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
 	}
 
-	protected void addWord(String iword, LANGUAGE lang) throws DBException {
+	public void addWord(String iword, LANGUAGE lang) throws DBException {
 		Resources r = mContext.getResources();
 		if (iword.equals("")) {
 			throw new DBException(r.getString(R.string.add_word_blank));
@@ -168,7 +174,7 @@ public class T9DB {
 		// add word into word
 		values.put(COLUMN_WORD, iword);
 		values.put(COLUMN_FREQUENCY, 1);
-		if (!checkReady()) {
+		if (!ensureDb()) {
 			Log.e("T9DB.addWord", "not ready");
 			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
 			return;
@@ -182,8 +188,8 @@ public class T9DB {
 		}
 	}
 
-	protected void incrementWord(int id) {
-		if (!checkReady()) {
+	public void incrementWord(int id) {
+		if (!ensureDb()) {
 			Log.e("T9DB.incrementWord", "not ready");
 			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
 			return;
@@ -192,14 +198,14 @@ public class T9DB {
 		// if id's freq is greater than FREQ_MAX, it gets normalized with trigger
 	}
 
-	protected void updateWords(String is, AbstractList<String> stringList, List<Integer> intList,
+	public void updateWords(String is, AbstractList<String> stringList, List<Integer> intList,
 							int capsMode, LANGUAGE lang) {
 		stringList.clear();
 		intList.clear();
 		// String[] sa = packInts(stringToInts(is), true);
 		int islen = is.length();
 
-		if (!checkReady()) {
+		if (!ensureDb()) {
 			Log.e("T9DB.updateWords", "not ready");
 			Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
 			return;
@@ -289,56 +295,5 @@ public class T9DB {
 			}
 		}
 		//Log.d("T9DB.updateWords", "i:" + is + " words:" + Arrays.toString(stringList.toArray()));
-	}
-
-	private static class DatabaseHelper extends SQLiteOpenHelper {
-
-		Context mContext = null;
-
-		DatabaseHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-			mContext = context;
-		}
-
-		// partial code from parent class SQLiteOpenHelper
-		protected boolean needsUpgrading() {
-			//quick and dirty check to see if an existing database exists.
-			if (mContext.databaseList().length > 0) {
-				SQLiteDatabase db = mContext.openOrCreateDatabase(DATABASE_NAME, 0, null);
-				int version = db.getVersion();
-				db.close();
-				return version < DATABASE_VERSION;
-			} else {
-				return false;
-			}
-		}
-		@Override
-		public void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE IF NOT EXISTS " + WORD_TABLE_NAME + " (" +
-					COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-					COLUMN_LANG + " INTEGER, " +
-					COLUMN_SEQ + " TEXT, " +
-					COLUMN_WORD	+ " TEXT, " +
-					COLUMN_FREQUENCY + " INTEGER, " +
-					"UNIQUE(" + COLUMN_LANG + ", " + COLUMN_WORD + ") )");
-			db.execSQL("CREATE INDEX IF NOT EXISTS idx ON " + WORD_TABLE_NAME + "("
-					+ COLUMN_LANG + ", " + COLUMN_SEQ + " ASC, " + COLUMN_FREQUENCY + " DESC )");
-			db.execSQL("CREATE TRIGGER IF NOT EXISTS " + FREQ_TRIGGER_NAME +
-					" AFTER UPDATE ON " + WORD_TABLE_NAME +
-					" WHEN NEW." + COLUMN_FREQUENCY + " > " + FREQ_MAX +
-					" BEGIN" +
-					" UPDATE " + WORD_TABLE_NAME + " SET " + COLUMN_FREQUENCY + " = "
-					+ COLUMN_FREQUENCY + " / " + FREQ_DIV +
-					" WHERE " + COLUMN_SEQ + " = NEW." + COLUMN_SEQ + ";" +
-					" END;");
-		}
-
-		@Override
-		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.i("T9DB.onUpgrade", "Upgrading database from version " + oldVersion + " to " + newVersion);
-			onCreate(db);
-			// subsequent database migrations go here
-			Log.i("T9DB.onUpgrade", "Done.");
-		}
 	}
 }

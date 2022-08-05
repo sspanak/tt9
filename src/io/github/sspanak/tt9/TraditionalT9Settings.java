@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.settings.CustomInflater;
 import io.github.sspanak.tt9.settings.Setting;

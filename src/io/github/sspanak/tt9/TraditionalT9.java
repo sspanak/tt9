@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.Utils.SpecialInputType;
+import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
@@ -1240,7 +1241,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
 			case T9Preferences.MODE_PREDICTIVE:
-				if (!db.ready) {
+				if (!db.isReady()) {
 					if (!mGaveUpdateWarn) {
 						Toast.makeText(this, getText(R.string.updating_database_unavailable), Toast.LENGTH_LONG).show();
 						mGaveUpdateWarn = true;
