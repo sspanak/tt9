@@ -202,12 +202,9 @@ public class TraditionalT9 extends InputMethodService {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
-/*		switch(keyCode) {
-			case KeyEvent.KEYCODE_SOFT_LEFT:
-			case KeyEvent.KEYCODE_SOFT_RIGHT:
-				interfacehandler.setPressedInUI(keyCode, true);
-				return true;
-		}*/
+		if (keyCode == prefs.getKeyBackspace() && isThereText()) {
+			return true;
+		}
 
 		return false;
 	}
@@ -217,17 +214,10 @@ public class TraditionalT9 extends InputMethodService {
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 		Log.d("onLongPress", "LONG PRESS: " + keyCode);
 
-		// if (keyCode == KeyEvent.KEYCODE_SOFT_RIGHT) {
-		// 	handleBackspace();
-		// }
-
-
 		// Break for keys with no repeat function
 		if (event.getRepeatCount() > 1) {
 			return true;
 		}
-
-
 
 		return false;
 	}
@@ -243,37 +233,45 @@ public class TraditionalT9 extends InputMethodService {
 			Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
 				event.getRepeatCount());
 
-/*		switch(keyCode) {
-			case KeyEvent.KEYCODE_SOFT_LEFT:
-				showPreferencesScreen();
-				return true;
+		if (keyCode == prefs.getKeyBackspace()) {
+			return handleBackspace();
+		}
 
-			case KeyEvent.KEYCODE_SOFT_RIGHT:
-				handleBackspace();
-				interfacehandler.setPressedInUI(keyCode, false);
-				return true;
-		}*/
+		switch(keyCode) {
+			case KeyEvent.KEYCODE_DPAD_CENTER:
+				return handleEnter();
+		}
 
 		return false;
 	}
 
 
-	protected void handleEnter() {
+	public boolean handleEnter() {
+		Log.d("handleBackspace", "enter handler");
+
 		if (!isInputViewShown()) {
 			showWindow(true);
-			return;
 		}
 
-		// @todo: commit current text
+		// @todo: commit current text and return true
+
+
+		return false;
 	}
 
 
-	public void handleBackspace() {
-		Log.d("handleBackspace", "backspace hit");
+	public boolean handleBackspace() {
+		Log.d("handleBackspace", "backspace handler");
+
+		if (!isThereText()) {
+			return false;
+		}
 
 		// @todo: erase the cursor before the cursor
 
 		// @todo: commit current text
+
+		return true;
 	}
 
 
@@ -565,9 +563,6 @@ public class TraditionalT9 extends InputMethodService {
 		Intent awintent = new Intent(this, TraditionalT9Settings.class);
 		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		if (interfacehandler != null) {
-			interfacehandler.setPressedInUI(KeyEvent.KEYCODE_SOFT_LEFT, false);
-		}
 		hideWindow();
 		startActivity(awintent);
 	}

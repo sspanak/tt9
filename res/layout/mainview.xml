@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="58dp"
+	android:layout_height="48dp"
 	android:layout_marginLeft="0dp"
 	android:layout_marginTop="0dp"
 	android:layout_marginRight="0dp"
@@ -10,8 +10,24 @@
 	android:gravity="bottom"
 	android:orientation="horizontal">
 
-	<ViewSwitcher
+	<Button
 		android:id="@+id/main_left"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_marginLeft="1px"
+		android:layout_marginRight="1px"
+		android:layout_weight="3"
+		android:background="@drawable/button_custom"
+		android:clickable="true"
+		android:focusable="false"
+		android:longClickable="true"
+		android:text="⚙"
+		android:textColor="@color/button_text"
+		android:textSize="24sp" />
+
+
+	<Button
+		android:id="@+id/main_mid"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_marginLeft="1px"
@@ -19,31 +35,6 @@
 		android:layout_weight="5"
 		android:background="@drawable/button_custom"
 		android:clickable="true"
-		android:focusable="false"
-		android:longClickable="true">
-
-		<include
-			android:id="@+id/main_left_nohold"
-			layout="@layout/lbuttonnohold"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
-
-		<include
-			android:id="@+id/main_left_hold"
-			layout="@layout/lbuttonhold"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
-
-	</ViewSwitcher>
-
-	<Button
-		android:id="@+id/main_mid"
-		android:layout_width="0dp"
-		android:layout_height="58dp"
-		android:layout_marginLeft="1px"
-		android:layout_marginRight="1px"
-		android:layout_weight="2"
-		android:background="@drawable/button_custom"
 		android:focusable="false"
 		android:longClickable="true"
 		android:paddingLeft="2dp"
@@ -51,27 +42,20 @@
 		android:text="@string/main_mid"
 		android:textColor="@color/button_text" />
 
-	<RelativeLayout
+
+	<Button
 		android:id="@+id/main_right"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_marginLeft="1px"
-		android:layout_marginTop="0dp"
-		android:layout_weight="5"
+		android:layout_marginRight="1px"
+		android:layout_weight="3"
 		android:background="@drawable/button_custom"
 		android:clickable="true"
 		android:focusable="false"
 		android:longClickable="true"
-		android:paddingLeft="2dp"
-		android:paddingTop="1dp">
-
-		<include
-			layout="@layout/rbutton"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_alignParentEnd="true"
-			android:layout_marginTop="0dp"
-			android:layout_marginEnd="0dp" />
-	</RelativeLayout>
+		android:text="⌫"
+		android:textColor="@color/button_text"
+		android:textSize="24sp" />
 
 </LinearLayout>

@@ -75,7 +75,7 @@ public class T9Preferences {
 	}
 
 	public int getKeyBackspace() {
-		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_DEL);
+		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_BACK);
 	}
 
 	// public int getKeyInputMode() {

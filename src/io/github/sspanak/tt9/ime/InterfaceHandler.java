@@ -1,86 +1,79 @@
 package io.github.sspanak.tt9.ime;
 
-import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.TraditionalT9;
 
-public class InterfaceHandler implements View.OnClickListener, View.OnLongClickListener {
+public class InterfaceHandler implements View.OnTouchListener {
 
 	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
-	private TraditionalT9 parent;
-	private View mainview;
+	private final TraditionalT9 parent;
+	private View mainView;
 
-	public InterfaceHandler(View mainview, TraditionalT9 iparent) {
+	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
+	private long lastBackspaceCall;
+
+	public InterfaceHandler(View mainView, TraditionalT9 iparent) {
 		this.parent = iparent;
-		changeView(mainview);
+		changeView(mainView);
 	}
 
 	public View getMainview() {
-		return mainview;
+		return mainView;
 	}
 
 
 	public void changeView(View v) {
-		this.mainview = v;
-		for (int buttid : buttons) {
-			View button = v.findViewById(buttid);
-			button.setOnClickListener(this);
-		}
-	}
-
-	public void setPressedInUI(int keyCode, boolean pressed) {
-		int id = 0;
-		switch (keyCode) {
-		case KeyEvent.KEYCODE_SOFT_LEFT:
-			id = R.id.main_left;
-			break;
-		case KeyEvent.KEYCODE_SOFT_RIGHT:
-			id = R.id.main_right;
-			break;
-		case KeyEvent.KEYCODE_DPAD_CENTER:
-			id = R.id.main_mid;
-			break;
-		}
-		if (id != 0) {
-			((View) mainview.findViewById(id)).setPressed(pressed);
+		this.mainView = v;
+		for (int buttonId : buttons) {
+			View button = v.findViewById(buttonId);
+			button.setOnTouchListener(this);
 		}
 	}
 
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.main_left:
-				parent.showPreferencesScreen();
-				break;
-
-			case R.id.main_right:
-				parent.handleBackspace();
-				break;
-		}
-	}
-
-
-	@Override
-	public boolean onLongClick(View v) {
-		if (v.getId() == R.id.main_right) {
-			parent.handleBackspace();
+	private boolean debounceBackspace(View view) {
+		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
 			return true;
+		}
+
+		parent.handleBackspace();
+		lastBackspaceCall = System.currentTimeMillis();
+
+		return view.performClick();
+	}
+
+
+	@Override
+	public boolean onTouch(View view, MotionEvent event) {
+		int action = event.getAction();
+		int buttonId = view.getId();
+
+		if (buttonId == R.id.main_left && action == MotionEvent.ACTION_UP) {
+			parent.showPreferencesScreen();
+			return view.performClick();
+		}
+
+		if (buttonId == R.id.main_mid && action == MotionEvent.ACTION_UP) {
+			parent.handleEnter();
+			return view.performClick();
+		}
+
+		if (buttonId == R.id.main_right && action == MotionEvent.AXIS_PRESSURE) {
+			// this event fires too frequently, so let's throttle it a bit
+			return debounceBackspace(view);
 		}
 
 		return false;
 	}
 
 	public void hideView() {
-		mainview.setVisibility(View.GONE);
+		mainView.setVisibility(View.GONE);
 	}
 
 	public void showView() {
-		mainview.setVisibility(View.VISIBLE);
+		mainView.setVisibility(View.VISIBLE);
 	}
 }
