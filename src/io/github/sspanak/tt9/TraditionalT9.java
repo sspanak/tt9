@@ -2,7 +2,6 @@ package io.github.sspanak.tt9;
 
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.inputmethodservice.KeyboardView;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -26,7 +25,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TraditionalT9 extends InputMethodService implements KeyboardView.OnKeyboardActionListener {
+public class TraditionalT9 extends InputMethodService {
 	private CandidateView mCandidateView;
 	private InterfaceHandler interfacehandler = null;
 
@@ -125,7 +124,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 */
 	@Override
 	public View onCreateInputView() {
-		//updateKeyMode();
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
 		if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
@@ -239,11 +237,9 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		super.onStartInput(inputField, restarting);
-
 		currentInputConnection = getCurrentInputConnection();
-		//Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
-		//	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
+		// Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
+		// 	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
 
 		// https://developer.android.com/reference/android/text/InputType#TYPE_NULL
 		// Special or limited input type. This means the input connection is not rich,
@@ -254,130 +250,44 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			mEditing = NON_EDIT;
 			requestHideSelf(0);
 			hideStatusIcon();
-			// TODO: verify if need this
-//			if (interfacehandler != null) {
-//				interfacehandler.hideView();
-//			}
 			return;
 		}
 
-		mFirstPress = true;
-		mEditing = EDITING;
 		// Reset our state. We want to do this even if restarting, because
 		// the underlying state of the text editor could have changed in any
 		// way.
 		clearState();
 
+		// get relevant settings
 		mLangsAvailable = LangHelper.buildLangs(prefs.getEnabledLanguages());
 		mLang = sanitizeLang(LANGUAGE.get(prefs.getInputLanguage()));
 
+		// initialize typing mode
+		mFirstPress = true;
+		mEditing = isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		mKeyMode = determineInputMode(inputField);
+
+		// show or hide UI elements
+		requestShowSelf(1);
 		updateCandidates();
-
-		//TODO: Check if "restarting" variable will make things faster/more effecient
-
-		mKeyMode = T9Preferences.MODE_ABC;
-
-		// We are now going to initialize our state based on the type of
-		// text being edited.
-		switch (inputField.inputType & InputType.TYPE_MASK_CLASS) {
-			case InputType.TYPE_CLASS_NUMBER:
-			case InputType.TYPE_CLASS_DATETIME:
-				// Numbers and dates default to the symbols keyboard, with
-				// no extra features.
-				mKeyMode = T9Preferences.MODE_123;
-				break;
-
-			case InputType.TYPE_CLASS_PHONE:
-				// Phones will also default to the symbols keyboard, though
-				// often you will want to have a dedicated phone keyboard.
-				mKeyMode = T9Preferences.MODE_123;
-				break;
-
-			case InputType.TYPE_CLASS_TEXT:
-				// This is general text editing. We will default to the
-				// normal alphabetic keyboard, and assume that we should
-				// be doing predictive text (showing candidates as the
-				// user types).
-				mKeyMode = prefs.getInputMode();
-
-				// We now look for a few special variations of text that will
-				// modify our behavior.
-				int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
-				if (variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
-						|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-					// Do not display predictions / what the user is typing
-					// when they are entering a password.
-					mKeyMode = T9Preferences.MODE_ABC;
-				}
-
-				if (variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-						|| variation == InputType.TYPE_TEXT_VARIATION_URI
-						|| variation == InputType.TYPE_TEXT_VARIATION_FILTER) {
-					// Our predictions are not useful for e-mail addresses
-					// or URIs.
-					mKeyMode = T9Preferences.MODE_ABC;
-				}
-
-				if ((inputField.inputType & InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE) != 0) {
-					// If this is an auto-complete text view, then our predictions
-					// will not be shown and instead we will allow the editor
-					// to supply their own. We only show the editor's
-					// candidates when in fullscreen mode, otherwise relying
-					// own it displaying its own UI.
-					// ????
-					mKeyMode = prefs.getInputMode();
-				}
-
-				// handle filter list cases... do not hijack DPAD center and make
-				// sure back's go through proper
-				if (variation ==  InputType.TYPE_TEXT_VARIATION_FILTER) {
-					mEditing = EDITING_NOSHOW;
-				}
-
-				// We also want to look at the current state of the editor
-				// to decide whether our alphabetic keyboard should start out
-				// shifted.
-				updateShiftKeyState(inputField);
-				break;
-
-			default:
-				Log.d("onStartInput", "defaulting");
-				// For all unknown input types, default to the alphabetic
-				// keyboard with no special features.
-				updateShiftKeyState(inputField);
-		}
-		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
-			mKeyMode = T9Preferences.MODE_ABC;
-		}
-		if (
-			inputField.privateImeOptions != null
-			&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
-		) {
-			mAddingWord = true;
-			// mAddingSkipInput = true;
-			// Log.d("onStartInput", "ADDING WORD");
-			mKeyMode = T9Preferences.MODE_ABC;
-		} else {
-			mAddingWord = false;
-			// Log.d("onStartInput", "not adding word");
-			String prevword = prefs.getLastWord();
-			if (prevword != "") {
-				onText(prevword);
-				prefs.setLastWord("");
-			}
-		}
-
-		// Update the label on the enter key, depending on what the application
-		// says it will do.
-		// mCurKeyboard.setImeOptions(getResources(), inputField.imeOptions);
 		setSuggestions(null, -1);
 		setCandidatesViewShown(false);
-		mSuggestionStrings.clear();
-		mSuggestionInts.clear();
-		mSuggestionSym.clear();
 
-		updateKeyMode();
-		// show Window()?
+		// We also want to look at the current state of the editor
+		// to decide whether our alphabetic keyboard should start out
+		// shifted.
+		if (mKeyMode != T9Preferences.MODE_123) {
+			updateTextCase(inputField);
+		}
+
+		updateStatusIcon();
+
+		// handle word adding
+		if (inputField.privateImeOptions != null && inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
+			mAddingWord = true;
+		} else {
+			restoreLastWordIfAny();
+		}
 	}
 
 	/**
@@ -738,12 +648,12 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 * Helper to update the shift state of our keyboard based on the initial
 	 * editor state.
 	 */
-	private void updateShiftKeyState(EditorInfo attr) {
+	private void updateTextCase(EditorInfo inputField) {
 		// Log.d("updateShift", "CM start: " + mCapsMode);
-		if (attr != null && mCapsMode != T9Preferences.CASE_UPPER) {
+		if (inputField != null && mCapsMode != T9Preferences.CASE_UPPER) {
 			int caps = 0;
-			if (attr.inputType != InputType.TYPE_NULL) {
-				caps = currentInputConnection.getCursorCapsMode(attr.inputType);
+			if (inputField.inputType != InputType.TYPE_NULL) {
+				caps = currentInputConnection.getCursorCapsMode(inputField.inputType);
 			}
 			// mInputView.setShifted(mCapsLock || caps != 0);
 			// Log.d("updateShift", "caps: " + caps);
@@ -756,7 +666,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			} else {
 				mCapsMode = T9Preferences.CASE_LOWER;
 			}
-			updateKeyMode();
+			updateStatusIcon();
 		}
 		// Log.d("updateShift", "CM end: " + mCapsMode);
 	}
@@ -774,8 +684,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		currentInputConnection.sendKeyEvent(new KeyEvent(SystemClock.uptimeMillis(), keys, 0, 0));
 	}
 
-	// Implementation of KeyboardViewListener
-	@Override
 	public void onKey(int keyCode, int[] keyCodes) {
 		// Log.d("OnKey", "pri: " + keyCode);
 		// Log.d("onKey", "START Cm: " + mCapsMode);
@@ -814,7 +722,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		// Log.d("onKey", "END Cm: " + mCapsMode);
 	}
 
-	@Override
 	public void onText(CharSequence text) {
 		if (currentInputConnection == null)
 			return;
@@ -824,7 +731,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		}
 		currentInputConnection.commitText(text, 1);
 		currentInputConnection.endBatchEdit();
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		updateTextCase(getCurrentInputEditorInfo());
 	}
 
 	/**
@@ -851,6 +758,82 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			}
 		} else {
 			hideWindow();
+		}
+	}
+
+	/**
+	 * determineInputMode
+	 * Determine the typing mode based on the input field being edited.
+	 *
+	 * @param  inputField
+	 * @return T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE
+	 */
+	private int determineInputMode(EditorInfo inputField) {
+		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
+			return T9Preferences.MODE_ABC;
+		}
+
+		if (inputField.privateImeOptions != null && inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
+			return T9Preferences.MODE_ABC;
+		}
+
+		switch (inputField.inputType & InputType.TYPE_MASK_CLASS) {
+			case InputType.TYPE_CLASS_NUMBER:
+			case InputType.TYPE_CLASS_DATETIME:
+				// Numbers and dates default to the symbols keyboard, with
+				// no extra features.
+			case InputType.TYPE_CLASS_PHONE:
+				// Phones will also default to the symbols keyboard, though
+				// often you will want to have a dedicated phone keyboard.
+				return T9Preferences.MODE_123;
+
+			case InputType.TYPE_CLASS_TEXT:
+				// This is general text editing. We will default to the
+				// normal alphabetic keyboard, and assume that we should
+				// be doing predictive text (showing candidates as the
+				// user types).
+
+				return isSpecializedTextField(inputField) ? T9Preferences.MODE_ABC : prefs.getInputMode();
+
+			default:
+				// For all unknown input types, default to the alphabetic
+				// keyboard with no special features.
+				return T9Preferences.MODE_ABC;
+		}
+	}
+
+	private boolean isSpecializedTextField(EditorInfo inputField) {
+		int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
+
+		return (
+				variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
+				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+				|| variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+				|| variation == InputType.TYPE_TEXT_VARIATION_URI
+				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER
+		);
+	}
+
+	/**
+	 * isFilterTextField
+	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
+	 *
+	 * @param  inputField
+	 * @return boolean
+	 */
+	private boolean isFilterTextField(EditorInfo inputField) {
+		int inputType = inputField.inputType & InputType.TYPE_MASK_CLASS;
+		int inputVariation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
+
+		return inputType == InputType.TYPE_CLASS_TEXT && inputVariation == InputType.TYPE_TEXT_VARIATION_FILTER;
+	}
+
+	private void restoreLastWordIfAny() {
+		mAddingWord = false;
+		String prevword = prefs.getLastWord();
+		if (prevword != "") {
+			onText(prevword);
+			prefs.setLastWord("");
 		}
 	}
 
@@ -990,10 +973,10 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			mPreviousWord = "";
 			keyDownUp(prefs.getKeyBackspace());
 		}
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		updateTextCase(getCurrentInputEditorInfo());
 		// Log.d("handleBS", "Cm: " + mCapsMode);
 		// Why do I need to call this twice, android...
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		updateTextCase(getCurrentInputEditorInfo());
 	}
 
 	private void handleShift() {
@@ -1008,7 +991,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			updateCandidates();
 			currentInputConnection.setComposingText(mComposing, 1);
 		}
-		updateKeyMode();
+		updateStatusIcon();
 	}
 
 	/**
@@ -1054,7 +1037,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				} else {
 					//Log.d("handleChar", "COMMITING:" + mComposing.toString());
 					commitTyped();
-					// updateShiftKeyState(getCurrentInputEditorInfo());
+					// updateTextCase(getCurrentInputEditorInfo());
 					newChar = true;
 					mCharIndex = 0;
 					mPrevious = keyCode;
@@ -1085,7 +1068,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 					}
 				}
 				updateCandidates();
-				updateShiftKeyState(getCurrentInputEditorInfo());
+				updateTextCase(getCurrentInputEditorInfo());
 				break;
 
 			case T9Preferences.MODE_123:
@@ -1183,7 +1166,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			mCapsMode = T9Preferences.CASE_LOWER;
 		}
 		// Log.d("commitReset", "CM pre: " + mCapsMode);
-		updateShiftKeyState(getCurrentInputEditorInfo());
+		updateTextCase(getCurrentInputEditorInfo());
 		// Log.d("commitReset", "CM post: " + mCapsMode);
 	}
 
@@ -1205,7 +1188,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 		else {
 			mKeyMode++;
 		}
-		updateKeyMode();
+		updateStatusIcon();
 		resetKeyMode();
 	}
 
@@ -1215,7 +1198,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 			mLangIndex = 0;
 		}
 		mLang = mLangsAvailable[mLangIndex];
-		updateKeyMode();
+		updateStatusIcon();
 	}
 
 	private void resetKeyMode() {
@@ -1232,7 +1215,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
 	 */
-	private void updateKeyMode() {
+	private void updateStatusIcon() {
 		int icon = 0;
 
 		switch (mKeyMode) {
@@ -1258,7 +1241,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				} else {
 					interfacehandler.showHold(true);
 				}
-				//Log.d("T9.updateKeyMode", "lang: " + mLang + " mKeyMode: " + mKeyMode + " mCapsMode"
+				//Log.d("T9.updateStatusIcon", "lang: " + mLang + " mKeyMode: " + mKeyMode + " mCapsMode"
 				// + mCapsMode);
 				icon = LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode];
 				break;
@@ -1267,7 +1250,7 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				icon = R.drawable.ime_number;
 				break;
 			default:
-				Log.e("updateKeyMode", "How.");
+				Log.e("updateStatusIcon", "How.");
 				break;
 		}
 		showStatusIcon(icon);
@@ -1302,38 +1285,6 @@ public class TraditionalT9 extends InputMethodService implements KeyboardView.On
 				}
 			}
 		}
-	}
-
-	/**
-	 * Ignore this for now.
-	 */
-	@Override
-	public void swipeRight() {
-		// if (mPredictionOn) {
-		// pickDefaultCandidate();
-		// }
-	}
-
-	@Override
-	public void swipeLeft() {
-		handleBackspace();
-	}
-
-	@Override
-	public void swipeDown() {
-		handleClose();
-	}
-
-	@Override
-	public void swipeUp() {
-	}
-
-	@Override
-	public void onPress(int primaryCode) {
-	}
-
-	@Override
-	public void onRelease(int primaryCode) {
 	}
 
 }
