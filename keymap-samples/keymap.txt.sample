@@ -1,7 +1,0 @@
-# Remap left to right, and right to left
-# lines that begin with a hash are ignored
-# [keycode of original key](space)[keycode of new key]
-#DPAD_LEFT
-21 22
-#DPAD_RIGHT
-22 21
