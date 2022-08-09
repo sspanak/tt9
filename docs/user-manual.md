@@ -4,7 +4,11 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
-TODO: Initial config, loading a dictionary...
+- Enable the IME in Android settings.
+- Open the IME configuration and select the desired languages.
+- Load the dictionaries.
+
+_If you don't do the above, nothing will happen when you press keys on your phone._
 
 ## Hotkeys
 #### D-pad Up (↑):
