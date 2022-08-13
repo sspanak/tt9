@@ -45,7 +45,7 @@ public class LangHelper {
 
 	    //[LANG][MODE][CAPSMODE] = iconref
 	    // first group en, first line LANG, second line TEXT, last line NUM
-	    protected static final int[][][] ICONMAP = {
+	    public static final int[][][] ICONMAP = {
 			{
 					//English resources
 					{R.drawable.ime_lang_en_lower, R.drawable.ime_lang_en_single, R.drawable.ime_lang_en_upper},

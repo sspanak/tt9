@@ -137,7 +137,7 @@ public class TraditionalT9 extends InputMethodService {
 
 		// @todo: show or hide UI elements
 
-		updateStatusIcon();
+		UI.updateStatusIcon(this, mInputMode, mCapsMode);
 
 		// @todo: handle word adding
 	}
@@ -411,7 +411,7 @@ public class TraditionalT9 extends InputMethodService {
 			mCapsMode = T9Preferences.CASE_CAPITALIZE;
 		}
 
-		updateStatusIcon();
+		UI.updateStatusIcon(this, mInputMode, mCapsMode);
 	}
 
 
@@ -421,33 +421,7 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: select next language
 		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");
 
-		updateStatusIcon();
-	}
-
-
-	/**
-	 * updateStatusIcon
-	 * Set the status icon that is appropriate in current mode (based on
-	 * openwmm-legacy)
-	 */
-	private void updateStatusIcon() {
-		switch (mInputMode) {
-			case T9Preferences.MODE_ABC:
-				// @todo: show the proper status icon
-				showStatusIcon(LangHelper.ICONMAP[0][mInputMode][mCapsMode]);
-				break;
-			case T9Preferences.MODE_PREDICTIVE:
-				// @todo: show the proper status icon
-				showStatusIcon(LangHelper.ICONMAP[0][mInputMode][mCapsMode]);
-				break;
-			case T9Preferences.MODE_123:
-				showStatusIcon(R.drawable.ime_number);
-				break;
-			default:
-				Log.i("updateStatusIcon", "Unknown inputMode mode: " + mInputMode + ". Hiding status icon.");
-				hideStatusIcon();
-				break;
-		}
+		UI.updateStatusIcon(this, mInputMode, mCapsMode);
 	}
 
 
