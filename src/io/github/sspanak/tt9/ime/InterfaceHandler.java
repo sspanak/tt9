@@ -12,9 +12,6 @@ public class InterfaceHandler implements View.OnTouchListener {
 	private final TraditionalT9 parent;
 	private View mainView;
 
-	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
-	private long lastBackspaceCall;
-
 	public InterfaceHandler(View mainView, TraditionalT9 iparent) {
 		this.parent = iparent;
 		changeView(mainView);
@@ -34,18 +31,6 @@ public class InterfaceHandler implements View.OnTouchListener {
 	}
 
 
-	private boolean debounceBackspace(View view) {
-		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
-			return true;
-		}
-
-		parent.handleBackspace();
-		lastBackspaceCall = System.currentTimeMillis();
-
-		return view.performClick();
-	}
-
-
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
 		int action = event.getAction();
@@ -62,8 +47,7 @@ public class InterfaceHandler implements View.OnTouchListener {
 		}
 
 		if (buttonId == R.id.main_right && action == MotionEvent.AXIS_PRESSURE) {
-			// this event fires too frequently, so let's throttle it a bit
-			return debounceBackspace(view);
+			return parent.handleBackspaceHold();
 		}
 
 		return false;

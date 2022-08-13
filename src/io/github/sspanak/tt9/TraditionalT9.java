@@ -42,6 +42,9 @@ public class TraditionalT9 extends InputMethodService {
 	private static final int EDITING_NOSHOW = 2;
 	private int mEditing;
 
+	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
+	private long lastBackspaceCall;
+
 
 	/**
 	 * Main initialization of the input method component. Be sure to call to
@@ -272,6 +275,18 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: commit current text
 
 		return true;
+	}
+
+
+	public boolean handleBackspaceHold() {
+		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
+			return true;
+		}
+
+		boolean handled = handleBackspace();
+		lastBackspaceCall = System.currentTimeMillis();
+
+		return handled;
 	}
 
 
