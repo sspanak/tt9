@@ -223,7 +223,12 @@ public class TraditionalT9 extends InputMethodService {
 			}
 		}
 
+		// start tracking key hold
 		event.startTracking();
+
+		if (keyCode == prefs.getKeyOtherActions()) {
+			return true;
+		}
 
 		return super.onKeyDown(keyCode, event);
 	}
@@ -238,6 +243,11 @@ public class TraditionalT9 extends InputMethodService {
 		Log.d("onLongPress", "LONG PRESS: " + keyCode);
 
 		if (event.getRepeatCount() > 1) {
+			return true;
+		}
+
+		if (keyCode == prefs.getKeyOtherActions()) {
+			showPreferencesScreen();
 			return true;
 		}
 
@@ -262,9 +272,15 @@ public class TraditionalT9 extends InputMethodService {
 			return true;
 		}
 
+		if (keyCode == prefs.getKeyOtherActions()) {
+			showAddWord();
+			return true;
+		}
+
 		switch(keyCode) {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
 				return handleEnter();
+
 		}
 
 		return super.onKeyUp(keyCode, event);
@@ -561,7 +577,8 @@ public class TraditionalT9 extends InputMethodService {
 
 
 	protected void showAddWord() {
-/*		if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
+		Log.d("showAddWord", "show add word dialog");
+		/*if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
 			// decide if we are going to look for work to base on
 			String template = mComposing.toString();
 			if (template.length() == 0) {

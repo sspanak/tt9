@@ -82,9 +82,9 @@ public class T9Preferences {
 	// 	return prefs.getInt("pref_key_inputmode", KeyEvent.KEYCODE_POUND);
 	// }
 
-	// public int getKeyOtherActions() {
-	// 	return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_CALL);
-	// }
+	public int getKeyOtherActions() {
+		return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_CALL);
+	}
 
 	// public boolean getSoftBackspaceEnabled() {
 	// 	return prefs.getBoolean("pref_softkey_backspace", true);
