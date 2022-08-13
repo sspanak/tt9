@@ -40,10 +40,10 @@ public class TraditionalT9 extends InputMethodService {
 	private static final int NON_EDIT = 0;
 	private static final int EDITING = 1;
 	private static final int EDITING_NOSHOW = 2;
-	private int mEditing;
+	private int mEditing = NON_EDIT;
 
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
-	private long lastBackspaceCall;
+	private long lastBackspaceCall = 0;
 
 
 	/**
@@ -138,6 +138,7 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: get relevant settings
 
 		// @todo: initialize typing mode
+		mEditing = isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
 
 		// @todo: determine case from input
 
@@ -203,16 +204,26 @@ public class TraditionalT9 extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (!isOn()) {
+			return false;
+		}
+
 		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
-		// event.startTracking();
-
+		// backspace key must repeat its function when held down, so we handle it in a special way
 		if (keyCode == prefs.getKeyBackspace()) {
+			boolean isThereTextBefore = isThereText();
 			boolean backspaceHandleStatus = handleBackspaceHold();
 
 			// Allow BACK key to function as back when there is no text
-			return keyCode == KeyEvent.KEYCODE_BACK && isThereText() ? backspaceHandleStatus : true;
+			if (keyCode == KeyEvent.KEYCODE_BACK) {
+				return isThereTextBefore;
+			} else {
+				return backspaceHandleStatus;
+			}
 		}
+
+		event.startTracking();
 
 		return super.onKeyDown(keyCode, event);
 	}
@@ -220,9 +231,12 @@ public class TraditionalT9 extends InputMethodService {
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+		if (!isOn()) {
+			return false;
+		}
+
 		Log.d("onLongPress", "LONG PRESS: " + keyCode);
 
-		// Break for keys with no repeat function
 		if (event.getRepeatCount() > 1) {
 			return true;
 		}
@@ -238,10 +252,13 @@ public class TraditionalT9 extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-			Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " +
-				event.getRepeatCount());
+		if (!isOn()) {
+			return false;
+		}
 
-		if (keyCode == prefs.getKeyBackspace()) {
+		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+
+		if (keyCode == prefs.getKeyBackspace() && isThereText()) {
 			return true;
 		}
 
@@ -269,9 +286,8 @@ public class TraditionalT9 extends InputMethodService {
 
 
 	public boolean handleBackspace() {
-		Log.d("handleBackspace", "backspace handler");
-
 		if (!isThereText()) {
+			Log.d("handleBackspace", "backspace ignored");
 			return false;
 		}
 
@@ -281,6 +297,7 @@ public class TraditionalT9 extends InputMethodService {
 
 		currentInputConnection.deleteSurroundingText(1, 0);
 
+		Log.d("handleBackspace", "backspace handled");
 		return true;
 	}
 
@@ -325,6 +342,11 @@ public class TraditionalT9 extends InputMethodService {
 	}
 
 
+	private boolean isOn() {
+		return currentInputConnection != null && mEditing != NON_EDIT;
+	}
+
+
 	private boolean isThereText() {
 		if (getCurrentInputConnection() == null) {
 			return false;
@@ -339,7 +361,7 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: clear suggestions
 		// @todo: clear composition
 		// @todo: clear previous word
-		// @todo: switch to NON_EDIT
+		mEditing = NON_EDIT;
 	}
 
 
