@@ -2,34 +2,26 @@ package io.github.sspanak.tt9;
 
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.os.Handler;
-import android.os.SystemClock;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
-import io.github.sspanak.tt9.LangHelper.LANGUAGE;
-import io.github.sspanak.tt9.Utils.SpecialInputType;
 import io.github.sspanak.tt9.db.T9DB;
-import io.github.sspanak.tt9.ime.InterfaceHandler;
+import io.github.sspanak.tt9.ime.InputFieldHelper;
+import io.github.sspanak.tt9.ime.SoftKeyHandler;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
-import java.util.AbstractList;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TraditionalT9 extends InputMethodService {
 	private InputConnection currentInputConnection = null;
 
-	private InterfaceHandler interfacehandler = null;
+	private SoftKeyHandler softKeyHandler = null;
 	private CandidateView mCandidateView;
 	private AbsSymDialog mSmileyPopup = null;
 	private AbsSymDialog mSymbolPopup = null;
@@ -59,11 +51,10 @@ public class TraditionalT9 extends InputMethodService {
 	public void onCreate() {
 		super.onCreate();
 		db = T9DB.getInstance(this);
-		prefs = new T9Preferences(this);
+		prefs = T9Preferences.getInstance(this);
 
-		if (interfacehandler == null) {
-			interfacehandler = new InterfaceHandler(getLayoutInflater().inflate(R.layout.mainview,
-					null), this);
+		if (softKeyHandler == null) {
+			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
 		}
 	}
 
@@ -92,7 +83,7 @@ public class TraditionalT9 extends InputMethodService {
 	@Override
 	public View onCreateInputView() {
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
-		interfacehandler.changeView(v);
+		softKeyHandler.changeView(v);
 		return v;
 	}
 
@@ -139,8 +130,8 @@ public class TraditionalT9 extends InputMethodService {
 		mLanguage = prefs.getInputLanguage();
 
 		// initialize typing mode
-		mEditing = isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
-		mInputMode = determineInputMode(inputField);
+		mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		mInputMode = InputFieldHelper.determineInputMode(inputField, prefs.getInputMode());
 
 		// @todo: determine case from input
 
@@ -214,7 +205,7 @@ public class TraditionalT9 extends InputMethodService {
 
 		// backspace key must repeat its function when held down, so we handle it in a special way
 		if (keyCode == prefs.getKeyBackspace()) {
-			boolean isThereTextBefore = isThereText();
+			boolean isThereTextBefore = InputFieldHelper.isThereText(currentInputConnection);
 			boolean backspaceHandleStatus = handleBackspaceHold();
 
 			// Allow BACK key to function as back when there is no text
@@ -282,7 +273,7 @@ public class TraditionalT9 extends InputMethodService {
 			return true;
 		}
 
-		if (keyCode == prefs.getKeyBackspace() && isThereText()) {
+		if (keyCode == prefs.getKeyBackspace() && InputFieldHelper.isThereText(currentInputConnection)) {
 			return true;
 		}
 
@@ -322,7 +313,7 @@ public class TraditionalT9 extends InputMethodService {
 
 
 	public boolean handleBackspace() {
-		if (!isThereText()) {
+		if (!InputFieldHelper.isThereText(currentInputConnection)) {
 			Log.d("handleBackspace", "backspace ignored");
 			return false;
 		}
@@ -350,46 +341,8 @@ public class TraditionalT9 extends InputMethodService {
 	}
 
 
-	private boolean isSpecializedTextField(EditorInfo inputField) {
-		int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
-
-		return (
-				variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-				|| variation == InputType.TYPE_TEXT_VARIATION_URI
-				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER
-		);
-	}
-
-
-	/**
-	 * isFilterTextField
-	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
-	 *
-	 * @param  inputField
-	 * @return boolean
-	 */
-	private boolean isFilterTextField(EditorInfo inputField) {
-		int inputType = inputField.inputType & InputType.TYPE_MASK_CLASS;
-		int inputVariation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
-
-		return inputType == InputType.TYPE_CLASS_TEXT && inputVariation == InputType.TYPE_TEXT_VARIATION_FILTER;
-	}
-
-
 	private boolean isOn() {
 		return currentInputConnection != null && mEditing != NON_EDIT;
-	}
-
-
-	private boolean isThereText() {
-		if (getCurrentInputConnection() == null) {
-			return false;
-		}
-
-		ExtractedText extractedText = getCurrentInputConnection().getExtractedText(new ExtractedTextRequest(), 0);
-		return extractedText != null && extractedText.text.length() > 0;
 	}
 
 
@@ -406,76 +359,6 @@ public class TraditionalT9 extends InputMethodService {
 		clearState();
 		hideStatusIcon();
 		hideWindow();
-	}
-
-
-	/**
-	 * determineInputMode
-	 * Determine the typing mode based on the input field being edited.
-	 *
-	 * @param  inputField
-	 * @return T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE
-	 */
-	private int determineInputMode(EditorInfo inputField) {
-		if (inputField.inputType == SpecialInputType.TYPE_SHARP_007H_PHONE_BOOK) {
-			return T9Preferences.MODE_ABC;
-		}
-
-		if (inputField.privateImeOptions != null && inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
-			return T9Preferences.MODE_ABC;
-		}
-
-		switch (inputField.inputType & InputType.TYPE_MASK_CLASS) {
-			case InputType.TYPE_CLASS_NUMBER:
-			case InputType.TYPE_CLASS_DATETIME:
-				// Numbers and dates default to the symbols keyboard, with
-				// no extra features.
-			case InputType.TYPE_CLASS_PHONE:
-				// Phones will also default to the symbols keyboard, though
-				// often you will want to have a dedicated phone keyboard.
-				return T9Preferences.MODE_123;
-
-			case InputType.TYPE_CLASS_TEXT:
-				// This is general text editing. We will default to the
-				// normal alphabetic keyboard, and assume that we should
-				// be doing predictive text (showing candidates as the
-				// user types).
-
-				return isSpecializedTextField(inputField) ? T9Preferences.MODE_ABC : prefs.getInputMode();
-
-			default:
-				// For all unknown input types, default to the alphabetic
-				// keyboard with no special features.
-				return T9Preferences.MODE_ABC;
-		}
-	}
-
-
-	/**
-	 * Helper to update the shift state of our keyboard based on the initial
-	 * editor state.
-	 */
-	private void deterimineTextCase(EditorInfo inputField) {
-		// Log.d("updateShift", "CM start: " + mCapsMode);
-		// if (inputField != null && mCapsMode != T9Preferences.CASE_UPPER) {
-		// 	int caps = 0;
-		// 	if (inputField.inputType != InputType.TYPE_NULL) {
-		// 		caps = currentInputConnection.getCursorCapsMode(inputField.inputType);
-		// 	}
-		// 	// mInputView.setShifted(mCapsLock || caps != 0);
-		// 	// Log.d("updateShift", "caps: " + caps);
-		// 	if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
-		// 		mCapsMode = T9Preferences.CASE_UPPER;
-		// 	} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
-		// 		mCapsMode = T9Preferences.CASE_CAPITALIZE;
-		// 	} else if ((caps & TextUtils.CAP_MODE_WORDS) == TextUtils.CAP_MODE_WORDS) {
-		// 		mCapsMode = T9Preferences.CASE_CAPITALIZE;
-		// 	} else {
-		// 		mCapsMode = T9Preferences.CASE_LOWER;
-		// 	}
-		// 	updateStatusIcon();
-		// }
-		// Log.d("updateShift", "CM end: " + mCapsMode);
 	}
 
 
@@ -509,45 +392,6 @@ public class TraditionalT9 extends InputMethodService {
 
 			// @todo: push the word to the text field
 		}
-	}
-
-
-	private String getSurroundingWord() {
-		CharSequence before = currentInputConnection.getTextBeforeCursor(50, 0);
-		CharSequence after = currentInputConnection.getTextAfterCursor(50, 0);
-		int bounds = -1;
-		if (!TextUtils.isEmpty(before)) {
-			bounds = before.length() -1;
-			while (bounds > 0 && !Character.isWhitespace(before.charAt(bounds))) {
-				bounds--;
-			}
-			before = before.subSequence(bounds, before.length());
-		}
-		if (!TextUtils.isEmpty(after)) {
-			bounds = 0;
-			while (bounds < after.length() && !Character.isWhitespace(after.charAt(bounds))) {
-				bounds++;
-			}
-			after = after.subSequence(0, bounds);
-		}
-		return before.toString().trim() + after.toString().trim();
-	}
-
-
-	// sanitize lang and set index for cycling lang
-	// Need to check if last lang is available, if not, set index to -1 and set lang to default to 0
-	private LANGUAGE sanitizeLang(LANGUAGE lang) {
-		return null;
-		// mLangIndex = 0;
-		// if (mLangsAvailable.length < 1 || lang == LANGUAGE.NONE) {
-		// 	Log.e("T9.sanitizeLang", "This shouldn't happen.");
-		// 	return mLangsAvailable[0];
-		// }
-		// else {
-		// 	int index = LangHelper.findIndex(mLangsAvailable, lang);
-		// 	mLangIndex = index;
-		// 	return mLangsAvailable[index];
-		// }
 	}
 
 

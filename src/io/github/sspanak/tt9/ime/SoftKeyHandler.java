@@ -6,13 +6,13 @@ import android.view.View;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.TraditionalT9;
 
-public class InterfaceHandler implements View.OnTouchListener {
+public class SoftKeyHandler implements View.OnTouchListener {
 
 	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
 	private final TraditionalT9 parent;
 	private View mainView;
 
-	public InterfaceHandler(View mainView, TraditionalT9 iparent) {
+	public SoftKeyHandler(View mainView, TraditionalT9 iparent) {
 		this.parent = iparent;
 		changeView(mainView);
 	}
