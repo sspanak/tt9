@@ -49,7 +49,7 @@ public class T9Preferences {
 	// }
 
 	public int getInputLanguage() {
-		return prefs.getInt("pref_input_language", 1);
+		return prefs.getInt("pref_input_language", 0);
 	}
 
 	public T9Preferences setInputLanguage(int language) {
@@ -78,12 +78,12 @@ public class T9Preferences {
 		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_BACK);
 	}
 
-	// public int getKeyInputMode() {
-	// 	return prefs.getInt("pref_key_inputmode", KeyEvent.KEYCODE_POUND);
-	// }
+	public int getKeyInputMode() {
+		return prefs.getInt("pref_key_inputmode", KeyEvent.KEYCODE_POUND);
+	}
 
 	public int getKeyOtherActions() {
-		return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_CALL);
+		return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR);
 	}
 
 	// public boolean getSoftBackspaceEnabled() {

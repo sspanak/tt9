@@ -37,14 +37,19 @@ public class TraditionalT9 extends InputMethodService {
 	private T9DB db;
 	private T9Preferences prefs;
 
+	private int mInputMode = T9Preferences.MODE_123;
+	private int mCapsMode = T9Preferences.CASE_LOWER;
+	private int mLanguage = 0;
+
 	private static final int NON_EDIT = 0;
 	private static final int EDITING = 1;
 	private static final int EDITING_NOSHOW = 2;
 	private int mEditing = NON_EDIT;
 
+	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
 	private long lastBackspaceCall = 0;
-
+	private int ignoreNextKeyUp = 0;
 
 	/**
 	 * Main initialization of the input method component. Be sure to call to
@@ -88,11 +93,6 @@ public class TraditionalT9 extends InputMethodService {
 	public View onCreateInputView() {
 		View v = getLayoutInflater().inflate(R.layout.mainview, null);
 		interfacehandler.changeView(v);
-		// if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
-		// 	interfacehandler.showHold(true);
-		// } else {
-		// 	interfacehandler.showHold(false);
-		// }
 		return v;
 	}
 
@@ -136,15 +136,17 @@ public class TraditionalT9 extends InputMethodService {
 
 
 		// @todo: get relevant settings
+		mLanguage = prefs.getInputLanguage();
 
-		// @todo: initialize typing mode
+		// initialize typing mode
 		mEditing = isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		mInputMode = determineInputMode(inputField);
 
 		// @todo: determine case from input
 
 		// @todo: show or hide UI elements
 
-		// @todo: show status icon
+		updateStatusIcon();
 
 		// @todo: handle word adding
 	}
@@ -226,7 +228,7 @@ public class TraditionalT9 extends InputMethodService {
 		// start tracking key hold
 		event.startTracking();
 
-		if (keyCode == prefs.getKeyOtherActions()) {
+		if (keyCode == prefs.getKeyOtherActions() || keyCode == prefs.getKeyInputMode()) {
 			return true;
 		}
 
@@ -247,7 +249,14 @@ public class TraditionalT9 extends InputMethodService {
 		}
 
 		if (keyCode == prefs.getKeyOtherActions()) {
+			ignoreNextKeyUp = keyCode;
 			showPreferencesScreen();
+			return true;
+		}
+
+		if (keyCode == prefs.getKeyInputMode()) {
+			ignoreNextKeyUp = keyCode;
+			nextLang();
 			return true;
 		}
 
@@ -268,12 +277,23 @@ public class TraditionalT9 extends InputMethodService {
 
 		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
+		if (keyCode == ignoreNextKeyUp) {
+			ignoreNextKeyUp = 0;
+			return true;
+		}
+
 		if (keyCode == prefs.getKeyBackspace() && isThereText()) {
 			return true;
 		}
 
 		if (keyCode == prefs.getKeyOtherActions()) {
 			showAddWord();
+			return true;
+		}
+
+		if (keyCode == prefs.getKeyInputMode()) {
+			nextKeyMode();
+			// @todo: if in predictive mode and composing a word, change the case only
 			return true;
 		}
 
@@ -378,15 +398,14 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: clear composition
 		// @todo: clear previous word
 		mEditing = NON_EDIT;
+		mLanguage = 0;
 	}
 
 
 	private void finish() {
 		clearState();
-
-		// @todo: language = null
-
-		// @todo: hide window and status icon
+		hideStatusIcon();
+		hideWindow();
 	}
 
 
@@ -535,7 +554,18 @@ public class TraditionalT9 extends InputMethodService {
 	protected void nextKeyMode() {
 		// @todo: commit current text
 
-		// @todo: select next mode
+		// select next mode
+		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+			mInputMode = T9Preferences.MODE_123;
+		} else if (mInputMode == T9Preferences.MODE_123) {
+			mInputMode = T9Preferences.MODE_ABC;
+			mCapsMode = T9Preferences.CASE_LOWER;
+		} else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
+			mCapsMode = T9Preferences.CASE_UPPER;
+		} else {
+			mInputMode = T9Preferences.MODE_PREDICTIVE;
+			mCapsMode = T9Preferences.CASE_CAPITALIZE;
+		}
 
 		updateStatusIcon();
 	}
@@ -545,6 +575,7 @@ public class TraditionalT9 extends InputMethodService {
 		// @todo: commit current text
 
 		// @todo: select next language
+		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");
 
 		updateStatusIcon();
 	}
@@ -558,47 +589,46 @@ public class TraditionalT9 extends InputMethodService {
 	 * @return void
 	 */
 	private void updateStatusIcon() {
-/*		switch (mKeyMode) {
+		switch (mInputMode) {
 			case T9Preferences.MODE_ABC:
-				showStatusIcon(LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode]);
+				// @todo: show the proper status icon
+				showStatusIcon(LangHelper.ICONMAP[0][mInputMode][mCapsMode]);
 				break;
 			case T9Preferences.MODE_PREDICTIVE:
-				showStatusIcon(LangHelper.ICONMAP[mLang.index][mKeyMode][mCapsMode]);
+				// @todo: show the proper status icon
+				showStatusIcon(LangHelper.ICONMAP[0][mInputMode][mCapsMode]);
 				break;
 			case T9Preferences.MODE_123:
 				showStatusIcon(R.drawable.ime_number);
 				break;
 			default:
-				Log.i("updateStatusIcon", "Unknown key mode. Hiding status icon.");
+				Log.i("updateStatusIcon", "Unknown inputMode mode: " + mInputMode + ". Hiding status icon.");
 				hideStatusIcon();
 				break;
-		}*/
+		}
 	}
 
 
 	protected void showAddWord() {
-		Log.d("showAddWord", "show add word dialog");
-		/*if (mKeyMode == T9Preferences.MODE_PREDICTIVE) {
-			// decide if we are going to look for work to base on
-			String template = mComposing.toString();
-			if (template.length() == 0) {
-				//get surrounding word:
-				template = getSurroundingWord();
-			}
-			Log.d("showAddWord", "WORD: "+template);
-			Intent awintent = new Intent(this, AddWordAct.class);
-			awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-			awintent.putExtra("io.github.sspanak.tt9.word", template);
-			awintent.putExtra("io.github.sspanak.tt9.lang", mLang.id);
-			clearState();
-			currentInputConnection.setComposingText("", 0);
-			currentInputConnection.finishComposingText();
-			updateCandidates();
-			//onFinishInput();
-			mWordFound = true;
-			startActivity(awintent);
-		}*/
+		if (mInputMode != T9Preferences.MODE_PREDICTIVE) {
+			return;
+		}
+
+		String template = "";
+
+		// @todo: get the current word template from the input connection
+		// template = getSurroundingWord();
+
+		Intent awintent = new Intent(this, AddWordAct.class);
+		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		awintent.putExtra("io.github.sspanak.tt9.word", template);
+		awintent.putExtra("io.github.sspanak.tt9.lang", mLanguage);
+		clearState();
+		currentInputConnection.setComposingText("", 0);
+		currentInputConnection.finishComposingText();
+		// @todo: update the candidates
+		startActivity(awintent);
 	}
 
 
