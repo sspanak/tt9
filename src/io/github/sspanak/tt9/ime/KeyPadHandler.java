@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -131,7 +132,6 @@ public class KeyPadHandler extends InputMethodService {
 		// initialize typing mode
 		mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
 		mInputMode = InputFieldHelper.determineInputMode(inputField, prefs.getInputMode());
-
 		// @todo: determine case from input
 
 		// @todo: show or hide UI elements
@@ -218,7 +218,12 @@ public class KeyPadHandler extends InputMethodService {
 		// start tracking key hold
 		event.startTracking();
 
-		if (keyCode == prefs.getKeyOtherActions() || keyCode == prefs.getKeyInputMode()) {
+		if (
+			keyCode == prefs.getKeyOtherActions()
+			|| keyCode == prefs.getKeyInputMode()
+			|| keyCode == KeyEvent.KEYCODE_1
+			|| (mCandidateView.isShown() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+		) {
 			return true;
 		}
 
@@ -238,18 +243,25 @@ public class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		ignoreNextKeyUp = keyCode;
+
 		if (keyCode == prefs.getKeyOtherActions()) {
-			ignoreNextKeyUp = keyCode;
 			UI.showPreferencesScreen(this);
 			return true;
 		}
 
 		if (keyCode == prefs.getKeyInputMode()) {
-			ignoreNextKeyUp = keyCode;
 			nextLang();
 			return true;
 		}
 
+
+		if (keyCode == KeyEvent.KEYCODE_1) {
+			setCandidates(Punctuation.getPunctuation(), 0);
+			return true;
+		}
+
+		ignoreNextKeyUp = 0;
 		return false;
 	}
 
@@ -265,12 +277,13 @@ public class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
-		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
-
 		if (keyCode == ignoreNextKeyUp) {
+			Log.d("onKeyUp", "Ignored: " + keyCode);
 			ignoreNextKeyUp = 0;
 			return true;
 		}
+
+		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
 		if (keyCode == prefs.getKeyBackspace() && InputFieldHelper.isThereText(currentInputConnection)) {
 			return true;
@@ -287,27 +300,43 @@ public class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		if (mInputMode == T9Preferences.MODE_123 && keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
+			setCandidates(null);
+		}
+
 		switch(keyCode) {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
-				return handleEnter();
-
+				return handleOK();
+			case KeyEvent.KEYCODE_DPAD_UP:
+				return handlePreviousCandidate();
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+				return handleNextCandidate();
+			case KeyEvent.KEYCODE_1:
+				return handle1();
 		}
 
 		return super.onKeyUp(keyCode, event);
 	}
 
 
-	public boolean handleEnter() {
+	private boolean handle1() {
+		if (mInputMode == T9Preferences.MODE_123) {
+			currentInputConnection.commitText("1", 1);
+		}
+
+		return true;
+	}
+
+
+	public boolean handleOK() {
 		Log.d("handleBackspace", "enter handler");
 
 		if (!isInputViewShown()) {
 			showWindow(true);
 		}
 
-		// @todo: commit current text and return true
-
-
-		return false;
+		commitCurrentCandidate();
+		return !isCandidateViewHidden();
 	}
 
 
@@ -317,10 +346,8 @@ public class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
-		// @todo: hide candidates in ABC and Predictive mode
-
-		// @todo: commit the current text
-
+		commitCurrentCandidate();
+		setCandidates(null);
 		currentInputConnection.deleteSurroundingText(1, 0);
 
 		Log.d("handleBackspace", "backspace handled");
@@ -340,13 +367,38 @@ public class KeyPadHandler extends InputMethodService {
 	}
 
 
+	private boolean handleNextCandidate() {
+		if (isCandidateViewHidden()) {
+			return false;
+		}
+
+		mCandidateView.scrollToSuggestion(1);
+		return true;
+	}
+
+
+	private boolean handlePreviousCandidate() {
+		if (isCandidateViewHidden()) {
+			return false;
+		}
+
+		mCandidateView.scrollToSuggestion(-1);
+		return true;
+	}
+
+
 	private boolean isOff() {
 		return currentInputConnection == null || mEditing == NON_EDIT;
 	}
 
 
+	private boolean isCandidateViewHidden() {
+		return mCandidateView == null || !mCandidateView.isShown();
+	}
+
+
 	private void clearState() {
-		// @todo: clear suggestions
+		setCandidates(null);
 		// @todo: clear composition
 		// @todo: clear previous word
 		mEditing = NON_EDIT;
@@ -364,22 +416,29 @@ public class KeyPadHandler extends InputMethodService {
 	/**
 	 * Helper function to commit any text being composed in to the editor.
 	 */
-	private void commitText() {
-		// @todo: pick current candidate
-		// @todo: add it to the text field
-		clearState();
-		setCandidatesViewShown(false);
-		// @todo: clear candidates
+	private void commitCurrentCandidate() {
+		if (currentInputConnection != null && !isCandidateViewHidden()) {
+			String word = mCandidateView.getCurrentSuggestion();
+			currentInputConnection.commitText(word, word.length());
+		}
+
+		setCandidates(null);
 	}
 
 
+	private void setCandidates(List<String> suggestions) {
+		setCandidates(suggestions, 0);
+	}
+
 	private void setCandidates(List<String> suggestions, int initialSel) {
-		if (suggestions != null && suggestions.size() > 0) {
-			setCandidatesViewShown(true);
+		if (mCandidateView == null) {
+			return;
 		}
-		if (mCandidateView != null) {
-			mCandidateView.setSuggestions(suggestions, initialSel);
-		}
+
+		boolean show = suggestions != null && suggestions.size() > 0;
+
+		mCandidateView.setSuggestions(suggestions, initialSel);
+		setCandidatesViewShown(show);
 	}
 
 

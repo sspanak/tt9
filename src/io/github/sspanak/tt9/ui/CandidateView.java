@@ -172,6 +172,10 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
+	public String getCurrentSuggestion() {
+		return mSuggestions.get(mSelectedIndex);
+	}
+
 	public void setSuggestions(List<String> suggestions, int initialSel) {
 		clear();
 		if (suggestions != null) {
@@ -192,7 +196,7 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
-	protected void scrollToSuggestion(int increment) {
+	public void scrollToSuggestion(int increment) {
 		if (mSuggestions != null && mSuggestions.size() > 1) {
 			mSelectedIndex = mSelectedIndex + increment;
 			if (mSelectedIndex == mSuggestions.size()) {
