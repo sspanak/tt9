@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CharMap {
-	protected static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(LangHelper.NLANGS);
+	public static final AbstractList<Map<Character, Integer>> CHARTABLE = new ArrayList<Map<Character, Integer>>(LangHelper.NLANGS);
 	static {
 		// Punctuation
 		Map<Character, Integer> commonMap = new HashMap<Character, Integer>();
@@ -151,7 +151,7 @@ public class CharMap {
 		{ 'ш', 'щ', 'ъ', 'Ш', 'Щ', 'Ъ', '8' }, { 'ь', 'ю', 'я', 'Ь', 'Ю', 'Я', '9' },
 		{ ' ', '\n' }, { ' ', '0', '+' }, { '\n' } }; // LAST TWO SPACE ON 0
 
-	protected static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE, ITT9TABLE, UKT9TABLE, BGT9TABLE };
+	public static final char[][][] T9TABLE = { ENT9TABLE, RUT9TABLE, DET9TABLE, FRT9TABLE, ITT9TABLE, UKT9TABLE, BGT9TABLE };
 
 	// last 2 don't matter, are for spaceOnZero extra 'slots' 0 position, and 10 position
 	protected static final int[] ENT9CAPSTART = { 0, 0, 3, 3, 3, 3, 3, 4, 3, 4, 0,	 0, 0 };

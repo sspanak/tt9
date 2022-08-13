@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -10,6 +10,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.sspanak.tt9.R;
 
 public class CandidateView extends View {
 
@@ -170,7 +172,7 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
-	protected void setSuggestions(List<String> suggestions, int initialSel) {
+	public void setSuggestions(List<String> suggestions, int initialSel) {
 		clear();
 		if (suggestions != null) {
 			mSuggestions = suggestions;

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,7 +23,10 @@ import android.widget.Toast;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
+import io.github.sspanak.tt9.CharMap;
+import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.settings.CustomInflater;

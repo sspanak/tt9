@@ -5,6 +5,7 @@ import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.TraditionalT9;
+import io.github.sspanak.tt9.ui.UI;
 
 public class SoftKeyHandler implements View.OnTouchListener {
 
@@ -37,7 +38,7 @@ public class SoftKeyHandler implements View.OnTouchListener {
 		int buttonId = view.getId();
 
 		if (buttonId == R.id.main_left && action == MotionEvent.ACTION_UP) {
-			parent.showPreferencesScreen();
+			UI.showPreferencesScreen(parent);
 			return view.performClick();
 		}
 

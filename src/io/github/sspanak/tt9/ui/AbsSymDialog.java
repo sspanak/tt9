@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.ui;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
-public abstract class AbsSymDialog extends Dialog implements
-		View.OnClickListener {
+import io.github.sspanak.tt9.R;
+
+public abstract class AbsSymDialog extends Dialog implements View.OnClickListener {
 
 	protected Context context;
 	private View mainview;

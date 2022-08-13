@@ -1,7 +1,9 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.ui;
 
 import android.content.Context;
 import android.view.View;
+
+import io.github.sspanak.tt9.R;
 
 public class SymbolDialog extends AbsSymDialog {
 

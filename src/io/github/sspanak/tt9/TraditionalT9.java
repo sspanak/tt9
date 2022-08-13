@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9;
 
-import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.text.InputType;
 import android.util.Log;
@@ -12,6 +11,8 @@ import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
 import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.ui.CandidateView;
+import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ime.InputFieldHelper;
 import io.github.sspanak.tt9.ime.SoftKeyHandler;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -23,8 +24,7 @@ public class TraditionalT9 extends InputMethodService {
 
 	private SoftKeyHandler softKeyHandler = null;
 	private CandidateView mCandidateView;
-	private AbsSymDialog mSmileyPopup = null;
-	private AbsSymDialog mSymbolPopup = null;
+
 
 	private T9DB db;
 	private T9Preferences prefs;
@@ -197,7 +197,7 @@ public class TraditionalT9 extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (!isOn()) {
+		if (isOff()) {
 			return false;
 		}
 
@@ -229,7 +229,7 @@ public class TraditionalT9 extends InputMethodService {
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		if (!isOn()) {
+		if (isOff()) {
 			return false;
 		}
 
@@ -241,7 +241,7 @@ public class TraditionalT9 extends InputMethodService {
 
 		if (keyCode == prefs.getKeyOtherActions()) {
 			ignoreNextKeyUp = keyCode;
-			showPreferencesScreen();
+			UI.showPreferencesScreen(this);
 			return true;
 		}
 
@@ -262,7 +262,7 @@ public class TraditionalT9 extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (!isOn()) {
+		if (isOff()) {
 			return false;
 		}
 
@@ -341,8 +341,8 @@ public class TraditionalT9 extends InputMethodService {
 	}
 
 
-	private boolean isOn() {
-		return currentInputConnection != null && mEditing != NON_EDIT;
+	private boolean isOff() {
+		return currentInputConnection == null || mEditing == NON_EDIT;
 	}
 
 
@@ -387,7 +387,7 @@ public class TraditionalT9 extends InputMethodService {
 	private void restoreLastWordIfAny() {
 		// mAddingWord = false;
 		String word = prefs.getLastWord();
-		if (word != "") {
+		if (word.equals("")) {
 			prefs.setLastWord("");
 
 			// @todo: push the word to the text field
@@ -429,8 +429,6 @@ public class TraditionalT9 extends InputMethodService {
 	 * updateStatusIcon
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
-	 *
-	 * @return void
 	 */
 	private void updateStatusIcon() {
 		switch (mInputMode) {
@@ -458,48 +456,17 @@ public class TraditionalT9 extends InputMethodService {
 			return;
 		}
 
+		clearState();
+		// @todo: clear the candidate list
+		currentInputConnection.setComposingText("", 0);
+		currentInputConnection.finishComposingText();
+
 		String template = "";
 
 		// @todo: get the current word template from the input connection
 		// template = getSurroundingWord();
 
-		Intent awintent = new Intent(this, AddWordAct.class);
-		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		awintent.putExtra("io.github.sspanak.tt9.word", template);
-		awintent.putExtra("io.github.sspanak.tt9.lang", mLanguage);
-		clearState();
-		currentInputConnection.setComposingText("", 0);
-		currentInputConnection.finishComposingText();
-		// @todo: update the candidates
-		startActivity(awintent);
-	}
-
-
-	protected void showSymbolPage() {
-		if (mSymbolPopup == null) {
-			mSymbolPopup = new SymbolDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
-					null));
-		}
-		mSymbolPopup.doShow(getWindow().getWindow().getDecorView());
-	}
-
-
-	protected void showSmileyPage() {
-		if (mSmileyPopup == null) {
-			mSmileyPopup = new SmileyDialog(this, getLayoutInflater().inflate(R.layout.symbolview,
-					null));
-		}
-		mSmileyPopup.doShow(getWindow().getWindow().getDecorView());
-	}
-
-
-	public void showPreferencesScreen() {
-		Intent awintent = new Intent(this, TraditionalT9Settings.class);
-		awintent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		awintent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		hideWindow();
-		startActivity(awintent);
+		UI.showAddWordDialog(this, mLanguage, template);
 	}
 
 
