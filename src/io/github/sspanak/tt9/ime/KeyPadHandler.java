@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
 import android.text.InputType;
@@ -10,16 +10,15 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.ime.InputFieldHelper;
-import io.github.sspanak.tt9.ime.SoftKeyHandler;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.List;
 
-public class TraditionalT9 extends InputMethodService {
+public class KeyPadHandler extends InputMethodService {
 	private InputConnection currentInputConnection = null;
 
 	private SoftKeyHandler softKeyHandler = null;

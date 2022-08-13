@@ -16,14 +16,14 @@
 		android:label="@string/ime_name"
 		android:theme="@style/AppTheme">
 
-		<service android:name="io.github.sspanak.tt9.TraditionalT9" android:permission="android.permission.BIND_INPUT_METHOD">
+		<service android:name="io.github.sspanak.tt9.ime.KeyPadHandler" android:permission="android.permission.BIND_INPUT_METHOD">
 			<intent-filter>
 				<action android:name="android.view.InputMethod"/>
 			</intent-filter>
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
 		</service>
 
-		<service android:name=".DBUpdateService"/>
+		<service android:name="io.github.sspanak.tt9.db.DBUpdateService"/>
 
 		<activity android:label="@string/traditionalt9_settings" android:name="io.github.sspanak.tt9.ui.TraditionalT9Settings">
 			<intent-filter>
