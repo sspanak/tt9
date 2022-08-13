@@ -129,7 +129,7 @@ public class TraditionalT9 extends InputMethodService {
 		// Special or limited input type. This means the input connection is not rich,
 		// or it can not process or show things like candidate text, nor retrieve the current text.
 		// We just let Android handle this input.
-		if (inputField.inputType == InputType.TYPE_NULL) {
+		if (currentInputConnection == null || inputField.inputType == InputType.TYPE_NULL) {
 			finish();
 			return;
 		}
@@ -205,11 +205,16 @@ public class TraditionalT9 extends InputMethodService {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
-		if (keyCode == prefs.getKeyBackspace() && isThereText()) {
-			return true;
+		// event.startTracking();
+
+		if (keyCode == prefs.getKeyBackspace()) {
+			boolean backspaceHandleStatus = handleBackspaceHold();
+
+			// Allow BACK key to function as back when there is no text
+			return keyCode == KeyEvent.KEYCODE_BACK && isThereText() ? backspaceHandleStatus : true;
 		}
 
-		return false;
+		return super.onKeyDown(keyCode, event);
 	}
 
 
@@ -237,7 +242,7 @@ public class TraditionalT9 extends InputMethodService {
 				event.getRepeatCount());
 
 		if (keyCode == prefs.getKeyBackspace()) {
-			return handleBackspace();
+			return true;
 		}
 
 		switch(keyCode) {
@@ -245,7 +250,7 @@ public class TraditionalT9 extends InputMethodService {
 				return handleEnter();
 		}
 
-		return false;
+		return super.onKeyUp(keyCode, event);
 	}
 
 
@@ -270,9 +275,11 @@ public class TraditionalT9 extends InputMethodService {
 			return false;
 		}
 
-		// @todo: erase the cursor before the cursor
+		// @todo: hide candidates in ABC and Predictive mode
 
-		// @todo: commit current text
+		// @todo: commit the current text
+
+		currentInputConnection.deleteSurroundingText(1, 0);
 
 		return true;
 	}
