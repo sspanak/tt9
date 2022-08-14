@@ -1,66 +1,15 @@
 package io.github.sspanak.tt9.ime;
 
-import android.inputmethodservice.InputMethodService;
-import android.text.InputType;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.CompletionInfo;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
-import android.widget.Toast;
 
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.languages.Punctuation;
-import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
-
-
-	protected boolean handle0(boolean hold) {
-		if (mInputMode == T9Preferences.MODE_123) {
-			String chr = hold ? "+" : "0";
-			currentInputConnection.commitText(chr, 1);
-			return true;
-		}
-
-		return false;
-	}
-
-
-	protected boolean handle1(boolean hold) {
-		if (mInputMode == T9Preferences.MODE_123) {
-			return true;
-		}
-
-		if (hold) {
-			UI.showSymbolDialog(this);
-		} else {
-			setCandidates(Punctuation.getPunctuation(), 0);
-		}
-
-		return true;
-	}
-
-
-	public boolean handleOK() {
-		Log.d("handleBackspace", "enter handler");
-
-		if (!isInputViewShown()) {
-			showWindow(true);
-		}
-
-		commitCurrentCandidate();
-		return !isCandidateViewHidden();
-	}
-
-
-	public boolean handleBackspace() {
+	public boolean onBackspace() {
 		if (!InputFieldHelper.isThereText(currentInputConnection)) {
 			Log.d("handleBackspace", "backspace ignored");
 			return false;
@@ -75,7 +24,98 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean nextCandidate() {
+	public boolean onOK() {
+		Log.d("handleBackspace", "enter handler");
+
+		if (!isInputViewShown()) {
+			showWindow(true);
+		}
+
+		commitCurrentCandidate();
+		return !isCandidateViewHidden();
+	}
+
+
+	protected boolean onUp() {
+		return previousCandidate();
+	}
+
+
+	protected boolean onDown() {
+		return nextCandidate();
+	}
+
+
+	protected boolean on0(boolean hold) {
+		if (mInputMode == T9Preferences.MODE_123) {
+			String chr = hold ? "+" : "0";
+			currentInputConnection.commitText(chr, 1);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	protected boolean on1(boolean hold) {
+		if (mInputMode == T9Preferences.MODE_123) {
+			return true;
+		}
+
+		if (hold) {
+			Log.d("on1", "showSymbolDialog is broken!");
+			// @todo: UI.showSymbolDialog(this); // it is broken
+		} else {
+			setCandidates(Punctuation.getPunctuation(), 0);
+		}
+
+		return true;
+	}
+
+
+	protected boolean onPound() {
+		currentInputConnection.commitText("#", 1);
+		return true;
+	}
+
+
+	protected boolean onStar() {
+		currentInputConnection.commitText("*", 1);
+		return true;
+	}
+
+
+	protected boolean onKeyInputMode(boolean hold) {
+		// @todo: sort out number-only and non-predictive fields
+
+		if (hold) {
+			nextLang();
+		} else {
+			nextKeyMode();
+			// @todo: if in predictive mode and composing a word, change the case only
+		}
+
+		return true;
+	}
+
+
+	protected boolean onKeyOtherAction(boolean hold) {
+		if (hold) {
+			UI.showPreferencesScreen(this);
+		} else if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+			showAddWord();
+		}
+
+		return true;
+	}
+
+
+	protected boolean isCandidateViewHidden() {
+		return mCandidateView == null || !mCandidateView.isShown();
+	}
+
+
+	private boolean nextCandidate() {
 		if (isCandidateViewHidden()) {
 			return false;
 		}
@@ -85,7 +125,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean previousCandidate() {
+	private boolean previousCandidate() {
 		if (isCandidateViewHidden()) {
 			return false;
 		}
@@ -98,7 +138,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	/**
 	 * Helper function to commit any text being composed in to the editor.
 	 */
-	protected void commitCurrentCandidate() {
+	private void commitCurrentCandidate() {
 		if (currentInputConnection != null && !isCandidateViewHidden()) {
 			String word = mCandidateView.getCurrentSuggestion();
 			currentInputConnection.commitText(word, word.length());
@@ -124,7 +164,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void nextKeyMode() {
+	private void nextKeyMode() {
 		// @todo: commit current text
 
 		// select next mode
@@ -144,7 +184,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void nextLang() {
+	private void nextLang() {
 		// @todo: commit current text
 
 		// @todo: select next language
@@ -154,13 +194,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void showAddWord() {
-		if (mInputMode != T9Preferences.MODE_PREDICTIVE) {
-			return;
-		}
-
+	private void showAddWord() {
 		clearState();
-		// @todo: clear the candidate list
 		currentInputConnection.setComposingText("", 0);
 		currentInputConnection.finishComposingText();
 

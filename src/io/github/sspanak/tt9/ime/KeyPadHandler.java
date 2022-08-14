@@ -8,11 +8,9 @@ import android.view.View;
 import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
-import android.widget.Toast;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
-import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -201,6 +199,8 @@ public abstract class KeyPadHandler extends InputMethodService {
 		if (
 			keyCode == prefs.getKeyOtherActions()
 			|| keyCode == prefs.getKeyInputMode()
+			|| keyCode == KeyEvent.KEYCODE_STAR
+			|| keyCode == KeyEvent.KEYCODE_POUND
 			|| keyCode == KeyEvent.KEYCODE_0
 			|| (keyCode == KeyEvent.KEYCODE_1 && mInputMode != T9Preferences.MODE_123)
 			|| (mCandidateView.isShown() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
@@ -227,18 +227,16 @@ public abstract class KeyPadHandler extends InputMethodService {
 		ignoreNextKeyUp = keyCode;
 
 		if (keyCode == prefs.getKeyOtherActions()) {
-			UI.showPreferencesScreen((TraditionalT9) this);
-			return true;
+			return onKeyOtherAction(true);
 		}
 
 		if (keyCode == prefs.getKeyInputMode()) {
-			nextLang();
-			return true;
+			return onKeyInputMode(true);
 		}
 
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_0: return handle0(true);
-			case KeyEvent.KEYCODE_1: return handle1(true);
+			case KeyEvent.KEYCODE_0: return on0(true);
+			case KeyEvent.KEYCODE_1: return on1(true);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -270,27 +268,21 @@ public abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == prefs.getKeyOtherActions()) {
-			showAddWord();
-			return true;
+			return onKeyOtherAction(false);
 		}
 
 		if (keyCode == prefs.getKeyInputMode()) {
-			nextKeyMode();
-			// @todo: if in predictive mode and composing a word, change the case only
-			return true;
+			return onKeyInputMode(false);
 		}
 
 		switch(keyCode) {
-			case KeyEvent.KEYCODE_DPAD_CENTER:
-				return handleOK();
-			case KeyEvent.KEYCODE_DPAD_UP:
-				return previousCandidate();
-			case KeyEvent.KEYCODE_DPAD_DOWN:
-				return nextCandidate();
-			case KeyEvent.KEYCODE_0:
-				return handle0(false);
-			case KeyEvent.KEYCODE_1:
-				return handle1(false);
+			case KeyEvent.KEYCODE_DPAD_CENTER: return onOK();
+			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
+			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
+			case KeyEvent.KEYCODE_0: return on0(false);
+			case KeyEvent.KEYCODE_1: return on1(false);
+			case KeyEvent.KEYCODE_STAR: return onStar();
+			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
 
 		return super.onKeyUp(keyCode, event);
@@ -302,7 +294,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		boolean handled = handleBackspace();
+		boolean handled = onBackspace();
 		lastBackspaceCall = System.currentTimeMillis();
 
 		return handled;
@@ -330,25 +322,24 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	protected boolean isCandidateViewHidden() {
-		return mCandidateView == null || !mCandidateView.isShown();
-	}
+	// default hardware key handlers
+	abstract public boolean onBackspace();
+	abstract public boolean onOK();
+	abstract protected boolean onUp();
+	abstract protected boolean onDown();
+	abstract protected boolean on0(boolean hold);
+	abstract protected boolean on1(boolean hold);
+	abstract protected boolean onStar();
+	abstract protected boolean onPound();
 
+	// customized key handlers
+	abstract protected boolean onKeyInputMode(boolean hold);
+	abstract protected boolean onKeyOtherAction(boolean hold);
 
-	abstract protected boolean handle0(boolean hold);
-	abstract protected boolean handle1(boolean hold);
-	abstract public boolean handleOK();
-	abstract public boolean handleBackspace();
-
-	abstract protected boolean nextCandidate();
-	abstract protected boolean previousCandidate();
-	abstract protected void commitCurrentCandidate();
+	// helpers
 	abstract protected void setCandidates(List<String> suggestions);
 	abstract protected void setCandidates(List<String> suggestions, int initialSel);
-	abstract protected void nextKeyMode();
-	abstract protected void nextLang();
 	abstract protected void restoreLastWordIfAny();
-	abstract protected void showAddWord();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////

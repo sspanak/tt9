@@ -42,7 +42,7 @@ public class SoftKeyHandler implements View.OnTouchListener {
 		}
 
 		if (buttonId == R.id.main_mid && action == MotionEvent.ACTION_UP) {
-			parent.handleOK();
+			parent.onOK();
 			return view.performClick();
 		}
 
