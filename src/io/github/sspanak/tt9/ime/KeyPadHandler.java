@@ -19,29 +19,30 @@ import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.List;
 
-public class KeyPadHandler extends InputMethodService {
-	private InputConnection currentInputConnection = null;
+public abstract class KeyPadHandler extends InputMethodService {
+	protected InputConnection currentInputConnection = null;
 
-	private SoftKeyHandler softKeyHandler = null;
-	private CandidateView mCandidateView;
+	protected SoftKeyHandler softKeyHandler = null;
+	protected CandidateView mCandidateView;
 
 
-	private T9DB db;
-	private T9Preferences prefs;
+	protected T9DB db;
+	protected T9Preferences prefs;
 
-	private int mInputMode = T9Preferences.MODE_123;
-	private int mCapsMode = T9Preferences.CASE_LOWER;
-	private int mLanguage = 0;
+	protected int mInputMode = T9Preferences.MODE_123;
+	protected int mCapsMode = T9Preferences.CASE_LOWER;
+	protected int mLanguage = 0;
 
-	private static final int NON_EDIT = 0;
-	private static final int EDITING = 1;
-	private static final int EDITING_NOSHOW = 2;
-	private int mEditing = NON_EDIT;
+	protected static final int NON_EDIT = 0;
+	protected static final int EDITING = 1;
+	protected static final int EDITING_NOSHOW = 2;
+	protected int mEditing = NON_EDIT;
 
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
 	private long lastBackspaceCall = 0;
 	private int ignoreNextKeyUp = 0;
+
 
 	/**
 	 * Main initialization of the input method component. Be sure to call to
@@ -54,7 +55,7 @@ public class KeyPadHandler extends InputMethodService {
 		prefs = T9Preferences.getInstance(this);
 
 		if (softKeyHandler == null) {
-			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
+			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), (TraditionalT9) this);
 		}
 	}
 
@@ -101,7 +102,6 @@ public class KeyPadHandler extends InputMethodService {
 	}
 
 
-
 	/**
 	 * This is the main point where we do our initialization of the input method
 	 * to begin operating on an application. At this point we have been bound to
@@ -136,7 +136,7 @@ public class KeyPadHandler extends InputMethodService {
 
 		// @todo: show or hide UI elements
 
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
+		UI.updateStatusIcon((TraditionalT9) this, mInputMode, mCapsMode);
 
 		// @todo: handle word adding
 	}
@@ -166,26 +166,6 @@ public class KeyPadHandler extends InputMethodService {
 	public void onDestroy() {
 		db.close();
 		super.onDestroy();
-	}
-
-
-	/**
-	 * Deal with the editor reporting movement of its cursor.
-	 */
-	@Override
-	public void onUpdateSelection(
-		int oldSelStart,
-		int oldSelEnd,
-		int newSelStart,
-		int newSelEnd,
-		int candidatesStart,
-		int candidatesEnd
-	) {
-		// @todo: pass-throught to super.onUpdateSelection()?
-
-		// @todo: commit text
-
-		// @todo: clear candidates
 	}
 
 
@@ -246,7 +226,7 @@ public class KeyPadHandler extends InputMethodService {
 		ignoreNextKeyUp = keyCode;
 
 		if (keyCode == prefs.getKeyOtherActions()) {
-			UI.showPreferencesScreen(this);
+			UI.showPreferencesScreen((TraditionalT9) this);
 			return true;
 		}
 
@@ -308,9 +288,9 @@ public class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
 				return handleOK();
 			case KeyEvent.KEYCODE_DPAD_UP:
-				return handlePreviousCandidate();
+				return previousCandidate();
 			case KeyEvent.KEYCODE_DPAD_DOWN:
-				return handleNextCandidate();
+				return nextCandidate();
 			case KeyEvent.KEYCODE_1:
 				return handle1();
 		}
@@ -319,43 +299,7 @@ public class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private boolean handle1() {
-		if (mInputMode == T9Preferences.MODE_123) {
-			currentInputConnection.commitText("1", 1);
-		}
-
-		return true;
-	}
-
-
-	public boolean handleOK() {
-		Log.d("handleBackspace", "enter handler");
-
-		if (!isInputViewShown()) {
-			showWindow(true);
-		}
-
-		commitCurrentCandidate();
-		return !isCandidateViewHidden();
-	}
-
-
-	public boolean handleBackspace() {
-		if (!InputFieldHelper.isThereText(currentInputConnection)) {
-			Log.d("handleBackspace", "backspace ignored");
-			return false;
-		}
-
-		commitCurrentCandidate();
-		setCandidates(null);
-		currentInputConnection.deleteSurroundingText(1, 0);
-
-		Log.d("handleBackspace", "backspace handled");
-		return true;
-	}
-
-
-	public boolean handleBackspaceHold() {
+	protected boolean handleBackspaceHold() {
 		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
 			return true;
 		}
@@ -367,37 +311,7 @@ public class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private boolean handleNextCandidate() {
-		if (isCandidateViewHidden()) {
-			return false;
-		}
-
-		mCandidateView.scrollToSuggestion(1);
-		return true;
-	}
-
-
-	private boolean handlePreviousCandidate() {
-		if (isCandidateViewHidden()) {
-			return false;
-		}
-
-		mCandidateView.scrollToSuggestion(-1);
-		return true;
-	}
-
-
-	private boolean isOff() {
-		return currentInputConnection == null || mEditing == NON_EDIT;
-	}
-
-
-	private boolean isCandidateViewHidden() {
-		return mCandidateView == null || !mCandidateView.isShown();
-	}
-
-
-	private void clearState() {
+	protected void clearState() {
 		setCandidates(null);
 		// @todo: clear composition
 		// @todo: clear previous word
@@ -413,92 +327,53 @@ public class KeyPadHandler extends InputMethodService {
 	}
 
 
+	private boolean isOff() {
+		return currentInputConnection == null || mEditing == NON_EDIT;
+	}
+
+
+	protected boolean isCandidateViewHidden() {
+		return mCandidateView == null || !mCandidateView.isShown();
+	}
+
+
+	abstract protected boolean handle1();
+	abstract public boolean handleOK();
+	abstract public boolean handleBackspace();
+
+	abstract protected boolean nextCandidate();
+	abstract protected boolean previousCandidate();
+	abstract protected void commitCurrentCandidate();
+	abstract protected void setCandidates(List<String> suggestions);
+	abstract protected void setCandidates(List<String> suggestions, int initialSel);
+	abstract protected void nextKeyMode();
+	abstract protected void nextLang();
+	abstract protected void restoreLastWordIfAny();
+	abstract protected void showAddWord();
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+///
 	/**
-	 * Helper function to commit any text being composed in to the editor.
+	 * Deal with the editor reporting movement of its cursor.
 	 */
-	private void commitCurrentCandidate() {
-		if (currentInputConnection != null && !isCandidateViewHidden()) {
-			String word = mCandidateView.getCurrentSuggestion();
-			currentInputConnection.commitText(word, word.length());
-		}
+	@Override
+	public void onUpdateSelection(
+		int oldSelStart,
+		int oldSelEnd,
+		int newSelStart,
+		int newSelEnd,
+		int candidatesStart,
+		int candidatesEnd
+	) {
+		// @todo: implement if necessary
 
-		setCandidates(null);
-	}
+		// @todo: pass-throught to super.onUpdateSelection()?
 
+		// @todo: commit text
 
-	private void setCandidates(List<String> suggestions) {
-		setCandidates(suggestions, 0);
-	}
-
-	private void setCandidates(List<String> suggestions, int initialSel) {
-		if (mCandidateView == null) {
-			return;
-		}
-
-		boolean show = suggestions != null && suggestions.size() > 0;
-
-		mCandidateView.setSuggestions(suggestions, initialSel);
-		setCandidatesViewShown(show);
-	}
-
-
-	private void restoreLastWordIfAny() {
-		// mAddingWord = false;
-		String word = prefs.getLastWord();
-		if (word.equals("")) {
-			prefs.setLastWord("");
-
-			// @todo: push the word to the text field
-		}
-	}
-
-
-	protected void nextKeyMode() {
-		// @todo: commit current text
-
-		// select next mode
-		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
-			mInputMode = T9Preferences.MODE_123;
-		} else if (mInputMode == T9Preferences.MODE_123) {
-			mInputMode = T9Preferences.MODE_ABC;
-			mCapsMode = T9Preferences.CASE_LOWER;
-		} else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
-			mCapsMode = T9Preferences.CASE_UPPER;
-		} else {
-			mInputMode = T9Preferences.MODE_PREDICTIVE;
-			mCapsMode = T9Preferences.CASE_CAPITALIZE;
-		}
-
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
-	}
-
-
-	private void nextLang() {
-		// @todo: commit current text
-
-		// @todo: select next language
-		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");
-
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
-	}
-
-
-	protected void showAddWord() {
-		if (mInputMode != T9Preferences.MODE_PREDICTIVE) {
-			return;
-		}
-
-		clearState();
-		// @todo: clear the candidate list
-		currentInputConnection.setComposingText("", 0);
-		currentInputConnection.finishComposingText();
-
-		String template = "";
-
-		// @todo: get the current word template from the input connection
-		// template = getSurroundingWord();
-
-		UI.showAddWordDialog(this, mLanguage, template);
+		// @todo: clear candidates
 	}
 
 

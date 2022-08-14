@@ -9,10 +9,10 @@ import io.github.sspanak.tt9.ui.UI;
 public class SoftKeyHandler implements View.OnTouchListener {
 
 	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
-	private final KeyPadHandler parent;
+	private final TraditionalT9 parent;
 	private View mainView;
 
-	public SoftKeyHandler(View mainView, KeyPadHandler iparent) {
+	public SoftKeyHandler(View mainView, TraditionalT9 iparent) {
 		this.parent = iparent;
 		changeView(mainView);
 	}
