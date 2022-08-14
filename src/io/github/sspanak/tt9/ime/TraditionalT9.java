@@ -118,11 +118,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyInputMode(boolean hold) {
-		// @todo: sort out number-only and non-predictive fields
-
 		if (hold) {
 			nextLang();
 		} else {
+			// @todo: commit current text
 			nextKeyMode();
 			// @todo: if in predictive mode and composing a word, change the case only
 		}
@@ -197,19 +196,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextKeyMode() {
-		// @todo: commit current text
-
-		// select next mode
-		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+		if (mEditing == EDITING_STRICT_NUMERIC) {
 			mInputMode = T9Preferences.MODE_123;
-		} else if (mInputMode == T9Preferences.MODE_123) {
-			mInputMode = T9Preferences.MODE_ABC;
-			mCapsMode = T9Preferences.CASE_LOWER;
 		} else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
 			mCapsMode = T9Preferences.CASE_UPPER;
 		} else {
-			mInputMode = T9Preferences.MODE_PREDICTIVE;
-			mCapsMode = T9Preferences.CASE_CAPITALIZE;
+			int modeIndex = (allowedEditingModes.indexOf(mInputMode) + 1) % allowedEditingModes.size();
+			mInputMode = allowedEditingModes.get(modeIndex);
+
+			mCapsMode = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
 		}
 
 		UI.updateStatusIcon(this, mInputMode, mCapsMode);
@@ -217,6 +212,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextLang() {
+		if (mEditing == EDITING_STRICT_NUMERIC) {
+			return;
+		}
+
 		// @todo: commit current text
 
 		// @todo: select next language

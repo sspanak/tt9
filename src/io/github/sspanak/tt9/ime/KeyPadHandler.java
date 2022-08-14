@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class KeyPadHandler extends InputMethodService {
@@ -30,7 +31,9 @@ public abstract class KeyPadHandler extends InputMethodService {
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
 	protected static final int EDITING_NOSHOW = 2;
+	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected int mEditing = NON_EDIT;
+	protected ArrayList<Integer> allowedEditingModes;
 
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
@@ -110,18 +113,16 @@ public abstract class KeyPadHandler extends InputMethodService {
 		// Special or limited input type. This means the input connection is not rich,
 		// or it can not process or show things like candidate text, nor retrieve the current text.
 		// We just let Android handle this input.
-		if (currentInputConnection == null || inputField.inputType == InputType.TYPE_NULL) {
+		if (currentInputConnection == null || inputField == null || inputField.inputType == InputType.TYPE_NULL) {
 			onFinish();
 			return;
 		}
 
-
-		// @todo: get relevant settings
+		// @todo: get all relevant settings
 		mLanguage = prefs.getInputLanguage();
 
-		// initialize typing mode
-		mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
-		mInputMode = InputFieldHelper.determineInputMode(inputField, prefs.getInputMode());
+		initTypingMode(inputField);
+
 		// @todo: determine case from input
 
 		onRestart();
@@ -163,7 +164,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (isOff()) {
-			return false;
+			return super.onKeyDown(keyCode, event);
 		}
 
 		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
@@ -184,26 +185,35 @@ public abstract class KeyPadHandler extends InputMethodService {
 		// start tracking key hold
 		event.startTracking();
 
+		if (keyCode == KeyEvent.KEYCODE_0) {
+			return true;
+		}
+
+		// in numeric text fields, we do not want to handle anything,
+		// but backspace or 0 (because of +)
+		if (mEditing == EDITING_STRICT_NUMERIC) {
+			return false;
+		}
+
 		if (
-			keyCode == prefs.getKeyOtherActions()
-			|| keyCode == prefs.getKeyInputMode()
-			|| keyCode == KeyEvent.KEYCODE_STAR
-			|| keyCode == KeyEvent.KEYCODE_POUND
-			|| keyCode == KeyEvent.KEYCODE_0
-			|| (keyCode == KeyEvent.KEYCODE_1 && mInputMode != T9Preferences.MODE_123)
-			|| (mCandidateView.isShown() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+				keyCode == prefs.getKeyOtherActions()
+				|| keyCode == prefs.getKeyInputMode()
+				|| keyCode == KeyEvent.KEYCODE_STAR
+				|| keyCode == KeyEvent.KEYCODE_POUND
+				|| (keyCode == KeyEvent.KEYCODE_1 && mInputMode != T9Preferences.MODE_123)
+				|| (!isCandidateViewHidden() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
 		) {
 			return true;
 		}
 
-		return super.onKeyDown(keyCode, event);
+		return false;
 	}
 
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 		if (isOff()) {
-			return false;
+			return super.onKeyDown(keyCode, event);
 		}
 
 		Log.d("onLongPress", "LONG PRESS: " + keyCode);
@@ -255,6 +265,16 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		if (keyCode == KeyEvent.KEYCODE_0) {
+			return on0(false);
+		}
+
+		// in numeric text fields, we do not want to handle anything,
+		// but backspace or 0 (because of +)
+		if (mEditing == EDITING_STRICT_NUMERIC) {
+			return false;
+		}
+
 		if (keyCode == prefs.getKeyOtherActions()) {
 			return onKeyOtherAction(false);
 		}
@@ -267,13 +287,12 @@ public abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_CENTER: return onOK();
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
-			case KeyEvent.KEYCODE_0: return on0(false);
 			case KeyEvent.KEYCODE_1: return on1(false);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
 
-		return super.onKeyUp(keyCode, event);
+		return false;
 	}
 
 
@@ -303,6 +322,20 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
+	private void initTypingMode(EditorInfo inputField) {
+		allowedEditingModes = InputFieldHelper.determineInputMode(inputField);
+
+		int lastInputMode = prefs.getInputMode();
+		mInputMode = (allowedEditingModes.indexOf(lastInputMode) != -1) ? lastInputMode : allowedEditingModes.get(0);
+
+		if (mInputMode == T9Preferences.MODE_123 && allowedEditingModes.size() == 1) {
+			mEditing = EDITING_STRICT_NUMERIC;
+		} else {
+			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		}
+	}
+
+
 	// default hardware key handlers
 	abstract public boolean onBackspace();
 	abstract public boolean onOK();
@@ -324,6 +357,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	abstract protected View createSoftKeysView();
 	abstract protected void setCandidates(List<String> suggestions);
 	abstract protected void setCandidates(List<String> suggestions, int initialSel);
+	abstract protected boolean isCandidateViewHidden();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////

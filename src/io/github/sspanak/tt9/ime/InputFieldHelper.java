@@ -8,6 +8,8 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 
@@ -63,22 +65,29 @@ public class InputFieldHelper {
 
 	/**
 	 * determineInputMode
-	 * Determine the typing mode based on the input field being edited.
+	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
 	 *
 	 * @param  inputField
-	 * @return T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE
+	 * @return ArrayList<T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE>
 	 */
-	public static int determineInputMode(EditorInfo inputField, int defaultMode) {
+	public static ArrayList<Integer> determineInputMode(EditorInfo inputField) {
+		ArrayList<Integer> allowedModes = new ArrayList<Integer>();
+
 		if (inputField == null) {
-			return defaultMode;
+			allowedModes.add(T9Preferences.MODE_123);
+			return allowedModes;
 		}
 
-		if (inputField.inputType == INPUT_TYPE_SHARP_007H_PHONE_BOOK) {
-			return T9Preferences.MODE_ABC;
-		}
-
-		if (inputField.privateImeOptions != null && inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")) {
-			return T9Preferences.MODE_ABC;
+		if (
+			inputField.inputType == INPUT_TYPE_SHARP_007H_PHONE_BOOK
+			|| (
+				inputField.privateImeOptions != null
+				&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
+			)
+		) {
+			allowedModes.add(T9Preferences.MODE_123);
+			allowedModes.add(T9Preferences.MODE_ABC);
+			return allowedModes;
 		}
 
 		switch (inputField.inputType & InputType.TYPE_MASK_CLASS) {
@@ -89,20 +98,27 @@ public class InputFieldHelper {
 			case InputType.TYPE_CLASS_PHONE:
 				// Phones will also default to the symbols keyboard, though
 				// often you will want to have a dedicated phone keyboard.
-				return T9Preferences.MODE_123;
+				allowedModes.add(T9Preferences.MODE_123);
+				return allowedModes;
 
 			case InputType.TYPE_CLASS_TEXT:
 				// This is general text editing. We will default to the
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
+				if (!isSpecializedTextField(inputField)) {
+					allowedModes.add(T9Preferences.MODE_PREDICTIVE);
+				}
 
-				return isSpecializedTextField(inputField) ? T9Preferences.MODE_ABC : defaultMode;
+				// ↓ fallthrough to add ABC and 123 modes ↓
 
 			default:
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
-				return T9Preferences.MODE_ABC;
+				allowedModes.add(T9Preferences.MODE_123);
+				allowedModes.add(T9Preferences.MODE_ABC);
+
+				return allowedModes;
 		}
 	}
 
