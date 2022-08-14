@@ -201,7 +201,8 @@ public abstract class KeyPadHandler extends InputMethodService {
 		if (
 			keyCode == prefs.getKeyOtherActions()
 			|| keyCode == prefs.getKeyInputMode()
-			|| keyCode == KeyEvent.KEYCODE_1
+			|| keyCode == KeyEvent.KEYCODE_0
+			|| (keyCode == KeyEvent.KEYCODE_1 && mInputMode != T9Preferences.MODE_123)
 			|| (mCandidateView.isShown() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
 		) {
 			return true;
@@ -235,10 +236,9 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-
-		if (keyCode == KeyEvent.KEYCODE_1) {
-			setCandidates(Punctuation.getPunctuation(), 0);
-			return true;
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_0: return handle0(true);
+			case KeyEvent.KEYCODE_1: return handle1(true);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -280,10 +280,6 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		if (mInputMode == T9Preferences.MODE_123 && keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {
-			setCandidates(null);
-		}
-
 		switch(keyCode) {
 			case KeyEvent.KEYCODE_DPAD_CENTER:
 				return handleOK();
@@ -291,8 +287,10 @@ public abstract class KeyPadHandler extends InputMethodService {
 				return previousCandidate();
 			case KeyEvent.KEYCODE_DPAD_DOWN:
 				return nextCandidate();
+			case KeyEvent.KEYCODE_0:
+				return handle0(false);
 			case KeyEvent.KEYCODE_1:
-				return handle1();
+				return handle1(false);
 		}
 
 		return super.onKeyUp(keyCode, event);
@@ -337,7 +335,8 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	abstract protected boolean handle1();
+	abstract protected boolean handle0(boolean hold);
+	abstract protected boolean handle1(boolean hold);
 	abstract public boolean handleOK();
 	abstract public boolean handleBackspace();
 

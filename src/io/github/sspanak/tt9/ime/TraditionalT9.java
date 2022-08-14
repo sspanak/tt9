@@ -22,9 +22,26 @@ import java.util.List;
 public class TraditionalT9 extends KeyPadHandler {
 
 
-	protected boolean handle1() {
+	protected boolean handle0(boolean hold) {
 		if (mInputMode == T9Preferences.MODE_123) {
-			currentInputConnection.commitText("1", 1);
+			String chr = hold ? "+" : "0";
+			currentInputConnection.commitText(chr, 1);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	protected boolean handle1(boolean hold) {
+		if (mInputMode == T9Preferences.MODE_123) {
+			return true;
+		}
+
+		if (hold) {
+			UI.showSymbolDialog(this);
+		} else {
+			setCandidates(Punctuation.getPunctuation(), 0);
 		}
 
 		return true;
