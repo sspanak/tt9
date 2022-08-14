@@ -64,13 +64,13 @@ public class InputFieldHelper {
 
 
 	/**
-	 * determineInputMode
+	 * determineInputModes
 	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
 	 *
 	 * @param  inputField
 	 * @return ArrayList<T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE>
 	 */
-	public static ArrayList<Integer> determineInputMode(EditorInfo inputField) {
+	public static ArrayList<Integer> determineInputModes(EditorInfo inputField) {
 		ArrayList<Integer> allowedModes = new ArrayList<Integer>();
 
 		if (inputField == null) {

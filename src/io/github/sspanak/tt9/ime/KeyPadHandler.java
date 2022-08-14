@@ -5,7 +5,6 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -58,15 +57,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-
-		//Log.d("T9.onEvaluateInputViewShown", "whatis");
-		//Log.d("T9.onEval", "fullscreen?: " + isFullscreenMode() + " isshow?: " + isInputViewShown() + " isrequestedshow?: " + isShowInputRequested());
-
-		if (mEditing == EDITING_NOSHOW) {
-			return false;
-		}
-
-		return true;
+		return mEditing != EDITING_NOSHOW;
 	}
 
 
@@ -323,10 +314,16 @@ public abstract class KeyPadHandler extends InputMethodService {
 
 
 	private void initTypingMode(EditorInfo inputField) {
-		allowedEditingModes = InputFieldHelper.determineInputMode(inputField);
+		allowedEditingModes = InputFieldHelper.determineInputModes(inputField);
 
 		int lastInputMode = prefs.getInputMode();
-		mInputMode = (allowedEditingModes.indexOf(lastInputMode) != -1) ? lastInputMode : allowedEditingModes.get(0);
+		if (allowedEditingModes.contains(lastInputMode)) {
+			mInputMode = lastInputMode;
+		} else if (allowedEditingModes.contains(T9Preferences.MODE_ABC)) {
+			mInputMode = T9Preferences.MODE_ABC;
+		} else {
+			mInputMode = allowedEditingModes.get(0);
+		}
 
 		if (mInputMode == T9Preferences.MODE_123 && allowedEditingModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
@@ -377,7 +374,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	) {
 		// @todo: implement if necessary
 
-		// @todo: pass-throught to super.onUpdateSelection()?
+		// @todo: pass-through to super.onUpdateSelection()?
 
 		// @todo: commit text
 
