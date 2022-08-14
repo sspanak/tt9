@@ -78,7 +78,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public View onCreateInputView() {
-		return createSoftKeysView();
+		return createSoftKeyView();
 	}
 
 
@@ -354,7 +354,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onInit();
 	abstract protected void onRestart();
 	abstract protected void onFinish();
-	abstract protected View createSoftKeysView();
+	abstract protected View createSoftKeyView();
 	abstract protected void setCandidates(List<String> suggestions);
 	abstract protected void setCandidates(List<String> suggestions, int initialSel);
 	abstract protected boolean isCandidateViewHidden();
@@ -366,7 +366,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	/**
 	 * Deal with the editor reporting movement of its cursor.
 	 */
-	@Override
+/*	@Override
 	public void onUpdateSelection(
 		int oldSelStart,
 		int oldSelEnd,
@@ -382,7 +382,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		// @todo: commit text
 
 		// @todo: clear candidates
-	}
+	}*/
 
 
 	/**
@@ -391,8 +391,8 @@ public abstract class KeyPadHandler extends InputMethodService {
 	 * the completions ourself, since the editor can not be seen in that
 	 * situation.
 	 */
-	@Override
+/*	@Override
 	public void onDisplayCompletions(CompletionInfo[] completions) {
 		// @todo: see if this can be deleted or it should be an empty function
-	}
+	}*/
 }

@@ -13,6 +13,7 @@ import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
+	private View softKeyView = null;
 
 
 	protected void onInit() {
@@ -26,9 +27,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		UI.updateStatusIcon(this, mInputMode, mCapsMode);
 
 		// @todo: show or hide UI elements
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//			requestShowSelf(1);
-//		}
+		displaySoftKeyMenu();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
+			requestShowSelf(1);
+		}
 
 		// @todo: handle word adding
 	}
@@ -38,6 +40,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		clearState();
 		hideStatusIcon();
 		hideWindow();
+
+		if (softKeyView != null) {
+			softKeyView.setVisibility(View.GONE);
+		}
 	}
 
 
@@ -61,6 +67,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (!isInputViewShown()) {
 			showWindow(true);
+			displaySoftKeyMenu();
 		}
 
 		commitCurrentCandidate();
@@ -250,12 +257,20 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	/**
-	 * createSoftKeysView
+	 * createSoftKeyView
 	 * Generates the actual UI of TT9.
 	 */
-	protected View createSoftKeysView() {
-		View v = getLayoutInflater().inflate(R.layout.mainview, null);
-		softKeyHandler.changeView(v);
-		return v;
+	protected View createSoftKeyView() {
+		if (softKeyView == null) {
+			softKeyView = getLayoutInflater().inflate(R.layout.mainview, null);
+		}
+		softKeyHandler.changeView(softKeyView);
+		return softKeyView;
+	}
+
+
+	private void displaySoftKeyMenu() {
+		createSoftKeyView();
+		softKeyView.setVisibility(View.VISIBLE);
 	}
 }
