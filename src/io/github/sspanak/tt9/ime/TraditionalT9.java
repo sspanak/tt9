@@ -59,7 +59,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean on1(boolean hold) {
 		if (mInputMode == T9Preferences.MODE_123) {
-			return true;
+			return false;
 		}
 
 		if (hold) {
