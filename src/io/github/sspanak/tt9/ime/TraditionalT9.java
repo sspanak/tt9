@@ -1,7 +1,10 @@
 package io.github.sspanak.tt9.ime;
 
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -9,6 +12,35 @@ import io.github.sspanak.tt9.preferences.T9Preferences;
 import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
+	private SoftKeyHandler softKeyHandler = null;
+
+
+	protected void onInit() {
+		if (softKeyHandler == null) {
+			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
+		}
+	}
+
+
+	protected void onRestart() {
+		UI.updateStatusIcon(this, mInputMode, mCapsMode);
+
+		// @todo: show or hide UI elements
+//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//			requestShowSelf(1);
+//		}
+
+		// @todo: handle word adding
+	}
+
+
+	protected void onFinish() {
+		clearState();
+		hideStatusIcon();
+		hideWindow();
+	}
+
+
 	public boolean onBackspace() {
 		if (!InputFieldHelper.isThereText(currentInputConnection)) {
 			Log.d("handleBackspace", "backspace ignored");
@@ -207,7 +239,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		UI.showAddWordDialog(this, mLanguage, template);
 	}
 
-	protected void restoreLastWordIfAny() {
+
+	private void restoreLastWordIfAny() {
 		// mAddingWord = false;
 		String word = prefs.getLastWord();
 		if (word.equals("")) {
@@ -215,5 +248,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 			// @todo: push the word to the text field
 		}
+	}
+
+	/**
+	 * createSoftKeysView
+	 * Generates the actual UI of TT9.
+	 */
+	protected View createSoftKeysView() {
+		View v = getLayoutInflater().inflate(R.layout.mainview, null);
+		softKeyHandler.changeView(v);
+		return v;
 	}
 }

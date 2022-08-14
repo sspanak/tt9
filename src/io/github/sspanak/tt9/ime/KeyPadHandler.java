@@ -9,10 +9,8 @@ import android.view.inputmethod.CompletionInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.ui.CandidateView;
-import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.List;
@@ -20,13 +18,11 @@ import java.util.List;
 public abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
 
-	protected SoftKeyHandler softKeyHandler = null;
 	protected CandidateView mCandidateView;
-
-
 	protected T9DB db;
 	protected T9Preferences prefs;
 
+	// input mode
 	protected int mInputMode = T9Preferences.MODE_123;
 	protected int mCapsMode = T9Preferences.CASE_LOWER;
 	protected int mLanguage = 0;
@@ -52,9 +48,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		db = T9DB.getInstance(this);
 		prefs = T9Preferences.getInstance(this);
 
-		if (softKeyHandler == null) {
-			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), (TraditionalT9) this);
-		}
+		onInit();
 	}
 
 
@@ -81,9 +75,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public View onCreateInputView() {
-		View v = getLayoutInflater().inflate(R.layout.mainview, null);
-		softKeyHandler.changeView(v);
-		return v;
+		return createSoftKeysView();
 	}
 
 
@@ -119,7 +111,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		// or it can not process or show things like candidate text, nor retrieve the current text.
 		// We just let Android handle this input.
 		if (currentInputConnection == null || inputField.inputType == InputType.TYPE_NULL) {
-			finish();
+			onFinish();
 			return;
 		}
 
@@ -132,11 +124,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		mInputMode = InputFieldHelper.determineInputMode(inputField, prefs.getInputMode());
 		// @todo: determine case from input
 
-		// @todo: show or hide UI elements
-
-		UI.updateStatusIcon((TraditionalT9) this, mInputMode, mCapsMode);
-
-		// @todo: handle word adding
+		onRestart();
 	}
 
 
@@ -155,7 +143,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 
 			// @todo: commit current text
 
-			finish();
+			onFinish();
 		}
 	}
 
@@ -310,13 +298,6 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private void finish() {
-		clearState();
-		hideStatusIcon();
-		hideWindow();
-	}
-
-
 	private boolean isOff() {
 		return currentInputConnection == null || mEditing == NON_EDIT;
 	}
@@ -337,9 +318,12 @@ public abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onKeyOtherAction(boolean hold);
 
 	// helpers
+	abstract protected void onInit();
+	abstract protected void onRestart();
+	abstract protected void onFinish();
+	abstract protected View createSoftKeysView();
 	abstract protected void setCandidates(List<String> suggestions);
 	abstract protected void setCandidates(List<String> suggestions, int initialSel);
-	abstract protected void restoreLastWordIfAny();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////
