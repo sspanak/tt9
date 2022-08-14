@@ -2,6 +2,7 @@ package io.github.sspanak.tt9;
 
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.text.InputType;
@@ -268,7 +269,9 @@ public class TraditionalT9 extends InputMethodService {
 		mKeyMode = determineInputMode(inputField);
 
 		// show or hide UI elements
-		requestShowSelf(1);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+			requestShowSelf(1);
+		}
 		updateCandidates();
 		setSuggestions(null, -1);
 		setCandidatesViewShown(false);
