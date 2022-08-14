@@ -4,11 +4,16 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
-- Enable the IME in Android settings.
-- Open the IME configuration and select the desired languages.
+- Go to Android Settings → System → Languages → Keyboards.
+- Add Traditional T9 IME.
+
+With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, you must also do the following:
+
+- Open TT9 preferences.
+- Select the desired languages.
 - Load the dictionaries.
 
-_If you don't do the above, nothing will happen when you press keys on your phone._
+_If you don't do the above, nothing will happen when you try to type in Predictive mode._
 
 ## Hotkeys
 #### D-pad Up (↑):
@@ -18,29 +23,25 @@ Select previous word suggestion
 Select next word suggestion
 
 #### Left Soft Key:
-Insert symbol or Add word depending on state and context. Add word only available in Predictive input mode.
+Open Traditional T9 Preferences screen.
 
 #### Right Soft Key:
+Backspace.
+
+#### Text Mode Key (Hash/Pound/#):
 - **Short press:** Cycle input modes (Predictive → Abc → 123)
-- **Long press:** Bring up the TT9 preference screen
+- **Short press while typing a word:**: Change between UPPERCASE and lowercase.
+- **Long press:** Select next language
+- **Number-only fields:** Type a "#". Changing the mode is not possible in such fields.
 
-#### Star (\*):
-- **Short press:** Change case
-- **Long press:**
-    - When multiple languages are enabled: Change language
-    - When single language is enabled: Bring up smiley insert dialog
-    - Numeric mode: Insert a star
-
-#### Hash/Pound (#):
-- **Short press:** Space
-- **Long press:**
-    - New line
-    - Numeric mode: Insert hash/pound (#)
-
-#### Back (↩):
+#### Backspace Key (Back/↩):
 - **Short Press when there is text:** Usually, "backspace". However, some applications, most notably Firefox and Spotify, forbid this action in their search fields. This is due to the fact Android allows applications to take over control of the physical keypad and redefine what buttons do. Unfortunately, nothing can be done in such cases, "Back" will function as the application authors intended, instead of as backspace.
 - **Short Press when there is no text:** System default, no special action (usually, go back)
 - **Long Press:** System default, no special action
+
+#### Other Actions Key (Star/✱):
+- **Short press:** Add a word to the dictionary.
+- **Long press:** Open Traditional T9 Preferences screen.
 
 ## Configuration Options
 TODO...
