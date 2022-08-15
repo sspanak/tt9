@@ -44,9 +44,12 @@ def computeVersionCode = { ->
 }
 
 def computeVersionName = { ->
-	String tagsCount = execThing('git tag').split('\n').size() + 1 // initially, versions were 1-based
+	String tagsCount = execThing('git tag').split('\n').size()
 	String lastTag = execThing('git describe --tags --abbrev=0')
-	String commitsSinceLastTag = execThing("git log $lastTag..HEAD --oneline").split('\n').size() + 1
+
+	String gitLogResult = execThing("git log $lastTag..HEAD --oneline")
+	String commitsSinceLastTag = gitLogResult.equals('') ? "0" : gitLogResult.split('\n').size();
+
 	String currentHash = execThing('git log -1 --format=%h')
 
 	return "$tagsCount.$commitsSinceLastTag ($currentHash)"
