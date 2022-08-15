@@ -86,13 +86,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean on0(boolean hold) {
-		if (nextCandidateInModeAbc()) {
+		if (!hold && nextCandidateInModeAbc()) {
 			return true;
 		}
 
 		commitCurrentCandidate();
 		setCandidates(
-			mInputMode == T9Preferences.MODE_ABC ? Punctuation.getSecondaryPunctuation() : null,
+			mInputMode == T9Preferences.MODE_ABC && !hold ? Punctuation.getSecondaryPunctuation() : null,
 			0
 		);
 
@@ -114,7 +114,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		if (nextCandidateInModeAbc()) {
+		if (!hold && nextCandidateInModeAbc()) {
 			return true;
 		}
 
