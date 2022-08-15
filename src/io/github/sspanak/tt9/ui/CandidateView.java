@@ -126,6 +126,10 @@ public class CandidateView extends View {
 
 		for (int i = 0; i < count; i++) {
 			String suggestion = mSuggestions.get(i);
+			if (suggestion.equals("\n")) {
+				suggestion = "⏎"; // make it more clear it is a new line
+			}
+
 			float textWidth = paint.measureText(suggestion);
 			final int wordWidth = (int) textWidth + X_GAP * 2;
 
