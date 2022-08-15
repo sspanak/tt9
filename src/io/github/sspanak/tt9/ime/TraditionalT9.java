@@ -86,13 +86,26 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean on0(boolean hold) {
-		if (mInputMode == T9Preferences.MODE_123) {
-			String chr = hold ? "+" : "0";
-			currentInputConnection.commitText(chr, 1);
+		if (nextCandidateInModeAbc()) {
 			return true;
 		}
 
-		return false;
+		commitCurrentCandidate();
+		setCandidates(
+			mInputMode == T9Preferences.MODE_ABC ? Punctuation.getSecondaryPunctuation() : null,
+			0
+		);
+
+		if (hold) {
+			String chr = mInputMode == T9Preferences.MODE_123 ? "+" : "0";
+			currentInputConnection.commitText(chr, 1);
+		} else if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+			currentInputConnection.commitText(" ", 1);
+		} else if (mInputMode == T9Preferences.MODE_123) {
+			currentInputConnection.commitText("0", 1);
+		}
+
+		return true;
 	}
 
 
@@ -100,6 +113,13 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode == T9Preferences.MODE_123) {
 			return false;
 		}
+
+		if (nextCandidateInModeAbc()) {
+			return true;
+		}
+
+		commitCurrentCandidate();
+		setCandidates(null);
 
 		if (hold) {
 			Log.d("on1", "showSymbolDialog is broken!");
@@ -153,6 +173,16 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private boolean previousCandidate() {
+		if (isCandidateViewHidden()) {
+			return false;
+		}
+
+		mCandidateView.scrollToSuggestion(-1);
+		return true;
+	}
+
+
 	private boolean nextCandidate() {
 		if (isCandidateViewHidden()) {
 			return false;
@@ -163,15 +193,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private boolean previousCandidate() {
-		if (isCandidateViewHidden()) {
-			return false;
-		}
-
-		mCandidateView.scrollToSuggestion(-1);
-		return true;
+	private boolean nextCandidateInModeAbc() {
+		return isKeyCodeRepeated && mInputMode == T9Preferences.MODE_ABC && nextCandidate();
 	}
-
 
 	/**
 	 * Helper function to commit any text being composed in to the editor.
@@ -203,6 +227,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextKeyMode() {
+		setCandidates(null);
+
 		if (mEditing == EDITING_STRICT_NUMERIC) {
 			mInputMode = T9Preferences.MODE_123;
 		} else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
@@ -223,7 +249,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return;
 		}
 
-		// @todo: commit current text
+		setCandidates(null);
 
 		// @todo: select next language
 		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");

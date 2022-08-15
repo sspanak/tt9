@@ -34,10 +34,15 @@ public abstract class KeyPadHandler extends InputMethodService {
 	protected int mEditing = NON_EDIT;
 	protected ArrayList<Integer> allowedEditingModes;
 
+	// temporal key handling
+	private int ignoreNextKeyUp = 0;
+	private int lastKeyCode = 0;
+	protected boolean isKeyCodeRepeated = false;
+
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
 	private long lastBackspaceCall = 0;
-	private int ignoreNextKeyUp = 0;
+
 
 
 	/**
@@ -250,12 +255,16 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		isKeyCodeRepeated = (lastKeyCode == keyCode);
+		lastKeyCode = keyCode;
+
 		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
 		if (keyCode == prefs.getKeyBackspace() && InputFieldHelper.isThereText(currentInputConnection)) {
 			return true;
 		}
 
+		// handle 0 even in STRICT_NUMERIC mode, because of "+"
 		if (keyCode == KeyEvent.KEYCODE_0) {
 			return on0(false);
 		}
