@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageHelper;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -15,6 +17,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
 
+	protected Language mLanguage;
+
 
 	protected void onInit() {
 		if (softKeyHandler == null) {
@@ -24,9 +28,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart() {
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
+		mLanguage = LanguageHelper.getLanguage(prefs.getInputLanguage());
+		if (mLanguage == null) {
+			mLanguage = LanguageHelper.getLanguage(1);
+			prefs.setInputLanguage(1);
+		}
 
 		// @todo: show or hide UI elements
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 		displaySoftKeyMenu();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
 			requestShowSelf(1);
@@ -129,6 +138,26 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		return true;
+	}
+
+
+	protected boolean on2to9(int key, boolean hold) {
+		if (mInputMode == T9Preferences.MODE_123) {
+			return false;
+		}
+
+		if (hold) {
+			currentInputConnection.commitText(String.valueOf(key), 1);
+			return true;
+		} else if (nextCandidateInModeAbc()) {
+			return true;
+		} else if (mInputMode == T9Preferences.MODE_ABC) {
+			commitCurrentCandidate();
+			setCandidates(mLanguage.getKeyCharacters(key, mCapsMode == T9Preferences.CASE_LOWER), 0);
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -240,7 +269,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mCapsMode = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
 		}
 
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 	}
 
 
@@ -254,21 +283,19 @@ public class TraditionalT9 extends KeyPadHandler {
 		// @todo: select next language
 		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");
 
-		UI.updateStatusIcon(this, mInputMode, mCapsMode);
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 	}
 
 
 	private void showAddWord() {
 		clearState();
-		currentInputConnection.setComposingText("", 0);
-		currentInputConnection.finishComposingText();
 
 		String template = "";
 
 		// @todo: get the current word template from the input connection
 		// template = getSurroundingWord();
 
-		UI.showAddWordDialog(this, mLanguage, template);
+		UI.showAddWordDialog(this, mLanguage.getId(), template);
 	}
 
 

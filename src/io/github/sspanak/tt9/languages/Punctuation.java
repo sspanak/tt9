@@ -5,21 +5,21 @@ import java.util.Arrays;
 
 public class Punctuation {
 	public static ArrayList<String> getPunctuation() {
-		return new ArrayList<String>(Arrays.asList(
+		return new ArrayList<>(Arrays.asList(
 			".", ",", "-", "?", "!", "'", "\"", "@", ":", "/", ";", "%", "1"
 		));
 	}
 
 
 	public static ArrayList<String> getSecondaryPunctuation() {
-		return new ArrayList<String>(Arrays.asList(
+		return new ArrayList<>(Arrays.asList(
 			" ", "+", "\n", "0"
 		));
 	}
 
 
 	public static ArrayList<String> getEmoji() {
-		return new ArrayList<String>(Arrays.asList(
+		return new ArrayList<>(Arrays.asList(
 			":)", ":D", ";)", ":(", ":*", ":P"
 		));
 	}

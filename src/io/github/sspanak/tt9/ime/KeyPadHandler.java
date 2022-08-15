@@ -25,7 +25,6 @@ public abstract class KeyPadHandler extends InputMethodService {
 	// input mode
 	protected int mInputMode = T9Preferences.MODE_123;
 	protected int mCapsMode = T9Preferences.CASE_LOWER;
-	protected int mLanguage = 0;
 
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
@@ -115,7 +114,6 @@ public abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// @todo: get all relevant settings
-		mLanguage = prefs.getInputLanguage();
 
 		initTypingMode(inputField);
 
@@ -196,7 +194,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == prefs.getKeyInputMode()
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
-				|| (keyCode == KeyEvent.KEYCODE_1 && mInputMode != T9Preferences.MODE_123)
+				|| (isNumber(keyCode) && mInputMode != T9Preferences.MODE_123)
 				|| (!isCandidateViewHidden() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
 		) {
 			return true;
@@ -231,6 +229,15 @@ public abstract class KeyPadHandler extends InputMethodService {
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_0: return on0(true);
 			case KeyEvent.KEYCODE_1: return on1(true);
+			case KeyEvent.KEYCODE_2:
+			case KeyEvent.KEYCODE_3:
+			case KeyEvent.KEYCODE_4:
+			case KeyEvent.KEYCODE_5:
+			case KeyEvent.KEYCODE_6:
+			case KeyEvent.KEYCODE_7:
+			case KeyEvent.KEYCODE_8:
+			case KeyEvent.KEYCODE_9:
+				return on2to9(keyCodeToKeyNumber(keyCode), true);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -288,6 +295,15 @@ public abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_1: return on1(false);
+			case KeyEvent.KEYCODE_2:
+			case KeyEvent.KEYCODE_3:
+			case KeyEvent.KEYCODE_4:
+			case KeyEvent.KEYCODE_5:
+			case KeyEvent.KEYCODE_6:
+			case KeyEvent.KEYCODE_7:
+			case KeyEvent.KEYCODE_8:
+			case KeyEvent.KEYCODE_9:
+				return on2to9(keyCodeToKeyNumber(keyCode), false);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
@@ -310,15 +326,20 @@ public abstract class KeyPadHandler extends InputMethodService {
 
 	protected void clearState() {
 		setCandidates(null);
-		// @todo: clear composition
+		currentInputConnection.setComposingText("", 0);
+		currentInputConnection.finishComposingText();
 		// @todo: clear previous word
 		mEditing = NON_EDIT;
-		mLanguage = 0;
 	}
 
 
 	private boolean isOff() {
 		return currentInputConnection == null || mEditing == NON_EDIT;
+	}
+
+
+	private boolean isNumber(int keyCode) {
+		return keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9;
 	}
 
 
@@ -342,6 +363,34 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
+	private int keyCodeToKeyNumber(int keyCode) {
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_0:
+				return 0;
+			case KeyEvent.KEYCODE_1:
+				return 1;
+			case KeyEvent.KEYCODE_2:
+				return 2;
+			case KeyEvent.KEYCODE_3:
+				return 3;
+			case KeyEvent.KEYCODE_4:
+				return 4;
+			case KeyEvent.KEYCODE_5:
+				return 5;
+			case KeyEvent.KEYCODE_6:
+				return 6;
+			case KeyEvent.KEYCODE_7:
+				return 7;
+			case KeyEvent.KEYCODE_8:
+				return 8;
+			case KeyEvent.KEYCODE_9:
+				return 9;
+			default:
+				return -1;
+		}
+	}
+
+
 	// default hardware key handlers
 	abstract public boolean onBackspace();
 	abstract public boolean onOK();
@@ -349,6 +398,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onDown();
 	abstract protected boolean on0(boolean hold);
 	abstract protected boolean on1(boolean hold);
+	abstract protected boolean on2to9(int key, boolean hold);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();
 

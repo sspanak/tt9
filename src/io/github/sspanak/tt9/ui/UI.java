@@ -3,9 +3,9 @@ package io.github.sspanak.tt9.ui;
 import android.content.Intent;
 import android.util.Log;
 
-import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class UI {
@@ -55,15 +55,13 @@ public class UI {
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
 	 */
-	public static void updateStatusIcon(TraditionalT9 tt9, int inputMode, int capsMode) {
+	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, int inputMode, int capsMode) {
 		switch (inputMode) {
 			case T9Preferences.MODE_ABC:
-				// @todo: show the proper status icon
-				tt9.showStatusIcon(LangHelper.ICONMAP[0][inputMode][capsMode]);
+				tt9.showStatusIcon(inputLanguage.getAbcIcon(capsMode == T9Preferences.CASE_LOWER));
 				break;
 			case T9Preferences.MODE_PREDICTIVE:
-				// @todo: show the proper status icon
-				tt9.showStatusIcon(LangHelper.ICONMAP[0][inputMode][capsMode]);
+				tt9.showStatusIcon(inputLanguage.getIcon());
 				break;
 			case T9Preferences.MODE_123:
 				tt9.showStatusIcon(R.drawable.ime_number);
