@@ -14,9 +14,6 @@ import io.github.sspanak.tt9.preferences.T9Preferences;
 
 
 public class InputFieldHelper {
-	private static int INPUT_TYPE_SHARP_007H_PHONE_BOOK = 65633;
-
-
 	public static boolean isThereText(InputConnection currentInputConnection) {
 		if (currentInputConnection == null) {
 			return false;
@@ -47,9 +44,6 @@ public class InputFieldHelper {
 	/**
 	 * isFilterTextField
 	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
-	 *
-	 * @param  inputField
-	 * @return boolean
 	 */
 	public static boolean isFilterTextField(EditorInfo inputField) {
 		if (inputField == null) {
@@ -67,11 +61,12 @@ public class InputFieldHelper {
 	 * determineInputModes
 	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
 	 *
-	 * @param  inputField
 	 * @return ArrayList<T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE>
 	 */
 	public static ArrayList<Integer> determineInputModes(EditorInfo inputField) {
-		ArrayList<Integer> allowedModes = new ArrayList<Integer>();
+		final int INPUT_TYPE_SHARP_007H_PHONE_BOOK = 65633;
+
+		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (inputField == null) {
 			allowedModes.add(T9Preferences.MODE_123);
@@ -127,7 +122,7 @@ public class InputFieldHelper {
 	 * Helper to update the shift state of our keyboard based on the initial
 	 * editor state.
 	 */
-	public static void deterimineTextCase(EditorInfo inputField) {
+	public static void determineTextCase(EditorInfo inputField) {
 		// Log.d("updateShift", "CM start: " + mCapsMode);
 		// if (inputField != null && mCapsMode != T9Preferences.CASE_UPPER) {
 		// 	int caps = 0;

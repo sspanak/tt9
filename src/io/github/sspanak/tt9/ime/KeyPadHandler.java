@@ -113,8 +113,6 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return;
 		}
 
-		// @todo: get all relevant settings
-
 		initTypingMode(inputField);
 
 		// @todo: determine case from input

@@ -19,19 +19,26 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected Language mLanguage;
 
 
-	protected void onInit() {
-		if (softKeyHandler == null) {
-			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
-		}
-	}
-
-
-	protected void onRestart() {
-		mLanguage = LanguageHelper.getLanguage(prefs.getInputLanguage());
+	private void ensureSettings() {
 		if (mLanguage == null) {
 			mLanguage = LanguageHelper.getLanguage(1);
 			prefs.setInputLanguage(1);
 		}
+	}
+
+
+	protected void onInit() {
+		if (softKeyHandler == null) {
+			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
+		}
+
+		mLanguage = LanguageHelper.getLanguage(prefs.getInputLanguage());
+		// @todo: get all other relevant settings
+	}
+
+
+	protected void onRestart() {
+		ensureSettings();
 
 		// @todo: show or hide UI elements
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
