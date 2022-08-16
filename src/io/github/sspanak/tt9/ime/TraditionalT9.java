@@ -70,6 +70,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		commitCurrentCandidate();
 		setCandidates(null);
+		// @todo: typing in the dial field behaves incorrectly after BACKSPACE
+		// 				check if this is the best way of deleting text.
 		currentInputConnection.deleteSurroundingText(1, 0);
 
 		Log.d("handleBackspace", "backspace handled");
@@ -214,6 +216,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mCandidateView.scrollToSuggestion(-1);
+
+		// @todo: also add composing text to the input connection?
+
 		return true;
 	}
 
@@ -224,6 +229,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mCandidateView.scrollToSuggestion(1);
+
+		// @todo: also add composing text to the input connection?
+
 		return true;
 	}
 

@@ -175,6 +175,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
+		// @todo: consider tracking only when necessary
 		event.startTracking();
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
@@ -356,6 +357,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		if (mInputMode == T9Preferences.MODE_123 && allowedEditingModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
+			// @todo: honor EDITING_NOSHOW, where appropriate
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
 		}
 	}
