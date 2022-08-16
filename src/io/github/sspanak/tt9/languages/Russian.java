@@ -16,6 +16,8 @@ public class Russian extends Language {
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
 
 		characterMap = new ArrayList<>(Arrays.asList(
+			Punctuation.Secondary, // 0
+			Punctuation.Main, // 1
 			new ArrayList<>(Arrays.asList("а", "б", "в", "г")), // 2
 			new ArrayList<>(Arrays.asList("д", "е", "ё", "ж", "з")), // 3
 			new ArrayList<>(Arrays.asList("и", "й", "к", "л")), // 4

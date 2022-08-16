@@ -7,7 +7,6 @@ import android.view.View;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageHelper;
-import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
@@ -101,7 +100,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		commitCurrentCandidate();
 		setCandidates(
-			mInputMode == T9Preferences.MODE_ABC && !hold ? Punctuation.getSecondaryPunctuation() : null,
+			mInputMode == T9Preferences.MODE_ABC && !hold ? mLanguage.getKeyCharacters(0): null,
 			0
 		);
 
@@ -134,7 +133,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			Log.d("on1", "showSymbolDialog is broken!");
 			// @todo: UI.showSymbolDialog(this); // it is broken
 		} else {
-			setCandidates(Punctuation.getPunctuation(), 0);
+			setCandidates(mLanguage.getKeyCharacters(1), 0);
 		}
 
 		return true;

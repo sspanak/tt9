@@ -16,6 +16,8 @@ public class English extends Language {
 		abcUpperCaseIcon = R.drawable.ime_lang_latin_upper;
 
 		characterMap = new ArrayList<>(Arrays.asList(
+			Punctuation.Secondary, // 0
+			Punctuation.Main, // 1
 			new ArrayList<>(Arrays.asList("a", "b", "c")), // 2
 			new ArrayList<>(Arrays.asList("d", "e", "f")), // 3
 			new ArrayList<>(Arrays.asList("g", "h", "i")), // 4

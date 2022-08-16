@@ -4,23 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Punctuation {
-	public static ArrayList<String> getPunctuation() {
-		return new ArrayList<>(Arrays.asList(
-			".", ",", "-", "?", "!", "'", "\"", "@", ":", "/", ";", "%", "1"
-		));
-	}
+	final public static ArrayList<String> Main = new ArrayList<>(Arrays.asList(
+		".", ",", "-", "?", "!", "'", "\"", "@", ":", "/", ";", "%"
+	));
 
+	final public static ArrayList<String> Secondary = new ArrayList<>(Arrays.asList(
+		" ", "+", "\n"
+	));
 
-	public static ArrayList<String> getSecondaryPunctuation() {
-		return new ArrayList<>(Arrays.asList(
-			" ", "+", "\n", "0"
-		));
-	}
+	final public static ArrayList<String> Emoticons = new ArrayList<>(Arrays.asList(
+		":)", ":D", ";)", ":(", ":*", ":P"
+	));
 
-
-	public static ArrayList<String> getEmoji() {
-		return new ArrayList<>(Arrays.asList(
-			":)", ":D", ";)", ":(", ":*", ":P"
-		));
-	}
 }
