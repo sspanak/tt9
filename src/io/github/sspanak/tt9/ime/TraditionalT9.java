@@ -6,10 +6,12 @@ import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageHelper;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
@@ -17,11 +19,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	private View softKeyView = null;
 
 	protected Language mLanguage;
+	protected ArrayList<Integer> mSupportedLanguages;
 
 
 	private void ensureSettings() {
-		if (mLanguage == null) {
-			mLanguage = LanguageHelper.getLanguage(1);
+		mSupportedLanguages = prefs.getEnabledLanguageIds();
+
+		if (mLanguage == null || !mSupportedLanguages.contains(mLanguage.getId())) {
+			mLanguage = LanguageCollection.getLanguage(1);
 			prefs.setInputLanguage(1);
 		}
 	}
@@ -32,7 +37,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
 		}
 
-		mLanguage = LanguageHelper.getLanguage(prefs.getInputLanguage());
+		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
 		// @todo: get all other relevant settings
 	}
 
@@ -294,8 +299,24 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		setCandidates(null);
 
-		// @todo: select next language
-		Log.d("nextLang", "current language: " + mLanguage + ". Selecting next");
+		// select the next language
+		int previousLangId = mSupportedLanguages.indexOf(mLanguage.getId());
+		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mSupportedLanguages.size();
+		Language nextLanguage = LanguageCollection.getLanguage(mSupportedLanguages.get(nextLangId));
+
+		// ... or keep the current clear any corrupted settings
+		if (nextLanguage == null) {
+			Log.e("nextLang", "No language with ID: " + mSupportedLanguages.get(nextLangId));
+			Log.e("nextLang", "Language settings seem to be corrupted. Resetting them.");
+
+			prefs.setEnabledLanguages(new ArrayList<>(Collections.singletonList(mLanguage.getId())));
+			ensureSettings();
+		} else {
+			mLanguage = nextLanguage;
+		}
+
+		// save the last used language for the next time
+		prefs.setInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 	}

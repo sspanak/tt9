@@ -4,13 +4,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
+import android.util.Log;
 import android.view.KeyEvent;
+
+import java.util.ArrayList;
+
 
 public class T9Preferences {
 	private static T9Preferences self;
 
-	private SharedPreferences prefs;
-	private SharedPreferences.Editor prefsEditor;
+	private final SharedPreferences prefs;
+	private final SharedPreferences.Editor prefsEditor;
+
+	private final int MAX_LANGUAGES = 32;
 
 	public static final int CASE_LOWER = 0;
 	public static final int CASE_CAPITALIZE = 1;
@@ -33,11 +39,37 @@ public class T9Preferences {
 		return self;
 	}
 
-	public int getEnabledLanguages() {
-		return prefs.getInt("pref_enabled_languages", 1);
+	public ArrayList<Integer> getEnabledLanguageIds() {
+		int languageMask = prefs.getInt("pref_enabled_languages", 1);
+		ArrayList<Integer>languageIds = new ArrayList<>();
+
+		for (int langId = 1; langId < MAX_LANGUAGES; langId++) {
+			int maskBit = 1 << (langId - 1);
+			if ((maskBit & languageMask) != 0) {
+				languageIds.add(langId);
+			}
+		}
+
+		Log.d("getEnabledLanguageIds", "mask: " + languageMask);
+
+		return languageIds;
 	}
 
-	public T9Preferences setEnabledLanguages(int languageMask) {
+	public T9Preferences setEnabledLanguages(ArrayList<Integer> languageIds) {
+		int languageMask = 0;
+		for (Integer langId : languageIds) {
+			if (langId < 0 || langId >= MAX_LANGUAGES) {
+				Log.e(
+					"setEnabledLanguages",
+					"Cannot save langId out of the allowed range [0, 31]. Received: " + langId
+				);
+				continue;
+			}
+
+			int languageMaskBit = 1 << (langId - 1);
+			languageMask |= languageMaskBit;
+		}
+
 		prefsEditor.putInt("pref_enabled_languages", languageMask);
 		prefsEditor.apply();
 

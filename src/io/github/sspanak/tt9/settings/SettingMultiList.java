@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -38,7 +40,7 @@ public class SettingMultiList extends SettingList {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (id.equals("pref_lang_support")) {
-							T9Preferences.getInstance(context).setEnabledLanguages(LangHelper.shrinkLangs(buildSelection()));
+							T9Preferences.getInstance(context).setEnabledLanguages(buildSelection());
 						}
 						summary = buildItems();
 						dialog.dismiss();
@@ -55,19 +57,17 @@ public class SettingMultiList extends SettingList {
 		builderMulti.show();
 	}
 
-	private int[] buildSelection(){
-		int count = 0;
-		for (boolean b: selectedEntries) {if (b) count++;}
-		int[] selection = new int[count];
-		count = 0;
+	private ArrayList<Integer> buildSelection(){
+		ArrayList<Integer> selection = new ArrayList<>();
 		for (int x=0;x<selectedEntries.length;x++) {
 			if (selectedEntries[x]) {
-				selection[count] = entryValues[x];
-				count++;
+				selection.add(entryValues[x]);
 			}
 		}
-		if (selection.length < 1)
-			return new int[] {entryValues[0]};
+
+		if (selection.size() < 1) {
+			selection.add(entryValues[0]);
+		}
 		return selection;
 	}
 	private String buildItems() {

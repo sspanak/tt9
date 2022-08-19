@@ -3,11 +3,11 @@
 	<!-- MAKE SURE THESE MATCH WITH LangHelper.java id -->
 	<integer name="LANG_EN">1</integer>
 	<integer name="LANG_RU">2</integer>
-	<integer name="LANG_DE">4</integer>
-	<integer name="LANG_FR">8</integer>
-	<integer name="LANG_IT">16</integer>
-	<integer name="LANG_UK">32</integer>
-	<integer name="LANG_BG">64</integer>
+	<integer name="LANG_DE">3</integer>
+	<integer name="LANG_FR">4</integer>
+	<integer name="LANG_IT">5</integer>
+	<integer name="LANG_UK">6</integer>
+	<integer name="LANG_BG">7</integer>
 
 	<integer name="INPUT_DICT">0</integer>
 	<integer name="INPUT_TEXT">1</integer>
