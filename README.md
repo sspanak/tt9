@@ -32,23 +32,17 @@ The project is configured to build an unsigned release variant by default. You j
 ## Adding a new language
 To support a new language one needs to:
 
-- Modify CharMap.java
-- New Map needs to be created with the characters to be encountered in addWord or in the user dictionary when loaded.
-- New character array needs to be added for characters that are to cycle on each number press.
-- New array needs to be made to tell where the capital letters start in that array.
-- modify LangHelper.java
 - Add status icons
-    - Create proper icons for each mode (e.g. "Ab", "En", "12") and each screen size. The font must be Roboto Lt at an adequate size to fit the icon square with minimum padding. Text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html). To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-cicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
-    - Add new entry in ICONMAP
-- Add new LANGUAGE enum entry e.g. FR(3,5) (index, id) Where index is index in arrays like LOCALES, and id is the identifier used in the database and such. The latter should never change unless database update is done.
-- Make sure new id matches const.xml
-- Add the LOCALE of the language in the LOCALES Locale array
-- Add translations for arrays.xml and strings.xml in to new files in the appropriate locale folder (e.g. res/values-de/arrays.xml.) AndroidStudio has a cute/nice Translation Editor which might be handy.
-    - Edit the base arrays.xml file to add the new language. (pref_lang_titles, pref_lang_values)
-    - Exclude translatable="false" items from the new locale arrays.xml file.
-- Find a suitable dictionary and add it to assets
-
-That should be it? I hope.
+    - Create a proper icon for each screen size. The icon needs to contain the abbreviation of the language. (e.g. "En" for "English").
+    - The font must be Roboto Lt at an adequate size to fit the icon square with minimum padding.
+    - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
+    - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-cicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
+- Find a suitable dictionary and add it to `assets` folder.
+- Create a new language class in `languages` folder. Make sure to set all properties. The ID should be any ID unused by another language. Currently, the range is limited between 1 and 31, so there can be 31 languages in total.
+- Add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor.
+- Add a new entry in `res/values/const.xml`. Make sure the new ID matches the one in the language class.
+- Add new entries in `res/values/arrays.xml`. Make sure to do so in the the translated `values-xx` folders.
+- Add translations in `res/values-your-lang` folder.
 
 ## Using the app
 See the [user manual](docs/user-manual.md).
