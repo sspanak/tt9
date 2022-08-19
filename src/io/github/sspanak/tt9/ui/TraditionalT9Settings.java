@@ -23,11 +23,10 @@ import android.widget.Toast;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
-import io.github.sspanak.tt9.CharMap;
-import io.github.sspanak.tt9.LangHelper;
-import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.settings.CustomInflater;
 import io.github.sspanak.tt9.settings.Setting;
@@ -41,21 +40,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 
 public class TraditionalT9Settings extends ListActivity implements DialogInterface.OnCancelListener {
 
 	AsyncTask<String, Integer, Reply> task = null;
-	final static String dictname = "%s-utf8.txt";
 	final static String userdictname = "user.%s.dict";
 	final static String sddir = "tt9";
-
-	final int BACKUP_Q_LIMIT = 1000;
 
 	Context mContext = null;
 
@@ -130,18 +125,18 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		long pos;
 		boolean internal;
 		String[] dicts;
-		LANGUAGE[] mSupportedLanguages;
+		ArrayList<Language> mSupportedLanguages;
 
-		LoadDictTask(int msgid, boolean intern, LANGUAGE[] supportedLanguages) {
+		LoadDictTask(int msgid, boolean intern, ArrayList<Language> supportedLanguages) {
 			internal = intern;
 
-			int suplanglen = supportedLanguages.length;
-			dicts = new String[suplanglen];
-			for (int x=0; x<suplanglen; x++) {
+			dicts = new String[supportedLanguages.size()];
+			int x = 0;
+			for (Language language : supportedLanguages) {
 				if (intern) {
-					dicts[x] = String.format(dictname, supportedLanguages[x].name().toLowerCase(Locale.ENGLISH));
+					dicts[x++] = language.getDictionaryFile();
 				} else {
-					dicts[x] = String.format(userdictname, supportedLanguages[x].name().toLowerCase(Locale.ENGLISH));
+					dicts[x++] = String.format(userdictname, language.getName().toLowerCase(Locale.ENGLISH));
 				}
 			}
 			mSupportedLanguages = supportedLanguages;
@@ -218,7 +213,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			// add characters first, then dictionary:
 			Log.d("doInBackground", "Adding characters...");
 			// load characters from supported langs
-			for (LANGUAGE lang : mSupportedLanguages) {
+			for (Language lang : mSupportedLanguages) {
 				processChars(db, lang);
 			}
 			Log.d("doInBackground", "done.");
@@ -232,7 +227,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					if (internal) {
 						try {
 							dictstream = getAssets().open(dicts[x]);
-							reply = processFile(dictstream, reply, db, mSupportedLanguages[x], dicts[x]);
+							reply = processFile(dictstream, reply, db, mSupportedLanguages.get(x), dicts[x]);
 						} catch (IOException e) {
 							e.printStackTrace();
 							reply.status = false;
@@ -242,7 +237,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						try {
 							dictstream = new FileInputStream(new File(
 									new File(Environment.getExternalStorageDirectory(), sddir),	dicts[x]));
-							reply = processFile(dictstream, reply, db, mSupportedLanguages[x], dicts[x]);
+							reply = processFile(dictstream, reply, db, mSupportedLanguages.get(x), dicts[x]);
 						} catch (FileNotFoundException e) {
 							reply.status = false;
 							reply.forceMsg("File not found: " + e.getMessage());
@@ -277,7 +272,11 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			return reply;
 		}
 
-		private void processChars(SQLiteDatabase db, LANGUAGE lang) {
+		/**
+		 * processChars
+		 * Inserts single characters.
+		 */
+		private void processChars(SQLiteDatabase db, Language lang) {
 			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
 
 			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
@@ -286,32 +285,16 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
 
 			try {
-				// load CHARTABLE and then load T9table, just to cover all bases.
-				for (Map.Entry<Character, Integer> entry : CharMap.CHARTABLE.get(lang.index).entrySet()) {
-					wordhelp.prepareForReplace();
-					wordhelp.bind(langColumn, lang.id);
-					wordhelp.bind(seqColumn, Integer.toString(entry.getValue()));
-					wordhelp.bind(wordColumn, Character.toString(entry.getKey()));
-					wordhelp.bind(freqColumn, 0);
-					wordhelp.execute();
-					// upper case
-					wordhelp.prepareForReplace();
-					wordhelp.bind(langColumn, lang.id);
-					wordhelp.bind(seqColumn, Integer.toString(entry.getValue()));
-					wordhelp.bind(wordColumn, Character.toString(Character.toUpperCase(entry.getKey())));
-					wordhelp.bind(freqColumn, 0);
-					wordhelp.execute();
-				}
-				char[][] chartable = CharMap.T9TABLE[lang.index];
-				for (int numkey = 0; numkey < chartable.length; numkey++) {
-					char[] chars = chartable[numkey];
-					for (int charindex = 0; charindex < chars.length; charindex++) {
-						wordhelp.prepareForReplace();
-						wordhelp.bind(langColumn, lang.id);
-						wordhelp.bind(seqColumn, Integer.toString(numkey));
-						wordhelp.bind(wordColumn, Character.toString(chars[charindex]));
-						wordhelp.bind(freqColumn, 0);
-						wordhelp.execute();
+				for (int key = 0; key <= 9; key++) {
+					for (int lowercase = 0; lowercase < 2; lowercase++) {
+						for (String langChar : lang.getKeyCharacters(key, lowercase == 0)) {
+							wordhelp.prepareForReplace();
+							wordhelp.bind(langColumn, lang.getId());
+							wordhelp.bind(seqColumn, key);
+							wordhelp.bind(wordColumn, langChar);
+							wordhelp.bind(freqColumn, 0);
+							wordhelp.execute();
+						}
 					}
 				}
 			} finally {
@@ -330,7 +313,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			return null;
 		}
 
-		private Reply processFile(InputStream is, Reply rpl, SQLiteDatabase db, LANGUAGE lang, String fname)
+		private Reply processFile(InputStream is, Reply rpl, SQLiteDatabase db, Language lang, String fname)
 				throws LoadException, IOException {
 			long last = 0;
 			UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(is);
@@ -344,7 +327,6 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
 			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
 
-			String[] ws;
 			int freq;
 			String seq;
 			int linecount = 1;
@@ -361,59 +343,29 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						break;
 					}
 					if (word.contains(" ")) {
-						ws = word.split(" ");
-						word = ws[0];
-						try {
-							freq = Integer.parseInt(ws[1]);
-						} catch (NumberFormatException e) {
-							rpl.status = false;
-							rpl.addMsg("Number error ("+fname+") at line " + linecount+". Using 0 for frequency.");
-							freq = 0;
-						}
-						if (lang == LANGUAGE.NONE && ws.length == 3) {
-							try {
-								lang = LANGUAGE.get(Integer.parseInt(ws[2]));
-							} catch (NumberFormatException e) {
-								rpl.status = false;
-								rpl.addMsg("Number error ("+fname+") at line " + linecount+". Using 1 (en) for language.");
-								lang = LANGUAGE.EN;
-							}
-							if (lang == null) {
-								rpl.status = false;
-								rpl.addMsg("Unsupported language ("+fname+") at line " + linecount+". Trying 1 (en) for language.");
-								lang = LANGUAGE.EN;
-							}
-						} else if (lang == LANGUAGE.NONE) {
-							lang = LANGUAGE.EN;
-						}
-					} else {
-						freq = 0;
+						rpl.status = false;
+						rpl.addMsg("Cannot parse word with spaces: " + word);
+						break;
 					}
 
-					try {
-						wordlen = word.getBytes("UTF-8").length;
-					} catch (UnsupportedEncodingException e) {
-						e.printStackTrace();
-						rpl.status = false;
-						rpl.addMsg("Encoding Error("+fname+") line "+linecount+": " + e.getMessage());
-						wordlen = word.length();
-					}
+					freq = 0;
+					wordlen = word.getBytes(StandardCharsets.UTF_8).length;
 					pos += wordlen;
 					// replace junk characters:
 					word = word.replace("\uFEFF", "");
 					try {
-						seq = CharMap.getStringSequence(word, lang);
-					} catch (NullPointerException e) {
+						seq = lang.getDigitSequenceForWord(word);
+					} catch (Exception e) {
 						rpl.status = false;
 						rpl.addMsg("Error on word ("+word+") line "+
 								linecount+" in (" +	fname+"): "+
-								getResources().getString(R.string.add_word_badchar, lang.name(), word));
+								getResources().getString(R.string.add_word_badchar, lang.getName(), word));
 						break;
 					}
 					linecount++;
 					wordhelp.prepareForReplace();
 					wordhelp.bind(seqColumn, seq);
-					wordhelp.bind(langColumn, lang.id);
+					wordhelp.bind(langColumn, lang.getId());
 					wordhelp.bind(wordColumn, word);
 					wordhelp.bind(freqColumn, freq);
 					wordhelp.execute();
@@ -466,7 +418,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		T9Preferences prefs = new T9Preferences(this);
 		Object[] settings = {
 			prefs.getInputMode(),
-			prefs.getEnabledLanguages(),
+			prefs.getEnabledLanguageRaw(),
 			null, // MODE_NOTIFY; not used, remove in #29
 			false, // KEY_REMAP; not used, remove in #29
 			true, // SPACE_ZERO; not used, remove in #29
@@ -491,6 +443,9 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			openHelp();
 		else if (s.id.equals("loaddict"))
 			preloader(R.string.pref_loadingdict, true);
+		else if (s.id.equals("truncatedict")) {
+			T9DB.getInstance(this).truncate();
+		}
 		else if (s.id.equals("loaduserdict"))
 			preloader(R.string.pref_loadinguserdict, false);
 		else
@@ -509,7 +464,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		task = new LoadDictTask(
 			msgid,
 			internal,
-			LangHelper.buildLangs(T9Preferences.getInstance(mContext).getEnabledLanguages())
+			LanguageCollection.getAll(T9Preferences.getInstance(mContext).getEnabledLanguageIds())
 		);
 		task.execute();
 	}

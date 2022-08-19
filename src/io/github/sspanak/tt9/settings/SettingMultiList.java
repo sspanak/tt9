@@ -40,7 +40,7 @@ public class SettingMultiList extends SettingList {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (id.equals("pref_lang_support")) {
-							T9Preferences.getInstance(context).setEnabledLanguages(buildSelection());
+							T9Preferences.getInstance(context).setEnabledLanguageFromMaskBits(buildSelection());
 						}
 						summary = buildItems();
 						dialog.dismiss();

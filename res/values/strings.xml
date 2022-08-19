@@ -38,6 +38,7 @@
 	<string name="pref_lang_title">Multilingual support…</string>
 	<string name="pref_help">"Show help</string>
 	<string name="pref_loaddict">Load dictionary</string>
+	<string name="pref_truncatedict">Clear dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
 	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
 

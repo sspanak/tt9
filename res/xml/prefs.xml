@@ -15,6 +15,7 @@
 		entryValues="@array/pref_lang_values"
 		title="@string/pref_lang_title" />
 	<Setting title="@string/pref_loaddict" id="loaddict"/>
+	<Setting title="@string/pref_truncatedict" id="truncatedict"/>
 	<!-- Take care of dictionary loading in #26 -->
 	<!-- <Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/> -->
 </Settings>
