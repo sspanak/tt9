@@ -11,8 +11,8 @@ public class Bulgarian extends Language {
 		id = 7;
 		name = "български";
 		locale = new Locale("bg","BG");
-		icon = R.drawable.ime_lang_bg_single;
 		dictionaryFile = "bg-utf8.txt";
+		icon = R.drawable.ime_lang_bg_single;
 		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
 
