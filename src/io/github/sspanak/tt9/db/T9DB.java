@@ -11,10 +11,10 @@ import android.provider.BaseColumns;
 import android.util.Log;
 import android.widget.Toast;
 
-import io.github.sspanak.tt9.CharMap;
 import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
@@ -60,10 +60,10 @@ public class T9DB {
 	private static final int MAX_RESULTS = 8;
 	private static final int MAX_MAX_RESULTS = 30; // to make sure we don't exceed candidate view array.
 
-	private DatabaseHelper mOpenHelper;
+	private final DatabaseHelper mOpenHelper;
 	private SQLiteDatabase db;
 
-	private Context mContext;
+	private final Context mContext;
 
 	public T9DB(Context caller) {
 		// create db
@@ -155,7 +155,7 @@ public class T9DB {
 		Toast.makeText(mContext, R.string.database_notready, Toast.LENGTH_SHORT).show();
 	}
 
-	public void addWord(String iword, LANGUAGE lang) throws DBException {
+	public void addWord(String iword, Language lang) throws DBException {
 		Resources r = mContext.getResources();
 		if (iword.equals("")) {
 			throw new DBException(r.getString(R.string.add_word_blank));
@@ -163,14 +163,14 @@ public class T9DB {
 		// get int sequence
 		String seq;
 		try {
-			seq = CharMap.getStringSequence(iword, lang);
-		} catch (NullPointerException e) {
-			throw new DBException(r.getString(R.string.add_word_badchar, lang.name(), iword));
+			seq = lang.getDigitSequenceForWord(iword);
+		} catch (Exception e) {
+			throw new DBException(r.getString(R.string.add_word_badchar, lang.getName(), iword));
 		}
 		// add int sequence into num table
 		ContentValues values = new ContentValues();
 		values.put(COLUMN_SEQ, seq);
-		values.put(COLUMN_LANG, lang.id);
+		values.put(COLUMN_LANG, lang.getId());
 		// add word into word
 		values.put(COLUMN_WORD, iword);
 		values.put(COLUMN_FREQUENCY, 1);
@@ -181,8 +181,9 @@ public class T9DB {
 		}
 		try {
 			db.insertOrThrow(WORD_TABLE_NAME, null, values);
+			Log.i("T9DB.addWord", "Added: " + iword + ", for language: " + lang.getId());
 		} catch (SQLiteConstraintException e) {
-			String msg = r.getString(R.string.add_word_exist2, iword, lang.name());
+			String msg = r.getString(R.string.add_word_exist2, iword, lang.getName());
 			Log.w("T9DB.addWord", msg);
 			throw new DBException(msg);
 		}

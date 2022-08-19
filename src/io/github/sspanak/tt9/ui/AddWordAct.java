@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DBException;
 import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class AddWordAct extends Activity {
@@ -50,7 +51,7 @@ public class AddWordAct extends Activity {
 
 	public void doAddWord(String text) {
 		try {
-			T9DB.getInstance(this).addWord(text, LangHelper.LANGUAGE.get(lang));
+			T9DB.getInstance(this).addWord(text, LanguageCollection.getLanguage(lang));
 		} catch (DBException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			String msg = e.getMessage();
