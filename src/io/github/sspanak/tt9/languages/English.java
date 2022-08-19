@@ -12,7 +12,7 @@ public class English extends Language {
 		name = "English";
 		locale = Locale.ENGLISH;
 		dictionaryFile = "en-utf8.txt";
-		icon = R.drawable.ime_lang_en_single;
+		icon = R.drawable.ime_lang_en;
 		abcLowerCaseIcon = R.drawable.ime_lang_latin_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_latin_upper;
 
