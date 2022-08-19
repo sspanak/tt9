@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DBException;
 import io.github.sspanak.tt9.db.T9DB;
