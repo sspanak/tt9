@@ -31,65 +31,6 @@ public class LangHelper {
 
 	public static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH, Locale.ITALIAN, UKRAINIAN, BULGARIAN};
 
-	public static final int LANG_DEFAULT = LANGUAGE.EN.id;
-
-	protected static final int NLANGS = LANGUAGE.lookup.size();
-
-	protected static String getString(int lang) {
-        return LANGUAGE.get(lang).name();
-    }
-
-	protected static int getIndex(LANGUAGE l) {
-		return l.index;
-	}
-
-	    //[LANG][MODE][CAPSMODE] = iconref
-	    // first group en, first line LANG, second line TEXT, last line NUM
-	    public static final int[][][] ICONMAP = {
-			{
-					//English resources
-					{R.drawable.ime_lang_en_lower, R.drawable.ime_lang_en_single, R.drawable.ime_lang_en_upper},
-					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper},
-					{R.drawable.ime_number},
-			},
-			{
-					// Russian resources
-					{R.drawable.ime_lang_ru_lower, R.drawable.ime_lang_ru_single, R.drawable.ime_lang_ru_upper}, //LANG
-					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-			{
-					// German resources
-					{R.drawable.ime_lang_de_lower, R.drawable.ime_lang_de_single, R.drawable.ime_lang_de_upper}, //LANG
-					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-			{
-					// French resources
-					{R.drawable.ime_lang_fr_lower, R.drawable.ime_lang_fr_single, R.drawable.ime_lang_fr_upper}, //LANG
-					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-			{
-					// Italian resources
-					{R.drawable.ime_lang_it_lower, R.drawable.ime_lang_it_single, R.drawable.ime_lang_it_upper}, //LANG
-					{R.drawable.ime_lang_latin_lower, R.drawable.ime_lang_latin_single, R.drawable.ime_lang_latin_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-			{
-					// Ukrainian resources
-					{R.drawable.ime_lang_uk_lower, R.drawable.ime_lang_uk_single, R.drawable.ime_lang_uk_upper}, //LANG
-					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-			{
-					// Bulgarian resources
-					{R.drawable.ime_lang_bg_lower, R.drawable.ime_lang_bg_single, R.drawable.ime_lang_bg_upper}, //LANG
-					{R.drawable.ime_lang_cyrillic_lower, R.drawable.ime_lang_cyrillic_single, R.drawable.ime_lang_cyrillic_upper}, //TEXT
-					{R.drawable.ime_number}, //NUM
-			},
-	    };
-
 	public static LANGUAGE[] buildLangs(int i) {
 		int num = 0;
 		//calc size of filtered array
@@ -109,24 +50,4 @@ public class LangHelper {
 		return la;
 	}
 
-	public static int shrinkLangs(LANGUAGE[] langs) {
-		int i = 0;
-		for (LANGUAGE l : langs)
-			i = i | l.id;
-		return i;
-	}
-	public static int shrinkLangs(int[] langs) {
-		int i = 0;
-		for (int l : langs)
-			i = i | l;
-		return i;
-	}
-
-	protected static int findIndex(LANGUAGE[] ia, LANGUAGE target) {
-		for (int x=0; x<ia.length; x++) {
-			if (ia[x] == target)
-				return x;
-		}
-		return 0;
-	}
 }
