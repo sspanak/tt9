@@ -17,6 +17,9 @@ public class LanguageCollection {
 
 		lang = new Bulgarian();
 		languages.put(lang.getId(), lang);
+
+		lang = new Ukrainian();
+		languages.put(lang.getId(), lang);
 	}
 
 	public static LanguageCollection getInstance() {
