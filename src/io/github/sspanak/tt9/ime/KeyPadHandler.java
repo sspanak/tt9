@@ -192,7 +192,8 @@ abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
 				|| (isNumber(keyCode) && mInputMode != T9Preferences.MODE_123)
-				|| (!isSuggestionViewHidden() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+				|| (!isSuggestionViewHidden() && mEditing != EDITING_NOSHOW && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+				|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
 		) {
 			return true;
 		}
@@ -348,7 +349,6 @@ abstract class KeyPadHandler extends InputMethodService {
 		if (mInputMode == T9Preferences.MODE_123 && allowedEditingModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
-			// @todo: honor EDITING_NOSHOW, where appropriate
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
 		}
 	}
