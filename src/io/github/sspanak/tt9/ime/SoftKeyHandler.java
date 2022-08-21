@@ -6,7 +6,7 @@ import android.view.View;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.UI;
 
-public class SoftKeyHandler implements View.OnTouchListener {
+class SoftKeyHandler implements View.OnTouchListener {
 	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
 	private final TraditionalT9 parent;
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 
-public class InputFieldHelper {
+class InputFieldHelper {
 	public static boolean isThereText(InputConnection currentInputConnection) {
 		if (currentInputConnection == null) {
 			return false;

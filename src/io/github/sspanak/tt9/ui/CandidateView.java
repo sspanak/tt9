@@ -10,8 +10,10 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class CandidateView extends View {
 
@@ -192,6 +194,23 @@ public class CandidateView extends View {
 		// onDraw(null);
 		invalidate();
 		requestLayout();
+	}
+
+	public void changeCase(int capsMode, Locale locale) {
+		ArrayList<String> newSuggestions = new ArrayList<>();
+
+		for (String s : mSuggestions) {
+			if (capsMode == T9Preferences.CASE_LOWER) {
+				newSuggestions.add(s.toLowerCase(locale));
+			} else if (capsMode == T9Preferences.CASE_CAPITALIZE) {
+				String cs = s.substring(0, 1).toUpperCase(locale) + s.substring(1).toLowerCase(locale);
+				newSuggestions.add(cs);
+			} else {
+				newSuggestions.add(s.toUpperCase(locale));
+			}
+		}
+
+		setSuggestions(newSuggestions, mSelectedIndex);
 	}
 
 	protected void clear() {

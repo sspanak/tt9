@@ -14,10 +14,10 @@ import io.github.sspanak.tt9.preferences.T9Preferences;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class KeyPadHandler extends InputMethodService {
+abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
 
-	protected CandidateView mCandidateView;
+	protected CandidateView mSuggestionView;
 	protected T9DB db;
 	protected T9Preferences prefs;
 
@@ -31,11 +31,12 @@ public abstract class KeyPadHandler extends InputMethodService {
 	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected int mEditing = NON_EDIT;
 	protected ArrayList<Integer> allowedEditingModes;
+	protected ArrayList<Integer> allowedCapsModes;
 
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
 	private int lastKeyCode = 0;
-	protected boolean isKeyCodeRepeated = false;
+	protected boolean isNumKeyRepeated = false;
 
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
@@ -82,10 +83,10 @@ public abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public View onCreateCandidatesView() {
-		if (mCandidateView == null) {
-			mCandidateView = new CandidateView(this);
+		if (mSuggestionView == null) {
+			mSuggestionView = new CandidateView(this);
 		}
-		return mCandidateView;
+		return mSuggestionView;
 	}
 
 
@@ -112,9 +113,8 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return;
 		}
 
-		initTypingMode(inputField);
-
-		// @todo: determine case from input
+		determineAllowedInputModes(inputField);
+		determineAllowedCapsModes();
 
 		onRestart();
 	}
@@ -193,7 +193,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
 				|| (isNumber(keyCode) && mInputMode != T9Preferences.MODE_123)
-				|| (!isCandidateViewHidden() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+				|| (!isSuggestionViewHidden() && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
 		) {
 			return true;
 		}
@@ -260,8 +260,10 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		isKeyCodeRepeated = (lastKeyCode == keyCode);
-		lastKeyCode = keyCode;
+		if (isNumber(keyCode)) {
+			isNumKeyRepeated = (lastKeyCode == keyCode);
+			lastKeyCode = keyCode;
+		}
 
 //		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
@@ -323,7 +325,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 
 
 	protected void clearState() {
-		setCandidates(null);
+		setSuggestions(null);
 		currentInputConnection.setComposingText("", 0);
 		currentInputConnection.finishComposingText();
 		// @todo: clear previous word
@@ -341,7 +343,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private void initTypingMode(EditorInfo inputField) {
+	private void determineAllowedInputModes(EditorInfo inputField) {
 		allowedEditingModes = InputFieldHelper.determineInputModes(inputField);
 
 		int lastInputMode = prefs.getInputMode();
@@ -358,6 +360,22 @@ public abstract class KeyPadHandler extends InputMethodService {
 		} else {
 			// @todo: honor EDITING_NOSHOW, where appropriate
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		}
+	}
+
+
+	void determineAllowedCapsModes() {
+		// @todo: determine case from input
+
+		allowedCapsModes = new ArrayList<>();
+
+		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+			allowedCapsModes.add(T9Preferences.CASE_LOWER);
+			allowedCapsModes.add(T9Preferences.CASE_CAPITALIZE);
+			allowedCapsModes.add(T9Preferences.CASE_UPPER);
+		} else if (mInputMode == T9Preferences.MODE_ABC) {
+			allowedCapsModes.add(T9Preferences.CASE_LOWER);
+			allowedCapsModes.add(T9Preferences.CASE_UPPER);
 		}
 	}
 
@@ -410,9 +428,9 @@ public abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onRestart();
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
-	abstract protected void setCandidates(List<String> suggestions);
-	abstract protected void setCandidates(List<String> suggestions, int initialSel);
-	abstract protected boolean isCandidateViewHidden();
+	abstract protected void setSuggestions(List<String> suggestions);
+	abstract protected void setSuggestions(List<String> suggestions, int initialSel);
+	abstract protected boolean isSuggestionViewHidden();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////
