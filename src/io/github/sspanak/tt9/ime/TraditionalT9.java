@@ -51,7 +51,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		validatePreferences();
 
 		// reset all UI elements
-		setSuggestions(null);
+		clearSuggestions();
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 		displaySoftKeyMenu();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
@@ -63,11 +63,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onFinish() {
-		setSuggestions(null);
-		if (currentInputConnection != null) {
-			currentInputConnection.setComposingText("", 0);
-			// currentInputConnection.finishComposingText();
-		}
+		clearSuggestions();
 
 		// @todo: clear previous word
 
@@ -160,6 +156,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			// @todo: UI.showSymbolDialog(this); // it is broken
 		} else {
 			setSuggestions(mLanguage.getKeyCharacters(1), 0);
+			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
 		}
 
 		return true;
@@ -172,14 +169,15 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (hold) {
-			commitCurrentSuggestion();
+			commitCurrentSuggestion(); // commit the previous one before adding the "hold" character
 			currentInputConnection.commitText(String.valueOf(key), 1);
 			return true;
 		} else if (nextSuggestionInModeAbc()) {
 			return true;
 		} else if (mInputMode == T9Preferences.MODE_ABC) {
-			commitCurrentSuggestion();
-			setSuggestions(mLanguage.getKeyCharacters(key, mCapsMode == T9Preferences.CASE_LOWER), 0);
+			commitCurrentSuggestion(); // commit the previous one before suggesting the new one
+			setSuggestions(mLanguage.getKeyCharacters(key, mCapsMode == T9Preferences.CASE_LOWER));
+			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
 			return true;
 		}
 
@@ -233,7 +231,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mSuggestionView.scrollToSuggestion(-1);
 
-		// @todo: also add composing text to the input connection?
+		String word = mSuggestionView.getCurrentSuggestion();
+		currentInputConnection.setComposingText(word, word.length());
 
 		return true;
 	}
@@ -246,7 +245,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mSuggestionView.scrollToSuggestion(1);
 
-		// @todo: also add composing text to the input connection?
+		String word = mSuggestionView.getCurrentSuggestion();
+		currentInputConnection.setComposingText(word, word.length());
 
 		return true;
 	}
@@ -260,9 +260,18 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * Helper function to commit any text being composed in to the editor.
 	 */
 	private void commitCurrentSuggestion() {
-		if (currentInputConnection != null && !isSuggestionViewHidden()) {
-			String word = mSuggestionView.getCurrentSuggestion();
-			currentInputConnection.commitText(word, word.length());
+		if (!isSuggestionViewHidden()) {
+			currentInputConnection.finishComposingText();
+		}
+
+		setSuggestions(null);
+	}
+
+
+	private void clearSuggestions() {
+		if (currentInputConnection != null) {
+			currentInputConnection.setComposingText("", 1);
+			currentInputConnection.finishComposingText();
 		}
 
 		setSuggestions(null);
@@ -287,7 +296,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void nextKeyMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC) {
-			setSuggestions(null);
+			clearSuggestions();
 			mInputMode = T9Preferences.MODE_123;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
@@ -298,6 +307,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mCapsMode = allowedCapsModes.get(modeIndex);
 
 			mSuggestionView.changeCase(mCapsMode, mLanguage.getLocale());
+			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
@@ -320,7 +330,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return;
 		}
 
-		setSuggestions(null);
+		clearSuggestions();
 
 		// select the next language
 		int previousLangId = mEnabledLanguages.indexOf(mLanguage.getId());
@@ -337,7 +347,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		setSuggestions(null);
+		clearSuggestions();
 
 		String template = "";
 
