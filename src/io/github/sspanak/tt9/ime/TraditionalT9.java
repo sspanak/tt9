@@ -7,11 +7,11 @@ import android.view.View;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.PreferenceValidator;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
@@ -19,16 +19,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	private View softKeyView = null;
 
 	protected Language mLanguage;
-	protected ArrayList<Integer> mSupportedLanguages;
+	protected ArrayList<Integer> mEnabledLanguages;
 
 
-	private void ensureSettings() {
-		mSupportedLanguages = prefs.getEnabledLanguageIds();
+	private void loadPreferences() {
+		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
+		mEnabledLanguages = prefs.getEnabledLanguageIds();
 
-		if (mLanguage == null || !mSupportedLanguages.contains(mLanguage.getId())) {
-			mLanguage = LanguageCollection.getLanguage(1);
-			prefs.setInputLanguage(1);
-		}
+		// @todo: get all other relevant settings
+	}
+
+	private void validatePreferences() {
+		mEnabledLanguages = PreferenceValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
+		mLanguage = PreferenceValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
 	}
 
 
@@ -37,13 +40,14 @@ public class TraditionalT9 extends KeyPadHandler {
 			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
 		}
 
-		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
-		// @todo: get all other relevant settings
+		loadPreferences();
+		validatePreferences();
 	}
 
 
 	protected void onRestart() {
-		ensureSettings();
+		mEnabledLanguages = prefs.getEnabledLanguageIds();
+		validatePreferences();
 
 		// @todo: show or hide UI elements
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
@@ -300,22 +304,13 @@ public class TraditionalT9 extends KeyPadHandler {
 		setCandidates(null);
 
 		// select the next language
-		int previousLangId = mSupportedLanguages.indexOf(mLanguage.getId());
-		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mSupportedLanguages.size();
-		Language nextLanguage = LanguageCollection.getLanguage(mSupportedLanguages.get(nextLangId));
+		int previousLangId = mEnabledLanguages.indexOf(mLanguage.getId());
+		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mEnabledLanguages.size();
+		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(nextLangId));
 
-		// ... or keep the current clear any corrupted settings
-		if (nextLanguage == null) {
-			Log.e("nextLang", "No language with ID: " + mSupportedLanguages.get(nextLangId));
-			Log.e("nextLang", "Language settings seem to be corrupted. Resetting them.");
+		validatePreferences();
 
-			prefs.setEnabledLanguages(new ArrayList<>(Collections.singletonList(mLanguage.getId())));
-			ensureSettings();
-		} else {
-			mLanguage = nextLanguage;
-		}
-
-		// save the last used language for the next time
+		// save it for the next time
 		prefs.setInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);

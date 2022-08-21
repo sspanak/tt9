@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -159,7 +158,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return super.onKeyDown(keyCode, event);
 		}
 
-		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
+//		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// backspace key must repeat its function when held down, so we handle it in a special way
 		if (keyCode == prefs.getKeyBackspace()) {
@@ -209,7 +208,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 			return super.onKeyDown(keyCode, event);
 		}
 
-		Log.d("onLongPress", "LONG PRESS: " + keyCode);
+//		Log.d("onLongPress", "LONG PRESS: " + keyCode);
 
 		if (event.getRepeatCount() > 1) {
 			return true;
@@ -256,7 +255,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == ignoreNextKeyUp) {
-			Log.d("onKeyUp", "Ignored: " + keyCode);
+//			Log.d("onKeyUp", "Ignored: " + keyCode);
 			ignoreNextKeyUp = 0;
 			return true;
 		}
@@ -264,7 +263,7 @@ public abstract class KeyPadHandler extends InputMethodService {
 		isKeyCodeRepeated = (lastKeyCode == keyCode);
 		lastKeyCode = keyCode;
 
-		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+//		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
 		if (keyCode == prefs.getKeyBackspace() && InputFieldHelper.isThereText(currentInputConnection)) {
 			return true;

@@ -1,7 +1,11 @@
 package io.github.sspanak.tt9.languages;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class LanguageCollection {
 	private static LanguageCollection self;
@@ -9,17 +13,23 @@ public class LanguageCollection {
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
 	private LanguageCollection() {
-		Language lang = new English();
-		languages.put(lang.getId(), lang);
+		// add any of the languages in the package here to make them available
+		List<Class<? extends Language>> languageList = Arrays.asList(
+			Bulgarian.class,
+			English.class,
+			Russian.class,
+			Ukrainian.class
+		);
 
-		lang = new Russian();
-		languages.put(lang.getId(), lang);
-
-		lang = new Bulgarian();
-		languages.put(lang.getId(), lang);
-
-		lang = new Ukrainian();
-		languages.put(lang.getId(), lang);
+		// initialize the language objects from the class list above
+		for (Class<? extends Language> languageClass : languageList) {
+			try {
+				Language lang = languageClass.newInstance();
+				languages.put(lang.getId(), lang);
+			} catch (Exception e) {
+				Log.e("LanguageCollection", "Skipping an invalid language. " + e.getMessage());
+			}
+		}
 	}
 
 	public static LanguageCollection getInstance() {
@@ -42,7 +52,10 @@ public class LanguageCollection {
 		ArrayList<Language> langList = new ArrayList<>();
 
 		for (int languageId : languageIds) {
-			langList.add(getLanguage(languageId));
+			Language lang = getLanguage(languageId);
+			if (lang != null) {
+				langList.add(lang);
+			}
 		}
 
 		return langList;
