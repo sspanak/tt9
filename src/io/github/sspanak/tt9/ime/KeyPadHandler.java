@@ -173,8 +173,10 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
-		// @todo: consider tracking only when necessary
-		event.startTracking();
+
+		if (keyCode == KeyEvent.KEYCODE_0 || mInputMode != T9Preferences.MODE_123) {
+			event.startTracking();
+		}
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
 			return true;
@@ -435,13 +437,10 @@ abstract class KeyPadHandler extends InputMethodService {
 		int candidatesStart,
 		int candidatesEnd
 	) {
-		// @todo: implement if necessary
-
-		// @todo: pass-through to super.onUpdateSelection()?
-
-		// @todo: commit text
-
-		// @todo: clear candidates
+		// @todo: implement if necessary, but probably in TraditionalT9, not here
+		// ... handle any interesting cursor movement
+		// commitCurrentSuggestion()
+		// setSuggestions(null)
 	}*/
 
 }
