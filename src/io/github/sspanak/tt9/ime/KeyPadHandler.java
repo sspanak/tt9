@@ -226,7 +226,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_0: return on0(true);
-			case KeyEvent.KEYCODE_1: return on1(true);
+			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
 			case KeyEvent.KEYCODE_4:
@@ -235,7 +235,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return on2to9(keyCodeToKeyNumber(keyCode), true);
+				return on1to9(keyCodeToKeyNumber(keyCode), true);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -294,7 +294,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_CENTER: return onOK();
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
-			case KeyEvent.KEYCODE_1: return on1(false);
+			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
 			case KeyEvent.KEYCODE_4:
@@ -303,7 +303,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return on2to9(keyCodeToKeyNumber(keyCode), false);
+				return on1to9(keyCodeToKeyNumber(keyCode), false);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
@@ -404,8 +404,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onUp();
 	abstract protected boolean onDown();
 	abstract protected boolean on0(boolean hold);
-	abstract protected boolean on1(boolean hold);
-	abstract protected boolean on2to9(int key, boolean hold);
+	abstract protected boolean on1to9(int key, boolean hold);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();
 

@@ -116,11 +116,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean on0(boolean hold) {
-		commitCurrentSuggestion();
-
 		if (!hold && nextSuggestionInModeAbc()) {
 			return true;
 		}
+
+		commitCurrentSuggestion();
 
 		setSuggestions(
 			mInputMode == T9Preferences.MODE_ABC && !hold ? mLanguage.getKeyCharacters(0): null,
@@ -140,30 +140,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean on1(boolean hold) {
-		if (mInputMode == T9Preferences.MODE_123) {
-			return false;
-		}
-
-		commitCurrentSuggestion();
-
-		if (!hold && nextSuggestionInModeAbc()) {
-			return true;
-		}
-
-		if (hold) {
-			Log.d("on1", "showSymbolDialog is broken!");
-			// @todo: UI.showSymbolDialog(this); // it is broken
-		} else {
-			setSuggestions(mLanguage.getKeyCharacters(1), 0);
-			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
-		}
-
-		return true;
-	}
-
-
-	protected boolean on2to9(int key, boolean hold) {
+	protected boolean on1to9(int key, boolean hold) {
 		if (mInputMode == T9Preferences.MODE_123) {
 			return false;
 		}
@@ -177,7 +154,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else if (mInputMode == T9Preferences.MODE_ABC) {
 			commitCurrentSuggestion(); // commit the previous one before suggesting the new one
 			setSuggestions(mLanguage.getKeyCharacters(key, mCapsMode == T9Preferences.CASE_LOWER));
-			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
+			setComposingTextFromCurrentSuggestion();
 			return true;
 		}
 
@@ -256,12 +233,16 @@ public class TraditionalT9 extends KeyPadHandler {
 		return isNumKeyRepeated && mInputMode == T9Preferences.MODE_ABC && nextSuggestion();
 	}
 
-	/**
-	 * Helper function to commit any text being composed in to the editor.
-	 */
+
 	private void commitCurrentSuggestion() {
 		if (!isSuggestionViewHidden()) {
-			currentInputConnection.finishComposingText();
+			if (mSuggestionView.getCurrentSuggestion().equals(" ")) {
+				// finishComposingText() seems to ignore a single space,
+				// so we have to force commit it.
+				currentInputConnection.commitText(" ", 1);
+			} else {
+				currentInputConnection.finishComposingText();
+			}
 		}
 
 		setSuggestions(null);
@@ -307,7 +288,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mCapsMode = allowedCapsModes.get(modeIndex);
 
 			mSuggestionView.changeCase(mCapsMode, mLanguage.getLocale());
-			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
+			setComposingTextFromCurrentSuggestion();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
@@ -322,6 +303,12 @@ public class TraditionalT9 extends KeyPadHandler {
 		// @todo: save the key mode and the caps mode
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
+	}
+
+	private void setComposingTextFromCurrentSuggestion() {
+		if (!isSuggestionViewHidden()) {
+			currentInputConnection.setComposingText(mSuggestionView.getCurrentSuggestion(), 1);
+		}
 	}
 
 
