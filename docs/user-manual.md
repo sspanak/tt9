@@ -4,10 +4,15 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
+In order to use Traditional T9, you need to enable it as an Android keyboard. To do so:
+
 - Go to Android Settings → System → Languages → Keyboards.
 - Add Traditional T9 IME.
 
-With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, you must also do the following:
+_The actual menu names may vary depending on your Android version and phone._
+
+### Enabling Predictive Mode
+With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
 
 - Open TT9 preferences.
 - Select the desired languages.
@@ -30,14 +35,14 @@ Backspace.
 
 #### Text Mode Key (Hash/Pound/#):
 - **Short press:** Cycle input modes (Predictive → Abc → 123)
-- **Short press while typing a word:**: Change between UPPERCASE and lowercase.
-- **Long press:** Select next language
+- **Short press while typing:** Change between UPPERCASE and lowercase.
+- **Long press:** Select the next language.
 - **Number-only fields:** Type a "#". Changing the mode is not possible in such fields.
 
 #### Backspace Key (Back/↩):
 - **Short Press when there is text:** Usually, "backspace". However, some applications, most notably Firefox and Spotify, forbid this action in their search fields. This is due to the fact Android allows applications to take over control of the physical keypad and redefine what buttons do. Unfortunately, nothing can be done in such cases, "Back" will function as the application authors intended, instead of as backspace.
-- **Short Press when there is no text:** System default, no special action (usually, go back)
-- **Long Press:** System default, no special action
+- **Short Press when there is no text:** System default, no special action (usually, go back).
+- **Long Press:** System default, no special action.
 
 #### Other Actions Key (Star/✱):
 - **Short press:** Add a word to the dictionary.
