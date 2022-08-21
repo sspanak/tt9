@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.ArrayList;
-import java.util.List;
 
 abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
@@ -65,6 +64,12 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
+	@Override
+	public boolean onEvaluateFullscreenMode() {
+		return false;
+	}
+
+
 	/**
 	 * Called by the framework when your view for creating input needs to be
 	 * generated. This will be called the first time your input method is
@@ -102,7 +107,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		// Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
 		// 	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
 
-		clearState();
+		mEditing = NON_EDIT;
 
 		// https://developer.android.com/reference/android/text/InputType#TYPE_NULL
 		// Special or limited input type. This means the input connection is not rich,
@@ -129,12 +134,6 @@ abstract class KeyPadHandler extends InputMethodService {
 		super.onFinishInput();
 		// Log.d("onFinishInput", "When is this called?");
 		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
-			// @todo: save last language
-
-			// @todo: pick the current candidate in PREDICTIVE mode
-
-			// @todo: commit current text
-
 			onFinish();
 		}
 	}
@@ -324,15 +323,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	protected void clearState() {
-		setSuggestions(null);
-		currentInputConnection.setComposingText("", 0);
-		currentInputConnection.finishComposingText();
-		// @todo: clear previous word
-		mEditing = NON_EDIT;
-	}
-
-
 	private boolean isOff() {
 		return currentInputConnection == null || mEditing == NON_EDIT;
 	}
@@ -428,8 +418,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onRestart();
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
-	abstract protected void setSuggestions(List<String> suggestions);
-	abstract protected void setSuggestions(List<String> suggestions, int initialSel);
 	abstract protected boolean isSuggestionViewHidden();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -457,15 +445,4 @@ abstract class KeyPadHandler extends InputMethodService {
 		// @todo: clear candidates
 	}*/
 
-
-	/**
-	 * This tells us about completions that the editor has determined based on
-	 * the current text in it. We want to use this in fullscreen mode to show
-	 * the completions ourself, since the editor can not be seen in that
-	 * situation.
-	 */
-/*	@Override
-	public void onDisplayCompletions(CompletionInfo[] completions) {
-		// @todo: see if this can be deleted or it should be an empty function
-	}*/
 }

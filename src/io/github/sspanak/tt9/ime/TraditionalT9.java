@@ -26,7 +26,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
 		mEnabledLanguages = prefs.getEnabledLanguageIds();
 
-		// @todo: get all other relevant settings
+		// @todo: get the input mode and case as well
 	}
 
 	private void validatePreferences() {
@@ -46,10 +46,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart() {
+		// in case we are back from Preferences screen, update the language list
 		mEnabledLanguages = prefs.getEnabledLanguageIds();
 		validatePreferences();
 
-		// @todo: show or hide UI elements
+		// reset all UI elements
+		setSuggestions(null);
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 		displaySoftKeyMenu();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
@@ -61,7 +63,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onFinish() {
-		clearState();
+		setSuggestions(null);
+		if (currentInputConnection != null) {
+			currentInputConnection.setComposingText("", 0);
+			// currentInputConnection.finishComposingText();
+		}
+
+		// @todo: clear previous word
+
 		hideStatusIcon();
 		hideWindow();
 
@@ -192,12 +201,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onKeyInputMode(boolean hold) {
 		if (hold) {
-			setSuggestions(null);
 			nextLang();
 		} else {
-			// @todo: commit current text
 			nextKeyMode();
-			// @todo: if in predictive mode and composing a word, change the case only
 		}
 
 		return true;
@@ -303,6 +309,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			mCapsMode = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
 		}
 
+		// @todo: save the key mode and the caps mode
+
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
 	}
 
@@ -329,7 +337,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		clearState();
+		setSuggestions(null);
 
 		String template = "";
 

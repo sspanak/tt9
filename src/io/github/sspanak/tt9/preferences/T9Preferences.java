@@ -142,14 +142,6 @@ public class T9Preferences {
 		return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR);
 	}
 
-	// public boolean getSoftBackspaceEnabled() {
-	// 	return prefs.getBoolean("pref_softkey_backspace", true);
-	// }
-
-	// public boolean getSoftPrefsEnabled() {
-	// 	return prefs.getBoolean("pref_softkey_prefs", true);
-	// }
-
 	public String getLastWord() {
 		return prefs.getString("last_word", "");
 	}
