@@ -5,16 +5,4 @@
 		<item >Russisch</item>
 		<item >Deutsch</item>
 	</string-array>
-
-	<string-array name="capsMode">
-		<item>Caps aus</item>
-		<item>Einmal Caps</item>
-		<item>Alles Caps</item>
-	</string-array>
-
-	<string-array name="keyMode">
-		<item>Wörterbuch</item>
-		<item>Text</item>
-		<item>Zahlen</item>
-	</string-array>
 </resources>

@@ -8,16 +8,4 @@
     <item>Італійська</item>
     <item>Українська</item>
     </string-array>
-
-  <string-array name="capsMode">
-    <item>Нижній регістр</item>
-    <item>Починати з великої літери</item>
-    <item>Всі великі літери</item>
-  </string-array>
-
-  <string-array name="keyMode">
-    <item>Словник</item>
-    <item>Літери</item>
-    <item>Цифри</item>
-  </string-array>
 </resources>

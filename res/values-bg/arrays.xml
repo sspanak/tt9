@@ -9,16 +9,4 @@
 		<item>Украински</item>
 		<item>Български</item>
 	</string-array>
-
-	<string-array name="capsMode">
-		<item>малки букви</item>
-		<item>Начална Главна</item>
-		<item>САМО ГЛАВНИ</item>
-	</string-array>
-
-	<string-array name="keyMode">
-		<item>Предсказване</item>
-		<item>Текст</item>
-		<item>Числа</item>
-	</string-array>
 </resources>

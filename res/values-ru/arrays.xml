@@ -5,16 +5,4 @@
 		<item>Русский</item>
 		<item>Немецкий</item>
 	</string-array>
-
-	<string-array name="capsMode">
-		<item>нижний регистр</item>
-		<item>Первая заглавная</item>
-		<item>Все заглавные</item>
-	</string-array>
-
-	<string-array name="keyMode">
-		<item>Словарь</item>
-		<item>буквы</item>
-		<item>цифры</item>
-	</string-array>
 </resources>

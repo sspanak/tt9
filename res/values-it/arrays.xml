@@ -7,16 +7,4 @@
         <item>Francese</item>
         <item>Italiano</item>
     </string-array>
-
-    <string-array name="capsMode">
-        <item>Minuscolo</item>
-        <item>Maiuscolo</item>
-        <item>Blocca Maiuscolo</item>
-    </string-array>
-
-    <string-array name="keyMode">
-        <item>Dizionario</item>
-        <item>Testo</item>
-        <item>Numero</item>
-    </string-array>
 </resources>

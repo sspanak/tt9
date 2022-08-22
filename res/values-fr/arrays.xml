@@ -6,16 +6,4 @@
 		<item>German</item>
 		<item>French</item>
 	</string-array>
-
-	<string-array name="capsMode">
-		<item>Maj déver</item>
-		<item>Maj lettre</item>
-		<item>Maj verr</item>
-	</string-array>
-
-	<string-array name="keyMode">
-		<item>Dictionnaire</item>
-		<item>Texte</item>
-		<item>Nombre</item>
-	</string-array>
 </resources>

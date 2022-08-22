@@ -19,16 +19,4 @@
 		<item>@integer/LANG_UK</item>
 		<item>@integer/LANG_BG</item>
 	</integer-array>
-
-	<string-array name="capsMode">
-		<item>Caps off</item>
-		<item>Single capital</item>
-		<item>All caps</item>
-	</string-array>
-
-	<string-array name="keyMode">
-		<item>Dictionary</item>
-		<item>Text</item>
-		<item>Number</item>
-	</string-array>
 </resources>
