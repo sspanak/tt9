@@ -21,13 +21,22 @@ That's it! Now you should be able to deploy and debug the app on your device.
 You can find more info in this [Github issue](https://github.com/android/input-samples/issues/18).
 
 ### Building a Release .apk
-The project is configured to build an unsigned release variant by default. You just need to select the "release" variant from Android Studio options, then `Build -> Rebuild Project`. After that, just ignore all warnings until you get to the end of the process. You will find the `.apk` in the generated 'build/' folder.
+The project is configured to build an unsigned release variant by default.
+
+- Select the "release" variant from Android Studio options (`Build` -> `Select Build Variant...`)
+- `Build` -> `Rebuild Project`. After that, just ignore all warnings until you get to the end of the process.
+- Find the `.apk` in the generated 'build/' folder.
+
+_Note that it may not be possible to install an unsigned `.apk` on newer versions of Android. You must either manually sign it or build a signed one instead._
 
 ### Building a Signed .apk
-- Make sure you have a signing key. If you don't have one, follow the [official manual](https://developer.android.com/studio/publish/app-signing#sign-apk).
-- In `build.gradle` find the `signingConfigs` and `buildTypes` sections and uncomment them.
-- Set properly the environment variables listed in `signingConfigs.release` _(You may need to restart Android Studio after that)_. Alternatively, you may simply type the actual key path, alias and passwords there. **Just make sure not to commit them!**
-- Build the project normally. Android Studio should show you where it has generated the signed `.apk` file. If not, look for it in the `build/` folder.
+Make sure you have a signing key. If you don't have one, follow the [official manual](https://developer.android.com/studio/publish/app-signing#sign-apk).
+
+- Select `Build` -> `Generate Signed Bundle / APK...`.
+- Select `APK` and proceed to the next screen.
+- Enter your key details (or create a new one) and continue to the next screen.
+- Choose the "Release" variant, then click `Finish` to start building.
+- Android Studio will tell you where the `.apk` is, but if it does not, try looking for it in the `release/` folder.
 
 ## Adding a new language
 To support a new language one needs to:
