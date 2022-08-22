@@ -25,13 +25,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadPreferences() {
 		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
 		mEnabledLanguages = prefs.getEnabledLanguageIds();
+		mInputMode = prefs.getInputMode();
+		mTextCase = prefs.getTextCase();
+	}
 
-		// @todo: get the input mode and case as well
+	private void validateLanguages() {
+		mEnabledLanguages = PreferenceValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
+		mLanguage = PreferenceValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
 	}
 
 	private void validatePreferences() {
-		mEnabledLanguages = PreferenceValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
-		mLanguage = PreferenceValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
+		validateLanguages();
+		mInputMode = PreferenceValidator.validateInputMode(prefs, mInputMode, allowedInputModes);
+		mTextCase = PreferenceValidator.validateTextCase(prefs, mTextCase, allowedTextCases);
 	}
 
 
@@ -41,7 +47,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		loadPreferences();
-		validatePreferences();
 	}
 
 
@@ -52,7 +57,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// reset all UI elements
 		clearSuggestions();
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 		displaySoftKeyMenu();
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
 			requestShowSelf(1);
@@ -153,7 +158,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		} else if (mInputMode == T9Preferences.MODE_ABC) {
 			commitCurrentSuggestion(); // commit the previous one before suggesting the new one
-			setSuggestions(mLanguage.getKeyCharacters(key, mCapsMode == T9Preferences.CASE_LOWER));
+			setSuggestions(mLanguage.getKeyCharacters(key, mTextCase == T9Preferences.CASE_LOWER));
 			setComposingTextFromCurrentSuggestion();
 			return true;
 		}
@@ -282,27 +287,29 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
-			determineAllowedCapsModes();
+			determineAllowedTextCases();
 
-			int modeIndex = (allowedCapsModes.indexOf(mCapsMode) + 1) % allowedCapsModes.size();
-			mCapsMode = allowedCapsModes.get(modeIndex);
+			int modeIndex = (allowedTextCases.indexOf(mTextCase) + 1) % allowedTextCases.size();
+			mTextCase = allowedTextCases.get(modeIndex);
 
-			mSuggestionView.changeCase(mCapsMode, mLanguage.getLocale());
+			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
 			setComposingTextFromCurrentSuggestion();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode == T9Preferences.MODE_ABC && mCapsMode == T9Preferences.CASE_LOWER) {
-			mCapsMode = T9Preferences.CASE_UPPER;
+		else if (mInputMode == T9Preferences.MODE_ABC && mTextCase == T9Preferences.CASE_LOWER) {
+			mTextCase = T9Preferences.CASE_UPPER;
 		} else {
-			int modeIndex = (allowedEditingModes.indexOf(mInputMode) + 1) % allowedEditingModes.size();
-			mInputMode = allowedEditingModes.get(modeIndex);
+			int modeIndex = (allowedInputModes.indexOf(mInputMode) + 1) % allowedInputModes.size();
+			mInputMode = allowedInputModes.get(modeIndex);
 
-			mCapsMode = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
+			mTextCase = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
 		}
 
-		// @todo: save the key mode and the caps mode
+		// save the settings for the next time
+		prefs.setInputMode(mInputMode);
+		prefs.setTextCase(mTextCase);
 
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 	}
 
 	private void setComposingTextFromCurrentSuggestion() {
@@ -324,12 +331,12 @@ public class TraditionalT9 extends KeyPadHandler {
 		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mEnabledLanguages.size();
 		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(nextLangId));
 
-		validatePreferences();
+		validateLanguages();
 
 		// save it for the next time
 		prefs.setInputLanguage(mLanguage.getId());
 
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mCapsMode);
+		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 	}
 
 

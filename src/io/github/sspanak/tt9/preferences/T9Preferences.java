@@ -79,7 +79,7 @@ public class T9Preferences {
 		prefsEditor.apply();
 	}
 
-	public T9Preferences setEnabledLanguages(ArrayList<Integer> languageIds) {
+	public void setEnabledLanguages(ArrayList<Integer> languageIds) {
 		int languageMask = 0;
 		for (Integer langId : languageIds) {
 			if (langId < 0 || langId >= MAX_LANGUAGES) {
@@ -96,62 +96,54 @@ public class T9Preferences {
 
 		prefsEditor.putInt("pref_enabled_languages", languageMask);
 		prefsEditor.apply();
-
-		return this;
 	}
 
-	// public int getInputCase() {
-	// 	return prefs.getInt("pref_input_case", CASE_CAPITALIZE);
-	// }
+	public int getTextCase() {
+		return prefs.getInt("pref_text_case", CASE_LOWER);
+	}
+
+	public void setTextCase(int textCase) {
+		prefsEditor.putInt("pref_text_case", textCase);
+		prefsEditor.apply();
+	}
+
 
 	public int getInputLanguage() {
 		return prefs.getInt("pref_input_language", 0);
 	}
 
-	public T9Preferences setInputLanguage(int language) {
+	public void setInputLanguage(int language) {
 		prefsEditor.putInt("pref_input_language", language);
 		prefsEditor.apply();
-
-		return this;
 	}
 
 	public int getInputMode() {
 		return prefs.getInt("pref_input_mode", MODE_PREDICTIVE);
 	}
 
-	public T9Preferences setInputMode(int mode) throws Exception {
-		if (mode != MODE_PREDICTIVE && mode != MODE_ABC && mode != MODE_123) {
-			throw new Exception("Invalid input mode: '" + mode + "'");
-		}
-
+	public void setInputMode(int mode) {
 		prefsEditor.putInt("pref_input_mode", mode);
 		prefsEditor.apply();
-
-		return this;
 	}
+
 
 	public int getKeyBackspace() {
 		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_BACK);
 	}
 
-	public int getKeyInputMode() {
-		return prefs.getInt("pref_key_inputmode", KeyEvent.KEYCODE_POUND);
-	}
+	public int getKeyInputMode() { return prefs.getInt("pref_key_input_mode", KeyEvent.KEYCODE_POUND); }
 
-	public int getKeyOtherActions() {
-		return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR);
-	}
+	public int getKeyOtherActions() { return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR); }
+
 
 	public String getLastWord() {
 		return prefs.getString("last_word", "");
 	}
 
-	public T9Preferences setLastWord(String lastWord) {
+	public void setLastWord(String lastWord) {
 		// "last_word" was part of the original Preferences implementation.
 		// It is weird, but it is simple and it works, so I decided to keep it.
 		prefsEditor.putString("last_word", lastWord);
 		prefsEditor.apply();
-
-		return this;
 	}
 }

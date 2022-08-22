@@ -22,15 +22,15 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// input mode
 	protected int mInputMode = T9Preferences.MODE_123;
-	protected int mCapsMode = T9Preferences.CASE_LOWER;
+	protected int mTextCase = T9Preferences.CASE_LOWER;
 
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
 	protected static final int EDITING_NOSHOW = 2;
 	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected int mEditing = NON_EDIT;
-	protected ArrayList<Integer> allowedEditingModes;
-	protected ArrayList<Integer> allowedCapsModes;
+	protected ArrayList<Integer> allowedInputModes;
+	protected ArrayList<Integer> allowedTextCases;
 
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
@@ -119,7 +119,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		determineAllowedInputModes(inputField);
-		determineAllowedCapsModes();
+		determineAllowedTextCases();
 
 		onRestart();
 	}
@@ -337,18 +337,18 @@ abstract class KeyPadHandler extends InputMethodService {
 
 
 	private void determineAllowedInputModes(EditorInfo inputField) {
-		allowedEditingModes = InputFieldHelper.determineInputModes(inputField);
+		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
 
 		int lastInputMode = prefs.getInputMode();
-		if (allowedEditingModes.contains(lastInputMode)) {
+		if (allowedInputModes.contains(lastInputMode)) {
 			mInputMode = lastInputMode;
-		} else if (allowedEditingModes.contains(T9Preferences.MODE_ABC)) {
+		} else if (allowedInputModes.contains(T9Preferences.MODE_ABC)) {
 			mInputMode = T9Preferences.MODE_ABC;
 		} else {
-			mInputMode = allowedEditingModes.get(0);
+			mInputMode = allowedInputModes.get(0);
 		}
 
-		if (mInputMode == T9Preferences.MODE_123 && allowedEditingModes.size() == 1) {
+		if (mInputMode == T9Preferences.MODE_123 && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
@@ -356,18 +356,18 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	void determineAllowedCapsModes() {
+	void determineAllowedTextCases() {
 		// @todo: determine case from input
 
-		allowedCapsModes = new ArrayList<>();
+		allowedTextCases = new ArrayList<>();
 
 		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
-			allowedCapsModes.add(T9Preferences.CASE_LOWER);
-			allowedCapsModes.add(T9Preferences.CASE_CAPITALIZE);
-			allowedCapsModes.add(T9Preferences.CASE_UPPER);
+			allowedTextCases.add(T9Preferences.CASE_LOWER);
+			allowedTextCases.add(T9Preferences.CASE_CAPITALIZE);
+			allowedTextCases.add(T9Preferences.CASE_UPPER);
 		} else if (mInputMode == T9Preferences.MODE_ABC) {
-			allowedCapsModes.add(T9Preferences.CASE_LOWER);
-			allowedCapsModes.add(T9Preferences.CASE_UPPER);
+			allowedTextCases.add(T9Preferences.CASE_LOWER);
+			allowedTextCases.add(T9Preferences.CASE_UPPER);
 		}
 	}
 

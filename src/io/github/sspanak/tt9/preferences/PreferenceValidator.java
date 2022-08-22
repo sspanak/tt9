@@ -35,9 +35,40 @@ public class PreferenceValidator {
 		Language validLanguage = LanguageCollection.getLanguage(validLanguageIds.get(0));
 		validLanguage = validLanguage == null ? LanguageCollection.getLanguage(1) : validLanguage;
 		validLanguage = validLanguage == null ? new English() : validLanguage;
-		Log.e("validateLanguage", error + "Enforcing language: " + validLanguage.getId());
-
 		prefs.setInputLanguage(validLanguage.getId());
+
+		Log.w("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
+
 		return validLanguage;
+	}
+
+	public static int validateInputMode(T9Preferences prefs, int inputMode, ArrayList<Integer> allowedModes) {
+		if (allowedModes != null && allowedModes.size() > 0 && allowedModes.contains(inputMode)) {
+			return inputMode;
+		}
+
+		String error = "Invalid input mode: " + inputMode;
+
+		int newMode = allowedModes != null && allowedModes.size() > 0 ? allowedModes.get(0) : T9Preferences.MODE_123;
+		prefs.setInputMode(newMode);
+
+		Log.w("validateInputMode", error + " Enforcing: " + newMode);
+
+		return newMode;
+	}
+
+	public static int validateTextCase(T9Preferences prefs, int textCase, ArrayList<Integer> allowedTextCases) {
+		if (allowedTextCases != null && allowedTextCases.size() > 0 && allowedTextCases.contains(textCase)) {
+			return textCase;
+		}
+
+		String error = "Invalid text case: " + textCase;
+
+		int newCase = allowedTextCases != null && allowedTextCases.size() > 0 ? allowedTextCases.get(0) : T9Preferences.MODE_123;
+		prefs.setTextCase(newCase);
+
+		Log.w("validateTextCase", error + " Enforcing: " + newCase);
+
+		return newCase;
 	}
 }
