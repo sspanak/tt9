@@ -2,12 +2,12 @@
 <resources>
 	<string-array name="pref_lang_titles">
 		<item>English</item>
-		<item>Russian</item>
-		<item>German</item>
-		<item>French</item>
-		<item>Italian</item>
-		<item>Ukrainian</item>
-		<item>Bulgarian</item>
+		<item>Русский</item>
+		<item>Deutsch</item>
+		<item>Français</item>
+		<item>Italiano</item>
+		<item>Українська</item>
+		<item>Български</item>
 	</string-array>
 	<!--pref_lang_titles pair with pref_lang_values -->
 	<integer-array translatable="false" name="pref_lang_values">
