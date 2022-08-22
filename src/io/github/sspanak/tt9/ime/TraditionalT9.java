@@ -7,6 +7,7 @@ import android.view.View;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.PreferenceValidator;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -90,7 +91,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		commitCurrentSuggestion();
 		// @todo: typing in the dial field behaves incorrectly after BACKSPACE
 		// 				check if this is the best way of deleting text.
-		currentInputConnection.deleteSurroundingText(1, 0);
+
+		int charLength = InputFieldHelper.isLastCharSurrogate(currentInputConnection) ? 2 : 1;
+		currentInputConnection.deleteSurroundingText(charLength, 0);
 
 		Log.d("handleBackspace", "backspace handled");
 		return true;
@@ -144,7 +147,13 @@ public class TraditionalT9 extends KeyPadHandler {
 		return true;
 	}
 
-
+	/**
+	 * on1to9
+	 *
+	 * @param key   Must be a number from 1 to 9, not a "KeyEvent.KEYCODE_X"
+	 * @param hold  If "true" we are calling the handler, because the key is being held.
+	 * @return boolean
+	 */
 	protected boolean on1to9(int key, boolean hold) {
 		if (mInputMode == T9Preferences.MODE_123) {
 			return false;
@@ -154,9 +163,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			commitCurrentSuggestion(); // commit the previous one before adding the "hold" character
 			currentInputConnection.commitText(String.valueOf(key), 1);
 			return true;
+		} else if (wordInPredictiveMode(key)) {
+			return true;
+		} else if (emoticonInPredictiveMode(key)) {
+			return true;
 		} else if (nextSuggestionInModeAbc()) {
 			return true;
-		} else if (mInputMode == T9Preferences.MODE_ABC) {
+		} else if (mInputMode == T9Preferences.MODE_ABC || mInputMode == T9Preferences.MODE_PREDICTIVE) {
 			commitCurrentSuggestion(); // commit the previous one before suggesting the new one
 			setSuggestions(mLanguage.getKeyCharacters(key, mTextCase == T9Preferences.CASE_LOWER));
 			setComposingTextFromCurrentSuggestion();
@@ -234,6 +247,38 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private boolean emoticonInPredictiveMode(int key) {
+		if (key != 1 || mInputMode != T9Preferences.MODE_PREDICTIVE || !isNumKeyRepeated) {
+			return false;
+		}
+
+		setSuggestions(Punctuation.Emoticons);
+		setComposingTextFromCurrentSuggestion();
+
+		return true;
+	}
+
+
+	private boolean wordInPredictiveMode(int key) {
+		// 0 and 1 are used for punctuation, so we don't care about them here.
+		if (mInputMode != T9Preferences.MODE_PREDICTIVE || key == 1 || key == 0) {
+			return false;
+		}
+
+		Log.d("wordInPredictiveMode", "Received key: " + key);
+
+		// @todo: start accumulating a digit sequence
+
+		// @todo: get some words for the sequence
+
+		// @todo: ensure the correct text case
+
+		// @todo: if there are words, set the suggestions
+
+		return true;
+	}
+
+
 	private boolean nextSuggestionInModeAbc() {
 		return isNumKeyRepeated && mInputMode == T9Preferences.MODE_ABC && nextSuggestion();
 	}
@@ -249,6 +294,10 @@ public class TraditionalT9 extends KeyPadHandler {
 				currentInputConnection.finishComposingText();
 			}
 		}
+
+		// @todo: In predictive mode:
+		// 1. clear the digit sequence
+		// 2. update word priority in predictive mode
 
 		setSuggestions(null);
 	}

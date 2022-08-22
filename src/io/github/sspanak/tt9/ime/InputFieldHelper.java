@@ -24,6 +24,20 @@ class InputFieldHelper {
 	}
 
 
+	public static boolean isLastCharSurrogate(InputConnection currentInputConnection) {
+		if (currentInputConnection == null) {
+			return false;
+		}
+
+		try {
+			CharSequence lastChars = currentInputConnection.getTextBeforeCursor(2, 0);
+			return lastChars != null && Character.isSurrogatePair(lastChars.charAt(0), lastChars.charAt(1));
+		} catch (IndexOutOfBoundsException e) {
+			return false;
+		}
+	}
+
+
 	public static boolean isSpecializedTextField(EditorInfo inputField) {
 		if (inputField == null) {
 			return false;
