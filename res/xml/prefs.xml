@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Settings>
 	<Setting title="@string/pref_help" id="help" />
-	<SettingList
-		id="pref_inputmode"
-		title="@string/pref_inputmode"
-		entries="@array/pref_inputmode_entries"
-		entryValues="@array/pref_inputmode_values"
-		defaultValue="@integer/INPUT_DEFAULT"
-		summary="@string/pref_inputmode_desc"/>
 	<SettingMultiList
 		id="pref_lang_support"
 		defaultValue="@integer/LANG_DEFAULT"

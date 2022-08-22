@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class SettingList extends Setting {
 	String[] entries;
@@ -30,12 +28,6 @@ public class SettingList extends Setting {
 			}
 		}
 
-		if (id.equals("pref_inputmode")){
-			if (isettings[0] != null)
-				value = (Integer)isettings[0];
-			else
-				value = defaultValue;
-		}
 		widgetID = R.layout.preference_dialog;
 		layout = R.layout.setting_widget;
 	}
@@ -55,14 +47,6 @@ public class SettingList extends Setting {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-
-						if (id.equals("pref_inputmode")) {
-							try {
-								T9Preferences.getInstance(context).setInputMode(entryValues[which]);
-							} catch (Exception e) {
-								Log.e("SettingsList", e.getMessage());
-							}
-						}
 						value = entryValues[which];
 						dialog.dismiss();
 					}

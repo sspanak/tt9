@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string-array name="pref_inputmode_entries">
-		<item>Предсказване</item>
-		<item>Текст</item>
-		<item>Числа</item>
-	</string-array>
-
 	<string-array name="pref_lang_titles">
 		<item>Английски</item>
 		<item>Руски</item>
@@ -26,73 +20,5 @@
 		<item>Предсказване</item>
 		<item>Текст</item>
 		<item>Числа</item>
-	</string-array>
-
-	<string-array name="smileyContentDescription">
-		<item> Усмивка </item>
-		<item> Клоун </item>
-		<item> Хилене </item>
-		<item> Котка </item>
-		<item> Половин нос </item>
-		<item> Злорадство </item>
-		<item> Хилене с големи очи </item>
-		<item> Усмивка с големи очи </item>
-		<item> Широка усмивка</item>
-		<item> Смях </item>
-
-		<item> Смях с отворени очи </item>
-		<item> Смях със затворени очи </item>
-		<item> Смях с големи очи </item>
-		<item> Усмивка с очила и остър нос </item>
-		<item> Усмивка с остра шапка </item>
-		<item> Мръщене </item>
-		<item> Тъга </item>
-		<item> Отчаяние </item>
-		<item> Тъжен клоун </item>
-		<item> Тъжна усмивка </item>
-
-		<item> Плач </item>
-		<item> Смях до сълзи </item>
-		<item> Псувня </item>
-		<item> Шокирано мръщене </item>
-		<item> Мръщене с отворени очи </item>
-		<item> Тъга със затворени очи </item>
-		<item> Плач с отворена уста </item>
-		<item> Мръщене с отворена уста </item>
-		<item> Потрес </item>
-		<item> Изненада </item>
-
-		<item> Целувка </item>
-		<item> Усмивка с намигане </item>
-		<item> Смях с намигане </item>
-		<item> Език в бузата </item>
-		<item> Плезене </item>
-		<item> Дразнене </item>
-		<item> Плезене с отворени очи </item>
-		<item> Дразнене </item>
-		<item> Скептичност </item>
-		<item> Нерешителност </item>
-
-		<item> Объркване </item>
-		<item> Затворени очи </item>
-		<item> Невпечатляващо </item>
-		<item> Изчервяване </item>
-		<item> Затворени устни </item>
-		<item> Цензура </item>
-		<item> Банкер </item>
-		<item> Много голяма и тъжна уста </item>
-		<item> Сарказъм </item>
-		<item> Кисело лице </item>
-
-		<item> Невинна котка </item>
-		<item> Невинна усмивка </item>
-		<item> Зло намигване </item>
-		<item> Зло хилене </item>
-		<item> Блуждаещи очи </item>
-		<item> Усмивка с шапка за купон </item>
-		<item> Поздрав с вдигнати ръце </item>
-		<item> Сърце </item>
-		<item> Разбито сърце </item>
-		<item> Котка с отворени очи </item>
 	</string-array>
 </resources>

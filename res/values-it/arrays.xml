@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_lang_titles">
+        <item>Inglese</item>
+        <item>Russo</item>
+        <item>Tedesco</item>
+        <item>Francese</item>
+        <item>Italiano</item>
+    </string-array>
+
+    <string-array name="capsMode">
+        <item>Minuscolo</item>
+        <item>Maiuscolo</item>
+        <item>Blocca Maiuscolo</item>
+    </string-array>
+
+    <string-array name="keyMode">
+        <item>Dizionario</item>
+        <item>Testo</item>
+        <item>Numero</item>
+    </string-array>
+</resources>

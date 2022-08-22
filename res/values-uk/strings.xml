@@ -14,8 +14,6 @@
     <string name="main_left_notfound">Додати слово?</string>
     <string name="main_right_lower">Змінити IME</string>
     <string name="main_right_upper">Режим введення</string>
-    <string name="pref_inputmode">Режим введення за замовчуванням</string>
-    <string name="pref_inputmode_desc">Режим введення за замовчуванням</string>
     <string name="pref_load_title">Завантажити словник IME</string>
     <string name="pref_loaddict">Завантажити словник</string>
     <string name="pref_loadingdict">Завантаження словника</string>

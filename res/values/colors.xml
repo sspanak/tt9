@@ -5,5 +5,4 @@
 	<color name="candidate_other">#ff68f0e9</color>
 	<color name="candidate_background">#e19185df</color>
 	<color name="button_text">#FFFFFFFF</color>
-	<color name="key_text">#FF000000</color>
 </resources>

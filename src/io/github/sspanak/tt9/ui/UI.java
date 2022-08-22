@@ -9,10 +9,6 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class UI {
-	private static AbsSymDialog mSmileyPopup = null;
-	private static AbsSymDialog mSymbolPopup = null;
-
-
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
 		Intent awIntent = new Intent(tt9, AddWordAct.class);
 		awIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -20,24 +16,6 @@ public class UI {
 		awIntent.putExtra("io.github.sspanak.tt9.word", currentWord);
 		awIntent.putExtra("io.github.sspanak.tt9.lang", language);
 		tt9.startActivity(awIntent);
-	}
-
-
-	public static void showSymbolDialog(TraditionalT9 tt9) {
-		if (mSymbolPopup == null) {
-			mSymbolPopup = new SymbolDialog(tt9, tt9.getLayoutInflater().inflate(R.layout.symbolview,
-					null));
-		}
-		mSymbolPopup.doShow(tt9.getWindow().getWindow().getDecorView());
-	}
-
-
-	public static void showSmileyDialog(TraditionalT9 tt9) {
-		if (mSmileyPopup == null) {
-			mSmileyPopup = new SmileyDialog(tt9, tt9.getLayoutInflater().inflate(R.layout.symbolview,
-					null));
-		}
-		mSmileyPopup.doShow(tt9.getWindow().getWindow().getDecorView());
 	}
 
 

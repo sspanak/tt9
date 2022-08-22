@@ -9,10 +9,5 @@
 	<integer name="LANG_UK">32</integer>
 	<integer name="LANG_BG">64</integer>
 
-	<integer name="INPUT_DICT">0</integer>
-	<integer name="INPUT_TEXT">1</integer>
-	<integer name="INPUT_NUM">2</integer>
-
-	<integer name="INPUT_DEFAULT">@integer/INPUT_DICT</integer>
 	<integer name="LANG_DEFAULT">@integer/LANG_EN</integer>
 </resources>

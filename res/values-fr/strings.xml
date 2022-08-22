@@ -3,8 +3,6 @@
 	<string name="app_name">Traditional T9</string>
 	<string name="ime_name">Traditional T9</string>
 	<string name="ime_number">Nombres</string>
-	<string name="pref_inputmode">Entrée par défaut</string>
-	<string name="pref_inputmode_desc">Mode par défaut utilisé pour la saisie de text \'normal\' </string>
 	<string name="traditionalt9_settings">Configuration Traditional T9 </string>
 	<string name="main_left_insert">Ins. symbole</string>
 	<string name="main_left_addword">Aj. mot</string>

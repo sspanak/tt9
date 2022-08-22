@@ -3,8 +3,6 @@
 	<string name="app_name">Traditional T9</string>
 	<string name="ime_name">Клавиатура T9</string>
 	<string name="ime_number">Цифри</string>
-	<string name="pref_inputmode">Режим на писане</string>
-	<string name="pref_inputmode_desc">Дали да е включено или не подсказването на думи, когато започнете да пишете</string>
 	<string name="traditionalt9_settings">Настройки на Traditional T9</string>
 	<string name="main_left_insert">Въведи символ</string>
 	<string name="main_left_addword">Нова дума</string>
