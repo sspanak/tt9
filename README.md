@@ -38,7 +38,7 @@ To support a new language one needs to:
     - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
     - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-cicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
 - Find a suitable dictionary and add it to `assets` folder.
-- Create a new language class in `languages` folder. Make sure to set all properties. The ID should be any ID unused by another language. Currently, the range is limited between 1 and 31, so there can be 31 languages in total.
+- Create a new language class in `languages/definitions/` folder. Make sure to set all properties. The ID should be any ID unused by another language. Currently, the range is limited between 1 and 31, so there can be 31 languages in total.
 - Add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. The order is irrelevant.
 - Add a new entry in `res/values/const.xml`. Make sure the new ID matches the one in the language class.
 - Add new entries in `res/values/arrays.xml`. Make sure to do so in the the translated `values-xx` folders.

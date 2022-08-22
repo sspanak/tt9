@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.languages.English;
+import io.github.sspanak.tt9.languages.definitions.English;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 

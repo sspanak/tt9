@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import io.github.sspanak.tt9.languages.definitions.*;
+
 public class LanguageCollection {
 	private static LanguageCollection self;
 
