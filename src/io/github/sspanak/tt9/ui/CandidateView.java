@@ -196,13 +196,13 @@ public class CandidateView extends View {
 		requestLayout();
 	}
 
-	public void changeCase(int capsMode, Locale locale) {
+	public void changeCase(int textCase, Locale locale) {
 		ArrayList<String> newSuggestions = new ArrayList<>();
 
 		for (String s : mSuggestions) {
-			if (capsMode == T9Preferences.CASE_LOWER) {
+			if (textCase == T9Preferences.CASE_LOWER) {
 				newSuggestions.add(s.toLowerCase(locale));
-			} else if (capsMode == T9Preferences.CASE_CAPITALIZE) {
+			} else if (textCase == T9Preferences.CASE_CAPITALIZE) {
 				String cs = s.substring(0, 1).toUpperCase(locale) + s.substring(1).toLowerCase(locale);
 				newSuggestions.add(cs);
 			} else {

@@ -33,10 +33,10 @@ public class UI {
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
 	 */
-	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, int inputMode, int capsMode) {
+	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, int inputMode, int textCase) {
 		switch (inputMode) {
 			case T9Preferences.MODE_ABC:
-				tt9.showStatusIcon(inputLanguage.getAbcIcon(capsMode == T9Preferences.CASE_LOWER));
+				tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == T9Preferences.CASE_LOWER));
 				break;
 			case T9Preferences.MODE_PREDICTIVE:
 				tt9.showStatusIcon(inputLanguage.getIcon());
