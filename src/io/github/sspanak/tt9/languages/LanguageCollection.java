@@ -15,10 +15,14 @@ public class LanguageCollection {
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
 	private LanguageCollection() {
-		// add any of the languages in the package here to make them available
 		List<Class<? extends Language>> languageList = Arrays.asList(
+			// Add languages here, to enable them in the UI and
+			// please, maintain the alphabetical order.
 			Bulgarian.class,
 			English.class,
+			French.class,
+			German.class,
+			Italian.class,
 			Russian.class,
 			Ukrainian.class
 		);
