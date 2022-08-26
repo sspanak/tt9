@@ -103,6 +103,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onOK() {
 		Log.d("handleBackspace", "enter handler");
 
+		// @todo: this should probably happen in onRestart(). Sort it out.
 		if (!isInputViewShown()) {
 			showWindow(true);
 			displaySoftKeyMenu();
