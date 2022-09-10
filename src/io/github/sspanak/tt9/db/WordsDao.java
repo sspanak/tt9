@@ -31,8 +31,5 @@ public interface WordsDao {
 	List<Word> getWordsBySequenceRange(int langId, String startSequence, String endSequence, int limit);
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
-	void insertWord(Word word);
-
-	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insertWords(List<Word> words);
 }
