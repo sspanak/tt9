@@ -115,6 +115,15 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		}
 	}
 
+	private class TruncateTask extends AsyncTask {
+		@Override
+		protected Object doInBackground(Object[] objects) {
+			T9Database.getInstance(mContext).clearAllTables();
+			Log.d("TruncateTask", "Truncating finished");
+			return new Reply();
+		}
+	}
+
 	private class LoadDictTask extends AsyncTask<String, Integer, Reply> {
 		/**
 		 * The system calls this to perform work in a worker thread and delivers
@@ -443,8 +452,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		else if (s.id.equals("loaddict"))
 			preloader(R.string.pref_loadingdict, true);
 		else if (s.id.equals("truncatedict")) {
-			Log.d("OnListItemClick", "Truncate DB requested");
-//			T9DB.getInstance(this).truncate();
+			(new TruncateTask()).execute();
 		}
 		else if (s.id.equals("loaduserdict"))
 			preloader(R.string.pref_loadinguserdict, false);

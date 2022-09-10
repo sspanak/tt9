@@ -44,5 +44,4 @@
 	<string name="pref_loadinguserdict">Loading user dictionary…</string>
 	<string name="pref_load_title">Load IME dictionary</string>
 	<string name="pref_loaduser_notfound">Dictionary for %1$s not found. Not loading.</string>
-
 </resources>
