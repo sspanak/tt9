@@ -336,6 +336,12 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
+	protected void resetKeyRepeat() {
+		isNumKeyRepeated = false;
+		lastKeyCode = 0;
+	}
+
+
 	private void determineAllowedInputModes(EditorInfo inputField) {
 		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
 

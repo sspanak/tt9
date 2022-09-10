@@ -89,6 +89,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		commitCurrentSuggestion();
+		resetKeyRepeat();
 		// @todo: typing in the dial field behaves incorrectly after BACKSPACE
 		// 				check if this is the best way of deleting text.
 
@@ -110,6 +111,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		commitCurrentSuggestion();
+		resetKeyRepeat();
 		return !isSuggestionViewHidden();
 	}
 
