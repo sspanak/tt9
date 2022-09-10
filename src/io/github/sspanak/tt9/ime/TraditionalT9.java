@@ -5,6 +5,9 @@ import android.util.Log;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.T9Database;
+import io.github.sspanak.tt9.db.T9RoomDb;
+import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
@@ -18,6 +21,7 @@ import java.util.List;
 public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
+	private T9RoomDb db;
 
 	private String predictionSequence = "";
 
@@ -48,6 +52,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (softKeyHandler == null) {
 			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
 		}
+
+		db = T9Database.getInstance(this);
 
 		loadPreferences();
 	}
@@ -288,13 +294,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void applyPredictionSequence() {
 		Log.d("wordInPredictiveMode", "Sequence: " + predictionSequence);
 
-		// @todo: get some words for the sequence
+		// get words that match exactly this sequence
+		List<Word> words = db.wordsDao().getWordsBySequence(mLanguage.getId(), predictionSequence, 8);
 
-		// @todo: ensure the correct text case
+		// @todo: get extra words, we are below the limit
 
-		// @todo: if there are words, set the suggestions
+		// convert the words to string and set them as suggestions
+		ArrayList<String>	suggestions = new ArrayList<>();
+		for (Word word : words) {
+			// @todo: ensure the correct text case
+			suggestions.add(word.word);
+		}
 
-		// @todo: select the first suggestion
+		setSuggestions(suggestions);
 	}
 
 
@@ -330,7 +342,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		setSuggestions(null);
 	}
-
 
 	protected void setSuggestions(List<String> suggestions) {
 		setSuggestions(suggestions, 0);

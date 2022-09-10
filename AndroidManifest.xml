@@ -23,8 +23,6 @@
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
 		</service>
 
-		<service android:name="io.github.sspanak.tt9.db.DBUpdateService"/>
-
 		<activity android:label="@string/traditionalt9_settings" android:name="io.github.sspanak.tt9.ui.TraditionalT9Settings">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

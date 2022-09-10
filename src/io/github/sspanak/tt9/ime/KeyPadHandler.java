@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.db.T9DB;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
@@ -17,7 +16,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
 
 	protected CandidateView mSuggestionView;
-	protected T9DB db;
 	protected T9Preferences prefs;
 
 	// input mode
@@ -50,7 +48,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		db = T9DB.getInstance(this);
 		prefs = T9Preferences.getInstance(this);
 
 		onInit();
@@ -141,7 +138,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	@Override
 	public void onDestroy() {
-		db.close();
 		super.onDestroy();
 	}
 

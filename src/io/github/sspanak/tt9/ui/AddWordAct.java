@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DBException;
-import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.dblegacy.DBException;
+import io.github.sspanak.tt9.dblegacy.T9DB;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 

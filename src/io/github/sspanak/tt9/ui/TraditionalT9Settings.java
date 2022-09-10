@@ -7,8 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.DatabaseUtils.InsertHelper;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,7 +22,9 @@ import android.widget.Toast;
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.T9DB;
+import io.github.sspanak.tt9.db.T9Database;
+import io.github.sspanak.tt9.db.T9RoomDb;
+import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
@@ -54,7 +54,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 	Context mContext = null;
 
-	public class LoadException extends Exception {
+	public static class LoadException extends Exception {
 		private static final long serialVersionUID = 3323913652550046354L;
 
 		public LoadException() {
@@ -62,13 +62,13 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		}
 	}
 
-	private class Reply {
+	private static class Reply {
 		public boolean status;
-		private List<String> msgs;
+		private final List<String> msgs;
 
 		protected Reply() {
 			this.status = true;
-			this.msgs = new ArrayList<String>(4);
+			this.msgs = new ArrayList<>(4);
 		}
 
 		protected void addMsg(String msg) throws LoadException {
@@ -198,14 +198,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		@Override
 		protected Reply doInBackground(String... mode) {
 			Reply reply = new Reply();
-			SQLiteDatabase db;
-			db = T9DB.getSQLDB(mContext);
-			if (db == null) {
-				reply.forceMsg("Database unavailable at this time. (May be updating)");
-				reply.status = false;
-				return reply;
-			}
-			db.setLockingEnabled(false);
+			T9RoomDb db = T9Database.getInstance(mContext);
 
 			long startnow, endnow;
 			startnow = SystemClock.uptimeMillis();
@@ -276,29 +269,27 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		 * processChars
 		 * Inserts single characters.
 		 */
-		private void processChars(SQLiteDatabase db, Language lang) {
-			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
-
-			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
-			final int langColumn = wordhelp.getColumnIndex(T9DB.COLUMN_LANG);
-			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
-			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
+		private void processChars(T9RoomDb db, Language lang) {
+			ArrayList<Word> list = new ArrayList<>();
 
 			try {
 				for (int key = 0; key <= 9; key++) {
 					for (int lowercase = 0; lowercase < 2; lowercase++) {
 						for (String langChar : lang.getKeyCharacters(key, lowercase == 0)) {
-							wordhelp.prepareForReplace();
-							wordhelp.bind(langColumn, lang.getId());
-							wordhelp.bind(seqColumn, key);
-							wordhelp.bind(wordColumn, langChar);
-							wordhelp.bind(freqColumn, 0);
-							wordhelp.execute();
+							Word word = new Word();
+							word.langId = lang.getId();
+							word.sequence = String.valueOf(key);
+							word.word = langChar;
+							word.frequency = 0;
+
+							list.add(word);
 						}
 					}
 				}
-			} finally {
-				wordhelp.close();
+
+				db.wordsDao().insertWords(list);
+			} catch (Exception e) {
+				Log.e("processChars", e.getMessage());
 			}
 		}
 
@@ -313,83 +304,91 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			return null;
 		}
 
-		private Reply processFile(InputStream is, Reply rpl, SQLiteDatabase db, Language lang, String fname)
+		private Reply processFile(InputStream is, Reply rpl, T9RoomDb db, Language lang, String fname)
 				throws LoadException, IOException {
-			long last = 0;
+			long start = System.currentTimeMillis();
+
 			UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(is);
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(ubis));
 			ubis.skipBOM();
 
-			InsertHelper wordhelp = new InsertHelper(db, T9DB.WORD_TABLE_NAME);
-			final int langColumn = wordhelp.getColumnIndex(T9DB.COLUMN_LANG);
-			final int wordColumn = wordhelp.getColumnIndex(T9DB.COLUMN_WORD);
-			final int freqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_FREQUENCY);
-			final int seqColumn = wordhelp.getColumnIndex(T9DB.COLUMN_SEQ);
-
 			int freq;
 			String seq;
 			int linecount = 1;
 			int wordlen;
-			String word = getLine(br, rpl, fname);
-
-			db.beginTransaction();
+			String fileWord = getLine(br, rpl, fname);
+			ArrayList<Word> dbWords = new ArrayList<>();
+			int insertChunkSize = 1000;
+			int progressUpdateInterval = 100; // ms
+			long lastProgressUpdate = 0;
 
 			try {
-				while (word != null) {
+
+				db.beginTransaction();
+
+				while (fileWord != null) {
 					if (isCancelled()) {
 						rpl.status = false;
 						rpl.addMsg("User cancelled.");
 						break;
 					}
-					if (word.contains(" ")) {
+					if (fileWord.contains(" ")) {
 						rpl.status = false;
-						rpl.addMsg("Cannot parse word with spaces: " + word);
+						rpl.addMsg("Cannot parse word with spaces: " + fileWord);
 						break;
 					}
 
 					freq = 0;
-					wordlen = word.getBytes(StandardCharsets.UTF_8).length;
+					wordlen = fileWord.getBytes(StandardCharsets.UTF_8).length;
 					pos += wordlen;
 					// replace junk characters:
-					word = word.replace("\uFEFF", "");
+					fileWord = fileWord.replace("\uFEFF", "");
 					try {
-						seq = lang.getDigitSequenceForWord(word);
+						seq = lang.getDigitSequenceForWord(fileWord);
 					} catch (Exception e) {
 						rpl.status = false;
-						rpl.addMsg("Error on word ("+word+") line "+
+						rpl.addMsg("Error on word ("+fileWord+") line "+
 								linecount+" in (" +	fname+"): "+
-								getResources().getString(R.string.add_word_badchar, lang.getName(), word));
+								getResources().getString(R.string.add_word_badchar, lang.getName(), fileWord));
 						break;
 					}
 					linecount++;
-					wordhelp.prepareForReplace();
-					wordhelp.bind(seqColumn, seq);
-					wordhelp.bind(langColumn, lang.getId());
-					wordhelp.bind(wordColumn, word);
-					wordhelp.bind(freqColumn, freq);
-					wordhelp.execute();
 
-					// System.out.println("Progress: " + pos + " Last: " + last
-					// + " fsize: " + fsize);
-					if ((pos - last) > 4096) {
-						// Log.d("doInBackground", "line: " + linecount);
-						// Log.d("doInBackground", "word: " + word);
-						if (size >= 0) { publishProgress((int) ((float) pos / size * 10000)); }
-						last = pos;
+					Word word = new Word();
+					word.sequence = seq;
+					word.langId = lang.getId();
+					word.word = fileWord;
+					word.frequency = freq;
+					dbWords.add(word);
+
+					if (linecount % insertChunkSize == 0) {
+						db.wordsDao().insertWords(dbWords);
+						dbWords.clear();
 					}
-					word = getLine(br, rpl, fname);
+
+
+					if (size >= 0 && System.currentTimeMillis() - lastProgressUpdate > progressUpdateInterval) {
+						publishProgress((int) ((float) pos / size * 10000));
+						lastProgressUpdate = System.currentTimeMillis();
+					}
+					fileWord = getLine(br, rpl, fname);
 				}
+
+				db.wordsDao().insertWords(dbWords);
+				dbWords.clear();
+
 				publishProgress((int) ((float) pos / size * 10000));
-				db.setTransactionSuccessful();
-			} finally {
-				db.setLockingEnabled(true);
+			} catch (Exception e) {
+				Log.e("processFile", e.getMessage());
+			}	finally {
 				db.endTransaction();
 				br.close();
 				is.close();
 				ubis.close();
 				is.close();
-				wordhelp.close();
+
+				Log.d("processFile", "Inserted: " + fname + " in: " + (System.currentTimeMillis() - start) + "ms");
 			}
 			return rpl;
 		}
@@ -444,7 +443,8 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		else if (s.id.equals("loaddict"))
 			preloader(R.string.pref_loadingdict, true);
 		else if (s.id.equals("truncatedict")) {
-			T9DB.getInstance(this).truncate();
+			Log.d("OnListItemClick", "Truncate DB requested");
+//			T9DB.getInstance(this).truncate();
 		}
 		else if (s.id.equals("loaduserdict"))
 			preloader(R.string.pref_loadinguserdict, false);

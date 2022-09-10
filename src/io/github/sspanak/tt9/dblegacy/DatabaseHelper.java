@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.dblegacy;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
