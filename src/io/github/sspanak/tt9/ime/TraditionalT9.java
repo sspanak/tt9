@@ -19,6 +19,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
 
+	private String predictionSequence = "";
+
 	protected Language mLanguage;
 	protected ArrayList<Integer> mEnabledLanguages;
 
@@ -57,6 +59,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		validatePreferences();
 
 		// reset all UI elements
+		predictionSequence = "";
 		clearSuggestions();
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 		displaySoftKeyMenu();
@@ -69,6 +72,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onFinish() {
+		predictionSequence = "";
 		clearSuggestions();
 
 		// @todo: clear previous word
@@ -88,13 +92,19 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		commitCurrentSuggestion();
 		resetKeyRepeat();
-		// @todo: typing in the dial field behaves incorrectly after BACKSPACE
-		// 				check if this is the best way of deleting text.
 
-		int charLength = InputFieldHelper.isLastCharSurrogate(currentInputConnection) ? 2 : 1;
-		currentInputConnection.deleteSurroundingText(charLength, 0);
+		if (mInputMode == T9Preferences.MODE_PREDICTIVE && predictionSequence.length() > 0) {
+			predictionSequence = predictionSequence.substring(0, predictionSequence.length() - 1);
+			applyPredictionSequence();
+		} else {
+			commitCurrentSuggestion();
+			// @todo: typing in the dial field behaves incorrectly after BACKSPACE
+			// 				check if this is the best way of deleting text.
+
+			int charLength = InputFieldHelper.isLastCharSurrogate(currentInputConnection) ? 2 : 1;
+			currentInputConnection.deleteSurroundingText(charLength, 0);
+		}
 
 		Log.d("handleBackspace", "backspace handled");
 		return true;
@@ -268,9 +278,15 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		Log.d("wordInPredictiveMode", "Received key: " + key);
+		predictionSequence += key;
+		applyPredictionSequence();
 
-		// @todo: start accumulating a digit sequence
+		return true;
+	}
+
+
+	private void applyPredictionSequence() {
+		Log.d("wordInPredictiveMode", "Sequence: " + predictionSequence);
 
 		// @todo: get some words for the sequence
 
@@ -278,7 +294,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// @todo: if there are words, set the suggestions
 
-		return true;
+		// @todo: select the first suggestion
 	}
 
 
@@ -299,8 +315,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		// @todo: In predictive mode:
-		// 1. clear the digit sequence
-		// 2. update word priority in predictive mode
+		predictionSequence = "";
+		// 2. update word priority
 
 		setSuggestions(null);
 	}

@@ -46,7 +46,7 @@ public class T9DB {
 	public static final String COLUMN_WORD = "word";
 	public static final String COLUMN_FREQUENCY = "freq";
 
-	private static final String QUERY1 =
+	private static final String WORDS_QUERY =
 		"SELECT " + COLUMN_ID + ", " + COLUMN_WORD +
 		" FROM " + WORD_TABLE_NAME +
 		" WHERE " + COLUMN_LANG + "=? AND " + COLUMN_SEQ + "=?" +
@@ -199,19 +199,19 @@ public class T9DB {
 		// if id's freq is greater than FREQ_MAX, it gets normalized with trigger
 	}
 
-	public void updateWords(String is, AbstractList<String> stringList, List<Integer> intList,
-							int capsMode, LANGUAGE lang) {
+	public void getWords(String is, AbstractList<String> stringList, List<Integer> intList,
+											 int capsMode, LANGUAGE lang) {
 		stringList.clear();
 		intList.clear();
 		// String[] sa = packInts(stringToInts(is), true);
 		int islen = is.length();
 
 		if (!ensureDb()) {
-			Log.e("T9DB.updateWords", "not ready");
+			Log.e("T9DB.getWords", "not ready");
 			this.showDBaccessError();
 			return;
 		}
-		Cursor cur = db.rawQuery(QUERY1, new String[] { String.valueOf(lang.id), is  });
+		Cursor cur = db.rawQuery(WORDS_QUERY, new String[] { String.valueOf(lang.id), is  });
 
 		int hits = 0;
 		for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
@@ -243,11 +243,11 @@ public class T9DB {
 			}
 			cur.close();
 		}
-		// Log.d("T9DB.updateWords", "pre: " + stringList);
+		// Log.d("T9DB.getWords", "pre: " + stringList);
 		if (capsMode == T9Preferences.CASE_LOWER) {
 			return;
 		}
-		// Log.d("T9DB.updateWords", "filtering...");
+		// Log.d("T9DB.getWords", "filtering...");
 		// filter list
 		Iterator<String> iter = stringList.iterator();
 		String word;
@@ -295,6 +295,6 @@ public class T9DB {
 				index++;
 			}
 		}
-		//Log.d("T9DB.updateWords", "i:" + is + " words:" + Arrays.toString(stringList.toArray()));
+		//Log.d("T9DB.getWords", "i:" + is + " words:" + Arrays.toString(stringList.toArray()));
 	}
 }
