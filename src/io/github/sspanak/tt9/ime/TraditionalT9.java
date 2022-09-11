@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TraditionalT9 extends KeyPadHandler {
@@ -293,12 +294,17 @@ public class TraditionalT9 extends KeyPadHandler {
 	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
 		@Override
 		public void handleMessage(Message msg) {
-			setSuggestions(msg.getData().getStringArrayList("suggestions"));
+			ArrayList<String> suggestions = msg.getData().getStringArrayList("suggestions");
+			suggestions = guessSuggestionsWhenNone(suggestions, mSuggestionView.getCurrentSuggestion());
 
+			setSuggestions(suggestions);
 			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
 
+			// Put the first suggestion in the text field,
+			// but cut it off to the length of the sequence (how many keys were pressed),
+			// for a more intuitive experience.
 			String word = mSuggestionView.getCurrentSuggestion();
-			word = word.substring(0, Math.min(predictionSequence.length(), word.length()));
+			word = mSuggestionView.getCurrentSuggestion().substring(0, Math.min(predictionSequence.length(), word.length()));
 			currentInputConnection.setComposingText(word, word.length());
 		}
 	};
@@ -312,6 +318,22 @@ public class TraditionalT9 extends KeyPadHandler {
 			prefs.getSuggestionsMin(),
 			prefs.getSuggestionsMax()
 		);
+	}
+
+	private ArrayList<String> guessSuggestionsWhenNone(ArrayList<String> suggestions, String lastWord) {
+		if ((suggestions != null && suggestions.size() > 0) || predictionSequence.length() == 0) {
+			return suggestions;
+		}
+
+		lastWord = lastWord.substring(0, Math.min(predictionSequence.length(), lastWord.length()));
+		try {
+			int lastDigit = predictionSequence.charAt(predictionSequence.length() - 1) - '0';
+			lastWord += mLanguage.getKeyCharacters(lastDigit).get(0);
+		} catch (Exception e) {
+			lastWord += predictionSequence.charAt(predictionSequence.length() - 1);
+		}
+
+		return new ArrayList<>(Collections.singletonList(lastWord));
 	}
 
 
