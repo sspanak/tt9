@@ -11,6 +11,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,7 +26,6 @@ import com.stackoverflow.answer.UnicodeBOMInputStream;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9Database;
-import io.github.sspanak.tt9.db.T9RoomDb;
 import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -115,15 +117,6 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		}
 	}
 
-	private class TruncateTask extends AsyncTask {
-		@Override
-		protected Object doInBackground(Object[] objects) {
-			T9Database.getInstance(mContext).clearAllTables();
-			Log.d("TruncateTask", "Truncating finished");
-			return new Reply();
-		}
-	}
-
 	private class LoadDictTask extends AsyncTask<String, Integer, Reply> {
 		/**
 		 * The system calls this to perform work in a worker thread and delivers
@@ -207,18 +200,14 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		@Override
 		protected Reply doInBackground(String... mode) {
 			Reply reply = new Reply();
-			T9RoomDb db = T9Database.getInstance(mContext);
 
 			long startnow, endnow;
 			startnow = SystemClock.uptimeMillis();
 
 			// add characters first, then dictionary:
 			Log.d("doInBackground", "Adding characters...");
-			// load characters from supported langs
-			for (Language lang : mSupportedLanguages) {
-				processChars(db, lang);
-			}
-			Log.d("doInBackground", "done.");
+			processChars(mContext, mSupportedLanguages);
+			Log.d("doInBackground", "Characters added.");
 
 			Log.d("doInBackground", "Adding dict(s)...");
 
@@ -229,7 +218,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					if (internal) {
 						try {
 							dictstream = getAssets().open(dicts[x]);
-							reply = processFile(dictstream, reply, db, mSupportedLanguages.get(x), dicts[x]);
+							reply = processFile(mContext, dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
 						} catch (IOException e) {
 							e.printStackTrace();
 							reply.status = false;
@@ -239,7 +228,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						try {
 							dictstream = new FileInputStream(new File(
 									new File(Environment.getExternalStorageDirectory(), sddir),	dicts[x]));
-							reply = processFile(dictstream, reply, db, mSupportedLanguages.get(x), dicts[x]);
+							reply = processFile(mContext, dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
 						} catch (FileNotFoundException e) {
 							reply.status = false;
 							reply.forceMsg("File not found: " + e.getMessage());
@@ -278,25 +267,27 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		 * processChars
 		 * Inserts single characters.
 		 */
-		private void processChars(T9RoomDb db, Language lang) {
+		private void processChars(Context context, List<Language> allLanguages) {
 			ArrayList<Word> list = new ArrayList<>();
 
 			try {
-				for (int key = 0; key <= 9; key++) {
-					for (int lowercase = 0; lowercase < 2; lowercase++) {
-						for (String langChar : lang.getKeyCharacters(key, lowercase == 0)) {
-							Word word = new Word();
-							word.langId = lang.getId();
-							word.sequence = String.valueOf(key);
-							word.word = langChar;
-							word.frequency = 0;
+				for (Language lang : allLanguages) {
+					for (int key = 0; key <= 9; key++) {
+						for (int lowercase = 0; lowercase < 2; lowercase++) {
+							for (String langChar : lang.getKeyCharacters(key, lowercase == 0)) {
+								Word word = new Word();
+								word.langId = lang.getId();
+								word.sequence = String.valueOf(key);
+								word.word = langChar;
+								word.frequency = 0;
 
-							list.add(word);
+								list.add(word);
+							}
 						}
 					}
 				}
 
-				db.wordsDao().insertWords(list);
+				T9Database.insertWordsSync(context, list);
 			} catch (Exception e) {
 				Log.e("processChars", e.getMessage());
 			}
@@ -313,7 +304,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			return null;
 		}
 
-		private Reply processFile(InputStream is, Reply rpl, T9RoomDb db, Language lang, String fname)
+		private Reply processFile(Context context, InputStream is, Reply rpl, Language lang, String fname)
 				throws LoadException, IOException {
 			long start = System.currentTimeMillis();
 
@@ -334,7 +325,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 			try {
 
-				db.beginTransaction();
+				T9Database.beginTransaction(context);
 
 				while (fileWord != null) {
 					if (isCancelled()) {
@@ -372,7 +363,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					dbWords.add(word);
 
 					if (linecount % insertChunkSize == 0) {
-						db.wordsDao().insertWords(dbWords);
+						T9Database.insertWordsSync(context, dbWords);
 						dbWords.clear();
 					}
 
@@ -384,14 +375,14 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					fileWord = getLine(br, rpl, fname);
 				}
 
-				db.wordsDao().insertWords(dbWords);
+				T9Database.insertWordsSync(context, dbWords);
 				dbWords.clear();
 
 				publishProgress((int) ((float) pos / size * 10000));
 			} catch (Exception e) {
 				Log.e("processFile", e.getMessage());
 			}	finally {
-				db.endTransaction();
+				T9Database.endTransaction(context);
 				br.close();
 				is.close();
 				ubis.close();
@@ -452,7 +443,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		else if (s.id.equals("loaddict"))
 			preloader(R.string.pref_loadingdict, true);
 		else if (s.id.equals("truncatedict")) {
-			(new TruncateTask()).execute();
+			truncateWords();
 		}
 		else if (s.id.equals("loaduserdict"))
 			preloader(R.string.pref_loadinguserdict, false);
@@ -465,6 +456,17 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		i.setData(Uri.parse(getString(R.string.help_url)));
 		startActivity(i);
 	}
+
+	private void truncateWords() {
+			Handler afterTruncate = new Handler(Looper.getMainLooper()) {
+				@Override
+				public void handleMessage(Message msg) {
+					Toast.makeText(mContext, R.string.dictionary_truncated, Toast.LENGTH_SHORT).show();
+				}
+			};
+			T9Database.truncateWords(mContext, afterTruncate);
+	}
+
 
 	private void preloader(int msgid, boolean internal) {
 

@@ -26,5 +26,4 @@ public class Word {
 
 	@ColumnInfo(name = "freq")
 	public int frequency;
-
 }
