@@ -367,7 +367,6 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						dbWords.clear();
 					}
 
-
 					if (size >= 0 && System.currentTimeMillis() - lastProgressUpdate > progressUpdateInterval) {
 						publishProgress((int) ((float) pos / size * 10000));
 						lastProgressUpdate = System.currentTimeMillis();
@@ -376,13 +375,14 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 				}
 
 				T9Database.insertWordsSync(context, dbWords);
+				T9Database.endTransaction(context, true);
 				dbWords.clear();
 
 				publishProgress((int) ((float) pos / size * 10000));
 			} catch (Exception e) {
+				T9Database.endTransaction(context, false);
 				Log.e("processFile", e.getMessage());
 			}	finally {
-				T9Database.endTransaction(context);
 				br.close();
 				is.close();
 				ubis.close();

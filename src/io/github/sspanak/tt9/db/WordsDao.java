@@ -8,7 +8,7 @@ import androidx.room.Query;
 import java.util.List;
 
 @Dao
-public interface WordsDao {
+interface WordsDao {
 	@Query(
 		"SELECT * " +
 		"FROM words " +
@@ -16,19 +16,16 @@ public interface WordsDao {
 		"ORDER BY freq DESC " +
 		"LIMIT :limit"
 	)
-	List<Word> getWordsBySequence(int langId, String sequence, int limit);
+	List<Word> getMany(int langId, String sequence, int limit);
 
 	@Query(
 		"SELECT * " +
 		"FROM words " +
-		"WHERE " +
-			"lang = :langId " +
-			"AND seq >= :startSequence " +
-			"AND seq < :endSequence " +
+		"WHERE lang = :langId AND seq LIKE :sequence || '%' " +
 		"ORDER BY freq DESC, seq ASC " +
 		"LIMIT :limit"
 	)
-	List<Word> getWordsBySequenceRange(int langId, String startSequence, String endSequence, int limit);
+	List<Word> getFuzzy(int langId, String sequence, int limit);
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insertWords(List<Word> words);

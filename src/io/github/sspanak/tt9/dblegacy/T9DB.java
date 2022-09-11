@@ -11,12 +11,9 @@ import android.provider.BaseColumns;
 import android.util.Log;
 import android.widget.Toast;
 
-import androidx.room.Query;
-
 import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 

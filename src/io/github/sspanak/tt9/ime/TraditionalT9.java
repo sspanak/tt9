@@ -1,13 +1,14 @@
 package io.github.sspanak.tt9.ime;
 
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.T9Database;
-import io.github.sspanak.tt9.db.T9RoomDb;
-import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
@@ -21,7 +22,6 @@ import java.util.List;
 public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
-	private T9RoomDb db;
 
 	private String predictionSequence = "";
 
@@ -52,8 +52,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (softKeyHandler == null) {
 			softKeyHandler = new SoftKeyHandler(getLayoutInflater().inflate(R.layout.mainview, null), this);
 		}
-
-		db = T9Database.getInstance(this);
 
 		loadPreferences();
 	}
@@ -287,26 +285,29 @@ public class TraditionalT9 extends KeyPadHandler {
 		predictionSequence += key;
 		applyPredictionSequence();
 
+		// @todo: stop expanding "predictionSequence" when there are no new matches
+
 		return true;
 	}
 
+	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
+		@Override
+		public void handleMessage(Message msg) {
+			setSuggestions(msg.getData().getStringArrayList("suggestions"));
+			String word = mSuggestionView.getCurrentSuggestion();
+			currentInputConnection.setComposingText(word, word.length());
+		}
+	};
 
 	private void applyPredictionSequence() {
-		Log.d("wordInPredictiveMode", "Sequence: " + predictionSequence);
-
-		// get words that match exactly this sequence
-		List<Word> words = db.wordsDao().getWordsBySequence(mLanguage.getId(), predictionSequence, 8);
-
-		// @todo: get extra words, we are below the limit
-
-		// convert the words to string and set them as suggestions
-		ArrayList<String>	suggestions = new ArrayList<>();
-		for (Word word : words) {
-			// @todo: ensure the correct text case
-			suggestions.add(word.word);
-		}
-
-		setSuggestions(suggestions);
+		T9Database.getSuggestions(
+			this,
+			handleSuggestions,
+			mLanguage.getId(),
+			predictionSequence,
+			prefs.getSuggestionsMin(),
+			prefs.getSuggestionsMax()
+		);
 	}
 
 
