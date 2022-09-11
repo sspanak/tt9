@@ -136,8 +136,8 @@ public class T9Preferences {
 	public int getKeyOtherActions() { return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR); }
 
 
-	public int getSuggestionsMin() { return prefs.getInt("suggestions_min", 10); }
-	public int getSuggestionsMax() { return prefs.getInt("suggestions_max", 100); }
+	public int getSuggestionsMin() { return 8; }
+	public int getSuggestionsMax() { return 20; }
 
 
 	public String getLastWord() {
