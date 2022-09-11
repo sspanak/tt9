@@ -294,7 +294,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		@Override
 		public void handleMessage(Message msg) {
 			setSuggestions(msg.getData().getStringArrayList("suggestions"));
+
+			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
+
 			String word = mSuggestionView.getCurrentSuggestion();
+			word = word.substring(0, Math.min(predictionSequence.length(), word.length()));
 			currentInputConnection.setComposingText(word, word.length());
 		}
 	};
