@@ -23,7 +23,7 @@ public class Bulgarian extends Language {
 			Punctuation.Main, // 1
 			new ArrayList<>(Arrays.asList("а", "б", "в", "г")), // 2
 			new ArrayList<>(Arrays.asList("д", "е", "ж", "з")), // 3
-			new ArrayList<>(Arrays.asList("и", "й", "к", "л")), // 4
+			new ArrayList<>(Arrays.asList("и", "й", "к", "л", "ѝ")), // 4
 			new ArrayList<>(Arrays.asList("м", "н", "о", "п")), // 5
 			new ArrayList<>(Arrays.asList("р", "с", "т", "у")), // 6
 			new ArrayList<>(Arrays.asList("ф", "х", "ц", "ч")), // 7
