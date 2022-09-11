@@ -93,7 +93,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onBackspace() {
 		if (!InputFieldHelper.isThereText(currentInputConnection)) {
-			Log.d("handleBackspace", "backspace ignored");
+			Log.d("onBackspace", "backspace ignored");
 			return false;
 		}
 
@@ -111,13 +111,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			currentInputConnection.deleteSurroundingText(charLength, 0);
 		}
 
-		Log.d("handleBackspace", "backspace handled");
+		Log.d("onBackspace", "backspace handled");
 		return true;
 	}
 
 
 	public boolean onOK() {
-		Log.d("handleBackspace", "enter handler");
+		Log.d("onOK", "enter handler");
 
 		// @todo: this should probably happen in onRestart(). Sort it out.
 		if (!isInputViewShown()) {
@@ -286,8 +286,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		predictionSequence += key;
 		applyPredictionSequence();
 
-		// @todo: stop expanding "predictionSequence" when there are no new matches
-
 		return true;
 	}
 
@@ -353,9 +351,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			}
 		}
 
-		// @todo: In predictive mode:
 		predictionSequence = "";
-		// 2. update word priority
+		// @todo: In predictive mode update word priority
 
 		setSuggestions(null);
 	}
