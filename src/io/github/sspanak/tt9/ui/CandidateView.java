@@ -179,7 +179,7 @@ public class CandidateView extends View {
 	}
 
 	public String getCurrentSuggestion() {
-		return mSelectedIndex >= 0 && mSelectedIndex < mSuggestions.size() ? mSuggestions.get(mSelectedIndex) : "";
+		return mSuggestions != null && mSelectedIndex >= 0 && mSelectedIndex < mSuggestions.size() ? mSuggestions.get(mSelectedIndex) : "";
 	}
 
 	public void setSuggestions(List<String> suggestions, int initialSel) {

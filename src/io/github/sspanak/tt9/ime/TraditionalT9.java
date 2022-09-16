@@ -308,6 +308,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	};
 
 	private void applyPredictionSequence() {
+		if (predictionSequence.length() == 0) {
+			return;
+		}
+
 		DictionaryDb.getSuggestions(
 			this,
 			handleSuggestions,
