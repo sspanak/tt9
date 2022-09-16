@@ -273,16 +273,14 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			try {
 				for (Language lang : allLanguages) {
 					for (int key = 0; key <= 9; key++) {
-						for (int lowercase = 0; lowercase < 2; lowercase++) {
-							for (String langChar : lang.getKeyCharacters(key, lowercase == 0)) {
-								Word word = new Word();
-								word.langId = lang.getId();
-								word.sequence = String.valueOf(key);
-								word.word = langChar;
-								word.frequency = 0;
+						for (String langChar : lang.getKeyCharacters(key, true)) {
+							Word word = new Word();
+							word.langId = lang.getId();
+							word.sequence = String.valueOf(key);
+							word.word = langChar;
+							word.frequency = 0;
 
-								list.add(word);
-							}
+							list.add(word);
 						}
 					}
 				}
