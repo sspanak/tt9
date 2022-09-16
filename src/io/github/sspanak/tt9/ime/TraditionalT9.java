@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.T9Database;
+import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
@@ -308,7 +308,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	};
 
 	private void applyPredictionSequence() {
-		T9Database.getSuggestions(
+		DictionaryDb.getSuggestions(
 			this,
 			handleSuggestions,
 			mLanguage.getId(),

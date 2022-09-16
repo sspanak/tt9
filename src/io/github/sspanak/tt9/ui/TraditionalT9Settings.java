@@ -25,7 +25,7 @@ import android.widget.Toast;
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.T9Database;
+import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -287,7 +287,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					}
 				}
 
-				T9Database.insertWordsSync(context, list);
+				DictionaryDb.insertWordsSync(context, list);
 			} catch (Exception e) {
 				Log.e("processChars", e.getMessage());
 			}
@@ -325,7 +325,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 			try {
 
-				T9Database.beginTransaction(context);
+				DictionaryDb.beginTransaction(context);
 
 				while (fileWord != null) {
 					if (isCancelled()) {
@@ -363,7 +363,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					dbWords.add(word);
 
 					if (linecount % insertChunkSize == 0) {
-						T9Database.insertWordsSync(context, dbWords);
+						DictionaryDb.insertWordsSync(context, dbWords);
 						dbWords.clear();
 					}
 
@@ -374,13 +374,13 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					fileWord = getLine(br, rpl, fname);
 				}
 
-				T9Database.insertWordsSync(context, dbWords);
-				T9Database.endTransaction(context, true);
+				DictionaryDb.insertWordsSync(context, dbWords);
+				DictionaryDb.endTransaction(context, true);
 				dbWords.clear();
 
 				publishProgress((int) ((float) pos / size * 10000));
 			} catch (Exception e) {
-				T9Database.endTransaction(context, false);
+				DictionaryDb.endTransaction(context, false);
 				Log.e("processFile", e.getMessage());
 			}	finally {
 				br.close();
@@ -464,7 +464,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					Toast.makeText(mContext, R.string.dictionary_truncated, Toast.LENGTH_SHORT).show();
 				}
 			};
-			T9Database.truncateWords(mContext, afterTruncate);
+			DictionaryDb.truncateWords(mContext, afterTruncate);
 	}
 
 

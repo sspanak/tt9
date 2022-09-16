@@ -14,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class T9Database {
+public class DictionaryDb {
 	private static T9RoomDb dbInstance;
 
 	private static final RoomDatabase.Callback TRIGGER_CALLBACK = new RoomDatabase.Callback() {
