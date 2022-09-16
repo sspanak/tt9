@@ -68,6 +68,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		clearSuggestions();
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 		displaySoftKeyMenu();
+		if (!isInputViewShown()) {
+			showWindow(true);
+		}
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
 			requestShowSelf(1);
 		}
@@ -119,14 +122,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onOK() {
 		Log.d("onOK", "enter handler");
 
-		// @todo: this should probably happen in onRestart(). Sort it out.
-		if (!isInputViewShown()) {
-			showWindow(true);
-			displaySoftKeyMenu();
-		}
-
 		commitCurrentSuggestion();
 		resetKeyRepeat();
+
 		return !isSuggestionViewHidden();
 	}
 
