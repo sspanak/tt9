@@ -417,7 +417,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		T9Preferences prefs = new T9Preferences(this);
 		Object[] settings = {
 			prefs.getInputMode(),
-			prefs.getEnabledLanguageRaw(),
+			0, // input languages; not used, remove in #29
 			null, // MODE_NOTIFY; not used, remove in #29
 			false, // KEY_REMAP; not used, remove in #29
 			true, // SPACE_ZERO; not used, remove in #29
@@ -474,7 +474,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		task = new LoadDictTask(
 			msgid,
 			internal,
-			LanguageCollection.getAll(T9Preferences.getInstance(mContext).getEnabledLanguageIds())
+			LanguageCollection.getAll(T9Preferences.getInstance(mContext).getEnabledLanguages())
 		);
 		task.execute();
 	}

@@ -31,23 +31,4 @@ public class LangHelper {
 
 	public static final Locale[] LOCALES = {Locale.ENGLISH, RUSSIAN, Locale.GERMAN, Locale.FRENCH, Locale.ITALIAN, UKRAINIAN, BULGARIAN};
 
-	public static LANGUAGE[] buildLangs(int i) {
-		int num = 0;
-		//calc size of filtered array
-		for (LANGUAGE l : LANGUAGE.ids) {
-			if ((i & l.id) == l.id) {
-				num++;
-			}
-		}
-		LANGUAGE[] la = new LANGUAGE[num];
-		int lai = 0;
-		for (LANGUAGE l : LANGUAGE.ids) {
-			if ((i & l.id) == l.id) {
-				la[lai] = l;
-				lai++;
-			}
-		}
-		return la;
-	}
-
 }

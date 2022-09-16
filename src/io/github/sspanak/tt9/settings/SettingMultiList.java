@@ -8,18 +8,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class SettingMultiList extends SettingList {
-	boolean[] selectedEntries = new boolean[0];
+	boolean[] selectedEntries;
 
 	public SettingMultiList (Context context, AttributeSet attrs, Object[] isettings) {
 		super(context, attrs, isettings);
 		selectedEntries = new boolean[entries.length];
-		for (LangHelper.LANGUAGE l : LangHelper.buildLangs((Integer)isettings[1])) {
-			selectedEntries[l.index] = true;
+		for (int langId : T9Preferences.getInstance(context).getEnabledLanguages()) {
+			selectedEntries[langId - 1] = true; // languages are 1-based, unlike arrays
 		}
 		summary = buildItems();
 	}
@@ -40,7 +39,7 @@ public class SettingMultiList extends SettingList {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (id.equals("pref_lang_support")) {
-							T9Preferences.getInstance(context).setEnabledLanguageFromMaskBits(buildSelection());
+							T9Preferences.getInstance(context).setEnabledLanguages(buildSelection());
 						}
 						summary = buildItems();
 						dialog.dismiss();

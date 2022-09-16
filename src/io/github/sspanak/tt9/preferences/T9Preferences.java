@@ -39,16 +39,7 @@ public class T9Preferences {
 		return self;
 	}
 
-	/**
-	 * getEnabledLanguageRaw
-	 *
-	 * @deprecated It exists only because of the CustomInflater. Remove it in #29.
-	 */
-	public int getEnabledLanguageRaw() {
-		return prefs.getInt("pref_enabled_languages", 1);
-	}
-
-	public ArrayList<Integer> getEnabledLanguageIds() {
+	public ArrayList<Integer> getEnabledLanguages() {
 		int languageMask = prefs.getInt("pref_enabled_languages", 1);
 		ArrayList<Integer>languageIds = new ArrayList<>();
 
@@ -59,24 +50,7 @@ public class T9Preferences {
 			}
 		}
 
-		Log.d("getEnabledLanguageIds", "mask: " + languageMask);
-
 		return languageIds;
-	}
-
-	/**
-	 * setEnabledLanguageFromMaskIds
-	 *
-	 * @deprecated It exists only because of the CustomInflater. Remove it in #29.
-	 */
-	public void setEnabledLanguageFromMaskBits(ArrayList<Integer> maskBitList) {
-		int languageMask = 0;
-		for (Integer maskBit : maskBitList) {
-			languageMask |= maskBit;
-		}
-
-		prefsEditor.putInt("pref_enabled_languages", languageMask);
-		prefsEditor.apply();
 	}
 
 	public void setEnabledLanguages(ArrayList<Integer> languageIds) {

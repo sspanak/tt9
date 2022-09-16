@@ -32,7 +32,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void loadPreferences() {
 		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
-		mEnabledLanguages = prefs.getEnabledLanguageIds();
+		mEnabledLanguages = prefs.getEnabledLanguages();
 		mInputMode = prefs.getInputMode();
 		mTextCase = prefs.getTextCase();
 	}
@@ -60,7 +60,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onRestart() {
 		// in case we are back from Preferences screen, update the language list
-		mEnabledLanguages = prefs.getEnabledLanguageIds();
+		mEnabledLanguages = prefs.getEnabledLanguages();
 		validatePreferences();
 
 		// reset all UI elements
