@@ -43,31 +43,31 @@ public class PreferenceValidator {
 	}
 
 	public static int validateInputMode(T9Preferences prefs, int inputMode, ArrayList<Integer> allowedModes) {
-		if (allowedModes != null && allowedModes.size() > 0 && allowedModes.contains(inputMode)) {
+		if (allowedModes.size() > 0 && allowedModes.contains(inputMode)) {
 			return inputMode;
 		}
 
-		String error = "Invalid input mode: " + inputMode;
-
-		int newMode = allowedModes != null && allowedModes.size() > 0 ? allowedModes.get(0) : T9Preferences.MODE_123;
+		int newMode = allowedModes.size() > 0 ? allowedModes.get(0) : T9Preferences.MODE_123;
 		prefs.setInputMode(newMode);
 
-		Log.w("validateInputMode", error + " Enforcing: " + newMode);
+		if (newMode != inputMode) {
+			Log.w("validateInputMode", "Invalid input mode: " + inputMode + " Enforcing: " + newMode);
+		}
 
 		return newMode;
 	}
 
 	public static int validateTextCase(T9Preferences prefs, int textCase, ArrayList<Integer> allowedTextCases) {
-		if (allowedTextCases != null && allowedTextCases.size() > 0 && allowedTextCases.contains(textCase)) {
+		if (allowedTextCases.size() > 0 && allowedTextCases.contains(textCase)) {
 			return textCase;
 		}
 
-		String error = "Invalid text case: " + textCase;
-
-		int newCase = allowedTextCases != null && allowedTextCases.size() > 0 ? allowedTextCases.get(0) : T9Preferences.MODE_123;
+		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : T9Preferences.CASE_LOWER;
 		prefs.setTextCase(newCase);
 
-		Log.w("validateTextCase", error + " Enforcing: " + newCase);
+		if (textCase != newCase) {
+			Log.w("validateTextCase", "Invalid text case: " + textCase + " Enforcing: " + newCase);
+		}
 
 		return newCase;
 	}

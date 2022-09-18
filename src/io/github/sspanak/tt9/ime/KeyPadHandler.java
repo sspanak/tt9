@@ -27,8 +27,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected static final int EDITING_NOSHOW = 2;
 	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected int mEditing = NON_EDIT;
-	protected ArrayList<Integer> allowedInputModes;
-	protected ArrayList<Integer> allowedTextCases;
+	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
+	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
 
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
@@ -370,6 +370,8 @@ abstract class KeyPadHandler extends InputMethodService {
 		} else if (mInputMode == T9Preferences.MODE_ABC) {
 			allowedTextCases.add(T9Preferences.CASE_LOWER);
 			allowedTextCases.add(T9Preferences.CASE_UPPER);
+		} else {
+			allowedTextCases.add(T9Preferences.CASE_LOWER);
 		}
 	}
 
