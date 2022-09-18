@@ -24,20 +24,6 @@ class InputFieldHelper {
 	}
 
 
-	public static boolean isLastCharSurrogate(InputConnection currentInputConnection) {
-		if (currentInputConnection == null) {
-			return false;
-		}
-
-		try {
-			CharSequence lastChars = currentInputConnection.getTextBeforeCursor(2, 0);
-			return lastChars != null && Character.isSurrogatePair(lastChars.charAt(0), lastChars.charAt(1));
-		} catch (IndexOutOfBoundsException e) {
-			return false;
-		}
-	}
-
-
 	public static boolean isSpecializedTextField(EditorInfo inputField) {
 		if (inputField == null) {
 			return false;
@@ -68,6 +54,18 @@ class InputFieldHelper {
 		int inputVariation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
 
 		return inputType == InputType.TYPE_CLASS_TEXT && inputVariation == InputType.TYPE_TEXT_VARIATION_FILTER;
+	}
+
+	/**
+	 * isDialerField
+	 * Dialer fields seem to take care of numbers and backspace on their own,
+	 * so we need to be aware of them.
+	 */
+	public static boolean isDialerField(EditorInfo inputField) {
+		return
+			inputField != null
+			&& inputField.inputType == InputType.TYPE_CLASS_PHONE
+			&& inputField.packageName.equals("com.android.dialer");
 	}
 
 

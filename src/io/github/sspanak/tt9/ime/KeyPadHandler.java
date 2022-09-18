@@ -26,6 +26,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected static final int EDITING = 1;
 	protected static final int EDITING_NOSHOW = 2;
 	protected static final int EDITING_STRICT_NUMERIC = 3;
+	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
 	protected int mEditing = NON_EDIT;
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
@@ -155,8 +156,10 @@ abstract class KeyPadHandler extends InputMethodService {
 
 //		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
-		// backspace key must repeat its function when held down, so we handle it in a special way
-		if (keyCode == prefs.getKeyBackspace()) {
+		// "backspace" key must repeat its function, when held down, so we handle it in a special way
+		// Also dialer fields seem to handle backspace on their own and we must ignore it,
+		// otherwise, keyDown race condition occur for all keys.
+		if (mEditing != EDITING_DIALER && keyCode == prefs.getKeyBackspace()) {
 			boolean isThereTextBefore = InputFieldHelper.isThereText(currentInputConnection);
 			boolean backspaceHandleStatus = handleBackspaceHold();
 
@@ -168,8 +171,12 @@ abstract class KeyPadHandler extends InputMethodService {
 			}
 		}
 
-		// start tracking key hold
+		// In numeric fields, we do not want to handle anything, but "backspace"
+		if (mEditing == EDITING_STRICT_NUMERIC) {
+			return false;
+		}
 
+		// start tracking key hold
 		if (keyCode == KeyEvent.KEYCODE_0 || mInputMode != T9Preferences.MODE_123) {
 			event.startTracking();
 		}
@@ -178,9 +185,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		// in numeric text fields, we do not want to handle anything,
-		// but backspace or 0 (because of +)
-		if (mEditing == EDITING_STRICT_NUMERIC) {
+		// In dialer fields we only handle "0", when held, and convert it to "+"
+		if (mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -265,18 +271,26 @@ abstract class KeyPadHandler extends InputMethodService {
 
 //		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
-		if (keyCode == prefs.getKeyBackspace() && InputFieldHelper.isThereText(currentInputConnection)) {
+		if (
+			mEditing != EDITING_DIALER // dialer fields seem to handle backspace on their own
+			&& keyCode == prefs.getKeyBackspace()
+			&& InputFieldHelper.isThereText(currentInputConnection)
+		) {
 			return true;
 		}
 
-		// handle 0 even in STRICT_NUMERIC mode, because of "+"
+		// in numeric fields, we just handle backspace and let the rest go as-is.
+		if (mEditing == EDITING_STRICT_NUMERIC) {
+			return false;
+		}
+
 		if (keyCode == KeyEvent.KEYCODE_0) {
 			return on0(false);
 		}
 
-		// in numeric text fields, we do not want to handle anything,
-		// but backspace or 0 (because of +)
-		if (mEditing == EDITING_STRICT_NUMERIC) {
+		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
+		// is converted to "+"
+		if (mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -350,7 +364,9 @@ abstract class KeyPadHandler extends InputMethodService {
 			mInputMode = allowedInputModes.get(0);
 		}
 
-		if (mInputMode == T9Preferences.MODE_123 && allowedInputModes.size() == 1) {
+		if (InputFieldHelper.isDialerField(inputField)) {
+			mEditing = EDITING_DIALER;
+		} else if (mInputMode == T9Preferences.MODE_123 && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;

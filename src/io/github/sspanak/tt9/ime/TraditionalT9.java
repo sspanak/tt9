@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
@@ -71,7 +72,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (!isInputViewShown()) {
 			showWindow(true);
 		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER) {
 			requestShowSelf(1);
 		}
 
@@ -107,11 +108,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			applyPredictionSequence();
 		} else {
 			commitCurrentSuggestion();
-			// @todo: typing in the dial field behaves incorrectly after BACKSPACE
-			// 				check if this is the best way of deleting text.
-
-			int charLength = InputFieldHelper.isLastCharSurrogate(currentInputConnection) ? 2 : 1;
-			currentInputConnection.deleteSurroundingText(charLength, 0);
+			super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 
 		Log.d("onBackspace", "backspace handled");
@@ -386,7 +383,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextKeyMode() {
-		if (mEditing == EDITING_STRICT_NUMERIC) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			clearSuggestions();
 			mInputMode = T9Preferences.MODE_123;
 		}
@@ -425,7 +422,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextLang() {
-		if (mEditing == EDITING_STRICT_NUMERIC) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return;
 		}
 
