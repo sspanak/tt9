@@ -60,4 +60,12 @@ public class UI {
 	public static void toast(Context context, int resourceId) {
 		Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
 	}
+
+	public static void toastLong(Context context, int resourceId) {
+		Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
+	}
+
+	public static void toastLong(Context context, CharSequence msg) {
+		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+	}
 }

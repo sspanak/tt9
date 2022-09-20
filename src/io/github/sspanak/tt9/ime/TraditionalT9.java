@@ -219,7 +219,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected boolean onKeyOtherAction(boolean hold) {
 		if (hold) {
 			UI.showPreferencesScreen(this);
-		} else if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+		} else {
 			showAddWord();
 		}
 
@@ -443,11 +443,17 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
+		if (mInputMode != T9Preferences.MODE_PREDICTIVE) {
+			UI.toastLong(this, R.string.add_word_only_in_predictive_mode);
+			return;
+		}
+
+		//////////////////////////////////////////////////////////////
 		// @todo: remove this try..catch in #55 and display the dialog
 		try {
 			DictionaryDb.insertWord(this, "", 0);
 		} catch (Exception e) {
-			UI.toast(softKeyView.getContext(), e.getMessage());
+			UI.toastLong(this, e.getMessage());
 			return;
 		}
 		//////////////////////////////////////////////////////////////
