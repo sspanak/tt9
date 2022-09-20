@@ -31,6 +31,9 @@ public class LanguageCollection {
 		for (Class<? extends Language> languageClass : languageList) {
 			try {
 				Language lang = languageClass.newInstance();
+				if (languages.containsKey(lang.getId())) {
+					throw new Exception("Duplicate language ID: " + lang.getId() + " for language: " + lang.getName());
+				}
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
 				Log.e("LanguageCollection", "Skipping an invalid language. " + e.getMessage());
