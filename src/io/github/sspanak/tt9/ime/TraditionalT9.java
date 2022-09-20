@@ -443,6 +443,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
+		// @todo: remove this try..catch in #55 and display the dialog
+		try {
+			DictionaryDb.insertWord(this, "", 0);
+		} catch (Exception e) {
+			UI.toast(softKeyView.getContext(), e.getMessage());
+			return;
+		}
+		//////////////////////////////////////////////////////////////
+
 		clearSuggestions();
 
 		String template = "";

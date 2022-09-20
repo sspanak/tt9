@@ -79,6 +79,12 @@ public class DictionaryDb {
 	}
 
 
+	public static void insertWord(Context context, String word, int languageId) throws Exception {
+		// @todo: insert async with priority 1.
+		throw new Exception("Adding new words is disabled in this version. Please, check for updates.");
+	}
+
+
 	public static void insertWordsSync(Context context, List<Word> words) {
 		getInstance(context).wordsDao().insertWords(words);
 	}

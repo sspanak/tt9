@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
@@ -237,9 +236,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 							((Activity) mContext).runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									Toast.makeText(mContext,
-											msg,
-											Toast.LENGTH_SHORT).show();
+									UI.toast(mContext, msg);
 								}
 							});
 
@@ -459,7 +456,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			Handler afterTruncate = new Handler(Looper.getMainLooper()) {
 				@Override
 				public void handleMessage(Message msg) {
-					Toast.makeText(mContext, R.string.dictionary_truncated, Toast.LENGTH_SHORT).show();
+					UI.toast(mContext, R.string.dictionary_truncated);
 				}
 			};
 			DictionaryDb.truncateWords(mContext, afterTruncate);

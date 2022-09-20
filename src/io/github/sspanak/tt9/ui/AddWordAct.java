@@ -1,8 +1,6 @@
 package io.github.sspanak.tt9.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.dblegacy.DBException;
-import io.github.sspanak.tt9.dblegacy.T9DB;
+import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
@@ -50,20 +47,10 @@ public class AddWordAct extends Activity {
 
 	public void doAddWord(String text) {
 		try {
-			T9DB.getInstance(this).addWord(text, LanguageCollection.getLanguage(lang));
-		} catch (DBException e) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			String msg = e.getMessage();
-			//Log.e("AddWord.doAddWord", msg);
-			builder.setMessage(msg).setTitle(R.string.add_word)
-					.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.dismiss();
-						}
-					});
-			AlertDialog dialog = builder.create();
-			dialog.show();
+			DictionaryDb.insertWord(this, text, LanguageCollection.getLanguage(lang).getId());
+		} catch (Exception e) {
+			UI.toast(this, e.getMessage());
+			return;
 		}
 		T9Preferences.getInstance(this).setLastWord(text);
 	}

@@ -1,7 +1,9 @@
 package io.github.sspanak.tt9.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -49,5 +51,13 @@ public class UI {
 				tt9.hideStatusIcon();
 				break;
 		}
+	}
+
+	public static void toast(Context context, CharSequence msg) {
+		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+	}
+
+	public static void toast(Context context, int resourceId) {
+		Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
 	}
 }
