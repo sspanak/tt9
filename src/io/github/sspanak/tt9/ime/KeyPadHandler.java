@@ -37,7 +37,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected boolean isNumKeyRepeated = false;
 
 	// throttling
-	private static final int BACKSPACE_DEBOUNCE_TIME = 100;
+	private static final int BACKSPACE_DEBOUNCE_TIME = 80;
 	private long lastBackspaceCall = 0;
 
 
