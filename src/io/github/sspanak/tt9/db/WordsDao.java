@@ -29,4 +29,11 @@ interface WordsDao {
 
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
 	void insertWords(List<Word> words);
+
+	@Query(
+		"UPDATE words " +
+		"SET freq = (SELECT MAX(freq) FROM words WHERE lang = :langId AND seq = :sequence AND word <> :word) + 1 " +
+		"WHERE lang = :langId AND word = :word "
+	)
+	void incrementFrequency(int langId, String word, String sequence);
 }

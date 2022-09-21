@@ -119,7 +119,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onOK() {
 		Log.d("onOK", "enter handler");
 
-		commitCurrentSuggestion();
+		acceptCurrentSuggestion();
 		resetKeyRepeat();
 
 		return !isSuggestionViewHidden();
@@ -339,7 +339,21 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private void acceptCurrentSuggestion() {
+		// bring this word up in the suggestions list next time
+		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+			String currentWord = mSuggestionView.getCurrentSuggestion();
+			DictionaryDb.incrementWordFrequency(this, mLanguage.getId(), currentWord, predictionSequence);
+		}
+
+		commitCurrentSuggestion();
+	}
+
+
 	private void commitCurrentSuggestion() {
+		predictionSequence = "";
+
+		// commit the current suggestion to the input field
 		if (!isSuggestionViewHidden()) {
 			if (mSuggestionView.getCurrentSuggestion().equals(" ")) {
 				// finishComposingText() seems to ignore a single space,
@@ -349,9 +363,6 @@ public class TraditionalT9 extends KeyPadHandler {
 				currentInputConnection.finishComposingText();
 			}
 		}
-
-		predictionSequence = "";
-		// @todo: In predictive mode update word priority
 
 		setSuggestions(null);
 	}

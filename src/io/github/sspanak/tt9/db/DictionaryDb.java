@@ -90,6 +90,16 @@ public class DictionaryDb {
 	}
 
 
+	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) {
+		new Thread() {
+			@Override
+			public void run() {
+				getInstance(context).wordsDao().incrementFrequency(langId, word, sequence);
+			}
+		}.start();
+	}
+
+
 	public static void getSuggestions(Context context, Handler handler, int langId, String sequence, int minWords, int maxWords) {
 		new Thread() {
 			@Override
@@ -100,6 +110,7 @@ public class DictionaryDb {
 
 				ArrayList<String> suggestions = new ArrayList<>();
 				for (Word word : exactMatches) {
+					Log.d("getWords", "exact match: " + word.word + " priority: " + word.frequency);
 					suggestions.add(word.word);
 				}
 
