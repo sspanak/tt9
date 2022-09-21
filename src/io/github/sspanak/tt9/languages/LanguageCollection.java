@@ -1,12 +1,11 @@
 package io.github.sspanak.tt9.languages;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.definitions.*;
 
 public class LanguageCollection {
@@ -36,7 +35,7 @@ public class LanguageCollection {
 				}
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
-				Log.e("LanguageCollection", "Skipping an invalid language. " + e.getMessage());
+				Logger.e("tt9.LanguageCollection", "Skipping an invalid language. " + e.getMessage());
 			}
 		}
 	}

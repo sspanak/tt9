@@ -4,10 +4,10 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.languages.Language;
@@ -97,7 +97,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onBackspace() {
 		if (!InputFieldHelper.isThereText(currentInputConnection)) {
-			Log.d("onBackspace", "backspace ignored");
+			Logger.d("onBackspace", "backspace ignored");
 			return false;
 		}
 
@@ -111,13 +111,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 
-		Log.d("onBackspace", "backspace handled");
+		Logger.d("onBackspace", "backspace handled");
 		return true;
 	}
 
 
 	public boolean onOK() {
-		Log.d("onOK", "enter handler");
+		Logger.d("onOK", "enter handler");
 
 		acceptCurrentSuggestion();
 		resetKeyRepeat();

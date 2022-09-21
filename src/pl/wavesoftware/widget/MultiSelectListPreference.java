@@ -10,11 +10,12 @@ import android.content.res.TypedArray;
 import android.preference.ListPreference;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import io.github.sspanak.tt9.Logger;
 
 public class MultiSelectListPreference extends ListPreference {
 
@@ -63,12 +64,12 @@ public class MultiSelectListPreference extends ListPreference {
 	// added method
 	public static int[] defaultunpack2Int(CharSequence val) {
 		if (val == null || "".equals(val)) {
-			//Log.w("MultiSelectPref.defaultunpack", "val is null or empty");
+			//Logger.w("MultiSelectPref.defaultunpack", "val is null or empty");
 			return new int[] {0}; //default pref
 		} else {
 			String[] sa = ((String) val).split("\\"+DEFAULT_SEPARATOR);
 			if (sa.length < 1) {
-				Log.w("MSLPref.defaultunpack", "split is less than 1");
+				Logger.w("MSLPref.defaultunpack", "split is less than 1");
 				return new int[] {0}; //default pref
 			}
 			int[] ia = new int[sa.length];

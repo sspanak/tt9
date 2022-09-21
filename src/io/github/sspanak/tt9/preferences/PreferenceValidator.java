@@ -1,9 +1,8 @@
 package io.github.sspanak.tt9.preferences;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.definitions.English;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -17,7 +16,7 @@ public class PreferenceValidator {
 		}
 		if (validLanguageIds.size() == 0) {
 			validLanguageIds.add(1);
-			Log.e("validateLanguage", "The language list seems to be corrupted. Resetting to first language only.");
+			Logger.e("tt9.PreferenceValidator", "The language list seems to be corrupted. Resetting to first language only.");
 		}
 
 		prefs.setEnabledLanguages(validLanguageIds);
@@ -37,7 +36,7 @@ public class PreferenceValidator {
 		validLanguage = validLanguage == null ? new English() : validLanguage;
 		prefs.setInputLanguage(validLanguage.getId());
 
-		Log.w("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
+		Logger.w("tt9.PreferenceValidator", error + " Enforcing language: " + validLanguage.getId());
 
 		return validLanguage;
 	}
@@ -51,7 +50,7 @@ public class PreferenceValidator {
 		prefs.setInputMode(newMode);
 
 		if (newMode != inputMode) {
-			Log.w("validateInputMode", "Invalid input mode: " + inputMode + " Enforcing: " + newMode);
+			Logger.w("tt9.PreferenceValidator", "Invalid input mode: " + inputMode + " Enforcing: " + newMode);
 		}
 
 		return newMode;
@@ -66,7 +65,7 @@ public class PreferenceValidator {
 		prefs.setTextCase(newCase);
 
 		if (textCase != newCase) {
-			Log.w("validateTextCase", "Invalid text case: " + textCase + " Enforcing: " + newCase);
+			Logger.w("tt9.PreferenceValidator", "Invalid text case: " + textCase + " Enforcing: " + newCase);
 		}
 
 		return newCase;

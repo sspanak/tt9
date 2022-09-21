@@ -135,14 +135,14 @@ class InputFieldHelper {
 	 * editor state.
 	 */
 	public static void determineTextCase(EditorInfo inputField) {
-		// Log.d("updateShift", "CM start: " + mCapsMode);
+		// Logger.d("updateShift", "CM start: " + mCapsMode);
 		// if (inputField != null && mCapsMode != T9Preferences.CASE_UPPER) {
 		// 	int caps = 0;
 		// 	if (inputField.inputType != InputType.TYPE_NULL) {
 		// 		caps = currentInputConnection.getCursorCapsMode(inputField.inputType);
 		// 	}
 		// 	// mInputView.setShifted(mCapsLock || caps != 0);
-		// 	// Log.d("updateShift", "caps: " + caps);
+		// 	// Logger.d("updateShift", "caps: " + caps);
 		// 	if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
 		// 		mCapsMode = T9Preferences.CASE_UPPER;
 		// 	} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
@@ -154,7 +154,7 @@ class InputFieldHelper {
 		// 	}
 		// 	updateStatusIcon();
 		// }
-		// Log.d("updateShift", "CM end: " + mCapsMode);
+		// Logger.d("updateShift", "CM end: " + mCapsMode);
 	}
 
 

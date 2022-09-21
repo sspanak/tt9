@@ -3,11 +3,11 @@ package io.github.sspanak.tt9.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -29,9 +29,9 @@ public class AddWordAct extends Activity {
 
 		lang = i.getIntExtra("io.github.sspanak.tt9.lang", -1);
 		if (lang == -1) {
-			Log.e("AddWordAct.onCreate", "lang is invalid. How?");
+			Logger.e("AddWordAct.onCreate", "lang is invalid. How?");
 		}
-		// Log.d("AddWord", "data.get: " + word);
+		// Logger.d("AddWord", "data.get: " + word);
 		et.setText(origword);
 		et.setSelection(origword.length());
 		setContentView(v);
@@ -40,7 +40,7 @@ public class AddWordAct extends Activity {
 
 	public void addWordButton(View v) {
 		EditText et = (EditText) main.findViewById(R.id.add_word_text);
-		// Log.d("AddWordAct", "adding word: " + et.getText());
+		// Logger.d("AddWordAct", "adding word: " + et.getText());
 		doAddWord(et.getText().toString());
 		this.finish();
 	}
@@ -57,7 +57,7 @@ public class AddWordAct extends Activity {
 
 
 	public void cancelButton(View v) {
-		// Log.d("AddWordAct", "Cancelled...");
+		// Logger.d("AddWordAct", "Cancelled...");
 		this.finish();
 	}
 

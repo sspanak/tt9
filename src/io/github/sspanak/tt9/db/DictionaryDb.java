@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -13,6 +12,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.github.sspanak.tt9.Logger;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
@@ -106,11 +107,11 @@ public class DictionaryDb {
 			public void run() {
 				// get exact sequence matches, for example: "9422" -> "what"
 				List<Word> exactMatches = getInstance(context).wordsDao().getMany(langId, sequence, maxWords);
-				Log.d("getWords", "Exact matches: " + exactMatches.size());
+				Logger.d("getWords", "Exact matches: " + exactMatches.size());
 
 				ArrayList<String> suggestions = new ArrayList<>();
 				for (Word word : exactMatches) {
-					Log.d("getWords", "exact match: " + word.word + " priority: " + word.frequency);
+					Logger.d("getWords", "exact match: " + word.word + " priority: " + word.frequency);
 					suggestions.add(word.word);
 				}
 
@@ -123,7 +124,7 @@ public class DictionaryDb {
 						suggestions.add(word.word);
 					}
 
-					Log.d("getWords", "Extra words: " + extraWords.size());
+					Logger.d("getWords", "Extra words: " + extraWords.size());
 				}
 
 				// pack the words in a message and send it to the calling thread

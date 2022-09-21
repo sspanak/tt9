@@ -102,7 +102,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		currentInputConnection = getCurrentInputConnection();
-		// Log.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
+		// Logger.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
 		// 	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
 
 		mEditing = NON_EDIT;
@@ -130,7 +130,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onFinishInput() {
 		super.onFinishInput();
-		// Log.d("onFinishInput", "When is this called?");
+		// Logger.d("onFinishInput", "When is this called?");
 		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
 			onFinish();
 		}
@@ -154,7 +154,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return super.onKeyDown(keyCode, event);
 		}
 
-//		Log.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
+//		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// "backspace" key must repeat its function, when held down, so we handle it in a special way
 		// Also dialer fields seem to handle backspace on their own and we must ignore it,
@@ -212,7 +212,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return super.onKeyDown(keyCode, event);
 		}
 
-//		Log.d("onLongPress", "LONG PRESS: " + keyCode);
+//		Logger.d("onLongPress", "LONG PRESS: " + keyCode);
 
 		if (event.getRepeatCount() > 1) {
 			return true;
@@ -259,7 +259,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == ignoreNextKeyUp) {
-//			Log.d("onKeyUp", "Ignored: " + keyCode);
+//			Logger.d("onKeyUp", "Ignored: " + keyCode);
 			ignoreNextKeyUp = 0;
 			return true;
 		}
@@ -269,7 +269,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			lastKeyCode = keyCode;
 		}
 
-//		Log.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
 		if (
 			mEditing != EDITING_DIALER // dialer fields seem to handle backspace on their own

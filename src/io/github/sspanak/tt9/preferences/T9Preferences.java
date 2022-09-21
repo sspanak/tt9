@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
 
-import android.util.Log;
 import android.view.KeyEvent;
 
 import java.util.ArrayList;
+
+import io.github.sspanak.tt9.Logger;
 
 
 public class T9Preferences {
@@ -57,8 +58,8 @@ public class T9Preferences {
 		int languageMask = 0;
 		for (Integer langId : languageIds) {
 			if (langId < 0 || langId >= MAX_LANGUAGES) {
-				Log.e(
-					"setEnabledLanguages",
+				Logger.e(
+					"tt9.T9Preferences",
 					"Cannot save langId out of the allowed range [0, 31]. Received: " + langId
 				);
 				continue;

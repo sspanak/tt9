@@ -2,9 +2,9 @@ package io.github.sspanak.tt9.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Toast;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
@@ -47,7 +47,7 @@ public class UI {
 				tt9.showStatusIcon(R.drawable.ime_number);
 				break;
 			default:
-				Log.i("updateStatusIcon", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
+				Logger.w("tt9.UI", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
 				tt9.hideStatusIcon();
 				break;
 		}

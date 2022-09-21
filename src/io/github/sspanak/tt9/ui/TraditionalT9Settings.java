@@ -16,13 +16,13 @@ import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.Word;
@@ -87,17 +87,17 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 	private void finishAndShowError(ProgressDialog pd, Reply result, int title){
 		if (pd != null) {
-			// Log.d("onPostExecute", "pd");
+			// Logger.d("onPostExecute", "pd");
 			if (pd.isShowing()) {
 				pd.dismiss();
 			}
 		}
 		if (result == null) {
 			// bad thing happened
-			Log.e("onPostExecute", "Bad things happen?");
+			Logger.e("onPostExecute", "Bad things happen?");
 		} else {
 			String msg = TextUtils.join("\n", result.msgs);
-			Log.d("onPostExecute", "Result: " + result.status + " " + msg);
+			Logger.d("onPostExecute", "Result: " + result.status + " " + msg);
 			if (!result.status) {
 				showErrorDialog(getResources().getString(title), msg);
 			}
@@ -161,11 +161,11 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					return total;
 
 				} catch (IOException e) {
-					Log.e("getDictSizes", "Unable to get dict sizes");
+					Logger.e("getDictSizes", "Unable to get dict sizes");
 					e.printStackTrace();
 					return -1;
 				} catch (NumberFormatException e) {
-					Log.e("getDictSizes", "Unable to parse sizes");
+					Logger.e("getDictSizes", "Unable to parse sizes");
 					return -1;
 				}
 			} else {
@@ -204,11 +204,11 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			startnow = SystemClock.uptimeMillis();
 
 			// add characters first, then dictionary:
-			Log.d("doInBackground", "Adding characters...");
+			Logger.d("doInBackground", "Adding characters...");
 			processChars(mContext, mSupportedLanguages);
-			Log.d("doInBackground", "Characters added.");
+			Logger.d("doInBackground", "Characters added.");
 
-			Log.d("doInBackground", "Adding dict(s)...");
+			Logger.d("doInBackground", "Adding dict(s)...");
 
 			InputStream dictstream = null;
 
@@ -232,7 +232,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 							reply.status = false;
 							reply.forceMsg("File not found: " + e.getMessage());
 							final String msg = mContext.getString(R.string.pref_loaduser_notfound, dicts[x]);
-							//Log.d("T9Setting.load", "Built string. Calling Toast.");
+							//Logger.d("T9Setting.load", "Built string. Calling Toast.");
 							((Activity) mContext).runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
@@ -256,7 +256,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 				closeStream(dictstream, reply);
 			}
 			endnow = SystemClock.uptimeMillis();
-			Log.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
+			Logger.d("TIMING", "Execution time: " + (endnow - startnow) + " ms");
 			return reply;
 		}
 
@@ -284,7 +284,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 				DictionaryDb.insertWordsSync(context, list);
 			} catch (Exception e) {
-				Log.e("processChars", e.getMessage());
+				Logger.e("processChars", e.getMessage());
 			}
 		}
 
@@ -376,14 +376,14 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 				publishProgress((int) ((float) pos / size * 10000));
 			} catch (Exception e) {
 				DictionaryDb.endTransaction(context, false);
-				Log.e("processFile", e.getMessage());
+				Logger.e("processFile", e.getMessage());
 			}	finally {
 				br.close();
 				is.close();
 				ubis.close();
 				is.close();
 
-				Log.d("processFile", "Inserted: " + fname + " in: " + (System.currentTimeMillis() - start) + "ms");
+				Logger.d("processFile", "Inserted: " + fname + " in: " + (System.currentTimeMillis() - start) + "ms");
 			}
 			return rpl;
 		}
