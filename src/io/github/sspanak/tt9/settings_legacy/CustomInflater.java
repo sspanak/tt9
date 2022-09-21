@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.settings;
+package io.github.sspanak.tt9.settings_legacy;
 
 // http://stackoverflow.com/a/8488691
 
@@ -22,7 +22,7 @@ public class CustomInflater {
 			if (token == XmlPullParser.START_TAG) {
 				if (!parser.getName().equals("Settings")) {
 					//prepend package
-					Class aClass = Class.forName("io.github.sspanak.tt9.settings."+parser.getName());
+					Class aClass = Class.forName("io.github.sspanak.tt9.settings_legacy."+parser.getName());
 					Class<?>[] params = new Class[]{Context.class, AttributeSet.class, isettings.getClass()};
 					Constructor<?> constructor = aClass.getConstructor(params);
 					try {

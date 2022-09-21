@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.settings;
+package io.github.sspanak.tt9.settings_legacy;
 
 // https://github.com/codepath/android_guides/wiki/Using-an-ArrayAdapter-with-ListView
 

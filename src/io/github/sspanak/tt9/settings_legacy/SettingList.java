@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.settings;
+package io.github.sspanak.tt9.settings_legacy;
 
 import android.app.AlertDialog;
 import android.content.Context;

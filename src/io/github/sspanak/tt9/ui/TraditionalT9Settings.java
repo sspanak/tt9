@@ -29,9 +29,9 @@ import io.github.sspanak.tt9.db.Word;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
-import io.github.sspanak.tt9.settings.CustomInflater;
-import io.github.sspanak.tt9.settings.Setting;
-import io.github.sspanak.tt9.settings.SettingAdapter;
+import io.github.sspanak.tt9.settings_legacy.CustomInflater;
+import io.github.sspanak.tt9.settings_legacy.Setting;
+import io.github.sspanak.tt9.settings_legacy.SettingAdapter;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
