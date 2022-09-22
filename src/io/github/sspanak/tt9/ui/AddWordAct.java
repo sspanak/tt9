@@ -52,7 +52,7 @@ public class AddWordAct extends Activity {
 			UI.toast(this, e.getMessage());
 			return;
 		}
-		T9Preferences.getInstance(this).setLastWord(text);
+		T9Preferences.getInstance(this).saveLastWord(text);
 	}
 
 

@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences;
 
+import static io.github.sspanak.tt9.preferences.PreferencesValidator.MAX_LANGUAGES;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
@@ -8,16 +10,12 @@ import android.view.KeyEvent;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
-
 
 public class T9Preferences {
 	private static T9Preferences self;
 
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
-
-	private final int MAX_LANGUAGES = 32;
 
 	public static final int CASE_LOWER = 0;
 	public static final int CASE_CAPITALIZE = 1;
@@ -40,6 +38,8 @@ public class T9Preferences {
 		return self;
 	}
 
+
+
 	public ArrayList<Integer> getEnabledLanguages() {
 		int languageMask = prefs.getInt("pref_enabled_languages", 1);
 		ArrayList<Integer>languageIds = new ArrayList<>();
@@ -54,14 +54,10 @@ public class T9Preferences {
 		return languageIds;
 	}
 
-	public void setEnabledLanguages(ArrayList<Integer> languageIds) {
+	public void saveEnabledLanguages(ArrayList<Integer> languageIds) {
 		int languageMask = 0;
 		for (Integer langId : languageIds) {
-			if (langId < 0 || langId >= MAX_LANGUAGES) {
-				Logger.e(
-					"tt9.T9Preferences",
-					"Cannot save langId out of the allowed range [0, 31]. Received: " + langId
-				);
+			if (!PreferencesValidator.validateSavedLanguage(langId, "tt9/saveEnabledLanguages")){
 				continue;
 			}
 
@@ -77,7 +73,7 @@ public class T9Preferences {
 		return prefs.getInt("pref_text_case", CASE_LOWER);
 	}
 
-	public void setTextCase(int textCase) {
+	public void saveTextCase(int textCase) {
 		prefsEditor.putInt("pref_text_case", textCase);
 		prefsEditor.apply();
 	}
@@ -87,16 +83,18 @@ public class T9Preferences {
 		return prefs.getInt("pref_input_language", 0);
 	}
 
-	public void setInputLanguage(int language) {
-		prefsEditor.putInt("pref_input_language", language);
-		prefsEditor.apply();
+	public void saveInputLanguage(int language) {
+		if (PreferencesValidator.validateSavedLanguage(language, "tt9/saveInputLanguage")){
+			prefsEditor.putInt("pref_input_language", language);
+			prefsEditor.apply();
+		}
 	}
 
 	public int getInputMode() {
 		return prefs.getInt("pref_input_mode", MODE_PREDICTIVE);
 	}
 
-	public void setInputMode(int mode) {
+	public void saveInputMode(int mode) {
 		prefsEditor.putInt("pref_input_mode", mode);
 		prefsEditor.apply();
 	}
@@ -119,7 +117,7 @@ public class T9Preferences {
 		return prefs.getString("last_word", "");
 	}
 
-	public void setLastWord(String lastWord) {
+	public void saveLastWord(String lastWord) {
 		// "last_word" was part of the original Preferences implementation.
 		// It is weird, but it is simple and it works, so I decided to keep it.
 		prefsEditor.putString("last_word", lastWord);

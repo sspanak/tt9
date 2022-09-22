@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
-import io.github.sspanak.tt9.preferences.PreferenceValidator;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.ui.UI;
 
@@ -42,14 +41,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void validateLanguages() {
-		mEnabledLanguages = PreferenceValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
-		mLanguage = PreferenceValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
 	}
 
 	private void validatePreferences() {
 		validateLanguages();
-		mInputMode = PreferenceValidator.validateInputMode(prefs, mInputMode, allowedInputModes);
-		mTextCase = PreferenceValidator.validateTextCase(prefs, mTextCase, allowedTextCases);
+		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
+		mTextCase = InputModeValidator.validateTextCase(prefs, mTextCase, allowedTextCases);
 	}
 
 
@@ -452,8 +451,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		// save the settings for the next time
-		prefs.setInputMode(mInputMode);
-		prefs.setTextCase(mTextCase);
+		prefs.saveInputMode(mInputMode);
+		prefs.saveTextCase(mTextCase);
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 	}
@@ -480,7 +479,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		validateLanguages();
 
 		// save it for the next time
-		prefs.setInputLanguage(mLanguage.getId());
+		prefs.saveInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
 	}
@@ -525,7 +524,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// mAddingWord = false;
 		String word = prefs.getLastWord();
 		if (word.equals("")) {
-			prefs.setLastWord("");
+			prefs.saveLastWord("");
 
 			// @todo: push the word to the text field
 		}
