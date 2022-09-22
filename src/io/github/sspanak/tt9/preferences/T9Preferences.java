@@ -9,6 +9,7 @@ import androidx.preference.PreferenceManager;
 import android.view.KeyEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class T9Preferences {
@@ -74,8 +75,11 @@ public class T9Preferences {
 	}
 
 	public void saveTextCase(int textCase) {
-		prefsEditor.putInt("pref_text_case", textCase);
-		prefsEditor.apply();
+		ArrayList<Integer> allCases = new ArrayList<>(Arrays.asList(CASE_CAPITALIZE, CASE_LOWER, CASE_UPPER));
+		if (PreferencesValidator.validateSavedTextCase(textCase, allCases, "tt9/saveTextCase")) {
+			prefsEditor.putInt("pref_text_case", textCase);
+			prefsEditor.apply();
+		}
 	}
 
 

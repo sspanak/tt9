@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -27,4 +29,14 @@ public class PreferencesValidator {
 
 		return true;
 	}
+
+	public static boolean validateSavedTextCase(int textCase, ArrayList<Integer> allTextCases, String logTag) {
+		if (!allTextCases.contains(textCase)) {
+			Logger.w(logTag, "Not saving invalid text case: " + textCase);
+			return false;
+		}
+
+		return true;
+	}
+
 }
