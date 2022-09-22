@@ -10,10 +10,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.languages.InvalidLanguageException;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
@@ -69,6 +71,15 @@ public class DictionaryDb {
 	}
 
 
+	private static void sendSuggestions(Handler handler, ArrayList<String> data) {
+		Bundle bundle = new Bundle();
+		bundle.putStringArrayList("suggestions", data);
+		Message msg = new Message();
+		msg.setData(bundle);
+		handler.sendMessage(msg);
+	}
+
+
 	public static void truncateWords(Context context, Handler handler) {
 		new Thread() {
 			@Override
@@ -80,9 +91,17 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWord(Context context, String word, int languageId) throws Exception {
-		// @todo: insert async with priority 1.
-		throw new Exception("Adding new words is disabled in this version. Please, check for updates.");
+	public static void insertWord(Context context, String word, int languageId) throws InvalidLanguageException, InsertBlankWordException, NotActiveException {
+		if (languageId <= 0) {
+			throw new InvalidLanguageException("Cannot insert a word for an invalid language with ID: '" + languageId + "'");
+		}
+
+		if (word == null || word.length() == 0) {
+			throw new InsertBlankWordException();
+		}
+
+		// @todo: insert async with max priority for this sequence.
+		throw new NotActiveException("Adding new words is disabled in this version. Please, check for updates.");
 	}
 
 
@@ -92,11 +111,18 @@ public class DictionaryDb {
 
 
 	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) throws Exception {
-		if (word.length() == 0 && sequence.length() == 0) {
+		if (langId <= 0) {
+			throw new InvalidLanguageException("Cannot increment word frequency for an invalid language: '" + langId + "'");
+		}
+
+		// If both are empty, it is the same as changing the frequency of: "", which is simply a no-op.
+		if ((word == null || word.length() == 0) && (sequence == null || sequence.length() == 0)) {
 			return;
 		}
 
-		if ((word.length() == 0 && sequence.length() > 0) || (word.length() > 0 && sequence.length() == 0)) {
+		// If one of them is empty, then this is an invalid operation,
+		// because a digit sequence exist for every word.
+		if (word == null || word.length() == 0 || sequence == null || sequence.length() == 0) {
 			throw new Exception("Cannot increment word frequency. Word: '" + word + "', Sequence: '" + sequence + "'");
 		}
 
@@ -116,10 +142,18 @@ public class DictionaryDb {
 	}
 
 
-	public static void getSuggestions(Context context, Handler handler, int langId, String sequence, int minWords, int maxWords) {
+	public static void getSuggestions(Context context, Handler handler, int langId, String sequence, int minimumWords, int maximumWords) {
+		final int minWords = Math.max(minimumWords, 0);
+		final int maxWords = Math.max(maximumWords, minimumWords);
+
 		new Thread() {
 			@Override
 			public void run() {
+				if (sequence == null || sequence.length() == 0) {
+					sendSuggestions(handler, new ArrayList<>());
+					return;
+				}
+
 				// get exact sequence matches, for example: "9422" -> "what"
 				List<Word> exactMatches = getInstance(context).wordsDao().getMany(langId, sequence, maxWords);
 				Logger.d("getWords", "Exact matches: " + exactMatches.size());
@@ -143,11 +177,7 @@ public class DictionaryDb {
 				}
 
 				// pack the words in a message and send it to the calling thread
-				Bundle data = new Bundle();
-				data.putStringArrayList("suggestions", suggestions);
-				Message msg = new Message();
-				msg.setData(data);
-				handler.sendMessage(msg);
+				sendSuggestions(handler, suggestions);
 			}
 		}.start();
 

@@ -24,6 +24,7 @@
 	<string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
 	<string name="add_word_exist1">Word (%1$s) already in DB.</string>
 	<string name="add_word_exist2">Word (%1$s) already in DB for %2$s.</string>
+	<string name="add_word_invalid_language">No language selected. Cannot insert a word for no language.</string>
 	<string name="add_word_only_in_predictive_mode">You can add new words in Predictive mode only.</string>
 	<string name="title_activity_add_word">Add Word</string>
 	<string name="action_settings">Settings</string>

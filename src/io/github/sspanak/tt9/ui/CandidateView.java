@@ -186,7 +186,7 @@ public class CandidateView extends View {
 		clear();
 		if (suggestions != null) {
 			mSuggestions = suggestions;
-			mSelectedIndex = initialSel;
+			mSelectedIndex = Math.max(initialSel, 0);
 		}
 		scrollTo(0, 0);
 		mTargetScrollX = 0;

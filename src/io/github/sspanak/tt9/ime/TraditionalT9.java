@@ -7,6 +7,7 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
+import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.List;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.InsertBlankWordException;
+import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
@@ -487,8 +490,16 @@ public class TraditionalT9 extends KeyPadHandler {
 		//////////////////////////////////////////////////////////////
 		// @todo: remove this try..catch in #55 and display the dialog
 		try {
-			DictionaryDb.insertWord(this, "", 0);
-		} catch (Exception e) {
+			DictionaryDb.insertWord(this, "a", mLanguage.getId());
+		} catch (InsertBlankWordException e) {
+			Logger.e("tt9/showAddWord", e.getMessage());
+			UI.toastLong(this, R.string.add_word_blank);
+			return;
+		} catch (InvalidLanguageException e) {
+			Logger.e("tt9/showAddWord", e.getMessage());
+			UI.toastLong(this, R.string.add_word_invalid_language);
+			return;
+		} catch (NotActiveException e) {
 			UI.toastLong(this, e.getMessage());
 			return;
 		}
