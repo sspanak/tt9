@@ -7,6 +7,10 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
@@ -14,12 +18,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.PreferenceValidator;
-import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.preferences.T9Preferences;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
@@ -273,9 +273,20 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean wordInPredictiveMode(int key) {
-		// 0 and 1 are used for punctuation, so we don't care about them here.
-		if (mInputMode != T9Preferences.MODE_PREDICTIVE || key == 1 || key == 0) {
+		if (
+			mInputMode != T9Preferences.MODE_PREDICTIVE ||
+			// 0 is not a word, but space, so we handle it in on0().
+			key == 0 ||
+			// double 1 is not a word, but an emoticon and it is handled elsewhere
+			(key == 1 && isNumKeyRepeated)
+		) {
 			return false;
+		}
+
+		// Punctuation is considered "a word", so that we can increase the priority as needed
+		// Also, it must break the current word.
+		if (key == 1 && predictionSequence.length() > 0) {
+			acceptCurrentSuggestion();
 		}
 
 		predictionSequence += key;
@@ -318,7 +329,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private ArrayList<String> guessSuggestionsWhenNone(ArrayList<String> suggestions, String lastWord) {
-		if ((suggestions != null && suggestions.size() > 0) || predictionSequence.length() == 0) {
+		if (
+			(suggestions != null && suggestions.size() > 0) ||
+			predictionSequence.length() == 0 ||
+			predictionSequence.charAt(0) == '1'
+		) {
 			return suggestions;
 		}
 
@@ -343,7 +358,17 @@ public class TraditionalT9 extends KeyPadHandler {
 		// bring this word up in the suggestions list next time
 		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
 			String currentWord = mSuggestionView.getCurrentSuggestion();
-			DictionaryDb.incrementWordFrequency(this, mLanguage.getId(), currentWord, predictionSequence);
+			if (currentWord.length() == 0) {
+				Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
+				return;
+			}
+
+			try {
+				String sequence = mLanguage.getDigitSequenceForWord(currentWord);
+				DictionaryDb.incrementWordFrequency(this, mLanguage.getId(), currentWord, sequence);
+			} catch (Exception e) {
+				Logger.e(getClass().getName(), "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
+			}
 		}
 
 		commitCurrentSuggestion();

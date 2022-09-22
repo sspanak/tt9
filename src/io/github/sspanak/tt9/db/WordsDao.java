@@ -32,7 +32,7 @@ interface WordsDao {
 
 	@Query(
 		"UPDATE words " +
-		"SET freq = (SELECT MAX(freq) FROM words WHERE lang = :langId AND seq = :sequence AND word <> :word) + 1 " +
+		"SET freq = (SELECT IFNULL(MAX(freq), 0) FROM words WHERE lang = :langId AND seq = :sequence AND word <> :word) + 1 " +
 		"WHERE lang = :langId AND word = :word "
 	)
 	void incrementFrequency(int langId, String word, String sequence);

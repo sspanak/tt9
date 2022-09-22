@@ -91,11 +91,26 @@ public class DictionaryDb {
 	}
 
 
-	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) {
+	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) throws Exception {
+		if (word.length() == 0 && sequence.length() == 0) {
+			return;
+		}
+
+		if ((word.length() == 0 && sequence.length() > 0) || (word.length() > 0 && sequence.length() == 0)) {
+			throw new Exception("Cannot increment word frequency. Word: '" + word + "', Sequence: '" + sequence + "'");
+		}
+
 		new Thread() {
 			@Override
 			public void run() {
-				getInstance(context).wordsDao().incrementFrequency(langId, word, sequence);
+				try {
+					getInstance(context).wordsDao().incrementFrequency(langId, word, sequence);
+				} catch (Exception e) {
+					Logger.e(
+						DictionaryDb.class.getName(),
+						"Failed incrementing word frequency. Word: '" + word + "', Sequence: '" + sequence + "'. " + e.getMessage()
+					);
+				}
 			}
 		}.start();
 	}
