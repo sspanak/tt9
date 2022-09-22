@@ -3,35 +3,35 @@ package io.github.sspanak.tt9;
 import android.util.Log;
 
 public class Logger {
-	public static int LEVEL = Log.WARN;
+	public static int LEVEL = Log.ERROR;
 
-	static public void v(String tag, String msgFormat, Object...args)  {
+	static public void v(String tag, String msg)  {
 		if (LEVEL <= Log.VERBOSE) {
-			Log.v(tag, String.format(msgFormat, args));
+			Log.v(tag, msg);
 		}
 	}
 
-	static public void d(String tag, String msgFormat, Object...args)  {
+	static public void d(String tag, String msg)  {
 		if (LEVEL <= Log.DEBUG) {
-			Log.d(tag, String.format(msgFormat, args));
+			Log.d(tag, msg);
 		}
 	}
 
-	static public void i(String tag,  String msgFormat, Object...args)  {
+	static public void i(String tag,  String msg)  {
 		if (LEVEL <= Log.INFO) {
-			Log.i(tag, String.format(msgFormat, args));
+			Log.i(tag, msg);
 		}
 	}
 
-	static public void w(String tag, String msgFormat, Object...args)  {
+	static public void w(String tag, String msg)  {
 		if (LEVEL <= Log.WARN) {
-			Log.w(tag, String.format(msgFormat, args));
+			Log.w(tag, msg);
 		}
 	}
 
-	static public void e(String tag, String msgFormat, Object...args)  {
+	static public void e(String tag, String msg)  {
 		if (LEVEL <= Log.ERROR) {
-			Log.e(tag, String.format(msgFormat, args));
+			Log.e(tag, msg);
 		}
 	}
 }
