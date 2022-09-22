@@ -286,9 +286,14 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		// Punctuation is considered "a word", so that we can increase the priority as needed
-		// Also, it must break the current word.
-		if (key == 1 && predictionSequence.length() > 0) {
+
+		if (
+			// Punctuation is considered "a word", so that we can increase the priority as needed
+			// Also, it must break the current word.
+			(key == 1 && predictionSequence.length() > 0) ||
+			// On the other hand, letters also "break" punctuation.
+			(key != 1 && predictionSequence.endsWith("1"))
+		) {
 			acceptCurrentSuggestion();
 		}
 
