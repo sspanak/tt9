@@ -20,10 +20,17 @@ import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
-import io.github.sspanak.tt9.preferences.T9Preferences;
 import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
+	public static final int CASE_LOWER = 0;
+	public static final int CASE_CAPITALIZE = 1;
+	public static final int CASE_UPPER = 2;
+
+	public static final int MODE_PREDICTIVE = 0;
+	public static final int MODE_ABC = 1;
+	public static final int MODE_123 = 2;
+
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
 
@@ -105,7 +112,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		resetKeyRepeat();
 
-		if (mInputMode == T9Preferences.MODE_PREDICTIVE && predictionSequence.length() > 0) {
+		if (mInputMode == MODE_PREDICTIVE && predictionSequence.length() > 0) {
 			predictionSequence = predictionSequence.substring(0, predictionSequence.length() - 1);
 			applyPredictionSequence();
 		} else {
@@ -146,16 +153,16 @@ public class TraditionalT9 extends KeyPadHandler {
 		commitCurrentSuggestion();
 
 		setSuggestions(
-			mInputMode == T9Preferences.MODE_ABC && !hold ? mLanguage.getKeyCharacters(0): null,
+			mInputMode == MODE_ABC && !hold ? mLanguage.getKeyCharacters(0): null,
 			0
 		);
 
 		if (hold) {
-			String chr = mInputMode == T9Preferences.MODE_123 ? "+" : "0";
+			String chr = mInputMode == MODE_123 ? "+" : "0";
 			currentInputConnection.commitText(chr, 1);
-		} else if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+		} else if (mInputMode == MODE_PREDICTIVE) {
 			currentInputConnection.commitText(" ", 1);
-		} else if (mInputMode == T9Preferences.MODE_123) {
+		} else if (mInputMode == MODE_123) {
 			currentInputConnection.commitText("0", 1);
 		}
 
@@ -170,7 +177,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @return boolean
 	 */
 	protected boolean on1to9(int key, boolean hold) {
-		if (mInputMode == T9Preferences.MODE_123) {
+		if (mInputMode == MODE_123) {
 			return false;
 		}
 
@@ -184,9 +191,9 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		} else if (nextSuggestionInModeAbc()) {
 			return true;
-		} else if (mInputMode == T9Preferences.MODE_ABC || mInputMode == T9Preferences.MODE_PREDICTIVE) {
+		} else if (mInputMode == MODE_ABC || mInputMode == MODE_PREDICTIVE) {
 			commitCurrentSuggestion(); // commit the previous one before suggesting the new one
-			setSuggestions(mLanguage.getKeyCharacters(key, mTextCase == T9Preferences.CASE_LOWER));
+			setSuggestions(mLanguage.getKeyCharacters(key, mTextCase == CASE_LOWER));
 			setComposingTextFromCurrentSuggestion();
 			return true;
 		}
@@ -263,7 +270,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean emoticonInPredictiveMode(int key) {
-		if (key != 1 || mInputMode != T9Preferences.MODE_PREDICTIVE || !isNumKeyRepeated) {
+		if (key != 1 || mInputMode != MODE_PREDICTIVE || !isNumKeyRepeated) {
 			return false;
 		}
 
@@ -276,7 +283,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private boolean wordInPredictiveMode(int key) {
 		if (
-			mInputMode != T9Preferences.MODE_PREDICTIVE ||
+			mInputMode != MODE_PREDICTIVE ||
 			// 0 is not a word, but space, so we handle it in on0().
 			key == 0 ||
 			// double 1 is not a word, but an emoticon and it is handled elsewhere
@@ -357,13 +364,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean nextSuggestionInModeAbc() {
-		return isNumKeyRepeated && mInputMode == T9Preferences.MODE_ABC && nextSuggestion();
+		return isNumKeyRepeated && mInputMode == MODE_ABC && nextSuggestion();
 	}
 
 
 	private void acceptCurrentSuggestion() {
 		// bring this word up in the suggestions list next time
-		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
+		if (mInputMode == MODE_PREDICTIVE) {
 			String currentWord = mSuggestionView.getCurrentSuggestion();
 			if (currentWord.length() == 0) {
 				Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
@@ -428,7 +435,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void nextKeyMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			clearSuggestions();
-			mInputMode = T9Preferences.MODE_123;
+			mInputMode = MODE_123;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -441,13 +448,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			setComposingTextFromCurrentSuggestion();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode == T9Preferences.MODE_ABC && mTextCase == T9Preferences.CASE_LOWER) {
-			mTextCase = T9Preferences.CASE_UPPER;
+		else if (mInputMode == MODE_ABC && mTextCase == CASE_LOWER) {
+			mTextCase = CASE_UPPER;
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode) + 1) % allowedInputModes.size();
 			mInputMode = allowedInputModes.get(modeIndex);
 
-			mTextCase = mInputMode == T9Preferences.MODE_PREDICTIVE ? T9Preferences.CASE_CAPITALIZE : T9Preferences.CASE_LOWER;
+			mTextCase = mInputMode == MODE_PREDICTIVE ? CASE_CAPITALIZE : CASE_LOWER;
 		}
 
 		// save the settings for the next time
@@ -486,7 +493,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (mInputMode != T9Preferences.MODE_PREDICTIVE) {
+		if (mInputMode != MODE_PREDICTIVE) {
 			UI.toastLong(this, R.string.add_word_only_in_predictive_mode);
 			return;
 		}

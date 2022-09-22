@@ -10,8 +10,6 @@ import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.preferences.T9Preferences;
-
 
 class InputFieldHelper {
 	public static boolean isThereText(InputConnection currentInputConnection) {
@@ -81,7 +79,7 @@ class InputFieldHelper {
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (inputField == null) {
-			allowedModes.add(T9Preferences.MODE_123);
+			allowedModes.add(TraditionalT9.MODE_123);
 			return allowedModes;
 		}
 
@@ -92,8 +90,8 @@ class InputFieldHelper {
 				&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
 			)
 		) {
-			allowedModes.add(T9Preferences.MODE_123);
-			allowedModes.add(T9Preferences.MODE_ABC);
+			allowedModes.add(TraditionalT9.MODE_123);
+			allowedModes.add(TraditionalT9.MODE_ABC);
 			return allowedModes;
 		}
 
@@ -105,7 +103,7 @@ class InputFieldHelper {
 			case InputType.TYPE_CLASS_PHONE:
 				// Phones will also default to the symbols keyboard, though
 				// often you will want to have a dedicated phone keyboard.
-				allowedModes.add(T9Preferences.MODE_123);
+				allowedModes.add(TraditionalT9.MODE_123);
 				return allowedModes;
 
 			case InputType.TYPE_CLASS_TEXT:
@@ -114,7 +112,7 @@ class InputFieldHelper {
 				// be doing predictive text (showing candidates as the
 				// user types).
 				if (!isSpecializedTextField(inputField)) {
-					allowedModes.add(T9Preferences.MODE_PREDICTIVE);
+					allowedModes.add(TraditionalT9.MODE_PREDICTIVE);
 				}
 
 				// ↓ fallthrough to add ABC and 123 modes ↓
@@ -122,8 +120,8 @@ class InputFieldHelper {
 			default:
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
-				allowedModes.add(T9Preferences.MODE_123);
-				allowedModes.add(T9Preferences.MODE_ABC);
+				allowedModes.add(TraditionalT9.MODE_123);
+				allowedModes.add(TraditionalT9.MODE_ABC);
 
 				return allowedModes;
 		}

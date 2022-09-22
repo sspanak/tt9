@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences;
 
-import static io.github.sspanak.tt9.preferences.PreferencesValidator.MAX_LANGUAGES;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
@@ -11,20 +9,18 @@ import android.view.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+
 
 public class T9Preferences {
+	public static final int MAX_LANGUAGES = 32;
+
 	private static T9Preferences self;
 
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
-
-	public static final int CASE_LOWER = 0;
-	public static final int CASE_CAPITALIZE = 1;
-	public static final int CASE_UPPER = 2;
-
-	public static final int MODE_PREDICTIVE = 0;
-	public static final int MODE_ABC = 1;
-	public static final int MODE_123 = 2;
 
 	public T9Preferences (Context context) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
@@ -39,7 +35,41 @@ public class T9Preferences {
 		return self;
 	}
 
+	/************* VALIDATORS *************/
 
+	private boolean doesLanguageExist(int langId) {
+		return LanguageCollection.getLanguage(langId) != null;
+	}
+
+	private boolean isLanguageInRange(int langId) {
+		return langId > 0 && langId <= MAX_LANGUAGES;
+	}
+
+	private boolean validateSavedLanguage(int langId, String logTag) {
+		if (!doesLanguageExist(langId)) {
+			Logger.w(logTag, "Not saving invalid language with ID: " + langId);
+			return false;
+		}
+
+		if (!isLanguageInRange(langId)) {
+			Logger.w(logTag, "Valid language ID range is [0, 31]. Not saving out-of-range language: " + langId);
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isIntInList(int number, ArrayList<Integer> list, String logTag, String logMsg) {
+		if (!list.contains(number)) {
+			Logger.w(logTag, logMsg);
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/************* PREFERENCES OPERATIONS *************/
 
 	public ArrayList<Integer> getEnabledLanguages() {
 		int languageMask = prefs.getInt("pref_enabled_languages", 1);
@@ -58,7 +88,7 @@ public class T9Preferences {
 	public void saveEnabledLanguages(ArrayList<Integer> languageIds) {
 		int languageMask = 0;
 		for (Integer langId : languageIds) {
-			if (!PreferencesValidator.validateSavedLanguage(langId, "tt9/saveEnabledLanguages")){
+			if (!validateSavedLanguage(langId, "tt9/saveEnabledLanguages")){
 				continue;
 			}
 
@@ -71,12 +101,18 @@ public class T9Preferences {
 	}
 
 	public int getTextCase() {
-		return prefs.getInt("pref_text_case", CASE_LOWER);
+		return prefs.getInt("pref_text_case", TraditionalT9.CASE_LOWER);
 	}
 
 	public void saveTextCase(int textCase) {
-		ArrayList<Integer> allCases = new ArrayList<>(Arrays.asList(CASE_CAPITALIZE, CASE_LOWER, CASE_UPPER));
-		if (PreferencesValidator.validateSavedTextCase(textCase, allCases, "tt9/saveTextCase")) {
+		boolean isTextCaseValid = isIntInList(
+			textCase,
+			new ArrayList<>(Arrays.asList(TraditionalT9.CASE_CAPITALIZE, TraditionalT9.CASE_LOWER, TraditionalT9.CASE_UPPER)),
+			"tt9/saveTextCase",
+			"Not saving invalid text case: " + textCase
+		);
+
+		if (isTextCaseValid) {
 			prefsEditor.putInt("pref_text_case", textCase);
 			prefsEditor.apply();
 		}
@@ -84,23 +120,32 @@ public class T9Preferences {
 
 
 	public int getInputLanguage() {
-		return prefs.getInt("pref_input_language", 0);
+		return prefs.getInt("pref_input_language", 1);
 	}
 
 	public void saveInputLanguage(int language) {
-		if (PreferencesValidator.validateSavedLanguage(language, "tt9/saveInputLanguage")){
+		if (validateSavedLanguage(language, "tt9/saveInputLanguage")){
 			prefsEditor.putInt("pref_input_language", language);
 			prefsEditor.apply();
 		}
 	}
 
 	public int getInputMode() {
-		return prefs.getInt("pref_input_mode", MODE_PREDICTIVE);
+		return prefs.getInt("pref_input_mode", TraditionalT9.MODE_PREDICTIVE);
 	}
 
 	public void saveInputMode(int mode) {
-		prefsEditor.putInt("pref_input_mode", mode);
-		prefsEditor.apply();
+		boolean isModeValid = isIntInList(
+			mode,
+			new ArrayList<>(Arrays.asList(TraditionalT9.MODE_123, TraditionalT9.MODE_ABC, TraditionalT9.MODE_PREDICTIVE)),
+			"tt9/saveInputMode",
+			"Not saving invalid text case: " + mode
+		);
+
+		if (isModeValid) {
+			prefsEditor.putInt("pref_input_mode", mode);
+			prefsEditor.apply();
+		}
 	}
 
 

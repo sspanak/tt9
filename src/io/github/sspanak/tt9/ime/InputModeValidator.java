@@ -47,7 +47,7 @@ public class InputModeValidator {
 			return inputMode;
 		}
 
-		int newMode = allowedModes.size() > 0 ? allowedModes.get(0) : T9Preferences.MODE_123;
+		int newMode = allowedModes.size() > 0 ? allowedModes.get(0) : TraditionalT9.MODE_123;
 		prefs.saveInputMode(newMode);
 
 		if (newMode != inputMode) {
@@ -62,7 +62,7 @@ public class InputModeValidator {
 			return textCase;
 		}
 
-		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : T9Preferences.CASE_LOWER;
+		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : TraditionalT9.CASE_LOWER;
 		prefs.saveTextCase(newCase);
 
 		if (textCase != newCase) {

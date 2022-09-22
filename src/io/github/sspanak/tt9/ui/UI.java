@@ -8,7 +8,6 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class UI {
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
@@ -37,13 +36,13 @@ public class UI {
 	 */
 	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, int inputMode, int textCase) {
 		switch (inputMode) {
-			case T9Preferences.MODE_ABC:
-				tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == T9Preferences.CASE_LOWER));
+			case TraditionalT9.MODE_ABC:
+				tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == TraditionalT9.CASE_LOWER));
 				break;
-			case T9Preferences.MODE_PREDICTIVE:
+			case TraditionalT9.MODE_PREDICTIVE:
 				tt9.showStatusIcon(inputLanguage.getIcon());
 				break;
-			case T9Preferences.MODE_123:
+			case TraditionalT9.MODE_123:
 				tt9.showStatusIcon(R.drawable.ime_number);
 				break;
 			default:

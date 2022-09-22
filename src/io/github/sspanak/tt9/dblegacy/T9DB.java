@@ -14,8 +14,8 @@ import android.widget.Toast;
 import io.github.sspanak.tt9.LangHelper;
 import io.github.sspanak.tt9.LangHelper.LANGUAGE;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.T9Preferences;
 
 import java.util.AbstractList;
 import java.util.Iterator;
@@ -244,7 +244,7 @@ public class T9DB {
 			cur.close();
 		}
 		// Log.d("T9DB.getWords", "pre: " + stringList);
-		if (capsMode == T9Preferences.CASE_LOWER) {
+		if (capsMode == TraditionalT9.CASE_LOWER) {
 			return;
 		}
 		// Log.d("T9DB.getWords", "filtering...");
@@ -257,7 +257,7 @@ public class T9DB {
 		while (iter.hasNext()) {
 			word = iter.next();
 			switch (capsMode) {
-				case T9Preferences.CASE_UPPER:
+				case TraditionalT9.CASE_UPPER:
 					wordtemp = word.toUpperCase(LangHelper.LOCALES[lang.index]);
 					if (wordtemp.equals(word)) {
 						index++;
@@ -270,7 +270,7 @@ public class T9DB {
 						stringList.set(index, wordtemp);
 					}
 					break;
-				case T9Preferences.CASE_CAPITALIZE:
+				case TraditionalT9.CASE_CAPITALIZE:
 					if (word.length() > 1) {
 						wordtemp = word.substring(0, 1).toUpperCase(LangHelper.LOCALES[lang.index]) + word.substring(1);
 					} else {

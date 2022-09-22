@@ -19,8 +19,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected T9Preferences prefs;
 
 	// input mode
-	protected int mInputMode = T9Preferences.MODE_123;
-	protected int mTextCase = T9Preferences.CASE_LOWER;
+	protected int mInputMode = TraditionalT9.MODE_123;
+	protected int mTextCase = TraditionalT9.CASE_LOWER;
 
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
@@ -177,7 +177,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
-		if (keyCode == KeyEvent.KEYCODE_0 || mInputMode != T9Preferences.MODE_123) {
+		if (keyCode == KeyEvent.KEYCODE_0 || mInputMode != TraditionalT9.MODE_123) {
 			event.startTracking();
 		}
 
@@ -195,7 +195,7 @@ abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == prefs.getKeyInputMode()
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
-				|| (isNumber(keyCode) && mInputMode != T9Preferences.MODE_123)
+				|| (isNumber(keyCode) && mInputMode != TraditionalT9.MODE_123)
 				|| (!isSuggestionViewHidden() && mEditing != EDITING_NOSHOW && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
 				|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
 		) {
@@ -358,15 +358,15 @@ abstract class KeyPadHandler extends InputMethodService {
 		int lastInputMode = prefs.getInputMode();
 		if (allowedInputModes.contains(lastInputMode)) {
 			mInputMode = lastInputMode;
-		} else if (allowedInputModes.contains(T9Preferences.MODE_ABC)) {
-			mInputMode = T9Preferences.MODE_ABC;
+		} else if (allowedInputModes.contains(TraditionalT9.MODE_ABC)) {
+			mInputMode = TraditionalT9.MODE_ABC;
 		} else {
 			mInputMode = allowedInputModes.get(0);
 		}
 
 		if (InputFieldHelper.isDialerField(inputField)) {
 			mEditing = EDITING_DIALER;
-		} else if (mInputMode == T9Preferences.MODE_123 && allowedInputModes.size() == 1) {
+		} else if (mInputMode == TraditionalT9.MODE_123 && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
 			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
@@ -379,15 +379,15 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		allowedTextCases = new ArrayList<>();
 
-		if (mInputMode == T9Preferences.MODE_PREDICTIVE) {
-			allowedTextCases.add(T9Preferences.CASE_LOWER);
-			allowedTextCases.add(T9Preferences.CASE_CAPITALIZE);
-			allowedTextCases.add(T9Preferences.CASE_UPPER);
-		} else if (mInputMode == T9Preferences.MODE_ABC) {
-			allowedTextCases.add(T9Preferences.CASE_LOWER);
-			allowedTextCases.add(T9Preferences.CASE_UPPER);
+		if (mInputMode == TraditionalT9.MODE_PREDICTIVE) {
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
+			allowedTextCases.add(TraditionalT9.CASE_CAPITALIZE);
+			allowedTextCases.add(TraditionalT9.CASE_UPPER);
+		} else if (mInputMode == TraditionalT9.MODE_ABC) {
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
+			allowedTextCases.add(TraditionalT9.CASE_UPPER);
 		} else {
-			allowedTextCases.add(T9Preferences.CASE_LOWER);
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
 		}
 	}
 
