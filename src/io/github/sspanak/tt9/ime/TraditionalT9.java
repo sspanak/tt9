@@ -150,10 +150,10 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		}
 
-		commitCurrentSuggestion();
+		acceptCurrentSuggestion();
 
 		setSuggestions(
-			mInputMode == MODE_ABC && !hold ? mLanguage.getKeyCharacters(0): null,
+			mInputMode == MODE_ABC && !hold ? mLanguage.getKeyCharacters(0) : null,
 			0
 		);
 
