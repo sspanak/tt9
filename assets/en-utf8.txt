@@ -1,4 +1,3 @@
-A
 A's
 AA
 AA's
@@ -1259,7 +1258,6 @@ Aztecan's
 Aztecs
 Aztlan
 Aztlan's
-B
 B's
 BA
 BA's
@@ -2480,7 +2478,6 @@ Byzantine's
 Byzantines
 Byzantium
 Byzantium's
-C
 C's
 CA
 CATV
@@ -3840,7 +3837,6 @@ Czechoslovakian's
 Czechoslovakians
 Czechs
 Czerny
-D
 D's
 DA
 DA's
@@ -4557,7 +4553,6 @@ Dyson's
 Dzerzhinsky
 Dzerzhinsky's
 Dzungaria
-E
 E's
 EC
 ECG
@@ -5148,7 +5143,6 @@ Eysenck
 Eysenck's
 Ezekiel
 Ezra
-F
 F's
 FAA
 FAQ
@@ -5606,7 +5600,6 @@ Fushun
 Fuzhou
 Fuzhou's
 Fuzzbuster
-G
 G's
 GA
 GB
@@ -6307,7 +6300,6 @@ Gwyn's
 Gypsies
 Gypsy
 Gypsy's
-H
 H's
 HBO
 HF
@@ -7054,7 +7046,6 @@ Hyundai
 Hyundai's
 Hz
 Hz's
-I
 I'd
 I'll
 I'm
@@ -7394,7 +7385,6 @@ Izod
 Izod's
 Izvestia
 Izvestia's
-J
 J's
 JFK
 JFK's
@@ -7886,7 +7876,6 @@ Justinian's
 Jutland
 Jutland's
 Juvenal
-K
 K's
 KFC
 KFC's
@@ -8450,7 +8439,6 @@ Kyoto's
 Kyrgyzstan
 Kyushu
 Kyushu's
-L
 L'Amour
 L'Oreal
 L'Ouverture
@@ -9273,7 +9261,6 @@ Lysistrata
 Lysistrata's
 Lysol
 Lysol's
-M
 M's
 MA
 MA's
@@ -10807,7 +10794,6 @@ Myst
 Myst's
 Munchhausen
 Munchhausen's
-N
 N's
 NAACP
 NAFTA
@@ -11320,7 +11306,6 @@ Nyasa
 Nyasa's
 Nyerere
 Nyerere's
-O
 O'Brien
 O'Casey
 O'Connell
@@ -11666,7 +11651,6 @@ Ozymandias
 Ozymandias's
 Ozzie
 Ozzie's
-P
 P's
 PA
 PA's
@@ -12565,7 +12549,6 @@ Python
 Python's
 Porto
 Porto's
-Q
 QWERTY
 Qaddafi
 Qaddafi's
@@ -12622,7 +12605,6 @@ Quixotism
 Quixotism's
 Qumran
 Quonset
-R
 R's
 RAF
 RAF's
@@ -13321,7 +13303,6 @@ Rydberg's
 Ryder
 Ryukyu
 Ryukyu's
-S
 S's
 SALT
 SALT's
@@ -14725,7 +14706,6 @@ Szilard
 Szilard's
 Szymborska
 Szymborska's
-T
 T'ang
 T's
 TA
@@ -15516,7 +15496,6 @@ Tyree's
 Tyrone
 Tyson
 Tyson's
-U
 U's
 UAW
 UBS
@@ -15672,7 +15651,6 @@ Uzbekistan
 Uzbekistan's
 Uzi
 Uzi's
-V
 V's
 VA
 VAT
@@ -16000,7 +15978,6 @@ Vulcan's
 Vulgate
 Vulgate's
 Vulgates
-W
 W's
 WA
 WASP
@@ -16453,7 +16430,6 @@ Wyoming's
 Wyomingite
 Wyomingite's
 Wyomingites
-X
 X's
 XEmacs
 XEmacs's
@@ -16493,7 +16469,6 @@ Xochipilli
 Xochipilli's
 Xuzhou
 Xuzhou's
-Y
 Y's
 YMCA
 YMHA
@@ -16637,7 +16612,6 @@ Yvette
 Yvette's
 Yvonne
 Yvonne's
-Z
 Z's
 Zachariah
 Zachariah's
@@ -16774,7 +16748,6 @@ Zyuganov
 Zyuganov's
 Zurich
 Zurich's
-a
 aardvark
 aardvark's
 aardvarks
@@ -21158,7 +21131,6 @@ azimuths
 azure
 azure's
 azures
-b
 baa
 baa's
 baaed
@@ -25858,7 +25830,6 @@ byways
 byword
 byword's
 bywords
-c
 ca
 cab
 cab's
@@ -33564,7 +33535,6 @@ cytoplasm's
 czarina
 czarina's
 czarinas
-d
 d'Arezzo
 d'Estaing
 dB
@@ -38440,7 +38410,6 @@ dyspeptic
 dyspeptic's
 dyspeptics
 dz
-e
 eBay
 eBay's
 eMusic
@@ -41569,7 +41538,6 @@ eyetooth's
 eyewitness
 eyewitness's
 eyewitnesses
-f
 fa
 fa's
 fable
@@ -45077,7 +45045,6 @@ fuzziness's
 fuzzing
 fuzzy
 fwd
-g
 gab
 gab's
 gabardine
@@ -47690,7 +47657,6 @@ gyros
 gyroscope
 gyroscope's
 gyroscopes
-h
 h'm
 ha
 haberdasher
@@ -50607,7 +50573,6 @@ hysterical
 hysterically
 hysterics
 hysterics's
-i
 iPad
 iPhone
 iPod
@@ -53795,7 +53760,6 @@ ivory's
 ivy
 ivy's
 ix
-j
 jab
 jab's
 jabbed
@@ -54515,7 +54479,6 @@ juxtaposing
 juxtaposition
 juxtaposition's
 juxtapositions
-k
 kHz
 kW
 kaboom
@@ -55087,7 +55050,6 @@ kudzus
 kumquat
 kumquat's
 kumquats
-l
 la
 la's
 lab
@@ -57540,7 +57502,6 @@ lyricist
 lyricist's
 lyricists
 lyrics
-m
 ma
 ma'am
 ma's
@@ -61674,7 +61635,6 @@ mythologists
 mythology
 mythology's
 myths
-n
 nab
 nabbed
 nabbing
@@ -63134,7 +63094,6 @@ nymphomaniac
 nymphomaniac's
 nymphomaniacs
 nymphs
-o
 o'clock
 o'er
 oaf
@@ -64981,7 +64940,6 @@ oysters
 oz
 ozone
 ozone's
-p
 pH
 pa
 pa's
@@ -71422,7 +71380,6 @@ pythons
 pyx
 pyx's
 pyxes
-q
 qt
 qua
 quack
@@ -71825,7 +71782,6 @@ quotient
 quotient's
 quotients
 quoting
-r
 rabbi
 rabbi's
 rabbinate
@@ -76335,7 +76291,6 @@ rutted
 rutting
 rye
 rye's
-s
 sabbatical
 sabbatical's
 sabbaticals
@@ -85789,7 +85744,6 @@ systemic's
 systemics
 systems
 systolic
-t
 tab
 tab's
 tabbed
@@ -89872,7 +89826,6 @@ tyrants
 tyro
 tyro's
 tyros
-u
 ubiquitous
 ubiquitously
 ubiquity
@@ -91631,7 +91584,6 @@ uvular
 uvular's
 uvulars
 uvulas
-v
 vacancies
 vacancy
 vacancy's
@@ -92813,7 +92765,6 @@ vulva
 vulva's
 vulvae
 vying
-w
 wabbit
 wabbits
 wackier
@@ -95037,7 +94988,6 @@ wt
 wuss
 wuss's
 wusses
-x
 xci
 xcii
 xciv
@@ -95096,7 +95046,6 @@ xylophones
 xylophonist
 xylophonist's
 xylophonists
-y
 y'all
 yacht
 yacht's
@@ -95340,7 +95289,6 @@ yuppie
 yuppie's
 yuppies
 yups
-z
 zanier
 zanies
 zaniest

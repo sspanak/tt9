@@ -16,6 +16,7 @@ public class German extends English {
 
 		characterMap.get(2).add("ä");
 		characterMap.get(6).add("ö");
+		characterMap.get(7).add("ß");
 		characterMap.get(8).add("ü");
 	}
 }
