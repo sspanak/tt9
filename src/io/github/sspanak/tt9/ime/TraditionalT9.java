@@ -351,7 +351,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return suggestions;
 		}
 
-		lastWord = lastWord.substring(0, Math.min(predictionSequence.length(), lastWord.length()));
+		lastWord = lastWord.substring(0, Math.min(predictionSequence.length() - 1, lastWord.length()));
 		try {
 			int lastDigit = predictionSequence.charAt(predictionSequence.length() - 1) - '0';
 			lastWord += mLanguage.getKeyCharacters(lastDigit).get(0);
