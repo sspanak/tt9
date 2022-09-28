@@ -271,6 +271,13 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 				for (Language lang : allLanguages) {
 					for (int key = 0; key <= 9; key++) {
 						for (String langChar : lang.getKeyCharacters(key, true)) {
+							if (langChar.length() == 1 && langChar.charAt(0) >= '0' && langChar.charAt(0) <= '9') {
+								// We do not want 0-9 as "word suggestions" in Predictive mode. It looks confusing
+								// when trying to type a word and also, one can type them by holding the respective
+								// key.
+								continue;
+							}
+
 							Word word = new Word();
 							word.langId = lang.getId();
 							word.sequence = String.valueOf(key);
