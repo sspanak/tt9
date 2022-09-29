@@ -112,7 +112,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		resetKeyRepeat();
 
-		if (mInputMode == MODE_PREDICTIVE && predictionSequence.length() > 0) {
+		if (mInputMode == MODE_PREDICTIVE && predictionSequence.length() > 1) {
 			predictionSequence = predictionSequence.substring(0, predictionSequence.length() - 1);
 			applyPredictionSequence();
 		} else {
