@@ -160,7 +160,7 @@ public class DictionaryDb {
 
 				ArrayList<String> suggestions = new ArrayList<>();
 				for (Word word : exactMatches) {
-					Logger.d("getWords", "exact match: " + word.word + " priority: " + word.frequency);
+					Logger.d("getWords", "exact match: " + word.word + ", priority: " + word.frequency);
 					suggestions.add(word.word);
 				}
 
@@ -169,11 +169,12 @@ public class DictionaryDb {
 				if (exactMatches.size() < minWords && sequence.length() >= 2) {
 					int extraWordsNeeded = minWords - exactMatches.size();
 					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(langId, sequence, extraWordsNeeded);
+					Logger.d("getWords", "Fuzzy matches: " + extraWords.size());
+
 					for (Word word : extraWords) {
+						Logger.d("getWords", "fuzzy match: " + word.word + ", sequence: " + word.sequence);
 						suggestions.add(word.word);
 					}
-
-					Logger.d("getWords", "Extra words: " + extraWords.size());
 				}
 
 				// pack the words in a message and send it to the calling thread

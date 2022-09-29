@@ -21,7 +21,7 @@ interface WordsDao {
 	@Query(
 		"SELECT * " +
 		"FROM words " +
-		"WHERE lang = :langId AND seq > :sequence AND seq < :sequence + 1 " +
+		"WHERE lang = :langId AND seq > :sequence AND seq <= :sequence || '99' " +
 		"ORDER BY freq DESC, seq ASC " +
 		"LIMIT :limit"
 	)
