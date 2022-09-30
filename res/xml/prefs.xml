@@ -6,7 +6,7 @@
 		defaultValue="@integer/LANG_DEFAULT"
 		entries="@array/pref_lang_titles"
 		entryValues="@array/pref_lang_values"
-		title="@string/pref_lang_title" />
+		title="@string/pref_choose_languages" />
 	<Setting title="@string/pref_loaddict" id="loaddict"/>
 	<Setting title="@string/pref_truncatedict" id="truncatedict"/>
 	<!-- Take care of dictionary loading in #26 -->

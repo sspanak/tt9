@@ -23,7 +23,7 @@
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
 		</service>
 
-		<activity android:label="@string/traditionalt9_settings" android:name="io.github.sspanak.tt9.ui.TraditionalT9Settings">
+		<activity android:label="@string/app_settings" android:name="io.github.sspanak.tt9.ui.TraditionalT9Settings">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 			</intent-filter>

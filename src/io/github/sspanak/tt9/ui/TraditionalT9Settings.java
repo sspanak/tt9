@@ -231,7 +231,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						} catch (FileNotFoundException e) {
 							reply.status = false;
 							reply.forceMsg("File not found: " + e.getMessage());
-							final String msg = mContext.getString(R.string.pref_loaduser_notfound, dicts[x]);
+							final String msg = mContext.getString(R.string.dictionary_not_found, dicts[x]);
 							//Logger.d("T9Setting.load", "Built string. Calling Toast.");
 							((Activity) mContext).runOnUiThread(new Runnable() {
 								@Override
@@ -404,7 +404,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 		@Override
 		protected void onPostExecute(Reply result) {
-			finishAndShowError(pd, result, R.string.pref_load_title);
+			finishAndShowError(pd, result, R.string.dictionary_load_title);
 		}
 	}
 
@@ -443,12 +443,12 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		if (s.id.equals("help"))
 			openHelp();
 		else if (s.id.equals("loaddict"))
-			preloader(R.string.pref_loadingdict, true);
+			preloader(R.string.dictionary_loading, true);
 		else if (s.id.equals("truncatedict")) {
 			truncateWords();
 		}
 		else if (s.id.equals("loaduserdict"))
-			preloader(R.string.pref_loadinguserdict, false);
+			preloader(R.string.dictionary_loading_user_dict, false);
 		else
 			s.clicked(mContext);
 	}

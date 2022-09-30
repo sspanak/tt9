@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<string name="traditionalt9_settings">Настройки на Traditional T9</string>
+	<string name="app_settings">Настройки на Traditional T9</string>
+	<string name="close">Затвори</string>
 
 	<string name="add_word_add">Добави</string>
-	<string name="close">Затвори</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_badchar">Не може да се въведе дума с непозволени символи за %1$s (%2$s).</string>
 	<string name="add_word_exist1">(%1$s) е вече речника.</string>
 	<string name="add_word_exist2">(%1$s) е вече в речника за %2$s.</string>
-	<string name="add_word_title">Добавяне на дума</string>
-
-	<string name="pref_lang_title">Избор на езици</string>
-	<string name="pref_help">Помощ</string>
-	<string name="pref_loaddict">Зареди речник</string>
-	<string name="pref_loaduserdict">Зареди собствен речник</string>
-
-	<string name="pref_loadingdict">Зареждане на речник…</string>
-	<string name="pref_loadinguserdict">Зареждане на вашия речник…</string>
-	<string name="pref_load_title">Зареди речник</string>
-	<string name="pref_loaduser_notfound">Няма речник за %1$s. Не може да се зареди такъв.</string>
-	<string name="pref_truncatedict">Изтрий речник</string>
-	<string name="dictionary_truncated">Речникът е изтрит успешно</string>
 	<string name="add_word_only_in_predictive_mode">Може да добавяте думи само в подсказващ режим.</string>
 	<string name="add_word_invalid_language">За да добавите нова дума, първо изберете език.</string>
+	<string name="add_word_title">Добавяне на дума</string>
+
+	<string name="pref_help">Помощ</string>
+	<string name="pref_choose_languages">Избор на езици</string>
+	<string name="pref_loaddict">Зареди речник</string>
+	<string name="pref_loaduserdict">Зареди свой речник</string>
+	<string name="pref_truncatedict">Изтрий речник</string>
+
+	<string name="dictionary_loading">Зареждане на речник…</string>
+	<string name="dictionary_loading_user_dict">Зареждане на вашия речник…</string>
+	<string name="dictionary_load_title">Зареди речник</string>
+	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за %1$s.</string>
+	<string name="dictionary_truncated">Речникът е изтрит успешно</string>
 </resources>

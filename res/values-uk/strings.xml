@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="app_settings">Налаштування Traditional T9</string>
+	<string name="close">Закрити</string>
+
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_badchar">Неможливо додати слово з таким символом %1$s (%2$s).</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
 	<string name="add_word_exist1">Слово (%1$s) вже є в словнику.</string>
 	<string name="add_word_exist2">Слово (%1$s) вже є в словнику %2$s.</string>
-	<string name="pref_load_title">Завантажити словник IME</string>
-	<string name="pref_loaddict">Завантажити словник</string>
-	<string name="pref_loadingdict">Завантаження словника</string>
-	<string name="pref_loadinguserdict">Завантаження словника користувача…</string>
-	<string name="pref_loaduserdict">Завантажити свій словник</string>
-	<string name="pref_lang_title">Багатомовна підтримка</string>
-	<string name="pref_help">Про програму</string>
-
-	<string name="close">Закрити</string>
-	<string name="pref_loaduser_notfound"> Помилка. \n Словник %1$s не знайдено. </string>
-
 	<string name="add_word_title">Додати слово</string>
-	<string name="traditionalt9_settings">Налаштування Traditional T9</string>
+
+	<string name="pref_help">Про програму</string>
+	<string name="pref_choose_languages">Вибір мови</string>
+	<string name="pref_loaddict">Завантажити словник</string>
+	<string name="pref_loaduserdict">Завантажити свій словник</string>
+
+	<string name="dictionary_loading">Завантаження словника…</string>
+	<string name="dictionary_loading_user_dict">Завантаження словника користувача…</string>
+	<string name="dictionary_load_title">Завантажити словник</string>
+	<string name="dictionary_not_found">Помилка завантаження. Словник %1$s не знайдено.</string>
 </resources>
