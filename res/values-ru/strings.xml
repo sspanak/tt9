@@ -1,44 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">Настройки</string>
-    <string name="add_word">Добавить слово</string>
-    <string name="add_word_badchar">Невозможно добавить слово с таким символом %1$s (%2$s).</string>
-    <string name="add_word_blank">Невозможно добавить слово.</string>
-    <string name="add_word_exist1">Слово (%1$s) уже есть в словаре.</string>
-    <string name="add_word_exist2">Слово (%1$s) уже есть в словаре %2$s.</string>
-    <string name="app_name">Traditional T9</string>
-    <string name="ime_name">Клавиатура T9</string>
-    <string name="ime_number">Цифры</string>
-    <string name="main_left_addword">Добавить слово</string>
-    <string name="main_left_insert">Вставить символ</string>
-    <string name="main_left_notfound">Добавить слово?</string>
-    <string name="main_right_lower">Изменить IME</string>
-    <string name="main_right_upper">Режим ввода</string>
-    <string name="pref_load_title">Загрузить словарь IME</string>
-    <string name="pref_loaddict">Загрузить словарь</string>
-    <string name="pref_loadingdict">Загрузка словаря</string>
-    <string name="pref_loadinguserdict">Загрузка пользовательского словаря…</string>
-    <string name="pref_loaduserdict">Загрузить свой словарь</string>
-    <string name="pref_lang_title">Мультиязычная поддержка</string>
-    <string name="ricon_desc">Hold Icon</string>
-    <string name="pref_help">О программе</string>
-    <string name="symbol_next">Следущая страница</string>
-    <string name="symbol_prev">Предыдущая страница</string>
-
-	<string name="symbol_insert">Вставить символ</string>
-	<string name="smiley_insert">Вставить смайл</string>
-	<string name="symbol_page">Стр: %1$s/%2$s</string>
+	<string name="action_settings">Настройки</string>
+	<string name="add_word_add">Добавить</string>
+	<string name="add_word_badchar">Невозможно добавить слово с таким символом %1$s (%2$s).</string>
+	<string name="add_word_blank">Невозможно добавить слово.</string>
+	<string name="add_word_exist1">Слово (%1$s) уже есть в словаре.</string>
+	<string name="add_word_exist2">Слово (%1$s) уже есть в словаре %2$s.</string>
+	<string name="pref_load_title">Загрузить словарь IME</string>
+	<string name="pref_loaddict">Загрузить словарь</string>
+	<string name="pref_loadingdict">Загрузка словаря</string>
+	<string name="pref_loadinguserdict">Загрузка пользовательского словаря…</string>
+	<string name="pref_loaduserdict">Загрузить свой словарь</string>
+	<string name="pref_lang_title">Мультиязычная поддержка</string>
+	<string name="pref_help">О программе</string>
 
 	<string name="close">Закрыть</string>
-	<string name="database_notready">База данных недоступна.</string>
-	<string name="updating_database_title">Обновление базы данных словаря…</string>
-	<string name="updating_database"> Выполняется обновление базы данных словаря… \n Это может занять некоторое время.</string>
-	<string name="updating_database_done">Обновление базы данных словаря выполнено успешно.</string>
-	<string name="updating_database_unavailable">Обновление базы данных словаря недоступно.</string>
 	<string name="pref_loaduser_notfound"> Ошибка. \n Словарь %1$s не найден. </string>
 
-	<string name="title_activity_add_word">Добавить слово</string>
+	<string name="add_word_title">Добавить слово</string>
 	<string name="traditionalt9_settings">Traditional T9 настройки</string>
-
+	<string name="dictionary_truncated">Словарь успешно очищен.</string>
+	<string name="pref_truncatedict">Словарь успешно очищен.</string>
+	<string name="add_word_only_in_predictive_mode">Словарь успешно очищен.</string>
+	<string name="add_word_invalid_language">Чтобы добавить новое слово, сначала выберите язык.</string>
 
 </resources>

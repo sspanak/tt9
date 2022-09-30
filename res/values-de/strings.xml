@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Traditional T9</string>
-	<string name="ime_name">Traditional T9</string>
-	<string name="ime_number">Zahlen</string>
 	<string name="traditionalt9_settings">Traditional T9 Einstellungen</string>
-	<string name="main_left_insert">Symbole</string>
-	<string name="main_left_addword">Wort hinzu</string>
-	<string name="main_right_upper">Modus</string>
-	<string name="main_right_lower">Optionen</string>
-	<string name="main_left_notfound">Wort hinzu?</string>
-	<string name="ricon_desc">Halten Icon</string>
-	<string name="symbol_next">Weiter</string>
-	<string name="symbol_prev">Zurück</string>
-	<string name="symbol_insert">Symbol einfügen</string>
-	<string name="smiley_insert">Smiley einfügen</string>
-	<string name="symbol_page">Seite: %1$s/%2$s</string>
 
-	<string name="add_word">Wort hinzufügen</string>
+	<string name="add_word_add">Hinzufügen</string>
 	<string name="close">Schließen</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_badchar">Wort mit nicht zuordbarem Buchstaben für %1$s (%2$s) kann nicht hinzugefügt werden.</string>
 	<string name="add_word_exist1">Das Wort (%1$s) ist bereits in der DB.</string>
 	<string name="add_word_exist2">Das Wort (%1$s) ist bereits für %2$s in der DB.</string>
-	<string name="title_activity_add_word">Wort hinzufügen</string>
+	<string name="add_word_title">Wort hinzufügen</string>
 	<string name="action_settings">Einstellungen</string>
-	<string name="database_notready">Datenbank nicht verfügbar.</string>
-
-	<string name="updating_database_title">Wörterbuch-Datenbank wird aktualisiert…</string>
-	<string name="updating_database">Aktualisiere Wörterbuch-Datenbank. Das könnte einen Moment dauern.</string>
-	<string name="updating_database_done">Aktualisierung der Wörterbuch-Datenbank abgeschlossen.</string>
-	<string name="updating_database_unavailable">Wörterbuch-Datenbank wird aktualisiert. Worteingabe momentan nicht verfügbar.</string>
 
 	<string name="pref_lang_title">Sprachen…</string>
 	<string name="pref_help">"Hilfe anzeigen</string>
@@ -40,5 +20,4 @@
 	<string name="pref_loadinguserdict">Lade Benutzerwörterbuch…</string>
 	<string name="pref_load_title">IME-Wörterbuch laden</string>
 	<string name="pref_loaduser_notfound">Wörterbuch für %1$s nicht gefunden. Wird nicht geladen.</string>
-
 </resources>
