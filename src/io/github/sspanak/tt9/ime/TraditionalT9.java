@@ -7,7 +7,6 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import java.io.NotActiveException;
 import java.util.ArrayList;
@@ -26,21 +25,22 @@ import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
 	// input mode
-	public static final int CASE_LOWER = 0;
-	public static final int CASE_CAPITALIZE = 1;
-	public static final int CASE_UPPER = 2;
-	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
-
-	// text case
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;
+	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
+	private int mInputMode = MODE_123;
+
+	// text case
+	public static final int CASE_LOWER = 0;
+	public static final int CASE_CAPITALIZE = 1;
+	public static final int CASE_UPPER = 2;
 	private ArrayList<Integer> allowedTextCases = new ArrayList<>();
-	private int mTextCase = TraditionalT9.CASE_LOWER;
+	private int mTextCase = CASE_LOWER;
 
 	// language
-	protected Language mLanguage;
 	protected ArrayList<Integer> mEnabledLanguages;
+	protected Language mLanguage;
 
 	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
@@ -249,7 +249,17 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean isSuggestionViewHidden() {
+	protected boolean shouldTrackNumPress() {
+		return mInputMode != TraditionalT9.MODE_123;
+	}
+
+
+	protected boolean shouldTrackArrows() {
+		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden();
+	}
+
+
+	private boolean isSuggestionViewHidden() {
 		return mSuggestionView == null || !mSuggestionView.isShown();
 	}
 

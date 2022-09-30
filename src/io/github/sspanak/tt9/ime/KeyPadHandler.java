@@ -10,7 +10,6 @@ import android.view.inputmethod.InputConnection;
 import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
-import java.util.ArrayList;
 
 abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
@@ -18,9 +17,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected CandidateView mSuggestionView;
 	protected T9Preferences prefs;
 
-	// input mode
-	protected int mInputMode = TraditionalT9.MODE_123;
-
+	// editing mode
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
 	protected static final int EDITING_NOSHOW = 2;
@@ -170,7 +167,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
-		if (keyCode == KeyEvent.KEYCODE_0 || mInputMode != TraditionalT9.MODE_123) {
+		if (keyCode == KeyEvent.KEYCODE_0 || shouldTrackNumPress()) {
 			event.startTracking();
 		}
 
@@ -188,8 +185,8 @@ abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == prefs.getKeyInputMode()
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
-				|| (isNumber(keyCode) && mInputMode != TraditionalT9.MODE_123)
-				|| (!isSuggestionViewHidden() && mEditing != EDITING_NOSHOW && (keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN))
+				|| (isNumber(keyCode) && shouldTrackNumPress())
+				|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackArrows())
 				|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
 		) {
 			return true;
@@ -372,6 +369,9 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 	}
 
+	// toggle handlers
+	abstract protected boolean shouldTrackArrows();
+	abstract protected boolean shouldTrackNumPress();
 
 	// default hardware key handlers
 	abstract public boolean onBackspace();
@@ -392,7 +392,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onRestart(EditorInfo inputField);
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
-	abstract protected boolean isSuggestionViewHidden();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////
