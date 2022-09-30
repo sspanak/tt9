@@ -22,10 +22,10 @@ _If you don't do the above, nothing will happen when you try to type in Predicti
 
 ## Hotkeys
 #### D-pad Up (↑):
-Select previous word suggestion
+Select previous word suggestion.
 
 #### D-pad Down (↓):
-Select next word suggestion
+Select next word suggestion.
 
 #### Left Soft Key:
 Open Traditional T9 Configuration screen.
@@ -55,13 +55,13 @@ Backspace.
 #### Backspace Key (Back/↩):
 - Just deletes text.
 
-**Note:** "Back" key plays a somewhat special role in Android. These special functions need to be preserved for your phone to remain usable. Have in mind the notes below:
+**Note:** "Back" key plays a somewhat special role in Android. This role needs to be preserved for your phone to remain usable. Have in mind the notes below:
 - **Short Press when there is no text**: Go back to the previous screen (the system default action).
-- **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunatelly, nothing else could be done, because this is a restriction posed by Android.
+- **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
 - **Long Press**: Whatever the system default action is (i.e. show running applications list).
 
 ## Configuration Options
-On the Configuration screen, you can choose your prefered languages, load a dictionary for Predictive mode or view this manual.
+On the Configuration screen, you can choose your preferred languages, load a dictionary for Predictive mode or view this manual.
 
 To access it:
 - Start typing in a text field to wake up TT9.
