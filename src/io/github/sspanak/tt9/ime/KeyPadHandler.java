@@ -20,7 +20,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// input mode
 	protected int mInputMode = TraditionalT9.MODE_123;
-	protected int mTextCase = TraditionalT9.CASE_LOWER;
 
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
@@ -28,8 +27,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
 	protected int mEditing = NON_EDIT;
-	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
-	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
 
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
@@ -39,7 +36,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 80;
 	private long lastBackspaceCall = 0;
-
 
 
 	/**
@@ -116,10 +112,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return;
 		}
 
-		determineAllowedInputModes(inputField);
-		determineAllowedTextCases();
-
-		onRestart();
+		onRestart(inputField);
 	}
 
 
@@ -352,46 +345,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private void determineAllowedInputModes(EditorInfo inputField) {
-		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
-
-		int lastInputMode = prefs.getInputMode();
-		if (allowedInputModes.contains(lastInputMode)) {
-			mInputMode = lastInputMode;
-		} else if (allowedInputModes.contains(TraditionalT9.MODE_ABC)) {
-			mInputMode = TraditionalT9.MODE_ABC;
-		} else {
-			mInputMode = allowedInputModes.get(0);
-		}
-
-		if (InputFieldHelper.isDialerField(inputField)) {
-			mEditing = EDITING_DIALER;
-		} else if (mInputMode == TraditionalT9.MODE_123 && allowedInputModes.size() == 1) {
-			mEditing = EDITING_STRICT_NUMERIC;
-		} else {
-			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
-		}
-	}
-
-
-	void determineAllowedTextCases() {
-		// @todo: determine case from input
-
-		allowedTextCases = new ArrayList<>();
-
-		if (mInputMode == TraditionalT9.MODE_PREDICTIVE) {
-			allowedTextCases.add(TraditionalT9.CASE_LOWER);
-			allowedTextCases.add(TraditionalT9.CASE_CAPITALIZE);
-			allowedTextCases.add(TraditionalT9.CASE_UPPER);
-		} else if (mInputMode == TraditionalT9.MODE_ABC) {
-			allowedTextCases.add(TraditionalT9.CASE_LOWER);
-			allowedTextCases.add(TraditionalT9.CASE_UPPER);
-		} else {
-			allowedTextCases.add(TraditionalT9.CASE_LOWER);
-		}
-	}
-
-
 	private int keyCodeToKeyNumber(int keyCode) {
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_0:
@@ -436,7 +389,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// helpers
 	abstract protected void onInit();
-	abstract protected void onRestart();
+	abstract protected void onRestart(EditorInfo inputField);
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
 	abstract protected boolean isSuggestionViewHidden();

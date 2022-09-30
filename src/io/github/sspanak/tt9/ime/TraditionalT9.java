@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import java.io.NotActiveException;
 import java.util.ArrayList;
@@ -23,21 +25,29 @@ import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
+	// input mode
 	public static final int CASE_LOWER = 0;
 	public static final int CASE_CAPITALIZE = 1;
 	public static final int CASE_UPPER = 2;
+	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
 
+	// text case
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;
+	private ArrayList<Integer> allowedTextCases = new ArrayList<>();
+	private int mTextCase = TraditionalT9.CASE_LOWER;
 
+	// language
+	protected Language mLanguage;
+	protected ArrayList<Integer> mEnabledLanguages;
+
+	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
 	private View softKeyView = null;
 
+	// @todo: move predictive mode stuff in its own class in #66
 	private String predictionSequence = "";
-
-	protected Language mLanguage;
-	protected ArrayList<Integer> mEnabledLanguages;
 
 
 	private void loadPreferences() {
@@ -68,7 +78,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void onRestart() {
+	protected void onRestart(EditorInfo inputField) {
 		// in case we are back from Preferences screen, update the language list
 		mEnabledLanguages = prefs.getEnabledLanguages();
 		validatePreferences();
@@ -84,6 +94,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER) {
 			requestShowSelf(1);
 		}
+
+		determineAllowedInputModes(inputField);
+		determineAllowedTextCases();
 
 		// @todo: handle word adding
 	}
@@ -489,6 +502,46 @@ public class TraditionalT9 extends KeyPadHandler {
 		prefs.saveInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
+	}
+
+
+	private void determineAllowedInputModes(EditorInfo inputField) {
+		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
+
+		int lastInputMode = prefs.getInputMode();
+		if (allowedInputModes.contains(lastInputMode)) {
+			mInputMode = lastInputMode;
+		} else if (allowedInputModes.contains(TraditionalT9.MODE_ABC)) {
+			mInputMode = TraditionalT9.MODE_ABC;
+		} else {
+			mInputMode = allowedInputModes.get(0);
+		}
+
+		if (InputFieldHelper.isDialerField(inputField)) {
+			mEditing = EDITING_DIALER;
+		} else if (mInputMode == TraditionalT9.MODE_123 && allowedInputModes.size() == 1) {
+			mEditing = EDITING_STRICT_NUMERIC;
+		} else {
+			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+		}
+	}
+
+
+	private void determineAllowedTextCases() {
+		// @todo: determine case from input
+
+		allowedTextCases = new ArrayList<>();
+
+		if (mInputMode == TraditionalT9.MODE_PREDICTIVE) {
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
+			allowedTextCases.add(TraditionalT9.CASE_CAPITALIZE);
+			allowedTextCases.add(TraditionalT9.CASE_UPPER);
+		} else if (mInputMode == TraditionalT9.MODE_ABC) {
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
+			allowedTextCases.add(TraditionalT9.CASE_UPPER);
+		} else {
+			allowedTextCases.add(TraditionalT9.CASE_LOWER);
+		}
 	}
 
 
