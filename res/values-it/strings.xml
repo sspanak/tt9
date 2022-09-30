@@ -9,7 +9,6 @@
 	<string name="add_word_exist1">Parola (%1$s) già nel database.</string>
 	<string name="add_word_exist2">Parola (%1$s) già nel database per %2$s.</string>
 	<string name="add_word_title">Aggiungi parola</string>
-	<string name="action_settings">Impostazioni</string>
 
 	<string name="pref_lang_title">Supporto multilingue…</string>
 	<string name="pref_help">"Mostra aiuto</string>

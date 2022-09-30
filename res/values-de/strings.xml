@@ -9,7 +9,6 @@
 	<string name="add_word_exist1">Das Wort (%1$s) ist bereits in der DB.</string>
 	<string name="add_word_exist2">Das Wort (%1$s) ist bereits für %2$s in der DB.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
-	<string name="action_settings">Einstellungen</string>
 
 	<string name="pref_lang_title">Sprachen…</string>
 	<string name="pref_help">"Hilfe anzeigen</string>
