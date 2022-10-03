@@ -1,49 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
-	<string name="app_name">Traditional T9</string>
-	<string name="ime_name">Traditional T9</string>
-	<string name="ime_number">Numbers</string>
-	<string name="pref_inputmode">Default Input Mode</string>
-	<string name="pref_inputmode_desc">Default mode used for \'normal\' text entry</string>
-	<string name="traditionalt9_settings">Traditional T9 Settings</string>
-	<string name="main_left_insert">Insert symbol</string>
-	<string name="main_left_addword">Add word</string>
-	<string name="main_mid" translatable="false">OK</string>
-	<string name="main_right_upper">Cycle Mode</string>
-	<string name="main_right_lower">Options</string>
-	<string name="main_left_notfound">Add word?</string>
-	<string name="ricon_desc">Hold Icon</string>
-	<string name="symbol_next">Next Page</string>
-	<string name="symbol_prev">Prev Page</string>
-	<string name="symbol_insert">Insert Symbol</string>
-	<string name="smiley_insert">Insert Smiley</string>
-	<string name="symbol_page">Page: %1$s/%2$s</string>
-
-	<string name="add_word">Add word</string>
+	<string name="app_name" translatable="false">Traditional T9</string>
+	<string name="app_settings">Traditional T9 Settings</string>
+	<string name="soft_key_mid" translatable="false">OK</string>
 	<string name="close">Close</string>
+
+	<string name="add_word_add">Add</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
 	<string name="add_word_exist1">Word (%1$s) already in DB.</string>
 	<string name="add_word_exist2">Word (%1$s) already in DB for %2$s.</string>
-	<string name="title_activity_add_word">Add Word</string>
-	<string name="action_settings">Settings</string>
-	<string name="database_notready">Database unavailable.</string>
+	<string name="add_word_invalid_language">Cannot insert a word when no language is selected.</string>
+	<string name="add_word_only_in_predictive_mode">You can add new words in Predictive mode only.</string>
+	<string name="add_word_title">Add Word</string>
 
-	<string name="updating_database_title">Updating dictionary database…</string>
-	<string name="updating_database">Updating dictionary database, this might take a while.</string>
-	<string name="updating_database_done">Completed updating dictionary database.</string>
-	<string name="updating_database_unavailable">Updating dictionary database, word input unavailable at this time.</string>
-
-	<string name="pref_lang_title">Multilingual support…</string>
-	<string name="pref_help">"Show help</string>
+	<string name="pref_help">Show Help</string>
+	<string name="pref_choose_languages">Choose Languages</string>
 	<string name="pref_loaddict">Load dictionary</string>
 	<string name="pref_loaduserdict">Load user dictionary</string>
 	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
+	<string name="pref_truncatedict">Clear dictionary</string>
 
-	<string name="pref_loadingdict">Loading dictionary…</string>
-	<string name="pref_loadinguserdict">Loading user dictionary…</string>
-	<string name="pref_load_title">Load IME dictionary</string>
-	<string name="pref_loaduser_notfound">Dictionary for %1$s not found. Not loading.</string>
-
+	<string name="dictionary_loading">Loading dictionary…</string>
+	<string name="dictionary_loading_user_dict">Loading user dictionary…</string>
+	<string name="dictionary_load_title">Load dictionary</string>
+	<string name="dictionary_not_found">Loading failed. Dictionary for %1$s not found.</string>
+	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
 </resources>

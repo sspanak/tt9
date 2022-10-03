@@ -5954,7 +5954,6 @@ Andorra
 Andrang
 Andranges
 andre
-André
 Andrea
 Andreas
 andrehen
@@ -10441,8 +10440,6 @@ Atomzeitalter
 Atomzertrümmerung
 ATP
 ATS
-Attaché
-Attachés
 Attacke
 Attacken
 attackieren
@@ -24205,7 +24202,7 @@ Bogenmaßes
 Bogens
 Bogenstück
 Bogenstücke
-Bogotá
+Bogota
 bogst
 Bohle
 Bohlen
@@ -25901,7 +25898,6 @@ Cabaret
 Cabrio
 Cabriolet
 CAD
-Café
 Cafeteria
 Calamares
 Callgirl
@@ -26094,7 +26090,7 @@ chartern
 charterten
 Charts
 Chassis
-Château
+Chateau
 Chauffeur
 Chauffeure
 Chauffeuren
@@ -26267,7 +26263,6 @@ Cineast
 cineastisch
 circa
 City
-Cività
 Clan
 Claude
 Claudia
@@ -26340,7 +26335,6 @@ Computerstimme
 Computertechnik
 Computerviren
 Concorde
-Conférencier
 const
 Container
 cool
@@ -26360,7 +26354,6 @@ Couleur
 Count-down
 Coup
 Coupe
-Coupé
 Coupon
 Coupons
 Coups
@@ -77418,7 +77411,7 @@ Militärarzt
 Militärärzte
 Militärärzten
 Militärarztes
-Militärattachés
+Militärattaches
 Militärbündnis
 Militärdienstes
 Militärdiktatur
@@ -80903,7 +80896,6 @@ negierter
 negiertes
 negiertest
 negiertet
-Negligé
 Negligee
 nehme
 nehmen
@@ -101437,7 +101429,6 @@ Sortimentsbuchhändlern
 SOS
 Soße
 Soßen
-Soufflé
 Soufflee
 Souffleur
 Souffleuren
@@ -121119,12 +121110,8 @@ Variationsbreite
 Variationsrechnung
 Varietät
 Varietäten
-Varieté
 Varietee
 Varietees
-Varietés
-Varietétheatern
-Varietétheaters
 variierbare
 variiere
 variieren

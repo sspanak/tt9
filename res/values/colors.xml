@@ -4,9 +4,5 @@
 	<color name="candidate_recommended">#ffc66ac3</color>
 	<color name="candidate_other">#ff68f0e9</color>
 	<color name="candidate_background">#e19185df</color>
-	<color name="button_focus">#FF2A9AEB</color>
-	<color name="button_default">#FFA8A8A8</color>
 	<color name="button_text">#FFFFFFFF</color>
-	<color name="key_text">#FF000000</color>
-	<color name="key_shadow">#FFFFFFFF</color>
 </resources>

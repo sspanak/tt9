@@ -1,47 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Traditional T9</string>
-    <string name="ime_name">Traditional T9</string>
-    <string name="ime_number">Numeri</string>
-    <string name="pref_inputmode">Modalità inserimento standard</string>
-    <string name="pref_inputmode_desc">Modalità utilizzata per l\'inserimento di testo \'normale\' </string>
-    <string name="traditionalt9_settings">Traditional T9 Impostazioni</string>
-    <string name="main_left_insert">Ins. simbolo</string>
-    <string name="main_left_addword">Agg. parola</string>
-    <string name="main_right_upper">Cambia modalità</string>
-    <string name="main_right_lower">Opzioni</string>
-    <string name="main_left_notfound">Agg. parola?</string>
-    <string name="ricon_desc">Mantenere Icona</string>
-    <string name="symbol_next">Pag. successiva</string>
-    <string name="symbol_prev">Pag. preceente</string>
-    <string name="symbol_insert">Ins. simbolo</string>
-    <string name="smiley_insert">Ins. Smiley</string>
-    <string name="symbol_page">Pag.: %1$s/%2$s</string>
+	<string name="app_settings">Traditional T9 Impostazioni</string>
+	<string name="close">Chiudi</string>
 
-    <string name="add_word">Agg. parola</string>
-    <string name="close">Chiudi</string>
-    <string name="add_word_blank">Nessuna parola da aggiungere.</string>
-    <string name="add_word_badchar">Impossibile aggiungere parola con caratteri inesistenti per %1$s (%2$s).</string>
-    <string name="add_word_exist1">Parola (%1$s) già nel database.</string>
-    <string name="add_word_exist2">Parola (%1$s) già nel database per %2$s.</string>
-    <string name="title_activity_add_word">Aggiungi parola</string>
-    <string name="action_settings">Impostazioni</string>
-    <string name="database_notready">Database non disponibile.</string>
+	<string name="add_word_add">Aggiungere</string>
+	<string name="add_word_blank">Nessuna parola da aggiungere.</string>
+	<string name="add_word_badchar">Impossibile aggiungere parola con caratteri inesistenti per %1$s (%2$s).</string>
+	<string name="add_word_exist1">Parola (%1$s) già nel database.</string>
+	<string name="add_word_exist2">Parola (%1$s) già nel database per %2$s.</string>
+	<string name="add_word_title">Aggiungi parola</string>
 
-    <string name="updating_database_title">Aggiornamento database dizionario…</string>
-    <string name="updating_database">Aggiornamento database dizionario, potrebbe volerci un po\'.</string>
-    <string name="updating_database_done">Aggiornamento database dizionario completato.</string>
-    <string name="updating_database_unavailable">Aggiornamento database dizionario, inserimento parole non disponibile al momento.</string>
+	<string name="pref_help">"Mostra aiuto</string>
+	<string name="pref_choose_languages">Le lingue</string>
+	<string name="pref_loaddict">Carica dizionario</string>
+	<string name="pref_loaduserdict">Carica dizionario utente</string>
 
-    <string name="pref_lang_title">Supporto multilingue…</string>
-    <string name="pref_help">"Mostra aiuto</string>
-    <string name="pref_loaddict">Carica dizionario</string>
-    <string name="pref_loaduserdict">Carica dizionario utente</string>
-
-    <string name="pref_loadingdict">Caricamento dizionario…</string>
-    <string name="pref_loadinguserdict">Caricamento dizionario utente…</string>
-    <string name="pref_load_title">Caricamento dizionario IME</string>
-    <string name="pref_loaduser_notfound">Dizionario per %1$s non trovato. Impossibile caricare.</string>
-
+	<string name="dictionary_loading">Caricamento dizionario…</string>
+	<string name="dictionary_loading_user_dict">Caricamento dizionario utente…</string>
+	<string name="dictionary_load_title">Caricamento dizionario</string>
+	<string name="dictionary_not_found">Impossibile caricare. Dizionario per %1$s non trovato.</string>
 </resources>
 

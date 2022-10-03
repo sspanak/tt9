@@ -1,46 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Traditional T9</string>
-	<string name="ime_name">Traditional T9</string>
-	<string name="ime_number">Nombres</string>
-	<string name="pref_inputmode">Entrée par défaut</string>
-	<string name="pref_inputmode_desc">Mode par défaut utilisé pour la saisie de text \'normal\' </string>
-	<string name="traditionalt9_settings">Configuration Traditional T9 </string>
-	<string name="main_left_insert">Ins. symbole</string>
-	<string name="main_left_addword">Aj. mot</string>
-	<string name="main_right_upper">Changer de mode</string>
-	<string name="main_right_lower">Options</string>
-	<string name="main_left_notfound">Aj. mot?</string>
-	<string name="ricon_desc">Maintenir Icone</string>
-	<string name="symbol_next">Page suivant</string>
-	<string name="symbol_prev">Page précédente</string>
-	<string name="symbol_insert">Insérer Symbol</string>
-	<string name="smiley_insert">Insérer Smiley</string>
-	<string name="symbol_page">Page: %1$s/%2$s</string>
-
-	<string name="add_word">Aj. mot</string>
+	<string name="app_settings">Configuration Traditional T9 </string>
 	<string name="close">Fermer</string>
+
+	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
 	<string name="add_word_badchar">Impossible d\'ajouter un mot avec des caractères inexistants pour %1$s (%2$s).</string>
 	<string name="add_word_exist1">Le mot (%1$s) est déjà dans la BD.</string>
 	<string name="add_word_exist2">Le mot (%1$s) est déjà dans la BD pour %2$s.</string>
-	<string name="title_activity_add_word">Aj. mot</string>
-	<string name="action_settings">Paramètres</string>
-	<string name="database_notready">Base de données indisponible</string>
+	<string name="add_word_title">Ajouter un mot</string>
 
-	<string name="updating_database_title">Mise à jour de la base de données du dictionnaire…</string>
-	<string name="updating_database">Mise à jour de la base de données du dictionnaire, cela peut prendre un certain temps.</string>
-	<string name="updating_database_done">Mise à jour de la base de données du dictionnaire terminée.</string>
-	<string name="updating_database_unavailable">Mise à jour de la base de données du dictionnaire, mots disponibles.</string>
-
-	<string name="pref_lang_title">Support multilingue…</string>
 	<string name="pref_help">"Afficher l\'aide</string>
+	<string name="pref_choose_languages">Choisir langues</string>
 	<string name="pref_loaddict">Charger le dictionnaire</string>
 	<string name="pref_loaduserdict">Charger le dictionnaire utilisateur</string>
 
-	<string name="pref_loadingdict">Chargement du dictionnaire…</string>
-	<string name="pref_loadinguserdict">Chargement du dictionnaire utilisateur…</string>
-	<string name="pref_load_title">Charger le dictionnaire IME</string>
-	<string name="pref_loaduser_notfound">Dictionnaire %1$s introuvable. Chargement annulé.</string>
-
+	<string name="dictionary_loading">Chargement du dictionnaire…</string>
+	<string name="dictionary_loading_user_dict">Chargement du dictionnaire utilisateur…</string>
+	<string name="dictionary_load_title">Charger le dictionnaire</string>
+	<string name="dictionary_not_found">Echec du chargement. Dictionnaire %1$s introuvable.</string>
 </resources>

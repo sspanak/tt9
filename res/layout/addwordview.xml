@@ -25,7 +25,7 @@
 			android:layout_alignParentLeft="true"
 			android:layout_alignParentTop="true"
 			android:onClick="addWordButton"
-			android:text="@string/add_word" />
+			android:text="@string/add_word_add" />
 
 		<Button
 			android:id="@+id/add_word_cancel"
