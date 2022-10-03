@@ -2,12 +2,12 @@
 <resources>
 	<string name="app_settings">Traditional T9 Einstellungen</string>
 	<string name="close">Schließen</string>
+	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_badchar">Wort mit nicht zuordbarem Buchstaben für %1$s (%2$s) kann nicht hinzugefügt werden.</string>
-	<string name="add_word_exist1">Das Wort (%1$s) ist bereits in der DB.</string>
-	<string name="add_word_exist2">Das Wort (%1$s) ist bereits für %2$s in der DB.</string>
+	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
 	<string name="pref_help">"Hilfe anzeigen</string>

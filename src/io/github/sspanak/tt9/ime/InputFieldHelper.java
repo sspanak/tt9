@@ -1,14 +1,14 @@
 package io.github.sspanak.tt9.ime;
 
 import android.text.InputType;
-import android.text.TextUtils;
-
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 class InputFieldHelper {
@@ -157,23 +157,12 @@ class InputFieldHelper {
 
 
 	public static String getSurroundingWord(InputConnection currentInputConnection) {
-		CharSequence before = currentInputConnection.getTextBeforeCursor(50, 0);
-		CharSequence after = currentInputConnection.getTextAfterCursor(50, 0);
-		int bounds = -1;
-		if (!TextUtils.isEmpty(before)) {
-			bounds = before.length() -1;
-			while (bounds > 0 && !Character.isWhitespace(before.charAt(bounds))) {
-				bounds--;
-			}
-			before = before.subSequence(bounds, before.length());
-		}
-		if (!TextUtils.isEmpty(after)) {
-			bounds = 0;
-			while (bounds < after.length() && !Character.isWhitespace(after.charAt(bounds))) {
-				bounds++;
-			}
-			after = after.subSequence(0, bounds);
-		}
-		return before.toString().trim() + after.toString().trim();
+		String before = (String) currentInputConnection.getTextBeforeCursor(50, 0);
+		String after = (String) currentInputConnection.getTextAfterCursor(50, 0);
+
+		Matcher beforeMatch = Pattern.compile("(\\w+)$").matcher(before);
+		Matcher afterMatch = Pattern.compile("^(\\w+)").matcher(after);
+
+		return (beforeMatch.find() ? beforeMatch.group(1) : "") + (afterMatch.find() ? afterMatch.group(1) : "");
 	}
 }

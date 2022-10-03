@@ -172,4 +172,9 @@ public class T9Preferences {
 		prefsEditor.putString("last_word", lastWord);
 		prefsEditor.apply();
 	}
+
+	public void clearLastWord() {
+		this.saveLastWord("");
+	}
+
 }

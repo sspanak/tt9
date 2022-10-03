@@ -2,12 +2,12 @@
 <resources>
 	<string name="app_settings">Traditional T9 Impostazioni</string>
 	<string name="close">Chiudi</string>
+	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_blank">Nessuna parola da aggiungere.</string>
 	<string name="add_word_badchar">Impossibile aggiungere parola con caratteri inesistenti per %1$s (%2$s).</string>
-	<string name="add_word_exist1">Parola (%1$s) già nel database.</string>
-	<string name="add_word_exist2">Parola (%1$s) già nel database per %2$s.</string>
+	<string name="add_word_exist">Parola “%1$s” già nel dizionario.</string>
 	<string name="add_word_title">Aggiungi parola</string>
 
 	<string name="pref_help">"Mostra aiuto</string>

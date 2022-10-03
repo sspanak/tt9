@@ -2,12 +2,12 @@
 <resources>
 	<string name="app_settings">Налаштування Traditional T9</string>
 	<string name="close">Закрити</string>
+	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_badchar">Неможливо додати слово з таким символом %1$s (%2$s).</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
-	<string name="add_word_exist1">Слово (%1$s) вже є в словнику.</string>
-	<string name="add_word_exist2">Слово (%1$s) вже є в словнику %2$s.</string>
+	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
 	<string name="add_word_title">Додати слово</string>
 
 	<string name="pref_help">Про програму</string>

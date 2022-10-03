@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,12 +11,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
+import io.github.sspanak.tt9.languages.Language;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
@@ -91,22 +92,44 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWord(Context context, String word, int languageId) throws InvalidLanguageException, InsertBlankWordException, NotActiveException {
-		if (languageId <= 0) {
-			throw new InvalidLanguageException("Cannot insert a word for an invalid language with ID: '" + languageId + "'");
+	public static void insertWord(Context context, Handler handler, Language language, String word) throws Exception {
+		if (language == null) {
+			throw new InvalidLanguageException("Cannot insert a word for an invalid language.");
 		}
 
 		if (word == null || word.length() == 0) {
 			throw new InsertBlankWordException();
 		}
 
-		// @todo: insert async with max priority for this sequence.
-		throw new NotActiveException("Adding new words is disabled in this version. Please, check for updates.");
+		Word dbWord = new Word();
+		dbWord.langId = language.getId();
+		dbWord.sequence = language.getDigitSequenceForWord(word);
+		dbWord.word = word.toLowerCase(language.getLocale());
+		dbWord.frequency = 1;
+
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					getInstance(context).wordsDao().insert(dbWord);
+					getInstance(context).wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
+					handler.sendEmptyMessage(0);
+				} catch (SQLiteConstraintException e) {
+					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					Logger.e("tt9/insertWord", msg);
+					handler.sendEmptyMessage(1);
+				} catch (Exception e) {
+					String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					Logger.e("tt9/insertWord", msg);
+					handler.sendEmptyMessage(2);
+				}
+			}
+		}.start();
 	}
 
 
 	public static void insertWordsSync(Context context, List<Word> words) {
-		getInstance(context).wordsDao().insertWords(words);
+		getInstance(context).wordsDao().insertMany(words);
 	}
 
 
