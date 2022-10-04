@@ -418,11 +418,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		// get settings
 		T9Preferences prefs = new T9Preferences(this);
 		Object[] settings = {
-			prefs.getInputMode(),
-			0, // input languages; not used, remove in #29
-			null, // MODE_NOTIFY; not used, remove in #29
-			false, // KEY_REMAP; not used, remove in #29
-			true, // SPACE_ZERO; not used, remove in #29
+			prefs.getInputMode()
 		};
 		ListAdapter settingitems;
 		try {
