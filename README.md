@@ -1,7 +1,7 @@
 # Traditional T9
 TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It supports multiple languages and predictive text typing. _NOTE: TT9 is not usable on touchscreen-only devices._
 
-This is a clone of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
+This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
 ## Building
 The recommended way of building is using Android Studio. As the of time of writing this, the current version is Android Studio Chipmunk | 2021.2.1 Patch 1.
