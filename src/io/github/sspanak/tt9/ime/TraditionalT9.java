@@ -224,6 +224,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyInputMode(boolean hold) {
+		if (mEditing == EDITING_DIALER) {
+			return false;
+		}
+
 		if (hold) {
 			nextLang();
 		} else {
@@ -235,6 +239,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyOtherAction(boolean hold) {
+		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+			return false;
+		}
+
 		if (hold) {
 			UI.showPreferencesScreen(this);
 		} else {
@@ -552,10 +560,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
-			return;
-		}
-
 		acceptCurrentSuggestion();
 		clearSuggestions();
 
