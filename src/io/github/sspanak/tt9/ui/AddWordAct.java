@@ -76,7 +76,7 @@ public class AddWordAct extends Activity {
 			Logger.e("AddWordAct.addWord", e.getMessage());
 			UI.toastLong(this, R.string.add_word_blank);
 		} catch (InvalidLanguageException e) {
-			Logger.e("AddWordAct.addWord", e.getMessage() + ". Language ID: " + lang);
+			Logger.e("AddWordAct.addWord", "Cannot insert a word for language with ID: '" + lang + "'. " + e.getMessage());
 			UI.toastLong(this, R.string.add_word_invalid_language);
 		} catch (Exception e) {
 			Logger.e("AddWordAct.addWord", e.getMessage());

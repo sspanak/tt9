@@ -94,7 +94,7 @@ public class DictionaryDb {
 
 	public static void insertWord(Context context, Handler handler, Language language, String word) throws Exception {
 		if (language == null) {
-			throw new InvalidLanguageException("Cannot insert a word for an invalid language.");
+			throw new InvalidLanguageException();
 		}
 
 		if (word == null || word.length() == 0) {
@@ -133,9 +133,9 @@ public class DictionaryDb {
 	}
 
 
-	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) throws Exception {
-		if (langId <= 0) {
-			throw new InvalidLanguageException("Cannot increment word frequency for an invalid language: '" + langId + "'");
+	public static void incrementWordFrequency(Context context, Language language, String word, String sequence) throws Exception {
+		if (language == null) {
+			throw new InvalidLanguageException();
 		}
 
 		// If both are empty, it is the same as changing the frequency of: "", which is simply a no-op.
@@ -153,7 +153,7 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					getInstance(context).wordsDao().incrementFrequency(langId, word, sequence);
+					getInstance(context).wordsDao().incrementFrequency(language.getId(), word, sequence);
 				} catch (Exception e) {
 					Logger.e(
 						DictionaryDb.class.getName(),
@@ -165,7 +165,7 @@ public class DictionaryDb {
 	}
 
 
-	public static void getSuggestions(Context context, Handler handler, int langId, String sequence, int minimumWords, int maximumWords) {
+	public static void getSuggestions(Context context, Handler handler, Language language, String sequence, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
 
@@ -173,12 +173,19 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				if (sequence == null || sequence.length() == 0) {
+					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for an empty sequence.");
+					sendSuggestions(handler, new ArrayList<>());
+					return;
+				}
+
+				if (language == null) {
+					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for NULL language.");
 					sendSuggestions(handler, new ArrayList<>());
 					return;
 				}
 
 				// get exact sequence matches, for example: "9422" -> "what"
-				List<Word> exactMatches = getInstance(context).wordsDao().getMany(langId, sequence, maxWords);
+				List<Word> exactMatches = getInstance(context).wordsDao().getMany(language.getId(), sequence, maxWords);
 				Logger.d("getWords", "Exact matches: " + exactMatches.size());
 
 				ArrayList<String> suggestions = new ArrayList<>();
@@ -191,7 +198,7 @@ public class DictionaryDb {
 				// for example: "rol" => "roll", "roller", "rolling", ...
 				if (exactMatches.size() < minWords && sequence.length() >= 2) {
 					int extraWordsNeeded = minWords - exactMatches.size();
-					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(langId, sequence, extraWordsNeeded);
+					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(language.getId(), sequence, extraWordsNeeded);
 					Logger.d("getWords", "Fuzzy matches: " + extraWords.size());
 
 					for (Word word : extraWords) {

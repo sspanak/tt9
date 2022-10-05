@@ -362,7 +362,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		DictionaryDb.getSuggestions(
 			this,
 			handleSuggestions,
-			mLanguage.getId(),
+			mLanguage,
 			predictionSequence,
 			prefs.getSuggestionsMin(),
 			prefs.getSuggestionsMax()
@@ -406,7 +406,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 			try {
 				String sequence = mLanguage.getDigitSequenceForWord(currentWord);
-				DictionaryDb.incrementWordFrequency(this, mLanguage.getId(), currentWord, sequence);
+				DictionaryDb.incrementWordFrequency(this, mLanguage, currentWord, sequence);
 			} catch (Exception e) {
 				Logger.e(getClass().getName(), "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 			}
