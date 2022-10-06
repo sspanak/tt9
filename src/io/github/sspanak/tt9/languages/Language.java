@@ -39,29 +39,16 @@ public class Language {
 	}
 
 	public ArrayList<String> getKeyCharacters(int key) {
-		return getKeyCharacters(key, true);
-	}
-
-	public ArrayList<String> getKeyCharacters(int key, boolean lowerCase) {
 		if (key < 0 || key >= characterMap.size()) {
 			return new ArrayList<>();
 		}
 
-		ArrayList<String> chars = lowerCase ? new ArrayList<>(characterMap.get(key)) : getUpperCaseChars(key);
+		ArrayList<String> chars = new ArrayList<>(characterMap.get(key));
 		if (chars.size() > 0) {
 			chars.add(String.valueOf(key));
 		}
 
 		return chars;
-	}
-
-	private ArrayList<String> getUpperCaseChars(int mapId) {
-		ArrayList<String> uppercaseChars = new ArrayList<>();
-		for (String ch : characterMap.get(mapId)) {
-			uppercaseChars.add(ch.toUpperCase(locale));
-		}
-
-		return uppercaseChars;
 	}
 
 	public String getDigitSequenceForWord(String word) throws Exception {

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 
 public class UI {
@@ -34,21 +35,16 @@ public class UI {
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
 	 */
-	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, int inputMode, int textCase) {
-		switch (inputMode) {
-			case TraditionalT9.MODE_ABC:
-				tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == TraditionalT9.CASE_LOWER));
-				break;
-			case TraditionalT9.MODE_PREDICTIVE:
-				tt9.showStatusIcon(inputLanguage.getIcon());
-				break;
-			case TraditionalT9.MODE_123:
-				tt9.showStatusIcon(R.drawable.ime_number);
-				break;
-			default:
-				Logger.w("tt9.UI", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
-				tt9.hideStatusIcon();
-				break;
+	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, InputMode inputMode, int textCase) {
+		if (inputMode.isABC()) {
+			tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == InputMode.CASE_LOWER));
+		} else if (inputMode.isPredictive()) {
+			tt9.showStatusIcon(inputLanguage.getIcon());
+		} else if (inputMode.is123()) {
+			tt9.showStatusIcon(R.drawable.ime_number);
+		} else {
+			Logger.w("tt9.UI", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
+			tt9.hideStatusIcon();
 		}
 	}
 

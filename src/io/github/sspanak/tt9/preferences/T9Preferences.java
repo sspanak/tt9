@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 
@@ -23,13 +24,13 @@ public class T9Preferences {
 	private final SharedPreferences.Editor prefsEditor;
 
 	public T9Preferences (Context context) {
-		prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
 	}
 
-	public static T9Preferences getInstance(Context context) {
+	public static T9Preferences getInstance() {
 		if (self == null) {
-			self = new T9Preferences(context);
+			self = new T9Preferences(TraditionalT9.getMainContext());
 		}
 
 		return self;
@@ -101,13 +102,13 @@ public class T9Preferences {
 	}
 
 	public int getTextCase() {
-		return prefs.getInt("pref_text_case", TraditionalT9.CASE_LOWER);
+		return prefs.getInt("pref_text_case", InputMode.CASE_LOWER);
 	}
 
 	public void saveTextCase(int textCase) {
 		boolean isTextCaseValid = isIntInList(
 			textCase,
-			new ArrayList<>(Arrays.asList(TraditionalT9.CASE_CAPITALIZE, TraditionalT9.CASE_LOWER, TraditionalT9.CASE_UPPER)),
+			new ArrayList<>(Arrays.asList(InputMode.CASE_CAPITALIZE, InputMode.CASE_LOWER, InputMode.CASE_UPPER)),
 			"tt9/saveTextCase",
 			"Not saving invalid text case: " + textCase
 		);
@@ -131,21 +132,17 @@ public class T9Preferences {
 	}
 
 	public int getInputMode() {
-		return prefs.getInt("pref_input_mode", TraditionalT9.MODE_PREDICTIVE);
+		return prefs.getInt("pref_input_mode", InputMode.MODE_PREDICTIVE);
 	}
 
-	public void saveInputMode(int mode) {
-		boolean isModeValid = isIntInList(
-			mode,
-			new ArrayList<>(Arrays.asList(TraditionalT9.MODE_123, TraditionalT9.MODE_ABC, TraditionalT9.MODE_PREDICTIVE)),
-			"tt9/saveInputMode",
-			"Not saving invalid text case: " + mode
-		);
-
-		if (isModeValid) {
-			prefsEditor.putInt("pref_input_mode", mode);
-			prefsEditor.apply();
+	public void saveInputMode(InputMode mode) {
+		if (mode == null) {
+			Logger.w("tt9/saveInputMode", "Not saving NULL input mode");
+			return;
 		}
+
+		prefsEditor.putInt("pref_input_mode", mode.getId());
+		prefsEditor.apply();
 	}
 
 

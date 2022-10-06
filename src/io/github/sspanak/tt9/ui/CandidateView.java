@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 
 public class CandidateView extends View {
 
@@ -200,9 +200,9 @@ public class CandidateView extends View {
 		ArrayList<String> newSuggestions = new ArrayList<>();
 
 		for (String s : mSuggestions) {
-			if (textCase == TraditionalT9.CASE_LOWER) {
+			if (textCase == InputMode.CASE_LOWER) {
 				newSuggestions.add(s.toLowerCase(locale));
-			} else if (textCase == TraditionalT9.CASE_CAPITALIZE) {
+			} else if (textCase == InputMode.CASE_CAPITALIZE) {
 				String cs = s.substring(0, 1).toUpperCase(locale) + s.substring(1).toLowerCase(locale);
 				newSuggestions.add(cs);
 			} else {

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.ui.CandidateView;
 import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.ui.CandidateView;
 
 
 abstract class KeyPadHandler extends InputMethodService {
@@ -28,7 +28,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
 	private int lastKeyCode = 0;
-	protected boolean isNumKeyRepeated = false;
+	private boolean isNumKeyRepeated = false;
 
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 80;
@@ -42,7 +42,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		prefs = T9Preferences.getInstance(this);
+		prefs = new T9Preferences(getApplicationContext());
 
 		onInit();
 	}
@@ -95,8 +95,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		currentInputConnection = getCurrentInputConnection();
-		// Logger.d("T9.onStartInput", "INPUTTYPE: " + inputField.inputType + " FIELDID: " + inputField.fieldId +
-		// 	" FIELDNAME: " + inputField.fieldName + " PACKAGE NAME: " + inputField.packageName);
+		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId +
+		// 	" fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
 
 		mEditing = NON_EDIT;
 
@@ -219,7 +219,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_0: return on0(true);
+			case KeyEvent.KEYCODE_0:
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
@@ -229,7 +229,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return on1to9(keyCodeToKeyNumber(keyCode), true);
+				return onNumber(keyCodeToKeyNumber(keyCode), true, false);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -275,7 +275,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
-			return on0(false);
+			return onNumber(0, false, isNumKeyRepeated);
 		}
 
 		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
@@ -305,7 +305,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return on1to9(keyCodeToKeyNumber(keyCode), false);
+				return onNumber(keyCodeToKeyNumber(keyCode), false, isNumKeyRepeated);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
@@ -378,8 +378,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract public boolean onOK();
 	abstract protected boolean onUp();
 	abstract protected boolean onDown();
-	abstract protected boolean on0(boolean hold);
-	abstract protected boolean on1to9(int key, boolean hold);
+	abstract protected boolean onNumber(int key, boolean hold, boolean repeat);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();
 

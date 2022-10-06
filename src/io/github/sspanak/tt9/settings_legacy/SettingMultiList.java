@@ -17,7 +17,7 @@ public class SettingMultiList extends SettingList {
 	public SettingMultiList (Context context, AttributeSet attrs, Object[] isettings) {
 		super(context, attrs, isettings);
 		selectedEntries = new boolean[entries.length];
-		for (int langId : T9Preferences.getInstance(context).getEnabledLanguages()) {
+		for (int langId : T9Preferences.getInstance().getEnabledLanguages()) {
 			selectedEntries[langId - 1] = true; // languages are 1-based, unlike arrays
 		}
 		summary = buildItems();
@@ -39,7 +39,7 @@ public class SettingMultiList extends SettingList {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						if (id.equals("pref_lang_support")) {
-							T9Preferences.getInstance(context).saveEnabledLanguages(buildSelection());
+							T9Preferences.getInstance().saveEnabledLanguages(buildSelection());
 						}
 						summary = buildItems();
 						dialog.dismiss();

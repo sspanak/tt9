@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.db;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 
@@ -43,32 +43,32 @@ public class DictionaryDb {
 	};
 
 
-	private static synchronized void createInstance(Context context) {
-		dbInstance = Room.databaseBuilder(context, T9RoomDb.class, "t9dict.db")
+	private static synchronized void createInstance() {
+		dbInstance = Room.databaseBuilder(TraditionalT9.getMainContext(), T9RoomDb.class, "t9dict.db")
 			.addCallback(TRIGGER_CALLBACK)
 			.build();
 	}
 
 
-	public static T9RoomDb getInstance(Context context) {
+	private static T9RoomDb getInstance() {
 		if (dbInstance == null) {
-			createInstance(context);
+			createInstance();
 		}
 
 		return dbInstance;
 	}
 
 
-	public static void beginTransaction(Context context) {
-		getInstance(context).beginTransaction();
+	public static void beginTransaction() {
+		getInstance().beginTransaction();
 	}
 
 
-	public static void endTransaction(Context context, boolean success) {
+	public static void endTransaction(boolean success) {
 		if (success) {
-			getInstance(context).setTransactionSuccessful();
+			getInstance().setTransactionSuccessful();
 		}
-		getInstance(context).endTransaction();
+		getInstance().endTransaction();
 	}
 
 
@@ -81,18 +81,18 @@ public class DictionaryDb {
 	}
 
 
-	public static void truncateWords(Context context, Handler handler) {
+	public static void truncateWords(Handler handler) {
 		new Thread() {
 			@Override
 			public void run() {
-				getInstance(context).clearAllTables();
+				getInstance().clearAllTables();
 				handler.sendEmptyMessage(0);
 			}
 		}.start();
 	}
 
 
-	public static void insertWord(Context context, Handler handler, Language language, String word) throws Exception {
+	public static void insertWord(Handler handler, Language language, String word) throws Exception {
 		if (language == null) {
 			throw new InvalidLanguageException();
 		}
@@ -111,8 +111,8 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					getInstance(context).wordsDao().insert(dbWord);
-					getInstance(context).wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
+					getInstance().wordsDao().insert(dbWord);
+					getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
 					handler.sendEmptyMessage(0);
 				} catch (SQLiteConstraintException e) {
 					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
@@ -128,12 +128,12 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWordsSync(Context context, List<Word> words) {
-		getInstance(context).wordsDao().insertMany(words);
+	public static void insertWordsSync(List<Word> words) {
+		getInstance().wordsDao().insertMany(words);
 	}
 
 
-	public static void incrementWordFrequency(Context context, Language language, String word, String sequence) throws Exception {
+	public static void incrementWordFrequency(Language language, String word, String sequence) throws Exception {
 		if (language == null) {
 			throw new InvalidLanguageException();
 		}
@@ -153,7 +153,7 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					getInstance(context).wordsDao().incrementFrequency(language.getId(), word, sequence);
+					getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
 				} catch (Exception e) {
 					Logger.e(
 						DictionaryDb.class.getName(),
@@ -165,7 +165,7 @@ public class DictionaryDb {
 	}
 
 
-	public static void getSuggestions(Context context, Handler handler, Language language, String sequence, int minimumWords, int maximumWords) {
+	public static void getSuggestions(Handler handler, Language language, String sequence, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
 
@@ -173,24 +173,24 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				if (sequence == null || sequence.length() == 0) {
-					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for an empty sequence.");
+					Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for an empty sequence.");
 					sendSuggestions(handler, new ArrayList<>());
 					return;
 				}
 
 				if (language == null) {
-					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for NULL language.");
+					Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for NULL language.");
 					sendSuggestions(handler, new ArrayList<>());
 					return;
 				}
 
 				// get exact sequence matches, for example: "9422" -> "what"
-				List<Word> exactMatches = getInstance(context).wordsDao().getMany(language.getId(), sequence, maxWords);
-				Logger.d("getWords", "Exact matches: " + exactMatches.size());
+				List<Word> exactMatches = getInstance().wordsDao().getMany(language.getId(), sequence, maxWords);
+				Logger.d("db.getSuggestions", "Exact matches: " + exactMatches.size());
 
 				ArrayList<String> suggestions = new ArrayList<>();
 				for (Word word : exactMatches) {
-					Logger.d("getWords", "exact match: " + word.word + ", priority: " + word.frequency);
+					Logger.d("db.getSuggestions", "exact match: " + word.word + ", priority: " + word.frequency);
 					suggestions.add(word.word);
 				}
 
@@ -198,13 +198,17 @@ public class DictionaryDb {
 				// for example: "rol" => "roll", "roller", "rolling", ...
 				if (exactMatches.size() < minWords && sequence.length() >= 2) {
 					int extraWordsNeeded = minWords - exactMatches.size();
-					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(language.getId(), sequence, extraWordsNeeded);
-					Logger.d("getWords", "Fuzzy matches: " + extraWords.size());
+					List<Word> extraWords = getInstance().wordsDao().getFuzzy(language.getId(), sequence, extraWordsNeeded);
+					Logger.d("db.getSuggestions", "Fuzzy matches: " + extraWords.size());
 
 					for (Word word : extraWords) {
-						Logger.d("getWords", "fuzzy match: " + word.word + ", sequence: " + word.sequence);
+						Logger.d("db.getSuggestions", "fuzzy match: " + word.word + ", sequence: " + word.sequence);
 						suggestions.add(word.word);
 					}
+				}
+
+				if (suggestions.size() == 0) {
+					Logger.i("db.getSuggestions", "No suggestions for sequence: " + sequence);
 				}
 
 				// pack the words in a message and send it to the calling thread
