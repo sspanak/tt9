@@ -14,7 +14,7 @@ _The actual menu names may vary depending on your Android version and phone._
 ### Enabling Predictive Mode
 With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
 
-- Open the [Configuration screen](#configuration-options).
+- Open the [Settings screen](#settings-screen).
 - Select the desired languages.
 - Load the dictionaries.
 
@@ -23,19 +23,30 @@ _If you don't do the above, there will be no suggestions when typing in Predicti
 ## Hotkeys
 
 #### D-pad Up (↑):
-Select previous word suggestion.
+Select previous word/letter suggestion.
 
 #### D-pad Down (↓):
-Select next word suggestion.
+Select next word/letter suggestion.
+
+#### D-pad Right (→):
+_Predictive mode only._
+
+Filter the suggestion list leaving out only words similar to the current suggestion. For example, "6463" results in: "nine", "mine", "mind", and so on. But selecting "mind" and pressing Right will leave out only the similar ones: "mind", "minds", "mindy", "minded"...
+
+#### D-pad Left (←):
+_Predictive mode only._
+
+- Clear the suggestion filter, if applied.
+- When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
 
 #### 0 key
-- In 123 mode: type "0" or hold it to type "+".
-- In ABC mode: type secondary punctuation or hold to type "0".
-- In Predictive mode: type space or hold to type "0".
+- **In 123 mode:** type "0" or hold it to type "+".
+- **In ABC mode:** type secondary punctuation or hold to type "0".
+- **In Predictive mode:** type space or hold to type "0".
 
 #### 1 to 9 keys
-- In 123 mode: type the respective number.
-- In ABC and Predictive mode: type a letter/punctuation character or hold to type the respective number.
+- **In 123 mode:** type the respective number.
+- **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
 #### Text Mode Key (Hash/Pound/#):
 - **Short press:** Cycle input modes (abc → ABC → Predictive → 123)
@@ -59,12 +70,12 @@ Select next word suggestion.
 All functionality is available using the keypad, but for convenience, on touchscreen phones or the ones with customizable function keys, you could also use the on-screen soft keys.
 
 #### Left Soft Key:
-Open the [Configuration screen](#configuration-options).
+Open the [Settings screen](#settings-screen).
 
 #### Right Soft Key:
 Backspace.
 
-## Configuration Options
+## Settings Screen
 On the Configuration screen, you can choose your preferred languages, load a dictionary for Predictive mode or view this manual.
 
 To access it:

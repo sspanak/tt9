@@ -12,20 +12,26 @@ interface WordsDao {
 	@Query(
 		"SELECT * " +
 		"FROM words " +
-		"WHERE lang = :langId AND seq = :sequence " +
+		"WHERE " +
+			"lang = :langId " +
+			"AND seq = :sequence " +
+			"AND (:word IS NULL OR word LIKE :word || '%') " +
 		"ORDER BY freq DESC " +
 		"LIMIT :limit"
 	)
-	List<Word> getMany(int langId, String sequence, int limit);
+	List<Word> getMany(int langId, int limit, String sequence, String word);
 
 	@Query(
 		"SELECT * " +
 		"FROM words " +
-		"WHERE lang = :langId AND seq > :sequence AND seq <= :sequence || '99' " +
-		"ORDER BY freq DESC, seq ASC " +
+		"WHERE " +
+			"lang = :langId " +
+			"AND seq > :sequence AND seq <= :sequence || '99' " +
+			"AND (:word IS NULL OR word LIKE :word || '%') " +
+		"ORDER BY freq DESC, LENGTH(seq) ASC, seq ASC " +
 		"LIMIT :limit"
 	)
-	List<Word> getFuzzy(int langId, String sequence, int limit);
+	List<Word> getFuzzy(int langId, int limit, String sequence, String word);
 
 	@Insert
 	void insert(Word word);
@@ -36,7 +42,7 @@ interface WordsDao {
 	@Query(
 		"UPDATE words " +
 		"SET freq = (SELECT IFNULL(MAX(freq), 0) FROM words WHERE lang = :langId AND seq = :sequence AND word <> :word) + 1 " +
-		"WHERE lang = :langId AND word = :word "
+		"WHERE lang = :langId AND word = :word AND seq = :sequence"
 	)
-	void incrementFrequency(int langId, String word, String sequence);
+	int incrementFrequency(int langId, String word, String sequence);
 }

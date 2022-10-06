@@ -24,5 +24,6 @@ public class Mode123 extends InputMode {
 
 
 	final public boolean is123() { return true; }
+	public int getSequenceLength() { return 0; }
 	public boolean shouldTrackNumPress() { return false; }
 }
