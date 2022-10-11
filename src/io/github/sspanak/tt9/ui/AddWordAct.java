@@ -3,13 +3,17 @@ package io.github.sspanak.tt9.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.InsertBlankWordException;
+import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
@@ -17,55 +21,71 @@ public class AddWordAct extends Activity {
 
 	View main;
 	int lang;
-	String origword;
+	String word;
 
 	@Override
 	protected void onCreate(Bundle savedData) {
 		super.onCreate(savedData);
-		View v = getLayoutInflater().inflate(R.layout.addwordview, null);
-		EditText et = (EditText) v.findViewById(R.id.add_word_text);
 		Intent i = getIntent();
-		origword = i.getStringExtra("io.github.sspanak.tt9.word");
-
+		word = i.getStringExtra("io.github.sspanak.tt9.word");
 		lang = i.getIntExtra("io.github.sspanak.tt9.lang", -1);
-		if (lang == -1) {
-			Logger.e("AddWordAct.onCreate", "lang is invalid. How?");
-		}
-		// Logger.d("AddWord", "data.get: " + word);
-		et.setText(origword);
-		et.setSelection(origword.length());
+
+		View v = getLayoutInflater().inflate(R.layout.addwordview, null);
+
+		EditText et = (EditText) v.findViewById(R.id.add_word_text);
+		et.setText(word);
+		et.setSelection(word.length());
 		setContentView(v);
 		main = v;
 	}
 
-	public void addWordButton(View v) {
-		EditText et = (EditText) main.findViewById(R.id.add_word_text);
-		// Logger.d("AddWordAct", "adding word: " + et.getText());
-		doAddWord(et.getText().toString());
-		this.finish();
-	}
 
-	public void doAddWord(String text) {
-		try {
-			DictionaryDb.insertWord(this, text, LanguageCollection.getLanguage(lang).getId());
-		} catch (Exception e) {
-			UI.toast(this, e.getMessage());
-			return;
+	private final Handler onAddedWord = new Handler(Looper.getMainLooper()) {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case 0:
+					Logger.d("onAddedWord", "Added word: '" + word + "'...");
+					T9Preferences.getInstance(main.getContext()).saveLastWord(word);
+					break;
+
+				case 1:
+					UI.toastLong(
+						main.getContext(),
+						getResources().getString(R.string.add_word_exist, word)
+					);
+					break;
+
+				default:
+					UI.toastLong(main.getContext(), R.string.error_unexpected);
+					break;
+			}
+
+			finish();
 		}
-		T9Preferences.getInstance(this).saveLastWord(text);
+	};
+
+	public void addWord(View v) {
+		try {
+			// re-fetch the word, in case the user has changed it after the initialization
+			word = ((EditText) main.findViewById(R.id.add_word_text)).getText().toString();
+			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
+
+			DictionaryDb.insertWord(this, onAddedWord, LanguageCollection.getLanguage(lang), word);
+		} catch (InsertBlankWordException e) {
+			Logger.e("AddWordAct.addWord", e.getMessage());
+			UI.toastLong(this, R.string.add_word_blank);
+		} catch (InvalidLanguageException e) {
+			Logger.e("AddWordAct.addWord", "Cannot insert a word for language with ID: '" + lang + "'. " + e.getMessage());
+			UI.toastLong(this, R.string.add_word_invalid_language);
+		} catch (Exception e) {
+			Logger.e("AddWordAct.addWord", e.getMessage());
+			UI.toastLong(this, e.getMessage());
+		}
 	}
 
 
-	public void cancelButton(View v) {
-		// Logger.d("AddWordAct", "Cancelled...");
+	public void cancelAddingWord(View v) {
 		this.finish();
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_word, menu);
-		return true;
-	}
-
 }

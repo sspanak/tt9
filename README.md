@@ -1,13 +1,13 @@
 # Traditional T9
 TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It supports multiple languages and predictive text typing. _NOTE: TT9 is not usable on touchscreen-only devices._
 
-This is a clone of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
+This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
 ## Building
-The recommended way of building is using Android Studio. As the of time of writing this, the current version is Android Studio Chipmunk | 2021.2.1 Patch 1.
+The recommended way of building is using Android Studio. As the of time of writing this, the current version is: Android Studio Dolphin | 2021.3.1.
 
 ### Building a Debug .apk
-If you have not configure Android Studio yet, follow [the official manual](https://developer.android.com/training/basics/firstapp), then follow the simple steps below to get the project running.
+If you have not configured Android Studio yet, follow [the official manual](https://developer.android.com/training/basics/firstapp), then follow the simple steps below to get the project running.
 
 - _Import the project in Android Studio._
 - _Prevent the "Default Activity not found" issue._ The app does not have a default view or a launcher icon. For this reason, you must configure Android Studio not to launch anything after installing, otherwise it will fail with "Default Activity not found" or a similar message. To do so:

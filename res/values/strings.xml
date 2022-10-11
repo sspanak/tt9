@@ -3,16 +3,15 @@
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_settings">Traditional T9 Settings</string>
-	<string name="soft_key_mid" translatable="false">OK</string>
 	<string name="close">Close</string>
+	<string name="error_unexpected">Unexpected error occurred.</string>
+	<string name="soft_key_mid" translatable="false">OK</string>
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
-	<string name="add_word_exist1">Word (%1$s) already in DB.</string>
-	<string name="add_word_exist2">Word (%1$s) already in DB for %2$s.</string>
+	<string name="add_word_exist">Word \"%1$s\" already in the dictionary.</string>
 	<string name="add_word_invalid_language">Cannot insert a word when no language is selected.</string>
-	<string name="add_word_only_in_predictive_mode">You can add new words in Predictive mode only.</string>
 	<string name="add_word_title">Add Word</string>
 
 	<string name="pref_help">Show Help</string>

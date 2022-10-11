@@ -8,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +15,6 @@ import java.util.List;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
-import io.github.sspanak.tt9.db.InsertBlankWordException;
-import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.Punctuation;
@@ -75,6 +72,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		loadPreferences();
+		prefs.clearLastWord();
 	}
 
 
@@ -98,15 +96,13 @@ public class TraditionalT9 extends KeyPadHandler {
 		determineAllowedInputModes(inputField);
 		determineAllowedTextCases();
 
-		// @todo: handle word adding
+		restoreAddedWordIfAny();
 	}
 
 
 	protected void onFinish() {
 		predictionSequence = "";
 		clearSuggestions();
-
-		// @todo: clear previous word
 
 		hideStatusIcon();
 		hideWindow();
@@ -228,6 +224,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyInputMode(boolean hold) {
+		if (mEditing == EDITING_DIALER) {
+			return false;
+		}
+
 		if (hold) {
 			nextLang();
 		} else {
@@ -239,6 +239,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyOtherAction(boolean hold) {
+		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+			return false;
+		}
+
 		if (hold) {
 			UI.showPreferencesScreen(this);
 		} else {
@@ -358,7 +362,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		DictionaryDb.getSuggestions(
 			this,
 			handleSuggestions,
-			mLanguage.getId(),
+			mLanguage,
 			predictionSequence,
 			prefs.getSuggestionsMin(),
 			prefs.getSuggestionsMax()
@@ -402,7 +406,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 			try {
 				String sequence = mLanguage.getDigitSequenceForWord(currentWord);
-				DictionaryDb.incrementWordFrequency(this, mLanguage.getId(), currentWord, sequence);
+				DictionaryDb.incrementWordFrequency(this, mLanguage, currentWord, sequence);
 			} catch (Exception e) {
 				Logger.e(getClass().getName(), "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 			}
@@ -556,49 +560,34 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (mInputMode != MODE_PREDICTIVE) {
-			UI.toastLong(this, R.string.add_word_only_in_predictive_mode);
-			return;
-		}
-
-		//////////////////////////////////////////////////////////////
-		// @todo: remove this try..catch in #55 and display the dialog
-		try {
-			DictionaryDb.insertWord(this, "a", mLanguage.getId());
-		} catch (InsertBlankWordException e) {
-			Logger.e("tt9/showAddWord", e.getMessage());
-			UI.toastLong(this, R.string.add_word_blank);
-			return;
-		} catch (InvalidLanguageException e) {
-			Logger.e("tt9/showAddWord", e.getMessage());
-			UI.toastLong(this, R.string.add_word_invalid_language);
-			return;
-		} catch (NotActiveException e) {
-			UI.toastLong(this, e.getMessage());
-			return;
-		}
-		//////////////////////////////////////////////////////////////
-
+		acceptCurrentSuggestion();
 		clearSuggestions();
 
-		String template = "";
-
-		// @todo: get the current word template from the input connection
-		// template = getSurroundingWord();
-
-		UI.showAddWordDialog(this, mLanguage.getId(), template);
+		UI.showAddWordDialog(this, mLanguage.getId(), InputFieldHelper.getSurroundingWord(currentInputConnection));
 	}
 
 
-	private void restoreLastWordIfAny() {
-		// mAddingWord = false;
+	/**
+	 * restoreAddedWordIfAny
+	 * If a new word was added to the dictionary, this function will append add it to the current input field.
+	 */
+	private void restoreAddedWordIfAny() {
 		String word = prefs.getLastWord();
-		if (word.equals("")) {
-			prefs.saveLastWord("");
+		prefs.clearLastWord();
 
-			// @todo: push the word to the text field
+		if (word.length() == 0 || word.equals(InputFieldHelper.getSurroundingWord(currentInputConnection))) {
+			return;
+		}
+
+		try {
+			Logger.d("restoreAddedWordIfAny", "Restoring word: '" + word + "'...");
+			predictionSequence = mLanguage.getDigitSequenceForWord(word);
+			currentInputConnection.commitText(word, word.length());
+		} catch (Exception e) {
+			Logger.w("tt9/restoreLastWord", "Could not restore the last added word. " + e.getMessage());
 		}
 	}
+
 
 	/**
 	 * createSoftKeyView

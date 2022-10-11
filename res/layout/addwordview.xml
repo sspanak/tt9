@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:paddingHorizontal="6dp"
 	android:orientation="vertical" >
 
 	<EditText
 		android:id="@+id/add_word_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginVertical="4dp"
 		android:inputType="text"
-		android:privateImeOptions="io.github.sspanak.tt9.addword=true" >
+		android:privateImeOptions="io.github.sspanak.tt9.addword=true"
+		android:importantForAutofill="no">
 
 		<requestFocus />
 	</EditText>
@@ -22,18 +25,20 @@
 			android:id="@+id/add_word_add"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
 			android:layout_alignParentTop="true"
-			android:onClick="addWordButton"
+			android:minWidth="48dp"
+			android:onClick="addWord"
 			android:text="@string/add_word_add" />
 
 		<Button
 			android:id="@+id/add_word_cancel"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentRight="true"
 			android:layout_alignParentTop="true"
-			android:onClick="cancelButton"
+			android:layout_alignParentEnd="true"
+			android:minWidth="48dp"
+			android:onClick="cancelAddingWord"
 			android:text="@android:string/cancel" />
 
 	</RelativeLayout>

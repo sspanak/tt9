@@ -27,8 +27,11 @@ interface WordsDao {
 	)
 	List<Word> getFuzzy(int langId, String sequence, int limit);
 
+	@Insert
+	void insert(Word word);
+
 	@Insert(onConflict = OnConflictStrategy.IGNORE)
-	void insertWords(List<Word> words);
+	void insertMany(List<Word> words);
 
 	@Query(
 		"UPDATE words " +

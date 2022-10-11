@@ -87,7 +87,7 @@ public class T9Preferences {
 
 	public void saveEnabledLanguages(ArrayList<Integer> languageIds) {
 		int languageMask = 0;
-		for (Integer langId : languageIds) {
+		for (int langId : languageIds) {
 			if (!validateSavedLanguage(langId, "tt9/saveEnabledLanguages")){
 				continue;
 			}
@@ -172,4 +172,9 @@ public class T9Preferences {
 		prefsEditor.putString("last_word", lastWord);
 		prefsEditor.apply();
 	}
+
+	public void clearLastWord() {
+		this.saveLastWord("");
+	}
+
 }

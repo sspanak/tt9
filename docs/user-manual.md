@@ -1,7 +1,7 @@
 # Traditional T9
 TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It supports multiple languages and predictive text typing. _NOTE: TT9 is not usable on touchscreen-only devices._
 
-Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
+All Source code and documentation are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
 In order to use Traditional T9, you need to enable it as an Android keyboard. To do so:
@@ -14,24 +14,19 @@ _The actual menu names may vary depending on your Android version and phone._
 ### Enabling Predictive Mode
 With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
 
-- Open the [TT9 Configuration screen](#configuration-options).
+- Open the [Configuration screen](#configuration-options).
 - Select the desired languages.
 - Load the dictionaries.
 
-_If you don't do the above, nothing will happen when you try to type in Predictive mode._
+_If you don't do the above, there will be no suggestions when typing in Predictive mode._
 
 ## Hotkeys
+
 #### D-pad Up (↑):
 Select previous word suggestion.
 
 #### D-pad Down (↓):
 Select next word suggestion.
-
-#### Left Soft Key:
-Open Traditional T9 Configuration screen.
-
-#### Right Soft Key:
-Backspace.
 
 #### 0 key
 - In 123 mode: type "0" or hold it to type "+".
@@ -44,13 +39,13 @@ Backspace.
 
 #### Text Mode Key (Hash/Pound/#):
 - **Short press:** Cycle input modes (abc → ABC → Predictive → 123)
-- **Short press while typing:** Change between UPPERCASE and lowercase.
+- **Short press while typing:** Change between UPPERCASE/lowercase.
 - **Long press:** Select the next language.
 - **Number-only fields:** Type a "#". Changing the mode is not possible in such fields.
 
 #### Other Actions Key (Star/✱):
-- **Short press:** Add a word to the dictionary.
-- **Long press:** Open Traditional T9 Preferences screen.
+- **Short press:** Add a new word to the dictionary.
+- **Long press:** Open the Configration screen.
 
 #### Backspace Key (Back/↩):
 - Just deletes text.
@@ -59,6 +54,15 @@ Backspace.
 - **Short Press when there is no text**: Go back to the previous screen (the system default action).
 - **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
 - **Long Press**: Whatever the system default action is (i.e. show running applications list).
+
+## On-screen soft keys
+All functionality is available using the keypad, but for convenience, on touchscreen phones or the ones with customizable function keys, you could also use the on-screen soft keys.
+
+#### Left Soft Key:
+Open the [Configuration screen](#configuration-options).
+
+#### Right Soft Key:
+Backspace.
 
 ## Configuration Options
 On the Configuration screen, you can choose your preferred languages, load a dictionary for Predictive mode or view this manual.

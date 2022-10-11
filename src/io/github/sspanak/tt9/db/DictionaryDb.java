@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,12 +11,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.io.NotActiveException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
+import io.github.sspanak.tt9.languages.Language;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
@@ -91,28 +92,50 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWord(Context context, String word, int languageId) throws InvalidLanguageException, InsertBlankWordException, NotActiveException {
-		if (languageId <= 0) {
-			throw new InvalidLanguageException("Cannot insert a word for an invalid language with ID: '" + languageId + "'");
+	public static void insertWord(Context context, Handler handler, Language language, String word) throws Exception {
+		if (language == null) {
+			throw new InvalidLanguageException();
 		}
 
 		if (word == null || word.length() == 0) {
 			throw new InsertBlankWordException();
 		}
 
-		// @todo: insert async with max priority for this sequence.
-		throw new NotActiveException("Adding new words is disabled in this version. Please, check for updates.");
+		Word dbWord = new Word();
+		dbWord.langId = language.getId();
+		dbWord.sequence = language.getDigitSequenceForWord(word);
+		dbWord.word = word.toLowerCase(language.getLocale());
+		dbWord.frequency = 1;
+
+		new Thread() {
+			@Override
+			public void run() {
+				try {
+					getInstance(context).wordsDao().insert(dbWord);
+					getInstance(context).wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
+					handler.sendEmptyMessage(0);
+				} catch (SQLiteConstraintException e) {
+					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					Logger.e("tt9/insertWord", msg);
+					handler.sendEmptyMessage(1);
+				} catch (Exception e) {
+					String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					Logger.e("tt9/insertWord", msg);
+					handler.sendEmptyMessage(2);
+				}
+			}
+		}.start();
 	}
 
 
 	public static void insertWordsSync(Context context, List<Word> words) {
-		getInstance(context).wordsDao().insertWords(words);
+		getInstance(context).wordsDao().insertMany(words);
 	}
 
 
-	public static void incrementWordFrequency(Context context, int langId, String word, String sequence) throws Exception {
-		if (langId <= 0) {
-			throw new InvalidLanguageException("Cannot increment word frequency for an invalid language: '" + langId + "'");
+	public static void incrementWordFrequency(Context context, Language language, String word, String sequence) throws Exception {
+		if (language == null) {
+			throw new InvalidLanguageException();
 		}
 
 		// If both are empty, it is the same as changing the frequency of: "", which is simply a no-op.
@@ -130,7 +153,7 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					getInstance(context).wordsDao().incrementFrequency(langId, word, sequence);
+					getInstance(context).wordsDao().incrementFrequency(language.getId(), word, sequence);
 				} catch (Exception e) {
 					Logger.e(
 						DictionaryDb.class.getName(),
@@ -142,7 +165,7 @@ public class DictionaryDb {
 	}
 
 
-	public static void getSuggestions(Context context, Handler handler, int langId, String sequence, int minimumWords, int maximumWords) {
+	public static void getSuggestions(Context context, Handler handler, Language language, String sequence, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
 
@@ -150,12 +173,19 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				if (sequence == null || sequence.length() == 0) {
+					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for an empty sequence.");
+					sendSuggestions(handler, new ArrayList<>());
+					return;
+				}
+
+				if (language == null) {
+					Logger.w("tt9/getSuggestions", "Attempting to get suggestions for NULL language.");
 					sendSuggestions(handler, new ArrayList<>());
 					return;
 				}
 
 				// get exact sequence matches, for example: "9422" -> "what"
-				List<Word> exactMatches = getInstance(context).wordsDao().getMany(langId, sequence, maxWords);
+				List<Word> exactMatches = getInstance(context).wordsDao().getMany(language.getId(), sequence, maxWords);
 				Logger.d("getWords", "Exact matches: " + exactMatches.size());
 
 				ArrayList<String> suggestions = new ArrayList<>();
@@ -168,7 +198,7 @@ public class DictionaryDb {
 				// for example: "rol" => "roll", "roller", "rolling", ...
 				if (exactMatches.size() < minWords && sequence.length() >= 2) {
 					int extraWordsNeeded = minWords - exactMatches.size();
-					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(langId, sequence, extraWordsNeeded);
+					List<Word> extraWords = getInstance(context).wordsDao().getFuzzy(language.getId(), sequence, extraWordsNeeded);
 					Logger.d("getWords", "Fuzzy matches: " + extraWords.size());
 
 					for (Word word : extraWords) {

@@ -2,14 +2,13 @@
 <resources>
 	<string name="app_settings">Traditional T9 настройки</string>
 	<string name="close">Закрыть</string>
+	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_badchar">Невозможно добавить слово с таким символом %1$s (%2$s).</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
-	<string name="add_word_exist1">Слово (%1$s) уже есть в словаре.</string>
-	<string name="add_word_exist2">Слово (%1$s) уже есть в словаре %2$s.</string>
+	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_invalid_language">Чтобы добавить новое слово, сначала выберите язык.</string>
-	<string name="add_word_only_in_predictive_mode">Словарь успешно очищен.</string>
 	<string name="add_word_title">Добавить слово</string>
 
 	<string name="pref_help">О программе</string>
