@@ -32,7 +32,7 @@ public class AddWordAct extends Activity {
 
 		View v = getLayoutInflater().inflate(R.layout.addwordview, null);
 
-		EditText et = (EditText) v.findViewById(R.id.add_word_text);
+		EditText et = v.findViewById(R.id.add_word_text);
 		et.setText(word);
 		et.setSelection(word.length());
 		setContentView(v);
@@ -46,7 +46,7 @@ public class AddWordAct extends Activity {
 			switch (msg.what) {
 				case 0:
 					Logger.d("onAddedWord", "Added word: '" + word + "'...");
-					T9Preferences.getInstance(main.getContext()).saveLastWord(word);
+					T9Preferences.getInstance().saveLastWord(word);
 					break;
 
 				case 1:
@@ -71,7 +71,7 @@ public class AddWordAct extends Activity {
 			word = ((EditText) main.findViewById(R.id.add_word_text)).getText().toString();
 			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
 
-			DictionaryDb.insertWord(this, onAddedWord, LanguageCollection.getLanguage(lang), word);
+			DictionaryDb.insertWord(onAddedWord, LanguageCollection.getLanguage(lang), word);
 		} catch (InsertBlankWordException e) {
 			Logger.e("AddWordAct.addWord", e.getMessage());
 			UI.toastLong(this, R.string.add_word_blank);

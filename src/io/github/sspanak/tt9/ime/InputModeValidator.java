@@ -3,9 +3,10 @@ package io.github.sspanak.tt9.ime;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.languages.definitions.English;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.definitions.English;
 import io.github.sspanak.tt9.preferences.T9Preferences;
 
 public class InputModeValidator {
@@ -42,16 +43,16 @@ public class InputModeValidator {
 		return validLanguage;
 	}
 
-	public static int validateMode(T9Preferences prefs, int inputMode, ArrayList<Integer> allowedModes) {
-		if (allowedModes.size() > 0 && allowedModes.contains(inputMode)) {
+	public static InputMode validateMode(T9Preferences prefs, InputMode inputMode, ArrayList<Integer> allowedModes) {
+		if (allowedModes.size() > 0 && allowedModes.contains(inputMode.getId())) {
 			return inputMode;
 		}
 
-		int newMode = allowedModes.size() > 0 ? allowedModes.get(0) : TraditionalT9.MODE_123;
+		InputMode newMode = InputMode.getInstance(allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123);
 		prefs.saveInputMode(newMode);
 
-		if (newMode != inputMode) {
-			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode + " Enforcing: " + newMode);
+		if (newMode.getId() != inputMode.getId()) {
+			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode.getId() + " Enforcing: " + newMode.getId());
 		}
 
 		return newMode;
@@ -62,7 +63,7 @@ public class InputModeValidator {
 			return textCase;
 		}
 
-		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : TraditionalT9.CASE_LOWER;
+		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : InputMode.CASE_LOWER;
 		prefs.saveTextCase(newCase);
 
 		if (textCase != newCase) {

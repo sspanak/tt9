@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.ime.modes.InputMode;
+
 
 class InputFieldHelper {
 	public static boolean isThereText(InputConnection currentInputConnection) {
@@ -79,7 +81,7 @@ class InputFieldHelper {
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (inputField == null) {
-			allowedModes.add(TraditionalT9.MODE_123);
+			allowedModes.add(InputMode.MODE_123);
 			return allowedModes;
 		}
 
@@ -90,8 +92,8 @@ class InputFieldHelper {
 				&& inputField.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
 			)
 		) {
-			allowedModes.add(TraditionalT9.MODE_123);
-			allowedModes.add(TraditionalT9.MODE_ABC);
+			allowedModes.add(InputMode.MODE_123);
+			allowedModes.add(InputMode.MODE_ABC);
 			return allowedModes;
 		}
 
@@ -103,7 +105,7 @@ class InputFieldHelper {
 			case InputType.TYPE_CLASS_PHONE:
 				// Phones will also default to the symbols keyboard, though
 				// often you will want to have a dedicated phone keyboard.
-				allowedModes.add(TraditionalT9.MODE_123);
+				allowedModes.add(InputMode.MODE_123);
 				return allowedModes;
 
 			case InputType.TYPE_CLASS_TEXT:
@@ -112,7 +114,7 @@ class InputFieldHelper {
 				// be doing predictive text (showing candidates as the
 				// user types).
 				if (!isSpecializedTextField(inputField)) {
-					allowedModes.add(TraditionalT9.MODE_PREDICTIVE);
+					allowedModes.add(InputMode.MODE_PREDICTIVE);
 				}
 
 				// ↓ fallthrough to add ABC and 123 modes ↓
@@ -120,8 +122,8 @@ class InputFieldHelper {
 			default:
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
-				allowedModes.add(TraditionalT9.MODE_123);
-				allowedModes.add(TraditionalT9.MODE_ABC);
+				allowedModes.add(InputMode.MODE_123);
+				allowedModes.add(InputMode.MODE_ABC);
 
 				return allowedModes;
 		}

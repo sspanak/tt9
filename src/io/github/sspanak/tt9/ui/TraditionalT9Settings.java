@@ -22,17 +22,6 @@ import android.widget.ListView;
 
 import com.stackoverflow.answer.UnicodeBOMInputStream;
 
-import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
-import io.github.sspanak.tt9.db.Word;
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.T9Preferences;
-import io.github.sspanak.tt9.settings_legacy.CustomInflater;
-import io.github.sspanak.tt9.settings_legacy.Setting;
-import io.github.sspanak.tt9.settings_legacy.SettingAdapter;
-
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -46,6 +35,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+
+import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.Word;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.settings_legacy.CustomInflater;
+import io.github.sspanak.tt9.settings_legacy.Setting;
+import io.github.sspanak.tt9.settings_legacy.SettingAdapter;
 
 public class TraditionalT9Settings extends ListActivity implements DialogInterface.OnCancelListener {
 
@@ -205,7 +205,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 			// add characters first, then dictionary:
 			Logger.d("doInBackground", "Adding characters...");
-			processChars(mContext, mSupportedLanguages);
+			processChars(mSupportedLanguages);
 			Logger.d("doInBackground", "Characters added.");
 
 			Logger.d("doInBackground", "Adding dict(s)...");
@@ -217,7 +217,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					if (internal) {
 						try {
 							dictstream = getAssets().open(dicts[x]);
-							reply = processFile(mContext, dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
+							reply = processFile(dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
 						} catch (IOException e) {
 							e.printStackTrace();
 							reply.status = false;
@@ -227,7 +227,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						try {
 							dictstream = new FileInputStream(new File(
 									new File(Environment.getExternalStorageDirectory(), sddir),	dicts[x]));
-							reply = processFile(mContext, dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
+							reply = processFile(dictstream, reply, mSupportedLanguages.get(x), dicts[x]);
 						} catch (FileNotFoundException e) {
 							reply.status = false;
 							reply.forceMsg("File not found: " + e.getMessage());
@@ -264,13 +264,13 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		 * processChars
 		 * Inserts single characters.
 		 */
-		private void processChars(Context context, List<Language> allLanguages) {
+		private void processChars(List<Language> allLanguages) {
 			ArrayList<Word> list = new ArrayList<>();
 
 			try {
 				for (Language lang : allLanguages) {
 					for (int key = 0; key <= 9; key++) {
-						for (String langChar : lang.getKeyCharacters(key, true)) {
+						for (String langChar : lang.getKeyCharacters(key)) {
 							if (langChar.length() == 1 && langChar.charAt(0) >= '0' && langChar.charAt(0) <= '9') {
 								// We do not want 0-9 as "word suggestions" in Predictive mode. It looks confusing
 								// when trying to type a word and also, one can type them by holding the respective
@@ -289,7 +289,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					}
 				}
 
-				DictionaryDb.insertWordsSync(context, list);
+				DictionaryDb.insertWordsSync(list);
 			} catch (Exception e) {
 				Logger.e("processChars", e.getMessage());
 			}
@@ -306,7 +306,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 			return null;
 		}
 
-		private Reply processFile(Context context, InputStream is, Reply rpl, Language lang, String fname)
+		private Reply processFile(InputStream is, Reply rpl, Language lang, String fname)
 				throws LoadException, IOException {
 			long start = System.currentTimeMillis();
 
@@ -327,7 +327,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 
 			try {
 
-				DictionaryDb.beginTransaction(context);
+				DictionaryDb.beginTransaction();
 
 				while (fileWord != null) {
 					if (isCancelled()) {
@@ -365,7 +365,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					dbWords.add(word);
 
 					if (linecount % insertChunkSize == 0) {
-						DictionaryDb.insertWordsSync(context, dbWords);
+						DictionaryDb.insertWordsSync(dbWords);
 						dbWords.clear();
 					}
 
@@ -376,13 +376,13 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					fileWord = getLine(br, rpl, fname);
 				}
 
-				DictionaryDb.insertWordsSync(context, dbWords);
-				DictionaryDb.endTransaction(context, true);
+				DictionaryDb.insertWordsSync(dbWords);
+				DictionaryDb.endTransaction(true);
 				dbWords.clear();
 
 				publishProgress((int) ((float) pos / size * 10000));
 			} catch (Exception e) {
-				DictionaryDb.endTransaction(context, false);
+				DictionaryDb.endTransaction(false);
 				Logger.e("processFile", e.getMessage());
 			}	finally {
 				br.close();
@@ -416,7 +416,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		// http://stackoverflow.com/questions/7645880/listview-with-onitemclicklistener-android
 
 		// get settings
-		T9Preferences prefs = new T9Preferences(this);
+		T9Preferences prefs = new T9Preferences(getApplicationContext());
 		Object[] settings = {
 			prefs.getInputMode()
 		};
@@ -462,7 +462,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 					UI.toast(mContext, R.string.dictionary_truncated);
 				}
 			};
-			DictionaryDb.truncateWords(mContext, afterTruncate);
+			DictionaryDb.truncateWords(afterTruncate);
 	}
 
 
@@ -472,7 +472,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 		task = new LoadDictTask(
 			msgid,
 			internal,
-			LanguageCollection.getAll(T9Preferences.getInstance(mContext).getEnabledLanguages())
+			LanguageCollection.getAll(T9Preferences.getInstance().getEnabledLanguages())
 		);
 		task.execute();
 	}

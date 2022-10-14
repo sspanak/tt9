@@ -19,4 +19,5 @@
 	<string name="dictionary_loading_user_dict">Chargement du dictionnaire utilisateur…</string>
 	<string name="dictionary_load_title">Charger le dictionnaire</string>
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire %1$s introuvable.</string>
+	<string name="pref_truncatedict">Supprimer le dictionaire</string>
 </resources>
