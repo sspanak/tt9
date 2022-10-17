@@ -1,15 +1,25 @@
-﻿// Source for English dictionary: http://wordlist.sourceforge.net/
+﻿Custom wordlist generated from http://app.aspell.net/create using SCOWL
+with parameters:
+  diacritic: strip
+  max_size: 70
+  max_variant: 2
+  special: hacker
+  spelling: US GBz
+
+Using Git Commit From: Mon Dec 7 20:14:35 2020 -0500 [5ef55f9]
+
+=====
 
 Spell Checking Oriented Word Lists (SCOWL)
-Revision 7.1 (SVN Revision 161)
-January 6, 2011
+
+Mon Dec 7 20:14:35 2020 -0500 [5ef55f9]
 by Kevin Atkinson (kevina@gnu.org)
 
 The SCOWL is a collection of word lists split up in various sizes, and
 other categories, intended to be suitable for use in spell checkers.
 However, I am sure it will have numerous other uses as well.
 
-The latest version can be found at http://wordlist.sourceforge.net/.
+The latest version can be found at http://wordlist.aspell.net/.
 
 The directory final/ contains the actual word lists broken up into
 various sizes and categories.  The r/ directory contains Readmes from
@@ -29,14 +39,15 @@ Except for the special word lists the files follow the following
 naming convention:
   <spelling category>-<sub-category>.<size>
 Where the spelling category is one of
-  english, american, british, british_z, canadian, 
-  variant_0, varaint_1, variant_2,
-  british_variant_0, british_variant_1,
-  canadian_variant_0, canadian_variant_1,
+  english, american, british, british_z, canadian, australian
+  variant_1, variant_2, variant_3,
+  british_variant_1, british_variant_2,
+  canadian_variant_1, canadian_variant_2,
+  australian_variant_1, australian_variant_2
 Sub-category is one of
   abbreviations, contractions, proper-names, upper, words
 And size is one of
-  10, 20, 35 (small), 40, 50 (medium), 55, 60, 70 (large), 
+  10, 20, 35 (small), 40, 50 (medium), 55, 60, 70 (large),
   80 (huge), 95 (insane)
 The special word lists follow are in the following format:
   special-<description>.<size>
@@ -44,130 +55,272 @@ Where description is one of:
   roman-numerals, hacker
 
 The perl script "mk-list" can be used to create a word list of the
-desired size, it usage is:
+desired size, its usage is:
   ./mk-list [-f] [-v#] <spelling categories> <size>
 where <spelling categories> is one of the above spelling categories
 (the english and special categories are automatically included as well
-as all sub-categories) and <size> is the desired desired size.  The
-"-v" option can be used to used to also include the appropriate
+as all sub-categories) and <size> is the desired size.  The
+"-v" option can be used to also include the appropriate
 variants file up to level '#'.  The normal output will be a sorted
 word list.  If you rather see what files will be included, use the
 "-f" option.
 
 When manually combining the words lists the "english" spelling
 category should be used as well as one of "american", "british",
-"british_z" (british with ize spelling), or "canadian".  Great care
-has been taken so that that only one spelling for any particular word
-is included in the main list (with some minor exceptions).  When two
-variants were considered equal I randomly picked one for inclusion in
-the main word list.  Unfortunately this means that my choice in how to
-spell a word may not match your choice.  If this is the case you can
-try including one of the "variant_0" spelling categories which
+"british_z" (british with ize spelling), "canadian" or "australian".
+Great care has been taken so that only one spelling for any particular
+word is included in the main list (with some minor exceptions).  When
+two variants were considered equal I randomly picked one for inclusion
+in the main word list.  Unfortunately this means that my choice in how
+to spell a word may not match your choice.  If this is the case you
+can try including one of the "variant_1" spelling categories which
 includes most variants which are considered almost equal.  The
-"variant_0" spelling category corresponds mostly to American variants,
-while the "british_variant_0" and "canadian_variant_0" are for British
-and Canadian variants, respectively.  The "variant_1" spelling
-categories include variants which are also generally considered
-acceptable, and "variant_2" contains variants which are seldom used
-and may now even be considered correct.  There is no
-"british_variant_2" or "canadian_variant_2" spelling category since
+"variant_1" spelling category corresponds mostly to American variants,
+while the "british_variant_1", "canadian_variant_1" and
+"australian_variant_1" are for British, Canadian and Australian
+variants, respectively.  The "variant_2" spelling categories include
+variants which are also generally considered acceptable, and
+"variant_3" contains variants which are seldom used and may not even
+be considered correct.  There is no "british_variant_3",
+"canadian_variant_3" or "australian_variant_3" spelling category since
 the distinction would be almost meaningless.
 
 The "abbreviation" category includes abbreviations and acronyms which
 are not also normal words. The "contractions" category should be self
 explanatory. The "upper" category includes upper case words and proper
 names which are common enough to appear in a typical dictionary. The
-"proper-names" category included all the additional uppercase words.
-Final the "words" category contains all the normal English words.
+"proper-names" category includes all the additional uppercase words.
+Finally the "words" category contains all the normal English words.
 
 To give you an idea of what the words in the various sizes look like
 here is a sample of 25 random words found only in that size:
 
-10: advertised agreeing artificial bucket changes closest currently finding
-    implications learning liable obvious partial peace planet preparing
-    produced regulations shortly tries under unnecessary vacations vast wind 
+10: blow convert delete enables flow hot individual job maintains occurred
+    pointless political population provided quits recovering results settles
+    simultaneous situation source tickets uncertain uses why
 
-20: accomplishes addict baffles blink chapel corrections depresses dripping
-    erased infant interfere launch nicking novels paranoid passport pursued
-    recruitment rectifying relaxed sixteen sundry tab undergone withdraws 
+20: additions advertisement akin applicants appoints celebrated contracts
+    crime degradation discriminate enforcing escapes fabric funeral
+    genetically inconsistencies initialized innovative lodge lurking
+    photographic punches tiring trumpet wary
 
-35: adores affixes brisks caking conciliates decimates discretionary
-    dispatches forensics glorify gridiron healed hurling kelp massacring
-    necks pits placarding pyramids ratting recreates renovated sandals shirks
-    subtract 
+35: bagel brewed bushel charting commutative consigning dabbed displacements
+    fatties flotillas flung gunshots harrow hull hungriest kangaroos math
+    memoirs negatives nonresident rampages ranchers submissive subtractions
+    tipped
 
-40: demoed dichotomy dilapidation disheveled ebullience estimable finagling
-    hemorrhoid lazily medalists mintiest motherboards ostracism pornographers
-    predilections remarries southbound steamrolled sympathizers tads tampons
-    tattletale upchucked vainly viscous 
+40: astrologers bedraggles buzzword cupcakes eyeglass gridlock grungy
+    hairpiece hallucinates hotcakes inebriated leakier nymphomania papergirls
+    patchier patrolman predisposed reshuffled sasses snowmobiling
+    southeasterly teargas testiest topographer wimpy
 
-50: bootless brawler bulkhead canoeist declassifying farthings hake hectors
-    helpmate hermitage humanoid kitsch mercerize pawnshops pleasingly
-    retrorockets scurrilously solemnizes superficiality symbiosis tangelo
-    timetabling unenviable unmoral unreconstructed 
+50: apiaries besmirching boozier caducei communicant drainpipe ductile
+    exigencies gammas grouted harbinger hyphenations licentiate lynxes
+    maidenly malingerer palmettos pinwheeled prepackage propellant scrimmaged
+    sculleries senselessly unscrambled viburnums
 
-55: beachfront bicarbonate caff campanologists execrably fab fightback
-    firebricks insipidity laboriousness megawatts mirthlessly misnames
-    nymphos photocell potholed psychoactive psychoanalytically schoolmarmish
-    simulacra subeditors supremo sweated turbocharges yogic 
+55: bloodstock bodge bruiting bumbag carthorse clumpy dandifying etiolated
+    fleabite guestrooms marge moi overdeveloped owlishly perisher plebes
+    pseudy pukka putzes sangria splodges stocktaking subspecies tiebreaks
+    touchpapers
 
-60: assayer banteringly besmeared brazer chromatin cremes deciliters
-    doubtfulness enshrinement ephemerally fibular globalist gypper
-    legitimatized mensch mopers oversea pantyliner paratyphoid redivide
-    rehabilitative salesladies sensualists superposition univalves 
+60: autobiographic cytologist fellowman footraces gypsters hardihood
+    headshrinker homo interfile nonoperational nonsupporting outdraw
+    profligately readopted revetments semanticist stagnantly tapper thanes
+    thetas uncloaking uncross versifiers wasabi xylene
 
-70: adactylous anticapitalist bezant bister boraginaceous civically cossacks
-    cousinly curricle dekaliter grippingly grugrus gurging hermaphroditism
-    levanted magnetizer nonapplicable panegyrists parametrize radomes
-    refilter ruinations teths truistic uts 
+70: biltongs bookcraft bouilli bouse bronchiole cirrostrati coenurus
+    desorption feculence hackbuts heterolysis hylophagous ichthyosaur
+    iguanodon jillion lapidated mistranslating pullulating redd shylock skink
+    storaxes thalluses vermiculations voiture
 
-80: bodikin buhrs covetiveness diarch disaccharidases drumbeater empusas
-    flyings hyperexcitability hyperpolarizations janizaries overwash
-    physiocrats postform postsecondary preambulate puzzlehead remixer
-    snoutier tetrathlons toothdrawing triff unaffectionate wearish yawy 
+80: cellulolytic chomper costrels ditheistic doddard dwarfest fellwalkers
+    fernless gammoners gasolinic introductive labrets macaber
+    perspicaciousness pharmacodynamics pitchwomen pleuritical protore
+    repurifies ristras rolamite rumping sedimenting smithereening tolans
 
-95: actinophone aerobious anadenia biochemics chromatopathia ciclatouns
-    gaspiest guapinol hagigah interdorsal melanotekite minnicking
-    nonretrenchment overloftily oystriges peltandra retromaxillary
-    subterraqueous transphysically unconfidential unvalidating upspew
-    verminlike vetiveria yerth 
+95: amherstite appropinquations arsefoot assur commodate craspedia cutitis
+    disciferous endeavourments endocondensation glyoxalase hatherlite
+    interreticular interspicular lipothymy prieved reconvergence rousette
+    septerium superdonation tenaim topepo trachelitis transgeneses
+    ultraenthusiastic
 
-And here is a count on the number of in each spelling category
+
+And here is a count on the number of words in each spelling category
 (american + english spelling category):
 
   Size   Words       Names    Running Total  %
-   10    4,427          15        4,442     0.7
-   20    8,122           0       12,564     1.9
-   35   37,251         224       50,039     7.7
-   40    6,802         503       57,344     8.8
-   50   24,505      15,455       97,304    14.9
-   55    6,555           0      103,859    15.9
-   60   13,633         775      118,267    18.1
-   70   35,507       7,747      161,521    24.8
-   80  143,791      33,293      338,605    51.9
-   95  227,056      86,814      652,475   100.0
+   10    4,425          13        4,438     0.7
+   20    8,126           0       12,564     1.9
+   35   37,260         220       50,044     7.6
+   40    6,858         489       57,391     8.7
+   50   25,289      18,683      101,363    15.4
+   55    6,487           0      107,850    16.4
+   60   14,551         850      123,251    18.7
+   70   35,294       7,897      166,442    25.3
+   80  144,158      33,368      343,968    52.3
+   95  227,633      86,630      658,231   100.0
+
 
 (The "Words" column does not include the name count.)
 
 Size 35 is the recommended small size, 50 the medium and 70 the large.
-For spell checking I recommend using 60.  Sizes 70 and below contain
-words found in most dictionaries while the 80 size contains all the
-strange and unusual words people like to use in word games such as
-Scrabble (TM).  While a lot of the the words in the 80 size are not
-used very often, they are all generally considered valid words in the
-English language.  The 95 contains just about every English word in
-existence and then some.  Many of the words at the 95 level will
-probably not be considered valid English words by most people.  I use
-the 60 size for the English dictionary for Aspell, and I don't
-recommend anyone use levels above 70 for spell checking.  Levels above
-70 contain rarely used words which can hide misspellings of similar
-more commonly used words.  For example the word "ort" can hide a
-common typo of "or".  No one should need to use a size larger than 80,
-the 95 size is labeled insane for a reason.
+Sizes 70 and below contain words found in most dictionaries while the
+80 size contains all the strange and unusual words people like to use
+in word games such as Scrabble (TM).  While a lot of the words in the
+80 size are not used very often, they are all generally considered
+valid words in the English language.  The 95 contains just about every
+English word in existence and then some.  Many of the words at the 95
+level will probably not be considered valid English words by most
+people.
 
-Accents are present on certain words such as caf顩n iso8859-1 format.
+For spell checking I recommend using size 60.  This size is the
+largest size that I am fairly confident does not contain any
+misspellings or invalid words.  In addition an effort is made to
+exclude valid yet problematic words (such as "calender") from the 60
+size that are likely to be a misspelling of a more common word.  The
+70 size is reasonable for those wanting a larger list and don't mind a
+few errors.  The 80 or larger sizes are not reasonable for spell
+checking.
+
+Accents are present on certain words such as café in iso8859-1 format.
 
 CHANGES:
+
+From Version 2019.10.06 to 2020.12.07
+
+  Various new words.
+
+  Variant cleanups.
+
+  Bump irregardless, froward (+ derivatives) and perpend to level 70.
+
+From Version 2018.04.16 to 2019.10.06
+
+  Various new words.
+
+  Remove compare's and fail's.
+
+From Version 2017.08.24 to 2018.04.16
+
+  Various new words.
+
+  Fix build problems on macOS.
+
+From Version 2017.01.22 to 2017.08.24
+
+  Various new words.
+
+From Version 2016.11.20 to 2017.01.22
+
+  Various new words.
+
+From Version 2016.06.26 to 2016.11.20
+
+  New Australian spelling category thanks to the work of Benjamin
+  Titze (btitze@protonmail.ch)
+
+  Various new words.
+
+From Version 2016.01.19 to 2016.06.26
+
+  Various new words.
+
+  Updated to Version 6.0.2 of 12dicts
+
+  Other minor changes.
+
+From Version 2015.08.24 to 2016.01.19
+
+  Various new words.
+
+  Clarified README to indicate why the 60 size is the preferred size
+  for spell checking.
+
+  Remove some very uncommon possessive forms.
+
+  Change "SET UTF8" to "SET UTF-8" in hunspell affix file.
+
+From Version 2015.05.18 to 2015.08.24 (Aug 24, 2015)
+
+  Various new words.
+
+From Version 2015.04.24 to 2015.05.18 (May 18, 2015)
+
+  Added some new words found to have a high frequency in the COCA
+  corpus.  (http://corpus.byu.edu/coca/).
+
+  Fix en spelling suggestions for 'alot' and 'exersize' in hunspell
+  dictionary (upstreamed from the changes made in Firefox).
+
+From Version 2015.02.15 to 2015.04.24 (April 24, 2015)
+
+  Added some new words.
+
+  Convert hunspell dictionary to UTF-8 in order to handle smart
+  quotes correctly.
+
+From Version 2015.01.28 to 2015.02.15 (February 15, 2015)
+
+  Added a large number of neologisms (newly invented words)
+  such as "selfie" and "smartwatch" thanks to Alan Beale.
+
+  Various other new words.
+
+  Clean up the special-hacker category by removing some words that
+  didn't exist in the Google Book's Corpus (1980 - 2008) and
+  originated from the "Unofficial Jargon File Word Lists".
+
+From Version 2014.11.17 to 2015.01.28 (January 28, 2015)
+
+  Various new words, many from analyzing the Google Book's Corpus
+  (1980 - 2008).  See http://app.aspell.net/lookup-freq.
+
+  Moved some uncommon words that can easily hide a misspelling of a
+  more common word to level 70.  (calender, adrenalin and Joesph)
+
+  Removed several -er and -est forms from adjectives that were so
+  uncommon that they were not found anywhere is the Google Book's
+  Corpus (1980 - 2008).
+
+From Version 2014.08.11.1 to 2014.11.17 (November 17, 2014)
+
+  Various new words.
+
+  Fix typo in Hunspell readme.
+
+From Version 2014.08.11 to 2014.08.11.1 (August 13, 2014)
+
+  Forgot to mention this important change from 7.1 to 2014.08.11:
+
+    Shifted the variant levels up by one: variant_0 is now variant_1,
+    variant_1 is now variant_2, and variant_2 is now variant_3.
+
+  Other minor fixes in this README.
+
+  No changes to the contents of the lists.
+
+From Revision 7.1 to Version 2014.08.11 (August 11, 2014)
+
+  Added some missing possessive forms.
+
+  Added some new words and proper names.
+
+  Clean up the categories (words, upper, proper-names etc) so that they
+  are more accurate.
+
+  Convert documentation to UTF-8.  For now, the wordlist are still in
+  ISO-8859-1 to prevent compatibility problems.
+
+  Add schema and scripts for creating a SQLite database from SCOWL.
+  Add some utility and library functions using them.  This database is
+  used by the new web app's (http://app.aspell.net/lookup & create).
+
+  Enhance speller/make-hunspell-dict.  The biggest improvement is that
+  it that it now generates several more dictionaries in addition to
+  the official ones.  These additional dictionaries are ones for
+  British English and larger dictionaries that include up to SCOWL
+  size 70.
 
 From Revision 7 to 7.1 (January 6, 2011)
 
@@ -179,7 +332,7 @@ From Revision 7 to 7.1 (January 6, 2011)
   Added several now common proper names and some other words now
   in common use.
 
-  Include misc/ and speller/ directory which where in SVN but left
+  Include misc/ and speller/ directory which were in SVN but left
   out of the release tarball.
 
   Other minor fixes, including some fixes to the taboo word lists.
@@ -190,11 +343,11 @@ From Revision 6 to 7 (December 27, 2010)
   especially in the British and Canadian spelling categories.  Also
   added new spelling categories for the British and Canadian spelling
   variants and separated them out from the main variant_* categories.
-  
+
   Moved Moby names lists (3897male.nam 4946fema.len 21986na.mes) to 95
   level since they contain too many errors and rare names.
 
-  Moved frequently class 0 from Brian Kelk's Wordlist from 
+  Moved frequently class 0 from Brian Kelk's Wordlist from
   level 60 to 70, and also filter it with level 80 due to, too many
   misspellings.
 
@@ -216,7 +369,7 @@ From Revision 5 to 6 (August 10, 2004)
 
   Updated to version 4.1 of VarCon.
 
-  Added the "british_z" spelling category which it British using the
+  Added the "british_z" spelling category which is British using the
   "ize" spelling.
 
 From Revision 4a to 5 (January 3, 2002)
@@ -240,7 +393,7 @@ From Revision 4a to 5 (January 3, 2002)
 
   Removed the DEC Word List due to the questionable licence and
   because removing it will not seriously decrease the quality of SCOWL
-  (there are a few less proper names).  
+  (there are a few less proper names).
 
 From Revision 4 to 4a (April 4, 2001)
 
@@ -250,11 +403,11 @@ From Revision 4 to 4a (April 4, 2001)
 From Revision 3 to 4 (January 28, 2001)
 
   Split the variant "spelling category" up into 3 different levels.
-  
+
   Added words in the Ispell word list at the 65 level.
 
   Other changes due to using more recent versions of various sources
-  included a more accurate version of AGID thanks to the word of
+  included a more accurate version of AGID thanks to the work of
   Alan Beale
 
 From Revision 2 to 3 (August 18, 2000)
@@ -285,10 +438,10 @@ From Revision 1 to 2 (August 5, 2000)
 
 COPYRIGHT, SOURCES, and CREDITS:
 
-The collective work is Copyright 2000-2011 by Kevin Atkinson as well
+The collective work is Copyright 2000-2018 by Kevin Atkinson as well
 as any of the copyrights mentioned below:
 
-  Copyright 2000-2011 by Kevin Atkinson
+  Copyright 2000-2018 by Kevin Atkinson
 
   Permission to use, copy, modify, distribute and sell these word
   lists, the associated scripts, the output created from the scripts,
@@ -399,7 +552,7 @@ The 40 level includes words from Alan's 3esl list found in version 4.0
 of his 12dicts package.  Like his other stuff the 3esl list is also in the
 public domain.
 
-The 50 level includes Brian's frequency class 1, words words appearing
+The 50 level includes Brian's frequency class 1, words appearing
 in at least 5 of 12 of the dictionaries as indicated in the 12Dicts
 package, and uppercase words in at least 4 of the previous 12
 dictionaries.  A decent number of proper names is also included: The
@@ -428,11 +581,11 @@ The 70 level includes Brian's frequency class 0 and the 74,550 common
 dictionary words from the MWords package.  The common dictionary words,
 like those from the 12Dicts package, have had all likely inflections
 added.  The 70 level also included the 5desk list from version 4.0 of
-the 12Dics package which is the public domain.
+the 12Dics package which is in the public domain.
 
 The 80 level includes the ENABLE word list, all the lists in the
 ENABLE supplement package (except for ABLE), the "UK Advanced Cryptics
-Dictionary" (UKACD), the list of signature words in from YAWL package,
+Dictionary" (UKACD), the list of signature words from the YAWL package,
 and the 10,196 places list from the MWords package.
 
 The ENABLE package, mainted by M\Cooper <thegrendel@theriver.com>,
@@ -476,11 +629,30 @@ found anywhere else.
 
 Accent information was taken from UKACD.
 
-My VARCON package was used to create the American, British, and
-Canadian word list. 
+The VarCon package was used to create the American, British, Canadian,
+and Australian word list.  It is under the following copyright:
 
-Since the original word lists used used in the VARCON package came
-from the Ispell distribution they are under the Ispell copyright:
+  Copyright 2000-2016 by Kevin Atkinson
+
+  Permission to use, copy, modify, distribute and sell this array, the
+  associated software, and its documentation for any purpose is hereby
+  granted without fee, provided that the above copyright notice appears
+  in all copies and that both that copyright notice and this permission
+  notice appear in supporting documentation. Kevin Atkinson makes no
+  representations about the suitability of this array for any
+  purpose. It is provided "as is" without express or implied warranty.
+
+  Copyright 2016 by Benjamin Titze
+
+  Permission to use, copy, modify, distribute and sell this array, the
+  associated software, and its documentation for any purpose is hereby
+  granted without fee, provided that the above copyright notice appears
+  in all copies and that both that copyright notice and this permission
+  notice appear in supporting documentation. Benjamin Titze makes no
+  representations about the suitability of this array for any
+  purpose. It is provided "as is" without express or implied warranty.
+
+  Since the original words lists come from the Ispell distribution:
 
   Copyright 1993, Geoff Kuenning, Granada Hills, CA
   All rights reserved.
@@ -503,18 +675,18 @@ from the Ispell distribution they are under the Ispell copyright:
      products derived from this software without specific prior
      written permission.
 
-  THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS
-  IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
-  FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF
-  KUENNING OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-  INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-  BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-  ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-  POSSIBILITY OF SUCH DAMAGE.
+  THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+  LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+  SUCH DAMAGE.
+
 
 The variant word lists were created from a list of variants found in
 the 12dicts supplement package as well as a list of variants I created
@@ -536,7 +708,7 @@ giant perl script.  With the amount of memory available these days (at
 least 2 GB, often 4 GB or more) this should not really be a problem.
 
 In addition, there is a very nice frequency analyze of the BNC corpus
-done by Adam Kilgarriff.  Unlike Brain's word lists the BNC lists
+done by Adam Kilgarriff.  Unlike Brian's word lists the BNC lists
 include part of speech information.  I plan on somehow using these
 lists as Adam Kilgarriff has given me the OK to use it in SCOWL.
 These lists will greatly reduce the problem of inflected forms of a
@@ -545,7 +717,7 @@ information.
 
 There is frequency information for some other corpus such as COCA
 (Corpus of Contemporary American English) and ANS (American National
-Corpus) which I might also be able to use.  The formal will require
+Corpus) which I might also be able to use.  The former will require
 permission, and the latter is of questionable quality.
 
 RECREATING THE WORD LISTS:
@@ -553,17 +725,17 @@ RECREATING THE WORD LISTS:
 In order to recreate the word lists you need a modern version of Perl,
 bash, the traditional set of shell utilities, a system that supports
 symbolic links, and quite possibly GNU Make.  The easiest way to
-recreate the word lists is to checkout SVN revision 161 (or tag
-scowl-7.1) and simply type "make" (see http://wordlist.sourceforge.net).
-You can try to download all the pieces manually, but you may not get
-the same result since the latest version of some parts used to create
-SCOWL may not have been released yet.
+recreate the word lists is to checkout the corresponding Git version
+(see the version string at the start of the file) and simply type
+"make" (see http://wordlist.aspell.net).  You can try to download all
+the pieces manually, but this method is not no longer tested nor
+supported.
 
 The src/ directory contains the numerous scripts used in the creation
-of the final product. 
+of the final product.
 
 The r/ directory contains the raw data used to create the final
-product.  If you checkout from SVN this directory should be populated
+product.  If you checkout from Git this directory should be populated
 automatically for you.  If you insist on doing it the hard way see the
 README file in the r/ directory for more information.
 
