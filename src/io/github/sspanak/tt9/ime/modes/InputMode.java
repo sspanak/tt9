@@ -76,9 +76,8 @@ abstract public class InputMode {
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.
-	public boolean isStemFilterOn() { return false; }
-	public void clearStemFilter() {}
-	public boolean setStemFilter(Language language, String stem) { return false; }
+	public boolean clearWordStem() { return false; }
+	public boolean setWordStem(Language language, String stem, boolean exact) { return false; }
 
 	public boolean shouldTrackNumPress() { return true; }
 	public boolean shouldTrackUpDown() { return false; }

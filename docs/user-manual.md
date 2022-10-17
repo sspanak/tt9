@@ -20,6 +20,11 @@ With the default settings, it is only possible to type in 123 and ABC modes. In 
 
 _If you don't do the above, there will be no suggestions when typing in Predictive mode._
 
+#### Dictionary Tips
+Once a dictionary is loaded, it will stay there until you use the Clear option. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
+
+It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
+
 ## Hotkeys
 
 #### D-pad Up (↑):
@@ -31,7 +36,10 @@ Select next word/letter suggestion.
 #### D-pad Right (→):
 _Predictive mode only._
 
-Filter the suggestion list leaving out only words similar to the current suggestion. For example, "6463" results in: "nine", "mine", "mind", and so on. But selecting "mind" and pressing Right will leave out only the similar ones: "mind", "minds", "mindy", "minded"...
+- **Single press**: Filter the suggestion list, leaving out only the ones that start with the current word. It doesn't matter if it is a complete word or not. For example, type "rewin" and press Right. It will leave out all words starting with "rewin": "rewin" itself, "rewind", "rewinds", "rewinded", "rewinding", and so on.
+- **Double press**: Expand the filter to the full suggestion. For example, type "rewin" and press Right twice. It will first filter by "rewin", then expand the filter to "rewind". You can keep expanding the filter with Right, until you get to the longest suggestion in the list.
+
+Filtering can also be used to type unknown words. Let's say you want to type "Anakin", which is not in the dictionary. Start with "A", then press Right to hide "B" and "C". Now press 6-key. Since the filter is on, in addition to the real dictionary words, it will provide all possible combinations for 6: "Am", "An", "Ao". Select "An" and press Right to confirm your selection. Now pressing 2-key, will provide "Ana", "Anb", "Anc". You can keep going, until you complete "Anakin".
 
 #### D-pad Left (←):
 _Predictive mode only._
@@ -39,12 +47,12 @@ _Predictive mode only._
 - Clear the suggestion filter, if applied.
 - When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
 
-#### 0 key
+#### 0-key
 - **In 123 mode:** type "0" or hold it to type "+".
 - **In ABC mode:** type secondary punctuation or hold to type "0".
 - **In Predictive mode:** type space or hold to type "0".
 
-#### 1 to 9 keys
+#### 1- to 9-key
 - **In 123 mode:** type the respective number.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 

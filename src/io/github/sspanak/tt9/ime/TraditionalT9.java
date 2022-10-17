@@ -145,15 +145,24 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onUp() {
-		return previousSuggestion();
+		if (previousSuggestion()) {
+			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			return true;
+		}
+
+		return false;
 	}
 	protected boolean onDown() {
-		return nextSuggestion();
+		if (nextSuggestion()) {
+			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			return true;
+		}
+
+		return false;
 	}
 
 	protected boolean onLeft() {
-		if (mInputMode.isStemFilterOn()) {
-			mInputMode.clearStemFilter();
+		if (mInputMode.clearWordStem()) {
 			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, getComposingText());
 		} else {
 			jumpBeforeComposingText();
@@ -162,10 +171,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		return true;
 	}
 
-	protected boolean onRight() {
-		String filter = mSuggestionView.getCurrentSuggestion();
+	protected boolean onRight(boolean repeat) {
+		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
 
-		if (mInputMode.setStemFilter(mLanguage, filter)) {
+		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
 			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, filter);
 		} else if (filter.length() == 0) {
 			mInputMode.reset();
@@ -483,7 +492,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void determineAllowedTextCases() {
 		allowedTextCases = mInputMode.getAllowedTextCases();
-		// @todo: determine the text case of the input and validate using the allowed ones
+		// @todo: determine the text case of the input and validate using the allowed ones [ https://github.com/sspanak/tt9/issues/48 ]
 	}
 
 

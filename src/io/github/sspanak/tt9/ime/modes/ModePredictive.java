@@ -21,8 +21,8 @@ public class ModePredictive extends InputMode {
 	private String digitSequence = "";
 
 	// stem filter
-	private String stemFilter = "";
-	private final int STEM_FILTER_MIN_LENGTH = 2;
+	private boolean isStemFuzzy = false;
+	private String stem = "";
 
 	// async suggestion handling
 	private Language currentLanguage = null;
@@ -38,18 +38,16 @@ public class ModePredictive extends InputMode {
 
 
 	public boolean onBackspace() {
-		if (stemFilter.length() < STEM_FILTER_MIN_LENGTH) {
-			stemFilter = "";
-		}
-
 		if (digitSequence.length() < 1) {
-			stemFilter = "";
+			clearWordStem();
 			return false;
 		}
 
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
-		if (stemFilter.length() > digitSequence.length()) {
-			stemFilter = stemFilter.substring(0, digitSequence.length() - 1);
+		if (digitSequence.length() == 0) {
+			clearWordStem();
+		} else if (stem.length() > digitSequence.length()) {
+			stem = stem.substring(0, digitSequence.length() - 1);
 		}
 
 		return true;
@@ -86,7 +84,7 @@ public class ModePredictive extends InputMode {
 	public void reset() {
 		super.reset();
 		digitSequence = "";
-		stemFilter = "";
+		stem = "";
 	}
 
 
@@ -119,41 +117,49 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * isStemFilterOn
-	 * Returns "true" if a filter was applied using "setStem()".
+	 * clearWordStem
+	 * Do not filter the suggestions by the word set using "setWordStem()", use only the digit sequence.
 	 */
-	public boolean isStemFilterOn() {
-		return stemFilter.length() > 0;
+	public boolean clearWordStem() {
+		stem = "";
+		Logger.d("tt9/setWordStem", "Stem filter cleared");
+
+		return true;
 	}
 
 
 	/**
-	 * clearStemFilter
-	 * Do not filter the suggestions by the word set using "setStem()", use only the digit sequence.
-	 */
-	public void clearStemFilter() {
-		stemFilter = "";
-	}
-
-
-	/**
-	 * setStemFilter
-	 * Filter the possible suggestions by the given stem. The stem must have
-	 * a minimum length of STEM_FILTER_MIN_LENGTH.
+	 * setWordStem
+	 * Filter the possible suggestions by the given stem.
+	 *
+	 * If exact is "true", the database will be filtered by "stem" and if the stem word is missing,
+	 * it will be added to the suggestions list.
+	 * For example: "exac_" -> "exac", {database suggestions...}
+	 *
+	 * If "exact" is false, in addition to the above, all possible next combinations will be
+	 * added to the suggestions list, even if they make no sense.
+	 * For example: "exac_" -> "exac", "exact", "exacu", "exacv", {database suggestions...}
+	 *
 	 *
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
-	public boolean setStemFilter(Language language, String stem) {
-		if (language == null || stem == null || stem.length() < STEM_FILTER_MIN_LENGTH) {
+	public boolean setWordStem(Language language, String wordStem, boolean exact) {
+		if (language == null || wordStem == null || wordStem.length() < 1) {
 			return false;
 		}
 
 		try {
-			digitSequence = language.getDigitSequenceForWord(stem);
-			stemFilter = stem;
+			digitSequence = language.getDigitSequenceForWord(wordStem);
+			isStemFuzzy = !exact;
+			stem = wordStem.toLowerCase(language.getLocale());
+
+			Logger.d("tt9/setWordStem", "Stem is now: " + wordStem);
 			return true;
 		} catch (Exception e) {
-			Logger.w("tt9/setStemFilter", "Ignoring invalid stem filter: " + stem + ". " + e.getMessage());
+			isStemFuzzy = false;
+			stem = "";
+
+			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + wordStem + ". " + e.getMessage());
 			return false;
 		}
 	}
@@ -165,7 +171,7 @@ public class ModePredictive extends InputMode {
 	 * sequence. Returns "false" when there is nothing to do.
 	 *
 	 * "lastWord" is used for generating suggestions when there are no results.
-	 * See: generateSuggestionWhenNone()
+	 * See: generatePossibleCompletions()
 	 */
 	public boolean getSuggestionsAsync(Handler handler, Language language, String lastWord) {
 		if (isEmoji) {
@@ -178,7 +184,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		handleSuggestionsExternal = handler;
-		lastInputFieldWord = lastWord;
+		lastInputFieldWord = lastWord.toLowerCase(language.getLocale());
 		currentLanguage = language;
 		super.reset();
 
@@ -186,7 +192,7 @@ public class ModePredictive extends InputMode {
 			handleSuggestions,
 			language,
 			digitSequence,
-			stemFilter,
+			stem,
 			T9Preferences.getInstance().getSuggestionsMin(),
 			T9Preferences.getInstance().getSuggestionsMax()
 		);
@@ -204,44 +210,87 @@ public class ModePredictive extends InputMode {
 		@Override
 		public void handleMessage(Message msg) {
 			ArrayList<String> suggestions = msg.getData().getStringArrayList("suggestions");
-			suggestions = generateSuggestionWhenNone(suggestions, currentLanguage, lastInputFieldWord);
+			suggestions = suggestions == null ? new ArrayList<>() : suggestions;
 
-			ModePredictive.super.sendSuggestions(handleSuggestionsExternal, suggestions);
+			if (suggestions.size() == 0 && digitSequence.length() > 0) {
+				suggestions = generatePossibleCompletions(currentLanguage, lastInputFieldWord);
+			}
+
+			ArrayList<String> stemVariations = generatePossibleStemVariations(currentLanguage, suggestions);
+			stemVariations.addAll(suggestions);
+
+			ModePredictive.super.sendSuggestions(handleSuggestionsExternal, stemVariations);
 		}
 	};
 
+
 	/**
-	 * generateSuggestionWhenNone
+	 * generatePossibleCompletions
 	 * When there are no matching suggestions after the last key press, generate a list of possible
-	 * ones, so that the user can complete the missing word.
+	 * ones, so that the user can complete a missing word that is completely different from the ones
+	 * in the dictionary.
+	 *
+	 * For example, if the word is "missin_" and the last pressed key is "4", the results would be:
+	 * | missing | missinh | missini |
 	 */
-	private ArrayList<String> generateSuggestionWhenNone(ArrayList<String> suggestions, Language language, String word) {
-		if (
-			(word == null || word.length() == 0) ||
-			(suggestions != null && suggestions.size() > 0) ||
-			digitSequence.length() == 0 ||
-			digitSequence.charAt(0) == '1'
-		) {
-			return suggestions;
-		}
+	private ArrayList<String> generatePossibleCompletions(Language language, String baseWord) {
+		ArrayList<String> generatedWords = new ArrayList<>();
 
-		// append all letters for the last key
-		word = word.substring(0, Math.min(digitSequence.length() - 1, word.length()));
-		ArrayList<String> generatedSuggestions = new ArrayList<>();
+		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
+		// have the same length, to prevent visual discrepancies.
+		baseWord = (baseWord != null && baseWord.length() > 0) ? baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length())) : "";
+
+		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
-
 		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
-			if (keyLetter.charAt(0) - '0' > '9') { // append only letters, not numbers
-				generatedSuggestions.add(word + keyLetter);
+			// let's skip numbers, because it's weird, for example:
+			// | weird | weire | weirf | weir2 |
+			if (keyLetter.charAt(0) < '0' || keyLetter.charAt(0) > '9') {
+				generatedWords.add(baseWord + keyLetter);
 			}
 		}
 
 		// if there are no letters for this key, just append the number
-		if (generatedSuggestions.size() == 0) {
-			generatedSuggestions.add(word +  digitSequence.charAt(digitSequence.length() - 1));
+		if (generatedWords.size() == 0) {
+			generatedWords.add(baseWord + digitSequence.charAt(digitSequence.length() - 1));
 		}
 
-		return generatedSuggestions;
+		return generatedWords;
+	}
+
+
+	/**
+	 * generatePossibleStemVariations
+	 * Similar to generatePossibleCompletions(), but uses the current filter as a base word. This is
+	 * used to complement the database results with all possible variations for the next key, when
+	 * the stem filter is on.
+	 *
+	 * It will not generate anything if more than one key was pressed after filtering though.
+	 *
+	 * For example, if the filter is "extr", the current word is "extr_" and the user has pressed "1",
+	 * the database would have returned only "extra", but this function would also
+	 * generate: "extrb" and "extrc". This is useful for typing an unknown word, similar to the ones
+	 * in the dictionary.
+	 */
+	private ArrayList<String> generatePossibleStemVariations(Language language, ArrayList<String> currentSuggestions) {
+		ArrayList<String> variations = new ArrayList<>();
+		if (stem.length() == 0) {
+			return variations;
+		}
+
+		if (stem.length() == digitSequence.length() && !currentSuggestions.contains(stem)) {
+			variations.add(stem);
+		}
+
+		if (isStemFuzzy && stem.length() == digitSequence.length() - 1) {
+			for (String word : generatePossibleCompletions(language, stem)) {
+				if (!currentSuggestions.contains(word)) {
+					variations.add(word);
+				}
+			}
+		}
+
+		return variations;
 	}
 
 
@@ -264,6 +313,7 @@ public class ModePredictive extends InputMode {
 			Logger.e("tt9/ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
 	}
+
 
 	/**
 	 * getNextWordTextCase

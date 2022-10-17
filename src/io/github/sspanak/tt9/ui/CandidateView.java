@@ -178,8 +178,16 @@ public class CandidateView extends View {
 		invalidate();
 	}
 
+	public int getCurrentIndex() {
+		return mSelectedIndex;
+	}
+
 	public String getCurrentSuggestion() {
-		return mSuggestions != null && mSelectedIndex >= 0 && mSelectedIndex < mSuggestions.size() ? mSuggestions.get(mSelectedIndex) : "";
+		return getSuggestion(mSelectedIndex);
+	}
+
+	public String getSuggestion(int id) {
+		return mSuggestions != null && id >= 0 && id < mSuggestions.size() ? mSuggestions.get(id) : "";
 	}
 
 	public void setSuggestions(List<String> suggestions, int initialSel) {

@@ -27,7 +27,11 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// temporal key handling
 	private int ignoreNextKeyUp = 0;
+
 	private int lastKeyCode = 0;
+	private boolean isKeyRepeated = false;
+
+	private int lastNumKeyCode = 0;
 	private boolean isNumKeyRepeated = false;
 
 	// throttling
@@ -255,9 +259,12 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		isKeyRepeated = (lastKeyCode == keyCode);
+		lastKeyCode = keyCode;
+
 		if (isNumber(keyCode)) {
-			isNumKeyRepeated = (lastKeyCode == keyCode);
-			lastKeyCode = keyCode;
+			isNumKeyRepeated = (lastNumKeyCode == keyCode);
+			lastNumKeyCode = keyCode;
 		}
 
 //		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
@@ -298,7 +305,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight();
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(isKeyRepeated);
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
@@ -341,7 +348,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	protected void resetKeyRepeat() {
 		isNumKeyRepeated = false;
-		lastKeyCode = 0;
+		lastNumKeyCode = 0;
 	}
 
 
@@ -383,7 +390,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onUp();
 	abstract protected boolean onDown();
 	abstract protected boolean onLeft();
-	abstract protected boolean onRight();
+	abstract protected boolean onRight(boolean repeat);
 	abstract protected boolean onNumber(int key, boolean hold, boolean repeat);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();
