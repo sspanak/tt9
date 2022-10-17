@@ -31,7 +31,11 @@ public class ModeABC extends InputMode {
 
 
 	final public boolean isABC() { return true; }
+	public int getSequenceLength() { return 1; }
+
 	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) {	return hold || !repeat;	}
+	public boolean shouldTrackUpDown() { return true; }
+	public boolean shouldTrackLeftRight() { return true; }
 	public boolean shouldSelectNextSuggestion() {
 		return shouldSelectNextLetter;
 	}

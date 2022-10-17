@@ -186,7 +186,8 @@ abstract class KeyPadHandler extends InputMethodService {
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
 				|| (isNumber(keyCode) && shouldTrackNumPress())
-				|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackArrows())
+				|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
+				|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
 				|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
 		) {
 			return true;
@@ -296,6 +297,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_CENTER: return onOK();
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
+			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight();
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
@@ -370,7 +373,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 	// toggle handlers
-	abstract protected boolean shouldTrackArrows();
+	abstract protected boolean shouldTrackUpDown();
+	abstract protected boolean shouldTrackLeftRight();
 	abstract protected boolean shouldTrackNumPress();
 
 	// default hardware key handlers
@@ -378,6 +382,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract public boolean onOK();
 	abstract protected boolean onUp();
 	abstract protected boolean onDown();
+	abstract protected boolean onLeft();
+	abstract protected boolean onRight();
 	abstract protected boolean onNumber(int key, boolean hold, boolean repeat);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();

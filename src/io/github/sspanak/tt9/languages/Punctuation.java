@@ -12,8 +12,7 @@ public class Punctuation {
 		" ", "+", "\n"
 	));
 
-	final public static ArrayList<String> Emoticons = new ArrayList<>(Arrays.asList(
-		"👍", ":)", ":D", ";)", ":(", ":P"
+	final public static ArrayList<String> Emoji = new ArrayList<>(Arrays.asList(
+		"👍", "🙂", "😀", "😉", "🙁", "😢", "😛", "😬"
 	));
-
 }

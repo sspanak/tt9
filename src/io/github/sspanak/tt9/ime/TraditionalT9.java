@@ -37,7 +37,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	private SoftKeyHandler softKeyHandler = null;
 
 
-
 	public static Context getMainContext() {
 		return self.getApplicationContext();
 	}
@@ -75,6 +74,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart(EditorInfo inputField) {
+		determineNextTextCase();
+
 		// determine the valid state for the current input field and preferences
 		determineAllowedInputModes(inputField);
 		determineAllowedTextCases();
@@ -120,7 +121,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.onBackspace()) {
 			getSuggestions();
 		} else {
-			commitCurrentSuggestion();
+			commitCurrentSuggestion(false);
 			super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 
@@ -130,23 +131,47 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOK() {
-		Logger.d("onOK", "enter handler");
+		if (isSuggestionViewHidden() && currentInputConnection != null) {
+			return sendDefaultEditorAction(false);
+		}
 
-		acceptCurrentSuggestion();
+		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
+		commitCurrentSuggestion();
+		determineNextTextCase();
 		resetKeyRepeat();
-		mInputMode.reset();
 
-		return !isSuggestionViewHidden();
+		return true;
 	}
 
 
 	protected boolean onUp() {
 		return previousSuggestion();
 	}
-
-
 	protected boolean onDown() {
 		return nextSuggestion();
+	}
+
+	protected boolean onLeft() {
+		if (mInputMode.isStemFilterOn()) {
+			mInputMode.clearStemFilter();
+			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, getComposingText());
+		} else {
+			jumpBeforeComposingText();
+		}
+
+		return true;
+	}
+
+	protected boolean onRight() {
+		String filter = mSuggestionView.getCurrentSuggestion();
+
+		if (mInputMode.setStemFilter(mLanguage, filter)) {
+			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, filter);
+		} else if (filter.length() == 0) {
+			mInputMode.reset();
+		}
+
+		return true;
 	}
 
 	/**
@@ -159,7 +184,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected boolean onNumber(int key, boolean hold, boolean repeat) {
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat)) {
-			acceptCurrentSuggestion();
+			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
+			commitCurrentSuggestion(false);
+			determineNextTextCase();
+		} else if (!InputFieldHelper.isThereText(currentInputConnection)) {
+			// it would have been nice to determine the text case on every key press,
+			// but it is somewhat resource-intensive
+			determineNextTextCase();
 		}
 
 		if (!mInputMode.onNumber(mLanguage, key, hold, repeat)) {
@@ -172,7 +203,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mInputMode.getWord() != null) {
-			setText(mInputMode.getWord());
+			commitText(mInputMode.getWord());
 		} else {
 			getSuggestions();
 		}
@@ -182,13 +213,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onPound() {
-		setText("#");
+		commitText("#");
 		return true;
 	}
 
 
 	protected boolean onStar() {
-		setText("*");
+		commitText("*");
 		return true;
 	}
 
@@ -228,8 +259,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean shouldTrackArrows() {
-		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden();
+	protected boolean shouldTrackUpDown() {
+		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
+	}
+
+	protected boolean shouldTrackLeftRight() {
+		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
 	}
 
 
@@ -261,44 +296,17 @@ public class TraditionalT9 extends KeyPadHandler {
 		return true;
 	}
 
-	private void handleSuggestions(ArrayList<String> suggestions, int maxWordLength) {
-		setSuggestions(suggestions);
-
-		// Put the first suggestion in the text field,
-		// but cut it off to the length of the sequence (how many keys were pressed),
-		// for a more intuitive experience.
-		String word = mSuggestionView.getCurrentSuggestion();
-		word = word.substring(0, Math.min(maxWordLength, word.length()));
-		setComposingText(word);
-	}
-
-	private final Handler handleSuggestionsAsync = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			handleSuggestions(
-				msg.getData().getStringArrayList("suggestions"),
-				msg.getData().getInt("maxWordLength", 1000)
-			);
-		}
-	};
-
-
-	private void acceptCurrentSuggestion() {
-		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
-		commitCurrentSuggestion();
-	}
-
 
 	private void commitCurrentSuggestion() {
-		// commit the current suggestion to the input field
-		if (!isSuggestionViewHidden()) {
-			if (mSuggestionView.getCurrentSuggestion().equals(" ")) {
-				// finishComposingText() seems to ignore a single space,
-				// so we have to force commit it.
-				setText(" ");
-			} else {
-				currentInputConnection.finishComposingText();
+		commitCurrentSuggestion(true);
+	}
+
+	private void commitCurrentSuggestion(boolean entireSuggestion) {
+		if (!isSuggestionViewHidden() && currentInputConnection != null) {
+			if (entireSuggestion) {
+				setComposingTextFromCurrentSuggestion();
 			}
+			currentInputConnection.finishComposingText();
 		}
 
 		setSuggestions(null);
@@ -309,16 +317,38 @@ public class TraditionalT9 extends KeyPadHandler {
 		setSuggestions(null);
 
 		if (currentInputConnection != null) {
-			setComposingTextFromCurrentSuggestion();
+			setComposingText("");
 			currentInputConnection.finishComposingText();
 		}
 	}
 
+
 	private void getSuggestions() {
 		if (!mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
-			handleSuggestions(mInputMode.getSuggestions(), 1);
+			handleSuggestions(mInputMode.getSuggestions());
 		}
 	}
+
+
+	private void handleSuggestions(ArrayList<String> suggestions) {
+		setSuggestions(suggestions);
+
+		// Put the first suggestion in the text field,
+		// but cut it off to the length of the sequence (how many keys were pressed),
+		// for a more intuitive experience.
+		String word = mSuggestionView.getCurrentSuggestion();
+		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
+		setComposingText(word);
+	}
+
+
+	private final Handler handleSuggestionsAsync = new Handler(Looper.getMainLooper()) {
+		@Override
+		public void handleMessage(Message msg) {
+			handleSuggestions(msg.getData().getStringArrayList("suggestions"));
+		}
+	};
+
 
 	private void setSuggestions(List<String> suggestions) {
 		if (mSuggestionView == null) {
@@ -332,14 +362,35 @@ public class TraditionalT9 extends KeyPadHandler {
 		setCandidatesViewShown(show);
 	}
 
-	private void setText(String text) {
-		if (text != null) {
-			currentInputConnection.commitText(text, text.length());
+
+	private void commitText(String text) {
+		if (text != null && currentInputConnection != null) {
+			currentInputConnection.commitText(text, 1);
 		}
 	}
 
+
+	private String getComposingText() {
+		String text = mSuggestionView.getCurrentSuggestion();
+		if (text.length() > 0 && text.length() > mInputMode.getSequenceLength()) {
+			text = text.substring(0, mInputMode.getSequenceLength());
+		}
+
+		return text;
+	}
+
+
 	private void setComposingText(String text) {
-		currentInputConnection.setComposingText(text, 1);
+		if (text != null && currentInputConnection != null) {
+			currentInputConnection.setComposingText(text, 1);
+		}
+	}
+
+
+	private void setComposingTextFromCurrentSuggestion() {
+		if (!isSuggestionViewHidden()) {
+			setComposingText(mSuggestionView.getCurrentSuggestion());
+		}
 	}
 
 
@@ -356,7 +407,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mTextCase = allowedTextCases.get(modeIndex);
 
 			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
-			setComposingTextFromCurrentSuggestion();
+			setComposingText(getComposingText()); // no mistake, this forces the new text case
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode.isABC() && mTextCase == InputMode.CASE_LOWER) {
@@ -373,12 +424,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		prefs.saveTextCase(mTextCase);
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
-	}
-
-	private void setComposingTextFromCurrentSuggestion() {
-		if (!isSuggestionViewHidden()) {
-			setComposingText(mSuggestionView.getCurrentSuggestion());
-		}
 	}
 
 
@@ -400,6 +445,17 @@ public class TraditionalT9 extends KeyPadHandler {
 		prefs.saveInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
+	}
+
+
+	private void jumpBeforeComposingText() {
+		if (currentInputConnection != null) {
+			currentInputConnection.setComposingText(getComposingText(), 0);
+			currentInputConnection.finishComposingText();
+		}
+
+		setSuggestions(null);
+		mInputMode.reset();
 	}
 
 
@@ -431,8 +487,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private void determineNextTextCase() {
+		int nextTextCase = mInputMode.getNextWordTextCase(
+			mTextCase,
+			InputFieldHelper.isThereText(currentInputConnection),
+			(String) currentInputConnection.getTextBeforeCursor(50, 0)
+		);
+
+		mTextCase = nextTextCase != -1 ? nextTextCase : mTextCase;
+	}
+
+
 	private void showAddWord() {
-		acceptCurrentSuggestion();
+		currentInputConnection.finishComposingText();
 		clearSuggestions();
 
 		UI.showAddWordDialog(this, mLanguage.getId(), InputFieldHelper.getSurroundingWord(currentInputConnection));
@@ -453,7 +520,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		try {
 			Logger.d("restoreAddedWordIfAny", "Restoring word: '" + word + "'...");
-			setText(word);
+			commitText(word);
 			mInputMode.reset();
 		} catch (Exception e) {
 			Logger.w("tt9/restoreLastWord", "Could not restore the last added word. " + e.getMessage());

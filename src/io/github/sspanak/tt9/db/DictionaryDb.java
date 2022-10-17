@@ -72,15 +72,6 @@ public class DictionaryDb {
 	}
 
 
-	private static void sendSuggestions(Handler handler, ArrayList<String> data) {
-		Bundle bundle = new Bundle();
-		bundle.putStringArrayList("suggestions", data);
-		Message msg = new Message();
-		msg.setData(bundle);
-		handler.sendMessage(msg);
-	}
-
-
 	public static void truncateWords(Handler handler) {
 		new Thread() {
 			@Override
@@ -134,6 +125,8 @@ public class DictionaryDb {
 
 
 	public static void incrementWordFrequency(Language language, String word, String sequence) throws Exception {
+		Logger.d("incrementWordFrequency", "Incrementing priority of Word: " + word +" | Sequence: " + sequence);
+
 		if (language == null) {
 			throw new InvalidLanguageException();
 		}
@@ -146,18 +139,19 @@ public class DictionaryDb {
 		// If one of them is empty, then this is an invalid operation,
 		// because a digit sequence exist for every word.
 		if (word == null || word.length() == 0 || sequence == null || sequence.length() == 0) {
-			throw new Exception("Cannot increment word frequency. Word: '" + word + "', Sequence: '" + sequence + "'");
+			throw new Exception("Cannot increment word frequency. Word: " + word + " | Sequence: " + sequence);
 		}
 
 		new Thread() {
 			@Override
 			public void run() {
 				try {
-					getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+					Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
 				} catch (Exception e) {
 					Logger.e(
 						DictionaryDb.class.getName(),
-						"Failed incrementing word frequency. Word: '" + word + "', Sequence: '" + sequence + "'. " + e.getMessage()
+						"Failed incrementing word frequency. Word: " + word + " | Sequence: " + sequence + ". " + e.getMessage()
 					);
 				}
 			}
@@ -165,46 +159,93 @@ public class DictionaryDb {
 	}
 
 
-	public static void getSuggestions(Handler handler, Language language, String sequence, int minimumWords, int maximumWords) {
+	private static ArrayList<String> getSuggestionsExact(Language language, String sequence, String word, int maximumWords) {
+		long start = System.currentTimeMillis();
+		List<Word> exactMatches = getInstance().wordsDao().getMany(
+			language.getId(),
+			maximumWords,
+			sequence,
+			word == null || word.equals("") ? null : word
+		);
+		Logger.d(
+			"db.getSuggestionsExact",
+			"Exact matches: " + exactMatches.size() + ". Time: " + (System.currentTimeMillis() - start) + " ms"
+		);
+
+		ArrayList<String> suggestions = new ArrayList<>();
+		for (Word w : exactMatches) {
+			Logger.d("db.getSuggestions", "exact match: " + w.word + " | priority: " + w.frequency);
+			suggestions.add(w.word);
+		}
+
+		return suggestions;
+	}
+
+
+	private static ArrayList<String> getSuggestionsFuzzy(Language language, String sequence, String word, int maximumWords) {
+		long start = System.currentTimeMillis();
+		List<Word> extraWords = getInstance().wordsDao().getFuzzy(
+			language.getId(),
+			maximumWords,
+			sequence,
+			word == null || word.equals("") ? null : word
+		);
+		Logger.d(
+			"db.getSuggestionsFuzzy",
+			"Fuzzy matches: " + extraWords.size() + ". Time: " + (System.currentTimeMillis() - start) + " ms"
+		);
+
+		ArrayList<String> suggestions = new ArrayList<>();
+		for (Word w : extraWords) {
+			Logger.d(
+				"db.getSuggestions",
+				"fuzzy match: " + w.word + " | sequence: " + w.sequence + " | priority: " + w.frequency
+			);
+			suggestions.add(w.word);
+		}
+
+		return suggestions;
+	}
+
+
+	private static void sendSuggestions(Handler handler, ArrayList<String> data) {
+		Bundle bundle = new Bundle();
+		bundle.putStringArrayList("suggestions", data);
+		Message msg = new Message();
+		msg.setData(bundle);
+		handler.sendMessage(msg);
+	}
+
+
+	public static void getSuggestions(Handler handler, Language language, String sequence, String word, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
+
+		if (sequence == null || sequence.length() == 0) {
+			Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for an empty sequence.");
+			sendSuggestions(handler, new ArrayList<>());
+			return;
+		}
+
+		if (language == null) {
+			Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for NULL language.");
+			sendSuggestions(handler, new ArrayList<>());
+			return;
+		}
 
 		new Thread() {
 			@Override
 			public void run() {
-				if (sequence == null || sequence.length() == 0) {
-					Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for an empty sequence.");
-					sendSuggestions(handler, new ArrayList<>());
-					return;
-				}
-
-				if (language == null) {
-					Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for NULL language.");
-					sendSuggestions(handler, new ArrayList<>());
-					return;
-				}
-
 				// get exact sequence matches, for example: "9422" -> "what"
-				List<Word> exactMatches = getInstance().wordsDao().getMany(language.getId(), sequence, maxWords);
-				Logger.d("db.getSuggestions", "Exact matches: " + exactMatches.size());
+				ArrayList<String> suggestions = getSuggestionsExact(language, sequence, word, maxWords);
 
-				ArrayList<String> suggestions = new ArrayList<>();
-				for (Word word : exactMatches) {
-					Logger.d("db.getSuggestions", "exact match: " + word.word + ", priority: " + word.frequency);
-					suggestions.add(word.word);
-				}
 
 				// if the exact matches are too few, add some more words that start with the same characters,
-				// for example: "rol" => "roll", "roller", "rolling", ...
-				if (exactMatches.size() < minWords && sequence.length() >= 2) {
-					int extraWordsNeeded = minWords - exactMatches.size();
-					List<Word> extraWords = getInstance().wordsDao().getFuzzy(language.getId(), sequence, extraWordsNeeded);
-					Logger.d("db.getSuggestions", "Fuzzy matches: " + extraWords.size());
-
-					for (Word word : extraWords) {
-						Logger.d("db.getSuggestions", "fuzzy match: " + word.word + ", sequence: " + word.sequence);
-						suggestions.add(word.word);
-					}
+				// for example: "rol" -> "roll", "roller", "rolling", ...
+				if (suggestions.size() < minWords && sequence.length() >= 2) {
+					suggestions.addAll(
+						getSuggestionsFuzzy(language, sequence, word, minWords - suggestions.size())
+					);
 				}
 
 				if (suggestions.size() == 0) {
@@ -215,6 +256,5 @@ public class DictionaryDb {
 				sendSuggestions(handler, suggestions);
 			}
 		}.start();
-
 	}
 }

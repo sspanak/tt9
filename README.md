@@ -3,6 +3,9 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 
 This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
+## Using Traditional T9
+If you just wish to install and use TT9, see the [user manual](docs/user-manual.md). You don't need to read anything below this line.
+
 ## Building
 The recommended way of building is using Android Studio. As the of time of writing this, the current version is: Android Studio Dolphin | 2021.3.1.
 
@@ -52,9 +55,6 @@ To support a new language one needs to:
 - Add a new entry in `res/values/const.xml`. Make sure the new ID matches the one in the language class.
 - Add new entries in `res/values/arrays.xml`.
 - Add translations in `res/values/strings-your-lang`. The Android Studio translation editor is very handy.
-
-## Using the app
-See the [user manual](docs/user-manual.md).
 
 ## Word Lists
 Here is detailed information and licenses about the word lists used:
