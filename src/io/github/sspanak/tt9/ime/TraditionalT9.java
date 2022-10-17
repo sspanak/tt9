@@ -183,7 +183,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @return boolean
 	 */
 	protected boolean onNumber(int key, boolean hold, boolean repeat) {
-		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat)) {
+		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat)) {
 			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
 			commitCurrentSuggestion(false);
 			determineNextTextCase();

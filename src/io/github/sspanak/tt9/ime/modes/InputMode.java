@@ -83,6 +83,6 @@ abstract public class InputMode {
 	public boolean shouldTrackNumPress() { return true; }
 	public boolean shouldTrackUpDown() { return false; }
 	public boolean shouldTrackLeftRight() { return false; }
-	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) { return false; }
+	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 }

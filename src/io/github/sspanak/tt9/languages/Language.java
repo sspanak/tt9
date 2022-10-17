@@ -8,6 +8,7 @@ public class Language {
 	protected int id;
 	protected String name;
 	protected Locale locale;
+	protected boolean isPunctuationPartOfWords; // see the getter for more info
 	protected int icon;
 	protected String dictionaryFile;
 	protected int abcLowerCaseIcon;
@@ -29,6 +30,24 @@ public class Language {
 	final public int getIcon() {
 		return icon;
 	}
+
+	/**
+	 * isPunctuationPartOfWords
+	 * This plays a role in Predictive mode only.
+	 *
+	 * Return "true", if you need to use the 1-key for typing words, such as:
+	 * "it's" (English), "a'tje" (Dutch), "п'ят" (Ukrainian).
+	 *
+	 * Return "false" also:
+	 * 		- hide words like the above from the suggestions.
+	 *		- 1-key would commit the current word, then display the punctuation list.
+	 * 			For example, pressing 1-key after "it" would accept "it" as a separate word,
+	 * 			then display only: | , | . | ! | ? | ...
+	 *
+	 * "false" is recommended when apostrophes or other punctuation are not part of the words,
+	 * because it would allow faster typing.
+	 */
+	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
 	final public String getDictionaryFile() {
 		return dictionaryFile;
