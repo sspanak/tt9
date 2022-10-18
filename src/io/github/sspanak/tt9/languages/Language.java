@@ -70,7 +70,7 @@ public class Language {
 		return chars;
 	}
 
-	public String getDigitSequenceForWord(String word) throws Exception {
+	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {
 		StringBuilder sequence = new StringBuilder();
 		String lowerCaseWord = word.toLowerCase(locale);
 
@@ -83,9 +83,7 @@ public class Language {
 		}
 
 		if (word.length() != sequence.length()) {
-			throw new Exception(
-				"Failed generating digit sequence for word: '" + word + "'. Some characters are not supported in language: " + name
-			);
+			throw new InvalidLanguageCharactersException(this, "Failed generating digit sequence for word: '" + word);
 		}
 
 		return sequence.toString();

@@ -24,7 +24,6 @@ local.properties
 *.log
 
 #Other
-assets/dict.properties
 t9build.properties
 *.keystore
 

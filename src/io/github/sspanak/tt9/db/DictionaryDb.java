@@ -59,16 +59,8 @@ public class DictionaryDb {
 	}
 
 
-	public static void beginTransaction() {
-		getInstance().beginTransaction();
-	}
-
-
-	public static void endTransaction(boolean success) {
-		if (success) {
-			getInstance().setTransactionSuccessful();
-		}
-		getInstance().endTransaction();
+	public static void runInTransaction(Runnable r) {
+		getInstance().runInTransaction(r);
 	}
 
 

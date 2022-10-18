@@ -106,20 +106,47 @@ android {
 //	}
 }
 
-task getDictSizes {
+task validateDictionaries {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "t9build.properties"
 	doLast {
-		println "Calculating dict size..."
+		String errors = "";
 
 		inputs.getFiles().each {File file ->
-			println "dict: "+ file.name
-			ant.propertyfile(file:"assets/dict.properties") {
-				entry(key: "size."+ file.name, value: file.length())
+			println "Validating dictionary: " + file.name
+
+			def geographicalName = ~"[A-Z]\\w+-[^\\n]+"
+			def uniqueWords = [:]
+
+			int lineNumber = 0
+			file.eachLine {line ->
+				lineNumber++
+				if (line.matches("\\d")) {
+					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
+				}
+
+				if (line.matches("^\\P{L}+\$")) {
+					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + line + "' on line " + lineNumber + ".\n"
+				}
+
+				if (line.matches("^.\$")) {
+					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + line + "' on line " + lineNumber + ". Remove all single letters. The alphabet will be added automatically.\n"
+				}
+
+				String uniqueWordKey = line ==~ geographicalName ? line : line.toLowerCase()
+				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
+					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + line + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
+				} else {
+					uniqueWords[uniqueWordKey] = true
+				}
 			}
+		}
+
+		if (errors != "") {
+			throw new GradleException(errors)
 		}
 	}
 }
 
-preBuild.dependsOn getDictSizes
-preBuild.mustRunAfter getDictSizes
+preBuild.dependsOn validateDictionaries
+preBuild.mustRunAfter validateDictionaries
