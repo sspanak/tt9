@@ -18,6 +18,7 @@ public class LanguageCollection {
 			// Add languages here, to enable them in the UI and
 			// please, maintain the alphabetical order.
 			Bulgarian.class,
+			Dutch.class,
 			English.class,
 			French.class,
 			German.class,

@@ -8,6 +8,7 @@
 	<integer name="LANG_IT">5</integer>
 	<integer name="LANG_UK">6</integer>
 	<integer name="LANG_BG">7</integer>
+	<integer name="LANG_NL">8</integer>
 
 	<integer name="LANG_DEFAULT">@integer/LANG_EN</integer>
 </resources>
