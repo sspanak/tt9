@@ -34,8 +34,6 @@ class InputFieldHelper {
 		return (
 				variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
 				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-				|| variation == InputType.TYPE_TEXT_VARIATION_URI
 				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER
 		);
 	}
