@@ -105,16 +105,16 @@ public class ModePredictive extends InputMode {
 	 * In this mode, In addition to confirming the suggestion in the input field,
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
-	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) {
+	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) {
 		return
 			hold
 			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
 			|| key == 0
 			// Punctuation is considered "a word", so that we can increase the priority as needed
 			// Also, it must break the current word.
-			|| (key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
+			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
 			// On the other hand, letters also "break" punctuation.
-			|| (key != 1 && digitSequence.endsWith("1"));
+			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"));
 	}
 
 
