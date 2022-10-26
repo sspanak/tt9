@@ -10,14 +10,12 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 
 public class CandidateView extends View {
 
-	private List<String> mSuggestions;
+	private List<String> mSuggestions = new ArrayList<>();
 	protected int mSelectedIndex;
 
 	private Drawable mSelectionHighlight;
@@ -32,7 +30,7 @@ public class CandidateView extends View {
 
 	private static final int X_GAP = 10;
 
-	private static final List<String> EMPTY_LIST = new ArrayList<String>();
+	private static final List<String> EMPTY_LIST = new ArrayList<>();
 
 	private int mColorNormal;
 	private int mColorRecommended;
@@ -47,8 +45,6 @@ public class CandidateView extends View {
 
 	/**
 	 * Construct a CandidateView for showing suggested words for completion.
-	 *
-	 * @param context
 	 */
 	public CandidateView(Context context) {
 		super(context);
@@ -202,23 +198,6 @@ public class CandidateView extends View {
 		// onDraw(null);
 		invalidate();
 		requestLayout();
-	}
-
-	public void changeCase(int textCase, Locale locale) {
-		ArrayList<String> newSuggestions = new ArrayList<>();
-
-		for (String s : mSuggestions) {
-			if (textCase == InputMode.CASE_LOWER) {
-				newSuggestions.add(s.toLowerCase(locale));
-			} else if (textCase == InputMode.CASE_CAPITALIZE) {
-				String cs = s.substring(0, 1).toUpperCase(locale) + s.substring(1).toLowerCase(locale);
-				newSuggestions.add(cs);
-			} else {
-				newSuggestions.add(s.toUpperCase(locale));
-			}
-		}
-
-		setSuggestions(newSuggestions, mSelectedIndex);
 	}
 
 	protected void clear() {

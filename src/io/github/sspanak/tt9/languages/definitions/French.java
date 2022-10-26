@@ -14,6 +14,7 @@ public class French extends English {
 		locale = Locale.FRENCH;
 		dictionaryFile = "fr-utf8.txt";
 		icon = R.drawable.ime_lang_fr;
+
 		isPunctuationPartOfWords = false;
 
 		characterMap.get(2).addAll(Arrays.asList("à", "â", "æ", "ç"));

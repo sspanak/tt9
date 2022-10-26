@@ -35,9 +35,9 @@ public class UI {
 	 * Set the status icon that is appropriate in current mode (based on
 	 * openwmm-legacy)
 	 */
-	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, InputMode inputMode, int textCase) {
+	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, InputMode inputMode) {
 		if (inputMode.isABC()) {
-			tt9.showStatusIcon(inputLanguage.getAbcIcon(textCase == InputMode.CASE_LOWER));
+			tt9.showStatusIcon(inputLanguage.getAbcIcon(inputMode.getTextCase() == InputMode.CASE_LOWER));
 		} else if (inputMode.isPredictive()) {
 			tt9.showStatusIcon(inputLanguage.getIcon());
 		} else if (inputMode.is123()) {

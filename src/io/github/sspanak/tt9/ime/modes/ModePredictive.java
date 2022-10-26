@@ -5,7 +5,6 @@ import android.os.Looper;
 import android.os.Message;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
@@ -29,11 +28,14 @@ public class ModePredictive extends InputMode {
 	private String lastInputFieldWord = "";
 	private static Handler handleSuggestionsExternal;
 
+	// auto text case selection
+	private final Pattern endOfSentence = Pattern.compile("(?<!\\.)[.?!]\\s*$");
+
 
 	ModePredictive() {
-		allowedTextCases.add(CASE_UPPER);
-		allowedTextCases.add(CASE_CAPITALIZE);
 		allowedTextCases.add(CASE_LOWER);
+		allowedTextCases.add(CASE_CAPITALIZE);
+		allowedTextCases.add(CASE_UPPER);
 	}
 
 
@@ -86,16 +88,6 @@ public class ModePredictive extends InputMode {
 		digitSequence = "";
 		stem = "";
 	}
-
-
-	final public boolean isPredictive() {
-		return true;
-	}
-
-	public int getSequenceLength() { return isEmoji ? 2 : digitSequence.length(); }
-
-	public boolean shouldTrackUpDown() { return true; }
-	public boolean shouldTrackLeftRight() { return true; }
 
 
 	/**
@@ -166,20 +158,21 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * getSuggestionsAsync
+	 * loadSuggestions
 	 * Queries the dictionary database for a list of suggestions matching the current language and
 	 * sequence. Returns "false" when there is nothing to do.
 	 *
 	 * "lastWord" is used for generating suggestions when there are no results.
 	 * See: generatePossibleCompletions()
 	 */
-	public boolean getSuggestionsAsync(Handler handler, Language language, String lastWord) {
+	public boolean loadSuggestions(Handler handler, Language language, String lastWord) {
 		if (isEmoji) {
-			super.sendSuggestions(handler, suggestions);
+			super.onSuggestionsUpdated(handler);
 			return true;
 		}
 
 		if (digitSequence.length() == 0) {
+			suggestions.clear();
 			return false;
 		}
 
@@ -209,17 +202,19 @@ public class ModePredictive extends InputMode {
 	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
 		@Override
 		public void handleMessage(Message msg) {
-			ArrayList<String> suggestions = msg.getData().getStringArrayList("suggestions");
-			suggestions = suggestions == null ? new ArrayList<>() : suggestions;
+			ArrayList<String> dbSuggestions = msg.getData().getStringArrayList("suggestions");
+			dbSuggestions = dbSuggestions == null ? new ArrayList<>() : dbSuggestions;
 
-			if (suggestions.size() == 0 && digitSequence.length() > 0) {
-				suggestions = generatePossibleCompletions(currentLanguage, lastInputFieldWord);
+			if (dbSuggestions.size() == 0 && digitSequence.length() > 0) {
+				dbSuggestions = generatePossibleCompletions(currentLanguage, lastInputFieldWord);
 			}
 
-			ArrayList<String> stemVariations = generatePossibleStemVariations(currentLanguage, suggestions);
-			stemVariations.addAll(suggestions);
+			suggestions.clear();
+			suggestStem();
+			suggestions.addAll(generatePossibleStemVariations(currentLanguage, dbSuggestions));
+			suggestMoreWords(dbSuggestions);
 
-			ModePredictive.super.sendSuggestions(handleSuggestionsExternal, stemVariations);
+			ModePredictive.super.onSuggestionsUpdated(handleSuggestionsExternal);
 		}
 	};
 
@@ -269,28 +264,58 @@ public class ModePredictive extends InputMode {
 	 *
 	 * For example, if the filter is "extr", the current word is "extr_" and the user has pressed "1",
 	 * the database would have returned only "extra", but this function would also
-	 * generate: "extrb" and "extrc". This is useful for typing an unknown word, similar to the ones
-	 * in the dictionary.
+	 * generate: "extrb" and "extrc". This is useful for typing an unknown word, that is similar to
+	 * the ones in the dictionary.
 	 */
-	private ArrayList<String> generatePossibleStemVariations(Language language, ArrayList<String> currentSuggestions) {
+	private ArrayList<String> generatePossibleStemVariations(Language language, ArrayList<String> dbSuggestions) {
 		ArrayList<String> variations = new ArrayList<>();
 		if (stem.length() == 0) {
 			return variations;
 		}
 
-		if (stem.length() == digitSequence.length() && !currentSuggestions.contains(stem)) {
-			variations.add(stem);
-		}
-
 		if (isStemFuzzy && stem.length() == digitSequence.length() - 1) {
-			for (String word : generatePossibleCompletions(language, stem)) {
-				if (!currentSuggestions.contains(word)) {
+			ArrayList<String> allPossibleVariations = generatePossibleCompletions(language, stem);
+
+			// first add the known words, because it makes more sense to see them first
+			for (String word : allPossibleVariations) {
+				if (dbSuggestions.contains(word)) {
+					variations.add(word);
+				}
+			}
+
+			// then add the unknown ones, so they can be used as possible beginnings of new words.
+			for (String word : allPossibleVariations) {
+				if (!dbSuggestions.contains(word)) {
 					variations.add(word);
 				}
 			}
 		}
 
 		return variations;
+	}
+
+	/**
+	 * suggestStem
+	 * Add the current stem filter to the suggestion list, when it has length of X and
+	 * the user has pressed X keys.
+	 */
+	public void suggestStem() {
+		if (stem.length() > 0 && stem.length() == digitSequence.length()) {
+			suggestions.add(stem);
+		}
+	}
+
+
+	/**
+	 * suggestMoreWords
+	 * Takes a list of words and appends them to the suggestion list, if they are missing.
+	 */
+	public void suggestMoreWords(ArrayList<String> newSuggestions) {
+		for (String word : newSuggestions) {
+			if (!suggestions.contains(word)) {
+				suggestions.add(word);
+			}
+		}
 	}
 
 
@@ -316,28 +341,61 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * getNextWordTextCase
-	 * Dynamically determine text case of words as the user types to reduce key presses.
+	 * adjustSuggestionTextCase
+	 * In addition to uppercase/lowercase, here we use the result from determineNextWordTextCase(),
+	 * to conveniently start sentences with capitals or whatnot.
+	 *
+	 * Also, by default we preserve any  mixed case words in the dictionary,
+	 * for example: "dB", "Mb", proper names, German nouns, that always start with a capital,
+	 * or Dutch words such as: "'s-Hertogenbosch".
+	 */
+	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
+		switch (newTextCase) {
+			case CASE_UPPER:
+				return word.toUpperCase(language.getLocale());
+			case CASE_LOWER:
+				return word.toLowerCase(language.getLocale());
+			case CASE_CAPITALIZE:
+				return language.isMixedCaseWord(word) ? word : language.capitalize(word);
+			case CASE_DICTIONARY:
+				return language.isMixedCaseWord(word) ? word : word.toLowerCase(language.getLocale());
+			default:
+				return word;
+		}
+	}
+
+
+	/**
+	 * determineNextWordTextCase
+	 * Dynamically determine text case of words as the user types, to reduce key presses.
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int getNextWordTextCase(int currentTextCase, boolean isThereText, String textBeforeCursor) {
+	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
 		// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
-		if (currentTextCase == CASE_UPPER) {
-			return -1;
+		if (textCase == CASE_UPPER) {
+			return;
 		}
 
 		// start of text
 		if (!isThereText) {
-			return CASE_CAPITALIZE;
+			textCase = CASE_CAPITALIZE;
+			return;
 		}
 
 		// start of sentence, excluding after "..."
-		Matcher endOfSentenceMatch = Pattern.compile("(?<!\\.)[.?!]\\s*$").matcher(textBeforeCursor);
-		if (endOfSentenceMatch.find()) {
-			return CASE_CAPITALIZE;
+		if (endOfSentence.matcher(textBeforeCursor).find()) {
+			textCase = CASE_CAPITALIZE;
+			return;
 		}
 
-		return CASE_LOWER;
+		textCase = CASE_DICTIONARY;
 	}
+
+
+	final public boolean isPredictive() { return true; }
+	public int getSequenceLength() { return isEmoji ? 2 : digitSequence.length(); }
+	public boolean shouldTrackUpDown() { return true; }
+	public boolean shouldTrackLeftRight() { return true; }
+
 }

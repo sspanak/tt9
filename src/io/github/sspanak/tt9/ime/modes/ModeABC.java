@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.languages.Language;
 
 public class ModeABC extends InputMode {
@@ -19,14 +21,19 @@ public class ModeABC extends InputMode {
 		word = null;
 
 		if (hold) {
-			suggestions = null;
+			suggestions = new ArrayList<>();
 			word = String.valueOf(key);
 		} else if (repeat) {
-			suggestions = null;
+			suggestions = new ArrayList<>();
 			shouldSelectNextLetter = true;
 		}
 
 		return true;
+	}
+
+
+	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
+		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
 	}
 
 

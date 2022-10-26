@@ -13,6 +13,7 @@ public class German extends English {
 		locale = Locale.GERMAN;
 		dictionaryFile = "de-utf8.txt";
 		icon = R.drawable.ime_lang_de;
+
 		isPunctuationPartOfWords = false;
 
 		characterMap.get(2).add("ä");
