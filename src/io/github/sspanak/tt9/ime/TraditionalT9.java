@@ -163,7 +163,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onLeft() {
 		if (mInputMode.clearWordStem()) {
-			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, getComposingText());
+			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, getComposingText());
 		} else {
 			jumpBeforeComposingText();
 		}
@@ -175,7 +175,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
 
 		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
-			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, filter);
+			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, filter);
 		} else if (filter.length() == 0) {
 			mInputMode.reset();
 		}
@@ -333,14 +333,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
-			handleSuggestions(mInputMode.getSuggestions());
+		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
+			handleSuggestions();
 		}
 	}
 
 
-	private void handleSuggestions(ArrayList<String> suggestions) {
-		setSuggestions(suggestions);
+	private void handleSuggestions() {
+		setSuggestions(mInputMode.getSuggestions(mTextCase, mLanguage));
 
 		// Put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
@@ -353,21 +353,24 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private final Handler handleSuggestionsAsync = new Handler(Looper.getMainLooper()) {
 		@Override
-		public void handleMessage(Message msg) {
-			handleSuggestions(msg.getData().getStringArrayList("suggestions"));
+		public void handleMessage(Message m) {
+			handleSuggestions();
 		}
 	};
 
 
 	private void setSuggestions(List<String> suggestions) {
+		setSuggestions(suggestions, 0);
+	}
+
+	private void setSuggestions(List<String> suggestions, int selectedIndex) {
 		if (mSuggestionView == null) {
 			return;
 		}
 
 		boolean show = suggestions != null && suggestions.size() > 0;
 
-		mSuggestionView.setSuggestions(suggestions, 0);
-		mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
+		mSuggestionView.setSuggestions(suggestions, selectedIndex);
 		setCandidatesViewShown(show);
 	}
 
@@ -415,7 +418,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			int modeIndex = (allowedTextCases.indexOf(mTextCase) + 1) % allowedTextCases.size();
 			mTextCase = allowedTextCases.get(modeIndex);
 
-			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
+			setSuggestions(mInputMode.getSuggestions(mTextCase, mLanguage), mSuggestionView.getCurrentIndex());
 			setComposingText(getComposingText()); // no mistake, this forces the new text case
 		}
 		// make "abc" and "ABC" separate modes from user perspective
@@ -498,6 +501,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void determineNextTextCase() {
 		int nextTextCase = mInputMode.getNextWordTextCase(
+			mLanguage,
 			mTextCase,
 			InputFieldHelper.isThereText(currentInputConnection),
 			(String) currentInputConnection.getTextBeforeCursor(50, 0)

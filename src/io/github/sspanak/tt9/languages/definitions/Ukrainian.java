@@ -14,10 +14,11 @@ public class Ukrainian extends Language {
 		name = "українська";
 		locale = new Locale("uk","UA");
 		dictionaryFile = "uk-utf8.txt";
-		isPunctuationPartOfWords = true;
 		icon = R.drawable.ime_lang_uk;
 		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
+
+		isPunctuationPartOfWords = true;
 
 		characterMap = new ArrayList<>(Arrays.asList(
 			Punctuation.Secondary, // 0

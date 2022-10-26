@@ -30,6 +30,11 @@ public class ModeABC extends InputMode {
 	}
 
 
+	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
+		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+	}
+
+
 	final public boolean isABC() { return true; }
 	public int getSequenceLength() { return 1; }
 

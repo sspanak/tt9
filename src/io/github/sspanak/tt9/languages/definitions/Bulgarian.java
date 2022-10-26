@@ -14,10 +14,11 @@ public class Bulgarian extends Language {
 		name = "български";
 		locale = new Locale("bg","BG");
 		dictionaryFile = "bg-utf8.txt";
-		isPunctuationPartOfWords = false;
 		icon = R.drawable.ime_lang_bg;
 		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
+
+		isPunctuationPartOfWords = false;
 
 		characterMap = new ArrayList<>(Arrays.asList(
 			Punctuation.Secondary, // 0

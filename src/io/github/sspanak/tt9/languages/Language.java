@@ -8,12 +8,14 @@ public class Language {
 	protected int id;
 	protected String name;
 	protected Locale locale;
-	protected boolean isPunctuationPartOfWords; // see the getter for more info
 	protected int icon;
 	protected String dictionaryFile;
 	protected int abcLowerCaseIcon;
 	protected int abcUpperCaseIcon;
 	protected ArrayList<ArrayList<String>> characterMap = new ArrayList<>();
+
+	// settings
+	protected boolean isPunctuationPartOfWords; // see the getter for more info
 
 	final public int getId() {
 		return id;
@@ -30,6 +32,15 @@ public class Language {
 	final public int getIcon() {
 		return icon;
 	}
+
+	final public String getDictionaryFile() {
+		return dictionaryFile;
+	}
+
+	final public int getAbcIcon(boolean lowerCase) {
+		return lowerCase ? abcLowerCaseIcon : abcUpperCaseIcon;
+	}
+
 
 	/**
 	 * isPunctuationPartOfWords
@@ -49,12 +60,15 @@ public class Language {
 	 */
 	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
-	final public String getDictionaryFile() {
-		return dictionaryFile;
+
+	/************* utility *************/
+
+	public String capitalize(String word) {
+		return word != null ? word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale) : null;
 	}
 
-	final public int getAbcIcon(boolean lowerCase) {
-		return lowerCase ? abcLowerCaseIcon : abcUpperCaseIcon;
+	public boolean isMixedCaseWord(String word) {
+		return word != null && !word.toLowerCase(locale).equals(word) && !word.toUpperCase(locale).equals(word);
 	}
 
 	public ArrayList<String> getKeyCharacters(int key) {
