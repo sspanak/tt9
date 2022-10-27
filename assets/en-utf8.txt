@@ -25,7 +25,6 @@ ma
 md
 mi
 mo
-ms
 may
 mr
 mrs
@@ -145,7 +144,6 @@ cow
 cox
 coy
 cry
-cs
 cub
 cue
 cum
@@ -236,7 +234,6 @@ gin
 gnu
 go
 gob
-god
 goo
 got
 gum
@@ -278,7 +275,6 @@ hum
 hut
 ice
 icy
-id
 if
 ifs
 ilk
@@ -336,14 +332,12 @@ lot
 low
 lug
 lye
-ma
 mad
 man
 map
 mar
 mas
 mat
-may
 me
 men
 mes
@@ -356,7 +350,6 @@ mom
 moo
 mop
 mow
-ms
 mu
 mud
 mug
@@ -396,7 +389,6 @@ old
 on
 one
 opt
-or
 ore
 our
 out
@@ -405,7 +397,6 @@ owe
 owl
 own
 ox
-pa
 pad
 pal
 pan

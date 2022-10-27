@@ -2,9 +2,9 @@ package io.github.sspanak.tt9.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.preference.PreferenceManager;
-
 import android.view.KeyEvent;
+
+import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,10 +23,12 @@ public class T9Preferences {
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
 
+
 	public T9Preferences (Context context) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
 	}
+
 
 	public static T9Preferences getInstance() {
 		if (self == null) {
@@ -36,7 +38,8 @@ public class T9Preferences {
 		return self;
 	}
 
-	/************* VALIDATORS *************/
+
+	/************* validators *************/
 
 	private boolean doesLanguageExist(int langId) {
 		return LanguageCollection.getLanguage(langId) != null;
@@ -70,7 +73,7 @@ public class T9Preferences {
 	}
 
 
-	/************* PREFERENCES OPERATIONS *************/
+	/************* input settings *************/
 
 	public ArrayList<Integer> getEnabledLanguages() {
 		int languageMask = prefs.getInt("pref_enabled_languages", 1);
@@ -100,6 +103,7 @@ public class T9Preferences {
 		prefsEditor.putInt("pref_enabled_languages", languageMask);
 		prefsEditor.apply();
 	}
+
 
 	public int getTextCase() {
 		return prefs.getInt("pref_text_case", InputMode.CASE_LOWER);
@@ -131,6 +135,7 @@ public class T9Preferences {
 		}
 	}
 
+
 	public int getInputMode() {
 		return prefs.getInt("pref_input_mode", InputMode.MODE_PREDICTIVE);
 	}
@@ -146,18 +151,24 @@ public class T9Preferences {
 	}
 
 
+	/************* hotkey settings *************/
+
 	public int getKeyBackspace() {
 		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_BACK);
 	}
-
 	public int getKeyInputMode() { return prefs.getInt("pref_key_input_mode", KeyEvent.KEYCODE_POUND); }
-
 	public int getKeyOtherActions() { return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR); }
 
 
-	public int getSuggestionsMin() { return 8; }
-	public int getSuggestionsMax() { return 20; }
+	/************* internal settings *************/
 
+	public int getDictionaryImportProgressUpdateInterval() { return 100; /* ms */ }
+	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
+	public int getSuggestionsMax() { return 20; }
+	public int getSuggestionsMin() { return 8; }
+
+
+	/************* add word, last word *************/
 
 	public String getLastWord() {
 		return prefs.getString("last_word", "");
@@ -173,5 +184,4 @@ public class T9Preferences {
 	public void clearLastWord() {
 		this.saveLastWord("");
 	}
-
 }

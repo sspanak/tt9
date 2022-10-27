@@ -17,9 +17,11 @@
 	<string name="pref_loaduserdict">Зареди свой речник</string>
 	<string name="pref_truncatedict">Изтрий речник</string>
 
-	<string name="dictionary_loading">Зареждане на речник…</string>
+	<string name="dictionary_import_bad_char">Неуспешно зареждане. Невалидна дума \"%1$s\" на ред %2$d за език \"%3$s\".</string>
+	<string name="dictionary_import_error">Несупешно зареждане на речник за език \"%1$s\" (%2$s).</string>
+	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Зареждане на вашия речник…</string>
-	<string name="dictionary_load_title">Зареди речник</string>
-	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за %1$s.</string>
+	<string name="dictionary_load_title">Зареждане на речник</string>
+	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за \"%1$s\".</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно</string>
 </resources>

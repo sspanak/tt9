@@ -1707,7 +1707,6 @@ Courmayeur
 Cremona
 Cristina
 Cristoforo
-DOS
 DVI
 Daniele
 Dante
@@ -1740,7 +1739,6 @@ Euripide
 Europa
 Eusebio
 Eva
-FAQ
 FSF
 Fabio
 Faenza
@@ -102310,7 +102308,6 @@ tosavano
 tosavate
 tosavi
 tosavo
-toscana
 toscane
 toscani
 toscano

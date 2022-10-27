@@ -14,11 +14,11 @@
 	<string name="pref_choose_languages">Le lingue</string>
 	<string name="pref_loaddict">Carica dizionario</string>
 	<string name="pref_loaduserdict">Carica dizionario utente</string>
+	<string name="pref_truncatedict">Eliminare il dizionario</string>
 
-	<string name="dictionary_loading">Caricamento dizionario…</string>
+	<string name="dictionary_loading">Caricamento dizionario (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Caricamento dizionario utente…</string>
 	<string name="dictionary_load_title">Caricamento dizionario</string>
-	<string name="dictionary_not_found">Impossibile caricare. Dizionario per %1$s non trovato.</string>
-    <string name="pref_truncatedict">Eliminare il dizionario</string>
+	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 </resources>
 
