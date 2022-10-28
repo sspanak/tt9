@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.ui.SuggestionsView;
 import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
@@ -31,6 +32,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
+	private SuggestionsView mSuggestionView = null;
 
 
 	public static Context getMainContext() {
@@ -57,6 +59,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (softKeyHandler == null) {
 			softKeyHandler = new SoftKeyHandler(getLayoutInflater(), this);
+		}
+
+		if (mSuggestionView == null) {
+			mSuggestionView = new SuggestionsView(softKeyHandler.getView());
 		}
 
 		loadPreferences();
