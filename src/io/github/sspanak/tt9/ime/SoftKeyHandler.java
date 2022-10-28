@@ -5,17 +5,20 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ui.SuggestionsView;
 import io.github.sspanak.tt9.ui.UI;
 
 class SoftKeyHandler implements View.OnTouchListener {
-	private static final int[] buttons = { R.id.main_left, R.id.main_right, R.id.main_mid };
+	private static final int[] buttons = { R.id.main_left, R.id.main_right };
 	private final TraditionalT9 tt9;
 	private View view = null;
+	public SuggestionsView suggestionsView;
 
 		public SoftKeyHandler(LayoutInflater layoutInflater, TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
 		createView(layoutInflater);
+		createSuggestionsView();
 	}
 
 
@@ -29,6 +32,13 @@ class SoftKeyHandler implements View.OnTouchListener {
 		}
 
 		return view;
+	}
+
+
+	void createSuggestionsView() {
+		if (suggestionsView == null) {
+			suggestionsView = new SuggestionsView(view);
+		}
 	}
 
 
@@ -53,11 +63,6 @@ class SoftKeyHandler implements View.OnTouchListener {
 
 		if (buttonId == R.id.main_left && action == MotionEvent.ACTION_UP) {
 			UI.showPreferencesScreen(tt9);
-			return view.performClick();
-		}
-
-		if (buttonId == R.id.main_mid && action == MotionEvent.ACTION_UP) {
-			tt9.onOK();
 			return view.performClick();
 		}
 

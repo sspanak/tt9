@@ -135,7 +135,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return sendDefaultEditorAction(false);
 		}
 
-		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
+		mInputMode.onAcceptSuggestion(mLanguage, softKeyHandler.suggestionsView.getCurrentSuggestion());
 		commitCurrentSuggestion();
 		determineNextTextCase();
 		resetKeyRepeat();
@@ -146,7 +146,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onUp() {
 		if (previousSuggestion()) {
-			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			mInputMode.setWordStem(mLanguage, softKeyHandler.suggestionsView.getCurrentSuggestion(), true);
 			return true;
 		}
 
@@ -154,7 +154,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 	protected boolean onDown() {
 		if (nextSuggestion()) {
-			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			mInputMode.setWordStem(mLanguage, softKeyHandler.suggestionsView.getCurrentSuggestion(), true);
 			return true;
 		}
 
@@ -172,7 +172,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	protected boolean onRight(boolean repeat) {
-		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
+		String filter = repeat ? softKeyHandler.suggestionsView.getSuggestion(1) : getComposingText();
 
 		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
 			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, filter);
@@ -278,7 +278,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean isSuggestionViewHidden() {
-		return mSuggestionView == null || !mSuggestionView.isShown();
+		return softKeyHandler.suggestionsView == null || !softKeyHandler.suggestionsView.isShown();
 	}
 
 
@@ -287,7 +287,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		mSuggestionView.scrollToSuggestion(-1);
+		softKeyHandler.suggestionsView.scrollToSuggestion(-1);
 		setComposingTextFromCurrentSuggestion();
 
 		return true;
@@ -299,7 +299,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		mSuggestionView.scrollToSuggestion(1);
+		softKeyHandler.suggestionsView.scrollToSuggestion(1);
 		setComposingTextFromCurrentSuggestion();
 
 		return true;
@@ -333,7 +333,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
+		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, softKeyHandler.suggestionsView.getCurrentSuggestion())) {
 			handleSuggestions();
 		}
 	}
@@ -345,7 +345,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
-		String word = mSuggestionView.getCurrentSuggestion();
+		String word = softKeyHandler.suggestionsView.getCurrentSuggestion();
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
 		setComposingText(word);
 	}
@@ -364,13 +364,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void setSuggestions(List<String> suggestions, int selectedIndex) {
-		if (mSuggestionView == null) {
+		if (softKeyHandler.suggestionsView == null) {
 			return;
 		}
 
 		boolean show = suggestions != null && suggestions.size() > 0;
 
-		mSuggestionView.setSuggestions(suggestions, selectedIndex);
+		softKeyHandler.suggestionsView.setSuggestions(suggestions, selectedIndex);
 		setCandidatesViewShown(show);
 	}
 
@@ -383,7 +383,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private String getComposingText() {
-		String text = mSuggestionView.getCurrentSuggestion();
+		String text = softKeyHandler.suggestionsView.getCurrentSuggestion();
 		if (text.length() > 0 && text.length() > mInputMode.getSequenceLength()) {
 			text = text.substring(0, mInputMode.getSequenceLength());
 		}
@@ -401,7 +401,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void setComposingTextFromCurrentSuggestion() {
 		if (!isSuggestionViewHidden()) {
-			setComposingText(mSuggestionView.getCurrentSuggestion());
+			setComposingText(softKeyHandler.suggestionsView.getCurrentSuggestion());
 		}
 	}
 
@@ -418,7 +418,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			int modeIndex = (allowedTextCases.indexOf(mTextCase) + 1) % allowedTextCases.size();
 			mTextCase = allowedTextCases.get(modeIndex);
 
-			setSuggestions(mInputMode.getSuggestions(mTextCase, mLanguage), mSuggestionView.getCurrentIndex());
+			setSuggestions(mInputMode.getSuggestions(mTextCase, mLanguage), softKeyHandler.suggestionsView.getCurrentIndex());
 			setComposingText(getComposingText()); // no mistake, this forces the new text case
 		}
 		// make "abc" and "ABC" separate modes from user perspective
