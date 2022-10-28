@@ -1,61 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="48dp"
-	android:layout_marginLeft="0dp"
-	android:layout_marginTop="0dp"
-	android:layout_marginRight="0dp"
-	android:background="@drawable/bggradient"
-	android:baselineAligned="true"
-	android:gravity="bottom"
-	android:orientation="horizontal">
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
 
-	<Button
-		android:id="@+id/main_left"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_marginLeft="1px"
-		android:layout_marginRight="1px"
-		android:layout_weight="3"
-		android:background="@drawable/button_custom"
-		android:clickable="true"
-		android:focusable="false"
-		android:longClickable="true"
-		android:text="⚙"
-		android:textColor="@color/button_text"
-		android:textSize="24sp" />
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/main_suggestions_list"
+		android:layout_width="fill_parent"
+		android:layout_height="@dimen/candidate_list_height"
+		android:orientation="horizontal"
+		android:scrollbars="none"
+		android:background="@color/candidate_background" />
 
+	<LinearLayout
+		android:id="@+id/softkey_view"
+		android:layout_width="match_parent"
+		android:layout_height="48dp"
+		android:background="@drawable/bggradient"
+		android:baselineAligned="true"
+		android:orientation="horizontal">
 
-	<Button
-		android:id="@+id/main_mid"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_marginLeft="1px"
-		android:layout_marginRight="1px"
-		android:layout_weight="5"
-		android:background="@drawable/button_custom"
-		android:clickable="true"
-		android:focusable="false"
-		android:longClickable="true"
-		android:paddingLeft="2dp"
-		android:paddingRight="2dp"
-		android:text="@string/soft_key_mid"
-		android:textColor="@color/button_text" />
+		<Button
+			android:id="@+id/main_left"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="1px"
+			android:layout_marginRight="1px"
+			android:layout_weight="3"
+			android:background="@drawable/button_custom"
+			android:clickable="true"
+			android:focusable="false"
+			android:longClickable="true"
+			android:text="⚙"
+			android:textColor="@color/button_text"
+			android:textSize="24sp" />
 
 
-	<Button
-		android:id="@+id/main_right"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_marginLeft="1px"
-		android:layout_marginRight="1px"
-		android:layout_weight="3"
-		android:background="@drawable/button_custom"
-		android:clickable="true"
-		android:focusable="false"
-		android:longClickable="true"
-		android:text="⌫"
-		android:textColor="@color/button_text"
-		android:textSize="24sp" />
+		<Button
+			android:id="@+id/main_mid"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="1px"
+			android:layout_marginRight="1px"
+			android:layout_weight="5"
+			android:background="@drawable/button_custom"
+			android:clickable="true"
+			android:focusable="false"
+			android:longClickable="true"
+			android:paddingLeft="2dp"
+			android:paddingRight="2dp"
+			android:text="@string/soft_key_mid"
+			android:textColor="@color/button_text" />
 
+
+		<Button
+			android:id="@+id/main_right"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="1px"
+			android:layout_marginRight="1px"
+			android:layout_weight="3"
+			android:background="@drawable/button_custom"
+			android:clickable="true"
+			android:focusable="false"
+			android:longClickable="true"
+			android:text="⌫"
+			android:textColor="@color/button_text"
+			android:textSize="24sp" />
+
+	</LinearLayout>
 </LinearLayout>

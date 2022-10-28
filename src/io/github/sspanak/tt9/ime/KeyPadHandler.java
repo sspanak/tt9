@@ -8,13 +8,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.preferences.T9Preferences;
-import io.github.sspanak.tt9.ui.CandidateView;
 
 
 abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
 
-	protected CandidateView mSuggestionView;
 	protected T9Preferences prefs;
 
 	// editing mode
@@ -74,19 +72,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public View onCreateInputView() {
 		return createSoftKeyView();
-	}
-
-
-	/**
-	 * Called by the framework when your view for showing candidates needs to be
-	 * generated, like {@link #onCreateInputView}.
-	 */
-	@Override
-	public View onCreateCandidatesView() {
-		if (mSuggestionView == null) {
-			mSuggestionView = new CandidateView(this);
-		}
-		return mSuggestionView;
 	}
 
 

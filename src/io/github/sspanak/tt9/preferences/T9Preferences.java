@@ -167,6 +167,8 @@ public class T9Preferences {
 	public int getSuggestionsMax() { return 20; }
 	public int getSuggestionsMin() { return 8; }
 
+	public int getSuggestionSelectAnimationDuration() { return 66; }
+	public int getSuggestionTranslateAnimationDuration() { return 0; }
 
 	/************* add word, last word *************/
 
