@@ -20,9 +20,9 @@
 
 <resources>
 
-	<dimen name="candidate_list_height">112dp</dimen>
+	<dimen name="candidate_list_height">100dp</dimen>
 	<dimen name="candidate_font_size">15sp</dimen>
-	<dimen name="candidate_padding_horizontal">6sp</dimen>
+	<dimen name="candidate_padding_horizontal">8sp</dimen>
 	<dimen name="candidate_padding_vertical">1sp</dimen>
 
 </resources>

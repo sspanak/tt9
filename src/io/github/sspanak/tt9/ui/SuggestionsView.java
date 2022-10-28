@@ -92,9 +92,8 @@ public class SuggestionsView {
 		}
 
 		view.setSelection(selectedIndex);
-		if (suggestions.size() > 4) {
-			view.smoothScrollToPosition(selectedIndex);
-		} else {
+
+		if (suggestions.size() <= 4) {
 			view.scrollTo(0,0);
 		}
 	}

@@ -10,7 +10,6 @@
 		android:id="@+id/suggestion_list_item"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:background="@color/candidate_background"
 		android:paddingHorizontal="@dimen/candidate_padding_horizontal"
 		android:paddingVertical="@dimen/candidate_padding_vertical"
 		android:text="Placeholder"
