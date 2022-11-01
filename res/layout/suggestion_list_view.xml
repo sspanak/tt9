@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/suggestion_list_view"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="horizontal">
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content" >
 
 	<TextView
 		android:id="@+id/suggestion_list_item"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:paddingHorizontal="@dimen/candidate_padding_horizontal"
 		android:paddingVertical="@dimen/candidate_padding_vertical"
-		android:text="Placeholder"
 		android:textColor="@color/candidate_color"
+		android:text="Placeholder"
 		android:textSize="@dimen/candidate_font_size" />
 </LinearLayout>
+

@@ -1,28 +1,48 @@
 package io.github.sspanak.tt9.ui;
 
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import android.graphics.drawable.ColorDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.SuggestionsAdapter;
+
+import java.util.List;
 
 public class SuggestionsView {
 	private List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex;
 
-	private final ListView view;
-	private final ArrayAdapter<String> listAdapter;
-
+	protected LinearLayoutManager mLayoutManager;
+	protected DividerItemDecoration mDividerItemDecoration;
+	protected SuggestionsAdapter mSuggestionsAdapter;
+	protected RecyclerView mRecyclerView;
 
 	public SuggestionsView(View mainView) {
 		super();
-		listAdapter = new ArrayAdapter<>(mainView.getContext(), R.layout.suggestion_list_view, R.id.suggestion_list_item, suggestions);
-		view = mainView.findViewById(R.id.main_suggestions_list);
-		view.setAdapter(listAdapter);
+
+		mRecyclerView = mainView.findViewById(R.id.main_suggestions_list);
+
+		mLayoutManager = new LinearLayoutManager(mainView.getContext(),
+			LinearLayoutManager.HORIZONTAL,false); // reverseLayout=false
+
+		// Adds a vertical divider and sets the color, no extra xml needed
+		mDividerItemDecoration = new DividerItemDecoration(
+			mRecyclerView.getContext(), mLayoutManager.getOrientation());
+		mDividerItemDecoration.setDrawable(new ColorDrawable(R.color.candidate_separator));
+
+		mSuggestionsAdapter = new SuggestionsAdapter(mainView.getContext(),
+			R.layout.suggestion_list_view, R.id.suggestion_list_item, suggestions);
+
+		mRecyclerView.setLayoutManager(mLayoutManager);
+		mRecyclerView.addItemDecoration(mDividerItemDecoration);
+		mRecyclerView.setAdapter(mSuggestionsAdapter);
 	}
 
 
@@ -46,27 +66,17 @@ public class SuggestionsView {
 	}
 
 
-	public void setSuggestions(List<String> suggestions, int initialSel) {
-		clear();
+	public void setSuggestions(List<String> newSuggestions, int initialSel) {
+		suggestions.clear();
 
-		if (suggestions != null) {
-			this.suggestions = suggestions;
+		if (newSuggestions != null) {
+			suggestions.addAll(newSuggestions);
 			selectedIndex = Math.max(initialSel, 0);
 
-			listAdapter.addAll(suggestions);
-			listAdapter.notifyDataSetChanged();
+			mSuggestionsAdapter.notifyDataSetChanged();
 		}
 
 		render();
-	}
-
-
-	protected void clear() {
-		suggestions.clear();
-		selectedIndex = -1;
-
-		listAdapter.clear();
-		listAdapter.notifyDataSetChanged();
 	}
 
 
@@ -86,15 +96,15 @@ public class SuggestionsView {
 	}
 
 	private void render() {
-		if (view == null || listAdapter == null) {
+		if (mRecyclerView == null || mSuggestionsAdapter == null) {
 			Logger.w("SuggestionsView", "Cannot render without a view.");
 			return;
 		}
-
-		view.setSelection(selectedIndex);
-
 		if (suggestions.size() <= 4) {
-			view.scrollTo(0,0);
+			selectedIndex = 0;
 		}
+		mRecyclerView.scrollToPosition(selectedIndex);
+		mSuggestionsAdapter.notifyDataSetChanged();
+
 	}
 }

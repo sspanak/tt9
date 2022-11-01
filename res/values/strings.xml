@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
-	<string name="app_name" translatable="false">Traditional T9</string>
-	<string name="app_settings">Traditional T9 Settings</string>
-	<string name="close">Close</string>
-	<string name="error_unexpected">Unexpected error occurred.</string>
-	<string name="soft_key_mid" translatable="false">OK</string>
+    <string name="help_url" translatable="false">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
+    <string name="app_name" translatable="false">Traditional T9</string>
+    <string name="app_settings">Traditional T9 Settings</string>
+    <string name="close">Close</string>
+    <string name="error_unexpected">Unexpected error occurred.</string>
+    <string name="soft_key_mid" translatable="false">OK</string>
 
-	<string name="add_word_add">Add</string>
-	<string name="add_word_blank">Blank word not added.</string>
-	<string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
-	<string name="add_word_exist">Word \"%1$s\" already in the dictionary.</string>
-	<string name="add_word_invalid_language">Cannot insert a word when no language is selected.</string>
-	<string name="add_word_title">Add Word</string>
+    <string name="add_word_add">Add</string>
+    <string name="add_word_blank">Blank word not added.</string>
+    <string name="add_word_badchar">Cannot add word with unmappable character for %1$s (%2$s).</string>
+    <string name="add_word_exist">Word \"%1$s\" already in the dictionary.</string>
+    <string name="add_word_invalid_language">Cannot insert a word when no language is selected.</string>
+    <string name="add_word_title">Add Word</string>
 
-	<string name="pref_help">Show Help</string>
-	<string name="pref_choose_languages">Choose Languages</string>
-	<string name="pref_loaddict">Load dictionary</string>
-	<string name="pref_loaduserdict">Load user dictionary</string>
-	<string translatable="false" name="pref_loaduserdictdesc">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
-	<string name="pref_truncatedict">Clear dictionary</string>
+    <string name="pref_help">Show Help</string>
+    <string name="pref_choose_languages">Choose Languages</string>
+    <string name="pref_loaddict">Load dictionary</string>
+    <string name="pref_loaduserdict">Load user dictionary</string>
+    <string name="pref_loaduserdictdesc" translatable="false">SDcard/traditionalt9/user.lang.dict (lang: en/ru/de/fr)</string>
+    <string name="pref_truncatedict">Clear dictionary</string>
 
-	<string name="dictionary_import_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
-	<string name="dictionary_import_error">Failed importing dictionary for language \"%1$s\" (%2$s).</string>
-	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Loading user dictionary…</string>
-	<string name="dictionary_load_title">Load dictionary</string>
-	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
-	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
+    <string name="dictionary_import_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
+    <string name="dictionary_import_error">Failed importing dictionary for language \"%1$s\" (%2$s).</string>
+    <string name="dictionary_loading">Loading dictionary (%1$s)…</string>
+    <string name="dictionary_loading_user_dict">Loading user dictionary…</string>
+    <string name="dictionary_load_title">Load dictionary</string>
+    <string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
+    <string name="dictionary_truncated">Dictionary successfully cleared.</string>
 </resources>
