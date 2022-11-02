@@ -14,6 +14,7 @@ public class Italian extends English {
 		locale = Locale.ITALIAN;
 		dictionaryFile = "it-utf8.txt";
 		icon = R.drawable.ime_lang_it;
+
 		isPunctuationPartOfWords = false;
 
 		characterMap.get(2).add("à");

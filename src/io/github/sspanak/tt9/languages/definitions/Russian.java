@@ -14,10 +14,11 @@ public class Russian extends Language {
 		name = "русский";
 		locale = new Locale("ru","RU");
 		dictionaryFile = "ru-utf8.txt";
-		isPunctuationPartOfWords = false;
 		icon = R.drawable.ime_lang_ru;
 		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
+
+		isPunctuationPartOfWords = false;
 
 		characterMap = new ArrayList<>(Arrays.asList(
 			Punctuation.Secondary, // 0

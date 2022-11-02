@@ -58,18 +58,12 @@ public class InputModeValidator {
 		return newMode;
 	}
 
-	public static int validateTextCase(T9Preferences prefs, int textCase, ArrayList<Integer> allowedTextCases) {
-		if (allowedTextCases.size() > 0 && allowedTextCases.contains(textCase)) {
-			return textCase;
+	public static void validateTextCase(T9Preferences prefs, InputMode inputMode, int newTextCase) {
+		if (!inputMode.setTextCase(newTextCase)) {
+			inputMode.defaultTextCase();
+			Logger.w("tt9/validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
 		}
 
-		int newCase = allowedTextCases.size() > 0 ? allowedTextCases.get(0) : InputMode.CASE_LOWER;
-		prefs.saveTextCase(newCase);
-
-		if (textCase != newCase) {
-			Logger.w("tt9/validateTextCase", "Invalid text case: " + textCase + " Enforcing: " + newCase);
-		}
-
-		return newCase;
+		prefs.saveTextCase(inputMode.getTextCase());
 	}
 }

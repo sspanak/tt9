@@ -1,8 +1,6 @@
 package io.github.sspanak.tt9.ime.modes;
 
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 
 import java.util.ArrayList;
 
@@ -19,7 +17,9 @@ abstract public class InputMode {
 	public static final int CASE_UPPER = 0;
 	public static final int CASE_CAPITALIZE = 1;
 	public static final int CASE_LOWER = 2;
+	public static final int CASE_DICTIONARY = 3; // do not force it, but use the dictionary word as-is
 	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
+	protected int textCase = CASE_LOWER;
 
 	// data
 	protected ArrayList<String> suggestions = new ArrayList<>();
@@ -45,14 +45,16 @@ abstract public class InputMode {
 
 	// Suggestions
 	public void onAcceptSuggestion(Language language, String suggestion) {}
-	public ArrayList<String> getSuggestions() { return suggestions; }
-	public boolean getSuggestionsAsync(Handler handler, Language language, String lastWord) { return false; }
-	protected void sendSuggestions(Handler handler, ArrayList<String> suggestions) {
-		Bundle bundle = new Bundle();
-		bundle.putStringArrayList("suggestions", suggestions);
-		Message msg = new Message();
-		msg.setData(bundle);
-		handler.sendMessage(msg);
+	protected void onSuggestionsUpdated(Handler handler) { handler.sendEmptyMessage(0); }
+	public boolean loadSuggestions(Handler handler, Language language, String lastWord) { return false; }
+
+	public ArrayList<String> getSuggestions(Language language) {
+		ArrayList<String> newSuggestions = new ArrayList<>();
+		for (String s : suggestions) {
+			newSuggestions.add(adjustSuggestionTextCase(s, textCase, language));
+		}
+
+		return newSuggestions;
 	}
 
 	// Word
@@ -65,14 +67,37 @@ abstract public class InputMode {
 
 	// Utility
 	abstract public int getId();
-	public ArrayList<Integer> getAllowedTextCases() { return allowedTextCases; }
-	// Perform any special logic to determine the text case of the next word, or return "-1" if there is no need to change it.
-	public int getNextWordTextCase(int currentTextCase, boolean isThereText, String textBeforeCursor) { return -1; }
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
 	public void reset() {
 		suggestions = new ArrayList<>();
 		word = null;
 	}
+
+	// Text case
+	public int getTextCase() { return textCase; }
+
+	public boolean setTextCase(int newTextCase) {
+		if (!allowedTextCases.contains(newTextCase)) {
+			return false;
+		}
+
+		textCase = newTextCase;
+		return true;
+	}
+
+	public void defaultTextCase() {
+		textCase = allowedTextCases.get(0);
+	}
+
+	public void nextTextCase() {
+		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
+		textCase = allowedTextCases.get(nextIndex);
+	}
+
+	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {}
+
+	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
+	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) { return word; }
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.

@@ -25,10 +25,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	private InputMode mInputMode;
 
-	// text case
-	private ArrayList<Integer> allowedTextCases = new ArrayList<>();
-	private int mTextCase = InputMode.CASE_LOWER;
-
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
 	protected Language mLanguage;
@@ -45,19 +41,18 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadPreferences() {
 		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
 		mEnabledLanguages = prefs.getEnabledLanguages();
+		validateLanguages();
+
 		mInputMode = InputMode.getInstance(prefs.getInputMode());
-		mTextCase = prefs.getTextCase();
+		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
+
+		InputModeValidator.validateTextCase(prefs, mInputMode, prefs.getTextCase());
 	}
+
 
 	private void validateLanguages() {
 		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
 		mLanguage = InputModeValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
-	}
-
-	private void validatePreferences() {
-		validateLanguages();
-		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
-		mTextCase = InputModeValidator.validateTextCase(prefs, mTextCase, allowedTextCases);
 	}
 
 
@@ -74,19 +69,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart(EditorInfo inputField) {
-		determineNextTextCase();
-
 		// determine the valid state for the current input field and preferences
-		determineAllowedInputModes(inputField);
-		determineAllowedTextCases();
 		mEnabledLanguages = prefs.getEnabledLanguages(); // in case we are back from Preferences screen, update the language list
-
-		// enforce a valid initial state
-		validatePreferences();
-		clearSuggestions();
+		determineAllowedInputModes(inputField);
+		determineNextTextCase(); // Only in some modes. If they support it, let's overwrite the default.
 
 		// build the UI
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
+		clearSuggestions();
+		UI.updateStatusIcon(this, mLanguage, mInputMode);
 		softKeyHandler.show();
 		if (!isInputViewShown()) {
 			showWindow(true);
@@ -163,7 +153,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onLeft() {
 		if (mInputMode.clearWordStem()) {
-			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, getComposingText());
+			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, getComposingText());
 		} else {
 			jumpBeforeComposingText();
 		}
@@ -175,7 +165,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
 
 		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
-			mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, filter);
+			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, filter);
 		} else if (filter.length() == 0) {
 			mInputMode.reset();
 		}
@@ -333,14 +323,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.getSuggestionsAsync(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
-			handleSuggestions(mInputMode.getSuggestions());
+		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
+			handleSuggestions();
 		}
 	}
 
 
-	private void handleSuggestions(ArrayList<String> suggestions) {
-		setSuggestions(suggestions);
+	private void handleSuggestions() {
+		setSuggestions(mInputMode.getSuggestions(mLanguage));
 
 		// Put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
@@ -353,21 +343,24 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private final Handler handleSuggestionsAsync = new Handler(Looper.getMainLooper()) {
 		@Override
-		public void handleMessage(Message msg) {
-			handleSuggestions(msg.getData().getStringArrayList("suggestions"));
+		public void handleMessage(Message m) {
+			handleSuggestions();
 		}
 	};
 
 
 	private void setSuggestions(List<String> suggestions) {
+		setSuggestions(suggestions, 0);
+	}
+
+	private void setSuggestions(List<String> suggestions, int selectedIndex) {
 		if (mSuggestionView == null) {
 			return;
 		}
 
 		boolean show = suggestions != null && suggestions.size() > 0;
 
-		mSuggestionView.setSuggestions(suggestions, 0);
-		mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
+		mSuggestionView.setSuggestions(suggestions, selectedIndex);
 		setCandidatesViewShown(show);
 	}
 
@@ -410,29 +403,27 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
-			determineAllowedTextCases();
+			mInputMode.nextTextCase();
+			ArrayList<String> switchedSuggestions = mInputMode.getSuggestions(mLanguage);
 
-			int modeIndex = (allowedTextCases.indexOf(mTextCase) + 1) % allowedTextCases.size();
-			mTextCase = allowedTextCases.get(modeIndex);
-
-			mSuggestionView.changeCase(mTextCase, mLanguage.getLocale());
+			setSuggestions(switchedSuggestions, mSuggestionView.getCurrentIndex());
 			setComposingText(getComposingText()); // no mistake, this forces the new text case
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode.isABC() && mTextCase == InputMode.CASE_LOWER) {
-			mTextCase = InputMode.CASE_UPPER;
+		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
+			mInputMode.setTextCase(InputMode.CASE_UPPER);
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(allowedInputModes.get(modeIndex));
 
-			mTextCase = mInputMode.isPredictive() ? InputMode.CASE_CAPITALIZE : InputMode.CASE_LOWER;
+			mInputMode.defaultTextCase();
 		}
 
 		// save the settings for the next time
 		prefs.saveInputMode(mInputMode);
-		prefs.saveTextCase(mTextCase);
+		prefs.saveTextCase(mInputMode.getTextCase());
 
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
+		UI.updateStatusIcon(this, mLanguage, mInputMode);
 	}
 
 
@@ -453,7 +444,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// save it for the next time
 		prefs.saveInputLanguage(mLanguage.getId());
 
-		UI.updateStatusIcon(this, mLanguage, mInputMode, mTextCase);
+		UI.updateStatusIcon(this, mLanguage, mInputMode);
 	}
 
 
@@ -490,20 +481,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void determineAllowedTextCases() {
-		allowedTextCases = mInputMode.getAllowedTextCases();
-		// @todo: determine the text case of the input and validate using the allowed ones [ https://github.com/sspanak/tt9/issues/48 ]
-	}
-
-
 	private void determineNextTextCase() {
-		int nextTextCase = mInputMode.getNextWordTextCase(
-			mTextCase,
+		mInputMode.determineNextWordTextCase(
 			InputFieldHelper.isThereText(currentInputConnection),
 			(String) currentInputConnection.getTextBeforeCursor(50, 0)
 		);
-
-		mTextCase = nextTextCase != -1 ? nextTextCase : mTextCase;
 	}
 
 

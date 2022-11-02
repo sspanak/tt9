@@ -12,9 +12,10 @@ public class Dutch extends English {
 		id = 8;
 		name = "Nederlands";
 		locale = new Locale("nl","NL");
-		isPunctuationPartOfWords = true;
 		dictionaryFile = "nl-utf8.txt";
 		icon = R.drawable.ime_lang_nl;
+
+		isPunctuationPartOfWords = true;
 
 		characterMap.get(2).addAll(Arrays.asList("à", "ä", "ç"));
 		characterMap.get(3).addAll(Arrays.asList("é", "è", "ê", "ë"));
