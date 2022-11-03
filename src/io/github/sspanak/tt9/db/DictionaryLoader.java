@@ -23,11 +23,12 @@ public class DictionaryLoader {
 	private final AssetManager assets;
 	private final T9Preferences prefs;
 
-	private boolean isStopped = true;
+	private final Pattern containsPunctuation = Pattern.compile("\\p{Punct}(?<!-)");
+	private Thread loadThread;
+
 	private int currentFile = 0;
 	private long lastProgressUpdate = 0;
 
-	private final Pattern containsPunctuation = Pattern.compile("\\p{Punct}(?<!-)");
 
 	public DictionaryLoader(Context context) {
 		assets = context.getAssets();
@@ -35,27 +36,37 @@ public class DictionaryLoader {
 	}
 
 
-	public void load(Handler handler, ArrayList<Language> languages) {
-		new Thread() {
+	public void load(Handler handler, ArrayList<Language> languages) throws DictionaryImportAlreadyRunningException {
+		if (isRunning()) {
+			throw new DictionaryImportAlreadyRunningException();
+		}
+
+		loadThread = new Thread() {
 			@Override
 			public void run() {
 				currentFile = 0;
-				isStopped = false;
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
-					if (isStopped) {
+					if (isInterrupted()) {
 						break;
 					}
 					importAll(handler, lang);
 					currentFile++;
 				}
 			}
-		}.start();
+		};
+
+		loadThread.start();
 	}
 
 
 	public void stop() {
-		isStopped = true;
+		loadThread.interrupt();
+	}
+
+
+	public boolean isRunning() {
+		return loadThread != null && loadThread.isAlive();
 	}
 
 
@@ -160,9 +171,9 @@ public class DictionaryLoader {
 		sendProgressMessage(handler, language, 0, 0);
 
 		for (String word; (word = br.readLine()) != null; line++) {
-			if (isStopped) {
+			if (loadThread.isInterrupted()) {
 				br.close();
-				sendProgressMessage(handler, language, 0, 0);
+				sendProgressMessage(handler, language, -1, 0);
 				throw new DictionaryImportAbortedException();
 			}
 

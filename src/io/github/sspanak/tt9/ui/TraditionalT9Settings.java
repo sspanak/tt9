@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ui;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.DictionaryImportException;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
@@ -35,7 +35,7 @@ import io.github.sspanak.tt9.settings_legacy.SettingAdapter;
 public class TraditionalT9Settings extends ListActivity implements DialogInterface.OnCancelListener {
 
 	private DictionaryLoader loader;
-	ProgressDialog progressDialog;
+	DictionaryLoadingBar progressBar;
 
 	Context mContext = null;
 
@@ -43,8 +43,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// maybe need this?
-		// http://stackoverflow.com/questions/7645880/listview-with-onitemclicklistener-android
+		progressBar = new DictionaryLoadingBar(this);
 
 		// get settings
 		T9Preferences prefs = new T9Preferences(getApplicationContext());
@@ -98,18 +97,22 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 	}
 
 	private void truncateWords() {
-			Handler afterTruncate = new Handler(Looper.getMainLooper()) {
-				@Override
-				public void handleMessage(Message msg) {
-					UI.toast(mContext, R.string.dictionary_truncated);
-				}
-			};
-			DictionaryDb.truncateWords(afterTruncate);
+		if (loader != null && loader.isRunning()) {
+			loader.stop();
+		}
+
+		Handler afterTruncate = new Handler(Looper.getMainLooper()) {
+			@Override
+			public void handleMessage(Message msg) {
+				UI.toast(mContext, R.string.dictionary_truncated);
+			}
+		};
+		DictionaryDb.truncateWords(afterTruncate);
 	}
 
 	private void loadDictionaries() {
 		ArrayList<Language> languages = LanguageCollection.getAll(T9Preferences.getInstance().getEnabledLanguages());
-		initProgress(100 * languages.size());
+		progressBar.setFileCount(languages.size());
 
 		Handler loadHandler = new Handler(Looper.getMainLooper()) {
 			@Override
@@ -117,7 +120,7 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 				String error = msg.getData().getString("error", null);
 
 				if (error != null) {
-					hideProgress();
+					progressBar.hide();
 					handleError(
 						error,
 						msg.getData().getInt("languageId", -1),
@@ -125,58 +128,24 @@ public class TraditionalT9Settings extends ListActivity implements DialogInterfa
 						msg.getData().getString("word", "")
 					);
 				} else {
-					int langId = msg.getData().getInt("languageId", -1);
-					Language lang = LanguageCollection.getLanguage(langId);
-					String langName = lang != null ? lang.getName() : "???";
-
-					String title = getResources().getString(R.string.dictionary_loading, langName);
-					showProgress(
+					progressBar.show(
 						msg.getData().getInt("currentFile", 0),
 						msg.getData().getInt("progress", 0),
-						title
+						msg.getData().getInt("languageId", -1)
 					);
 				}
 			}
 		};
 
-		loader = new DictionaryLoader(this);
-		loader.load(loadHandler, languages);
-	}
-
-
-	private void initProgress(int max) {
-		if (progressDialog == null) {
-			progressDialog = new ProgressDialog(this);
-			progressDialog.setOnCancelListener(TraditionalT9Settings.this);
-			progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		if (loader == null) {
+			loader = new DictionaryLoader(this);
 		}
 
-		progressDialog.setMax(max);
-	}
-
-	private void showProgress(int currentFile, int currentFileProgress, String title) {
-		if (progressDialog == null) {
-			return;
-		}
-
-		if (title != null) {
-			progressDialog.setMessage(title);
-		}
-
-		int totalProgress = 100 * currentFile + currentFileProgress;
-		if (totalProgress <= 0 || totalProgress >= progressDialog.getMax()) {
-			progressDialog.dismiss();
-		} else {
-			progressDialog.setProgress(totalProgress);
-			if (!progressDialog.isShowing()) {
-				progressDialog.show();
-			}
-		}
-	}
-
-	private void hideProgress() {
-		if (progressDialog != null) {
-			progressDialog.dismiss();
+		try {
+			loader.load(loadHandler, languages);
+		} catch (DictionaryImportAlreadyRunningException e) {
+			loader.stop();
+			UI.toast(this, getString(R.string.dictionary_import_cancelled));
 		}
 	}
 

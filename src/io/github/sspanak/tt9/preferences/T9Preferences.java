@@ -162,7 +162,7 @@ public class T9Preferences {
 
 	/************* internal settings *************/
 
-	public int getDictionaryImportProgressUpdateInterval() { return 100; /* ms */ }
+	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
 	public int getSuggestionsMax() { return 20; }
 	public int getSuggestionsMin() { return 8; }
