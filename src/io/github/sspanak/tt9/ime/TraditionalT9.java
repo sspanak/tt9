@@ -41,12 +41,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadPreferences() {
 		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
 		mEnabledLanguages = prefs.getEnabledLanguages();
-		validateLanguages();
-
 		mInputMode = InputMode.getInstance(prefs.getInputMode());
-		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
-
-		InputModeValidator.validateTextCase(prefs, mInputMode, prefs.getTextCase());
+		mInputMode.setTextCase(prefs.getTextCase());
 	}
 
 
@@ -69,10 +65,17 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart(EditorInfo inputField) {
-		// determine the valid state for the current input field and preferences
-		mEnabledLanguages = prefs.getEnabledLanguages(); // in case we are back from Preferences screen, update the language list
+		// in case we are back from Preferences screen, update the language list
+		mEnabledLanguages = prefs.getEnabledLanguages();
+		validateLanguages();
+
+		// some input fields support only numbers or do not accept predictions
 		determineAllowedInputModes(inputField);
-		determineNextTextCase(); // Only in some modes. If they support it, let's overwrite the default.
+		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
+
+		// Some modes may want to change the default text case based on grammar rules.
+		determineNextTextCase();
+		InputModeValidator.validateTextCase(prefs, mInputMode, prefs.getTextCase());
 
 		// build the UI
 		clearSuggestions();
