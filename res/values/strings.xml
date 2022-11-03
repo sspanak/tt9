@@ -22,7 +22,9 @@
 	<string name="pref_truncatedict">Clear dictionary</string>
 
 	<string name="dictionary_import_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
+	<string name="dictionary_import_cancelled">Dictionary import cancelled.</string>
 	<string name="dictionary_import_error">Failed importing dictionary for language \"%1$s\" (%2$s).</string>
+	<string name="dictionary_loaded">Done</string>
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Loading user dictionary…</string>
 	<string name="dictionary_load_title">Load dictionary</string>
