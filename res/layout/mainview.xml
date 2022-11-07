@@ -13,9 +13,8 @@
 		android:background="@color/candidate_background" />
 
 	<LinearLayout
-		android:id="@+id/softkey_view"
 		android:layout_width="match_parent"
-		android:layout_height="48dp"
+		android:layout_height="@dimen/soft_key_height"
 		android:background="@drawable/bggradient"
 		android:baselineAligned="true"
 		android:orientation="horizontal">

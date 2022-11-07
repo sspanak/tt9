@@ -24,7 +24,6 @@ public class ModeABC extends InputMode {
 			suggestions = new ArrayList<>();
 			word = String.valueOf(key);
 		} else if (repeat) {
-			suggestions = new ArrayList<>();
 			shouldSelectNextLetter = true;
 		}
 
