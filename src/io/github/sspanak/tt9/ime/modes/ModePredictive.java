@@ -156,6 +156,14 @@ public class ModePredictive extends InputMode {
 		}
 	}
 
+	/**
+	 * getWordStem
+	 * If "setWordStem()" has accepted a new stem by returning "true", it can be obtained using this.
+	 */
+	public String getWordStem() {
+		return stem;
+	}
+
 
 	/**
 	 * loadSuggestions

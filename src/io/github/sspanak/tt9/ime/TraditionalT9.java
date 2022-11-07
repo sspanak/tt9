@@ -146,19 +146,24 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected boolean onUp() {
 		if (previousSuggestion()) {
 			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			setComposingTextWithWordStemIndication(mSuggestionView.getCurrentSuggestion());
 			return true;
 		}
 
 		return false;
 	}
+
+
 	protected boolean onDown() {
 		if (nextSuggestion()) {
 			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			setComposingTextWithWordStemIndication(mSuggestionView.getCurrentSuggestion());
 			return true;
 		}
 
 		return false;
 	}
+
 
 	protected boolean onLeft() {
 		if (mInputMode.clearWordStem()) {
@@ -169,6 +174,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		return true;
 	}
+
 
 	protected boolean onRight(boolean repeat) {
 		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
@@ -181,6 +187,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		return true;
 	}
+
 
 	/**
 	 * onNumber
@@ -287,7 +294,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mSuggestionView.scrollToSuggestion(-1);
-		setComposingTextFromCurrentSuggestion();
+		setComposingTextWithWordStemIndication(mSuggestionView.getCurrentSuggestion());
 
 		return true;
 	}
@@ -299,7 +306,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mSuggestionView.scrollToSuggestion(1);
-		setComposingTextFromCurrentSuggestion();
+		setComposingTextWithWordStemIndication(mSuggestionView.getCurrentSuggestion());
 
 		return true;
 	}
@@ -312,7 +319,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
 		if (!isSuggestionViewHidden() && currentInputConnection != null) {
 			if (entireSuggestion) {
-				setComposingTextFromCurrentSuggestion();
+				setComposingText(mSuggestionView.getCurrentSuggestion());
 			}
 			currentInputConnection.finishComposingText();
 		}
@@ -346,7 +353,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// for a more intuitive experience.
 		String word = mSuggestionView.getCurrentSuggestion();
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
-		setComposingText(word);
+		setComposingTextWithWordStemIndication(word);
 	}
 
 
@@ -391,17 +398,24 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void setComposingText(String text) {
+	private void setComposingText(CharSequence text) {
 		if (text != null && currentInputConnection != null) {
 			currentInputConnection.setComposingText(text, 1);
 		}
 	}
 
 
-	private void setComposingTextFromCurrentSuggestion() {
-		if (!isSuggestionViewHidden()) {
-			setComposingText(mSuggestionView.getCurrentSuggestion());
+	private void setComposingTextWithWordStemIndication(CharSequence word) {
+		if (mInputMode.getWordStem().length() > 0) {
+			setComposingText(Util.highlightComposingText(word, 0, mInputMode.getWordStem().length()));
+		} else {
+			setComposingText(word);
 		}
+	}
+
+
+	private void refreshComposingText() {
+		setComposingText(getComposingText());
 	}
 
 
@@ -416,7 +430,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			ArrayList<String> switchedSuggestions = mInputMode.getSuggestions(mLanguage);
 
 			setSuggestions(switchedSuggestions, mSuggestionView.getCurrentIndex());
-			setComposingText(getComposingText()); // no mistake, this forces the new text case
+			refreshComposingText();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
