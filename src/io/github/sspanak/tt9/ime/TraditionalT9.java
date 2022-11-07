@@ -136,7 +136,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
 		commitCurrentSuggestion();
-		determineNextTextCase();
 		resetKeyRepeat();
 
 		return true;
@@ -201,10 +200,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat)) {
 			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
 			commitCurrentSuggestion(false);
-			determineNextTextCase();
-		} else if (!InputFieldHelper.isThereText(currentInputConnection)) {
-			// it would have been nice to determine the text case on every key press,
-			// but it is somewhat resource-intensive
+		}
+
+		// Auto-adjust the text case before each word, if the InputMode supports it.
+		// We don't do it too often, because it is somewhat resource-intensive.
+		if (getComposingText().length() == 0) {
 			determineNextTextCase();
 		}
 
@@ -427,9 +427,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
 			mInputMode.nextTextCase();
-			ArrayList<String> switchedSuggestions = mInputMode.getSuggestions(mLanguage);
-
-			setSuggestions(switchedSuggestions, mSuggestionView.getCurrentIndex());
+			setSuggestions(mInputMode.getSuggestions(mLanguage), mSuggestionView.getCurrentIndex());
 			refreshComposingText();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
