@@ -8,7 +8,7 @@ import android.text.style.UnderlineSpan;
 
 import io.github.sspanak.tt9.Logger;
 
-public class Util {
+public class TextHelper {
 		public static CharSequence highlightComposingText(CharSequence word, int start, int end) {
 		if (end < start || start < 0) {
 			Logger.w("tt9.util.highlightComposingText", "Cannot highlight invalid composing text range: [" + start + ", " + end + "]");

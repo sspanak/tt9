@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SuggestionsView {
 	private final List<String> suggestions = new ArrayList<>();
@@ -40,8 +40,8 @@ public class SuggestionsView {
 	private void configureAnimation() {
 		DefaultItemAnimator animator = new DefaultItemAnimator();
 
-		int translateDuration = T9Preferences.getInstance().getSuggestionTranslateAnimationDuration();
-		int selectDuration = T9Preferences.getInstance().getSuggestionSelectAnimationDuration();
+		int translateDuration = SettingsStore.getInstance().getSuggestionTranslateAnimationDuration();
+		int selectDuration = SettingsStore.getInstance().getSuggestionSelectAnimationDuration();
 
 		animator.setMoveDuration(selectDuration);
 		animator.setChangeDuration(translateDuration);
@@ -57,10 +57,11 @@ public class SuggestionsView {
 			context,
 			R.layout.suggestion_list_view,
 			R.id.suggestion_list_item,
-			ContextCompat.getColor(context, R.color.candidate_selected),
 			suggestions
 		);
 		mView.setAdapter(mSuggestionsAdapter);
+
+		setDarkTheme(true); // just use some default colors
 	}
 
 
@@ -133,5 +134,29 @@ public class SuggestionsView {
 		mSuggestionsAdapter.notifyItemChanged(selectedIndex);
 
 		mView.scrollToPosition(selectedIndex);
+	}
+
+
+	/**
+	 * setDarkTheme
+	 * Changes the suggestion colors according to the theme.
+	 *
+	 * We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
+	 * because this View is part of the main service View. And service Views are always locked to the
+	 * system context and theme.
+	 *
+	 * More info:
+	 * https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay
+	 */
+	public void setDarkTheme(boolean darkEnabled) {
+		Context context = mView.getContext();
+
+		int backgroundColor = darkEnabled ? R.color.dark_candidate_background : R.color.candidate_background;
+		int defaultColor = darkEnabled ? R.color.dark_candidate_color : R.color.candidate_color;
+		int highlightColor = darkEnabled ? R.color.dark_candidate_selected : R.color.candidate_selected;
+
+		mView.setBackgroundColor(ContextCompat.getColor(context, backgroundColor));
+		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, defaultColor));
+		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, highlightColor));
 	}
 }

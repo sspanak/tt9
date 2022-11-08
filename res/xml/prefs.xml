@@ -1,14 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Settings>
-	<Setting title="@string/pref_help" id="help" />
-	<SettingMultiList
-		id="pref_lang_support"
-		defaultValue="@integer/LANG_DEFAULT"
-		entries="@array/pref_lang_titles"
-		entryValues="@array/pref_lang_values"
-		title="@string/pref_choose_languages" />
-	<Setting title="@string/pref_loaddict" id="loaddict"/>
-	<Setting title="@string/pref_truncatedict" id="truncatedict"/>
-	<!-- Take care of dictionary loading in #26 -->
-	<!-- <Setting title="@string/pref_loaduserdict" summary="@string/pref_loaduserdictdesc" id="loaduserdict"/> -->
-</Settings>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:orderingFromXml="true">
+
+
+	<Preference
+		app:iconSpaceReserved="false"
+		app:key="help"
+		app:summary="github.com/sspanak/tt9"
+		app:title="@string/pref_help">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="@string/help_url" />
+	</Preference>
+
+
+	<PreferenceCategory
+		android:title="@string/pref_category_appearance"
+		app:iconSpaceReserved="false"
+		app:singleLineTitle="true">
+
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:iconSpaceReserved="false"
+			app:key="pref_dark_theme"
+			app:title="@string/pref_dark_theme" />
+
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:iconSpaceReserved="false"
+			app:key="pref_show_soft_keys"
+			app:title="@string/pref_show_soft_function_keys" />
+
+	</PreferenceCategory>
+
+
+	<PreferenceCategory
+		android:title="@string/pref_category_dictionaries"
+		app:iconSpaceReserved="false"
+		app:singleLineTitle="true">
+
+		<MultiSelectListPreference
+			app:iconSpaceReserved="false"
+			app:key="pref_languages"
+			app:title="@string/pref_choose_languages" />
+
+		<Preference
+			app:iconSpaceReserved="false"
+			app:key="dictionary_load"
+			app:title="@string/dictionary_load_title" />
+
+		<Preference
+			app:iconSpaceReserved="false"
+			app:key="dictionary_truncate"
+			app:title="@string/dictionary_truncate_title" />
+	</PreferenceCategory>
+
+
+	<PreferenceCategory
+		android:title="@string/pref_category_function_keys"
+		app:iconSpaceReserved="false"
+		app:singleLineTitle="true">
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_add_word"
+			app:title="@string/function_add_word_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_backspace"
+			app:title="@string/function_backspace_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_next_language"
+			app:title="@string/function_next_language_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_next_input_mode"
+			app:title="@string/function_next_mode_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_show_settings"
+			app:title="@string/function_show_settings_key" />
+
+
+		<Preference
+			app:iconSpaceReserved="false"
+			app:key="reset_keys"
+			app:title="@string/function_reset_keys_title" />
+
+	</PreferenceCategory>
+
+
+	<PreferenceCategory
+		android:title="@string/pref_category_about"
+		app:iconSpaceReserved="false"
+		app:singleLineTitle="true">
+		<Preference
+			app:iconSpaceReserved="false"
+			app:key="version_info"
+			app:title="@string/app_name" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

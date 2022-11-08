@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.languages.Punctuation;
 public class Ukrainian extends Language {
 	public Ukrainian() {
 		id = 6;
-		name = "українська";
+		name = "Українська";
 		locale = new Locale("uk","UA");
 		dictionaryFile = "uk-utf8.txt";
 		icon = R.drawable.ime_lang_uk;

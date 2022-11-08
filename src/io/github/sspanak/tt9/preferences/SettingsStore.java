@@ -8,6 +8,9 @@ import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -15,24 +18,22 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 
-public class T9Preferences {
-	public static final int MAX_LANGUAGES = 32;
-
-	private static T9Preferences self;
+public class SettingsStore {
+	private static SettingsStore self;
 
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
 
 
-	public T9Preferences (Context context) {
+	public SettingsStore(Context context) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
 	}
 
 
-	public static T9Preferences getInstance() {
+	public static SettingsStore getInstance() {
 		if (self == null) {
-			self = new T9Preferences(TraditionalT9.getMainContext());
+			self = new SettingsStore(TraditionalT9.getMainContext());
 		}
 
 		return self;
@@ -45,18 +46,9 @@ public class T9Preferences {
 		return LanguageCollection.getLanguage(langId) != null;
 	}
 
-	private boolean isLanguageInRange(int langId) {
-		return langId > 0 && langId <= MAX_LANGUAGES;
-	}
-
 	private boolean validateSavedLanguage(int langId, String logTag) {
 		if (!doesLanguageExist(langId)) {
 			Logger.w(logTag, "Not saving invalid language with ID: " + langId);
-			return false;
-		}
-
-		if (!isLanguageInRange(langId)) {
-			Logger.w(logTag, "Valid language ID range is [0, 31]. Not saving out-of-range language: " + langId);
 			return false;
 		}
 
@@ -75,32 +67,47 @@ public class T9Preferences {
 
 	/************* input settings *************/
 
-	public ArrayList<Integer> getEnabledLanguages() {
-		int languageMask = prefs.getInt("pref_enabled_languages", 1);
-		ArrayList<Integer>languageIds = new ArrayList<>();
+	public ArrayList<Integer> getEnabledLanguageIds() {
+		Set<String> languagesPref = getEnabledLanguagesIdsAsStrings();
 
-		for (int langId = 1; langId < MAX_LANGUAGES; langId++) {
-			int maskBit = 1 << (langId - 1);
-			if ((maskBit & languageMask) != 0) {
-				languageIds.add(langId);
-			}
+		ArrayList<Integer>languageIds = new ArrayList<>();
+		for (String languageId : languagesPref) {
+			languageIds.add(Integer.valueOf(languageId));
 		}
 
 		return languageIds;
 	}
 
-	public void saveEnabledLanguages(ArrayList<Integer> languageIds) {
-		int languageMask = 0;
+	public Set<String> getEnabledLanguagesIdsAsStrings() {
+		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList("1")));
+	}
+
+	public void saveEnabledLanguageIds(ArrayList<Integer> languageIds) {
+		Set<String> idsAsStrings = new HashSet<>();
 		for (int langId : languageIds) {
-			if (!validateSavedLanguage(langId, "tt9/saveEnabledLanguages")){
+			idsAsStrings.add(String.valueOf(langId));
+		}
+
+		saveEnabledLanguageIds(idsAsStrings);
+	}
+
+	public void saveEnabledLanguageIds(Set<String> languageIds) {
+		Set<String> validLanguageIds = new HashSet<>();
+
+		for (String langId : languageIds) {
+			if (!validateSavedLanguage(Integer.parseInt(langId), "tt9/saveEnabledLanguageIds")){
 				continue;
 			}
 
-			int languageMaskBit = 1 << (langId - 1);
-			languageMask |= languageMaskBit;
+			validLanguageIds.add(langId);
 		}
 
-		prefsEditor.putInt("pref_enabled_languages", languageMask);
+		if (validLanguageIds.size() == 0) {
+			Logger.w("tt9/saveEnabledLanguageIds", "Refusing to save an empty language list");
+			return;
+		}
+
+		prefsEditor.putStringSet("pref_languages", validLanguageIds);
 		prefsEditor.apply();
 	}
 
@@ -151,14 +158,55 @@ public class T9Preferences {
 	}
 
 
-	/************* hotkey settings *************/
+	/************* function key settings *************/
+
+	public boolean areFunctionKeysSet() {
+		return getKeyShowSettings() != 0;
+	}
+
+	public void setDefaultKeys() {
+		prefsEditor.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(KeyEvent.KEYCODE_STAR));
+		prefsEditor.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(KeyEvent.KEYCODE_BACK));
+		prefsEditor.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(KeyEvent.KEYCODE_POUND));
+		prefsEditor.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(-KeyEvent.KEYCODE_POUND));
+		prefsEditor.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(-KeyEvent.KEYCODE_STAR));
+		prefsEditor.apply();
+	}
+
+	public int getFunctionKey(String functionName) {
+		try {
+			return Integer.parseInt(prefs.getString(functionName, "0"));
+		} catch (NumberFormatException e) {
+			return 0;
+		}
+	}
+
+	public int getKeyAddWord() {
+		return getFunctionKey(SectionKeymap.ITEM_ADD_WORD);
+	}
 
 	public int getKeyBackspace() {
-		return prefs.getInt("pref_key_backspace", KeyEvent.KEYCODE_BACK);
+		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
 	}
-	public int getKeyInputMode() { return prefs.getInt("pref_key_input_mode", KeyEvent.KEYCODE_POUND); }
-	public int getKeyOtherActions() { return prefs.getInt("pref_key_other_actions", KeyEvent.KEYCODE_STAR); }
 
+	public int getKeyNextInputMode() {
+		return getFunctionKey(SectionKeymap.ITEM_NEXT_INPUT_MODE);
+	}
+
+	public int getKeyNextLanguage() {
+		return getFunctionKey(SectionKeymap.ITEM_NEXT_LANGUAGE);
+	}
+
+	public int getKeyShowSettings() {
+		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
+	}
+
+	/************* UI settings *************/
+
+	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
+	public void setDarkTheme(boolean yes) { prefsEditor.putBoolean("pref_dark_theme", yes); }
+
+	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
 	/************* internal settings *************/
 
@@ -177,7 +225,7 @@ public class T9Preferences {
 	}
 
 	public void saveLastWord(String lastWord) {
-		// "last_word" was part of the original Preferences implementation.
+		// "last_word" was part of the original Settings implementation.
 		// It is weird, but it is simple and it works, so I decided to keep it.
 		prefsEditor.putString("last_word", lastWord);
 		prefsEditor.apply();

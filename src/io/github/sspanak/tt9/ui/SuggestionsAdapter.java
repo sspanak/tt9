@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
-	private final int colorHighlight;
 	private final int layout;
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
 	private final List<String> mSuggestions;
 
+	private int colorDefault;
+	private int colorHighlight;
 	private int selectedIndex = 0;
 
 
-	public SuggestionsAdapter(Context context, int layout, int textViewResourceId, int highLightColor, List<String> suggestions) {
-		this.colorHighlight = highLightColor;
+	public SuggestionsAdapter(Context context, int layout, int textViewResourceId, List<String> suggestions) {
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
 		this.mInflater = LayoutInflater.from(context);
@@ -41,6 +41,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		holder.suggestionItem.setText(mSuggestions.get(position));
+		holder.suggestionItem.setTextColor(colorDefault);
 		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? colorHighlight : Color.TRANSPARENT);
 	}
 
@@ -53,6 +54,16 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 	public void setSelection(int index) {
 		selectedIndex = index;
+	}
+
+
+	public void setColorDefault(int colorDefault) {
+		this.colorDefault = colorDefault;
+	}
+
+
+	public void setColorHighlight(int colorHighlight) {
+		this.colorHighlight = colorHighlight;
 	}
 
 

@@ -71,7 +71,7 @@ class InputFieldHelper {
 	 * determineInputModes
 	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
 	 *
-	 * @return ArrayList<T9Preferences.MODE_ABC | T9Preferences.MODE_123 | T9Preferences.MODE_PREDICTIVE>
+	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
 	 */
 	public static ArrayList<Integer> determineInputModes(EditorInfo inputField) {
 		final int INPUT_TYPE_SHARP_007H_PHONE_BOOK = 65633;
@@ -134,7 +134,7 @@ class InputFieldHelper {
 	 */
 	public static void determineTextCase(EditorInfo inputField) {
 		// Logger.d("updateShift", "CM start: " + mCapsMode);
-		// if (inputField != null && mCapsMode != T9Preferences.CASE_UPPER) {
+		// if (inputField != null && mCapsMode != SettingsStore.CASE_UPPER) {
 		// 	int caps = 0;
 		// 	if (inputField.inputType != InputType.TYPE_NULL) {
 		// 		caps = currentInputConnection.getCursorCapsMode(inputField.inputType);
@@ -142,13 +142,13 @@ class InputFieldHelper {
 		// 	// mInputView.setShifted(mCapsLock || caps != 0);
 		// 	// Logger.d("updateShift", "caps: " + caps);
 		// 	if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
-		// 		mCapsMode = T9Preferences.CASE_UPPER;
+		// 		mCapsMode = SettingsStore.CASE_UPPER;
 		// 	} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
-		// 		mCapsMode = T9Preferences.CASE_CAPITALIZE;
+		// 		mCapsMode = SettingsStore.CASE_CAPITALIZE;
 		// 	} else if ((caps & TextUtils.CAP_MODE_WORDS) == TextUtils.CAP_MODE_WORDS) {
-		// 		mCapsMode = T9Preferences.CASE_CAPITALIZE;
+		// 		mCapsMode = SettingsStore.CASE_CAPITALIZE;
 		// 	} else {
-		// 		mCapsMode = T9Preferences.CASE_LOWER;
+		// 		mCapsMode = SettingsStore.CASE_LOWER;
 		// 	}
 		// 	updateStatusIcon();
 		// }

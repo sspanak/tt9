@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,23 +8,31 @@ import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.InsertBlankWordException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class AddWordAct extends Activity {
+public class AddWordAct extends AppCompatActivity {
 
-	View main;
-	int lang;
-	String word;
+	private View main;
+	private int lang;
+	private String word;
 
 	@Override
 	protected void onCreate(Bundle savedData) {
+		AppCompatDelegate.setDefaultNightMode(
+			SettingsStore.getInstance().getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+		);
+
 		super.onCreate(savedData);
+
 		Intent i = getIntent();
 		word = i.getStringExtra("io.github.sspanak.tt9.word");
 		lang = i.getIntExtra("io.github.sspanak.tt9.lang", -1);
@@ -46,7 +53,7 @@ public class AddWordAct extends Activity {
 			switch (msg.what) {
 				case 0:
 					Logger.d("onAddedWord", "Added word: '" + word + "'...");
-					T9Preferences.getInstance().saveLastWord(word);
+					SettingsStore.getInstance().saveLastWord(word);
 					break;
 
 				case 1:
