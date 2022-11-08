@@ -7,13 +7,13 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
 abstract class KeyPadHandler extends InputMethodService {
 	protected InputConnection currentInputConnection = null;
 
-	protected T9Preferences prefs;
+	protected SettingsStore settings;
 
 	// editing mode
 	protected static final int NON_EDIT = 0;
@@ -44,7 +44,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		prefs = new T9Preferences(getApplicationContext());
+		settings = new SettingsStore(getApplicationContext());
 
 		onInit();
 	}
@@ -138,7 +138,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		// "backspace" key must repeat its function, when held down, so we handle it in a special way
 		// Also dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
-		if (mEditing != EDITING_DIALER && keyCode == prefs.getKeyBackspace()) {
+		if (mEditing != EDITING_DIALER && keyCode == settings.getKeyBackspace()) {
 			boolean isThereTextBefore = InputFieldHelper.isThereText(currentInputConnection);
 			boolean backspaceHandleStatus = handleBackspaceHold();
 
@@ -170,8 +170,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (
-				keyCode == prefs.getKeyOtherActions()
-				|| keyCode == prefs.getKeyInputMode()
+				isSpecialFunctionKey(keyCode)
 				|| keyCode == KeyEvent.KEYCODE_STAR
 				|| keyCode == KeyEvent.KEYCODE_POUND
 				|| (isNumber(keyCode) && shouldTrackNumPress())
@@ -200,12 +199,8 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		ignoreNextKeyUp = keyCode;
 
-		if (keyCode == prefs.getKeyOtherActions()) {
-			return onKeyOtherAction(true);
-		}
-
-		if (keyCode == prefs.getKeyInputMode()) {
-			return onKeyInputMode(true);
+		if (handleSpecialFunctionKey(keyCode, true)) {
+			return true;
 		}
 
 		switch (keyCode) {
@@ -256,7 +251,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		if (
 			mEditing != EDITING_DIALER // dialer fields seem to handle backspace on their own
-			&& keyCode == prefs.getKeyBackspace()
+			&& keyCode == settings.getKeyBackspace()
 			&& InputFieldHelper.isThereText(currentInputConnection)
 		) {
 			return true;
@@ -277,12 +272,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
-		if (keyCode == prefs.getKeyOtherActions()) {
-			return onKeyOtherAction(false);
-		}
-
-		if (keyCode == prefs.getKeyInputMode()) {
-			return onKeyInputMode(false);
+		if (handleSpecialFunctionKey(keyCode, false)) {
+			return true;
 		}
 
 		switch(keyCode) {
@@ -321,6 +312,27 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
+	private boolean handleSpecialFunctionKey(int keyCode, boolean hold) {
+		if (keyCode == settings.getKeyAddWord() * (hold ? -1 : 1)) {
+			return onKeyAddWord();
+		}
+
+		if (keyCode == settings.getKeyNextLanguage() * (hold ? -1 : 1)) {
+			return onKeyNextLanguage();
+		}
+
+		if (keyCode == settings.getKeyNextInputMode() * (hold ? -1 : 1)) {
+			return onKeyNextInputMode();
+		}
+
+		if (keyCode == settings.getKeyShowSettings() * (hold ? -1 : 1)) {
+			return onKeyShowSettings();
+		}
+
+		return false;
+	}
+
+
 	private boolean isOff() {
 		return currentInputConnection == null || mEditing == NON_EDIT;
 	}
@@ -328,6 +340,15 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	private boolean isNumber(int keyCode) {
 		return keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9;
+	}
+
+
+	private boolean isSpecialFunctionKey(int keyCode) {
+		return keyCode == settings.getKeyAddWord()
+			|| keyCode == settings.getKeyBackspace()
+			|| keyCode == settings.getKeyNextLanguage()
+			|| keyCode == settings.getKeyNextInputMode()
+			|| keyCode == settings.getKeyShowSettings();
 	}
 
 
@@ -381,8 +402,10 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onPound();
 
 	// customized key handlers
-	abstract protected boolean onKeyInputMode(boolean hold);
-	abstract protected boolean onKeyOtherAction(boolean hold);
+	abstract protected boolean onKeyAddWord();
+	abstract protected boolean onKeyNextLanguage();
+	abstract protected boolean onKeyNextInputMode();
+	abstract protected boolean onKeyShowSettings();
 
 	// helpers
 	abstract protected void onInit();

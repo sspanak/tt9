@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="button_text">#EFEBE9</color>
-	<color name="candidate_background">#333333</color>
-	<color name="candidate_color">#CCCCCC</color>
-	<color name="candidate_selected">#555555</color>
+	<!-- Light theme -->
+	<color name="button_text">#242424</color>
+
+	<color name="candidate_background">#CECECE</color>
+	<color name="candidate_color">#202020</color>
+	<color name="candidate_selected">#AAAAAA</color>
 	<color name="candidate_separator">#888888</color>
+
+	<!-- Dark theme -->
+	<color name="dark_button_text">#C0C0C0</color>
+
+	<color name="dark_candidate_background">#333333</color>
+	<color name="dark_candidate_color">#CCCCCC</color>
+	<color name="dark_candidate_selected">#555555</color>
 </resources>

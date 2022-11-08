@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.languages.Punctuation;
 public class Russian extends Language {
 	public Russian() {
 		id = 2;
-		name = "русский";
+		name = "Русский";
 		locale = new Locale("ru","RU");
 		dictionaryFile = "ru-utf8.txt";
 		icon = R.drawable.ime_lang_ru;

@@ -12,18 +12,18 @@
 	<string name="add_word_invalid_language">Чтобы добавить новое слово, сначала выберите язык.</string>
 	<string name="add_word_title">Добавить слово</string>
 
-	<string name="pref_help">О программе</string>
+	<string name="pref_category_about">О приложении</string>
+	<string name="pref_help">Помощь</string>
+	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_choose_languages">Выбор языков</string>
-	<string name="pref_loaddict">Загрузить словарь</string>
-	<string name="pref_loaduserdict">Загрузить свой словарь</string>
-	<string name="pref_truncatedict">Очистить словарь</string>
+    <string name="dictionary_truncate_title">Очистить словарь</string>
 
-	<string name="dictionary_load_cancelled">Загрузка словаря отменена.</string>
+	<string name="pref_category_dictionaries">Словари</string>
+	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_load_failed">Ошибка загрузки словаря.</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Загрузка пользовательского словаря…</string>
 	<string name="dictionary_load_title">Загрузить словарь</string>
 	<string name="dictionary_not_found">Ошибка загрузки. Словарь «%1$s» не найден.</string>
 	<string name="dictionary_truncated">Словарь успешно очищен.</string>

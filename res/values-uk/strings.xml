@@ -11,18 +11,18 @@
 	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
 	<string name="add_word_title">Додати слово</string>
 
-	<string name="pref_help">Про програму</string>
+	<string name="pref_category_about">Про додаток</string>
+	<string name="pref_help">Допомога</string>
+	<string name="pref_dark_theme">Темна тема</string>
 	<string name="pref_choose_languages">Вибір мови</string>
-	<string name="pref_loaddict">Завантажити словник</string>
-	<string name="pref_loaduserdict">Завантажити свій словник</string>
-	<string name="pref_truncatedict">Очистити словник</string>
+    <string name="dictionary_truncate_title">Очистити словник</string>
 
-	<string name="dictionary_load_cancelled">Завантаження словника скасовано.</string>
+	<string name="pref_category_dictionaries">Словники</string>
+	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
 	<string name="dictionary_load_failed">Помилка завантаження словника.</string>
 	<string name="dictionary_loaded">Завантаження словника завершено.</string>
 	<string name="dictionary_loading">Завантаження словника (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Завантаження словника користувача…</string>
 	<string name="dictionary_load_title">Завантажити словник</string>
 	<string name="dictionary_not_found">Помилка завантаження. Словник «%1$s» не знайдено.</string>
 </resources>

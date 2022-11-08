@@ -11,18 +11,20 @@
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
 	<string name="add_word_title">Ajouter un mot</string>
 
-	<string name="pref_help">"Afficher l\'aide</string>
-	<string name="pref_choose_languages">Choisir langues</string>
-	<string name="pref_loaddict">Charger le dictionnaire</string>
-	<string name="pref_loaduserdict">Charger le dictionnaire utilisateur</string>
-	<string name="pref_truncatedict">Supprimer le dictionaire</string>
 
+	<string name="pref_category_about">À propos de l\'application</string>
+	<string name="pref_help">Aide</string>
+	<string name="pref_dark_theme">Thème sombre</string>
+	<string name="pref_choose_languages">Choisir langues</string>
+	<string name="dictionary_truncate_title">Supprimer le dictionaire</string>
+
+	<string name="pref_category_dictionaries">Dictionnaires</string>
+	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
-	<string name="dictionary_load_cancelled">Chargement du dictionnaire annulée.</string>
 	<string name="dictionary_load_failed">Echec du chargement de dictionnaire.</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
 	<string name="dictionary_loading">Chargement du dictionnaire (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Chargement du dictionnaire utilisateur…</string>
 	<string name="dictionary_load_title">Charger le dictionnaire</string>
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
+	<string name="pref_category_function_keys">Raccourcis clavier</string>
 </resources>

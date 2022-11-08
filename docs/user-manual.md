@@ -56,26 +56,32 @@ _Predictive mode only._
 - **In 123 mode:** type the respective number.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
-#### Text Mode Key (Hash/Pound/#):
-- **Short press:** Cycle input modes (abc → ABC → Predictive → 123)
-- **Short press while typing:** Change between UPPERCASE/lowercase.
-- **Long press:** Select the next language.
-- **Number-only fields:** Type a "#". Changing the mode is not possible in such fields.
+#### Add Word Key (Default: Press ✱):
+Add a new word to the dictionary for the current language.
 
-#### Other Actions Key (Star/✱):
-- **Short press:** Add a new word to the dictionary.
-- **Long press:** Open the Configration screen.
+#### Backspace Key (Default: Press ↩ / Back):
+Just deletes text.
 
-#### Backspace Key (Back/↩):
-- Just deletes text.
-
-**Note:** "Back" key plays a somewhat special role in Android. This role needs to be preserved for your phone to remain usable. Have in mind the notes below:
+**Note:** The default "Back" key plays a somewhat special role in Android. This role needs to be preserved for your phone to remain usable. Have in mind the notes below:
 - **Short Press when there is no text**: Go back to the previous screen (the system default action).
 - **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
 - **Long Press**: Whatever the system default action is (i.e. show running applications list).
 
+All this does not apply, when using other keys. They will just delete text
+
+#### Next Input Mode Key (Default: Press #):
+- **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
+- **Press while suggestions are on:** Toggle the suggestions between UPPERCASE and lowercase.
+- **Number-only fields:** No special action. Type a "#" with the default key. Changing the mode is not possible in such fields.
+
+#### Next Language Key (Default: Hold #):
+Select the next language, when mulitple languages have been enabled from the Settings.
+
+#### Settings Key (Default: Hold ✱):
+Open the Configration screen.
+
 ## On-screen soft keys
-All functionality is available using the keypad, but for convenience, on touchscreen phones or the ones with customizable function keys, you could also use the on-screen soft keys.
+All functionality is available using the keypad, but for convenience, on touchscreen phones, you could also use the on-screen keys. If you instead prefer to have more screen space, disable them from the Settings.
 
 #### Left Soft Key:
 Open the [Settings screen](#settings-screen).
@@ -84,7 +90,7 @@ Open the [Settings screen](#settings-screen).
 Backspace.
 
 ## Settings Screen
-On the Configuration screen, you can choose your preferred languages, load a dictionary for Predictive mode or view this manual.
+On the Settings screen, you can choose languages for typing, configure the keypad hotkeys or change the application appearance.
 
 To access it:
 - Start typing in a text field to wake up TT9.
@@ -92,10 +98,10 @@ To access it:
 
 ## License
 - The source code, the logo image and the icons are licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-- The word lists / dictionaries are licensed under the licenses provided in the respective readme files found in the source code, where applicable.
+- The dictionaries are licensed under the licenses provided in the [respective readme files](dictionaries/), where applicable. Detailed information about the dictionaries is also available there.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Roboto" font is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
-- "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](desktop-ebook-EULA-1.8.txt)
+- "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](desktop-ebook-EULA-1.8.txt).
 
 ## Privacy Policy
 Traditional T9 does not collect any information about you or about the way you are using using the application.

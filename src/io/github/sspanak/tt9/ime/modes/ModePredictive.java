@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Punctuation;
-import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	public int getId() { return MODE_PREDICTIVE; }
@@ -194,8 +194,8 @@ public class ModePredictive extends InputMode {
 			language,
 			digitSequence,
 			stem,
-			T9Preferences.getInstance().getSuggestionsMin(),
-			T9Preferences.getInstance().getSuggestionsMax()
+			SettingsStore.getInstance().getSuggestionsMin(),
+			SettingsStore.getInstance().getSuggestionsMax()
 		);
 
 		return true;

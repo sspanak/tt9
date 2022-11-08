@@ -17,11 +17,13 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.T9Preferences;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryLoader {
+	private static DictionaryLoader self;
+
 	private final AssetManager assets;
-	private final T9Preferences prefs;
+	private final SettingsStore settings;
 
 	private final Pattern containsPunctuation = Pattern.compile("\\p{Punct}(?<!-)");
 	private Thread loadThread;
@@ -30,9 +32,20 @@ public class DictionaryLoader {
 	private long lastProgressUpdate = 0;
 
 
+
+	public static DictionaryLoader getInstance(Context context) {
+		if (self == null) {
+			self = new DictionaryLoader(context);
+		}
+
+		return self;
+	}
+
+
+
 	public DictionaryLoader(Context context) {
 		assets = context.getAssets();
-		prefs = T9Preferences.getInstance();
+		settings = SettingsStore.getInstance();
 	}
 
 
@@ -180,14 +193,14 @@ public class DictionaryLoader {
 			validateWord(language, word, line);
 			dbWords.add(stringToWord(language, word));
 
-			if (line % prefs.getDictionaryImportWordChunkSize() == 0) {
+			if (line % settings.getDictionaryImportWordChunkSize() == 0) {
 				DictionaryDb.insertWordsSync(dbWords);
 				dbWords.clear();
 			}
 
 			if (totalWords > 0) {
 				int progress = (int) Math.floor(100.0 * line / totalWords);
-				sendProgressMessage(handler, language, progress, prefs.getDictionaryImportProgressUpdateInterval());
+				sendProgressMessage(handler, language, progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
 

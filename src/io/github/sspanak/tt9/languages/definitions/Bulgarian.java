@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.languages.Punctuation;
 public class Bulgarian extends Language {
 	public Bulgarian() {
 		id = 7;
-		name = "български";
+		name = "Български";
 		locale = new Locale("bg","BG");
 		dictionaryFile = "bg-utf8.txt";
 		icon = R.drawable.ime_lang_bg;

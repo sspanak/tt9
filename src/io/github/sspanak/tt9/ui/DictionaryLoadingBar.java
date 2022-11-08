@@ -21,6 +21,8 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 
 
 public class DictionaryLoadingBar {
+	private static DictionaryLoadingBar self;
+
 	private static final int NOTIFICATION_ID = 1;
 	private static final String NOTIFICATION_CHANNEL_ID = "loading-notifications";
 
@@ -33,7 +35,16 @@ public class DictionaryLoadingBar {
 	private boolean hasFailed = false;
 
 
-	DictionaryLoadingBar(Context context) {
+	public static DictionaryLoadingBar getInstance(Context context) {
+		if (self == null) {
+			self = new DictionaryLoadingBar(context);
+		}
+
+		return self;
+	}
+
+
+	public DictionaryLoadingBar(Context context) {
 		resources = context.getResources();
 
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -46,6 +57,7 @@ public class DictionaryLoadingBar {
 			));
 			notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
 		} else {
+			//noinspection deprecation
 			notificationBuilder = new NotificationCompat.Builder(context);
 		}
 
