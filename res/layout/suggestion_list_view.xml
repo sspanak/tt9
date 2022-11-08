@@ -12,6 +12,5 @@
 		android:paddingHorizontal="@dimen/candidate_padding_horizontal"
 		android:paddingVertical="@dimen/candidate_padding_vertical"
 		android:text=""
-		android:textColor="@color/candidate_color"
 		android:textSize="@dimen/candidate_font_size" />
 </LinearLayout>

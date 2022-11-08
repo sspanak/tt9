@@ -11,18 +11,19 @@
 	<string name="add_word_exist">Parola “%1$s” già nel dizionario.</string>
 	<string name="add_word_title">Aggiungi parola</string>
 
-	<string name="pref_help">"Mostra aiuto</string>
-	<string name="pref_choose_languages">Le lingue</string>
-	<string name="pref_loaddict">Carica dizionario</string>
-	<string name="pref_loaduserdict">Carica dizionario utente</string>
-	<string name="pref_truncatedict">Eliminare il dizionario</string>
+	<string name="pref_category_about">Sull\'applicazione</string>
+	<string name="pref_help">Aiuto</string>
+	<string name="pref_dark_theme">Tema scuro</string>
+	<string name="pref_choose_languages">Scegli le lingue</string>
+    <string name="dictionary_truncate_title">Eliminare il dizionario</string>
 
-	<string name="dictionary_load_cancelled">Caricamento del dizionario annullato.</string>
+	<string name="pref_category_dictionaries">Dizionari</string>
+	<string name="dictionary_cancel_load">Annullare il caricamento</string>
 	<string name="dictionary_load_failed">Caricamento del dizionario non riuscito.</string>
 	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Caricamento dizionario utente…</string>
-	<string name="dictionary_load_title">Caricamento del dizionario</string>
+	<string name="dictionary_load_title">Carica il dizionario</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
+	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 </resources>
 

@@ -40,17 +40,24 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void loadPreferences() {
-		mLanguage = LanguageCollection.getLanguage(prefs.getInputLanguage());
-		mEnabledLanguages = prefs.getEnabledLanguages();
-		mInputMode = InputMode.getInstance(prefs.getInputMode());
-		mInputMode.setTextCase(prefs.getTextCase());
+	private void loadSettings() {
+		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
+		mEnabledLanguages = settings.getEnabledLanguageIds();
+		mInputMode = InputMode.getInstance(settings.getInputMode());
+		mInputMode.setTextCase(settings.getTextCase());
 	}
 
 
 	private void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(prefs, mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(prefs, mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(settings, mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(settings, mLanguage, mEnabledLanguages);
+	}
+
+
+	private void validateFunctionKeys() {
+		if (!settings.areFunctionKeysSet()) {
+			settings.setDefaultKeys();
+		}
 	}
 
 
@@ -58,35 +65,42 @@ public class TraditionalT9 extends KeyPadHandler {
 		self = this;
 
 		if (softKeyHandler == null) {
-			softKeyHandler = new SoftKeyHandler(getLayoutInflater(), this);
+			softKeyHandler = new SoftKeyHandler(this);
 		}
 
 		if (mSuggestionView == null) {
 			mSuggestionView = new SuggestionsView(softKeyHandler.getView());
 		}
 
-		loadPreferences();
-		prefs.clearLastWord();
+		loadSettings();
+		validateFunctionKeys();
+		settings.clearLastWord();
 	}
 
 
 	protected void onRestart(EditorInfo inputField) {
-		// in case we are back from Preferences screen, update the language list
-		mEnabledLanguages = prefs.getEnabledLanguages();
+		// in case we are back from Settings screen, update the language list
+		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
 
 		// some input fields support only numbers or do not accept predictions
 		determineAllowedInputModes(inputField);
-		mInputMode = InputModeValidator.validateMode(prefs, mInputMode, allowedInputModes);
+		mInputMode = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
 
 		// Some modes may want to change the default text case based on grammar rules.
 		determineNextTextCase();
-		InputModeValidator.validateTextCase(prefs, mInputMode, prefs.getTextCase());
+		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
 
 		// build the UI
-		clearSuggestions();
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
+
+		clearSuggestions();
+		mSuggestionView.setDarkTheme(settings.getDarkTheme());
+
+		softKeyHandler.setDarkTheme(settings.getDarkTheme());
+		softKeyHandler.setSoftKeysVisibility(settings.getShowSoftKeys());
 		softKeyHandler.show();
+
 		if (!isInputViewShown()) {
 			showWindow(true);
 		}
@@ -239,32 +253,42 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyInputMode(boolean hold) {
-		if (mEditing == EDITING_DIALER) {
-			return false;
-		}
-
-		if (hold) {
-			nextLang();
-		} else {
-			nextInputMode();
-		}
-
-		return true;
-	}
-
-
-	protected boolean onKeyOtherAction(boolean hold) {
+	protected boolean onKeyAddWord() {
 		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
 			return false;
 		}
 
-		if (hold) {
-			UI.showPreferencesScreen(this);
-		} else {
-			showAddWord();
+		showAddWord();
+		return true;
+	}
+
+
+	protected boolean onKeyNextLanguage() {
+		if (mEditing == EDITING_DIALER) {
+			return false;
 		}
 
+		nextLang();
+		return true;
+	}
+
+
+	protected boolean onKeyNextInputMode() {
+		if (mEditing == EDITING_DIALER) {
+			return false;
+		}
+
+		nextInputMode();
+		return true;
+	}
+
+
+	protected boolean onKeyShowSettings() {
+		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+			return false;
+		}
+
+		UI.showSettingsScreen(this);
 		return true;
 	}
 
@@ -407,7 +431,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void setComposingTextWithWordStemIndication(CharSequence word) {
 		if (mInputMode.getWordStem().length() > 0) {
-			setComposingText(Util.highlightComposingText(word, 0, mInputMode.getWordStem().length()));
+			setComposingText(TextHelper.highlightComposingText(word, 0, mInputMode.getWordStem().length()));
 		} else {
 			setComposingText(word);
 		}
@@ -441,8 +465,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		// save the settings for the next time
-		prefs.saveInputMode(mInputMode);
-		prefs.saveTextCase(mInputMode.getTextCase());
+		settings.saveInputMode(mInputMode);
+		settings.saveTextCase(mInputMode.getTextCase());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
 	}
@@ -463,7 +487,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		validateLanguages();
 
 		// save it for the next time
-		prefs.saveInputLanguage(mLanguage.getId());
+		settings.saveInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
 	}
@@ -483,7 +507,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void determineAllowedInputModes(EditorInfo inputField) {
 		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
 
-		int lastInputModeId = prefs.getInputMode();
+		int lastInputModeId = settings.getInputMode();
 		if (allowedInputModes.contains(lastInputModeId)) {
 			mInputMode = InputMode.getInstance(lastInputModeId);
 		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
@@ -527,8 +551,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * If a new word was added to the dictionary, this function will append add it to the current input field.
 	 */
 	private void restoreAddedWordIfAny() {
-		String word = prefs.getLastWord();
-		prefs.clearLastWord();
+		String word = settings.getLastWord();
+		settings.clearLastWord();
 
 		if (word.length() == 0 || word.equals(InputFieldHelper.getSurroundingWord(currentInputConnection))) {
 			return;
@@ -549,6 +573,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * Generates the actual UI of TT9.
 	 */
 	protected View createSoftKeyView() {
-		return softKeyHandler.createView(getLayoutInflater());
+		return softKeyHandler.getView();
 	}
 }

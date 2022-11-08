@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 android:shape="rectangle">
-	<!--  Gradient Bg for bootan -->
 	<gradient
-		android:startColor="#424542"
-		android:endColor="#A5A2A5"
+		android:startColor="#686C68"
+		android:endColor="#B8BCB8"
 		android:angle="90" />
 </shape>

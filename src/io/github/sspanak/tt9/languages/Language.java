@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.languages;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -101,5 +103,11 @@ public class Language {
 		}
 
 		return sequence.toString();
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return name != null ? name : "";
 	}
 }

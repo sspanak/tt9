@@ -10,14 +10,14 @@
 	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
-	<string name="pref_help">"Hilfe anzeigen</string>
-	<string name="pref_choose_languages">Sprachen</string>
-	<string name="pref_loaddict">Wörterbuch laden</string>
-	<string name="pref_loaduserdict">Benutzerwörterbuch laden</string>
-	<string name="pref_truncatedict">Wörterbuch löschen</string>
+	<string name="pref_category_about">Über die Anwendung</string>
+	<string name="pref_help">Hilfe</string>
+	<string name="pref_dark_theme">Dunkles Thema</string>
+	<string name="pref_choose_languages">Sprachen auswählen</string>
+    <string name="dictionary_truncate_title">Wörterbuch löschen</string>
 
+	<string name="pref_category_dictionaries">Wörterbücher</string>
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Lade Benutzerwörterbuch…</string>
 	<string name="dictionary_load_title">Wörterbuch laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 </resources>

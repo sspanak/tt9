@@ -8,63 +8,61 @@
 		android:id="@+id/main_suggestions_list"
 		android:layout_width="fill_parent"
 		android:layout_height="@dimen/candidate_list_height"
+		android:fadingEdge="horizontal"
 		android:orientation="horizontal"
-		android:scrollbars="none"
-		android:background="@color/candidate_background" />
+		android:paddingTop="1px"
+		android:scrollbars="none" />
 
 	<LinearLayout
+		android:id="@+id/main_soft_keys"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/soft_key_height"
-		android:background="@drawable/bggradient"
 		android:baselineAligned="true"
 		android:orientation="horizontal">
 
 		<Button
 			android:id="@+id/main_left"
+			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="1px"
-			android:layout_marginRight="1px"
 			android:layout_weight="3"
-			android:background="@drawable/button_custom"
 			android:clickable="true"
 			android:focusable="false"
 			android:longClickable="true"
 			android:text="⚙"
-			android:textColor="@color/button_text"
-			android:textSize="24sp" />
+			android:textSize="24sp"/>
 
+		<View
+			android:id="@+id/main_separator_left"
+			style="@style/hSeparator"
+			android:background="@drawable/button_separator_dark" />
 
 		<Button
 			android:id="@+id/main_mid"
+			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="1px"
-			android:layout_marginRight="1px"
 			android:layout_weight="5"
-			android:background="@drawable/button_custom"
 			android:clickable="true"
 			android:focusable="false"
 			android:longClickable="true"
-			android:paddingLeft="2dp"
-			android:paddingRight="2dp"
-			android:text="@android:string/ok"
-			android:textColor="@color/button_text" />
+			android:text="@android:string/ok" />
 
+		<View
+			android:id="@+id/main_separator_right"
+			android:background="@drawable/button_separator_dark"
+			style="@style/hSeparator" />
 
 		<Button
 			android:id="@+id/main_right"
+			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_marginLeft="1px"
-			android:layout_marginRight="1px"
 			android:layout_weight="3"
-			android:background="@drawable/button_custom"
 			android:clickable="true"
 			android:focusable="false"
 			android:longClickable="true"
 			android:text="⌫"
-			android:textColor="@color/button_text"
 			android:textSize="24sp" />
 
 	</LinearLayout>

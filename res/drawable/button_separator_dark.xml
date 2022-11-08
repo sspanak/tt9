@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
 android:shape="rectangle">
-	<!--  Gradient Bg for button -->
 	<gradient
-		android:startColor="#8C8E8C"
-		android:endColor="#636163"
+		android:startColor="#2E322E"
+		android:endColor="#878B87"
 		android:angle="90" />
 </shape>

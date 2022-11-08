@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 	<string name="app_settings">Настройки на Traditional T9</string>
 	<string name="close">Затвори</string>
 	<string name="completed">Завършено</string>
@@ -12,21 +12,34 @@
 	<string name="add_word_invalid_language">За да добавите нова дума, първо изберете език.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 
+	<string name="pref_category_about">За приложението</string>
 	<string name="pref_help">Помощ</string>
+	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_choose_languages">Избор на езици</string>
-	<string name="pref_loaddict">Зареди речник</string>
-	<string name="pref_loaduserdict">Зареди свой речник</string>
-	<string name="pref_truncatedict">Изтрий речник</string>
+	<string name="dictionary_truncate_title">Изтрий речник</string>
 
+	<string name="pref_category_dictionaries">Речници</string>
+	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума \"%1$s\" на ред %2$d за език \"%3$s\".</string>
-	<string name="dictionary_load_cancelled">Зареждането на речник е отменено.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_failed">Неуспешно зареждане на речник.</string>
 	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
-	<string name="dictionary_loading_user_dict">Зареждане на вашия речник…</string>
-	<string name="dictionary_load_title">Зареждане на речник</string>
+	<string name="dictionary_load_title">Зареди речник</string>
 	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за \"%1$s\".</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
+	<string name="pref_category_appearance">Облик</string>
+	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
+	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
+	<string name="key_back">Назад</string>
+	<string name="key_call">Зелена слушалка</string>
+	<string name="function_add_word_key">Добавяне на нова дума</string>
+	<string name="function_backspace_key">Триене на текст</string>
+	<string name="function_next_language_key">Следващ eзик</string>
+	<string name="function_next_mode_key">Режим на писане</string>
+	<string name="function_show_settings_key">Настройки</string>
+	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
+	<string name="function_reset_keys_done">Възстановени са стандартните \"бързи\" бутони.</string>
+	<string name="key_hold_key">(задръж)</string>
 
 </resources>

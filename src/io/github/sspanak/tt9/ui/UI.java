@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
@@ -21,8 +22,8 @@ public class UI {
 	}
 
 
-	public static void showPreferencesScreen(TraditionalT9 tt9) {
-		Intent prefIntent = new Intent(tt9, TraditionalT9Settings.class);
+	public static void showSettingsScreen(TraditionalT9 tt9) {
+		Intent prefIntent = new Intent(tt9, PreferencesActivity.class);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		tt9.hideWindow();

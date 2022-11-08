@@ -1,7 +1,10 @@
 package io.github.sspanak.tt9.languages;
 
+import android.os.Build;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,7 +60,7 @@ public class LanguageCollection {
 		return null;
 	}
 
-	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds) {
+	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds, boolean sort) {
 		ArrayList<Language> langList = new ArrayList<>();
 
 		for (int languageId : languageIds) {
@@ -67,6 +70,41 @@ public class LanguageCollection {
 			}
 		}
 
+		if (sort && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			langList.sort(Comparator.comparing(l -> l.getLocale().toString()));
+		}
+
 		return langList;
+	}
+
+	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds) {
+		return getAll(languageIds, false);
+	}
+
+	public static ArrayList<Language> getAll(boolean sort) {
+		ArrayList<Language> langList = new ArrayList<>(getInstance().languages.values());
+
+		if (sort && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+			langList.sort(Comparator.comparing(l -> l.getLocale().toString()));
+		}
+
+		return langList;
+	}
+
+	public static ArrayList<Language> getAll() {
+		return getAll(false);
+	}
+
+
+	public static String toString(ArrayList<Language> list) {
+		StringBuilder stringList = new StringBuilder();
+		int listSize = list.size();
+
+		for (int i = 0; i < listSize; i++) {
+			stringList.append(list.get(i));
+			stringList.append((i < listSize - 1) ? ", " : " ");
+		}
+
+		return stringList.toString();
 	}
 }
