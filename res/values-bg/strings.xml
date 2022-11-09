@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 	<string name="app_settings">Настройки на Traditional T9</string>
 	<string name="close">Затвори</string>
+	<string name="completed">Завършено</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 
 	<string name="add_word_add">Добави</string>
@@ -17,10 +18,11 @@
 	<string name="pref_loaduserdict">Зареди свой речник</string>
 	<string name="pref_truncatedict">Изтрий речник</string>
 
-	<string name="dictionary_import_bad_char">Неуспешно зареждане. Невалидна дума \"%1$s\" на ред %2$d за език \"%3$s\".</string>
-	<string name="dictionary_import_cancelled">Зареждането на речник е отменено.</string>
-	<string name="dictionary_import_error">Несупешно зареждане на речник за език \"%1$s\" (%2$s).</string>
-	<string name="dictionary_loaded">Готово</string>
+	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума \"%1$s\" на ред %2$d за език \"%3$s\".</string>
+	<string name="dictionary_load_cancelled">Зареждането на речник е отменено.</string>
+	<string name="dictionary_load_error">Несупешно зареждане на речник за език \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_failed">Неуспешно зареждане на речник.</string>
+	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Зареждане на вашия речник…</string>
 	<string name="dictionary_load_title">Зареждане на речник</string>

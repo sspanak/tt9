@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Traditional T9 настройки</string>
 	<string name="close">Закрыть</string>
+	<string name="completed">Выполнено</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 
 	<string name="add_word_add">Добавить</string>
@@ -17,9 +18,10 @@
 	<string name="pref_loaduserdict">Загрузить свой словарь</string>
 	<string name="pref_truncatedict">Очистить словарь</string>
 
-	<string name="dictionary_import_cancelled">Загрузка словаря отменена.</string>
-	<string name="dictionary_import_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
-	<string name="dictionary_loaded">Завершена</string>
+	<string name="dictionary_load_cancelled">Загрузка словаря отменена.</string>
+	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
+	<string name="dictionary_load_failed">Ошибка загрузки словаря.</string>
+	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Загрузка пользовательского словаря…</string>
 	<string name="dictionary_load_title">Загрузить словарь</string>

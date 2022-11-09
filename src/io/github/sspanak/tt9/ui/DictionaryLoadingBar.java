@@ -5,12 +5,20 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Bundle;
 
 import androidx.core.app.NotificationCompat;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryImportException;
+import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+
 
 public class DictionaryLoadingBar {
 	private static final int NOTIFICATION_ID = 1;
@@ -21,6 +29,8 @@ public class DictionaryLoadingBar {
 	private final Resources resources;
 
 	private int maxProgress = 0;
+	private int progress = 0;
+	private boolean hasFailed = false;
 
 
 	DictionaryLoadingBar(Context context) {
@@ -40,9 +50,46 @@ public class DictionaryLoadingBar {
 		}
 
 		notificationBuilder
-			.setSmallIcon(R.drawable.ic_notification)
+			.setSmallIcon(android.R.drawable.stat_notify_sync)
 			.setCategory(NotificationCompat.CATEGORY_PROGRESS)
 			.setOnlyAlertOnce(true);
+	}
+
+
+	public void setFileCount(int count) {
+		maxProgress = count * 100;
+	}
+
+
+	public boolean isCompleted() {
+		return progress >= maxProgress;
+	}
+
+
+	public boolean isFailed() {
+		return hasFailed;
+	}
+
+
+	public void show(Bundle data) {
+		String error = data.getString("error", null);
+
+		if (error != null) {
+			hasFailed = true;
+			showError(
+				error,
+				data.getInt("languageId", -1),
+				data.getLong("fileLine", -1),
+				data.getString("word", "")
+			);
+		} else {
+			hasFailed = false;
+			showProgress(
+				data.getInt("currentFile", 0),
+				data.getInt("progress", 0),
+				data.getInt("languageId", -1)
+			);
+		}
 	}
 
 
@@ -57,36 +104,78 @@ public class DictionaryLoadingBar {
 	}
 
 
-	public void show(int currentFile, int currentFileProgress, int languageId) {
-		int totalProgress = 100 * currentFile + currentFileProgress;
+	private void showProgress(int currentFile, int currentFileProgress, int languageId) {
+		progress = 100 * currentFile + currentFileProgress;
 
 		if (currentFileProgress < 0) {
 			hide();
-			return;
-		} else if (totalProgress >= maxProgress) {
-			notificationBuilder
-				.setContentTitle(generateTitle(-1))
-				.setContentText(resources.getString(R.string.dictionary_loaded))
-				.setOngoing(false)
-				.setProgress(0, 0, false);
+		} else if (progress >= maxProgress) {
+			renderProgress(
+				generateTitle(-1),
+				resources.getString(R.string.completed),
+				0,
+				0
+			);
 		} else {
-			notificationBuilder
-				.setContentTitle(generateTitle(languageId))
-				.setContentText(currentFileProgress + "%")
-				.setOngoing(true)
-				.setProgress(maxProgress, totalProgress, false);
+			renderProgress(
+				generateTitle(languageId),
+				currentFileProgress + "%",
+				progress,
+				maxProgress
+			);
 		}
+	}
+
+
+	private void showError(String errorType, int langId, long line, String word) {
+		Language lang = LanguageCollection.getLanguage(langId);
+		String message;
+
+		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
+			message = resources.getString(R.string.add_word_invalid_language);
+		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
+			String languageName = lang.getName();
+			message = resources.getString(R.string.dictionary_load_bad_char, word, line, languageName);
+		} else if (errorType.equals(IOException.class.getSimpleName()) || errorType.equals(FileNotFoundException.class.getSimpleName())) {
+			String languageName = lang.getName();
+			message = resources.getString(R.string.dictionary_not_found, languageName);
+		} else {
+			String languageName = lang.getName();
+			message = resources.getString(R.string.dictionary_load_error, languageName, errorType);
+		}
+
+		renderError(generateTitle(-1), message);
+	}
+
+
+	private void hide() {
+		manager.cancel(NOTIFICATION_ID);
+	}
+
+
+	private void renderError(String title, String message) {
+		NotificationCompat.BigTextStyle bigMessage = new NotificationCompat.BigTextStyle();
+			bigMessage.setBigContentTitle(title);
+			bigMessage.bigText(message);
+
+		notificationBuilder
+			.setSmallIcon(android.R.drawable.stat_notify_error)
+			.setStyle(bigMessage)
+			.setOngoing(false)
+			.setProgress(0, 0, false);
 
 		manager.notify(NOTIFICATION_ID, notificationBuilder.build());
 	}
 
 
-	public void hide() {
-		manager.cancel(NOTIFICATION_ID);
-	}
+	private void renderProgress(String title, String message, int progress, int maxProgress) {
+		notificationBuilder
+			.setSmallIcon(progress < maxProgress ? android.R.drawable.stat_notify_sync : R.drawable.ic_done)
+			.setOngoing(progress < maxProgress)
+			.setProgress(maxProgress, progress, false)
+			.setContentTitle(title)
+			.setContentText(message);
 
-
-	public void setFileCount(int count) {
-		maxProgress = count * 100;
+		manager.notify(NOTIFICATION_ID, notificationBuilder.build());
 	}
 }

@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Traditional T9 Impostazioni</string>
 	<string name="close">Chiudi</string>
+	<string name="completed">Completato</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
 	<string name="add_word_add">Aggiungere</string>
@@ -16,11 +17,12 @@
 	<string name="pref_loaduserdict">Carica dizionario utente</string>
 	<string name="pref_truncatedict">Eliminare il dizionario</string>
 
-	<string name="dictionary_import_cancelled">Caricamento dizionario annullato.</string>
-	<string name="dictionary_loaded">Terminato</string>
-	<string name="dictionary_loading">Caricamento dizionario (%1$s)…</string>
+	<string name="dictionary_load_cancelled">Caricamento del dizionario annullato.</string>
+	<string name="dictionary_load_failed">Caricamento del dizionario non riuscito.</string>
+	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
+	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
 	<string name="dictionary_loading_user_dict">Caricamento dizionario utente…</string>
-	<string name="dictionary_load_title">Caricamento dizionario</string>
+	<string name="dictionary_load_title">Caricamento del dizionario</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 </resources>
 
