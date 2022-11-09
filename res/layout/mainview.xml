@@ -48,7 +48,7 @@
 			android:longClickable="true"
 			android:paddingLeft="2dp"
 			android:paddingRight="2dp"
-			android:text="@string/soft_key_mid"
+			android:text="@android:string/ok"
 			android:textColor="@color/button_text" />
 
 
