@@ -157,8 +157,15 @@ class InputFieldHelper {
 
 
 	public static String getSurroundingWord(InputConnection currentInputConnection) {
+		if (currentInputConnection == null) {
+			return "";
+		}
+
 		String before = (String) currentInputConnection.getTextBeforeCursor(50, 0);
 		String after = (String) currentInputConnection.getTextAfterCursor(50, 0);
+		if (before == null || after == null) {
+			return "";
+		}
 
 		Matcher beforeMatch = Pattern.compile("(\\w+)$").matcher(before);
 		Matcher afterMatch = Pattern.compile("^(\\w+)").matcher(after);

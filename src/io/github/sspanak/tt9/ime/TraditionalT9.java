@@ -511,6 +511,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
+		if (currentInputConnection == null) {
+			return;
+		}
+
 		currentInputConnection.finishComposingText();
 		clearSuggestions();
 
