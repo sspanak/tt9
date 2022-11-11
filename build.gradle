@@ -50,7 +50,7 @@ def computeVersionName = { ->
 	String lastTag = execThing('git describe --tags --abbrev=0')
 
 	String gitLogResult = execThing("git log $lastTag..HEAD --oneline")
-	String commitsSinceLastTag = gitLogResult.equals('') ? "0" : gitLogResult.split('\n').size();
+	String commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
 
 	String currentHash = execThing('git log -1 --format=%h')
 
@@ -110,7 +110,7 @@ task validateDictionaries {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "t9build.properties"
 	doLast {
-		String errors = "";
+		String errors = ""
 
 		inputs.getFiles().each {File file ->
 			println "Validating dictionary: " + file.name
