@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:layout="@layout/pref_text"
 	app:orderingFromXml="true">
 
 
 	<Preference
 		app:iconSpaceReserved="false"
 		app:key="help"
+		app:layout="@layout/pref_text"
 		app:summary="github.com/sspanak/tt9"
 		app:title="@string/pref_help">
 		<intent
@@ -18,18 +20,21 @@
 	<PreferenceCategory
 		android:title="@string/pref_category_appearance"
 		app:iconSpaceReserved="false"
+		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
 			app:iconSpaceReserved="false"
 			app:key="pref_dark_theme"
+			app:layout="@layout/pref_switch"
 			app:title="@string/pref_dark_theme" />
 
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
 			app:iconSpaceReserved="false"
 			app:key="pref_show_soft_keys"
+			app:layout="@layout/pref_switch"
 			app:title="@string/pref_show_soft_function_keys" />
 
 	</PreferenceCategory>
@@ -38,21 +43,25 @@
 	<PreferenceCategory
 		android:title="@string/pref_category_dictionaries"
 		app:iconSpaceReserved="false"
+		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<MultiSelectListPreference
 			app:iconSpaceReserved="false"
 			app:key="pref_languages"
+			app:layout="@layout/pref_text"
 			app:title="@string/pref_choose_languages" />
 
 		<Preference
 			app:iconSpaceReserved="false"
 			app:key="dictionary_load"
+			app:layout="@layout/pref_text"
 			app:title="@string/dictionary_load_title" />
 
 		<Preference
 			app:iconSpaceReserved="false"
 			app:key="dictionary_truncate"
+			app:layout="@layout/pref_text"
 			app:title="@string/dictionary_truncate_title" />
 
 	</PreferenceCategory>
@@ -81,36 +90,43 @@
 	<PreferenceCategory
 		android:title="@string/pref_category_function_keys"
 		app:iconSpaceReserved="false"
+		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<DropDownPreference
 			app:iconSpaceReserved="false"
 			app:key="key_add_word"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/function_add_word_key" />
 
 		<DropDownPreference
 			app:iconSpaceReserved="false"
 			app:key="key_backspace"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/function_backspace_key" />
 
 		<DropDownPreference
 			app:iconSpaceReserved="false"
 			app:key="key_next_language"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/function_next_language_key" />
 
 		<DropDownPreference
 			app:iconSpaceReserved="false"
 			app:key="key_next_input_mode"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/function_next_mode_key" />
 
 		<DropDownPreference
 			app:iconSpaceReserved="false"
 			app:key="key_show_settings"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/function_show_settings_key" />
 
 		<Preference
 			app:iconSpaceReserved="false"
 			app:key="reset_keys"
+			app:layout="@layout/pref_text"
 			app:title="@string/function_reset_keys_title" />
 
 	</PreferenceCategory>
@@ -119,10 +135,12 @@
 	<PreferenceCategory
 		android:title="@string/pref_category_about"
 		app:iconSpaceReserved="false"
+		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 		<Preference
 			app:iconSpaceReserved="false"
 			app:key="version_info"
+			app:layout="@layout/pref_text"
 			app:title="@string/app_name" />
 	</PreferenceCategory>
 
