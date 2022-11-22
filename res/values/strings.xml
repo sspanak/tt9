@@ -2,7 +2,7 @@
 <resources>
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
 	<string name="app_name" translatable="false">Traditional T9</string>
-	<string name="app_settings">Traditional T9 Settings</string>
+	<string name="app_settings">TT9 Settings</string>
 	<string name="close">Close</string>
 	<string name="completed">Completed</string>
 	<string name="error_unexpected">Unexpected error occurred.</string>

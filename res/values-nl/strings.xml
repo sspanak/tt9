@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Traditional T9 Opties</string>
+	<string name="app_settings">TT9 Opties</string>
 	<string name="close">Sluiten</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
