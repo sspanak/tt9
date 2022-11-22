@@ -18,7 +18,7 @@ public class ModePredictive extends InputMode {
 
 	public int getId() { return MODE_PREDICTIVE; }
 
-	private boolean isEmoji = false;
+	private boolean areSuggestionsStatic = false;
 	private String digitSequence = "";
 
 	// stem filter
@@ -43,6 +43,11 @@ public class ModePredictive extends InputMode {
 
 
 	public boolean onBackspace() {
+		if (digitSequence.equals("0") || digitSequence.equals("11")) {
+			reset();
+			return true;
+		}
+
 		if (digitSequence.length() < 1) {
 			clearWordStem();
 			return false;
@@ -65,9 +70,7 @@ public class ModePredictive extends InputMode {
 			reset();
 			word = String.valueOf(key);
 		}	else if (key == 0) {
-			// "0" is " "
-			reset();
-			word = " ";
+			on0(repeat);
 		} else if (key == 1 && repeat > 0) {
 			onEmoji(repeat);
 		}
@@ -81,11 +84,15 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	public void reset() {
-		super.reset();
-		isEmoji = false;
-		digitSequence = "";
-		stem = "";
+	private void on0(int repeat) {
+		reset();
+		if (repeat == 0) {
+			areSuggestionsStatic = true;
+			digitSequence = "0";
+			suggestions = Punctuation.Secondary;
+		} else {
+			word = " ";
+		}
 	}
 
 
@@ -95,13 +102,13 @@ public class ModePredictive extends InputMode {
 	 */
 	private void onEmoji(int category) {
 		reset();
-		suggestions = new ArrayList<>();
 
 		if (category <= 0) {
 			return;
 		}
 
-		isEmoji = true;
+		areSuggestionsStatic = true;
+		digitSequence = "11"; // emoji are two characters long
 
 		switch (category) {
 			case 1:
@@ -115,6 +122,13 @@ public class ModePredictive extends InputMode {
 		}
 	}
 
+
+	public void reset() {
+		super.reset();
+		areSuggestionsStatic = false;
+		digitSequence = "";
+		stem = "";
+	}
 
 	/**
 	 * shouldAcceptCurrentSuggestion
@@ -130,7 +144,8 @@ public class ModePredictive extends InputMode {
 			// Also, it must break the current word.
 			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
 			// On the other hand, letters also "break" punctuation.
-			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"));
+			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
+			|| (digitSequence.endsWith("0"));
 	}
 
 
@@ -200,7 +215,7 @@ public class ModePredictive extends InputMode {
 	 * See: generatePossibleCompletions()
 	 */
 	public boolean loadSuggestions(Handler handler, Language language, String lastWord) {
-		if (isEmoji) {
+		if (areSuggestionsStatic) {
 			super.onSuggestionsUpdated(handler);
 			return true;
 		}
@@ -428,7 +443,7 @@ public class ModePredictive extends InputMode {
 
 
 	final public boolean isPredictive() { return true; }
-	public int getSequenceLength() { return isEmoji ? 2 : digitSequence.length(); }
+	public int getSequenceLength() { return digitSequence.length(); }
 	public boolean shouldTrackUpDown() { return true; }
 	public boolean shouldTrackLeftRight() { return true; }
 
