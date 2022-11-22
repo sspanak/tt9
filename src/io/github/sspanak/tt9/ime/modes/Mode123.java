@@ -12,7 +12,7 @@ public class Mode123 extends InputMode {
 	}
 
 
-	public boolean onNumber(Language l, int key, boolean hold, boolean repeat) {
+	public boolean onNumber(Language l, int key, boolean hold, int repeat) {
 		if (key != 0) {
 			return false;
 		}

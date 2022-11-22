@@ -21,7 +21,8 @@ import io.github.sspanak.tt9.ui.SuggestionsView;
 import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
-	private static TraditionalT9 self;
+	// internal settings/data
+	private EditorInfo inputField;
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -36,6 +37,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private SuggestionsView mSuggestionView = null;
 
 
+	private static TraditionalT9 self;
 	public static Context getMainContext() {
 		return self.getApplicationContext();
 	}
@@ -82,12 +84,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onRestart(EditorInfo inputField) {
+		this.inputField = inputField;
+
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
 
 		// some input fields support only numbers or do not accept predictions
-		determineAllowedInputModes(inputField);
+		determineAllowedInputModes();
 		mInputMode = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
 
 		// Some modes may want to change the default text case based on grammar rules.
@@ -151,8 +155,11 @@ public class TraditionalT9 extends KeyPadHandler {
 			return sendDefaultEditorAction(false);
 		}
 
-		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
+		String word = mSuggestionView.getCurrentSuggestion();
+
+		mInputMode.onAcceptSuggestion(mLanguage, word);
 		commitCurrentSuggestion();
+		autoCorrectSpace(word, true, -1, false);
 		resetKeyRepeat();
 
 		return true;
@@ -213,15 +220,21 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @param repeat  If "true" we are calling the handler, because the key was pressed more than once
 	 * @return boolean
 	 */
-	protected boolean onNumber(int key, boolean hold, boolean repeat) {
-		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat)) {
-			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		String currentWord = getComposingText();
+
+		// Automatically accept the current word, when the next one is a space or whatnot,
+		// instead of requiring "OK" before that.
+		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat > 0)) {
+			mInputMode.onAcceptSuggestion(mLanguage, currentWord);
 			commitCurrentSuggestion(false);
+			autoCorrectSpace(currentWord, false, key, hold);
+			currentWord = "";
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		// We don't do it too often, because it is somewhat resource-intensive.
-		if (getComposingText().length() == 0) {
+		if (currentWord.length() == 0) {
 			determineNextTextCase();
 		}
 
@@ -507,7 +520,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void determineAllowedInputModes(EditorInfo inputField) {
+	private void determineAllowedInputModes() {
 		allowedInputModes = InputFieldHelper.determineInputModes(inputField);
 
 		int lastInputModeId = settings.getInputMode();
@@ -524,13 +537,25 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else if (mInputMode.is123() && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
-			mEditing = InputFieldHelper.isFilterTextField(inputField) ? EDITING_NOSHOW : EDITING;
+			mEditing = InputFieldHelper.isFilterField(inputField) ? EDITING_NOSHOW : EDITING;
+		}
+	}
+
+
+	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
+		if (mInputMode.shouldDeletePrecedingSpace(inputField)) {
+			InputFieldHelper.deletePrecedingSpace(currentInputConnection, currentWord);
+		}
+
+		if (mInputMode.shouldAddAutoSpace(inputField, isWordAcceptedManually, incomingKey, hold)) {
+			commitText(" ");
 		}
 	}
 
 
 	private void determineNextTextCase() {
 		mInputMode.determineNextWordTextCase(
+			settings,
 			InputFieldHelper.isThereText(currentInputConnection),
 			(String) currentInputConnection.getTextBeforeCursor(50, 0)
 		);

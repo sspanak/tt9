@@ -15,7 +15,7 @@
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_help">Помощ</string>
 	<string name="pref_dark_theme">Тъмен облик</string>
-	<string name="pref_choose_languages">Избор на езици</string>
+	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий речник</string>
 
 	<string name="pref_category_dictionaries">Речници</string>
@@ -41,7 +41,11 @@
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
 	<string name="function_reset_keys_done">Възстановени са стандартните \"бързи\" бутони.</string>
 	<string name="key_hold_key">(задръж)</string>
-    <string name="dictionary_loading_indeterminate">Зареждане на речник</string>
+	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
-
+	<string name="pref_auto_space">Автоматичен интервал</string>
+	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
+	<string name="pref_auto_text_case">Автоматични главни букви</string>
+	<string name="pref_auto_text_case_summary">Започвай автоматично изреченията с главни букви.</string>
+	<string name="pref_category_predictive_mode">Подсказващ режим</string>
 </resources>

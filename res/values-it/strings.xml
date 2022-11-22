@@ -14,8 +14,8 @@
 	<string name="pref_category_about">Sull\'applicazione</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
-	<string name="pref_choose_languages">Scegli le lingue</string>
-    <string name="dictionary_truncate_title">Eliminare il dizionario</string>
+	<string name="pref_choose_languages">Lingue</string>
+	<string name="dictionary_truncate_title">Eliminare il dizionario</string>
 
 	<string name="pref_category_dictionaries">Dizionari</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>
@@ -25,7 +25,7 @@
 	<string name="dictionary_load_title">Carica il dizionario</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
-    <string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
+	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
 </resources>
 

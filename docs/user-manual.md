@@ -47,12 +47,19 @@ _Predictive mode only._
 - Clear the suggestion filter, if applied.
 - When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
 
-#### 0-key
-- **In 123 mode:** type "0" or hold it to type "+".
-- **In ABC mode:** type secondary punctuation or hold to type "0".
-- **In Predictive mode:** type space or hold to type "0".
+#### 0-key:
+- **In 123 mode:**
+  - **Press:**: type "0".
+  - **Hold:** type "+".
+- **In ABC mode:**
+  - **Press:** type space, newline or special/math characters.
+  - **Hold:** type "0".
+- **In Predictive mode:**
+  - **Press:** type space, newline or special/math characters.
+  - **Multiple Press:** type multiple spaces.
+  - **Hold:** type "0".
 
-#### 1- to 9-key
+#### 1- to 9-key:
 - **In 123 mode:** type the respective number.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
@@ -67,7 +74,7 @@ Just deletes text.
 - **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
 - **Long Press**: Whatever the system default action is (i.e. show running applications list).
 
-All this does not apply, when using other keys. They will just delete text
+All this does not apply, when using other keys. They will just delete text.
 
 #### Next Input Mode Key (Default: Press #):
 - **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
@@ -94,7 +101,7 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 
 To access it:
 - Start typing in a text field to wake up TT9.
-- Use the on-screen gear button or hold the Settings Key.
+- Use the on-screen gear button or press the Settings Key.
 
 ## License
 - The source code, the logo image and the icons are licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).

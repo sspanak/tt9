@@ -3,12 +3,14 @@ package io.github.sspanak.tt9.ime.modes;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.ime.InputFieldHelper;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -18,8 +20,9 @@ public class ModePredictive extends InputMode {
 
 	public int getId() { return MODE_PREDICTIVE; }
 
-	private boolean isEmoji = false;
 	private String digitSequence = "";
+	private String lastAcceptedWord = "";
+	private String lastAcceptedSequence = "";
 
 	// stem filter
 	private boolean isStemFuzzy = false;
@@ -27,11 +30,15 @@ public class ModePredictive extends InputMode {
 
 	// async suggestion handling
 	private Language currentLanguage = null;
-	private String lastInputFieldWord = "";
+	private String currentInputFieldWord = "";
 	private static Handler handleSuggestionsExternal;
 
 	// auto text case selection
-	private final Pattern endOfSentence = Pattern.compile("(?<!\\.)[.?!]\\s*$");
+	private final Pattern endOfSentenceRegex = Pattern.compile("(?<!\\.)[.?!]\\s*$");
+
+	// punctuation/emoji
+	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
+	private final String maxEmojiSequence;
 
 
 	ModePredictive(SettingsStore settings) {
@@ -39,9 +46,18 @@ public class ModePredictive extends InputMode {
 		allowedTextCases.add(CASE_LOWER);
 		allowedTextCases.add(CASE_CAPITALIZE);
 		allowedTextCases.add(CASE_UPPER);
+
+		// digitSequence limiter when selecting emoji
+		// "11" = Emoji level 0, "111" = Emoji level 1,... up to the maximum amount of 1s
+		StringBuilder maxEmojiSequenceBuilder = new StringBuilder();
+		for (int i = 0; i <= Punctuation.getEmojiLevels(); i++) {
+			maxEmojiSequenceBuilder.append("1");
+		}
+		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
 	}
 
 
+	@Override
 	public boolean onBackspace() {
 		if (digitSequence.length() < 1) {
 			clearWordStem();
@@ -59,24 +75,17 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	public boolean onNumber(Language l, int key, boolean hold, boolean repeat) {
-		isEmoji = false;
-
+	@Override
+	public boolean onNumber(Language l, int key, boolean hold, int repeat) {
 		if (hold) {
 			// hold to type any digit
 			reset();
 			word = String.valueOf(key);
-		}	else if (key == 0) {
-			// "0" is " "
+		} else if (key == 0 && repeat > 0) {
+			// repeat "0" to type spaces
 			reset();
 			word = " ";
-		} else if (key == 1 && repeat) {
-			// emoticons
-			reset();
-			isEmoji = true;
-			suggestions = Punctuation.Emoji;
-		}
-		else {
+		} else {
 			// words
 			super.reset();
 			digitSequence += key;
@@ -86,6 +95,7 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	@Override
 	public void reset() {
 		super.reset();
 		digitSequence = "";
@@ -94,10 +104,97 @@ public class ModePredictive extends InputMode {
 
 
 	/**
+	 * shouldAddAutoSpace
+	 * When the "auto-space" settings is enabled, this determines whether to automatically add a space
+	 * at the end of a sentence or after accepting a suggestion. This allows faster typing, without
+	 * pressing space.
+	 *
+	 * See the helper functions for the list of rules.
+	 */
+	@Override
+	public boolean shouldAddAutoSpace(EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
+		return
+			settings.getAutoSpace()
+			&& !hold
+			&& (
+				shouldAddAutoSpaceAfterPunctuation(inputField, incomingKey)
+				|| shouldAddAutoSpaceAfterWord(inputField, isWordAcceptedManually)
+			);
+	}
+
+
+	/**
+	 * shouldDeletePrecedingSpace
+	 * When the "auto-space" settings is enabled, determine whether to delete spaces before punctuation.
+	 * This allows automatic conversion from: "words ." to: "words."
+	 */
+	@Override
+	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) {
+		return
+			settings.getAutoSpace()
+			&& (
+				lastAcceptedWord.equals(".")
+				|| lastAcceptedWord.equals(",")
+				|| lastAcceptedWord.equals(";")
+				|| lastAcceptedWord.equals(":")
+				|| lastAcceptedWord.equals("!")
+				|| lastAcceptedWord.equals("?")
+				|| lastAcceptedWord.equals(")")
+				|| lastAcceptedWord.equals("]")
+				|| lastAcceptedWord.equals("'")
+				|| lastAcceptedWord.equals("@")
+			)
+			&& InputFieldHelper.isRegularTextField(inputField);
+	}
+
+
+	/**
+	 * shouldAddAutoSpaceAfterPunctuation
+	 * Determines whether to automatically adding a space after certain punctuation signs makes sense.
+	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
+	 * because we are not using a QWERTY keyboard here).
+	 */
+	private boolean shouldAddAutoSpaceAfterPunctuation(EditorInfo inputField, int incomingKey) {
+		return
+			incomingKey != 0
+			&& (
+				lastAcceptedWord.endsWith(".")
+				|| lastAcceptedWord.endsWith(",")
+				|| lastAcceptedWord.endsWith(";")
+				|| lastAcceptedWord.endsWith(":")
+				|| lastAcceptedWord.endsWith("!")
+				|| lastAcceptedWord.endsWith("?")
+				|| lastAcceptedWord.endsWith(")")
+				|| lastAcceptedWord.endsWith("]")
+				|| lastAcceptedWord.endsWith("%")
+			)
+			&& InputFieldHelper.isRegularTextField(inputField);
+	}
+
+
+	/**
+	 * shouldAddAutoSpaceAfterPunctuation
+	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
+	 * words.
+	 */
+	private boolean shouldAddAutoSpaceAfterWord(EditorInfo inputField, boolean isWordAcceptedManually) {
+		return
+			// Do not add space when auto-accepting words, because it feels very confusing when typing.
+			isWordAcceptedManually
+			// Secondary punctuation
+			&& !lastAcceptedSequence.equals("0")
+			// Emoji
+			&& !lastAcceptedSequence.startsWith("1")
+			&& InputFieldHelper.isRegularTextField(inputField);
+	}
+
+
+	/**
 	 * shouldAcceptCurrentSuggestion
 	 * In this mode, In addition to confirming the suggestion in the input field,
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
+	@Override
 	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) {
 		return
 			hold
@@ -107,7 +204,8 @@ public class ModePredictive extends InputMode {
 			// Also, it must break the current word.
 			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
 			// On the other hand, letters also "break" punctuation.
-			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"));
+			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
+			|| (digitSequence.endsWith("0"));
 	}
 
 
@@ -115,6 +213,7 @@ public class ModePredictive extends InputMode {
 	 * clearWordStem
 	 * Do not filter the suggestions by the word set using "setWordStem()", use only the digit sequence.
 	 */
+	@Override
 	public boolean clearWordStem() {
 		stem = "";
 		Logger.d("tt9/setWordStem", "Stem filter cleared");
@@ -138,6 +237,7 @@ public class ModePredictive extends InputMode {
 	 *
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
+	@Override
 	public boolean setWordStem(Language language, String wordStem, boolean exact) {
 		if (language == null || wordStem == null || wordStem.length() < 1) {
 			return false;
@@ -146,9 +246,9 @@ public class ModePredictive extends InputMode {
 		try {
 			digitSequence = language.getDigitSequenceForWord(wordStem);
 			isStemFuzzy = !exact;
-			stem = wordStem.toLowerCase(language.getLocale());
+			stem = digitSequence.startsWith("0") || digitSequence.startsWith("1") ? "" : wordStem.toLowerCase(language.getLocale());
 
-			Logger.d("tt9/setWordStem", "Stem is now: " + wordStem);
+			Logger.d("tt9/setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
 			return true;
 		} catch (Exception e) {
 			isStemFuzzy = false;
@@ -163,8 +263,34 @@ public class ModePredictive extends InputMode {
 	 * getWordStem
 	 * If "setWordStem()" has accepted a new stem by returning "true", it can be obtained using this.
 	 */
+	@Override
 	public String getWordStem() {
 		return stem;
+	}
+
+
+	/**
+	 * loadStaticSuggestions
+	 * Similar to "loadSuggestions()", but loads suggestions that are not in the database.
+	 * Returns "false", when there are no static suggestions for the current digitSequence.
+	 */
+	private boolean loadStaticSuggestions() {
+		if (digitSequence.equals("0")) {
+			stem = "";
+			suggestions = Punctuation.Secondary;
+		} else if (containsOnly1Regex.matcher(digitSequence).matches()) {
+			stem = "";
+			if (digitSequence.length() == 1) {
+				suggestions = Punctuation.Main;
+			} else {
+				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
+				suggestions = Punctuation.getEmoji(digitSequence.length() - 2);
+			}
+		} else {
+			return false;
+		}
+
+		return true;
 	}
 
 
@@ -176,19 +302,20 @@ public class ModePredictive extends InputMode {
 	 * "lastWord" is used for generating suggestions when there are no results.
 	 * See: generatePossibleCompletions()
 	 */
-	public boolean loadSuggestions(Handler handler, Language language, String lastWord) {
-		if (isEmoji) {
+	@Override
+	public boolean loadSuggestions(Handler handler, Language language, String currentWord) {
+		if (loadStaticSuggestions()) {
 			super.onSuggestionsUpdated(handler);
 			return true;
 		}
 
 		if (digitSequence.length() == 0) {
-			suggestions.clear();
+			suggestions = new ArrayList<>();
 			return false;
 		}
 
 		handleSuggestionsExternal = handler;
-		lastInputFieldWord = lastWord.toLowerCase(language.getLocale());
+		currentInputFieldWord = currentWord.toLowerCase(language.getLocale());
 		currentLanguage = language;
 		super.reset();
 
@@ -217,7 +344,7 @@ public class ModePredictive extends InputMode {
 			dbSuggestions = dbSuggestions == null ? new ArrayList<>() : dbSuggestions;
 
 			if (dbSuggestions.size() == 0 && digitSequence.length() > 0) {
-				dbSuggestions = generatePossibleCompletions(currentLanguage, lastInputFieldWord);
+				dbSuggestions = generatePossibleCompletions(currentLanguage, currentInputFieldWord);
 			}
 
 			suggestions.clear();
@@ -310,7 +437,7 @@ public class ModePredictive extends InputMode {
 	 * Add the current stem filter to the suggestion list, when it has length of X and
 	 * the user has pressed X keys.
 	 */
-	public void suggestStem() {
+	private void suggestStem() {
 		if (stem.length() > 0 && stem.length() == digitSequence.length()) {
 			suggestions.add(stem);
 		}
@@ -321,7 +448,7 @@ public class ModePredictive extends InputMode {
 	 * suggestMoreWords
 	 * Takes a list of words and appends them to the suggestion list, if they are missing.
 	 */
-	public void suggestMoreWords(ArrayList<String> newSuggestions) {
+	private void suggestMoreWords(ArrayList<String> newSuggestions) {
 		for (String word : newSuggestions) {
 			if (!suggestions.contains(word)) {
 				suggestions.add(word);
@@ -334,7 +461,10 @@ public class ModePredictive extends InputMode {
 	 * onAcceptSuggestion
 	 * Bring this word up in the suggestions list next time.
 	 */
+	@Override
 	public void onAcceptSuggestion(Language language, String currentWord) {
+		lastAcceptedWord = currentWord;
+		lastAcceptedSequence = digitSequence;
 		reset();
 
 		if (currentWord.length() == 0) {
@@ -344,7 +474,12 @@ public class ModePredictive extends InputMode {
 
 		try {
 			String sequence = language.getDigitSequenceForWord(currentWord);
-			DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
+
+			// emoji and punctuation are not in the database, so there is no point in
+			// running queries that would update nothing
+			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.equals("0")) {
+				DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
+			}
 		} catch (Exception e) {
 			Logger.e("tt9/ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
@@ -360,6 +495,7 @@ public class ModePredictive extends InputMode {
 	 * for example: "dB", "Mb", proper names, German nouns, that always start with a capital,
 	 * or Dutch words such as: "'s-Hertogenbosch".
 	 */
+	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
 		switch (newTextCase) {
 			case CASE_UPPER:
@@ -382,7 +518,12 @@ public class ModePredictive extends InputMode {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
+	@Override
+	public void determineNextWordTextCase(SettingsStore settings, boolean isThereText, String textBeforeCursor) {
+		if (!settings.getAutoTextCase()) {
+			return;
+		}
+
 		// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
 		if (textCase == CASE_UPPER) {
 			return;
@@ -395,7 +536,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		// start of sentence, excluding after "..."
-		if (endOfSentence.matcher(textBeforeCursor).find()) {
+		if (endOfSentenceRegex.matcher(textBeforeCursor).find()) {
 			textCase = CASE_CAPITALIZE;
 			return;
 		}
@@ -404,9 +545,8 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	final public boolean isPredictive() { return true; }
-	public int getSequenceLength() { return isEmoji ? 2 : digitSequence.length(); }
-	public boolean shouldTrackUpDown() { return true; }
-	public boolean shouldTrackLeftRight() { return true; }
-
+	@Override final public boolean isPredictive() { return true; }
+	@Override public int getSequenceLength() { return digitSequence.length(); }
+	@Override public boolean shouldTrackUpDown() { return true; }
+	@Override public boolean shouldTrackLeftRight() { return true; }
 }
