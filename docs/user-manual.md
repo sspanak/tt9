@@ -47,12 +47,19 @@ _Predictive mode only._
 - Clear the suggestion filter, if applied.
 - When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
 
-#### 0-key
-- **In 123 mode:** type "0" or hold it to type "+".
-- **In ABC mode:** type secondary punctuation or hold to type "0".
-- **In Predictive mode:** type space or hold to type "0".
+#### 0-key:
+- **In 123 mode:**
+  - **Press:**: type "0".
+  - **Hold:** type "+".
+- **In ABC mode:**
+  - **Press:** type space, newline or special/math characters.
+  - **Hold:** type "0".
+- **In Predictive mode:**
+  - **Press:** type space, newline or special/math characters.
+  - **Multiple Press:** type multiple spaces.
+  - **Hold:** type "0".
 
-#### 1- to 9-key
+#### 1- to 9-key:
 - **In 123 mode:** type the respective number.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
