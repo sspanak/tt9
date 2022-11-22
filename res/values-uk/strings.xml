@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Налаштування Traditional T9</string>
+	<string name="app_settings">Налаштування TT9</string>
 	<string name="close">Закрити</string>
 	<string name="completed">Зроблено</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>

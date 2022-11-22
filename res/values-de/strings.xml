@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Traditional T9 Einstellungen</string>
+	<string name="app_settings">TT9 Einstellungen</string>
 	<string name="close">Schließen</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 

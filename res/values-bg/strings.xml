@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Настройки на Traditional T9</string>
+	<string name="app_settings">Настройки на TT9</string>
 	<string name="close">Затвори</string>
 	<string name="completed">Завършено</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>

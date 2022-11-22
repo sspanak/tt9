@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Configuration Traditional T9 </string>
+	<string name="app_settings">Configuration TT9</string>
 	<string name="close">Fermer</string>
 	<string name="completed">Fini</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
@@ -27,4 +27,8 @@
 	<string name="dictionary_load_title">Charger le dictionnaire</string>
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
+	<string name="pref_category_appearance">Apparance</string>
+	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible \"%1$s\" à la ligne %2$d de langue \"%3$s\".</string>
+	<string name="dictionary_truncated">Le dictionaire est supprimé avec succès.</string>
+	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
 </resources>
