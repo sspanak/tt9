@@ -15,7 +15,7 @@
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
-	<string name="pref_choose_languages">Choisir langues</string>
+	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Vider le dictionaire</string>
 
 	<string name="pref_category_dictionaries">Dictionnaires</string>
@@ -31,6 +31,11 @@
 	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible \"%1$s\" à la ligne %2$d de langue \"%3$s\".</string>
 	<string name="dictionary_truncated">Le dictionaire est vidé avec succès.</string>
 	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
-    <string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
+	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
+	<string name="pref_category_predictive_mode">Saisie intuitive</string>
+	<string name="pref_auto_space">Espace automatique</string>
+	<string name="pref_auto_text_case">Majuscules automatiques</string>
+	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
+	<string name="pref_auto_text_case_summary">Commencer automatiquement les phrases avec une majuscule.</string>
 </resources>

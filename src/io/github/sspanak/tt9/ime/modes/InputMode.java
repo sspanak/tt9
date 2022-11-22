@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import android.os.Handler;
+import android.view.inputmethod.EditorInfo;
 
 import java.util.ArrayList;
 
@@ -42,12 +43,12 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(Language language, int key, boolean hold, boolean repeat);
+	abstract public boolean onNumber(Language language, int key, boolean hold, int repeat);
 
 	// Suggestions
 	public void onAcceptSuggestion(Language language, String suggestion) {}
 	protected void onSuggestionsUpdated(Handler handler) { handler.sendEmptyMessage(0); }
-	public boolean loadSuggestions(Handler handler, Language language, String lastWord) { return false; }
+	public boolean loadSuggestions(Handler handler, Language language, String currentWord) { return false; }
 
 	public ArrayList<String> getSuggestions(Language language) {
 		ArrayList<String> newSuggestions = new ArrayList<>();
@@ -69,6 +70,10 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
+
+	public boolean shouldAddAutoSpace(EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) { return false; }
+	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) { return false; }
+
 	public void reset() {
 		suggestions = new ArrayList<>();
 		word = null;
@@ -95,7 +100,7 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(nextIndex);
 	}
 
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {}
+	public void determineNextWordTextCase(SettingsStore settings, boolean isThereText, String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) { return word; }

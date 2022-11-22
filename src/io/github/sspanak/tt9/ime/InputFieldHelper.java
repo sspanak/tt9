@@ -13,7 +13,11 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
 
-class InputFieldHelper {
+public class InputFieldHelper {
+	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)$");
+	private static final Pattern afterCursorWordRegex = Pattern.compile("^(\\w+)");
+
+
 	public static boolean isThereText(InputConnection currentInputConnection) {
 		if (currentInputConnection == null) {
 			return false;
@@ -23,36 +27,6 @@ class InputFieldHelper {
 		return extractedText != null && extractedText.text.length() > 0;
 	}
 
-
-	public static boolean isSpecializedTextField(EditorInfo inputField) {
-		if (inputField == null) {
-			return false;
-		}
-
-		int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
-
-		return (
-				variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-				|| variation == InputType.TYPE_TEXT_VARIATION_FILTER
-		);
-	}
-
-
-	/**
-	 * isFilterTextField
-	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
-	 */
-	public static boolean isFilterTextField(EditorInfo inputField) {
-		if (inputField == null) {
-			return false;
-		}
-
-		int inputType = inputField.inputType & InputType.TYPE_MASK_CLASS;
-		int inputVariation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
-
-		return inputType == InputType.TYPE_CLASS_TEXT && inputVariation == InputType.TYPE_TEXT_VARIATION_FILTER;
-	}
 
 	/**
 	 * isDialerField
@@ -64,6 +38,53 @@ class InputFieldHelper {
 			inputField != null
 			&& inputField.inputType == InputType.TYPE_CLASS_PHONE
 			&& inputField.packageName.equals("com.android.dialer");
+	}
+
+
+	public static boolean isEmailField(EditorInfo inputField) {
+		if (inputField == null) {
+			return false;
+		}
+
+		int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
+
+		return
+			variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
+	}
+
+
+	/**
+	 * isFilterField
+	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
+	 */
+	public static boolean isFilterField(EditorInfo inputField) {
+		if (inputField == null) {
+			return false;
+		}
+
+		int inputType = inputField.inputType & InputType.TYPE_MASK_CLASS;
+		int inputVariation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
+
+		return inputType == InputType.TYPE_CLASS_TEXT && inputVariation == InputType.TYPE_TEXT_VARIATION_FILTER;
+	}
+
+
+	private static boolean isPasswordField(EditorInfo inputField) {
+		if (inputField == null) {
+			return false;
+		}
+
+		int variation = inputField.inputType & InputType.TYPE_MASK_VARIATION;
+
+		return
+			variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
+			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+	}
+
+
+	public static boolean isRegularTextField(EditorInfo inputField) {
+		return !isPasswordField(inputField) && !isEmailField(inputField);
 	}
 
 
@@ -111,7 +132,7 @@ class InputFieldHelper {
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
-				if (!isSpecializedTextField(inputField)) {
+				if (!isPasswordField(inputField) && !isFilterField(inputField)) {
 					allowedModes.add(InputMode.MODE_PREDICTIVE);
 				}
 
@@ -161,15 +182,46 @@ class InputFieldHelper {
 			return "";
 		}
 
-		String before = (String) currentInputConnection.getTextBeforeCursor(50, 0);
-		String after = (String) currentInputConnection.getTextAfterCursor(50, 0);
+		CharSequence before = currentInputConnection.getTextBeforeCursor(50, 0);
+		CharSequence after = currentInputConnection.getTextAfterCursor(50, 0);
 		if (before == null || after == null) {
 			return "";
 		}
 
-		Matcher beforeMatch = Pattern.compile("(\\w+)$").matcher(before);
-		Matcher afterMatch = Pattern.compile("^(\\w+)").matcher(after);
+		Matcher beforeMatch = beforeCursorWordRegex.matcher(before);
+		Matcher afterMatch = afterCursorWordRegex.matcher(after);
 
 		return (beforeMatch.find() ? beforeMatch.group(1) : "") + (afterMatch.find() ? afterMatch.group(1) : "");
+	}
+
+
+	/**
+	 * deletePrecedingSpace
+	 * Deletes the preceding space before the given word. The word must be before the cursor.
+	 * No action is taken when there is double space or when it's the beginning of the text field.
+	 */
+	public static void deletePrecedingSpace(InputConnection inputConnection, String word) {
+		if (inputConnection == null) {
+			return;
+		}
+
+		String searchText = " " + word;
+
+		inputConnection.beginBatchEdit();
+		CharSequence beforeText = inputConnection.getTextBeforeCursor(searchText.length() + 1, 0);
+		if (
+			beforeText == null
+			|| beforeText.length() < searchText.length() + 1
+			|| beforeText.charAt(1) != ' ' // preceding char must be " "
+			|| beforeText.charAt(0) == ' ' // but do nothing when there is double space
+		) {
+			inputConnection.endBatchEdit();
+			return;
+		}
+
+		inputConnection.deleteSurroundingText(searchText.length(), 0);
+		inputConnection.commitText(word, 1);
+
+		inputConnection.endBatchEdit();
 	}
 }

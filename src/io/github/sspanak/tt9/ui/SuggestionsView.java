@@ -98,7 +98,11 @@ public class SuggestionsView {
 
 
 	public String getSuggestion(int id) {
-		return id >= 0 && id < suggestions.size() ? suggestions.get(id) : "";
+		if (id < 0 || id >= suggestions.size()) {
+			return "";
+		}
+
+		return suggestions.get(id).equals("⏎") ? "\n" : suggestions.get(id);
 	}
 
 
@@ -108,7 +112,10 @@ public class SuggestionsView {
 		selectedIndex = 0;
 
 		if (newSuggestions != null) {
-			suggestions.addAll(newSuggestions);
+			for (String suggestion : newSuggestions) {
+				// make the new line better readable
+				suggestions.add(suggestion.equals("\n") ? "⏎" : suggestion);
+			}
 			selectedIndex = Math.max(initialSel, 0);
 		}
 
