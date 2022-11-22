@@ -213,8 +213,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @param repeat  If "true" we are calling the handler, because the key was pressed more than once
 	 * @return boolean
 	 */
-	protected boolean onNumber(int key, boolean hold, boolean repeat) {
-		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat)) {
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat > 0)) {
 			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
 			commitCurrentSuggestion(false);
 		}

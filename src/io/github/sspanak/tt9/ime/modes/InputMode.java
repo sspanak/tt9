@@ -42,7 +42,7 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(Language language, int key, boolean hold, boolean repeat);
+	abstract public boolean onNumber(Language language, int key, boolean hold, int repeat);
 
 	// Suggestions
 	public void onAcceptSuggestion(Language language, String suggestion) {}

@@ -27,10 +27,10 @@ abstract class KeyPadHandler extends InputMethodService {
 	private int ignoreNextKeyUp = 0;
 
 	private int lastKeyCode = 0;
-	private boolean isKeyRepeated = false;
+	private int keyRepeatCounter = 0;
 
 	private int lastNumKeyCode = 0;
-	private boolean isNumKeyRepeated = false;
+	private int numKeyRepeatCounter = 0;
 
 	// throttling
 	private static final int BACKSPACE_DEBOUNCE_TIME = 80;
@@ -84,8 +84,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		currentInputConnection = getCurrentInputConnection();
-		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId +
-		// 	" fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
+		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
 
 		mEditing = NON_EDIT;
 
@@ -197,6 +196,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		resetKeyRepeat();
 		ignoreNextKeyUp = keyCode;
 
 		if (handleSpecialFunctionKey(keyCode, true)) {
@@ -214,7 +214,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return onNumber(keyCodeToKeyNumber(keyCode), true, false);
+				return onNumber(keyCodeToKeyNumber(keyCode), true, 0);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -239,11 +239,11 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		isKeyRepeated = (lastKeyCode == keyCode);
+		keyRepeatCounter = (lastKeyCode == keyCode) ? keyRepeatCounter + 1 : 0;
 		lastKeyCode = keyCode;
 
 		if (isNumber(keyCode)) {
-			isNumKeyRepeated = (lastNumKeyCode == keyCode);
+			numKeyRepeatCounter = (lastNumKeyCode == keyCode) ? numKeyRepeatCounter + 1 : 0;
 			lastNumKeyCode = keyCode;
 		}
 
@@ -263,7 +263,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
-			return onNumber(0, false, isNumKeyRepeated);
+			return onNumber(0, false, numKeyRepeatCounter);
 		}
 
 		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
@@ -281,7 +281,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(isKeyRepeated);
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
 			case KeyEvent.KEYCODE_1:
 			case KeyEvent.KEYCODE_2:
 			case KeyEvent.KEYCODE_3:
@@ -291,7 +291,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return onNumber(keyCodeToKeyNumber(keyCode), false, isNumKeyRepeated);
+				return onNumber(keyCodeToKeyNumber(keyCode), false, numKeyRepeatCounter);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
@@ -353,8 +353,10 @@ abstract class KeyPadHandler extends InputMethodService {
 
 
 	protected void resetKeyRepeat() {
-		isNumKeyRepeated = false;
+		numKeyRepeatCounter = 0;
+		keyRepeatCounter = 0;
 		lastNumKeyCode = 0;
+		lastKeyCode = 0;
 	}
 
 
@@ -397,7 +399,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onDown();
 	abstract protected boolean onLeft();
 	abstract protected boolean onRight(boolean repeat);
-	abstract protected boolean onNumber(int key, boolean hold, boolean repeat);
+	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract protected boolean onStar();
 	abstract protected boolean onPound();
 
@@ -412,27 +414,4 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onRestart(EditorInfo inputField);
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////// THE ONES BELOW MAY BE UNNECESSARY. IMPLEMENT IF NEEDED. /////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-///
-	/**
-	 * Deal with the editor reporting movement of its cursor.
-	 */
-/*	@Override
-	public void onUpdateSelection(
-		int oldSelStart,
-		int oldSelEnd,
-		int newSelStart,
-		int newSelEnd,
-		int candidatesStart,
-		int candidatesEnd
-	) {
-		// @todo: implement if necessary, but probably in TraditionalT9, not here
-		// ... handle any interesting cursor movement
-		// commitCurrentSuggestion()
-		// setSuggestions(null)
-	}*/
-
 }

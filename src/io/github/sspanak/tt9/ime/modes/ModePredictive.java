@@ -59,9 +59,7 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	public boolean onNumber(Language l, int key, boolean hold, boolean repeat) {
-		isEmoji = false;
-
+	public boolean onNumber(Language l, int key, boolean hold, int repeat) {
 		if (hold) {
 			// hold to type any digit
 			reset();
@@ -70,11 +68,8 @@ public class ModePredictive extends InputMode {
 			// "0" is " "
 			reset();
 			word = " ";
-		} else if (key == 1 && repeat) {
-			// emoticons
-			reset();
-			isEmoji = true;
-			suggestions = Punctuation.Emoji;
+		} else if (key == 1 && repeat > 0) {
+			onEmoji(repeat);
 		}
 		else {
 			// words
@@ -88,8 +83,36 @@ public class ModePredictive extends InputMode {
 
 	public void reset() {
 		super.reset();
+		isEmoji = false;
 		digitSequence = "";
 		stem = "";
+	}
+
+
+	/**
+	 * onEmoji
+	 * Returns the appropriate emoji category for the number of key presses.
+	 */
+	private void onEmoji(int category) {
+		reset();
+		suggestions = new ArrayList<>();
+
+		if (category <= 0) {
+			return;
+		}
+
+		isEmoji = true;
+
+		switch (category) {
+			case 1:
+				suggestions = Punctuation.Faces;
+				break;
+			case 2:
+				suggestions = Punctuation.Hands;
+				break;
+			default:
+				suggestions = Punctuation.Emotions;
+		}
 	}
 
 

@@ -12,7 +12,15 @@ public class Punctuation {
 		" ", "+", "\n"
 	));
 
-	final public static ArrayList<String> Emoji = new ArrayList<>(Arrays.asList(
-		"👍", "🙂", "😀", "😉", "🙁", "😢", "😛", "😬"
+	final public static ArrayList<String> Faces = new ArrayList<>(Arrays.asList(
+		"🙂", "😀", "🤣", "😉", "😛", "😳", "😲", "😱", "😭", "😢", "🙁"
+	));
+
+	final public static ArrayList<String> Hands = new ArrayList<>(Arrays.asList(
+		"👍", "👋", "✌️", "👏", "🤝", "💪", "🤘", "🖖", "👎"
+	));
+
+	final public static ArrayList<String> Emotions = new ArrayList<>(Arrays.asList(
+		"❤", "🤗", "😍", "😘", "😈", "🎉", "🤓", "😎", "🥶", "😬"
 	));
 }

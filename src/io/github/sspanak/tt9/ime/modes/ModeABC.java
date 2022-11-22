@@ -15,7 +15,7 @@ public class ModeABC extends InputMode {
 	}
 
 
-	public boolean onNumber(Language language, int key, boolean hold, boolean repeat) {
+	public boolean onNumber(Language language, int key, boolean hold, int repeat) {
 		shouldSelectNextLetter = false;
 		suggestions = language.getKeyCharacters(key);
 		word = null;
@@ -23,7 +23,7 @@ public class ModeABC extends InputMode {
 		if (hold) {
 			suggestions = new ArrayList<>();
 			word = String.valueOf(key);
-		} else if (repeat) {
+		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
 		}
 
