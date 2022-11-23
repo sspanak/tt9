@@ -18,7 +18,6 @@ public class ModePredictive extends InputMode {
 
 	public int getId() { return MODE_PREDICTIVE; }
 
-	private boolean areSuggestionsStatic = false;
 	private String digitSequence = "";
 
 	// stem filter
@@ -43,11 +42,6 @@ public class ModePredictive extends InputMode {
 
 
 	public boolean onBackspace() {
-		if (digitSequence.equals("0") || digitSequence.equals("11")) {
-			reset();
-			return true;
-		}
-
 		if (digitSequence.length() < 1) {
 			clearWordStem();
 			return false;
@@ -69,12 +63,11 @@ public class ModePredictive extends InputMode {
 			// hold to type any digit
 			reset();
 			word = String.valueOf(key);
-		}	else if (key == 0) {
-			on0(repeat);
-		} else if (key == 1 && repeat > 0) {
-			onEmoji(repeat);
-		}
-		else {
+		} else if (key == 0 && repeat > 0) {
+			// repeat "0" to type spaces
+			reset();
+			word = " ";
+		} else {
 			// words
 			super.reset();
 			digitSequence += key;
@@ -84,48 +77,8 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	private void on0(int repeat) {
-		reset();
-		if (repeat == 0) {
-			areSuggestionsStatic = true;
-			digitSequence = "0";
-			suggestions = Punctuation.Secondary;
-		} else {
-			word = " ";
-		}
-	}
-
-
-	/**
-	 * onEmoji
-	 * Returns the appropriate emoji category for the number of key presses.
-	 */
-	private void onEmoji(int category) {
-		reset();
-
-		if (category <= 0) {
-			return;
-		}
-
-		areSuggestionsStatic = true;
-		digitSequence = "11"; // emoji are two characters long
-
-		switch (category) {
-			case 1:
-				suggestions = Punctuation.Faces;
-				break;
-			case 2:
-				suggestions = Punctuation.Hands;
-				break;
-			default:
-				suggestions = Punctuation.Emotions;
-		}
-	}
-
-
 	public void reset() {
 		super.reset();
-		areSuggestionsStatic = false;
 		digitSequence = "";
 		stem = "";
 	}
@@ -207,6 +160,37 @@ public class ModePredictive extends InputMode {
 
 
 	/**
+	 * loadStaticSuggestions
+	 * Similar to "loadSuggestions()", but loads suggestions that are not in the database.
+	 * Returns "false", when there are no static suggestions for the current digitSequence.
+	 */
+	private boolean loadStaticSuggestions() {
+		if (digitSequence.equals("0")) {
+			suggestions = Punctuation.Secondary;
+		} else if (digitSequence.matches("^1+$")) {
+			switch (digitSequence.length()) {
+				case 1:
+					suggestions = Punctuation.Main;
+					break;
+				case 2:
+					suggestions = Punctuation.Faces;
+					break;
+				case 3:
+					suggestions = Punctuation.Hands;
+					break;
+				default:
+					digitSequence = "1111"; // do not forget to update this, if you add new options to the switch..case
+					suggestions = Punctuation.Emotions;
+			}
+		} else {
+			return false;
+		}
+
+		return true;
+	}
+
+
+	/**
 	 * loadSuggestions
 	 * Queries the dictionary database for a list of suggestions matching the current language and
 	 * sequence. Returns "false" when there is nothing to do.
@@ -215,13 +199,13 @@ public class ModePredictive extends InputMode {
 	 * See: generatePossibleCompletions()
 	 */
 	public boolean loadSuggestions(Handler handler, Language language, String lastWord) {
-		if (areSuggestionsStatic) {
+		if (loadStaticSuggestions()) {
 			super.onSuggestionsUpdated(handler);
 			return true;
 		}
 
 		if (digitSequence.length() == 0) {
-			suggestions.clear();
+			suggestions = new ArrayList<>();
 			return false;
 		}
 

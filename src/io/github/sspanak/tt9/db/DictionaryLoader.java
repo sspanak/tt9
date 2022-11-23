@@ -158,7 +158,7 @@ public class DictionaryLoader {
 	private void importLetters(Language language) {
 		ArrayList<Word> letters = new ArrayList<>();
 
-		for (int key = 0; key <= 9; key++) {
+		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key)) {
 				if (langChar.length() == 1 && langChar.charAt(0) >= '0' && langChar.charAt(0) <= '9') {
 					// We do not want 0-9 as "word suggestions" in Predictive mode. It looks confusing
