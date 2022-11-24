@@ -197,9 +197,14 @@ public class SettingsStore {
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
-	/************* internal settings *************/
+
+
+	/************* typing settings *************/
 
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
+	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
+
+	/************* internal settings *************/
 
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }

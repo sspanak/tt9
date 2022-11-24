@@ -425,7 +425,12 @@ public class ModePredictive extends InputMode {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
+	@Override
+	public void determineNextWordTextCase(SettingsStore settings, boolean isThereText, String textBeforeCursor) {
+		if (!settings.getAutoTextCase()) {
+			return;
+		}
+
 		// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
 		if (textCase == CASE_UPPER) {
 			return;

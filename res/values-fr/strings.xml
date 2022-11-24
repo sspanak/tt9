@@ -31,6 +31,7 @@
 	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible \"%1$s\" à la ligne %2$d de langue \"%3$s\".</string>
 	<string name="dictionary_truncated">Le dictionaire est vidé avec succès.</string>
 	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
-    <string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
+	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
+	<string name="pref_category_predictive_mode">Saisie intuitive</string>
 </resources>

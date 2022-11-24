@@ -55,11 +55,26 @@
 			app:key="dictionary_truncate"
 			app:title="@string/dictionary_truncate_title" />
 
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_category_predictive_mode"
+		app:iconSpaceReserved="false"
+		app:singleLineTitle="true">
+
 		<SwitchPreferenceCompat
 			app:iconSpaceReserved="false"
 			app:key="auto_space"
 			app:title="@string/pref_auto_space"
 			app:summary="@string/pref_auto_space_summary" />
+
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:iconSpaceReserved="false"
+			app:key="auto_text_case"
+			app:summary="@string/pref_auto_text_case_summary"
+			app:title="@string/pref_auto_text_case" />
+
 	</PreferenceCategory>
 
 
