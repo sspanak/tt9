@@ -54,6 +54,12 @@
 			app:iconSpaceReserved="false"
 			app:key="dictionary_truncate"
 			app:title="@string/dictionary_truncate_title" />
+
+		<SwitchPreferenceCompat
+			app:iconSpaceReserved="false"
+			app:key="auto_space"
+			app:title="@string/pref_auto_space"
+			app:summary="@string/pref_auto_space_summary" />
 	</PreferenceCategory>
 
 

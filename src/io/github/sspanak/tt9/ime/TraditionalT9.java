@@ -151,9 +151,18 @@ public class TraditionalT9 extends KeyPadHandler {
 			return sendDefaultEditorAction(false);
 		}
 
-		mInputMode.onAcceptSuggestion(mLanguage, mSuggestionView.getCurrentSuggestion());
+		String word = mSuggestionView.getCurrentSuggestion();
+
+		mInputMode.onAcceptSuggestion(mLanguage, word);
 		commitCurrentSuggestion();
 		resetKeyRepeat();
+
+		if (
+			mInputMode.isAutoSpaceAfterPunctuationApplicable(settings, word)
+			|| mInputMode.isAutoSpaceAfterWordApplicable(settings, word)
+		) {
+			commitText(" ");
+		}
 
 		return true;
 	}
@@ -215,8 +224,16 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat > 0)) {
-			mInputMode.onAcceptSuggestion(mLanguage, getComposingText());
+			String word = getComposingText();
+
+			mInputMode.onAcceptSuggestion(mLanguage, word);
 			commitCurrentSuggestion(false);
+
+			// only add auto space after punctuation, but not after partially typed words,
+			// because it is confusing
+			if (mInputMode.isAutoSpaceAfterPunctuationApplicable(settings, word)) {
+				commitText(" ");
+			}
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.

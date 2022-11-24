@@ -77,6 +77,27 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	@Override
+	public boolean isAutoSpaceAfterPunctuationApplicable(SettingsStore settings, String word) {
+		return
+			settings.getAutoSpace() && (
+				word.endsWith(".")
+				|| word.endsWith(",")
+				|| word.endsWith(";")
+				|| word.endsWith(":")
+				|| word.endsWith("!")
+				|| word.endsWith("?")
+			);
+	}
+
+
+	@Override
+	public boolean isAutoSpaceAfterWordApplicable(SettingsStore settings, String word) {
+		return settings.getAutoSpace() && word.length() > 1;
+	}
+
+
+	@Override
 	public void reset() {
 		super.reset();
 		digitSequence = "";

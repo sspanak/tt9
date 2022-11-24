@@ -69,6 +69,14 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
+
+	public boolean isAutoSpaceAfterPunctuationApplicable(SettingsStore settings, String word) {
+		return false;
+	}
+	public boolean isAutoSpaceAfterWordApplicable(SettingsStore settings, String word) {
+		return false;
+	}
+
 	public void reset() {
 		suggestions = new ArrayList<>();
 		word = null;

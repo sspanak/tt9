@@ -19,6 +19,8 @@
 	<string name="pref_category_dictionaries">Dictionaries</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>
 
+	<string name="pref_auto_space">Automatic Space</string>
+	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
 	<string name="pref_choose_languages">Choose Languages</string>
 	<string name="pref_dark_theme">Dark Theme</string>
 	<string name="pref_show_soft_function_keys">Show on-screen keys</string>

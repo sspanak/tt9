@@ -199,8 +199,11 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
+	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
+
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
+
 	public int getSuggestionsMax() { return 20; }
 	public int getSuggestionsMin() { return 8; }
 
