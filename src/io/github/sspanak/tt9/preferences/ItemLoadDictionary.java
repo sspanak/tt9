@@ -22,19 +22,25 @@ public class ItemLoadDictionary extends ItemClickable {
 	public static final String NAME = "dictionary_load";
 
 	private final Context context;
+	private final SettingsStore settings;
 	private final DictionaryLoader loader;
 	private final DictionaryLoadingBar progressBar;
 
 
-	ItemLoadDictionary(Preference item, Context context, DictionaryLoader loader, DictionaryLoadingBar progressBar) {
+	ItemLoadDictionary(Preference item, Context context, SettingsStore settings, DictionaryLoader loader, DictionaryLoadingBar progressBar) {
 		super(item);
 
 		this.context = context;
 		this.loader = loader;
 		this.progressBar = progressBar;
+		this.settings = settings;
+
+		loader.setStatusHandler(onDictionaryLoading);
 
 		if (!progressBar.isCompleted() && !progressBar.isFailed()) {
 			changeToCancelButton();
+		} else {
+			changeToLoadButton();
 		}
 	}
 
@@ -43,6 +49,7 @@ public class ItemLoadDictionary extends ItemClickable {
 		@Override
 		public void handleMessage(Message msg) {
 			progressBar.show(msg.getData());
+			item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 			if (progressBar.isCompleted()) {
 				changeToLoadButton();
@@ -57,11 +64,11 @@ public class ItemLoadDictionary extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		ArrayList<Language> languages = LanguageCollection.getAll(SettingsStore.getInstance().getEnabledLanguageIds());
+		ArrayList<Language> languages = LanguageCollection.getAll(settings.getEnabledLanguageIds());
 		progressBar.setFileCount(languages.size());
 
 		try {
-			loader.load(onDictionaryLoading, languages);
+			loader.load(languages);
 			changeToCancelButton();
 		} catch (DictionaryImportAlreadyRunningException e) {
 			loader.stop();
@@ -79,5 +86,6 @@ public class ItemLoadDictionary extends ItemClickable {
 
 	public void changeToLoadButton() {
 		item.setTitle(context.getString(R.string.dictionary_load_title));
+		item.setSummary(progressBar.isFailed() ? progressBar.getMessage() : "");
 	}
 }

@@ -13,13 +13,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 
 public class SettingsStore {
-	private static SettingsStore self;
 
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
@@ -28,15 +26,6 @@ public class SettingsStore {
 	public SettingsStore(Context context) {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
-	}
-
-
-	public static SettingsStore getInstance() {
-		if (self == null) {
-			self = new SettingsStore(TraditionalT9.getMainContext());
-		}
-
-		return self;
 	}
 
 

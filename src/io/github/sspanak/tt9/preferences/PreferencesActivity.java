@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
@@ -17,7 +18,9 @@ public class PreferencesActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 
 		settings = new SettingsStore(this);
+		DictionaryDb.init(this);
 
+		validateFunctionKeys();
 		applyTheme();
 		buildScreen();
 	}
@@ -36,6 +39,13 @@ public class PreferencesActivity extends AppCompatActivity {
 			.beginTransaction()
 			.replace(R.id.preferences_container, new PreferencesFragment(this))
 			.commit();
+	}
+
+
+	private void validateFunctionKeys() {
+		if (!settings.areFunctionKeysSet()) {
+			settings.setDefaultKeys();
+		}
 	}
 
 

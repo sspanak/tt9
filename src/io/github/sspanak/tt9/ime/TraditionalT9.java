@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -43,7 +44,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadSettings() {
 		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
 		mEnabledLanguages = settings.getEnabledLanguageIds();
-		mInputMode = InputMode.getInstance(settings.getInputMode());
+		mInputMode = InputMode.getInstance(settings, settings.getInputMode());
 		mInputMode.setTextCase(settings.getTextCase());
 	}
 
@@ -64,12 +65,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onInit() {
 		self = this;
 
+		DictionaryDb.init(this);
+
 		if (softKeyHandler == null) {
 			softKeyHandler = new SoftKeyHandler(this);
 		}
 
 		if (mSuggestionView == null) {
-			mSuggestionView = new SuggestionsView(softKeyHandler.getView());
+			mSuggestionView = new SuggestionsView(settings, softKeyHandler.getView());
 		}
 
 		loadSettings();
@@ -446,7 +449,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void nextInputMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			clearSuggestions();
-			mInputMode = InputMode.getInstance(InputMode.MODE_123);
+			mInputMode = InputMode.getInstance(settings, InputMode.MODE_123);
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -459,7 +462,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.setTextCase(InputMode.CASE_UPPER);
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(allowedInputModes.get(modeIndex));
+			mInputMode = InputMode.getInstance(settings, allowedInputModes.get(modeIndex));
 
 			mInputMode.defaultTextCase();
 		}
@@ -509,11 +512,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		int lastInputModeId = settings.getInputMode();
 		if (allowedInputModes.contains(lastInputModeId)) {
-			mInputMode = InputMode.getInstance(lastInputModeId);
+			mInputMode = InputMode.getInstance(settings, lastInputModeId);
 		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			mInputMode = InputMode.getInstance(InputMode.MODE_ABC);
+			mInputMode = InputMode.getInstance(settings, InputMode.MODE_ABC);
 		} else {
-			mInputMode = InputMode.getInstance(allowedInputModes.get(0));
+			mInputMode = InputMode.getInstance(settings, allowedInputModes.get(0));
 		}
 
 		if (InputFieldHelper.isDialerField(inputField)) {

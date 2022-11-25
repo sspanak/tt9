@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryImportException;
@@ -30,9 +31,11 @@ public class DictionaryLoadingBar {
 	private final NotificationCompat.Builder notificationBuilder;
 	private final Resources resources;
 
+	private boolean hasFailed = false;
 	private int maxProgress = 0;
 	private int progress = 0;
-	private boolean hasFailed = false;
+	private String title = "";
+	private String message = "";
 
 
 	public static DictionaryLoadingBar getInstance(Context context) {
@@ -52,7 +55,7 @@ public class DictionaryLoadingBar {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			manager.createNotificationChannel(new NotificationChannel(
 				NOTIFICATION_CHANNEL_ID,
-				"Dictionary Loading Channel",
+				"Dictionary Status",
 				NotificationManager.IMPORTANCE_LOW
 			));
 			notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
@@ -83,6 +86,16 @@ public class DictionaryLoadingBar {
 	}
 
 
+	public String getTitle() {
+		return title;
+	}
+
+
+	public String getMessage() {
+		return message;
+	}
+
+
 	public void show(Bundle data) {
 		String error = data.getString("error", null);
 
@@ -97,6 +110,7 @@ public class DictionaryLoadingBar {
 		} else {
 			hasFailed = false;
 			showProgress(
+				data.getLong("time", 0),
 				data.getInt("currentFile", 0),
 				data.getInt("progress", 0),
 				data.getInt("languageId", -1)
@@ -116,32 +130,31 @@ public class DictionaryLoadingBar {
 	}
 
 
-	private void showProgress(int currentFile, int currentFileProgress, int languageId) {
-		progress = 100 * currentFile + currentFileProgress;
-
+	private void showProgress(long time, int currentFile, int currentFileProgress, int languageId) {
 		if (currentFileProgress < 0) {
 			hide();
-		} else if (progress >= maxProgress) {
-			renderProgress(
-				generateTitle(-1),
-				resources.getString(R.string.completed),
-				0,
-				0
-			);
-		} else {
-			renderProgress(
-				generateTitle(languageId),
-				currentFileProgress + "%",
-				progress,
-				maxProgress
-			);
+			return;
 		}
+
+		progress = 100 * currentFile + currentFileProgress;
+
+		if (progress >= maxProgress) {
+			progress = maxProgress = 0;
+			title = generateTitle(-1);
+
+			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
+			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
+		} else {
+			title = generateTitle(languageId);
+			message = currentFileProgress + "%";
+		}
+
+		renderProgress();
 	}
 
 
 	private void showError(String errorType, int langId, long line, String word) {
 		Language lang = LanguageCollection.getLanguage(langId);
-		String message;
 
 		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
 			message = resources.getString(R.string.add_word_invalid_language);
@@ -156,16 +169,20 @@ public class DictionaryLoadingBar {
 			message = resources.getString(R.string.dictionary_load_error, languageName, errorType);
 		}
 
-		renderError(generateTitle(-1), message);
+		title = generateTitle(-1);
+		progress = maxProgress = 0;
+
+		renderError();
 	}
 
 
 	private void hide() {
+		progress = maxProgress = 0;
 		manager.cancel(NOTIFICATION_ID);
 	}
 
 
-	private void renderError(String title, String message) {
+	private void renderError() {
 		NotificationCompat.BigTextStyle bigMessage = new NotificationCompat.BigTextStyle();
 			bigMessage.setBigContentTitle(title);
 			bigMessage.bigText(message);
@@ -174,16 +191,16 @@ public class DictionaryLoadingBar {
 			.setSmallIcon(android.R.drawable.stat_notify_error)
 			.setStyle(bigMessage)
 			.setOngoing(false)
-			.setProgress(0, 0, false);
+			.setProgress(maxProgress, progress, false);
 
 		manager.notify(NOTIFICATION_ID, notificationBuilder.build());
 	}
 
 
-	private void renderProgress(String title, String message, int progress, int maxProgress) {
+	private void renderProgress() {
 		notificationBuilder
-			.setSmallIcon(progress < maxProgress ? android.R.drawable.stat_notify_sync : R.drawable.ic_done)
-			.setOngoing(progress < maxProgress)
+			.setSmallIcon(isCompleted() ? R.drawable.ic_done : android.R.drawable.stat_notify_sync)
+			.setOngoing(!isCompleted())
 			.setProgress(maxProgress, progress, false)
 			.setContentTitle(title)
 			.setContentText(message);

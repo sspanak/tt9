@@ -63,6 +63,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 		ItemLoadDictionary loadItem = new ItemLoadDictionary(
 			findPreference(ItemLoadDictionary.NAME),
 			activity,
+			activity.settings,
 			activity.getDictionaryLoader(),
 			activity.getDictionaryProgressBar()
 		);
@@ -94,7 +95,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity, activity.settings);
 		section.populate().activate();
 
-		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, section, activity.settings))
+		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, activity.settings, section))
 			.enableClickHandler();
 	}
 

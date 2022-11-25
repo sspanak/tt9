@@ -22,11 +22,14 @@ public class SuggestionsView {
 	protected int selectedIndex = 0;
 
 	private final RecyclerView mView;
+	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 
-	public SuggestionsView(View mainView) {
+	public SuggestionsView(SettingsStore settings, View mainView) {
 		super();
+
+		this.settings = settings;
 
 		mView = mainView.findViewById(R.id.main_suggestions_list);
 		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
@@ -40,8 +43,8 @@ public class SuggestionsView {
 	private void configureAnimation() {
 		DefaultItemAnimator animator = new DefaultItemAnimator();
 
-		int translateDuration = SettingsStore.getInstance().getSuggestionTranslateAnimationDuration();
-		int selectDuration = SettingsStore.getInstance().getSuggestionSelectAnimationDuration();
+		int translateDuration = settings.getSuggestionTranslateAnimationDuration();
+		int selectDuration = settings.getSuggestionSelectAnimationDuration();
 
 		animator.setMoveDuration(selectDuration);
 		animator.setChangeDuration(translateDuration);

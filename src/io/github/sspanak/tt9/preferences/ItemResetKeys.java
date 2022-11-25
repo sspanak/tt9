@@ -16,7 +16,7 @@ public class ItemResetKeys extends ItemClickable {
 	private final SettingsStore settings;
 
 
-	ItemResetKeys(Preference item, Context context, SectionKeymap dropdowns, SettingsStore settings) {
+	ItemResetKeys(Preference item, Context context, SettingsStore settings, SectionKeymap dropdowns) {
 		super(item);
 		this.context = context;
 		this.dropdowns = dropdowns;
