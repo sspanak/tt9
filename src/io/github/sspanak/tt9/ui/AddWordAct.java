@@ -23,12 +23,15 @@ public class AddWordAct extends AppCompatActivity {
 
 	private View main;
 	private int lang;
+	private SettingsStore settings;
 	private String word;
 
 	@Override
 	protected void onCreate(Bundle savedData) {
+		settings = new SettingsStore(this);
+
 		AppCompatDelegate.setDefaultNightMode(
-			SettingsStore.getInstance().getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+			settings.getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
 		);
 
 		super.onCreate(savedData);
@@ -53,7 +56,7 @@ public class AddWordAct extends AppCompatActivity {
 			switch (msg.what) {
 				case 0:
 					Logger.d("onAddedWord", "Added word: '" + word + "'...");
-					SettingsStore.getInstance().saveLastWord(word);
+					settings.saveLastWord(word);
 					break;
 
 				case 1:

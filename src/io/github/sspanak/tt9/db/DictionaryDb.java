@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.db;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,18 +44,23 @@ public class DictionaryDb {
 	};
 
 
-	private static synchronized void createInstance() {
-		dbInstance = Room.databaseBuilder(TraditionalT9.getMainContext(), T9RoomDb.class, "t9dict.db")
+	public static synchronized void init(Context context) {
+		if (dbInstance == null) {
+			context = context == null ? TraditionalT9.getMainContext() : context;
+			dbInstance = Room.databaseBuilder(context, T9RoomDb.class, "t9dict.db")
 			.addCallback(TRIGGER_CALLBACK)
 			.build();
+		}
+	}
+
+
+	public static synchronized void init() {
+		init(null);
 	}
 
 
 	private static T9RoomDb getInstance() {
-		if (dbInstance == null) {
-			createInstance();
-		}
-
+		init();
 		return dbInstance;
 	}
 

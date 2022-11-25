@@ -26,8 +26,10 @@ public class DictionaryLoader {
 	private final SettingsStore settings;
 
 	private final Pattern containsPunctuation = Pattern.compile("\\p{Punct}(?<!-)");
+	private Handler statusHandler = null;
 	private Thread loadThread;
 
+	private long importStartTime = 0;
 	private int currentFile = 0;
 	private long lastProgressUpdate = 0;
 
@@ -49,7 +51,17 @@ public class DictionaryLoader {
 	}
 
 
-	public void load(Handler handler, ArrayList<Language> languages) throws DictionaryImportAlreadyRunningException {
+	public void setStatusHandler(Handler handler) {
+		statusHandler = handler;
+	}
+
+
+	private long getImportTime() {
+		return System.currentTimeMillis() - importStartTime;
+	}
+
+
+	public void load(ArrayList<Language> languages) throws DictionaryImportAlreadyRunningException {
 		if (isRunning()) {
 			throw new DictionaryImportAlreadyRunningException();
 		}
@@ -58,12 +70,13 @@ public class DictionaryLoader {
 			@Override
 			public void run() {
 				currentFile = 0;
+				importStartTime = System.currentTimeMillis();
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
 					if (isInterrupted()) {
 						break;
 					}
-					importAll(handler, lang);
+					importAll(lang);
 					currentFile++;
 				}
 			}
@@ -83,12 +96,12 @@ public class DictionaryLoader {
 	}
 
 
-	private void importAll(Handler handler, Language language) {
+	private void importAll(Language language) {
 		final String logTag = "tt9.DictionaryLoader.importAll";
 
 		if (language == null) {
 			Logger.e(logTag, "Failed loading a dictionary for NULL language.");
-			sendError(handler, InvalidLanguageException.class.getSimpleName(), -1);
+			sendError(InvalidLanguageException.class.getSimpleName(), -1);
 			return;
 		}
 
@@ -102,7 +115,7 @@ public class DictionaryLoader {
 
 			try {
 				start = System.currentTimeMillis();
-				importWords(handler, language);
+				importWords(language);
 				Logger.i(
 					logTag,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
@@ -117,7 +130,7 @@ public class DictionaryLoader {
 				);
 			} catch (DictionaryImportException e) {
 				stop();
-				sendImportError(handler, DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
+				sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
 
 				Logger.e(
 					logTag,
@@ -129,7 +142,7 @@ public class DictionaryLoader {
 				);
 			} catch (Exception e) {
 				stop();
-				sendError(handler, e.getClass().getSimpleName(), language.getId());
+				sendError(e.getClass().getSimpleName(), language.getId());
 
 				Logger.e(
 					logTag,
@@ -168,12 +181,12 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWords(Handler handler, Language language) throws Exception {
-		importWords(handler, language, language.getDictionaryFile());
+	private void importWords(Language language) throws Exception {
+		importWords(language, language.getDictionaryFile());
 	}
 
 
-	private void importWords(Handler handler, Language language, String dictionaryFile) throws Exception {
+	private void importWords(Language language, String dictionaryFile) throws Exception {
 		long totalWords = countWords(dictionaryFile);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
@@ -181,17 +194,21 @@ public class DictionaryLoader {
 		ArrayList<Word> dbWords = new ArrayList<>();
 		long line = 0;
 
-		sendProgressMessage(handler, language, 0, 0);
+		sendProgressMessage(language, 0, 0);
 
 		for (String word; (word = br.readLine()) != null; line++) {
 			if (loadThread.isInterrupted()) {
 				br.close();
-				sendProgressMessage(handler, language, -1, 0);
+				sendProgressMessage(language, -1, 0);
 				throw new DictionaryImportAbortedException();
 			}
 
 			validateWord(language, word, line);
-			dbWords.add(stringToWord(language, word));
+			try {
+				dbWords.add(stringToWord(language, word));
+			} catch (InvalidLanguageCharactersException e) {
+				throw new DictionaryImportException(dictionaryFile, word, line);
+			}
 
 			if (line % settings.getDictionaryImportWordChunkSize() == 0) {
 				DictionaryDb.insertWordsSync(dbWords);
@@ -200,12 +217,12 @@ public class DictionaryLoader {
 
 			if (totalWords > 0) {
 				int progress = (int) Math.floor(100.0 * line / totalWords);
-				sendProgressMessage(handler, language, progress, settings.getDictionaryImportProgressUpdateInterval());
+				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
 
 		br.close();
-		sendProgressMessage(handler, language, 100, 0);
+		sendProgressMessage(language, 100, 0);
 	}
 
 
@@ -242,7 +259,14 @@ public class DictionaryLoader {
 	}
 
 
-	private void sendProgressMessage(Handler handler, Language language, int progress, int progressUpdateInterval) {
+	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
+		if (statusHandler == null) {
+			Logger.w(
+				"tt9/DictionaryLoader.sendProgressMessage",
+				"Cannot send progress without a status Handler. Ignoring message.");
+			return;
+		}
+
 		long now = System.currentTimeMillis();
 		if (now - lastProgressUpdate < progressUpdateInterval) {
 			return;
@@ -252,32 +276,43 @@ public class DictionaryLoader {
 
 		Bundle bundle = new Bundle();
 		bundle.putInt("languageId", language.getId());
+		bundle.putLong("time", getImportTime());
 		bundle.putInt("progress", progress);
 		bundle.putInt("currentFile", currentFile);
 		Message msg = new Message();
 		msg.setData(bundle);
-		handler.sendMessage(msg);
+		statusHandler.sendMessage(msg);
 	}
 
 
-	private void sendError(Handler handler, String message, int langId) {
+	private void sendError(String message, int langId) {
+		if (statusHandler == null) {
+			Logger.w("tt9/DictionaryLoader.sendError", "Cannot send an error without a status Handler. Ignoring message.");
+			return;
+		}
+
 		Bundle bundle = new Bundle();
 		bundle.putString("error", message);
 		bundle.putInt("languageId", langId);
 		Message msg = new Message();
 		msg.setData(bundle);
-		handler.sendMessage(msg);
+		statusHandler.sendMessage(msg);
 	}
 
 
-	private void sendImportError(Handler handler, String message, int langId, long fileLine, String word) {
+	private void sendImportError(String message, int langId, long fileLine, String word) {
+		if (statusHandler == null) {
+			Logger.w("tt9/DictionaryLoader.sendError", "Cannot send an import error without a status Handler. Ignoring message.");
+			return;
+		}
+
 		Bundle bundle = new Bundle();
 		bundle.putString("error", message);
-		bundle.putLong("fileLine", fileLine);
+		bundle.putLong("fileLine", fileLine + 1);
 		bundle.putInt("languageId", langId);
 		bundle.putString("word", word);
 		Message msg = new Message();
 		msg.setData(bundle);
-		handler.sendMessage(msg);
+		statusHandler.sendMessage(msg);
 	}
 }

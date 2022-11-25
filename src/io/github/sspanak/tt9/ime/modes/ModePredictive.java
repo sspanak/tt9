@@ -14,6 +14,8 @@ import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
+	private final SettingsStore settings;
+
 	public int getId() { return MODE_PREDICTIVE; }
 
 	private boolean isEmoji = false;
@@ -32,7 +34,8 @@ public class ModePredictive extends InputMode {
 	private final Pattern endOfSentence = Pattern.compile("(?<!\\.)[.?!]\\s*$");
 
 
-	ModePredictive() {
+	ModePredictive(SettingsStore settings) {
+		this.settings = settings;
 		allowedTextCases.add(CASE_LOWER);
 		allowedTextCases.add(CASE_CAPITALIZE);
 		allowedTextCases.add(CASE_UPPER);
@@ -194,8 +197,8 @@ public class ModePredictive extends InputMode {
 			language,
 			digitSequence,
 			stem,
-			SettingsStore.getInstance().getSuggestionsMin(),
-			SettingsStore.getInstance().getSuggestionsMax()
+			settings.getSuggestionsMin(),
+			settings.getSuggestionsMax()
 		);
 
 		return true;

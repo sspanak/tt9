@@ -48,7 +48,10 @@ public class InputModeValidator {
 			return inputMode;
 		}
 
-		InputMode newMode = InputMode.getInstance(allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123);
+		InputMode newMode = InputMode.getInstance(
+			settings,
+			allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123
+		);
 		settings.saveInputMode(newMode);
 
 		if (newMode.getId() != inputMode.getId()) {

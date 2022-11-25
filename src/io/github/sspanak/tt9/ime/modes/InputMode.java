@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class InputMode {
 	// typing mode
@@ -26,10 +27,10 @@ abstract public class InputMode {
 	protected String word = null;
 
 
-	public static InputMode getInstance(int mode) {
-		switch(mode) {
+	public static InputMode getInstance(SettingsStore settings, int mode) {
+		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive();
+				return new ModePredictive(settings);
 			case MODE_ABC:
 				return new ModeABC();
 			default:
