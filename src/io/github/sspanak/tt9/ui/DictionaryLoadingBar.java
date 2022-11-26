@@ -31,7 +31,9 @@ public class DictionaryLoadingBar {
 	private final NotificationCompat.Builder notificationBuilder;
 	private final Resources resources;
 
+	private boolean isStopped = false;
 	private boolean hasFailed = false;
+
 	private int maxProgress = 0;
 	private int progress = 0;
 	private String title = "";
@@ -73,6 +75,11 @@ public class DictionaryLoadingBar {
 
 	public void setFileCount(int count) {
 		maxProgress = count * 100;
+	}
+
+
+	public boolean isCancelled() {
+		return isStopped;
 	}
 
 
@@ -133,9 +140,13 @@ public class DictionaryLoadingBar {
 	private void showProgress(long time, int currentFile, int currentFileProgress, int languageId) {
 		if (currentFileProgress < 0) {
 			hide();
+			isStopped = true;
+			title = "";
+			message = resources.getString(R.string.dictionary_load_cancelled);
 			return;
 		}
 
+		isStopped = false;
 		progress = 100 * currentFile + currentFileProgress;
 
 		if (progress >= maxProgress) {
