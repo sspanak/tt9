@@ -106,14 +106,14 @@ public class DictionaryLoader {
 		}
 
 		DictionaryDb.runInTransaction(() -> {
-			long start = System.currentTimeMillis();
-			importLetters(language);
-			Logger.i(
-				logTag,
-				"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
-			);
-
 			try {
+				long start = System.currentTimeMillis();
+				importLetters(language);
+				Logger.i(
+					logTag,
+					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
 				start = System.currentTimeMillis();
 				importWords(language);
 				Logger.i(
@@ -140,7 +140,7 @@ public class DictionaryLoader {
 					+ " of language '" + language.getName() + "'. "
 					+ e.getMessage()
 				);
-			} catch (Exception e) {
+			} catch (Exception | Error e) {
 				stop();
 				sendError(e.getClass().getSimpleName(), language.getId());
 

@@ -51,12 +51,14 @@ public class ItemLoadDictionary extends ItemClickable {
 			progressBar.show(msg.getData());
 			item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
-			if (progressBar.isCompleted()) {
+			if (progressBar.isCancelled()) {
 				changeToLoadButton();
-				UI.toast(context, R.string.dictionary_loaded);
 			} else if (progressBar.isFailed()) {
 				changeToLoadButton();
-				UI.toast(context, R.string.dictionary_load_failed);
+				UI.toast(context, progressBar.getMessage());
+			} else if (progressBar.isCompleted()) {
+				changeToLoadButton();
+				UI.toast(context, R.string.dictionary_loaded);
 			}
 		}
 	};
@@ -75,7 +77,7 @@ public class ItemLoadDictionary extends ItemClickable {
 			changeToLoadButton();
 		}
 
-		return false;
+		return true;
 	}
 
 
@@ -86,6 +88,6 @@ public class ItemLoadDictionary extends ItemClickable {
 
 	public void changeToLoadButton() {
 		item.setTitle(context.getString(R.string.dictionary_load_title));
-		item.setSummary(progressBar.isFailed() ? progressBar.getMessage() : "");
+		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}
 }

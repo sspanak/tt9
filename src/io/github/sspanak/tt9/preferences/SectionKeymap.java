@@ -100,10 +100,8 @@ public class SectionKeymap {
 	public void reloadSettings() {
 		for (DropDownPreference dropDown : items) {
 			int keypadKey = settings.getFunctionKey(dropDown.getKey());
-			if (keypadKey != 0) {
-				dropDown.setValue(String.valueOf(keypadKey));
-				previewCurrentKey(dropDown);
-			}
+			dropDown.setValue(String.valueOf(keypadKey));
+			previewCurrentKey(dropDown);
 		}
 	}
 

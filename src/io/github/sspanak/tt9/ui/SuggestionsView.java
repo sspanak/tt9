@@ -64,7 +64,7 @@ public class SuggestionsView {
 		);
 		mView.setAdapter(mSuggestionsAdapter);
 
-		setDarkTheme(true); // just use some default colors
+		setDarkTheme(settings.getDarkTheme());
 	}
 
 

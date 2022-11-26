@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Налаштування Traditional T9</string>
+	<string name="app_settings">Налаштування TT9</string>
 	<string name="close">Закрити</string>
 	<string name="completed">Зроблено</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
@@ -25,4 +25,6 @@
 	<string name="dictionary_loading">Завантаження словника (%1$s)…</string>
 	<string name="dictionary_load_title">Завантажити словник</string>
 	<string name="dictionary_not_found">Помилка завантаження. Словник «%1$s» не знайдено.</string>
+    <string name="dictionary_loading_indeterminate">Завантаження словника</string>
+	<string name="dictionary_load_cancelled">Завантаження скасовано.</string>
 </resources>
