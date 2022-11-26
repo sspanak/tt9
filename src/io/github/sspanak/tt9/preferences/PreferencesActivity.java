@@ -15,13 +15,13 @@ public class PreferencesActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		settings = new SettingsStore(this);
 		DictionaryDb.init(this);
 
-		validateFunctionKeys();
+		settings = new SettingsStore(this);
 		applyTheme();
+
+		super.onCreate(savedInstanceState);
+		validateFunctionKeys();
 		buildScreen();
 	}
 

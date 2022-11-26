@@ -28,6 +28,6 @@ public class ItemResetKeys extends ItemClickable {
 		settings.setDefaultKeys();
 		dropdowns.reloadSettings();
 		UI.toast(context, R.string.function_reset_keys_done);
-		return false;
+		return true;
 	}
 }

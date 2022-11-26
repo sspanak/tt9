@@ -44,6 +44,6 @@ public class ItemTruncateDictionary extends ItemClickable {
 
 		DictionaryDb.truncateWords(onDictionaryTruncated);
 
-		return false;
+		return true;
 	}
 }
