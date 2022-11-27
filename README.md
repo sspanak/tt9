@@ -3,6 +3,12 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 
 This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+     alt="Get it on IzzyOnDroid"
+     height="80">](https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9)
+
+or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releases/latest).
+
 ## Using Traditional T9
 If you just wish to install and use TT9, see the [user manual](docs/user-manual.md). You don't need to read anything below this line.
 
