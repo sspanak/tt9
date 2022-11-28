@@ -189,19 +189,17 @@ public class ModePredictive extends InputMode {
 		if (digitSequence.equals("0")) {
 			suggestions = Punctuation.Secondary;
 		} else if (digitSequence.matches("^1+$")) {
-			switch (digitSequence.length()) {
-				case 1:
-					suggestions = Punctuation.Main;
-					break;
-				case 2:
-					suggestions = Punctuation.Faces;
-					break;
-				case 3:
-					suggestions = Punctuation.Hands;
-					break;
-				default:
-					digitSequence = "1111"; // do not forget to update this, if you add new options to the switch..case
-					suggestions = Punctuation.Emotions;
+			if (digitSequence.length() == 1) {
+				suggestions = Punctuation.Main;
+			} else {
+				// "11" = Emoji level 0, "111" = Emoji level 1, etc...
+				StringBuilder maxEmojiSequence = new StringBuilder();
+				for (int i = 0; i <= Punctuation.getEmojiLevels(); i++) {
+					maxEmojiSequence.append("1");
+				}
+
+				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence.toString();
+				suggestions = Punctuation.getEmoji(digitSequence.length() - 2);
 			}
 		} else {
 			return false;
