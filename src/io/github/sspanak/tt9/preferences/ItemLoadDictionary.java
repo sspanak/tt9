@@ -78,7 +78,7 @@ public class ItemLoadDictionary extends ItemClickable {
 			changeToLoadButton();
 		}
 
-		return false;
+		return true;
 	}
 
 
