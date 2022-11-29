@@ -46,15 +46,23 @@ def computeVersionCode = { ->
 }
 
 def computeVersionName = { ->
-	String tagsCount = execThing('git tag').split('\n').size()
-	String lastTag = execThing('git describe --tags --abbrev=0')
+	// major version
+	String versionTagsCount = execThing('git tag --list v*').split('\n').size()
 
-	String gitLogResult = execThing("git log $lastTag..HEAD --oneline")
+	// minor version
+	String lastVersionTag = execThing('git describe --match v* --tags --abbrev=0')
+	String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
 	String commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
 
+	// the commit we are building from
 	String currentHash = execThing('git log -1 --format=%h')
 
-	return "$tagsCount.$commitsSinceLastTag ($currentHash)"
+	// beta string, if this is a beta
+	String lastTagName = execThing('git describe --tags --abbrev=0')
+	String lastTagHash = execThing("git log -1 --format=%h $lastTagName")
+	String betaString = lastTagHash == currentHash && lastTagName.contains("beta") ? '-beta' : ''
+
+	return "$versionTagsCount.$commitsSinceLastTag$betaString ($currentHash)"
 }
 
 android {
