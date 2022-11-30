@@ -87,7 +87,6 @@
 			app:key="key_show_settings"
 			app:title="@string/function_show_settings_key" />
 
-
 		<Preference
 			app:iconSpaceReserved="false"
 			app:key="reset_keys"

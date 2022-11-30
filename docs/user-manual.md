@@ -74,7 +74,7 @@ Just deletes text.
 - **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
 - **Long Press**: Whatever the system default action is (i.e. show running applications list).
 
-All this does not apply, when using other keys. They will just delete text
+All this does not apply, when using other keys. They will just delete text.
 
 #### Next Input Mode Key (Default: Press #):
 - **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
@@ -101,7 +101,7 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 
 To access it:
 - Start typing in a text field to wake up TT9.
-- Use the on-screen gear button or hold the Settings Key.
+- Use the on-screen gear button or press the Settings Key.
 
 ## License
 - The source code, the logo image and the icons are licensed under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
