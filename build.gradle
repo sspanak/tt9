@@ -39,31 +39,42 @@ def execThing ( String cmdStr ) {
 	return stdout.toString().trim()
 }
 
-def computeVersionCode = { ->
-	String commitsCount = execThing("git rev-list --count HEAD")
+def getCurrentGitHash = { ->
+	return execThing('git log -1 --format=%h')
+}
 
+def getVersionCode = { ->
+	String commitsCount = execThing("git rev-list --count HEAD")
 	return Integer.valueOf(commitsCount)
 }
 
-def computeVersionName = { ->
+def getVersionName = { ->
 	// major version
-	String versionTagsCount = execThing('git tag --list v*').split('\n').size()
+	String versionTagsCount = execThing('git tag --list v[0-9]*').split('\n').size()
 
 	// minor version
-	String lastVersionTag = execThing('git describe --match v* --tags --abbrev=0')
+	String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
 	String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
 	String commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
 
 	// the commit we are building from
-	String currentHash = execThing('git log -1 --format=%h')
 
 	// beta string, if this is a beta
 	String lastTagName = execThing('git describe --tags --abbrev=0')
 	String lastTagHash = execThing("git log -1 --format=%h $lastTagName")
-	String betaString = lastTagHash == currentHash && lastTagName.contains("beta") ? '-beta' : ''
+	String betaString = lastTagHash == getCurrentGitHash() && lastTagName.contains("-beta") ? '-beta' : ''
 
-	return "$versionTagsCount.$commitsSinceLastTag$betaString ($currentHash)"
+	return "$versionTagsCount.$commitsSinceLastTag$betaString"
 }
+
+def getDebugVersion = { ->
+	return "git-${getCurrentGitHash()} (debug)"
+}
+
+def getReleaseVersion = { ->
+	return "${getVersionName()} (${getCurrentGitHash()})"
+}
+
 
 android {
 	compileSdkVersion 30
@@ -93,8 +104,8 @@ android {
 	defaultConfig {
 		minSdkVersion 19
 		targetSdk 30
-		versionCode computeVersionCode()
-		versionName computeVersionName()
+		versionCode getVersionCode()
+		versionName getVersionName()
 	}
 
 	// http://stackoverflow.com/a/19130098
@@ -107,11 +118,16 @@ android {
 //		}
 //	}
 //
-//	buildTypes {
-//		release {
+	buildTypes {
+		debug { data ->
+			data.buildConfigField 'String', 'VERSION_FULL', "\"${getDebugVersion()}\""
+		}
+
+		release { data ->
+			data.buildConfigField 'String', 'VERSION_FULL', "\"${getReleaseVersion()}\""
 //			signingConfig android.signingConfigs.release
-//		}
-//	}
+		}
+	}
 }
 
 task validateDictionaries {

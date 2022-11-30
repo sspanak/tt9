@@ -102,7 +102,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat {
 	private void createAboutSection() {
 		Preference vi = findPreference("version_info");
 		if (vi != null) {
-			vi.setSummary(BuildConfig.VERSION_NAME);
+			vi.setSummary(BuildConfig.VERSION_FULL);
 		}
 	}
 }
