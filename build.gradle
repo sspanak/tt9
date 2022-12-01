@@ -10,10 +10,10 @@ buildscript {
 apply plugin: 'com.android.application'
 
 dependencies {
-	implementation "androidx.core:core:1.6.0"
-	implementation 'androidx.preference:preference:1.1.1'
-	implementation "androidx.room:room-runtime:2.1.0"
-	annotationProcessor "androidx.room:room-compiler:2.1.0"
+	implementation "androidx.core:core:1.9.0"
+	implementation 'androidx.preference:preference:1.2.0'
+	implementation "androidx.room:room-runtime:2.4.3"
+	annotationProcessor "androidx.room:room-compiler:2.4.3"
 }
 
 repositories {
@@ -77,8 +77,9 @@ def getReleaseVersion = { ->
 
 
 android {
-	compileSdkVersion 30
-	buildToolsVersion "32.0.0"
+	buildToolsVersion "33.0.0"
+	compileSdkVersion 33
+	namespace "io.github.sspanak.tt9"
 
 	sourceSets {
 		main {
@@ -113,8 +114,8 @@ android {
 //		release {
 //			storeFile file(System.getenv("KEYSTORE"))
 //			storePassword System.getenv("KEYSTORE_PASS")
-//			keyAlias System.getenv("KEYALIAS")
-//			keyPassword System.getenv("KEYALIAS_PASS")
+//			keyAlias System.getenv("KEY_ALIAS")
+//			keyPassword System.getenv("KEY_ALIAS_PASS")
 //		}
 //	}
 //
