@@ -24,6 +24,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected int mEditing = NON_EDIT;
 
 	// temporal key handling
+	private boolean backspaceHandled = false;
+
 	private int ignoreNextKeyUp = 0;
 
 	private int lastKeyCode = 0;
@@ -31,10 +33,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	private int lastNumKeyCode = 0;
 	private int numKeyRepeatCounter = 0;
-
-	// throttling
-	private static final int BACKSPACE_DEBOUNCE_TIME = 80;
-	private long lastBackspaceCall = 0;
 
 
 	/**
@@ -135,18 +133,11 @@ abstract class KeyPadHandler extends InputMethodService {
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// "backspace" key must repeat its function, when held down, so we handle it in a special way
-		// Also dialer fields seem to handle backspace on their own and we must ignore it,
-		// otherwise, keyDown race condition occur for all keys.
-		if (mEditing != EDITING_DIALER && keyCode == settings.getKeyBackspace()) {
-			boolean isThereTextBefore = InputFieldHelper.isThereText(currentInputConnection);
-			boolean backspaceHandleStatus = handleBackspaceHold();
-
-			// Allow BACK key to function as back when there is no text
-			if (keyCode == KeyEvent.KEYCODE_BACK) {
-				return isThereTextBefore;
-			} else {
-				return backspaceHandleStatus;
-			}
+		if (keyCode == settings.getKeyBackspace()) {
+			// When there is no more text, allow "Back" key to function normally, not to block navigation.
+			// All other keys are blocked, unless it turns out it is annoying this way.
+			backspaceHandled = onBackspace() || keyCode != KeyEvent.KEYCODE_BACK;
+			return backspaceHandled;
 		}
 
 		// In numeric fields, we do not want to handle anything, but "backspace"
@@ -249,11 +240,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 //		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
-		if (
-			mEditing != EDITING_DIALER // dialer fields seem to handle backspace on their own
-			&& keyCode == settings.getKeyBackspace()
-			&& InputFieldHelper.isThereText(currentInputConnection)
-		) {
+		if (backspaceHandled && keyCode == settings.getKeyBackspace()) {
 			return true;
 		}
 
@@ -297,18 +284,6 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		return false;
-	}
-
-
-	protected boolean handleBackspaceHold() {
-		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
-			return true;
-		}
-
-		boolean handled = onBackspace();
-		lastBackspaceCall = System.currentTimeMillis();
-
-		return handled;
 	}
 
 

@@ -130,7 +130,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onBackspace() {
-		if (!InputFieldHelper.isThereText(currentInputConnection)) {
+		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
+		// otherwise, keyDown race condition occur for all keys.
+		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
+		if (mEditing == EDITING_DIALER || !InputFieldHelper.isThereText(currentInputConnection)) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
