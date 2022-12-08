@@ -126,6 +126,14 @@ android {
 
 		release { data ->
 			data.buildConfigField 'String', 'VERSION_FULL', "\"${getReleaseVersion()}\""
+
+			debuggable false
+			jniDebuggable false
+			renderscriptDebuggable false
+			minifyEnabled true
+			shrinkResources true
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
 //			signingConfig android.signingConfigs.release
 		}
 	}
