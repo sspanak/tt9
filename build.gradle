@@ -144,8 +144,13 @@ task validateDictionaries {
 	outputs.file "t9build.properties"
 	doLast {
 		String errors = ""
+		int errorCount = 0
+		final MAX_ERRORS = 50
 
 		inputs.getFiles().each {File file ->
+			if (errorCount >= MAX_ERRORS) {
+				return
+			}
 			println "Validating dictionary: " + file.name
 
 			def geographicalName = ~"[A-Z]\\w+-[^\\n]+"
@@ -153,24 +158,36 @@ task validateDictionaries {
 
 			int lineNumber = 0
 			file.eachLine {line ->
+				if (errorCount >= MAX_ERRORS) {
+					return
+				}
+
 				lineNumber++
 				if (line.matches("\\d")) {
+					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
 				}
 
 				if (line.matches("^\\P{L}+\$")) {
+					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + line + "' on line " + lineNumber + ".\n"
 				}
 
 				if (line.matches("^.\$")) {
+					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + line + "' on line " + lineNumber + ". Remove all single letters. The alphabet will be added automatically.\n"
 				}
 
 				String uniqueWordKey = line ==~ geographicalName ? line : line.toLowerCase()
 				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
+					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + line + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
 				} else {
 					uniqueWords[uniqueWordKey] = true
+				}
+
+				if (errorCount >= MAX_ERRORS ) {
+					errors += "Too many errors! Aborting.\n"
 				}
 			}
 		}
