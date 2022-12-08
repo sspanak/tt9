@@ -83,9 +83,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void onRestart(EditorInfo inputField) {
+	protected void onStart(EditorInfo inputField) {
 		this.inputField = inputField;
-
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
@@ -94,6 +93,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		determineAllowedInputModes();
 		mInputMode = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
 
+		mInputMode.setTextFieldCase(InputFieldHelper.determineTextCase(currentInputConnection, inputField));
 		// Some modes may want to change the default text case based on grammar rules.
 		determineNextTextCase();
 		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());

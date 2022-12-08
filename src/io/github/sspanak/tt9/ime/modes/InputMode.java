@@ -16,12 +16,14 @@ abstract public class InputMode {
 	public static final int MODE_123 = 2;
 
 	// text case
+	public static final int CASE_UNDEFINED = -1;
 	public static final int CASE_UPPER = 0;
 	public static final int CASE_CAPITALIZE = 1;
 	public static final int CASE_LOWER = 2;
 	public static final int CASE_DICTIONARY = 3; // do not force it, but use the dictionary word as-is
 	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
 	protected int textCase = CASE_LOWER;
+	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
 	protected ArrayList<String> suggestions = new ArrayList<>();
@@ -91,11 +93,17 @@ abstract public class InputMode {
 		return true;
 	}
 
+	public void setTextFieldCase(int newTextCase) {
+		textFieldTextCase = allowedTextCases.contains(newTextCase) ? newTextCase : CASE_UNDEFINED;
+	}
+
 	public void defaultTextCase() {
 		textCase = allowedTextCases.get(0);
 	}
 
 	public void nextTextCase() {
+		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
+
 		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
 		textCase = allowedTextCases.get(nextIndex);
 	}
