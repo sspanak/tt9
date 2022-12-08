@@ -97,7 +97,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return;
 		}
 
-		onRestart(inputField);
+		onStart(inputField);
 	}
 
 
@@ -411,7 +411,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// helpers
 	abstract protected void onInit();
-	abstract protected void onRestart(EditorInfo inputField);
+	abstract protected void onStart(EditorInfo inputField);
 	abstract protected void onFinish();
 	abstract protected View createSoftKeyView();
 }

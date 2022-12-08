@@ -32,6 +32,8 @@ public class InputFieldHelper {
 	 * isDialerField
 	 * Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.
+	 *
+	 * NOTE: A Dialer field is not the same as a Phone field in a phone book.
 	 */
 	public static boolean isDialerField(EditorInfo inputField) {
 		return
@@ -79,12 +81,23 @@ public class InputFieldHelper {
 
 		return
 			variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
-			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
 	}
 
 
-	public static boolean isRegularTextField(EditorInfo inputField) {
-		return !isPasswordField(inputField) && !isEmailField(inputField);
+	private static boolean isPersonNameField(EditorInfo inputField) {
+		return inputField != null && (inputField.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
+	}
+
+
+	public static boolean isSpecializedTextField(EditorInfo inputField) {
+		return isEmailField(inputField) || isPasswordField(inputField) || isUriField(inputField);
+	}
+
+
+	private static boolean isUriField(EditorInfo inputField) {
+		return inputField != null && (inputField.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_URI;
 	}
 
 
@@ -153,27 +166,27 @@ public class InputFieldHelper {
 	 * Helper to update the shift state of our keyboard based on the initial
 	 * editor state.
 	 */
-	public static void determineTextCase(EditorInfo inputField) {
-		// Logger.d("updateShift", "CM start: " + mCapsMode);
-		// if (inputField != null && mCapsMode != SettingsStore.CASE_UPPER) {
-		// 	int caps = 0;
-		// 	if (inputField.inputType != InputType.TYPE_NULL) {
-		// 		caps = currentInputConnection.getCursorCapsMode(inputField.inputType);
-		// 	}
-		// 	// mInputView.setShifted(mCapsLock || caps != 0);
-		// 	// Logger.d("updateShift", "caps: " + caps);
-		// 	if ((caps & TextUtils.CAP_MODE_CHARACTERS) == TextUtils.CAP_MODE_CHARACTERS) {
-		// 		mCapsMode = SettingsStore.CASE_UPPER;
-		// 	} else if ((caps & TextUtils.CAP_MODE_SENTENCES) == TextUtils.CAP_MODE_SENTENCES) {
-		// 		mCapsMode = SettingsStore.CASE_CAPITALIZE;
-		// 	} else if ((caps & TextUtils.CAP_MODE_WORDS) == TextUtils.CAP_MODE_WORDS) {
-		// 		mCapsMode = SettingsStore.CASE_CAPITALIZE;
-		// 	} else {
-		// 		mCapsMode = SettingsStore.CASE_LOWER;
-		// 	}
-		// 	updateStatusIcon();
-		// }
-		// Logger.d("updateShift", "CM end: " + mCapsMode);
+	public static int determineTextCase(InputConnection inputConnection, EditorInfo inputField) {
+		if (inputField == null || inputConnection == null || inputField.inputType == InputType.TYPE_NULL) {
+			return InputMode.CASE_UNDEFINED;
+		}
+
+		if (isSpecializedTextField(inputField)) {
+			return InputMode.CASE_LOWER;
+		}
+
+		if (isPersonNameField(inputField)) {
+			return InputMode.CASE_CAPITALIZE;
+		}
+
+		switch (inputField.inputType & InputType.TYPE_MASK_FLAGS) {
+			case InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS:
+				return InputMode.CASE_UPPER;
+			case InputType.TYPE_TEXT_FLAG_CAP_WORDS:
+				return InputMode.CASE_CAPITALIZE;
+		}
+
+		return InputMode.CASE_UNDEFINED;
 	}
 
 

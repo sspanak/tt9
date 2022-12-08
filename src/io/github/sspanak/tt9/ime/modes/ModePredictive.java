@@ -144,7 +144,7 @@ public class ModePredictive extends InputMode {
 				|| lastAcceptedWord.equals("'")
 				|| lastAcceptedWord.equals("@")
 			)
-			&& InputFieldHelper.isRegularTextField(inputField);
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
 	}
 
 
@@ -168,7 +168,7 @@ public class ModePredictive extends InputMode {
 				|| lastAcceptedWord.endsWith("]")
 				|| lastAcceptedWord.endsWith("%")
 			)
-			&& InputFieldHelper.isRegularTextField(inputField);
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
 	}
 
 
@@ -185,7 +185,7 @@ public class ModePredictive extends InputMode {
 			&& !lastAcceptedSequence.equals("0")
 			// Emoji
 			&& !lastAcceptedSequence.startsWith("1")
-			&& InputFieldHelper.isRegularTextField(inputField);
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
 	}
 
 
@@ -526,6 +526,11 @@ public class ModePredictive extends InputMode {
 
 		// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
 		if (textCase == CASE_UPPER) {
+			return;
+		}
+
+		if (textFieldTextCase != CASE_UNDEFINED) {
+			textCase = textFieldTextCase;
 			return;
 		}
 
