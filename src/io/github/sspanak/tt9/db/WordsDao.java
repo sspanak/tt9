@@ -9,6 +9,9 @@ import java.util.List;
 
 @Dao
 interface WordsDao {
+	@Query("SELECT COUNT(id) FROM words WHERE :langId < 0 OR lang = :langId")
+	int count(int langId);
+
 	@Query(
 		"SELECT * " +
 		"FROM words " +

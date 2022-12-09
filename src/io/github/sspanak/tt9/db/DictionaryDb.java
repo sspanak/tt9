@@ -70,6 +70,17 @@ public class DictionaryDb {
 	}
 
 
+	public static void areThereWords(Handler handler, Language language) {
+		new Thread() {
+			@Override
+			public void run() {
+				int langId = language != null ? language.getId() : -1;
+				handler.sendEmptyMessage(getInstance().wordsDao().count(langId) > 0 ? 1 : 0);
+			}
+		}.start();
+	}
+
+
 	public static void truncateWords(Handler handler) {
 		new Thread() {
 			@Override
