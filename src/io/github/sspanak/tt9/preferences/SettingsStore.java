@@ -209,6 +209,8 @@ public class SettingsStore {
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
 
+	public int getDictionaryMissingWarningInterval() { return 30000; /* ms */ }
+
 	public int getSuggestionsMax() { return 20; }
 	public int getSuggestionsMin() { return 8; }
 

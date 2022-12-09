@@ -9,7 +9,7 @@
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_badchar">Не може да се въведе дума с непозволени символи за %1$s (%2$s).</string>
 	<string name="add_word_exist">Думата „%1$s“ е вече речника.</string>
-	<string name="add_word_invalid_language">За да добавите нова дума, първо изберете език.</string>
+	<string name="add_word_invalid_language">Не може да добавяте думи без да е избран език.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 
 	<string name="pref_category_about">За приложението</string>
@@ -20,13 +20,13 @@
 
 	<string name="pref_category_dictionaries">Речници</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
-	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума \"%1$s\" на ред %2$d за език \"%3$s\".</string>
-	<string name="dictionary_load_error">Несупешно зареждане на речник за език \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
+	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
 	<string name="dictionary_load_failed">Неуспешно зареждане на речник.</string>
 	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
 	<string name="dictionary_load_title">Зареди речник</string>
-	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за \"%1$s\".</string>
+	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за „%1$s“.</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
 	<string name="pref_category_appearance">Облик</string>
 	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
@@ -39,7 +39,7 @@
 	<string name="function_next_mode_key">Режим на писане</string>
 	<string name="function_show_settings_key">Настройки</string>
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
-	<string name="function_reset_keys_done">Възстановени са стандартните \"бързи\" бутони.</string>
+	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
@@ -48,4 +48,5 @@
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
 	<string name="pref_auto_text_case_summary">Започвай автоматично изреченията с главни букви.</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
+	<string name="dictionary_missing_go_load_it">Няма речник за език „%1$s“. Заредете го в Настройки.</string>
 </resources>

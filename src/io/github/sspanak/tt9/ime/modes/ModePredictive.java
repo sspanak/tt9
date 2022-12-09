@@ -10,12 +10,14 @@ import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.ime.InputFieldHelper;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
+	private final EmptyDatabaseWarning emptyDbWarning;
 	private final SettingsStore settings;
 
 	public int getId() { return MODE_PREDICTIVE; }
@@ -42,10 +44,12 @@ public class ModePredictive extends InputMode {
 
 
 	ModePredictive(SettingsStore settings) {
-		this.settings = settings;
 		allowedTextCases.add(CASE_LOWER);
 		allowedTextCases.add(CASE_CAPITALIZE);
 		allowedTextCases.add(CASE_UPPER);
+
+		emptyDbWarning = new EmptyDatabaseWarning(settings);
+		this.settings = settings;
 
 		// digitSequence limiter when selecting emoji
 		// "11" = Emoji level 0, "111" = Emoji level 1,... up to the maximum amount of 1s
@@ -344,6 +348,7 @@ public class ModePredictive extends InputMode {
 			dbSuggestions = dbSuggestions == null ? new ArrayList<>() : dbSuggestions;
 
 			if (dbSuggestions.size() == 0 && digitSequence.length() > 0) {
+				emptyDbWarning.emitOnce(currentLanguage);
 				dbSuggestions = generatePossibleCompletions(currentLanguage, currentInputFieldWord);
 			}
 

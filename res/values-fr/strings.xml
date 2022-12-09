@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_settings">Configuration TT9</string>
+	<string name="app_settings">Paramètres de TT9</string>
 	<string name="close">Fermer</string>
 	<string name="completed">Fini</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
@@ -28,7 +28,7 @@
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_appearance">Apparance</string>
-	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible \"%1$s\" à la ligne %2$d de langue \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s\" à la ligne %2$d de langue «%3$s».</string>
 	<string name="dictionary_truncated">Le dictionaire est vidé avec succès.</string>
 	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
@@ -38,4 +38,6 @@
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
 	<string name="pref_auto_text_case_summary">Commencer automatiquement les phrases avec une majuscule.</string>
+	<string name="dictionary_missing_go_load_it">Pas de dictionnaire pour langue «%1$s». Veuillez le charger à l\'écran Paramètres.</string>
+	<string name="add_word_invalid_language">Impossible d\'ajouter un mot, si aucune langue n\'est choisie.</string>
 </resources>
