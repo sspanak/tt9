@@ -469,9 +469,20 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
-			mInputMode.nextTextCase();
-			setSuggestions(mInputMode.getSuggestions(mLanguage), mSuggestionView.getCurrentIndex());
-			refreshComposingText();
+			String currentSuggestionBefore = getComposingText();
+
+			// When we are in AUTO mode and the dictionary word is in uppercase,
+			// the mode would switch to UPPERCASE, but visually, the word would not change.
+			// This is why we retry, until there is a visual change.
+			for (int retries = 0; retries < 2; retries ++) {
+				mInputMode.nextTextCase();
+				setSuggestions(mInputMode.getSuggestions(mLanguage), mSuggestionView.getCurrentIndex());
+				refreshComposingText();
+
+				if (!currentSuggestionBefore.equals(getComposingText())) {
+					break;
+				}
+			}
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
