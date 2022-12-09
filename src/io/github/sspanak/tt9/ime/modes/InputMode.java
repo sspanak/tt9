@@ -102,8 +102,6 @@ abstract public class InputMode {
 	}
 
 	public void nextTextCase() {
-		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
-
 		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
 		textCase = allowedTextCases.get(nextIndex);
 	}

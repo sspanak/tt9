@@ -475,7 +475,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
-			mInputMode.setTextCase(InputMode.CASE_UPPER);
+			mInputMode.nextTextCase();
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, allowedInputModes.get(modeIndex));

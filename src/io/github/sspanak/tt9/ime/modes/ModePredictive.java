@@ -550,6 +550,12 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	@Override
+	public void nextTextCase() {
+		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
+		super.nextTextCase();
+	}
+
 	@Override final public boolean isPredictive() { return true; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 	@Override public boolean shouldTrackUpDown() { return true; }
