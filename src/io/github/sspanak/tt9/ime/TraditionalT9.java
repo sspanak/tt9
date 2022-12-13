@@ -283,22 +283,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyNextLanguage() {
-		if (mEditing == EDITING_DIALER) {
-			return false;
-		}
-
-		nextLang();
-		return true;
+		return nextLang();
 	}
 
 
 	protected boolean onKeyNextInputMode() {
-		if (mEditing == EDITING_DIALER) {
-			return false;
-		}
-
 		nextInputMode();
-		return true;
+		return (mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER);
 	}
 
 
@@ -464,8 +455,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void nextInputMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
-			clearSuggestions();
-			mInputMode = InputMode.getInstance(settings, InputMode.MODE_123);
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -474,7 +464,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			// When we are in AUTO mode and the dictionary word is in uppercase,
 			// the mode would switch to UPPERCASE, but visually, the word would not change.
 			// This is why we retry, until there is a visual change.
-			for (int retries = 0; retries < 2; retries ++) {
+			for (int retries = 0; retries < 2; retries++) {
 				mInputMode.nextTextCase();
 				setSuggestions(mInputMode.getSuggestions(mLanguage), mSuggestionView.getCurrentIndex());
 				refreshComposingText();
@@ -502,9 +492,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void nextLang() {
+	private boolean nextLang() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
-			return;
+			return false;
 		}
 
 		clearSuggestions();
@@ -520,6 +510,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		settings.saveInputLanguage(mLanguage.getId());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
+		UI.toastInputMode(this, settings, mLanguage, mInputMode);
+
+		return true;
 	}
 
 

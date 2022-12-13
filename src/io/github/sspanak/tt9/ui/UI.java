@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class UI {
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
@@ -46,6 +47,14 @@ public class UI {
 		} else {
 			Logger.w("tt9.UI", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
 			tt9.hideStatusIcon();
+		}
+	}
+
+	public static void toastInputMode(Context context, SettingsStore settings, Language newLanguage, InputMode mode) {
+		if (mode.isABC() && settings.getNotifyNextLanguageInModeAbc()) {
+			String toastMessage = newLanguage.getName();
+			toastMessage += mode.getTextCase() == InputMode.CASE_LOWER ? " (abc)" : " (ABC)";
+			toast(context, toastMessage);
 		}
 	}
 
