@@ -190,10 +190,14 @@ public class SettingsStore {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}
 
+
 	/************* UI settings *************/
+
+	public boolean getNotifyNextLanguageInModeAbc() { return prefs.getBoolean("notify_next_language_in_mode_abc", true); }
 
 	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
 	public void setDarkTheme(boolean yes) { prefsEditor.putBoolean("pref_dark_theme", yes); }
+
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
@@ -203,6 +207,7 @@ public class SettingsStore {
 
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
+
 
 	/************* internal settings *************/
 
@@ -216,6 +221,7 @@ public class SettingsStore {
 
 	public int getSuggestionSelectAnimationDuration() { return 66; }
 	public int getSuggestionTranslateAnimationDuration() { return 0; }
+
 
 	/************* add word, last word *************/
 
