@@ -5,5 +5,5 @@
 	android:id="@+id/preferences_container"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	tools:context=".preferences.PreferencesFragment">
+	tools:context=".preferences.screens.MainSettingsScreen">
 </FrameLayout>

@@ -15,6 +15,7 @@ import java.util.Set;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.items.SectionKeymap;
 
 
 public class SettingsStore {

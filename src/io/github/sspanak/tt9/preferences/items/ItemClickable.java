@@ -1,10 +1,10 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.Logger;
 
-public abstract class ItemClickable {
+abstract class ItemClickable {
 	protected final int CLICK_DEBOUNCE_TIME = 250;
 	private long lastClickTime = 0;
 

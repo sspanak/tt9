@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:orderingFromXml="true">
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_add_word"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/function_add_word_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_backspace"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/function_backspace_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_next_language"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/function_next_language_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_next_input_mode"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/function_next_mode_key" />
+
+		<DropDownPreference
+			app:iconSpaceReserved="false"
+			app:key="key_show_settings"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/function_show_settings_key" />
+
+		<Preference
+			app:iconSpaceReserved="false"
+			app:key="reset_keys"
+			app:layout="@layout/pref_text"
+			app:title="@string/function_reset_keys_title" />
+
+</PreferenceScreen>

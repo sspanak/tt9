@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.Preference;
