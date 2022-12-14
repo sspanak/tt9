@@ -441,7 +441,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void setComposingTextWithWordStemIndication(CharSequence word) {
 		if (mInputMode.getWordStem().length() > 0) {
-			setComposingText(TextHelper.highlightComposingText(word, 0, mInputMode.getWordStem().length()));
+			setComposingText(TextHelper.highlightComposingText(word, 0, mInputMode.getWordStem().length(), mInputMode.isStemFilterFuzzy()));
 		} else {
 			setComposingText(word);
 		}

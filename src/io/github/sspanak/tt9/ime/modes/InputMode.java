@@ -115,6 +115,7 @@ abstract public class InputMode {
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.
 	public boolean clearWordStem() { return false; }
+	public boolean isStemFilterFuzzy() { return false; }
 	public String getWordStem() { return ""; }
 	public boolean setWordStem(Language language, String stem, boolean exact) { return false; }
 

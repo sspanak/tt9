@@ -41,6 +41,8 @@ _Predictive mode only._
 
 Filtering can also be used to type unknown words. Let's say you want to type "Anakin", which is not in the dictionary. Start with "A", then press Right to hide "B" and "C". Now press 6-key. Since the filter is on, in addition to the real dictionary words, it will provide all possible combinations for 6: "Am", "An", "Ao". Select "An" and press Right to confirm your selection. Now pressing 2-key, will provide "Ana", "Anb", "Anc". You can keep going, until you complete "Anakin".
 
+When filtering is enabled, the base text will become bold and italicized.
+
 #### D-pad Left (←):
 _Predictive mode only._
 
