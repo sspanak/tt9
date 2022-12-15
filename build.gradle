@@ -173,9 +173,9 @@ task validateDictionaries {
 					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + line + "' on line " + lineNumber + ".\n"
 				}
 
-				if (line.matches("^.\$")) {
+				if (line.matches("^.\$") && !Character.isUpperCase(line.charAt(0))) {
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + line + "' on line " + lineNumber + ". Remove all single letters. The alphabet will be added automatically.\n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + line + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 				}
 
 				String uniqueWordKey = line ==~ geographicalName ? line : line.toLowerCase()

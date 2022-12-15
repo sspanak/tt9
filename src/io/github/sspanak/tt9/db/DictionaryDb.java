@@ -81,6 +81,15 @@ public class DictionaryDb {
 	}
 
 
+	public static boolean doesWordExistSync(Language language, String word) {
+		if (language == null || word == null || word == "") {
+			return false;
+		}
+
+		return getInstance().wordsDao().doesWordExist(language.getId(), word) > 0;
+	}
+
+
 	public static void truncateWords(Handler handler) {
 		new Thread() {
 			@Override

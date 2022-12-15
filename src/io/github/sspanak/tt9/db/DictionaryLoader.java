@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
@@ -108,18 +109,18 @@ public class DictionaryLoader {
 		DictionaryDb.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
-				importLetters(language);
-				Logger.i(
-					logTag,
-					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
-				);
-
-				start = System.currentTimeMillis();
 				importWords(language);
 				Logger.i(
 					logTag,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
+				start = System.currentTimeMillis();
+				importLetters(language);
+				Logger.i(
+					logTag,
+					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 			} catch (DictionaryImportAbortedException e) {
 				stop();
@@ -164,6 +165,10 @@ public class DictionaryLoader {
 					// We do not want 0-9 as "word suggestions" in Predictive mode. It looks confusing
 					// when trying to type a word and also, one can type them by holding the respective
 					// key.
+					continue;
+				}
+
+				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
 					continue;
 				}
 

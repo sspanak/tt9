@@ -8,7 +8,7 @@ const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
 function printHelp() {
 	console.log(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt `);
 	console.log('Removes repeating words from a word list');
-	console.log('\nLocale could any valid JS locale, for exmaple: en, en-US, etc...');
+	console.log('\nLocale could be any valid JS locale, for exmaple: en, en-US, etc...');
 }
 
 
