@@ -81,6 +81,15 @@ public class DictionaryDb {
 	}
 
 
+	public static boolean doesWordExistSync(Language language, String word) {
+		if (language == null || word == null || word.equals("")) {
+			return false;
+		}
+
+		return getInstance().wordsDao().doesWordExist(language.getId(), word) > 0;
+	}
+
+
 	public static void truncateWords(Handler handler) {
 		new Thread() {
 			@Override
@@ -155,7 +164,13 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+					if (affectedRows == 0) {
+						// If the user has changed the case manually, so there would be no matching word.
+						// In this case, try again with the lowercase equivalent.
+						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+					}
+
 					Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
 				} catch (Exception e) {
 					Logger.e(

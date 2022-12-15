@@ -18,6 +18,14 @@ Using Git Commit From: Mon Dec 7 20:14:35 2020 -0500 [5ef55f9]
 
 =====
 
+Also, used the wooorm's hunspell-compatible dictionary to determine
+which words need to start with a capital letter
+Link: https://github.com/wooorm/dictionaries/tree/main/dictionaries/en
+License: MIT (available in the link)
+Git commit: 13 Apr 2022 [0c78cc810c8aafb2e6f5140bb6dcd4026b247eb8]
+
+=====
+
 Spell Checking Oriented Word Lists (SCOWL)
 
 Mon Dec 7 20:14:35 2020 -0500 [5ef55f9]

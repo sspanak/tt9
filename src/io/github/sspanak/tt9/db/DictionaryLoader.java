@@ -108,18 +108,18 @@ public class DictionaryLoader {
 		DictionaryDb.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
-				importLetters(language);
-				Logger.i(
-					logTag,
-					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
-				);
-
-				start = System.currentTimeMillis();
 				importWords(language);
 				Logger.i(
 					logTag,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
+				start = System.currentTimeMillis();
+				importLetters(language);
+				Logger.i(
+					logTag,
+					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 			} catch (DictionaryImportAbortedException e) {
 				stop();
@@ -167,6 +167,10 @@ public class DictionaryLoader {
 					continue;
 				}
 
+				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
+					continue;
+				}
+
 				Word word = new Word();
 				word.langId = language.getId();
 				word.frequency = 0;
@@ -210,7 +214,7 @@ public class DictionaryLoader {
 				throw new DictionaryImportException(dictionaryFile, word, line);
 			}
 
-			if (line % settings.getDictionaryImportWordChunkSize() == 0) {
+			if (line % settings.getDictionaryImportWordChunkSize() == 0 || line == totalWords - 1) {
 				DictionaryDb.insertWordsSync(dbWords);
 				dbWords.clear();
 			}

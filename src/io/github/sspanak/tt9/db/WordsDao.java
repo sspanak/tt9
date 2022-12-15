@@ -12,6 +12,9 @@ interface WordsDao {
 	@Query("SELECT COUNT(id) FROM words WHERE :langId < 0 OR lang = :langId")
 	int count(int langId);
 
+	@Query("SELECT COUNT(id) FROM words WHERE lang = :langId AND word = :word")
+	int doesWordExist(int langId, String word);
+
 	@Query(
 		"SELECT * " +
 		"FROM words " +
