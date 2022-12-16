@@ -30013,6 +30013,8 @@ chimpanzee
 chimpanzee's
 chimpanzees
 chimps
+chin
+chin's
 chinaberries
 chinaberry
 chinaware
@@ -149710,8 +149712,6 @@ Chimera
 Chimera's
 Chimu
 Chimu's
-Chin
-Chin's
 China
 China's
 Chinatown
