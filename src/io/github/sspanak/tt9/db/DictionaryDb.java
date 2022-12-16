@@ -164,7 +164,13 @@ public class DictionaryDb {
 			@Override
 			public void run() {
 				try {
-					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+					if (affectedRows == 0) {
+						// If the user has changed the case manually, so there would be no matching word.
+						// In this case, try again with the lowercase equivalent.
+						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+					}
+
 					Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
 				} catch (Exception e) {
 					Logger.e(
