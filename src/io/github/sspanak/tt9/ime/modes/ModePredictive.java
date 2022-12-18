@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -116,14 +117,15 @@ public class ModePredictive extends InputMode {
 	 * See the helper functions for the list of rules.
 	 */
 	@Override
-	public boolean shouldAddAutoSpace(EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
+	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
 		return
 			settings.getAutoSpace()
 			&& !hold
 			&& (
 				shouldAddAutoSpaceAfterPunctuation(inputField, incomingKey)
 				|| shouldAddAutoSpaceAfterWord(inputField, isWordAcceptedManually)
-			);
+			)
+			&& !InputFieldHelper.isThereSpaceAhead(inputConnection);
 	}
 
 

@@ -554,7 +554,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			InputFieldHelper.deletePrecedingSpace(currentInputConnection, currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputField, isWordAcceptedManually, incomingKey, hold)) {
+		if (mInputMode.shouldAddAutoSpace(currentInputConnection, inputField, isWordAcceptedManually, incomingKey, hold)) {
 			commitText(" ");
 		}
 	}
