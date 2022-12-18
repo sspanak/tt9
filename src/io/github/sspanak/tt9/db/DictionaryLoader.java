@@ -215,7 +215,7 @@ public class DictionaryLoader {
 				throw new DictionaryImportException(dictionaryFile, word, line);
 			}
 
-			if (line % settings.getDictionaryImportWordChunkSize() == 0) {
+			if (line % settings.getDictionaryImportWordChunkSize() == 0 || line == totalWords - 1) {
 				DictionaryDb.insertWordsSync(dbWords);
 				dbWords.clear();
 			}
