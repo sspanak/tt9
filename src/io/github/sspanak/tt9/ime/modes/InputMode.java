@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime.modes;
 
 import android.os.Handler;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 
@@ -73,7 +74,7 @@ abstract public class InputMode {
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
 
-	public boolean shouldAddAutoSpace(EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) { return false; }
+	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) { return false; }
 	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) { return false; }
 
 	public void reset() {

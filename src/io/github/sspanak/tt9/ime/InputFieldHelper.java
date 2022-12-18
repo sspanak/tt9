@@ -29,6 +29,16 @@ public class InputFieldHelper {
 
 
 	/**
+	 * isThereSpaceAhead
+	 * Checks whether there is a space after the cursor.
+	 */
+	public static boolean isThereSpaceAhead(InputConnection inputConnection) {
+		CharSequence after = inputConnection != null ? inputConnection.getTextAfterCursor(1, 0) : null;
+		return after != null && after.equals(" ");
+	}
+
+
+	/**
 	 * isDialerField
 	 * Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.
