@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.languages;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 
@@ -15,6 +16,7 @@ public class Language {
 	protected int abcLowerCaseIcon;
 	protected int abcUpperCaseIcon;
 	protected ArrayList<ArrayList<String>> characterMap = new ArrayList<>();
+	private HashMap<Character, String> reverseCharacterMap = new HashMap<>();
 
 	// settings
 	protected boolean isPunctuationPartOfWords; // see the getter for more info
@@ -65,6 +67,16 @@ public class Language {
 
 	/************* utility *************/
 
+	private void generateReverseCharacterMap() {
+		reverseCharacterMap.clear();
+		for (int digit = 0; digit <= 9; digit++) {
+			for (String keyChar : getKeyCharacters(digit)) {
+				reverseCharacterMap.put(keyChar.charAt(0), String.valueOf(digit));
+			}
+		}
+	}
+
+
 	public String capitalize(String word) {
 		return word != null ? word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale) : null;
 	}
@@ -94,16 +106,17 @@ public class Language {
 		StringBuilder sequence = new StringBuilder();
 		String lowerCaseWord = word.toLowerCase(locale);
 
-		for (int i = 0; i < lowerCaseWord.length(); i++) {
-			for (int key = 0; key <= 9; key++) {
-				if (getKeyCharacters(key).contains(Character.toString(lowerCaseWord.charAt(i)))) {
-					sequence.append(key);
-				}
-			}
+		if (reverseCharacterMap.isEmpty()) {
+			generateReverseCharacterMap();
 		}
 
-		if (word.length() != sequence.length()) {
-			throw new InvalidLanguageCharactersException(this, "Failed generating digit sequence for word: '" + word);
+		for (int i = 0; i < lowerCaseWord.length(); i++) {
+			char letter = lowerCaseWord.charAt(i);
+			if (!reverseCharacterMap.containsKey(letter)) {
+				throw new InvalidLanguageCharactersException(this, "Failed generating digit sequence for word: '" + word);
+			}
+
+			sequence.append(reverseCharacterMap.get(letter));
 		}
 
 		return sequence.toString();
