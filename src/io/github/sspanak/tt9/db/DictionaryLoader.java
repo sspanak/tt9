@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;

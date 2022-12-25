@@ -82,7 +82,7 @@ public class DictionaryDb {
 
 
 	public static boolean doesWordExistSync(Language language, String word) {
-		if (language == null || word == null || word == "") {
+		if (language == null || word == null || word.equals("")) {
 			return false;
 		}
 

@@ -16,7 +16,7 @@ public class Language {
 	protected int abcLowerCaseIcon;
 	protected int abcUpperCaseIcon;
 	protected ArrayList<ArrayList<String>> characterMap = new ArrayList<>();
-	private HashMap<Character, String> reverseCharacterMap = new HashMap<>();
+	private final HashMap<Character, String> reverseCharacterMap = new HashMap<>();
 
 	// settings
 	protected boolean isPunctuationPartOfWords; // see the getter for more info
