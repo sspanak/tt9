@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Punctuation {
 	final public static ArrayList<String> Main = new ArrayList<>(Arrays.asList(
-		".", ",", "-", "(", ")", "[", "]", "&", "~", "`", "\"", ":", ";", "'", "!", "?"
+		",", ".", "-", "(", ")", "[", "]", "&", "~", "`", "\"", ":", ";", "'", "!", "?"
 	));
 
 	final public static ArrayList<String> Secondary = new ArrayList<>(Arrays.asList(
