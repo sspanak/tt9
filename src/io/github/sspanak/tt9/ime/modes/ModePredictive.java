@@ -87,9 +87,9 @@ public class ModePredictive extends InputMode {
 			reset();
 			word = String.valueOf(key);
 		} else if (key == 0 && repeat > 0) {
-			// repeat "0" to type spaces
+			// repeat "0" is a shortcut for the preferred character (default: space)
 			reset();
-			word = " ";
+			word = settings.getDoubleZeroChar();
 		} else {
 			// words
 			super.reset();

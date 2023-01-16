@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemLoadDictionary;
 import io.github.sspanak.tt9.preferences.items.ItemSelectLanguage;
+import io.github.sspanak.tt9.preferences.items.ItemSelectZeroKeyCharacter;
 import io.github.sspanak.tt9.preferences.items.ItemToggleDarkTheme;
 import io.github.sspanak.tt9.preferences.items.ItemTruncateDictionary;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -33,9 +34,10 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	@Override
 	public void onCreate() {
-		createDictionarySection();
-		createAppearanceSection();
 		createAboutSection();
+		createAppearanceSection();
+		createDictionarySection();
+		createPredictiveModeSection();
 	}
 
 
@@ -67,6 +69,11 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	private void createAppearanceSection() {
 		(new ItemToggleDarkTheme(findPreference(ItemToggleDarkTheme.NAME))).enableToggleHandler();
+	}
+
+
+	private void createPredictiveModeSection() {
+		(new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity)).populate().activate();
 	}
 
 

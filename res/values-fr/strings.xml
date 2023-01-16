@@ -41,4 +41,6 @@
 	<string name="dictionary_missing_go_load_it">Pas de dictionnaire pour langue «%1$s». Veuillez le charger à l\'écran Paramètres.</string>
 	<string name="add_word_invalid_language">Impossible d\'ajouter un mot, si aucune langue n\'est choisie.</string>
 	<string name="pref_category_keypad">Clavier</string>
+	<string name="char_space">Espace</string>
+	<string name="char_newline">Nouvelle ligne</string>
 </resources>

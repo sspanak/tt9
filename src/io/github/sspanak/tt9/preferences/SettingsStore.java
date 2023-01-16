@@ -208,6 +208,7 @@ public class SettingsStore {
 
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
+	public String getDoubleZeroChar() { return prefs.getString("pref_double_zero_char", " "); }
 
 
 	/************* internal settings *************/

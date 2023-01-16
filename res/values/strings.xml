@@ -27,7 +27,8 @@
 	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter.</string>
 	<string name="pref_choose_languages">Languages</string>
 	<string name="pref_dark_theme">Dark Theme</string>
-	<string name="pref_show_soft_function_keys">Show on-screen keys</string>
+	<string name="pref_double_zero_char">Character for 0-key Double Press</string>
+	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
 	<string name="pref_help">Help</string>
 
 	<string name="dictionary_cancel_load">Cancel loading</string>
@@ -64,4 +65,8 @@
 	<string name="key_menu" translatable="false">Menu</string>
 	<string name="key_pound" translatable="false">#</string>
 	<string name="key_star" translatable="false">✱</string>
+
+	<string name="char_dot" translatable="false">.</string>
+	<string name="char_newline">New Line</string>
+	<string name="char_space">Space</string>
 </resources>

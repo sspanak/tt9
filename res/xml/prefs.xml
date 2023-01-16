@@ -76,6 +76,13 @@
 			app:summary="@string/pref_auto_text_case_summary"
 			app:title="@string/pref_auto_text_case" />
 
+		<DropDownPreference
+			app:defaultValue=" "
+			app:iconSpaceReserved="false"
+			app:key="pref_double_zero_char"
+			app:layout="@layout/pref_dropdown"
+			app:title="@string/pref_double_zero_char" />
+
 	</PreferenceCategory>
 
 	<PreferenceCategory
