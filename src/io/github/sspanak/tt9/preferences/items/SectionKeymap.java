@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,6 +15,7 @@ import java.util.Objects;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SectionKeymap {
 	public static final String ITEM_ADD_WORD = "key_add_word";

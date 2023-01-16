@@ -27,5 +27,6 @@
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
+	<string name="pref_category_keypad">Tastiera</string>
 </resources>
 

@@ -40,4 +40,5 @@
 	<string name="pref_auto_text_case_summary">Commencer automatiquement les phrases avec une majuscule.</string>
 	<string name="dictionary_missing_go_load_it">Pas de dictionnaire pour langue «%1$s». Veuillez le charger à l\'écran Paramètres.</string>
 	<string name="add_word_invalid_language">Impossible d\'ajouter un mot, si aucune langue n\'est choisie.</string>
+	<string name="pref_category_keypad">Clavier</string>
 </resources>

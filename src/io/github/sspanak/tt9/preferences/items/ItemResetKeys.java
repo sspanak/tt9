@@ -1,10 +1,11 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
 
@@ -16,7 +17,7 @@ public class ItemResetKeys extends ItemClickable {
 	private final SettingsStore settings;
 
 
-	ItemResetKeys(Preference item, Context context, SettingsStore settings, SectionKeymap dropdowns) {
+	public ItemResetKeys(Preference item, Context context, SettingsStore settings, SectionKeymap dropdowns) {
 		super(item);
 		this.context = context;
 		this.dropdowns = dropdowns;

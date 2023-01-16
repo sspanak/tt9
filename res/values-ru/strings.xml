@@ -30,4 +30,5 @@
 	<string name="dictionary_loading_indeterminate">Загрузка словаря</string>
 	<string name="dictionary_load_cancelled">Загрузка отменена.</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
+	<string name="pref_category_keypad">Клавиатура</string>
 </resources>

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.os.Handler;
@@ -21,7 +21,7 @@ public class ItemTruncateDictionary extends ItemClickable {
 	private final ItemLoadDictionary loadItem;
 
 
-	ItemTruncateDictionary(Preference item, ItemLoadDictionary loadItem, Context context, DictionaryLoader loader) {
+	public ItemTruncateDictionary(Preference item, ItemLoadDictionary loadItem, Context context, DictionaryLoader loader) {
 		super(item);
 		this.context = context;
 		this.loadItem = loadItem;

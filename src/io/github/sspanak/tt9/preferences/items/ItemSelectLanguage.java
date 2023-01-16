@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.MultiSelectListPreference;
 
@@ -7,6 +7,7 @@ import java.util.HashSet;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ItemSelectLanguage {
 	public static final String NAME = "pref_languages";
@@ -14,7 +15,7 @@ public class ItemSelectLanguage {
 	private final SettingsStore settings;
 	private final MultiSelectListPreference item;
 
-	ItemSelectLanguage(MultiSelectListPreference multiSelect, SettingsStore settings) {
+	public ItemSelectLanguage(MultiSelectListPreference multiSelect, SettingsStore settings) {
 		this.item = multiSelect;
 		this.settings = settings;
 	}

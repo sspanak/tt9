@@ -33,3 +33,6 @@ As with many other open-source projects, this one is also maintained by its auth
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Roboto" font is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
+
+## Privacy Policy
+Traditional T9 does not collect any information about you or about the way you are using using the application.

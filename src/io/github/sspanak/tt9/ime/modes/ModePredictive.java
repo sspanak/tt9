@@ -276,6 +276,15 @@ public class ModePredictive extends InputMode {
 
 
 	/**
+	 * isStemFilterFuzzy
+	 * Returns how strict the stem filter is.
+	 */
+	@Override
+	public boolean isStemFilterFuzzy() {
+		return isStemFuzzy;
+	}
+
+	/**
 	 * loadStaticSuggestions
 	 * Similar to "loadSuggestions()", but loads suggestions that are not in the database.
 	 * Returns "false", when there are no static suggestions for the current digitSequence.

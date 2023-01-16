@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences;
+package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.os.Handler;
@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.db.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.UI;
 
@@ -27,7 +28,7 @@ public class ItemLoadDictionary extends ItemClickable {
 	private final DictionaryLoadingBar progressBar;
 
 
-	ItemLoadDictionary(Preference item, Context context, SettingsStore settings, DictionaryLoader loader, DictionaryLoadingBar progressBar) {
+	public ItemLoadDictionary(Preference item, Context context, SettingsStore settings, DictionaryLoader loader, DictionaryLoadingBar progressBar) {
 		super(item);
 
 		this.context = context;
