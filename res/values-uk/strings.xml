@@ -28,4 +28,6 @@
 	<string name="dictionary_loading_indeterminate">Завантаження словника</string>
 	<string name="dictionary_load_cancelled">Завантаження скасовано.</string>
 	<string name="pref_category_keypad">Клавіатура</string>
+	<string name="char_space">Пробіл</string>
+	<string name="char_newline">Новий рядок</string>
 </resources>

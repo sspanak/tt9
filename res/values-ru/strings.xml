@@ -31,4 +31,6 @@
 	<string name="dictionary_load_cancelled">Загрузка отменена.</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
 	<string name="pref_category_keypad">Клавиатура</string>
+	<string name="char_space">Пробел</string>
+	<string name="char_newline">Новая строка</string>
 </resources>
