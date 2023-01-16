@@ -145,18 +145,22 @@ abstract class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
-		// start tracking key hold
-		if (keyCode == KeyEvent.KEYCODE_0 || shouldTrackNumPress()) {
-			event.startTracking();
-		}
-
+		// holding "0" is important in all cases
 		if (keyCode == KeyEvent.KEYCODE_0) {
+			event.startTracking();
 			return true;
 		}
 
-		// In dialer fields we only handle "0", when held, and convert it to "+"
+		// In dialer fields we just want passthrough, but we do handle holding "0",
+		// to convert it to "+".
 		if (mEditing == EDITING_DIALER) {
 			return false;
+		}
+
+		// start tracking key hold
+		if (shouldTrackNumPress() || isSpecialFunctionKey(-keyCode)) {
+			event.startTracking();
+			return true;
 		}
 
 		if (
