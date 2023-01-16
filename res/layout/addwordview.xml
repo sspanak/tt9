@@ -11,6 +11,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginVertical="4dp"
 		android:inputType="text"
+		android:imeOptions="actionSend"
 		android:privateImeOptions="io.github.sspanak.tt9.addword=true"
 		android:importantForAutofill="no">
 

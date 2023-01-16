@@ -43,6 +43,7 @@ public class AddWordAct extends AppCompatActivity {
 		View v = getLayoutInflater().inflate(R.layout.addwordview, null);
 
 		EditText et = v.findViewById(R.id.add_word_text);
+		et.setOnClickListener(this::addWord);
 		et.setText(word);
 		et.setSelection(word.length());
 		setContentView(v);
