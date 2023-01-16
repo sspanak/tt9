@@ -51,7 +51,7 @@ _Predictive mode only._
 
 #### 0-key:
 - **In 123 mode:**
-  - **Press:**: type "0".
+  - **Press:** type "0".
   - **Hold:** type "+".
 - **In ABC mode:**
   - **Press:** type space, newline or special/math characters.
@@ -104,4 +104,3 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 To access it:
 - Start typing in a text field to wake up TT9.
 - Use the on-screen gear button or press the Settings Key.
--
