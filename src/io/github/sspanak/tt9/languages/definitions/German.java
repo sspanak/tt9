@@ -11,7 +11,7 @@ public class German extends English {
 		id = 3;
 		name = "Deutsch";
 		locale = Locale.GERMAN;
-		dictionaryFile = "de-utf8.txt";
+		dictionaryFile = "de-utf8.csv";
 		icon = R.drawable.ime_lang_de;
 
 		isPunctuationPartOfWords = false;

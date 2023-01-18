@@ -12,7 +12,7 @@ public class French extends English {
 		id = 4;
 		name = "Français";
 		locale = Locale.FRENCH;
-		dictionaryFile = "fr-utf8.txt";
+		dictionaryFile = "fr-utf8.csv";
 		icon = R.drawable.ime_lang_fr;
 
 		isPunctuationPartOfWords = false;
