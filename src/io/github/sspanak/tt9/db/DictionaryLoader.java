@@ -207,7 +207,7 @@ public class DictionaryLoader {
 				throw new DictionaryImportAbortedException();
 			}
 
-			String[] parts = splitLine(line, '	'); // the delimiter is TAB
+			String[] parts = splitLine(line);
 			String word = validateWord(language, parts, lineCount);
 			int frequency = validateFrequency(parts);
 
@@ -233,11 +233,11 @@ public class DictionaryLoader {
 	}
 
 
-	private String[] splitLine(String line, char delimiter) {
+	private String[] splitLine(String line) {
 		String[] parts = { line, "" };
 
 		for (int i = 0 ; i < line.length(); i++) {
-			if (line.charAt(i) == delimiter) {
+			if (line.charAt(i) == '	') { // the delimiter is TAB
 				parts[0] = line.substring(0, i);
 				parts[1] = i < line.length() - 1 ? line.substring(i + 1) : "";
 				break;
