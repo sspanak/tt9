@@ -8,3 +8,6 @@ Additionally cleaned up repeating words and added some missing ones.
 Also, used the wooorm's hunspell-compatible dictionary to determine which words need to start with a capital letter
 Link: https://github.com/wooorm/dictionaries/tree/main/dictionaries/bg
 Git commit: 13 Apr 2022 [0c78cc810c8aafb2e6f5140bb6dcd4026b247eb8]
+
+Word frequencies obtained from the "General" word frequency dictionary by the Department of Computational Linguistics of the Bulgarian Academy of Sciences.
+Link: https://dcl.bas.bg/frequency.html
