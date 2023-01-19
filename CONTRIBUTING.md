@@ -51,13 +51,55 @@ To support a new language one needs to:
     - The font must be Roboto Lt at an adequate size to fit the icon square with minimum padding.
     - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
     - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-cicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
-- Find a suitable dictionary and add it to `assets` folder. Ensure it does not contain single letters. The application will add them automatically.
+- Find a suitable dictionary and add it to `assets` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
 - Create a new language class in `languages/definitions/`. Make sure to set all properties.
   - `ID` must be the next available number.
   - Set `isPunctuationPartOfWords` to `true`, if you need to use the 1-key for typing words, such as: `it's`, `a'tje` or `п'ят`. Otherwise, it would not be possible to type them, nor will they appear as suggestions. `false` will allow faster typing when apostrophes or other punctuation are not part of the words.
 - Add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
 - Optionally, translate Traditional T9 in your language, by adding `res/values/strings-your-lang`. The Android Studio translation editor is very handy.
+
+
+### Dictionary Formats
+
+#### TXT Containing a Simple Wordlist
+The most basic format is just a list of words where each word is on a new line.
+
+Constraints:
+- No single lowercase letters. The application will add them automatically.
+- No repeating words.
+- No digits or garbadge characters as part of the words.
+
+_The constraints will be verified automatically upon building._
+
+Example:
+```
+word
+another
+third
+...
+```
+
+#### CSV Containing Words and Frequencies
+The second accepted format is CSV containing the word and its frequency on each row.
+
+Constraints:
+- No header.
+- The separator is `TAB`.
+- The frequency is optional. If missing, it is assumed to be 0.
+- The frequency must be a non-negative integer, when present.
+
+_The TXT format constraints listed above also apply._
+
+Example:
+```
+word 35
+another 49
+frequenciless
+fourth
+fifth   3
+...
+```
 
 
 ## Contribution Process
