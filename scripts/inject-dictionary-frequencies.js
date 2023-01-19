@@ -51,7 +51,7 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 		const word = parts[0].toLocaleLowerCase(locale);
 		let frequency = parts.length > 1 ? Number.parseInt(parts[1]) : 0;
 		if (Number.isNaN(frequency) || frequency < 0) {
-			frequencies = 0;
+			frequency = 0;
 		}
 
 		frequencies[word] = frequency;
