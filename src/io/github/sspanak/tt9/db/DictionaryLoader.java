@@ -236,6 +236,8 @@ public class DictionaryLoader {
 	private String[] splitLine(String line) {
 		String[] parts = { line, "" };
 
+		// This is faster than String.split() by around 10%, so it's worth having it.
+		// It runs very often, so any other optimizations are welcome.
 		for (int i = 0 ; i < line.length(); i++) {
 			if (line.charAt(i) == '	') { // the delimiter is TAB
 				parts[0] = line.substring(0, i);
