@@ -33,4 +33,24 @@
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
+	<string name="pref_category_appearance">Внешний вид</string>
+	<string name="pref_category_function_keys">Горячие клавиши</string>
+	<string name="pref_auto_space">Авто пробел</string>
+	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
+	<string name="pref_auto_text_case">Авто заглавные буквы</string>
+	<string name="pref_auto_text_case_summary">Автоматически начинать предложение с заглавной буквы.</string>
+	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши "0"</string>
+	<string name="pref_show_soft_function_keys">Кнопки на экране</string>
+	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове «%1$s» в строке %2$d для языка «%3$s».</string>
+	<string name="dictionary_missing_go_load_it">Отсутствует словарь для языка «%1$s». Вы можете загрузить его в Настройках.</string>
+	<string name="function_add_word_key">Добавить новое слово</string>
+	<string name="function_backspace_key">Стереть</string>
+	<string name="function_next_language_key">Следующий язык</string>
+	<string name="function_next_mode_key">Режим ввода</string>
+	<string name="function_show_settings_key">Настройки</string>
+	<string name="function_reset_keys_title">Вернуть кнопки по умолчанию</string>
+	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
+	<string name="key_hold_key">(зажать)</string>
+	<string name="key_back">Назад</string>
+	<string name="key_call">Позвонить</string>
 </resources>
