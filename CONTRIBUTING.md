@@ -57,7 +57,7 @@ To support a new language one needs to:
   - `ID` must be the next available number.
   - Set `isPunctuationPartOfWords` to `true`, if you need to use the 1-key for typing words, such as: `it's`, `a'tje` or `п'ят`. Otherwise, it would not be possible to type them, nor will they appear as suggestions. `false` will allow faster typing when apostrophes or other punctuation are not part of the words.
 - Add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
-- Optionally, translate Traditional T9 in your language, by adding `res/values/strings-your-lang`. The Android Studio translation editor is very handy.
+- Optionally, translate Traditional T9 in your language, by adding `res/values-your-lang/strings.xml`. The Android Studio translation editor is very handy.
 
 
 ### Dictionary Formats
