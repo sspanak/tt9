@@ -224,6 +224,9 @@ public class SettingsStore {
 	public int getSuggestionSelectAnimationDuration() { return 66; }
 	public int getSuggestionTranslateAnimationDuration() { return 0; }
 
+	public int getSoftKeyInitialDelay() { return 250; /* ms */ }
+	public int getSoftKeyRepeatDelay() { return 40; /* ms */ }
+
 
 	/************* add word, last word *************/
 
