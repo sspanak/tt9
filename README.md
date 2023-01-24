@@ -12,8 +12,8 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 ## System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 5.1.1 and 11)_
 - Free space:
-  - Minimum 10 Mb when not using Predictive mode and no dictionaries are loaded.
-  - About 25 Mb per each enabled language in Predictive mode
+  - Minimum 15 Mb when not using Predictive mode and no dictionaries are loaded.
+  - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
 - A hardware keypad or a keyboard. The application is not usable on touchscreen-only devices.
 
 _If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016._
@@ -37,4 +37,4 @@ As with many other open-source projects, this one is also maintained by its auth
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
 
 ## Privacy Policy
-Traditional T9 does not collect any information about you or about the way you are using using the application.
+Traditional T9 never sends any sort of "telemetry", "reports" or your personal details anywhere. It has no network connectivity capabilities.
