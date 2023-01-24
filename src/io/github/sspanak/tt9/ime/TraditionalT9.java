@@ -283,7 +283,16 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyNextLanguage() {
-		return nextLang();
+		if (nextLang()) {
+			commitCurrentSuggestion(false);
+			mInputMode.reset();
+			resetKeyRepeat();
+			clearSuggestions();
+
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -496,8 +505,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
-
-		clearSuggestions();
 
 		// select the next language
 		int previousLangId = mEnabledLanguages.indexOf(mLanguage.getId());
