@@ -17,7 +17,6 @@ class SoftKeyHandler implements View.OnTouchListener {
 	private final TraditionalT9 tt9;
 	private View view = null;
 
-	private static final int BACKSPACE_DEBOUNCE_TIME = 40;
 	private long lastBackspaceCall = 0;
 
 	public SoftKeyHandler(TraditionalT9 tt9) {
@@ -104,15 +103,23 @@ class SoftKeyHandler implements View.OnTouchListener {
 	}
 
 
-	protected boolean handleBackspaceHold() {
-		if (System.currentTimeMillis() - lastBackspaceCall < BACKSPACE_DEBOUNCE_TIME) {
+	private boolean handleBackspaceHold() {
+		if (System.currentTimeMillis() - lastBackspaceCall < tt9.settings.getSoftKeyRepeatDelay()) {
 			return true;
 		}
 
 		boolean handled = tt9.onBackspace();
-		lastBackspaceCall = System.currentTimeMillis();
+
+		long now = System.currentTimeMillis();
+		lastBackspaceCall = lastBackspaceCall == 0 ? tt9.settings.getSoftKeyInitialDelay() + now : now;
 
 		return handled;
+	}
+
+
+	private boolean handleBackspaceUp() {
+		lastBackspaceCall = 0;
+		return true;
 	}
 
 
@@ -131,8 +138,12 @@ class SoftKeyHandler implements View.OnTouchListener {
 			return view.performClick();
 		}
 
-		if (buttonId == R.id.main_right && action == MotionEvent.AXIS_PRESSURE) {
-			return handleBackspaceHold();
+		if (buttonId == R.id.main_right) {
+			if (action == MotionEvent.AXIS_PRESSURE) {
+				return handleBackspaceHold();
+			} else if (action == MotionEvent.ACTION_UP) {
+				return handleBackspaceUp();
+			}
 		}
 
 		return false;
