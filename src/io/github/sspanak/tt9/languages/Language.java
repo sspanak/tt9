@@ -89,17 +89,21 @@ public class Language {
 			);
 	}
 
-	public ArrayList<String> getKeyCharacters(int key) {
+	public ArrayList<String> getKeyCharacters(int key, boolean includeDigit) {
 		if (key < 0 || key >= characterMap.size()) {
 			return new ArrayList<>();
 		}
 
 		ArrayList<String> chars = new ArrayList<>(characterMap.get(key));
-		if (chars.size() > 0) {
+		if (includeDigit && chars.size() > 0) {
 			chars.add(String.valueOf(key));
 		}
 
 		return chars;
+	}
+
+	public ArrayList<String> getKeyCharacters(int key) {
+		return getKeyCharacters(key, true);
 	}
 
 	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {
