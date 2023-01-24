@@ -289,14 +289,14 @@ public class ModePredictive extends InputMode {
 	 * Similar to "loadSuggestions()", but loads suggestions that are not in the database.
 	 * Returns "false", when there are no static suggestions for the current digitSequence.
 	 */
-	private boolean loadStaticSuggestions() {
+	private boolean loadStaticSuggestions(Language language) {
 		if (digitSequence.equals("0")) {
 			stem = "";
-			suggestions = Punctuation.Secondary;
+			suggestions = language.getKeyCharacters(0, false);
 		} else if (containsOnly1Regex.matcher(digitSequence).matches()) {
 			stem = "";
 			if (digitSequence.length() == 1) {
-				suggestions = Punctuation.Main;
+				suggestions = language.getKeyCharacters(1, false);
 			} else {
 				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
 				suggestions = Punctuation.getEmoji(digitSequence.length() - 2);
@@ -319,7 +319,7 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean loadSuggestions(Handler handler, Language language, String currentWord) {
-		if (loadStaticSuggestions()) {
+		if (loadStaticSuggestions(language)) {
 			super.onSuggestionsUpdated(handler);
 			return true;
 		}
