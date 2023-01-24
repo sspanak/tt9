@@ -37,7 +37,7 @@ public class ModePredictive extends InputMode {
 	private static Handler handleSuggestionsExternal;
 
 	// auto text case selection
-	private final Pattern endOfSentenceRegex = Pattern.compile("(?<!\\.)[.?!]\\s*$");
+	private final Pattern startOfSentenceRegex = Pattern.compile("(?<!\\.)[.?!¿¡]\\s*$");
 
 	// punctuation/emoji
 	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
@@ -557,7 +557,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		// start of sentence, excluding after "..."
-		if (endOfSentenceRegex.matcher(textBeforeCursor).find()) {
+		if (startOfSentenceRegex.matcher(textBeforeCursor).find()) {
 			textCase = CASE_CAPITALIZE;
 			return;
 		}
