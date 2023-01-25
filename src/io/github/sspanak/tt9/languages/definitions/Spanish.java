@@ -15,7 +15,7 @@ public class Spanish extends English {
 		id = 9;
 		name = "Español";
 		locale = new Locale("es", "ES");
-		dictionaryFile = "es-utf8.txt";
+		dictionaryFile = "es-utf8.csv";
 		icon = R.drawable.ime_lang_es;
 
 		isPunctuationPartOfWords = false;
