@@ -24,10 +24,12 @@ Before using Traditional T9 for the first time you would need to load a dictiona
 So make sure to read the initial setup and the hotkey tips in the [user manual](docs/user-manual.md).
 
 ## Contributing to the Project
-As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. This includes:
-- Testing on different phones and reporting bugs or other unusual behavior. Currently, the only testing and development device is: Qin F21 Pro+ / Android 11.
-- Adding new translations or fixing incorrect ones.
-- Writing new code. If you are a developer and you are willing fix a bug, add a new language or maybe create a brand new feature, see the [Contribution Guide](CONTRIBUTING.md).
+As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is what you could do:
+- [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. Currently, the only testing and development device is: Qin F21 Pro+ / Android 11.
+- Add [a new language](CONTRIBUTING.md#adding-a-new-language), [new UI translations](res/values/strings.xml) or simply fix a spelling mistake. If you have minimum techincal knowledge, your skills as a native speaker will be of great use. Or, if you are not tech-savvy, just [open a new issue](https://github.com/sspanak/tt9/issues) and write the correct translations there.
+- Experienced developers who are willing fix a bug, or maybe create a brand new feature, see the [Contribution Guide](CONTRIBUTING.md).
+
+Your PRs are welcome!
 
 ## License
 - The source code, the logo image and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).

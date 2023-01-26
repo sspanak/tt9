@@ -12,7 +12,7 @@ public class Dutch extends English {
 		id = 8;
 		name = "Nederlands";
 		locale = new Locale("nl","NL");
-		dictionaryFile = "nl-utf8.txt";
+		dictionaryFile = "nl-utf8.csv";
 		icon = R.drawable.ime_lang_nl;
 
 		isPunctuationPartOfWords = true;

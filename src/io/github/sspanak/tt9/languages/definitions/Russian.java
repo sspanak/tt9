@@ -13,7 +13,7 @@ public class Russian extends Language {
 		id = 2;
 		name = "Русский";
 		locale = new Locale("ru","RU");
-		dictionaryFile = "ru-utf8.txt";
+		dictionaryFile = "ru-utf8.csv";
 		icon = R.drawable.ime_lang_ru;
 		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
 		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;

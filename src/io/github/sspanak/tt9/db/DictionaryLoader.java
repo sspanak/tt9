@@ -196,37 +196,57 @@ public class DictionaryLoader {
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 
 		ArrayList<Word> dbWords = new ArrayList<>();
-		long line = 0;
+		long lineCount = 0;
 
 		sendProgressMessage(language, 0, 0);
 
-		for (String word; (word = br.readLine()) != null; line++) {
+		for (String line; (line = br.readLine()) != null; lineCount++) {
 			if (loadThread.isInterrupted()) {
 				br.close();
 				sendProgressMessage(language, -1, 0);
 				throw new DictionaryImportAbortedException();
 			}
 
-			validateWord(language, word, line);
+			String[] parts = splitLine(line);
+			String word = validateWord(language, parts, lineCount);
+			int frequency = validateFrequency(parts);
+
 			try {
-				dbWords.add(stringToWord(language, word));
+				dbWords.add(stringToWord(language, word, frequency));
 			} catch (InvalidLanguageCharactersException e) {
-				throw new DictionaryImportException(dictionaryFile, word, line);
+				throw new DictionaryImportException(dictionaryFile, word, lineCount);
 			}
 
-			if (line % settings.getDictionaryImportWordChunkSize() == 0 || line == totalWords - 1) {
+			if (lineCount % settings.getDictionaryImportWordChunkSize() == 0 || lineCount == totalWords - 1) {
 				DictionaryDb.insertWordsSync(dbWords);
 				dbWords.clear();
 			}
 
 			if (totalWords > 0) {
-				int progress = (int) Math.floor(100.0 * line / totalWords);
+				int progress = (int) Math.floor(100.0 * lineCount / totalWords);
 				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
 
 		br.close();
 		sendProgressMessage(language, 100, 0);
+	}
+
+
+	private String[] splitLine(String line) {
+		String[] parts = { line, "" };
+
+		// This is faster than String.split() by around 10%, so it's worth having it.
+		// It runs very often, so any other optimizations are welcome.
+		for (int i = 0 ; i < line.length(); i++) {
+			if (line.charAt(i) == '	') { // the delimiter is TAB
+				parts[0] = line.substring(0, i);
+				parts[1] = i < line.length() - 1 ? line.substring(i + 1) : "";
+				break;
+			}
+		}
+
+		return parts;
 	}
 
 
@@ -245,17 +265,30 @@ public class DictionaryLoader {
 	}
 
 
-	private void validateWord(Language language, String word, long line) throws DictionaryImportException {
+	private String validateWord(Language language, String[] lineParts, long line) throws DictionaryImportException {
+		String word = lineParts[0];
+
 		if (!language.isPunctuationPartOfWords() && containsPunctuation.matcher(word).find()) {
 			throw new DictionaryImportException(language.getDictionaryFile(), word, line);
+		}
+
+		return word;
+	}
+
+
+	private int validateFrequency(String[] lineParts) {
+		try {
+			return Integer.parseInt(lineParts[1]);
+		} catch (Exception e) {
+			return 0;
 		}
 	}
 
 
-	private Word stringToWord(Language language, String word) throws InvalidLanguageCharactersException {
+	private Word stringToWord(Language language, String word, int frequency) throws InvalidLanguageCharactersException {
 		Word dbWord = new Word();
 		dbWord.langId = language.getId();
-		dbWord.frequency = 0;
+		dbWord.frequency = frequency;
 		dbWord.sequence = language.getDigitSequenceForWord(word);
 		dbWord.word = word;
 

@@ -141,8 +141,10 @@ android {
 
 task validateDictionaries {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
-	outputs.file "t9build.properties"
+
 	doLast {
+		final String csvDelimiter = '	'
+
 		String errors = ""
 		int errorCount = 0
 		final MAX_ERRORS = 50
@@ -163,25 +165,35 @@ task validateDictionaries {
 				}
 
 				lineNumber++
-				if (line.matches("\\d")) {
+
+				String[] parts = line.split(csvDelimiter, 2)
+				String word = parts[0]
+				String frequency = parts.length > 1 ? parts[1] : ""
+
+				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
+				}
+
+				if (word.matches("\\d")) {
 					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
 				}
 
-				if (line.matches("^\\P{L}+\$")) {
+				if (word.matches("^\\P{L}+\$")) {
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + line + "' on line " + lineNumber + ".\n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + word + "' on line " + lineNumber + ".\n"
 				}
 
-				if (line.matches("^.\$") && !Character.isUpperCase(line.charAt(0))) {
+				if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + line + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 				}
 
-				String uniqueWordKey = line ==~ geographicalName ? line : line.toLowerCase()
+				String uniqueWordKey = word ==~ geographicalName ? word : word.toLowerCase()
 				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + line + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + word + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
 				} else {
 					uniqueWords[uniqueWordKey] = true
 				}

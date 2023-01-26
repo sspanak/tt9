@@ -12,7 +12,7 @@ public class Italian extends English {
 		id = 5;
 		name = "Italiano";
 		locale = Locale.ITALIAN;
-		dictionaryFile = "it-utf8.txt";
+		dictionaryFile = "it-utf8.csv";
 		icon = R.drawable.ime_lang_it;
 
 		isPunctuationPartOfWords = false;
