@@ -51,4 +51,16 @@ interface WordsDao {
 		"WHERE lang = :langId AND word = :word AND seq = :sequence"
 	)
 	int incrementFrequency(int langId, String word, String sequence);
+
+	@Query(
+		"UPDATE words " +
+		"SET freq = freq / :normalizationDivider " +
+		"WHERE lang IN ( " +
+			"SELECT lang " +
+			"FROM words " +
+			"WHERE freq >= :maxFrequency " +
+			"GROUP BY lang" +
+		")"
+	)
+	int normalizeFrequencies(int normalizationDivider, int maxFrequency);
 }

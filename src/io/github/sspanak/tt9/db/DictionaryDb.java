@@ -18,28 +18,16 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
 
-	private static final RoomDatabase.Callback TRIGGER_CALLBACK = new RoomDatabase.Callback() {
-		@Override
-		public void onCreate(@NonNull SupportSQLiteDatabase db) {
-			super.onCreate(db);
-			db.execSQL(
-				"CREATE TRIGGER IF NOT EXISTS normalize_freq " +
-				" AFTER UPDATE ON words " +
-				" WHEN NEW.freq > 50000 " +
-				" BEGIN" +
-					" UPDATE words SET freq = freq / 10000 " +
-					" WHERE seq = NEW.seq; " +
-				"END;"
-			);
-		}
-
+	private static final RoomDatabase.Callback DROP_NORMALIZATION_TRIGGER = new RoomDatabase.Callback() {
 		@Override
 		public void onOpen(@NonNull SupportSQLiteDatabase db) {
 			super.onOpen(db);
+			db.execSQL("DROP TRIGGER IF EXISTS normalize_freq");
 		}
 	};
 
@@ -48,8 +36,8 @@ public class DictionaryDb {
 		if (dbInstance == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
 			dbInstance = Room.databaseBuilder(context, T9RoomDb.class, "t9dict.db")
-			.addCallback(TRIGGER_CALLBACK)
-			.build();
+				.addCallback(DROP_NORMALIZATION_TRIGGER) // @todo: Remove trigger dropping after December 2023. Assuming everyone would have upgraded by then.
+				.build();
 		}
 	}
 
@@ -62,6 +50,34 @@ public class DictionaryDb {
 	private static T9RoomDb getInstance() {
 		init();
 		return dbInstance;
+	}
+
+
+	/**
+	 * normalizeWordFrequencies
+	 * Normalizes the word frequencies for all languages that have reached the maximum, as defined in
+	 * the settings.
+	 *
+	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
+	 *
+	 */
+	public static void normalizeWordFrequencies(SettingsStore settings) {
+		new Thread() {
+			@Override
+			public void run() {
+				long time = System.currentTimeMillis();
+
+				int affectedRows = dbInstance.wordsDao().normalizeFrequencies(
+					settings.getWordFrequencyNormalizationDivider(),
+					settings.getWordFrequencyMax()
+				);
+
+				Logger.d(
+					"db.normalizeWordFrequencies",
+					"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
+				);
+			}
+		}.start();
 	}
 
 

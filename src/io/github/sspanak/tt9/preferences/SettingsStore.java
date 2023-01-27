@@ -227,6 +227,9 @@ public class SettingsStore {
 	public int getSoftKeyInitialDelay() { return 250; /* ms */ }
 	public int getSoftKeyRepeatDelay() { return 40; /* ms */ }
 
+	public int getWordFrequencyMax() { return 25500; }
+	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
+
 
 	/************* add word, last word *************/
 
