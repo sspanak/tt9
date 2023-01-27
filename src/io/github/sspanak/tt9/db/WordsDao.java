@@ -34,7 +34,7 @@ interface WordsDao {
 			"lang = :langId " +
 			"AND seq > :sequence AND seq <= :sequence || '99' " +
 			"AND (:word IS NULL OR word LIKE :word || '%') " +
-		"ORDER BY freq DESC, LENGTH(seq) ASC, seq ASC " +
+		"ORDER BY LENGTH(seq) ASC, freq DESC, seq ASC " +
 		"LIMIT :limit"
 	)
 	List<Word> getFuzzy(int langId, int limit, String sequence, String word);
