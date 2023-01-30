@@ -28,7 +28,7 @@
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_appearance">Apparance</string>
-	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s\" à la ligne %2$d de langue «%3$s».</string>
+	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s» à la ligne %2$d de langue «%3$s».</string>
 	<string name="dictionary_truncated">Le dictionaire est vidé avec succès.</string>
 	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
@@ -43,5 +43,5 @@
 	<string name="pref_category_keypad">Clavier</string>
 	<string name="char_space">Espace</string>
 	<string name="char_newline">Nouvelle ligne</string>
-	<string name="pref_double_zero_char">Caractère lorsque 0 est appuyé deux fois</string>
+	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé plusieurs fois</string>
 </resources>
