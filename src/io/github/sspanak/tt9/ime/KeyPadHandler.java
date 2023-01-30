@@ -24,7 +24,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	protected int mEditing = NON_EDIT;
 
 	// temporal key handling
-	private boolean backspaceHandled = false;
+	private boolean isBackspaceHandled = false;
 
 	private int ignoreNextKeyUp = 0;
 
@@ -136,8 +136,10 @@ abstract class KeyPadHandler extends InputMethodService {
 		if (keyCode == settings.getKeyBackspace()) {
 			// When there is no more text, allow "Back" key to function normally, not to block navigation.
 			// All other keys are blocked, unless it turns out it is annoying this way.
-			backspaceHandled = onBackspace() || keyCode != KeyEvent.KEYCODE_BACK;
-			return backspaceHandled;
+			isBackspaceHandled = onBackspace() || keyCode != KeyEvent.KEYCODE_BACK;
+			return isBackspaceHandled;
+		} else {
+			isBackspaceHandled = false;
 		}
 
 		// In numeric fields, we do not want to handle anything, but "backspace"
@@ -160,22 +162,15 @@ abstract class KeyPadHandler extends InputMethodService {
 		// start tracking key hold
 		if (shouldTrackNumPress() || isSpecialFunctionKey(-keyCode)) {
 			event.startTracking();
-			return true;
 		}
 
-		if (
-				isSpecialFunctionKey(keyCode)
-				|| keyCode == KeyEvent.KEYCODE_STAR
-				|| keyCode == KeyEvent.KEYCODE_POUND
-				|| (isNumber(keyCode) && shouldTrackNumPress())
-				|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-				|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
-				|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER)
-		) {
-			return true;
-		}
-
-		return false;
+		return isSpecialFunctionKey(keyCode) || isSpecialFunctionKey(-keyCode)
+			|| keyCode == KeyEvent.KEYCODE_STAR
+			|| keyCode == KeyEvent.KEYCODE_POUND
+			|| (isNumber(keyCode) && shouldTrackNumPress())
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
+			|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER);
 	}
 
 
@@ -244,7 +239,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 //		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
-		if (backspaceHandled && keyCode == settings.getKeyBackspace()) {
+		if (isBackspaceHandled) {
 			return true;
 		}
 
