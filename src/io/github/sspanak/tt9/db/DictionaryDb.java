@@ -18,28 +18,16 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryDb {
 	private static T9RoomDb dbInstance;
 
-	private static final RoomDatabase.Callback TRIGGER_CALLBACK = new RoomDatabase.Callback() {
-		@Override
-		public void onCreate(@NonNull SupportSQLiteDatabase db) {
-			super.onCreate(db);
-			db.execSQL(
-				"CREATE TRIGGER IF NOT EXISTS normalize_freq " +
-				" AFTER UPDATE ON words " +
-				" WHEN NEW.freq > 50000 " +
-				" BEGIN" +
-					" UPDATE words SET freq = freq / 10000 " +
-					" WHERE seq = NEW.seq; " +
-				"END;"
-			);
-		}
-
+	private static final RoomDatabase.Callback DROP_NORMALIZATION_TRIGGER = new RoomDatabase.Callback() {
 		@Override
 		public void onOpen(@NonNull SupportSQLiteDatabase db) {
 			super.onOpen(db);
+			db.execSQL("DROP TRIGGER IF EXISTS normalize_freq");
 		}
 	};
 
@@ -48,8 +36,8 @@ public class DictionaryDb {
 		if (dbInstance == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
 			dbInstance = Room.databaseBuilder(context, T9RoomDb.class, "t9dict.db")
-			.addCallback(TRIGGER_CALLBACK)
-			.build();
+				.addCallback(DROP_NORMALIZATION_TRIGGER) // @todo: Remove trigger dropping after December 2023. Assuming everyone would have upgraded by then.
+				.build();
 		}
 	}
 
@@ -62,6 +50,34 @@ public class DictionaryDb {
 	private static T9RoomDb getInstance() {
 		init();
 		return dbInstance;
+	}
+
+
+	/**
+	 * normalizeWordFrequencies
+	 * Normalizes the word frequencies for all languages that have reached the maximum, as defined in
+	 * the settings.
+	 *
+	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
+	 *
+	 */
+	public static void normalizeWordFrequencies(SettingsStore settings) {
+		new Thread() {
+			@Override
+			public void run() {
+				long time = System.currentTimeMillis();
+
+				int affectedRows = dbInstance.wordsDao().normalizeFrequencies(
+					settings.getWordFrequencyNormalizationDivider(),
+					settings.getWordFrequencyMax()
+				);
+
+				Logger.d(
+					"db.normalizeWordFrequencies",
+					"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
+				);
+			}
+		}.start();
 	}
 
 
@@ -165,10 +181,25 @@ public class DictionaryDb {
 			public void run() {
 				try {
 					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+
+					// In case the user has changed the text case, there would be no match.
+					// Try again with the lowercase equivalent.
+					String lowercaseWord = "";
 					if (affectedRows == 0) {
-						// If the user has changed the case manually, so there would be no matching word.
-						// In this case, try again with the lowercase equivalent.
-						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+						lowercaseWord = word.toLowerCase(language.getLocale());
+						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), lowercaseWord, sequence);
+
+						Logger.d("incrementWordFrequency", "Attempting to increment frequency for lowercase variant: " + lowercaseWord);
+					}
+
+					// Some languages permit appending the punctuation to the end of the words, like so: "try,".
+					// But there are no such words in the dictionary, so try without the punctuation mark.
+					if (affectedRows == 0 && language.isPunctuationPartOfWords() && sequence.endsWith("1")) {
+						String truncatedWord = lowercaseWord.substring(0, word.length() - 1);
+						String truncatedSequence = sequence.substring(0, sequence.length() - 1);
+						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), truncatedWord, truncatedSequence);
+
+						Logger.d("incrementWordFrequency", "Attempting to increment frequency with stripped punctuation: " + truncatedWord);
 					}
 
 					Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);

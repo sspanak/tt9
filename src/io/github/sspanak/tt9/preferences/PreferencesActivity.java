@@ -23,10 +23,11 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		DictionaryDb.init(this);
-
 		settings = new SettingsStore(this);
 		applyTheme();
+
+		DictionaryDb.init(this);
+		DictionaryDb.normalizeWordFrequencies(settings);
 
 		super.onCreate(savedInstanceState);
 		validateFunctionKeys();

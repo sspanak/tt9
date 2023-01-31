@@ -34,7 +34,7 @@ interface WordsDao {
 			"lang = :langId " +
 			"AND seq > :sequence AND seq <= :sequence || '99' " +
 			"AND (:word IS NULL OR word LIKE :word || '%') " +
-		"ORDER BY freq DESC, LENGTH(seq) ASC, seq ASC " +
+		"ORDER BY LENGTH(seq) ASC, freq DESC, seq ASC " +
 		"LIMIT :limit"
 	)
 	List<Word> getFuzzy(int langId, int limit, String sequence, String word);
@@ -51,4 +51,16 @@ interface WordsDao {
 		"WHERE lang = :langId AND word = :word AND seq = :sequence"
 	)
 	int incrementFrequency(int langId, String word, String sequence);
+
+	@Query(
+		"UPDATE words " +
+		"SET freq = freq / :normalizationDivider " +
+		"WHERE lang IN ( " +
+			"SELECT lang " +
+			"FROM words " +
+			"WHERE freq >= :maxFrequency " +
+			"GROUP BY lang" +
+		")"
+	)
+	int normalizeFrequencies(int normalizationDivider, int maxFrequency);
 }

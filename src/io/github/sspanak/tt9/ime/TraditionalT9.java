@@ -68,6 +68,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		self = this;
 
 		DictionaryDb.init(this);
+		DictionaryDb.normalizeWordFrequencies(settings);
 
 		if (softKeyHandler == null) {
 			softKeyHandler = new SoftKeyHandler(this);
