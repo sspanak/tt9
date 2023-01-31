@@ -175,7 +175,7 @@ task validateDictionaries {
 					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
 				}
 
-				if (word.matches("\\d")) {
+				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
 					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
 				}
