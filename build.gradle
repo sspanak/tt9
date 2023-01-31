@@ -12,8 +12,8 @@ apply plugin: 'com.android.application'
 dependencies {
 	implementation "androidx.core:core:1.9.0"
 	implementation 'androidx.preference:preference:1.2.0'
-	implementation "androidx.room:room-runtime:2.4.3"
-	annotationProcessor "androidx.room:room-compiler:2.4.3"
+	implementation "androidx.room:room-runtime:2.5.0"
+	annotationProcessor "androidx.room:room-compiler:2.5.0"
 }
 
 repositories {
@@ -50,18 +50,24 @@ def getVersionCode = { ->
 
 def getVersionName = { ->
 	// major version
-	String versionTagsCount = execThing('git tag --list v[0-9]*').split('\n').size()
+	String versionTagsRaw = execThing('git tag --list v[0-9]*')
+	int versionTagsCount = versionTagsRaw == "" ? 0 : versionTagsRaw.split('\n').size()
 
 	// minor version
-	String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
-	String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
-	String commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
+	String commitsSinceLastTag = "0"
+	if (versionTagsCount > 1) {
+		println "VERSION TAG: " + versionTagsCount
+		String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
+		String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
+		commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
+	}
+
 
 	// the commit we are building from
 
 	// beta string, if this is a beta
-	String lastTagName = execThing('git describe --tags --abbrev=0')
-	String lastTagHash = execThing("git log -1 --format=%h $lastTagName")
+	String lastTagName = (execThing('git tag --list') == "") ? "" : execThing('git describe --tags --abbrev=0')
+	String lastTagHash = (lastTagName == "") ? "" : execThing("git log -1 --format=%h $lastTagName")
 	String betaString = lastTagHash == getCurrentGitHash() && lastTagName.contains("-beta") ? '-beta' : ''
 
 	return "$versionTagsCount.$commitsSinceLastTag$betaString"
@@ -175,7 +181,7 @@ task validateDictionaries {
 					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
 				}
 
-				if (word.matches("\\d")) {
+				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
 					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
 				}
