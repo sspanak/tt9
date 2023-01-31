@@ -1,0 +1,23 @@
+# name: Build
+
+# on: [push, pull_request]
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Run Gradle command
+#       uses: jojo243/android-gradle-action@2.1.3
+#       with:
+#         # The gradle command you wish to run (required)
+#         script: assemble
+
+#         # In some cases, you may need to provide
+#         # Android license agreement id
+#         # You can find it on your own machine under
+#         # `$ANDROID_HOME/licenses/android-sdk-license`,
+#         # and add the file content as a GitHub secret named `$ANDROID_LICENSE`.
+#         # android-license: ${{ secrets.ANDROID_LICENSE }}

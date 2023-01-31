@@ -1,0 +1,16 @@
+name: Validate Dictionaries
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 7
+    - uses: puredevops/sample-action@v1.3
+      with:
+        arguments: valdiateDictionaries
