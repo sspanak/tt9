@@ -181,7 +181,7 @@ public class DictionaryLoader {
 			}
 		}
 
-		DictionaryDb.insertWordsSync(letters);
+		DictionaryDb.upsertWordsSync(letters);
 	}
 
 
@@ -218,7 +218,7 @@ public class DictionaryLoader {
 			}
 
 			if (lineCount % settings.getDictionaryImportWordChunkSize() == 0 || lineCount == totalWords - 1) {
-				DictionaryDb.insertWordsSync(dbWords);
+				DictionaryDb.upsertWordsSync(dbWords);
 				dbWords.clear();
 			}
 
