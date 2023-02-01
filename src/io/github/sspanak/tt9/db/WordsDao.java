@@ -42,8 +42,8 @@ interface WordsDao {
 	@Insert
 	void insert(Word word);
 
-	@Insert(onConflict = OnConflictStrategy.IGNORE)
-	void insertMany(List<Word> words);
+	@Insert(onConflict = OnConflictStrategy.REPLACE)
+	void upsertMany(List<Word> words);
 
 	@Query(
 		"UPDATE words " +

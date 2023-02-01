@@ -153,8 +153,8 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWordsSync(List<Word> words) {
-		getInstance().wordsDao().insertMany(words);
+	public static void upsertWordsSync(List<Word> words) {
+		getInstance().wordsDao().upsertMany(words);
 	}
 
 
