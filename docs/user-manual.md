@@ -25,6 +25,8 @@ Once a dictionary is loaded, it will stay there until you use the Clear option. 
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
 
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+
 ## Hotkeys
 
 #### D-pad Up (↑):
@@ -71,12 +73,11 @@ Add a new word to the dictionary for the current language.
 #### Backspace Key (Default: Press ↩ / Back):
 Just deletes text.
 
-**Note:** The default "Back" key plays a somewhat special role in Android. This role needs to be preserved for your phone to remain usable. Have in mind the notes below:
-- **Short Press when there is no text**: Go back to the previous screen (the system default action).
-- **Short Press when there is text:** Some applications, most notably Firefox and Spotify, take full control of the "Back" key. This means, it may function as the application authors intended, instead of as backspace. In such cases, you could use the on-screen backspace instead. Unfortunately, nothing else could be done, because this is a restriction posed by Android.
-- **Long Press**: Whatever the system default action is (i.e. show running applications list).
+_**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox and Spotify. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
 
-All this does not apply, when using other keys. They will just delete text.
+_**NB 2:** Holding "Back" key will always trigger the default system action (i.e. show running applications list)._
+
+_In these cases, you could assign another key (all other keys are fully usable), or use the on-screen backspace._
 
 #### Next Input Mode Key (Default: Press #):
 - **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
