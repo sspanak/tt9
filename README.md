@@ -19,7 +19,7 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 _If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016._
 
 ## How to use Traditional T9?
-Before using Traditional T9 for the first time you would need to load a dictionary and configure it. After that, you could start typing right away in one of the three modes: Predictive, ABC or Numeric. And even if you have mastered the keypad back in the days, you would still find the Predictive mode now provides powerful and smart new ways of typing with even less key presses.
+Before using Traditional T9 for the first time you would need to load a dictionary and configure it. After that, you could start typing right away in one of the three modes: Predictive, ABC or Numeric (123). And even if you have mastered the keypad back in the days, you would still find the Predictive mode now provides powerful and smart new ways of typing with even less key presses.
 
 So make sure to read the initial setup and the hotkey tips in the [user manual](docs/user-manual.md).
 

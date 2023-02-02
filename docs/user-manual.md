@@ -25,7 +25,7 @@ Once a dictionary is loaded, it will stay there until you use the Clear option. 
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
 
-Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. For the most part, this should not concern you much. There will be very small differences in the suggestions order, unless you use uncommon words often.
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
 
 ## Hotkeys
 
