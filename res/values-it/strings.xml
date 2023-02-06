@@ -27,5 +27,7 @@
 	<string name="pref_category_keypad">Tastiera</string>
 	<string name="char_space">Spazio</string>
 	<string name="char_newline">Nuova riga</string>
+	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
+	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
 </resources>
 

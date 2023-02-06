@@ -45,6 +45,7 @@ public class SettingsStore {
 		return true;
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	private boolean isIntInList(int number, ArrayList<Integer> list, String logTag, String logMsg) {
 		if (!list.contains(number)) {
 			Logger.w(logTag, logMsg);
@@ -208,7 +209,13 @@ public class SettingsStore {
 
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
-	public String getDoubleZeroChar() { return prefs.getString("pref_double_zero_char", " "); }
+	public String getDoubleZeroChar() {
+		String character = prefs.getString("pref_double_zero_char", ".");
+
+		// SharedPreferences return a corrupted string when using the real "\n"... :(
+		return  character.equals("\\n") ? "\n" : character;
+	}
+	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", false); }
 
 
 	/************* internal settings *************/

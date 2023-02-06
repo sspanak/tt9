@@ -105,6 +105,16 @@ To translate Traditional T9 menus and messages in your language, add: `res/value
 
 Alternatively, if you don't have Android Studio, you could just use `res/values/strings.xml` as a reference and translate all strings in your file, skipping the ones that have the `translatable="false"` attribute.
 
+## Adding Support for Keys
+TT9 allows assigning hotkeys for performing different functions. If your phone has a special key that does not appear on the Hotkey configuration screen, you can easily add support for it.
+
+- Find [preferences/helpers/Hotkeys.java](io/github/sspanak/tt9/preferences/helpers/Hotkeys.java).
+- In the file, find the `generateList()` function.
+- Add the new key there. The order of adding is used when displaying the dropdown options.
+- Optionally, you can translate the name of the key in different languages in the `res/values-XX/strings.xml` files.
+
+ _You can find the key codes [in the Android docs](https://developer.android.com/reference/android/view/KeyEvent)._
+
 ## Contribution Process
 
 ### Before you start

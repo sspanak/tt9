@@ -88,11 +88,20 @@
 	<PreferenceCategory
 		android:title="@string/pref_category_keypad"
 		app:layout="@layout/pref_category">
+
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.PreferencesHotkeysFragment"
 			app:key="screen_hotkeys"
 			app:layout="@layout/pref_text"
 			app:title="@string/pref_category_function_keys" />
+
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:key="pref_upside_down_keys"
+			app:layout="@layout/pref_switch"
+			app:summary="@string/pref_upside_down_keys_summary"
+			app:title="@string/pref_upside_down_keys" />
+
 	</PreferenceCategory>
 
 	<PreferenceCategory
