@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ime;
+package io.github.sspanak.tt9.ime.helpers;
 
 import java.util.ArrayList;
 
@@ -45,6 +45,7 @@ public class InputModeValidator {
 
 	public static InputMode validateMode(SettingsStore settings, InputMode inputMode, ArrayList<Integer> allowedModes) {
 		if (allowedModes.size() > 0 && allowedModes.contains(inputMode.getId())) {
+			inputMode.reset();
 			return inputMode;
 		}
 

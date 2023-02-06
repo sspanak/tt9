@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ime;
+package io.github.sspanak.tt9.ime.helpers;
 
 import android.graphics.Typeface;
 import android.text.Spannable;
