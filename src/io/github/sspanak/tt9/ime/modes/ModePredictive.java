@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
-import io.github.sspanak.tt9.ime.InputFieldHelper;
+import io.github.sspanak.tt9.ime.helpers.InputFieldHelper;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.SettingsStore;

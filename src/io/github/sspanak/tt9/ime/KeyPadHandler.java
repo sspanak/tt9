@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
@@ -160,17 +161,17 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
-		if (shouldTrackNumPress() || isSpecialFunctionKey(-keyCode)) {
+		if (shouldTrackNumPress() || Key.isHotkey(settings, -keyCode)) {
 			event.startTracking();
 		}
 
-		return isSpecialFunctionKey(keyCode) || isSpecialFunctionKey(-keyCode)
+		return Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
 			|| keyCode == KeyEvent.KEYCODE_STAR
 			|| keyCode == KeyEvent.KEYCODE_POUND
-			|| (isNumber(keyCode) && shouldTrackNumPress())
+			|| (Key.isNumber(keyCode) && shouldTrackNumPress())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
-			|| (mEditing != EDITING_NOSHOW && keyCode == KeyEvent.KEYCODE_DPAD_CENTER);
+			|| (mEditing != EDITING_NOSHOW && Key.isOK(keyCode));
 	}
 
 
@@ -189,7 +190,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		resetKeyRepeat();
 		ignoreNextKeyUp = keyCode;
 
-		if (handleSpecialFunctionKey(keyCode, true)) {
+		if (handleHotkey(keyCode, true)) {
 			return true;
 		}
 
@@ -204,7 +205,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return onNumber(keyCodeToKeyNumber(keyCode), true, 0);
+				return onNumber(Key.codeToNumber(keyCode), true, 0);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -232,7 +233,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		keyRepeatCounter = (lastKeyCode == keyCode) ? keyRepeatCounter + 1 : 0;
 		lastKeyCode = keyCode;
 
-		if (isNumber(keyCode)) {
+		if (Key.isNumber(keyCode)) {
 			numKeyRepeatCounter = (lastNumKeyCode == keyCode) ? numKeyRepeatCounter + 1 : 0;
 			lastNumKeyCode = keyCode;
 		}
@@ -249,7 +250,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
-			return onNumber(keyCodeToKeyNumber(keyCode), false, numKeyRepeatCounter);
+			return onNumber(Key.codeToNumber(keyCode), false, numKeyRepeatCounter);
 		}
 
 		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
@@ -258,12 +259,15 @@ abstract class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
-		if (handleSpecialFunctionKey(keyCode, false)) {
+		if (handleHotkey(keyCode, false)) {
 			return true;
 		}
 
-		switch(keyCode) {
-			case KeyEvent.KEYCODE_DPAD_CENTER: return onOK();
+		if (Key.isOK(keyCode)) {
+			return onOK();
+		}
+
+		switch (keyCode) {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
@@ -277,7 +281,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_7:
 			case KeyEvent.KEYCODE_8:
 			case KeyEvent.KEYCODE_9:
-				return onNumber(keyCodeToKeyNumber(keyCode), false, numKeyRepeatCounter);
+				return onNumber(Key.codeToNumber(keyCode), false, numKeyRepeatCounter);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
@@ -286,7 +290,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private boolean handleSpecialFunctionKey(int keyCode, boolean hold) {
+	private boolean handleHotkey(int keyCode, boolean hold) {
 		if (keyCode == settings.getKeyAddWord() * (hold ? -1 : 1)) {
 			return onKeyAddWord();
 		}
@@ -312,20 +316,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private boolean isNumber(int keyCode) {
-		return keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9;
-	}
-
-
-	private boolean isSpecialFunctionKey(int keyCode) {
-		return keyCode == settings.getKeyAddWord()
-			|| keyCode == settings.getKeyBackspace()
-			|| keyCode == settings.getKeyNextLanguage()
-			|| keyCode == settings.getKeyNextInputMode()
-			|| keyCode == settings.getKeyShowSettings();
-	}
-
-
 	protected void resetKeyRepeat() {
 		numKeyRepeatCounter = 0;
 		keyRepeatCounter = 0;
@@ -333,33 +323,6 @@ abstract class KeyPadHandler extends InputMethodService {
 		lastKeyCode = 0;
 	}
 
-
-	private int keyCodeToKeyNumber(int keyCode) {
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_0:
-				return 0;
-			case KeyEvent.KEYCODE_1:
-				return 1;
-			case KeyEvent.KEYCODE_2:
-				return 2;
-			case KeyEvent.KEYCODE_3:
-				return 3;
-			case KeyEvent.KEYCODE_4:
-				return 4;
-			case KeyEvent.KEYCODE_5:
-				return 5;
-			case KeyEvent.KEYCODE_6:
-				return 6;
-			case KeyEvent.KEYCODE_7:
-				return 7;
-			case KeyEvent.KEYCODE_8:
-				return 8;
-			case KeyEvent.KEYCODE_9:
-				return 9;
-			default:
-				return -1;
-		}
-	}
 
 	// toggle handlers
 	abstract protected boolean shouldTrackUpDown();
