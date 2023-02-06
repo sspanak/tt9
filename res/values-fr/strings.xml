@@ -41,4 +41,6 @@
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé plusieurs fois</string>
 	<string name="add_word_field_placeholder">Tapez un mot…</string>
+	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
+	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 </resources>

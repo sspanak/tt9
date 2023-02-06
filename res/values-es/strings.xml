@@ -31,4 +31,6 @@
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" varias veces</string>
 	<string name="pref_show_soft_function_keys">Teclado en pantalla</string>
 	<string name="dictionary_loaded">Diccionario cargado con éxito.</string>
+	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
+	<string name="pref_upside_down_keys_summary">Habilite la configuración si hay 7–8–9 en la primera fila, en lugar de 1–2–3.</string>
 </resources>

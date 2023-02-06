@@ -29,6 +29,8 @@
 	<string name="pref_double_zero_char">Character for Multiple 0-key Press</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
 	<string name="pref_help">Help</string>
+	<string name="pref_upside_down_keys">Reverse Key Order</string>
+	<string name="pref_upside_down_keys_summary">Use this if you have 7–8–9 on the first row, instead of 1–2–3.</string>
 
 	<string name="dictionary_cancel_load">Cancel loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
@@ -56,13 +58,7 @@
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
 	<string name="key_delete" translatable="false">Delete</string>
-	<string name="key_f1" translatable="false">F1</string>
-	<string name="key_f2" translatable="false">F2</string>
-	<string name="key_f3" translatable="false">F3</string>
-	<string name="key_f4" translatable="false">F4</string>
 	<string name="key_menu" translatable="false">Menu</string>
-	<string name="key_pound" translatable="false">#</string>
-	<string name="key_star" translatable="false">✱</string>
 
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>

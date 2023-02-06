@@ -50,4 +50,6 @@
 	<string name="dictionary_missing_go_load_it">Немає словника для мови «%1$s». Перейдіть до Налаштувань, щоб завантажити його.</string>
 	<string name="dictionary_load_bad_char">Помилка завантаження. Недійсне слово «%1$s» в рядку %2$d мови «%3$s».</string>
 	<string name="add_word_field_placeholder">Введіть слово…</string>
+	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
+	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
 </resources>

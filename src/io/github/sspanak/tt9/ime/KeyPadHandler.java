@@ -194,18 +194,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_0:
-			case KeyEvent.KEYCODE_1:
-			case KeyEvent.KEYCODE_2:
-			case KeyEvent.KEYCODE_3:
-			case KeyEvent.KEYCODE_4:
-			case KeyEvent.KEYCODE_5:
-			case KeyEvent.KEYCODE_6:
-			case KeyEvent.KEYCODE_7:
-			case KeyEvent.KEYCODE_8:
-			case KeyEvent.KEYCODE_9:
-				return onNumber(Key.codeToNumber(keyCode), true, 0);
+		if (Key.isNumber(keyCode)) {
+			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -250,7 +240,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (keyCode == KeyEvent.KEYCODE_0) {
-			return onNumber(Key.codeToNumber(keyCode), false, numKeyRepeatCounter);
+			return onNumber(Key.codeToNumber(settings, keyCode), false, numKeyRepeatCounter);
 		}
 
 		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
@@ -267,21 +257,15 @@ abstract class KeyPadHandler extends InputMethodService {
 			return onOK();
 		}
 
+		if (Key.isNumber(keyCode)) {
+			return onNumber(Key.codeToNumber(settings, keyCode), false, numKeyRepeatCounter);
+		}
+
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
-			case KeyEvent.KEYCODE_1:
-			case KeyEvent.KEYCODE_2:
-			case KeyEvent.KEYCODE_3:
-			case KeyEvent.KEYCODE_4:
-			case KeyEvent.KEYCODE_5:
-			case KeyEvent.KEYCODE_6:
-			case KeyEvent.KEYCODE_7:
-			case KeyEvent.KEYCODE_8:
-			case KeyEvent.KEYCODE_9:
-				return onNumber(Key.codeToNumber(keyCode), false, numKeyRepeatCounter);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
