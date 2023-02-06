@@ -50,4 +50,6 @@
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
 	<string name="add_word_field_placeholder">Напишете дума…</string>
+	<string name="pref_upside_down_keys">Клавиши в обратен ред</string>
+	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 </resources>

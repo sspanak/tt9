@@ -1,21 +1,16 @@
 package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.ViewConfiguration;
 
 import androidx.preference.DropDownPreference;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Objects;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 
 public class SectionKeymap {
 	public static final String ITEM_ADD_WORD = "key_add_word";
@@ -24,15 +19,15 @@ public class SectionKeymap {
 	public static final String ITEM_NEXT_LANGUAGE = "key_next_language";
 	public static final String ITEM_SHOW_SETTINGS = "key_show_settings";
 
-	private final LinkedHashMap<String, String> KEYS = new LinkedHashMap<>();
+	private final Hotkeys hotkeys;
 	private final Collection<DropDownPreference> items;
 	private final SettingsStore settings;
 
 
 	public SectionKeymap(Collection<DropDownPreference> dropDowns, Context context, SettingsStore settings) {
 		items = dropDowns;
+		hotkeys = new Hotkeys(context);
 		this.settings = settings;
-		generateKeyList(context);
 	}
 
 
@@ -60,95 +55,7 @@ public class SectionKeymap {
 	}
 
 
-	/**
-	 * generateKeyList
-	 * Generates the key list to be used in each dropdown.
-	 *
-	 * NOTE: Some dropdowns do not support some keys,but filtering is performed
-	 * in populate(), not here.
-	 *
-	 * NOTE 2: Holding is deliberately skipped for most of the keys. It's because
-	 * when a function is assigned only to the "hold" state, the "short press" state
-	 * also gets consumed in KeyPadHandler, effectively disabling the default function of the key.
-	 * However, this may be confusing from user perspective, so in order to avoid lengthy
-	 * explanations in the documentation (that no one reads), the problem is avoided by
-	 * simply not causing it.
-	 *
-	 * So, if adding support for new keys, think twice whether to add the "hold" variant as well.
-	 */
-	private void generateKeyList(Context context) {
-		Resources resources = context.getResources();
 
-		KEYS.put(String.valueOf(0), resources.getString(R.string.key_none));
-
-		// BACK
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_BACK), resources.getString(R.string.key_back));
-		}
-
-		// CALL
-		KEYS.put(String.valueOf(KeyEvent.KEYCODE_CALL), resources.getString(R.string.key_call));
-
-		// DELETE / BACKSPACE
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_DEL), resources.getString(R.string.key_delete));
-		}
-
-		// F1
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_F1)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_F1), resources.getString(R.string.key_f1));
-			KEYS.put(
-				String.valueOf(-KeyEvent.KEYCODE_F1),
-				resources.getString(R.string.key_f1) + " " + resources.getString(R.string.key_hold_key)
-			);
-		}
-
-		// F2
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_F2)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_F2), resources.getString(R.string.key_f2));
-			KEYS.put(
-				String.valueOf(-KeyEvent.KEYCODE_F2),
-				resources.getString(R.string.key_f2) + " " + resources.getString(R.string.key_hold_key)
-			);
-		}
-
-		// F3
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_F3)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_F3), resources.getString(R.string.key_f3));
-			KEYS.put(
-				String.valueOf(-KeyEvent.KEYCODE_F3),
-				resources.getString(R.string.key_f3) + " " + resources.getString(R.string.key_hold_key)
-			);
-		}
-
-		// F4
-		if (KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_F4)) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_F4), resources.getString(R.string.key_f4));
-			KEYS.put(
-				String.valueOf(-KeyEvent.KEYCODE_F4),
-				resources.getString(R.string.key_f4) + " " + resources.getString(R.string.key_hold_key)
-			);
-		}
-
-		// MENU
-		if (ViewConfiguration.get(context).hasPermanentMenuKey()) {
-			KEYS.put(String.valueOf(KeyEvent.KEYCODE_MENU), resources.getString(R.string.key_menu));
-		}
-
-		// #
-		KEYS.put(String.valueOf(KeyEvent.KEYCODE_POUND), resources.getString(R.string.key_pound));
-		KEYS.put(
-			String.valueOf(-KeyEvent.KEYCODE_POUND),
-			resources.getString(R.string.key_pound) + " " + resources.getString(R.string.key_hold_key)
-		);
-
-		// *
-		KEYS.put(String.valueOf(KeyEvent.KEYCODE_STAR), resources.getString(R.string.key_star));
-		KEYS.put(
-			String.valueOf(-KeyEvent.KEYCODE_STAR),
-			resources.getString(R.string.key_star) + " " + resources.getString(R.string.key_hold_key)
-		);
-	}
 
 
 	private void populateOtherItems(DropDownPreference itemToSkip) {
@@ -169,7 +76,7 @@ public class SectionKeymap {
 		}
 
 		ArrayList<String> keys = new ArrayList<>();
-		for (String key : KEYS.keySet()) {
+		for (String key : hotkeys.toSet()) {
 			if (
 				validateKey(dropDown, String.valueOf(key))
 				// backspace works both when pressed short and long,
@@ -185,7 +92,7 @@ public class SectionKeymap {
 
 		ArrayList<String> values = new ArrayList<>();
 		for (String key : keys) {
-			values.add(KEYS.get(key));
+			values.add(hotkeys.get(key));
 		}
 
 		dropDown.setEntries(values.toArray(new CharSequence[0]));
@@ -222,7 +129,7 @@ public class SectionKeymap {
 			return;
 		}
 
-		dropDown.setSummary(KEYS.get(key));
+		dropDown.setSummary(hotkeys.get(key));
 	}
 
 
