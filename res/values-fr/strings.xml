@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">Paramètres de TT9</string>
-	<string name="close">Fermer</string>
 	<string name="completed">Fini</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
-	<string name="add_word_badchar">Impossible d\'ajouter un mot avec des caractères inexistants pour %1$s (%2$s).</string>
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
 	<string name="add_word_title">Ajouter un mot</string>
 
@@ -21,7 +19,6 @@
 	<string name="pref_category_dictionaries">Dictionnaires</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
-	<string name="dictionary_load_failed">Echec du chargement de dictionnaire.</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
 	<string name="dictionary_loading">Chargement du dictionnaire (%1$s)…</string>
 	<string name="dictionary_load_title">Charger le dictionnaire</string>
@@ -39,9 +36,9 @@
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
 	<string name="pref_auto_text_case_summary">Commencer automatiquement les phrases avec une majuscule.</string>
 	<string name="dictionary_missing_go_load_it">Pas de dictionnaire pour langue «%1$s». Veuillez le charger à l\'écran Paramètres.</string>
-	<string name="add_word_invalid_language">Impossible d\'ajouter un mot, si aucune langue n\'est choisie.</string>
 	<string name="pref_category_keypad">Clavier</string>
 	<string name="char_space">Espace</string>
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé plusieurs fois</string>
+	<string name="add_word_field_placeholder">Tapez un mot...</string>
 </resources>

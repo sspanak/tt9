@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
@@ -30,7 +31,8 @@
 			android:focusable="false"
 			android:longClickable="true"
 			android:text="⚙"
-			android:textSize="24sp"/>
+			android:textSize="@dimen/soft_key_icon_size"
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
 
 		<View
 			android:id="@+id/main_separator_left"
@@ -46,7 +48,8 @@
 			android:clickable="true"
 			android:focusable="false"
 			android:longClickable="true"
-			android:text="@android:string/ok" />
+			android:text="@android:string/ok"
+			tools:ignore="ButtonOrder,KeyboardInaccessibleWidget" />
 
 		<View
 			android:id="@+id/main_separator_right"
@@ -63,7 +66,8 @@
 			android:focusable="false"
 			android:longClickable="true"
 			android:text="⌫"
-			android:textSize="24sp" />
+			android:textSize="@dimen/soft_key_icon_size"
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
 
 	</LinearLayout>
 </LinearLayout>

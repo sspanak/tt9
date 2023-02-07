@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.graphics.drawable.Drawable;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +27,7 @@ class SoftKeyHandler implements View.OnTouchListener {
 
 	View getView() {
 		if (view == null) {
-			view = LayoutInflater.from(tt9.getApplicationContext()).inflate(R.layout.mainview, null);
+			view = View.inflate(tt9.getApplicationContext(), R.layout.mainview, null);
 
 			for (int buttonId : buttons) {
 				view.findViewById(buttonId).setOnTouchListener(this);

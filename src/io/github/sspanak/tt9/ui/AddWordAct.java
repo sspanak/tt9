@@ -40,7 +40,7 @@ public class AddWordAct extends AppCompatActivity {
 		word = i.getStringExtra("io.github.sspanak.tt9.word");
 		lang = i.getIntExtra("io.github.sspanak.tt9.lang", -1);
 
-		View v = getLayoutInflater().inflate(R.layout.addwordview, null);
+		View v = View.inflate(this, R.layout.addwordview, null);
 
 		EditText et = v.findViewById(R.id.add_word_text);
 		et.setOnClickListener(this::addWord);

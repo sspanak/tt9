@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">Настройки на TT9</string>
-	<string name="close">Затвори</string>
 	<string name="completed">Завършено</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
-	<string name="add_word_badchar">Не може да се въведе дума с непозволени символи за %1$s (%2$s).</string>
 	<string name="add_word_exist">Думата „%1$s“ е вече речника.</string>
-	<string name="add_word_invalid_language">Не може да добавяте думи без да е избран език.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 
 	<string name="pref_category_about">За приложението</string>
@@ -22,7 +19,6 @@
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
-	<string name="dictionary_load_failed">Неуспешно зареждане на речник.</string>
 	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
 	<string name="dictionary_load_title">Зареди речник</string>
@@ -53,4 +49,5 @@
 	<string name="pref_double_zero_char">Символ при многократно натисната \"0\"</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
+	<string name="add_word_field_placeholder">Напишете дума...</string>
 </resources>

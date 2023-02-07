@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Opties</string>
-	<string name="close">Sluiten</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
 	<string name="add_word_add">Toevoegen</string>
 	<string name="add_word_blank">Leeg woord niet toegevoegd.</string>
-	<string name="add_word_badchar">Kan geen woord met niet-toewijsbaar teken toevoegen voor %1$s (%2$s).</string>
 	<string name="add_word_exist">Woord \"%1$s\" staat al in het woordenboek.</string>
-	<string name="add_word_invalid_language">Kan geen woord invoegen als er geen taal is geselecteerd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_help">Helpen</string>

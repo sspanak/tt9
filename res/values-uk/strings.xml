@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">Налаштування TT9</string>
-	<string name="close">Закрити</string>
 	<string name="completed">Зроблено</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
 	<string name="add_word_add">Додати</string>
-	<string name="add_word_badchar">Неможливо додати слово з таким символом %1$s (%2$s).</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
 	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
 	<string name="add_word_title">Додати слово</string>
@@ -20,7 +18,6 @@
 	<string name="pref_category_dictionaries">Словники</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
-	<string name="dictionary_load_failed">Помилка завантаження словника.</string>
 	<string name="dictionary_loaded">Завантаження словника завершено.</string>
 	<string name="dictionary_loading">Завантаження словника (%1$s)…</string>
 	<string name="dictionary_load_title">Завантажити словник</string>
@@ -52,4 +49,5 @@
 	<string name="dictionary_truncated">Словник успішно очищено.</string>
 	<string name="dictionary_missing_go_load_it">Немає словника для мови «%1$s». Перейдіть до Налаштувань, щоб завантажити його.</string>
 	<string name="dictionary_load_bad_char">Помилка завантаження. Недійсне слово «%1$s» в рядку %2$d мови «%3$s».</string>
+	<string name="add_word_field_placeholder">Введіть слово...</string>
 </resources>
