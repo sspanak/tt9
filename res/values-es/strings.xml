@@ -2,9 +2,7 @@
 <resources>
 	<string name="app_settings">Configuración de Traditional T9</string>
 	<string name="add_word_add">Agregar palabra</string>
-	<string name="close">Cerrar</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
-	<string name="add_word_badchar">No puedo agregar una palabra cn un caracter no mapeabe %1$s (%2$s).</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="completed">Acabado</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>

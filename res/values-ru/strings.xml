@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 настройки</string>
-	<string name="close">Закрыть</string>
 	<string name="completed">Выполнено</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 
 	<string name="add_word_add">Добавить</string>
-	<string name="add_word_badchar">Невозможно добавить слово с таким символом %1$s (%2$s).</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
-	<string name="add_word_invalid_language">Чтобы добавить новое слово, сначала выберите язык.</string>
 	<string name="add_word_title">Добавить слово</string>
 
 	<string name="pref_category_about">О приложении</string>
@@ -21,7 +18,6 @@
 	<string name="pref_category_dictionaries">Словари</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
-	<string name="dictionary_load_failed">Ошибка загрузки словаря.</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
 	<string name="dictionary_load_title">Загрузить словарь</string>
@@ -53,4 +49,5 @@
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
+	<string name="add_word_field_placeholder">Введите слово...</string>
 </resources>
