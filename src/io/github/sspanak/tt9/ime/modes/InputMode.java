@@ -74,8 +74,14 @@ abstract public class InputMode {
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
 
-	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) { return false; }
+	// Interaction with the IME. Return "true" if it should perform the respective action.
+	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) { return false; }
+	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
 	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) { return false; }
+	public boolean shouldSelectNextSuggestion() { return false; }
+	public boolean shouldTrackNumPress() { return true; }
+	public boolean shouldTrackUpDown() { return false; }
+	public boolean shouldTrackLeftRight() { return false; }
 
 	public void reset() {
 		suggestions = new ArrayList<>();
@@ -118,10 +124,4 @@ abstract public class InputMode {
 	public boolean isStemFilterFuzzy() { return false; }
 	public String getWordStem() { return ""; }
 	public boolean setWordStem(Language language, String stem, boolean exact) { return false; }
-
-	public boolean shouldTrackNumPress() { return true; }
-	public boolean shouldTrackUpDown() { return false; }
-	public boolean shouldTrackLeftRight() { return false; }
-	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) { return false; }
-	public boolean shouldSelectNextSuggestion() { return false; }
 }

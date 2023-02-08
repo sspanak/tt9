@@ -34,7 +34,7 @@
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після слів і розділових знаків.</string>
 	<string name="pref_auto_text_case">Авто заголовні букви</string>
 	<string name="pref_auto_text_case_summary">Автоматично починати речення з заголовної букви.</string>
-	<string name="pref_double_zero_char">Символ при багаторазовому натисканні клавіші 0</string>
+	<string name="pref_double_zero_char">Символ при подвійному натисканні клавіші 0</string>
 	<string name="pref_show_soft_function_keys">Кнопки на екрані</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Виклик</string>

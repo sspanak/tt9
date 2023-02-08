@@ -26,7 +26,7 @@
 	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter.</string>
 	<string name="pref_choose_languages">Languages</string>
 	<string name="pref_dark_theme">Dark Theme</string>
-	<string name="pref_double_zero_char">Character for Multiple 0-key Press</string>
+	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
 	<string name="pref_help">Help</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>

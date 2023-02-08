@@ -28,7 +28,7 @@
 	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después des palabras y signos de puntuación.</string>
-	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" varias veces</string>
+	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
 	<string name="pref_show_soft_function_keys">Teclado en pantalla</string>
 	<string name="dictionary_loaded">Diccionario cargado con éxito.</string>
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
