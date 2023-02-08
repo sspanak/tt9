@@ -35,7 +35,7 @@
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>
 	<string name="pref_auto_text_case_summary">Автоматически начинать предложение с заглавной буквы.</string>
-	<string name="pref_double_zero_char">Символ при многократном нажатии клавиши 0</string>
+	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши 0</string>
 	<string name="pref_show_soft_function_keys">Кнопки на экране</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове «%1$s» в строке %2$d для языка «%3$s».</string>
 	<string name="dictionary_missing_go_load_it">Отсутствует словарь для языка «%1$s». Вы можете загрузить его в Настройках.</string>

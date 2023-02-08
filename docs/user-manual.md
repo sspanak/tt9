@@ -60,7 +60,7 @@ _Predictive mode only._
   - **Hold:** type "0".
 - **In Predictive mode:**
   - **Press:** type space, newline or special/math characters.
-  - **Multiple Press:** type multiple spaces.
+  - **Double Press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
 
 #### 1- to 9-key:

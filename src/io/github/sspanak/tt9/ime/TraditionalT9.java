@@ -166,7 +166,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(mLanguage, word);
 		commitCurrentSuggestion();
-		autoCorrectSpace(word, true, -1, false);
+		autoCorrectSpace(word, true, -1, false, false);
 		resetKeyRepeat();
 
 		return true;
@@ -235,7 +235,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat > 0)) {
 			mInputMode.onAcceptSuggestion(mLanguage, currentWord);
 			commitCurrentSuggestion(false);
-			autoCorrectSpace(currentWord, false, key, hold);
+			autoCorrectSpace(currentWord, false, key, hold, repeat > 0);
 			currentWord = "";
 		}
 
@@ -255,7 +255,13 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mInputMode.getWord() != null) {
-			commitText(mInputMode.getWord());
+			currentWord = mInputMode.getWord();
+
+			mInputMode.onAcceptSuggestion(mLanguage, currentWord);
+			commitText(currentWord);
+			clearSuggestions();
+			autoCorrectSpace(currentWord, true, key, hold, repeat > 0);
+			resetKeyRepeat();
 		} else {
 			getSuggestions();
 		}
@@ -560,12 +566,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
+	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputField)) {
 			InputFieldHelper.deletePrecedingSpace(currentInputConnection, currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(currentInputConnection, inputField, isWordAcceptedManually, incomingKey, hold)) {
+		if (mInputMode.shouldAddAutoSpace(currentInputConnection, inputField, isWordAcceptedManually, incomingKey, hold, repeat)) {
 			commitText(" ");
 		}
 	}

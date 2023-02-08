@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.ime.helpers.InputFieldHelper;
+import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Punctuation;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -81,15 +82,13 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean onNumber(Language l, int key, boolean hold, int repeat) {
+	public boolean onNumber(Language language, int key, boolean hold, int repeat) {
 		if (hold) {
 			// hold to type any digit
 			reset();
 			word = String.valueOf(key);
 		} else if (key == 0 && repeat > 0) {
-			// repeat "0" is a shortcut for the preferred character (default: space)
-			reset();
-			word = settings.getDoubleZeroChar();
+			onDouble0(language);
 		} else {
 			// words
 			super.reset();
@@ -100,118 +99,28 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	/**
+	 * onDouble0
+	 * Double "0" is a shortcut for the preferred character.
+	 */
+	private void onDouble0(Language language) {
+		try {
+			reset();
+			word = settings.getDoubleZeroChar();
+			digitSequence =	language.getDigitSequenceForWord(word);
+		} catch (InvalidLanguageCharactersException e) {
+			Logger.w("tt9/onDouble0", "Failed getting the sequence for word: '" + word + "'. Performing standard 0-key action.");
+			reset();
+			digitSequence = "0";
+		}
+	}
+
+
 	@Override
 	public void reset() {
 		super.reset();
 		digitSequence = "";
 		stem = "";
-	}
-
-
-	/**
-	 * shouldAddAutoSpace
-	 * When the "auto-space" settings is enabled, this determines whether to automatically add a space
-	 * at the end of a sentence or after accepting a suggestion. This allows faster typing, without
-	 * pressing space.
-	 *
-	 * See the helper functions for the list of rules.
-	 */
-	@Override
-	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold) {
-		return
-			settings.getAutoSpace()
-			&& !hold
-			&& (
-				shouldAddAutoSpaceAfterPunctuation(inputField, incomingKey)
-				|| shouldAddAutoSpaceAfterWord(inputField, isWordAcceptedManually)
-			)
-			&& !InputFieldHelper.isThereSpaceAhead(inputConnection);
-	}
-
-
-	/**
-	 * shouldDeletePrecedingSpace
-	 * When the "auto-space" settings is enabled, determine whether to delete spaces before punctuation.
-	 * This allows automatic conversion from: "words ." to: "words."
-	 */
-	@Override
-	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) {
-		return
-			settings.getAutoSpace()
-			&& (
-				lastAcceptedWord.equals(".")
-				|| lastAcceptedWord.equals(",")
-				|| lastAcceptedWord.equals(";")
-				|| lastAcceptedWord.equals(":")
-				|| lastAcceptedWord.equals("!")
-				|| lastAcceptedWord.equals("?")
-				|| lastAcceptedWord.equals(")")
-				|| lastAcceptedWord.equals("]")
-				|| lastAcceptedWord.equals("'")
-				|| lastAcceptedWord.equals("@")
-			)
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
-	}
-
-
-	/**
-	 * shouldAddAutoSpaceAfterPunctuation
-	 * Determines whether to automatically adding a space after certain punctuation signs makes sense.
-	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
-	 * because we are not using a QWERTY keyboard here).
-	 */
-	private boolean shouldAddAutoSpaceAfterPunctuation(EditorInfo inputField, int incomingKey) {
-		return
-			incomingKey != 0
-			&& (
-				lastAcceptedWord.endsWith(".")
-				|| lastAcceptedWord.endsWith(",")
-				|| lastAcceptedWord.endsWith(";")
-				|| lastAcceptedWord.endsWith(":")
-				|| lastAcceptedWord.endsWith("!")
-				|| lastAcceptedWord.endsWith("?")
-				|| lastAcceptedWord.endsWith(")")
-				|| lastAcceptedWord.endsWith("]")
-				|| lastAcceptedWord.endsWith("%")
-			)
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
-	}
-
-
-	/**
-	 * shouldAddAutoSpaceAfterPunctuation
-	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
-	 * words.
-	 */
-	private boolean shouldAddAutoSpaceAfterWord(EditorInfo inputField, boolean isWordAcceptedManually) {
-		return
-			// Do not add space when auto-accepting words, because it feels very confusing when typing.
-			isWordAcceptedManually
-			// Secondary punctuation
-			&& !lastAcceptedSequence.equals("0")
-			// Emoji
-			&& !lastAcceptedSequence.startsWith("1")
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
-	}
-
-
-	/**
-	 * shouldAcceptCurrentSuggestion
-	 * In this mode, In addition to confirming the suggestion in the input field,
-	 * we also increase its' priority. This function determines whether we want to do all this or not.
-	 */
-	@Override
-	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) {
-		return
-			hold
-			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
-			|| key == 0
-			// Punctuation is considered "a word", so that we can increase the priority as needed
-			// Also, it must break the current word.
-			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
-			// On the other hand, letters also "break" punctuation.
-			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
-			|| (digitSequence.endsWith("0"));
 	}
 
 
@@ -283,6 +192,7 @@ public class ModePredictive extends InputMode {
 	public boolean isStemFilterFuzzy() {
 		return isStemFuzzy;
 	}
+
 
 	/**
 	 * loadStaticSuggestions
@@ -493,7 +403,7 @@ public class ModePredictive extends InputMode {
 
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.equals("0")) {
+			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
 				DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -572,8 +482,117 @@ public class ModePredictive extends InputMode {
 		super.nextTextCase();
 	}
 
-	@Override final public boolean isPredictive() { return true; }
-	@Override public int getSequenceLength() { return digitSequence.length(); }
+
+	/**
+	 * shouldAcceptCurrentSuggestion
+	 * In this mode, In addition to confirming the suggestion in the input field,
+	 * we also increase its' priority. This function determines whether we want to do all this or not.
+	 */
+	@Override
+	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) {
+		return
+			hold
+			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
+			|| (key == 0 && !repeat)
+			// Punctuation is considered "a word", so that we can increase the priority as needed
+			// Also, it must break the current word.
+			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
+			// On the other hand, letters also "break" punctuation.
+			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
+			|| (digitSequence.endsWith("0") && key != 0);
+	}
+
+
+	/**
+	 * shouldAddAutoSpace
+	 * When the "auto-space" settings is enabled, this determines whether to automatically add a space
+	 * at the end of a sentence or after accepting a suggestion. This allows faster typing, without
+	 * pressing space.
+	 *
+	 * See the helper functions for the list of rules.
+	 */
+	@Override
+	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+		return
+			settings.getAutoSpace()
+			&& !hold
+			&& (
+				shouldAddAutoSpaceAfterPunctuation(inputField, incomingKey, repeat)
+				|| shouldAddAutoSpaceAfterWord(inputField, isWordAcceptedManually)
+			)
+			&& !InputFieldHelper.isThereSpaceAhead(inputConnection);
+	}
+
+
+	/**
+	 * shouldAddAutoSpaceAfterPunctuation
+	 * Determines whether to automatically adding a space after certain punctuation signs makes sense.
+	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
+	 * because we are not using a QWERTY keyboard here).
+	 */
+	private boolean shouldAddAutoSpaceAfterPunctuation(EditorInfo inputField, int incomingKey, boolean repeat) {
+		return
+			(incomingKey != 0 || repeat)
+			&& (
+				lastAcceptedWord.endsWith(".")
+				|| lastAcceptedWord.endsWith(",")
+				|| lastAcceptedWord.endsWith(";")
+				|| lastAcceptedWord.endsWith(":")
+				|| lastAcceptedWord.endsWith("!")
+				|| lastAcceptedWord.endsWith("?")
+				|| lastAcceptedWord.endsWith(")")
+				|| lastAcceptedWord.endsWith("]")
+				|| lastAcceptedWord.endsWith("%")
+			)
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
+	}
+
+
+	/**
+	 * shouldAddAutoSpaceAfterPunctuation
+	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
+	 * words.
+	 */
+	private boolean shouldAddAutoSpaceAfterWord(EditorInfo inputField, boolean isWordAcceptedManually) {
+		return
+			// Do not add space when auto-accepting words, because it feels very confusing when typing.
+			isWordAcceptedManually
+			// Secondary punctuation
+			&& !lastAcceptedSequence.equals("0")
+			// Emoji
+			&& !lastAcceptedSequence.startsWith("1")
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
+	}
+
+
+	/**
+	 * shouldDeletePrecedingSpace
+	 * When the "auto-space" settings is enabled, determine whether to delete spaces before punctuation.
+	 * This allows automatic conversion from: "words ." to: "words."
+	 */
+	@Override
+	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) {
+		return
+			settings.getAutoSpace()
+			&& (
+				lastAcceptedWord.equals(".")
+				|| lastAcceptedWord.equals(",")
+				|| lastAcceptedWord.equals(";")
+				|| lastAcceptedWord.equals(":")
+				|| lastAcceptedWord.equals("!")
+				|| lastAcceptedWord.equals("?")
+				|| lastAcceptedWord.equals(")")
+				|| lastAcceptedWord.equals("]")
+				|| lastAcceptedWord.equals("'")
+				|| lastAcceptedWord.equals("@")
+			)
+			&& !InputFieldHelper.isSpecializedTextField(inputField);
+	}
+
+
 	@Override public boolean shouldTrackUpDown() { return true; }
 	@Override public boolean shouldTrackLeftRight() { return true; }
+
+	@Override final public boolean isPredictive() { return true; }
+	@Override public int getSequenceLength() { return digitSequence.length(); }
 }
