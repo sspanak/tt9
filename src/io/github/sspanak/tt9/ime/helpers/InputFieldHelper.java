@@ -14,8 +14,8 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 
 
 public class InputFieldHelper {
-	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)$");
-	private static final Pattern afterCursorWordRegex = Pattern.compile("^(\\w+)");
+	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)(?!\n)$");
+	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)(\\w+)");
 
 
 	public static boolean isThereText(InputConnection currentInputConnection) {
