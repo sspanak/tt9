@@ -581,7 +581,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		mInputMode.determineNextWordTextCase(
 			settings,
 			InputFieldHelper.isThereText(currentInputConnection),
-			(String) currentInputConnection.getTextBeforeCursor(50, 0)
+			InputFieldHelper.getTextBeforeCursor(currentInputConnection)
 		);
 	}
 
