@@ -200,21 +200,43 @@ public class InputFieldHelper {
 	}
 
 
+	/**
+	 * getTextBeforeCursor
+	 * A simplified helper that return up to 50 characters before the cursor and "just works".
+	 */
+	public static String getTextBeforeCursor(InputConnection inputConnection) {
+		if (inputConnection == null) {
+			return "";
+		}
+
+		CharSequence before = inputConnection.getTextBeforeCursor(50, 0);
+		return before != null ? before.toString() : "";
+	}
+
+
+	/**
+	 * getTextBeforeCursor
+	 * A simplified helper that return up to 50 characters after the cursor and "just works".
+	 */
+	public static String getTextAfterCursor(InputConnection inputConnection) {
+		if (inputConnection == null) {
+			return "";
+		}
+
+		CharSequence before = inputConnection.getTextAfterCursor(50, 0);
+		return before != null ? before.toString() : "";
+	}
+
+
+	/**
+	 * getSurroundingWord
+	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
+	 */
 	public static String getSurroundingWord(InputConnection currentInputConnection) {
-		if (currentInputConnection == null) {
-			return "";
-		}
+		Matcher before = beforeCursorWordRegex.matcher(getTextBeforeCursor(currentInputConnection));
+		Matcher after = afterCursorWordRegex.matcher(getTextAfterCursor(currentInputConnection));
 
-		CharSequence before = currentInputConnection.getTextBeforeCursor(50, 0);
-		CharSequence after = currentInputConnection.getTextAfterCursor(50, 0);
-		if (before == null || after == null) {
-			return "";
-		}
-
-		Matcher beforeMatch = beforeCursorWordRegex.matcher(before);
-		Matcher afterMatch = afterCursorWordRegex.matcher(after);
-
-		return (beforeMatch.find() ? beforeMatch.group(1) : "") + (afterMatch.find() ? afterMatch.group(1) : "");
+		return (before.find() ? before.group(1) : "") + (after.find() ? after.group(1) : "");
 	}
 
 
