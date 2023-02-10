@@ -109,7 +109,7 @@ To access it:
 - Use the on-screen gear button or press the Settings Key.
 
 #### Method 2
-- Press the Assigned Hotkey [Default: *]
+- Press the Assigned Hotkey [Default: Hold *]
 
 #### Method 3
 - Thru Android Settings: System -> Languages -> (On-screen) Keyboard(s) -> Traditional T9.
