@@ -81,6 +81,89 @@ def getReleaseVersion = { ->
 	return "${getVersionName()} (${getCurrentGitHash()})"
 }
 
+task validateDictionaries {
+	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
+	outputs.file "${project.buildDir}/dict.validation.txt"
+
+	doLast {
+		final String csvDelimiter = '	' // TAB
+
+		String errors = ""
+		int errorCount = 0
+		final MAX_ERRORS = 50
+
+		outputs.files.singleFile.text = ""
+
+		inputs.getFiles().each {File file ->
+			if (errorCount >= MAX_ERRORS) {
+				return
+			}
+
+			println "Validating dictionary: " + file.name
+
+			def geographicalName = ~"[A-Z]\\w+-[^\\n]+"
+			def uniqueWords = [:]
+
+			int lineNumber = 0
+			boolean isFileValid = true
+
+			file.eachLine {line ->
+				if (errorCount >= MAX_ERRORS) {
+					return
+				}
+
+				lineNumber++
+
+				String[] parts = line.split(csvDelimiter, 2)
+				String word = parts[0]
+				String frequency = parts.length > 1 ? parts[1] : ""
+
+				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
+				}
+
+				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
+				}
+
+				if (word.matches("^\\P{L}+\$")) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + word + "' on line " + lineNumber + ".\n"
+				}
+
+				if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+				}
+
+				String uniqueWordKey = word ==~ geographicalName ? word : word.toLowerCase()
+				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + word + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
+				} else {
+					uniqueWords[uniqueWordKey] = true
+				}
+
+				if (errorCount >= MAX_ERRORS ) {
+					errors += "Too many errors! Aborting.\n"
+				}
+			}
+
+			outputs.files.singleFile.text += file.name + " " + (isFileValid ? "OK" : "INVALID") + "\n"
+		}
+
+		if (errors != "") {
+			throw new GradleException(errors)
+		}
+	}
+}
 
 android {
 	buildToolsVersion "33.0.0"
@@ -143,78 +226,8 @@ android {
 //			signingConfig android.signingConfigs.release
 		}
 	}
-}
 
-task validateDictionaries {
-	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
-
-	doLast {
-		final String csvDelimiter = '	'
-
-		String errors = ""
-		int errorCount = 0
-		final MAX_ERRORS = 50
-
-		inputs.getFiles().each {File file ->
-			if (errorCount >= MAX_ERRORS) {
-				return
-			}
-			println "Validating dictionary: " + file.name
-
-			def geographicalName = ~"[A-Z]\\w+-[^\\n]+"
-			def uniqueWords = [:]
-
-			int lineNumber = 0
-			file.eachLine {line ->
-				if (errorCount >= MAX_ERRORS) {
-					return
-				}
-
-				lineNumber++
-
-				String[] parts = line.split(csvDelimiter, 2)
-				String word = parts[0]
-				String frequency = parts.length > 1 ? parts[1] : ""
-
-				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
-				}
-
-				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
-				}
-
-				if (word.matches("^\\P{L}+\$")) {
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + word + "' on line " + lineNumber + ".\n"
-				}
-
-				if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
-				}
-
-				String uniqueWordKey = word ==~ geographicalName ? word : word.toLowerCase()
-				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + word + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
-				} else {
-					uniqueWords[uniqueWordKey] = true
-				}
-
-				if (errorCount >= MAX_ERRORS ) {
-					errors += "Too many errors! Aborting.\n"
-				}
-			}
-		}
-
-		if (errors != "") {
-			throw new GradleException(errors)
-		}
+	applicationVariants.all { variant ->
+		tasks["merge${variant.name.capitalize()}Assets"].dependsOn(validateDictionaries)
 	}
 }
-
-preBuild.dependsOn validateDictionaries
-preBuild.mustRunAfter validateDictionaries
