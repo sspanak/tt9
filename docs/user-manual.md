@@ -102,6 +102,19 @@ Backspace.
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys or change the application appearance.
 
-To access it:
+### How to access the Settings?
+
+#### Method 1
 - Start typing in a text field to wake up TT9.
-- Use the on-screen gear button or press the Settings Key.
+- Use the on-screen gear button.
+
+#### Method 2
+- Start typing in a text field to wake up TT9.
+- Use the assigned hotkey [Default: Hold ✱].
+
+#### Method 3
+- Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards). This is where all installed keyboards are configured.
+- Select "Traditional T9".
+
+_The actual menu names may vary depending on your phone, Android version and language._
+
