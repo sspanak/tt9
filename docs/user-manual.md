@@ -113,5 +113,8 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 - Use the assigned hotkey [Default: Hold ✱].
 
 #### Method 3
-- Thru Android Settings: System -> Languages -> (On-screen) Keyboard(s) -> Traditional T9.
+- Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards). This is where all installed keyboards are configured.
+- Select "Traditional T9".
+
+_The actual menu names may vary depending on your phone, Android version and language._
 
