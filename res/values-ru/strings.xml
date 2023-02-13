@@ -49,5 +49,5 @@
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
-	<string name="add_word_field_placeholder">Введите слово...</string>
+	<string name="add_word_field_placeholder">Введите слово…</string>
 </resources>

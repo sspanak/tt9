@@ -40,5 +40,5 @@
 	<string name="char_space">Espace</string>
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé plusieurs fois</string>
-	<string name="add_word_field_placeholder">Tapez un mot...</string>
+	<string name="add_word_field_placeholder">Tapez un mot…</string>
 </resources>

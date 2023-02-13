@@ -1,6 +1,12 @@
 name: Build the Project
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - "**"
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -15,5 +21,7 @@ jobs:
     # validation
     - name: Validate Dictionaries
       run: ./gradlew validateDictionaries
+    - name: Lint
+      run: ./gradlew lint
     - name: Build Release APK
-      run: ./gradlew assemble
+      run: ./gradlew build
