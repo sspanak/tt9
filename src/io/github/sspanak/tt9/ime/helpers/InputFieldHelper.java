@@ -39,6 +39,18 @@ public class InputFieldHelper {
 
 
 	/**
+	 * isLimitedField
+	 * Special or limited input type means the input connection is not rich,
+	 * or it can not process or show things like candidate text, nor retrieve the current text.
+	 *
+	 * https://developer.android.com/reference/android/text/InputType#TYPE_NULL
+	 */
+	public static boolean isLimitedField(EditorInfo inputField) {
+		return inputField != null && inputField.inputType == InputType.TYPE_NULL;
+	}
+
+
+	/**
 	 * isDialerField
 	 * Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.

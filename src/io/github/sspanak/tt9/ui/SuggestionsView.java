@@ -82,7 +82,7 @@ public class SuggestionsView {
 	}
 
 
-	public boolean isShown() {
+	public boolean hasElements() {
 		return suggestions.size() > 0;
 	}
 
