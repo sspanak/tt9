@@ -106,7 +106,7 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 
 #### Method 1
 - Start typing in a text field to wake up TT9.
-- Use the on-screen gear button or press the Settings Key.
+- Use the on-screen gear button.
 
 #### Method 2
 - Start typing in a text field to wake up TT9.
