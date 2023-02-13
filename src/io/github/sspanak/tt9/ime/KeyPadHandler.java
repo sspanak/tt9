@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -84,21 +83,23 @@ abstract class KeyPadHandler extends InputMethodService {
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		currentInputConnection = getCurrentInputConnection();
 		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
-
-		mEditing = NON_EDIT;
-
-		// https://developer.android.com/reference/android/text/InputType#TYPE_NULL
-		// Special or limited input type. This means the input connection is not rich,
-		// or it can not process or show things like candidate text, nor retrieve the current text.
-		// We just let Android handle this input.
-		if (currentInputConnection == null || inputField == null || inputField.inputType == InputType.TYPE_NULL) {
-			onFinish();
-			return;
-		}
-
 		onStart(inputField);
 	}
 
+
+	@Override
+	public void onStartInputView(EditorInfo inputField, boolean restarting) {
+		onRestart(inputField);
+	}
+
+
+	@Override
+	public void onFinishInputView(boolean finishingInput) {
+		super.onFinishInputView(finishingInput);
+		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
+			onFinishTyping();
+		}
+	}
 
 	/**
 	 * This is called when the user is done editing a field. We can use this to
@@ -109,7 +110,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		super.onFinishInput();
 		// Logger.d("onFinishInput", "When is this called?");
 		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
-			onFinish();
+			onStop();
 		}
 	}
 
@@ -333,6 +334,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	// helpers
 	abstract protected void onInit();
 	abstract protected void onStart(EditorInfo inputField);
-	abstract protected void onFinish();
+	abstract protected void onRestart(EditorInfo inputField);
+	abstract protected void onFinishTyping();
+	abstract protected void onStop();
 	abstract protected View createSoftKeyView();
 }

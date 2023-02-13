@@ -25,6 +25,7 @@ import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
+	private boolean isActive = false;
 	private EditorInfo inputField;
 
 	// input mode
@@ -87,13 +88,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected void onStart(EditorInfo inputField) {
-		this.inputField = inputField;
+	private void initTyping() {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
 
-		// some input fields support only numbers or do not accept predictions
+		// some input fields support only numbers or are not suited for predictions (e.g. password fields)
 		determineAllowedInputModes();
 		mInputMode = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
 
@@ -101,8 +101,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Some modes may want to change the default text case based on grammar rules.
 		determineNextTextCase();
 		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
+	}
 
-		// build the UI
+
+	private void initUi() {
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
 
 		clearSuggestions();
@@ -118,15 +120,43 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER) {
 			requestShowSelf(1);
 		}
-
-		restoreAddedWordIfAny();
 	}
 
 
-	protected void onFinish() {
-		clearSuggestions();
+	protected void onStart(EditorInfo input) {
+		this.inputField = input;
+		if (currentInputConnection == null || inputField == null || InputFieldHelper.isLimitedField(inputField)) {
+			// When the input is invalid or simple, let Android handle it.
+			onStop();
+			return;
+		}
+
+		initTyping();
+		initUi();
+		restoreAddedWordIfAny();
+
+		isActive = true;
+	}
+
+
+	protected void onRestart(EditorInfo inputField) {
+		if (!isActive) {
+			onStart(inputField);
+		}
+	}
+
+
+	protected void onFinishTyping() {
+		isActive = false;
 
 		hideStatusIcon();
+		mEditing = NON_EDIT;
+	}
+
+
+	protected void onStop() {
+		onFinishTyping();
+		clearSuggestions();
 		hideWindow();
 
 		softKeyHandler.hide();
@@ -337,7 +367,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean isSuggestionViewHidden() {
-		return mSuggestionView == null || !mSuggestionView.isShown();
+		return mSuggestionView == null || !mSuggestionView.hasElements();
 	}
 
 
