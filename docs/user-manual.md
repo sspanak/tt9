@@ -109,7 +109,8 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 - Use the on-screen gear button or press the Settings Key.
 
 #### Method 2
-- Press the Assigned Hotkey [Default: Hold *]
+- Start typing in a text field to wake up TT9.
+- Use the assigned hotkey [Default: Hold ✱].
 
 #### Method 3
 - Thru Android Settings: System -> Languages -> (On-screen) Keyboard(s) -> Traditional T9.
