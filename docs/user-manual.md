@@ -102,7 +102,7 @@ Backspace.
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys or change the application appearance.
 
-To access it:
+### How to access the Settings?
 
 #### Method 1
 - Start typing in a text field to wake up TT9.
