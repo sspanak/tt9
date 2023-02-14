@@ -130,6 +130,10 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean clearWordStem() {
+		if (stem.length() == 0) {
+			return false;
+		}
+
 		stem = "";
 		Logger.d("tt9/setWordStem", "Stem filter cleared");
 
