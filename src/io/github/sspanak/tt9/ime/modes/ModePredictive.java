@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.ime.modes;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -12,7 +10,8 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
-import io.github.sspanak.tt9.ime.helpers.InputFieldHelper;
+import io.github.sspanak.tt9.ime.helpers.InputType;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Characters;
@@ -516,15 +515,15 @@ public class ModePredictive extends InputMode {
 	 * See the helper functions for the list of rules.
 	 */
 	@Override
-	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
 		return
 			settings.getAutoSpace()
 			&& !hold
 			&& (
-				shouldAddAutoSpaceAfterPunctuation(inputField, incomingKey, repeat)
-				|| shouldAddAutoSpaceAfterWord(inputField, isWordAcceptedManually)
+				shouldAddAutoSpaceAfterPunctuation(inputType, incomingKey, repeat)
+				|| shouldAddAutoSpaceAfterWord(inputType, isWordAcceptedManually)
 			)
-			&& !InputFieldHelper.isThereSpaceAhead(inputConnection);
+			&& !textField.isThereSpaceAhead();
 	}
 
 
@@ -534,7 +533,7 @@ public class ModePredictive extends InputMode {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAutoSpaceAfterPunctuation(EditorInfo inputField, int incomingKey, boolean repeat) {
+	private boolean shouldAddAutoSpaceAfterPunctuation(InputType inputType, int incomingKey, boolean repeat) {
 		return
 			(incomingKey != 0 || repeat)
 			&& (
@@ -548,7 +547,7 @@ public class ModePredictive extends InputMode {
 				|| lastAcceptedWord.endsWith("]")
 				|| lastAcceptedWord.endsWith("%")
 			)
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
+			&& !inputType.isSpecialized();
 	}
 
 
@@ -557,7 +556,7 @@ public class ModePredictive extends InputMode {
 	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
 	 * words.
 	 */
-	private boolean shouldAddAutoSpaceAfterWord(EditorInfo inputField, boolean isWordAcceptedManually) {
+	private boolean shouldAddAutoSpaceAfterWord(InputType inputType, boolean isWordAcceptedManually) {
 		return
 			// Do not add space when auto-accepting words, because it feels very confusing when typing.
 			isWordAcceptedManually
@@ -565,7 +564,7 @@ public class ModePredictive extends InputMode {
 			&& !lastAcceptedSequence.equals("0")
 			// Emoji
 			&& !lastAcceptedSequence.startsWith("1")
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
+			&& !inputType.isSpecialized();
 	}
 
 
@@ -575,7 +574,7 @@ public class ModePredictive extends InputMode {
 	 * This allows automatic conversion from: "words ." to: "words."
 	 */
 	@Override
-	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) {
+	public boolean shouldDeletePrecedingSpace(InputType inputType) {
 		return
 			settings.getAutoSpace()
 			&& (
@@ -590,7 +589,7 @@ public class ModePredictive extends InputMode {
 				|| lastAcceptedWord.equals("'")
 				|| lastAcceptedWord.equals("@")
 			)
-			&& !InputFieldHelper.isSpecializedTextField(inputField);
+			&& !inputType.isSpecialized();
 	}
 
 
