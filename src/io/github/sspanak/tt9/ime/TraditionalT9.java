@@ -240,7 +240,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onRight(boolean repeat) {
-		String filter = repeat ? mSuggestionView.getSuggestion(1) : getComposingText();
+		String filter;
+		if (repeat && !mSuggestionView.getSuggestion(1).equals("")) {
+			filter = mSuggestionView.getSuggestion(1);
+		} else {
+			filter = getComposingText();
+		}
 
 		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
 			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, filter);
@@ -544,10 +549,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void jumpBeforeComposingText() {
-		textField.setComposingText(getComposingText(), 0);
+		String word = getComposingText();
+
+		textField.setComposingText(word, 0);
 		textField.finishComposingText();
-		setSuggestions(null);
+		mInputMode.onAcceptSuggestion(mLanguage, word);
 		mInputMode.reset();
+		setSuggestions(null);
 	}
 
 
