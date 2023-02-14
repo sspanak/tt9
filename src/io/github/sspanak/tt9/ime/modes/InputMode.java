@@ -1,12 +1,12 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import android.os.Handler;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.ime.helpers.InputType;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -76,8 +76,8 @@ abstract public class InputMode {
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) { return false; }
-	public boolean shouldAddAutoSpace(InputConnection inputConnection, EditorInfo inputField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
-	public boolean shouldDeletePrecedingSpace(EditorInfo inputField) { return false; }
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
+	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 	public boolean shouldTrackNumPress() { return true; }
 	public boolean shouldTrackUpDown() { return false; }
