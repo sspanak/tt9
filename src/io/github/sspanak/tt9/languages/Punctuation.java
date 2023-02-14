@@ -8,11 +8,11 @@ import java.util.Arrays;
 
 public class Punctuation {
 	final public static ArrayList<String> Main = new ArrayList<>(Arrays.asList(
-		",", ".", "-", "_", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "\"", "!", "?"
+		",", ".", "-", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "\"", "!", "?"
 	));
 
 	final public static ArrayList<String> Secondary = new ArrayList<>(Arrays.asList(
-		" ", "\n", "@", "%", "#", "$", "{", "}", "^", "<", ">", "\\", "/", "=", "*", "+"
+		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
 
 	final private static ArrayList<String> TextEmoticons = new ArrayList<>(Arrays.asList(
