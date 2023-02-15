@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.ime.helpers.InputFieldHelper;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Punctuation;
+import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
@@ -56,7 +56,7 @@ public class ModePredictive extends InputMode {
 		// digitSequence limiter when selecting emoji
 		// "11" = Emoji level 0, "111" = Emoji level 1,... up to the maximum amount of 1s
 		StringBuilder maxEmojiSequenceBuilder = new StringBuilder();
-		for (int i = 0; i <= Punctuation.getEmojiLevels(); i++) {
+		for (int i = 0; i <= Characters.getEmojiLevels(); i++) {
 			maxEmojiSequenceBuilder.append("1");
 		}
 		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
@@ -213,7 +213,7 @@ public class ModePredictive extends InputMode {
 				suggestions = language.getKeyCharacters(1, false);
 			} else {
 				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
-				suggestions = Punctuation.getEmoji(digitSequence.length() - 2);
+				suggestions = Characters.getEmoji(digitSequence.length() - 2);
 			}
 		} else {
 			return false;

@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Punctuation;
+import io.github.sspanak.tt9.languages.Characters;
 
 public class Ukrainian extends Language {
 	public Ukrainian() {
@@ -21,8 +21,8 @@ public class Ukrainian extends Language {
 		isPunctuationPartOfWords = true;
 
 		characterMap = new ArrayList<>(Arrays.asList(
-			Punctuation.Secondary, // 0
-			Punctuation.Main, // 1
+			Characters.Special, // 0
+			Characters.Sentence, // 1
 			new ArrayList<>(Arrays.asList("а", "б", "в", "г", "ґ")), // 2
 			new ArrayList<>(Arrays.asList("д", "е", "є", "ж", "з")), // 3
 			new ArrayList<>(Arrays.asList("и", "і", "ї", "й", "к", "л")), // 4

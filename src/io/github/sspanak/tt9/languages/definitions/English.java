@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Punctuation;
+import io.github.sspanak.tt9.languages.Characters;
 
 public class English extends Language {
 	public English() {
@@ -21,8 +21,8 @@ public class English extends Language {
 		isPunctuationPartOfWords = true;
 
 		characterMap = new ArrayList<>(Arrays.asList(
-			Punctuation.Secondary, // 0
-			Punctuation.Main, // 1
+			Characters.Special, // 0
+			Characters.Sentence, // 1
 			new ArrayList<>(Arrays.asList("a", "b", "c")), // 2
 			new ArrayList<>(Arrays.asList("d", "e", "f")), // 3
 			new ArrayList<>(Arrays.asList("g", "h", "i")), // 4

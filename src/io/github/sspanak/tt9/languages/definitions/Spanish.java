@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Punctuation;
+import io.github.sspanak.tt9.languages.Characters;
 
 public class Spanish extends English {
 	public Spanish() {
@@ -20,7 +20,7 @@ public class Spanish extends English {
 
 		isPunctuationPartOfWords = false;
 
-		characterMap.set(1, new ArrayList<>(Punctuation.Main));
+		characterMap.set(1, new ArrayList<>(Characters.Sentence));
 		characterMap.get(1).addAll(Arrays.asList("¡", "¿"));
 
 		characterMap.get(2).addAll(Collections.singletonList("á"));

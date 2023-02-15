@@ -6,13 +6,13 @@ import android.os.Build;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Punctuation {
-	final public static ArrayList<String> Main = new ArrayList<>(Arrays.asList(
+public class Characters {
+	final public static ArrayList<String> Sentence = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "\"", "!", "?"
 	));
 
-	final public static ArrayList<String> Secondary = new ArrayList<>(Arrays.asList(
-		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "^", "<", ">", "\\", "/", "=", "*", "+"
+	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
+		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
 
 	final private static ArrayList<String> TextEmoticons = new ArrayList<>(Arrays.asList(
@@ -20,12 +20,15 @@ public class Punctuation {
 	));
 
 	final private static ArrayList<ArrayList<String>> Emoji = new ArrayList<>(Arrays.asList(
+		// smile -> frown
 		new ArrayList<>(Arrays.asList(
 			"🙂", "😀", "🤣", "😉", "😛", "😳", "😲", "😱", "😭", "😢", "🙁"
 		)),
+		// hands
 		new ArrayList<>(Arrays.asList(
 			"👍", "👋", "✌️", "👏", "🤝", "💪", "🤘", "🖖", "👎"
 		)),
+		// emotions
 		new ArrayList<>(Arrays.asList(
 			"❤", "🤗", "😍", "😘", "😇", "😈", "🎉", "🤓", "😎", "🤔", "🥶", "😬"
 		))
