@@ -14,60 +14,177 @@
 		android:paddingTop="1px"
 		android:scrollbars="none" />
 
-	<LinearLayout
+
+	<TableLayout
 		android:id="@+id/main_soft_keys"
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/soft_key_height"
-		android:baselineAligned="true"
-		android:orientation="horizontal">
+		android:layout_height="match_parent">
 
-		<Button
-			android:id="@+id/main_left"
-			style="@android:style/Widget.Holo.Button.Borderless"
-			android:layout_width="0dp"
+		<TableRow
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_weight="3"
-			android:clickable="true"
-			android:focusable="false"
-			android:longClickable="true"
-			android:text="⚙"
-			android:textSize="@dimen/soft_key_icon_size"
-			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" >
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_1"
+				android:text="1"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_2"
+				android:text="2"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_3"
+				android:text="3"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<Button
+				android:id="@+id/main_right"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:longClickable="true"
+				android:text="⌫"
+				android:textSize="@dimen/soft_key_icon_size"
+				tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+		</TableRow>
 
-		<View
-			android:id="@+id/main_separator_left"
-			style="@style/hSeparator"
-			android:background="@drawable/button_separator_dark" />
-
-		<Button
-			android:id="@+id/main_mid"
-			style="@android:style/Widget.Holo.Button.Borderless"
-			android:layout_width="0dp"
+		<TableRow
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_weight="5"
-			android:clickable="true"
-			android:focusable="false"
-			android:longClickable="true"
-			android:text="@android:string/ok"
-			tools:ignore="ButtonOrder,KeyboardInaccessibleWidget" />
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" >
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_4"
+				android:text="4"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_5"
+				android:text="5"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_6"
+				android:text="6"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<Button
+				android:id="@+id/main_mid"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:longClickable="true"
+				android:text="@android:string/ok"
+				tools:ignore="ButtonOrder,KeyboardInaccessibleWidget" />
+		</TableRow>
 
-		<View
-			android:id="@+id/main_separator_right"
-			android:background="@drawable/button_separator_dark"
-			style="@style/hSeparator" />
-
-		<Button
-			android:id="@+id/main_right"
-			style="@android:style/Widget.Holo.Button.Borderless"
-			android:layout_width="0dp"
+		<TableRow
+			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_weight="3"
-			android:clickable="true"
-			android:focusable="false"
-			android:longClickable="true"
-			android:text="⌫"
-			android:textSize="@dimen/soft_key_icon_size"
-			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" >
+			<!--			android:textSize="@dimen/soft_key_icon_size"-->
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_7"
+				android:text="7"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_8"
+				android:text="8"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_9"
+				android:text="9"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<Button
+				android:id="@+id/soft_language"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="🪐"
+				android:textSize="@dimen/soft_key_icon_size"
+				tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+		</TableRow>
 
-	</LinearLayout>
+
+		<TableRow
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget" >
+			<Button
+				android:id="@+id/soft_addWord"
+				android:text="++"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<io.github.sspanak.tt9.ui.NumpadButton
+				android:id="@+id/soft_0"
+				android:text="0"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<Button
+				android:id="@+id/soft_mode"
+				android:text="⇄"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"/>
+			<Button
+				android:id="@+id/main_left"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:clickable="true"
+				android:focusable="true"
+				android:longClickable="true"
+				android:text="⚙"
+				android:textSize="@dimen/soft_key_icon_size"
+				tools:ignore="HardcodedText,KeyboardInaccessibleWidget" />
+		</TableRow>
+	</TableLayout>
+
 </LinearLayout>

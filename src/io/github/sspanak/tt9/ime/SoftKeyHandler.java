@@ -1,27 +1,34 @@
 package io.github.sspanak.tt9.ime;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TableLayout;
+
+import java.util.HashSet;
 
 import androidx.core.content.ContextCompat;
-
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.ui.NumpadButton;
 import io.github.sspanak.tt9.ui.UI;
 
 class SoftKeyHandler implements View.OnTouchListener {
-	private static final int[] buttons = { R.id.main_left, R.id.main_mid, R.id.main_right };
+	private static final int[] buttons = { R.id.main_left, R.id.main_mid, R.id.main_right, R.id.soft_mode, R.id.soft_language, R.id.soft_addWord };
+	private HashSet<NumpadButton> buttons_number = new HashSet<>();
 	private final TraditionalT9 tt9;
 	private View view = null;
-
+	protected SettingsStore settings;
 	private long lastBackspaceCall = 0;
 
 	public SoftKeyHandler(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
 		getView();
+		settings = new SettingsStore(tt9.getApplicationContext());
 	}
 
 
@@ -32,6 +39,21 @@ class SoftKeyHandler implements View.OnTouchListener {
 			for (int buttonId : buttons) {
 				view.findViewById(buttonId).setOnTouchListener(this);
 			}
+
+			ViewGroup softNumpad = view.findViewById(R.id.main_soft_keys);
+			for (int r = 0; r < softNumpad.getChildCount(); r++) {
+				Log.d("test", softNumpad.getClass().toString());
+				ViewGroup row = (ViewGroup) softNumpad.getChildAt(r);
+				for (int b = 0; b < row.getChildCount(); b++) {
+					Log.d("test", row.getClass().toString());
+					View button = row.getChildAt(b);
+					if (button instanceof NumpadButton) {
+						NumpadButton nb = (NumpadButton) button;
+						buttons_number.add(nb);
+						nb.setIMS(tt9);
+					}
+				}
+			}
 		}
 
 		return view;
@@ -41,6 +63,9 @@ class SoftKeyHandler implements View.OnTouchListener {
 	void show() {
 		if (view != null) {
 			view.setVisibility(View.VISIBLE);
+			for (NumpadButton nb: buttons_number){
+				nb.invalidateText(tt9.mLanguage);
+			}
 		}
 	}
 
@@ -54,7 +79,7 @@ class SoftKeyHandler implements View.OnTouchListener {
 
 	void setSoftKeysVisibility(boolean visible) {
 		if (view != null) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(visible ? LinearLayout.VISIBLE : LinearLayout.GONE);
+			view.findViewById(R.id.main_soft_keys).setVisibility(visible ? TableLayout.VISIBLE : TableLayout.GONE);
 		}
 	}
 
@@ -97,8 +122,8 @@ class SoftKeyHandler implements View.OnTouchListener {
 			darkEnabled ? R.drawable.button_separator_dark : R.drawable.button_separator
 		);
 
-		view.findViewById(R.id.main_separator_left).setBackground(separatorColor);
-		view.findViewById(R.id.main_separator_right).setBackground(separatorColor);
+//		view.findViewById(R.id.main_separator_left).setBackground(separatorColor);
+//		view.findViewById(R.id.main_separator_right).setBackground(separatorColor);
 	}
 
 
@@ -136,6 +161,18 @@ class SoftKeyHandler implements View.OnTouchListener {
 			tt9.onOK();
 			return view.performClick();
 		}
+		if (buttonId == R.id.soft_mode && action == MotionEvent.ACTION_UP) {
+			tt9.onKeyNextInputMode();
+			return view.performClick();
+		}
+		if (buttonId == R.id.soft_addWord && action == MotionEvent.ACTION_UP) {
+			tt9.onKeyAddWord();
+			return view.performClick();
+		}
+		if (buttonId == R.id.soft_language && action == MotionEvent.ACTION_UP) {
+			tt9.onKeyNextLanguage();
+			return view.performClick();
+		}
 
 		if (buttonId == R.id.main_right) {
 			if (action == MotionEvent.AXIS_PRESSURE) {
@@ -144,6 +181,23 @@ class SoftKeyHandler implements View.OnTouchListener {
 				return handleBackspaceUp();
 			}
 		}
+
+//		int keycodeToForward = -1;
+//		if (buttonId == R.id.soft_pound){
+//			keycodeToForward = KeyEvent.KEYCODE_POUND;
+//		} else if (buttonId == R.id.soft_star){
+//			keycodeToForward = KeyEvent.KEYCODE_STAR;
+//		}
+//		if (keycodeToForward != -1){
+//			if (action == MotionEvent.ACTION_DOWN){
+//				return tt9.onKeyDown(keycodeToForward,
+//					new KeyEvent(KeyEvent.ACTION_DOWN, keycodeToForward));
+//			} else if (action == MotionEvent.ACTION_UP){
+//				return tt9.onKeyUp(keycodeToForward,
+//					new KeyEvent(KeyEvent.ACTION_UP, keycodeToForward));
+//			}
+//		}
+
 
 		return false;
 	}
