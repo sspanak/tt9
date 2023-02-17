@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
+import io.github.sspanak.tt9.ime.helpers.Key;
 
 public class Mode123 extends InputMode {
 	public int getId() { return MODE_123; }
@@ -11,21 +11,24 @@ public class Mode123 extends InputMode {
 		allowedTextCases.add(CASE_LOWER);
 	}
 
+	@Override
+	public boolean onNumber(int number, boolean hold, int repeat) {
+		reset();
 
-	public boolean onNumber(int key, boolean hold, int repeat) {
-		if (key != 0) {
-			return false;
+		if (number == 0 && hold) {
+			autoAcceptTimeout = 0;
+			suggestions.add("+");
+		} else {
+			keyCode = Key.numberToCode(number);
 		}
 
-		suggestions = new ArrayList<>();
-		word = hold ? "+" : "0";
 		return true;
 	}
 
 
-	final public boolean is123() { return true; }
-	public int getSequenceLength() { return 0; }
-	public boolean shouldTrackNumPress() { return false; }
+	@Override final public boolean is123() { return true; }
+	@Override public int getSequenceLength() { return 0; }
+	@Override public boolean shouldTrackNumPress() { return false; }
 
 	@NonNull
 	@Override

@@ -13,7 +13,6 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
-import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -69,37 +68,22 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean onNumber(int key, boolean hold, int repeat) {
+	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			// hold to type any digit
 			reset();
-			word = String.valueOf(key);
-		} else if (key == 0 && repeat > 0) {
-			onDouble0();
+			autoAcceptTimeout = 0;
+			suggestions.add(String.valueOf(number));
 		} else {
 			// words
 			super.reset();
-			digitSequence += key;
+			digitSequence += number;
+			if (number == 0 && repeat > 0) {
+				autoAcceptTimeout = 0;
+			}
 		}
 
 		return true;
-	}
-
-
-	/**
-	 * onDouble0
-	 * Double "0" is a shortcut for the preferred character.
-	 */
-	private void onDouble0() {
-		try {
-			reset();
-			word = settings.getDoubleZeroChar();
-			digitSequence =	language.getDigitSequenceForWord(word);
-		} catch (InvalidLanguageCharactersException e) {
-			Logger.w("tt9/onDouble0", "Failed getting the sequence for word: '" + word + "'. Performing standard 0-key action.");
-			reset();
-			digitSequence = "0";
-		}
 	}
 
 
@@ -217,7 +201,6 @@ public class ModePredictive extends InputMode {
 			.setWordsChangedHandler(handleSuggestions);
 
 		handleSuggestionsExternal = handler;
-		super.reset();
 
 		return predictions.load();
 	}

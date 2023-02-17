@@ -27,7 +27,7 @@ public class Predictions {
 	private Handler wordsChangedHandler;
 
 	// data
-	private ArrayList<String> words = new ArrayList<>();
+	private final ArrayList<String> words = new ArrayList<>();
 
 	// punctuation/emoji
 	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
@@ -127,7 +127,7 @@ public class Predictions {
 	 */
 	public boolean load() {
 		if (digitSequence == null || digitSequence.length() == 0) {
-			words = new ArrayList<>();
+			words.clear();
 			onWordsChanged();
 			return false;
 		}
@@ -155,16 +155,27 @@ public class Predictions {
 	 * Returns "false", when there are no static options for the current digitSequence.
 	 */
 	private boolean loadStatic() {
+		// whitespace/special/math characters
 		if (digitSequence.equals("0")) {
+			words.clear();
 			stem = "";
-			words = language.getKeyCharacters(0, false);
-		} else if (containsOnly1Regex.matcher(digitSequence).matches()) {
+			words.addAll(language.getKeyCharacters(0, false));
+		}
+		// "00" is a shortcut for the preferred character
+		else if (digitSequence.equals("00")) {
+			words.clear();
+			stem = "";
+			words.add(settings.getDoubleZeroChar());
+		}
+		// emoji
+		else if (containsOnly1Regex.matcher(digitSequence).matches()) {
+			words.clear();
 			stem = "";
 			if (digitSequence.length() == 1) {
-				words = language.getKeyCharacters(1, false);
+				words.addAll(language.getKeyCharacters(1, false));
 			} else {
 				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
-				words = Characters.getEmoji(digitSequence.length() - 2);
+				words.addAll(Characters.getEmoji(digitSequence.length() - 2));
 			}
 		} else {
 			return false;

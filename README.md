@@ -10,11 +10,11 @@ This is an updated version of the [original project](https://github.com/Clam-/Tr
 or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releases/latest).
 
 ## System Requirements
-- Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 5.1.1 and 11)_
+- Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 10 and 11)_
 - Free space:
   - Minimum 25 Mb when not using Predictive mode and no dictionaries are loaded.
   - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
-- A hardware keypad or a keyboard. The application is not usable on touchscreen-only devices.
+- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
 
 _If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016._
 
@@ -24,9 +24,9 @@ Before using Traditional T9 for the first time you would need to load a dictiona
 So make sure to read the initial setup and the hotkey tips in the [user manual](docs/user-manual.md).
 
 ## Contributing to the Project
-As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is what you could do:
-- [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. Currently, the only testing and development device is: Qin F21 Pro+ / Android 11.
-- Add [a new language](CONTRIBUTING.md#adding-a-new-language), [new UI translations](CONTRIBUTING.md#translating-the-ui) or simply fix a spelling mistake. The process is very simple and even with minimum techincal knowledge, your skills as a native speaker will be of great use. Or, if you are not tech-savvy, just [open a new issue](https://github.com/sspanak/tt9/issues) and put the correct translations there.
+As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is how:
+- [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. Currently, the only testing and development devices are: Qin F21 Pro+ / Android 11; Energizer H620SEU / Android 10. But Android behaviour and appearance varies a lot across the millions of devices available out there.
+- Add [a new language](CONTRIBUTING.md#adding-a-new-language), [new UI translations](CONTRIBUTING.md#translating-the-ui) or simply fix a spelling mistake. The process is very simple and even with minimum technical knowledge, your skills as a native speaker will be of great use. Or, if you are not tech-savvy, just [open a new issue](https://github.com/sspanak/tt9/issues) and put the correct translations there.
 - Experienced developers who are willing fix a bug, or maybe create a brand new feature, see the [Contribution Guide](CONTRIBUTING.md).
 
 Your PRs are welcome!

@@ -50,4 +50,5 @@
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Vider les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
+	<string name="pref_show_soft_numpad">Pavé numérique à l\'écran</string>
 </resources>

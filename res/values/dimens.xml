@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="candidate_list_height">26sp</dimen>
 	<dimen name="candidate_font_size">18sp</dimen>
+	<dimen name="candidate_height">26sp</dimen>
 	<dimen name="candidate_padding_horizontal">6sp</dimen>
-	<dimen name="candidate_padding_vertical">1sp</dimen>
 
 	<dimen name="soft_key_height">44dp</dimen>
 	<dimen name="soft_key_icon_size">24sp</dimen>
@@ -14,4 +13,13 @@
 	<dimen name="pref_padding_vertical">18dp</dimen>
 	<dimen name="pref_text_size">22sp</dimen>
 	<dimen name="pref_summary_size">19sp</dimen>
+
+	<!-- Numpad -->
+	<dimen name="numpad_padding_top">5dp</dimen>
+	<dimen name="numpad_padding_bottom">15dp</dimen>
+	<dimen name="numpad_key_height">56dp</dimen>
+
+	<dimen name="numpad_candidate_font_size">17sp</dimen>
+	<dimen name="numpad_candidate_height">32dp</dimen>
+	<dimen name="numpad_candidate_min_width">36dp</dimen>
 </resources>

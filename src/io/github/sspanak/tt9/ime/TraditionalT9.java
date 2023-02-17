@@ -17,13 +17,16 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.ui.bottom.StatusBar;
-import io.github.sspanak.tt9.ui.bottom.SuggestionsBar;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
@@ -40,7 +43,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected Language mLanguage;
 
 	// soft key view
-	private SoftKeyHandler softKeyHandler = null;
+	private MainView mainView = null;
 	private StatusBar statusBar = null;
 	private SuggestionsBar suggestionBar = null;
 
@@ -48,6 +51,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	private static TraditionalT9 self;
 	public static Context getMainContext() {
 		return self.getApplicationContext();
+	}
+
+	public SettingsStore getSettings() {
+		return settings;
 	}
 
 
@@ -80,16 +87,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);
 
-		if (softKeyHandler == null) {
-			softKeyHandler = new SoftKeyHandler(this);
-		}
-
-		if (statusBar == null) {
-			statusBar = new StatusBar(softKeyHandler.getView());
-		}
-
-		if (suggestionBar == null) {
-			suggestionBar = new SuggestionsBar(settings, softKeyHandler.getView());
+		if (mainView == null) {
+			mainView = new MainView(this);
+			initTray();
 		}
 
 		loadSettings();
@@ -115,17 +115,28 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void initUi() {
-		statusBar
-			.setText(mInputMode != null ? mInputMode.toString() : "")
-			.setDarkTheme(settings.getDarkTheme());
+	private void initTray() {
+		setInputView(mainView.getView());
+		statusBar = new StatusBar(mainView.getView());
+		suggestionBar = new SuggestionsBar(this, mainView.getView());
+	}
 
-		clearSuggestions();
+
+	private void setDarkTheme() {
+		mainView.setDarkTheme(settings.getDarkTheme());
+		statusBar.setDarkTheme(settings.getDarkTheme());
 		suggestionBar.setDarkTheme(settings.getDarkTheme());
+	}
 
-		softKeyHandler.setDarkTheme(settings.getDarkTheme());
-		softKeyHandler.setSoftKeysVisibility(settings.getShowSoftKeys());
-		softKeyHandler.show();
+
+	private void initUi() {
+		if (mainView.createView()) {
+			initTray();
+		}
+		clearSuggestions();
+		statusBar.setText(mInputMode != null ? mInputMode.toString() : "");
+		setDarkTheme();
+		mainView.render();
 	}
 
 
@@ -163,8 +174,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onStop() {
 		onFinishTyping();
 		clearSuggestions();
-
-		softKeyHandler.hide();
 	}
 
 
@@ -193,10 +202,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOK() {
-		if (!textField.isThereText()) {
+		if (!isInputViewShown() && !textField.isThereText()) {
 			forceShowWindowIfHidden();
 			return true;
-		} else if (isSuggestionViewHidden() && currentInputConnection != null) {
+		} else if (isSuggestionViewHidden()) {
 			return performOKAction();
 		}
 
@@ -275,12 +284,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		String currentWord = getComposingText();
 
-		// Automatically accept the current word, when the next one is a space or whatnot,
+		// Automatically accept the current word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
-			mInputMode.onAcceptSuggestion(currentWord);
-			commitCurrentSuggestion(false);
-			autoCorrectSpace(currentWord, false, key, hold, repeat > 0);
+			autoCorrectSpace(acceptIncompleteSuggestion(), false, key, hold, repeat > 0);
 			currentWord = "";
 		}
 
@@ -296,17 +303,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.shouldSelectNextSuggestion() && !isSuggestionViewHidden()) {
 			nextSuggestion();
-			return true;
-		}
-
-		if (mInputMode.getWord() != null) {
-			currentWord = mInputMode.getWord();
-
-			mInputMode.onAcceptSuggestion(currentWord);
-			textField.setText(currentWord);
-			clearSuggestions();
-			autoCorrectSpace(currentWord, true, key, hold, repeat > 0);
-			resetKeyRepeat();
 		} else {
 			getSuggestions();
 		}
@@ -315,19 +311,33 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onPound() {
-		textField.setText("#");
+	public boolean onOtherKey(int keyCode) {
+		if (
+			keyCode <= 0 ||
+			(mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) && !Key.isNumber(keyCode)
+		) {
+			return false;
+		}
+
+		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		sendDownUpKeyEvents(keyCode);
 		return true;
 	}
 
 
-	protected boolean onStar() {
-		textField.setText("*");
+	public boolean onText(String text) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER || text.length() == 0) {
+			return false;
+		}
+
+		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		textField.setText(text);
+		autoCorrectSpace(text, false, -1, false, false);
 		return true;
 	}
 
 
-	protected boolean onKeyAddWord() {
+	public boolean onKeyAddWord() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
@@ -337,7 +347,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyNextLanguage() {
+	public boolean onKeyNextLanguage() {
 		if (nextLang()) {
 			commitCurrentSuggestion(false);
 			mInputMode.changeLanguage(mLanguage);
@@ -345,6 +355,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			resetKeyRepeat();
 			clearSuggestions();
 			statusBar.setText(mInputMode.toString());
+			mainView.render();
 			forceShowWindowIfHidden();
 
 			return true;
@@ -354,14 +365,15 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyNextInputMode() {
+	public boolean onKeyNextInputMode() {
 		nextInputMode();
+		mainView.render();
 		forceShowWindowIfHidden();
 		return (mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER);
 	}
 
 
-	protected boolean onKeyShowSettings() {
+	public boolean onKeyShowSettings() {
 		if (mEditing == EDITING_DIALER) {
 			return false;
 		}
@@ -414,6 +426,15 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private String acceptIncompleteSuggestion() {
+		String currentWord = getComposingText();
+		mInputMode.onAcceptSuggestion(currentWord);
+		commitCurrentSuggestion(false);
+
+		return currentWord;
+	}
+
+
 	private void commitCurrentSuggestion() {
 		commitCurrentSuggestion(true);
 	}
@@ -448,9 +469,22 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void handleSuggestions() {
+		// key code "suggestions" take priority over words
+		if (mInputMode.getKeyCode() > 0) {
+			sendDownUpKeyEvents(mInputMode.getKeyCode());
+			mInputMode.onAcceptSuggestion(null);
+		}
+
+		// display the list of suggestions
 		setSuggestions(mInputMode.getSuggestions());
 
-		// Put the first suggestion in the text field,
+		// flush the first suggestion immediately, if the InputMode has requested it
+		if (mInputMode.getAutoAcceptTimeout() == 0) {
+			onOK();
+			return;
+		}
+
+		// Otherwise, put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
 		String word = suggestionBar.getCurrentSuggestion();
@@ -615,6 +649,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean performOKAction() {
+		if (currentInputConnection == null) {
+			return false;
+		}
+
 		int action = textField.getAction();
 		switch (action) {
 			case EditorInfo.IME_ACTION_NONE:
@@ -684,7 +722,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * Generates the actual UI of TT9.
 	 */
 	protected View createSoftKeyView() {
-		return softKeyHandler.getView();
+		mainView.forceCreateView();
+		initTray();
+		setDarkTheme();
+		return mainView.getView();
 	}
 
 

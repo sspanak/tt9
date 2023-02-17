@@ -205,10 +205,9 @@ public class SettingsStore {
 
 	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
 
-
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
-
+	public boolean getShowSoftNumpad() { return getShowSoftKeys() && prefs.getBoolean("pref_show_soft_numpad", false); }
 
 	/************* typing settings *************/
 

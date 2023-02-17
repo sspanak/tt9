@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui.bottom;
+package io.github.sspanak.tt9.ui.tray;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
+	private final SuggestionsBar suggestionsBar;
 	private final int layout;
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
@@ -23,7 +24,8 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int selectedIndex = 0;
 
 
-	public SuggestionsAdapter(Context context, int layout, int textViewResourceId, List<String> suggestions) {
+	public SuggestionsAdapter(Context context, SuggestionsBar suggestionBar, int layout, int textViewResourceId, List<String> suggestions) {
+		this.suggestionsBar = suggestionBar;
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
 		this.mInflater = LayoutInflater.from(context);
@@ -43,6 +45,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 		holder.suggestionItem.setText(mSuggestions.get(position));
 		holder.suggestionItem.setTextColor(colorDefault);
 		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? colorHighlight : Color.TRANSPARENT);
+		holder.suggestionItem.setOnClickListener(v -> suggestionsBar.onItemClick(holder.getAdapterPosition()));
 	}
 
 
