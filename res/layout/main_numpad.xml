@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/main_numpad"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<FrameLayout
+		android:layout_width="fill_parent"
+		android:layout_height="@dimen/numpad_candidate_height">
+
+		<TextView
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:textStyle="italic"
+			tools:text="@tools:sample/lorem" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/suggestions_bar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fadingEdge="horizontal"
+			android:gravity="center"
+			android:orientation="horizontal"
+			android:scrollbars="none" />
+
+	</FrameLayout>
+
+
+	<LinearLayout
+		android:id="@+id/main_soft_keys"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:paddingTop="@dimen/numpad_padding_top"
+		android:paddingBottom="@dimen/numpad_padding_bottom">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/numpad_key_height"
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_settings"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="⚙"
+				android:textSize="@dimen/soft_key_icon_size" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_2"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_3"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
+				android:id="@+id/soft_key_backspace"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="⌫"
+				android:textSize="@dimen/soft_key_icon_size"
+				tools:ignore="HardcodedText" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/numpad_key_height"
+			tools:ignore="HardcodedText">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_add_word"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="+WORD" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_4"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_5"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_6"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<View
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_weight="1" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/numpad_key_height"
+			tools:ignore="HardcodedText">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_input_mode"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="MODE" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_7"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_8"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_9"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<View
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_weight="1" />
+
+		</LinearLayout>
+
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/numpad_key_height"
+			tools:ignore="HardcodedText">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_language"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="🌐"
+				android:textSize="@dimen/soft_key_icon_size"
+				tools:ignore="HardcodedText" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey
+				android:id="@+id/soft_key_punctuation_1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
+				android:id="@+id/soft_key_0"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey
+				android:id="@+id/soft_key_punctuation_2"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_ok"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:text="@android:string/ok"
+				tools:ignore="ButtonOrder" />
+
+		</LinearLayout>
+	</LinearLayout>
+
+</LinearLayout>

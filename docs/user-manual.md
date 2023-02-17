@@ -1,14 +1,15 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It supports multiple languages and predictive text typing. _NOTE: TT9 is not usable on touchscreen-only devices._
+TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports multiple languages and predictive text typing, and an on-screen numpad for touchscreen devices.
 
 All source code, documentation and the privacy policy are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
-After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so, click on the launcher icon. If you
-need to take any action, you will see the Initial Setup screen, where you will be prompted to enable TT9 and set it as default system
-keyboard.
+After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup would be disabled and there would be a label saying TT9 is disabled. Go to Initial Setup and enable it.
 
 _If you don't see the icon right after installing, restart your phone and it should appear. Android is trying to save some battery life by not refreshing the newly installed apps list in some cases._
+
+### Using on a touchscreen-only phone
+If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
 
 ### Enabling Predictive Mode
 With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
@@ -47,8 +48,8 @@ Select next word/letter suggestion.
 #### D-pad Right (→):
 _Predictive mode only._
 
-- **Single press**: Filter the suggestion list, leaving out only the ones that start with the current word. It doesn't matter if it is a complete word or not. For example, type "rewin" and press Right. It will leave out all words starting with "rewin": "rewin" itself, "rewind", "rewinds", "rewinded", "rewinding", and so on.
-- **Double press**: Expand the filter to the full suggestion. For example, type "rewin" and press Right twice. It will first filter by "rewin", then expand the filter to "rewind". You can keep expanding the filter with Right, until you get to the longest suggestion in the list.
+- **Single press**: Filter the suggestion list, leaving out only the ones that start with the current word. It doesn't matter if it is a complete word or not. For example, type "remin" and press Right. It will leave out all words starting with "remin": "remin" itself, "remind", "reminds", "reminded", "reminding", and so on.
+- **Double press**: Expand the filter to the full suggestion. For example, type "remin" and press Right twice. It will first filter by "remin", then expand the filter to "remind". You can keep expanding the filter with Right, until you get to the longest suggestion in the list.
 
 Filtering can also be used to type unknown words. Let's say you want to type "Anakin", which is not in the dictionary. Start with "A", then press Right to hide "B" and "C". Now press 6-key. Since the filter is on, in addition to the real dictionary words, it will provide all possible combinations for 6: "Am", "An", "Ao". Select "An" and press Right to confirm your selection. Now pressing 2-key, will provide "Ana", "Anb", "Anc". You can keep going, until you complete "Anakin".
 
@@ -103,19 +104,17 @@ _In these cases, you could assign another key (all other keys are fully usable),
 - **Number-only fields:** No special action. Type a "#" with the default key. Changing the mode is not possible in such fields.
 
 #### Next Language Key (Default: Hold #):
-Select the next language, when mulitple languages have been enabled from the Settings.
+Select the next language, when multiple languages have been enabled from the Settings.
 
 #### Settings Key (Default: Hold ✱):
-Open the Configration screen.
+Open the Settings configuration screen.
 
-## On-screen Soft keys
-All functionality is available using the keypad, but for convenience, on touchscreen phones, you could also use the on-screen keys. If you instead prefer to have more screen space, disable them from the Settings.
+## On-screen Keypad
+On touchscreen-only phones, a fully functional on-screen keypad is available. Enable it from Settings -> Appearance -> Show On-Screen Numpad.
 
-#### Left Soft Key:
-Open the [Settings screen](#settings-screen).
+It is also recommended to disable the special behavior of "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to: Settings -> Keyboard -> Select Hotkeys -> Backspace key, then select the "--" option.
 
-#### Right Soft Key:
-Backspace.
+If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings -> Appearance.
 
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys or change the application appearance.

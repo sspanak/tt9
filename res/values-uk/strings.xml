@@ -59,4 +59,5 @@
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Очистіть невибрані</string>
 	<string name="pref_category_setup">Початкове налаштування</string>
+	<string name="pref_show_soft_numpad">Екранна цифрова клавіатура</string>
 </resources>

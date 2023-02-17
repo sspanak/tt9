@@ -2,15 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/suggestion_list_view"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
+	android:layout_height="match_parent"
 	android:orientation="horizontal">
 
 	<TextView
 		android:id="@+id/suggestion_list_item"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+		android:layout_height="match_parent"
+		android:gravity="center"
+		android:minWidth="@dimen/numpad_candidate_min_width"
 		android:paddingHorizontal="@dimen/candidate_padding_horizontal"
-		android:paddingVertical="@dimen/candidate_padding_vertical"
-		android:text=""
-		android:textSize="@dimen/candidate_font_size" />
+		android:textSize="@dimen/numpad_candidate_font_size" />
 </LinearLayout>

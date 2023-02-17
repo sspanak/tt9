@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
 import io.github.sspanak.tt9.languages.Language;
 
 public class ModeABC extends InputMode {
@@ -17,16 +15,16 @@ public class ModeABC extends InputMode {
 
 
 	@Override
-	public boolean onNumber(int key, boolean hold, int repeat) {
-		shouldSelectNextLetter = false;
-		suggestions = language.getKeyCharacters(key);
-		word = null;
-
+	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
-			suggestions = new ArrayList<>();
-			word = String.valueOf(key);
+			reset();
+			suggestions.add(String.valueOf(number));
+			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
+		} else {
+			reset();
+			suggestions.addAll(language.getKeyCharacters(number));
 		}
 
 		return true;
@@ -57,6 +55,12 @@ public class ModeABC extends InputMode {
 	@Override public boolean shouldTrackLeftRight() { return true; }
 	@Override public boolean shouldSelectNextSuggestion() {
 		return shouldSelectNextLetter;
+	}
+
+	@Override
+	public void reset() {
+		super.reset();
+		shouldSelectNextLetter = false;
 	}
 
 	@NonNull

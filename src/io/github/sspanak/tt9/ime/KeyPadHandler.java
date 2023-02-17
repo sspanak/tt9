@@ -143,36 +143,17 @@ abstract class KeyPadHandler extends InputMethodService {
 			isBackspaceHandled = false;
 		}
 
-		if (Key.isOK(keyCode)) {
-			return true;
-		}
-
-		// In numeric fields, we do not want to handle anything, but "backspace"
-		if (mEditing == EDITING_STRICT_NUMERIC) {
-			return false;
-		}
-
-		// holding "0" is important in all cases
-		if (keyCode == KeyEvent.KEYCODE_0) {
-			event.startTracking();
-			return true;
-		}
-
-		// In dialer fields we just want passthrough, but we do handle holding "0",
-		// to convert it to "+".
-		if (mEditing == EDITING_DIALER) {
-			return false;
-		}
-
 		// start tracking key hold
-		if (shouldTrackNumPress() || Key.isHotkey(settings, -keyCode)) {
+		if (Key.isNumber(keyCode) || Key.isHotkey(settings, -keyCode)) {
 			event.startTracking();
 		}
 
-		return Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
+		return
+			Key.isNumber(keyCode)
+			|| Key.isOK(keyCode)
+			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
 			|| keyCode == KeyEvent.KEYCODE_STAR
 			|| keyCode == KeyEvent.KEYCODE_POUND
-			|| (Key.isNumber(keyCode) && shouldTrackNumPress())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
 	}
@@ -217,12 +198,15 @@ abstract class KeyPadHandler extends InputMethodService {
 			return false;
 		}
 
+		//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+
 		if (keyCode == ignoreNextKeyUp) {
 //			Logger.d("onKeyUp", "Ignored: " + keyCode);
 			ignoreNextKeyUp = 0;
 			return true;
 		}
 
+		// repeat handling
 		keyRepeatCounter = (lastKeyCode == keyCode) ? keyRepeatCounter + 1 : 0;
 		lastKeyCode = keyCode;
 
@@ -231,32 +215,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			lastNumKeyCode = keyCode;
 		}
 
-//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
-
+		// backspace is handled in onKeyDown only, so we ignore it here
 		if (isBackspaceHandled) {
-			return true;
-		}
-
-		if (Key.isOK(keyCode)) {
-			return onOK();
-		}
-
-		// in numeric fields, we just handle backspace and let the rest go as-is.
-		if (mEditing == EDITING_STRICT_NUMERIC) {
-			return false;
-		}
-
-		if (keyCode == KeyEvent.KEYCODE_0) {
-			return onNumber(Key.codeToNumber(settings, keyCode), false, numKeyRepeatCounter);
-		}
-
-		// dialer fields are similar to pure numeric fields, but for user convenience, holding "0"
-		// is converted to "+"
-		if (mEditing == EDITING_DIALER) {
-			return false;
-		}
-
-		if (handleHotkey(keyCode, false)) {
 			return true;
 		}
 
@@ -264,13 +224,22 @@ abstract class KeyPadHandler extends InputMethodService {
 			return onNumber(Key.codeToNumber(settings, keyCode), false, numKeyRepeatCounter);
 		}
 
+		if (Key.isOK(keyCode)) {
+			return onOK();
+		}
+
+		if (handleHotkey(keyCode, false)) {
+			return true;
+		}
+
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
 			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
-			case KeyEvent.KEYCODE_STAR: return onStar();
-			case KeyEvent.KEYCODE_POUND: return onPound();
+			case KeyEvent.KEYCODE_STAR:
+			case KeyEvent.KEYCODE_POUND:
+				return onOtherKey(keyCode);
 		}
 
 		return false;
@@ -324,8 +293,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean onLeft();
 	abstract protected boolean onRight(boolean repeat);
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
-	abstract protected boolean onStar();
-	abstract protected boolean onPound();
+	abstract protected boolean onOtherKey(int keyCode);
 
 	// customized key handlers
 	abstract protected boolean onKeyAddWord();

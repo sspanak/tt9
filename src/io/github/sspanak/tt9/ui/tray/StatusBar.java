@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui.bottom;
+package io.github.sspanak.tt9.ui.tray;
 
 import android.content.Context;
 import android.view.View;

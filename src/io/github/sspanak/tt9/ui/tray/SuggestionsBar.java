@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui.bottom;
+package io.github.sspanak.tt9.ui.tray;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 
 public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();
@@ -24,14 +24,14 @@ public class SuggestionsBar {
 	private boolean isDarkThemeEnabled = false;
 
 	private final RecyclerView mView;
-	private final SettingsStore settings;
+	private final TraditionalT9 tt9;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 
-	public SuggestionsBar(SettingsStore settings, View mainView) {
+	public SuggestionsBar(TraditionalT9 tt9, View mainView) {
 		super();
 
-		this.settings = settings;
+		this.tt9 = tt9;
 
 		mView = mainView.findViewById(R.id.suggestions_bar);
 		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
@@ -45,8 +45,8 @@ public class SuggestionsBar {
 	private void configureAnimation() {
 		DefaultItemAnimator animator = new DefaultItemAnimator();
 
-		int translateDuration = settings.getSuggestionTranslateAnimationDuration();
-		int selectDuration = settings.getSuggestionSelectAnimationDuration();
+		int translateDuration = tt9.getSettings().getSuggestionTranslateAnimationDuration();
+		int selectDuration = tt9.getSettings().getSuggestionSelectAnimationDuration();
 
 		animator.setMoveDuration(selectDuration);
 		animator.setChangeDuration(translateDuration);
@@ -60,13 +60,14 @@ public class SuggestionsBar {
 	private void initDataAdapter(Context context) {
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
-			R.layout.suggestion_list_view,
+			this,
+			tt9.getSettings().getShowSoftNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
 			R.id.suggestion_list_item,
 			suggestions
 		);
 		mView.setAdapter(mSuggestionsAdapter);
 
-		setDarkTheme(settings.getDarkTheme());
+		setDarkTheme(tt9.getSettings().getDarkTheme());
 	}
 
 
@@ -212,5 +213,15 @@ public class SuggestionsBar {
 		}
 
 		setBackground(newSuggestions);
+	}
+
+
+	/**
+	 * onItemClick
+	 * Passes through suggestion selected using the touchscreen.
+	 */
+	public void onItemClick(int position) {
+		selectedIndex = position;
+		tt9.onOK();
 	}
 }

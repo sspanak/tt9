@@ -13,4 +13,12 @@
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_show_soft_function_keys" />
 
+	<SwitchPreferenceCompat
+		app:defaultValue="false"
+		app:key="pref_show_soft_numpad"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_show_soft_numpad"
+		app:summary="@string/pref_show_soft_numpad_summary"
+		app:dependency="pref_show_soft_keys" />
+
 </PreferenceScreen>

@@ -59,4 +59,5 @@
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
 	<string name="pref_category_setup">Начална настройка</string>
+	<string name="pref_show_soft_numpad">Цифрова клавиатура на екрана</string>
 </resources>

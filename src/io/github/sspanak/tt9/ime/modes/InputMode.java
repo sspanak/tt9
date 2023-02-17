@@ -27,9 +27,10 @@ abstract public class InputMode {
 	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
+	protected int autoAcceptTimeout = -1;
 	protected Language language;
 	protected ArrayList<String> suggestions = new ArrayList<>();
-	protected String word = null;
+	protected int keyCode = 0;
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, int mode) {
@@ -47,7 +48,7 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(int key, boolean hold, int repeat);
+	abstract public boolean onNumber(int number, boolean hold, int repeat);
 
 	// Predictions
 	public void onAcceptSuggestion(String suggestion) {}
@@ -63,9 +64,6 @@ abstract public class InputMode {
 		return newSuggestions;
 	}
 
-	// Word
-	public String getWord() { return word; }
-
 	// Mode identifiers
 	public boolean isPredictive() { return false; }
 	public boolean isABC() { return false; }
@@ -74,6 +72,10 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
+	public int getAutoAcceptTimeout() {
+		return autoAcceptTimeout;
+	}
+	public int getKeyCode() { return keyCode; }
 	public void changeLanguage(Language newLanguage) {
 		if (newLanguage != null) {
 			language = newLanguage;
@@ -90,8 +92,9 @@ abstract public class InputMode {
 	public boolean shouldTrackLeftRight() { return false; }
 
 	public void reset() {
-		suggestions = new ArrayList<>();
-		word = null;
+		autoAcceptTimeout = -1;
+		keyCode = 0;
+		suggestions.clear();
 	}
 
 	// Text case
