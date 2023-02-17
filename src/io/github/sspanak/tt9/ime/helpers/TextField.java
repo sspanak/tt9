@@ -297,4 +297,22 @@ public class TextField {
 
 		return styledWord;
 	}
+
+
+	public int getAction() {
+		// @todo: also handle field.ActionId
+		//
+		switch (field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION)) {
+        case EditorInfo.IME_ACTION_GO:
+            return EditorInfo.IME_ACTION_GO;
+        case EditorInfo.IME_ACTION_NEXT:
+            return EditorInfo.IME_ACTION_NEXT;
+        case EditorInfo.IME_ACTION_SEARCH:
+            return EditorInfo.IME_ACTION_SEARCH;
+        case EditorInfo.IME_ACTION_SEND:
+            return EditorInfo.IME_ACTION_SEND;
+        default:
+            return -1;
+    }
+	}
 }

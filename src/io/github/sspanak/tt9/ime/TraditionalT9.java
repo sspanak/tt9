@@ -192,7 +192,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onOK() {
 		if (isSuggestionViewHidden() && currentInputConnection != null) {
-			return sendDefaultEditorAction(false);
+			if (textField.getAction() == -1) {
+				sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+				return true;
+			} else {
+				return currentInputConnection.performEditorAction(textField.getAction());
+			}
 		}
 
 		String word = mSuggestionView.getCurrentSuggestion();
