@@ -27,6 +27,7 @@ public class LanguageCollection {
 			French.class,
 			German.class,
 			Italian.class,
+			Norwegian.class,
 			Russian.class,
 			Spanish.class,
 			Ukrainian.class
