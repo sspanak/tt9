@@ -48,7 +48,7 @@ To support a new language one needs to:
 
 - Add status icons
     - Create a proper icon for each screen size. The icon needs to contain the abbreviation of the language. (e.g. "En" for "English").
-    - The font must be Roboto Lt at an adequate size to fit the icon square with minimum padding.
+    - The font must be Roboto or Roboto Lt (Heebo for Hebrew) at an adequate size to fit the icon square with minimum padding.
     - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
     - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-clicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
 - Find a suitable dictionary and add it to `assets/` folder. Two file formats are supported, [see below](#dictionary-formats).
