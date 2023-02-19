@@ -36,6 +36,7 @@ Your PRs are welcome!
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries/), where applicable. Detailed information about the dictionaries is also available there.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Roboto" font is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+- "Heebo" font is under [SIL Open Font License Version 1.1](http://scripts.sil.org/OFL).
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
 
 ## Privacy Policy
