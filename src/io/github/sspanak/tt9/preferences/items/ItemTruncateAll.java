@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ui.UI;
 
 
-public class ItemTruncateDictionary extends ItemClickable {
+public class ItemTruncateAll extends ItemClickable {
 	public static final String NAME = "dictionary_truncate";
 
 	private final Context context;
@@ -21,7 +21,7 @@ public class ItemTruncateDictionary extends ItemClickable {
 	private final ItemLoadDictionary loadItem;
 
 
-	public ItemTruncateDictionary(Preference item, ItemLoadDictionary loadItem, Context context, DictionaryLoader loader) {
+	public ItemTruncateAll(Preference item, ItemLoadDictionary loadItem, Context context, DictionaryLoader loader) {
 		super(item);
 		this.context = context;
 		this.loadItem = loadItem;
@@ -42,7 +42,7 @@ public class ItemTruncateDictionary extends ItemClickable {
 			loadItem.changeToLoadButton();
 		}
 
-		DictionaryDb.truncateWords(onDictionaryTruncated);
+		DictionaryDb.deleteWords(onDictionaryTruncated);
 
 		return true;
 	}

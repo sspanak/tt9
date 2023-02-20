@@ -7,14 +7,18 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
-import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
+import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
+import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
+import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
+import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -31,39 +35,68 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 		super.onCreate(savedInstanceState);
 		validateFunctionKeys();
-		buildScreen();
+		buildLayout();
 	}
 
 
 	@Override
 	public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
-		// instantiate the new Fragment
-		Fragment fragment;
-		if (pref.getFragment() != null && pref.getFragment().contains("Hotkeys")) {
-			fragment = new HotkeysScreen(this);
-		} else {
-			fragment = new MainSettingsScreen(this);
-		}
+		Fragment fragment = getScreen((getScreenName(pref)));
 		fragment.setArguments(pref.getExtras());
-
-		// replace the existing Fragment with the new Fragment
-		getSupportFragmentManager().beginTransaction()
-			.replace(R.id.preferences_container, fragment)
-			.addToBackStack(null)
-			.commit();
-
+		displayScreen(fragment, true);
 		return true;
 	}
 
 
-	private void applyTheme() {
-		AppCompatDelegate.setDefaultNightMode(
-			settings.getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
-		);
+	/**
+	 * getScreenName
+	 * Determines the name of the screen for the given preference, as defined in the preference's "fragment" attribute.
+	 * Expected format: "current.package.name.screens.SomeNameScreen"
+	 */
+	private String getScreenName(@NonNull Preference pref) {
+		String screenClassName = pref.getFragment();
+		return screenClassName != null ? screenClassName.replaceFirst("^.+?([^.]+)Screen$", "$1") : "";
 	}
 
 
-	private void buildScreen() {
+	/**
+	 * getScreen
+	 * Finds a screen fragment by name. If there is no fragment with such name, the main screen
+	 * fragment will be returned.
+	 */
+	private Fragment getScreen(String name) {
+		switch (name) {
+			case "Appearance":
+				return new AppearanceScreen(this);
+			case "Dictionaries":
+				return new DictionariesScreen(this);
+			case "Hotkeys":
+				return new HotkeysScreen(this);
+			case "KeyPad":
+				return new KeyPadScreen(this);
+			default:
+				return new MainSettingsScreen(this);
+		}
+	}
+
+
+	/**
+	 * displayScreen
+	 * Replaces the currently displayed screen fragment with a new one.
+	 */
+	private void displayScreen(Fragment screen, boolean addToBackStack) {
+		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+		transaction.replace(R.id.preferences_container, screen);
+		if (addToBackStack) {
+			transaction.addToBackStack(screen.getClass().getSimpleName());
+		}
+
+		transaction.commit();
+	}
+
+
+	private void buildLayout() {
 		ActionBar actionBar = getSupportActionBar();
 		if (actionBar != null) {
 			actionBar.setDisplayShowHomeEnabled(true);
@@ -71,10 +104,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		}
 
 		setContentView(R.layout.preferences_container);
-		getSupportFragmentManager()
-			.beginTransaction()
-			.replace(R.id.preferences_container, new MainSettingsScreen(this))
-			.commit();
+		displayScreen(new MainSettingsScreen(this), false);
 	}
 
 
@@ -84,6 +114,13 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
+	}
+
+
+	private void applyTheme() {
+		AppCompatDelegate.setDefaultNightMode(
+			settings.getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
+		);
 	}
 
 

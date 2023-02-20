@@ -20,12 +20,22 @@ With the default settings, it is only possible to type in 123 and ABC modes. In 
 
 _If you don't do the above, there will be no suggestions when typing in Predictive mode._
 
-#### Dictionary Tips
-Once a dictionary is loaded, it will stay there until you use the Clear option. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
+### Dictionary Tips
+
+#### Loading a Dictionary
+Once a dictionary is loaded, it will stay there until you use one of the "clear" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
 
 Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+
+#### Clearing a Dictionary
+
+If you have stopped using languages X or Y, you could disable them and also use "Clear Unselected", to delete their dictionaries and free some memory.
+
+To delete everything, regardless of the selection, use "Clear All".
+
+In all cases, clearing a dictionary deletes both all factory and all custom added words.
 
 ## Hotkeys
 
@@ -117,4 +127,3 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 - Select "Traditional T9".
 
 _The actual menu names may vary depending on your phone, Android version and language._
-

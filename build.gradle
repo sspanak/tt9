@@ -56,7 +56,6 @@ def getVersionName = { ->
 	// minor version
 	String commitsSinceLastTag = "0"
 	if (versionTagsCount > 1) {
-		println "VERSION TAG: " + versionTagsCount
 		String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
 		String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
 		commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()

@@ -10,84 +10,25 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.items.ItemLoadDictionary;
-import io.github.sspanak.tt9.preferences.items.ItemSelectLanguage;
-import io.github.sspanak.tt9.preferences.items.ItemSelectZeroKeyCharacter;
-import io.github.sspanak.tt9.preferences.items.ItemToggleDarkTheme;
-import io.github.sspanak.tt9.preferences.items.ItemTruncateDictionary;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class MainSettingsScreen extends BaseScreenFragment {
 	private final Pattern releaseVersionRegex = Pattern.compile("^\\d+\\.\\d+$");
 
-	public MainSettingsScreen() {
-		init();
-	}
+	public MainSettingsScreen() { init(); }
+	public MainSettingsScreen(PreferencesActivity activity) { init(activity); }
 
-	public MainSettingsScreen(PreferencesActivity activity) {
-		init(activity);
-	}
-
-
-	@Override
-	protected int getTitle() {
-		return R.string.app_settings;
-	}
-
-
-	@Override
-	protected int getXml() {
-		return R.xml.prefs;
-	}
-
+	@Override protected int getTitle() { return R.string.app_settings;}
+	@Override protected int getXml() { return R.xml.prefs; }
 
 	@Override
 	public void onCreate() {
+		addHelpLink();
 		createAboutSection();
-		createAppearanceSection();
-		createDictionarySection();
-		createHelpSection();
-		createPredictiveModeSection();
 	}
 
 
-	private void createDictionarySection() {
-		ItemSelectLanguage multiSelect = new ItemSelectLanguage(
-			findPreference(ItemSelectLanguage.NAME),
-			activity.settings
-		);
-		multiSelect.populate().enableValidation();
-
-		ItemLoadDictionary loadItem = new ItemLoadDictionary(
-			findPreference(ItemLoadDictionary.NAME),
-			activity,
-			activity.settings,
-			activity.getDictionaryLoader(),
-			activity.getDictionaryProgressBar()
-		);
-		loadItem.enableClickHandler();
-
-		ItemTruncateDictionary truncateItem = new ItemTruncateDictionary(
-			findPreference(ItemTruncateDictionary.NAME),
-			loadItem,
-			activity,
-			activity.getDictionaryLoader()
-		);
-		truncateItem.enableClickHandler();
-	}
-
-
-	private void createAppearanceSection() {
-		(new ItemToggleDarkTheme(findPreference(ItemToggleDarkTheme.NAME))).enableToggleHandler();
-	}
-
-
-	private void createPredictiveModeSection() {
-		(new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity)).populate().activate();
-	}
-
-
-	private void createHelpSection() {
+	private void addHelpLink() {
 		try {
 			if (!releaseVersionRegex.matcher(BuildConfig.VERSION_NAME).find()) {
 				throw new Exception("VERSION_NAME does not match: \\d+.\\d+");

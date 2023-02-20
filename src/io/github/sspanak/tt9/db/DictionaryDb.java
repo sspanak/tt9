@@ -106,11 +106,20 @@ public class DictionaryDb {
 	}
 
 
-	public static void truncateWords(Handler handler) {
+	public static void deleteWords(Handler handler) {
+		deleteWords(handler, null);
+	}
+
+
+	public static void deleteWords(Handler handler, ArrayList<Integer> languageIds) {
 		new Thread() {
 			@Override
 			public void run() {
-				getInstance().clearAllTables();
+				if (languageIds == null) {
+					getInstance().clearAllTables();
+				} else if (languageIds.size() > 0) {
+					getInstance().wordsDao().deleteByLanguage(languageIds);
+				}
 				handler.sendEmptyMessage(0);
 			}
 		}.start();

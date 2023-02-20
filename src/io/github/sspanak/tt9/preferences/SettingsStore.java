@@ -207,7 +207,7 @@ public class SettingsStore {
 
 	/************* typing settings *************/
 
-	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
+	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");
