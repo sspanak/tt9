@@ -12,9 +12,7 @@
 	<string name="pref_help">Hilfe</string>
 	<string name="pref_dark_theme">Dunkles Thema</string>
 	<string name="pref_choose_languages">Sprachen</string>
-	<string name="dictionary_truncate_title">Wörterbuch löschen</string>
 
-	<string name="pref_category_dictionaries">Wörterbücher</string>
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
 	<string name="dictionary_load_title">Wörterbuch laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>

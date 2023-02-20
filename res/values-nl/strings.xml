@@ -11,8 +11,6 @@
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_choose_languages">Talen</string>
-	<string name="dictionary_truncate_title">Woordenboek wissen</string>
-	<string name="pref_category_dictionaries">Woordenboeken</string>
 	<string name="dictionary_loading">Woordenboek laden (%1$s)…</string>
 	<string name="dictionary_load_title">Woordenboek laden</string>
 	<string name="dictionary_not_found">Laden mislukt. Woordenboek voor %1$s niet gevonden.</string>

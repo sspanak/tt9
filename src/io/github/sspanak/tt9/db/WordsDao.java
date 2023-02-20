@@ -5,12 +5,16 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 interface WordsDao {
 	@Query("SELECT COUNT(id) FROM words WHERE :langId < 0 OR lang = :langId")
 	int count(int langId);
+
+	@Query("DELETE FROM words WHERE LANG IN(:langIds)")
+	int deleteByLanguage(ArrayList<Integer> langIds);
 
 	@Query("SELECT COUNT(id) FROM words WHERE lang = :langId AND word = :word")
 	int doesWordExist(int langId, String word);
