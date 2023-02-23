@@ -37,7 +37,7 @@ public class ModePredictive extends InputMode {
 	private static Handler handleSuggestionsExternal;
 
 	// auto text case selection
-	private final Pattern startOfSentenceRegex = Pattern.compile("(?<!\\.)[.?!¿¡]\\s*$");
+	private final Pattern startOfSentenceRegex = Pattern.compile("(?<!\\.)(^|[.?!¿¡])\\s*$");
 
 	// punctuation/emoji
 	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
