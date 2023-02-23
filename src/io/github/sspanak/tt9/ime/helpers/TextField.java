@@ -18,6 +18,8 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
 public class TextField {
+	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
+
 	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)(?!\n)$");
 	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)(\\w+)");
 
@@ -300,19 +302,21 @@ public class TextField {
 
 
 	public int getAction() {
-		// @todo: also handle field.ActionId
-		//
-		switch (field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION)) {
-        case EditorInfo.IME_ACTION_GO:
-            return EditorInfo.IME_ACTION_GO;
-        case EditorInfo.IME_ACTION_NEXT:
-            return EditorInfo.IME_ACTION_NEXT;
-        case EditorInfo.IME_ACTION_SEARCH:
-            return EditorInfo.IME_ACTION_SEARCH;
-        case EditorInfo.IME_ACTION_SEND:
-            return EditorInfo.IME_ACTION_SEND;
-        default:
-            return -1;
-    }
+		if (field.actionId > 0) {
+			return field.actionId; // custom action, defined by the connected app
+		}
+
+		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+		switch (standardAction) {
+			case EditorInfo.IME_ACTION_GO:
+			case EditorInfo.IME_ACTION_NEXT:
+			case EditorInfo.IME_ACTION_PREVIOUS:
+			case EditorInfo.IME_ACTION_SEARCH:
+			case EditorInfo.IME_ACTION_SEND:
+			case EditorInfo.IME_ACTION_NONE:
+				return standardAction;
+			default:
+				return IME_ACTION_ENTER;
+		}
 	}
 }
