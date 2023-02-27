@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import io.github.sspanak.tt9.Logger;
+
 
 public class Language {
-	protected int id;
+	private int id;
 	protected String name;
 	protected Locale locale;
 	protected int icon;
@@ -22,6 +24,10 @@ public class Language {
 	protected boolean isPunctuationPartOfWords; // see the getter for more info
 
 	final public int getId() {
+		if (id == 0) {
+			id = generateId();
+		}
+
 		return id;
 	}
 
@@ -45,7 +51,6 @@ public class Language {
 		return lowerCase ? abcLowerCaseIcon : abcUpperCaseIcon;
 	}
 
-
 	/**
 	 * isPunctuationPartOfWords
 	 * This plays a role in Predictive mode only.
@@ -67,6 +72,36 @@ public class Language {
 
 	/************* utility *************/
 
+	/**
+	 * generateId
+	 * Uses the letters of the Locale to generate an ID for the language.
+	 * Each letter is converted to uppercase and used as n 5-bit integer. Then the the 5-bits
+	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale.
+	 *
+	 * Example (2-letter Locale)
+	 * 	"en"
+	 * 	-> "E" | "N"
+	 * 	-> 5 | 448 (shift the 2nd number by 5 bits, so its bits would not overlap with the 1st one)
+	 *	-> 543
+	 *
+	 * Example (4-letter Locale)
+	 * 	"bg-BG"
+	 * 	-> "B" | "G" | "B" | "G"
+	 * 	-> 2 | 224 | 2048 | 229376 (shift each 5-bit number, not overlap with the previous ones)
+	 *	-> 231650
+	 */
+	private int generateId() {
+		String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
+		int idInt = 0;
+		for (int i = 0; i < idString.length(); i++) {
+			idInt |= ((idString.charAt(i) & 31) << (i * 5));
+		}
+
+		Logger.d("Language", "Generated lang ID: " + idString + " -> " + idInt);
+
+		return idInt;
+	}
+
 	private void generateReverseCharacterMap() {
 		reverseCharacterMap.clear();
 		for (int digit = 0; digit <= 9; digit++) {
@@ -75,7 +110,6 @@ public class Language {
 			}
 		}
 	}
-
 
 	public String capitalize(String word) {
 		return word != null ? word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale) : null;

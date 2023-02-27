@@ -10,7 +10,6 @@ import io.github.sspanak.tt9.languages.Characters;
 
 public class Ukrainian extends Language {
 	public Ukrainian() {
-		id = 6;
 		name = "Українська";
 		locale = new Locale("uk","UA");
 		dictionaryFile = "uk-utf8.csv";

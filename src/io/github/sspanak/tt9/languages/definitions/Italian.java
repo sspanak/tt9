@@ -9,7 +9,6 @@ public class Italian extends English {
 	public Italian() {
 		super();
 
-		id = 5;
 		name = "Italiano";
 		locale = Locale.ITALIAN;
 		dictionaryFile = "it-utf8.csv";

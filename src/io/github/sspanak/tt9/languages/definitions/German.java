@@ -8,7 +8,6 @@ public class German extends English {
 	public German() {
 		super();
 
-		id = 3;
 		name = "Deutsch";
 		locale = Locale.GERMAN;
 		dictionaryFile = "de-utf8.csv";
