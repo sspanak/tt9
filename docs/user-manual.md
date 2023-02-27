@@ -61,6 +61,15 @@ _Predictive mode only._
 - Clear the suggestion filter, if applied.
 - When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
 
+#### D-pad Center (OK or ENTER):
+- When suggestions are displayed, types the currently selected suggestion.
+- Otherwise, performs the default action for the current application (e.g. send a message, go to a URL, or just type a new line).
+
+_**NB:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
+
+_**NB2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
+
+
 #### 0-key:
 - **In 123 mode:**
   - **Press:** type "0".
