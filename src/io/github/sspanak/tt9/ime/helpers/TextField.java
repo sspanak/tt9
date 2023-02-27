@@ -313,7 +313,6 @@ public class TextField {
 			case EditorInfo.IME_ACTION_PREVIOUS:
 			case EditorInfo.IME_ACTION_SEARCH:
 			case EditorInfo.IME_ACTION_SEND:
-			case EditorInfo.IME_ACTION_NONE:
 				return standardAction;
 			default:
 				return IME_ACTION_ENTER;
