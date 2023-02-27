@@ -80,16 +80,41 @@ def getReleaseVersion = { ->
 	return "${getVersionName()} (${getCurrentGitHash()})"
 }
 
+def isPunctuationInWordsAllowed (String dictionaryFile) {
+	boolean isAllowed = false
+
+	file("${project.projectDir}/src/io/github/sspanak/tt9/languages/definitions").listFiles().each { file ->
+		boolean isTheDefinitionFile = false
+		file.eachLine {line ->
+			if (line.contains(dictionaryFile)) {
+				isTheDefinitionFile = true
+			}
+		}
+
+		if (isTheDefinitionFile) {
+			file.eachLine {line ->
+				if (line.matches(".+?isPunctuationPartOfWords\\s*=\\s*true.+?")) {
+					isAllowed = true
+				}
+			}
+		}
+	}
+
+	return isAllowed
+}
+
 task validateDictionaries {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "${project.buildDir}/dict.validation.txt"
 
 	doLast {
-		final String csvDelimiter = '	' // TAB
+		final String CSV_DELIMITER = '	' // TAB
+		final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
+		final PUNCTUATION_CHARS = ~".*?\\p{Punct}(?<!-).*?"
 
+		final MAX_ERRORS = 50
 		String errors = ""
 		int errorCount = 0
-		final MAX_ERRORS = 50
 
 		outputs.files.singleFile.text = ""
 
@@ -100,7 +125,7 @@ task validateDictionaries {
 
 			println "Validating dictionary: " + file.name
 
-			def geographicalName = ~"[A-Z]\\w+-[^\\n]+"
+			def isPunctuationAllowed = isPunctuationInWordsAllowed(file.name)
 			def uniqueWords = [:]
 
 			int lineNumber = 0
@@ -113,20 +138,27 @@ task validateDictionaries {
 
 				lineNumber++
 
-				String[] parts = line.split(csvDelimiter, 2)
+				if (line == "") {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. There is no word on line " + lineNumber + ". Remove all empty lines.\n"
+					return
+				}
+
+				String[] parts = line.split(CSV_DELIMITER, 2)
 				String word = parts[0]
 				String frequency = parts.length > 1 ? parts[1] : ""
 
 				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer. \n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer.\n"
 				}
 
 				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Please, remove all numbers.\n"
+					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Remove all numbers.\n"
 				}
 
 				if (word.matches("^\\P{L}+\$")) {
@@ -141,7 +173,13 @@ task validateDictionaries {
 					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 				}
 
-				String uniqueWordKey = word ==~ geographicalName ? word : word.toLowerCase()
+				if (!isPunctuationAllowed && word.matches(PUNCTUATION_CHARS)) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found a punctuation mark in word: '" + word + "' on line " + lineNumber + ". Remove all punctuation characters when the language definition disallows them or update the definition.\n"
+				}
+
+				String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
 				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
 					isFileValid = false
 					errorCount++
@@ -150,7 +188,7 @@ task validateDictionaries {
 					uniqueWords[uniqueWordKey] = true
 				}
 
-				if (errorCount >= MAX_ERRORS ) {
+				if (errorCount >= MAX_ERRORS) {
 					errors += "Too many errors! Aborting.\n"
 				}
 			}

@@ -25,7 +25,6 @@ public class DictionaryLoader {
 	private final AssetManager assets;
 	private final SettingsStore settings;
 
-	private final Pattern containsPunctuation = Pattern.compile("\\p{Punct}(?<!-)");
 	private Handler statusHandler = null;
 	private Thread loadThread;
 
@@ -208,8 +207,8 @@ public class DictionaryLoader {
 			}
 
 			String[] parts = splitLine(line);
-			String word = validateWord(language, parts, lineCount);
-			int frequency = validateFrequency(parts);
+			String word = parts[0];
+			int frequency = getFrequency(parts);
 
 			try {
 				dbWords.add(stringToWord(language, word, frequency));
@@ -265,18 +264,7 @@ public class DictionaryLoader {
 	}
 
 
-	private String validateWord(Language language, String[] lineParts, long line) throws DictionaryImportException {
-		String word = lineParts[0];
-
-		if (!language.isPunctuationPartOfWords() && containsPunctuation.matcher(word).find()) {
-			throw new DictionaryImportException(language.getDictionaryFile(), word, line);
-		}
-
-		return word;
-	}
-
-
-	private int validateFrequency(String[] lineParts) {
+	private int getFrequency(String[] lineParts) {
 		try {
 			return Integer.parseInt(lineParts[1]);
 		} catch (Exception e) {
