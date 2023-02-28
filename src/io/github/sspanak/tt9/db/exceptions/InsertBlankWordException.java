@@ -1,7 +1,7 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.db.exceptions;
 
 public class InsertBlankWordException extends Exception {
-	protected InsertBlankWordException() {
+	public InsertBlankWordException() {
 		super("Cannot insert a blank word.");
 	}
 }

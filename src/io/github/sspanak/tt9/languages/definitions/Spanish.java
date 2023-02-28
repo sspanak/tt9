@@ -12,7 +12,6 @@ public class Spanish extends English {
 	public Spanish() {
 		super();
 
-		id = 9;
 		name = "Español";
 		locale = new Locale("es", "ES");
 		dictionaryFile = "es-utf8.csv";

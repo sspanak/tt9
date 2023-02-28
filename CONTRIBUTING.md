@@ -50,13 +50,17 @@ To support a new language one needs to:
     - Create a proper icon for each screen size. The icon needs to contain the abbreviation of the language. (e.g. "En" for "English").
     - The font must be Roboto Lt at an adequate size to fit the icon square with minimum padding.
     - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
-    - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-cicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
-- Find a suitable dictionary and add it to `assets` folder. Two file formats are supported, [see below](#dictionary-formats).
+    - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-clicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
+- Find a suitable dictionary and add it to `assets/` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
-- Create a new language class in `languages/definitions/`. Make sure to set all properties.
-  - `ID` must be the next available number.
-  - Set `isPunctuationPartOfWords` to `true`, if you need to use the 1-key for typing words, such as: `it's`, `a'tje` or `п'ят`. Otherwise, it would not be possible to type them, nor will they appear as suggestions. `false` will allow faster typing when apostrophes or other punctuation are not part of the words.
-- Add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
+- Create a new language class in `languages/definitions/` and define its properties.
+  - `name` is the native name of the language (e.g. "English", "Deutsch", "Українська").
+  - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
+  - `dictionaryFile` is the name of the dictionary in `assets/` folder.
+  - `icon`, `abcLowerCaseIcon` and `abcUpperCaseIcon` are the respective status icons for Predictive mode, ABC (lowercase) and ABC (uppercase).
+  - Set `isPunctuationPartOfWords` to `true`, if the dictionary contains words with apostrophes or dashes, such as: `it's`, `you'll`, `a'tje` or `п'ят`. This will allow using 1-key for typing them (they will appear as suggestions). `false` will enable faster typing when apostrophes or other punctuation are not part of the words (no such words will be suggested).
+  - `characterMap` contains the letters and punctuation marks associated with each key.
+- Finally, add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
 
 
 ### Dictionary Formats
@@ -67,7 +71,7 @@ The most basic format is just a list of words where each word is on a new line.
 Constraints:
 - No single lowercase letters. The application will add them automatically.
 - No repeating words.
-- No digits or garbadge characters as part of the words.
+- No digits or garbage characters as part of the words.
 
 _The constraints will be verified automatically upon building._
 
@@ -108,8 +112,7 @@ Alternatively, if you don't have Android Studio, you could just use `res/values/
 ## Adding Support for Keys
 TT9 allows assigning hotkeys for performing different functions. If your phone has a special key that does not appear on the Hotkey configuration screen, you can easily add support for it.
 
-- Find [preferences/helpers/Hotkeys.java](io/github/sspanak/tt9/preferences/helpers/Hotkeys.java).
-- In the file, find the `generateList()` function.
+- In `preferences/helpers/Hotkeys.java`, find the `generateList()` function.
 - Add the new key there. The order of adding is used when displaying the dropdown options.
 - Optionally, you can translate the name of the key in different languages in the `res/values-XX/strings.xml` files.
 

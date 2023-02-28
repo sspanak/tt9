@@ -10,7 +10,6 @@ import io.github.sspanak.tt9.languages.Characters;
 
 public class Bulgarian extends Language {
 	public Bulgarian() {
-		id = 7;
 		name = "Български";
 		locale = new Locale("bg","BG");
 		dictionaryFile = "bg-utf8.csv";

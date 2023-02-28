@@ -1,11 +1,11 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.db.exceptions;
 
 public class DictionaryImportException extends Exception {
 	public final String file;
 	public final String word;
 	public final long line;
 
-	DictionaryImportException(String file, String word, long line) {
+	public DictionaryImportException(String file, String word, long line) {
 		super("Dictionary import failed");
 		this.file = file;
 		this.word = word;

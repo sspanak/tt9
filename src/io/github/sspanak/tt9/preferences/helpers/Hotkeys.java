@@ -98,7 +98,7 @@ public class Hotkeys {
 
 	/**
 	 * generateList
-	 * These keys will appears as options only if Android says the device has them.
+	 * Generates a list of all supported hotkeys for associating functions in the Settings.
 	 *
 	 * NOTE: Some TT9 functions do not support all keys. Here you just list all possible options.
 	 * Actual validation and assigning happens in SectionKeymap.populate().

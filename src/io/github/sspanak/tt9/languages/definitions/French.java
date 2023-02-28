@@ -9,7 +9,6 @@ public class French extends English {
 	public French() {
 		super();
 
-		id = 4;
 		name = "Français";
 		locale = Locale.FRENCH;
 		dictionaryFile = "fr-utf8.csv";

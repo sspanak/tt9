@@ -11,9 +11,12 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
+import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
+import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
+import io.github.sspanak.tt9.db.room.Word;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;

@@ -63,7 +63,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateFunctionKeys() {
-		if (!settings.areFunctionKeysSet()) {
+		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
 	}
@@ -531,10 +531,15 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		// when only one language is enabled, just acknowledge the key was pressed
+		if (mEnabledLanguages.size() < 2) {
+			return true;
+		}
+
 		// select the next language
-		int previousLangId = mEnabledLanguages.indexOf(mLanguage.getId());
-		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(nextLangId));
+		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
+		int next = (previous + 1) % mEnabledLanguages.size();
+		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
 
 		validateLanguages();
 

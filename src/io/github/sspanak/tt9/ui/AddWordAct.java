@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
-import io.github.sspanak.tt9.db.InsertBlankWordException;
+import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
