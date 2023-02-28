@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.Logger;
-
 
 public class Language {
 	private int id;
@@ -96,8 +94,6 @@ public class Language {
 		for (int i = 0; i < idString.length(); i++) {
 			idInt |= ((idString.charAt(i) & 31) << (i * 5));
 		}
-
-		Logger.d("Language", "Generated lang ID: " + idString + " -> " + idInt);
 
 		return idInt;
 	}
