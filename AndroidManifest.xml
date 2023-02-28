@@ -12,7 +12,8 @@
 		android:allowBackup="false"
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
-		android:theme="@style/Theme.AppCompat.DayNight">
+		android:theme="@style/Theme.AppCompat.DayNight"
+		android:supportsRtl="true">
 
 		<service android:name="io.github.sspanak.tt9.ime.TraditionalT9" android:permission="android.permission.BIND_INPUT_METHOD"
 			android:exported="true">
@@ -33,6 +34,6 @@
 			android:excludeFromRecents="true"
 			android:label="@string/add_word_title"
 			android:name="io.github.sspanak.tt9.ui.AddWordAct"
-			android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
+			android:theme="@style/Theme.AppCompat.DayNight.Dialog.MinWidth"/>
 	</application>
 </manifest>
