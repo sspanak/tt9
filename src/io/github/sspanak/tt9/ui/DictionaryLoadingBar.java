@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryImportException;
+import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;

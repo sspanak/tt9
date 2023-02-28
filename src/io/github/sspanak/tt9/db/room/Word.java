@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.db.room;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

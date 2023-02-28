@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
+import io.github.sspanak.tt9.db.room.T9RoomDb;
+import io.github.sspanak.tt9.db.room.Word;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
