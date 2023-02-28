@@ -6,6 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import io.github.sspanak.tt9.db.migrations.DB6;
+import io.github.sspanak.tt9.db.migrations.DB7;
+
 @Database(version = 7, entities = Word.class, exportSchema = false)
 public abstract class TT9Room extends RoomDatabase {
 	public abstract WordsDao wordsDao();
@@ -13,7 +16,7 @@ public abstract class TT9Room extends RoomDatabase {
 	public static synchronized TT9Room getInstance(Context context) {
 		return Room
 			.databaseBuilder(context, TT9Room.class, "t9dict.db")
-			.addMigrations(Migrations.v5_v6, Migrations.v6_v7)
+			.addMigrations(DB6.MIGRATION, new DB7().getMigration(context))
 			.build();
 	}
 }
