@@ -14,6 +14,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
@@ -32,6 +33,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);
+
+		InputModeValidator.validateEnabledLanguages(settings, settings.getEnabledLanguageIds());
 
 		super.onCreate(savedInstanceState);
 		validateFunctionKeys();
