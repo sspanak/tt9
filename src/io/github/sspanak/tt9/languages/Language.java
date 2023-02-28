@@ -70,7 +70,7 @@ public class Language {
 	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
 
-	/************* utility *************/
+	/* ************ utility ************ */
 
 	/**
 	 * generateId
