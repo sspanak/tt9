@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
+	<string name="app_name" translatable="false">Traditional T9</string>
+	<string name="app_settings">TT9 הגדרות</string>
+	<string name="completed">הסתיים</string>
+	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
+
+	<string name="add_word_add">הוסף</string>
+	<string name="add_word_blank">מילה ריקה לא נוספה</string>
+	<string name="add_word_exist">המילה \"%1$s\" כבר קיימת במילון.</string>
+	<string name="add_word_invalid_language" translatable="false">אי אפשר להוסיף מילה כשאין שפות שנבחרו.</string>
+	<string name="add_word_title">הוסף מילה</string>
+	<string name="add_word_field_placeholder">הקלד מילה...</string>
+
+	<string name="pref_category_about">אודות</string>
+	<string name="pref_category_appearance">מראה</string>
+	<string name="pref_category_dictionaries">מילונים</string>
+	<string name="pref_category_predictive_mode">מצב חיזוי</string>
+	<string name="pref_category_function_keys">בחר מקשי קיצור</string>
+	<string name="pref_category_keypad">מקלדת</string>
+
+	<string name="pref_auto_space">רווח אוטומטי</string>
+	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
+	<string name="pref_auto_text_case">שימוש אוטומטי באותיות רישיות</string>
+	<string name="pref_auto_text_case_summary">התחל אוטומטית משפטים באות גדולה.</string>
+	<string name="pref_choose_languages">שפות</string>
+	<string name="pref_dark_theme">ערכת נושא שחורה</string>
+	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
+	<string name="pref_show_soft_function_keys">הצג לחצנים על המסך</string>
+	<string name="pref_help">עזרה</string>
+
+	<string name="dictionary_cancel_load">ביטול טעינה</string>
+	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית \"%1$s\" בשורה %2$d עבור \"%3$s\".</string>
+	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_cancelled">טעינת המילון בוטלה</string>
+	<string name="dictionary_loaded">טעינת המילון הושלמה.</string>
+	<string name="dictionary_loading">טוען מילון (%1$s)…</string>
+	<string name="dictionary_loading_indeterminate">טוען מילון</string>
+	<string name="dictionary_load_title">טעינת מילון</string>
+	<string name="dictionary_missing_go_load_it">אין מילון עבור \"%1$s\". טען את המילון דרך ההגדרות.</string>
+	<string name="dictionary_not_found">הטעינה נכשלה, לא נמצא מילון עבור \"%1$s\" .</string>
+	<string name="dictionary_truncate_title">ניקוי מילון</string>
+	<string name="dictionary_truncated">המילון נוקה בהצלחה</string>
+
+	<string name="function_add_word_key">לחצן הוספת מילה</string>
+	<string name="function_backspace_key">לחצן מחיקה</string>
+	<string name="function_next_language_key">לחצן למעבר לשפה הבאה</string>
+	<string name="function_next_mode_key">לחצן מצב קלט</string>
+	<string name="function_show_settings_key">לחצן הצגת הגדרות</string>
+	<string name="function_reset_keys_title">שחזור לחצני ברירת מחדל</string>
+	<string name="function_reset_keys_done">הגדרות ברירת המחדל שוחזרו.</string>
+
+	<string name="key_hold_key">(החזק)</string>
+	<string name="key_none" translatable="false">--</string>
+	<string name="key_back">חזור</string>
+	<string name="key_call">חיוג</string>
+	<string name="key_delete" translatable="false">Delete</string>
+	<string name="key_f1" translatable="false">F1</string>
+	<string name="key_f2" translatable="false">F2</string>
+	<string name="key_f3" translatable="false">F3</string>
+	<string name="key_f4" translatable="false">F4</string>
+	<string name="key_menu" translatable="false">Menu</string>
+	<string name="key_pound" translatable="false">#</string>
+	<string name="key_star" translatable="false">✱</string>
+
+	<string name="char_dot" translatable="false">.</string>
+	<string name="char_newline">שורה חדשה</string>
+	<string name="char_space">רווח</string>
+</resources>
