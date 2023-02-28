@@ -16,7 +16,7 @@ public class Hebrew extends Language {
 		dictionaryFile = "he-utf8.txt";
 		icon = R.drawable.ime_lang_he;
 		abcLowerCaseIcon = R.drawable.ime_lang_he_lower;
-/// no upper case in hebrew		abcUpperCaseIcon = R.drawable.ime_lang_latin_upper;
+    abcUpperCaseIcon = R.drawable.ime_lang_he_upper;
 
 		isPunctuationPartOfWords = true;
 
