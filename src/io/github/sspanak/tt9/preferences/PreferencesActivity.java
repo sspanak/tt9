@@ -128,7 +128,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 
 	private void validateFunctionKeys() {
-		if (!settings.areFunctionKeysSet()) {
+		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
 	}

@@ -153,8 +153,8 @@ public class SettingsStore {
 
 	/************* function key settings *************/
 
-	public boolean areFunctionKeysSet() {
-		return getKeyShowSettings() != 0;
+	public boolean isSettingsKeyMissing() {
+		return getKeyShowSettings() == 0;
 	}
 
 	public void setDefaultKeys() {

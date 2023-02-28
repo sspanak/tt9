@@ -63,7 +63,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateFunctionKeys() {
-		if (!settings.areFunctionKeysSet()) {
+		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
 	}
