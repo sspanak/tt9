@@ -9,15 +9,16 @@ public class Norwegian extends English {
 	public Norwegian() {
 		super();
 
-		id = 10;
-		name = "Norsk";
-		locale = new Locale("nb","NB");
+		name = "Norsk (Bokmål)";
+		locale = new Locale("nb","NO");
 		dictionaryFile = "nb-utf8.csv";
 		icon = R.drawable.ime_lang_nb;
 
 		isPunctuationPartOfWords = true;
 
-		characterMap.get(2).addAll(Arrays.asList("æ", "å"));
-		characterMap.get(6).add("ø");
+		characterMap.get(2).addAll(Arrays.asList("æ", "å", "ç"));
+		characterMap.get(3).addAll(Arrays.asList("é", "è"));
+		characterMap.get(6).addAll(Arrays.asList("ø", "ó", "ò", "ô"));
+		characterMap.get(8).add("ü");
 	}
 }
