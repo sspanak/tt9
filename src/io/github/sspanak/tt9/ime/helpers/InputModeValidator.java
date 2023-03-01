@@ -41,23 +41,19 @@ public class InputModeValidator {
 		return validLanguage;
 	}
 
-	public static InputMode validateMode(SettingsStore settings, InputMode inputMode, ArrayList<Integer> allowedModes) {
+	public static int validateMode(SettingsStore settings, InputMode inputMode, ArrayList<Integer> allowedModes) {
 		if (allowedModes.size() > 0 && allowedModes.contains(inputMode.getId())) {
-			inputMode.reset();
-			return inputMode;
+			return inputMode.getId();
 		}
 
-		InputMode newMode = InputMode.getInstance(
-			settings,
-			allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123
-		);
-		settings.saveInputMode(newMode);
+		int newModeId = allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123;
+		settings.saveInputMode(newModeId);
 
-		if (newMode.getId() != inputMode.getId()) {
-			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode.getId() + " Enforcing: " + newMode.getId());
+		if (newModeId != inputMode.getId()) {
+			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode.getId() + " Enforcing: " + newModeId);
 		}
 
-		return newMode;
+		return newModeId;
 	}
 
 	public static void validateTextCase(SettingsStore settings, InputMode inputMode, int newTextCase) {

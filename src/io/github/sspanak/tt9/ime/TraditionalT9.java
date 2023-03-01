@@ -51,7 +51,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadSettings() {
 		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
 		mEnabledLanguages = settings.getEnabledLanguageIds();
-		mInputMode = InputMode.getInstance(settings, settings.getInputMode());
+		mInputMode = InputMode.getInstance(settings, mLanguage, settings.getInputMode());
 		mInputMode.setTextCase(settings.getTextCase());
 	}
 
@@ -96,9 +96,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// some input fields support only numbers or are not suited for predictions (e.g. password fields)
 		determineAllowedInputModes();
-		mInputMode = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
-
+		int modeId = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
+		mInputMode = InputMode.getInstance(settings, mLanguage, modeId);
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+
 		// Some modes may want to change the default text case based on grammar rules.
 		determineNextTextCase();
 		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
@@ -197,7 +198,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		String word = mSuggestionView.getCurrentSuggestion();
 
-		mInputMode.onAcceptSuggestion(mLanguage, word);
+		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion();
 		autoCorrectSpace(word, true, -1, false, false);
 		resetKeyRepeat();
@@ -208,7 +209,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onUp() {
 		if (previousSuggestion()) {
-			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			mInputMode.setWordStem(mSuggestionView.getCurrentSuggestion(), true);
 			textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
 			return true;
 		}
@@ -219,7 +220,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onDown() {
 		if (nextSuggestion()) {
-			mInputMode.setWordStem(mLanguage, mSuggestionView.getCurrentSuggestion(), true);
+			mInputMode.setWordStem(mSuggestionView.getCurrentSuggestion(), true);
 			textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
 			return true;
 		}
@@ -230,7 +231,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onLeft() {
 		if (mInputMode.clearWordStem()) {
-			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, getComposingText());
+			mInputMode.loadSuggestions(handleSuggestionsAsync, getComposingText());
 		} else {
 			jumpBeforeComposingText();
 		}
@@ -247,8 +248,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			filter = getComposingText();
 		}
 
-		if (mInputMode.setWordStem(mLanguage, filter, repeat)) {
-			mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, filter);
+		if (mInputMode.setWordStem(filter, repeat)) {
+			mInputMode.loadSuggestions(handleSuggestionsAsync, filter);
 		} else if (filter.length() == 0) {
 			mInputMode.reset();
 		}
@@ -270,8 +271,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// Automatically accept the current word, when the next one is a space or whatnot,
 		// instead of requiring "OK" before that.
-		if (mInputMode.shouldAcceptCurrentSuggestion(mLanguage, key, hold, repeat > 0)) {
-			mInputMode.onAcceptSuggestion(mLanguage, currentWord);
+		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
+			mInputMode.onAcceptSuggestion(currentWord);
 			commitCurrentSuggestion(false);
 			autoCorrectSpace(currentWord, false, key, hold, repeat > 0);
 			currentWord = "";
@@ -283,7 +284,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			determineNextTextCase();
 		}
 
-		if (!mInputMode.onNumber(mLanguage, key, hold, repeat)) {
+		if (!mInputMode.onNumber(key, hold, repeat)) {
 			return false;
 		}
 
@@ -295,7 +296,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.getWord() != null) {
 			currentWord = mInputMode.getWord();
 
-			mInputMode.onAcceptSuggestion(mLanguage, currentWord);
+			mInputMode.onAcceptSuggestion(currentWord);
 			textField.setText(currentWord);
 			clearSuggestions();
 			autoCorrectSpace(currentWord, true, key, hold, repeat > 0);
@@ -333,6 +334,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected boolean onKeyNextLanguage() {
 		if (nextLang()) {
 			commitCurrentSuggestion(false);
+			mInputMode.changeLanguage(mLanguage);
 			mInputMode.reset();
 			resetKeyRepeat();
 			clearSuggestions();
@@ -430,14 +432,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mLanguage, mSuggestionView.getCurrentSuggestion())) {
+		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mSuggestionView.getCurrentSuggestion())) {
 			handleSuggestions();
 		}
 	}
 
 
 	private void handleSuggestions() {
-		setSuggestions(mInputMode.getSuggestions(mLanguage));
+		setSuggestions(mInputMode.getSuggestions());
 
 		// Put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
@@ -489,7 +491,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void nextInputMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, InputMode.MODE_123) : mInputMode;
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -498,9 +500,9 @@ public class TraditionalT9 extends KeyPadHandler {
 			// When we are in AUTO mode and the dictionary word is in uppercase,
 			// the mode would switch to UPPERCASE, but visually, the word would not change.
 			// This is why we retry, until there is a visual change.
-			for (int retries = 0; retries < 2; retries++) {
+			for (int retries = 0; retries < 2 && mLanguage.hasUpperCase(); retries++) {
 				mInputMode.nextTextCase();
-				setSuggestions(mInputMode.getSuggestions(mLanguage), mSuggestionView.getCurrentIndex());
+				setSuggestions(mInputMode.getSuggestions(), mSuggestionView.getCurrentIndex());
 				refreshComposingText();
 
 				if (!currentSuggestionBefore.equals(getComposingText())) {
@@ -509,17 +511,17 @@ public class TraditionalT9 extends KeyPadHandler {
 			}
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
+		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER && mLanguage.hasUpperCase()) {
 			mInputMode.nextTextCase();
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, allowedInputModes.get(modeIndex));
+			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(modeIndex));
 
 			mInputMode.defaultTextCase();
 		}
 
 		// save the settings for the next time
-		settings.saveInputMode(mInputMode);
+		settings.saveInputMode(mInputMode.getId());
 		settings.saveTextCase(mInputMode.getTextCase());
 
 		UI.updateStatusIcon(this, mLanguage, mInputMode);
@@ -558,7 +560,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		textField.setComposingText(word, 0);
 		textField.finishComposingText();
-		mInputMode.onAcceptSuggestion(mLanguage, word);
+		mInputMode.onAcceptSuggestion(word);
 		mInputMode.reset();
 		setSuggestions(null);
 	}
@@ -569,11 +571,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		int lastInputModeId = settings.getInputMode();
 		if (allowedInputModes.contains(lastInputModeId)) {
-			mInputMode = InputMode.getInstance(settings, lastInputModeId);
+			mInputMode = InputMode.getInstance(settings, mLanguage, lastInputModeId);
 		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			mInputMode = InputMode.getInstance(settings, InputMode.MODE_ABC);
+			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_ABC);
 		} else {
-			mInputMode = InputMode.getInstance(settings, allowedInputModes.get(0));
+			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(0));
 		}
 
 		if (inputType.isDialer()) {

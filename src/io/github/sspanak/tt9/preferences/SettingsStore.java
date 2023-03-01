@@ -140,14 +140,18 @@ public class SettingsStore {
 		return prefs.getInt("pref_input_mode", InputMode.MODE_PREDICTIVE);
 	}
 
-	public void saveInputMode(InputMode mode) {
-		if (mode == null) {
-			Logger.w("tt9/saveInputMode", "Not saving NULL input mode");
-			return;
-		}
+	public void saveInputMode(int mode) {
+		boolean isModeValid = isIntInList(
+			mode,
+			new ArrayList<>(Arrays.asList(InputMode.MODE_123, InputMode.MODE_PREDICTIVE, InputMode.MODE_ABC)),
+			"tt9/saveInputMode",
+			"Not saving invalid input mode: " + mode
+		);
 
-		prefsEditor.putInt("pref_input_mode", mode.getId());
-		prefsEditor.apply();
+		if (isModeValid) {
+			prefsEditor.putInt("pref_input_mode", mode);
+			prefsEditor.apply();
+		}
 	}
 
 

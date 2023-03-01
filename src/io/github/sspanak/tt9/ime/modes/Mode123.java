@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.ime.modes;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.languages.Language;
-
 public class Mode123 extends InputMode {
 	public int getId() { return MODE_123; }
 
@@ -12,7 +10,7 @@ public class Mode123 extends InputMode {
 	}
 
 
-	public boolean onNumber(Language l, int key, boolean hold, int repeat) {
+	public boolean onNumber(int key, boolean hold, int repeat) {
 		if (key != 0) {
 			return false;
 		}
