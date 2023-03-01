@@ -9,13 +9,13 @@ public class ModeABC extends InputMode {
 
 	private boolean shouldSelectNextLetter = false;
 
-	ModeABC() {
-		allowedTextCases.add(CASE_LOWER);
-		allowedTextCases.add(CASE_UPPER);
+	ModeABC(Language lang) {
+		changeLanguage(lang);
 	}
 
 
-	public boolean onNumber(Language language, int key, boolean hold, int repeat) {
+	@Override
+	public boolean onNumber(int key, boolean hold, int repeat) {
 		shouldSelectNextLetter = false;
 		suggestions = language.getKeyCharacters(key);
 		word = null;
@@ -31,18 +31,29 @@ public class ModeABC extends InputMode {
 	}
 
 
-	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
+	@Override
+	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
 	}
 
+	@Override
+	public void changeLanguage(Language language) {
+		super.changeLanguage(language);
 
-	final public boolean isABC() { return true; }
-	public int getSequenceLength() { return 1; }
+		allowedTextCases.clear();
+		allowedTextCases.add(CASE_LOWER);
+		if (language.hasUpperCase()) {
+			allowedTextCases.add(CASE_UPPER);
+		}
+	}
 
-	public boolean shouldAcceptCurrentSuggestion(Language l, int key, boolean hold, boolean repeat) { return hold || !repeat; }
-	public boolean shouldTrackUpDown() { return true; }
-	public boolean shouldTrackLeftRight() { return true; }
-	public boolean shouldSelectNextSuggestion() {
+	@Override final public boolean isABC() { return true; }
+	@Override public int getSequenceLength() { return 1; }
+
+	@Override public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) { return hold || !repeat; }
+	@Override public boolean shouldTrackUpDown() { return true; }
+	@Override public boolean shouldTrackLeftRight() { return true; }
+	@Override public boolean shouldSelectNextSuggestion() {
 		return shouldSelectNextLetter;
 	}
 }

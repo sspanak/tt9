@@ -68,6 +68,11 @@ public class Language {
 	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
 
+	final public boolean hasUpperCase() {
+		return abcUpperCaseIcon != 0;
+	}
+
+
 	/* ************ utility ************ */
 
 	/**

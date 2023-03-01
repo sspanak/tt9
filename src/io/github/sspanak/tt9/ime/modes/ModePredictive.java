@@ -32,7 +32,6 @@ public class ModePredictive extends InputMode {
 	private String stem = "";
 
 	// async suggestion handling
-	private Language currentLanguage = null;
 	private String currentInputFieldWord = "";
 	private static Handler handleSuggestionsExternal;
 
@@ -44,10 +43,8 @@ public class ModePredictive extends InputMode {
 	private final String maxEmojiSequence;
 
 
-	ModePredictive(SettingsStore settings) {
-		allowedTextCases.add(CASE_LOWER);
-		allowedTextCases.add(CASE_CAPITALIZE);
-		allowedTextCases.add(CASE_UPPER);
+	ModePredictive(SettingsStore settings, Language lang) {
+		changeLanguage(lang);
 
 		emptyDbWarning = new EmptyDatabaseWarning(settings);
 		this.settings = settings;
@@ -81,13 +78,13 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean onNumber(Language language, int key, boolean hold, int repeat) {
+	public boolean onNumber(int key, boolean hold, int repeat) {
 		if (hold) {
 			// hold to type any digit
 			reset();
 			word = String.valueOf(key);
 		} else if (key == 0 && repeat > 0) {
-			onDouble0(language);
+			onDouble0();
 		} else {
 			// words
 			super.reset();
@@ -102,7 +99,7 @@ public class ModePredictive extends InputMode {
 	 * onDouble0
 	 * Double "0" is a shortcut for the preferred character.
 	 */
-	private void onDouble0(Language language) {
+	private void onDouble0() {
 		try {
 			reset();
 			word = settings.getDoubleZeroChar();
@@ -111,6 +108,19 @@ public class ModePredictive extends InputMode {
 			Logger.w("tt9/onDouble0", "Failed getting the sequence for word: '" + word + "'. Performing standard 0-key action.");
 			reset();
 			digitSequence = "0";
+		}
+	}
+
+
+	@Override
+	public void changeLanguage(Language language) {
+		super.changeLanguage(language);
+
+		allowedTextCases.clear();
+		allowedTextCases.add(CASE_LOWER);
+		if (language.hasUpperCase()) {
+			allowedTextCases.add(CASE_CAPITALIZE);
+			allowedTextCases.add(CASE_UPPER);
 		}
 	}
 
@@ -156,7 +166,7 @@ public class ModePredictive extends InputMode {
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
 	@Override
-	public boolean setWordStem(Language language, String wordStem, boolean exact) {
+	public boolean setWordStem(String wordStem, boolean exact) {
 		if (language == null || wordStem == null || wordStem.length() < 1) {
 			return false;
 		}
@@ -202,7 +212,7 @@ public class ModePredictive extends InputMode {
 	 * Similar to "loadSuggestions()", but loads suggestions that are not in the database.
 	 * Returns "false", when there are no static suggestions for the current digitSequence.
 	 */
-	private boolean loadStaticSuggestions(Language language) {
+	private boolean loadStaticSuggestions() {
 		if (digitSequence.equals("0")) {
 			stem = "";
 			suggestions = language.getKeyCharacters(0, false);
@@ -231,8 +241,8 @@ public class ModePredictive extends InputMode {
 	 * See: generatePossibleCompletions()
 	 */
 	@Override
-	public boolean loadSuggestions(Handler handler, Language language, String currentWord) {
-		if (loadStaticSuggestions(language)) {
+	public boolean loadSuggestions(Handler handler, String currentWord) {
+		if (loadStaticSuggestions()) {
 			super.onSuggestionsUpdated(handler);
 			return true;
 		}
@@ -244,7 +254,6 @@ public class ModePredictive extends InputMode {
 
 		handleSuggestionsExternal = handler;
 		currentInputFieldWord = currentWord.toLowerCase(language.getLocale());
-		currentLanguage = language;
 		super.reset();
 
 		DictionaryDb.getSuggestions(
@@ -272,13 +281,13 @@ public class ModePredictive extends InputMode {
 			dbSuggestions = dbSuggestions == null ? new ArrayList<>() : dbSuggestions;
 
 			if (dbSuggestions.size() == 0 && digitSequence.length() > 0) {
-				emptyDbWarning.emitOnce(currentLanguage);
-				dbSuggestions = generatePossibleCompletions(currentLanguage, currentInputFieldWord);
+				emptyDbWarning.emitOnce(language);
+				dbSuggestions = generatePossibleCompletions(currentInputFieldWord);
 			}
 
 			suggestions.clear();
 			suggestStem();
-			suggestions.addAll(generatePossibleStemVariations(currentLanguage, dbSuggestions));
+			suggestions.addAll(generatePossibleStemVariations(dbSuggestions));
 			suggestMoreWords(dbSuggestions);
 
 			ModePredictive.super.onSuggestionsUpdated(handleSuggestionsExternal);
@@ -295,7 +304,7 @@ public class ModePredictive extends InputMode {
 	 * For example, if the word is "missin_" and the last pressed key is "4", the results would be:
 	 * | missing | missinh | missini |
 	 */
-	private ArrayList<String> generatePossibleCompletions(Language language, String baseWord) {
+	private ArrayList<String> generatePossibleCompletions(String baseWord) {
 		ArrayList<String> generatedWords = new ArrayList<>();
 
 		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
@@ -334,14 +343,14 @@ public class ModePredictive extends InputMode {
 	 * generate: "extrb" and "extrc". This is useful for typing an unknown word, that is similar to
 	 * the ones in the dictionary.
 	 */
-	private ArrayList<String> generatePossibleStemVariations(Language language, ArrayList<String> dbSuggestions) {
+	private ArrayList<String> generatePossibleStemVariations(ArrayList<String> dbSuggestions) {
 		ArrayList<String> variations = new ArrayList<>();
 		if (stem.length() == 0) {
 			return variations;
 		}
 
 		if (isStemFuzzy && stem.length() == digitSequence.length() - 1) {
-			ArrayList<String> allPossibleVariations = generatePossibleCompletions(language, stem);
+			ArrayList<String> allPossibleVariations = generatePossibleCompletions(stem);
 
 			// first add the known words, because it makes more sense to see them first
 			for (String word : allPossibleVariations) {
@@ -391,7 +400,7 @@ public class ModePredictive extends InputMode {
 	 * Bring this word up in the suggestions list next time.
 	 */
 	@Override
-	public void onAcceptSuggestion(Language language, String currentWord) {
+	public void onAcceptSuggestion(String currentWord) {
 		lastAcceptedWord = currentWord;
 		lastAcceptedSequence = digitSequence;
 		reset();
@@ -425,7 +434,7 @@ public class ModePredictive extends InputMode {
 	 * or Dutch words such as: "'s-Hertogenbosch".
 	 */
 	@Override
-	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) {
+	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		switch (newTextCase) {
 			case CASE_UPPER:
 				return word.toUpperCase(language.getLocale());
@@ -492,7 +501,7 @@ public class ModePredictive extends InputMode {
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
 	@Override
-	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) {
+	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) {
 		return
 			hold
 			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"

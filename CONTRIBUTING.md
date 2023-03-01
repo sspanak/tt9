@@ -57,7 +57,8 @@ To support a new language one needs to:
   - `name` is the native name of the language (e.g. "English", "Deutsch", "Українська").
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
   - `dictionaryFile` is the name of the dictionary in `assets/` folder.
-  - `icon`, `abcLowerCaseIcon` and `abcUpperCaseIcon` are the respective status icons for Predictive mode, ABC (lowercase) and ABC (uppercase).
+  - `icon` is the status icon for Predictive mode.
+  - `abcLowerCaseIcon` and `abcUpperCaseIcon` are the respective status icons for ABC (non-predictive) modes. Note that, you must not set `abcUpperCaseIcon`, if your language has no uppercase and lowercase letters (like Arabic, Asian scripts and Hebrew).
   - Set `isPunctuationPartOfWords` to `true`, if the dictionary contains words with apostrophes or dashes, such as: `it's`, `you'll`, `a'tje` or `п'ят`. This will allow using 1-key for typing them (they will appear as suggestions). `false` will enable faster typing when apostrophes or other punctuation are not part of the words (no such words will be suggested).
   - `characterMap` contains the letters and punctuation marks associated with each key.
 - Finally, add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
