@@ -14,7 +14,7 @@ public class Norwegian extends English {
 		dictionaryFile = "nb-utf8.csv";
 		icon = R.drawable.ime_lang_nb;
 
-		isPunctuationPartOfWords = true;
+		isPunctuationPartOfWords = false;
 
 		characterMap.get(2).addAll(Arrays.asList("æ", "å", "ç"));
 		characterMap.get(3).addAll(Arrays.asList("é", "è"));
