@@ -18,6 +18,7 @@ public class BrazilianPortuguese extends English {
 
 		characterMap.get(2).addAll(Arrays.asList("ç", "á", "â", "ã", "à"));
 		characterMap.get(3).addAll(Arrays.asList("é", "ê", "è"));
+		characterMap.get(4).add("í");
 		characterMap.get(6).addAll(Arrays.asList("ó", "ô", "õ"));
 		characterMap.get(8).add("ú");
 	}
