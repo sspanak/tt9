@@ -11,7 +11,7 @@ public class BrazilianPortuguese extends English {
 
 		name = "Português brasileiro";
 		locale = new Locale("pt","BR");
-		dictionaryFile = "br-utf8.txt";
+		dictionaryFile = "pt-BR-utf8.csv";
 		icon = R.drawable.ime_lang_br;
 
 		isPunctuationPartOfWords = true;
