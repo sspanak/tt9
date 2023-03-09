@@ -116,6 +116,7 @@ public class Hotkeys {
 		add(KeyEvent.KEYCODE_CALL, R.string.key_call, false);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_BACK, R.string.key_back, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_CLEAR, R.string.key_clear, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_DEL, R.string.key_delete, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F1, "F1", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
