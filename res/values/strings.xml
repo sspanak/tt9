@@ -57,6 +57,7 @@
 	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
+	<string name="key_clear" translatable="false">Clear</string>
 	<string name="key_delete" translatable="false">Delete</string>
 	<string name="key_menu" translatable="false">Menu</string>
 
