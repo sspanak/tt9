@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.languages.definitions.*;
 public class LanguageCollection {
 	private static LanguageCollection self;
 
+	private final Language defaultLanguage = new English();
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
 	private LanguageCollection() {
@@ -26,6 +27,7 @@ public class LanguageCollection {
 			French.class,
 			German.class,
 			Italian.class,
+			Norwegian.class,
 			Russian.class,
 			Spanish.class,
 			Ukrainian.class
@@ -59,6 +61,10 @@ public class LanguageCollection {
 		}
 
 		return null;
+	}
+
+	public static Language getDefault() {
+		return getInstance().defaultLanguage;
 	}
 
 	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds, boolean sort) {

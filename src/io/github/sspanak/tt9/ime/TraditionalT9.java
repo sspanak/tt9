@@ -63,7 +63,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateFunctionKeys() {
-		if (!settings.areFunctionKeysSet()) {
+		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
 	}
@@ -192,7 +192,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onOK() {
 		if (isSuggestionViewHidden() && currentInputConnection != null) {
-			return sendDefaultEditorAction(false);
+			return performOKAction();
 		}
 
 		String word = mSuggestionView.getCurrentSuggestion();
@@ -531,10 +531,15 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		// when only one language is enabled, just acknowledge the key was pressed
+		if (mEnabledLanguages.size() < 2) {
+			return true;
+		}
+
 		// select the next language
-		int previousLangId = mEnabledLanguages.indexOf(mLanguage.getId());
-		int nextLangId = previousLangId == -1 ? 0 : (previousLangId + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(nextLangId));
+		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
+		int next = (previous + 1) % mEnabledLanguages.size();
+		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
 
 		validateLanguages();
 
@@ -598,6 +603,20 @@ public class TraditionalT9 extends KeyPadHandler {
 			textField.isThereText(),
 			textField.getTextBeforeCursor()
 		);
+	}
+
+
+	private boolean performOKAction() {
+		int action = textField.getAction();
+		switch (action) {
+			case EditorInfo.IME_ACTION_NONE:
+				return false;
+			case TextField.IME_ACTION_ENTER:
+				sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+				return true;
+			default:
+				return currentInputConnection.performEditorAction(action);
+		}
 	}
 
 

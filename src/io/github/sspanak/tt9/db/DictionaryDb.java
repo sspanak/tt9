@@ -6,38 +6,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import androidx.annotation.NonNull;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
+import io.github.sspanak.tt9.db.room.TT9Room;
+import io.github.sspanak.tt9.db.room.Word;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryDb {
-	private static T9RoomDb dbInstance;
-
-	private static final RoomDatabase.Callback DROP_NORMALIZATION_TRIGGER = new RoomDatabase.Callback() {
-		@Override
-		public void onOpen(@NonNull SupportSQLiteDatabase db) {
-			super.onOpen(db);
-			db.execSQL("DROP TRIGGER IF EXISTS normalize_freq");
-		}
-	};
+	private static TT9Room dbInstance;
 
 
 	public static synchronized void init(Context context) {
 		if (dbInstance == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
-			dbInstance = Room.databaseBuilder(context, T9RoomDb.class, "t9dict.db")
-				.addCallback(DROP_NORMALIZATION_TRIGGER) // @todo: Remove trigger dropping after December 2023. Assuming everyone would have upgraded by then.
-				.build();
+			dbInstance = TT9Room.getInstance(context);
 		}
 	}
 
@@ -47,7 +35,7 @@ public class DictionaryDb {
 	}
 
 
-	private static T9RoomDb getInstance() {
+	private static TT9Room getInstance() {
 		init();
 		return dbInstance;
 	}
@@ -106,11 +94,20 @@ public class DictionaryDb {
 	}
 
 
-	public static void truncateWords(Handler handler) {
+	public static void deleteWords(Handler handler) {
+		deleteWords(handler, null);
+	}
+
+
+	public static void deleteWords(Handler handler, ArrayList<Integer> languageIds) {
 		new Thread() {
 			@Override
 			public void run() {
-				getInstance().clearAllTables();
+				if (languageIds == null) {
+					getInstance().clearAllTables();
+				} else if (languageIds.size() > 0) {
+					getInstance().wordsDao().deleteByLanguage(languageIds);
+				}
 				handler.sendEmptyMessage(0);
 			}
 		}.start();

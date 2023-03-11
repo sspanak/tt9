@@ -20,12 +20,22 @@ With the default settings, it is only possible to type in 123 and ABC modes. In 
 
 _If you don't do the above, there will be no suggestions when typing in Predictive mode._
 
-#### Dictionary Tips
-Once a dictionary is loaded, it will stay there until you use the Clear option. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
+### Dictionary Tips
+
+#### Loading a Dictionary
+Once a dictionary is loaded, it will stay there until you use one of the "clear" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
 
 Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+
+#### Clearing a Dictionary
+
+If you have stopped using languages X or Y, you could disable them and also use "Clear Unselected", to delete their dictionaries and free some memory.
+
+To delete everything, regardless of the selection, use "Clear All".
+
+In all cases, clearing a dictionary deletes both all factory and all custom added words.
 
 ## Hotkeys
 
@@ -50,6 +60,15 @@ _Predictive mode only._
 
 - Clear the suggestion filter, if applied.
 - When no filter is applied, accept the current word as-is, even if it does not fully match a suggestion, then jump before it.
+
+#### D-pad Center (OK or ENTER):
+- When suggestions are displayed, types the currently selected suggestion.
+- Otherwise, performs the default action for the current application (e.g. send a message, go to a URL, or just type a new line).
+
+_**NB:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
+
+_**NB2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
+
 
 #### 0-key:
 - **In 123 mode:**
@@ -117,4 +136,3 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 - Select "Traditional T9".
 
 _The actual menu names may vary depending on your phone, Android version and language._
-

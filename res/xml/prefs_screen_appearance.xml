@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+
+	<SwitchPreferenceCompat
+		app:defaultValue="true"
+		app:key="pref_dark_theme"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_dark_theme" />
+
+	<SwitchPreferenceCompat
+		app:defaultValue="true"
+		app:key="pref_show_soft_keys"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_show_soft_function_keys" />
+
+</PreferenceScreen>

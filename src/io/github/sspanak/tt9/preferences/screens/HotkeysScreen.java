@@ -10,33 +10,14 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.SectionKeymap;
 
 public class HotkeysScreen extends BaseScreenFragment {
-	public HotkeysScreen() {
-		init();
-	}
+	public HotkeysScreen() { init(); }
+	public HotkeysScreen(PreferencesActivity activity) { init(activity); }
 
-	public HotkeysScreen(PreferencesActivity activity) {
-		init(activity);
-	}
-
-
-	@Override
-	protected int getTitle() {
-		return R.string.pref_category_function_keys;
-	}
-
-
-	@Override
-	protected int getXml() {
-		return R.xml.prefs_screen_hotkeys;
-	}
+	@Override protected int getTitle() { return R.string.pref_category_function_keys; }
+	@Override protected int getXml() { return R.xml.prefs_screen_hotkeys; }
 
 	@Override
 	public void onCreate() {
-		createKeymapSection();
-	}
-
-
-	private void createKeymapSection() {
 		DropDownPreference[] dropDowns = {
 			findPreference(SectionKeymap.ITEM_ADD_WORD),
 			findPreference(SectionKeymap.ITEM_BACKSPACE),

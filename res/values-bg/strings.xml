@@ -13,9 +13,8 @@
 	<string name="pref_help">Помощ</string>
 	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_choose_languages">Езици</string>
-	<string name="dictionary_truncate_title">Изтрий речник</string>
+	<string name="dictionary_truncate_title">Изтрий всички</string>
 
-	<string name="pref_category_dictionaries">Речници</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
@@ -52,4 +51,5 @@
 	<string name="add_word_field_placeholder">Напишете дума…</string>
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
+	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
 </resources>

@@ -55,9 +55,6 @@ public class SectionKeymap {
 	}
 
 
-
-
-
 	private void populateOtherItems(DropDownPreference itemToSkip) {
 		for (DropDownPreference item : items) {
 			if (itemToSkip != null && item != null && Objects.equals(itemToSkip.getKey(), item.getKey())) {

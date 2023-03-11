@@ -13,9 +13,8 @@
 	<string name="pref_help">Допомога</string>
 	<string name="pref_dark_theme">Темна тема</string>
 	<string name="pref_choose_languages">Мови</string>
-	<string name="dictionary_truncate_title">Очистити словник</string>
+	<string name="dictionary_truncate_title">Очистіть усі</string>
 
-	<string name="pref_category_dictionaries">Словники</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Завантаження словника завершено.</string>
@@ -52,4 +51,5 @@
 	<string name="add_word_field_placeholder">Введіть слово…</string>
 	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
+	<string name="dictionary_truncate_unselected">Очистіть невибрані</string>
 </resources>

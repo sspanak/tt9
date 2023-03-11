@@ -70,7 +70,9 @@ public class SettingsStore {
 	}
 
 	public Set<String> getEnabledLanguagesIdsAsStrings() {
-		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList("1")));
+		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList(
+			String.valueOf(LanguageCollection.getDefault().getId())
+		)));
 	}
 
 	public void saveEnabledLanguageIds(ArrayList<Integer> languageIds) {
@@ -123,7 +125,7 @@ public class SettingsStore {
 
 
 	public int getInputLanguage() {
-		return prefs.getInt("pref_input_language", 1);
+		return prefs.getInt("pref_input_language", LanguageCollection.getDefault().getId());
 	}
 
 	public void saveInputLanguage(int language) {
@@ -151,8 +153,8 @@ public class SettingsStore {
 
 	/************* function key settings *************/
 
-	public boolean areFunctionKeysSet() {
-		return getKeyShowSettings() != 0;
+	public boolean isSettingsKeyMissing() {
+		return getKeyShowSettings() == 0;
 	}
 
 	public void setDefaultKeys() {
@@ -198,7 +200,6 @@ public class SettingsStore {
 	public boolean getNotifyNextLanguageInModeAbc() { return prefs.getBoolean("notify_next_language_in_mode_abc", true); }
 
 	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
-	public void setDarkTheme(boolean yes) { prefsEditor.putBoolean("pref_dark_theme", yes); }
 
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
@@ -207,7 +208,7 @@ public class SettingsStore {
 
 	/************* typing settings *************/
 
-	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", false); }
+	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");

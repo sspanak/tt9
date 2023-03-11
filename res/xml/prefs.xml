@@ -4,7 +4,6 @@
 	app:layout="@layout/pref_text"
 	app:orderingFromXml="true">
 
-
 	<Preference
 		app:key="help"
 		app:layout="@layout/pref_text"
@@ -15,103 +14,34 @@
 			android:data="@string/help_url" />
 	</Preference>
 
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.AppearanceScreen"
+		app:key="screen_appearance"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_appearance" />
 
-	<PreferenceCategory
-		android:title="@string/pref_category_appearance"
-		app:layout="@layout/pref_category"
-		app:singleLineTitle="true">
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.DictionariesScreen"
+		app:key="screen_dictionaries"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_choose_languages" />
 
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="pref_dark_theme"
-			app:layout="@layout/pref_switch"
-			app:title="@string/pref_dark_theme" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="pref_show_soft_keys"
-			app:layout="@layout/pref_switch"
-			app:title="@string/pref_show_soft_function_keys" />
-
-	</PreferenceCategory>
-
-
-	<PreferenceCategory
-		android:title="@string/pref_category_dictionaries"
-		app:layout="@layout/pref_category"
-		app:singleLineTitle="true">
-
-		<MultiSelectListPreference
-			app:key="pref_languages"
-			app:layout="@layout/pref_text"
-			app:title="@string/pref_choose_languages" />
-
-		<Preference
-			app:key="dictionary_load"
-			app:layout="@layout/pref_text"
-			app:title="@string/dictionary_load_title" />
-
-		<Preference
-			app:key="dictionary_truncate"
-			app:layout="@layout/pref_text"
-			app:title="@string/dictionary_truncate_title" />
-
-	</PreferenceCategory>
-
-	<PreferenceCategory
-		android:title="@string/pref_category_predictive_mode"
-		app:layout="@layout/pref_category"
-		app:singleLineTitle="true">
-
-		<SwitchPreferenceCompat
-			app:key="auto_space"
-			app:layout="@layout/pref_switch"
-			app:title="@string/pref_auto_space"
-			app:summary="@string/pref_auto_space_summary" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="auto_text_case"
-			app:layout="@layout/pref_switch"
-			app:summary="@string/pref_auto_text_case_summary"
-			app:title="@string/pref_auto_text_case" />
-
-		<DropDownPreference
-			app:defaultValue=" "
-			app:iconSpaceReserved="false"
-			app:key="pref_double_zero_char"
-			app:layout="@layout/pref_dropdown"
-			app:title="@string/pref_double_zero_char" />
-
-	</PreferenceCategory>
-
-	<PreferenceCategory
-		android:title="@string/pref_category_keypad"
-		app:layout="@layout/pref_category">
-
-		<Preference
-			app:fragment="io.github.sspanak.tt9.preferences.PreferencesHotkeysFragment"
-			app:key="screen_hotkeys"
-			app:layout="@layout/pref_text"
-			app:title="@string/pref_category_function_keys" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="false"
-			app:key="pref_upside_down_keys"
-			app:layout="@layout/pref_switch"
-			app:summary="@string/pref_upside_down_keys_summary"
-			app:title="@string/pref_upside_down_keys" />
-
-	</PreferenceCategory>
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.KeyPadScreen"
+		app:key="screen_keypad"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_keypad" />
 
 	<PreferenceCategory
 		android:title="@string/pref_category_about"
 		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
+
 		<Preference
 			app:key="version_info"
 			app:layout="@layout/pref_text"
 			app:title="@string/app_name" />
+
 	</PreferenceCategory>
 
 </PreferenceScreen>
