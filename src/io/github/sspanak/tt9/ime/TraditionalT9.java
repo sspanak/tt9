@@ -486,6 +486,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		textField.setComposingText(getComposingText());
 	}
 
+	public InputMode getInputMode(){
+		return mInputMode;
+	}
 
 	private void nextInputMode() {
 		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {

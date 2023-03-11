@@ -63,9 +63,16 @@ class SoftKeyHandler implements View.OnTouchListener {
 	void show() {
 		if (view != null) {
 			view.setVisibility(View.VISIBLE);
-			for (NumpadButton nb: buttons_number){
-				nb.invalidateText(tt9.mLanguage);
-			}
+			invalidateNumpadButtonsText();
+		}
+	}
+
+	/**
+	 * calls {@link NumpadButton#invalidateText} for all Numpad Buttons.
+	 */
+	void invalidateNumpadButtonsText(){
+		for (NumpadButton nb: buttons_number){
+			nb.invalidateText(tt9.mLanguage);
 		}
 	}
 
@@ -143,6 +150,7 @@ class SoftKeyHandler implements View.OnTouchListener {
 
 	private boolean handleBackspaceUp() {
 		lastBackspaceCall = 0;
+		invalidateNumpadButtonsText();
 		return true;
 	}
 
@@ -159,10 +167,12 @@ class SoftKeyHandler implements View.OnTouchListener {
 
 		if (buttonId == R.id.main_mid && action == MotionEvent.ACTION_UP) {
 			tt9.onOK();
+			invalidateNumpadButtonsText();
 			return view.performClick();
 		}
 		if (buttonId == R.id.soft_mode && action == MotionEvent.ACTION_UP) {
 			tt9.onKeyNextInputMode();
+			invalidateNumpadButtonsText();
 			return view.performClick();
 		}
 		if (buttonId == R.id.soft_addWord && action == MotionEvent.ACTION_UP) {
@@ -171,6 +181,7 @@ class SoftKeyHandler implements View.OnTouchListener {
 		}
 		if (buttonId == R.id.soft_language && action == MotionEvent.ACTION_UP) {
 			tt9.onKeyNextLanguage();
+			invalidateNumpadButtonsText();
 			return view.performClick();
 		}
 
