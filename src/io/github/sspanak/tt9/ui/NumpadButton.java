@@ -84,34 +84,55 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 
 	@Override
 	public boolean onTouch(View view, MotionEvent motionEvent) {
-		int keycode;
-		switch (number) {
-			case 0: keycode = KeyEvent.KEYCODE_0; break;
-			case 1: keycode = KeyEvent.KEYCODE_1; break;
-			case 2: keycode = KeyEvent.KEYCODE_2; break;
-			case 3: keycode = KeyEvent.KEYCODE_3; break;
-			case 4: keycode = KeyEvent.KEYCODE_4; break;
-			case 5: keycode = KeyEvent.KEYCODE_5; break;
-			case 6: keycode = KeyEvent.KEYCODE_6; break;
-			case 7: keycode = KeyEvent.KEYCODE_7; break;
-			case 8: keycode = KeyEvent.KEYCODE_8; break;
-			case 9: keycode = KeyEvent.KEYCODE_9; break;
-			default: throw new RuntimeException("NumpadButton - unsupported number key code");
+		if (motionEvent.getAction() == KeyEvent.ACTION_DOWN){
+			return sendKeyEvent(KeyEvent.ACTION_DOWN);
 		}
+		//action up is handled in on performClick() which is called from supoer by buttons
+		return false;
+	}
 
+	@Override
+	public boolean performClick() {
+		super.performClick();
+		return sendKeyEvent(KeyEvent.ACTION_UP);
+	}
+
+	/**
+	 *
+	 * @param action either KeyEvent.ACTION_DOWN or KeyEvent.ACTION_UP
+	 */
+	protected boolean sendKeyEvent(int action){
+		int keycode = getKeycode();
 		//since physical key events can not reliable simulated, directly send it to the TT9 implementation
 		boolean consumedByTT9;
-		if (motionEvent.getAction() == KeyEvent.ACTION_DOWN){
+		if (action == KeyEvent.ACTION_DOWN){
 			consumedByTT9 = ims.onKeyDown(keycode, new KeyEvent(KeyEvent.ACTION_DOWN, keycode));
-		}else if (motionEvent.getAction() == KeyEvent.ACTION_UP){
+		}else if (action == KeyEvent.ACTION_UP){
 			consumedByTT9 = ims.onKeyUp(keycode, new KeyEvent(KeyEvent.ACTION_UP, keycode));
 		}else {
 			return false;
 		}
 		if (!consumedByTT9){
 			//means ims is in number mode, send the number key event directly
-			ims.getCurrentInputConnection().sendKeyEvent(new KeyEvent(motionEvent.getAction(), keycode));
+			ims.getCurrentInputConnection().sendKeyEvent(new KeyEvent(action, keycode));
+			return true;
 		}
 		return false;
+	}
+
+	protected int getKeycode(){
+		switch (number) {
+			case 0: return KeyEvent.KEYCODE_0;
+			case 1: return KeyEvent.KEYCODE_1;
+			case 2: return KeyEvent.KEYCODE_2;
+			case 3: return KeyEvent.KEYCODE_3;
+			case 4: return KeyEvent.KEYCODE_4;
+			case 5: return KeyEvent.KEYCODE_5;
+			case 6: return KeyEvent.KEYCODE_6;
+			case 7: return KeyEvent.KEYCODE_7;
+			case 8: return KeyEvent.KEYCODE_8;
+			case 9: return KeyEvent.KEYCODE_9;
+			default: throw new RuntimeException("NumpadButton - unsupported number key code");
+		}
 	}
 }
