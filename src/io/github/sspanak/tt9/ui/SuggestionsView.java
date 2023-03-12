@@ -5,16 +5,16 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SuggestionsView {
@@ -24,11 +24,12 @@ public class SuggestionsView {
 	private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
+	private final TraditionalT9 tt9;
 
 
-	public SuggestionsView(SettingsStore settings, View mainView) {
+	public SuggestionsView(SettingsStore settings, View mainView, TraditionalT9 tt9) {
 		super();
-
+		this.tt9 = tt9;
 		this.settings = settings;
 
 		mView = mainView.findViewById(R.id.main_suggestions_list);
@@ -60,7 +61,8 @@ public class SuggestionsView {
 			context,
 			R.layout.suggestion_list_view,
 			R.id.suggestion_list_item,
-			suggestions
+			suggestions,
+			this
 		);
 		mView.setAdapter(mSuggestionsAdapter);
 
@@ -122,6 +124,12 @@ public class SuggestionsView {
 		mSuggestionsAdapter.setSelection(selectedIndex);
 		mSuggestionsAdapter.notifyDataSetChanged();
 		mView.scrollToPosition(selectedIndex);
+	}
+
+	public void onSuggestionViewHolderClicked(int position){
+		selectedIndex = position;
+		//no need for updating the adapter and ui related work as it will be cleared as soon it is chosen
+		tt9.onOK();
 	}
 
 

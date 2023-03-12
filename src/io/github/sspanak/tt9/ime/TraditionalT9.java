@@ -80,7 +80,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mSuggestionView == null) {
-			mSuggestionView = new SuggestionsView(settings, softKeyHandler.getView());
+			mSuggestionView = new SuggestionsView(settings, softKeyHandler.getView(), this);
 		}
 
 		loadSettings();
@@ -676,6 +676,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	@Override
 	public void setInputView(View view) {
 		super.setInputView(view);
-		mSuggestionView = new SuggestionsView(settings, view);
+		mSuggestionView = new SuggestionsView(settings, view, this);
 	}
 }

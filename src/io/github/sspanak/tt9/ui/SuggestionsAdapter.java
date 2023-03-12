@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
 	private final int layout;
@@ -21,13 +21,15 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int colorDefault;
 	private int colorHighlight;
 	private int selectedIndex = 0;
+	private final SuggestionsView suggView;
 
 
-	public SuggestionsAdapter(Context context, int layout, int textViewResourceId, List<String> suggestions) {
+	public SuggestionsAdapter(Context context, int layout, int textViewResourceId, List<String> suggestions, SuggestionsView suggView) {
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
 		this.mInflater = LayoutInflater.from(context);
 		this.mSuggestions = suggestions;
+		this.suggView = suggView;
 	}
 
 
@@ -73,6 +75,12 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 		ViewHolder(View itemView) {
 			super(itemView);
 			suggestionItem = itemView.findViewById(textViewResourceId);
+			suggestionItem.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					suggView.onSuggestionViewHolderClicked(getAdapterPosition());
+				}
+			});
 		}
 	}
 }
