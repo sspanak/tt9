@@ -39,8 +39,7 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 
 	protected void setDefaults(){
 		number = Integer.parseInt(getText().toString());
-		setFocusableInTouchMode(true); //TODO only debugging
-		setFocusable(true); //TODO only debugging
+		//setFocusableInTouchMode(true); // only debugging
 	}
 
 

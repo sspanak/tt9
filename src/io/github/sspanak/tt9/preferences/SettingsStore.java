@@ -203,6 +203,8 @@ public class SettingsStore {
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
+	public boolean getShowSoftNumpad() { return prefs.getBoolean("pref_show_soft_numpad", false); }
+
 	public boolean getDpadSoftkeysNavigation() { return prefs.getBoolean("pref_dpad_softkeys_navigation", false); }
 
 	/************* typing settings *************/

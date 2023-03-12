@@ -672,4 +672,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected View createSoftKeyView() {
 		return softKeyHandler.getView();
 	}
+
+	@Override
+	public void setInputView(View view) {
+		super.setInputView(view);
+		mSuggestionView = new SuggestionsView(settings, view);
+	}
 }

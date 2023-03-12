@@ -27,6 +27,9 @@
 	<string name="pref_dark_theme">Dark Theme</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
+	<string name="pref_show_soft_numpad">Full On-Screen Keyboard</string>
+	<string name="pref_show_soft_numpad_summary_on">Numpad is shown</string>
+	<string name="pref_show_soft_numpad_summary_off">Numpad is not shown. Only main buttons.</string>
 	<string name="pref_dpad_softkeys_navigation">Dpad navigation on soft keys</string>
 	<string name="pref_dpad_softkeys_navigation_summary">Use Dpad Keys to navigate over On-Screen Keys. DPad_Down is used to change in navigation mode. This setting only effects non-touch displays.</string>
 	<string name="pref_help">Help</string>

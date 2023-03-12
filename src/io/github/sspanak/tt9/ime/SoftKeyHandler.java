@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TableLayout;
 
 import java.util.HashSet;
 
@@ -28,20 +27,38 @@ class SoftKeyHandler implements View.OnClickListener {
 	public SoftKeyHandler(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
-		getView();
 		settings = new SettingsStore(tt9.getApplicationContext());
+		getView();
 	}
 
 
 	View getView() {
+		if (view != null){
+			//check whether mainview setting has changed
+			boolean prefShowNumpad = settings.getShowSoftNumpad();
+			if ((view.getId() == R.id.mainview_small && prefShowNumpad) ||
+					(view.getId() == R.id.mainview_with_numpad && !prefShowNumpad)){
+				view = null;
+			}
+		}
+
 		if (view == null) {
-			view = View.inflate(tt9.getApplicationContext(), R.layout.mainview, null);
+			if (settings.getShowSoftNumpad()){
+				view = View.inflate(tt9.getApplicationContext(), R.layout.mainview_with_numpad, null);
+			}else{
+				view = View.inflate(tt9.getApplicationContext(), R.layout.mainview_small, null);
+			}
 
 			for (int buttonId : buttons) {
-				view.findViewById(buttonId).setOnClickListener(this);
+				View button = view.findViewById(buttonId);
+				if (button == null){
+					continue; //as this button is only in numpad mainview included
+				}
+				button.setOnClickListener(this);
+
 				if (buttonId == R.id.main_right){
 					//implement holding / moving with finger on back button for deleting letters
-					view.findViewById(buttonId).setOnTouchListener(new View.OnTouchListener() {
+					button.setOnTouchListener(new View.OnTouchListener() {
 						@Override
 						public boolean onTouch(View view, MotionEvent motionEvent) {
 							if (motionEvent.getAction() == MotionEvent.AXIS_PRESSURE) {
@@ -57,17 +74,22 @@ class SoftKeyHandler implements View.OnClickListener {
 			ViewGroup softNumpad = view.findViewById(R.id.main_soft_keys);
 			for (int r = 0; r < softNumpad.getChildCount(); r++) {
 				Log.d("test", softNumpad.getClass().toString());
-				ViewGroup row = (ViewGroup) softNumpad.getChildAt(r);
-				for (int b = 0; b < row.getChildCount(); b++) {
-					Log.d("test", row.getClass().toString());
-					View button = row.getChildAt(b);
-					if (button instanceof NumpadButton) {
-						NumpadButton nb = (NumpadButton) button;
-						buttons_number.add(nb);
-						nb.setIMS(tt9);
+				View child = softNumpad.getChildAt(r);
+				if (child instanceof ViewGroup) {
+					//this happens only if R.layout.mainview_with_numpad is inflated
+					ViewGroup row = (ViewGroup) child;
+					for (int b = 0; b < row.getChildCount(); b++) {
+						Log.d("test", row.getClass().toString());
+						View button = row.getChildAt(b);
+						if (button instanceof NumpadButton) {
+							NumpadButton nb = (NumpadButton) button;
+							buttons_number.add(nb);
+							nb.setIMS(tt9);
+						}
 					}
 				}
 			}
+			tt9.setInputView(view);
 		}
 
 		return view;
@@ -75,6 +97,10 @@ class SoftKeyHandler implements View.OnClickListener {
 
 
 	void show() {
+		//First call getView to force an update of the view in case settings have changed.
+		//Does nothing, if nothing has changed.
+		getView();
+
 		if (view != null) {
 			view.setVisibility(View.VISIBLE);
 			invalidateNumpadButtonsText();
@@ -100,7 +126,7 @@ class SoftKeyHandler implements View.OnClickListener {
 
 	void setSoftKeysVisibility(boolean visible) {
 		if (view != null) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(visible ? TableLayout.VISIBLE : TableLayout.GONE);
+			view.findViewById(R.id.main_soft_keys).setVisibility(visible ? View.VISIBLE : View.GONE);
 		}
 	}
 
@@ -134,6 +160,9 @@ class SoftKeyHandler implements View.OnClickListener {
 
 		for (int buttonId : buttons) {
 			Button button = view.findViewById(buttonId);
+			if (button == null){
+				continue; //as this button is only in numpad mainview included
+			}
 			button.setTextColor(textColor);
 		}
 
@@ -176,7 +205,7 @@ class SoftKeyHandler implements View.OnClickListener {
 		if ((focusedView == null || focusedView.getId() == R.id.main_suggestions_list)
 				&& keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
 			Button settingsButton = view.findViewById(R.id.main_left);
-			//settingsButton.setFocusableInTouchMode(true); // only for debugging (also in NumpadButton.java)
+//			settingsButton.setFocusableInTouchMode(true); // only for debugging (also in NumpadButton.java)
 			return settingsButton.requestFocus();
 		}else if(focusedView != null && focusedView.getId() != R.id.main_suggestions_list){
 			int direction;

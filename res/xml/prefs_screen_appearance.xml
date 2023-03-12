@@ -15,6 +15,15 @@
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"
+		app:key="pref_show_soft_numpad"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_show_soft_numpad"
+		app:summaryOn="@string/pref_show_soft_numpad_summary_on"
+		app:summaryOff="@string/pref_show_soft_numpad_summary_off"
+		app:dependency="pref_show_soft_keys" />
+
+	<SwitchPreferenceCompat
+		app:defaultValue="false"
 		app:key="pref_dpad_softkeys_navigation"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_dpad_softkeys_navigation"
