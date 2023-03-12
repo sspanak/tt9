@@ -13,4 +13,12 @@
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_show_soft_function_keys" />
 
+	<SwitchPreferenceCompat
+		app:defaultValue="false"
+		app:key="pref_dpad_softkeys_navigation"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_dpad_softkeys_navigation"
+		app:summary="@string/pref_dpad_softkeys_navigation_summary"
+		app:dependency="pref_show_soft_keys"/>
+
 </PreferenceScreen>

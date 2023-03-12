@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.KeyEvent;
 
-import androidx.preference.PreferenceManager;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import androidx.preference.PreferenceManager;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -204,7 +203,7 @@ public class SettingsStore {
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 
-
+	public boolean getDpadSoftkeysNavigation() { return prefs.getBoolean("pref_dpad_softkeys_navigation", false); }
 
 	/************* typing settings *************/
 

@@ -307,6 +307,14 @@ public class TraditionalT9 extends KeyPadHandler {
 		return true;
 	}
 
+	@Override
+	protected boolean onDpad(int keyCode) {
+		//check whether dpad shall be handled as focus changed to soft keyboard
+		if (softKeyHandler.handleDpadNavigation(keyCode)){
+			return true;
+		}
+		return super.onDpad(keyCode);
+	}
 
 	protected boolean onPound() {
 		textField.setText("#");

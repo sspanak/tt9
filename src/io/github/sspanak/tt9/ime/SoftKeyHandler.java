@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.NumpadButton;
 import io.github.sspanak.tt9.ui.UI;
 
-class SoftKeyHandler implements View.OnTouchListener {
+class SoftKeyHandler implements View.OnClickListener {
 	private static final int[] buttons = { R.id.main_left, R.id.main_mid, R.id.main_right, R.id.soft_mode, R.id.soft_language, R.id.soft_addWord };
 	private HashSet<NumpadButton> buttons_number = new HashSet<>();
 	private final TraditionalT9 tt9;
@@ -37,8 +38,21 @@ class SoftKeyHandler implements View.OnTouchListener {
 			view = View.inflate(tt9.getApplicationContext(), R.layout.mainview, null);
 
 			for (int buttonId : buttons) {
-				view.findViewById(buttonId).setOnTouchListener(this);
+				view.findViewById(buttonId).setOnClickListener(this);
+				if (buttonId == R.id.main_right){
+					//implement holding / moving with finger on back button for deleting letters
+					view.findViewById(buttonId).setOnTouchListener(new View.OnTouchListener() {
+						@Override
+						public boolean onTouch(View view, MotionEvent motionEvent) {
+							if (motionEvent.getAction() == MotionEvent.AXIS_PRESSURE) {
+								return handleBackspaceHold();
+							}
+							return false;
+						}
+					});
+				}
 			}
+
 
 			ViewGroup softNumpad = view.findViewById(R.id.main_soft_keys);
 			for (int r = 0; r < softNumpad.getChildCount(); r++) {
@@ -154,43 +168,62 @@ class SoftKeyHandler implements View.OnTouchListener {
 		return true;
 	}
 
+	public boolean handleDpadNavigation(int keyCode){
+		if (!settings.getDpadSoftkeysNavigation()){
+			return false;
+		}
+		View focusedView = view.findFocus();
+		if ((focusedView == null || focusedView.getId() == R.id.main_suggestions_list)
+				&& keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
+			Button settingsButton = view.findViewById(R.id.main_left);
+			//settingsButton.setFocusableInTouchMode(true); // only for debugging (also in NumpadButton.java)
+			return settingsButton.requestFocus();
+		}else if(focusedView != null && focusedView.getId() != R.id.main_suggestions_list){
+			int direction;
+			switch (keyCode){
+				case KeyEvent.KEYCODE_DPAD_UP: direction = View.FOCUS_UP; break;
+				case KeyEvent.KEYCODE_DPAD_DOWN: direction = View.FOCUS_DOWN; break;
+				case KeyEvent.KEYCODE_DPAD_LEFT: direction = View.FOCUS_LEFT; break;
+				case KeyEvent.KEYCODE_DPAD_RIGHT: direction = View.FOCUS_RIGHT; break;
+				case KeyEvent.KEYCODE_DPAD_CENTER: return focusedView.performClick();
+				default: throw new RuntimeException("Unsupported dpad key code");
+			}
+			View nextFocused = focusedView.focusSearch(direction);
+			if (nextFocused != null){
+				nextFocused.requestFocus();
+			}
+			return true;
+		}
+
+		return false;
+	}
+
 
 	@Override
-	public boolean onTouch(View view, MotionEvent event) {
-		int action = event.getAction();
+	public void onClick(View view) {
 		int buttonId = view.getId();
 
-		if (buttonId == R.id.main_left && action == MotionEvent.ACTION_UP) {
+		if (buttonId == R.id.main_left) {
 			UI.showSettingsScreen(tt9);
-			return view.performClick();
 		}
 
-		if (buttonId == R.id.main_mid && action == MotionEvent.ACTION_UP) {
+		if (buttonId == R.id.main_mid) {
 			tt9.onOK();
 			invalidateNumpadButtonsText();
-			return view.performClick();
 		}
-		if (buttonId == R.id.soft_mode && action == MotionEvent.ACTION_UP) {
+		if (buttonId == R.id.soft_mode) {
 			tt9.onKeyNextInputMode();
 			invalidateNumpadButtonsText();
-			return view.performClick();
 		}
-		if (buttonId == R.id.soft_addWord && action == MotionEvent.ACTION_UP) {
+		if (buttonId == R.id.soft_addWord) {
 			tt9.onKeyAddWord();
-			return view.performClick();
 		}
-		if (buttonId == R.id.soft_language && action == MotionEvent.ACTION_UP) {
+		if (buttonId == R.id.soft_language) {
 			tt9.onKeyNextLanguage();
 			invalidateNumpadButtonsText();
-			return view.performClick();
 		}
-
 		if (buttonId == R.id.main_right) {
-			if (action == MotionEvent.AXIS_PRESSURE) {
-				return handleBackspaceHold();
-			} else if (action == MotionEvent.ACTION_UP) {
-				return handleBackspaceUp();
-			}
+			handleBackspaceUp();
 		}
 
 //		int keycodeToForward = -1;
@@ -208,8 +241,5 @@ class SoftKeyHandler implements View.OnTouchListener {
 //					new KeyEvent(KeyEvent.ACTION_UP, keycodeToForward));
 //			}
 //		}
-
-
-		return false;
 	}
 }

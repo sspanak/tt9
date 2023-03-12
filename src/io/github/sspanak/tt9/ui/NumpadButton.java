@@ -39,6 +39,8 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 
 	protected void setDefaults(){
 		number = Integer.parseInt(getText().toString());
+		setFocusableInTouchMode(true); //TODO only debugging
+		setFocusable(true); //TODO only debugging
 	}
 
 
@@ -85,7 +87,8 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 	@Override
 	public boolean onTouch(View view, MotionEvent motionEvent) {
 		if (motionEvent.getAction() == KeyEvent.ACTION_DOWN){
-			return sendKeyEvent(KeyEvent.ACTION_DOWN);
+			sendKeyEvent(KeyEvent.ACTION_DOWN);
+			return false; //has always to be false, otherweise it is not working
 		}
 		//action up is handled in on performClick() which is called from supoer by buttons
 		return false;
@@ -94,14 +97,15 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 	@Override
 	public boolean performClick() {
 		super.performClick();
-		return sendKeyEvent(KeyEvent.ACTION_UP);
+		sendKeyEvent(KeyEvent.ACTION_UP);
+		return true;
 	}
 
 	/**
 	 *
 	 * @param action either KeyEvent.ACTION_DOWN or KeyEvent.ACTION_UP
 	 */
-	protected boolean sendKeyEvent(int action){
+	protected void sendKeyEvent(int action){
 		int keycode = getKeycode();
 		//since physical key events can not reliable simulated, directly send it to the TT9 implementation
 		boolean consumedByTT9;
@@ -110,14 +114,12 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 		}else if (action == KeyEvent.ACTION_UP){
 			consumedByTT9 = ims.onKeyUp(keycode, new KeyEvent(KeyEvent.ACTION_UP, keycode));
 		}else {
-			return false;
+			throw new RuntimeException("Unsupported action code");
 		}
 		if (!consumedByTT9){
 			//means ims is in number mode, send the number key event directly
 			ims.getCurrentInputConnection().sendKeyEvent(new KeyEvent(action, keycode));
-			return true;
 		}
-		return false;
 	}
 
 	protected int getKeycode(){

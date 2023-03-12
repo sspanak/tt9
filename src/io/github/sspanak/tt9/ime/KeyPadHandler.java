@@ -255,7 +255,11 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (Key.isOK(keyCode)) {
-			return onOK();
+			if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && onDpad(keyCode)){
+				return true;
+			}else {
+				return onOK();
+			}
 		}
 
 		if (Key.isNumber(keyCode)) {
@@ -263,15 +267,26 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
-			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
-			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
+			case KeyEvent.KEYCODE_DPAD_UP:
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onDpad(keyCode);
 			case KeyEvent.KEYCODE_STAR: return onStar();
 			case KeyEvent.KEYCODE_POUND: return onPound();
 		}
 
 		return false;
+	}
+
+	protected boolean onDpad(int keyCode){
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
+			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
+			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
+			case KeyEvent.KEYCODE_DPAD_CENTER: return false;
+			default: throw new RuntimeException("KeypadHandler - unsupported dpad key code");
+		}
 	}
 
 
