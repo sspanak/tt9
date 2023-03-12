@@ -6,6 +6,7 @@ import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 
-public class NumpadButton extends androidx.appcompat.widget.AppCompatButton implements View.OnClickListener {
+public class NumpadButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
 	int number;
 	TraditionalT9 ims;
 	int textCase;
@@ -78,11 +79,11 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 
 	public void setIMS(TraditionalT9 ims) {
 		this.ims = ims;
-		super.setOnClickListener(this);
+		super.setOnTouchListener(this);
 	}
 
 	@Override
-	public void onClick(View view) {
+	public boolean onTouch(View view, MotionEvent motionEvent) {
 		int keycode;
 		switch (number) {
 			case 0: keycode = KeyEvent.KEYCODE_0; break;
@@ -97,7 +98,20 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 			case 9: keycode = KeyEvent.KEYCODE_9; break;
 			default: throw new RuntimeException("NumpadButton - unsupported number key code");
 		}
-		ims.onKeyDown(keycode, new KeyEvent(KeyEvent.ACTION_DOWN, keycode));
-		ims.onKeyUp(keycode, new KeyEvent(KeyEvent.ACTION_UP, keycode));
+
+		//since physical key events can not reliable simulated, directly send it to the TT9 implementation
+		boolean consumedByTT9;
+		if (motionEvent.getAction() == KeyEvent.ACTION_DOWN){
+			consumedByTT9 = ims.onKeyDown(keycode, new KeyEvent(KeyEvent.ACTION_DOWN, keycode));
+		}else if (motionEvent.getAction() == KeyEvent.ACTION_UP){
+			consumedByTT9 = ims.onKeyUp(keycode, new KeyEvent(KeyEvent.ACTION_UP, keycode));
+		}else {
+			return false;
+		}
+		if (!consumedByTT9){
+			//means ims is in number mode, send the number key event directly
+			ims.getCurrentInputConnection().sendKeyEvent(new KeyEvent(motionEvent.getAction(), keycode));
+		}
+		return false;
 	}
 }
