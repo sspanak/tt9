@@ -49,7 +49,7 @@ abstract public class InputMode {
 	public boolean onBackspace() { return false; }
 	abstract public boolean onNumber(int key, boolean hold, int repeat);
 
-	// Suggestions
+	// Predictions
 	public void onAcceptSuggestion(String suggestion) {}
 	protected void onSuggestionsUpdated(Handler handler) { handler.sendEmptyMessage(0); }
 	public boolean loadSuggestions(Handler handler, String currentWord) { return false; }

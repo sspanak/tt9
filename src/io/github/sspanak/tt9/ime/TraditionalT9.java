@@ -51,6 +51,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void loadSettings() {
 		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
 		mEnabledLanguages = settings.getEnabledLanguageIds();
+		validateLanguages();
+
 		mInputMode = InputMode.getInstance(settings, mLanguage, settings.getInputMode());
 		mInputMode.setTextCase(settings.getTextCase());
 	}
