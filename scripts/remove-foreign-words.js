@@ -2,40 +2,36 @@ const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
 
-const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
-
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt `);
-	console.log('Removes repeating words from a word list');
-	console.log('\nLocale could be any valid JS locale, for exmaple: en, en-US, etc...');
+	console.log(`Usage ${basename(process.argv[1])} DICTIONARY_LOCALE DICTIONARY.TXT FOREIGN_WORDS_LOCALE FOREIGN-WORD-DICTIONARY.txt`);
+	console.log('Removes foreign words from a dictionary');
 }
 
 
 
 function validateInput() {
-	if (process.argv.length < 4) {
+	if (process.argv.length < 6) {
 		printHelp();
 		process.exit(1);
 	}
 
-
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find file "${process.argv[3]}."`);
+		console.error(`Failure! Could not find words file "${process.argv[3]}."`);
 		process.exit(2);
 	}
 
-	return { fileName: process.argv[3], locale: process.argv[2] };
-}
-
-
-
-function getRegularWordKey(locale, word) {
-	if (typeof word !== 'string' || word.length === 0) {
-		return '';
+	if (!existsSync(process.argv[5])) {
+		console.error(`Failure! Could not find foreign words file "${process.argv[4]}."`);
+		process.exit(2);
 	}
 
-	return GEO_NAME.test(word) ? word : word.toLocaleLowerCase(locale);
+	return {
+		locale: process.argv[2],
+		fileName: process.argv[3],
+		foreignWordsLocale: process.argv[4],
+		foreignWordsFileName: process.argv[5]
+	};
 }
 
 
@@ -56,16 +52,16 @@ function getWordkey(word) {
 
 
 
-async function removeRepeatingWords({ fileName, locale }) {
+async function removeForeignWords({ locale, foreignWordsLocale, fileName, foreignWordsFileName }) {
+	const foreignWords = {};
 
-	const wordMap = {};
-
-	let lineReader = createInterface({ input: createReadStream(fileName) });
+	let lineReader = createInterface({ input: createReadStream(foreignWordsFileName) });
 	for await (const line of lineReader) {
-		wordMap[getLowercaseWordKey(locale, line)] = true;
+		foreignWords[getLowercaseWordKey(foreignWordsLocale, line)] = true;
 	}
 
 
+	const wordMap = {};
 	lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
 		const word = getWordkey(line);
@@ -76,13 +72,12 @@ async function removeRepeatingWords({ fileName, locale }) {
 		}
 
 
-		if (word !== lowercaseWord) {
-			delete wordMap[lowercaseWord];
+		if (!foreignWords[lowercaseWord]) {
 			wordMap[word] = true;
 		}
 	}
 
-	return Object.keys(wordMap).sort();
+	return Object.keys(wordMap);
 }
 
 
@@ -98,6 +93,6 @@ function printWords(wordList) {
 
 
 /** main **/
-removeRepeatingWords(validateInput())
+removeForeignWords(validateInput())
 	.then(words => printWords(words))
 	.catch(e => console.error(e));
