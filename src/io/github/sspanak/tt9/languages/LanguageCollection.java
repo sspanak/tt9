@@ -33,10 +33,11 @@ public class LanguageCollection {
 			Norwegian.class,
 			Russian.class,
 			Spanish.class,
+			Swedish.class,
 			Ukrainian.class
 		);
 
-		// initialize the language objects from the class list above
+		// initialize the language objects from the class list above.
 		for (Class<? extends Language> languageClass : languageList) {
 			try {
 				Language lang = languageClass.newInstance();
