@@ -53,6 +53,11 @@
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>
 
+	<string name="setup_keyboard_status">Keyboard Status</string>
+	<string name="setup_default_keyboard">Default Keyboard</string>
+	<string name="setup_tt9_on">Traditional T9 is on</string>
+	<string name="setup_tt9_off">Traditional T9 is off</string>
+
 	<string name="key_hold_key">(hold)</string>
 	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>

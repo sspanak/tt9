@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences;
 
 import android.os.Bundle;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,20 +15,24 @@ import androidx.preference.PreferenceFragmentCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
+import io.github.sspanak.tt9.preferences.screens.SetupScreen;
 import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	public SettingsStore settings;
+	public GlobalKeyboardSettings globalKeyboardSettings;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		globalKeyboardSettings = new GlobalKeyboardSettings(this, (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 		settings = new SettingsStore(this);
 		applyTheme();
 
@@ -78,7 +83,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 			case "KeyPad":
 				return new KeyPadScreen(this);
 			default:
-				return new MainSettingsScreen(this);
+				return globalKeyboardSettings.isTT9Enabled() ? new MainSettingsScreen(this) : new SetupScreen(this);
 		}
 	}
 
@@ -107,7 +112,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		}
 
 		setContentView(R.layout.preferences_container);
-		displayScreen(new MainSettingsScreen(this), false);
+		displayScreen(getScreen("default"), false);
 	}
 
 

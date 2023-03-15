@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:layout="@layout/pref_text"
+	app:orderingFromXml="true">
+	<Preference
+			app:key="global_tt9_status"
+			app:layout="@layout/pref_text"
+			app:title="@string/setup_keyboard_status" />
+
+	<Preference
+			app:key="global_default_keyboard"
+			app:layout="@layout/pref_text"
+			app:title="@string/setup_default_keyboard" />
+
+	<PreferenceCategory
+		android:title="@string/pref_category_about"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+		<Preference
+			app:key="version_info"
+			app:layout="@layout/pref_text"
+			app:title="@string/app_name" />
+		</PreferenceCategory>
+</PreferenceScreen>
