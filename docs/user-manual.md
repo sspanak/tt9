@@ -124,8 +124,10 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 ### How to access the Settings?
 
 #### Method 1
-Tap the Traditional T9 launcher icon. _If you don't see it among the other installed applications, restart your phone and it should
-appear._
+Tap the Traditional T9 launcher icon.
+
+_If you don't see the icon among other installed applications, restart your phone and it should appear. Android is trying to save some
+battery life by not refreshing the newly installed apps list in some cases._
 
 #### Method 2
 - Start typing in a text field to wake up TT9.
