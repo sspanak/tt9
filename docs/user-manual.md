@@ -124,14 +124,18 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 ### How to access the Settings?
 
 #### Method 1
-- Start typing in a text field to wake up TT9.
-- Use the on-screen gear button.
+Tap the Traditional T9 launcher icon. _If you don't see it among the other installed applications, restart your phone and it should
+appear._
 
 #### Method 2
 - Start typing in a text field to wake up TT9.
-- Use the assigned hotkey [Default: Hold ✱].
+- Use the on-screen gear button.
 
 #### Method 3
+- Start typing in a text field to wake up TT9.
+- Use the assigned hotkey [Default: Hold ✱].
+
+#### Method 4
 - Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards). This is where all installed keyboards are configured.
 - Select "Traditional T9".
 
