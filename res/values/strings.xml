@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
-	<string name="app_name" translatable="false">Traditional T9</string>
+	<string name="app_name" translatable="false">TraditionalT9</string>
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
 	<string name="error_unexpected">Unexpected error occurred.</string>
@@ -18,6 +18,7 @@
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>
 	<string name="pref_category_keypad">Keypad</string>
+	<string name="pref_category_setup">Initial Setup</string>
 
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
@@ -53,10 +54,12 @@
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>
 
-	<string name="setup_keyboard_status">Keyboard Status</string>
-	<string name="setup_default_keyboard">Default Keyboard</string>
-	<string name="setup_tt9_on">Traditional T9 is on</string>
-	<string name="setup_tt9_off">Traditional T9 is off</string>
+
+	<string name="setup_keyboard_status">Status</string>
+	<string name="setup_default_keyboard">Select Default Keyboard</string>
+	<string name="setup_goto_main_screen">Return to Settings</string>
+	<string name="setup_tt9_on">Traditional T9 is enabled</string>
+	<string name="setup_tt9_off">Traditional T9 is disabled. Click here to enable it from Android Settings.</string>
 
 	<string name="key_hold_key">(hold)</string>
 	<string name="key_none" translatable="false">--</string>

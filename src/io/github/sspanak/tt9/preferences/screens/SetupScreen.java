@@ -12,7 +12,7 @@ public class SetupScreen extends BaseScreenFragment {
 	public SetupScreen() { init(); }
 	public SetupScreen(PreferencesActivity activity) { init(activity); }
 
-	@Override protected int getTitle() { return R.string.app_settings;}
+	@Override protected int getTitle() { return R.string.pref_category_setup;}
 	@Override protected int getXml() { return R.xml.prefs_screen_setup; }
 
 	@Override
@@ -28,21 +28,25 @@ public class SetupScreen extends BaseScreenFragment {
 	}
 
 	private void createKeyboardSection() {
-		Preference status = findPreference("global_tt9_status");
-		if (status != null) {
-			status.setSummary(
-				activity.globalKeyboardSettings.isTT9Enabled() ? R.string.setup_tt9_on : R.string.setup_tt9_off
+		boolean isTT9On = activity.globalKeyboardSettings.isTT9Enabled();
+
+		Preference statusItem = findPreference("global_tt9_status");
+		if (statusItem != null) {
+			statusItem.setSummary(
+				isTT9On ? R.string.setup_tt9_on : R.string.setup_tt9_off
 			);
 
-			new ItemSelectGlobalKeyboard(status, activity).enableClickHandler();
+			new ItemSelectGlobalKeyboard(statusItem, activity).enableClickHandler();
 		}
 
-		Preference defaultKeyboard = findPreference("global_default_keyboard");
-		if (defaultKeyboard != null) {
-			String defaultKeyboardName = activity.globalKeyboardSettings.getDefault();
-			defaultKeyboard.setSummary(!defaultKeyboardName.equals("") ? defaultKeyboardName : "--");
+		Preference defaultKeyboardItem = findPreference("global_default_keyboard");
+		if (defaultKeyboardItem != null) {
+			new ItemSetDefaultGlobalKeyboard(defaultKeyboardItem, activity).enableClickHandler();
+		}
 
-			new ItemSetDefaultGlobalKeyboard(defaultKeyboard, activity).enableClickHandler();
+		Preference goToMain = findPreference("goto_main_screen");
+		if (goToMain != null) {
+			goToMain.setEnabled(isTT9On);
 		}
 	}
 
