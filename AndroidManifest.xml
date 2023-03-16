@@ -23,7 +23,7 @@
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
 		</service>
 
-		<activity android:label="@string/app_name" android:name="io.github.sspanak.tt9.preferences.PreferencesActivity"
+		<activity android:label="@string/app_name_short" android:name="io.github.sspanak.tt9.preferences.PreferencesActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>

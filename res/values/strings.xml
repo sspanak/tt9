@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
-	<string name="app_name" translatable="false">TraditionalT9</string>
+	<string name="app_name" translatable="false">Traditional T9</string>
+	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
 	<string name="error_unexpected">Unexpected error occurred.</string>
