@@ -4,12 +4,11 @@ TT9 is an IME (Input Method Editor) for Android devices with hardware keypad. It
 All source code, documentation and the privacy policy are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
 
 ## Initial Setup
-After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so:
+After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so, click on the launcher icon. If you
+need to take any action, you will see the Initial Setup screen, where you will be prompted to enable TT9 and set it as default system
+keyboard.
 
-- Go to Android Settings → System → Languages → Keyboards.
-- Add Traditional T9 IME.
-
-_The actual menu names may vary depending on your Android version and phone._
+_If you don't see the icon right after installing, restart your phone and it should appear. Android is trying to save some battery life by not refreshing the newly installed apps list in some cases._
 
 ### Enabling Predictive Mode
 With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
@@ -124,10 +123,9 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 ### How to access the Settings?
 
 #### Method 1
-Tap the Traditional T9 launcher icon.
+Click on the Traditional T9 launcher icon.
 
-_If you don't see the icon among other installed applications, restart your phone and it should appear. Android is trying to save some
-battery life by not refreshing the newly installed apps list in some cases._
+_If you don't see the icon among other installed applications, restart your phone and it should appear. Android is trying to save some battery life by not refreshing the newly installed apps list in some cases._
 
 #### Method 2
 - Start typing in a text field to wake up TT9.
