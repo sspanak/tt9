@@ -144,6 +144,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			isBackspaceHandled = false;
 		}
 
+		if (Key.isOK(keyCode)) {
+			return true;
+		}
+
 		// In numeric fields, we do not want to handle anything, but "backspace"
 		if (mEditing == EDITING_STRICT_NUMERIC) {
 			return false;
@@ -171,8 +175,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			|| keyCode == KeyEvent.KEYCODE_POUND
 			|| (Key.isNumber(keyCode) && shouldTrackNumPress())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
-			|| (mEditing != EDITING_NOSHOW && Key.isOK(keyCode));
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
 	}
 
 
@@ -235,6 +238,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		if (Key.isOK(keyCode)) {
+			return onOK();
+		}
+
 		// in numeric fields, we just handle backspace and let the rest go as-is.
 		if (mEditing == EDITING_STRICT_NUMERIC) {
 			return false;
@@ -252,10 +259,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		if (handleHotkey(keyCode, false)) {
 			return true;
-		}
-
-		if (Key.isOK(keyCode)) {
-			return onOK();
 		}
 
 		if (Key.isNumber(keyCode)) {
