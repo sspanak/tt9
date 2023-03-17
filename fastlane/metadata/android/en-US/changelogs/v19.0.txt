@@ -1,0 +1,21 @@
+##  Brazilian Portuguese, Hebrew and Norwegian
+This release adds three new languages and improves slightly the Auto Space function. 
+
+**NOTE:** If you are using a language different than English, your language preferences may be reset. There is nothing to worry about, you just need to go to the Settings and re-enable the language(s) you have been using (no need to reload the dictionaries).
+
+## What's Changed
+* Added right-to-left language support
+* Added support for languages with no capital letters
+* Standartized the Add Word dialog layout
+* Added Hebrew by @AshiVered in #197 
+* Added Norwegian by @joddsus in #191 
+* Added Brazilian Portuguese (thanks to @Nightly-Luke for translating everything)
+* Added support for Clear key. Some phones have that instead of a Delete key.
+* No unnecessary notifications when 'change language' key is pressed, but there is only one language
+*  Improved auto space adjustment around punctuation marks
+* Improved dictionary validation during build time
+* Language IDs are now automatically generated. No more manual housekeeping.
+* Code cleanup and improvements
+* Updated documentation
+
+**Full Changelog**: https://github.com/sspanak/tt9/compare/v18.0...v19.0
