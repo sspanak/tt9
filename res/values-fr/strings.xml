@@ -37,10 +37,16 @@
 	<string name="dictionary_missing_go_load_it">Pas de dictionnaire pour langue «%1$s». Veuillez le charger à l\'écran Paramètres.</string>
 	<string name="pref_category_keypad">Clavier</string>
 	<string name="char_space">Espace</string>
+	<string name="setup_keyboard_status">État</string>
+	<string name="setup_default_keyboard">Sélectionnez le clavier par défaut</string>
+	<string name="setup_goto_main_screen">Retour à l\'écran des paramètres</string>
+	<string name="setup_tt9_on">Traditional T9 est activé</string>
+	<string name="setup_tt9_off">Traditional T9 est désactivé. Cliquez ici pour l\'activer dans les paramètres Android.</string>
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
 	<string name="add_word_field_placeholder">Tapez un mot…</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Vider les non sélectionnés</string>
+	<string name="pref_category_setup">Configuration initiale</string>
 </resources>

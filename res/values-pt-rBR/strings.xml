@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
-	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_settings">Configurações do Teclado</string>
 	<string name="completed">Concluído</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
@@ -9,7 +7,6 @@
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_blank">Palavra em branco, impossível adicionar.</string>
 	<string name="add_word_exist">Palavra \"%1$s\" já está registrada.</string>
-	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected</string>
 	<string name="add_word_title">Adicionar Palavra</string>
 	<string name="add_word_field_placeholder">Escreva uma palavra…</string>
 
