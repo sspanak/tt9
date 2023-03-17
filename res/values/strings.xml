@@ -69,6 +69,8 @@
 	<string name="key_clear" translatable="false">Clear</string>
 	<string name="key_delete" translatable="false">Delete</string>
 	<string name="key_menu" translatable="false">Menu</string>
+	<string name="key_soft_left" translatable="false">Left Select Key</string>
+	<string name="key_soft_right" translatable="false">Right Select Key</string>
 
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
