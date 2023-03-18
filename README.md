@@ -12,7 +12,7 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 ## System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 5.1.1 and 11)_
 - Free space:
-  - Minimum 15 Mb when not using Predictive mode and no dictionaries are loaded.
+  - Minimum 25 Mb when not using Predictive mode and no dictionaries are loaded.
   - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
 - A hardware keypad or a keyboard. The application is not usable on touchscreen-only devices.
 

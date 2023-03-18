@@ -35,6 +35,11 @@
 	<string name="function_show_settings_key">Настройки</string>
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
 	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>
+	<string name="setup_keyboard_status">Състояние</string>
+	<string name="setup_default_keyboard">Избор на клавиатура по подразбиране</string>
+	<string name="setup_goto_main_screen">Назад към Настройки</string>
+	<string name="setup_tt9_on">Traditional T9 е активен</string>
+	<string name="setup_tt9_off">Traditional T9 е изключен. Натиснете тук, за да го включите от настройките на Андроид.</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
@@ -52,4 +57,5 @@
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
+	<string name="pref_category_setup">Начална настройка</string>
 </resources>
