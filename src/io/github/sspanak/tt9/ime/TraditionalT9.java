@@ -29,6 +29,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	private TextField textField;
 	private InputType inputType;
 
+	final Handler delayHandler = new Handler(Looper.getMainLooper());
+	final Runnable delayAction = () -> commitCurrentSuggestion(false);
+
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	private InputMode mInputMode;
@@ -271,6 +274,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		String currentWord = getComposingText();
 
+		if(mInputMode.isABC()) {
+			delayHandler.removeCallbacks(delayAction);
+			delayHandler.postDelayed(delayAction, 800);
+		}
+
 		// Automatically accept the current word, when the next one is a space or whatnot,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
@@ -417,6 +425,8 @@ public class TraditionalT9 extends KeyPadHandler {
 				textField.setComposingText(mSuggestionView.getCurrentSuggestion());
 			}
 			currentInputConnection.finishComposingText();
+			if(mInputMode.isABC())
+				delayHandler.removeCallbacks(delayAction);
 		}
 
 		setSuggestions(null);
