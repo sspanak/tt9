@@ -45,6 +45,11 @@
 	<string name="function_show_settings_key">Настройки</string>
 	<string name="function_reset_keys_title">Вернуть кнопки по умолчанию</string>
 	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
+	<string name="setup_keyboard_status">Состояние</string>
+	<string name="setup_default_keyboard">Выберите клавиатуру по умолчанию</string>
+	<string name="setup_goto_main_screen">Вернуться к настройкам</string>
+	<string name="setup_tt9_on">Traditional T9 активен</string>
+	<string name="setup_tt9_off">Traditional T9 отключен. Нажмите здесь, чтобы включить его в настройках Android.</string>
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
@@ -52,4 +57,5 @@
 	<string name="pref_upside_down_keys">Перевернутая клавиатура</string>
 	<string name="pref_upside_down_keys_summary">Используйте настройку, если в первом ряду 7–8–9 вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Очистить невыбранные</string>
+	<string name="pref_category_setup">Начальная настройка</string>
 </resources>

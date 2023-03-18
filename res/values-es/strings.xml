@@ -15,6 +15,9 @@
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Tema oscuro</string>
 	<string name="char_space">Espacio</string>
+	<string name="setup_keyboard_status">Estado</string>
+	<string name="setup_default_keyboard">Selecciona teclado predeterminado</string>
+	<string name="setup_goto_main_screen">Volver a la pantalla de configuración</string>
 	<string name="char_newline">Nueva línea</string>
 	<string name="dictionary_load_title">Cargar diccionario</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
@@ -31,4 +34,5 @@
 	<string name="dictionary_loaded">Diccionario cargado con éxito.</string>
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
 	<string name="pref_upside_down_keys_summary">Habilite la configuración si hay 7–8–9 en la primera fila, en lugar de 1–2–3.</string>
+	<string name="pref_category_setup">Configuración inicial</string>
 </resources>
