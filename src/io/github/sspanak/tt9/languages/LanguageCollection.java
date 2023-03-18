@@ -32,6 +32,7 @@ public class LanguageCollection {
 			Norwegian.class,
 			Russian.class,
 			Spanish.class,
+			Swedish.class,
 			Ukrainian.class
 		);
 

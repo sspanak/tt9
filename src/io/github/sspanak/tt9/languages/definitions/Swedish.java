@@ -12,7 +12,7 @@ public class Swedish extends English {
 		name = "Svenska";
 		locale = new Locale("sv","SE");
 		dictionaryFile = "sv-utf8.csv";
-		icon = R.drawable.ime_lang_se;
+		icon = R.drawable.ime_lang_sv;
 
 		isPunctuationPartOfWords = false;
 
