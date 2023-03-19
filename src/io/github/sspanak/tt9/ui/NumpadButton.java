@@ -39,7 +39,8 @@ public class NumpadButton extends androidx.appcompat.widget.AppCompatButton impl
 
 	protected void setDefaults(){
 		number = Integer.parseInt(getText().toString());
-		//setFocusableInTouchMode(true); // only debugging
+		//Kept as a reference if someone wants to debug dpad navigation on a touch-screen device
+		//setFocusableInTouchMode(true); // only for debugging (also in SoftKeyHandler.java)
 	}
 
 

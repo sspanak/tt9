@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -73,13 +72,11 @@ class SoftKeyHandler implements View.OnClickListener {
 
 			ViewGroup softNumpad = view.findViewById(R.id.main_soft_keys);
 			for (int r = 0; r < softNumpad.getChildCount(); r++) {
-				Log.d("test", softNumpad.getClass().toString());
 				View child = softNumpad.getChildAt(r);
 				if (child instanceof ViewGroup) {
 					//this happens only if R.layout.mainview_with_numpad is inflated
 					ViewGroup row = (ViewGroup) child;
 					for (int b = 0; b < row.getChildCount(); b++) {
-						Log.d("test", row.getClass().toString());
 						View button = row.getChildAt(b);
 						if (button instanceof NumpadButton) {
 							NumpadButton nb = (NumpadButton) button;
@@ -205,7 +202,8 @@ class SoftKeyHandler implements View.OnClickListener {
 		if ((focusedView == null || focusedView.getId() == R.id.main_suggestions_list)
 				&& keyCode == KeyEvent.KEYCODE_DPAD_DOWN){
 			Button settingsButton = view.findViewById(R.id.main_left);
-//			settingsButton.setFocusableInTouchMode(true); // only for debugging (also in NumpadButton.java)
+			//Kept as a reference if someone wants to debug dpad navigation on a touch-screen device
+			//settingsButton.setFocusableInTouchMode(true); // only for debugging (also in NumpadButton.java)
 			return settingsButton.requestFocus();
 		}else if(focusedView != null && focusedView.getId() != R.id.main_suggestions_list){
 			int direction;
@@ -255,20 +253,5 @@ class SoftKeyHandler implements View.OnClickListener {
 			handleBackspaceUp();
 		}
 
-//		int keycodeToForward = -1;
-//		if (buttonId == R.id.soft_pound){
-//			keycodeToForward = KeyEvent.KEYCODE_POUND;
-//		} else if (buttonId == R.id.soft_star){
-//			keycodeToForward = KeyEvent.KEYCODE_STAR;
-//		}
-//		if (keycodeToForward != -1){
-//			if (action == MotionEvent.ACTION_DOWN){
-//				return tt9.onKeyDown(keycodeToForward,
-//					new KeyEvent(KeyEvent.ACTION_DOWN, keycodeToForward));
-//			} else if (action == MotionEvent.ACTION_UP){
-//				return tt9.onKeyUp(keycodeToForward,
-//					new KeyEvent(KeyEvent.ACTION_UP, keycodeToForward));
-//			}
-//		}
 	}
 }
