@@ -123,6 +123,8 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
 
 		add(KeyEvent.KEYCODE_POUND, "#", true);
 		add(KeyEvent.KEYCODE_STAR, "✱", true);
