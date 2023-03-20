@@ -7,4 +7,6 @@ Modifications:
 
 - Removed words with numbers and symbols other than $ and -;
 - Replaced characters outside of the 29-letter Finnish alphabet with
-equivalent ones
+equivalent ones;
+- Merged repeating words with different capitalization, favoring the one with
+the higher frequency.
