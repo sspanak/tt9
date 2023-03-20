@@ -40,10 +40,15 @@ public class InputType {
 	 * NOTE: A Dialer field is not the same as a Phone field in a phone book.
 	 */
 	public boolean isDialer() {
+		if (field == null) {
+			return false;
+		}
+
+		int inputType = field.inputType & android.text.InputType.TYPE_MASK_CLASS;
+
 		return
-			field != null
-			&& field.inputType == android.text.InputType.TYPE_CLASS_PHONE
-			&& field.packageName.equals("com.android.dialer");
+			inputType == android.text.InputType.TYPE_CLASS_PHONE
+			|| field.packageName.equals("com.android.dialer");
 	}
 
 
