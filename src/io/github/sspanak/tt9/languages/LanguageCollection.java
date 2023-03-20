@@ -25,6 +25,7 @@ public class LanguageCollection {
 			Bulgarian.class,
 			Dutch.class,
 			English.class,
+			Finnish.class,
 			French.class,
 			German.class,
 			Hebrew.class,
