@@ -8,6 +8,7 @@ import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,13 +118,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		softKeyHandler.setDarkTheme(settings.getDarkTheme());
 		softKeyHandler.setSoftKeysVisibility(settings.getShowSoftKeys());
 		softKeyHandler.show();
-
-		if (!isInputViewShown()) {
-			showWindow(true);
-		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER) {
-			requestShowSelf(1);
-		}
 	}
 
 
@@ -163,7 +157,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onStop() {
 		onFinishTyping();
 		clearSuggestions();
-		hideWindow();
 
 		softKeyHandler.hide();
 	}
@@ -269,6 +262,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @return boolean
 	 */
 	protected boolean onNumber(int key, boolean hold, int repeat) {
+		forceShowWindowIfHidden();
+
 		String currentWord = getComposingText();
 
 		// Automatically accept the current word, when the next one is a space or whatnot,
@@ -681,5 +676,22 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected View createSoftKeyView() {
 		return softKeyHandler.getView();
+	}
+
+
+	/**
+	 * forceShowWindowIfHidden
+	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
+	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
+	 * are invisible. This function forces the InputMethodManager to show our window.
+	 */
+	protected void forceShowWindowIfHidden() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+				&& mEditing != EDITING_STRICT_NUMERIC
+				&& mEditing != EDITING_DIALER
+				&& !isInputViewShown()
+		) {
+			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
+		}
 	}
 }
