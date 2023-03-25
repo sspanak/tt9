@@ -37,6 +37,11 @@
 	<string name="pref_show_soft_function_keys">Кнопки на екрані</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Виклик</string>
+	<string name="setup_keyboard_status">Стан</string>
+	<string name="setup_default_keyboard">Вибрати стандартну клавіатуру</string>
+	<string name="setup_goto_main_screen">Назад до налаштувань</string>
+	<string name="setup_tt9_on">Traditional T9 активний</string>
+	<string name="setup_tt9_off">Traditional T9 вимкнено. Натисніть тут, щоб увімкнути його в налаштуваннях Android.</string>
 	<string name="key_hold_key">(затиснути)</string>
 	<string name="function_add_word_key">Додати нове слово</string>
 	<string name="function_backspace_key">Стерти</string>
@@ -52,4 +57,5 @@
 	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Очистіть невибрані</string>
+	<string name="pref_category_setup">Початкове налаштування</string>
 </resources>

@@ -43,12 +43,22 @@ public class TextField {
 
 
 	/**
-	 * isThereSpaceAhead
-	 * Checks whether there is a space after the cursor.
+	 * getPreviousChar
+	 * Gets the character before the cursor.
 	 */
-	public boolean isThereSpaceAhead() {
-		CharSequence after = connection != null ? connection.getTextAfterCursor(1, 0) : null;
-		return after != null && after.equals(" ");
+	public String getPreviousChars(int numberOfChars) {
+		CharSequence character = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
+		return character != null ? character.toString() : "";
+	}
+
+
+	/**
+	 * getNextChar
+	 * Gets the character after the cursor.
+	 */
+	public String getNextChars(int numberOfChars) {
+		CharSequence character = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
+		return character != null ? character.toString() : "";
 	}
 
 

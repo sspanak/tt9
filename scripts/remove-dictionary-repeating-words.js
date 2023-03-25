@@ -1,6 +1,6 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
-
+const { createInterface } = require('readline');
 
 const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
 
@@ -40,37 +40,49 @@ function getRegularWordKey(locale, word) {
 
 
 
-function getWordKeyPreservingCaptialization(locale, word, wordMap) {
-	if (typeof word !== 'string' || word.length === 0 || typeof wordMap !== 'object') {
+function getLowercaseWordKey(locale, word) {
+	return getWordkey(word).toLocaleLowerCase(locale);
+}
+
+
+
+function getWordkey(word) {
+	if (typeof word !== 'string' || word.length === 0) {
 		return '';
 	}
 
-	let wordKey = word.toLocaleLowerCase(locale);
-
-	if (GEO_NAME.test(word) || word.toLocaleLowerCase(locale) !== word) {
-		wordKey = word;
-		if (wordMap[word.toLocaleLowerCase(locale)]) {
-			delete wordMap[word.toLocaleLowerCase(locale)];
-		}
-	}
-
-	return wordKey;
+	return word;
 }
 
 
 
 async function removeRepeatingWords({ fileName, locale }) {
-	const lineReader = require('readline').createInterface({
-	  input: createReadStream(fileName)
-	});
 
 	const wordMap = {};
 
+	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		wordMap[getWordKeyPreservingCaptialization(locale, line, wordMap)] = true;
+		wordMap[getLowercaseWordKey(locale, line)] = true;
 	}
 
-	return Object.keys(wordMap);
+
+	lineReader = createInterface({ input: createReadStream(fileName) });
+	for await (const line of lineReader) {
+		const word = getWordkey(line);
+		const lowercaseWord = getLowercaseWordKey(locale, line);
+
+		if (word === '') {
+			continue;
+		}
+
+
+		if (word !== lowercaseWord) {
+			delete wordMap[lowercaseWord];
+			wordMap[word] = true;
+		}
+	}
+
+	return Object.keys(wordMap).sort();
 }
 
 

@@ -27,16 +27,17 @@ abstract public class InputMode {
 	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
+	protected Language language;
 	protected ArrayList<String> suggestions = new ArrayList<>();
 	protected String word = null;
 
 
-	public static InputMode getInstance(SettingsStore settings, int mode) {
+	public static InputMode getInstance(SettingsStore settings, Language language, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive(settings);
+				return new ModePredictive(settings, language);
 			case MODE_ABC:
-				return new ModeABC();
+				return new ModeABC(language);
 			default:
 				Logger.w("tt9/InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
@@ -46,17 +47,17 @@ abstract public class InputMode {
 
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
-	abstract public boolean onNumber(Language language, int key, boolean hold, int repeat);
+	abstract public boolean onNumber(int key, boolean hold, int repeat);
 
-	// Suggestions
-	public void onAcceptSuggestion(Language language, String suggestion) {}
+	// Predictions
+	public void onAcceptSuggestion(String suggestion) {}
 	protected void onSuggestionsUpdated(Handler handler) { handler.sendEmptyMessage(0); }
-	public boolean loadSuggestions(Handler handler, Language language, String currentWord) { return false; }
+	public boolean loadSuggestions(Handler handler, String currentWord) { return false; }
 
-	public ArrayList<String> getSuggestions(Language language) {
+	public ArrayList<String> getSuggestions() {
 		ArrayList<String> newSuggestions = new ArrayList<>();
 		for (String s : suggestions) {
-			newSuggestions.add(adjustSuggestionTextCase(s, textCase, language));
+			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 		}
 
 		return newSuggestions;
@@ -73,9 +74,14 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	abstract public int getSequenceLength(); // The number of key presses for the current word.
+	public void changeLanguage(Language newLanguage) {
+		if (newLanguage != null) {
+			language = newLanguage;
+		}
+	}
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
-	public boolean shouldAcceptCurrentSuggestion(Language language, int key, boolean hold, boolean repeat) { return false; }
+	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) { return false; }
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
@@ -116,12 +122,12 @@ abstract public class InputMode {
 	public void determineNextWordTextCase(SettingsStore settings, boolean isThereText, String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
-	protected String adjustSuggestionTextCase(String word, int newTextCase, Language language) { return word; }
+	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.
 	public boolean clearWordStem() { return false; }
 	public boolean isStemFilterFuzzy() { return false; }
 	public String getWordStem() { return ""; }
-	public boolean setWordStem(Language language, String stem, boolean exact) { return false; }
+	public boolean setWordStem(String stem, boolean exact) { return false; }
 }

@@ -21,15 +21,19 @@ public class LanguageCollection {
 		List<Class<? extends Language>> languageList = Arrays.asList(
 			// Add languages here, to enable them in the UI and
 			// please, maintain the alphabetical order.
+			BrazilianPortuguese.class,
 			Bulgarian.class,
 			Dutch.class,
 			English.class,
+			Finnish.class,
 			French.class,
 			German.class,
+			Hebrew.class,
 			Italian.class,
 			Norwegian.class,
 			Russian.class,
 			Spanish.class,
+			Swedish.class,
 			Ukrainian.class
 		);
 

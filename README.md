@@ -12,7 +12,7 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 ## System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 5.1.1 and 11)_
 - Free space:
-  - Minimum 15 Mb when not using Predictive mode and no dictionaries are loaded.
+  - Minimum 25 Mb when not using Predictive mode and no dictionaries are loaded.
   - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
 - A hardware keypad or a keyboard. The application is not usable on touchscreen-only devices.
 
@@ -36,6 +36,7 @@ Your PRs are welcome!
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries/), where applicable. Detailed information about the dictionaries is also available there.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Roboto" font is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+- "Heebo" font is under [SIL Open Font License Version 1.1](http://scripts.sil.org/OFL).
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
 
 ## Privacy Policy
