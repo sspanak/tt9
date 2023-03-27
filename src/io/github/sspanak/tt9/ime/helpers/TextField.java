@@ -285,6 +285,11 @@ public class TextField {
 			return word;
 		}
 
+		// nothing to highlight in an empty word
+		if (word == null || word.length() == 0) {
+			return word;
+		}
+
 		SpannableString styledWord = new SpannableString(word);
 
 		// default underline style
