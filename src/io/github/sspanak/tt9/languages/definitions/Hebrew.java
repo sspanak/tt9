@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.languages.Language;
 
 public class Hebrew extends Language {
 	public Hebrew() {
-		name = "עברית";
 		locale = new Locale("iw","IL");
 		dictionaryFile = "he-utf8.csv";
 		abcString = "אבג";

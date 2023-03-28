@@ -62,11 +62,16 @@ public class ModeABC extends InputMode {
 	@NonNull
 	@Override
 	public String toString() {
+		String modeString = textCase == CASE_LOWER ? "abc" : "ABC";
 		if (language != null) {
 			String abc = (textCase == CASE_LOWER) ? language.getAbcString().toLowerCase(language.getLocale()) : language.getAbcString().toUpperCase(language.getLocale());
-			return abc + " (" + language.getName() + ")";
-		} else {
-			return textCase == CASE_LOWER ? "abc" : "ABC";
+
+			String langCode = language.getLocale().getCountry();
+			langCode = langCode.length() == 0 ? language.getLocale().getLanguage() : langCode;
+
+			modeString = abc + " / " + langCode.toUpperCase();
 		}
+
+		return "[ " + modeString + " ]";
 	}
 }

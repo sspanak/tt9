@@ -33,6 +33,10 @@ public class Language {
 	}
 
 	final public String getName() {
+		if (name == null) {
+			name = locale != null ? capitalize(locale.getDisplayLanguage(locale)) : "";
+		}
+
 		return name;
 	}
 
@@ -171,6 +175,6 @@ public class Language {
 	@NonNull
 	@Override
 	public String toString() {
-		return name != null ? name : "";
+		return getName();
 	}
 }

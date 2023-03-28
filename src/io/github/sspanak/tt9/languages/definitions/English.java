@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.languages.Language;
 
 public class English extends Language {
 	public English() {
-		name = "English";
 		locale = Locale.ENGLISH;
 		dictionaryFile = "en-utf8.csv";
 

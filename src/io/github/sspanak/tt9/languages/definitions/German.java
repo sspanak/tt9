@@ -6,7 +6,6 @@ public class German extends English {
 	public German() {
 		super();
 
-		name = "Deutsch";
 		locale = Locale.GERMAN;
 		dictionaryFile = "de-utf8.csv";
 

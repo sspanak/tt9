@@ -7,7 +7,6 @@ public class Norwegian extends English {
 	public Norwegian() {
 		super();
 
-		name = "Norsk bokmål";
 		locale = new Locale("nb","NO");
 		dictionaryFile = "nb-utf8.csv";
 

@@ -7,7 +7,6 @@ public class Dutch extends English {
 	public Dutch() {
 		super();
 
-		name = "Nederlands";
 		locale = new Locale("nl","NL");
 		dictionaryFile = "nl-utf8.csv";
 

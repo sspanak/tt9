@@ -7,7 +7,6 @@ public class Swedish extends English {
 	public Swedish() {
 		super();
 
-		name = "Svenska";
 		locale = new Locale("sv","SE");
 		dictionaryFile = "sv-utf8.csv";
 

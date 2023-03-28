@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.languages.Language;
 
 public class Russian extends Language {
 	public Russian() {
-		name = "Русский";
 		locale = new Locale("ru","RU");
 		dictionaryFile = "ru-utf8.csv";
 

@@ -30,6 +30,6 @@ public class Mode123 extends InputMode {
 	@NonNull
 	@Override
 	public String toString() {
-		return "123";
+		return "[ 123 ]";
 	}
 }
