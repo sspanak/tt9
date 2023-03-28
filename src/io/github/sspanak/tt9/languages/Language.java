@@ -46,7 +46,7 @@ public class Language {
 
 			abcString = "";
 			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < lettersList.size(); i++) {
+			for (int i = 0; i < lettersList.size() && i < 3; i++) {
 				sb.append(lettersList.get(i));
 			}
 

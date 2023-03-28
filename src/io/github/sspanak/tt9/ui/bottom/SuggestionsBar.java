@@ -1,7 +1,8 @@
-package io.github.sspanak.tt9.ui;
+package io.github.sspanak.tt9.ui.bottom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
@@ -17,21 +18,22 @@ import java.util.List;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class SuggestionsView {
+public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
+	private boolean isDarkThemeEnabled = false;
 
 	private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 
-	public SuggestionsView(SettingsStore settings, View mainView) {
+	public SuggestionsBar(SettingsStore settings, View mainView) {
 		super();
 
 		this.settings = settings;
 
-		mView = mainView.findViewById(R.id.main_suggestions_list);
+		mView = mainView.findViewById(R.id.suggestions_bar);
 		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
 
 		initDataAdapter(mainView.getContext());
@@ -119,6 +121,8 @@ public class SuggestionsView {
 			selectedIndex = Math.max(initialSel, 0);
 		}
 
+		setBackground();
+
 		mSuggestionsAdapter.setSelection(selectedIndex);
 		mSuggestionsAdapter.notifyDataSetChanged();
 		mView.scrollToPosition(selectedIndex);
@@ -159,14 +163,30 @@ public class SuggestionsView {
 	 * https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay
 	 */
 	public void setDarkTheme(boolean darkEnabled) {
+		isDarkThemeEnabled = darkEnabled;
 		Context context = mView.getContext();
 
-		int backgroundColor = darkEnabled ? R.color.dark_candidate_background : R.color.candidate_background;
+
 		int defaultColor = darkEnabled ? R.color.dark_candidate_color : R.color.candidate_color;
 		int highlightColor = darkEnabled ? R.color.dark_candidate_selected : R.color.candidate_selected;
 
-		mView.setBackgroundColor(ContextCompat.getColor(context, backgroundColor));
 		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, defaultColor));
 		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, highlightColor));
+
+		setBackground();
+	}
+
+
+	private void setBackground() {
+		int color = Color.TRANSPARENT;
+
+		if (suggestions.size() > 0) {
+			color = ContextCompat.getColor(
+				mView.getContext(),
+				isDarkThemeEnabled ? R.color.dark_candidate_background : R.color.candidate_background
+			);
+		}
+
+		mView.setBackgroundColor(color);
 	}
 }

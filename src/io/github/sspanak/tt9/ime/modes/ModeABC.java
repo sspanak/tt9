@@ -64,7 +64,7 @@ public class ModeABC extends InputMode {
 	public String toString() {
 		if (language != null) {
 			String abc = (textCase == CASE_LOWER) ? language.getAbcString().toLowerCase(language.getLocale()) : language.getAbcString().toUpperCase(language.getLocale());
-			return abc + " / " + language.getName();
+			return abc + " (" + language.getName() + ")";
 		} else {
 			return textCase == CASE_LOWER ? "abc" : "ABC";
 		}

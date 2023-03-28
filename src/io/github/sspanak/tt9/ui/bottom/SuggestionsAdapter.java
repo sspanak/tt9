@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui;
+package io.github.sspanak.tt9.ui.bottom;
 
 import android.content.Context;
 import android.graphics.Color;

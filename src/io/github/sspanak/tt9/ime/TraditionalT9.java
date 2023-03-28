@@ -21,7 +21,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.ui.bottom.InputModeBar;
+import io.github.sspanak.tt9.ui.bottom.StatusBar;
 import io.github.sspanak.tt9.ui.bottom.SuggestionsBar;
 import io.github.sspanak.tt9.ui.UI;
 
@@ -42,7 +42,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
 	private SuggestionsBar suggestionBar = null;
-	private InputModeBar inputModeBar = null;
+	private StatusBar statusBar = null;
 
 
 	private static TraditionalT9 self;
@@ -88,8 +88,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			suggestionBar = new SuggestionsBar(settings, softKeyHandler.getView());
 		}
 
-		if (inputModeBar == null) {
-			inputModeBar = new InputModeBar();
+		if (statusBar == null) {
+			statusBar = new StatusBar(softKeyHandler.getView());
 		}
 
 		loadSettings();
@@ -116,10 +116,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void initUi() {
-		inputModeBar
-			.setMode(mInputMode)
-			.setDarkTheme(settings.getDarkTheme())
-			.show();
+		statusBar
+			.setText(mInputMode != null ? mInputMode.toString() : "")
+			.setDarkTheme(settings.getDarkTheme());
 
 		clearSuggestions();
 		suggestionBar.setDarkTheme(settings.getDarkTheme());
@@ -342,6 +341,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.reset();
 			resetKeyRepeat();
 			clearSuggestions();
+			statusBar.setText(mInputMode.toString());
 
 			return true;
 		}
@@ -528,7 +528,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		settings.saveInputMode(mInputMode.getId());
 		settings.saveTextCase(mInputMode.getTextCase());
 
-		inputModeBar.setMode(mInputMode).show();
+		statusBar.setText(mInputMode.toString());
 	}
 
 
@@ -551,8 +551,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// save it for the next time
 		settings.saveInputLanguage(mLanguage.getId());
-
-		inputModeBar.setMode(mInputMode).show();
 
 		return true;
 	}
