@@ -4,18 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.Language;
 
 public class English extends Language {
 	public English() {
 		name = "English";
 		locale = Locale.ENGLISH;
 		dictionaryFile = "en-utf8.csv";
-		icon = R.drawable.ime_lang_en;
-		abcLowerCaseIcon = R.drawable.ime_lang_latin_lower;
-		abcUpperCaseIcon = R.drawable.ime_lang_latin_upper;
 
 		isPunctuationPartOfWords = true;
 

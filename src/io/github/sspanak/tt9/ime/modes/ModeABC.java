@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
@@ -55,5 +57,16 @@ public class ModeABC extends InputMode {
 	@Override public boolean shouldTrackLeftRight() { return true; }
 	@Override public boolean shouldSelectNextSuggestion() {
 		return shouldSelectNextLetter;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		if (language != null) {
+			String abc = (textCase == CASE_LOWER) ? language.getAbcString().toLowerCase(language.getLocale()) : language.getAbcString().toUpperCase(language.getLocale());
+			return abc + " / " + language.getName();
+		} else {
+			return textCase == CASE_LOWER ? "abc" : "ABC";
+		}
 	}
 }

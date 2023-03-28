@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.languages.definitions;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-
 public class Dutch extends English {
 	public Dutch() {
 		super();
@@ -12,7 +10,6 @@ public class Dutch extends English {
 		name = "Nederlands";
 		locale = new Locale("nl","NL");
 		dictionaryFile = "nl-utf8.csv";
-		icon = R.drawable.ime_lang_nl;
 
 		isPunctuationPartOfWords = true;
 

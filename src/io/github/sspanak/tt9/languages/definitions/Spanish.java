@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Characters;
 
 public class Spanish extends English {
@@ -15,7 +14,6 @@ public class Spanish extends English {
 		name = "Español";
 		locale = new Locale("es", "ES");
 		dictionaryFile = "es-utf8.csv";
-		icon = R.drawable.ime_lang_es;
 
 		isPunctuationPartOfWords = false;
 

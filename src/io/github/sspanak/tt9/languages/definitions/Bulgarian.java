@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Characters;
 
@@ -13,9 +12,6 @@ public class Bulgarian extends Language {
 		name = "Български";
 		locale = new Locale("bg","BG");
 		dictionaryFile = "bg-utf8.csv";
-		icon = R.drawable.ime_lang_bg;
-		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
-		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
 
 		isPunctuationPartOfWords = false;
 

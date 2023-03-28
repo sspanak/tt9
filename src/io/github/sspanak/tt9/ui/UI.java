@@ -31,33 +31,6 @@ public class UI {
 		tt9.startActivity(prefIntent);
 	}
 
-
-	/**
-	 * updateStatusIcon
-	 * Set the status icon that is appropriate in current mode (based on
-	 * openwmm-legacy)
-	 */
-	public static void updateStatusIcon(TraditionalT9 tt9, Language inputLanguage, InputMode inputMode) {
-		if (inputMode.isABC()) {
-			tt9.showStatusIcon(inputLanguage.getAbcIcon(inputMode.getTextCase() == InputMode.CASE_LOWER));
-		} else if (inputMode.isPredictive()) {
-			tt9.showStatusIcon(inputLanguage.getIcon());
-		} else if (inputMode.is123()) {
-			tt9.showStatusIcon(R.drawable.ime_number);
-		} else {
-			Logger.w("tt9.UI", "Unknown inputMode mode: " + inputMode + ". Hiding status icon.");
-			tt9.hideStatusIcon();
-		}
-	}
-
-	public static void toastInputMode(Context context, SettingsStore settings, Language newLanguage, InputMode mode) {
-		if (mode.isABC() && settings.getNotifyNextLanguageInModeAbc()) {
-			String toastMessage = newLanguage.getName();
-			toastMessage += mode.getTextCase() == InputMode.CASE_LOWER ? " (abc)" : " (ABC)";
-			toast(context, toastMessage);
-		}
-	}
-
 	public static void toast(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}

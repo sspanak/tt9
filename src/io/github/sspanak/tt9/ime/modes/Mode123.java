@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 public class Mode123 extends InputMode {
@@ -24,4 +26,9 @@ public class Mode123 extends InputMode {
 	final public boolean is123() { return true; }
 	public int getSequenceLength() { return 0; }
 	public boolean shouldTrackNumPress() { return false; }
+
+	@Override
+	public String toString() {
+		return "123";
+	}
 }

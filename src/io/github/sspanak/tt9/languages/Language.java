@@ -11,14 +11,13 @@ public class Language {
 	private int id;
 	protected String name;
 	protected Locale locale;
-	protected int icon;
 	protected String dictionaryFile;
-	protected int abcLowerCaseIcon;
-	protected int abcUpperCaseIcon;
+	protected String abcString;
 	protected ArrayList<ArrayList<String>> characterMap = new ArrayList<>();
 	private final HashMap<Character, String> reverseCharacterMap = new HashMap<>();
 
 	// settings
+	protected boolean hasUpperCase = true;
 	protected boolean isPunctuationPartOfWords; // see the getter for more info
 
 	final public int getId() {
@@ -37,16 +36,24 @@ public class Language {
 		return name;
 	}
 
-	final public int getIcon() {
-		return icon;
-	}
-
 	final public String getDictionaryFile() {
 		return dictionaryFile;
 	}
 
-	final public int getAbcIcon(boolean lowerCase) {
-		return lowerCase ? abcLowerCaseIcon : abcUpperCaseIcon;
+	final public String getAbcString() {
+		if (abcString == null) {
+			ArrayList<String> lettersList = getKeyCharacters(2, false);
+
+			abcString = "";
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < lettersList.size(); i++) {
+				sb.append(lettersList.get(i));
+			}
+
+			abcString = sb.toString();
+		}
+
+		return abcString;
 	}
 
 	/**
@@ -68,8 +75,8 @@ public class Language {
 	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
 
-	final public boolean hasUpperCase() {
-		return abcUpperCaseIcon != 0;
+	public boolean hasUpperCase() {
+		return hasUpperCase;
 	}
 
 

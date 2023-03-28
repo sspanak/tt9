@@ -331,4 +331,19 @@ public class ModePredictive extends InputMode {
 
 	@Override final public boolean isPredictive() { return true; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
+
+	@Override
+	public String toString() {
+		if (language == null) {
+			return "Predictive";
+		}
+
+		if (textCase == CASE_UPPER) {
+			return language.getName().toUpperCase(language.getLocale());
+		} else if (textCase == CASE_LOWER && !settings.getAutoTextCase()) {
+			return language.getName().toLowerCase(language.getLocale());
+		} else {
+			return language.getName();
+		}
+	}
 }

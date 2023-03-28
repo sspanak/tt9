@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.languages.definitions;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-
 public class Norwegian extends English {
 	public Norwegian() {
 		super();
@@ -12,7 +10,6 @@ public class Norwegian extends English {
 		name = "Norsk bokmål";
 		locale = new Locale("nb","NO");
 		dictionaryFile = "nb-utf8.csv";
-		icon = R.drawable.ime_lang_nb;
 
 		isPunctuationPartOfWords = false;
 
