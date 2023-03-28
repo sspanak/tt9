@@ -15,15 +15,17 @@ The recommended way of building is using Android Studio. As the of time of writi
 If you have not configured Android Studio yet, follow [the official manual](https://developer.android.com/training/basics/firstapp), then follow the simple steps below to get the project running.
 
 - _Import the project in Android Studio._
-- _Prevent the "Default Activity not found" issue._ The app does not have a default view or a launcher icon. For this reason, you must configure Android Studio not to launch anything after installing, otherwise it will fail with "Default Activity not found" or a similar message. To do so:
+- _Prevent the "Default Activity not found" issue._ If Android Studio fails to identify the default Activity, you must configure it not to launch anything after installing, otherwise it will fail with "Default Activity not found" or a similar message. To do so:
     - Open "Edit Configurations..." (Press Shift 3 times and select it from the command list)
     - Go to "General" tab.
     - Change "Launch Options" to "Nothing"
     - Hit "OK"
 
-That's it! Now you should be able to deploy and debug the app on your device.
+_You can find more info in this [Github issue](https://github.com/android/input-samples/issues/18)._
 
-You can find more info in this [Github issue](https://github.com/android/input-samples/issues/18).
+_Since this is an IME, it makes little sense to open the configuration screen every time you test on a real device. It may be practical keep "Launch Options" set to "Nothing" at all times, not only when you encounter the error above._
+
+That's it! Now you should be able to deploy and debug the app on your device.
 
 ### Building a Release .apk
 The project is configured to build an unsigned release variant by default.
@@ -46,21 +48,17 @@ Make sure you have a signing key. If you don't have one, follow the [official ma
 ## Adding a New Language
 To support a new language one needs to:
 
-- Add status icons
-    - Create a proper icon for each screen size. The icon needs to contain the abbreviation of the language. (e.g. "En" for "English").
-    - The font must be Roboto or Roboto Lt (Heebo for Hebrew) at an adequate size to fit the icon square with minimum padding.
-    - The text must be white and the background must be transparent as per the [official Android guide](https://android-doc.github.io/guide/practices/ui_guidelines/icon_design_status_bar.html).
-    - To simplify the process, you could use Android Studio. It has a built-in icon generator accessible by right-clicking on "drawable" folder -> New -> Image Asset. Then choose "Icon Type": "Notification Icons", "Asset Type": Text, "Trim": No, "Padding": 0%.
-- Find a suitable dictionary and add it to `assets/` folder. Two file formats are supported, [see below](#dictionary-formats).
+- Find a suitable dictionary and add it to the `assets/` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
 - Create a new language class in `languages/definitions/` and define its properties.
   - `name` is the native name of the language (e.g. "English", "Deutsch", "Українська").
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
   - `dictionaryFile` is the name of the dictionary in `assets/` folder.
-  - `icon` is the status icon for Predictive mode.
-  - `abcLowerCaseIcon` and `abcUpperCaseIcon` are the respective status icons for ABC (non-predictive) modes. Note that, you must not set `abcUpperCaseIcon`, if your language has no uppercase and lowercase letters (like Arabic, Asian scripts and Hebrew).
-  - Set `isPunctuationPartOfWords` to `true`, if the dictionary contains words with apostrophes or dashes, such as: `it's`, `you'll`, `a'tje` or `п'ят`. This will allow using 1-key for typing them (they will appear as suggestions). `false` will enable faster typing when apostrophes or other punctuation are not part of the words (no such words will be suggested).
   - `characterMap` contains the letters and punctuation marks associated with each key.
+  - Set `isPunctuationPartOfWords` to `true`, if the dictionary contains words with apostrophes or dashes, such as: `it's`, `you'll`, `a'tje` or `п'ят`. This will allow using 1-key for typing them (they will appear as suggestions). `false` will enable faster typing when apostrophes or other punctuation are not part of the words (no such words will be suggested).
+  - `abcString` _(optional)_. A custom string to display in ABC mode. By default, the first three letters on 2-key are used (e.g. "ABC" or "АБВ"). Set this if the first letters of the alphabet are _not_ on 2-key, like in Hebrew, or if a different string makes more sense.
+  - `hasUpperCase` _(optional)_ set to `false` if the language has no upper- and lowercase letters. For example: Arabic, Hebrew, East Asian
+    languages, and so on. The default is `true`.
 - Finally, add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
 
 
@@ -70,7 +68,7 @@ To support a new language one needs to:
 The most basic format is just a list of words where each word is on a new line.
 
 Constraints:
-- No single lowercase letters. The application will add them automatically.
+- No single lowercase letters. They will be added automatically.
 - No repeating words.
 - No digits or garbage characters as part of the words.
 
@@ -110,7 +108,7 @@ To translate Traditional T9 menus and messages in your language, add: `res/value
 
 Alternatively, if you don't have Android Studio, you could just use `res/values/strings.xml` as a reference and translate all strings in your file, skipping the ones that have the `translatable="false"` attribute.
 
-## Adding Support for Keys
+## Adding Support for New Hardware Keys (Hotkeys)
 TT9 allows assigning hotkeys for performing different functions. If your phone has a special key that does not appear on the Hotkey configuration screen, you can easily add support for it.
 
 - In `preferences/helpers/Hotkeys.java`, find the `generateList()` function.
