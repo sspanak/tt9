@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -332,6 +334,7 @@ public class ModePredictive extends InputMode {
 	@Override final public boolean isPredictive() { return true; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 
+	@NonNull
 	@Override
 	public String toString() {
 		if (language == null) {
