@@ -72,6 +72,6 @@ public class ModeABC extends InputMode {
 			modeString = abc + " / " + langCode.toUpperCase();
 		}
 
-		return "[ " + modeString + " ]";
+		return modeString;
 	}
 }

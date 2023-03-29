@@ -20,7 +20,7 @@ public class StatusBar {
 
 
 	public StatusBar setText(String text) {
-		statusText = text;
+		statusText = "[ " + text + " ]";
 		this.render();
 
 		return this;
