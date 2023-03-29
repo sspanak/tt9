@@ -325,7 +325,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyAddWord() {
-		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -357,7 +357,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyShowSettings() {
-		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -372,11 +372,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean shouldTrackUpDown() {
-		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
+		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
 	}
 
 	protected boolean shouldTrackLeftRight() {
-		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
+		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
 	}
 
 
@@ -584,7 +584,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else if (mInputMode.is123() && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
-			mEditing = inputType.isFilter() ? EDITING_NOSHOW : EDITING;
+			mEditing = EDITING;
 		}
 	}
 

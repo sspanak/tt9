@@ -64,10 +64,6 @@ public class InputType {
 	}
 
 
-	/**
-	 * isFilter
-	 * handle filter list cases... do not hijack DPAD center and make sure back's go through proper
-	 */
 	public boolean isFilter() {
 		if (field == null) {
 			return false;
