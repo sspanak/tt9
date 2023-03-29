@@ -193,7 +193,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOK() {
-		if (isSuggestionViewHidden() && currentInputConnection != null) {
+		if (!textField.isThereText()) {
+			forceShowWindowIfHidden();
+			return true;
+		} else if (isSuggestionViewHidden() && currentInputConnection != null) {
 			return performOKAction();
 		}
 
@@ -342,6 +345,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			resetKeyRepeat();
 			clearSuggestions();
 			statusBar.setText(mInputMode.toString());
+			forceShowWindowIfHidden();
 
 			return true;
 		}
@@ -352,6 +356,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onKeyNextInputMode() {
 		nextInputMode();
+		forceShowWindowIfHidden();
 		return (mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER);
 	}
 
