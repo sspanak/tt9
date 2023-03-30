@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.Language;
 
 public class Hebrew extends Language {
 	public Hebrew() {
-		name = "עברית";
 		locale = new Locale("iw","IL");
 		dictionaryFile = "he-utf8.csv";
-		icon = R.drawable.ime_lang_hebrew;
-		abcLowerCaseIcon = R.drawable.ime_lang_hebrew_abc;
+		abcString = "אבג";
 
+		hasUpperCase = false;
 		isPunctuationPartOfWords = true;
 
 		characterMap = new ArrayList<>(Arrays.asList(

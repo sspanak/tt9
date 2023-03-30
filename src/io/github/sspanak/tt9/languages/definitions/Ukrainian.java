@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.Language;
 
 public class Ukrainian extends Language {
 	public Ukrainian() {
-		name = "Українська";
 		locale = new Locale("uk","UA");
 		dictionaryFile = "uk-utf8.csv";
-		icon = R.drawable.ime_lang_uk;
-		abcLowerCaseIcon = R.drawable.ime_lang_cyrillic_lower;
-		abcUpperCaseIcon = R.drawable.ime_lang_cyrillic_upper;
 
 		isPunctuationPartOfWords = true;
 

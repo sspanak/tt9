@@ -2,16 +2,12 @@ package io.github.sspanak.tt9.languages.definitions;
 
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-
 public class German extends English {
 	public German() {
 		super();
 
-		name = "Deutsch";
 		locale = Locale.GERMAN;
 		dictionaryFile = "de-utf8.csv";
-		icon = R.drawable.ime_lang_de;
 
 		isPunctuationPartOfWords = false;
 

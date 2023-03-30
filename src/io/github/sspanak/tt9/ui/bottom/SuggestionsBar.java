@@ -1,7 +1,8 @@
-package io.github.sspanak.tt9.ui;
+package io.github.sspanak.tt9.ui.bottom;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
@@ -17,21 +18,22 @@ import java.util.List;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class SuggestionsView {
+public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
+	private boolean isDarkThemeEnabled = false;
 
 	private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 
-	public SuggestionsView(SettingsStore settings, View mainView) {
+	public SuggestionsBar(SettingsStore settings, View mainView) {
 		super();
 
 		this.settings = settings;
 
-		mView = mainView.findViewById(R.id.main_suggestions_list);
+		mView = mainView.findViewById(R.id.suggestions_bar);
 		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
 
 		initDataAdapter(mainView.getContext());
@@ -108,6 +110,8 @@ public class SuggestionsView {
 
 	@SuppressLint("NotifyDataSetChanged")
 	public void setSuggestions(List<String> newSuggestions, int initialSel) {
+		ecoSetBackground(newSuggestions);
+
 		suggestions.clear();
 		selectedIndex = 0;
 
@@ -159,14 +163,54 @@ public class SuggestionsView {
 	 * https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay
 	 */
 	public void setDarkTheme(boolean darkEnabled) {
+		isDarkThemeEnabled = darkEnabled;
 		Context context = mView.getContext();
 
-		int backgroundColor = darkEnabled ? R.color.dark_candidate_background : R.color.candidate_background;
 		int defaultColor = darkEnabled ? R.color.dark_candidate_color : R.color.candidate_color;
 		int highlightColor = darkEnabled ? R.color.dark_candidate_selected : R.color.candidate_selected;
 
-		mView.setBackgroundColor(ContextCompat.getColor(context, backgroundColor));
 		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, defaultColor));
 		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, highlightColor));
+
+		setBackground(suggestions);
+	}
+
+
+	/**
+	 * setBackground
+	 * Makes the background transparent, when there are no suggestions and theme-colored,
+	 * when there are suggestions.
+	 */
+	private void setBackground(List<String> newSuggestions) {
+		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
+		if (newSuggestionsSize == 0) {
+			mView.setBackgroundColor(Color.TRANSPARENT);
+			return;
+		}
+
+		int color = ContextCompat.getColor(
+			mView.getContext(),
+			isDarkThemeEnabled ? R.color.dark_candidate_background : R.color.candidate_background
+		);
+
+		mView.setBackgroundColor(color);
+	}
+
+
+	/**
+	 * ecoSetBackground
+	 * A performance-optimized version of "setBackground().
+	 * Determines if the suggestions have changed and only then it changes the background.
+	 */
+	private void ecoSetBackground(List<String> newSuggestions) {
+		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
+		if (
+			(newSuggestionsSize == 0 && suggestions.size() == 0)
+			|| (newSuggestionsSize > 0 && suggestions.size() > 0)
+		) {
+			return;
+		}
+
+		setBackground(newSuggestions);
 	}
 }

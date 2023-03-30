@@ -3,16 +3,12 @@ package io.github.sspanak.tt9.languages.definitions;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-
 public class Italian extends English {
 	public Italian() {
 		super();
 
-		name = "Italiano";
 		locale = Locale.ITALIAN;
 		dictionaryFile = "it-utf8.csv";
-		icon = R.drawable.ime_lang_it;
 
 		isPunctuationPartOfWords = false;
 

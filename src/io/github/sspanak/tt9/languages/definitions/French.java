@@ -3,16 +3,12 @@ package io.github.sspanak.tt9.languages.definitions;
 import java.util.Arrays;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.R;
-
 public class French extends English {
 	public French() {
 		super();
 
-		name = "Français";
 		locale = Locale.FRENCH;
 		dictionaryFile = "fr-utf8.csv";
-		icon = R.drawable.ime_lang_fr;
 
 		isPunctuationPartOfWords = false;
 

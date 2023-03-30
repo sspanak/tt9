@@ -21,7 +21,8 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.ui.SuggestionsView;
+import io.github.sspanak.tt9.ui.bottom.StatusBar;
+import io.github.sspanak.tt9.ui.bottom.SuggestionsBar;
 import io.github.sspanak.tt9.ui.UI;
 
 public class TraditionalT9 extends KeyPadHandler {
@@ -40,7 +41,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
-	private SuggestionsView mSuggestionView = null;
+	private StatusBar statusBar = null;
+	private SuggestionsBar suggestionBar = null;
 
 
 	private static TraditionalT9 self;
@@ -82,8 +84,12 @@ public class TraditionalT9 extends KeyPadHandler {
 			softKeyHandler = new SoftKeyHandler(this);
 		}
 
-		if (mSuggestionView == null) {
-			mSuggestionView = new SuggestionsView(settings, softKeyHandler.getView());
+		if (statusBar == null) {
+			statusBar = new StatusBar(softKeyHandler.getView());
+		}
+
+		if (suggestionBar == null) {
+			suggestionBar = new SuggestionsBar(settings, softKeyHandler.getView());
 		}
 
 		loadSettings();
@@ -110,10 +116,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void initUi() {
-		UI.updateStatusIcon(this, mLanguage, mInputMode);
+		statusBar
+			.setText(mInputMode != null ? mInputMode.toString() : "")
+			.setDarkTheme(settings.getDarkTheme());
 
 		clearSuggestions();
-		mSuggestionView.setDarkTheme(settings.getDarkTheme());
+		suggestionBar.setDarkTheme(settings.getDarkTheme());
 
 		softKeyHandler.setDarkTheme(settings.getDarkTheme());
 		softKeyHandler.setSoftKeysVisibility(settings.getShowSoftKeys());
@@ -148,8 +156,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		isActive = false;
-
-		hideStatusIcon();
 		mEditing = NON_EDIT;
 	}
 
@@ -191,7 +197,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return performOKAction();
 		}
 
-		String word = mSuggestionView.getCurrentSuggestion();
+		String word = suggestionBar.getCurrentSuggestion();
 
 		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion();
@@ -204,8 +210,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onUp() {
 		if (previousSuggestion()) {
-			mInputMode.setWordStem(mSuggestionView.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
+			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
+			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 			return true;
 		}
 
@@ -215,8 +221,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onDown() {
 		if (nextSuggestion()) {
-			mInputMode.setWordStem(mSuggestionView.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
+			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
+			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 			return true;
 		}
 
@@ -237,8 +243,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onRight(boolean repeat) {
 		String filter;
-		if (repeat && !mSuggestionView.getSuggestion(1).equals("")) {
-			filter = mSuggestionView.getSuggestion(1);
+		if (repeat && !suggestionBar.getSuggestion(1).equals("")) {
+			filter = suggestionBar.getSuggestion(1);
 		} else {
 			filter = getComposingText();
 		}
@@ -319,7 +325,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyAddWord() {
-		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -335,6 +341,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.reset();
 			resetKeyRepeat();
 			clearSuggestions();
+			statusBar.setText(mInputMode.toString());
 
 			return true;
 		}
@@ -350,7 +357,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyShowSettings() {
-		if (mEditing == EDITING_NOSHOW || mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_DIALER) {
 			return false;
 		}
 
@@ -365,16 +372,16 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean shouldTrackUpDown() {
-		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
+		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
 	}
 
 	protected boolean shouldTrackLeftRight() {
-		return mEditing != EDITING_NOSHOW && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
+		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
 	}
 
 
 	private boolean isSuggestionViewHidden() {
-		return mSuggestionView == null || !mSuggestionView.hasElements();
+		return suggestionBar == null || !suggestionBar.hasElements();
 	}
 
 
@@ -383,8 +390,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		mSuggestionView.scrollToSuggestion(-1);
-		textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
+		suggestionBar.scrollToSuggestion(-1);
+		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 
 		return true;
 	}
@@ -395,8 +402,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		mSuggestionView.scrollToSuggestion(1);
-		textField.setComposingTextWithHighlightedStem(mSuggestionView.getCurrentSuggestion(), mInputMode);
+		suggestionBar.scrollToSuggestion(1);
+		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 
 		return true;
 	}
@@ -409,7 +416,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
 		if (!isSuggestionViewHidden() && currentInputConnection != null) {
 			if (entireSuggestion) {
-				textField.setComposingText(mSuggestionView.getCurrentSuggestion());
+				textField.setComposingText(suggestionBar.getCurrentSuggestion());
 			}
 			currentInputConnection.finishComposingText();
 		}
@@ -429,7 +436,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, mSuggestionView.getCurrentSuggestion())) {
+		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, suggestionBar.getCurrentSuggestion())) {
 			handleSuggestions();
 		}
 	}
@@ -441,7 +448,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
-		String word = mSuggestionView.getCurrentSuggestion();
+		String word = suggestionBar.getCurrentSuggestion();
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
 		textField.setComposingTextWithHighlightedStem(word, mInputMode);
 	}
@@ -460,19 +467,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void setSuggestions(List<String> suggestions, int selectedIndex) {
-		if (mSuggestionView == null) {
+		if (suggestionBar == null) {
 			return;
 		}
 
 		boolean show = suggestions != null && suggestions.size() > 0;
 
-		mSuggestionView.setSuggestions(suggestions, selectedIndex);
+		suggestionBar.setSuggestions(suggestions, selectedIndex);
 		setCandidatesViewShown(show);
 	}
 
 
 	private String getComposingText() {
-		String text = mSuggestionView.getCurrentSuggestion();
+		String text = suggestionBar.getCurrentSuggestion();
 		if (text.length() > 0 && text.length() > mInputMode.getSequenceLength()) {
 			text = text.substring(0, mInputMode.getSequenceLength());
 		}
@@ -499,7 +506,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			// This is why we retry, until there is a visual change.
 			for (int retries = 0; retries < 2 && mLanguage.hasUpperCase(); retries++) {
 				mInputMode.nextTextCase();
-				setSuggestions(mInputMode.getSuggestions(), mSuggestionView.getCurrentIndex());
+				setSuggestions(mInputMode.getSuggestions(), suggestionBar.getCurrentIndex());
 				refreshComposingText();
 
 				if (!currentSuggestionBefore.equals(getComposingText())) {
@@ -521,7 +528,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		settings.saveInputMode(mInputMode.getId());
 		settings.saveTextCase(mInputMode.getTextCase());
 
-		UI.updateStatusIcon(this, mLanguage, mInputMode);
+		statusBar.setText(mInputMode.toString());
 	}
 
 
@@ -544,9 +551,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// save it for the next time
 		settings.saveInputLanguage(mLanguage.getId());
-
-		UI.updateStatusIcon(this, mLanguage, mInputMode);
-		UI.toastInputMode(this, settings, mLanguage, mInputMode);
 
 		return true;
 	}
@@ -580,7 +584,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else if (mInputMode.is123() && allowedInputModes.size() == 1) {
 			mEditing = EDITING_STRICT_NUMERIC;
 		} else {
-			mEditing = inputType.isFilter() ? EDITING_NOSHOW : EDITING;
+			mEditing = EDITING;
 		}
 	}
 

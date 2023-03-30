@@ -5,14 +5,29 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/main_suggestions_list"
+	<FrameLayout
 		android:layout_width="fill_parent"
-		android:layout_height="@dimen/candidate_list_height"
-		android:fadingEdge="horizontal"
-		android:orientation="horizontal"
-		android:paddingTop="1px"
-		android:scrollbars="none" />
+		android:layout_height="@dimen/candidate_list_height">
+
+		<TextView
+			android:id="@+id/status_bar"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:textStyle="italic"
+			tools:text="@tools:sample/lorem" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/suggestions_bar"
+			android:gravity="center_vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fadingEdge="horizontal"
+			android:orientation="horizontal"
+			android:scrollbars="none" />
+
+	</FrameLayout>
+
 
 	<LinearLayout
 		android:id="@+id/main_soft_keys"

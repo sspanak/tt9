@@ -18,7 +18,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	// editing mode
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
-	protected static final int EDITING_NOSHOW = 2;
 	protected static final int EDITING_STRICT_NUMERIC = 3;
 	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
 	protected int mEditing = NON_EDIT;
@@ -51,7 +50,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-		return mEditing != EDITING_NOSHOW;
+		return mEditing != EDITING_DIALER && mEditing != NON_EDIT;
 	}
 
 
@@ -96,7 +95,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		super.onFinishInputView(finishingInput);
-		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
+		if (mEditing == EDITING || mEditing == EDITING_STRICT_NUMERIC) {
 			onFinishTyping();
 		}
 	}
@@ -109,7 +108,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	public void onFinishInput() {
 		super.onFinishInput();
 		// Logger.d("onFinishInput", "When is this called?");
-		if (mEditing == EDITING || mEditing == EDITING_NOSHOW) {
+		if (mEditing == EDITING || mEditing == EDITING_STRICT_NUMERIC) {
 			onStop();
 		}
 	}
