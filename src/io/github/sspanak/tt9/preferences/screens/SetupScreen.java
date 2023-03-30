@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.preferences.screens;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemSelectGlobalKeyboard;
@@ -18,7 +17,6 @@ public class SetupScreen extends BaseScreenFragment {
 	@Override
 	public void onCreate() {
 		createKeyboardSection();
-		createAboutSection();
 	}
 
 	@Override
@@ -42,19 +40,6 @@ public class SetupScreen extends BaseScreenFragment {
 		Preference defaultKeyboardItem = findPreference("global_default_keyboard");
 		if (defaultKeyboardItem != null) {
 			new ItemSetDefaultGlobalKeyboard(defaultKeyboardItem, activity).enableClickHandler();
-		}
-
-		Preference goToMain = findPreference("goto_main_screen");
-		if (goToMain != null) {
-			goToMain.setEnabled(isTT9On);
-		}
-	}
-
-
-	private void createAboutSection() {
-		Preference vi = findPreference("version_info");
-		if (vi != null) {
-			vi.setSummary(BuildConfig.VERSION_FULL);
 		}
 	}
 }

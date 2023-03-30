@@ -20,9 +20,9 @@ import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
-import io.github.sspanak.tt9.preferences.screens.SetupScreen;
 import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
+import io.github.sspanak.tt9.preferences.screens.SetupScreen;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -82,8 +82,10 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 				return new HotkeysScreen(this);
 			case "KeyPad":
 				return new KeyPadScreen(this);
+			case "Setup":
+				return new SetupScreen(this);
 			default:
-				return globalKeyboardSettings.isTT9Enabled() ? new MainSettingsScreen(this) : new SetupScreen(this);
+				return new MainSettingsScreen(this);
 		}
 	}
 

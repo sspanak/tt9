@@ -5,6 +5,8 @@ import android.net.Uri;
 
 import androidx.preference.Preference;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.BuildConfig;
@@ -21,10 +23,19 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	@Override protected int getTitle() { return R.string.app_settings;}
 	@Override protected int getXml() { return R.xml.prefs; }
 
+
 	@Override
 	public void onCreate() {
+		createSettingsSection();
 		addHelpLink();
 		createAboutSection();
+	}
+
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		createSettingsSection();
 	}
 
 
@@ -56,6 +67,28 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		Preference vi = findPreference("version_info");
 		if (vi != null) {
 			vi.setSummary(BuildConfig.VERSION_FULL);
+		}
+	}
+
+
+	private void createSettingsSection() {
+		boolean isTT9Enabled = activity.globalKeyboardSettings.isTT9Enabled();
+
+		Preference gotoSetup = findPreference("screen_setup");
+		if (gotoSetup != null) {
+			gotoSetup.setSummary(isTT9Enabled ? "" : activity.getString(R.string.setup_click_here_to_enable));
+		}
+
+		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
+			findPreference("screen_appearance"),
+			findPreference("screen_dictionaries"),
+			findPreference("screen_keypad")
+		));
+
+		for (Preference goToScreen : screens) {
+			if (goToScreen != null) {
+				goToScreen.setEnabled(isTT9Enabled);
+			}
 		}
 	}
 }

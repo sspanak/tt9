@@ -32,6 +32,12 @@
 		app:layout="@layout/pref_text"
 		app:title="@string/pref_category_keypad" />
 
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.SetupScreen"
+		app:key="screen_setup"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_setup" />
+
 	<PreferenceCategory
 		android:title="@string/pref_category_about"
 		app:layout="@layout/pref_category"

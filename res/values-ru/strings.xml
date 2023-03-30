@@ -49,7 +49,8 @@
 	<string name="setup_default_keyboard">Выберите клавиатуру по умолчанию</string>
 	<string name="setup_goto_main_screen">Вернуться к настройкам</string>
 	<string name="setup_tt9_on">Traditional T9 активен</string>
-	<string name="setup_tt9_off">Traditional T9 отключен. Нажмите здесь, чтобы включить его в настройках Android.</string>
+	<string name="setup_tt9_off">Traditional T9 отключен</string>
+	<string name="setup_click_here_to_enable">Нажмите здесь, чтобы включить TT9 в настройках Android.</string>
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
