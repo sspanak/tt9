@@ -41,8 +41,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	// soft key view
 	private SoftKeyHandler softKeyHandler = null;
-	private SuggestionsBar suggestionBar = null;
 	private StatusBar statusBar = null;
+	private SuggestionsBar suggestionBar = null;
 
 
 	private static TraditionalT9 self;
@@ -84,12 +84,12 @@ public class TraditionalT9 extends KeyPadHandler {
 			softKeyHandler = new SoftKeyHandler(this);
 		}
 
-		if (suggestionBar == null) {
-			suggestionBar = new SuggestionsBar(settings, softKeyHandler.getView());
-		}
-
 		if (statusBar == null) {
 			statusBar = new StatusBar(softKeyHandler.getView());
+		}
+
+		if (suggestionBar == null) {
+			suggestionBar = new SuggestionsBar(settings, softKeyHandler.getView());
 		}
 
 		loadSettings();
@@ -357,7 +357,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onKeyShowSettings() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_DIALER) {
 			return false;
 		}
 
