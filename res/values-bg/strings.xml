@@ -39,7 +39,8 @@
 	<string name="setup_default_keyboard">Избор на клавиатура по подразбиране</string>
 	<string name="setup_goto_main_screen">Назад към Настройки</string>
 	<string name="setup_tt9_on">Traditional T9 е активен</string>
-	<string name="setup_tt9_off">Traditional T9 е изключен. Натиснете тук, за да го включите от настройките на Андроид.</string>
+	<string name="setup_tt9_off">Traditional T9 е изключен</string>
+	<string name="setup_click_here_to_enable">Натиснете тук, за да включите TT9 от настройките на Андроид.</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>

@@ -41,7 +41,8 @@
 	<string name="setup_default_keyboard">Sélectionnez le clavier par défaut</string>
 	<string name="setup_goto_main_screen">Retour à l\'écran des paramètres</string>
 	<string name="setup_tt9_on">Traditional T9 est activé</string>
-	<string name="setup_tt9_off">Traditional T9 est désactivé. Cliquez ici pour l\'activer dans les paramètres Android.</string>
+	<string name="setup_tt9_off">Traditional T9 est désactivé</string>
+	<string name="setup_click_here_to_enable">Cliquez ici pour activer TT9 dans les paramètres Android.</string>
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
 	<string name="add_word_field_placeholder">Tapez un mot…</string>
