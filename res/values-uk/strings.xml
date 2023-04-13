@@ -60,4 +60,6 @@
 	<string name="dictionary_truncate_unselected">Очистіть невибрані</string>
 	<string name="pref_category_setup">Початкове налаштування</string>
 	<string name="pref_show_soft_numpad">Екранна цифрова клавіатура</string>
+	<string name="key_volume_up">Збільшення гучності</string>
+	<string name="key_volume_down">Зменшення гучності</string>
 </resources>

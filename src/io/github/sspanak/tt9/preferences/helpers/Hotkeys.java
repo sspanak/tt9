@@ -126,6 +126,9 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
 
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
+
 		add(KeyEvent.KEYCODE_POUND, "#", true);
 		add(KeyEvent.KEYCODE_STAR, "✱", true);
 
