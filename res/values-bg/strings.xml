@@ -60,4 +60,6 @@
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
 	<string name="pref_category_setup">Начална настройка</string>
 	<string name="pref_show_soft_numpad">Цифрова клавиатура на екрана</string>
+	<string name="key_volume_down">Намаляне на звук</string>
+	<string name="key_volume_up">Усилване на звук</string>
 </resources>
