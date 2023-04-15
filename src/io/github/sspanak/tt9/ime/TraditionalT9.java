@@ -349,14 +349,17 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextLanguage() {
 		if (nextLang()) {
-			commitCurrentSuggestion(false);
 			mInputMode.changeLanguage(mLanguage);
-			mInputMode.reset();
+			mInputMode.clearWordStem();
+			getSuggestions();
 			resetKeyRepeat();
-			clearSuggestions();
+
 			statusBar.setText(mInputMode.toString());
 			mainView.render();
 			forceShowWindowIfHidden();
+			if (!isSuggestionViewHidden()) {
+				UI.toastLang(getMainContext(), mInputMode.toString());
+			}
 
 			return true;
 		}

@@ -8,6 +8,8 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
+	private static Toast langToast = null;
+
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
 		Intent awIntent = new Intent(tt9, AddWordAct.class);
 		awIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -40,5 +42,14 @@ public class UI {
 
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+	}
+
+	public static void toastLang(Context context, CharSequence msg) {
+		if (langToast != null) {
+			langToast.cancel();
+		}
+
+		langToast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+		langToast.show();
 	}
 }
