@@ -39,7 +39,7 @@ public class SoftPunctuationKey extends SoftKey {
 	}
 
 	@Override
-	protected String getKeyNameLabel() {
+	protected String getTitle() {
 		int keyId = getId();
 
 		if (tt9.getSettings().getInputMode() == InputMode.MODE_123) {

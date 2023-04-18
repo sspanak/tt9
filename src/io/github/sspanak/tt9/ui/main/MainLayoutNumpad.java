@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -31,6 +32,18 @@ class MainLayoutNumpad extends BaseMainLayout {
 		// text
 		for (SoftKey key : getKeys()) {
 			key.setDarkTheme(darkEnabled);
+		}
+
+		// separators
+		int separatorColor = ContextCompat.getColor(
+			view.getContext(),
+			darkEnabled ? R.color.dark_numpad_separator : R.color.numpad_separator
+		);
+
+		for (View separator : getSeparators()) {
+			if (separator != null) {
+				separator.setBackgroundColor(separatorColor);
+			}
 		}
 	}
 
@@ -60,5 +73,19 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 
 		return keys;
+	}
+
+	protected ArrayList<View> getSeparators() {
+		// it's fine... it's shorter, faster and easier to read than searching with 3 nested loops
+		return new ArrayList<>(Arrays.asList(
+			view.findViewById(R.id.separator_1_1),
+			view.findViewById(R.id.separator_1_2),
+			view.findViewById(R.id.separator_2_1),
+			view.findViewById(R.id.separator_2_2),
+			view.findViewById(R.id.separator_3_1),
+			view.findViewById(R.id.separator_3_2),
+			view.findViewById(R.id.separator_4_1),
+			view.findViewById(R.id.separator_4_2)
+		));
 	}
 }

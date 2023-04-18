@@ -52,6 +52,10 @@
 				android:text="⚙"
 				android:textSize="@dimen/soft_key_icon_size" />
 
+			<View
+				android:id="@+id/separator_1_1"
+				style="@style/numSeparator" />
+
 			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
 				android:id="@+id/soft_key_1"
 				style="@android:style/Widget.Holo.Button.Borderless"
@@ -76,6 +80,10 @@
 				android:layout_weight="1"
 				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
+			<View
+				android:id="@+id/separator_1_2"
+				style="@style/numSeparator" />
+
 			<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
 				android:id="@+id/soft_key_backspace"
 				style="@android:style/Widget.Holo.Button.Borderless"
@@ -83,8 +91,7 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:text="⌫"
-				android:textSize="@dimen/soft_key_icon_size"
-				tools:ignore="HardcodedText" />
+				android:textSize="@dimen/soft_key_icon_size" />
 
 		</LinearLayout>
 
@@ -99,7 +106,12 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="1"
-				android:text="+WORD" />
+				android:text="＋"
+				android:textStyle="bold" />
+
+			<View
+				android:id="@+id/separator_2_1"
+				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
 				android:id="@+id/soft_key_4"
@@ -126,6 +138,10 @@
 				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 			<View
+				android:id="@+id/separator_2_2"
+				style="@style/numSeparator" />
+
+			<View
 				android:layout_width="0dp"
 				android:layout_height="0dp"
 				android:layout_weight="1" />
@@ -143,7 +159,12 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="1"
-				android:text="MODE" />
+				android:text="⌨️"
+				android:textSize="@dimen/soft_key_icon_size" />
+
+			<View
+				android:id="@+id/separator_3_1"
+				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftNumberKey
 				android:id="@+id/soft_key_7"
@@ -170,6 +191,10 @@
 				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
 			<View
+				android:id="@+id/separator_3_2"
+				style="@style/numSeparator" />
+
+			<View
 				android:layout_width="0dp"
 				android:layout_height="0dp"
 				android:layout_weight="1" />
@@ -188,9 +213,11 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="1"
-				android:text="🌐"
-				android:textSize="@dimen/soft_key_icon_size"
-				tools:ignore="HardcodedText" />
+				android:text="🌐" />
+
+			<View
+				android:id="@+id/separator_4_1"
+				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey
 				android:id="@+id/soft_key_punctuation_1"
@@ -215,6 +242,10 @@
 				android:layout_height="match_parent"
 				android:layout_weight="1"
 				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+			<View
+				android:id="@+id/separator_4_2"
+				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKey
 				android:id="@+id/soft_key_ok"

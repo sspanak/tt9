@@ -9,6 +9,7 @@
 	<color name="candidate_separator">#888888</color>
 
 	<color name="numpad_background">#E7F0E7</color>
+	<color name="numpad_separator">#CCC</color>
 
 	<!-- Dark theme -->
 	<color name="dark_button_text">#C0C0C0</color>
@@ -18,4 +19,5 @@
 	<color name="dark_candidate_selected">#555555</color>
 
 	<color name="dark_numpad_background">#353835</color>
+	<color name="dark_numpad_separator">#555</color>
 </resources>
