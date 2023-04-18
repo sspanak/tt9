@@ -59,12 +59,12 @@ public class SoftNumberKey extends SoftKey {
 	}
 
 	@Override
-	protected String getKeyNameLabel() {
+	protected String getTitle() {
 		return String.valueOf(getNumber(getId()));
 	}
 
 	@Override
-	protected String getKeyFunctionLabel() {
+	protected String getSubTitle() {
 		if (tt9 == null || tt9.getSettings().getInputMode() == InputMode.MODE_123) {
 			return null;
 		}
@@ -79,6 +79,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		if (number == 0) {
+			COMPLEX_LABEL_SUB_TITLE_SIZE = 1;
 			return "␣";
 		}
 

@@ -18,6 +18,8 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
 	protected TraditionalT9 tt9;
+	protected float COMPLEX_LABEL_TITLE_SIZE = 0.55f;
+	protected float COMPLEX_LABEL_SUB_TITLE_SIZE = 0.8f;
 
 	public SoftKey(Context context) {
 		super(context);
@@ -77,19 +79,21 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	}
 
 	/**
+	 * getTitle
 	 * Generates the name of the key, for example: "OK", "Backspace", "1", etc...
 	 */
-	protected String getKeyNameLabel() {
+	protected String getTitle() {
 		return null;
 	}
 
 	/**
+	 * getSubTitle
 	 * Generates a String describing what the key does.
 	 * For example: "ABC" for 2-key; "⌫" for Backspace key, "⚙" for Settings key, and so on.
 	 *
-	 * The function label is optional.
+	 * The sub title label is optional.
 	 */
-	protected String getKeyFunctionLabel() {
+	protected String getSubTitle() {
 		return null;
 	}
 
@@ -103,8 +107,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * have their font size adjusted to fit inside the key.
 	 */
 	public void render() {
-		String name = getKeyNameLabel();
-		String func = getKeyFunctionLabel();
+		String name = getTitle();
+		String func = getSubTitle();
 
 		if (name == null) {
 			return;
@@ -117,9 +121,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append('\n');
 		sb.append(func);
 
-		sb.setSpan(new RelativeSizeSpan(0.55f), 0, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_TITLE_SIZE), 0, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(0.75f), 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_SUB_TITLE_SIZE), 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}
