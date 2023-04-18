@@ -71,7 +71,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
-		TextView suggestionItem;
+		final TextView suggestionItem;
 
 		ViewHolder(View itemView) {
 			super(itemView);

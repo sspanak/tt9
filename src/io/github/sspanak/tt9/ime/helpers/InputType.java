@@ -25,7 +25,7 @@ public class InputType {
 	 * Special or limited input type means the input connection is not rich,
 	 * or it can not process or show things like candidate text, nor retrieve the current text.
 	 *
-	 * https://developer.android.com/reference/android/text/InputType#TYPE_NULL
+	 * <a href="https://developer.android.com/reference/android/text/InputType#TYPE_NULL">...</a>
 	 */
 	public boolean isLimited() {
 		return field != null && field.inputType == android.text.InputType.TYPE_NULL;

@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 
 abstract class BaseMainLayout {
-	protected TraditionalT9 tt9;
+	protected final TraditionalT9 tt9;
 	private final int xml;
 
 	protected View view = null;
@@ -54,18 +54,6 @@ abstract class BaseMainLayout {
 		}
 
 		return view;
-	}
-
-	public void show() {
-		if (view != null) {
-			view.setVisibility(View.VISIBLE);
-		}
-	}
-
-	public void hide() {
-		if (view != null) {
-			view.setVisibility(View.GONE);
-		}
 	}
 
 	public void enableClickHandlers() {

@@ -170,14 +170,11 @@ public class DictionaryLoadingBar {
 		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
 			message = resources.getString(R.string.add_word_invalid_language);
 		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
-			String languageName = lang.getName();
-			message = resources.getString(R.string.dictionary_load_bad_char, word, line, languageName);
+			message = resources.getString(R.string.dictionary_load_bad_char, word, line, lang.getName());
 		} else if (errorType.equals(IOException.class.getSimpleName()) || errorType.equals(FileNotFoundException.class.getSimpleName())) {
-			String languageName = lang.getName();
-			message = resources.getString(R.string.dictionary_not_found, languageName);
+			message = resources.getString(R.string.dictionary_not_found, lang.getName());
 		} else {
-			String languageName = lang.getName();
-			message = resources.getString(R.string.dictionary_load_error, languageName, errorType);
+			message = resources.getString(R.string.dictionary_load_error, lang.getName(), errorType);
 		}
 
 		title = generateTitle(-1);

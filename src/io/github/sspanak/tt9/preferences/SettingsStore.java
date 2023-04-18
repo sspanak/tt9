@@ -198,10 +198,7 @@ public class SettingsStore {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}
 
-
 	/************* UI settings *************/
-
-	public boolean getNotifyNextLanguageInModeAbc() { return prefs.getBoolean("notify_next_language_in_mode_abc", true); }
 
 	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
 

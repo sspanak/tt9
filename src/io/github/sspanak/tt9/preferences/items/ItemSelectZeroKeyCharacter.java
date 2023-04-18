@@ -41,10 +41,10 @@ public class ItemSelectZeroKeyCharacter {
 	}
 
 
-	public ItemSelectZeroKeyCharacter activate() {
+	public void activate() {
 		if (item == null) {
 			Logger.w("tt9/ItemSelectZeroKeyChar.activate", "Cannot set a click listener a NULL item. Ignoring.");
-			return this;
+			return;
 		}
 
 		item.setOnPreferenceChangeListener((preference, newChar) -> {
@@ -53,7 +53,6 @@ public class ItemSelectZeroKeyCharacter {
 			return true;
 		});
 
-		return this;
 	}
 
 

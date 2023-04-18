@@ -19,17 +19,16 @@ public class StatusBar {
 	}
 
 
-	public StatusBar setText(String text) {
+	public void setText(String text) {
 		statusText = "[ " + text + " ]";
 		this.render();
 
-		return this;
 	}
 
-	public StatusBar setDarkTheme(boolean darkTheme) {
+	public void setDarkTheme(boolean darkTheme) {
 		if (statusView == null) {
 			Logger.w("StatusBar.setDarkTheme", "Not changing the theme of a NULL View.");
-			return this;
+			return;
 		}
 
 		Context context = statusView.getContext();
@@ -47,7 +46,6 @@ public class StatusBar {
 		statusView.setTextColor(color);
 		this.render();
 
-		return this;
 	}
 
 	private void render() {

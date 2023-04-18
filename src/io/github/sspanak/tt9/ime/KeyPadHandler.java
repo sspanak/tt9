@@ -114,12 +114,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-	}
-
-
 	/**
 	 * Use this to monitor key events being delivered to the application. We get
 	 * first crack at them, and can either resume them or let them continue to
@@ -283,7 +277,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	// toggle handlers
 	abstract protected boolean shouldTrackUpDown();
 	abstract protected boolean shouldTrackLeftRight();
-	abstract protected boolean shouldTrackNumPress();
 
 	// default hardware key handlers
 	abstract public boolean onBackspace();

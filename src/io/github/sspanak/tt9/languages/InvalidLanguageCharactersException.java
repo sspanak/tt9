@@ -8,8 +8,5 @@ public class InvalidLanguageCharactersException extends Exception {
 		this.language = language;
 	}
 
-	public Language getLanguage() {
-		return language;
-	}
 }
 
