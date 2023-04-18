@@ -19,9 +19,9 @@ public class Spanish extends English {
 		characterMap.set(1, new ArrayList<>(Characters.Sentence));
 		characterMap.get(1).addAll(Arrays.asList("¡", "¿"));
 
-		characterMap.get(2).addAll(Collections.singletonList("á"));
-		characterMap.get(3).addAll(Collections.singletonList("é"));
-		characterMap.get(4).addAll(Collections.singletonList("í"));
+		characterMap.get(2).add("á");
+		characterMap.get(3).add("é");
+		characterMap.get(4).add("í");
 		characterMap.set(6, new ArrayList<>(Arrays.asList("m", "n", "ñ", "o", "ó")));
 		characterMap.get(8).addAll(Arrays.asList("ú", "ü"));
 	}

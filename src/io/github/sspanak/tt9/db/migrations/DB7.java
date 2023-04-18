@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db.migrations;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -74,7 +75,7 @@ public class DB7 {
 		}
 
 		@Override
-		public void migrate(SupportSQLiteDatabase database) {
+		public void migrate(@NonNull SupportSQLiteDatabase database) {
 			migrateSQL(database);
 			migrateSettings();
 		}

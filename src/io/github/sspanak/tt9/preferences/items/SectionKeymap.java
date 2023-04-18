@@ -46,12 +46,11 @@ public class SectionKeymap {
 	}
 
 
-	public SectionKeymap activate() {
+	public void activate() {
 		for (DropDownPreference item : items) {
 			onItemClick(item);
 		}
 
-		return this;
 	}
 
 

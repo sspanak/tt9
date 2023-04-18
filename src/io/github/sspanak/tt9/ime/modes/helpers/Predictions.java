@@ -73,9 +73,8 @@ public class Predictions {
 		return this;
 	}
 
-	public Predictions setWordsChangedHandler(Handler handler) {
+	public void setWordsChangedHandler(Handler handler) {
 		wordsChangedHandler = handler;
-		return this;
 	}
 
 	public ArrayList<String> getList() {

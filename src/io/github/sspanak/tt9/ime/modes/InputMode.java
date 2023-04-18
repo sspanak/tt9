@@ -22,14 +22,14 @@ abstract public class InputMode {
 	public static final int CASE_CAPITALIZE = 1;
 	public static final int CASE_LOWER = 2;
 	public static final int CASE_DICTIONARY = 3; // do not force it, but use the dictionary word as-is
-	protected ArrayList<Integer> allowedTextCases = new ArrayList<>();
+	protected final ArrayList<Integer> allowedTextCases = new ArrayList<>();
 	protected int textCase = CASE_LOWER;
 	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
 	protected int autoAcceptTimeout = -1;
 	protected Language language;
-	protected ArrayList<String> suggestions = new ArrayList<>();
+	protected final ArrayList<String> suggestions = new ArrayList<>();
 	protected int keyCode = 0;
 
 
@@ -87,7 +87,7 @@ abstract public class InputMode {
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
-	public boolean shouldTrackNumPress() { return true; }
+
 	public boolean shouldTrackUpDown() { return false; }
 	public boolean shouldTrackLeftRight() { return false; }
 
@@ -122,7 +122,7 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(nextIndex);
 	}
 
-	public void determineNextWordTextCase(SettingsStore settings, boolean isThereText, String textBeforeCursor) {}
+	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }

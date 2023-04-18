@@ -46,9 +46,9 @@ public class ItemSelectLanguage {
 	}
 
 
-	public ItemSelectLanguage enableValidation() {
+	public void enableValidation() {
 		if (item == null) {
-			return this;
+			return;
 		}
 
 		item.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -65,7 +65,6 @@ public class ItemSelectLanguage {
 			return false;
 		});
 
-		return this;
 	}
 
 

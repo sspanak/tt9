@@ -161,7 +161,7 @@ public class SuggestionsBar {
 	 * system context and theme.
 	 *
 	 * More info:
-	 * https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay
+	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
 	 */
 	public void setDarkTheme(boolean darkEnabled) {
 		isDarkThemeEnabled = darkEnabled;

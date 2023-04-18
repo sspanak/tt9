@@ -4,13 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
-import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class UI {
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {

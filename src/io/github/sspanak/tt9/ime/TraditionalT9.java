@@ -383,11 +383,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean shouldTrackNumPress() {
-		return mInputMode.shouldTrackNumPress();
-	}
-
-
 	protected boolean shouldTrackUpDown() {
 		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
 	}
@@ -641,7 +636,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void determineNextTextCase() {
 		mInputMode.determineNextWordTextCase(
-			settings,
 			textField.isThereText(),
 			textField.getTextBeforeCursor()
 		);

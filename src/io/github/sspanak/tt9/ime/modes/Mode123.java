@@ -28,7 +28,6 @@ public class Mode123 extends InputMode {
 
 	@Override final public boolean is123() { return true; }
 	@Override public int getSequenceLength() { return 0; }
-	@Override public boolean shouldTrackNumPress() { return false; }
 
 	@NonNull
 	@Override
