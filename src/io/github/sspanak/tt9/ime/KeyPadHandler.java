@@ -122,7 +122,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (isOff()) {
-			return false;
+			return super.onKeyDown(keyCode, event);
 		}
 
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
@@ -142,21 +142,26 @@ abstract class KeyPadHandler extends InputMethodService {
 			event.startTracking();
 		}
 
-		return
+		if (
 			Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
 			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
 			|| keyCode == KeyEvent.KEYCODE_STAR
 			|| keyCode == KeyEvent.KEYCODE_POUND
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
+		) {
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 		if (isOff()) {
-			return false;
+			return super.onKeyLongPress(keyCode, event);
 		}
 
 //		Logger.d("onLongPress", "LONG PRESS: " + keyCode);
@@ -177,7 +182,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		ignoreNextKeyUp = 0;
-		return false;
+		return super.onKeyLongPress(keyCode, event);
 	}
 
 
@@ -189,7 +194,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (isOff()) {
-			return false;
+			return super.onKeyUp(keyCode, event);
 		}
 
 		//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
@@ -236,7 +241,7 @@ abstract class KeyPadHandler extends InputMethodService {
 				return onOtherKey(keyCode);
 		}
 
-		return false;
+		return super.onKeyUp(keyCode, event);
 	}
 
 
