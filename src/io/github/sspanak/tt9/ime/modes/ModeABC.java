@@ -10,7 +10,7 @@ public class ModeABC extends InputMode {
 	public int getId() { return MODE_ABC; }
 
 	private boolean shouldSelectNextLetter = false;
-	private int lastKey = -1;
+	private int digit = -1;
 
 	ModeABC(Language lang) {
 		changeLanguage(lang);
@@ -19,10 +19,10 @@ public class ModeABC extends InputMode {
 
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
-		lastKey = number;
+		digit = number;
 		if (hold) {
 			reset();
-			lastKey = -1;
+			digit = -1;
 			suggestions.add(String.valueOf(number));
 			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
@@ -86,8 +86,8 @@ public class ModeABC extends InputMode {
 	@Override
 	public ArrayList<String> getSuggestions() {
 		suggestions.clear();
-		if (lastKey != -1) {
-			suggestions.addAll(language.getKeyCharacters(lastKey));
+		if (digit != -1) {
+			suggestions.addAll(language.getKeyCharacters(digit));
 		}
 
 		return super.getSuggestions();
@@ -95,12 +95,12 @@ public class ModeABC extends InputMode {
 
 	@Override
 	public void onAcceptSuggestion(String currentWord) {
-		lastKey = -1;
+		digit = -1;
 	}
 
 	@Override
 	public boolean onBackspace() {
-		lastKey = -1;
+		digit = -1;
 		return false;
 	}
 }
