@@ -21,12 +21,28 @@ public class SoftPunctuationKey extends SoftKey {
 		super(context, attrs, defStyleAttr);
 	}
 
-	protected boolean handlePress(int keyId) {
+	@Override
+	protected boolean handleHold() {
+		if (tt9 == null || tt9.getSettings().getInputMode() != InputMode.MODE_123) {
+			return super.handleHold();
+		}
+
+		preventRepeat();
+		int keyId = getId();
+		if (keyId == R.id.soft_key_punctuation_1) return tt9.onText(",");
+		if (keyId == R.id.soft_key_punctuation_2) return tt9.onText(".");
+
+		return false;
+	}
+
+	@Override
+	protected boolean handleRelease() {
 		if (tt9 == null) {
 			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
 			return false;
 		}
 
+		int keyId = getId();
 		if (tt9.getSettings().getInputMode() == InputMode.MODE_123) {
 			if (keyId == R.id.soft_key_punctuation_1) return tt9.onOtherKey(KeyEvent.KEYCODE_STAR);
 			if (keyId == R.id.soft_key_punctuation_2) return tt9.onOtherKey(KeyEvent.KEYCODE_POUND);
@@ -40,8 +56,11 @@ public class SoftPunctuationKey extends SoftKey {
 
 	@Override
 	protected String getTitle() {
-		int keyId = getId();
+		if (tt9 == null) {
+			return "PUNC";
+		}
 
+		int keyId = getId();
 		if (tt9.getSettings().getInputMode() == InputMode.MODE_123) {
 			if (keyId == R.id.soft_key_punctuation_1) return "✱";
 			if (keyId == R.id.soft_key_punctuation_2) return "#";
@@ -51,5 +70,16 @@ public class SoftPunctuationKey extends SoftKey {
 		}
 
 		return "PUNC";
+	}
+
+	@Override
+	protected String getSubTitle() {
+		int keyId = getId();
+		if (tt9 != null && tt9.getSettings().getInputMode() == InputMode.MODE_123) {
+			if (keyId == R.id.soft_key_punctuation_1) return ",";
+			if (keyId == R.id.soft_key_punctuation_2) return ".";
+		}
+
+		return null;
 	}
 }
