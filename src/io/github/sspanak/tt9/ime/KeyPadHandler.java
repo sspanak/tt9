@@ -50,6 +50,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
+		onRestart(getCurrentInputEditorInfo());
 		return mEditing != EDITING_DIALER && mEditing != NON_EDIT;
 	}
 
