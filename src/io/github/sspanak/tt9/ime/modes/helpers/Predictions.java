@@ -22,6 +22,7 @@ public class Predictions {
 	private boolean isStemFuzzy;
 	private String stem;
 	private String inputWord;
+	private boolean inputWordMightBeForeign;
 
 	// async operations
 	private Handler wordsChangedHandler;
@@ -45,10 +46,15 @@ public class Predictions {
 			maxEmojiSequenceBuilder.append("1");
 		}
 		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
+
+		inputWordMightBeForeign = false;
 	}
 
 
 	public Predictions setLanguage(Language language) {
+		if (language != this.language) {
+			inputWordMightBeForeign = true;
+		}
 		this.language = language;
 		return this;
 	}
@@ -70,6 +76,23 @@ public class Predictions {
 
 	public Predictions setInputWord(String inputWord) {
 		this.inputWord = inputWord.toLowerCase(language.getLocale());
+
+		// Replace characters that don't exist in the language
+		if (inputWordMightBeForeign) {
+			String newInputWord = "";
+			for (int i = 0; i < digitSequence.length() && i < this.inputWord.length(); i++) {
+				ArrayList<String> keyChars = language.getKeyCharacters(digitSequence.charAt(i) - '0', false);
+				if (keyChars.contains(this.inputWord.charAt(i))) {
+					newInputWord += this.inputWord.charAt(i);
+				}
+				else {
+					newInputWord += keyChars.get(0);
+				}
+			}
+			this.inputWord = newInputWord;
+			inputWordMightBeForeign = false;
+		}
+
 		return this;
 	}
 
