@@ -20,6 +20,7 @@ import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -330,9 +331,17 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		int simulatedLastKey;
+		try {
+			String digits = mLanguage.getDigitSequenceForWord(text);
+			simulatedLastKey = digits.charAt(digits.length() - 1) - '0';
+		} catch (InvalidLanguageCharactersException e) {
+			simulatedLastKey = -1;
+		}
+
+		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, false, -1, false, false);
+		autoCorrectSpace(text, true, simulatedLastKey, false, false);
 		return true;
 	}
 
