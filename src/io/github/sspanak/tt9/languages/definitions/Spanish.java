@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.languages.definitions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.languages.Characters;
