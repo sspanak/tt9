@@ -556,6 +556,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(modeIndex));
 
 			mInputMode.defaultTextCase();
+			resetKeyRepeat();
 		}
 
 		// save the settings for the next time
