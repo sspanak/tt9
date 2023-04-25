@@ -60,7 +60,6 @@
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>
-	<string name="setup_goto_main_screen">Return to Settings</string>
 	<string name="setup_tt9_on">Traditional T9 is enabled</string>
 	<string name="setup_tt9_off">Traditional T9 is disabled</string>
 	<string name="setup_click_here_to_enable">Click here to enable TT9 from Android Settings.</string>

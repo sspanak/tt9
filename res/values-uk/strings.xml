@@ -39,7 +39,6 @@
 	<string name="key_call">Виклик</string>
 	<string name="setup_keyboard_status">Стан</string>
 	<string name="setup_default_keyboard">Вибрати стандартну клавіатуру</string>
-	<string name="setup_goto_main_screen">Назад до налаштувань</string>
 	<string name="setup_tt9_on">Traditional T9 активний</string>
 	<string name="setup_tt9_off">Traditional T9 вимкнено</string>
 	<string name="setup_click_here_to_enable">Натисніть тут, щоб увімкнути TT9 в налаштуваннях Android.</string>

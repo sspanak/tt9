@@ -47,7 +47,6 @@
 	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
 	<string name="setup_keyboard_status">Состояние</string>
 	<string name="setup_default_keyboard">Выберите клавиатуру по умолчанию</string>
-	<string name="setup_goto_main_screen">Вернуться к настройкам</string>
 	<string name="setup_tt9_on">Traditional T9 активен</string>
 	<string name="setup_tt9_off">Traditional T9 отключен</string>
 	<string name="setup_click_here_to_enable">Нажмите здесь, чтобы включить TT9 в настройках Android.</string>

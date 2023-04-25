@@ -39,7 +39,6 @@
 	<string name="char_space">Espace</string>
 	<string name="setup_keyboard_status">État</string>
 	<string name="setup_default_keyboard">Sélectionnez le clavier par défaut</string>
-	<string name="setup_goto_main_screen">Retour à l\'écran des paramètres</string>
 	<string name="setup_tt9_on">Traditional T9 est activé</string>
 	<string name="setup_tt9_off">Traditional T9 est désactivé</string>
 	<string name="setup_click_here_to_enable">Cliquez ici pour activer TT9 dans les paramètres Android.</string>
