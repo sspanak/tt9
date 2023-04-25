@@ -52,7 +52,7 @@ public class ItemSelectLanguage {
 		}
 
 		item.setOnPreferenceChangeListener((preference, newValue) -> {
-			HashSet<String> newLanguages = (HashSet<String>) newValue;
+			@SuppressWarnings("unchecked") HashSet<String> newLanguages = (HashSet<String>) newValue;
 			if (newLanguages.size() == 0) {
 				newLanguages.add("1");
 			}

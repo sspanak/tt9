@@ -216,7 +216,7 @@ public class DictionaryLoader {
 			try {
 				dbWords.add(stringToWord(language, word, frequency));
 			} catch (InvalidLanguageCharactersException e) {
-				throw new DictionaryImportException(dictionaryFile, word, lineCount);
+				throw new DictionaryImportException(word, lineCount);
 			}
 
 			if (lineCount % settings.getDictionaryImportWordChunkSize() == 0 || lineCount == totalWords - 1) {
