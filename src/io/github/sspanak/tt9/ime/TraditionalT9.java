@@ -331,14 +331,21 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		int simulatedFirstKey;
 		int simulatedLastKey;
 		try {
 			String digits = mLanguage.getDigitSequenceForWord(text);
+			simulatedFirstKey = digits.charAt(0) - '0';
 			simulatedLastKey = digits.charAt(digits.length() - 1) - '0';
 		} catch (InvalidLanguageCharactersException e) {
+			simulatedFirstKey = -1;
 			simulatedLastKey = -1;
 		}
 
+		// accept the previously typed word (if any)
+		autoCorrectSpace(acceptIncompleteSuggestion(), false, simulatedFirstKey, false, false);
+
+		// "type" the text
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		autoCorrectSpace(text, true, simulatedLastKey, false, false);
