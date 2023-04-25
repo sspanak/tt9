@@ -31,6 +31,9 @@ As with many other open-source projects, this one is also maintained by its auth
 
 Your PRs are welcome!
 
+## Supporting the Project
+If you like Traditional T9, buy me a beer. Donations are currently accepted on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
+
 ## License
 - The source code, the logo image and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries/), where applicable. Detailed information about the dictionaries is also available there.
