@@ -351,20 +351,19 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (nextLang()) {
 			mInputMode.changeLanguage(mLanguage);
 			mInputMode.clearWordStem();
+			clearSuggestions();
 			getSuggestions();
 			resetKeyRepeat();
 
 			statusBar.setText(mInputMode.toString());
 			mainView.render();
 			forceShowWindowIfHidden();
-			if (!isSuggestionViewHidden()) {
+			if (mInputMode.isABC() && !isSuggestionViewHidden()) {
 				UI.toastLang(getMainContext(), mInputMode.toString());
 			}
-
-			return true;
 		}
 
-		return false;
+		return true;
 	}
 
 
@@ -574,9 +573,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		// when only one language is enabled, just acknowledge the key was pressed
 		if (mEnabledLanguages.size() < 2) {
-			return true;
+			return false;
 		}
 
 		// select the next language

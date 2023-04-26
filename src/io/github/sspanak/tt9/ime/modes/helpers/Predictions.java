@@ -22,7 +22,6 @@ public class Predictions {
 	private boolean isStemFuzzy;
 	private String stem;
 	private String inputWord;
-	private boolean inputWordMightBeForeign;
 
 	// async operations
 	private Handler wordsChangedHandler;
@@ -46,15 +45,10 @@ public class Predictions {
 			maxEmojiSequenceBuilder.append("1");
 		}
 		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
-
-		inputWordMightBeForeign = false;
 	}
 
 
 	public Predictions setLanguage(Language language) {
-		if (language != this.language) {
-			inputWordMightBeForeign = true;
-		}
 		this.language = language;
 		return this;
 	}
@@ -76,23 +70,6 @@ public class Predictions {
 
 	public Predictions setInputWord(String inputWord) {
 		this.inputWord = inputWord.toLowerCase(language.getLocale());
-
-		// Replace characters that don't exist in the language
-		if (inputWordMightBeForeign) {
-			String newInputWord = "";
-			for (int i = 0; i < digitSequence.length() && i < this.inputWord.length(); i++) {
-				ArrayList<String> keyChars = language.getKeyCharacters(digitSequence.charAt(i) - '0', false);
-				if (keyChars.contains(this.inputWord.charAt(i))) {
-					newInputWord += this.inputWord.charAt(i);
-				}
-				else {
-					newInputWord += keyChars.get(0);
-				}
-			}
-			this.inputWord = newInputWord;
-			inputWordMightBeForeign = false;
-		}
-
 		return this;
 	}
 
@@ -248,7 +225,11 @@ public class Predictions {
 
 		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
 		// have the same length, to prevent visual discrepancies.
-		baseWord = (baseWord != null && baseWord.length() > 0) ? baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length())) : "";
+		if (baseWord == null || baseWord.length() < digitSequence.length()) {
+			baseWord = generatePossibleWord(baseWord);
+		} else if (baseWord.length() > 0) {
+			baseWord = baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length()));
+		}
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
@@ -266,6 +247,26 @@ public class Predictions {
 		}
 
 		return generatedWords;
+	}
+
+
+	/**
+	 * generatePossibleWord
+	 * When "baseWord" is shorter than the "digitSequence", this function generates one word ending,
+	 * matching the missing letters.
+	 */
+	private String generatePossibleWord(String baseWord) {
+		if (baseWord == null) {
+			return "";
+		}
+
+		StringBuilder completion = new StringBuilder(baseWord);
+		int completionLength = digitSequence.length() - baseWord.length();
+		for (int i = 0; i < completionLength; i++) {
+			completion.append(language.getKeyCharacters(digitSequence.charAt(i) - '0', false).get(0));
+		}
+
+		return completion.toString();
 	}
 
 
