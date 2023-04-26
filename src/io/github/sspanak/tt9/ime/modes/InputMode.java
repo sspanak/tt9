@@ -84,7 +84,7 @@ abstract public class InputMode {
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) { return false; }
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) { return false; }
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 

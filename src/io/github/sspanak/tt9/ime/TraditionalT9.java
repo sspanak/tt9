@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -214,7 +213,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion();
-		autoCorrectSpace(word, true, -1, false, false);
+		autoCorrectSpace(word, true);
 		resetKeyRepeat();
 
 		return true;
@@ -288,7 +287,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Automatically accept the current word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false, key, hold, repeat > 0);
+			autoCorrectSpace(acceptIncompleteSuggestion(), false);
 			currentWord = "";
 		}
 
@@ -320,7 +319,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		autoCorrectSpace(acceptIncompleteSuggestion(), false);
 		sendDownUpKeyEvents(keyCode);
 		return true;
 	}
@@ -331,24 +330,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		int simulatedFirstKey;
-		int simulatedLastKey;
-		try {
-			String digits = mLanguage.getDigitSequenceForWord(text);
-			simulatedFirstKey = digits.charAt(0) - '0';
-			simulatedLastKey = digits.charAt(digits.length() - 1) - '0';
-		} catch (InvalidLanguageCharactersException e) {
-			simulatedFirstKey = -1;
-			simulatedLastKey = -1;
-		}
-
 		// accept the previously typed word (if any)
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, simulatedFirstKey, false, false);
+		autoCorrectSpace(acceptIncompleteSuggestion(), false);
 
-		// "type" the text
+		// "type" and accept the text
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, true, simulatedLastKey, false, false);
+		autoCorrectSpace(text, true);
 		return true;
 	}
 
@@ -640,12 +628,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, incomingKey, hold, repeat)) {
+		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually)) {
 			textField.setText(" ");
 		}
 	}

@@ -2,13 +2,14 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.regex.Pattern;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoSpace {
-	private final Pattern nextIsPunctuation = Pattern.compile("\\p{Punct}");
+	private final Pattern isNumber = Pattern.compile("\\s*\\d+\\s*");
+	private final Pattern isPunctuation = Pattern.compile("\\p{Punct}");
+
 	private final SettingsStore settings;
 
 	private InputType inputType;
@@ -48,20 +49,19 @@ public class AutoSpace {
 	 *
 	 * See the helper functions for the list of rules.
 	 */
-	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually) {
 		String previousChars = textField.getPreviousChars(2);
 		String nextChars = textField.getNextChars(2);
-		Logger.d("shouldAddAutoSpace", "next chars: '" + nextChars + "'");
 
 		return
 			settings.getAutoSpace()
-			&& !hold
+			&& !isNumber.matcher(previousChars).find()
 			&& (
-				shouldAddAutoSpaceAfterPunctuation(previousChars, incomingKey, repeat)
+				shouldAddAutoSpaceAfterPunctuation(previousChars)
 				|| shouldAddAutoSpaceAfterWord(isWordAcceptedManually)
 			)
 			&& !nextChars.startsWith(" ")
-			&& !nextIsPunctuation.matcher(nextChars).find();
+			&& !isPunctuation.matcher(nextChars).find();
 	}
 
 
@@ -71,10 +71,10 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars, int incomingKey, boolean repeat) {
+	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars) {
 		return
-			(incomingKey != 0 || repeat)
-			&& !inputType.isSpecialized()
+			!inputType.isSpecialized()
+			&& !previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t")
 			&& (
 				previousChars.endsWith(".")
 				|| previousChars.endsWith(",")
