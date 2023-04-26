@@ -513,14 +513,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void setSuggestions(List<String> suggestions, int selectedIndex) {
-		if (suggestionBar == null) {
-			return;
+		if (suggestionBar != null) {
+			suggestionBar.setSuggestions(suggestions, selectedIndex);
 		}
-
-		boolean show = suggestions != null && suggestions.size() > 0;
-
-		suggestionBar.setSuggestions(suggestions, selectedIndex);
-		setCandidatesViewShown(show);
 	}
 
 
