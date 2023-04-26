@@ -171,8 +171,14 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		resetKeyRepeat();
 		ignoreNextKeyUp = keyCode;
+		if (Key.isNumber(keyCode)) {
+			numKeyRepeatCounter = 0;
+			lastNumKeyCode = 0;
+		} else {
+			keyRepeatCounter = 0;
+			lastKeyCode = 0;
+		}
 
 		if (handleHotkey(keyCode, true)) {
 			return true;
