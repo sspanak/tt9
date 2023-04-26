@@ -353,7 +353,6 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.clearWordStem();
 			clearSuggestions();
 			getSuggestions();
-			resetKeyRepeat();
 
 			statusBar.setText(mInputMode.toString());
 			mainView.render();

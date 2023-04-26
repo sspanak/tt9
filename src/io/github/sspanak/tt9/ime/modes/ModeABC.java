@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.Language;
 
-import java.util.ArrayList;
-
 public class ModeABC extends InputMode {
 	public int getId() { return MODE_ABC; }
 
@@ -19,16 +17,15 @@ public class ModeABC extends InputMode {
 
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
-		digit = number;
 		if (hold) {
 			reset();
-			digit = -1;
-			suggestions.add(String.valueOf(number));
 			autoAcceptTimeout = 0;
+			suggestions.add(String.valueOf(number));
 		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
 		} else {
 			reset();
+			digit = number;
 			suggestions.addAll(language.getKeyCharacters(number));
 		}
 
@@ -42,12 +39,17 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
-	public void changeLanguage(Language language) {
-		super.changeLanguage(language);
+	public void changeLanguage(Language newLanguage) {
+		if (newLanguage != language) {
+			suggestions.clear();
+			suggestions.addAll(newLanguage.getKeyCharacters(digit));
+		}
+
+		super.changeLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
-		if (language.hasUpperCase()) {
+		if (newLanguage.hasUpperCase()) {
 			allowedTextCases.add(CASE_UPPER);
 		}
 	}
@@ -66,6 +68,7 @@ public class ModeABC extends InputMode {
 	public void reset() {
 		super.reset();
 		shouldSelectNextLetter = false;
+		digit = -1;
 	}
 
 	@NonNull
@@ -84,23 +87,13 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
-	public ArrayList<String> getSuggestions() {
-		suggestions.clear();
-		if (digit != -1) {
-			suggestions.addAll(language.getKeyCharacters(digit));
-		}
-
-		return super.getSuggestions();
-	}
-
-	@Override
 	public void onAcceptSuggestion(String currentWord) {
 		digit = -1;
 	}
 
 	@Override
 	public boolean onBackspace() {
-		digit = -1;
+		reset();
 		return false;
 	}
 }
