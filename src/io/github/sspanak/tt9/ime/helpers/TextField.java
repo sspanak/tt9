@@ -317,6 +317,10 @@ public class TextField {
 
 
 	public int getAction() {
+		if (field == null) {
+			return EditorInfo.IME_ACTION_NONE;
+		}
+
 		if (field.actionId > 0) {
 			return field.actionId; // custom action, defined by the connected app
 		}
