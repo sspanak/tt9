@@ -1,9 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 import java.util.HashMap;
 
@@ -18,6 +15,7 @@ public class EmptyDatabaseWarning {
 	final int WARNING_INTERVAL;
 	private static final HashMap<Integer, Long> warningDisplayedTime = new HashMap<>();
 
+	private Context context;
 	private Language language;
 
 	public EmptyDatabaseWarning(SettingsStore settings) {
@@ -31,37 +29,33 @@ public class EmptyDatabaseWarning {
 	}
 
 	public void emitOnce(Language language) {
-		if (language == null) {
+		context = context == null ? TraditionalT9.getMainContext() : context;
+		this.language = language;
+
+		if (isItTimeAgain(TraditionalT9.getMainContext())) {
+			DictionaryDb.areThereWords(this::show, language);
+		}
+	}
+
+	private boolean isItTimeAgain(Context context) {
+		if (this.language == null || context == null || !warningDisplayedTime.containsKey(language.getId())) {
+			return false;
+		}
+
+		long now = System.currentTimeMillis();
+		Long lastWarningTime = warningDisplayedTime.get(language.getId());
+		return lastWarningTime != null && now - lastWarningTime > WARNING_INTERVAL;
+	}
+
+	private void show(boolean areThereWords) {
+		if (areThereWords) {
 			return;
 		}
 
-		this.language = language;
-		DictionaryDb.areThereWords(handleWordCount, language);
+		warningDisplayedTime.put(language.getId(), System.currentTimeMillis());
+		UI.toastLongFromAsync(
+			context,
+			context.getString(R.string.dictionary_missing_go_load_it, language.getName())
+		);
 	}
-
-	private final Handler handleWordCount = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			boolean areThereWords = msg.what == 1;
-
-			if (areThereWords) {
-				return;
-			}
-
-			Context context = TraditionalT9.getMainContext();
-			if (context == null || !warningDisplayedTime.containsKey(language.getId())) {
-				return;
-			}
-
-			long now = System.currentTimeMillis();
-			Long lastWarningTime = warningDisplayedTime.get(language.getId());
-			boolean isItWarningTimeAgain = lastWarningTime != null && now - lastWarningTime > WARNING_INTERVAL;
-
-			if (isItWarningTimeAgain) {
-				String message = context.getString(R.string.dictionary_missing_go_load_it, language.getName());
-				UI.toastLong(context, message);
-				warningDisplayedTime.put(language.getId(), now);
-			}
-		}
-	};
 }

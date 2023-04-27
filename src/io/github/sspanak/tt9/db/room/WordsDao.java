@@ -4,12 +4,20 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.RawQuery;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Dao
 public interface WordsDao {
+	String indexLongWords = "index_words_lang_seq_freq";
+	String indexShortWords = "index_words_lang_len_seq";
+
+	@RawQuery()
+	Object rawQuery(SimpleSQLiteQuery sql);
+
 	@Query("SELECT COUNT(id) FROM words WHERE :langId < 0 OR lang = :langId")
 	int count(int langId);
 
@@ -31,17 +39,8 @@ public interface WordsDao {
 	)
 	List<Word> getMany(int langId, int limit, String sequence, String word);
 
-	@Query(
-		"SELECT * " +
-		"FROM words " +
-		"WHERE " +
-			"lang = :langId " +
-			"AND seq > :sequence AND seq <= :sequence || '99' " +
-			"AND (:word IS NULL OR word LIKE :word || '%') " +
-		"ORDER BY LENGTH(seq) ASC, freq DESC, seq ASC " +
-		"LIMIT :limit"
-	)
-	List<Word> getFuzzy(int langId, int limit, String sequence, String word);
+	@RawQuery(observedEntities = Word.class)
+	List<Word> getCustom(SimpleSQLiteQuery query);
 
 	@Insert
 	void insert(Word word);

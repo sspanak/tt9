@@ -1,9 +1,5 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -24,7 +20,7 @@ public class Predictions {
 	private String inputWord;
 
 	// async operations
-	private Handler wordsChangedHandler;
+	private Runnable onWordsChanged = () -> {};
 
 	// data
 	private final ArrayList<String> words = new ArrayList<>();
@@ -77,8 +73,9 @@ public class Predictions {
 		return this;
 	}
 
-	public void setWordsChangedHandler(Handler handler) {
-		wordsChangedHandler = handler;
+	public Predictions setWordsChangedHandler(Runnable handler) {
+		onWordsChanged = handler;
+		return this;
 	}
 
 	public ArrayList<String> getList() {
@@ -112,34 +109,22 @@ public class Predictions {
 
 
 	/**
-	 * onWordsChanged
-	 * Notify the external handler the word list has changed, so they can get the new ones using getList().
-	 */
-	private void onWordsChanged() {
-		wordsChangedHandler.sendEmptyMessage(0);
-	}
-
-
-
-	/**
 	 * load
 	 * Queries the dictionary database for a list of words matching the current language and
 	 * sequence or loads the static ones.
-	 *
-	 * Returns "false" on invalid digitSequence.
 	 */
-	public boolean load() {
+	public void load() {
 		if (digitSequence == null || digitSequence.length() == 0) {
 			words.clear();
-			onWordsChanged();
-			return false;
+			onWordsChanged.run();
+			return;
 		}
 
 		if (loadStatic()) {
-			onWordsChanged();
+			onWordsChanged.run();
 		} else {
-			DictionaryDb.getSuggestions(
-				dbWordsHandler,
+			DictionaryDb.getWords(
+				this::onDbWords,
 				language,
 				digitSequence,
 				stem,
@@ -147,8 +132,6 @@ public class Predictions {
 				settings.getSuggestionsMax()
 			);
 		}
-
-		return true;
 	}
 
 
@@ -160,20 +143,20 @@ public class Predictions {
 	private boolean loadStatic() {
 		// whitespace/special/math characters
 		if (digitSequence.equals("0")) {
-			words.clear();
 			stem = "";
+			words.clear();
 			words.addAll(language.getKeyCharacters(0, false));
 		}
 		// "00" is a shortcut for the preferred character
 		else if (digitSequence.equals("00")) {
-			words.clear();
 			stem = "";
+			words.clear();
 			words.add(settings.getDoubleZeroChar());
 		}
 		// emoji
 		else if (containsOnly1Regex.matcher(digitSequence).matches()) {
-			words.clear();
 			stem = "";
+			words.clear();
 			if (digitSequence.length() == 1) {
 				words.addAll(language.getKeyCharacters(1, false));
 			} else {
@@ -190,29 +173,23 @@ public class Predictions {
 
 	/**
 	 * dbWordsHandler
-	 * Extracts the words from the Message object, generates extra words, if necessary, then
-	 * notifies the external handler it is now possible to use "getList()".
-	 * If there were no matches in the database, they will be generated based on the "inputWord".
+	 * Callback for when the database has finished loading words. If there were no matches in the database,
+	 * they will be generated based on the "inputWord". After the word list is compiled, it notifies the
+	 * external handler it is now possible to use it with "getList()".
 	 */
-	private final Handler dbWordsHandler = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			ArrayList<String> dbWords = msg.getData().getStringArrayList("suggestions");
-			dbWords = dbWords != null ? dbWords : new ArrayList<>();
-
-			if (dbWords.size() == 0 && digitSequence.length() > 0) {
-				emptyDbWarning.emitOnce(language);
-				dbWords = generatePossibleCompletions(inputWord);
-			}
-
-			words.clear();
-			suggestStem();
-			suggestMissingWords(generatePossibleStemVariations(dbWords));
-			suggestMissingWords(dbWords);
-
-			onWordsChanged();
+	private void onDbWords (ArrayList<String> dbWords) {
+		if (dbWords.size() == 0 && digitSequence.length() > 0) {
+			emptyDbWarning.emitOnce(language);
+			dbWords = generatePossibleCompletions(inputWord);
 		}
-	};
+
+		words.clear();
+		suggestStem();
+		suggestMissingWords(generatePossibleStemVariations(dbWords));
+		suggestMissingWords(dbWords);
+
+		onWordsChanged.run();
+	}
 
 
 	/**

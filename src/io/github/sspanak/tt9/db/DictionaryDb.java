@@ -2,17 +2,20 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
+
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.db.room.TT9Room;
 import io.github.sspanak.tt9.db.room.Word;
+import io.github.sspanak.tt9.db.room.WordList;
+import io.github.sspanak.tt9.db.room.WordsDao;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -21,6 +24,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 public class DictionaryDb {
 	private static TT9Room dbInstance;
 
+	private static final Handler asyncHandler = new Handler();
 
 	public static synchronized void init(Context context) {
 		if (dbInstance == null) {
@@ -41,13 +45,51 @@ public class DictionaryDb {
 	}
 
 
+	private static void printDebug(String tag, String title, WordList words, long startTime) {
+		if (!Logger.isDebugLevel()) {
+			return;
+		}
+
+		StringBuilder debugText = new StringBuilder(title);
+		debugText
+			.append("\n")
+			.append("Word Count: ").append(words.size())
+			.append(". Time: ").append(System.currentTimeMillis() - startTime).append(" ms");
+		if (words.size() > 0) {
+			debugText.append("\n").append(words);
+		}
+
+		Logger.d(tag, debugText.toString());
+	}
+
+
+	public static void runInTransaction(Runnable r) {
+		getInstance().runInTransaction(r);
+	}
+
+
+	public static void createShortWordIndexSync() {
+		getInstance().wordsDao().rawQuery(TT9Room.createShortWordsIndexQuery());
+	}
+
+	public static void createLongWordIndexSync() {
+		getInstance().wordsDao().rawQuery(TT9Room.createLongWordsIndexQuery());
+	}
+
+	public static void dropShortWordIndexSync() {
+		getInstance().wordsDao().rawQuery(TT9Room.dropShortWordsIndexQuery());
+	}
+
+	public static void dropLongWordIndexSync() {
+		getInstance().wordsDao().rawQuery(TT9Room.dropLongWordsIndexQuery());
+	}
+
+
 	/**
 	 * normalizeWordFrequencies
 	 * Normalizes the word frequencies for all languages that have reached the maximum, as defined in
 	 * the settings.
-	 *
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
-	 *
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
 		new Thread() {
@@ -55,7 +97,7 @@ public class DictionaryDb {
 			public void run() {
 				long time = System.currentTimeMillis();
 
-				int affectedRows = dbInstance.wordsDao().normalizeFrequencies(
+				int affectedRows = getInstance().wordsDao().normalizeFrequencies(
 					settings.getWordFrequencyNormalizationDivider(),
 					settings.getWordFrequencyMax()
 				);
@@ -69,17 +111,12 @@ public class DictionaryDb {
 	}
 
 
-	public static void runInTransaction(Runnable r) {
-		getInstance().runInTransaction(r);
-	}
-
-
-	public static void areThereWords(Handler handler, Language language) {
+	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
 		new Thread() {
 			@Override
 			public void run() {
 				int langId = language != null ? language.getId() : -1;
-				handler.sendEmptyMessage(getInstance().wordsDao().count(langId) > 0 ? 1 : 0);
+				notification.accept(getInstance().wordsDao().count(langId) > 0);
 			}
 		}.start();
 	}
@@ -94,12 +131,12 @@ public class DictionaryDb {
 	}
 
 
-	public static void deleteWords(Handler handler) {
-		deleteWords(handler, null);
+	public static void deleteWords(Runnable notification) {
+		deleteWords(notification, null);
 	}
 
 
-	public static void deleteWords(Handler handler, ArrayList<Integer> languageIds) {
+	public static void deleteWords(Runnable notification, ArrayList<Integer> languageIds) {
 		new Thread() {
 			@Override
 			public void run() {
@@ -108,13 +145,13 @@ public class DictionaryDb {
 				} else if (languageIds.size() > 0) {
 					getInstance().wordsDao().deleteByLanguage(languageIds);
 				}
-				handler.sendEmptyMessage(0);
+				notification.run();
 			}
 		}.start();
 	}
 
 
-	public static void insertWord(Handler handler, Language language, String word) throws Exception {
+	public static void insertWord(ConsumerCompat<Integer> statusHandler, Language language, String word) throws Exception {
 		if (language == null) {
 			throw new InvalidLanguageException();
 		}
@@ -127,6 +164,7 @@ public class DictionaryDb {
 		dbWord.langId = language.getId();
 		dbWord.sequence = language.getDigitSequenceForWord(word);
 		dbWord.word = word.toLowerCase(language.getLocale());
+		dbWord.length = word.length();
 		dbWord.frequency = 1;
 
 		new Thread() {
@@ -135,15 +173,16 @@ public class DictionaryDb {
 				try {
 					getInstance().wordsDao().insert(dbWord);
 					getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
-					handler.sendEmptyMessage(0);
+					statusHandler.accept(0);
 				} catch (SQLiteConstraintException e) {
-					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence + "', for language: " + dbWord.langId
+						+ ". " + e.getMessage();
 					Logger.e("tt9/insertWord", msg);
-					handler.sendEmptyMessage(1);
+					statusHandler.accept(1);
 				} catch (Exception e) {
-					String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId;
+					String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId + ". " + e.getMessage();
 					Logger.e("tt9/insertWord", msg);
-					handler.sendEmptyMessage(2);
+					statusHandler.accept(2);
 				}
 			}
 		}.start();
@@ -211,101 +250,97 @@ public class DictionaryDb {
 	}
 
 
-	private static ArrayList<String> getSuggestionsExact(Language language, String sequence, String word, int maximumWords) {
+	/**
+	 * loadWordsExact
+	 * Loads words that match exactly the "sequence" and the optional "filter".
+	 * For example: "7655" gets "roll".
+	 */
+	private static ArrayList<String> loadWordsExact(Language language, String sequence, String filter, int maximumWords) {
 		long start = System.currentTimeMillis();
-		List<Word> exactMatches = getInstance().wordsDao().getMany(
+		WordList matches = new WordList(getInstance().wordsDao().getMany(
 			language.getId(),
 			maximumWords,
 			sequence,
-			word == null || word.equals("") ? null : word
-		);
-		Logger.d(
-			"db.getSuggestionsExact",
-			"Exact matches: " + exactMatches.size() + ". Time: " + (System.currentTimeMillis() - start) + " ms"
-		);
+			filter == null || filter.equals("") ? null : filter
+		));
 
-		ArrayList<String> suggestions = new ArrayList<>();
-		for (Word w : exactMatches) {
-			Logger.d("db.getSuggestions", "exact match: " + w.word + " | priority: " + w.frequency);
-			suggestions.add(w.word);
-		}
-
-		return suggestions;
+		printDebug("loadWordsExact", "===== Exact Word Matches =====", matches, start);
+		return matches.toStringList();
 	}
 
 
-	private static ArrayList<String> getSuggestionsFuzzy(Language language, String sequence, String word, int maximumWords) {
+	/**
+	 * loadWordsFuzzy
+	 * Loads words that start with "sequence" and optionally match the "filter".
+	 * For example: "7655" -> "roll", but also: "rolled", "roller", "rolling", ...
+	 */
+	private static ArrayList<String> loadWordsFuzzy(Language language, String sequence, String filter, int maximumWords) {
 		long start = System.currentTimeMillis();
-		List<Word> extraWords = getInstance().wordsDao().getFuzzy(
-			language.getId(),
-			maximumWords,
-			sequence,
-			word == null || word.equals("") ? null : word
-		);
-		Logger.d(
-			"db.getSuggestionsFuzzy",
-			"Fuzzy matches: " + extraWords.size() + ". Time: " + (System.currentTimeMillis() - start) + " ms"
-		);
 
-		ArrayList<String> suggestions = new ArrayList<>();
-		for (Word w : extraWords) {
-			Logger.d(
-				"db.getSuggestions",
-				"fuzzy match: " + w.word + " | sequence: " + w.sequence + " | priority: " + w.frequency
+		// fuzzy queries are heavy, so we must restrict the search range as much as possible
+		boolean noFilter = (filter == null || filter.equals(""));
+		int maxWordLength = noFilter && sequence.length() <= 2 ? 5 : 1000;
+		String index = sequence.length() <= 2 ? WordsDao.indexShortWords : WordsDao.indexLongWords;
+		SimpleSQLiteQuery sql = TT9Room.getFuzzyQuery(index, language.getId(), maximumWords, sequence, sequence.length(), maxWordLength, filter);
+
+		WordList matches = new WordList(getInstance().wordsDao().getCustom(sql));
+
+		// In some cases, searching for words starting with "digitSequence" and limited to "maxWordLength" of 5,
+		// may yield too few results. If so, we expand the search range a bit.
+		if (noFilter && matches.size() < maximumWords) {
+			sql = TT9Room.getFuzzyQuery(
+				WordsDao.indexLongWords,
+				language.getId(),
+				maximumWords - matches.size(),
+				sequence,
+				5,
+				1000
 			);
-			suggestions.add(w.word);
+			matches.addAll(getInstance().wordsDao().getCustom(sql));
 		}
 
-		return suggestions;
+		printDebug("loadWordsFuzzy", "~=~=~=~ Fuzzy Word Matches ~=~=~=~", matches, start);
+		return matches.toStringList();
 	}
 
 
-	private static void sendSuggestions(Handler handler, ArrayList<String> data) {
-		Bundle bundle = new Bundle();
-		bundle.putStringArrayList("suggestions", data);
-		Message msg = new Message();
-		msg.setData(bundle);
-		handler.sendMessage(msg);
+	private static void sendWords(ConsumerCompat<ArrayList<String>> dataHandler, ArrayList<String> wordList) {
+		asyncHandler.post(() -> dataHandler.accept(wordList));
 	}
 
 
-	public static void getSuggestions(Handler handler, Language language, String sequence, String word, int minimumWords, int maximumWords) {
+	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
 
+		ArrayList<String> wordList = new ArrayList<>(maxWords);
+
 		if (sequence == null || sequence.length() == 0) {
-			Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for an empty sequence.");
-			sendSuggestions(handler, new ArrayList<>());
+			Logger.w("tt9/db.getWords", "Attempting to get words for an empty sequence.");
+			sendWords(dataHandler, wordList);
 			return;
 		}
 
 		if (language == null) {
-			Logger.w("tt9/db.getSuggestions", "Attempting to get suggestions for NULL language.");
-			sendSuggestions(handler, new ArrayList<>());
+			Logger.w("tt9/db.getWords", "Attempting to get words for NULL language.");
+			sendWords(dataHandler, wordList);
 			return;
 		}
 
 		new Thread() {
 			@Override
 			public void run() {
-				// get exact sequence matches, for example: "9422" -> "what"
-				ArrayList<String> suggestions = getSuggestionsExact(language, sequence, word, maxWords);
-
-
-				// if the exact matches are too few, add some more words that start with the same characters,
-				// for example: "rol" -> "roll", "roller", "rolling", ...
-				if (suggestions.size() < minWords && sequence.length() >= 2) {
-					suggestions.addAll(
-						getSuggestionsFuzzy(language, sequence, word, minWords - suggestions.size())
-					);
+				if (sequence.length() == 1) {
+					wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
+				} else {
+					wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords));
 				}
 
-				if (suggestions.size() == 0) {
-					Logger.i("db.getSuggestions", "No suggestions for sequence: " + sequence);
+				if (wordList.size() == 0) {
+					Logger.i("db.getWords", "No suggestions for sequence: " + sequence);
 				}
 
-				// pack the words in a message and send it to the calling thread
-				sendSuggestions(handler, suggestions);
+				sendWords(dataHandler, wordList);
 			}
 		}.start();
 	}

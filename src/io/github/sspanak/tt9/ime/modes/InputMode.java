@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.ime.modes;
 
-import android.os.Handler;
-
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
@@ -50,10 +48,18 @@ abstract public class InputMode {
 	public boolean onBackspace() { return false; }
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
 
-	// Predictions
+	// Suggestions
 	public void onAcceptSuggestion(String suggestion) {}
-	protected void onSuggestionsUpdated(Handler handler) { handler.sendEmptyMessage(0); }
-	public boolean loadSuggestions(Handler handler, String currentWord) { return false; }
+
+	/**
+	 * loadSuggestions
+	 * Loads the suggestions based on the current state, with optional "currentWord" filter.
+	 * Once loading is finished the respective InputMode child will call "notification", notifying it
+	 * the suggestions are available using "getSuggestions()".
+	 */
+	public void loadSuggestions(Runnable notification, String currentWord) {
+		notification.run();
+	}
 
 	public ArrayList<String> getSuggestions() {
 		ArrayList<String> newSuggestions = new ArrayList<>();

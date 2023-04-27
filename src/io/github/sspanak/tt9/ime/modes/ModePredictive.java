@@ -1,9 +1,5 @@
 package io.github.sspanak.tt9.ime.modes;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.Logger;
@@ -30,7 +26,8 @@ public class ModePredictive extends InputMode {
 	private String stem = "";
 
 	// async suggestion handling
-	private static Handler handleSuggestionsExternal;
+	private boolean disablePredictions = false;
+	private Runnable onSuggestionsUpdated;
 
 	// text analysis tools
 	private final AutoSpace autoSpace;
@@ -73,10 +70,12 @@ public class ModePredictive extends InputMode {
 			// hold to type any digit
 			reset();
 			autoAcceptTimeout = 0;
+			disablePredictions = true;
 			suggestions.add(String.valueOf(number));
 		} else {
 			// words
 			super.reset();
+			disablePredictions = false;
 			digitSequence += number;
 			if (number == 0 && repeat > 0) {
 				autoAcceptTimeout = 0;
@@ -104,6 +103,7 @@ public class ModePredictive extends InputMode {
 	public void reset() {
 		super.reset();
 		digitSequence = "";
+		disablePredictions = false;
 		stem = "";
 	}
 
@@ -191,36 +191,35 @@ public class ModePredictive extends InputMode {
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
-	public boolean loadSuggestions(Handler handler, String currentWord) {
+	public void loadSuggestions(Runnable handler, String currentWord) {
+		if (disablePredictions) {
+			super.loadSuggestions(handler, currentWord);
+			return;
+		}
+
+		onSuggestionsUpdated = handler;
 		predictions
 			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setLanguage(language)
 			.setInputWord(currentWord)
-			.setWordsChangedHandler(handleSuggestions);
-
-		handleSuggestionsExternal = handler;
-
-		return predictions.load();
+			.setWordsChangedHandler(this::getPredictions)
+			.load();
 	}
 
 
 	/**
-	 * handleSuggestions
-	 * Extracts the suggestions from the Message object and passes them to the actual external Handler.
-	 * If there were no matches in the database, they will be generated based on the "lastInputFieldWord".
+	 * getPredictions
+	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
-	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message m) {
-			digitSequence = predictions.getDigitSequence();
-			suggestions.clear();
-			suggestions.addAll(predictions.getList());
+	private void getPredictions() {
+		digitSequence = predictions.getDigitSequence();
+		suggestions.clear();
+		suggestions.addAll(predictions.getList());
 
-			onSuggestionsUpdated(handleSuggestionsExternal);
-		}
-	};
+		onSuggestionsUpdated.run();
+	}
 
 
 	/**
