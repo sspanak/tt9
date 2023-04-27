@@ -7,7 +7,7 @@ public class Yiddish extends Hebrew {
 		super();
 
 		locale = Locale.YIDDISH;
-		dictionaryFile = "Yiddish-utf8.csv";
+		dictionaryFile = "yiddish-utf8.csv";
 
 	}
 }
