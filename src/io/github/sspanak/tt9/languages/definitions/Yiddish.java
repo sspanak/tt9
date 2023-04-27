@@ -7,7 +7,7 @@ public class Yiddish extends Hebrew {
 		super();
 
 		locale = new Locale("ji","YI");
-		dictionaryFile = "yiddish-utf8.csv";
+		dictionaryFile = "ji-utf8.csv";
 		hasUpperCase = false;
 		isPunctuationPartOfWords = true;
 
