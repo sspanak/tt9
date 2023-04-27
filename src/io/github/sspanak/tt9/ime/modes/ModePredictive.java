@@ -214,6 +214,7 @@ public class ModePredictive extends InputMode {
 	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
 		@Override
 		public void handleMessage(Message m) {
+			digitSequence = predictions.getDigitSequence();
 			suggestions.clear();
 			suggestions.addAll(predictions.getList());
 
