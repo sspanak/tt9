@@ -214,6 +214,7 @@ public class ModePredictive extends InputMode {
 	private final Handler handleSuggestions = new Handler(Looper.getMainLooper()) {
 		@Override
 		public void handleMessage(Message m) {
+			digitSequence = predictions.getDigitSequence();
 			suggestions.clear();
 			suggestions.addAll(predictions.getList());
 
@@ -289,13 +290,13 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
 			.setLastSequence(lastAcceptedSequence)
 			.setInputType(inputType)
 			.setTextField(textField)
-			.shouldAddAutoSpace(isWordAcceptedManually, incomingKey, hold, repeat);
+			.shouldAddAutoSpace(isWordAcceptedManually);
 
 	}
 

@@ -213,7 +213,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion();
-		autoCorrectSpace(word, true, -1, false, false);
+		autoCorrectSpace(word, true);
 		resetKeyRepeat();
 
 		return true;
@@ -287,7 +287,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Automatically accept the current word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false, key, hold, repeat > 0);
+			autoCorrectSpace(acceptIncompleteSuggestion(), false);
 			currentWord = "";
 		}
 
@@ -319,7 +319,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		autoCorrectSpace(acceptIncompleteSuggestion(), false);
 		sendDownUpKeyEvents(keyCode);
 		return true;
 	}
@@ -330,9 +330,13 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1, false, false);
+		// accept the previously typed word (if any)
+		autoCorrectSpace(acceptIncompleteSuggestion(), false);
+
+		// "type" and accept the text
+		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, false, -1, false, false);
+		autoCorrectSpace(text, true);
 		return true;
 	}
 
@@ -556,6 +560,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(modeIndex));
 
 			mInputMode.defaultTextCase();
+			resetKeyRepeat();
 		}
 
 		// save the settings for the next time
@@ -623,12 +628,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int incomingKey, boolean hold, boolean repeat) {
+	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, incomingKey, hold, repeat)) {
+		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually)) {
 			textField.setText(" ");
 		}
 	}

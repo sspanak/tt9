@@ -58,6 +58,10 @@ public class Predictions {
 		return this;
 	}
 
+	public String getDigitSequence() {
+		return digitSequence;
+	}
+
 	public Predictions setIsStemFuzzy(boolean yes) {
 		this.isStemFuzzy = yes;
 		return this;

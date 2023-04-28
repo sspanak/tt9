@@ -34,6 +34,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	@Override
 	public void onResume() {
+		init(); // changing the theme recreates the PreferencesActivity, making "this.activity" NULL, so we reinitialize it.
 		super.onResume();
 		createSettingsSection();
 	}

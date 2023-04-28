@@ -8,6 +8,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -40,9 +41,15 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		DictionaryDb.normalizeWordFrequencies(settings);
 
 		InputModeValidator.validateEnabledLanguages(settings, settings.getEnabledLanguageIds());
+		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);
-		validateFunctionKeys();
+
+		// changing the theme causes onCreate(), which displays the MainSettingsScreen,
+		// but leaves the old "back" history, which is no longer valid,
+		// so we must reset it
+		getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
 		buildLayout();
 	}
 
