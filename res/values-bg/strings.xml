@@ -37,7 +37,6 @@
 	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>
 	<string name="setup_keyboard_status">Състояние</string>
 	<string name="setup_default_keyboard">Избор на клавиатура по подразбиране</string>
-	<string name="setup_goto_main_screen">Назад към Настройки</string>
 	<string name="setup_tt9_on">Traditional T9 е активен</string>
 	<string name="setup_tt9_off">Traditional T9 е изключен</string>
 	<string name="setup_click_here_to_enable">Натиснете тук, за да включите TT9 от настройките на Андроид.</string>

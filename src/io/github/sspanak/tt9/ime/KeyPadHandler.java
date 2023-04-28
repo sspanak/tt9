@@ -15,13 +15,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	protected SettingsStore settings;
 
-	// editing mode
-	protected static final int NON_EDIT = 0;
-	protected static final int EDITING = 1;
-	protected static final int EDITING_STRICT_NUMERIC = 3;
-	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
-	protected int mEditing = NON_EDIT;
-
 	// temporal key handling
 	private boolean isBackspaceHandled = false;
 
@@ -51,7 +44,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
 		onRestart(getCurrentInputEditorInfo());
-		return mEditing != EDITING_DIALER && mEditing != NON_EDIT;
+		return shouldBeVisible();
 	}
 
 
@@ -96,9 +89,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onFinishInputView(boolean finishingInput) {
 		super.onFinishInputView(finishingInput);
-		if (mEditing == EDITING || mEditing == EDITING_STRICT_NUMERIC) {
-			onFinishTyping();
-		}
+		onFinishTyping();
 	}
 
 	/**
@@ -109,9 +100,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	public void onFinishInput() {
 		super.onFinishInput();
 		// Logger.d("onFinishInput", "When is this called?");
-		if (mEditing == EDITING || mEditing == EDITING_STRICT_NUMERIC) {
-			onStop();
-		}
+		onStop();
 	}
 
 
@@ -122,7 +111,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (isOff()) {
+		if (shouldBeOff()) {
 			return super.onKeyDown(keyCode, event);
 		}
 
@@ -161,7 +150,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-		if (isOff()) {
+		if (shouldBeOff()) {
 			return super.onKeyLongPress(keyCode, event);
 		}
 
@@ -200,7 +189,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		if (isOff()) {
+		if (shouldBeOff()) {
 			return super.onKeyUp(keyCode, event);
 		}
 
@@ -273,11 +262,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	private boolean isOff() {
-		return currentInputConnection == null || mEditing == NON_EDIT;
-	}
-
-
 	protected void resetKeyRepeat() {
 		numKeyRepeatCounter = 0;
 		keyRepeatCounter = 0;
@@ -312,5 +296,9 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onRestart(EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
+
+	// UI
 	abstract protected View createSoftKeyView();
+	abstract protected boolean shouldBeVisible();
+	abstract protected boolean shouldBeOff();
 }

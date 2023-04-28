@@ -34,6 +34,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	private TextField textField;
 	private InputType inputType;
 
+	// editing mode
+	protected static final int NON_EDIT = 0;
+	protected static final int EDITING = 1;
+	protected static final int EDITING_STRICT_NUMERIC = 3;
+	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
+	protected int mEditing = NON_EDIT;
+
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	private InputMode mInputMode;
@@ -365,6 +372,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		}
 
+
 		return false;
 	}
 
@@ -505,14 +513,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void setSuggestions(List<String> suggestions, int selectedIndex) {
-		if (suggestionBar == null) {
-			return;
+		if (suggestionBar != null) {
+			suggestionBar.setSuggestions(suggestions, selectedIndex);
 		}
-
-		boolean show = suggestions != null && suggestions.size() > 0;
-
-		suggestionBar.setSuggestions(suggestions, selectedIndex);
-		setCandidatesViewShown(show);
 	}
 
 
@@ -572,13 +575,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean nextLang() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+		if (mInputMode.is123() || mEnabledLanguages.size() < 2) {
 			return false;
-		}
-
-		// when only one language is enabled, just acknowledge the key was pressed
-		if (mEnabledLanguages.size() < 2) {
-			return true;
 		}
 
 		// select the next language
@@ -742,5 +740,17 @@ public class TraditionalT9 extends KeyPadHandler {
 		) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		}
+	}
+
+
+	@Override
+	protected boolean shouldBeVisible() {
+		return mEditing != EDITING_DIALER && mEditing != NON_EDIT;
+	}
+
+
+	@Override
+	protected boolean shouldBeOff() {
+		 return currentInputConnection == null || mEditing == NON_EDIT;
 	}
 }

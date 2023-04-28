@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/main_small"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
@@ -68,7 +67,6 @@
 			style="@style/hSeparator" />
 
 		<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
-			android:id="@+id/soft_key_backspace"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
