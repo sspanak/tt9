@@ -45,7 +45,7 @@ public class DictionaryDb {
 	}
 
 
-	private static void printDebug(String tag, String title, WordList words, long startTime) {
+	private static void printDebug(String tag, String title, String sequence, WordList words, long startTime) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
@@ -54,9 +54,11 @@ public class DictionaryDb {
 		debugText
 			.append("\n")
 			.append("Word Count: ").append(words.size())
-			.append(". Time: ").append(System.currentTimeMillis() - startTime).append(" ms");
+			.append(". Time: ").append(System.currentTimeMillis() - startTime).append(" ms.");
 		if (words.size() > 0) {
 			debugText.append("\n").append(words);
+		} else {
+			debugText.append(" Sequence: ").append(sequence);
 		}
 
 		Logger.d(tag, debugText.toString());
@@ -92,9 +94,7 @@ public class DictionaryDb {
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				long time = System.currentTimeMillis();
 
 				int affectedRows = getInstance().wordsDao().normalizeFrequencies(
@@ -107,18 +107,16 @@ public class DictionaryDb {
 					"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
 				);
 			}
-		}.start();
+		).start();
 	}
 
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				int langId = language != null ? language.getId() : -1;
 				notification.accept(getInstance().wordsDao().count(langId) > 0);
 			}
-		}.start();
+		).start();
 	}
 
 
@@ -137,9 +135,7 @@ public class DictionaryDb {
 
 
 	public static void deleteWords(Runnable notification, ArrayList<Integer> languageIds) {
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				if (languageIds == null) {
 					getInstance().clearAllTables();
 				} else if (languageIds.size() > 0) {
@@ -147,7 +143,7 @@ public class DictionaryDb {
 				}
 				notification.run();
 			}
-		}.start();
+		).start();
 	}
 
 
@@ -167,9 +163,7 @@ public class DictionaryDb {
 		dbWord.length = word.length();
 		dbWord.frequency = 1;
 
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				try {
 					getInstance().wordsDao().insert(dbWord);
 					getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
@@ -185,7 +179,7 @@ public class DictionaryDb {
 					statusHandler.accept(2);
 				}
 			}
-		}.start();
+		).start();
 	}
 
 
@@ -212,9 +206,7 @@ public class DictionaryDb {
 			throw new Exception("Cannot increment word frequency. Word: " + word + " | Sequence: " + sequence);
 		}
 
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				try {
 					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
 
@@ -246,7 +238,7 @@ public class DictionaryDb {
 					);
 				}
 			}
-		}.start();
+		).start();
 	}
 
 
@@ -264,7 +256,7 @@ public class DictionaryDb {
 			filter == null || filter.equals("") ? null : filter
 		));
 
-		printDebug("loadWordsExact", "===== Exact Word Matches =====", matches, start);
+		printDebug("loadWordsExact", "===== Exact Word Matches =====", sequence, matches, start);
 		return matches.toStringList();
 	}
 
@@ -299,7 +291,7 @@ public class DictionaryDb {
 			matches.addAll(getInstance().wordsDao().getCustom(sql));
 		}
 
-		printDebug("loadWordsFuzzy", "~=~=~=~ Fuzzy Word Matches ~=~=~=~", matches, start);
+		printDebug("loadWordsFuzzy", "~=~=~=~ Fuzzy Word Matches ~=~=~=~", sequence, matches, start);
 		return matches.toStringList();
 	}
 
@@ -327,21 +319,15 @@ public class DictionaryDb {
 			return;
 		}
 
-		new Thread() {
-			@Override
-			public void run() {
+		new Thread(() -> {
 				wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
 
 				if (sequence.length() > 1 && wordList.size() < minWords) {
 					wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
 				}
 
-				if (wordList.size() == 0) {
-					Logger.i("db.getWords", "No suggestions for sequence: " + sequence);
-				}
-
 				sendWords(dataHandler, wordList);
 			}
-		}.start();
+		).start();
 	}
 }
