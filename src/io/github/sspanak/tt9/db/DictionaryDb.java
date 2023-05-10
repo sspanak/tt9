@@ -330,10 +330,10 @@ public class DictionaryDb {
 		new Thread() {
 			@Override
 			public void run() {
-				if (sequence.length() == 1) {
-					wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
-				} else {
-					wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords));
+				wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
+
+				if (sequence.length() > 1 && wordList.size() < minWords) {
+					wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
 				}
 
 				if (wordList.size() == 0) {
