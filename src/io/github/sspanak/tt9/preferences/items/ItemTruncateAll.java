@@ -1,9 +1,6 @@
 package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 import androidx.preference.Preference;
 
@@ -28,12 +25,6 @@ public class ItemTruncateAll extends ItemClickable {
 		this.loader = loader;
 	}
 
-	private final Handler onDictionaryTruncated = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			UI.toast(context, R.string.dictionary_truncated);
-		}
-	};
 
 	@Override
 	protected boolean onClick(Preference p) {
@@ -42,7 +33,7 @@ public class ItemTruncateAll extends ItemClickable {
 			loadItem.changeToLoadButton();
 		}
 
-		DictionaryDb.deleteWords(onDictionaryTruncated);
+		DictionaryDb.deleteWords(() -> UI.toastFromAsync(context, R.string.dictionary_truncated));
 
 		return true;
 	}

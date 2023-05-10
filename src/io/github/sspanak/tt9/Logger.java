@@ -5,6 +5,10 @@ import android.util.Log;
 public class Logger {
 	public static final int LEVEL = BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR;
 
+	static public boolean isDebugLevel() {
+		return LEVEL == Log.DEBUG;
+	}
+
 	static public void v(String tag, String msg)  {
 		if (LEVEL <= Log.VERBOSE) {
 			Log.v(tag, msg);

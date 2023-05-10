@@ -46,7 +46,7 @@ public class Characters {
 
 	public static ArrayList<String> getEmoji(int level) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-			return TextEmoticons;
+			return new ArrayList<>(TextEmoticons);
 		}
 
 		level = (Emoji.size() > level) ? level : Emoji.size() - 1;
@@ -59,6 +59,6 @@ public class Characters {
 			}
 		}
 
-		return availableEmoji.size() > 0 ? availableEmoji : TextEmoticons;
+		return availableEmoji.size() > 0 ? availableEmoji : new ArrayList<>(TextEmoticons);
 	}
 }

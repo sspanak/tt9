@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Looper;
 import android.widget.Toast;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -30,15 +31,47 @@ public class UI {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
 
+	public static void toastFromAsync(Context context, CharSequence msg) {
+		if (Looper.myLooper() == null) {
+			Looper.prepare();
+		}
+		toast(context, msg);
+		Looper.loop();
+	}
+
 	public static void toast(Context context, int resourceId) {
 		Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
+	}
+
+	public static void toastFromAsync(Context context, int resourceId) {
+		if (Looper.myLooper() == null) {
+			Looper.prepare();
+		}
+		toast(context, resourceId);
+		Looper.loop();
 	}
 
 	public static void toastLong(Context context, int resourceId) {
 		Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
 	}
 
+	public static void toastLongFromAsync(Context context, int resourceId) {
+		if (Looper.myLooper() == null) {
+			Looper.prepare();
+		}
+		toast(context, resourceId);
+		Looper.loop();
+	}
+
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+	}
+
+	public static void toastLongFromAsync(Context context, CharSequence msg) {
+		if (Looper.myLooper() == null) {
+			Looper.prepare();
+		}
+		toastLong(context, msg);
+		Looper.loop();
 	}
 }

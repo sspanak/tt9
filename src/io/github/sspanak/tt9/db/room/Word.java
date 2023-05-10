@@ -8,7 +8,8 @@ import androidx.room.PrimaryKey;
 @Entity(
 	indices = {
 		@Index(value = {"lang", "word"}, unique = true),
-		@Index(value = {"lang", "seq", "freq"})
+		@Index(value = {"lang", "seq", "freq"}, orders = {Index.Order.ASC, Index.Order.ASC, Index.Order.DESC}),
+		@Index(value = {"lang", "len", "seq"}, orders = {Index.Order.ASC, Index.Order.ASC, Index.Order.ASC})
 	},
 	tableName = "words"
 )
@@ -26,4 +27,7 @@ public class Word {
 
 	@ColumnInfo(name = "freq")
 	public int frequency;
+
+	@ColumnInfo(name = "len")
+	public int length;
 }

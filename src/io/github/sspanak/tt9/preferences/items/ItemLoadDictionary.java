@@ -1,9 +1,7 @@
 package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
+import android.os.Bundle;
 
 import androidx.preference.Preference;
 
@@ -36,7 +34,7 @@ public class ItemLoadDictionary extends ItemClickable {
 		this.progressBar = progressBar;
 		this.settings = settings;
 
-		loader.setStatusHandler(onDictionaryLoading);
+		loader.setOnStatusChange(this::onLoadingStatusChange);
 
 		if (!progressBar.isCompleted() && !progressBar.isFailed()) {
 			changeToCancelButton();
@@ -46,23 +44,20 @@ public class ItemLoadDictionary extends ItemClickable {
 	}
 
 
-	private final Handler onDictionaryLoading = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			progressBar.show(msg.getData());
-			item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
+	private void onLoadingStatusChange(Bundle status) {
+		progressBar.show(status);
+		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
-			if (progressBar.isCancelled()) {
-				changeToLoadButton();
-			} else if (progressBar.isFailed()) {
-				changeToLoadButton();
-				UI.toast(context, progressBar.getMessage());
-			} else if (progressBar.isCompleted()) {
-				changeToLoadButton();
-				UI.toast(context, R.string.dictionary_loaded);
-			}
+		if (progressBar.isCancelled()) {
+			changeToLoadButton();
+		} else if (progressBar.isFailed()) {
+			changeToLoadButton();
+			UI.toastFromAsync(context, progressBar.getMessage());
+		} else if (progressBar.isCompleted()) {
+			changeToLoadButton();
+			UI.toastFromAsync(context, R.string.dictionary_loaded);
 		}
-	};
+	}
 
 
 	@Override

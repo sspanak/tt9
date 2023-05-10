@@ -2,9 +2,6 @@ package io.github.sspanak.tt9.ime;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -251,7 +248,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onLeft() {
 		if (mInputMode.clearWordStem()) {
-			mInputMode.loadSuggestions(handleSuggestionsAsync, getComposingText());
+			mInputMode.loadSuggestions(this::getSuggestions, getComposingText());
 		} else {
 			jumpBeforeComposingText();
 		}
@@ -269,7 +266,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mInputMode.setWordStem(filter, repeat)) {
-			mInputMode.loadSuggestions(handleSuggestionsAsync, filter);
+			mInputMode.loadSuggestions(this::getSuggestions, filter);
 		} else if (filter.length() == 0) {
 			mInputMode.reset();
 		}
@@ -469,9 +466,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		if (!mInputMode.loadSuggestions(handleSuggestionsAsync, suggestionBar.getCurrentSuggestion())) {
-			handleSuggestions();
-		}
+		mInputMode.loadSuggestions(this::handleSuggestions, suggestionBar.getCurrentSuggestion());
 	}
 
 
@@ -498,14 +493,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
 		textField.setComposingTextWithHighlightedStem(word, mInputMode);
 	}
-
-
-	private final Handler handleSuggestionsAsync = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message m) {
-			handleSuggestions();
-		}
-	};
 
 
 	private void setSuggestions(List<String> suggestions) {

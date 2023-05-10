@@ -2,9 +2,6 @@ package io.github.sspanak.tt9.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 
@@ -50,30 +47,27 @@ public class AddWordAct extends AppCompatActivity {
 	}
 
 
-	private final Handler onAddedWord = new Handler(Looper.getMainLooper()) {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-				case 0:
-					Logger.d("onAddedWord", "Added word: '" + word + "'...");
-					settings.saveLastWord(word);
-					break;
+	private void onAddedWord(int statusCode) {
+		switch (statusCode) {
+			case 0:
+				Logger.d("onAddedWord", "Successfully added word: '" + word + '"');
+				settings.saveLastWord(word);
+				break;
 
-				case 1:
-					UI.toastLong(
-						main.getContext(),
-						getResources().getString(R.string.add_word_exist, word)
-					);
-					break;
+			case 1:
+				UI.toastLongFromAsync(
+					main.getContext(),
+					getResources().getString(R.string.add_word_exist, word)
+				);
+				break;
 
-				default:
-					UI.toastLong(main.getContext(), R.string.error_unexpected);
-					break;
+			default:
+				UI.toastLongFromAsync(main.getContext(), R.string.error_unexpected);
+				break;
 			}
 
-			finish();
-		}
-	};
+		finish();
+	}
 
 	public void addWord(View v) {
 		try {
@@ -81,7 +75,7 @@ public class AddWordAct extends AppCompatActivity {
 			word = ((EditText) main.findViewById(R.id.add_word_text)).getText().toString();
 			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
 
-			DictionaryDb.insertWord(onAddedWord, LanguageCollection.getLanguage(lang), word);
+			DictionaryDb.insertWord(this::onAddedWord, LanguageCollection.getLanguage(lang), word);
 		} catch (InsertBlankWordException e) {
 			Logger.e("AddWordAct.addWord", e.getMessage());
 			UI.toastLong(this, R.string.add_word_blank);
@@ -96,6 +90,6 @@ public class AddWordAct extends AppCompatActivity {
 
 
 	public void cancelAddingWord(View v) {
-		this.finish();
+		finish();
 	}
 }
