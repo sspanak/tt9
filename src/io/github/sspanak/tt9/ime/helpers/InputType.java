@@ -25,7 +25,7 @@ public class InputType {
 	 * Special or limited input type means the input connection is not rich,
 	 * or it can not process or show things like candidate text, nor retrieve the current text.
 	 *
-	 * <a href="https://developer.android.com/reference/android/text/InputType#TYPE_NULL">...</a>
+	 * More info: <a href="https://developer.android.com/reference/android/text/InputType#TYPE_NULL">android docs</a>.
 	 */
 	public boolean isLimited() {
 		return field != null && field.inputType == android.text.InputType.TYPE_NULL;
@@ -37,7 +37,11 @@ public class InputType {
 	 * Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.
 	 *
-	 * NOTE: A Dialer field is not the same as a Phone field in a phone book.
+	 * NOTE: A Dialer field is not the same as Phone field. Dialer is where you
+	 * actually dial and call a phone number. While the Phone field is a text
+	 * field in any app or a webpage, intended for typing phone numbers.
+	 *
+	 * More info: <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>.
 	 */
 	public boolean isDialer() {
 		if (field == null) {

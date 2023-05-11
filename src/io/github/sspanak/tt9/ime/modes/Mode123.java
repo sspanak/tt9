@@ -20,6 +20,16 @@ public class Mode123 extends InputMode {
 		return true;
 	}
 
+	@Override
+	public boolean onOtherKey(int key) {
+		reset();
+		if (Key.isDecimalSeparator(key) || Key.isPoundOrStar(key)) {
+			keyCode = key;
+			return true;
+		}
+
+		return false;
+	}
 
 	@Override final public boolean is123() { return true; }
 	@Override public int getSequenceLength() { return 0; }

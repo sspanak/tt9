@@ -90,14 +90,19 @@ public class TextField {
 			return allowedModes;
 		}
 
+		// Dialer field, not to be confused with Phone text field.
+		// It only accepts 0-9, "#" and "*".
+		if (inputType.isDialer()) {
+			allowedModes.add(InputMode.MODE_DIALER);
+			return allowedModes;
+		}
+
 		switch (field.inputType & android.text.InputType.TYPE_MASK_CLASS) {
 			case android.text.InputType.TYPE_CLASS_NUMBER:
 			case android.text.InputType.TYPE_CLASS_DATETIME:
-				// Numbers and dates default to the symbols keyboard, with
-				// no extra features.
 			case android.text.InputType.TYPE_CLASS_PHONE:
-				// Phones will also default to the symbols keyboard, though
-				// often you will want to have a dedicated phone keyboard.
+				// Numbers, dates and phone numbers default to the numeric keyboard,
+				// with no extra features.
 				allowedModes.add(InputMode.MODE_123);
 				return allowedModes;
 

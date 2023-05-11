@@ -29,8 +29,8 @@ public class SoftPunctuationKey extends SoftKey {
 
 		preventRepeat();
 		int keyId = getId();
-		if (keyId == R.id.soft_key_punctuation_1) return tt9.onText(",");
-		if (keyId == R.id.soft_key_punctuation_2) return tt9.onText(".");
+		if (keyId == R.id.soft_key_punctuation_1) return tt9.onOtherKey(KeyEvent.KEYCODE_COMMA);
+		if (keyId == R.id.soft_key_punctuation_2) return tt9.onOtherKey(KeyEvent.KEYCODE_PERIOD);
 
 		return false;
 	}
