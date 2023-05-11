@@ -34,7 +34,7 @@ public abstract class TT9Room extends RoomDatabase {
 			" WHERE 1" +
 			" AND lang = " + langId +
 			" AND len BETWEEN " + minWordLength + " AND " + maxWordLength +
-			" AND seq BETWEEN " + sequence + " AND " + sequence + "99 " +
+			" AND seq > " + sequence + " AND seq <= " + sequence + "99 " +
 			" ORDER BY len ASC, freq DESC " +
 			" LIMIT " + limit;
 
