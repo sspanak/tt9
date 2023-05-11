@@ -177,6 +177,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		}
 
+		if (Key.isPoundOrStar(keyCode) && onOtherKey(keyCode)) {
+			return true;
+		}
+
 		ignoreNextKeyUp = 0;
 		return super.onKeyLongPress(keyCode, event);
 	}
@@ -234,7 +238,9 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
 			case KeyEvent.KEYCODE_STAR:
 			case KeyEvent.KEYCODE_POUND:
-				return onOtherKey(keyCode);
+				if (onOtherKey(keyCode)) {
+					return true;
+				}
 		}
 
 		return super.onKeyUp(keyCode, event);

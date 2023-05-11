@@ -317,8 +317,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onOtherKey(int keyCode) {
 		if (
-			keyCode <= 0 ||
-			(mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) && !Key.isNumber(keyCode)
+			// no invalid keys
+			keyCode <= 0
+			// allow only numbers, "*" and "#" in 123 mode
+			|| (!Key.isNumber(keyCode) && !Key.isPoundOrStar(keyCode) && mInputMode.is123())
 		) {
 			return false;
 		}
@@ -346,7 +348,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyAddWord() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+		if (mInputMode.is123()) {
 			return false;
 		}
 
@@ -376,14 +378,19 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
+
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+			return false;
+		}
+
 		mainView.render();
 		forceShowWindowIfHidden();
-		return (mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER);
+		return true;
 	}
 
 
 	public boolean onKeyShowSettings() {
-		if (mEditing == EDITING_DIALER) {
+		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
 			return false;
 		}
 
