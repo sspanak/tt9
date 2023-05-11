@@ -320,6 +320,10 @@ public class TraditionalT9 extends KeyPadHandler {
 			// no invalid keys
 			keyCode <= 0
 			// allow only numbers, "*" and "#" in 123 mode
+				// @todo:
+				// 0-9 in non-numeric
+				// # and * in strict numeric
+				// . and , in dialer
 			|| (!Key.isNumber(keyCode) && !Key.isPoundOrStar(keyCode) && mInputMode.is123())
 		) {
 			return false;
