@@ -33,8 +33,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	// editing mode
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
-	protected static final int EDITING_STRICT_NUMERIC = 3;
-	protected int mEditing = NON_EDIT;
+	@Deprecated protected int mEditing = NON_EDIT; // @todo: migrate to "isActive"
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -374,7 +373,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
 
-		if (mEditing == EDITING_STRICT_NUMERIC || mInputMode.isDialer()) {
+		if (allowedInputModes.size() == 1) {
 			return false;
 		}
 
@@ -395,11 +394,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean shouldTrackUpDown() {
-		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
+		return !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
 	}
 
 	protected boolean shouldTrackLeftRight() {
-		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
+		return !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
 	}
 
 
@@ -527,7 +526,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void nextInputMode() {
 		if (mInputMode.isDialer()) {
 			return;
-		} else if (mEditing == EDITING_STRICT_NUMERIC) {
+		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
@@ -610,11 +609,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(0));
 		}
 
-		if (mInputMode.is123() && allowedInputModes.size() == 1) {
-			mEditing = EDITING_STRICT_NUMERIC;
-		} else {
-			mEditing = EDITING;
-		}
+		mEditing = EDITING;
 	}
 
 
