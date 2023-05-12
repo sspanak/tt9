@@ -205,13 +205,13 @@ public class ModePredictive extends InputMode {
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
-	public void loadSuggestions(Runnable handler, String currentWord) {
+	public void loadSuggestions(Runnable onLoad, String currentWord) {
 		if (disablePredictions) {
-			super.loadSuggestions(handler, currentWord);
+			super.loadSuggestions(onLoad, currentWord);
 			return;
 		}
 
-		onSuggestionsUpdated = handler;
+		onSuggestionsUpdated = onLoad;
 		predictions
 			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
@@ -241,7 +241,7 @@ public class ModePredictive extends InputMode {
 	 * Bring this word up in the suggestions list next time.
 	 */
 	@Override
-	public void onAcceptSuggestion(String currentWord) {
+	public void onAcceptSuggestion(@NonNull String currentWord) {
 		lastAcceptedWord = currentWord;
 		lastAcceptedSequence = digitSequence;
 		reset();

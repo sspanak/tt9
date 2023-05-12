@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
@@ -53,16 +55,16 @@ abstract public class InputMode {
 	abstract public boolean onOtherKey(int key);
 
 	// Suggestions
-	public void onAcceptSuggestion(String suggestion) {}
+	public void onAcceptSuggestion(@NonNull String suggestion) {}
 
 	/**
 	 * loadSuggestions
 	 * Loads the suggestions based on the current state, with optional "currentWord" filter.
-	 * Once loading is finished the respective InputMode child will call "notification", notifying it
+	 * Once loading is finished the respective InputMode child will call "onLoad", notifying it
 	 * the suggestions are available using "getSuggestions()".
 	 */
-	public void loadSuggestions(Runnable notification, String currentWord) {
-		notification.run();
+	public void loadSuggestions(Runnable onLoad, String currentWord) {
+		onLoad.run();
 	}
 
 	public ArrayList<String> getSuggestions() {

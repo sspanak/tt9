@@ -314,13 +314,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOtherKey(int keyCode) {
+		String acceptedWord = acceptIncompleteSuggestion();
 		if (mInputMode.onOtherKey(keyCode)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false);
+			autoCorrectSpace(acceptedWord, false);
 			getSuggestions();
+			resetKeyRepeat();
 			return true;
 		}
 
-		return false;
+		return acceptedWord.length() > 0;
 	}
 
 
@@ -341,7 +343,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyAddWord() {
-		if (mInputMode.isNumeric()) {
+		if (!isInputViewShown() || mInputMode.isNumeric()) {
 			return false;
 		}
 
@@ -383,7 +385,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyShowSettings() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mInputMode.isDialer()) {
+		if (!isInputViewShown()) {
 			return false;
 		}
 
@@ -474,7 +476,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// key code "suggestions" take priority over words
 		if (mInputMode.getKeyCode() > 0) {
 			sendDownUpKeyEvents(mInputMode.getKeyCode());
-			mInputMode.onAcceptSuggestion(null);
+			mInputMode.onAcceptSuggestion("");
+			return;
 		}
 
 		// display the list of suggestions
@@ -723,7 +726,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected void forceShowWindowIfHidden() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-				&& mEditing != EDITING_STRICT_NUMERIC
 				&& !mInputMode.isDialer()
 				&& !isInputViewShown()
 		) {
