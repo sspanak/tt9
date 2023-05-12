@@ -31,7 +31,8 @@ public class Mode123 extends InputMode {
 		return false;
 	}
 
-	@Override final public boolean is123() { return true; }
+	@Override public boolean is123() { return true; }
+	@Override final public boolean isNumeric() { return true; }
 	@Override public int getSequenceLength() { return 0; }
 
 	@NonNull

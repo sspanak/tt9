@@ -75,10 +75,10 @@ abstract public class InputMode {
 	}
 
 	// Mode identifiers
-	public boolean isPredictive() { return false; }
 	public boolean isABC() { return false; }
 	public boolean is123() { return false; }
 	public boolean isDialer() { return false; }
+	public boolean isNumeric() { return false; }
 
 	// Utility
 	abstract public int getId();

@@ -325,7 +325,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onText(String text) {
-		if (mInputMode.is123() || text.length() == 0) {
+		if (mInputMode.isNumeric() || text.length() == 0) {
 			return false;
 		}
 
@@ -341,7 +341,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyAddWord() {
-		if (mInputMode.is123()) {
+		if (mInputMode.isNumeric()) {
 			return false;
 		}
 
@@ -564,7 +564,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean nextLang() {
-		if (mInputMode.is123() || mEnabledLanguages.size() < 2) {
+		if (mInputMode.isNumeric() || mEnabledLanguages.size() < 2) {
 			return false;
 		}
 
