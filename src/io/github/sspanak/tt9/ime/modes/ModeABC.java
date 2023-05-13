@@ -32,9 +32,23 @@ public class ModeABC extends InputMode {
 
 
 	@Override
+	public boolean onOtherKey(int key) {
+		reset();
+
+		if (key > 0) {
+			keyCode = key;
+			return true;
+		}
+
+		return false;
+	}
+
+
+	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
 	}
+
 
 	@Override
 	public void changeLanguage(Language language) {

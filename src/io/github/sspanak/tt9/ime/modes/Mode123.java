@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.view.KeyEvent;
+
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
@@ -14,19 +16,23 @@ public class Mode123 extends InputMode {
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
-
-		if (number == 0 && hold) {
-			autoAcceptTimeout = 0;
-			suggestions.add("+");
-		} else {
-			keyCode = Key.numberToCode(number);
-		}
-
+		keyCode = (number == 0 && hold) ? KeyEvent.KEYCODE_PLUS : Key.numberToCode(number);
 		return true;
 	}
 
+	@Override
+	public boolean onOtherKey(int key) {
+		reset();
+		if (Key.isDecimalSeparator(key) || Key.isPoundOrStar(key)) {
+			keyCode = key;
+			return true;
+		}
 
-	@Override final public boolean is123() { return true; }
+		return false;
+	}
+
+	@Override public boolean is123() { return true; }
+	@Override final public boolean isNumeric() { return true; }
 	@Override public int getSequenceLength() { return 0; }
 
 	@NonNull

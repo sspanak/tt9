@@ -14,7 +14,6 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
-import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -34,9 +33,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	// editing mode
 	protected static final int NON_EDIT = 0;
 	protected static final int EDITING = 1;
-	protected static final int EDITING_STRICT_NUMERIC = 3;
-	protected static final int EDITING_DIALER = 4; // see: https://github.com/sspanak/tt9/issues/46
-	protected int mEditing = NON_EDIT;
+	@Deprecated protected int mEditing = NON_EDIT; // @todo: migrate to "isActive"
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -185,7 +182,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
-		if (mEditing == EDITING_DIALER || !textField.isThereText()) {
+		if (mInputMode.isDialer() || !textField.isThereText()) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
@@ -316,21 +313,20 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOtherKey(int keyCode) {
-		if (
-			keyCode <= 0 ||
-			(mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) && !Key.isNumber(keyCode)
-		) {
-			return false;
+		String acceptedWord = acceptIncompleteSuggestion();
+		if (mInputMode.onOtherKey(keyCode)) {
+			autoCorrectSpace(acceptedWord, false);
+			getSuggestions();
+			resetKeyRepeat();
+			return true;
 		}
 
-		autoCorrectSpace(acceptIncompleteSuggestion(), false);
-		sendDownUpKeyEvents(keyCode);
-		return true;
+		return acceptedWord.length() > 0;
 	}
 
 
 	public boolean onText(String text) {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER || text.length() == 0) {
+		if (mInputMode.isNumeric() || text.length() == 0) {
 			return false;
 		}
 
@@ -346,7 +342,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyAddWord() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+		if (!isInputViewShown() || mInputMode.isNumeric()) {
 			return false;
 		}
 
@@ -376,14 +372,19 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
+
+		if (allowedInputModes.size() == 1) {
+			return false;
+		}
+
 		mainView.render();
 		forceShowWindowIfHidden();
-		return (mEditing != EDITING_STRICT_NUMERIC && mEditing != EDITING_DIALER);
+		return true;
 	}
 
 
 	public boolean onKeyShowSettings() {
-		if (mEditing == EDITING_DIALER) {
+		if (!isInputViewShown()) {
 			return false;
 		}
 
@@ -393,11 +394,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean shouldTrackUpDown() {
-		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
+		return !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
 	}
 
 	protected boolean shouldTrackLeftRight() {
-		return mEditing != EDITING_STRICT_NUMERIC && !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
+		return !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
 	}
 
 
@@ -474,7 +475,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// key code "suggestions" take priority over words
 		if (mInputMode.getKeyCode() > 0) {
 			sendDownUpKeyEvents(mInputMode.getKeyCode());
-			mInputMode.onAcceptSuggestion(null);
+			mInputMode.onAcceptSuggestion("");
+			return;
 		}
 
 		// display the list of suggestions
@@ -522,7 +524,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextInputMode() {
-		if (mEditing == EDITING_STRICT_NUMERIC || mEditing == EDITING_DIALER) {
+		if (mInputMode.isDialer()) {
+			return;
+		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
@@ -562,7 +566,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean nextLang() {
-		if (mInputMode.is123() || mEnabledLanguages.size() < 2) {
+		if (mInputMode.isNumeric() || mEnabledLanguages.size() < 2) {
 			return false;
 		}
 
@@ -597,19 +601,15 @@ public class TraditionalT9 extends KeyPadHandler {
 		int lastInputModeId = settings.getInputMode();
 		if (allowedInputModes.contains(lastInputModeId)) {
 			mInputMode = InputMode.getInstance(settings, mLanguage, lastInputModeId);
+		} else if (allowedInputModes.size() == 1 && allowedInputModes.get(0) == InputMode.MODE_DIALER) {
+			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_DIALER);
 		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
 			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_ABC);
 		} else {
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(0));
 		}
 
-		if (inputType.isDialer()) {
-			mEditing = EDITING_DIALER;
-		} else if (mInputMode.is123() && allowedInputModes.size() == 1) {
-			mEditing = EDITING_STRICT_NUMERIC;
-		} else {
-			mEditing = EDITING;
-		}
+		mEditing = EDITING;
 	}
 
 
@@ -721,8 +721,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected void forceShowWindowIfHidden() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-				&& mEditing != EDITING_STRICT_NUMERIC
-				&& mEditing != EDITING_DIALER
+				&& !mInputMode.isDialer()
 				&& !isInputViewShown()
 		) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
@@ -732,7 +731,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return mEditing != EDITING_DIALER && mEditing != NON_EDIT;
+		return !mInputMode.isDialer() && mEditing != NON_EDIT;
 	}
 
 

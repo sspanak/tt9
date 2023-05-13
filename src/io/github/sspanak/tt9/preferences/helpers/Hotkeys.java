@@ -102,18 +102,9 @@ public class Hotkeys {
 	 *
 	 * NOTE: Some TT9 functions do not support all keys. Here you just list all possible options.
 	 * Actual validation and assigning happens in SectionKeymap.populate().
-	 *
-	 * NOTE 2: Holding is deliberately skipped for most of the keys.
-	 * It's because handling holding requires short press event to be consumed in
-	 * KeyPadHandler, as well.
-	 *
-	 * From user perspective, when holding is assigned to a function,
-	 * short press will also stop performing its default system action, which may be confusing.
-	 * And in order to avoid lengthy explanations in the documentation (that no one reads),
-	 * the problem is avoided by simply not causing it.
 	 */
 	private void generateList() {
-		add(KeyEvent.KEYCODE_CALL, R.string.key_call, false);
+		add(KeyEvent.KEYCODE_CALL, R.string.key_call, true);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_BACK, R.string.key_back, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_CLEAR, R.string.key_clear, false);
@@ -122,7 +113,7 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
 

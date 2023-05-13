@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
@@ -13,6 +15,7 @@ abstract public class InputMode {
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;
+	public static final int MODE_DIALER = 4;
 
 	// text case
 	public static final int CASE_UNDEFINED = -1;
@@ -37,6 +40,8 @@ abstract public class InputMode {
 				return new ModePredictive(settings, language);
 			case MODE_ABC:
 				return new ModeABC(language);
+			case MODE_DIALER:
+				return new ModeDialer();
 			default:
 				Logger.w("tt9/InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
@@ -47,18 +52,19 @@ abstract public class InputMode {
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
+	abstract public boolean onOtherKey(int key);
 
 	// Suggestions
-	public void onAcceptSuggestion(String suggestion) {}
+	public void onAcceptSuggestion(@NonNull String suggestion) {}
 
 	/**
 	 * loadSuggestions
 	 * Loads the suggestions based on the current state, with optional "currentWord" filter.
-	 * Once loading is finished the respective InputMode child will call "notification", notifying it
+	 * Once loading is finished the respective InputMode child will call "onLoad", notifying it
 	 * the suggestions are available using "getSuggestions()".
 	 */
-	public void loadSuggestions(Runnable notification, String currentWord) {
-		notification.run();
+	public void loadSuggestions(Runnable onLoad, String currentWord) {
+		onLoad.run();
 	}
 
 	public ArrayList<String> getSuggestions() {
@@ -71,9 +77,10 @@ abstract public class InputMode {
 	}
 
 	// Mode identifiers
-	public boolean isPredictive() { return false; }
 	public boolean isABC() { return false; }
 	public boolean is123() { return false; }
+	public boolean isDialer() { return false; }
+	public boolean isNumeric() { return false; }
 
 	// Utility
 	abstract public int getId();

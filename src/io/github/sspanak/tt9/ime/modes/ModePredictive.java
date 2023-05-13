@@ -87,6 +87,20 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
+	public boolean onOtherKey(int key) {
+		reset();
+
+		if (key > 0) {
+			disablePredictions = true;
+			keyCode = key;
+			return true;
+		}
+
+		return false;
+	}
+
+
+	@Override
 	public void changeLanguage(Language language) {
 		super.changeLanguage(language);
 
@@ -191,13 +205,13 @@ public class ModePredictive extends InputMode {
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
-	public void loadSuggestions(Runnable handler, String currentWord) {
+	public void loadSuggestions(Runnable onLoad, String currentWord) {
 		if (disablePredictions) {
-			super.loadSuggestions(handler, currentWord);
+			super.loadSuggestions(onLoad, currentWord);
 			return;
 		}
 
-		onSuggestionsUpdated = handler;
+		onSuggestionsUpdated = onLoad;
 		predictions
 			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
@@ -227,7 +241,7 @@ public class ModePredictive extends InputMode {
 	 * Bring this word up in the suggestions list next time.
 	 */
 	@Override
-	public void onAcceptSuggestion(String currentWord) {
+	public void onAcceptSuggestion(@NonNull String currentWord) {
 		lastAcceptedWord = currentWord;
 		lastAcceptedSequence = digitSequence;
 		reset();
@@ -314,7 +328,6 @@ public class ModePredictive extends InputMode {
 	@Override public boolean shouldTrackUpDown() { return true; }
 	@Override public boolean shouldTrackLeftRight() { return true; }
 
-	@Override final public boolean isPredictive() { return true; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 
 	@NonNull
