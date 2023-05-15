@@ -35,7 +35,8 @@ public class LanguageCollection {
 			Russian.class,
 			Spanish.class,
 			Swedish.class,
-			Ukrainian.class
+			Ukrainian.class,
+			Yiddish.class
 		);
 
 		// initialize the language objects from the class list above
