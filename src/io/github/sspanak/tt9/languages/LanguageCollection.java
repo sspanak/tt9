@@ -32,6 +32,7 @@ public class LanguageCollection {
 			Indonesian.class,
 			Italian.class,
 			Norwegian.class,
+			Polish.class,
 			Russian.class,
 			Spanish.class,
 			Swedish.class,
