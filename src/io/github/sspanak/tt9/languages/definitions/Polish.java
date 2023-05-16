@@ -7,16 +7,16 @@ public class Polish extends English {
 	public Polish() {
 		super();
 
-		locale = Locale.POLISH;
-		dictionaryFile = "pl-utf8.txt";
+		locale = new Locale("pl","PL");
+		dictionaryFile = "pl-utf8.csv";
 
-		isPunctuationPartOfWords = true;
+		isPunctuationPartOfWords = false;
 
-		characterMap.get(2).addAll("ą", "ć"));
-		characterMap.get(3).add(Arrays.asList("ę");
-		characterMap.get(5).add(Arrays.asList("ł");
+		characterMap.get(2).addAll(Arrays.asList("ą", "ć"));
+		characterMap.get(3).add("ę");
+		characterMap.get(5).add("ł");
 		characterMap.get(6).addAll(Arrays.asList("ó", "ń"));
-		characterMap.get(7).add(Arrays.asList("ś");
+		characterMap.get(7).add("ś");
 		characterMap.get(9).addAll(Arrays.asList("ź", "ż"));
 	}
 }
