@@ -213,7 +213,6 @@ android {
 			java.srcDirs = ['src']
 			resources.srcDirs = ['src']
 			aidl.srcDirs = ['src']
-			renderscript.srcDirs = ['src']
 			res.srcDirs = ['res']
 			assets.srcDirs = ['assets']
 		}
@@ -255,7 +254,6 @@ android {
 
 			debuggable false
 			jniDebuggable false
-			renderscriptDebuggable false
 			minifyEnabled true
 			shrinkResources true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -264,7 +262,7 @@ android {
 		}
 	}
 	buildFeatures {
-		renderScript true
+		renderScript false
 		aidl true
 	}
 
