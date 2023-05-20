@@ -12,4 +12,10 @@ public class ModeDialer extends Mode123 {
 	public boolean onOtherKey(int key) {
 		return !Key.isDecimalSeparator(key) && super.onOtherKey(key);
 	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "Dialer";
+	}
 }
