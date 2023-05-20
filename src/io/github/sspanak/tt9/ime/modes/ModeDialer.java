@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.ime.helpers.Key;
 
 // see: InputType.isDialer()
