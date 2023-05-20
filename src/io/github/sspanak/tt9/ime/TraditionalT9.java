@@ -460,7 +460,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		setSuggestions(null);
 
 		if (currentInputConnection != null) {
-			textField.setComposingText("");
+			if (textField != null) {
+				textField.setComposingText("");
+			}
 			currentInputConnection.finishComposingText();
 		}
 	}
