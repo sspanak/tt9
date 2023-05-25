@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +29,10 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	private TextField textField;
-	private InputType inputType;
+	@NotNull
+	private TextField textField = new TextField(null, null);
+	@NotNull
+	private InputType inputType = new InputType(null, null);
 
 	// editing mode
 	protected static final int NON_EDIT = 0;
@@ -460,9 +464,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		setSuggestions(null);
 
 		if (currentInputConnection != null) {
-			if (textField != null) {
-				textField.setComposingText("");
-			}
+			textField.setComposingText("");
 			currentInputConnection.finishComposingText();
 		}
 	}
