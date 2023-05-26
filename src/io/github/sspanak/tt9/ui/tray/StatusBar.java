@@ -22,8 +22,8 @@ public class StatusBar {
 	public void setText(String text) {
 		statusText = "[ " + text + " ]";
 		this.render();
-
 	}
+
 
 	public void setDarkTheme(boolean darkTheme) {
 		if (statusView == null) {
@@ -45,12 +45,13 @@ public class StatusBar {
 		statusView.setBackgroundColor(backgroundColor);
 		statusView.setTextColor(color);
 		this.render();
-
 	}
+
 
 	private void render() {
 		if (statusText == null) {
-			Logger.w("StatusBar.render", "Not displaying status of NULL mode");
+			Logger.w("StatusBar.render", "Not displaying NULL status");
+			return;
 		}
 
 		statusView.setText(statusText);

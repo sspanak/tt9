@@ -76,6 +76,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void validateLanguages() {
 		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(settings, mEnabledLanguages);
 		mLanguage = InputModeValidator.validateLanguage(settings, mLanguage, mEnabledLanguages);
+
+		settings.saveEnabledLanguageIds(mEnabledLanguages);
+		settings.saveInputLanguage(mLanguage.getId());
 	}
 
 
@@ -108,13 +111,18 @@ public class TraditionalT9 extends KeyPadHandler {
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
 
-		// some input fields support only numbers or are not suited for predictions (e.g. password fields)
-		determineAllowedInputModes();
-		int modeId = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
+		// Input Mode
+		// Restore the last input mode or chose a more appropriate one.
+		// Some input fields support only numbers or are not suited for predictions (e.g. password fields)
+		mEditing = EDITING;
+		allowedInputModes = textField.determineInputModes(inputType);
+		int modeId = InputModeValidator.validateMode(settings, settings.getInputMode(), allowedInputModes);
 		mInputMode = InputMode.getInstance(settings, mLanguage, modeId);
-		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
 
-		// Some modes may want to change the default text case based on grammar rules.
+		// Text Case
+		// First, use the input field text case as default
+		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+		// Some modes may want to change the default based on grammar rules.
 		determineNextTextCase();
 		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
 	}
@@ -179,6 +187,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onStop() {
 		onFinishTyping();
 		clearSuggestions();
+		statusBar.setText("--");
 	}
 
 
@@ -596,24 +605,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(word);
 		mInputMode.reset();
 		setSuggestions(null);
-	}
-
-
-	private void determineAllowedInputModes() {
-		allowedInputModes = textField.determineInputModes(inputType);
-
-		int lastInputModeId = settings.getInputMode();
-		if (allowedInputModes.contains(lastInputModeId)) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, lastInputModeId);
-		} else if (allowedInputModes.size() == 1 && allowedInputModes.get(0) == InputMode.MODE_DIALER) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_DIALER);
-		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_ABC);
-		} else {
-			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(0));
-		}
-
-		mEditing = EDITING;
 	}
 
 

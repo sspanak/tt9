@@ -20,8 +20,6 @@ public class InputModeValidator {
 			Logger.e("tt9/validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
 		}
 
-		settings.saveEnabledLanguageIds(validLanguageIds);
-
 		return validLanguageIds;
 	}
 
@@ -34,23 +32,25 @@ public class InputModeValidator {
 
 		Language validLanguage = LanguageCollection.getLanguage(validLanguageIds.get(0));
 		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault();
-		settings.saveInputLanguage(validLanguage.getId());
 
-		Logger.w("tt9/validateSavedLanguage", error + " Enforcing language: " + validLanguage.getId());
+		Logger.w("tt9/validateLanguage", error + " Enforcing language: " + validLanguage.getId());
 
 		return validLanguage;
 	}
 
-	public static int validateMode(SettingsStore settings, InputMode inputMode, ArrayList<Integer> allowedModes) {
-		if (allowedModes.size() > 0 && allowedModes.contains(inputMode.getId())) {
-			return inputMode.getId();
+	public static int validateMode(SettingsStore settings, int oldModeId, ArrayList<Integer> allowedModes) {
+		int newModeId = InputMode.MODE_123;
+
+		if (allowedModes.contains(oldModeId)) {
+			newModeId = oldModeId;
+		} else if (allowedModes.contains(InputMode.MODE_ABC)) {
+			newModeId = InputMode.MODE_ABC;
+		} else if (allowedModes.size() > 0) {
+			newModeId = allowedModes.get(0);
 		}
 
-		int newModeId = allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123;
-		settings.saveInputMode(newModeId);
-
-		if (newModeId != inputMode.getId()) {
-			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode.getId() + " Enforcing: " + newModeId);
+		if (newModeId != oldModeId) {
+			Logger.w("tt9/validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
 		}
 
 		return newModeId;
@@ -61,7 +61,5 @@ public class InputModeValidator {
 			inputMode.defaultTextCase();
 			Logger.w("tt9/validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
 		}
-
-		settings.saveTextCase(inputMode.getTextCase());
 	}
 }
