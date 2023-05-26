@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.ime.helpers.Key;
 
 // see: InputType.isDialer()
@@ -11,5 +13,11 @@ public class ModeDialer extends Mode123 {
 	@Override
 	public boolean onOtherKey(int key) {
 		return !Key.isDecimalSeparator(key) && super.onOtherKey(key);
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return "Dialer";
 	}
 }
