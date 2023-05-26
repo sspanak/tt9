@@ -67,8 +67,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(settings, mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(settings, mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(mLanguage, mEnabledLanguages);
 
 		settings.saveEnabledLanguageIds(mEnabledLanguages);
 		settings.saveInputLanguage(mLanguage.getId());
@@ -79,6 +79,31 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
+	}
+
+
+	/**
+	 * determineInputMode
+	 * Restore the last input mode or choose a more appropriate one.
+	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields)
+	 */
+	private void determineInputMode() {
+		allowedInputModes = textField.determineInputModes(inputType);
+		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
+		mInputMode = InputMode.getInstance(settings, mLanguage, validModeId);
+	}
+
+
+	/**
+	 * determineTextCase
+	 * Restore the last text case or auto-select a new one. If the InputMode supports it, it can change
+	 * the text case based on grammar rules, otherwise we fallback to the input field properties or the
+	 * last saved mode.
+	 */
+	private void determineTextCase() {
+		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 
 
@@ -103,20 +128,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
-
-		// Input Mode
-		// Restore the last input mode or chose a more appropriate one.
-		// Some input fields support only numbers or are not suited for predictions (e.g. password fields)
-		allowedInputModes = textField.determineInputModes(inputType);
-		int modeId = InputModeValidator.validateMode(settings, settings.getInputMode(), allowedInputModes);
-		mInputMode = InputMode.getInstance(settings, mLanguage, modeId);
-
-		// Text Case
-		// First, use the input field text case as default
-		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-		// Some modes may want to change the default based on grammar rules.
-		determineNextTextCase();
-		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
+		determineInputMode();
+		determineTextCase();
 	}
 
 
@@ -299,7 +312,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		// We don't do it too often, because it is somewhat resource-intensive.
 		if (currentWord.length() == 0) {
-			determineNextTextCase();
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -556,8 +569,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(modeIndex));
+			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 
-			mInputMode.defaultTextCase();
 			resetKeyRepeat();
 		}
 
@@ -607,14 +621,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually)) {
 			textField.setText(" ");
 		}
-	}
-
-
-	private void determineNextTextCase() {
-		mInputMode.determineNextWordTextCase(
-			textField.isThereText(),
-			textField.getTextBeforeCursor()
-		);
 	}
 
 

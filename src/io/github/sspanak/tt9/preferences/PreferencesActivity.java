@@ -40,7 +40,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);
 
-		InputModeValidator.validateEnabledLanguages(settings, settings.getEnabledLanguageIds());
+		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
 		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);
