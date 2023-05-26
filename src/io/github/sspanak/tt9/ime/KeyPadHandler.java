@@ -82,6 +82,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
+		currentInputConnection = getCurrentInputConnection();
 		onRestart(inputField);
 	}
 
