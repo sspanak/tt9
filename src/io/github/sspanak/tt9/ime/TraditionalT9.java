@@ -29,15 +29,8 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	@NotNull
-	private TextField textField = new TextField(null, null);
-	@NotNull
-	private InputType inputType = new InputType(null, null);
-
-	// editing mode
-	protected static final int NON_EDIT = 0;
-	protected static final int EDITING = 1;
-	@Deprecated protected int mEditing = NON_EDIT; // @todo: migrate to "isActive"
+	@NotNull private TextField textField = new TextField(null, null);
+	@NotNull private InputType inputType = new InputType(null, null);
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -114,7 +107,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Input Mode
 		// Restore the last input mode or chose a more appropriate one.
 		// Some input fields support only numbers or are not suited for predictions (e.g. password fields)
-		mEditing = EDITING;
 		allowedInputModes = textField.determineInputModes(inputType);
 		int modeId = InputModeValidator.validateMode(settings, settings.getInputMode(), allowedInputModes);
 		mInputMode = InputMode.getInstance(settings, mLanguage, modeId);
@@ -180,7 +172,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		isActive = false;
-		mEditing = NON_EDIT;
 	}
 
 
@@ -726,12 +717,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return !mInputMode.isDialer() && mEditing != NON_EDIT;
+		return !mInputMode.isDialer() && isActive;
 	}
 
 
 	@Override
 	protected boolean shouldBeOff() {
-		 return currentInputConnection == null || mEditing == NON_EDIT;
+		 return currentInputConnection == null || !isActive;
 	}
 }
