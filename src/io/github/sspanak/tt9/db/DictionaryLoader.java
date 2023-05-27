@@ -202,9 +202,9 @@ public class DictionaryLoader {
 					continue;
 				}
 
-				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
-					continue;
-				}
+//				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
+//					continue;
+//				}
 
 				Word word = new Word();
 				word.langId = language.getId();
