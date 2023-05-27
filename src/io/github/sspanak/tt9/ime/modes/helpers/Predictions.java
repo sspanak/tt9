@@ -101,7 +101,7 @@ public class Predictions {
 	 */
 	private void suggestMissingWords(ArrayList<String> newWords) {
 		for (String newWord : newWords) {
-			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
+			if (!words.contains(newWord)) {
 				words.add(newWord);
 			}
 		}

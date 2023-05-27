@@ -19,7 +19,7 @@ public class English extends Language {
 			Characters.Sentence, // 1
 			new ArrayList<>(Arrays.asList("a", "b", "c")), // 2
 			new ArrayList<>(Arrays.asList("d", "e", "f")), // 3
-			new ArrayList<>(Arrays.asList("g", "h", "i")), // 4
+			new ArrayList<>(Arrays.asList("g", "h", "i", "I")), // 4
 			new ArrayList<>(Arrays.asList("j", "k", "l")), // 5
 			new ArrayList<>(Arrays.asList("m", "n", "o")), // 6
 			new ArrayList<>(Arrays.asList("p", "q", "r", "s")), // 7
