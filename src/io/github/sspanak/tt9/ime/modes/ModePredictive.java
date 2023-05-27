@@ -368,7 +368,7 @@ public class ModePredictive extends InputMode {
 			}
 		}
 		else {
-			//in abc mode, suggestions are already lowercase.
+			//in lowercase mode, suggestions are already lowercase to there is no need to convert
 			newSuggestions=suggestions;
 		}
 
