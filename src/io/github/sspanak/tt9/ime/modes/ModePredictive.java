@@ -2,6 +2,10 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -56,6 +60,7 @@ public class ModePredictive extends InputMode {
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		if (digitSequence.length() == 0) {
 			clearWordStem();
+			return false;
 		} else if (stem.length() > digitSequence.length()) {
 			stem = stem.substring(0, digitSequence.length() - 1);
 		}
@@ -346,4 +351,28 @@ public class ModePredictive extends InputMode {
 			return modeString;
 		}
 	}
+
+
+	@Override
+	public ArrayList<String> getSuggestions() {
+		ArrayList<String> newSuggestions = new ArrayList<>();
+		if (textCase != 2) {
+			for (String s : suggestions) {
+				newSuggestions.add(adjustSuggestionTextCase(s, textCase));
+			}
+			//Clears out a duplicate "I"
+			if (digitSequence.equals("4")) {
+				Set<String> s = new LinkedHashSet<>(newSuggestions);
+				newSuggestions.clear();
+				newSuggestions.addAll(s);
+			}
+		}
+		else {
+			//in abc mode, suggestions are already lowercase.
+			newSuggestions=suggestions;
+		}
+
+		return newSuggestions;
+	}
+
 }

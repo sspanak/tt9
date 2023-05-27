@@ -75,13 +75,9 @@ abstract public class InputMode {
 			for (String s : suggestions) {
 				newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 			}
-			//Clears out a duplicate "I"
-			Set<String> s = new LinkedHashSet<>(newSuggestions);
-			newSuggestions.clear();
-			newSuggestions.addAll(s);
 		}
 		else {
-			//in abc mode, suggestions are already lowercase.
+			//in lowercase mode, suggestions are already lowercase to there is no need to convert
 			newSuggestions=suggestions;
 		}
 
