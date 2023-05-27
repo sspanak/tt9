@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -69,8 +71,18 @@ abstract public class InputMode {
 
 	public ArrayList<String> getSuggestions() {
 		ArrayList<String> newSuggestions = new ArrayList<>();
-		for (String s : suggestions) {
-			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
+		if (textCase != 2) {
+			for (String s : suggestions) {
+				newSuggestions.add(adjustSuggestionTextCase(s, textCase));
+			}
+			//Clears out a duplicate "I"
+			Set<String> s = new LinkedHashSet<>(newSuggestions);
+			newSuggestions.clear();
+			newSuggestions.addAll(s);
+		}
+		else {
+			//in abc mode, suggestions are already lowercase.
+			newSuggestions=suggestions;
 		}
 
 		return newSuggestions;
