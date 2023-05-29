@@ -55,6 +55,14 @@ public class TraditionalT9 extends KeyPadHandler {
 		return settings;
 	}
 
+	public int getInputMode() {
+		return mInputMode != null ? mInputMode.getId() : InputMode.MODE_UNDEFINED;
+	}
+
+	public int getTextCase() {
+		return mInputMode != null ? mInputMode.getTextCase() : InputMode.CASE_UNDEFINED;
+	}
+
 
 	private void loadSettings() {
 		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
@@ -390,11 +398,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
 
+		if (settings.getShowSoftNumpad()) {
+			mainView.render();
+		}
+
 		if (allowedInputModes.size() == 1) {
 			return false;
 		}
 
-		mainView.render();
 		forceShowWindowIfHidden();
 		return true;
 	}

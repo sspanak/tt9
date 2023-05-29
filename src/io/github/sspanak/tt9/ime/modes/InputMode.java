@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class InputMode {
 	// typing mode
+	public static final int MODE_UNDEFINED = -1;
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;

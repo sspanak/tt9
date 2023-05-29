@@ -28,7 +28,7 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleHold() {
-		if (tt9 == null || tt9.getSettings().getInputMode() != InputMode.MODE_123 || getId() != R.id.soft_key_0) {
+		if (tt9 == null || tt9.getInputMode() != InputMode.MODE_123 || getId() != R.id.soft_key_0) {
 			return super.handleHold();
 		}
 
@@ -70,7 +70,7 @@ public class SoftNumberKey extends SoftKey {
 		int number = getNumber(getId());
 
 		if (number == 0) {
-			if (tt9.getSettings().getInputMode() == InputMode.MODE_123) {
+			if (tt9.getInputMode() == InputMode.MODE_123) {
 				return "+";
 			} else {
 				COMPLEX_LABEL_SUB_TITLE_SIZE = 1;
@@ -79,7 +79,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// no special labels in 123 mode
-		if (tt9.getSettings().getInputMode() == InputMode.MODE_123) {
+		if (tt9.getInputMode() == InputMode.MODE_123) {
 			return null;
 		}
 
@@ -89,9 +89,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// 2-9
-		int textCase = tt9.getSettings().getTextCase();
 		Language language = LanguageCollection.getLanguage(tt9.getSettings().getInputLanguage());
-
 		if (language == null) {
 			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";
@@ -101,7 +99,7 @@ public class SoftNumberKey extends SoftKey {
 		ArrayList<String> chars = language.getKeyCharacters(number, false);
 		for (int i = 0; i < 5 && i < chars.size(); i++) {
 			sb.append(
-				textCase == InputMode.CASE_UPPER ? chars.get(i).toUpperCase(language.getLocale()) : chars.get(i)
+				tt9.getTextCase() == InputMode.CASE_UPPER ? chars.get(i).toUpperCase(language.getLocale()) : chars.get(i)
 			);
 		}
 
