@@ -40,7 +40,7 @@ abstract public class InputMode {
 			case MODE_PREDICTIVE:
 				return new ModePredictive(settings, language);
 			case MODE_ABC:
-				return new ModeABC(language);
+				return new ModeABC(settings, language);
 			case MODE_DIALER:
 				return new ModeDialer();
 			default:

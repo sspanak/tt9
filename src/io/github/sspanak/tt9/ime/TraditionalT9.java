@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -31,6 +33,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private boolean isActive = false;
 	@NotNull private TextField textField = new TextField(null, null);
 	@NotNull private InputType inputType = new InputType(null, null);
+	@NotNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -192,6 +195,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onFinishTyping() {
+		cancelAutoAccept();
 		isActive = false;
 	}
 
@@ -213,6 +217,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		cancelAutoAccept();
 		resetKeyRepeat();
 
 		if (mInputMode.onBackspace()) {
@@ -228,6 +233,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOK() {
+		cancelAutoAccept();
+
 		if (!isInputViewShown() && !textField.isThereText()) {
 			forceShowWindowIfHidden();
 			return true;
@@ -248,6 +255,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onUp() {
 		if (previousSuggestion()) {
+			cancelAutoAccept();
 			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
 			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 			return true;
@@ -259,6 +267,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected boolean onDown() {
 		if (nextSuggestion()) {
+			cancelAutoAccept();
 			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
 			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 			return true;
@@ -306,6 +315,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * @return boolean
 	 */
 	protected boolean onNumber(int key, boolean hold, int repeat) {
+		cancelAutoAccept();
 		forceShowWindowIfHidden();
 
 		String currentWord = getComposingText();
@@ -338,6 +348,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onOtherKey(int keyCode) {
+		cancelAutoAccept();
+
 		String acceptedWord = acceptIncompleteSuggestion();
 		if (mInputMode.onOtherKey(keyCode)) {
 			autoCorrectSpace(acceptedWord, false);
@@ -355,6 +367,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		cancelAutoAccept();
+
 		// accept the previously typed word (if any)
 		autoCorrectSpace(acceptIncompleteSuggestion(), false);
 
@@ -371,6 +385,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		cancelAutoAccept();
 		showAddWord();
 		return true;
 	}
@@ -378,6 +393,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextLanguage() {
 		if (nextLang()) {
+			cancelAutoAccept();
 			commitCurrentSuggestion(false);
 			mInputMode.changeLanguage(mLanguage);
 			mInputMode.reset();
@@ -390,12 +406,12 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		}
 
-
 		return false;
 	}
 
 
 	public boolean onKeyNextInputMode() {
+		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout()); // reset the auto-accept timer
 		nextInputMode();
 		mainView.render();
 
@@ -413,6 +429,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return false;
 		}
 
+		cancelAutoAccept();
 		UI.showSettingsScreen(this);
 		return true;
 	}
@@ -453,6 +470,27 @@ public class TraditionalT9 extends KeyPadHandler {
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 
 		return true;
+	}
+
+
+	private boolean autoAcceptCurrentSuggestion(int delay) {
+		cancelAutoAccept();
+
+		if (delay == 0) {
+			Logger.d("autoAcceptCurrentSuggestion", "Auto-accepting immediately");
+			this.onOK();
+			return true;
+		} else if (delay > 0) {
+			Logger.d("autoAcceptCurrentSuggestion", "Auto-accepting after: " + delay + " ms");
+			autoAcceptHandler.postDelayed(this::onOK, delay);
+		}
+
+		return false;
+	}
+
+
+	private void cancelAutoAccept() {
+		autoAcceptHandler.removeCallbacksAndMessages(null);
 	}
 
 
@@ -504,12 +542,11 @@ public class TraditionalT9 extends KeyPadHandler {
 			return;
 		}
 
-		// display the list of suggestions
+		// display the word suggestions
 		setSuggestions(mInputMode.getSuggestions());
 
-		// flush the first suggestion immediately, if the InputMode has requested it
-		if (mInputMode.getAutoAcceptTimeout() == 0) {
-			onOK();
+		// flush the first suggestion, if the InputMode has requested it
+		if (autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout())) {
 			return;
 		}
 

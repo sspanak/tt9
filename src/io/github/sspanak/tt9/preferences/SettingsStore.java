@@ -218,6 +218,10 @@ public class SettingsStore {
 	}
 	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", false); }
 
+	public int getAbcAutoAcceptTimeout() {
+		return 800;
+	}
+
 
 	/************* internal settings *************/
 
