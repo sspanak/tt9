@@ -397,10 +397,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
-
-		if (settings.getShowSoftNumpad()) {
-			mainView.render();
-		}
+		mainView.render();
 
 		if (allowedInputModes.size() == 1) {
 			return false;
