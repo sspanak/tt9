@@ -280,6 +280,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onLeft() {
+		cancelAutoAccept();
+
 		if (mInputMode.clearWordStem()) {
 			mInputMode.loadSuggestions(this::getSuggestions, getComposingText());
 		} else {
@@ -291,6 +293,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected boolean onRight(boolean repeat) {
+		cancelAutoAccept();
+
 		String filter;
 		if (repeat && !suggestionBar.getSuggestion(1).equals("")) {
 			filter = suggestionBar.getSuggestion(1);
@@ -458,6 +462,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		suggestionBar.scrollToSuggestion(-1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
 
 		return true;
 	}
@@ -470,6 +475,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		suggestionBar.scrollToSuggestion(1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
 
 		return true;
 	}
