@@ -345,6 +345,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.shouldSelectNextSuggestion() && !isSuggestionViewHidden()) {
 			nextSuggestion();
+			autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
 		} else {
 			getSuggestions();
 		}
@@ -462,7 +463,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		suggestionBar.scrollToSuggestion(-1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
 
 		return true;
 	}
@@ -475,7 +475,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		suggestionBar.scrollToSuggestion(1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
 
 		return true;
 	}
@@ -489,11 +488,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (delay == 0) {
-			Logger.d("autoAcceptCurrentSuggestion", "Auto-accepting immediately");
 			this.onOK();
 			return true;
 		} else if (delay > 0) {
-			Logger.d("autoAcceptCurrentSuggestion", "Auto-accepting after: " + delay + " ms");
 			autoAcceptHandler.postDelayed(this::onOK, delay);
 		}
 
