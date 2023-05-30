@@ -139,6 +139,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
+
+		resetKeyRepeat();
 		determineInputMode();
 		determineTextCase();
 	}
