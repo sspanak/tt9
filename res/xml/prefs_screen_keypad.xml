@@ -45,4 +45,18 @@
 
 	</PreferenceCategory>
 
+
+	<PreferenceCategory
+		android:title="@string/pref_category_abc_mode"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:key="abc_auto_accept"
+			app:layout="@layout/pref_switch"
+			app:summary="@string/pref_abc_auto_accept_summary"
+			app:title="@string/pref_abc_auto_accept" />
+	</PreferenceCategory>
+
 </PreferenceScreen>

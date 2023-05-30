@@ -208,6 +208,7 @@ public class SettingsStore {
 
 	/************* typing settings *************/
 
+	public int getAbcAutoAcceptTimeout() { return prefs.getBoolean("abc_auto_accept", true) ? 800 : -1; }
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
 	public String getDoubleZeroChar() {
@@ -217,10 +218,6 @@ public class SettingsStore {
 		return  character.equals("\\n") ? "\n" : character;
 	}
 	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", false); }
-
-	public int getAbcAutoAcceptTimeout() {
-		return 800;
-	}
 
 
 	/************* internal settings *************/

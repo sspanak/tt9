@@ -28,8 +28,11 @@
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
+	<string name="pref_category_abc_mode">Режим AБВ</string>
 	<string name="pref_category_appearance">Внешний вид</string>
 	<string name="pref_category_function_keys">Горячие клавиши</string>
+	<string name="pref_abc_auto_accept">Автоматический выбор буквы</string>
+	<string name="pref_abc_auto_accept_summary">Автоматический ввести выбранной буквы после короткого ожидания.</string>
 	<string name="pref_auto_space">Авто пробел</string>
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>

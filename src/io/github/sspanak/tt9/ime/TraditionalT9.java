@@ -476,6 +476,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	private boolean autoAcceptCurrentSuggestion(int delay) {
 		cancelAutoAccept();
 
+		if (getComposingText().equals("")) {
+			return false;
+		}
+
 		if (delay == 0) {
 			Logger.d("autoAcceptCurrentSuggestion", "Auto-accepting immediately");
 			this.onOK();
