@@ -16,7 +16,7 @@ abstract public class InputMode {
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;
-	public static final int MODE_DIALER = 4;
+	public static final int MODE_PASSTHROUGH = 4;
 
 	// text case
 	public static final int CASE_UNDEFINED = -1;
@@ -41,8 +41,8 @@ abstract public class InputMode {
 				return new ModePredictive(settings, language);
 			case MODE_ABC:
 				return new ModeABC(settings, language);
-			case MODE_DIALER:
-				return new ModeDialer();
+			case MODE_PASSTHROUGH:
+				return new ModePassthrough();
 			default:
 				Logger.w("tt9/InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
@@ -80,7 +80,7 @@ abstract public class InputMode {
 	// Mode identifiers
 	public boolean isABC() { return false; }
 	public boolean is123() { return false; }
-	public boolean isDialer() { return false; }
+	public boolean isPassthrough() { return false; }
 	public boolean isNumeric() { return false; }
 
 	// Utility

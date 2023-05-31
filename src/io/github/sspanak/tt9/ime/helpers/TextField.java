@@ -93,7 +93,7 @@ public class TextField {
 		// Dialer field, not to be confused with Phone text field.
 		// It only accepts 0-9, "#" and "*".
 		if (inputType.isDialer()) {
-			allowedModes.add(InputMode.MODE_DIALER);
+			allowedModes.add(InputMode.MODE_PASSTHROUGH);
 			return allowedModes;
 		}
 

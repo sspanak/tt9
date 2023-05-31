@@ -213,7 +213,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
-		if (mInputMode.isDialer() || !textField.isThereText()) {
+		if (mInputMode.isPassthrough() || !textField.isThereText()) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
@@ -598,7 +598,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void nextInputMode() {
-		if (mInputMode.isDialer()) {
+		if (mInputMode.isPassthrough()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
@@ -770,7 +770,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 */
 	protected void forceShowWindowIfHidden() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-				&& !mInputMode.isDialer()
+				&& !mInputMode.isPassthrough()
 				&& !isInputViewShown()
 		) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
@@ -780,12 +780,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return !mInputMode.isDialer() && isActive;
+		return !mInputMode.isPassthrough() && isActive;
 	}
 
 
 	@Override
 	protected boolean shouldBeOff() {
-		 return currentInputConnection == null || !isActive;
+		 return currentInputConnection == null || !isActive || mInputMode.isPassthrough();
 	}
 }

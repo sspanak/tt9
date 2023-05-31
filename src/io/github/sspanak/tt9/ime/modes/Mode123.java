@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
 
-public class Mode123 extends InputMode {
-	public int getId() { return MODE_123; }
+public class Mode123 extends ModePassthrough {
+	@Override public int getId() { return MODE_123; }
+	@Override @NonNull public String toString() { return "123"; }
 
-	Mode123() {
-		allowedTextCases.add(CASE_LOWER);
-	}
+	@Override public final boolean is123() { return true; }
+	@Override public boolean isPassthrough() { return false; }
 
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
@@ -29,15 +29,5 @@ public class Mode123 extends InputMode {
 		}
 
 		return false;
-	}
-
-	@Override public boolean is123() { return true; }
-	@Override final public boolean isNumeric() { return true; }
-	@Override public int getSequenceLength() { return 0; }
-
-	@NonNull
-	@Override
-	public String toString() {
-		return "123";
 	}
 }

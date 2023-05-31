@@ -113,7 +113,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (shouldBeOff()) {
-			return super.onKeyDown(keyCode, event);
+			return false;
 		}
 
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
@@ -133,26 +133,20 @@ abstract class KeyPadHandler extends InputMethodService {
 			event.startTracking();
 		}
 
-		if (
-			Key.isNumber(keyCode)
+		return Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
 			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
 			|| keyCode == KeyEvent.KEYCODE_STAR
 			|| keyCode == KeyEvent.KEYCODE_POUND
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
-		) {
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
 	}
 
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
 		if (shouldBeOff()) {
-			return super.onKeyLongPress(keyCode, event);
+			return false;
 		}
 
 //		Logger.d("onLongPress", "LONG PRESS: " + keyCode);
@@ -183,7 +177,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		ignoreNextKeyUp = 0;
-		return super.onKeyLongPress(keyCode, event);
+		return false;
 	}
 
 
@@ -195,7 +189,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (shouldBeOff()) {
-			return super.onKeyUp(keyCode, event);
+			return false;
 		}
 
 		//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
@@ -238,13 +232,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
 			case KeyEvent.KEYCODE_STAR:
-			case KeyEvent.KEYCODE_POUND:
-				if (onOtherKey(keyCode)) {
-					return true;
-				}
+			case KeyEvent.KEYCODE_POUND: return onOtherKey(keyCode);
 		}
 
-		return super.onKeyUp(keyCode, event);
+		return false;
 	}
 
 
