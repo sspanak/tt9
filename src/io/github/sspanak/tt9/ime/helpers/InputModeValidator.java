@@ -6,10 +6,9 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class InputModeValidator {
-	public static ArrayList<Integer> validateEnabledLanguages(SettingsStore settings, ArrayList<Integer> enabledLanguageIds) {
+	public static ArrayList<Integer> validateEnabledLanguages(ArrayList<Integer> enabledLanguageIds) {
 		ArrayList<Language> validLanguages = LanguageCollection.getAll(enabledLanguageIds);
 		ArrayList<Integer> validLanguageIds = new ArrayList<>();
 		for (Language lang : validLanguages) {
@@ -20,12 +19,10 @@ public class InputModeValidator {
 			Logger.e("tt9/validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
 		}
 
-		settings.saveEnabledLanguageIds(validLanguageIds);
-
 		return validLanguageIds;
 	}
 
-	public static Language validateLanguage(SettingsStore settings, Language language, ArrayList<Integer> validLanguageIds) {
+	public static Language validateLanguage(Language language, ArrayList<Integer> validLanguageIds) {
 		if (language != null && validLanguageIds.contains(language.getId())) {
 			return language;
 		}
@@ -34,34 +31,34 @@ public class InputModeValidator {
 
 		Language validLanguage = LanguageCollection.getLanguage(validLanguageIds.get(0));
 		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault();
-		settings.saveInputLanguage(validLanguage.getId());
 
-		Logger.w("tt9/validateSavedLanguage", error + " Enforcing language: " + validLanguage.getId());
+		Logger.w("tt9/validateLanguage", error + " Enforcing language: " + validLanguage.getId());
 
 		return validLanguage;
 	}
 
-	public static int validateMode(SettingsStore settings, InputMode inputMode, ArrayList<Integer> allowedModes) {
-		if (allowedModes.size() > 0 && allowedModes.contains(inputMode.getId())) {
-			return inputMode.getId();
+	public static int validateMode(int oldModeId, ArrayList<Integer> allowedModes) {
+		int newModeId = InputMode.MODE_123;
+
+		if (allowedModes.contains(oldModeId)) {
+			newModeId = oldModeId;
+		} else if (allowedModes.contains(InputMode.MODE_ABC)) {
+			newModeId = InputMode.MODE_ABC;
+		} else if (allowedModes.size() > 0) {
+			newModeId = allowedModes.get(0);
 		}
 
-		int newModeId = allowedModes.size() > 0 ? allowedModes.get(0) : InputMode.MODE_123;
-		settings.saveInputMode(newModeId);
-
-		if (newModeId != inputMode.getId()) {
-			Logger.w("tt9/validateMode", "Invalid input mode: " + inputMode.getId() + " Enforcing: " + newModeId);
+		if (newModeId != oldModeId) {
+			Logger.w("tt9/validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
 		}
 
 		return newModeId;
 	}
 
-	public static void validateTextCase(SettingsStore settings, InputMode inputMode, int newTextCase) {
+	public static void validateTextCase(InputMode inputMode, int newTextCase) {
 		if (!inputMode.setTextCase(newTextCase)) {
 			inputMode.defaultTextCase();
 			Logger.w("tt9/validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
 		}
-
-		settings.saveTextCase(inputMode.getTextCase());
 	}
 }

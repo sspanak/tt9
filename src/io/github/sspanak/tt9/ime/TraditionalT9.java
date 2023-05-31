@@ -29,15 +29,8 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	@NotNull
-	private TextField textField = new TextField(null, null);
-	@NotNull
-	private InputType inputType = new InputType(null, null);
-
-	// editing mode
-	protected static final int NON_EDIT = 0;
-	protected static final int EDITING = 1;
-	@Deprecated protected int mEditing = NON_EDIT; // @todo: migrate to "isActive"
+	@NotNull private TextField textField = new TextField(null, null);
+	@NotNull private InputType inputType = new InputType(null, null);
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -62,6 +55,14 @@ public class TraditionalT9 extends KeyPadHandler {
 		return settings;
 	}
 
+	public int getInputMode() {
+		return mInputMode != null ? mInputMode.getId() : InputMode.MODE_UNDEFINED;
+	}
+
+	public int getTextCase() {
+		return mInputMode != null ? mInputMode.getTextCase() : InputMode.CASE_UNDEFINED;
+	}
+
 
 	private void loadSettings() {
 		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
@@ -74,8 +75,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(settings, mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(settings, mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(mLanguage, mEnabledLanguages);
+
+		settings.saveEnabledLanguageIds(mEnabledLanguages);
+		settings.saveInputLanguage(mLanguage.getId());
 	}
 
 
@@ -83,6 +87,31 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (settings.isSettingsKeyMissing()) {
 			settings.setDefaultKeys();
 		}
+	}
+
+
+	/**
+	 * determineInputMode
+	 * Restore the last input mode or choose a more appropriate one.
+	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields)
+	 */
+	private void determineInputMode() {
+		allowedInputModes = textField.determineInputModes(inputType);
+		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
+		mInputMode = InputMode.getInstance(settings, mLanguage, validModeId);
+	}
+
+
+	/**
+	 * determineTextCase
+	 * Restore the last text case or auto-select a new one. If the InputMode supports it, it can change
+	 * the text case based on grammar rules, otherwise we fallback to the input field properties or the
+	 * last saved mode.
+	 */
+	private void determineTextCase() {
+		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 
 
@@ -107,16 +136,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
-
-		// some input fields support only numbers or are not suited for predictions (e.g. password fields)
-		determineAllowedInputModes();
-		int modeId = InputModeValidator.validateMode(settings, mInputMode, allowedInputModes);
-		mInputMode = InputMode.getInstance(settings, mLanguage, modeId);
-		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-
-		// Some modes may want to change the default text case based on grammar rules.
-		determineNextTextCase();
-		InputModeValidator.validateTextCase(settings, mInputMode, settings.getTextCase());
+		determineInputMode();
+		determineTextCase();
 	}
 
 
@@ -172,13 +193,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		isActive = false;
-		mEditing = NON_EDIT;
 	}
 
 
 	protected void onStop() {
 		onFinishTyping();
 		clearSuggestions();
+		statusBar.setText("--");
 	}
 
 
@@ -299,7 +320,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		// We don't do it too often, because it is somewhat resource-intensive.
 		if (currentWord.length() == 0) {
-			determineNextTextCase();
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -376,12 +397,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	public boolean onKeyNextInputMode() {
 		nextInputMode();
+		mainView.render();
 
 		if (allowedInputModes.size() == 1) {
 			return false;
 		}
 
-		mainView.render();
 		forceShowWindowIfHidden();
 		return true;
 	}
@@ -556,8 +577,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		} else {
 			int modeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(modeIndex));
+			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 
-			mInputMode.defaultTextCase();
 			resetKeyRepeat();
 		}
 
@@ -599,24 +621,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void determineAllowedInputModes() {
-		allowedInputModes = textField.determineInputModes(inputType);
-
-		int lastInputModeId = settings.getInputMode();
-		if (allowedInputModes.contains(lastInputModeId)) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, lastInputModeId);
-		} else if (allowedInputModes.size() == 1 && allowedInputModes.get(0) == InputMode.MODE_DIALER) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_DIALER);
-		} else if (allowedInputModes.contains(InputMode.MODE_ABC)) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, InputMode.MODE_ABC);
-		} else {
-			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(0));
-		}
-
-		mEditing = EDITING;
-	}
-
-
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
@@ -625,14 +629,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually)) {
 			textField.setText(" ");
 		}
-	}
-
-
-	private void determineNextTextCase() {
-		mInputMode.determineNextWordTextCase(
-			textField.isThereText(),
-			textField.getTextBeforeCursor()
-		);
 	}
 
 
@@ -735,12 +731,12 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return !mInputMode.isDialer() && mEditing != NON_EDIT;
+		return !mInputMode.isDialer() && isActive;
 	}
 
 
 	@Override
 	protected boolean shouldBeOff() {
-		 return currentInputConnection == null || mEditing == NON_EDIT;
+		 return currentInputConnection == null || !isActive;
 	}
 }
