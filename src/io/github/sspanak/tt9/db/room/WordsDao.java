@@ -42,6 +42,9 @@ public interface WordsDao {
 	@RawQuery(observedEntities = Word.class)
 	List<Word> getCustom(SimpleSQLiteQuery query);
 
+	@RawQuery()
+	int countCustom(SimpleSQLiteQuery query);
+
 	@Insert
 	void insert(Word word);
 

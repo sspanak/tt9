@@ -49,6 +49,16 @@ public abstract class TT9Room extends RoomDatabase {
 		return getFuzzyQuery(index, langId, limit, sequence, minWordLength, maxWordLength, null);
 	}
 
+	public static SimpleSQLiteQuery checkIndexQuery() {
+		return new SimpleSQLiteQuery(
+			"SELECT COUNT(*) " +
+			" FROM sqlite_master " +
+			" WHERE name IN(" +
+				"'" + WordsDao.indexShortWords + "'," +
+				"'" + WordsDao.indexLongWords + "'" +
+			")");
+	}
+
 	public static SimpleSQLiteQuery createShortWordsIndexQuery() {
 		return new SimpleSQLiteQuery("CREATE INDEX " + WordsDao.indexShortWords + " ON words (lang ASC, len ASC, seq ASC)");
 	}

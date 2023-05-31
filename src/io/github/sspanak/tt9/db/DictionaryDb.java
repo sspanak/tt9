@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteException;
 import android.os.Handler;
 
 import androidx.sqlite.db.SimpleSQLiteQuery;
@@ -113,10 +114,16 @@ public class DictionaryDb {
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
 		new Thread(() -> {
-				int langId = language != null ? language.getId() : -1;
-				notification.accept(getInstance().wordsDao().count(langId) > 0);
+			// indexes are mandatory for loadFuzzy(), so verify their integrity in case of
+			// fast and unsafe dictionary loading
+			int indexCount = getInstance().wordsDao().countCustom(TT9Room.checkIndexQuery());
+			if (indexCount < 2) {
+				notification.accept(false);
 			}
-		).start();
+
+			int langId = language != null ? language.getId() : -1;
+			notification.accept(getInstance().wordsDao().count(langId) > 0);
+		}).start();
 	}
 
 
@@ -322,8 +329,13 @@ public class DictionaryDb {
 		new Thread(() -> {
 				wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
 
-				if (sequence.length() > 1 && wordList.size() < minWords) {
-					wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
+				try {
+					if (sequence.length() > 1 && wordList.size() < minWords) {
+						wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
+					}
+				} catch (Exception e) {
+					wordList.clear();
+					Logger.e("tt9/db.getWords", "Failed loading fuzzy words. " + e.getMessage());
 				}
 
 				sendWords(dataHandler, wordList);
