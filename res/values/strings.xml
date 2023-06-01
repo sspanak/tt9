@@ -76,6 +76,7 @@
 	<string name="key_volume_down">Volume Down</string>
 	<string name="key_volume_up">Volume Up</string>
 
+	<string name="char_comma" translatable="false">,</string>
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
