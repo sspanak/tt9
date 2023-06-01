@@ -22,6 +22,7 @@ public class ItemSelectZeroKeyCharacter {
 		Resources resources = context.getResources();
 
 		KEYS.put(".", resources.getString(R.string.char_dot));
+		KEYS.put(",", resources.getString(R.string.char_comma));
 		KEYS.put("\\n", resources.getString(R.string.char_newline)); // SharedPreferences return a corrupted string when using the real "\n"... :(
 		KEYS.put(" ", resources.getString(R.string.char_space));
 	}
