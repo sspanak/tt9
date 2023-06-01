@@ -105,6 +105,7 @@ public class DictionaryLoadingBar {
 
 	public void show(Bundle data) {
 		String error = data.getString("error", null);
+		int fileCount = data.getInt("fileCount", -1);
 
 		if (error != null) {
 			hasFailed = true;
@@ -114,7 +115,9 @@ public class DictionaryLoadingBar {
 				data.getLong("fileLine", -1),
 				data.getString("word", "")
 			);
-		} else {
+		} else if (fileCount > -1) {
+			setFileCount(fileCount);
+		} else  {
 			hasFailed = false;
 			showProgress(
 				data.getLong("time", 0),

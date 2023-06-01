@@ -79,6 +79,8 @@ public class DictionaryLoader {
 				currentFile = 0;
 				importStartTime = System.currentTimeMillis();
 
+				sendFileCount(languages.size());
+
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
 					if (isInterrupted()) {
@@ -285,6 +287,20 @@ public class DictionaryLoader {
 		dbWord.word = word;
 
 		return dbWord;
+	}
+
+
+	private void sendFileCount(int fileCount) {
+		if (onStatusChange == null) {
+			Logger.w(
+				"tt9/DictionaryLoader.sendFileCount",
+				"Cannot send file count without a status Handler. Ignoring message.");
+			return;
+		}
+
+		Bundle progressMsg = new Bundle();
+		progressMsg.putInt("fileCount", fileCount);
+		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
 
 

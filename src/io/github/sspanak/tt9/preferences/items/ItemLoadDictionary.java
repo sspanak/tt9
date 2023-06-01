@@ -63,7 +63,6 @@ public class ItemLoadDictionary extends ItemClickable {
 	@Override
 	protected boolean onClick(Preference p) {
 		ArrayList<Language> languages = LanguageCollection.getAll(settings.getEnabledLanguageIds());
-		progressBar.setFileCount(languages.size());
 
 		try {
 			loader.load(languages);
