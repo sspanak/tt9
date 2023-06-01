@@ -345,7 +345,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.shouldSelectNextSuggestion() && !isSuggestionViewHidden()) {
 			nextSuggestion();
-			autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout());
+			scheduleAutoAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			getSuggestions();
 		}
@@ -418,7 +418,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyNextInputMode() {
-		autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout()); // reset the auto-accept timer
+		scheduleAutoAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
 		mainView.render();
 
@@ -480,18 +480,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private boolean autoAcceptCurrentSuggestion(int delay) {
+	private boolean scheduleAutoAccept(int delay) {
 		cancelAutoAccept();
-
-		if (getComposingText().equals("")) {
-			return false;
-		}
 
 		if (delay == 0) {
 			this.onOK();
 			return true;
 		} else if (delay > 0) {
-			autoAcceptHandler.postDelayed(this::onOK, delay);
+			autoAcceptHandler.postDelayed(this::autoAccept, delay);
 		}
 
 		return false;
@@ -500,6 +496,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void cancelAutoAccept() {
 		autoAcceptHandler.removeCallbacksAndMessages(null);
+	}
+
+
+	private void autoAccept() {
+		if (suggestionBar.hasElements()) {
+			this.onOK();
+		}
 	}
 
 
@@ -555,7 +558,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		setSuggestions(mInputMode.getSuggestions());
 
 		// flush the first suggestion, if the InputMode has requested it
-		if (autoAcceptCurrentSuggestion(mInputMode.getAutoAcceptTimeout())) {
+		if (scheduleAutoAccept(mInputMode.getAutoAcceptTimeout())) {
 			return;
 		}
 
