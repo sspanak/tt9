@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import android.os.Handler;
 
 import androidx.sqlite.db.SimpleSQLiteQuery;
@@ -71,23 +70,6 @@ public class DictionaryDb {
 	}
 
 
-	public static void createShortWordIndexSync() {
-		getInstance().wordsDao().rawQuery(TT9Room.createShortWordsIndexQuery());
-	}
-
-	public static void createLongWordIndexSync() {
-		getInstance().wordsDao().rawQuery(TT9Room.createLongWordsIndexQuery());
-	}
-
-	public static void dropShortWordIndexSync() {
-		getInstance().wordsDao().rawQuery(TT9Room.dropShortWordsIndexQuery());
-	}
-
-	public static void dropLongWordIndexSync() {
-		getInstance().wordsDao().rawQuery(TT9Room.dropLongWordsIndexQuery());
-	}
-
-
 	/**
 	 * normalizeWordFrequencies
 	 * Normalizes the word frequencies for all languages that have reached the maximum, as defined in
@@ -96,31 +78,23 @@ public class DictionaryDb {
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
 		new Thread(() -> {
-				long time = System.currentTimeMillis();
+			long time = System.currentTimeMillis();
 
-				int affectedRows = getInstance().wordsDao().normalizeFrequencies(
-					settings.getWordFrequencyNormalizationDivider(),
-					settings.getWordFrequencyMax()
-				);
+			int affectedRows = getInstance().wordsDao().normalizeFrequencies(
+				settings.getWordFrequencyNormalizationDivider(),
+				settings.getWordFrequencyMax()
+			);
 
-				Logger.d(
-					"db.normalizeWordFrequencies",
-					"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
-				);
-			}
-		).start();
+			Logger.d(
+				"db.normalizeWordFrequencies",
+				"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
+			);
+		}).start();
 	}
 
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
 		new Thread(() -> {
-			// indexes are mandatory for loadFuzzy(), so verify their integrity in case of
-			// fast and unsafe dictionary loading
-			int indexCount = getInstance().wordsDao().countCustom(TT9Room.checkIndexQuery());
-			if (indexCount < 2) {
-				notification.accept(false);
-			}
-
 			int langId = language != null ? language.getId() : -1;
 			notification.accept(getInstance().wordsDao().count(langId) > 0);
 		}).start();
@@ -143,14 +117,13 @@ public class DictionaryDb {
 
 	public static void deleteWords(Runnable notification, ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-				if (languageIds == null) {
-					getInstance().clearAllTables();
-				} else if (languageIds.size() > 0) {
-					getInstance().wordsDao().deleteByLanguage(languageIds);
-				}
-				notification.run();
+			if (languageIds == null) {
+				getInstance().clearAllTables();
+			} else if (languageIds.size() > 0) {
+				getInstance().wordsDao().deleteByLanguage(languageIds);
 			}
-		).start();
+			notification.run();
+		}).start();
 	}
 
 
@@ -171,22 +144,21 @@ public class DictionaryDb {
 		dbWord.frequency = 1;
 
 		new Thread(() -> {
-				try {
-					getInstance().wordsDao().insert(dbWord);
-					getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
-					statusHandler.accept(0);
-				} catch (SQLiteConstraintException e) {
-					String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence + "', for language: " + dbWord.langId
-						+ ". " + e.getMessage();
-					Logger.e("tt9/insertWord", msg);
-					statusHandler.accept(1);
-				} catch (Exception e) {
-					String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId + ". " + e.getMessage();
-					Logger.e("tt9/insertWord", msg);
-					statusHandler.accept(2);
-				}
+			try {
+				getInstance().wordsDao().insert(dbWord);
+				getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
+				statusHandler.accept(0);
+			} catch (SQLiteConstraintException e) {
+				String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence + "', for language: " + dbWord.langId
+					+ ". " + e.getMessage();
+				Logger.e("tt9/insertWord", msg);
+				statusHandler.accept(1);
+			} catch (Exception e) {
+				String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId + ". " + e.getMessage();
+				Logger.e("tt9/insertWord", msg);
+				statusHandler.accept(2);
 			}
-		).start();
+		}).start();
 	}
 
 
@@ -214,38 +186,37 @@ public class DictionaryDb {
 		}
 
 		new Thread(() -> {
-				try {
-					int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+			try {
+				int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
 
-					// In case the user has changed the text case, there would be no match.
-					// Try again with the lowercase equivalent.
-					String lowercaseWord = "";
-					if (affectedRows == 0) {
-						lowercaseWord = word.toLowerCase(language.getLocale());
-						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), lowercaseWord, sequence);
+				// In case the user has changed the text case, there would be no match.
+				// Try again with the lowercase equivalent.
+				String lowercaseWord = "";
+				if (affectedRows == 0) {
+					lowercaseWord = word.toLowerCase(language.getLocale());
+					affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), lowercaseWord, sequence);
 
-						Logger.d("incrementWordFrequency", "Attempting to increment frequency for lowercase variant: " + lowercaseWord);
-					}
-
-					// Some languages permit appending the punctuation to the end of the words, like so: "try,".
-					// But there are no such words in the dictionary, so try without the punctuation mark.
-					if (affectedRows == 0 && language.isPunctuationPartOfWords() && sequence.endsWith("1")) {
-						String truncatedWord = lowercaseWord.substring(0, word.length() - 1);
-						String truncatedSequence = sequence.substring(0, sequence.length() - 1);
-						affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), truncatedWord, truncatedSequence);
-
-						Logger.d("incrementWordFrequency", "Attempting to increment frequency with stripped punctuation: " + truncatedWord);
-					}
-
-					Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
-				} catch (Exception e) {
-					Logger.e(
-						DictionaryDb.class.getName(),
-						"Failed incrementing word frequency. Word: " + word + " | Sequence: " + sequence + ". " + e.getMessage()
-					);
+					Logger.d("incrementWordFrequency", "Attempting to increment frequency for lowercase variant: " + lowercaseWord);
 				}
+
+				// Some languages permit appending the punctuation to the end of the words, like so: "try,".
+				// But there are no such words in the dictionary, so try without the punctuation mark.
+				if (affectedRows == 0 && language.isPunctuationPartOfWords() && sequence.endsWith("1")) {
+					String truncatedWord = lowercaseWord.substring(0, word.length() - 1);
+					String truncatedSequence = sequence.substring(0, sequence.length() - 1);
+					affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), truncatedWord, truncatedSequence);
+
+					Logger.d("incrementWordFrequency", "Attempting to increment frequency with stripped punctuation: " + truncatedWord);
+				}
+
+				Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
+			} catch (Exception e) {
+				Logger.e(
+					DictionaryDb.class.getName(),
+					"Failed incrementing word frequency. Word: " + word + " | Sequence: " + sequence + ". " + e.getMessage()
+				);
 			}
-		).start();
+		}).start();
 	}
 
 
@@ -327,19 +298,13 @@ public class DictionaryDb {
 		}
 
 		new Thread(() -> {
-				wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
+			wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
 
-				try {
-					if (sequence.length() > 1 && wordList.size() < minWords) {
-						wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
-					}
-				} catch (Exception e) {
-					wordList.clear();
-					Logger.e("tt9/db.getWords", "Failed loading fuzzy words. " + e.getMessage());
-				}
-
-				sendWords(dataHandler, wordList);
+			if (sequence.length() > 1 && wordList.size() < minWords) {
+				wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
 			}
-		).start();
+
+			sendWords(dataHandler, wordList);
+		}).start();
 	}
 }
