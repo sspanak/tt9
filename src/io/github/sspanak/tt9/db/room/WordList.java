@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordList extends ArrayList<Word> {
-	public WordList() {
-		super();
-	}
-
 	public WordList(List<Word> words) {
 		addAll(words);
 	}
