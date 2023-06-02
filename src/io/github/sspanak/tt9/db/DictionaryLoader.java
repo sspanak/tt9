@@ -194,14 +194,7 @@ public class DictionaryLoader {
 		ArrayList<Word> letters = new ArrayList<>();
 
 		for (int key = 2; key <= 9; key++) {
-			for (String langChar : language.getKeyCharacters(key)) {
-				if (langChar.length() == 1 && langChar.charAt(0) >= '0' && langChar.charAt(0) <= '9') {
-					// We do not want 0-9 as "word suggestions" in Predictive mode. It looks confusing
-					// when trying to type a word and also, one can type them by holding the respective
-					// key.
-					continue;
-				}
-
+			for (String langChar : language.getKeyCharacters(key, false)) {
 				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
 					continue;
 				}
