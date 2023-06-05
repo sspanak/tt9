@@ -3,13 +3,17 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModeABC extends InputMode {
+	private final SettingsStore settings;
+
 	public int getId() { return MODE_ABC; }
 
 	private boolean shouldSelectNextLetter = false;
 
-	ModeABC(Language lang) {
+	ModeABC(SettingsStore settings, Language lang) {
+		this.settings = settings;
 		changeLanguage(lang);
 	}
 
@@ -22,9 +26,11 @@ public class ModeABC extends InputMode {
 			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
+			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 		} else {
 			reset();
 			suggestions.addAll(language.getKeyCharacters(number));
+			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 		}
 
 		return true;
