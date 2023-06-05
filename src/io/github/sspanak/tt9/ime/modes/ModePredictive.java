@@ -37,6 +37,7 @@ public class ModePredictive extends InputMode {
 
 	ModePredictive(SettingsStore settings, Language lang) {
 		changeLanguage(lang);
+		defaultTextCase();
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
