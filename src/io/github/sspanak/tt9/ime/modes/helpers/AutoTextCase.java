@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoTextCase {
+	private final Pattern nextToWordRegex = Pattern.compile("\\b$");
 	private final Pattern startOfSentenceRegex = Pattern.compile("(?<!\\.)(^|[.?!¿¡])\\s*$");
 	private final SettingsStore settings;
 
@@ -69,6 +70,10 @@ public class AutoTextCase {
 		// start of sentence, excluding after "..."
 		if (startOfSentenceRegex.matcher(textBeforeCursor).find()) {
 			return InputMode.CASE_CAPITALIZE;
+		}
+
+		if (nextToWordRegex.matcher(textBeforeCursor).find()) {
+			return InputMode.CASE_LOWER;
 		}
 
 		return InputMode.CASE_DICTIONARY;
