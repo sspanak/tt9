@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoSpace {
+	private final Pattern isLetter = Pattern.compile("^\\p{L}+$");
 	private final Pattern isNumber = Pattern.compile("\\s*\\d+\\s*");
 	private final Pattern isPunctuation = Pattern.compile("\\p{Punct}");
 
@@ -55,10 +56,11 @@ public class AutoSpace {
 
 		return
 			settings.getAutoSpace()
+			&& !inputType.isSpecialized()
 			&& !isNumber.matcher(previousChars).find()
 			&& (
 				shouldAddAutoSpaceAfterPunctuation(previousChars)
-				|| shouldAddAutoSpaceAfterWord(isWordAcceptedManually)
+				|| shouldAddAutoSpaceAfterWord(isWordAcceptedManually, nextChars)
 			)
 			&& !nextChars.startsWith(" ")
 			&& !isPunctuation.matcher(nextChars).find();
@@ -73,8 +75,7 @@ public class AutoSpace {
 	 */
 	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars) {
 		return
-			!inputType.isSpecialized()
-			&& !previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t")
+			!previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t")
 			&& (
 				previousChars.endsWith(".")
 				|| previousChars.endsWith(",")
@@ -96,15 +97,16 @@ public class AutoSpace {
 	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
 	 * words.
 	 */
-	private boolean shouldAddAutoSpaceAfterWord(boolean isWordAcceptedManually) {
+	private boolean shouldAddAutoSpaceAfterWord(boolean isWordAcceptedManually, String nextChars) {
 		return
 			// Do not add space when auto-accepting words, because it feels very confusing when typing.
 			isWordAcceptedManually
 			// Secondary punctuation
 			&& !lastSequence.equals("0")
 			// Emoji
-			&& !lastSequence.startsWith("1")
-			&& !inputType.isSpecialized();
+			&& !(lastSequence.startsWith("1") && lastSequence.length() > 1)
+			// Right before another word
+			&& !isLetter.matcher(nextChars).find();
 	}
 
 
