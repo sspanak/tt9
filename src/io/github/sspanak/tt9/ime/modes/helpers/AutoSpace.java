@@ -50,7 +50,7 @@ public class AutoSpace {
 	 *
 	 * See the helper functions for the list of rules.
 	 */
-	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually) {
+	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int nextKey) {
 		String previousChars = textField.getPreviousChars(2);
 		String nextChars = textField.getNextChars(2);
 
@@ -59,7 +59,7 @@ public class AutoSpace {
 			&& !inputType.isSpecialized()
 			&& !isNumber.matcher(previousChars).find()
 			&& (
-				shouldAddAutoSpaceAfterPunctuation(previousChars)
+				shouldAddAutoSpaceAfterPunctuation(previousChars, nextKey)
 				|| shouldAddAutoSpaceAfterWord(isWordAcceptedManually, nextChars)
 			)
 			&& !nextChars.startsWith(" ")
@@ -73,9 +73,10 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars) {
+	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars, int nextKey) {
 		return
 			!previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t")
+			&& nextKey != 0 // no auto-space when the next composing character is whitespace or special
 			&& (
 				previousChars.endsWith(".")
 				|| previousChars.endsWith(",")
