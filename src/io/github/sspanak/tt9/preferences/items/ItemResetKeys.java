@@ -6,6 +6,7 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 
 
@@ -26,7 +27,7 @@ public class ItemResetKeys extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		settings.setDefaultKeys();
+		Hotkeys.setDefault(settings);
 		dropdowns.reloadSettings();
 		UI.toast(context, R.string.function_reset_keys_done);
 		return true;

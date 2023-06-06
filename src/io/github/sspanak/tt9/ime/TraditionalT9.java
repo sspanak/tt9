@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
@@ -88,7 +89,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void validateFunctionKeys() {
 		if (settings.isSettingsKeyMissing()) {
-			settings.setDefaultKeys();
+			Hotkeys.setDefault(settings);
 		}
 	}
 

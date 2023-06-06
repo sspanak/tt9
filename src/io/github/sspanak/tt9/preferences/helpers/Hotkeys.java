@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Hotkeys {
 	private final Context context;
@@ -36,6 +37,34 @@ public class Hotkeys {
 
 	public Set<String> toSet() {
 		return KEYS.keySet();
+	}
+
+
+	/**
+	 * setDefault
+	 * Applies the default hotkey scheme.
+	 * When a standard "Backspace" hardware key is available, "Backspace" hotkey association is not necessary,
+	 * so it will be left out blank, to allow the hardware key do its job.
+	 * When the on-screen keyboard is on, "Back" is also not associated, because it will cause weird user
+	 * experience. Instead the on-screen "Backspace" key can be used.
+	 */
+	public static void setDefault(SettingsStore settings) {
+		int backspaceKeyCode = KeyEvent.KEYCODE_BACK;
+		if (
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
+			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
+			|| settings.getShowSoftNumpad()
+		) {
+			backspaceKeyCode = 0;
+		}
+
+		settings.setDefaultKeys(
+			KeyEvent.KEYCODE_STAR,
+			backspaceKeyCode,
+			KeyEvent.KEYCODE_POUND,
+			-KeyEvent.KEYCODE_POUND,
+			-KeyEvent.KEYCODE_STAR
+		);
 	}
 
 
@@ -107,8 +136,6 @@ public class Hotkeys {
 		add(KeyEvent.KEYCODE_CALL, R.string.key_call, true);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_BACK, R.string.key_back, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_CLEAR, R.string.key_clear, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_DEL, R.string.key_delete, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F1, "F1", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
