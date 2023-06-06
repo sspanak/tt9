@@ -37,7 +37,6 @@ public class DictionariesScreen extends BaseScreenFragment {
 			activity,
 			activity.getDictionaryLoader()
 		);
-		truncateItem.enableClickHandler();
 
 		ItemTruncateUnselected truncateSelectedItem = new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
@@ -46,6 +45,8 @@ public class DictionariesScreen extends BaseScreenFragment {
 			activity.settings,
 			activity.getDictionaryLoader()
 		);
-		truncateSelectedItem.enableClickHandler();
+
+		truncateItem.setOtherTruncateItem(truncateSelectedItem).enableClickHandler();
+		truncateSelectedItem.setOtherTruncateItem(truncateItem).enableClickHandler();
 	}
 }

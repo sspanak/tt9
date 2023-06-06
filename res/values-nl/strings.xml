@@ -20,4 +20,5 @@
 	<string name="char_space">Spatie</string>
 	<string name="char_newline">Nieuwe regel</string>
 	<string name="pref_category_setup">Initiële setup</string>
+	<string name="dictionary_truncating">Verwijderen…</string>
 </resources>

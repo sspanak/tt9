@@ -49,9 +49,10 @@
 	<string name="dictionary_load_title">Load Dictionary</string>
 	<string name="dictionary_missing_go_load_it">No dictionary for language \"%1$s\". Go to Settings to load it.</string>
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
-	<string name="dictionary_truncate_title">Clear All</string>
-	<string name="dictionary_truncate_unselected">Clear Unselected</string>
+	<string name="dictionary_truncate_title">Delete All</string>
+	<string name="dictionary_truncate_unselected">Delete Unselected</string>
 	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
+	<string name="dictionary_truncating">Deleting…</string>
 
 	<string name="function_add_word_key">Add Word key</string>
 	<string name="function_backspace_key">Backspace key</string>
