@@ -37,6 +37,7 @@ public class ModePredictive extends InputMode {
 
 	ModePredictive(SettingsStore settings, Language lang) {
 		changeLanguage(lang);
+		defaultTextCase();
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
@@ -303,13 +304,13 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually) {
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
 			.setLastSequence(lastAcceptedSequence)
 			.setInputType(inputType)
 			.setTextField(textField)
-			.shouldAddAutoSpace(isWordAcceptedManually);
+			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
 
 	}
 

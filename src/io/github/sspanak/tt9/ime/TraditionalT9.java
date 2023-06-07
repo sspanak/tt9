@@ -248,7 +248,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion();
-		autoCorrectSpace(word, true);
+		autoCorrectSpace(word, true, KeyEvent.KEYCODE_ENTER);
 		resetKeyRepeat();
 
 		return true;
@@ -329,7 +329,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Automatically accept the current word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false);
+			autoCorrectSpace(acceptIncompleteSuggestion(), false, key);
 			currentWord = "";
 		}
 
@@ -359,7 +359,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		String acceptedWord = acceptIncompleteSuggestion();
 		if (mInputMode.onOtherKey(keyCode)) {
-			autoCorrectSpace(acceptedWord, false);
+			autoCorrectSpace(acceptedWord, false, keyCode);
 			getSuggestions();
 			resetKeyRepeat();
 			return true;
@@ -377,12 +377,12 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 
 		// accept the previously typed word (if any)
-		autoCorrectSpace(acceptIncompleteSuggestion(), false);
+		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
 
 		// "type" and accept the text
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, true);
+		autoCorrectSpace(text, true, -1);
 		return true;
 	}
 
@@ -670,12 +670,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually) {
+	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually)) {
+		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
 	}

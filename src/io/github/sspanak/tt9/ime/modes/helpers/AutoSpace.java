@@ -8,7 +8,8 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoSpace {
 	private final Pattern isNumber = Pattern.compile("\\s*\\d+\\s*");
-	private final Pattern isPunctuation = Pattern.compile("\\p{Punct}");
+	private final Pattern nextIsLetter = Pattern.compile("^\\p{L}+");
+	private final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
 
 	private final SettingsStore settings;
 
@@ -49,32 +50,37 @@ public class AutoSpace {
 	 *
 	 * See the helper functions for the list of rules.
 	 */
-	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually) {
+	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int nextKey) {
 		String previousChars = textField.getPreviousChars(2);
 		String nextChars = textField.getNextChars(2);
 
 		return
 			settings.getAutoSpace()
-			&& !isNumber.matcher(previousChars).find()
-			&& (
-				shouldAddAutoSpaceAfterPunctuation(previousChars)
-				|| shouldAddAutoSpaceAfterWord(isWordAcceptedManually)
-			)
+			&& !inputType.isSpecialized()
 			&& !nextChars.startsWith(" ")
-			&& !isPunctuation.matcher(nextChars).find();
+			&& !isNumber.matcher(previousChars).find()
+			&& !nextIsPunctuation.matcher(nextChars).find()
+			&& (
+				shouldAddAfterPunctuation(previousChars, nextKey)
+				|| shouldAddAfterWord(isWordAcceptedManually, nextChars)
+			);
 	}
 
 
 	/**
-	 * shouldAddAutoSpaceAfterPunctuation
+	 * shouldAddAfterPunctuation
 	 * Determines whether to automatically adding a space after certain punctuation signs makes sense.
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAutoSpaceAfterPunctuation(String previousChars) {
+	private boolean shouldAddAfterPunctuation(String previousChars, int nextKey) {
 		return
-			!inputType.isSpecialized()
-			&& !previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t")
+			// no space after whitespace or special characters
+			!previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t") // previous whitespace
+			&& !lastSequence.equals("0") // previous previous math/special char
+			&& nextKey != 0 // composing (upcoming) whitespace or special character
+
+			// add space after the these
 			&& (
 				previousChars.endsWith(".")
 				|| previousChars.endsWith(",")
@@ -92,19 +98,15 @@ public class AutoSpace {
 
 
 	/**
-	 * shouldAddAutoSpaceAfterPunctuation
-	 * Similar to "shouldAddAutoSpaceAfterPunctuation()", but determines whether to add a space after
-	 * words.
+	 * shouldAddAfterPunctuation
+	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAutoSpaceAfterWord(boolean isWordAcceptedManually) {
+	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String nextChars) {
 		return
 			// Do not add space when auto-accepting words, because it feels very confusing when typing.
 			isWordAcceptedManually
-			// Secondary punctuation
-			&& !lastSequence.equals("0")
-			// Emoji
-			&& !lastSequence.startsWith("1")
-			&& !inputType.isSpecialized();
+			// Right before another word
+			&& !nextIsLetter.matcher(nextChars).find();
 	}
 
 
