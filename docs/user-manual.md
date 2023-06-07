@@ -89,8 +89,12 @@ _**NB2:** In messaging applications, you need to enable their "Send with ENTER" 
 #### Add Word Key (Default: Press ✱):
 Add a new word to the dictionary for the current language.
 
-#### Backspace Key (Default: Press ↩ / Back):
+#### Backspace Key:
 Just deletes text.
+
+If your phone has a dedicated "Del" or "Clear" key, you do not need to set anything in the Settings, unless you want to have another Backspace. In this case, the blank option: "--" will be automatically preselected.
+
+On phones which have a combined "Delete"/"Back", that key will be selected automatically. However, you can assign "Backspace" function to another key, so "Back" will only navigate back.
 
 _**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox and Spotify. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
 
