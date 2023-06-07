@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.view.KeyEvent;
 
 import androidx.preference.PreferenceManager;
 
@@ -161,12 +160,12 @@ public class SettingsStore {
 		return getKeyShowSettings() == 0;
 	}
 
-	public void setDefaultKeys() {
-		prefsEditor.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(KeyEvent.KEYCODE_STAR));
-		prefsEditor.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(KeyEvent.KEYCODE_BACK));
-		prefsEditor.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(KeyEvent.KEYCODE_POUND));
-		prefsEditor.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(-KeyEvent.KEYCODE_POUND));
-		prefsEditor.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(-KeyEvent.KEYCODE_STAR));
+	public void setDefaultKeys(int addWord, int backspace, int nextInputMode, int nextLanguage, int showSettings) {
+		prefsEditor.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord));
+		prefsEditor.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace));
+		prefsEditor.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode));
+		prefsEditor.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage));
+		prefsEditor.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(showSettings));
 		prefsEditor.apply();
 	}
 
@@ -181,19 +180,15 @@ public class SettingsStore {
 	public int getKeyAddWord() {
 		return getFunctionKey(SectionKeymap.ITEM_ADD_WORD);
 	}
-
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
 	}
-
 	public int getKeyNextInputMode() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_INPUT_MODE);
 	}
-
 	public int getKeyNextLanguage() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_LANGUAGE);
 	}
-
 	public int getKeyShowSettings() {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}

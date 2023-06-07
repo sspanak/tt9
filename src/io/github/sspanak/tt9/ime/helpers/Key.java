@@ -5,6 +5,14 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Key {
+	public static boolean isBackspace(SettingsStore settings, int keyCode) {
+		return
+			keyCode == KeyEvent.KEYCODE_DEL
+			|| keyCode == KeyEvent.KEYCODE_CLEAR
+			|| keyCode == settings.getKeyBackspace();
+	}
+
+
 	public static boolean isNumber(int keyCode) {
 		return
 			(keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9)

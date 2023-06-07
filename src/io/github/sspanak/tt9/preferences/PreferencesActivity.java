@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
+import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
@@ -143,7 +144,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 	private void validateFunctionKeys() {
 		if (settings.isSettingsKeyMissing()) {
-			settings.setDefaultKeys();
+			Hotkeys.setDefault(settings);
 		}
 	}
 
