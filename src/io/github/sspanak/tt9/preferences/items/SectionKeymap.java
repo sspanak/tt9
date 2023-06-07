@@ -35,8 +35,8 @@ public class SectionKeymap {
 		for (DropDownPreference dropDown : items) {
 			int keypadKey = settings.getFunctionKey(dropDown.getKey());
 			dropDown.setValue(String.valueOf(keypadKey));
-			previewCurrentKey(dropDown);
 		}
+		populate();
 	}
 
 
@@ -50,7 +50,6 @@ public class SectionKeymap {
 		for (DropDownPreference item : items) {
 			onItemClick(item);
 		}
-
 	}
 
 
