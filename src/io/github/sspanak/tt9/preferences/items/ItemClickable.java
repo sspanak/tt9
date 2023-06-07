@@ -16,6 +16,16 @@ abstract class ItemClickable {
 	}
 
 
+	public void disable() {
+		item.setEnabled(false);
+	}
+
+
+	public void enable() {
+		item.setEnabled(true);
+	}
+
+
 	public void enableClickHandler() {
 		item.setOnPreferenceClickListener(this::debounceClick);
 	}

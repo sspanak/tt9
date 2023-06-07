@@ -47,7 +47,6 @@ public class DictionaryLoader {
 	}
 
 
-
 	public DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		settings = new SettingsStore(context);
@@ -80,7 +79,7 @@ public class DictionaryLoader {
 				currentFile = 0;
 				importStartTime = System.currentTimeMillis();
 
-				dropIndexes();
+				sendFileCount(languages.size());
 
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
@@ -90,8 +89,6 @@ public class DictionaryLoader {
 					importAll(lang);
 					currentFile++;
 				}
-
-				createIndexes();
 			}
 		};
 
@@ -165,28 +162,6 @@ public class DictionaryLoader {
 				);
 			}
 		});
-	}
-
-
-	private void dropIndexes() {
-		long start = System.currentTimeMillis();
-		DictionaryDb.dropLongWordIndexSync();
-		Logger.d("dropIndexes", "Index 1: " + (System.currentTimeMillis() - start) + " ms");
-
-		start = System.currentTimeMillis();
-		DictionaryDb.dropShortWordIndexSync();
-		Logger.d("dropIndexes", "Index 2: " + (System.currentTimeMillis() - start) + " ms");
-	}
-
-
-	private void createIndexes() {
-		long start = System.currentTimeMillis();
-		DictionaryDb.createLongWordIndexSync();
-		Logger.d("createIndexes", "Index 1: " + (System.currentTimeMillis() - start) + " ms");
-
-		start = System.currentTimeMillis();
-		DictionaryDb.createShortWordIndexSync();
-		Logger.d("createIndexes", "Index 2: " + (System.currentTimeMillis() - start) + " ms");
 	}
 
 
@@ -312,6 +287,20 @@ public class DictionaryLoader {
 		dbWord.word = word;
 
 		return dbWord;
+	}
+
+
+	private void sendFileCount(int fileCount) {
+		if (onStatusChange == null) {
+			Logger.w(
+				"tt9/DictionaryLoader.sendFileCount",
+				"Cannot send file count without a status Handler. Ignoring message.");
+			return;
+		}
+
+		Bundle progressMsg = new Bundle();
+		progressMsg.putInt("fileCount", fileCount);
+		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
 
 

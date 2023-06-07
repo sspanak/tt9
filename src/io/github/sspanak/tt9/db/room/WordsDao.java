@@ -15,9 +15,6 @@ public interface WordsDao {
 	String indexLongWords = "index_words_lang_seq_freq";
 	String indexShortWords = "index_words_lang_len_seq";
 
-	@RawQuery()
-	Object rawQuery(SimpleSQLiteQuery sql);
-
 	@Query("SELECT COUNT(id) FROM words WHERE :langId < 0 OR lang = :langId")
 	int count(int langId);
 

@@ -1,35 +1,32 @@
 package io.github.sspanak.tt9.preferences.items;
 
-import android.content.Context;
-
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.SettingsStore;
-import io.github.sspanak.tt9.ui.UI;
 
 
-public class ItemTruncateUnselected extends ItemClickable {
+public class ItemTruncateUnselected extends ItemTruncateAll {
 	public static final String NAME = "dictionary_truncate_unselected";
 
-	private final Context context;
-	private final DictionaryLoader loader;
-	private final ItemLoadDictionary loadItem;
 	private final SettingsStore settings;
 
 
-	public ItemTruncateUnselected(Preference item, ItemLoadDictionary loadItem, Context context, SettingsStore settings, DictionaryLoader loader) {
-		super(item);
-		this.context = context;
-		this.loadItem = loadItem;
+	public ItemTruncateUnselected(Preference item, ItemLoadDictionary loadItem, PreferencesActivity context, SettingsStore settings, DictionaryLoader loader) {
+		super(item, loadItem, context, loader);
 		this.settings = settings;
-		this.loader = loader;
+	}
+
+
+	public ItemTruncateUnselected setOtherTruncateItem(ItemTruncateAll otherTruncateItem) {
+		this.otherTruncateItem = otherTruncateItem;
+		return this;
 	}
 
 
@@ -48,10 +45,8 @@ public class ItemTruncateUnselected extends ItemClickable {
 			}
 		}
 
-		DictionaryDb.deleteWords(
-			() -> UI.toastFromAsync(context, R.string.dictionary_truncated),
-			unselectedLanguageIds
-		);
+		onStartDeleting();
+		DictionaryDb.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
 
 		return true;
 	}

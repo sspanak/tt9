@@ -14,7 +14,7 @@
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_choose_languages">Langues</string>
-	<string name="dictionary_truncate_title">Vider tous</string>
+	<string name="dictionary_truncate_title">Supprimer tous</string>
 
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
@@ -25,7 +25,7 @@
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_appearance">Apparance</string>
 	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s» à la ligne %2$d de langue «%3$s».</string>
-	<string name="dictionary_truncated">Le dictionaire est vidé avec succès.</string>
+	<string name="dictionary_truncated">Le dictionaire est supprimé avec succès.</string>
 	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
@@ -47,7 +47,8 @@
 	<string name="add_word_field_placeholder">Tapez un mot…</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
-	<string name="dictionary_truncate_unselected">Vider les non sélectionnés</string>
+	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="pref_show_soft_numpad">Pavé numérique à l\'écran</string>
+	<string name="dictionary_truncating">Suppression…</string>
 </resources>

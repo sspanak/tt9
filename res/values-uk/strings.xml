@@ -13,7 +13,7 @@
 	<string name="pref_help">Допомога</string>
 	<string name="pref_dark_theme">Темна тема</string>
 	<string name="pref_choose_languages">Мови</string>
-	<string name="dictionary_truncate_title">Очистіть усі</string>
+	<string name="dictionary_truncate_title">Видалити усі</string>
 
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
@@ -53,15 +53,16 @@
 	<string name="function_show_settings_key">Налаштування</string>
 	<string name="function_reset_keys_done">Налаштування кнопок за замовчуванням відновлено</string>
 	<string name="function_reset_keys_title">Повернути кнопки за замовчуванням</string>
-	<string name="dictionary_truncated">Словник успішно очищено.</string>
+	<string name="dictionary_truncated">Словник успішно видалено.</string>
 	<string name="dictionary_missing_go_load_it">Немає словника для мови «%1$s». Перейдіть до Налаштувань, щоб завантажити його.</string>
 	<string name="dictionary_load_bad_char">Помилка завантаження. Недійсне слово «%1$s» в рядку %2$d мови «%3$s».</string>
 	<string name="add_word_field_placeholder">Введіть слово…</string>
 	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
-	<string name="dictionary_truncate_unselected">Очистіть невибрані</string>
+	<string name="dictionary_truncate_unselected">Видалити невибрані</string>
 	<string name="pref_category_setup">Початкове налаштування</string>
 	<string name="pref_show_soft_numpad">Екранна цифрова клавіатура</string>
 	<string name="key_volume_up">Збільшення гучності</string>
 	<string name="key_volume_down">Зменшення гучності</string>
+	<string name="dictionary_truncating">Видалення…</string>
 </resources>

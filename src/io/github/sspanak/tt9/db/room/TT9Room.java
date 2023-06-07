@@ -7,12 +7,13 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import io.github.sspanak.tt9.db.migrations.DB10;
 import io.github.sspanak.tt9.db.migrations.DB6;
 import io.github.sspanak.tt9.db.migrations.DB7;
 import io.github.sspanak.tt9.db.migrations.DB8;
 import io.github.sspanak.tt9.db.migrations.DB9;
 
-@Database(version = 9, entities = Word.class, exportSchema = false)
+@Database(version = 10, entities = Word.class, exportSchema = false)
 public abstract class TT9Room extends RoomDatabase {
 	public abstract WordsDao wordsDao();
 
@@ -23,7 +24,8 @@ public abstract class TT9Room extends RoomDatabase {
 				DB6.MIGRATION,
 				new DB7().getMigration(context),
 				DB8.MIGRATION,
-				DB9.MIGRATION
+				DB9.MIGRATION,
+				DB10.MIGRATION
 			)
 			.build();
 	}
@@ -50,18 +52,10 @@ public abstract class TT9Room extends RoomDatabase {
 	}
 
 	public static SimpleSQLiteQuery createShortWordsIndexQuery() {
-		return new SimpleSQLiteQuery("CREATE INDEX " + WordsDao.indexShortWords + " ON words (lang ASC, len ASC, seq ASC)");
+		return new SimpleSQLiteQuery("CREATE INDEX IF NOT EXISTS " + WordsDao.indexShortWords + " ON words (lang ASC, len ASC, seq ASC)");
 	}
 
 	public static SimpleSQLiteQuery createLongWordsIndexQuery() {
-		return new SimpleSQLiteQuery("CREATE INDEX " + WordsDao.indexLongWords + " ON words (lang ASC, seq ASC, freq DESC)");
-	}
-
-	public static SimpleSQLiteQuery dropShortWordsIndexQuery() {
-		return new SimpleSQLiteQuery("DROP INDEX IF EXISTS " + WordsDao.indexShortWords);
-	}
-
-	public static SimpleSQLiteQuery dropLongWordsIndexQuery() {
-		return new SimpleSQLiteQuery("DROP INDEX IF EXISTS " + WordsDao.indexLongWords);
+		return new SimpleSQLiteQuery("CREATE INDEX IF NOT EXISTS " + WordsDao.indexLongWords + " ON words (lang ASC, seq ASC, freq DESC)");
 	}
 }

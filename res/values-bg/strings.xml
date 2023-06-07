@@ -64,4 +64,5 @@
 	<string name="pref_show_soft_numpad">Цифрова клавиатура на екрана</string>
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
+	<string name="dictionary_truncating">Изтриване…</string>
 </resources>
