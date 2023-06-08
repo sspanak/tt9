@@ -357,7 +357,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyFilterClear() {
+	public boolean onKeyFilterClear() {
 		if (!suggestionBar.hasElements()) {
 			return false;
 		}
@@ -366,15 +366,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.clearWordStem()) {
 			mInputMode.loadSuggestions(this::getSuggestions, getComposingText());
-		} else {
-			jumpBeforeComposingText();
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 
-	protected boolean onKeyFilterSuggestions(boolean repeat) {
+	public boolean onKeyFilterSuggestions(boolean repeat) {
 		if (!suggestionBar.hasElements()) {
 			return false;
 		}
@@ -398,7 +397,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyPreviousSuggestion() {
+	public boolean onKeyNextSuggestion() {
 		if (nextSuggestion()) {
 			cancelAutoAccept();
 			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
@@ -410,7 +409,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean onKeyNextSuggestion() {
+	public boolean onKeyPreviousSuggestion() {
 		if (previousSuggestion()) {
 			cancelAutoAccept();
 			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
@@ -680,17 +679,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		settings.saveInputLanguage(mLanguage.getId());
 
 		return true;
-	}
-
-
-	private void jumpBeforeComposingText() {
-		String word = getComposingText();
-
-		textField.setComposingText(word, 0);
-		textField.finishComposingText();
-		mInputMode.onAcceptSuggestion(word);
-		mInputMode.reset();
-		setSuggestions(null);
 	}
 
 

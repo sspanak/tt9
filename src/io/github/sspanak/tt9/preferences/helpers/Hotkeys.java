@@ -52,22 +52,27 @@ public class Hotkeys {
 	 * Arrow keys for manipulating suggestions are also assigned only if available.
 	 */
 	public static void setDefault(SettingsStore settings) {
-		int backspaceKeyCode = KeyEvent.KEYCODE_BACK;
+		int backspace = KeyEvent.KEYCODE_BACK;
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
 			|| settings.getShowSoftNumpad()
 		) {
-			backspaceKeyCode = 0;
+			backspace = 0;
 		}
+
+		int clearFilter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
+		int filter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_RIGHT : 0;
+		int nextSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_UP : 0;
+		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_DOWN : 0;
 
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
-			backspaceKeyCode,
-			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0,
-			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : 0,
-			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : 0,
-			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : 0,
+			backspace,
+			clearFilter,
+			filter,
+			nextSuggestion,
+			previousSuggestion,
 			KeyEvent.KEYCODE_POUND,
 			-KeyEvent.KEYCODE_POUND, // negative means "hold"
 			-KeyEvent.KEYCODE_STAR
