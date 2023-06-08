@@ -61,6 +61,10 @@ public class Hotkeys {
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
 			backspaceKeyCode,
+			KeyEvent.KEYCODE_DPAD_LEFT,
+			KeyEvent.KEYCODE_DPAD_RIGHT,
+			KeyEvent.KEYCODE_DPAD_DOWN,
+			KeyEvent.KEYCODE_DPAD_UP,
 			KeyEvent.KEYCODE_POUND,
 			-KeyEvent.KEYCODE_POUND, // negative means "hold"
 			-KeyEvent.KEYCODE_STAR
