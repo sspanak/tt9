@@ -43,10 +43,13 @@ public class Hotkeys {
 	/**
 	 * setDefault
 	 * Applies the default hotkey scheme.
+	 *
 	 * When a standard "Backspace" hardware key is available, "Backspace" hotkey association is not necessary,
 	 * so it will be left out blank, to allow the hardware key do its job.
 	 * When the on-screen keyboard is on, "Back" is also not associated, because it will cause weird user
 	 * experience. Instead the on-screen "Backspace" key can be used.
+	 *
+	 * Arrow keys for manipulating suggestions are also assigned only if available.
 	 */
 	public static void setDefault(SettingsStore settings) {
 		int backspaceKeyCode = KeyEvent.KEYCODE_BACK;
@@ -61,10 +64,10 @@ public class Hotkeys {
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
 			backspaceKeyCode,
-			KeyEvent.KEYCODE_DPAD_LEFT,
-			KeyEvent.KEYCODE_DPAD_RIGHT,
-			KeyEvent.KEYCODE_DPAD_DOWN,
-			KeyEvent.KEYCODE_DPAD_UP,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : 0,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : 0,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : 0,
 			KeyEvent.KEYCODE_POUND,
 			-KeyEvent.KEYCODE_POUND, // negative means "hold"
 			-KeyEvent.KEYCODE_STAR
@@ -144,20 +147,27 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
+
 		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
 
-		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
-
 		add(KeyEvent.KEYCODE_POUND, "#", true);
 		add(KeyEvent.KEYCODE_STAR, "✱", true);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_UP, R.string.key_dpad_up, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN, R.string.key_dpad_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT, R.string.key_dpad_left, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT, R.string.key_dpad_right, false);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_ADD, "Num +", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, "Num -", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, "Num *", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DIVIDE, "Num /", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DOT, "Num .", true);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
+
 	}
 }

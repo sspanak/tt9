@@ -16,6 +16,30 @@
 
 	<DropDownPreference
 		app:iconSpaceReserved="false"
+		app:key="key_filter_clear"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/function_filter_clear_key" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
+		app:key="key_filter_suggestions"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/function_filter_suggestions_key" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
+		app:key="key_previous_suggestion"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/function_previous_suggestion_key" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
+		app:key="key_next_suggestion"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/function_next_suggestion_key" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
 		app:key="key_next_language"
 		app:layout="@layout/pref_dropdown"
 		app:title="@string/function_next_language_key" />

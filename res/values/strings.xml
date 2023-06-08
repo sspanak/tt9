@@ -56,6 +56,10 @@
 
 	<string name="function_add_word_key">Add Word key</string>
 	<string name="function_backspace_key">Backspace key</string>
+	<string name="function_filter_clear_key">Clear Filter key</string>
+	<string name="function_filter_suggestions_key">Filter Suggestions key</string>
+	<string name="function_previous_suggestion_key">Previous Suggestion key</string>
+	<string name="function_next_suggestion_key">Next Suggestion key</string>
 	<string name="function_next_language_key">Next Language key</string>
 	<string name="function_next_mode_key">Input Mode key</string>
 	<string name="function_show_settings_key">Show Settings key</string>
@@ -73,6 +77,10 @@
 	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
+	<string name="key_dpad_up" translatable="false">▲</string>
+	<string name="key_dpad_down" translatable="false">▼</string>
+	<string name="key_dpad_left" translatable="false">◀</string>
+	<string name="key_dpad_right" translatable="false">▶</string>
 	<string name="key_menu" translatable="false">Menu</string>
 	<string name="key_soft_left" translatable="false">Left Func</string>
 	<string name="key_soft_right" translatable="false">Right Func</string>
