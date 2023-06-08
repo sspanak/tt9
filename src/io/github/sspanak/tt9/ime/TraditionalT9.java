@@ -88,7 +88,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateFunctionKeys() {
-		if (settings.isSettingsKeyMissing()) {
+		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
 	}

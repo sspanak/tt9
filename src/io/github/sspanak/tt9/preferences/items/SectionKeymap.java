@@ -35,8 +35,8 @@ public class SectionKeymap {
 		for (DropDownPreference dropDown : items) {
 			int keypadKey = settings.getFunctionKey(dropDown.getKey());
 			dropDown.setValue(String.valueOf(keypadKey));
-			previewCurrentKey(dropDown);
 		}
+		populate();
 	}
 
 
@@ -50,7 +50,6 @@ public class SectionKeymap {
 		for (DropDownPreference item : items) {
 			onItemClick(item);
 		}
-
 	}
 
 
@@ -78,9 +77,6 @@ public class SectionKeymap {
 				// backspace works both when pressed short and long,
 				// so separate "hold" and "not hold" options for it make no sense
 				&& !(dropDown.getKey().equals(ITEM_BACKSPACE) && Integer.parseInt(key) < 0)
-				// "show settings" must always be available for the users not to lose
-				// access to the Settings screen
-				&& !(dropDown.getKey().equals(ITEM_SHOW_SETTINGS) && key.equals("0"))
 			) {
 				keys.add(String.valueOf(key));
 			}

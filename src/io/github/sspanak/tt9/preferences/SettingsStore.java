@@ -156,17 +156,19 @@ public class SettingsStore {
 
 	/************* function key settings *************/
 
-	public boolean isSettingsKeyMissing() {
-		return getKeyShowSettings() == 0;
+	public boolean areHotkeysInitialized() {
+		return !prefs.getBoolean("hotkeys_initialized", false);
 	}
 
 	public void setDefaultKeys(int addWord, int backspace, int nextInputMode, int nextLanguage, int showSettings) {
-		prefsEditor.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord));
-		prefsEditor.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace));
-		prefsEditor.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode));
-		prefsEditor.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage));
-		prefsEditor.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(showSettings));
-		prefsEditor.apply();
+		prefsEditor
+			.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord))
+			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
+			.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode))
+			.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage))
+			.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(showSettings))
+			.putBoolean("hotkeys_initialized", true)
+			.apply();
 	}
 
 	public int getFunctionKey(String functionName) {

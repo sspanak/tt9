@@ -62,7 +62,7 @@ public class Hotkeys {
 			KeyEvent.KEYCODE_STAR,
 			backspaceKeyCode,
 			KeyEvent.KEYCODE_POUND,
-			-KeyEvent.KEYCODE_POUND,
+			-KeyEvent.KEYCODE_POUND, // negative means "hold"
 			-KeyEvent.KEYCODE_STAR
 		);
 	}

@@ -143,7 +143,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 
 	private void validateFunctionKeys() {
-		if (settings.isSettingsKeyMissing()) {
+		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
 	}
