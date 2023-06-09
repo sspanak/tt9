@@ -160,10 +160,24 @@ public class SettingsStore {
 		return !prefs.getBoolean("hotkeys_initialized", false);
 	}
 
-	public void setDefaultKeys(int addWord, int backspace, int nextInputMode, int nextLanguage, int showSettings) {
+	public void setDefaultKeys(
+		int addWord,
+		int backspace,
+		int filterClear,
+		int filterSuggestions,
+		int previousSuggestion,
+		int nextSuggestion,
+		int nextInputMode,
+		int nextLanguage,
+		int showSettings
+	) {
 		prefsEditor
 			.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord))
 			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
+			.putString(SectionKeymap.ITEM_FILTER_CLEAR, String.valueOf(filterClear))
+			.putString(SectionKeymap.ITEM_FILTER_SUGGESTIONS, String.valueOf(filterSuggestions))
+			.putString(SectionKeymap.ITEM_PREVIOUS_SUGGESTION, String.valueOf(previousSuggestion))
+			.putString(SectionKeymap.ITEM_NEXT_SUGGESTION, String.valueOf(nextSuggestion))
 			.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode))
 			.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage))
 			.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(showSettings))
@@ -185,6 +199,18 @@ public class SettingsStore {
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
 	}
+	public int getKeyFilterClear() {
+		return getFunctionKey(SectionKeymap.ITEM_FILTER_CLEAR);
+	}
+	public int getKeyFilterSuggestions() {
+		return getFunctionKey(SectionKeymap.ITEM_FILTER_SUGGESTIONS);
+	}
+	public int getKeyPreviousSuggestion() {
+		return getFunctionKey(SectionKeymap.ITEM_PREVIOUS_SUGGESTION);
+	}
+	public int getKeyNextSuggestion() {
+		return getFunctionKey(SectionKeymap.ITEM_NEXT_SUGGESTION);
+	}
 	public int getKeyNextInputMode() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_INPUT_MODE);
 	}
@@ -194,6 +220,7 @@ public class SettingsStore {
 	public int getKeyShowSettings() {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}
+
 
 	/************* UI settings *************/
 

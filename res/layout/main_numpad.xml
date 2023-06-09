@@ -34,8 +34,51 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:paddingTop="@dimen/numpad_padding_top"
 		android:paddingBottom="@dimen/numpad_padding_bottom">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_left_arrow"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/key_dpad_left"
+				android:textSize="@dimen/soft_key_icon_size" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_clear_filter"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="Clear" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_filter_suggestions"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="Filter" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_right_arrow"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/key_dpad_right"
+				android:textSize="@dimen/soft_key_icon_size" />
+		</LinearLayout>
+
+		<View
+			android:id="@+id/separator_0"
+			style="@style/numRowSeparator" />
 
 		<LinearLayout
 			android:layout_width="match_parent"

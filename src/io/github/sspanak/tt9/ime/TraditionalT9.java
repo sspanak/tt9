@@ -210,6 +210,21 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	public boolean onArrow(int key, boolean repeat) {
+		if (key == settings.getKeyFilterClear()) {
+			return onKeyFilterClear();
+		} else if (key == settings.getKeyFilterSuggestions()) {
+			return onKeyFilterSuggestions(repeat);
+		} else if (key == settings.getKeyPreviousSuggestion()) {
+			return onKeyPreviousSuggestion();
+		} else if (key == settings.getKeyNextSuggestion()) {
+			return onKeyNextSuggestion();
+		}
+
+		return false;
+	}
+
+
 	public boolean onBackspace() {
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
@@ -231,84 +246,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		Logger.d("onBackspace", "backspace handled");
-		return true;
-	}
-
-
-	public boolean onOK() {
-		cancelAutoAccept();
-
-		if (!isInputViewShown() && !textField.isThereText()) {
-			forceShowWindowIfHidden();
-			return true;
-		} else if (isSuggestionViewHidden()) {
-			return performOKAction();
-		}
-
-		String word = suggestionBar.getCurrentSuggestion();
-
-		mInputMode.onAcceptSuggestion(word);
-		commitCurrentSuggestion();
-		autoCorrectSpace(word, true, KeyEvent.KEYCODE_ENTER);
-		resetKeyRepeat();
-
-		return true;
-	}
-
-
-	protected boolean onUp() {
-		if (previousSuggestion()) {
-			cancelAutoAccept();
-			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-			return true;
-		}
-
-		return false;
-	}
-
-
-	protected boolean onDown() {
-		if (nextSuggestion()) {
-			cancelAutoAccept();
-			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-			return true;
-		}
-
-		return false;
-	}
-
-
-	protected boolean onLeft() {
-		cancelAutoAccept();
-
-		if (mInputMode.clearWordStem()) {
-			mInputMode.loadSuggestions(this::getSuggestions, getComposingText());
-		} else {
-			jumpBeforeComposingText();
-		}
-
-		return true;
-	}
-
-
-	protected boolean onRight(boolean repeat) {
-		cancelAutoAccept();
-
-		String filter;
-		if (repeat && !suggestionBar.getSuggestion(1).equals("")) {
-			filter = suggestionBar.getSuggestion(1);
-		} else {
-			filter = getComposingText();
-		}
-
-		if (mInputMode.setWordStem(filter, repeat)) {
-			mInputMode.loadSuggestions(this::getSuggestions, filter);
-		} else if (filter.length() == 0) {
-			mInputMode.reset();
-		}
-
 		return true;
 	}
 
@@ -355,6 +292,27 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	public boolean onOK() {
+		cancelAutoAccept();
+
+		if (!isInputViewShown() && !textField.isThereText()) {
+			forceShowWindowIfHidden();
+			return true;
+		} else if (isSuggestionViewHidden()) {
+			return performOKAction();
+		}
+
+		String word = suggestionBar.getCurrentSuggestion();
+
+		mInputMode.onAcceptSuggestion(word);
+		commitCurrentSuggestion();
+		autoCorrectSpace(word, true, KeyEvent.KEYCODE_ENTER);
+		resetKeyRepeat();
+
+		return true;
+	}
+
+
 	public boolean onOtherKey(int keyCode) {
 		cancelAutoAccept();
 
@@ -396,6 +354,70 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 		showAddWord();
 		return true;
+	}
+
+
+	public boolean onKeyFilterClear() {
+		if (!suggestionBar.hasElements()) {
+			return false;
+		}
+
+		cancelAutoAccept();
+
+		if (mInputMode.clearWordStem()) {
+			mInputMode.loadSuggestions(this::getSuggestions, getComposingText());
+			return true;
+		}
+
+		return false;
+	}
+
+
+	public boolean onKeyFilterSuggestions(boolean repeat) {
+		if (!suggestionBar.hasElements()) {
+			return false;
+		}
+
+		cancelAutoAccept();
+
+		String filter;
+		if (repeat && !suggestionBar.getSuggestion(1).equals("")) {
+			filter = suggestionBar.getSuggestion(1);
+		} else {
+			filter = getComposingText();
+		}
+
+		if (mInputMode.setWordStem(filter, repeat)) {
+			mInputMode.loadSuggestions(this::getSuggestions, filter);
+		} else if (filter.length() == 0) {
+			mInputMode.reset();
+		}
+
+		return true;
+	}
+
+
+	public boolean onKeyNextSuggestion() {
+		if (nextSuggestion()) {
+			cancelAutoAccept();
+			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
+			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	public boolean onKeyPreviousSuggestion() {
+		if (previousSuggestion()) {
+			cancelAutoAccept();
+			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
+			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -657,17 +679,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		settings.saveInputLanguage(mLanguage.getId());
 
 		return true;
-	}
-
-
-	private void jumpBeforeComposingText() {
-		String word = getComposingText();
-
-		textField.setComposingText(word, 0);
-		textField.finishComposingText();
-		mInputMode.onAcceptSuggestion(word);
-		mInputMode.reset();
-		setSuggestions(null);
 	}
 
 

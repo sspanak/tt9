@@ -227,10 +227,10 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		switch (keyCode) {
-			case KeyEvent.KEYCODE_DPAD_UP: return onUp();
-			case KeyEvent.KEYCODE_DPAD_DOWN: return onDown();
-			case KeyEvent.KEYCODE_DPAD_LEFT: return onLeft();
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onRight(keyRepeatCounter > 0);
+			case KeyEvent.KEYCODE_DPAD_UP:
+			case KeyEvent.KEYCODE_DPAD_DOWN:
+			case KeyEvent.KEYCODE_DPAD_LEFT:
+			case KeyEvent.KEYCODE_DPAD_RIGHT: return onArrow(keyCode, keyRepeatCounter > 0);
 			case KeyEvent.KEYCODE_STAR:
 			case KeyEvent.KEYCODE_POUND: return onOtherKey(keyCode);
 		}
@@ -273,14 +273,11 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected boolean shouldTrackLeftRight();
 
 	// default hardware key handlers
+	abstract protected boolean onArrow(int key, boolean repeat);
 	abstract public boolean onBackspace();
-	abstract public boolean onOK();
-	abstract protected boolean onUp();
-	abstract protected boolean onDown();
-	abstract protected boolean onLeft();
-	abstract protected boolean onRight(boolean repeat);
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
-	abstract protected boolean onOtherKey(int keyCode);
+	abstract public boolean onOK();
+	abstract protected boolean onOtherKey(int key);
 
 	// customized key handlers
 	abstract protected boolean onKeyAddWord();

@@ -43,24 +43,36 @@ public class Hotkeys {
 	/**
 	 * setDefault
 	 * Applies the default hotkey scheme.
+	 *
 	 * When a standard "Backspace" hardware key is available, "Backspace" hotkey association is not necessary,
 	 * so it will be left out blank, to allow the hardware key do its job.
 	 * When the on-screen keyboard is on, "Back" is also not associated, because it will cause weird user
 	 * experience. Instead the on-screen "Backspace" key can be used.
+	 *
+	 * Arrow keys for manipulating suggestions are also assigned only if available.
 	 */
 	public static void setDefault(SettingsStore settings) {
-		int backspaceKeyCode = KeyEvent.KEYCODE_BACK;
+		int backspace = KeyEvent.KEYCODE_BACK;
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
 			|| settings.getShowSoftNumpad()
 		) {
-			backspaceKeyCode = 0;
+			backspace = 0;
 		}
+
+		int clearFilter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
+		int filter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_RIGHT : 0;
+		int nextSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_UP : 0;
+		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_DOWN : 0;
 
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
-			backspaceKeyCode,
+			backspace,
+			clearFilter,
+			filter,
+			nextSuggestion,
+			previousSuggestion,
 			KeyEvent.KEYCODE_POUND,
 			-KeyEvent.KEYCODE_POUND, // negative means "hold"
 			-KeyEvent.KEYCODE_STAR
@@ -140,20 +152,27 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
+
 		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
 
-		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
-
 		add(KeyEvent.KEYCODE_POUND, "#", true);
 		add(KeyEvent.KEYCODE_STAR, "✱", true);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_UP, R.string.key_dpad_up, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN, R.string.key_dpad_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT, R.string.key_dpad_left, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT, R.string.key_dpad_right, false);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_ADD, "Num +", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, "Num -", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, "Num *", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DIVIDE, "Num /", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DOT, "Num .", true);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
+
 	}
 }
