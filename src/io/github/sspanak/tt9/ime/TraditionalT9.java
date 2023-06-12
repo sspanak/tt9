@@ -142,6 +142,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		validateLanguages();
 
 		resetKeyRepeat();
+		setSuggestions(null);
 		determineInputMode();
 		determineTextCase();
 	}
@@ -165,7 +166,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mainView.createView()) {
 			initTray();
 		}
-		clearSuggestions();
 		statusBar.setText(mInputMode != null ? mInputMode.toString() : "");
 		setDarkTheme();
 		mainView.render();
