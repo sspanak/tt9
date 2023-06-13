@@ -244,7 +244,7 @@ public class ModePredictive extends InputMode {
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord) {
 		lastAcceptedWord = currentWord;
-		lastAcceptedSequence = digitSequence;
+		lastAcceptedSequence = "";
 		reset();
 
 		if (currentWord.length() == 0) {
@@ -295,7 +295,7 @@ public class ModePredictive extends InputMode {
 		return
 			autoAcceptTimeout == 0
 			|| keyCode > 0
-			|| (digitSequence.endsWith("1") && digitSequence.length() > 1 && !predictions.areThereDbWords());
+			|| (digitSequence.contains("1") && digitSequence.matches("^1") && !predictions.areThereDbWords());
 	}
 
 

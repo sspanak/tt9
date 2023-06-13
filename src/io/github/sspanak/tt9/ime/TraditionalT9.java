@@ -32,6 +32,7 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
+	private String lastComposingText = "";
 	@NotNull private TextField textField = new TextField(null, null);
 	@NotNull private InputType inputType = new InputType(null, null);
 	@NotNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
@@ -564,7 +565,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		// Automatically accept the current word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
-			// @todo: accept the last composing word, but do not destroy the InputMode state
+			mInputMode.onAcceptSuggestion(lastComposingText);
+			// @todo:
+			//  1. .accept the last composing word
+			//  2. reset the input mode, but make it return sequence and suggestions based on the "currentComposingText" - "lastComposingText"
+
 			// @todo: autoCorrectSpace(, false, -1);
 		}
 
@@ -587,8 +592,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
 		String word = suggestionBar.getCurrentSuggestion();
-		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
-		textField.setComposingTextWithHighlightedStem(word, mInputMode);
+		lastComposingText = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
+		textField.setComposingTextWithHighlightedStem(lastComposingText, mInputMode);
 	}
 
 
