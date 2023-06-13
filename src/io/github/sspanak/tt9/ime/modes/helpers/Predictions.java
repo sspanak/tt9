@@ -210,12 +210,8 @@ public class Predictions {
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
-		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
-			// let's skip numbers, because it's weird, for example:
-			// | weird | weire | weirf | weir2 |
-			if (keyLetter.charAt(0) < '0' || keyLetter.charAt(0) > '9') {
-				generatedWords.add(baseWord + keyLetter);
-			}
+		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit, false)) {
+			generatedWords.add(baseWord + keyLetter);
 		}
 
 		// if there are no letters for this key, just append the number
