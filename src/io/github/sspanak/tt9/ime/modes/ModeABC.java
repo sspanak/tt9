@@ -70,9 +70,7 @@ public class ModeABC extends InputMode {
 	@Override final public boolean isABC() { return true; }
 	@Override public int getSequenceLength() { return 1; }
 
-	@Override public boolean shouldAcceptPreviousSuggestion(int key, boolean hold, boolean repeat) {
-		return autoAcceptTimeout == 0 || !shouldSelectNextLetter;
-	}
+	@Override public boolean shouldAcceptPreviousSuggestion() { return autoAcceptTimeout == 0 || !shouldSelectNextLetter; }
 	@Override public boolean shouldTrackUpDown() { return true; }
 	@Override public boolean shouldTrackLeftRight() { return true; }
 	@Override public boolean shouldSelectNextSuggestion() {

@@ -23,6 +23,7 @@ public class Predictions {
 	private Runnable onWordsChanged = () -> {};
 
 	// data
+	private boolean areThereDbWords = false;
 	private final ArrayList<String> words = new ArrayList<>();
 
 	// punctuation/emoji
@@ -80,6 +81,10 @@ public class Predictions {
 
 	public ArrayList<String> getList() {
 		return words;
+	}
+
+	public boolean areThereDbWords() {
+		return areThereDbWords;
 	}
 
 
@@ -178,6 +183,8 @@ public class Predictions {
 	 * external handler it is now possible to use it with "getList()".
 	 */
 	private void onDbWords (ArrayList<String> dbWords) {
+		areThereDbWords = dbWords.size() > 0;
+
 		if (dbWords.size() == 0 && digitSequence.length() > 0) {
 			emptyDbWarning.emitOnce(language);
 			dbWords = generatePossibleCompletions(inputWord);

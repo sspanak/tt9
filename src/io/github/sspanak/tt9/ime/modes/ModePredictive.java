@@ -289,13 +289,13 @@ public class ModePredictive extends InputMode {
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int key, boolean hold, boolean repeat) {
+	public boolean shouldAcceptPreviousSuggestion() {
+		Logger.d("shouldAcceptPreviousSuggestion", "timeout: " + autoAcceptTimeout + " || seq: " + digitSequence + " || are ther words: " + predictions.areThereDbWords());
+
 		return
-			hold
-			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
-			|| (key == 0 && !repeat)
-			|| key == 1 // @todo: ((key == 1) && (no such word in the database))
-			|| (digitSequence.endsWith("0") && key != 0);
+			autoAcceptTimeout == 0
+			|| keyCode > 0
+			|| (digitSequence.endsWith("1") && digitSequence.length() > 1 && !predictions.areThereDbWords());
 	}
 
 
