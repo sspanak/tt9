@@ -262,18 +262,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 		forceShowWindowIfHidden();
 
-		String currentWord = getComposingText();
-
-		// Automatically accept the current word, when the next one is a space or punctuation,
-		// instead of requiring "OK" before that.
-		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false, key);
-			currentWord = "";
-		}
-
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		// We don't do it too often, because it is somewhat resource-intensive.
-		if (currentWord.length() == 0) {
+		if (getComposingText().isEmpty()) {
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
@@ -572,9 +563,20 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void handleSuggestions() {
 		// key code "suggestions" take priority over words
 		if (mInputMode.getKeyCode() > 0) {
+			// @todo:
+			autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
 			sendDownUpKeyEvents(mInputMode.getKeyCode());
 			mInputMode.onAcceptSuggestion("");
 			return;
+		}
+
+		// Automatically accept the current word, when the next one is a space or punctuation,
+		// instead of requiring "OK" before that.
+		String currentSuggestion = getComposingText();
+		if (mInputMode.shouldAcceptPreviousSuggestion(0, false, false)) {
+			mInputMode.onAcceptSuggestion(currentSuggestion);
+			// @todo:
+			autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
 		}
 
 		// display the word suggestions

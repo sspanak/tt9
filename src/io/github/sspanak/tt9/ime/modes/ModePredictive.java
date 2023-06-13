@@ -284,12 +284,12 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * shouldAcceptCurrentSuggestion
+	 * shouldAcceptPreviousSuggestion
 	 * In this mode, In addition to confirming the suggestion in the input field,
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
 	@Override
-	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) {
+	public boolean shouldAcceptPreviousSuggestion(int key, boolean hold, boolean repeat) {
 		return
 			hold
 			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
