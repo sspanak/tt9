@@ -10,8 +10,6 @@ public class French extends English {
 		locale = Locale.FRENCH;
 		dictionaryFile = "fr-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).addAll(Arrays.asList("à", "â", "æ", "ç"));
 		characterMap.get(3).addAll(Arrays.asList("é", "è", "ê", "ë"));
 		characterMap.get(4).addAll(Arrays.asList("î", "ï"));

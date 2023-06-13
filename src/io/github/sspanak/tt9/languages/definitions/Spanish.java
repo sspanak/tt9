@@ -13,8 +13,6 @@ public class Spanish extends English {
 		locale = new Locale("es", "ES");
 		dictionaryFile = "es-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.set(1, new ArrayList<>(Characters.Sentence));
 		characterMap.get(1).addAll(Arrays.asList("¡", "¿"));
 

@@ -9,8 +9,6 @@ public class German extends English {
 		locale = Locale.GERMAN;
 		dictionaryFile = "de-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).add("ä");
 		characterMap.get(6).add("ö");
 		characterMap.get(7).add("ß");

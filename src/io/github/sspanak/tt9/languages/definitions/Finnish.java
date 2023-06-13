@@ -10,8 +10,6 @@ public class Finnish extends English {
 		locale = new Locale("fi","FI");
 		dictionaryFile = "fi-utf8.csv";
 
-		isPunctuationPartOfWords = true;
-
 		characterMap.get(2).addAll(Arrays.asList("ä", "å"));
 		characterMap.get(6).add("ö");
 	}

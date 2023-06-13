@@ -14,7 +14,6 @@ public class Hebrew extends Language {
 		abcString = "אבג";
 
 		hasUpperCase = false;
-		isPunctuationPartOfWords = true;
 
 		characterMap = new ArrayList<>(Arrays.asList(
 			Characters.Special, // 0

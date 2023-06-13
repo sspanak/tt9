@@ -12,8 +12,6 @@ public class Ukrainian extends Language {
 		locale = new Locale("uk","UA");
 		dictionaryFile = "uk-utf8.csv";
 
-		isPunctuationPartOfWords = true;
-
 		characterMap = new ArrayList<>(Arrays.asList(
 			Characters.Special, // 0
 			Characters.Sentence, // 1

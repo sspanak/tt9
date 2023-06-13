@@ -12,8 +12,6 @@ public class Bulgarian extends Language {
 		locale = new Locale("bg","BG");
 		dictionaryFile = "bg-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap = new ArrayList<>(Arrays.asList(
 			Characters.Special, // 0
 			Characters.Sentence, // 1

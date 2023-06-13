@@ -11,8 +11,6 @@ public class BrazilianPortuguese extends English {
 		locale = new Locale("pt","BR");
 		dictionaryFile = "pt-BR-utf8.csv";
 
-		isPunctuationPartOfWords = true;
-
 		characterMap.get(2).addAll(Arrays.asList("ç", "á", "â", "ã", "à"));
 		characterMap.get(3).addAll(Arrays.asList("é", "ê", "è"));
 		characterMap.get(4).add("í");

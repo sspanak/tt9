@@ -294,11 +294,7 @@ public class ModePredictive extends InputMode {
 			hold
 			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
 			|| (key == 0 && !repeat)
-			// Punctuation is considered "a word", so that we can increase the priority as needed
-			// Also, it must break the current word.
-			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
-			// On the other hand, letters also "break" punctuation.
-			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
+			|| key == 1 // @todo: ((key == 1) && (no such word in the database))
 			|| (digitSequence.endsWith("0") && key != 0);
 	}
 

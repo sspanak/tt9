@@ -12,8 +12,6 @@ public class English extends Language {
 		locale = Locale.ENGLISH;
 		dictionaryFile = "en-utf8.csv";
 
-		isPunctuationPartOfWords = true;
-
 		characterMap = new ArrayList<>(Arrays.asList(
 			Characters.Special, // 0
 			Characters.Sentence, // 1

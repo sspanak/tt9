@@ -18,7 +18,6 @@ public class Language {
 
 	// settings
 	protected boolean hasUpperCase = true;
-	protected boolean isPunctuationPartOfWords; // see the getter for more info
 
 	final public int getId() {
 		if (id == 0) {
@@ -59,24 +58,6 @@ public class Language {
 
 		return abcString;
 	}
-
-	/**
-	 * isPunctuationPartOfWords
-	 * This plays a role in Predictive mode only.
-	 *
-	 * Return "true", if you need to use the 1-key for typing words, such as:
-	 * "it's" (English), "a'tje" (Dutch), "п'ят" (Ukrainian).
-	 *
-	 * Return "false" also:
-	 * 		- hide words like the above from the suggestions.
-	 *		- 1-key would commit the current word, then display the punctuation list.
-	 * 			For example, pressing 1-key after "it" would accept "it" as a separate word,
-	 * 			then display only: | , | . | ! | ? | ...
-	 *
-	 * "false" is recommended when apostrophes or other punctuation are not part of the words,
-	 * because it would allow faster typing.
-	 */
-	final public boolean isPunctuationPartOfWords() { return isPunctuationPartOfWords; }
 
 
 	public boolean hasUpperCase() {
