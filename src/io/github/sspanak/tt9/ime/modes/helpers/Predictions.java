@@ -189,6 +189,7 @@ public class Predictions {
 			emptyDbWarning.emitOnce(language);
 			dbWords = generatePossibleCompletions(inputWord);
 		}
+		// @todo: if (digitSequence.endsWith("1") { // prepend possible completions
 
 		words.clear();
 		suggestStem();
