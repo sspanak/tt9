@@ -41,7 +41,7 @@ public abstract class TT9Room extends RoomDatabase {
 			" LIMIT " + limit;
 
 		if (word != null) {
-			sql = sql.replace("WHERE 1", "WHERE 1 AND word LIKE '" + word + "%'");
+			sql = sql.replace("WHERE 1", "WHERE 1 AND word LIKE '" + word.replace("'", "''") + "%'");
 		}
 
 		return new SimpleSQLiteQuery(sql);
