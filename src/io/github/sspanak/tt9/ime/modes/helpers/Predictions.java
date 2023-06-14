@@ -94,7 +94,7 @@ public class Predictions {
 	 * the user has pressed X keys (otherwise, it makes no sense to add it).
 	 */
 	private void suggestStem() {
-		if (stem.length() > 0 && stem.length() == digitSequence.length()) {
+		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
 			words.add(stem);
 		}
 	}
@@ -119,7 +119,7 @@ public class Predictions {
 	 * sequence or loads the static ones.
 	 */
 	public void load() {
-		if (digitSequence == null || digitSequence.length() == 0) {
+		if (digitSequence == null || digitSequence.isEmpty()) {
 			words.clear();
 			onWordsChanged.run();
 			return;
@@ -183,16 +183,16 @@ public class Predictions {
 	 * external handler it is now possible to use it with "getList()".
 	 */
 	private void onDbWords (ArrayList<String> dbWords) {
-		areThereDbWords = dbWords.size() > 0;
+		areThereDbWords = !dbWords.isEmpty();
 
-		if (dbWords.size() == 0 && digitSequence.length() > 0) {
+		if (dbWords.isEmpty() && !digitSequence.isEmpty()) {
 			emptyDbWarning.emitOnce(language);
 			dbWords = generatePossibleCompletions(inputWord);
 		}
-		// @todo: if (digitSequence.endsWith("1") { // prepend possible completions
 
 		words.clear();
 		suggestStem();
+		suggestMissingWords(generatePossiblePunctuationCompletions(dbWords));
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
 		suggestMissingWords(dbWords);
 
@@ -214,7 +214,7 @@ public class Predictions {
 
 		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
 		// have the same length, to prevent visual discrepancies.
-		baseWord = (baseWord != null && baseWord.length() > 0) ? baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length())) : "";
+		baseWord = (baseWord != null && !baseWord.isEmpty()) ? baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length())) : "";
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
@@ -223,8 +223,23 @@ public class Predictions {
 		}
 
 		// if there are no letters for this key, just append the number
-		if (generatedWords.size() == 0) {
+		if (generatedWords.isEmpty()) {
 			generatedWords.add(baseWord + digitSequence.charAt(digitSequence.length() - 1));
+		}
+
+		return generatedWords;
+	}
+
+
+	/**
+	 * generatePossiblePunctuationCompletions
+	 * When given: "you'", for example, this also generates all other 1-key alternatives, like:
+	 * "you.", "you?", "you!" and so on.
+	 */
+	private ArrayList<String> generatePossiblePunctuationCompletions(ArrayList<String> dbWords) {
+		ArrayList<String> generatedWords = new ArrayList<>();
+		if (digitSequence.endsWith("1") && stem.isEmpty() && !dbWords.isEmpty()) {
+			generatedWords.addAll(generatePossibleCompletions(dbWords.get(0)));
 		}
 
 		return generatedWords;
@@ -246,7 +261,7 @@ public class Predictions {
 	 */
 	private ArrayList<String> generatePossibleStemVariations(ArrayList<String> dbWords) {
 		ArrayList<String> variations = new ArrayList<>();
-		if (stem.length() == 0) {
+		if (stem.isEmpty()) {
 			return variations;
 		}
 

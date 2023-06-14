@@ -562,13 +562,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void handleSuggestions() {
-		// Automatically accept the current word, when the next one is a space or punctuation,
+		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText);
-			// @todo:
-			//  1. .accept the last composing word
-			//  2. reset the input mode, but make it return sequence and suggestions based on the "currentComposingText" - "lastComposingText"
 
 			// @todo: autoCorrectSpace(, false, -1);
 		}

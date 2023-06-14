@@ -2,6 +2,9 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -14,12 +17,13 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final SettingsStore settings;
+	private final Pattern containsOtherThan1 = Pattern.compile(".+?[^1].+?");
 
 	public int getId() { return MODE_PREDICTIVE; }
 
 	private String digitSequence = "";
 	private String lastAcceptedWord = "";
-	private String lastAcceptedSequence = "";
+	@Deprecated private String lastAcceptedSequence = "";
 
 	// stem filter
 	private boolean isStemFuzzy = false;
@@ -245,13 +249,18 @@ public class ModePredictive extends InputMode {
 	public void onAcceptSuggestion(@NonNull String currentWord) {
 		lastAcceptedWord = currentWord;
 		lastAcceptedSequence = "";
+		String lastFullSequence = digitSequence;
+		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
 		reset();
 
 		if (currentWord.length() == 0) {
+			digitSequence = lastFullSequence;
+			suggestions.addAll(lastSuggestions);
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
 			return;
 		}
 
+		// increment the frequency of the given word
 		try {
 			String sequence = language.getDigitSequenceForWord(currentWord);
 
@@ -262,6 +271,13 @@ public class ModePredictive extends InputMode {
 			}
 		} catch (Exception e) {
 			Logger.e("tt9/ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
+		}
+
+		// clear the accepted word out of the sequence and the suggestion list
+		int lastAcceptedWordLength = lastAcceptedWord.length();
+		digitSequence = lastFullSequence.length() > lastAcceptedWordLength ? lastFullSequence.substring(lastAcceptedWordLength) : "";
+		for (String s : lastSuggestions) {
+			suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
 		}
 	}
 
@@ -290,12 +306,10 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
-		Logger.d("shouldAcceptPreviousSuggestion", "timeout: " + autoAcceptTimeout + " || seq: " + digitSequence + " || are ther words: " + predictions.areThereDbWords());
-
 		return
 			autoAcceptTimeout == 0
 			|| keyCode > 0
-			|| (digitSequence.contains("1") && digitSequence.matches("^1") && !predictions.areThereDbWords());
+			|| (!predictions.areThereDbWords() && digitSequence.contains("1") && containsOtherThan1.matcher(digitSequence).find());
 	}
 
 
