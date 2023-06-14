@@ -105,7 +105,21 @@ public class Language {
 	}
 
 	public String capitalize(String word) {
-		return word != null ? word.substring(0, 1).toUpperCase(locale) + word.substring(1).toLowerCase(locale) : null;
+		if (word == null) {
+			return null;
+		}
+
+		String capitalizedWord = "";
+
+		if (!word.isEmpty()) {
+			capitalizedWord += word.substring(0, 1).toUpperCase(locale);
+		}
+
+		if (word.length() > 1) {
+			capitalizedWord += word.substring(1).toLowerCase(locale);
+		}
+
+		return capitalizedWord;
 	}
 
 	public boolean isMixedCaseWord(String word) {
