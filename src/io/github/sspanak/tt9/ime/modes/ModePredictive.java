@@ -23,7 +23,6 @@ public class ModePredictive extends InputMode {
 
 	private String digitSequence = "";
 	private String lastAcceptedWord = "";
-	@Deprecated private String lastAcceptedSequence = "";
 
 	// stem filter
 	private boolean isStemFuzzy = false;
@@ -249,7 +248,6 @@ public class ModePredictive extends InputMode {
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
-		lastAcceptedSequence = "";
 		String lastFullSequence = digitSequence;
 		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
 		reset();
@@ -294,6 +292,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
+		// @todo: "j'avais" at the beginning of a text input becomes: "J'Avais".
 		textCase = autoTextCase.determineNextWordTextCase(isThereText, textCase, textFieldTextCase, textBeforeCursor);
 	}
 
@@ -337,13 +336,12 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
-//		return autoSpace
-//			.setLastWord(lastAcceptedWord)
-//			.setLastSequence(lastAcceptedSequence)
-//			.setInputType(inputType)
-//			.setTextField(textField)
-//			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
-		return false;
+		return autoSpace
+			.setLastWord(lastAcceptedWord)
+			.setLastSequence()
+			.setInputType(inputType)
+			.setTextField(textField)
+			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
 	}
 
 
