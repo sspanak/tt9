@@ -192,7 +192,7 @@ public class Predictions {
 
 		words.clear();
 		suggestStem();
-		suggestMissingWords(generatePossiblePunctuationCompletions(dbWords));
+		// @todo: suggestMissingWords(generatePossiblePunctuationCompletions(dbWords));
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
 		suggestMissingWords(dbWords);
 

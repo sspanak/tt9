@@ -17,7 +17,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final SettingsStore settings;
-	private final Pattern containsOtherThan1 = Pattern.compile(".+?[^1].+?");
+	private final Pattern containsOtherThan1 = Pattern.compile("[02-9]");
 
 	public int getId() { return MODE_PREDICTIVE; }
 
@@ -309,6 +309,7 @@ public class ModePredictive extends InputMode {
 		return
 			autoAcceptTimeout == 0
 			|| keyCode > 0
+				// @todo: 0-key ...
 			|| (!predictions.areThereDbWords() && digitSequence.contains("1") && containsOtherThan1.matcher(digitSequence).find());
 	}
 
