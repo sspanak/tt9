@@ -192,9 +192,8 @@ public class Predictions {
 
 		words.clear();
 		suggestStem();
-		// @todo: suggestMissingWords(generatePossiblePunctuationCompletions(dbWords));
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(dbWords);
+		suggestMissingWords(insertPunctuationCompletions(dbWords));
 
 		onWordsChanged.run();
 	}
@@ -232,17 +231,42 @@ public class Predictions {
 
 
 	/**
-	 * generatePossiblePunctuationCompletions
+	 * insertPunctuationCompletions
 	 * When given: "you'", for example, this also generates all other 1-key alternatives, like:
-	 * "you.", "you?", "you!" and so on.
+	 * "you.", "you?", "you!" and so on. The generated words will be inserted after the direct
+	 * database matches and before the fuzzy matches, as if they were direct matches with low frequency.
+	 * This is to preserve the sorting by length and frequency.
 	 */
-	private ArrayList<String> generatePossiblePunctuationCompletions(ArrayList<String> dbWords) {
-		ArrayList<String> generatedWords = new ArrayList<>();
-		if (digitSequence.endsWith("1") && stem.isEmpty() && !dbWords.isEmpty()) {
-			generatedWords.addAll(generatePossibleCompletions(dbWords.get(0)));
+	private ArrayList<String> insertPunctuationCompletions(ArrayList<String> dbWords) {
+		if (!stem.isEmpty() || dbWords.isEmpty() || !digitSequence.endsWith("1")) {
+			return dbWords;
 		}
 
-		return generatedWords;
+		ArrayList<String> extendedWords = new ArrayList<>();
+		String firstWord = dbWords.get(0);
+
+		// shortest database words (exact matches)
+		for (String w : dbWords) {
+			if (w.length() == firstWord.length()) {
+				extendedWords.add(w);
+			}
+		}
+
+		// generated "exact matches"
+		for (String generated : generatePossibleCompletions(dbWords.get(0))) {
+			if (!dbWords.contains(generated) && !dbWords.contains(generated.toLowerCase(language.getLocale()))) {
+				extendedWords.add(generated);
+			}
+		}
+
+		// longer database words (fuzzy matches)
+		for (String w : dbWords) {
+			if (w.length() != firstWord.length()) {
+				extendedWords.add(w);
+			}
+		}
+
+		return extendedWords;
 	}
 
 
