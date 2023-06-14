@@ -243,10 +243,11 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * onAcceptSuggestion
-	 * Bring this word up in the suggestions list next time.
+	 * Bring this word up in the suggestions list next time and if necessary preserves the suggestion list
+	 * with "currentWord" cleaned from them.
 	 */
 	@Override
-	public void onAcceptSuggestion(@NonNull String currentWord) {
+	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
 		lastAcceptedSequence = "";
 		String lastFullSequence = digitSequence;
@@ -254,8 +255,10 @@ public class ModePredictive extends InputMode {
 		reset();
 
 		if (currentWord.length() == 0) {
-			digitSequence = lastFullSequence;
-			suggestions.addAll(lastSuggestions);
+			if (preserveWords) {
+				digitSequence = lastFullSequence;
+				suggestions.addAll(lastSuggestions);
+			}
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
 			return;
 		}
@@ -274,10 +277,12 @@ public class ModePredictive extends InputMode {
 		}
 
 		// clear the accepted word out of the sequence and the suggestion list
-		int lastAcceptedWordLength = lastAcceptedWord.length();
-		digitSequence = lastFullSequence.length() > lastAcceptedWordLength ? lastFullSequence.substring(lastAcceptedWordLength) : "";
-		for (String s : lastSuggestions) {
-			suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+		if (preserveWords) {
+			int lastAcceptedWordLength = lastAcceptedWord.length();
+			digitSequence = lastFullSequence.length() > lastAcceptedWordLength ? lastFullSequence.substring(lastAcceptedWordLength) : "";
+			for (String s : lastSuggestions) {
+				suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+			}
 		}
 	}
 
@@ -305,24 +310,40 @@ public class ModePredictive extends InputMode {
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
 	@Override
+	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
+		return
+			!digitSequence.isEmpty()
+			&& (
+				autoAcceptTimeout == 0
+				|| (nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
+				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == '0')
+			);
+	}
+
+
+		/**
+	 * shouldAcceptPreviousSuggestion
+	 * Variant for post suggestion load analysis.
+	 */
+	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
 		return
-			autoAcceptTimeout == 0
-			|| keyCode > 0
-				// @todo: 0-key ...
-			|| (!predictions.areThereDbWords() && digitSequence.contains("1") && containsOtherThan1.matcher(digitSequence).find());
+			!digitSequence.isEmpty()
+			&& !predictions.areThereDbWords()
+			&& digitSequence.contains("1")
+			&& containsOtherThan1.matcher(digitSequence).find();
 	}
 
 
 	@Override
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace
-			.setLastWord(lastAcceptedWord)
-			.setLastSequence(lastAcceptedSequence)
-			.setInputType(inputType)
-			.setTextField(textField)
-			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
-
+//		return autoSpace
+//			.setLastWord(lastAcceptedWord)
+//			.setLastSequence(lastAcceptedSequence)
+//			.setInputType(inputType)
+//			.setTextField(textField)
+//			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
+		return false;
 	}
 
 
@@ -330,7 +351,6 @@ public class ModePredictive extends InputMode {
 	public boolean shouldDeletePrecedingSpace(InputType inputType) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
-			.setLastSequence(lastAcceptedSequence)
 			.setInputType(inputType)
 			.setTextField(null)
 			.shouldDeletePrecedingSpace();

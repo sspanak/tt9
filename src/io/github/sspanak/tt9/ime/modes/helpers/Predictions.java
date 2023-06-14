@@ -182,7 +182,7 @@ public class Predictions {
 	 * they will be generated based on the "inputWord". After the word list is compiled, it notifies the
 	 * external handler it is now possible to use it with "getList()".
 	 */
-	private void onDbWords (ArrayList<String> dbWords) {
+	private void onDbWords(ArrayList<String> dbWords) {
 		areThereDbWords = !dbWords.isEmpty();
 
 		if (dbWords.isEmpty() && !digitSequence.isEmpty()) {
@@ -238,7 +238,7 @@ public class Predictions {
 	 * This is to preserve the sorting by length and frequency.
 	 */
 	private ArrayList<String> insertPunctuationCompletions(ArrayList<String> dbWords) {
-		if (!stem.isEmpty() || dbWords.isEmpty() || !digitSequence.endsWith("1")) {
+		if (!stem.isEmpty() || dbWords.isEmpty() || digitSequence.length() < 2 || !digitSequence.endsWith("1")) {
 			return dbWords;
 		}
 
