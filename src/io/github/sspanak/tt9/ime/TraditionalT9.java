@@ -575,6 +575,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+			// @todo: String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
@@ -693,9 +694,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
-			textField.deletePrecedingSpace(currentWord);
-		}
+		// @todo: this completely broken, fix it
+		//		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
+//			textField.deletePrecedingSpace(currentWord);
+//		}
 
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");

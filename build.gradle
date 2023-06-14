@@ -126,6 +126,8 @@ task validateDictionaries {
 					return
 				}
 
+				// @todo: disallow space characters
+
 				String[] parts = line.split(CSV_DELIMITER, 2)
 				String word = parts[0]
 				String frequency = parts.length > 1 ? parts[1] : ""

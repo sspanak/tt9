@@ -71,6 +71,7 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
+			// @todo: Holding when there is composing text, causes the composing text to be erased. Fix it!
 			// hold to type any digit
 			reset();
 			autoAcceptTimeout = 0;
