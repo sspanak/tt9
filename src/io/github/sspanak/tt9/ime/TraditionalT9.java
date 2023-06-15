@@ -271,7 +271,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
-		// We don't do it too often, because it is somewhat resource-intensive.
 		if (getComposingText().isEmpty()) {
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
@@ -575,10 +574,12 @@ public class TraditionalT9 extends KeyPadHandler {
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
 			// @todo: "do's" do not work in English
+			// @todo: "по. да" does not work in Bulgarian
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
 		// key code "suggestions" take priority over words

@@ -307,7 +307,6 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
-		// @todo: "j'avais" at the beginning of a text input becomes: "J'Avais".
 		textCase = autoTextCase.determineNextWordTextCase(isThereText, textCase, textFieldTextCase, textBeforeCursor);
 	}
 
