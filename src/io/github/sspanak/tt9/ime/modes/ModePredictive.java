@@ -249,15 +249,24 @@ public class ModePredictive extends InputMode {
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
-		String lastFullSequence = digitSequence;
-		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
-		reset();
+
+		// clear the accepted word out of the sequence and the suggestion list
+		if (preserveWords) {
+			int lastAcceptedWordLength = lastAcceptedWord.length();
+			digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
+
+			ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
+			suggestions.clear();
+			for (String s : lastSuggestions) {
+				suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+			}
+		}
+		// or simply clean up everything
+		else {
+			reset();
+		}
 
 		if (currentWord.length() == 0) {
-			if (preserveWords) {
-				digitSequence = lastFullSequence;
-				suggestions.addAll(lastSuggestions);
-			}
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
 			return;
 		}
@@ -273,15 +282,6 @@ public class ModePredictive extends InputMode {
 			}
 		} catch (Exception e) {
 			Logger.e("tt9/ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
-		}
-
-		// clear the accepted word out of the sequence and the suggestion list
-		if (preserveWords) {
-			int lastAcceptedWordLength = lastAcceptedWord.length();
-			digitSequence = lastFullSequence.length() > lastAcceptedWordLength ? lastFullSequence.substring(lastAcceptedWordLength) : "";
-			for (String s : lastSuggestions) {
-				suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
-			}
 		}
 	}
 
@@ -312,10 +312,8 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
 		return
-			!digitSequence.isEmpty()
-			&& (
-				autoAcceptTimeout == 0
-				|| (nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
+			!digitSequence.isEmpty() && (
+				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
 				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == '0')
 			);
 	}
@@ -328,10 +326,13 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
 		return
-			!digitSequence.isEmpty()
-			&& !predictions.areThereDbWords()
-			&& digitSequence.contains("1")
-			&& containsOtherThan1.matcher(digitSequence).find();
+			autoAcceptTimeout == 0
+			|| (
+				!digitSequence.isEmpty()
+				&& !predictions.areThereDbWords()
+				&& digitSequence.contains("1")
+				&& containsOtherThan1.matcher(digitSequence).find()
+			);
 	}
 
 

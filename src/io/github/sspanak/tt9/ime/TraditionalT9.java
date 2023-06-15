@@ -574,6 +574,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+			// @todo: "do's" and "li's" do not work in English
+
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
