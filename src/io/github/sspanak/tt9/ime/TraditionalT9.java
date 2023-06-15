@@ -574,6 +574,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
 			// @todo: "do's" do not work in English
+			// @todo: filtering by "an's" causes duplicated characters
+			// @todo: create a migration for the delete words
+			// @todo: updated Dutch
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);

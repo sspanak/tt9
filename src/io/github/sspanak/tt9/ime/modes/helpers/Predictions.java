@@ -129,7 +129,7 @@ public class Predictions {
 			onWordsChanged.run();
 		} else {
 			DictionaryDb.getWords(
-				this::onDbWords,
+				(words) -> onDbWords(words, true),
 				language,
 				digitSequence,
 				stem,
@@ -175,6 +175,23 @@ public class Predictions {
 		return true;
 	}
 
+	private void loadWithoutLeadingPunctuation() {
+		DictionaryDb.getWords(
+			(dbWords) -> {
+				char firstChar = inputWord.charAt(0);
+				for (int i = 0; i < dbWords.size(); i++) {
+					dbWords.set(i, firstChar + dbWords.get(i));
+				}
+				onDbWords(dbWords, false);
+			},
+			language,
+			digitSequence.substring(1),
+			stem.length() > 1 ? stem.substring(1) : "",
+			settings.getSuggestionsMin(),
+			settings.getSuggestionsMax()
+		);
+	}
+
 
 	/**
 	 * dbWordsHandler
@@ -182,8 +199,16 @@ public class Predictions {
 	 * they will be generated based on the "inputWord". After the word list is compiled, it notifies the
 	 * external handler it is now possible to use it with "getList()".
 	 */
-	private void onDbWords(ArrayList<String> dbWords) {
-		areThereDbWords = !dbWords.isEmpty();
+	private void onDbWords(ArrayList<String> dbWords, boolean isRetryAllowed) {
+		// only the first round matters, the second one is just for getting the letters for a given key
+		areThereDbWords = !dbWords.isEmpty() && isRetryAllowed;
+
+		// If there were no database words for ",a", try getting the letters only (e.g. "a", "b", "c").
+		// We do this to display them in the correct order.
+		if (dbWords.isEmpty() && isRetryAllowed && digitSequence.length() == 2 && digitSequence.charAt(0) == '1') {
+			loadWithoutLeadingPunctuation();
+			return;
+		}
 
 		if (dbWords.isEmpty() && !digitSequence.isEmpty()) {
 			emptyDbWarning.emitOnce(language);
