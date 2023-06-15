@@ -573,8 +573,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+			Logger.d("handleSuggestions", "============+> should accept");
 			// @todo: "do's" do not work in English
-			// @todo: filtering by "an's" causes duplicated characters
+			// @todo: filtering by "an's" causes duplicated characters. Just strip all punctuation when setting the filter, it makes no sense anyway.
 			// @todo: create a migration for the delete words
 			// @todo: updated Dutch
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
@@ -582,6 +583,8 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+		} else {
+			Logger.d("handleSuggestions", "============+> do not accept");
 		}
 
 		// key code "suggestions" take priority over words
