@@ -279,6 +279,7 @@ public class ModePredictive extends InputMode {
 		} else {
 			reset();
 		}
+		stem = "";
 
 		if (currentWord.isEmpty()) {
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");

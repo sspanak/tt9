@@ -574,7 +574,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
 			// @todo: "do's" do not work in English
-			// @todo: "по. да" does not work in Bulgarian
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
