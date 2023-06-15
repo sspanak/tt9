@@ -242,31 +242,31 @@ public class Predictions {
 			return dbWords;
 		}
 
-		ArrayList<String> extendedWords = new ArrayList<>();
-		String firstWord = dbWords.get(0);
+		ArrayList<String> complementedWords = new ArrayList<>();
+		int exactMatchLength = digitSequence.length();
 
 		// shortest database words (exact matches)
 		for (String w : dbWords) {
-			if (w.length() == firstWord.length()) {
-				extendedWords.add(w);
+			if (w.length() <= exactMatchLength) {
+				complementedWords.add(w);
 			}
 		}
 
 		// generated "exact matches"
-		for (String generated : generatePossibleCompletions(dbWords.get(0))) {
-			if (!dbWords.contains(generated) && !dbWords.contains(generated.toLowerCase(language.getLocale()))) {
-				extendedWords.add(generated);
+		for (String w : generatePossibleCompletions(dbWords.get(0))) {
+			if (!dbWords.contains(w) && !dbWords.contains(w.toLowerCase(language.getLocale()))) {
+				complementedWords.add(w);
 			}
 		}
 
 		// longer database words (fuzzy matches)
 		for (String w : dbWords) {
-			if (w.length() != firstWord.length()) {
-				extendedWords.add(w);
+			if (w.length() > exactMatchLength) {
+				complementedWords.add(w);
 			}
 		}
 
-		return extendedWords;
+		return complementedWords;
 	}
 
 
