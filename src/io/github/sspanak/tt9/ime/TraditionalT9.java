@@ -703,10 +703,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		// @todo: this completely broken, fix it
-		//		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
-//			textField.deletePrecedingSpace(currentWord);
-//		}
+		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
+			textField.deletePrecedingSpace(currentWord);
+		}
 
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
