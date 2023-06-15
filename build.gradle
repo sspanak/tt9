@@ -126,7 +126,12 @@ task validateDictionaries {
 					return
 				}
 
-				// @todo: disallow space characters
+				if (line.contains(" ")) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found space on line " + lineNumber + ". Make sure each word is on a new line. Phrases are not allowed.\n"
+					return
+				}
 
 				String[] parts = line.split(CSV_DELIMITER, 2)
 				String word = parts[0]
