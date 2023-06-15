@@ -32,7 +32,6 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	private String lastComposingText = "";
 	@NotNull private TextField textField = new TextField(null, null);
 	@NotNull private InputType inputType = new InputType(null, null);
 	@NotNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
@@ -575,7 +574,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
-			// @todo: String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
+			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
@@ -600,8 +599,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
 		String word = suggestionBar.getCurrentSuggestion();
-		lastComposingText = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
-		textField.setComposingTextWithHighlightedStem(lastComposingText, mInputMode);
+		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
+		textField.setComposingTextWithHighlightedStem(word, mInputMode);
 	}
 
 
@@ -616,13 +615,23 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private String getComposingText() {
+	private String getComposingText(int maxLength) {
+		if (maxLength == 0) {
+			return "";
+		}
+
 		String text = suggestionBar.getCurrentSuggestion();
-		if (text.length() > 0 && text.length() > mInputMode.getSequenceLength()) {
+		int length = maxLength > 0 ? Math.min(maxLength, mInputMode.getSequenceLength()) : mInputMode.getSequenceLength();
+		if (text.length() > 0 && text.length() > length) {
 			text = text.substring(0, mInputMode.getSequenceLength());
 		}
 
 		return text;
+	}
+
+
+	private String getComposingText() {
+		return getComposingText(-1);
 	}
 
 
