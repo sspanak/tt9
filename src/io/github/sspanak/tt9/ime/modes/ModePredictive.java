@@ -71,7 +71,6 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
-			// @todo: Holding when there is composing text, causes the composing text to be erased. Fix it!
 			// hold to type any digit
 			reset();
 			autoAcceptTimeout = 0;
@@ -124,6 +123,27 @@ public class ModePredictive extends InputMode {
 		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
+	}
+
+
+	/**
+	 * clearLastAcceptedWord
+	 * Removes the last accepted word from the suggestions list and the "digitSequence"
+	 * or stops silently, when there is nothing to do.
+	 */
+	private void clearLastAcceptedWord() {
+		if (lastAcceptedWord.isEmpty() || suggestions.isEmpty() || !suggestions.get(0).startsWith(lastAcceptedWord)) {
+			return;
+		}
+
+		int lastAcceptedWordLength = lastAcceptedWord.length();
+		digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
+
+		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
+		suggestions.clear();
+		for (String s : lastSuggestions) {
+			suggestions.add(s.startsWith(lastAcceptedWord) ? s.substring(lastAcceptedWordLength) : "");
+		}
 	}
 
 
@@ -250,23 +270,13 @@ public class ModePredictive extends InputMode {
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
 
-		// clear the accepted word out of the sequence and the suggestion list
 		if (preserveWords) {
-			int lastAcceptedWordLength = lastAcceptedWord.length();
-			digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
-
-			ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
-			suggestions.clear();
-			for (String s : lastSuggestions) {
-				suggestions.add(s.length() > lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
-			}
-		}
-		// or simply clean up everything
-		else {
+			clearLastAcceptedWord();
+		} else {
 			reset();
 		}
 
-		if (currentWord.length() == 0) {
+		if (currentWord.isEmpty()) {
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
 			return;
 		}
@@ -326,7 +336,7 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
 		return
-			autoAcceptTimeout == 0
+			(autoAcceptTimeout == 0 && !digitSequence.startsWith("0"))
 			|| (
 				!digitSequence.isEmpty()
 				&& !predictions.areThereDbWords()
