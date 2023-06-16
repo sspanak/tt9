@@ -183,15 +183,18 @@ public class ModePredictive extends InputMode {
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
 	@Override
-	public boolean setWordStem(String wordStem, boolean exact) {
-		if (language == null || wordStem == null || wordStem.length() < 1) {
+	public boolean setWordStem(String newStem, boolean exact) {
+		String sanitizedStem = TextTools.removeNonLetters(newStem);
+		if (language == null || sanitizedStem == null || sanitizedStem.length() < 1) {
 			return false;
 		}
 
 		try {
-			digitSequence = language.getDigitSequenceForWord(wordStem);
+			// digitSequence = "the raw input", so that everything the user typed is preserved visually
+			// stem = "the sanitized input", because filtering by anything that is not a letter makes no sense
+			digitSequence = language.getDigitSequenceForWord(newStem);
+			stem = sanitizedStem.toLowerCase(language.getLocale());
 			isStemFuzzy = !exact;
-			stem = digitSequence.startsWith("0") || digitSequence.startsWith("1") ? "" : wordStem.toLowerCase(language.getLocale());
 
 			Logger.d("tt9/setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
 			return true;
@@ -199,7 +202,7 @@ public class ModePredictive extends InputMode {
 			isStemFuzzy = false;
 			stem = "";
 
-			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + wordStem + ". " + e.getMessage());
+			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + newStem + ". " + e.getMessage());
 			return false;
 		}
 	}

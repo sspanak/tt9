@@ -37,4 +37,7 @@ public class TextTools {
 		return str != null && !str.isEmpty() && (str.charAt(0) >= '0' && str.charAt(0) <= '9');
 	}
 
+	public static String removeNonLetters(String str) {
+		return str != null ? str.replaceAll("\\P{L}", "") : null;
+	}
 }
