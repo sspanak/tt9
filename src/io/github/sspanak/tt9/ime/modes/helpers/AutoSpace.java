@@ -1,15 +1,11 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import java.util.regex.Pattern;
-
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoSpace {
-	private final Pattern previousIsLetter = Pattern.compile("\\p{L}$");
-	private final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
-
 	private final SettingsStore settings;
 
 	private InputType inputType;
@@ -55,7 +51,7 @@ public class AutoSpace {
 			settings.getAutoSpace()
 			&& !inputType.isSpecialized()
 			&& nextKey != 0
-			&& !startsWithWhitespace(nextChars)
+			&& !TextTools.startsWithWhitespace(nextChars)
 			&& (
 				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
 				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
@@ -74,8 +70,8 @@ public class AutoSpace {
 
 		return
 			nextKey != 1
-			&& !nextIsPunctuation.matcher(nextChars).find()
-			&& !startsWithNumber(nextChars)
+			&& !TextTools.nextIsPunctuation(nextChars)
+			&& !TextTools.startsWithNumber(nextChars)
 			&& (
 				previousChar == '.'
 				|| previousChar == ','
@@ -101,7 +97,7 @@ public class AutoSpace {
 			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
 			&& nextKey != 1
 			&& nextChars.isEmpty()
-			&& previousIsLetter.matcher(previousChars).find();
+			&& TextTools.previousIsLetter(previousChars);
 	}
 
 
@@ -126,13 +122,5 @@ public class AutoSpace {
 				|| lastWord.equals("@")
 			)
 			&& !inputType.isSpecialized();
-	}
-
-	private boolean startsWithWhitespace(String str) {
-		return !str.isEmpty() && (str.charAt(0) == ' ' || str.charAt(0) == '\n' || str.charAt(0) == '\t');
-	}
-
-	private boolean startsWithNumber(String str) {
-		return !str.isEmpty() && (str.charAt(0) >= '0' && str.charAt(0) <= '9');
 	}
 }

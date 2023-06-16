@@ -3,9 +3,9 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -17,7 +17,6 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final SettingsStore settings;
-	private final Pattern containsOtherThan1 = Pattern.compile("[02-9]");
 
 	public int getId() { return MODE_PREDICTIVE; }
 
@@ -345,7 +344,7 @@ public class ModePredictive extends InputMode {
 				!digitSequence.isEmpty()
 				&& !predictions.areThereDbWords()
 				&& digitSequence.contains("1")
-				&& containsOtherThan1.matcher(digitSequence).find()
+				&& TextTools.containsOtherThan1(digitSequence)
 			);
 	}
 

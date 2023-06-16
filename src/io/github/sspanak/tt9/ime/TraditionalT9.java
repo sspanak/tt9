@@ -541,11 +541,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
-		if (!isSuggestionViewHidden() && currentInputConnection != null) {
+		if (!isSuggestionViewHidden()) {
 			if (entireSuggestion) {
 				textField.setComposingText(suggestionBar.getCurrentSuggestion());
 			}
-			currentInputConnection.finishComposingText();
+			textField.finishComposingText();
 		}
 
 		setSuggestions(null);
@@ -554,11 +554,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void clearSuggestions() {
 		setSuggestions(null);
-
-		if (currentInputConnection != null) {
-			textField.setComposingText("");
-			currentInputConnection.finishComposingText();
-		}
+		textField.setComposingText("");
+		textField.finishComposingText();
 	}
 
 
@@ -757,11 +754,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (currentInputConnection == null) {
+		if (shouldBeOff()) {
 			return;
 		}
 
-		currentInputConnection.finishComposingText();
+		textField.finishComposingText();
 		clearSuggestions();
 
 		UI.showAddWordDialog(this, mLanguage.getId(), textField.getSurroundingWord());
