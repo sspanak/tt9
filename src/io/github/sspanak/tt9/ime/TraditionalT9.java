@@ -570,7 +570,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
-			// @todo: create a migration for the deleted words
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
