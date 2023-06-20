@@ -86,29 +86,6 @@ def getReleaseVersion = { ->
 	return "${getVersionName()} (${getCurrentGitHash()})"
 }
 
-def isPunctuationInWordsAllowed (String dictionaryFile) {
-	boolean isAllowed = false
-
-	file("${project.projectDir}/src/io/github/sspanak/tt9/languages/definitions").listFiles().each { file ->
-		boolean isTheDefinitionFile = false
-		file.eachLine {line ->
-			if (line.contains(dictionaryFile)) {
-				isTheDefinitionFile = true
-			}
-		}
-
-		if (isTheDefinitionFile) {
-			file.eachLine {line ->
-				if (line.matches(".+?isPunctuationPartOfWords\\s*=\\s*true.+?")) {
-					isAllowed = true
-				}
-			}
-		}
-	}
-
-	return isAllowed
-}
-
 task validateDictionaries {
 	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
 	outputs.file "${project.buildDir}/dict.validation.txt"
@@ -116,7 +93,6 @@ task validateDictionaries {
 	doLast {
 		final String CSV_DELIMITER = '	' // TAB
 		final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
-		final PUNCTUATION_CHARS = ~".*?\\p{Punct}(?<!-).*?"
 
 		final MAX_ERRORS = 50
 		String errors = ""
@@ -131,7 +107,6 @@ task validateDictionaries {
 
 			println "Validating dictionary: " + file.name
 
-			def isPunctuationAllowed = isPunctuationInWordsAllowed(file.name)
 			def uniqueWords = [:]
 
 			int lineNumber = 0
@@ -148,6 +123,13 @@ task validateDictionaries {
 					isFileValid = false
 					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. There is no word on line " + lineNumber + ". Remove all empty lines.\n"
+					return
+				}
+
+				if (line.contains(" ")) {
+					isFileValid = false
+					errorCount++
+					errors += "Dictionary '" + file.name + "' is invalid. Found space on line " + lineNumber + ". Make sure each word is on a new line. Phrases are not allowed.\n"
 					return
 				}
 
@@ -177,12 +159,6 @@ task validateDictionaries {
 					isFileValid = false
 					errorCount++
 					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
-				}
-
-				if (!isPunctuationAllowed && word.matches(PUNCTUATION_CHARS)) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a punctuation mark in word: '" + word + "' on line " + lineNumber + ". Remove all punctuation characters when the language definition disallows them or update the definition.\n"
 				}
 
 				String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
@@ -235,21 +211,12 @@ android {
 
 	defaultConfig {
 		minSdkVersion 19
+		//noinspection ExpiredTargetSdkVersion
 		targetSdk 30
 		versionCode getVersionCode()
 		versionName getVersionName()
 	}
 
-	// http://stackoverflow.com/a/19130098
-//	signingConfigs {
-//		release {
-//			storeFile file(System.getenv("KEYSTORE"))
-//			storePassword System.getenv("KEYSTORE_PASS")
-//			keyAlias System.getenv("KEY_ALIAS")
-//			keyPassword System.getenv("KEY_ALIAS_PASS")
-//		}
-//	}
-//
 	buildTypes {
 		debug { data ->
 			data.buildConfigField 'String', 'VERSION_FULL', "\"${getDebugVersion()}\""

@@ -56,7 +56,8 @@ abstract public class InputMode {
 	abstract public boolean onOtherKey(int key);
 
 	// Suggestions
-	public void onAcceptSuggestion(@NonNull String suggestion) {}
+	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
+	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 
 	/**
 	 * loadSuggestions
@@ -97,7 +98,8 @@ abstract public class InputMode {
 	}
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
-	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) { return false; }
+	public boolean shouldAcceptPreviousSuggestion() { return false; }
+	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }

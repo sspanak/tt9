@@ -8,12 +8,13 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import io.github.sspanak.tt9.db.migrations.DB10;
+import io.github.sspanak.tt9.db.migrations.DB11;
 import io.github.sspanak.tt9.db.migrations.DB6;
 import io.github.sspanak.tt9.db.migrations.DB7;
 import io.github.sspanak.tt9.db.migrations.DB8;
 import io.github.sspanak.tt9.db.migrations.DB9;
 
-@Database(version = 10, entities = Word.class, exportSchema = false)
+@Database(version = 11, entities = Word.class, exportSchema = false)
 public abstract class TT9Room extends RoomDatabase {
 	public abstract WordsDao wordsDao();
 
@@ -25,7 +26,8 @@ public abstract class TT9Room extends RoomDatabase {
 				new DB7().getMigration(context),
 				DB8.MIGRATION,
 				DB9.MIGRATION,
-				DB10.MIGRATION
+				DB10.MIGRATION,
+				DB11.MIGRATION
 			)
 			.build();
 	}
@@ -41,7 +43,7 @@ public abstract class TT9Room extends RoomDatabase {
 			" LIMIT " + limit;
 
 		if (word != null) {
-			sql = sql.replace("WHERE 1", "WHERE 1 AND word LIKE '" + word + "%'");
+			sql = sql.replace("WHERE 1", "WHERE 1 AND word LIKE '" + word.replace("'", "''") + "%'");
 		}
 
 		return new SimpleSQLiteQuery(sql);

@@ -2,7 +2,10 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -19,7 +22,6 @@ public class ModePredictive extends InputMode {
 
 	private String digitSequence = "";
 	private String lastAcceptedWord = "";
-	private String lastAcceptedSequence = "";
 
 	// stem filter
 	private boolean isStemFuzzy = false;
@@ -124,6 +126,31 @@ public class ModePredictive extends InputMode {
 
 
 	/**
+	 * clearLastAcceptedWord
+	 * Removes the last accepted word from the suggestions list and the "digitSequence"
+	 * or stops silently, when there is nothing to do.
+	 */
+	private void clearLastAcceptedWord() {
+		if (
+			lastAcceptedWord.isEmpty()
+			|| suggestions.isEmpty()
+			|| !suggestions.get(0).toLowerCase(language.getLocale()).startsWith(lastAcceptedWord.toLowerCase(language.getLocale()))
+		) {
+			return;
+		}
+
+		int lastAcceptedWordLength = lastAcceptedWord.length();
+		digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
+
+		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
+		suggestions.clear();
+		for (String s : lastSuggestions) {
+			suggestions.add(s.length() >= lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+		}
+	}
+
+
+	/**
 	 * clearWordStem
 	 * Do not filter the suggestions by the word set using "setWordStem()", use only the digit sequence.
 	 */
@@ -156,15 +183,18 @@ public class ModePredictive extends InputMode {
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
 	@Override
-	public boolean setWordStem(String wordStem, boolean exact) {
-		if (language == null || wordStem == null || wordStem.length() < 1) {
+	public boolean setWordStem(String newStem, boolean exact) {
+		String sanitizedStem = TextTools.removeNonLetters(newStem);
+		if (language == null || sanitizedStem == null || sanitizedStem.length() < 1) {
 			return false;
 		}
 
 		try {
-			digitSequence = language.getDigitSequenceForWord(wordStem);
+			// digitSequence = "the raw input", so that everything the user typed is preserved visually
+			// stem = "the sanitized input", because filtering by anything that is not a letter makes no sense
+			digitSequence = language.getDigitSequenceForWord(newStem);
+			stem = sanitizedStem.toLowerCase(language.getLocale());
 			isStemFuzzy = !exact;
-			stem = digitSequence.startsWith("0") || digitSequence.startsWith("1") ? "" : wordStem.toLowerCase(language.getLocale());
 
 			Logger.d("tt9/setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
 			return true;
@@ -172,7 +202,7 @@ public class ModePredictive extends InputMode {
 			isStemFuzzy = false;
 			stem = "";
 
-			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + wordStem + ". " + e.getMessage());
+			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + newStem + ". " + e.getMessage());
 			return false;
 		}
 	}
@@ -239,19 +269,26 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * onAcceptSuggestion
-	 * Bring this word up in the suggestions list next time.
+	 * Bring this word up in the suggestions list next time and if necessary preserves the suggestion list
+	 * with "currentWord" cleaned from them.
 	 */
 	@Override
-	public void onAcceptSuggestion(@NonNull String currentWord) {
+	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
-		lastAcceptedSequence = digitSequence;
-		reset();
 
-		if (currentWord.length() == 0) {
+		if (preserveWords) {
+			clearLastAcceptedWord();
+		} else {
+			reset();
+		}
+		stem = "";
+
+		if (currentWord.isEmpty()) {
 			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
 			return;
 		}
 
+		// increment the frequency of the given word
 		try {
 			String sequence = language.getDigitSequenceForWord(currentWord);
 
@@ -284,22 +321,34 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * shouldAcceptCurrentSuggestion
+	 * shouldAcceptPreviousSuggestion
 	 * In this mode, In addition to confirming the suggestion in the input field,
 	 * we also increase its' priority. This function determines whether we want to do all this or not.
 	 */
 	@Override
-	public boolean shouldAcceptCurrentSuggestion(int key, boolean hold, boolean repeat) {
+	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
 		return
-			hold
-			// Quickly accept suggestions using "space" instead of pressing "ok" then "space"
-			|| (key == 0 && !repeat)
-			// Punctuation is considered "a word", so that we can increase the priority as needed
-			// Also, it must break the current word.
-			|| (!language.isPunctuationPartOfWords() && key == 1 && digitSequence.length() > 0 && !digitSequence.endsWith("1"))
-			// On the other hand, letters also "break" punctuation.
-			|| (!language.isPunctuationPartOfWords() && key != 1 && digitSequence.endsWith("1"))
-			|| (digitSequence.endsWith("0") && key != 0);
+			!digitSequence.isEmpty() && (
+				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
+				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == '0')
+			);
+	}
+
+
+		/**
+	 * shouldAcceptPreviousSuggestion
+	 * Variant for post suggestion load analysis.
+	 */
+	@Override
+	public boolean shouldAcceptPreviousSuggestion() {
+		return
+			(autoAcceptTimeout == 0 && !digitSequence.startsWith("0"))
+			|| (
+				!digitSequence.isEmpty()
+				&& !predictions.areThereDbWords()
+				&& digitSequence.contains("1")
+				&& TextTools.containsOtherThan1(digitSequence)
+			);
 	}
 
 
@@ -307,11 +356,10 @@ public class ModePredictive extends InputMode {
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
-			.setLastSequence(lastAcceptedSequence)
+			.setLastSequence()
 			.setInputType(inputType)
 			.setTextField(textField)
 			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
-
 	}
 
 
@@ -319,7 +367,6 @@ public class ModePredictive extends InputMode {
 	public boolean shouldDeletePrecedingSpace(InputType inputType) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
-			.setLastSequence(lastAcceptedSequence)
 			.setInputType(inputType)
 			.setTextField(null)
 			.shouldDeletePrecedingSpace();

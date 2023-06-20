@@ -12,8 +12,6 @@ public class Russian extends Language {
 		locale = new Locale("ru","RU");
 		dictionaryFile = "ru-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap = new ArrayList<>(Arrays.asList(
 			Characters.Special, // 0
 			Characters.Sentence, // 1

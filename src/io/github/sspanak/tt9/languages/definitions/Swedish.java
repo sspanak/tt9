@@ -10,8 +10,6 @@ public class Swedish extends English {
 		locale = new Locale("sv","SE");
 		dictionaryFile = "sv-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).addAll(Arrays.asList("å", "ä"));
 		characterMap.get(3).add("é");
 		characterMap.get(6).add("ö");

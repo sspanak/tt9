@@ -262,18 +262,16 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 		forceShowWindowIfHidden();
 
-		String currentWord = getComposingText();
-
-		// Automatically accept the current word, when the next one is a space or punctuation,
+		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
-		if (mInputMode.shouldAcceptCurrentSuggestion(key, hold, repeat > 0)) {
+		// First pass, analyze the incoming key press and decide whether it could be the start of
+		// a new word.
+		if (mInputMode.shouldAcceptPreviousSuggestion(key)) {
 			autoCorrectSpace(acceptIncompleteSuggestion(), false, key);
-			currentWord = "";
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
-		// We don't do it too often, because it is somewhat resource-intensive.
-		if (currentWord.length() == 0) {
+		if (getComposingText().isEmpty()) {
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
@@ -543,11 +541,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
-		if (!isSuggestionViewHidden() && currentInputConnection != null) {
+		if (!isSuggestionViewHidden()) {
 			if (entireSuggestion) {
 				textField.setComposingText(suggestionBar.getCurrentSuggestion());
 			}
-			currentInputConnection.finishComposingText();
+			textField.finishComposingText();
 		}
 
 		setSuggestions(null);
@@ -556,11 +554,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void clearSuggestions() {
 		setSuggestions(null);
-
-		if (currentInputConnection != null) {
-			textField.setComposingText("");
-			currentInputConnection.finishComposingText();
-		}
+		textField.setComposingText("");
+		textField.finishComposingText();
 	}
 
 
@@ -570,10 +565,22 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void handleSuggestions() {
+		// Automatically accept the previous word, without requiring OK. This is similar to what
+		// Second pass, analyze the available suggestions and decide if combining them with the
+		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
+		// just the end of a sentence, like: "word." or "another?"
+		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
+			commitCurrentSuggestion(false);
+			mInputMode.onAcceptSuggestion(lastComposingText, true);
+			autoCorrectSpace(lastComposingText, false, -1);
+			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+		}
+
 		// key code "suggestions" take priority over words
 		if (mInputMode.getKeyCode() > 0) {
 			sendDownUpKeyEvents(mInputMode.getKeyCode());
-			mInputMode.onAcceptSuggestion("");
+			mInputMode.reset();
 			return;
 		}
 
@@ -605,13 +612,24 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private String getComposingText() {
+	private String getComposingText(int maxLength) {
+		if (maxLength == 0) {
+			return "";
+		}
+
+		maxLength = maxLength > 0 ? Math.min(maxLength, mInputMode.getSequenceLength()) : mInputMode.getSequenceLength();
+
 		String text = suggestionBar.getCurrentSuggestion();
-		if (text.length() > 0 && text.length() > mInputMode.getSequenceLength()) {
-			text = text.substring(0, mInputMode.getSequenceLength());
+		if (text.length() > 0 && text.length() > maxLength) {
+			text = text.substring(0, maxLength);
 		}
 
 		return text;
+	}
+
+
+	private String getComposingText() {
+		return getComposingText(-1);
 	}
 
 
@@ -729,11 +747,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (currentInputConnection == null) {
+		if (shouldBeOff()) {
 			return;
 		}
 
-		currentInputConnection.finishComposingText();
+		textField.finishComposingText();
 		clearSuggestions();
 
 		UI.showAddWordDialog(this, mLanguage.getId(), textField.getSurroundingWord());

@@ -1,22 +1,16 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import java.util.regex.Pattern;
-
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoSpace {
-	private final Pattern isNumber = Pattern.compile("\\s*\\d+\\s*");
-	private final Pattern nextIsLetter = Pattern.compile("^\\p{L}+");
-	private final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
-
 	private final SettingsStore settings;
 
 	private InputType inputType;
 	private TextField textField;
 	private String lastWord;
-	private String lastSequence;
 
 	public AutoSpace(SettingsStore settingsStore) {
 		settings = settingsStore;
@@ -37,8 +31,7 @@ public class AutoSpace {
 		return this;
 	}
 
-	public AutoSpace setLastSequence(String lastSequence) {
-		this.lastSequence = lastSequence;
+	public AutoSpace setLastSequence() {
 		return this;
 	}
 
@@ -57,12 +50,11 @@ public class AutoSpace {
 		return
 			settings.getAutoSpace()
 			&& !inputType.isSpecialized()
-			&& !nextChars.startsWith(" ")
-			&& !isNumber.matcher(previousChars).find()
-			&& !nextIsPunctuation.matcher(nextChars).find()
+			&& nextKey != 0
+			&& !TextTools.startsWithWhitespace(nextChars)
 			&& (
-				shouldAddAfterPunctuation(previousChars, nextKey)
-				|| shouldAddAfterWord(isWordAcceptedManually, nextChars)
+				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
+				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
 			);
 	}
 
@@ -73,24 +65,23 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAfterPunctuation(String previousChars, int nextKey) {
-		return
-			// no space after whitespace or special characters
-			!previousChars.endsWith(" ") && !previousChars.endsWith("\n") && !previousChars.endsWith("\t") // previous whitespace
-			&& !lastSequence.equals("0") // previous previous math/special char
-			&& nextKey != 0 // composing (upcoming) whitespace or special character
+	private boolean shouldAddAfterPunctuation(String previousChars, String nextChars, int nextKey) {
+		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
-			// add space after the these
+		return
+			nextKey != 1
+			&& !TextTools.nextIsPunctuation(nextChars)
+			&& !TextTools.startsWithNumber(nextChars)
 			&& (
-				previousChars.endsWith(".")
-				|| previousChars.endsWith(",")
-				|| previousChars.endsWith(";")
-				|| previousChars.endsWith(":")
-				|| previousChars.endsWith("!")
-				|| previousChars.endsWith("?")
-				|| previousChars.endsWith(")")
-				|| previousChars.endsWith("]")
-				|| previousChars.endsWith("%")
+				previousChar == '.'
+				|| previousChar == ','
+				|| previousChar == ';'
+				|| previousChar == ':'
+				|| previousChar == '!'
+				|| previousChar == '?'
+				|| previousChar == ')'
+				|| previousChar == ']'
+				|| previousChar == '%'
 				|| previousChars.endsWith(" -")
 				|| previousChars.endsWith(" /")
 			);
@@ -98,15 +89,15 @@ public class AutoSpace {
 
 
 	/**
-	 * shouldAddAfterPunctuation
+	 * shouldAddAfterWord
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String nextChars) {
+	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, String nextChars, int nextKey) {
 		return
-			// Do not add space when auto-accepting words, because it feels very confusing when typing.
-			isWordAcceptedManually
-			// Right before another word
-			&& !nextIsLetter.matcher(nextChars).find();
+			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
+			&& nextKey != 1
+			&& nextChars.isEmpty()
+			&& TextTools.previousIsLetter(previousChars);
 	}
 
 

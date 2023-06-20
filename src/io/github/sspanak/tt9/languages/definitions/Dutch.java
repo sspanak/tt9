@@ -10,8 +10,6 @@ public class Dutch extends English {
 		locale = new Locale("nl","NL");
 		dictionaryFile = "nl-utf8.csv";
 
-		isPunctuationPartOfWords = true;
-
 		characterMap.get(2).addAll(Arrays.asList("à", "ä", "ç"));
 		characterMap.get(3).addAll(Arrays.asList("é", "è", "ê", "ë"));
 		characterMap.get(4).addAll(Arrays.asList("î", "ï"));

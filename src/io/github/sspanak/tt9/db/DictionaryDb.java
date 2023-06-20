@@ -191,22 +191,11 @@ public class DictionaryDb {
 
 				// In case the user has changed the text case, there would be no match.
 				// Try again with the lowercase equivalent.
-				String lowercaseWord = "";
 				if (affectedRows == 0) {
-					lowercaseWord = word.toLowerCase(language.getLocale());
+					String lowercaseWord = word.toLowerCase(language.getLocale());
 					affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), lowercaseWord, sequence);
 
 					Logger.d("incrementWordFrequency", "Attempting to increment frequency for lowercase variant: " + lowercaseWord);
-				}
-
-				// Some languages permit appending the punctuation to the end of the words, like so: "try,".
-				// But there are no such words in the dictionary, so try without the punctuation mark.
-				if (affectedRows == 0 && language.isPunctuationPartOfWords() && sequence.endsWith("1")) {
-					String truncatedWord = lowercaseWord.substring(0, word.length() - 1);
-					String truncatedSequence = sequence.substring(0, sequence.length() - 1);
-					affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), truncatedWord, truncatedSequence);
-
-					Logger.d("incrementWordFrequency", "Attempting to increment frequency with stripped punctuation: " + truncatedWord);
 				}
 
 				Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);

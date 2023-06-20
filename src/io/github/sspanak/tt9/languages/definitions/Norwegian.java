@@ -10,8 +10,6 @@ public class Norwegian extends English {
 		locale = new Locale("nb","NO");
 		dictionaryFile = "nb-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).addAll(Arrays.asList("æ", "å"));
 		characterMap.get(3).addAll(Arrays.asList("é", "è"));
 		characterMap.get(6).addAll(Arrays.asList("ø", "ó", "ò", "ô"));

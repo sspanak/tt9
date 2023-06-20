@@ -10,8 +10,6 @@ public class Italian extends English {
 		locale = Locale.ITALIAN;
 		dictionaryFile = "it-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).add("à");
 		characterMap.get(3).addAll(Arrays.asList("é", "è"));
 		characterMap.get(4).addAll(Arrays.asList("ì", "í", "î"));

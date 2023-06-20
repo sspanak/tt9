@@ -10,8 +10,6 @@ public class Polish extends English {
 		locale = new Locale("pl","PL");
 		dictionaryFile = "pl-utf8.csv";
 
-		isPunctuationPartOfWords = false;
-
 		characterMap.get(2).addAll(Arrays.asList("ą", "ć"));
 		characterMap.get(3).add("ę");
 		characterMap.get(5).add("ł");

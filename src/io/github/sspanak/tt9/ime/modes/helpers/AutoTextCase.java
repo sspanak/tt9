@@ -1,14 +1,11 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import java.util.regex.Pattern;
-
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoTextCase {
-	private final Pattern nextToWordRegex = Pattern.compile("\\b$");
-	private final Pattern startOfSentenceRegex = Pattern.compile("(?<!\\.)(^|[.?!¿¡])\\s*$");
 	private final SettingsStore settings;
 
 
@@ -68,11 +65,11 @@ public class AutoTextCase {
 		}
 
 		// start of sentence, excluding after "..."
-		if (startOfSentenceRegex.matcher(textBeforeCursor).find()) {
+		if (TextTools.isStartOfSentence(textBeforeCursor)) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		if (nextToWordRegex.matcher(textBeforeCursor).find()) {
+		if (TextTools.isNextToWord(textBeforeCursor)) {
 			return InputMode.CASE_LOWER;
 		}
 

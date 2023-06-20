@@ -54,11 +54,9 @@ To support a new language one needs to:
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
   - `dictionaryFile` is the name of the dictionary in `assets/` folder.
   - `characterMap` contains the letters and punctuation marks associated with each key.
-  - Set `isPunctuationPartOfWords` to `true`, if the dictionary contains words with apostrophes or dashes, such as: `it's`, `you'll`, `a'tje` or `п'ят`. This will allow using 1-key for typing them (they will appear as suggestions). `false` will enable faster typing when apostrophes or other punctuation are not part of the words (no such words will be suggested).
   - `abcString` _(optional)_. A custom string to display in ABC mode. By default, the first three letters on 2-key are used (e.g. "ABC" or "АБВ"). Set this if the first letters of the alphabet are _not_ on 2-key, like in Hebrew, or if a different string makes more sense.
-  - `hasUpperCase` _(optional)_ set to `false` when the language has no upper- and lowercase letters. For example: Arabic, Hebrew, East Asian
-    languages, and so on. The default is `true`.
-  - `name` _(optional)_ defaults to the native name of the language (e.g. "English", "Deutsch", "Українська"). Useful to set when the default is ambiguous. For example, both Portuguese in Portugal and Brazil will default to "Português", so assigning "Português brasileiro" would make it clear it's the language used in Brazil.
+  - `hasUpperCase` _(optional)_ set to `false` when the language has no upper- and lowercase letters. For example: Arabic, Hebrew, East Asian languages, and so on. The default is `true`.
+  - `name` _(optional)_ is automatically generated and equals the native name of the language (e.g. "English", "Deutsch", "Українська"). However, sometimes, the automatically selected name may be ambiguous. For example, both Portuguese in Portugal and Brazil will default to "Português", so assigning "Português brasileiro" would make it clear it's the language used in Brazil.
 - Finally, add the new language to the list in `LanguageCollection.java`. You only need to add it in one place, in the constructor. Please, be nice and maintain the alphabetical order.
 
 
