@@ -314,8 +314,6 @@ android {
 			minifyEnabled true
 			shrinkResources true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
-
-//			signingConfig android.signingConfigs.release
 		}
 	}
 	buildFeatures {
