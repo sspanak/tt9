@@ -1,7 +1,6 @@
 French wordlist by: Christophe Pallier
 Source: http://www.pallier.org/ressources/dicofr/dicofr.html
-Words Count: 336531
 
-Word frequencies obtained from Openboard dictionaries.
-Link: https://github.com/openboard-team/openboard/tree/master/dictionaries
-Git commit: 17 Dec 2022 [c3772cd56e770975ea5570db903f93b199de8b32]
+Word frequencies obtained from the AOSP project
+Link: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/
+Git commit: 2023-03-20 [fe0c000f40a5cb33c518cc7a12204b5810886c0e]
