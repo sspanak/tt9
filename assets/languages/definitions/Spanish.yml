@@ -2,13 +2,13 @@
 locale: es-ES
 dictionaryFile: es-utf8.csv
 keys:
-  - [DEFAULT] # 0-key
-  - [DEFAULT, ¡, ¿] # 1-key
-  - [a, b, c, á] # 2-key
-  - [d, e, f, é] # 3-key
-  - [g, h, i, í] # 4-key
-  - [j, k, l] # 5-key
-  - [m, n, ñ, o, ó] # 6-key
-  - [p, q, r, s] # 7-key
-  - [t, u, v, ú, ü] # 8-key
-  - [w, x, y, z] # 9-key
+  - [DEFAULT] # 0
+  - [DEFAULT, ¡, ¿] # 1
+  - [a, b, c, á] # 2
+  - [d, e, f, é] # 3
+  - [g, h, i, í] # 4
+  - [j, k, l] # 5
+  - [m, n, ñ, o, ó] # 6
+  - [p, q, r, s] # 7
+  - [t, u, v, ú, ü] # 8
+  - [w, x, y, z] # 9
