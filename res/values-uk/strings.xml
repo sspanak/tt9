@@ -3,18 +3,16 @@
 	<string name="app_settings">Налаштування TT9</string>
 	<string name="completed">Зроблено</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
-
+	<string name="failed_loading_language_definitions">Не вдалося завантажити жодне дефініції мови.</string>
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
 	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
 	<string name="add_word_title">Додати слово</string>
-
 	<string name="pref_category_about">Про додаток</string>
 	<string name="pref_help">Допомога</string>
 	<string name="pref_dark_theme">Темна тема</string>
 	<string name="pref_choose_languages">Мови</string>
 	<string name="dictionary_truncate_title">Видалити усі</string>
-
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Завантаження словника завершено.</string>

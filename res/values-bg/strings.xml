@@ -3,18 +3,16 @@
 	<string name="app_settings">Настройки на TT9</string>
 	<string name="completed">Завършено</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
-
+	<string name="failed_loading_language_definitions">Не може да се заредят езиковите дефиниции.</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ е вече речника.</string>
 	<string name="add_word_title">Добавяне на дума</string>
-
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_help">Помощ</string>
 	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
-
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>

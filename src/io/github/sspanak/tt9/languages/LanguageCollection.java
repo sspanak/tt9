@@ -4,13 +4,13 @@ import android.content.Context;
 import android.os.Build;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.languages.definitions.*;
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.definitions.English;
+import io.github.sspanak.tt9.ui.UI;
 
 public class LanguageCollection {
 	private static LanguageCollection self;
@@ -18,33 +18,19 @@ public class LanguageCollection {
 	private final Language defaultLanguage = new English();
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
-	private LanguageCollection() {
-		List<Class<? extends Language>> languageList = Arrays.asList(
-			// Add languages here, to enable them in the UI and
-			// please, maintain the alphabetical order.
-			BrazilianPortuguese.class,
-			Bulgarian.class,
-			Dutch.class,
-			English.class,
-			Finnish.class,
-			French.class,
-			German.class,
-			Hebrew.class,
-			Indonesian.class,
-			Italian.class,
-			Norwegian.class,
-			Polish.class,
-			Russian.class,
-			Spanish.class,
-			Swedish.class,
-			Ukrainian.class,
-			Yiddish.class
-		);
+	private LanguageCollection(Context context) {
+		ArrayList<LanguageDefinition> definitions = new ArrayList<>();
 
-		// initialize the language objects from the class list above
-		for (Class<? extends Language> languageClass : languageList) {
+		try {
+			definitions = LanguageDefinition.getAll(context.getAssets());
+		} catch (Exception e) {
+			UI.toastLong(context, context.getString(R.string.failed_loading_language_definitions));
+			Logger.e("tt9.LanguageCollection", e.getMessage());
+		}
+
+		for (LanguageDefinition definition : definitions) {
 			try {
-				Language lang = languageClass.newInstance();
+				Language lang = Language.fromDefinition(definition);
 				if (languages.containsKey(lang.getId())) {
 					throw new Exception("Duplicate language ID: " + lang.getId() + " for language: " + lang.getName());
 				}
@@ -55,14 +41,10 @@ public class LanguageCollection {
 		}
 	}
 
-	private void loadDefinitions() {
-
-	}
-
 
 	public static LanguageCollection getInstance(Context context) {
 		if (self == null) {
-			self = new LanguageCollection();
+			self = new LanguageCollection(context);
 		}
 
 		return self;

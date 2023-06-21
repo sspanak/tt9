@@ -3,18 +3,16 @@
 	<string name="app_settings">TT9 настройки</string>
 	<string name="completed">Выполнено</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
-
+	<string name="failed_loading_language_definitions">Не удалось загрузить какое-либо определение языка.</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_title">Добавить слово</string>
-
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_help">Помощь</string>
 	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
-
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>

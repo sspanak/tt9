@@ -1,0 +1,15 @@
+---
+locale: pt-BR
+dictionaryFile: pt-BR-utf8.csv
+name: Português brasileiro
+keys:
+  - [DEFAULT] # 0-key
+  - [DEFAULT] # 1-key
+  - [a, b, c, "ç", "á", "â", "ã", "à"] # 2-key
+  - [d, e, f, "é", "ê", "è"] # 3-key
+  - [g, h, i, "í"] # 4-key
+  - [j, k, l] # 5-key
+  - [m, n, o, "ó", "ô", "õ"] # 6-key
+  - [p, q, r, s] # 7-key
+  - [t, u, v, "ú"] # 8-key
+  - [w, x, y, z] # 9-key

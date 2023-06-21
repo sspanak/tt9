@@ -3,18 +3,16 @@
 	<string name="app_settings">Paramètres de TT9</string>
 	<string name="completed">Fini</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
-
+	<string name="failed_loading_language_definitions">Impossible de charger aucune définition de langue</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
 	<string name="add_word_title">Ajouter un mot</string>
-
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
-
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>

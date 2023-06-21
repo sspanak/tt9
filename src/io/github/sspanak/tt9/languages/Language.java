@@ -19,6 +19,73 @@ public class Language {
 	// settings
 	protected boolean hasUpperCase = true;
 
+
+	public static Language fromDefinition(LanguageDefinition definition) throws Exception {
+		if (definition.dictionaryFile.isEmpty()) {
+			throw new Exception("Invalid definition. Dictionary file must be set.");
+		}
+
+		if (definition.locale.isEmpty()) {
+				throw new Exception("Invalid definition. Locale cannot be empty.");
+		}
+
+		Locale definitionLocale;
+		switch (definition.locale) {
+			case "en":
+				definitionLocale = Locale.ENGLISH;
+				break;
+			case "fr":
+				definitionLocale = Locale.FRENCH;
+				break;
+			case "de":
+				definitionLocale = Locale.GERMAN;
+				break;
+			default:
+				String[] parts = definition.locale.split("-", 2);
+				if (parts.length == 2) {
+					definitionLocale = new Locale(parts[0], parts[1]);
+				} else if (parts.length == 1) {
+					definitionLocale = new Locale(parts[0]);
+				} else {
+					throw new Exception("Unrecognized locale format: '" + definition.locale + "'.");
+				}
+		}
+
+		Language lang = new Language();
+		lang.abcString = definition.abcString.isEmpty() ? lang.abcString : definition.abcString;
+		lang.dictionaryFile = definition.dictionaryFile;
+		lang.hasUpperCase = definition.hasUpperCase;
+		lang.locale = definitionLocale;
+		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
+
+		for (int key = 0; key <= 9 || key < definition.keys.size(); key++) {
+			lang.characterMap.add(charMapFromDefinition(key, definition.keys.get(key)));
+		}
+
+		return lang;
+	}
+
+
+	private static ArrayList<String> charMapFromDefinition(int key, ArrayList<String> definitionChars) {
+		String defaultCharsPlaceholder = "DEFAULT";
+
+		if (key > 1 || !definitionChars.contains(defaultCharsPlaceholder)) {
+			return definitionChars;
+		}
+
+		ArrayList<String> keyChars = new ArrayList<>();
+		for (String defChar : definitionChars) {
+			if (defChar.equals(defaultCharsPlaceholder)) {
+				keyChars.addAll(key == 0 ? Characters.Special : Characters.Sentence);
+			} else {
+				keyChars.add(defChar);
+			}
+		}
+
+		return keyChars;
+	}
+
+
 	final public int getId() {
 		if (id == 0) {
 			id = generateId();

@@ -1,0 +1,14 @@
+---
+locale: en
+dictionaryFile: en-utf8.csv
+keys:
+  - [DEFAULT] # 0-key
+  - [DEFAULT] # 1-key
+  - [a, b, c] # 2-key
+  - [d, e, f] # 3-key
+  - [g, h, i] # 4-key
+  - [j, k, l] # 5-key
+  - [m, n, o] # 6-key
+  - [p, q, r, s] # 7-key
+  - [t, u, v] # 8-key
+  - [w, x, y, z] # 9-key
