@@ -21,7 +21,7 @@ public class EmptyDatabaseWarning {
 	public EmptyDatabaseWarning(SettingsStore settings) {
 		WARNING_INTERVAL = settings.getDictionaryMissingWarningInterval();
 
-		for (Language lang : LanguageCollection.getAll()) {
+		for (Language lang : LanguageCollection.getAll(context)) {
 			if (!warningDisplayedTime.containsKey(lang.getId())) {
 				warningDisplayedTime.put(lang.getId(), 0L);
 			}

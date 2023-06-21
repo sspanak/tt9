@@ -69,7 +69,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void loadSettings() {
-		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
+		mLanguage = LanguageCollection.getLanguage(getMainContext(), settings.getInputLanguage());
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		validateLanguages();
 
@@ -79,8 +79,8 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(getMainContext(), mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(getMainContext(), mLanguage, mEnabledLanguages);
 
 		settings.saveEnabledLanguageIds(mEnabledLanguages);
 		settings.saveInputLanguage(mLanguage.getId());
@@ -689,7 +689,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// select the next language
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
+		mLanguage = LanguageCollection.getLanguage(getMainContext(), mEnabledLanguages.get(next));
 
 		validateLanguages();
 

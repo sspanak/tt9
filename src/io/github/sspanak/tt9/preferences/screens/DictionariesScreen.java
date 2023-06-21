@@ -17,6 +17,7 @@ public class DictionariesScreen extends BaseScreenFragment {
 	@Override
 	protected void onCreate() {
 		ItemSelectLanguage multiSelect = new ItemSelectLanguage(
+			activity,
 			findPreference(ItemSelectLanguage.NAME),
 			activity.settings
 		);
