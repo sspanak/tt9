@@ -2,7 +2,7 @@
 locale: pt-BR
 dictionaryFile: pt-BR-utf8.csv
 name: Português brasileiro
-keys:
+characters:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [a, b, c, ç, á, â, ã, à] # 2

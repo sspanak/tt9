@@ -16,7 +16,7 @@ public class LanguageDefinition {
 	public String abcString = "";
 	public String name = "";
 	public boolean hasUpperCase = true;
-	public ArrayList<ArrayList<String>> keys = new ArrayList<>();
+	public ArrayList<ArrayList<String>> characters = new ArrayList<>();
 
 
 	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) throws Exception {

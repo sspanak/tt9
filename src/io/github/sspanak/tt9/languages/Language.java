@@ -31,14 +31,17 @@ public class Language {
 
 		Locale definitionLocale;
 		switch (definition.locale) {
+			case "de":
+				definitionLocale = Locale.GERMAN;
+				break;
 			case "en":
 				definitionLocale = Locale.ENGLISH;
 				break;
 			case "fr":
 				definitionLocale = Locale.FRENCH;
 				break;
-			case "de":
-				definitionLocale = Locale.GERMAN;
+			case "it":
+				definitionLocale = Locale.ITALIAN;
 				break;
 			default:
 				String[] parts = definition.locale.split("-", 2);
@@ -58,8 +61,8 @@ public class Language {
 		lang.locale = definitionLocale;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 
-		for (int key = 0; key <= 9 || key < definition.keys.size(); key++) {
-			lang.characterMap.add(charMapFromDefinition(key, definition.keys.get(key)));
+		for (int key = 0; key <= 9 || key < definition.characters.size(); key++) {
+			lang.characterMap.add(charMapFromDefinition(key, definition.characters.get(key)));
 		}
 
 		return lang;

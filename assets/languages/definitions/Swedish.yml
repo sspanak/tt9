@@ -1,14 +1,14 @@
 ---
-locale: en
-dictionaryFile: en-utf8.csv
+locale: sv-SE
+dictionaryFile: sv-utf8.csv
 characters:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
-  - [a, b, c] # 2
-  - [d, e, f] # 3
+  - [a, b, c, å, ä] # 2
+  - [d, e, f, é] # 3
   - [g, h, i] # 4
   - [j, k, l] # 5
-  - [m, n, o] # 6
+  - [m, n, o, ö] # 6
   - [p, q, r, s] # 7
   - [t, u, v] # 8
   - [w, x, y, z] # 9

@@ -1,14 +1,14 @@
 ---
-locale: en
-dictionaryFile: en-utf8.csv
+locale: fi-FI
+dictionaryFile: fi-utf8.csv
 characters:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
-  - [a, b, c] # 2
+  - [a, b, c, ä, å] # 2
   - [d, e, f] # 3
   - [g, h, i] # 4
   - [j, k, l] # 5
-  - [m, n, o] # 6
+  - [m, n, o, ö] # 6
   - [p, q, r, s] # 7
   - [t, u, v] # 8
   - [w, x, y, z] # 9

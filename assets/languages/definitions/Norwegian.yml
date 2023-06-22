@@ -1,0 +1,14 @@
+---
+locale: nb-NO
+dictionaryFile: nb-utf8.csv
+characters:
+  - [DEFAULT] # 0
+  - [DEFAULT] # 1
+  - [a, b, c, æ, å] # 2
+  - [d, e, f, é, è] # 3
+  - [g, h, i] # 4
+  - [j, k, l] # 5
+  - [m, n, o, ø, ó, ò, ô] # 6
+  - [p, q, r, s] # 7
+  - [t, u, v, ü] # 8
+  - [w, x, y, z] # 9
