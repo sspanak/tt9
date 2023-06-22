@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
@@ -25,6 +26,15 @@ public class UI {
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		tt9.hideWindow();
 		tt9.startActivity(prefIntent);
+	}
+
+	public static void alert(Context context, int titleResource, int messageResource) {
+		new AlertDialog.Builder(context)
+			.setTitle(titleResource)
+			.setMessage(messageResource)
+			.setCancelable(false)
+			.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel())
+			.show();
 	}
 
 	public static void toast(Context context, CharSequence msg) {

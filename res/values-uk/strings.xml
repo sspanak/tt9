@@ -68,4 +68,5 @@
 	<string name="key_volume_up">Збільшення гучності</string>
 	<string name="key_volume_down">Зменшення гучності</string>
 	<string name="dictionary_truncating">Видалення…</string>
+	<string name="error">Помилка</string>
 </resources>

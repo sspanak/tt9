@@ -22,4 +22,5 @@
 	<string name="char_newline">Nieuwe regel</string>
 	<string name="pref_category_setup">Initiële setup</string>
 	<string name="dictionary_truncating">Verwijderen…</string>
+	<string name="error">Fout</string>
 </resources>

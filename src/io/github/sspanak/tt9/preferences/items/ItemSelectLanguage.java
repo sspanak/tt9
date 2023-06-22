@@ -7,9 +7,11 @@ import androidx.preference.MultiSelectListPreference;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.ui.UI;
 
 public class ItemSelectLanguage {
 	public static final String NAME = "pref_languages";
@@ -30,6 +32,10 @@ public class ItemSelectLanguage {
 		}
 
 		ArrayList<Language> languages = LanguageCollection.getAll(context, true);
+		if (languages.isEmpty()) {
+			UI.alert(context, R.string.error, R.string.failed_loading_language_definitions);
+			// do not return, the MultiSelect component requires arrays, even if empty, otherwise it crashes
+		}
 
 		ArrayList<CharSequence> values = new ArrayList<>();
 		for (Language l : languages) {

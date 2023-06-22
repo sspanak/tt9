@@ -54,4 +54,5 @@
 
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
+	<string name="error">טעות</string>
 </resources>
