@@ -1,5 +1,5 @@
 ---
-locale: fr-FR
+locale: fr
 dictionaryFile: fr-utf8.csv
 characters:
   - [DEFAULT] # 0

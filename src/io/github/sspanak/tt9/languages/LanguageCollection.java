@@ -8,12 +8,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Locale;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.definitions.English;
-import io.github.sspanak.tt9.ui.UI;
 
 public class LanguageCollection {
 	private static LanguageCollection self;

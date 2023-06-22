@@ -1,5 +1,5 @@
 ---
-locale: de-DE
+locale: de
 dictionaryFile: de-utf8.csv
 characters:
   - [DEFAULT] # 0

@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.db.migrations.DB7;
 import io.github.sspanak.tt9.db.migrations.DB8;
 import io.github.sspanak.tt9.db.migrations.DB9;
 
-@Database(version = 6, entities = Word.class, exportSchema = false)
+@Database(version = 11, entities = Word.class, exportSchema = false)
 public abstract class TT9Room extends RoomDatabase {
 	public abstract WordsDao wordsDao();
 
