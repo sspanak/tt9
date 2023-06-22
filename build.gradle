@@ -2,30 +2,42 @@ buildscript {
 	repositories {
 		mavenCentral()
 		google()
+		maven {
+		  url "https://plugins.gradle.org/m2/"
+		}
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:8.0.2'
+		classpath 'gradle.plugin.at.zierler:yaml-validator-plugin:1.5.0'
 	}
 }
 apply plugin: 'com.android.application'
+apply plugin: 'at.zierler.yamlvalidator'
 
 configurations.all {
 	// fixes 'duplicate class error', when using these combine: androidx.core:1.10.1, androidx.preference:1.2.0 and androidx.room:2.5.1
 	// see: https://stackoverflow.com/questions/75274720/a-failure-occurred-while-executing-appcheckdebugduplicateclasses/75315276#75315276
 	exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+
+	yamlValidator {
+		searchPaths = ['assets/languages/definitions']
+	}
 }
 
 dependencies {
-	implementation 'org.yaml:snakeyaml:2.0'
 	implementation 'androidx.core:core:1.10.1'
 	implementation 'androidx.preference:preference:1.2.0'
 	implementation 'androidx.room:room-runtime:2.5.1'
 	annotationProcessor 'androidx.room:room-compiler:2.5.1'
+	implementation 'org.yaml:snakeyaml:2.0'
 }
 
 repositories {
 	mavenCentral()
 	google()
+	maven {
+		url "https://plugins.gradle.org/m2/"
+	}
 }
 
 def execThing ( String cmdStr ) {
@@ -87,8 +99,8 @@ def getReleaseVersion = { ->
 	return "${getVersionName()} (${getCurrentGitHash()})"
 }
 
-task validateDictionaries {
-	inputs.dir fileTree(dir:'assets', excludes:['dict.properties'])
+task validateLanguages {
+	inputs.dir fileTree(dir:'assets/languages/definitions', excludes:['dict.properties'])
 	outputs.file "${project.buildDir}/dict.validation.txt"
 
 	doLast {
@@ -101,19 +113,21 @@ task validateDictionaries {
 
 		outputs.files.singleFile.text = ""
 
+
 		inputs.getFiles().each {File file ->
 			if (errorCount >= MAX_ERRORS) {
 				return
 			}
 
-			println "Validating dictionary: " + file.name
+			println "Validating language: " + file.name
+
 
 			def uniqueWords = [:]
 
 			int lineNumber = 0
 			boolean isFileValid = true
 
-			file.eachLine {line ->
+			/*file.eachLine {line ->
 				if (errorCount >= MAX_ERRORS) {
 					return
 				}
@@ -174,7 +188,7 @@ task validateDictionaries {
 				if (errorCount >= MAX_ERRORS) {
 					errors += "Too many errors! Aborting.\n"
 				}
-			}
+			}*/
 
 			outputs.files.singleFile.text += file.name + " " + (isFileValid ? "OK" : "INVALID") + "\n"
 		}
@@ -240,7 +254,12 @@ android {
 		aidl true
 	}
 
+
+	applicationVariants.all { variant ->
+		tasks["merge${variant.name.capitalize()}Assets"].dependsOn(validateYaml)
+	}
+
 //	applicationVariants.all { variant ->
-//		tasks["merge${variant.name.capitalize()}Assets"].dependsOn(validateDictionaries)
+//		tasks["merge${variant.name.capitalize()}Assets"].dependsOn(validateLanguages)
 //	}
 }
