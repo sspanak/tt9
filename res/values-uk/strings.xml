@@ -4,7 +4,7 @@
 	<string name="completed">Зроблено</string>
 	<string name="no_language">Немає мови</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
-	<string name="failed_loading_language_definitions">Не вдалося завантажити жодне дефініції мови.</string>
+	<string name="failed_loading_language_definitions">Не вдалося завантажити всі визначення мови.</string>
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
 	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
