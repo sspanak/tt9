@@ -104,7 +104,7 @@ task validateLanguages {
 	final definitionsDir = "${baseDir}/definitions"
 	final dictionariesDir = "${baseDir}/dictionaries"
 
-	inputs.dir fileTree(dir:definitionsDir, excludes:['dict.properties'])
+	inputs.dir fileTree(dir:baseDir, excludes:['dict.properties'])
 	outputs.file "${project.buildDir}/lang.validation.txt"
 
 	doLast {
@@ -117,8 +117,7 @@ task validateLanguages {
 
 		outputs.files.singleFile.text = ""
 
-
-		inputs.getFiles().each {File languageFile ->
+		fileTree(definitionsDir).getFiles().each { File languageFile ->
 			if (errorCount >= MAX_ERRORS) {
 				return
 			}
@@ -130,7 +129,7 @@ task validateLanguages {
 			boolean isLayoutValid = false
 			boolean isLocaleValid = false
 			def localeString = ''
-			def dictionaryFile = ''
+			def dictionaryFileName = ''
 
 			languageFile.eachLine { line ->
 				if (line.startsWith("layout")) {
@@ -143,7 +142,7 @@ task validateLanguages {
 				}
 
 				if (line.startsWith("dictionaryFile")) {
-					dictionaryFile = line.replace("dictionaryFile:", "").trim()
+					dictionaryFileName = line.replace("dictionaryFile:", "").trim()
 				}
 			}
 
@@ -160,22 +159,20 @@ task validateLanguages {
 				errors += "Language '${languageFile.name}' is invalid. ${msg}\n"
 			}
 
-			def dictionary = new File("$dictionariesDir/${dictionaryFile}")
-			if (dictionaryFile.isEmpty() || !dictionary.exists()) {
+			def dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
+			if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
 				errorCount++
-				errors += "Could not find dictionary file: '${dictionaryFile}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
+				errors += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
 
 				outputs.files.singleFile.text += "${languageFile.name} INVALID \n"
 				return
 			}
-			
 
-//			def uniqueWords = [:]
-//
-//			int lineNumber = 0
-//			boolean isFileValid = true
 
-			/*file.eachLine {line ->
+			def uniqueWords = [:]
+			int lineNumber = 0
+
+			dictionaryFile.eachLine {line ->
 				if (errorCount >= MAX_ERRORS) {
 					return
 				}
@@ -185,14 +182,14 @@ task validateLanguages {
 				if (line == "") {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. There is no word on line " + lineNumber + ". Remove all empty lines.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. There is no word on line ${lineNumber}. Remove all empty lines.\n"
 					return
 				}
 
 				if (line.contains(" ")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found space on line " + lineNumber + ". Make sure each word is on a new line. Phrases are not allowed.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed.\n"
 					return
 				}
 
@@ -203,32 +200,32 @@ task validateLanguages {
 				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found out-of-range word frequency: '" + frequency + "' on line " + lineNumber + ". Frequency must be a non-negative integer.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be a non-negative integer.\n"
 				}
 
 				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found numbers on line " + lineNumber + ". Remove all numbers.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found numbers on line ${lineNumber}. Remove all numbers.\n"
 				}
 
 				if (word.matches("^\\P{L}+\$")) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a garbage word: '" + word + "' on line " + lineNumber + ".\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a garbage word: '${word}' on line ${lineNumber}.\n"
 				}
 
 				if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a single letter: '" + word + "' on line " + lineNumber + ". Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 				}
 
 				String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
 				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '" + file.name + "' is invalid. Found a repeating word: '" + word + "' on line " + lineNumber + ". Ensure all words appear only once.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a repeating word: '${word}' on line ${lineNumber}. Ensure all words appear only once.\n"
 				} else {
 					uniqueWords[uniqueWordKey] = true
 				}
@@ -236,7 +233,7 @@ task validateLanguages {
 				if (errorCount >= MAX_ERRORS) {
 					errors += "Too many errors! Aborting.\n"
 				}
-			}*/
+			}
 
 			outputs.files.singleFile.text += "${languageFile.name} ${isFileValid ? 'OK' : 'INVALID'}\n"
 		}
