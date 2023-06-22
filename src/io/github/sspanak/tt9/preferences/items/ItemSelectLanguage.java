@@ -29,7 +29,7 @@ public class ItemSelectLanguage {
 			return this;
 		}
 
-		ArrayList<Language> languages = LanguageCollection.getAll(context,true);
+		ArrayList<Language> languages = LanguageCollection.getAll(context, true);
 
 		ArrayList<CharSequence> values = new ArrayList<>();
 		for (Language l : languages) {

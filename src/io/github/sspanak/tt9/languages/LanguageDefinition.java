@@ -20,7 +20,6 @@ public class LanguageDefinition {
 	public boolean hasUpperCase = true;
 	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
 
-
 	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) throws Exception {
 		final String definitionsDir = languagesDir + "/definitions";
 		final ArrayList<LanguageDefinition> definitions = new ArrayList<>();

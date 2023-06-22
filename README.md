@@ -1,5 +1,5 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports [multiple languages](src/io/github/sspanak/tt9/languages/definitions) and predictive text typing.
+TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports [multiple languages](assets/languages/definitions) and predictive text typing.
 
 This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -36,7 +36,7 @@ If you like Traditional T9, buy me a beer. Donations are currently accepted on [
 
 ## License
 - The source code, the logo image and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
-- The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries/), where applicable. Detailed information about the dictionaries is also available there.
+- The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries), where applicable. Detailed information about the dictionaries is also available there.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
 

@@ -13,7 +13,7 @@ public class Language {
 	protected Locale locale;
 	protected String dictionaryFile;
 	protected String abcString;
-	protected ArrayList<ArrayList<String>> layout = new ArrayList<>();
+	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
 
 	// settings

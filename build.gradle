@@ -305,8 +305,4 @@ android {
 			.dependsOn(validateYaml)
 			.dependsOn(validateLanguages)
 	}
-
-//	applicationVariants.all { variant ->
-//		tasks["merge${variant.name.capitalize()}Assets"].dependsOn(validateLanguages)
-//	}
 }
