@@ -1,7 +1,7 @@
 ---
 locale: en
 dictionaryFile: en-utf8.csv
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [a, b, c] # 2

@@ -2,7 +2,7 @@
 locale: in-ID
 dictionaryFile: id-utf8.csv
 name: Bahasa Indonesia
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [a, b, c] # 2

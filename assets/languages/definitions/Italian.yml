@@ -1,7 +1,7 @@
 ---
 locale: it
 dictionaryFile: it-utf8.csv
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [a, b, c, à] # 2

@@ -1,7 +1,7 @@
 ---
 locale: uk-UA
 dictionaryFile: uk-utf8.csv
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [а, б, в, г, ґ] # 2

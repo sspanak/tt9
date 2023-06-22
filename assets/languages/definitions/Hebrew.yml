@@ -3,7 +3,7 @@ locale: iw-IL
 dictionaryFile: he-utf8.csv
 abcString: אבג
 hasUpperCase: no
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [ד, ה, ו] # 2

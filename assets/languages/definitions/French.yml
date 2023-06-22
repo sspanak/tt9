@@ -1,7 +1,7 @@
 ---
 locale: fr
 dictionaryFile: fr-utf8.csv
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [a, b, c, à, â, æ, ç] # 2

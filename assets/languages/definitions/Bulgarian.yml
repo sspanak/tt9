@@ -1,7 +1,7 @@
 ---
 locale: bg-BG
 dictionaryFile: bg-utf8.csv
-characters:
+layout:
   - [DEFAULT] # 0
   - [DEFAULT] # 1
   - [а, б, в, г] # 2
