@@ -3,9 +3,12 @@ package io.github.sspanak.tt9.languages;
 import android.content.Context;
 import android.os.Build;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
@@ -15,7 +18,6 @@ import io.github.sspanak.tt9.ui.UI;
 public class LanguageCollection {
 	private static LanguageCollection self;
 
-	private final Language defaultLanguage = new English();
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
 	private LanguageCollection(Context context) {
@@ -24,7 +26,6 @@ public class LanguageCollection {
 		try {
 			definitions = LanguageDefinition.getAll(context.getAssets());
 		} catch (Exception e) {
-			UI.toastLong(context, context.getString(R.string.failed_loading_language_definitions));
 			Logger.e("tt9.LanguageCollection", e.getMessage());
 		}
 
@@ -59,7 +60,19 @@ public class LanguageCollection {
 	}
 
 	public static Language getDefault(Context context) {
-		return getInstance(context).defaultLanguage;
+		Language language = getByLocale(context, "en");
+		return language == null ? new NullLanguage(context) : language;
+	}
+
+	@Nullable
+	public static Language getByLocale(Context context, String locale) {
+		for (Language lang : getInstance(context).languages.values()) {
+			if (lang.getLocale().toString().equals(locale)) {
+				return lang;
+			}
+		}
+
+		return null;
 	}
 
 	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds, boolean sort) {

@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 Impostazioni</string>
 	<string name="completed">Completato</string>
+	<string name="no_language">Nessuna lingua</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
 	<string name="add_word_add">Aggiungere</string>

@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 настройки</string>
 	<string name="completed">Выполнено</string>
+	<string name="no_language">Нет языка</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="failed_loading_language_definitions">Не удалось загрузить какое-либо определение языка.</string>
 	<string name="add_word_add">Добавить</string>

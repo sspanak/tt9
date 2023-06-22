@@ -5,6 +5,7 @@
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="completed">Acabado</string>
+	<string name="no_language">Sin idioma</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
 	<string name="add_word_title">Agregar palabra</string>

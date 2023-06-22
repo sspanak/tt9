@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Налаштування TT9</string>
 	<string name="completed">Зроблено</string>
+	<string name="no_language">Немає мови</string>
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 	<string name="failed_loading_language_definitions">Не вдалося завантажити жодне дефініції мови.</string>
 	<string name="add_word_add">Додати</string>

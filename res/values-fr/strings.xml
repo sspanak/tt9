@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Paramètres de TT9</string>
 	<string name="completed">Fini</string>
+	<string name="no_language">Aucun langue</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="failed_loading_language_definitions">Impossible de charger aucune définition de langue</string>
 	<string name="add_word_add">Ajouter</string>

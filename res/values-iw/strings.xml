@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">TT9 הגדרות</string>
 	<string name="completed">הסתיים</string>
+	<string name="no_language">אין שפה</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
 	<string name="add_word_add">הוסף</string>

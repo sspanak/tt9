@@ -91,7 +91,8 @@ public class ModeABC extends InputMode {
 		}
 
 		String langCode = language.getLocale().getCountry();
-		langCode = langCode.length() == 0 ? language.getLocale().getLanguage() : langCode;
+		langCode = langCode.isEmpty() ? language.getLocale().getLanguage() : langCode;
+		langCode = langCode.isEmpty() ? language.getName() : langCode;
 
 		String modeString =  language.getAbcString() + " / " + langCode.toUpperCase();
 

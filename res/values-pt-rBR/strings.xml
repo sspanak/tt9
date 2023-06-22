@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Configurações do Teclado</string>
 	<string name="completed">Concluído</string>
+	<string name="no_language">Sem idioma</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
 	<string name="add_word_add">Adicionar</string>

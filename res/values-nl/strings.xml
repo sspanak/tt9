@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Opties</string>
+	<string name="no_language">Geen taal</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
 	<string name="add_word_add">Toevoegen</string>
