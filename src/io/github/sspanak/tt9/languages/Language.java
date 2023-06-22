@@ -56,7 +56,7 @@ public class Language {
 
 		Language lang = new Language();
 		lang.abcString = definition.abcString.isEmpty() ? lang.abcString : definition.abcString;
-		lang.dictionaryFile = definition.dictionaryFile;
+		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.locale = definitionLocale;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;

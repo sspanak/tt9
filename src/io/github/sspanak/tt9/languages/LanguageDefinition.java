@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class LanguageDefinition {
+	private static final String languagesDir = "languages";
+
 	public String locale = "";
 	public String dictionaryFile = "";
 	public String abcString = "";
@@ -20,7 +22,7 @@ public class LanguageDefinition {
 
 
 	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) throws Exception {
-		final String definitionsDir = "languages/definitions";
+		final String definitionsDir = languagesDir + "/definitions";
 		final ArrayList<LanguageDefinition> definitions = new ArrayList<>();
 
 		try {
@@ -34,5 +36,9 @@ public class LanguageDefinition {
 		}
 
 		return definitions;
+	}
+
+	public String getDictionaryFile() {
+		return languagesDir + "/dictionaries/" + dictionaryFile;
 	}
 }
