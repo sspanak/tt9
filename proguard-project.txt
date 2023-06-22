@@ -19,4 +19,16 @@
 #   public *;
 #}
 
--keep class io.github.sspanak.tt9.languages.definitions.** { *; }
+# LanguageDefinition properties must be preserved so that SnakeYAML can map them
+# to the language YAMLs.
+-keepclassmembers class io.github.sspanak.tt9.languages.LanguageDefinition {
+   public *;
+}
+
+# SnakeYAML shall not complain. As resolved by Mozilla:
+# https://github.com/mozilla-mobile/focus-android/blob/main/app/proguard-rules.pro
+-dontwarn java.beans.BeanInfo
+-dontwarn java.beans.FeatureDescriptor
+-dontwarn java.beans.IntrospectionException
+-dontwarn java.beans.Introspector
+-dontwarn java.beans.PropertyDescriptor
