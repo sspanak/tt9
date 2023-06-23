@@ -99,6 +99,51 @@ def getReleaseVersion = { ->
 	return "${getVersionName()} (${getCurrentGitHash()})"
 }
 
+static def validateDictionaryLine(String line, int lineNumber) {
+	if (line == "") {
+		return "There is no word on line ${lineNumber}. Remove all empty lines."
+	} else if (line.contains(" ")) {
+		return "Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed."
+	}
+
+	return ''
+}
+
+static def extractAlphabetCharsFromLine(String line) {
+	if (line.contains('DEFAULT') || !line.matches('\\s+- \\[.+?\\].*')) {
+		return ''
+	}
+
+	return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
+}
+
+static def validateDictionaryWord(String word, int lineNumber, String validCharacters, String errorMsgPrefix) {
+	int errorCount = 0
+	def errors = ''
+
+	if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
+	}
+
+	if (word.matches("^\\P{L}+\$")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
+	}
+
+	if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+	}
+
+	if (errorCount == 0 && !word.matches(validCharacters)) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contain characters outside of the defined alphabet: $validCharacters.\n"
+	}
+
+	return [errorCount, errors]
+}
+
 task validateLanguages {
 	final baseDir = "${project.rootDir}/assets/languages"
 	final definitionsDir = "${baseDir}/definitions"
@@ -110,6 +155,7 @@ task validateLanguages {
 	doLast {
 		final String CSV_DELIMITER = '	' // TAB
 		final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
+
 
 		final MAX_ERRORS = 50
 		String errors = ""
@@ -128,8 +174,10 @@ task validateLanguages {
 
 			boolean hasLayout = false
 			boolean isLocaleValid = false
-			def localeString = ''
-			def dictionaryFileName = ''
+			String localeString = ''
+			String dictionaryFileName = ''
+
+			String alphabet = ''
 
 			languageFile.eachLine { line ->
 				if (
@@ -168,12 +216,20 @@ task validateLanguages {
 				if (line.startsWith("dictionaryFile")) {
 					dictionaryFileName = line.replace("dictionaryFile:", "").trim()
 				}
+
+				alphabet += extractAlphabetCharsFromLine(line)
 			}
 
 			if (!hasLayout) {
 				isFileValid = false
 				errorCount++
 				errors += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
+			}
+
+			if (alphabet.isEmpty()) {
+				isFileValid = false
+				errorCount++
+				errors += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
 			}
 
 			if (!isLocaleValid) {
@@ -192,7 +248,7 @@ task validateLanguages {
 				return
 			}
 
-
+			def validChars = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-']+\$"
 			def uniqueWords = [:]
 			int lineNumber = 0
 
@@ -203,17 +259,11 @@ task validateLanguages {
 
 				lineNumber++
 
-				if (line == "") {
+				String error = validateDictionaryLine(line, lineNumber)
+				if (!error.isEmpty()) {
 					isFileValid = false
 					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. There is no word on line ${lineNumber}. Remove all empty lines.\n"
-					return
-				}
-
-				if (line.contains(" ")) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed.\n"
+					errors += "Dictionary '${dictionaryFile.name}' is invalid. ${error}.\n"
 					return
 				}
 
@@ -227,23 +277,10 @@ task validateLanguages {
 					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be a non-negative integer.\n"
 				}
 
-				if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found numbers on line ${lineNumber}. Remove all numbers.\n"
-				}
-
-				if (word.matches("^\\P{L}+\$")) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a garbage word: '${word}' on line ${lineNumber}.\n"
-				}
-
-				if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
-				}
+				def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, validChars, "Dictionary '${dictionaryFile.name}' is invalid")
+				isFileValid = wordErrorCount > 0 ? false : isFileValid
+				errorCount += wordErrorCount
+				errors += wordErrors
 
 				String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
 				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
