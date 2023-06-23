@@ -48,7 +48,7 @@ Make sure you have a signing key. If you don't have one, follow the [official ma
 ## Adding a New Language
 To support a new language one needs to:
 
-- Find a suitable dictionary and add it to the `assets/languages/dictionaries` folder. Two file formats are supported, [see below](#dictionary-formats).
+- Find a suitable dictionary and add it to the `assets/languages/dictionaries/` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
 - Create a new `.yml` file in `assets/languages/definitions/` and define the language properties.
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).

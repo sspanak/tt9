@@ -26,7 +26,7 @@ public class Language {
 		}
 
 		if (definition.locale.isEmpty()) {
-				throw new Exception("Invalid definition. Locale cannot be empty.");
+			throw new Exception("Invalid definition. Locale cannot be empty.");
 		}
 
 		Locale definitionLocale;
@@ -70,7 +70,7 @@ public class Language {
 
 
 	private static ArrayList<String> keyCharsFromDefinition(int key, ArrayList<String> definitionChars) {
-		String defaultCharsPlaceholder = "DEFAULT";
+		final String defaultCharsPlaceholder = "DEFAULT";
 
 		if (key > 1 || !definitionChars.contains(defaultCharsPlaceholder)) {
 			return definitionChars;
