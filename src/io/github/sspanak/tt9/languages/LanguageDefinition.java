@@ -10,8 +10,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.Logger;
+
 public class LanguageDefinition {
 	private static final String languagesDir = "languages";
+	private static final String definitionsDir = languagesDir + "/definitions";
 
 	public String abcString = "";
 	public String dictionaryFile = "";
@@ -20,21 +23,22 @@ public class LanguageDefinition {
 	public String locale = "";
 	public String name = "";
 
-	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) throws Exception {
-		final String definitionsDir = languagesDir + "/definitions";
-		final ArrayList<LanguageDefinition> definitions = new ArrayList<>();
-
+	public static ArrayList<String> getAllFiles(AssetManager assets) {
+		ArrayList<String> files = new ArrayList<>();
 		try {
-			for (String fileName : assets.list(definitionsDir)) {
-				String filePath = definitionsDir + "/" + fileName;
-				BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(filePath), StandardCharsets.UTF_8));
-				definitions.add(new Yaml().loadAs(reader, LanguageDefinition.class));
+			for (String file : assets.list(definitionsDir)) {
+				files.add(definitionsDir + "/" + file);
 			}
 		} catch (IOException e) {
-			throw new Exception("Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
+			Logger.e("tt9.LanguageDefinition", "Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
 		}
 
-		return definitions;
+		return files;
+	}
+
+	public static LanguageDefinition fromFile(AssetManager assets, String definitionFile) throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(definitionFile), StandardCharsets.UTF_8));
+		return new Yaml().loadAs(reader, LanguageDefinition.class);
 	}
 
 	public String getDictionaryFile() {

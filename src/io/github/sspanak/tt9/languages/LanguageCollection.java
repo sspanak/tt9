@@ -17,23 +17,12 @@ public class LanguageCollection {
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
 	private LanguageCollection(Context context) {
-		ArrayList<LanguageDefinition> definitions = new ArrayList<>();
-
-		try {
-			definitions = LanguageDefinition.getAll(context.getAssets());
-		} catch (Exception e) {
-			Logger.e("tt9.LanguageCollection", e.getMessage());
-		}
-
-		for (LanguageDefinition definition : definitions) {
+		for (String file : LanguageDefinition.getAllFiles(context.getAssets())) {
 			try {
-				Language lang = Language.fromDefinition(definition);
-				if (languages.containsKey(lang.getId())) {
-					throw new Exception("Duplicate language ID: " + lang.getId() + " for language: " + lang.getName());
-				}
+				Language lang = Language.fromDefinition(LanguageDefinition.fromFile(context.getAssets(), file));
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
-				Logger.e("tt9.LanguageCollection", "Skipping an invalid language. " + e.getMessage());
+				Logger.e("tt9.LanguageCollection", "Skipping invalid language: '" + file + "'. " + e.getMessage());
 			}
 		}
 	}
