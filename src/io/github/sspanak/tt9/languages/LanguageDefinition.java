@@ -13,12 +13,12 @@ import java.util.ArrayList;
 public class LanguageDefinition {
 	private static final String languagesDir = "languages";
 
-	public String locale = "";
-	public String dictionaryFile = "";
 	public String abcString = "";
-	public String name = "";
+	public String dictionaryFile = "";
 	public boolean hasUpperCase = true;
 	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
+	public String locale = "";
+	public String name = "";
 
 	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) throws Exception {
 		final String definitionsDir = languagesDir + "/definitions";

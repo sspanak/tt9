@@ -126,14 +126,38 @@ task validateLanguages {
 
 			boolean isFileValid = true
 
-			boolean isLayoutValid = false
+			boolean hasLayout = false
 			boolean isLocaleValid = false
 			def localeString = ''
 			def dictionaryFileName = ''
 
 			languageFile.eachLine { line ->
+				if (
+					line.matches("^[a-zA-Z].*")
+					&& !line.startsWith("abcString")
+					&& !line.startsWith("dictionaryFile")
+					&& !line.startsWith("hasUpperCase")
+					&& !line.startsWith("layout")
+					&& !line.startsWith("locale")
+					&& !line.startsWith("name")
+				) {
+					isFileValid = false
+					def parts = line.split(":")
+					def property = parts.length > 0 ? parts[0] : line
+
+					errorCount++
+					errors += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
+				}
+
+				if (line.startsWith("hasUpperCase") && !line.endsWith("yes") && !line.endsWith("no")) {
+					def invalidVal = line.replace("hasUpperCase:", "").trim()
+					isFileValid = false
+					errorCount++
+					errors += "Language '${languageFile.name}' is invalid. Unrecognized 'hasUpperCase' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+				}
+
 				if (line.startsWith("layout")) {
-					isLayoutValid = true
+					hasLayout = true
 				}
 
 				if (line.startsWith("locale")) {
@@ -146,7 +170,7 @@ task validateLanguages {
 				}
 			}
 
-			if (!isLayoutValid) {
+			if (!hasLayout) {
 				isFileValid = false
 				errorCount++
 				errors += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
