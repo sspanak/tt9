@@ -177,7 +177,7 @@ task validateLanguages {
 			String localeString = ''
 			String dictionaryFileName = ''
 
-			String alphabet = ''
+			String alphabet = languageFile.name.contains("Hebrew") ? '"' : ''
 
 			languageFile.eachLine { line ->
 				if (
