@@ -25,7 +25,7 @@ jobs:
 
     # validation
     - name: Validate Dictionaries
-      run: ./gradlew validateDictionaries
+      run: ./gradlew validateLanguages
     - name: Lint
       run: ./gradlew lint
     - name: Build Release APK

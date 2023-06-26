@@ -89,7 +89,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// 2-9
-		Language language = LanguageCollection.getLanguage(tt9.getSettings().getInputLanguage());
+		Language language = LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
 		if (language == null) {
 			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";

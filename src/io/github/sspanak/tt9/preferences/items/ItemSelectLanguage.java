@@ -1,21 +1,27 @@
 package io.github.sspanak.tt9.preferences.items;
 
+import android.content.Context;
+
 import androidx.preference.MultiSelectListPreference;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.ui.UI;
 
 public class ItemSelectLanguage {
 	public static final String NAME = "pref_languages";
 
+	private final Context context;
 	private final SettingsStore settings;
 	private final MultiSelectListPreference item;
 
-	public ItemSelectLanguage(MultiSelectListPreference multiSelect, SettingsStore settings) {
+	public ItemSelectLanguage(Context context, MultiSelectListPreference multiSelect, SettingsStore settings) {
+		this.context = context;
 		this.item = multiSelect;
 		this.settings = settings;
 	}
@@ -25,7 +31,11 @@ public class ItemSelectLanguage {
 			return this;
 		}
 
-		ArrayList<Language> languages = LanguageCollection.getAll(true);
+		ArrayList<Language> languages = LanguageCollection.getAll(context, true);
+		if (languages.isEmpty()) {
+			UI.alert(context, R.string.error, R.string.failed_loading_language_definitions);
+			// do not return, the MultiSelect component requires arrays, even if empty, otherwise it crashes
+		}
 
 		ArrayList<CharSequence> values = new ArrayList<>();
 		for (Language l : languages) {
@@ -70,7 +80,7 @@ public class ItemSelectLanguage {
 
 	private void previewSelection() {
 		item.setSummary(
-			LanguageCollection.toString(LanguageCollection.getAll(settings.getEnabledLanguageIds(), true))
+			LanguageCollection.toString(LanguageCollection.getAll(context, settings.getEnabledLanguageIds(), true))
 		);
 	}
 }

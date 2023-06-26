@@ -19,11 +19,13 @@ import io.github.sspanak.tt9.preferences.items.SectionKeymap;
 
 public class SettingsStore {
 
+	private final Context context;
 	private final SharedPreferences prefs;
 	private final SharedPreferences.Editor prefsEditor;
 
 
 	public SettingsStore(Context context) {
+		this.context = context;
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
 	}
@@ -32,7 +34,7 @@ public class SettingsStore {
 	/************* validators *************/
 
 	private boolean doesLanguageExist(int langId) {
-		return LanguageCollection.getLanguage(langId) != null;
+		return LanguageCollection.getLanguage(context, langId) != null;
 	}
 
 	private boolean validateSavedLanguage(int langId, String logTag) {
@@ -70,7 +72,7 @@ public class SettingsStore {
 
 	public Set<String> getEnabledLanguagesIdsAsStrings() {
 		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList(
-			String.valueOf(LanguageCollection.getDefault().getId())
+			String.valueOf(LanguageCollection.getDefault(context).getId())
 		)));
 	}
 
@@ -124,7 +126,7 @@ public class SettingsStore {
 
 
 	public int getInputLanguage() {
-		return prefs.getInt("pref_input_language", LanguageCollection.getDefault().getId());
+		return prefs.getInt("pref_input_language", LanguageCollection.getDefault(context).getId());
 	}
 
 	public void saveInputLanguage(int language) {

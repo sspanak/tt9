@@ -38,7 +38,7 @@ abstract class ItemClickable {
 	 *
 	 * My smashed Qin F21 Pro+ occasionally does this, if I press the keys hard.
 	 * There were reports the same happens on Kyocera KYF31, causing absolutely undesirable side effects.
-	 * @see: <a href="https://github.com/sspanak/tt9/issues/117">...</a>
+	 * See: <a href="https://github.com/sspanak/tt9/issues/117">...</a>
 	 */
 	protected boolean debounceClick(Preference p) {
 		long now = System.currentTimeMillis();

@@ -1,0 +1,14 @@
+---
+locale: de
+dictionaryFile: de-utf8.csv
+layout:
+  - [DEFAULT] # 0
+  - [DEFAULT] # 1
+  - [a, b, c, ä] # 2
+  - [d, e, f] # 3
+  - [g, h, i] # 4
+  - [j, k, l] # 5
+  - [m, n, o, ö] # 6
+  - [p, q, r, s, ß] # 7
+  - [t, u, v, ü] # 8
+  - [w, x, y, z] # 9

@@ -39,7 +39,7 @@ public class ItemTruncateUnselected extends ItemTruncateAll {
 
 		ArrayList<Integer> unselectedLanguageIds = new ArrayList<>();
 		ArrayList<Integer> selectedLanguageIds = settings.getEnabledLanguageIds();
-		for (Language lang : LanguageCollection.getAll(false)) {
+		for (Language lang : LanguageCollection.getAll(activity, false)) {
 			if (!selectedLanguageIds.contains(lang.getId())) {
 				unselectedLanguageIds.add(lang.getId());
 			}

@@ -7,16 +7,10 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
-import io.github.sspanak.tt9.languages.definitions.Bulgarian;
-import io.github.sspanak.tt9.languages.definitions.Dutch;
-import io.github.sspanak.tt9.languages.definitions.English;
-import io.github.sspanak.tt9.languages.definitions.French;
-import io.github.sspanak.tt9.languages.definitions.German;
-import io.github.sspanak.tt9.languages.definitions.Italian;
-import io.github.sspanak.tt9.languages.definitions.Russian;
-import io.github.sspanak.tt9.languages.definitions.Spanish;
-import io.github.sspanak.tt9.languages.definitions.Ukrainian;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DB7 {
@@ -28,28 +22,41 @@ public class DB7 {
 	}
 
 	private int getNewLanguageId(int oldId) {
+		Language language;
+
 		switch (oldId) {
 			default:
 				return oldId;
 			case 1:
-				return new English().getId();
+				language = LanguageCollection.getByLocale(ctx, Locale.ENGLISH.toString());
+				break;
 			case 2:
-				return new Russian().getId();
+				language = LanguageCollection.getByLocale(ctx, "ru_RU");
+				break;
 			case 3:
-				return new German().getId();
+				language = LanguageCollection.getByLocale(ctx, Locale.GERMAN.toString());
+				break;
 			case 4:
-				return new French().getId();
+				language = LanguageCollection.getByLocale(ctx, Locale.FRENCH.toString());
+				break;
 			case 5:
-				return new Italian().getId();
+				language = LanguageCollection.getByLocale(ctx, Locale.ITALIAN.toString());
+				break;
 			case 6:
-				return new Ukrainian().getId();
+				language = LanguageCollection.getByLocale(ctx, "uk_UA");
+				break;
 			case 7:
-				return new Bulgarian().getId();
+				language = LanguageCollection.getByLocale(ctx, "bg_BG");
+				break;
 			case 8:
-				return new Dutch().getId();
+				language = LanguageCollection.getByLocale(ctx, "nl_NL");
+				break;
 			case 9:
-				return new Spanish().getId();
+				language = LanguageCollection.getByLocale(ctx, "es_ES");
+				break;
 		}
+
+		return language != null ? language.getId() : -1;
 	}
 
 	private final Migration migration = new Migration(6, 7) {

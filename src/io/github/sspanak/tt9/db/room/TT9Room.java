@@ -27,7 +27,7 @@ public abstract class TT9Room extends RoomDatabase {
 				DB8.MIGRATION,
 				DB9.MIGRATION,
 				DB10.MIGRATION,
-				DB11.MIGRATION
+				new DB11().getMigration(context)
 			)
 			.build();
 	}

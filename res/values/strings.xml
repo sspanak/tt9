@@ -5,7 +5,11 @@
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
+	<string name="error">Error</string>
+	<string name="no_language">No Language</string>
+
 	<string name="error_unexpected">Unexpected error occurred.</string>
+	<string name="failed_loading_language_definitions">Failed loading all language definitions.</string>
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_blank">Blank word not added.</string>

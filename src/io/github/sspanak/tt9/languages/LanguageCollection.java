@@ -1,84 +1,70 @@
 package io.github.sspanak.tt9.languages;
 
+import android.content.Context;
 import android.os.Build;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.languages.definitions.*;
 
 public class LanguageCollection {
 	private static LanguageCollection self;
 
-	private final Language defaultLanguage = new English();
 	private final HashMap<Integer, Language> languages = new HashMap<>();
 
-	private LanguageCollection() {
-		List<Class<? extends Language>> languageList = Arrays.asList(
-			// Add languages here, to enable them in the UI and
-			// please, maintain the alphabetical order.
-			BrazilianPortuguese.class,
-			Bulgarian.class,
-			Dutch.class,
-			English.class,
-			Finnish.class,
-			French.class,
-			German.class,
-			Hebrew.class,
-			Indonesian.class,
-			Italian.class,
-			Norwegian.class,
-			Polish.class,
-			Russian.class,
-			Spanish.class,
-			Swedish.class,
-			Ukrainian.class,
-			Yiddish.class
-		);
-
-		// initialize the language objects from the class list above
-		for (Class<? extends Language> languageClass : languageList) {
+	private LanguageCollection(Context context) {
+		for (String file : LanguageDefinition.getAllFiles(context.getAssets())) {
 			try {
-				Language lang = languageClass.newInstance();
-				if (languages.containsKey(lang.getId())) {
-					throw new Exception("Duplicate language ID: " + lang.getId() + " for language: " + lang.getName());
-				}
+				Language lang = Language.fromDefinition(LanguageDefinition.fromFile(context.getAssets(), file));
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
-				Logger.e("tt9.LanguageCollection", "Skipping an invalid language. " + e.getMessage());
+				Logger.e("tt9.LanguageCollection", "Skipping invalid language: '" + file + "'. " + e.getMessage());
 			}
 		}
 	}
 
-	public static LanguageCollection getInstance() {
+
+	public static LanguageCollection getInstance(Context context) {
 		if (self == null) {
-			self = new LanguageCollection();
+			self = new LanguageCollection(context);
 		}
 
 		return self;
 	}
 
-	public static Language getLanguage(int langId) {
-		if (getInstance().languages.containsKey(langId)) {
-			return getInstance().languages.get(langId);
+	public static Language getLanguage(Context context, int langId) {
+		if (getInstance(context).languages.containsKey(langId)) {
+			return getInstance(context).languages.get(langId);
 		}
 
 		return null;
 	}
 
-	public static Language getDefault() {
-		return getInstance().defaultLanguage;
+	public static Language getDefault(Context context) {
+		Language language = getByLocale(context, "en");
+		return language == null ? new NullLanguage(context) : language;
 	}
 
-	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds, boolean sort) {
+	@Nullable
+	public static Language getByLocale(Context context, String locale) {
+		for (Language lang : getInstance(context).languages.values()) {
+			if (lang.getLocale().toString().equals(locale)) {
+				return lang;
+			}
+		}
+
+		return null;
+	}
+
+	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds, boolean sort) {
 		ArrayList<Language> langList = new ArrayList<>();
 
 		for (int languageId : languageIds) {
-			Language lang = getLanguage(languageId);
+			Language lang = getLanguage(context, languageId);
 			if (lang != null) {
 				langList.add(lang);
 			}
@@ -91,12 +77,12 @@ public class LanguageCollection {
 		return langList;
 	}
 
-	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds) {
-		return getAll(languageIds, false);
+	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds) {
+		return getAll(context, languageIds, false);
 	}
 
-	public static ArrayList<Language> getAll(boolean sort) {
-		ArrayList<Language> langList = new ArrayList<>(getInstance().languages.values());
+	public static ArrayList<Language> getAll(Context context, boolean sort) {
+		ArrayList<Language> langList = new ArrayList<>(getInstance(context).languages.values());
 
 		if (sort && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 			langList.sort(Comparator.comparing(l -> l.getLocale().toString()));
@@ -105,8 +91,8 @@ public class LanguageCollection {
 		return langList;
 	}
 
-	public static ArrayList<Language> getAll() {
-		return getAll(false);
+	public static ArrayList<Language> getAll(Context context) {
+		return getAll(context,false);
 	}
 
 

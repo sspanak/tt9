@@ -13,11 +13,81 @@ public class Language {
 	protected Locale locale;
 	protected String dictionaryFile;
 	protected String abcString;
-	protected ArrayList<ArrayList<String>> characterMap = new ArrayList<>();
-	private final HashMap<Character, String> reverseCharacterMap = new HashMap<>();
+	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
+	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
 
 	// settings
 	protected boolean hasUpperCase = true;
+
+
+	public static Language fromDefinition(LanguageDefinition definition) throws Exception {
+		if (definition.dictionaryFile.isEmpty()) {
+			throw new Exception("Invalid definition. Dictionary file must be set.");
+		}
+
+		if (definition.locale.isEmpty()) {
+			throw new Exception("Invalid definition. Locale cannot be empty.");
+		}
+
+		Locale definitionLocale;
+		switch (definition.locale) {
+			case "de":
+				definitionLocale = Locale.GERMAN;
+				break;
+			case "en":
+				definitionLocale = Locale.ENGLISH;
+				break;
+			case "fr":
+				definitionLocale = Locale.FRENCH;
+				break;
+			case "it":
+				definitionLocale = Locale.ITALIAN;
+				break;
+			default:
+				String[] parts = definition.locale.split("-", 2);
+				if (parts.length == 2) {
+					definitionLocale = new Locale(parts[0], parts[1]);
+				} else if (parts.length == 1) {
+					definitionLocale = new Locale(parts[0]);
+				} else {
+					throw new Exception("Unrecognized locale format: '" + definition.locale + "'.");
+				}
+		}
+
+		Language lang = new Language();
+		lang.abcString = definition.abcString.isEmpty() ? lang.abcString : definition.abcString;
+		lang.dictionaryFile = definition.getDictionaryFile();
+		lang.hasUpperCase = definition.hasUpperCase;
+		lang.locale = definitionLocale;
+		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
+
+		for (int key = 0; key <= 9 || key < definition.layout.size(); key++) {
+			lang.layout.add(keyCharsFromDefinition(key, definition.layout.get(key)));
+		}
+
+		return lang;
+	}
+
+
+	private static ArrayList<String> keyCharsFromDefinition(int key, ArrayList<String> definitionChars) {
+		final String defaultCharsPlaceholder = "DEFAULT";
+
+		if (key > 1 || !definitionChars.contains(defaultCharsPlaceholder)) {
+			return definitionChars;
+		}
+
+		ArrayList<String> keyChars = new ArrayList<>();
+		for (String defChar : definitionChars) {
+			if (defChar.equals(defaultCharsPlaceholder)) {
+				keyChars.addAll(key == 0 ? Characters.Special : Characters.Sentence);
+			} else {
+				keyChars.add(defChar);
+			}
+		}
+
+		return keyChars;
+	}
+
 
 	final public int getId() {
 		if (id == 0) {
@@ -95,11 +165,11 @@ public class Language {
 		return idInt;
 	}
 
-	private void generateReverseCharacterMap() {
-		reverseCharacterMap.clear();
+	private void generateCharacterKeyMap() {
+		characterKeyMap.clear();
 		for (int digit = 0; digit <= 9; digit++) {
 			for (String keyChar : getKeyCharacters(digit)) {
-				reverseCharacterMap.put(keyChar.charAt(0), String.valueOf(digit));
+				characterKeyMap.put(keyChar.charAt(0), String.valueOf(digit));
 			}
 		}
 	}
@@ -131,11 +201,11 @@ public class Language {
 	}
 
 	public ArrayList<String> getKeyCharacters(int key, boolean includeDigit) {
-		if (key < 0 || key >= characterMap.size()) {
+		if (key < 0 || key >= layout.size()) {
 			return new ArrayList<>();
 		}
 
-		ArrayList<String> chars = new ArrayList<>(characterMap.get(key));
+		ArrayList<String> chars = new ArrayList<>(layout.get(key));
 		if (includeDigit && chars.size() > 0) {
 			chars.add(String.valueOf(key));
 		}
@@ -151,17 +221,17 @@ public class Language {
 		StringBuilder sequence = new StringBuilder();
 		String lowerCaseWord = word.toLowerCase(locale);
 
-		if (reverseCharacterMap.isEmpty()) {
-			generateReverseCharacterMap();
+		if (characterKeyMap.isEmpty()) {
+			generateCharacterKeyMap();
 		}
 
 		for (int i = 0; i < lowerCaseWord.length(); i++) {
 			char letter = lowerCaseWord.charAt(i);
-			if (!reverseCharacterMap.containsKey(letter)) {
+			if (!characterKeyMap.containsKey(letter)) {
 				throw new InvalidLanguageCharactersException(this, "Failed generating digit sequence for word: '" + word);
 			}
 
-			sequence.append(reverseCharacterMap.get(letter));
+			sequence.append(characterKeyMap.get(letter));
 		}
 
 		return sequence.toString();

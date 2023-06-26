@@ -1,0 +1,15 @@
+---
+locale: pt-BR
+dictionaryFile: pt-BR-utf8.csv
+name: Português brasileiro
+layout:
+  - [DEFAULT] # 0
+  - [DEFAULT] # 1
+  - [a, b, c, ç, á, â, ã, à] # 2
+  - [d, e, f, é, ê, è] # 3
+  - [g, h, i, í] # 4
+  - [j, k, l] # 5
+  - [m, n, o, ó, ô, õ] # 6
+  - [p, q, r, s] # 7
+  - [t, u, v, ú] # 8
+  - [w, x, y, z] # 9

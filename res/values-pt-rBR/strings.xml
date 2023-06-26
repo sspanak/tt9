@@ -2,6 +2,7 @@
 <resources>
 	<string name="app_settings">Configurações do Teclado</string>
 	<string name="completed">Concluído</string>
+	<string name="no_language">Sem idioma</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
 	<string name="add_word_add">Adicionar</string>
@@ -56,4 +57,5 @@
 	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>
 	<string name="pref_upside_down_keys">Inverter Ordem das Teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
+	<string name="error">Erro</string>
 </resources>

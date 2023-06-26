@@ -45,7 +45,7 @@ public class ItemLoadDictionary extends ItemClickable {
 
 
 	private void onLoadingStatusChange(Bundle status) {
-		progressBar.show(status);
+		progressBar.show(context, status);
 		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 		if (progressBar.isCancelled()) {
@@ -62,7 +62,7 @@ public class ItemLoadDictionary extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		ArrayList<Language> languages = LanguageCollection.getAll(settings.getEnabledLanguageIds());
+		ArrayList<Language> languages = LanguageCollection.getAll(context, settings.getEnabledLanguageIds());
 
 		try {
 			loader.load(languages);

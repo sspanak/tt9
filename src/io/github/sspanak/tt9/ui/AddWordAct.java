@@ -75,7 +75,7 @@ public class AddWordAct extends AppCompatActivity {
 			word = ((EditText) main.findViewById(R.id.add_word_text)).getText().toString();
 			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
 
-			DictionaryDb.insertWord(this::onAddedWord, LanguageCollection.getLanguage(lang), word);
+			DictionaryDb.insertWord(this::onAddedWord, LanguageCollection.getLanguage(this, lang), word);
 		} catch (InsertBlankWordException e) {
 			Logger.e("AddWordAct.addWord", e.getMessage());
 			UI.toastLong(this, R.string.add_word_blank);
