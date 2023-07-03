@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
@@ -168,11 +169,11 @@ public class DictionaryLoader {
 	private void importLetters(Language language) {
 		ArrayList<Word> letters = new ArrayList<>();
 
+		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
+
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
-				if (DictionaryDb.doesWordExistSync(language, langChar.toUpperCase(language.getLocale()))) {
-					continue;
-				}
+				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
 
 				Word word = new Word();
 				word.langId = language.getId();
