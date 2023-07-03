@@ -131,7 +131,7 @@ static def validateDictionaryWord(String word, int lineNumber, String validChara
 		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
 	}
 
-	if (word.matches("^.\$") && !Character.isUpperCase(word.charAt(0))) {
+	if (word.matches("^.\$")) {
 		errorCount++
 		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 	}
