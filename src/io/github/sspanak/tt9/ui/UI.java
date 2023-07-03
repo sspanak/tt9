@@ -46,7 +46,6 @@ public class UI {
 			Looper.prepare();
 		}
 		toast(context, msg);
-		Looper.loop();
 	}
 
 	public static void toast(Context context, int resourceId) {
@@ -58,7 +57,6 @@ public class UI {
 			Looper.prepare();
 		}
 		toast(context, resourceId);
-		Looper.loop();
 	}
 
 	public static void toastLong(Context context, int resourceId) {
@@ -70,7 +68,6 @@ public class UI {
 			Looper.prepare();
 		}
 		toast(context, resourceId);
-		Looper.loop();
 	}
 
 	public static void toastLong(Context context, CharSequence msg) {
@@ -82,6 +79,5 @@ public class UI {
 			Looper.prepare();
 		}
 		toastLong(context, msg);
-		Looper.loop();
 	}
 }
