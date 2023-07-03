@@ -7,10 +7,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Characters {
-	final public static ArrayList<String> Sentence = new ArrayList<>(Arrays.asList(
+	final public static ArrayList<String> PunctuationEnglish = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "\"", "!", "?"
 	));
 
+	final public static ArrayList<String> PunctuationFrench = new ArrayList<>(Arrays.asList(
+		",", ".", "-", "«", "»", "(", ")", "[", "]", "&", "~", "`", "\"", "'", ";", ":", "!", "?"
+	));
+
+	final public static ArrayList<String> PunctuationGerman = new ArrayList<>(Arrays.asList(
+		",", ".", "-", "„", "“", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "!", "?"
+	));
+	
 	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
 		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
