@@ -21,7 +21,7 @@ public interface WordsDao {
 	@Query("DELETE FROM words WHERE lang IN(:langIds)")
 	void deleteByLanguage(ArrayList<Integer> langIds);
 
-	@Query("SELECT COUNT(id) FROM words WHERE lang = :langId AND word = :word")
+	@Query("SELECT COUNT(id) FROM words WHERE lang = :langId AND word LIKE :word")
 	int doesWordExist(int langId, String word);
 
 	@Query(

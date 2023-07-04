@@ -130,12 +130,16 @@ public class DictionaryDb {
 		Word dbWord = new Word();
 		dbWord.langId = language.getId();
 		dbWord.sequence = language.getDigitSequenceForWord(word);
-		dbWord.word = word.toLowerCase(language.getLocale());
+		dbWord.word = word;
 		dbWord.length = word.length();
 		dbWord.frequency = 1;
 
 		new Thread(() -> {
 			try {
+				if (getInstance().wordsDao().doesWordExist(dbWord.langId, dbWord.word) > 0) {
+					throw new SQLiteConstraintException("Word already exists.");
+				}
+
 				getInstance().wordsDao().insert(dbWord);
 				getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
 				statusHandler.accept(0);
