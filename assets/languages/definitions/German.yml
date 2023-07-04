@@ -2,8 +2,8 @@
 locale: de
 dictionaryFile: de-utf8.csv
 layout:
-  - [DEFAULT] # 0
-  - [DEFAULT] # 1
+  - [SPECIAL] # 0
+  - [PUNCTUATION_DE] # 1
   - [a, b, c, ä] # 2
   - [d, e, f] # 3
   - [g, h, i] # 4

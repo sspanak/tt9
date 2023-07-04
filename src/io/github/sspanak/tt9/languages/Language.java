@@ -70,18 +70,33 @@ public class Language {
 
 
 	private static ArrayList<String> keyCharsFromDefinition(int key, ArrayList<String> definitionChars) {
-		final String defaultCharsPlaceholder = "DEFAULT";
-
-		if (key > 1 || !definitionChars.contains(defaultCharsPlaceholder)) {
+		if (key > 1) {
 			return definitionChars;
 		}
 
+		final String specialCharsPlaceholder = "SPECIAL";
+		final String punctuationPlaceholder = "PUNCTUATION";
+		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
+		final String germanStylePlaceholder = punctuationPlaceholder + "_DE";
+
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
-			if (defChar.equals(defaultCharsPlaceholder)) {
-				keyChars.addAll(key == 0 ? Characters.Special : Characters.Sentence);
-			} else {
-				keyChars.add(defChar);
+			switch (defChar) {
+				case specialCharsPlaceholder:
+					keyChars.addAll(Characters.Special);
+					break;
+				case punctuationPlaceholder:
+					keyChars.addAll(Characters.PunctuationEnglish);
+					break;
+				case frenchStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationFrench);
+					break;
+				case germanStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationGerman);
+					break;
+				default:
+					keyChars.add(defChar);
+					break;
 			}
 		}
 

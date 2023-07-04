@@ -2,8 +2,8 @@
 locale: fr
 dictionaryFile: fr-utf8.csv
 layout:
-  - [DEFAULT] # 0
-  - [DEFAULT] # 1
+  - [SPECIAL] # 0
+  - [PUNCTUATION_FR] # 1
   - [a, b, c, à, â, æ, ç] # 2
   - [d, e, f, é, è, ê, ë] # 3
   - [g, h, i, î, ï] # 4

@@ -82,6 +82,8 @@ public class AutoSpace {
 				|| previousChar == ')'
 				|| previousChar == ']'
 				|| previousChar == '%'
+				|| previousChar == '»'
+				|| previousChar == '“'
 				|| previousChars.endsWith(" -")
 				|| previousChars.endsWith(" /")
 			);

@@ -2,8 +2,8 @@
 locale: sv-SE
 dictionaryFile: sv-utf8.csv
 layout:
-  - [DEFAULT] # 0
-  - [DEFAULT] # 1
+  - [SPECIAL] # 0
+  - [PUNCTUATION] # 1
   - [a, b, c, å, ä] # 2
   - [d, e, f, é] # 3
   - [g, h, i] # 4

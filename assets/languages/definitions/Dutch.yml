@@ -2,8 +2,8 @@
 locale: nl-NL
 dictionaryFile: nl-utf8.csv
 layout:
-  - [DEFAULT] # 0
-  - [DEFAULT] # 1
+  - [SPECIAL] # 0
+  - [PUNCTUATION] # 1
   - [a, b, c, à, ä, ç] # 2
   - [d, e, f, é, è, ê, ë] # 3
   - [g, h, i, î, ï] # 4

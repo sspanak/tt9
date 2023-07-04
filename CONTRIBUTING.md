@@ -53,7 +53,10 @@ To support a new language one needs to:
 - Create a new `.yml` file in `assets/languages/definitions/` and define the language properties.
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
   - `dictionaryFile` is the name of the dictionary in `assets/languages/dictionaries/` folder.
-  - `layout` contains the letters and punctuation marks associated with each key. For 0-key and 1-key using `[DEFAULT]`, will be fine for most languages. However, if the language has extra punctuation marks, like Spanish, you could complement the list: `[DEFAULT, ¡, ¿]`
+  - `layout` contains the letters and punctuation marks associated with each key.
+    - For 0-key `[SPECIAL]`, will be fine in most languages, but you could define your own set of special characters, for example: `[@, #, $]`.
+    - For 1-key, you could use `[PUNCTUATION]` and have standard English/computer punctuation; or `[PUNCTUATION_FR]` that includes the French quotation marks: `«`, `»`; or `[PUNCTUATION_DE]` that includes the German quotation marks: `„`, `“`. And if the language has extra punctuation marks, like Spanish, you could complement the list like this: `[PUNCTUATION, ¡, ¿]`. Or you could define your own list, like for 0-key.
+    - Keys 2 through 9, just contain the possible letters.
   - `abcString` _(optional)_. A custom string to display in ABC mode. By default, the first three letters on 2-key are used (e.g. "ABC" or "АБВ"). Set this if the first letters of the alphabet are _not_ on 2-key, like in Hebrew, or if a different string makes more sense.
   - `hasUpperCase` _(optional)_ set to `no` when the language has no upper- and lowercase letters. For example: Arabic, Hebrew, East Asian languages, and so on. The default is `yes`.
   - `name` _(optional)_ is automatically generated and equals the native name of the language (e.g. "English", "Deutsch", "Українська"). However, sometimes, the automatically selected name may be ambiguous. For example, both Portuguese in Portugal and Brazil will default to "Português", so assigning "Português brasileiro" would make it clear it's the language used in Brazil.
