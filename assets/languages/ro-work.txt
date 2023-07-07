@@ -11,19 +11,6 @@ dintr-alta
 dintr-altul
 dintr-altă
 dintr-atâta
-faceți-ile
-fluture
-fluture-alb
-fluture-de-varză
-m-apuc
-m-apucam
-
-mi-aduc
-mi-aduce
-mi-aprob
-mi-aprobă
-mi-erau
-mi-eră
 
 mă-nclin
 mă-ngheață
@@ -33,16 +20,12 @@ mă-nvăță
 mă-nșel
 mă-sei
 
-nu-mai
-nu-mă-uita
 nu-nțeleg
 nu-nțelegi
 nu-știu-ce
 
 s-a-mpletit
 s-abat
-s-aduc
-s-aducem
 s-aduceți
 s-aduci
 s-aducă
@@ -51,7 +34,6 @@ s-anin
 s-aprind
 s-aprinde
 s-apropie
-s-apucă
 s-arunca
 s-aruncau
 s-asculte
