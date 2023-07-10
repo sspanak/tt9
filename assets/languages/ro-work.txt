@@ -1,5 +1,7 @@
 \w-\w{1,3}\n
 
-(\w+)\-mi\n
+(\w+)\-lopătari\n
 
 ***********************
+
+cercetare-dezvoltare
