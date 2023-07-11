@@ -186,17 +186,4 @@ public class LanguageDefinition {
 	public String getDictionaryFile() {
 		return languagesDir + "/dictionaries/" + dictionaryFile;
 	}
-
-
-	@NonNull
-	@Override
-	public String toString() {
-		return getClass().getSimpleName()
-			+ ": { abcString: '" + abcString
-			+ "', dictionaryFile: '" + dictionaryFile
-			+ "', locale: '" + locale
-			+ "', name: '" + name
-			+ "', hasUpperCase: " + hasUpperCase
-			+ ", layout: " + layout.toString() + " }";
-	}
 }
