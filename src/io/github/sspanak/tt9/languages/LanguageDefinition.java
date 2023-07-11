@@ -2,6 +2,9 @@ package io.github.sspanak.tt9.languages;
 
 import android.content.res.AssetManager;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -43,46 +46,70 @@ public class LanguageDefinition {
 	}
 
 
-	private static String load(AssetManager assetManager, String definitionFile) throws IOException {
+	private static ArrayList<String> load(AssetManager assetManager, String definitionFile) throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(assetManager.open(definitionFile), StandardCharsets.UTF_8));
-		StringBuilder fileContents = new StringBuilder();
+		ArrayList<String> fileContents = new ArrayList<>();
 		String line;
 		while ((line = reader.readLine()) != null) {
-			fileContents.append(line).append("\n");
+			fileContents.add(line);
 		}
 
-		return fileContents.toString();
+		return fileContents;
 	}
 
-
-	private static LanguageDefinition parse(String yaml) {
+	/**
+	 * Converts "yaml" to a LanguageDefinition object. All properties in the YAML are considered optional,
+	 * so the LanguageDefinition defaults will be used when no value is found in the YAML.
+	 */
+	@NonNull
+	private static LanguageDefinition parse(ArrayList<String> yaml) {
 		LanguageDefinition definition = new LanguageDefinition();
+		String value;
 
-		definition.abcString = getPropertyFromYaml(yaml, "absString");
-		definition.dictionaryFile = getPropertyFromYaml(yaml, "dictionaryFile");
-		definition.locale = getPropertyFromYaml(yaml, "locale");
-		definition.name = getPropertyFromYaml(yaml, "name");
-//		definition.layout = getLayoutFromYaml(yaml);
-//
-//		String hasUpperCase = getPropertyFromYaml(yaml, "hasUpperCase");
-//		if (hasUpperCase != null) {
-//			hasUpperCase = hasUpperCase.toLowerCase();
-//			definition.hasUpperCase = hasUpperCase.equals("true") || hasUpperCase.equals("on") || hasUpperCase.equals("yes") || hasUpperCase.equals("y");
-//		}
+		value = getPropertyFromYaml(yaml, "absString");
+		definition.abcString = value != null ? value : definition.abcString;
+
+		value = getPropertyFromYaml(yaml, "dictionaryFile");
+		definition.dictionaryFile = value != null ? value : definition.dictionaryFile;
+
+		value = getPropertyFromYaml(yaml, "locale");
+		definition.locale = value != null ? value : definition.locale;
+
+		value = getPropertyFromYaml(yaml, "name");
+		definition.name = value != null ? value : definition.name;
+
+		//		definition.layout = getLayoutFromYaml(yaml);
+
+		value = getPropertyFromYaml(yaml, "hasUpperCase");
+		if (value != null) {
+			value = value.toLowerCase();
+			definition.hasUpperCase = value.equals("true") || value.equals("on") || value.equals("yes") || value.equals("y");
+		}
 
 		return definition;
 	}
 
 
-	private static String getPropertyFromYaml(String yaml, String property) {
-		try {
-			String regex = property + ":\\s*([^\\n]+)";
-			Pattern pattern = Pattern.compile(regex);
-			return pattern.matcher(yaml).group(0);
-		} catch (Exception e) {
-			Logger.w("LanguageDefinition", "Property '" + property + "' not found or invalid. " + e.getMessage());
-			return "";
+	/**
+	 * getPropertyFromYaml
+	 * Finds "property" in the "yaml" and returns its value.
+	 * Optional properties are allowed. NULL will be returned when they are missing.
+	 */
+	@Nullable
+	private static String getPropertyFromYaml(ArrayList<String> yaml, String property) {
+		for (String line : yaml) {
+			line = line.replaceAll("#.+$", "").trim();
+			String[] parts = line.split(":");
+			if (parts.length < 2) {
+				continue;
+			}
+
+			if (property.equals(parts[0].trim())) {
+				return parts[1].trim();
+			}
 		}
+
+		return null;
 	}
 
 
@@ -125,5 +152,18 @@ public class LanguageDefinition {
 
 	public String getDictionaryFile() {
 		return languagesDir + "/dictionaries/" + dictionaryFile;
+	}
+
+
+	@NonNull
+	@Override
+	public String toString() {
+		return getClass().getSimpleName()
+			+ ": { abcString: '" + abcString
+			+ "', dictionaryFile: '" + dictionaryFile
+			+ "', locale: '" + locale
+			+ "', name: '" + name
+			+ "', hasUpperCase: " + hasUpperCase
+			+ ", layout: " + layout.toString() + " }";
 	}
 }

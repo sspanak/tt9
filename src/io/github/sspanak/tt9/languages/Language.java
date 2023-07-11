@@ -61,7 +61,7 @@ public class Language {
 		lang.locale = definitionLocale;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 
-		for (int key = 0; key <= 9 || key < definition.layout.size(); key++) {
+		for (int key = 0; key <= 9 && key < definition.layout.size(); key++) {
 			lang.layout.add(keyCharsFromDefinition(key, definition.layout.get(key)));
 		}
 
