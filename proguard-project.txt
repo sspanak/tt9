@@ -24,11 +24,3 @@
 -keepclassmembers class io.github.sspanak.tt9.languages.LanguageDefinition {
    public *;
 }
-
-# SnakeYAML shall not complain. As resolved by Mozilla:
-# https://github.com/mozilla-mobile/focus-android/blob/main/app/proguard-rules.pro
--dontwarn java.beans.BeanInfo
--dontwarn java.beans.FeatureDescriptor
--dontwarn java.beans.IntrospectionException
--dontwarn java.beans.Introspector
--dontwarn java.beans.PropertyDescriptor

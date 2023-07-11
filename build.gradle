@@ -29,7 +29,6 @@ dependencies {
 	implementation 'androidx.preference:preference:1.2.0'
 	implementation 'androidx.room:room-runtime:2.5.1'
 	annotationProcessor 'androidx.room:room-compiler:2.5.1'
-	implementation 'org.yaml:snakeyaml:2.0'
 }
 
 repositories {
