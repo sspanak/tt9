@@ -2,8 +2,15 @@
 
 (\w+)-([^\n]+)
 
-(\w+)\-factor\n
+(\w+)\-vacii\n
 
 ***********************
 
-fairplay
+i-adevărat
+i-aprinde
+i-ncepe
+i-nchide
+i-ncolo
+i-ntinde
+i-ntocmai
+i-ntreabă
