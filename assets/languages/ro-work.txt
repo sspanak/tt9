@@ -2,15 +2,18 @@
 
 (\w+)-([^\n]+)
 
-(\w+)\-vacii\n
+(\w+)\-logofăt\n
 
 ***********************
 
-i-adevărat
-i-aprinde
-i-ncepe
-i-nchide
-i-ncolo
-i-ntinde
-i-ntocmai
-i-ntreabă
+n-aibă
+n-ajungă
+n-aprob
+n-aude
+n-auzi
+n-avea
+n-aveam
+n-aveau
+n-avem
+n-aveți
+n-avusese
