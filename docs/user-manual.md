@@ -39,13 +39,13 @@ In all cases, deleting a dictionary removes both all factory and all custom adde
 
 ## Hotkeys
 
-#### D-pad Up (↑):
-Select previous word/letter suggestion.
+#### Previous Suggestion key (Default: D-pad Left):
+Select the previous word/letter suggestion.
 
-#### D-pad Down (↓):
-Select next word/letter suggestion.
+#### Next Suggestion key (Default: D-pad Right):
+Select the next word/letter suggestion.
 
-#### D-pad Right (→):
+#### Filter Suggestions key (Default: D-pad Up):
 _Predictive mode only._
 
 - **Single press**: Filter the suggestion list, leaving out only the ones that start with the current word. It doesn't matter if it is a complete word or not. For example, type "remin" and press Right. It will leave out all words starting with "remin": "remin" itself, "remind", "reminds", "reminded", "reminding", and so on.
@@ -55,7 +55,7 @@ Filtering can also be used to type unknown words. Let's say you want to type "An
 
 When filtering is enabled, the base text will become bold and italicized.
 
-#### D-pad Left (←):
+#### Clear Filter key (Default: D-pad Down):
 _Predictive mode only._
 
 - Clear the suggestion filter, if applied.

@@ -1,7 +1,7 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports [multiple languages](assets/languages/definitions) and predictive text typing.
+TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports predictive text typing in [multiple languages](assets/languages/definitions) and configurable hotkeys.
 
-This is an updated version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
+This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
      alt="Get it on IzzyOnDroid"
@@ -12,7 +12,7 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 ## System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 10 and 11)_
 - Free space:
-  - Minimum 25 Mb when not using Predictive mode and no dictionaries are loaded.
+  - Minimum 30 Mb when not using Predictive mode and no dictionaries are loaded.
   - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
 
