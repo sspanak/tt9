@@ -1,11 +1,11 @@
 ---
 locale: ro-RO
-dictionaryFile: ro-utf8.csv
+dictionaryFile: ro.txt
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_FR] # 1
-  - [a, b, c, ă, â] # 2
-  - [d, e, f] # 3
+  - [a, b, c, ă, â, á] # 2
+  - [d, e, f, é, è] # 3
   - [g, h, i, î] # 4
   - [j, k, l] # 5
   - [m, n, o] # 6
