@@ -109,7 +109,7 @@ static def validateDictionaryLine(String line, int lineNumber) {
 }
 
 static def extractAlphabetCharsFromLine(String line) {
-	if (line.contains('DEFAULT') || !line.matches('\\s+- \\[.+?\\].*')) {
+	if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !line.matches('\\s+- \\[.+?\\].*')) {
 		return ''
 	}
 
