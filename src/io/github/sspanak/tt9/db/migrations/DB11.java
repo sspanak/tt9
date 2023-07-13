@@ -33,7 +33,8 @@ public class DB11 {
 				assert Dutch != null;
 
 				database.beginTransaction();
-				database.execSQL(getDeleteEnglishSwordsQuery(English));
+				database.execSQL(getTruncateBulgarianQuery());
+				database.execSQL(getDeleteEnglishSwordsQuery());
 				database.execSQL(getDeleteWordsQuery(English.getId(), enWords));
 				database.execSQL(getDeleteWordsQuery(Dutch.getId(), nlWords));
 				database.setTransactionSuccessful();
@@ -45,11 +46,19 @@ public class DB11 {
 		}
 	};
 
-	private String getDeleteEnglishSwordsQuery(Language English) {
+	private String getDeleteEnglishSwordsQuery() {
+		Language English = LanguageCollection.getByLocale(ctx, Locale.ENGLISH.toString());
+		assert English != null;
 		return "DELETE FROM words WHERE lang=" + English.getId() + " AND word LIKE '%''s'";
 	}
 
 	private String getDeleteWordsQuery(int langId, String wordList) {
 		return "DELETE FROM words WHERE lang=" + langId + " AND word IN(" + wordList + ")";
+	}
+
+	private String getTruncateBulgarianQuery() {
+		Language Bulgarian = LanguageCollection.getByLocale(ctx, "bg_BG");
+		assert  Bulgarian != null;
+		return "DELETE FROM words WHERE lang=" + Bulgarian.getId();
 	}
 }
