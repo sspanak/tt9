@@ -1,6 +1,6 @@
 ---
 locale: ro-RO
-dictionaryFile: ro.txt
+dictionaryFile: ro-utf8.csv
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_FR] # 1
