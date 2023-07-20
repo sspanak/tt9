@@ -14,13 +14,18 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'at.zierler.yamlvalidator'
 
+apply from: 'gradle/scripts/constants.gradle'
+apply from: 'gradle/scripts/compress-languages.gradle'
+apply from: 'gradle/scripts/validate-languages.gradle'
+apply from: 'gradle/scripts/version-tools.gradle'
+
 configurations.configureEach {
 	// fixes 'duplicate class error', when using these combine: androidx.core:1.10.1, androidx.preference:1.2.0 and androidx.room:2.5.1
 	// see: https://stackoverflow.com/questions/75274720/a-failure-occurred-while-executing-appcheckdebugduplicateclasses/75315276#75315276
 	exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
 
 	yamlValidator {
-		searchPaths = ['assets/languages/definitions']
+		searchPaths = ['languages/definitions']
 	}
 }
 
@@ -39,276 +44,56 @@ repositories {
 	}
 }
 
-def execThing ( String cmdStr ) {
-	def stdout = new ByteArrayOutputStream()
-	String prefix = System.getenv("GITCMDPREFIX")
-	if (prefix != null) {
-		String cmd = prefix + cmdStr
-		exec {
-			commandLine cmd.tokenize()
-			standardOutput = stdout
-		}
-	} else {
-		exec {
-			commandLine cmdStr.tokenize()
-			standardOutput = stdout
-		}
-	}
-	return stdout.toString().trim()
-}
-
-def getCurrentGitHash = { ->
-	return execThing('git log -1 --format=%h')
-}
-
-def getVersionCode = { ->
-	String commitsCount = execThing("git rev-list --count HEAD")
-	return Integer.valueOf(commitsCount)
-}
-
-def getVersionName = { ->
-	// major version
-	String versionTagsRaw = execThing('git tag --list v[0-9]*')
-	int versionTagsCount = versionTagsRaw == "" ? 0 : versionTagsRaw.split('\n').size()
-
-	// minor version
-	String commitsSinceLastTag = "0"
-	if (versionTagsCount > 1) {
-		String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
-		String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
-		commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
-	}
-
-
-	// the commit we are building from
-
-	// beta string, if this is a beta
-	String lastTagName = (execThing('git tag --list') == "") ? "" : execThing('git describe --tags --abbrev=0')
-	String lastTagHash = (lastTagName == "") ? "" : execThing("git log -1 --format=%h $lastTagName")
-	String betaString = lastTagHash == getCurrentGitHash() && lastTagName.contains("-beta") ? '-beta' : ''
-
-	return "$versionTagsCount.$commitsSinceLastTag$betaString"
-}
-
-def getDebugVersion = { ->
-	return "git-${getCurrentGitHash()} (debug)"
-}
-
-def getReleaseVersion = { ->
-	return "${getVersionName()} (${getCurrentGitHash()})"
-}
-
-static def validateDictionaryLine(String line, int lineNumber) {
-	if (line == "") {
-		return "There is no word on line ${lineNumber}. Remove all empty lines."
-	} else if (line.contains(" ")) {
-		return "Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed."
-	}
-
-	return ''
-}
-
-static def extractAlphabetCharsFromLine(String line) {
-	if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !line.matches('\\s+- \\[.+?\\].*')) {
-		return ''
-	}
-
-	return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
-}
-
-static def validateDictionaryWord(String word, int lineNumber, String validCharacters, String errorMsgPrefix) {
-	int errorCount = 0
-	def errors = ''
-
-	if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
-		errorCount++
-		errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
-	}
-
-	if (word.matches("^\\P{L}+\$")) {
-		errorCount++
-		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
-	}
-
-	if (word.matches("^.\$")) {
-		errorCount++
-		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
-	}
-
-	if (errorCount == 0 && !word.matches(validCharacters)) {
-		errorCount++
-		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contain characters outside of the defined alphabet: $validCharacters.\n"
-	}
-
-	return [errorCount, errors]
-}
-
-task validateLanguages {
-	final baseDir = "${project.rootDir}/assets/languages"
-	final definitionsDir = "${baseDir}/definitions"
-	final dictionariesDir = "${baseDir}/dictionaries"
-
-	inputs.dir fileTree(dir:baseDir, excludes:['dict.properties'])
+tasks.register('validateLanguages') {
+	mustRunAfter(validateYaml)
+	inputs.dir fileTree(dir: LANGUAGES_DIR)
 	outputs.file "${project.buildDir}/lang.validation.txt"
 
 	doLast {
-		final String CSV_DELIMITER = '	' // TAB
-		final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
-
-
-		final MAX_ERRORS = 50
-		String errors = ""
-		int errorCount = 0
-
-		outputs.files.singleFile.text = ""
-
-		fileTree(definitionsDir).getFiles().each { File languageFile ->
-			if (errorCount >= MAX_ERRORS) {
-				return
-			}
-
-			println "Validating language: ${languageFile.name}"
-
-			boolean isFileValid = true
-
-			boolean hasLayout = false
-			boolean isLocaleValid = false
-			String localeString = ''
-			String dictionaryFileName = ''
-
-			String alphabet = languageFile.name.contains("Hebrew") ? '"' : ''
-
-			languageFile.eachLine { line ->
-				if (
-					line.matches("^[a-zA-Z].*")
-					&& !line.startsWith("abcString")
-					&& !line.startsWith("dictionaryFile")
-					&& !line.startsWith("hasUpperCase")
-					&& !line.startsWith("layout")
-					&& !line.startsWith("locale")
-					&& !line.startsWith("name")
-				) {
-					isFileValid = false
-					def parts = line.split(":")
-					def property = parts.length > 0 ? parts[0] : line
-
-					errorCount++
-					errors += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
-				}
-
-				if (line.startsWith("hasUpperCase") && !line.endsWith("yes") && !line.endsWith("no")) {
-					def invalidVal = line.replace("hasUpperCase:", "").trim()
-					isFileValid = false
-					errorCount++
-					errors += "Language '${languageFile.name}' is invalid. Unrecognized 'hasUpperCase' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
-				}
-
-				if (line.startsWith("layout")) {
-					hasLayout = true
-				}
-
-				if (line.startsWith("locale")) {
-					localeString = line.replace("locale:", "").trim()
-					isLocaleValid = line.matches("^locale:\\s*[a-z]{2}(?:-[A-Z]{2})?")
-				}
-
-				if (line.startsWith("dictionaryFile")) {
-					dictionaryFileName = line.replace("dictionaryFile:", "").trim()
-				}
-
-				alphabet += extractAlphabetCharsFromLine(line)
-			}
-
-			if (!hasLayout) {
-				isFileValid = false
-				errorCount++
-				errors += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
-			}
-
-			if (alphabet.isEmpty()) {
-				isFileValid = false
-				errorCount++
-				errors += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
-			}
-
-			if (!isLocaleValid) {
-				isFileValid = false
-				errorCount++
-				def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
-				errors += "Language '${languageFile.name}' is invalid. ${msg}\n"
-			}
-
-			def dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
-			if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
-				errorCount++
-				errors += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
-
-				outputs.files.singleFile.text += "${languageFile.name} INVALID \n"
-				return
-			}
-
-			def validChars = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-']+\$"
-			def uniqueWords = [:]
-			int lineNumber = 0
-
-			dictionaryFile.eachLine {line ->
-				if (errorCount >= MAX_ERRORS) {
-					return
-				}
-
-				lineNumber++
-
-				String error = validateDictionaryLine(line, lineNumber)
-				if (!error.isEmpty()) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. ${error}.\n"
-					return
-				}
-
-				String[] parts = line.split(CSV_DELIMITER, 2)
-				String word = parts[0]
-				String frequency = parts.length > 1 ? parts[1] : ""
-
-				if (frequency.length() > 0 && !frequency.matches("^\\d+\$")) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be a non-negative integer.\n"
-				}
-
-				def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, validChars, "Dictionary '${dictionaryFile.name}' is invalid")
-				isFileValid = wordErrorCount > 0 ? false : isFileValid
-				errorCount += wordErrorCount
-				errors += wordErrors
-
-				String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
-				if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
-					isFileValid = false
-					errorCount++
-					errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a repeating word: '${word}' on line ${lineNumber}. Ensure all words appear only once.\n"
-				} else {
-					uniqueWords[uniqueWordKey] = true
-				}
-
-				if (errorCount >= MAX_ERRORS) {
-					errors += "Too many errors! Aborting.\n"
-				}
-			}
-
-			outputs.files.singleFile.text += "${languageFile.name} ${isFileValid ? 'OK' : 'INVALID'}\n"
-		}
-
-		if (errors != "") {
-			throw new GradleException(errors)
-		}
+		validateLanguageFiles(DEFINITIONS_DIR, DICTIONARIES_DIR, outputs.files.singleFile, MAX_CHARS_PER_KEY)
 	}
 }
 
-android {
-	defaultConfig {
-		compileSdk 33
+
+tasks.register('copyDefinitions', Copy) {
+	mustRunAfter(validateLanguages)
+	from DEFINITIONS_DIR
+	include '*.yml'
+	into DEFINITIONS_DIR.replace("${project.rootDir}", "${project.rootDir}/assets")
+	filter { line -> line.replaceFirst("\\.[a-z]+\$", ".${COMPRESSED_DICTIONARY_EXTENSION}") }
+}
+
+
+tasks.register('compressDictionaries') {
+	mustRunAfter(validateLanguages)
+	inputs.dir fileTree(dir: DEFINITIONS_DIR)
+	outputs.dir DICTIONARIES_DIR.replace("${project.rootDir}", "${project.rootDir}/assets")
+
+	doLast {
+		compressDictionaryFiles(DEFINITIONS_DIR, DICTIONARIES_DIR, outputs.files.singleFile.path, MAX_CHARS_PER_KEY, COMPRESSED_DICTIONARY_EXTENSION)
 	}
+}
+
+clean {
+	delete LANGUAGES_DIR.replace("${project.rootDir}", "${project.rootDir}/assets")
+}
+
+// using the exported Closures directly causes weird values, hence the extra wrappers here
+def getVerCode = { -> return getVersionCode() }
+def getVerName = { -> return getVersionName() }
+def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() : getReleaseVersion() }
+
+android {
 	namespace "io.github.sspanak.tt9"
+
+	defaultConfig {
+		minSdkVersion 19
+		//noinspection ExpiredTargetSdkVersion
+		targetSdk 30
+		compileSdk 33
+		versionCode getVerCode()
+		versionName getVerName()
+	}
 
 	sourceSets {
 		main {
@@ -330,21 +115,13 @@ android {
 		release.setRoot('build-types/release')
 	}
 
-	defaultConfig {
-		minSdkVersion 19
-		//noinspection ExpiredTargetSdkVersion
-		targetSdk 30
-		versionCode getVersionCode()
-		versionName getVersionName()
-	}
-
 	buildTypes {
 		debug { data ->
-			data.buildConfigField 'String', 'VERSION_FULL', "\"${getDebugVersion()}\""
+			data.buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
 		}
 
 		release { data ->
-			data.buildConfigField 'String', 'VERSION_FULL', "\"${getReleaseVersion()}\""
+			data.buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
 
 			debuggable false
 			jniDebuggable false
@@ -360,8 +137,11 @@ android {
 
 
 	applicationVariants.configureEach { variant ->
-		tasks["merge${variant.name.capitalize()}Assets"]
-			.dependsOn(validateYaml)
-			.dependsOn(validateLanguages)
+		tasks["generate${variant.name.capitalize()}Assets"]
+			.dependsOn(compressDictionaries)
+			.dependsOn(copyDefinitions)
+
+		tasks.findByName('lintVitalAnalyzeRelease')?.mustRunAfter(compressDictionaries)?.mustRunAfter(copyDefinitions)
+		tasks.findByName('lintAnalyzeDebug')?.mustRunAfter(compressDictionaries)?.mustRunAfter(copyDefinitions)
 	}
 }

@@ -1,0 +1,236 @@
+/**
+ * Tools for compressing dictionary files
+ */
+
+
+/**
+ * appendPunctuation
+ * Extends the original YAML layout to 16 characters for keys 2,3,4.
+ * The 16th character would be, respectively: `-`, `'`, `"`.
+ */
+static def appendPunctuation(int key, int maxCharsPerKey, ArrayList keyCharList) {
+	String punctuationChar
+
+	switch (key) {
+		case 2:
+			punctuationChar = '-'
+			break
+		case 3:
+			punctuationChar = "'"
+			break
+		case 4:
+			punctuationChar = '"'
+			break
+		default:
+			return keyCharList
+	}
+
+	def newList = []
+	for (int i = 0; i <= maxCharsPerKey; i++) {
+		if (i < keyCharList.size()) {
+			newList.add(keyCharList.get(i))
+		} else if (i < maxCharsPerKey) {
+			newList.add('')
+		} else {
+			newList.add(punctuationChar)
+		}
+	}
+
+	return newList
+}
+
+/**
+ * getLayout
+ * Takes a language definition YAML and extracts the characters per each key as an ArrayList of String lists.
+ * 0-key and 1-key are ignored, because they hold special characters which must not be part of the dictionary.
+ * For example, English would yield:
+ * [
+ * 	['a', 'b', 'c']
+ * 	['d', 'e', 'f']
+ * 	...
+ * 	['w', 'x', 'y', 'z']
+ * ]
+ */
+static def getLayout(langDefinition, maxCharsPerKey) {
+	def layout = []
+
+	def key = -1
+	langDefinition.eachLine{ line ->
+		if (!line.matches('\\s+- \\[.+?\\].*')) {
+			return
+		}
+
+		key++
+		if (line.contains('PUNCTUATION') || line.contains('SPECIAL')) {
+			return
+		}
+
+		def letterList = []
+		letterList.addAll(line.replaceFirst('#.*$', '').replaceAll('[\\s\\-\\[\\]]+', '').split(','))
+		if (letterList.size() > maxCharsPerKey) {
+			throw new GradleException(
+				"Failed compressing ${langDefinition.name}. Layout line ${key + 1} contains ${letterList.size()} characters, but the maximum is ${maxCharsPerKey}."
+			)
+		}
+
+		letterList = appendPunctuation(key, maxCharsPerKey, letterList)
+		layout.add(letterList)
+	}
+
+	return layout
+}
+
+/**
+ * getDictionaryName
+ * Extracts the 'dictionaryFile' property from a YAML definition
+ */
+static def getDictionaryName(langDefinition) {
+	String fileName = ''
+
+	langDefinition.eachLine{ line ->
+		if (line.startsWith('dictionaryFile:')) {
+			fileName = line.replaceFirst('^dictionaryFile:', '').trim()
+		}
+	}
+
+	if (fileName.isEmpty()) {
+		throw new GradleException("Could not extract the 'dictionaryName'.")
+	}
+
+	return fileName
+}
+
+
+/**
+ * compressWord
+ * Compresses a dictionary word by combining each letter and its associated hardware key in a single byte.
+ * The byte format is as follows:
+ * 		1 xxx xxxx - uppercase bit
+ *		x 111 xxxx - layout row (keypad key) bits. Valid values: 0-7, equivalent to 2-key to 9-key.
+ *		x xxx 1111 - layout column (letter-for-key) bits, where max of 15 letters per key are allowed,
+ *					and the 16th position is reserved for punctuation. See "appendPunctuation()".
+ *
+ * So English letter "A", will become: 1 000 0000, because it is in uppercase, it is on the first key (2-key), and it is the first letter.
+ * "q" would be "0 101 0010", because it is lowercase, fifth key (7-key), second letter. Check out the respective .YML for each language
+ * for more info about the key-letter layout.
+ */
+static def compressWord(String word, ArrayList<ArrayList<String>> layout) {
+	def compressedWord = []
+
+	for (int wordPosition = 0; word != null && wordPosition < word.length(); wordPosition++) {
+		def final currentLetter = word[wordPosition]
+		def isUpperCaseLetter = 0
+		def layoutCol = -1
+		int layoutRow
+
+		for (layoutRow = 0; layoutRow < layout.size(); layoutRow++) {
+			isUpperCaseLetter = 0
+			layoutCol = layout[layoutRow].indexOf(currentLetter)
+			if (layoutCol == -1) {
+				layoutCol = layout[layoutRow].indexOf(currentLetter.toLowerCase())
+				isUpperCaseLetter = 1
+			}
+
+			if (layoutCol != -1) {
+				break
+			}
+		}
+
+		if (layoutCol == -1) {
+			throw new GradleException("Invalid character: '${currentLetter}' in word: '${word}'. Layout is: ${layout.toString()}")
+		}
+
+		byte compressedLetter =
+			(isUpperCaseLetter << 7)
+			| ((layoutRow & 7) << 4)
+			| (layoutCol & 15)
+		compressedWord << compressedLetter
+	}
+
+	return compressedWord
+}
+
+
+/**
+ * validateFrequency
+ * Validates a single word frequency
+ */
+static def validateFrequency(rawFrequency) {
+	int frequency = rawFrequency != null ? (rawFrequency as int) : 0
+	return frequency & 0xFF
+}
+
+
+/**
+ * compressLine
+ * Takes a dictionary line, validates it, then converts it to a byte array in the format:
+ * [word frequency][letters + key positions as bytes... ][word end]
+ */
+static def compressLine(String dictionaryLine, ArrayList<ArrayList<String>> layout) {
+	def compressed = []
+
+	def matches = dictionaryLine =~ /^(\S+)(?:\s+(\d+))?/
+	if (matches.groupCount() < 1 || matches[0].size() < 2) {
+		throw new GradleException("Malformed word: '${dictionaryLine}'.")
+	}
+
+	compressed << validateFrequency(matches[0][2])
+	compressed.addAll(compressWord(matches[0][1], layout))
+	compressed << 0b10001111 // word end = "uppercase punctuation on 2-key"
+
+	return compressed as byte[]
+}
+
+/**
+ * compressDictionaryFiles
+ * Compresses dictionary .CSV or .TXT files, by replacing the full UTF-8 character set with the one defined in the
+ * respective definition .YML file.
+ *
+ * ## Compressed Format Specification
+ * Each word becomes a sequence of bytes. Below are the steps of the conversion algorithm. They are executed for each word,
+ * of the input file, until there are no more words.
+ *
+ * 1. The first byte is the frequency, obtained using "getFrequency()". The possible range is 0-255. .TXT files always yield
+ * 0 frequency, while .CSV files yield 0 when the second column is zero or blank.
+ * 2. Then the word letters are converted into a byte sequence using "compressWord()". The sequence is N bytes long, when the
+ * word is N letters long. Each byte contains the letter, its associated hardware key and whether it is uppercase or not.
+ * 3. Potentially, words could contain apostrophes, dashes or other punctuation characters. These also become one byte each.
+ * See "appendPunctuation()" for the list of supported characters.
+ * 4. Each word ends with a separator byte "10001111" = "0x8f" = "143" = "uppercase punctuation". Since punctuation can't really be in
+ * uppercase, this impossible combination is reserved for separating the words. This is the same as converting the new lines
+ * from the original .TXT/.CSV into 143s.
+ *
+ * Example: the word "ok" with frequency of 150, "ok 150", becomes:
+ * ```
+ * 	0x96 | 150
+ * 	0x42 | binary: 0 100 0010 | "o"
+ * 	0x31 | binary: 0 011 0001 | "k"
+ * 	0x8f | binary: 1 000 1111 |  word end
+ * ```
+ */
+ext.compressDictionaryFiles = { definitionsDir, dictionariesDir, langAssetsDir, maxCharsPerKey, dictionaryExtension ->
+	fileTree(dir: definitionsDir).forEach {langDefinition ->
+		println "Compressing dictionary of ${langDefinition.name}..."
+
+		def layout = getLayout(langDefinition, maxCharsPerKey)
+		def dictionaryName = getDictionaryName(langDefinition)
+
+		def textDictionary = new File(dictionariesDir, dictionaryName)
+		if (!textDictionary.exists()) {
+			throw new GradleException("Failed compressing dictionary file: '${textDictionary.name}'. File not found")
+		}
+
+		def compressedDictionaryName = dictionaryName.replaceFirst("\\.[a-z]+\$", ".${dictionaryExtension}")
+		def compressedDictionary = new File(langAssetsDir, compressedDictionaryName)
+		compressedDictionary.text = ''
+		int lineNumber = 0
+		textDictionary.eachLine {lineText ->
+			try {
+				lineNumber++
+				compressedDictionary.append(compressLine(lineText, layout))
+			} catch (GradleException e) {
+				throw new GradleException("Failed compressing dictionary file: '${textDictionary.name}'. Line: ${lineNumber} is invalid. ${e.getMessage()}")
+			}
+		}
+	}
+}

@@ -1,0 +1,204 @@
+static def validateDictionaryLine(String line, int lineNumber) {
+	if (line == "") {
+		return "There is no word on line ${lineNumber}. Remove all empty lines."
+	} else if (line.contains(" ")) {
+		return "Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed."
+	}
+
+	return ''
+}
+
+static def extractAlphabetCharsFromLine(String line) {
+	if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !line.matches('\\s+- \\[.+?\\].*')) {
+		return ''
+	}
+
+	return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
+}
+
+static def validateDictionaryWord(String word, int lineNumber, String validCharacters, String errorMsgPrefix) {
+	int errorCount = 0
+	def errors = ''
+
+	if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
+	}
+
+	if (word.matches("^\\P{L}+\$")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
+	}
+
+	if (word.matches("^.\$")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+	}
+
+	if (errorCount == 0 && !word.matches(validCharacters)) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contain characters outside of the defined alphabet: $validCharacters.\n"
+	}
+
+	return [errorCount, errors]
+}
+
+ext.validateLanguageFiles = { definitionsDir, dictionariesDir, outputFile, maxCharsPerKey ->
+	final String CSV_DELIMITER = '	' // TAB
+	final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
+	final MAX_WORD_FREQUENCY = 255
+
+
+	final MAX_ERRORS = 50
+	String errors = ""
+	int errorCount = 0
+
+	outputFile.text = ""
+
+	fileTree(definitionsDir).getFiles().each { File languageFile ->
+		if (errorCount >= MAX_ERRORS) {
+			return
+		}
+
+		println "Validating language: ${languageFile.name}"
+
+		boolean isFileValid = true
+
+		boolean hasLayout = false
+		boolean isLocaleValid = false
+		String localeString = ''
+		String dictionaryFileName = ''
+
+		String alphabet = languageFile.name.contains("Hebrew") ? '"' : ''
+
+		languageFile.eachLine { line ->
+			if (
+				line.matches("^[a-zA-Z].*")
+				&& !line.startsWith("abcString")
+				&& !line.startsWith("dictionaryFile")
+				&& !line.startsWith("hasUpperCase")
+				&& !line.startsWith("layout")
+				&& !line.startsWith("locale")
+				&& !line.startsWith("name")
+			) {
+				isFileValid = false
+				def parts = line.split(":")
+				def property = parts.length > 0 ? parts[0] : line
+
+				errorCount++
+				errors += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
+			}
+
+			if (line.startsWith("hasUpperCase") && !line.endsWith("yes") && !line.endsWith("no")) {
+				def invalidVal = line.replace("hasUpperCase:", "").trim()
+				isFileValid = false
+				errorCount++
+				errors += "Language '${languageFile.name}' is invalid. Unrecognized 'hasUpperCase' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+			}
+
+			if (line.startsWith("layout")) {
+				hasLayout = true
+			}
+
+			if (line.startsWith("locale")) {
+				localeString = line.replace("locale:", "").trim()
+				isLocaleValid = line.matches("^locale:\\s*[a-z]{2}(?:-[A-Z]{2})?")
+			}
+
+			if (line.startsWith("dictionaryFile")) {
+				dictionaryFileName = line.replace("dictionaryFile:", "").trim()
+			}
+
+			def lineCharacters = extractAlphabetCharsFromLine(line)
+			if (lineCharacters.length() > maxCharsPerKey) {
+				isFileValid = false
+				errorCount++
+				errors += "Language '${languageFile.name}' is invalid. Too many characters per key in layout line '${lineCharacters}'. Found ${lineCharacters.length()}, but the maximum supported is: ${maxCharsPerKey}. \n"
+			}
+
+			alphabet += lineCharacters
+		}
+
+		if (!hasLayout) {
+			isFileValid = false
+			errorCount++
+			errors += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
+		}
+
+		if (alphabet.isEmpty()) {
+			isFileValid = false
+			errorCount++
+			errors += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
+		}
+
+		if (!isLocaleValid) {
+			isFileValid = false
+			errorCount++
+			def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
+			errors += "Language '${languageFile.name}' is invalid. ${msg}\n"
+		}
+
+		def dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
+		if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
+			errorCount++
+			errors += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
+
+			outputFile.text += "${languageFile.name} INVALID \n"
+			return
+		}
+
+		def validChars = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-']+\$"
+		def uniqueWords = [:]
+		int lineNumber = 0
+
+		dictionaryFile.eachLine {line ->
+			if (errorCount >= MAX_ERRORS) {
+				return
+			}
+
+			lineNumber++
+
+			String error = validateDictionaryLine(line, lineNumber)
+			if (!error.isEmpty()) {
+				isFileValid = false
+				errorCount++
+				errors += "Dictionary '${dictionaryFile.name}' is invalid. ${error}.\n"
+				return
+			}
+
+			String[] parts = line.split(CSV_DELIMITER, 2)
+			String word = parts[0]
+			final frequency = (parts.length > 1 ? parts[1] : "0") as int
+
+			if (frequency < 0 || frequency > MAX_WORD_FREQUENCY) {
+				isFileValid = false
+				errorCount++
+				errors += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be an integer between 0 and ${MAX_WORD_FREQUENCY}.\n"
+			}
+
+			def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, validChars, "Dictionary '${dictionaryFile.name}' is invalid")
+			isFileValid = wordErrorCount > 0 ? false : isFileValid
+			errorCount += wordErrorCount
+			errors += wordErrors
+
+			String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
+			if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
+				isFileValid = false
+				errorCount++
+				errors += "Dictionary '${dictionaryFile.name}' is invalid. Found a repeating word: '${word}' on line ${lineNumber}. Ensure all words appear only once.\n"
+			} else {
+				uniqueWords[uniqueWordKey] = true
+			}
+
+			if (errorCount >= MAX_ERRORS) {
+				errors += "Too many errors! Aborting.\n"
+			}
+		}
+
+		outputFile.text += "${languageFile.name} ${isFileValid ? 'OK' : 'INVALID'}\n"
+	}
+
+	if (errors != "") {
+		throw new GradleException(errors)
+	}
+}

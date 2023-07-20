@@ -5,11 +5,11 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.Handler;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
@@ -18,7 +18,6 @@ import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.room.Word;
-import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -195,96 +194,133 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWords(Language language, String dictionaryFile) throws Exception {
-		long totalWords = countWords(dictionaryFile);
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-
-		ArrayList<Word> dbWords = new ArrayList<>();
-		long lineCount = 0;
-
+	private void importWords(Language language, String dictionaryPath) throws Exception {
 		sendProgressMessage(language, 0, 0);
 
-		for (String line; (line = br.readLine()) != null; lineCount++) {
+		final byte WORD_END = (byte) 0b10001111; // word end is the equivalent of uppercase punctuation
+
+		final long fileSize = getDictionarySize(dictionaryPath);
+
+
+		int frequency = 0;
+		char[] sequence = new char[256];
+		char[] word = new char[256];
+		int sequenceLength = 0;
+		int lastByte = 0;
+
+		ArrayList<Word> dbWords = new ArrayList<>();
+		DataInputStream fileStream = new DataInputStream(new BufferedInputStream(assets.open(dictionaryPath)));
+
+		for (long filePosition = 0; filePosition < fileSize; filePosition++) {
 			if (loadThread.isInterrupted()) {
-				br.close();
+				fileStream.close();
 				sendProgressMessage(language, -1, 0);
 				throw new DictionaryImportAbortedException();
 			}
 
-			String[] parts = splitLine(line);
-			String word = parts[0];
-			int frequency = getFrequency(parts);
+			// analyze and process the next file byte
+			byte currentByte = fileStream.readByte();
 
-			try {
-				dbWords.add(stringToWord(language, word, frequency));
-			} catch (InvalidLanguageCharactersException e) {
-				throw new DictionaryImportException(word, lineCount);
+			// end of word
+			if (currentByte == WORD_END && sequenceLength > 0) {
+				dbWords.add(stringToWord(
+					language,
+					new String(Arrays.copyOfRange(word, 0, sequenceLength)),
+					new String(Arrays.copyOfRange(sequence, 0, sequenceLength)),
+					frequency
+				));
+				sequenceLength = 0;
+			}
+			// frequency
+			else if (lastByte == WORD_END || filePosition == 0) {
+				frequency = currentByte;
+			}
+			// word characters
+			else {
+				try {
+					char[] decompressed = decompressChar(language, currentByte);
+					sequence[sequenceLength] = decompressed[0];
+					word[sequenceLength] = decompressed[1];
+					sequenceLength++;
+				} catch (Exception e) {
+					throw new Exception("Could not decompress character at position: " + filePosition + ". " + e.getMessage());
+				}
 			}
 
-			if (lineCount % settings.getDictionaryImportWordChunkSize() == 0 || lineCount == totalWords - 1) {
+			lastByte = currentByte;
+
+			// save the word list to the database when it is long enough or when he have reached the end of the file
+			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || filePosition == fileSize - 1) {
 				DictionaryDb.upsertWordsSync(dbWords);
 				dbWords.clear();
 			}
 
-			if (totalWords > 0) {
-				int progress = (int) Math.floor(100.0 * lineCount / totalWords);
-				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
-			}
+			// send progress status
+			int progress = (int) Math.floor(100.0 * filePosition / fileSize);
+			sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
 		}
 
-		br.close();
+		fileStream.close();
+
 		sendProgressMessage(language, 100, 0);
 	}
 
 
-	private String[] splitLine(String line) {
-		String[] parts = { line, "" };
+	private char[] decompressChar(Language language, byte compressedChar) throws Exception {
+		int key = 2 + ((compressedChar & 0b01110000) >> 4);
+		int letterPosition = compressedChar & 0b00001111;
+		boolean isUpperCase = (compressedChar & 0b10000000) == 0b10000000;
 
-		// This is faster than String.split() by around 10%, so it's worth having it.
-		// It runs very often, so any other optimizations are welcome.
-		for (int i = 0 ; i < line.length(); i++) {
-			if (line.charAt(i) == '	') { // the delimiter is TAB
-				parts[0] = line.substring(0, i);
-				parts[1] = i < line.length() - 1 ? line.substring(i + 1) : "";
-				break;
-			}
-		}
-
-		return parts;
+		return new char[] {
+			(char)(key + '0'),
+			letterPosition == 0b00001111 ? getPunctuationChar(key) : getLetter(language, key, letterPosition, isUpperCase)
+		};
 	}
 
-
-	private long countWords(String filename) {
-		try (LineNumberReader reader = new LineNumberReader(new InputStreamReader(assets.open(filename), StandardCharsets.UTF_8))) {
-			//noinspection ResultOfMethodCallIgnored
-			reader.skip(Long.MAX_VALUE);
-			long lines = reader.getLineNumber();
-			reader.close();
-
-			return lines;
-		} catch (Exception e) {
-			Logger.w("DictionaryLoader.countWords", "Could not count the lines of file: " + filename + ". " + e.getMessage());
-			return 0;
+	private char getPunctuationChar(int key) throws Exception {
+		switch (key) {
+			case 2:
+				return '-';
+			case 3:
+				return '\'';
+			case 4:
+				return '"';
+			default:
+				throw new Exception("Unrecognized punctuation character with ID: " + key);
 		}
 	}
 
 
-	private int getFrequency(String[] lineParts) {
+	private char getLetter(Language language, int key, int letterPosition, boolean isUpperCase) throws Exception {
 		try {
-			return Integer.parseInt(lineParts[1]);
+			String letter = language.getKeyCharacters(key).get(letterPosition);
+			letter = isUpperCase ? letter.toUpperCase(language.getLocale()) : letter;
+			return letter.charAt(0);
 		} catch (Exception e) {
+			throw new Exception("No character on " + key + "-key at position: " + (letterPosition + 1) + " (human numbers)");
+		}
+	}
+
+
+	private long getDictionarySize(String dictionaryPath) {
+		try {
+			DataInputStream fileStream = new DataInputStream(new BufferedInputStream(assets.open(dictionaryPath)));
+			long fileSize = fileStream.skip(Long.MAX_VALUE);
+			fileStream.close();
+			return fileSize;
+		} catch (IOException e) {
+			Logger.w("DictionaryLoader.getDictionarySize", "Could not count the lines of file: " + dictionaryPath + ". " + e.getMessage());
 			return 0;
 		}
 	}
 
 
-	private Word stringToWord(Language language, String word, int frequency) throws InvalidLanguageCharactersException {
+	private Word stringToWord(Language language, String word, String sequence, int frequency) {
 		Word dbWord = new Word();
 		dbWord.langId = language.getId();
 		dbWord.frequency = frequency;
 		dbWord.length = word.length();
-		dbWord.sequence = language.getDigitSequenceForWord(word);
+		dbWord.sequence = sequence;
 		dbWord.word = word;
 
 		return dbWord;

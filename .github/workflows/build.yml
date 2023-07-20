@@ -23,10 +23,12 @@ jobs:
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2
 
-    # validation
+    # validate and build
     - name: Validate Dictionaries
       run: ./gradlew validateLanguages
+    - name: Compress Dictionaries
+      run: ./gradlew compressDictionaries
     - name: Lint
-      run: ./gradlew lint
+      run: ./gradlew lint # this actually runs mergeResources, so it must come after the dictionary tasks
     - name: Build Release APK
       run: ./gradlew build
