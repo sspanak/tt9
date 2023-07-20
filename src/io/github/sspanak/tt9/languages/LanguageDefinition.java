@@ -38,7 +38,7 @@ public class LanguageDefinition {
 			}
 
 			Logger.d("LanguageDefinition", "Found: " + files.size() + " languages.");
-		} catch (IOException e) {
+		} catch (IOException | NullPointerException e) {
 			Logger.e("tt9.LanguageDefinition", "Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
 		}
 

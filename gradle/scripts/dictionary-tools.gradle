@@ -1,0 +1,6 @@
+ext.getDictionarySizes = { dictionariesDir, sizesDir ->
+	fileTree(dir: dictionariesDir).forEach {dictionary ->
+		def dictionarySize = dictionary.exists() ? dictionary.text.split("\n").length : 0
+		new File(sizesDir, "${dictionary.getName()}.size").text = dictionarySize
+	}
+}
