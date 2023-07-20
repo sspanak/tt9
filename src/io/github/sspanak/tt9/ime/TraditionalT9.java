@@ -805,8 +805,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		}
+		else{
+			super.showWindow(true);
+		}
 	}
-
 
 	@Override
 	protected boolean shouldBeVisible() {
