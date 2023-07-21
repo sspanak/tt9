@@ -799,7 +799,6 @@ public class TraditionalT9 extends KeyPadHandler {
 				&& !mInputMode.isPassthrough()
 				&& !isInputViewShown()
 		) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			super.showWindow(true);
