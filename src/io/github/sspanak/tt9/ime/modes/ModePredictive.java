@@ -51,6 +51,9 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		if (digitSequence.isEmpty()) {
+			return false;
+		}
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		if (digitSequence.length() < 1) {
 			clearWordStem();
