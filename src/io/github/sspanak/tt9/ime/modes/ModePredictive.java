@@ -51,15 +51,13 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		if (digitSequence.length() < 1) {
 			clearWordStem();
 			return false;
 		}
 
-		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
-		if (digitSequence.length() == 0) {
-			clearWordStem();
-		} else if (stem.length() > digitSequence.length()) {
+		if (stem.length() > digitSequence.length()) {
 			stem = stem.substring(0, digitSequence.length() - 1);
 		}
 
