@@ -747,10 +747,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void showAddWord() {
-		if (shouldBeOff()) {
-			return;
-		}
-
 		textField.finishComposingText();
 		clearSuggestions();
 
