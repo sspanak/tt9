@@ -326,20 +326,18 @@ public class TextField {
 			return EditorInfo.IME_ACTION_NONE;
 		}
 
+		int action;
 		if (field.actionId > 0) {
-			return field.actionId; // custom action, defined by the connected app
+			action = field.actionId; // custom action, defined by the connected app
+		} else {
+			action = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
 		}
-
-		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
-		switch (standardAction) {
-			case EditorInfo.IME_ACTION_GO:
-			case EditorInfo.IME_ACTION_NEXT:
-			case EditorInfo.IME_ACTION_PREVIOUS:
-			case EditorInfo.IME_ACTION_SEARCH:
-			case EditorInfo.IME_ACTION_SEND:
-				return standardAction;
-			default:
+		switch (action) {
+			case EditorInfo.IME_ACTION_UNSPECIFIED:
+			case EditorInfo.IME_ACTION_DONE:
 				return IME_ACTION_ENTER;
+			default:
+				return action;
 		}
 	}
 }
