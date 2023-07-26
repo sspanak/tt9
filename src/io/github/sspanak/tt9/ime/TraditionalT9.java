@@ -795,11 +795,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * are invisible. This function forces the InputMethodManager to show our window.
 	 */
 	protected void forceShowWindowIfHidden() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-				&& !mInputMode.isPassthrough()
-				&& !isInputViewShown()
-		) {
+		if (mInputMode.isPassthrough() || isInputViewShown()) {
+			return;
+		}
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
+		} else {
+			showWindow(true);
 		}
 	}
 
