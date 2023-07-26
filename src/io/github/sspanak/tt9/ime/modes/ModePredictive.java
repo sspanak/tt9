@@ -57,6 +57,7 @@ public class ModePredictive extends InputMode {
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		if (digitSequence.length() < 1) {
 			clearWordStem();
+			reset();
 			return false;
 		}
 
