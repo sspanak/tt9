@@ -120,8 +120,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
 		if (Key.isBackspace(settings, keyCode)) {
-			// When there is no more text, allow "Back" key to function normally, not to block navigation.
-			// All other keys have their default function disabled.
 			isBackspaceHandled = onBackspace();
 			return isBackspaceHandled;
 		} else {
