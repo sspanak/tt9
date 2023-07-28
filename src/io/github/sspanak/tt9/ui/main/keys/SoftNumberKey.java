@@ -28,13 +28,13 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleHold() {
-		if (tt9 == null || tt9.getInputMode() != InputMode.MODE_123 || getId() != R.id.soft_key_0) {
+		if (tt9 == null) {
 			return super.handleHold();
 		}
 
 		preventRepeat();
-		int zeroCode = Key.numberToCode(0);
-		tt9.onKeyLongPress(zeroCode, new KeyEvent(KeyEvent.ACTION_DOWN, zeroCode));
+		int keyCode = Key.numberToCode(getNumber(getId()));
+		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
 		return true;
 	}
 
