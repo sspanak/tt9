@@ -95,11 +95,24 @@ public class SoftNumberKey extends SoftKey {
 			return "";
 		}
 
+		boolean isLatinBased = language.isLatinBased();
+		boolean isGreekBased = language.isGreek();
+
 		StringBuilder sb = new StringBuilder();
 		ArrayList<String> chars = language.getKeyCharacters(number, false);
 		for (int i = 0; i < 5 && i < chars.size(); i++) {
+			String currentLetter = chars.get(i);
+			if (
+				(isLatinBased && currentLetter.charAt(0) > 'z')
+				|| (isGreekBased && (currentLetter.charAt(0) < 'α' || currentLetter.charAt(0) > 'ω'))
+			) {
+				// As suggested by the community, there is no need to display the accented letters.
+				// People are used to seeing just A-Z.
+				continue;
+			}
+
 			sb.append(
-				tt9.getTextCase() == InputMode.CASE_UPPER ? chars.get(i).toUpperCase(language.getLocale()) : chars.get(i)
+				tt9.getTextCase() == InputMode.CASE_UPPER ? currentLetter.toUpperCase(language.getLocale()) : currentLetter
 			);
 		}
 
