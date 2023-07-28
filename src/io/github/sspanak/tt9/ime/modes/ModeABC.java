@@ -17,7 +17,6 @@ public class ModeABC extends InputMode {
 		changeLanguage(lang);
 	}
 
-
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
@@ -36,25 +35,10 @@ public class ModeABC extends InputMode {
 		return true;
 	}
 
-
-	@Override
-	public boolean onOtherKey(int key) {
-		reset();
-
-		if (key > 0) {
-			keyCode = key;
-			return true;
-		}
-
-		return false;
-	}
-
-
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
 	}
-
 
 	@Override
 	public void changeLanguage(Language language) {

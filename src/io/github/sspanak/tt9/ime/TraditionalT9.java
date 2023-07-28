@@ -306,23 +306,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onOtherKey(int keyCode) {
-		cancelAutoAccept();
-
-		String acceptedWord = acceptIncompleteSuggestion();
-		if (mInputMode.onOtherKey(keyCode)) {
-			autoCorrectSpace(acceptedWord, false, keyCode);
-			getSuggestions();
-			resetKeyRepeat();
-			return true;
-		}
-
-		return acceptedWord.length() > 0;
-	}
-
-
 	public boolean onText(String text) {
-		if (mInputMode.isNumeric() || text.length() == 0) {
+		if (mInputMode.shouldIgnoreText(text)) {
 			return false;
 		}
 
@@ -331,10 +316,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		// accept the previously typed word (if any)
 		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
 
-		// "type" and accept the text
+		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
+
 		return true;
 	}
 
@@ -586,13 +572,6 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
-		// key code "suggestions" take priority over words
-		if (mInputMode.getKeyCode() > 0) {
-			sendDownUpKeyEvents(mInputMode.getKeyCode());
-			mInputMode.reset();
-			return;
-		}
-
 		// display the word suggestions
 		setSuggestions(mInputMode.getSuggestions());
 
@@ -622,7 +601,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private String getComposingText(int maxLength) {
-		if (maxLength == 0) {
+		if (maxLength == 0 || !suggestionBar.hasElements()) {
 			return "";
 		}
 

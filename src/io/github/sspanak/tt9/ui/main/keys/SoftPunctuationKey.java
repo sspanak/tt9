@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
@@ -29,8 +28,8 @@ public class SoftPunctuationKey extends SoftKey {
 
 		preventRepeat();
 		int keyId = getId();
-		if (keyId == R.id.soft_key_punctuation_1) return tt9.onOtherKey(KeyEvent.KEYCODE_COMMA);
-		if (keyId == R.id.soft_key_punctuation_2) return tt9.onOtherKey(KeyEvent.KEYCODE_PERIOD);
+		if (keyId == R.id.soft_key_punctuation_1) return tt9.onText(",");
+		if (keyId == R.id.soft_key_punctuation_2) return tt9.onText(".");
 
 		return false;
 	}
@@ -44,8 +43,8 @@ public class SoftPunctuationKey extends SoftKey {
 
 		int keyId = getId();
 		if (tt9.getInputMode() == InputMode.MODE_123) {
-			if (keyId == R.id.soft_key_punctuation_1) return tt9.onOtherKey(KeyEvent.KEYCODE_STAR);
-			if (keyId == R.id.soft_key_punctuation_2) return tt9.onOtherKey(KeyEvent.KEYCODE_POUND);
+			if (keyId == R.id.soft_key_punctuation_1) return tt9.onText("*");
+			if (keyId == R.id.soft_key_punctuation_2) return tt9.onText("#");
 		} else {
 			if (keyId == R.id.soft_key_punctuation_1) return tt9.onText("!");
 			if (keyId == R.id.soft_key_punctuation_2) return tt9.onText("?");

@@ -32,7 +32,6 @@ abstract public class InputMode {
 	protected int autoAcceptTimeout = -1;
 	protected Language language;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
-	protected int keyCode = 0;
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, int mode) {
@@ -53,7 +52,6 @@ abstract public class InputMode {
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
-	abstract public boolean onOtherKey(int key);
 
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
@@ -90,7 +88,6 @@ abstract public class InputMode {
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
 	}
-	public int getKeyCode() { return keyCode; }
 	public void changeLanguage(Language newLanguage) {
 		if (newLanguage != null) {
 			language = newLanguage;
@@ -102,6 +99,7 @@ abstract public class InputMode {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
 	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
+	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
 	public boolean shouldTrackUpDown() { return false; }
@@ -109,7 +107,6 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
-		keyCode = 0;
 		suggestions.clear();
 	}
 

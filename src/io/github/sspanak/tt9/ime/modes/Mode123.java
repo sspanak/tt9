@@ -1,10 +1,6 @@
 package io.github.sspanak.tt9.ime.modes;
 
-import android.view.KeyEvent;
-
 import androidx.annotation.NonNull;
-
-import io.github.sspanak.tt9.ime.helpers.Key;
 
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
@@ -13,21 +9,33 @@ public class Mode123 extends ModePassthrough {
 	@Override public final boolean is123() { return true; }
 	@Override public boolean isPassthrough() { return false; }
 
-	@Override
-	public boolean onNumber(int number, boolean hold, int repeat) {
+	@Override public void reset() {
+		super.reset();
+		autoAcceptTimeout = 0;
+	}
+
+	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
-		keyCode = (number == 0 && hold) ? KeyEvent.KEYCODE_PLUS : Key.numberToCode(number);
+		suggestions.add((number == 0 && hold) ? "+" : String.valueOf(number));
 		return true;
 	}
 
-	@Override
-	public boolean onOtherKey(int key) {
-		reset();
-		if (Key.isDecimalSeparator(key) || Key.isPoundOrStar(key)) {
-			keyCode = key;
-			return true;
-		}
-
-		return false;
+	/**
+	 * shouldIgnoreText
+	 * Since this is a numeric mode, we allow typing only numbers and:
+	 * 	1. In numeric fields, we must allow math chars
+	 * 	2. In dialer fields, we must allow various punctuation chars, because they are used as dialing shortcuts
+	 * 	at least in Japan.
+	 * More info and discussion: <a href="https://github.com/sspanak/tt9/issues/241">issue 241 on Github</a>.
+	 */
+	@Override public boolean shouldIgnoreText(String text) {
+		return
+			text == null
+			|| text.length() != 1
+			|| !(
+				(text.charAt(0) > 31 && text.charAt(0) < 65)
+				|| (text.charAt(0) > 90 && text.charAt(0) < 97)
+				|| (text.charAt(0) > 122 && text.charAt(0) < 127)
+			);
 	}
 }
