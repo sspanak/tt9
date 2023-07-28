@@ -300,12 +300,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return performOKAction();
 		}
 
-		String word = suggestionBar.getCurrentSuggestion();
-
-		mInputMode.onAcceptSuggestion(word);
-		commitCurrentSuggestion();
-		autoCorrectSpace(word, true, KeyEvent.KEYCODE_ENTER);
-		resetKeyRepeat();
+		acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
 
 		return true;
 	}
@@ -504,11 +499,15 @@ public class TraditionalT9 extends KeyPadHandler {
 	private boolean scheduleAutoAccept(int delay) {
 		cancelAutoAccept();
 
+		if (!suggestionBar.hasElements()) {
+			return false;
+		}
+
 		if (delay == 0) {
-			this.onOK();
+			this.acceptCurrentSuggestion();
 			return true;
 		} else if (delay > 0) {
-			autoAcceptHandler.postDelayed(this::autoAccept, delay);
+			autoAcceptHandler.postDelayed(this::acceptCurrentSuggestion, delay);
 		}
 
 		return false;
@@ -520,10 +519,20 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoAccept() {
-		if (suggestionBar.hasElements()) {
-			this.onOK();
+	private void acceptCurrentSuggestion(int fromKey) {
+		String word = suggestionBar.getCurrentSuggestion();
+		if (word.isEmpty()) {
+			return;
 		}
+
+		mInputMode.onAcceptSuggestion(word);
+		commitCurrentSuggestion();
+		autoCorrectSpace(word, true, fromKey);
+		resetKeyRepeat();
+	}
+
+	private void acceptCurrentSuggestion() {
+		acceptCurrentSuggestion(-1);
 	}
 
 
@@ -798,6 +807,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.isPassthrough() || isInputViewShown()) {
 			return;
 		}
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		} else {
