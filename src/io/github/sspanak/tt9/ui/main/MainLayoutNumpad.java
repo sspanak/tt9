@@ -72,12 +72,17 @@ class MainLayoutNumpad extends BaseMainLayout {
 			}
 		}
 
+		ViewGroup statusBarContainer = view.findViewById(R.id.status_bar_container);
+		keys.addAll(getKeysFromContainer(statusBarContainer));
+
 		return keys;
 	}
 
 	protected ArrayList<View> getSeparators() {
 		// it's fine... it's shorter, faster and easier to read than searching with 3 nested loops
 		return new ArrayList<>(Arrays.asList(
+			view.findViewById(R.id.separator_candidates_1),
+			view.findViewById(R.id.separator_candidates_2),
 			view.findViewById(R.id.separator_0),
 			view.findViewById(R.id.separator_1_1),
 			view.findViewById(R.id.separator_1_2),

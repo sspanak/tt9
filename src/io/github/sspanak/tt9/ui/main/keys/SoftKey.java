@@ -136,7 +136,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		int keyId = getId();
 
 		if (keyId == R.id.soft_key_add_word) return tt9.onKeyAddWord();
-		if (keyId == R.id.soft_key_clear_filter) return tt9.onKeyFilterClear();
 		if (keyId == R.id.soft_key_filter_suggestions) return tt9.onKeyFilterSuggestions(repeat);
 		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyPreviousSuggestion();
 		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyNextSuggestion();
