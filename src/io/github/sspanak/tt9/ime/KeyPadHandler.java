@@ -134,8 +134,8 @@ abstract class KeyPadHandler extends InputMethodService {
 		return Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
 			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
-			|| keyCode == KeyEvent.KEYCODE_STAR
-			|| keyCode == KeyEvent.KEYCODE_POUND
+			|| (keyCode == KeyEvent.KEYCODE_POUND && onText("#"))
+			|| (keyCode == KeyEvent.KEYCODE_STAR && onText("*"))
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
 	}
@@ -168,10 +168,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		if (Key.isNumber(keyCode)) {
 			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
-		}
-
-		if (Key.isPoundOrStar(keyCode) && onOtherKey(keyCode)) {
-			return true;
 		}
 
 		ignoreNextKeyUp = 0;
@@ -229,8 +225,6 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_DOWN:
 			case KeyEvent.KEYCODE_DPAD_LEFT:
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onArrow(keyCode, keyRepeatCounter > 0);
-			case KeyEvent.KEYCODE_STAR:
-			case KeyEvent.KEYCODE_POUND: return onOtherKey(keyCode);
 		}
 
 		return false;
@@ -275,7 +269,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract public boolean onBackspace();
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract public boolean onOK();
-	abstract protected boolean onOtherKey(int key);
+	abstract public boolean onText(String text);
 
 	// customized key handlers
 	abstract protected boolean onKeyAddWord();

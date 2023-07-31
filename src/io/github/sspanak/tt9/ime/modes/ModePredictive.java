@@ -90,20 +90,6 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean onOtherKey(int key) {
-		reset();
-
-		if (key > 0) {
-			disablePredictions = true;
-			keyCode = key;
-			return true;
-		}
-
-		return false;
-	}
-
-
-	@Override
 	public void changeLanguage(Language language) {
 		super.changeLanguage(language);
 

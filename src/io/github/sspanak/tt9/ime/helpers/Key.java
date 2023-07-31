@@ -29,17 +29,6 @@ public class Key {
 	}
 
 
-	public static boolean isPoundOrStar(int keyCode) {
-		return keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_STAR;
-	}
-
-	public static boolean isDecimalSeparator(int keyCode) {
-		return
-			keyCode == KeyEvent.KEYCODE_COMMA
-			|| keyCode == KeyEvent.KEYCODE_NUMPAD_DOT
-			|| keyCode == KeyEvent.KEYCODE_PERIOD;
-	}
-
 	public static boolean isOK(int keyCode) {
 		return
 			keyCode == KeyEvent.KEYCODE_DPAD_CENTER
