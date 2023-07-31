@@ -137,7 +137,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			|| (keyCode == KeyEvent.KEYCODE_POUND && onText("#"))
 			|| (keyCode == KeyEvent.KEYCODE_STAR && onText("*"))
 			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight());
+			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
+			|| super.onKeyDown(keyCode, event); // let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
 	}
 
 
@@ -227,7 +228,8 @@ abstract class KeyPadHandler extends InputMethodService {
 			case KeyEvent.KEYCODE_DPAD_RIGHT: return onArrow(keyCode, keyRepeatCounter > 0);
 		}
 
-		return false;
+		// let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
+		return super.onKeyUp(keyCode, event);
 	}
 
 
