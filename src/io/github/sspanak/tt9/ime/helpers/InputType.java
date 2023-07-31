@@ -51,7 +51,7 @@ public class InputType {
 		int inputType = field.inputType & android.text.InputType.TYPE_MASK_CLASS;
 
 		return
-			inputType == android.text.InputType.TYPE_CLASS_PHONE && field.packageName.equals("com.android.dialer") || inputType == android.text.InputType.TYPE_CLASS_NUMBER;
+			inputType == android.text.InputType.TYPE_CLASS_PHONE && field.packageName.equals("com.android.dialer") || inputType == android.text.InputType.TYPE_CLASS_NUMBER && field.packageName.contains("com.android.calculator");
 	}
 
 
