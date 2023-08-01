@@ -113,6 +113,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * last saved mode.
 	 */
 	private void determineTextCase() {
+		mInputMode.defaultTextCase();
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
 		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
