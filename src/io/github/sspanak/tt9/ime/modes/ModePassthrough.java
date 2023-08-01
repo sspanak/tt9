@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
-// see: InputType.isDialer()
+// see: InputType.isSpecialNumeric()
 public class ModePassthrough extends InputMode {
 	ModePassthrough() {
 		reset();

@@ -33,17 +33,18 @@ public class InputType {
 
 
 	/**
-	 * isDialer
-	 * Dialer fields seem to take care of numbers and backspace on their own,
+	 * isSpecialNumeric
+	 * Calculator and Dialer fields seem to take care of numbers and backspace on their own,
 	 * so we need to be aware of them.
 	 *
 	 * NOTE: A Dialer field is not the same as Phone field. Dialer is where you
 	 * actually dial and call a phone number. While the Phone field is a text
 	 * field in any app or a webpage, intended for typing phone numbers.
 	 *
-	 * More info: <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>.
+	 * More info: <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>
+	 * and <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>.
 	 */
-	public boolean isDialer() {
+	public boolean isSpecialNumeric() {
 		if (field == null) {
 			return false;
 		}
@@ -51,7 +52,8 @@ public class InputType {
 		int inputType = field.inputType & android.text.InputType.TYPE_MASK_CLASS;
 
 		return
-			inputType == android.text.InputType.TYPE_CLASS_PHONE && field.packageName.equals("com.android.dialer") || inputType == android.text.InputType.TYPE_CLASS_NUMBER && field.packageName.contains("com.android.calculator");
+			inputType == android.text.InputType.TYPE_CLASS_PHONE && field.packageName.equals("com.android.dialer")
+			|| inputType == android.text.InputType.TYPE_CLASS_NUMBER && field.packageName.contains("com.android.calculator");
 	}
 
 

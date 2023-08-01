@@ -90,9 +90,10 @@ public class TextField {
 			return allowedModes;
 		}
 
-		// Dialer field, not to be confused with Phone text field.
-		// It only accepts 0-9, "#" and "*".
-		if (inputType.isDialer()) {
+		// Calculators (support only 0-9 and math) and Dialer (0-9, "#" and "*"),
+		// handle all input themselves, so we are supposed to pass through all key presses.
+		// Note: A Dialer field is not a Phone number field.
+		if (inputType.isSpecialNumeric()) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
 			return allowedModes;
 		}
