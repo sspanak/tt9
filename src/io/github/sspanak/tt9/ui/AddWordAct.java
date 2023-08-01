@@ -27,9 +27,7 @@ public class AddWordAct extends AppCompatActivity {
 	protected void onCreate(Bundle savedData) {
 		settings = new SettingsStore(this);
 
-		AppCompatDelegate.setDefaultNightMode(
-			settings.getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
-		);
+		AppCompatDelegate.setDefaultNightMode(settings.getTheme());
 
 		super.onCreate(savedData);
 

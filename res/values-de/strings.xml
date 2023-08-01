@@ -23,4 +23,7 @@
 	<string name="char_newline">Neue Zeile</string>
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="error">Fehler</string>
+	<string name="pref_dark_theme_yes">Ja</string>
+	<string name="pref_dark_theme_no">Nein</string>
+	<string name="pref_dark_theme_auto">Automatisch</string>
 </resources>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
 
-	<SwitchPreferenceCompat
-		app:defaultValue="true"
-		app:key="pref_dark_theme"
-		app:layout="@layout/pref_switch"
+	<DropDownPreference
+		app:defaultValue="-1"
+		app:iconSpaceReserved="false"
+		app:key="pref_theme"
+		app:layout="@layout/pref_dropdown"
 		app:title="@string/pref_dark_theme" />
 
 	<SwitchPreferenceCompat

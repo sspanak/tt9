@@ -32,5 +32,8 @@
 	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
 	<string name="error">Errore</string>
+	<string name="pref_dark_theme_yes">Si</string>
+	<string name="pref_dark_theme_no">No</string>
+	<string name="pref_dark_theme_auto">Automatica</string>
 </resources>
 

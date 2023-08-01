@@ -58,4 +58,7 @@
 	<string name="pref_upside_down_keys">Inverter Ordem das Teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
 	<string name="error">Erro</string>
+	<string name="pref_dark_theme_yes">Sim</string>
+	<string name="pref_dark_theme_no">Não</string>
+	<string name="pref_dark_theme_auto">Automático</string>
 </resources>

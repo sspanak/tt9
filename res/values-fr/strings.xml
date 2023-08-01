@@ -64,4 +64,7 @@
 	<string name="pref_show_soft_numpad">Pavé numérique à l\'écran</string>
 	<string name="dictionary_truncating">Suppression…</string>
 	<string name="error">Erreur</string>
+	<string name="pref_dark_theme_yes">Oui</string>
+	<string name="pref_dark_theme_no">Non</string>
+	<string name="pref_dark_theme_auto">Automatique</string>
 </resources>
