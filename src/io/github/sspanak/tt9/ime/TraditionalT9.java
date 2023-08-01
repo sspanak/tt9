@@ -338,7 +338,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyFilterClear() {
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -354,7 +354,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean repeat) {
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -446,7 +446,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private boolean isSuggestionViewHidden() {
-		return suggestionBar == null || !suggestionBar.hasElements();
+		return suggestionBar == null || suggestionBar.isEmpty();
 	}
 
 
@@ -477,7 +477,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private boolean scheduleAutoAccept(int delay) {
 		cancelAutoAccept();
 
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -593,7 +593,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private String getComposingText(int maxLength) {
-		if (maxLength == 0 || !suggestionBar.hasElements()) {
+		if (maxLength == 0 || suggestionBar.isEmpty()) {
 			return "";
 		}
 
