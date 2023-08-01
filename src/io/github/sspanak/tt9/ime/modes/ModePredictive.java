@@ -359,9 +359,6 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	@Override public boolean shouldTrackUpDown() { return true; }
-	@Override public boolean shouldTrackLeftRight() { return true; }
-
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 
 	@NonNull
