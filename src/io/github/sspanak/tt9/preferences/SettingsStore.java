@@ -2,7 +2,9 @@ package io.github.sspanak.tt9.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import java.util.ArrayList;
@@ -226,7 +228,22 @@ public class SettingsStore {
 
 	/************* UI settings *************/
 
-	public boolean getDarkTheme() { return prefs.getBoolean("pref_dark_theme", true); }
+	public boolean getDarkTheme() {
+		int theme = getTheme();
+		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
+			return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+		} else {
+			return theme == AppCompatDelegate.MODE_NIGHT_YES;
+		}
+	}
+
+	public int getTheme() {
+		try {
+			return Integer.parseInt(prefs.getString("pref_theme", String.valueOf(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)));
+		} catch (NumberFormatException e) {
+			return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+		}
+	}
 
 	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
 

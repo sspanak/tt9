@@ -136,9 +136,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 
 	private void applyTheme() {
-		AppCompatDelegate.setDefaultNightMode(
-			settings.getDarkTheme() ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO
-		);
+		AppCompatDelegate.setDefaultNightMode(settings.getTheme());
 	}
 
 
