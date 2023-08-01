@@ -102,9 +102,6 @@ abstract public class InputMode {
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
-	public boolean shouldTrackUpDown() { return false; }
-	public boolean shouldTrackLeftRight() { return false; }
-
 	public void reset() {
 		autoAcceptTimeout = -1;
 		suggestions.clear();

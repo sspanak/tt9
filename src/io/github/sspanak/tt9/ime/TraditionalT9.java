@@ -444,15 +444,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean shouldTrackUpDown() {
-		return !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
-	}
-
-	protected boolean shouldTrackLeftRight() {
-		return !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
-	}
-
-
 	private boolean isSuggestionViewHidden() {
 		return suggestionBar == null || !suggestionBar.hasElements();
 	}
