@@ -81,9 +81,10 @@ class MainLayoutNumpad extends BaseMainLayout {
 	protected ArrayList<View> getSeparators() {
 		// it's fine... it's shorter, faster and easier to read than searching with 3 nested loops
 		return new ArrayList<>(Arrays.asList(
+			view.findViewById(R.id.separator_top),
 			view.findViewById(R.id.separator_candidates_1),
 			view.findViewById(R.id.separator_candidates_2),
-			view.findViewById(R.id.separator_0),
+			view.findViewById(R.id.separator_candidates_bottom),
 			view.findViewById(R.id.separator_1_1),
 			view.findViewById(R.id.separator_1_2),
 			view.findViewById(R.id.separator_2_1),

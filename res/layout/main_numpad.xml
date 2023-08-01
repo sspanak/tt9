@@ -5,6 +5,9 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
 
+	<View
+		android:id="@+id/separator_top"
+		style="@style/numRowSeparator" />
 
 	<LinearLayout
 		android:id="@+id/status_bar_container"
@@ -59,7 +62,7 @@
 	</LinearLayout>
 
 	<View
-		android:id="@+id/separator_0"
+		android:id="@+id/separator_candidates_bottom"
 		style="@style/numRowSeparator" />
 
 	<LinearLayout
@@ -171,13 +174,10 @@
 				android:id="@+id/separator_2_2"
 				style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_filter_suggestions"
-				style="@android:style/Widget.Holo.Button.Borderless"
+			<View
 				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="Fltr" />
+				android:layout_height="0dp"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 		</LinearLayout>
 
@@ -227,10 +227,13 @@
 				android:id="@+id/separator_3_2"
 				style="@style/numSeparator" />
 
-			<View
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_filter_suggestions"
+				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
+				android:layout_height="wrap_content"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
+				android:text="Fltr" />
 
 		</LinearLayout>
 
