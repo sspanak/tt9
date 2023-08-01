@@ -28,13 +28,13 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleHold() {
-		if (tt9 == null || tt9.getInputMode() != InputMode.MODE_123 || getId() != R.id.soft_key_0) {
+		if (tt9 == null) {
 			return super.handleHold();
 		}
 
 		preventRepeat();
-		int zeroCode = Key.numberToCode(0);
-		tt9.onKeyLongPress(zeroCode, new KeyEvent(KeyEvent.ACTION_DOWN, zeroCode));
+		int keyCode = Key.numberToCode(getNumber(getId()));
+		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
 		return true;
 	}
 
@@ -95,11 +95,24 @@ public class SoftNumberKey extends SoftKey {
 			return "";
 		}
 
+		boolean isLatinBased = language.isLatinBased();
+		boolean isGreekBased = language.isGreek();
+
 		StringBuilder sb = new StringBuilder();
 		ArrayList<String> chars = language.getKeyCharacters(number, false);
 		for (int i = 0; i < 5 && i < chars.size(); i++) {
+			String currentLetter = chars.get(i);
+			if (
+				(isLatinBased && currentLetter.charAt(0) > 'z')
+				|| (isGreekBased && (currentLetter.charAt(0) < 'α' || currentLetter.charAt(0) > 'ω'))
+			) {
+				// As suggested by the community, there is no need to display the accented letters.
+				// People are used to seeing just A-Z.
+				continue;
+			}
+
 			sb.append(
-				tt9.getTextCase() == InputMode.CASE_UPPER ? chars.get(i).toUpperCase(language.getLocale()) : chars.get(i)
+				tt9.getTextCase() == InputMode.CASE_UPPER ? currentLetter.toUpperCase(language.getLocale()) : currentLetter
 			);
 		}
 

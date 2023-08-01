@@ -5,28 +5,65 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
 
-	<FrameLayout
+	<View
+		android:id="@+id/separator_top"
+		style="@style/numRowSeparator" />
+
+	<LinearLayout
+		android:id="@+id/status_bar_container"
 		android:layout_width="fill_parent"
 		android:layout_height="@dimen/numpad_candidate_height">
 
-		<TextView
-			android:id="@+id/status_bar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:textStyle="italic"
-			tools:text="@tools:sample/lorem" />
+		<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			android:id="@+id/soft_key_left_arrow"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="@dimen/numpad_arrow_key_width"
+			android:layout_height="fill_parent"
+			android:text="@string/key_dpad_left"
+			android:textSize="@dimen/soft_key_icon_size" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/suggestions_bar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:orientation="horizontal"
-			android:scrollbars="none" />
+		<View
+			android:id="@+id/separator_candidates_1"
+			style="@style/numSeparator" />
 
-	</FrameLayout>
+		<FrameLayout
+			android:layout_width="0dp"
+			android:layout_weight="1"
+			android:layout_height="fill_parent">
+			<TextView
+				android:id="@+id/status_bar"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:textStyle="italic"
+				tools:text="@tools:sample/lorem" />
 
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/suggestions_bar"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="horizontal"
+				android:scrollbars="none" />
+		</FrameLayout>
+
+		<View
+			android:id="@+id/separator_candidates_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			android:id="@+id/soft_key_right_arrow"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="@dimen/numpad_arrow_key_width"
+			android:layout_height="fill_parent"
+			android:text="@string/key_dpad_right"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+	</LinearLayout>
+
+	<View
+		android:id="@+id/separator_candidates_bottom"
+		style="@style/numRowSeparator" />
 
 	<LinearLayout
 		android:id="@+id/main_soft_keys"
@@ -34,50 +71,6 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:paddingBottom="@dimen/numpad_padding_bottom">
-
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
-
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_left_arrow"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="@string/key_dpad_left"
-				android:textSize="@dimen/soft_key_icon_size" />
-
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_clear_filter"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="Clear" />
-
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_filter_suggestions"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="Filter" />
-
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_right_arrow"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:text="@string/key_dpad_right"
-				android:textSize="@dimen/soft_key_icon_size" />
-		</LinearLayout>
-
-		<View
-			android:id="@+id/separator_0"
-			style="@style/numRowSeparator" />
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -89,7 +82,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="⚙"
 				android:textSize="@dimen/soft_key_icon_size" />
 
@@ -129,7 +122,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="⌫"
 				android:textSize="@dimen/soft_key_icon_size" />
 
@@ -145,7 +138,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="＋"
 				android:textStyle="bold" />
 
@@ -184,7 +177,7 @@
 			<View
 				android:layout_width="0dp"
 				android:layout_height="0dp"
-				android:layout_weight="1" />
+				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 		</LinearLayout>
 
@@ -198,7 +191,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="⌨️"
 				android:textSize="@dimen/soft_key_icon_size" />
 
@@ -234,10 +227,13 @@
 				android:id="@+id/separator_3_2"
 				style="@style/numSeparator" />
 
-			<View
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_filter_suggestions"
+				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_weight="1" />
+				android:layout_height="wrap_content"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
+				android:text="Fltr" />
 
 		</LinearLayout>
 
@@ -252,7 +248,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="🌐" />
 
 			<View
@@ -292,7 +288,7 @@
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="1"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
 				android:text="@android:string/ok"
 				tools:ignore="ButtonOrder" />
 

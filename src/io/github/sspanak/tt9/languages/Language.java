@@ -12,12 +12,10 @@ public class Language {
 	protected String name;
 	protected Locale locale;
 	protected String dictionaryFile;
+	protected boolean hasUpperCase = true;
 	protected String abcString;
 	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
-
-	// settings
-	protected boolean hasUpperCase = true;
 
 
 	public static Language fromDefinition(LanguageDefinition definition) throws Exception {
@@ -149,6 +147,25 @@ public class Language {
 		return hasUpperCase;
 	}
 
+	/**
+	 * isLatinBased
+	 * Returns "true" when the language is based on the Latin alphabet or "false" otherwise.
+	 * WARNING: This performs somewhat resource-intensive operations every time, so consider
+	 * caching the result.
+	 */
+	public boolean isLatinBased() {
+		ArrayList<String> letters = getKeyCharacters(2, false);
+		return letters.contains("a");
+	}
+
+	/**
+	 * isGreek
+	 * Similar to "isLatinBased()", this returns "true" when the language is based on the Greek alphabet.
+	 */
+	public boolean isGreek() {
+		ArrayList<String> letters = getKeyCharacters(2, false);
+		return letters.contains("α");
+	}
 
 	/* ************ utility ************ */
 
