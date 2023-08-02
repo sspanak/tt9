@@ -20,6 +20,7 @@ import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
+import io.github.sspanak.tt9.preferences.screens.DebugScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
@@ -84,6 +85,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		switch (name) {
 			case "Appearance":
 				return new AppearanceScreen(this);
+			case "Debug":
+				return new DebugScreen(this);
 			case "Dictionaries":
 				return new DictionariesScreen(this);
 			case "Hotkeys":

@@ -294,7 +294,7 @@ public class DictionaryLoader {
 	private void sendFileCount(int fileCount) {
 		if (onStatusChange == null) {
 			Logger.w(
-				"tt9/DictionaryLoader.sendFileCount",
+				"DictionaryLoader.sendFileCount",
 				"Cannot send file count without a status Handler. Ignoring message.");
 			return;
 		}
@@ -308,7 +308,7 @@ public class DictionaryLoader {
 	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
 		if (onStatusChange == null) {
 			Logger.w(
-				"tt9/DictionaryLoader.sendProgressMessage",
+				"DictionaryLoader.sendProgressMessage",
 				"Cannot send progress without a status Handler. Ignoring message.");
 			return;
 		}
@@ -331,7 +331,7 @@ public class DictionaryLoader {
 
 	private void sendError(String message, int langId) {
 		if (onStatusChange == null) {
-			Logger.w("tt9/DictionaryLoader.sendError", "Cannot send an error without a status Handler. Ignoring message.");
+			Logger.w("DictionaryLoader.sendError", "Cannot send an error without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -344,7 +344,7 @@ public class DictionaryLoader {
 
 	private void sendImportError(String message, int langId, long fileLine, String word) {
 		if (onStatusChange == null) {
-			Logger.w("tt9/DictionaryLoader.sendError", "Cannot send an import error without a status Handler. Ignoring message.");
+			Logger.w("DictionaryLoader.sendError", "Cannot send an import error without a status Handler. Ignoring message.");
 			return;
 		}
 

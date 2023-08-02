@@ -146,11 +146,11 @@ public class DictionaryDb {
 			} catch (SQLiteConstraintException e) {
 				String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence + "', for language: " + dbWord.langId
 					+ ". " + e.getMessage();
-				Logger.e("tt9/insertWord", msg);
+				Logger.e("insertWord", msg);
 				statusHandler.accept(1);
 			} catch (Exception e) {
 				String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId + ". " + e.getMessage();
-				Logger.e("tt9/insertWord", msg);
+				Logger.e("insertWord", msg);
 				statusHandler.accept(2);
 			}
 		}).start();
@@ -270,13 +270,13 @@ public class DictionaryDb {
 		ArrayList<String> wordList = new ArrayList<>(maxWords);
 
 		if (sequence == null || sequence.length() == 0) {
-			Logger.w("tt9/db.getWords", "Attempting to get words for an empty sequence.");
+			Logger.w("db.getWords", "Attempting to get words for an empty sequence.");
 			sendWords(dataHandler, wordList);
 			return;
 		}
 
 		if (language == null) {
-			Logger.w("tt9/db.getWords", "Attempting to get words for NULL language.");
+			Logger.w("db.getWords", "Attempting to get words for NULL language.");
 			sendWords(dataHandler, wordList);
 			return;
 		}

@@ -18,7 +18,7 @@ public class ItemDropDown {
 
 	protected void populate(LinkedHashMap<Integer, String> values) {
 		if (item == null) {
-			Logger.w("tt9/ItemDropDown.populate", "Cannot populate a NULL item. Ignoring.");
+			Logger.w("ItemDropDown.populate", "Cannot populate a NULL item. Ignoring.");
 			return;
 		}
 
@@ -35,7 +35,7 @@ public class ItemDropDown {
 
 	public ItemDropDown enableClickHandler() {
 		if (item == null) {
-			Logger.w("tt9/SectionKeymap.populateItem", "Cannot set a click listener a NULL item. Ignoring.");
+			Logger.w("SectionKeymap.populateItem", "Cannot set a click listener a NULL item. Ignoring.");
 			return this;
 		}
 

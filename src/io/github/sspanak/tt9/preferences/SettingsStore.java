@@ -91,7 +91,7 @@ public class SettingsStore {
 		Set<String> validLanguageIds = new HashSet<>();
 
 		for (String langId : languageIds) {
-			if (!validateSavedLanguage(Integer.parseInt(langId), "tt9/saveEnabledLanguageIds")){
+			if (!validateSavedLanguage(Integer.parseInt(langId), "saveEnabledLanguageIds")){
 				continue;
 			}
 
@@ -99,7 +99,7 @@ public class SettingsStore {
 		}
 
 		if (validLanguageIds.size() == 0) {
-			Logger.w("tt9/saveEnabledLanguageIds", "Refusing to save an empty language list");
+			Logger.w("saveEnabledLanguageIds", "Refusing to save an empty language list");
 			return;
 		}
 
@@ -116,7 +116,7 @@ public class SettingsStore {
 		boolean isTextCaseValid = isIntInList(
 			textCase,
 			new ArrayList<>(Arrays.asList(InputMode.CASE_CAPITALIZE, InputMode.CASE_LOWER, InputMode.CASE_UPPER)),
-			"tt9/saveTextCase",
+			"saveTextCase",
 			"Not saving invalid text case: " + textCase
 		);
 
@@ -132,7 +132,7 @@ public class SettingsStore {
 	}
 
 	public void saveInputLanguage(int language) {
-		if (validateSavedLanguage(language, "tt9/saveInputLanguage")){
+		if (validateSavedLanguage(language, "saveInputLanguage")){
 			prefsEditor.putInt("pref_input_language", language);
 			prefsEditor.apply();
 		}
@@ -147,7 +147,7 @@ public class SettingsStore {
 		boolean isModeValid = isIntInList(
 			mode,
 			new ArrayList<>(Arrays.asList(InputMode.MODE_123, InputMode.MODE_PREDICTIVE, InputMode.MODE_ABC)),
-			"tt9/saveInputMode",
+			"saveInputMode",
 			"Not saving invalid input mode: " + mode
 		);
 

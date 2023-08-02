@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+
+	<SwitchPreferenceCompat
+		app:key="pref_enable_debug_logs"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_debug_logs" />
+
+	<SwitchPreferenceCompat
+		app:key="pref_enable_system_logs"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_system_logs" />
+
+	<PreferenceCategory
+		app:title="@string/pref_category_log_messages"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+		<Preference
+			app:key="debug_logs_container"
+			app:summary="--"
+			app:layout="@layout/pref_plain_text">
+		</Preference>
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -147,7 +147,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		stem = "";
-		Logger.d("tt9/setWordStem", "Stem filter cleared");
+		Logger.d("setWordStem", "Stem filter cleared");
 
 		return true;
 	}
@@ -182,13 +182,13 @@ public class ModePredictive extends InputMode {
 			stem = sanitizedStem.toLowerCase(language.getLocale());
 			isStemFuzzy = !exact;
 
-			Logger.d("tt9/setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
+			Logger.d("setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
 			return true;
 		} catch (Exception e) {
 			isStemFuzzy = false;
 			stem = "";
 
-			Logger.w("tt9/setWordStem", "Ignoring invalid stem: " + newStem + ". " + e.getMessage());
+			Logger.w("setWordStem", "Ignoring invalid stem: " + newStem + ". " + e.getMessage());
 			return false;
 		}
 	}
@@ -284,7 +284,7 @@ public class ModePredictive extends InputMode {
 				DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
-			Logger.e("tt9/ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
+			Logger.e("ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
 	}
 

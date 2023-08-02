@@ -41,7 +41,7 @@ abstract class BaseScreenFragment extends PreferenceFragmentCompat {
 
 		if (activity == null) {
 			Logger.w(
-				"tt9/MainSettingsScreen",
+				"MainSettingsScreen",
 				"Starting up without an Activity. Preference Items will not be fully initialized."
 			);
 			return;
