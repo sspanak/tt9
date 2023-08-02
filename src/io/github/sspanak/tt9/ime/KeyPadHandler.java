@@ -133,11 +133,9 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		return Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
-			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode)
+			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode) // press or hold a hotkey
 			|| (keyCode == KeyEvent.KEYCODE_POUND && onText("#"))
 			|| (keyCode == KeyEvent.KEYCODE_STAR && onText("*"))
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_UP || keyCode == KeyEvent.KEYCODE_DPAD_DOWN) && shouldTrackUpDown())
-			|| ((keyCode == KeyEvent.KEYCODE_DPAD_LEFT || keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) && shouldTrackLeftRight())
 			|| super.onKeyDown(keyCode, event); // let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
 	}
 
@@ -262,18 +260,14 @@ abstract class KeyPadHandler extends InputMethodService {
 	}
 
 
-	// toggle handlers
-	abstract protected boolean shouldTrackUpDown();
-	abstract protected boolean shouldTrackLeftRight();
-
-	// default hardware key handlers
+	// hardware key handlers
 	abstract protected boolean onArrow(int key, boolean repeat);
 	abstract public boolean onBackspace();
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract public boolean onOK();
-	abstract public boolean onText(String text);
+	abstract public boolean onText(String text); // used for "#", "*" and whatnot
 
-	// customized key handlers
+	// hotkey handlers
 	abstract protected boolean onKeyAddWord();
 	abstract protected boolean onKeyNextLanguage();
 	abstract protected boolean onKeyNextInputMode();

@@ -59,7 +59,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 			intent.setData(Uri.parse(versionedHelpUrl));
 			helpSection.setIntent(intent);
 		} catch (Exception e) {
-			Logger.w("tt9/MainSettingsScreen", "Could not set versioned help URL. Falling back to the default. " + e.getMessage());
+			Logger.w("MainSettingsScreen", "Could not set versioned help URL. Falling back to the default. " + e.getMessage());
 		}
 	}
 

@@ -30,7 +30,7 @@ public class ItemSelectZeroKeyCharacter {
 
 	public ItemSelectZeroKeyCharacter populate() {
 		if (item == null) {
-			Logger.w("tt9/ItemSelectZeroKeyChar.populate", "Cannot populate a NULL item. Ignoring.");
+			Logger.w("ItemSelectZeroKeyChar.populate", "Cannot populate a NULL item. Ignoring.");
 			return this;
 		}
 
@@ -44,7 +44,7 @@ public class ItemSelectZeroKeyCharacter {
 
 	public void activate() {
 		if (item == null) {
-			Logger.w("tt9/ItemSelectZeroKeyChar.activate", "Cannot set a click listener a NULL item. Ignoring.");
+			Logger.w("ItemSelectZeroKeyChar.activate", "Cannot set a click listener a NULL item. Ignoring.");
 			return;
 		}
 

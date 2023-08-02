@@ -85,8 +85,8 @@ public class SuggestionsBar {
 	}
 
 
-	public boolean hasElements() {
-		return suggestions.size() > 0;
+	public boolean isEmpty() {
+		return suggestions.size() == 0;
 	}
 
 

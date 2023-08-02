@@ -113,6 +113,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * last saved mode.
 	 */
 	private void determineTextCase() {
+		mInputMode.defaultTextCase();
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
 		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
@@ -337,7 +338,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyFilterClear() {
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -353,7 +354,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onKeyFilterSuggestions(boolean repeat) {
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -444,17 +445,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	protected boolean shouldTrackUpDown() {
-		return !isSuggestionViewHidden() && mInputMode.shouldTrackUpDown();
-	}
-
-	protected boolean shouldTrackLeftRight() {
-		return !isSuggestionViewHidden() && mInputMode.shouldTrackLeftRight();
-	}
-
-
 	private boolean isSuggestionViewHidden() {
-		return suggestionBar == null || !suggestionBar.hasElements();
+		return suggestionBar == null || suggestionBar.isEmpty();
 	}
 
 
@@ -485,7 +477,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private boolean scheduleAutoAccept(int delay) {
 		cancelAutoAccept();
 
-		if (!suggestionBar.hasElements()) {
+		if (suggestionBar.isEmpty()) {
 			return false;
 		}
 
@@ -601,7 +593,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private String getComposingText(int maxLength) {
-		if (maxLength == 0 || !suggestionBar.hasElements()) {
+		if (maxLength == 0 || suggestionBar.isEmpty()) {
 			return "";
 		}
 
@@ -759,7 +751,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			textField.setText(word);
 			mInputMode.reset();
 		} catch (Exception e) {
-			Logger.w("tt9/restoreLastWord", "Could not restore the last added word. " + e.getMessage());
+			Logger.w("restoreLastWord", "Could not restore the last added word. " + e.getMessage());
 		}
 	}
 

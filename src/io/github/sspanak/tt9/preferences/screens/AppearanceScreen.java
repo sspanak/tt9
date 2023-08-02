@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.screens;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemToggleDarkTheme;
+import io.github.sspanak.tt9.preferences.items.ItemSelectTheme;
 
 public class AppearanceScreen extends BaseScreenFragment {
 	public AppearanceScreen() { init(); }
@@ -13,6 +13,9 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemToggleDarkTheme(findPreference(ItemToggleDarkTheme.NAME))).enableToggleHandler();
+		(new ItemSelectTheme(activity, findPreference(ItemSelectTheme.NAME)))
+			.populate()
+			.enableClickHandler()
+			.preview();
 	}
 }

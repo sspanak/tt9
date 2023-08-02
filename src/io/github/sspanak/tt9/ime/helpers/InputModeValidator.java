@@ -18,7 +18,7 @@ public class InputModeValidator {
 		}
 		if (validLanguageIds.size() == 0) {
 			validLanguageIds.add(LanguageCollection.getDefault(context).getId());
-			Logger.e("tt9/validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
+			Logger.e("validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
 		}
 
 		return validLanguageIds;
@@ -34,7 +34,7 @@ public class InputModeValidator {
 		Language validLanguage = LanguageCollection.getLanguage(context, validLanguageIds.get(0));
 		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault(context);
 
-		Logger.w("tt9/validateLanguage", error + " Enforcing language: " + validLanguage.getId());
+		Logger.w("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
 
 		return validLanguage;
 	}
@@ -51,7 +51,7 @@ public class InputModeValidator {
 		}
 
 		if (newModeId != oldModeId) {
-			Logger.w("tt9/validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
+			Logger.w("validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
 		}
 
 		return newModeId;
@@ -60,7 +60,7 @@ public class InputModeValidator {
 	public static void validateTextCase(InputMode inputMode, int newTextCase) {
 		if (!inputMode.setTextCase(newTextCase)) {
 			inputMode.defaultTextCase();
-			Logger.w("tt9/validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
+			Logger.w("validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
 		}
 	}
 }

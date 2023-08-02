@@ -69,4 +69,7 @@
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
 	<string name="error">Ошибка</string>
+	<string name="pref_dark_theme_yes">Да</string>
+	<string name="pref_dark_theme_no">Нет</string>
+	<string name="pref_dark_theme_auto">Автоматически</string>
 </resources>

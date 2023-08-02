@@ -44,6 +44,7 @@
 		app:singleLineTitle="true">
 
 		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.DebugScreen"
 			app:key="version_info"
 			app:layout="@layout/pref_text"
 			app:title="@string/app_name" />

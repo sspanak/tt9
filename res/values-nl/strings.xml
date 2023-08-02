@@ -23,4 +23,7 @@
 	<string name="pref_category_setup">Initiële setup</string>
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="error">Fout</string>
+	<string name="pref_dark_theme_yes">Ja</string>
+	<string name="pref_dark_theme_no">Nee</string>
+	<string name="pref_dark_theme_auto">Automatisch</string>
 </resources>

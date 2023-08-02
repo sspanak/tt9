@@ -69,4 +69,7 @@
 	<string name="key_volume_down">Зменшення гучності</string>
 	<string name="dictionary_truncating">Видалення…</string>
 	<string name="error">Помилка</string>
+	<string name="pref_dark_theme_yes">Так</string>
+	<string name="pref_dark_theme_no">Ні</string>
+	<string name="pref_dark_theme_auto">Автоматично</string>
 </resources>

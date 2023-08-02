@@ -69,4 +69,7 @@
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
 	<string name="error">Грешка</string>
+	<string name="pref_dark_theme_yes">Да</string>
+	<string name="pref_dark_theme_no">Не</string>
+	<string name="pref_dark_theme_auto">Автоматично</string>
 </resources>
