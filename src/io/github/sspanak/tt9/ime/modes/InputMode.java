@@ -43,7 +43,7 @@ abstract public class InputMode {
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough();
 			default:
-				Logger.w("tt9/InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
+				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
 				return new Mode123();
 		}

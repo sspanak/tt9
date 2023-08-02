@@ -70,7 +70,7 @@ public class SectionKeymap {
 
 	private void populateItem(DropDownPreference dropDown) {
 		if (dropDown == null) {
-			Logger.w("tt9/SectionKeymap.populateItem", "Cannot populate a NULL item. Ignoring.");
+			Logger.w("SectionKeymap.populateItem", "Cannot populate a NULL item. Ignoring.");
 			return;
 		}
 
@@ -98,7 +98,7 @@ public class SectionKeymap {
 
 	private void onItemClick(DropDownPreference item) {
 		if (item == null) {
-			Logger.w("tt9/SectionKeymap.populateItem", "Cannot set a click listener a NULL item. Ignoring.");
+			Logger.w("SectionKeymap.populateItem", "Cannot set a click listener a NULL item. Ignoring.");
 			return;
 		}
 
@@ -140,7 +140,7 @@ public class SectionKeymap {
 
 		for (DropDownPreference item : items) {
 			if (item != null && !dropDown.getKey().equals(item.getKey()) && key.equals(item.getValue())) {
-				Logger.i("tt9/SectionKeymap.validateKey", "Key: '" + key + "' is already in use for function: " + item.getKey());
+				Logger.i("SectionKeymap.validateKey", "Key: '" + key + "' is already in use for function: " + item.getKey());
 				return false;
 			}
 		}

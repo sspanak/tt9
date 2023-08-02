@@ -751,7 +751,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			textField.setText(word);
 			mInputMode.reset();
 		} catch (Exception e) {
-			Logger.w("tt9/restoreLastWord", "Could not restore the last added word. " + e.getMessage());
+			Logger.w("restoreLastWord", "Could not restore the last added word. " + e.getMessage());
 		}
 	}
 
