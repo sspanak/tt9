@@ -119,9 +119,8 @@ abstract class KeyPadHandler extends InputMethodService {
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
-		if (Key.isBackspace(settings, keyCode)) {
-			isBackspaceHandled = onBackspace();
-			return isBackspaceHandled;
+		if (Key.isBackspace(settings, keyCode) && onBackspace()) {
+			return isBackspaceHandled = true;
 		} else {
 			isBackspaceHandled = false;
 		}
@@ -131,12 +130,17 @@ abstract class KeyPadHandler extends InputMethodService {
 			event.startTracking();
 		}
 
-		return Key.isNumber(keyCode)
+		if (Key.isBack(keyCode)) {
+			return onBack() && super.onKeyDown(keyCode, event);
+		}
+
+		return
+			Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
-			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode) // press or hold a hotkey
-			|| (keyCode == KeyEvent.KEYCODE_POUND && onText("#"))
-			|| (keyCode == KeyEvent.KEYCODE_STAR && onText("*"))
-			|| super.onKeyDown(keyCode, event); // let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
+			|| handleHotkey(keyCode, true, false, true) // hold a hotkey, handled in onKeyLongPress())
+			|| handleHotkey(keyCode, false, keyRepeatCounter + 1 > 0, true) // press a hotkey, handled in onKeyUp()
+			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), true)
+			|| super.onKeyDown(keyCode, event); // let the system handle the keys we don't care about (usually, the touch "buttons")
 	}
 
 
@@ -161,7 +165,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			lastKeyCode = 0;
 		}
 
-		if (handleHotkey(keyCode, true)) {
+		if (handleHotkey(keyCode, true, false, false)) {
 			return true;
 		}
 
@@ -193,59 +197,62 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		// repeat handling
+		if (isBackspaceHandled) {
+			return true;
+		}
+
 		keyRepeatCounter = (lastKeyCode == keyCode) ? keyRepeatCounter + 1 : 0;
 		lastKeyCode = keyCode;
 
 		if (Key.isNumber(keyCode)) {
 			numKeyRepeatCounter = (lastNumKeyCode == keyCode) ? numKeyRepeatCounter + 1 : 0;
 			lastNumKeyCode = keyCode;
-		}
-
-		// backspace is handled in onKeyDown only, so we ignore it here
-		if (isBackspaceHandled) {
-			return true;
-		}
-
-		if (Key.isNumber(keyCode)) {
 			return onNumber(Key.codeToNumber(settings, keyCode), false, numKeyRepeatCounter);
 		}
 
-		if (Key.isOK(keyCode)) {
-			return onOK();
+		if (Key.isBack(keyCode)) {
+			return onBack() && super.onKeyUp(keyCode, event);
 		}
 
-		if (handleHotkey(keyCode, false)) {
-			return true;
-		}
-
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_DPAD_UP:
-			case KeyEvent.KEYCODE_DPAD_DOWN:
-			case KeyEvent.KEYCODE_DPAD_LEFT:
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onArrow(keyCode, keyRepeatCounter > 0);
-		}
-
-		// let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
-		return super.onKeyUp(keyCode, event);
+		return
+			Key.isOK(keyCode) && onOK()
+			|| handleHotkey(keyCode, false, keyRepeatCounter > 0, false)
+			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), false)
+			|| super.onKeyUp(keyCode, event); // let the system handle the keys we don't care about (usually, the touch "buttons")
 	}
 
 
-	private boolean handleHotkey(int keyCode, boolean hold) {
+	private boolean handleHotkey(int keyCode, boolean hold, boolean repeat, boolean validateOnly) {
 		if (keyCode == settings.getKeyAddWord() * (hold ? -1 : 1)) {
-			return onKeyAddWord();
+			return onKeyAddWord(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyFilterClear() * (hold ? -1 : 1)) {
+			return onKeyFilterClear(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyFilterSuggestions() * (hold ? -1 : 1)) {
+			return onKeyFilterSuggestions(validateOnly, repeat);
 		}
 
 		if (keyCode == settings.getKeyNextLanguage() * (hold ? -1 : 1)) {
-			return onKeyNextLanguage();
+			return onKeyNextLanguage(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyNextInputMode() * (hold ? -1 : 1)) {
-			return onKeyNextInputMode();
+			return onKeyNextInputMode(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyPreviousSuggestion() * (hold ? -1 : 1)) {
+			return onKeyScrollSuggestion(validateOnly, true);
+		}
+
+		if (keyCode == settings.getKeyNextSuggestion() * (hold ? -1 : 1)) {
+			return onKeyScrollSuggestion(validateOnly, false);
 		}
 
 		if (keyCode == settings.getKeyShowSettings() * (hold ? -1 : 1)) {
-			return onKeyShowSettings();
+			return onKeyShowSettings(validateOnly);
 		}
 
 		return false;
@@ -261,17 +268,20 @@ abstract class KeyPadHandler extends InputMethodService {
 
 
 	// hardware key handlers
-	abstract protected boolean onArrow(int key, boolean repeat);
+	abstract protected boolean onBack();
 	abstract public boolean onBackspace();
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract public boolean onOK();
-	abstract public boolean onText(String text); // used for "#", "*" and whatnot
+	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
 
 	// hotkey handlers
-	abstract protected boolean onKeyAddWord();
-	abstract protected boolean onKeyNextLanguage();
-	abstract protected boolean onKeyNextInputMode();
-	abstract protected boolean onKeyShowSettings();
+	abstract protected boolean onKeyAddWord(boolean validateOnly);
+	abstract protected boolean onKeyFilterClear(boolean validateOnly);
+	abstract protected boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat);
+	abstract protected boolean onKeyNextLanguage(boolean validateOnly);
+	abstract protected boolean onKeyNextInputMode(boolean validateOnly);
+	abstract protected boolean onKeyScrollSuggestion(boolean validateOnly, boolean backward);
+	abstract protected boolean onKeyShowSettings(boolean validateOnly);
 
 	// helpers
 	abstract protected void onInit();

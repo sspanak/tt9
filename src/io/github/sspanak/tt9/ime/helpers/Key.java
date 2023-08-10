@@ -33,6 +33,14 @@ public class Key {
 	}
 
 
+	public static boolean isBack(int keyCode) { return keyCode == KeyEvent.KEYCODE_BACK; }
+
+
+	public static boolean isPoundOrStar(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_POUND || keyCode == KeyEvent.KEYCODE_STAR;
+	}
+
+
 	public static boolean isOK(int keyCode) {
 		return
 			keyCode == KeyEvent.KEYCODE_DPAD_CENTER
