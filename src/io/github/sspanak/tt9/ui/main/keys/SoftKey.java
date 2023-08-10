@@ -27,6 +27,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	private boolean hold = false;
 	private boolean repeat = false;
 	private final Handler repeatHandler = new Handler(Looper.getMainLooper());
+	private static int lastPressedKey = -1;
 
 
 	public SoftKey(Context context) {
@@ -73,7 +74,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		} else if (action == MotionEvent.ACTION_UP) {
 			preventRepeat();
 			if (!repeat) {
-				return handleRelease();
+				boolean result = handleRelease();
+				lastPressedKey = getId();
+				return result;
 			}
 			repeat = false;
 		}
@@ -105,6 +108,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (hold) {
 			repeat = true;
 			handleHold();
+			lastPressedKey = getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
 			repeatHandler.postDelayed(this::repeatOnLongPress, tt9.getSettings().getSoftKeyRepeatDelay());
 		}
@@ -134,9 +138,11 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		int keyId = getId();
+		boolean multiplePress = lastPressedKey == keyId;
 
 		if (keyId == R.id.soft_key_add_word) return tt9.onKeyAddWord(false);
-		if (keyId == R.id.soft_key_filter_suggestions) return tt9.onKeyFilterSuggestions(false, repeat);
+		if (keyId == R.id.soft_key_filter_suggestions) return tt9.onKeyFilterSuggestions(false, multiplePress);
+		if (keyId == R.id.soft_key_clear_filter) return tt9.onKeyFilterClear(false);
 		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
 		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
 		if (keyId == R.id.soft_key_input_mode) return tt9.onKeyNextInputMode(false);
