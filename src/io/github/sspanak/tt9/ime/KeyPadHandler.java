@@ -132,7 +132,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		if (Key.isArrow(keyCode)) {
-			boolean shouldIgnore = shouldIgnoreKeyUp(keyCode, event);
+			boolean shouldIgnore = shouldIgnoreKeyDown(keyCode, event);
 			if (shouldIgnore) {
 				return super.onKeyDown(keyCode, event);
 			} else {
@@ -286,5 +286,5 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected View createSoftKeyView();
 	abstract protected boolean shouldBeVisible();
 	abstract protected boolean shouldBeOff();
-	abstract protected boolean shouldIgnoreKeyUp(int keyCode, KeyEvent event);
+	abstract protected boolean shouldIgnoreKeyDown(int keyCode, KeyEvent event);
 }

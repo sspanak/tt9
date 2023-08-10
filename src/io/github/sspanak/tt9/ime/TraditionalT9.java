@@ -800,7 +800,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 	@Override
-	protected boolean shouldIgnoreKeyUp(int keyCode, KeyEvent event) {
+	protected boolean shouldIgnoreKeyDown(int keyCode, KeyEvent event) {
 		if (Key.isArrow(keyCode)) {
 			return isSuggestionViewHidden();
 		} else {
