@@ -174,10 +174,13 @@
 				android:id="@+id/separator_2_2"
 				style="@style/numSeparator" />
 
-			<View
+			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+				android:id="@+id/soft_key_filter_suggestions"
+				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
+				android:layout_height="match_parent"
+				android:layout_weight="@dimen/numpad_control_key_layout_weight"
+				android:text="Fltr" />
 
 		</LinearLayout>
 
@@ -228,12 +231,13 @@
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_filter_suggestions"
+				android:id="@+id/soft_key_clear_filter"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="Fltr" />
+				android:text="Clr" />
+
 
 		</LinearLayout>
 
