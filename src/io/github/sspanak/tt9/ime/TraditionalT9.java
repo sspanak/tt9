@@ -211,18 +211,8 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onArrow(int key, boolean repeat) {
-		if (key == settings.getKeyFilterClear()) {
-			return onKeyFilterClear();
-		} else if (key == settings.getKeyFilterSuggestions()) {
-			return onKeyFilterSuggestions(repeat);
-		} else if (key == settings.getKeyPreviousSuggestion()) {
-			return onKeyPreviousSuggestion();
-		} else if (key == settings.getKeyNextSuggestion()) {
-			return onKeyNextSuggestion();
-		}
-
-		return false;
+	public boolean onBack() {
+		return settings.getShowSoftNumpad();
 	}
 
 
@@ -307,9 +297,15 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onText(String text) {
+	public boolean onText(String text) { return onText(text, false); }
+
+	public boolean onText(String text, boolean validateOnly) {
 		if (mInputMode.shouldIgnoreText(text)) {
 			return false;
+		}
+
+		if (validateOnly) {
+			return true;
 		}
 
 		cancelAutoAccept();
@@ -326,9 +322,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onKeyAddWord() {
+	public boolean onKeyAddWord(boolean validateOnly) {
 		if (!isInputViewShown() || mInputMode.isNumeric()) {
 			return false;
+		}
+
+		if (validateOnly) {
+			return true;
 		}
 
 		cancelAutoAccept();
@@ -337,9 +337,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onKeyFilterClear() {
-		if (suggestionBar.isEmpty()) {
+	public boolean onKeyFilterClear(boolean validateOnly) {
+		if (isSuggestionViewHidden()) {
 			return false;
+		}
+
+		if (validateOnly) {
+			return true;
 		}
 
 		cancelAutoAccept();
@@ -353,9 +357,13 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onKeyFilterSuggestions(boolean repeat) {
-		if (suggestionBar.isEmpty()) {
+	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
+		if (isSuggestionViewHidden()) {
 			return false;
+		}
+
+		if (validateOnly) {
+			return true;
 		}
 
 		cancelAutoAccept();
@@ -377,66 +385,75 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	public boolean onKeyNextSuggestion() {
-		if (nextSuggestion()) {
-			cancelAutoAccept();
-			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+	public boolean onKeyScrollSuggestion(boolean validateOnly, boolean backward) {
+		if (isSuggestionViewHidden()) {
+			return false;
+		}
+
+		if (validateOnly) {
 			return true;
 		}
 
-		return false;
+		cancelAutoAccept();
+		if (backward) previousSuggestion();
+		else nextSuggestion();
+		mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
+		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+		return true;
 	}
 
 
-	public boolean onKeyPreviousSuggestion() {
-		if (previousSuggestion()) {
-			cancelAutoAccept();
-			mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-			textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+	public boolean onKeyNextLanguage(boolean validateOnly) {
+		if (mInputMode.isNumeric() || mEnabledLanguages.size() < 2) {
+			return false;
+		}
+
+		if (validateOnly) {
 			return true;
 		}
 
-		return false;
+		cancelAutoAccept();
+		commitCurrentSuggestion(false);
+		clearSuggestions();
+		resetKeyRepeat();
+		nextLang();
+		mInputMode.changeLanguage(mLanguage);
+		mInputMode.reset();
+
+		statusBar.setText(mInputMode.toString());
+		mainView.render();
+		forceShowWindowIfHidden();
+
+		return true;
 	}
 
 
-	public boolean onKeyNextLanguage() {
-		if (nextLang()) {
-			cancelAutoAccept();
-			commitCurrentSuggestion(false);
-			mInputMode.changeLanguage(mLanguage);
-			mInputMode.reset();
-			resetKeyRepeat();
-			clearSuggestions();
-			statusBar.setText(mInputMode.toString());
-			mainView.render();
-			forceShowWindowIfHidden();
+	public boolean onKeyNextInputMode(boolean validateOnly) {
+		if (allowedInputModes.size() == 1) {
+			return false;
+		}
 
+		if (validateOnly) {
 			return true;
 		}
 
-		return false;
-	}
-
-
-	public boolean onKeyNextInputMode() {
 		scheduleAutoAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
 		mainView.render();
 
-		if (allowedInputModes.size() == 1) {
-			return false;
-		}
 
 		forceShowWindowIfHidden();
 		return true;
 	}
 
 
-	public boolean onKeyShowSettings() {
+	public boolean onKeyShowSettings(boolean validateOnly) {
 		if (!isInputViewShown()) {
 			return false;
+		}
+
+		if (validateOnly) {
+			return true;
 		}
 
 		cancelAutoAccept();
@@ -450,27 +467,15 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private boolean previousSuggestion() {
-		if (isSuggestionViewHidden()) {
-			return false;
-		}
-
+	private void previousSuggestion() {
 		suggestionBar.scrollToSuggestion(-1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-
-		return true;
 	}
 
 
-	private boolean nextSuggestion() {
-		if (isSuggestionViewHidden()) {
-			return false;
-		}
-
+	private void nextSuggestion() {
 		suggestionBar.scrollToSuggestion(1);
 		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-
-		return true;
 	}
 
 
@@ -661,11 +666,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private boolean nextLang() {
-		if (mInputMode.isNumeric() || mEnabledLanguages.size() < 2) {
-			return false;
-		}
-
+	private void nextLang() {
 		// select the next language
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
@@ -675,8 +676,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// save it for the next time
 		settings.saveInputLanguage(mLanguage.getId());
-
-		return true;
 	}
 
 
