@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -797,4 +798,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected boolean shouldBeOff() {
 		 return currentInputConnection == null || !isActive || mInputMode.isPassthrough();
 	}
+
+	@Override
+	protected boolean shouldIgnoreKeyUp(int keyCode, KeyEvent event) {
+		if (Key.isArrow(keyCode)) {
+			return isSuggestionViewHidden();
+		} else {
+			return false;
+		}
+	}
+
 }

@@ -41,7 +41,15 @@ public class Key {
 	}
 
 
-	public static int codeToNumber(SettingsStore settings, int keyCode) {
+	public static boolean isArrow(int keyCode) {
+		return
+			keyCode == KeyEvent.KEYCODE_DPAD_UP
+			|| keyCode == KeyEvent.KEYCODE_DPAD_DOWN
+			|| keyCode == KeyEvent.KEYCODE_DPAD_LEFT
+			|| keyCode == KeyEvent.KEYCODE_DPAD_RIGHT;
+	}
+
+		public static int codeToNumber(SettingsStore settings, int keyCode) {
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_0:
 			case KeyEvent.KEYCODE_NUMPAD_0:

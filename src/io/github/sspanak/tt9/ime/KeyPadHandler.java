@@ -131,6 +131,15 @@ abstract class KeyPadHandler extends InputMethodService {
 			event.startTracking();
 		}
 
+		if (Key.isArrow(keyCode)) {
+			boolean shouldIgnore = shouldIgnoreKeyUp(keyCode, event);
+			if (shouldIgnore) {
+				return super.onKeyDown(keyCode, event);
+			} else {
+				return onArrow(keyCode, keyRepeatCounter > 0);
+			}
+		}
+
 		return Key.isNumber(keyCode)
 			|| Key.isOK(keyCode)
 			|| Key.isHotkey(settings, keyCode) || Key.isHotkey(settings, -keyCode) // press or hold a hotkey
@@ -219,13 +228,6 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_DPAD_UP:
-			case KeyEvent.KEYCODE_DPAD_DOWN:
-			case KeyEvent.KEYCODE_DPAD_LEFT:
-			case KeyEvent.KEYCODE_DPAD_RIGHT: return onArrow(keyCode, keyRepeatCounter > 0);
-		}
-
 		// let the system handle the keys we don't care about (usually, only: KEYCODE_BACK)
 		return super.onKeyUp(keyCode, event);
 	}
@@ -284,4 +286,5 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected View createSoftKeyView();
 	abstract protected boolean shouldBeVisible();
 	abstract protected boolean shouldBeOff();
+	abstract protected boolean shouldIgnoreKeyUp(int keyCode, KeyEvent event);
 }
