@@ -26,11 +26,14 @@
 	<string name="char_space">Пробіл</string>
 	<string name="char_newline">Новий рядок</string>
 	<string name="pref_category_abc_mode">Режим AБВ</string>
+	<string name="pref_category_hacks">Сумісность</string>
 	<string name="pref_category_appearance">Вигляд</string>
 	<string name="pref_category_predictive_mode">Режим підсказки</string>
 	<string name="pref_category_function_keys">Гарячі клавіші</string>
 	<string name="pref_abc_auto_accept">Автоматичний вибір букви</string>
 	<string name="pref_abc_auto_accept_summary">Автоматично ввести вибрану букву після короткої затримки.</string>
+	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокручування слів</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо іноді ви не бачите всі слова або у вас виникають проблеми з їх прокручуванням (Android 9 або старіша).</string>
 	<string name="pref_auto_space">Авто пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після слів і розділових знаків.</string>
 	<string name="pref_auto_text_case">Авто заголовні букви</string>

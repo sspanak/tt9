@@ -12,6 +12,7 @@
 	<string name="add_word_field_placeholder">Escreva uma palavra…</string>
 
 	<string name="pref_category_about">Sobre</string>
+	<string name="pref_category_hacks">Compatibilidade</string>
 	<string name="pref_category_appearance">Aparência</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
 	<string name="pref_category_function_keys">Atalhos</string>

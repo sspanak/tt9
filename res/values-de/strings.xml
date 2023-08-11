@@ -17,6 +17,7 @@
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
 	<string name="dictionary_load_title">Wörterbuch laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
+	<string name="pref_category_hacks">Kompatibilität</string>
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>

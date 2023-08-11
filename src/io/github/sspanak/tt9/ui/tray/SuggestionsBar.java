@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -27,11 +28,16 @@ public class SuggestionsBar {
 	private final TraditionalT9 tt9;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
+	private final Handler alternativeScrollingHandler = new Handler();
+	private final int suggestionScrollingDelay;
+
 
 	public SuggestionsBar(TraditionalT9 tt9, View mainView) {
 		super();
 
 		this.tt9 = tt9;
+
+		suggestionScrollingDelay = tt9.getSettings().getSuggestionScrollingDelay();
 
 		mView = mainView.findViewById(R.id.suggestions_bar);
 		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
@@ -148,7 +154,11 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.notifyItemChanged(oldIndex);
 		mSuggestionsAdapter.notifyItemChanged(selectedIndex);
 
-		mView.scrollToPosition(selectedIndex);
+		if (suggestionScrollingDelay > 0) {
+			alternativeScrollingHandler.postDelayed(() -> mView.scrollToPosition(selectedIndex), suggestionScrollingDelay);
+		} else {
+			mView.scrollToPosition(selectedIndex);
+		}
 	}
 
 

@@ -20,6 +20,7 @@
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
 	<string name="dictionary_load_title">Carica il dizionario</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
+	<string name="pref_category_hacks">Compatibilità</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>

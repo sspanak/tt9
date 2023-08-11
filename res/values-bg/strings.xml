@@ -23,6 +23,7 @@
 	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за „%1$s“.</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_hacks">Съвместимост</string>
 	<string name="pref_category_appearance">Облик</string>
 	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
 	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
@@ -49,6 +50,8 @@
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
 	<string name="pref_abc_auto_accept">Автоматичен избор на буква</string>
 	<string name="pref_abc_auto_accept_summary">Автоматично избирай текущата буква след кратко изчакване.</string>
+	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички (Андроид 9 или по-стари)</string>
 	<string name="pref_auto_space">Автоматичен интервал</string>
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
 	<string name="pref_auto_text_case">Автоматични главни букви</string>

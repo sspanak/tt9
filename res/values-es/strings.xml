@@ -11,6 +11,7 @@
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
 	<string name="add_word_title">Agregar palabra</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_hacks">Compatibilidad</string>
 	<string name="pref_category_appearance">Apariencia</string>
 	<string name="pref_category_function_keys">Teclas de acceso rápido</string>
 	<string name="pref_category_predictive_mode">Texto predictivo</string>
