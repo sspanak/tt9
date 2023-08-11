@@ -265,6 +265,10 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
+	public int getSuggestionScrollingDelay() {
+		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
+	}
+
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
 

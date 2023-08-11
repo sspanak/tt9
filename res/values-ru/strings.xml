@@ -28,10 +28,13 @@
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
 	<string name="pref_category_abc_mode">Режим AБВ</string>
+	<string name="pref_category_hacks">Cовместимость</string>
 	<string name="pref_category_appearance">Внешний вид</string>
 	<string name="pref_category_function_keys">Горячие клавиши</string>
 	<string name="pref_abc_auto_accept">Автоматический выбор буквы</string>
 	<string name="pref_abc_auto_accept_summary">Автоматически ввести выбранную букву после короткого ожидания.</string>
+	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой (Android 9 или старше).</string>
 	<string name="pref_auto_space">Авто пробел</string>
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>

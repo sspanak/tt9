@@ -16,6 +16,7 @@
 	<string name="dictionary_load_title">Woordenboek laden</string>
 	<string name="dictionary_not_found">Laden mislukt. Woordenboek voor %1$s niet gevonden.</string>
 	<string name="dictionary_truncated">Woordenboek succesvol gewist.</string>
+	<string name="pref_category_hacks">Compatibiliteit</string>
 	<string name="dictionary_loading_indeterminate">Woordenboek laden</string>
 	<string name="pref_category_keypad">Toetsenbord</string>
 	<string name="char_space">Spatie</string>

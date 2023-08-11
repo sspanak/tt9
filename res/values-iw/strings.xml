@@ -12,6 +12,7 @@
 	<string name="add_word_field_placeholder">הקלד מילה…</string>
 
 	<string name="pref_category_about">אודות</string>
+	<string name="pref_category_hacks">הגדרות תאימות</string>
 	<string name="pref_category_appearance">מראה</string>
 	<string name="pref_category_predictive_mode">מצב חיזוי</string>
 	<string name="pref_category_function_keys">בחר מקשי קיצור</string>

@@ -11,4 +11,17 @@
 			app:key="global_default_keyboard"
 			app:layout="@layout/pref_text"
 			app:title="@string/setup_default_keyboard" />
+
+	<PreferenceCategory
+		app:title="@string/pref_category_hacks"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+
+	<SwitchPreferenceCompat
+		app:key="pref_alternative_suggestion_scrolling"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_alternative_suggestion_scrolling"
+		app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
+
+	</PreferenceCategory>
 </PreferenceScreen>
