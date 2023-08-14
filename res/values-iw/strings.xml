@@ -9,7 +9,6 @@
 	<string name="add_word_blank">מילה ריקה לא נוספה</string>
 	<string name="add_word_exist">המילה \"%1$s\" כבר קיימת במילון.</string>
 	<string name="add_word_title">הוסף מילה</string>
-	<string name="add_word_field_placeholder">הקלד מילה…</string>
 
 	<string name="pref_category_about">אודות</string>
 	<string name="pref_category_hacks">הגדרות תאימות</string>

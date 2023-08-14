@@ -6,8 +6,10 @@
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="failed_loading_language_definitions">Не може да се заредят езиковите дефиниции.</string>
 	<string name="add_word_add">Добави</string>
+	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ е вече речника.</string>
+	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_help">Помощ</string>
@@ -62,7 +64,6 @@
 	<string name="pref_double_zero_char">Символ при двойно натисната \"0\"</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
-	<string name="add_word_field_placeholder">Напишете дума…</string>
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
@@ -75,4 +76,5 @@
 	<string name="pref_dark_theme_yes">Да</string>
 	<string name="pref_dark_theme_no">Не</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
+	<string name="add_word_confirm">Да се добави ли „%1$s“ към %2$s?</string>
 </resources>

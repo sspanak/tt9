@@ -7,6 +7,7 @@
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
+	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
 	<string name="pref_category_about">Über die Anwendung</string>

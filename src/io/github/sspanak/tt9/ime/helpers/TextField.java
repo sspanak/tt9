@@ -10,6 +10,8 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -189,7 +191,7 @@ public class TextField {
 	 * getSurroundingWord
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
-	public String getSurroundingWord() {
+	@NonNull public String getSurroundingWord() {
 		Matcher before = beforeCursorWordRegex.matcher(getTextBeforeCursor());
 		Matcher after = afterCursorWordRegex.matcher(getTextAfterCursor());
 

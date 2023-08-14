@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,12 +10,13 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 
-import org.jetbrains.annotations.NotNull;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -24,6 +26,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
+import io.github.sspanak.tt9.ui.AddWordAct;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
@@ -32,9 +35,9 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	@NotNull private TextField textField = new TextField(null, null);
-	@NotNull private InputType inputType = new InputType(null, null);
-	@NotNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
+	@NonNull private TextField textField = new TextField(null, null);
+	@NonNull private InputType inputType = new InputType(null, null);
+	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -48,7 +51,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	private MainView mainView = null;
 	private StatusBar statusBar = null;
 	private SuggestionsBar suggestionBar = null;
-
 
 	private static TraditionalT9 self;
 	public static Context getMainContext() {
@@ -120,6 +122,20 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	@Override
+	public int onStartCommand(Intent intent, int flags, int startId) {
+		int result = super.onStartCommand(intent, flags, startId);
+
+		String message = intent.getStringExtra(AddWordAct.INTENT_FILTER);
+		if (message != null && !message.isEmpty()) {
+			forceShowWindowIfHidden();
+			UI.toastLong(self, message);
+		}
+
+		return result;
+	}
+
+
 	protected void onInit() {
 		self = this;
 
@@ -133,7 +149,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		loadSettings();
 		validateFunctionKeys();
-		settings.clearLastWord();
 	}
 
 
@@ -185,7 +200,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		initTyping();
 		initUi();
-		restoreAddedWordIfAny();
 
 		isActive = true;
 	}
@@ -333,7 +347,16 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		showAddWord();
+		textField.finishComposingText();
+		clearSuggestions();
+
+		String word = textField.getSurroundingWord();
+		if (word.isEmpty()) {
+			UI.toastLong(this, R.string.add_word_no_selection);
+		} else {
+			UI.showAddWordDialog(this, mLanguage.getId(), word);
+		}
+
 		return true;
 	}
 
@@ -722,36 +745,6 @@ public class TraditionalT9 extends KeyPadHandler {
 				return true;
 			default:
 				return currentInputConnection.performEditorAction(action);
-		}
-	}
-
-
-	private void showAddWord() {
-		textField.finishComposingText();
-		clearSuggestions();
-
-		UI.showAddWordDialog(this, mLanguage.getId(), textField.getSurroundingWord());
-	}
-
-
-	/**
-	 * restoreAddedWordIfAny
-	 * If a new word was added to the dictionary, this function will append add it to the current input field.
-	 */
-	private void restoreAddedWordIfAny() {
-		String word = settings.getLastWord();
-		settings.clearLastWord();
-
-		if (word.length() == 0 || word.equals(textField.getSurroundingWord())) {
-			return;
-		}
-
-		try {
-			Logger.d("restoreAddedWordIfAny", "Restoring word: '" + word + "'...");
-			textField.setText(word);
-			mInputMode.reset();
-		} catch (Exception e) {
-			Logger.w("restoreLastWord", "Could not restore the last added word. " + e.getMessage());
 		}
 	}
 

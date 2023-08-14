@@ -5,24 +5,12 @@
 	android:paddingHorizontal="6dp"
 	android:orientation="vertical" >
 
-	<EditText
-		android:id="@+id/add_word_text"
+	<TextView
+		android:id="@+id/add_word_dialog_text"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginVertical="4dp"
-		android:layout_marginStart="10dp"
-		android:layout_marginTop="10dp"
-		android:layout_marginEnd="10dp"
-		android:hint="@string/add_word_field_placeholder"
-		android:imeOptions="actionSend"
-		android:importantForAutofill="no"
-		android:inputType="text"
-		android:maxWidth="480dp"
-		android:minHeight="48dp"
-		android:privateImeOptions="io.github.sspanak.tt9.addword=true">
-
-		<requestFocus />
-	</EditText>
+		android:layout_margin="10dp">
+	</TextView>
 
 	<LinearLayout
 		android:layout_width="match_parent"
