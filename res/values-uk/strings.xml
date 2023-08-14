@@ -6,8 +6,10 @@
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 	<string name="failed_loading_language_definitions">Не вдалося завантажити всі визначення мови.</string>
 	<string name="add_word_add">Додати</string>
+	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
 	<string name="add_word_blank">Неможливо додати слово.</string>
 	<string name="add_word_exist">Слово «%1$s» вже є в словнику.</string>
+	<string name="add_word_success">« %1$s » додано</string>
 	<string name="add_word_title">Додати слово</string>
 	<string name="pref_category_about">Про додаток</string>
 	<string name="pref_help">Допомога</string>
@@ -62,7 +64,6 @@
 	<string name="dictionary_truncated">Словник успішно видалено.</string>
 	<string name="dictionary_missing_go_load_it">Немає словника для мови «%1$s». Перейдіть до Налаштувань, щоб завантажити його.</string>
 	<string name="dictionary_load_bad_char">Помилка завантаження. Недійсне слово «%1$s» в рядку %2$d мови «%3$s».</string>
-	<string name="add_word_field_placeholder">Введіть слово…</string>
 	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Видалити невибрані</string>
@@ -75,4 +76,5 @@
 	<string name="pref_dark_theme_yes">Так</string>
 	<string name="pref_dark_theme_no">Ні</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
+	<string name="add_word_confirm">Додати слово «%1$s» до %2$s?</string>
 </resources>

@@ -7,6 +7,7 @@
 	<string name="add_word_add">Toevoegen</string>
 	<string name="add_word_blank">Leeg woord niet toegevoegd.</string>
 	<string name="add_word_exist">Woord \"%1$s\" staat al in het woordenboek.</string>
+	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_help">Helpen</string>

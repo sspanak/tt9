@@ -8,8 +8,8 @@
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_blank">Palavra em branco, impossível adicionar.</string>
 	<string name="add_word_exist">Palavra \"%1$s\" já está registrada.</string>
+	<string name="add_word_success">\"%1$s\" adicionada.</string>
 	<string name="add_word_title">Adicionar Palavra</string>
-	<string name="add_word_field_placeholder">Escreva uma palavra…</string>
 
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_hacks">Compatibilidade</string>

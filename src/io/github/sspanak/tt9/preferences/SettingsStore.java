@@ -284,22 +284,4 @@ public class SettingsStore {
 
 	public int getWordFrequencyMax() { return 25500; }
 	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
-
-
-	/************* add word, last word *************/
-
-	public String getLastWord() {
-		return prefs.getString("last_word", "");
-	}
-
-	public void saveLastWord(String lastWord) {
-		// "last_word" was part of the original Settings implementation.
-		// It is weird, but it is simple and it works, so I decided to keep it.
-		prefsEditor.putString("last_word", lastWord);
-		prefsEditor.apply();
-	}
-
-	public void clearLastWord() {
-		this.saveLastWord("");
-	}
 }

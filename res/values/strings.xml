@@ -12,11 +12,13 @@
 	<string name="failed_loading_language_definitions">Failed loading all language definitions.</string>
 
 	<string name="add_word_add">Add</string>
+	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
+	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>
 	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected.</string>
+	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
-	<string name="add_word_field_placeholder">Type a word…</string>
 
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>

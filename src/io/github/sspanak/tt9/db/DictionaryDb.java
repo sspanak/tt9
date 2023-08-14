@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import java.util.ArrayList;
@@ -118,11 +119,7 @@ public class DictionaryDb {
 	}
 
 
-	public static void insertWord(ConsumerCompat<Integer> statusHandler, Language language, String word) throws Exception {
-		if (language == null) {
-			throw new InvalidLanguageException();
-		}
-
+	public static void insertWord(ConsumerCompat<Integer> statusHandler, @NonNull Language language, String word) throws Exception {
 		if (word == null || word.length() == 0) {
 			throw new InsertBlankWordException();
 		}

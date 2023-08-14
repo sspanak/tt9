@@ -6,8 +6,10 @@
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="failed_loading_language_definitions">Impossible de charger aucune définition de langue</string>
 	<string name="add_word_add">Ajouter</string>
+	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
+	<string name="add_word_success">« %1$s » est ajouté</string>
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_help">Aide</string>
@@ -58,7 +60,6 @@
 	<string name="setup_click_here_to_enable">Cliquez ici pour activer TT9 dans les paramètres Android.</string>
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
-	<string name="add_word_field_placeholder">Tapez un mot…</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
@@ -69,4 +70,5 @@
 	<string name="pref_dark_theme_yes">Oui</string>
 	<string name="pref_dark_theme_no">Non</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
+	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 </resources>

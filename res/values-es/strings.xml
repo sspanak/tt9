@@ -9,6 +9,7 @@
 	<string name="no_language">Sin idioma</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
+	<string name="add_word_success">\"%1$s\" añadida.</string>
 	<string name="add_word_title">Agregar palabra</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_hacks">Compatibilidad</string>
@@ -28,7 +29,6 @@
 	<string name="dictionary_load_title">Cargar diccionario</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
-	<string name="add_word_field_placeholder">Escriba una palabra…</string>
 	<string name="pref_category_about">Acerca de esta aplicación</string>
 	<string name="dictionary_missing_go_load_it">No hay diccionario para el idioma \"%1$s\". Vaya a Configuración para cargarlo.</string>
 	<string name="dictionary_not_found">Falló al cargar. No se encontró el diccionario para \"%1$s\".</string>

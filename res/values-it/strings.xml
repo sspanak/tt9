@@ -8,6 +8,7 @@
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_blank">Nessuna parola da aggiungere.</string>
 	<string name="add_word_exist">Parola “%1$s” già nel dizionario.</string>
+	<string name="add_word_success">\"%1$s\" aggiunta.</string>
 	<string name="add_word_title">Aggiungi parola</string>
 
 	<string name="pref_category_about">Sull\'applicazione</string>
