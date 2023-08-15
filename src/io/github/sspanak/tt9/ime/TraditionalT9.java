@@ -309,6 +309,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
+		forceShowWindowIfHidden();
 
 		// accept the previously typed word (if any)
 		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
