@@ -120,7 +120,6 @@ public class ModePredictive extends InputMode {
 		if (
 			lastAcceptedWord.isEmpty()
 			|| suggestions.isEmpty()
-			|| !suggestions.get(0).toLowerCase(language.getLocale()).startsWith(lastAcceptedWord.toLowerCase(language.getLocale()))
 		) {
 			return;
 		}
@@ -324,6 +323,9 @@ public class ModePredictive extends InputMode {
 		/**
 	 * shouldAcceptPreviousSuggestion
 	 * Variant for post suggestion load analysis.
+		 * After suggestions are loaded, check if the user just typed 1,
+		 * if so then suggestion prior to 1 is to be committed as long as
+		 * there is not a suggested word (such as l' in French)
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
@@ -331,9 +333,9 @@ public class ModePredictive extends InputMode {
 			(autoAcceptTimeout == 0 && !digitSequence.startsWith("0"))
 			|| (
 				!digitSequence.isEmpty()
-				&& !predictions.areThereDbWords()
-				&& digitSequence.contains("1")
-				&& TextTools.containsOtherThan1(digitSequence)
+					&& !predictions.areThereDbWords()
+					&& digitSequence.contains("1")
+				  && TextTools.containsOtherThan1(digitSequence)
 			);
 	}
 

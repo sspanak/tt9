@@ -215,8 +215,22 @@ public class DictionaryDb {
 			language.getId(),
 			maximumWords,
 			sequence,
-			filter == null || filter.equals("") ? null : filter
+			filter.equals("") ? null : filter
 		));
+		// redacting a function that was added but no longer needed
+		// leaving in case threading needs to come back
+		// If user types fast and sequence has a 1 in it, such as #1##,
+		// try to look for exact matches of 1###, only if previous
+		// query returned 0 matches
+//		if (matches.size() == 0 && sequence.contains("1") && sequence.charAt(sequence.length()-1) != '1') {
+//			sequence = sequence.substring(sequence.indexOf("1"));
+//			matches = new WordList(getInstance().wordsDao().getMany(
+//				language.getId(),
+//				maximumWords,
+//				sequence,
+//				filter.equals("") ? null : filter
+//			));
+//		}
 
 		printDebug("loadWordsExact", "===== Exact Word Matches =====", sequence, matches, start);
 		return matches.toStringList();
@@ -258,12 +272,7 @@ public class DictionaryDb {
 	}
 
 
-	private static void sendWords(ConsumerCompat<ArrayList<String>> dataHandler, ArrayList<String> wordList) {
-		asyncHandler.post(() -> dataHandler.accept(wordList));
-	}
-
-
-	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minimumWords, int maximumWords) {
+	public static ArrayList<String> getWords(Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minimumWords);
 
@@ -271,24 +280,20 @@ public class DictionaryDb {
 
 		if (sequence == null || sequence.length() == 0) {
 			Logger.w("db.getWords", "Attempting to get words for an empty sequence.");
-			sendWords(dataHandler, wordList);
-			return;
+			return wordList;
 		}
 
 		if (language == null) {
 			Logger.w("db.getWords", "Attempting to get words for NULL language.");
-			sendWords(dataHandler, wordList);
-			return;
+			return wordList;
 		}
 
-		new Thread(() -> {
-			wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
+		wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
 
-			if (sequence.length() > 1 && wordList.size() < minWords) {
-				wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
-			}
+		if (sequence.length() > 1 && wordList.size() < minWords) {
+			wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
+		}
 
-			sendWords(dataHandler, wordList);
-		}).start();
+		return wordList;
 	}
 }

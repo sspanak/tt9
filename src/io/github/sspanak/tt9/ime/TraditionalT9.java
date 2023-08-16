@@ -504,7 +504,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mInputMode.onAcceptSuggestion(word);
-		commitCurrentSuggestion();
+		commitCurrentSuggestion(true);
 		autoCorrectSpace(word, true, fromKey);
 		resetKeyRepeat();
 	}
@@ -520,11 +520,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		commitCurrentSuggestion(false);
 
 		return currentWord;
-	}
-
-
-	private void commitCurrentSuggestion() {
-		commitCurrentSuggestion(true);
 	}
 
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
@@ -552,10 +547,14 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void handleSuggestions() {
-		// Automatically accept the previous word, without requiring OK. This is similar to what
+		// Automatically accept the previous word, without requiring OK.
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
+		//
+		// Check to see whether we should commit on symbol use and whether to include
+		// that symbol or not.
+		// If user typed fast, they may be running through this code with a digitSequence of #1##
 		if (mInputMode.shouldAcceptPreviousSuggestion()) {
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);

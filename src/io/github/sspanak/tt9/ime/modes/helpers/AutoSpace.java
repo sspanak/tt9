@@ -54,7 +54,7 @@ public class AutoSpace {
 			&& !TextTools.startsWithWhitespace(nextChars)
 			&& (
 				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
-				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
+				|| shouldAddAfterPunctuation(isWordAcceptedManually, previousChars, nextChars, nextKey)
 			);
 	}
 
@@ -65,13 +65,14 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAfterPunctuation(String previousChars, String nextChars, int nextKey) {
+	private boolean shouldAddAfterPunctuation(boolean isWordAcceptedManually, String previousChars, String nextChars, int nextKey) {
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
 		return
 			nextKey != 1
 			&& !TextTools.nextIsPunctuation(nextChars)
 			&& !TextTools.startsWithNumber(nextChars)
+				&& isWordAcceptedManually
 			&& (
 				previousChar == '.'
 				|| previousChar == ','

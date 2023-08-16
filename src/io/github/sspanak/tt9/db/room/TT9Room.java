@@ -29,7 +29,7 @@ public abstract class TT9Room extends RoomDatabase {
 				DB10.MIGRATION,
 				new DB11().getMigration(context)
 			)
-			.build();
+			.allowMainThreadQueries().build();
 	}
 
 	public static SimpleSQLiteQuery getFuzzyQuery(String index, int langId, int limit, String sequence, int minWordLength, int maxWordLength, String word) {

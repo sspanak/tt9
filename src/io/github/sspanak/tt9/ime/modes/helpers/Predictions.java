@@ -87,7 +87,6 @@ public class Predictions {
 		return areThereDbWords;
 	}
 
-
 	/**
 	 * suggestStem
 	 * Add the current stem filter to the predictions list, when it has length of X and
@@ -128,14 +127,14 @@ public class Predictions {
 		if (loadStatic()) {
 			onWordsChanged.run();
 		} else {
-			DictionaryDb.getWords(
-				(words) -> onDbWords(words, true),
+			ArrayList<String> words = DictionaryDb.getWords(
 				language,
 				digitSequence,
 				stem,
 				settings.getSuggestionsMin(),
 				settings.getSuggestionsMax()
 			);
+			onDbWords(words, true);
 		}
 	}
 
@@ -176,20 +175,18 @@ public class Predictions {
 	}
 
 	private void loadWithoutLeadingPunctuation() {
-		DictionaryDb.getWords(
-			(dbWords) -> {
-				char firstChar = inputWord.charAt(0);
-				for (int i = 0; i < dbWords.size(); i++) {
-					dbWords.set(i, firstChar + dbWords.get(i));
-				}
-				onDbWords(dbWords, false);
-			},
+		ArrayList<String> dbWords = DictionaryDb.getWords(
 			language,
 			digitSequence.substring(1),
 			stem.length() > 1 ? stem.substring(1) : "",
 			settings.getSuggestionsMin(),
 			settings.getSuggestionsMax()
 		);
+		char firstChar = inputWord.charAt(0);
+		for (int i = 0; i < dbWords.size(); i++) {
+			dbWords.set(i, firstChar + dbWords.get(i));
+		}
+		onDbWords(dbWords, false);
 	}
 
 
@@ -202,10 +199,9 @@ public class Predictions {
 	private void onDbWords(ArrayList<String> dbWords, boolean isRetryAllowed) {
 		// only the first round matters, the second one is just for getting the letters for a given key
 		areThereDbWords = !dbWords.isEmpty() && isRetryAllowed;
-
 		// If there were no database words for ",a", try getting the letters only (e.g. "a", "b", "c").
 		// We do this to display them in the correct order.
-		if (dbWords.isEmpty() && isRetryAllowed && digitSequence.length() == 2 && digitSequence.charAt(0) == '1') {
+		if (dbWords.isEmpty() && isRetryAllowed && digitSequence.length() == 2 && digitSequence.charAt(0) == '1' && !inputWord.isEmpty()) {
 			loadWithoutLeadingPunctuation();
 			return;
 		}
@@ -218,7 +214,7 @@ public class Predictions {
 		words.clear();
 		suggestStem();
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(insertPunctuationCompletions(dbWords));
+		suggestMissingWords(dbWords);
 
 		onWordsChanged.run();
 	}
@@ -254,45 +250,6 @@ public class Predictions {
 		return generatedWords;
 	}
 
-
-	/**
-	 * insertPunctuationCompletions
-	 * When given: "you'", for example, this also generates all other 1-key alternatives, like:
-	 * "you.", "you?", "you!" and so on. The generated words will be inserted after the direct
-	 * database matches and before the fuzzy matches, as if they were direct matches with low frequency.
-	 * This is to preserve the sorting by length and frequency.
-	 */
-	private ArrayList<String> insertPunctuationCompletions(ArrayList<String> dbWords) {
-		if (!stem.isEmpty() || dbWords.isEmpty() || digitSequence.length() < 2 || !digitSequence.endsWith("1")) {
-			return dbWords;
-		}
-
-		ArrayList<String> complementedWords = new ArrayList<>();
-		int exactMatchLength = digitSequence.length();
-
-		// shortest database words (exact matches)
-		for (String w : dbWords) {
-			if (w.length() <= exactMatchLength) {
-				complementedWords.add(w);
-			}
-		}
-
-		// generated "exact matches"
-		for (String w : generatePossibleCompletions(dbWords.get(0))) {
-			if (!dbWords.contains(w) && !dbWords.contains(w.toLowerCase(language.getLocale()))) {
-				complementedWords.add(w);
-			}
-		}
-
-		// longer database words (fuzzy matches)
-		for (String w : dbWords) {
-			if (w.length() > exactMatchLength) {
-				complementedWords.add(w);
-			}
-		}
-
-		return complementedWords;
-	}
 
 
 	/**
