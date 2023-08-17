@@ -117,21 +117,14 @@ public class ModePredictive extends InputMode {
 	 * or stops silently, when there is nothing to do.
 	 */
 	private void clearLastAcceptedWord() {
-		if (
-			lastAcceptedWord.isEmpty()
-			|| suggestions.isEmpty()
-			|| !suggestions.get(0).toLowerCase(language.getLocale()).startsWith(lastAcceptedWord.toLowerCase(language.getLocale()))
-		) {
-			return;
-		}
 
 		int lastAcceptedWordLength = lastAcceptedWord.length();
-		digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
+		digitSequence = digitSequence.substring(lastAcceptedWordLength);
 
 		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
 		suggestions.clear();
 		for (String s : lastSuggestions) {
-			suggestions.add(s.length() >= lastAcceptedWordLength ? s.substring(lastAcceptedWordLength) : "");
+			suggestions.add(s.substring(lastAcceptedWordLength));
 		}
 	}
 

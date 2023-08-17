@@ -540,7 +540,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		mInputMode.onAcceptSuggestion(word);
-		commitCurrentSuggestion();
+		commitCurrentSuggestion(true);
 		autoCorrectSpace(word, true, fromKey);
 		resetKeyRepeat();
 	}
@@ -558,10 +558,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		return currentWord;
 	}
 
-
-	private void commitCurrentSuggestion() {
-		commitCurrentSuggestion(true);
-	}
 
 	private void commitCurrentSuggestion(boolean entireSuggestion) {
 		if (!isSuggestionViewHidden()) {
@@ -629,7 +625,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private String getComposingText(int maxLength) {
-		if (maxLength == 0 || suggestionBar.isEmpty()) {
+		if (suggestionBar.isEmpty()) {
 			return "";
 		}
 

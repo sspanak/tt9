@@ -212,7 +212,7 @@ public class DictionaryDb {
 			language.getId(),
 			maximumWords,
 			sequence,
-			filter == null || filter.equals("") ? null : filter
+			filter.equals("") ? null : filter
 		));
 
 		printDebug("loadWordsExact", "===== Exact Word Matches =====", sequence, matches, start);
