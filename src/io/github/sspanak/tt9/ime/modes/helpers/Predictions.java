@@ -218,7 +218,7 @@ public class Predictions {
 		words.clear();
 		suggestStem();
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(insertPunctuationCompletions(dbWords));
+		suggestMissingWords(dbWords);
 
 		onWordsChanged.run();
 	}
@@ -252,46 +252,6 @@ public class Predictions {
 		}
 
 		return generatedWords;
-	}
-
-
-	/**
-	 * insertPunctuationCompletions
-	 * When given: "you'", for example, this also generates all other 1-key alternatives, like:
-	 * "you.", "you?", "you!" and so on. The generated words will be inserted after the direct
-	 * database matches and before the fuzzy matches, as if they were direct matches with low frequency.
-	 * This is to preserve the sorting by length and frequency.
-	 */
-	private ArrayList<String> insertPunctuationCompletions(ArrayList<String> dbWords) {
-		if (!stem.isEmpty() || dbWords.isEmpty() || digitSequence.length() < 2 || !digitSequence.endsWith("1")) {
-			return dbWords;
-		}
-
-		ArrayList<String> complementedWords = new ArrayList<>();
-		int exactMatchLength = digitSequence.length();
-
-		// shortest database words (exact matches)
-		for (String w : dbWords) {
-			if (w.length() <= exactMatchLength) {
-				complementedWords.add(w);
-			}
-		}
-
-		// generated "exact matches"
-		for (String w : generatePossibleCompletions(dbWords.get(0))) {
-			if (!dbWords.contains(w) && !dbWords.contains(w.toLowerCase(language.getLocale()))) {
-				complementedWords.add(w);
-			}
-		}
-
-		// longer database words (fuzzy matches)
-		for (String w : dbWords) {
-			if (w.length() > exactMatchLength) {
-				complementedWords.add(w);
-			}
-		}
-
-		return complementedWords;
 	}
 
 
