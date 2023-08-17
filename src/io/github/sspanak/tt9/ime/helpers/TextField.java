@@ -48,9 +48,9 @@ public class TextField {
 	 * getPreviousChar
 	 * Gets the character before the cursor.
 	 */
-	public String getPreviousChars(int numberOfChars) {
-		CharSequence character = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
-		return character != null ? character.toString() : "";
+	public Character getPreviousChar() {
+		CharSequence character = connection != null ? connection.getTextBeforeCursor(1, 0) : null;
+		return character != null ? character.charAt(0) : Character.MIN_VALUE;
 	}
 
 

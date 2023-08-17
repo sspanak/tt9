@@ -31,6 +31,10 @@ public class AutoSpace {
 		return this;
 	}
 
+	public boolean getAutoSpace() {
+		return settings.getAutoSpace();
+	}
+
 	public AutoSpace setLastSequence() {
 		return this;
 	}
@@ -43,18 +47,16 @@ public class AutoSpace {
 	 *
 	 * See the helper functions for the list of rules.
 	 */
-	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int nextKey) {
-		String previousChars = textField.getPreviousChars(2);
+	public boolean shouldAddAutoSpace(int nextKey) {
+		Character previousChar = textField.getPreviousChar();
 		String nextChars = textField.getNextChars(2);
 
 		return
-			settings.getAutoSpace()
-			&& !inputType.isSpecialized()
-			&& nextKey != 0
+			!inputType.isSpecialized()
 			&& !TextTools.startsWithWhitespace(nextChars)
 			&& (
-				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
-				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
+				shouldAddAfterWord(previousChar, nextChars, nextKey)
+				|| shouldAddAfterPunctuation(previousChar, nextChars, nextKey)
 			);
 	}
 
@@ -65,8 +67,7 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAfterPunctuation(String previousChars, String nextChars, int nextKey) {
-		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
+	private boolean shouldAddAfterPunctuation(Character previousChar, String nextChars, int nextKey) {
 
 		return
 			nextKey != 1
@@ -84,8 +85,6 @@ public class AutoSpace {
 				|| previousChar == '%'
 				|| previousChar == '»'
 				|| previousChar == '“'
-				|| previousChars.endsWith(" -")
-				|| previousChars.endsWith(" /")
 			);
 	}
 
@@ -94,12 +93,11 @@ public class AutoSpace {
 	 * shouldAddAfterWord
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, String nextChars, int nextKey) {
+	private boolean shouldAddAfterWord(Character previousChar, String nextChars, int nextKey) {
 		return
-			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
-			&& nextKey != 1
+			nextKey != 1
 			&& nextChars.isEmpty()
-			&& TextTools.previousIsLetter(previousChars);
+			&& previousChar.isLetter(previousChar);
 	}
 
 

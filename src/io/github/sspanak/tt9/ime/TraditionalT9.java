@@ -283,7 +283,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word.
 		if (mInputMode.shouldAcceptPreviousSuggestion(key)) {
-			autoCorrectSpace(acceptIncompleteSuggestion(), false, key);
+			acceptIncompleteSuggestion();
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
@@ -333,12 +333,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		forceShowWindowIfHidden();
 
 		// accept the previously typed word (if any)
-		autoCorrectSpace(acceptIncompleteSuggestion(), false, -1);
+		acceptIncompleteSuggestion();
 
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, true, -1);
 
 		return true;
 	}
@@ -541,7 +540,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		mInputMode.onAcceptSuggestion(word);
 		commitCurrentSuggestion(true);
-		autoCorrectSpace(word, true, fromKey);
+		autoCorrectSpace(word, fromKey);
 		resetKeyRepeat();
 	}
 
@@ -592,7 +591,6 @@ public class TraditionalT9 extends KeyPadHandler {
 			String lastComposingText = getComposingText(mInputMode.getSequenceLength() - 1);
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
-			autoCorrectSpace(lastComposingText, false, -1);
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 		}
 
@@ -706,12 +704,12 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
+	private void autoCorrectSpace(String currentWord, int nextKey) {
 		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddAutoSpace(inputType, textField, nextKey)) {
 			textField.setText(" ");
 		}
 	}

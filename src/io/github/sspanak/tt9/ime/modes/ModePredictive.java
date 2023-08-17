@@ -332,13 +332,15 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace
-			.setLastWord(lastAcceptedWord)
-			.setLastSequence()
-			.setInputType(inputType)
-			.setTextField(textField)
-			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
+	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, int nextKey) {
+		return autoSpace.getAutoSpace() ?
+			autoSpace
+				.setLastWord(lastAcceptedWord)
+				.setLastSequence()
+				.setInputType(inputType)
+				.setTextField(textField)
+				.shouldAddAutoSpace(nextKey)
+		 : false;
 	}
 
 
