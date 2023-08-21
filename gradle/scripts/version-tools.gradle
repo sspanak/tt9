@@ -1,0 +1,62 @@
+def execThing (String cmdStr) {
+	def stdout = new ByteArrayOutputStream()
+	String prefix = System.getenv("GITCMDPREFIX")
+	if (prefix != null) {
+		String cmd = prefix + cmdStr
+		exec {
+			commandLine cmd.tokenize()
+			standardOutput = stdout
+		}
+	} else {
+		exec {
+			commandLine cmdStr.tokenize()
+			standardOutput = stdout
+		}
+	}
+	return stdout.toString().trim()
+}
+
+def getCurrentGitHash() {
+	return execThing('git log -1 --format=%h')
+}
+
+def generateVersionName() {
+	// major version
+	String versionTagsRaw = execThing('git tag --list v[0-9]*')
+	int versionTagsCount = versionTagsRaw == "" ? 0 : versionTagsRaw.split('\n').size()
+
+	// minor version
+	String commitsSinceLastTag = "0"
+	if (versionTagsCount > 1) {
+		String lastVersionTag = execThing('git describe --match v[0-9]* --tags --abbrev=0')
+		String gitLogResult = execThing("git log $lastVersionTag..HEAD --oneline")
+		commitsSinceLastTag = gitLogResult == '' ? "0" : gitLogResult.split('\n').size()
+	}
+
+
+	// the commit we are building from
+
+	// beta string, if this is a beta
+	String lastTagName = (execThing('git tag --list') == "") ? "" : execThing('git describe --tags --abbrev=0')
+	String lastTagHash = (lastTagName == "") ? "" : execThing("git log -1 --format=%h $lastTagName")
+	String betaString = lastTagHash == getCurrentGitHash() && lastTagName.contains("-beta") ? '-beta' : ''
+
+	return "$versionTagsCount.$commitsSinceLastTag$betaString"
+}
+
+ext.getVersionName = { ->
+	return generateVersionName()
+}
+
+ext.getVersionCode = { ->
+	String commitsCount = execThing("git rev-list --count HEAD")
+	return Integer.valueOf(commitsCount)
+}
+
+ext.getDebugVersion = { ->
+	return "git-${getCurrentGitHash()} (debug)"
+}
+
+ext.getReleaseVersion = { ->
+	return "${generateVersionName()} (${getCurrentGitHash()})"
+}

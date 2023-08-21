@@ -7,7 +7,6 @@ import android.os.Handler;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.LineNumberReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -25,6 +24,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryLoader {
 	private static DictionaryLoader self;
+	private final String logTag = "DictionaryLoader";
 
 	private final AssetManager assets;
 	private final SettingsStore settings;
@@ -70,7 +70,7 @@ public class DictionaryLoader {
 		}
 
 		if (languages.size() == 0) {
-			Logger.d("DictionaryLoader", "Nothing to do");
+			Logger.d(logTag, "Nothing to do");
 			return;
 		}
 
@@ -108,8 +108,6 @@ public class DictionaryLoader {
 
 
 	private void importAll(Language language) {
-		final String logTag = "tt9.DictionaryLoader.importAll";
-
 		if (language == null) {
 			Logger.e(logTag, "Failed loading a dictionary for NULL language.");
 			sendError(InvalidLanguageException.class.getSimpleName(), -1);
@@ -119,7 +117,7 @@ public class DictionaryLoader {
 		DictionaryDb.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
-				importWords(language);
+				importWords(language, language.getDictionaryFile());
 				Logger.i(
 					logTag,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
@@ -190,22 +188,16 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWords(Language language) throws Exception {
-		importWords(language, language.getDictionaryFile());
-	}
-
-
 	private void importWords(Language language, String dictionaryFile) throws Exception {
-		long totalWords = countWords(dictionaryFile);
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-
-		ArrayList<Word> dbWords = new ArrayList<>();
-		long lineCount = 0;
-
 		sendProgressMessage(language, 0, 0);
 
-		for (String line; (line = br.readLine()) != null; lineCount++) {
+		long currentLine = 0;
+		long totalLines = getFileSize(dictionaryFile);
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
+		ArrayList<Word> dbWords = new ArrayList<>();
+
+		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
 				br.close();
 				sendProgressMessage(language, -1, 0);
@@ -219,16 +211,17 @@ public class DictionaryLoader {
 			try {
 				dbWords.add(stringToWord(language, word, frequency));
 			} catch (InvalidLanguageCharactersException e) {
-				throw new DictionaryImportException(word, lineCount);
+				br.close();
+				throw new DictionaryImportException(word, currentLine);
 			}
 
-			if (lineCount % settings.getDictionaryImportWordChunkSize() == 0 || lineCount == totalWords - 1) {
+			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
 				DictionaryDb.upsertWordsSync(dbWords);
 				dbWords.clear();
 			}
 
-			if (totalWords > 0) {
-				int progress = (int) Math.floor(100.0 * lineCount / totalWords);
+			if (totalLines > 0) {
+				int progress = (int) Math.floor(100.0 * currentLine / totalLines);
 				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
@@ -255,16 +248,13 @@ public class DictionaryLoader {
 	}
 
 
-	private long countWords(String filename) {
-		try (LineNumberReader reader = new LineNumberReader(new InputStreamReader(assets.open(filename), StandardCharsets.UTF_8))) {
-			//noinspection ResultOfMethodCallIgnored
-			reader.skip(Long.MAX_VALUE);
-			long lines = reader.getLineNumber();
-			reader.close();
+	private long getFileSize(String filename) {
+		String sizeFilename = filename + ".size";
 
-			return lines;
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(sizeFilename), StandardCharsets.UTF_8))) {
+			return Integer.parseInt(reader.readLine());
 		} catch (Exception e) {
-			Logger.w("DictionaryLoader.countWords", "Could not count the lines of file: " + filename + ". " + e.getMessage());
+			Logger.w(logTag, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
 			return 0;
 		}
 	}
@@ -293,9 +283,7 @@ public class DictionaryLoader {
 
 	private void sendFileCount(int fileCount) {
 		if (onStatusChange == null) {
-			Logger.w(
-				"DictionaryLoader.sendFileCount",
-				"Cannot send file count without a status Handler. Ignoring message.");
+			Logger.w(logTag, "Cannot send file count without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -307,9 +295,7 @@ public class DictionaryLoader {
 
 	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
 		if (onStatusChange == null) {
-			Logger.w(
-				"DictionaryLoader.sendProgressMessage",
-				"Cannot send progress without a status Handler. Ignoring message.");
+			Logger.w(logTag, "Cannot send progress without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -331,7 +317,7 @@ public class DictionaryLoader {
 
 	private void sendError(String message, int langId) {
 		if (onStatusChange == null) {
-			Logger.w("DictionaryLoader.sendError", "Cannot send an error without a status Handler. Ignoring message.");
+			Logger.w(logTag, "Cannot send an error without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -344,7 +330,7 @@ public class DictionaryLoader {
 
 	private void sendImportError(String message, int langId, long fileLine, String word) {
 		if (onStatusChange == null) {
-			Logger.w("DictionaryLoader.sendError", "Cannot send an import error without a status Handler. Ignoring message.");
+			Logger.w(logTag, "Cannot send an import error without a status Handler. Ignoring message.");
 			return;
 		}
 
