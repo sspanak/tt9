@@ -126,7 +126,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int result = super.onStartCommand(intent, flags, startId);
 
-		String message = intent.getStringExtra(AddWordAct.INTENT_FILTER);
+		String message = intent != null ? intent.getStringExtra(AddWordAct.INTENT_FILTER) : null;
 		if (message != null && !message.isEmpty()) {
 			forceShowWindowIfHidden();
 			UI.toastLong(self, message);
