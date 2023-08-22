@@ -491,6 +491,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	@Override
+	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
+		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+
+		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
+		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
+		// This is confusing from user perspective, so we want to avoid it.
+		if (!suggestionBar.isEmpty() && (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
+			acceptIncompleteSuggestion();
+		}
+	}
+
+
 	private boolean isSuggestionViewHidden() {
 		return suggestionBar == null || suggestionBar.isEmpty();
 	}
