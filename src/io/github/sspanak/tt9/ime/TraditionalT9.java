@@ -18,6 +18,7 @@ import java.util.List;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.ime.helpers.AppHacks;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -35,6 +36,7 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
+	@NonNull private AppHacks appHacks = new AppHacks(null, null);
 	@NonNull private TextField textField = new TextField(null, null);
 	@NonNull private InputType inputType = new InputType(null, null);
 	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
@@ -202,6 +204,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onStart(EditorInfo input) {
 		inputType = new InputType(currentInputConnection, input);
 		textField = new TextField(currentInputConnection, input);
+		appHacks = new AppHacks(input, textField);
 
 		if (!inputType.isValid() || inputType.isLimited()) {
 			// When the input is invalid or simple, let Android handle it.
@@ -242,6 +245,10 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onBackspace() {
+		if (appHacks.onBackspace(mInputMode)) {
+			return true;
+		}
+
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
@@ -296,7 +303,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mInputMode.shouldSelectNextSuggestion() && !isSuggestionViewHidden()) {
-			nextSuggestion();
+			onKeyScrollSuggestion(false, false);
 			scheduleAutoAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			getSuggestions();
@@ -311,9 +318,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (isSuggestionViewHidden()) {
 			return performOKAction();
-		} else {
-			acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
 		}
+
+		acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
 		return true;
 	}
 
@@ -425,10 +432,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		if (backward) previousSuggestion();
-		else nextSuggestion();
+		suggestionBar.scrollToSuggestion(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+		setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion());
 		return true;
 	}
 
@@ -493,12 +499,18 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
+		// Logger.d("onUpdateSelection", "oldSelStart: " + oldSelStart + " oldSelEnd: " + oldSelEnd + " newSelStart: " + newSelStart + " oldSelEnd: " + oldSelEnd + " candidatesStart: " + candidatesStart + " candidatesEnd: " + candidatesEnd);
+
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
 		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
 		// This is confusing from user perspective, so we want to avoid it.
-		if (!suggestionBar.isEmpty() && (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)) {
+		if (
+			candidatesStart != -1 && candidatesEnd != -1
+			&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)
+			&& !suggestionBar.isEmpty()
+		) {
 			acceptIncompleteSuggestion();
 		}
 	}
@@ -506,18 +518,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private boolean isSuggestionViewHidden() {
 		return suggestionBar == null || suggestionBar.isEmpty();
-	}
-
-
-	private void previousSuggestion() {
-		suggestionBar.scrollToSuggestion(-1);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-	}
-
-
-	private void nextSuggestion() {
-		suggestionBar.scrollToSuggestion(1);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 	}
 
 
@@ -624,7 +624,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// for a more intuitive experience.
 		String word = suggestionBar.getCurrentSuggestion();
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
-		textField.setComposingTextWithHighlightedStem(word, mInputMode);
+		setComposingTextWithHighlightedStem(word);
 	}
 
 
@@ -662,6 +662,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	private void refreshComposingText() {
 		textField.setComposingText(getComposingText());
+	}
+
+
+	private void setComposingTextWithHighlightedStem(@NonNull String word) {
+		if (appHacks.setComposingTextWithHighlightedStem(word)) {
+			Logger.w("highlightComposingText", "Defective text field detected! Text highlighting disabled.");
+		} else {
+			textField.setComposingTextWithHighlightedStem(word, mInputMode);
+		}
 	}
 
 
