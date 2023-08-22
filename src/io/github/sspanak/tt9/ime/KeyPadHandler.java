@@ -74,8 +74,8 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
+		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras);
 		currentInputConnection = getCurrentInputConnection();
-		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
 		onStart(inputField);
 	}
 

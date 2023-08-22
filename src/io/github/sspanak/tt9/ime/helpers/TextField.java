@@ -274,13 +274,13 @@ public class TextField {
 	 * the text will be in bold and italic.
 	 */
 	private CharSequence highlightText(CharSequence word, int start, int end, boolean highlightMore) {
-		if (end < start || start < 0) {
+		if (end <= start || start < 0) {
 			Logger.w("tt9.util.highlightComposingText", "Cannot highlight invalid composing text range: [" + start + ", " + end + "]");
 			return word;
 		}
 
-		// nothing to highlight in an empty word
-		if (word == null || word.length() == 0) {
+		// nothing to highlight in an empty word or if the target is beyond the last letter
+		if (word == null || word.length() == 0 || word.length() <= start) {
 			return word;
 		}
 
