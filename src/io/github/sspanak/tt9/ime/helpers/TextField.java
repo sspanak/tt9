@@ -71,8 +71,6 @@ public class TextField {
 	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
 	 */
 	public ArrayList<Integer> determineInputModes(InputType inputType) {
-		final int INPUT_TYPE_SHARP_007H_PHONE_BOOK = 65633;
-
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (field == null) {
@@ -80,19 +78,7 @@ public class TextField {
 			return allowedModes;
 		}
 
-		if (
-			field.inputType == INPUT_TYPE_SHARP_007H_PHONE_BOOK
-			|| (
-				field.privateImeOptions != null
-				&& field.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
-			)
-		) {
-			allowedModes.add(InputMode.MODE_123);
-			allowedModes.add(InputMode.MODE_ABC);
-			return allowedModes;
-		}
-
-		// Calculators (support only 0-9 and math) and Dialer (0-9, "#" and "*"),
+		// Calculators (only 0-9 and math) and Dialer (0-9, "#" and "*") fields
 		// handle all input themselves, so we are supposed to pass through all key presses.
 		// Note: A Dialer field is not a Phone number field.
 		if (inputType.isSpecialNumeric()) {
@@ -114,7 +100,7 @@ public class TextField {
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
-				if (!inputType.isPassword() && !inputType.isFilter()) {
+				if (!inputType.isPassword()) {
 					allowedModes.add(InputMode.MODE_PREDICTIVE);
 				}
 
