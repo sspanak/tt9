@@ -265,10 +265,6 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
-	public int getSuggestionScrollingDelay() {
-		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
-	}
-
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
 
@@ -284,4 +280,15 @@ public class SettingsStore {
 
 	public int getWordFrequencyMax() { return 25500; }
 	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
+
+
+	/************* hack settings *************/
+
+	public int getSuggestionScrollingDelay() {
+		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
+	}
+
+	public boolean getFbMessengerHack() {
+		return prefs.getBoolean("pref_hack_fb_messenger", false);
+	}
 }

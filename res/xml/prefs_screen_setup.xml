@@ -23,5 +23,11 @@
 		app:title="@string/pref_alternative_suggestion_scrolling"
 		app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
 
+	<SwitchPreferenceCompat
+		app:key="pref_hack_fb_messenger"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_hack_fb_messenger"
+		app:summary="@string/pref_hack_fb_messenger_summary"/>
+
 	</PreferenceCategory>
 </PreferenceScreen>

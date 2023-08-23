@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -74,7 +75,10 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras);
+		Logger.d(
+			"KeyPadHandler",
+			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras
+		);
 		currentInputConnection = getCurrentInputConnection();
 		onStart(inputField);
 	}
