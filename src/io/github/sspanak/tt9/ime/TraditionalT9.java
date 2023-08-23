@@ -36,7 +36,7 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
 	private boolean isActive = false;
-	@NonNull private AppHacks appHacks = new AppHacks(null, null);
+	@NonNull private AppHacks appHacks = new AppHacks(null,null, null, null);
 	@NonNull private TextField textField = new TextField(null, null);
 	@NonNull private InputType inputType = new InputType(null, null);
 	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
@@ -204,9 +204,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onStart(EditorInfo input) {
 		inputType = new InputType(currentInputConnection, input);
 		textField = new TextField(currentInputConnection, input);
-		appHacks = new AppHacks(input, textField);
+		appHacks = new AppHacks(settings, currentInputConnection, input, textField);
 
-		if (!inputType.isValid() || inputType.isLimited()) {
+		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.isTermux())) {
 			// When the input is invalid or simple, let Android handle it.
 			onStop();
 			return;
@@ -245,14 +245,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	public boolean onBackspace() {
-		if (appHacks.onBackspace(mInputMode)) {
-			return true;
-		}
-
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
-		if (mInputMode.isPassthrough() || !textField.isThereText()) {
+		// 3. Some app may need special treatment, so let it be.
+		if (mInputMode.isPassthrough() || !(textField.isThereText() || appHacks.onBackspace(mInputMode))) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
@@ -317,7 +314,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 
 		if (isSuggestionViewHidden()) {
-			return performOKAction();
+			int action = textField.getAction();
+			return action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
 		}
 
 		acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
@@ -737,41 +735,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
-		}
-	}
-
-
-	private boolean performOKAction() {
-		if (currentInputConnection == null) {
-			return false;
-		}
-
-		int action = textField.getAction();
-		switch (action) {
-			case EditorInfo.IME_ACTION_NONE:
-				return false;
-			case TextField.IME_ACTION_ENTER:
-				String oldText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
-
-				sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-
-				try {
-					// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
-					// If so, send an alternative key code as a final resort.
-					Thread.sleep(80);
-					String newText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
-					if (newText.equals(oldText)) {
-						sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-					}
-				} catch (InterruptedException e) {
-					// This thread got interrupted. Assume it's because the connected application has taken an action
-					// after receiving DPAD_CENTER, so we don't need to do anything else.
-					return true;
-				}
-
-				return true;
-			default:
-				return currentInputConnection.performEditorAction(action);
 		}
 	}
 

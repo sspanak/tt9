@@ -96,7 +96,7 @@ If your phone has a dedicated "Del" or "Clear" key, you do not need to set anyth
 
 On phones which have a combined "Delete"/"Back", that key will be selected automatically. However, you can assign "Backspace" function to another key, so "Back" will only navigate back.
 
-_**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox and Spotify. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
+_**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox, Spotify and Termux. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
 
 _**NB 2:** Holding "Back" key will always trigger the default system action (i.e. show running applications list)._
 
