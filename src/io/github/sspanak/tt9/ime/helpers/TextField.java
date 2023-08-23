@@ -309,7 +309,10 @@ public class TextField {
 		return styledWord;
 	}
 
-
+	/**
+	 * getAction
+	 * Returns the most appropriate action for the "OK" key. It could be "send", "act as ENTER key", "go (to URL)" and so on.
+	 */
 	public int getAction() {
 		if (field == null) {
 			return EditorInfo.IME_ACTION_NONE;
@@ -332,5 +335,14 @@ public class TextField {
 			default:
 				return IME_ACTION_ENTER;
 		}
+	}
+
+	/**
+	 * performAction
+	 * Sends an action ID to the connected application. Usually, the action is determined with "this.getAction()".
+	 * Note that it is up to the app to decide what to do or ignore the action ID.
+	 */
+	public boolean performAction(int actionId) {
+		return connection != null && actionId != EditorInfo.IME_ACTION_NONE && connection.performEditorAction(actionId);
 	}
 }
