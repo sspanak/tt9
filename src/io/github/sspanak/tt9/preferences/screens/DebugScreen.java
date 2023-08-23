@@ -41,11 +41,7 @@ public class DebugScreen extends BaseScreenFragment {
 
 		msgSwitch.setChecked(Logger.isDebugLevel());
 		msgSwitch.setOnPreferenceChangeListener((Preference p, Object newValue) -> {
-			if ((boolean) newValue) {
-				Logger.setDebugLevel();
-			} else {
-				Logger.setDefaultLevel();
-			}
+			Logger.enableDebugLevel((boolean) newValue);
 			return true;
 		});
 	}

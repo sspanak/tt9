@@ -214,6 +214,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		initTyping();
 		initUi();
+		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
 		isActive = true;
 	}
