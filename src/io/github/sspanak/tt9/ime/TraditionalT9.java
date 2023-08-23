@@ -205,7 +205,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (!inputType.isValid() || inputType.isLimited()) {
 			// When the input is invalid or simple, let Android handle it.
-			onStop();
 			return;
 		}
 
@@ -226,13 +225,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	protected void onFinishTyping() {
 		cancelAutoAccept();
 		isActive = false;
-	}
-
-
-	protected void onStop() {
-		onFinishTyping();
-		clearSuggestions();
-		statusBar.setText("--");
 	}
 
 

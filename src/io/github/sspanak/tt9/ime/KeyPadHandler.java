@@ -93,17 +93,6 @@ abstract class KeyPadHandler extends InputMethodService {
 		onFinishTyping();
 	}
 
-	/**
-	 * This is called when the user is done editing a field. We can use this to
-	 * reset our state.
-	 */
-	@Override
-	public void onFinishInput() {
-		super.onFinishInput();
-		// Logger.d("onFinishInput", "When is this called?");
-		onStop();
-	}
-
 
 	/**
 	 * Use this to monitor key events being delivered to the application. We get
