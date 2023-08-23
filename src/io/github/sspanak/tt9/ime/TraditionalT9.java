@@ -354,7 +354,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		textField.finishComposingText();
 		clearSuggestions();
 
 		String word = textField.getSurroundingWord();
@@ -445,7 +444,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		cancelAutoAccept();
 		commitCurrentSuggestion(false);
-		clearSuggestions();
 		resetKeyRepeat();
 		nextLang();
 		mInputMode.changeLanguage(mLanguage);
