@@ -31,7 +31,7 @@ public class AppHacks {
 	 * weird side effects occur. Nevertheless, all other text fields in the app are fine, so we detect only these two particular ones.
 	 */
 	private boolean isKindleInvertedTextField() {
-		return editorInfo != null && editorInfo.inputType == 1 && editorInfo.packageName.contains("com.amazon.kindle");
+		return isAppField("com.amazon.kindle", EditorInfo.TYPE_CLASS_TEXT);
 	}
 
 
@@ -42,10 +42,52 @@ public class AppHacks {
 	 * and are ignored by TT9 by default. In order not to ignore Termux, we need this.
 	 */
 	public boolean isTermux() {
-		return editorInfo != null && editorInfo.inputType == 0 && editorInfo.fieldId > 0 && editorInfo.packageName.contains("com.termux");
+		return isAppField("com.termux", EditorInfo.TYPE_NULL) && editorInfo.fieldId > 0;
 	}
 
 
+	/**
+	 * isMessenger
+	 * Facebook Messenger has flaky support for sending messages. To fix that, we detect the chat input field and send the appropriate
+	 * key codes to it. See "onFbMessengerEnter()" for info how the hack works.
+	 */
+	private boolean isMessenger() {
+		return isAppField(
+			"com.facebook.orca",
+			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
+		);
+	}
+
+
+	/**
+	 * isMessengerLite
+	 * Facebook Messenger Lite does not support sending messages with OK/ENTER. To enable that, we
+	 * detect the chat field and apply the proper series of commands to it. See "onFbMessengerEnter()" for info how the hack works.
+	 */
+	private boolean isMessengerLite() {
+		return isAppField(
+			"com.facebook.mlite",
+			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT
+		);
+	}
+
+
+	/**
+	 * isAppField
+	 * Detects a particular input field of a particular application.
+	 */
+	private boolean isAppField(String appPackageName, int fieldSpec) {
+		return
+			editorInfo != null
+			&& ((editorInfo.inputType & fieldSpec) == fieldSpec)
+			&& editorInfo.packageName.equals(appPackageName);
+	}
+
+
+	/**
+	 * setComposingTextWithHighlightedStem
+	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
+	 */
 	public boolean setComposingTextWithHighlightedStem(@NonNull String word) {
 		if (isKindleInvertedTextField()) {
 			textField.setComposingText(word);
@@ -54,6 +96,7 @@ public class AppHacks {
 
 		return false;
 	}
+
 
 	/**
 	 * onBackspace
@@ -82,6 +125,8 @@ public class AppHacks {
 		if (isTermux()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 			return true;
+		} else if (isMessenger() || isMessengerLite()) {
+			return onEnterFbMessenger();
 		}
 
 		return onEnterDefault();
@@ -116,6 +161,45 @@ public class AppHacks {
 			// after receiving DPAD_CENTER, so we don't need to do anything else.
 			return true;
 		}
+
+		return true;
+	}
+
+
+	/**
+	 * onEnterFbMessenger
+	 * Once we have detected the chat message field we apply the appropriate key combo to send the message.
+	 */
+	private boolean onEnterFbMessenger() {
+		if (textField == null) {
+			return false;
+		}
+
+		// in case the setting is disabled, just type a new line as one would expect
+		if (!settings.getFbMessengerHack()) {
+			inputConnection.commitText("\n", 1);
+			return true;
+		}
+
+		// do not send any commands if the user has not typed anything or the field is invalid
+		if (!textField.isThereText()) {
+			return false;
+		}
+
+		if (isMessenger()) {
+			// Messenger responds only to ENTER, but not DPAD_CENTER, so we make sure to send the correct code,
+			// no matter how the hardware key is implemented.
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		} else {
+			// Messenger Lite responds to no key codes, so we trick it by going right to the Send button, pressing it,
+			// then going back to the chat field.
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
+		}
+
 
 		return true;
 	}
