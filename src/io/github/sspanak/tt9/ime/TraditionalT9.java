@@ -309,15 +309,11 @@ public class TraditionalT9 extends KeyPadHandler {
 	public boolean onOK() {
 		cancelAutoAccept();
 
-		if (!isInputViewShown() && !textField.isThereText()) {
-			forceShowWindowIfHidden();
-			return true;
-		} else if (isSuggestionViewHidden()) {
+		if (isSuggestionViewHidden()) {
 			return performOKAction();
+		} else {
+			acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
 		}
-
-		acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
-
 		return true;
 	}
 
