@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
@@ -38,6 +39,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		globalKeyboardSettings = new GlobalKeyboardSettings(this, (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 		settings = new SettingsStore(this);
 		applyTheme();
+		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);

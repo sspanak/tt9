@@ -265,6 +265,8 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
+	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
+
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
 
