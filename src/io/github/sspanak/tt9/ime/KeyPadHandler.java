@@ -277,7 +277,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	abstract protected void onStart(EditorInfo inputField);
 	abstract protected void onRestart(EditorInfo inputField);
 	abstract protected void onFinishTyping();
-	abstract protected void onStop();
 
 	// UI
 	abstract protected View createSoftKeyView();
