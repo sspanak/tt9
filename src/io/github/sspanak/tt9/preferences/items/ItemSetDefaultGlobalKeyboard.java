@@ -1,11 +1,9 @@
 package io.github.sspanak.tt9.preferences.items;
 
-import android.content.Context;
-import android.view.inputmethod.InputMethodManager;
-
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.ui.UI;
 
 public class ItemSetDefaultGlobalKeyboard extends ItemClickable {
 	private final PreferencesActivity activity;
@@ -17,7 +15,7 @@ public class ItemSetDefaultGlobalKeyboard extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		((InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+		UI.showChangeKeyboardDialog(activity);
 		return false;
 	}
 }

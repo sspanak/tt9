@@ -99,8 +99,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * Repeatedly calls "handleHold()" upon holding the respective SoftKey, to simulate physical keyboard behavior.
 	 */
 	private void repeatOnLongPress() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
+		if (!validateTT9Handler()) {
 			hold = false;
 			return;
 		}
@@ -132,8 +131,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	}
 
 	protected boolean handleRelease() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
+		if (!validateTT9Handler()) {
 			return false;
 		}
 
@@ -145,12 +143,20 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (keyId == R.id.soft_key_clear_filter) return tt9.onKeyFilterClear(false);
 		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
 		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
-		if (keyId == R.id.soft_key_input_mode) return tt9.onKeyNextInputMode(false);
 		if (keyId == R.id.soft_key_language) return tt9.onKeyNextLanguage(false);
 		if (keyId == R.id.soft_key_ok) return tt9.onOK();
 		if (keyId == R.id.soft_key_settings) return tt9.onKeyShowSettings(false);
 
 		return false;
+	}
+
+	protected boolean validateTT9Handler() {
+		if (tt9 == null) {
+			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

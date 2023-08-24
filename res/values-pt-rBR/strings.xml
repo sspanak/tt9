@@ -43,6 +43,7 @@
 
 	<string name="function_add_word_key">Adicionar palavra</string>
 	<string name="function_backspace_key">Backspace</string>
+	<string name="function_change_keyboard_key">Mude o teclado</string>
 	<string name="function_next_language_key">Próximo Idioma</string>
 	<string name="function_next_mode_key">Modo de Entrada</string>
 	<string name="function_show_settings_key">Entrar em Configurações</string>

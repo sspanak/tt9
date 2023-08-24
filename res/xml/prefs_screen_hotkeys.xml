@@ -52,6 +52,12 @@
 
 	<DropDownPreference
 		app:iconSpaceReserved="false"
+		app:key="key_change_keyboard"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/function_change_keyboard_key" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
 		app:key="key_show_settings"
 		app:layout="@layout/pref_dropdown"
 		app:title="@string/function_show_settings_key" />

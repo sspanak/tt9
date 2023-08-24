@@ -373,6 +373,19 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	public boolean onKeyChangeKeyboard(boolean validateOnly) {
+		if (!isInputViewShown()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			UI.showChangeKeyboardDialog(this);
+		}
+
+		return true;
+	}
+
+
 	public boolean onKeyFilterClear(boolean validateOnly) {
 		if (isSuggestionViewHidden()) {
 			return false;
