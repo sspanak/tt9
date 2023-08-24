@@ -2,21 +2,50 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
+import io.github.sspanak.tt9.languages.Characters;
+
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
 	@Override @NonNull public String toString() { return "123"; }
 
 	@Override public final boolean is123() { return true; }
 	@Override public boolean isPassthrough() { return false; }
+	@Override public int getSequenceLength() { return 1; }
+	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
-	@Override public void reset() {
-		super.reset();
-		autoAcceptTimeout = 0;
+	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
+
+	public Mode123() {
+		// 0-key
+		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
+		for (String character : Characters.Special) {
+			if (!character.equals("+") && !character.equals("\n")) {
+				KEY_CHARACTERS.get(0).add(character);
+			}
+		}
+
+		// 1-key
+		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList(".")));
+		for (String character : Characters.PunctuationEnglish) {
+			if (!character.equals(".")) {
+				KEY_CHARACTERS.get(1).add(character);
+			}
+		}
 	}
 
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
-		suggestions.add((number == 0 && hold) ? "+" : String.valueOf(number));
+
+		if (hold && number < KEY_CHARACTERS.size()) {
+			suggestions.addAll(KEY_CHARACTERS.get(number));
+		} else {
+			autoAcceptTimeout = 0;
+			suggestions.add(String.valueOf(number));
+		}
+
 		return true;
 	}
 
