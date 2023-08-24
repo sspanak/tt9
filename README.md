@@ -1,5 +1,5 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports predictive text typing in [multiple languages](assets/languages/definitions) and configurable hotkeys.
+TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports predictive text typing in [multiple languages](assets/languages/definitions) and configurable hotkeys, bringing old school Nokia experience to modern Android devices.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
