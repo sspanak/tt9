@@ -73,7 +73,7 @@ _**NB2:** In messaging applications, you need to enable their "Send with ENTER" 
 #### 0-key:
 - **In 123 mode:**
   - **Press:** type "0".
-  - **Hold:** type "+".
+  - **Hold:** type special/math characters.
 - **In ABC mode:**
   - **Press:** type space, newline or special/math characters.
   - **Hold:** type "0".
@@ -83,7 +83,7 @@ _**NB2:** In messaging applications, you need to enable their "Send with ENTER" 
   - **Hold:** type "0".
 
 #### 1- to 9-key:
-- **In 123 mode:** type the respective number.
+- **In 123 mode:** type the respective number or hold to type punctuation.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
 #### Add Word Key (Default: Press ✱):

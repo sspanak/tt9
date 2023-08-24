@@ -73,14 +73,14 @@ public class SoftNumberKey extends SoftKey {
 			}
 		}
 
-		// no special labels in 123 mode
-		if (tt9.getInputMode() == InputMode.MODE_123) {
-			return null;
-		}
-
 		// 1
 		if (number == 1) {
 			return ",:-)";
+		}
+
+		// no other special labels in 123 mode
+		if (tt9.getInputMode() == InputMode.MODE_123) {
+			return null;
 		}
 
 		// 2-9
