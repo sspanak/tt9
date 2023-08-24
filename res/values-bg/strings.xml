@@ -35,6 +35,7 @@
 	<string name="key_call">Зелена слушалка</string>
 	<string name="function_add_word_key">Добавяне на нова дума</string>
 	<string name="function_backspace_key">Триене на текст</string>
+	<string name="function_change_keyboard_key">Избор на клавиатура</string>
 	<string name="function_filter_clear_key">Изчистване на филтър</string>
 	<string name="function_filter_suggestions_key">Филтриране на думи</string>
 	<string name="function_previous_suggestion_key">Предишна дума</string>

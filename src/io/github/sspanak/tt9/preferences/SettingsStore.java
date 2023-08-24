@@ -167,6 +167,7 @@ public class SettingsStore {
 	public void setDefaultKeys(
 		int addWord,
 		int backspace,
+		int changeKeyboard,
 		int filterClear,
 		int filterSuggestions,
 		int previousSuggestion,
@@ -178,6 +179,7 @@ public class SettingsStore {
 		prefsEditor
 			.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord))
 			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
+			.putString(SectionKeymap.ITEM_CHANGE_KEYBOARD, String.valueOf(changeKeyboard))
 			.putString(SectionKeymap.ITEM_FILTER_CLEAR, String.valueOf(filterClear))
 			.putString(SectionKeymap.ITEM_FILTER_SUGGESTIONS, String.valueOf(filterSuggestions))
 			.putString(SectionKeymap.ITEM_PREVIOUS_SUGGESTION, String.valueOf(previousSuggestion))
@@ -202,6 +204,9 @@ public class SettingsStore {
 	}
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
+	}
+	public int getKeyChangeKeyboard() {
+		return getFunctionKey(SectionKeymap.ITEM_CHANGE_KEYBOARD);
 	}
 	public int getKeyFilterClear() {
 		return getFunctionKey(SectionKeymap.ITEM_FILTER_CLEAR);

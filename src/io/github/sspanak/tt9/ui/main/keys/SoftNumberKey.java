@@ -40,13 +40,8 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
-
 		int keyCode = Key.numberToCode(getNumber(getId()));
-		if (keyCode < 0) {
+		if (keyCode < 0 || !validateTT9Handler()) {
 			return false;
 		}
 

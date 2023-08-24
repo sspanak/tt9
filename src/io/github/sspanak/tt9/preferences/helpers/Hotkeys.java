@@ -69,6 +69,7 @@ public class Hotkeys {
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
 			backspace,
+			0, // "change keyboard" is unassigned by default
 			clearFilter,
 			filter,
 			previousSuggestion,

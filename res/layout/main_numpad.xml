@@ -189,7 +189,7 @@
 			android:layout_height="@dimen/numpad_key_height"
 			tools:ignore="HardcodedText">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyInputMode
 				android:id="@+id/soft_key_input_mode"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"

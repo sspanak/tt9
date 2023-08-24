@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.Logger;
-
 public class SoftBackspaceKey extends SoftKey {
 
 	public SoftBackspaceKey(Context context) {
@@ -26,12 +24,7 @@ public class SoftBackspaceKey extends SoftKey {
 
 	@Override
 	final protected boolean handleHold() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
-
-		return tt9.onBackspace();
+		return validateTT9Handler() && tt9.onBackspace();
 	}
 
 	@Override

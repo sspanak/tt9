@@ -21,6 +21,7 @@ public class HotkeysScreen extends BaseScreenFragment {
 		DropDownPreference[] dropDowns = {
 			findPreference(SectionKeymap.ITEM_ADD_WORD),
 			findPreference(SectionKeymap.ITEM_BACKSPACE),
+			findPreference(SectionKeymap.ITEM_CHANGE_KEYBOARD),
 			findPreference(SectionKeymap.ITEM_FILTER_CLEAR),
 			findPreference(SectionKeymap.ITEM_FILTER_SUGGESTIONS),
 			findPreference(SectionKeymap.ITEM_PREVIOUS_SUGGESTION),

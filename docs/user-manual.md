@@ -113,6 +113,9 @@ Select the next language, when multiple languages have been enabled from the Set
 #### Settings Key (Default: Hold ✱):
 Open the Settings configuration screen.
 
+#### Change Keyboard Key (Default: _unassigned_):
+Open the Android Change Keyboard dialog where you can select between all installed keyboards.
+
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available. Enable it from Settings -> Appearance -> Show On-Screen Numpad.
 

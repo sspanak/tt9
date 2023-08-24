@@ -54,6 +54,7 @@
 	<string name="key_hold_key">(затиснути)</string>
 	<string name="function_add_word_key">Додати нове слово</string>
 	<string name="function_backspace_key">Стерти</string>
+	<string name="function_change_keyboard_key">Вибір клавіатури</string>
 	<string name="function_filter_clear_key">Видалити фільтр</string>
 	<string name="function_filter_suggestions_key">Фільтрувати слова</string>
 	<string name="function_previous_suggestion_key">Попереднє слово</string>

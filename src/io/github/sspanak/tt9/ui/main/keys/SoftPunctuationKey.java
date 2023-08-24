@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
@@ -36,8 +35,7 @@ public class SoftPunctuationKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
+		if (!validateTT9Handler()) {
 			return false;
 		}
 

@@ -231,6 +231,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			return onKeyAddWord(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyChangeKeyboard() * (hold ? -1 : 1)) {
+			return onKeyChangeKeyboard(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyFilterClear() * (hold ? -1 : 1)) {
 			return onKeyFilterClear(validateOnly);
 		}
@@ -280,6 +284,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// hotkey handlers
 	abstract protected boolean onKeyAddWord(boolean validateOnly);
+	abstract protected boolean onKeyChangeKeyboard(boolean validateOnly);
 	abstract protected boolean onKeyFilterClear(boolean validateOnly);
 	abstract protected boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat);
 	abstract protected boolean onKeyNextLanguage(boolean validateOnly);
