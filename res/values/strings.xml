@@ -71,19 +71,18 @@
 	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
 	<string name="dictionary_truncating">Deleting…</string>
 
-	<string name="function_add_word_key">Add Word key</string>
-	<string name="function_backspace_key">Backspace key</string>
-	<string name="function_change_keyboard_key">Change Keyboard key</string>
-	<string name="function_filter_clear_key">Clear Filter key</string>
-	<string name="function_filter_suggestions_key">Filter Suggestions key</string>
-	<string name="function_previous_suggestion_key">Previous Suggestion key</string>
-	<string name="function_next_suggestion_key">Next Suggestion key</string>
-	<string name="function_next_language_key">Next Language key</string>
-	<string name="function_next_mode_key">Input Mode key</string>
-	<string name="function_show_settings_key">Show Settings key</string>
+	<string name="function_add_word_key">Add Word</string>
+	<string name="function_backspace_key">Backspace</string>
+	<string name="function_change_keyboard_key">Change Keyboard</string>
+	<string name="function_filter_clear_key">Clear Filter</string>
+	<string name="function_filter_suggestions_key">Filter Suggestions</string>
+	<string name="function_previous_suggestion_key">Previous Suggestion</string>
+	<string name="function_next_suggestion_key">Next Suggestion</string>
+	<string name="function_next_language_key">Next Language</string>
+	<string name="function_next_mode_key">Input Mode</string>
+	<string name="function_show_settings_key">Show Settings</string>
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>
-
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>
