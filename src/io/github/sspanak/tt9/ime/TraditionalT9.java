@@ -117,21 +117,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * last saved mode.
 	 */
 	private void determineTextCase() {
-		String debugString = "";
-
 		mInputMode.defaultTextCase();
-		debugString += "default text case: " + mInputMode.getTextCase() + "; ";
-
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
 		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
-		debugString += "after determine: " + mInputMode.getTextCase() + "; ";
-
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
-		debugString += "after validation: " + mInputMode.getTextCase();
-
-		if (mInputMode.getTextCase() == InputMode.CASE_UPPER) {
-			Logger.e("determineTextCase", "====> UPPERCASE ENFORCED: " + debugString);
-		}
 	}
 
 
