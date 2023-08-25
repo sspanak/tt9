@@ -5,8 +5,6 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-	<uses-configuration android:reqFiveWayNav="true" android:reqHardKeyboard="true" android:reqKeyboardType="qwerty"/>
-	<uses-configuration android:reqFiveWayNav="true" android:reqHardKeyboard="true" android:reqKeyboardType="twelvekey"/>
 
 	<application
 		android:allowBackup="false"
