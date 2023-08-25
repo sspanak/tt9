@@ -70,18 +70,6 @@ public class InputType {
 	}
 
 
-	public boolean isFilter() {
-		if (field == null) {
-			return false;
-		}
-
-		int inputType = field.inputType & android.text.InputType.TYPE_MASK_CLASS;
-		int inputVariation = field.inputType & android.text.InputType.TYPE_MASK_VARIATION;
-
-		return inputType == android.text.InputType.TYPE_CLASS_TEXT && inputVariation == android.text.InputType.TYPE_TEXT_VARIATION_FILTER;
-	}
-
-
 	public boolean isPassword() {
 		if (field == null) {
 			return false;
