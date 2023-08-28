@@ -63,8 +63,20 @@ public class TraditionalT9 extends KeyPadHandler {
 		return settings;
 	}
 
-	public int getInputMode() {
-		return mInputMode != null ? mInputMode.getId() : InputMode.MODE_UNDEFINED;
+	public boolean isInputModeNumeric() {
+		return mInputMode != null && mInputMode.is123();
+	}
+
+	public boolean isNumericModeStrict() {
+		return mInputMode != null && mInputMode.is123() && inputType.isNumeric() && !inputType.isPhoneNumber();
+	}
+
+	public boolean isNumericModeSigned() {
+		return mInputMode != null && mInputMode.is123() && inputType.isSignedNumber();
+	}
+
+	public boolean isInputModePhone() {
+		return mInputMode != null && mInputMode.is123() && inputType.isPhoneNumber();
 	}
 
 	public int getTextCase() {
@@ -96,7 +108,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void determineInputMode() {
 		allowedInputModes = textField.determineInputModes(inputType);
 		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-		mInputMode = InputMode.getInstance(settings, mLanguage, validModeId);
+		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, validModeId);
 	}
 
 
@@ -669,7 +681,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mInputMode.isPassthrough()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -693,7 +705,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.nextTextCase();
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(nextModeIndex));
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
 			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
 
