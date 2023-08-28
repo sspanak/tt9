@@ -121,7 +121,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		debugString += "default text case: " + mInputMode.getTextCase() + "; ";
 
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+		mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		debugString += "after determine: " + mInputMode.getTextCase() + "; ";
 
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
@@ -288,7 +288,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (getComposingText().isEmpty()) {
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -354,7 +354,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		textField.finishComposingText();
 		clearSuggestions();
 
 		String word = textField.getSurroundingWord();
@@ -445,7 +444,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		cancelAutoAccept();
 		commitCurrentSuggestion(false);
-		clearSuggestions();
 		resetKeyRepeat();
 		nextLang();
 		mInputMode.changeLanguage(mLanguage);
@@ -597,7 +595,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		}
 
 		// display the word suggestions
@@ -684,7 +682,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 
 			resetKeyRepeat();
 		}
