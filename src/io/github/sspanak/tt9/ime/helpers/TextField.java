@@ -335,7 +335,7 @@ public class TextField {
 			return field.actionId;
 		}
 
-		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
+		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION | EditorInfo.IME_FLAG_NAVIGATE_NEXT);
 		switch (standardAction) {
 			case EditorInfo.IME_ACTION_GO:
 			case EditorInfo.IME_ACTION_NEXT:
