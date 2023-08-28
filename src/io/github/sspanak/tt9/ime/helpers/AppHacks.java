@@ -148,6 +148,12 @@ public class AppHacks {
 
 		sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
 
+		// If there is no text, there is nothing to send, so there is no need to attempt any hacks.
+		// We just pass through DPAD_CENTER and finish as if the key press was handled by the system.
+		if (oldText.isEmpty()) {
+			return true;
+		}
+
 		try {
 			// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
 			// If so, send an alternative key code as a final resort.
