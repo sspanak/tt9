@@ -72,16 +72,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void loadSettings() {
-		mLanguage = LanguageCollection.getLanguage(getMainContext(), settings.getInputLanguage());
-		mEnabledLanguages = settings.getEnabledLanguageIds();
-		validateLanguages();
-
-		mInputMode = InputMode.getInstance(settings, mLanguage, settings.getInputMode());
-		mInputMode.setTextCase(settings.getTextCase());
-	}
-
-
 	private void validateLanguages() {
 		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(getMainContext(), mEnabledLanguages);
 		mLanguage = InputModeValidator.validateLanguage(getMainContext(), mLanguage, mEnabledLanguages);
@@ -149,7 +139,6 @@ public class TraditionalT9 extends KeyPadHandler {
 			initTray();
 		}
 
-		loadSettings();
 		validateFunctionKeys();
 	}
 
@@ -157,6 +146,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void initTyping() {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
+		mLanguage = LanguageCollection.getLanguage(getMainContext(), settings.getInputLanguage());
 		validateLanguages();
 
 		resetKeyRepeat();
