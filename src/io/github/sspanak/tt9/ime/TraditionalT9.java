@@ -732,19 +732,20 @@ public class TraditionalT9 extends KeyPadHandler {
 				String oldText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
 
 				sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-
-				try {
-					// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
-					// If so, send an alternative key code as a final resort.
-					Thread.sleep(80);
-					String newText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
-					if (newText.equals(oldText)) {
-						sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+				if (!oldText.isEmpty()) {
+					try {
+						// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
+						// If so, send an alternative key code as a final resort.
+						Thread.sleep(80);
+						String newText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
+						if (newText.equals(oldText)) {
+							sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+						}
+					} catch (InterruptedException e) {
+						// This thread got interrupted. Assume it's because the connected application has taken an action
+						// after receiving DPAD_CENTER, so we don't need to do anything else.
+						return true;
 					}
-				} catch (InterruptedException e) {
-					// This thread got interrupted. Assume it's because the connected application has taken an action
-					// after receiving DPAD_CENTER, so we don't need to do anything else.
-					return true;
 				}
 
 				return true;
