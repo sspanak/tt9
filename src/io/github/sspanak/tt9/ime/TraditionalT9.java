@@ -35,11 +35,13 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 
 public class TraditionalT9 extends KeyPadHandler {
 	// internal settings/data
-	private boolean isActive = false;
 	@NonNull private AppHacks appHacks = new AppHacks(null,null, null, null);
 	@NonNull private TextField textField = new TextField(null, null);
 	@NonNull private InputType inputType = new InputType(null, null);
 	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
+
+	@Deprecated // migrate to "ModePassthrough" when "isActive" == "false"
+	private boolean isActive = false;
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();

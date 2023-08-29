@@ -65,10 +65,11 @@ _Predictive mode only._
 - When suggestions are displayed, types the currently selected suggestion.
 - Otherwise, performs the default action for the current application (e.g. send a message, go to a URL, or just type a new line).
 
-_**NB:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
+_**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**NB2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
+_**Note2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
 
+_**Note3:** Facebook Messenger supports sending messages with the keypad only on some devices. If it does not work on yours, go to Settings -> Initial Setup and enable the "Send messages with OK in Messenger" option. This ensures sending is possible on any phone._
 
 #### 0-key:
 - **In 123 mode:**
