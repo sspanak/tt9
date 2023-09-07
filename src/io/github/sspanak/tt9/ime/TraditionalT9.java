@@ -785,6 +785,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeOff() {
-		 return currentInputConnection == null || !isActive || mInputMode.isPassthrough();
+		if (mInputMode == null || currentInputConnection == null || !isActive || mInputMode.isPassthrough()) {
+			updateInputViewShown();
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
