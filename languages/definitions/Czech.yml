@@ -1,6 +1,6 @@
 ---
 locale: cs-CZ
-dictionaryFile: cs-utf8.txt
+dictionaryFile: cs-utf8.csv
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_DE] # 1
