@@ -14,7 +14,7 @@ jobs:
     steps:
     # setup
     - name: Checkout project sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
