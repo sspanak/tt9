@@ -9,10 +9,13 @@ buildscript {
 	dependencies {
 		classpath 'com.android.tools.build:gradle:8.0.2'
 		classpath 'gradle.plugin.at.zierler:yaml-validator-plugin:1.5.0'
+		classpath("io.objectbox:objectbox-gradle-plugin:3.7.1")
 	}
 }
+
 apply plugin: 'com.android.application'
 apply plugin: 'at.zierler.yamlvalidator'
+apply plugin: "io.objectbox"
 
 apply from: 'gradle/scripts/constants.gradle'
 apply from: 'gradle/scripts/dictionary-tools.gradle'

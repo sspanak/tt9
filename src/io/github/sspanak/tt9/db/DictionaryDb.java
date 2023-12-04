@@ -1,11 +1,9 @@
 package io.github.sspanak.tt9.db;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteConstraintException;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
-import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,24 +11,22 @@ import java.util.List;
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
-import io.github.sspanak.tt9.db.room.TT9Room;
-import io.github.sspanak.tt9.db.room.Word;
-import io.github.sspanak.tt9.db.room.WordList;
-import io.github.sspanak.tt9.db.room.WordsDao;
+import io.github.sspanak.tt9.db.objectbox.Word;
+import io.github.sspanak.tt9.db.objectbox.WordList;
+import io.github.sspanak.tt9.db.objectbox.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.objectbox.exception.UniqueViolationException;
 
 public class DictionaryDb {
-	private static TT9Room dbInstance;
-
+	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
 	public static synchronized void init(Context context) {
-		if (dbInstance == null) {
+		if (store == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
-			dbInstance = TT9Room.getInstance(context);
+			store = new WordStore(context);
 		}
 	}
 
@@ -40,18 +36,18 @@ public class DictionaryDb {
 	}
 
 
-	private static TT9Room getInstance() {
+	private static WordStore getStore() {
 		init();
-		return dbInstance;
+		return store;
 	}
 
 
-	private static void printDebug(String tag, String title, String sequence, WordList words, long startTime) {
+	private static void printLoadDebug(String sequence, WordList words, long startTime) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
 
-		StringBuilder debugText = new StringBuilder(title);
+		StringBuilder debugText = new StringBuilder("===== Word Matches =====");
 		debugText
 			.append("\n")
 			.append("Word Count: ").append(words.size())
@@ -62,12 +58,12 @@ public class DictionaryDb {
 			debugText.append(" Sequence: ").append(sequence);
 		}
 
-		Logger.d(tag, debugText.toString());
+		Logger.d("loadWords", debugText.toString());
 	}
 
 
 	public static void runInTransaction(Runnable r) {
-		getInstance().runInTransaction(r);
+		getStore().runInTransaction(r);
 	}
 
 
@@ -79,17 +75,31 @@ public class DictionaryDb {
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
 		new Thread(() -> {
-			long time = System.currentTimeMillis();
+			for (int langId : getStore().getLanguages()) {
+				getStore().runInTransactionAsync(() -> {
+					long start = System.currentTimeMillis();
 
-			int affectedRows = getInstance().wordsDao().normalizeFrequencies(
-				settings.getWordFrequencyNormalizationDivider(),
-				settings.getWordFrequencyMax()
-			);
+					if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
+						return;
+					}
 
-			Logger.d(
-				"db.normalizeWordFrequencies",
-				"Normalized " + affectedRows + " words in: " + (System.currentTimeMillis() - time) + " ms"
-			);
+					List<Word> words = getStore().getMany(langId);
+					if (words == null) {
+						return;
+					}
+
+					for (Word w : words) {
+						w.frequency /= settings.getWordFrequencyNormalizationDivider();
+					}
+
+					getStore().put(words);
+
+					Logger.d(
+						"db.normalizeWordFrequencies",
+						"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
+					);
+				});
+			}
 		}).start();
 	}
 
@@ -97,23 +107,24 @@ public class DictionaryDb {
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
 		new Thread(() -> {
 			int langId = language != null ? language.getId() : -1;
-			notification.accept(getInstance().wordsDao().count(langId) > 0);
+			notification.accept(getStore().count(langId) > 0);
 		}).start();
 	}
 
 
-	public static void deleteWords(Runnable notification) {
-		deleteWords(notification, null);
+	public static void deleteWords(Context context, Runnable notification) {
+		new Thread(() -> {
+			getStore().destroy();
+			store = null;
+			init(context);
+			notification.run();
+		}).start();
 	}
 
 
-	public static void deleteWords(Runnable notification, ArrayList<Integer> languageIds) {
+	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-			if (languageIds == null) {
-				getInstance().clearAllTables();
-			} else if (languageIds.size() > 0) {
-				getInstance().wordsDao().deleteByLanguage(languageIds);
-			}
+			getStore().removeMany(languageIds);
 			notification.run();
 		}).start();
 	}
@@ -124,29 +135,19 @@ public class DictionaryDb {
 			throw new InsertBlankWordException();
 		}
 
-		Word dbWord = new Word();
-		dbWord.langId = language.getId();
-		dbWord.sequence = language.getDigitSequenceForWord(word);
-		dbWord.word = word;
-		dbWord.length = word.length();
-		dbWord.frequency = 1;
-
 		new Thread(() -> {
 			try {
-				if (getInstance().wordsDao().doesWordExist(dbWord.langId, dbWord.word) > 0) {
-					throw new SQLiteConstraintException("Word already exists.");
+				if (getStore().exists(language.getId(), word, language.getDigitSequenceForWord(word))) {
+					throw new UniqueViolationException("Word already exists");
 				}
-
-				getInstance().wordsDao().insert(dbWord);
-				getInstance().wordsDao().incrementFrequency(dbWord.langId, dbWord.word, dbWord.sequence);
+				getStore().put(Word.create(language, word, 1, true));
 				statusHandler.accept(0);
-			} catch (SQLiteConstraintException e) {
-				String msg = "Constraint violation when inserting a word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence + "', for language: " + dbWord.langId
-					+ ". " + e.getMessage();
-				Logger.e("insertWord", msg);
+			} catch (UniqueViolationException e) {
+				String msg = "Skipping word: '" + word + "' for language: " + language.getId() + ", because it already exists.";
+				Logger.w("insertWord", msg);
 				statusHandler.accept(1);
 			} catch (Exception e) {
-				String msg = "Failed inserting word: '" + dbWord.word + "' / sequence: '" + dbWord.sequence	+ "', for language: " + dbWord.langId + ". " + e.getMessage();
+				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
 				Logger.e("insertWord", msg);
 				statusHandler.accept(2);
 			}
@@ -155,46 +156,53 @@ public class DictionaryDb {
 
 
 	public static void upsertWordsSync(List<Word> words) {
-		getInstance().wordsDao().upsertMany(words);
+		getStore().put(words);
 	}
 
 
-	public static void incrementWordFrequency(Language language, String word, String sequence) throws Exception {
-		Logger.d("incrementWordFrequency", "Incrementing priority of Word: " + word +" | Sequence: " + sequence);
-
-		if (language == null) {
-			throw new InvalidLanguageException();
-		}
-
-		// If both are empty, it is the same as changing the frequency of: "", which is simply a no-op.
-		if ((word == null || word.length() == 0) && (sequence == null || sequence.length() == 0)) {
+	public static void incrementWordFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		// If any of these is empty, it is the same as changing the frequency of: "", which is simply a no-op.
+		if (word.length() == 0 || sequence.length() == 0) {
 			return;
-		}
-
-		// If one of them is empty, then this is an invalid operation,
-		// because a digit sequence exist for every word.
-		if (word == null || word.length() == 0 || sequence == null || sequence.length() == 0) {
-			throw new Exception("Cannot increment word frequency. Word: " + word + " | Sequence: " + sequence);
 		}
 
 		new Thread(() -> {
 			try {
-				int affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), word, sequence);
+				long start = System.currentTimeMillis();
+
+				Word dbWord = getStore().get(language.getId(), word, sequence, true);
 
 				// In case the user has changed the text case, there would be no match.
 				// Try again with the lowercase equivalent.
-				if (affectedRows == 0) {
-					String lowercaseWord = word.toLowerCase(language.getLocale());
-					affectedRows = getInstance().wordsDao().incrementFrequency(language.getId(), lowercaseWord, sequence);
-
-					Logger.d("incrementWordFrequency", "Attempting to increment frequency for lowercase variant: " + lowercaseWord);
+				if (dbWord == null) {
+					dbWord = getStore().get(language.getId(), word, sequence,  false);
 				}
 
-				Logger.d("incrementWordFrequency", "Affected rows: " + affectedRows);
+				if (dbWord == null) {
+					throw new Exception("No such word");
+				}
+
+				int max = getStore().getMaxFrequency(language.getId(), dbWord.sequence, dbWord.word);
+				if (dbWord.frequency <= max) {
+					dbWord.frequency = max + 1;
+					getStore().put(dbWord);
+					long time = System.currentTimeMillis() - start;
+
+					Logger.d(
+					"incrementWordFrequency",
+					"Incremented frequency of '" + dbWord.word + "' to: " + dbWord.frequency + ". Time: " + time + " ms"
+				);
+				} else {
+					long time = System.currentTimeMillis() - start;
+					Logger.d(
+						"incrementWordFrequency",
+						"'" + dbWord.word + "' is already the top word. Keeping frequency: " + dbWord.frequency + ". Time: " + time + " ms"
+					);
+				}
 			} catch (Exception e) {
 				Logger.e(
 					DictionaryDb.class.getName(),
-					"Failed incrementing word frequency. Word: " + word + " | Sequence: " + sequence + ". " + e.getMessage()
+					"Failed incrementing word frequency. Word: " + word + ". " + e.getMessage()
 				);
 			}
 		}).start();
@@ -202,90 +210,47 @@ public class DictionaryDb {
 
 
 	/**
-	 * loadWordsExact
-	 * Loads words that match exactly the "sequence" and the optional "filter".
-	 * For example: "7655" gets "roll".
+	 * loadWords
+	 * Loads words matching and similar to a given digit sequence
+	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
+	 * and other similar.
 	 */
-	private static ArrayList<String> loadWordsExact(Language language, String sequence, String filter, int maximumWords) {
-		long start = System.currentTimeMillis();
-		WordList matches = new WordList(getInstance().wordsDao().getMany(
-			language.getId(),
-			maximumWords,
-			sequence,
-			filter == null || filter.equals("") ? null : filter
-		));
-
-		printDebug("loadWordsExact", "===== Exact Word Matches =====", sequence, matches, start);
-		return matches.toStringList();
-	}
-
-
-	/**
-	 * loadWordsFuzzy
-	 * Loads words that start with "sequence" and optionally match the "filter".
-	 * For example: "7655" -> "roll", but also: "rolled", "roller", "rolling", ...
-	 */
-	private static ArrayList<String> loadWordsFuzzy(Language language, String sequence, String filter, int maximumWords) {
+	private static ArrayList<String> loadWords(Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		long start = System.currentTimeMillis();
 
-		// fuzzy queries are heavy, so we must restrict the search range as much as possible
-		boolean noFilter = (filter == null || filter.equals(""));
-		int maxWordLength = noFilter && sequence.length() <= 2 ? 5 : 1000;
-		String index = sequence.length() <= 2 ? WordsDao.indexShortWords : WordsDao.indexLongWords;
-		SimpleSQLiteQuery sql = TT9Room.getFuzzyQuery(index, language.getId(), maximumWords, sequence, sequence.length(), maxWordLength, filter);
+		WordList matches = getStore()
+			.getMany(language, sequence, filter, maximumWords)
+			.filter(sequence.length(), minimumWords);
 
-		WordList matches = new WordList(getInstance().wordsDao().getCustom(sql));
-
-		// In some cases, searching for words starting with "digitSequence" and limited to "maxWordLength" of 5,
-		// may yield too few results. If so, we expand the search range a bit.
-		if (noFilter && matches.size() < maximumWords) {
-			sql = TT9Room.getFuzzyQuery(
-				WordsDao.indexLongWords,
-				language.getId(),
-				maximumWords - matches.size(),
-				sequence,
-				5,
-				1000
-			);
-			matches.addAll(getInstance().wordsDao().getCustom(sql));
-		}
-
-		printDebug("loadWordsFuzzy", "~=~=~=~ Fuzzy Word Matches ~=~=~=~", sequence, matches, start);
+		printLoadDebug(sequence, matches, start);
 		return matches.toStringList();
-	}
-
-
-	private static void sendWords(ConsumerCompat<ArrayList<String>> dataHandler, ArrayList<String> wordList) {
-		asyncHandler.post(() -> dataHandler.accept(wordList));
 	}
 
 
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
-		final int maxWords = Math.max(maximumWords, minimumWords);
-
-		ArrayList<String> wordList = new ArrayList<>(maxWords);
+		final int maxWords = Math.max(maximumWords, minWords);
 
 		if (sequence == null || sequence.length() == 0) {
 			Logger.w("db.getWords", "Attempting to get words for an empty sequence.");
-			sendWords(dataHandler, wordList);
+			sendWords(dataHandler, new ArrayList<>());
 			return;
 		}
 
 		if (language == null) {
 			Logger.w("db.getWords", "Attempting to get words for NULL language.");
-			sendWords(dataHandler, wordList);
+			sendWords(dataHandler, new ArrayList<>());
 			return;
 		}
 
-		new Thread(() -> {
-			wordList.addAll(loadWordsExact(language, sequence, filter, maxWords));
+		new Thread(() -> sendWords(
+			dataHandler,
+			loadWords(language, sequence, filter, minWords, maxWords))
+		).start();
+	}
 
-			if (sequence.length() > 1 && wordList.size() < minWords) {
-				wordList.addAll(loadWordsFuzzy(language, sequence, filter, minWords - wordList.size()));
-			}
 
-			sendWords(dataHandler, wordList);
-		}).start();
+	private static void sendWords(ConsumerCompat<ArrayList<String>> dataHandler, ArrayList<String> wordList) {
+		asyncHandler.post(() -> dataHandler.accept(wordList));
 	}
 }

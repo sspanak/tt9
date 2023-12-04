@@ -2,16 +2,20 @@ package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.Preference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.sspanak.tt9.Logger;
 
-abstract class ItemClickable {
-	protected final int CLICK_DEBOUNCE_TIME = 250;
+abstract public class ItemClickable {
+	private final int CLICK_DEBOUNCE_TIME = 250;
 	private long lastClickTime = 0;
 
 	protected final Preference item;
+	private final ArrayList<ItemClickable> otherItems = new ArrayList<>();
 
 
-	ItemClickable(Preference item) {
+	public ItemClickable(Preference item) {
 		this.item = item;
 	}
 
@@ -28,6 +32,29 @@ abstract class ItemClickable {
 
 	public void enableClickHandler() {
 		item.setOnPreferenceClickListener(this::debounceClick);
+	}
+
+
+	public ItemClickable setOtherItems(List<ItemClickable> others) {
+		otherItems.clear();
+		otherItems.addAll(others);
+		return this;
+	}
+
+
+	protected void disableOtherItems() {
+		for (ItemClickable i : otherItems) {
+			i.disable();
+		}
+
+	}
+
+
+	protected void enableOtherItems() {
+		for (ItemClickable i : otherItems) {
+			i.enable();
+		}
+
 	}
 
 

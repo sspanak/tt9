@@ -18,8 +18,8 @@ or get the APK from the [Releases Section](https://github.com/sspanak/tt9/releas
 ## System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 4.4.2, 10 and 11)_
 - Free space:
-  - Minimum 30 Mb when not using Predictive mode and no dictionaries are loaded.
-  - Plenty of space per each enabled language in Predictive mode (25-100 Mb, depending on the word count).
+  - Minimum 40 Mb when not using Predictive mode and no dictionaries are loaded.
+  - Plenty of space per each enabled language in Predictive mode (50-400 Mb, depending on the word count).
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
 
 _If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016._

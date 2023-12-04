@@ -106,6 +106,7 @@ public class DictionaryLoadingBar {
 	public void show(Context context, Bundle data) {
 		String error = data.getString("error", null);
 		int fileCount = data.getInt("fileCount", -1);
+		int progress = data.getInt("progress", -1);
 
 		if (error != null) {
 			hasFailed = true;
@@ -116,10 +117,12 @@ public class DictionaryLoadingBar {
 				data.getLong("fileLine", -1),
 				data.getString("word", "")
 			);
-		} else if (fileCount > -1) {
-			setFileCount(fileCount);
-		} else  {
+		} else if (progress >= 0) {
 			hasFailed = false;
+			if (fileCount >= 0) {
+				setFileCount(fileCount);
+			}
+
 			showProgress(
 				context,
 				data.getLong("time", 0),
@@ -143,7 +146,7 @@ public class DictionaryLoadingBar {
 
 
 	private void showProgress(Context context, long time, int currentFile, int currentFileProgress, int languageId) {
-		if (currentFileProgress < 0) {
+		if (currentFileProgress <= 0) {
 			hide();
 			isStopped = true;
 			title = "";
