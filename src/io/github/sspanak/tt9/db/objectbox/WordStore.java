@@ -139,13 +139,12 @@ public class WordStore {
 
 
 	public int getMaxFrequency(int langId, String sequence, String word) {
-		QueryCondition<Word> where = null;
+		QueryCondition<Word> where = Word_.langId.equal(langId);
+
 		if (sequence != null && word != null) {
-			where = Word_
-			.langId.equal(langId)
-			.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
-			.and(Word_.sequence.equal(sequence))
-			.and(Word_.word.notEqual(word));
+			where = where.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
+				.and(Word_.sequence.equal(sequence))
+				.and(Word_.word.notEqual(word));
 		}
 
 		try (Query<Word> query = wordBox.query(where).build()) {

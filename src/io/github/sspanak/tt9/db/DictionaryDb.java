@@ -74,30 +74,36 @@ public class DictionaryDb {
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
+		final String LOG_TAG = "db.normalizeWordFrequencies";
+
 		new Thread(() -> {
 			for (int langId : getStore().getLanguages()) {
 				getStore().runInTransactionAsync(() -> {
-					long start = System.currentTimeMillis();
+					try {
+						long start = System.currentTimeMillis();
 
-					if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
-						return;
+						if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
+							return;
+						}
+
+						List<Word> words = getStore().getMany(langId);
+						if (words == null) {
+							return;
+						}
+
+						for (Word w : words) {
+							w.frequency /= settings.getWordFrequencyNormalizationDivider();
+						}
+
+						getStore().put(words);
+
+						Logger.d(
+							LOG_TAG,
+							"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
+						);
+					} catch (Exception e) {
+						Logger.e(LOG_TAG, "Word normalization failed. " + e.getMessage());
 					}
-
-					List<Word> words = getStore().getMany(langId);
-					if (words == null) {
-						return;
-					}
-
-					for (Word w : words) {
-						w.frequency /= settings.getWordFrequencyNormalizationDivider();
-					}
-
-					getStore().put(words);
-
-					Logger.d(
-						"db.normalizeWordFrequencies",
-						"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
-					);
 				});
 			}
 		}).start();
