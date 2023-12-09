@@ -175,7 +175,7 @@ public class DictionaryDb {
 				// In case the user has changed the text case, there would be no match.
 				// Try again with the lowercase equivalent.
 				if (dbWord == null) {
-					dbWord = getStore().get(language.getId(), word, sequence,  false);
+					dbWord = getStore().get(language.getId(), word, sequence, false);
 				}
 
 				if (dbWord == null) {
@@ -191,7 +191,7 @@ public class DictionaryDb {
 					Logger.d(
 					"incrementWordFrequency",
 					"Incremented frequency of '" + dbWord.word + "' to: " + dbWord.frequency + ". Time: " + time + " ms"
-				);
+					);
 				} else {
 					long time = System.currentTimeMillis() - start;
 					Logger.d(

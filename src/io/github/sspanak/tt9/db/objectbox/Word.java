@@ -18,7 +18,7 @@ public class Word {
 	public int langId;
 	public int length;
 	@Index public String sequence;
-	@Index byte sequenceShort; // up to 2 digits
+	@Index public byte sequenceShort; // up to 2 digits
 	@Unique(onConflict = ConflictStrategy.REPLACE) public String uniqueId;
 	public String word;
 

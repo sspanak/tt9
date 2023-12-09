@@ -87,7 +87,6 @@ public class DictionaryLoader {
 					if (isInterrupted()) {
 						break;
 					}
-
 					importAll(lang);
 					currentFile++;
 				}
@@ -145,10 +144,10 @@ public class DictionaryLoader {
 				Logger.e(
 					logTag,
 					" Invalid word: '" + e.word
-						+ "' in dictionary: '" + language.getDictionaryFile() + "'"
-						+ " on line " + e.line
-						+ " of language '" + language.getName() + "'. "
-						+ e.getMessage()
+					+ "' in dictionary: '" + language.getDictionaryFile() + "'"
+					+ " on line " + e.line
+					+ " of language '" + language.getName() + "'. "
+					+ e.getMessage()
 				);
 			} catch (Exception | Error e) {
 				stop();
@@ -156,9 +155,9 @@ public class DictionaryLoader {
 
 				Logger.e(
 					logTag,
-					"Failed loading dictionary: " + language.getDictionaryFile() +
-						" for language '" + language.getName() + "'. "
-						+ e.getMessage()
+					"Failed loading dictionary: " + language.getDictionaryFile()
+					+ " for language '" + language.getName() + "'. "
+					+ e.getMessage()
 				);
 			}
 		});

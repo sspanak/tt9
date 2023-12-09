@@ -57,7 +57,7 @@ public class WordStore {
 			.build();
 	}
 
-private Query<Word> getSingleLetterQuery() {
+	private Query<Word> getSingleLetterQuery() {
 		return wordBox
 			.query()
 				.equal(Word_.langId, 0)
@@ -115,6 +115,7 @@ private Query<Word> getSingleLetterQuery() {
 		}
 
 		query.setParameter(Word_.langId, language.getId());
+
 		if (filter != null && !filter.equals("")) {
 			query.setParameter(Word_.word, filter);
 		} else {
@@ -133,23 +134,23 @@ private Query<Word> getSingleLetterQuery() {
 
 
 	public int getMaxFrequency(int langId) {
-		try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
-			long max = query.property(Word_.frequency).max();
-			return max == Long.MIN_VALUE ? 0 : (int) max;
-		}
+		return getMaxFrequency(langId, null, null);
 	}
 
 
-	public int getMaxFrequency(int langId, @NonNull String sequence, @NonNull String word) {
-		QueryCondition<Word> where = Word_
+	public int getMaxFrequency(int langId, String sequence, String word) {
+		QueryCondition<Word> where = null;
+		if (sequence != null && word != null) {
+			where = Word_
 			.langId.equal(langId)
 			.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 			.and(Word_.sequence.equal(sequence))
 			.and(Word_.word.notEqual(word));
+		}
 
 		try (Query<Word> query = wordBox.query(where).build()) {
 			long max = query.property(Word_.frequency).max();
-			return max == Long.MIN_VALUE ? 0 : (int) max;
+			return max == Long.MIN_VALUE ? 0 : (int)max;
 		}
 	}
 
