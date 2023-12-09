@@ -12,8 +12,6 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
 abstract class KeyPadHandler extends InputMethodService {
-	protected InputConnection currentInputConnection = null;
-
 	protected SettingsStore settings;
 
 	// temporal key handling
@@ -44,7 +42,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-		onRestart(getCurrentInputEditorInfo());
+		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
 		return shouldBeVisible();
 	}
 
@@ -79,15 +77,13 @@ abstract class KeyPadHandler extends InputMethodService {
 			"KeyPadHandler",
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras
 		);
-		currentInputConnection = getCurrentInputConnection();
-		onStart(inputField);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		currentInputConnection = getCurrentInputConnection();
-		onRestart(inputField);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
@@ -294,10 +290,10 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// helpers
 	abstract protected void onInit();
-	abstract protected void onStart(EditorInfo inputField);
-	abstract protected void onRestart(EditorInfo inputField);
+	abstract protected void onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
+	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
 
 	// UI
 	abstract protected View createSoftKeyView();
