@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
 abstract class KeyPadHandler extends InputMethodService {
-	protected InputConnection currentInputConnection = null;
-
 	protected SettingsStore settings;
 
 	// temporal key handling
@@ -43,7 +42,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-		onRestart(getCurrentInputEditorInfo());
+		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
 		return shouldBeVisible();
 	}
 
@@ -74,16 +73,17 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		currentInputConnection = getCurrentInputConnection();
-		// Logger.d("T9.onStartInput", "inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " packageName: " + inputField.packageName);
-		onStart(inputField);
+		Logger.d(
+			"KeyPadHandler",
+			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras
+		);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		currentInputConnection = getCurrentInputConnection();
-		onRestart(inputField);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
@@ -227,6 +227,10 @@ abstract class KeyPadHandler extends InputMethodService {
 			return onKeyAddWord(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyChangeKeyboard() * (hold ? -1 : 1)) {
+			return onKeyChangeKeyboard(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyFilterClear() * (hold ? -1 : 1)) {
 			return onKeyFilterClear(validateOnly);
 		}
@@ -276,6 +280,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// hotkey handlers
 	abstract protected boolean onKeyAddWord(boolean validateOnly);
+	abstract protected boolean onKeyChangeKeyboard(boolean validateOnly);
 	abstract protected boolean onKeyFilterClear(boolean validateOnly);
 	abstract protected boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat);
 	abstract protected boolean onKeyNextLanguage(boolean validateOnly);
@@ -285,10 +290,10 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// helpers
 	abstract protected void onInit();
-	abstract protected void onStart(EditorInfo inputField);
-	abstract protected void onRestart(EditorInfo inputField);
+	abstract protected void onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
+	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
 
 	// UI
 	abstract protected View createSoftKeyView();

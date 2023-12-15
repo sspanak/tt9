@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -106,6 +107,7 @@ public class SuggestionsBar {
 	}
 
 
+	@NonNull
 	public String getSuggestion(int id) {
 		if (id < 0 || id >= suggestions.size()) {
 			return "";

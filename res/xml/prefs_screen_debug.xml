@@ -2,11 +2,13 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
 
 	<SwitchPreferenceCompat
+		app:defaultValue="false"
 		app:key="pref_enable_debug_logs"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_debug_logs" />
 
 	<SwitchPreferenceCompat
+		app:defaultValue="false"
 		app:key="pref_enable_system_logs"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_system_logs" />

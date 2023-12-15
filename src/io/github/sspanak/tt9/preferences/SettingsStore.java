@@ -167,6 +167,7 @@ public class SettingsStore {
 	public void setDefaultKeys(
 		int addWord,
 		int backspace,
+		int changeKeyboard,
 		int filterClear,
 		int filterSuggestions,
 		int previousSuggestion,
@@ -178,6 +179,7 @@ public class SettingsStore {
 		prefsEditor
 			.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord))
 			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
+			.putString(SectionKeymap.ITEM_CHANGE_KEYBOARD, String.valueOf(changeKeyboard))
 			.putString(SectionKeymap.ITEM_FILTER_CLEAR, String.valueOf(filterClear))
 			.putString(SectionKeymap.ITEM_FILTER_SUGGESTIONS, String.valueOf(filterSuggestions))
 			.putString(SectionKeymap.ITEM_PREVIOUS_SUGGESTION, String.valueOf(previousSuggestion))
@@ -202,6 +204,9 @@ public class SettingsStore {
 	}
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
+	}
+	public int getKeyChangeKeyboard() {
+		return getFunctionKey(SectionKeymap.ITEM_CHANGE_KEYBOARD);
 	}
 	public int getKeyFilterClear() {
 		return getFunctionKey(SectionKeymap.ITEM_FILTER_CLEAR);
@@ -265,9 +270,7 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
-	public int getSuggestionScrollingDelay() {
-		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
-	}
+	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
 
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
@@ -284,4 +287,15 @@ public class SettingsStore {
 
 	public int getWordFrequencyMax() { return 25500; }
 	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
+
+
+	/************* hack settings *************/
+
+	public int getSuggestionScrollingDelay() {
+		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
+	}
+
+	public boolean getFbMessengerHack() {
+		return prefs.getBoolean("pref_hack_fb_messenger", false);
+	}
 }

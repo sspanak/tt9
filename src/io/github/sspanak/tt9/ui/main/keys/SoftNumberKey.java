@@ -40,13 +40,8 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
-
 		int keyCode = Key.numberToCode(getNumber(getId()));
-		if (keyCode < 0) {
+		if (keyCode < 0 || !validateTT9Handler()) {
 			return false;
 		}
 
@@ -69,8 +64,13 @@ public class SoftNumberKey extends SoftKey {
 
 		int number = getNumber(getId());
 
+		// 0
 		if (number == 0) {
-			if (tt9.getInputMode() == InputMode.MODE_123) {
+			if (tt9.isNumericModeSigned()) {
+				return "+/-";
+			} else if (tt9.isNumericModeStrict()) {
+				return null;
+			} else if (tt9.isInputModeNumeric()) {
 				return "+";
 			} else {
 				COMPLEX_LABEL_SUB_TITLE_SIZE = 1;
@@ -78,14 +78,14 @@ public class SoftNumberKey extends SoftKey {
 			}
 		}
 
-		// no special labels in 123 mode
-		if (tt9.getInputMode() == InputMode.MODE_123) {
-			return null;
-		}
-
 		// 1
 		if (number == 1) {
-			return ",:-)";
+			return tt9.isNumericModeStrict() ? null : ",:-)";
+		}
+
+		// no other special labels in 123 mode
+		if (tt9.isInputModeNumeric()) {
+			return null;
 		}
 
 		// 2-9

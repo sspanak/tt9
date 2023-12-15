@@ -65,15 +65,16 @@ _Predictive mode only._
 - When suggestions are displayed, types the currently selected suggestion.
 - Otherwise, performs the default action for the current application (e.g. send a message, go to a URL, or just type a new line).
 
-_**NB:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
+_**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**NB2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
+_**Note2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, in order to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
 
+_**Note3:** Facebook Messenger supports sending messages with the keypad only on some devices. If it does not work on yours, go to Settings -> Initial Setup and enable the "Send messages with OK in Messenger" option. This ensures sending is possible on any phone._
 
 #### 0-key:
 - **In 123 mode:**
   - **Press:** type "0".
-  - **Hold:** type "+".
+  - **Hold:** type special/math characters.
 - **In ABC mode:**
   - **Press:** type space, newline or special/math characters.
   - **Hold:** type "0".
@@ -83,7 +84,7 @@ _**NB2:** In messaging applications, you need to enable their "Send with ENTER" 
   - **Hold:** type "0".
 
 #### 1- to 9-key:
-- **In 123 mode:** type the respective number.
+- **In 123 mode:** type the respective number or hold to type punctuation.
 - **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
 
 #### Add Word Key (Default: Press ✱):
@@ -96,7 +97,7 @@ If your phone has a dedicated "Del" or "Clear" key, you do not need to set anyth
 
 On phones which have a combined "Delete"/"Back", that key will be selected automatically. However, you can assign "Backspace" function to another key, so "Back" will only navigate back.
 
-_**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox and Spotify. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
+_**NB:** Using "Back" as backspace does not work in all applications, most notably Firefox, Spotify and Termux. They are able to take full control of the key and redefine its function, meaning it will do whatever the app authors intended. Unfortunately, nothing can be done, because "Back" plays a special role in Android and its usage is restricted by the system._
 
 _**NB 2:** Holding "Back" key will always trigger the default system action (i.e. show running applications list)._
 
@@ -112,6 +113,9 @@ Select the next language, when multiple languages have been enabled from the Set
 
 #### Settings Key (Default: Hold ✱):
 Open the Settings configuration screen.
+
+#### Change Keyboard Key (Default: _unassigned_):
+Open the Android Change Keyboard dialog where you can select between all installed keyboards.
 
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available. Enable it from Settings -> Appearance -> Show On-Screen Numpad.

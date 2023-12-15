@@ -3,9 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 
 public class SoftPunctuationKey extends SoftKey {
 	public SoftPunctuationKey(Context context) {
@@ -21,64 +19,40 @@ public class SoftPunctuationKey extends SoftKey {
 	}
 
 	@Override
-	protected boolean handleHold() {
-		if (tt9 == null || tt9.getInputMode() != InputMode.MODE_123) {
-			return super.handleHold();
-		}
-
-		preventRepeat();
-		int keyId = getId();
-		if (keyId == R.id.soft_key_punctuation_1) return tt9.onText(",");
-		if (keyId == R.id.soft_key_punctuation_2) return tt9.onText(".");
-
-		return false;
-	}
-
-	@Override
 	protected boolean handleRelease() {
-		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
-
-		int keyId = getId();
-		if (tt9.getInputMode() == InputMode.MODE_123) {
-			if (keyId == R.id.soft_key_punctuation_1) return tt9.onText("*");
-			if (keyId == R.id.soft_key_punctuation_2) return tt9.onText("#");
-		} else {
-			if (keyId == R.id.soft_key_punctuation_1) return tt9.onText("!");
-			if (keyId == R.id.soft_key_punctuation_2) return tt9.onText("?");
-		}
-
-		return true;
+		return tt9.onText(getKeyChar());
 	}
 
 	@Override
 	protected String getTitle() {
-		if (tt9 == null) {
-			return "PUNC";
+		String keyChar = getKeyChar();
+		switch (keyChar) {
+			case "":
+				return "PUNC";
+			case "*":
+				return "✱";
+			default:
+				return keyChar;
+		}
+	}
+
+	private String getKeyChar() {
+		if (!validateTT9Handler()) {
+			return "";
 		}
 
 		int keyId = getId();
-		if (tt9.getInputMode() == InputMode.MODE_123) {
-			if (keyId == R.id.soft_key_punctuation_1) return "✱";
+		if (tt9.isInputModePhone()) {
+			if (keyId == R.id.soft_key_punctuation_1) return "*";
 			if (keyId == R.id.soft_key_punctuation_2) return "#";
+		} else if (tt9.isInputModeNumeric()) {
+			if (keyId == R.id.soft_key_punctuation_1) return ",";
+			if (keyId == R.id.soft_key_punctuation_2) return ".";
 		} else {
 			if (keyId == R.id.soft_key_punctuation_1) return "!";
 			if (keyId == R.id.soft_key_punctuation_2) return "?";
 		}
 
-		return "PUNC";
-	}
-
-	@Override
-	protected String getSubTitle() {
-		int keyId = getId();
-		if (tt9 != null && tt9.getInputMode() == InputMode.MODE_123) {
-			if (keyId == R.id.soft_key_punctuation_1) return ",";
-			if (keyId == R.id.soft_key_punctuation_2) return ".";
-		}
-
-		return null;
+		return "";
 	}
 }

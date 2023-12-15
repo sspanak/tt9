@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 public class SectionKeymap {
 	public static final String ITEM_ADD_WORD = "key_add_word";
 	public static final String ITEM_BACKSPACE = "key_backspace";
+	public static final String ITEM_CHANGE_KEYBOARD = "key_change_keyboard";
 	public static final String ITEM_FILTER_CLEAR = "key_filter_clear";
 	public static final String ITEM_FILTER_SUGGESTIONS = "key_filter_suggestions";
 	public static final String ITEM_PREVIOUS_SUGGESTION = "key_previous_suggestion";

@@ -22,6 +22,8 @@
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>
+	<string name="function_backspace_key">Rücktaste</string>
+	<string name="function_change_keyboard_key">Tastaturauswahl</string>
 	<string name="char_newline">Neue Zeile</string>
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="error">Fehler</string>

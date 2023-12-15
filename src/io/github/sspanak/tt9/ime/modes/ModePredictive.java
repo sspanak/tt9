@@ -295,8 +295,14 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
-		textCase = autoTextCase.determineNextWordTextCase(isThereText, textCase, textFieldTextCase, textBeforeCursor);
+	public void determineNextWordTextCase(String textBeforeCursor) {
+		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
+	}
+
+	@Override
+	public int getTextCase() {
+		// Filter out the internally used text cases. They have no meaning outside this class.
+		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
 	}
 
 	@Override

@@ -41,6 +41,8 @@
 	<string name="pref_auto_text_case">Авто заголовні букви</string>
 	<string name="pref_auto_text_case_summary">Автоматично починати речення з заголовної букви.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натисканні клавіші 0</string>
+	<string name="pref_hack_fb_messenger">Надсилати повідомлення з «ОК» до Messenger</string>
+	<string name="pref_hack_fb_messenger_summary">Дозволяє надсилати повідомлення за допомогою клавіші «ОК» у Facebook Messenger і Messenger Lite.</string>
 	<string name="pref_show_soft_function_keys">Кнопки на екрані</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Виклик</string>
@@ -52,6 +54,7 @@
 	<string name="key_hold_key">(затиснути)</string>
 	<string name="function_add_word_key">Додати нове слово</string>
 	<string name="function_backspace_key">Стерти</string>
+	<string name="function_change_keyboard_key">Вибір клавіатури</string>
 	<string name="function_filter_clear_key">Видалити фільтр</string>
 	<string name="function_filter_suggestions_key">Фільтрувати слова</string>
 	<string name="function_previous_suggestion_key">Попереднє слово</string>

@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import java.util.List;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.ime.helpers.AppHacks;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -33,15 +35,16 @@ import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 
 public class TraditionalT9 extends KeyPadHandler {
+	private InputConnection currentInputConnection = null;
 	// internal settings/data
-	private boolean isActive = false;
+	@NonNull private AppHacks appHacks = new AppHacks(null,null, null, null);
 	@NonNull private TextField textField = new TextField(null, null);
 	@NonNull private InputType inputType = new InputType(null, null);
 	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
-	private InputMode mInputMode;
+	@NonNull private InputMode mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
 
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
@@ -61,22 +64,24 @@ public class TraditionalT9 extends KeyPadHandler {
 		return settings;
 	}
 
-	public int getInputMode() {
-		return mInputMode != null ? mInputMode.getId() : InputMode.MODE_UNDEFINED;
+	public boolean isInputModeNumeric() {
+		return mInputMode.is123();
+	}
+
+	public boolean isNumericModeStrict() {
+		return mInputMode.is123() && inputType.isNumeric() && !inputType.isPhoneNumber();
+	}
+
+	public boolean isNumericModeSigned() {
+		return mInputMode.is123() && inputType.isSignedNumber();
+	}
+
+	public boolean isInputModePhone() {
+		return mInputMode.is123() && inputType.isPhoneNumber();
 	}
 
 	public int getTextCase() {
-		return mInputMode != null ? mInputMode.getTextCase() : InputMode.CASE_UNDEFINED;
-	}
-
-
-	private void loadSettings() {
-		mLanguage = LanguageCollection.getLanguage(getMainContext(), settings.getInputLanguage());
-		mEnabledLanguages = settings.getEnabledLanguageIds();
-		validateLanguages();
-
-		mInputMode = InputMode.getInstance(settings, mLanguage, settings.getInputMode());
-		mInputMode.setTextCase(settings.getTextCase());
+		return mInputMode.getTextCase();
 	}
 
 
@@ -102,9 +107,14 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields)
 	 */
 	private void determineInputMode() {
+		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.isTermux())) {
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_PASSTHROUGH);
+			return;
+		}
+
 		allowedInputModes = textField.determineInputModes(inputType);
 		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-		mInputMode = InputMode.getInstance(settings, mLanguage, validModeId);
+		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, validModeId);
 	}
 
 
@@ -115,21 +125,10 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * last saved mode.
 	 */
 	private void determineTextCase() {
-		String debugString = "";
-
 		mInputMode.defaultTextCase();
-		debugString += "default text case: " + mInputMode.getTextCase() + "; ";
-
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-		mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
-		debugString += "after determine: " + mInputMode.getTextCase() + "; ";
-
+		mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
-		debugString += "after validation: " + mInputMode.getTextCase();
-
-		if (mInputMode.getTextCase() == InputMode.CASE_UPPER) {
-			Logger.e("determineTextCase", "====> UPPERCASE ENFORCED: " + debugString);
-		}
 	}
 
 
@@ -149,6 +148,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onInit() {
 		self = this;
+		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);
@@ -158,14 +158,22 @@ public class TraditionalT9 extends KeyPadHandler {
 			initTray();
 		}
 
-		loadSettings();
 		validateFunctionKeys();
+	}
+
+
+	protected void setInputField(InputConnection connection, EditorInfo field) {
+		currentInputConnection = connection;
+		inputType = new InputType(currentInputConnection, field);
+		textField = new TextField(currentInputConnection, field);
+		appHacks = new AppHacks(settings, connection, field, textField);
 	}
 
 
 	private void initTyping() {
 		// in case we are back from Settings screen, update the language list
 		mEnabledLanguages = settings.getEnabledLanguageIds();
+		mLanguage = LanguageCollection.getLanguage(getMainContext(), settings.getInputLanguage());
 		validateLanguages();
 
 		resetKeyRepeat();
@@ -193,39 +201,33 @@ public class TraditionalT9 extends KeyPadHandler {
 		if (mainView.createView()) {
 			initTray();
 		}
-		statusBar.setText(mInputMode != null ? mInputMode.toString() : "");
+		statusBar.setText(mInputMode.toString());
 		setDarkTheme();
 		mainView.render();
 	}
 
 
-	protected void onStart(EditorInfo input) {
-		inputType = new InputType(currentInputConnection, input);
-		textField = new TextField(currentInputConnection, input);
+	protected void onStart(InputConnection connection, EditorInfo field) {
+		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		if (!inputType.isValid() || inputType.isLimited()) {
+		setInputField(connection, field);
+		initTyping();
+
+		if (mInputMode.isPassthrough()) {
 			// When the input is invalid or simple, let Android handle it.
 			onStop();
+			updateInputViewShown();
 			return;
 		}
 
-		initTyping();
 		initUi();
-
-		isActive = true;
-	}
-
-
-	protected void onRestart(EditorInfo inputField) {
-		if (!isActive) {
-			onStart(inputField);
-		}
+		updateInputViewShown();
 	}
 
 
 	protected void onFinishTyping() {
 		cancelAutoAccept();
-		isActive = false;
+		mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
 	}
 
 
@@ -245,7 +247,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
-		if (mInputMode.isPassthrough() || !textField.isThereText()) {
+		// 3. Some app may need special treatment, so let it be.
+		if (mInputMode.isPassthrough() || !(textField.isThereText() || appHacks.onBackspace(mInputMode))) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
@@ -288,7 +291,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (getComposingText().isEmpty()) {
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -296,7 +299,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (mInputMode.shouldSelectNextSuggestion() && !isSuggestionViewHidden()) {
-			nextSuggestion();
+			onKeyScrollSuggestion(false, false);
 			scheduleAutoAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
 			getSuggestions();
@@ -310,10 +313,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 
 		if (isSuggestionViewHidden()) {
-			return performOKAction();
-		} else {
-			acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
+			int action = textField.getAction();
+			return action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
 		}
+
+		acceptCurrentSuggestion(KeyEvent.KEYCODE_ENTER);
 		return true;
 	}
 
@@ -361,6 +365,19 @@ public class TraditionalT9 extends KeyPadHandler {
 			UI.toastLong(this, R.string.add_word_no_selection);
 		} else {
 			UI.showAddWordDialog(this, mLanguage.getId(), word);
+		}
+
+		return true;
+	}
+
+
+	public boolean onKeyChangeKeyboard(boolean validateOnly) {
+		if (!isInputViewShown()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			UI.showChangeKeyboardDialog(this);
 		}
 
 		return true;
@@ -425,10 +442,9 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		if (backward) previousSuggestion();
-		else nextSuggestion();
+		suggestionBar.scrollToSuggestion(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
+		setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion());
 		return true;
 	}
 
@@ -491,20 +507,27 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	@Override
+	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
+		// Logger.d("onUpdateSelection", "oldSelStart: " + oldSelStart + " oldSelEnd: " + oldSelEnd + " newSelStart: " + newSelStart + " oldSelEnd: " + oldSelEnd + " candidatesStart: " + candidatesStart + " candidatesEnd: " + candidatesEnd);
+
+		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+
+		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
+		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
+		// This is confusing from user perspective, so we want to avoid it.
+		if (
+			candidatesStart != -1 && candidatesEnd != -1
+			&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)
+			&& !suggestionBar.isEmpty()
+		) {
+			acceptIncompleteSuggestion();
+		}
+	}
+
+
 	private boolean isSuggestionViewHidden() {
 		return suggestionBar == null || suggestionBar.isEmpty();
-	}
-
-
-	private void previousSuggestion() {
-		suggestionBar.scrollToSuggestion(-1);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
-	}
-
-
-	private void nextSuggestion() {
-		suggestionBar.scrollToSuggestion(1);
-		textField.setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion(), mInputMode);
 	}
 
 
@@ -595,7 +618,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 		}
 
 		// display the word suggestions
@@ -611,7 +634,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// for a more intuitive experience.
 		String word = suggestionBar.getCurrentSuggestion();
 		word = word.substring(0, Math.min(mInputMode.getSequenceLength(), word.length()));
-		textField.setComposingTextWithHighlightedStem(word, mInputMode);
+		setComposingTextWithHighlightedStem(word);
 	}
 
 
@@ -652,11 +675,20 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
+	private void setComposingTextWithHighlightedStem(@NonNull String word) {
+		if (appHacks.setComposingTextWithHighlightedStem(word)) {
+			Logger.w("highlightComposingText", "Defective text field detected! Text highlighting disabled.");
+		} else {
+			textField.setComposingTextWithHighlightedStem(word, mInputMode);
+		}
+	}
+
+
 	private void nextInputMode() {
 		if (mInputMode.isPassthrough()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, InputMode.MODE_123) : mInputMode;
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
@@ -680,9 +712,9 @@ public class TraditionalT9 extends KeyPadHandler {
 			mInputMode.nextTextCase();
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, mLanguage, allowedInputModes.get(nextModeIndex));
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-			mInputMode.determineNextWordTextCase(textField.isThereText(), textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
 
 			resetKeyRepeat();
 		}
@@ -715,41 +747,6 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
-		}
-	}
-
-
-	private boolean performOKAction() {
-		if (currentInputConnection == null) {
-			return false;
-		}
-
-		int action = textField.getAction();
-		switch (action) {
-			case EditorInfo.IME_ACTION_NONE:
-				return false;
-			case TextField.IME_ACTION_ENTER:
-				String oldText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
-
-				sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-
-				try {
-					// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
-					// If so, send an alternative key code as a final resort.
-					Thread.sleep(80);
-					String newText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
-					if (newText.equals(oldText)) {
-						sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-					}
-				} catch (InterruptedException e) {
-					// This thread got interrupted. Assume it's because the connected application has taken an action
-					// after receiving DPAD_CENTER, so we don't need to do anything else.
-					return true;
-				}
-
-				return true;
-			default:
-				return currentInputConnection.performEditorAction(action);
 		}
 	}
 
@@ -787,12 +784,13 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return !mInputMode.isPassthrough() && isActive;
+		initTyping();
+		return !mInputMode.isPassthrough();
 	}
 
 
 	@Override
 	protected boolean shouldBeOff() {
-		 return currentInputConnection == null || mInputMode.isPassthrough();
+		return currentInputConnection == null || mInputMode.isPassthrough();
 	}
 }

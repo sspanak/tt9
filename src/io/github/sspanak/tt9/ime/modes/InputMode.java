@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class InputMode {
 	// typing mode
-	public static final int MODE_UNDEFINED = -1;
 	public static final int MODE_PREDICTIVE = 0;
 	public static final int MODE_ABC = 1;
 	public static final int MODE_123 = 2;
@@ -34,7 +33,7 @@ abstract public class InputMode {
 	protected final ArrayList<String> suggestions = new ArrayList<>();
 
 
-	public static InputMode getInstance(SettingsStore settings, Language language, int mode) {
+	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
 				return new ModePredictive(settings, language);
@@ -45,7 +44,7 @@ abstract public class InputMode {
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123();
+				return new Mode123(inputType);
 		}
 	}
 
@@ -132,7 +131,7 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(nextIndex);
 	}
 
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {}
+	public void determineNextWordTextCase(String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
