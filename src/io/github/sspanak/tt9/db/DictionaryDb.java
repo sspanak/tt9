@@ -182,19 +182,19 @@ public class DictionaryDb {
 			try {
 				long start = System.currentTimeMillis();
 
-				Word dbWord = getStore().get(language.getId(), word, sequence, true);
+				Word dbWord = getStore().get(language.getId(), word, sequence);
 
 				// In case the user has changed the text case, there would be no match.
 				// Try again with the lowercase equivalent.
 				if (dbWord == null) {
-					dbWord = getStore().get(language.getId(), word, sequence, false);
+					dbWord = getStore().get(language.getId(), word.toLowerCase(language.getLocale()), sequence);
 				}
 
 				if (dbWord == null) {
 					throw new Exception("No such word");
 				}
 
-				int max = getStore().getMaxFrequency(language.getId(), dbWord.sequence, dbWord.word);
+				int max = getStore().getMaxFrequency(dbWord.langId, dbWord.sequence, dbWord.word);
 				if (dbWord.frequency <= max) {
 					dbWord.frequency = max + 1;
 					getStore().put(dbWord);

@@ -78,15 +78,15 @@ public class WordStore {
 
 
 	public boolean exists(int langId, @NonNull String word, @NonNull String sequence) {
-		return get(langId, word, sequence, true) != null;
+		return get(langId, word, sequence) != null;
 	}
 
 
 	@Nullable
-	public Word get(int langId, @NonNull String word, @NonNull String sequence, boolean caseSensitive) {
+	public Word get(int langId, @NonNull String word, @NonNull String sequence) {
 		QueryCondition<Word> where = Word_.langId.equal(langId)
 			.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
-			.and(Word_.word.equal(word, caseSensitive ? QueryBuilder.StringOrder.CASE_SENSITIVE : QueryBuilder.StringOrder.CASE_INSENSITIVE));
+			.and(Word_.word.equal(word, QueryBuilder.StringOrder.CASE_SENSITIVE));
 
 		try (Query<Word> query = wordBox.query(where).build()) {
 			return query.findFirst();
