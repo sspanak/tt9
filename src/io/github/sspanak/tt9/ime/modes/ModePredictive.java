@@ -300,6 +300,12 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
+	public int getTextCase() {
+		// Filter out the internally used text cases. They have no meaning outside this class.
+		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
+	}
+
+	@Override
 	public void nextTextCase() {
 		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
 		super.nextTextCase();

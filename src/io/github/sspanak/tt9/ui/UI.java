@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Looper;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -17,6 +18,11 @@ public class UI {
 		awIntent.putExtra("io.github.sspanak.tt9.word", currentWord);
 		awIntent.putExtra("io.github.sspanak.tt9.lang", language);
 		tt9.startActivity(awIntent);
+	}
+
+
+	public static void showChangeKeyboardDialog(Context context) {
+		((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
 	}
 
 
@@ -63,17 +69,11 @@ public class UI {
 		Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
 	}
 
-	public static void toastLongFromAsync(Context context, int resourceId) {
-		if (Looper.myLooper() == null) {
-			Looper.prepare();
-		}
-		toast(context, resourceId);
-	}
-
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 	}
 
+	@Deprecated
 	public static void toastLongFromAsync(Context context, CharSequence msg) {
 		if (Looper.myLooper() == null) {
 			Looper.prepare();

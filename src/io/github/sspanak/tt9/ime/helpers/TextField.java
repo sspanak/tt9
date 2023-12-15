@@ -71,8 +71,6 @@ public class TextField {
 	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
 	 */
 	public ArrayList<Integer> determineInputModes(InputType inputType) {
-		final int INPUT_TYPE_SHARP_007H_PHONE_BOOK = 65633;
-
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (field == null) {
@@ -80,19 +78,7 @@ public class TextField {
 			return allowedModes;
 		}
 
-		if (
-			field.inputType == INPUT_TYPE_SHARP_007H_PHONE_BOOK
-			|| (
-				field.privateImeOptions != null
-				&& field.privateImeOptions.equals("io.github.sspanak.tt9.addword=true")
-			)
-		) {
-			allowedModes.add(InputMode.MODE_123);
-			allowedModes.add(InputMode.MODE_ABC);
-			return allowedModes;
-		}
-
-		// Calculators (support only 0-9 and math) and Dialer (0-9, "#" and "*"),
+		// Calculators (only 0-9 and math) and Dialer (0-9, "#" and "*") fields
 		// handle all input themselves, so we are supposed to pass through all key presses.
 		// Note: A Dialer field is not a Phone number field.
 		if (inputType.isSpecialNumeric()) {
@@ -114,7 +100,7 @@ public class TextField {
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
 				// user types).
-				if (!inputType.isPassword() && !inputType.isFilter()) {
+				if (!inputType.isPassword()) {
 					allowedModes.add(InputMode.MODE_PREDICTIVE);
 				}
 
@@ -288,13 +274,13 @@ public class TextField {
 	 * the text will be in bold and italic.
 	 */
 	private CharSequence highlightText(CharSequence word, int start, int end, boolean highlightMore) {
-		if (end < start || start < 0) {
+		if (end <= start || start < 0) {
 			Logger.w("tt9.util.highlightComposingText", "Cannot highlight invalid composing text range: [" + start + ", " + end + "]");
 			return word;
 		}
 
-		// nothing to highlight in an empty word
-		if (word == null || word.length() == 0) {
+		// nothing to highlight in an empty word or if the target is beyond the last letter
+		if (word == null || word.length() == 0 || word.length() <= start) {
 			return word;
 		}
 
@@ -323,7 +309,10 @@ public class TextField {
 		return styledWord;
 	}
 
-
+	/**
+	 * getAction
+	 * Returns the most appropriate action for the "OK" key. It could be "send", "act as ENTER key", "go (to URL)" and so on.
+	 */
 	public int getAction() {
 		if (field == null) {
 			return EditorInfo.IME_ACTION_NONE;
@@ -346,5 +335,14 @@ public class TextField {
 			default:
 				return IME_ACTION_ENTER;
 		}
+	}
+
+	/**
+	 * performAction
+	 * Sends an action ID to the connected application. Usually, the action is determined with "this.getAction()".
+	 * Note that it is up to the app to decide what to do or ignore the action ID.
+	 */
+	public boolean performAction(int actionId) {
+		return connection != null && actionId != EditorInfo.IME_ACTION_NONE && connection.performEditorAction(actionId);
 	}
 }

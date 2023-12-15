@@ -10,12 +10,8 @@ public class Logger {
 		return LEVEL == Log.DEBUG;
 	}
 
-	public static void setDebugLevel() {
-		LEVEL = Log.DEBUG;
-	}
-
-	public static void setDefaultLevel() {
-		LEVEL = Log.ERROR;
+	public static void enableDebugLevel(boolean yes) {
+		LEVEL = yes ? Log.DEBUG : Log.ERROR;
 	}
 
 	static public void v(String tag, String msg)  {
