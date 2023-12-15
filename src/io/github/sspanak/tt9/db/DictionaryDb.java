@@ -103,6 +103,8 @@ public class DictionaryDb {
 						);
 					} catch (Exception e) {
 						Logger.e(LOG_TAG, "Word normalization failed. " + e.getMessage());
+					} finally {
+						getStore().closeThreadResources();
 					}
 				});
 			}
@@ -112,8 +114,9 @@ public class DictionaryDb {
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
 		new Thread(() -> {
-			int langId = language != null ? language.getId() : -1;
-			notification.accept(getStore().count(langId) > 0);
+			boolean areThere = getStore().count(language != null ? language.getId() : -1) > 0;
+			getStore().closeThreadResources();
+			notification.accept(areThere);
 		}).start();
 	}
 
@@ -130,7 +133,7 @@ public class DictionaryDb {
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-			getStore().removeMany(languageIds);
+			getStore().removeMany(languageIds).closeThreadResources();
 			notification.run();
 		}).start();
 	}
@@ -156,6 +159,8 @@ public class DictionaryDb {
 				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
 				Logger.e("insertWord", msg);
 				statusHandler.accept(2);
+			} finally {
+				getStore().closeThreadResources();
 			}
 		}).start();
 	}
@@ -163,6 +168,7 @@ public class DictionaryDb {
 
 	public static void upsertWordsSync(List<Word> words) {
 		getStore().put(words);
+		getStore().closeThreadResources();
 	}
 
 
@@ -210,6 +216,8 @@ public class DictionaryDb {
 					DictionaryDb.class.getName(),
 					"Failed incrementing word frequency. Word: " + word + ". " + e.getMessage()
 				);
+			} finally {
+				getStore().closeThreadResources();
 			}
 		}).start();
 	}
@@ -228,6 +236,7 @@ public class DictionaryDb {
 			.getMany(language, sequence, filter, maximumWords)
 			.filter(sequence.length(), minimumWords);
 
+		getStore().closeThreadResources();
 		printLoadDebug(sequence, matches, start);
 		return matches.toStringList();
 	}

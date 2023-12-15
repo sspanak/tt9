@@ -164,16 +164,19 @@ public class WordStore {
 	}
 
 
-	public void removeMany(@NonNull ArrayList<Integer> languageIds) {
+	public WordStore removeMany(@NonNull ArrayList<Integer> languageIds) {
 		if (languageIds.size() > 0) {
 			try (Query<Word> query = wordBox.query(Word_.langId.oneOf(IntegerListToIntArray(languageIds))).build()) {
 				query.remove();
 			}
 		}
+
+		return this;
 	}
 
 
 	public void destroy() {
+		boxStore.closeThreadResources();
 		boxStore.close();
 		boxStore.deleteAllFiles();
 	}
@@ -186,6 +189,11 @@ public class WordStore {
 
 	public void runInTransactionAsync(Runnable action) {
 		boxStore.runInTxAsync(action, null);
+	}
+
+
+	public void closeThreadResources() {
+		boxStore.closeThreadResources();
 	}
 
 
