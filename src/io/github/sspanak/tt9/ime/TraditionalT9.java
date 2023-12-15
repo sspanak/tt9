@@ -355,7 +355,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 		clearSuggestions();
 
-		String word = textField.getSurroundingWord();
+		String word = textField.getSurroundingWord(mLanguage);
 		if (word.isEmpty()) {
 			UI.toastLong(this, R.string.add_word_no_selection);
 		} else {
