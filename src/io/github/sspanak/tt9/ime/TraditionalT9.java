@@ -784,7 +784,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		initTyping();
+		determineInputMode();
 		return !mInputMode.isPassthrough();
 	}
 
