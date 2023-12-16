@@ -102,19 +102,18 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	/**
-	 * determineInputMode
-	 * Restore the last input mode or choose a more appropriate one.
+	 * getInputMode
+	 * Load the last input mode or choose a more appropriate one.
 	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields)
 	 */
-	private void determineInputMode() {
+	private InputMode getInputMode() {
 		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.isTermux())) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_PASSTHROUGH);
-			return;
+			return InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_PASSTHROUGH);
 		}
 
 		allowedInputModes = textField.determineInputModes(inputType);
 		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, validModeId);
+		return InputMode.getInstance(settings, mLanguage, inputType, validModeId);
 	}
 
 
@@ -178,7 +177,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		resetKeyRepeat();
 		setSuggestions(null);
-		determineInputMode();
+		mInputMode = getInputMode();
 		determineTextCase();
 	}
 
@@ -784,8 +783,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		determineInputMode();
-		return !mInputMode.isPassthrough();
+		return !getInputMode().isPassthrough();
 	}
 
 
