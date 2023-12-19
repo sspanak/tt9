@@ -15,6 +15,7 @@ AFDC	56
 AG
 AI
 AIDS	105
+AIG	80
 AMD
 AMEC
 AMTD
@@ -42,6 +43,7 @@ Abadan	53
 Abaetetuba
 Abakaliki
 Abakan
+AbbVie
 Abbas	88
 Abbasid	77
 Abbotsford
@@ -276,6 +278,7 @@ Albert	118
 Alberta	110
 Albertan	52
 Alberto	95
+Albertsons
 Albigensian
 Albion	98
 Albireo
@@ -453,6 +456,7 @@ Americanization	57
 Americanize	41
 Amerind	44
 Amerindian	73
+AmerisourceBergen
 Amersfoort	59
 Ames	87
 Ameslan	1
@@ -1971,6 +1975,7 @@ Bunche	53
 Bundesbank
 Bundestag	74
 Bundi
+Bunge
 Bunia
 Bunin	56
 Bunsen	59
@@ -2037,6 +2042,7 @@ CCC	94
 CCTV	93
 CD	137
 CEVA
+CHS
 CIA	118
 CISO
 COBOL	35
@@ -2044,6 +2050,7 @@ COLA	54
 COLOPL
 COVID
 CSG	70
+CVS	84
 CXApp
 Caballero	43
 Caballeros	42
@@ -2217,6 +2224,7 @@ Cardiff	104
 Cardin	57
 Cardozo
 Carey	100
+Cargill	68
 Cariacica
 Carib	64
 Caribbean	112
@@ -2373,6 +2381,7 @@ Celtic	109
 Cemtrex
 Cenozoic	63
 Centaurus	32
+Centene
 Centigrade	10
 Cepheid
 Cepheus
@@ -2640,6 +2649,7 @@ Churu
 Chuvash	61
 Cicero	86
 Cienfuegos	61
+Cigna
 Cigniti
 Cilegon
 Cimabue	40
@@ -2787,6 +2797,7 @@ Columbus	107
 Comanche	82
 Comayagua
 Combs	78
+Comcast	85
 Comdr	76
 Comilla
 Comintern	79
@@ -2836,6 +2847,7 @@ Connery	74
 Connie	88
 Connolly
 Connors	78
+ConocoPhillips
 Conrad	98
 Conrail	76
 Conroe
@@ -3500,6 +3512,7 @@ Douliu
 Dourados
 Douro	68
 Dover	21
+Dow	87
 Downey	81
 Downs	94
 Downy	49
@@ -3713,6 +3726,7 @@ Electra	78
 Elektrostal
 Elena	91
 Elets
+Elevance
 Elgar	76
 Elgin	87
 Elias	90
@@ -3990,6 +4004,7 @@ Exodus	88
 Expensify
 Exscientia
 Exxon	72
+ExxonMobil	79
 Eyck	63
 Eyre	81
 Eysenck	53
@@ -4886,6 +4901,7 @@ Gyeongju
 Gyeongsan
 Gyumri
 HBase
+HCA	70
 HDMI	81
 HDTV	58
 HP	107
@@ -5444,6 +5460,7 @@ Huitzilopotchli
 Huixquilucan
 Huizhou
 Huludao
+Humana	49
 Humberto	69
 Humboldt	89
 Hume	88
@@ -5773,6 +5790,7 @@ Izumo
 Izvestia	49
 JOYY
 JPEG	46
+JPMorgan
 Jabalpur	27
 Jabalya
 Jaboatao
@@ -7356,6 +7374,7 @@ Maastricht	79
 Mabalacat
 Mabel	82
 Mable	48
+Mac	109
 MacArthur	69
 MacBride
 MacDonald	90
@@ -7413,6 +7432,7 @@ Madonna	100
 Madras	43
 Madrid	110
 Madurai	48
+Mae	91
 Maebashi	46
 Maeterlinck	51
 Mafioso	46
@@ -7918,6 +7938,7 @@ McJob
 McKay	103
 McKee	91
 McKenzie	99
+McKesson	60
 McKinley	100
 McKinney	93
 McKnight	86
@@ -8065,6 +8086,7 @@ Messianic	72
 Messieurs	34
 Messina	84
 Mestghanem
+MetLife
 Metallica	44
 Metamucil
 Metaverse
@@ -9297,6 +9319,7 @@ Ozon
 Ozymandias
 Ozzie	70
 PARC	79
+PBF
 PCB	89
 PCMCIA
 PDF	97
@@ -9553,6 +9576,7 @@ Penza	53
 Peoria	85
 Pepin
 Pepsi	86
+PepsiCo	42
 Pepys	72
 Pequot	68
 Perai
@@ -9946,6 +9970,7 @@ Ptah	36
 Ptolemaic	44
 Ptolemy	78
 PubMatic
+Publix
 Pucallpa
 Puccini	69
 Puck	73
@@ -10091,6 +10116,7 @@ ROTC	91
 RSFSR	78
 RSVP	64
 RTFM	37
+RTX
 Rabak
 Rabat	68
 Rabelais	62
@@ -11589,6 +11615,7 @@ Stoke	62
 Stokes	46
 Stolichnaya
 Stolypin
+StoneX
 Stonehenge	75
 Stoppard	62
 Stout	78
@@ -11760,10 +11787,12 @@ Symbotic
 Synaptics
 Synchronoss
 Synge	57
+Synnex
 Syracuse	100
 Syria	106
 Syriac	87
 Syrian	99
+Sysco	38
 Syzran	21
 Szczecin	72
 Szeged	64
@@ -11772,6 +11801,7 @@ Szymborska
 T'boli
 TANLA
 TARP	67
+TD	25
 TEFL	51
 TELNET	41
 TELNETTed
@@ -11779,6 +11809,7 @@ TELNETTing
 TESL	40
 TESOL	61
 THG
+TJX
 TNT	100
 TOEFL	65
 TOTVS
@@ -12096,6 +12127,7 @@ Theosophy	65
 Theravada	75
 Theresa	90
 Therese	71
+Thermo	68
 Thermopylae	66
 Thermos	38
 Theron	67
@@ -12549,6 +12581,7 @@ Unisys	59
 Unitarian	58
 Unitarianism	40
 Unitas
+UnitedHealth	55
 Unnao
 Unukalhai
 UpHealth
@@ -12637,6 +12670,7 @@ Valera	78
 Valeria	71
 Valerian	66
 Valerie	87
+Valero
 Valery	72
 Valhalla	72
 Valinhos
