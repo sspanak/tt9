@@ -13,6 +13,7 @@ AEye
 AFAIK	1
 AFDC	56
 AG
+AGA	53
 AI
 AIDS	105
 AIG	80
@@ -28,6 +29,7 @@ ASML
 ASPCA	63
 AST
 ASUS	81
+AWA
 AWACS	75
 AWOL	74
 Aachen	81
@@ -220,6 +222,7 @@ Airbnb
 Airedale	56
 Aires	105
 Aisha	66
+Aiwa	1
 Aixtron
 Aizawl
 Aizuwakamatsu
@@ -227,6 +230,7 @@ Ajax	31
 Ajdabiya
 Ajman
 Ajmer	68
+Akai
 Akamai
 Akashi
 Akbar	88
@@ -479,6 +483,7 @@ Amreli
 Amritsar	76
 Amroha
 Amsterdam	108
+Amstrad
 Amtrak	94
 Amundsen	70
 Amur	77
@@ -719,6 +724,7 @@ Arbitron
 Arbor	72
 Arcadia	86
 Arcadian	57
+Arcam
 Archean	41
 Archibald	92
 Archie	94
@@ -912,6 +918,7 @@ Auden	70
 Audi	89
 AudioCodes
 Audion
+Audiovox
 Audra	53
 Audrey	87
 Audubon	79
@@ -996,6 +1003,7 @@ BBSes
 BIOS	65
 BITNET	43
 BOE	40
+BPL
 BYOB	39
 Ba'qubah
 Baal	76
@@ -1335,6 +1343,7 @@ Beira	68
 Beirut	93
 Bekasi
 Bekesy
+Beko
 Bela	44
 Belarus	96
 Belarusian
@@ -1371,6 +1380,7 @@ Beltane	47
 Beluran
 Belushi	68
 Ben	117
+BenQ
 Benacerraf	30
 Benchley
 Bend	107
@@ -1563,6 +1573,7 @@ Bima
 Bimbo	56
 Bimini	55
 Binangonan
+Binatone
 Binghamton	82
 Binjai
 Biogen	10
@@ -1616,6 +1627,7 @@ Blanche	88
 Blankenship	51
 Blantyre	62
 Blatz	45
+Blaupunkt
 Blavatsky	66
 Blenheim	77
 Blevins	53
@@ -1794,6 +1806,7 @@ Branco
 Brandeis	77
 Branden	55
 Brandenburg	93
+Brandes
 Brandi	63
 Brandie	21
 Brando	76
@@ -1860,6 +1873,7 @@ Brigitte	73
 Brillo	10
 Brillouin
 Brinkley	73
+Brionvega
 Brisbane	108
 Bristol	32
 Brit	76
@@ -2042,6 +2056,7 @@ CCC	94
 CCTV	93
 CD	137
 CEVA
+CGE
 CHS
 CIA	118
 CISO
@@ -2440,6 +2455,7 @@ Chaney	76
 Chang	94
 Changchun	66
 Changde
+Changhong
 Changhua
 Changsha	68
 Changshu
@@ -2539,6 +2555,7 @@ Chevy	83
 Cheyenne	88
 Chhatarpur
 Chhindwara
+ChiMei
 Chiang	94
 Chianti	1
 Chiayi
@@ -2808,6 +2825,7 @@ Como	86
 Comodoro
 Comoran
 Comoros	69
+Compal
 Compaq	68
 Compton	91
 CompuGroup
@@ -2817,6 +2835,7 @@ Comte	80
 Comtech
 Conakry	58
 Conan	94
+Conar
 Concepcion
 Concetta
 Concord	70
@@ -2923,6 +2942,7 @@ Corsican	70
 Corso
 Cortes	56
 Cortland	68
+Cortron
 Corvallis	65
 Corvette	79
 Corvus	50
@@ -2930,6 +2950,7 @@ Cory	82
 Cosby	80
 CosmosDB
 Cossack	61
+Cossor
 Costa	106
 Costco	121
 Costello	90
@@ -3082,6 +3103,7 @@ Daedalus	67
 Daegu
 Daejeon
 Daet
+Daewoo	73
 Daguerre	48
 Dagupan
 Dagwood	10
@@ -3538,6 +3560,7 @@ Drudge	49
 Drupal
 Dryden	80
 Dschubba
+DuMont	77
 DuPont	75
 Duane	83
 Dubai	97
@@ -3575,6 +3598,7 @@ Dunlap	75
 Dunn
 Dunne
 Duque
+Durabrand
 Duracell	44
 Duran	87
 Durango	76
@@ -3614,6 +3638,8 @@ Dzerzhinsky	54
 Dzungaria	45
 ECMAScript
 EEOC	64
+EKCO
+EMI
 EPAM
 ESPN	116
 EULA	46
@@ -3723,6 +3749,7 @@ Eldoret
 Eleanor	97
 Eleazar	70
 Electra	78
+Electrohome
 Elektrostal
 Elena	91
 Elets
@@ -4050,6 +4077,7 @@ Fargo	87
 Faridabad
 Farley	80
 Farmington	80
+Farnsworth	73
 Faro	55
 Farragut	73
 Farrakhan	60
@@ -4108,6 +4136,7 @@ Fermi	74
 Fern	76
 Fernandez	84
 Fernando	102
+Ferranti
 Ferrara	84
 Ferrari	98
 Ferraro	64
@@ -4138,6 +4167,7 @@ Finch	83
 Finland	113
 Finlay
 Finley	80
+Finlux
 Finn	92
 Finnbogadottir
 Finnegan	65
@@ -4340,6 +4370,7 @@ Fullerton	81
 Fulton	94
 Funabashi
 Funafuti
+Funai
 Funchal
 Fundo
 Fundy	67
@@ -4488,6 +4519,7 @@ Gehrig	64
 Geiger	74
 Gelbvieh
 Geller	70
+Geloso
 Gelsenkirchen	60
 Gemena
 Gemini	89
@@ -4661,6 +4693,7 @@ Gojra
 Gokal
 Golan	76
 Golconda	59
+GoldStar
 Golda	62
 Goldberg	91
 Goldie	75
@@ -4695,6 +4728,7 @@ Gonzalo	77
 Goodall	71
 Goode	73
 Goodman	94
+Goodmans
 Goodrich	75
 Goodwill	75
 Goodwin	87
@@ -4732,6 +4766,7 @@ Gracchus	60
 Graceland	67
 Gracie	84
 Graciela	54
+Gradiente
 Grady	81
 Graffias	27
 Grafton	83
@@ -4797,6 +4832,7 @@ Grover	15
 Grozny	71
 Groznyi
 Grumman	83
+Grundig
 Grundy	76
 Grunewald	45
 Grus
@@ -4904,6 +4940,7 @@ HBase
 HCA	70
 HDMI	81
 HDTV	58
+HMV
 HP	107
 HSBC	93
 HTML	102
@@ -4937,6 +4974,7 @@ Hagonoy
 Hague	95
 Hahn	86
 Haida	71
+Haier
 Haifa	88
 Haikou
 Haina
@@ -4960,6 +4998,7 @@ Halisahar
 Halle	85
 Halley	69
 Halliburton
+Hallicrafters
 Hallie	59
 Hallmark	76
 Halloween	95
@@ -5003,6 +5042,7 @@ Hanna	93
 Hannah	97
 Hannibal	30
 Hannover	79
+Hannspree
 Hanoi	86
 Hanover	98
 Hanoverian	73
@@ -5104,6 +5144,7 @@ Hazleton
 Hazlitt	63
 Hearst	87
 Heather	80
+Heathkit	43
 Heaviside
 Hebe	50
 Hebei
@@ -5285,6 +5326,7 @@ Himamaylan
 Himax
 Himeji	56
 Himmler	81
+Hinari
 Hinayana	15
 Hindaun
 Hindemith	64
@@ -5514,6 +5556,7 @@ IONOS
 IQVIA
 ISBN	119
 ISIS	83
+ITT	82
 Iaccoca	18
 Iago	70
 Iapetus	56
@@ -5601,6 +5644,7 @@ Inca	86
 Incheon
 Inchon	68
 Incorporated	89
+Ind	30
 Indaiatuba
 India	137
 IndiaMART
@@ -5758,6 +5802,7 @@ Itapipoca
 Itaquaquecetuba
 Itasca
 Itatiba
+Itel	1
 Iteris
 Ithaca	85
 Ithacan	21
@@ -5791,6 +5836,7 @@ Izvestia	49
 JOYY
 JPEG	46
 JPMorgan
+JVC	77
 Jabalpur	27
 Jabalya
 Jaboatao
@@ -6564,6 +6610,7 @@ Klimt	56
 Kline	76
 Klingon	75
 Klondike	73
+Kloss
 Kluang
 Kluwer
 Kmart	69
@@ -6594,6 +6641,7 @@ Koestler	54
 Koforidua
 Kofu	27
 Koga
+Kogan
 Koganei
 Koh
 Kohat
@@ -6610,6 +6658,7 @@ Kolhapur	25
 Kolkata	94
 Kollam
 Kolomna	50
+Kolster
 Kolwezi
 Kolyma	59
 Komaki
@@ -6621,6 +6670,7 @@ Kon
 Konami
 Kong	122
 Kongo	74
+Konka
 Konosu
 Konrad	83
 Kontron
@@ -6846,6 +6896,7 @@ Langland	10
 Langley	89
 Langmuir	23
 Langsa
+Lanix
 Lanka	108
 Lankan	92
 Lanny	60
@@ -6946,6 +6997,7 @@ Lebanese	99
 Lebanon	108
 Lebesgue	70
 Leblanc	64
+Lecom
 Leda	61
 Lederberg	52
 Lee's	1
@@ -7451,6 +7503,7 @@ Maghreb	71
 Magi	68
 Maginot	59
 Magnachip
+Magnavox	53
 Magnificat	23
 Magnitogorsk	53
 Magog	65
@@ -7649,6 +7702,7 @@ Maramag
 Maran
 Marand
 Maranguape
+Marantz
 Maraqeh
 Marat	68
 Maratha	47
@@ -7669,6 +7723,7 @@ Marciano	64
 Marcie	64
 Marco	98
 Marconi	81
+Marconiphone
 Marcos	93
 Marcus	104
 Marcuse	57
@@ -7820,6 +7875,7 @@ Mataram
 Matariyah
 Mateo	84
 Mather	78
+Mathes
 Matheson
 Mathew	76
 Mathews	83
@@ -7836,6 +7892,7 @@ Matruh
 Matsubara
 Matsudo
 Matsue
+Matsui
 Matsumoto	71
 Matsusaka
 Matsuyama	60
@@ -8008,6 +8065,7 @@ Melville	87
 Melvin	85
 Memcached
 Memling	44
+Memorex	44
 Memphis	105
 Menander	65
 Mencius	55
@@ -8134,6 +8192,7 @@ Mickie	61
 Micky	71
 Micmac	48
 MicroStrategy	57
+Micromax
 Micronesia	73
 Micronesian	56
 Microsoft	112
@@ -8259,6 +8318,7 @@ Mitsubishi	91
 Mitterrand	73
 Mitty	55
 Mitzi	59
+Mivar
 Mixco
 Mixi
 Mixtec
@@ -8504,6 +8564,7 @@ Munoz	57
 Munro	86
 Munster	97
 Muntinlupa
+Muntz
 Muppet	79
 Murasaki	58
 Murat	77
@@ -8931,6 +8992,7 @@ Nora	87
 Norbert	76
 Norberto	56
 Nordic	97
+Nordmende
 Noreen	58
 Norfolk	112
 Noriega	69
@@ -9147,6 +9209,7 @@ Olongapo
 Olsen	89
 Olson	86
 Olsztyn
+Olufsen	43
 Olympia	91
 Olympiad	85
 Olympian	81
@@ -9178,6 +9241,7 @@ Onegin	61
 Oneida	80
 Onfolio
 Ongole
+Onida
 Onitsha	53
 Onomichi
 Onondaga	77
@@ -9565,6 +9629,7 @@ Pennsylvania	127
 Pennsylvanian	65
 Pennzoil	52
 Pensacola	87
+Pensonic
 Pentagon	72
 Pentateuch	70
 Pentax	67
@@ -9650,6 +9715,7 @@ Phidias	53
 Phil	111
 Philadelphia	123
 Philby	64
+Philco	55
 Philemon	68
 Philip	117
 Philippe	97
@@ -9924,6 +9990,7 @@ Principe	60
 Priscilla	80
 Pristina
 Prius	116
+ProScan
 Probolinggo
 Procore
 Procrustean	15
@@ -10023,6 +10090,7 @@ Putnam	89
 Puzo
 PyTorch
 Pyatigorsk
+Pye	74
 Pyeongtaek
 Pygmalion	66
 Pygmy	70
@@ -10108,6 +10176,7 @@ Quran	85
 Quranic	63
 Qurnah
 Qurrayyat
+RCA
 RCMP	91
 REIT	68
 RISC	89
@@ -10130,6 +10199,7 @@ Racine	77
 Rackspace
 Radcliff	46
 Radcliffe	86
+RadioShack	70
 Radom	63
 Rae	48
 Rafael	97
@@ -10211,6 +10281,7 @@ Ratchasima
 Ratlam
 Ratliff	63
 Raul	78
+Rauland
 Raurkela
 Ravel	18
 Ravenna	82
@@ -10238,6 +10309,7 @@ Redeemer	61
 Redfin	44
 Redford	73
 Redgrave	74
+Rediffusion
 Redis
 Redmond	81
 Redonda
@@ -10726,6 +10798,7 @@ Sally	71
 Salmiya
 Salome	72
 Salonika	62
+Salora
 Salta	28
 Saltillo	42
 Salton	63
@@ -10793,6 +10866,7 @@ Sanmina
 Sannar
 Sano
 Sanskrit	104
+Sansui
 Santa	122
 Santana	87
 Santander	80
@@ -10802,6 +10876,7 @@ Santiago	103
 Santipur
 Santo	99
 Santos	98
+Sanyo
 Sao	52
 Sapele
 Sapiens	87
@@ -10979,6 +11054,7 @@ Segundo	68
 Seguro
 Segway
 Sehore
+Seiki
 Seiko	63
 Seine	73
 Seinfeld	83
@@ -11057,6 +11133,7 @@ Serrano	76
 Serverworks
 ServiceNow
 Setar
+Setchell
 Sete
 Seth	95
 Seto
@@ -11346,6 +11423,7 @@ Skye	81
 Skylab	68
 Skype	69
 Skyworks
+Skyworth
 Slackware	53
 Slashdot	58
 Slater	37
@@ -11630,6 +11708,7 @@ Stravinsky	78
 Streisand	77
 Strickland	78
 Strindberg	62
+Stromberg	60
 Stromboli	35
 Stuart	108
 Studebaker	75
@@ -11780,6 +11859,7 @@ Sykes	84
 Syktivkar
 Sylhet
 Sylogist
+Sylvania	67
 Sylvester	88
 Sylvia	92
 Sylvie	66
@@ -11801,7 +11881,9 @@ Szymborska
 T'boli
 TANLA
 TARP	67
+TCL
 TD	25
+TECO
 TEFL	51
 TELNET	41
 TELNETTed
@@ -11813,6 +11895,8 @@ TJX
 TNT	100
 TOEFL	65
 TOTVS
+TP
+TPV
 TSMC
 TV	96
 TVs	84
@@ -11923,6 +12007,7 @@ Tanay
 Tanchon
 Tancred	65
 Tando
+Tandy	73
 Taney	61
 Tanga	45
 Tanganyika	73
@@ -11982,6 +12067,7 @@ Tatar	84
 Tate	96
 Tatra
 Tatum	76
+Tatung
 Taunggyi
 Tauranga	66
 Taurus	81
@@ -12016,9 +12102,13 @@ Teixeira
 Tel	65
 Teladoc
 Telde
+Teleavia
+Teledyne	57
+Telefunken	56
 Telemachus	53
 Telemann	53
 Telephonics
+Teletronics
 Teletype	53
 Telford	81
 Teller	78
@@ -12775,6 +12865,7 @@ Vespasian	72
 Vespasiano
 Vespucci	54
 Vesta	69
+Vestel
 Vesuvius	68
 Viacom	78
 Viagra	55
@@ -12795,6 +12886,8 @@ Victorianism	10
 Victorville
 Victrola	21
 Vidal	79
+Videocon	48
+Videoton
 Vidisha
 Vienna	115
 Viennese	82
@@ -12884,6 +12977,7 @@ Voronezh	67
 Vorster	50
 Votorantim
 Voyager	54
+Vu	73
 Vuitton	68
 Vulcan	87
 Vulg	1
@@ -13398,6 +13492,7 @@ Zamora	78
 Zane	78
 Zanjan
 Zanuck	64
+Zanussi
 Zanzibar	80
 Zaozhuang
 Zapata	74
@@ -13479,6 +13574,7 @@ Zollverein
 Zoloft	40
 Zomato
 Zomba	34
+Zonda	15
 Zonguldak
 ZoomInfo
 Zoomd
