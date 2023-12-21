@@ -14,42 +14,30 @@ public class ItemTruncateAll extends ItemClickable {
 
 	protected final PreferencesActivity activity;
 	protected final DictionaryLoader loader;
-	protected final ItemLoadDictionary loadItem;
-	protected ItemClickable otherTruncateItem;
 
-	public ItemTruncateAll(Preference item, ItemLoadDictionary loadItem, PreferencesActivity activity, DictionaryLoader loader) {
+
+	public ItemTruncateAll(Preference item, PreferencesActivity activity, DictionaryLoader loader) {
 		super(item);
 		this.activity = activity;
-		this.loadItem = loadItem;
 		this.loader = loader;
-	}
-
-
-	public ItemTruncateAll setOtherTruncateItem(ItemTruncateUnselected item) {
-		this.otherTruncateItem = item;
-		return this;
 	}
 
 
 	@Override
 	protected boolean onClick(Preference p) {
 		if (loader != null && loader.isRunning()) {
-			loader.stop();
-			loadItem.changeToLoadButton();
+			return false;
 		}
 
 		onStartDeleting();
-		DictionaryDb.deleteWords(this::onFinishDeleting);
+		DictionaryDb.deleteWords(activity.getApplicationContext(), this::onFinishDeleting);
 
 		return true;
 	}
 
 
 	protected void onStartDeleting() {
-		if (otherTruncateItem != null) {
-			otherTruncateItem.disable();
-		}
-		loadItem.disable();
+		disableOtherItems();
 		disable();
 		item.setSummary(R.string.dictionary_truncating);
 	}
@@ -57,10 +45,7 @@ public class ItemTruncateAll extends ItemClickable {
 
 	protected void onFinishDeleting() {
 		activity.runOnUiThread(() -> {
-			if (otherTruncateItem != null) {
-				otherTruncateItem.enable();
-			}
-			loadItem.enable();
+			enableOtherItems();
 			item.setSummary("");
 			enable();
 			UI.toastFromAsync(activity, R.string.dictionary_truncated);

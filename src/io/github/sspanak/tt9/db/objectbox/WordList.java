@@ -1,14 +1,21 @@
-package io.github.sspanak.tt9.db.room;
+package io.github.sspanak.tt9.db.objectbox;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class WordList extends ArrayList<Word> {
-	public WordList(List<Word> words) {
+	public WordList() {
+		super();
+	}
+
+
+	public WordList(@NonNull List<Word> words) {
 		addAll(words);
 	}
+
 
 	@NonNull
 	@Override
@@ -25,6 +32,19 @@ public class WordList extends ArrayList<Word> {
 
 		return sb.toString();
 	}
+
+
+	@NonNull
+	public WordList filter(int minLength, int minWords) {
+		WordList filtered = new WordList();
+		for (int i = 0; i < size(); i++) {
+			if (get(i).length == minLength || filtered.size() < minWords) {
+				filtered.add(get(i));
+			}
+		}
+		return filtered;
+	}
+
 
 	@NonNull
 	public ArrayList<String> toStringList() {

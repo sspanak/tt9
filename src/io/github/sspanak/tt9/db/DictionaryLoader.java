@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.room.Word;
+import io.github.sspanak.tt9.db.objectbox.Word;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -80,7 +80,7 @@ public class DictionaryLoader {
 				currentFile = 0;
 				importStartTime = System.currentTimeMillis();
 
-				sendFileCount(languages.size());
+				sendStartMessage(languages.size());
 
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
@@ -155,8 +155,8 @@ public class DictionaryLoader {
 
 				Logger.e(
 					logTag,
-					"Failed loading dictionary: " + language.getDictionaryFile() +
-					" for language '" + language.getName() + "'. "
+					"Failed loading dictionary: " + language.getDictionaryFile()
+					+ " for language '" + language.getName() + "'. "
 					+ e.getMessage()
 				);
 			}
@@ -164,7 +164,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void importLetters(Language language) {
+	private void importLetters(Language language) throws InvalidLanguageCharactersException {
 		ArrayList<Word> letters = new ArrayList<>();
 
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
@@ -172,15 +172,7 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-
-				Word word = new Word();
-				word.langId = language.getId();
-				word.frequency = 0;
-				word.length = 1;
-				word.sequence = String.valueOf(key);
-				word.word = langChar;
-
-				letters.add(word);
+				letters.add(Word.create(language, langChar, 0));
 			}
 		}
 
@@ -189,7 +181,7 @@ public class DictionaryLoader {
 
 
 	private void importWords(Language language, String dictionaryFile) throws Exception {
-		sendProgressMessage(language, 0, 0);
+		sendProgressMessage(language, 1, 0);
 
 		long currentLine = 0;
 		long totalLines = getFileSize(dictionaryFile);
@@ -200,7 +192,7 @@ public class DictionaryLoader {
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
 				br.close();
-				sendProgressMessage(language, -1, 0);
+				sendProgressMessage(language, 0, 0);
 				throw new DictionaryImportAbortedException();
 			}
 
@@ -209,7 +201,7 @@ public class DictionaryLoader {
 			int frequency = getFrequency(parts);
 
 			try {
-				dbWords.add(stringToWord(language, word, frequency));
+				dbWords.add(Word.create(language, word, frequency));
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
@@ -222,6 +214,7 @@ public class DictionaryLoader {
 
 			if (totalLines > 0) {
 				int progress = (int) Math.floor(100.0 * currentLine / totalLines);
+				progress = Math.max(1, progress);
 				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
@@ -269,19 +262,7 @@ public class DictionaryLoader {
 	}
 
 
-	private Word stringToWord(Language language, String word, int frequency) throws InvalidLanguageCharactersException {
-		Word dbWord = new Word();
-		dbWord.langId = language.getId();
-		dbWord.frequency = frequency;
-		dbWord.length = word.length();
-		dbWord.sequence = language.getDigitSequenceForWord(word);
-		dbWord.word = word;
-
-		return dbWord;
-	}
-
-
-	private void sendFileCount(int fileCount) {
+	private void sendStartMessage(int fileCount) {
 		if (onStatusChange == null) {
 			Logger.w(logTag, "Cannot send file count without a status Handler. Ignoring message.");
 			return;
@@ -289,6 +270,7 @@ public class DictionaryLoader {
 
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("fileCount", fileCount);
+		progressMsg.putInt("progress", 1);
 		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
 

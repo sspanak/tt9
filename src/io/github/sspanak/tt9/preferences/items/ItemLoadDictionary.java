@@ -35,11 +35,15 @@ public class ItemLoadDictionary extends ItemClickable {
 		this.settings = settings;
 
 		loader.setOnStatusChange(this::onLoadingStatusChange);
+		refreshStatus();
+	}
 
-		if (!progressBar.isCompleted() && !progressBar.isFailed()) {
-			changeToCancelButton();
+
+	public void refreshStatus() {
+		if (loader.isRunning()) {
+			setLoadingStatus();
 		} else {
-			changeToLoadButton();
+			setReadyStatus();
 		}
 	}
 
@@ -49,12 +53,12 @@ public class ItemLoadDictionary extends ItemClickable {
 		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 		if (progressBar.isCancelled()) {
-			changeToLoadButton();
+			setReadyStatus();
 		} else if (progressBar.isFailed()) {
-			changeToLoadButton();
+			setReadyStatus();
 			UI.toastFromAsync(context, progressBar.getMessage());
 		} else if (progressBar.isCompleted()) {
-			changeToLoadButton();
+			setReadyStatus();
 			UI.toastFromAsync(context, R.string.dictionary_loaded);
 		}
 	}
@@ -65,23 +69,25 @@ public class ItemLoadDictionary extends ItemClickable {
 		ArrayList<Language> languages = LanguageCollection.getAll(context, settings.getEnabledLanguageIds());
 
 		try {
+			setLoadingStatus();
 			loader.load(languages);
-			changeToCancelButton();
 		} catch (DictionaryImportAlreadyRunningException e) {
 			loader.stop();
-			changeToLoadButton();
+			setReadyStatus();
 		}
 
 		return true;
 	}
 
 
-	public void changeToCancelButton() {
+	private void setLoadingStatus() {
+		disableOtherItems();
 		item.setTitle(context.getString(R.string.dictionary_cancel_load));
 	}
 
 
-	public void changeToLoadButton() {
+	private void setReadyStatus() {
+		enableOtherItems();
 		item.setTitle(context.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}

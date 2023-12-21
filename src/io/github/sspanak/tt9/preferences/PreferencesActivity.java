@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryDb;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.SQLWords;
 import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
@@ -41,6 +42,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		applyTheme();
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
+		new SQLWords(this).clear();
 		DictionaryDb.init(this);
 		DictionaryDb.normalizeWordFrequencies(settings);
 

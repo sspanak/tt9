@@ -167,6 +167,11 @@ public class Language {
 		return letters.contains("α");
 	}
 
+	public boolean isUkrainian() {
+		ArrayList<String> letters = getKeyCharacters(4, false);
+		return letters.contains("ї");
+	}
+
 	/* ************ utility ************ */
 
 	/**

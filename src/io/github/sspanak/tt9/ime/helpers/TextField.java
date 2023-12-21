@@ -18,12 +18,16 @@ import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.languages.Language;
 
 public class TextField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
 	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)(?!\n)$");
 	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)(\\w+)");
+	private static final Pattern beforeCursorUkrainianRegex = Pattern.compile("([\\w']+)(?!\n)$");
+	private static final Pattern afterCursorUkrainianRegex = Pattern.compile("^(?<!\n)([\\w']+)");
+
 
 	public final InputConnection connection;
 	public final EditorInfo field;
@@ -177,9 +181,20 @@ public class TextField {
 	 * getSurroundingWord
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
-	@NonNull public String getSurroundingWord() {
-		Matcher before = beforeCursorWordRegex.matcher(getTextBeforeCursor());
-		Matcher after = afterCursorWordRegex.matcher(getTextAfterCursor());
+	@NonNull public String getSurroundingWord(Language language) {
+		Matcher before;
+		Matcher after;
+
+		if (language != null && language.isUkrainian()) {
+			// Ukrainian uses apostrophes as letters
+			before = beforeCursorUkrainianRegex.matcher(getTextBeforeCursor());
+			after = afterCursorUkrainianRegex.matcher(getTextAfterCursor());
+		} else {
+			// In other languages, special characters in words will cause automatic word break to fail,
+			// resulting in unexpected suggestions. Therefore, they are not allowed.
+			before = beforeCursorWordRegex.matcher(getTextBeforeCursor());
+			after = afterCursorWordRegex.matcher(getTextAfterCursor());
+		}
 
 		return (before.find() ? before.group(1) : "") + (after.find() ? after.group(1) : "");
 	}
