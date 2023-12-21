@@ -60,19 +60,6 @@ public class AppHacks {
 
 
 	/**
-	 * isMessengerLite
-	 * Facebook Messenger Lite does not support sending messages with OK/ENTER. To enable that, we
-	 * detect the chat field and apply the proper series of commands to it. See "onFbMessengerEnter()" for info how the hack works.
-	 */
-	private boolean isMessengerLite() {
-		return isAppField(
-			"com.facebook.mlite",
-			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT
-		);
-	}
-
-
-	/**
 	 * isAppField
 	 * Detects a particular input field of a particular application.
 	 */
@@ -125,7 +112,7 @@ public class AppHacks {
 		if (isTermux()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 			return true;
-		} else if (isMessenger() || isMessengerLite()) {
+		} else if (isMessenger()) {
 			return onEnterFbMessenger();
 		}
 
@@ -196,16 +183,7 @@ public class AppHacks {
 			// Messenger responds only to ENTER, but not DPAD_CENTER, so we make sure to send the correct code,
 			// no matter how the hardware key is implemented.
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-		} else {
-			// Messenger Lite responds to no key codes, so we trick it by going right to the Send button, pressing it,
-			// then going back to the chat field.
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_RIGHT);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_LEFT);
 		}
-
 
 		return true;
 	}
