@@ -212,20 +212,20 @@ public class Predictions {
 
 		if (dbWords.isEmpty() && !digitSequence.isEmpty()) {
 			emptyDbWarning.emitOnce(language);
-			dbWords = generatePossibleCompletions(inputWord);
 		}
 
 		words.clear();
 		suggestStem();
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(insertPunctuationCompletions(dbWords));
+		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
+		suggestMissingWords(insertPunctuationCompletions(words));
 
 		onWordsChanged.run();
 	}
 
 
 	/**
-	 * generatePossibleCompletions
+	 * generateWordVariations
 	 * When there are no matching suggestions after the last key press, generate a list of possible
 	 * ones, so that the user can complete a missing word that is completely different from the ones
 	 * in the dictionary.
@@ -233,7 +233,7 @@ public class Predictions {
 	 * For example, if the word is "missin_" and the last pressed key is "4", the results would be:
 	 * | missing | missinh | missini |
 	 */
-	private ArrayList<String> generatePossibleCompletions(String baseWord) {
+	private ArrayList<String> generateWordVariations(String baseWord) {
 		ArrayList<String> generatedWords = new ArrayList<>();
 
 		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
@@ -257,7 +257,7 @@ public class Predictions {
 
 	/**
 	 * insertPunctuationCompletions
-	 * When given: "you'", for example, this also generates all other 1-key alternatives, like:
+	 * When given: "you'", for example, this inserts all other 1-key alternatives, like:
 	 * "you.", "you?", "you!" and so on. The generated words will be inserted after the direct
 	 * database matches and before the fuzzy matches, as if they were direct matches with low frequency.
 	 * This is to preserve the sorting by length and frequency.
@@ -278,7 +278,7 @@ public class Predictions {
 		}
 
 		// generated "exact matches"
-		for (String w : generatePossibleCompletions(dbWords.get(0))) {
+		for (String w : generateWordVariations(dbWords.get(0))) {
 			if (!dbWords.contains(w) && !dbWords.contains(w.toLowerCase(language.getLocale()))) {
 				complementedWords.add(w);
 			}
@@ -310,12 +310,9 @@ public class Predictions {
 	 */
 	private ArrayList<String> generatePossibleStemVariations(ArrayList<String> dbWords) {
 		ArrayList<String> variations = new ArrayList<>();
-		if (stem.isEmpty()) {
-			return variations;
-		}
 
-		if (isStemFuzzy && stem.length() == digitSequence.length() - 1) {
-			ArrayList<String> allPossibleVariations = generatePossibleCompletions(stem);
+		if (isStemFuzzy && !stem.isEmpty() && stem.length() == digitSequence.length() - 1) {
+			ArrayList<String> allPossibleVariations = generateWordVariations(stem);
 
 			// first add the known words, because it makes more sense to see them first
 			for (String variation : allPossibleVariations) {

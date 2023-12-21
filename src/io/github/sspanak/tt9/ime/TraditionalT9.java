@@ -421,10 +421,10 @@ public class TraditionalT9 extends KeyPadHandler {
 			filter = getComposingText();
 		}
 
-		if (mInputMode.setWordStem(filter, repeat)) {
-			mInputMode.loadSuggestions(this::getSuggestions, filter);
-		} else if (filter.length() == 0) {
+		if (filter.length() == 0) {
 			mInputMode.reset();
+		} else if (mInputMode.setWordStem(filter, repeat)) {
+			mInputMode.loadSuggestions(this::getSuggestions, filter);
 		}
 
 		return true;
