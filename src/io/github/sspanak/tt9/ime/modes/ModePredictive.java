@@ -304,13 +304,12 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * shouldAcceptPreviousSuggestion
-	 * In this mode, In addition to confirming the suggestion in the input field,
-	 * we also increase its' priority. This function determines whether we want to do all this or not.
+	 * Automatic space assistance. Spaces (and special chars) cause suggestions to be accepted
+	 * automatically. This is used for analysis before processing the incoming pressed key.
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
 		return
-			isCursorDirectionForward &&
 			!digitSequence.isEmpty() && (
 				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
 				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == '0')
@@ -324,18 +323,29 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
+		// backspace never breaks words
 		if (!isCursorDirectionForward) {
 			return false;
 		}
 
+		// special characters always break words
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith("0")) {
+			return true;
+		}
+
+		// allow apostrophes in the middle or at the end of Hebrew and Ukrainian words
+		if (language.isHebrew() || language.isUkrainian()) {
+			return
+				!predictions.areThereDbWords()
+				&& digitSequence.equals("1");
+		}
+
+		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
-			(autoAcceptTimeout == 0 && !digitSequence.startsWith("0"))
-			|| (
-				!digitSequence.isEmpty()
-				&& !predictions.areThereDbWords()
-				&& digitSequence.contains("1")
-				&& TextTools.containsOtherThan1(digitSequence)
-			);
+			!digitSequence.isEmpty()
+			&& !predictions.areThereDbWords()
+			&& digitSequence.contains("1")
+			&& TextTools.containsOtherThan1(digitSequence);
 	}
 
 

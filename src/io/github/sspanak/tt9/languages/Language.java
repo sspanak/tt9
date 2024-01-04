@@ -150,26 +150,21 @@ public class Language {
 	/**
 	 * isLatinBased
 	 * Returns "true" when the language is based on the Latin alphabet or "false" otherwise.
-	 * WARNING: This performs somewhat resource-intensive operations every time, so consider
-	 * caching the result.
 	 */
 	public boolean isLatinBased() {
-		ArrayList<String> letters = getKeyCharacters(2, false);
-		return letters.contains("a");
+		return getKeyCharacters(2, false).contains("a");
 	}
 
-	/**
-	 * isGreek
-	 * Similar to "isLatinBased()", this returns "true" when the language is based on the Greek alphabet.
-	 */
 	public boolean isGreek() {
-		ArrayList<String> letters = getKeyCharacters(2, false);
-		return letters.contains("α");
+		return getKeyCharacters(2, false).contains("α");
 	}
 
 	public boolean isUkrainian() {
-		ArrayList<String> letters = getKeyCharacters(4, false);
-		return letters.contains("ї");
+		return getKeyCharacters(3, false).contains("є");
+	}
+
+	public boolean isHebrew() {
+		return getKeyCharacters(3, false).contains("א");
 	}
 
 	/* ************ utility ************ */
