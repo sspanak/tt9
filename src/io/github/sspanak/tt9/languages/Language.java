@@ -225,11 +225,14 @@ public class Language {
 	}
 
 	public boolean isMixedCaseWord(String word) {
-		return word != null
-			&& (
-				(word.length() == 1 && word.toUpperCase(locale).equals(word))
-				|| (!word.toLowerCase(locale).equals(word) && !word.toUpperCase(locale).equals(word))
-			);
+		return
+			word != null
+			&& !word.toLowerCase(locale).equals(word)
+			&& !word.toUpperCase(locale).equals(word);
+	}
+
+	public boolean isUpperCaseWord(String word) {
+		return word != null && word.toUpperCase(locale).equals(word);
 	}
 
 	public ArrayList<String> getKeyCharacters(int key, boolean includeDigit) {
