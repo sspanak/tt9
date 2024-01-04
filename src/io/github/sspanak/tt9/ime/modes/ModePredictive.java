@@ -336,14 +336,14 @@ public class ModePredictive extends InputMode {
 		// allow apostrophes in the middle or at the end of Hebrew and Ukrainian words
 		if (language.isHebrew() || language.isUkrainian()) {
 			return
-				!predictions.areThereDbWords()
+				predictions.noDbWords()
 				&& digitSequence.equals("1");
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
-			&& !predictions.areThereDbWords()
+			&& predictions.noDbWords()
 			&& digitSequence.contains("1")
 			&& TextTools.containsOtherThan1(digitSequence);
 	}

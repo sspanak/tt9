@@ -24,7 +24,7 @@ public class Predictions {
 
 	// data
 	private boolean areThereDbWords = false;
-	private final ArrayList<String> words = new ArrayList<>();
+	private ArrayList<String> words = new ArrayList<>();
 
 	// punctuation/emoji
 	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
@@ -83,8 +83,8 @@ public class Predictions {
 		return words;
 	}
 
-	public boolean areThereDbWords() {
-		return areThereDbWords;
+	public boolean noDbWords() {
+		return !areThereDbWords;
 	}
 
 
@@ -218,7 +218,7 @@ public class Predictions {
 		suggestStem();
 		suggestMissingWords(generatePossibleStemVariations(dbWords));
 		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
-		suggestMissingWords(insertPunctuationCompletions(words));
+		words = insertPunctuationCompletions(words);
 
 		onWordsChanged.run();
 	}
