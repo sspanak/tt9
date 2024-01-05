@@ -126,7 +126,11 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		// start tracking key hold
-		if (Key.isNumber(keyCode) || Key.isHotkey(settings, -keyCode)) {
+		if (Key.isNumber(keyCode)) {
+			event.startTracking();
+			return true;
+		}
+		else if (Key.isHotkey(settings, -keyCode)) {
 			event.startTracking();
 		}
 
@@ -135,8 +139,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		return
-			Key.isNumber(keyCode)
-			|| Key.isOK(keyCode)
+			Key.isOK(keyCode)
 			|| handleHotkey(keyCode, true, false, true) // hold a hotkey, handled in onKeyLongPress())
 			|| handleHotkey(keyCode, false, keyRepeatCounter + 1 > 0, true) // press a hotkey, handled in onKeyUp()
 			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), true)
@@ -160,6 +163,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		if (Key.isNumber(keyCode)) {
 			numKeyRepeatCounter = 0;
 			lastNumKeyCode = 0;
+			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		} else {
 			keyRepeatCounter = 0;
 			lastKeyCode = 0;
@@ -167,10 +171,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		if (handleHotkey(keyCode, true, false, false)) {
 			return true;
-		}
-
-		if (Key.isNumber(keyCode)) {
-			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		}
 
 		ignoreNextKeyUp = 0;
