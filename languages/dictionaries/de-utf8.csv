@@ -1959,7 +1959,7 @@ Almen	72
 Almeria	58
 Almhütte	53
 Almhütten	50
-Almodovar	63
+Almodovar
 Almond	63
 Almosen	74
 Almtal	53
@@ -3016,6 +3016,7 @@ Anhöhe	100
 Anhöhen	79
 Anhörung	82
 Anhörungen	69
+Anibal
 Anilin	67
 Animationen	78
 Animationsfilm	75
@@ -3486,7 +3487,6 @@ Anthropologin	60
 Anthroposoph	54
 Anthroposophen	50
 Anthroposophie	73
-Antivirus	50
 Antialiasing	57
 Antialkoholiker
 Antialkoholikerinnen
@@ -3564,6 +3564,7 @@ Antisemiten	73
 Antisemitismus	97
 Antiteilchen	64
 Antithese	61
+Antivirus	50
 Antizionismus	53
 Antizipation	54
 Antje	78
@@ -3775,7 +3776,6 @@ Anästhesiologie	64
 Anästhesist	52
 Anästhesisten	54
 Anästhetika	52
-Anibal	62
 Aorist	60
 Aorta	74
 Aortenklappe	53
@@ -4903,7 +4903,7 @@ Astronomie	103
 Astronomin	67
 Astrophysik	79
 Astrophysiker	69
-Asuncion	76
+Asuncion
 Asyl	87
 Asylant
 Asylanten	48
@@ -5074,7 +5074,7 @@ Atomzertrümmerung
 Atonalität	59
 Atrophie	61
 Atropin	62
-Attache	69
+Attache
 Attacke	85
 Attacken	84
 Attenborough	60
@@ -7771,6 +7771,8 @@ Barths	67
 Bartl	57
 Bartlett	73
 Bartmann	56
+Bartok
+Bartoks
 Bartoli	62
 Bartolo	59
 Bartolomeo	82
@@ -7779,8 +7781,6 @@ Bartram	58
 Bartsch	75
 Bartstreif	53
 Bartz	59
-Bartok	75
-Bartoks	57
 Baruth	65
 Barverkauf
 Barverkäufen
@@ -9129,6 +9129,7 @@ Beköstigung
 Bekümmernis
 Bekümmernisse
 Bekümmernissen
+Bela	48
 Beladung	78
 Belafonte	63
 Belag	76
@@ -9310,6 +9311,7 @@ Bengels
 Bengt	72
 Benin	82
 Benita	61
+Benitez
 Benito	85
 Benjamin	108
 Benjamins	63
@@ -9381,7 +9383,6 @@ Benzodiazepinen	57
 Benzoesäure	61
 Benzol	36
 Benzolring	62
-Benitez	59
 Benützer
 Benützung	61
 Beobachtbarkeit
@@ -10866,6 +10867,7 @@ Bezieher	60
 Beziehung	120
 Beziehungen	122
 Beziehungsgeflecht	54
+Beziers
 Bezirk	126
 Bezirke	104
 Bezirken	91
@@ -12434,6 +12436,7 @@ Boleslaw	75
 Boleyn	72
 Boliden	63
 Bolingbroke	59
+Bolivar
 Bolivien	99
 Boliviens	76
 Boll	81
@@ -12456,7 +12459,6 @@ Bolz	67
 Bolzano	60
 Bolzen	36
 Bolzplatz	64
-Bolivar	82
 Bombardement	79
 Bombardements	76
 Bombardier	85
@@ -14634,8 +14636,6 @@ Bäuerinnen	54
 Bäumchen	57
 Bäume	110
 Bäumen	106
-Bela	86
-Beziers	71
 Bö	53
 Böblingen	87
 Böblinger	59
@@ -15354,6 +15354,7 @@ CeBIT	82
 Cebu	73
 Cebuano	62
 Cecil	90
+Cecile
 Cecilia	82
 Cecilie	67
 Cedric	74
@@ -15361,6 +15362,7 @@ Cees	58
 Celan	68
 Celebes	57
 Celeron	60
+Celestin
 Celestino	58
 Celia	71
 Celibidache	62
@@ -15399,6 +15401,8 @@ Cessna	82
 Cetinje	64
 Cevennen	69
 Ceylon	82
+Cezanne
+Cezannes
 Chabarowsk	74
 Chablis	63
 Chabrol	65
@@ -16477,10 +16481,6 @@ Cäcilie	69
 Cäsar	82
 Cäsarismus
 Cäsars	61
-Cecile	71
-Celestin	56
-Cezanne	80
-Cezannes	65
 DAAD	87
 DARPA	79
 DASA	76
@@ -22516,7 +22516,7 @@ Enontekiö	59
 Enquetekommission	48
 Enrico	91
 Enrique	88
-Enriquez	57
+Enriquez
 Enschede	81
 Ensemble	72
 Ensemblemitglied	84
@@ -24632,6 +24632,7 @@ FIFA	109
 FILA	71
 FINA	75
 FISA	73
+FM	101
 FMLN	70
 FNLA	71
 FPGAs	76
@@ -32692,6 +32693,7 @@ Genesung	87
 Genetik	88
 Genetiker	68
 Geneva	69
+Geneve
 Genevieve	62
 Genexpression	65
 Genezareth	65
@@ -32778,7 +32780,6 @@ Genuss	89
 Genusses	52
 Genussmittel	67
 Genussmitteln	52
-Geneve	77
 Genüge	76
 Genügsamkeit	53
 Genüsse	52
@@ -56954,6 +56955,7 @@ Makuladegeneration	53
 Makulatur	54
 Mal	135
 Malachit	61
+Malaga
 Malaien	67
 Malakka	73
 Malans	59
@@ -57371,6 +57373,7 @@ Marihuana	74
 Marika	66
 Marilyn	87
 Marimba	60
+Marin	70
 Marinas	56
 Marine	86
 Marineakademie	69
@@ -57594,6 +57597,7 @@ Marquard	76
 Marquardt	73
 Marquesas	66
 Marquette	71
+Marquez
 Marquis	74
 Marquise	53
 Marrakesch	71
@@ -57673,7 +57677,6 @@ Maryland	102
 Marys	69
 Marzahn	73
 Marzipan	62
-Marin	62
 Masada	57
 Masahiro	58
 Masaki	59
@@ -57968,6 +57971,7 @@ Mathilde	98
 Mathildenhöhe	55
 Mathildes	63
 Mathis	72
+Matias
 Matilda	77
 Matilde	56
 Matinee	52
@@ -58021,7 +58025,6 @@ Matura	96
 Maturana	59
 Maturität	55
 Matzleinsdorf	59
-Matias	59
 Mauch	62
 Maud	77
 Maude	65
@@ -59595,8 +59598,8 @@ Militärangehörigen	62
 Militäranlagen	54
 Militärarzt	72
 Militärarztes	48
+Militärattache
 Militärattaches
-Militärattache	73
 Militärausgaben	60
 Militärbasen	66
 Militärbasis	72
@@ -61945,8 +61948,6 @@ Mytilene	60
 Mytischtschi	58
 Myung	56
 Myzel	62
-Malaga	83
-Marquez	68
 Mäander	72
 Mächte	94
 Mächten	84
@@ -63546,9 +63547,10 @@ Nestern	73
 Nestes	68
 Nestflüchter	62
 Nesthäkchen	57
+Nestle
 Nestler	60
 Nestlingszeit	65
-Nestle	75
+Nestor	44
 Nestroy	75
 Nestroys	63
 NetBSD	78
@@ -65063,7 +65065,6 @@ Nährwert	63
 Nährwerte
 Nährwertes
 Nässe	73
-Nestor	63
 Nördlingen	86
 Nördlinger	72
 Nörvenich	72
@@ -67904,6 +67905,7 @@ Pekings	62
 Pektin	57
 Pelagius	65
 Pelayo	56
+Pele
 Pelerine
 Pelerinen
 Pelham	70
@@ -67937,7 +67939,6 @@ Pelzmützen
 Pelztiere	49
 Pelztieren	45
 Pelzwaren	38
-Pele	73
 Pembroke	77
 Pemphigus	53
 Penaltyschießen	72
@@ -67962,6 +67963,7 @@ Penderecki	59
 Pendler	84
 Pendlern	65
 Pendleton	70
+Penelope	31
 Penetration	34
 Peng	71
 Penh	71
@@ -68009,7 +68011,6 @@ Pentium	82
 Penzance	63
 Penzberg	61
 Penzlin	64
-Penelope	60
 Peoria	70
 Pepe	73
 Pepsi	72
@@ -69107,6 +69108,7 @@ Pjöngjang	73
 Pkw	108
 Placebo	72
 Placid	82
+Placido
 Plackerei
 Plagiat	68
 Plagiate	58
@@ -69376,7 +69378,6 @@ Pluto	81
 Plutonium	78
 Plutoniums
 Plymouth	93
-Placido	63
 Plädoyer	73
 Plädoyers	51
 Pläne	116
@@ -69470,11 +69471,11 @@ Pokalwettbewerb	83
 Pokalwettbewerbe	58
 Pokalwettbewerben	58
 Pokalwettbewerbs	61
+Pokemon
 Poker	92
 Pokerspiel	57
 Pokerspieler	71
 Pokorny	59
-Pokemon	78
 Pol	97
 Polak	65
 Polanski	62
@@ -83662,6 +83663,7 @@ Sockels	67
 Sockelzone	57
 Socken	53
 Socorro	59
+Socrates
 Soda	40
 Sodas
 Sodawasser	44
@@ -90237,7 +90239,6 @@ Säume	62
 Säure	93
 Säuregehalt	57
 Säuren	90
-Socrates	62
 Söckchen
 Söder	63
 Söderberg	62
@@ -96878,6 +96879,7 @@ Vaughan	84
 Vaughn	69
 Vaux	73
 Vauxhall	75
+Vazquez
 Vechelde	64
 Vechta	83
 Vedder	61
@@ -96942,13 +96944,13 @@ Vektorräumen	63
 Vektors	70
 Vektorschreibweise
 Velasco	73
+Velazquez
 Velbert	80
 Velden	71
 Velodrom	58
 Velos
 Velours	23
 Velten	67
-Velazquez	75
 Vena	78
 Venables	61
 Vene	31
@@ -98314,6 +98316,7 @@ Verona	95
 Veronese	23
 Veronica	82
 Veronika	84
+Veronique
 Verordnung	105
 Verordnungen	92
 Verordnungsentwurf
@@ -100919,12 +100922,10 @@ Vulkansystem	53
 VwGO	85
 Vytautas	70
 VÖEST	72
-Vazquez	68
 Väter	91
 Väterchen	52
 Vätern	72
 Väth	63
-Veronique	62
 Vöcklabruck	75
 Vögel	111
 Vögele	56
@@ -106297,7 +106298,7 @@ Youngs	70
 Youssef	62
 Ypsilanti	62
 Yttrium	57
-Yucatan	76
+Yucatan
 Yucca	86
 Yukio	63
 Yukon	89
@@ -112701,6 +112702,7 @@ abändernd
 abänderndem
 abänderndes
 abänderte	58
+ac	119
 academic	53
 access	71
 accessorius	63
@@ -112844,6 +112846,7 @@ actionreiche	59
 acusticus	53
 acuta	61
 acutus	55
+ad	111
 adaptieren	76
 adaptiert	102
 adaptierte	91
@@ -112985,6 +112988,7 @@ adäquatem
 adäquaten	84
 adäquater	72
 adäquates	67
+ae	96
 aerob	72
 aerobe	73
 aeroben	79
@@ -112996,6 +113000,7 @@ aerodynamischer	68
 aerodynamisches	53
 aerostatisch
 aeruginosa	67
+af	85
 affektiert
 affektierte
 affektiertem
@@ -117407,6 +117412,7 @@ anzündete	58
 anzündeten	59
 anämisch
 anämische
+ao	93
 apart	53
 aparte
 apartem
@@ -117502,6 +117508,7 @@ apriorische	59
 apriorischen	57
 apropos
 apulischen	71
+aq
 aqua	71
 aquatische	74
 aquatischen	72
@@ -117854,6 +117861,7 @@ artspezifisch	72
 artverwandt
 artverwandte	57
 artverwandten	64
+as	115
 ascendens	66
 aschfahl
 aschfahle
@@ -117942,6 +117950,7 @@ asynchronem
 asynchronen	74
 asynchroner	54
 asynchrones	51
+at
 atemberaubend	63
 atemberaubende	71
 atemberaubenden	71
@@ -123268,6 +123277,8 @@ avisieren
 avisiert	62
 avisierte	57
 avisierten	58
+aw	79
+ax	76
 axial	84
 axiale	79
 axialen	80
@@ -123277,6 +123288,7 @@ axiomatisch	64
 axiomatische	74
 axiomatischen	74
 axiomatischer	59
+az	96
 aztekische	73
 aztekischen	84
 azul	56
@@ -123286,6 +123298,7 @@ azyklisch
 aß	83
 aßen	78
 aßest
+ba	95
 babylonisch	64
 babylonische	84
 babylonischen	96
@@ -123643,6 +123656,8 @@ bayrischem
 bayrischen	102
 bayrischer	75
 bayrisches	55
+bb	92
+be	108
 beabsichtige	75
 beabsichtigen	73
 beabsichtigend
@@ -129156,6 +129171,9 @@ beängstigtes
 beängstigtet
 beäugen
 beäugt	69
+bf	88
+bg	94
+bi	82
 bianca	62
 bianco	70
 bias	65
@@ -129434,12 +129452,14 @@ bitterste	53
 bittersten	55
 bittet	115
 bitweise	68
+biz	71
 bizarr	75
 bizarre	88
 bizarrem
 bizarren	87
 bizarrer	65
 bizarres	62
+bj
 blamabel
 blamablen	57
 blamiere
@@ -129808,6 +129828,9 @@ blütenreiche	52
 blütentragende	62
 blütenweiß
 blütenübersät
+bm	89
+bn	79
+bo	63
 board	74
 boarding	54
 bocken	40
@@ -129967,6 +129990,8 @@ boykottieren	77
 boykottiert	87
 boykottierte	78
 boykottierten	81
+bq
+br	104
 brach	131
 brachen	109
 brachial	53
@@ -130405,7 +130430,9 @@ brütet	103
 brütete	67
 brüteten	70
 brütetest
+bs	88
 bspw	107
+bt	88
 buchbar	59
 buchen	82
 buchend
@@ -130566,6 +130593,8 @@ bußfertige
 bußfertigem
 bußfertiger
 bußfertiges
+bw	57
+by
 byteweise
 byzantinisch	72
 byzantinische	105
@@ -130792,6 +130821,7 @@ cauda	51
 causa	87
 cause	70
 cava	71
+cc	96
 ccm	87
 cella	70
 central	75
@@ -130803,6 +130833,9 @@ cerebri	78
 cerebrospinalis	75
 cervicale	60
 cetera	68
+cf	95
+cg	78
+ch	109
 chain	70
 chains	50
 chairman	53
@@ -130990,6 +131023,7 @@ chronologischer	91
 chronologisches	51
 chung	50
 church	66
+ci	82
 ciao	55
 cineastisch
 cineastische	58
@@ -131004,6 +131038,8 @@ citizens	55
 ciudad	58
 civil	82
 civitas	87
+ck	69
+cl	88
 claims	50
 claire	63
 classic	73
@@ -131019,6 +131055,7 @@ client	55
 close	68
 clouds	56
 cm	146
+cn	93
 codieren	74
 codierende	59
 codierenden	61
@@ -131032,6 +131069,7 @@ colli	57
 colonia	57
 color	69
 colspan	70
+com	114
 commerce	70
 commercial	65
 common	81
@@ -131091,6 +131129,7 @@ courant	51
 court	67
 cover	63
 covern	68
+cr	91
 crassus	54
 cremefarben	90
 cremefarbene	71
@@ -131106,6 +131145,7 @@ cruise	58
 cruiser	53
 cruris	61
 crux	54
+cu	66
 cuisine	58
 cultural	72
 cura	67
@@ -131116,7 +131156,12 @@ curtis	70
 curve	51
 customer	57
 cutis	54
+cv	108
+cw	77
+cx	74
+cy
 cyclischen	71
+cz	77
 d'Estaing	69
 d'Italia	92
 d'Ivoire	69
@@ -132943,6 +132988,9 @@ dividierter
 diözesane	61
 diözesanen	72
 diözisch	87
+dj	119
+dk	92
+do	123
 doch	151
 dockte	73
 documenta	107
@@ -134659,6 +134707,7 @@ dynamischsten	60
 dynamischster
 dynastische	83
 dynastischen	85
+dz	77
 dächte
 dächten
 dämlich	55
@@ -134855,6 +134904,7 @@ ebnen	74
 ebnet	63
 ebnete	91
 ebneten	74
+ec	114
 echt	97
 echte	116
 echtem	82
@@ -134905,6 +134955,8 @@ edlere	58
 edleren	63
 edleres
 edles	68
+edu	59
+ee	75
 effekthaschend
 effektiv	109
 effektive	107
@@ -142825,6 +142877,7 @@ etymologische	83
 etymologischen	79
 etymologischer	63
 etymologisches	51
+eu	125
 euch	105
 eucharistischen	75
 euer	75
@@ -144530,6 +144583,7 @@ feurigsten
 feurigster
 feurigstes
 ff	114
+fi	72
 ficht	59
 fichtst
 ficken	62
@@ -144806,6 +144860,8 @@ fixierter	59
 fixiertes	56
 fixiertest
 fixiertet
+fj
+fk
 flach	117
 flachbrüstig
 flachdrücken
@@ -145280,6 +145336,7 @@ flüsterte	54
 flüsterten
 flüstertest
 flüstertet
+fo	77
 focht	86
 fochten	72
 focus	60
@@ -147181,6 +147238,7 @@ fütterte	57
 fütterten
 füttertest
 füttertet
+ga	94
 gab	162
 gabelig	72
 gabelndes
@@ -147396,6 +147454,8 @@ gastweise	53
 gata	52
 gauge	53
 gaukelt	56
+gd	81
+ge	96
 geachtet	106
 geachtete	72
 geachtetem
@@ -153686,10 +153746,14 @@ geübtem
 geübten	82
 geübter	68
 geübtes
+gf	92
+gg	111
 ggf	114
+gh
 ghanaische	79
 ghanaischen	89
 ghanaischer	79
+gi	82
 gib	79
 gibst	56
 gibt	165
@@ -154237,6 +154301,8 @@ glüht	59
 glühte
 glühten
 glühtest
+gm	98
+gn
 gnadenlos	81
 gnadenlose	68
 gnadenlosen	71
@@ -154326,6 +154392,10 @@ gottlosen	68
 gottverlassen
 goutieren
 gouvernement	57
+gov
+gp	108
+gq	71
+gr	105
 grabe	34
 grabend	58
 grabende	72
@@ -155049,6 +155119,9 @@ grüßende
 grüßt	76
 grüßte	62
 grüßten	59
+gs	94
+gt	108
+gu
 guatemaltekischen	74
 guatemaltekischer	69
 guck	34
@@ -155171,6 +155244,8 @@ gutzumachen	60
 gutzumachenden
 gutzuschreiben
 guys	58
+gw	85
+gy	43
 gymnasial
 gymnasiale	82
 gymnasialen	87
@@ -159211,6 +159286,9 @@ hitziges
 hitzigste
 hitzigsten
 hitzigstes
+hk	113
+hm	79
+hn
 hob	113
 hobeln	43
 hobelnd
@@ -159747,9 +159825,12 @@ horteten
 hospitierte	71
 host	59
 houses	62
+hr	89
 hrsg	85
 hrvatska	53
+ht	76
 http	98
+hu	69
 huckepack	55
 hufeisenförmig	76
 hufeisenförmige	76
@@ -160331,6 +160412,7 @@ ichbezogene
 ichbezogenem
 ichbezogenen
 ichbezogenes
+id	97
 idas	55
 idealem	55
 idealen	106
@@ -160474,6 +160556,7 @@ idyllischste
 idyllischstem
 idyllischster
 idyllischstes
+ie	80
 igeln	14
 ignorant	58
 ignorante
@@ -160511,6 +160594,7 @@ ihretwegen	69
 ihretwillen
 ihrige	47
 ihrigen	59
+il	99
 ilex	57
 illegal	110
 illegale	107
@@ -161476,6 +161560,7 @@ inszenierter	74
 inszeniertes	68
 inszeniertest
 inszeniertet
+int	84
 intakt	97
 intakte	91
 intaktem	69
@@ -161845,6 +161930,7 @@ inwendigen
 inwiefern	89
 inwieweit	102
 inzwischen	141
+io	71
 ionische	87
 ionischen	95
 ionischer	73
@@ -161858,6 +161944,7 @@ ionisiertem	57
 ionisierten	73
 ionisiertes	58
 ipso	58
+ir	93
 irakische	97
 irakischen	103
 irakischer	82
@@ -162022,6 +162109,7 @@ irrtümlichen	69
 irrtümlicher
 irrtümlicherweise	80
 irrtümliches
+is	120
 ischämische	58
 ischämischen	64
 ischämischer	50
@@ -162087,6 +162175,7 @@ israelitischen	88
 iss	106
 isst	91
 ist	197
+it	114
 ital	110
 italiano	64
 italica	60
@@ -162246,6 +162335,8 @@ jiddische	83
 jiddischen	86
 jiddischer	78
 jiddisches	51
+jm
+jo	68
 jobben
 jobbt	63
 jobbte	78
@@ -162265,6 +162356,7 @@ journalistische	101
 journalistischen	98
 journalistischer	78
 journalistisches	70
+jp	74
 jubeln	70
 jubelnd	63
 jubelnde	52
@@ -163204,6 +163296,7 @@ kauzigen	60
 kavitös
 kbit	89
 kcal	81
+ke
 keck	52
 keckem
 kecken	52
@@ -163481,6 +163574,8 @@ keuschestem
 keuschester
 keuschestes
 kg	137
+kh
+ki	95
 kichere
 kichern	41
 kichernd
@@ -164212,6 +164307,7 @@ klügsten	56
 klügster
 klügstes
 km	164
+kn	98
 knabbern	52
 knabbernd
 knabbernde
@@ -165810,6 +165906,8 @@ kotzen	46
 kovalent	78
 kovalente	75
 kovalenten	69
+kp	94
+kr	61
 krabbeln	63
 krabbelnden
 krabbelt	54
@@ -166557,6 +166655,7 @@ kuschitischen	69
 kuscht
 kutane	55
 kutanen	53
+ky
 kybernetisch
 kybernetische	63
 kybernetischen	65
@@ -166566,6 +166665,7 @@ kyrillische	84
 kyrillischen	90
 kyrillischer	78
 kyrillisches	57
+kz	127
 kältebeständig
 kältebeständige
 kältebeständigem
@@ -166842,6 +166942,7 @@ küsstest
 küstennah	72
 küstennahe	78
 küstennahen	93
+la	141
 labe	44
 laben	53
 labend
@@ -167360,6 +167461,8 @@ lawinenartig
 lax	55
 laxe	54
 laxen	58
+lb	88
+lc	90
 leader	79
 lease	51
 leasen	57
@@ -168000,6 +168103,7 @@ lexikalisches	56
 lexikographisch	51
 lexikographische	66
 lexikographischen	56
+li
 libanesische	89
 libanesischen	97
 libanesischer	81
@@ -168426,6 +168530,7 @@ lizenzierte	88
 lizenzierten	83
 lizenzierter	65
 lizenziertes	55
+lk	71
 lobe	55
 loben	85
 lobend	83
@@ -168702,7 +168807,10 @@ loyal	96
 loyale	83
 loyalen	84
 loyaler	78
+lr	85
+ls
 lt	92
+lu	69
 luce	53
 luchsen	47
 lucky	51
@@ -168812,6 +168920,8 @@ luxuriöseste	60
 luxuriösesten	62
 luxuriösester
 luxuriösestes
+lv
+ly
 lymphatische	64
 lymphatischen	75
 lymphozytäre	52
@@ -169059,6 +169169,7 @@ lüsternen	57
 mGal
 mRNA	91
 mW	113
+ma	93
 mach	78
 machbar	85
 machbare	53
@@ -169723,6 +169834,9 @@ maßvollem
 maßvollen	60
 maßvolles
 mbar
+mc	105
+md	86
+me	109
 meat	55
 mechanisch	108
 mechanische	118
@@ -170300,6 +170414,7 @@ mexikanischen	116
 mexikanischer	100
 mexikanisches	69
 mg	113
+mh	72
 miao	71
 miauen	43
 miauend
@@ -171232,10 +171347,13 @@ mixend
 mixt	59
 mixte	69
 mixten
+mk	99
 ml	100
 mm	144
 mmHg	79
 mmol	78
+mn	77
+mo	74
 mobil	91
 mobile	107
 mobilem	58
@@ -171642,7 +171760,12 @@ motu	58
 motzen	23
 moulin	51
 mouse	52
+mq	69
+mr	108
+ms	106
+mt	72
 mtDNA	73
+mu
 muffig	53
 muffige
 muffigen	55
@@ -171889,6 +172012,9 @@ mutwilligem
 mutwilligen	55
 mutwilliger	53
 mutwilliges
+mv	89
+mx	77
+my
 mykenische	76
 mykenischen	84
 mykenischer	69
@@ -171914,6 +172040,7 @@ mythologische	96
 mythologischen	98
 mythologischer	76
 mythologisches	65
+mz	82
 mäanderartig
 mäanderförmig	52
 mäandern	31
@@ -173089,6 +173216,8 @@ nautischer	61
 nautisches	51
 navigieren	71
 navigiert	64
+nc	81
+ne	96
 neapolitanische	75
 neapolitanischen	86
 nebelfrei
@@ -173307,6 +173436,7 @@ nervöseste
 nervösesten
 nervösester
 nervösestes
+net	98
 nett	79
 nette	84
 nettem
@@ -173566,6 +173696,9 @@ news	72
 newtonsche	67
 newtonschen	71
 newtonsches	34
+nf	81
+ng	85
+ni	93
 nicaraguanischen	73
 nicht	183
 nichtakademisch
@@ -173962,7 +174095,9 @@ nivellieren	51
 nivellierenden
 nivelliert	66
 nivellierten	53
+nl	93
 nm	109
+no	121
 nobel	53
 noble	76
 noblem
@@ -174218,7 +174353,9 @@ novellieren
 novelliert	73
 novels	51
 novo	70
+np	88
 ns	87
+nu	77
 nuancieren
 nuanciert	51
 nuancierte	53
@@ -174290,6 +174427,7 @@ nutzlosestes
 nutzt	122
 nutzte	127
 nutzten	118
+nz	75
 nächst	98
 nächstbeste
 nächstbesten	56
@@ -174801,6 +174939,7 @@ olympisch	79
 olympischen	112
 olympischer	74
 olympisches	81
+om	88
 ominös
 ominöse	63
 ominösen	66
@@ -175014,6 +175153,7 @@ ordnungswidrigen
 ordnungswidriger
 ordnungswidriges
 ordre	73
+org	102
 organisatorisch	101
 organisatorische	103
 organisatorischem	52
@@ -175263,6 +175403,7 @@ ozeanisches	58
 ozeanographisch
 ozeanographische	57
 ozeanographischen	59
+pa	85
 paar	123
 paarig	85
 paarige	81
@@ -175823,6 +175964,7 @@ pazifistische	82
 pazifistischen	85
 pazifistischer	65
 pazifistisches	52
+pe	85
 peace	73
 pechschwarz	51
 pechschwarze
@@ -176274,6 +176416,8 @@ pfändest
 pfändete
 pfändeten
 pfändetest
+pg	78
+ph	69
 phantasiere
 phantasieren
 phantasierend
@@ -176511,6 +176655,8 @@ pittoresk
 pittoreske	68
 pittoresken	72
 pittoresker
+pk	76
+pl	89
 placement	52
 plage	50
 plagen	75
@@ -176719,6 +176865,8 @@ plündert	62
 plünderte	88
 plünderten	102
 plündertet
+pm	88
+pn	77
 pneumatisch	80
 pneumatische	85
 pneumatischen	84
@@ -178167,6 +178315,7 @@ prügeln	71
 prügelt	65
 prügelte	59
 prügelten	62
+ps	133
 pseudo
 pseudonyme	51
 pseudonymen	46
@@ -178389,6 +178538,8 @@ putzt	65
 putzte
 putzten
 putztest
+pw
+py
 pylori	72
 pyogenes	63
 pyramidenförmig	72
@@ -178430,6 +178581,7 @@ pünktlichste
 pünktlichstem
 pünktlichster
 pünktlichstes
+qa
 quaderförmigen	71
 quadratisch	97
 quadratische	107
@@ -179117,6 +179269,7 @@ raussuchen
 rauszubekommen
 rauszukriegen
 rautenförmigen	71
+re
 reading	66
 reagiere	61
 reagieren	116
@@ -180884,6 +181037,7 @@ rivalisiert
 rivalisierte	56
 rivalisierten	58
 rivalisiertest
+ro
 road	72
 robbt
 robbte
@@ -181078,6 +181232,8 @@ routinierter	56
 royal	80
 royale	85
 royalistischen	78
+rs	97
+ru	75
 ruandischen	73
 rubbeln
 rubens	56
@@ -181284,6 +181440,7 @@ rutschtet
 rußgeschwärzt
 rußig
 rußigen
+rw	83
 räche
 rächen	104
 rächend
@@ -182040,6 +182197,8 @@ saxophonist	62
 saß	122
 saßen	106
 saßest
+sb	95
+sc	133
 scala	52
 scannen	63
 scannt	56
@@ -185529,6 +185688,8 @@ script	63
 scrollen	54
 scrollte
 scrollten
+sd	106
+se	100
 sec	90
 sechs	152
 sechsachsige	72
@@ -186346,6 +186507,8 @@ seziertem
 sezierter
 seziertes
 seziertest
+sg	120
+sh	88
 shan	60
 share	64
 sharing	53
@@ -186359,6 +186522,7 @@ shop	57
 short	81
 shows	59
 shuffle	62
+si	95
 siamesische	69
 siamesischen	77
 sibirisch
@@ -186889,6 +187053,7 @@ sizilianischen	94
 sizilianischer	72
 sizilianisches
 sizilischen	70
+sk	118
 skalares
 skalierbar	60
 skalierbare	58
@@ -186984,6 +187149,7 @@ skurriles	58
 skurrilste
 skurrilsten
 skythischen	69
+sl	99
 slave	55
 slawisch	85
 slawische	107
@@ -187003,6 +187169,7 @@ slowenische	97
 slowenischen	106
 slowenischer	94
 slowenisches	58
+sm	104
 small	82
 smaragdgrün	60
 smaragdgrüne	55
@@ -187010,6 +187177,7 @@ smart	75
 smarte	58
 smarten	63
 smoke	53
+sn	82
 so	172
 sobald	113
 social	86
@@ -188312,6 +188480,8 @@ spürte	83
 spürten	68
 spürtest
 square	73
+sr	102
+st	143
 staatenbildenden	58
 staatenlos	70
 staatenlose	59
@@ -190182,6 +190352,7 @@ stützt	108
 stützte	103
 stützten	89
 stütztest
+su	82
 subakute	56
 subakuten	52
 subalpine	75
@@ -190451,10 +190622,13 @@ suspendierten	73
 suspendierter
 suspendiertes
 suspendiertet
+sv	132
 svenska	57
 swingen	41
 swingende	64
 swingenden	66
+sx	72
+sy
 sybillinisch
 symbolhaft	71
 symbolisch	106
@@ -190594,6 +190768,7 @@ systemnahe	51
 systemweite	51
 systolische	56
 systolischen	64
+sz	92
 szenisch	70
 szenische	86
 szenischen	84
@@ -191374,6 +191549,8 @@ taxiertet
 taxonomisch	74
 taxonomische	84
 taxonomischen	79
+tc	93
+td	85
 tech	56
 techn
 technical	56
@@ -191773,6 +191950,9 @@ textliche	74
 textlichen	76
 textlicher	61
 textuell
+tf	84
+tg
+th	107
 thailändisch	57
 thailändische	93
 thailändischem	53
@@ -192045,6 +192225,12 @@ titulierten	69
 titulierter
 tituliertes
 tituliertest
+tj	91
+tk
+tl	76
+tm	85
+tn	74
+to
 toaste
 toasten
 toastende
@@ -192333,6 +192519,7 @@ toxische	88
 toxischen	84
 toxischer	67
 toxisches	52
+tr	83
 trabe
 traben	38
 trabende
@@ -193442,6 +193629,7 @@ tschetschenischen	77
 tschetschenischer	61
 tschüs
 tschüss	54
+tt	91
 tu	115
 tuberkulös
 tuberkulöse	55
@@ -193586,6 +193774,8 @@ tutender
 tutet
 tutete
 tuteten
+tv	128
+tw	84
 twist	53
 typisch	122
 typische	127
@@ -193645,6 +193835,7 @@ tyrannisierter
 tyrannisiertes
 tyrannisiertet
 tyrrhenischen	55
+tz
 täfeln
 täfelnde
 täfelnden
@@ -193865,6 +194056,7 @@ türmt	53
 türmte
 türmten
 türmtest
+ua	87
 ubiquitär	70
 ubiquitären	53
 uferlos
@@ -193872,8 +194064,10 @@ uferlose
 uferlosem
 uferlosen
 uferloses
+ug	71
 ugandischen	76
 uigurischen	64
+uk	109
 ukrainisch	107
 ukrainische	102
 ukrainischen	108
@@ -200709,6 +200903,9 @@ utopische	78
 utopischen	84
 utopischer	65
 utopisches	59
+uy
+uz
+va	86
 vage	95
 vagem
 vagen	76
@@ -200771,6 +200968,8 @@ vaterländisches	40
 vatikanische	72
 vatikanischen	84
 vatikanischer	71
+vc	92
+ve	95
 vector	53
 vedischen	79
 vegetabilisch
@@ -208651,7 +208850,9 @@ verübter	52
 verübtest
 verübtet
 vestibulären	54
+vg	93
 vgl	131
+vi
 via	116
 vibrieren	63
 vibrierend
@@ -209104,6 +209305,7 @@ vitro	86
 vive	51
 vivendi	57
 vivo	81
+vn	75
 voce	62
 vogelfrei	69
 vogelähnlichen	55
@@ -210483,6 +210685,7 @@ votieren	59
 votiert	68
 votierte	78
 votierten	81
+vu	78
 vulgo	75
 vulgär	71
 vulgäre	69
@@ -212846,6 +213049,7 @@ wetzt
 wetzte
 wetzten
 wetztet
+wf
 white	83
 wich	103
 wichen	93
@@ -214645,6 +214849,7 @@ wringendes
 wringst
 wringt
 write	68
+ws	89
 wuchere
 wucherhaft
 wucherisch
@@ -215212,9 +215417,12 @@ xerographieren
 yang	54
 yard	64
 yards	81
+ye
 yeah	64
 young	78
+yt
 yuan	51
+za
 zackig
 zackigen	53
 zaghaft	71
@@ -216860,6 +217068,7 @@ zivilrechtlichem
 zivilrechtlichen	83
 zivilrechtlicher	63
 zivilrechtliches
+zm
 zog	150
 zogen	132
 zogst
@@ -220202,6 +220411,7 @@ zuzählende
 zuzählender
 zuzählendes
 zuzüglich	95
+zw
 zwangen	105
 zwanghaft	64
 zwanghafte	64
