@@ -43,10 +43,7 @@ function cleanSpecialChars(line) {
 	}
 
 	return line
-		.replaceAll(/[\x01-\x20]+/g, ' ')
-		.replaceAll(/[&\s,":;\*/]+/g, ' ')
-		.replaceAll(/\s+/g, ' ')
-		.replaceAll(/[\[\]\.\?\(\)]/g, '')
+		.replace(/[\x01-\x20&",:;*\/\[\].?()]+/g, ' ')
 		.split(' ')
 		.filter(w => w.length > 1 && !digits.test(w));
 }
@@ -57,48 +54,50 @@ function splitDashedWords(inputWords) {
 		return [];
 	}
 
-	const roots = {};
-	const words = {};
+	const wordsSet = new Set();
 
 	for (const word of inputWords) {
 		if (!word.includes('-')) {
-			words[word] = true;
+			wordsSet.add(word);
 			continue;
 		}
 
 		const parts = word.split('-');
+		let root = '';
+
 		for (let i = 0; i < parts.length - 1; i++) {
-			const key = `${parts[i]}-`;
-			if (key in roots) {
-				words[key] = true;
-			} else {
-				roots[key] = true;
-				words[parts[i]] = true;
-			}
+			root += `${parts[i]}-`;
+			wordsSet.add(root);
 		}
 
-		words[parts[parts.length - 1]] = true;
+		wordsSet.add(parts[parts.length - 1]);
 	}
 
-	return Object.keys(words);
+	return Array.from(wordsSet);
 }
+
 
 
 async function work({ fileName }) {
-	words = [];
+	const wordsSet = new Set();
 
-	let lineReader = createInterface({ input: createReadStream(fileName) });
+	const lineReader = createInterface({ input: createReadStream(fileName) });
+
 	for await (const line of lineReader) {
-		newWords = cleanSpecialChars(line);
+		const newWords = cleanSpecialChars(line);
 
-		words = [
-			...words,
-			...newWords
-		];
+		for (let i = 0; i < newWords.length; i++) {
+			wordsSet.add(newWords[i]);
+		}
 	}
 
-	return splitDashedWords(words).filter(w => w.length > 1).sort();
+	const wordsArray = Array.from(wordsSet);
+	const splitWords = splitDashedWords(wordsArray);
+	const filteredAndSortedWords = splitWords.filter(word => word.length > 1).sort();
+
+	return filteredAndSortedWords;
 }
+
 
 
 /** main **/
