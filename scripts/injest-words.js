@@ -54,26 +54,35 @@ function splitDashedWords(inputWords) {
 		return [];
 	}
 
-	const wordsSet = new Set();
+	const dashedRoots = new Set();
+	const repeatingDashedRoots = new Set();
 
 	for (const word of inputWords) {
-		if (!word.includes('-')) {
-			wordsSet.add(word);
+		const [root, ...others] = word.split('-');
+		if (root === undefined || others.length != 1) {
 			continue;
 		}
 
-		const parts = word.split('-');
-		let root = '';
-
-		for (let i = 0; i < parts.length - 1; i++) {
-			root += `${parts[i]}-`;
-			wordsSet.add(root);
+		if (dashedRoots.has(root)) {
+			repeatingDashedRoots.add(root);
+		} else {
+			dashedRoots.add(root);
 		}
-
-		wordsSet.add(parts[parts.length - 1]);
 	}
 
-	return Array.from(wordsSet);
+	const outputWords = new Set();
+
+	for (const word of inputWords) {
+		const [root, ...others] = word.split('-');
+		if (root && others.length === 1 && repeatingDashedRoots.has(root)) {
+			outputWords.add(`${root}-`);
+			outputWords.add(others.join('-'));
+		} else {
+			outputWords.add(word);
+		}
+	}
+
+	return Array.from(outputWords);
 }
 
 
