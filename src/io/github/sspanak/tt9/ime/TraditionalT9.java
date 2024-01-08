@@ -357,7 +357,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		clearSuggestions();
+		acceptIncompleteSuggestion();
 
 		String word = textField.getSurroundingWord(mLanguage);
 		if (word.isEmpty()) {
@@ -421,10 +421,10 @@ public class TraditionalT9 extends KeyPadHandler {
 			filter = getComposingText();
 		}
 
-		if (mInputMode.setWordStem(filter, repeat)) {
-			mInputMode.loadSuggestions(this::getSuggestions, filter);
-		} else if (filter.length() == 0) {
+		if (filter.isEmpty()) {
 			mInputMode.reset();
+		} else if (mInputMode.setWordStem(filter, repeat)) {
+			mInputMode.loadSuggestions(this::getSuggestions, filter);
 		}
 
 		return true;

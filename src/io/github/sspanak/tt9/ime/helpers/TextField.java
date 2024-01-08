@@ -185,8 +185,8 @@ public class TextField {
 		Matcher before;
 		Matcher after;
 
-		if (language != null && language.isUkrainian()) {
-			// Ukrainian uses apostrophes as letters
+		if (language != null && (language.isHebrew() || language.isUkrainian())) {
+			// Hebrew and Ukrainian use apostrophes as letters
 			before = beforeCursorUkrainianRegex.matcher(getTextBeforeCursor());
 			after = afterCursorUkrainianRegex.matcher(getTextAfterCursor());
 		} else {

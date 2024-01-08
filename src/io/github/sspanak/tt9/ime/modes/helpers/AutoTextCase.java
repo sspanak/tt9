@@ -29,9 +29,7 @@ public class AutoTextCase {
 			case InputMode.CASE_LOWER:
 				return word.toLowerCase(language.getLocale());
 			case InputMode.CASE_CAPITALIZE:
-				return language.isMixedCaseWord(word) ? word : language.capitalize(word);
-			case InputMode.CASE_DICTIONARY:
-				return language.isMixedCaseWord(word) ? word : word.toLowerCase(language.getLocale());
+				return language.isMixedCaseWord(word) || language.isUpperCaseWord(word) ? word : language.capitalize(word);
 			default:
 				return word;
 		}
