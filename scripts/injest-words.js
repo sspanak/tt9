@@ -4,8 +4,9 @@ const { createInterface } = require('readline');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} word-list.txt`);
+	console.log(`Usage ${basename(process.argv[1])} word-list.txt [split-ignore-list.txt]`);
 	console.log('Breaks dashed words into separate words, puts multiple words on a line on new lines and deletes repeating new lines.');
+	console.log('The split-ignore-list is optional. Allows for not splitting certain words by dashes.');
 }
 
 
@@ -21,9 +22,15 @@ function validateInput() {
 		process.exit(2);
 	}
 
-	return {
-		fileName: process.argv[2]
+	if (process.argv[3] && !existsSync(process.argv[3])) {
+		console.error(`Failure! Could not ignore list file "${process.argv[3]}."`);
+		process.exit(2);
 	}
+
+	return {
+		fileName: process.argv[2],
+		ignoreListFileName: process.argv[3]
+	};
 }
 
 
@@ -49,15 +56,21 @@ function cleanSpecialChars(line) {
 }
 
 
-function splitDashedWords(inputWords) {
-	if (!Array.isArray(inputWords)) {
+function splitDashedWords(inputWords, ignoreList) {
+	const ignoreWords = ignoreList instanceof Set ? ignoreList : new Set();
+	if (!(inputWords instanceof Set)) {
 		return [];
 	}
 
 	const dashedRoots = new Set();
 	const repeatingDashedRoots = new Set();
+	const outputWords = new Set();
 
 	for (const word of inputWords) {
+		if (ignoreWords.has(word)) {
+			continue;
+		}
+
 		const [root, ...others] = word.split('-');
 		if (root === undefined || others.length != 1) {
 			continue;
@@ -69,8 +82,6 @@ function splitDashedWords(inputWords) {
 			dashedRoots.add(root);
 		}
 	}
-
-	const outputWords = new Set();
 
 	for (const word of inputWords) {
 		const [root, ...others] = word.split('-');
@@ -86,22 +97,24 @@ function splitDashedWords(inputWords) {
 }
 
 
+async function readWords(fileName) {
+	const words = new Set();
 
-async function work({ fileName }) {
-	const wordsSet = new Set();
-
-	const lineReader = createInterface({ input: createReadStream(fileName) });
-
-	for await (const line of lineReader) {
-		const newWords = cleanSpecialChars(line);
-
-		for (let i = 0; i < newWords.length; i++) {
-			wordsSet.add(newWords[i]);
-		}
+	if (!fileName) {
+		return words;
 	}
 
-	const wordsArray = Array.from(wordsSet);
-	const splitWords = splitDashedWords(wordsArray);
+	for await (const line of createInterface({ input: createReadStream(fileName) })) {
+		cleanSpecialChars(line).forEach(w => words.add(w));
+	}
+
+	return words;
+}
+
+
+async function work({ fileName, ignoreListFileName }) {
+	const [ words, ignoreList ] = await Promise.all([ readWords(fileName), readWords(ignoreListFileName) ]);
+	const splitWords = splitDashedWords(words, ignoreList);
 	const filteredAndSortedWords = splitWords.filter(word => word.length > 1).sort();
 
 	return filteredAndSortedWords;
