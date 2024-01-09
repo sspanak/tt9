@@ -5,7 +5,7 @@ abcString: ابت
 hasUpperCase: no
 layout:
   - [SPECIAL] # 0
-  - [PUNCTUATION,؟] # 1
+  - [PUNCTUATION,؟,ى,ئ] # 1
   - [ب,ت,ة,ث] # 2
   - [ا,ء] # 3
   - [س,ش,ص,ض] # 4
