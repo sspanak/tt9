@@ -1,5 +1,6 @@
-Source: https://github.com/a3f/arabic-wordlists
-File: arzwiki.freqlist
-https://arz.wikipedia.org/
-
-License: CC BY-SA 4.0
+Source: https://github.com/jamalamch/Arabic-Words/
+File: AllListWordArabic.txt
+Fork of: https://github.com/OSINTAI/Arabic-Dictionaries
+Author: Reinhart Pieter Anne Dozy - رينهارت بيتر آن دُوزِي
+من معجم العين، لسان العرب، و تاج العروس من جواهر القاموس
+المؤلفات: أبو عبد الرحمن الخليل بن أحمد بن عمرو بن تميم الفراهيدي البصري (المتوفى: 170هـ)، محمد بن مكرم بن على، أبو الفضل، جمال الدين ابن منظور الأنصاري الرويفعى الإفريقى (المتوفى: 711هـ)، و محمّد بن محمّد بن عبد الرزّاق الحسيني، أبو الفيض، الملقّب بمرتضى، الزَّبيدي (المتوفى: 1205هـ)
