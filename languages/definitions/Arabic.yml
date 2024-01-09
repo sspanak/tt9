@@ -1,0 +1,16 @@
+---
+locale: ar-JO
+dictionaryFile: ar-JO-utf8.txt
+abcString: ابت
+hasUpperCase: no
+layout:
+  - [SPECIAL] # 0
+  - [PUNCTUATION,؟] # 1
+  - [ب,ت,ة,ث] # 2
+  - [ا,ء] # 3
+  - [س,ش,ص,ض] # 4
+  - [د,ذ,ر,ز] # 5
+  - [ج,ح,خ] # 6
+  - [ن,ه,و,ي] # 7
+  - [ف,ق,ك,ل,م] # 8
+  - [ط,ظ,ع,غ] # 9
