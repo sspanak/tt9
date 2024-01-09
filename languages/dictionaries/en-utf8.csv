@@ -6897,6 +6897,7 @@ DRMC	52
 DSLAM	59
 DSLR	71
 DSLRs	68
+DSP	89
 DSPs	58
 DSTO	48
 DTDs	56
@@ -7683,6 +7684,7 @@ Diprose
 Dipton
 Dirac	79
 DirecTV	92
+DirectX
 Dirichlet	53
 Dirk	56
 Disa
@@ -9197,6 +9199,7 @@ FDTD	56
 FEMA	86
 FEMS	27
 FETs	55
+FHD
 FIAC	59
 FIBA	98
 FICA	62
@@ -9228,6 +9231,7 @@ FTPed	1
 FTSE	83
 FUBAR	45
 FUNs	21
+FWVGA
 Fabasoft
 Faber	82
 Faberg	1
@@ -9941,6 +9945,7 @@ Fredric
 Fredrick
 Fredrickson	45
 Fredrikstad	65
+FreeSync
 Freecom
 Freedomite	1
 Freedomites	18
@@ -10120,6 +10125,7 @@ Fynn
 Fyodor	76
 Fywell
 GATT	74
+GCN
 GCSE	97
 GCSEs	81
 GCSI	63
@@ -11495,6 +11501,7 @@ HBOS	62
 HBase
 HC
 HCA	70
+HD	117
 HDDs	56
 HDMI	81
 HDTV	58
@@ -11524,6 +11531,7 @@ HTML	102
 HUAC	74
 HVAC	80
 HVDC	79
+HVGA
 Ha'il
 Haag	70
 Haarlem	80
@@ -19200,7 +19208,6 @@ Mickie	61
 Mickiewicz	62
 Micky	71
 Micmac	48
-micro-
 MicroStation	51
 MicroStrategy	57
 Microbacterium	1
@@ -21448,6 +21455,8 @@ Opal	73
 Opalesque	10
 Opel	83
 OpenAI
+OpenCL
+OpenGL
 OpenOffice	80
 OpenText
 Openability	1
@@ -23212,8 +23221,15 @@ Pythagorean	74
 Pythagoreans	52
 Pythias
 QARC	53
+QHD
+QQVGA
 QR	32
+QSXGA
+QUXGA
+QVGA
 QWERTY	40
+QWXGA
+QXGA
 Qacentina
 Qadarif
 Qaddafi	37
@@ -23393,6 +23409,7 @@ RTLS	50
 RTPM	18
 RTUs	46
 RTX
+RX	58
 RZA
 Raab
 Raanana
@@ -24754,6 +24771,7 @@ SUNY	92
 SUNeVision
 SUSE
 SUVs	84
+SVGA
 SWAD	25
 SWAK	25
 SWAPO	79
@@ -24761,6 +24779,7 @@ SWAT	59
 SWCCG	18
 SWCS	38
 SWOB	1
+SXGA
 SXML	55
 SYLA
 SYSPRO
@@ -28121,6 +28140,7 @@ Tepexpan
 Tepic	43
 Teques
 Ter
+TeraScale
 TeraWulf
 Terach
 Teradata
@@ -29006,6 +29026,7 @@ Trudgeon	1
 Trudi	45
 Trudie	44
 Trudy	67
+TrueAudio
 TrueBlue	28
 TrueCar
 TrueType	71
@@ -29261,6 +29282,7 @@ UCSD	80
 UCSF	72
 UCT
 UConn	81
+UHD
 UK	149
 UKTV	79
 ULBC	10
@@ -29322,6 +29344,7 @@ USSR	118
 USTA	74
 UTSA	61
 UUNET	54
+UXGA
 Ubach
 Ubangi	46
 Ubayyid
@@ -29608,9 +29631,12 @@ VAXes	31
 VCR	80
 VCRs	71
 VDSL	56
+VGA	85
+VII
 VIMS	38
 VIP	98
 VIZIO
+VLIW
 VLSI	75
 VMAs	58
 VMware	77
@@ -30135,6 +30161,7 @@ Vulcanists	1
 Vulcano
 Vulg	1
 Vulgate	40
+Vulkan
 Vusal
 Vusala
 Vuzix
@@ -30162,13 +30189,22 @@ WNBC	83
 WNEW	77
 WNYC	69
 WPS
+WQSXGA
+WQUXGA
+WQVGA
+WQXGA
 WRAAC	21
 WRAL	70
 WRNS	49
 WSJS	56
 WSOL	28
+WSVGA
+WSXGA
+WUXGA
+WVGA
 WWII	107
 WWOR	70
+WXGA
 WYES	41
 WYSIWYG	74
 Waalkes
@@ -31199,6 +31235,7 @@ X-FAB
 X-Ray
 XEmacs	51
 XFX
+XGA
 XGI
 XHTML	80
 XPG
@@ -108471,6 +108508,7 @@ micks
 micmacs
 micra	50
 micro	106
+micro-
 microAnalytical	18
 microaggression
 microaggressions
