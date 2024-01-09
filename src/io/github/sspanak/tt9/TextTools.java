@@ -7,7 +7,7 @@ public class TextTools {
 	private static final Pattern previousIsLetter = Pattern.compile("\\p{L}$");
 	private static final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
 	private static final Pattern nextToWord = Pattern.compile("\\b$");
-	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!¿¡])\\s+$");
+	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 	public static boolean containsOtherThan1(String str) {
 		return str != null && containsOtherThan1.matcher(str).find();
