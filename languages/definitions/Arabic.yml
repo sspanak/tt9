@@ -1,13 +1,13 @@
 ---
 locale: ar-JO
-dictionaryFile: ar-utf8.csv
-abcString: ابت
+dictionaryFile: ar-utf8.txt
+abcString: اﺏﺕ
 hasUpperCase: no
 layout:
   - [SPECIAL] # 0
-  - [PUNCTUATION,؟,ى,ئ] # 1
+  - [،,.,-,(,),[,],&,~,‘,’,؛,:,!,؟] # 1
   - [ب,ت,ة,ث] # 2
-  - [ا,ء] # 3
+  - [ا,أ,إ,آ,ى,ؤ,ئ,ء] # 3
   - [س,ش,ص,ض] # 4
   - [د,ذ,ر,ز] # 5
   - [ج,ح,خ] # 6
