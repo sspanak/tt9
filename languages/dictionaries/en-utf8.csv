@@ -8,6 +8,7 @@ AARP	71
 AASHTO	69
 AAUP	62
 ABEU	1
+ABIT
 ACAS	55
 ACCA	70
 ACCC	70
@@ -18,7 +19,9 @@ ACLU	86
 ACM	91
 ACTH	72
 ACTU	62
+ACube
 ADAC	66
+ADATA
 ADCs	59
 ADHD	91
 ADSL	85
@@ -35,8 +38,10 @@ AGA	53
 AI
 AIDS	105
 AIG	80
+AIO
 AIPAC	73
 AJAXian	1
+AKG
 AMD
 AMEC
 AMTD
@@ -44,6 +49,8 @@ ANOVA	60
 ANSI	90
 ANZAAS	31
 ANZUS	63
+AOC
+AOpen
 APAC	56
 APAs	50
 APCs	77
@@ -63,23 +70,31 @@ ASCII	98
 ASCs	45
 ASDS	47
 ASEAN	93
+ASIX
 ASLEF	56
 ASM
 ASME	73
 ASML
 ASPCA	63
+ASRock
 AST
 ASUS	81
+ATI
 ATM	97
+ATP	25
 ATPase	80
 ATTN	21
+ATTO
 ATVs	69
 AV	75
+AVM
+AVerMedia
 AWA
 AWAC	39
 AWACS	75
 AWOL	74
 AWOLs	21
+AWS
 Aachen	81
 Aad
 Aada
@@ -164,6 +179,7 @@ Abington	67
 Abiola
 Abira
 Abiskojokk
+Abit
 Abital
 Abkhaz	70
 Ablack
@@ -420,6 +436,7 @@ Agatha	83
 Agathe	59
 Agaze	1
 Ageo
+Agere
 Aggi	27
 Aggie	72
 Aggies	77
@@ -481,6 +498,7 @@ Aida	76
 Aidan	76
 Aiden
 Aidy
+Aigo
 Aikaterini
 Aiken	77
 Aikin
@@ -615,6 +633,7 @@ Albano
 Albans	86
 Albany	104
 Albarado
+Albatron
 Albay
 Albee	65
 Alberga
@@ -773,6 +792,7 @@ Alicante	71
 Alice	111
 Alicia	86
 Alicja
+Alienware
 Aligarh	70
 Alighieri	58
 Alik
@@ -832,6 +852,7 @@ Allscripts
 Allsebrook
 Allstate	61
 Allum
+Allwinner
 Allyce
 Allynne
 Allyson	63
@@ -893,6 +914,7 @@ Altaic	57
 Altair	68
 Altamaha
 Altamira	56
+Altec
 Alteo
 Alteratively	1
 Alteryx
@@ -1033,6 +1055,8 @@ Amirpour
 Amish	77
 Amissa
 Amit	28
+Amkette
+Amlogic
 Amman	81
 Ammar
 Amoco	56
@@ -1306,6 +1330,7 @@ Antananarivo	61
 Antarctic	48
 Antarctica	93
 Antares	55
+Antec
 Anthe	23
 Antheil
 Anthony	115
@@ -1363,7 +1388,9 @@ Aoi
 Aoife
 Aoli	1
 Aomori
+Aopen
 Aosta	67
+Apacer
 Apache	39
 Apalachicola
 Apalit
@@ -1437,6 +1464,7 @@ Aqaba	66
 Aqeel
 Aquacades	1
 Aquafresh
+Aquantia
 Aquarial	1
 Aquarian	57
 Aquarians	18
@@ -1742,6 +1770,7 @@ Asel
 Aselton
 Asenath
 Asenka
+Asetek
 Asgard	74
 Asghar
 Asha
@@ -1815,6 +1844,7 @@ Aspidiske
 Aspidosperma	18
 Asplin
 Asquith	74
+Asrock
 Assad	73
 Assam	92
 Assamese	75
@@ -1873,6 +1903,7 @@ Athena	86
 Athene
 Athenian	89
 Athens	111
+Atheros
 Atherton	78
 Athi
 Athletical	1
@@ -1959,6 +1990,7 @@ Aukerman
 Aurangabad
 Aurangzeb	18
 Aurea	55
+Aureal
 Aurelia
 Aurelio
 Aurelius	76
@@ -1994,6 +2026,7 @@ Autohemotherapy	1
 Autohome
 Autoionizing	1
 Autry
+Auzentech
 Ava	47
 Avadi
 Avakian
@@ -2117,6 +2150,7 @@ Azzurro
 BALPA	41
 BBQ	110
 BBSes
+BFG
 BIOS	65
 BIOSes	46
 BITNET	43
@@ -2133,6 +2167,7 @@ BPL
 BPMN	56
 BRIC	58
 BSkyB	77
+BTC
 BTUs	45
 BYOB	39
 Ba'qubah
@@ -2842,6 +2877,7 @@ Behbahan
 Behn
 Behrendt
 Behring	55
+Behringer
 Behrs
 Beiderbecke	59
 Beijing	108
@@ -2883,6 +2919,7 @@ Belinda	76
 Belington	23
 Belitung	43
 Belize	89
+Belkin
 Bella	86
 Bellamy	80
 Bellary
@@ -3202,6 +3239,7 @@ Bewley
 Bexhill	58
 Bey
 Beyer
+Beyerdynamic
 Beynon
 Beyonce	74
 Bezwada	10
@@ -3355,6 +3393,7 @@ Biogen	10
 Biograph	62
 Bioko	54
 Biokovo
+Biostar
 Biratnagar
 Birbiglia
 Birchers	1
@@ -4604,6 +4643,7 @@ COVID
 CPAs	64
 CPBL	64
 CPGB	73
+CPU	110
 CPUs	94
 CSG	70
 CSIC	55
@@ -4616,6 +4656,7 @@ CSPs	52
 CSRT	56
 CSXT	48
 CSYS	30
+CTI	70
 CTOL	35
 CUNY	80
 CUSO	45
@@ -5069,6 +5110,7 @@ Casanova	74
 Casarosa
 Cascades	75
 Cascavel
+CaseLabs
 Casey	98
 Cashmere	69
 Casio	63
@@ -5237,6 +5279,7 @@ Celsius	85
 Celt	54
 Celtic	109
 Cem
+Cemex
 Cemtrex
 Cenac
 Cendrowski
@@ -5260,6 +5303,7 @@ Cerne
 Certara
 Cervantes	76
 Cervone
+Cerwin
 Cesar	81
 Cesare	80
 Cesarean	27
@@ -5290,6 +5334,7 @@ Chaganty
 Chagnolleau
 Chahine
 Chaim	81
+Chaintech
 Chaitanya
 Chaitin
 Chaka
@@ -5334,6 +5379,7 @@ Chandrasekhar	61
 Chanel	77
 Chaney	76
 Chang	94
+ChangXin
 Changchow	1
 Changchun	66
 Changde
@@ -5471,6 +5517,7 @@ Chelmsford	81
 Chelsea	104
 Chelsey	35
 Chelsie	27
+Chelsio
 Chelsom
 Chelsy	21
 Chelt
@@ -5567,6 +5614,7 @@ Chicky	25
 Chiclayo	45
 Chiclets	15
 Chico	61
+Chicony
 Chiders	1
 Chieng
 Chifeng
@@ -5628,6 +5676,7 @@ Chippenham	66
 Chippering	1
 Chippewa	79
 Chippington
+Chipsets
 Chiquita	21
 Chirchiq
 Chirdon
@@ -5911,6 +5960,7 @@ Cletus	56
 Cleve	62
 Cleveland	115
 Cleverley
+Clevo
 Clianthus	21
 Clibburn
 Cliburn	55
@@ -6262,6 +6312,7 @@ Coolgardie	52
 Coolibah
 Coolidge	81
 Coolongolook
+Coolpad
 Coolumbooka
 Cooma
 Coombes
@@ -6810,6 +6861,7 @@ D'Artagnan
 D'Elia
 D'Luz
 D'Urville
+D-Link
 D-Wave
 DACs	55
 DARPA	84
@@ -6823,6 +6875,7 @@ DECA	73
 DECpc	10
 DEFRA	65
 DETR	44
+DFI
 DGAG	1
 DJ	25
 DKNY	61
@@ -7092,6 +7145,7 @@ DataRobot
 Datadog
 Dataiku
 Datamation	32
+Dataram
 Datia
 Datong
 Datsun	64
@@ -7227,6 +7281,7 @@ Deeks
 Deen
 Deena	55
 Deepa
+Deepcool
 Deepdale
 Deepwater
 Deere	69
@@ -8172,6 +8227,7 @@ DynamoDB
 Dynamogeny	1
 Dynas
 Dynatrace
+Dynex
 Dyson
 Dzerzhinsk	32
 Dzerzhinsky	54
@@ -8184,6 +8240,7 @@ ECAD	39
 ECCM	52
 ECMAScript
 ECOWAS	71
+ECS
 ECoG	49
 EDTA	72
 EEOC	64
@@ -8203,6 +8260,7 @@ EPDM	55
 EPFL	63
 EPLF	63
 EPROM	66
+EPoX
 ERNs	15
 ESCAP	56
 ESDI	40
@@ -8214,9 +8272,11 @@ ESPN	116
 ESPNEWS	60
 ESPNU	67
 ESRO	56
+ESS	75
 ETSI	70
 EULA	46
 EV	88
+EVGA
 Eaddy
 Eadie	57
 Eadmund	10
@@ -8247,6 +8307,7 @@ Earnestine	18
 Earnhardt
 Earnshaw
 Earp	77
+Earspeakers
 Eartha	54
 Earthshakers	1
 Earvin	37
@@ -8283,6 +8344,7 @@ Ebert	90
 Ebetsu
 Ebina
 Ebix
+Ebm
 Ebner
 Ebola	57
 Ebonics	23
@@ -8449,6 +8511,7 @@ Eisner
 Eisners	18
 Eitan
 Eithan
+Eizo
 Ekaterina	64
 Ekaterinburg	51
 Ekberg	48
@@ -8499,6 +8562,7 @@ Electra	78
 Electrohome
 Electrolux	55
 Electrotechnical	47
+Elektronik
 Elektrostal
 Elena	91
 Elene	1
@@ -8535,6 +8599,7 @@ Eliseo
 Elisha	73
 Elissa	55
 Elista
+Elitegroup
 Eliza	89
 Elizabeth	121
 Elizabethan	85
@@ -8693,6 +8758,7 @@ Empey
 Empyreans	1
 Emral
 Ems	32
+Emulex
 Ena
 Enberg
 Enborne
@@ -8747,6 +8813,7 @@ Enron	75
 Enschede
 Ensenada
 Ensler
+Ensoniq
 Entain
 Entegris
 Enterprise	104
@@ -9105,6 +9172,7 @@ Exxon	72
 ExxonMobil	79
 Eyck	63
 Eydie	44
+EyeTV
 Eyman
 Eymen
 Eyre	81
@@ -9155,6 +9223,7 @@ FRSA	66
 FRSC	66
 FRSE	69
 FSLIC	42
+FSP
 FTPed	1
 FTSE	83
 FUBAR	45
@@ -9174,6 +9243,7 @@ Fabray
 Fabrega
 Fabriciano
 Fabrizio	69
+FaceVsion
 Facebook	93
 FactSet
 Fadden	53
@@ -9217,6 +9287,7 @@ Fajardo
 Fakeers	1
 Fakkah
 Fal
+Falanx
 Falasha
 Falco
 Falconbrook
@@ -9667,6 +9738,7 @@ Flynn	89
 Flywire
 Foat
 Foch	65
+Focusrite
 Fodor	59
 Fogarty	64
 Fogelberg
@@ -9746,6 +9818,7 @@ Fosse	48
 Fossier
 Foster	105
 Fosterite	1
+Fostex
 Fothergill
 Fotomat
 Foucault	76
@@ -9868,6 +9941,7 @@ Fredric
 Fredrick
 Fredrickson	45
 Fredrikstad	65
+Freecom
 Freedomite	1
 Freedomites	18
 Freedy
@@ -10070,6 +10144,7 @@ GPSS	37
 GPUs	76
 GRBs	59
 GRES	51
+GSkill
 Gaal
 Gaalkacyo
 Gabai
@@ -10121,6 +10196,7 @@ Gaines	82
 Gainesville	84
 Gainsborough	76
 Gainsight
+Gainward
 Gair
 Gairdner
 Gaither
@@ -10190,6 +10266,7 @@ GameSpy	79
 GameStop	67
 GameTap	60
 GameZone	62
+Gamecom
 Gameloft	40
 GamesMaster	54
 Gamez	42
@@ -10371,6 +10448,8 @@ Gbps	32
 Gburek
 Gdansk	57
 Gdynia	67
+GeForce
+GeIL
 Geary	72
 Gebze
 Geday
@@ -10799,6 +10878,7 @@ Gnosticism	62
 GnuPG
 GoDaddy
 GoTo	56
+Gobain
 Gobel
 Gobi	65
 Goby	70
@@ -11028,6 +11108,7 @@ Gracia	41
 Gracie	84
 Graciela	54
 Gradiente
+Grado
 Grady	81
 Graeme	87
 Graff	64
@@ -11323,6 +11404,7 @@ Gumi
 Gummer	49
 Gummo
 Gump
+Gumstix
 Guna
 Gunay
 Gundagai
@@ -11423,6 +11505,7 @@ HFCS	59
 HGTV	70
 HIFIs	1
 HIFK	65
+HLDS
 HMCS	86
 HMMWV	63
 HMMWVs	50
@@ -11664,6 +11747,7 @@ Hanlith
 Hanlon	66
 Hanlons	35
 Hann
+HannStar
 Hanna	93
 Hannah	97
 Hannam
@@ -11867,6 +11951,7 @@ Hattiesburg	62
 Hatton
 Haugen	60
 Haughton
+Hauppauge
 Hauptmann	68
 Hausa	72
 Hausdorff	73
@@ -12312,6 +12397,9 @@ Heywood	77
 Hezbollah	87
 Hezekiah	65
 HiFi	55
+HiFiMan
+HiFive
+HiSilicon
 Hialeah	66
 Hiatt	61
 Hiawatha	72
@@ -12759,6 +12847,7 @@ Huancayo
 Huang	90
 Huaraz
 Huascar	39
+Huawei
 HubSpot
 Hubbard	92
 Hubbell	64
@@ -12917,6 +13006,7 @@ Hyde	99
 Hyderabad	95
 Hydra	64
 Hyesan
+Hygon
 Hyland
 Hylton
 Hyman	75
@@ -12928,6 +13018,7 @@ Hynes
 Hynix
 HyperCard	65
 HyperTalk	53
+HyperX
 Hyperion	79
 Hypoport
 Hyposensitivities	1
@@ -12943,6 +13034,7 @@ IBGE	73
 IBM	120
 IBRA	55
 IBSF	54
+IBall
 ICBM	85
 ICER	53
 ICFAI	50
@@ -12962,6 +13054,7 @@ IFFHS	66
 IFPI	77
 IFRS	69
 IHOP	53
+IHome
 II
 III
 IKEA	45
@@ -13091,6 +13184,7 @@ Ihnat
 Ihor
 Iida
 Iijoki
+Iiyama
 Iizuka
 Ijebu
 Ijero
@@ -13152,6 +13246,7 @@ Imageworks	40
 Imagineering	55
 Imamura
 Iman
+Imation
 Imbrium	52
 Imelda	63
 Imeon
@@ -13186,6 +13281,7 @@ Inari
 Inarritu
 Inaya
 Inazawa
+Inc
 Inca	86
 Incapacitator	1
 Ince
@@ -13238,6 +13334,7 @@ Ingeberg	1
 Ingeborg	66
 Ingeegoodbee
 Ingemar	51
+Ingenic
 Inger	57
 Ingersoll	68
 Ingham	69
@@ -13320,6 +13417,7 @@ Intersector	1
 Intersnack
 Intersocietal	1
 Intertechnology
+Intex
 Intiman	39
 Intl	44
 Intraorbital	1
@@ -13331,11 +13429,13 @@ Inutsiaq
 Inuvialuit	46
 Inuvik	50
 Invar	31
+Inventec
 Inverclyde	61
 Invesco	47
 Investcorp	44
 Invision	36
 Invocator	21
+IoSafe
 Ioan
 Ioanna
 Ioannis
@@ -13385,6 +13485,7 @@ Irkutsk	70
 Irl	83
 Irma	75
 Iroegbu
+IronKey
 IronNet
 Ironbottom	40
 Ironbridge	57
@@ -13574,9 +13675,12 @@ Izzy	71
 JA
 JARP	1
 JB
+JBL
+JCG
 JGTC	59
 JJ	89
 JK
+JLab
 JM	73
 JMSDF	62
 JOYY
@@ -14370,6 +14474,7 @@ KQED	66
 KT	82
 KTLA
 KTTV	69
+KWorld
 Ka
 KaBlam	49
 Kaaba	36
@@ -14573,6 +14678,7 @@ Karatsu
 Karawal
 Karbala	68
 Kardashian
+Kardon
 Kareem	69
 Karel	80
 Karelia	74
@@ -15276,6 +15382,7 @@ Klinger	58
 Klinghoffer	51
 Klingon	75
 Klingons	61
+Klipsch
 Klondike	73
 Kloss
 Kluane
@@ -15434,6 +15541,7 @@ Korea	120
 Korean	119
 Koreas	48
 Koreeda
+Korg
 Korhogo
 Korine
 Koriyama
@@ -15457,6 +15565,7 @@ Koshy
 Kosice	51
 Kosinski
 Kosloff
+Koss
 Kossar
 Kossuth	65
 Kosta
@@ -15767,6 +15876,7 @@ LL
 LLP
 LPGA	95
 LSAT
+LSI	74
 LSPs	52
 LSTs	73
 LSWR	83
@@ -15804,6 +15914,7 @@ Labrador	92
 Labradorean	1
 Labradoreans	1
 Labriola
+Labtec
 Lacey	82
 Lacha
 Lachesis	32
@@ -16188,6 +16299,7 @@ Leachman
 Leadbelly	46
 Leadmill
 Leadon
+Leadtek
 Leadville	62
 Leah	80
 Leakey	63
@@ -16453,6 +16565,7 @@ Lewiston	76
 Lewistown	58
 Lewisville	61
 Lex
+Lexar
 Lexi	58
 Lexie	62
 Lexine
@@ -16477,6 +16590,7 @@ Lianne
 Lianyungang
 Liaoning	75
 Liaoyang	46
+Lib	77
 Libba
 Libbey	49
 Libbi	15
@@ -16697,6 +16811,7 @@ Listerine	42
 Liston	68
 Liszt	84
 Lita	70
+Lite-on
 Lithgow	68
 Lithuania	104
 Lithuanian	105
@@ -17215,6 +17330,7 @@ Lyubertsy
 Lyudmil
 Lyudmila	60
 Lyvennet
+M-Audio
 MACOM
 MAGTF	63
 MASH	65
@@ -17227,6 +17343,7 @@ MCCA	54
 MCCs	52
 MCFL	21
 MCLA	59
+MCST
 MCTV	58
 MCTs	44
 MDMA	84
@@ -17268,12 +17385,14 @@ MPhil	70
 MREs	52
 MRIs	55
 MRTA	64
+MSI	77
 MSNBC	94
 MSTC
 MTBE	63
 MTBF	60
 MTBFs	1
 MTBs	54
+MTT	65
 MTY
 MVPs	65
 Ma'anshan
@@ -17809,6 +17928,7 @@ MapInfo	52
 Mapa
 Maplebear
 Maplecrest	1
+Maplin
 MapmyIndia
 Mapplethorpe	49
 Maputo	65
@@ -18074,6 +18194,7 @@ Martial	88
 Martian	60
 Martim
 Martin	58
+MartinLogan
 Martina	78
 Martindale	66
 Martine	66
@@ -18211,6 +18332,7 @@ Matlow	1
 Matola
 Matra
 Matraca
+Matrox
 Matruh
 Matson	63
 Matsoukas
@@ -18296,6 +18418,7 @@ Mawsil
 Mawworm	1
 Max	92
 MaxLinear
+Maxell
 Maxey
 Maxie	66
 Maximilian	88
@@ -18779,6 +18902,7 @@ Melita	52
 Melitopol
 Melitta	41
 Melkonian
+Mellanox
 Mellard
 Melli	30
 Mellon	88
@@ -19016,10 +19140,12 @@ Meyerbeer	57
 Meyerhoff
 Meyers	78
 Meza
+Meze
 Mezen
 Mezhdurechensk
 Mezzetta
 Mfume
+MiTAC
 Mia	65
 Miami	117
 Miandoab
@@ -19074,10 +19200,13 @@ Mickie	61
 Mickiewicz	62
 Micky	71
 Micmac	48
+micro-
 MicroStation	51
 MicroStrategy	57
 Microbacterium	1
+Microcom
 Microgaming	27
+Microlab
 Micromania	1
 Micromaster	41
 Micromasters	40
@@ -19089,6 +19218,7 @@ Micronychia	1
 Microport	33
 Microsoft	112
 Microsystems	43
+Microtek
 Microvision
 Micucci
 Midas	35
@@ -19229,6 +19359,7 @@ Mindel	35
 Mindi
 Mindoro	73
 Mindy	68
+Minebea
 Minecraft	25
 Minerva	81
 Ming	66
@@ -19392,6 +19523,7 @@ Moby	79
 Moca
 Mochis
 Mochrie
+Moda
 Modelo
 Modena	83
 Modesitt
@@ -19944,6 +20076,7 @@ Musgrave	73
 Musgraves
 Musharraf
 Mushayt
+Mushkin
 Musial	60
 Muskegon	73
 Musker
@@ -20060,6 +20193,7 @@ NJSIAA	78
 NLCS	83
 NLRA	60
 NLRB	75
+NMB
 NOAA	90
 NOFX	73
 NORAD	83
@@ -20072,11 +20206,13 @@ NTFS	77
 NTSB	85
 NTSC	92
 NTUC	65
+NUC
 NXP	59
 NYMEX	60
 NYNEX	52
 NYPD	93
 NYSE	88
+NZXT
 Na
 Naas
 Nabadwip
@@ -20474,6 +20610,7 @@ NetEase
 NetView	21
 NetWare	77
 NetZero	52
+Netac
 Netanya
 Netcapital
 Netcong	41
@@ -20481,6 +20618,7 @@ Netflix	69
 Netherlander	23
 Netherlands	120
 Neto	64
+Netopia
 Netscape	77
 Netta
 Nettie	25
@@ -20619,6 +20757,7 @@ Nicotines	1
 Nictation	1
 Nidal	56
 Nidd
+Nidec
 Niebuhr	60
 Niecy
 Niederegger
@@ -20756,6 +20895,7 @@ Nobelist	30
 Nobeoka
 Noble	96
 Nocton
+Noctua
 Noda
 Noe	46
 Noel	18
@@ -20992,6 +21132,7 @@ O'
 OBOs	23
 OCAS	21
 OCTU	35
+OCZ
 OEMS	18
 OHED	1
 OLB
@@ -21319,6 +21460,7 @@ Oppenheimer	78
 Oprah	82
 Optate	1
 Opthalmology	1
+Optiarc
 OptimizeRx
 Oquirrh
 Ora	56
@@ -21572,6 +21714,7 @@ PACs	70
 PARC	79
 PAYE	58
 PBF
+PC	126
 PCB	89
 PCBs	81
 PCCs	54
@@ -21588,6 +21731,7 @@ PJ	87
 PKZIP	57
 PLCs	62
 PNAC	57
+PNY
 POS	51
 POSIX	83
 POWs	99
@@ -21705,6 +21849,7 @@ Palikir
 Palillo
 Palin	81
 Palisades	70
+Palit
 Palladia	30
 Palladio	63
 Palladiums	1
@@ -22045,6 +22190,7 @@ Peery	34
 Peete
 Pegasus	51
 Pegasystems
+Pegatron
 Pegg
 Peggi	15
 Peggie	32
@@ -22286,6 +22432,7 @@ Phagophobia	1
 Phair
 Phan
 Phanerozoic	23
+Phanteks
 Pharisaic	21
 Pharisaical	10
 Pharisee	10
@@ -22532,6 +22679,7 @@ Planina
 Plano	53
 Plantagenet	60
 Plante
+Plantronics
 Planview
 Plaridel
 Plarre
@@ -22565,6 +22713,7 @@ Pleshette
 Pleven	57
 Plex	25
 Plexiglas	49
+Plextor
 Plimpton
 Plinks	1
 Pliny	84
@@ -22576,6 +22725,7 @@ Plowright	53
 Plummer	18
 Plumrose
 Plunkett
+Plustek
 Plutarch	85
 Pluto	85
 Plyer	1
@@ -22769,14 +22919,17 @@ Powell	104
 PowerBook	79
 PowerBooks	56
 PowerBuilder	52
+PowerColor
 PowerFleet
 PowerPC	92
 PowerPCs	18
 PowerPoint	75
 PowerSchool
+PowerVR
 Powerade	48
 Poweramp	25
 Powerchip
+Powercolor
 Powfu
 Powhatan	72
 Powlett
@@ -22808,6 +22961,7 @@ Praunheim
 Pravda	36
 Pravo
 Praxiteles	46
+PreSonus
 Preakness	73
 Precambrian	40
 Precisians	1
@@ -22917,6 +23071,7 @@ Providence	77
 Provincializing	1
 Provisor
 Provo	75
+Proxim
 Proxmire	41
 Proyas
 Prozac	18
@@ -23084,6 +23239,7 @@ Qingyuan
 Qinhuangdao
 Qiqiha'er
 Qiqihar
+Qlogic
 Qods
 Qom	62
 Qorvo
@@ -23260,6 +23416,7 @@ Rackspace
 Radcliff	46
 Radcliffe	86
 Radclyffe	53
+Radeon
 Radetzky	50
 Radford	76
 Radhika
@@ -23349,6 +23506,7 @@ Raleigh	93
 Ralf	76
 Ralfes
 Ralfs
+Ralink
 Ralph	109
 Ralphie
 Ralston	75
@@ -23367,6 +23525,7 @@ Ramazan
 Rambeau	48
 Rambo	71
 Rambos	25
+Rambus
 Ramey
 Ramirez	80
 Ramiro	66
@@ -23387,6 +23546,7 @@ Ramses	62
 Ramsey	91
 Ramsgill
 Ramtha
+Ramtron
 Ramy
 Rana	59
 Rancagua	48
@@ -23590,6 +23750,7 @@ Redmond	81
 Redner
 Redonda
 Redondo	69
+Redpine
 Redshaw
 Redshift
 Redwith
@@ -23960,6 +24121,7 @@ Rita	96
 Ritalin	53
 Ritch
 Ritchie	88
+Ritek
 Ritson
 Ritt
 Rittenhouse	58
@@ -24032,6 +24194,7 @@ Robt	23
 Roby	60
 Robyn	76
 Rocca
+Roccat
 Rocco	79
 Roch	69
 Rocha	72
@@ -24045,6 +24208,7 @@ RockHounds	47
 RockWorks	23
 Rockabye	31
 Rockaways	39
+Rockchip
 Rockefeller	94
 Rocketer	1
 Rockettes	45
@@ -24246,6 +24410,7 @@ Rosenzweig	55
 Rosetown	45
 Rosetta	74
 Roseville
+Rosewill
 Rosicrucian	65
 Rosie	85
 Rosina	62
@@ -24536,6 +24701,7 @@ SMERSH	70
 SMIC
 SMPTE	74
 SMRT	74
+SMS	98
 SMSA	44
 SMSAs	18
 SMTP	82
@@ -24688,6 +24854,7 @@ Sainte	90
 Saintsbury	39
 Saiph
 Saitama
+Saitek
 Sajak
 Sakado
 Sakai	74
@@ -24838,6 +25005,7 @@ Samworth
 Samyar
 San	138
 San'a
+SanDisk
 Sana	51
 Sana'a	57
 Sananda
@@ -25327,6 +25495,7 @@ Searles	56
 Sears	45
 Seascout	1
 Seasider	15
+Seasonic
 Seaton
 Seatrain	40
 Seattle	115
@@ -25464,6 +25633,7 @@ Senhors	1
 Senior	116
 Sennacherib	58
 Sennett	64
+Sennheiser
 Sennott
 Sensurround	10
 SentinelOne
@@ -25528,6 +25698,7 @@ Seuss	66
 Sevan	55
 Sevastopol	75
 Sevda
+Seventeam
 Seventhly	1
 Severin
 Severn	89
@@ -25896,6 +26067,7 @@ Shultz	58
 Shum
 Shunan
 Shunner	21
+Shure
 Shurtleff
 Shuster
 Shusuke
@@ -25912,6 +26084,7 @@ Shylock	60
 Shylockian
 Shylocks	1
 Si
+SiFive
 SiTime
 Sia
 Sialkot
@@ -26040,6 +26213,7 @@ Simmonds	64
 Simmons	95
 Simmonsville	1
 Simms	78
+Simmtronics
 Simoes
 Simon	39
 Simona	50
@@ -26187,6 +26361,7 @@ Skolimowski
 Skopje	78
 Skova
 Skrewball
+Skullcandy
 SkyDome	67
 SkyWater
 Skybus	49
@@ -26390,6 +26565,7 @@ Sokurov
 Sol	91
 Solapur
 SolarWinds
+Solarflare
 Solaris	80
 Soledad
 Solei	1
@@ -26459,6 +26635,7 @@ Sonnie	28
 Sonnier
 Sonny	38
 Sono
+Sonodyne
 Sonoma	83
 Sonora	82
 Sontag	60
@@ -26579,6 +26756,7 @@ Speakes
 Spearmints	1
 Spears	90
 Spector	77
+Speedlink
 Speer	15
 Speight
 Speke
@@ -26762,6 +26940,7 @@ Staples	79
 Stapleton	78
 StarCraft	79
 StarForce	52
+StarTechcom
 StarTek
 Stara
 Starbox
@@ -26797,6 +26976,7 @@ Stavanger	75
 Stavro	52
 Stavropol	57
 Stavros	63
+Stax
 Steadicam	47
 Steakburgers
 Steamies	1
@@ -26808,6 +26988,7 @@ Steavenson
 Stebbins
 Steber
 Stedman	63
+SteelSeries
 Steele	93
 Steelers	25
 Steenburgen
@@ -27428,6 +27609,7 @@ TCBY
 TCHO
 TCL
 TD	25
+TEAC
 TECO
 TEDRA	10
 TEFL	51
@@ -27451,6 +27633,7 @@ TOEIC	56
 TOTVS
 TOtable	15
 TP
+TP-Link
 TPV
 TRAMless	1
 TSMC
@@ -27700,6 +27883,7 @@ Tarazed
 Tarbell	53
 Tarcutta
 Target	91
+Targus
 Tarhuna
 Tarija
 Tarim	29
@@ -27813,8 +27997,10 @@ TechEd	10
 TechTV	72
 TechTarget
 Techine
+Technica
 Technicolor	59
 Technion	59
+TechnologyGraphics
 Technoprobe
 Technorati	45
 Techsystems	41
@@ -27850,6 +28036,7 @@ Teladoc
 Telarc	50
 Telde
 Teleavia
+Telebit
 Telecom	89
 Teledyne	57
 Telefonica	46
@@ -27957,6 +28144,7 @@ Ternopil
 Terpsichore	45
 Terr
 Terra	89
+TerraTec
 Terral
 Terran
 Terrance	67
@@ -27996,6 +28184,7 @@ Tetris	25
 Tettenhall	49
 Tetzlaff
 Teucrian	1
+Teufel
 Teuton	53
 Teutonic	86
 Tevet	39
@@ -28071,6 +28260,8 @@ Theravada	75
 Theresa	90
 Therese	71
 Theressa	1
+Thermalright
+Thermaltake
 Thermo	68
 Thermoelectron	1
 Thermoelements	1
@@ -28105,6 +28296,7 @@ Thimelby
 Thimphu
 Thinhope
 Thinkific
+Thinksound
 Thirdkill
 Thirkleby
 Thirlwall
@@ -28170,6 +28362,7 @@ Thring
 Thrissur
 Throsby
 Thrushel
+Thrustmaster
 Thruston
 Thryv
 Thubron
@@ -28687,6 +28880,7 @@ Trebek
 Treblinka	63
 Trece
 Treitschke	37
+TrekStor
 Trekkie	1
 Treleaven
 Trelew
@@ -28785,6 +28979,7 @@ Trollope	64
 Trollopes	1
 Trondheim	85
 Troney
+Tronic
 Tropez	60
 Tropicana
 Trotman
@@ -28836,6 +29031,7 @@ Tryon	76
 Tsai
 Tscherkassky
 Tselinograd	23
+Tseng
 Tserkva
 Tshikapa
 Tsimshian	61
@@ -29007,6 +29203,7 @@ Twyford
 Twyla	49
 Twyman
 Ty
+Tyan
 Tyburski
 Tycho	70
 Tychy
@@ -29120,6 +29317,7 @@ USNR	84
 USNS	80
 USOC	69
 USPS	78
+USRobotics
 USSR	118
 USTA	74
 UTSA	61
@@ -29206,6 +29404,7 @@ Ultan
 Ultimation	10
 Ultrafiches	1
 Ultraists	1
+Ultrasone
 Ultrasuede	15
 Ultravox	60
 Ulu
@@ -29216,6 +29415,7 @@ Ulyanovsk	52
 Ulysses	89
 Uman
 Umar
+Umax
 Umba
 Umberto	75
 Umborne
@@ -29254,6 +29454,7 @@ Unibus	1
 Unicaja	40
 Unichip
 Unicode	89
+Unicomp
 Unicron	75
 Unilever	72
 Unimicron
@@ -29739,6 +29940,7 @@ Vietminh	50
 Vietnam	120
 Vietnamese	108
 Vietnamization	49
+ViewSonic
 Vigia
 Vigman
 Vigo	75
@@ -29811,6 +30013,7 @@ Virginia	129
 Virginian	74
 Virginie	59
 Virgo	71
+Virtium
 VisEra
 Visa	77
 Visakhnapatnam
@@ -29824,6 +30027,7 @@ VisiCalc	56
 Visigoth	55
 Visigothic	73
 Visigoths	73
+Visioneer
 Viskontas
 Visla	1
 Vista	66
@@ -29844,6 +30048,7 @@ Vittoria	67
 Vittorio	80
 Vitus	66
 Vivaldi	65
+Vivante
 Vivar
 Vivekananda
 Vivi	35
@@ -30675,6 +30880,7 @@ WinFax	56
 WinZip	55
 Winans
 Winant
+Winbond
 Winburndale
 Wincer	31
 Winchell	65
@@ -30738,6 +30944,7 @@ Winstanley
 Winstead
 Winster
 Winston	102
+Wintec
 Winterborne
 Winterbottom
 Winterburn
@@ -30991,7 +31198,10 @@ Wyre
 X-FAB
 X-Ray
 XEmacs	51
+XFX
+XGI
 XHTML	80
+XPG
 Xactly
 Xai-Xai
 Xamarin
@@ -31026,6 +31236,7 @@ Xiaomi
 Xiaoping	69
 Xiaoshuai
 Xico
+Xilence
 Ximena
 Ximenes	46
 Ximenez	27
@@ -31041,6 +31252,7 @@ Xochipilli
 Xoom	1
 Xperi
 Xplosion	49
+Xtreme
 Xunlei
 Xuzhou	57
 YMCA	99
@@ -31405,6 +31617,7 @@ ZANU	81
 ZAPU	68
 ZDNet	61
 ZEDGE	25
+ZOTAC
 ZOZO
 ZYZZYVAs	1
 ZaBach
@@ -31462,6 +31675,7 @@ Zakur
 Zala
 Zalando
 Zalia
+Zalman
 Zaltzman
 Zama	21
 Zamata
@@ -31615,6 +31829,7 @@ Zhangzhou
 Zhanjiang
 Zhao	92
 Zhaoqing
+Zhaoxin
 Zhdanov	52
 Zhejiang
 Zheleznodorozhny
@@ -31625,6 +31840,7 @@ Zhihu
 Zhitomir	39
 Zhivago	56
 Zhivkov	53
+Zhone
 Zhongshan
 Zhou	96
 Zhuangzhuang
@@ -31655,6 +31871,7 @@ Zigler
 Zigong
 Zigrino
 Ziguinchor
+ZiiLABS
 Zika
 Zila
 Zilber
@@ -31734,6 +31951,7 @@ Zoroastrian	79
 Zoroastrianism	71
 Zorro	45
 Zosma
+Zotac
 Zott
 Zreiq
 Zsa
@@ -31772,6 +31990,7 @@ Zwigoff
 Zwingli	64
 Zwolle	62
 Zworykin	44
+ZyXEL
 Zyrtec
 Zyuganov
 a-
