@@ -53,7 +53,7 @@ public class Language {
 		}
 
 		Language lang = new Language();
-		lang.abcString = definition.abcString.isEmpty() ? lang.abcString : definition.abcString;
+		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.locale = definitionLocale;
@@ -74,8 +74,9 @@ public class Language {
 
 		final String specialCharsPlaceholder = "SPECIAL";
 		final String punctuationPlaceholder = "PUNCTUATION";
-		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
+		final String arabicStylePlaceholder = punctuationPlaceholder + "_AR";
 		final String germanStylePlaceholder = punctuationPlaceholder + "_DE";
+		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
@@ -86,11 +87,14 @@ public class Language {
 				case punctuationPlaceholder:
 					keyChars.addAll(Characters.PunctuationEnglish);
 					break;
-				case frenchStylePlaceholder:
-					keyChars.addAll(Characters.PunctuationFrench);
+				case arabicStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationArabic);
 					break;
 				case germanStylePlaceholder:
 					keyChars.addAll(Characters.PunctuationGerman);
+					break;
+				case frenchStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationFrench);
 					break;
 				default:
 					keyChars.add(defChar);
@@ -134,7 +138,6 @@ public class Language {
 			for (int i = 0; i < lettersList.size() && i < 3; i++) {
 				sb.append(lettersList.get(i));
 			}
-
 			abcString = sb.toString();
 		}
 
@@ -154,8 +157,16 @@ public class Language {
 		return getKeyCharacters(2, false).contains("a");
 	}
 
+	public boolean isCyrillic() {
+		return getKeyCharacters(2, false).contains("а");
+	}
+
 	public boolean isGreek() {
 		return getKeyCharacters(2, false).contains("α");
+	}
+
+	public boolean isArabic() {
+		return getKeyCharacters(3, false).contains("ا");
 	}
 
 	public boolean isUkrainian() {
@@ -243,7 +254,7 @@ public class Language {
 
 		ArrayList<String> chars = new ArrayList<>(layout.get(key));
 		if (includeDigit && chars.size() > 0) {
-			chars.add(String.valueOf(key));
+			chars.add(getKeyNumber(key));
 		}
 
 		return chars;
@@ -251,6 +262,14 @@ public class Language {
 
 	public ArrayList<String> getKeyCharacters(int key) {
 		return getKeyCharacters(key, true);
+	}
+
+	public String getKeyNumber(int key) {
+		if (key > 10 || key < 0) {
+			return null;
+		} else {
+			return isArabic() ? Characters.ArabicNumbers.get(key) : String.valueOf(key);
+		}
 	}
 
 	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {

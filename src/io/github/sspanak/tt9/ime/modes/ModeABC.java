@@ -21,7 +21,7 @@ public class ModeABC extends InputMode {
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
-			suggestions.add(String.valueOf(number));
+			suggestions.add(language.getKeyNumber(number));
 			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
@@ -70,11 +70,16 @@ public class ModeABC extends InputMode {
 			return textCase == CASE_LOWER ? "abc" : "ABC";
 		}
 
-		String langCode = language.getLocale().getCountry();
-		langCode = langCode.isEmpty() ? language.getLocale().getLanguage() : langCode;
-		langCode = langCode.isEmpty() ? language.getName() : langCode;
-
-		String modeString =  language.getAbcString() + " / " + langCode.toUpperCase();
+		String langCode = "";
+		if (language.isLatinBased() || language.isCyrillic()) {
+			// There are many languages written using the same alphabet, so if the user has enabled multiple,
+			// make it clear which one is it, by appending the country code to "ABC" or "АБВ".
+			langCode = language.getLocale().getCountry();
+			langCode = langCode.isEmpty() ? language.getLocale().getLanguage() : langCode;
+			langCode = langCode.isEmpty() ? language.getName() : langCode;
+			langCode = " / " + langCode;
+		}
+		String modeString =  language.getAbcString() + langCode.toUpperCase();
 
 		return (textCase == CASE_LOWER) ? modeString.toLowerCase(language.getLocale()) : modeString.toUpperCase(language.getLocale());
 	}

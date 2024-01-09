@@ -12,18 +12,21 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
 	protected TraditionalT9 tt9;
 
-	protected float COMPLEX_LABEL_TITLE_SIZE = 0.55f;
-	protected float COMPLEX_LABEL_SUB_TITLE_SIZE = 0.8f;
+	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE;
 
 	private boolean hold = false;
 	private boolean repeat = false;
@@ -160,6 +163,10 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		return true;
 	}
 
+	@Nullable protected Language getCurrentLanguage() {
+		return LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
+	}
+
 	/**
 	 * getTitle
 	 * Generates the name of the key, for example: "OK", "Backspace", "1", etc...
@@ -203,9 +210,15 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append('\n');
 		sb.append(subtitle);
 
-		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_TITLE_SIZE), 0, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_SUB_TITLE_SIZE), 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE) {
+			padding /= 10;
+		}
+
+		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(padding), 1, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), 2, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}

@@ -36,6 +36,7 @@ public class LanguageCollection {
 		return self;
 	}
 
+	@Nullable
 	public static Language getLanguage(Context context, int langId) {
 		if (getInstance(context).languages.containsKey(langId)) {
 			return getInstance(context).languages.get(langId);

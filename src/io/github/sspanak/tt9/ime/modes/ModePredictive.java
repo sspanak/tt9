@@ -81,7 +81,7 @@ public class ModePredictive extends InputMode {
 			reset();
 			autoAcceptTimeout = 0;
 			disablePredictions = true;
-			suggestions.add(String.valueOf(number));
+			suggestions.add(language.getKeyNumber(number));
 		} else {
 			// words
 			super.reset();

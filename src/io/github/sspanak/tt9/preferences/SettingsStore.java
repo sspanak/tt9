@@ -278,6 +278,10 @@ public class SettingsStore {
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
+	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE = 0.55f;
+	public final static float SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE = 0.72f;
+	public final static float SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE = 0.8f;
+
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
