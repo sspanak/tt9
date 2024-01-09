@@ -83,6 +83,7 @@ public class AutoSpace {
 				|| previousChar == ']'
 				|| previousChar == '%'
 				|| previousChar == '»'
+				|| previousChar == '؟'
 				|| previousChar == '“'
 				|| previousChars.endsWith(" -")
 				|| previousChars.endsWith(" /")
@@ -118,6 +119,7 @@ public class AutoSpace {
 				|| lastWord.equals(":")
 				|| lastWord.equals("!")
 				|| lastWord.equals("?")
+				|| lastWord.equals("؟")
 				|| lastWord.equals(")")
 				|| lastWord.equals("]")
 				|| lastWord.equals("'")

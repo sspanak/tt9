@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SoftNumberKey extends SoftKey {
 	public SoftNumberKey(Context context) {
@@ -53,7 +53,16 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected String getTitle() {
-		return String.valueOf(getNumber(getId()));
+		int number = getNumber(getId());
+
+		Language language = getCurrentLanguage();
+		if (language != null && language.isArabic() && tt9 != null && !tt9.isInputModeNumeric()) {
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
+			return language.getKeyNumber(number);
+		} else {
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+			return String.valueOf(number);
+		}
 	}
 
 	@Override
@@ -73,7 +82,7 @@ public class SoftNumberKey extends SoftKey {
 			} else if (tt9.isInputModeNumeric()) {
 				return "+";
 			} else {
-				COMPLEX_LABEL_SUB_TITLE_SIZE = 1;
+				complexLabelSubTitleSize = 1;
 				return "␣";
 			}
 		}
@@ -89,7 +98,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// 2-9
-		Language language = LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
+		Language language = getCurrentLanguage();
 		if (language == null) {
 			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";

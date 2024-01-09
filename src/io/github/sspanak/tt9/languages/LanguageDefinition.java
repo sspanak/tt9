@@ -85,7 +85,7 @@ public class LanguageDefinition {
 		LanguageDefinition definition = new LanguageDefinition();
 		String value;
 
-		value = getPropertyFromYaml(yaml, "absString");
+		value = getPropertyFromYaml(yaml, "abcString");
 		definition.abcString = value != null ? value : definition.abcString;
 
 		value = getPropertyFromYaml(yaml, "dictionaryFile");
