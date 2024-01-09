@@ -4,11 +4,13 @@
 're
 's
 've
+AABB
 AARP	71
 AASHTO	69
 AAUP	62
 ABEU	1
 ABIT
+ABM	74
 ACAS	55
 ACCA	70
 ACCC	70
@@ -25,6 +27,7 @@ ADATA
 ADCs	59
 ADHD	91
 ADSL	85
+ADT	71
 ADVFN
 AEDs	53
 AEye
@@ -35,6 +38,7 @@ AFSOC	58
 AFSPC	54
 AG
 AGA	53
+AGP
 AI
 AIDS	105
 AIG	80
@@ -58,9 +62,11 @@ APDS	56
 APDU	32
 APDUs	18
 APEC	80
+API
 AQUATONE	10
 ARCA	79
 ARCO	69
+ARIMA
 ARPA	69
 ASA	93
 ASAP
@@ -79,6 +85,7 @@ ASPCA	63
 ASRock
 AST
 ASUS	81
+ATA
 ATI
 ATM	97
 ATP	25
@@ -86,6 +93,7 @@ ATPase	80
 ATTN	21
 ATTO
 ATVs	69
+ATX
 AV	75
 AVM
 AVerMedia
@@ -95,6 +103,7 @@ AWACS	75
 AWOL	74
 AWOLs	21
 AWS
+AZDO
 Aachen	81
 Aad
 Aada
@@ -1318,6 +1327,7 @@ Anselma	15
 Anselmo	67
 Anseong
 Anshan	57
+Ansible
 Ansley	49
 Anson	81
 Anstead
@@ -1393,6 +1403,7 @@ Aosta	67
 Apacer
 Apache	39
 Apalachicola
+Apalis
 Apalit
 Aparecida
 Aparna
@@ -2151,11 +2162,14 @@ Azzurro
 BALPA	41
 BBQ	110
 BBSes
+BEMOS
 BFG
 BIOS	65
 BIOSes	46
 BITNET	43
 BMAC	53
+BMC	86
+BMP	85
 BMPs	61
 BMWs	62
 BNCR	60
@@ -2166,10 +2180,13 @@ BOE	40
 BOSSIES	1
 BPL
 BPMN	56
+BRDF
 BRIC	58
+BSP
 BSkyB	77
 BTC
 BTUs	45
+BVH
 BYOB	39
 Ba'qubah
 Baal	76
@@ -2212,6 +2229,7 @@ Bach	96
 Bacharach	70
 Bachman
 Backblaze
+Backpanel
 Backstone
 Backus	65
 Bacolod	62
@@ -3298,6 +3316,7 @@ Bick
 Bickford
 Bickle
 Bickleigh
+Bicubic
 Bida
 Bidar
 Biddle	73
@@ -4597,6 +4616,7 @@ CCC	94
 CCNY	66
 CCTV	93
 CD	137
+CD-
 CDMA	87
 CDOs	63
 CDPs	63
@@ -4622,6 +4642,7 @@ CISO
 CJ
 CK
 CKLW	70
+CLUT
 CMAs	52
 CMOS	87
 CMYK	69
@@ -4630,6 +4651,7 @@ CNAA	47
 CNBC	94
 CNES	65
 CNET	79
+CNN	110
 CNRS	74
 COBOL	35
 COCOM	42
@@ -4644,6 +4666,7 @@ COVID
 CPAs	64
 CPBL	64
 CPGB	73
+CPS
 CPU	110
 CPUs	94
 CSG	70
@@ -4655,6 +4678,8 @@ CSNY	58
 CSPI	53
 CSPs	52
 CSRT	56
+CSS	99
+CSV	74
 CSXT	48
 CSYS	30
 CTI	70
@@ -5261,6 +5286,7 @@ Cedric	81
 Ceerigaabo
 Cegavske
 Ceiba	45
+Cel
 Celaya
 Celentano
 Celeron
@@ -5769,6 +5795,7 @@ Christin	46
 Christina	94
 Christine	97
 Christlike	23
+Christmann
 Christmas	121
 Christmastide	34
 Christmastime	51
@@ -5993,6 +6020,7 @@ Closure	122
 Closured	1
 Clotho
 Clotilda	30
+CloudStore
 Cloudbeds
 Cloudflare
 Clouse
@@ -6867,9 +6895,12 @@ D-Link
 D-Wave
 DACs	55
 DARPA	84
+DASD
 DBMS	77
 DCCC	59
 DCI	85
+DCIM
+DCM	71
 DCMG	28
 DCVO	39
 DEASSIGN	10
@@ -6879,16 +6910,20 @@ DEFRA	65
 DETR	44
 DFI
 DGAG	1
+DIMM
 DJ	25
 DKNY	61
 DLLs	66
 DLit	15
 DLitt	60
+DMA	88
 DMCA	72
 DMUs	75
 DNAase	21
 DNAs	50
+DNS	94
 DNase	52
+DOP
 DOS
 DPNH	18
 DPRK	75
@@ -7147,6 +7182,7 @@ Dasya	1
 Dat	82
 DataRobot
 Datadog
+Dataflow
 Dataiku
 Datamation	32
 Dataram
@@ -7979,6 +8015,7 @@ Drapier	41
 Dratch
 Drats	1
 Dravidian	76
+Drawcall
 Drawsheets	1
 Drax
 Dre
@@ -8246,6 +8283,7 @@ EADA	44
 ECAD	39
 ECCM	52
 ECMAScript
+ECOM
 ECOWAS	71
 ECS
 ECoG	49
@@ -8280,8 +8318,10 @@ ESPNEWS	60
 ESPNU	67
 ESRO	56
 ESS	75
+ETH	80
 ETSI	70
 EULA	46
+EULAG
 EV	88
 EVGA
 Eaddy
@@ -8373,6 +8413,7 @@ Eckstein	58
 Eckstine
 Eclats	1
 Eco	80
+Ecommerce
 Econoline	44
 Economopoulos
 Ecrin
@@ -9233,11 +9274,13 @@ FRSC	66
 FRSE	69
 FSLIC	42
 FSP
+FTP	70
 FTPed	1
 FTSE	83
 FUBAR	45
 FUNs	21
 FWVGA
+FXAA
 Fabasoft
 Faber	82
 Faberg	1
@@ -10050,6 +10093,7 @@ Frome
 Fromm	33
 Fronde	25
 Frontenac	70
+Frontpanel
 Froogle	1
 Frosta
 Frostbelt
@@ -11098,6 +11142,7 @@ Gould	94
 Goulding
 Goulet
 Gounod	57
+Gouraud
 Gover
 Governador
 Govitrikar
@@ -11244,6 +11289,7 @@ Grewal
 Grewcock
 Greyson
 Grice
+Griefer
 Grieg	67
 Grier	69
 Grierson	65
@@ -11509,9 +11555,12 @@ HBOS	62
 HBase
 HC
 HCA	70
+HCI
 HD	117
+HDD	74
 HDDs	56
 HDMI	81
+HDR	72
 HDTV	58
 HDTVs	45
 HEPA	60
@@ -11530,6 +11579,8 @@ HMV
 HNLMS	69
 HNoMS	63
 HP	107
+HPC
+HPDA
 HR
 HSAs	51
 HSBC	93
@@ -11540,6 +11591,7 @@ HUAC	74
 HVAC	80
 HVDC	79
 HVGA
+HW
 Ha'il
 Haag	70
 Haarlem	80
@@ -12144,6 +12196,7 @@ Heidi	79
 Heidke
 Heidt
 Heifetz	58
+Heightmap
 Heilbron	42
 Heilbronn	68
 Heilongjiang
@@ -13063,6 +13116,7 @@ ICRM	57
 ICSE	73
 ICZN	69
 ID	99
+IDE
 IDing	21
 IEEE	106
 IFAD	61
@@ -13077,6 +13131,7 @@ IKEA	45
 IMAP	73
 IMAX
 IMDb	25
+IMG	79
 IMHO	30
 IMNSHO
 IMPAC	61
@@ -13091,11 +13146,16 @@ INRI	47
 INTERFET	62
 INTUC	32
 IONOS
+IOPS
 IOUs	44
+IP	25
 IPA	94
 IPCC	86
 IPCRESS	46
+IPMB
+IPMI
 IPOs	62
+IPS	82
 IPSA	53
 IPSAS	65
 IPSC	59
@@ -13116,6 +13176,7 @@ ITER	65
 ITIL	69
 ITT	82
 IUDs	53
+IaaS
 Iaccoca	18
 Iacono
 Iago	70
@@ -13452,6 +13513,7 @@ Investcorp	44
 Invision	36
 Invocator	21
 IoSafe
+IoT
 Ioan
 Ioanna
 Ioannis
@@ -13706,6 +13768,7 @@ JPEG	46
 JPMorgan
 JROTC	82
 JSHAA	59
+JSON
 JSTOR	60
 JScript	62
 JT
@@ -15891,6 +15954,7 @@ LGPL	73
 LIFO	53
 LL
 LLP
+LOD
 LPGA	95
 LSAT
 LSI	74
@@ -17210,6 +17274,7 @@ Lumbee	57
 Lumberton	56
 Lumburn
 Lumbutts
+Lumels
 Lumentum
 Lumet
 Lumiere	21
@@ -17363,6 +17428,7 @@ MCLA	59
 MCST
 MCTV	58
 MCTs	44
+MCU	66
 MDMA	84
 MDOC	48
 MDOT	74
@@ -17391,14 +17457,17 @@ MMX	69
 MNCs	55
 MNTV	49
 MODIS	52
+MON	86
 MOSFET	76
 MOSFETs	66
 MPAA	85
 MPAs	63
 MPEG	32
+MPI
 MPPs	66
 MPRP	62
 MPRS	55
+MPU
 MPhil	70
 MREs	52
 MRIs	55
@@ -17943,6 +18012,7 @@ Maoming
 Maori	84
 Maoritanga	1
 MapInfo	52
+MapReduce
 Mapa
 Maplebear
 Maplecrest	1
@@ -20208,15 +20278,18 @@ NJPW	76
 NJROTC	66
 NJSIAA	78
 NLCS	83
+NLP	83
 NLRA	60
 NLRB	75
 NMB
 NOAA	90
+NOC
 NOFX	73
 NORAD	83
 NP	96
 NPCs	80
 NRHP	78
+NRPE
 NSDAP	86
 NSYNC
 NTFS	77
@@ -20279,6 +20352,7 @@ Nagda
 Nagel
 Nagercoli
 Nagi
+Nagios
 Nagisa
 Nagoya	83
 Nagpur	79
@@ -21146,6 +21220,7 @@ Nyquist	61
 Nyro
 Nyssa	65
 O'
+OBJ	47
 OBOs	23
 OCAS	21
 OCTU	35
@@ -21157,10 +21232,14 @@ OMAC	68
 OMACs	55
 OMNIMAX	48
 OMV	60
+OOAD
+OOBB
+OOP
 OPEC	81
 OPTiM
 OSGi	57
 OSHA	78
+OSS
 OSes
 OTOH	10
 OVAs	76
@@ -21468,6 +21547,7 @@ OpenAI
 OpenCL
 OpenGL
 OpenOffice	80
+OpenStack
 OpenText
 Openability	1
 Ophelia	69
@@ -21675,6 +21755,7 @@ Ousmane
 OutSight	18
 Outasight	1
 Outbrain
+Outcode
 Outgate	1
 Outlie	1
 Outlook	103
@@ -21729,15 +21810,20 @@ Ozu
 Ozymandias
 Ozzie	70
 Ozzy	78
+PAAS
 PABX	49
 PACs	70
 PARC	79
 PAYE	58
 PBF
+PBR
 PC	126
 PCB	89
 PCBs	81
 PCCs	54
+PCI	99
+PCI-
+PCIe
 PCMCIA
 PDAs	81
 PDF	97
@@ -21747,6 +21833,7 @@ PDSA	49
 PEDs	45
 PETA	57
 PFLP	77
+PHP
 PJ	87
 PKZIP	57
 PLCs	62
@@ -21761,12 +21848,16 @@ PSAs	62
 PSFS	61
 PSI	90
 PSOE	82
+PSU	80
 PSUs	58
 PTAS	48
 PTC	83
 PTFE	72
 PTSD	81
 PVCs	47
+PWR
+PXE
+PaaS
 Paar
 Paarl	48
 Paatsjoki
@@ -22507,6 +22598,7 @@ Phoenicia	62
 Phoenician	80
 Phoenix	80
 Phomvihane
+Phong
 Phonotype	10
 Photochemists	1
 Photoshop	72
@@ -22983,6 +23075,7 @@ Pravo
 Praxiteles	46
 PreSonus
 Preakness	73
+Preboot
 Precambrian	40
 Precisians	1
 Preece
@@ -22990,6 +23083,7 @@ Pregolya
 Preleukemic	1
 Premenopause	1
 Preminger	64
+Premultiplied
 Premyslid
 Prensa
 Prentice	74
@@ -23395,10 +23489,14 @@ RCDs	49
 RCMP	91
 RDCs	53
 RDRAM	55
+RECS	23
 RECs	23
 REIT	68
 RFID	89
+RGB
+RGBA
 RISC	89
+RMCP
 RNase	70
 RNases	42
 ROFL	31
@@ -23417,6 +23515,7 @@ RSVP	64
 RSVPs	1
 RTFM	37
 RTLS	50
+RTM
 RTPM	18
 RTUs	46
 RTX
@@ -24694,8 +24793,10 @@ SABMiller
 SACD	76
 SAGY	21
 SAP	91
+SARIMA
 SARS	84
 SASE	41
+SATA
 SATCOM	54
 SATs	63
 SBCs	46
@@ -24705,10 +24806,14 @@ SCSI	90
 SCSU	53
 SCTV	75
 SDAP	67
+SDK	83
 SDLP	78
+SDR	73
+SDRAM
 SDRs	55
 SEATO	69
 SECAM	72
+SEO
 SFBC	42
 SFIO	77
 SGML	27
@@ -24726,6 +24831,7 @@ SLBMs	56
 SLCs	51
 SLMM	54
 SLRs	77
+SLURM
 SMERSH	70
 SMIC
 SMPTE	74
@@ -24764,6 +24870,7 @@ SPSS	61
 SQLite
 SQLs	1
 SRAM	79
+SSAO
 SSAs	27
 SSE	79
 SSP	81
@@ -24798,6 +24905,7 @@ SYLA
 SYSPRO
 SZA
 Sa'id
+SaaS
 Saab	83
 Saad
 Saanich
@@ -26451,6 +26559,7 @@ Slieve
 Slimane
 Slingblade	1
 Slinky	52
+Sliverous
 Sloan	88
 Sloane	78
 Sloanes	28
@@ -26549,7 +26658,9 @@ Snowden
 Snufflers	1
 Snyder	91
 Snyk
+SoC	56
 SoFi
+SoM
 Soacha
 Soapless	1
 Soares	70
@@ -27382,6 +27493,7 @@ Supa
 Supardi
 Suparman
 SuperDeluxe
+SuperDisk
 SuperGNES	25
 SuperSU	25
 SuperValu	67
@@ -28229,6 +28341,7 @@ Texaco	72
 Texan	77
 Texarkana
 Texas	132
+Texel
 TextNow	25
 Textron	55
 Thacher	60
@@ -28996,6 +29109,7 @@ Trish	70
 Trisha	67
 Trista	1
 Tristan	86
+Tristrip
 Triterras
 Triton	55
 Tritton
@@ -29299,6 +29413,7 @@ UCSF	72
 UCT
 UConn	81
 UHD
+UI
 UK	149
 UKTV	79
 ULBC	10
@@ -29321,6 +29436,7 @@ UNIVAC	46
 UNIX	94
 UNRWA	75
 UQAM	59
+URL	93
 USA	104
 USAA	62
 USAAF	97
@@ -29332,6 +29448,7 @@ USAREUR	56
 USART	30
 USAS	61
 USAir	68
+USB	106
 USBA	74
 USBC	65
 USBL	62
@@ -29360,6 +29477,7 @@ USSR	118
 USTA	74
 UTSA	61
 UUNET	54
+UV	101
 UXGA
 Ubach
 Ubangi	46
@@ -29655,9 +29773,12 @@ VIP	98
 VIZIO
 VLIW
 VLSI	75
+VM	83
 VMAs	58
+VMs	81
 VMware	77
 VOCs	67
+VSync
 VTEC	74
 VTEX
 VTOL	75
@@ -30158,6 +30279,7 @@ Voss	77
 Votolato
 Votorantim
 Vought	66
+Voxel
 Voxer	25
 Voyager	54
 Voyle
@@ -31597,6 +31719,7 @@ Yoshkar-Ola
 Yossarian
 Yost	71
 YouTube	109
+YouTuber
 Youdao
 Youji
 Youlden
@@ -46211,6 +46334,7 @@ bossy	69
 bostons
 bosun	45
 bosuns	1
+bot	78
 botanic	76
 botanical	105
 botanically	61
@@ -52951,6 +53075,7 @@ chipping	75
 chippings	45
 chippy	39
 chips	110
+chipset
 chirac	75
 chiral
 chirk
@@ -54301,6 +54426,7 @@ cleanliest
 cleanliness	86
 cleanly	81
 cleanness	52
+cleanroom
 cleans	76
 cleanse	81
 cleansed	78
@@ -61952,8 +62078,10 @@ cyanotype
 cyans	1
 cyathus
 cyber	91
+cyberbullied
 cyberbullies
 cyberbully
+cyberbullying
 cybercafe
 cybercafes
 cybercrime	52
@@ -62232,6 +62360,7 @@ dadoes	27
 dados	45
 dads	61
 daedal	1
+daemon	79
 daemon	79
 daemonic	48
 daemons	70
@@ -62595,6 +62724,7 @@ databased	25
 databases	107
 databasing	25
 datable	69
+datacentres
 datagram	65
 datagrams	62
 datary
@@ -71502,6 +71632,7 @@ egomaniacal	48
 egomaniacally
 egomaniacs	18
 egos	77
+egosurfer
 egotism	64
 egotisms	10
 egotist	47
@@ -88480,6 +88611,7 @@ heap	94
 heaped	75
 heaping	54
 heaps	83
+heapsort
 hear	140
 hearable	27
 heard	135
@@ -93662,6 +93794,7 @@ imputes	40
 imputing	42
 impv
 in	210
+in-
 inabilities	39
 inability	112
 inaccessibility	71
@@ -102811,6 +102944,7 @@ lifeboats	88
 lifebuoy	35
 lifebuoys	35
 lifecare
+lifecycle
 lifeforms	75
 lifeguard	84
 lifeguarded	28
@@ -105412,6 +105546,7 @@ maimer	1
 maiming	63
 maims	44
 main	157
+mainboard
 mainbrace	35
 mainers	27
 mainframe	93
@@ -107469,6 +107604,9 @@ megastore	49
 megastores	37
 megastructure	49
 megastructures	45
+megatexture
+megatextures
+megatexturing
 megathere
 megatheres
 megatherium
@@ -108782,6 +108920,8 @@ microsecond	65
 microseconds	75
 microseism
 microseisms
+microserver
+microservers
 microsome
 microsomes
 microsporangium
@@ -108798,6 +108938,9 @@ microsurgeon	27
 microsurgeons	15
 microsurgery	53
 microsurgical	49
+microtexture
+microtextures
+microtexturing
 microtome
 microtomes
 microtonal	69
@@ -108849,6 +108992,7 @@ middlemost	27
 middler	10
 middlers	18
 middles	45
+middleware
 middleweight	95
 middleweights	44
 middling	72
@@ -109516,6 +109660,7 @@ minyan	69
 minyanim	47
 minyans	18
 miosis
+mipmap
 miquelon	61
 miracidium
 miracle	101
@@ -114518,6 +114663,7 @@ nomography
 nomology
 nomothetic
 non	155
+non-
 nonabilities	1
 nonabrasive	1
 nonabsolute	10
@@ -115279,6 +115425,7 @@ nonyielding
 nonzebra	10
 nonzero	89
 nonzeros	23
+noob
 noodle	82
 noodled	1
 noodlehead
@@ -117189,6 +117336,7 @@ opcode
 opcodes
 oped
 open	149
+open-
 openable	42
 opencast	66
 opened	151
@@ -122386,6 +122534,7 @@ pentecostals	21
 pentecosts	10
 pentelikon	1
 pentene	40
+pentest
 pentheus
 penthouse	85
 penthouses	58
@@ -126944,6 +127093,7 @@ postcodes	66
 postcoital	36
 postcollegiate
 postcolonial
+postcondition
 postconditions	45
 postconsonantal	9
 postconvalescent
@@ -127926,6 +128076,10 @@ preferments	55
 preferred	125
 preferring	104
 prefers	106
+prefetch
+prefetched
+prefetches
+prefetching
 prefiguration
 prefigurations
 prefigurative
@@ -131728,6 +131882,7 @@ quickset	23
 quicksilver	61
 quicksilvered	1
 quicksilvering	10
+quicksort
 quickstep	44
 quicksteps	18
 quid	93
@@ -132747,6 +132902,7 @@ raspy	69
 rastafarianisms
 rastafarians	46
 raster	84
+rasterisation
 rasterization
 rasterize
 rasterized
@@ -134275,6 +134431,7 @@ redder	64
 reddest	42
 reddish	104
 reddishness	1
+redditor
 reddy	49
 rede
 redear
@@ -143673,6 +143830,7 @@ serialisms
 serialist	47
 serialists	28
 seriality	35
+serializability
 serializable
 serialization	84
 serializations	44
@@ -166784,6 +166942,7 @@ unzip	45
 unzipped	44
 unzipping	41
 unzips	36
+uop
 up	160
 up-
 upanishad	35
