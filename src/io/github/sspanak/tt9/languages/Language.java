@@ -29,9 +29,6 @@ public class Language {
 
 		Locale definitionLocale;
 		switch (definition.locale) {
-			case "ar":
-				definitionLocale = Locale.ARABIC;
-				break;
 			case "de":
 				definitionLocale = Locale.GERMAN;
 				break;
