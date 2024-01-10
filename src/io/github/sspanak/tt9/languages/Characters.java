@@ -15,6 +15,10 @@ public class Characters {
 		",", ".", "-", "«", "»", "(", ")", "[", "]", "&", "~", "`", "\"", "'", ";", ":", "!", "?"
 	));
 
+	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
+		"،", ".", "-", "(", ")", "[", "]", "&", "~", "`", "\"", "'", "؛", ":", "!", "؟"
+	));
+
 	final public static ArrayList<String> PunctuationGerman = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "„", "“", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "!", "?"
 	));
