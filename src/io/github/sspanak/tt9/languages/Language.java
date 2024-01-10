@@ -29,6 +29,9 @@ public class Language {
 
 		Locale definitionLocale;
 		switch (definition.locale) {
+			case "ar":
+				definitionLocale = Locale.ARABIC;
+				break;
 			case "de":
 				definitionLocale = Locale.GERMAN;
 				break;
@@ -74,6 +77,7 @@ public class Language {
 
 		final String specialCharsPlaceholder = "SPECIAL";
 		final String punctuationPlaceholder = "PUNCTUATION";
+		final String arabicStylePlaceholder = punctuationPlaceholder + "_AR";
 		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
 		final String germanStylePlaceholder = punctuationPlaceholder + "_DE";
 
@@ -85,6 +89,9 @@ public class Language {
 					break;
 				case punctuationPlaceholder:
 					keyChars.addAll(Characters.PunctuationEnglish);
+					break;
+				case arabicStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationArabic);
 					break;
 				case frenchStylePlaceholder:
 					keyChars.addAll(Characters.PunctuationFrench);
