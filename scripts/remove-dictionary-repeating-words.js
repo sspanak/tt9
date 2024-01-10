@@ -41,48 +41,35 @@ function getRegularWordKey(locale, word) {
 
 
 function getLowercaseWordKey(locale, word) {
-	return getWordkey(word).toLocaleLowerCase(locale);
-}
-
-
-
-function getWordkey(word) {
 	if (typeof word !== 'string' || word.length === 0) {
 		return '';
 	}
 
-	return word;
+	return word.toLocaleLowerCase(locale);
 }
 
 
 
 async function removeRepeatingWords({ fileName, locale }) {
-
-	const wordMap = {};
+	const wordMap = new Map();
 
 	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		wordMap[getLowercaseWordKey(locale, line)] = true;
-	}
-
-
-	lineReader = createInterface({ input: createReadStream(fileName) });
-	for await (const line of lineReader) {
-		const word = getWordkey(line);
-		const lowercaseWord = getLowercaseWordKey(locale, line);
-
-		if (word === '') {
+		const lowercaseKey = getLowercaseWordKey(locale, line);
+		if (lowercaseKey === '') {
 			continue;
 		}
 
+		if (!wordMap.has(lowercaseKey)) {
+			wordMap.set(lowercaseKey, line);
+		}
 
-		if (word !== lowercaseWord) {
-			delete wordMap[lowercaseWord];
-			wordMap[word] = true;
+		if (wordMap.has(lowercaseKey) && !wordMap.has(line)) {
+			wordMap.set(lowercaseKey, line);
 		}
 	}
 
-	return Object.keys(wordMap).sort();
+	return Array.from(wordMap.values(wordMap)).sort();
 }
 
 

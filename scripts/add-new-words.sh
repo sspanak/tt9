@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if [ $# -lt 4 ]; then
-	echo "Usage: $0 LOCALE base-dictionary-file.csv new-words-file.txt frequency-file.csv"
-	echo 'Cleans up and adds new words to a dictionary file.'
+	echo "Usage: $0 LOCALE base-dictionary-file.csv new-words-file.txt frequency-file.csv [ignore-split-list.txt]"
+	echo 'Cleans up and adds new words to a dictionary file. Optionally, it could skip splitting the words from "ignore-split-list.txt"'
 	echo 'LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...'
 	exit 1
 fi
@@ -22,18 +22,23 @@ if ! [[ -f $4 ]]; then
 	exit 2
 fi
 
+
 LOCALE=$1
 DICTIONARY_FILE=$2
 NEW_WORDS_FILE=$3
 FREQUENCY_FILE=$4
+IGNORE_SPLIT_LIST_FILE=$5
+WORK_DIR="/tmp/TT9_$(uuidgen)"
 
-sed -E 's/[\t0-9]+//g' $DICTIONARY_FILE > /tmp/_TT9_base.txt \
-	&& node scripts/injest-words.js $NEW_WORDS_FILE > /tmp/_TT9_1.txt \
-	&& node scripts/remove-foreign-words.js $LOCALE /tmp/_TT9_1.txt $LOCALE /tmp/_TT9_base.txt > /tmp/_TT9_2.txt \
-	&& cp /tmp/_TT9_base.txt /tmp/_TT9_combined.txt \
-	&& cat /tmp/_TT9_2.txt >> /tmp/_TT9_combined.txt \
-	&& node scripts/remove-dictionary-repeating-words.js $LOCALE /tmp/_TT9_combined.txt > /tmp/_TT9_clean.txt \
-	&& node scripts/inject-dictionary-frequencies.js /tmp/_TT9_clean.txt $FREQUENCY_FILE $LOCALE > /tmp/_TT9_output.txt \
-	&& cat /tmp/_TT9_output.txt
+mkdir -p $WORK_DIR && \
+sed -E 's/[\t0-9]+//g' $DICTIONARY_FILE > $WORK_DIR/_TT9_base.txt \
+	&& node scripts/injest-words.js $NEW_WORDS_FILE $IGNORE_SPLIT_LIST_FILE > $WORK_DIR/_TT9_1.txt \
+	&& node scripts/remove-foreign-words.js $LOCALE $WORK_DIR/_TT9_1.txt $LOCALE $WORK_DIR/_TT9_base.txt > $WORK_DIR/_TT9_2.txt \
+	&& cp $WORK_DIR/_TT9_base.txt $WORK_DIR/_TT9_combined.txt \
+	&& echo >> $WORK_DIR/_TT9_combined.txt \
+	&& cat $WORK_DIR/_TT9_2.txt >> $WORK_DIR/_TT9_combined.txt \
+	&& node scripts/remove-dictionary-repeating-words.js $LOCALE $WORK_DIR/_TT9_combined.txt > $WORK_DIR/_TT9_clean.txt \
+	&& node scripts/inject-dictionary-frequencies.js $WORK_DIR/_TT9_clean.txt $FREQUENCY_FILE $LOCALE > $WORK_DIR/_TT9_output.txt \
+	&& cat $WORK_DIR/_TT9_output.txt
 
-rm -f /tmp/_TT9*
+rm -rf $WORK_DIR
