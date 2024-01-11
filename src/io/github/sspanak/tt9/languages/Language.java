@@ -163,6 +163,10 @@ public class Language {
 		return getKeyCharacters(2, false).contains("α");
 	}
 
+	public boolean isArabic() {
+		return getKeyCharacters(3, false).contains("ا");
+	}
+	
 	public boolean isUkrainian() {
 		return getKeyCharacters(3, false).contains("є");
 	}
