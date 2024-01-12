@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8686759156275895115",
-      "lastPropertyId": "9:148562041880145406",
+      "lastPropertyId": "10:5810596014752327025",
       "name": "Word",
       "properties": [
         {
@@ -52,20 +52,26 @@
           "id": "9:148562041880145406",
           "name": "word",
           "type": 9
+        },
+        {
+          "id": "10:5810596014752327025",
+          "name": "sequenceMedium",
+          "type": 9
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "1:8686759156275895115",
-  "lastIndexId": "3:5820769207826940948",
+  "lastIndexId": "4:6483918642018029965",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [
-    5820769207826940948
+    5820769207826940948,
+    6483918642018029965
   ],
   "retiredPropertyUids": [
     1684236207225806285
