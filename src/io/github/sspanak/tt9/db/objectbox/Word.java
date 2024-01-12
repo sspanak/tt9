@@ -4,11 +4,10 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
-import io.objectbox.annotation.ConflictStrategy;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
-import io.objectbox.annotation.Unique;
+import io.objectbox.annotation.IndexType;
 
 @Entity
 public class Word {
@@ -17,9 +16,8 @@ public class Word {
 	public boolean isCustom;
 	public int langId;
 	public int length;
-	@Index public String sequence;
-	@Index public byte sequenceShort; // up to 2 digits
-	@Unique(onConflict = ConflictStrategy.REPLACE) public String uniqueId;
+	@Index(type = IndexType.VALUE) public String sequence;
+	@Index public short sequenceShort; // up to 2 digits
 	public String word;
 
 	public static Word create(@NonNull Language language, @NonNull String word, int frequency) throws InvalidLanguageCharactersException {
@@ -30,7 +28,6 @@ public class Word {
 		w.length = word.length();
 		w.sequence = language.getDigitSequenceForWord(word);
 		w.sequenceShort = shrinkSequence(w.sequence);
-		w.uniqueId = (language.getId() + "-" + word);
 		w.word = word;
 
 		return w;
@@ -42,7 +39,29 @@ public class Word {
 		return w;
 	}
 
-	public static Byte shrinkSequence(@NonNull String sequence) {
-		return Byte.parseByte(sequence.substring(0, Math.min(2, sequence.length())));
+	public static short shrinkSequence(@NonNull String sequence) {
+		int length = sequence.length();
+		if (length == 0) {
+			return 0;
+		} else if (length == 1) {
+			return (short) (sequence.charAt(0) - '0');
+		}
+
+		short shrunk = (short) (10 * (sequence.charAt(0) - '0') + (sequence.charAt(1) - '0'));
+		return (length > 2) ? (short) -shrunk : shrunk;
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		return word;
+	}
+
+	public String toDebugString() {
+		return "word: " + word +
+			" | sequence: " + sequence +
+			" | short: " + sequenceShort +
+			" | priority: " + frequency +
+			"\n";
 	}
 }

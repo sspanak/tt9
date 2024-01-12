@@ -20,14 +20,14 @@ public class WordList extends ArrayList<Word> {
 	@NonNull
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
+		int listSize = size();
+		if (listSize == 0) {
+			return "";
+		}
 
-		for (int i = 0; i < size(); i++) {
-			sb
-				.append("word: ").append(get(i).word)
-				.append(" | sequence: ").append(get(i).sequence)
-				.append(" | priority: ").append(get(i).frequency)
-				.append("\n");
+		StringBuilder sb = new StringBuilder(get(0).toString().length());
+		for (int i = 0; i < listSize; i++) {
+			sb.append(get(i).toDebugString());
 		}
 
 		return sb.toString();
@@ -48,9 +48,10 @@ public class WordList extends ArrayList<Word> {
 
 	@NonNull
 	public ArrayList<String> toStringList() {
-		ArrayList<String> strings = new ArrayList<>();
-		for (int i = 0; i < size(); i++) {
-			strings.add(get(i).word);
+		int listSize = size();
+		ArrayList<String> strings = new ArrayList<>(listSize);
+		for (int i = 0; i < listSize; i++) {
+			strings.add(get(i).toString());
 		}
 		return strings;
 	}

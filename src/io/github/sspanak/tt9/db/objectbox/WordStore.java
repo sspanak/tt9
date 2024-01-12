@@ -24,6 +24,7 @@ public class WordStore {
 
 	private Query<Word> longWordQuery;
 	private Query<Word> singleLetterQuery;
+	private Query<Word> twoLetterQuery;
 
 
 	public WordStore(Context context) {
@@ -41,6 +42,7 @@ public class WordStore {
 
 		longWordQuery = getLongWordQuery();
 		singleLetterQuery = getSingleLetterQuery();
+		twoLetterQuery = get2LetterQuery();
 	}
 
 
@@ -48,12 +50,25 @@ public class WordStore {
 		return boxStore.boxFor(Word.class)
 			.query()
 				.equal(Word_.langId, 0)
-				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE).parameterAlias("seq_start")
-				.lessOrEqual(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE).parameterAlias("seq_end")
-				.equal(Word_.sequenceShort, 0)
+				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
 				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+//				.equal(Word_.sequenceShort, 0)
 			.order(Word_.length)
 			.orderDesc(Word_.frequency)
+			.build();
+	}
+
+	private Query<Word> get2LetterQuery() {
+		return boxStore.boxFor(Word.class)
+			.query()
+				.equal(Word_.langId, 0)
+				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+//				.equal(Word_.sequenceShort, 0).parameterAlias("short_positive")
+					.or()
+					.equal(Word_.sequenceShort, 0).parameterAlias("short_negative")
+//			.order(Word_.length)
+//			.orderDesc(Word_.frequency)
 			.build();
 	}
 
@@ -105,13 +120,20 @@ public class WordStore {
 	public WordList getMany(Language language, @NonNull String sequence, @Nullable String filter, int maxWords) {
 		Query<Word> query;
 		if (sequence.length() < 2) {
-			singleLetterQuery.setParameter(Word_.sequenceShort, Byte.parseByte(sequence));
 			query = singleLetterQuery;
+			query.setParameter(Word_.sequenceShort, Byte.parseByte(sequence));
+		} else if (sequence.length() == 2 || sequence.length() == 3) {
+			short seq = Word.shrinkSequence(sequence);
+			seq = seq > 0 ? (short) -seq : seq;
+
+			query = twoLetterQuery;
+			// this is very fast without sorting
+			query.setParameter(Word_.sequence,  sequence);
+			query.setParameter("short_negative", seq);
 		} else {
-			longWordQuery.setParameter(Word_.sequenceShort, Word.shrinkSequence(sequence));
-			longWordQuery.setParameter("seq_start", sequence);
-			longWordQuery.setParameter("seq_end", sequence + "99");
 			query = longWordQuery;
+//			query.setParameter(Word_.sequenceShort, -Word.shrinkSequence(sequence));
+			query.setParameter(Word_.sequence, sequence);
 		}
 
 		query.setParameter(Word_.langId, language.getId());
@@ -122,7 +144,7 @@ public class WordStore {
 			query.setParameter(Word_.word, "");
 		}
 
-		return new WordList(query.find(0, maxWords));
+		return new WordList(query.find(0, 2000));
 	}
 
 
