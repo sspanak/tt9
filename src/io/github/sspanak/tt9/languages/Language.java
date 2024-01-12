@@ -141,14 +141,11 @@ public class Language {
 				StringBuilder sb = new StringBuilder();
 				for (int i = 0; i < lettersList.size() && i < 3; i++) {
 					sb.append(lettersList.get(i));
+				}
+	
+				abcString = sb.toString();
 			}
-
-			abcString = sb.toString();
 		}
-		}
-
-		return abcString;
-	}
 
 		return abcString;
 	}
