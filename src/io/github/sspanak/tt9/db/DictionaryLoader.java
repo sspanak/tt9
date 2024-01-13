@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
+import io.github.sspanak.tt9.db.objectbox.ShortSequenceStats;
 import io.github.sspanak.tt9.db.objectbox.Word;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
@@ -24,7 +25,7 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryLoader {
 	private static DictionaryLoader self;
-	private final String logTag = "DictionaryLoader";
+	private static final String LOG_TAG = "DictionaryLoader";
 
 	private final AssetManager assets;
 	private final SettingsStore settings;
@@ -70,7 +71,7 @@ public class DictionaryLoader {
 		}
 
 		if (languages.size() == 0) {
-			Logger.d(logTag, "Nothing to do");
+			Logger.d(LOG_TAG, "Nothing to do");
 			return;
 		}
 
@@ -109,7 +110,7 @@ public class DictionaryLoader {
 
 	private void importAll(Language language) {
 		if (language == null) {
-			Logger.e(logTag, "Failed loading a dictionary for NULL language.");
+			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
 			sendError(InvalidLanguageException.class.getSimpleName(), -1);
 			return;
 		}
@@ -119,7 +120,7 @@ public class DictionaryLoader {
 				long start = System.currentTimeMillis();
 				importWords(language, language.getDictionaryFile());
 				Logger.i(
-					logTag,
+					LOG_TAG,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
 				);
@@ -127,14 +128,14 @@ public class DictionaryLoader {
 				start = System.currentTimeMillis();
 				importLetters(language);
 				Logger.i(
-					logTag,
+					LOG_TAG,
 					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 			} catch (DictionaryImportAbortedException e) {
 				stop();
 
 				Logger.i(
-					logTag,
+					LOG_TAG,
 					e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported."
 				);
 			} catch (DictionaryImportException e) {
@@ -142,7 +143,7 @@ public class DictionaryLoader {
 				sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
 
 				Logger.e(
-					logTag,
+					LOG_TAG,
 					" Invalid word: '" + e.word
 					+ "' in dictionary: '" + language.getDictionaryFile() + "'"
 					+ " on line " + e.line
@@ -154,7 +155,7 @@ public class DictionaryLoader {
 				sendError(e.getClass().getSimpleName(), language.getId());
 
 				Logger.e(
-					logTag,
+					LOG_TAG,
 					"Failed loading dictionary: " + language.getDictionaryFile()
 					+ " for language '" + language.getName() + "'. "
 					+ e.getMessage()
@@ -188,6 +189,7 @@ public class DictionaryLoader {
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 		ArrayList<Word> dbWords = new ArrayList<>();
+		ShortSequenceStats sequenceStats = new ShortSequenceStats();
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -201,7 +203,11 @@ public class DictionaryLoader {
 			int frequency = getFrequency(parts);
 
 			try {
-				dbWords.add(Word.create(language, word, frequency));
+				Word dbWord = Word.create(language, word, frequency);
+				sequenceStats.add(dbWord.sequence);
+				sequenceStats.addChild(dbWord.sequence);
+
+				dbWords.add(dbWord);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
@@ -247,7 +253,7 @@ public class DictionaryLoader {
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(sizeFilename), StandardCharsets.UTF_8))) {
 			return Integer.parseInt(reader.readLine());
 		} catch (Exception e) {
-			Logger.w(logTag, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
+			Logger.w(LOG_TAG, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
 			return 0;
 		}
 	}
@@ -264,7 +270,7 @@ public class DictionaryLoader {
 
 	private void sendStartMessage(int fileCount) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send file count without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send file count without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -277,7 +283,7 @@ public class DictionaryLoader {
 
 	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send progress without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send progress without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -299,7 +305,7 @@ public class DictionaryLoader {
 
 	private void sendError(String message, int langId) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send an error without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send an error without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -312,7 +318,7 @@ public class DictionaryLoader {
 
 	private void sendImportError(String message, int langId, long fileLine, String word) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send an import error without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send an import error without a status Handler. Ignoring message.");
 			return;
 		}
 
