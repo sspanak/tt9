@@ -8,6 +8,7 @@ import io.objectbox.annotation.ConflictStrategy;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
+import io.objectbox.annotation.IndexType;
 import io.objectbox.annotation.Unique;
 
 @Entity
@@ -17,7 +18,7 @@ public class Word {
 	public boolean isCustom;
 	public int langId;
 	public int length;
-	@Index public String sequence;
+	@Index(type = IndexType.VALUE) public String sequence;
 	@Index public byte sequenceShort; // up to 2 digits
 	@Unique(onConflict = ConflictStrategy.REPLACE) public String uniqueId;
 	public String word;

@@ -22,8 +22,8 @@ public class WordStore {
 	private BoxStore boxStore;
 	private Box<Word> wordBox;
 
-	private Query<Word> longWordQuery;
-	private Query<Word> singleLetterQuery;
+	private Query<Word> exactWordsQuery;
+	private Query<Word> fuzzyWordsQuery;
 
 
 	public WordStore(Context context) {
@@ -39,30 +39,30 @@ public class WordStore {
 
 		wordBox = boxStore.boxFor(Word.class);
 
-		longWordQuery = getLongWordQuery();
-		singleLetterQuery = getSingleLetterQuery();
+		exactWordsQuery = getExactWordsQuery();
+		fuzzyWordsQuery = getFuzzyWordsQuery();
 	}
 
 
-	private Query<Word> getLongWordQuery() {
-		return boxStore.boxFor(Word.class)
-			.query()
+	private QueryBuilder<Word> getBaseWordQuery() {
+		return boxStore.boxFor(Word.class).query()
 				.equal(Word_.langId, 0)
-				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE).parameterAlias("seq_start")
-				.lessOrEqual(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE).parameterAlias("seq_end")
-				.equal(Word_.sequenceShort, 0)
-				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
-			.order(Word_.length)
+				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE);
+	}
+
+
+	private Query<Word> getExactWordsQuery() {
+		return getBaseWordQuery()
+			.equal(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
 			.orderDesc(Word_.frequency)
 			.build();
 	}
 
-	private Query<Word> getSingleLetterQuery() {
-		return wordBox
-			.query()
-				.equal(Word_.langId, 0)
-				.equal(Word_.sequenceShort, 0)
-				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+
+	private Query<Word> getFuzzyWordsQuery() {
+		return getBaseWordQuery()
+			.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+			.order(Word_.length)
 			.orderDesc(Word_.frequency)
 			.build();
 	}
@@ -93,6 +93,7 @@ public class WordStore {
 		}
 	}
 
+
 	@Nullable
 	public List<Word> getMany(int langId) {
 		try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
@@ -103,24 +104,13 @@ public class WordStore {
 
 	@NonNull
 	public WordList getMany(Language language, @NonNull String sequence, @Nullable String filter, int maxWords) {
-		Query<Word> query;
-		if (sequence.length() < 2) {
-			singleLetterQuery.setParameter(Word_.sequenceShort, Byte.parseByte(sequence));
-			query = singleLetterQuery;
-		} else {
-			longWordQuery.setParameter(Word_.sequenceShort, Word.shrinkSequence(sequence));
-			longWordQuery.setParameter("seq_start", sequence);
-			longWordQuery.setParameter("seq_end", sequence + "99");
-			query = longWordQuery;
-		}
+		Query<Word> query = sequence.length() < 2 ? exactWordsQuery : fuzzyWordsQuery;
+		String wordFilter = filter == null || filter.isEmpty() ? "" : filter;
 
-		query.setParameter(Word_.langId, language.getId());
-
-		if (filter != null && !filter.equals("")) {
-			query.setParameter(Word_.word, filter);
-		} else {
-			query.setParameter(Word_.word, "");
-		}
+		query
+			.setParameter(Word_.langId, language.getId())
+			.setParameter(Word_.sequence, sequence)
+			.setParameter(Word_.word, wordFilter);
 
 		return new WordList(query.find(0, maxWords));
 	}
@@ -142,7 +132,8 @@ public class WordStore {
 		QueryCondition<Word> where = Word_.langId.equal(langId);
 
 		if (sequence != null && word != null) {
-			where = where.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
+			where = where
+				.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 				.and(Word_.sequence.equal(sequence))
 				.and(Word_.word.notEqual(word));
 		}
