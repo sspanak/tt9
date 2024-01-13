@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8686759156275895115",
-      "lastPropertyId": "10:5810596014752327025",
+      "lastPropertyId": "9:148562041880145406",
       "name": "Word",
       "properties": [
         {
@@ -45,35 +45,27 @@
           "id": "7:3922044271904033267",
           "name": "sequenceShort",
           "indexId": "2:2641086768976362614",
-          "type": 2,
+          "type": 3,
           "flags": 8
         },
         {
           "id": "9:148562041880145406",
           "name": "word",
           "type": 9
-        },
-        {
-          "id": "10:5810596014752327025",
-          "name": "sequenceMedium",
-          "indexId": "5:429017724277245544",
-          "type": 9,
-          "flags": 2048
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "1:8686759156275895115",
-  "lastIndexId": "5:429017724277245544",
+  "lastIndexId": "3:5820769207826940948",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [
-    5820769207826940948,
-    6483918642018029965
+    5820769207826940948
   ],
   "retiredPropertyUids": [
     1684236207225806285

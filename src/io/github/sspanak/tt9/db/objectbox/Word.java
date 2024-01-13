@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.db.objectbox;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
@@ -18,10 +17,7 @@ public class Word {
 	public int langId;
 	public int length;
 	@Index(type = IndexType.VALUE) public String sequence;
-	@Nullable
-	@Index
-	public String sequenceMedium;
-	@Index public byte sequenceShort; // up to 2 digits
+	@Index public short sequenceShort; // up to 2 digits
 	public String word;
 
 	public static Word create(@NonNull Language language, @NonNull String word, int frequency) throws InvalidLanguageCharactersException {
@@ -31,8 +27,7 @@ public class Word {
 		w.langId = language.getId();
 		w.length = word.length();
 		w.sequence = language.getDigitSequenceForWord(word);
-		w.sequenceMedium = getMediumSequence(w.sequence);
-		w.sequenceShort = getShortSequence(w.sequence);
+		w.sequenceShort = shrinkSequence(w.sequence);
 		w.word = word;
 
 		return w;
@@ -44,12 +39,16 @@ public class Word {
 		return w;
 	}
 
-	public static byte getShortSequence(@NonNull String sequence) {
-		return sequence.length() == 0 ? 0 : Byte.parseByte(sequence.substring(0, Math.min(2, sequence.length())));
-	}
+	public static short shrinkSequence(@NonNull String sequence) {
+		int length = sequence.length();
+		if (length == 0) {
+			return 0;
+		} else if (length == 1) {
+			return (short) (sequence.charAt(0) - '0');
+		}
 
-	public static String getMediumSequence(@NonNull String sequence) {
-		return sequence.length() < 2 ? "" : sequence.substring(0, Math.min(5, sequence.length()));
+		short shrunk = (short) (10 * (sequence.charAt(0) - '0') + (sequence.charAt(1) - '0'));
+		return (length > 2) ? (short) -shrunk : shrunk;
 	}
 
 	@NonNull

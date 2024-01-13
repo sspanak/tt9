@@ -63,10 +63,12 @@ public class WordStore {
 			.query()
 				.equal(Word_.langId, 0)
 				.startsWith(Word_.word, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
-				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE).parameterAlias("seq_medium")
-//				.equal(Word_.sequenceShort, 0).parameterAlias("seq_short")
-			.order(Word_.length)
-			.orderDesc(Word_.frequency)
+				.startsWith(Word_.sequence, "", QueryBuilder.StringOrder.CASE_SENSITIVE)
+//				.equal(Word_.sequenceShort, 0).parameterAlias("short_positive")
+					.or()
+					.equal(Word_.sequenceShort, 0).parameterAlias("short_negative")
+//			.order(Word_.length)
+//			.orderDesc(Word_.frequency)
 			.build();
 	}
 
@@ -98,7 +100,7 @@ public class WordStore {
 	@Nullable
 	public Word get(int langId, @NonNull String word, @NonNull String sequence) {
 		QueryCondition<Word> where = Word_.langId.equal(langId)
-			.and(Word_.sequenceShort.equal(Word.getMediumSequence(sequence)))
+			.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 			.and(Word_.word.equal(word, QueryBuilder.StringOrder.CASE_SENSITIVE));
 
 		try (Query<Word> query = wordBox.query(where).build()) {
@@ -119,11 +121,15 @@ public class WordStore {
 		Query<Word> query;
 		if (sequence.length() < 2) {
 			query = singleLetterQuery;
-			query.setParameter(Word_.sequenceShort, Word.getShortSequence(sequence));
-		} else if (sequence.length() <= 3) {
+			query.setParameter(Word_.sequenceShort, Byte.parseByte(sequence));
+		} else if (sequence.length() == 2 || sequence.length() == 3) {
+			short seq = Word.shrinkSequence(sequence);
+			seq = seq > 0 ? (short) -seq : seq;
+
 			query = twoLetterQuery;
-			query.setParameter("seq_medium", sequence);
-//			query.setParameter("seq_short", Word.getShortSequence(sequence));
+			// this is very fast without sorting
+			query.setParameter(Word_.sequence,  sequence);
+			query.setParameter("short_negative", seq);
 		} else {
 			query = longWordQuery;
 //			query.setParameter(Word_.sequenceShort, -Word.shrinkSequence(sequence));
@@ -138,7 +144,7 @@ public class WordStore {
 			query.setParameter(Word_.word, "");
 		}
 
-		return new WordList(query.find(0, 40));
+		return new WordList(query.find(0, 2000));
 	}
 
 
@@ -158,7 +164,7 @@ public class WordStore {
 		QueryCondition<Word> where = Word_.langId.equal(langId);
 
 		if (sequence != null && word != null) {
-			where = where.and(Word_.sequenceShort.equal(Word.getMediumSequence(sequence)))
+			where = where.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 				.and(Word_.sequence.equal(sequence))
 				.and(Word_.word.notEqual(word));
 		}
