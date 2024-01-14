@@ -84,6 +84,7 @@ public class WordStore {
 
 	@Nullable
 	public Word get(int langId, @NonNull String word, @NonNull String sequence) {
+		// @todo: try searching by the unique "langId_word"
 		QueryCondition<Word> where = Word_.langId.equal(langId)
 			.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 			.and(Word_.word.equal(word, QueryBuilder.StringOrder.CASE_SENSITIVE));
@@ -104,7 +105,7 @@ public class WordStore {
 
 	@NonNull
 	public WordList getMany(Language language, @NonNull String sequence, @Nullable String filter, int maxWords) {
-		Query<Word> query = sequence.length() < 2 ? exactWordsQuery : fuzzyWordsQuery;
+		Query<Word> query = sequence.length() < 4 ? exactWordsQuery : fuzzyWordsQuery;
 		String wordFilter = filter == null || filter.isEmpty() ? "" : filter;
 
 		query
@@ -112,7 +113,14 @@ public class WordStore {
 			.setParameter(Word_.sequence, sequence)
 			.setParameter(Word_.word, wordFilter);
 
-		return new WordList(query.find(0, maxWords));
+		WordList words = new WordList(query.find(0, maxWords));
+
+		if ((sequence.length() == 2 || sequence.length() == 3) && words.size() < 8) { // @todo: use minWords
+			// @todo: words.addAll(cachedWordsQuery.find(0, minWords - words.size()));
+			// @todo: use maxWords, instead of minWords if it is fast enough
+		}
+
+		return words;
 	}
 
 
@@ -135,7 +143,7 @@ public class WordStore {
 			where = where
 				.and(Word_.sequenceShort.equal(Word.shrinkSequence(sequence)))
 				.and(Word_.sequence.equal(sequence))
-				.and(Word_.word.notEqual(word));
+				.and(Word_.word.notEqual(word)); // @todo: Word_.id.notEqual(...)
 		}
 
 		try (Query<Word> query = wordBox.query(where).build()) {
