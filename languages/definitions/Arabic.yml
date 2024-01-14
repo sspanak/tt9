@@ -1,7 +1,7 @@
 ---
 locale: ar-JO
-dictionaryFile: ar-utf8.txt
-abcString: أبت
+dictionaryFile: ar-utf8.csv
+abcString: أﺏﺕ
 hasUpperCase: no
 layout:
   - [SPECIAL] # 0
