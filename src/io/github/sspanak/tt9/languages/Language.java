@@ -270,7 +270,7 @@ public class Language {
 	}
 
 	/*Returns western number as arabic number in a string*/
-	public ArrayList<String> getArabicKeyNumber(int num){
+	public String getArabicKeyNumber(int num){
 		String arNum = "";
 		switch (num) {
 				case 1:
