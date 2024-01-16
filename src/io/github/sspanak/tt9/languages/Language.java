@@ -306,7 +306,7 @@ public class Language {
 				default:
 					arNum = null;
 					break;
-		return arNum
+		return arNum;
 	}
 	
 	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {
