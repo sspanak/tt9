@@ -21,7 +21,12 @@ public class ModeABC extends InputMode {
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
-			suggestions.add(String.valueOf(number));
+			if (language.isArabic()){
+				suggestions.add(language.getArabicKeyNumber(number));
+			}
+			else{
+				suggestions.add(String.valueOf(number));
+			}
 			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
 			shouldSelectNextLetter = true;
