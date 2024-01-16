@@ -254,7 +254,12 @@ public class Language {
 
 		ArrayList<String> chars = new ArrayList<>(layout.get(key));
 		if (includeDigit && chars.size() > 0) {
-			chars.add(String.valueOf(key));
+			if (isArabic()){
+				chars.add(getArabicKeyNumber(key));
+			}
+			else{
+				chars.add(String.valueOf(key));
+			}
 		}
 
 		return chars;
@@ -264,6 +269,46 @@ public class Language {
 		return getKeyCharacters(key, true);
 	}
 
+	/*Returns western number as arabic number in a string*/
+	public ArrayList<String> getArabicKeyNumber(int num){
+		String arNum = "";
+		switch (num) {
+				case 1:
+					arNum = "١";
+					break;
+				case 2:
+					arNum = "٢";
+					break;
+				case 3:
+					arNum = "٣";
+					break;
+				case 4:
+					arNum = "٤";
+					break;
+				case 5:
+					arNum = "٥";
+					break;
+				case 6:
+					arNum = "٦";
+					break;
+				case 7:
+					arNum = "٧";
+					break;
+				case 8:
+					arNum = "٨";
+					break;
+				case 9:
+					arNum = "٩";
+					break;
+				case 0:
+					arNum = "٠";
+					break;
+				default:
+					arNum = null;
+					break;
+		return arNum
+	}
+	
 	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {
 		StringBuilder sequence = new StringBuilder();
 		String lowerCaseWord = word.toLowerCase(locale);
