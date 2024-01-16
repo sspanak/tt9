@@ -81,7 +81,12 @@ public class ModePredictive extends InputMode {
 			reset();
 			autoAcceptTimeout = 0;
 			disablePredictions = true;
-			suggestions.add(String.valueOf(number));
+			if (language.isArabic()){
+				suggestions.add(language.getArabicKeyNumber(number));
+			}
+			else{
+				suggestions.add(String.valueOf(number));
+			}
 		} else {
 			// words
 			super.reset();
