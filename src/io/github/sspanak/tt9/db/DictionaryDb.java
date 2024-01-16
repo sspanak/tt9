@@ -74,41 +74,41 @@ public class DictionaryDb {
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
-		final String LOG_TAG = "db.normalizeWordFrequencies";
-
-		new Thread(() -> {
-			for (int langId : getStore().getLanguages()) {
-				getStore().runInTransactionAsync(() -> {
-					try {
-						long start = System.currentTimeMillis();
-
-						if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
-							return;
-						}
-
-						List<Word> words = getStore().getMany(langId);
-						if (words == null) {
-							return;
-						}
-
-						for (Word w : words) {
-							w.frequency /= settings.getWordFrequencyNormalizationDivider();
-						}
-
-						getStore().put(words);
-
-						Logger.d(
-							LOG_TAG,
-							"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
-						);
-					} catch (Exception e) {
-						Logger.e(LOG_TAG, "Word normalization failed. " + e.getMessage());
-					} finally {
-						getStore().closeThreadResources();
-					}
-				});
-			}
-		}).start();
+//		final String LOG_TAG = "db.normalizeWordFrequencies";
+//
+//		new Thread(() -> {
+//			for (int langId : getStore().getLanguages()) {
+//				getStore().runInTransactionAsync(() -> {
+//					try {
+//						long start = System.currentTimeMillis();
+//
+//						if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
+//							return;
+//						}
+//
+//						List<Word> words = getStore().getMany(langId);
+//						if (words == null) {
+//							return;
+//						}
+//
+//						for (Word w : words) {
+//							w.frequency /= settings.getWordFrequencyNormalizationDivider();
+//						}
+//
+//						getStore().put(words);
+//
+//						Logger.d(
+//							LOG_TAG,
+//							"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
+//						);
+//					} catch (Exception e) {
+//						Logger.e(LOG_TAG, "Word normalization failed. " + e.getMessage());
+//					} finally {
+//						getStore().closeThreadResources();
+//					}
+//				});
+//			}
+//		}).start();
 	}
 
 
@@ -144,31 +144,31 @@ public class DictionaryDb {
 			throw new InsertBlankWordException();
 		}
 
-		new Thread(() -> {
-			try {
-				if (getStore().exists(language.getId(), word, language.getDigitSequenceForWord(word))) {
-					throw new UniqueViolationException("Word already exists");
-				}
-				getStore().put(Word.create(language, word, 1, true));
-				statusHandler.accept(0);
-			} catch (UniqueViolationException e) {
-				String msg = "Skipping word: '" + word + "' for language: " + language.getId() + ", because it already exists.";
-				Logger.w("insertWord", msg);
-				statusHandler.accept(1);
-			} catch (Exception e) {
-				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
-				Logger.e("insertWord", msg);
-				statusHandler.accept(2);
-			} finally {
-				getStore().closeThreadResources();
-			}
-		}).start();
+//		new Thread(() -> {
+//			try {
+//				if (getStore().exists(language.getId(), word, language.getDigitSequenceForWord(word))) {
+//					throw new UniqueViolationException("Word already exists");
+//				}
+//				getStore().put(Word.create(language, word, 1, true));
+//				statusHandler.accept(0);
+//			} catch (UniqueViolationException e) {
+//				String msg = "Skipping word: '" + word + "' for language: " + language.getId() + ", because it already exists.";
+//				Logger.w("insertWord", msg);
+//				statusHandler.accept(1);
+//			} catch (Exception e) {
+//				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
+//				Logger.e("insertWord", msg);
+//				statusHandler.accept(2);
+//			} finally {
+//				getStore().closeThreadResources();
+//			}
+//		}).start();
 	}
 
 
 	public static void upsertWordsSync(List<Word> words) {
-		getStore().put(words);
-		getStore().closeThreadResources();
+//		getStore().put(words);
+//		getStore().closeThreadResources();
 	}
 
 
@@ -178,48 +178,48 @@ public class DictionaryDb {
 			return;
 		}
 
-		new Thread(() -> {
-			try {
-				long start = System.currentTimeMillis();
-
-				Word dbWord = getStore().get(language.getId(), word, sequence);
-
-				// In case the user has changed the text case, there would be no match.
-				// Try again with the lowercase equivalent.
-				if (dbWord == null) {
-					dbWord = getStore().get(language.getId(), word.toLowerCase(language.getLocale()), sequence);
-				}
-
-				if (dbWord == null) {
-					throw new Exception("No such word");
-				}
-
-				int max = getStore().getMaxFrequency(dbWord.langId, dbWord.sequence, dbWord.word);
-				if (dbWord.frequency <= max) {
-					dbWord.frequency = max + 1;
-					getStore().put(dbWord);
-					long time = System.currentTimeMillis() - start;
-
-					Logger.d(
-					"incrementWordFrequency",
-					"Incremented frequency of '" + dbWord.word + "' to: " + dbWord.frequency + ". Time: " + time + " ms"
-					);
-				} else {
-					long time = System.currentTimeMillis() - start;
-					Logger.d(
-						"incrementWordFrequency",
-						"'" + dbWord.word + "' is already the top word. Keeping frequency: " + dbWord.frequency + ". Time: " + time + " ms"
-					);
-				}
-			} catch (Exception e) {
-				Logger.e(
-					DictionaryDb.class.getName(),
-					"Failed incrementing word frequency. Word: " + word + ". " + e.getMessage()
-				);
-			} finally {
-				getStore().closeThreadResources();
-			}
-		}).start();
+//		new Thread(() -> {
+//			try {
+//				long start = System.currentTimeMillis();
+//
+//				Word dbWord = getStore().get(language.getId(), word, sequence);
+//
+//				// In case the user has changed the text case, there would be no match.
+//				// Try again with the lowercase equivalent.
+//				if (dbWord == null) {
+//					dbWord = getStore().get(language.getId(), word.toLowerCase(language.getLocale()), sequence);
+//				}
+//
+//				if (dbWord == null) {
+//					throw new Exception("No such word");
+//				}
+//
+//				int max = getStore().getMaxFrequency(dbWord.langId, dbWord.sequence, dbWord.word);
+//				if (dbWord.frequency <= max) {
+//					dbWord.frequency = max + 1;
+//					getStore().put(dbWord);
+//					long time = System.currentTimeMillis() - start;
+//
+//					Logger.d(
+//					"incrementWordFrequency",
+//					"Incremented frequency of '" + dbWord.word + "' to: " + dbWord.frequency + ". Time: " + time + " ms"
+//					);
+//				} else {
+//					long time = System.currentTimeMillis() - start;
+//					Logger.d(
+//						"incrementWordFrequency",
+//						"'" + dbWord.word + "' is already the top word. Keeping frequency: " + dbWord.frequency + ". Time: " + time + " ms"
+//					);
+//				}
+//			} catch (Exception e) {
+//				Logger.e(
+//					DictionaryDb.class.getName(),
+//					"Failed incrementing word frequency. Word: " + word + ". " + e.getMessage()
+//				);
+//			} finally {
+//				getStore().closeThreadResources();
+//			}
+//		}).start();
 	}
 
 

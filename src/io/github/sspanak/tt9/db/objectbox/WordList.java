@@ -18,31 +18,40 @@ public class WordList extends ArrayList<Word> {
 
 
 	@NonNull
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < size(); i++) {
-			sb
-				.append("word: ").append(get(i).word)
-				.append(" | sequence: ").append(get(i).sequence)
-				.append(" | priority: ").append(get(i).frequency)
-				.append("\n");
-		}
-
-		return sb.toString();
-	}
-
-
-	@NonNull
 	public WordList filter(int minLength, int minWords) {
 		WordList filtered = new WordList();
 		for (int i = 0; i < size(); i++) {
-			if (get(i).length == minLength || filtered.size() < minWords) {
+			if (get(i).word.length() == minLength || filtered.size() < minWords) {
 				filtered.add(get(i));
 			}
 		}
 		return filtered;
+	}
+
+
+
+	@NonNull
+	@Override
+	public String toString() {
+		return toDebugString(20);
+
+	}
+
+	public String toDebugString(int MAX_ITEMS) {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < size() && i < MAX_ITEMS; i++) {
+			sb
+				.append("word: ").append(get(i).word)
+				.append(" | priority: ").append(get(i).frequency)
+				.append("\n");
+		}
+
+		if (size() > MAX_ITEMS) {
+			sb.append("...\n(Total: ").append(size()).append(")");
+		}
+
+		return sb.toString();
 	}
 
 

@@ -16,8 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.objectbox.ShortSequenceStats;
-import io.github.sspanak.tt9.db.objectbox.Word;
+import io.github.sspanak.tt9.db.objectbox.Dictionary;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -116,9 +115,11 @@ public class DictionaryLoader {
 		}
 
 		DictionaryDb.runInTransaction(() -> {
+			Dictionary dictionary = new Dictionary(language);
+
 			try {
 				long start = System.currentTimeMillis();
-				importWords(language, language.getDictionaryFile());
+				importWords(language, language.getDictionaryFile(), dictionary);
 				Logger.i(
 					LOG_TAG,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
@@ -126,7 +127,7 @@ public class DictionaryLoader {
 				);
 
 				start = System.currentTimeMillis();
-				importLetters(language);
+				importLetters(language, dictionary);
 				Logger.i(
 					LOG_TAG,
 					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
@@ -165,31 +166,28 @@ public class DictionaryLoader {
 	}
 
 
-	private void importLetters(Language language) throws InvalidLanguageCharactersException {
-		ArrayList<Word> letters = new ArrayList<>();
-
+	private void importLetters(Language language, Dictionary dictionary) throws InvalidLanguageCharactersException {
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.add(Word.create(language, langChar, 0));
+				dictionary.add(langChar, 0);
 			}
 		}
 
-		DictionaryDb.upsertWordsSync(letters);
+//		dictionary.save();
 	}
 
 
-	private void importWords(Language language, String dictionaryFile) throws Exception {
+	private void importWords(Language language, String dictionaryFile, Dictionary dictionary) throws Exception {
 		sendProgressMessage(language, 1, 0);
 
 		long currentLine = 0;
 		long totalLines = getFileSize(dictionaryFile);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		ArrayList<Word> dbWords = new ArrayList<>();
-		ShortSequenceStats sequenceStats = new ShortSequenceStats();
+//		ArrayList<Word> dbWords = new ArrayList<>();
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -203,20 +201,16 @@ public class DictionaryLoader {
 			int frequency = getFrequency(parts);
 
 			try {
-				Word dbWord = Word.create(language, word, frequency);
-				sequenceStats.add(dbWord.sequence);
-				sequenceStats.addChild(dbWord.sequence);
-
-				dbWords.add(dbWord);
+				dictionary.append(word, frequency);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
 			}
 
-			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
-				DictionaryDb.upsertWordsSync(dbWords);
-				dbWords.clear();
-			}
+//			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
+//				DictionaryDb.upsertWordsSync(dbWords);
+//				dbWords.clear();
+//			}
 
 			if (totalLines > 0) {
 				int progress = (int) Math.floor(100.0 * currentLine / totalLines);
@@ -225,7 +219,10 @@ public class DictionaryLoader {
 			}
 		}
 
+		Logger.d(LOG_TAG, dictionary.find("46267").toString());
+
 		br.close();
+//		dictionary.save();
 		sendProgressMessage(language, 100, 0);
 	}
 

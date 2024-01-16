@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:8686759156275895115",
-      "lastPropertyId": "9:148562041880145406",
+      "lastPropertyId": "10:7633550212606754904",
       "name": "Word",
       "properties": [
         {
@@ -30,25 +30,6 @@
           "type": 5
         },
         {
-          "id": "5:2610279871343053806",
-          "name": "length",
-          "type": 5
-        },
-        {
-          "id": "6:5269773217039117329",
-          "name": "sequence",
-          "indexId": "1:2971223841434624317",
-          "type": 9,
-          "flags": 8
-        },
-        {
-          "id": "7:3922044271904033267",
-          "name": "sequenceShort",
-          "indexId": "2:2641086768976362614",
-          "type": 2,
-          "flags": 8
-        },
-        {
           "id": "8:1684236207225806285",
           "name": "uniqueId",
           "indexId": "3:5820769207826940948",
@@ -59,20 +40,34 @@
           "id": "9:148562041880145406",
           "name": "word",
           "type": 9
+        },
+        {
+          "id": "10:7633550212606754904",
+          "name": "position",
+          "indexId": "4:971304709900793602",
+          "type": 5,
+          "flags": 40
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "1:8686759156275895115",
-  "lastIndexId": "3:5820769207826940948",
+  "lastIndexId": "4:971304709900793602",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
-  "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredIndexUids": [
+    2971223841434624317,
+    2641086768976362614
+  ],
+  "retiredPropertyUids": [
+    2610279871343053806,
+    5269773217039117329,
+    3922044271904033267
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
