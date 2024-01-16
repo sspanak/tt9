@@ -35,6 +35,9 @@ public class Language {
 			case "en":
 				definitionLocale = Locale.ENGLISH;
 				break;
+			case "ar":
+				definitionLocale = new Locale.Builder().setLanguageTag("ar-JO-u-nu-arab").build();
+				break;
 			case "fr":
 				definitionLocale = Locale.FRENCH;
 				break;
