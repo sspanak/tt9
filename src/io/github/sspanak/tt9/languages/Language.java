@@ -306,6 +306,7 @@ public class Language {
 				default:
 					arNum = null;
 					break;
+		}
 		return arNum;
 	}
 	
