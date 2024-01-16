@@ -41,7 +41,9 @@ public class SoftPunctuationKey extends SoftKey {
 		if (!validateTT9Handler()) {
 			return "";
 		}
-
+		
+		Language language = LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
+		
 		int keyId = getId();
 		if (tt9.isInputModePhone()) {
 			if (keyId == R.id.soft_key_punctuation_1) return "*";
