@@ -9,6 +9,7 @@ import java.util.Locale;
 
 public class Language {
 	private int id;
+	private String binaryStringId;
 	protected String name;
 	protected Locale locale;
 	protected String dictionaryFile;
@@ -110,6 +111,24 @@ public class Language {
 		return id;
 	}
 
+	/**
+	 * Converts the "id" int to a 3-character string, 8-bit per character
+	 */
+	final public String getBinaryStringId() {
+		if (binaryStringId == null) {
+			getId();
+
+
+			binaryStringId = new StringBuilder()
+				.appendCodePoint(id >> 16)
+				.appendCodePoint((id >> 8) & 0xFF)
+				.appendCodePoint(id & 0xFF)
+				.toString();
+		}
+
+		return binaryStringId;
+	}
+
 	final public Locale getLocale() {
 		return locale;
 	}
@@ -172,8 +191,8 @@ public class Language {
 	/**
 	 * generateId
 	 * Uses the letters of the Locale to generate an ID for the language.
-	 * Each letter is converted to uppercase and used as n 5-bit integer. Then the the 5-bits
-	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale.
+	 * Each letter is converted to uppercase and used as a 5-bit integer. Then the 5-bits
+	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale length.
 	 *
 	 * Example (2-letter Locale)
 	 * 	"en"
@@ -186,12 +205,14 @@ public class Language {
 	 * 	-> "B" | "G" | "B" | "G"
 	 * 	-> 2 | 224 | 2048 | 229376 (shift each 5-bit number, not overlap with the previous ones)
 	 *	-> 231650
+	 *
+	 * Maximum ID is: "zz-ZZ" -> 879450
 	 */
 	private int generateId() {
 		String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
 		int idInt = 0;
 		for (int i = 0; i < idString.length(); i++) {
-			idInt |= ((idString.charAt(i) & 31) << (i * 5));
+			idInt |= ((idString.codePointAt(i) & 31) << (i * 5));
 		}
 
 		return idInt;
