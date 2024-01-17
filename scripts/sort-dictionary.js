@@ -64,6 +64,7 @@ function dictionarySort(a, b, letterWeights, locale) {
 		const charB = b.word.toLocaleLowerCase(locale).charAt(i);
 		const distance = letterWeights.get(charA) - letterWeights.get(charB);
 
+
 		if (distance !== 0) {
 			return distance;
 		}
@@ -75,6 +76,7 @@ function dictionarySort(a, b, letterWeights, locale) {
 function getLetterWeights() {
 	const letterWeights = new Map();
 	letterWeights
+		.set("'", 1).set("-", 1).set('"', 1)
 		.set('а', 2).set('б', 2).set('в', 2).set('г', 2).set('ґ', 2)
 		.set('д', 3).set('е', 3).set('є', 3).set('ж', 3).set('з', 3)
 		.set('и', 4).set('і', 4).set('ї', 4).set('й', 4).set('к', 4).set('л', 4)
@@ -94,6 +96,12 @@ function getLetterWeights() {
 		.set('t', 8).set('u', 8).set('v', 8)
 		.set('w', 9).set('x', 9).set('y', 9).set('z', 9);
 
+	letterWeights
+		.set('á', 2)
+		.set('é', 3)
+		.set('í', 4)
+		.set('ñ', 5).set('ó', 5)
+		.set('ú', 8).set('ü', 8);
 
 	return letterWeights;
 }
