@@ -1,13 +1,17 @@
 package io.github.sspanak.tt9.db.sqlite;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.objectbox.WordList;
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -19,11 +23,23 @@ public class WordStore {
 	private final SQLiteDatabase db;
 
 	public WordStore(Context context) {
+		File dbFile = context.getDatabasePath(DB_NAME);
+		if (!dbFile.exists()) {
+			try {
+				dbFile.createNewFile();
+			} catch (IOException e) {
+				Logger.e("WordStore", "Could not create database file: " + dbFile.getAbsolutePath());
+			}
+		}
+
+		// @todo: fix the error on Android 6:
+		// android.database.sqlite.SQLiteCantOpenDatabaseException: unknown error (code 14): Could not open database
 		db = SQLiteDatabase.openDatabase(
-			context.getDatabasePath(DB_NAME).getAbsolutePath(),
+			dbFile.getAbsolutePath(),
 			null,
 			SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING
 		);
+
 		createActiveLanguageTables(context);
 	}
 
@@ -49,8 +65,73 @@ public class WordStore {
 		db.endTransaction();
 	}
 
-	public WordList getMany(Language language, String sequence, String filter, int maximumWords) {
-		return new WordList();
+	public ArrayList<String> getMany(Language language, String sequence, String filter, int maximumWords) {
+		StringBuilder indexSql = new StringBuilder("SELECT start, end FROM " + getIndexTableName(language.getId()) + " WHERE ");
+		if (sequence.length() == 1) {
+			indexSql.append(" sequence = ").append(sequence);
+		} else if (sequence.length() <= 2) {
+			indexSql.append(" sequence IN(").append(sequence).append(",");
+			for (int i = 1; i <= 9; i++) {
+				indexSql.append(sequence).append(i);
+				if (i <= 8) {
+					indexSql.append(",");
+				}
+			}
+			indexSql.append(")");
+		} else {
+			indexSql.append(" sequence LIKE '").append(sequence).append("%'");
+		}
+
+		indexSql.append(" LIMIT ").append(maximumWords);
+
+		Logger.d("WordStore", "Index SQL: " + indexSql.toString());
+
+		Cursor cursor = db.rawQuery(indexSql.toString(), new String[]{});
+
+		ArrayList<String> ranges = new ArrayList<>();
+
+		// @todo: merge adjacent ranges
+		while (cursor.moveToNext()) {
+			int start = cursor.getInt(0);
+			int end = cursor.getInt(1);
+
+			if (start < end) {
+				ranges.add("(position >= " + start + " AND position <= " + end + ")");
+			} else {
+				ranges.add("(position = " + start + ")");
+			}
+		}
+
+		cursor.close();
+
+		if (ranges.size() == 0) {
+			Logger.d("WordStore", "No sequences found. Not searching words.");
+			return new ArrayList<>();
+		}
+
+		// @todo: speed up "water", "fire%" and longer words
+		// @todo: sort out the limits
+		// @todo: filters do not work properly
+
+		String wordsSql =
+			"SELECT word " +
+			" FROM " + getWordsTableName(language.getId()) +
+			" WHERE (" + String.join(" OR ", ranges) + ")" + (filter != null && !filter.isEmpty() ? " AND word LIKE '" + filter + "%' " : "") +
+			" ORDER BY LENGTH(word), frequency DESC " +
+			" LIMIT " + maximumWords;
+		Logger.d("WordStore", "Words SQL: " + wordsSql);
+
+
+		ArrayList<String> words = new ArrayList<>();
+		cursor = db.rawQuery(wordsSql, new String[]{});
+		while (cursor.moveToNext()) {
+			words.add(cursor.getString(0));
+		}
+
+
+		cursor.close();
+
+		return words;
 	}
 
 	private String getWordsTableName(@NonNull String langId) {
@@ -75,7 +156,7 @@ public class WordStore {
 				"word TEXT NOT NULL" +
 			")"
 		);
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_position ON " + getWordsTableName(langId) + " (position)");
+		db.execSQL("CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTableName(langId) + " (position, word)");
 	}
 
 	private void createIndexTable(@NonNull String langId) {
@@ -86,7 +167,7 @@ public class WordStore {
 				"end INTEGER NOT NULL" +
 			")"
 		);
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence ON " + getIndexTableName(langId) + " (sequence)");
+		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_" + langId + " ON " + getIndexTableName(langId) + " (sequence)");
 	}
 
 	private void createActiveLanguageTables(Context context) {

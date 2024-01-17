@@ -40,7 +40,7 @@ public class DictionaryDb {
 	}
 
 
-	private static void printLoadDebug(String sequence, WordList words, long startTime) {
+	private static void printLoadDebug(String sequence, ArrayList<String> words, long startTime) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
@@ -239,13 +239,16 @@ public class DictionaryDb {
 	private static ArrayList<String> loadWords(Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		long start = System.currentTimeMillis();
 
-		WordList matches = getStore()
-			.getMany(language, sequence, filter, maximumWords)
-			.filter(sequence.length(), minimumWords);
+//		WordList matches = getStore()
+//			.getMany(language, sequence, filter, maximumWords);
+//			.filter(sequence.length(), minimumWords);
+
+		ArrayList<String> matches = getStore().getMany(language, sequence, filter, maximumWords);
 
 //		getStore().closeThreadResources();
 		printLoadDebug(sequence, matches, start);
-		return matches.toStringList();
+//		return matches.toStringList();
+		return matches;
 	}
 
 
