@@ -101,7 +101,6 @@ public class Language {
 		return keyChars;
 	}
 
-
 	final public int getId() {
 		if (id == 0) {
 			id = generateId();

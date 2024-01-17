@@ -15,8 +15,6 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.config.DebugFlags;
 import io.objectbox.query.Query;
-import io.objectbox.query.QueryBuilder;
-import io.objectbox.query.QueryCondition;
 
 public class WordStore {
 	private BoxStore boxStore;

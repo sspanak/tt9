@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.objectbox.WordBatch;
+import io.github.sspanak.tt9.db.sqlite.WordBatch;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -178,7 +178,7 @@ public class DictionaryLoader {
 			}
 		}
 
-		DictionaryDb.upsertWordsSync(letters);
+		DictionaryDb.upsertWordsSync(language, letters);
 
 		return lettersCount;
 	}
@@ -212,7 +212,7 @@ public class DictionaryLoader {
 			}
 
 			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
-				DictionaryDb.upsertWordsSync(dbWords);
+				DictionaryDb.upsertWordsSync(language, dbWords);
 				dbWords.clear();
 			}
 

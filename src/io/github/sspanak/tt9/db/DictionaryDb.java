@@ -6,19 +6,16 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
-import io.github.sspanak.tt9.db.objectbox.Word;
-import io.github.sspanak.tt9.db.objectbox.WordBatch;
 import io.github.sspanak.tt9.db.objectbox.WordList;
-import io.github.sspanak.tt9.db.objectbox.WordStore;
+import io.github.sspanak.tt9.db.sqlite.WordBatch;
+import io.github.sspanak.tt9.db.sqlite.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
-import io.objectbox.exception.UniqueViolationException;
 
 public class DictionaryDb {
 	private static WordStore store;
@@ -64,7 +61,13 @@ public class DictionaryDb {
 
 
 	public static void runInTransaction(Runnable r) {
-		getStore().runInTransaction(r);
+		try {
+			getStore().beginTransaction();
+			r.run();
+			getStore().finishTransaction();
+		} catch (Exception e) {
+			getStore().failTransaction();
+		}
 	}
 
 
@@ -116,29 +119,29 @@ public class DictionaryDb {
 
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
-		new Thread(() -> {
-			boolean areThere = getStore().count(language != null ? language.getId() : -1) > 0;
-			getStore().closeThreadResources();
-			notification.accept(areThere);
-		}).start();
+//		new Thread(() -> {
+//			boolean areThere = getStore().count(language != null ? language.getId() : -1) > 0;
+//			getStore().closeThreadResources();
+//			notification.accept(areThere);
+//		}).start();
 	}
 
 
 	public static void deleteWords(Context context, Runnable notification) {
-		new Thread(() -> {
-			getStore().destroy();
-			store = null;
-			init(context);
-			notification.run();
-		}).start();
+//		new Thread(() -> {
+//			getStore().destroy();
+//			store = null;
+//			init(context);
+//			notification.run();
+//		}).start();
 	}
 
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
-		new Thread(() -> {
-			getStore().removeMany(languageIds).closeThreadResources();
-			notification.run();
-		}).start();
+//		new Thread(() -> {
+//			getStore().removeMany(languageIds).closeThreadResources();
+//			notification.run();
+//		}).start();
 	}
 
 
@@ -169,10 +172,10 @@ public class DictionaryDb {
 	}
 
 
-	public static void upsertWordsSync(WordBatch batch) {
+	public static void upsertWordsSync(Language language, WordBatch batch) {
 //		Logger.d("upsert", "Will insert: " + batch);
-		getStore().put(batch);
-		getStore().closeThreadResources();
+		getStore().put(language, batch);
+//		getStore().closeThreadResources();
 	}
 
 
@@ -240,7 +243,7 @@ public class DictionaryDb {
 			.getMany(language, sequence, filter, maximumWords)
 			.filter(sequence.length(), minimumWords);
 
-		getStore().closeThreadResources();
+//		getStore().closeThreadResources();
 		printLoadDebug(sequence, matches, start);
 		return matches.toStringList();
 	}
