@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.objectbox.Dictionary;
+import io.github.sspanak.tt9.db.objectbox.WordBatch;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -115,23 +115,22 @@ public class DictionaryLoader {
 		}
 
 		DictionaryDb.runInTransaction(() -> {
-			Dictionary dictionary = new Dictionary(language);
-
 			try {
 				long start = System.currentTimeMillis();
-				importWords(language, language.getDictionaryFile(), dictionary);
+				int lettersCount = importLetters(language);
+				Logger.i(
+					LOG_TAG,
+					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
+				start = System.currentTimeMillis();
+				importWords(language, language.getDictionaryFile(), lettersCount);
 				Logger.i(
 					LOG_TAG,
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
-				start = System.currentTimeMillis();
-				importLetters(language, dictionary);
-				Logger.i(
-					LOG_TAG,
-					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
-				);
 			} catch (DictionaryImportAbortedException e) {
 				stop();
 
@@ -166,28 +165,32 @@ public class DictionaryLoader {
 	}
 
 
-	private void importLetters(Language language, Dictionary dictionary) throws InvalidLanguageCharactersException {
+	private int importLetters(Language language) throws InvalidLanguageCharactersException {
+		WordBatch letters = new WordBatch(language);
+		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				dictionary.add(langChar, 0);
+				letters.add(langChar, 0, lettersCount++);
 			}
 		}
 
-//		dictionary.save();
+		DictionaryDb.upsertWordsSync(letters);
+
+		return lettersCount;
 	}
 
 
-	private void importWords(Language language, String dictionaryFile, Dictionary dictionary) throws Exception {
+	private void importWords(Language language, String dictionaryFile, int positionShift) throws Exception {
 		sendProgressMessage(language, 1, 0);
 
-		long currentLine = 0;
-		long totalLines = getFileSize(dictionaryFile);
+		int currentLine = 0;
+		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-//		ArrayList<Word> dbWords = new ArrayList<>();
+		WordBatch dbWords = new WordBatch(language);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -201,16 +204,16 @@ public class DictionaryLoader {
 			int frequency = getFrequency(parts);
 
 			try {
-				dictionary.append(word, frequency);
+				dbWords.add(word, frequency, currentLine + positionShift);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
 			}
 
-//			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
-//				DictionaryDb.upsertWordsSync(dbWords);
-//				dbWords.clear();
-//			}
+			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
+				DictionaryDb.upsertWordsSync(dbWords);
+				dbWords.clear();
+			}
 
 			if (totalLines > 0) {
 				int progress = (int) Math.floor(100.0 * currentLine / totalLines);
@@ -219,7 +222,6 @@ public class DictionaryLoader {
 			}
 		}
 
-		Logger.d(LOG_TAG, dictionary.find("46267").toString());
 
 		br.close();
 //		dictionary.save();
