@@ -21,7 +21,7 @@ public class WordList extends ArrayList<Word> {
 	public WordList filter(int minLength, int minWords) {
 		WordList filtered = new WordList();
 		for (int i = 0; i < size(); i++) {
-			if (get(i).word.length() == minLength || filtered.size() < minWords) {
+			if (get(i).toString().length() == minLength || filtered.size() < minWords) {
 				filtered.add(get(i));
 			}
 		}
@@ -42,7 +42,7 @@ public class WordList extends ArrayList<Word> {
 
 		for (int i = 0; i < size() && i < MAX_ITEMS; i++) {
 			sb
-				.append("word: ").append(get(i).word)
+				.append("word: ").append(get(i))
 				.append(" | priority: ").append(get(i).frequency)
 				.append("\n");
 		}
@@ -59,7 +59,7 @@ public class WordList extends ArrayList<Word> {
 	public ArrayList<String> toStringList() {
 		ArrayList<String> strings = new ArrayList<>();
 		for (int i = 0; i < size(); i++) {
-			strings.add(get(i).word);
+			strings.add(get(i).toString());
 		}
 		return strings;
 	}

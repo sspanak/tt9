@@ -173,7 +173,8 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.add(langChar, 0, lettersCount++);
+				letters.add(langChar, (short) 0, (short) -1);
+				lettersCount++;
 			}
 		}
 
@@ -201,7 +202,7 @@ public class DictionaryLoader {
 
 			String[] parts = splitLine(line);
 			String word = parts[0];
-			int frequency = getFrequency(parts);
+			short frequency = getFrequency(parts);
 
 			try {
 				dbWords.add(word, frequency, currentLine + positionShift);
@@ -258,9 +259,9 @@ public class DictionaryLoader {
 	}
 
 
-	private int getFrequency(String[] lineParts) {
+	private short getFrequency(String[] lineParts) {
 		try {
-			return Integer.parseInt(lineParts[1]);
+			return Short.parseShort(lineParts[1]);
 		} catch (Exception e) {
 			return 0;
 		}

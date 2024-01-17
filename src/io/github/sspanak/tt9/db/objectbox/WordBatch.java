@@ -22,9 +22,13 @@ public class WordBatch {
 	 * Adds a word and a digit sequence to the end of the internal lists, assuming this is called
 	 * repeatedly with properly sorted data.
 	 */
-	public void add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
+	public void add(@NonNull String word, short frequency, int position) throws InvalidLanguageCharactersException {
 		words.add(Word.create(language, word, frequency, position));
 		String sequence = language.getDigitSequenceForWord(word);
+		if (position == -1) {
+			return;
+		}
+
 		if (position == 0 || lastSequenceRange == null) {
 			lastSequenceRange = SequenceRange.create(language, sequence, position);
 		}

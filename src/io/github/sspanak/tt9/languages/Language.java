@@ -9,7 +9,6 @@ import java.util.Locale;
 
 public class Language {
 	private int id;
-	private String binaryStringId;
 	protected String name;
 	protected Locale locale;
 	protected String dictionaryFile;
@@ -109,24 +108,6 @@ public class Language {
 		}
 
 		return id;
-	}
-
-	/**
-	 * Converts the "id" int to a 3-character string, 8-bit per character
-	 */
-	final public String getBinaryStringId() {
-		if (binaryStringId == null) {
-			getId();
-
-
-			binaryStringId = new StringBuilder()
-				.appendCodePoint(id >> 16)
-				.appendCodePoint((id >> 8) & 0xFF)
-				.appendCodePoint(id & 0xFF)
-				.toString();
-		}
-
-		return binaryStringId;
 	}
 
 	final public Locale getLocale() {

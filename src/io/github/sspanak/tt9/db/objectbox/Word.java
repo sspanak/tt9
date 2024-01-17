@@ -6,31 +6,30 @@ import io.github.sspanak.tt9.languages.Language;
 import io.objectbox.annotation.ConflictStrategy;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Index;
 import io.objectbox.annotation.Unique;
 
 @Entity
 public class Word {
 	@Id public long id;
-	public int frequency;
+	public short frequency;
 	public boolean isCustom;
-	public int langId;
-	@Unique int position;
-	public String word;
-	@Unique(onConflict = ConflictStrategy.REPLACE) public String uniqueId;
+	public short langId;
+	@Index public int position;
+	@Index public String word;
 
-	public static Word create(@NonNull Language language, @NonNull String word, int frequency, int position) {
+	public static Word create(@NonNull Language language, @NonNull String word, short frequency, int position) {
 		Word w = new Word();
 		w.frequency = frequency;
 		w.isCustom = false;
-		w.langId = language.getId();
-		w.uniqueId = (language.getId() + "-" + word);
-		w.word = word;
+		w.langId = (short)language.getId();
 		w.position = position;
+		w.word = word;
 
 		return w;
 	}
 
-	public static Word create(@NonNull Language language, @NonNull String word, int frequency, int position, boolean isCustom) {
+	public static Word create(@NonNull Language language, @NonNull String word, short frequency, int position, boolean isCustom) {
 		Word w = create(language, word, frequency, position);
 		w.isCustom = isCustom;
 		return w;

@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.db.objectbox.Word;
+import io.github.sspanak.tt9.db.objectbox.WordBatch;
 import io.github.sspanak.tt9.db.objectbox.WordList;
 import io.github.sspanak.tt9.db.objectbox.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -74,6 +75,8 @@ public class DictionaryDb {
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
+		// @todo: work with short, not int
+
 //		final String LOG_TAG = "db.normalizeWordFrequencies";
 //
 //		new Thread(() -> {
@@ -166,9 +169,10 @@ public class DictionaryDb {
 	}
 
 
-	public static void upsertWordsSync(List<Word> words) {
-//		getStore().put(words);
-//		getStore().closeThreadResources();
+	public static void upsertWordsSync(WordBatch batch) {
+//		Logger.d("upsert", "Will insert: " + batch);
+		getStore().put(batch);
+		getStore().closeThreadResources();
 	}
 
 

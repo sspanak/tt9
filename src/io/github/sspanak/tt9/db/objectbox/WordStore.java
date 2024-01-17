@@ -21,6 +21,7 @@ import io.objectbox.query.QueryCondition;
 public class WordStore {
 	private BoxStore boxStore;
 	private Box<Word> wordBox;
+	private Box<SequenceRange> sequenceBox;
 
 	private Query<Word> exactWordsQuery;
 	private Query<Word> fuzzyWordsQuery;
@@ -38,6 +39,7 @@ public class WordStore {
 			.build();
 
 		wordBox = boxStore.boxFor(Word.class);
+		sequenceBox = boxStore.boxFor(SequenceRange.class);
 
 //		exactWordsQuery = getExactWordsQuery();
 //		fuzzyWordsQuery = getFuzzyWordsQuery();
@@ -69,11 +71,12 @@ public class WordStore {
 
 
 	public long count(int langId) {
-			try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
-				return query.count();
-			} catch (Exception e) {
-				return 0;
-			}
+		return 0;
+//			try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
+//				return query.count();
+//			} catch (Exception e) {
+//				return 0;
+//			}
 	}
 
 
@@ -99,9 +102,10 @@ public class WordStore {
 
 	@Nullable
 	public List<Word> getMany(int langId) {
-		try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
-			return query.find();
-		}
+		return new WordList();
+//		try (Query<Word> query = wordBox.query(Word_.langId.equal(langId)).build()) {
+//			return query.find();
+//		}
 	}
 
 
@@ -114,9 +118,10 @@ public class WordStore {
 
 
 	public int[] getLanguages() {
-		try (Query<Word> query = wordBox.query().build()) {
-			return query.property(Word_.langId).distinct().findInts();
-		}
+		return null;
+//		try (Query<Word> query = wordBox.query().build()) {
+//			return query.property(Word_.langId).distinct().findInts();
+//		}
 	}
 
 
@@ -143,13 +148,15 @@ public class WordStore {
 	}
 
 
-	public void put(@NonNull List<Word> words) {
-		wordBox.put(words);
+	public void put(@NonNull WordBatch batch) {
+		wordBox.put(batch.words);
+		sequenceBox.put(batch.sequences);
 	}
 
 
-	public void put(@NonNull Word word) {
+	public void put(@NonNull Word word, @NonNull SequenceRange sequenceRange) {
 		wordBox.put(word);
+		sequenceBox.put(sequenceRange);
 	}
 
 
