@@ -32,8 +32,10 @@ public class WordStore {
 			return "";
 		}
 
+		// @todo: use a compiled version if Language has not changed since the the last time
 		String sql = "SELECT `start`, `end` FROM " + dbBox.getIndexTable(language.getId()) + " WHERE ";
 
+		// @todo: try simplifying WHERE generation
 		String[] children;
 
 		if (sequence.length() == 2 && !isFilterOn) {
@@ -67,17 +69,27 @@ public class WordStore {
 
 
 	private String getWordsQuery(Language language, String positions, String filter, int maximumWords) {
-		// @todo: use a compiled version if Language is the same as the last time
-		String wordsSql =
-			"SELECT word " +
-			" FROM " + dbBox.getWordsTable(language.getId()) +
-			" WHERE position IN(" + positions + ")" + (filter.isEmpty() ? "" : " AND word LIKE '" + filter + "%' ") +
-			" ORDER BY LENGTH(word), frequency DESC " +
-			" LIMIT " + maximumWords;
+		// @todo: use a compiled version if Language has not changed since the the last time
+		// @todo: UNION with the custom words table
 
+		StringBuilder wordsSqlBuilder = new StringBuilder();
+		wordsSqlBuilder
+			.append("SELECT word FROM ").append(dbBox.getWordsTable(language.getId()))
+			.append(" WHERE position IN(").append(positions).append(")");
+
+		if (!filter.isEmpty()) {
+			wordsSqlBuilder.append(" AND word LIKE '").append(filter).append("%'");
+		}
+
+		wordsSqlBuilder
+			.append(" ORDER BY LENGTH(word), frequency DESC")
+			.append(" LIMIT ").append(maximumWords);
+
+		String wordsSql = wordsSqlBuilder.toString();
 		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
 	}
+
 
 
 	public void beginTransaction() {
@@ -245,8 +257,8 @@ public class WordStore {
 		debugText
 			.append("\nWord Count: ").append(words.size())
 			.append(".\nTime: ").append(positionIndexTime + wordsTime)
-			.append(" ms (index: ").append(wordsTime)
-			.append(" ms, words: ").append(positionIndexTime + wordsTime).append(" ms).");
+			.append(" ms (index: ").append(positionIndexTime)
+			.append(" ms, words: ").append(wordsTime).append(" ms).");
 
 		if (words.isEmpty()) {
 			debugText.append(" Sequence: ").append(sequence);
