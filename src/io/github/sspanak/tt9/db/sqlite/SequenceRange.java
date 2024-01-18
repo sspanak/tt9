@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.languages.Language;
-
 class SequenceRange {
 	public String sequence;
 	public int start;

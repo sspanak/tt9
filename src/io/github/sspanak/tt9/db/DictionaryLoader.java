@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.WordBatch;
+import io.github.sspanak.tt9.db.sqlite.DictionaryWordBatch;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -166,7 +166,7 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		WordBatch letters = new WordBatch(language);
+		DictionaryWordBatch letters = new DictionaryWordBatch(language);
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
@@ -191,7 +191,7 @@ public class DictionaryLoader {
 		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		WordBatch dbWords = new WordBatch(language);
+		DictionaryWordBatch dbWords = new DictionaryWordBatch(language);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {

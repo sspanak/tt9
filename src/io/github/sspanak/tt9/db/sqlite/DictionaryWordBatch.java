@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 
-public class WordBatch {
+public class DictionaryWordBatch {
 	private final Language language;
 	@NonNull public final ArrayList<Word> words = new ArrayList<>();
 	@NonNull public final ArrayList<SequenceRange> sequences = new ArrayList<>();
 	SequenceRange lastSequenceRange;
 
 
-	public WordBatch(@NonNull Language language) {
+	public DictionaryWordBatch(@NonNull Language language) {
 		this.language = language;
 	}
 

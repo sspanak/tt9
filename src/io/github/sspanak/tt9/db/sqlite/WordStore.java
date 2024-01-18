@@ -6,70 +6,70 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class WordStore {
-	private static final String DB_NAME = "tt9.db";
-	private static final int DB_VERSION = 1;
-	private static final String WORDS_TABLE_BASE_NAME = "words_";
-	private static final String INDEX_TABLE_BASE_NAME = "sequences_";
-	private final SQLiteDatabase db;
+	private final String LOG_TAG = "sqlite.WordStore";
+	private SQLiteBox dbBox = null;
+	private SQLiteDatabase db = null;
+
 
 	public WordStore(Context context) {
-		File dbFile = context.getDatabasePath(DB_NAME);
-		if (!dbFile.exists()) {
-			try {
-				dbFile.createNewFile();
-			} catch (IOException e) {
-				Logger.e("WordStore", "Could not create database file: " + dbFile.getAbsolutePath());
-			}
+		try {
+			dbBox = new SQLiteBox(context);
+			db = dbBox.getWritableDatabase();
+		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
-
-		// @todo: fix the error on Android 6:
-		// android.database.sqlite.SQLiteCantOpenDatabaseException: unknown error (code 14): Could not open database
-		db = SQLiteDatabase.openDatabase(
-			dbFile.getAbsolutePath(),
-			null,
-			SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.ENABLE_WRITE_AHEAD_LOGGING
-		);
-
-		createActiveLanguageTables(context);
 	}
 
-	public void put(@NonNull Language language, @NonNull Word word, @NonNull SequenceRange sequenceRange) {
-
-	}
-
-	public void put(@NonNull Language language, @NonNull WordBatch batch) {
-		insertWords(language, batch.words);
-		insertSequences(language, batch.sequences);
-	}
 
 	public void beginTransaction() {
-		db.beginTransactionNonExclusive();
+		if (db != null) {
+			db.beginTransactionNonExclusive();
+		}
 	}
+
 
 	public void failTransaction() {
-		db.endTransaction();
+		if (db != null) {
+			db.endTransaction();
+		}
 	}
+
 
 	public void finishTransaction() {
-		db.setTransactionSuccessful();
-		db.endTransaction();
+		if (db != null) {
+			db.setTransactionSuccessful();
+			db.endTransaction();
+		}
 	}
 
+
+	public void put(@NonNull Language language, @NonNull DictionaryWordBatch wordBatch) {
+		if (db == null) {
+			Logger.e(LOG_TAG, "No database connection. Cannot put any data.");
+			return;
+		}
+		insertWords(language, wordBatch.words);
+		insertSequences(language, wordBatch.sequences);
+	}
+
+
 	public ArrayList<String> getMany(Language language, String sequence, String filter, int maximumWords) {
+		if (db == null) {
+			Logger.e(LOG_TAG, "No database connection. Cannot query any data.");
+			return new ArrayList<>();
+		}
+
 		boolean isFilterOn = filter != null && !filter.isEmpty();
 
 		long startTime = System.currentTimeMillis();
 
-		String indexSql = "SELECT `start`, `end` FROM " + getIndexTableName(language.getId()) + " WHERE ";
+		String indexSql = "SELECT `start`, `end` FROM " + dbBox.getIndexTable(language.getId()) + " WHERE ";
 		if (sequence.length() == 1) { // @todo: no sequences query here, just search for words
 			indexSql += " sequence = " + sequence;
 		} else if (sequence.length() == 2 && !isFilterOn) {
@@ -79,7 +79,7 @@ public class WordStore {
 				children[i] = sequence + i;
 			}
 			indexSql += " sequence IN(" + String.join(",", children) + ")";
-		} else if ((sequence.length() == 2 && isFilterOn) || sequence.length() <= 4 && !isFilterOn) {
+		} else if (sequence.length() == 2 || (sequence.length() <= 4 && !isFilterOn)) {
 			String[] children = new String[91];
 			children[0] = sequence;
 			for (int i = 1; i <= 9; i++) {
@@ -139,7 +139,7 @@ public class WordStore {
 
 		String wordsSql =
 			"SELECT word " +
-			" FROM " + getWordsTableName(language.getId()) +
+			" FROM " + dbBox.getWordsTable(language.getId()) +
 			" WHERE position IN(" + positions + ")" + (isFilterOn ? " AND word LIKE '" + filter + "%' " : "") +
 			" ORDER BY LENGTH(word), frequency DESC " +
 			" LIMIT " + maximumWords;
@@ -159,86 +159,39 @@ public class WordStore {
 		return words;
 	}
 
-	private String getWordsTableName(@NonNull String langId) {
-		return WORDS_TABLE_BASE_NAME + langId;
-	}
-	private String getWordsTableName(int langId) {
-		return WORDS_TABLE_BASE_NAME + langId;
-	}
-	private String getIndexTableName(@NonNull String langId) {
-		return INDEX_TABLE_BASE_NAME + langId;
-	}
-	private String getIndexTableName(int langId) {
-		return INDEX_TABLE_BASE_NAME + langId;
-	}
-
-	private void createWordsTable(@NonNull String langId) {
-		db.execSQL(
-			"CREATE TABLE IF NOT EXISTS " + getWordsTableName(langId) + " (" +
-				"frequency INTEGER NOT NULL DEFAULT 0, " +
-				"isCustom TINYINT NOT NULL DEFAULT 0, " +
-				"position INTEGER NOT NULL, " +
-				"word TEXT NOT NULL" +
-			")"
-		);
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTableName(langId) + " (position, word)");
-	}
-
-	private void createIndexTable(@NonNull String langId) {
-		db.execSQL(
-			"CREATE TABLE IF NOT EXISTS " + getIndexTableName(langId) + " (" +
-				"sequence TEXT NOT NULL, " +
-				"start INTEGER NOT NULL, " +
-				"end INTEGER NOT NULL" +
-			")"
-		);
-//		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_" + langId + " ON " + getIndexTableName(langId) + " (sequence)");
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getIndexTableName(langId) + " (sequence, `start`)");
-	}
-
-	private void createActiveLanguageTables(Context context) {
-		db.beginTransactionNonExclusive();
-		for (Language language : LanguageCollection.getAll(context)) {
-			String id = String.valueOf(language.getId());
-			createWordsTable(id);
-			createIndexTable(id);
-		}
-		db.setTransactionSuccessful();
-		db.endTransaction();
-	}
 
 	private void insertWords(Language language, ArrayList<Word> words) {
 		if (words.size() == 0) {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + getWordsTableName(language.getId()) + " (frequency, position, word) VALUES ");
-		int count = 0;
-		int commaLimit = words.size() - 1;
+		StringBuilder sql = new StringBuilder("INSERT INTO " + dbBox.getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
 		for (Word word : words) {
-			sql.append("(").append(word.frequency).append(",").append(word.position).append(",'").append(word.word.replaceAll("'", "''")).append("')");
-			if (count++ < commaLimit) {
-				sql.append(",");
-			}
+			sql
+				.append("(")
+				.append(word.frequency).append(",").append(word.position).append(",'").append(word.word.replaceAll("'", "''")).append("'")
+				.append("),");
 		}
+		sql.setLength(sql.length() - 1);
 
 		db.execSQL(sql.toString());
 	}
+
 
 	private void insertSequences(Language language, ArrayList<SequenceRange> sequences) {
 		if (sequences.size() == 0) {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + getIndexTableName(language.getId()) + " (sequence, start, end) VALUES ");
-		int count = 0;
-		int commaLimit = sequences.size() - 1;
+		StringBuilder sql = new StringBuilder("INSERT INTO " + dbBox.getIndexTable(language.getId()) + " (sequence, start, end) VALUES ");
+
 		for (SequenceRange seq : sequences) {
-			sql.append("(").append(seq.sequence).append(",").append(seq.start).append(",").append(seq.end).append(")");
-			if (count++ < commaLimit) {
-				sql.append(",");
-			}
+			sql
+				.append("(")
+				.append(seq.sequence).append(",").append(seq.start).append(",").append(seq.end)
+				.append("),");
 		}
+		sql.setLength(sql.length() - 1);
 
 		db.execSQL(sql.toString());
 	}

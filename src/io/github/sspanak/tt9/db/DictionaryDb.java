@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
-import io.github.sspanak.tt9.db.objectbox.WordList;
-import io.github.sspanak.tt9.db.sqlite.WordBatch;
+import io.github.sspanak.tt9.db.sqlite.DictionaryWordBatch;
 import io.github.sspanak.tt9.db.sqlite.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
@@ -172,7 +171,7 @@ public class DictionaryDb {
 	}
 
 
-	public static void upsertWordsSync(Language language, WordBatch batch) {
+	public static void upsertWordsSync(Language language, DictionaryWordBatch batch) {
 //		Logger.d("upsert", "Will insert: " + batch);
 		getStore().put(language, batch);
 //		getStore().closeThreadResources();
