@@ -39,26 +39,6 @@ public class DictionaryDb {
 	}
 
 
-	private static void printLoadDebug(String sequence, ArrayList<String> words, long startTime) {
-		if (!Logger.isDebugLevel()) {
-			return;
-		}
-
-		StringBuilder debugText = new StringBuilder("===== Word Matches =====");
-		debugText
-			.append("\n")
-			.append("Word Count: ").append(words.size())
-			.append(". Time: ").append(System.currentTimeMillis() - startTime).append(" ms.");
-		if (words.size() > 0) {
-			debugText.append("\n").append(words);
-		} else {
-			debugText.append(" Sequence: ").append(sequence);
-		}
-
-		Logger.d("loadWords", debugText.toString());
-	}
-
-
 	public static void runInTransaction(Runnable r) {
 		try {
 			getStore().beginTransaction();

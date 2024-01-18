@@ -173,7 +173,7 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.add(langChar, (short) 0, 0);
+				letters.add(langChar, (short) 0, key);
 				lettersCount++;
 			}
 		}
