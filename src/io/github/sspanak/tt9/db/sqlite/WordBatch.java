@@ -25,11 +25,11 @@ public class WordBatch {
 	public void add(@NonNull String word, short frequency, int position) throws InvalidLanguageCharactersException {
 		words.add(Word.create(word, frequency, position));
 		String sequence = language.getDigitSequenceForWord(word);
-		if (position == -1) {
+		if (position == 0) {
 			return;
 		}
 
-		if (position == 0 || lastSequenceRange == null) {
+		if (position == 1 || lastSequenceRange == null) {
 			lastSequenceRange = SequenceRange.create(sequence, position);
 		}
 

@@ -173,7 +173,7 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.add(langChar, (short) 0, (short) -1);
+				letters.add(langChar, (short) 0, 0);
 				lettersCount++;
 			}
 		}
@@ -187,7 +187,7 @@ public class DictionaryLoader {
 	private void importWords(Language language, String dictionaryFile, int positionShift) throws Exception {
 		sendProgressMessage(language, 1, 0);
 
-		int currentLine = 0;
+		int currentLine = 1;
 		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));

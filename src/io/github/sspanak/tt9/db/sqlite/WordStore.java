@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
@@ -66,57 +65,82 @@ public class WordStore {
 	}
 
 	public ArrayList<String> getMany(Language language, String sequence, String filter, int maximumWords) {
-		StringBuilder indexSql = new StringBuilder("SELECT start, end FROM " + getIndexTableName(language.getId()) + " WHERE ");
-		if (sequence.length() == 1) {
-			indexSql.append(" sequence = ").append(sequence);
-		} else if (sequence.length() <= 2) {
-			indexSql.append(" sequence IN(").append(sequence).append(",");
+		boolean isFilterOn = filter != null && !filter.isEmpty();
+
+		long startTime = System.currentTimeMillis();
+
+		String indexSql = "SELECT `start`, `end` FROM " + getIndexTableName(language.getId()) + " WHERE ";
+		if (sequence.length() == 1) { // @todo: no sequences query here, just search for words
+			indexSql += " sequence = " + sequence;
+		} else if (sequence.length() == 2 && !isFilterOn) {
+			String[] children = new String[10];
+			children[0] = sequence;
 			for (int i = 1; i <= 9; i++) {
-				indexSql.append(sequence).append(i);
-				if (i <= 8) {
-					indexSql.append(",");
+				children[i] = sequence + i;
+			}
+			indexSql += " sequence IN(" + String.join(",", children) + ")";
+		} else if ((sequence.length() == 2 && isFilterOn) || sequence.length() <= 4 && !isFilterOn) {
+			String[] children = new String[91];
+			children[0] = sequence;
+			for (int i = 1; i <= 9; i++) {
+				children[i] = sequence + i;
+			}
+
+			for (int seqEnd = 11, j = 10; seqEnd <= 99; seqEnd++) {
+				if (seqEnd % 10 != 0) {
+					children[j++] = sequence + seqEnd;
 				}
 			}
-			indexSql.append(")");
+			indexSql += " sequence IN(" + String.join(",", children) + ")";
 		} else {
-			indexSql.append(" sequence LIKE '").append(sequence).append("%'");
+			indexSql += " sequence = " + sequence + " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9";
+			indexSql += " ORDER BY start ";
+			indexSql += " LIMIT 100"; // @todo: maximum number of children + 1 among all sequences
 		}
 
-		indexSql.append(" LIMIT ").append(maximumWords);
+		// @todo: if results for 2-4 < SettingsStore.getSuggestionsMin(), run the >= 4 query
 
-		Logger.d("WordStore", "Index SQL: " + indexSql.toString());
+		Logger.d("WordStore", "Index SQL: " + indexSql);
 
-		Cursor cursor = db.rawQuery(indexSql.toString(), new String[]{});
+		Cursor cursor = db.rawQuery(indexSql, new String[]{});
 
-		ArrayList<String> ranges = new ArrayList<>();
+		StringBuilder positions = new StringBuilder();
 
-		// @todo: merge adjacent ranges
 		while (cursor.moveToNext()) {
 			int start = cursor.getInt(0);
 			int end = cursor.getInt(1);
 
 			if (start < end) {
-				ranges.add("(position >= " + start + " AND position <= " + end + ")");
+				for (int position = start; position <= end; position++) {
+					positions.append(position);
+					if (position < end) {
+						positions.append(",");
+					}
+				}
 			} else {
-				ranges.add("(position = " + start + ")");
+				positions.append(start);
 			}
+
+			positions.append(",");
 		}
 
 		cursor.close();
 
-		if (ranges.size() == 0) {
+		Logger.d("WordStore", "Index time: " + (System.currentTimeMillis() - startTime) + " ms.");
+
+		if (positions.length() == 0) {
 			Logger.d("WordStore", "No sequences found. Not searching words.");
 			return new ArrayList<>();
 		}
 
-		// @todo: speed up "water", "fire%" and longer words
-		// @todo: sort out the limits
-		// @todo: filters do not work properly
+		positions.setLength(positions.length() - 1);
+
+		startTime = System.currentTimeMillis();
 
 		String wordsSql =
 			"SELECT word " +
 			" FROM " + getWordsTableName(language.getId()) +
-			" WHERE (" + String.join(" OR ", ranges) + ")" + (filter != null && !filter.isEmpty() ? " AND word LIKE '" + filter + "%' " : "") +
+			" WHERE position IN(" + positions + ")" + (isFilterOn ? " AND word LIKE '" + filter + "%' " : "") +
 			" ORDER BY LENGTH(word), frequency DESC " +
 			" LIMIT " + maximumWords;
 		Logger.d("WordStore", "Words SQL: " + wordsSql);
@@ -128,8 +152,9 @@ public class WordStore {
 			words.add(cursor.getString(0));
 		}
 
-
 		cursor.close();
+
+		Logger.d("WordStore", "Words time: " + (System.currentTimeMillis() - startTime) + " ms.");
 
 		return words;
 	}
@@ -167,7 +192,8 @@ public class WordStore {
 				"end INTEGER NOT NULL" +
 			")"
 		);
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_" + langId + " ON " + getIndexTableName(langId) + " (sequence)");
+//		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_" + langId + " ON " + getIndexTableName(langId) + " (sequence)");
+		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getIndexTableName(langId) + " (sequence, `start`)");
 	}
 
 	private void createActiveLanguageTables(Context context) {
