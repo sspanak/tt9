@@ -10,8 +10,8 @@ import io.github.sspanak.tt9.languages.Language;
 public class DictionaryWordBatch {
 	private final Language language;
 	@NonNull public final ArrayList<Word> words = new ArrayList<>();
-	@NonNull public final ArrayList<SequenceRange> sequences = new ArrayList<>();
-	SequenceRange lastSequenceRange;
+	@NonNull public final ArrayList<DictionaryWordBatchPosition> wordPositions = new ArrayList<>();
+	DictionaryWordBatchPosition lastWordPosition;
 
 
 	public DictionaryWordBatch(@NonNull Language language) {
@@ -29,21 +29,21 @@ public class DictionaryWordBatch {
 			return;
 		}
 
-		if (position == 1 || lastSequenceRange == null) {
-			lastSequenceRange = SequenceRange.create(sequence, position);
+		if (position == 1 || lastWordPosition == null) {
+			lastWordPosition = DictionaryWordBatchPosition.create(sequence, position);
 		}
 
-		if (!sequence.equals(lastSequenceRange.sequence)) {
-			lastSequenceRange.endAt(position - 1);
-			sequences.add(lastSequenceRange);
-			lastSequenceRange = SequenceRange.create(sequence, position);
+		if (!sequence.equals(lastWordPosition.sequence)) {
+			lastWordPosition.endAt(position - 1);
+			wordPositions.add(lastWordPosition);
+			lastWordPosition = DictionaryWordBatchPosition.create(sequence, position);
 		}
 	}
 
 	public void clear() {
 		words.clear();
-		sequences.clear();
-		lastSequenceRange = null;
+		wordPositions.clear();
+		lastWordPosition = null;
 	}
 
 	public int size() {
@@ -74,6 +74,6 @@ public class DictionaryWordBatch {
 
 		return " === " + getClass().getSimpleName() + " contents === " +
 			"\nWords:\n" + elementToDebugString(words, MAX_ITEMS) +
-			"\nIndex:\n" + elementToDebugString(sequences, MAX_ITEMS) ;
+			"\nIndex:\n" + elementToDebugString(wordPositions, MAX_ITEMS) ;
 	}
 }

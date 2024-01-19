@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
-public class SQLiteBox extends SQLiteOpenHelper {
+public class SQLiteStore extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "tt9.db";
 	private static final int DATABASE_VERSION = 1;
 
@@ -17,9 +17,13 @@ public class SQLiteBox extends SQLiteOpenHelper {
 
 	private final Context context;
 
-	public SQLiteBox(Context context) {
+	private SQLiteDatabase db;
+	final WordOperations ops;
+
+	public SQLiteStore(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		this.context = context;
+		ops = new WordOperations(this);
 	}
 
 	@Override
@@ -42,9 +46,18 @@ public class SQLiteBox extends SQLiteOpenHelper {
 		// No migrations as of now
 	}
 
-	public String getCustomWordsTable() { return CUSTOM_WORDS_TABLE; }
-	public String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
-	public String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
+	public SQLiteDatabase getDb() {
+		if (db == null) {
+			db = getWritableDatabase();
+		}
+		return db;
+	}
+
+	static String getCustomWordsTable() { return CUSTOM_WORDS_TABLE; }
+	static String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
+	static String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
+
+
 
 	private void createWordsTable(SQLiteDatabase db, int langId) {
 		db.execSQL(

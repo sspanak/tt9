@@ -209,28 +209,6 @@ public class DictionaryDb {
 	}
 
 
-	/**
-	 * loadWords
-	 * Loads words matching and similar to a given digit sequence
-	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
-	 * and other similar.
-	 */
-	private static ArrayList<String> loadWords(Language language, String sequence, String filter, int minimumWords, int maximumWords) {
-		return getStore().getSimilar(language, sequence, filter, minimumWords, maximumWords);
-
-//		long start = System.currentTimeMillis();
-
-//		WordList matches = getStore()
-//			.getMany(language, sequence, filter, maximumWords);
-//			.filter(sequence.length(), minimumWords);
-
-//		getStore().closeThreadResources();
-//		printLoadDebug(sequence, matches, start);
-//		return matches.toStringList();
-//		return matches;
-	}
-
-
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minimumWords, int maximumWords) {
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minWords);
@@ -249,8 +227,8 @@ public class DictionaryDb {
 
 		new Thread(() -> sendWords(
 			dataHandler,
-			loadWords(language, sequence, filter, minWords, maxWords))
-		).start();
+			getStore().getSimilar(language, sequence, filter, minWords, maxWords)
+		)).start();
 	}
 
 

@@ -2,17 +2,17 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import androidx.annotation.NonNull;
 
-class SequenceRange {
+class DictionaryWordBatchPosition {
 	public String sequence;
 	public int start;
 	public int end;
 
-	public static SequenceRange create(@NonNull String sequence, int start) {
-		SequenceRange range = new SequenceRange();
-		range.sequence = sequence;
-		range.start = start;
+	public static DictionaryWordBatchPosition create(@NonNull String sequence, int start) {
+		DictionaryWordBatchPosition position = new DictionaryWordBatchPosition();
+		position.sequence = sequence;
+		position.start = start;
 
-		return range;
+		return position;
 	}
 
 	public void endAt(int position) {
