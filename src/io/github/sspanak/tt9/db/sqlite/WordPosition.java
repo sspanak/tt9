@@ -2,13 +2,13 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import androidx.annotation.NonNull;
 
-class DictionaryWordBatchPosition {
+class WordPosition {
 	public String sequence;
 	public int start;
 	public int end;
 
-	public static DictionaryWordBatchPosition create(@NonNull String sequence, int start) {
-		DictionaryWordBatchPosition position = new DictionaryWordBatchPosition();
+	public static WordPosition create(@NonNull String sequence, int start) {
+		WordPosition position = new WordPosition();
 		position.sequence = sequence;
 		position.start = start;
 

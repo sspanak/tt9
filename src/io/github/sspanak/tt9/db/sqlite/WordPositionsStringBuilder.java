@@ -5,21 +5,21 @@ import android.database.Cursor;
 import androidx.annotation.NonNull;
 
 
-public class WordPositions {
+public class WordPositionsStringBuilder {
 	int size = 0;
 	StringBuilder positions = new StringBuilder();
 
 
-	public static WordPositions fromDbRanges(Cursor cursor) {
-		WordPositions wordPositions = new WordPositions();
+	public static WordPositionsStringBuilder fromDbRanges(Cursor cursor) {
+		WordPositionsStringBuilder builder = new WordPositionsStringBuilder();
 		while (cursor.moveToNext()) {
-			wordPositions.add(cursor.getInt(0), cursor.getInt(1));
+			builder.append(cursor.getInt(0), cursor.getInt(1));
 		}
 
-		return wordPositions;
+		return builder;
 	}
 
-	public void add(int start, int end) {
+	private void append(int start, int end) {
 		if (size > 0) {
 			positions.append(",");
 		}

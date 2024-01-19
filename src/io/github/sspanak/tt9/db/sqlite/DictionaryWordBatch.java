@@ -10,8 +10,8 @@ import io.github.sspanak.tt9.languages.Language;
 public class DictionaryWordBatch {
 	private final Language language;
 	@NonNull public final ArrayList<Word> words = new ArrayList<>();
-	@NonNull public final ArrayList<DictionaryWordBatchPosition> wordPositions = new ArrayList<>();
-	DictionaryWordBatchPosition lastWordPosition;
+	@NonNull public final ArrayList<WordPosition> wordPositions = new ArrayList<>();
+	WordPosition lastWordPosition;
 
 
 	public DictionaryWordBatch(@NonNull Language language) {
@@ -30,13 +30,13 @@ public class DictionaryWordBatch {
 		}
 
 		if (position == 1 || lastWordPosition == null) {
-			lastWordPosition = DictionaryWordBatchPosition.create(sequence, position);
+			lastWordPosition = WordPosition.create(sequence, position);
 		}
 
 		if (!sequence.equals(lastWordPosition.sequence)) {
 			lastWordPosition.endAt(position - 1);
 			wordPositions.add(lastWordPosition);
-			lastWordPosition = DictionaryWordBatchPosition.create(sequence, position);
+			lastWordPosition = WordPosition.create(sequence, position);
 		}
 	}
 

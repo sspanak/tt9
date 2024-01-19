@@ -37,14 +37,14 @@ class WordOperations {
 	}
 
 
-	void insertPositions(Language language, ArrayList<DictionaryWordBatchPosition> positions) {
+	void insertPositions(Language language, ArrayList<WordPosition> positions) {
 		if (positions.size() == 0) {
 			return;
 		}
 
 		StringBuilder sql = new StringBuilder("INSERT INTO " + SQLiteStore.getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
 
-		for (DictionaryWordBatchPosition pos : positions) {
+		for (WordPosition pos : positions) {
 			sql
 				.append("(")
 				.append(pos.sequence).append(",").append(pos.start).append(",").append(pos.end)
@@ -92,14 +92,14 @@ class WordOperations {
 		}
 
 		Cursor cursor = sqlite.getDb().rawQuery(sql, new String[]{});
-		WordPositions positions = WordPositions.fromDbRanges(cursor);
+		WordPositionsStringBuilder positions = WordPositionsStringBuilder.fromDbRanges(cursor);
 		cursor.close();
 
 		if (positions.size < minPositions) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
 			sql = getPositionsQuery(language, sequence, Integer.MAX_VALUE);
 			cursor = sqlite.getDb().rawQuery(sql, new String[]{});
-			positions = WordPositions.fromDbRanges(cursor);
+			positions = WordPositionsStringBuilder.fromDbRanges(cursor);
 			cursor.close();
 		}
 
