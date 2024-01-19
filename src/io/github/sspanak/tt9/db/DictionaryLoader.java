@@ -166,7 +166,7 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		DictionaryWordBatch letters = new DictionaryWordBatch(language);
+		DictionaryWordBatch letters = new DictionaryWordBatch(language, settings);
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
@@ -178,7 +178,7 @@ public class DictionaryLoader {
 			}
 		}
 
-		DictionaryDb.upsertWordsSync(language, letters);
+		letters.save();
 
 		return lettersCount;
 	}
@@ -187,11 +187,14 @@ public class DictionaryLoader {
 	private void importWords(Language language, String dictionaryFile, int positionShift) throws Exception {
 		sendProgressMessage(language, 1, 0);
 
+		// @todo: clear all words for this language before importing
+		// @todo: copy the custom words.
+
 		int currentLine = 1;
 		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		DictionaryWordBatch dbWords = new DictionaryWordBatch(language);
+		DictionaryWordBatch wordBatch = new DictionaryWordBatch(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -205,15 +208,13 @@ public class DictionaryLoader {
 			short frequency = getFrequency(parts);
 
 			try {
-				dbWords.add(word, frequency, currentLine + positionShift);
+				if (!wordBatch.add(word, frequency, currentLine + positionShift)) {
+					wordBatch.save();
+					wordBatch.add(word, frequency, currentLine + positionShift);
+				}
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
-			}
-
-			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
-				DictionaryDb.upsertWordsSync(language, dbWords);
-				dbWords.clear();
 			}
 
 			if (totalLines > 0) {
@@ -223,9 +224,8 @@ public class DictionaryLoader {
 			}
 		}
 
-
+		wordBatch.save();
 		br.close();
-//		dictionary.save();
 		sendProgressMessage(language, 100, 0);
 	}
 
