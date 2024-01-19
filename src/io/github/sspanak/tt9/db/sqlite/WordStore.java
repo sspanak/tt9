@@ -27,44 +27,49 @@ public class WordStore {
 	}
 
 
-	private String getSequencesQuery(Language language, String sequence, boolean isFilterOn) {
+	private String getPositionsQuery(Language language, String sequence, boolean isFilterOn) {
+		int generations;
+		if (sequence.length() == 2 && !isFilterOn) {
+			generations = 1;
+		} else if (sequence.length() == 2 || (sequence.length() <= 4 && !isFilterOn)) {
+			generations = 2;
+		} else {
+			generations = Integer.MAX_VALUE;
+		}
+
+		return getPositionsQuery(language, sequence, generations);
+	}
+
+
+	private String getPositionsQuery(Language language, String sequence, int generations) {
 		if (sequence.length() < 2) {
 			return "";
 		}
 
 		// @todo: use a compiled version if Language has not changed since the the last time
-		String sql = "SELECT `start`, `end` FROM " + dbBox.getIndexTable(language.getId()) + " WHERE ";
+		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM " + dbBox.getWordPositionsTable(language.getId()) + " WHERE ");
 
-		// @todo: try simplifying WHERE generation
-		String[] children;
+		if (generations >= 0 && generations < 10) {
+			sql.append(" sequence IN(").append(sequence);
 
-		if (sequence.length() == 2 && !isFilterOn) {
-			children = new String[10];
-			children[0] = sequence;
-			for (int i = 1; i <= 9; i++) {
-				children[i] = sequence + i;
-			}
+			int lastChild = (int)Math.pow(10, generations) - 1;
 
-			sql += " sequence IN(" + String.join(",", children) + ")";
-		} else if (sequence.length() == 2 || (sequence.length() <= 4 && !isFilterOn)) {
-			children = new String[91];
-			children[0] = sequence;
-
-			for (int seqEnd = 1, j = 1; seqEnd <= 99; seqEnd++) {
+			for (int seqEnd = 1; seqEnd <= lastChild; seqEnd++) {
 				if (seqEnd % 10 != 0) {
-					children[j++] = sequence + seqEnd;
+					sql.append(",").append(sequence).append(seqEnd);
 				}
 			}
 
-			sql += " sequence IN(" + String.join(",", children) + ")";
+			sql.append(")");
 		} else {
-			sql += " sequence = " + sequence + " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9";
-			sql += " ORDER BY start ";
-			sql += " LIMIT 100"; // @todo: maximum number of children + 1 among all sequences
+			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
+			sql.append(" ORDER BY start ");
+			sql.append(" LIMIT 100"); // @todo: maximum number of children + 1 among all sequences
 		}
 
-		Logger.d(LOG_TAG, "Index SQL: " + sql);
-		return sql;
+		String positionsSql = sql.toString();
+		Logger.d(LOG_TAG, "Index SQL: " + positionsSql);
+		return positionsSql;
 	}
 
 
@@ -72,20 +77,20 @@ public class WordStore {
 		// @todo: use a compiled version if Language has not changed since the the last time
 		// @todo: UNION with the custom words table
 
-		StringBuilder wordsSqlBuilder = new StringBuilder();
-		wordsSqlBuilder
+		StringBuilder sql = new StringBuilder();
+		sql
 			.append("SELECT word FROM ").append(dbBox.getWordsTable(language.getId()))
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {
-			wordsSqlBuilder.append(" AND word LIKE '").append(filter).append("%'");
+			sql.append(" AND word LIKE '").append(filter).append("%'");
 		}
 
-		wordsSqlBuilder
+		sql
 			.append(" ORDER BY LENGTH(word), frequency DESC")
 			.append(" LIMIT ").append(maximumWords);
 
-		String wordsSql = wordsSqlBuilder.toString();
+		String wordsSql = sql.toString();
 		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
 	}
@@ -124,19 +129,19 @@ public class WordStore {
 	}
 
 
-	public ArrayList<String> getMany(Language language, @NonNull String sequence, @NonNull String filter, int maximumWords) {
+	public ArrayList<String> getSimilar(Language language, @NonNull String sequence, @NonNull String filter, int minWords, int maxWords) {
 		if (db == null) {
 			Logger.e(LOG_TAG, "No database connection. Cannot query any data.");
 			return new ArrayList<>();
 		}
 
 		long startTime = System.currentTimeMillis();
-		String positions =  getSequencePositions(language, sequence, !filter.isEmpty());
+		String positions = getWordPositions(language, sequence, !filter.isEmpty(), minWords);
 		long positionsTime = System.currentTimeMillis() - startTime;
 
 
 		startTime = System.currentTimeMillis();
-		ArrayList<String> words = getWords(language, positions, filter, maximumWords);
+		ArrayList<String> words = getWords(language, positions, filter, maxWords);
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
@@ -166,46 +171,27 @@ public class WordStore {
 	}
 
 
-	private String getSequencePositions(Language language, String sequence, boolean isFilterOn) {
+	private String getWordPositions(Language language, String sequence, boolean isFilterOn, int minPositions) {
 		if (sequence.length() == 1) {
 			return sequence;
 		}
 
-		String sql = getSequencesQuery(language, sequence, isFilterOn);
+		String sql = getPositionsQuery(language, sequence, isFilterOn);
 		if (sql.isEmpty()) {
-			return sql;
+			return "";
 		}
 
 		Cursor cursor = db.rawQuery(sql, new String[]{});
-		String positions = dbRangesToPositions(cursor);
+		WordPositions positions = WordPositions.fromDbRanges(cursor);
 		cursor.close();
 
-		// @todo: if (sequence.length() >= 2 && sequence.length() <= 4 && [positions count] < SettingsStore.getSuggestionsMin()) { run the >= 4 query }
-
-		return positions;
-	}
-
-	public static String dbRangesToPositions(Cursor cursor) {
-		StringBuilder positions = new StringBuilder();
-		while (cursor.moveToNext()) {
-			int start = cursor.getInt(0);
-			int end = cursor.getInt(1);
-
-			if (start < end) {
-				for (int position = start; position <= end; position++) {
-					positions.append(position);
-					if (position < end) {
-						positions.append(",");
-					}
-				}
-			} else {
-				positions.append(start);
-			}
-
-			positions.append(",");
+		if (positions.size < minPositions) {
+			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
+			sql = getPositionsQuery(language, sequence, Integer.MAX_VALUE);
+			cursor = db.rawQuery(sql, new String[]{});
+			positions = WordPositions.fromDbRanges(cursor);
+			cursor.close();
 		}
-
-		positions.setLength(Math.max(0, positions.length() - 1));
 
 		return positions.toString();
 	}
@@ -234,7 +220,7 @@ public class WordStore {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + dbBox.getIndexTable(language.getId()) + " (sequence, start, end) VALUES ");
+		StringBuilder sql = new StringBuilder("INSERT INTO " + dbBox.getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
 
 		for (SequenceRange seq : sequences) {
 			sql
@@ -257,7 +243,7 @@ public class WordStore {
 		debugText
 			.append("\nWord Count: ").append(words.size())
 			.append(".\nTime: ").append(positionIndexTime + wordsTime)
-			.append(" ms (index: ").append(positionIndexTime)
+			.append(" ms (positions: ").append(positionIndexTime)
 			.append(" ms, words: ").append(wordsTime).append(" ms).");
 
 		if (words.isEmpty()) {

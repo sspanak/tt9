@@ -216,7 +216,7 @@ public class DictionaryDb {
 	 * and other similar.
 	 */
 	private static ArrayList<String> loadWords(Language language, String sequence, String filter, int minimumWords, int maximumWords) {
-		return getStore().getMany(language, sequence, filter, maximumWords);
+		return getStore().getSimilar(language, sequence, filter, minimumWords, maximumWords);
 
 //		long start = System.currentTimeMillis();
 

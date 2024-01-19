@@ -12,7 +12,7 @@ public class SQLiteBox extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 
 	private static final String CUSTOM_WORDS_TABLE = "custom_words_";
-	private static final String INDEX_TABLE_BASE_NAME = "sequences_";
+	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
 	private static final String WORDS_TABLE_BASE_NAME = "words_";
 
 	private final Context context;
@@ -27,7 +27,7 @@ public class SQLiteBox extends SQLiteOpenHelper {
 		createCustomWordsTable(db);
 		for (Language language : LanguageCollection.getAll(context)) {
 			createWordsTable(db, language.getId());
-			createIndexTable(db, language.getId());
+			createWordPositionsTable(db, language.getId());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class SQLiteBox extends SQLiteOpenHelper {
 
 	public String getCustomWordsTable() { return CUSTOM_WORDS_TABLE; }
 	public String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
-	public String getIndexTable(int langId) { return INDEX_TABLE_BASE_NAME + langId; }
+	public String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
 
 	private void createWordsTable(SQLiteDatabase db, int langId) {
 		db.execSQL(
@@ -58,15 +58,15 @@ public class SQLiteBox extends SQLiteOpenHelper {
 		db.execSQL("CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTable(langId) + " (position, word)");
 	}
 
-	private void createIndexTable(SQLiteDatabase db, int langId) {
+	private void createWordPositionsTable(SQLiteDatabase db, int langId) {
 		db.execSQL(
-			"CREATE TABLE IF NOT EXISTS " + getIndexTable(langId) + " (" +
+			"CREATE TABLE IF NOT EXISTS " + getWordPositionsTable(langId) + " (" +
 				"sequence TEXT NOT NULL, " +
 				"start INTEGER NOT NULL, " +
 				"end INTEGER NOT NULL" +
 			")"
 		);
-		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getIndexTable(langId) + " (sequence, `start`)");
+		db.execSQL("CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositionsTable(langId) + " (sequence, `start`)");
 	}
 
 	private void createCustomWordsTable(SQLiteDatabase db) {
