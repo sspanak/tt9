@@ -107,20 +107,21 @@ public class DictionaryDb {
 
 
 	public static void deleteWords(Context context, Runnable notification) {
-//		new Thread(() -> {
-//			getStore().destroy();
+		new Thread(() -> {
+			getStore().destroy();
 //			store = null;
 //			init(context);
-//			notification.run();
-//		}).start();
+			notification.run();
+		}).start();
 	}
 
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
-//		new Thread(() -> {
-//			getStore().removeMany(languageIds).closeThreadResources();
-//			notification.run();
-//		}).start();
+		new Thread(() -> {
+			getStore().removeMany(languageIds);
+			/*getStore().closeThreadResources();*/
+			notification.run();
+		}).start();
 	}
 
 

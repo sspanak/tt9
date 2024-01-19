@@ -8,13 +8,17 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
 	private SQLiteStore sqlite = null;
 
+	private final Context context;
+
 
 	public WordStore(Context context) {
+		this.context = context;
 		try {
 			sqlite = new SQLiteStore(context);
 			sqlite.getDb();
@@ -59,7 +63,7 @@ public class WordStore {
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
 	 * and other similar.
 	 */
-	public ArrayList<String> getSimilar(Language language, @NonNull String sequence, @NonNull String filter, int minWords, int maxWords) {
+	public ArrayList<String> getSimilar(@NonNull Language language, @NonNull String sequence, @NonNull String filter, int minWords, int maxWords) {
 		if (!checkOrNotify()) {
 			return new ArrayList<>();
 		}
@@ -76,6 +80,29 @@ public class WordStore {
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
 
 		return words;
+	}
+
+	public void removeMany(ArrayList<Integer> languageIds) {
+		if (!checkOrNotify()) {
+			return;
+		}
+
+		try {
+			beginTransaction();
+			sqlite.ops.removeMany(languageIds);
+			finishTransaction();
+		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Failed removing language words. " + e.getMessage());
+			failTransaction();
+		}
+	}
+
+	public void destroy() {
+		ArrayList<Integer> languageIds = new ArrayList<>();
+		for (Language language : LanguageCollection.getAll(context)) {
+			languageIds.add(language.getId());
+		}
+		removeMany(languageIds);
 	}
 
 	private boolean checkOrNotify() {

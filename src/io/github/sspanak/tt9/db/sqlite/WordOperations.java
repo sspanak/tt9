@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.Cursor;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
@@ -15,11 +17,12 @@ class WordOperations {
 		this.sqlite = sqlite;
 	}
 
+
 	/**
 	 * CREATE
 	 */
 
-	void insertWords(Language language, ArrayList<Word> words) {
+	void insertWords(@NonNull Language language, @NonNull ArrayList<Word> words) {
 		if (words.size() == 0) {
 			return;
 		}
@@ -37,7 +40,7 @@ class WordOperations {
 	}
 
 
-	void insertPositions(Language language, ArrayList<WordPosition> positions) {
+	void insertPositions(@NonNull Language language, @NonNull ArrayList<WordPosition> positions) {
 		if (positions.size() == 0) {
 			return;
 		}
@@ -60,28 +63,31 @@ class WordOperations {
 	 * READ
 	 */
 
-	ArrayList<String> getWords(Language language, String positions, String filter, int maximumWords) {
-		if (positions.length() == 0) {
+
+	@NonNull ArrayList<String> getWords(@NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
+		if (positions.isEmpty()) {
 			Logger.i(LOG_TAG, "No word positions. Not searching words.");
 			return new ArrayList<>();
 		}
 
 		ArrayList<String> words = new ArrayList<>();
 
-		Cursor cursor = sqlite.getDb().rawQuery(
-			getWordsQuery(language, positions, filter, maximumWords),
-			null
-		);
-		while (cursor.moveToNext()) {
-			words.add(cursor.getString(0));
+		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords);
+		if (wordsQuery.isEmpty()) {
+			return words;
 		}
-		cursor.close();
+
+		try (Cursor cursor = sqlite.getDb().rawQuery(wordsQuery, null)) {
+			while (cursor.moveToNext()) {
+				words.add(cursor.getString(0));
+			}
+		}
 
 		return words;
 	}
 
 
-	String getWordPositions(Language language, String sequence, boolean isFilterOn, int minPositions) {
+	@NonNull String getWordPositions(@NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
 		if (sequence.length() == 1) {
 			return sequence;
 		}
@@ -97,6 +103,7 @@ class WordOperations {
 
 		if (positions.size < minPositions) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
+
 			sql = getPositionsQuery(language, sequence, Integer.MAX_VALUE);
 			cursor = sqlite.getDb().rawQuery(sql, new String[]{});
 			positions = WordPositionsStringBuilder.fromDbRanges(cursor);
@@ -107,7 +114,7 @@ class WordOperations {
 	}
 
 
-	private String getPositionsQuery(Language language, String sequence, boolean isFilterOn) {
+	@NonNull private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, boolean isFilterOn) {
 		int generations;
 		if (sequence.length() == 2 && !isFilterOn) {
 			generations = 1;
@@ -121,13 +128,15 @@ class WordOperations {
 	}
 
 
-	private String getPositionsQuery(Language language, String sequence, int generations) {
+	@NonNull private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		if (sequence.length() < 2) {
 			return "";
 		}
 
 		// @todo: use a compiled version if Language has not changed since the the last time
-		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM " + SQLiteStore.getWordPositionsTable(language.getId()) + " WHERE ");
+		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
+			.append(SQLiteStore.getWordPositionsTable(language.getId()))
+			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
 			sql.append(" sequence IN(").append(sequence);
@@ -153,7 +162,7 @@ class WordOperations {
 	}
 
 
-	private String getWordsQuery(Language language, String positions, String filter, int maximumWords) {
+	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords) {
 		// @todo: use a compiled version if Language has not changed since the the last time
 		// @todo: UNION with the custom words table
 
@@ -173,5 +182,17 @@ class WordOperations {
 		String wordsSql = sql.toString();
 		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
+	}
+
+
+	/**
+	 * DELETE
+	 */
+
+	void removeMany(@NonNull ArrayList<Integer> languageIds) {
+		for (int langId : languageIds) {
+			sqlite.getDb().execSQL("DELETE FROM " + SQLiteStore.getWordsTable(langId));
+			sqlite.getDb().execSQL("DELETE FROM " + SQLiteStore.getWordPositionsTable(langId));
+		}
 	}
 }
