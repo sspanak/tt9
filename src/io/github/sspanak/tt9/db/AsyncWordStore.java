@@ -119,6 +119,11 @@ public class AsyncWordStore {
 	}
 
 
+	public static void deleteWordsSync(int languageId) {
+		getStore().remove(languageId);
+	}
+
+
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
 			// @todo: run each remove in a separate thread

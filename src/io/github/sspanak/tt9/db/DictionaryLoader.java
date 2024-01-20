@@ -23,8 +23,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryLoader {
-	private static DictionaryLoader self;
 	private static final String LOG_TAG = "DictionaryLoader";
+	private static DictionaryLoader self;
 
 	private final AssetManager assets;
 	private final SettingsStore settings;
@@ -117,6 +117,16 @@ public class DictionaryLoader {
 		AsyncWordStore.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
+
+				AsyncWordStore.deleteWordsSync(language.getId());
+				Logger.i(
+					LOG_TAG,
+					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
+				// @todo: copy the custom words.
+
+				start = System.currentTimeMillis();
 				int lettersCount = importLetters(language);
 				Logger.i(
 					LOG_TAG,
@@ -184,11 +194,9 @@ public class DictionaryLoader {
 	}
 
 
+	// @todo: convert this to WordOperations.importFile()
 	private void importWords(Language language, String dictionaryFile, int positionShift) throws Exception {
 		sendProgressMessage(language, 1, 0);
-
-		// @todo: clear all words for this language before importing
-		// @todo: copy the custom words.
 
 		int currentLine = 1;
 		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
