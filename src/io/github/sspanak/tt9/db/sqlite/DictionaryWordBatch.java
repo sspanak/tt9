@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -66,7 +66,7 @@ public class DictionaryWordBatch {
 	}
 
 	public void save() {
-		DictionaryDb.upsertWordsSync(language, this);
+		AsyncWordStore.upsertWordsSync(language, this);
 		clear();
 	}
 

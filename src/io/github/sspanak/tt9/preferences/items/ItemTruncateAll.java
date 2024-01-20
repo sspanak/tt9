@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.preferences.items;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
@@ -30,7 +30,7 @@ public class ItemTruncateAll extends ItemClickable {
 		}
 
 		onStartDeleting();
-		DictionaryDb.deleteWords(activity.getApplicationContext(), this::onFinishDeleting);
+		AsyncWordStore.deleteWords(activity.getApplicationContext(), this::onFinishDeleting);
 
 		return true;
 	}

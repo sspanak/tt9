@@ -18,7 +18,7 @@ import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.ime.helpers.AppHacks;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -149,8 +149,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		self = this;
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		DictionaryDb.init(this);
-		DictionaryDb.normalizeWordFrequencies(settings);
+		AsyncWordStore.init(this);
+		AsyncWordStore.normalizeWordFrequencies(settings);
 
 		if (mainView == null) {
 			mainView = new MainView(this);

@@ -114,7 +114,7 @@ public class DictionaryLoader {
 			return;
 		}
 
-		DictionaryDb.runInTransaction(() -> {
+		AsyncWordStore.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
 				int lettersCount = importLetters(language);

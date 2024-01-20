@@ -14,9 +14,10 @@ import io.github.sspanak.tt9.db.sqlite.DictionaryWordBatch;
 import io.github.sspanak.tt9.db.sqlite.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class DictionaryDb {
+public class AsyncWordStore {
 	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
@@ -107,18 +108,23 @@ public class DictionaryDb {
 
 
 	public static void deleteWords(Context context, Runnable notification) {
-		new Thread(() -> {
-			getStore().destroy();
-//			store = null;
-//			init(context);
-			notification.run();
-		}).start();
+		ArrayList<Integer> languageIds = new ArrayList<>();
+		for (Language language : LanguageCollection.getAll(context)) {
+			languageIds.add(language.getId());
+		}
+		deleteWords(notification, languageIds);
+		// store = null;
+		// init(context);
+		// notification.run();
 	}
 
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-			getStore().removeMany(languageIds);
+			// @todo: run each remove in a separate thread
+			for (int langId : languageIds) {
+				getStore().remove(langId);
+			}
 			/*getStore().closeThreadResources();*/
 			notification.run();
 		}).start();

@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -33,7 +33,7 @@ public class EmptyDatabaseWarning {
 		this.language = language;
 
 		if (isItTimeAgain(TraditionalT9.getMainContext())) {
-			DictionaryDb.areThereWords(this::show, language);
+			AsyncWordStore.areThereWords(this::show, language);
 		}
 	}
 

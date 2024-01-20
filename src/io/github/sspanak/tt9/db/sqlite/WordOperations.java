@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.db.sqlite;
 
+import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
@@ -8,13 +10,82 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 
 class WordOperations {
 	private final String LOG_TAG = "sqlite.WordOperations";
-	private final SQLiteStore sqlite;
 
-	WordOperations(SQLiteStore sqlite) {
-		this.sqlite = sqlite;
+	private static final String CUSTOM_WORDS_TABLE = "custom_words_";
+	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
+	private static final String WORDS_TABLE_BASE_NAME = "words_";
+
+
+	static String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
+
+	static String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
+
+
+	/**
+	 * INIT
+	 */
+
+
+	static String[] getCreateTableQueries(Context context) {
+		int languageCount = LanguageCollection.count(context);
+		String[] queries = new String[languageCount * 4 + 2];
+
+		queries[0] = getCustomWordsTableQuery();
+		queries[1] = getCustomWordsIndexQuery();
+
+		int queryId = 2;
+		for (Language language : LanguageCollection.getAll(context)) {
+			queries[queryId++] = getWordsTableQuery(language.getId());
+			queries[queryId++] = createWordsIndexQuery(language.getId());
+			queries[queryId++] = getWordPositionsTableQuery(language.getId());
+			queries[queryId++] = createWordsPositionsIndexQuery(language.getId());
+		}
+
+		return queries;
+	}
+
+	private static String getWordsTableQuery(int langId) {
+		return
+			"CREATE TABLE IF NOT EXISTS " + getWordsTable(langId) + " (" +
+				"frequency INTEGER NOT NULL DEFAULT 0, " +
+				"isCustom TINYINT NOT NULL DEFAULT 0, " +
+				"position INTEGER NOT NULL, " +
+				"word TEXT NOT NULL" +
+			")";
+	}
+
+	private static String createWordsIndexQuery(int langId) {
+		return "CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTable(langId) + " (position, word)";
+	}
+
+	private static String getWordPositionsTableQuery(int langId) {
+		return
+			"CREATE TABLE IF NOT EXISTS " + getWordPositionsTable(langId) + " (" +
+				"sequence TEXT NOT NULL, " +
+				"start INTEGER NOT NULL, " +
+				"end INTEGER NOT NULL" +
+			")";
+	}
+
+	private static String createWordsPositionsIndexQuery(int langId) {
+		return "CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositionsTable(langId) + " (sequence, `start`)";
+	}
+
+	static private String getCustomWordsTableQuery() {
+		return "CREATE TABLE IF NOT EXISTS " + CUSTOM_WORDS_TABLE + " (" +
+			"id INTEGER PRIMARY KEY, " +
+			"langId INTEGER NOT NULL, " +
+			"sequence TEXT NOT NULL, " +
+			"word INTEGER NOT NULL " +
+		")";
+	}
+
+	static private String getCustomWordsIndexQuery() {
+		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS_TABLE + " (langId, sequence)";
 	}
 
 
@@ -22,12 +93,13 @@ class WordOperations {
 	 * CREATE
 	 */
 
-	void insertWords(@NonNull Language language, @NonNull ArrayList<Word> words) {
+
+	void insertWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull ArrayList<Word> words) {
 		if (words.size() == 0) {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + SQLiteStore.getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
+		StringBuilder sql = new StringBuilder("INSERT INTO " + getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
 		for (Word word : words) {
 			sql
 				.append("(")
@@ -36,16 +108,16 @@ class WordOperations {
 		}
 		sql.setLength(sql.length() - 1);
 
-		sqlite.getDb().execSQL(sql.toString());
+		db.execSQL(sql.toString());
 	}
 
 
-	void insertPositions(@NonNull Language language, @NonNull ArrayList<WordPosition> positions) {
+	void insertPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull ArrayList<WordPosition> positions) {
 		if (positions.size() == 0) {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + SQLiteStore.getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
+		StringBuilder sql = new StringBuilder("INSERT INTO " + getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
 
 		for (WordPosition pos : positions) {
 			sql
@@ -55,7 +127,7 @@ class WordOperations {
 		}
 		sql.setLength(sql.length() - 1);
 
-		sqlite.getDb().execSQL(sql.toString());
+		db.execSQL(sql.toString());
 	}
 
 
@@ -64,7 +136,7 @@ class WordOperations {
 	 */
 
 
-	@NonNull ArrayList<String> getWords(@NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
+	@NonNull ArrayList<String> getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
 		if (positions.isEmpty()) {
 			Logger.i(LOG_TAG, "No word positions. Not searching words.");
 			return new ArrayList<>();
@@ -77,7 +149,7 @@ class WordOperations {
 			return words;
 		}
 
-		try (Cursor cursor = sqlite.getDb().rawQuery(wordsQuery, null)) {
+		try (Cursor cursor = db.rawQuery(wordsQuery, null)) {
 			while (cursor.moveToNext()) {
 				words.add(cursor.getString(0));
 			}
@@ -87,7 +159,7 @@ class WordOperations {
 	}
 
 
-	@NonNull String getWordPositions(@NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
+	@NonNull String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
 		if (sequence.length() == 1) {
 			return sequence;
 		}
@@ -97,7 +169,7 @@ class WordOperations {
 			return "";
 		}
 
-		Cursor cursor = sqlite.getDb().rawQuery(sql, new String[]{});
+		Cursor cursor = db.rawQuery(sql, new String[]{});
 		WordPositionsStringBuilder positions = WordPositionsStringBuilder.fromDbRanges(cursor);
 		cursor.close();
 
@@ -105,7 +177,7 @@ class WordOperations {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
 
 			sql = getPositionsQuery(language, sequence, Integer.MAX_VALUE);
-			cursor = sqlite.getDb().rawQuery(sql, new String[]{});
+			cursor = db.rawQuery(sql, new String[]{});
 			positions = WordPositionsStringBuilder.fromDbRanges(cursor);
 			cursor.close();
 		}
@@ -135,7 +207,7 @@ class WordOperations {
 
 		// @todo: use a compiled version if Language has not changed since the the last time
 		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
-			.append(SQLiteStore.getWordPositionsTable(language.getId()))
+			.append(getWordPositionsTable(language.getId()))
 			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
@@ -168,7 +240,7 @@ class WordOperations {
 
 		StringBuilder sql = new StringBuilder();
 		sql
-			.append("SELECT word FROM ").append(SQLiteStore.getWordsTable(language.getId()))
+			.append("SELECT word FROM ").append(getWordsTable(language.getId()))
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {
@@ -182,17 +254,5 @@ class WordOperations {
 		String wordsSql = sql.toString();
 		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
-	}
-
-
-	/**
-	 * DELETE
-	 */
-
-	void removeMany(@NonNull ArrayList<Integer> languageIds) {
-		for (int langId : languageIds) {
-			sqlite.getDb().execSQL("DELETE FROM " + SQLiteStore.getWordsTable(langId));
-			sqlite.getDb().execSQL("DELETE FROM " + SQLiteStore.getWordPositionsTable(langId));
-		}
 	}
 }

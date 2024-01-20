@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
@@ -128,7 +128,7 @@ public class Predictions {
 		if (loadStatic()) {
 			onWordsChanged.run();
 		} else {
-			DictionaryDb.getWords(
+			AsyncWordStore.getWords(
 				(words) -> onDbWords(words, true),
 				language,
 				digitSequence,
@@ -176,7 +176,7 @@ public class Predictions {
 	}
 
 	private void loadWithoutLeadingPunctuation() {
-		DictionaryDb.getWords(
+		AsyncWordStore.getWords(
 			(dbWords) -> {
 				char firstChar = inputWord.charAt(0);
 				for (int i = 0; i < dbWords.size(); i++) {

@@ -8,20 +8,21 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 
+/**
+ * SQLiteOpener + WordOperations = WordStore
+ */
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
-	private SQLiteStore sqlite = null;
-
-	private final Context context;
+	private SQLiteOpener sqlite = null;
+	private WordOperations wordOps = null;
 
 
 	public WordStore(Context context) {
-		this.context = context;
 		try {
-			sqlite = new SQLiteStore(context);
+			sqlite = new SQLiteOpener(context);
 			sqlite.getDb();
+			wordOps = new WordOperations();
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
@@ -52,8 +53,8 @@ public class WordStore {
 
 	public void put(@NonNull Language language, @NonNull DictionaryWordBatch wordBatch) {
 		if (checkOrNotify()) {
-			sqlite.ops.insertWords(language, wordBatch.words);
-			sqlite.ops.insertPositions(language, wordBatch.wordPositions);
+			wordOps.insertWords(sqlite.getDb(), language, wordBatch.words);
+			wordOps.insertPositions(sqlite.getDb(), language, wordBatch.wordPositions);
 		}
 	}
 
@@ -69,12 +70,12 @@ public class WordStore {
 		}
 
 		long startTime = System.currentTimeMillis();
-		String positions = sqlite.ops.getWordPositions(language, sequence, !filter.isEmpty(), minWords);
+		String positions = wordOps.getWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
 		long positionsTime = System.currentTimeMillis() - startTime;
 
 
 		startTime = System.currentTimeMillis();
-		ArrayList<String> words = sqlite.ops.getWords(language, positions, filter, maxWords);
+		ArrayList<String> words = wordOps.getWords(sqlite.getDb(), language, positions, filter, maxWords);
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
@@ -82,27 +83,21 @@ public class WordStore {
 		return words;
 	}
 
-	public void removeMany(ArrayList<Integer> languageIds) {
+	public void remove(int languageId) {
 		if (!checkOrNotify()) {
 			return;
 		}
 
 		try {
 			beginTransaction();
-			sqlite.ops.removeMany(languageIds);
+			sqlite.getDb().delete(WordOperations.getWordsTable(languageId), null, null);
+			sqlite.getDb().delete(WordOperations.getWordPositionsTable(languageId), null, null);
 			finishTransaction();
 		} catch (Exception e) {
-			Logger.e(LOG_TAG, "Failed removing language words. " + e.getMessage());
 			failTransaction();
+			Logger.e(LOG_TAG, "Failed removing language: " + languageId + ". " + e.getMessage());
 		}
-	}
 
-	public void destroy() {
-		ArrayList<Integer> languageIds = new ArrayList<>();
-		for (Language language : LanguageCollection.getAll(context)) {
-			languageIds.add(language.getId());
-		}
-		removeMany(languageIds);
 	}
 
 	private boolean checkOrNotify() {

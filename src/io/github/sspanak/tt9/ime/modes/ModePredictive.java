@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.TextTools;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
@@ -271,7 +271,7 @@ public class ModePredictive extends InputMode {
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
-				DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
+				AsyncWordStore.incrementWordFrequency(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());

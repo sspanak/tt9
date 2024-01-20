@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
@@ -82,7 +82,7 @@ public class AddWordAct extends AppCompatActivity {
 	public void addWord(View v) {
 		try {
 			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
-			DictionaryDb.insertWord(this::onAddedWord, language, word);
+			AsyncWordStore.insertWord(this::onAddedWord, language, word);
 		} catch (InsertBlankWordException e) {
 			Logger.e("AddWordAct.addWord", e.getMessage());
 			finish();

@@ -95,6 +95,10 @@ public class LanguageCollection {
 		return getAll(context,false);
 	}
 
+	public static int count(Context context) {
+		return getInstance(context).languages.size();
+	}
+
 
 	public static String toString(ArrayList<Language> list) {
 		StringBuilder stringList = new StringBuilder();
