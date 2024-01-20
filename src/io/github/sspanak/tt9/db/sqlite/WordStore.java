@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
 import io.github.sspanak.tt9.languages.Language;
 
 /**
@@ -51,14 +52,6 @@ public class WordStore {
 	}
 
 
-	public void put(@NonNull Language language, @NonNull DictionaryWordBatch wordBatch) {
-		if (checkOrNotify()) {
-			wordOps.insertWords(sqlite.getDb(), language, wordBatch.words);
-			wordOps.insertPositions(sqlite.getDb(), language, wordBatch.wordPositions);
-		}
-	}
-
-
 	/**
 	 * Loads words matching and similar to a given digit sequence
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
@@ -90,8 +83,8 @@ public class WordStore {
 
 		try {
 			beginTransaction();
-			sqlite.getDb().delete(WordOperations.getWordsTable(languageId), null, null);
-			sqlite.getDb().delete(WordOperations.getWordPositionsTable(languageId), null, null);
+			sqlite.getDb().delete(TableOperations.getWordsTable(languageId), null, null);
+			sqlite.getDb().delete(TableOperations.getWordPositionsTable(languageId), null, null);
 			finishTransaction();
 		} catch (Exception e) {
 			failTransaction();
@@ -99,6 +92,31 @@ public class WordStore {
 		}
 
 	}
+
+	public void put(@NonNull Language language, @NonNull DictionaryWordBatch wordBatch) {
+		if (checkOrNotify()) {
+			wordOps.insertWords(sqlite.getDb(), language, wordBatch.words);
+			wordOps.insertPositions(sqlite.getDb(), language, wordBatch.wordPositions);
+		}
+	}
+
+
+	public void put(@NonNull Language language, @NonNull String word, @NonNull String sequence) throws Exception {
+		if (!checkOrNotify()) {
+			return;
+		}
+
+		// @todo: check if custom words are more than 2^31-1
+
+		if (wordOps.exists(sqlite.getDb(), language, word)) {
+			throw new InsertDuplicateWordException();
+		}
+
+		if (!wordOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+			throw new Exception("SQLite refused inserting the word");
+		}
+	}
+
 
 	private boolean checkOrNotify() {
 		if (sqlite == null || sqlite.getDb() == null) {

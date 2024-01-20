@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
-
 public class SQLiteOpener extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "tt9.db";
 	private static final int DATABASE_VERSION = 1;
@@ -22,7 +19,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		for (String query : WordOperations.getCreateTableQueries(context)) {
+		for (String query : TableOperations.getCreateQueries(context)) {
 			db.execSQL(query);
 		}
 	}

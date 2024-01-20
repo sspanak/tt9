@@ -124,7 +124,7 @@ public class DictionaryLoader {
 					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
-				// @todo: copy the custom words.
+				// @todo: copy the custom words if they don't exist
 
 				start = System.currentTimeMillis();
 				int lettersCount = importLetters(language);
@@ -194,7 +194,6 @@ public class DictionaryLoader {
 	}
 
 
-	// @todo: convert this to WordOperations.importFile()
 	private void importWords(Language language, String dictionaryFile, int positionShift) throws Exception {
 		sendProgressMessage(language, 1, 0);
 
@@ -202,6 +201,8 @@ public class DictionaryLoader {
 		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
+
+		// @todo: instead of accumulating two ArrayLists, build the insert Strings in a WordOperation.
 		DictionaryWordBatch wordBatch = new DictionaryWordBatch(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {

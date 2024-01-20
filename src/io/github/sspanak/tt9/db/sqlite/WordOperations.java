@@ -1,6 +1,6 @@
 package io.github.sspanak.tt9.db.sqlite;
 
-import android.content.Context;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,83 +10,9 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 
 class WordOperations {
 	private final String LOG_TAG = "sqlite.WordOperations";
-
-	private static final String CUSTOM_WORDS_TABLE = "custom_words_";
-	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
-	private static final String WORDS_TABLE_BASE_NAME = "words_";
-
-
-	static String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
-
-	static String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
-
-
-	/**
-	 * INIT
-	 */
-
-
-	static String[] getCreateTableQueries(Context context) {
-		int languageCount = LanguageCollection.count(context);
-		String[] queries = new String[languageCount * 4 + 2];
-
-		queries[0] = getCustomWordsTableQuery();
-		queries[1] = getCustomWordsIndexQuery();
-
-		int queryId = 2;
-		for (Language language : LanguageCollection.getAll(context)) {
-			queries[queryId++] = getWordsTableQuery(language.getId());
-			queries[queryId++] = createWordsIndexQuery(language.getId());
-			queries[queryId++] = getWordPositionsTableQuery(language.getId());
-			queries[queryId++] = createWordsPositionsIndexQuery(language.getId());
-		}
-
-		return queries;
-	}
-
-	private static String getWordsTableQuery(int langId) {
-		return
-			"CREATE TABLE IF NOT EXISTS " + getWordsTable(langId) + " (" +
-				"frequency INTEGER NOT NULL DEFAULT 0, " +
-				"isCustom TINYINT NOT NULL DEFAULT 0, " +
-				"position INTEGER NOT NULL, " +
-				"word TEXT NOT NULL" +
-			")";
-	}
-
-	private static String createWordsIndexQuery(int langId) {
-		return "CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTable(langId) + " (position, word)";
-	}
-
-	private static String getWordPositionsTableQuery(int langId) {
-		return
-			"CREATE TABLE IF NOT EXISTS " + getWordPositionsTable(langId) + " (" +
-				"sequence TEXT NOT NULL, " +
-				"start INTEGER NOT NULL, " +
-				"end INTEGER NOT NULL" +
-			")";
-	}
-
-	private static String createWordsPositionsIndexQuery(int langId) {
-		return "CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositionsTable(langId) + " (sequence, `start`)";
-	}
-
-	static private String getCustomWordsTableQuery() {
-		return "CREATE TABLE IF NOT EXISTS " + CUSTOM_WORDS_TABLE + " (" +
-			"id INTEGER PRIMARY KEY, " +
-			"langId INTEGER NOT NULL, " +
-			"sequence TEXT NOT NULL, " +
-			"word INTEGER NOT NULL " +
-		")";
-	}
-
-	static private String getCustomWordsIndexQuery() {
-		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS_TABLE + " (langId, sequence)";
-	}
 
 
 	/**
@@ -94,12 +20,32 @@ class WordOperations {
 	 */
 
 
+	boolean insertCustomWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, @NonNull String word) {
+		ContentValues values = new ContentValues();
+		values.put("langId", language.getId());
+		values.put("sequence", sequence);
+		values.put("word", word);
+
+		long insertId = db.insert(TableOperations.CUSTOM_WORDS_TABLE, null, values);
+		if (insertId == -1) {
+			return false;
+		}
+
+		values = new ContentValues();
+		values.put("position", (int)-insertId);
+		values.put("word", word);
+		db.insert(TableOperations.getWordsTable(language.getId()), null, values);
+
+		return true;
+	}
+
+
 	void insertWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull ArrayList<Word> words) {
 		if (words.size() == 0) {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
+		StringBuilder sql = new StringBuilder("INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
 		for (Word word : words) {
 			sql
 				.append("(")
@@ -117,7 +63,7 @@ class WordOperations {
 			return;
 		}
 
-		StringBuilder sql = new StringBuilder("INSERT INTO " + getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
+		StringBuilder sql = new StringBuilder("INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
 
 		for (WordPosition pos : positions) {
 			sql
@@ -134,6 +80,16 @@ class WordOperations {
 	/**
 	 * READ
 	 */
+
+
+	boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
+		// @todo: use a compiled query
+		String sql = "SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?";
+		try (Cursor cursor = db.rawQuery(sql, new String[]{word})) {
+			cursor.moveToFirst();
+			return cursor.getInt(0) > 0;
+		}
+	}
 
 
 	@NonNull ArrayList<String> getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
@@ -164,50 +120,57 @@ class WordOperations {
 			return sequence;
 		}
 
-		String sql = getPositionsQuery(language, sequence, isFilterOn);
-		if (sql.isEmpty()) {
-			return "";
-		}
+		WordPositionsStringBuilder positions = new WordPositionsStringBuilder();
 
-		Cursor cursor = db.rawQuery(sql, new String[]{});
-		WordPositionsStringBuilder positions = WordPositionsStringBuilder.fromDbRanges(cursor);
-		cursor.close();
+		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, isFilterOn), new String[]{})) {
+			positions.appendFromDbRanges(cursor);
+		}
 
 		if (positions.size < minPositions) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
-
-			sql = getPositionsQuery(language, sequence, Integer.MAX_VALUE);
-			cursor = db.rawQuery(sql, new String[]{});
-			positions = WordPositionsStringBuilder.fromDbRanges(cursor);
-			cursor.close();
+			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), new String[]{})) {
+				positions.appendFromDbRanges(cursor);
+			}
 		}
 
 		return positions.toString();
 	}
 
-
 	@NonNull private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, boolean isFilterOn) {
-		int generations;
-		if (sequence.length() == 2 && !isFilterOn) {
-			generations = 1;
-		} else if (sequence.length() == 2 || (sequence.length() <= 4 && !isFilterOn)) {
-			generations = 2;
-		} else {
-			generations = Integer.MAX_VALUE;
-		}
-
-		return getPositionsQuery(language, sequence, generations);
+		return
+			"SELECT `start`, `end` FROM ( " +
+				getFactoryWordPositionsQuery(language, sequence, isFilterOn) +
+				") UNION " +
+				getCustomWordPositionsQuery(language, sequence);
 	}
 
 
-	@NonNull private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
-		if (sequence.length() < 2) {
-			return "";
+	@NonNull
+	private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, boolean isFilterOn) {
+		int generations;
+
+		switch (sequence.length()) {
+			case 2:
+				generations = isFilterOn ? Integer.MAX_VALUE : 1;
+				break;
+			case 3:
+			case 4:
+				generations = isFilterOn ? Integer.MAX_VALUE : 2;
+				break;
+			default:
+				generations = Integer.MAX_VALUE;
+				break;
 		}
 
-		// @todo: use a compiled version if Language has not changed since the the last time
+		return getFactoryWordPositionsQuery(language, sequence, generations);
+	}
+
+
+
+	@NonNull private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
+		// @todo: use a compiled query
 		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
-			.append(getWordPositionsTable(language.getId()))
+			.append(TableOperations.getWordPositionsTable(language.getId()))
 			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
@@ -234,13 +197,23 @@ class WordOperations {
 	}
 
 
+	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence) {
+		// @todo: use a compiled query
+		String sql = "SELECT -id as `start`, -id as `end` FROM " + TableOperations.CUSTOM_WORDS_TABLE +
+			" WHERE langId = " + language.getId() +
+			" AND (sequence = " + sequence + " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9)";
+
+		Logger.d(LOG_TAG, "Custom words SQL: " + sql);
+		return sql;
+	}
+
+
 	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords) {
-		// @todo: use a compiled version if Language has not changed since the the last time
-		// @todo: UNION with the custom words table
+		// @todo: use a compiled query
 
 		StringBuilder sql = new StringBuilder();
 		sql
-			.append("SELECT word FROM ").append(getWordsTable(language.getId()))
+			.append("SELECT word FROM ").append(TableOperations.getWordsTable(language.getId()))
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {

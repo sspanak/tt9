@@ -9,14 +9,10 @@ public class WordPositionsStringBuilder {
 	int size = 0;
 	StringBuilder positions = new StringBuilder();
 
-
-	public static WordPositionsStringBuilder fromDbRanges(Cursor cursor) {
-		WordPositionsStringBuilder builder = new WordPositionsStringBuilder();
+	public void appendFromDbRanges(Cursor cursor) {
 		while (cursor.moveToNext()) {
-			builder.append(cursor.getInt(0), cursor.getInt(1));
+			append(cursor.getInt(0), cursor.getInt(1));
 		}
-
-		return builder;
 	}
 
 	private void append(int start, int end) {
