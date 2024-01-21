@@ -55,10 +55,25 @@ public class WordStore {
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
 	 * and other similar.
 	 */
-	public ArrayList<String> getSimilar(@NonNull Language language, @NonNull String sequence, @NonNull String filter, int minWords, int maxWords) {
+	public ArrayList<String> getSimilar(Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
 		if (!checkOrNotify()) {
 			return new ArrayList<>();
 		}
+
+		if (sequence == null || sequence.length() == 0) {
+			Logger.w(LOG_TAG, "Attempting to get words for an empty sequence.");
+			return new ArrayList<>();
+		}
+
+		if (language == null) {
+			Logger.w(LOG_TAG, "Attempting to get words for NULL language.");
+			return new ArrayList<>();
+		}
+
+		final int minWords = Math.max(minimumWords, 0);
+		final int maxWords = Math.max(maximumWords, minWords);
+		final String filter = wordFilter == null ? "" : wordFilter;
+
 
 		long startTime = System.currentTimeMillis();
 		String positions = readOps.getWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);

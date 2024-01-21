@@ -92,6 +92,7 @@ public class AsyncWordStore {
 
 
 	public static void insertWord(ConsumerCompat<Integer> statusHandler, @NonNull Language language, String word) throws Exception {
+		// @todo: migrate all logic to the WordStore
 		if (word == null || word.length() == 0) {
 			throw new InsertBlankWordException();
 		}
@@ -164,30 +165,10 @@ public class AsyncWordStore {
 	}
 
 
-	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minimumWords, int maximumWords) {
-		final int minWords = Math.max(minimumWords, 0);
-		final int maxWords = Math.max(maximumWords, minWords);
+	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
+		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
+			getStore().getSimilar(language, sequence, filter, minWords, maxWords)))
+		).start();
 
-		if (sequence == null || sequence.length() == 0) {
-			Logger.w("db.getWords", "Attempting to get words for an empty sequence.");
-			sendWords(dataHandler, new ArrayList<>());
-			return;
-		}
-
-		if (language == null) {
-			Logger.w("db.getWords", "Attempting to get words for NULL language.");
-			sendWords(dataHandler, new ArrayList<>());
-			return;
-		}
-
-		new Thread(() -> sendWords(
-			dataHandler,
-			getStore().getSimilar(language, sequence, filter, minWords, maxWords)
-		)).start();
-	}
-
-
-	private static void sendWords(ConsumerCompat<ArrayList<String>> dataHandler, ArrayList<String> wordList) {
-		asyncHandler.post(() -> dataHandler.accept(wordList));
 	}
 }
