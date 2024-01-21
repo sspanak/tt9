@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -15,15 +17,15 @@ public class TableOperations {
 	static String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
 
 
-	static String[] getCreateQueries(Context context) {
-		int languageCount = LanguageCollection.count(context);
+	static String[] getCreateQueries(ArrayList<Language> languages) {
+		int languageCount = languages.size();
 		String[] queries = new String[languageCount * 4 + 2];
 
 		queries[0] = createCustomWords();
 		queries[1] = createCustomWordsIndex();
 
 		int queryId = 2;
-		for (Language language : LanguageCollection.getAll(context)) {
+		for (Language language : languages) {
 			queries[queryId++] = createWordsTable(language.getId());
 			queries[queryId++] = createWordsIndex(language.getId());
 			queries[queryId++] = createWordPositions(language.getId());

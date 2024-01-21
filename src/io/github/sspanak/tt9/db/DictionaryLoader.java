@@ -16,7 +16,9 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.DictionaryWordBatch;
+import io.github.sspanak.tt9.db.sqlite.CreateOperations;
+import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
+import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -28,6 +30,7 @@ public class DictionaryLoader {
 
 	private final AssetManager assets;
 	private final SettingsStore settings;
+	private final SQLiteOpener sqlite;
 
 	private static final Handler asyncHandler = new Handler();
 	private ConsumerCompat<Bundle> onStatusChange;
@@ -51,6 +54,7 @@ public class DictionaryLoader {
 	public DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		settings = new SettingsStore(context);
+		sqlite = SQLiteOpener.getInstance(context);
 	}
 
 
@@ -114,11 +118,11 @@ public class DictionaryLoader {
 			return;
 		}
 
-		AsyncWordStore.runInTransaction(() -> {
+		sqlite.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
 
-				AsyncWordStore.deleteWordsSync(language.getId());
+				DeleteOperations.remove(sqlite, language.getId());
 				Logger.i(
 					LOG_TAG,
 					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
@@ -176,19 +180,19 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		DictionaryWordBatch letters = new DictionaryWordBatch(language, settings);
+		CreateOperations letters = new CreateOperations(language, settings);
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.add(langChar, (short) 0, key);
+				letters.addWordToBatch(langChar, (short) 0, key);
 				lettersCount++;
 			}
 		}
 
-		letters.save();
+		letters.saveBatch(sqlite.getDb());
 
 		return lettersCount;
 	}
@@ -203,7 +207,7 @@ public class DictionaryLoader {
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 
 		// @todo: instead of accumulating two ArrayLists, build the insert Strings in a WordOperation.
-		DictionaryWordBatch wordBatch = new DictionaryWordBatch(language, settings);
+		CreateOperations wordBatch = new CreateOperations(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -217,9 +221,9 @@ public class DictionaryLoader {
 			short frequency = getFrequency(parts);
 
 			try {
-				if (!wordBatch.add(word, frequency, currentLine + positionShift)) {
-					wordBatch.save();
-					wordBatch.add(word, frequency, currentLine + positionShift);
+				if (!wordBatch.addWordToBatch(word, frequency, currentLine + positionShift)) {
+					wordBatch.saveBatch(sqlite.getDb());
+					wordBatch.addWordToBatch(word, frequency, currentLine + positionShift);
 				}
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
@@ -233,7 +237,7 @@ public class DictionaryLoader {
 			}
 		}
 
-		wordBatch.save();
+		wordBatch.saveBatch(sqlite.getDb());
 		br.close();
 		sendProgressMessage(language, 100, 0);
 	}

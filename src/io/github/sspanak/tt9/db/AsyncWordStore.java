@@ -11,7 +11,6 @@ import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
-import io.github.sspanak.tt9.db.sqlite.DictionaryWordBatch;
 import io.github.sspanak.tt9.db.sqlite.WordStore;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
@@ -38,17 +37,6 @@ public class AsyncWordStore {
 	private static WordStore getStore() {
 		init();
 		return store;
-	}
-
-
-	public static void runInTransaction(Runnable r) {
-		try {
-			getStore().beginTransaction();
-			r.run();
-			getStore().finishTransaction();
-		} catch (Exception e) {
-			getStore().failTransaction();
-		}
 	}
 
 
@@ -120,11 +108,6 @@ public class AsyncWordStore {
 	}
 
 
-	public static void deleteWordsSync(int languageId) {
-		getStore().remove(languageId);
-	}
-
-
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
 			// @todo: run each remove in a separate thread
@@ -158,13 +141,6 @@ public class AsyncWordStore {
 //				getStore().closeThreadResources();
 			}
 		}).start();
-	}
-
-
-	public static void upsertWordsSync(Language language, DictionaryWordBatch batch) {
-//		Logger.d("upsert", "Will insert: " + batch);
-		getStore().put(language, batch);
-//		getStore().closeThreadResources();
 	}
 
 

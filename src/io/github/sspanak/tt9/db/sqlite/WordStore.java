@@ -10,44 +10,20 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
 import io.github.sspanak.tt9.languages.Language;
 
-/**
- * SQLiteOpener + WordOperations = WordStore
- */
+
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
 	private SQLiteOpener sqlite = null;
-	private WordOperations wordOps = null;
+	private ReadOperations readOps = null;
 
 
 	public WordStore(Context context) {
 		try {
-			sqlite = new SQLiteOpener(context);
+			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
-			wordOps = new WordOperations();
+			readOps = new ReadOperations();
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
-		}
-	}
-
-
-	public void beginTransaction() {
-		if (checkOrNotify()) {
-			sqlite.getDb().beginTransactionNonExclusive();
-		}
-	}
-
-
-	public void failTransaction() {
-		if (checkOrNotify()) {
-			sqlite.getDb().endTransaction();
-		}
-	}
-
-
-	public void finishTransaction() {
-		if (checkOrNotify()) {
-			sqlite.getDb().setTransactionSuccessful();
-			sqlite.getDb().endTransaction();
 		}
 	}
 
@@ -63,12 +39,12 @@ public class WordStore {
 		}
 
 		long startTime = System.currentTimeMillis();
-		String positions = wordOps.getWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
+		String positions = readOps.getWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
 		long positionsTime = System.currentTimeMillis() - startTime;
 
 
 		startTime = System.currentTimeMillis();
-		ArrayList<String> words = wordOps.getWords(sqlite.getDb(), language, positions, filter, maxWords);
+		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords);
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
@@ -77,26 +53,8 @@ public class WordStore {
 	}
 
 	public void remove(int languageId) {
-		if (!checkOrNotify()) {
-			return;
-		}
-
-		try {
-			beginTransaction();
-			sqlite.getDb().delete(TableOperations.getWordsTable(languageId), null, null);
-			sqlite.getDb().delete(TableOperations.getWordPositionsTable(languageId), null, null);
-			finishTransaction();
-		} catch (Exception e) {
-			failTransaction();
-			Logger.e(LOG_TAG, "Failed removing language: " + languageId + ". " + e.getMessage());
-		}
-
-	}
-
-	public void put(@NonNull Language language, @NonNull DictionaryWordBatch wordBatch) {
 		if (checkOrNotify()) {
-			wordOps.insertWords(sqlite.getDb(), language, wordBatch.words);
-			wordOps.insertPositions(sqlite.getDb(), language, wordBatch.wordPositions);
+			DeleteOperations.remove(sqlite, languageId);
 		}
 	}
 
@@ -108,11 +66,11 @@ public class WordStore {
 
 		// @todo: check if custom words are more than 2^31-1
 
-		if (wordOps.exists(sqlite.getDb(), language, word)) {
+		if (readOps.exists(sqlite.getDb(), language, word)) {
 			throw new InsertDuplicateWordException();
 		}
 
-		if (!wordOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+		if (!CreateOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 			throw new Exception("SQLite refused inserting the word");
 		}
 	}

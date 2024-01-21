@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.db.sqlite;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -11,75 +10,8 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
 
-class WordOperations {
-	private final String LOG_TAG = "sqlite.WordOperations";
-
-
-	/**
-	 * CREATE
-	 */
-
-
-	boolean insertCustomWord(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, @NonNull String word) {
-		ContentValues values = new ContentValues();
-		values.put("langId", language.getId());
-		values.put("sequence", sequence);
-		values.put("word", word);
-
-		long insertId = db.insert(TableOperations.CUSTOM_WORDS_TABLE, null, values);
-		if (insertId == -1) {
-			return false;
-		}
-
-		values = new ContentValues();
-		values.put("position", (int)-insertId);
-		values.put("word", word);
-		db.insert(TableOperations.getWordsTable(language.getId()), null, values);
-
-		return true;
-	}
-
-
-	void insertWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull ArrayList<Word> words) {
-		if (words.size() == 0) {
-			return;
-		}
-
-		StringBuilder sql = new StringBuilder("INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES ");
-		for (Word word : words) {
-			sql
-				.append("(")
-				.append(word.frequency).append(",").append(word.position).append(",'").append(word.word.replaceAll("'", "''")).append("'")
-				.append("),");
-		}
-		sql.setLength(sql.length() - 1);
-
-		db.execSQL(sql.toString());
-	}
-
-
-	void insertPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull ArrayList<WordPosition> positions) {
-		if (positions.size() == 0) {
-			return;
-		}
-
-		StringBuilder sql = new StringBuilder("INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, start, end) VALUES ");
-
-		for (WordPosition pos : positions) {
-			sql
-				.append("(")
-				.append(pos.sequence).append(",").append(pos.start).append(",").append(pos.end)
-				.append("),");
-		}
-		sql.setLength(sql.length() - 1);
-
-		db.execSQL(sql.toString());
-	}
-
-
-	/**
-	 * READ
-	 */
+class ReadOperations {
+	private final String LOG_TAG = "ReadOperations";
 
 
 	boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
