@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.CreateOperations;
+import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
@@ -122,7 +122,7 @@ public class DictionaryLoader {
 			try {
 				long start = System.currentTimeMillis();
 
-				DeleteOperations.remove(sqlite, language.getId());
+				DeleteOperations.delete(sqlite, language.getId());
 				Logger.i(
 					LOG_TAG,
 					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
@@ -180,7 +180,7 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		CreateOperations letters = new CreateOperations(language, settings);
+		InsertOperations letters = new InsertOperations(language, settings);
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
@@ -207,7 +207,7 @@ public class DictionaryLoader {
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 
 		// @todo: instead of accumulating two ArrayLists, build the insert Strings in a WordOperation.
-		CreateOperations wordBatch = new CreateOperations(language, settings);
+		InsertOperations wordBatch = new InsertOperations(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {

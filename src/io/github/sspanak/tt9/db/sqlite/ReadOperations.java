@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
 
-class ReadOperations {
+public class ReadOperations {
 	private final String LOG_TAG = "ReadOperations";
 
 
-	boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
+	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
 		// @todo: use a compiled query
 		String sql = "SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?";
 		try (Cursor cursor = db.rawQuery(sql, new String[]{word})) {
@@ -24,7 +24,17 @@ class ReadOperations {
 	}
 
 
-	@NonNull ArrayList<String> getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
+	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		String sql = "SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId());
+		try (Cursor cursor = db.rawQuery(sql, null)) {
+			cursor.moveToFirst();
+			return cursor.getInt(0) > 0;
+		}
+	}
+
+
+	@NonNull
+	public ArrayList<String> getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
 		if (positions.isEmpty()) {
 			Logger.i(LOG_TAG, "No word positions. Not searching words.");
 			return new ArrayList<>();
@@ -47,7 +57,8 @@ class ReadOperations {
 	}
 
 
-	@NonNull String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
+	@NonNull
+	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
 		if (sequence.length() == 1) {
 			return sequence;
 		}

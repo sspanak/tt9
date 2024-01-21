@@ -8,7 +8,7 @@ import java.io.File;
 
 import io.github.sspanak.tt9.Logger;
 
-public class SQLWords {
+public class LegacyDb {
 	private static final String DB_NAME = "t9dict.db";
 	private static final String TABLE_NAME = "words";
 
@@ -18,7 +18,7 @@ public class SQLWords {
 	private final Activity activity;
 	private SQLiteDatabase db;
 
-	public SQLWords(Activity activity) {
+	public LegacyDb(Activity activity) {
 		this.activity = activity;
 
 		LOG_TAG = getClass().getSimpleName();

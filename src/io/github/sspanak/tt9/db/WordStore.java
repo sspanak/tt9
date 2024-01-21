@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.sqlite;
+package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 
@@ -8,11 +8,17 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
+import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
+import io.github.sspanak.tt9.db.sqlite.InsertOperations;
+import io.github.sspanak.tt9.db.sqlite.ReadOperations;
+import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 
 
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
+	private static WordStore self;
 	private SQLiteOpener sqlite = null;
 	private ReadOperations readOps = null;
 
@@ -25,6 +31,22 @@ public class WordStore {
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
+		self = this;
+	}
+
+
+	public static synchronized WordStore getInstance(Context context) {
+		if (self == null) {
+			context = context == null ? TraditionalT9.getMainContext() : context;
+			self = new WordStore(context);
+		}
+
+		return self;
+	}
+
+
+	public static synchronized WordStore getInstance() {
+		return getInstance(null);
 	}
 
 
@@ -52,9 +74,15 @@ public class WordStore {
 		return words;
 	}
 
-	public void remove(int languageId) {
+
+	public boolean exists(Language language) {
+		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language);
+	}
+
+
+	public void remove(ArrayList<Integer> languageId) {
 		if (checkOrNotify()) {
-			DeleteOperations.remove(sqlite, languageId);
+			DeleteOperations.deleteMany(sqlite, languageId);
 		}
 	}
 
@@ -70,7 +98,7 @@ public class WordStore {
 			throw new InsertDuplicateWordException();
 		}
 
-		if (!CreateOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+		if (!InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 			throw new Exception("SQLite refused inserting the word");
 		}
 	}

@@ -11,10 +11,7 @@ import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
 import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
-import io.github.sspanak.tt9.db.sqlite.WordStore;
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AsyncWordStore {
@@ -22,10 +19,7 @@ public class AsyncWordStore {
 	private static final Handler asyncHandler = new Handler();
 
 	public static synchronized void init(Context context) {
-		if (store == null) {
-			context = context == null ? TraditionalT9.getMainContext() : context;
-			store = new WordStore(context);
-		}
+		store = WordStore.getInstance(context);
 	}
 
 
@@ -88,35 +82,12 @@ public class AsyncWordStore {
 
 
 	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
-//		new Thread(() -> {
-//			boolean areThere = getStore().count(language != null ? language.getId() : -1) > 0;
-//			getStore().closeThreadResources();
-//			notification.accept(areThere);
-//		}).start();
-	}
-
-
-	public static void deleteWords(Context context, Runnable notification) {
-		ArrayList<Integer> languageIds = new ArrayList<>();
-		for (Language language : LanguageCollection.getAll(context)) {
-			languageIds.add(language.getId());
-		}
-		deleteWords(notification, languageIds);
-		// store = null;
-		// init(context);
-		// notification.run();
+		new Thread(() -> notification.accept(getStore().exists(language))).start();
 	}
 
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
-		new Thread(() -> {
-			// @todo: run each remove in a separate thread
-			for (int langId : languageIds) {
-				getStore().remove(langId);
-			}
-			/*getStore().closeThreadResources();*/
-			notification.run();
-		}).start();
+			new Thread(() -> getStore().remove(languageIds)).start();
 	}
 
 
@@ -137,8 +108,6 @@ public class AsyncWordStore {
 				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
 				Logger.e("insertWord", msg);
 				statusHandler.accept(2);
-//			} finally {
-//				getStore().closeThreadResources();
 			}
 		}).start();
 	}

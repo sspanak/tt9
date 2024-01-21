@@ -2,9 +2,13 @@ package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.Preference;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.AsyncWordStore;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 
@@ -30,7 +34,11 @@ public class ItemTruncateAll extends ItemClickable {
 		}
 
 		onStartDeleting();
-		AsyncWordStore.deleteWords(activity.getApplicationContext(), this::onFinishDeleting);
+		ArrayList<Integer> languageIds = new ArrayList<>();
+		for (Language lang : LanguageCollection.getAll(activity, false)) {
+			languageIds.add(lang.getId());
+		}
+		AsyncWordStore.deleteWords(this::onFinishDeleting, languageIds);
 
 		return true;
 	}

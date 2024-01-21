@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class CreateOperations {
+public class InsertOperations {
 	private final int MAX_SIZE;
 	private boolean isFull;
 	private final Language language;
@@ -20,7 +20,7 @@ public class CreateOperations {
 	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
 
 
-	public CreateOperations(@NonNull Language language, @NonNull SettingsStore settings) {
+	public InsertOperations(@NonNull Language language, @NonNull SettingsStore settings) {
 		this.language = language;
 		MAX_SIZE = settings.getDictionaryImportWordChunkSize();
 	}
@@ -38,6 +38,7 @@ public class CreateOperations {
 			return false;
 		}
 
+		// @todo: try getting rid of Word and WordPosition
 		wordsBatch.add(Word.create(word, frequency, position));
 		String sequence = language.getDigitSequenceForWord(word);
 		if (position == 0) {
@@ -69,6 +70,7 @@ public class CreateOperations {
 	}
 
 	public void saveBatch(@NonNull SQLiteDatabase db) {
+		// @todo: try using multiple threads for speeding up the process
 		saveWordsBatch(db);
 		saveWordPositionsBatch(db);
 		clearBatch();
