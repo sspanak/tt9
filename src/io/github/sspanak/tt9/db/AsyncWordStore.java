@@ -87,7 +87,10 @@ public class AsyncWordStore {
 
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
-			new Thread(() -> getStore().remove(languageIds)).start();
+		new Thread(() -> {
+			getStore().remove(languageIds);
+			notification.run();
+		}).start();
 	}
 
 
@@ -115,53 +118,7 @@ public class AsyncWordStore {
 
 
 	public static void incrementWordFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		// If any of these is empty, it is the same as changing the frequency of: "", which is simply a no-op.
-		if (word.length() == 0 || sequence.length() == 0) {
-			return;
-		}
-
-//		new Thread(() -> {
-//			try {
-//				long start = System.currentTimeMillis();
-//
-//				Word dbWord = getStore().get(language.getId(), word, sequence);
-//
-//				// In case the user has changed the text case, there would be no match.
-//				// Try again with the lowercase equivalent.
-//				if (dbWord == null) {
-//					dbWord = getStore().get(language.getId(), word.toLowerCase(language.getLocale()), sequence);
-//				}
-//
-//				if (dbWord == null) {
-//					throw new Exception("No such word");
-//				}
-//
-//				int max = getStore().getMaxFrequency(dbWord.langId, dbWord.sequence, dbWord.word);
-//				if (dbWord.frequency <= max) {
-//					dbWord.frequency = max + 1;
-//					getStore().put(dbWord);
-//					long time = System.currentTimeMillis() - start;
-//
-//					Logger.d(
-//					"incrementWordFrequency",
-//					"Incremented frequency of '" + dbWord.word + "' to: " + dbWord.frequency + ". Time: " + time + " ms"
-//					);
-//				} else {
-//					long time = System.currentTimeMillis() - start;
-//					Logger.d(
-//						"incrementWordFrequency",
-//						"'" + dbWord.word + "' is already the top word. Keeping frequency: " + dbWord.frequency + ". Time: " + time + " ms"
-//					);
-//				}
-//			} catch (Exception e) {
-//				Logger.e(
-//					DictionaryDb.class.getName(),
-//					"Failed incrementing word frequency. Word: " + word + ". " + e.getMessage()
-//				);
-//			} finally {
-//				getStore().closeThreadResources();
-//			}
-//		}).start();
+		new Thread(() -> getStore().incrementFrequency(language, word, sequence)).start();
 	}
 
 
@@ -169,6 +126,5 @@ public class AsyncWordStore {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
 			getStore().getSimilar(language, sequence, filter, minWords, maxWords)))
 		).start();
-
 	}
 }

@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
 import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.ReadOperations;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.UpdateOperations;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 
@@ -92,6 +93,33 @@ public class WordStore {
 
 	public boolean exists(Language language) {
 		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language);
+	}
+
+
+	public void incrementFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty()) {
+			return;
+		}
+
+		try {
+			long start = System.currentTimeMillis();
+
+			// @todo: this is very slow and it doesn't take into account custom words. fix it!
+
+			// First try with the original word and if there is no match, probably the user has changed
+			// the text case, so try again with the lowercase equivalent, finally try again with a capitalized variant.
+			if (
+				UpdateOperations.incrementFrequency(sqlite.getDb(), language, word, sequence)
+				|| UpdateOperations.incrementFrequency(sqlite.getDb(), language, word.toLowerCase(), sequence)
+				|| UpdateOperations.incrementFrequency(sqlite.getDb(), language, language.capitalize(word), sequence)
+			) {
+				Logger.d(LOG_TAG, "Incremented frequency of '" + word + "'. Time: " + (System.currentTimeMillis() - start) + " ms");
+			} else {
+				throw new Exception("No such word");
+			}
+		} catch (Exception e) {
+			Logger.e(LOG_TAG,"Failed incrementing word frequency. Word: '" + word + "'. " + e.getMessage());
+		}
 	}
 
 
