@@ -88,6 +88,7 @@ public class WordStore {
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
+		// @todo: Log slow queries. Display them on the debug screen. Provide cached results for the factory positions.
 
 		return words;
 	}
@@ -100,7 +101,7 @@ public class WordStore {
 
 	public void remove(ArrayList<Integer> languageId) {
 		if (checkOrNotify()) {
-			DeleteOperations.deleteMany(sqlite, languageId);
+			sqlite.runInTransaction(() -> DeleteOperations.deleteMany(sqlite, languageId));
 		}
 	}
 

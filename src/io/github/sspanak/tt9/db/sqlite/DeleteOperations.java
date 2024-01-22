@@ -6,11 +6,8 @@ import java.util.ArrayList;
 
 public class DeleteOperations {
 	public static void delete(@NonNull SQLiteOpener sqlite, int languageId) {
-
-		sqlite.runInTransaction(() -> {
-			sqlite.getDb().delete(TableOperations.getWordsTable(languageId), null, null);
-			sqlite.getDb().delete(TableOperations.getWordPositionsTable(languageId), null, null);
-		});
+		sqlite.getDb().delete(TableOperations.getWordsTable(languageId), null, null);
+		sqlite.getDb().delete(TableOperations.getWordPositionsTable(languageId), null, null);
 	}
 
 	public static void deleteMany(@NonNull SQLiteOpener sqlite, ArrayList<Integer> languageIds) {
