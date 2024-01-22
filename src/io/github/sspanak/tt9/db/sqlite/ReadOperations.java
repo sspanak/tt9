@@ -57,39 +57,7 @@ public class ReadOperations {
 	}
 
 
-	@NonNull
-	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
-		if (sequence.length() == 1) {
-			return sequence;
-		}
-
-		WordPositionsStringBuilder positions = new WordPositionsStringBuilder();
-
-		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, isFilterOn), new String[]{})) {
-			positions.appendFromDbRanges(cursor);
-		}
-
-		if (positions.size < minPositions) {
-			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
-			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), new String[]{})) {
-				positions.appendFromDbRanges(cursor);
-			}
-		}
-
-		return positions.toString();
-	}
-
-	@NonNull private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, boolean isFilterOn) {
-		return
-			"SELECT `start`, `end` FROM ( " +
-				getFactoryWordPositionsQuery(language, sequence, isFilterOn) +
-				") UNION " +
-				getCustomWordPositionsQuery(language, sequence);
-	}
-
-
-	@NonNull
-	private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, boolean isFilterOn) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
 		int generations;
 
 		switch (sequence.length()) {
@@ -105,7 +73,39 @@ public class ReadOperations {
 				break;
 		}
 
-		return getFactoryWordPositionsQuery(language, sequence, generations);
+		return getWordPositions(db, language, sequence, generations, minPositions);
+	}
+
+
+	@NonNull
+	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, int generations, int minPositions) {
+		if (sequence.length() == 1) {
+			return sequence;
+		}
+
+		WordPositionsStringBuilder positions = new WordPositionsStringBuilder();
+
+		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), new String[]{})) {
+			positions.appendFromDbRanges(cursor);
+		}
+
+		if (positions.size < minPositions) {
+			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
+			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), new String[]{})) {
+				positions.appendFromDbRanges(cursor);
+			}
+		}
+
+		return positions.toString();
+	}
+
+
+	private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
+		return
+			"SELECT `start`, `end` FROM ( " +
+				getFactoryWordPositionsQuery(language, sequence, generations) +
+				") UNION " +
+				getCustomWordPositionsQuery(language, sequence);
 	}
 
 

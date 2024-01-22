@@ -77,7 +77,7 @@ public class WordStore {
 
 
 		long startTime = System.currentTimeMillis();
-		String positions = readOps.getWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
+		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
 		long positionsTime = System.currentTimeMillis() - startTime;
 
 
