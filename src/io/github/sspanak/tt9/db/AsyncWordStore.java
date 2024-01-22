@@ -41,8 +41,6 @@ public class AsyncWordStore {
 	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
 	 */
 	public static void normalizeWordFrequencies(SettingsStore settings) {
-		// @todo: work with short, not int
-
 //		final String LOG_TAG = "db.normalizeWordFrequencies";
 //
 //		new Thread(() -> {

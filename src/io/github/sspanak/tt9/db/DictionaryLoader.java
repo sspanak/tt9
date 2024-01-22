@@ -128,13 +128,18 @@ public class DictionaryLoader {
 					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
-				// @todo: copy the custom words if they don't exist
-
 				start = System.currentTimeMillis();
 				int lettersCount = importLetters(language);
 				Logger.i(
 					LOG_TAG,
-					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
+					"Added letters for '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
+				);
+
+				start = System.currentTimeMillis();
+				InsertOperations.restoreCustomWords(sqlite.getDb(), language);
+				Logger.i(
+					LOG_TAG,
+					"Restored custom words for '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
 				start = System.currentTimeMillis();

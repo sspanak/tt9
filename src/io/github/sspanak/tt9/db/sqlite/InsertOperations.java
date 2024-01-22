@@ -2,10 +2,12 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordPosition;
@@ -14,6 +16,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class InsertOperations {
+	private static final HashMap<String, SQLiteStatement> statements = new HashMap<>();
+
 	private final int MAX_SIZE;
 	private boolean isFull;
 	private final Language language;
@@ -40,7 +44,6 @@ public class InsertOperations {
 			return false;
 		}
 
-		// @todo: try getting rid of Word and WordPosition
 		wordsBatch.add(Word.create(word, frequency, position));
 		String sequence = language.getDigitSequenceForWord(word);
 		if (position == 0) {
@@ -80,6 +83,7 @@ public class InsertOperations {
 
 
 	private void saveWordsBatch(SQLiteDatabase db) {
+		// @todo: use a compiled statement for inserting. more info: https://stackoverflow.com/questions/1711631/improve-insert-per-second-performance-of-sqlite
 		if (wordsBatch.size() == 0) {
 			return;
 		}
@@ -98,6 +102,7 @@ public class InsertOperations {
 
 
 	private void saveWordPositionsBatch(SQLiteDatabase db) {
+		// @todo: use a compiled statement for inserting. see above.
 		if (wordPositionsBatch.size() == 0) {
 			return;
 		}
@@ -133,5 +138,21 @@ public class InsertOperations {
 		db.insert(TableOperations.getWordsTable(language.getId()), null, values);
 
 		return true;
+	}
+
+
+	public static void restoreCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		String key = "restoreCustomWords_" + language.getId();
+		if (!statements.containsKey(key)) {
+			String sql =
+				"INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (position, word) " +
+				"SELECT -id, word FROM " + TableOperations.CUSTOM_WORDS_TABLE + " WHERE langId = " + language.getId();
+			statements.put(key, db.compileStatement(sql));
+		}
+
+		SQLiteStatement query = statements.get(key);
+		if (query != null) {
+			query.execute();
+		}
 	}
 }
