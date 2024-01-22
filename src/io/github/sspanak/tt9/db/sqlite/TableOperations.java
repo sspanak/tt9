@@ -1,11 +1,8 @@
 package io.github.sspanak.tt9.db.sqlite;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class TableOperations {
 

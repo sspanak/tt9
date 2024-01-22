@@ -2,16 +2,21 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.entities.WordList;
+import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.languages.Language;
 
 public class ReadOperations {
 	private final String LOG_TAG = "ReadOperations";
+
+	private static final HashMap<String, SQLiteStatement> statements = new HashMap<>();
 
 
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
@@ -34,22 +39,26 @@ public class ReadOperations {
 
 
 	@NonNull
-	public ArrayList<String> getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords) {
+	public WordList getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.i(LOG_TAG, "No word positions. Not searching words.");
-			return new ArrayList<>();
+			return new WordList();
 		}
 
-		ArrayList<String> words = new ArrayList<>();
 
-		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords);
+		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
 		if (wordsQuery.isEmpty()) {
-			return words;
+			return new WordList();
 		}
 
+		WordList words = new WordList();
 		try (Cursor cursor = db.rawQuery(wordsQuery, null)) {
 			while (cursor.moveToNext()) {
-				words.add(cursor.getString(0));
+					words.add(
+						cursor.getString(0),
+						fullOutput ? cursor.getInt(1) : 0,
+						fullOutput ? cursor.getInt(2) : 0
+					);
 			}
 		}
 
@@ -105,7 +114,7 @@ public class ReadOperations {
 			"SELECT `start`, `end` FROM ( " +
 				getFactoryWordPositionsQuery(language, sequence, generations) +
 				") UNION " +
-				getCustomWordPositionsQuery(language, sequence);
+				getCustomWordPositionsQuery(language, sequence, generations);
 	}
 
 
@@ -140,23 +149,34 @@ public class ReadOperations {
 	}
 
 
-	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence) {
+	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		// @todo: use a compiled query
 		String sql = "SELECT -id as `start`, -id as `end` FROM " + TableOperations.CUSTOM_WORDS_TABLE +
 			" WHERE langId = " + language.getId() +
-			" AND (sequence = " + sequence + " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9)";
+			" AND (sequence = " + sequence;
+
+		if (generations > 0) {
+			sql += " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9)";
+		} else {
+			sql += ")";
+		}
 
 		Logger.d(LOG_TAG, "Custom words SQL: " + sql);
 		return sql;
 	}
 
 
-	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords) {
+	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords, boolean fullOutput) {
 		// @todo: use a compiled query
 
 		StringBuilder sql = new StringBuilder();
 		sql
-			.append("SELECT word FROM ").append(TableOperations.getWordsTable(language.getId()))
+			.append("SELECT word");
+		if (fullOutput) {
+			sql.append(",frequency,position");
+		}
+
+		sql.append(" FROM ").append(TableOperations.getWordsTable(language.getId()))
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {
@@ -170,5 +190,20 @@ public class ReadOperations {
 		String wordsSql = sql.toString();
 		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
+	}
+
+
+	public int getWordFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position) {
+		String key = "getWordFrequency_" + language.getId();
+		if (!statements.containsKey(key)) {
+			statements.put(key, db.compileStatement("SELECT frequency FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE position = ?"));
+		}
+
+		SQLiteStatement query = statements.get(key);
+		if (query == null) {
+			return 0;
+		}
+		query.bindLong(1, position);
+		return (int)query.simpleQueryForLong();
 	}
 }

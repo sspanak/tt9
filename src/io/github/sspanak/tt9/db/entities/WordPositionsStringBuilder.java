@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.sqlite;
+package io.github.sspanak.tt9.db.entities;
 
 import android.database.Cursor;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 
 
 public class WordPositionsStringBuilder {
-	int size = 0;
+	public int size = 0;
 	StringBuilder positions = new StringBuilder();
 
 	public void appendFromDbRanges(Cursor cursor) {

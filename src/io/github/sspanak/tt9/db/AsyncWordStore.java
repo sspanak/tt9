@@ -117,8 +117,8 @@ public class AsyncWordStore {
 	}
 
 
-	public static void incrementWordFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		new Thread(() -> getStore().incrementFrequency(language, word, sequence)).start();
+	public static void makeTopWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		new Thread(() -> getStore().makeTopWord(language, word, sequence)).start();
 	}
 
 

@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.entities.Word;
+import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
 import io.github.sspanak.tt9.db.sqlite.InsertOperations;
@@ -82,7 +84,7 @@ public class WordStore {
 
 
 		startTime = System.currentTimeMillis();
-		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords);
+		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords, false).toStringList();
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
@@ -93,33 +95,6 @@ public class WordStore {
 
 	public boolean exists(Language language) {
 		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language);
-	}
-
-
-	public void incrementFrequency(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty()) {
-			return;
-		}
-
-		try {
-			long start = System.currentTimeMillis();
-
-			// @todo: this is very slow and it doesn't take into account custom words. fix it!
-
-			// First try with the original word and if there is no match, probably the user has changed
-			// the text case, so try again with the lowercase equivalent, finally try again with a capitalized variant.
-			if (
-				UpdateOperations.incrementFrequency(sqlite.getDb(), language, word, sequence)
-				|| UpdateOperations.incrementFrequency(sqlite.getDb(), language, word.toLowerCase(), sequence)
-				|| UpdateOperations.incrementFrequency(sqlite.getDb(), language, language.capitalize(word), sequence)
-			) {
-				Logger.d(LOG_TAG, "Incremented frequency of '" + word + "'. Time: " + (System.currentTimeMillis() - start) + " ms");
-			} else {
-				throw new Exception("No such word");
-			}
-		} catch (Exception e) {
-			Logger.e(LOG_TAG,"Failed incrementing word frequency. Word: '" + word + "'. " + e.getMessage());
-		}
 	}
 
 
@@ -141,7 +116,9 @@ public class WordStore {
 			throw new InsertDuplicateWordException();
 		}
 
-		if (!InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+		if (InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+			makeTopWord(language, word, sequence);
+		} else {
 			throw new Exception("SQLite refused inserting the word");
 		}
 	}
@@ -155,6 +132,47 @@ public class WordStore {
 
 		return true;
 	}
+
+
+	public void makeTopWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
+		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty()) {
+			return;
+		}
+
+		try {
+			long start = System.currentTimeMillis();
+
+			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), language, sequence, 0, 0);
+			WordList topWords = readOps.getWords(sqlite.getDb(), language, topWordPositions, "", 9999, true);
+			if (topWords.isEmpty()) {
+				throw new Exception("No such word");
+			}
+
+			Word topWord = topWords.get(0);
+			if (topWord.word.toUpperCase(language.getLocale()).equals(word.toUpperCase(language.getLocale()))) {
+				Logger.d(LOG_TAG, "Word '" + word + "' is already the top word. Time: " + (System.currentTimeMillis() - start) + " ms");
+				return;
+			}
+
+			int wordPosition = 0;
+			for (Word tw : topWords) {
+				if (tw.word.toUpperCase(language.getLocale()).equals(word.toUpperCase(language.getLocale()))) {
+					wordPosition = tw.position;
+					break;
+				}
+			}
+
+			int newTopFrequency = readOps.getWordFrequency(sqlite.getDb(), language, topWord.position) + 1;
+			if (UpdateOperations.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
+				Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + (System.currentTimeMillis() - start) + " ms");
+			} else {
+				throw new Exception("No such word");
+			}
+		} catch (Exception e) {
+			Logger.e(LOG_TAG,"Frequency change failed. Word: '" + word + "'. " + e.getMessage());
+		}
+	}
+
 
 	private void printLoadingSummary(String sequence, ArrayList<String> words, long positionIndexTime, long wordsTime) {
 		if (!Logger.isDebugLevel()) {

@@ -271,7 +271,7 @@ public class ModePredictive extends InputMode {
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
-				AsyncWordStore.incrementWordFrequency(language, currentWord, sequence);
+				AsyncWordStore.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());

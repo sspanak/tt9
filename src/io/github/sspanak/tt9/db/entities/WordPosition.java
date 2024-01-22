@@ -1,8 +1,8 @@
-package io.github.sspanak.tt9.db.sqlite;
+package io.github.sspanak.tt9.db.entities;
 
 import androidx.annotation.NonNull;
 
-class WordPosition {
+public class WordPosition {
 	public String sequence;
 	public int start;
 	public int end;
