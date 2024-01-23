@@ -20,21 +20,29 @@ public class ReadOperations {
 
 
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
-		// @todo: use a compiled query
-		String sql = "SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?";
-		try (Cursor cursor = db.rawQuery(sql, new String[]{word})) {
-			cursor.moveToFirst();
-			return cursor.getInt(0) > 0;
+		String key = "exists_" + language.getId() + "_" + word;
+		if (!statements.containsKey(key)) {
+			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?"));
 		}
+
+		SQLiteStatement query = statements.get(key);
+		if (query != null) {
+			query.bindString(1, word);
+			return query.simpleQueryForLong() > 0;
+		}
+
+		return false;
 	}
 
 
-	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language) {
-		String sql = "SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId());
-		try (Cursor cursor = db.rawQuery(sql, null)) {
-			cursor.moveToFirst();
-			return cursor.getInt(0) > 0;
+	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
+		String key = "exists_" + langId;
+		if (!statements.containsKey(key)) {
+			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(langId)));
 		}
+
+		SQLiteStatement query = statements.get(key);
+		return query != null && query.simpleQueryForLong() > 0;
 	}
 
 

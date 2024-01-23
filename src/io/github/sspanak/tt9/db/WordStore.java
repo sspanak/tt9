@@ -95,13 +95,28 @@ public class WordStore {
 
 
 	public boolean exists(Language language) {
-		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language);
+		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language.getId());
 	}
 
 
-	public void remove(ArrayList<Integer> languageId) {
-		if (checkOrNotify()) {
-			sqlite.runInTransaction(() -> DeleteOperations.deleteMany(sqlite, languageId));
+	public void remove(ArrayList<Integer> languageIds) {
+		if (!checkOrNotify()) {
+			return;
+		}
+
+		long start = System.currentTimeMillis();
+		try {
+			sqlite.beginTransaction();
+			for (int langId : languageIds) {
+				if (readOps.exists(sqlite.getDb(), langId)) {
+					DeleteOperations.delete(sqlite, langId);
+				}
+			}
+			sqlite.finishTransaction();
+			Logger.d(LOG_TAG, "Deleted " + languageIds.size() + " languages. Time: " + (System.currentTimeMillis() - start) + " ms");
+		} catch (Exception e) {
+			sqlite.failTransaction();
+			Logger.e(LOG_TAG, "Failed deleting languages. " + e.getMessage());
 		}
 	}
 
