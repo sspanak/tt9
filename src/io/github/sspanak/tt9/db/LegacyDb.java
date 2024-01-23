@@ -41,6 +41,7 @@ public class LegacyDb {
 
 
 	private void openDb() {
+		// @todo: this always fails on Android 6.0. Use SQLiteOpenHelper instead.
 		try {
 			db = null;
 			File dbFile = activity.getDatabasePath(DB_NAME);
