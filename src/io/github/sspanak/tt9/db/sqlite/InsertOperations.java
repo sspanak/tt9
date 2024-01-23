@@ -135,9 +135,9 @@ public class InsertOperations {
 		values = new ContentValues();
 		values.put("position", (int)-insertId);
 		values.put("word", word);
-		db.insert(TableOperations.getWordsTable(language.getId()), null, values);
+		insertId = db.insert(TableOperations.getWordsTable(language.getId()), null, values);
 
-		return true;
+		return insertId != -1;
 	}
 
 

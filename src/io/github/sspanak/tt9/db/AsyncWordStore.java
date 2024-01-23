@@ -8,9 +8,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ConsumerCompat;
-import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
-import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -92,26 +89,8 @@ public class AsyncWordStore {
 	}
 
 
-	public static void insertWord(ConsumerCompat<Integer> statusHandler, @NonNull Language language, String word) throws Exception {
-		// @todo: migrate all logic to the WordStore
-		if (word == null || word.length() == 0) {
-			throw new InsertBlankWordException();
-		}
-
-		new Thread(() -> {
-			try {
-				getStore().put(language, word, language.getDigitSequenceForWord(word));
-				statusHandler.accept(0);
-			} catch (InsertDuplicateWordException e) {
-				String msg = "Skipping word: '" + word + "' for language: " + language.getId() + ", because it already exists.";
-				Logger.w("insertWord", msg);
-				statusHandler.accept(1);
-			} catch (Exception e) {
-				String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
-				Logger.e("insertWord", msg);
-				statusHandler.accept(2);
-			}
-		}).start();
+	public static void put(ConsumerCompat<Integer> statusHandler, Language language, String word) {
+		new Thread(() -> statusHandler.accept(getStore().put(language, word))).start();
 	}
 
 

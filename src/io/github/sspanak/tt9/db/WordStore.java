@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
-import io.github.sspanak.tt9.db.exceptions.InsertDuplicateWordException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
 import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.ReadOperations;
@@ -17,6 +16,7 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOperations;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.ui.AddWordAct;
 
 
 public class WordStore {
@@ -113,6 +113,7 @@ public class WordStore {
 				}
 			}
 			sqlite.finishTransaction();
+
 			Logger.d(LOG_TAG, "Deleted " + languageIds.size() + " languages. Time: " + (System.currentTimeMillis() - start) + " ms");
 		} catch (Exception e) {
 			sqlite.failTransaction();
@@ -121,22 +122,40 @@ public class WordStore {
 	}
 
 
-	public void put(@NonNull Language language, @NonNull String word, @NonNull String sequence) throws Exception {
-		if (!checkOrNotify()) {
-			return;
+	public int put(Language language, String word) {
+		if (word == null || word.isEmpty()) {
+			return AddWordAct.CODE_BLANK_WORD;
+		}
+
+		if (language == null) {
+			return AddWordAct.CODE_INVALID_LANGUAGE;
 		}
 
 		// @todo: check if custom words are more than 2^31-1
 
-		if (readOps.exists(sqlite.getDb(), language, word)) {
-			throw new InsertDuplicateWordException();
+		if (!checkOrNotify()) {
+			return AddWordAct.CODE_GENERAL_ERROR;
 		}
 
-		if (InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
-			makeTopWord(language, word, sequence);
-		} else {
-			throw new Exception("SQLite refused inserting the word");
+		try {
+			if (readOps.exists(sqlite.getDb(), language, word)) {
+				return AddWordAct.CODE_WORD_EXISTS;
+			}
+
+			String sequence = language.getDigitSequenceForWord(word);
+
+			if (InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+				makeTopWord(language, word, sequence);
+			} else {
+				throw new Exception("SQLite INSERT failure.");
+			}
+		} catch (Exception e) {
+			String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
+			Logger.e("insertWord", msg);
+			return AddWordAct.CODE_GENERAL_ERROR;
 		}
+
+		return AddWordAct.CODE_SUCCESS;
 	}
 
 
