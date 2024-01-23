@@ -4,14 +4,14 @@ const { createInterface } = require('readline');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE WORD-LIST.txt`);
+	console.log(`Usage ${basename(process.argv[1])} LOCALE WORD-LIST.txt LANGUAGE-DEFINITION.yml`);
 	console.log('Sorts a dictionary for optimum search speed.');
 }
 
 
 
 function validateInput() {
-	if (process.argv.length < 3) {
+	if (process.argv.length < 4) {
 		printHelp();
 		process.exit(1);
 	}
@@ -21,8 +21,14 @@ function validateInput() {
 		process.exit(2);
 	}
 
+	if (!existsSync(process.argv[4])) {
+		console.error(`Failure! Could not find language definition file "${process.argv[3]}."`);
+		process.exit(2);
+	}
+
 	return {
-		fileName: process.argv[3],
+		definitionFile: process.argv[4],
+		wordsFile: process.argv[3],
 		locale: process.argv[2]
 	};
 }
@@ -54,6 +60,32 @@ async function readWords(fileName) {
 }
 
 
+async function readDefinition(fileName) {
+	if (!fileName) {
+		return new Map();
+	}
+
+	let lettersPattern = /^\s+-\s*\[([^\]]+)/;
+	let letterWeights = new Map([["'", 1], ['-', 1], ['"', 1]]);
+
+	let key = 2;
+	for await (const line of createInterface({ input: createReadStream(fileName) })) {
+		if (line.includes('SPECIAL') || line.includes('PUNCTUATION')) {
+			continue;
+		}
+
+		const matches = line.match(lettersPattern);
+		if (matches && matches[1]) {
+			const letters = matches[1].replace(/\s/g, '').split(',');
+			letters.forEach(l => letterWeights.set(l, key));
+			key++;
+		}
+	}
+
+	return letterWeights;
+}
+
+
 function dictionarySort(a, b, letterWeights, locale) {
 	if (a.word.length !== b.word.length) {
 		return a.word.length - b.word.length;
@@ -73,43 +105,13 @@ function dictionarySort(a, b, letterWeights, locale) {
 	return 0;
 }
 
-function getLetterWeights() {
-	const letterWeights = new Map();
-	letterWeights
-		.set("'", 1).set("-", 1).set('"', 1)
-		.set('а', 2).set('б', 2).set('в', 2).set('г', 2).set('ґ', 2)
-		.set('д', 3).set('е', 3).set('є', 3).set('ж', 3).set('з', 3)
-		.set('и', 4).set('і', 4).set('ї', 4).set('й', 4).set('к', 4).set('л', 4)
-		.set('м', 5).set('н', 5).set('о', 5).set('п', 5)
-		.set('р', 6).set('с', 6).set('т', 6).set('у', 6)
-		.set('ф', 7).set('х', 7).set('ц', 7).set('ч', 7)
-		.set('ш', 8).set('щ', 8)
-		.set('ь', 9).set('ю', 9).set('я', 9);
 
-	letterWeights
-		.set('a', 2).set('b', 2).set('c', 2)
-		.set('d', 3).set('e', 3).set('f', 3)
-		.set('g', 4).set('h', 4).set('i', 4)
-		.set('j', 5).set('k', 5).set('l', 5)
-		.set('m', 6).set('n', 6).set('o', 6)
-		.set('p', 7).set('q', 7).set('r', 7).set('s', 7)
-		.set('t', 8).set('u', 8).set('v', 8)
-		.set('w', 9).set('x', 9).set('y', 9).set('z', 9);
-
-	letterWeights
-		.set('á', 2)
-		.set('é', 3)
-		.set('í', 4)
-		.set('ñ', 5).set('ó', 5)
-		.set('ú', 8).set('ü', 8);
-
-	return letterWeights;
-}
-
-
-async function work({ fileName, locale }) {	
-	return readWords(fileName).then(words => 
-		words.sort((a, b) => dictionarySort(a, b, getLetterWeights(), locale))
+async function work({ definitionFile, wordsFile, locale }) {
+	return Promise.all([
+		readWords(wordsFile),
+		readDefinition(definitionFile)
+	]).then(([words, letterWeights]) =>
+		words.sort((a, b) => dictionarySort(a, b, letterWeights, locale))
 	);
 }
 
