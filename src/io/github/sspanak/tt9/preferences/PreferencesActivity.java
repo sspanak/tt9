@@ -15,7 +15,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.AsyncWordStore;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
@@ -43,8 +43,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
 		new LegacyDb(this).clear();
-		AsyncWordStore.init(this);
-		AsyncWordStore.normalizeWordFrequencies(settings);
+		WordStoreAsync.init(this);
+		WordStoreAsync.normalizeWordFrequencies(settings);
 
 		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());
 		validateFunctionKeys();

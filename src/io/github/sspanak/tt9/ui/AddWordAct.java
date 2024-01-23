@@ -9,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.AsyncWordStore;
-import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -94,7 +92,7 @@ public class AddWordAct extends AppCompatActivity {
 
 
 	public void addWord(View v) {
-		AsyncWordStore.put(this::onAddedWord, language, word);
+		WordStoreAsync.put(this::onAddedWord, language, word);
 	}
 
 

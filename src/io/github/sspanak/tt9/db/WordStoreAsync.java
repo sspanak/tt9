@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class AsyncWordStore {
+public class WordStoreAsync {
 	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
