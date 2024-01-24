@@ -207,7 +207,7 @@ public class DictionaryLoader {
 		sendProgressMessage(language, 1, 0);
 
 		int currentLine = 1;
-		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word build time validation: words < 2^31 - 1
+		int totalLines = getFileSize(dictionaryFile);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 		InsertOperations wordBatch = new InsertOperations(language, settings);
@@ -264,7 +264,7 @@ public class DictionaryLoader {
 	}
 
 
-	private long getFileSize(String filename) {
+	private int getFileSize(String filename) {
 		String sizeFilename = filename + ".size";
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(sizeFilename), StandardCharsets.UTF_8))) {
