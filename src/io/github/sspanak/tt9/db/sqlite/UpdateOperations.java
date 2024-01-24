@@ -63,7 +63,7 @@ public class UpdateOperations {
 		query.bindLong(2, position);
 		query.execute();
 
-		Logger.d(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ")");
+		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ")");
 
 		try {
 			return getAffectedRowsStatement(db).simpleQueryForLong() > 0;

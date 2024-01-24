@@ -58,7 +58,7 @@ public class ReadOperations {
 	@NonNull
 	public WordList getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {
-			Logger.i(LOG_TAG, "No word positions. Not searching words.");
+			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
 
@@ -161,7 +161,7 @@ public class ReadOperations {
 		}
 
 		String positionsSql = sql.toString();
-		Logger.d(LOG_TAG, "Index SQL: " + positionsSql);
+		Logger.v(LOG_TAG, "Index SQL: " + positionsSql);
 		return positionsSql;
 	}
 
@@ -178,7 +178,7 @@ public class ReadOperations {
 			sql += ")";
 		}
 
-		Logger.d(LOG_TAG, "Custom words SQL: " + sql);
+		Logger.v(LOG_TAG, "Custom words SQL: " + sql);
 		return sql;
 	}
 
@@ -205,7 +205,7 @@ public class ReadOperations {
 			.append(" LIMIT ").append(maximumWords);
 
 		String wordsSql = sql.toString();
-		Logger.d(LOG_TAG, "Words SQL: " + wordsSql);
+		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);
 		return wordsSql;
 	}
 

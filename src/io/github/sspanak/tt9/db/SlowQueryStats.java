@@ -39,7 +39,12 @@ public class SlowQueryStats {
 		Integer queryTime = slowQueries.get(key);
 		boolean isSlow = queryTime != null && queryTime >= settings.getSlowQueryTime();
 
-		return isSlow ? resultCache.get(key) : null;
+		if (isSlow) {
+			Logger.d(LOG_TAG, "Loading cached positions for query: " + key);
+			return resultCache.get(key);
+		} else {
+			return null;
+		}
 	}
 
 	public static String getSummary() {

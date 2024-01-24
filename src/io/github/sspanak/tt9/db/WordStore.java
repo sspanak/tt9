@@ -36,7 +36,7 @@ public class WordStore {
 			sqlite.getDb();
 			readOps = new ReadOperations();
 		} catch (Exception e) {
-			Logger.e(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
+			Logger.w(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
 		self = this;
 	}
@@ -82,8 +82,6 @@ public class WordStore {
 		String positions = SlowQueryStats.getCachedIfSlow(settings, language, sequence, filter, minWords, maxWords);
 		if (positions == null) {
 			positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
-		} else {
-			Logger.d(LOG_TAG, "Using cached positions for sequence: " + sequence);
 		}
 		long positionsTime = System.currentTimeMillis() - startTime;
 
