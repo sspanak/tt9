@@ -38,6 +38,7 @@ public class ReadOperations {
 	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
 		String key = "exists_" + langId;
 		if (!statements.containsKey(key)) {
+			// @todo: check performance with "SELECT 1 FROM ..." and without a compiled statement
 			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(langId)));
 		}
 
@@ -148,7 +149,7 @@ public class ReadOperations {
 		} else {
 			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
 			sql.append(" ORDER BY start ");
-			sql.append(" LIMIT 100"); // @todo: use the longest range per language from TABLE_LANGUAGES_META
+			sql.append(" LIMIT 100"); // @todo: use the longest range per language from TABLE_LANGUAGES_META, but probably converting this to a a compiled query will make it easier
 		}
 
 		String positionsSql = sql.toString();
