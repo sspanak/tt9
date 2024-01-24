@@ -131,8 +131,6 @@ public class WordStore {
 			return AddWordAct.CODE_INVALID_LANGUAGE;
 		}
 
-		// @todo: check if custom words are more than 2^31-1
-
 		if (!checkOrNotify()) {
 			return AddWordAct.CODE_GENERAL_ERROR;
 		}

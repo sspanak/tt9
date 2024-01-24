@@ -45,6 +45,8 @@ public class InsertOperations {
 			return false;
 		}
 
+		// @todo: instead of accumulating two ArrayLists, build the insert Strings, for potential performance gains
+
 		wordsBatch.add(Word.create(word, frequency, position));
 		String sequence = language.getDigitSequenceForWord(word);
 		if (position == 0) {
@@ -154,6 +156,9 @@ public class InsertOperations {
 		if (insertId == -1) {
 			return false;
 		}
+
+		// If the user inserts more than 2^31 custom words, the "position" will overflow and will mess up
+		// the words table, but realistically it will never happen, so we don't bother preventing it.
 
 		values = new ContentValues();
 		values.put("position", (int)-insertId);

@@ -207,11 +207,9 @@ public class DictionaryLoader {
 		sendProgressMessage(language, 1, 0);
 
 		int currentLine = 1;
-		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word validation up to 2^31 - 1
+		int totalLines = (int) getFileSize(dictionaryFile); // @todo: add a maximum word build time validation: words < 2^31 - 1
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-
-		// @todo: instead of accumulating two ArrayLists, build the insert Strings in a WordOperation.
 		InsertOperations wordBatch = new InsertOperations(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {

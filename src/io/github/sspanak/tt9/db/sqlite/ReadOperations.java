@@ -148,7 +148,7 @@ public class ReadOperations {
 		} else {
 			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
 			sql.append(" ORDER BY start ");
-			sql.append(" LIMIT 100"); // @todo: maximum number of children + 1 among all sequences
+			sql.append(" LIMIT 100"); // @todo: use the longest range per language from TABLE_LANGUAGES_META
 		}
 
 		String positionsSql = sql.toString();
