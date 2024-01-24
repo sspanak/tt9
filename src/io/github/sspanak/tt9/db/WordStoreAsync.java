@@ -15,13 +15,13 @@ public class WordStoreAsync {
 	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
-	public static synchronized void init(Context context) {
-		store = WordStore.getInstance(context);
+	public static synchronized void init(Context context, SettingsStore settings) {
+		store = WordStore.getInstance(context, settings);
 	}
 
 
 	public static synchronized void init() {
-		init(null);
+		init(null, null);
 	}
 
 
@@ -31,48 +31,8 @@ public class WordStoreAsync {
 	}
 
 
-	/**
-	 * normalizeWordFrequencies
-	 * Normalizes the word frequencies for all languages that have reached the maximum, as defined in
-	 * the settings.
-	 * This query will finish immediately, if there is nothing to do. It's safe to run it often.
-	 */
-	public static void normalizeWordFrequencies(SettingsStore settings) {
-//		final String LOG_TAG = "db.normalizeWordFrequencies";
-//
-//		new Thread(() -> {
-//			for (int langId : getStore().getLanguages()) {
-//				getStore().runInTransactionAsync(() -> {
-//					try {
-//						long start = System.currentTimeMillis();
-//
-//						if (getStore().getMaxFrequency(langId) < settings.getWordFrequencyMax()) {
-//							return;
-//						}
-//
-//						List<Word> words = getStore().getMany(langId);
-//						if (words == null) {
-//							return;
-//						}
-//
-//						for (Word w : words) {
-//							w.frequency /= settings.getWordFrequencyNormalizationDivider();
-//						}
-//
-//						getStore().put(words);
-//
-//						Logger.d(
-//							LOG_TAG,
-//							"Normalized language: " + langId + ", " + words.size() + " words in: " + (System.currentTimeMillis() - start) + " ms"
-//						);
-//					} catch (Exception e) {
-//						Logger.e(LOG_TAG, "Word normalization failed. " + e.getMessage());
-//					} finally {
-//						getStore().closeThreadResources();
-//					}
-//				});
-//			}
-//		}).start();
+	public static void normalizeNext() {
+		new Thread(() -> getStore().normalizeNext()).start();
 	}
 
 

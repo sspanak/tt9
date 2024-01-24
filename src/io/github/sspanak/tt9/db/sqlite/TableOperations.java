@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.languages.Language;
 
 public class TableOperations {
 
+	static final String LANGUAGES_META_TABLE = "languages_meta";
 	static final String CUSTOM_WORDS_TABLE = "custom_words";
 	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
 	private static final String WORDS_TABLE_BASE_NAME = "words_";
@@ -16,12 +17,13 @@ public class TableOperations {
 
 	static String[] getCreateQueries(ArrayList<Language> languages) {
 		int languageCount = languages.size();
-		String[] queries = new String[languageCount * 4 + 2];
+		String[] queries = new String[languageCount * 4 + 3];
 
 		queries[0] = createCustomWords();
 		queries[1] = createCustomWordsIndex();
+		queries[2] = createLanguagesMeta();
 
-		int queryId = 2;
+		int queryId = 3;
 		for (Language language : languages) {
 			queries[queryId++] = createWordsTable(language.getId());
 			queries[queryId++] = createWordsIndex(language.getId());
@@ -69,5 +71,13 @@ public class TableOperations {
 
 	private static String createCustomWordsIndex() {
 		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS_TABLE + " (langId, sequence)";
+	}
+
+	private static String createLanguagesMeta() {
+		return "CREATE TABLE IF NOT EXISTS " + LANGUAGES_META_TABLE + " (" +
+			"langId INTEGER UNIQUE NOT NULL, " +
+			"maxPositionRange INTEGER NOT NULL DEFAULT 0, " +
+			"normalizationPending INT2 NOT NULL DEFAULT 0 " +
+		")";
 	}
 }

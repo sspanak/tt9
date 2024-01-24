@@ -214,4 +214,15 @@ public class ReadOperations {
 		query.bindLong(1, position);
 		return (int)query.simpleQueryForLong();
 	}
+
+
+	public int getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
+		String key = "getNextInNormalizationQueue";
+		if (!statements.containsKey(key)) {
+			statements.put(key, db.compileStatement("SELECT langId FROM " + TableOperations.LANGUAGES_META_TABLE + " WHERE normalizationPending = 1 LIMIT 1"));
+		}
+
+		SQLiteStatement query = statements.get(key);
+		return query == null ? -1 : (int)query.simpleQueryForLong();
+	}
 }

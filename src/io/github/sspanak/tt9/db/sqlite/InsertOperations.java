@@ -22,6 +22,7 @@ public class InsertOperations {
 	private boolean isFull;
 	private final Language language;
 	private WordPosition lastWordPosition;
+	private int longestPositionRange;
 	@NonNull public final ArrayList<Word> wordsBatch = new ArrayList<>();
 	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
 
@@ -56,6 +57,7 @@ public class InsertOperations {
 
 		if (!sequence.equals(lastWordPosition.sequence)) {
 			lastWordPosition.endAt(position - 1);
+			longestPositionRange = Math.max(longestPositionRange, lastWordPosition.getRangeLength());
 
 			isFull = wordPositionsBatch.size() >= MAX_SIZE;
 			if (!isFull) {
@@ -67,12 +69,33 @@ public class InsertOperations {
 		return !isFull;
 	}
 
+
 	private void clearBatch() {
 		isFull = false;
 		lastWordPosition = null;
+		longestPositionRange = 0;
 		wordsBatch.clear();
 		wordPositionsBatch.clear();
 	}
+
+
+	public void saveLongestPositionRange(@NonNull SQLiteDatabase db) {
+		String key = "addLongestPositionRange_" + language.getId();
+		if (!statements.containsKey(key)) {
+			String sql =
+				"INSERT INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, longestPositionRange) VALUES (?, ?)";
+
+			statements.put(key, db.compileStatement(sql));
+		}
+
+		SQLiteStatement query = statements.get(key);
+		if (query != null) {
+			query.bindLong(1, language.getId());
+			query.bindLong(2, longestPositionRange);
+			query.execute();
+		}
+	}
+
 
 	public void saveBatch(@NonNull SQLiteDatabase db) {
 		// @todo: try using multiple threads for speeding up the process

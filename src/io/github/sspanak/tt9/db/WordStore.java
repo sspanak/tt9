@@ -16,18 +16,22 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOperations;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.AddWordAct;
 
 
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
 	private static WordStore self;
+
+	private SettingsStore settings;
 	private SQLiteOpener sqlite = null;
 	private ReadOperations readOps = null;
 
 
-	public WordStore(Context context) {
+	public WordStore(@NonNull Context context, @NonNull SettingsStore settings) {
 		try {
+			this.settings = settings;
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
 			readOps = new ReadOperations();
@@ -38,18 +42,14 @@ public class WordStore {
 	}
 
 
-	public static synchronized WordStore getInstance(Context context) {
+	public static synchronized WordStore getInstance(Context context, SettingsStore settings) {
 		if (self == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
-			self = new WordStore(context);
+			settings = settings == null ? new SettingsStore(context) : settings;
+			self = new WordStore(context, settings);
 		}
 
 		return self;
-	}
-
-
-	public static synchronized WordStore getInstance() {
-		return getInstance(null);
 	}
 
 
@@ -198,13 +198,45 @@ public class WordStore {
 			}
 
 			int newTopFrequency = readOps.getWordFrequency(sqlite.getDb(), language, topWord.position) + 1;
-			if (UpdateOperations.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
-				Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + (System.currentTimeMillis() - start) + " ms");
-			} else {
+			if (!UpdateOperations.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
 				throw new Exception("No such word");
 			}
+
+			if (newTopFrequency > settings.getWordFrequencyMax()) {
+				scheduleNormalization(language);
+			}
+
+			Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + (System.currentTimeMillis() - start) + " ms");
 		} catch (Exception e) {
 			Logger.e(LOG_TAG,"Frequency change failed. Word: '" + word + "'. " + e.getMessage());
+		}
+	}
+
+
+	public void normalizeNext() {
+		if (!checkOrNotify()) {
+			return;
+		}
+
+		long start = System.currentTimeMillis();
+
+		try {
+			sqlite.beginTransaction();
+			int nextLangId = readOps.getNextInNormalizationQueue(sqlite.getDb());
+			UpdateOperations.normalize(sqlite.getDb(), settings, nextLangId);
+			sqlite.finishTransaction();
+
+			Logger.d(LOG_TAG, "Normalized language: " + nextLangId + " . Time: " + (System.currentTimeMillis() - start) + " ms");
+		} catch (Exception e) {
+			sqlite.failTransaction();
+			Logger.e(LOG_TAG, "Normalization failed. " + e.getMessage());
+		}
+	}
+
+
+	public void scheduleNormalization(Language language) {
+		if (language != null && checkOrNotify()) {
+			UpdateOperations.scheduleNormalization(sqlite.getDb(), language);
 		}
 	}
 

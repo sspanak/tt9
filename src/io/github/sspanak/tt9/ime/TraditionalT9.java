@@ -41,6 +41,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	@NonNull private TextField textField = new TextField(null, null);
 	@NonNull private InputType inputType = new InputType(null, null);
 	@NonNull private final Handler autoAcceptHandler = new Handler(Looper.getMainLooper());
+	@NonNull private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
 
 	// input mode
 	private ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -149,8 +150,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		self = this;
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		WordStoreAsync.init(this);
-		WordStoreAsync.normalizeWordFrequencies(settings);
+		WordStoreAsync.init(this, settings);
 
 		if (mainView == null) {
 			mainView = new MainView(this);
@@ -219,6 +219,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			return;
 		}
 
+		normalizationHandler.removeCallbacksAndMessages(null);
 		initUi();
 		updateInputViewShown();
 	}
@@ -234,6 +235,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		onFinishTyping();
 		clearSuggestions();
 		statusBar.setText("--");
+		normalizationHandler.postDelayed(WordStoreAsync::normalizeNext, settings.getWordNormalizationDelay());
 	}
 
 

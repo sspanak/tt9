@@ -19,6 +19,10 @@ public class WordPosition {
 		end = position;
 	}
 
+	public int getRangeLength() {
+		return end - start + 1;
+	}
+
 	@NonNull
 	@Override
 	public String toString() {
