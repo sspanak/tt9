@@ -2,6 +2,12 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
 
 	<SwitchPreferenceCompat
+		app:fragment="io.github.sspanak.tt9.preferences.SlowQueriesScreen"
+		app:key="pref_slow_queries"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_slow_queries" />
+
+	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:key="pref_enable_debug_logs"
 		app:layout="@layout/pref_switch"

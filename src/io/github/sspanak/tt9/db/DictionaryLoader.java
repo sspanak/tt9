@@ -241,7 +241,7 @@ public class DictionaryLoader {
 		}
 
 		wordBatch.saveBatch(sqlite.getDb());
-		wordBatch.saveLongestPositionRange(sqlite.getDb());
+		wordBatch.saveMaxPositionRange(sqlite.getDb());
 		br.close();
 		sendProgressMessage(language, 100, 0);
 	}

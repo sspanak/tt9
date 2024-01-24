@@ -79,7 +79,12 @@ public class WordStore {
 
 
 		long startTime = System.currentTimeMillis();
-		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
+		String positions = SlowQueryStats.getCachedIfSlow(settings, language, sequence, filter, minWords, maxWords);
+		if (positions == null) {
+			positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
+		} else {
+			Logger.d(LOG_TAG, "Using cached positions for sequence: " + sequence);
+		}
 		long positionsTime = System.currentTimeMillis() - startTime;
 
 
@@ -88,7 +93,7 @@ public class WordStore {
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
-		// @todo: Log slow queries. Display them on the debug screen. Provide cached results for the factory positions.
+		SlowQueryStats.add(settings, language, sequence, filter, minWords, maxWords, (int) (positionsTime + wordsTime), positions);
 
 		return words;
 	}

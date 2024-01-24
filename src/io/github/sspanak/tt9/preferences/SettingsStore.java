@@ -283,6 +283,8 @@ public class SettingsStore {
 	public int getSuggestionSelectAnimationDuration() { return 66; }
 	public int getSuggestionTranslateAnimationDuration() { return 0; }
 
+	public int getSlowQueryTime() { return 50; /* ms */ }
+
 	public int getSoftKeyRepeatDelay() { return 40; /* ms */ }
 
 	public int getWordFrequencyMax() { return 25500; }

@@ -22,7 +22,7 @@ public class InsertOperations {
 	private boolean isFull;
 	private final Language language;
 	private WordPosition lastWordPosition;
-	private int longestPositionRange;
+	private int maxPositionRange;
 	@NonNull public final ArrayList<Word> wordsBatch = new ArrayList<>();
 	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class InsertOperations {
 
 		if (!sequence.equals(lastWordPosition.sequence)) {
 			lastWordPosition.endAt(position - 1);
-			longestPositionRange = Math.max(longestPositionRange, lastWordPosition.getRangeLength());
+			maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
 
 			isFull = wordPositionsBatch.size() >= MAX_SIZE;
 			if (!isFull) {
@@ -75,17 +75,17 @@ public class InsertOperations {
 	private void clearBatch() {
 		isFull = false;
 		lastWordPosition = null;
-		longestPositionRange = 0;
+		maxPositionRange = 0;
 		wordsBatch.clear();
 		wordPositionsBatch.clear();
 	}
 
 
-	public void saveLongestPositionRange(@NonNull SQLiteDatabase db) {
-		String key = "addLongestPositionRange_" + language.getId();
+	public void saveMaxPositionRange(@NonNull SQLiteDatabase db) {
+		String key = "saveLongestPositionRange_" + language.getId();
 		if (!statements.containsKey(key)) {
 			String sql =
-				"INSERT INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, longestPositionRange) VALUES (?, ?)";
+				"INSERT INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
 
 			statements.put(key, db.compileStatement(sql));
 		}
@@ -93,7 +93,7 @@ public class InsertOperations {
 		SQLiteStatement query = statements.get(key);
 		if (query != null) {
 			query.bindLong(1, language.getId());
-			query.bindLong(2, longestPositionRange);
+			query.bindLong(2, maxPositionRange);
 			query.execute();
 		}
 	}
