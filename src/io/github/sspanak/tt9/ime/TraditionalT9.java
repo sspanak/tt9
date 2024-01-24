@@ -235,6 +235,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		onFinishTyping();
 		clearSuggestions();
 		statusBar.setText("--");
+
+		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(WordStoreAsync::normalizeNext, settings.getWordNormalizationDelay());
 	}
 

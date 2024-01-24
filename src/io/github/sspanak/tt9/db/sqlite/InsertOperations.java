@@ -82,10 +82,10 @@ public class InsertOperations {
 
 
 	public void saveMaxPositionRange(@NonNull SQLiteDatabase db) {
-		String key = "saveLongestPositionRange_" + language.getId();
+		String key = "saveLanguageMeta_" + language.getId();
 		if (!statements.containsKey(key)) {
 			String sql =
-				"INSERT INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
+				"REPLACE INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
 
 			statements.put(key, db.compileStatement(sql));
 		}

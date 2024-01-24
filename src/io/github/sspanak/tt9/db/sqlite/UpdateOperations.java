@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
@@ -37,7 +38,7 @@ public class UpdateOperations {
 
 	private static SQLiteStatement getNormalizeStatement(@NonNull SQLiteDatabase db, int langId) {
 		if (!normalizeStatements.containsKey(langId)) {
-			String sql = "UPDATE " + TableOperations.getWordsTable(langId) + " SET frequency /= ?";
+			String sql = "UPDATE " + TableOperations.getWordsTable(langId) + " SET frequency = frequency / ?";
 			normalizeStatements.put(langId, db.compileStatement(sql));
 		}
 
@@ -64,7 +65,11 @@ public class UpdateOperations {
 
 		Logger.d(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ")");
 
-		return getAffectedRowsStatement(db).simpleQueryForLong() > 0;
+		try {
+			return getAffectedRowsStatement(db).simpleQueryForLong() > 0;
+		} catch (SQLiteDoneException e) {
+			return false;
+		}
 	}
 
 
@@ -78,16 +83,16 @@ public class UpdateOperations {
 		query.execute();
 
 		query = getChangeNormalizationScheduleStatement(db);
-		query.bindLong(1, langId);
-		query.bindLong(2, 0);
+		query.bindLong(1, 0);
+		query.bindLong(2, langId);
 		query.execute();
 	}
 
 
 	public static void scheduleNormalization(@NonNull SQLiteDatabase db, @NonNull Language language) {
 		SQLiteStatement query = getChangeNormalizationScheduleStatement(db);
-		query.bindLong(1, language.getId());
-		query.bindLong(2, 1);
+		query.bindLong(1, 1);
+		query.bindLong(2, language.getId());
 		query.execute();
 	}
 }

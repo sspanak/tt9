@@ -289,7 +289,7 @@ public class SettingsStore {
 
 	public int getWordFrequencyMax() { return 25500; }
 	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
-	public int getWordNormalizationDelay() { return 60000; /* ms */ }
+	public int getWordNormalizationDelay() { return 120000; /* ms */ }
 
 
 	/************* hack settings *************/

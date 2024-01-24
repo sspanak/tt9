@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,11 @@ public class ReadOperations {
 		SQLiteStatement query = statements.get(key);
 		if (query != null) {
 			query.bindString(1, word);
-			return query.simpleQueryForLong() > 0;
+			try {
+				return query.simpleQueryForLong() > 0;
+			} catch (SQLiteDoneException e) {
+				return false;
+			}
 		}
 
 		return false;
@@ -38,12 +43,15 @@ public class ReadOperations {
 	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
 		String key = "exists_" + langId;
 		if (!statements.containsKey(key)) {
-			// @todo: check performance with "SELECT 1 FROM ..." and without a compiled statement
 			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(langId)));
 		}
 
 		SQLiteStatement query = statements.get(key);
-		return query != null && query.simpleQueryForLong() > 0;
+		try {
+			return query != null && query.simpleQueryForLong() > 0;
+		} catch (SQLiteDoneException e) {
+			return false;
+		}
 	}
 
 
@@ -213,7 +221,12 @@ public class ReadOperations {
 			return 0;
 		}
 		query.bindLong(1, position);
-		return (int)query.simpleQueryForLong();
+
+		try {
+			return (int)query.simpleQueryForLong();
+		} catch (SQLiteDoneException e) {
+			return 0;
+		}
 	}
 
 
@@ -224,6 +237,11 @@ public class ReadOperations {
 		}
 
 		SQLiteStatement query = statements.get(key);
-		return query == null ? -1 : (int)query.simpleQueryForLong();
+
+		try {
+			return query == null ? -1 : (int)query.simpleQueryForLong();
+		} catch (SQLiteDoneException e) {
+			return -1;
+		}
 	}
 }

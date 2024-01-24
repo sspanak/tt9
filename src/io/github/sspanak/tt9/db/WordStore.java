@@ -229,7 +229,8 @@ public class WordStore {
 			UpdateOperations.normalize(sqlite.getDb(), settings, nextLangId);
 			sqlite.finishTransaction();
 
-			Logger.d(LOG_TAG, "Normalized language: " + nextLangId + " . Time: " + (System.currentTimeMillis() - start) + " ms");
+			String message = nextLangId > 0 ? "Normalized language: " + nextLangId : "No languages to normalize";
+			Logger.d(LOG_TAG, message + ". Time: " + (System.currentTimeMillis() - start) + " ms");
 		} catch (Exception e) {
 			sqlite.failTransaction();
 			Logger.e(LOG_TAG, "Normalization failed. " + e.getMessage());
