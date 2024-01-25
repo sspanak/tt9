@@ -15,17 +15,14 @@ public class WordPosition {
 		return position;
 	}
 
-	public void endAt(int position) {
-		end = position;
+	public static WordPosition create(@NonNull String sequence, int start, int end) {
+		WordPosition position = create(sequence, start);
+		position.end = end;
+
+		return position;
 	}
 
 	public int getRangeLength() {
 		return end - start + 1;
-	}
-
-	@NonNull
-	@Override
-	public String toString() {
-		return sequence + " -> " + " [" + start + ", " + end + "]";
 	}
 }

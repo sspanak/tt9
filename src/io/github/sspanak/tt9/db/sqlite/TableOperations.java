@@ -34,6 +34,23 @@ public class TableOperations {
 		return queries;
 	}
 
+
+	public static String[] getCreateIndexQueries(Language language) {
+		return new String[] {
+			createWordsIndex(language.getId()),
+			createWordsPositionsIndex(language.getId())
+		};
+	}
+
+
+	public static String[] getDropIndexQueries(Language language) {
+		return new String[] {
+			dropWordsIndex(language.getId()),
+			dropWordPositionsIndex(language.getId())
+		};
+	}
+
+
 	private static String createWordsTable(int langId) {
 		return
 			"CREATE TABLE IF NOT EXISTS " + getWordsTable(langId) + " (" +
@@ -47,6 +64,10 @@ public class TableOperations {
 		return "CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTable(langId) + " (position, word)";
 	}
 
+	private static String dropWordsIndex(int langId) {
+		return "DROP INDEX IF EXISTS idx_position_" + langId;
+	}
+
 	private static String createWordPositions(int langId) {
 		return
 			"CREATE TABLE IF NOT EXISTS " + getWordPositionsTable(langId) + " (" +
@@ -58,6 +79,10 @@ public class TableOperations {
 
 	private static String createWordsPositionsIndex(int langId) {
 		return "CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositionsTable(langId) + " (sequence, `start`)";
+	}
+
+	private static String dropWordPositionsIndex(int langId) {
+		return "DROP INDEX IF EXISTS idx_sequence_start_" + langId;
 	}
 
 	private static String createCustomWords() {

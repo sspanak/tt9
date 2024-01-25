@@ -16,8 +16,8 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
+import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
@@ -29,6 +29,7 @@ public class DictionaryLoader {
 	private static DictionaryLoader self;
 
 	private final AssetManager assets;
+	private InsertOperations insertOps;
 	private final SettingsStore settings;
 	private final SQLiteOpener sqlite;
 
@@ -39,7 +40,6 @@ public class DictionaryLoader {
 	private long importStartTime = 0;
 	private int currentFile = 0;
 	private long lastProgressUpdate = 0;
-
 
 
 	public static DictionaryLoader getInstance(Context context) {
@@ -118,10 +118,21 @@ public class DictionaryLoader {
 			return;
 		}
 
+		insertOps = new InsertOperations(sqlite.getDb(), language);
+
 		sqlite.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
 
+//				for (String query : TableOperations.getDropIndexQueries(language)) {
+//					sqlite.getDb().execSQL(query);
+//				}
+//				Logger.i(
+//					LOG_TAG,
+//					"Dropped indexes for language '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
+//				);
+
+				start = System.currentTimeMillis();
 				DeleteOperations.delete(sqlite, language.getId());
 				Logger.i(
 					LOG_TAG,
@@ -136,7 +147,7 @@ public class DictionaryLoader {
 				);
 
 				start = System.currentTimeMillis();
-				InsertOperations.restoreCustomWords(sqlite.getDb(), language);
+				insertOps.restoreCustomWords();
 				Logger.i(
 					LOG_TAG,
 					"Restored custom words for '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
@@ -149,6 +160,15 @@ public class DictionaryLoader {
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
 				);
+
+//				start = System.currentTimeMillis();
+//				for (String query : TableOperations.getCreateIndexQueries(language)) {
+//					sqlite.getDb().execSQL(query);
+//				}
+//				Logger.i(
+//					LOG_TAG,
+//					"Restored indexes for language '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
+//				);
 
 			} catch (DictionaryImportAbortedException e) {
 				stop();
@@ -185,19 +205,17 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		InsertOperations letters = new InsertOperations(language, settings);
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				letters.addWordToBatch(langChar, (short) 0, key);
+				insertOps.addWordInBatch(langChar, 0, key);
 				lettersCount++;
 			}
 		}
-
-		letters.saveBatch(sqlite.getDb());
+		insertOps.finalizeBatch();
 
 		return lettersCount;
 	}
@@ -210,7 +228,6 @@ public class DictionaryLoader {
 		int totalLines = getFileSize(dictionaryFile);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		InsertOperations wordBatch = new InsertOperations(language, settings);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {
@@ -224,10 +241,7 @@ public class DictionaryLoader {
 			short frequency = getFrequency(parts);
 
 			try {
-				if (!wordBatch.addWordToBatch(word, frequency, currentLine + positionShift)) {
-					wordBatch.saveBatch(sqlite.getDb());
-					wordBatch.addWordToBatch(word, frequency, currentLine + positionShift);
-				}
+				insertOps.addWordInBatch(word, frequency, currentLine + positionShift);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
@@ -240,9 +254,8 @@ public class DictionaryLoader {
 			}
 		}
 
-		wordBatch.saveBatch(sqlite.getDb());
-		wordBatch.saveMaxPositionRange(sqlite.getDb());
 		br.close();
+		insertOps.finalizeBatch();
 		sendProgressMessage(language, 100, 0);
 	}
 
