@@ -123,14 +123,18 @@ public class DictionaryLoader {
 			try {
 				long start = System.currentTimeMillis();
 
+				// @todo: delete all indexes, progress += 2
+
 				insertOps = new InsertOperations(sqlite.getDb(), language);
 
+				// @todo: progress++
 				DeleteOperations.delete(sqlite, language.getId());
 				Logger.i(
 					LOG_TAG,
 					"Storage for language '" + language.getName() + "' cleared in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
+				// @todo: progress++
 				start = System.currentTimeMillis();
 				int lettersCount = importLetters(language);
 				Logger.i(
@@ -138,6 +142,7 @@ public class DictionaryLoader {
 					"Added letters for '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
+				// @todo: progress++
 				start = System.currentTimeMillis();
 				insertOps.restoreCustomWords();
 				Logger.i(
@@ -145,6 +150,7 @@ public class DictionaryLoader {
 					"Restored custom words for '" + language.getName() + "' in: " + (System.currentTimeMillis() - start) + " ms"
 				);
 
+				// @todo: progress <= 90%
 				start = System.currentTimeMillis();
 				importWords(language, language.getDictionaryFile(), lettersCount);
 				Logger.i(
@@ -152,6 +158,8 @@ public class DictionaryLoader {
 					"Dictionary: '" + language.getDictionaryFile() + "'" +
 						" processing time: " + (System.currentTimeMillis() - start) + " ms"
 				);
+
+				// @todo: restore all indexes, progress += 5, per index
 
 			} catch (DictionaryImportAbortedException e) {
 				stop();

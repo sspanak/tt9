@@ -21,6 +21,7 @@ public class ReadOperations {
 
 
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
+		// @todo: migrate to CompiledQueryCache
 		String key = "exists_" + language.getId() + "_" + word;
 		if (!statements.containsKey(key)) {
 			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?"));
@@ -41,6 +42,7 @@ public class ReadOperations {
 
 
 	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
+		// @todo: migrate to CompiledQueryCache
 		String key = "exists_" + langId;
 		if (!statements.containsKey(key)) {
 			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(langId)));
@@ -211,6 +213,7 @@ public class ReadOperations {
 
 
 	public int getWordFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position) {
+		// @todo: migrate to CompiledQueryCache
 		String key = "getWordFrequency_" + language.getId();
 		if (!statements.containsKey(key)) {
 			statements.put(key, db.compileStatement("SELECT frequency FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE position = ?"));
@@ -231,6 +234,7 @@ public class ReadOperations {
 
 
 	public int getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
+		// @todo: migrate to CompiledQueryCache
 		String key = "getNextInNormalizationQueue";
 		if (!statements.containsKey(key)) {
 			statements.put(key, db.compileStatement("SELECT langId FROM " + TableOperations.LANGUAGES_META_TABLE + " WHERE normalizationPending = 1 LIMIT 1"));
