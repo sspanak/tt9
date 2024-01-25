@@ -15,13 +15,6 @@ public class WordPosition {
 		return position;
 	}
 
-	public static WordPosition create(@NonNull String sequence, int start, int end) {
-		WordPosition position = create(sequence, start);
-		position.end = end;
-
-		return position;
-	}
-
 	public int getRangeLength() {
 		return end - start + 1;
 	}

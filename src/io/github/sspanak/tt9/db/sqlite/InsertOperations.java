@@ -7,79 +7,71 @@ import android.database.sqlite.SQLiteStatement;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordPosition;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class InsertOperations {
-	private final String INSERT_INTO_WORDS_SQL;
-	private final String INSERT_INTO_WORD_POSITIONS_SQL;
 	private final CompiledQueryCache queryCache;
-	private final int MAX_SIZE;
-	private boolean isFull;
 	private final Language language;
 	private WordPosition lastWordPosition;
 	private int maxPositionRange;
 	@NonNull public final ArrayList<Word> wordsBatch = new ArrayList<>();
 	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
 
-	private SQLiteDatabase db;
 
-
-	public InsertOperations(SQLiteDatabase db, @NonNull Language language, @NonNull SettingsStore settings) {
-		this.db = db;
+	public InsertOperations(SQLiteDatabase db, @NonNull Language language) {
 		this.language = language;
-		MAX_SIZE = settings.getDictionaryImportWordChunkSize();
 		queryCache = new CompiledQueryCache(db);
-
-		INSERT_INTO_WORDS_SQL = "INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
-		INSERT_INTO_WORD_POSITIONS_SQL = "INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
 	}
 
 
 	/**
 	 * Adds a word and a digit sequence to the end of the internal lists, assuming this is called
 	 * repeatedly with properly sorted data.
-	 * <p>
-	 * When the batch becomes full, this will refuse to add more words and return false. In this case,
-	 * you must call save() to store the words in the database and clear the batch.
 	 */
-	public boolean addWordToBatch(@NonNull String word, short frequency, int position) throws InvalidLanguageCharactersException {
-		if (isFull) {
-			return false;
-		}
+	public void addWordToBatch(@NonNull String word, int frequency, int position, int maxSize) throws InvalidLanguageCharactersException {
 
 		wordsBatch.add(Word.create(word, frequency, position));
-		String sequence = language.getDigitSequenceForWord(word);
 		if (position == 0) {
-			return true;
+			return;
 		}
+
+		String sequence = language.getDigitSequenceForWord(word);
 
 		if (position == 1 || lastWordPosition == null) {
 			lastWordPosition = WordPosition.create(sequence, position);
+		} else {
+			lastWordPosition.end = position;
 		}
 
 		if (!sequence.equals(lastWordPosition.sequence)) {
-			lastWordPosition.end = (position - 1);
-			maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
+			lastWordPosition.end--;
+			wordPositionsBatch.add(lastWordPosition);
 
-			isFull = wordPositionsBatch.size() >= MAX_SIZE;
-			if (!isFull) {
-				wordPositionsBatch.add(lastWordPosition);
-				lastWordPosition = WordPosition.create(sequence, position);
+			if (wordPositionsBatch.size() >= maxSize) {
+				maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
+				saveBatch();
 			}
+
+			lastWordPosition = WordPosition.create(sequence, position);
+		}
+	}
+
+
+	public void finalizeBatchSave() {
+		if (lastWordPosition == null) {
+			return;
 		}
 
-		return !isFull;
+		saveBatch();
+		saveMaxPositionRange();
 	}
 
 
 	public void clearBatch() {
-		isFull = false;
 		lastWordPosition = null;
 		maxPositionRange = 0;
 		wordsBatch.clear();
@@ -87,7 +79,14 @@ public class InsertOperations {
 	}
 
 
-	public void saveMaxPositionRange() {
+	private void saveBatch() {
+		saveWordsBatch();
+		saveWordPositionsBatch();
+		clearBatch();
+	}
+
+
+	private void saveMaxPositionRange() {
 		String sql = "REPLACE INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
 		SQLiteStatement query = queryCache.getOrCreate(sql);
 
@@ -97,19 +96,13 @@ public class InsertOperations {
 	}
 
 
-	public void saveBatch() {
-		saveWordsBatch();
-		saveWordPositionsBatch();
-		clearBatch();
-	}
-
-
 	private void saveWordsBatch() {
 		if (wordsBatch.size() == 0) {
 			return;
 		}
 
-		SQLiteStatement query = queryCache.getOrCreate(this.INSERT_INTO_WORDS_SQL);
+		String sql = "INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
+		SQLiteStatement query = queryCache.getOrCreate(sql);
 		for (Word word : wordsBatch) {
 			query.bindLong(1, word.frequency);
 			query.bindLong(2, word.position);
@@ -118,17 +111,14 @@ public class InsertOperations {
 		}
 	}
 
-	private void addWord(@NonNull Word word) {
-
-	}
-
 
 	private void saveWordPositionsBatch() {
 		if (wordPositionsBatch.size() == 0) {
 			return;
 		}
 
-		SQLiteStatement query = queryCache.getOrCreate(INSERT_INTO_WORD_POSITIONS_SQL);
+		String sql = "INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
+		SQLiteStatement query = queryCache.getOrCreate(sql);
 		for (WordPosition wordPosition : wordPositionsBatch) {
 			query.bindString(1, wordPosition.sequence);
 			query.bindLong(2, wordPosition.start);

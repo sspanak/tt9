@@ -123,7 +123,7 @@ public class DictionaryLoader {
 			try {
 				long start = System.currentTimeMillis();
 
-				insertOps = new InsertOperations(sqlite.getDb(), language, settings);
+				insertOps = new InsertOperations(sqlite.getDb(), language);
 
 				DeleteOperations.delete(sqlite, language.getId());
 				Logger.i(
@@ -194,12 +194,12 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				insertOps.addWordToBatch(langChar, (short) 0, key);
+				insertOps.addWordToBatch(langChar, 0, key, settings.getDictionaryImportWordChunkSize());
 				lettersCount++;
 			}
 		}
 
-		insertOps.saveBatch();
+		insertOps.finalizeBatchSave();
 
 		return lettersCount;
 	}
@@ -210,6 +210,7 @@ public class DictionaryLoader {
 
 		int currentLine = 1;
 		int totalLines = getFileSize(dictionaryFile);
+		final int MAX_BATCH_SIZE = settings.getDictionaryImportWordChunkSize();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 		insertOps.clearBatch();
@@ -226,10 +227,7 @@ public class DictionaryLoader {
 			short frequency = getFrequency(parts);
 
 			try {
-				if (!insertOps.addWordToBatch(word, frequency, currentLine + positionShift)) {
-					insertOps.saveBatch();
-					insertOps.addWordToBatch(word, frequency, currentLine + positionShift);
-				}
+				insertOps.addWordToBatch(word, frequency, currentLine + positionShift, MAX_BATCH_SIZE);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);
@@ -242,9 +240,8 @@ public class DictionaryLoader {
 			}
 		}
 
-		insertOps.saveBatch();
-		insertOps.saveMaxPositionRange();
 		br.close();
+		insertOps.finalizeBatchSave();
 		sendProgressMessage(language, 100, 0);
 	}
 
