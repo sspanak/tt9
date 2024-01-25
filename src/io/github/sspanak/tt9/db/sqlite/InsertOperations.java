@@ -32,7 +32,7 @@ public class InsertOperations {
 	 * Adds a word and a digit sequence to the end of the internal ArrayLists, assuming this is called
 	 * repeatedly with properly sorted data.
 	 * It is a bit counterintuitive, but accumulating the data in ArrayLists, then using
-	 * saveWordsBatch() and saveWordPositionsBatch() is about 30% faster than using query.exectute()
+	 * saveWordsBatch() and saveWordPositionsBatch() is about 30% faster than using query.execute()
 	 * for saving each word and sequence one by one.
 	 */
 	public void addWordToBatch(@NonNull String word, int frequency, int position, int minSize) throws InvalidLanguageCharactersException {
@@ -91,7 +91,7 @@ public class InsertOperations {
 
 	private void saveMaxPositionRange() {
 		String sql = "REPLACE INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
-		SQLiteStatement query = queryCache.getOrCreate(sql);
+		SQLiteStatement query = queryCache.get(sql);
 
 		query.bindLong(1, language.getId());
 		query.bindLong(2, maxPositionRange);
@@ -105,7 +105,7 @@ public class InsertOperations {
 		}
 
 		String sql = "INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
-		SQLiteStatement query = queryCache.getOrCreate(sql);
+		SQLiteStatement query = queryCache.get(sql);
 		for (Word word : wordsBatch) {
 			query.bindLong(1, word.frequency);
 			query.bindLong(2, word.position);
@@ -121,7 +121,7 @@ public class InsertOperations {
 		}
 
 		String sql = "INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
-		SQLiteStatement query = queryCache.getOrCreate(sql);
+		SQLiteStatement query = queryCache.get(sql);
 		for (WordPosition wordPosition : wordPositionsBatch) {
 			query.bindString(1, wordPosition.sequence);
 			query.bindLong(2, wordPosition.start);
@@ -155,10 +155,9 @@ public class InsertOperations {
 
 
 	public void restoreCustomWords() {
-		String sql =
-				"INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (position, word) " +
-				"SELECT -id, word FROM " + TableOperations.CUSTOM_WORDS_TABLE + " WHERE langId = " + language.getId();
-
-		queryCache.getOrCreate(sql).execute();
+		queryCache.execute(
+			"INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (position, word) " +
+				"SELECT -id, word FROM " + TableOperations.CUSTOM_WORDS_TABLE + " WHERE langId = " + language.getId()
+		);
 	}
 }
