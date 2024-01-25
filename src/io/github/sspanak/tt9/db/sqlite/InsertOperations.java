@@ -29,12 +29,15 @@ public class InsertOperations {
 
 
 	/**
-	 * Adds a word and a digit sequence to the end of the internal lists, assuming this is called
+	 * Adds a word and a digit sequence to the end of the internal ArrayLists, assuming this is called
 	 * repeatedly with properly sorted data.
+	 * It is a bit counterintuitive, but accumulating the data in ArrayLists, then using
+	 * saveWordsBatch() and saveWordPositionsBatch() is about 30% faster than using query.exectute()
+	 * for saving each word and sequence one by one.
 	 */
 	public void addWordToBatch(@NonNull String word, int frequency, int position, int maxSize) throws InvalidLanguageCharactersException {
-
 		wordsBatch.add(Word.create(word, frequency, position));
+
 		if (position == 0) {
 			return;
 		}
