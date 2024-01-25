@@ -194,7 +194,7 @@ public class DictionaryLoader {
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				insertOps.addWordToBatch(langChar, 0, key, settings.getDictionaryImportWordChunkSize());
+				insertOps.addWordToBatch(langChar, 0, key, settings.getDictionaryImportBatchSize());
 				lettersCount++;
 			}
 		}
@@ -210,7 +210,7 @@ public class DictionaryLoader {
 
 		int currentLine = 1;
 		int totalLines = getFileSize(dictionaryFile);
-		final int MAX_BATCH_SIZE = settings.getDictionaryImportWordChunkSize();
+		final int BATCH_SIZE = settings.getDictionaryImportBatchSize();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
 		insertOps.clearBatch();
@@ -227,7 +227,7 @@ public class DictionaryLoader {
 			short frequency = getFrequency(parts);
 
 			try {
-				insertOps.addWordToBatch(word, frequency, currentLine + positionShift, MAX_BATCH_SIZE);
+				insertOps.addWordToBatch(word, frequency, currentLine + positionShift, BATCH_SIZE);
 			} catch (InvalidLanguageCharactersException e) {
 				br.close();
 				throw new DictionaryImportException(word, currentLine);

@@ -35,7 +35,7 @@ public class InsertOperations {
 	 * saveWordsBatch() and saveWordPositionsBatch() is about 30% faster than using query.exectute()
 	 * for saving each word and sequence one by one.
 	 */
-	public void addWordToBatch(@NonNull String word, int frequency, int position, int maxSize) throws InvalidLanguageCharactersException {
+	public void addWordToBatch(@NonNull String word, int frequency, int position, int minSize) throws InvalidLanguageCharactersException {
 		wordsBatch.add(Word.create(word, frequency, position));
 
 		if (position == 0) {
@@ -54,7 +54,7 @@ public class InsertOperations {
 			lastWordPosition.end--;
 			wordPositionsBatch.add(lastWordPosition);
 
-			if (wordPositionsBatch.size() >= maxSize) {
+			if (wordPositionsBatch.size() >= minSize) {
 				maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
 				saveBatch();
 			}
