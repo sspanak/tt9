@@ -145,7 +145,7 @@ public class WordStore {
 
 			String sequence = language.getDigitSequenceForWord(word);
 
-			if (InsertOperations.addCustomWord(sqlite.getDb(), language, sequence, word)) {
+			if (InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 				makeTopWord(language, word, sequence);
 			} else {
 				throw new Exception("SQLite INSERT failure.");
