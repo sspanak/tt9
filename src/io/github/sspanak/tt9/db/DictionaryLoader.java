@@ -120,80 +120,84 @@ public class DictionaryLoader {
 			return;
 		}
 
-		sqlite.runInTransaction(() -> {
-			try {
-				long start = System.currentTimeMillis();
-				float progress = 1;
-				final float dictionaryMaxProgress = 90f;
+		try {
+			long start = System.currentTimeMillis();
+			float progress = 1;
+			final float dictionaryMaxProgress = 90f;
 
-				Tables.dropIndexes(sqlite.getDb(), language);
-				sendProgressMessage(language, ++progress, 0);
-				logLoadingStep("Indexes dropped", language, start);
+			sqlite.beginTransaction();
 
-				start = System.currentTimeMillis();
-				DeleteOps.delete(sqlite, language.getId());
-				sendProgressMessage(language, ++progress, 0);
-				logLoadingStep("Storage cleared", language, start);
+			Tables.dropIndexes(sqlite.getDb(), language);
+			sendProgressMessage(language, ++progress, 0);
+			logLoadingStep("Indexes dropped", language, start);
 
-				start = System.currentTimeMillis();
-				int lettersCount = importLetters(language);
-				sendProgressMessage(language, ++progress, 0);
-				logLoadingStep("Letters imported", language, start);
+			start = System.currentTimeMillis();
+			DeleteOps.delete(sqlite, language.getId());
+			sendProgressMessage(language, ++progress, 0);
+			logLoadingStep("Storage cleared", language, start);
 
-				start = System.currentTimeMillis();
-				InsertOps.restoreCustomWords(sqlite.getDb(), language);
-				sendProgressMessage(language, ++progress, 0);
-				logLoadingStep("Custom words restored", language, start);
+			start = System.currentTimeMillis();
+			int lettersCount = importLetters(language);
+			sendProgressMessage(language, ++progress, 0);
+			logLoadingStep("Letters imported", language, start);
 
-				start = System.currentTimeMillis();
-				WordBatch words = readWordsFile(language, lettersCount, progress, progress + 25f);
-				progress += 25;
-				sendProgressMessage(language, progress, 0);
-				logLoadingStep("Dictionary file loaded in memory", language, start);
+			start = System.currentTimeMillis();
+			InsertOps.restoreCustomWords(sqlite.getDb(), language);
+			sendProgressMessage(language, ++progress, 0);
+			logLoadingStep("Custom words restored", language, start);
 
-				start = System.currentTimeMillis();
-				new InsertOps(sqlite.getDb(), language).insertBatch(
-					(batchProgress) -> sendProgressMessage(language, batchProgress, settings.getDictionaryImportProgressUpdateInterval()),
-					words, progress, dictionaryMaxProgress, settings.getDictionaryImportBatchSizeUpdateInterval()
-				);
-				progress = dictionaryMaxProgress;
-				sendProgressMessage(language, progress, 0);
-				logLoadingStep("Dictionary words saved in database", language, start);
+			start = System.currentTimeMillis();
+			WordBatch words = readWordsFile(language, lettersCount, progress, progress + 25f);
+			progress += 25;
+			sendProgressMessage(language, progress, 0);
+			logLoadingStep("Dictionary file loaded in memory", language, start);
 
-				start = System.currentTimeMillis();
-				Tables.createPositionIndex(sqlite.getDb(), language);
-				sendProgressMessage(language, progress + (100f - progress) / 2f, 0);
-				Tables.createWordIndex(sqlite.getDb(), language);
-				sendProgressMessage(language, 100, 0);
-				logLoadingStep("Indexes restored", language, start);
+			start = System.currentTimeMillis();
+			new InsertOps(sqlite.getDb(), language).insertBatch(
+				(batchProgress) -> sendProgressMessage(language, batchProgress, settings.getDictionaryImportProgressUpdateInterval()),
+				words, progress, dictionaryMaxProgress, settings.getDictionaryImportBatchSizeUpdateInterval()
+			);
+			progress = dictionaryMaxProgress;
+			sendProgressMessage(language, progress, 0);
+			logLoadingStep("Dictionary words saved in database", language, start);
 
-			} catch (DictionaryImportAbortedException e) {
-				stop();
-				Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
-			} catch (DictionaryImportException e) {
-				stop();
-				sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
+			start = System.currentTimeMillis();
+			Tables.createPositionIndex(sqlite.getDb(), language);
+			sendProgressMessage(language, progress + (100f - progress) / 2f, 0);
+			Tables.createWordIndex(sqlite.getDb(), language);
+			sendProgressMessage(language, 100, 0);
+			logLoadingStep("Indexes restored", language, start);
 
-				Logger.e(
-					LOG_TAG,
-					" Invalid word: '" + e.word
-					+ "' in dictionary: '" + language.getDictionaryFile() + "'"
-					+ " on line " + e.line
-					+ " of language '" + language.getName() + "'. "
-					+ e.getMessage()
-				);
-			} catch (Exception | Error e) {
-				stop();
-				sendError(e.getClass().getSimpleName(), language.getId());
+			sqlite.finishTransaction();
+		} catch (DictionaryImportAbortedException e) {
+			sqlite.failTransaction();
+			stop();
+			Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
+		} catch (DictionaryImportException e) {
+			sqlite.failTransaction();
+			stop();
+			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
 
-				Logger.e(
-					LOG_TAG,
-					"Failed loading dictionary: " + language.getDictionaryFile()
-					+ " for language '" + language.getName() + "'. "
-					+ e.getMessage()
-				);
-			}
-		});
+			Logger.e(
+				LOG_TAG,
+				" Invalid word: '" + e.word
+				+ "' in dictionary: '" + language.getDictionaryFile() + "'"
+				+ " on line " + e.line
+				+ " of language '" + language.getName() + "'. "
+				+ e.getMessage()
+			);
+		} catch (Exception | Error e) {
+			sqlite.failTransaction();
+			stop();
+			sendError(e.getClass().getSimpleName(), language.getId());
+
+			Logger.e(
+				LOG_TAG,
+				"Failed loading dictionary: " + language.getDictionaryFile()
+				+ " for language '" + language.getName() + "'. "
+				+ e.getMessage()
+			);
+		}
 	}
 
 

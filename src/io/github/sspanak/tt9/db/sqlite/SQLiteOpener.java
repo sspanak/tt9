@@ -82,15 +82,4 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 			db.endTransaction();
 		}
 	}
-
-
-	public void runInTransaction(Runnable r) {
-		try {
-			beginTransaction();
-			r.run();
-			finishTransaction();
-		} catch (Exception e) {
-			failTransaction();
-		}
-	}
 }
