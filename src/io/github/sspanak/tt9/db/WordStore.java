@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
-import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
-import io.github.sspanak.tt9.db.sqlite.InsertOperations;
-import io.github.sspanak.tt9.db.sqlite.ReadOperations;
+import io.github.sspanak.tt9.db.sqlite.DeleteOps;
+import io.github.sspanak.tt9.db.sqlite.InsertOps;
+import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
-import io.github.sspanak.tt9.db.sqlite.UpdateOperations;
+import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -26,7 +26,7 @@ public class WordStore {
 
 	private SettingsStore settings;
 	private SQLiteOpener sqlite = null;
-	private ReadOperations readOps = null;
+	private ReadOps readOps = null;
 
 
 	public WordStore(@NonNull Context context, @NonNull SettingsStore settings) {
@@ -34,7 +34,7 @@ public class WordStore {
 			this.settings = settings;
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
-			readOps = new ReadOperations();
+			readOps = new ReadOps();
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
@@ -112,7 +112,7 @@ public class WordStore {
 			sqlite.beginTransaction();
 			for (int langId : languageIds) {
 				if (readOps.exists(sqlite.getDb(), langId)) {
-					DeleteOperations.delete(sqlite, langId);
+					DeleteOps.delete(sqlite, langId);
 				}
 			}
 			sqlite.finishTransaction();
@@ -145,7 +145,7 @@ public class WordStore {
 
 			String sequence = language.getDigitSequenceForWord(word);
 
-			if (InsertOperations.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
+			if (InsertOps.insertCustomWord(sqlite.getDb(), language, sequence, word)) {
 				makeTopWord(language, word, sequence);
 			} else {
 				throw new Exception("SQLite INSERT failure.");
@@ -199,7 +199,7 @@ public class WordStore {
 			}
 
 			int newTopFrequency = readOps.getWordFrequency(sqlite.getDb(), language, topWord.position) + 1;
-			if (!UpdateOperations.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
+			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
 				throw new Exception("No such word");
 			}
 
@@ -224,7 +224,7 @@ public class WordStore {
 		try {
 			sqlite.beginTransaction();
 			int nextLangId = readOps.getNextInNormalizationQueue(sqlite.getDb());
-			UpdateOperations.normalize(sqlite.getDb(), settings, nextLangId);
+			UpdateOps.normalize(sqlite.getDb(), settings, nextLangId);
 			sqlite.finishTransaction();
 
 			String message = nextLangId > 0 ? "Normalized language: " + nextLangId : "No languages to normalize";
@@ -238,7 +238,7 @@ public class WordStore {
 
 	public void scheduleNormalization(Language language) {
 		if (language != null && checkOrNotify()) {
-			UpdateOperations.scheduleNormalization(sqlite.getDb(), language);
+			UpdateOps.scheduleNormalization(sqlite.getDb(), language);
 		}
 	}
 

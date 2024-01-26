@@ -16,8 +16,8 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.InsertOperations;
-import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
+import io.github.sspanak.tt9.db.sqlite.InsertOps;
+import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
@@ -129,7 +129,7 @@ public class DictionaryLoader {
 				logLoadingStep("Indexes dropped", language, start);
 
 				start = System.currentTimeMillis();
-				DeleteOperations.delete(sqlite, language.getId());
+				DeleteOps.delete(sqlite, language.getId());
 				sendProgressMessage(language, ++progress, 0);
 				logLoadingStep("Storage cleared", language, start);
 
@@ -139,7 +139,7 @@ public class DictionaryLoader {
 				logLoadingStep("Letters imported", language, start);
 
 				start = System.currentTimeMillis();
-				InsertOperations.restoreCustomWords(sqlite.getDb(), language);
+				InsertOps.restoreCustomWords(sqlite.getDb(), language);
 				sendProgressMessage(language, ++progress, 0);
 				logLoadingStep("Custom words restored", language, start);
 
@@ -193,7 +193,7 @@ public class DictionaryLoader {
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
-		InsertOperations insertOps = new InsertOperations(sqlite.getDb(), language);
+		InsertOps insertOps = new InsertOps(sqlite.getDb(), language);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
@@ -217,7 +217,7 @@ public class DictionaryLoader {
 		final int BATCH_SIZE = settings.getDictionaryImportBatchSize();
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		InsertOperations insertOps = new InsertOperations(sqlite.getDb(), language);
+		InsertOps insertOps = new InsertOps(sqlite.getDb(), language);
 
 		for (String line; (line = br.readLine()) != null; currentLine++) {
 			if (loadThread.isInterrupted()) {

@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.db.entities.WordPosition;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 
-public class InsertOperations {
+public class InsertOps {
 	private final CompiledQueryCache queryCache;
 	private final Language language;
 	private WordPosition lastWordPosition;
@@ -22,7 +22,7 @@ public class InsertOperations {
 	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
 
 
-	public InsertOperations(SQLiteDatabase db, @NonNull Language language) {
+	public InsertOps(SQLiteDatabase db, @NonNull Language language) {
 		this.language = language;
 		queryCache = CompiledQueryCache.getInstance(db);
 	}

@@ -10,8 +10,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
-public class UpdateOperations {
-	private static final String LOG_TAG = UpdateOperations.class.getSimpleName();
+public class UpdateOps {
+	private static final String LOG_TAG = UpdateOps.class.getSimpleName();
 
 	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position, int frequency) {
 		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);

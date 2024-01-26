@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.languages.Language;
 
-public class ReadOperations {
+public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
 
 	private static final HashMap<String, SQLiteStatement> statements = new HashMap<>();
