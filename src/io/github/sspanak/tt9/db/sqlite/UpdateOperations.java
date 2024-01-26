@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.db.sqlite;
 
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ public class UpdateOperations {
 	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position, int frequency) {
 		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
 
-		SQLiteStatement query = cache.get("UPDATE " + TableOperations.getWordsTable(language.getId()) + " SET frequency = ? WHERE position = ?");
+		SQLiteStatement query = cache.get("UPDATE " + Tables.getWords(language.getId()) + " SET frequency = ? WHERE position = ?");
 		query.bindLong(1, frequency);
 		query.bindLong(2, position);
 		query.execute();
@@ -35,11 +34,11 @@ public class UpdateOperations {
 
 		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
 
-		SQLiteStatement query = cache.get("UPDATE " + TableOperations.getWordsTable(langId) + " SET frequency = frequency / ?");
+		SQLiteStatement query = cache.get("UPDATE " + Tables.getWords(langId) + " SET frequency = frequency / ?");
 		query.bindLong(1, settings.getWordFrequencyNormalizationDivider());
 		query.executeUpdateDelete();
 
-		query = cache.get("UPDATE " + TableOperations.LANGUAGES_META_TABLE + " SET normalizationPending = ? WHERE langId = ?");
+		query = cache.get("UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
 		query.bindLong(1, 0);
 		query.bindLong(2, langId);
 		query.executeUpdateDelete();
@@ -48,7 +47,7 @@ public class UpdateOperations {
 
 	public static void scheduleNormalization(@NonNull SQLiteDatabase db, @NonNull Language language) {
 		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
-		SQLiteStatement query = cache.get("UPDATE " + TableOperations.LANGUAGES_META_TABLE + " SET normalizationPending = ? WHERE langId = ?");
+		SQLiteStatement query = cache.get("UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
 		query.bindLong(1, 1);
 		query.bindLong(2, language.getId());
 		query.executeUpdateDelete();

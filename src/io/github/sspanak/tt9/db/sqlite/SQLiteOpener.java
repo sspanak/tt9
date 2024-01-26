@@ -35,7 +35,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		for (String query : TableOperations.getCreateQueries(allLanguages)) {
+		for (String query : Tables.getCreateQueries(allLanguages)) {
 			db.execSQL(query);
 		}
 	}

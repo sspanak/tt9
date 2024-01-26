@@ -90,7 +90,7 @@ public class InsertOperations {
 
 
 	private void saveMaxPositionRange() {
-		String sql = "REPLACE INTO " + TableOperations.LANGUAGES_META_TABLE + " (langId, maxPositionRange) VALUES (?, ?)";
+		String sql = "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
 
 		query.bindLong(1, language.getId());
@@ -104,7 +104,7 @@ public class InsertOperations {
 			return;
 		}
 
-		String sql = "INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
 		for (Word word : wordsBatch) {
 			query.bindLong(1, word.frequency);
@@ -120,7 +120,7 @@ public class InsertOperations {
 			return;
 		}
 
-		String sql = "INSERT INTO " + TableOperations.getWordPositionsTable(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
 		for (WordPosition wordPosition : wordPositionsBatch) {
 			query.bindString(1, wordPosition.sequence);
@@ -137,7 +137,7 @@ public class InsertOperations {
 		values.put("sequence", sequence);
 		values.put("word", word);
 
-		long insertId = db.insert(TableOperations.CUSTOM_WORDS_TABLE, null, values);
+		long insertId = db.insert(Tables.CUSTOM_WORDS, null, values);
 		if (insertId == -1) {
 			return false;
 		}
@@ -148,7 +148,7 @@ public class InsertOperations {
 		values = new ContentValues();
 		values.put("position", (int)-insertId);
 		values.put("word", word);
-		insertId = db.insert(TableOperations.getWordsTable(language.getId()), null, values);
+		insertId = db.insert(Tables.getWords(language.getId()), null, values);
 
 		return insertId != -1;
 	}
@@ -157,8 +157,8 @@ public class InsertOperations {
 	public static void restoreCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language) {
 		CompiledQueryCache.execute(
 			db,
-			"INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (position, word) " +
-				"SELECT -id, word FROM " + TableOperations.CUSTOM_WORDS_TABLE + " WHERE langId = " + language.getId()
+			"INSERT INTO " + Tables.getWords(language.getId()) + " (position, word) " +
+				"SELECT -id, word FROM " + Tables.CUSTOM_WORDS + " WHERE langId = " + language.getId()
 		);
 	}
 }

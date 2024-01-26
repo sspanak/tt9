@@ -24,7 +24,7 @@ public class ReadOperations {
 		// @todo: migrate to CompiledQueryCache
 		String key = "exists_" + language.getId() + "_" + word;
 		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE word = ?"));
+			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word = ?"));
 		}
 
 		SQLiteStatement query = statements.get(key);
@@ -45,7 +45,7 @@ public class ReadOperations {
 		// @todo: migrate to CompiledQueryCache
 		String key = "exists_" + langId;
 		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + TableOperations.getWordsTable(langId)));
+			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + Tables.getWords(langId)));
 		}
 
 		SQLiteStatement query = statements.get(key);
@@ -141,7 +141,7 @@ public class ReadOperations {
 	@NonNull private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		// @todo: use a compiled query
 		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
-			.append(TableOperations.getWordPositionsTable(language.getId()))
+			.append(Tables.getWordPositions(language.getId()))
 			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
@@ -170,7 +170,7 @@ public class ReadOperations {
 
 	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		// @todo: use a compiled query
-		String sql = "SELECT -id as `start`, -id as `end` FROM " + TableOperations.CUSTOM_WORDS_TABLE +
+		String sql = "SELECT -id as `start`, -id as `end` FROM " + Tables.CUSTOM_WORDS +
 			" WHERE langId = " + language.getId() +
 			" AND (sequence = " + sequence;
 
@@ -195,7 +195,7 @@ public class ReadOperations {
 			sql.append(",frequency,position");
 		}
 
-		sql.append(" FROM ").append(TableOperations.getWordsTable(language.getId()))
+		sql.append(" FROM ").append(Tables.getWords(language.getId()))
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {
@@ -216,7 +216,7 @@ public class ReadOperations {
 		// @todo: migrate to CompiledQueryCache
 		String key = "getWordFrequency_" + language.getId();
 		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT frequency FROM " + TableOperations.getWordsTable(language.getId()) + " WHERE position = ?"));
+			statements.put(key, db.compileStatement("SELECT frequency FROM " + Tables.getWords(language.getId()) + " WHERE position = ?"));
 		}
 
 		SQLiteStatement query = statements.get(key);
@@ -237,7 +237,7 @@ public class ReadOperations {
 		// @todo: migrate to CompiledQueryCache
 		String key = "getNextInNormalizationQueue";
 		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT langId FROM " + TableOperations.LANGUAGES_META_TABLE + " WHERE normalizationPending = 1 LIMIT 1"));
+			statements.put(key, db.compileStatement("SELECT langId FROM " + Tables.LANGUAGES_META + " WHERE normalizationPending = 1 LIMIT 1"));
 		}
 
 		SQLiteStatement query = statements.get(key);

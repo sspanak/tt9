@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
 
-public class TableOperations {
+public class Tables {
 
-	static final String LANGUAGES_META_TABLE = "languages_meta";
-	static final String CUSTOM_WORDS_TABLE = "custom_words";
+	static final String LANGUAGES_META = "languages_meta";
+	static final String CUSTOM_WORDS = "custom_words";
 	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
 	private static final String WORDS_TABLE_BASE_NAME = "words_";
 
-	static String getWordsTable(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
-	static String getWordPositionsTable(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
+	static String getWords(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
+	static String getWordPositions(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
 
 
 	static String[] getCreateQueries(ArrayList<Language> languages) {
@@ -57,7 +57,7 @@ public class TableOperations {
 
 	private static String createWordsTable(int langId) {
 		return
-			"CREATE TABLE IF NOT EXISTS " + getWordsTable(langId) + " (" +
+			"CREATE TABLE IF NOT EXISTS " + getWords(langId) + " (" +
 				"frequency INTEGER NOT NULL DEFAULT 0, " +
 				"position INTEGER NOT NULL, " +
 				"word TEXT NOT NULL" +
@@ -65,7 +65,7 @@ public class TableOperations {
 	}
 
 	private static String createWordsIndex(int langId) {
-		return "CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWordsTable(langId) + " (position, word)";
+		return "CREATE INDEX IF NOT EXISTS idx_position_" + langId + " ON " + getWords(langId) + " (position, word)";
 	}
 
 	private static String dropWordsIndex(int langId) {
@@ -74,7 +74,7 @@ public class TableOperations {
 
 	private static String createWordPositions(int langId) {
 		return
-			"CREATE TABLE IF NOT EXISTS " + getWordPositionsTable(langId) + " (" +
+			"CREATE TABLE IF NOT EXISTS " + getWordPositions(langId) + " (" +
 				"sequence TEXT NOT NULL, " +
 				"start INTEGER NOT NULL, " +
 				"end INTEGER NOT NULL" +
@@ -82,7 +82,7 @@ public class TableOperations {
 	}
 
 	private static String createWordsPositionsIndex(int langId) {
-		return "CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositionsTable(langId) + " (sequence, `start`)";
+		return "CREATE INDEX IF NOT EXISTS idx_sequence_start_" + langId + " ON " + getWordPositions(langId) + " (sequence, `start`)";
 	}
 
 	private static String dropWordPositionsIndex(int langId) {
@@ -90,7 +90,7 @@ public class TableOperations {
 	}
 
 	private static String createCustomWords() {
-		return "CREATE TABLE IF NOT EXISTS " + CUSTOM_WORDS_TABLE + " (" +
+		return "CREATE TABLE IF NOT EXISTS " + CUSTOM_WORDS + " (" +
 			"id INTEGER PRIMARY KEY, " +
 			"langId INTEGER NOT NULL, " +
 			"sequence TEXT NOT NULL, " +
@@ -99,11 +99,11 @@ public class TableOperations {
 	}
 
 	private static String createCustomWordsIndex() {
-		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS_TABLE + " (langId, sequence)";
+		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS + " (langId, sequence)";
 	}
 
 	private static String createLanguagesMeta() {
-		return "CREATE TABLE IF NOT EXISTS " + LANGUAGES_META_TABLE + " (" +
+		return "CREATE TABLE IF NOT EXISTS " + LANGUAGES_META + " (" +
 			"langId INTEGER UNIQUE NOT NULL, " +
 			"maxPositionRange INTEGER NOT NULL DEFAULT 0, " +
 			"normalizationPending INT2 NOT NULL DEFAULT 0 " +

@@ -19,7 +19,7 @@ import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.sqlite.InsertOperations;
 import io.github.sspanak.tt9.db.sqlite.DeleteOperations;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
-import io.github.sspanak.tt9.db.sqlite.TableOperations;
+import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -124,7 +124,7 @@ public class DictionaryLoader {
 				long start = System.currentTimeMillis();
 				int progress = 1;
 
-				TableOperations.dropIndexes(sqlite.getDb(), language);
+				Tables.dropIndexes(sqlite.getDb(), language);
 				sendProgressMessage(language, ++progress, 0);
 				logLoadingStep("Indexes dropped", language, start);
 
@@ -150,9 +150,9 @@ public class DictionaryLoader {
 				logLoadingStep("Dictionary imported", language, start);
 
 				start = System.currentTimeMillis();
-				TableOperations.createPositionIndex(sqlite.getDb(), language);
+				Tables.createPositionIndex(sqlite.getDb(), language);
 				sendProgressMessage(language, progress + (100 - progress) / 2, 0);
-				TableOperations.createWordIndex(sqlite.getDb(), language);
+				Tables.createWordIndex(sqlite.getDb(), language);
 				sendProgressMessage(language, 100, 0);
 				logLoadingStep("Indexes restored", language, start);
 
