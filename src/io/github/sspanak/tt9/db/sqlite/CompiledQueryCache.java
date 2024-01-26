@@ -4,6 +4,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 
 class CompiledQueryCache {
@@ -11,19 +13,11 @@ class CompiledQueryCache {
 	private final SQLiteDatabase db;
 	private final HashMap<Integer, SQLiteStatement> statements = new HashMap<>();
 
-	private CompiledQueryCache(SQLiteDatabase db) {
+	private CompiledQueryCache(@NonNull SQLiteDatabase db) {
 		this.db = db;
 	}
 
-	static CompiledQueryCache getInstance(SQLiteDatabase db) {
-		if (self == null) {
-			self = new CompiledQueryCache(db);
-		}
-
-		return self;
-	}
-
-	SQLiteStatement get(String sql) {
+	SQLiteStatement get(@NonNull String sql) {
 		SQLiteStatement statement = statements.get(sql.hashCode());
 		if (statement == null) {
 			statement = db.compileStatement(sql);
@@ -33,8 +27,9 @@ class CompiledQueryCache {
 		return statement;
 	}
 
-	void execute(String sql) {
+	CompiledQueryCache execute(String sql) {
 		get(sql).execute();
+		return this;
 	}
 
 	long simpleQueryForLong(String sql, long defaultValue) {
@@ -43,5 +38,18 @@ class CompiledQueryCache {
 		} catch (SQLiteDoneException e) {
 			return defaultValue;
 		}
+	}
+
+
+	static CompiledQueryCache getInstance(SQLiteDatabase db) {
+		if (self == null) {
+			self = new CompiledQueryCache(db);
+		}
+
+		return self;
+	}
+
+	static CompiledQueryCache execute(SQLiteDatabase db, String sql) {
+		return getInstance(db).execute(sql);
 	}
 }

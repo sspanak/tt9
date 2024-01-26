@@ -154,8 +154,9 @@ public class InsertOperations {
 	}
 
 
-	public void restoreCustomWords() {
-		queryCache.execute(
+	public static void restoreCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		CompiledQueryCache.execute(
+			db,
 			"INSERT INTO " + TableOperations.getWordsTable(language.getId()) + " (position, word) " +
 				"SELECT -id, word FROM " + TableOperations.CUSTOM_WORDS_TABLE + " WHERE langId = " + language.getId()
 		);

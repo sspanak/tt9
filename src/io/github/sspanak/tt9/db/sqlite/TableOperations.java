@@ -1,5 +1,9 @@
 package io.github.sspanak.tt9.db.sqlite;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
@@ -35,19 +39,19 @@ public class TableOperations {
 	}
 
 
-	public static String[] getCreateIndexQueries(Language language) {
-		return new String[] {
-			createWordsIndex(language.getId()),
-			createWordsPositionsIndex(language.getId())
-		};
+	public static void createWordIndex(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		CompiledQueryCache.execute(db, createWordsIndex(language.getId()));
+	}
+
+	public static void createPositionIndex(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		CompiledQueryCache.execute(db, createWordsPositionsIndex(language.getId()));
 	}
 
 
-	public static String[] getDropIndexQueries(Language language) {
-		return new String[] {
-			dropWordsIndex(language.getId()),
-			dropWordPositionsIndex(language.getId())
-		};
+	public static void dropIndexes(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		CompiledQueryCache
+			.execute(db, dropWordsIndex(language.getId()))
+			.execute(dropWordPositionsIndex(language.getId()));
 	}
 
 
