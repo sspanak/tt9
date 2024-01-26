@@ -8,19 +8,15 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.db.entities.Word;
+import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordPosition;
-import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 
 public class InsertOps {
 	private final CompiledQueryCache queryCache;
 	private final Language language;
-	private WordPosition lastWordPosition;
-	private int maxPositionRange;
-	@NonNull public final ArrayList<Word> wordsBatch = new ArrayList<>();
-	@NonNull public final ArrayList<WordPosition> wordPositionsBatch = new ArrayList<>();
-
 
 	public InsertOps(SQLiteDatabase db, @NonNull Language language) {
 		this.language = language;
@@ -28,70 +24,22 @@ public class InsertOps {
 	}
 
 
-	/**
-	 * Adds a word and a digit sequence to the end of the internal ArrayLists, assuming this is called
-	 * repeatedly with properly sorted data.
-	 * It is a bit counterintuitive, but accumulating the data in ArrayLists, then using
-	 * saveWordsBatch() and saveWordPositionsBatch() is about 30% faster than using query.execute()
-	 * for saving each word and sequence one by one.
-	 */
-	public void addWordToBatch(@NonNull String word, int frequency, int position, int minSize) throws InvalidLanguageCharactersException {
-		wordsBatch.add(Word.create(word, frequency, position));
-
-		if (position == 0) {
-			return;
-		}
-
-		String sequence = language.getDigitSequenceForWord(word);
-
-		if (position == 1 || lastWordPosition == null) {
-			lastWordPosition = WordPosition.create(sequence, position);
-		} else {
-			lastWordPosition.end = position;
-		}
-
-		if (!sequence.equals(lastWordPosition.sequence)) {
-			lastWordPosition.end--;
-			wordPositionsBatch.add(lastWordPosition);
-
-			if (wordPositionsBatch.size() >= minSize) {
-				maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
-				saveBatch();
-			}
-
-			lastWordPosition = WordPosition.create(sequence, position);
-		}
+	public void insertBatch(@NonNull WordBatch batch) {
+		insertBatch(null, batch, -1, -1, 1);
 	}
 
 
-	public void finalizeBatchSave() {
-		if (lastWordPosition == null) {
-			return;
-		}
+	public void insertBatch(ConsumerCompat<Integer> progressCallback, @NonNull WordBatch batch, int minProgress, int maxProgress, int updateInterval) {
+		insertWordsBatch(progressCallback, batch.getWords(), minProgress, maxProgress / 2 - 2, updateInterval);
+		insertWordPositionsBatch(progressCallback, batch.getPositions(), minProgress + maxProgress / 2 - 2, maxProgress - 2, updateInterval);
+		insertMaxPositionRange(batch.getMaxPositionRange());
 
-		saveBatch();
-		saveMaxPositionRange();
+		if (progressCallback != null) progressCallback.accept(maxProgress);
 	}
 
 
-	public void clearBatch() {
-		lastWordPosition = null;
-		maxPositionRange = 0;
-		wordsBatch.clear();
-		wordPositionsBatch.clear();
-	}
-
-
-	private void saveBatch() {
-		saveWordsBatch();
-		saveWordPositionsBatch();
-		clearBatch();
-	}
-
-
-	private void saveMaxPositionRange() {
-		String sql = "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)";
-		SQLiteStatement query = queryCache.get(sql);
+	private void insertMaxPositionRange(int maxPositionRange) {
+		SQLiteStatement query = queryCache.get("REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)");
 
 		query.bindLong(1, language.getId());
 		query.bindLong(2, maxPositionRange);
@@ -99,34 +47,44 @@ public class InsertOps {
 	}
 
 
-	private void saveWordsBatch() {
-		if (wordsBatch.size() == 0) {
+	private void insertWordsBatch(ConsumerCompat<Integer> progressCallback, ArrayList<Word> wordBatch, int minProgress, int maxProgress, int updateInterval) {
+		if (wordBatch.size() == 0) {
 			return;
 		}
 
 		String sql = "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
-		for (Word word : wordsBatch) {
+		for (int progress = 0, end = wordBatch.size(); progress < end; progress++) {
+			Word word = wordBatch.get(progress);
 			query.bindLong(1, word.frequency);
 			query.bindLong(2, word.position);
 			query.bindString(3, word.word);
 			query.execute();
+
+			if (progressCallback != null && progress % updateInterval == 0) {
+				progressCallback.accept(minProgress + (maxProgress - minProgress) * progress / end);
+			}
 		}
 	}
 
 
-	private void saveWordPositionsBatch() {
-		if (wordPositionsBatch.size() == 0) {
+	private void insertWordPositionsBatch(ConsumerCompat<Integer> progressCallback, ArrayList<WordPosition> wordPositionBatch, int minProgress, int maxProgress, int updateInterval) {
+		if (wordPositionBatch.size() == 0) {
 			return;
 		}
 
 		String sql = "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
-		for (WordPosition wordPosition : wordPositionsBatch) {
+		for (int progress = 0, end = wordPositionBatch.size(); progress < end; progress++) {
+			WordPosition wordPosition = wordPositionBatch.get(progress);
 			query.bindString(1, wordPosition.sequence);
 			query.bindLong(2, wordPosition.start);
 			query.bindLong(3, wordPosition.end);
 			query.execute();
+
+			if (progressCallback != null && progress % updateInterval == 0) {
+				progressCallback.accept(minProgress + (maxProgress - minProgress) * progress / end);
+			}
 		}
 	}
 

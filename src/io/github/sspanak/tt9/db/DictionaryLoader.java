@@ -13,6 +13,7 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
@@ -193,17 +194,17 @@ public class DictionaryLoader {
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
-		InsertOps insertOps = new InsertOps(sqlite.getDb(), language);
+		WordBatch letters = new WordBatch(language);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-				insertOps.addWordToBatch(langChar, 0, key, settings.getDictionaryImportBatchSize());
+				letters.add(langChar, 0, key);
 				lettersCount++;
 			}
 		}
 
-		insertOps.finalizeBatchSave();
+		new InsertOps(sqlite.getDb(), language).insertBatch(letters);
 
 		return lettersCount;
 	}
@@ -212,40 +213,51 @@ public class DictionaryLoader {
 	private void importWords(Language language, String dictionaryFile, int positionShift, int minProgress, int maxProgress) throws Exception {
 		sendProgressMessage(language, minProgress, 0);
 
+		int fileMaxProgress = (maxProgress - minProgress) / 10;
+		WordBatch words = readWordsFile(language, dictionaryFile, positionShift, minProgress, minProgress + fileMaxProgress);
+
+		new InsertOps(sqlite.getDb(), language).insertBatch(
+			(saveProgress) -> sendProgressMessage(language, saveProgress, settings.getDictionaryImportProgressUpdateInterval()),
+			words,
+			fileMaxProgress,
+			maxProgress,
+			settings.getDictionaryImportBatchSizeUpdateInterval()
+		);
+	}
+
+
+	private WordBatch readWordsFile(Language language, String dictionaryFile, int positionShift, int minProgress, int maxProgress) throws Exception {
 		int currentLine = 1;
 		int totalLines = getFileSize(dictionaryFile);
-		final int BATCH_SIZE = settings.getDictionaryImportBatchSize();
+		int progressRatio = (maxProgress - minProgress);
+		WordBatch batch = new WordBatch(language);
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		InsertOps insertOps = new InsertOps(sqlite.getDb(), language);
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8))) {
+			for (String line; (line = br.readLine()) != null; currentLine++) {
+				if (loadThread.isInterrupted()) {
+					sendProgressMessage(language, 0, 0);
+					throw new DictionaryImportAbortedException();
+				}
 
-		for (String line; (line = br.readLine()) != null; currentLine++) {
-			if (loadThread.isInterrupted()) {
-				br.close();
-				sendProgressMessage(language, 0, 0);
-				throw new DictionaryImportAbortedException();
-			}
+				String[] parts = splitLine(line);
+				String word = parts[0];
+				short frequency = getFrequency(parts);
 
-			String[] parts = splitLine(line);
-			String word = parts[0];
-			short frequency = getFrequency(parts);
+				try {
+					batch.add(word, frequency, currentLine + positionShift);
+				} catch (InvalidLanguageCharactersException e) {
+					throw new DictionaryImportException(word, currentLine);
+				}
 
-			try {
-				insertOps.addWordToBatch(word, frequency, currentLine + positionShift, BATCH_SIZE);
-			} catch (InvalidLanguageCharactersException e) {
-				br.close();
-				throw new DictionaryImportException(word, currentLine);
-			}
-
-			if (totalLines > 0) {
-				int progress = (maxProgress - minProgress) * currentLine / totalLines;
-				progress = Math.max(minProgress, progress);
-				sendProgressMessage(language, (int) progress, settings.getDictionaryImportProgressUpdateInterval());
+				if (totalLines > 0 && currentLine % settings.getDictionaryImportBatchSizeUpdateInterval() == 0) {
+					int progress = progressRatio * currentLine / totalLines;
+					progress = Math.max(minProgress, progress);
+					sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
+				}
 			}
 		}
 
-		br.close();
-		insertOps.finalizeBatchSave();
+		return batch;
 	}
 
 
@@ -351,6 +363,8 @@ public class DictionaryLoader {
 
 
 	private void logLoadingStep(String message, Language language, long time) {
-		Logger.i(LOG_TAG, message + " for language '" + language.getName() + "' in: " + (System.currentTimeMillis() - time) + " ms");
+		if (Logger.isDebugLevel()) {
+			Logger.d(LOG_TAG, message + " for language '" + language.getName() + "' in: " + (System.currentTimeMillis() - time) + " ms");
+		}
 	}
 }

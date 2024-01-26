@@ -272,7 +272,7 @@ public class SettingsStore {
 
 	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
 
-	public int getDictionaryImportBatchSize() { return 1000; }
+	public int getDictionaryImportBatchSizeUpdateInterval() { return 1000; }
 	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
 
 	public int getDictionaryMissingWarningInterval() { return 30000; /* ms */ }
