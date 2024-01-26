@@ -17,6 +17,11 @@ class CompiledQueryCache {
 		this.db = db;
 	}
 
+	CompiledQueryCache execute(String sql) {
+		get(sql).execute();
+		return this;
+	}
+
 	SQLiteStatement get(@NonNull String sql) {
 		SQLiteStatement statement = statements.get(sql.hashCode());
 		if (statement == null) {
@@ -25,11 +30,6 @@ class CompiledQueryCache {
 		}
 
 		return statement;
-	}
-
-	CompiledQueryCache execute(String sql) {
-		get(sql).execute();
-		return this;
 	}
 
 	long simpleQueryForLong(String sql, long defaultValue) {
@@ -51,5 +51,9 @@ class CompiledQueryCache {
 
 	static CompiledQueryCache execute(SQLiteDatabase db, String sql) {
 		return getInstance(db).execute(sql);
+	}
+
+	static SQLiteStatement get(SQLiteDatabase db, String sql) {
+		return getInstance(db).get(sql);
 	}
 }

@@ -6,94 +6,46 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
-import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordPosition;
 import io.github.sspanak.tt9.languages.Language;
 
+
 public class InsertOps {
-	private final CompiledQueryCache queryCache;
-	private final Language language;
+	private final SQLiteStatement insertWordsQuery;
+	private final SQLiteStatement insertPositionsQuery;
+
 
 	public InsertOps(SQLiteDatabase db, @NonNull Language language) {
-		this.language = language;
-		queryCache = CompiledQueryCache.getInstance(db);
+		// super cache to avoid String concatenation in the dictionary loading loop
+		insertWordsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)");
+		insertPositionsQuery = CompiledQueryCache.get(db, "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)");
 	}
 
 
-	public void insertBatch(@NonNull WordBatch batch) {
-		insertBatch(null, batch, -1, -1, 1);
+	public void insertWord(Word word) {
+		insertWordsQuery.bindLong(1, word.frequency);
+		insertWordsQuery.bindLong(2, word.position);
+		insertWordsQuery.bindString(3, word.word);
+		insertWordsQuery.execute();
 	}
 
 
-	public void insertBatch(ConsumerCompat<Float> progressCallback, @NonNull WordBatch batch, float minProgress, float maxProgress, int updateInterval) {
-		float middleProgress = minProgress + (maxProgress - minProgress) / 2;
-
-		insertWordsBatch(progressCallback, batch.getWords(), minProgress, middleProgress - 2, updateInterval);
-		insertWordPositionsBatch(progressCallback, batch.getPositions(), middleProgress - 2, maxProgress - 2, updateInterval);
-		insertMaxPositionRange(batch.getMaxPositionRange());
-
-		if (progressCallback != null) progressCallback.accept(maxProgress);
+	public void insertWordPosition(WordPosition position) {
+		insertPositionsQuery.bindString(1, position.sequence);
+		insertPositionsQuery.bindLong(2, position.start);
+		insertPositionsQuery.bindLong(3, position.end);
+		insertPositionsQuery.execute();
 	}
 
 
-	private void insertMaxPositionRange(int maxPositionRange) {
-		SQLiteStatement query = queryCache.get("REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)");
+	public static void insertMaxPositionRange(@NonNull SQLiteDatabase db, @NonNull WordBatch batch) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)");
 
-		query.bindLong(1, language.getId());
-		query.bindLong(2, maxPositionRange);
+		query.bindLong(1, batch.getLanguage().getId());
+		query.bindLong(2, batch.getMaxPositionRange());
 		query.execute();
-	}
-
-
-	private void insertWordsBatch(ConsumerCompat<Float> progressCallback, ArrayList<Word> wordBatch, float minProgress, float maxProgress, int updateInterval) {
-		if (wordBatch.size() == 0) {
-			return;
-		}
-
-		float progressRatio = (maxProgress - minProgress) / wordBatch.size();
-
-		String sql = "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
-		SQLiteStatement query = queryCache.get(sql);
-
-		for (int progress = 0, end = wordBatch.size(); progress < end; progress++) {
-			Word word = wordBatch.get(progress);
-			query.bindLong(1, word.frequency);
-			query.bindLong(2, word.position);
-			query.bindString(3, word.word);
-			query.execute();
-
-			if (progressCallback != null && progress % updateInterval == 0) {
-				progressCallback.accept(minProgress + progress * progressRatio);
-			}
-		}
-	}
-
-
-	private void insertWordPositionsBatch(ConsumerCompat<Float> progressCallback, ArrayList<WordPosition> wordPositionBatch, float minProgress, float maxProgress, int updateInterval) {
-		if (wordPositionBatch.size() == 0) {
-			return;
-		}
-
-		float progressRatio = (maxProgress - minProgress) / wordPositionBatch.size();
-
-		String sql = "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
-		SQLiteStatement query = queryCache.get(sql);
-
-		for (int progress = 0, end = wordPositionBatch.size(); progress < end; progress++) {
-			WordPosition wordPosition = wordPositionBatch.get(progress);
-			query.bindString(1, wordPosition.sequence);
-			query.bindLong(2, wordPosition.start);
-			query.bindLong(3, wordPosition.end);
-			query.execute();
-
-			if (progressCallback != null && progress % updateInterval == 0) {
-				progressCallback.accept(minProgress + progress * progressRatio);
-			}
-		}
 	}
 
 

@@ -47,6 +47,10 @@ public class WordBatch {
 		return maxPositionRange;
 	}
 
+	@NonNull public Language getLanguage() {
+		return language;
+	}
+
 	@NonNull public ArrayList<Word> getWords() {
 		return words;
 	}

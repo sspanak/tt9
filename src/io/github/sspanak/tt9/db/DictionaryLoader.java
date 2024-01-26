@@ -17,8 +17,8 @@ import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
+import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
@@ -153,10 +153,7 @@ public class DictionaryLoader {
 			logLoadingStep("Dictionary file loaded in memory", language, start);
 
 			start = System.currentTimeMillis();
-			new InsertOps(sqlite.getDb(), language).insertBatch(
-				(batchProgress) -> sendProgressMessage(language, batchProgress, settings.getDictionaryImportProgressUpdateInterval()),
-				words, progress, dictionaryMaxProgress, settings.getDictionaryImportBatchSizeUpdateInterval()
-			);
+			saveWordBatch(words, progress, dictionaryMaxProgress, settings.getDictionaryImportProgressUpdateBatchSize());
 			progress = dictionaryMaxProgress;
 			sendProgressMessage(language, progress, 0);
 			logLoadingStep("Dictionary words saved in database", language, start);
@@ -201,7 +198,7 @@ public class DictionaryLoader {
 	}
 
 
-	private int importLetters(Language language) throws InvalidLanguageCharactersException {
+	private int importLetters(Language language) throws InvalidLanguageCharactersException, DictionaryImportAbortedException {
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 		WordBatch letters = new WordBatch(language);
@@ -214,7 +211,7 @@ public class DictionaryLoader {
 			}
 		}
 
-		new InsertOps(sqlite.getDb(), language).insertBatch(letters);
+		saveWordBatch(letters, -1, -1, -1);
 
 		return lettersCount;
 	}
@@ -244,13 +241,69 @@ public class DictionaryLoader {
 					throw new DictionaryImportException(word, currentLine);
 				}
 
-				if (totalLines > 0 && currentLine % settings.getDictionaryImportBatchSizeUpdateInterval() == 0) {
-					sendProgressMessage(language, minProgress + progressRatio * currentLine, settings.getDictionaryImportProgressUpdateInterval());
+				if (totalLines > 0 && currentLine % settings.getDictionaryImportProgressUpdateBatchSize() == 0) {
+					sendProgressMessage(language, minProgress + progressRatio * currentLine, settings.getDictionaryImportProgressUpdateTime());
 				}
 			}
 		}
 
 		return batch;
+	}
+
+	public void saveWordBatch(WordBatch batch, float minProgress, float maxProgress, int updateInterval) throws DictionaryImportAbortedException {
+		float middleProgress = minProgress + (maxProgress - minProgress) / 2;
+
+		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
+
+		insertWordsBatch(insertOps, batch, minProgress, middleProgress - 2, updateInterval);
+		insertWordPositionsBatch(insertOps, batch, middleProgress - 2, maxProgress - 2, updateInterval);
+		InsertOps.insertMaxPositionRange(sqlite.getDb(), batch);
+
+		if (updateInterval > 0) {
+			sendProgressMessage(batch.getLanguage(), maxProgress, settings.getDictionaryImportProgressUpdateBatchSize());
+		}
+	}
+
+
+	private void insertWordsBatch(InsertOps insertOps, WordBatch batch, float minProgress, float maxProgress, int sizeUpdateInterval) throws DictionaryImportAbortedException {
+		if (batch.getWords().size() == 0) {
+			return;
+		}
+
+		float progressRatio = (maxProgress - minProgress) / batch.getWords().size();
+
+		for (int progress = 0, end = batch.getWords().size(); progress < end; progress++) {
+			if (loadThread.isInterrupted()) {
+				sendProgressMessage(batch.getLanguage(), 0, 0);
+				throw new DictionaryImportAbortedException();
+			}
+
+			insertOps.insertWord(batch.getWords().get(progress));
+			if (sizeUpdateInterval > 0 && progress % sizeUpdateInterval == 0) {
+				sendProgressMessage(batch.getLanguage(), minProgress + progress * progressRatio, settings.getDictionaryImportProgressUpdateTime());
+			}
+		}
+	}
+
+
+	private void insertWordPositionsBatch(InsertOps insertOps, WordBatch batch, float minProgress, float maxProgress, int sizeUpdateInterval) throws DictionaryImportAbortedException {
+		if (batch.getPositions().size() == 0) {
+			return;
+		}
+
+		float progressRatio = (maxProgress - minProgress) / batch.getPositions().size();
+
+		for (int progress = 0, end = batch.getPositions().size(); progress < end; progress++) {
+			if (loadThread.isInterrupted()) {
+				sendProgressMessage(batch.getLanguage(), 0, 0);
+				throw new DictionaryImportAbortedException();
+			}
+
+			insertOps.insertWordPosition(batch.getPositions().get(progress));
+			if (sizeUpdateInterval > 0 && progress % sizeUpdateInterval == 0) {
+				sendProgressMessage(batch.getLanguage(), minProgress + progress * progressRatio, settings.getDictionaryImportProgressUpdateTime());
+			}
+		}
 	}
 
 
