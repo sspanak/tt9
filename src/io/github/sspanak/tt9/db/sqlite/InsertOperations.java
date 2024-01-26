@@ -24,7 +24,7 @@ public class InsertOperations {
 
 	public InsertOperations(SQLiteDatabase db, @NonNull Language language) {
 		this.language = language;
-		queryCache = new CompiledQueryCache(db);
+		queryCache = CompiledQueryCache.getInstance(db);
 	}
 
 

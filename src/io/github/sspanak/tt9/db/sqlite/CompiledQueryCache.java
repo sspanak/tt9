@@ -11,7 +11,7 @@ class CompiledQueryCache {
 	private final SQLiteDatabase db;
 	private final HashMap<Integer, SQLiteStatement> statements = new HashMap<>();
 
-	CompiledQueryCache(SQLiteDatabase db) {
+	private CompiledQueryCache(SQLiteDatabase db) {
 		this.db = db;
 	}
 
