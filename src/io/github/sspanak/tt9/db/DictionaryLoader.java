@@ -222,7 +222,7 @@ public class DictionaryLoader {
 		int totalLines = getFileSize(language.getDictionaryFile());
 		float progressRatio = (maxProgress - minProgress) / totalLines;
 
-		WordBatch batch = new WordBatch(language);
+		WordBatch batch = new WordBatch(language, totalLines);
 
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(language.getDictionaryFile()), StandardCharsets.UTF_8))) {
 			for (String line; (line = br.readLine()) != null; currentLine++) {
@@ -249,6 +249,7 @@ public class DictionaryLoader {
 
 		return batch;
 	}
+
 
 	public void saveWordBatch(WordBatch batch, float minProgress, float maxProgress, int updateInterval) throws DictionaryImportAbortedException {
 		float middleProgress = minProgress + (maxProgress - minProgress) / 2;

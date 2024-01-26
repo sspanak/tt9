@@ -9,14 +9,20 @@ import io.github.sspanak.tt9.languages.Language;
 
 public class WordBatch {
 	@NonNull private final Language language;
-	@NonNull private final ArrayList<Word> words = new ArrayList<>();
-	@NonNull private final ArrayList<WordPosition> positions = new ArrayList<>();
+	@NonNull private final ArrayList<Word> words;
+	@NonNull private final ArrayList<WordPosition> positions;
 
 	private WordPosition lastWordPosition;
 	private int maxPositionRange;
 
-	public WordBatch(@NonNull Language language) {
+	public WordBatch(@NonNull Language language, int size) {
 		this.language = language;
+		words = size > 0 ? new ArrayList<>(size) : new ArrayList<>();
+		positions = size > 0 ? new ArrayList<>(size) : new ArrayList<>();
+	}
+
+	public WordBatch(@NonNull Language language) {
+		this(language, 0);
 	}
 
 	public void add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
