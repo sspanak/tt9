@@ -144,7 +144,7 @@ public class DictionaryLoader {
 				logLoadingStep("Custom words restored", language, start);
 
 				start = System.currentTimeMillis();
-				importWords(language, language.getDictionaryFile(), lettersCount, 90 - progress);
+				importWords(language, language.getDictionaryFile(), lettersCount, progress, 90);
 				progress = 90;
 				sendProgressMessage(language, progress, 0);
 				logLoadingStep("Dictionary imported", language, start);
@@ -209,8 +209,8 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWords(Language language, String dictionaryFile, int positionShift, double progressRange) throws Exception {
-		sendProgressMessage(language, 1, 0);
+	private void importWords(Language language, String dictionaryFile, int positionShift, int minProgress, int maxProgress) throws Exception {
+		sendProgressMessage(language, minProgress, 0);
 
 		int currentLine = 1;
 		int totalLines = getFileSize(dictionaryFile);
@@ -238,8 +238,8 @@ public class DictionaryLoader {
 			}
 
 			if (totalLines > 0) {
-				double progress = Math.floor(progressRange * currentLine / totalLines);
-				progress = Math.max(1, progress);
+				int progress = (maxProgress - minProgress) * currentLine / totalLines;
+				progress = Math.max(minProgress, progress);
 				sendProgressMessage(language, (int) progress, settings.getDictionaryImportProgressUpdateInterval());
 			}
 		}
