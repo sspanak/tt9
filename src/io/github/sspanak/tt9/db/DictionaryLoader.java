@@ -152,7 +152,10 @@ public class DictionaryLoader {
 				logLoadingStep("Dictionary file loaded in memory", language, start);
 
 				start = System.currentTimeMillis();
-				saveWords(language, words, progress, dictionaryMaxProgress);
+				new InsertOps(sqlite.getDb(), language).insertBatch(
+					(batchProgress) -> sendProgressMessage(language, batchProgress, settings.getDictionaryImportProgressUpdateInterval()),
+					words, progress, dictionaryMaxProgress, settings.getDictionaryImportBatchSizeUpdateInterval()
+				);
 				progress = dictionaryMaxProgress;
 				sendProgressMessage(language, progress, 0);
 				logLoadingStep("Dictionary words saved in database", language, start);
@@ -244,17 +247,6 @@ public class DictionaryLoader {
 		}
 
 		return batch;
-	}
-
-
-	private void saveWords(Language language, WordBatch words, float minProgress, float maxProgress) throws Exception {
-		new InsertOps(sqlite.getDb(), language).insertBatch(
-			(saveProgress) -> sendProgressMessage(language, saveProgress, settings.getDictionaryImportProgressUpdateInterval()),
-			words,
-			minProgress,
-			maxProgress,
-			settings.getDictionaryImportBatchSizeUpdateInterval()
-		);
 	}
 
 
