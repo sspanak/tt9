@@ -51,7 +51,7 @@
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_hack_fb_messenger">Send messages with OK in Messenger</string>
 	<string name="pref_hack_fb_messenger_summary">Allows sending messages with the OK key in Facebook Messenger.</string>
-	<string name="pref_slow_queries_reset_stats">Reset Stats</string>
+	<string name="pref_slow_queries_reset_stats">Clear Cache and Stats</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
 	<string name="pref_show_soft_numpad">Show On-Screen Numpad</string>
 	<string name="pref_show_soft_numpad_summary" translatable="false">(BETA)</string>
