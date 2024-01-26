@@ -29,9 +29,11 @@ public class InsertOps {
 	}
 
 
-	public void insertBatch(ConsumerCompat<Integer> progressCallback, @NonNull WordBatch batch, int minProgress, int maxProgress, int updateInterval) {
-		insertWordsBatch(progressCallback, batch.getWords(), minProgress, maxProgress / 2 - 2, updateInterval);
-		insertWordPositionsBatch(progressCallback, batch.getPositions(), minProgress + maxProgress / 2 - 2, maxProgress - 2, updateInterval);
+	public void insertBatch(ConsumerCompat<Float> progressCallback, @NonNull WordBatch batch, float minProgress, float maxProgress, int updateInterval) {
+		float middleProgress = minProgress + (maxProgress - minProgress) / 2;
+
+		insertWordsBatch(progressCallback, batch.getWords(), minProgress, middleProgress - 2, updateInterval);
+		insertWordPositionsBatch(progressCallback, batch.getPositions(), middleProgress - 2, maxProgress - 2, updateInterval);
 		insertMaxPositionRange(batch.getMaxPositionRange());
 
 		if (progressCallback != null) progressCallback.accept(maxProgress);
@@ -47,13 +49,16 @@ public class InsertOps {
 	}
 
 
-	private void insertWordsBatch(ConsumerCompat<Integer> progressCallback, ArrayList<Word> wordBatch, int minProgress, int maxProgress, int updateInterval) {
+	private void insertWordsBatch(ConsumerCompat<Float> progressCallback, ArrayList<Word> wordBatch, float minProgress, float maxProgress, int updateInterval) {
 		if (wordBatch.size() == 0) {
 			return;
 		}
 
+		float progressRatio = (maxProgress - minProgress) / wordBatch.size();
+
 		String sql = "INSERT INTO " + Tables.getWords(language.getId()) + " (frequency, position, word) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
+
 		for (int progress = 0, end = wordBatch.size(); progress < end; progress++) {
 			Word word = wordBatch.get(progress);
 			query.bindLong(1, word.frequency);
@@ -62,19 +67,22 @@ public class InsertOps {
 			query.execute();
 
 			if (progressCallback != null && progress % updateInterval == 0) {
-				progressCallback.accept(minProgress + (maxProgress - minProgress) * progress / end);
+				progressCallback.accept(minProgress + progress * progressRatio);
 			}
 		}
 	}
 
 
-	private void insertWordPositionsBatch(ConsumerCompat<Integer> progressCallback, ArrayList<WordPosition> wordPositionBatch, int minProgress, int maxProgress, int updateInterval) {
+	private void insertWordPositionsBatch(ConsumerCompat<Float> progressCallback, ArrayList<WordPosition> wordPositionBatch, float minProgress, float maxProgress, int updateInterval) {
 		if (wordPositionBatch.size() == 0) {
 			return;
 		}
 
+		float progressRatio = (maxProgress - minProgress) / wordPositionBatch.size();
+
 		String sql = "INSERT INTO " + Tables.getWordPositions(language.getId()) + " (sequence, `start`, `end`) VALUES (?, ?, ?)";
 		SQLiteStatement query = queryCache.get(sql);
+
 		for (int progress = 0, end = wordPositionBatch.size(); progress < end; progress++) {
 			WordPosition wordPosition = wordPositionBatch.get(progress);
 			query.bindString(1, wordPosition.sequence);
@@ -83,7 +91,7 @@ public class InsertOps {
 			query.execute();
 
 			if (progressCallback != null && progress % updateInterval == 0) {
-				progressCallback.accept(minProgress + (maxProgress - minProgress) * progress / end);
+				progressCallback.accept(minProgress + progress * progressRatio);
 			}
 		}
 	}

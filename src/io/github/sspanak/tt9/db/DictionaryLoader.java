@@ -123,7 +123,8 @@ public class DictionaryLoader {
 		sqlite.runInTransaction(() -> {
 			try {
 				long start = System.currentTimeMillis();
-				int progress = 1;
+				float progress = 1;
+				final float dictionaryMaxProgress = 90f;
 
 				Tables.dropIndexes(sqlite.getDb(), language);
 				sendProgressMessage(language, ++progress, 0);
@@ -145,25 +146,27 @@ public class DictionaryLoader {
 				logLoadingStep("Custom words restored", language, start);
 
 				start = System.currentTimeMillis();
-				importWords(language, language.getDictionaryFile(), lettersCount, progress, 90);
-				progress = 90;
+				WordBatch words = readWordsFile(language, lettersCount, progress, progress + 25f);
+				progress += 25;
 				sendProgressMessage(language, progress, 0);
-				logLoadingStep("Dictionary imported", language, start);
+				logLoadingStep("Dictionary file loaded in memory", language, start);
+
+				start = System.currentTimeMillis();
+				saveWords(language, words, progress, dictionaryMaxProgress);
+				progress = dictionaryMaxProgress;
+				sendProgressMessage(language, progress, 0);
+				logLoadingStep("Dictionary words saved in database", language, start);
 
 				start = System.currentTimeMillis();
 				Tables.createPositionIndex(sqlite.getDb(), language);
-				sendProgressMessage(language, progress + (100 - progress) / 2, 0);
+				sendProgressMessage(language, progress + (100f - progress) / 2f, 0);
 				Tables.createWordIndex(sqlite.getDb(), language);
 				sendProgressMessage(language, 100, 0);
 				logLoadingStep("Indexes restored", language, start);
 
 			} catch (DictionaryImportAbortedException e) {
 				stop();
-
-				Logger.i(
-					LOG_TAG,
-					e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported."
-				);
+				Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
 			} catch (DictionaryImportException e) {
 				stop();
 				sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
@@ -210,29 +213,14 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWords(Language language, String dictionaryFile, int positionShift, int minProgress, int maxProgress) throws Exception {
-		sendProgressMessage(language, minProgress, 0);
-
-		int fileMaxProgress = (maxProgress - minProgress) / 10;
-		WordBatch words = readWordsFile(language, dictionaryFile, positionShift, minProgress, minProgress + fileMaxProgress);
-
-		new InsertOps(sqlite.getDb(), language).insertBatch(
-			(saveProgress) -> sendProgressMessage(language, saveProgress, settings.getDictionaryImportProgressUpdateInterval()),
-			words,
-			fileMaxProgress,
-			maxProgress,
-			settings.getDictionaryImportBatchSizeUpdateInterval()
-		);
-	}
-
-
-	private WordBatch readWordsFile(Language language, String dictionaryFile, int positionShift, int minProgress, int maxProgress) throws Exception {
+	private WordBatch readWordsFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
 		int currentLine = 1;
-		int totalLines = getFileSize(dictionaryFile);
-		int progressRatio = (maxProgress - minProgress);
+		int totalLines = getFileSize(language.getDictionaryFile());
+		float progressRatio = (maxProgress - minProgress) / totalLines;
+
 		WordBatch batch = new WordBatch(language);
 
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(language.getDictionaryFile()), StandardCharsets.UTF_8))) {
 			for (String line; (line = br.readLine()) != null; currentLine++) {
 				if (loadThread.isInterrupted()) {
 					sendProgressMessage(language, 0, 0);
@@ -250,14 +238,23 @@ public class DictionaryLoader {
 				}
 
 				if (totalLines > 0 && currentLine % settings.getDictionaryImportBatchSizeUpdateInterval() == 0) {
-					int progress = progressRatio * currentLine / totalLines;
-					progress = Math.max(minProgress, progress);
-					sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
+					sendProgressMessage(language, minProgress + progressRatio * currentLine, settings.getDictionaryImportProgressUpdateInterval());
 				}
 			}
 		}
 
 		return batch;
+	}
+
+
+	private void saveWords(Language language, WordBatch words, float minProgress, float maxProgress) throws Exception {
+		new InsertOps(sqlite.getDb(), language).insertBatch(
+			(saveProgress) -> sendProgressMessage(language, saveProgress, settings.getDictionaryImportProgressUpdateInterval()),
+			words,
+			minProgress,
+			maxProgress,
+			settings.getDictionaryImportBatchSizeUpdateInterval()
+		);
 	}
 
 
@@ -312,7 +309,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
+	private void sendProgressMessage(Language language, float progress, int progressUpdateInterval) {
 		if (onStatusChange == null) {
 			Logger.w(LOG_TAG, "Cannot send progress without a status Handler. Ignoring message.");
 			return;
@@ -328,7 +325,7 @@ public class DictionaryLoader {
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("languageId", language.getId());
 		progressMsg.putLong("time", getImportTime());
-		progressMsg.putInt("progress", progress);
+		progressMsg.putInt("progress", (int) Math.round(progress));
 		progressMsg.putInt("currentFile", currentFile);
 		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
