@@ -1098,9 +1098,6 @@ Alkossa	65
 Alkosta	52
 Alkula	57
 All-
-All-American	88
-All-Star	88
-All-Stars	95
 Allahin	69
 Allan	107
 Allanin	73
@@ -3158,7 +3155,6 @@ Benelux	52
 Benes	43
 Benesin
 Benetton	88
-Benetton-
 Benettonilla	73
 Benettonille	65
 Benettonilta	57
@@ -3698,7 +3694,6 @@ Bloomfield	69
 Bloomin	77
 Bloomington	60
 Bloomsburyn	60
-Blu-
 Blu-ray	70
 Blu-rayn	57
 Blucher
@@ -4919,7 +4914,6 @@ CAD	84
 CAE	57
 CAF	85
 CART	87
-CART-
 CAS	92
 CATIA	74
 CB	96
@@ -8520,7 +8514,6 @@ Eestinmaan	57
 Eestissä	63
 Eetu	86
 Eeva	104
-Eeva-
 Eevaan	43
 Eevaliisa	57
 Eevalle	43
@@ -8935,7 +8928,6 @@ Eminemin	80
 Emirate	60
 Emirates	67
 Emma	110
-Emma-
 Emmaa	67
 Emmaan	52
 Emmalle	52
@@ -8955,7 +8947,6 @@ Emmettin	60
 Emmin	57
 Emmons	57
 Emmy	94
-Emmy-
 Emmylla	65
 Emmyllä	80
 Emmylou	60
@@ -12042,7 +12033,6 @@ Gramex	63
 Gramexin	72
 Grammophon	63
 Grammy	86
-Grammy-
 Grammylla	65
 Gramophone	65
 Gramsci	69
@@ -12399,7 +12389,6 @@ Guillou	65
 Guilloun	65
 Guilmant	65
 Guimard	67
-Guinea-
 Guinea-Bissau	83
 Guinea-Bissaun	93
 Guinea-Bissaussa	79
@@ -12631,7 +12620,6 @@ HMV	83
 HMX	73
 HNK	75
 HOK	80
-HOK-
 HOS	70
 HP	102
 HPK	116
@@ -12951,7 +12939,6 @@ Halkivahan	69
 Halkoaho	63
 Halkola	72
 Halkolan	57
-Halla-
 Hallama	57
 Hallamaa	82
 Hallamaan	63
@@ -14204,7 +14191,6 @@ Hewel	63
 Hewitt	79
 Hewittin	70
 Hewlett	69
-Hewlett-
 Hex	60
 Hexen	67
 Heydrich	75
@@ -15294,7 +15280,6 @@ IB	97
 IBA	70
 IBAN	67
 IBF	95
-IBF-
 IBK	80
 IBM	121
 IBO	89
@@ -15736,7 +15721,6 @@ Indonesialla	57
 Indonesiassa	105
 Induksen	76
 Indus	60
-Indus-
 Indusjoen	63
 Induslaakson	60
 Industriesille	63
@@ -16461,7 +16445,6 @@ Janelle	67
 Janen	90
 Janette	63
 Jangtse	57
-Jangtse-
 Jangtsen	60
 Janhonen	57
 Janhunen	74
@@ -17515,7 +17498,6 @@ KFC	82
 KGB	111
 KH	72
 KHL	96
-KHL-
 KHO	84
 KHT	63
 KIF	76
@@ -25091,7 +25073,7 @@ Merkuriuksen	88
 Merkurius	77
 Merkuriusta	60
 Merkurov	65
-Merleau-
+Merleau
 Merleau-Ponty	86
 Merleau-Pontyn	84
 Merlin	86
@@ -39971,7 +39953,6 @@ Vilkman	67
 Vilks	57
 Vilkuna	80
 Vilkunan	74
-Villa-
 Villanueva	63
 Villastad	60
 Villelle	43
@@ -48943,7 +48924,6 @@ arvosteltu	112
 arvosteltua	63
 arvosteltuaan	75
 arvostelu	109
-arvostelu-	84
 arvostelua	111
 arvosteluihin	65
 arvosteluissa	92
@@ -52567,7 +52547,6 @@ bonukset	74
 bonuksia	86
 bonuksina	69
 bonus	87
-bonus-
 bonuskappale	88
 bonuskappaleen	87
 bonuskappaleena	78
@@ -53092,7 +53071,6 @@ calypson	43
 camelot	43
 camembert	69
 cameo	69
-cameo-
 candida	65
 candidate	43
 candy	52
@@ -57634,7 +57612,6 @@ ensemble	65
 ensemblen	57
 ensemblessa	43
 ensi	140
-ensi-
 ensialbumi	82
 ensialbumin	78
 ensialbuminsa	77
@@ -59531,7 +59508,6 @@ es	103
 escort	43
 escudo	69
 esi	72
-esi-
 esiaste	96
 esiasteeksi	65
 esiasteen	80
@@ -61992,7 +61968,6 @@ flamingon	60
 flamingot	52
 flanderilainen	60
 flash	69
-flash-
 flashin	43
 fleury	43
 flick	52
@@ -127753,7 +127728,6 @@ mingot	77
 minh	43
 minhin	43
 mini	85
-mini-
 minialbumi	84
 minialbumin	77
 miniatyyreillä	63
@@ -130737,7 +130711,6 @@ musiikistaan	100
 musiikit	95
 musiikkeja	73
 musiikki	136
-musiikki-
 musiikkia	144
 musiikkiaan	109
 musiikkiaiheisia	72
@@ -153769,7 +153742,6 @@ possua	57
 possujen	60
 possun	57
 post	90
-post-
 posteljooni	78
 posteriori	77
 posti	108
@@ -174576,7 +174548,7 @@ sisustusarkkitehdin	57
 sisustusarkkitehti	87
 sisustussuunnittelija	82
 sisustusta	93
-sisä-	110
+sisä	110
 sisäasiain	77
 sisäasiainministeri	87
 sisäasiainministerin	57
@@ -178447,7 +178419,7 @@ subjektit	65
 subliimi	75
 subliimin	76
 sublimoituu	82
-subprime-
+subprime
 subsp	100
 substansseja	79
 substanssi	99
@@ -197510,7 +197482,6 @@ tupen	72
 tupessa	72
 tupesta	70
 tupla	80
-tupla-
 tuplaa	73
 tuplaantuu	65
 tuplajättipotti	67
