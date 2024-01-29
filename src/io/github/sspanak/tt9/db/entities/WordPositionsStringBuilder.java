@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 public class WordPositionsStringBuilder {
 	public int size = 0;
-	StringBuilder positions = new StringBuilder();
+	private final StringBuilder positions = new StringBuilder();
 
 	public WordPositionsStringBuilder appendFromDbRanges(Cursor cursor) {
 		while (cursor.moveToNext()) {
@@ -28,11 +28,6 @@ public class WordPositionsStringBuilder {
 			positions.append(",").append(position);
 			size++;
 		}
-	}
-
-	public void clear() {
-		size = 0;
-		positions.setLength(0);
 	}
 
 	@NonNull

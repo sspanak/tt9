@@ -43,7 +43,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		applyTheme();
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		new LegacyDb(this).clear();
+		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
 		WordStoreAsync.init(this);
 
 		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());

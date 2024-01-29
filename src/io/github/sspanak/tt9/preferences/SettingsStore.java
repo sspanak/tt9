@@ -275,6 +275,7 @@ public class SettingsStore {
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_BATCH_SIZE = 1000; // items
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static int DICTIONARY_MISSING_WARNING_INTERVAL = 30000; // ms
+	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SUGGESTIONS_MAX = 20;

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteStatement;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.entities.Word;
-import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordPosition;
 import io.github.sspanak.tt9.languages.Language;
 
