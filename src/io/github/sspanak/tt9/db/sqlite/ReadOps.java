@@ -17,9 +17,17 @@ public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
 
 
+	/**
+	 * Checks if a word exists in the database for the given language (case-insensitive).
+	 */
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word = ?");
+		String lowercaseWord = word.toLowerCase(language.getLocale());
+		String uppercaseWord = word.toUpperCase(language.getLocale());
+
+		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word IN(?, ?, ?)");
 		query.bindString(1, word);
+		query.bindString(2, lowercaseWord);
+		query.bindString(3, uppercaseWord);
 		try {
 			return query.simpleQueryForLong() > 0;
 		} catch (SQLiteDoneException e) {
@@ -28,6 +36,9 @@ public class ReadOps {
 	}
 
 
+	/**
+	 * Checks if language exists (has words) in the database.
+	 */
 	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
 		return CompiledQueryCache.simpleQueryForLong(
 			db,
