@@ -12,15 +12,12 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
 public class EmptyDatabaseWarning {
-	final int WARNING_INTERVAL;
 	private static final HashMap<Integer, Long> warningDisplayedTime = new HashMap<>();
 
 	private Context context;
 	private Language language;
 
-	public EmptyDatabaseWarning(SettingsStore settings) {
-		WARNING_INTERVAL = settings.getDictionaryMissingWarningInterval();
-
+	public EmptyDatabaseWarning() {
 		for (Language lang : LanguageCollection.getAll(context)) {
 			if (!warningDisplayedTime.containsKey(lang.getId())) {
 				warningDisplayedTime.put(lang.getId(), 0L);
@@ -44,7 +41,7 @@ public class EmptyDatabaseWarning {
 
 		long now = System.currentTimeMillis();
 		Long lastWarningTime = warningDisplayedTime.get(language.getId());
-		return lastWarningTime != null && now - lastWarningTime > WARNING_INTERVAL;
+		return lastWarningTime != null && now - lastWarningTime > SettingsStore.DICTIONARY_MISSING_WARNING_INTERVAL;
 	}
 
 	private void show(boolean areThereWords) {

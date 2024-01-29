@@ -32,7 +32,7 @@ public class Predictions {
 
 
 	public Predictions(SettingsStore settingsStore) {
-		emptyDbWarning = new EmptyDatabaseWarning(settingsStore);
+		emptyDbWarning = new EmptyDatabaseWarning();
 		settings = settingsStore;
 
 		// digitSequence limiter when selecting emoji

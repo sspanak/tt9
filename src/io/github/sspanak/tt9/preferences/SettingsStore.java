@@ -272,10 +272,10 @@ public class SettingsStore {
 
 	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
 
-	public int getDictionaryImportProgressUpdateBatchSize() { return 1000; }
-	public int getDictionaryImportProgressUpdateTime() { return 250; /* ms */ }
+	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_BATCH_SIZE = 1000; // items
+	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
+	public final static int DICTIONARY_MISSING_WARNING_INTERVAL = 30000; // ms
 
-	public int getDictionaryMissingWarningInterval() { return 30000; /* ms */ }
 
 	public int getSuggestionsMax() { return 20; }
 	public int getSuggestionsMin() { return 8; }
