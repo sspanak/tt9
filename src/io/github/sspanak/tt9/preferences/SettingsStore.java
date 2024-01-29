@@ -287,9 +287,9 @@ public class SettingsStore {
 
 	public int getSoftKeyRepeatDelay() { return 40; /* ms */ }
 
-	public int getWordFrequencyMax() { return 25500; }
-	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
-	public int getWordNormalizationDelay() { return 120000; /* ms */ }
+	public final static int WORD_FREQUENCY_MAX = 128;
+	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 10; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
+	public final static int WORD_NORMALIZATION_DELAY = 120000; // ms
 
 
 	/************* hack settings *************/

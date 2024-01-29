@@ -56,4 +56,8 @@ class CompiledQueryCache {
 	static SQLiteStatement get(SQLiteDatabase db, String sql) {
 		return getInstance(db).get(sql);
 	}
+
+	static long simpleQueryForLong(SQLiteDatabase db, String sql, long defaultValue) {
+		return getInstance(db).simpleQueryForLong(sql, defaultValue);
+	}
 }

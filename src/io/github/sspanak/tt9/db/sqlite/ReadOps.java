@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashMap;
-
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -18,43 +16,24 @@ import io.github.sspanak.tt9.languages.Language;
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
 
-	private static final HashMap<String, SQLiteStatement> statements = new HashMap<>();
-
 
 	public boolean exists(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String word) {
-		// @todo: migrate to CompiledQueryCache
-		String key = "exists_" + language.getId() + "_" + word;
-		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word = ?"));
+		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT COUNT(*) FROM " + Tables.getWords(language.getId()) + " WHERE word = ?");
+		query.bindString(1, word);
+		try {
+			return query.simpleQueryForLong() > 0;
+		} catch (SQLiteDoneException e) {
+			return false;
 		}
-
-		SQLiteStatement query = statements.get(key);
-		if (query != null) {
-			query.bindString(1, word);
-			try {
-				return query.simpleQueryForLong() > 0;
-			} catch (SQLiteDoneException e) {
-				return false;
-			}
-		}
-
-		return false;
 	}
 
 
 	public boolean exists(@NonNull SQLiteDatabase db, int langId) {
-		// @todo: migrate to CompiledQueryCache
-		String key = "exists_" + langId;
-		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT COUNT(*) FROM " + Tables.getWords(langId)));
-		}
-
-		SQLiteStatement query = statements.get(key);
-		try {
-			return query != null && query.simpleQueryForLong() > 0;
-		} catch (SQLiteDoneException e) {
-			return false;
-		}
+		return CompiledQueryCache.simpleQueryForLong(
+			db,
+			"SELECT COUNT(*) FROM " + Tables.getWords(langId),
+			0
+		) > 0;
 	}
 
 
@@ -120,13 +99,13 @@ public class ReadOps {
 			return customWordPositions.isEmpty() ? cachedFactoryPositions : customWordPositions + "," + cachedFactoryPositions;
 		}
 
-		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), new String[]{})) {
+		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), null)) {
 			positions.appendFromDbRanges(cursor);
 		}
 
 		if (positions.size < minPositions) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
-			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), new String[]{})) {
+			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), null)) {
 				positions.appendFromDbRanges(cursor);
 			}
 		}
@@ -137,7 +116,7 @@ public class ReadOps {
 
 
 	@NonNull private String getCustomWordPositions(@NonNull SQLiteDatabase db, Language language, String sequence, int generations) {
-		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), new String[]{})) {
+		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), null)) {
 			return new WordPositionsStringBuilder().appendFromDbRanges(cursor).toString();
 		}
 	}
@@ -154,7 +133,6 @@ public class ReadOps {
 
 
 	@NonNull private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
-		// @todo: use a compiled query
 		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
 			.append(Tables.getWordPositions(language.getId()))
 			.append(" WHERE ");
@@ -184,7 +162,6 @@ public class ReadOps {
 
 
 	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
-		// @todo: use a compiled query
 		String sql = "SELECT -id as `start`, -id as `end` FROM " + Tables.CUSTOM_WORDS +
 			" WHERE langId = " + language.getId() +
 			" AND (sequence = " + sequence;
@@ -201,8 +178,6 @@ public class ReadOps {
 
 
 	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords, boolean fullOutput) {
-		// @todo: use a compiled query
-
 		StringBuilder sql = new StringBuilder();
 		sql
 			.append("SELECT word");
@@ -228,18 +203,8 @@ public class ReadOps {
 
 
 	public int getWordFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position) {
-		// @todo: migrate to CompiledQueryCache
-		String key = "getWordFrequency_" + language.getId();
-		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT frequency FROM " + Tables.getWords(language.getId()) + " WHERE position = ?"));
-		}
-
-		SQLiteStatement query = statements.get(key);
-		if (query == null) {
-			return 0;
-		}
+		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT frequency FROM " + Tables.getWords(language.getId()) + " WHERE position = ?");
 		query.bindLong(1, position);
-
 		try {
 			return (int)query.simpleQueryForLong();
 		} catch (SQLiteDoneException e) {
@@ -249,18 +214,10 @@ public class ReadOps {
 
 
 	public int getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
-		// @todo: migrate to CompiledQueryCache
-		String key = "getNextInNormalizationQueue";
-		if (!statements.containsKey(key)) {
-			statements.put(key, db.compileStatement("SELECT langId FROM " + Tables.LANGUAGES_META + " WHERE normalizationPending = 1 LIMIT 1"));
-		}
-
-		SQLiteStatement query = statements.get(key);
-
-		try {
-			return query == null ? -1 : (int)query.simpleQueryForLong();
-		} catch (SQLiteDoneException e) {
-			return -1;
-		}
+		return (int) CompiledQueryCache.simpleQueryForLong(
+			db,
+			"SELECT langId FROM " + Tables.LANGUAGES_META + " WHERE normalizationPending = 1 LIMIT 1",
+			-1
+		);
 	}
 }

@@ -9,19 +9,18 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class WordStoreAsync {
 	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
-	public static synchronized void init(Context context, SettingsStore settings) {
-		store = WordStore.getInstance(context, settings);
+	public static synchronized void init(Context context) {
+		store = WordStore.getInstance(context);
 	}
 
 
 	public static synchronized void init() {
-		init(null, null);
+		init(null);
 	}
 
 

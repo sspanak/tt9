@@ -44,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
 		new LegacyDb(this).clear();
-		WordStoreAsync.init(this, settings);
+		WordStoreAsync.init(this);
 
 		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());
 		validateFunctionKeys();

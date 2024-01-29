@@ -24,14 +24,12 @@ public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
 	private static WordStore self;
 
-	private SettingsStore settings;
 	private SQLiteOpener sqlite = null;
 	private ReadOps readOps = null;
 
 
-	public WordStore(@NonNull Context context, @NonNull SettingsStore settings) {
+	public WordStore(@NonNull Context context) {
 		try {
-			this.settings = settings;
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
 			readOps = new ReadOps();
@@ -42,11 +40,10 @@ public class WordStore {
 	}
 
 
-	public static synchronized WordStore getInstance(Context context, SettingsStore settings) {
+	public static synchronized WordStore getInstance(Context context) {
 		if (self == null) {
 			context = context == null ? TraditionalT9.getMainContext() : context;
-			settings = settings == null ? new SettingsStore(context) : settings;
-			self = new WordStore(context, settings);
+			self = new WordStore(context);
 		}
 
 		return self;
@@ -198,7 +195,7 @@ public class WordStore {
 				throw new Exception("No such word");
 			}
 
-			if (newTopFrequency > settings.getWordFrequencyMax()) {
+			if (newTopFrequency > SettingsStore.WORD_FREQUENCY_MAX) {
 				scheduleNormalization(language);
 			}
 
@@ -219,7 +216,7 @@ public class WordStore {
 		try {
 			sqlite.beginTransaction();
 			int nextLangId = readOps.getNextInNormalizationQueue(sqlite.getDb());
-			UpdateOps.normalize(sqlite.getDb(), settings, nextLangId);
+			UpdateOps.normalize(sqlite.getDb(), nextLangId);
 			sqlite.finishTransaction();
 
 			String message = nextLangId > 0 ? "Normalized language: " + nextLangId : "No languages to normalize";

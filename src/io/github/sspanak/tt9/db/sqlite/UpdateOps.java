@@ -27,7 +27,7 @@ public class UpdateOps {
 	}
 
 
-	public static void normalize(@NonNull SQLiteDatabase db, @NonNull SettingsStore settings, int langId) {
+	public static void normalize(@NonNull SQLiteDatabase db, int langId) {
 		if (langId <= 0) {
 			return;
 		}
@@ -35,7 +35,7 @@ public class UpdateOps {
 		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
 
 		SQLiteStatement query = cache.get("UPDATE " + Tables.getWords(langId) + " SET frequency = frequency / ?");
-		query.bindLong(1, settings.getWordFrequencyNormalizationDivider());
+		query.bindLong(1, SettingsStore.WORD_FREQUENCY_NORMALIZATION_DIVIDER);
 		query.executeUpdateDelete();
 
 		query = cache.get("UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");

@@ -150,7 +150,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		self = this;
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		WordStoreAsync.init(this, settings);
+		WordStoreAsync.init(this);
 
 		if (mainView == null) {
 			mainView = new MainView(this);
@@ -237,7 +237,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		statusBar.setText("--");
 
 		normalizationHandler.removeCallbacksAndMessages(null);
-		normalizationHandler.postDelayed(WordStoreAsync::normalizeNext, settings.getWordNormalizationDelay());
+		normalizationHandler.postDelayed(WordStoreAsync::normalizeNext, SettingsStore.WORD_NORMALIZATION_DELAY);
 	}
 
 
