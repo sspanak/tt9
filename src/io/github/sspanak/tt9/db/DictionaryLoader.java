@@ -256,7 +256,7 @@ public class DictionaryLoader {
 
 		insertWordsBatch(insertOps, batch, minProgress, middleProgress - 2, sizeUpdateInterval);
 		insertWordPositionsBatch(insertOps, batch, middleProgress - 2, maxProgress - 2, sizeUpdateInterval);
-		InsertOps.insertMaxPositionRange(sqlite.getDb(), batch);
+		InsertOps.insertLanguageMeta(sqlite.getDb(), batch.getLanguage().getId());
 
 		if (sizeUpdateInterval > 0) {
 			sendProgressMessage(batch.getLanguage(), maxProgress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);

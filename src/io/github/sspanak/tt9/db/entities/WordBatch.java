@@ -13,7 +13,6 @@ public class WordBatch {
 	@NonNull private final ArrayList<WordPosition> positions;
 
 	private WordPosition lastWordPosition;
-	private int maxPositionRange;
 
 	public WordBatch(@NonNull Language language, int size) {
 		this.language = language;
@@ -43,14 +42,9 @@ public class WordBatch {
 		if (!sequence.equals(lastWordPosition.sequence)) {
 			lastWordPosition.end--;
 			positions.add(lastWordPosition);
-			maxPositionRange = Math.max(maxPositionRange, lastWordPosition.getRangeLength());
 
 			lastWordPosition = WordPosition.create(sequence, position);
 		}
-	}
-
-	public int getMaxPositionRange() {
-		return maxPositionRange;
 	}
 
 	@NonNull public Language getLanguage() {

@@ -40,11 +40,9 @@ public class InsertOps {
 	}
 
 
-	public static void insertMaxPositionRange(@NonNull SQLiteDatabase db, @NonNull WordBatch batch) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, maxPositionRange) VALUES (?, ?)");
-
-		query.bindLong(1, batch.getLanguage().getId());
-		query.bindLong(2, batch.getMaxPositionRange());
+	public static void insertLanguageMeta(@NonNull SQLiteDatabase db, int langId) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId) VALUES (?)");
+		query.bindLong(1, langId);
 		query.execute();
 	}
 

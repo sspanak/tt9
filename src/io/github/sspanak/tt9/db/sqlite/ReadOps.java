@@ -174,7 +174,7 @@ public class ReadOps {
 		} else {
 			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
 			sql.append(" ORDER BY start ");
-			sql.append(" LIMIT 100"); // @todo: use the longest range per language from TABLE_LANGUAGES_META, but probably converting this to a a compiled query will make it easier
+			sql.append(" LIMIT 100");
 		}
 
 		String positionsSql = sql.toString();

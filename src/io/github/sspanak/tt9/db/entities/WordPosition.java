@@ -14,8 +14,4 @@ public class WordPosition {
 
 		return position;
 	}
-
-	public int getRangeLength() {
-		return end - start + 1;
-	}
 }
