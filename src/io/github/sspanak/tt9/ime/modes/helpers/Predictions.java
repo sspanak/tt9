@@ -133,8 +133,8 @@ public class Predictions {
 				language,
 				digitSequence,
 				stem,
-				settings.getSuggestionsMin(),
-				settings.getSuggestionsMax()
+				SettingsStore.SUGGESTIONS_MIN,
+				SettingsStore.SUGGESTIONS_MAX
 			);
 		}
 	}
@@ -187,8 +187,8 @@ public class Predictions {
 			language,
 			digitSequence.substring(1),
 			stem.length() > 1 ? stem.substring(1) : "",
-			settings.getSuggestionsMin(),
-			settings.getSuggestionsMax()
+			SettingsStore.SUGGESTIONS_MIN,
+			SettingsStore.SUGGESTIONS_MAX
 		);
 	}
 

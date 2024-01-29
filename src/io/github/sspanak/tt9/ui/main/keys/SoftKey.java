@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
 	protected TraditionalT9 tt9;
@@ -109,7 +110,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			handleHold();
 			lastPressedKey = getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
-			repeatHandler.postDelayed(this::repeatOnLongPress, tt9.getSettings().getSoftKeyRepeatDelay());
+			repeatHandler.postDelayed(this::repeatOnLongPress, SettingsStore.SOFT_KEY_REPEAT_DELAY);
 		}
 	}
 
