@@ -14,30 +14,26 @@ public class SlowQueryStats {
 	private static final HashMap<String, String> resultCache = new HashMap<>();
 
 
-	private static String generateKey(Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
-		return language.getId() + "_" + sequence + "_" + wordFilter + "_" + minimumWords + "_" + maximumWords;
+	public static String generateKey(Language language, String sequence, String wordFilter, int minimumWords) {
+		return language.getId() + "_" + sequence + "_" + wordFilter + "_" + minimumWords;
 	}
 
-	public static void add(SettingsStore settings, Language language, String sequence, String wordFilter, int minimumWords, int maximumWords, int time, String positionsList) {
-		long start = System.currentTimeMillis();
-
+	public static void add(String key, int time, String positionsList) {
 		totalQueries++;
 		totalQueryTime += time;
-		if (time < settings.getSlowQueryTime()) {
+		if (time < SettingsStore.SLOW_QUERY_TIME) {
 			return;
 		}
 
-		String key = generateKey(language, sequence, wordFilter, minimumWords, maximumWords);
 		slowQueries.put(key, time);
-		resultCache.put(key, positionsList);
-
-		Logger.d(LOG_TAG, "Slow query stats collected in: " + (System.currentTimeMillis() - start) + " ms.");
+		if (!resultCache.containsKey(key)) {
+			resultCache.put(key, positionsList.replaceAll("-\\d+,", ""));
+		}
 	}
 
-	public static String getCachedIfSlow(SettingsStore settings, Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
-		String key = generateKey(language, sequence, wordFilter, minimumWords, maximumWords);
+	public static String getCachedIfSlow(String key) {
 		Integer queryTime = slowQueries.get(key);
-		boolean isSlow = queryTime != null && queryTime >= settings.getSlowQueryTime();
+		boolean isSlow = queryTime != null && queryTime >= SettingsStore.SLOW_QUERY_TIME;
 
 		if (isSlow) {
 			Logger.d(LOG_TAG, "Loading cached positions for query: " + key);

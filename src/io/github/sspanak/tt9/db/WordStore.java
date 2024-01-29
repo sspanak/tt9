@@ -77,21 +77,16 @@ public class WordStore {
 		final int maxWords = Math.max(maximumWords, minWords);
 		final String filter = wordFilter == null ? "" : wordFilter;
 
-
 		long startTime = System.currentTimeMillis();
-		String positions = SlowQueryStats.getCachedIfSlow(settings, language, sequence, filter, minWords, maxWords);
-		if (positions == null) {
-			positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, !filter.isEmpty(), minWords);
-		}
+		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, filter, minWords);
 		long positionsTime = System.currentTimeMillis() - startTime;
-
 
 		startTime = System.currentTimeMillis();
 		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords, false).toStringList();
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
-		SlowQueryStats.add(settings, language, sequence, filter, minWords, maxWords, (int) (positionsTime + wordsTime), positions);
+		SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minimumWords), (int) (positionsTime + wordsTime), positions);
 
 		return words;
 	}
@@ -178,7 +173,7 @@ public class WordStore {
 		try {
 			long start = System.currentTimeMillis();
 
-			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), language, sequence, 0, 0);
+			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), language, sequence, 0, 0, "");
 			WordList topWords = readOps.getWords(sqlite.getDb(), language, topWordPositions, "", 9999, true);
 			if (topWords.isEmpty()) {
 				throw new Exception("No such word");

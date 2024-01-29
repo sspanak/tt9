@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.languages.Language;
@@ -85,33 +86,39 @@ public class ReadOps {
 	}
 
 
-	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, boolean isFilterOn, int minPositions) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
 		int generations;
 
 		switch (sequence.length()) {
 			case 2:
-				generations = isFilterOn ? Integer.MAX_VALUE : 1;
+				generations = wordFilter.isEmpty() ? 1 : Integer.MAX_VALUE;
 				break;
 			case 3:
 			case 4:
-				generations = isFilterOn ? Integer.MAX_VALUE : 2;
+				generations = wordFilter.isEmpty() ? 2 : Integer.MAX_VALUE;
 				break;
 			default:
 				generations = Integer.MAX_VALUE;
 				break;
 		}
 
-		return getWordPositions(db, language, sequence, generations, minPositions);
+		return getWordPositions(db, language, sequence, generations, minPositions, wordFilter);
 	}
 
 
 	@NonNull
-	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, int generations, int minPositions) {
+	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
 		if (sequence.length() == 1) {
 			return sequence;
 		}
 
 		WordPositionsStringBuilder positions = new WordPositionsStringBuilder();
+
+		String cachedFactoryPositions = SlowQueryStats.getCachedIfSlow(SlowQueryStats.generateKey(language, sequence, wordFilter, minPositions));
+		if (cachedFactoryPositions != null) {
+			String customWordPositions = getCustomWordPositions(db, language, sequence, generations);
+			return customWordPositions.isEmpty() ? cachedFactoryPositions : customWordPositions + "," + cachedFactoryPositions;
+		}
 
 		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), new String[]{})) {
 			positions.appendFromDbRanges(cursor);
@@ -125,6 +132,14 @@ public class ReadOps {
 		}
 
 		return positions.toString();
+	}
+
+
+
+	@NonNull private String getCustomWordPositions(@NonNull SQLiteDatabase db, Language language, String sequence, int generations) {
+		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), new String[]{})) {
+			return new WordPositionsStringBuilder().appendFromDbRanges(cursor).toString();
+		}
 	}
 
 
