@@ -4,10 +4,10 @@
 	<SwitchPreferenceCompat
 		app:key="pref_slow_queries_reset_stats"
 		app:layout="@layout/pref_text"
-		app:title="@string/pref_slow_queries_reset_stats" />
+		app:title="Clear Cache and Stats" />
 
 	<PreferenceCategory
-		app:title="@string/pref_category_slow_query_summary"
+		app:title="Summary"
 		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 		<Preference
@@ -18,7 +18,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
-		app:title="@string/pref_category_slow_queries"
+		app:title="Slow Queries"
 		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 		<Preference
