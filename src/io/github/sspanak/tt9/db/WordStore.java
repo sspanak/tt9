@@ -190,8 +190,9 @@ public class WordStore {
 				}
 			}
 
-			int newTopFrequency = readOps.getWordFrequency(sqlite.getDb(), language, topWord.position) + 1;
-			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordPosition, newTopFrequency)) {
+			int newTopFrequency = topWord.frequency + 1;
+			String wordFilter = word.length() == 1 ? word.toLowerCase(language.getLocale()) : null;
+			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, wordPosition,  newTopFrequency)) {
 				throw new Exception("No such word");
 			}
 

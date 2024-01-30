@@ -213,17 +213,6 @@ public class ReadOps {
 	}
 
 
-	public int getWordFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT frequency FROM " + Tables.getWords(language.getId()) + " WHERE position = ?");
-		query.bindLong(1, position);
-		try {
-			return (int)query.simpleQueryForLong();
-		} catch (SQLiteDoneException e) {
-			return 0;
-		}
-	}
-
-
 	public int getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
 		return (int) CompiledQueryCache.simpleQueryForLong(
 			db,

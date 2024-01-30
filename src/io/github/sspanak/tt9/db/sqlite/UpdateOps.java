@@ -13,17 +13,24 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 public class UpdateOps {
 	private static final String LOG_TAG = UpdateOps.class.getSimpleName();
 
-	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, int position, int frequency) {
-		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
 
-		SQLiteStatement query = cache.get("UPDATE " + Tables.getWords(language.getId()) + " SET frequency = ? WHERE position = ?");
+	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, String word, int position, int frequency) {
+		String sql = "UPDATE " + Tables.getWords(language.getId()) + " SET frequency = ? WHERE position = ?";
+
+		if (word != null && !word.isEmpty()) {
+			sql += " AND word = ?";
+		}
+
+		SQLiteStatement query = CompiledQueryCache.get(db, sql);
 		query.bindLong(1, frequency);
 		query.bindLong(2, position);
-		query.execute();
+		if (word != null && !word.isEmpty()) {
+			query.bindString(3, word);
+		}
 
-		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ")");
+		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ", " + word + ")");
 
-		return cache.simpleQueryForLong("SELECT changes()", 0) > 0;
+		return query.executeUpdateDelete() > 0;
 	}
 
 
@@ -32,24 +39,21 @@ public class UpdateOps {
 			return;
 		}
 
-		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
-
-		SQLiteStatement query = cache.get("UPDATE " + Tables.getWords(langId) + " SET frequency = frequency / ?");
+		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.getWords(langId) + " SET frequency = frequency / ?");
 		query.bindLong(1, SettingsStore.WORD_FREQUENCY_NORMALIZATION_DIVIDER);
-		query.executeUpdateDelete();
+		query.execute();
 
-		query = cache.get("UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
+		query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
 		query.bindLong(1, 0);
 		query.bindLong(2, langId);
-		query.executeUpdateDelete();
+		query.execute();
 	}
 
 
 	public static void scheduleNormalization(@NonNull SQLiteDatabase db, @NonNull Language language) {
-		CompiledQueryCache cache = CompiledQueryCache.getInstance(db);
-		SQLiteStatement query = cache.get("UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
+		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
 		query.bindLong(1, 1);
 		query.bindLong(2, language.getId());
-		query.executeUpdateDelete();
+		query.execute();
 	}
 }
