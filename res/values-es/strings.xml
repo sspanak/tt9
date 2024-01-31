@@ -74,4 +74,6 @@
 	<string name="pref_dark_theme_yes">Sí</string>
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Automática</string>
+	<string name="donate_title">Donar</string>
+	<string name="donate_summary">Si te gusta %1$s, podrías apoyar su desarrollo en: %2$s.</string>
 </resources>

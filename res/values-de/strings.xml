@@ -30,4 +30,6 @@
 	<string name="pref_dark_theme_yes">Ja</string>
 	<string name="pref_dark_theme_no">Nein</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
+	<string name="donate_title">Spenden</string>
+	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie die Entwicklung auf %2$s unterstützen.</string>
 </resources>
