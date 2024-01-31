@@ -83,7 +83,7 @@ public class WordStore {
 		long wordsTime = System.currentTimeMillis() - startTime;
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
-		SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minimumWords), (int) (positionsTime + wordsTime), positions);
+		SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minWords), (int) (positionsTime + wordsTime), positions);
 
 		return words;
 	}

@@ -78,6 +78,7 @@ public class SlowQueryStats {
 
 	public static void clear() {
 		firstQueryTime = -1;
+		maxQueryTime = 0;
 		totalQueries = 0;
 		totalQueryTime = 0;
 		slowQueries.clear();

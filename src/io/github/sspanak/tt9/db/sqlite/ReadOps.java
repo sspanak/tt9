@@ -162,7 +162,7 @@ public class ReadOps {
 			sql.append(")");
 		} else {
 			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
-			sql.append(" ORDER BY start ");
+			sql.append(" ORDER BY `start` ");
 			sql.append(" LIMIT 100");
 		}
 
@@ -188,7 +188,7 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maximumWords, boolean fullOutput) {
+	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maxWords, boolean fullOutput) {
 		StringBuilder sql = new StringBuilder();
 		sql
 			.append("SELECT word");
@@ -200,12 +200,12 @@ public class ReadOps {
 			.append(" WHERE position IN(").append(positions).append(")");
 
 		if (!filter.isEmpty()) {
-			sql.append(" AND word LIKE '").append(filter).append("%'");
+			sql.append(" AND word LIKE '").append(filter.replaceAll("'", "''")).append("%'");
 		}
 
 		sql
 			.append(" ORDER BY LENGTH(word), frequency DESC")
-			.append(" LIMIT ").append(maximumWords);
+			.append(" LIMIT ").append(maxWords);
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);
