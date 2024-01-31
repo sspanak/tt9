@@ -279,7 +279,7 @@ public class SettingsStore {
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SUGGESTIONS_MAX = 20;
-	public final static int SUGGESTIONS_MIN = 0;
+	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
 	public final static int WORD_FREQUENCY_MAX = 25500;
