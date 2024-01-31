@@ -1,5 +1,6 @@
 'd
 'm
+-o
 's
 a-
 Ab
@@ -64,6 +65,7 @@ bz
 cw	44
 cx	81
 cz
+e-
 da	25
 dc	1
 ec
@@ -349,9 +351,17 @@ Yu
 yt
 yw
 zw
+-au
+-by
+-in
 'll
+'n'
+-o-
+-on
 're
+-RW
 've
+-up
 Aba
 Abb
 Bac
@@ -381,6 +391,7 @@ bar	134
 cap	122
 car	147
 Abu	25
+Bau
 act	141
 bat	117
 cat	120
@@ -389,7 +400,6 @@ Baw
 Baz
 bay	122
 caw	40
-CD-
 Ada	54
 Bea	72
 Bec
@@ -452,7 +462,6 @@ Ali	25
 all	173
 Aln
 Alt
-co-
 AOC
 Ama
 Ana	74
@@ -501,7 +510,6 @@ boy	132
 cow	107
 cox	69
 coy	64
-as-
 ASA	93
 Ara
 arc	117
@@ -652,7 +660,6 @@ fir
 fit	127
 Dix
 fix	109
-El-
 Ela
 eke	65
 eld	33
@@ -665,7 +672,6 @@ elm	92
 flu	98
 Ely	87
 fly	128
-do-
 DMA	88
 Doc	73
 Ema	48
@@ -805,7 +811,6 @@ ill	112
 Ilo
 ikr
 ily
-in-
 Ima	78
 Ina	68
 Inc
@@ -852,6 +857,7 @@ Ise
 ire	89
 Irl	83
 irk	39
+GPS	106
 IPS	82
 irs	98
 GPU	87
@@ -1074,7 +1080,6 @@ Maz
 OCZ
 may	164
 nay	72
-of-
 MFA	93
 NEC	97
 Oda
@@ -1122,7 +1127,6 @@ Olo
 olm
 NLP	83
 oks	21
-on-
 Moa	68
 NMB
 NOC
@@ -1160,6 +1164,7 @@ Ord
 ore	25
 MPI
 MSI	77
+Ori
 Osh
 mph	84
 org
@@ -1431,6 +1436,7 @@ tax	136
 Ufa	78
 tea	121
 Ted	42
+Ude
 tee	87
 Teg	37
 Tel	65
@@ -1448,6 +1454,7 @@ Tia	35
 Tib
 VGA	85
 Vic	25
+tic
 via	145
 UHD
 the	222
@@ -1475,7 +1482,6 @@ Uli
 Ulm	78
 Ulu
 TJX
-to-
 Toa
 Una	79
 Tod	38
@@ -1492,6 +1498,7 @@ Tor
 VMs	81
 Vos
 top	154
+ums
 uop
 TNT	100
 Tov
@@ -1499,7 +1506,6 @@ tot	74
 tow	104
 toy	114
 vow	97
-up-
 USA	104
 USB	106
 USC	25
@@ -1515,6 +1521,7 @@ ups	88
 TPV
 Tru
 Tsu
+Ust	80
 Ury
 try	133
 Uta	60
@@ -1539,6 +1546,7 @@ Zac
 Wad
 Wah
 Wai
+Xai
 Yai
 wag	65
 Zak	72
@@ -1625,6 +1633,13 @@ Yul	39
 wya
 Wye	71
 wyd
+-hoo
+-off
+-out
+-Pei
+-per
+-ROM
+-toc
 AABB
 ACCA	70
 ACCC	70
@@ -1763,7 +1778,6 @@ barb	70
 carb	71
 casa	71
 Aase
-care	75
 CBSE	79
 acre	109
 bard	80
@@ -1772,6 +1786,7 @@ barf	35
 base	113
 cape	99
 card	134
+care	75
 case	102
 Aari
 Bari	57
@@ -2074,6 +2089,7 @@ biol	1
 Aino
 agon
 chon	46
+choo
 cion
 BIOS	65
 Chor
@@ -2185,7 +2201,6 @@ blip	65
 clip	109
 alit	21
 clit
-all-
 Ajla
 Alka
 Alla	67
@@ -2227,7 +2242,7 @@ club	153
 Blvd	31
 blue	138
 clue	101
-cluj	78
+Cluj	78
 Alto	96
 Clun
 alum	85
@@ -3225,6 +3240,7 @@ five	157
 Divo
 dits
 fits	104
+Ditu
 Fitz	71
 ditz	38
 Diza
@@ -3662,7 +3678,6 @@ Dyan
 Ewan	71
 exam	112
 eyas
-eye-
 exec	66
 dyed	91
 eyed	102
@@ -4610,6 +4625,7 @@ jars	92
 kbps	48
 laps	109
 lass	62
+Lapu
 kart	82
 last	158
 Java	70
@@ -5284,6 +5300,7 @@ maid	103
 naif	43
 Magi	68
 Nagi
+mahi
 mail	125
 nail	100
 maim	61
@@ -5410,6 +5427,7 @@ Maya	99
 Naya
 maze	97
 naze
+Mayi
 Nazi	116
 maxi	74
 Mayo	52
@@ -5531,8 +5549,8 @@ Newf	1
 mewl	1
 odyl
 nexo	21
-News	56
 mews	57
+news	56
 newt	70
 next	154
 mica	83
@@ -5547,7 +5565,6 @@ NICs	57
 mics	65
 nibs	64
 Ohau
-mid-
 Nidd
 OHED	1
 miff	31
@@ -5657,7 +5674,6 @@ okas
 Olav	76
 mkay
 okay	132
-old-
 oked	1
 olde
 Oleg	79
@@ -5707,7 +5723,6 @@ mobs	86
 nobs	18
 moat	96
 Moby	79
-one-
 Moda
 Noda
 mode	130
@@ -5760,7 +5775,6 @@ mols
 molt	72
 moly
 only	172
-non-
 Mona	87
 Nona	63
 noma
@@ -6076,7 +6090,6 @@ Sadr
 pads	102
 rads	41
 raft	96
-PCI-
 RAIA	54
 raga	86
 saga	105
@@ -6468,6 +6481,7 @@ sham	83
 shan	70
 sian	25
 Shap
+Shar
 pics	54
 ribs	102
 sibs	39
@@ -7859,7 +7873,7 @@ wadi	70
 Xcel	52
 Yael
 Waen
-yafo
+Yafo
 WAFS	51
 wads	52
 waft	44
@@ -8046,6 +8060,7 @@ Wich
 Zhai
 wick	79
 Xian
+Xiao
 Xico
 Zhao	92
 Zibo	44
@@ -8274,6 +8289,11 @@ Wynn	82
 WWOR	70
 Wyre
 wyrd
+-back
+-away
+-down
+-over
+-per-
 Ababa	77
 abaca	62
 bacca	21
@@ -12224,7 +12244,6 @@ Dukey	25
 Fuley
 dulia	43
 Dukie	52
-full-
 dulls	44
 fulls	83
 dully	42
@@ -12478,7 +12497,6 @@ halal	74
 Halas
 galas	68
 Galax	46
-half-
 galea
 haled	31
 Galen	35
@@ -12584,7 +12602,6 @@ Harar	56
 garbs	42
 Haraz
 hapax	51
-hard-
 garda
 gaped	41
 garde	108
@@ -12700,7 +12717,6 @@ gayly	1
 icymi
 hawse	37
 gawps	1
-head-
 Hebei
 Heber
 geber	47
@@ -12914,7 +12930,6 @@ Hiern
 gifts	115
 Hiett
 gigas	70
-high-
 Iggie	18
 Higgs
 highs	99
@@ -13559,7 +13574,7 @@ Hubey	1
 Itcha
 Hubie	51
 itchy	68
-hubli	61
+Hubli	61
 Ivalo
 gucks
 hucks	10
@@ -13568,6 +13583,7 @@ Italy	128
 Ivana
 Huang	90
 Itami
+Ivano
 guano	79
 guans	58
 guard	128
@@ -13589,7 +13605,7 @@ huger	30
 ivies	18
 guild	98
 guile	67
-hugli
+Hugli
 guilt	110
 Guiol
 guise	100
@@ -14097,7 +14113,6 @@ keble	61
 leaks	94
 leaky	78
 lecky	41
-Jean-
 kebob	10
 Jeane	53
 Keane	84
@@ -14146,7 +14161,6 @@ jeers	63
 keeps	116
 leers	34
 leery	56
-left-
 Leevi
 leets	25
 lefts	37
@@ -14256,6 +14270,7 @@ Jerry	51
 Jessy	51
 Kerry	103
 lepta
+Leste
 Jesus	120
 Lepus	18
 jests	52
@@ -14340,7 +14355,6 @@ libre	80
 khasi
 liars	69
 Libya	97
-life-
 Jidda	27
 kheda
 Kidde	36
@@ -14666,7 +14680,6 @@ looby	35
 loofa	10
 Jones	125
 loner	79
-long-
 Komic
 Jonie	1
 longe
@@ -14678,7 +14691,6 @@ knoll	79
 kooks	43
 looks	125
 kooky	52
-Joon-
 lonna
 Lonni	10
 looms	87
@@ -14698,7 +14710,6 @@ knots	105
 loots	41
 Knott	71
 knout	36
-know-
 Konya	64
 Jonze
 Knowl
@@ -15165,6 +15176,7 @@ Magus	60
 obits	33
 maize	101
 Malca
+Najaf
 Malak
 malar
 Malay	101
@@ -15408,6 +15420,7 @@ Mavis	71
 maths	103
 oaths	90
 Mauka
+Mbuji
 oculi	58
 mauls	56
 maund
@@ -15836,6 +15849,7 @@ Mintz
 minty	47
 Minya
 Mirah
+Miraj
 Miran	52
 Nisan	63
 nipas
@@ -16209,7 +16223,6 @@ Orczy	45
 oread
 NSDAP	86
 order	156
-open-
 opens	119
 opera	132
 oribi
@@ -16422,6 +16435,7 @@ Ozark	77
 Ozawa	66
 nyaya
 Nydia	45
+Mwene
 Owens	94
 Nyeri
 Ozeri
@@ -16777,7 +16791,6 @@ Panza	51
 scowl	52
 Sanyo
 scows	55
-Sar-e
 Sarah	112
 parch	25
 pasch	23
@@ -17182,7 +17195,6 @@ pekan
 Selby	81
 relax	95
 relay	116
-self-
 Pelee	49
 pekes	1
 relet	18
@@ -18318,7 +18330,6 @@ Rossy	1
 poppy	73
 soppy	41
 sorry	150
-Port-
 sorta	48
 Roque
 SMPTE	74
@@ -19237,6 +19248,7 @@ tanto
 Tanya	82
 Tanza
 Vanya	59
+Vasai
 Taran
 Vasco	81
 tapas	69
@@ -19656,6 +19668,7 @@ Tisch
 Viraj
 viral	107
 Tiran	48
+Virar
 visas	93
 visby	57
 three	160
@@ -20871,6 +20884,7 @@ Zubin
 yucks	10
 yucky	39
 xterm	28
+Zuevo
 Wuhan	75
 Yuina
 yulan	1
@@ -20923,6 +20937,7 @@ Wyner	40
 Wynne	74
 Wyong
 ZyXEL
+-ching
 abacas
 abbacy	65
 cabbed	32
@@ -24569,7 +24584,6 @@ bugler	63
 bugles	63
 builds	108
 Athlon
-built-
 Bugong	1
 Atirau
 cuisse	28
@@ -25397,6 +25411,7 @@ Fazoli
 Dawsey
 Dawson	96
 Dayton	96
+Dawwar
 dazzle	70
 Fayyum
 Deccan	48
@@ -26129,7 +26144,6 @@ flanks	102
 Elanor
 elbows	83
 Flasby
-flare-
 flared	88
 flares	91
 elapid
@@ -26965,7 +26979,6 @@ drools	37
 dromon	39
 droops	50
 droopy	53
-front-
 fronts	103
 eponym	76
 eposes
@@ -32317,7 +32330,6 @@ Nicola	86
 Nicole	93
 Nicoll
 miaows
-micro-
 miasma	62
 micron	62
 miasms	30
@@ -33599,7 +33611,6 @@ scions	64
 schnoz	15
 schorl
 Schorr
-Saint-
 Sainte	90
 Scioto
 paints	99
@@ -33729,6 +33740,7 @@ sambar	68
 sambas	48
 Ramada	30
 panada
+Ramadi
 PCMCIA
 Ramage	55
 Scobie
@@ -33791,6 +33803,7 @@ ranges	123
 sanies	21
 ramify	41
 sangha	73
+Sangli
 ranine	10
 panini	50
 Samira
@@ -36177,7 +36190,7 @@ soiler	15
 smiley	69
 poilus
 Rohmer	57
-pointe	71
+Pointe	71
 points	148
 pointy	71
 smirch	10
@@ -39960,7 +39973,6 @@ whales	105
 wicker	74
 wicket	116
 Whaley	62
-Xiao-I
 Xiamen
 Xiaomi
 whammy	63
@@ -40352,6 +40364,7 @@ WQSXGA
 WQUXGA
 wryest
 yuccas	39
+Zubayr
 Zubeen
 zuchon
 yucked
@@ -40373,6 +40386,7 @@ wurzel	21
 xuthus	18
 yttria
 Zuzana	45
+Yuzhno
 Xuzhou	57
 Zwarte
 zydeco	67
@@ -40390,6 +40404,7 @@ zyrian
 Zyrtec
 xyster
 wyvern	60
+-Napoca
 Bacabal
 Babbage	56
 cabbage	93
@@ -41318,7 +41333,6 @@ Barysaw
 barytas
 barytes
 baryton
-Bau-Bau
 Caucaia
 actable	21
 catcall	23
@@ -42182,8 +42196,8 @@ chaster	10
 Chaucer	75
 Bicubic
 chateau	83
+Chatham	95
 Chauhan
-chatham	95
 ChatGPT
 Chaunce	1
 chatted	62
@@ -43604,7 +43618,6 @@ boluses	37
 colures	15
 Bolzano	67
 Colwell
-boo-hoo
 Annabel	67
 Bombala
 Annable
@@ -45725,7 +45738,6 @@ czarism	18
 czarist	54
 cyathus
 azawakh
-Aye-aye
 Czechia
 axehead	39
 Byfield
@@ -46653,6 +46665,7 @@ deposes	40
 deposit	110
 deports	33
 despair	101
+Ferrand
 Ferrara	84
 Ferrari	98
 Ferraro	64
@@ -46845,6 +46858,7 @@ fibrose	1
 fibrous	91
 diaster
 fibster
+Dharwad
 dictate	92
 fictile
 diction	85
@@ -47726,7 +47740,6 @@ dolling	23
 dollish
 folkish	53
 dollops	35
-follow-
 follows	139
 Folkson
 folkway	1
@@ -47983,7 +47996,6 @@ douched	1
 dotages	21
 douches	30
 entails	94
-double-
 doubled	113
 doubler	58
 doubles	119
@@ -49389,6 +49401,7 @@ Garrott	10
 harrows	48
 Harvard	115
 hastate	35
+Gasteiz
 hastens	53
 garters	58
 harvest	110
@@ -51751,6 +51764,7 @@ Janelle	63
 landman
 landmen
 Kaneohe
+Kamensk
 laments	88
 Landown	1
 kamerad
@@ -52215,6 +52229,7 @@ Lemesos
 Jenifer	54
 lenient	86
 Jenilee	28
+Leninsk
 Jemison
 lengths	113
 lengthy	115
@@ -52731,7 +52746,6 @@ kitbags	10
 livable	70
 kitchen	116
 litchis	21
-Lite-on
 livened	43
 literal	108
 livered	30
@@ -55560,7 +55574,6 @@ operose
 Orestes	65
 oresund	44
 ordures	15
-Ori-Pei
 organdy	31
 organic	123
 organon
@@ -58898,7 +58911,6 @@ pinging	53
 ringing	97
 singing	133
 similar	152
-single-
 singled	98
 similes	62
 singles	136
@@ -62746,7 +62758,6 @@ TextNow	25
 Textron	55
 textual	99
 texture	109
-tic-toc
 Tibbals
 Tibbets
 Tibbett
@@ -63129,7 +63140,7 @@ titmice	66
 titoism	33
 thumped	56
 thumper	42
-vitoria	64
+Vitoria	64
 Thurber	62
 vitrain	1
 titrant
@@ -63696,7 +63707,6 @@ unwraps	44
 towpath	81
 toyshop	39
 towrope	30
-TP-Link
 tracers	68
 tracery	78
 trachea	81
@@ -63728,6 +63738,7 @@ traitor	99
 traject	1
 uralian
 uralite
+Uralsky
 tramcar	67
 trances	60
 usances
@@ -64315,7 +64326,6 @@ Waering
 waftage
 wafting	48
 wafture
-Xai-Xai
 zagazig
 Zahedan
 waifish
@@ -64454,6 +64464,7 @@ warbles	46
 Warboys
 Wasatch
 Warburg	72
+Zaqaziq
 yardage	85
 warfare	122
 yardarm	51
@@ -65202,6 +65213,7 @@ wordily	10
 wording	97
 WordNet	59
 Yoshiko	10
+Yoshkar
 workbag	1
 Worland
 workbox	1
@@ -65341,6 +65353,7 @@ zyrians
 WYSIWYG	74
 wyverns	49
 zyzzyva	10
+-through
 Ba'qubah
 abbacies	42
 cabbages	64
@@ -68041,6 +68054,7 @@ clerihew	25
 Aleshire
 clerking	57
 Bjerknes
+Clermont
 blessers	1
 blessing	107
 cleruchy	30
@@ -68378,7 +68392,6 @@ clypeate
 alyssums
 clysters
 Blystone
-An-Najaf
 bocaccio	34
 anabaena
 Coacalco
@@ -71796,6 +71809,7 @@ deigning	15
 feigning	76
 dehisced	1
 dehisces	33
+Dehiwala
 Degloved	1
 Feinberg
 Edinburg
@@ -75998,7 +76012,6 @@ illusory	81
 illuvial	32
 illuvium	1
 illyrian	76
-Global-e
 globally	105
 gloaming	23
 gloating	64
@@ -81190,6 +81203,7 @@ ordinals	79
 ordinand
 ordinary	124
 ordinate	84
+Orekhovo
 openable	42
 opencast	66
 ordnance	97
@@ -84396,7 +84410,6 @@ Shantira
 phantoms	62
 Shantung	10
 Shaoxing
-shar-pei
 sharable	37
 pharaohs	63
 Shapcott
@@ -89492,7 +89505,6 @@ Vladimir	103
 ulcerate	35
 ulcering	1
 ulcerous	31
-Ulan-Ude
 Vlaminck	37
 ulbricht	55
 tlaxcala	60
@@ -92832,7 +92844,6 @@ bayoneted	65
 abysmally	46
 Abyssinia	69
 Cawthorne
-ad-Dawwar
 beccafico	10
 beachcomb	15
 beachhead	85
@@ -92890,7 +92901,6 @@ beatitude	46
 Ceausescu	21
 beauteous	46
 beautiful	129
-bee-eater
 beechnuts	36
 beechwood	50
 befalling	52
@@ -93645,6 +93655,7 @@ chinkiang	23
 chimneyed	18
 chinookan
 bigmouths	1
+Chinsurah
 chinstrap	57
 agiotages
 bigotries	10
@@ -93762,7 +93773,6 @@ aimlessly	73
 biologics	61
 biologist	98
 Choluteca
-choo-choo
 cinnabars	1
 binnacles	11
 cinnamons	10
@@ -95818,7 +95828,6 @@ anythings
 boxthorns
 boxweiler
 anywheres
-Ar-Ramadi
 crabbedly
 crabbiest
 brabbling
@@ -96771,7 +96780,6 @@ cuirasses	52
 Cuisinart	1
 buhrstone	15
 avirulent
-Aviv-Yafo
 augustest
 Augustina	32
 Augustine	95
@@ -97087,7 +97095,6 @@ buxomness
 Buxtehude	53
 buzzkills
 buzzwords	52
-Az-Zubayr
 cybercafe
 Cyberdyne	34
 cybernaut
@@ -99741,6 +99748,7 @@ Franglais	32
 Frankford	71
 Frankfort	77
 Frankfurt	103
+Frankivsk
 Frankland
 franklins	21
 escollope
@@ -103484,7 +103492,6 @@ lassitude	46
 Kassovitz
 lapstrake	32
 larruping
-Lapu-Lapu
 Kartalian
 Kastamonu
 larvicide
@@ -103662,7 +103669,6 @@ lemniscus
 lemonades	28
 leotarded
 kentledge
-ker-ching
 kerchiefs	48
 jeraldine
 Lescoulie
@@ -104432,6 +104438,7 @@ lutherans	78
 luxations
 kuybyshev	46
 luxemburg	71
+Kuznetsky
 juxtapose	60
 luxuriant	69
 luxuriate	28
@@ -104615,7 +104622,6 @@ Magdeburg	80
 Nagercoli
 maidstone	81
 Maiduguri	39
-mahi-mahi
 magically	89
 magicians	91
 Maghaghah
@@ -104934,6 +104940,7 @@ masinissa
 mariology	34
 margraves	69
 Margrethe
+Nasiriyah
 mariposas	25
 maritally	31
 Mariveles
@@ -116580,7 +116587,6 @@ bargeboard	21
 abridgment	65
 cashiering	37
 basilicata	59
-Basin-Rose
 Barinholtz
 Acrimonies	1
 barhopping	18
@@ -120396,7 +120402,6 @@ buttressed	70
 buttresses	85
 auxochrome
 atypically	60
-Az-Zaqaziq
 cybercafes
 CyberAgent
 cybercrime	52
@@ -126730,7 +126735,6 @@ nativeness	27
 nativistic
 nativities	27
 ocularists	15
-Mbuji-Mayi
 oculomotor
 maulsticks
 naumachias	1
@@ -127524,7 +127528,6 @@ olivaceous	51
 Oklahomans	44
 Nkongsamba
 Oktyabrsky
-no-see-ums
 mocambique
 mobilisers	15
 mobilising	67
@@ -128397,7 +128400,6 @@ myasthenia
 myasthenic
 nyctalopia
 Myelograms	1
-Mwene-Ditu
 Oxfordians	37
 oxidations	55
 oxidimetry
@@ -128689,6 +128691,7 @@ salesrooms	30
 Palestrina	65
 saleswoman	61
 saleswomen	31
+Sakhalinsk
 salicylate
 saliferous
 saliencies
@@ -131558,7 +131561,6 @@ Postlewait
 portliness	10
 postliminy
 populistic
-Porto-Novo
 portocaval	1
 portobello	25
 postmarked	62
@@ -137378,7 +137380,6 @@ Alverthorpe
 Bluethroats	1
 bluetongues	1
 altitudinal
-Cluj-Napoca
 altocumulus
 blunderbuss	56
 blunderings	15
@@ -142944,6 +142945,7 @@ lamelliform
 landlordism	50
 landlubbers	25
 landmarking	40
+Kamenogorsk
 lamentation	65
 landownings	15
 landscapers	45
@@ -146972,7 +146974,6 @@ sociometric	33
 sociopathic	69
 sociosexual	15
 Snaizeholme
-rock'n'roll
 Rockefeller	94
 sockdolager	10
 snakestones	23
@@ -148710,7 +148711,6 @@ tantalising	52
 tantalizers	1
 tantalizing	64
 taradiddles
-Vasai-Virar
 Vasconcelos
 tarbosaurus
 tarantellas	18
@@ -149076,7 +149076,6 @@ vinificator
 violability	1
 violincello
 violoncello	64
-Timor-Leste
 Thoothkkudi
 thoracotomy
 thoreauvian
@@ -150411,7 +150410,6 @@ zoomorphism	18
 zooplankton	79
 zootechnics	15
 WordPerfect	73
-Yoshkar-Ola
 workability	55
 workbaskets
 workbenches	44
@@ -150984,7 +150982,6 @@ charterhouse	47
 chastisement	56
 chartography
 chauffeuring	35
-Chatham-Kent
 chaulmoogras
 bibulousness	1
 biauriculate
@@ -151310,7 +151307,6 @@ blueprinting	43
 bluestocking	40
 blunderingly
 Clytemnestra	56
-An-Nasiriyah
 anachronisms	71
 cobblestoned	45
 cobblestones	66
@@ -156674,7 +156670,6 @@ sandrocottus
 rangefinders	69
 ramification	64
 panhellenism	1
-Sangli-Miraj
 sanguinarily
 sanguineness
 sanguinities
@@ -157573,7 +157568,6 @@ shadowboxing	31
 shadowgraphs
 Shahjahanpur
 phagocytosis
-Shahr-e-Kord
 pickabacking
 pickaninnies
 Rickenbacker	71
@@ -157893,7 +157887,6 @@ snickeringly
 sniggeringly	1
 smilacaceous
 poikilotherm
-Pointe-Noire
 pointilliste
 pointillists	1
 polarimeters
@@ -163005,7 +162998,6 @@ irretrievable	53
 irretrievably	63
 irritableness
 gubernatorial	103
-Hubli-Dharwad
 italicization	23
 huckleberries	46
 guardianships	37
@@ -164033,7 +164025,6 @@ mythographers	52
 mythologising	35
 mythologizing	45
 saccharometer
-saber-toothed
 sacerdotalism	35
 sacerdotalist	1
 racialization
@@ -164072,7 +164063,6 @@ schizophrenic	81
 schizothymias
 Schlingensief
 Schofferhofer
-scimitar-oryx
 scholarliness	18
 scholasticate
 scholasticism	66
@@ -166386,7 +166376,6 @@ calligraphists	15
 acknowledgment	88
 balsaminaceous
 cambridgeshire	85
-Bandar-e-Abbas
 Camelopardalis
 canonicalizing	10
 campanological	10
@@ -167119,7 +167108,6 @@ efflorescences	15
 deforestations	10
 effortlessness	33
 degenerateness
-Dehiwala-Mount
 deipnosophists
 dehumanisation	35
 dehumanization	58
@@ -167745,7 +167733,6 @@ ingratiatingly	23
 iniquitousness
 initialisation	46
 initialization	78
-Gonbad-e-Kavus
 Goobarragandra
 immaculateness	1
 immaterialized
@@ -168371,7 +168358,6 @@ mountaineering	90
 orchestrations	79
 orchidectomies
 oscillographic	15
-Orekhovo-Zuevo
 openhandedness
 operationalism	32
 operationalize	49
@@ -169076,7 +169062,6 @@ sophistication	92
 sophomorically
 pornographical	15
 possessiveness	55
-Port-au-Prince
 postadolescent
 postanesthetic	10
 postcollegiate
@@ -169947,7 +169932,6 @@ achondroplasias
 acknowledgeable	1
 acknowledgement	88
 acknowledgments	67
-Bandar-e-Anzali
 cannibalisation	28
 cannibalization	50
 barbarousnesses
@@ -170829,9 +170813,7 @@ irreparableness
 irresistibility	23
 irreversibility	56
 irrevocableness
-Ivano-Frankivsk
 Itaquaquecetuba
-Hugli-Chinsurah
 Huitzilopotchli
 humanitarianism	61
 huntingdonshire	66
@@ -170866,7 +170848,6 @@ lackadaisically	10
 lactovegetarian	1
 labyrinthodonts
 kaffeeklatsches	1
-Kamensk-Uralsky
 latitudinarians	30
 Jayawardanapura
 lepidopterology
@@ -170905,7 +170886,6 @@ maneuverability	87
 manoeuvrability	71
 masculinization	56
 observationally	49
-Napier-Hastings
 marginalisation	58
 marginalization	75
 masochistically	27
@@ -171709,7 +171689,6 @@ thromboplastins
 Tiruchirappalli
 vivisectionists	40
 thunderstricken
-Vitoria-Gasteiz
 ultracentrifuge
 ultrafiltration	53
 ultramicrometer
@@ -171866,7 +171845,6 @@ troubleshooting	74
 troublesomeness	1
 upperclasswoman
 upperclasswomen
-Ust-Kamenogorsk
 trustworthiness	68
 trypanosomiasis
 vulnerabilities	87
@@ -171951,7 +171929,6 @@ chromolithograph
 chronometrically	30
 chryselephantine
 Clackmannanshire	56
-Clermont-Ferrand
 climatologically	28
 clitoridectomies	15
 alliterativeness
@@ -172863,7 +172840,6 @@ Zheleznodorozhny
 wholeheartedness	1
 acanthopterygians
 bacteriologically	23
-Bandar-e-Mahshahr
 cannibalistically	10
 acquaintanceships	18
 bibliographically	27
@@ -173143,7 +173119,6 @@ hyposensitization	23
 lackadaisicalness
 kaleidoscopically	31
 latitudinarianism	35
-Leninsk-Kuznetsky
 lexicographically	48
 lightheadednesses
 knowledgeableness	1
@@ -173396,7 +173371,6 @@ triskaidekaphobia
 turbosupercharged	27
 turbosupercharger	46
 Zoogeographically	1
-Yuzhno-Sakhalinsk
 aerothermodynamics
 characteristically	91
 chemiluminescences

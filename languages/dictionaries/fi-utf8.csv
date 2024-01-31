@@ -189,6 +189,7 @@ IK	111
 il
 GM	105
 GN	83
+Go
 HM	92
 hn	52
 ho	77
@@ -257,6 +258,7 @@ jo	172
 kN	92
 km	160
 ko	115
+lo
 JP	94
 JS	82
 KP	91
@@ -537,7 +539,11 @@ ZX	95
 ZZ	102
 ww	57
 zw
-B-V	90
+-by
+-in
+-La
+-RW
+-TV
 AAA	89
 AAC	85
 ABA	89
@@ -562,6 +568,7 @@ CAD	84
 CAE	57
 CAF	85
 CBE	100
+CCD
 abd	43
 ACI	63
 aah	43
@@ -611,7 +618,6 @@ BBY	86
 Bax	52
 Bay	112
 Cay	69
-CD-
 AEA	60
 AEC	80
 AFA	57
@@ -644,10 +650,10 @@ bel	82
 ADO	89
 AFM	81
 BDM	81
+Ben	95
 CEN	70
 CEO	70
 CFM	57
-ben	95
 ADP	87
 ADR	69
 ADS	67
@@ -708,7 +714,6 @@ AIT	75
 chu	57
 Aix	63
 biz
-al-
 BJB	76
 CLA	75
 aja	90
@@ -724,6 +729,7 @@ Aki	106
 ali	100
 AKK	83
 alk	110
+all
 Alm	67
 ajo	101
 AKP	79
@@ -733,6 +739,7 @@ AKT	80
 ALV	80
 Aku	120
 BKT	109
+Blu
 Clu	60
 alt	84
 ÄKT	86
@@ -839,6 +846,7 @@ ASO	81
 BPM	82
 BRM	89
 CSM	83
+Cro
 CsO	72
 apo	60
 aro	81
@@ -863,7 +871,6 @@ asu	108
 brt	87
 cru	63
 CSX	82
-AT-
 ATA	80
 ATB	76
 AUC	80
@@ -1006,7 +1013,6 @@ dev	63
 edu	73
 Fey	67
 Fez	43
-ei-
 DHA	78
 DiC	75
 Dib	60
@@ -1069,7 +1075,6 @@ eKr	63
 els	57
 DKW	86
 ely	43
-EM-
 DMA	78
 DMC	80
 DNA	123
@@ -1303,7 +1308,6 @@ HDZ	89
 HEW	76
 Hex	60
 hey	67
-HI-
 GiB	67
 IHC	75
 IgA	77
@@ -2044,9 +2048,9 @@ OYS	74
 nyt	148
 OYY	79
 myy	119
-PAC	94
 PCA	82
 PCB	74
+Pac	94
 RAC	74
 RBC	81
 RCA	102
@@ -2708,6 +2712,7 @@ WAD	67
 Yad	70
 wah	77
 WBK	80
+Wal
 Zak	82
 WBO	91
 ZAO	85
@@ -2788,6 +2793,13 @@ XXe	57
 XYZ	70
 ZYX	77
 www	114
+-cha
+-Chi
+-Doo
+-Hur
+-off
+-ray
+-ROM
 ABBA	92
 baba	52
 ABCD	74
@@ -2837,7 +2849,7 @@ bang	67
 bani	52
 ääni	131
 bank	76
-aamu	99
+Aamu	99
 Abra	63
 aapa	43
 bara	69
@@ -2899,7 +2911,6 @@ Behn	63
 bein	57
 Bela	87
 bell	73
-Ben-
 Benc	52
 CDMA	78
 ADOM	69
@@ -3048,7 +3059,6 @@ alin	110
 Akis	52
 Alix	73
 Blix	57
-All-
 akka	79
 alla	148
 alle	156
@@ -3091,7 +3101,7 @@ Boba	72
 Boca	85
 CNBC	83
 Cobb	81
-coca	74
+Coca	74
 Bobi	81
 Anal	65
 Bock	84
@@ -3317,6 +3327,7 @@ arvo	134
 asun	100
 brun	43
 Asus	67
+arts
 astu	60
 asut	92
 asuu	150
@@ -3380,6 +3391,7 @@ Auvo	77
 auto	134
 avun	109
 AVUS	67
+butt
 Butz	57
 buzz	52
 Awan	69
@@ -3413,6 +3425,7 @@ Dali	60
 Falk	77
 Daly	83
 Dana	94
+Dame
 fang	60
 fani	95
 Dano	52
@@ -3762,7 +3775,6 @@ Evan	94
 evän	70
 etat	60
 evät	103
-DVD-
 Duda	60
 Duff	95
 dude	57
@@ -3857,6 +3869,7 @@ häkä	84
 Hale	87
 gale	52
 hake	72
+half
 Haji	67
 gali	43
 haki	125
@@ -3925,6 +3938,7 @@ hawk	57
 Gayn	60
 Hawn	52
 Hayn	43
+head
 Heck	65
 Idan	63
 idän	116
@@ -3955,7 +3969,6 @@ hell	75
 Heko	63
 helo	43
 hely	52
-GEO-
 Gena	65
 Gene	106
 HDMI	80
@@ -4050,7 +4063,6 @@ hiro	43
 IISS	65
 hiss	43
 Hirt	52
-HIV-
 Iita	57
 Iivo	73
 hius	76
@@ -4294,7 +4306,6 @@ hyve	97
 GWth	74
 IXUS	73
 Izzy	77
-J-op	69
 Jaak	72
 Jack	126
 kcal	86
@@ -5639,7 +5650,7 @@ Pisa	80
 RISC	78
 Ripa	67
 risa	43
-sisä	110
+sisä
 Siri	74
 piri	60
 sipi	52
@@ -6343,10 +6354,12 @@ Welt	77
 WESC	72
 zero	72
 West	121
+Zeta
 Zeus	102
 Zhao	81
 Zian	63
 xiao	52
+WiFi
 Wien	101
 zhen	60
 yhdy	70
@@ -6426,6 +6439,9 @@ Yuma	52
 WUSB	75
 yuri	57
 WWFn	60
+-Doon
+-line
+-joen
 CABAL	77
 Abban	76
 Abbas	87
@@ -6618,6 +6634,7 @@ bebop	79
 BeBox	74
 beard	43
 Beate	65
+beaux
 beech	43
 Addie	72
 Addio	57
@@ -6805,7 +6822,7 @@ aisat	77
 Aires	89
 Airey	74
 Aisha	65
-airin	57
+Airin	57
 Chris	120
 Birka	87
 airoa	73
@@ -6998,7 +7015,6 @@ Altyn	65
 Clyde	85
 Blyth	76
 älyyn	60
-Co-Co	74
 Bobbi	52
 Anaal	60
 Boban	67
@@ -7602,6 +7618,7 @@ Falun	90
 danae	43
 Danan	63
 Damas	57
+Damen
 Eames	60
 dandy	63
 Damia	57
@@ -8099,6 +8116,7 @@ erinä	67
 esine	114
 Fripp	80
 esitä	93
+drive
 erite	82
 esite	63
 Frits	57
@@ -8678,8 +8696,6 @@ Hetta	67
 Getty	74
 Hewel	63
 Hexen	67
-hi-lo	77
-Hi-MD	78
 Gibbs	77
 Hicks	83
 ghana	43
@@ -8809,7 +8825,6 @@ iltaa	95
 Gluck	70
 ilves	90
 Glynn	52
-Go-Go	76
 Gobbi	52
 Hobbs	65
 GMail	72
@@ -8916,6 +8931,7 @@ Iosif	69
 Gorin	80
 Impiö	65
 Iorin	57
+hopin
 Gorka	63
 Gorki	83
 Gorky	52
@@ -9193,7 +9209,6 @@ Izumi	76
 hytti	82
 Hywel	43
 Izzie	83
-J-ock	57
 Jabba	72
 Jabal	60
 laban	43
@@ -11727,8 +11742,8 @@ onton	83
 Mount	107
 ontot	73
 Moura	60
+Notre	72
 mouse	65
-notre	72
 nouse	101
 nousi	159
 nousu	126
@@ -13049,7 +13064,6 @@ slovo	52
 Pjotr	100
 Pluto	89
 skype	80
-ro-ro	79
 snack	43
 Rocco	77
 Robby	76
@@ -13221,6 +13235,7 @@ Ponte	83
 Ponti	60
 romun	73
 romut	70
+Ponty
 Sonya	60
 Snowe	60
 Ponzi	77
@@ -14824,6 +14839,7 @@ Wajda	67
 Waldo	83
 Yalen	98
 wales	60
+Walid
 Zakin	60
 walla	52
 Walki	43
@@ -14861,7 +14877,6 @@ Zenit	83
 Zenon	93
 Wesen	60
 Xerox	76
-Wi-Fi	90
 Zhang	92
 Zhaon	63
 wheel	57
@@ -14918,7 +14933,6 @@ ylväs	81
 yltyä	67
 yltyi	87
 yltyy	78
-Yo-Yo	82
 Yodan	70
 yogan	75
 yöhön	93
@@ -15058,7 +15072,6 @@ aaltoa	94
 Baltsa	43
 Bakuun	72
 Balzac	63
-Can-Am	85
 Bambin	57
 Canale	63
 Cancri	69
@@ -15381,6 +15394,7 @@ Chanel	83
 Chaney	76
 chanin	52
 Ciampi	63
+Champs
 Chasen	78
 Chapin	65
 Charly	69
@@ -15836,7 +15850,7 @@ Anatol	52
 Bocuse	60
 Coburg	60
 Coburn	69
-amazon	57
+Amazon	57
 Ameche	60
 Coffey	69
 Coddin	57
@@ -16410,6 +16424,7 @@ Arusha	43
 apuria	76
 Astrid	95
 apurin	78
+artsin
 apurit	81
 Crusoe	70
 Bruson	43
@@ -17276,7 +17291,6 @@ Fowles	52
 Downes	67
 downer	43
 Downey	80
-DR-DOS	72
 draama	101
 eräänä	121
 Dracon	69
@@ -18885,7 +18899,7 @@ huilut	72
 huimaa	84
 huiman	85
 huimat	88
-guinea	52
+Guinea	52
 huimia	82
 huippu	121
 huipun	106
@@ -19079,10 +19093,10 @@ Hyytiä	63
 hyytyä	65
 hyytyi	89
 hyytyy	76
-J-opin	60
 Jabban	63
 Kaaban	75
 Laaban	57
+Jabbar
 jääden	113
 kaadon	60
 kaadot	63
@@ -22964,7 +22978,7 @@ Mexico	98
 Newman	88
 Newsin	78
 NeXTin	76
-newton	73
+Newton	73
 Michel	109
 Mickey	94
 nickiä	60
@@ -22974,6 +22988,7 @@ miamit	76
 Nicola	89
 Nicole	104
 Nicolo	57
+middle
 miedon	82
 miehen	144
 miehet	137
@@ -24215,7 +24230,6 @@ paduan	43
 paeten	84
 Raduga	60
 säettä	92
-sci-fi	85
 pahaan	100
 rahaan	81
 sahaan	63
@@ -25659,6 +25673,7 @@ pinota	74
 rimpiä	60
 shopin	43
 shopit	57
+Rimski
 Simson	67
 Riossa	65
 pintaa	119
@@ -25992,7 +26007,6 @@ pölkky	57
 Rollon	65
 pöllön	83
 pöllöt	77
-Rolls-
 polkua	93
 Pollyn	60
 pölkyt	65
@@ -26100,8 +26114,8 @@ pontta	85
 Rontti	69
 pönttö	63
 Pontus	81
+Pontyn
 Rooyen	43
-Ponzi-
 Ponzin	69
 PopCap	77
 sorbin	69
@@ -29321,7 +29335,6 @@ Canonin	77
 Campion	69
 abortin	98
 abortti	85
-Aamu-TV	82
 ääntään	102
 Canucks	80
 äänteen	94
@@ -29605,6 +29618,7 @@ Berkman	60
 aerobic	63
 Bernard	110
 Bernart	43
+Berners
 Bernice	60
 Berniin	63
 CERNiin	69
@@ -29631,7 +29645,6 @@ betonin	97
 Bettini	67
 adygeit	63
 Beyonce
-cha-cha	67
 Chabert	57
 Chabrol	57
 agaaven	60
@@ -29716,7 +29729,6 @@ Ahernin	63
 ahertaa	60
 Chester	90
 Chevron	60
-Chi-Chi	76
 Bihacin	60
 Chicago	115
 Chichen
@@ -30170,7 +30182,6 @@ Alpolan	63
 alppeja	43
 alppien	73
 akryyli	72
-Blu-ray	70
 Blucher
 Clubiin	72
 altaita	82
@@ -31138,6 +31149,7 @@ cupista	79
 Buskens
 Burleyn	57
 Burkina	99
+curling
 Burmaan	69
 Burnett	76
 Burnham	65
@@ -31528,7 +31540,6 @@ dharman	60
 fiction	109
 eheäksi	60
 Fieandt	77
-Eiffel-
 Diddley	67
 Fidelio	67
 fidelis	52
@@ -31549,6 +31560,7 @@ ehdosta	76
 ehdoton	111
 ehdotti	130
 ehdotus	112
+Dieskau
 Dieppen	69
 Dietmar	65
 eheyden	79
@@ -31794,6 +31806,7 @@ flunssa	69
 elvytti	93
 elvytys	78
 Flynnin	70
+Elysees
 Elysium	60
 emäalus	65
 emäänsä	63
@@ -35943,6 +35956,8 @@ kidassa	74
 liedejä	83
 Liddell	83
 Lifellä	43
+Lifessa
+Lifessä
 Kieftin	60
 kidettä	72
 Liegeen
@@ -36004,6 +36019,7 @@ liiaksi	101
 liialta	69
 Liianko	43
 kiharat	82
+Ligassa
 lihassa	90
 lihasta	102
 liiasta	91
@@ -37094,7 +37110,6 @@ Kuchler
 Lucille	80
 Lucinda	65
 kubismi	80
-Kublai-
 kvaliat	73
 Lucknow	57
 Luandan	60
@@ -38002,6 +38017,7 @@ Mahfouz	57
 magiaan	81
 magicin	43
 Maggien	82
+Maginot
 Maigret	72
 naiivia	69
 naiivin	80
@@ -39194,7 +39210,6 @@ oluiden	80
 oltuaan	124
 olympia	60
 Olympos	60
-on-line	60
 omaakin	72
 omaansa	95
 omaavaa	93
@@ -40067,7 +40082,6 @@ myytiin	142
 myyttiä	89
 myytyjä	76
 myytyyn	60
-Pac-Man	88
 Rabbani	70
 Sabbath	96
 rabbien	73
@@ -41786,6 +41800,7 @@ Rickert	57
 Pickett	85
 Shakira	67
 shakkia	102
+Shangri
 Shankar	67
 piankin	81
 Ricolla	67
@@ -41846,7 +41861,7 @@ Riemann	67
 pieneen	119
 pienenä	114
 pieneni	105
-siemens	70
+Siemens	70
 pienetä	70
 Sidneyn	52
 pienien	95
@@ -42187,7 +42202,6 @@ pinosta	73
 Piontek	57
 Simpele	69
 pinseri	60
-Rimski-
 Simpkin	52
 Simpson	99
 shortin	43
@@ -45838,7 +45852,6 @@ Tonylle	60
 toscana	43
 torakat	72
 torakka	69
-tosi-tv	84
 tosiaan	89
 Toshiba	69
 Toshiko	52
@@ -46910,6 +46923,7 @@ Wylerin	52
 Wyndham	69
 Wyoming	72
 Yyterin	75
+-offissa
 Babbagen	63
 baccarat	60
 Baabelin	79
@@ -47300,6 +47314,7 @@ Bellucci	67
 Beloitin	72
 Belmondo	72
 Belmonte	63
+Belsenin
 Celticiä	63
 Celticin	76
 Beltoise	57
@@ -47709,7 +47724,6 @@ bittinen	79
 Bittipää	63
 bittistä	65
 Bizkitin	70
-Al-Walid	70
 Albacete	60
 Ajaccion	60
 Alabaman	95
@@ -47984,7 +47998,6 @@ alkuperä	127
 alkuteos	100
 alkutila	73
 alkuunsa	94
-Alma-Ata	73
 Almagron	67
 Almaviva	43
 Almeriaa
@@ -48036,7 +48049,6 @@ Alphonse	82
 Alphonso	63
 Alppilan	65
 akryyliä	60
-Blu-rayn	57
 altaalla	78
 altaalle	60
 altaaksi	70
@@ -48911,6 +48923,7 @@ apureita	78
 Astridin	63
 apuriksi	75
 apurinsa	93
+artsissa
 Åströmin	69
 asussaan	98
 asustaan	63
@@ -49241,7 +49254,6 @@ ayrshire	60
 Cyruksen	60
 Bystrica	60
 E-sarjan	63
-FA-cupin	72
 facebook	85
 facelift	81
 Fabergen
@@ -49267,7 +49279,6 @@ Eaglesin	74
 Dahlgren	63
 Dagobert	76
 Dahmerin	69
-Daimler-
 Dahomeyn	60
 fagottia	77
 Faisalin	63
@@ -49862,7 +49873,6 @@ Flyersia	63
 Flyersin	85
 Elwoodin	74
 flyygeli	69
-FM-radio	67
 Döbelnin	72
 Emberiza	69
 fobioita	75
@@ -50034,7 +50044,6 @@ FOXHOUND	85
 Fowlerin	57
 Downissa	60
 download	57
-Es-duuri	65
 draamaan	86
 eräänkin	52
 Draconis	63
@@ -50186,8 +50195,6 @@ eripuran	60
 esivaali	67
 esivaihe	65
 esivalta	81
-drive-by	43
-Drive-In	74
 epiteeli	75
 eritellä	86
 esitellä	107
@@ -58824,6 +58831,7 @@ mainitut	118
 näinkään	60
 magnolia	43
 mahonkia	70
+Magnonin
 mainonta	85
 mainosta	88
 mainosti	93
@@ -65571,7 +65579,6 @@ Sphagnum	79
 Priestin	88
 prikaati	107
 Spillane	60
-spin-off	97
 princess	69
 Primakov	67
 spinelli	63
@@ -70660,7 +70667,6 @@ Zagrebin	84
 Zairessa	63
 Zairesta	52
 Zaitseva	57
-Wal-Mart	78
 Zakarian	57
 Waldemar	91
 Waldenin	75
@@ -71061,7 +71067,6 @@ cabriolet	75
 Acapulcon	63
 babylonia	43
 babylonin	52
-CCD-kenno	77
 Abdelaziz	67
 Badenissa	65
 Abdilaziz	63
@@ -71423,7 +71428,6 @@ Adidaksen	70
 Beheritin	60
 Beijingin	63
 Beirutiin	70
-Bel-Airin	85
 Belafonte	73
 celebrity	43
 Belfastin	77
@@ -72320,7 +72324,6 @@ alzheimer	43
 älymystöä	81
 älymystön	94
 älyttömän	67
-Coca-Cola	102
 Boccaccio	63
 Bocanegra	60
 Cobelfret	57
@@ -73393,7 +73396,6 @@ avustavat	94
 avustavia	81
 avustivat	97
 avustusta	97
-Butt-head	60
 auttaakin	65
 autuaaksi	92
 autuaasti	60
@@ -73829,6 +73831,7 @@ Ehrenfest	73
 Firenzeen	87
 Dirichlet	72
 Fishburne	60
+Eishockey
 Fiskarsin	80
 diskoissa	67
 diskurssi	70
@@ -76084,7 +76087,6 @@ hintoihin	89
 Hintsanen	65
 ihottumaa	87
 ihottuman	73
-hip-hopin	73
 Iisalmeen	72
 Hipgnosis	57
 hiphoppia	72
@@ -85788,7 +85790,6 @@ myyttisen	95
 myyttiset	83
 myyttisiä	92
 myyttistä	92
-Pac-Manin	73
 Sabbathia	65
 Sabbathin	95
 Sabbatini	43
@@ -90327,7 +90328,6 @@ sukiminen	52
 sukimista	60
 pukinmäen	43
 Pukinmäki	60
-Pulitzer-
 suklaalla	75
 suklaasta	77
 sulkasato	99
@@ -96381,7 +96381,6 @@ Beaumontin	60
 Beauregard	77
 Ceausescun
 Beauvoirin	65
-Beaux-Arts	88
 Beechcraft	65
 Cederström	67
 Adelcrantz	63
@@ -97210,8 +97209,6 @@ akuuteista	60
 älykkyyttä	96
 älymystöön	82
 älypuhelin	82
-Coca-Colaa	79
-Coca-Colan	87
 Boccaccion	60
 Boccherini	57
 anabolinen	70
@@ -99735,7 +99732,6 @@ hajautettu	92
 hajautetut	65
 Hakavuoren	52
 hajautunut	72
-Half-Lifen	94
 hakeakseen	75
 häkeltynyt	60
 hakeneista	72
@@ -102168,7 +102164,6 @@ lähettävää	65
 lähettävän	84
 lähettävät	108
 lähettäviä	69
-lähetti-NA	78
 lähettiläs	104
 lähettikin	80
 lähettimen	86
@@ -110308,7 +110303,6 @@ motoristen	76
 motoristin	57
 motoristit	57
 Mountainin	80
-Notre-Dame	88
 nousemalla	89
 nousemassa	94
 nousemasta	81
@@ -112636,7 +112630,6 @@ sanoakseen	60
 Sammartini	43
 Sammatissa	65
 Sammattiin	43
-Scooby-Doo	105
 rannekello	74
 ranneketta	73
 ranneliike	43
@@ -114170,7 +114163,6 @@ Richelieun	78
 Richmondin	76
 Richthofen	75
 shamaanien	77
-Shangri-La	77
 pianisteja	70
 pianistien	79
 pianistina	104
@@ -122106,7 +122098,6 @@ Westermann	57
 Wertheimer	57
 Westportin	43
 Westwoodin	57
-Zeta-Jones	77
 Weurlander	57
 Zetterberg	69
 Wetterhoff	72
@@ -122849,7 +122840,6 @@ Berlusconin	84
 Bernabeulla
 Bernadotten	67
 Bernardinon	57
-Berners-Lee	80
 Berndtsonin	63
 aerosmithin	43
 Bernsteinin	78
@@ -122858,7 +122848,6 @@ Cervantesin	77
 Bertoluccin	57
 berylliumia	69
 berylliumin	74
-beta-versio	77
 adventistit	78
 adverbiaali	60
 Bethesdassa	60
@@ -123561,7 +123550,6 @@ anatomiassa	83
 anatomiasta	82
 amatööriksi	60
 amatööriura	69
-Amazon-joen	65
 andamaanien	43
 Bodenjärven	67
 Andermattin	43
@@ -125615,7 +125603,6 @@ eteläpuolen	84
 eteläpuolta	73
 etenemiseen	104
 Eudoksoksen	63
-Eufrat-joen	57
 Everestille	57
 Evertonissa	77
 etevimmistä	73
@@ -126768,7 +126755,6 @@ hillitympiä	60
 giljotiinia	75
 giljotiinin	81
 Hilversumin	43
-HIM-yhtyeen	80
 hinaamiseen	72
 himalajalla	43
 Himalajalle	69
@@ -127492,7 +127478,6 @@ Itävallalta	60
 Itävallassa	112
 Itävallasta	86
 Guatemalaan	73
-Hudson-joen	65
 hugenotteja	87
 hugenottien	82
 huijaamalla	74
@@ -135120,7 +135105,6 @@ Meyerholdin	80
 Newportissa	67
 Odysseiassa	70
 Odysseuksen	92
-Newton-John	72
 newtonmetri	43
 Nicaraguaan	63
 nibelungein	43
@@ -136000,7 +135984,6 @@ Motörheadin	85
 motorisoitu	80
 Mountbatten	67
 Mountainsin	63
-Notre-Damen	86
 nousemiseen	75
 nousevatkin	63
 Nousiaisten	76
@@ -138183,7 +138166,6 @@ sammakoihin	70
 sammakoilla	78
 sammakoista	73
 Rannanjärvi	63
-Scooby-Doon	85
 rannekkeita	72
 sanoessamme	60
 samnilaiset	76
@@ -147616,7 +147598,6 @@ Zwijndrecht	60
 Wyomingissa	73
 Wyomingista	65
 Zyskowiczin	52
-ABBA-yhtyeen	79
 Backlashissa	67
 Backlashissä	60
 baarimikkona	77
@@ -147624,7 +147605,6 @@ baarinpitäjä	63
 Babyloniassa	82
 Babyloniasta	69
 Aberdeenissa	67
-Abdul-Jabbar	78
 bahamalainen	83
 Baikaljärven	75
 Baikonurista	76
@@ -147814,7 +147794,6 @@ Caymansaaret	60
 Bayreuthissa	73
 adaptiivinen	77
 adaptiivisen	69
-Beaux-Artsin	70
 Cederströmin	57
 additiivinen	67
 Adeninlahden	60
@@ -148666,7 +148645,6 @@ arkkitehtien	99
 arkkitehtiin	63
 arkkitehtina	104
 arkkitehtinä	77
-Cro-Magnonin	88
 Apocalyptica	76
 armahdettiin	99
 armeijallaan	80
@@ -149981,7 +149959,6 @@ Evergladesin	60
 etikkahappoa	77
 Duisburgissa	63
 euklidisessa	70
-DTM-sarjassa	86
 Funkadelicin	69
 Dunkerquesta	57
 evoluutiolla	73
@@ -150131,8 +150108,6 @@ hajautettiin	77
 hajautetusti	74
 hajautettuun	69
 hajauttamaan	67
-Half-Lifessa	77
-Half-Lifessä	74
 hakemistojen	73
 hakemistossa	69
 hakemistosta	69
@@ -153755,7 +153730,6 @@ leveysasteen	97
 leveyspiiriä	76
 leveyspiirin	99
 leveyspiirit	77
-Levi-Strauss
 leviämiselle	77
 leviämisessä	76
 leviämisestä	88
@@ -157364,7 +157338,6 @@ Michiganista	67
 Nickelbackin	63
 Mickiewiczin	57
 Microsystems	69
-Middle-Earth	67
 miehistöönsä	77
 miehitettiin	93
 miehitettyjä	94
@@ -162299,7 +162272,6 @@ pseudonyymin	63
 Spiderwickin	69
 Spiegelmanin	57
 prikaateihin	60
-spin-offissa	75
 prinsessalle	75
 prinsessaksi	73
 prinsessasta	67
@@ -167620,7 +167592,6 @@ ystävyytensä	93
 ytimekkäästi	77
 zulukuningas	65
 Wurzburgissa
-ABC-kanavalla	78
 Baarikärpänen	60
 Bahamasaarten	60
 baijerilainen	72
@@ -170650,7 +170621,6 @@ itärintamalle	94
 itärintamalta	77
 Hudsoninlahti	65
 huijaamisesta	69
-Guinea-Bissau	83
 Guineanlahden	69
 itiöpesäkkeet	69
 huipentumaksi	67
@@ -175611,7 +175581,6 @@ merisotilasta	74
 meripuolustus	43
 meritaistelun	84
 merivartiosto	74
-Merleau-Ponty	86
 merkillisistä	65
 merkintäkieli	70
 merkintätapaa	81
@@ -184337,7 +184306,6 @@ ystävyyssuhde	91
 zulunkielinen	72
 Wuppertalissa	63
 Wurttembergin
-Baader-Meinhof	76
 Baffininsaaren	63
 Bahamasaarilla	63
 Bahamasaarille	57
@@ -184406,7 +184374,6 @@ aatteellisesta	74
 aatteellisesti	86
 aatteellisista	70
 Caymansaarilla	60
-Beaux-Artsissa	81
 beetasalpaajia	57
 Afganistanissa	100
 Afganistanista	81
@@ -184440,7 +184407,6 @@ bestselleriksi	72
 adventtikirkon	57
 Chamillionaire	60
 championshipin	57
-Champs-Elysees
 Charlestonissa	69
 charlestonista	43
 Charlestowniin	43
@@ -185499,7 +185465,6 @@ erehdyttävästi	87
 erehtymättömiä	69
 erektiohäiriön	69
 erektiohäiriöt	69
-DSDM-projektin	74
 dresdeniläinen	52
 eriarvoisuuden	78
 eriarvoisuutta	83
@@ -186319,7 +186284,6 @@ interferometri	67
 interglasiaali	72
 Interlagosissa	57
 internationale	83
-internet-ilmiö	69
 internetyhteys	78
 Interpretation	57
 interstadiaali	74
@@ -186425,7 +186389,6 @@ itävaltalaisia	91
 itävaltalaista	90
 Hudsoninlahden	83
 huilunsoittaja	57
-Guinea-Bissaun	93
 Guineanlahteen	60
 itiöpesäkkeitä	73
 huippulahjakas	65
@@ -189671,7 +189634,6 @@ mahdottomuutta	67
 maihinnousulla	77
 maihinnousussa	94
 maihinnoususta	87
-Maginot-linjan	67
 nahkahousuihin	63
 nahkealehtinen	65
 nahkealehtistä	73
@@ -190027,7 +189989,6 @@ meritaisteluun	77
 merivartioston	81
 meriteollisuus	52
 merkantilismin	70
-Merleau-Pontyn	84
 merkintätapoja	79
 merkitsemiseen	96
 merkittävämmän	74
@@ -191166,7 +191127,6 @@ rahapolitiikka	79
 sahateollisuus	80
 sahaustoiminta	67
 Scheffervillen	65
-scifi-sarjassa	78
 Schellenbergin	60
 päihdeongelmat	77
 päihdeongelmia	72
@@ -192187,7 +192147,6 @@ pienenemisestä	63
 siemenjohtimen	65
 pienemmälläkin	60
 siemennestettä	85
-Siemens-Martin	80
 pienentämiseen	75
 pienhiukkasten	73
 pienikokoisena	70
@@ -196346,7 +196305,6 @@ belgialaisseura	79
 celsiusasteessa	75
 Bengalinlahteen	60
 Berchtesgadenin	60
-Bergen-Belsenin	75
 afrikannorsujen	63
 afrikkalaiselle	65
 afrikkalaiseksi	65
@@ -196401,7 +196359,6 @@ aivohalvaukseen	86
 aivotärähdyksen	89
 aivoverenvuodon	90
 aivotoimintojen	67
-Aix-en-Provence	74
 BlackWarGreymon	78
 Clairvauxlainen	60
 alakulttuurissa	60
@@ -196798,7 +196755,6 @@ Aurinkomatkojen	57
 aurinkopaneelia	69
 aurinkopaneelit	85
 aurinkovoimalla	72
-curling-pelaaja	80
 bussiliikenteen	82
 burundilaisista	65
 australialainen	126
@@ -196930,7 +196886,6 @@ finaalisarjassa	93
 finaalipöydässä	95
 finanssikriisin	78
 dinosauruksista	86
-Fischer-Dieskau	73
 diplomaattiseen	76
 diplomaattisena	69
 diplomaattisiin	79
@@ -197422,7 +197377,6 @@ harhaoppisuuden	73
 harhauttaakseen	67
 harhauttamiseen	65
 härkätaistelija	60
-Harley-Davidson	88
 harkitsematonta	60
 harjoiteltaessa	65
 harjoittaakseen	69
@@ -200184,7 +200138,6 @@ massakeskipiste	72
 massakulttuurin	60
 massatuotantona	80
 massatuotantoon	83
-Massey-Ferguson	72
 Martinlaaksossa	65
 marttyyriudesta	52
 marxilaisuuteen	70
@@ -205851,7 +205804,6 @@ itävaltalaisesta	63
 itävaltalaisilla	60
 itävaltalaisille	73
 itävaltalaisista	75
-Guinea-Bissaussa	79
 huippukokoukseen	60
 huippunopeudeksi	83
 huippupelaajista	69
@@ -211134,7 +211086,6 @@ filmatisoinneista	67
 filmifestivaalien	74
 filmiteollisuuden	65
 finanssiministeri	69
-Eishockey-Ligassa	76
 diplomaattikunnan	72
 diplomiekonomiksi	73
 eläinlääketieteen	89
