@@ -80,4 +80,6 @@
 	<string name="pref_dark_theme_no">Нет</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
+	<string name="donate_title">Поддержать</string>
+	<string name="donate_summary">Если вам нравится %1$s, вы можете поддержать его разработку по: %2$s.</string>
 </resources>

@@ -35,11 +35,15 @@
 	<string name="dictionary_loading">טוען מילון (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">טוען מילון</string>
 	<string name="dictionary_load_title">טעינת מילון</string>
+	<string name="setup_keyboard_status">סטטוס</string>
+	<string name="setup_default_keyboard">בחר מקלדת ברירת מחדל</string>
 	<string name="dictionary_missing_go_load_it">אין מילון עבור \"%1$s\". טען את המילון דרך ההגדרות.</string>
 	<string name="dictionary_not_found">הטעינה נכשלה, לא נמצא מילון עבור \"%1$s\".</string>
-	<string name="dictionary_truncate_title">ניקוי מילון</string>
+	<string name="dictionary_truncate_title">מחק הכל</string>
+	<string name="dictionary_truncate_unselected">מחק את הבלתי נבחר</string>
 	<string name="dictionary_truncated">המילון נוקה בהצלחה</string>
 
+	<string name="dictionary_truncating">המחיקה מתבצעת...</string>
 	<string name="function_add_word_key">לחצן הוספת מילה</string>
 	<string name="function_backspace_key">לחצן מחיקה</string>
 	<string name="function_change_keyboard_key">בחירת מקלדת</string>
@@ -49,14 +53,20 @@
 	<string name="function_reset_keys_title">שחזור לחצני ברירת מחדל</string>
 	<string name="function_reset_keys_done">הגדרות ברירת המחדל שוחזרו.</string>
 
+	<string name="setup_tt9_on">Traditional T9 מופעל</string>
+	<string name="setup_tt9_off">Traditional T9 מושבת</string>
+	<string name="setup_click_here_to_enable">לחץ כאן כדי להפעיל את TT9 מהגדרות Android.</string>
 	<string name="key_hold_key">(החזק)</string>
 	<string name="key_back">חזור</string>
 	<string name="key_call">חיוג</string>
 
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
+	<string name="pref_category_setup">הגדרה ראשונית</string>
 	<string name="error">טעות</string>
 	<string name="pref_dark_theme_yes">כן</string>
 	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
+	<string name="donate_title">לִתְרוֹם</string>
+	<string name="donate_summary">אם אתה אוהב את %1$s, תוכל לתמוך בפיתוח שלו בכתובת: %2$s</string>
 </resources>
