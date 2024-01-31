@@ -8,6 +8,11 @@ Version: 9c91fe4
 Source: https://github.com/michmech/lemmatization-lists/blob/master/lemmatization-bg.txt
 License: https://github.com/michmech/lemmatization-lists/blob/master/LICENCE
 
+Bulgarian wordlist 3 by chitanka
+Source: https://rechnik.chitanka.info/about
+Github: https://github.com/chitanka/rechko
+License: Just "free download", so assuming public domain.
+
 Also, used the wooorm's hunspell-compatible dictionary to determine which words need to start with a capital letter
 Link: https://github.com/wooorm/dictionaries/tree/main/dictionaries/bg
 Git commit: 13 Apr 2022 [0c78cc810c8aafb2e6f5140bb6dcd4026b247eb8]
