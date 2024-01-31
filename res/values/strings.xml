@@ -29,7 +29,7 @@
 	<string name="pref_category_function_keys">Select Hotkeys</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_setup">Initial Setup</string>
-	<string name="pref_category_slow_queries" translatable="false">Slow Queries</string>
+	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
 	<string name="pref_abc_auto_accept">Automatic Letter Select</string>
 	<string name="pref_abc_auto_accept_summary">Automatically type the selected letter after a short delay.</string>

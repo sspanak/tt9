@@ -3,11 +3,14 @@ package io.github.sspanak.tt9.db;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.TextTools;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SlowQueryStats {
 	private static final String LOG_TAG = SlowQueryStats.class.getSimpleName();
+	private static long firstQueryTime = -1;
+	private static long maxQueryTime = 0;
 	private static long totalQueries = 0;
 	private static long totalQueryTime = 0;
 	private static final HashMap<String, Integer> slowQueries = new HashMap<>();
@@ -19,6 +22,10 @@ public class SlowQueryStats {
 	}
 
 	public static void add(String key, int time, String positionsList) {
+		if (firstQueryTime == -1) {
+			firstQueryTime = System.currentTimeMillis();
+		}
+		maxQueryTime = Math.max(maxQueryTime, time);
 		totalQueries++;
 		totalQueryTime += time;
 		if (time < SettingsStore.SLOW_QUERY_TIME) {
@@ -52,8 +59,11 @@ public class SlowQueryStats {
 		long averageTime = totalQueries == 0 ? 0 : totalQueryTime / totalQueries;
 		long slowAverageTime = slowQueries.size() == 0 ? 0 : slowQueryTotalTime / slowQueries.size();
 
-		return  "Queries: " + totalQueries + ". Average time: " + averageTime + " ms." +
-			"\nSlow: " + slowQueries.size() + ". Average time: " + slowAverageTime + " ms.";
+		return
+			"Queries: " + totalQueries + ". Average time: " + averageTime + " ms." +
+			"\nSlow: " + slowQueries.size() + ". Average time: " + slowAverageTime + " ms." +
+			"\nSlowest: " + maxQueryTime + " ms." +
+			"\nFirst: " + TextTools.unixTimestampToISODate(firstQueryTime);
 	}
 
 	public static String getList() {
@@ -67,6 +77,7 @@ public class SlowQueryStats {
 
 
 	public static void clear() {
+		firstQueryTime = -1;
 		totalQueries = 0;
 		totalQueryTime = 0;
 		slowQueries.clear();

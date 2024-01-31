@@ -5,7 +5,7 @@
 		app:fragment="io.github.sspanak.tt9.preferences.SlowQueriesScreen"
 		app:key="pref_slow_queries"
 		app:layout="@layout/pref_text"
-		app:title="DB Stats" />
+		app:title="@string/pref_category_usage_stats" />
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"

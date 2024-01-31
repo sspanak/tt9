@@ -1,5 +1,9 @@
 package io.github.sspanak.tt9;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class TextTools {
@@ -35,5 +39,16 @@ public class TextTools {
 
 	public static boolean startsWithNumber(String str) {
 		return str != null && !str.isEmpty() && (str.charAt(0) >= '0' && str.charAt(0) <= '9');
+	}
+
+	public static String unixTimestampToISODate(long timestamp) {
+		if (timestamp < 0) {
+			return "--";
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+		sdf.setTimeZone(TimeZone.getDefault());
+
+		return sdf.format(new Date(timestamp));
 	}
 }

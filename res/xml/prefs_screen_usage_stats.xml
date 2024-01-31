@@ -4,7 +4,7 @@
 	<SwitchPreferenceCompat
 		app:key="pref_slow_queries_reset_stats"
 		app:layout="@layout/pref_text"
-		app:title="Clear Cache and Stats" />
+		app:title="Clear DB Cache" />
 
 	<PreferenceCategory
 		app:title="Summary"

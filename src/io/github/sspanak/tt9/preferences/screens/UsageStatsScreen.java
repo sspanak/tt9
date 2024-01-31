@@ -7,22 +7,21 @@ import android.os.Build;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 
-public class SlowQueriesScreen extends BaseScreenFragment {
+public class UsageStatsScreen extends BaseScreenFragment {
 	private final static String RESET_BUTTON = "pref_slow_queries_reset_stats";
 	private final static String SUMMARY_CONTAINER = "summary_container";
 	private final static String QUERY_LIST_CONTAINER = "query_list_container";
 
-	public SlowQueriesScreen() { init(); }
-	public SlowQueriesScreen(PreferencesActivity activity) { init(activity); }
+	public UsageStatsScreen() { init(); }
+	public UsageStatsScreen(PreferencesActivity activity) { init(activity); }
 
-	@Override protected int getTitle() { return R.string.pref_category_slow_queries; }
-	@Override protected int getXml() { return R.xml.prefs_screen_slow_queries; }
+	@Override protected int getTitle() { return R.string.pref_category_usage_stats; }
+	@Override protected int getXml() { return R.xml.prefs_screen_usage_stats; }
 
 	@Override
 	protected void onCreate() {
@@ -44,21 +43,15 @@ public class SlowQueriesScreen extends BaseScreenFragment {
 	private void printSummary() {
 		Preference logsContainer = findPreference(SUMMARY_CONTAINER);
 		if (logsContainer != null) {
-			logsContainer.setSummary(Logger.isDebugLevel() ? SlowQueryStats.getSummary() : "Debugging disabled");
+			logsContainer.setSummary(SlowQueryStats.getSummary());
 		}
 	}
 
 	private void printSlowQueries() {
 		Preference queryListContainer = findPreference(QUERY_LIST_CONTAINER);
 		if (queryListContainer != null) {
-			String message;
-			if (!Logger.isDebugLevel()) {
-				message = "Debugging disabled";
-			} else {
-				message = SlowQueryStats.getList();
-				message = message.isEmpty() ? "No slow queries." : message;
-			}
-			queryListContainer.setSummary(message);
+			String slowQueries = SlowQueryStats.getList();
+			queryListContainer.setSummary(slowQueries.isEmpty() ? "No slow queries." : slowQueries);
 		}
 	}
 
