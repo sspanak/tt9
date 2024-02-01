@@ -124,7 +124,6 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-
 		// start tracking key hold
 		if (Key.isNumber(keyCode)) {
 			event.startTracking();
