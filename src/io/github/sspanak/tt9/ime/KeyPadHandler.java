@@ -119,11 +119,11 @@ abstract class KeyPadHandler extends InputMethodService {
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
-		if (Key.isBackspace(settings, keyCode) && onBackspace()) {
-			return isBackspaceHandled = true;
-		} else {
-			isBackspaceHandled = false;
+		if (Key.isBackspace(settings, keyCode)) {
+			onBackspace();
+			return true;
 		}
+
 
 		// start tracking key hold
 		if (Key.isNumber(keyCode)) {
@@ -197,7 +197,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		if (isBackspaceHandled) {
+		if (Key.isBackspace(settings, keyCode)) {
 			return true;
 		}
 
