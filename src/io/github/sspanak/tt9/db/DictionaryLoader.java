@@ -164,13 +164,14 @@ public class DictionaryLoader {
 			logLoadingStep("Indexes restored", language, start);
 
 			sqlite.finishTransaction();
+			SlowQueryStats.clear();
 		} catch (DictionaryImportAbortedException e) {
 			sqlite.failTransaction();
 			stop();
 			Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
 		} catch (DictionaryImportException e) {
-			sqlite.failTransaction();
 			stop();
+			sqlite.failTransaction();
 			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
 
 			Logger.e(
@@ -182,8 +183,8 @@ public class DictionaryLoader {
 				+ e.getMessage()
 			);
 		} catch (Exception | Error e) {
-			sqlite.failTransaction();
 			stop();
+			sqlite.failTransaction();
 			sendError(e.getClass().getSimpleName(), language.getId());
 
 			Logger.e(
