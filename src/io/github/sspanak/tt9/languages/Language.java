@@ -105,7 +105,6 @@ public class Language {
 		return keyChars;
 	}
 
-
 	final public int getId() {
 		if (id == 0) {
 			id = generateId();
@@ -184,8 +183,8 @@ public class Language {
 	/**
 	 * generateId
 	 * Uses the letters of the Locale to generate an ID for the language.
-	 * Each letter is converted to uppercase and used as n 5-bit integer. Then the the 5-bits
-	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale.
+	 * Each letter is converted to uppercase and used as a 5-bit integer. Then the 5-bits
+	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale length.
 	 *
 	 * Example (2-letter Locale)
 	 * 	"en"
@@ -198,12 +197,14 @@ public class Language {
 	 * 	-> "B" | "G" | "B" | "G"
 	 * 	-> 2 | 224 | 2048 | 229376 (shift each 5-bit number, not overlap with the previous ones)
 	 *	-> 231650
+	 *
+	 * Maximum ID is: "zz-ZZ" -> 879450
 	 */
 	private int generateId() {
 		String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
 		int idInt = 0;
 		for (int i = 0; i < idString.length(); i++) {
-			idInt |= ((idString.charAt(i) & 31) << (i * 5));
+			idInt |= ((idString.codePointAt(i) & 31) << (i * 5));
 		}
 
 		return idInt;

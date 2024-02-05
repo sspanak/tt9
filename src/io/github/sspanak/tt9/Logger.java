@@ -7,7 +7,7 @@ public class Logger {
 	public static int LEVEL = BuildConfig.DEBUG ? Log.DEBUG : Log.ERROR;
 
 	public static boolean isDebugLevel() {
-		return LEVEL == Log.DEBUG;
+		return LEVEL <= Log.DEBUG;
 	}
 
 	public static void enableDebugLevel(boolean yes) {
@@ -16,7 +16,7 @@ public class Logger {
 
 	static public void v(String tag, String msg)  {
 		if (LEVEL <= Log.VERBOSE) {
-			Log.v(TAG_PREFIX + tag, msg);
+			Log.d(TAG_PREFIX + tag, msg);
 		}
 	}
 

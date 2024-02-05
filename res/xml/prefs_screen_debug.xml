@@ -2,19 +2,25 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
 
 	<SwitchPreferenceCompat
+		app:fragment="io.github.sspanak.tt9.preferences.SlowQueriesScreen"
+		app:key="pref_slow_queries"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_usage_stats" />
+
+	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:key="pref_enable_debug_logs"
 		app:layout="@layout/pref_switch"
-		app:title="@string/pref_debug_logs" />
+		app:title="Debug Logs" />
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:key="pref_enable_system_logs"
 		app:layout="@layout/pref_switch"
-		app:title="@string/pref_system_logs" />
+		app:title="System Logs" />
 
 	<PreferenceCategory
-		app:title="@string/pref_category_log_messages"
+		app:title="Recent Log Messages"
 		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 		<Preference
