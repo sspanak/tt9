@@ -66,7 +66,7 @@ async function readDefinition(fileName) {
 	}
 
 	let lettersPattern = /^\s+-\s*\[([^\]]+)/;
-	let letterWeights = new Map([["'", 1], ['-', 1], ['"', 1]]);
+	let letterWeights = new Map([["'", 1], ['-', 1], ['"', 1], ['.', 1]]);
 
 	let key = 2;
 	for await (const line of createInterface({ input: createReadStream(fileName) })) {

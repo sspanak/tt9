@@ -33,7 +33,7 @@ WORK_DIR="/tmp/TT9_$(uuidgen)"
 mkdir -p $WORK_DIR && \
 sed -E 's/[\t0-9]+//g' $DICTIONARY_FILE > $WORK_DIR/_TT9_base.txt \
 	&& node scripts/injest-words.js $NEW_WORDS_FILE $IGNORE_SPLIT_LIST_FILE > $WORK_DIR/_TT9_1.txt \
-	&& node scripts/remove-foreign-words.js $LOCALE $WORK_DIR/_TT9_1.txt $LOCALE $WORK_DIR/_TT9_base.txt > $WORK_DIR/_TT9_2.txt \
+	&& node scripts/remove-foreign-words.js --blacklist $LOCALE $WORK_DIR/_TT9_1.txt $LOCALE $WORK_DIR/_TT9_base.txt > $WORK_DIR/_TT9_2.txt \
 	&& cp $WORK_DIR/_TT9_base.txt $WORK_DIR/_TT9_combined.txt \
 	&& echo >> $WORK_DIR/_TT9_combined.txt \
 	&& cat $WORK_DIR/_TT9_2.txt >> $WORK_DIR/_TT9_combined.txt \
