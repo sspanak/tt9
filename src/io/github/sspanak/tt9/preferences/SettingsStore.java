@@ -272,21 +272,19 @@ public class SettingsStore {
 
 	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
 
-	public int getDictionaryImportProgressUpdateInterval() { return 250; /* ms */ }
-	public int getDictionaryImportWordChunkSize() { return 1000; /* words */ }
-
-	public int getDictionaryMissingWarningInterval() { return 30000; /* ms */ }
-
-	public int getSuggestionsMax() { return 20; }
-	public int getSuggestionsMin() { return 8; }
-
-	public int getSuggestionSelectAnimationDuration() { return 66; }
-	public int getSuggestionTranslateAnimationDuration() { return 0; }
-
-	public int getSoftKeyRepeatDelay() { return 40; /* ms */ }
-
-	public int getWordFrequencyMax() { return 25500; }
-	public int getWordFrequencyNormalizationDivider() { return 100; } // normalized frequency = getWordFrequencyMax() / getWordFrequencyNormalizationDivider()
+	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_BATCH_SIZE = 1000; // items
+	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
+	public final static int DICTIONARY_MISSING_WARNING_INTERVAL = 30000; // ms
+	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
+	public final static byte SLOW_QUERY_TIME = 50; // ms
+	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
+	public final static int SUGGESTIONS_MAX = 20;
+	public final static int SUGGESTIONS_MIN = 8;
+	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
+	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
+	public final static int WORD_FREQUENCY_MAX = 25500;
+	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
+	public final static int WORD_NORMALIZATION_DELAY = 120000; // ms
 
 
 	/************* hack settings *************/

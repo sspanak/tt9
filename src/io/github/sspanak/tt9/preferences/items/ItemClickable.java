@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class ItemClickable {
-	private final int CLICK_DEBOUNCE_TIME = 250;
 	private long lastClickTime = 0;
 
 	protected final Preference item;
@@ -69,7 +69,7 @@ abstract public class ItemClickable {
 	 */
 	protected boolean debounceClick(Preference p) {
 		long now = System.currentTimeMillis();
-		if (now - lastClickTime < CLICK_DEBOUNCE_TIME) {
+		if (now - lastClickTime < SettingsStore.PREFERENCES_CLICK_DEBOUNCE_TIME) {
 			Logger.d("debounceClick", "Preference click debounced.");
 			return true;
 		}

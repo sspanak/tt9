@@ -11,8 +11,6 @@ import io.github.sspanak.tt9.preferences.items.ItemTruncateUnselected;
 
 public class DictionariesScreen extends BaseScreenFragment {
 	private ItemLoadDictionary loadItem;
-	private ItemTruncateUnselected deleteItem;
-	private ItemTruncateAll truncateItem;
 
 	public DictionariesScreen() { init(); }
 	public DictionariesScreen(PreferencesActivity activity) { init(activity); }
@@ -37,14 +35,14 @@ public class DictionariesScreen extends BaseScreenFragment {
 			activity.getDictionaryProgressBar()
 		);
 
-		deleteItem = new ItemTruncateUnselected(
+		ItemTruncateUnselected deleteItem = new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
 			activity,
 			activity.settings,
 			activity.getDictionaryLoader()
 		);
 
-		truncateItem = new ItemTruncateAll(
+		ItemTruncateAll truncateItem = new ItemTruncateAll(
 			findPreference(ItemTruncateAll.NAME),
 			activity,
 			activity.getDictionaryLoader()

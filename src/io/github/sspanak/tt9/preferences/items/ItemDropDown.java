@@ -60,13 +60,11 @@ public class ItemDropDown {
 		}
 	}
 
-	public ItemDropDown preview() {
+	public void preview() {
 		try {
 			setPreview(values.get(Integer.parseInt(item.getValue())));
 		} catch (NumberFormatException e) {
 			setPreview("");
 		}
-
-		return this;
 	}
 }

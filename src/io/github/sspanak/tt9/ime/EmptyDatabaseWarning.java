@@ -5,22 +5,19 @@ import android.content.Context;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
 public class EmptyDatabaseWarning {
-	final int WARNING_INTERVAL;
 	private static final HashMap<Integer, Long> warningDisplayedTime = new HashMap<>();
 
 	private Context context;
 	private Language language;
 
-	public EmptyDatabaseWarning(SettingsStore settings) {
-		WARNING_INTERVAL = settings.getDictionaryMissingWarningInterval();
-
+	public EmptyDatabaseWarning() {
 		for (Language lang : LanguageCollection.getAll(context)) {
 			if (!warningDisplayedTime.containsKey(lang.getId())) {
 				warningDisplayedTime.put(lang.getId(), 0L);
@@ -33,7 +30,7 @@ public class EmptyDatabaseWarning {
 		this.language = language;
 
 		if (isItTimeAgain(TraditionalT9.getMainContext())) {
-			DictionaryDb.areThereWords(this::show, language);
+			WordStoreAsync.areThereWords(this::show, language);
 		}
 	}
 
@@ -44,7 +41,7 @@ public class EmptyDatabaseWarning {
 
 		long now = System.currentTimeMillis();
 		Long lastWarningTime = warningDisplayedTime.get(language.getId());
-		return lastWarningTime != null && now - lastWarningTime > WARNING_INTERVAL;
+		return lastWarningTime != null && now - lastWarningTime > SettingsStore.DICTIONARY_MISSING_WARNING_INTERVAL;
 	}
 
 	private void show(boolean areThereWords) {

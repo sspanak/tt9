@@ -95,7 +95,6 @@ public class LanguageCollection {
 		return getAll(context,false);
 	}
 
-
 	public static String toString(ArrayList<Language> list) {
 		StringBuilder stringList = new StringBuilder();
 		int listSize = list.size();

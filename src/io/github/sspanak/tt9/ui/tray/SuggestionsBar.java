@@ -19,6 +19,7 @@ import java.util.List;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();
@@ -52,13 +53,10 @@ public class SuggestionsBar {
 	private void configureAnimation() {
 		DefaultItemAnimator animator = new DefaultItemAnimator();
 
-		int translateDuration = tt9.getSettings().getSuggestionTranslateAnimationDuration();
-		int selectDuration = tt9.getSettings().getSuggestionSelectAnimationDuration();
-
-		animator.setMoveDuration(selectDuration);
-		animator.setChangeDuration(translateDuration);
-		animator.setAddDuration(translateDuration);
-		animator.setRemoveDuration(translateDuration);
+		animator.setMoveDuration(SettingsStore.SUGGESTIONS_SELECT_ANIMATION_DURATION);
+		animator.setChangeDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
+		animator.setAddDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
+		animator.setRemoveDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
 
 		mView.setItemAnimator(animator);
 	}

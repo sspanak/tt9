@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
@@ -32,7 +32,7 @@ public class Predictions {
 
 
 	public Predictions(SettingsStore settingsStore) {
-		emptyDbWarning = new EmptyDatabaseWarning(settingsStore);
+		emptyDbWarning = new EmptyDatabaseWarning();
 		settings = settingsStore;
 
 		// digitSequence limiter when selecting emoji
@@ -128,13 +128,13 @@ public class Predictions {
 		if (loadStatic()) {
 			onWordsChanged.run();
 		} else {
-			DictionaryDb.getWords(
+			WordStoreAsync.getWords(
 				(words) -> onDbWords(words, true),
 				language,
 				digitSequence,
 				stem,
-				settings.getSuggestionsMin(),
-				settings.getSuggestionsMax()
+				SettingsStore.SUGGESTIONS_MIN,
+				SettingsStore.SUGGESTIONS_MAX
 			);
 		}
 	}
@@ -176,7 +176,7 @@ public class Predictions {
 	}
 
 	private void loadWithoutLeadingPunctuation() {
-		DictionaryDb.getWords(
+		WordStoreAsync.getWords(
 			(dbWords) -> {
 				char firstChar = inputWord.charAt(0);
 				for (int i = 0; i < dbWords.size(); i++) {
@@ -187,8 +187,8 @@ public class Predictions {
 			language,
 			digitSequence.substring(1),
 			stem.length() > 1 ? stem.substring(1) : "",
-			settings.getSuggestionsMin(),
-			settings.getSuggestionsMax()
+			SettingsStore.SUGGESTIONS_MIN,
+			SettingsStore.SUGGESTIONS_MAX
 		);
 	}
 
