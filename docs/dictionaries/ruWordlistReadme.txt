@@ -1,12 +1,13 @@
-Russian wordlist by: William Hingston
-Version: 5481cb8 (2018-09-13)
-Source: https://github.com/hingston/russian/blob/master/100000-russian-words.txt
-License: https://github.com/hingston/russian/blob/master/LICENSE.md
+Russian wordlist 1 and frequencies by: Helium314
+Version: e5ba80afbb (2024-01-17)
+Source: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists_experimental
+License: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/LICENSE
 
-Additionally cleaned up repeating and nonsense words.
+Russian names list by: Danakt Saushkin
+Version: 516ba0a (2022-01-21)
+Source: https://github.com/danakt/russian-words/blob/master/russian.txt
+License: https://github.com/danakt/russian-words/blob/master/LICENSE
 
-=====
+The word list was safely yofied using Eyo (https://github.com/e2yo/eyo)
 
-Word frequencies obtained from Openboard dictionaries.
-Link: https://github.com/openboard-team/openboard/tree/master/dictionaries
-Git commit: 17 Dec 2022 [c3772cd56e770975ea5570db903f93b199de8b32]
+Additionally repeating and nonsense words such as "Яросл" and "Александревн" were removed, as well as several offensive entries.
