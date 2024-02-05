@@ -81,14 +81,14 @@ public class ReadOps {
 
 		switch (sequence.length()) {
 			case 2:
-				generations = wordFilter.isEmpty() ? 1 : Integer.MAX_VALUE;
+				generations = wordFilter.isEmpty() ? 1 : 10;
 				break;
 			case 3:
 			case 4:
-				generations = wordFilter.isEmpty() ? 2 : Integer.MAX_VALUE;
+				generations = wordFilter.isEmpty() ? 2 : 10;
 				break;
 			default:
-				generations = Integer.MAX_VALUE;
+				generations = 10;
 				break;
 		}
 
@@ -114,7 +114,7 @@ public class ReadOps {
 			positions.appendFromDbRanges(cursor);
 		}
 
-		if (positions.size < minPositions) {
+		if (positions.size < minPositions && generations < Integer.MAX_VALUE) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
 			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), null)) {
 				positions.appendFromDbRanges(cursor);
@@ -161,7 +161,8 @@ public class ReadOps {
 
 			sql.append(")");
 		} else {
-			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append("9");
+			String rangeEnd = generations == 10 ? "9" : "999999";
+			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append(rangeEnd);
 			sql.append(" ORDER BY `start` ");
 			sql.append(" LIMIT 100");
 		}
@@ -178,7 +179,7 @@ public class ReadOps {
 			" AND (sequence = " + sequence;
 
 		if (generations > 0) {
-			sql += " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "9)";
+			sql += " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "999999)";
 		} else {
 			sql += ")";
 		}
