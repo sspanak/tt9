@@ -10,7 +10,6 @@ cc	103
 CD	127
 CF	107
 ad	105
-ae
 af	141
 bd	106
 be	122
@@ -19,11 +18,8 @@ AG	123
 AI	99
 BH	85
 ah	81
-bg
 bi	97
-cg
 ch	92
-ci
 ÄG	39
 äh	39
 åh	56
@@ -32,7 +28,6 @@ AK	96
 BK	133
 CK	94
 al	118
-bj
 cl	95
 åk	92
 ål	101
@@ -40,10 +35,8 @@ AO	78
 BM	95
 am	123
 an	138
-bn
 bo	128
 cm	146
-cn
 co	88
 än	171
 ån	120
@@ -54,7 +47,6 @@ CP	93
 CR	96
 CS	95
 ap	95
-aq
 ar	105
 as	118
 br	90
@@ -65,21 +57,11 @@ CV	90
 at	128
 au	103
 av	208
-bt
 bu	73
-cu
 ät	82
 åt	160
-aw
 ax	101
-az
-bw
 by	143
-bz
-cw
-cx
-cy
-cz
 DB	92
 DC	120
 EA	98
@@ -94,29 +76,24 @@ DF	75
 FF	128
 de	194
 ed	110
-ee
 fd	110
 fe	76
 DH	97
 di	131
 eg	129
-eh
 fi	129
 DJ	121
 FK	114
-dk
 dl	83
 ej	147
 ek	114
 el	121
-fj
 fl	129
 DM	97
 DN	107
 EM	134
 FM	113
 FN	131
-do
 dö	124
 en	207
 fo	74
@@ -135,7 +112,6 @@ ev	103
 fu	90
 Fw	81
 dy	88
-dz
 ex	149
 fy	80
 GB	103
@@ -150,26 +126,17 @@ hå	69
 HD	115
 HF	109
 IF	147
-gd
 ge	151
-gf
 id	96
-ie
-gg
-gh
-gi
 hg	56
 hi	79
 GK	110
 HK	125
 IK	135
-gl
 il	100
 GM	110
 HM	92
-gn
 go	103
-hn
 ho	87
 hö	102
 im	109
@@ -181,81 +148,56 @@ HP	102
 IP	121
 IQ	104
 IR	89
-gq
 gr	104
-hr
 is	135
-gt
-gu
-ht
 hu	67
 it	122
 Hz	91
-gw
-gy
 hy	94
 KA	101
 KB	101
 ja	121
 la	141
-lb
-lc
 lä	85
 KF	104
 je	89
 kd	91
-ke
 le	121
 KI	85
 kg	134
-kh
 li	80
 JK	100
-lk
 LM	98
 LO	110
-jm
 jo	80
 km	156
-kn
 ko	102
 kö	93
 LP	124
 LS	92
-jp
 jr	96
-kp
 kr	130
-lr
 LT	91
 ju	131
 kV	92
 ku	82
 lu	69
-lv
 kW	111
-ky
-kz
-ly
 MB	104
 MC	105
 OC	97
 ma	92
 må	117
 na	106
-nc
 nå	136
 MF	94
 NE	93
 NF	94
-md
 me	119
 nd	77
 öd	81
 MG	109
-mh
 mi	98
-ng
 ni	117
 og	126
 oh	87
@@ -263,12 +205,10 @@ ML	101
 Mk	100
 NK	104
 OK	109
-nl
 oj	70
 ÖK	39
 öl	123
 mm	141
-mn
 mo	83
 mö	75
 nm	95
@@ -280,25 +220,18 @@ on	135
 MP	94
 MS	111
 OS	140
-mq
 mr	93
-np
 nr	140
 ns	89
 op	104
 or	125
 ös	59
 NT	104
-mt
 mu	78
-mv
 nu	161
 MW	103
-mx
 my	116
-mz
 ny	157
-nz
 oy	65
 oz	61
 PC	119
@@ -307,34 +240,26 @@ RC	98
 SC	108
 pa	83
 på	202
-qa
 ra	92
 rå	107
 sa	130
-sb
 så	178
 RF	95
 SD	95
 SF	109
-pe
-pf
 re	115
 se	158
 SG	93
 pH	104
-pg
 pi	89
-sh
 si	93
 SJ	120
 SK	131
 SL	114
-pk
 pl	89
 PM	95
 SM	130
 SN	93
-pn
 po	74
 ro	108
 so	105
@@ -347,54 +272,34 @@ SR	114
 SS	120
 PV	94
 RV	109
-pt
-ru
 st	127
 su	78
 sv	115
 Py	81
 QZ	70
-pw
-rw
 ry	99
-sx
 sy	94
-sz
 ta	158
-tc
 tå	101
-ua
 va	101
-vc
 TF	89
 UD	109
 VD	128
-td
 te	120
 ve	108
 VH	65
-tg
-th
 ti	85
-ug
-vg
 vi	180
 UJ	39
 UK	115
-tj
-tk
-tl
 TM	89
 VM	150
-tn
 to	143
 tö	65
 um	91
 un	102
-vn
 US	131
 tp	47
-tr
 ts	95
 up	112
 ur	160
@@ -406,27 +311,16 @@ VU	91
 tu	99
 ut	174
 VW	104
-tw
 ty	121
-tz
-uy
-uz
 vy	98
 WC	83
-za
-wf
-ye
 wi	75
-zm
 XP	106
-ws
 yr	76
 wu	69
-yt
 yu	61
 zu	106
 ZX	96
-zw
 ABA	90
 ABB	102
 ABC	111
@@ -523,7 +417,6 @@ bit	131
 chu	66
 ägt	122
 AIX	91
-biz
 bla	119
 blå	135
 åka	130
@@ -746,7 +639,6 @@ eds	61
 fes	39
 DDT	90
 det	194
-edu
 fet	109
 FIA	105
 FIB	86
@@ -999,11 +891,9 @@ GMT	91
 GNU	109
 HÖT	39
 got	92
-gov
 göt	85
 hot	129
 hov	117
-int
 inv	109
 gny	66
 GPa	67
