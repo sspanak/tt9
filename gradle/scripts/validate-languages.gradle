@@ -125,7 +125,7 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 
 static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERRORS, String CSV_DELIMITER, int MAX_WORD_FREQUENCY) {
 	final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
-	final VALID_CHARS = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-']+\$"
+	final VALID_CHARS = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-\\.']+\$"
 
 	def uniqueWords = [:]
 
@@ -145,11 +145,16 @@ static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERR
 
 			String[] parts = line.split(CSV_DELIMITER, 2)
 			String word = parts[0]
-			final frequency = (parts.length > 1 ? parts[1] : "0") as int
+			int frequency;
+			try {
+				frequency = (parts.length > 1 ? parts[1] : "0") as int
+			} catch (Exception e) {
+				frequency = -1
+			}
 
 			if (frequency < 0 || frequency > MAX_WORD_FREQUENCY) {
 				errorCount++
-				errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be an integer between 0 and ${MAX_WORD_FREQUENCY}.\n"
+				errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${parts[1]}' on line ${lineNumber}. Frequency must be an integer between 0 and ${MAX_WORD_FREQUENCY}.\n"
 			}
 
 			def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, VALID_CHARS, "Dictionary '${dictionaryFile.name}' is invalid")

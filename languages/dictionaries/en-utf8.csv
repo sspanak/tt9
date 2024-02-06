@@ -1,7 +1,7 @@
-'d
-'m
--o
-'s
+'d	10
+'m	10
+-o	10
+'s	10
 a-
 Ab
 bc	137
@@ -213,17 +213,17 @@ ws	84
 Wu
 Yu
 yw
--au
--by
--in
-'ll
-'n'
--o-
--on
-'re
--RW
-'ve
--up
+-au	10
+-by	10
+-in	10
+'ll	10
+'n'	10
+-o-	10
+-on	10
+'re	10
+-RW	10
+'ve	10
+-up	10
 Aba
 Abb
 Bac
@@ -1492,13 +1492,260 @@ Yul	39
 wya
 Wye	71
 wyd
--hoo
--off
--out
--Pei
--per
--ROM
--toc
+.uk
+.eh
+.us
+.il
+.au
+.nl
+.jp
+.fr
+.se
+.kr
+.de
+.fi
+.nz
+.no
+.ca
+.ch
+.my
+.dk
+.ar
+.is
+.cl
+.it
+.at
+.ie
+.es
+.pt
+.be
+.th
+.sg
+.mx
+.gr
+.br
+.in
+.tw
+.pr
+.ni
+.hk
+.lk
+.pl
+.cr
+.uy
+.ph
+.tr
+.su
+.hu
+.za
+.cn
+.eg
+.ec
+.bo
+.ve
+.na
+.tn
+.do
+.ag
+.bb
+.bs
+.bz
+.dm
+.kn
+.lc
+.sr
+.tt
+.vc
+.py
+.jm
+.pg
+.zw
+.pe
+.co
+.aq
+.si
+.al
+.cu
+.ee
+.fj
+.gd
+.lt
+.pk
+.gt
+.mz
+.mo
+.kw
+.ae
+.ua
+.ge
+.mt
+.cz
+.ls
+.li
+.ro
+.id
+.hr
+.bm
+.bw
+.sn
+.bf
+.sk
+.hn
+.ke
+.lv
+.fo
+.sz
+.az
+.lb
+.mk
+.ml
+.nc
+.ma
+.dz
+.bh
+.md
+.zm
+.ir
+.ru
+.gl
+.vn
+.gu
+.sb
+.by
+.sa
+.pa
+.bn
+.cy
+.gn
+.am
+.gy
+.kz
+.sv
+.jo
+.ga
+.bg
+.gh
+.mc
+.np
+.lu
+.ci
+.ai
+.mn
+.ug
+.ng
+.vu
+.FM
+.ki
+.cm
+.uz
+.ky
+.kg
+.tz
+.ws
+.mg
+.ck
+.sm
+.vi
+.va
+.mu
+.et
+.ao
+.gi
+.to
+.ad
+.bj
+.aw
+.kh
+.sy
+.nf
+.tv
+.pf
+.om
+.cf
+.mr
+.ne
+.la
+.dj
+.qa
+.gf
+.gg
+.je
+.ba
+.mh
+.ye
+.tg
+.im
+.er
+.mv
+.bi
+.cv
+.gp
+.rw
+.mp
+.mw
+.cg
+.tc
+.gw
+.mm
+.vg
+.ht
+.ms
+.sd
+.fk
+.gm
+.mq
+.re
+.lr
+.ly
+.cx
+.sc
+.sl
+.iq
+.tm
+.as
+.pw
+.nu
+.gq
+.pn
+.bt
+.hm
+.gs
+.cd
+.pm
+.tf
+.so
+.io
+.sh
+.cc
+.af
+.td
+.st
+.tk
+.wf
+.yt
+.tj
+.ac
+.nr
+.km
+.bd
+.ps
+.tl
+.eu
+.ax
+.kp
+.me
+.rs
+.bq
+.cw
+.sx
+.ss
+-hoo	10
+-off	10
+-out	10
+-Pei	10
+-per	10
+-ROM	10
+-toc	10
 AABB
 ACCA	70
 ACCC	70
@@ -8148,11 +8395,18 @@ Wynn	82
 WWOR	70
 Wyre
 wyrd
--back
--away
--down
--over
--per-
+.biz
+.com
+.net
+.org
+.int
+.edu
+.gov
+-back	10
+-away	10
+-down	10
+-over	10
+-per-	10
 Ababa	77
 abaca	62
 bacca	21
@@ -20796,7 +21050,9 @@ Wyner	40
 Wynne	74
 Wyong
 ZyXEL
--ching
+.info
+.tech
+-ching	10
 abacas
 abbacy	65
 cabbed	32
@@ -40263,7 +40519,7 @@ zyrian
 Zyrtec
 xyster
 wyvern	60
--Napoca
+-Napoca	10
 Bacabal
 Babbage	56
 cabbage	93
@@ -65212,7 +65468,7 @@ zyrians
 WYSIWYG	74
 wyverns	49
 zyzzyva	10
--through
+-through	10
 Ba'qubah
 abbacies	42
 cabbages	64

@@ -503,11 +503,11 @@ YY	65
 ZX	95
 ZZ	102
 ww	57
--by
--in
--La
--RW
--TV
+-by	10
+-in	10
+-La	10
+-RW	10
+-TV	10
 AAA	89
 AAC	85
 ABA	89
@@ -2755,13 +2755,260 @@ XXe	57
 XYZ	70
 ZYX	77
 www	114
--cha
--Chi
--Doo
--Hur
--off
--ray
--ROM
+.uk
+.eh
+.us
+.il
+.au
+.nl
+.jp
+.fr
+.se
+.kr
+.de
+.fi
+.nz
+.no
+.ca
+.ch
+.my
+.dk
+.ar
+.is
+.cl
+.it
+.at
+.ie
+.es
+.pt
+.be
+.th
+.sg
+.mx
+.gr
+.br
+.in
+.tw
+.pr
+.ni
+.hk
+.lk
+.pl
+.cr
+.uy
+.ph
+.tr
+.su
+.hu
+.za
+.cn
+.eg
+.ec
+.bo
+.ve
+.na
+.tn
+.do
+.ag
+.bb
+.bs
+.bz
+.dm
+.kn
+.lc
+.sr
+.tt
+.vc
+.py
+.jm
+.pg
+.zw
+.pe
+.co
+.aq
+.si
+.al
+.cu
+.ee
+.fj
+.gd
+.lt
+.pk
+.gt
+.mz
+.mo
+.kw
+.ae
+.ua
+.ge
+.mt
+.cz
+.ls
+.li
+.ro
+.id
+.hr
+.bm
+.bw
+.sn
+.bf
+.sk
+.hn
+.ke
+.lv
+.fo
+.sz
+.az
+.lb
+.mk
+.ml
+.nc
+.ma
+.dz
+.bh
+.md
+.zm
+.ir
+.ru
+.gl
+.vn
+.gu
+.sb
+.by
+.sa
+.pa
+.bn
+.cy
+.gn
+.am
+.gy
+.kz
+.sv
+.jo
+.ga
+.bg
+.gh
+.mc
+.np
+.lu
+.ci
+.ai
+.mn
+.ug
+.ng
+.vu
+.FM
+.ki
+.cm
+.uz
+.ky
+.kg
+.tz
+.ws
+.mg
+.ck
+.sm
+.vi
+.va
+.mu
+.et
+.ao
+.gi
+.to
+.ad
+.bj
+.aw
+.kh
+.sy
+.nf
+.tv
+.pf
+.om
+.cf
+.mr
+.ne
+.la
+.dj
+.qa
+.gf
+.gg
+.je
+.ba
+.mh
+.ye
+.tg
+.im
+.er
+.mv
+.bi
+.cv
+.gp
+.rw
+.mp
+.mw
+.cg
+.tc
+.gw
+.mm
+.vg
+.ht
+.ms
+.sd
+.fk
+.gm
+.mq
+.re
+.lr
+.ly
+.cx
+.sc
+.sl
+.iq
+.tm
+.as
+.pw
+.nu
+.gq
+.pn
+.bt
+.hm
+.gs
+.cd
+.pm
+.tf
+.so
+.io
+.sh
+.cc
+.af
+.td
+.st
+.tk
+.wf
+.yt
+.tj
+.ac
+.nr
+.km
+.bd
+.ps
+.tl
+.eu
+.ax
+.kp
+.me
+.rs
+.bq
+.cw
+.sx
+.ss
+-cha	10
+-Chi	10
+-Doo	10
+-Hur	10
+-off	10
+-ray	10
+-ROM	10
 ABBA	92
 baba	52
 ABCD	74
@@ -6401,9 +6648,16 @@ Yuma	52
 WUSB	75
 yuri	57
 WWFn	60
--Doon
--line
--joen
+.biz
+.com
+.net
+.org
+.int
+.edu
+.gov
+-Doon	10
+-line	10
+-joen	10
 CABAL	77
 Abban	76
 Abbas	87
@@ -14957,6 +15211,8 @@ Zweig	57
 Wyler	65
 Wylie	60
 Wyman	76
+.info
+.tech
 Abbado	69
 acacia	43
 Bacall	74
@@ -46885,7 +47141,7 @@ Wylerin	52
 Wyndham	69
 Wyoming	72
 Yyterin	75
--offissa
+-offissa	10
 Babbagen	63
 baccarat	60
 Baabelin	79
