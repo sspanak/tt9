@@ -1,52 +1,30 @@
 CC	96
-ac
 ba	130
-bb
 ca	163
 CD	125
 CF	102
 ad	112
-ae
 af	128
-bd
 be	126
-bf
 BH	75
 BI	113
-ag
 ah	80
 ai	89
-bg
-cg
-ch
-ci
 BK	105
 al	117
-bj
-ck
 cl	78
 åk	78
 ål	95
-am
 an	135
-ao
-bm
-bn
 bo	123
 bø	72
 cm	144
-cn
 co	98
 BP	99
 CP	92
 ap	102
-aq
 ar	96
-as
-bq
 br	73
-bs
-cr
 år	178
 ås	103
 ær	63
@@ -54,20 +32,9 @@ CV	87
 at	193
 au	103
 av	209
-bt
 bu	86
-cu
 åt	86
-aw
-ax
-az
-bw
 by	157
-bz
-cw
-cx
-cy
-cz
 DB	95
 EC	84
 da	178
@@ -77,18 +44,11 @@ FD	76
 FF	108
 de	195
 ed	112
-ee
 fe	92
-eg
-eh
 ei	150
-fi
 éi	58
 DK	88
-dj
 dl	83
-fj
-fk
 DM	87
 EM	136
 FM	104
@@ -101,15 +61,12 @@ fø	91
 én	150
 EP	120
 er	207
-es
-fr
 EU	129
 du	147
 et	195
 ev	93
 fu	82
 ét	85
-dz
 ex	103
 fy	61
 GB	97
@@ -119,111 +76,64 @@ gå	152
 ha	171
 HD	104
 HF	100
-gd
-ge
-gf
 he	115
 id	89
-ie
-gg
-gh
 gi	153
 hg	41
 hi	94
 HL	80
 IK	109
 IL	132
-gl
 hk	124
 GM	103
 HM	93
-gn
-hn
 ho	91
-im
-in
-io
 IP	102
 IQ	88
-gp
-gq
 gr	103
-gs
 hr	84
-ir
 is	134
 GT	112
 HV	90
-gu
-ht
-hu
 it	126
 Hz	91
-gw
-gy
 ja	121
 la	154
 lb	78
-lc
 lå	152
 LD	65
-je
 jf	115
-ke
 le	119
 kg	137
-kh
-ki
 li	92
-lk
 LO	115
-jm
 jo	125
 km	161
-kn
 kø	97
 lø	49
 KS	95
 LP	111
 LR	75
-jp
 jr	123
-kp
 kr	130
-ls
 KV	105
 ku	102
-lt
-lu
-lv
 kW	113
-ky
-kz
 ly	109
 MC	96
 NB	91
-ma
 må	159
-na
-nc
 nå	164
 MF	117
 NF	72
-md
-me
 nd	72
-ne
 mg	105
-mh
-ng
 ni	140
 og	215
 òg	104
 ML	110
 OK	96
 OL	153
-mk
-nl
 ØK	73
 øl	122
 NM	127
@@ -236,10 +146,7 @@ om	186
 MS	132
 NS	106
 OS	118
-mp
-mq
 mr	83
-np
 nr	140
 or	120
 ør	61
@@ -247,130 +154,74 @@ or	120
 NT	105
 NV	88
 mt	65
-mu
 mv	95
 nu	108
 øv	41
 MW	123
-mx
-my
-mz
 ny	159
-nz
 oy	49
 øy	136
 PC	116
 pa	92
 på	203
-qa
 ra	88
 rå	108
 sa	144
-sb
-sc
 så	172
 RF	83
 SF	107
-pe
-pf
 re	110
-sd
 se	155
 SG	90
 pH	110
-pg
 pi	81
 ri	102
-sh
 si	150
 PK	81
-pl
-sk
-sl
 PM	93
 SM	101
-pn
 pø	49
 ro	121
-sn
-so
 PP	87
 PS	98
 RP	81
 pr	138
-rs
 sp	95
 sr	102
-ss
 RV	103
 SV	119
-pt
 ru	99
-st
 su	87
-pw
-py
-rw
 ry	111
-sx
 sy	92
-sz
 UB	83
 ta	156
-tc
 tå	88
-ua
-va
-vc
 UD	103
-td
 te	114
-tf
 ve	107
 VG	117
-tg
-th
 ti	146
-ug
 vi	155
 UK	112
 UL	78
-tj
-tk
 tl	84
 TM	82
 Tø	41
 VM	147
-tn
 to	178
 un	101
-vn
-tr
 up	108
 ur	99
-us
 vs	111
 TV	141
-tt
 ut	177
-vu
 VW	92
-tw
 ty	106
-tz
-uy
-uz
 WC	81
 xB	54
-za
-wf
-ye
-zm
 WP	68
-ws
 yr	83
-yt
-zw
 ABC	113
 BBC	131
 CAD	73
@@ -435,7 +286,6 @@ Chr	100
 air	89
 bit	115
 Aix	65
-biz
 aka	89
 ala	73
 bla	117
@@ -631,7 +481,6 @@ fes	41
 DDT	78
 Edv	41
 det	198
-edu
 fet	103
 EGA	73
 Eia	78
@@ -884,10 +733,8 @@ hos	160
 hør	82
 GMT	88
 GNU	111
-gov
 hot	82
 hov	87
-int
 gøy	83
 høy	147
 IPA	99

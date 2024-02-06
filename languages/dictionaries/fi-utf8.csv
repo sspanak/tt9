@@ -56,7 +56,6 @@ CP	99
 CQ	75
 CR	86
 CS	100
-aq
 ar	83
 as	129
 AU	121
@@ -73,11 +72,8 @@ AZ	97
 BW	77
 CW	81
 CZ	65
-aw
 ay	67
 bx	69
-by
-bz
 cx	69
 cy	43
 d-
@@ -120,7 +116,6 @@ DM	91
 FM	110
 FN	100
 dn	65
-do
 em	119
 en	130
 eo	60
@@ -132,7 +127,6 @@ EP	132
 FP	65
 FS	94
 dr	73
-er
 es	103
 fr	65
 DV	77
@@ -147,7 +141,6 @@ DX	91
 FX	89
 Fw	86
 dy	67
-dz
 ew	52
 ex	104
 ez	73
@@ -176,8 +169,6 @@ GG	89
 HH	80
 IG	89
 IH	65
-gh
-gi
 hg	43
 hi	80
 GJ	77
@@ -186,7 +177,6 @@ HK	113
 HL	92
 Hj	67
 IK	111
-il
 GM	105
 GN	83
 Go
@@ -204,21 +194,17 @@ HS	96
 IP	100
 IQ	76
 IR	77
-gq
 gr	80
 is	123
 GT	117
 HT	98
 IU	91
 gu	67
-hu
 hv	124
-it
 GW	111
 GX	83
 HY	78
 Hz	93
-gy
 JB	76
 JC	89
 KC	77
@@ -233,7 +219,6 @@ KD	88
 KF	83
 LD	74
 LF	80
-je
 ke	83
 le	119
 JG	89
@@ -253,7 +238,6 @@ kJ	97
 kk	107
 lk	121
 LM	83
-jm
 jo	172
 kN	92
 km	160
@@ -276,7 +260,6 @@ ju	74
 kt	96
 ku	85
 lu	67
-lv
 KZ	75
 LW	72
 LZ	81
@@ -305,7 +288,6 @@ mg	117
 mi	98
 nH	60
 ng	90
-ni
 og	97
 oh	88
 oi	91
@@ -328,7 +310,6 @@ on	212
 MP	96
 MS	98
 NP	89
-mq
 mr	83
 nr	70
 ns	151
@@ -347,7 +328,6 @@ MZ	67
 NX	77
 my	111
 ny	85
-nz
 ox	60
 oy	114
 oz	67
@@ -362,7 +342,6 @@ SB	87
 SC	116
 pa	77
 på	100
-qa
 ra	90
 PD	72
 PE	83
@@ -378,11 +357,8 @@ RG	86
 RH	69
 SG	95
 pH	117
-pg
 pi	79
 ri	77
-sh
-si
 PJ	88
 PK	90
 QL	73
@@ -392,12 +368,10 @@ RL	81
 SJ	88
 SK	111
 SL	105
-pl
 PM	104
 RM	92
 SM	106
 SN	89
-pn
 po	86
 rn	74
 ro	79
@@ -432,7 +406,6 @@ SX	80
 py	60
 ry	143
 sy	72
-sz
 TB	83
 TC	84
 UB	77
@@ -453,9 +426,7 @@ VH	75
 tg	43
 th	83
 ti	90
-ug
 ui	115
-vi
 TJ	91
 TK	87
 UK	117
@@ -493,8 +464,6 @@ VW	94
 VX	74
 VY	74
 ty	67
-uy
-uz
 vz	67
 WB	94
 WC	102
@@ -504,9 +473,7 @@ ya	94
 za	87
 Xe	52
 ZF	80
-wf
 xD	79
-ye
 YH	100
 wh	43
 yi	70
@@ -522,7 +489,6 @@ xn	72
 ym	124
 yo	94
 yö	118
-zm
 WR	60
 WS	74
 XP	107
@@ -531,14 +497,12 @@ ZR	77
 XT	89
 wu	74
 xu	52
-yt
 yu	57
 XY	80
 YY	65
 ZX	95
 ZZ	102
 ww	57
-zw
 -by
 -in
 -La
@@ -713,7 +677,6 @@ cis	89
 AIT	75
 chu	57
 Aix	63
-biz
 BJB	76
 CLA	75
 aja	90
@@ -1384,7 +1347,6 @@ GNU	108
 HMV	83
 gov	70
 imu	81
-int
 inu	63
 HMX	73
 Hoy	73
