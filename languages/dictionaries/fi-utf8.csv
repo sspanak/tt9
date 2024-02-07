@@ -1,5 +1,3 @@
-A-
-C-
 AC	126
 BB	88
 BC	109
@@ -76,7 +74,6 @@ ay	67
 bx	69
 cx	69
 cy	43
-d-
 e-
 DC	125
 EA	103
@@ -144,8 +141,6 @@ dy	67
 ew	52
 ex	104
 ez	73
-G-
-h-
 GB	96
 GC	74
 HB	84
@@ -209,10 +204,10 @@ JB	76
 JC	89
 KC	77
 LC	98
+La	139
 ja	217
 kB	90
 ka	96
-la	139
 lb	79
 JD	78
 KD	88
@@ -503,11 +498,257 @@ YY	65
 ZX	95
 ZZ	102
 ww	57
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
 -by	10
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.FM
+.dm
+.do
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
 -in	10
--La	10
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
 -RW	10
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+.tr
+.us
 -TV	10
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 AAA	89
 AAC	85
 ABA	89
@@ -1056,9 +1297,9 @@ EMI	112
 eng	112
 Dol	85
 FNL	79
+Doo	72
 dom	77
 don	102
-doo	72
 emo	105
 eno	99
 eon	69
@@ -1422,7 +1663,7 @@ GTR	82
 GTS	91
 Gus	89
 HUS	87
-hur	52
+Hur	52
 ITT	67
 ITU	89
 ITV	93
@@ -2755,258 +2996,14 @@ XXe	57
 XYZ	70
 ZYX	77
 www	114
-.uk
-.eh
-.us
-.il
-.au
-.nl
-.jp
-.fr
-.se
-.kr
-.de
-.fi
-.nz
-.no
-.ca
-.ch
-.my
-.dk
-.ar
-.is
-.cl
-.it
-.at
-.ie
-.es
-.pt
-.be
-.th
-.sg
-.mx
-.gr
-.br
-.in
-.tw
-.pr
-.ni
-.hk
-.lk
-.pl
-.cr
-.uy
-.ph
-.tr
-.su
-.hu
-.za
-.cn
-.eg
-.ec
-.bo
-.ve
-.na
-.tn
-.do
-.ag
-.bb
-.bs
-.bz
-.dm
-.kn
-.lc
-.sr
-.tt
-.vc
-.py
-.jm
-.pg
-.zw
-.pe
-.co
-.aq
-.si
-.al
-.cu
-.ee
-.fj
-.gd
-.lt
-.pk
-.gt
-.mz
-.mo
-.kw
-.ae
-.ua
-.ge
-.mt
-.cz
-.ls
-.li
-.ro
-.id
-.hr
-.bm
-.bw
-.sn
-.bf
-.sk
-.hn
-.ke
-.lv
-.fo
-.sz
-.az
-.lb
-.mk
-.ml
-.nc
-.ma
-.dz
-.bh
-.md
-.zm
-.ir
-.ru
-.gl
-.vn
-.gu
-.sb
-.by
-.sa
-.pa
-.bn
-.cy
-.gn
-.am
-.gy
-.kz
-.sv
-.jo
-.ga
-.bg
-.gh
-.mc
-.np
-.lu
-.ci
-.ai
-.mn
-.ug
-.ng
-.vu
-.FM
-.ki
-.cm
-.uz
-.ky
-.kg
-.tz
-.ws
-.mg
-.ck
-.sm
-.vi
-.va
-.mu
-.et
-.ao
-.gi
-.to
-.ad
-.bj
-.aw
-.kh
-.sy
-.nf
-.tv
-.pf
-.om
-.cf
-.mr
-.ne
-.la
-.dj
-.qa
-.gf
-.gg
-.je
-.ba
-.mh
-.ye
-.tg
-.im
-.er
-.mv
-.bi
-.cv
-.gp
-.rw
-.mp
-.mw
-.cg
-.tc
-.gw
-.mm
-.vg
-.ht
-.ms
-.sd
-.fk
-.gm
-.mq
-.re
-.lr
-.ly
-.cx
-.sc
-.sl
-.iq
-.tm
-.as
-.pw
-.nu
-.gq
-.pn
-.bt
-.hm
-.gs
-.cd
-.pm
-.tf
-.so
-.io
-.sh
-.cc
-.af
-.td
-.st
-.tk
-.wf
-.yt
-.tj
-.ac
-.nr
-.km
-.bd
-.ps
-.tl
-.eu
-.ax
-.kp
-.me
-.rs
-.bq
-.cw
-.sx
-.ss
--cha	10
--Chi	10
--Doo	10
--Hur	10
+.biz
+.com
+.edu
+.gov
+.int
 -off	10
+.net
+.org
 -ray	10
 -ROM	10
 ABBA	92
@@ -6648,16 +6645,9 @@ Yuma	52
 WUSB	75
 yuri	57
 WWFn	60
-.biz
-.com
-.net
-.org
-.int
-.edu
-.gov
--Doon	10
--line	10
+.info
 -joen	10
+.tech
 CABAL	77
 Abban	76
 Abbas	87
@@ -15211,8 +15201,6 @@ Zweig	57
 Wyler	65
 Wylie	60
 Wyman	76
-.info
-.tech
 Abbado	69
 acacia	43
 Bacall	74
@@ -29398,7 +29386,6 @@ Xzibit	65
 Zykina	60
 Zyklon	72
 Wynton	52
-c-molli	79
 Babbage	63
 Caccini	65
 Babbitt	67
@@ -31451,7 +31438,6 @@ Cyprien	52
 Cyrusin	74
 Byström	43
 Azucena	60
-D-duuri	72
 Faberge
 Faberin	57
 Fabiano	65
@@ -38788,6 +38774,7 @@ mediaan	92
 Officen	63
 mediana	74
 Medinan	82
+offissa
 Mefisto	83
 oedipus	43
 neekeri	90
@@ -47141,7 +47128,6 @@ Wylerin	52
 Wyndham	69
 Wyoming	72
 Yyterin	75
--offissa	10
 Babbagen	63
 baccarat	60
 Baabelin	79
@@ -49471,7 +49457,6 @@ Bysantti	88
 ayrshire	60
 Cyruksen	60
 Bystrica	60
-E-sarjan	63
 facebook	85
 facelift	81
 Fabergen
@@ -67142,7 +67127,6 @@ syyttäjä	103
 syyttävä	63
 syytteen	111
 syytteet	109
-T-Mobile	85
 Taaborin	43
 Tabascon	60
 vaadimme	69
@@ -71242,7 +71226,6 @@ ystävyys	104
 yrteillä	70
 yrteistä	78
 Yrttiaho	57
-Yu-Gi-Oh	96
 ytimekäs	65
 ytimellä	72
 ytimelle	65
@@ -91651,7 +91634,6 @@ syyttikin	63
 syyttivät	108
 syyttömän	73
 syyttömiä	77
-T-Mobilen	74
 vaaditaan	122
 vaadittua	91
 taaempana	73
