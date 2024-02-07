@@ -1,8 +1,8 @@
 Romanian wordlist sources:
 - Dexonline Scrabble word list: https://dexonline.ro/scrabble (version 6.0)
-- Android Opens Source Project: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/ (Git commit: 2023-03-20 [fe0c000f40a5cb33c518cc7a12204b5810886c0e])
-- titoBouzout's hunspell dictionaries: https://github.com/titoBouzout/Dictionaries (Git commit: 24c64ba)
-
+- Android Opens Source Project: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/ (Version: fe0c000f4 (2023-03-20))
+- Helium314 dictionaries for Android: https://codeberg.org/Helium314/aosp-dictionaries/src/branch/main/wordlists, (Version: 5ba80afbb (2024-01-17))
+- titoBouzout's hunspell dictionaries: https://github.com/titoBouzout/Dictionaries (Version: 24c64ba)
 =====
 titoBouzout readme:
 

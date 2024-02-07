@@ -27,7 +27,7 @@ Once a dictionary is loaded, it will stay there until you use one of the "delete
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
 
-Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults _(your custom added words will not be affected)_. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
 
 #### Deleting a Dictionary
 
@@ -35,7 +35,7 @@ If you have stopped using languages X or Y, you could disable them and also use 
 
 To delete everything, regardless of the selection, use "Delete All".
 
-In all cases, deleting a dictionary removes both all factory and all custom added words.
+In all cases, your custom added words will be preserved and restored once you reload the respective dictionary.
 
 ## Hotkeys
 

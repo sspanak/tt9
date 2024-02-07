@@ -67,6 +67,7 @@ public class AutoTextCase {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
+		// this is mostly for English "I"
 		if (TextTools.isNextToWord(textBeforeCursor)) {
 			return InputMode.CASE_LOWER;
 		}
