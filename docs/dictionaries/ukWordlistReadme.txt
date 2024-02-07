@@ -16,6 +16,7 @@
   Kostyantyn Moroz
   mailto: morozko@i.com.ua
 ====================
-  Extra words and frequencies obtained from LatinIME dictionaries.
-  Link: https://android.googlesource.com/platform/packages/inputmethods/LatinIME
-  Git commit: 21 Dec 2023 [66093bf509ea92fa31d796326d5f30a8d9582ffe]
+Extra words and frequencies obtained from LatinIME dictionaries.
+Source: https://android.googlesource.com/platform/packages/inputmethods/LatinIME
+Version: 66093bf509ea92fa31d796326d5f30a8d9582ffe (2023-12-21)
+License: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/refs/heads/main/NOTICE
