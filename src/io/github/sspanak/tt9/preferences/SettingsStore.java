@@ -272,7 +272,7 @@ public class SettingsStore {
 
 	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
 
-	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_BATCH_SIZE = 1000; // items
+	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static int DICTIONARY_MISSING_WARNING_INTERVAL = 30000; // ms
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
