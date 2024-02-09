@@ -24,11 +24,11 @@ public class WordBatch {
 		this(language, 0);
 	}
 
-	public void add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
+	public boolean add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
 		words.add(Word.create(word, frequency, position));
 
 		if (position == 0) {
-			return;
+			return true;
 		}
 
 		String sequence = language.getDigitSequenceForWord(word);
@@ -44,7 +44,16 @@ public class WordBatch {
 			positions.add(lastWordPosition);
 
 			lastWordPosition = WordPosition.create(sequence, position);
+
+			return true;
 		}
+
+		return false;
+	}
+
+	public void clear() {
+		words.clear();
+		positions.clear();
 	}
 
 	@NonNull public Language getLanguage() {
