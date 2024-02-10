@@ -54,14 +54,18 @@ public class Characters {
 		))
 	));
 
+	public static boolean noEmojiSupported() {
+		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
+	}
+
 
 	public static int getEmojiLevels() {
-		return (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) ? 1 : Emoji.size();
+		return noEmojiSupported() ? 1 : Emoji.size();
 	}
 
 
 	public static ArrayList<String> getEmoji(int level) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+		if (noEmojiSupported()) {
 			return new ArrayList<>(TextEmoticons);
 		}
 
