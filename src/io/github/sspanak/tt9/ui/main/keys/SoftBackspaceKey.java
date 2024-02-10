@@ -42,6 +42,6 @@ public class SoftBackspaceKey extends SoftKey {
 		}
 
 		Language language = getCurrentLanguage();
-		return language != null && (language.isArabic() || language.isHebrew()) ? "⌦" : "⌫";
+		return language != null && language.isRTL() ? "⌦" : "⌫";
 	}
 }
