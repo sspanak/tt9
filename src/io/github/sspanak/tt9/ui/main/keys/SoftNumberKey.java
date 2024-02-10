@@ -40,7 +40,7 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		int keyCode = Key.numberToCode(getNumber(getId()));
+		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return false;
 		}
@@ -141,5 +141,20 @@ public class SoftNumberKey extends SoftKey {
 		if (keyId == R.id.soft_key_9) return 9;
 
 		return -1;
+	}
+
+	private int getUpsideDownNumber(int keyId) {
+		int number = getNumber(keyId);
+
+		if (tt9 != null && tt9.getSettings().getUpsideDownKeys()) {
+			if (number == 1) return 7;
+			if (number == 2) return 8;
+			if (number == 3) return 9;
+			if (number == 7) return 1;
+			if (number == 8) return 2;
+			if (number == 9) return 3;
+		}
+
+		return number;
 	}
 }
