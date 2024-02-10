@@ -145,10 +145,10 @@ static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERR
 
 			String[] parts = line.split(CSV_DELIMITER, 2)
 			String word = parts[0]
-			int frequency;
+			int frequency
 			try {
 				frequency = (parts.length > 1 ? parts[1] : "0") as int
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 				frequency = -1
 			}
 

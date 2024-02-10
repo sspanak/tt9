@@ -128,18 +128,23 @@ android {
 		}
 	}
 	buildFeatures {
-		renderScript false
 		aidl true
+		buildConfig true
+		renderScript false
 	}
 
 
 	applicationVariants.configureEach { variant ->
-		tasks["generate${variant.name.capitalize()}Assets"]
-			.dependsOn(validateLanguages)
-			.dependsOn(copyLanguages)
-			.dependsOn(calculateDictionarySizes)
+		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
+			dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
+		}
 
-		tasks.findByName('lintVitalAnalyzeRelease')?.mustRunAfter(copyLanguages)?.mustRunAfter(calculateDictionarySizes)
-		tasks.findByName('lintAnalyzeDebug')?.mustRunAfter(copyLanguages)?.mustRunAfter(calculateDictionarySizes)
+		tasks.named("lintAnalyzeDebug")?.configure {
+			mustRunAfter(copyLanguages, calculateDictionarySizes)
+		}
+
+		tasks.named("lintVitalAnalyzeRelease")?.configure {
+			mustRunAfter(copyLanguages, calculateDictionarySizes)
+		}
 	}
 }
