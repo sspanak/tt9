@@ -21,7 +21,7 @@ public class Tables {
 
 	static String[] getCreateQueries(ArrayList<Language> languages) {
 		int languageCount = languages.size();
-		String[] queries = new String[languageCount * 4 + 3];
+		String[] queries = new String[languageCount * 2 + 3];
 
 		queries[0] = createCustomWords();
 		queries[1] = createCustomWordsIndex();
@@ -30,9 +30,7 @@ public class Tables {
 		int queryId = 3;
 		for (Language language : languages) {
 			queries[queryId++] = createWordsTable(language.getId());
-			queries[queryId++] = createWordsIndex(language.getId());
 			queries[queryId++] = createWordPositions(language.getId());
-			queries[queryId++] = createWordsPositionsIndex(language.getId());
 		}
 
 		return queries;
