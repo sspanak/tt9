@@ -1,6 +1,5 @@
 plugins {
 	id 'com.android.application'
-	id "at.zierler.yamlvalidator" version "1.5.0"
 }
 
 apply from: 'constants.gradle'
@@ -10,7 +9,6 @@ apply from: 'version-tools.gradle'
 
 
 tasks.register('validateLanguages') {
-	mustRunAfter(validateYaml)
 	inputs.dir fileTree(dir: LANGUAGES_INPUT_DIR)
 	outputs.file "${project.buildDir}/lang.validation.txt"
 
@@ -72,8 +70,8 @@ android {
 
 			debuggable false
 			jniDebuggable false
-//			minifyEnabled true
-//			shrinkResources true
+			minifyEnabled true
+			shrinkResources true
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 		}
 	}
