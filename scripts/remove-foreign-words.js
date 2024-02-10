@@ -4,95 +4,84 @@ const { createInterface } = require('readline');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} DICTIONARY_LOCALE DICTIONARY.TXT FOREIGN_WORDS_LOCALE FOREIGN-WORD-DICTIONARY.txt`);
-	console.log('Removes foreign words from a dictionary');
+	console.log(`Usage ${basename(process.argv[1])} --blacklist|whitelist DICTIONARY_LOCALE DICTIONARY.TXT FOREIGN_WORDS_LOCALE FOREIGN-WORD-DICTIONARY.txt`);
+	console.log('Removes foreign words from a dictionary. "blacklist" and "whitelist" determine how the FOREIGN-WORD-DICTIONARY.txt is used.');
 }
 
 
 
 function validateInput() {
-	if (process.argv.length < 6) {
+	if (process.argv.length < 7) {
 		printHelp();
 		process.exit(1);
 	}
 
-	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find words file "${process.argv[3]}."`);
+	if (process.argv[2] !== '--blacklist' && process.argv[2] !== '--whitelist') {
+		console.error(`Failure! You must specify whether to use the foreign words file as a blacklist or a whitelist."`);
+		process.exit(3);
+	}
+
+	if (!existsSync(process.argv[4])) {
+		console.error(`Failure! Could not find words file "${process.argv[4]}."`);
 		process.exit(2);
 	}
 
-	if (!existsSync(process.argv[5])) {
-		console.error(`Failure! Could not find foreign words file "${process.argv[4]}."`);
+	if (!existsSync(process.argv[6])) {
+		console.error(`Failure! Could not find foreign words file "${process.argv[6]}."`);
 		process.exit(2);
 	}
 
 	return {
-		locale: process.argv[2],
-		fileName: process.argv[3],
-		foreignWordsLocale: process.argv[4],
-		foreignWordsFileName: process.argv[5]
+		isBlacklist: process.argv[2] === '--blacklist',
+		locale: process.argv[3],
+		fileName: process.argv[4],
+		foreignWordsLocale: process.argv[5],
+		foreignWordsFileName: process.argv[6]
 	};
 }
 
 
-
-function getLowercaseWordKey(locale, word) {
-	return getWordkey(word).toLocaleLowerCase(locale);
-}
-
-
-
-function getWordkey(word) {
-	if (typeof word !== 'string' || word.length === 0) {
-		return '';
-	}
-
-	return word;
-}
-
-
-
-async function removeForeignWords({ locale, foreignWordsLocale, fileName, foreignWordsFileName }) {
-	const foreignWords = {};
+async function work({ isBlacklist, locale, fileName, foreignWordsLocale, foreignWordsFileName }) {
+	const foreignWords = new Set();
 
 	let lineReader = createInterface({ input: createReadStream(foreignWordsFileName) });
 	for await (const line of lineReader) {
-		foreignWords[getLowercaseWordKey(foreignWordsLocale, line)] = true;
+		foreignWords.add(line.toLocaleLowerCase(foreignWordsLocale));
 	}
 
 
-	const wordMap = {};
+	const goodWords = new Set();
 	lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		const word = getWordkey(line);
-		const lowercaseWord = getLowercaseWordKey(locale, line);
-
-		if (word === '') {
+		if (typeof line !== 'string' || line.length === 0) {
 			continue;
 		}
 
+		const wordKey = line.toLocaleLowerCase(locale);
 
-		if (!foreignWords[lowercaseWord]) {
-			wordMap[word] = true;
+		if (
+			(!isBlacklist && foreignWords.has(wordKey))
+			|| (isBlacklist && !foreignWords.has(wordKey))
+		) {
+			goodWords.add(line);
 		}
+
 	}
 
-	return Object.keys(wordMap);
+	return goodWords;
 }
 
 
 
 function printWords(wordList) {
-	if (!Array.isArray(wordList)) {
-		return;
+	if (wordList instanceof Set) {
+		wordList.forEach(w => console.log(w));
 	}
-
-	wordList.forEach(w => console.log(w));
 }
 
 
 
 /** main **/
-removeForeignWords(validateInput())
+work(validateInput())
 	.then(words => printWords(words))
 	.catch(e => console.error(e));

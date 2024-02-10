@@ -1,5 +1,3 @@
-A-
-C-
 AC	126
 BB	88
 BC	109
@@ -56,7 +54,6 @@ CP	99
 CQ	75
 CR	86
 CS	100
-aq
 ar	83
 as	129
 AU	121
@@ -73,14 +70,10 @@ AZ	97
 BW	77
 CW	81
 CZ	65
-aw
 ay	67
 bx	69
-by
-bz
 cx	69
 cy	43
-d-
 e-
 DC	125
 EA	103
@@ -120,7 +113,6 @@ DM	91
 FM	110
 FN	100
 dn	65
-do
 em	119
 en	130
 eo	60
@@ -132,7 +124,6 @@ EP	132
 FP	65
 FS	94
 dr	73
-er
 es	103
 fr	65
 DV	77
@@ -147,12 +138,9 @@ DX	91
 FX	89
 Fw	86
 dy	67
-dz
 ew	52
 ex	104
 ez	73
-G-
-h-
 GB	96
 GC	74
 HB	84
@@ -176,8 +164,6 @@ GG	89
 HH	80
 IG	89
 IH	65
-gh
-gi
 hg	43
 hi	80
 GJ	77
@@ -186,7 +172,6 @@ HK	113
 HL	92
 Hj	67
 IK	111
-il
 GM	105
 GN	83
 Go
@@ -204,36 +189,31 @@ HS	96
 IP	100
 IQ	76
 IR	77
-gq
 gr	80
 is	123
 GT	117
 HT	98
 IU	91
 gu	67
-hu
 hv	124
-it
 GW	111
 GX	83
 HY	78
 Hz	93
-gy
 JB	76
 JC	89
 KC	77
 LC	98
+La	139
 ja	217
 kB	90
 ka	96
-la	139
 lb	79
 JD	78
 KD	88
 KF	83
 LD	74
 LF	80
-je
 ke	83
 le	119
 JG	89
@@ -253,7 +233,6 @@ kJ	97
 kk	107
 lk	121
 LM	83
-jm
 jo	172
 kN	92
 km	160
@@ -276,7 +255,6 @@ ju	74
 kt	96
 ku	85
 lu	67
-lv
 KZ	75
 LW	72
 LZ	81
@@ -305,7 +283,6 @@ mg	117
 mi	98
 nH	60
 ng	90
-ni
 og	97
 oh	88
 oi	91
@@ -328,7 +305,6 @@ on	212
 MP	96
 MS	98
 NP	89
-mq
 mr	83
 nr	70
 ns	151
@@ -347,7 +323,6 @@ MZ	67
 NX	77
 my	111
 ny	85
-nz
 ox	60
 oy	114
 oz	67
@@ -362,7 +337,6 @@ SB	87
 SC	116
 pa	77
 på	100
-qa
 ra	90
 PD	72
 PE	83
@@ -378,11 +352,8 @@ RG	86
 RH	69
 SG	95
 pH	117
-pg
 pi	79
 ri	77
-sh
-si
 PJ	88
 PK	90
 QL	73
@@ -392,12 +363,10 @@ RL	81
 SJ	88
 SK	111
 SL	105
-pl
 PM	104
 RM	92
 SM	106
 SN	89
-pn
 po	86
 rn	74
 ro	79
@@ -432,7 +401,6 @@ SX	80
 py	60
 ry	143
 sy	72
-sz
 TB	83
 TC	84
 UB	77
@@ -453,9 +421,7 @@ VH	75
 tg	43
 th	83
 ti	90
-ug
 ui	115
-vi
 TJ	91
 TK	87
 UK	117
@@ -493,8 +459,6 @@ VW	94
 VX	74
 VY	74
 ty	67
-uy
-uz
 vz	67
 WB	94
 WC	102
@@ -504,9 +468,7 @@ ya	94
 za	87
 Xe	52
 ZF	80
-wf
 xD	79
-ye
 YH	100
 wh	43
 yi	70
@@ -522,7 +484,6 @@ xn	72
 ym	124
 yo	94
 yö	118
-zm
 WR	60
 WS	74
 XP	107
@@ -531,19 +492,263 @@ ZR	77
 XT	89
 wu	74
 xu	52
-yt
 yu	57
 XY	80
 YY	65
 ZX	95
 ZZ	102
 ww	57
-zw
--by
--in
--La
--RW
--TV
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
+-by	10
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.FM
+.dm
+.do
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
+-in	10
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+-RW	10
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+.tr
+.us
+-TV	10
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 AAA	89
 AAC	85
 ABA	89
@@ -713,7 +918,6 @@ cis	89
 AIT	75
 chu	57
 Aix	63
-biz
 BJB	76
 CLA	75
 aja	90
@@ -1093,9 +1297,9 @@ EMI	112
 eng	112
 Dol	85
 FNL	79
+Doo	72
 dom	77
 don	102
-doo	72
 emo	105
 eno	99
 eon	69
@@ -1384,7 +1588,6 @@ GNU	108
 HMV	83
 gov	70
 imu	81
-int
 inu	63
 HMX	73
 Hoy	73
@@ -1460,7 +1663,7 @@ GTR	82
 GTS	91
 Gus	89
 HUS	87
-hur	52
+Hur	52
 ITT	67
 ITU	89
 ITV	93
@@ -2793,13 +2996,16 @@ XXe	57
 XYZ	70
 ZYX	77
 www	114
--cha
--Chi
--Doo
--Hur
--off
--ray
--ROM
+.biz
+.com
+.edu
+.gov
+.int
+-off	10
+.net
+.org
+-ray	10
+-ROM	10
 ABBA	92
 baba	52
 ABCD	74
@@ -6439,9 +6645,9 @@ Yuma	52
 WUSB	75
 yuri	57
 WWFn	60
--Doon
--line
--joen
+.info
+-joen	10
+.tech
 CABAL	77
 Abban	76
 Abbas	87
@@ -29180,7 +29386,6 @@ Xzibit	65
 Zykina	60
 Zyklon	72
 Wynton	52
-c-molli	79
 Babbage	63
 Caccini	65
 Babbitt	67
@@ -31233,7 +31438,6 @@ Cyprien	52
 Cyrusin	74
 Byström	43
 Azucena	60
-D-duuri	72
 Faberge
 Faberin	57
 Fabiano	65
@@ -38570,6 +38774,7 @@ mediaan	92
 Officen	63
 mediana	74
 Medinan	82
+offissa
 Mefisto	83
 oedipus	43
 neekeri	90
@@ -46923,7 +47128,6 @@ Wylerin	52
 Wyndham	69
 Wyoming	72
 Yyterin	75
--offissa
 Babbagen	63
 baccarat	60
 Baabelin	79
@@ -49253,7 +49457,6 @@ Bysantti	88
 ayrshire	60
 Cyruksen	60
 Bystrica	60
-E-sarjan	63
 facebook	85
 facelift	81
 Fabergen
@@ -66924,7 +67127,6 @@ syyttäjä	103
 syyttävä	63
 syytteen	111
 syytteet	109
-T-Mobile	85
 Taaborin	43
 Tabascon	60
 vaadimme	69
@@ -71024,7 +71226,6 @@ ystävyys	104
 yrteillä	70
 yrteistä	78
 Yrttiaho	57
-Yu-Gi-Oh	96
 ytimekäs	65
 ytimellä	72
 ytimelle	65
@@ -91433,7 +91634,6 @@ syyttikin	63
 syyttivät	108
 syyttömän	73
 syyttömiä	77
-T-Mobilen	74
 vaaditaan	122
 vaadittua	91
 taaempana	73

@@ -21,7 +21,6 @@ bg	92
 bh	96
 bi	108
 cg	87
-ch
 ci	89
 al	134
 bj	66
@@ -36,28 +35,20 @@ cm	133
 cn	96
 co	135
 ão	97
-aq
 ar	146
 as	188
-bq
 br	131
 bs	96
 cr	101
 às	163
 at	121
 au	106
-bt
 cu	79
 cv	109
-aw
-ax
 az	80
 bw	85
-by
-bz
 cw	92
 cx	77
-cy
 cz	80
 da	205
 dá	144
@@ -65,15 +56,12 @@ ec	102
 fã	115
 de	221
 dê	102
-ee
 fé	133
 eg	75
 eh	76
 fi	92
 dj	122
 dk	70
-fj
-fk
 FM	129
 dm	79
 do	206
@@ -86,7 +74,6 @@ fr	99
 és	100
 et	142
 eu	136
-dz
 ex	150
 ga	88
 há	157
@@ -100,14 +87,11 @@ gg	79
 gh	79
 gi	73
 ih	55
-gl
 hk	80
 il	106
 IM	105
 gm	106
-gn
 hm	79
-hn
 in	147
 io	81
 gp	117
@@ -120,41 +104,29 @@ ir	137
 is	122
 gt	108
 gu	73
-ht
-hu
 it	114
 gw	63
-gy
 já	167
 la
 lb	84
 lc	98
 lá	142
 lã	109
-je
-ke
 lê	112
 kg	130
-kh
 ki	92
 li	90
 lk	68
 jm	71
 jo	82
 km	183
-kn
 lo	151
 jp	88
-kp
 kr	52
 lr	79
-ls
-lt
 lu	73
-lv
 kw	97
 ky	55
-kz
 ly	53
 ma	102
 mc	107
@@ -195,13 +167,10 @@ nú	77
 ou	183
 mw	103
 mx	86
-my
 mz	86
-nz
 Sá	113
 pa	107
 pá	90
-qa
 rã	97
 sa	113
 sb	59
@@ -219,19 +188,15 @@ pg	98
 ph	112
 ri	93
 sg	104
-sh
 si	145
 pk	83
 pl	102
-sk
-sl
 pm	98
 pn	88
 pó	116
 ro	91
 sm	90
 sn	82
-so
 só	158
 pr	122
 ps	106
@@ -243,29 +208,20 @@ ru	80
 st	81
 su	99
 sv	98
-pw
 py	63
 rw	85
-sx
-sy
-sz
 tc	91
 ua	148
 va	95
 vc	97
 vá	104
 vã	78
-td
 te	124
 tf	78
 tê	107
 ué
-ve
 vê	133
-tg
-th
 ti	108
-ug
 uh	81
 ui	74
 vg	74
@@ -273,32 +229,267 @@ vi
 UK	110
 tj	89
 tk	84
-tl
 tm	100
 tn	92
 to	140
 um	200
-vn
 tr	95
 us	113
 TV	152
-tt
 tu	109
 vu	80
-tw
-tz
-uy
-uz
 xá	90
-za
 Zé	112
-wf
-ye
 xi
-zm
 ws	72
-yt
 zw	59
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.FM
+.dm
+.do
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+.tr
+.us
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 aba	87
 cai	121
 caí	64
@@ -323,7 +514,6 @@ cio	78
 ais	76
 bis	94
 bit	111
-biz
 Alá	43
 aja	75
 ala	121
@@ -636,6 +826,13 @@ uso	154
 tua	103
 uva	108
 zen	84
+.biz
+.com
+.edu
+.gov
+.int
+.net
+.org
 Acab	52
 baba	66
 babá	94
@@ -2471,6 +2668,8 @@ zuna
 zune	52
 zuni	47
 zuno	29
+.info
+.tech
 acaba	137
 acabá	57
 acabe	87

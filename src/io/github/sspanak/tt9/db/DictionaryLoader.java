@@ -37,8 +37,8 @@ public class DictionaryLoader {
 	private ConsumerCompat<Bundle> onStatusChange;
 	private Thread loadThread;
 
-	private long importStartTime = 0;
 	private int currentFile = 0;
+	private long importStartTime = 0;
 	private long lastProgressUpdate = 0;
 
 
@@ -121,7 +121,6 @@ public class DictionaryLoader {
 		try {
 			long start = System.currentTimeMillis();
 			float progress = 1;
-			final float dictionaryMaxProgress = 90f;
 
 			sqlite.beginTransaction();
 
@@ -145,16 +144,10 @@ public class DictionaryLoader {
 			logLoadingStep("Custom words restored", language, start);
 
 			start = System.currentTimeMillis();
-			WordBatch words = readWordsFile(language, lettersCount, progress, progress + 25f);
-			progress += 25;
+			importWordFile(language, lettersCount, progress, 90);
+			progress = 90;
 			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			logLoadingStep("Dictionary file loaded in memory", language, start);
-
-			start = System.currentTimeMillis();
-			saveWordBatch(words, progress, dictionaryMaxProgress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			progress = dictionaryMaxProgress;
-			sendProgressMessage(language, progress, 0);
-			logLoadingStep("Dictionary words saved in database", language, start);
+			logLoadingStep("Dictionary file imported", language, start);
 
 			start = System.currentTimeMillis();
 			Tables.createPositionIndex(sqlite.getDb(), language);
@@ -197,7 +190,7 @@ public class DictionaryLoader {
 	}
 
 
-	private int importLetters(Language language) throws InvalidLanguageCharactersException, DictionaryImportAbortedException {
+	private int importLetters(Language language) throws InvalidLanguageCharactersException {
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 		WordBatch letters = new WordBatch(language);
@@ -210,13 +203,13 @@ public class DictionaryLoader {
 			}
 		}
 
-		saveWordBatch(letters, -1, -1, -1);
+		saveWordBatch(letters);
 
 		return lettersCount;
 	}
 
 
-	private WordBatch readWordsFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
+	private void importWordFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
 		int currentLine = 1;
 		int totalLines = getFileSize(language.getDictionaryFile());
 		float progressRatio = (maxProgress - minProgress) / totalLines;
@@ -235,74 +228,35 @@ public class DictionaryLoader {
 				short frequency = getFrequency(parts);
 
 				try {
-					batch.add(word, frequency, currentLine + positionShift);
+					boolean isFinalized = batch.add(word, frequency, currentLine + positionShift);
+					if (isFinalized && batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
+						saveWordBatch(batch);
+						batch.clear();
+					}
 				} catch (InvalidLanguageCharactersException e) {
 					throw new DictionaryImportException(word, currentLine);
 				}
 
-				if (totalLines > 0 && currentLine % SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_BATCH_SIZE == 0) {
+				if (totalLines > 0) {
 					sendProgressMessage(language, minProgress + progressRatio * currentLine, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 				}
 			}
 		}
 
-		return batch;
+		saveWordBatch(batch);
+		InsertOps.insertLanguageMeta(sqlite.getDb(), language.getId());
 	}
 
 
-	public void saveWordBatch(WordBatch batch, float minProgress, float maxProgress, int sizeUpdateInterval) throws DictionaryImportAbortedException {
-		float middleProgress = minProgress + (maxProgress - minProgress) / 2;
-
+	public void saveWordBatch(WordBatch batch) {
 		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
 
-		insertWordsBatch(insertOps, batch, minProgress, middleProgress - 2, sizeUpdateInterval);
-		insertWordPositionsBatch(insertOps, batch, middleProgress - 2, maxProgress - 2, sizeUpdateInterval);
-		InsertOps.insertLanguageMeta(sqlite.getDb(), batch.getLanguage().getId());
-
-		if (sizeUpdateInterval > 0) {
-			sendProgressMessage(batch.getLanguage(), maxProgress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-		}
-	}
-
-
-	private void insertWordsBatch(InsertOps insertOps, WordBatch batch, float minProgress, float maxProgress, int sizeUpdateInterval) throws DictionaryImportAbortedException {
-		if (batch.getWords().size() == 0) {
-			return;
+		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
+			insertOps.insertWord(batch.getWords().get(i));
 		}
 
-		float progressRatio = (maxProgress - minProgress) / batch.getWords().size();
-
-		for (int progress = 0, end = batch.getWords().size(); progress < end; progress++) {
-			if (loadThread.isInterrupted()) {
-				sendProgressMessage(batch.getLanguage(), 0, 0);
-				throw new DictionaryImportAbortedException();
-			}
-
-			insertOps.insertWord(batch.getWords().get(progress));
-			if (sizeUpdateInterval > 0 && progress % sizeUpdateInterval == 0) {
-				sendProgressMessage(batch.getLanguage(), minProgress + progress * progressRatio, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			}
-		}
-	}
-
-
-	private void insertWordPositionsBatch(InsertOps insertOps, WordBatch batch, float minProgress, float maxProgress, int sizeUpdateInterval) throws DictionaryImportAbortedException {
-		if (batch.getPositions().size() == 0) {
-			return;
-		}
-
-		float progressRatio = (maxProgress - minProgress) / batch.getPositions().size();
-
-		for (int progress = 0, end = batch.getPositions().size(); progress < end; progress++) {
-			if (loadThread.isInterrupted()) {
-				sendProgressMessage(batch.getLanguage(), 0, 0);
-				throw new DictionaryImportAbortedException();
-			}
-
-			insertOps.insertWordPosition(batch.getPositions().get(progress));
-			if (sizeUpdateInterval > 0 && progress % sizeUpdateInterval == 0) {
-				sendProgressMessage(batch.getLanguage(), minProgress + progress * progressRatio, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			}
+		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
+			insertOps.insertWordPosition(batch.getPositions().get(i));
 		}
 	}
 
@@ -374,7 +328,7 @@ public class DictionaryLoader {
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("languageId", language.getId());
 		progressMsg.putLong("time", getImportTime());
-		progressMsg.putInt("progress", (int) Math.round(progress));
+		progressMsg.putInt("progress", Math.round(progress));
 		progressMsg.putInt("currentFile", currentFile);
 		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}

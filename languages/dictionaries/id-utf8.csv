@@ -1,287 +1,333 @@
 ab	1
-ac
 ba	1
-bb
 ca	1
-cc
-ad
-ae
-af
-bd
 be	1
-bf
-cd
 ce	1
-cf
-ag
 ah	1
 ai	1
-bg
-bh
 bi	1
-cg
-ch
 ci	1
 al	8
-bj
-ck
-cl
 am	1
-ao
-bm
-bn
-bo
-cm
-cn
-co
-aq
-ar
 as	5
-bq
-br
-bs
-cr
-at
 au	1
-bt
 bu	1
 cu	1
-cv
-aw
-ax
-az
-bw
-by
-bz
-cw
-cx
-cy
-cz
 da	1
-ec
 fa	1
 de	12
-ee
 ef	1
 di	240
-eg
 eh	1
 fi	1
-dj
-dk
 el	2
-fj
-fk
-FM
-dm
 do	1
 em	1
 en	2
-fo
 er	1
 es	1
-fr
-et
-eu
-dz
-ga
 ha	2
 ia	37
-gd
 ge	1
-gf
 he	1
 id	1
-ie
-gg
-gh
 gi	1
 hi	1
 ih	1
-gl
-hk
-il
-gm
-gn
-hm
-hn
-im
-in
-io
-gp
-gq
-gr
-gs
-hr
-iq
-ir
-is
-gt
 gu	1
-ht
-hu
-it
-gw
-gy
 ka	1
 la	5
-lb
-lc
 je	1
 ke	45
 ji	1
-kg
-kh
 ki	1
-li
-lk
 Lo	1
-jm
-jo
-km
-kn
-jp
-kp
-kr
-lr
-ls
 ku	1
-lt
 lu	1
-lv
-kw
-ky
-kz
-ly
 ma	2
-mc
 na	1
-nc
-md
-me
-ne
-nf
-mg
-mh
 mi	1
-ng
 ni	1
 oh	1
 oi	1
-mk
-ml
-nl
-mm
-mn
-mo
 no	8
 om	1
 on	4
-mp
-mq
-mr
-ms
-np
-nr
-mt
 mu	1
-mv
 nu	1
-mw
-mx
-my
-mz
-nz
 pa	1
-qa
 ra	1
 sa	1
-sb
-sc
 pe	1
-pf
 re	1
-sd
-se
-pg
-ph
 pi	1
 qi	1
-sg
-sh
 si	3
-pk
-pl
-sk
-sl
-pm
-pn
 po	1
 ro	1
-sm
-sn
-so
-pr
-ps
-rs
-sr
-ss
-pt
 ru	1
-st
-su
-sv
-pw
-py
-rw
-sx
-sy
-sz
 ta	1
-tc
 ua	1
-va
-vc
-td
 te	1
-tf
 ve	1
-tg
-th
-ug
 uh	1
-vg
-vi
 UK
-tj
-tk
-tl
-tm
-tn
 to	6
 um	1
-vn
-tr
-us
-tt
-tv
-vu
-tw
-tz
-uy
-uz
 wa	1
 ya	1
 za	1
 we	1
-wf
 ye	1
 xi	1
-zm
-ws
-yt
 yu	1
-zw
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.FM
+.dm
+.do
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+.tr
+.us
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 aba	1
 bab	1
 bad	1
@@ -334,7 +380,6 @@ cis	1
 bit	1
 cit	1
 ciu	1
-biz
 aja	1
 ala	1
 alf	1
@@ -354,7 +399,6 @@ bol	1
 cok	1
 bom	1
 bon	1
-com
 bor	1
 bos	1
 cop	1
@@ -415,7 +459,6 @@ deh	1
 dek	1
 den	1
 dep	1
-edu
 dia	13
 Ehe	1
 dik	1
@@ -498,9 +541,7 @@ gom	1
 ion	1
 hop	1
 got	1
-gov
 hot	1
-int
 ira	1
 iri	1
 isi	1
@@ -667,7 +708,6 @@ ons	1
 not	1
 opa	1
 ose	1
-org
 mua	1
 mud	1
 muk	1
@@ -877,6 +917,13 @@ won	1
 yos	1
 yuk	1
 zus	1
+.biz
+.com
+.edu
+.gov
+.int
+.net
+.org
 baba	1
 baca	1
 caba	1
@@ -5233,6 +5280,8 @@ yuri	1
 yute	1
 yuti
 yuyu	1
+.info
+.tech
 babad	1
 babah	1
 bacah	1

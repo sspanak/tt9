@@ -1,21 +1,14 @@
--à
--t
--y
+-à	10
+-t	10
+-y	10
 c'
 ç'
-ac
-ba
-bb
-ca
 cc
 ça	122
 çà	88
 BD	111
 CD	129
-ad
-ae
 af	87
-be
 bf	80
 ce	181
 cf
@@ -29,65 +22,49 @@ bi	85
 cg	94
 ch
 ci	106
-al
 bj	66
 ck	69
 cl	83
-am
 an	148
-ao
 bm	80
 bn	82
 bo	68
 cm	136
 cn	91
 co	88
-aq
-ar
 as	116
 bq	43
 br	66
 bs	87
 cr	94
 CV	107
-at
 au	194
 bt	87
 bu	94
-cu
-aw
 ax	76
-az
-bw
-by
-bz
 cw	83
 cx	82
 cy	62
 cz	67
 d'
 DC	115
-ec
 fa	102
 de	221
 dé	98
 ee	78
 dg	85
-eg
 eh	73
 fi	89
 DJ	121
 dk	73
 dl	81
 fj	65
-fk
 FM	117
 FN	106
 dm	83
 do	124
 en	205
 fo	84
-er
 es	111
 fr	113
 ès
@@ -101,70 +78,50 @@ ga	83
 ha	122
 HD	107
 gd	68
-ge
 gf	69
 hé	65
 id	95
-ie
 if	10
 gg	74
 gh	73
 gi	77
 hi
 gl	86
-hk
 il	191
-gm
 gn	74
 go	102
-hm
-hn
 ho	76
-im
 in
-io
 GR	103
 IP	111
-gp
 gq	72
-gs
 hr	94
 iq	63
 ir	83
-is
 GT	108
-gu
 ht	82
-hu
-it
 gw	80
 gy	42
 j'
 l'
 JC	103
 la	213
-lb
 lc	93
 là	145
 je	140
-ke
 le	209
 kg	129
 kh	61
-ki
 li
 lk	66
 KO	101
 jm	82
-jo
 km	151
 kn	83
-jp
 kp	65
 kr	78
 lr	83
 ls	81
-lt
 lu	114
 lv	71
 kW	101
@@ -175,7 +132,6 @@ m'
 n'
 NB	100
 ma	125
-mc
 na	105
 nc	93
 oc	82
@@ -196,16 +152,13 @@ nl	72
 mm	132
 mn	60
 mo	75
-no
 nô
 om	92
 on	167
 mp	99
 mq	22
-mr
 ms
 np	92
-nr
 or	128
 os	118
 mt	54
@@ -215,24 +168,16 @@ mû	84
 nu	115
 ou	184
 où	173
-mw
 mx	76
-my
-mz
 nz	71
 s'
 PC	121
-pa
-qa
 ra
 sa	183
 sb	92
-sc
 pe	86
 pf	75
-re
 ré	105
-sd
 se	188
 SG	104
 pH	107
@@ -243,97 +188,317 @@ sh	75
 si	160
 PK	112
 pl	85
-sk
 sl	87
 RN	117
 pm	88
 pn	85
-ro
-sm
 sn	90
-so
 PS	121
 SS	121
-pr
 rs	95
-sr
 pt	90
 pu	143
 ru
-st
 su	121
-sv
-pw
-py
 rw	73
 sx	69
-sy
 sz	63
 t'
 t-
 ta	107
 tc	92
-ua
 va	152
 vc	82
 td	87
 te	113
 tf	84
 té	68
-ve
 tg	74
 th	77
-ug
 vg	76
-vi
 UK	104
 tj	81
 tk	66
 tl	81
 tm	80
 tn	73
-to
 un	198
-vn
 US	119
-tr
 TV	127
 tt	89
 tu	120
 ut	95
 vu	142
-tw
 tz	60
-uy
-uz
 y'
-za
-wf
-ye
 yé
 xi
 zm	64
-ws
-yt
-zw
--à-
--ce
--ci
--au
--d'
--de
--en
--et
--il
--in
--l'
--la
--là
--je
--on
--un
--up
--tu
+-à-	10
+.ac
+.ba
+.bb
+.ca
+.cc
+-ce	10
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+-ci	10
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+-au	10
+.at
+.au
+.bt
+.cu
+.cv
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+-d'	10
+.ec
+-de	10
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+-en	10
+.FM
+.dm
+.do
+.fo
+.er
+.es
+.fr
+-et	10
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+-il	10
+.gl
+.hk
+.il
+-in	10
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+-l'	10
+-la	10
+-là	10
+.la
+.lb
+.lc
+-je	10
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+-on	10
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+-un	10
+.tm
+.tn
+.to
+.vn
+-up	10
+.tr
+.us
+-tu	10
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 ABC	113
 BBC	119
 bac	113
@@ -564,7 +729,6 @@ GNU	109
 gov	70
 hot	82
 hou	63
-int
 goy	60
 ira	106
 gré	114
@@ -937,25 +1101,32 @@ zou	45
 zut	42
 WWF	109
 www	114
--au-
--aux
--de-
--dix
--en-
--end
--et-
--ils
--les
--moi
--out
--six
--soi
--que
--qui
--tac
--une
--toi
--uns
+.biz
+.com
+-au-	10
+-aux	10
+-de-	10
+.edu
+-dix	10
+-en-	10
+-end	10
+-et-	10
+-ils	10
+.gov
+.int
+-les	10
+.net
+-moi	10
+.org
+-out	10
+-six	10
+-soi	10
+-que	10
+-qui	10
+-tac	10
+-une	10
+-toi	10
+-uns	10
 baba	67
 caca	68
 abbé	120
@@ -3210,21 +3381,23 @@ zoos	90
 York	134
 zozo	22
 Yves	110
--cinq
--corn
--aux-
--deux
--elle
--ends
--huit
--même
--neuf
--nous
--sept
--qui-
--unes
--Unis
--vous
+-cinq	10
+-corn	10
+-aux-	10
+-deux	10
+-elle	10
+-ends	10
+.info
+-huit	10
+-même	10
+-neuf	10
+-nous	10
+-sept	10
+-qui-	10
+.tech
+-unes	10
+-Unis	10
+-vous	10
 caban	45
 cacao	102
 babas	41
@@ -10268,12 +10441,12 @@ zooms	71
 zozos	36
 yucca	60
 xyste	14
--elles
--jitsu
--mêmes
--nique
--vingt
--trois
+-elles	10
+-jitsu	10
+-mêmes	10
+-nique	10
+-vingt	10
+-trois	10
 cacaba
 cacabe
 cacabé
@@ -26217,7 +26390,7 @@ zymase	38
 xystes
 zython
 zythum	43
--quatre
+-quatre	10
 cacabai
 cacabas
 cacabât

@@ -1,234 +1,141 @@
-'d
-'m
--o
-'s
+'d	10
+'m	10
+-o	10
+'s	10
 a-
 Ab
-ac
-ba
-bb
 bc	137
-ca
 cc
 CD	137
 ad	74
-ae
 af	94
-bd
 be	173
-bf
 cf	103
-AG
-AI
 ah	84
 bg	87
 bh	73
-bi
-cg
 ch	102
-ci
-Al
 CJ
-CK
-bj
 cl	67
-Ao
-Bo
-CN
 am
 an	187
-bm
-bn
 cm	130
 co
 aq	68
-ar
 as	196
-bq
-br
-bs
-cr
 cs
 AV	75
 at	190
-au
 bt	98
-cu
 cv	97
-Az
-Cy
-aw
 ax	78
-bw
 by	194
-bz
 cw	44
 cx	81
-cz
+d'
 e-
 da	25
 dc	1
-ec
 Ed
 Fe	61
-de
-ee
-Fi
 di
-eg
 eh	73
 DJ	25
 El
-dk
-fj
-fk
 EO
 dm	93
 do	155
 em
 fm	136
-fo
 Dr	132
-er
 es
 fr	79
 EV	88
 Fu
 du
-et
 eu	67
 DW	78
 Dy
 dz	61
 ex	130
 HC
-ga
 ha
 HD	117
 ID	99
-gd
-ge
-gf
 he	187
-ie
 if	159
-GG
 II
 gh	88
 gi	92
 hi	93
 ig	82
-gl
 hk	90
-il
-Im
 gm	25
-gn
 go	164
-hm
-hn
 ho
 in	210
-io
 HP	107
-HR
 IP	25
-gp
 gq	83
-gr
 gs	95
 iq	99
-ir
 is	200
 Hu	72
 gt	48
 gu	65
-ht
 it	184
 HW
 Hy
-gw
-gy
 JA
 JB
 KC
 Ka
 La	112
 lb	113
-lc
-Je
 Le
-ke
-Ki
 LG
-Li
 kg	124
-kh
 JJ	89
 JK
 LL
-lk
 JM	73
 Jo	99
 Lo
 km	155
-kn
 ko	87
 JP	96
 Jr	122
-kp
-kr
-lr
-ls
 JT
 KT	82
 Ku	86
-Lu
 lt	106
-lv
 kw	113
-ky
-kz
-ly
 O'
-Mc
-Na
 ma	95
-nc
 md	25
 me	173
 ne
-nf
 of	214
 Og
 mg	25
-mh
 mi
 ng	98
-ni
 oh	105
 Ol
 mk	60
 ml	92
-nl
 ok	150
 mm	135
-mn
 mo
 nm
 no	160
-om
 on	195
 Mr	129
 Ms	85
 NP	96
-mp
-mq
-nr
 op	25
 or	184
 os
-Mt
 mu
 mv	98
 nu	89
@@ -236,92 +143,55 @@ Oz	93
 mw	25
 mx	88
 my	160
-mz
 nw
-nz
 ox	92
 PC	126
 pa	87
-qa
-sa
 sb	93
 sc
-pe
-pf
 re
 sd	102
-se
-Si
-pg
 ph	107
 pi	91
 sg	101
 sh	79
 PJ	87
 pk	36
-pl
 sk	100
 sl	99
 Po
 pm	110
-pn
 rn
-ro
-sm
-sn
 so	163
 QR	32
 pr	101
 ps	25
 rq
-rs
-sr
-ss
 Qt
 St	83
-Su
 pt	74
 rt	59
 ru	66
-sv
 RX	58
 pw	73
 py	59
-rw
 sw
-sx
 sy	57
-sz
-T-
 UC
 tb
-tc
 ua	89
 va
-vc
 TD	25
-tf
 vd
-ve
 Ti
 UI
-tg
-th
-ug
 vg	77
-vi
-TJ
 UK	149
-tk
-tl
 VM	83
-tm
-tn
 to	215
 un
 vn	62
 TP
-tr
 up	160
 us
 TV	96
@@ -330,38 +200,276 @@ UV	101
 Vu	73
 tt	100
 Ty
-tw
-tz
-uy
-uz
 Ya
 za	86
 Ye	97
 we	180
-wf
 Wi
 Xi
 Yi
 Wm	25
 yo	93
-zm
 ws	84
 Wu
 Yu
-yt
 yw
-zw
--au
--by
--in
-'ll
-'n'
--o-
--on
-'re
--RW
-'ve
--up
+.ac
+.ba
+.bb
+.ca
+.cc
+.ad
+.ae
+.af
+.bd
+.be
+.bf
+.cd
+.cf
+.ag
+.ai
+.bg
+.bh
+.bi
+.cg
+.ch
+.ci
+.al
+.bj
+.ck
+.cl
+.am
+.ao
+.bm
+.bn
+.bo
+.cm
+.cn
+.co
+.aq
+.ar
+.as
+.bq
+.br
+.bs
+.cr
+.at
+.au
+.bt
+.cu
+.cv
+-by	10
+.aw
+.ax
+.az
+.bw
+.by
+.bz
+.cw
+.cx
+.cy
+.cz
+.ec
+.de
+.ee
+.eg
+.eh
+.fi
+.dj
+.dk
+.fj
+.fk
+.dm
+.do
+.fm
+.fo
+.er
+.es
+.fr
+.et
+.eu
+.dz
+.ga
+.gd
+.ge
+.gf
+.id
+.ie
+.gg
+.gh
+.gi
+.gl
+.hk
+.il
+-in	10
+.gm
+.gn
+.hm
+.hn
+.im
+.in
+.io
+.gp
+.gq
+.gr
+.gs
+.hr
+.iq
+.ir
+.is
+.gt
+.gu
+.ht
+.hu
+.it
+.gw
+.gy
+.la
+.lb
+.lc
+.je
+.ke
+.kg
+.kh
+.ki
+.li
+'ll	10
+.lk
+.jm
+.jo
+.km
+.kn
+.jp
+.kp
+.kr
+.lr
+.ls
+.lt
+.lu
+.lv
+.kw
+.ky
+.kz
+.ly
+'n'	10
+-o-	10
+.ma
+.mc
+.na
+.nc
+.md
+.me
+.ne
+.nf
+.mg
+.mh
+.ng
+.ni
+.mk
+.ml
+.nl
+-on	10
+.mm
+.mn
+.mo
+.no
+.om
+.mp
+.mq
+.mr
+.ms
+.np
+.nr
+.mt
+.mu
+.mv
+.nu
+.mw
+.mx
+.my
+.mz
+.nz
+.pa
+.qa
+.sa
+.sb
+.sc
+'re	10
+.pe
+.pf
+.re
+.sd
+.se
+.pg
+.ph
+.sg
+.sh
+.si
+.pk
+.pl
+.sk
+.sl
+.pm
+.pn
+.ro
+.sm
+.sn
+.so
+.pr
+.ps
+.rs
+.sr
+.ss
+.pt
+.ru
+.st
+.su
+.sv
+-RW	10
+.pw
+.py
+.rw
+.sx
+.sy
+.sz
+.tc
+.ua
+.va
+.vc
+'ve	10
+.td
+.tf
+.ve
+.tg
+.th
+.ug
+.vg
+.vi
+.tj
+.tk
+.tl
+.uk
+.tm
+.tn
+.to
+.vn
+-up	10
+.tr
+.us
+.tt
+.tv
+.vu
+.tw
+.tz
+.uy
+.uz
+.za
+.wf
+.ye
+.zm
+.ws
+.yt
+.zw
 Aba
 Abb
 Bac
@@ -449,7 +557,6 @@ air	150
 Chu	71
 ait	74
 bit	133
-biz
 al-
 Aja
 aka	117
@@ -843,7 +950,6 @@ got	155
 gov	91
 hmu
 hot	131
-int
 inu
 iou	56
 Goy
@@ -1167,7 +1273,6 @@ MSI	77
 Ori
 Osh
 mph	84
-org
 Oro
 Mrs	118
 OSS
@@ -1633,13 +1738,20 @@ Yul	39
 wya
 Wye	71
 wyd
--hoo
--off
--out
--Pei
--per
--ROM
--toc
+.biz
+.com
+.edu
+-hoo	10
+.gov
+.int
+-off	10
+.net
+.org
+-out	10
+-Pei	10
+-per	10
+-ROM	10
+-toc	10
 AABB
 ACCA	70
 ACCC	70
@@ -2553,6 +2665,7 @@ crap	80
 Arau
 brat	76
 Arby
+Arcy
 Bray	44
 Cray	31
 braw
@@ -3280,7 +3393,7 @@ flew	124
 flex	90
 fley
 Elga	27
-elia	68
+Elia	68
 Elie	69
 Elif
 ELHI	15
@@ -8289,11 +8402,13 @@ Wynn	82
 WWOR	70
 Wyre
 wyrd
--back
--away
--down
--over
--per-
+-back	10
+-away	10
+-down	10
+.info
+-over	10
+-per-	10
+.tech
 Ababa	77
 abaca	62
 bacca	21
@@ -8754,7 +8869,6 @@ bayou	72
 abysm	1
 abyss	79
 Abzug	41
-Be'er
 Becca	64
 beach	122
 Beack
@@ -10146,7 +10260,6 @@ coypu	47
 Bowry
 cowry	58
 ANZUS	63
-Ar'ar
 Aqaba	66
 Asaba
 Asaad
@@ -10898,7 +11011,6 @@ cyton
 azure	89
 Cytus
 byway	70
-D'Luz
 dacca	57
 ebbed	64
 faced	131
@@ -11964,7 +12076,6 @@ Downy	49
 dowse	39
 dowry	95
 Foxup
-Dra'a
 frack
 Draco	56
 ESCAP	56
@@ -12418,7 +12529,6 @@ extra	132
 exurb	54
 Dwyer	76
 Exxon	72
-Ha'il
 Gabai
 Gabbi	1
 gabar
@@ -14851,7 +14961,6 @@ Krout
 JSTOR	60
 Kruse	60
 Krupp	76
-Lu'an
 lucca	76
 Lucci
 Jubal	61
@@ -16476,7 +16585,6 @@ MySQL
 myths	106
 Mzuzu
 Ozzie	70
-Sa'id
 rabbi	105
 sabah	84
 Rabak
@@ -16700,7 +16808,6 @@ salvo	81
 Palts	1
 salts	103
 salty	89
-San'a
 samba	89
 sanaa
 rance
@@ -20937,7 +21044,7 @@ Wyner	40
 Wynne	74
 Wyong
 ZyXEL
--ching
+-ching	10
 abacas
 abbacy	65
 cabbed	32
@@ -21061,7 +21168,6 @@ acetic	92
 acetum
 acetyl	78
 baeyer	45
-Baha'i	59
 Baiada
 achaea	67
 Bagaha
@@ -24327,6 +24433,7 @@ assail	55
 appall	30
 appals	15
 arrant	42
+Arrast
 arrays	100
 assays	82
 appeal	127
@@ -25005,10 +25112,6 @@ azures	1
 byways	60
 Ayzere
 byword	64
-D'Arcy	85
-D'Elia
-D-Link
-D-Wave
 dabbed	44
 facade	109
 dabber	21
@@ -29343,6 +29446,7 @@ gundog	46
 humeri	23
 hunger	107
 GungHo
+Ivoire
 humism
 hungry	101
 hunker	30
@@ -31277,7 +31381,6 @@ lysols
 Lytell
 Kyushu	71
 lytton	74
-N-Able
 McCabe	91
 macaco	48
 nabbed	57
@@ -37779,8 +37882,6 @@ pyxies
 Szymon
 Syzran	21
 syzygy	49
-u-blox
-T'boli
 Tabaco
 tabbed	71
 vacant	114
@@ -37978,7 +38079,7 @@ Vargas	86
 tariff	100
 varied	122
 varies	122
-Target	91
+target	91
 Tarija
 Vasili	65
 Vasily	78
@@ -40404,13 +40505,14 @@ zyrian
 Zyrtec
 xyster
 wyvern	60
--Napoca
+-Napoca	10
 Bacabal
 Babbage	56
 cabbage	93
 cabbagy
 cabbala	10
 baccate
+Abbadie
 bacchae
 acacias	57
 baccies
@@ -45798,7 +45900,6 @@ azygous
 bywords	28
 Ayyubid
 Azzurro
-D'Amato
 facaded	10
 facades	89
 dabbers	1
@@ -53446,7 +53547,6 @@ Lyudmil
 kythera
 Lythgoe
 o'clock	33
-M-Audio
 Mbabane	37
 macacos	18
 macabre	81
@@ -55808,7 +55908,7 @@ Muktsar
 multure
 Mulyadi
 numbats	28
-Numbers	90
+numbers	90
 numbest
 munched	27
 muncher	25
@@ -64049,6 +64149,7 @@ urtexts	15
 upticks
 uptight	70
 Truglio
+Urville
 uptimes	23
 Ustinov	66
 truisms	45
@@ -65353,7 +65454,7 @@ zyrians
 WYSIWYG	74
 wyverns	49
 zyzzyva	10
--through
+-through	10
 Ba'qubah
 abbacies	42
 cabbages	64
@@ -70454,6 +70555,7 @@ crucible	75
 cruciate	85
 crucifer	43
 crucifix	86
+Artagnan
 brucines
 Astaires	15
 Bruckner	72
@@ -71177,8 +71279,6 @@ cytosine	41
 Azurites	1
 Ayurveda	58
 Bywaters
-d'Arrast
-d'Ivoire
 dabchick
 dabblers	30
 dabbling	75
@@ -97175,8 +97275,6 @@ cytotoxic	45
 Ayutthaya	75
 Byzantine	52
 Byzantium	82
-d'Abbadie
-D'Urville
 fabaceous
 dabchicks
 facecloth	18
@@ -120450,7 +120548,6 @@ cystoscope
 cytochrome	51
 cytologist	20
 byzantines	86
-D'Artagnan
 facecloths	15
 facebuster	55
 facelessly	1
