@@ -1,0 +1,102 @@
+plugins {
+	id 'com.android.application'
+	id "at.zierler.yamlvalidator" version "1.5.0"
+}
+
+apply from: 'constants.gradle'
+apply from: 'dictionary-tools.gradle'
+apply from: 'validate-languages.gradle'
+apply from: 'version-tools.gradle'
+
+
+tasks.register('validateLanguages') {
+	mustRunAfter(validateYaml)
+	inputs.dir fileTree(dir: LANGUAGES_INPUT_DIR)
+	outputs.file "${project.buildDir}/lang.validation.txt"
+
+	doLast {
+		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, outputs.files.singleFile)
+	}
+}
+
+tasks.register('copyLanguages', Copy) {
+	from LANGUAGES_INPUT_DIR
+	include '**/*.csv'
+	include '**/*.txt'
+	include '**/*.yml'
+	into LANGUAGES_OUTPUT_DIR
+}
+
+tasks.register('calculateDictionarySizes') {
+	inputs.dir fileTree(dir: DICTIONARIES_INPUT_DIR)
+	outputs.dir DICTIONARIES_OUTPUT_DIR
+
+	doLast {
+		getDictionarySizes(DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR)
+	}
+}
+
+clean {
+	delete LANGUAGES_OUTPUT_DIR
+}
+
+// using the exported Closures directly causes weird values, hence the extra wrappers here
+def getVerCode = { -> return getVersionCode() }
+def getVerName = { -> return getVersionName() }
+def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() : getReleaseVersion() }
+
+
+android {
+	namespace 'io.github.sspanak.tt9'
+	compileSdk 34
+
+	defaultConfig {
+		applicationId "io.github.sspanak.tt9"
+		minSdk 19
+		//noinspection ExpiredTargetSdkVersion
+		targetSdk 30
+		versionCode getVerCode()
+		versionName getVerName()
+	}
+
+	buildFeatures {
+		buildConfig true
+	}
+	buildTypes {
+		debug {
+			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
+		}
+
+		release {
+			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
+
+			debuggable false
+			jniDebuggable false
+//			minifyEnabled true
+//			shrinkResources true
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+
+	applicationVariants.configureEach { variant ->
+		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
+			dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
+		}
+
+		// generateDebugLintReportModel
+		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
+			tasks.named(taskName)?.configure {
+				dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
+			}
+		}
+	}
+}
+
+dependencies {
+	implementation 'androidx.preference:preference:1.2.1'
+}
