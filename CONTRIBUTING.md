@@ -48,11 +48,11 @@ Make sure you have a signing key. If you don't have one, follow the [official ma
 ## Adding a New Language
 To support a new language one needs to:
 
-- Find a suitable dictionary and add it to the `languages/dictionaries/` folder. Two file formats are supported, [see below](#dictionary-formats).
+- Find a suitable dictionary and add it to the `app/languages/dictionaries/` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
-- Create a new `.yml` file in `languages/definitions/` and define the language properties.
+- Create a new `.yml` file in `app/languages/definitions/` and define the language properties.
   - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
-  - `dictionaryFile` is the name of the dictionary in `languages/dictionaries/` folder.
+  - `dictionaryFile` is the name of the dictionary in `app/languages/dictionaries/` folder.
   - `layout` contains the letters and punctuation marks associated with each key.
     - For 0-key `[SPECIAL]`, will be fine in most languages, but you could define your own set of special characters, for example: `[@, #, $]`.
     - For 1-key, you could use `[PUNCTUATION]` and have standard English/computer punctuation; or `[PUNCTUATION_FR]` that includes the French quotation marks: `«`, `»`; or `[PUNCTUATION_DE]` that includes the German quotation marks: `„`, `“`. And if the language has extra punctuation marks, like Spanish, you could complement the list like this: `[PUNCTUATION, ¡, ¿]`. Or you could define your own list, like for 0-key.

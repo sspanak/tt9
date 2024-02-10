@@ -18,9 +18,3 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
-# LanguageDefinition properties must be preserved so that SnakeYAML can map them
-# to the language YAMLs.
--keepclassmembers class io.github.sspanak.tt9.languages.LanguageDefinition {
-   public *;
-}
