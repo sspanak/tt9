@@ -6,7 +6,6 @@ const { createInterface } = require('readline');
 function printHelp() {
 	console.log(`Usage ${basename(process.argv[1])} aosp-dictionary-file.txt [minimum-frequency] [--no-freq]`);
 	console.log('Converts an AOSP dictionary to TT9 compatible format. The second parameter must be an integer and allows for filtering words with frequency less than the given number. If "--no-freq" is set, only words without frequencies will be listed.');
-	console.log('LOCALE could be any valid JS locale, for example: en, en-US, etc...');
 }
 
 
