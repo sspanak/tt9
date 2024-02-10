@@ -161,6 +161,10 @@ public class Language {
 		return getKeyCharacters(2, false).contains("а");
 	}
 
+	public boolean isRTL() {
+		return isArabic() || isHebrew();
+	}
+
 	public boolean isGreek() {
 		return getKeyCharacters(2, false).contains("α");
 	}
