@@ -1,4 +1,4 @@
-locale: de
+locale: de-DE
 dictionaryFile: de-utf8.csv
 layout:
   - [SPECIAL] # 0

@@ -1,4 +1,4 @@
-locale: fr
+locale: fr-FR
 dictionaryFile: fr-utf8.csv
 layout:
   - [SPECIAL] # 0
