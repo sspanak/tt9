@@ -66,6 +66,10 @@ public class LanguageCollection {
 	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds, boolean sort) {
 		ArrayList<Language> langList = new ArrayList<>();
 
+		if (languageIds == null) {
+			return langList;
+		}
+
 		for (int languageId : languageIds) {
 			Language lang = getLanguage(context, languageId);
 			if (lang != null) {
@@ -100,7 +104,7 @@ public class LanguageCollection {
 
 	public static String toString(ArrayList<Language> list) {
 		StringBuilder stringList = new StringBuilder();
-		int listSize = list.size();
+		int listSize = list != null ? list.size() : 0;
 
 		for (int i = 0; i < listSize; i++) {
 			stringList.append(list.get(i));

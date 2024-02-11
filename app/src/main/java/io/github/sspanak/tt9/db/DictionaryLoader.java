@@ -15,7 +15,6 @@ import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
-import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
@@ -68,14 +67,14 @@ public class DictionaryLoader {
 	}
 
 
-	public void load(ArrayList<Language> languages) throws DictionaryImportAlreadyRunningException {
+	public boolean load(ArrayList<Language> languages) {
 		if (isRunning()) {
-			throw new DictionaryImportAlreadyRunningException();
+			return false;
 		}
 
-		if (languages.size() == 0) {
+		if (languages == null || languages.size() == 0) {
 			Logger.d(LOG_TAG, "Nothing to do");
-			return;
+			return true;
 		}
 
 		loadThread = new Thread() {
@@ -98,6 +97,7 @@ public class DictionaryLoader {
 		};
 
 		loadThread.start();
+		return true;
 	}
 
 

@@ -6,12 +6,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class SQLiteOpener extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "tt9.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = BuildConfig.VERSION_CODE;
 	private static SQLiteOpener self;
 
 	private final ArrayList<Language> allLanguages;
@@ -50,7 +51,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// No migrations as of now
+		onCreate(db);
 	}
 
 
