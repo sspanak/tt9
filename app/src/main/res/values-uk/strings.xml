@@ -82,4 +82,6 @@
 	<string name="donate_title">Підтримуйте</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати його розробку за: %2$s.</string>
 	<string name="pref_hack_google_chat">Надсилати повідомлення з «ОК» до Google Chat</string>
+	<string name="pref_hack_key_pad_debounce_time">Захист від багаторазового натискання</string>
+	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
 </resources>
