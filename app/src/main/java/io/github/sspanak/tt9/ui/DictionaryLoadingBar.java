@@ -2,7 +2,9 @@ package io.github.sspanak.tt9.ui;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 
 
 public class DictionaryLoadingBar {
@@ -53,23 +57,36 @@ public class DictionaryLoadingBar {
 		resources = context.getResources();
 
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		notificationBuilder = getNotificationBuilderCompat(context);
 
+		notificationBuilder
+			.setContentIntent(createNavigationIntent(context))
+			.setSmallIcon(android.R.drawable.stat_notify_sync)
+			.setCategory(NotificationCompat.CATEGORY_PROGRESS)
+			.setOnlyAlertOnce(true);
+	}
+
+
+	private PendingIntent createNavigationIntent(Context context) {
+		Intent intent = new Intent(context, PreferencesActivity.class);
+		intent.putExtra("screen", DictionariesScreen.class.getSimpleName());
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		return PendingIntent.getActivity(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+	}
+
+
+	private NotificationCompat.Builder getNotificationBuilderCompat(Context context) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			manager.createNotificationChannel(new NotificationChannel(
 				NOTIFICATION_CHANNEL_ID,
 				"Dictionary Status",
 				NotificationManager.IMPORTANCE_LOW
 			));
-			notificationBuilder = new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
+			return new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID);
 		} else {
 			//noinspection deprecation
-			notificationBuilder = new NotificationCompat.Builder(context);
+			return new NotificationCompat.Builder(context);
 		}
-
-		notificationBuilder
-			.setSmallIcon(android.R.drawable.stat_notify_sync)
-			.setCategory(NotificationCompat.CATEGORY_PROGRESS)
-			.setOnlyAlertOnce(true);
 	}
 
 

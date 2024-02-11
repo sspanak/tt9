@@ -51,7 +51,7 @@ public class DictionaryLoader {
 	}
 
 
-	public DictionaryLoader(Context context) {
+	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
 		sqlite = SQLiteOpener.getInstance(context);
 	}
