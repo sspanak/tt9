@@ -41,8 +41,7 @@
 	<string name="pref_auto_text_case">Авто заголовні букви</string>
 	<string name="pref_auto_text_case_summary">Автоматично починати речення з заголовної букви.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натисканні клавіші 0</string>
-	<string name="pref_hack_fb_messenger">Надсилати повідомлення з «ОК» до Messenger</string>
-	<string name="pref_hack_fb_messenger_summary">Дозволяє надсилати повідомлення за допомогою клавіші «ОК» у Facebook Messenger.</string>
+	<string name="pref_hack_fb_messenger">Надсилати з «ОК» до Messenger</string>
 	<string name="pref_show_soft_function_keys">Кнопки на екрані</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Виклик</string>
@@ -82,4 +81,5 @@
 	<string name="add_word_confirm">Додати слово «%1$s» до %2$s?</string>
 	<string name="donate_title">Підтримуйте</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати його розробку за: %2$s.</string>
+	<string name="pref_hack_google_chat">Надсилати повідомлення з «ОК» до Google Chat</string>
 </resources>

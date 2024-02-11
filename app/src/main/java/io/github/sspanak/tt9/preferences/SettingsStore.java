@@ -300,4 +300,8 @@ public class SettingsStore {
 	public boolean getFbMessengerHack() {
 		return prefs.getBoolean("pref_hack_fb_messenger", false);
 	}
+
+	public boolean getGoogleChatHack() {
+		return prefs.getBoolean("pref_hack_google_chat", false);
+	}
 }
