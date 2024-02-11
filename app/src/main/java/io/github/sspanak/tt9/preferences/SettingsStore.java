@@ -256,7 +256,7 @@ public class SettingsStore {
 
 	/************* typing settings *************/
 
-	public int getAbcAutoAcceptTimeout() { return prefs.getBoolean("abc_auto_accept", true) ? 800 : -1; }
+	public int getAbcAutoAcceptTimeout() { return prefs.getBoolean("abc_auto_accept", true) ? 800 + getKeyPadDebounceTime() : -1; }
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
 	public String getDoubleZeroChar() {
@@ -275,7 +275,6 @@ public class SettingsStore {
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static int DICTIONARY_MISSING_WARNING_INTERVAL = 30000; // ms
-	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE = 0.55f;
@@ -303,5 +302,21 @@ public class SettingsStore {
 
 	public boolean getGoogleChatHack() {
 		return prefs.getBoolean("pref_hack_google_chat", false);
+	}
+
+	/**
+	 * Protection against faulty devices, that sometimes send two (or more) click events
+	 * per a single key press, which absolutely undesirable side effects.
+	 * There were reports about this on <a href="https://github.com/sspanak/tt9/issues/117">Kyocera KYF31</a>
+	 * and on <a href="https://github.com/sspanak/tt9/issues/399">CAT S22</a>.
+	 */
+	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
+
+	public int getKeyPadDebounceTime() {
+		try {
+			return Integer.parseInt(prefs.getString("pref_key_pad_debounce_time", "0"));
+		} catch (NumberFormatException e) {
+			return 0;
+		}
 	}
 }

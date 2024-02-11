@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import java.util.HashMap;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -13,6 +15,9 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract class KeyPadHandler extends InputMethodService {
 	protected SettingsStore settings;
+
+	// debounce handling
+	private final HashMap<Integer, Long> lastKeyTime = new HashMap<>();
 
 	// temporal key handling
 	private boolean isBackspaceHandled = false;
@@ -112,6 +117,10 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (debounceKey(keyCode, event)) {
+			return true;
+		}
+
 		if (shouldBeOff()) {
 			return false;
 		}
@@ -187,6 +196,10 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (debounceKey(keyCode, event)) {
+			return true;
+		}
+
 		if (shouldBeOff()) {
 			return false;
 		}
@@ -270,6 +283,26 @@ abstract class KeyPadHandler extends InputMethodService {
 		keyRepeatCounter = 0;
 		lastNumKeyCode = 0;
 		lastKeyCode = 0;
+	}
+
+
+	private boolean debounceKey(int keyCode, KeyEvent event) {
+		if (settings.getKeyPadDebounceTime() <= 0 || event.isLongPress()) {
+			return false;
+		}
+
+		long now = System.currentTimeMillis();
+		Long lastTime = lastKeyTime.get(keyCode);
+
+		if (lastTime != null && now - lastTime < settings.getKeyPadDebounceTime()) {
+			return true;
+		}
+
+		if (event.getAction() == KeyEvent.ACTION_UP) {
+			lastKeyTime.put(keyCode, now);
+		}
+
+		return false;
 	}
 
 
