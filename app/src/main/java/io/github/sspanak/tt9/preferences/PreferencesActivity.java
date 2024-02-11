@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.preferences;
 
 import android.os.Bundle;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -15,10 +14,9 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.LegacyDb;
-import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
@@ -33,12 +31,10 @@ import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	public SettingsStore settings;
-	public GlobalKeyboardSettings globalKeyboardSettings;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		globalKeyboardSettings = new GlobalKeyboardSettings(this, (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE));
 		settings = new SettingsStore(this);
 		applyTheme();
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());

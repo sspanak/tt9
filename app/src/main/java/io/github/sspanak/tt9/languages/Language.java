@@ -28,28 +28,17 @@ public class Language {
 		}
 
 		Locale definitionLocale;
-		switch (definition.locale) {
-			case "de":
-				definitionLocale = Locale.GERMAN;
-				break;
-			case "en":
-				definitionLocale = Locale.ENGLISH;
-				break;
-			case "fr":
-				definitionLocale = Locale.FRENCH;
-				break;
-			case "it":
-				definitionLocale = Locale.ITALIAN;
-				break;
-			default:
-				String[] parts = definition.locale.split("-", 2);
-				if (parts.length == 2) {
-					definitionLocale = new Locale(parts[0], parts[1]);
-				} else if (parts.length == 1) {
-					definitionLocale = new Locale(parts[0]);
-				} else {
-					throw new Exception("Unrecognized locale format: '" + definition.locale + "'.");
-				}
+		if (definition.locale.equals("en")) {
+			definitionLocale = Locale.ENGLISH;
+		} else {
+			String[] parts = definition.locale.split("-", 2);
+			if (parts.length == 2) {
+				definitionLocale = new Locale(parts[0], parts[1]);
+			} else if (parts.length == 1) {
+				definitionLocale = new Locale(parts[0]);
+			} else {
+				throw new Exception("Unrecognized locale format: '" + definition.locale + "'.");
+			}
 		}
 
 		Language lang = new Language();

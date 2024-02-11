@@ -1,4 +1,4 @@
-locale: it
+locale: it-IT
 dictionaryFile: it-utf8.csv
 layout:
   - [SPECIAL] # 0

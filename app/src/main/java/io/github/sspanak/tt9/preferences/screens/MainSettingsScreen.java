@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class MainSettingsScreen extends BaseScreenFragment {
@@ -80,11 +81,11 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 
 	private void createSettingsSection() {
-		boolean isTT9Enabled = activity.globalKeyboardSettings.isTT9Enabled();
+		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 
 		Preference gotoSetup = findPreference("screen_setup");
 		if (gotoSetup != null) {
-			gotoSetup.setSummary(isTT9Enabled ? "" : activity.getString(R.string.setup_click_here_to_enable));
+			gotoSetup.setSummary(isTT9On ? "" : activity.getString(R.string.setup_click_here_to_enable));
 		}
 
 		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
@@ -95,7 +96,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		for (Preference goToScreen : screens) {
 			if (goToScreen != null) {
-				goToScreen.setEnabled(isTT9Enabled);
+				goToScreen.setEnabled(isTT9On);
 			}
 		}
 	}

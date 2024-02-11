@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 
 public class LanguageCollection {
 	private static LanguageCollection self;
@@ -46,7 +47,8 @@ public class LanguageCollection {
 	}
 
 	public static Language getDefault(Context context) {
-		Language language = getByLocale(context, "en");
+		Language language = getByLocale(context, SystemSettings.getLocale());
+		language = language == null ? getByLocale(context, "en") : language;
 		return language == null ? new NullLanguage(context) : language;
 	}
 
