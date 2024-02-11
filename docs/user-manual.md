@@ -1,7 +1,5 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports multiple languages and predictive text typing, and an on-screen numpad for touchscreen devices.
-
-All source code, documentation and the privacy policy are available on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9).
+This manual explains how to configure and use TT9 in different scenarios. If you are looking for download or installation instructions, please refer to the README on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9). All source code, the privacy policy, a development guide and additional documentation are also available there.
 
 ## Initial Setup
 After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup would be disabled and there would be a label saying TT9 is disabled. Go to Initial Setup and enable it.
