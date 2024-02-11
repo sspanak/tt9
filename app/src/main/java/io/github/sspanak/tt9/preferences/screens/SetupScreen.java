@@ -5,6 +5,7 @@ import androidx.preference.Preference;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemKeyPadDebounceTime;
 import io.github.sspanak.tt9.preferences.items.ItemSelectGlobalKeyboard;
 import io.github.sspanak.tt9.preferences.items.ItemSetDefaultGlobalKeyboard;
 
@@ -17,18 +18,18 @@ public class SetupScreen extends BaseScreenFragment {
 
 	@Override
 	public void onCreate() {
-		createKeyboardSection();
+		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
+		createKeyboardSection(isTT9On);
+		createHacksSection(isTT9On);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		createKeyboardSection();
+		onCreate();
 	}
 
-	private void createKeyboardSection() {
-		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
-
+	private void createKeyboardSection(boolean isTT9On) {
 		Preference statusItem = findPreference("global_tt9_status");
 		if (statusItem != null) {
 			statusItem.setSummary(
@@ -41,6 +42,31 @@ public class SetupScreen extends BaseScreenFragment {
 		Preference defaultKeyboardItem = findPreference("global_default_keyboard");
 		if (defaultKeyboardItem != null) {
 			new ItemSetDefaultGlobalKeyboard(defaultKeyboardItem, activity).enableClickHandler();
+		}
+	}
+
+	private void createHacksSection(boolean isTT9On) {
+		Preference altScrolling = findPreference("pref_alternative_suggestion_scrolling");
+		if (altScrolling != null) {
+			altScrolling.setEnabled(isTT9On);
+		}
+
+		Preference hackGoogleChat = findPreference("pref_hack_google_chat");
+		if (hackGoogleChat != null) {
+			hackGoogleChat.setEnabled(isTT9On);
+		}
+
+		Preference hackFBMessenger = findPreference("pref_hack_fb_messenger");
+		if (hackFBMessenger != null) {
+			hackFBMessenger.setEnabled(isTT9On);
+		}
+
+		ItemKeyPadDebounceTime item = new ItemKeyPadDebounceTime(activity, findPreference(ItemKeyPadDebounceTime.NAME));
+		item.populate().preview();
+		if (isTT9On) {
+			item.enable();
+		} else {
+			item.disable();
 		}
 	}
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
 	app:layout="@layout/pref_text"
 	app:orderingFromXml="true">
 	<Preference
@@ -36,6 +35,12 @@
 		app:key="pref_hack_fb_messenger"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_hack_fb_messenger"/>
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
+		app:key="pref_key_pad_debounce_time"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/pref_hack_key_pad_debounce_time" />
 
 	</PreferenceCategory>
 </PreferenceScreen>
