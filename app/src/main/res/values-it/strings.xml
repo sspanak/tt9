@@ -41,5 +41,7 @@
 	<string name="pref_dark_theme_auto">Automatica</string>
 	<string name="donate_title">Donare</string>
 	<string name="donate_summary">Se ti piace %1$s, potresti supportarne lo sviluppo su: %2$s.</string>
+	<string name="pref_hack_fb_messenger">Inviare con \"OK\" su Facebook Messenger</string>
+	<string name="pref_hack_google_chat">Inviare messaggi con \"OK\" su Google Chat</string>
 </resources>
 
