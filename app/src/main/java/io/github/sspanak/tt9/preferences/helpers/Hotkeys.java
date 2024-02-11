@@ -61,10 +61,10 @@ public class Hotkeys {
 			backspace = 0;
 		}
 
-		int clearFilter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_DOWN : 0;
-		int filter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_UP : 0;
-		int nextSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_RIGHT : 0;
-		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) && !settings.getShowSoftNumpad() ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
+		int clearFilter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : 0;
+		int filter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : 0;
+		int nextSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : 0;
+		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
 
 		settings.setDefaultKeys(
 			KeyEvent.KEYCODE_STAR,
