@@ -9,7 +9,7 @@ If you would like to contribute to the project by fixing a bug, adding a new lan
 
 
 ## Building
-The recommended way of building is using Android Studio. As the of time of writing this, the current version is: Android Studio Dolphin | 2021.3.1.
+The recommended way of building is using Android Studio. As the of time of writing this, the current version is: Android Studio Hedgehog | 2023.1.1.
 
 ### Building a Debug .apk
 If you have not configured Android Studio yet, follow [the official manual](https://developer.android.com/training/basics/firstapp), then follow the simple steps below to get the project running.
