@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.preferences;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,6 +20,7 @@ import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
+import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.DebugScreen;
@@ -64,6 +67,24 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		return true;
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (!SystemSettings.isTT9Enabled(this)) {
+			return;
+		}
+
+		Intent intent = getIntent();
+		String screenName = intent != null ? intent.getStringExtra("screen") : null;
+		screenName = screenName != null ? screenName : "";
+
+		Fragment screen = getScreen(screenName.replace("Screen", ""));
+
+		if (screen.getClass().getSimpleName().equals(screenName)) {
+			displayScreen(screen, false);
+		}
+	}
 
 	/**
 	 * getScreenName
@@ -81,7 +102,11 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 	 * Finds a screen fragment by name. If there is no fragment with such name, the main screen
 	 * fragment will be returned.
 	 */
-	private Fragment getScreen(String name) {
+	private Fragment getScreen(@Nullable String name) {
+		if (name == null) {
+			return new MainSettingsScreen(this);
+		}
+
 		switch (name) {
 			case "Appearance":
 				return new AppearanceScreen(this);
