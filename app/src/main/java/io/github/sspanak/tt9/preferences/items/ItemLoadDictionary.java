@@ -8,7 +8,6 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -68,10 +67,8 @@ public class ItemLoadDictionary extends ItemClickable {
 	protected boolean onClick(Preference p) {
 		ArrayList<Language> languages = LanguageCollection.getAll(context, settings.getEnabledLanguageIds());
 
-		try {
-			setLoadingStatus();
-			loader.load(languages);
-		} catch (DictionaryImportAlreadyRunningException e) {
+		setLoadingStatus();
+		if (!loader.load(languages)) {
 			loader.stop();
 			setReadyStatus();
 		}
