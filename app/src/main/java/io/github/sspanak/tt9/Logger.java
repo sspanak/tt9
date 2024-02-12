@@ -10,8 +10,10 @@ public class Logger {
 		return LEVEL <= Log.DEBUG;
 	}
 
-	public static void enableDebugLevel(boolean yes) {
-		LEVEL = yes ? Log.DEBUG : Log.ERROR;
+	public static void setLevel(int level) {
+		if (level >= Log.VERBOSE && level <= Log.ASSERT) {
+			LEVEL = level;
+		}
 	}
 
 	static public void v(String tag, String msg)  {

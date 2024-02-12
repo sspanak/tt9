@@ -40,7 +40,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 	protected void onCreate(Bundle savedInstanceState) {
 		settings = new SettingsStore(this);
 		applyTheme();
-		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
+		Logger.setLevel(settings.getLogLevel());
 
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
 		WordStoreAsync.init(this);
