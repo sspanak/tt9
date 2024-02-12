@@ -20,6 +20,7 @@
 	<string name="dictionary_load_error">Помилка завантаження словника для мови «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Завантаження словника завершено.</string>
 	<string name="dictionary_loading">Завантаження словника (%1$s)…</string>
+	<string name="dictionary_loading_please_wait">Будь ласка, зачекайте, доки словник завантажиться.</string>
 	<string name="dictionary_load_title">Завантажити словник</string>
 	<string name="dictionary_not_found">Помилка завантаження. Словник «%1$s» не знайдено.</string>
 	<string name="dictionary_loading_indeterminate">Завантаження словника</string>

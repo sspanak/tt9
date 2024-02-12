@@ -34,6 +34,7 @@
 	<string name="dictionary_loaded">טעינת המילון הושלמה.</string>
 	<string name="dictionary_loading">טוען מילון (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">טוען מילון</string>
+	<string name="dictionary_loading_please_wait">אנא המתינו עד שהמילון יטען.</string>
 	<string name="dictionary_load_title">טעינת מילון</string>
 	<string name="setup_keyboard_status">סטטוס</string>
 	<string name="setup_default_keyboard">בחר מקלדת ברירת מחדל</string>
@@ -43,7 +44,7 @@
 	<string name="dictionary_truncate_unselected">מחק את הבלתי נבחר</string>
 	<string name="dictionary_truncated">המילון נוקה בהצלחה</string>
 
-	<string name="dictionary_truncating">המחיקה מתבצעת...</string>
+	<string name="dictionary_truncating">המחיקה מתבצעת…</string>
 	<string name="function_add_word_key">לחצן הוספת מילה</string>
 	<string name="function_backspace_key">לחצן מחיקה</string>
 	<string name="function_change_keyboard_key">בחירת מקלדת</string>
