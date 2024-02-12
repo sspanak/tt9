@@ -36,6 +36,7 @@ public class LanguageCollection {
 		return self;
 	}
 
+	@Nullable
 	public static Language getLanguage(Context context, int langId) {
 		if (getInstance(context).languages.containsKey(langId)) {
 			return getInstance(context).languages.get(langId);
@@ -94,7 +95,6 @@ public class LanguageCollection {
 	public static ArrayList<Language> getAll(Context context) {
 		return getAll(context,false);
 	}
-
 
 	public static String toString(ArrayList<Language> list) {
 		StringBuilder stringList = new StringBuilder();

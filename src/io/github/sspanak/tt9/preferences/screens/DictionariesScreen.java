@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens;
 
+import java.util.Arrays;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemLoadDictionary;
@@ -8,6 +10,8 @@ import io.github.sspanak.tt9.preferences.items.ItemTruncateAll;
 import io.github.sspanak.tt9.preferences.items.ItemTruncateUnselected;
 
 public class DictionariesScreen extends BaseScreenFragment {
+	private ItemLoadDictionary loadItem;
+
 	public DictionariesScreen() { init(); }
 	public DictionariesScreen(PreferencesActivity activity) { init(activity); }
 
@@ -23,31 +27,35 @@ public class DictionariesScreen extends BaseScreenFragment {
 		);
 		multiSelect.populate().enableValidation();
 
-		ItemLoadDictionary loadItem = new ItemLoadDictionary(
+		loadItem = new ItemLoadDictionary(
 			findPreference(ItemLoadDictionary.NAME),
 			activity,
 			activity.settings,
 			activity.getDictionaryLoader(),
 			activity.getDictionaryProgressBar()
 		);
-		loadItem.enableClickHandler();
 
-		ItemTruncateAll truncateItem = new ItemTruncateAll(
-			findPreference(ItemTruncateAll.NAME),
-			loadItem,
-			activity,
-			activity.getDictionaryLoader()
-		);
-
-		ItemTruncateUnselected truncateSelectedItem = new ItemTruncateUnselected(
+		ItemTruncateUnselected deleteItem = new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
-			loadItem,
 			activity,
 			activity.settings,
 			activity.getDictionaryLoader()
 		);
 
-		truncateItem.setOtherTruncateItem(truncateSelectedItem).enableClickHandler();
-		truncateSelectedItem.setOtherTruncateItem(truncateItem).enableClickHandler();
+		ItemTruncateAll truncateItem = new ItemTruncateAll(
+			findPreference(ItemTruncateAll.NAME),
+			activity,
+			activity.getDictionaryLoader()
+		);
+
+		loadItem.setOtherItems(Arrays.asList(truncateItem, deleteItem)).enableClickHandler();
+		deleteItem.setOtherItems(Arrays.asList(truncateItem, loadItem)).enableClickHandler();
+		truncateItem.setOtherItems(Arrays.asList(deleteItem, loadItem)).enableClickHandler();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		loadItem.refreshStatus();
 	}
 }

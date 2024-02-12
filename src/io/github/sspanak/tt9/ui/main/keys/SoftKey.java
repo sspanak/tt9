@@ -12,17 +12,21 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
 	protected TraditionalT9 tt9;
 
-	protected float COMPLEX_LABEL_TITLE_SIZE = 0.55f;
-	protected float COMPLEX_LABEL_SUB_TITLE_SIZE = 0.8f;
+	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE;
 
 	private boolean hold = false;
 	private boolean repeat = false;
@@ -109,7 +113,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			handleHold();
 			lastPressedKey = getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
-			repeatHandler.postDelayed(this::repeatOnLongPress, tt9.getSettings().getSoftKeyRepeatDelay());
+			repeatHandler.postDelayed(this::repeatOnLongPress, SettingsStore.SOFT_KEY_REPEAT_DELAY);
 		}
 	}
 
@@ -138,11 +142,14 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		int keyId = getId();
 		boolean multiplePress = lastPressedKey == keyId;
 
+		Language language = getCurrentLanguage();
+		boolean isRTL = language != null && language.isRTL();
+
 		if (keyId == R.id.soft_key_add_word) return tt9.onKeyAddWord(false);
 		if (keyId == R.id.soft_key_filter_suggestions) return tt9.onKeyFilterSuggestions(false, multiplePress);
 		if (keyId == R.id.soft_key_clear_filter) return tt9.onKeyFilterClear(false);
-		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
-		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
+		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, !isRTL);
+		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, isRTL);
 		if (keyId == R.id.soft_key_language) return tt9.onKeyNextLanguage(false);
 		if (keyId == R.id.soft_key_ok) return tt9.onOK();
 		if (keyId == R.id.soft_key_settings) return tt9.onKeyShowSettings(false);
@@ -157,6 +164,10 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		return true;
+	}
+
+	@Nullable protected Language getCurrentLanguage() {
+		return LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
 	}
 
 	/**
@@ -202,9 +213,15 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append('\n');
 		sb.append(subtitle);
 
-		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_TITLE_SIZE), 0, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 2, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(COMPLEX_LABEL_SUB_TITLE_SIZE), 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE) {
+			padding /= 10;
+		}
+
+		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(padding), 1, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), 2, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}

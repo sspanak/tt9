@@ -12,8 +12,6 @@ import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
 abstract class KeyPadHandler extends InputMethodService {
-	protected InputConnection currentInputConnection = null;
-
 	protected SettingsStore settings;
 
 	// temporal key handling
@@ -44,7 +42,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-		onRestart(getCurrentInputEditorInfo());
+		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
 		return shouldBeVisible();
 	}
 
@@ -79,15 +77,13 @@ abstract class KeyPadHandler extends InputMethodService {
 			"KeyPadHandler",
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras
 		);
-		currentInputConnection = getCurrentInputConnection();
-		onStart(inputField);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		currentInputConnection = getCurrentInputConnection();
-		onRestart(inputField);
+		onStart(getCurrentInputConnection(), inputField);
 	}
 
 
@@ -123,14 +119,20 @@ abstract class KeyPadHandler extends InputMethodService {
 //		Logger.d("onKeyDown", "Key: " + event + " repeat?: " + event.getRepeatCount() + " long-time: " + event.isLongPress());
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
-		if (Key.isBackspace(settings, keyCode) && onBackspace()) {
-			return isBackspaceHandled = true;
-		} else {
-			isBackspaceHandled = false;
+		if (Key.isBackspace(settings, keyCode)) {
+			if (onBackspace()) {
+				return isBackspaceHandled = true;
+			} else {
+				isBackspaceHandled = false;
+			}
 		}
 
 		// start tracking key hold
-		if (Key.isNumber(keyCode) || Key.isHotkey(settings, -keyCode)) {
+		if (Key.isNumber(keyCode)) {
+			event.startTracking();
+			return true;
+		}
+		else if (Key.isHotkey(settings, -keyCode)) {
 			event.startTracking();
 		}
 
@@ -139,8 +141,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		}
 
 		return
-			Key.isNumber(keyCode)
-			|| Key.isOK(keyCode)
+			Key.isOK(keyCode)
 			|| handleHotkey(keyCode, true, false, true) // hold a hotkey, handled in onKeyLongPress())
 			|| handleHotkey(keyCode, false, keyRepeatCounter + 1 > 0, true) // press a hotkey, handled in onKeyUp()
 			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), true)
@@ -164,6 +165,7 @@ abstract class KeyPadHandler extends InputMethodService {
 		if (Key.isNumber(keyCode)) {
 			numKeyRepeatCounter = 0;
 			lastNumKeyCode = 0;
+			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		} else {
 			keyRepeatCounter = 0;
 			lastKeyCode = 0;
@@ -171,10 +173,6 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		if (handleHotkey(keyCode, true, false, false)) {
 			return true;
-		}
-
-		if (Key.isNumber(keyCode)) {
-			return onNumber(Key.codeToNumber(settings, keyCode), true, 0);
 		}
 
 		ignoreNextKeyUp = 0;
@@ -201,7 +199,7 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
-		if (isBackspaceHandled) {
+		if (Key.isBackspace(settings, keyCode) && isBackspaceHandled) {
 			return true;
 		}
 
@@ -294,10 +292,10 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	// helpers
 	abstract protected void onInit();
-	abstract protected void onStart(EditorInfo inputField);
-	abstract protected void onRestart(EditorInfo inputField);
+	abstract protected void onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
+	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
 
 	// UI
 	abstract protected View createSoftKeyView();

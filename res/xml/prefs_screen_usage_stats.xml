@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+
+	<SwitchPreferenceCompat
+		app:key="pref_slow_queries_reset_stats"
+		app:layout="@layout/pref_text"
+		app:title="Clear DB Cache" />
+
+	<PreferenceCategory
+		app:title="Summary"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+		<Preference
+			app:key="summary_container"
+			app:summary="--"
+			app:layout="@layout/pref_plain_text">
+		</Preference>
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		app:title="Slow Queries"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+		<Preference
+			app:key="query_list_container"
+			app:summary="--"
+			app:layout="@layout/pref_plain_text">
+		</Preference>
+	</PreferenceCategory>
+
+</PreferenceScreen>

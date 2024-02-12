@@ -53,7 +53,7 @@ public class Language {
 		}
 
 		Language lang = new Language();
-		lang.abcString = definition.abcString.isEmpty() ? lang.abcString : definition.abcString;
+		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.locale = definitionLocale;
@@ -74,8 +74,9 @@ public class Language {
 
 		final String specialCharsPlaceholder = "SPECIAL";
 		final String punctuationPlaceholder = "PUNCTUATION";
-		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
+		final String arabicStylePlaceholder = punctuationPlaceholder + "_AR";
 		final String germanStylePlaceholder = punctuationPlaceholder + "_DE";
+		final String frenchStylePlaceholder = punctuationPlaceholder + "_FR";
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
@@ -86,11 +87,14 @@ public class Language {
 				case punctuationPlaceholder:
 					keyChars.addAll(Characters.PunctuationEnglish);
 					break;
-				case frenchStylePlaceholder:
-					keyChars.addAll(Characters.PunctuationFrench);
+				case arabicStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationArabic);
 					break;
 				case germanStylePlaceholder:
 					keyChars.addAll(Characters.PunctuationGerman);
+					break;
+				case frenchStylePlaceholder:
+					keyChars.addAll(Characters.PunctuationFrench);
 					break;
 				default:
 					keyChars.add(defChar);
@@ -100,7 +104,6 @@ public class Language {
 
 		return keyChars;
 	}
-
 
 	final public int getId() {
 		if (id == 0) {
@@ -135,7 +138,6 @@ public class Language {
 			for (int i = 0; i < lettersList.size() && i < 3; i++) {
 				sb.append(lettersList.get(i));
 			}
-
 			abcString = sb.toString();
 		}
 
@@ -150,21 +152,33 @@ public class Language {
 	/**
 	 * isLatinBased
 	 * Returns "true" when the language is based on the Latin alphabet or "false" otherwise.
-	 * WARNING: This performs somewhat resource-intensive operations every time, so consider
-	 * caching the result.
 	 */
 	public boolean isLatinBased() {
-		ArrayList<String> letters = getKeyCharacters(2, false);
-		return letters.contains("a");
+		return getKeyCharacters(2, false).contains("a");
 	}
 
-	/**
-	 * isGreek
-	 * Similar to "isLatinBased()", this returns "true" when the language is based on the Greek alphabet.
-	 */
+	public boolean isCyrillic() {
+		return getKeyCharacters(2, false).contains("а");
+	}
+
+	public boolean isRTL() {
+		return isArabic() || isHebrew();
+	}
+
 	public boolean isGreek() {
-		ArrayList<String> letters = getKeyCharacters(2, false);
-		return letters.contains("α");
+		return getKeyCharacters(2, false).contains("α");
+	}
+
+	public boolean isArabic() {
+		return getKeyCharacters(3, false).contains("ا");
+	}
+
+	public boolean isUkrainian() {
+		return getKeyCharacters(3, false).contains("є");
+	}
+
+	public boolean isHebrew() {
+		return getKeyCharacters(3, false).contains("א");
 	}
 
 	/* ************ utility ************ */
@@ -172,8 +186,8 @@ public class Language {
 	/**
 	 * generateId
 	 * Uses the letters of the Locale to generate an ID for the language.
-	 * Each letter is converted to uppercase and used as n 5-bit integer. Then the the 5-bits
-	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale.
+	 * Each letter is converted to uppercase and used as a 5-bit integer. Then the 5-bits
+	 * are packed to form a 10-bit or a 20-bit integer, depending on the Locale length.
 	 *
 	 * Example (2-letter Locale)
 	 * 	"en"
@@ -186,12 +200,14 @@ public class Language {
 	 * 	-> "B" | "G" | "B" | "G"
 	 * 	-> 2 | 224 | 2048 | 229376 (shift each 5-bit number, not overlap with the previous ones)
 	 *	-> 231650
+	 *
+	 * Maximum ID is: "zz-ZZ" -> 879450
 	 */
 	private int generateId() {
 		String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
 		int idInt = 0;
 		for (int i = 0; i < idString.length(); i++) {
-			idInt |= ((idString.charAt(i) & 31) << (i * 5));
+			idInt |= ((idString.codePointAt(i) & 31) << (i * 5));
 		}
 
 		return idInt;
@@ -225,11 +241,14 @@ public class Language {
 	}
 
 	public boolean isMixedCaseWord(String word) {
-		return word != null
-			&& (
-				(word.length() == 1 && word.toUpperCase(locale).equals(word))
-				|| (!word.toLowerCase(locale).equals(word) && !word.toUpperCase(locale).equals(word))
-			);
+		return
+			word != null
+			&& !word.toLowerCase(locale).equals(word)
+			&& !word.toUpperCase(locale).equals(word);
+	}
+
+	public boolean isUpperCaseWord(String word) {
+		return word != null && word.toUpperCase(locale).equals(word);
 	}
 
 	public ArrayList<String> getKeyCharacters(int key, boolean includeDigit) {
@@ -239,7 +258,7 @@ public class Language {
 
 		ArrayList<String> chars = new ArrayList<>(layout.get(key));
 		if (includeDigit && chars.size() > 0) {
-			chars.add(String.valueOf(key));
+			chars.add(getKeyNumber(key));
 		}
 
 		return chars;
@@ -247,6 +266,14 @@ public class Language {
 
 	public ArrayList<String> getKeyCharacters(int key) {
 		return getKeyCharacters(key, true);
+	}
+
+	public String getKeyNumber(int key) {
+		if (key > 10 || key < 0) {
+			return null;
+		} else {
+			return isArabic() ? Characters.ArabicNumbers.get(key) : String.valueOf(key);
+		}
 	}
 
 	public String getDigitSequenceForWord(String word) throws InvalidLanguageCharactersException {

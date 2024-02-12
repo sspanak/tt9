@@ -2,16 +2,20 @@ package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
-abstract class ItemClickable {
-	protected final int CLICK_DEBOUNCE_TIME = 250;
+import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.preferences.SettingsStore;
+
+abstract public class ItemClickable {
 	private long lastClickTime = 0;
 
 	protected final Preference item;
+	private final ArrayList<ItemClickable> otherItems = new ArrayList<>();
 
 
-	ItemClickable(Preference item) {
+	public ItemClickable(Preference item) {
 		this.item = item;
 	}
 
@@ -31,6 +35,29 @@ abstract class ItemClickable {
 	}
 
 
+	public ItemClickable setOtherItems(List<ItemClickable> others) {
+		otherItems.clear();
+		otherItems.addAll(others);
+		return this;
+	}
+
+
+	protected void disableOtherItems() {
+		for (ItemClickable i : otherItems) {
+			i.disable();
+		}
+
+	}
+
+
+	protected void enableOtherItems() {
+		for (ItemClickable i : otherItems) {
+			i.enable();
+		}
+
+	}
+
+
 	/**
 	 * debounceClick
 	 * Protection against faulty devices, that sometimes send two (or more) click events
@@ -42,7 +69,7 @@ abstract class ItemClickable {
 	 */
 	protected boolean debounceClick(Preference p) {
 		long now = System.currentTimeMillis();
-		if (now - lastClickTime < CLICK_DEBOUNCE_TIME) {
+		if (now - lastClickTime < SettingsStore.PREFERENCES_CLICK_DEBOUNCE_TIME) {
 			Logger.d("debounceClick", "Preference click debounced.");
 			return true;
 		}

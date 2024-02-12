@@ -31,6 +31,10 @@ Git commit: 17 Dec 2022 [c3772cd56e770975ea5570db903f93b199de8b32]
 
 =====
 
+Animals, countries, cities and other geographical terms, personal names, companies, food and bevarages obtained from Wikipedia, OpenAI and other public domain sources.
+
+=====
+
 Spell Checking Oriented Word Lists (SCOWL)
 
 Mon Dec 7 20:14:35 2020 -0500 [5ef55f9]

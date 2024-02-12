@@ -15,8 +15,9 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.GlobalKeyboardSettings;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
@@ -27,6 +28,7 @@ import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.SetupScreen;
+import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -41,8 +43,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		applyTheme();
 		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
 
-		DictionaryDb.init(this);
-		DictionaryDb.normalizeWordFrequencies(settings);
+		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
+		WordStoreAsync.init(this);
 
 		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());
 		validateFunctionKeys();
@@ -97,6 +99,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 				return new KeyPadScreen(this);
 			case "Setup":
 				return new SetupScreen(this);
+			case "SlowQueries":
+				return new UsageStatsScreen(this);
 			default:
 				return new MainSettingsScreen(this);
 		}

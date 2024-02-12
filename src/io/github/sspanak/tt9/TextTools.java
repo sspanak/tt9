@@ -1,5 +1,9 @@
 package io.github.sspanak.tt9;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Pattern;
 
 public class TextTools {
@@ -7,7 +11,7 @@ public class TextTools {
 	private static final Pattern previousIsLetter = Pattern.compile("\\p{L}$");
 	private static final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
 	private static final Pattern nextToWord = Pattern.compile("\\b$");
-	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!¿¡])\\s+$");
+	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 	public static boolean containsOtherThan1(String str) {
 		return str != null && containsOtherThan1.matcher(str).find();
@@ -37,7 +41,14 @@ public class TextTools {
 		return str != null && !str.isEmpty() && (str.charAt(0) >= '0' && str.charAt(0) <= '9');
 	}
 
-	public static String removeNonLetters(String str) {
-		return str != null ? str.replaceAll("\\P{L}", "") : null;
+	public static String unixTimestampToISODate(long timestamp) {
+		if (timestamp < 0) {
+			return "--";
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+		sdf.setTimeZone(TimeZone.getDefault());
+
+		return sdf.format(new Date(timestamp));
 	}
 }

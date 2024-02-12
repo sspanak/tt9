@@ -4,7 +4,7 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -18,23 +18,17 @@ public class ItemTruncateUnselected extends ItemTruncateAll {
 	private final SettingsStore settings;
 
 
-	public ItemTruncateUnselected(Preference item, ItemLoadDictionary loadItem, PreferencesActivity context, SettingsStore settings, DictionaryLoader loader) {
-		super(item, loadItem, context, loader);
+	public ItemTruncateUnselected(Preference item, PreferencesActivity context, SettingsStore settings, DictionaryLoader loader) {
+		super(item, context, loader);
 		this.settings = settings;
 	}
 
-
-	public ItemTruncateUnselected setOtherTruncateItem(ItemTruncateAll otherTruncateItem) {
-		this.otherTruncateItem = otherTruncateItem;
-		return this;
-	}
 
 
 	@Override
 	protected boolean onClick(Preference p) {
 		if (loader != null && loader.isRunning()) {
-			loader.stop();
-			loadItem.changeToLoadButton();
+			return false;
 		}
 
 		ArrayList<Integer> unselectedLanguageIds = new ArrayList<>();
@@ -46,7 +40,7 @@ public class ItemTruncateUnselected extends ItemTruncateAll {
 		}
 
 		onStartDeleting();
-		DictionaryDb.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
+		WordStoreAsync.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
 
 		return true;
 	}

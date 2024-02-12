@@ -29,10 +29,12 @@
 	<string name="pref_category_appearance">Облик</string>
 	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
 	<string name="pref_hack_fb_messenger">Изпращай съобщения с ОК в Messenger</string>
-	<string name="pref_hack_fb_messenger_summary">Позволява изпращането на съобщения с бутона ОК във Facebook Messenger и Messenger Lite.</string>
+	<string name="pref_hack_fb_messenger_summary">Позволява изпращането на съобщения с бутона ОК във Facebook Messenger.</string>
 	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Зелена слушалка</string>
+	<string name="donate_title">Дарете</string>
+	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>
 	<string name="function_add_word_key">Добавяне на нова дума</string>
 	<string name="function_backspace_key">Триене на текст</string>
 	<string name="function_change_keyboard_key">Избор на клавиатура</string>

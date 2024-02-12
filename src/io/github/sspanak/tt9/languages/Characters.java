@@ -7,6 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Characters {
+	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
+		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
+	));
+
+	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
+		"،", ".", "-", "(", ")", "[", "]", "&", "~", "`", "\"", "'", "؛", ":", "!", "؟"
+	));
+
 	final public static ArrayList<String> PunctuationEnglish = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "\"", "!", "?"
 	));
@@ -18,7 +26,7 @@ public class Characters {
 	final public static ArrayList<String> PunctuationGerman = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "„", "“", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "!", "?"
 	));
-	
+
 	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
 		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
@@ -46,14 +54,18 @@ public class Characters {
 		))
 	));
 
+	public static boolean noEmojiSupported() {
+		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
+	}
+
 
 	public static int getEmojiLevels() {
-		return (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) ? 1 : Emoji.size();
+		return noEmojiSupported() ? 1 : Emoji.size();
 	}
 
 
 	public static ArrayList<String> getEmoji(int level) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+		if (noEmojiSupported()) {
 			return new ArrayList<>(TextEmoticons);
 		}
 

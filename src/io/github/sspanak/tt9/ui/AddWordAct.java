@@ -9,14 +9,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryDb;
-import io.github.sspanak.tt9.db.exceptions.InsertBlankWordException;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class AddWordAct extends AppCompatActivity {
+	public static final int CODE_SUCCESS = 0;
+	public static final int CODE_BLANK_WORD = 1;
+	public static final int CODE_INVALID_LANGUAGE = 2;
+	public static final int CODE_WORD_EXISTS = 3;
+	public static final int CODE_GENERAL_ERROR = 666;
+
 	public static final String INTENT_FILTER = "tt9.add_word";
 
 	private Language language;
@@ -61,12 +65,20 @@ public class AddWordAct extends AppCompatActivity {
 	private void onAddedWord(int statusCode) {
 		String message;
 		switch (statusCode) {
-			case 0:
+			case CODE_SUCCESS:
 				message = getString(R.string.add_word_success, word);
 				break;
 
-			case 1:
+			case CODE_WORD_EXISTS:
 				message = getResources().getString(R.string.add_word_exist, word);
+				break;
+
+			case CODE_BLANK_WORD:
+				message = getString(R.string.add_word_blank);
+				break;
+
+			case CODE_INVALID_LANGUAGE:
+				message = getResources().getString(R.string.add_word_invalid_language);
 				break;
 
 			default:
@@ -80,22 +92,7 @@ public class AddWordAct extends AppCompatActivity {
 
 
 	public void addWord(View v) {
-		try {
-			Logger.d("addWord", "Attempting to add word: '" + word + "'...");
-			DictionaryDb.insertWord(this::onAddedWord, language, word);
-		} catch (InsertBlankWordException e) {
-			Logger.e("AddWordAct.addWord", e.getMessage());
-			finish();
-			sendMessageToMain(getString(R.string.add_word_blank));
-		} catch (InvalidLanguageException e) {
-			Logger.e("AddWordAct.addWord", "Cannot insert a word for language: '" + language.getName() + "'. " + e.getMessage());
-			finish();
-			sendMessageToMain(getString(R.string.add_word_invalid_language));
-		} catch (Exception e) {
-			Logger.e("AddWordAct.addWord", e.getMessage());
-			finish();
-			sendMessageToMain(e.getMessage());
-		}
+		WordStoreAsync.put(this::onAddedWord, language, word);
 	}
 
 

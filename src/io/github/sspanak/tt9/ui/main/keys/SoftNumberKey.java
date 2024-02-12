@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SoftNumberKey extends SoftKey {
 	public SoftNumberKey(Context context) {
@@ -40,7 +40,7 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		int keyCode = Key.numberToCode(getNumber(getId()));
+		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return false;
 		}
@@ -53,7 +53,16 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected String getTitle() {
-		return String.valueOf(getNumber(getId()));
+		int number = getNumber(getId());
+
+		Language language = getCurrentLanguage();
+		if (language != null && language.isArabic() && tt9 != null && !tt9.isInputModeNumeric()) {
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
+			return language.getKeyNumber(number);
+		} else {
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+			return String.valueOf(number);
+		}
 	}
 
 	@Override
@@ -73,7 +82,7 @@ public class SoftNumberKey extends SoftKey {
 			} else if (tt9.isInputModeNumeric()) {
 				return "+";
 			} else {
-				COMPLEX_LABEL_SUB_TITLE_SIZE = 1;
+				complexLabelSubTitleSize = 1;
 				return "␣";
 			}
 		}
@@ -89,7 +98,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// 2-9
-		Language language = LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
+		Language language = getCurrentLanguage();
 		if (language == null) {
 			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";
@@ -132,5 +141,20 @@ public class SoftNumberKey extends SoftKey {
 		if (keyId == R.id.soft_key_9) return 9;
 
 		return -1;
+	}
+
+	private int getUpsideDownNumber(int keyId) {
+		int number = getNumber(keyId);
+
+		if (tt9 != null && tt9.getSettings().getUpsideDownKeys()) {
+			if (number == 1) return 7;
+			if (number == 2) return 8;
+			if (number == 3) return 9;
+			if (number == 7) return 1;
+			if (number == 8) return 2;
+			if (number == 9) return 3;
+		}
+
+		return number;
 	}
 }

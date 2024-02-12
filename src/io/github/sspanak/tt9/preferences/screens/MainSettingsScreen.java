@@ -69,6 +69,13 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		if (vi != null) {
 			vi.setSummary(BuildConfig.VERSION_FULL);
 		}
+
+		Preference donate = findPreference("donate_link");
+		if (donate != null) {
+			String appName = getString(R.string.app_name_short);
+			String url = getString(R.string.donate_url_short);
+			donate.setSummary(getString(R.string.donate_summary, appName, url));
+		}
 	}
 
 

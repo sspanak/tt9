@@ -15,7 +15,7 @@ abstract class BaseMainLayout {
 	protected View view = null;
 	protected ArrayList<SoftKey> keys = new ArrayList<>();
 
-	public BaseMainLayout(TraditionalT9 tt9, int xml) {
+	BaseMainLayout(TraditionalT9 tt9, int xml) {
 		this.tt9 = tt9;
 		this.xml = xml;
 	}

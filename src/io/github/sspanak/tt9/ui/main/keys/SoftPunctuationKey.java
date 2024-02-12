@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 
 public class SoftPunctuationKey extends SoftKey {
 	public SoftPunctuationKey(Context context) {
@@ -50,7 +51,10 @@ public class SoftPunctuationKey extends SoftKey {
 			if (keyId == R.id.soft_key_punctuation_2) return ".";
 		} else {
 			if (keyId == R.id.soft_key_punctuation_1) return "!";
-			if (keyId == R.id.soft_key_punctuation_2) return "?";
+			if (keyId == R.id.soft_key_punctuation_2) {
+				Language language = getCurrentLanguage();
+				return language != null && language.isArabic() ? "؟" : "?";
+			}
 		}
 
 		return "";

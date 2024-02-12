@@ -131,14 +131,14 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(nextIndex);
 	}
 
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {}
+	public void determineNextWordTextCase(String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.
-	public boolean clearWordStem() { return false; }
+	public boolean clearWordStem() { return setWordStem("", true); }
 	public boolean isStemFilterFuzzy() { return false; }
 	public String getWordStem() { return ""; }
 	public boolean setWordStem(String stem, boolean exact) { return false; }

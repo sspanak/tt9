@@ -13,28 +13,32 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAlreadyRunningException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.db.room.Word;
+import io.github.sspanak.tt9.db.sqlite.DeleteOps;
+import io.github.sspanak.tt9.db.sqlite.InsertOps;
+import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class DictionaryLoader {
+	private static final String LOG_TAG = "DictionaryLoader";
 	private static DictionaryLoader self;
-	private final String logTag = "DictionaryLoader";
 
 	private final AssetManager assets;
-	private final SettingsStore settings;
+	private final SQLiteOpener sqlite;
 
 	private static final Handler asyncHandler = new Handler();
 	private ConsumerCompat<Bundle> onStatusChange;
 	private Thread loadThread;
 
-	private long importStartTime = 0;
 	private int currentFile = 0;
+	private long importStartTime = 0;
 	private long lastProgressUpdate = 0;
 
 
@@ -50,7 +54,7 @@ public class DictionaryLoader {
 
 	public DictionaryLoader(Context context) {
 		assets = context.getAssets();
-		settings = new SettingsStore(context);
+		sqlite = SQLiteOpener.getInstance(context);
 	}
 
 
@@ -70,7 +74,7 @@ public class DictionaryLoader {
 		}
 
 		if (languages.size() == 0) {
-			Logger.d(logTag, "Nothing to do");
+			Logger.d(LOG_TAG, "Nothing to do");
 			return;
 		}
 
@@ -80,7 +84,7 @@ public class DictionaryLoader {
 				currentFile = 0;
 				importStartTime = System.currentTimeMillis();
 
-				sendFileCount(languages.size());
+				sendStartMessage(languages.size());
 
 				// SQLite does not support parallel queries, so let's import them one by one
 				for (Language lang : languages) {
@@ -109,125 +113,151 @@ public class DictionaryLoader {
 
 	private void importAll(Language language) {
 		if (language == null) {
-			Logger.e(logTag, "Failed loading a dictionary for NULL language.");
+			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
 			sendError(InvalidLanguageException.class.getSimpleName(), -1);
 			return;
 		}
 
-		DictionaryDb.runInTransaction(() -> {
-			try {
-				long start = System.currentTimeMillis();
-				importWords(language, language.getDictionaryFile());
-				Logger.i(
-					logTag,
-					"Dictionary: '" + language.getDictionaryFile() + "'" +
-						" processing time: " + (System.currentTimeMillis() - start) + " ms"
-				);
+		try {
+			long start = System.currentTimeMillis();
+			float progress = 1;
 
-				start = System.currentTimeMillis();
-				importLetters(language);
-				Logger.i(
-					logTag,
-					"Loaded letters for '" + language.getName() + "' language in: " + (System.currentTimeMillis() - start) + " ms"
-				);
-			} catch (DictionaryImportAbortedException e) {
-				stop();
+			sqlite.beginTransaction();
 
-				Logger.i(
-					logTag,
-					e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported."
-				);
-			} catch (DictionaryImportException e) {
-				stop();
-				sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
+			Tables.dropIndexes(sqlite.getDb(), language);
+			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Indexes dropped", language, start);
 
-				Logger.e(
-					logTag,
-					" Invalid word: '" + e.word
-					+ "' in dictionary: '" + language.getDictionaryFile() + "'"
-					+ " on line " + e.line
-					+ " of language '" + language.getName() + "'. "
-					+ e.getMessage()
-				);
-			} catch (Exception | Error e) {
-				stop();
-				sendError(e.getClass().getSimpleName(), language.getId());
+			start = System.currentTimeMillis();
+			DeleteOps.delete(sqlite, language.getId());
+			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Storage cleared", language, start);
 
-				Logger.e(
-					logTag,
-					"Failed loading dictionary: " + language.getDictionaryFile() +
-					" for language '" + language.getName() + "'. "
-					+ e.getMessage()
-				);
-			}
-		});
+			start = System.currentTimeMillis();
+			int lettersCount = importLetters(language);
+			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Letters imported", language, start);
+
+			start = System.currentTimeMillis();
+			InsertOps.restoreCustomWords(sqlite.getDb(), language);
+			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Custom words restored", language, start);
+
+			start = System.currentTimeMillis();
+			importWordFile(language, lettersCount, progress, 90);
+			progress = 90;
+			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Dictionary file imported", language, start);
+
+			start = System.currentTimeMillis();
+			Tables.createPositionIndex(sqlite.getDb(), language);
+			sendProgressMessage(language, progress + (100f - progress) / 2f, 0);
+			Tables.createWordIndex(sqlite.getDb(), language);
+			sendProgressMessage(language, 100, 0);
+			logLoadingStep("Indexes restored", language, start);
+
+			sqlite.finishTransaction();
+			SlowQueryStats.clear();
+		} catch (DictionaryImportAbortedException e) {
+			sqlite.failTransaction();
+			stop();
+			Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
+		} catch (DictionaryImportException e) {
+			stop();
+			sqlite.failTransaction();
+			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
+
+			Logger.e(
+				LOG_TAG,
+				" Invalid word: '" + e.word
+				+ "' in dictionary: '" + language.getDictionaryFile() + "'"
+				+ " on line " + e.line
+				+ " of language '" + language.getName() + "'. "
+				+ e.getMessage()
+			);
+		} catch (Exception | Error e) {
+			stop();
+			sqlite.failTransaction();
+			sendError(e.getClass().getSimpleName(), language.getId());
+
+			Logger.e(
+				LOG_TAG,
+				"Failed loading dictionary: " + language.getDictionaryFile()
+				+ " for language '" + language.getName() + "'. "
+				+ e.getMessage()
+			);
+		}
 	}
 
 
-	private void importLetters(Language language) {
-		ArrayList<Word> letters = new ArrayList<>();
-
+	private int importLetters(Language language) throws InvalidLanguageCharactersException {
+		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
+		WordBatch letters = new WordBatch(language);
 
 		for (int key = 2; key <= 9; key++) {
 			for (String langChar : language.getKeyCharacters(key, false)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
-
-				Word word = new Word();
-				word.langId = language.getId();
-				word.frequency = 0;
-				word.length = 1;
-				word.sequence = String.valueOf(key);
-				word.word = langChar;
-
-				letters.add(word);
+				letters.add(langChar, 0, key);
+				lettersCount++;
 			}
 		}
 
-		DictionaryDb.upsertWordsSync(letters);
+		saveWordBatch(letters);
+
+		return lettersCount;
 	}
 
 
-	private void importWords(Language language, String dictionaryFile) throws Exception {
-		sendProgressMessage(language, 0, 0);
+	private void importWordFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
+		int currentLine = 1;
+		int totalLines = getFileSize(language.getDictionaryFile());
+		float progressRatio = (maxProgress - minProgress) / totalLines;
 
-		long currentLine = 0;
-		long totalLines = getFileSize(dictionaryFile);
+		WordBatch batch = new WordBatch(language, totalLines);
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(dictionaryFile), StandardCharsets.UTF_8));
-		ArrayList<Word> dbWords = new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(language.getDictionaryFile()), StandardCharsets.UTF_8))) {
+			for (String line; (line = br.readLine()) != null; currentLine++) {
+				if (loadThread.isInterrupted()) {
+					sendProgressMessage(language, 0, 0);
+					throw new DictionaryImportAbortedException();
+				}
 
-		for (String line; (line = br.readLine()) != null; currentLine++) {
-			if (loadThread.isInterrupted()) {
-				br.close();
-				sendProgressMessage(language, -1, 0);
-				throw new DictionaryImportAbortedException();
-			}
+				String[] parts = splitLine(line);
+				String word = parts[0];
+				short frequency = getFrequency(parts);
 
-			String[] parts = splitLine(line);
-			String word = parts[0];
-			int frequency = getFrequency(parts);
+				try {
+					boolean isFinalized = batch.add(word, frequency, currentLine + positionShift);
+					if (isFinalized && batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
+						saveWordBatch(batch);
+						batch.clear();
+					}
+				} catch (InvalidLanguageCharactersException e) {
+					throw new DictionaryImportException(word, currentLine);
+				}
 
-			try {
-				dbWords.add(stringToWord(language, word, frequency));
-			} catch (InvalidLanguageCharactersException e) {
-				br.close();
-				throw new DictionaryImportException(word, currentLine);
-			}
-
-			if (dbWords.size() >= settings.getDictionaryImportWordChunkSize() || currentLine >= totalLines - 1) {
-				DictionaryDb.upsertWordsSync(dbWords);
-				dbWords.clear();
-			}
-
-			if (totalLines > 0) {
-				int progress = (int) Math.floor(100.0 * currentLine / totalLines);
-				sendProgressMessage(language, progress, settings.getDictionaryImportProgressUpdateInterval());
+				if (totalLines > 0) {
+					sendProgressMessage(language, minProgress + progressRatio * currentLine, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+				}
 			}
 		}
 
-		br.close();
-		sendProgressMessage(language, 100, 0);
+		saveWordBatch(batch);
+		InsertOps.insertLanguageMeta(sqlite.getDb(), language.getId());
+	}
+
+
+	public void saveWordBatch(WordBatch batch) {
+		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
+
+		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
+			insertOps.insertWord(batch.getWords().get(i));
+		}
+
+		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
+			insertOps.insertWordPosition(batch.getPositions().get(i));
+		}
 	}
 
 
@@ -248,54 +278,43 @@ public class DictionaryLoader {
 	}
 
 
-	private long getFileSize(String filename) {
+	private int getFileSize(String filename) {
 		String sizeFilename = filename + ".size";
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(sizeFilename), StandardCharsets.UTF_8))) {
 			return Integer.parseInt(reader.readLine());
 		} catch (Exception e) {
-			Logger.w(logTag, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
+			Logger.w(LOG_TAG, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
 			return 0;
 		}
 	}
 
 
-	private int getFrequency(String[] lineParts) {
+	private short getFrequency(String[] lineParts) {
 		try {
-			return Integer.parseInt(lineParts[1]);
+			return Short.parseShort(lineParts[1]);
 		} catch (Exception e) {
 			return 0;
 		}
 	}
 
 
-	private Word stringToWord(Language language, String word, int frequency) throws InvalidLanguageCharactersException {
-		Word dbWord = new Word();
-		dbWord.langId = language.getId();
-		dbWord.frequency = frequency;
-		dbWord.length = word.length();
-		dbWord.sequence = language.getDigitSequenceForWord(word);
-		dbWord.word = word;
-
-		return dbWord;
-	}
-
-
-	private void sendFileCount(int fileCount) {
+	private void sendStartMessage(int fileCount) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send file count without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send file count without a status Handler. Ignoring message.");
 			return;
 		}
 
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("fileCount", fileCount);
+		progressMsg.putInt("progress", 1);
 		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
 
 
-	private void sendProgressMessage(Language language, int progress, int progressUpdateInterval) {
+	private void sendProgressMessage(Language language, float progress, int progressUpdateInterval) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send progress without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send progress without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -309,7 +328,7 @@ public class DictionaryLoader {
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("languageId", language.getId());
 		progressMsg.putLong("time", getImportTime());
-		progressMsg.putInt("progress", progress);
+		progressMsg.putInt("progress", Math.round(progress));
 		progressMsg.putInt("currentFile", currentFile);
 		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
@@ -317,7 +336,7 @@ public class DictionaryLoader {
 
 	private void sendError(String message, int langId) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send an error without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send an error without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -330,7 +349,7 @@ public class DictionaryLoader {
 
 	private void sendImportError(String message, int langId, long fileLine, String word) {
 		if (onStatusChange == null) {
-			Logger.w(logTag, "Cannot send an import error without a status Handler. Ignoring message.");
+			Logger.w(LOG_TAG, "Cannot send an import error without a status Handler. Ignoring message.");
 			return;
 		}
 
@@ -340,5 +359,12 @@ public class DictionaryLoader {
 		errorMsg.putInt("languageId", langId);
 		errorMsg.putString("word", word);
 		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
+	}
+
+
+	private void logLoadingStep(String message, Language language, long time) {
+		if (Logger.isDebugLevel()) {
+			Logger.d(LOG_TAG, message + " for language '" + language.getName() + "' in: " + (System.currentTimeMillis() - time) + " ms");
+		}
 	}
 }

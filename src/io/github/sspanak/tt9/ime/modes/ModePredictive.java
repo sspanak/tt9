@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.TextTools;
-import io.github.sspanak.tt9.db.DictionaryDb;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
@@ -16,6 +16,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
+	private final String LOG_TAG = getClass().getSimpleName();
+
 	private final SettingsStore settings;
 
 	public int getId() { return MODE_PREDICTIVE; }
@@ -35,6 +37,7 @@ public class ModePredictive extends InputMode {
 	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
 	private final Predictions predictions;
+	private boolean isCursorDirectionForward = false;
 
 
 	ModePredictive(SettingsStore settings, Language lang) {
@@ -51,6 +54,8 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		isCursorDirectionForward = false;
+
 		if (digitSequence.length() < 1) {
 			clearWordStem();
 			return false;
@@ -60,7 +65,7 @@ public class ModePredictive extends InputMode {
 		if (digitSequence.length() == 0) {
 			clearWordStem();
 		} else if (stem.length() > digitSequence.length()) {
-			stem = stem.substring(0, digitSequence.length() - 1);
+			stem = stem.substring(0, digitSequence.length());
 		}
 
 		return true;
@@ -69,12 +74,14 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
+		isCursorDirectionForward = true;
+
 		if (hold) {
 			// hold to type any digit
 			reset();
 			autoAcceptTimeout = 0;
 			disablePredictions = true;
-			suggestions.add(String.valueOf(number));
+			suggestions.add(language.getKeyNumber(number));
 		} else {
 			// words
 			super.reset();
@@ -137,23 +144,6 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * clearWordStem
-	 * Do not filter the suggestions by the word set using "setWordStem()", use only the digit sequence.
-	 */
-	@Override
-	public boolean clearWordStem() {
-		if (stem.length() == 0) {
-			return false;
-		}
-
-		stem = "";
-		Logger.d("setWordStem", "Stem filter cleared");
-
-		return true;
-	}
-
-
-	/**
 	 * setWordStem
 	 * Filter the possible suggestions by the given stem.
 	 *
@@ -165,30 +155,30 @@ public class ModePredictive extends InputMode {
 	 * added to the suggestions list, even if they make no sense.
 	 * For example: "exac_" -> "exac", "exact", "exacu", "exacv", {database suggestions...}
 	 *
-	 *
 	 * Note that you need to manually get the suggestions again to obtain a filtered list.
 	 */
 	@Override
 	public boolean setWordStem(String newStem, boolean exact) {
-		String sanitizedStem = TextTools.removeNonLetters(newStem);
-		if (language == null || sanitizedStem == null || sanitizedStem.length() < 1) {
-			return false;
+		if (newStem == null || newStem.isEmpty()) {
+			isStemFuzzy = false;
+			stem = "";
+
+			Logger.d(LOG_TAG, "Stem filter cleared");
+			return true;
 		}
 
 		try {
-			// digitSequence = "the raw input", so that everything the user typed is preserved visually
-			// stem = "the sanitized input", because filtering by anything that is not a letter makes no sense
 			digitSequence = language.getDigitSequenceForWord(newStem);
-			stem = sanitizedStem.toLowerCase(language.getLocale());
 			isStemFuzzy = !exact;
+			stem = newStem.toLowerCase(language.getLocale());
 
-			Logger.d("setWordStem", "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
+			Logger.d(LOG_TAG, "Stem is now: " + stem + (isStemFuzzy ? " (fuzzy)" : ""));
 			return true;
 		} catch (Exception e) {
 			isStemFuzzy = false;
 			stem = "";
 
-			Logger.w("setWordStem", "Ignoring invalid stem: " + newStem + ". " + e.getMessage());
+			Logger.w("setWordStem", "Ignoring invalid stem: " + newStem + " in language: " + language + ". " + e.getMessage());
 			return false;
 		}
 	}
@@ -270,7 +260,7 @@ public class ModePredictive extends InputMode {
 		stem = "";
 
 		if (currentWord.isEmpty()) {
-			Logger.i("acceptCurrentSuggestion", "Current word is empty. Nothing to accept.");
+			Logger.i(LOG_TAG, "Current word is empty. Nothing to accept.");
 			return;
 		}
 
@@ -281,10 +271,10 @@ public class ModePredictive extends InputMode {
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
-				DictionaryDb.incrementWordFrequency(language, currentWord, sequence);
+				WordStoreAsync.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
-			Logger.e("ModePredictive", "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
+			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
 	}
 
@@ -295,8 +285,8 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void determineNextWordTextCase(boolean isThereText, String textBeforeCursor) {
-		textCase = autoTextCase.determineNextWordTextCase(isThereText, textCase, textFieldTextCase, textBeforeCursor);
+	public void determineNextWordTextCase(String textBeforeCursor) {
+		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
 
 	@Override
@@ -314,8 +304,8 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * shouldAcceptPreviousSuggestion
-	 * In this mode, In addition to confirming the suggestion in the input field,
-	 * we also increase its' priority. This function determines whether we want to do all this or not.
+	 * Automatic space assistance. Spaces (and special chars) cause suggestions to be accepted
+	 * automatically. This is used for analysis before processing the incoming pressed key.
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
@@ -333,14 +323,29 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion() {
+		// backspace never breaks words
+		if (!isCursorDirectionForward) {
+			return false;
+		}
+
+		// special characters always break words
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith("0")) {
+			return true;
+		}
+
+		// allow apostrophes in the middle or at the end of Hebrew and Ukrainian words
+		if (language.isHebrew() || language.isUkrainian()) {
+			return
+				predictions.noDbWords()
+				&& digitSequence.equals("1");
+		}
+
+		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
-			(autoAcceptTimeout == 0 && !digitSequence.startsWith("0"))
-			|| (
-				!digitSequence.isEmpty()
-				&& !predictions.areThereDbWords()
-				&& digitSequence.contains("1")
-				&& TextTools.containsOtherThan1(digitSequence)
-			);
+			!digitSequence.isEmpty()
+			&& predictions.noDbWords()
+			&& digitSequence.contains("1")
+			&& TextTools.containsOtherThan1(digitSequence);
 	}
 
 

@@ -25,11 +25,11 @@
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_appearance">Appearance</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
-	<string name="pref_category_log_messages" translatable="false">Recent Log Messages</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_setup">Initial Setup</string>
+	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
 	<string name="pref_abc_auto_accept">Automatic Letter Select</string>
 	<string name="pref_abc_auto_accept_summary">Automatically type the selected letter after a short delay.</string>
@@ -44,11 +44,9 @@
 	<string name="pref_dark_theme_yes">Yes</string>
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Auto</string>
-	<string name="pref_debug_logs" translatable="false">Detailed Debug Logs</string>
-	<string name="pref_system_logs" translatable="false">System Logs</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_hack_fb_messenger">Send messages with OK in Messenger</string>
-	<string name="pref_hack_fb_messenger_summary">Allows sending messages with the OK key in Facebook Messenger and Messenger Lite.</string>
+	<string name="pref_hack_fb_messenger_summary">Allows sending messages with the OK key in Facebook Messenger.</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
 	<string name="pref_show_soft_numpad">Show On-Screen Numpad</string>
 	<string name="pref_show_soft_numpad_summary" translatable="false">(BETA)</string>
@@ -70,6 +68,11 @@
 	<string name="dictionary_truncate_unselected">Delete Unselected</string>
 	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
 	<string name="dictionary_truncating">Deleting…</string>
+
+	<string name="donate_title">Donate</string>
+	<string name="donate_summary">If you like %1$s, you could support its development at: %2$s.</string>
+	<string name="donate_url" translatable="false">https://www.buymeacoffee.com/sspanak</string>
+	<string name="donate_url_short" translatable="false">www.buymeacoffee.com</string>
 
 	<string name="function_add_word_key">Add Word</string>
 	<string name="function_backspace_key">Backspace</string>
