@@ -7,11 +7,11 @@
 		app:layout="@layout/pref_text"
 		app:title="@string/pref_category_usage_stats" />
 
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_enable_debug_logs"
-		app:layout="@layout/pref_switch"
-		app:title="Debug Logs" />
+	<DropDownPreference
+		app:iconSpaceReserved="false"
+		app:key="pref_log_level"
+		app:layout="@layout/pref_dropdown"
+		app:title="Log Level" />
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"

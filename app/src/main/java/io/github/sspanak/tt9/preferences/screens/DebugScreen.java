@@ -15,11 +15,11 @@ import java.io.InputStreamReader;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemLogLevel;
 import io.github.sspanak.tt9.ui.UI;
 
 public class DebugScreen extends BaseScreenFragment {
 	private final static String LOG_TAG = "DebugScreen";
-	private final static String DEBUG_LOGS_SWITCH = "pref_enable_debug_logs";
 	private final static String SYSTEM_LOGS_SWITCH = "pref_enable_system_logs";
 	private final static String LOGS_CONTAINER = "debug_logs_container";
 
@@ -31,7 +31,7 @@ public class DebugScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		initLogMessagesSwitch();
+		intiLogLevelDropDown();
 		initSystemLogsSwitch();
 		enableLogsCopy();
 
@@ -40,31 +40,18 @@ public class DebugScreen extends BaseScreenFragment {
 		printLogs(includeSystemLogs);
 	}
 
-	private void initLogMessagesSwitch() {
-		SwitchPreferenceCompat msgSwitch = findPreference(DEBUG_LOGS_SWITCH);
-		if (msgSwitch == null) {
-			Logger.w(LOG_TAG, "Debug logs switch not found.");
-			return;
-		}
-
-		msgSwitch.setChecked(Logger.isDebugLevel());
-		msgSwitch.setOnPreferenceChangeListener((Preference p, Object newValue) -> {
-			Logger.enableDebugLevel((boolean) newValue);
-			return true;
-		});
+	private void intiLogLevelDropDown() {
+		(new ItemLogLevel(findPreference(ItemLogLevel.NAME))).populate().preview().enableClickHandler();
 	}
 
 	private void initSystemLogsSwitch() {
 		SwitchPreferenceCompat systemLogs = findPreference(SYSTEM_LOGS_SWITCH);
-		if (systemLogs == null) {
-			Logger.w(LOG_TAG, "System logs switch not found.");
-			return;
+		if (systemLogs != null) {
+			systemLogs.setOnPreferenceChangeListener((p, newValue) -> {
+				printLogs((boolean) newValue);
+				return true;
+			});
 		}
-
-		systemLogs.setOnPreferenceChangeListener((p, newValue) -> {
-			printLogs((boolean) newValue);
-			return true;
-		});
 	}
 
 	private void printLogs(boolean includeSystemLogs) {
