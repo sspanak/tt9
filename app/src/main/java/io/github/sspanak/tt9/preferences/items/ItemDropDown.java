@@ -48,12 +48,10 @@ public class ItemDropDown {
 	}
 
 	public ItemDropDown enableClickHandler() {
-		if (item == null) {
-			Logger.w("SectionKeymap.populateItem", "Cannot set a click listener a NULL item. Ignoring.");
-			return this;
+		if (item != null) {
+			item.setOnPreferenceChangeListener(this::onClick);
 		}
 
-		item.setOnPreferenceChangeListener(this::onClick);
 		return this;
 	}
 
@@ -74,11 +72,20 @@ public class ItemDropDown {
 		}
 	}
 
-	public void preview() {
+	public ItemDropDown preview() {
 		try {
 			setPreview(values.get(Integer.parseInt(item.getValue())));
 		} catch (Exception e) {
 			setPreview("");
 		}
+
+		return this;
+	}
+
+	public ItemDropDown setValue(String value) {
+		if (item != null) {
+			item.setValue(value);
+		}
+		return this;
 	}
 }

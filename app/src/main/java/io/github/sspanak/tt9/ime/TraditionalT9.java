@@ -148,7 +148,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onInit() {
 		self = this;
-		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
+		Logger.setLevel(settings.getLogLevel());
 
 		WordStoreAsync.init(this);
 
@@ -207,7 +207,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	protected void onStart(InputConnection connection, EditorInfo field) {
-		Logger.enableDebugLevel(settings.getDebugLogsEnabled());
+		Logger.setLevel(settings.getLogLevel());
 
 		setInputField(connection, field);
 		initTyping();

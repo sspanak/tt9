@@ -270,7 +270,13 @@ public class SettingsStore {
 
 	/************* internal settings *************/
 
-	public boolean getDebugLogsEnabled() { return prefs.getBoolean("pref_enable_debug_logs", Logger.isDebugLevel()); }
+	public int getLogLevel() {
+		try {
+			return Integer.parseInt(prefs.getString("pref_log_level", String.valueOf(Logger.LEVEL)));
+		} catch (NumberFormatException ignored) {
+			return Logger.LEVEL;
+		}
+	}
 
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
