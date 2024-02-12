@@ -16,6 +16,7 @@
 	<string name="pref_choose_languages">Sprachen</string>
 
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
+	<string name="dictionary_loading_please_wait">Bitte warten Sie, bis das Wörterbuch geladen ist.</string>
 	<string name="dictionary_load_title">Wörterbuch laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 	<string name="pref_category_hacks">Kompatibilität</string>

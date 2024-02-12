@@ -63,6 +63,7 @@
 	<string name="dictionary_loaded">Dictionary load completed.</string>
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Loading dictionary</string>
+	<string name="dictionary_loading_please_wait">Please wait for the dictionary to load.</string>
 	<string name="dictionary_load_title">Load Dictionary</string>
 	<string name="dictionary_missing_go_load_it">No dictionary for language \"%1$s\". Go to Settings to load it.</string>
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>

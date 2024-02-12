@@ -35,6 +35,7 @@
 	<string name="dictionary_loaded">Dicionário carregado com sucesso.</string>
 	<string name="dictionary_loading">Carregando dicionário (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Carregando dicionário…</string>
+	<string name="dictionary_loading_please_wait">Aguarde o carregamento do dicionário, por favor</string>
 	<string name="dictionary_load_title">Carregar Dicionário</string>
 	<string name="dictionary_missing_go_load_it">Não há um dicionário para o idioma \"%1$s\". É possível carregá-lo em "Configurações".</string>
 	<string name="dictionary_not_found">Falha no carregamento. Não foi encontrado um dicionário para o idioma \"%1$s\".</string>

@@ -26,6 +26,7 @@
 	<string name="setup_keyboard_status">Estado</string>
 	<string name="setup_default_keyboard">Selecciona teclado predeterminado</string>
 	<string name="char_newline">Nueva línea</string>
+	<string name="dictionary_loading_please_wait">Por favor, espera a que se cargue el diccionario.</string>
 	<string name="dictionary_load_title">Cargar diccionario</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>

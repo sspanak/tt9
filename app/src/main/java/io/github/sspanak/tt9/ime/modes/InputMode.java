@@ -75,8 +75,7 @@ abstract public class InputMode {
 		return newSuggestions;
 	}
 
-	// Mode identifiers
-	public boolean isABC() { return false; }
+	// Numeric mode identifiers. "instanceof" cannot be used in all cases, because they inherit each other.
 	public boolean is123() { return false; }
 	public boolean isPassthrough() { return false; }
 	public boolean isNumeric() { return false; }

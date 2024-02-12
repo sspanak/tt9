@@ -18,12 +18,15 @@ import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.AppHacks;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.ModeABC;
+import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -237,7 +240,10 @@ public class TraditionalT9 extends KeyPadHandler {
 		statusBar.setText("--");
 
 		normalizationHandler.removeCallbacksAndMessages(null);
-		normalizationHandler.postDelayed(WordStoreAsync::normalizeNext, SettingsStore.WORD_NORMALIZATION_DELAY);
+		normalizationHandler.postDelayed(
+			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) WordStoreAsync.normalizeNext(); },
+			SettingsStore.WORD_NORMALIZATION_DELAY
+		);
 	}
 
 
@@ -357,6 +363,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		if (validateOnly) {
+			return true;
+		}
+
+		if (DictionaryLoader.getInstance(this).isRunning()) {
+			UI.toast(this, R.string.dictionary_loading_please_wait);
 			return true;
 		}
 
@@ -607,7 +618,11 @@ public class TraditionalT9 extends KeyPadHandler {
 
 
 	private void getSuggestions() {
-		mInputMode.loadSuggestions(this::handleSuggestions, suggestionBar.getCurrentSuggestion());
+		if (mInputMode instanceof ModePredictive && DictionaryLoader.getInstance(this).isRunning()) {
+			UI.toast(this, R.string.dictionary_loading_please_wait);
+		} else {
+			mInputMode.loadSuggestions(this::handleSuggestions, suggestionBar.getCurrentSuggestion());
+		}
 	}
 
 
@@ -711,7 +726,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			}
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode.isABC() && mInputMode.getTextCase() == InputMode.CASE_LOWER && mLanguage.hasUpperCase()) {
+		else if (mInputMode instanceof ModeABC && mInputMode.getTextCase() == InputMode.CASE_LOWER && mLanguage.hasUpperCase()) {
 			mInputMode.nextTextCase();
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();

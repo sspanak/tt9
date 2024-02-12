@@ -51,7 +51,6 @@ public class ModeABC extends InputMode {
 		}
 	}
 
-	@Override final public boolean isABC() { return true; }
 	@Override public int getSequenceLength() { return 1; }
 
 	@Override public boolean shouldAcceptPreviousSuggestion() { return autoAcceptTimeout == 0 || !shouldSelectNextLetter; }

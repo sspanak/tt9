@@ -20,6 +20,7 @@
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
+	<string name="dictionary_loading_please_wait">Пожалуйста, подождите, пока словарь загружается.</string>
 	<string name="dictionary_load_title">Загрузить словарь</string>
 	<string name="dictionary_not_found">Ошибка загрузки. Словарь «%1$s» не найден.</string>
 	<string name="dictionary_truncated">Словарь успешно удален.</string>
