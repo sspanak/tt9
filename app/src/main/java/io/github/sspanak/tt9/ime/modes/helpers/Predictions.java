@@ -1,17 +1,14 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
-import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Predictions {
 	private final EmptyDatabaseWarning emptyDbWarning;
-	private final SettingsStore settings;
 
 	private Language language;
 	private String digitSequence;
@@ -26,22 +23,9 @@ public class Predictions {
 	private boolean areThereDbWords = false;
 	private ArrayList<String> words = new ArrayList<>();
 
-	// punctuation/emoji
-	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
-	private final String maxEmojiSequence;
 
-
-	public Predictions(SettingsStore settingsStore) {
+	public Predictions() {
 		emptyDbWarning = new EmptyDatabaseWarning();
-		settings = settingsStore;
-
-		// digitSequence limiter when selecting emoji
-		// "11" = Emoji level 0, "111" = Emoji level 1,... up to the maximum amount of 1s
-		StringBuilder maxEmojiSequenceBuilder = new StringBuilder();
-		for (int i = 0; i <= Characters.getEmojiLevels(); i++) {
-			maxEmojiSequenceBuilder.append("1");
-		}
-		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
 	}
 
 
@@ -125,54 +109,15 @@ public class Predictions {
 			return;
 		}
 
-		if (loadStatic()) {
-			onWordsChanged.run();
-		} else {
-			WordStoreAsync.getWords(
-				(words) -> onDbWords(words, true),
-				language,
-				digitSequence,
-				stem,
-				SettingsStore.SUGGESTIONS_MIN,
-				SettingsStore.SUGGESTIONS_MAX
-			);
-		}
-	}
+		WordStoreAsync.getWords(
+			(words) -> onDbWords(words, true),
+			language,
+			digitSequence,
+			stem,
+			SettingsStore.SUGGESTIONS_MIN,
+			SettingsStore.SUGGESTIONS_MAX
+		);
 
-
-	/**
-	 * loadStatic
-	 * Similar to "load()", but loads words that are not in the database.
-	 * Returns "false", when there are no static options for the current digitSequence.
-	 */
-	private boolean loadStatic() {
-		// whitespace/special/math characters
-		if (digitSequence.equals("0")) {
-			stem = "";
-			words.clear();
-			words.addAll(language.getKeyCharacters(0, false));
-		}
-		// "00" is a shortcut for the preferred character
-		else if (digitSequence.equals("00")) {
-			stem = "";
-			words.clear();
-			words.add(settings.getDoubleZeroChar());
-		}
-		// emoji
-		else if (containsOnly1Regex.matcher(digitSequence).matches()) {
-			stem = "";
-			words.clear();
-			if (digitSequence.length() == 1) {
-				words.addAll(language.getKeyCharacters(1, false));
-			} else {
-				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
-				words.addAll(Characters.getEmoji(digitSequence.length() - 2));
-			}
-		} else {
-			return false;
-		}
-
-		return true;
 	}
 
 	private void loadWithoutLeadingPunctuation() {
@@ -242,7 +187,7 @@ public class Predictions {
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
-		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit, false)) {
+		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
 			generatedWords.add(baseWord + keyLetter);
 		}
 
