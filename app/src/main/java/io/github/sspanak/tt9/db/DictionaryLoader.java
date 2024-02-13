@@ -196,7 +196,7 @@ public class DictionaryLoader {
 		WordBatch letters = new WordBatch(language);
 
 		for (int key = 2; key <= 9; key++) {
-			for (String langChar : language.getKeyCharacters(key, false)) {
+			for (String langChar : language.getKeyCharacters(key)) {
 				langChar = (isEnglish && langChar.equals("i")) ? langChar.toUpperCase(Locale.ENGLISH) : langChar;
 				letters.add(langChar, 0, key);
 				lettersCount++;
