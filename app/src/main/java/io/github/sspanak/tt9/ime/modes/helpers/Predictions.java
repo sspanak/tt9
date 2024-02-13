@@ -28,9 +28,7 @@ public class Predictions {
 	private ArrayList<String> words = new ArrayList<>();
 
 	// static sequences
-	public final static String SPECIAL_CHAR_SEQUENCE = "0";
 	public final static String PREFERRED_CHAR_SEQUENCE = "00";
-	public final static String PUNCTUATION_SEQUENCE = "1";
 	private final Pattern EMOJI_SEQUENCE = Pattern.compile("^1{2,}$");
 
 
@@ -143,14 +141,14 @@ public class Predictions {
 	private boolean loadStatic() {
 		ArrayList<String> newWords = null;
 
-		if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE)) {
-			newWords = language.getKeyCharacters(0, false);
+		if (digitSequence.equals(Language.SPECIAL_CHARS_KEY)) {
+			newWords = language.getKeyCharacters(0);
 		}
 		else if (digitSequence.equals(PREFERRED_CHAR_SEQUENCE)) {
 			newWords = new ArrayList<>(Collections.singletonList(settings.getDoubleZeroChar()));
 		}
-		else if (digitSequence.equals(PUNCTUATION_SEQUENCE)) {
-			newWords = language.getKeyCharacters(1, false);
+		else if (digitSequence.equals(Language.PUNCTUATION_KEY)) {
+			newWords = language.getKeyCharacters(1);
 		}
 		else if (EMOJI_SEQUENCE.matcher(digitSequence).matches()) {
 			if (digitSequence.length() > Characters.getEmojiLevels()) {
@@ -237,7 +235,7 @@ public class Predictions {
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
-		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit, false)) {
+		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
 			generatedWords.add(baseWord + keyLetter);
 		}
 

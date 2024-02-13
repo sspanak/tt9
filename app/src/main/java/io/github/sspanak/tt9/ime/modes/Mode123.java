@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.Language;
 
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
@@ -18,9 +19,12 @@ public class Mode123 extends ModePassthrough {
 	@Override public int getSequenceLength() { return 1; }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
+	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 
-	public Mode123(InputType inputType) {
+	public Mode123(InputType inputType, Language language) {
+		this.language = language;
+
 		if (inputType.isPhoneNumber()) {
 			getPhoneSpecialCharacters();
 		} else if (inputType.isNumeric()) {
@@ -28,9 +32,6 @@ public class Mode123 extends ModePassthrough {
 		} else {
 			getDefaultSpecialCharacters();
 		}
-
-		// extra special characters for 0-key
-		KEY_CHARACTERS.get(0).add(Characters.Currency);
 	}
 
 
@@ -40,8 +41,8 @@ public class Mode123 extends ModePassthrough {
 	 * as well as command characters such as "," = "slight pause" and ";" = "wait" used in Japan and some other countries.
 	 */
 	private void getPhoneSpecialCharacters() {
-		KEY_CHARACTERS.get(0).add(new ArrayList<>(Arrays.asList("+", " ")));
-		KEY_CHARACTERS.get(1).add(new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ",")));
+		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("+", " ")));
+		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ",")));
 	}
 
 
@@ -50,9 +51,9 @@ public class Mode123 extends ModePassthrough {
 	 * Special characters for all kinds of numeric fields: integer, decimal with +/- included as necessary.
 	 */
 	private void getNumberSpecialCharacters(boolean decimal, boolean signed) {
-		KEY_CHARACTERS.get(0).add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
+		KEY_CHARACTERS.add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
 		if (decimal) {
-			KEY_CHARACTERS.get(1).add(new ArrayList<>(Arrays.asList(".", ",")));
+			KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList(".", ",")));
 		}
 	}
 
@@ -64,44 +65,42 @@ public class Mode123 extends ModePassthrough {
 	 */
 	private void getDefaultSpecialCharacters() {
 		// 0-key
-		KEY_CHARACTERS.get(0).add(new ArrayList<>(Collections.singletonList("+")));
+		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
 		for (String character : Characters.Special) {
 			if (!character.equals("+") && !character.equals("\n")) {
-				KEY_CHARACTERS.get(0).get(0).add(character);
+				KEY_CHARACTERS.get(0).add(character);
 			}
 		}
 
 		// 1-key
-		KEY_CHARACTERS.get(1).add(new ArrayList<>(Collections.singletonList(".")));
+		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList(".")));
 		for (String character : Characters.PunctuationEnglish) {
 			if (!character.equals(".")) {
-				KEY_CHARACTERS.get(1).get(0).add(character);
+				KEY_CHARACTERS.get(1).add(character);
 			}
 		}
 	}
 
 
+	@Override
+	protected boolean nextSpecialCharacters() {
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+	}
+
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
+		digitSequence = String.valueOf(number);
 
 		if (hold && number < KEY_CHARACTERS.size() && KEY_CHARACTERS.get(number).size() > 0) {
-			suggestions.addAll(KEY_CHARACTERS.get(number).get(0));
+			suggestions.addAll(KEY_CHARACTERS.get(number));
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(String.valueOf(number));
+			suggestions.add(digitSequence);
 		}
 
 		return true;
 	}
 
-	@Override protected boolean nextSpecialCharacters() {
-		return
-			suggestions.size() > 0 && (
-				suggestions.get(0).equals(KEY_CHARACTERS.get(0).get(0).get(0)) ||
-				suggestions.get(0).equals(Characters.Currency.get(0))
-			)
-			&& super.nextSpecialCharacters();
-	}
 
 	/**
 	 * shouldIgnoreText
@@ -120,5 +119,12 @@ public class Mode123 extends ModePassthrough {
 				|| (text.charAt(0) > 90 && text.charAt(0) < 97)
 				|| (text.charAt(0) > 122 && text.charAt(0) < 127)
 			);
+	}
+
+
+	@Override
+	public void reset() {
+		super.reset();
+		digitSequence = "";
 	}
 }

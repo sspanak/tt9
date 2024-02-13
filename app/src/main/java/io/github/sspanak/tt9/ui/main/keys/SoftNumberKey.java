@@ -108,7 +108,7 @@ public class SoftNumberKey extends SoftKey {
 		boolean isGreekBased = language.isGreek();
 
 		StringBuilder sb = new StringBuilder();
-		ArrayList<String> chars = language.getKeyCharacters(number, false);
+		ArrayList<String> chars = language.getKeyCharacters(number);
 		for (int i = 0; i < 5 && i < chars.size(); i++) {
 			String currentLetter = chars.get(i);
 			if (

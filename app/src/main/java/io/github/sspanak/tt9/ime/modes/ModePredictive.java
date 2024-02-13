@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
-import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -23,7 +22,6 @@ public class ModePredictive extends InputMode {
 
 	public int getId() { return MODE_PREDICTIVE; }
 
-	private String digitSequence = "";
 	private String lastAcceptedWord = "";
 
 	// stem filter
@@ -50,6 +48,8 @@ public class ModePredictive extends InputMode {
 		predictions = new Predictions(settings);
 
 		this.settings = settings;
+
+		digitSequence = "";
 	}
 
 
@@ -107,16 +107,12 @@ public class ModePredictive extends InputMode {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
-
-		KEY_CHARACTERS.get(0).add(language.getKeyCharacters(0));
-		KEY_CHARACTERS.get(0).add(Characters.Currency);
 	}
 
 
 	@Override
 	public void reset() {
 		super.reset();
-		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
 	}
@@ -274,7 +270,7 @@ public class ModePredictive extends InputMode {
 
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith(Predictions.PUNCTUATION_SEQUENCE) && !sequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE)) {
+			if (!sequence.startsWith(Language.PUNCTUATION_KEY) && !sequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
 				WordStoreAsync.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -307,13 +303,6 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	@Override
-	protected boolean nextSpecialCharacters() {
-		return
-			digitSequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE) &&
-			super.nextSpecialCharacters();
-	}
-
 	/**
 	 * shouldAcceptPreviousSuggestion
 	 * Automatic space assistance. Spaces (and special chars) cause suggestions to be accepted
@@ -341,7 +330,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		// special characters always break words
-		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE)) {
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
 			return true;
 		}
 
@@ -349,14 +338,14 @@ public class ModePredictive extends InputMode {
 		if (language.isHebrew() || language.isUkrainian()) {
 			return
 				predictions.noDbWords()
-				&& digitSequence.equals(Predictions.PUNCTUATION_SEQUENCE);
+				&& digitSequence.equals(Language.PUNCTUATION_KEY);
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(Predictions.PUNCTUATION_SEQUENCE)
+			&& digitSequence.contains(Language.PUNCTUATION_KEY)
 			&& TextTools.containsOtherThan1(digitSequence);
 	}
 

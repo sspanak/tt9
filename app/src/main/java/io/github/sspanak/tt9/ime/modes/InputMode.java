@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -30,14 +29,10 @@ abstract public class InputMode {
 
 	// data
 	protected int autoAcceptTimeout = -1;
+	@NonNull protected String digitSequence = "";
 	protected Language language;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
-
 	protected int specialCharSelectedGroup = 0;
-	protected ArrayList<ArrayList<ArrayList<String>>> KEY_CHARACTERS = new ArrayList<>(Arrays.asList(
-		new ArrayList<>(), // 0-key
-		new ArrayList<>() // 1-key
-	));
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
@@ -51,7 +46,7 @@ abstract public class InputMode {
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123(inputType);
+				return new Mode123(inputType, language);
 		}
 	}
 
@@ -148,15 +143,24 @@ abstract public class InputMode {
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
 	 */
 	protected boolean nextSpecialCharacters() {
-		int groupsCount = KEY_CHARACTERS.get(0).size();
-		if (groupsCount == 0) {
+		if (suggestions.size() == 0 || language == null || digitSequence.isEmpty()) {
 			return false;
 		}
 
-		specialCharSelectedGroup++;
-		specialCharSelectedGroup %= groupsCount;
+		int key = digitSequence.charAt(0) - '0';
+
+		ArrayList<String> chars = language.getKeyCharacters(key, ++specialCharSelectedGroup);
+		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
+			specialCharSelectedGroup = 0;
+			return false;
+		} else if (chars.isEmpty()) {
+			specialCharSelectedGroup = 0;
+			chars = language.getKeyCharacters(key, specialCharSelectedGroup);
+		}
+
 		suggestions.clear();
-		suggestions.addAll(KEY_CHARACTERS.get(0).get(specialCharSelectedGroup));
+		suggestions.addAll(chars);
+
 		return true;
 	}
 

@@ -688,10 +688,6 @@ public class TraditionalT9 extends KeyPadHandler {
 	}
 
 
-	private void refreshComposingText() {
-		textField.setComposingText(getComposingText());
-	}
-
 
 	private void setComposingTextWithHighlightedStem(@NonNull String word) {
 		if (appHacks.setComposingTextWithHighlightedStem(word)) {
@@ -718,7 +714,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			for (int retries = 0; retries < 2 && mLanguage.hasUpperCase(); retries++) {
 				mInputMode.nextTextCase();
 				setSuggestions(mInputMode.getSuggestions(), suggestionBar.getCurrentIndex());
-				refreshComposingText();
+				textField.setComposingText(suggestionBar.getCurrentSuggestion());
 
 				if (!currentSuggestionBefore.equals(getComposingText())) {
 					break;
@@ -728,6 +724,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode instanceof ModeABC && mInputMode.getTextCase() == InputMode.CASE_LOWER && mLanguage.hasUpperCase()) {
 			mInputMode.nextTextCase();
+			textField.setComposingText(suggestionBar.getCurrentSuggestion()); // prevents corruption of multi-byte chars
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
