@@ -51,11 +51,11 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 
 
 android {
-	namespace 'io.github.sspanak.tt9'
+	namespace PACKAGE_NAME
 	compileSdk 34
 
 	defaultConfig {
-		applicationId "io.github.sspanak.tt9"
+		applicationId PACKAGE_NAME
 		minSdk 19
 		//noinspection ExpiredTargetSdkVersion
 		targetSdk 30
@@ -100,6 +100,10 @@ android {
 
 		assembleDebug.finalizedBy(updateManifest)
 		assembleRelease.finalizedBy(updateManifest)
+
+		variant.outputs.configureEach {
+			outputFileName = "${APP_NAME}-v${getVerName()}.apk"
+		}
 	}
 }
 
