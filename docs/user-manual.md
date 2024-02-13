@@ -73,13 +73,16 @@ _**Note3:** Facebook Messenger supports sending messages with the keypad only on
 - **In 123 mode:**
   - **Press:** type "0".
   - **Hold:** type special/math characters.
+  - **Hold "0", then Press "Next Mode" (Default: Hold "0", Press "#"):** type currency characters
 - **In ABC mode:**
   - **Press:** type space, newline or special/math characters.
   - **Hold:** type "0".
+  - **Press "0", then Press "Next Mode" (Default: Press "0", "#"):** type currency characters
 - **In Predictive mode:**
   - **Press:** type space, newline or special/math characters.
   - **Double Press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
+  - **Press "0", then Press "Next Mode" (Default: Press "0", "#"):** type currency characters
 
 #### 1- to 9-key:
 - **In 123 mode:** type the respective number or hold to type punctuation.

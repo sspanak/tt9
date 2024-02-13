@@ -8,6 +8,7 @@ import java.util.Collections;
 
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.Language;
 
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
@@ -21,7 +22,9 @@ public class Mode123 extends ModePassthrough {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 
-	public Mode123(InputType inputType) {
+	public Mode123(InputType inputType, Language language) {
+		this.language = language;
+
 		if (inputType.isPhoneNumber()) {
 			getPhoneSpecialCharacters();
 		} else if (inputType.isNumeric()) {
@@ -79,14 +82,20 @@ public class Mode123 extends ModePassthrough {
 	}
 
 
+	@Override
+	protected boolean nextSpecialCharacters() {
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+	}
+
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
+		digitSequence = String.valueOf(number);
 
 		if (hold && number < KEY_CHARACTERS.size() && KEY_CHARACTERS.get(number).size() > 0) {
 			suggestions.addAll(KEY_CHARACTERS.get(number));
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(String.valueOf(number));
+			suggestions.add(digitSequence);
 		}
 
 		return true;
@@ -110,5 +119,12 @@ public class Mode123 extends ModePassthrough {
 				|| (text.charAt(0) > 90 && text.charAt(0) < 97)
 				|| (text.charAt(0) > 122 && text.charAt(0) < 127)
 			);
+	}
+
+
+	@Override
+	public void reset() {
+		super.reset();
+		digitSequence = "";
 	}
 }

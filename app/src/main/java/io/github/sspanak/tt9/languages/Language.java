@@ -8,6 +8,9 @@ import java.util.Locale;
 
 
 public class Language {
+	public static String SPECIAL_CHARS_KEY = "0";
+	public static String PUNCTUATION_KEY = "1";
+
 	private int id;
 	protected String name;
 	protected Locale locale;
@@ -120,7 +123,7 @@ public class Language {
 
 	final public String getAbcString() {
 		if (abcString == null) {
-			ArrayList<String> lettersList = getKeyCharacters(2, false);
+			ArrayList<String> lettersList = getKeyCharacters(2);
 
 			abcString = "";
 			StringBuilder sb = new StringBuilder();
@@ -143,11 +146,11 @@ public class Language {
 	 * Returns "true" when the language is based on the Latin alphabet or "false" otherwise.
 	 */
 	public boolean isLatinBased() {
-		return getKeyCharacters(2, false).contains("a");
+		return getKeyCharacters(2).contains("a");
 	}
 
 	public boolean isCyrillic() {
-		return getKeyCharacters(2, false).contains("а");
+		return getKeyCharacters(2).contains("а");
 	}
 
 	public boolean isRTL() {
@@ -155,19 +158,19 @@ public class Language {
 	}
 
 	public boolean isGreek() {
-		return getKeyCharacters(2, false).contains("α");
+		return getKeyCharacters(2).contains("α");
 	}
 
 	public boolean isArabic() {
-		return getKeyCharacters(3, false).contains("ا");
+		return getKeyCharacters(3).contains("ا");
 	}
 
 	public boolean isUkrainian() {
-		return getKeyCharacters(3, false).contains("є");
+		return getKeyCharacters(3).contains("є");
 	}
 
 	public boolean isHebrew() {
-		return getKeyCharacters(3, false).contains("א");
+		return getKeyCharacters(3).contains("א");
 	}
 
 	/* ************ utility ************ */
@@ -240,21 +243,27 @@ public class Language {
 		return word != null && word.toUpperCase(locale).equals(word);
 	}
 
-	public ArrayList<String> getKeyCharacters(int key, boolean includeDigit) {
+	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
 		if (key < 0 || key >= layout.size()) {
 			return new ArrayList<>();
 		}
 
 		ArrayList<String> chars = new ArrayList<>(layout.get(key));
-		if (includeDigit && chars.size() > 0) {
-			chars.add(getKeyNumber(key));
+		if (characterGroup > 0) {
+			if (key == 0 && characterGroup == 1) {
+				chars = new ArrayList<>(Characters.Currency);
+			} else if (key == 1) {
+				chars = new ArrayList<>(Characters.getEmoji(characterGroup - 1));
+			} else {
+				chars = new ArrayList<>();
+			}
 		}
 
 		return chars;
 	}
 
 	public ArrayList<String> getKeyCharacters(int key) {
-		return getKeyCharacters(key, true);
+		return getKeyCharacters(key, 0);
 	}
 
 	public String getKeyNumber(int key) {
@@ -284,6 +293,7 @@ public class Language {
 
 		return sequence.toString();
 	}
+
 
 	@NonNull
 	@Override

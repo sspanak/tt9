@@ -21,6 +21,7 @@ public class ModeABC extends InputMode {
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
+			digitSequence = String.valueOf(number);
 			suggestions.add(language.getKeyNumber(number));
 			autoAcceptTimeout = 0;
 		} else if (repeat > 0) {
@@ -28,7 +29,9 @@ public class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 		} else {
 			reset();
+			digitSequence = String.valueOf(number);
 			suggestions.addAll(language.getKeyCharacters(number));
+			suggestions.add(language.getKeyNumber(number));
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 		}
 
@@ -38,6 +41,16 @@ public class ModeABC extends InputMode {
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+	}
+
+	@Override
+	protected boolean nextSpecialCharacters() {
+		if (digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
+			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
@@ -59,6 +72,7 @@ public class ModeABC extends InputMode {
 	@Override
 	public void reset() {
 		super.reset();
+		digitSequence = "";
 		shouldSelectNextLetter = false;
 	}
 

@@ -12,17 +12,20 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
+import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
 
+	private final static String PREFERRED_CHAR_SEQUENCE = "00";
+	private final static String EMOJI_SEQUENCE = "11";
+
 	private final SettingsStore settings;
 
 	public int getId() { return MODE_PREDICTIVE; }
 
-	private String digitSequence = "";
 	private String lastAcceptedWord = "";
 
 	// stem filter
@@ -46,9 +49,11 @@ public class ModePredictive extends InputMode {
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
-		predictions = new Predictions(settings);
+		predictions = new Predictions();
 
 		this.settings = settings;
+
+		digitSequence = "";
 	}
 
 
@@ -205,16 +210,18 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * loadSuggestions
-	 * Loads the possible list of suggestions for the current digitSequence.
-	 * Returns "false" on invalid sequence.
-	 *
-	 * "currentWord" is used for generating suggestions when there are no results.
+	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used
+	 * for generating suggestions when there are no results.
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
 	public void loadSuggestions(Runnable onLoad, String currentWord) {
 		if (disablePredictions) {
 			super.loadSuggestions(onLoad, currentWord);
+			return;
+		}
+
+		if (loadStaticSuggestions(onLoad)) {
 			return;
 		}
 
@@ -227,6 +234,29 @@ public class ModePredictive extends InputMode {
 			.setInputWord(currentWord)
 			.setWordsChangedHandler(this::getPredictions)
 			.load();
+	}
+
+	/**
+	 * loadStatic
+	 * Loads words that are not in the database and are supposed to be in the same order, such as
+	 * emoji or the preferred character for double "0". Returns "false", when there are no static
+	 * options for the current digitSequence.
+	 */
+	private boolean loadStaticSuggestions(Runnable onLoad) {
+		if (digitSequence.startsWith(EMOJI_SEQUENCE)) {
+			digitSequence = digitSequence.substring(0, Math.min(digitSequence.length(), Characters.getEmojiLevels() + 1));
+			specialCharSelectedGroup = digitSequence.length() - 2;
+			super.nextSpecialCharacters();
+			onLoad.run();
+			return true;
+		} else if (digitSequence.startsWith(PREFERRED_CHAR_SEQUENCE)) {
+			suggestions.clear();
+			suggestions.add(settings.getDoubleZeroChar());
+			onLoad.run();
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -270,7 +300,7 @@ public class ModePredictive extends InputMode {
 
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
+			if (!sequence.startsWith(Language.PUNCTUATION_KEY) && !sequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
 				WordStoreAsync.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -285,6 +315,11 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
+	protected boolean nextSpecialCharacters() {
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+	}
+
+	@Override
 	public void determineNextWordTextCase(String textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
@@ -296,10 +331,12 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void nextTextCase() {
-		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
-		super.nextTextCase();
+	public boolean nextTextCase() {
+		boolean changed = super.nextTextCase();
+		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase; // since it's a user's choice, the default matters no more
+		return changed;
 	}
+
 
 
 	/**
@@ -329,7 +366,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		// special characters always break words
-		if (autoAcceptTimeout == 0 && !digitSequence.startsWith("0")) {
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
 			return true;
 		}
 
@@ -337,14 +374,14 @@ public class ModePredictive extends InputMode {
 		if (language.isHebrew() || language.isUkrainian()) {
 			return
 				predictions.noDbWords()
-				&& digitSequence.equals("1");
+				&& digitSequence.equals(Language.PUNCTUATION_KEY);
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains("1")
+			&& digitSequence.contains(Language.PUNCTUATION_KEY)
 			&& TextTools.containsOtherThan1(digitSequence);
 	}
 

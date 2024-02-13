@@ -29,8 +29,10 @@ abstract public class InputMode {
 
 	// data
 	protected int autoAcceptTimeout = -1;
+	@NonNull protected String digitSequence = "";
 	protected Language language;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
+	protected int specialCharSelectedGroup = 0;
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
@@ -44,7 +46,7 @@ abstract public class InputMode {
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123(inputType);
+				return new Mode123(inputType, language);
 		}
 	}
 
@@ -102,6 +104,7 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
+		specialCharSelectedGroup = 0;
 		suggestions.clear();
 	}
 
@@ -125,9 +128,40 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(0);
 	}
 
-	public void nextTextCase() {
+	public boolean nextTextCase() {
+		if (nextSpecialCharacters()) {
+			return false;
+		}
+
 		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
 		textCase = allowedTextCases.get(nextIndex);
+		return true;
+	}
+
+	/**
+	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
+	 * special chars do not have a text case, but we use this trick to alternate the char groups.
+	 */
+	protected boolean nextSpecialCharacters() {
+		if (language == null || digitSequence.isEmpty()) {
+			return false;
+		}
+
+		int key = digitSequence.charAt(0) - '0';
+
+		ArrayList<String> chars = language.getKeyCharacters(key, ++specialCharSelectedGroup);
+		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
+			specialCharSelectedGroup = 0;
+			return false;
+		} else if (chars.isEmpty()) {
+			specialCharSelectedGroup = 0;
+			chars = language.getKeyCharacters(key, specialCharSelectedGroup);
+		}
+
+		suggestions.clear();
+		suggestions.addAll(chars);
+
+		return true;
 	}
 
 	public void determineNextWordTextCase(String textBeforeCursor) {}

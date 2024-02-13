@@ -27,8 +27,12 @@ public class Characters {
 		",", ".", "-", "„", "“", "(", ")", "[", "]", "&", "~", "`", "'", ";", ":", "!", "?"
 	));
 
+	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
+		"$", "€", "₹", "₿", "₺", "₱", "¥", "₽", "£"
+	));
+
 	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
-		" ", "\n", "@", "_", "#", "%", "$", "{", "}", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
+		" ", "\n", "@", "_", "#", "%", "{", "}", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
 
 	final private static ArrayList<String> TextEmoticons = new ArrayList<>(Arrays.asList(
