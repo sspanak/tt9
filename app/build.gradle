@@ -34,6 +34,12 @@ tasks.register('calculateDictionarySizes') {
 	}
 }
 
+tasks.register('updateManifest') {
+	doLast {
+		updateManifestVersion(getVersionCode())
+	}
+}
+
 clean {
 	delete LANGUAGES_OUTPUT_DIR
 }
@@ -86,12 +92,14 @@ android {
 			dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
 		}
 
-		// generateDebugLintReportModel
 		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
 			tasks.named(taskName)?.configure {
 				dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
 			}
 		}
+
+		assembleDebug.finalizedBy(updateManifest)
+		assembleRelease.finalizedBy(updateManifest)
 	}
 }
 

@@ -60,3 +60,12 @@ ext.getDebugVersion = { ->
 ext.getReleaseVersion = { ->
 	return "${generateVersionName()} (${getCurrentGitHash()})"
 }
+
+ext.updateManifestVersion = { currentVersion ->
+    def manifestFile = file("src/main/AndroidManifest.xml")
+    def pattern = ~"versionCode=\"([^\"]+)\""
+    def matcher = pattern.matcher(manifestFile.getText())
+    matcher.find()
+    def newManifest = matcher.replaceAll("versionCode=\"" + (currentVersion + 1) + "\"")
+    manifestFile.write(newManifest)
+}
