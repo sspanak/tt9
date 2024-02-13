@@ -12,11 +12,15 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
+import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
+
+	private final static String PREFERRED_CHAR_SEQUENCE = "00";
+	private final static String EMOJI_SEQUENCE = "11";
 
 	private final SettingsStore settings;
 
@@ -45,7 +49,7 @@ public class ModePredictive extends InputMode {
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
-		predictions = new Predictions(settings);
+		predictions = new Predictions();
 
 		this.settings = settings;
 
@@ -205,16 +209,18 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * loadSuggestions
-	 * Loads the possible list of suggestions for the current digitSequence.
-	 * Returns "false" on invalid sequence.
-	 *
-	 * "currentWord" is used for generating suggestions when there are no results.
+	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used
+	 * for generating suggestions when there are no results.
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
 	public void loadSuggestions(Runnable onLoad, String currentWord) {
 		if (disablePredictions) {
 			super.loadSuggestions(onLoad, currentWord);
+			return;
+		}
+
+		if (loadStaticSuggestions(onLoad)) {
 			return;
 		}
 
@@ -227,6 +233,29 @@ public class ModePredictive extends InputMode {
 			.setInputWord(currentWord)
 			.setWordsChangedHandler(this::getPredictions)
 			.load();
+	}
+
+	/**
+	 * loadStatic
+	 * Loads words that are not in the database and are supposed to be in the same order, such as
+	 * emoji or the preferred character for double "0". Returns "false", when there are no static
+	 * options for the current digitSequence.
+	 */
+	private boolean loadStaticSuggestions(Runnable onLoad) {
+		if (digitSequence.startsWith(EMOJI_SEQUENCE)) {
+			digitSequence = digitSequence.substring(0, Math.min(digitSequence.length(), Characters.getEmojiLevels() + 1));
+			specialCharSelectedGroup = digitSequence.length() - 2;
+			nextSpecialCharacters();
+			onLoad.run();
+			return true;
+		} else if (digitSequence.startsWith(PREFERRED_CHAR_SEQUENCE)) {
+			suggestions.clear();
+			suggestions.add(settings.getDoubleZeroChar());
+			onLoad.run();
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -285,6 +314,11 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
+	protected boolean nextSpecialCharacters() {
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+	}
+
+	@Override
 	public void determineNextWordTextCase(String textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
@@ -301,6 +335,7 @@ public class ModePredictive extends InputMode {
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase; // since it's a user's choice, the default matters no more
 		return changed;
 	}
+
 
 
 	/**

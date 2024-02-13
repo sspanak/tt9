@@ -143,7 +143,7 @@ abstract public class InputMode {
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
 	 */
 	protected boolean nextSpecialCharacters() {
-		if (suggestions.size() == 0 || language == null || digitSequence.isEmpty()) {
+		if (language == null || digitSequence.isEmpty()) {
 			return false;
 		}
 

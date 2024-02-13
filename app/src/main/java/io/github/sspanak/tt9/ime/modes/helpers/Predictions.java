@@ -1,18 +1,14 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
-import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Predictions {
 	private final EmptyDatabaseWarning emptyDbWarning;
-	private final SettingsStore settings;
 
 	private Language language;
 	private String digitSequence;
@@ -27,14 +23,9 @@ public class Predictions {
 	private boolean areThereDbWords = false;
 	private ArrayList<String> words = new ArrayList<>();
 
-	// static sequences
-	public final static String PREFERRED_CHAR_SEQUENCE = "00";
-	private final Pattern EMOJI_SEQUENCE = Pattern.compile("^1{2,}$");
 
-
-	public Predictions(SettingsStore settingsStore) {
+	public Predictions() {
 		emptyDbWarning = new EmptyDatabaseWarning();
-		settings = settingsStore;
 	}
 
 
@@ -118,54 +109,15 @@ public class Predictions {
 			return;
 		}
 
-		if (loadStatic()) {
-			onWordsChanged.run();
-		} else {
-			WordStoreAsync.getWords(
-				(words) -> onDbWords(words, true),
-				language,
-				digitSequence,
-				stem,
-				SettingsStore.SUGGESTIONS_MIN,
-				SettingsStore.SUGGESTIONS_MAX
-			);
-		}
-	}
+		WordStoreAsync.getWords(
+			(words) -> onDbWords(words, true),
+			language,
+			digitSequence,
+			stem,
+			SettingsStore.SUGGESTIONS_MIN,
+			SettingsStore.SUGGESTIONS_MAX
+		);
 
-
-	/**
-	 * loadStatic
-	 * Similar to "load()", but loads words that are not in the database.
-	 * Returns "false", when there are no static options for the current digitSequence.
-	 */
-	private boolean loadStatic() {
-		ArrayList<String> newWords = null;
-
-		if (digitSequence.equals(Language.SPECIAL_CHARS_KEY)) {
-			newWords = language.getKeyCharacters(0);
-		}
-		else if (digitSequence.equals(PREFERRED_CHAR_SEQUENCE)) {
-			newWords = new ArrayList<>(Collections.singletonList(settings.getDoubleZeroChar()));
-		}
-		else if (digitSequence.equals(Language.PUNCTUATION_KEY)) {
-			newWords = language.getKeyCharacters(1);
-		}
-		else if (EMOJI_SEQUENCE.matcher(digitSequence).matches()) {
-			if (digitSequence.length() > Characters.getEmojiLevels()) {
-				digitSequence = digitSequence.substring(0, Characters.getEmojiLevels() + 1);
-			}
-			newWords = Characters.getEmoji(digitSequence.length() - 2);
-		}
-
-		if (newWords == null) {
-			return false;
-		}
-
-		stem = "";
-		words.clear();
-		words.addAll(newWords);
-
-		return true;
 	}
 
 	private void loadWithoutLeadingPunctuation() {
