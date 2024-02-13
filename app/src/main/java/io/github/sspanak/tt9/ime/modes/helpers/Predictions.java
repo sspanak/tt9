@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
@@ -26,22 +27,16 @@ public class Predictions {
 	private boolean areThereDbWords = false;
 	private ArrayList<String> words = new ArrayList<>();
 
-	// punctuation/emoji
-	private final Pattern containsOnly1Regex = Pattern.compile("^1+$");
-	private final String maxEmojiSequence;
+	// static sequences
+	public final static String SPECIAL_CHAR_SEQUENCE = "0";
+	public final static String PREFERRED_CHAR_SEQUENCE = "00";
+	public final static String PUNCTUATION_SEQUENCE = "1";
+	private final Pattern EMOJI_SEQUENCE = Pattern.compile("^1{2,}$");
 
 
 	public Predictions(SettingsStore settingsStore) {
 		emptyDbWarning = new EmptyDatabaseWarning();
 		settings = settingsStore;
-
-		// digitSequence limiter when selecting emoji
-		// "11" = Emoji level 0, "111" = Emoji level 1,... up to the maximum amount of 1s
-		StringBuilder maxEmojiSequenceBuilder = new StringBuilder();
-		for (int i = 0; i <= Characters.getEmojiLevels(); i++) {
-			maxEmojiSequenceBuilder.append("1");
-		}
-		maxEmojiSequence = maxEmojiSequenceBuilder.toString();
 	}
 
 
@@ -146,31 +141,31 @@ public class Predictions {
 	 * Returns "false", when there are no static options for the current digitSequence.
 	 */
 	private boolean loadStatic() {
-		// whitespace/special/math characters
-		if (digitSequence.equals("0")) {
-			stem = "";
-			words.clear();
-			words.addAll(language.getKeyCharacters(0, false));
+		ArrayList<String> newWords = null;
+
+		if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE)) {
+			newWords = language.getKeyCharacters(0, false);
 		}
-		// "00" is a shortcut for the preferred character
-		else if (digitSequence.equals("00")) {
-			stem = "";
-			words.clear();
-			words.add(settings.getDoubleZeroChar());
+		else if (digitSequence.equals(PREFERRED_CHAR_SEQUENCE)) {
+			newWords = new ArrayList<>(Collections.singletonList(settings.getDoubleZeroChar()));
 		}
-		// emoji
-		else if (containsOnly1Regex.matcher(digitSequence).matches()) {
-			stem = "";
-			words.clear();
-			if (digitSequence.length() == 1) {
-				words.addAll(language.getKeyCharacters(1, false));
-			} else {
-				digitSequence = digitSequence.length() <= maxEmojiSequence.length() ? digitSequence : maxEmojiSequence;
-				words.addAll(Characters.getEmoji(digitSequence.length() - 2));
+		else if (digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+			newWords = language.getKeyCharacters(1, false);
+		}
+		else if (EMOJI_SEQUENCE.matcher(digitSequence).matches()) {
+			if (digitSequence.length() > Characters.getEmojiLevels()) {
+				digitSequence = digitSequence.substring(0, Characters.getEmojiLevels() + 1);
 			}
-		} else {
+			newWords = Characters.getEmoji(digitSequence.length() - 2);
+		}
+
+		if (newWords == null) {
 			return false;
 		}
+
+		stem = "";
+		words.clear();
+		words.addAll(newWords);
 
 		return true;
 	}

@@ -18,7 +18,6 @@ public class Mode123 extends ModePassthrough {
 	@Override public int getSequenceLength() { return 1; }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
-	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 
 	public Mode123(InputType inputType) {
@@ -29,6 +28,9 @@ public class Mode123 extends ModePassthrough {
 		} else {
 			getDefaultSpecialCharacters();
 		}
+
+		// extra special characters for 0-key
+		KEY_CHARACTERS.get(0).add(Characters.Currency);
 	}
 
 
@@ -38,8 +40,8 @@ public class Mode123 extends ModePassthrough {
 	 * as well as command characters such as "," = "slight pause" and ";" = "wait" used in Japan and some other countries.
 	 */
 	private void getPhoneSpecialCharacters() {
-		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("+", " ")));
-		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ",")));
+		KEY_CHARACTERS.get(0).add(new ArrayList<>(Arrays.asList("+", " ")));
+		KEY_CHARACTERS.get(1).add(new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ",")));
 	}
 
 
@@ -48,9 +50,9 @@ public class Mode123 extends ModePassthrough {
 	 * Special characters for all kinds of numeric fields: integer, decimal with +/- included as necessary.
 	 */
 	private void getNumberSpecialCharacters(boolean decimal, boolean signed) {
-		KEY_CHARACTERS.add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
+		KEY_CHARACTERS.get(0).add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
 		if (decimal) {
-			KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList(".", ",")));
+			KEY_CHARACTERS.get(1).add(new ArrayList<>(Arrays.asList(".", ",")));
 		}
 	}
 
@@ -62,18 +64,18 @@ public class Mode123 extends ModePassthrough {
 	 */
 	private void getDefaultSpecialCharacters() {
 		// 0-key
-		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
+		KEY_CHARACTERS.get(0).add(new ArrayList<>(Collections.singletonList("+")));
 		for (String character : Characters.Special) {
 			if (!character.equals("+") && !character.equals("\n")) {
-				KEY_CHARACTERS.get(0).add(character);
+				KEY_CHARACTERS.get(0).get(0).add(character);
 			}
 		}
 
 		// 1-key
-		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList(".")));
+		KEY_CHARACTERS.get(1).add(new ArrayList<>(Collections.singletonList(".")));
 		for (String character : Characters.PunctuationEnglish) {
 			if (!character.equals(".")) {
-				KEY_CHARACTERS.get(1).add(character);
+				KEY_CHARACTERS.get(1).get(0).add(character);
 			}
 		}
 	}
@@ -83,7 +85,7 @@ public class Mode123 extends ModePassthrough {
 		reset();
 
 		if (hold && number < KEY_CHARACTERS.size() && KEY_CHARACTERS.get(number).size() > 0) {
-			suggestions.addAll(KEY_CHARACTERS.get(number));
+			suggestions.addAll(KEY_CHARACTERS.get(number).get(0));
 		} else {
 			autoAcceptTimeout = 0;
 			suggestions.add(String.valueOf(number));
@@ -92,6 +94,14 @@ public class Mode123 extends ModePassthrough {
 		return true;
 	}
 
+	@Override protected boolean nextSpecialCharacters() {
+		return
+			suggestions.size() > 0 && (
+				suggestions.get(0).equals(KEY_CHARACTERS.get(0).get(0).get(0)) ||
+				suggestions.get(0).equals(Characters.Currency.get(0))
+			)
+			&& super.nextSpecialCharacters();
+	}
 
 	/**
 	 * shouldIgnoreText

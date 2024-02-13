@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -41,6 +42,16 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
+	protected boolean nextSpecialCharacters() {
+		return
+			suggestions.size() > 0 && (
+				suggestions.get(0).equals(language.getKeyCharacters(0).get(0)) ||
+				suggestions.get(0).equals(Characters.Currency.get(0))
+			)
+			&& super.nextSpecialCharacters();
+	}
+
+	@Override
 	public void changeLanguage(Language language) {
 		super.changeLanguage(language);
 
@@ -49,6 +60,9 @@ public class ModeABC extends InputMode {
 		if (language.hasUpperCase()) {
 			allowedTextCases.add(CASE_UPPER);
 		}
+
+		KEY_CHARACTERS.get(0).add(language.getKeyCharacters(0, true));
+		KEY_CHARACTERS.get(0).add(Characters.Currency);
 	}
 
 	@Override public int getSequenceLength() { return 1; }

@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
+import io.github.sspanak.tt9.languages.Characters;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -106,6 +107,9 @@ public class ModePredictive extends InputMode {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
+
+		KEY_CHARACTERS.get(0).add(language.getKeyCharacters(0));
+		KEY_CHARACTERS.get(0).add(Characters.Currency);
 	}
 
 
@@ -270,7 +274,7 @@ public class ModePredictive extends InputMode {
 
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith("11") && !sequence.equals("1") && !sequence.startsWith("0")) {
+			if (!sequence.startsWith(Predictions.PUNCTUATION_SEQUENCE) && !sequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE)) {
 				WordStoreAsync.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -296,11 +300,19 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void nextTextCase() {
-		textFieldTextCase = CASE_UNDEFINED; // since it's a user's choice, the default matters no more
-		super.nextTextCase();
+	public boolean nextTextCase() {
+		boolean changed = super.nextTextCase();
+		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase; // since it's a user's choice, the default matters no more
+		return changed;
 	}
 
+
+	@Override
+	protected boolean nextSpecialCharacters() {
+		return
+			digitSequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE) &&
+			super.nextSpecialCharacters();
+	}
 
 	/**
 	 * shouldAcceptPreviousSuggestion
@@ -329,7 +341,7 @@ public class ModePredictive extends InputMode {
 		}
 
 		// special characters always break words
-		if (autoAcceptTimeout == 0 && !digitSequence.startsWith("0")) {
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(Predictions.SPECIAL_CHAR_SEQUENCE)) {
 			return true;
 		}
 
@@ -337,14 +349,14 @@ public class ModePredictive extends InputMode {
 		if (language.isHebrew() || language.isUkrainian()) {
 			return
 				predictions.noDbWords()
-				&& digitSequence.equals("1");
+				&& digitSequence.equals(Predictions.PUNCTUATION_SEQUENCE);
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains("1")
+			&& digitSequence.contains(Predictions.PUNCTUATION_SEQUENCE)
 			&& TextTools.containsOtherThan1(digitSequence);
 	}
 

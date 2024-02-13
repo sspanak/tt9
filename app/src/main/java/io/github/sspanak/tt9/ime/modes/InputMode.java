@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
@@ -31,6 +32,12 @@ abstract public class InputMode {
 	protected int autoAcceptTimeout = -1;
 	protected Language language;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
+
+	protected int specialCharSelectedGroup = 0;
+	protected ArrayList<ArrayList<ArrayList<String>>> KEY_CHARACTERS = new ArrayList<>(Arrays.asList(
+		new ArrayList<>(), // 0-key
+		new ArrayList<>() // 1-key
+	));
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
@@ -102,6 +109,7 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
+		specialCharSelectedGroup = 0;
 		suggestions.clear();
 	}
 
@@ -125,9 +133,31 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(0);
 	}
 
-	public void nextTextCase() {
+	public boolean nextTextCase() {
+		if (nextSpecialCharacters()) {
+			return false;
+		}
+
 		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
 		textCase = allowedTextCases.get(nextIndex);
+		return true;
+	}
+
+	/**
+	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
+	 * special chars do not have a text case, but we use this trick to alternate the char groups.
+	 */
+	protected boolean nextSpecialCharacters() {
+		int groupsCount = KEY_CHARACTERS.get(0).size();
+		if (groupsCount == 0) {
+			return false;
+		}
+
+		specialCharSelectedGroup++;
+		specialCharSelectedGroup %= groupsCount;
+		suggestions.clear();
+		suggestions.addAll(KEY_CHARACTERS.get(0).get(specialCharSelectedGroup));
+		return true;
 	}
 
 	public void determineNextWordTextCase(String textBeforeCursor) {}
