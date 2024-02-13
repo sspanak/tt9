@@ -117,6 +117,7 @@ public class ModePredictive extends InputMode {
 	@Override
 	public void reset() {
 		super.reset();
+		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
 	}
@@ -245,7 +246,7 @@ public class ModePredictive extends InputMode {
 		if (digitSequence.startsWith(EMOJI_SEQUENCE)) {
 			digitSequence = digitSequence.substring(0, Math.min(digitSequence.length(), Characters.getEmojiLevels() + 1));
 			specialCharSelectedGroup = digitSequence.length() - 2;
-			nextSpecialCharacters();
+			super.nextSpecialCharacters();
 			onLoad.run();
 			return true;
 		} else if (digitSequence.startsWith(PREFERRED_CHAR_SEQUENCE)) {
