@@ -111,7 +111,7 @@ public class Language {
 
 	final public String getName() {
 		if (name == null) {
-			name = locale != null ? capitalize(locale.getDisplayLanguage(locale)) : "";
+			name = new Text(this, locale.getDisplayLanguage(locale)).capitalize();
 		}
 
 		return name;
@@ -212,35 +212,6 @@ public class Language {
 				characterKeyMap.put(keyChar.charAt(0), String.valueOf(digit));
 			}
 		}
-	}
-
-	public String capitalize(String word) {
-		if (word == null) {
-			return null;
-		}
-
-		String capitalizedWord = "";
-
-		if (!word.isEmpty()) {
-			capitalizedWord += word.substring(0, 1).toUpperCase(locale);
-		}
-
-		if (word.length() > 1) {
-			capitalizedWord += word.substring(1).toLowerCase(locale);
-		}
-
-		return capitalizedWord;
-	}
-
-	public boolean isMixedCaseWord(String word) {
-		return
-			word != null
-			&& !word.toLowerCase(locale).equals(word)
-			&& !word.toUpperCase(locale).equals(word);
-	}
-
-	public boolean isUpperCaseWord(String word) {
-		return word != null && word.toUpperCase(locale).equals(word);
 	}
 
 	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {

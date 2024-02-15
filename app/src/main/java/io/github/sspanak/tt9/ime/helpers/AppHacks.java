@@ -141,7 +141,7 @@ public class AppHacks {
 			return false;
 		}
 
-		String oldText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
+		String oldText = textField.getStringBeforeCursor() + textField.getStringAfterCursor();
 
 		sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
 
@@ -155,7 +155,7 @@ public class AppHacks {
 			// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
 			// If so, send an alternative key code as a final resort.
 			Thread.sleep(80);
-			String newText = textField.getTextBeforeCursor() + textField.getTextAfterCursor();
+			String newText = textField.getStringBeforeCursor() + textField.getStringAfterCursor();
 			if (newText.equals(oldText)) {
 				sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 			}

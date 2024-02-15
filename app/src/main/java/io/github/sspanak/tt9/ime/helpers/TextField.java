@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.Text;
 
 public class TextField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
@@ -45,26 +46,6 @@ public class TextField {
 
 		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
 		return extractedText != null && extractedText.text.length() > 0;
-	}
-
-
-	/**
-	 * getPreviousChar
-	 * Gets the character before the cursor.
-	 */
-	public String getPreviousChars(int numberOfChars) {
-		CharSequence character = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
-		return character != null ? character.toString() : "";
-	}
-
-
-	/**
-	 * getNextChar
-	 * Gets the character after the cursor.
-	 */
-	public String getNextChars(int numberOfChars) {
-		CharSequence character = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
-		return character != null ? character.toString() : "";
 	}
 
 
@@ -149,31 +130,43 @@ public class TextField {
 	}
 
 
-	/**
-	 * getTextBeforeCursor
-	 * A simplified helper that return up to 50 characters before the cursor and "just works".
-	 */
-	public String getTextBeforeCursor() {
-		if (connection == null) {
-			return "";
-		}
+	public String getStringAfterCursor(int numberOfChars) {
+		CharSequence character = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
+		return character != null ? character.toString() : "";
+	}
 
-		CharSequence before = connection.getTextBeforeCursor(50, 0);
-		return before != null ? before.toString() : "";
+
+	public String getStringBeforeCursor(int numberOfChars) {
+		CharSequence character = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
+		return character != null ? character.toString() : "";
 	}
 
 
 	/**
-	 * getTextBeforeCursor
+	 * getStringAfterCursor
 	 * A simplified helper that return up to 50 characters after the cursor and "just works".
 	 */
-	public String getTextAfterCursor() {
-		if (connection == null) {
-			return "";
-		}
+	public String getStringAfterCursor() {
+		return getStringAfterCursor(50);
+	}
 
-		CharSequence before = connection.getTextAfterCursor(50, 0);
-		return before != null ? before.toString() : "";
+
+	/**
+	 * getStringBeforeCursor
+	 * A simplified helper that return up to 50 characters before the cursor and "just works".
+	 */
+	public String getStringBeforeCursor() {
+		return getStringBeforeCursor(50);
+	}
+
+
+	public Text getTextAfterCursor(int numberOfChars) {
+		return new Text(getStringBeforeCursor(numberOfChars));
+	}
+
+
+	public Text getTextBeforeCursor() {
+		return new Text(getStringBeforeCursor());
 	}
 
 
@@ -187,13 +180,13 @@ public class TextField {
 
 		if (language != null && (language.isHebrew() || language.isUkrainian())) {
 			// Hebrew and Ukrainian use apostrophes as letters
-			before = beforeCursorUkrainianRegex.matcher(getTextBeforeCursor());
-			after = afterCursorUkrainianRegex.matcher(getTextAfterCursor());
+			before = beforeCursorUkrainianRegex.matcher(getStringBeforeCursor());
+			after = afterCursorUkrainianRegex.matcher(getStringAfterCursor());
 		} else {
 			// In other languages, special characters in words will cause automatic word break to fail,
 			// resulting in unexpected suggestions. Therefore, they are not allowed.
-			before = beforeCursorWordRegex.matcher(getTextBeforeCursor());
-			after = afterCursorWordRegex.matcher(getTextAfterCursor());
+			before = beforeCursorWordRegex.matcher(getStringBeforeCursor());
+			after = afterCursorWordRegex.matcher(getStringAfterCursor());
 		}
 
 		return (before.find() ? before.group(1) : "") + (after.find() ? after.group(1) : "");

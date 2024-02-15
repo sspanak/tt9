@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.TextTools;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -311,7 +311,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
-		return autoTextCase.adjustSuggestionTextCase(language, word, newTextCase);
+		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
 	}
 
 	@Override
@@ -320,7 +320,7 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void determineNextWordTextCase(String textBeforeCursor) {
+	public void determineNextWordTextCase(Text textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
 
@@ -382,7 +382,7 @@ public class ModePredictive extends InputMode {
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
 			&& digitSequence.contains(Language.PUNCTUATION_KEY)
-			&& TextTools.containsOtherThan1(digitSequence);
+			&& Text.containsOtherThan1(digitSequence);
 	}
 
 
