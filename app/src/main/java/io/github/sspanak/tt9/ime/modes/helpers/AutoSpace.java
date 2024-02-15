@@ -1,6 +1,6 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import io.github.sspanak.tt9.TextTools;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -44,14 +44,14 @@ public class AutoSpace {
 	 * See the helper functions for the list of rules.
 	 */
 	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int nextKey) {
-		String previousChars = textField.getPreviousChars(2);
-		String nextChars = textField.getNextChars(2);
+		String previousChars = textField.getStringBeforeCursor(2);
+		Text nextChars = textField.getTextAfterCursor(2);
 
 		return
 			settings.getAutoSpace()
 			&& !inputType.isSpecialized()
 			&& nextKey != 0
-			&& !TextTools.startsWithWhitespace(nextChars)
+			&& !nextChars.startsWithWhitespace()
 			&& (
 				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
 				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
@@ -65,13 +65,13 @@ public class AutoSpace {
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAfterPunctuation(String previousChars, String nextChars, int nextKey) {
+	private boolean shouldAddAfterPunctuation(String previousChars, Text nextChars, int nextKey) {
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
 		return
 			nextKey != 1
-			&& !TextTools.nextIsPunctuation(nextChars)
-			&& !TextTools.startsWithNumber(nextChars)
+			&& !nextChars.nextIsPunctuation()
+			&& !nextChars.startsWithNumber()
 			&& (
 				previousChar == '.'
 				|| previousChar == ','
@@ -95,12 +95,12 @@ public class AutoSpace {
 	 * shouldAddAfterWord
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, String nextChars, int nextKey) {
+	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, Text nextChars, int nextKey) {
 		return
 			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
 			&& nextKey != 1
 			&& nextChars.isEmpty()
-			&& TextTools.previousIsLetter(previousChars);
+			&& Text.previousIsLetter(previousChars);
 	}
 
 

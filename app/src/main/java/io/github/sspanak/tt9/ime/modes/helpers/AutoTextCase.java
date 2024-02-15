@@ -1,6 +1,6 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
-import io.github.sspanak.tt9.TextTools;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -18,20 +18,20 @@ public class AutoTextCase {
 	 * In addition to uppercase/lowercase, here we use the result from determineNextWordTextCase(),
 	 * to conveniently start sentences with capitals or whatnot.
 	 *
-	 * Also, by default we preserve any  mixed case words in the dictionary,
+	 * Also, by default we preserve any mixed case words in the dictionary,
 	 * for example: "dB", "Mb", proper names, German nouns, that always start with a capital,
 	 * or Dutch words such as: "'s-Hertogenbosch".
 	 */
-	public String adjustSuggestionTextCase(Language language, String word, int newTextCase) {
+	public String adjustSuggestionTextCase(Text word, int newTextCase) {
 		switch (newTextCase) {
 			case InputMode.CASE_UPPER:
-				return word.toUpperCase(language.getLocale());
+				return word.toUpperCase();
 			case InputMode.CASE_LOWER:
-				return word.toLowerCase(language.getLocale());
+				return word.toLowerCase();
 			case InputMode.CASE_CAPITALIZE:
-				return language.isMixedCaseWord(word) || language.isUpperCaseWord(word) ? word : language.capitalize(word);
+				return word.isMixedCase() || word.isUpperCase() ? word.toString() : word.capitalize();
 			default:
-				return word;
+				return word.toString();
 		}
 	}
 
@@ -42,7 +42,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, String textBeforeCursor) {
+	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, Text textBeforeCursor) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -63,12 +63,12 @@ public class AutoTextCase {
 		}
 
 		// start of sentence, excluding after "..."
-		if (TextTools.isStartOfSentence(textBeforeCursor)) {
+		if (textBeforeCursor.isStartOfSentence()) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
 		// this is mostly for English "I"
-		if (TextTools.isNextToWord(textBeforeCursor)) {
+		if (textBeforeCursor.isNextToWord()) {
 			return InputMode.CASE_LOWER;
 		}
 
