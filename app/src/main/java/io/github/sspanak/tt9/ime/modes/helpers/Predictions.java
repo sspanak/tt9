@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
@@ -34,10 +35,6 @@ public class Predictions {
 	public Predictions setDigitSequence(String digitSequence) {
 		this.digitSequence = digitSequence;
 		return this;
-	}
-
-	public String getDigitSequence() {
-		return digitSequence;
 	}
 
 	public Predictions setIsStemFuzzy(boolean yes) {
@@ -106,8 +103,10 @@ public class Predictions {
 			return;
 		}
 
+		boolean retryAllowed = !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE);
+
 		WordStoreAsync.getWords(
-			(words) -> onDbWords(words, true),
+			(words) -> onDbWords(words, retryAllowed),
 			language,
 			digitSequence,
 			stem,
@@ -153,10 +152,14 @@ public class Predictions {
 		}
 
 		words.clear();
-		suggestStem();
-		suggestMissingWords(generatePossibleStemVariations(dbWords));
-		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
-		words = insertPunctuationCompletions(words);
+		if (digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE)) {
+			words.addAll(dbWords);
+		} else {
+			suggestStem();
+			suggestMissingWords(generatePossibleStemVariations(dbWords));
+			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
+			words = insertPunctuationCompletions(words);
+		}
 
 		onWordsChanged.run();
 	}

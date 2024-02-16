@@ -77,14 +77,31 @@ _**Note2:** In messaging applications, you need to enable their "Send with ENTER
   - **Press:** type space, newline or special/math characters.
   - **Double Press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
-  - **Press "0", then Press "Next Mode" (Default: Press "0", "#"):** type currency characters
+  - **Press "0", then press "Next Mode" (Default: Press "0", "#"):** type currency characters
 
-#### 1- to 9-key:
-- **In 123 mode:** type the respective number or hold to type punctuation.
-- **In ABC and Predictive mode:** type a letter/punctuation character or hold to type the respective number.
+#### 1-key:
+- **In 123 mode:**
+  - **Press:** type "1".
+  - **Hold:** type sentence characters
+- **In ABC mode:**
+  - **Press:** type sentence characters
+  - **Hold:** type "1".
+- **In Predictive mode:**
+  - **Press:** type sentence characters
+  - **Double Press:** type emoji
+  - **Triple Press:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key-default-press-))
+  - **Hold:** type "1".
+  - **Double Press "1", then press "Next Mode" (Default: Press "1", "1", then keep pressing "#"):** select between the predefined emoji groups
+
+
+#### 2- to 9-key:
+- **In 123 mode:** type the respective number
+- **In ABC and Predictive mode:** type a letter character or hold to type the respective number.
 
 #### Add Word Key (Default: Press ✱):
 Add a new word to the dictionary for the current language.
+
+You can also add new emoji. Then access them by pressing 1-1-# (change "#" with the "Next Mode" key, if you have changed the default). Regardless of the selected language at the time of adding, all emoji will be available in all languages.
 
 #### Backspace Key:
 Just deletes text.

@@ -24,10 +24,10 @@ import io.github.sspanak.tt9.languages.Text;
 public class TextField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
-	private static final Pattern beforeCursorWordRegex = Pattern.compile("(\\w+)(?!\n)$");
-	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)(\\w+)");
-	private static final Pattern beforeCursorUkrainianRegex = Pattern.compile("([\\w']+)(?!\n)$");
-	private static final Pattern afterCursorUkrainianRegex = Pattern.compile("^(?<!\n)([\\w']+)");
+	private static final Pattern beforeCursorWordRegex = Pattern.compile("([^\\s\\d\\p{P}]+)(?!\n)$");
+	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)([^\\s\\d\\p{P}]+)");
+	private static final Pattern beforeCursorUkrainianRegex = Pattern.compile("([(?:^\\s\\d\\p{P}|')]+)(?!\n)$");
+	private static final Pattern afterCursorUkrainianRegex = Pattern.compile("^(?<!\n)([(?:^\\s\\d\\p{P}|')]+)");
 
 
 	public final InputConnection connection;

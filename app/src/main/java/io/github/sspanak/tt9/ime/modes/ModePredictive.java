@@ -5,22 +5,21 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
-import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
 
-	private final static String PREFERRED_CHAR_SEQUENCE = "00";
-	private final static String EMOJI_SEQUENCE = "11";
+
 
 	private final SettingsStore settings;
 
@@ -66,6 +65,11 @@ public class ModePredictive extends InputMode {
 			return false;
 		}
 
+		if (digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE) && specialCharSelectedGroup > 0) {
+			specialCharSelectedGroup -= 2;
+			return true;
+		}
+
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		if (digitSequence.length() == 0) {
 			clearWordStem();
@@ -88,13 +92,17 @@ public class ModePredictive extends InputMode {
 			disablePredictions = true;
 			suggestions.add(language.getKeyNumber(number));
 		} else {
-			// words
 			super.reset();
-			disablePredictions = false;
 			digitSequence += number;
-			if (number == 0 && repeat > 0) {
+			disablePredictions = false;
+
+			if (digitSequence.equals(Language.PREFERRED_CHAR_SEQUENCE)) {
 				autoAcceptTimeout = 0;
 			}
+
+			// custom emoji are longest 1-key sequence, so do not allow typing any longer than that,
+			// to prevent side effects
+			digitSequence = digitSequence.startsWith(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? EmojiLanguage.CUSTOM_EMOJI_SEQUENCE : digitSequence;
 		}
 
 		return true;
@@ -225,12 +233,14 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
+		Language searchLanguage = digitSequence.startsWith(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
+
 		onSuggestionsUpdated = onLoad;
 		predictions
 			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
-			.setLanguage(language)
+			.setLanguage(searchLanguage)
 			.setInputWord(currentWord)
 			.setWordsChangedHandler(this::getPredictions)
 			.load();
@@ -243,13 +253,16 @@ public class ModePredictive extends InputMode {
 	 * options for the current digitSequence.
 	 */
 	private boolean loadStaticSuggestions(Runnable onLoad) {
-		if (digitSequence.startsWith(EMOJI_SEQUENCE)) {
-			digitSequence = digitSequence.substring(0, Math.min(digitSequence.length(), Characters.getEmojiLevels() + 1));
-			specialCharSelectedGroup = digitSequence.length() - 2;
+		if (digitSequence.equals(Language.PUNCTUATION_KEY)) {
 			super.nextSpecialCharacters();
 			onLoad.run();
 			return true;
-		} else if (digitSequence.startsWith(PREFERRED_CHAR_SEQUENCE)) {
+		} else if (digitSequence.equals(EmojiLanguage.EMOJI_SEQUENCE)) {
+			specialCharSelectedGroup = -1;
+			nextSpecialCharacters(new EmojiLanguage());
+			onLoad.run();
+			return true;
+		} else if (digitSequence.startsWith(Language.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(settings.getDoubleZeroChar());
 			onLoad.run();
@@ -265,7 +278,12 @@ public class ModePredictive extends InputMode {
 	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
 	private void getPredictions() {
-		digitSequence = predictions.getDigitSequence();
+		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
+		if (predictions.getList().isEmpty() && digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE)) {
+			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
+			return;
+		}
+
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
 
@@ -327,7 +345,9 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		return
+			(digitSequence.equals(EmojiLanguage.EMOJI_SEQUENCE) && super.nextSpecialCharacters(new EmojiLanguage()))
+			|| (digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters());
 	}
 
 	@Override
