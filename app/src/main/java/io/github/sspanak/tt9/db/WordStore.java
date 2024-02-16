@@ -15,6 +15,8 @@ import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -135,6 +137,8 @@ public class WordStore {
 		if (!checkOrNotify()) {
 			return AddWordDialog.CODE_GENERAL_ERROR;
 		}
+
+		language = Characters.isGraphic(word) ? new EmojiLanguage() : language;
 
 		try {
 			if (readOps.exists(sqlite.getDb(), language, word)) {

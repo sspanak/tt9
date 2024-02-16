@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -23,7 +24,8 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 	public SQLiteOpener(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		allLanguages = LanguageCollection.getAll(context);
+		allLanguages = new ArrayList<>(LanguageCollection.getAll(context));
+		allLanguages.add(new EmojiLanguage());
 	}
 
 

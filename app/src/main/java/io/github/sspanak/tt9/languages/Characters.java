@@ -28,7 +28,7 @@ public class Characters {
 	));
 
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
-		"$", "€", "₹", "₿", "₩", "¢", "₺", "₱", "¥", "₽", "£"
+		"$", "€", "₹", "₿", "₩", "¢", "¤", "₺", "₱", "¥", "₽", "£"
 	));
 
 	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
@@ -58,13 +58,24 @@ public class Characters {
 		))
 	));
 
-	public static boolean noEmojiSupported() {
-		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
+	public static boolean isGraphic(String str) {
+		if (str == null) {
+			return false;
+		}
+
+		for (int i = 0, end = str.length(); i < end; i++) {
+			char ch = str.charAt(i);
+
+			if (ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
-
-	public static int getEmojiLevels() {
-		return noEmojiSupported() ? 1 : Emoji.size();
+	public static boolean noEmojiSupported() {
+		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
 	}
 
 
@@ -73,7 +84,9 @@ public class Characters {
 			return new ArrayList<>(TextEmoticons);
 		}
 
-		level = (Emoji.size() > level) ? level : Emoji.size() - 1;
+		if (level < 0 || level >= Emoji.size()) {
+			return new ArrayList<>();
+		}
 
 		Paint paint = new Paint();
 		ArrayList<String> availableEmoji = new ArrayList<>();

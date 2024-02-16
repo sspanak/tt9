@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
@@ -170,6 +171,7 @@ public class DictionaryLoader {
 
 			start = System.currentTimeMillis();
 			DeleteOps.delete(sqlite, language.getId());
+			DeleteOps.delete(sqlite, new EmojiLanguage().getId());
 			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Storage cleared", language, start);
 
@@ -180,6 +182,7 @@ public class DictionaryLoader {
 
 			start = System.currentTimeMillis();
 			InsertOps.restoreCustomWords(sqlite.getDb(), language);
+			InsertOps.restoreCustomWords(sqlite.getDb(), new EmojiLanguage());
 			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Custom words restored", language, start);
 

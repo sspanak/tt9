@@ -8,10 +8,11 @@ import java.util.Locale;
 
 
 public class Language implements Comparable<Language> {
-	public static String SPECIAL_CHARS_KEY = "0";
-	public static String PUNCTUATION_KEY = "1";
+	final public static String SPECIAL_CHARS_KEY = "0";
+	final public static String PUNCTUATION_KEY = "1";
+	final public static String PREFERRED_CHAR_SEQUENCE = "00";
 
-	private int id;
+	protected int id;
 	protected String name;
 	protected Locale locale;
 	protected String dictionaryFile;
@@ -193,7 +194,8 @@ public class Language implements Comparable<Language> {
 	 * 	-> 2 | 224 | 2048 | 229376 (shift each 5-bit number, not overlap with the previous ones)
 	 *	-> 231650
 	 *
-	 * Maximum ID is: "zz-ZZ" -> 879450
+	 * Minimum ID: "aa" -> 33
+	 * Maximum ID: "zz-ZZ" -> 879450
 	 */
 	private int generateId() {
 		String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
@@ -219,14 +221,12 @@ public class Language implements Comparable<Language> {
 			return new ArrayList<>();
 		}
 
-		ArrayList<String> chars = new ArrayList<>(layout.get(key));
-		if (characterGroup > 0) {
-			if (key == 0 && characterGroup == 1) {
-				chars = new ArrayList<>(Characters.Currency);
-			} else if (key == 1) {
-				chars = new ArrayList<>(Characters.getEmoji(characterGroup - 1));
-			} else {
+		ArrayList<String> chars = layout.get(key);
+		if (key == 0) {
+			if (characterGroup > 1) {
 				chars = new ArrayList<>();
+			} else if (characterGroup == 1) {
+				chars = new ArrayList<>(Characters.Currency);
 			}
 		}
 
