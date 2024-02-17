@@ -33,7 +33,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		preventRepeat();
-		int keyCode = Key.numberToCode(getNumber(getId()));
+		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
 		return true;
 	}
