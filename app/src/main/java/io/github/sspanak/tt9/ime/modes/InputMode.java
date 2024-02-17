@@ -105,7 +105,7 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
-		specialCharSelectedGroup = 0;
+		specialCharSelectedGroup = -1;
 		suggestions.clear();
 	}
 
