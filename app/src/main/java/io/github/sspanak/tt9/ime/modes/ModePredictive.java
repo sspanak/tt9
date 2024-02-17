@@ -253,12 +253,11 @@ public class ModePredictive extends InputMode {
 	 * options for the current digitSequence.
 	 */
 	private boolean loadStaticSuggestions(Runnable onLoad) {
-		if (digitSequence.equals(Language.PUNCTUATION_KEY)) {
+		if (digitSequence.equals(Language.PUNCTUATION_KEY) || digitSequence.equals(Language.SPECIAL_CHARS_KEY)) {
 			super.nextSpecialCharacters();
 			onLoad.run();
 			return true;
 		} else if (digitSequence.equals(EmojiLanguage.EMOJI_SEQUENCE)) {
-			specialCharSelectedGroup = -1;
 			nextSpecialCharacters(new EmojiLanguage());
 			onLoad.run();
 			return true;
