@@ -27,7 +27,7 @@ jobs:
     - name: Validate Dictionaries
       run: ./gradlew validateLanguages
     - name: Build Languages
-      run: ./gradlew copyLanguages calculateDictionarySizes
+      run: ./gradlew copyLanguages writeDictionaryProperties
     - name: Lint
       run: ./gradlew lint # this actually runs mergeResources, so it must come after the dictionary tasks
     - name: Build Release APK

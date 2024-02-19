@@ -5,9 +5,9 @@ ext.getDictionarySizes = { dictionariesDir, sizesDir ->
 	}
 }
 
-ext.getDictionaryTimestamps = { dictionariesDir, timestampsDir ->
+ext.getDictionaryHashes = { dictionariesDir, timestampsDir ->
 	fileTree(dir: dictionariesDir).getFiles().parallelStream().forEach {dictionary ->
-		def dictionaryTimestamp = dictionary.exists() ? dictionary.lastModified() : 0
-		new File(timestampsDir, "${dictionary.getName()}.timestamp").text = dictionaryTimestamp
+		def hash = dictionary.exists() ? dictionary.text.digest("SHA-1") : ""
+		new File(timestampsDir, "${dictionary.getName()}.hash").text = hash
 	}
 }

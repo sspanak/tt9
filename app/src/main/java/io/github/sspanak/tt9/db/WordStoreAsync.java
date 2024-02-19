@@ -39,6 +39,10 @@ public class WordStoreAsync {
 		new Thread(() -> notification.accept(getStore().exists(language))).start();
 	}
 
+	public static void getLastLanguageUpdateTime(ConsumerCompat<String> notification, Language language) {
+		new Thread(() -> notification.accept(getStore().getLanguageFileHash(language))).start();
+	}
+
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
