@@ -3,12 +3,10 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
-import io.github.sspanak.tt9.ime.EmptyDatabaseWarning;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Predictions {
-	private final EmptyDatabaseWarning emptyDbWarning;
 
 	private Language language;
 	private String digitSequence;
@@ -25,7 +23,6 @@ public class Predictions {
 
 
 	public Predictions() {
-		emptyDbWarning = new EmptyDatabaseWarning();
 	}
 
 
@@ -153,10 +150,6 @@ public class Predictions {
 		if (dbWords.isEmpty() && isRetryAllowed && digitSequence.length() == 2 && digitSequence.charAt(0) == '1') {
 			loadWithoutLeadingPunctuation();
 			return;
-		}
-
-		if (dbWords.isEmpty() && !digitSequence.isEmpty()) {
-			emptyDbWarning.emitOnce(language);
 		}
 
 		words.clear();

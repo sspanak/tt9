@@ -19,4 +19,8 @@
 		<item name="android:layout_height">1dp</item>
 		<item name="android:layout_width">match_parent</item>
 	</style>
+
+	<style name="alertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
 </resources>

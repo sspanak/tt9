@@ -39,9 +39,10 @@ public class InsertOps {
 	}
 
 
-	public static void insertLanguageMeta(@NonNull SQLiteDatabase db, int langId) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId) VALUES (?)");
+	public static void replaceLanguageMeta(@NonNull SQLiteDatabase db, int langId, long updatedAt) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, updatedAt) VALUES (?, ?)");
 		query.bindLong(1, langId);
+		query.bindLong(2, updatedAt);
 		query.execute();
 	}
 

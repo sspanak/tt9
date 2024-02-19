@@ -10,13 +10,11 @@ _If you don't see the icon right after installing, restart your phone and it sho
 If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
 
 ### Enabling Predictive Mode
-With the default settings, it is only possible to type in 123 and ABC modes. In order to enable the Predictive mode, there are additional steps:
+Predictive Mode requires a language dictionary to be loaded in order provide word suggestions. By default, when Traditional T9 activates, it will automatically load the dictionary for the current language. If you have enabled more than one language, you can cycle them, until all the dictionaries are loaded.
 
-- Open the [Settings screen](#settings-screen).
-- Select the desired languages.
-- Load the dictionaries.
+Alternatively, you can load them all at once, manually, from: [Settings screen](#settings-screen) → Languages → Load.
 
-_If you don't do the above, there will be no suggestions when typing in Predictive mode._
+_If you [delete one or more dictionaries](#deleting-a-dictionary), they will NOT reload automatically, when you go back to typing. You will have to do so manually. Only dictionaries for newly enabled languages will load automatically._
 
 ### Dictionary Tips
 

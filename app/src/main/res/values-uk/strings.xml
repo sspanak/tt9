@@ -65,7 +65,6 @@
 	<string name="function_reset_keys_done">Налаштування кнопок за замовчуванням відновлено</string>
 	<string name="function_reset_keys_title">Повернути кнопки за замовчуванням</string>
 	<string name="dictionary_truncated">Словник успішно видалено.</string>
-	<string name="dictionary_missing_go_load_it">Немає словника для мови «%1$s». Перейдіть до Налаштувань, щоб завантажити його.</string>
 	<string name="dictionary_load_bad_char">Помилка завантаження. Недійсне слово «%1$s» в рядку %2$d мови «%3$s».</string>
 	<string name="pref_upside_down_keys">Зворотна клавіатура</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте налаштування, якщо 7–8–9 у першому рядку замість 1–2–3.</string>
@@ -80,6 +79,9 @@
 	<string name="pref_dark_theme_no">Ні</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Додати слово «%1$s» до %2$s?</string>
+	<string name="dictionary_update_title">Доступне оновлення словника</string>
+	<string name="dictionary_update_message">Є нові слова для «%1$s». Бажаєте їх завантажити?</string>
+	<string name="dictionary_update_update">Завантажити</string>
 	<string name="donate_title">Підтримуйте</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати його розробку за: %2$s.</string>
 	<string name="pref_hack_google_chat">Надсилати повідомлення з «ОК» до Google Chat</string>

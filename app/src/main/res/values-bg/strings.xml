@@ -34,6 +34,9 @@
 	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Зелена слушалка</string>
+	<string name="dictionary_update_title">Налично е обновление на речника</string>
+	<string name="dictionary_update_message">Има нови думи за „%1$s“. Искате ли да ги заредите?</string>
+	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
 	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>
 	<string name="function_add_word_key">Добавяне на нова дума</string>
@@ -65,7 +68,6 @@
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
 	<string name="pref_auto_text_case_summary">Започвай автоматично изреченията с главни букви.</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
-	<string name="dictionary_missing_go_load_it">Няма речник за език „%1$s“. Заредете го в Настройки.</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="pref_double_zero_char">Символ при двойно натисната \"0\"</string>
 	<string name="char_newline">Нов ред</string>

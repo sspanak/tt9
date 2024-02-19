@@ -25,12 +25,13 @@ tasks.register('copyLanguages', Copy) {
 	into LANGUAGES_OUTPUT_DIR
 }
 
-tasks.register('calculateDictionarySizes') {
+tasks.register('writeDictionaryProperties') {
 	inputs.dir fileTree(dir: DICTIONARIES_INPUT_DIR)
 	outputs.dir DICTIONARIES_OUTPUT_DIR
 
 	doLast {
 		getDictionarySizes(DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR)
+		getDictionaryTimestamps(DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR)
 	}
 }
 
@@ -89,12 +90,12 @@ android {
 
 	applicationVariants.configureEach { variant ->
 		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
-			dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
+			dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
 		}
 
 		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
 			tasks.named(taskName)?.configure {
-				dependsOn(validateLanguages, copyLanguages, calculateDictionarySizes)
+				dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
 			}
 		}
 

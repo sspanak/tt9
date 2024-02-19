@@ -37,7 +37,6 @@
 	<string name="dictionary_loading_indeterminate">Carregando dicionário…</string>
 	<string name="dictionary_loading_please_wait">Aguarde o carregamento do dicionário, por favor</string>
 	<string name="dictionary_load_title">Carregar Dicionário</string>
-	<string name="dictionary_missing_go_load_it">Não há um dicionário para o idioma \"%1$s\". É possível carregá-lo em "Configurações".</string>
 	<string name="dictionary_not_found">Falha no carregamento. Não foi encontrado um dicionário para o idioma \"%1$s\".</string>
 	<string name="dictionary_truncate_title">Limpar Dicionário</string>
 	<string name="dictionary_truncated">Dicionário apagado com sucesso.</string>
@@ -64,6 +63,9 @@
 	<string name="pref_dark_theme_yes">Sim</string>
 	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>
+	<string name="dictionary_update_title">Atualização do Dicionário Disponível</string>
+	<string name="dictionary_update_message">Há novas palavras para \"%1$s\". Você gostaria de carregá-las?</string>
+	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>
 	<string name="donate_summary">Se você gosta de %1$s, você poderia apoiar o seu desenvolvimento em: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Enviar com \"OK\" no Facebook Messenger</string>

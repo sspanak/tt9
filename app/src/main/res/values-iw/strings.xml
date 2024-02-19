@@ -38,7 +38,6 @@
 	<string name="dictionary_load_title">טעינת מילון</string>
 	<string name="setup_keyboard_status">סטטוס</string>
 	<string name="setup_default_keyboard">בחר מקלדת ברירת מחדל</string>
-	<string name="dictionary_missing_go_load_it">אין מילון עבור \"%1$s\". טען את המילון דרך ההגדרות.</string>
 	<string name="dictionary_not_found">הטעינה נכשלה, לא נמצא מילון עבור \"%1$s\".</string>
 	<string name="dictionary_truncate_title">מחק הכל</string>
 	<string name="dictionary_truncate_unselected">מחק את הבלתי נבחר</string>
@@ -68,6 +67,9 @@
 	<string name="pref_dark_theme_yes">כן</string>
 	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
+	<string name="dictionary_update_title">עדכון מילון זמין</string>
+	<string name="dictionary_update_message">יש מילים חדשות עבור \"%1$s\". האם תרצה לטעון אותם?</string>
+	<string name="dictionary_update_update">טען</string>
 	<string name="donate_title">לִתְרוֹם</string>
 	<string name="donate_summary">אם אתה אוהב את %1$s, תוכל לתמוך בפיתוח שלו בכתובת: %2$s</string>
 	<string name="pref_hack_fb_messenger">שלח עם \"OK\" ב-Facebook Messenger.</string>

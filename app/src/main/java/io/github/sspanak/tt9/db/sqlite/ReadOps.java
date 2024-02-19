@@ -48,6 +48,21 @@ public class ReadOps {
 	}
 
 
+	/**
+	 * Gets the timestamp of the language file at the time of the last import into the database.
+	 */
+	public long getLastUpdate(@NonNull SQLiteDatabase db, int langId) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "SELECT updatedAt FROM " + Tables.LANGUAGES_META + " WHERE langId = ?");
+		query.bindLong(1, langId);
+
+		try {
+			return query.simpleQueryForLong();
+		} catch (SQLiteDoneException e) {
+			return 0;
+		}
+	}
+
+
 	@NonNull
 	public WordList getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {

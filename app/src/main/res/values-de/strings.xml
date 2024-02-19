@@ -31,6 +31,9 @@
 	<string name="pref_dark_theme_yes">Ja</string>
 	<string name="pref_dark_theme_no">Nein</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
+	<string name="dictionary_update_title">Wörterbuchupdate verfügbar</string>
+	<string name="dictionary_update_message">Es gibt neue Wörter für „%1$s“. Möchten Sie sie laden?</string>
+	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Spenden</string>
 	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie die Entwicklung auf %2$s unterstützen.</string>
 	<string name="pref_hack_fb_messenger">Mit \"OK\" in Facebook Messenger senden</string>
