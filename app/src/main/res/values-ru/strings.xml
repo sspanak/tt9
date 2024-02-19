@@ -46,7 +46,6 @@
 	<string name="pref_hack_fb_messenger">Отправка с «ОК» в Messenger</string>
 	<string name="pref_show_soft_function_keys">Кнопки на экране</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове «%1$s» в строке %2$d для языка «%3$s».</string>
-	<string name="dictionary_missing_go_load_it">Отсутствует словарь для языка «%1$s». Вы можете загрузить его в Настройках.</string>
 	<string name="function_add_word_key">Добавить новое слово</string>
 	<string name="function_backspace_key">Стереть</string>
 	<string name="function_change_keyboard_key">Выбор клавиатуры</string>
@@ -80,6 +79,9 @@
 	<string name="pref_dark_theme_no">Нет</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
+	<string name="dictionary_update_title">Доступно обновление словаря</string>
+	<string name="dictionary_update_message">Для «%1$s» доступны новые слова. Хотите загрузить их?</string>
+	<string name="dictionary_update_update">Загрузить</string>
 	<string name="donate_title">Поддержать</string>
 	<string name="donate_summary">Если вам нравится %1$s, вы можете поддержать его разработку по: %2$s.</string>
 	<string name="pref_hack_google_chat">Отправка сообщения с «ОК» в Google Chat</string>

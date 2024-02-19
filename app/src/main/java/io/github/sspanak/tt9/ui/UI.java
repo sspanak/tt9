@@ -12,12 +12,23 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
-		Intent awIntent = new Intent(tt9, AddWordAct.class);
-		awIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		awIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		awIntent.putExtra("io.github.sspanak.tt9.word", currentWord);
-		awIntent.putExtra("io.github.sspanak.tt9.lang", language);
-		tt9.startActivity(awIntent);
+		Intent intent = new Intent(tt9, PopupDialogActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		intent.putExtra("word", currentWord);
+		intent.putExtra("lang", language);
+		intent.putExtra("popup_type", PopupDialogActivity.DIALOG_ADD_WORD_INTENT);
+		tt9.startActivity(intent);
+	}
+
+
+	public static void showConfirmDictionaryUpdateDialog(TraditionalT9 tt9, int language) {
+		Intent intent = new Intent(tt9, PopupDialogActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		intent.putExtra("lang", language);
+		intent.putExtra("popup_type", PopupDialogActivity.DIALOG_CONFIRM_WORDS_UPDATE_INTENT);
+		tt9.startActivity(intent);
 	}
 
 
@@ -40,6 +51,16 @@ public class UI {
 			.setMessage(messageResource)
 			.setCancelable(false)
 			.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel())
+			.show();
+	}
+
+	public static void confirm(Context context, String title, String message, String OKLabel, Runnable onOk, Runnable onCancel) {
+		new AlertDialog.Builder(context)
+			.setTitle(title)
+			.setMessage(message)
+			.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
+			.setNegativeButton(android.R.string.cancel, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
+			.setOnCancelListener(dialog -> { if (onCancel != null) onCancel.run(); })
 			.show();
 	}
 
@@ -71,13 +92,5 @@ public class UI {
 
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-	}
-
-	@Deprecated
-	public static void toastLongFromAsync(Context context, CharSequence msg) {
-		if (Looper.myLooper() == null) {
-			Looper.prepare();
-		}
-		toastLong(context, msg);
 	}
 }

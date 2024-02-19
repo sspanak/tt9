@@ -18,7 +18,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
-import io.github.sspanak.tt9.ui.AddWordAct;
+import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 
 public class WordStore {
@@ -90,6 +90,11 @@ public class WordStore {
 	}
 
 
+	@NonNull public String getLanguageFileHash(Language language) {
+		return language != null && checkOrNotify() ? readOps.getLanguageFileHash(sqlite.getDb(), language.getId()) : "";
+	}
+
+
 	public boolean exists(Language language) {
 		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language.getId());
 	}
@@ -120,20 +125,20 @@ public class WordStore {
 
 	public int put(Language language, String word) {
 		if (word == null || word.isEmpty()) {
-			return AddWordAct.CODE_BLANK_WORD;
+			return AddWordDialog.CODE_BLANK_WORD;
 		}
 
 		if (language == null) {
-			return AddWordAct.CODE_INVALID_LANGUAGE;
+			return AddWordDialog.CODE_INVALID_LANGUAGE;
 		}
 
 		if (!checkOrNotify()) {
-			return AddWordAct.CODE_GENERAL_ERROR;
+			return AddWordDialog.CODE_GENERAL_ERROR;
 		}
 
 		try {
 			if (readOps.exists(sqlite.getDb(), language, word)) {
-				return AddWordAct.CODE_WORD_EXISTS;
+				return AddWordDialog.CODE_WORD_EXISTS;
 			}
 
 			String sequence = language.getDigitSequenceForWord(word);
@@ -146,10 +151,10 @@ public class WordStore {
 		} catch (Exception e) {
 			String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
 			Logger.e("insertWord", msg);
-			return AddWordAct.CODE_GENERAL_ERROR;
+			return AddWordDialog.CODE_GENERAL_ERROR;
 		}
 
-		return AddWordAct.CODE_SUCCESS;
+		return AddWordDialog.CODE_SUCCESS;
 	}
 
 

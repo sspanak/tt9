@@ -103,7 +103,8 @@ public class Tables {
 	private static String createLanguagesMeta() {
 		return "CREATE TABLE IF NOT EXISTS " + LANGUAGES_META + " (" +
 			"langId INTEGER UNIQUE NOT NULL, " +
-			"normalizationPending INT2 NOT NULL DEFAULT 0 " +
+			"normalizationPending INT2 NOT NULL DEFAULT 0," +
+			"fileHash TEXT NOT NULL DEFAULT 0 " +
 		")";
 	}
 }

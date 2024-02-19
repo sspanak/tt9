@@ -31,8 +31,8 @@
 
 		<activity
 			android:excludeFromRecents="true"
-			android:label="@string/add_word_title"
-			android:name="io.github.sspanak.tt9.ui.AddWordAct"
-			android:theme="@style/Theme.AppCompat.DayNight.Dialog.MinWidth"/>
+			android:label=""
+			android:name="io.github.sspanak.tt9.ui.PopupDialogActivity"
+			android:theme="@style/alertDialog" />
 	</application>
 </manifest>

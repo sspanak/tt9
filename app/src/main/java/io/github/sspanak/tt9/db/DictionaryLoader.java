@@ -6,24 +6,26 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.entities.WordBatch;
+import io.github.sspanak.tt9.db.entities.WordFile;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
+import io.github.sspanak.tt9.ui.UI;
 
 public class DictionaryLoader {
 	private static final String LOG_TAG = "DictionaryLoader";
@@ -98,6 +100,34 @@ public class DictionaryLoader {
 
 		loadThread.start();
 		return true;
+	}
+
+
+	public static void load(Context context, Language language) {
+		DictionaryLoadingBar progressBar = new DictionaryLoadingBar(context);
+		getInstance(context).setOnStatusChange(status -> progressBar.show(context, status));
+		self.load(new ArrayList<Language>() {{ add(language); }});
+	}
+
+
+	public static void autoLoad(TraditionalT9 context, Language language) {
+		if (getInstance(context).isRunning()) {
+			return;
+		}
+
+		WordStoreAsync.getLastLanguageUpdateTime(
+			(hash) -> {
+				// no words at all, load without confirmation
+				if (hash.isEmpty()) {
+					load(context, language);
+				}
+				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
+				else if (!hash.equals(new WordFile(language.getDictionaryFile(), self.assets).getHash())) {
+					UI.showConfirmDictionaryUpdateDialog(context, language.getId());
+				}
+			},
+			language
+		);
 	}
 
 
@@ -210,22 +240,21 @@ public class DictionaryLoader {
 
 
 	private void importWordFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
+		WordFile wordFile = new WordFile(language.getDictionaryFile(), assets);
+		WordBatch batch = new WordBatch(language, wordFile.getTotalLines());
 		int currentLine = 1;
-		int totalLines = getFileSize(language.getDictionaryFile());
-		float progressRatio = (maxProgress - minProgress) / totalLines;
+		float progressRatio = (maxProgress - minProgress) / wordFile.getTotalLines();
 
-		WordBatch batch = new WordBatch(language, totalLines);
-
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(assets.open(language.getDictionaryFile()), StandardCharsets.UTF_8))) {
+		try (BufferedReader br = wordFile.getReader()) {
 			for (String line; (line = br.readLine()) != null; currentLine++) {
 				if (loadThread.isInterrupted()) {
 					sendProgressMessage(language, 0, 0);
 					throw new DictionaryImportAbortedException();
 				}
 
-				String[] parts = splitLine(line);
+				String[] parts = WordFile.splitLine(line);
 				String word = parts[0];
-				short frequency = getFrequency(parts);
+				short frequency = WordFile.getFrequencyFromLineParts(parts);
 
 				try {
 					boolean isFinalized = batch.add(word, frequency, currentLine + positionShift);
@@ -237,14 +266,14 @@ public class DictionaryLoader {
 					throw new DictionaryImportException(word, currentLine);
 				}
 
-				if (totalLines > 0) {
+				if (wordFile.getTotalLines() > 0) {
 					sendProgressMessage(language, minProgress + progressRatio * currentLine, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 				}
 			}
 		}
 
 		saveWordBatch(batch);
-		InsertOps.insertLanguageMeta(sqlite.getDb(), language.getId());
+		InsertOps.replaceLanguageMeta(sqlite.getDb(), language.getId(), wordFile.getHash());
 	}
 
 
@@ -257,44 +286,6 @@ public class DictionaryLoader {
 
 		for (int i = 0, end = batch.getPositions().size(); i < end; i++) {
 			insertOps.insertWordPosition(batch.getPositions().get(i));
-		}
-	}
-
-
-	private String[] splitLine(String line) {
-		String[] parts = { line, "" };
-
-		// This is faster than String.split() by around 10%, so it's worth having it.
-		// It runs very often, so any other optimizations are welcome.
-		for (int i = 0 ; i < line.length(); i++) {
-			if (line.charAt(i) == '	') { // the delimiter is TAB
-				parts[0] = line.substring(0, i);
-				parts[1] = i < line.length() - 1 ? line.substring(i + 1) : "";
-				break;
-			}
-		}
-
-		return parts;
-	}
-
-
-	private int getFileSize(String filename) {
-		String sizeFilename = filename + ".size";
-
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(sizeFilename), StandardCharsets.UTF_8))) {
-			return Integer.parseInt(reader.readLine());
-		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Could not read the size of: " + filename + " from:  " + sizeFilename + ". " + e.getMessage());
-			return 0;
-		}
-	}
-
-
-	private short getFrequency(String[] lineParts) {
-		try {
-			return Short.parseShort(lineParts[1]);
-		} catch (Exception e) {
-			return 0;
 		}
 	}
 

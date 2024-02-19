@@ -7,10 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.BuildConfig;
+import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
 public class SQLiteOpener extends SQLiteOpenHelper {
+	private static final String LOG_TAG = SQLiteOpener.class.getSimpleName();
 	private static final String DATABASE_NAME = "tt9.db";
 	private static final int DATABASE_VERSION = BuildConfig.VERSION_CODE;
 	private static SQLiteOpener self;
@@ -52,6 +54,19 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		onCreate(db);
+		for (Migration migration : Migration.LIST) {
+			try {
+				db.execSQL(migration.query);
+				Logger.d(LOG_TAG, "Migration succeeded: '" + migration.query);
+			} catch (Exception e) {
+				if (migration.mayFail) {
+					Logger.e(LOG_TAG, "Ignoring migration: '" + migration.query + "'. ");
+				} else {
+					Logger.e(LOG_TAG, "Migration failed: '" + migration.query + "'. " + e.getMessage() + "\nAborting all subsequent migrations.");
+					break;
+				}
+			}
+		}
 	}
 
 
