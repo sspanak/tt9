@@ -53,7 +53,7 @@ public class DictionaryLoadingBar {
 	}
 
 
-	public DictionaryLoadingBar(Context context) {
+	private DictionaryLoadingBar(Context context) {
 		resources = context.getResources();
 
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
