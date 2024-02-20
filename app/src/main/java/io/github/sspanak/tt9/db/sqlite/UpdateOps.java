@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
@@ -14,21 +15,23 @@ public class UpdateOps {
 	private static final String LOG_TAG = UpdateOps.class.getSimpleName();
 
 
-	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, String word, int position, int frequency) {
+	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, Text wordFilter, int position, int frequency) {
 		String sql = "UPDATE " + Tables.getWords(language.getId()) + " SET frequency = ? WHERE position = ?";
 
-		if (word != null && !word.isEmpty()) {
-			sql += " AND word = ?";
+		if (wordFilter != null && !wordFilter.isEmpty()) {
+			sql += " AND word IN(?, ?, ?)";
 		}
 
 		SQLiteStatement query = CompiledQueryCache.get(db, sql);
 		query.bindLong(1, frequency);
 		query.bindLong(2, position);
-		if (word != null && !word.isEmpty()) {
-			query.bindString(3, word);
+		if (wordFilter != null && !wordFilter.isEmpty()) {
+			query.bindString(3, wordFilter.capitalize());
+			query.bindString(4, wordFilter.toLowerCase());
+			query.bindString(5, wordFilter.toUpperCase());
 		}
 
-		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ", " + word + ")");
+		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ", " + wordFilter + ")");
 
 		return query.executeUpdateDelete() > 0;
 	}
