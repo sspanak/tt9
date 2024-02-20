@@ -60,7 +60,7 @@ public class UI {
 			.setMessage(message)
 			.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
 			.setNegativeButton(android.R.string.cancel, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
-			.setOnCancelListener(dialog -> { if (onCancel != null) onCancel.run(); })
+			.setCancelable(false)
 			.show();
 	}
 

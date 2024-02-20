@@ -140,9 +140,11 @@ public class TraditionalT9 extends KeyPadHandler {
 		int result = super.onStartCommand(intent, flags, startId);
 
 		String message = intent != null ? intent.getStringExtra(PopupDialogActivity.DIALOG_CLOSED_INTENT) : null;
-		if (message != null && !message.isEmpty()) {
+		if (message != null) {
 			forceShowWindowIfHidden();
-			UI.toastLong(self, message);
+			if (!message.isEmpty()) {
+				UI.toastLong(self, message);
+			}
 		}
 
 		return result;
@@ -230,6 +232,9 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		cancelAutoAccept();
+		if (!(mInputMode instanceof ModePredictive)) {
+			DictionaryLoader.autoLoad(this, mLanguage);
+		}
 		mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
 	}
 
@@ -238,8 +243,6 @@ public class TraditionalT9 extends KeyPadHandler {
 		onFinishTyping();
 		clearSuggestions();
 		statusBar.setText("--");
-
-		DictionaryLoader.autoLoad(this, mLanguage);
 
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
@@ -789,7 +792,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	 * are invisible. This function forces the InputMethodManager to show our window.
 	 */
 	protected void forceShowWindowIfHidden() {
-		if (mInputMode.isPassthrough() || isInputViewShown()) {
+		if (getInputMode().isPassthrough() || isInputViewShown()) {
 			return;
 		}
 

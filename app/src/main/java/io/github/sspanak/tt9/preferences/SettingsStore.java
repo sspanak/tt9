@@ -278,9 +278,9 @@ public class SettingsStore {
 		}
 	}
 
+	public final static int DICTIONARY_AUTO_LOAD_COOLDOWN_TIME = 120000; // ms
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
-	public final static int DICTIONARY_CONFIRM_UPDATE_COOLDOWN_TIME = 120000; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE = 0.55f;
