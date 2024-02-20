@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.AddWordAct;
 
@@ -191,8 +192,8 @@ public class WordStore {
 			}
 
 			int newTopFrequency = topWord.frequency + 1;
-			String wordFilter = word.length() == 1 ? word.toLowerCase(language.getLocale()) : null;
-			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, wordPosition,  newTopFrequency)) {
+			Text wordFilter = new Text(language, word.length() == 1 ? word : null);
+			if (!UpdateOps.changeFrequency(sqlite.getDb(), language, wordFilter, wordPosition, newTopFrequency)) {
 				throw new Exception("No such word");
 			}
 
