@@ -117,7 +117,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		allowedInputModes = textField.determineInputModes(inputType);
 		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-		return InputMode.getInstance(settings, mLanguage, inputType, validModeId);
+		return mInputMode.getId() == validModeId ? mInputMode : InputMode.getInstance(settings, mLanguage, inputType, validModeId);
 	}
 
 
