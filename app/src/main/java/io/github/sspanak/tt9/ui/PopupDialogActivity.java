@@ -24,6 +24,8 @@ public class PopupDialogActivity extends AppCompatActivity {
 		PopupDialog dialog = getDialog();
 		if (dialog != null) {
 			dialog.render();
+		} else {
+			onDialogClose("");
 		}
 	}
 
@@ -47,9 +49,7 @@ public class PopupDialogActivity extends AppCompatActivity {
 
 	private void onDialogClose(String message) {
 		finish();
-		if (message != null && !message.isEmpty()) {
-			sendMessageToMain(message);
-		}
+		sendMessageToMain(message);
 	}
 
 	private void sendMessageToMain(String message) {

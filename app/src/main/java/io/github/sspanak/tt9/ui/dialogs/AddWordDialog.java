@@ -42,7 +42,7 @@ public class AddWordDialog extends PopupDialog {
 
 	public void render() {
 		if (message == null || word == null || word.isEmpty()) {
-			if (activityFinisher != null) activityFinisher.accept(null);
+			if (activityFinisher != null) activityFinisher.accept("");
 			return;
 		}
 
