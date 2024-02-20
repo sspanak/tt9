@@ -25,6 +25,6 @@ abstract public class PopupDialog {
 	abstract public void render();
 
 	protected void render(Runnable OKAction) {
-		UI.confirm(context, title, message, OKLabel, OKAction, () -> activityFinisher.accept(null));
+		UI.confirm(context, title, message, OKLabel, OKAction, () -> activityFinisher.accept(""));
 	}
 }

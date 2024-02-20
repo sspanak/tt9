@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.ConsumerCompat;
@@ -38,6 +39,7 @@ public class DictionaryLoader {
 	private ConsumerCompat<Bundle> onStatusChange;
 	private Thread loadThread;
 
+	private final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
 	private int currentFile = 0;
 	private long importStartTime = 0;
 	private long lastProgressUpdate = 0;
@@ -115,8 +117,16 @@ public class DictionaryLoader {
 			return;
 		}
 
+		Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
+		boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
+		if (isItTooSoon) {
+			return;
+		}
+
 		WordStoreAsync.getLastLanguageUpdateTime(
 			(timestamp) -> {
+				self.lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+
 				// no words at all, load without confirmation
 				if (timestamp == 0) {
 					load(context, language);

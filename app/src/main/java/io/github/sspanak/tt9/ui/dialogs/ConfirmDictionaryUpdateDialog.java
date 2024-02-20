@@ -10,10 +10,8 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ConfirmDictionaryUpdateDialog extends PopupDialog {
-	private static long lastDisplayTime = 0;
 	private Language language;
 	public ConfirmDictionaryUpdateDialog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
 		super(context, intent, activityFinisher);
@@ -30,16 +28,11 @@ public class ConfirmDictionaryUpdateDialog extends PopupDialog {
 
 	@Override
 	public void render() {
-		if (System.currentTimeMillis() - lastDisplayTime < SettingsStore.DICTIONARY_CONFIRM_UPDATE_COOLDOWN_TIME) {
-			activityFinisher.accept(null);
-		} else {
-			super.render(this::loadDictionary);
-			lastDisplayTime = System.currentTimeMillis();
-		}
+		super.render(this::loadDictionary);
 	}
 
 	private void loadDictionary() {
 		DictionaryLoader.load(context, language);
-		activityFinisher.accept(null);
+		activityFinisher.accept("");
 	}
 }
