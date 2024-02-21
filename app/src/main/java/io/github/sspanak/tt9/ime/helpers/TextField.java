@@ -161,7 +161,7 @@ public class TextField {
 
 
 	public Text getTextAfterCursor(int numberOfChars) {
-		return new Text(getStringBeforeCursor(numberOfChars));
+		return new Text(getStringAfterCursor(numberOfChars));
 	}
 
 
