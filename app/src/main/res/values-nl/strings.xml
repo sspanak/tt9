@@ -31,8 +31,7 @@
 	<string name="pref_dark_theme_yes">Ja</string>
 	<string name="pref_dark_theme_no">Nee</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
-	<string name="dictionary_update_title">Woordenboekupdate Beschikbaar</string>
-	<string name="dictionary_update_message">Er zijn nieuwe woorden voor \"%1$s\". Wil je ze laden?</string>
+	<string name="dictionary_update_message">Woordenboekupdate beschikbaar voor \"%1$s\". Wil je het laden?</string>
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Doneer</string>
 	<string name="donate_summary">Als je %1$s leuk vindt, zou je de ontwikkeling kunnen ondersteunen op: %2$s.</string>

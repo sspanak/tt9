@@ -34,8 +34,7 @@
 	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Зелена слушалка</string>
-	<string name="dictionary_update_title">Налично е обновление на речника</string>
-	<string name="dictionary_update_message">Има нови думи за „%1$s“. Искате ли да ги заредите?</string>
+	<string name="dictionary_update_message">Налично е обновление на речника за „%1$s“. Искате ли да го заредите?</string>
 	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
 	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>

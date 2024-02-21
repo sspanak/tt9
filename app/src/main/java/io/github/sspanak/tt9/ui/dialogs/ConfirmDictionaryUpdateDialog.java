@@ -16,7 +16,7 @@ public class ConfirmDictionaryUpdateDialog extends PopupDialog {
 	public ConfirmDictionaryUpdateDialog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
 		super(context, intent, activityFinisher);
 
-		title = context.getString(R.string.dictionary_update_title);
+		title = context.getString(R.string.app_name);
 		OKLabel = context.getString(R.string.dictionary_update_update);
 		String langName = language != null ? language.getName() : "";
 		message = context.getResources().getString(R.string.dictionary_update_message, langName);

@@ -79,8 +79,7 @@
 	<string name="pref_dark_theme_no">Ні</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Додати слово «%1$s» до %2$s?</string>
-	<string name="dictionary_update_title">Доступне оновлення словника</string>
-	<string name="dictionary_update_message">Є нові слова для «%1$s». Бажаєте їх завантажити?</string>
+	<string name="dictionary_update_message">Доступне оновлення словника для «%1$s». Бажаєте його завантажити?</string>
 	<string name="dictionary_update_update">Завантажити</string>
 	<string name="donate_title">Підтримуйте</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати його розробку за: %2$s.</string>

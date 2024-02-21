@@ -71,8 +71,7 @@
 	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
 	<string name="dictionary_truncating">Deleting…</string>
 
-	<string name="dictionary_update_title">Dictionary Update Available</string>
-	<string name="dictionary_update_message">There are new words for \"%1$s\". Would you like to load them?</string>
+	<string name="dictionary_update_message">Dictionary update available for \"%1$s\". Would you like to load it?</string>
 	<string name="dictionary_update_update">Load</string>
 
 	<string name="donate_title">Donate</string>

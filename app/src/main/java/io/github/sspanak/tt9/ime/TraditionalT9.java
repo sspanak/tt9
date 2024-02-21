@@ -26,6 +26,7 @@ import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModeABC;
+import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -232,7 +233,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		cancelAutoAccept();
-		if (!(mInputMode instanceof ModePredictive)) {
+		if (!(mInputMode instanceof ModePassthrough)) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 		mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
