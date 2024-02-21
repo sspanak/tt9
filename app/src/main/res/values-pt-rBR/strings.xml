@@ -63,8 +63,7 @@
 	<string name="pref_dark_theme_yes">Sim</string>
 	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>
-	<string name="dictionary_update_title">Atualização do Dicionário Disponível</string>
-	<string name="dictionary_update_message">Há novas palavras para \"%1$s\". Você gostaria de carregá-las?</string>
+	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\". Você gostaria de carregá-lo?</string>
 	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>
 	<string name="donate_summary">Se você gosta de %1$s, você poderia apoiar o seu desenvolvimento em: %2$s.</string>

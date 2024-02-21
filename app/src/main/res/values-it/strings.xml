@@ -40,8 +40,7 @@
 	<string name="pref_dark_theme_yes">Si</string>
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
-	<string name="dictionary_update_title">Aggiornamento del dizionario disponibile</string>
-	<string name="dictionary_update_message">Ci sono nuove parole per \"%1$s\". Vuoi caricarle?</string>
+	<string name="dictionary_update_message">Aggiornamento del dizionario disponibile per \"%1$s\". Vuoi caricarlo?</string>
 	<string name="dictionary_update_update">Carica</string>
 	<string name="donate_title">Donare</string>
 	<string name="donate_summary">Se ti piace %1$s, potresti supportarne lo sviluppo su: %2$s.</string>

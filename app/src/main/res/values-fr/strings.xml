@@ -74,8 +74,7 @@
 	<string name="pref_dark_theme_no">Non</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
-	<string name="dictionary_update_title">Mise à jour du dictionnaire disponible</string>
-	<string name="dictionary_update_message">Il y a de nouveaux mots pour «%1$s». Souhaitez-vous les charger ?</string>
+	<string name="dictionary_update_message">Mise à jour du dictionnaire «%1$s» disponible. Souhaitez-vous le charger ?</string>
 	<string name="dictionary_update_update">Charger</string>
 	<string name="donate_title">Donner</string>
 	<string name="donate_summary">Si vous aimez %1$s vous pouvez soutenir son développement à : %2$s</string>

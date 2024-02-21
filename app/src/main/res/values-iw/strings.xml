@@ -67,8 +67,7 @@
 	<string name="pref_dark_theme_yes">כן</string>
 	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
-	<string name="dictionary_update_title">עדכון מילון זמין</string>
-	<string name="dictionary_update_message">יש מילים חדשות עבור \"%1$s\". האם תרצה לטעון אותם?</string>
+	<string name="dictionary_update_message">עדכון מילון זמין עבור \"%1$s\". האם תרצה לטעון אותו?</string>
 	<string name="dictionary_update_update">טען</string>
 	<string name="donate_title">לִתְרוֹם</string>
 	<string name="donate_summary">אם אתה אוהב את %1$s, תוכל לתמוך בפיתוח שלו בכתובת: %2$s</string>
