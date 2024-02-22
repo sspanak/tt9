@@ -80,6 +80,6 @@
 	<string name="donate_summary">Si te gusta %1$s, podrías apoyar su desarrollo en: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Enviar con «OK» en Facebook Messenger</string>
 	<string name="pref_hack_google_chat">Enviar mensajes con «OK» en Google Chat</string>
-	<string name="pref_hack_key_pad_debounce_time">Protección con múltiples clics</string>
+	<string name="pref_hack_key_pad_debounce_time">Protección contra la repetición accidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Apagado</string>
 </resources>

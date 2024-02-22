@@ -46,7 +46,7 @@
 	<string name="donate_summary">Se ti piace %1$s, potresti supportarne lo sviluppo su: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Inviare con \"OK\" su Facebook Messenger</string>
 	<string name="pref_hack_google_chat">Inviare messaggi con \"OK\" su Google Chat</string>
-	<string name="pref_hack_key_pad_debounce_time">Protezione multi-pressione</string>
+	<string name="pref_hack_key_pad_debounce_time">Protezione contro la ripetizione accidentale dei tasti</string>
 	<string name="pref_hack_key_pad_debounce_off">Spento</string>
 </resources>
 
