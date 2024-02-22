@@ -1,5 +1,5 @@
 # Traditional T9
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports predictive text typing in [multiple languages](app/languages/definitions) and configurable hotkeys, bringing old school Nokia experience to modern Android devices.
+TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports predictive text typing in [20+ languages](app/languages/definitions) and configurable hotkeys, bringing old school Nokia experience to modern Android devices.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -19,11 +19,11 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 ## ⚙️ System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 6.0, 10 and 11)_
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 50 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
+- Minimum 55 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Yiddish, Indonesian): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
-    - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek): 40-75 Mb per language
-    - Large languages (800k-1.5M words; e.g. Bulgarian, Spanish, Romanian, Ukrainian, Russian): 100-165 Mb per language
+    - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
+    - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Spanish, Romanian, Ukrainian, Russian): 100-165 Mb per language
 
 _Storage usage depends on the word roots count, and the average word length in each language. Some languages will require more space, even if they have less words than others._
 
@@ -46,7 +46,9 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-If you like Traditional T9, buy me a beer. Donations are currently accepted on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
+If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
+
+You could donate a phone. This will make it easier to fix manufacturer-specific issues and test new features. Currently looking for: LG X100S, CAT S22 Flip, some Kyocera and some Sonim device. These are the most problematic of all and are hard to find where I live.
 
 Or if you just want to show your appreciation, give the project a star. Higher ranked projects on GitHub have the opportunity to use development tools for free, and apply for funding easier.
 
