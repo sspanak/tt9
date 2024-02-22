@@ -1,6 +1,6 @@
 locale: pt-PT
 dictionaryFile: pt-PT-utf8.csv
-name: Português (PT)
+name: Português / PT
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1
