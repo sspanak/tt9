@@ -73,6 +73,6 @@
 	<string name="donate_summary">אם אתה אוהב את %1$s, תוכל לתמוך בפיתוח שלו בכתובת: %2$s</string>
 	<string name="pref_hack_fb_messenger">שלח עם \"OK\" ב-Facebook Messenger.</string>
 	<string name="pref_hack_google_chat">שלח הודעות עם \"OK\" ב-Google Chat</string>
-	<string name="pref_hack_key_pad_debounce_time">הגנה מרובה לחיצות</string>
+	<string name="pref_hack_key_pad_debounce_time">הגנה מפני חזרת מפתח בשוגג</string>
 	<string name="pref_hack_key_pad_debounce_off">כבוי</string>
 </resources>

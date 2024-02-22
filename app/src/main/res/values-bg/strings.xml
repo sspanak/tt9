@@ -84,6 +84,6 @@
 	<string name="pref_dark_theme_no">Не</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Да се добави ли „%1$s“ към %2$s?</string>
-	<string name="pref_hack_key_pad_debounce_time">Защита от многократно натискане</string>
+	<string name="pref_hack_key_pad_debounce_time">Защита от случайно повтарящи бутони</string>
 	<string name="pref_hack_key_pad_debounce_off">Изключена</string>
 </resources>
