@@ -38,7 +38,7 @@ sed -E 's/[\t0-9]+//g' $DICTIONARY_FILE > $WORK_DIR/_TT9_base.txt \
 	&& echo >> $WORK_DIR/_TT9_combined.txt \
 	&& cat $WORK_DIR/_TT9_2.txt >> $WORK_DIR/_TT9_combined.txt \
 	&& node scripts/remove-dictionary-repeating-words.js $LOCALE $WORK_DIR/_TT9_combined.txt > $WORK_DIR/_TT9_clean.txt \
-	&& node scripts/inject-dictionary-frequencies.js $WORK_DIR/_TT9_clean.txt $FREQUENCY_FILE $LOCALE > $WORK_DIR/_TT9_output.txt \
+	&& node scripts/inject-dictionary-frequencies.js $LOCALE $WORK_DIR/_TT9_clean.txt $FREQUENCY_FILE > $WORK_DIR/_TT9_output.txt \
 	&& cat $WORK_DIR/_TT9_output.txt
 
 rm -rf $WORK_DIR

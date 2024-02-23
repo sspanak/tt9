@@ -29,8 +29,9 @@ FREQUENCY_FILE=$4
 WORK_DIR="/tmp/TT9_$(uuidgen)"
 
 mkdir -p $WORK_DIR \
-	&& node scripts/remove-dictionary-repeating-words.js $LOCALE $DICTIONARY_FILE > $WORK_DIR/clean.txt \
-	&& node scripts/inject-dictionary-frequencies.js $WORK_DIR/clean.txt $FREQUENCY_FILE $LOCALE > $WORK_DIR/freqz.txt \
+	&& sed -E 's/[\t0-9]+//g' $DICTIONARY_FILE > $WORK_DIR/nofreq.txt \
+	&& node scripts/remove-dictionary-repeating-words.js $LOCALE $WORK_DIR/nofreq.txt > $WORK_DIR/clean.txt \
+	&& node scripts/inject-dictionary-frequencies.js $LOCALE $WORK_DIR/clean.txt $FREQUENCY_FILE > $WORK_DIR/freqz.txt \
 	&& node scripts/sort-dictionary.js $LOCALE $WORK_DIR/freqz.txt $DEFINITION_FILE
 
 rm -rf $WORK_DIR

@@ -6,7 +6,7 @@ const DELIMITER = '	';
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt LOCALE`);
+	console.log(`Usage ${basename(process.argv[1])} LOCALE DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt`);
 	console.log('Matches up the words from DICTIONARY-FILE-NAME with the frequencies in WORDS-WITH-FREQUENCIES file.');
 	console.log('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
 }
@@ -19,18 +19,22 @@ function validateInput() {
 	}
 
 
+	if (!existsSync(process.argv[4])) {
+		console.error(`Failure! Could not find the WORDS-WITH-FREQUENCIES file "${process.argv[4]}."`);
+		process.exit(2);
+	}
+
+
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find the WORDS-WITH-FREQUENCIES file "${process.argv[3]}."`);
+		console.error(`Failure! Could not find dictionary file "${process.argv[3]}."`);
 		process.exit(2);
 	}
 
-
-	if (!existsSync(process.argv[2])) {
-		console.error(`Failure! Could not find dictionary file "${process.argv[2]}."`);
-		process.exit(2);
-	}
-
-	return { wordsWithFrequenciesFileName: process.argv[3], dictionaryFileName: process.argv[2], locale: process.argv[4] };
+	return {
+		locale: process.argv[2],
+		dictionaryFileName: process.argv[3],
+		wordsWithFrequenciesFileName: process.argv[4]
+	};
 }
 
 
@@ -41,7 +45,7 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 	});
 
 
-	const frequencies = {};
+	const frequencies = new Map();
 	for await (const line of lineReader) {
 		if (!line.includes(DELIMITER)) {
 			continue;
@@ -54,7 +58,7 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 			frequency = 0;
 		}
 
-		frequencies[word] = frequency;
+		frequencies.set(word, frequency)
 	}
 
 	// read the dictionary words
@@ -66,11 +70,7 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 	const outputWords = [];
 	for await (const word of lineReader) {
 		const lowercaseWord = word.toLocaleLowerCase(locale);
-		
-		outputWords.push({ 
-			w: `${word}`, 
-			f: frequencies[lowercaseWord] || 0
-		});
+		outputWords.push(`${word}${ (frequencies.get(lowercaseWord) || 0) > 0 ? DELIMITER + frequencies.get(lowercaseWord) : '' }`);
 	}
 
 	return outputWords;
@@ -78,18 +78,9 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 
 
 function printWords(wordList) {
-	if (!Array.isArray(wordList)) {
-		return;
+	if (Array.isArray(wordList)) {
+		wordList.forEach(w => console.log(w));
 	}
-
-	wordList.forEach(w => {
-		let out = w.w;
-		if (w.f) {
-			out += `${DELIMITER}${w.f}`;
-		}
-
-		console.log(out);
-	});
 }
 
 
