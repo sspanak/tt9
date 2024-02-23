@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_settings">Налаштування TT9 Settings</string>
+    <string name="completed">Виконано</string>
+    <string name="error">Помилка</string>
+    <string name="no_language">Немає мови</string>
+
+    <string name="error_unexpected">Сталася неочікувана помилка.</string>
+    <string name="failed_loading_language_definitions">Не вдалося завантажити всі визначення мов.</string>
+
+    <string name="add_word_add">Додати</string>
+    <string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
+    <string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
+    <string name="add_word_blank">Пусте слово не додано.</string>
+    <string name="add_word_exist">Слово \"%1$s\" вже існує у словнику.</string>
+    <string name="add_word_success">\"%1$s\" додано.</string>
+    <string name="add_word_title">Додати слово</string>
+
+    <string name="pref_category_about">Про програму</string>
+    <string name="pref_category_abc_mode">Режим АБВ</string>
+    <string name="pref_category_hacks">Сумістність</string>
+    <string name="pref_category_appearance">Зовнішній вигляд</string>
+    <string name="pref_category_predictive_mode">Предиктивний режим</string>
+    <string name="pref_category_function_keys">Гарячі клавіші</string>
+    <string name="pref_category_keypad">Клавіатура</string>
+    <string name="pref_category_setup">Початкові налаштування</string>
+
+    <string name="pref_abc_auto_accept">Автоматичний вибір літери</string>
+    <string name="pref_abc_auto_accept_summary">Автоматично вводить вибрану літеру після короткої затримки.</string>
+    <string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
+    <string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити (Android 9 або старіші).</string>
+    <string name="pref_auto_space">Автоматичний пробіл</string>
+    <string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
+    <string name="pref_auto_text_case">Автоматична велика літера</string>
+    <string name="pref_auto_text_case_summary">Автоматично починати речення з великої букви</string>
+    <string name="pref_choose_languages">Мови</string>
+    <string name="pref_dark_theme">Темна тема</string>
+    <string name="pref_dark_theme_yes">Так</string>
+    <string name="pref_dark_theme_no">Ні</string>
+    <string name="pref_dark_theme_auto">Автоматично</string>
+    <string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
+    <string name="pref_hack_google_chat">Відправляти повідомлення по натиску \"OK\" в Google Chat</string>
+    <string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
+    <string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
+    <string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
+    <string name="pref_show_soft_function_keys">Показувати кнопки на екрані</string>
+    <string name="pref_show_soft_numpad">Показувати цифрову клавіатуру на екрані</string>
+    <string name="pref_help">Допомога</string>
+    <string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
+    <string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
+
+    <string name="dictionary_cancel_load">Скасувати завантаження</string>
+    <string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово \"%1$s\" у рядку %2$d мови \"%3$s\".</string>
+    <string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
+    <string name="dictionary_load_cancelled">Завантаження словника скасовано.</string>
+    <string name="dictionary_loaded">Словник завантажено.</string>
+    <string name="dictionary_loading">Словник завантажується (%1$s)…</string>
+    <string name="dictionary_loading_indeterminate">Словник завантажується</string>
+    <string name="dictionary_loading_please_wait">Будь ласка, дочекайтесь завантаження словника.</string>
+    <string name="dictionary_load_title">Завантажити Словник</string>
+    <string name="dictionary_not_found">Помилка завантаження. Словник для мови \"%1$s\" не знайдений.</string>
+    <string name="dictionary_truncate_title">Видалити все</string>
+    <string name="dictionary_truncate_unselected">Видалити невибрані</string>
+    <string name="dictionary_truncated">Словник видалено.</string>
+    <string name="dictionary_truncating">Видаляється…</string>
+
+    <string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\". Бажаєте його завантажити?</string>
+	<string name="dictionary_update_update">Завантажити</string>
+
+    <string name="donate_title">Підтримати</string>
+    <string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати розробку по посиланню: %2$s.</string>
+
+    <string name="function_add_word_key">Додати слово</string>
+    <string name="function_backspace_key">Стерти</string>
+    <string name="function_change_keyboard_key">Змінити клавіатуру</string>
+    <string name="function_filter_clear_key">Очистити фільтр</string>
+    <string name="function_filter_suggestions_key">Фільтрувати пропозиції</string>
+    <string name="function_previous_suggestion_key">Попередня пропозиція</string>
+    <string name="function_next_suggestion_key">Наступна пропозиція</string>
+    <string name="function_next_language_key">Наступна мова</string>
+    <string name="function_next_mode_key">Режим вводу</string>
+    <string name="function_show_settings_key">Показати налаштування</string>
+    <string name="function_reset_keys_title">Відновити стандартні клавіші</string>
+    <string name="function_reset_keys_done">Стандартні налаштування клавіш відновленно.</string>
+
+    <string name="setup_keyboard_status">Статус</string>
+    <string name="setup_default_keyboard">Вибрати стандартну клавіатуру</string>
+    <string name="setup_tt9_on">Traditional T9 увімкнено</string>
+    <string name="setup_tt9_off">Traditional T9 вимкнуто</string>
+    <string name="setup_click_here_to_enable">Нажміть тут, щоб увімкнути TT9 в налаштуваннях Android.</string>
+
+    <string name="key_hold_key">(тримати)</string>
+    <string name="key_back">Назад</string>
+    <string name="key_call">Подзвонити</string>
+    <string name="key_volume_down">Гучність вниз</string>
+    <string name="key_volume_up">Гучність вверх</string>
+
+    <string name="char_newline">Новий рядок</string>
+    <string name="char_space">Пробіл</string>
+</resources>
