@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_settings">Налаштування TT9 Settings</string>
+    <string name="app_settings">Налаштування TT9</string>
     <string name="completed">Виконано</string>
     <string name="error">Помилка</string>
     <string name="no_language">Немає мови</string>
