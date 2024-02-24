@@ -1,12 +1,11 @@
 package io.github.sspanak.tt9.languages;
 
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
@@ -77,9 +76,10 @@ public class LanguageCollection {
 			}
 		}
 
-		if (sort && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-			langList.sort(Comparator.comparing(l -> l.getLocale().toString()));
+		if (sort) {
+			Collections.sort(langList);
 		}
+
 
 		return langList;
 	}
@@ -91,8 +91,8 @@ public class LanguageCollection {
 	public static ArrayList<Language> getAll(Context context, boolean sort) {
 		ArrayList<Language> langList = new ArrayList<>(getInstance(context).languages.values());
 
-		if (sort && Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-			langList.sort(Comparator.comparing(l -> l.getLocale().toString()));
+		if (sort) {
+			Collections.sort(langList);
 		}
 
 		return langList;
@@ -108,7 +108,9 @@ public class LanguageCollection {
 
 		for (int i = 0; i < listSize; i++) {
 			stringList.append(list.get(i));
-			stringList.append((i < listSize - 1) ? ", " : " ");
+			if (i < listSize - 1) {
+				stringList.append(", ");
+			}
 		}
 
 		return stringList.toString();
