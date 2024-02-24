@@ -38,7 +38,7 @@ tasks.register('writeDictionaryProperties') {
 
 tasks.register('updateManifest') {
 	doLast {
-		updateManifestVersion(getVersionCode())
+		updateManifestVersion(getVersionCode(), getVersionName())
 	}
 }
 
