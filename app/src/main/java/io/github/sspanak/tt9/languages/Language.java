@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-public class Language {
+public class Language implements Comparable<Language> {
 	public static String SPECIAL_CHARS_KEY = "0";
 	public static String PUNCTUATION_KEY = "1";
 
@@ -270,5 +270,13 @@ public class Language {
 	@Override
 	public String toString() {
 		return getName();
+	}
+
+
+	@Override
+	public int compareTo(Language other) {
+		String key = getName().equals("Suomi") ? "su" : getLocale().toString();
+		String otherKey = other.getName().equals("Suomi") ? "su" : other.getLocale().toString();
+		return key.compareTo(otherKey);
 	}
 }
