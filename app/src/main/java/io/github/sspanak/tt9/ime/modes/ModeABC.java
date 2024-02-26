@@ -21,18 +21,20 @@ public class ModeABC extends InputMode {
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		if (hold) {
 			reset();
+			autoAcceptTimeout = 0;
 			digitSequence = String.valueOf(number);
 			suggestions.add(language.getKeyNumber(number));
-			autoAcceptTimeout = 0;
+			shouldSelectNextLetter = false;
 		} else if (repeat > 0) {
-			shouldSelectNextLetter = true;
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
+			shouldSelectNextLetter = true;
 		} else {
 			reset();
+			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			digitSequence = String.valueOf(number);
 			suggestions.addAll(language.getKeyCharacters(number));
 			suggestions.add(language.getKeyNumber(number));
-			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
+			shouldSelectNextLetter = false;
 		}
 
 		return true;
@@ -65,8 +67,8 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override public int getSequenceLength() { return 1; }
-
-	@Override public boolean shouldAcceptPreviousSuggestion() { return autoAcceptTimeout == 0 || !shouldSelectNextLetter; }
+	@Override public void onAcceptSuggestion(@NonNull String word) { reset(); }
+	@Override public boolean shouldAcceptPreviousSuggestion() { return !shouldSelectNextLetter; }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
 
 	@Override
