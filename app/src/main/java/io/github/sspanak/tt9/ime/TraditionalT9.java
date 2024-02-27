@@ -701,6 +701,9 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void setComposingTextWithHighlightedStem(@NonNull String word) {
 		if (appHacks.setComposingTextWithHighlightedStem(word)) {
 			Logger.w("highlightComposingText", "Defective text field detected! Text highlighting disabled.");
+		} else if (word.isEmpty() || !Character.isLetterOrDigit(word.charAt(0))) {
+			// Leave emoji and special characters alone. Adding bold or italic breaks them.
+			textField.setComposingText(word);
 		} else {
 			textField.setComposingTextWithHighlightedStem(word, mInputMode);
 		}
