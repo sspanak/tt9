@@ -69,7 +69,7 @@ public class DictionaryLoadingBar {
 
 	private PendingIntent createNavigationIntent(Context context) {
 		Intent intent = new Intent(context, PreferencesActivity.class);
-		intent.putExtra("screen", DictionariesScreen.class.getSimpleName());
+		intent.putExtra("screen", DictionariesScreen.NAME);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		return PendingIntent.getActivity(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}

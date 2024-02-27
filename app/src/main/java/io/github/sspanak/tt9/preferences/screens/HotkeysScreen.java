@@ -10,9 +10,11 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.SectionKeymap;
 
 public class HotkeysScreen extends BaseScreenFragment {
+	final public static String NAME = "Hotkeys";
 	public HotkeysScreen() { init(); }
 	public HotkeysScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_function_keys; }
 	@Override protected int getXml() { return R.xml.prefs_screen_hotkeys; }
 

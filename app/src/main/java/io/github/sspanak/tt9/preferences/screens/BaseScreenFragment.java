@@ -9,7 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
-abstract class BaseScreenFragment extends PreferenceFragmentCompat {
+abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	protected PreferencesActivity activity;
 
 
@@ -69,6 +69,7 @@ abstract class BaseScreenFragment extends PreferenceFragmentCompat {
 	}
 
 
+	abstract public String getName();
 	abstract protected int getTitle();
 	abstract protected int getXml();
 	abstract protected void onCreate();

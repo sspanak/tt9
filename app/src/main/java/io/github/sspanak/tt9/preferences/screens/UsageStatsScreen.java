@@ -13,13 +13,15 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 
 public class UsageStatsScreen extends BaseScreenFragment {
-	private final static String RESET_BUTTON = "pref_slow_queries_reset_stats";
-	private final static String SUMMARY_CONTAINER = "summary_container";
-	private final static String QUERY_LIST_CONTAINER = "query_list_container";
+	final public static String NAME = "UsageStats";
+	final private static String RESET_BUTTON = "pref_slow_queries_reset_stats";
+	final private static String SUMMARY_CONTAINER = "summary_container";
+	final private static String QUERY_LIST_CONTAINER = "query_list_container";
 
 	public UsageStatsScreen() { init(); }
 	public UsageStatsScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_usage_stats; }
 	@Override protected int getXml() { return R.xml.prefs_screen_usage_stats; }
 
