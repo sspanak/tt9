@@ -258,6 +258,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/numpad_key_height"
+			android:layoutDirection="ltr"
 			tools:ignore="HardcodedText">
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKey
