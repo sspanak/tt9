@@ -715,19 +715,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!isSuggestionViewHidden()) {
-			String currentSuggestionBefore = getComposingText();
-
-			// When we are in AUTO mode and the dictionary word is in uppercase,
-			// the mode would switch to UPPERCASE, but visually, the word would not change.
-			// This is why we retry, until there is a visual change.
-			for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
-				setSuggestions(mInputMode.getSuggestions(), suggestionBar.getCurrentIndex());
-				textField.setComposingText(suggestionBar.getCurrentSuggestion());
-
-				if (!currentSuggestionBefore.equals(getComposingText())) {
-					break;
-				}
-			}
+			nextTextCase();
 		}
 		// make "abc" and "ABC" separate modes from user perspective
 		else if (mInputMode instanceof ModeABC && mLanguage.hasUpperCase() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
@@ -759,6 +747,35 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// save it for the next time
 		settings.saveInputLanguage(mLanguage.getId());
+	}
+
+
+	private void nextTextCase() {
+		String currentSuggestionBefore = getComposingText();
+		int currentSuggestionIndex = suggestionBar.getCurrentIndex();
+
+		// When we are in AUTO mode and the dictionary word is in uppercase,
+		// the mode would switch to UPPERCASE, but visually, the word would not change.
+		// This is why we retry, until there is a visual change.
+		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
+			String currentSuggestionAfter = mInputMode.getSuggestions().size() >= suggestionBar.getCurrentIndex() ? mInputMode.getSuggestions().get(suggestionBar.getCurrentIndex()) : "";
+			// If the suggestions are special characters, changing the text case means selecting the
+			// next character group. Hence, "before" and "after" are different. Also, if the new suggestion
+			// list is shorter, the "before" index may be invalid, so "after" would be empty.
+			// In these cases, we scroll to the first one, for consistency.
+			if (currentSuggestionAfter.isEmpty() || !currentSuggestionBefore.equalsIgnoreCase(currentSuggestionAfter)) {
+				currentSuggestionIndex = 0;
+				break;
+			}
+
+			// the suggestion list is the same and the text case is different, so let's use it
+			if (!currentSuggestionBefore.equals(currentSuggestionAfter)) {
+				break;
+			}
+		}
+
+		setSuggestions(mInputMode.getSuggestions(), currentSuggestionIndex);
+		textField.setComposingText(suggestionBar.getCurrentSuggestion());
 	}
 
 
