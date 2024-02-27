@@ -81,9 +81,7 @@ public class Mode123 extends ModePassthrough {
 		}
 	}
 
-
-	@Override
-	protected boolean nextSpecialCharacters() {
+	@Override protected boolean nextSpecialCharacters() {
 		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
@@ -122,8 +120,7 @@ public class Mode123 extends ModePassthrough {
 	}
 
 
-	@Override
-	public void reset() {
+	@Override public void reset() {
 		super.reset();
 		digitSequence = "";
 	}

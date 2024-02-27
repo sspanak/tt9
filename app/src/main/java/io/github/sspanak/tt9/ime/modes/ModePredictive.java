@@ -315,11 +315,6 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
-	}
-
-	@Override
 	public void determineNextWordTextCase(Text textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
@@ -328,6 +323,11 @@ public class ModePredictive extends InputMode {
 	public int getTextCase() {
 		// Filter out the internally used text cases. They have no meaning outside this class.
 		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
+	}
+
+	@Override
+	protected boolean nextSpecialCharacters() {
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override

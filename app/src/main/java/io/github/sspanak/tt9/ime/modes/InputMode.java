@@ -129,16 +129,6 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(0);
 	}
 
-	public boolean nextTextCase() {
-		if (nextSpecialCharacters()) {
-			return false;
-		}
-
-		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
-		textCase = allowedTextCases.get(nextIndex);
-		return true;
-	}
-
 	/**
 	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
@@ -148,9 +138,10 @@ abstract public class InputMode {
 			return false;
 		}
 
+		int previousGroup = specialCharSelectedGroup;
 		int key = digitSequence.charAt(0) - '0';
-
 		ArrayList<String> chars = language.getKeyCharacters(key, ++specialCharSelectedGroup);
+
 		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
 			specialCharSelectedGroup = 0;
 			return false;
@@ -161,6 +152,21 @@ abstract public class InputMode {
 
 		suggestions.clear();
 		suggestions.addAll(chars);
+
+		return previousGroup != specialCharSelectedGroup;
+	}
+
+	public boolean nextTextCase() {
+		if (nextSpecialCharacters()) {
+			return true;
+		}
+
+		if (!language.hasUpperCase() || digitSequence.startsWith(Language.PUNCTUATION_KEY) || digitSequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
+			return false;
+		}
+
+		int nextIndex = (allowedTextCases.indexOf(textCase) + 1) % allowedTextCases.size();
+		textCase = allowedTextCases.get(nextIndex);
 
 		return true;
 	}

@@ -720,8 +720,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			// When we are in AUTO mode and the dictionary word is in uppercase,
 			// the mode would switch to UPPERCASE, but visually, the word would not change.
 			// This is why we retry, until there is a visual change.
-			for (int retries = 0; retries < 2 && mLanguage.hasUpperCase(); retries++) {
-				mInputMode.nextTextCase();
+			for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
 				setSuggestions(mInputMode.getSuggestions(), suggestionBar.getCurrentIndex());
 				textField.setComposingText(suggestionBar.getCurrentSuggestion());
 
@@ -731,7 +730,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			}
 		}
 		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode instanceof ModeABC && mInputMode.getTextCase() == InputMode.CASE_LOWER && mLanguage.hasUpperCase()) {
+		else if (mInputMode instanceof ModeABC && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
 			mInputMode.nextTextCase();
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
