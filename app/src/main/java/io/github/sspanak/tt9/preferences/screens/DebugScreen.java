@@ -19,13 +19,15 @@ import io.github.sspanak.tt9.preferences.items.ItemLogLevel;
 import io.github.sspanak.tt9.ui.UI;
 
 public class DebugScreen extends BaseScreenFragment {
-	private final static String LOG_TAG = "DebugScreen";
-	private final static String SYSTEM_LOGS_SWITCH = "pref_enable_system_logs";
-	private final static String LOGS_CONTAINER = "debug_logs_container";
+	final public static String NAME = "Debug";
+	final private static String LOG_TAG = NAME + "Screen";
+	final private static String SYSTEM_LOGS_SWITCH = "pref_enable_system_logs";
+	final private static String LOGS_CONTAINER = "debug_logs_container";
 
 	public DebugScreen() { init(); }
 	public DebugScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_debug_options; }
 	@Override protected int getXml() { return R.xml.prefs_screen_debug; }
 

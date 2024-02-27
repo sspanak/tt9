@@ -10,9 +10,11 @@ import io.github.sspanak.tt9.preferences.items.ItemSelectGlobalKeyboard;
 import io.github.sspanak.tt9.preferences.items.ItemSetDefaultGlobalKeyboard;
 
 public class SetupScreen extends BaseScreenFragment {
+	final public static String NAME = "Setup";
 	public SetupScreen() { init(); }
 	public SetupScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_category_setup;}
 	@Override protected int getXml() { return R.xml.prefs_screen_setup; }
 

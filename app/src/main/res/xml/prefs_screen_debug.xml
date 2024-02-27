@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
 
 	<SwitchPreferenceCompat
-		app:fragment="io.github.sspanak.tt9.preferences.SlowQueriesScreen"
+		app:fragment="io.github.sspanak.tt9.preferences.UsageStatsScreen"
 		app:key="pref_slow_queries"
 		app:layout="@layout/pref_text"
 		app:title="@string/pref_category_usage_stats" />

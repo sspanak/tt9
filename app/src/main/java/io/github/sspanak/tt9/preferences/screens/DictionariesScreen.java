@@ -10,11 +10,14 @@ import io.github.sspanak.tt9.preferences.items.ItemTruncateAll;
 import io.github.sspanak.tt9.preferences.items.ItemTruncateUnselected;
 
 public class DictionariesScreen extends BaseScreenFragment {
+	final public static String NAME = "Dictionaries";
+
 	private ItemLoadDictionary loadItem;
 
 	public DictionariesScreen() { init(); }
 	public DictionariesScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_choose_languages; }
 	@Override protected int getXml() { return R.xml.prefs_screen_dictionaries; }
 

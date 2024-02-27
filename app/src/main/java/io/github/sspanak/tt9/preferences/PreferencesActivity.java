@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.DebugScreen;
 import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
 import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
@@ -61,7 +62,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 	@Override
 	public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
-		Fragment fragment = getScreen((getScreenName(pref)));
+		BaseScreenFragment fragment = getScreen((getScreenName(pref)));
 		fragment.setArguments(pref.getExtras());
 		displayScreen(fragment, true);
 		return true;
@@ -79,9 +80,9 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		String screenName = intent != null ? intent.getStringExtra("screen") : null;
 		screenName = screenName != null ? screenName : "";
 
-		Fragment screen = getScreen(screenName.replace("Screen", ""));
+		BaseScreenFragment screen = getScreen(screenName);
 
-		if (screen.getClass().getSimpleName().equals(screenName)) {
+		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
 		}
 	}
@@ -102,25 +103,25 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 	 * Finds a screen fragment by name. If there is no fragment with such name, the main screen
 	 * fragment will be returned.
 	 */
-	private Fragment getScreen(@Nullable String name) {
+	private BaseScreenFragment getScreen(@Nullable String name) {
 		if (name == null) {
 			return new MainSettingsScreen(this);
 		}
 
 		switch (name) {
-			case "Appearance":
+			case AppearanceScreen.NAME:
 				return new AppearanceScreen(this);
-			case "Debug":
+			case DebugScreen.NAME:
 				return new DebugScreen(this);
-			case "Dictionaries":
+			case DictionariesScreen.NAME:
 				return new DictionariesScreen(this);
-			case "Hotkeys":
+			case HotkeysScreen.NAME:
 				return new HotkeysScreen(this);
-			case "KeyPad":
+			case KeyPadScreen.NAME:
 				return new KeyPadScreen(this);
-			case "Setup":
+			case SetupScreen.NAME:
 				return new SetupScreen(this);
-			case "SlowQueries":
+			case UsageStatsScreen.NAME:
 				return new UsageStatsScreen(this);
 			default:
 				return new MainSettingsScreen(this);
@@ -132,7 +133,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 	 * displayScreen
 	 * Replaces the currently displayed screen fragment with a new one.
 	 */
-	private void displayScreen(Fragment screen, boolean addToBackStack) {
+	private void displayScreen(BaseScreenFragment screen, boolean addToBackStack) {
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		transaction.replace(R.id.preferences_container, screen);

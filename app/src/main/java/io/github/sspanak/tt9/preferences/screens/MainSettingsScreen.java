@@ -16,11 +16,13 @@ import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class MainSettingsScreen extends BaseScreenFragment {
+	final public static String NAME = "Main";
 	private final Pattern releaseVersionRegex = Pattern.compile("^\\d+\\.\\d+$");
 
 	public MainSettingsScreen() { init(); }
 	public MainSettingsScreen(PreferencesActivity activity) { init(activity); }
 
+	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.app_settings;}
 	@Override protected int getXml() { return R.xml.prefs; }
 
