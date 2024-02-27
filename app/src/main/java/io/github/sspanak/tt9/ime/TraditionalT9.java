@@ -54,6 +54,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
 	protected Language mLanguage;
+	protected Language systemLanguage;
 
 	// soft key view
 	private MainView mainView = null;
@@ -226,6 +227,8 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		normalizationHandler.removeCallbacksAndMessages(null);
+		systemLanguage = LanguageCollection.getDefault(this);
+
 		initUi();
 		updateInputViewShown();
 	}
@@ -462,6 +465,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
+		backward = systemLanguage.isRTL() != backward;
 		suggestionBar.scrollToSuggestion(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
 		setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion());

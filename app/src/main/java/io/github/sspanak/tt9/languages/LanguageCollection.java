@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.languages;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class LanguageCollection {
 		return null;
 	}
 
-	public static Language getDefault(Context context) {
+	@NonNull public static Language getDefault(Context context) {
 		Language language = getByLocale(context, SystemSettings.getLocale());
 		language = language == null ? getByLocale(context, "en") : language;
 		return language == null ? new NullLanguage(context) : language;
