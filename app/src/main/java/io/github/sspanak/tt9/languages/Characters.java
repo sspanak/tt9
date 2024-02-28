@@ -58,20 +58,9 @@ public class Characters {
 		))
 	));
 
-	public static boolean isGraphic(String str) {
-		if (str == null) {
-			return false;
-		}
 
-		for (int i = 0, end = str.length(); i < end; i++) {
-			char ch = str.charAt(i);
-
-			if (ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch)) {
-				return false;
-			}
-		}
-
-		return true;
+	public static boolean isGraphic(char ch) {
+		return !(ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch));
 	}
 
 	public static boolean noEmojiSupported() {

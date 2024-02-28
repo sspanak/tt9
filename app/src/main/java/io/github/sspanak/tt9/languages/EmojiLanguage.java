@@ -16,7 +16,7 @@ public class EmojiLanguage extends Language {
 
 	@Override
 	public String getDigitSequenceForWord(String word) {
-		return Characters.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : null;
+		return Text.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : null;
 	}
 
 	@Override

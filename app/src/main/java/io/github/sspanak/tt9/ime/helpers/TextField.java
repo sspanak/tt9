@@ -13,8 +13,6 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -23,12 +21,6 @@ import io.github.sspanak.tt9.languages.Text;
 
 public class TextField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
-
-	private static final Pattern beforeCursorWordRegex = Pattern.compile("([^\\s\\d\\p{P}]+)(?!\n)$");
-	private static final Pattern afterCursorWordRegex = Pattern.compile("^(?<!\n)([^\\s\\d\\p{P}]+)");
-	private static final Pattern beforeCursorUkrainianRegex = Pattern.compile("([(?:^\\s\\d\\p{P}|')]+)(?!\n)$");
-	private static final Pattern afterCursorUkrainianRegex = Pattern.compile("^(?<!\n)([(?:^\\s\\d\\p{P}|')]+)");
-
 
 	public final InputConnection connection;
 	public final EditorInfo field;
@@ -175,21 +167,35 @@ public class TextField {
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
 	@NonNull public String getSurroundingWord(Language language) {
-		Matcher before;
-		Matcher after;
+		Text before = getTextBeforeCursor();
+		Text after = getTextAfterCursor(50);
 
-		if (language != null && (language.isHebrew() || language.isUkrainian())) {
-			// Hebrew and Ukrainian use apostrophes as letters
-			before = beforeCursorUkrainianRegex.matcher(getStringBeforeCursor());
-			after = afterCursorUkrainianRegex.matcher(getStringAfterCursor());
-		} else {
-			// In other languages, special characters in words will cause automatic word break to fail,
-			// resulting in unexpected suggestions. Therefore, they are not allowed.
-			before = beforeCursorWordRegex.matcher(getStringBeforeCursor());
-			after = afterCursorWordRegex.matcher(getStringAfterCursor());
+		// emoji
+		boolean beforeEndsWithGraphics = before.endsWithGraphic();
+		boolean afterStartsWithGraphics = after.startsWithGraphic();
+
+		if (beforeEndsWithGraphics && afterStartsWithGraphics) {
+			return before.leaveEndingGraphics() + after.leaveStartingGraphics();
 		}
 
-		return (before.find() ? before.group(1) : "") + (after.find() ? after.group(1) : "");
+		if (afterStartsWithGraphics) {
+			return after.leaveStartingGraphics();
+		}
+
+		if (beforeEndsWithGraphics) {
+			return before.leaveEndingGraphics();
+		}
+
+		// text
+		boolean keepApostrophe = false;
+		boolean keepQuote = false;
+		if (language != null) {
+			// Hebrew and Ukrainian use the respective special characters as letters
+			keepApostrophe = language.isHebrew() || language.isUkrainian();
+			keepQuote = language.isHebrew();
+		}
+
+		return before.subStringEndingWord(keepApostrophe, keepQuote) + after.subStringStartingWord(keepApostrophe, keepQuote);
 	}
 
 
