@@ -45,8 +45,26 @@ public class Text {
 		return str != null && containsOtherThan1.matcher(str).find();
 	}
 
+	public boolean endsWithGraphic() {
+		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
+	}
+
 	public boolean isEmpty() {
 		return text == null || text.isEmpty();
+	}
+
+	public static boolean isGraphic(String str) {
+		if (str == null || str.isEmpty()) {
+			return false;
+		}
+
+		for (int i = 0, end = str.length(); i < end; i++) {
+			if (!Characters.isGraphic(str.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	public boolean isMixedCase() {
@@ -69,6 +87,46 @@ public class Text {
 		return language != null && text != null && text.toUpperCase(language.getLocale()).equals(text);
 	}
 
+	public String leaveEndingGraphics() {
+		if (text == null) {
+			return "";
+		}
+
+		StringBuilder sb = new StringBuilder(text.length());
+
+		for (int i = text.length() - 1; i >= 0; i--) {
+			char ch = text.charAt(i);
+
+			if (Characters.isGraphic(ch)) {
+				sb.insert(0, ch);
+			} else {
+				break;
+			}
+		}
+
+		return sb.toString();
+	}
+
+	public String leaveStartingGraphics() {
+		if (text == null) {
+			return "";
+		}
+
+		StringBuilder sb = new StringBuilder(text.length());
+
+		for (int i = 0, end = text.length(); i < end; i++) {
+			char ch = text.charAt(i);
+
+			if (Characters.isGraphic(ch)) {
+				sb.append(ch);
+			} else {
+				break;
+			}
+		}
+
+		return sb.toString();
+	}
+
 	public boolean nextIsPunctuation() {
 		return text != null && !text.isEmpty() && nextIsPunctuation.matcher(text).find();
 	}
@@ -83,6 +141,50 @@ public class Text {
 
 	public boolean startsWithNumber() {
 		return text != null && !text.isEmpty() && Character.isDigit(text.charAt(0));
+	}
+
+	public boolean startsWithGraphic() {
+		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(0));
+	}
+
+	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {
+		if (text == null) {
+			return "";
+		}
+
+		StringBuilder sub = new StringBuilder();
+
+		for (int i = text.length() - 1; i >= 0; i--) {
+			char ch = text.charAt(i);
+
+			if (Character.isAlphabetic(ch) || (keepApostrophe && ch == '\'') || (keepQuote && ch == '"')) {
+				sub.insert(0, ch);
+			} else {
+				break;
+			}
+		}
+
+		return sub.toString();
+	}
+
+	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
+		if (text == null) {
+			return "";
+		}
+
+		StringBuilder sub = new StringBuilder();
+
+		for (int i = 0, end = text.length(); i < end; i++) {
+			char ch = text.charAt(i);
+
+			if (Character.isAlphabetic(ch) || (keepApostrophe && ch == '\'') || (keepQuote && ch == '"')) {
+				sub.append(ch);
+			} else {
+				break;
+			}
+		}
+
+		return sub.toString();
 	}
 
 	public String toLowerCase() {
