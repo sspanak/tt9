@@ -5,7 +5,6 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
-import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -18,19 +17,14 @@ public class ItemTruncateUnselected extends ItemTruncateAll {
 	private final SettingsStore settings;
 
 
-	public ItemTruncateUnselected(Preference item, PreferencesActivity context, SettingsStore settings, DictionaryLoader loader) {
-		super(item, context, loader);
+	public ItemTruncateUnselected(Preference item, PreferencesActivity context, SettingsStore settings, Runnable onStart, Runnable onFinish) {
+		super(item, context, onStart, onFinish);
 		this.settings = settings;
 	}
 
 
-
 	@Override
 	protected boolean onClick(Preference p) {
-		if (loader != null && loader.isRunning()) {
-			return false;
-		}
-
 		ArrayList<Integer> unselectedLanguageIds = new ArrayList<>();
 		ArrayList<Integer> selectedLanguageIds = settings.getEnabledLanguageIds();
 		for (Language lang : LanguageCollection.getAll(activity, false)) {

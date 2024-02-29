@@ -40,6 +40,11 @@
 	<string name="pref_dark_theme_yes">Si</string>
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
+	<string name="dictionary_export">Esporta selezionate</string>
+	<string name="dictionary_export_custom_words_button">Esportare</string>
+	<string name="dictionary_export_custom_words_summary">Esporta un CSV con tutte le parole aggiunte su: \"%1$s\".</string>
+	<string name="dictionary_export_failed">Esportazione fallita</string>
+	<string name="dictionary_export_failed_more_info">Per ulteriori informazioni, abilita la modalità di debug e consulta i log.</string>
 	<string name="dictionary_update_message">Aggiornamento del dizionario disponibile per \"%1$s\". Vuoi caricarlo?</string>
 	<string name="dictionary_update_update">Carica</string>
 	<string name="donate_title">Donare</string>
@@ -48,5 +53,9 @@
 	<string name="pref_hack_google_chat">Inviare messaggi con \"OK\" su Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Protezione contro la ripetizione accidentale dei tasti</string>
 	<string name="pref_hack_key_pad_debounce_off">Spento</string>
+	<string name="dictionary_export_finished">Esportazione completata</string>
+	<string name="dictionary_export_finished_more_info">Parole esportate su: \"%1$s\".</string>
+	<string name="dictionary_export_generating_csv">CSV in corso…</string>
+	<string name="dictionary_export_generating_csv_for_language">CSV in corso (%1$s)…</string>
 </resources>
 

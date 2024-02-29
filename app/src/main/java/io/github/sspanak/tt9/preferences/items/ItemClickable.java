@@ -1,9 +1,9 @@
 package io.github.sspanak.tt9.preferences.items;
 
+import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.preferences.SettingsStore;
@@ -12,11 +12,40 @@ abstract public class ItemClickable {
 	private long lastClickTime = 0;
 
 	protected final Preference item;
-	private final ArrayList<ItemClickable> otherItems = new ArrayList<>();
-
 
 	public ItemClickable(Preference item) {
 		this.item = item;
+	}
+
+
+
+	public static void disableAll(@NonNull ArrayList<ItemClickable> items) {
+		for (ItemClickable i : items) {
+			i.disable();
+		}
+	}
+
+
+	public static void enableAll(@NonNull ArrayList<ItemClickable> items) {
+		for (ItemClickable i : items) {
+			i.enable();
+		}
+	}
+
+
+	public static void disableOthers(@NonNull ArrayList<ItemClickable> items, @NonNull ItemClickable exclude) {
+		for (ItemClickable i : items) {
+			if (i != exclude) {
+				i.disable();
+			}
+		}
+	}
+
+
+	public static void enableAllClickHandlers(@NonNull ArrayList<ItemClickable> items) {
+		for (ItemClickable i : items) {
+			i.enableClickHandler();
+		}
 	}
 
 
@@ -34,28 +63,6 @@ abstract public class ItemClickable {
 		item.setOnPreferenceClickListener(this::debounceClick);
 	}
 
-
-	public ItemClickable setOtherItems(List<ItemClickable> others) {
-		otherItems.clear();
-		otherItems.addAll(others);
-		return this;
-	}
-
-
-	protected void disableOtherItems() {
-		for (ItemClickable i : otherItems) {
-			i.disable();
-		}
-
-	}
-
-
-	protected void enableOtherItems() {
-		for (ItemClickable i : otherItems) {
-			i.enable();
-		}
-
-	}
 
 	protected boolean debounceClick(Preference p) {
 		long now = System.currentTimeMillis();
