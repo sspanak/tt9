@@ -173,6 +173,10 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean setWordStem(String newStem, boolean exact) {
 		if (newStem == null || newStem.isEmpty()) {
+			if (stem.isEmpty()) {
+				return false;
+			}
+
 			isStemFuzzy = false;
 			stem = "";
 
