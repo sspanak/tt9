@@ -423,7 +423,10 @@ public class TraditionalT9 extends KeyPadHandler {
 			return true;
 		}
 
-		return false;
+		acceptIncompleteSuggestion();
+		resetKeyRepeat();
+
+		return true;
 	}
 
 
