@@ -1,18 +1,28 @@
 package io.github.sspanak.tt9.preferences.screens;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.exporter.CustomWordsExporter;
+import io.github.sspanak.tt9.db.exporter.DictionaryExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemClickable;
+import io.github.sspanak.tt9.preferences.items.ItemExportCustomWords;
+import io.github.sspanak.tt9.preferences.items.ItemExportDictionary;
 import io.github.sspanak.tt9.preferences.items.ItemLoadDictionary;
 import io.github.sspanak.tt9.preferences.items.ItemSelectLanguage;
 import io.github.sspanak.tt9.preferences.items.ItemTruncateAll;
 import io.github.sspanak.tt9.preferences.items.ItemTruncateUnselected;
 
 public class DictionariesScreen extends BaseScreenFragment {
-	final public static String NAME = "Dictionaries";
+	public static final String NAME = "Dictionaries";
+
+	private final ArrayList<ItemClickable> clickables = new ArrayList<>();
 
 	private ItemLoadDictionary loadItem;
+	private ItemExportDictionary exportDictionaryItem;
+	private ItemExportCustomWords exportCustomWordsItem;
 
 	public DictionariesScreen() { init(); }
 	public DictionariesScreen(PreferencesActivity activity) { init(activity); }
@@ -30,35 +40,78 @@ public class DictionariesScreen extends BaseScreenFragment {
 		);
 		multiSelect.populate().enableValidation();
 
-		loadItem = new ItemLoadDictionary(
-			findPreference(ItemLoadDictionary.NAME),
+		loadItem = new ItemLoadDictionary(findPreference(ItemLoadDictionary.NAME),
 			activity,
 			activity.settings,
-			activity.getDictionaryLoader(),
-			activity.getDictionaryProgressBar()
+			() -> ItemClickable.disableOthers(clickables, loadItem),
+			this::onActionFinish
 		);
 
-		ItemTruncateUnselected deleteItem = new ItemTruncateUnselected(
+		exportDictionaryItem = new ItemExportDictionary(findPreference(ItemExportDictionary.NAME),
+			activity,
+			activity.settings,
+			this::onActionStart,
+			this::onActionFinish
+		);
+
+		clickables.add(loadItem);
+		clickables.add(exportDictionaryItem);
+
+		clickables.add(new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
 			activity,
 			activity.settings,
-			activity.getDictionaryLoader()
-		);
+			this::onActionStart,
+			this::onActionFinish
+		));
 
-		ItemTruncateAll truncateItem = new ItemTruncateAll(
+		clickables.add(new ItemTruncateAll(
 			findPreference(ItemTruncateAll.NAME),
 			activity,
-			activity.getDictionaryLoader()
-		);
+			this::onActionStart,
+			this::onActionFinish
+		));
 
-		loadItem.setOtherItems(Arrays.asList(truncateItem, deleteItem)).enableClickHandler();
-		deleteItem.setOtherItems(Arrays.asList(truncateItem, loadItem)).enableClickHandler();
-		truncateItem.setOtherItems(Arrays.asList(deleteItem, loadItem)).enableClickHandler();
+		exportCustomWordsItem = new ItemExportCustomWords(
+			findPreference(ItemExportCustomWords.NAME),
+			activity,
+			this::onActionStart,
+			this::onActionFinish);
+
+		clickables.add(exportCustomWordsItem);
+
+		ItemClickable.enableAllClickHandlers(clickables);
+		refreshItems();
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		refreshItems();
+	}
+
+
+	private void refreshItems() {
 		loadItem.refreshStatus();
+		exportDictionaryItem.refreshStatus();
+		exportCustomWordsItem.refreshStatus();
+
+		if (DictionaryLoader.getInstance(activity).isRunning()) {
+			loadItem.refreshStatus();
+			ItemClickable.disableOthers(clickables, loadItem);
+		} else if (CustomWordsExporter.getInstance().isRunning() || DictionaryExporter.getInstance().isRunning()) {
+			onActionStart();
+		} else {
+			onActionFinish();
+		}
+	}
+
+
+	private void onActionStart() {
+		ItemClickable.disableAll(clickables);
+	}
+
+	private void onActionFinish() {
+		ItemClickable.enableAll(clickables);
 	}
 }

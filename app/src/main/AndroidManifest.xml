@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-	android:versionCode="383"
-	android:versionName="28.0"
+	android:versionCode="395"
+	android:versionName="28.12"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+	<!-- required for words exporting on Android < 10 -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 	<application
 		android:allowBackup="false"

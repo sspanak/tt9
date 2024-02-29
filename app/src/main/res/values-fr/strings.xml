@@ -74,10 +74,18 @@
 	<string name="pref_dark_theme_no">Non</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
+	<string name="dictionary_export">Exporter les sélectionées</string>
+	<string name="dictionary_export_custom_words_button">Exporter</string>
+	<string name="dictionary_export_custom_words_summary">Exporter un CSV avec tous les mots ajoutés vers : «%1$s».</string>
+	<string name="dictionary_export_failed">Échec de l\'exportation</string>
+	<string name="dictionary_export_failed_more_info">Pour plus d\'informations, activez le mode de débogage et consultez les journaux.</string>
 	<string name="dictionary_update_message">Mise à jour du dictionnaire «%1$s» disponible. Souhaitez-vous le charger ?</string>
 	<string name="dictionary_update_update">Charger</string>
 	<string name="donate_title">Donner</string>
 	<string name="donate_summary">Si vous aimez %1$s vous pouvez soutenir son développement à : %2$s</string>
 	<string name="pref_hack_key_pad_debounce_time">Protection contre la répétition accidentelle des touches</string>
 	<string name="pref_hack_key_pad_debounce_off">Désactivée</string>
+	<string name="dictionary_export_finished">Exportation terminée</string>
+	<string name="dictionary_export_finished_more_info">Mots exportés vers : «%1$s».</string>
+	<string name="dictionary_export_running">Exportation CSV en cours…</string>
 </resources>

@@ -10,28 +10,9 @@ _If you don't see the icon right after installing, restart your phone and it sho
 If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
 
 ### Enabling Predictive Mode
-Predictive Mode requires a language dictionary to be loaded in order provide word suggestions. You can toggle the enabled languages and load their dictionaries from: [Settings screen](#settings-screen) → Languages.
+Predictive Mode requires a language dictionary to be loaded in order provide word suggestions. You can toggle the enabled languages and load their dictionaries from: Settings Screen → [Languages](#language-options). In case you have forgotten to load some dictionary, Traditional T9 will do it for you automatically, when you start typing.
 
-In case you have forgotten to load some dictionary, Traditional T9 will do it for you automatically. Just go to some application where you can type and it will start loading. You will be prompted to wait until it completes and after that, you can start typing right away.
-
-_If you [delete one or more dictionaries](#deleting-a-dictionary), they will NOT reload automatically. You will have to do so manually. Only dictionaries for newly enabled languages will load automatically._
-
-### Dictionary Tips
-
-#### Loading a Dictionary
-Once a dictionary is loaded, it will stay there until you use one of the "delete" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
-
-It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
-
-Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
-
-#### Deleting a Dictionary
-
-If you have stopped using languages X or Y, you could disable them and also use "Delete Unselected", to free some storage space.
-
-To delete everything, regardless of the selection, use "Delete All".
-
-In all cases, your custom added words will be preserved and restored once you reload the respective dictionary.
+For more information, [see below](#language-options).
 
 ## Hotkeys
 
@@ -156,6 +137,33 @@ Click on the Traditional T9 launcher icon.
 
 _The actual menu names may vary depending on your phone, Android version and language._
 
+### Language Options
+
+#### Loading a Dictionary
+After enabling one or more new languages, you must load the respective dictionaries for Predictive Mode. Once a dictionary is loaded, it will stay there until you use one of the "delete" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
+
+It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), then re-enable all languages you used before.
+
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+
+#### Automatic Dictionary Loading
+
+If you skip or forget to load a dictionary from the Settings screen, it will happen automatically later, when you go to an application where you can type, and switch to Predictive Mode. You will be prompted to wait until it completes and after that, you can start typing right away.
+
+If you delete one or more dictionaries, they will NOT reload automatically. You will have to do so manually. Only dictionaries for newly enabled languages will load automatically.
+
+#### Deleting a Dictionary
+If you have stopped using languages X or Y, you could disable them and also use "Delete Unselected", to free some storage space.
+
+To delete everything, regardless of the selection, use "Delete All".
+
+In all cases, your custom added words will be preserved and restored once you reload the respective dictionary.
+
+#### Added Words
+The "Export" option allows you to export all added words, for all languages, including any added emoji, to a CSV file. Then, you can use the CSV file to make Traditional T9 better! Go to Github and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/issues). After being reviewed and approved, they will be included in the next version.
+
+Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
+
 ### Compatibility Options & Troubleshooting
 For a number of applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them in: Settings → Initial Setup, under the Compatibility section.
 
@@ -165,7 +173,7 @@ On some devices, in Predictive Mode, you may not be able to see all suggestions,
 #### Key repeat protection
 CAT S22 Flip and Qin F21 phones are known for their low quality keypads, which degrade quickly over time, and start registering multiple clicks for a single key press. You may notice this when typing or navigating the phone menus.
 
-For CAT phones the recommended setting is 75-100 ms. For Qin F21, try with 20-30 ms. If you are still experiencing the issue, increase the value a bit, but generally try to keep it as low as possible.
+For CAT phones the recommended setting is 50-75 ms. For Qin F21, try with 20-30 ms. If you are still experiencing the issue, increase the value a bit, but generally try to keep it as low as possible.
 
 _**Note:** The higher value you set, the slower you will have to type. TT9 will ignore very quick key presses._
 

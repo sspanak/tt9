@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -16,7 +15,6 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
@@ -31,7 +29,6 @@ import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.SetupScreen;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
-import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	public SettingsStore settings;
@@ -175,15 +172,5 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
-	}
-
-
-	public DictionaryLoadingBar getDictionaryProgressBar() {
-		return DictionaryLoadingBar.getInstance(this);
-	}
-
-
-	public DictionaryLoader getDictionaryLoader() {
-		return DictionaryLoader.getInstance(this);
 	}
 }

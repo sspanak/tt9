@@ -64,6 +64,11 @@
 	<string name="dictionary_truncated">Словник видалено.</string>
 	<string name="dictionary_truncating">Видаляється…</string>
 
+	<string name="dictionary_export">Експорт вибрані</string>
+	<string name="dictionary_export_custom_words_button">Експортувати</string>
+	<string name="dictionary_export_custom_words_summary">Експорт CSV з усіма доданими словами в: \"%1$s\".</string>
+	<string name="dictionary_export_failed">Помилка експорту</string>
+	<string name="dictionary_export_failed_more_info">Для отримання додаткової інформації увімкніть режим відлагодження та перегляньте журнали.</string>
 	<string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\". Бажаєте його завантажити?</string>
 	<string name="dictionary_update_update">Завантажити</string>
 
@@ -97,4 +102,7 @@
 
 	<string name="char_newline">Новий рядок</string>
 	<string name="char_space">Пробіл</string>
+	<string name="dictionary_export_finished">Експорт завершено</string>
+	<string name="dictionary_export_finished_more_info">Слова експортовані в: \" %1$s \".</string>
+	<string name="dictionary_export_running">Експорт CSV…</string>
 </resources>

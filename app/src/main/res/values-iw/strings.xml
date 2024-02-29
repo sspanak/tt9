@@ -67,6 +67,11 @@
 	<string name="pref_dark_theme_yes">כן</string>
 	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
+	<string name="dictionary_export">ייצוא שנבחר</string>
+	<string name="dictionary_export_custom_words_button">לְיְצוֹא</string>
+	<string name="dictionary_export_custom_words_summary">ייצוא CSV עם כל המילים שנוספו ל: \"%1$s\".</string>
+	<string name="dictionary_export_failed">נכשל בייצוא</string>
+	<string name="dictionary_export_failed_more_info">"למידע נוסף, הפעל מצב איתור באגים וראה את הלוגים. "</string>
 	<string name="dictionary_update_message">עדכון מילון זמין עבור \"%1$s\". האם תרצה לטעון אותו?</string>
 	<string name="dictionary_update_update">טען</string>
 	<string name="donate_title">לִתְרוֹם</string>
@@ -75,4 +80,7 @@
 	<string name="pref_hack_google_chat">שלח הודעות עם \"OK\" ב-Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">הגנה מפני חזרת מפתח בשוגג</string>
 	<string name="pref_hack_key_pad_debounce_off">כבוי</string>
+	<string name="dictionary_export_finished">הייצוא הושלם</string>
+	<string name="dictionary_export_finished_more_info">המילים יוצאות ל: \"%1$s\".</string>
+	<string name="dictionary_export_running">מייצא CSV…</string>
 </resources>
