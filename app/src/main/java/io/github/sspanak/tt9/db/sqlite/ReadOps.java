@@ -62,13 +62,37 @@ public class ReadOps {
 	}
 
 
+	/**
+	 * Gets all words as a ready-to-export CSV string. If the language is null or customWords is true,
+	 * only custom words are returned.
+	 */
+	@NonNull
+	public String getWords(@NonNull SQLiteDatabase db, Language language, boolean customWords) {
+		StringBuilder words = new StringBuilder();
+
+		String table = customWords || language == null ? Tables.CUSTOM_WORDS : Tables.getWords(language.getId());
+		String[] columns = customWords || language == null ? new String[]{"word", "langId"} : new String[]{"word", "frequency"};
+
+		try (Cursor cursor = db.query(table, columns, null, null, null, null, null)) {
+			while (cursor.moveToNext()) {
+				words
+					.append(cursor.getString(0))
+					.append("\t")
+					.append(cursor.getInt(1))
+					.append("\n");
+			}
+		}
+
+		return words.toString();
+	}
+
+
 	@NonNull
 	public WordList getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
-
 
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
 		if (wordsQuery.isEmpty()) {
@@ -139,7 +163,6 @@ public class ReadOps {
 	}
 
 
-
 	@NonNull private String getCustomWordPositions(@NonNull SQLiteDatabase db, Language language, String sequence, int generations) {
 		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), null)) {
 			return new WordPositionsStringBuilder().appendFromDbRanges(cursor).toString();
@@ -154,7 +177,6 @@ public class ReadOps {
 				") UNION " +
 				getCustomWordPositionsQuery(language, sequence, generations);
 	}
-
 
 
 	@NonNull private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {

@@ -79,6 +79,11 @@
 	<string name="pref_dark_theme_no">Нет</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
+	<string name="dictionary_export">Экспорт выбранные</string>
+	<string name="dictionary_export_custom_words_button">Экспортировать</string>
+	<string name="dictionary_export_custom_words_summary">Экспорт CSV со всеми добавленными словами в: «%1$s».</string>
+	<string name="dictionary_export_failed">Ошибка экспорта</string>
+	<string name="dictionary_export_failed_more_info">Для получения дополнительной информации включите режим отладки и просмотрите журналы.</string>
 	<string name="dictionary_update_message">Доступно обновление словаря для «%1$s». Хотите загрузить его?</string>
 	<string name="dictionary_update_update">Загрузить</string>
 	<string name="donate_title">Поддержать</string>
@@ -86,4 +91,8 @@
 	<string name="pref_hack_google_chat">Отправка сообщения с «ОК» в Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайного повторения нажатий</string>
 	<string name="pref_hack_key_pad_debounce_off">Выключена</string>
+	<string name="dictionary_export_finished">Экспорт завершен</string>
+	<string name="dictionary_export_finished_more_info">Слова экспортированы в: «%1$s».</string>
+	<string name="dictionary_export_generating_csv">Экспорт CSV…</string>
+	<string name="dictionary_export_generating_csv_for_language">Экспорт CSV (%1$s)…</string>
 </resources>

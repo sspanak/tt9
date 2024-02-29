@@ -17,21 +17,27 @@ import io.github.sspanak.tt9.ui.UI;
 
 
 public class ItemLoadDictionary extends ItemClickable {
-	public static final String NAME = "dictionary_load";
+	public final static String NAME = "dictionary_load";
 
 	private final Context context;
 	private final SettingsStore settings;
+	private final Runnable onStart;
+	private final Runnable onFinish;
+
 	private final DictionaryLoader loader;
 	private final DictionaryLoadingBar progressBar;
 
 
-	public ItemLoadDictionary(Preference item, Context context, SettingsStore settings, DictionaryLoader loader, DictionaryLoadingBar progressBar) {
+	public ItemLoadDictionary(Preference item, Context context, SettingsStore settings, Runnable onStart, Runnable onFinish) {
 		super(item);
 
 		this.context = context;
-		this.loader = loader;
-		this.progressBar = progressBar;
+		this.loader = DictionaryLoader.getInstance(context);
+		this.progressBar = DictionaryLoadingBar.getInstance(context);
 		this.settings = settings;
+		this.onStart = onStart;
+		this.onFinish = onFinish;
+
 
 		loader.setOnStatusChange(this::onLoadingStatusChange);
 		refreshStatus();
@@ -56,7 +62,7 @@ public class ItemLoadDictionary extends ItemClickable {
 		} else if (progressBar.isFailed()) {
 			setReadyStatus();
 			UI.toastFromAsync(context, progressBar.getMessage());
-		} else if (progressBar.isCompleted()) {
+		} else if (!progressBar.inProgress()) {
 			setReadyStatus();
 			UI.toastFromAsync(context, R.string.dictionary_loaded);
 		}
@@ -78,13 +84,13 @@ public class ItemLoadDictionary extends ItemClickable {
 
 
 	private void setLoadingStatus() {
-		disableOtherItems();
+		onStart.run();
 		item.setTitle(context.getString(R.string.dictionary_cancel_load));
 	}
 
 
 	private void setReadyStatus() {
-		enableOtherItems();
+		onFinish.run();
 		item.setTitle(context.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}

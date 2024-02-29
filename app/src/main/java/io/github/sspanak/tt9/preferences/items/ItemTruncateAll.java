@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
-import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -17,22 +16,20 @@ public class ItemTruncateAll extends ItemClickable {
 	public static final String NAME = "dictionary_truncate";
 
 	protected final PreferencesActivity activity;
-	protected final DictionaryLoader loader;
+	private final Runnable onStart;
+	private final Runnable onFinish;
 
 
-	public ItemTruncateAll(Preference item, PreferencesActivity activity, DictionaryLoader loader) {
+	public ItemTruncateAll(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item);
 		this.activity = activity;
-		this.loader = loader;
+		this.onStart = onStart;
+		this.onFinish = onFinish;
 	}
 
 
 	@Override
 	protected boolean onClick(Preference p) {
-		if (loader != null && loader.isRunning()) {
-			return false;
-		}
-
 		onStartDeleting();
 		ArrayList<Integer> languageIds = new ArrayList<>();
 		for (Language lang : LanguageCollection.getAll(activity, false)) {
@@ -45,7 +42,7 @@ public class ItemTruncateAll extends ItemClickable {
 
 
 	protected void onStartDeleting() {
-		disableOtherItems();
+		onStart.run();
 		disable();
 		item.setSummary(R.string.dictionary_truncating);
 	}
@@ -53,7 +50,7 @@ public class ItemTruncateAll extends ItemClickable {
 
 	protected void onFinishDeleting() {
 		activity.runOnUiThread(() -> {
-			enableOtherItems();
+			onFinish.run();
 			item.setSummary("");
 			enable();
 			UI.toastFromAsync(activity, R.string.dictionary_truncated);
