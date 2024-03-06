@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.languages;
 
 import android.app.Activity;
 
@@ -11,16 +11,17 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
-public class ItemExportDictionary extends ItemExportAbstract {
+class ItemExportDictionary extends ItemExportAbstract {
 	final public static String NAME = "dictionary_export";
 
 	protected final SettingsStore settings;
 
 
-	public ItemExportDictionary(Preference item, Activity activity, SettingsStore settings, Runnable onStart, Runnable onFinish) {
+	ItemExportDictionary(Preference item, Activity activity, SettingsStore settings, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
 		this.settings = settings;
 	}
+
 
 	@Override
 	public ItemExportAbstract refreshStatus() {
@@ -29,6 +30,7 @@ public class ItemExportDictionary extends ItemExportAbstract {
 		}
 		return super.refreshStatus();
 	}
+
 
 	@Override
 	protected DictionaryExporter getExporter() {

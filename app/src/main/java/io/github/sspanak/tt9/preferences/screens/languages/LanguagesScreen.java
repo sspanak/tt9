@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.languages;
 
 import java.util.ArrayList;
 
@@ -8,15 +8,10 @@ import io.github.sspanak.tt9.db.exporter.CustomWordsExporter;
 import io.github.sspanak.tt9.db.exporter.DictionaryExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
-import io.github.sspanak.tt9.preferences.items.ItemExportCustomWords;
-import io.github.sspanak.tt9.preferences.items.ItemExportDictionary;
-import io.github.sspanak.tt9.preferences.items.ItemLoadDictionary;
-import io.github.sspanak.tt9.preferences.items.ItemSelectLanguage;
-import io.github.sspanak.tt9.preferences.items.ItemTruncateAll;
-import io.github.sspanak.tt9.preferences.items.ItemTruncateUnselected;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
-public class DictionariesScreen extends BaseScreenFragment {
-	public static final String NAME = "Dictionaries";
+public class LanguagesScreen extends BaseScreenFragment {
+	public static final String NAME = "Languages";
 
 	private final ArrayList<ItemClickable> clickables = new ArrayList<>();
 
@@ -24,12 +19,12 @@ public class DictionariesScreen extends BaseScreenFragment {
 	private ItemExportDictionary exportDictionaryItem;
 	private ItemExportCustomWords exportCustomWordsItem;
 
-	public DictionariesScreen() { init(); }
-	public DictionariesScreen(PreferencesActivity activity) { init(activity); }
+	public LanguagesScreen() { init(); }
+	public LanguagesScreen(PreferencesActivity activity) { init(activity); }
 
 	@Override public String getName() { return NAME; }
 	@Override protected int getTitle() { return R.string.pref_choose_languages; }
-	@Override protected int getXml() { return R.xml.prefs_screen_dictionaries; }
+	@Override protected int getXml() { return R.xml.prefs_screen_languages; }
 
 	@Override
 	protected void onCreate() {

@@ -92,8 +92,8 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
 			findPreference("screen_appearance"),
-			findPreference("screen_dictionaries"),
-			findPreference("screen_keypad")
+			findPreference("screen_keypad"),
+			findPreference("screen_languages")
 		));
 
 		for (Preference goToScreen : screens) {

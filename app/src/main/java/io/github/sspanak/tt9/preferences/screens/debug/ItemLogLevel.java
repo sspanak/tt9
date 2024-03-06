@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.debug;
 
 import android.util.Log;
 
@@ -8,11 +8,12 @@ import androidx.preference.Preference;
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 
-public class ItemLogLevel extends ItemDropDown {
+class ItemLogLevel extends ItemDropDown {
 	public static final String NAME = "pref_log_level";
 
-	public ItemLogLevel(DropDownPreference item) {
+	ItemLogLevel(DropDownPreference item) {
 		super(item);
 	}
 

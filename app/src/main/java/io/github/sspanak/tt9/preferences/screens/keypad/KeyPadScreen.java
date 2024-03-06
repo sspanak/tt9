@@ -1,8 +1,8 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.keypad;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemSelectZeroKeyCharacter;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class KeyPadScreen extends BaseScreenFragment {
 	final public static String NAME = "KeyPad";

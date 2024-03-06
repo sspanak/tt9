@@ -1,13 +1,12 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import androidx.preference.DropDownPreference;
 
 import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.items.ItemResetKeys;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.SectionKeymap;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class HotkeysScreen extends BaseScreenFragment {
 	final public static String NAME = "Hotkeys";

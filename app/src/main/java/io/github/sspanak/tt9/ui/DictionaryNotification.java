@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
+import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 
 public abstract class DictionaryNotification {
 	private static DictionaryNotification self;
@@ -57,7 +57,7 @@ public abstract class DictionaryNotification {
 
 	private PendingIntent createNavigationIntent(Context context) {
 		Intent intent = new Intent(context, PreferencesActivity.class);
-		intent.putExtra("screen", DictionariesScreen.NAME);
+		intent.putExtra("screen", LanguagesScreen.NAME);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		return PendingIntent.getActivity(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}
