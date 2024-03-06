@@ -15,6 +15,9 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
     alt="Get it on IzzyOnDroid"
     height="80">](https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/app/io.github.sspanak.tt9)
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 6, 10 and 11)_
