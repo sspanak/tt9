@@ -1,8 +1,8 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemSelectTheme;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class AppearanceScreen extends BaseScreenFragment {
 	final public static String NAME = "Appearance";

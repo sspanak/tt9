@@ -21,7 +21,7 @@
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
 	<string name="dictionary_loading">Chargement du dictionnaire (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Veuillez patienter pendant le chargement du dictionnaire.</string>
-	<string name="dictionary_load_title">Charger le dictionnaire</string>
+	<string name="dictionary_load_title">Charger les sélectionnées</string>
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_abc_mode">Saisie ABC</string>

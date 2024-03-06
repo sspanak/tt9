@@ -21,8 +21,8 @@
 		app:title="@string/pref_category_appearance" />
 
 	<Preference
-		app:fragment="io.github.sspanak.tt9.preferences.DictionariesScreen"
-		app:key="screen_dictionaries"
+		app:fragment="io.github.sspanak.tt9.preferences.LanguagesScreen"
+		app:key="screen_languages"
 		app:layout="@layout/pref_text"
 		app:title="@string/pref_choose_languages" />
 

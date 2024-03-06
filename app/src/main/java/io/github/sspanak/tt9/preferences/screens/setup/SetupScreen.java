@@ -1,13 +1,11 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.setup;
 
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemKeyPadDebounceTime;
-import io.github.sspanak.tt9.preferences.items.ItemSelectGlobalKeyboard;
-import io.github.sspanak.tt9.preferences.items.ItemSetDefaultGlobalKeyboard;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class SetupScreen extends BaseScreenFragment {
 	final public static String NAME = "Setup";

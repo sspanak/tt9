@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.debug;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -15,7 +15,7 @@ import java.io.InputStreamReader;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemLogLevel;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.ui.UI;
 
 public class DebugScreen extends BaseScreenFragment {

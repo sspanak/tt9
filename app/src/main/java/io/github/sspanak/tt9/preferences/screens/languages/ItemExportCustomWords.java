@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.languages;
 
 import android.app.Activity;
 
@@ -7,11 +7,11 @@ import androidx.preference.Preference;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exporter.CustomWordsExporter;
 
-public class ItemExportCustomWords extends ItemExportAbstract {
+class ItemExportCustomWords extends ItemExportAbstract {
 	final public static String NAME = "dictionary_export_custom";
 
 
-	public ItemExportCustomWords(Preference item, Activity activity, Runnable onStart, Runnable onFinish) {
+	ItemExportCustomWords(Preference item, Activity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
 	}
 

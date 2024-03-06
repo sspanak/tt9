@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.setup;
 
 import android.content.Intent;
 import android.provider.Settings;
@@ -6,12 +6,13 @@ import android.provider.Settings;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemClickable;
 
-public class ItemSelectGlobalKeyboard extends ItemClickable {
+class ItemSelectGlobalKeyboard extends ItemClickable {
 	private final Intent clickIntent;
 	private final PreferencesActivity activity;
 
-	public ItemSelectGlobalKeyboard(Preference item, PreferencesActivity prefs) {
+	ItemSelectGlobalKeyboard(Preference item, PreferencesActivity prefs) {
 		super(item);
 		this.activity = prefs;
 

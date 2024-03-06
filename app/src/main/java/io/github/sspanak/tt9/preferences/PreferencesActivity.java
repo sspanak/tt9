@@ -20,15 +20,15 @@ import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
-import io.github.sspanak.tt9.preferences.screens.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
-import io.github.sspanak.tt9.preferences.screens.DebugScreen;
-import io.github.sspanak.tt9.preferences.screens.DictionariesScreen;
-import io.github.sspanak.tt9.preferences.screens.HotkeysScreen;
-import io.github.sspanak.tt9.preferences.screens.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
-import io.github.sspanak.tt9.preferences.screens.SetupScreen;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
+import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
+import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
+import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
+import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
+import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
+import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	public SettingsStore settings;
@@ -110,12 +110,12 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 				return new AppearanceScreen(this);
 			case DebugScreen.NAME:
 				return new DebugScreen(this);
-			case DictionariesScreen.NAME:
-				return new DictionariesScreen(this);
 			case HotkeysScreen.NAME:
 				return new HotkeysScreen(this);
 			case KeyPadScreen.NAME:
 				return new KeyPadScreen(this);
+			case LanguagesScreen.NAME:
+				return new LanguagesScreen(this);
 			case SetupScreen.NAME:
 				return new SetupScreen(this);
 			case UsageStatsScreen.NAME:

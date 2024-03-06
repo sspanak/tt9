@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.languages;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,11 +12,12 @@ import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.UI;
 
 
-public class ItemLoadDictionary extends ItemClickable {
+class ItemLoadDictionary extends ItemClickable {
 	public final static String NAME = "dictionary_load";
 
 	private final Context context;
@@ -28,7 +29,7 @@ public class ItemLoadDictionary extends ItemClickable {
 	private final DictionaryLoadingBar progressBar;
 
 
-	public ItemLoadDictionary(Preference item, Context context, SettingsStore settings, Runnable onStart, Runnable onFinish) {
+	ItemLoadDictionary(Preference item, Context context, SettingsStore settings, Runnable onStart, Runnable onFinish) {
 		super(item);
 
 		this.context = context;
