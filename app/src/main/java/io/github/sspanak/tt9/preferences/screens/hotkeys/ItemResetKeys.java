@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import android.content.Context;
 
@@ -7,10 +7,11 @@ import androidx.preference.Preference;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
+import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.UI;
 
 
-public class ItemResetKeys extends ItemClickable {
+class ItemResetKeys extends ItemClickable {
 	public static final String NAME = "reset_keys";
 
 	private final Context context;
@@ -18,7 +19,7 @@ public class ItemResetKeys extends ItemClickable {
 	private final SettingsStore settings;
 
 
-	public ItemResetKeys(Preference item, Context context, SettingsStore settings, SectionKeymap dropdowns) {
+	ItemResetKeys(Preference item, Context context, SettingsStore settings, SectionKeymap dropdowns) {
 		super(item);
 		this.context = context;
 		this.dropdowns = dropdowns;

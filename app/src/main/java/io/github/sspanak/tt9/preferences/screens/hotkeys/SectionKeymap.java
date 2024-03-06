@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import android.content.Context;
 

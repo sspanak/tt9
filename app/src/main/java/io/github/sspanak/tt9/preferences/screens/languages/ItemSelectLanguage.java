@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.languages;
 
 import android.content.Context;
 
@@ -13,14 +13,14 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
-public class ItemSelectLanguage {
+class ItemSelectLanguage {
 	public static final String NAME = "pref_languages";
 
 	private final Context context;
 	private final SettingsStore settings;
 	private final MultiSelectListPreference item;
 
-	public ItemSelectLanguage(Context context, MultiSelectListPreference multiSelect, SettingsStore settings) {
+	ItemSelectLanguage(Context context, MultiSelectListPreference multiSelect, SettingsStore settings) {
 		this.context = context;
 		this.item = multiSelect;
 		this.settings = settings;
@@ -63,7 +63,7 @@ public class ItemSelectLanguage {
 
 		item.setOnPreferenceChangeListener((preference, newValue) -> {
 			@SuppressWarnings("unchecked") HashSet<String> newLanguages = (HashSet<String>) newValue;
-			if (newLanguages.size() == 0) {
+			if (newLanguages.isEmpty()) {
 				newLanguages.add("1");
 			}
 

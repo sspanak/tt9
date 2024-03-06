@@ -22,7 +22,7 @@
 	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Моля, изчакайте да завърши зареждането на речник.</string>
-	<string name="dictionary_load_title">Зареди речник</string>
+	<string name="dictionary_load_title">Зареди избраните</string>
 	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за „%1$s“.</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>

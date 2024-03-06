@@ -21,7 +21,7 @@
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Пожалуйста, подождите, пока словарь загружается.</string>
-	<string name="dictionary_load_title">Загрузить словарь</string>
+	<string name="dictionary_load_title">Загрузить выбранные</string>
 	<string name="dictionary_not_found">Ошибка загрузки. Словарь «%1$s» не найден.</string>
 	<string name="dictionary_truncated">Словарь успешно удален.</string>
 	<string name="dictionary_loading_indeterminate">Загрузка словаря</string>
@@ -79,7 +79,7 @@
 	<string name="pref_dark_theme_no">Нет</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
-	<string name="dictionary_export">Экспорт выбранные</string>
+	<string name="dictionary_export">Экспортировать выбранные</string>
 	<string name="dictionary_export_custom_words_button">Экспортировать</string>
 	<string name="dictionary_export_custom_words_summary">Экспорт CSV со всеми добавленными словами в: «%1$s».</string>
 	<string name="dictionary_export_failed">Ошибка экспорта</string>

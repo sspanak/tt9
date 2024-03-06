@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.items;
+package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import android.content.Context;
 
@@ -9,13 +9,14 @@ import androidx.preference.Preference;
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 
-public class ItemSelectTheme extends ItemDropDown {
+class ItemSelectTheme extends ItemDropDown {
 	public static final String NAME = "pref_theme";
 
 	private final Context context;
 
-	public ItemSelectTheme(Context context, DropDownPreference item) {
+	ItemSelectTheme(Context context, DropDownPreference item) {
 		super(item);
 		this.context = context;
 	}
