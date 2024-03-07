@@ -64,7 +64,7 @@
 	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_export">Exportar selecionados</string>
-	<string name="dictionary_export_custom_words_button">Exportar</string>
+	<string name="dictionary_export_custom_words">Exportar</string>
 	<string name="dictionary_export_custom_words_summary">Exportar um CSV com todas as palavras adicionadas para: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Falha na exportação</string>
 	<string name="dictionary_export_failed_more_info">Para mais informações, ative o modo de depuração e veja os registros.</string>

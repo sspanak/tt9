@@ -35,7 +35,14 @@
 		<Preference
 			app:key="dictionary_export_custom"
 			app:layout="@layout/pref_text"
-			app:title="@string/dictionary_export_custom_words_button" />
+			app:title="@string/dictionary_export_custom_words" />
+
+		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.DeleteWordsScreen"
+			app:key="screen_delete_words"
+			app:layout="@layout/pref_text"
+			app:title="@string/delete_words_link"
+			app:summary="@string/delete_words_link_summary"/>
 
 	</PreferenceCategory>
 
