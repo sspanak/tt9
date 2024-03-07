@@ -39,8 +39,6 @@ class ItemLoadDictionary extends ItemClickable {
 		this.onStart = onStart;
 		this.onFinish = onFinish;
 
-
-		loader.setOnStatusChange(this::onLoadingStatusChange);
 		refreshStatus();
 	}
 
@@ -85,6 +83,7 @@ class ItemLoadDictionary extends ItemClickable {
 
 
 	private void setLoadingStatus() {
+		loader.setOnStatusChange(this::onLoadingStatusChange);
 		onStart.run();
 		item.setTitle(context.getString(R.string.dictionary_cancel_load));
 	}

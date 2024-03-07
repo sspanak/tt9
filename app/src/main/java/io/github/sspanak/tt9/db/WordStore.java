@@ -62,7 +62,7 @@ public class WordStore {
 			return new ArrayList<>();
 		}
 
-		if (sequence == null || sequence.length() == 0) {
+		if (sequence == null || sequence.isEmpty()) {
 			Logger.w(LOG_TAG, "Attempting to get words for an empty sequence.");
 			return new ArrayList<>();
 		}
@@ -91,6 +91,11 @@ public class WordStore {
 	}
 
 
+	@NonNull public ArrayList<String> getSimilarCustom(Language language, String wordFilter) {
+		return language != null && checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), language, wordFilter) : new ArrayList<>();
+	}
+
+
 	@NonNull public String getLanguageFileHash(Language language) {
 		return language != null && checkOrNotify() ? readOps.getLanguageFileHash(sqlite.getDb(), language.getId()) : "";
 	}
@@ -111,7 +116,7 @@ public class WordStore {
 			sqlite.beginTransaction();
 			for (int langId : languageIds) {
 				if (readOps.exists(sqlite.getDb(), langId)) {
-					DeleteOps.delete(sqlite, langId);
+					DeleteOps.delete(sqlite.getDb(), langId);
 				}
 			}
 			sqlite.finishTransaction();
@@ -122,6 +127,23 @@ public class WordStore {
 			Logger.e(LOG_TAG, "Failed deleting languages. " + e.getMessage());
 		}
 	}
+
+
+	public void removeCustomWord(Language language, String word) {
+		if (language == null || !checkOrNotify()) {
+			return;
+		}
+
+		try {
+			sqlite.beginTransaction();
+			DeleteOps.deleteCustomWord(sqlite.getDb(), language.getId(), word);
+			sqlite.finishTransaction();
+		} catch (Exception e) {
+			sqlite.failTransaction();
+			Logger.e(LOG_TAG, "Failed deleting custom word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage());
+		}
+	}
+
 
 
 	public int put(Language language, String word) {

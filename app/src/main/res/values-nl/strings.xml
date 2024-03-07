@@ -32,7 +32,7 @@
 	<string name="pref_dark_theme_no">Nee</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Geselecteerde exporteren</string>
-	<string name="dictionary_export_custom_words_button">Exporteren</string>
+	<string name="dictionary_export_custom_words">Exporteren</string>
 	<string name="dictionary_export_custom_words_summary">Exporteer een CSV met alle toegevoegde woorden naar: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Exporteren mislukt</string>
 	<string name="dictionary_export_failed_more_info">Voor meer informatie, schakel de debug-modus in en bekijk de logs.</string>

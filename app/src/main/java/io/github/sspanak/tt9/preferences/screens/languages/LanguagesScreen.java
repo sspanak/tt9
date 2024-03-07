@@ -67,6 +67,8 @@ public class LanguagesScreen extends BaseScreenFragment {
 			this::onActionFinish
 		));
 
+		clickables.add(new ItemDeleteCustomWords(findPreference(ItemDeleteCustomWords.NAME)));
+
 		exportCustomWordsItem = new ItemExportCustomWords(
 			findPreference(ItemExportCustomWords.NAME),
 			activity,

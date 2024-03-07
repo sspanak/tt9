@@ -35,7 +35,7 @@
 	<string name="key_back">Назад</string>
 	<string name="key_call">Зелена слушалка</string>
 	<string name="dictionary_export">Експортирай избраните</string>
-	<string name="dictionary_export_custom_words_button">Експортирай</string>
+	<string name="dictionary_export_custom_words">Експортирай</string>
 	<string name="dictionary_export_custom_words_summary">Експортиране на CSV с всички добавени думи в: „%1$s“.</string>
 	<string name="dictionary_export_failed">Неуспешно експортиране</string>
 	<string name="dictionary_export_failed_more_info">За повече информация, активирайте режима за отстраняване на грешки и прегледайте журнала.</string>

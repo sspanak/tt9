@@ -68,7 +68,7 @@
 	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
 	<string name="dictionary_export">ייצוא שנבחר</string>
-	<string name="dictionary_export_custom_words_button">לְיְצוֹא</string>
+	<string name="dictionary_export_custom_words">לְיְצוֹא</string>
 	<string name="dictionary_export_custom_words_summary">ייצוא CSV עם כל המילים שנוספו ל: \"%1$s\".</string>
 	<string name="dictionary_export_failed">נכשל בייצוא</string>
 	<string name="dictionary_export_failed_more_info">"למידע נוסף, הפעל מצב איתור באגים וראה את הלוגים. "</string>
