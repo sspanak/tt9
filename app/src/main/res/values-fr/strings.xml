@@ -75,7 +75,7 @@
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 	<string name="dictionary_export">Exporter les sélectionées</string>
-	<string name="dictionary_export_custom_words_button">Exporter</string>
+	<string name="dictionary_export_custom_words">Exporter</string>
 	<string name="dictionary_export_custom_words_summary">Exporter un CSV avec tous les mots ajoutés vers : «%1$s».</string>
 	<string name="dictionary_export_failed">Échec de l\'exportation</string>
 	<string name="dictionary_export_failed_more_info">Pour plus d\'informations, activez le mode de débogage et consultez les journaux.</string>

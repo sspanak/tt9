@@ -65,7 +65,7 @@
 	<string name="dictionary_truncating">Видаляється…</string>
 
 	<string name="dictionary_export">Експортувати вибрані</string>
-	<string name="dictionary_export_custom_words_button">Експортувати</string>
+	<string name="dictionary_export_custom_words">Експортувати</string>
 	<string name="dictionary_export_custom_words_summary">Експорт CSV з усіма доданими словами в: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Помилка експорту</string>
 	<string name="dictionary_export_failed_more_info">Для отримання додаткової інформації увімкніть режим відлагодження та перегляньте журнали.</string>

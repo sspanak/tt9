@@ -25,6 +25,7 @@ import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
+import io.github.sspanak.tt9.preferences.screens.deleteWords.DeleteWordsScreen;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
@@ -110,6 +111,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 				return new AppearanceScreen(this);
 			case DebugScreen.NAME:
 				return new DebugScreen(this);
+			case DeleteWordsScreen.NAME:
+				return new DeleteWordsScreen(this);
 			case HotkeysScreen.NAME:
 				return new HotkeysScreen(this);
 			case KeyPadScreen.NAME:

@@ -170,8 +170,8 @@ public class DictionaryLoader {
 			logLoadingStep("Indexes dropped", language, start);
 
 			start = System.currentTimeMillis();
-			DeleteOps.delete(sqlite, language.getId());
-			DeleteOps.delete(sqlite, new EmojiLanguage().getId());
+			DeleteOps.delete(sqlite.getDb(), language.getId());
+			DeleteOps.delete(sqlite.getDb(), new EmojiLanguage().getId());
 			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Storage cleared", language, start);
 
