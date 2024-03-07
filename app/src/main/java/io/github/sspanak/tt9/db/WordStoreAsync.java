@@ -35,12 +35,16 @@ public class WordStoreAsync {
 	}
 
 
-	public static void areThereWords(ConsumerCompat<Boolean> notification, Language language) {
-		new Thread(() -> notification.accept(getStore().exists(language))).start();
-	}
-
 	public static void getLastLanguageUpdateTime(ConsumerCompat<String> notification, Language language) {
 		new Thread(() -> notification.accept(getStore().getLanguageFileHash(language))).start();
+	}
+
+
+	public static void deleteCustomWord(Runnable notification, Language language, String word) {
+		new Thread(() -> {
+			getStore().removeCustomWord(language, word);
+			notification.run();
+		}).start();
 	}
 
 
@@ -65,6 +69,13 @@ public class WordStoreAsync {
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
 			getStore().getSimilar(language, sequence, filter, minWords, maxWords)))
+		).start();
+	}
+
+
+	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String wordFilter) {
+		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
+			getStore().getSimilarCustom(language, wordFilter)))
 		).start();
 	}
 }

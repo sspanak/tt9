@@ -32,7 +32,7 @@
 	<string name="pref_dark_theme_no">Nein</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Ausgewählte exportieren</string>
-	<string name="dictionary_export_custom_words_button">Exportieren</string>
+	<string name="dictionary_export_custom_words">Exportieren</string>
 	<string name="dictionary_export_custom_words_summary">Exportiere ein CSV mit allen hinzugefügten Wörtern nach: „%1$s“.</string>
 	<string name="dictionary_export_failed">Export fehlgeschlagen</string>
 	<string name="dictionary_export_failed_more_info">Für weitere Informationen, aktivieren Sie den Debug-Modus und sehen Sie sich die Protokolle an.</string>

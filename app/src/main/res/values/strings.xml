@@ -23,6 +23,7 @@
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_custom_words">Added Words</string>
+	<string name="pref_category_delete_words">Delete Added Words</string>
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_appearance">Appearance</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
@@ -73,13 +74,23 @@
 	<string name="dictionary_truncating">Deleting…</string>
 
 	<string name="dictionary_export">Export Selected</string>
-	<string name="dictionary_export_custom_words_button">Export</string>
+	<string name="dictionary_export_custom_words">Export</string>
 	<string name="dictionary_export_custom_words_summary">Export a CSV with all added words in: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Exporting Failed</string>
 	<string name="dictionary_export_failed_more_info">For more info, enable debugging mode and see the logs.</string>
 	<string name="dictionary_export_finished">Exporting Finished</string>
 	<string name="dictionary_export_finished_more_info">Words exported to: \"%1$s\".</string>
 	<string name="dictionary_export_running">Exporting CSV…</string>
+
+	<string name="delete_words_link">Delete</string>
+	<string name="delete_words_link_summary">Search and delete misspelled or unneeded words.</string>
+	<string name="delete_words_search_placeholder">Search Words</string>
+	<string name="delete_words_list">Search Results</string>
+	<string name="delete_words_no_result">No results</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
+	<string name="delete_words_deleted_confirm_deletion_yes">Delete</string>
+	<string name="delete_words_deleted_x">\"%1$s\" was deleted.</string>
 
 	<string name="dictionary_update_message">Dictionary update available for \"%1$s\". Would you like to load it?</string>
 	<string name="dictionary_update_update">Load</string>

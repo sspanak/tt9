@@ -7,10 +7,13 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 
 public class ReadOps {
@@ -59,6 +62,27 @@ public class ReadOps {
 		} catch (SQLiteDoneException e) {
 			return "";
 		}
+	}
+
+
+	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String wordFilter) {
+		ArrayList<String> words = new ArrayList<>();
+
+		String[] select = new String[]{"word"};
+		String where = "word LIKE ? AND (langId = ? OR langId = ?)";
+		String[] whereArgs = new String[] {
+			wordFilter + "%",
+			String.valueOf(language.getId()),
+			String.valueOf(new EmojiLanguage().getId())
+		};
+
+		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, "word")) {
+			while (cursor.moveToNext()) {
+				words.add(cursor.getString(0));
+			}
+		}
+
+		return words;
 	}
 
 

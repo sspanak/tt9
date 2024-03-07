@@ -80,7 +80,7 @@
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
 	<string name="dictionary_export">Экспортировать выбранные</string>
-	<string name="dictionary_export_custom_words_button">Экспортировать</string>
+	<string name="dictionary_export_custom_words">Экспортировать</string>
 	<string name="dictionary_export_custom_words_summary">Экспорт CSV со всеми добавленными словами в: «%1$s».</string>
 	<string name="dictionary_export_failed">Ошибка экспорта</string>
 	<string name="dictionary_export_failed_more_info">Для получения дополнительной информации включите режим отладки и просмотрите журналы.</string>
