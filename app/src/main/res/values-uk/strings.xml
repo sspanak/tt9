@@ -18,6 +18,8 @@
 
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_custom_words">Додані слова</string>
+	<string name="pref_category_delete_words">Видалити додані слова</string>
 	<string name="pref_category_hacks">Сумістність</string>
 	<string name="pref_category_appearance">Зовнішній вигляд</string>
 	<string name="pref_category_predictive_mode">Предиктивний режим</string>
@@ -69,6 +71,14 @@
 	<string name="dictionary_export_custom_words_summary">Експорт CSV з усіма доданими словами в: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Помилка експорту</string>
 	<string name="dictionary_export_failed_more_info">Для отримання додаткової інформації увімкніть режим відлагодження та перегляньте журнали.</string>
+	<string name="delete_words_delete">Видалити</string>
+	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
+	<string name="delete_words_search_placeholder">Пошук слів</string>
+	<string name="delete_words_list">Знайдені слова</string>
+	<string name="delete_words_no_result">Немає результатів.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Підтвердіть видалення</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Ви впевнені, що хочете видалити \"%1$s\"?</string>
+	<string name="delete_words_deleted_x">\"%1$s\" було видалено.</string>
 	<string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\". Бажаєте його завантажити?</string>
 	<string name="dictionary_update_update">Завантажити</string>
 
@@ -90,8 +100,8 @@
 
 	<string name="setup_keyboard_status">Статус</string>
 	<string name="setup_default_keyboard">Вибрати стандартну клавіатуру</string>
-	<string name="setup_tt9_on">Traditional T9 увімкнено</string>
-	<string name="setup_tt9_off">Traditional T9 вимкнуто</string>
+	<string name="setup_tt9_on">%1$s увімкнено</string>
+	<string name="setup_tt9_off">%1$s вимкнуто</string>
 	<string name="setup_click_here_to_enable">Нажміть тут, щоб увімкнути TT9 в налаштуваннях Android.</string>
 
 	<string name="key_hold_key">(тримати)</string>

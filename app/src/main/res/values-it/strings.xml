@@ -5,7 +5,10 @@
 	<string name="no_language">Nessuna lingua</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
+	<string name="failed_loading_language_definitions">Impossibile caricare alcuna definizione di lingua.</string>
 	<string name="add_word_add">Aggiungere</string>
+	<string name="add_word_confirm">Aggiungi la parola \"%1$s\" a %2$s?</string>
+	<string name="add_word_no_selection">Sposta il cursore dentro un parola per aggiungerla.</string>
 	<string name="add_word_blank">Nessuna parola da aggiungere.</string>
 	<string name="add_word_exist">Parola “%1$s” già nel dizionario.</string>
 	<string name="add_word_success">\"%1$s\" aggiunta.</string>
@@ -22,7 +25,10 @@
 	<string name="dictionary_loading_please_wait">Attendi che il dizionario si carichi, per favore.</string>
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
+	<string name="pref_category_custom_words">Parole aggiunte</string>
+	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
 	<string name="pref_category_hacks">Compatibilità</string>
+	<string name="pref_category_appearance">Aspetto</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
@@ -31,7 +37,9 @@
 	<string name="function_backspace_key">Backspace</string>
 	<string name="function_change_keyboard_key">Cambia la tastiera</string>
 	<string name="setup_keyboard_status">Stato</string>
-	<string name="setup_default_keyboard">Scegli Tastiera predefinita</string>
+	<string name="setup_default_keyboard">Seleziona la tastiera predefinita</string>
+	<string name="setup_tt9_on">%1$s è abilitato</string>
+	<string name="setup_tt9_off">%1$s è disabilitato</string>
 	<string name="char_newline">Nuova riga</string>
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
@@ -40,11 +48,23 @@
 	<string name="pref_dark_theme_yes">Si</string>
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
+	<string name="dictionary_truncate_title">Elimina tutti</string>
+	<string name="dictionary_truncate_unselected">Elimina tutti non selezionati</string>
+	<string name="dictionary_truncated">Dizionario eliminato con successo.</string>
+	<string name="dictionary_truncating">Eliminazione…</string>
 	<string name="dictionary_export">Esporta selezionate</string>
 	<string name="dictionary_export_custom_words">Esportare</string>
 	<string name="dictionary_export_custom_words_summary">Esporta un CSV con tutte le parole aggiunte su: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Esportazione fallita</string>
 	<string name="dictionary_export_failed_more_info">Per ulteriori informazioni, abilita la modalità di debug e consulta i log.</string>
+	<string name="delete_words_delete">Elimina</string>
+	<string name="delete_words_link_summary">Trova ed elimina parole errate o non necessarie.</string>
+	<string name="delete_words_search_placeholder">Cerca parole</string>
+	<string name="delete_words_list">Parole trovate</string>
+	<string name="delete_words_no_result">Nessun risultato.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Conferma l\'eliminazione</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Sei sicuro di voler eliminare \"%1$s\"?</string>
+	<string name="delete_words_deleted_x">\"%1$s\" è stata eliminata.</string>
 	<string name="dictionary_update_message">Aggiornamento del dizionario disponibile per \"%1$s\". Vuoi caricarlo?</string>
 	<string name="dictionary_update_update">Carica</string>
 	<string name="donate_title">Donare</string>

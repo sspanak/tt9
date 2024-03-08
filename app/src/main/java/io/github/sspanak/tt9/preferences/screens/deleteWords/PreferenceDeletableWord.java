@@ -42,7 +42,7 @@ public class PreferenceDeletableWord extends Preference {
 			context,
 			context.getString(R.string.delete_words_deleted_confirm_deletion_title),
 			context.getString(R.string.delete_words_deleted_confirm_deletion_question, word),
-			context.getString(R.string.delete_words_deleted_confirm_deletion_yes),
+			context.getString(R.string.delete_words_delete),
 			this::onDeletionConfirmed,
 			null
 		);

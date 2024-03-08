@@ -3,6 +3,8 @@
 	<string name="app_settings">Configuración de Traditional T9</string>
 	<string name="failed_loading_language_definitions">Falló al cargar todas las definiciones de idiomas.</string>
 	<string name="add_word_add">Agregar palabra</string>
+	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
+	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="completed">Terminado</string>
@@ -12,6 +14,8 @@
 	<string name="add_word_success">\"%1$s\" añadida.</string>
 	<string name="add_word_title">Agregar palabra</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_custom_words">Palabras añadidas</string>
+	<string name="pref_category_delete_words">Eliminar palabras añadidas</string>
 	<string name="pref_category_hacks">Compatibilidad</string>
 	<string name="pref_category_appearance">Apariencia</string>
 	<string name="pref_category_function_keys">Teclas de acceso rápido</string>
@@ -63,8 +67,8 @@
 	<string name="function_show_settings_key">Mostrar configuración</string>
 	<string name="function_reset_keys_title">Restaurar valores de teclas por defecto</string>
 	<string name="function_reset_keys_done">Valores de teclas por defecto restaurados</string>
-	<string name="setup_tt9_on">Traditional T9 está habilitado</string>
-	<string name="setup_tt9_off">Traditional T9 está deshabilitado</string>
+	<string name="setup_tt9_on">%1$s está habilitado</string>
+	<string name="setup_tt9_off">%1$s está deshabilitado</string>
 	<string name="setup_click_here_to_enable">Pulse aquí para habilitar TT9 en la configuración de Android</string>
 	<string name="key_hold_key">Espera</string>
 	<string name="key_back">Volver</string>
@@ -79,6 +83,14 @@
 	<string name="dictionary_export_custom_words_summary">Exportar un CSV con todas las palabras añadidas a: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Fallo en la exportación</string>
 	<string name="dictionary_export_failed_more_info">Para obtener más información, habilita el modo de depuración y consulta los registros.</string>
+	<string name="delete_words_delete">Eliminar</string>
+	<string name="delete_words_link_summary">Buscar y eliminar palabras mal escritas o innecesarias.</string>
+	<string name="delete_words_search_placeholder">Buscar palabras</string>
+	<string name="delete_words_list">Palabras encontradas</string>
+	<string name="delete_words_no_result">Sin resultados.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Confirma la eliminación</string>
+	<string name="delete_words_deleted_confirm_deletion_question">¿Estás seguro de que quieres eliminar \"%1$s\"?</string>
+	<string name="delete_words_deleted_x">\"%1$s\" fue eliminada.</string>
 	<string name="dictionary_update_message">Actualización del diccionario disponible para «%1$s». ¿Te gustaría cargarlo?</string>
 	<string name="dictionary_update_update">Cargar</string>
 	<string name="donate_title">Donar</string>
