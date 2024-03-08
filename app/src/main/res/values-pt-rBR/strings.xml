@@ -5,19 +5,25 @@
 	<string name="no_language">Sem idioma</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
+	<string name="failed_loading_language_definitions">Impossível carregar qualquer definição de idioma.</string>
 	<string name="add_word_add">Adicionar</string>
+	<string name="add_word_confirm">Adicionar a palavra \"%1$s\" a %2$s?</string>
+	<string name="add_word_no_selection">Mova o cursor dentro de uma palavra para adicioná-la.</string>
 	<string name="add_word_blank">Palavra em branco, impossível adicionar.</string>
 	<string name="add_word_exist">Palavra \"%1$s\" já está registrada.</string>
 	<string name="add_word_success">\"%1$s\" adicionada.</string>
 	<string name="add_word_title">Adicionar Palavra</string>
 
 	<string name="pref_category_about">Sobre</string>
+	<string name="pref_category_custom_words">Palavras adicionadas</string>
+	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
 	<string name="pref_category_hacks">Compatibilidade</string>
 	<string name="pref_category_appearance">Aparência</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
 	<string name="pref_category_function_keys">Atalhos</string>
 	<string name="pref_category_keypad">Teclado</string>
 
+	<string name="pref_category_setup">Configuração inicial</string>
 	<string name="pref_auto_space">Espaçamento Automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>
@@ -50,6 +56,10 @@
 	<string name="function_reset_keys_title">Restaurar Atalhos Padrão</string>
 	<string name="function_reset_keys_done">Atalhos Restaurados.</string>
 
+	<string name="setup_keyboard_status">Status</string>
+	<string name="setup_default_keyboard">" Selecionar teclado padrão"</string>
+	<string name="setup_tt9_on">%1$s está ativado</string>
+	<string name="setup_tt9_off">%1$s está desativado</string>
 	<string name="key_hold_key">(segurar)</string>
 	<string name="key_back">Voltar</string>
 	<string name="key_call">Chamada</string>
@@ -63,11 +73,20 @@
 	<string name="pref_dark_theme_yes">Sim</string>
 	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>
+	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>
 	<string name="dictionary_export_custom_words">Exportar</string>
 	<string name="dictionary_export_custom_words_summary">Exportar um CSV com todas as palavras adicionadas para: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Falha na exportação</string>
 	<string name="dictionary_export_failed_more_info">Para mais informações, ative o modo de depuração e veja os registros.</string>
+	<string name="delete_words_delete">Excluir</string>
+	<string name="delete_words_link_summary">Encontrar e excluir palavras escritas incorretamente ou desnecessárias.</string>
+	<string name="delete_words_search_placeholder">Buscar palavras</string>
+	<string name="delete_words_list">Palavras encontradas</string>
+	<string name="delete_words_no_result">Sem resultados.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Confirme a exclusão</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Tem certeza de que deseja excluir \"%1$s\"?</string>
+	<string name="delete_words_deleted_x">\"%1$s\" foi excluída.</string>
 	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\". Você gostaria de carregá-lo?</string>
 	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>

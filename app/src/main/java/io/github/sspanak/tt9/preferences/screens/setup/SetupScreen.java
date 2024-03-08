@@ -32,8 +32,9 @@ public class SetupScreen extends BaseScreenFragment {
 	private void createKeyboardSection(boolean isTT9On) {
 		Preference statusItem = findPreference("global_tt9_status");
 		if (statusItem != null) {
+			String appName = getString(R.string.app_name);
 			statusItem.setSummary(
-				isTT9On ? R.string.setup_tt9_on : R.string.setup_tt9_off
+				getString(isTT9On ? R.string.setup_tt9_on : R.string.setup_tt9_off, appName)
 			);
 
 			new ItemSelectGlobalKeyboard(statusItem, activity).enableClickHandler();

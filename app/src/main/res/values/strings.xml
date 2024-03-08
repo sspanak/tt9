@@ -58,7 +58,7 @@
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">Use this if you have 7–8–9 on the first row, instead of 1–2–3.</string>
 
-	<string name="dictionary_cancel_load">Cancel loading</string>
+	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
 	<string name="dictionary_load_error">Failed loading the dictionary for language \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_cancelled">Dictionary load cancelled.</string>
@@ -70,7 +70,7 @@
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
 	<string name="dictionary_truncate_title">Delete All</string>
 	<string name="dictionary_truncate_unselected">Delete Unselected</string>
-	<string name="dictionary_truncated">Dictionary successfully cleared.</string>
+	<string name="dictionary_truncated">Dictionary deleted successfully.</string>
 	<string name="dictionary_truncating">Deleting…</string>
 
 	<string name="dictionary_export">Export Selected</string>
@@ -83,14 +83,13 @@
 	<string name="dictionary_export_generating_csv">Exporting CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exporting CSV (%1$s)…</string>
 
-	<string name="delete_words_link">Delete</string>
-	<string name="delete_words_link_summary">Search and delete misspelled or unneeded words.</string>
+	<string name="delete_words_delete">Delete</string>
+	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
 	<string name="delete_words_search_placeholder">Search Words</string>
 	<string name="delete_words_list">Search Results</string>
-	<string name="delete_words_no_result">No results</string>
+	<string name="delete_words_no_result">No results.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
-	<string name="delete_words_deleted_confirm_deletion_yes">Delete</string>
 	<string name="delete_words_deleted_x">\"%1$s\" was deleted.</string>
 
 	<string name="dictionary_update_message">Dictionary update available for \"%1$s\". Would you like to load it?</string>
@@ -116,8 +115,8 @@
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>
-	<string name="setup_tt9_on">Traditional T9 is enabled</string>
-	<string name="setup_tt9_off">Traditional T9 is disabled</string>
+	<string name="setup_tt9_on">%1$s is enabled</string>
+	<string name="setup_tt9_off">%1$s is disabled</string>
 	<string name="setup_click_here_to_enable">Click here to enable TT9 from Android Settings.</string>
 
 	<string name="key_hold_key">(hold)</string>
