@@ -266,6 +266,29 @@ public class Language implements Comparable<Language> {
 	}
 
 
+	/**
+	 * Checks whether the given word contains characters outside of the language alphabet.
+	 */
+	public boolean isValidWord(String word) {
+		if (word == null || word.isEmpty() || (word.length() == 1 && Character.isDigit(word.charAt(0)))) {
+			return true;
+		}
+
+		String lowerCaseWord = word.toLowerCase(locale);
+		if (characterKeyMap.isEmpty()) {
+			generateCharacterKeyMap();
+		}
+
+		for (int i = 0; i < lowerCaseWord.length(); i++) {
+			if (!characterKeyMap.containsKey(lowerCaseWord.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
 	@NonNull
 	@Override
 	public String toString() {

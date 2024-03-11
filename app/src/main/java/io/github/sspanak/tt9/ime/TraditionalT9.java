@@ -30,6 +30,7 @@ import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.PopupDialogActivity;
@@ -486,15 +487,17 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		commitCurrentSuggestion(false);
-		resetKeyRepeat();
 		nextLang();
 		mInputMode.changeLanguage(mLanguage);
-		mInputMode.reset();
+		mInputMode.clearWordStem();
+		getSuggestions();
 
 		statusBar.setText(mInputMode.toString());
 		mainView.render();
 		forceShowWindowIfHidden();
+		if (!suggestionBar.isEmpty()) {
+			UI.toastLanguage(this, mLanguage);
+		}
 
 		if (mInputMode instanceof ModePredictive) {
 			DictionaryLoader.autoLoad(this, mLanguage);
@@ -657,6 +660,15 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// display the word suggestions
 		setSuggestions(mInputMode.getSuggestions());
+
+		// In case we are here, because the language was changed, and there were words for the old language,
+		// but there are no words for the new language, we'll get only generated suggestions, consisting
+		// of the last word of the previous language + endings from the new language. These words are invalid,
+		// so we discard them.
+		if (mInputMode instanceof ModePredictive && !mLanguage.isValidWord(suggestionBar.getCurrentSuggestion()) && !Text.isGraphic(suggestionBar.getCurrentSuggestion())) {
+			mInputMode.reset();
+			setSuggestions(null);
+		}
 
 		// flush the first suggestion, if the InputMode has requested it
 		if (scheduleAutoAccept(mInputMode.getAutoAcceptTimeout())) {
