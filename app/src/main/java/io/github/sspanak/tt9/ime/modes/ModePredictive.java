@@ -60,18 +60,13 @@ public class ModePredictive extends InputMode {
 	public boolean onBackspace() {
 		isCursorDirectionForward = false;
 
-		if (digitSequence.length() < 1) {
+		if (digitSequence.isEmpty()) {
 			clearWordStem();
 			return false;
 		}
 
-		if (digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE) && specialCharSelectedGroup > 0) {
-			specialCharSelectedGroup -= 2;
-			return true;
-		}
-
 		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
-		if (digitSequence.length() == 0) {
+		if (digitSequence.isEmpty()) {
 			clearWordStem();
 		} else if (stem.length() > digitSequence.length()) {
 			stem = stem.substring(0, digitSequence.length());
@@ -93,16 +88,12 @@ public class ModePredictive extends InputMode {
 			suggestions.add(language.getKeyNumber(number));
 		} else {
 			super.reset();
-			digitSequence += number;
+			digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
 			disablePredictions = false;
 
 			if (digitSequence.equals(Language.PREFERRED_CHAR_SEQUENCE)) {
 				autoAcceptTimeout = 0;
 			}
-
-			// custom emoji are longest 1-key sequence, so do not allow typing any longer than that,
-			// to prevent side effects
-			digitSequence = digitSequence.startsWith(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? EmojiLanguage.CUSTOM_EMOJI_SEQUENCE : digitSequence;
 		}
 
 		return true;
@@ -237,7 +228,7 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
-		Language searchLanguage = digitSequence.startsWith(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
+		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
 
 		onSuggestionsUpdated = onLoad;
 		predictions
@@ -261,8 +252,9 @@ public class ModePredictive extends InputMode {
 			super.nextSpecialCharacters();
 			onLoad.run();
 			return true;
-		} else if (digitSequence.equals(EmojiLanguage.EMOJI_SEQUENCE)) {
-			nextSpecialCharacters(new EmojiLanguage());
+		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
+			suggestions.clear();
+			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', digitSequence.length() - 2));
 			onLoad.run();
 			return true;
 		} else if (digitSequence.startsWith(Language.PREFERRED_CHAR_SEQUENCE)) {
@@ -282,7 +274,7 @@ public class ModePredictive extends InputMode {
 	 */
 	private void getPredictions() {
 		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE)) {
+		if (predictions.getList().isEmpty() && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
 			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
 			return;
 		}
@@ -348,9 +340,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		return
-			(digitSequence.equals(EmojiLanguage.EMOJI_SEQUENCE) && super.nextSpecialCharacters(new EmojiLanguage()))
-			|| (digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters());
+		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override
@@ -405,6 +395,7 @@ public class ModePredictive extends InputMode {
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
 			&& digitSequence.contains(Language.PUNCTUATION_KEY)
+			&& !digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}
 
