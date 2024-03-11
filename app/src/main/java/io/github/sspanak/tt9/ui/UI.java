@@ -7,10 +7,15 @@ import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
+	private static Toast toastLang = null;
+
 	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
 		Intent intent = new Intent(tt9, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -92,5 +97,16 @@ public class UI {
 
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+	}
+
+	public static void toastLanguage(@NonNull Context context, @NonNull Language language) {
+		if (toastLang != null) {
+			toastLang.cancel();
+		}
+
+		// we recreate the toast, because if set new text, when it is fading out,
+		// the new text is discarded
+		toastLang = Toast.makeText(context, language.getName(), Toast.LENGTH_SHORT);
+		toastLang.show();
 	}
 }
