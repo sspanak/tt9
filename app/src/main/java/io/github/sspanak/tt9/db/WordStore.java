@@ -137,6 +137,7 @@ public class WordStore {
 		try {
 			sqlite.beginTransaction();
 			DeleteOps.deleteCustomWord(sqlite.getDb(), language.getId(), word);
+			DeleteOps.deleteCustomWord(sqlite.getDb(), new EmojiLanguage().getId(), word);
 			sqlite.finishTransaction();
 		} catch (Exception e) {
 			sqlite.failTransaction();
