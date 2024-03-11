@@ -85,6 +85,10 @@ public class Characters {
 			}
 		}
 
-		return availableEmoji.size() > 0 ? availableEmoji : new ArrayList<>(TextEmoticons);
+		return availableEmoji.isEmpty() ? new ArrayList<>(TextEmoticons) : availableEmoji;
+	}
+
+	public static int getMaxEmojiLevel() {
+		return Emoji.size();
 	}
 }

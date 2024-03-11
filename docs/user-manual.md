@@ -16,6 +16,8 @@ For more information, [see below](#language-options).
 
 ## Hotkeys
 
+All hotkeys can be reconfigured or disabled from Settings → Keypad → Select Hotkeys.
+
 #### Previous Suggestion key (Default: D-pad Left):
 Select the previous word/letter suggestion.
 
@@ -49,16 +51,16 @@ _**Note2:** In messaging applications, you need to enable their "Send with ENTER
 - **In 123 mode:**
   - **Press:** type "0".
   - **Hold:** type special/math characters.
-  - **Hold "0", then Press "Next Mode" (Default: Hold "0", Press "#"):** type currency characters
+  - **Hold "0", then press "Next Mode" (Default: hold "0", press "#"):** type currency characters
 - **In ABC mode:**
   - **Press:** type space, newline or special/math characters.
   - **Hold:** type "0".
-  - **Press "0", then Press "Next Mode" (Default: Press "0", "#"):** type currency characters
+  - **Press "0", then press "Next Mode" (Default: press "0", "#"):** type currency characters
 - **In Predictive mode:**
   - **Press:** type space, newline or special/math characters.
-  - **Double Press:** type the character assigned in Predictive mode settings. (Default: ".")
+  - **Double press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
-  - **Press "0", then press "Next Mode" (Default: Press "0", "#"):** type currency characters
+  - **Press "0", then press "Next Mode" (Default: press "0", "#"):** type currency characters
 
 #### 1-key:
 - **In 123 mode:**
@@ -69,20 +71,19 @@ _**Note2:** In messaging applications, you need to enable their "Send with ENTER
   - **Hold:** type "1".
 - **In Predictive mode:**
   - **Press:** type sentence characters
-  - **Double Press:** type emoji
-  - **Triple Press:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key-default-press-))
+  - **Press multiple times:** type emoji
+  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key-default-press-))
   - **Hold:** type "1".
-  - **Double Press "1", then press "Next Mode" (Default: Press "1", "1", then keep pressing "#"):** select between the predefined emoji groups
 
 
 #### 2- to 9-key:
 - **In 123 mode:** type the respective number
-- **In ABC and Predictive mode:** type a letter character or hold to type the respective number.
+- **In ABC and Predictive mode:** type a letter or hold to type the respective number.
 
-#### Add Word Key (Default: Press ✱):
+#### Add Word Key (Default: press ✱):
 Add a new word to the dictionary for the current language.
 
-You can also add new emoji. Then access them by pressing 1-1-# (change "#" with the "Next Mode" key, if you have changed the default). Regardless of the selected language at the time of adding, all emoji will be available in all languages.
+You can also add new emoji and then access them by pressing 1-1-3. Regardless of the currently selected language, all emoji will be available in all languages.
 
 #### Backspace Key:
 Just deletes text.
@@ -97,15 +98,15 @@ _**NB 2:** Holding "Back" key will always trigger the default system action (i.e
 
 _In these cases, you could assign another key (all other keys are fully usable), or use the on-screen backspace._
 
-#### Next Input Mode Key (Default: Press #):
+#### Next Input Mode Key (Default: press #):
 - **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
 - **Press while suggestions are on:** Toggle the suggestions between UPPERCASE and lowercase. In case the suggestions are only special characters, switch to the next character group.
 - **Number-only fields:** No special action. Type a "#" with the default key. Changing the mode is not possible in such fields.
 
-#### Next Language Key (Default: Hold #):
+#### Next Language Key (Default: hold #):
 Select the next language, when multiple languages have been enabled from the Settings.
 
-#### Settings Key (Default: Hold ✱):
+#### Settings Key (Default: hold ✱):
 Open the Settings configuration screen.
 
 #### Change Keyboard Key (Default: _unassigned_):
@@ -114,7 +115,7 @@ Open the Android Change Keyboard dialog where you can select between all install
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available. Enable it from Settings → Appearance → Show On-Screen Numpad.
 
-It is also recommended to disable the special behavior of "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to: Settings → Keyboard → Select Hotkeys → Backspace key, then select the "--" option.
+It is also recommended to disable the special behavior of "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to: Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
 
 If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
 
