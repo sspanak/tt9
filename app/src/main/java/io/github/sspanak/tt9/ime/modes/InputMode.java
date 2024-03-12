@@ -129,34 +129,6 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(0);
 	}
 
-	/**
-	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
-	 * special chars do not have a text case, but we use this trick to alternate the char groups.
-	 */
-	protected boolean nextSpecialCharacters() { return nextSpecialCharacters(language); }
-	protected boolean nextSpecialCharacters(Language altLanguage) {
-		if (altLanguage == null || digitSequence.isEmpty()) {
-			return false;
-		}
-
-		int previousGroup = specialCharSelectedGroup;
-		int key = digitSequence.charAt(0) - '0';
-		ArrayList<String> chars = altLanguage.getKeyCharacters(key, ++specialCharSelectedGroup);
-
-		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
-			specialCharSelectedGroup = 0;
-			return false;
-		} else if (chars.isEmpty()) {
-			specialCharSelectedGroup = 0;
-			chars = altLanguage.getKeyCharacters(key, specialCharSelectedGroup);
-		}
-
-		suggestions.clear();
-		suggestions.addAll(chars);
-
-		return previousGroup != specialCharSelectedGroup;
-	}
-
 	public boolean nextTextCase() {
 		if (nextSpecialCharacters()) {
 			return true;
@@ -176,6 +148,43 @@ abstract public class InputMode {
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
+
+
+	/**
+	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
+	 * special chars do not have a text case, but we use this trick to alternate the char groups.
+	 */
+	protected boolean nextSpecialCharacters() { return nextSpecialCharacters(language); }
+	protected boolean nextSpecialCharacters(Language altLanguage) {
+		int previousGroup = specialCharSelectedGroup;
+		specialCharSelectedGroup++;
+
+		return
+			loadSpecialCharacters(altLanguage) // validates specialCharSelectedGroup
+			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
+	}
+
+	protected boolean loadSpecialCharacters(Language altLanguage) {
+		if (altLanguage == null || digitSequence.isEmpty()) {
+			return false;
+		}
+
+		int key = digitSequence.charAt(0) - '0';
+		ArrayList<String> chars = altLanguage.getKeyCharacters(key, specialCharSelectedGroup);
+
+		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
+			specialCharSelectedGroup = 0;
+			return false;
+		} else if (chars.isEmpty()) {
+			specialCharSelectedGroup = 0;
+			chars = altLanguage.getKeyCharacters(key, specialCharSelectedGroup);
+		}
+
+		suggestions.clear();
+		suggestions.addAll(chars);
+
+		return true;
+	}
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.
