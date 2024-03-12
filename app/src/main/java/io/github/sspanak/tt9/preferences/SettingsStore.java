@@ -16,6 +16,7 @@ import java.util.Set;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.SectionKeymap;
 
 
@@ -275,6 +276,14 @@ public class SettingsStore {
 			return Integer.parseInt(prefs.getString("pref_log_level", String.valueOf(Logger.LEVEL)));
 		} catch (NumberFormatException ignored) {
 			return Logger.LEVEL;
+		}
+	}
+
+	public int getInputHandlingMode() {
+		try {
+			return Integer.parseInt(prefs.getString("pref_input_handling_mode", String.valueOf(ItemInputHandlingMode.NORMAL)));
+		} catch (NumberFormatException ignored) {
+			return ItemInputHandlingMode.NORMAL;
 		}
 	}
 
