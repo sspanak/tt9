@@ -237,7 +237,7 @@ public class ModePredictive extends InputMode {
 			.setStem(stem)
 			.setLanguage(searchLanguage)
 			.setInputWord(currentWord)
-			.setWordsChangedHandler(this::getPredictions)
+			.setWordsChangedHandler(this::onPredictions)
 			.load();
 	}
 
@@ -249,7 +249,7 @@ public class ModePredictive extends InputMode {
 	 */
 	private boolean loadStaticSuggestions(Runnable onLoad) {
 		if (digitSequence.equals(Language.PUNCTUATION_KEY) || digitSequence.equals(Language.SPECIAL_CHARS_KEY)) {
-			super.nextSpecialCharacters();
+			super.loadSpecialCharacters(language);
 			onLoad.run();
 			return true;
 		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
@@ -269,10 +269,10 @@ public class ModePredictive extends InputMode {
 
 
 	/**
-	 * getPredictions
+	 * onPredictions
 	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
-	private void getPredictions() {
+	private void onPredictions() {
 		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
 		if (predictions.getList().isEmpty() && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
 			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
