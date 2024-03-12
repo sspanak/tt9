@@ -181,16 +181,21 @@ public class DictionaryLoader {
 			logLoadingStep("Letters imported", language, start);
 
 			start = System.currentTimeMillis();
+			importWordFile(language, lettersCount, progress, 88);
+			progress = 88;
+			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Dictionary file imported", language, start);
+
+			start = System.currentTimeMillis();
+			DeleteOps.purgeCustomWords(sqlite.getDb(), language.getId());
+			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			logLoadingStep("Removed custom words, which are already in the dictionary", language, start);
+
+			start = System.currentTimeMillis();
 			InsertOps.restoreCustomWords(sqlite.getDb(), language);
 			InsertOps.restoreCustomWords(sqlite.getDb(), new EmojiLanguage());
 			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Custom words restored", language, start);
-
-			start = System.currentTimeMillis();
-			importWordFile(language, lettersCount, progress, 90);
-			progress = 90;
-			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			logLoadingStep("Dictionary file imported", language, start);
 
 			start = System.currentTimeMillis();
 			Tables.createPositionIndex(sqlite.getDb(), language);
@@ -290,7 +295,7 @@ public class DictionaryLoader {
 	}
 
 
-	public void saveWordBatch(WordBatch batch) {
+	private void saveWordBatch(WordBatch batch) {
 		InsertOps insertOps = new InsertOps(sqlite.getDb(), batch.getLanguage());
 
 		for (int i = 0, end = batch.getWords().size(); i < end; i++) {
