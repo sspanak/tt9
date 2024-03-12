@@ -5,10 +5,16 @@ const { createInterface } = require('readline');
 const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
 
 
+function print(str) {
+	process.stdout.write(`${str}\n`);
+}
+
+
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt `);
-	console.log('Removes repeating words from a word list');
-	console.log('\nLocale could be any valid JS locale, for exmaple: en, en-US, etc...');
+	print(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt [--prefer-lowercase]`);
+	print('Removes repeating words from a word list');
+	print("If --prefer-lowercase is set, the lowercase variants will be preserved, otherwise capitalized or uppercase variants will remain.")
+	print('\nLocale could be any valid JS locale, for example: en, en-US, etc...');
 }
 
 
@@ -25,7 +31,11 @@ function validateInput() {
 		process.exit(2);
 	}
 
-	return { fileName: process.argv[3], locale: process.argv[2] };
+	return {
+		fileName: process.argv[3],
+		locale: process.argv[2],
+		preferLowercase: !!process.argv[4]
+	};
 }
 
 
@@ -50,7 +60,7 @@ function getLowercaseWordKey(locale, word) {
 
 
 
-async function removeRepeatingWords({ fileName, locale }) {
+async function removeRepeatingWords({ fileName, locale, preferLowercase }) {
 	const wordMap = new Map();
 
 	let lineReader = createInterface({ input: createReadStream(fileName) });
@@ -64,7 +74,7 @@ async function removeRepeatingWords({ fileName, locale }) {
 			wordMap.set(lowercaseKey, line);
 		}
 
-		if (wordMap.has(lowercaseKey) && !wordMap.has(line)) {
+		if (!preferLowercase && wordMap.has(lowercaseKey) && !wordMap.has(line)) {
 			wordMap.set(lowercaseKey, line);
 		}
 	}
@@ -79,7 +89,7 @@ function printWords(wordList) {
 		return;
 	}
 
-	wordList.forEach(w => console.log(w));
+	wordList.forEach(w => print(w));
 }
 
 

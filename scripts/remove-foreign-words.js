@@ -3,9 +3,14 @@ const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
 
 
+function print(str) {
+	process.stdout.write(`${str}\n`);
+}
+
+
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} --blacklist|whitelist DICTIONARY_LOCALE DICTIONARY.TXT FOREIGN_WORDS_LOCALE FOREIGN-WORD-DICTIONARY.txt`);
-	console.log('Removes foreign words from a dictionary. "blacklist" and "whitelist" determine how the FOREIGN-WORD-DICTIONARY.txt is used.');
+	print(`Usage ${basename(process.argv[1])} --blacklist|whitelist DICTIONARY_LOCALE DICTIONARY.TXT FOREIGN_WORDS_LOCALE FOREIGN-WORD-DICTIONARY.txt`);
+	print('Removes foreign words from a dictionary. "blacklist" and "whitelist" determine how the FOREIGN-WORD-DICTIONARY.txt is used.');
 }
 
 
@@ -42,16 +47,16 @@ function validateInput() {
 
 
 async function work({ isBlacklist, locale, fileName, foreignWordsLocale, foreignWordsFileName }) {
-	const foreignWords = new Set();
+	const originalWords = new Map();
 
-	let lineReader = createInterface({ input: createReadStream(foreignWordsFileName) });
+	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		foreignWords.add(line.toLocaleLowerCase(foreignWordsLocale));
+		originalWords.set(line.toLocaleLowerCase(foreignWordsLocale), line);
 	}
 
-
 	const goodWords = new Set();
-	lineReader = createInterface({ input: createReadStream(fileName) });
+
+	lineReader = createInterface({ input: createReadStream(foreignWordsFileName) });
 	for await (const line of lineReader) {
 		if (typeof line !== 'string' || line.length === 0) {
 			continue;
@@ -59,23 +64,23 @@ async function work({ isBlacklist, locale, fileName, foreignWordsLocale, foreign
 
 		const wordKey = line.toLocaleLowerCase(locale);
 
-		if (
-			(!isBlacklist && foreignWords.has(wordKey))
-			|| (isBlacklist && !foreignWords.has(wordKey))
-		) {
-			goodWords.add(line);
+		if (isBlacklist && originalWords.has(wordKey)) {
+			originalWords.delete(wordKey);
 		}
 
+		if (!isBlacklist && originalWords.has(wordKey)) {
+			goodWords.add(line);
+		}
 	}
 
-	return goodWords;
+	return Array.from(isBlacklist ? originalWords.values() : goodWords);
 }
 
 
 
 function printWords(wordList) {
-	if (wordList instanceof Set) {
-		wordList.forEach(w => console.log(w));
+	if (Array.isArray(wordList)) {
+		wordList.forEach(w => print(w));
 	}
 }
 
