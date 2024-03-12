@@ -33,17 +33,14 @@ public class DebugScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		intiLogLevelDropDown();
+		(new ItemLogLevel(findPreference(ItemLogLevel.NAME))).populate().preview().enableClickHandler();
+		(new ItemInputHandlingMode(findPreference(ItemInputHandlingMode.NAME), activity.settings)).populate().preview().enableClickHandler();
 		initSystemLogsSwitch();
 		enableLogsCopy();
 
 		SwitchPreferenceCompat systemLogs = findPreference(SYSTEM_LOGS_SWITCH);
 		boolean includeSystemLogs = systemLogs != null && systemLogs.isChecked();
 		printLogs(includeSystemLogs);
-	}
-
-	private void intiLogLevelDropDown() {
-		(new ItemLogLevel(findPreference(ItemLogLevel.NAME))).populate().preview().enableClickHandler();
 	}
 
 	private void initSystemLogsSwitch() {

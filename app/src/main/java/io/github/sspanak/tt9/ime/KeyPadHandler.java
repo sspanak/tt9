@@ -11,6 +11,7 @@ import java.util.HashMap;
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 
 
 abstract class KeyPadHandler extends InputMethodService {
@@ -121,6 +122,12 @@ abstract class KeyPadHandler extends InputMethodService {
 			return true;
 		}
 
+		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+			return false;
+		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+			return super.onKeyDown(keyCode, event);
+		}
+
 		if (shouldBeOff()) {
 			return false;
 		}
@@ -160,6 +167,12 @@ abstract class KeyPadHandler extends InputMethodService {
 
 	@Override
 	public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+			return false;
+		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+			return super.onKeyLongPress(keyCode, event);
+		}
+
 		if (shouldBeOff()) {
 			return false;
 		}
@@ -198,6 +211,12 @@ abstract class KeyPadHandler extends InputMethodService {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (debounceKey(keyCode, event)) {
 			return true;
+		}
+
+		if (settings.getInputHandlingMode() == ItemInputHandlingMode.RETURN_FALSE) {
+			return false;
+		} else if (settings.getInputHandlingMode() == ItemInputHandlingMode.CALL_SUPER) {
+			return super.onKeyUp(keyCode, event);
 		}
 
 		if (shouldBeOff()) {

@@ -9,6 +9,12 @@
 
 	<DropDownPreference
 		app:iconSpaceReserved="false"
+		app:key="pref_input_handling_mode"
+		app:layout="@layout/pref_dropdown"
+		app:title="Keypad Handling Mode" />
+
+	<DropDownPreference
+		app:iconSpaceReserved="false"
 		app:key="pref_log_level"
 		app:layout="@layout/pref_dropdown"
 		app:title="Log Level" />
