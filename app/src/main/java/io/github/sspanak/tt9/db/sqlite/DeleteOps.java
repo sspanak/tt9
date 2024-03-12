@@ -14,4 +14,15 @@ public class DeleteOps {
 		db.delete(Tables.getWords(languageId), "word = ?", new String[] { word });
 		db.delete(Tables.CUSTOM_WORDS, "word = ?", new String[] { word });
 	}
+
+	public static void purgeCustomWords(@NonNull SQLiteDatabase db, int languageId) {
+		String words = Tables.getWords(languageId);
+
+		String repeatingWords =
+			"SELECT " + Tables.CUSTOM_WORDS + ".ROWID FROM " + Tables.CUSTOM_WORDS +
+			" JOIN " + words + " ON " + words + ".word = " + Tables.CUSTOM_WORDS + ".word " +
+			" WHERE langId = " + languageId + " AND " + words + ".position > 0";
+
+		db.delete(Tables.CUSTOM_WORDS, "ROWID IN (" + repeatingWords + ")", null);
+	}
 }

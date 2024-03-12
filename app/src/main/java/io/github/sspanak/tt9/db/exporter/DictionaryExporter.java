@@ -77,10 +77,10 @@ public class DictionaryExporter extends AbstractExporter {
 			long start = System.currentTimeMillis();
 			write(activity);
 			sendSuccess();
-			Logger.d(LOG_TAG, "All words for language: " + currentLanguage.getName() + " loaded. Time: " + (System.currentTimeMillis() - start) + "ms");
+			Logger.d(LOG_TAG, "All words for language '" + currentLanguage.getName() + "' exported. Time: " + (System.currentTimeMillis() - start) + "ms");
 		} catch (Exception e) {
 			sendFailure();
-			Logger.e(LOG_TAG, "Failed exporting dictionary for " + currentLanguage.getName() + " to: " + getOutputFile() + ". " + e);
+			Logger.e(LOG_TAG, "Failed exporting dictionary for '" + currentLanguage.getName() + "' to '" + getOutputFile() + "'. " + e);
 		}
 	}
 }
