@@ -1,5 +1,7 @@
-# Traditional T9
-Traditional T9 (or TT9) is a T9 keyboard for Android devices with a hardware keypad. It supports predictive text typing in [20+ languages](app/languages/definitions) and configurable hotkeys, bringing old school Nokia experience to modern Android devices. Touchscreen-only devices are also supported with a virtual on-screen keypad.
+# Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
+
+
+Traditional T9 (or TT9) is a T9 keyboard for devices with a hardware keypad. It supports predictive text typing in [20+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad for touchscreen-only phones, bringing an old-school Nokia experience to modern Android devices. Best of all, it doesn't spy on you.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -9,20 +11,20 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 
 ## 📦 Install
 
-[<img src="!RAW/get-it-on-github-badge.png"
-    alt="Get it on GitHub"
-    height="80">](https://github.com/sspanak/tt9/releases/latest)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
-    alt="Get it on IzzyOnDroid"
-    height="80">](https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/app/io.github.sspanak.tt9)
+[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
+    alt="Get it on IzzyOnDroid"
+    height="80">](https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9)
+[<img src="!RAW/get-it-on-github-badge.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/sspanak/tt9/releases/latest)
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 6, 10 and 11)_
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 55 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
+- Minimum 58 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Yiddish, Indonesian): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
@@ -52,7 +54,7 @@ Your PRs are welcome!
 ## 👍 Support
 If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
 
-Alternatively, you could donate a phone. This will make it easier to fix manufacturer-specific issues and test new features. Currently looking for: LG X100S, CAT S22 Flip, some Kyocera and some Sonim device. These are the most problematic of all and are hard to find where I live.
+Alternatively, you could donate a phone. This will make it easier to fix manufacturer-specific issues and test new features. Currently looking for: LG X100S, CAT S22 Flip, Sonim XP3 (any of: plus, non-plus, 38xx, 39xx), some Kyocera device. These are the most problematic of all and are hard to find where I live.
 
 Or if you just want to show your appreciation, give the project a star. Higher ranked projects on GitHub have the opportunity to use development tools for free, and apply for funding easier.
 
