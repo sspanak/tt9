@@ -1,1 +1,5 @@
-TT9 is an IME (Input Method Editor) for Android devices with a hardware keypad. It supports multiple languages and predictive text typing.
+A T9 keyboard for devices with a hardware keypad. It supports predictive text typing in 20+ languages, configurable hotkeys, and an on-screen keypad for touchscreen-only phones, bringing an old-school Nokia experience to modern Android devices. Best of all, it doesn't spy on you.
+
+Supported languages: Arabic, Bulgarian, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Indonesian, Italian, Norwegian, Polish, Portugues (European and Brazilian), Romanian, Russian, Spanish, Swedish, Ukrainian, Yiddish.
+
+IMPORTANT! If you have the Github or the IzzyOnDroid version, you must uninstall it, before installing this one. Android does not allow installing the same app from different source for security reasons.
