@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences.screens.languages;
 
-import android.content.Context;
-
 import androidx.preference.MultiSelectListPreference;
 
 import java.util.ArrayList;
@@ -10,20 +8,18 @@ import java.util.HashSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 
 class ItemSelectLanguage {
 	public static final String NAME = "pref_languages";
 
-	private final Context context;
-	private final SettingsStore settings;
+	private final PreferencesActivity activity;
 	private final MultiSelectListPreference item;
 
-	ItemSelectLanguage(Context context, MultiSelectListPreference multiSelect, SettingsStore settings) {
-		this.context = context;
+	ItemSelectLanguage(PreferencesActivity activity, MultiSelectListPreference multiSelect) {
+		this.activity = activity;
 		this.item = multiSelect;
-		this.settings = settings;
 	}
 
 	public ItemSelectLanguage populate() {
@@ -31,9 +27,9 @@ class ItemSelectLanguage {
 			return this;
 		}
 
-		ArrayList<Language> languages = LanguageCollection.getAll(context, true);
+		ArrayList<Language> languages = LanguageCollection.getAll(activity, true);
 		if (languages.isEmpty()) {
-			UI.alert(context, R.string.error, R.string.failed_loading_language_definitions);
+			UI.alert(activity, R.string.error, R.string.failed_loading_language_definitions);
 			// do not return, the MultiSelect component requires arrays, even if empty, otherwise it crashes
 		}
 
@@ -49,7 +45,7 @@ class ItemSelectLanguage {
 
 		item.setEntries(keys.toArray(new CharSequence[0]));
 		item.setEntryValues(values.toArray(new CharSequence[0]));
-		item.setValues(settings.getEnabledLanguagesIdsAsStrings());
+		item.setValues(activity.getSettings().getEnabledLanguagesIdsAsStrings());
 		previewSelection();
 
 		return this;
@@ -67,8 +63,8 @@ class ItemSelectLanguage {
 				newLanguages.add("1");
 			}
 
-			settings.saveEnabledLanguageIds(newLanguages);
-			item.setValues(settings.getEnabledLanguagesIdsAsStrings());
+			activity.getSettings().saveEnabledLanguageIds(newLanguages);
+			item.setValues(activity.getSettings().getEnabledLanguagesIdsAsStrings());
 			previewSelection();
 
 			// we validate and save manually above, so "false" disables automatic save
@@ -80,7 +76,7 @@ class ItemSelectLanguage {
 
 	private void previewSelection() {
 		item.setSummary(
-			LanguageCollection.toString(LanguageCollection.getAll(context, settings.getEnabledLanguageIds(), true))
+			LanguageCollection.toString(LanguageCollection.getAll(activity, activity.getSettings().getEnabledLanguageIds(), true))
 		);
 	}
 }

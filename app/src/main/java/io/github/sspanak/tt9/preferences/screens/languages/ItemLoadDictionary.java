@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.preferences.screens.languages;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.preference.Preference;
@@ -11,7 +10,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.UI;
@@ -20,8 +19,7 @@ import io.github.sspanak.tt9.ui.UI;
 class ItemLoadDictionary extends ItemClickable {
 	public final static String NAME = "dictionary_load";
 
-	private final Context context;
-	private final SettingsStore settings;
+	private final PreferencesActivity activity;
 	private final Runnable onStart;
 	private final Runnable onFinish;
 
@@ -29,13 +27,12 @@ class ItemLoadDictionary extends ItemClickable {
 	private final DictionaryLoadingBar progressBar;
 
 
-	ItemLoadDictionary(Preference item, Context context, SettingsStore settings, Runnable onStart, Runnable onFinish) {
+	ItemLoadDictionary(Preference item, PreferencesActivity context, Runnable onStart, Runnable onFinish) {
 		super(item);
 
-		this.context = context;
+		this.activity = context;
 		this.loader = DictionaryLoader.getInstance(context);
 		this.progressBar = DictionaryLoadingBar.getInstance(context);
-		this.settings = settings;
 		this.onStart = onStart;
 		this.onFinish = onFinish;
 
@@ -53,24 +50,24 @@ class ItemLoadDictionary extends ItemClickable {
 
 
 	private void onLoadingStatusChange(Bundle status) {
-		progressBar.show(context, status);
+		progressBar.show(activity, status);
 		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 		if (progressBar.isCancelled()) {
 			setReadyStatus();
 		} else if (progressBar.isFailed()) {
 			setReadyStatus();
-			UI.toastFromAsync(context, progressBar.getMessage());
+			UI.toastFromAsync(activity, progressBar.getMessage());
 		} else if (!progressBar.inProgress()) {
 			setReadyStatus();
-			UI.toastFromAsync(context, R.string.dictionary_loaded);
+			UI.toastFromAsync(activity, R.string.dictionary_loaded);
 		}
 	}
 
 
 	@Override
 	protected boolean onClick(Preference p) {
-		ArrayList<Language> languages = LanguageCollection.getAll(context, settings.getEnabledLanguageIds());
+		ArrayList<Language> languages = LanguageCollection.getAll(activity, activity.getSettings().getEnabledLanguageIds());
 
 		setLoadingStatus();
 		if (!loader.load(languages)) {
@@ -85,13 +82,13 @@ class ItemLoadDictionary extends ItemClickable {
 	private void setLoadingStatus() {
 		loader.setOnStatusChange(this::onLoadingStatusChange);
 		onStart.run();
-		item.setTitle(context.getString(R.string.dictionary_cancel_load));
+		item.setTitle(activity.getString(R.string.dictionary_cancel_load));
 	}
 
 
 	private void setReadyStatus() {
 		onFinish.run();
-		item.setTitle(context.getString(R.string.dictionary_load_title));
+		item.setTitle(activity.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}
 }

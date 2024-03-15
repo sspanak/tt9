@@ -30,21 +30,18 @@ public class LanguagesScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		ItemSelectLanguage multiSelect = new ItemSelectLanguage(
 			activity,
-			findPreference(ItemSelectLanguage.NAME),
-			activity.settings
+			findPreference(ItemSelectLanguage.NAME)
 		);
 		multiSelect.populate().enableValidation();
 
 		loadItem = new ItemLoadDictionary(findPreference(ItemLoadDictionary.NAME),
 			activity,
-			activity.settings,
 			() -> ItemClickable.disableOthers(clickables, loadItem),
 			this::onActionFinish
 		);
 
 		exportDictionaryItem = new ItemExportDictionary(findPreference(ItemExportDictionary.NAME),
 			activity,
-			activity.settings,
 			this::onActionStart,
 			this::onActionFinish
 		);
@@ -55,7 +52,6 @@ public class LanguagesScreen extends BaseScreenFragment {
 		clickables.add(new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
 			activity,
-			activity.settings,
 			this::onActionStart,
 			this::onActionFinish
 		));
