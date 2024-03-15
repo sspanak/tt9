@@ -31,10 +31,10 @@ public class HotkeysScreen extends BaseScreenFragment {
 			findPreference(SectionKeymap.ITEM_NEXT_LANGUAGE),
 			findPreference(SectionKeymap.ITEM_SHOW_SETTINGS),
 		};
-		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity, activity.settings);
+		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity);
 		section.populate().activate();
 
-		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, activity.settings, section))
+		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, section))
 			.enableClickHandler();
 	}
 }

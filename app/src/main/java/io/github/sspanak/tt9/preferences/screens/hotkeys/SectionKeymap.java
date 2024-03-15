@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 
@@ -29,10 +30,10 @@ public class SectionKeymap {
 	private final SettingsStore settings;
 
 
-	public SectionKeymap(Collection<DropDownPreference> dropDowns, Context context, SettingsStore settings) {
+	public SectionKeymap(Collection<DropDownPreference> dropDowns, PreferencesActivity activity) {
 		items = dropDowns;
-		hotkeys = new Hotkeys(context);
-		this.settings = settings;
+		hotkeys = new Hotkeys(activity);
+		this.settings = activity.getSettings();
 	}
 
 

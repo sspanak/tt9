@@ -32,7 +32,7 @@ import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	public SettingsStore settings;
+	private SettingsStore settings;
 
 
 	@Override
@@ -84,6 +84,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 			displayScreen(screen, false);
 		}
 	}
+
 
 	/**
 	 * getScreenName
@@ -163,6 +164,15 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
+	}
+
+
+	public SettingsStore getSettings() {
+		if (settings == null) {
+			settings = new SettingsStore(this);
+		}
+
+		return settings;
 	}
 
 

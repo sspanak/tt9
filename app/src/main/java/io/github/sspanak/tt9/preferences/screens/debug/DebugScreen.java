@@ -34,7 +34,7 @@ public class DebugScreen extends BaseScreenFragment {
 	@Override
 	protected void onCreate() {
 		(new ItemLogLevel(findPreference(ItemLogLevel.NAME))).populate().preview().enableClickHandler();
-		(new ItemInputHandlingMode(findPreference(ItemInputHandlingMode.NAME), activity.settings)).populate().preview().enableClickHandler();
+		(new ItemInputHandlingMode(findPreference(ItemInputHandlingMode.NAME), activity.getSettings())).populate().preview().enableClickHandler();
 		initSystemLogsSwitch();
 		enableLogsCopy();
 

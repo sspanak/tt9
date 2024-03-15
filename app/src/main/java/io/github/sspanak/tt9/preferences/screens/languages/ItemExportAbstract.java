@@ -1,20 +1,19 @@
 package io.github.sspanak.tt9.preferences.screens.languages;
 
-import android.app.Activity;
-
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exporter.AbstractExporter;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.DictionaryNotification;
 
 abstract class ItemExportAbstract extends ItemClickable {
-	final protected Activity activity;
+	final protected PreferencesActivity activity;
 	final private Runnable onStart;
 	final private Runnable onFinish;
 
-	ItemExportAbstract(Preference item, Activity activity, Runnable onStart, Runnable onFinish) {
+	ItemExportAbstract(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item);
 		this.activity = activity;
 		this.onStart = onStart;
