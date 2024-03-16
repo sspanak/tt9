@@ -9,26 +9,17 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 class ItemExportCustomWords extends ItemExportAbstract {
 	final public static String NAME = "dictionary_export_custom";
 
-
 	ItemExportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
 	}
-
 
 	@Override
 	protected CustomWordsExporter getExporter() {
 		return CustomWordsExporter.getInstance();
 	}
 
-
 	protected boolean onStartExporting() {
 		return CustomWordsExporter.getInstance().export(activity);
-	}
-
-
-	@Override
-	protected String getLoadingMessage() {
-		return activity.getString(R.string.dictionary_export_generating_csv);
 	}
 
 	public void setReadyStatus() {

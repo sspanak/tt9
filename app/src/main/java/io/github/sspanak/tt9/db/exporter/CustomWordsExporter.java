@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 
@@ -22,22 +23,15 @@ public class CustomWordsExporter extends AbstractExporter {
 		return customWordsExporterSelf;
 	}
 
-	public boolean export(Activity activity) {
-		if (isRunning()) {
-			return false;
+	@Override
+	protected void exportSync(Activity activity) {
+		try {
+			sendStart(activity.getString(R.string.dictionary_export_generating_csv));
+			write(activity);
+			sendSuccess();
+		} catch (Exception e) {
+			sendFailure();
 		}
-
-		processThread = new Thread(() -> {
-			try {
-				write(activity);
-				sendSuccess();
-			} catch (Exception e) {
-				sendFailure();
-			}
-		});
-
-		processThread.start();
-		return true;
 	}
 
 	@Override
