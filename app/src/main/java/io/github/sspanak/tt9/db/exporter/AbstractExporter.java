@@ -25,9 +25,11 @@ public abstract class AbstractExporter {
 	final protected static String MIME_TYPE = "text/csv";
 
 	protected Runnable failureHandler;
+	protected Runnable startHandler;
 	protected ConsumerCompat<String> successHandler;
-	protected Thread processThread;
+	private Thread processThread;
 	private String outputFile;
+	private String statusMessage = "";
 
 
 	public static AbstractExporter getInstance() {
@@ -113,6 +115,18 @@ public abstract class AbstractExporter {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Environment.DIRECTORY_DOCUMENTS : Environment.DIRECTORY_DOWNLOADS;
 	}
 
+	protected void sendFailure() {
+		if (failureHandler != null) {
+			failureHandler.run();
+		}
+	}
+
+	protected void sendStart(@NonNull String message) {
+		if (startHandler != null) {
+			statusMessage = message;
+			startHandler.run();
+		}
+	}
 
 	protected void sendSuccess() {
 		if (successHandler != null) {
@@ -120,30 +134,39 @@ public abstract class AbstractExporter {
 		}
 	}
 
-
-	protected void sendFailure() {
-		if (failureHandler != null) {
-			failureHandler.run();
+	public boolean export(@NonNull Activity activity) {
+		if (isRunning()) {
+			return false;
 		}
-	}
 
+		processThread = new Thread(() -> exportSync(activity));
+		processThread.start();
+
+		return true;
+	}
 
 	public boolean isRunning() {
 		return processThread != null && processThread.isAlive();
 	}
 
+	public String getStatusMessage() {
+		return statusMessage;
+	}
+
+	public void setFailureHandler(Runnable handler) {
+		failureHandler = handler;
+	}
+
+	public void setStartHandler(Runnable handler) {
+		startHandler = handler;
+	}
 
 	public void setSuccessHandler(ConsumerCompat<String> handler) {
 		successHandler = handler;
 	}
 
 
-	public void setFailureHandler(Runnable handler) {
-		failureHandler = handler;
-	}
-
-
+	abstract protected void exportSync(Activity activity);
 	@NonNull abstract protected String generateFileName();
 	@NonNull abstract protected byte[] getWords(Activity activity) throws Exception;
-	abstract public boolean export(Activity activity);
 }

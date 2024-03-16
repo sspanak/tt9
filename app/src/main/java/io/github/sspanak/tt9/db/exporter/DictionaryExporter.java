@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.Language;
@@ -28,20 +29,23 @@ public class DictionaryExporter extends AbstractExporter {
 		return self;
 	}
 
-	public boolean export(Activity activity) {
-		if (isRunning()) {
-			return false;
-		}
-
+	@Override
+	protected void exportSync(Activity activity) {
 		if (languages == null || languages.isEmpty()) {
 			Logger.d(LOG_TAG, "Nothing to do");
-			return true;
+			return;
 		}
 
-		processThread = new Thread(() -> { for (Language l : languages) exportLanguage(activity, l); });
-		processThread.start();
-
-		return true;
+		try {
+			for (Language l : languages) {
+				sendStart(activity.getString(R.string.dictionary_export_generating_csv_for_language, l.getName()));
+				exportLanguage(activity, l);
+			}
+			sendSuccess();
+		} catch (Exception e) {
+			logExportError(e);
+			sendFailure();
+		}
 	}
 
 	public DictionaryExporter setLanguages(ArrayList<Language> languages) {
@@ -66,21 +70,25 @@ public class DictionaryExporter extends AbstractExporter {
 		return new ReadOps().getWords(db, currentLanguage, false).getBytes();
 	}
 
-	private void exportLanguage(Activity activity, Language language) {
+	private void exportLanguage(Activity activity, Language language) throws Exception {
 		currentLanguage = language;
 		if (currentLanguage == null) {
 			Logger.e(LOG_TAG, "Cannot export dictionary for null language");
 			return;
 		}
 
-		try {
-			long start = System.currentTimeMillis();
-			write(activity);
-			sendSuccess();
-			Logger.d(LOG_TAG, "All words for language '" + currentLanguage.getName() + "' exported. Time: " + (System.currentTimeMillis() - start) + "ms");
-		} catch (Exception e) {
-			sendFailure();
-			Logger.e(LOG_TAG, "Failed exporting dictionary for '" + currentLanguage.getName() + "' to '" + getOutputFile() + "'. " + e);
+		long start = System.currentTimeMillis();
+		write(activity);
+		Logger.d(LOG_TAG, "All words for language '" + currentLanguage.getName() + "' exported. Time: " + (System.currentTimeMillis() - start) + "ms");
+	}
+
+	private void logExportError(Exception e) {
+		String message;
+		if (currentLanguage == null) {
+			message = "Failed exporting '" + getOutputFile() + "' . " + e;
+		} else {
+			message = "Failed exporting dictionary for '" + currentLanguage.getName() + "' to '" + getOutputFile() + "'. " + e;
 		}
+		Logger.e(LOG_TAG, message);
 	}
 }

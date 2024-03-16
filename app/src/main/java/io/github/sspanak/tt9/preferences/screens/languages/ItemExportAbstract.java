@@ -21,6 +21,7 @@ abstract class ItemExportAbstract extends ItemClickable {
 
 		AbstractExporter exporter = getExporter();
 		exporter.setFailureHandler(() -> onFinishExporting(null));
+		exporter.setStartHandler(() -> activity.runOnUiThread(this::setLoadingStatus));
 		exporter.setSuccessHandler(this::onFinishExporting);
 		refreshStatus();
 	}
@@ -73,14 +74,11 @@ abstract class ItemExportAbstract extends ItemClickable {
 	}
 
 
-	abstract protected String getLoadingMessage();
-
-
 	protected void setLoadingStatus() {
 		onStart.run();
 		disable();
 
-		String loadingMessage = getLoadingMessage();
+		String loadingMessage = getExporter().getStatusMessage();
 		item.setSummary(loadingMessage);
 		DictionaryNotification.getInstance(activity).showLoadingMessage(loadingMessage, "");
 	}
