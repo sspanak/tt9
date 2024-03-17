@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-	android:versionCode="395"
-	android:versionName="28.12"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+	android:versionCode="411"
+	android:versionName="29.0"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-	<!-- required for words exporting on Android < 10 -->
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" /> <!-- required for words exporting on Android < 10 -->
 
 	<application
 		android:allowBackup="false"
