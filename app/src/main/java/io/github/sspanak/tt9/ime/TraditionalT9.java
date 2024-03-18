@@ -443,7 +443,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		cancelAutoAccept();
 
 		String filter;
-		if (repeat && !suggestionBar.getSuggestion(1).equals("")) {
+		if (repeat && !suggestionBar.getSuggestion(1).isEmpty()) {
 			filter = suggestionBar.getSuggestion(1);
 		} else {
 			filter = getComposingText();
@@ -703,7 +703,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		maxLength = maxLength > 0 ? Math.min(maxLength, mInputMode.getSequenceLength()) : mInputMode.getSequenceLength();
 
 		String text = suggestionBar.getCurrentSuggestion();
-		if (text.length() > 0 && text.length() > maxLength) {
+		if (!text.isEmpty() && text.length() > maxLength) {
 			text = text.substring(0, maxLength);
 		}
 

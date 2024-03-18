@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 public class CustomWordsExporter extends AbstractExporter {
 	private static CustomWordsExporter customWordsExporterSelf;
 
-	public static final String LOG_TAG = "dictionary_export";
 	private static final String BASE_FILE_NAME = "tt9-added-words-export-";
 
 	public static CustomWordsExporter getInstance() {

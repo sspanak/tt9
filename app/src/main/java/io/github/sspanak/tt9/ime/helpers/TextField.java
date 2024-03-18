@@ -262,7 +262,7 @@ public class TextField {
 	 */
 	public void setComposingTextWithHighlightedStem(CharSequence word, String stem, boolean highlightMore) {
 		setComposingText(
-			stem.length() > 0 ? highlightText(word, 0, stem.length(), highlightMore) : word
+			stem.isEmpty() ? word : highlightText(word, 0, stem.length(), highlightMore)
 		);
 	}
 

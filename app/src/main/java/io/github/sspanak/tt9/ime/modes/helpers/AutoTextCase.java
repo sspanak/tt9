@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 
 import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class AutoTextCase {

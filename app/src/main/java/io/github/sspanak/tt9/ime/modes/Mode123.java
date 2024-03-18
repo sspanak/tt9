@@ -89,7 +89,7 @@ public class Mode123 extends ModePassthrough {
 		reset();
 		digitSequence = String.valueOf(number);
 
-		if (hold && number < KEY_CHARACTERS.size() && KEY_CHARACTERS.get(number).size() > 0) {
+		if (hold && number < KEY_CHARACTERS.size() && !KEY_CHARACTERS.get(number).isEmpty()) {
 			suggestions.addAll(KEY_CHARACTERS.get(number));
 		} else {
 			autoAcceptTimeout = 0;

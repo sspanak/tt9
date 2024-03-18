@@ -16,7 +16,7 @@
 		android:text="✕"
 		android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView"
 		android:textSize="@dimen/soft_key_icon_size"
-		tools:ignore="HardcodedText" />
+		tools:ignore="HardcodedText,RtlSymmetry" />
 
 	<TextView
 		android:id="@android:id/title"

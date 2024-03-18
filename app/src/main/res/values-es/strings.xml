@@ -2,7 +2,7 @@
 <resources>
 	<string name="app_settings">Configuración de Traditional T9</string>
 	<string name="failed_loading_language_definitions">Falló al cargar todas las definiciones de idiomas.</string>
-	<string name="add_word_add">Agregar palabra</string>
+	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>

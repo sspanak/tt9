@@ -8,8 +8,8 @@ class Migration {
 		)
 	};
 
-	String query;
-	boolean mayFail;
+	final String query;
+	final boolean mayFail;
 	private Migration(String query, boolean mayFail) {
 		this.query = query;
 		this.mayFail = mayFail;
