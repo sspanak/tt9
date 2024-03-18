@@ -59,7 +59,7 @@ class MainLayoutSmall extends BaseMainLayout {
 
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
-		if (view != null && (keys == null || keys.size() == 0)) {
+		if (view != null && (keys == null || keys.isEmpty())) {
 			keys = getKeysFromContainer(view.findViewById(R.id.main_soft_keys));
 		}
 		return keys;

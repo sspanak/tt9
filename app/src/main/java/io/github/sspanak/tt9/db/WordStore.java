@@ -102,11 +102,6 @@ public class WordStore {
 	}
 
 
-	public boolean exists(Language language) {
-		return language != null && checkOrNotify() && readOps.exists(sqlite.getDb(), language.getId());
-	}
-
-
 	public void remove(ArrayList<Integer> languageIds) {
 		if (!checkOrNotify()) {
 			return;

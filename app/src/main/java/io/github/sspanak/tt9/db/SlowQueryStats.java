@@ -57,7 +57,7 @@ public class SlowQueryStats {
 		}
 
 		long averageTime = totalQueries == 0 ? 0 : totalQueryTime / totalQueries;
-		long slowAverageTime = slowQueries.size() == 0 ? 0 : slowQueryTotalTime / slowQueries.size();
+		long slowAverageTime = slowQueries.isEmpty() ? 0 : slowQueryTotalTime / slowQueries.size();
 
 		return
 			"Queries: " + totalQueries + ". Average time: " + averageTime + " ms." +

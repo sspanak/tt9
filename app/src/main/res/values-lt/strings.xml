@@ -75,8 +75,8 @@
 
 	<string name="setup_keyboard_status">Būsena</string>
 	<string name="setup_default_keyboard">Pasirinkite numatytąją klaviatūrą</string>
-	<string name="setup_tt9_on">„Traditional T9“ yra įjungtas</string>
-	<string name="setup_tt9_off">„Traditional T9“ yra išjungtas</string>
+	<string name="setup_tt9_on">„%1$s“ yra įjungtas</string>
+	<string name="setup_tt9_off">„%1$s“ yra išjungtas</string>
 	<string name="setup_click_here_to_enable">Spauskite čia norėdami įjungti „TT9“ per „Android“ nustatymus.</string>
 
 	<string name="key_hold_key">(laikyti nusp.)</string>

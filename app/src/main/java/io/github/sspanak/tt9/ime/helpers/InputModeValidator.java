@@ -16,7 +16,7 @@ public class InputModeValidator {
 		for (Language lang : validLanguages) {
 			validLanguageIds.add(lang.getId());
 		}
-		if (validLanguageIds.size() == 0) {
+		if (validLanguageIds.isEmpty()) {
 			validLanguageIds.add(LanguageCollection.getDefault(context).getId());
 			Logger.e("validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
 		}
@@ -46,7 +46,7 @@ public class InputModeValidator {
 			newModeId = oldModeId;
 		} else if (allowedModes.contains(InputMode.MODE_ABC)) {
 			newModeId = InputMode.MODE_ABC;
-		} else if (allowedModes.size() > 0) {
+		} else if (!allowedModes.isEmpty()) {
 			newModeId = allowedModes.get(0);
 		}
 

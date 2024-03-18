@@ -99,7 +99,7 @@ public class SettingsStore {
 			validLanguageIds.add(langId);
 		}
 
-		if (validLanguageIds.size() == 0) {
+		if (validLanguageIds.isEmpty()) {
 			Logger.w("saveEnabledLanguageIds", "Refusing to save an empty language list");
 			return;
 		}

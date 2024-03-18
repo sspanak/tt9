@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
-import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;

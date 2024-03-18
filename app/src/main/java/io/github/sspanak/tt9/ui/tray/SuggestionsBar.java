@@ -91,7 +91,7 @@ public class SuggestionsBar {
 
 
 	public boolean isEmpty() {
-		return suggestions.size() == 0;
+		return suggestions.isEmpty();
 	}
 
 
@@ -216,8 +216,8 @@ public class SuggestionsBar {
 	private void ecoSetBackground(List<String> newSuggestions) {
 		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
 		if (
-			(newSuggestionsSize == 0 && suggestions.size() == 0)
-			|| (newSuggestionsSize > 0 && suggestions.size() > 0)
+			(newSuggestionsSize == 0 && suggestions.isEmpty())
+			|| (newSuggestionsSize > 0 && !suggestions.isEmpty())
 		) {
 			return;
 		}

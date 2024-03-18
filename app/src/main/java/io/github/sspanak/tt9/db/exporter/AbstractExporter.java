@@ -32,11 +32,6 @@ public abstract class AbstractExporter {
 	private String statusMessage = "";
 
 
-	public static AbstractExporter getInstance() {
-		throw new RuntimeException("Not Implemented");
-	}
-
-
 	private void writeAndroid10(Activity activity) throws Exception {
 		final String fileName = generateFileName();
 		outputFile = getOutputDir() + File.pathSeparator + fileName;

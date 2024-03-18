@@ -58,7 +58,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
-		if (keys != null && keys.size() > 0) {
+		if (keys != null && !keys.isEmpty()) {
 			return keys;
 		}
 

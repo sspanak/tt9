@@ -14,7 +14,7 @@ public class ItemInputHandlingMode extends ItemDropDown {
 
 	public static final String NAME = "pref_input_handling_mode";
 
-	private SettingsStore settings;
+	private final SettingsStore settings;
 
 	ItemInputHandlingMode(DropDownPreference item, SettingsStore settings) {
 		super(item);
