@@ -8,7 +8,6 @@ import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class InputMode {
@@ -144,7 +143,7 @@ abstract public class InputMode {
 		return true;
 	}
 
-	public void determineNextWordTextCase(Text textBeforeCursor) {}
+	public void determineNextWordTextCase(String textBeforeCursor) {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }

@@ -41,7 +41,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, Text textBeforeCursor) {
+	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, String textBeforeCursor) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -57,17 +57,17 @@ public class AutoTextCase {
 		}
 
 		// start of text
-		if (textBeforeCursor.isEmpty()) {
+		if (textBeforeCursor != null && textBeforeCursor.isEmpty()) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
 		// start of sentence, excluding after "..."
-		if (textBeforeCursor.isStartOfSentence()) {
+		if (Text.isStartOfSentence(textBeforeCursor)) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
 		// this is mostly for English "I"
-		if (textBeforeCursor.isNextToWord()) {
+		if (Text.isNextToWord(textBeforeCursor)) {
 			return InputMode.CASE_LOWER;
 		}
 

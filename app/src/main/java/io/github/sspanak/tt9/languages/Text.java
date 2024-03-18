@@ -2,20 +2,9 @@ package io.github.sspanak.tt9.languages;
 
 import androidx.annotation.NonNull;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
-import java.util.regex.Pattern;
 
-public class Text {
-	private static final Pattern containsOtherThan1 = Pattern.compile("[02-9]");
-	private static final Pattern previousIsLetter = Pattern.compile("\\p{L}$");
-	private static final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
-	private static final Pattern nextToWord = Pattern.compile("\\b$");
-	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
-
-
+public class Text extends TextTools {
 	private final Language language;
 	private final String text;
 
@@ -41,9 +30,7 @@ public class Text {
 		}
 	}
 
-	public static boolean containsOtherThan1(String str) {
-		return str != null && containsOtherThan1.matcher(str).find();
-	}
+
 
 	public boolean endsWithGraphic() {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
@@ -53,19 +40,7 @@ public class Text {
 		return text == null || text.isEmpty();
 	}
 
-	public static boolean isGraphic(String str) {
-		if (str == null || str.isEmpty()) {
-			return false;
-		}
 
-		for (int i = 0, end = str.length(); i < end; i++) {
-			if (!Characters.isGraphic(str.charAt(i))) {
-				return false;
-			}
-		}
-
-		return true;
-	}
 
 	public boolean isMixedCase() {
 		return
@@ -73,14 +48,6 @@ public class Text {
 			&& text != null
 			&& !text.toLowerCase(language.getLocale()).equals(text)
 			&& !text.toUpperCase(language.getLocale()).equals(text);
-	}
-
-	public boolean isNextToWord() {
-		return text != null && nextToWord.matcher(text).find();
-	}
-
-	public boolean isStartOfSentence() {
-		return text != null && startOfSentence.matcher(text).find();
 	}
 
 	public boolean isUpperCase() {
@@ -127,13 +94,9 @@ public class Text {
 		return sb.toString();
 	}
 
-	public boolean nextIsPunctuation() {
-		return text != null && !text.isEmpty() && nextIsPunctuation.matcher(text).find();
-	}
 
-	public static boolean previousIsLetter(String str) {
-		return str != null && previousIsLetter.matcher(str).find();
-	}
+
+
 
 	public boolean startsWithWhitespace() {
 		return text != null && !text.isEmpty() && Character.isWhitespace(text.charAt(0));
@@ -201,17 +164,6 @@ public class Text {
 		} else {
 			return text.toUpperCase(language != null ? language.getLocale() : Locale.getDefault());
 		}
-	}
-
-	public static String unixTimestampToISODate(long timestamp) {
-		if (timestamp < 0) {
-			return "--";
-		}
-
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-		sdf.setTimeZone(TimeZone.getDefault());
-
-		return sdf.format(new Date(timestamp));
 	}
 
 	@NonNull
