@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.Timer;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -76,13 +77,13 @@ public class WordStore {
 		final int maxWords = Math.max(maximumWords, minWords);
 		final String filter = wordFilter == null ? "" : wordFilter;
 
-		long startTime = System.currentTimeMillis();
+		Timer.start("get_positions");
 		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, filter, minWords);
-		long positionsTime = System.currentTimeMillis() - startTime;
+		long positionsTime = Timer.stop("get_positions");
 
-		startTime = System.currentTimeMillis();
+		Timer.start("get_words");
 		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords, false).toStringList();
-		long wordsTime = System.currentTimeMillis() - startTime;
+		long wordsTime = Timer.stop("get_words");
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
 		SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minWords), (int) (positionsTime + wordsTime), positions);
@@ -111,7 +112,7 @@ public class WordStore {
 			return;
 		}
 
-		long start = System.currentTimeMillis();
+		Timer.start(LOG_TAG);
 		try {
 			sqlite.beginTransaction();
 			for (int langId : languageIds) {
@@ -121,7 +122,7 @@ public class WordStore {
 			}
 			sqlite.finishTransaction();
 
-			Logger.d(LOG_TAG, "Deleted " + languageIds.size() + " languages. Time: " + (System.currentTimeMillis() - start) + " ms");
+			Logger.d(LOG_TAG, "Deleted " + languageIds.size() + " languages. Time: " + Timer.stop(LOG_TAG) + " ms");
 		} catch (Exception e) {
 			sqlite.failTransaction();
 			Logger.e(LOG_TAG, "Failed deleting languages. " + e.getMessage());
@@ -200,7 +201,7 @@ public class WordStore {
 		}
 
 		try {
-			long start = System.currentTimeMillis();
+			Timer.start(LOG_TAG);
 
 			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), language, sequence, 0, 0, "");
 			WordList topWords = readOps.getWords(sqlite.getDb(), language, topWordPositions, "", 9999, true);
@@ -210,7 +211,7 @@ public class WordStore {
 
 			Word topWord = topWords.get(0);
 			if (topWord.word.toUpperCase(language.getLocale()).equals(word.toUpperCase(language.getLocale()))) {
-				Logger.d(LOG_TAG, "Word '" + word + "' is already the top word. Time: " + (System.currentTimeMillis() - start) + " ms");
+				Logger.d(LOG_TAG, "Word '" + word + "' is already the top word. Time: " + Timer.stop(LOG_TAG) + " ms");
 				return;
 			}
 
@@ -232,7 +233,7 @@ public class WordStore {
 				scheduleNormalization(language);
 			}
 
-			Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + (System.currentTimeMillis() - start) + " ms");
+			Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + Timer.stop(LOG_TAG) + " ms");
 		} catch (Exception e) {
 			Logger.e(LOG_TAG,"Frequency change failed. Word: '" + word + "'. " + e.getMessage());
 		}
@@ -244,7 +245,7 @@ public class WordStore {
 			return;
 		}
 
-		long start = System.currentTimeMillis();
+		Timer.start(LOG_TAG);
 
 		try {
 			sqlite.beginTransaction();
@@ -253,7 +254,7 @@ public class WordStore {
 			sqlite.finishTransaction();
 
 			String message = nextLangId > 0 ? "Normalized language: " + nextLangId : "No languages to normalize";
-			Logger.d(LOG_TAG, message + ". Time: " + (System.currentTimeMillis() - start) + " ms");
+			Logger.d(LOG_TAG, message + ". Time: " + Timer.stop(LOG_TAG) + " ms");
 		} catch (Exception e) {
 			sqlite.failTransaction();
 			Logger.e(LOG_TAG, "Normalization failed. " + e.getMessage());
