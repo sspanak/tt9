@@ -328,7 +328,7 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void determineNextWordTextCase(Text textBeforeCursor) {
+	public void determineNextWordTextCase(String textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor);
 	}
 

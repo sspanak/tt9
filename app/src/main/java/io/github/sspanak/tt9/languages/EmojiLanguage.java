@@ -19,7 +19,7 @@ public class EmojiLanguage extends Language {
 
 	@Override
 	public String getDigitSequenceForWord(String word) {
-		return Text.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : null;
+		return TextTools.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : null;
 	}
 
 	@Override

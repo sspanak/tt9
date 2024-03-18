@@ -3,8 +3,8 @@ package io.github.sspanak.tt9.db;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.languages.Text;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.TextTools;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SlowQueryStats {
@@ -63,7 +63,7 @@ public class SlowQueryStats {
 			"Queries: " + totalQueries + ". Average time: " + averageTime + " ms." +
 			"\nSlow: " + slowQueries.size() + ". Average time: " + slowAverageTime + " ms." +
 			"\nSlowest: " + maxQueryTime + " ms." +
-			"\nFirst: " + Text.unixTimestampToISODate(firstQueryTime);
+			"\nFirst: " + TextTools.unixTimestampToISODate(firstQueryTime);
 	}
 
 	public static String getList() {

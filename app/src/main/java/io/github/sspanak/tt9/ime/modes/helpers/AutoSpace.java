@@ -70,7 +70,7 @@ public class AutoSpace {
 
 		return
 			nextKey != 1
-			&& !nextChars.nextIsPunctuation()
+			&& !Text.nextIsPunctuation(nextChars.toString())
 			&& !nextChars.startsWithNumber()
 			&& (
 				previousChar == '.'

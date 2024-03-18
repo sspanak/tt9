@@ -133,7 +133,7 @@ public class TraditionalT9 extends KeyPadHandler {
 	private void determineTextCase() {
 		mInputMode.defaultTextCase();
 		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-		mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
+		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 
@@ -310,7 +310,7 @@ public class TraditionalT9 extends KeyPadHandler {
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (getComposingText().isEmpty()) {
-			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -655,7 +655,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			commitCurrentSuggestion(false);
 			mInputMode.onAcceptSuggestion(lastComposingText, true);
 			autoCorrectSpace(lastComposingText, false, -1);
-			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 		}
 
 		// display the word suggestions
@@ -746,7 +746,7 @@ public class TraditionalT9 extends KeyPadHandler {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
-			mInputMode.determineNextWordTextCase(textField.getTextBeforeCursor());
+			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 
 			resetKeyRepeat();
 		}
