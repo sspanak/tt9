@@ -421,8 +421,6 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	@Override public int getSequenceLength() { return digitSequence.length(); }
-
 	@NonNull
 	@Override
 	public String toString() {

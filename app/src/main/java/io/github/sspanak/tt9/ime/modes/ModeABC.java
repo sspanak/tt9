@@ -83,7 +83,6 @@ public class ModeABC extends InputMode {
 		shouldSelectNextLetter = true; // do not accept any previous suggestions after loading the new ones
 	}
 
-	@Override public int getSequenceLength() { return 1; }
 	@Override public void onAcceptSuggestion(@NonNull String word) { reset(); }
 	@Override public boolean shouldAcceptPreviousSuggestion() { return !shouldSelectNextLetter; }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }

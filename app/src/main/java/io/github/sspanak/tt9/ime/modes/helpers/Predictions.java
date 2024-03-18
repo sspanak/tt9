@@ -23,10 +23,6 @@ public class Predictions {
 	private ArrayList<String> words = new ArrayList<>();
 
 
-	public Predictions() {
-	}
-
-
 	public Predictions setLanguage(Language language) {
 		this.language = language;
 		return this;
