@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.Timer;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.Language;
@@ -77,9 +78,9 @@ public class DictionaryExporter extends AbstractExporter {
 			return;
 		}
 
-		long start = System.currentTimeMillis();
+		Timer.start(LOG_TAG);
 		write(activity);
-		Logger.d(LOG_TAG, "All words for language '" + currentLanguage.getName() + "' exported. Time: " + (System.currentTimeMillis() - start) + "ms");
+		Logger.d(LOG_TAG, "All words for language '" + currentLanguage.getName() + "' exported. Time: " + Timer.stop(LOG_TAG) + "ms");
 	}
 
 	private void logExportError(Exception e) {
