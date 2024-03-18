@@ -10,7 +10,7 @@ apply from: 'version-tools.gradle'
 
 tasks.register('validateLanguages') {
 	inputs.dir fileTree(dir: LANGUAGES_INPUT_DIR)
-	outputs.file "${project.buildDir}/lang.validation.txt"
+	outputs.file layout.buildDirectory.file("lang.validation.txt")
 
 	doLast {
 		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, outputs.files.singleFile)
@@ -88,16 +88,17 @@ android {
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
 
-
 	applicationVariants.configureEach { variant ->
 		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
 			dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
 		}
 
 		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
-			tasks.named(taskName)?.configure {
-				dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
-			}
+			try {
+				tasks.named(taskName)?.configure {
+					dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
+				}
+			} catch (UnknownTaskException ignored) {}
 		}
 
 		assembleDebug.finalizedBy(updateManifest)
