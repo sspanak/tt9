@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 
 public class LanguageDefinition {
 	private static final String languagesDir = "languages";

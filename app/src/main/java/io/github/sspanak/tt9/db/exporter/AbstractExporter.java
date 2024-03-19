@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import io.github.sspanak.tt9.ConsumerCompat;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public abstract class AbstractExporter {
 	final protected static String FILE_EXTENSION = ".csv";

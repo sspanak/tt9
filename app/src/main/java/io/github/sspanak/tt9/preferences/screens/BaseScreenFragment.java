@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragmentCompat;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {

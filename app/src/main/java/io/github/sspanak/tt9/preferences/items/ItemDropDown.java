@@ -6,7 +6,7 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 
 public class ItemDropDown {
 	private final DropDownPreference item;

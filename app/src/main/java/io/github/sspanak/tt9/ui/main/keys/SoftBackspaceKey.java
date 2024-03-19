@@ -3,8 +3,8 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.languages.Characters;
-import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.Characters;
 
 public class SoftBackspaceKey extends SoftKey {
 
@@ -41,7 +41,6 @@ public class SoftBackspaceKey extends SoftKey {
 			return "Del";
 		}
 
-		Language language = getCurrentLanguage();
-		return language != null && language.isRTL() ? "⌦" : "⌫";
+		return LanguageKind.isRTL(getCurrentLanguage()) ? "⌦" : "⌫";
 	}
 }

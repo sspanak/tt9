@@ -5,7 +5,7 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class ItemClickable {

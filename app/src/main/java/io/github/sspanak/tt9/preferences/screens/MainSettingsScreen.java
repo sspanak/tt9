@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.BuildConfig;
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 
 public class LanguageCollection {
 	private static LanguageCollection self;
 
-	private final HashMap<Integer, Language> languages = new HashMap<>();
+	private final HashMap<Integer, NaturalLanguage> languages = new HashMap<>();
 
 	private LanguageCollection(Context context) {
 		for (String file : LanguageDefinition.getAllFiles(context.getAssets())) {
 			try {
-				Language lang = Language.fromDefinition(LanguageDefinition.fromFile(context.getAssets(), file));
+				NaturalLanguage lang = NaturalLanguage.fromDefinition(LanguageDefinition.fromFile(context.getAssets(), file));
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
 				Logger.e("tt9.LanguageCollection", "Skipping invalid language: '" + file + "'. " + e.getMessage());
@@ -38,7 +38,7 @@ public class LanguageCollection {
 	}
 
 	@Nullable
-	public static Language getLanguage(Context context, int langId) {
+	public static NaturalLanguage getLanguage(Context context, int langId) {
 		if (getInstance(context).languages.containsKey(langId)) {
 			return getInstance(context).languages.get(langId);
 		}
@@ -53,8 +53,8 @@ public class LanguageCollection {
 	}
 
 	@Nullable
-	public static Language getByLocale(Context context, String locale) {
-		for (Language lang : getInstance(context).languages.values()) {
+	public static NaturalLanguage getByLocale(Context context, String locale) {
+		for (NaturalLanguage lang : getInstance(context).languages.values()) {
 			if (lang.getLocale().toString().equals(locale)) {
 				return lang;
 			}
@@ -64,14 +64,13 @@ public class LanguageCollection {
 	}
 
 	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds, boolean sort) {
-		ArrayList<Language> langList = new ArrayList<>();
-
 		if (languageIds == null) {
-			return langList;
+			return new ArrayList<>();
 		}
 
+		ArrayList<NaturalLanguage> langList = new ArrayList<>();
 		for (int languageId : languageIds) {
-			Language lang = getLanguage(context, languageId);
+			NaturalLanguage lang = getLanguage(context, languageId);
 			if (lang != null) {
 				langList.add(lang);
 			}
@@ -81,8 +80,7 @@ public class LanguageCollection {
 			Collections.sort(langList);
 		}
 
-
-		return langList;
+		return new ArrayList<>(langList);
 	}
 
 	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds) {
@@ -90,13 +88,13 @@ public class LanguageCollection {
 	}
 
 	public static ArrayList<Language> getAll(Context context, boolean sort) {
-		ArrayList<Language> langList = new ArrayList<>(getInstance(context).languages.values());
+		ArrayList<NaturalLanguage> langList = new ArrayList<>(getInstance(context).languages.values());
 
 		if (sort) {
 			Collections.sort(langList);
 		}
 
-		return langList;
+		return new ArrayList<>(langList);
 	}
 
 	public static ArrayList<Language> getAll(Context context) {

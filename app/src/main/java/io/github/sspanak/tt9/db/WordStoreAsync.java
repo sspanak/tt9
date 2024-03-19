@@ -7,7 +7,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.ConsumerCompat;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.languages.Language;
 
 public class WordStoreAsync {

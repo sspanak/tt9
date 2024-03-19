@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.db.exporter.DictionaryExporter;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;

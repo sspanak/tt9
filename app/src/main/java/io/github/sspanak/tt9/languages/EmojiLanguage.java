@@ -5,6 +5,9 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.TextTools;
+
 public class EmojiLanguage extends Language {
 	final public static String EMOJI_SEQUENCE = "11";
 	final private static int CUSTOM_EMOJI_KEY = 3;
@@ -17,14 +20,21 @@ public class EmojiLanguage extends Language {
 		name = "Emoji";
 	}
 
+	@NonNull
 	@Override
 	public String getDigitSequenceForWord(String word) {
-		return TextTools.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : null;
+		return TextTools.isGraphic(word) ? CUSTOM_EMOJI_SEQUENCE : "";
+	}
+
+	@NonNull
+	@Override
+	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
+		return key == 1 && characterGroup >= 0 ? Characters.getEmoji(characterGroup) : new ArrayList<>();
 	}
 
 	@Override
-	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
-		return key == 1 && characterGroup >= 0 ? new ArrayList<>(Characters.getEmoji(characterGroup)) : super.getKeyCharacters(key, characterGroup);
+	public boolean isValidWord(String word) {
+		return TextTools.isGraphic(word);
 	}
 
 	public static String validateEmojiSequence(@NonNull String sequence, int next) {

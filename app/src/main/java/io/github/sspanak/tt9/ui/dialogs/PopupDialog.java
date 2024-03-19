@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.ConsumerCompat;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.ui.UI;
 
 abstract public class PopupDialog {

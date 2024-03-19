@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
-import android.content.Context;
-
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;

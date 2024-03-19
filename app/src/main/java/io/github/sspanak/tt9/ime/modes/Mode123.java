@@ -7,8 +7,9 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import io.github.sspanak.tt9.ime.helpers.InputType;
-import io.github.sspanak.tt9.languages.Characters;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
@@ -82,7 +83,7 @@ public class Mode123 extends ModePassthrough {
 	}
 
 	@Override protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		return digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {

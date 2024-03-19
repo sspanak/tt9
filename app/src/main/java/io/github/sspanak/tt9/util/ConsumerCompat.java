@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.util;
 
 /**
  * ConsumerCompat

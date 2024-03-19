@@ -4,10 +4,11 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class InputMode {
@@ -133,7 +134,7 @@ abstract public class InputMode {
 			return true;
 		}
 
-		if (!language.hasUpperCase() || digitSequence.startsWith(Language.PUNCTUATION_KEY) || digitSequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
+		if (!language.hasUpperCase() || digitSequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
 			return false;
 		}
 

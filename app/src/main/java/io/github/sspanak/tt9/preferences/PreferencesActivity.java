@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.db.WordStoreAsync;

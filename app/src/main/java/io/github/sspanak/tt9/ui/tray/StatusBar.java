@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
 
 public class StatusBar {

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.languages;
+package io.github.sspanak.tt9.util;
 
 import android.graphics.Paint;
 import android.os.Build;

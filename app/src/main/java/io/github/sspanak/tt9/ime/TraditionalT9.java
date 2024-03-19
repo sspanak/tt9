@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
@@ -30,7 +29,7 @@ import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.Text;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.PopupDialogActivity;
@@ -38,6 +37,8 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 
 public class TraditionalT9 extends KeyPadHandler {
 	private InputConnection currentInputConnection = null;
@@ -469,7 +470,7 @@ public class TraditionalT9 extends KeyPadHandler {
 		}
 
 		cancelAutoAccept();
-		backward = systemLanguage.isRTL() != backward;
+		backward = LanguageKind.isRTL(systemLanguage) != backward;
 		suggestionBar.scrollToSuggestion(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionBar.getCurrentSuggestion(), true);
 		setComposingTextWithHighlightedStem(suggestionBar.getCurrentSuggestion());
