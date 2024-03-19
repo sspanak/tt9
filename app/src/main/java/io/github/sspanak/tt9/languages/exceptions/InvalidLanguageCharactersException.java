@@ -1,4 +1,6 @@
-package io.github.sspanak.tt9.languages;
+package io.github.sspanak.tt9.languages.exceptions;
+
+import io.github.sspanak.tt9.languages.Language;
 
 public class InvalidLanguageCharactersException extends Exception {
 

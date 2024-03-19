@@ -1,8 +1,10 @@
-package io.github.sspanak.tt9.languages;
+package io.github.sspanak.tt9.util;
 
 import androidx.annotation.NonNull;
 
 import java.util.Locale;
+
+import io.github.sspanak.tt9.languages.Language;
 
 public class Text extends TextTools {
 	private final Language language;

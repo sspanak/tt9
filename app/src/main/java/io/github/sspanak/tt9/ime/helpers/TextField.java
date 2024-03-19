@@ -14,10 +14,11 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Text;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 
 public class TextField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
@@ -191,8 +192,8 @@ public class TextField {
 		boolean keepQuote = false;
 		if (language != null) {
 			// Hebrew and Ukrainian use the respective special characters as letters
-			keepApostrophe = language.isHebrew() || language.isUkrainian();
-			keepQuote = language.isHebrew();
+			keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
+			keepQuote = LanguageKind.isHebrew(language);
 		}
 
 		return before.subStringEndingWord(keepApostrophe, keepQuote) + after.subStringStartingWord(keepApostrophe, keepQuote);

@@ -7,7 +7,7 @@ import androidx.preference.Preference;
 
 import java.util.LinkedHashMap;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 
 class ItemLogLevel extends ItemDropDown {

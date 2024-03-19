@@ -6,12 +6,13 @@ import android.view.KeyEvent;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 
 public class SoftNumberKey extends SoftKey {
 	public SoftNumberKey(Context context) {
@@ -58,7 +59,7 @@ public class SoftNumberKey extends SoftKey {
 		int number = getNumber(getId());
 
 		Language language = getCurrentLanguage();
-		if (language != null && language.isArabic() && tt9 != null && !tt9.isInputModeNumeric()) {
+		if (LanguageKind.isArabic(language) && tt9 != null && !tt9.isInputModeNumeric()) {
 			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
 			return language.getKeyNumber(number);
 		} else {
@@ -106,8 +107,8 @@ public class SoftNumberKey extends SoftKey {
 			return "";
 		}
 
-		boolean isLatinBased = language.isLatinBased();
-		boolean isGreekBased = language.isGreek();
+		boolean isLatinBased = LanguageKind.isLatinBased(language);
+		boolean isGreekBased = LanguageKind.isGreek(language);
 
 		StringBuilder sb = new StringBuilder();
 		ArrayList<String> chars = language.getKeyCharacters(number);

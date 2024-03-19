@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -13,8 +12,11 @@ import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Text;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -91,7 +93,7 @@ public class ModePredictive extends InputMode {
 			digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
 			disablePredictions = false;
 
-			if (digitSequence.equals(Language.PREFERRED_CHAR_SEQUENCE)) {
+			if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 				autoAcceptTimeout = 0;
 			}
 		}
@@ -248,7 +250,7 @@ public class ModePredictive extends InputMode {
 	 * options for the current digitSequence.
 	 */
 	private boolean loadStaticSuggestions(Runnable onLoad) {
-		if (digitSequence.equals(Language.PUNCTUATION_KEY) || digitSequence.equals(Language.SPECIAL_CHARS_KEY)) {
+		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY)) {
 			super.loadSpecialCharacters(language);
 			onLoad.run();
 			return true;
@@ -257,7 +259,7 @@ public class ModePredictive extends InputMode {
 			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', digitSequence.length() - 2));
 			onLoad.run();
 			return true;
-		} else if (digitSequence.startsWith(Language.PREFERRED_CHAR_SEQUENCE)) {
+		} else if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(settings.getDoubleZeroChar());
 			onLoad.run();
@@ -313,7 +315,7 @@ public class ModePredictive extends InputMode {
 
 			// emoji and punctuation are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith(Language.PUNCTUATION_KEY) && !sequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
+			if (!sequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
 				WordStoreAsync.makeTopWord(language, currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -340,7 +342,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		return digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override
@@ -379,22 +381,22 @@ public class ModePredictive extends InputMode {
 		}
 
 		// special characters always break words
-		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(Language.SPECIAL_CHARS_KEY)) {
+		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
 			return true;
 		}
 
 		// allow apostrophes in the middle or at the end of Hebrew and Ukrainian words
-		if (language.isHebrew() || language.isUkrainian()) {
+		if (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)) {
 			return
 				predictions.noDbWords()
-				&& digitSequence.equals(Language.PUNCTUATION_KEY);
+				&& digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY);
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(Language.PUNCTUATION_KEY)
+			&& digitSequence.contains(NaturalLanguage.PUNCTUATION_KEY)
 			&& !digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}

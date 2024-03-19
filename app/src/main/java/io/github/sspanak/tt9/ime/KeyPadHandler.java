@@ -6,8 +6,8 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.Timer;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;

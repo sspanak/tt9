@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.languages.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
 
 public class WordBatch {

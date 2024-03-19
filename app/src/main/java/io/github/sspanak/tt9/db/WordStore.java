@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.Logger;
-import io.github.sspanak.tt9.Timer;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -18,7 +18,8 @@ import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.Text;
+import io.github.sspanak.tt9.languages.NullLanguage;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
@@ -68,7 +69,7 @@ public class WordStore {
 			return new ArrayList<>();
 		}
 
-		if (language == null) {
+		if (language == null || language instanceof NullLanguage) {
 			Logger.w(LOG_TAG, "Attempting to get words for NULL language.");
 			return new ArrayList<>();
 		}
@@ -93,12 +94,12 @@ public class WordStore {
 
 
 	@NonNull public ArrayList<String> getSimilarCustom(Language language, String wordFilter) {
-		return language != null && checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), language, wordFilter) : new ArrayList<>();
+		return language != null && !(language instanceof NullLanguage) && checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), language, wordFilter) : new ArrayList<>();
 	}
 
 
 	@NonNull public String getLanguageFileHash(Language language) {
-		return language != null && checkOrNotify() ? readOps.getLanguageFileHash(sqlite.getDb(), language.getId()) : "";
+		return language != null && !(language instanceof NullLanguage) && checkOrNotify() ? readOps.getLanguageFileHash(sqlite.getDb(), language.getId()) : "";
 	}
 
 
@@ -126,7 +127,7 @@ public class WordStore {
 
 
 	public void removeCustomWord(Language language, String word) {
-		if (language == null || !checkOrNotify()) {
+		if (language == null || language instanceof NullLanguage || !checkOrNotify()) {
 			return;
 		}
 
@@ -148,7 +149,7 @@ public class WordStore {
 			return AddWordDialog.CODE_BLANK_WORD;
 		}
 
-		if (language == null) {
+		if (language == null || language instanceof NullLanguage) {
 			return AddWordDialog.CODE_INVALID_LANGUAGE;
 		}
 
@@ -191,7 +192,7 @@ public class WordStore {
 
 
 	public void makeTopWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty()) {
+		if (!checkOrNotify() || word.isEmpty() || sequence.isEmpty() || language instanceof NullLanguage) {
 			return;
 		}
 
@@ -258,7 +259,7 @@ public class WordStore {
 
 
 	public void scheduleNormalization(Language language) {
-		if (language != null && checkOrNotify()) {
+		if (language != null && !(language instanceof NullLanguage) && checkOrNotify()) {
 			UpdateOps.scheduleNormalization(sqlite.getDb(), language);
 		}
 	}

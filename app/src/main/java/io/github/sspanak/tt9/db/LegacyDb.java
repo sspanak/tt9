@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import io.github.sspanak.tt9.Logger;
+import io.github.sspanak.tt9.util.Logger;
 
 public class LegacyDb extends SQLiteOpenHelper {
 	private final String LOG_TAG = getClass().getSimpleName();

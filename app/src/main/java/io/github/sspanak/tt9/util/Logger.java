@@ -1,6 +1,8 @@
-package io.github.sspanak.tt9;
+package io.github.sspanak.tt9.util;
 
 import android.util.Log;
+
+import io.github.sspanak.tt9.BuildConfig;
 
 public class Logger {
 	public static final String TAG_PREFIX = "tt9/";

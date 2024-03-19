@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class ModeABC extends InputMode {
@@ -61,7 +63,7 @@ public class ModeABC extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		if (digitSequence.equals(Language.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
+		if (digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
 			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
 			return true;
 		}
@@ -102,7 +104,7 @@ public class ModeABC extends InputMode {
 		}
 
 		String langCode = "";
-		if (language.isLatinBased() || language.isCyrillic()) {
+		if (LanguageKind.isLatinBased(language) || LanguageKind.isCyrillic(language)) {
 			// There are many languages written using the same alphabet, so if the user has enabled multiple,
 			// make it clear which one is it, by appending the country code to "ABC" or "АБВ".
 			langCode = language.getLocale().getCountry();
@@ -110,7 +112,7 @@ public class ModeABC extends InputMode {
 			langCode = langCode.isEmpty() ? language.getName() : langCode;
 			langCode = " / " + langCode;
 		}
-		String modeString =  language.getAbcString() + langCode.toUpperCase();
+		String modeString = language.getAbcString() + langCode.toUpperCase();
 
 		return (textCase == CASE_LOWER) ? modeString.toLowerCase(language.getLocale()) : modeString.toUpperCase(language.getLocale());
 	}
