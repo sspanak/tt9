@@ -294,8 +294,8 @@ public class TextField {
 			return word;
 		}
 
-		// nothing to highlight in an empty word or if the target is beyond the last letter
-		if (word == null || word.length() == 0 || word.length() <= start) {
+		// nothing to highlight in: an empty string; after the last letter; in special characters or emoji, because it breaks them
+		if (word == null || word.length() == 0 || word.length() <= start || !Character.isLetterOrDigit(word.charAt(0))) {
 			return word;
 		}
 

@@ -6,8 +6,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -15,13 +13,14 @@ import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
-import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.Timer;
 
 
 public class WordStore {
@@ -32,7 +31,7 @@ public class WordStore {
 	private ReadOps readOps = null;
 
 
-	public WordStore(@NonNull Context context) {
+	private WordStore(@NonNull Context context) {
 		try {
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
@@ -44,9 +43,8 @@ public class WordStore {
 	}
 
 
-	public static synchronized WordStore getInstance(Context context) {
+	public static synchronized WordStore getInstance(@NonNull Context context) {
 		if (self == null) {
-			context = context == null ? TraditionalT9.getMainContext() : context;
 			self = new WordStore(context);
 		}
 

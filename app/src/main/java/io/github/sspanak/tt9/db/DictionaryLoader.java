@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.db;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -10,9 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordFile;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
@@ -21,14 +19,16 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 
 public class DictionaryLoader {
 	private static final String LOG_TAG = "DictionaryLoader";
@@ -109,7 +109,7 @@ public class DictionaryLoader {
 	}
 
 
-	public static void autoLoad(TraditionalT9 context, Language language) {
+	public static void autoLoad(InputMethodService context, Language language) {
 		if (getInstance(context).isRunning()) {
 			return;
 		}
