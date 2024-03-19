@@ -83,13 +83,12 @@ public class AppHacks {
 	 * setComposingTextWithHighlightedStem
 	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
 	 */
-	public boolean setComposingTextWithHighlightedStem(@NonNull String word) {
+	public void setComposingTextWithHighlightedStem(@NonNull String word, InputMode inputMode) {
 		if (isKindleInvertedTextField()) {
 			textField.setComposingText(word);
-			return true;
+		} else {
+			textField.setComposingTextWithHighlightedStem(word, inputMode);
 		}
-
-		return false;
 	}
 
 

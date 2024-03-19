@@ -3,37 +3,37 @@ package io.github.sspanak.tt9.ui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.inputmethodservice.InputMethodService;
 import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
 	private static Toast toastLang = null;
 
-	public static void showAddWordDialog(TraditionalT9 tt9, int language, String currentWord) {
-		Intent intent = new Intent(tt9, PopupDialogActivity.class);
+	public static void showAddWordDialog(InputMethodService ims, int language, String currentWord) {
+		Intent intent = new Intent(ims, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		intent.putExtra("word", currentWord);
 		intent.putExtra("lang", language);
 		intent.putExtra("popup_type", PopupDialogActivity.DIALOG_ADD_WORD_INTENT);
-		tt9.startActivity(intent);
+		ims.startActivity(intent);
 	}
 
 
-	public static void showConfirmDictionaryUpdateDialog(TraditionalT9 tt9, int language) {
-		Intent intent = new Intent(tt9, PopupDialogActivity.class);
+	public static void showConfirmDictionaryUpdateDialog(InputMethodService ims, int language) {
+		Intent intent = new Intent(ims, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		intent.putExtra("lang", language);
 		intent.putExtra("popup_type", PopupDialogActivity.DIALOG_CONFIRM_WORDS_UPDATE_INTENT);
-		tt9.startActivity(intent);
+		ims.startActivity(intent);
 	}
 
 
@@ -42,12 +42,12 @@ public class UI {
 	}
 
 
-	public static void showSettingsScreen(TraditionalT9 tt9) {
-		Intent prefIntent = new Intent(tt9, PreferencesActivity.class);
+	public static void showSettingsScreen(InputMethodService ims) {
+		Intent prefIntent = new Intent(ims, PreferencesActivity.class);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		tt9.hideWindow();
-		tt9.startActivity(prefIntent);
+		ims.hideWindow();
+		ims.startActivity(prefIntent);
 	}
 
 	public static void alert(Context context, int titleResource, int messageResource) {

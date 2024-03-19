@@ -1,19 +1,17 @@
 package io.github.sspanak.tt9.ime;
 
-import android.inputmethodservice.InputMethodService;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 
 
-abstract class KeyPadHandler extends InputMethodService {
+abstract class KeyPadHandler extends AbstractHandler {
 	protected SettingsStore settings;
 
 	// debounce handling
@@ -66,7 +64,7 @@ abstract class KeyPadHandler extends InputMethodService {
 	 */
 	@Override
 	public View onCreateInputView() {
-		return createSoftKeyView();
+		return createMainView();
 	}
 
 
@@ -105,7 +103,6 @@ abstract class KeyPadHandler extends InputMethodService {
 	@Override
 	public void onFinishInput() {
 		super.onFinishInput();
-		// Logger.d("onFinishInput", "When is this called?");
 		onStop();
 	}
 
@@ -256,43 +253,7 @@ abstract class KeyPadHandler extends InputMethodService {
 
 
 	private boolean handleHotkey(int keyCode, boolean hold, boolean repeat, boolean validateOnly) {
-		if (keyCode == settings.getKeyAddWord() * (hold ? -1 : 1)) {
-			return onKeyAddWord(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyChangeKeyboard() * (hold ? -1 : 1)) {
-			return onKeyChangeKeyboard(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyFilterClear() * (hold ? -1 : 1)) {
-			return onKeyFilterClear(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyFilterSuggestions() * (hold ? -1 : 1)) {
-			return onKeyFilterSuggestions(validateOnly, repeat);
-		}
-
-		if (keyCode == settings.getKeyNextLanguage() * (hold ? -1 : 1)) {
-			return onKeyNextLanguage(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyNextInputMode() * (hold ? -1 : 1)) {
-			return onKeyNextInputMode(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyPreviousSuggestion() * (hold ? -1 : 1)) {
-			return onKeyScrollSuggestion(validateOnly, true);
-		}
-
-		if (keyCode == settings.getKeyNextSuggestion() * (hold ? -1 : 1)) {
-			return onKeyScrollSuggestion(validateOnly, false);
-		}
-
-		if (keyCode == settings.getKeyShowSettings() * (hold ? -1 : 1)) {
-			return onKeyShowSettings(validateOnly);
-		}
-
-		return false;
+		return onHotkey(keyCode * (hold ? -1 : 1), repeat, validateOnly);
 	}
 
 
@@ -321,34 +282,4 @@ abstract class KeyPadHandler extends InputMethodService {
 
 		return false;
 	}
-
-
-	// hardware key handlers
-	abstract protected boolean onBack();
-	abstract public boolean onBackspace();
-	abstract protected boolean onNumber(int key, boolean hold, int repeat);
-	abstract public boolean onOK();
-	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
-
-	// hotkey handlers
-	abstract protected boolean onKeyAddWord(boolean validateOnly);
-	abstract protected boolean onKeyChangeKeyboard(boolean validateOnly);
-	abstract protected boolean onKeyFilterClear(boolean validateOnly);
-	abstract protected boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat);
-	abstract protected boolean onKeyNextLanguage(boolean validateOnly);
-	abstract protected boolean onKeyNextInputMode(boolean validateOnly);
-	abstract protected boolean onKeyScrollSuggestion(boolean validateOnly, boolean backward);
-	abstract protected boolean onKeyShowSettings(boolean validateOnly);
-
-	// helpers
-	abstract protected void onInit();
-	abstract protected void onStart(InputConnection inputConnection, EditorInfo inputField);
-	abstract protected void onFinishTyping();
-	abstract protected void onStop();
-	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
-
-	// UI
-	abstract protected View createSoftKeyView();
-	abstract protected boolean shouldBeVisible();
-	abstract protected boolean shouldBeOff();
 }

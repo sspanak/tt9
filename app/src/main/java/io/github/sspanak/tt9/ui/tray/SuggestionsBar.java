@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ime.AbstractHandler;
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SuggestionsBar {
@@ -27,14 +27,14 @@ public class SuggestionsBar {
 	private boolean isDarkThemeEnabled = false;
 
 	private final RecyclerView mView;
-	private final TraditionalT9 tt9;
+	private final AbstractHandler tt9;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 	private final Handler alternativeScrollingHandler = new Handler();
 	private final int suggestionScrollingDelay;
 
 
-	public SuggestionsBar(TraditionalT9 tt9, View mainView) {
+	public SuggestionsBar(AbstractHandler tt9, View mainView) {
 		super();
 
 		this.tt9 = tt9;
@@ -97,11 +97,6 @@ public class SuggestionsBar {
 
 	public int getCurrentIndex() {
 		return selectedIndex;
-	}
-
-
-	public String getCurrentSuggestion() {
-		return getSuggestion(selectedIndex);
 	}
 
 
