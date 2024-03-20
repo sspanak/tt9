@@ -49,6 +49,7 @@
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_hack_google_chat">Send messages with \"OK\" in Google Chat</string>
 	<string name="pref_hack_fb_messenger">Send with \"OK\" in Facebook Messenger</string>
+	<string name="pref_hack_android_mms">Fix double send in Android Message</string>
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
 	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
