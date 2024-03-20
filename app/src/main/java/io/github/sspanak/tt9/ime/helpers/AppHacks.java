@@ -58,6 +58,18 @@ public class AppHacks {
 		);
 	}
 
+	/**
+	 * isAndroidMMS
+	 * Android Messages on Kyocera devices will register the OK key as both ENTER and DPAD_CENTER when sending a message using TT9. This results
+	 * in an attempt to double send causing an 'Empty Message' error page to pop up. 
+	 */
+	private boolean isAndroidMMS() {
+		return isAppField(
+			"com.android.mms",
+			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
+		);
+	}
+
 
 	private boolean isGoogleChat() {
 		return isAppField(
@@ -124,6 +136,8 @@ public class AppHacks {
 			return onEnterFbMessenger();
 		} else if (isGoogleChat()) {
 			return onEnterGoogleChat();
+		} else if (isAndroidMMS()) {
+			return onEnterAndroidMMS();
 		}
 
 		return onEnterDefault();
@@ -182,6 +196,26 @@ public class AppHacks {
 
 		if (settings.getFbMessengerHack()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		} else {
+			// in case the setting is disabled, just type a new line as one would expect
+			inputConnection.commitText("\n", 1);
+		}
+
+		return true;
+	}
+
+	/**
+	 * onEnterAndroidMMS
+	 * The Messages app will send a message on DPAD_CENTER. TT9 will also input ENTER by default, causing a double send.
+	 * To fix this behaviour, TT9 should do nothing if enter is pressed in this context. 
+	 */
+	private boolean onEnterAndroidMMS() {
+		if (inputConnection == null || textField == null || !textField.isThereText()) {
+			return false;
+		}
+
+		if (settings.getAndroidMMSHack()) {
+			// Do nothing if hack is enabled
 		} else {
 			// in case the setting is disabled, just type a new line as one would expect
 			inputConnection.commitText("\n", 1);
