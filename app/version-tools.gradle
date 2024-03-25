@@ -17,7 +17,7 @@ def execThing (String cmdStr) {
 }
 
 def getCurrentGitHash() {
-	return execThing('git log -1 --format=%h')
+	return execThing('git rev-parse --short=8 HEAD')
 }
 
 def generateVersionName() {
