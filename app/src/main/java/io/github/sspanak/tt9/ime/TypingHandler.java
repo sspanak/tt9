@@ -263,6 +263,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void getSuggestions() {
 		if (mInputMode instanceof ModePredictive && DictionaryLoader.getInstance(this).isRunning()) {
+			mInputMode.reset();
 			UI.toast(this, R.string.dictionary_loading_please_wait);
 		} else {
 			mInputMode.loadSuggestions(this::handleSuggestions, suggestionOps.getCurrent());
