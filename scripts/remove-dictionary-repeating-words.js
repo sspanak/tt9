@@ -1,13 +1,7 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
-
-const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
-
-
-function print(str) {
-	process.stdout.write(`${str}\n`);
-}
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
@@ -27,7 +21,7 @@ function validateInput() {
 
 
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find file "${process.argv[3]}."`);
+		printError(`Failure! Could not find file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
@@ -39,6 +33,8 @@ function validateInput() {
 }
 
 
+/*
+const GEO_NAME = /[A-Z]\w+-[^\n]+/;
 
 function getRegularWordKey(locale, word) {
 	if (typeof word !== 'string' || word.length === 0) {
@@ -47,7 +43,7 @@ function getRegularWordKey(locale, word) {
 
 	return GEO_NAME.test(word) ? word : word.toLocaleLowerCase(locale);
 }
-
+*/
 
 
 function getLowercaseWordKey(locale, word) {
@@ -97,4 +93,4 @@ function printWords(wordList) {
 /** main **/
 removeRepeatingWords(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

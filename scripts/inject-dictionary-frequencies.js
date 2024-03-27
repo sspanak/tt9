@@ -1,14 +1,15 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
+const { print, printError } = require('./_printers.js');
 
 
 const DELIMITER = '	';
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt`);
-	console.log('Matches up the words from DICTIONARY-FILE-NAME with the frequencies in WORDS-WITH-FREQUENCIES file.');
-	console.log('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
+	print(`Usage ${basename(process.argv[1])} LOCALE DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt`);
+	print('Matches up the words from DICTIONARY-FILE-NAME with the frequencies in WORDS-WITH-FREQUENCIES file.');
+	print('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
 }
 
 
@@ -20,13 +21,13 @@ function validateInput() {
 
 
 	if (!existsSync(process.argv[4])) {
-		console.error(`Failure! Could not find the WORDS-WITH-FREQUENCIES file "${process.argv[4]}."`);
+		printError(`Failure! Could not find the WORDS-WITH-FREQUENCIES file "${process.argv[4]}".`);
 		process.exit(2);
 	}
 
 
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find dictionary file "${process.argv[3]}."`);
+		printError(`Failure! Could not find dictionary file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
@@ -79,7 +80,7 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 
 function printWords(wordList) {
 	if (Array.isArray(wordList)) {
-		wordList.forEach(w => console.log(w));
+		wordList.forEach(w => print(w));
 	}
 }
 
@@ -88,4 +89,4 @@ function printWords(wordList) {
 /** main **/
 inject(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

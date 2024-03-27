@@ -1,11 +1,12 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} aosp-dictionary-file.txt [minimum-frequency] [--no-freq]`);
-	console.log('Converts an AOSP dictionary to TT9 compatible format. The second parameter must be an integer and allows for filtering words with frequency less than the given number. If "--no-freq" is set, only words without frequencies will be listed.');
+	print(`Usage ${basename(process.argv[1])} aosp-dictionary-file.txt [minimum-frequency] [--no-freq]`);
+	print('Converts an AOSP dictionary to TT9 compatible format. The second parameter must be an integer and allows for filtering words with frequency less than the given number. If "--no-freq" is set, only words without frequencies will be listed.');
 }
 
 
@@ -17,7 +18,7 @@ function validateInput() {
 	}
 
 	if (!existsSync(process.argv[2])) {
-		console.error(`Failure! Could not find dictionary file "${process.argv[3]}."`);
+		printError(`Failure! Could not find dictionary file "${process.argv[2]}".`);
 		process.exit(2);
 	}
 
@@ -31,13 +32,13 @@ function validateInput() {
 
 function printWords(wordList) {
 	if (Array.isArray(wordList)) {
-		wordList.forEach(w => console.log(w));
+		wordList.forEach(w => print(w));
 	}
 }
 
 
 async function convert({ fileName, minFrequency, noFrequencies }) {
-	words = [];
+	const words = [];
 
 	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
@@ -74,4 +75,4 @@ async function convert({ fileName, minFrequency, noFrequencies }) {
 /** main **/
 convert(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));
