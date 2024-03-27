@@ -1,11 +1,12 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE WORD-LIST.txt LANGUAGE-DEFINITION.yml`);
-	console.log('Sorts a dictionary for optimum search speed.');
+	print(`Usage ${basename(process.argv[1])} LOCALE WORD-LIST.txt LANGUAGE-DEFINITION.yml`);
+	print('Sorts a dictionary for optimum search speed.');
 }
 
 
@@ -17,12 +18,12 @@ function validateInput() {
 	}
 
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find word list file "${process.argv[3]}."`);
+		printError(`Failure! Could not find word list file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
 	if (!existsSync(process.argv[4])) {
-		console.error(`Failure! Could not find language definition file "${process.argv[3]}."`);
+		printError(`Failure! Could not find language definition file "${process.argv[4]}".`);
 		process.exit(2);
 	}
 
@@ -36,7 +37,7 @@ function validateInput() {
 
 function printWords(wordList) {
 	if (Array.isArray(wordList)) {
-		wordList.forEach(w => console.log(`${w.word}${w.frequency ? '\t' + w.frequency : ''}`));
+		wordList.forEach(w => print(`${w.word}${w.frequency ? '\t' + w.frequency : ''}`));
 	}
 }
 
@@ -77,7 +78,9 @@ async function readDefinition(fileName) {
 		const matches = line.match(lettersPattern);
 		if (matches && matches[1]) {
 			const letters = matches[1].replace(/\s/g, '').split(',');
-			letters.forEach(l => letterWeights.set(l, key));
+			for (let l of letters) {
+				letterWeights.set(l, key);
+			}
 			key++;
 		}
 	}
@@ -120,4 +123,4 @@ async function work({ definitionFile, wordsFile, locale }) {
 /** main **/
 work(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

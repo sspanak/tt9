@@ -1,13 +1,14 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE word-list.txt`);
-	console.log('Searches for compound words with that also exsit as separate words and removes the compound variants.');
-	console.log('For example, "fly-by" will be removed, if the word list contains both "fly" and "by".')
-	console.log('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...')
+	print(`Usage ${basename(process.argv[1])} LOCALE word-list.txt`);
+	print('Searches for compound words with that also exsit as separate words and removes the compound variants.');
+	print('For example, "fly-by" will be removed, if the word list contains both "fly" and "by".')
+	print('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...')
 }
 
 
@@ -18,7 +19,7 @@ function validateInput() {
 	}
 
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find word list file "${process.argv[3]}."`);
+		printError(`Failure! Could not find word list file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
@@ -32,7 +33,7 @@ function validateInput() {
 
 function printWords(wordList) {
 	if (wordList instanceof Set) {
-		wordList.forEach(w => console.log(w));
+		wordList.forEach(w => print(w));
 	}
 }
 
@@ -109,4 +110,4 @@ async function work({ fileName, locale, separator }) {
 /** main **/
 work(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

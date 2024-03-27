@@ -1,12 +1,13 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} word-list.txt [split-ignore-list.txt]`);
-	console.log('Breaks dashed words into separate words, puts multiple words on a line on new lines and deletes repeating new lines.');
-	console.log('The split-ignore-list is optional. Allows for not splitting certain words by dashes.');
+	print(`Usage ${basename(process.argv[1])} word-list.txt [split-ignore-list.txt]`);
+	print('Breaks dashed words into separate words, puts multiple words on a line on new lines and deletes repeating new lines.');
+	print('The split-ignore-list is optional. Allows for not splitting certain words by dashes.');
 }
 
 
@@ -18,12 +19,12 @@ function validateInput() {
 	}
 
 	if (!existsSync(process.argv[2])) {
-		console.error(`Failure! Could not find word list file "${process.argv[3]}."`);
+		printError(`Failure! Could not find word list file "${process.argv[2]}".`);
 		process.exit(2);
 	}
 
 	if (process.argv[3] && !existsSync(process.argv[3])) {
-		console.error(`Failure! Could not ignore list file "${process.argv[3]}."`);
+		printError(`Failure! Could not find ignore list file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
@@ -36,7 +37,7 @@ function validateInput() {
 
 function printWords(wordList) {
 	if (Array.isArray(wordList)) {
-		wordList.forEach(w => console.log(w));
+		wordList.forEach(w => print(w));
 	}
 }
 
@@ -72,7 +73,7 @@ function splitDashedWords(inputWords, ignoreList) {
 		}
 
 		const [root, ...others] = word.split('-');
-		if (root === undefined || others.length != 1) {
+		if (root === undefined || others.length !== 1) {
 			continue;
 		}
 
@@ -125,4 +126,4 @@ async function work({ fileName, ignoreListFileName }) {
 /** main **/
 work(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

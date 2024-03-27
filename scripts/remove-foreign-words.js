@@ -1,11 +1,7 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
-
-
-function print(str) {
-	process.stdout.write(`${str}\n`);
-}
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
@@ -22,17 +18,17 @@ function validateInput() {
 	}
 
 	if (process.argv[2] !== '--blacklist' && process.argv[2] !== '--whitelist') {
-		console.error(`Failure! You must specify whether to use the foreign words file as a blacklist or a whitelist."`);
+		printError(`Failure! You must specify whether to use the foreign words file as a blacklist or a whitelist."`);
 		process.exit(3);
 	}
 
 	if (!existsSync(process.argv[4])) {
-		console.error(`Failure! Could not find words file "${process.argv[4]}."`);
+		printError(`Failure! Could not find words file "${process.argv[4]}".`);
 		process.exit(2);
 	}
 
 	if (!existsSync(process.argv[6])) {
-		console.error(`Failure! Could not find foreign words file "${process.argv[6]}."`);
+		printError(`Failure! Could not find foreign words file "${process.argv[6]}".`);
 		process.exit(2);
 	}
 
@@ -89,4 +85,4 @@ function printWords(wordList) {
 /** main **/
 work(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

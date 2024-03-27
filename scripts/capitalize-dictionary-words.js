@@ -1,12 +1,13 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} DICTIONARY-FILE-NAME.txt LIST-OF-CAPITALIZED-WORDS.txt MIN-WORD-LENGTH LOCALE`);
-	console.log('Capitalizes a word list using capitalized words in another list.');
-	console.log('\nMIN-WORD-LENGTH must be a positive number.');
-	console.log('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
+	print(`Usage ${basename(process.argv[1])} DICTIONARY-FILE-NAME.txt LIST-OF-CAPITALIZED-WORDS.txt MIN-WORD-LENGTH LOCALE`);
+	print('Capitalizes a word list using capitalized words in another list.');
+	print('\nMIN-WORD-LENGTH must be a positive number.');
+	print('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
 }
 
 
@@ -17,21 +18,19 @@ function validateInput() {
 		process.exit(1);
 	}
 
-
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find list-of-capitals file "${process.argv[3]}."`);
+		printError(`Failure! Could not find list-of-capitals file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
-
 	if (!existsSync(process.argv[2])) {
-		console.error(`Failure! Could not find dictionary file "${process.argv[2]}."`);
+		printError(`Failure! Could not find dictionary file "${process.argv[2]}".`);
 		process.exit(2);
 	}
 
 	const minWordLength = Number.parseInt(process.argv[4]);
 	if (Number.isNaN(minWordLength) || minWordLength < 0) {
-		console.error(`Failure! The minimum word length must be a positive number.`);
+		printError(`Failure! The minimum word length must be a positive number.`);
 		process.exit(2);
 	}
 
@@ -84,7 +83,7 @@ function printWords(wordList) {
 		return;
 	}
 
-	wordList.forEach(w => console.log(w));
+	wordList.forEach(w => print(w));
 }
 
 
@@ -92,4 +91,4 @@ function printWords(wordList) {
 /** main **/
 capitalize(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));
