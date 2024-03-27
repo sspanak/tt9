@@ -17,6 +17,7 @@
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>
 	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected.</string>
+	<string name="add_word_invalid_language_x">Cannot add a word. Unknown language: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
 

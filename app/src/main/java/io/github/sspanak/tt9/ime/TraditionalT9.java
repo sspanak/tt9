@@ -15,8 +15,8 @@ import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.preferences.SettingsStore;
-import io.github.sspanak.tt9.ui.PopupDialogActivity;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.Logger;
@@ -32,7 +32,7 @@ public class TraditionalT9 extends HotkeyHandler {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int result = super.onStartCommand(intent, flags, startId);
 
-		String message = intent != null ? intent.getStringExtra(PopupDialogActivity.DIALOG_CLOSED_INTENT) : null;
+		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
 		if (message != null) {
 			forceShowWindowIfHidden();
 			if (!message.isEmpty()) {

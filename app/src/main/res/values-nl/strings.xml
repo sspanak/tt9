@@ -10,6 +10,7 @@
 	<string name="add_word_no_selection">Verplaats de cursor binnen een woord om het toe te voegen.</string>
 	<string name="add_word_blank">Leeg woord niet toegevoegd.</string>
 	<string name="add_word_exist">Woord \"%1$s\" staat al in het woordenboek.</string>
+	<string name="add_word_invalid_language_x">Kan geen woord toevoegen. Onbekende taal: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="pref_category_about">Over de applicatie</string>

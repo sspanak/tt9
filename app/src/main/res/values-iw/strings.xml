@@ -11,6 +11,7 @@
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>
 	<string name="add_word_blank">מילה ריקה לא נוספה</string>
 	<string name="add_word_exist">המילה \"%1$s\" כבר קיימת במילון.</string>
+	<string name="add_word_invalid_language_x">לא ניתן להוסיף מילה. שפה לא ידועה: \"%1$d\".</string>
 	<string name="add_word_success">%1$s נוסף.</string>
 	<string name="add_word_title">הוסף מילה</string>
 
