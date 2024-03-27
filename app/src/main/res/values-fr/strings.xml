@@ -9,6 +9,7 @@
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
 	<string name="add_word_exist">Le mot «%1$s» est déjà dans le dictionnaire.</string>
+	<string name="add_word_invalid_language_x">Impossible d\'ajouter un mot. Langue inconnue : « %1$d ».</string>
 	<string name="add_word_success">« %1$s » est ajouté</string>
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="pref_category_about">À propos de l\'application</string>

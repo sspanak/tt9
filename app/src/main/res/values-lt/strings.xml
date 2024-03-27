@@ -13,6 +13,7 @@
 	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>
 	<string name="add_word_blank">Negalima pridėti tuščio žodžio.</string>
 	<string name="add_word_exist">Žodis \"%1$s\" jau yra žodyne.</string>
+	<string name="add_word_invalid_language_x">Negalima pridėti žodžio. Nežinoma kalba: \"%1$d\".</string>
 	<string name="add_word_success">Žodis \"%1$s\" pridėtas.</string>
 	<string name="add_word_title">Pridėti žodį</string>
 

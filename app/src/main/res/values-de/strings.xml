@@ -10,6 +10,7 @@
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
 	<string name="add_word_blank">Leeres Wort nicht hinzugefügt.</string>
 	<string name="add_word_exist">Das Wort \"%1$s\" ist bereits in Wörterbuch.</string>
+	<string name="add_word_invalid_language_x">Wort kann nicht hinzugefügt werden. Unbekannte Sprache: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
