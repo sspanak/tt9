@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 public abstract class HotkeyHandler extends TypingHandler {
 	private boolean isSystemRTL = false;
@@ -114,7 +115,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		if (word.isEmpty()) {
 			UI.toastLong(this, R.string.add_word_no_selection);
 		} else {
-			UI.showAddWordDialog(this, mLanguage.getId(), word);
+			AddWordDialog.show(this, mLanguage.getId(), word);
 		}
 
 		return true;

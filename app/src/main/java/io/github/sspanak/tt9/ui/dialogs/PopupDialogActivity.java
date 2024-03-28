@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui;
+package io.github.sspanak.tt9.ui.dialogs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
-import io.github.sspanak.tt9.ui.dialogs.ConfirmDictionaryUpdateDialog;
-import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
 
 public class PopupDialogActivity extends AppCompatActivity {

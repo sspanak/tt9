@@ -12,31 +12,9 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
-import io.github.sspanak.tt9.ui.dialogs.ConfirmDictionaryUpdateDialog;
 
 public class UI {
 	private static Toast toastLang = null;
-
-	public static void showAddWordDialog(InputMethodService ims, int language, String currentWord) {
-		Intent intent = new Intent(ims, PopupDialogActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		intent.putExtra(AddWordDialog.PARAMETER_DIALOG_TYPE, AddWordDialog.TYPE);
-		intent.putExtra(AddWordDialog.PARAMETER_LANGUAGE, language);
-		intent.putExtra(AddWordDialog.PARAMETER_WORD, currentWord);
-		ims.startActivity(intent);
-	}
-
-
-	public static void showConfirmDictionaryUpdateDialog(InputMethodService ims, int language) {
-		Intent intent = new Intent(ims, PopupDialogActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		intent.putExtra(ConfirmDictionaryUpdateDialog.PARAMETER_DIALOG_TYPE, ConfirmDictionaryUpdateDialog.TYPE);
-		intent.putExtra(ConfirmDictionaryUpdateDialog.PARAMETER_LANGUAGE, language);
-		ims.startActivity(intent);
-	}
 
 
 	public static void showChangeKeyboardDialog(Context context) {
