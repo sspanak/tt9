@@ -21,10 +21,12 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField {
+	public static final int TYPE_MULTILINE_TEXT = EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE;
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
-	public final InputConnection connection;
-	public final EditorInfo field;
+	private final InputConnection connection;
+	private final EditorInfo field;
+
 
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
 		connection = inputConnection;
@@ -342,6 +344,7 @@ public class TextField {
 		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
 		switch (standardAction) {
 			case EditorInfo.IME_ACTION_GO:
+			case EditorInfo.IME_ACTION_DONE:
 			case EditorInfo.IME_ACTION_NEXT:
 			case EditorInfo.IME_ACTION_PREVIOUS:
 			case EditorInfo.IME_ACTION_SEARCH:

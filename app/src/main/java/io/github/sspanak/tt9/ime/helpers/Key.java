@@ -2,9 +2,25 @@ package io.github.sspanak.tt9.ime.helpers;
 
 import android.view.KeyEvent;
 
+import java.util.HashMap;
+
 import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class Key {
+	private static final HashMap<Integer, Boolean> handledKeys = new HashMap<>();
+
+
+	public static boolean setHandled(int keyCode, boolean handled) {
+		handledKeys.put(keyCode, handled);
+		return handled;
+	}
+
+
+	public static boolean isHandled(int keyCode) {
+		return Boolean.TRUE.equals(handledKeys.get(keyCode));
+	}
+
+
 	public static boolean isBackspace(SettingsStore settings, int keyCode) {
 		return
 			keyCode == KeyEvent.KEYCODE_DEL

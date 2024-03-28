@@ -59,6 +59,13 @@ public class AppHacks {
 	}
 
 
+	private boolean isMultilineTextField() {
+		return
+			editorInfo != null
+			&& (editorInfo.inputType & TextField.TYPE_MULTILINE_TEXT) == TextField.TYPE_MULTILINE_TEXT;
+	}
+
+
 	private boolean isGoogleChat() {
 		return isAppField(
 			"com.google.android.apps.dynamite",
@@ -111,80 +118,46 @@ public class AppHacks {
 
 	/**
 	 * onEnter
-	 * Tries to guess and send the correct confirmation key code or sequence of key codes, depending on the connected application
-	 * and input field. On invalid connection or field, it does nothing.
-	 * This hack applies to all applications, not only selected ones.
+	 * Tries to guess and send the correct confirmation key code or sequence of key codes,
+	 * depending on the connected application and input field. On invalid connection or field,
+	 * it does nothing.
 	 */
 	public boolean onEnter() {
 		if (isTermux()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 			return true;
-		} else if (isMessenger()) {
+		} else if (settings.getFbMessengerHack() && isMessenger()) {
 			return onEnterFbMessenger();
-		} else if (isGoogleChat()) {
+		} else if (settings.getGoogleChatHack() && isGoogleChat()) {
 			return onEnterGoogleChat();
+		} else if (isMultilineTextField()) {
+			return onEnterMultilineText();
 		}
 
-		return onEnterDefault();
+		return false;
 	}
 
 
 	/**
-	 * onEnterDefault
-	 * This is the default "ENTER" routine for most applications that support send-with-enter functionality. It will attempt to
-	 * guess and send the correct confirmation key code, be it "ENTER" or "DPAD_CENTER".
-	 * On invalid textField, it does nothing.
+	 * In generic text fields, or when no hacks are in effect, we just type a new line,
+	 * as one would expect when pressing ENTER.
 	 */
-	private boolean onEnterDefault() {
-		if (textField == null) {
-			return false;
-		}
-
-		String oldText = textField.getStringBeforeCursor() + textField.getStringAfterCursor();
-
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-
-		// If there is no text, there is nothing to send, so there is no need to attempt any hacks.
-		// We just pass through DPAD_CENTER and finish as if the key press was handled by the system.
-		if (oldText.isEmpty()) {
-			return true;
-		}
-
-		try {
-			// In Android there is no strictly defined confirmation key, hence DPAD_CENTER may have done nothing.
-			// If so, send an alternative key code as a final resort.
-			Thread.sleep(80);
-			String newText = textField.getStringBeforeCursor() + textField.getStringAfterCursor();
-			if (newText.equals(oldText)) {
-				sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-			}
-		} catch (InterruptedException e) {
-			// This thread got interrupted. Assume it's because the connected application has taken an action
-			// after receiving DPAD_CENTER, so we don't need to do anything else.
-			return true;
-		}
-
-		return true;
+	private boolean onEnterMultilineText() {
+		return inputConnection != null && inputConnection.commitText("\n", 1);
 	}
 
 
 	/**
 	 * onEnterFbMessenger
 	 * Messenger responds only to ENTER, but not DPAD_CENTER, so we make sure to send the correct code,
-	 * no matter how the hardware key is implemented. In case the hack is disabled, we just type a new line,
-	 * as one would expect.
+	 * no matter how the hardware key is implemented.
 	 */
 	private boolean onEnterFbMessenger() {
 		if (inputConnection == null || textField == null || !textField.isThereText()) {
 			return false;
 		}
 
-		if (settings.getFbMessengerHack()) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-		} else {
-			// in case the setting is disabled, just type a new line as one would expect
-			inputConnection.commitText("\n", 1);
-		}
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 
 		return true;
 	}
@@ -193,24 +166,19 @@ public class AppHacks {
 	 * onEnterGoogleChat
 	 * Google Chat does not seem to respond consistently to ENTER. So we trick it by selecting
 	 * the send button it, then going back to the text field, so that one can continue typing.
-	 * If the hack is disabled, we just type a new line.
 	 */
 	private boolean onEnterGoogleChat() {
 		if (inputConnection == null || textField == null || !textField.isThereText()) {
 			return false;
 		}
 
-		if (settings.getGoogleChatHack()) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		} else {
-			inputConnection.commitText("\n", 1);
-		}
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
+		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
 
 		return true;
 	}
