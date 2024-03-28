@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
 import android.content.Context;
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
@@ -19,7 +18,7 @@ abstract public class PopupDialog {
 	protected String message;
 	protected String OKLabel;
 
-	public PopupDialog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
+	PopupDialog(@NonNull Context context, ConsumerCompat<String> activityFinisher) {
 		this.activityFinisher = activityFinisher;
 		this.context = context;
 	}
@@ -34,5 +33,5 @@ abstract public class PopupDialog {
 		UI.confirm(context, title, message, OKLabel, OKAction, () -> activityFinisher.accept(""));
 	}
 
-	abstract public void render();
+	abstract void render();
 }
