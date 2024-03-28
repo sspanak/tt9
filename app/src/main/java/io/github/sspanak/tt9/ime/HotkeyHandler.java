@@ -104,7 +104,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		}
 
 		if (DictionaryLoader.getInstance(this).isRunning()) {
-			UI.toast(this, R.string.dictionary_loading_please_wait);
+			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 			return true;
 		}
 
@@ -223,7 +223,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		renderMainView();
 		forceShowWindowIfHidden();
 		if (!suggestionOps.isEmpty()) {
-			UI.toastLanguage(this, mLanguage);
+			UI.toastShortSingle(this, mLanguage.getClass().getSimpleName(), mLanguage.getName());
 		}
 
 		if (mInputMode instanceof ModePredictive) {

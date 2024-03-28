@@ -10,11 +10,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
+
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
-	private static Toast toastLang = null;
+	private static final HashMap<String, Toast> singleToasts = new HashMap<>();
 
 
 	public static void showChangeKeyboardDialog(Context context) {
@@ -79,14 +82,22 @@ public class UI {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 	}
 
-	public static void toastLanguage(@NonNull Context context, @NonNull Language language) {
-		if (toastLang != null) {
-			toastLang.cancel();
+	public static void toastShortSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message) {
+		Toast toast = singleToasts.get(uniqueId);
+
+		if (toast != null) {
+			toast.cancel();
 		}
 
-		// we recreate the toast, because if set new text, when it is fading out,
-		// the new text is discarded
-		toastLang = Toast.makeText(context, language.getName(), Toast.LENGTH_SHORT);
-		toastLang.show();
+		// we recreate the toast, because if set new text, when it is fading out, it is ignored
+		toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+		toast.show();
+
+		singleToasts.put(uniqueId, toast);
+	}
+
+
+	public static void toastShortSingle(@NonNull Context context, int resourceId) {
+		toastShortSingle(context, String.valueOf(resourceId), context.getString(resourceId));
 	}
 }
