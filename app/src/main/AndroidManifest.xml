@@ -33,7 +33,7 @@
 		<activity
 			android:excludeFromRecents="true"
 			android:label=""
-			android:name="io.github.sspanak.tt9.ui.PopupDialogActivity"
+			android:name="io.github.sspanak.tt9.ui.dialogs.PopupDialogActivity"
 			android:theme="@style/alertDialog" />
 	</application>
 </manifest>
