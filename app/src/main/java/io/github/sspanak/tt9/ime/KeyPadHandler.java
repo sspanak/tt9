@@ -18,8 +18,6 @@ abstract class KeyPadHandler extends AbstractHandler {
 	private final static String DEBOUNCE_TIMER = "debounce_";
 
 	// temporal key handling
-	private boolean isBackspaceHandled = false;
-
 	private int ignoreNextKeyUp = 0;
 
 	private int lastKeyCode = 0;
@@ -78,7 +76,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		Logger.d(
 			"KeyPadHandler",
-			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " fieldId: " + inputField.fieldId + " fieldName: " + inputField.fieldName + " privateImeOptions: " + inputField.privateImeOptions + " imeOptions: " + inputField.imeOptions + " extras: " + inputField.extras
+			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);
 		onStart(getCurrentInputConnection(), inputField);
 	}
@@ -133,9 +131,9 @@ abstract class KeyPadHandler extends AbstractHandler {
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
 		if (Key.isBackspace(settings, keyCode)) {
 			if (onBackspace()) {
-				return isBackspaceHandled = true;
+				return Key.setHandled(KeyEvent.KEYCODE_DEL, true);
 			} else {
-				isBackspaceHandled = false;
+				Key.setHandled(KeyEvent.KEYCODE_DEL, false);
 			}
 		}
 
@@ -153,7 +151,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 		}
 
 		return
-			Key.isOK(keyCode)
+			Key.setHandled(KeyEvent.KEYCODE_ENTER, Key.isOK(keyCode) && onOK())
 			|| handleHotkey(keyCode, true, false, true) // hold a hotkey, handled in onKeyLongPress())
 			|| handleHotkey(keyCode, false, keyRepeatCounter + 1 > 0, true) // press a hotkey, handled in onKeyUp()
 			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), true)
@@ -219,7 +217,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 			return false;
 		}
 
-		//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
+//		Logger.d("onKeyUp", "Key: " + keyCode + " repeat?: " + event.getRepeatCount());
 
 		if (keyCode == ignoreNextKeyUp) {
 //			Logger.d("onKeyUp", "Ignored: " + keyCode);
@@ -227,7 +225,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 			return true;
 		}
 
-		if (Key.isBackspace(settings, keyCode) && isBackspaceHandled) {
+		if (Key.isBackspace(settings, keyCode) && Key.isHandled(KeyEvent.KEYCODE_DEL)) {
 			return true;
 		}
 
@@ -245,7 +243,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 		}
 
 		return
-			Key.isOK(keyCode) && onOK()
+			(Key.isOK(KeyEvent.KEYCODE_ENTER) && Key.isHandled(keyCode))
 			|| handleHotkey(keyCode, false, keyRepeatCounter > 0, false)
 			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), false)
 			|| super.onKeyUp(keyCode, event); // let the system handle the keys we don't care about (usually, the touch "buttons")

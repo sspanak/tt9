@@ -45,10 +45,10 @@ public abstract class HotkeyHandler extends TypingHandler {
 		if (suggestionOps.isEmpty()) {
 			int action = textField.getAction();
 			return action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
+		} else {
+			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+			return true;
 		}
-
-		onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
-		return true;
 	}
 
 
