@@ -62,6 +62,11 @@ public class SetupScreen extends BaseScreenFragment {
 			hackFBMessenger.setEnabled(isTT9On);
 		}
 
+		Preference hackAndroidMMS = findPreference("pref_hack_android_mms");
+		if (hackAndroidMMS != null) {
+			hackAndroidMMS.setEnabled(isTT9On);
+		}
+
 		ItemKeyPadDebounceTime item = new ItemKeyPadDebounceTime(activity, findPreference(ItemKeyPadDebounceTime.NAME));
 		item.populate().preview();
 		if (isTT9On) {

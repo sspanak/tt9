@@ -319,6 +319,10 @@ public class SettingsStore {
 		return prefs.getBoolean("pref_hack_google_chat", false);
 	}
 
+	public boolean getAndroidMMSHack() {
+			return prefs.getBoolean("pref_hack_android_mms", false);
+	}
+
 	/**
 	 * Protection against faulty devices, that sometimes send two (or more) click events
 	 * per a single key press, which absolutely undesirable side effects.
