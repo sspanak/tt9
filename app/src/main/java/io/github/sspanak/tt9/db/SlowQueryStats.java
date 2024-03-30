@@ -2,10 +2,10 @@ package io.github.sspanak.tt9.db;
 
 import java.util.HashMap;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 public class SlowQueryStats {
 	private static final String LOG_TAG = SlowQueryStats.class.getSimpleName();

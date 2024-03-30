@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;

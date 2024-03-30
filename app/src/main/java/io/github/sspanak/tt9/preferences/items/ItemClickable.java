@@ -5,8 +5,8 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 abstract public class ItemClickable {
 	private long lastClickTime = 0;

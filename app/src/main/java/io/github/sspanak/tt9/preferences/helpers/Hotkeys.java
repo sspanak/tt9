@@ -10,7 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class Hotkeys {
 	private final Context context;
