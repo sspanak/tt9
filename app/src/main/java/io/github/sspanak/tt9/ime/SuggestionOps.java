@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
@@ -19,11 +20,11 @@ public class SuggestionOps {
 	@NonNull private TextField textField;
 
 
-	SuggestionOps(@NonNull TypingHandler tt9, View mainView, @NonNull ConsumerCompat<String> onDelayedAccept) {
+	SuggestionOps(@NonNull SettingsStore settings, View mainView, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept;
 
-		suggestionBar = new SuggestionsBar(tt9, mainView);
+		suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
 		textField = new TextField(null, null);
 	}
 
