@@ -7,8 +7,8 @@ import android.text.TextWatcher;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 class TextChangeListener implements TextWatcher {
 	private static TextChangeListener self;

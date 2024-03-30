@@ -7,7 +7,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppHacks {
 	private final EditorInfo editorInfo;

@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.dialogs.ConfirmDictionaryUpdateDialog;
 import io.github.sspanak.tt9.util.ConsumerCompat;

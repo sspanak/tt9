@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.modes.ModePassthrough;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.ui.main.MainView;

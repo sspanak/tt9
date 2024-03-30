@@ -11,13 +11,13 @@ import androidx.preference.PreferenceViewHolder;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceSearchWords extends Preference {
 	public static final String NAME = "dictionary_delete_words_search";

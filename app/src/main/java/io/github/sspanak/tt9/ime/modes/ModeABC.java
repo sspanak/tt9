@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ModeABC extends InputMode {
 	private final SettingsStore settings;

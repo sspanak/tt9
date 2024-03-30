@@ -19,7 +19,7 @@ import java.util.List;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.AbstractHandler;
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();

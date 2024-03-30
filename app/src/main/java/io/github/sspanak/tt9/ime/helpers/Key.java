@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.ime.helpers;
 
 import android.view.KeyEvent;
 
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class Key {
 	public static boolean isBackspace(SettingsStore settings, int keyCode) {
