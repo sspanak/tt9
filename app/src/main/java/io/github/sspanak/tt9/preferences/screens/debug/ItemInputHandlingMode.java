@@ -4,8 +4,8 @@ import androidx.preference.DropDownPreference;
 
 import java.util.LinkedHashMap;
 
-import io.github.sspanak.tt9.preferences.SettingsStore;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ItemInputHandlingMode extends ItemDropDown {
 	public static final int NORMAL = 0;
