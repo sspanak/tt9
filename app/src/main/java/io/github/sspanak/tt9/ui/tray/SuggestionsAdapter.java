@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import io.github.sspanak.tt9.util.ConsumerCompat;
+
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> {
-	private final SuggestionsBar suggestionsBar;
+	private final ConsumerCompat<Integer> onItemClick;
 	private final int layout;
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
@@ -24,8 +26,8 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private int selectedIndex = 0;
 
 
-	public SuggestionsAdapter(Context context, SuggestionsBar suggestionBar, int layout, int textViewResourceId, List<String> suggestions) {
-		this.suggestionsBar = suggestionBar;
+	public SuggestionsAdapter(Context context, ConsumerCompat<Integer> onItemClick, int layout, int textViewResourceId, List<String> suggestions) {
+		this.onItemClick = onItemClick;
 		this.layout = layout;
 		this.textViewResourceId = textViewResourceId;
 		this.mInflater = LayoutInflater.from(context);
@@ -45,7 +47,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 		holder.suggestionItem.setText(mSuggestions.get(position));
 		holder.suggestionItem.setTextColor(colorDefault);
 		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? colorHighlight : Color.TRANSPARENT);
-		holder.suggestionItem.setOnClickListener(v -> suggestionsBar.onItemClick(holder.getAdapterPosition()));
+		holder.suggestionItem.setOnClickListener(v -> onItemClick.accept(holder.getAdapterPosition()));
 	}
 
 

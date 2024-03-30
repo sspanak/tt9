@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ime.AbstractHandler;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SuggestionsBar {
@@ -26,18 +25,17 @@ public class SuggestionsBar {
 	protected int selectedIndex = 0;
 	private boolean isDarkThemeEnabled = false;
 
+	private final Runnable onItemClick;
 	private final RecyclerView mView;
-	private final AbstractHandler tt9;
+	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 
 	private final Handler alternativeScrollingHandler = new Handler();
-	private final int suggestionScrollingDelay;
 
 
-	public SuggestionsBar(AbstractHandler tt9, View mainView) {
-		this.tt9 = tt9;
-
-		suggestionScrollingDelay = tt9.getSettings().getSuggestionScrollingDelay();
+	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull View mainView, @NonNull Runnable onItemClick) {
+		this.onItemClick = onItemClick;
+		this.settings = settings;
 
 		mView = mainView.findViewById(R.id.suggestions_bar);
 		if (mView != null) {
@@ -65,14 +63,14 @@ public class SuggestionsBar {
 	private void initDataAdapter(Context context) {
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
-			this,
-			tt9.getSettings().isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
+			this::handleItemClick,
+			settings.isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
 			R.id.suggestion_list_item,
 			suggestions
 		);
 		mView.setAdapter(mSuggestionsAdapter);
 
-		setDarkTheme(tt9.getSettings().getDarkTheme());
+		setDarkTheme(settings.getDarkTheme());
 	}
 
 
@@ -165,8 +163,8 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.notifyItemChanged(oldIndex);
 		mSuggestionsAdapter.notifyItemChanged(selectedIndex);
 
-		if (suggestionScrollingDelay > 0) {
-			alternativeScrollingHandler.postDelayed(() -> mView.scrollToPosition(selectedIndex), suggestionScrollingDelay);
+		if (settings.getSuggestionScrollingDelay() > 0) {
+			alternativeScrollingHandler.postDelayed(() -> mView.scrollToPosition(selectedIndex), settings.getSuggestionScrollingDelay());
 		} else {
 			mView.scrollToPosition(selectedIndex);
 		}
@@ -246,11 +244,11 @@ public class SuggestionsBar {
 
 
 	/**
-	 * onItemClick
+	 * handleItemClick
 	 * Passes through suggestion selected using the touchscreen.
 	 */
-	public void onItemClick(int position) {
+	private void handleItemClick(int position) {
 		selectedIndex = position;
-		tt9.onOK();
+		onItemClick.run();
 	}
 }
