@@ -52,15 +52,16 @@
 	<string name="pref_hack_fb_messenger">Send with \"OK\" in Facebook Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
-	<string name="pref_layout">On-screen Layout Type</string>
+	<string name="pref_help">Help</string>
+	<string name="pref_layout">On-screen Layout</string>
 	<string name="pref_layout_numpad">Virtual numpad (BETA)</string>
 	<string name="pref_layout_small">Function keys</string>
 	<string name="pref_layout_stealth">Stealth</string>
 	<string name="pref_layout_tray">Suggestion list only</string>
-
-	<string name="pref_help">Help</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">Use this if you have 7–8–9 on the first row, instead of 1–2–3.</string>
+	<string name="pref_status_icon">Typing Mode Icon</string>
+	<string name="pref_status_icon_summary">Show a status icon indicating the current typing mode.</string>
 
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
