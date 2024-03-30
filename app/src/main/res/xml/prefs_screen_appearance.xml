@@ -8,18 +8,11 @@
 		app:layout="@layout/pref_dropdown"
 		app:title="@string/pref_dark_theme" />
 
-	<SwitchPreferenceCompat
-		app:defaultValue="true"
-		app:key="pref_show_soft_keys"
-		app:layout="@layout/pref_switch"
-		app:title="@string/pref_show_soft_function_keys" />
-
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_show_soft_numpad"
-		app:layout="@layout/pref_switch"
-		app:title="@string/pref_show_soft_numpad"
-		app:summary="@string/pref_show_soft_numpad_summary"
-		app:dependency="pref_show_soft_keys" />
+	<DropDownPreference
+		app:defaultValue="2"
+		app:iconSpaceReserved="false"
+		app:key="pref_layout_type"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/pref_layout" />
 
 </PreferenceScreen>

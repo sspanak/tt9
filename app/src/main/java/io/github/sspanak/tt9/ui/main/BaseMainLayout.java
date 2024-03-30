@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ui.main;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -13,7 +15,7 @@ abstract class BaseMainLayout {
 	private final int xml;
 
 	protected View view = null;
-	protected ArrayList<SoftKey> keys = new ArrayList<>();
+	@NonNull protected ArrayList<SoftKey> keys = new ArrayList<>();
 
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
 		this.tt9 = tt9;
@@ -56,6 +58,7 @@ abstract class BaseMainLayout {
 		return view;
 	}
 
+
 	public void enableClickHandlers() {
 		for (SoftKey key : getKeys()) {
 			key.setTT9(tt9);
@@ -63,7 +66,7 @@ abstract class BaseMainLayout {
 	}
 
 
-
+	@NonNull
 	protected ArrayList<SoftKey> getKeysFromContainer(ViewGroup container) {
 		ArrayList<SoftKey> keyList = new ArrayList<>();
 		final int childrenCount = container != null ? container.getChildCount() : 0;

@@ -36,7 +36,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 
 	@Override public boolean onBack() {
-		return settings.getShowSoftNumpad();
+		return settings.isMainLayoutNumpad();
 	}
 
 
@@ -222,7 +222,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		setStatusText(mInputMode.toString());
 		renderMainView();
 		forceShowWindowIfHidden();
-		if (!suggestionOps.isEmpty()) {
+		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mLanguage.getClass().getSimpleName(), mLanguage.getName());
 		}
 
