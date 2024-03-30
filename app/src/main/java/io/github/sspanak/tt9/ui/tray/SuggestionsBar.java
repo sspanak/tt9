@@ -35,18 +35,18 @@ public class SuggestionsBar {
 
 
 	public SuggestionsBar(AbstractHandler tt9, View mainView) {
-		super();
-
 		this.tt9 = tt9;
 
 		suggestionScrollingDelay = tt9.getSettings().getSuggestionScrollingDelay();
 
 		mView = mainView.findViewById(R.id.suggestions_bar);
-		mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL,false));
+		if (mView != null) {
+			mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL, false));
 
-		initDataAdapter(mainView.getContext());
-		initSeparator(mainView.getContext());
-		configureAnimation();
+			initDataAdapter(mainView.getContext());
+			initSeparator(mainView.getContext());
+			configureAnimation();
+		}
 	}
 
 
@@ -66,7 +66,7 @@ public class SuggestionsBar {
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
 			this,
-			tt9.getSettings().getShowSoftNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
+			tt9.getSettings().isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
 			R.id.suggestion_list_item,
 			suggestions
 		);
@@ -125,9 +125,16 @@ public class SuggestionsBar {
 			selectedIndex = Math.max(initialSel, 0);
 		}
 
-		mSuggestionsAdapter.setSelection(selectedIndex);
-		mSuggestionsAdapter.notifyDataSetChanged();
-		mView.scrollToPosition(selectedIndex);
+		setSuggestionsOnScreen();
+	}
+
+
+	private void setSuggestionsOnScreen() {
+		if (mView != null) {
+			mSuggestionsAdapter.setSelection(selectedIndex);
+			mSuggestionsAdapter.notifyDataSetChanged();
+			mView.scrollToPosition(selectedIndex);
+		}
 	}
 
 
@@ -143,6 +150,15 @@ public class SuggestionsBar {
 			selectedIndex = 0;
 		} else if (selectedIndex < 0) {
 			selectedIndex = suggestions.size() - 1;
+		}
+
+		scrollToSuggestionOnScreen(oldIndex);
+	}
+
+
+	private void scrollToSuggestionOnScreen(int oldIndex) {
+		if (mView == null) {
+			return;
 		}
 
 		mSuggestionsAdapter.setSelection(selectedIndex);
@@ -169,6 +185,10 @@ public class SuggestionsBar {
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
 	 */
 	public void setDarkTheme(boolean darkEnabled) {
+		if (mView == null) {
+			return;
+		}
+
 		isDarkThemeEnabled = darkEnabled;
 		Context context = mView.getContext();
 
@@ -188,6 +208,10 @@ public class SuggestionsBar {
 	 * when there are suggestions.
 	 */
 	private void setBackground(List<String> newSuggestions) {
+		if (mView == null) {
+			return;
+		}
+
 		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
 		if (newSuggestionsSize == 0) {
 			mView.setBackgroundColor(Color.TRANSPARENT);

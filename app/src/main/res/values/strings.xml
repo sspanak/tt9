@@ -52,9 +52,12 @@
 	<string name="pref_hack_fb_messenger">Send with \"OK\" in Facebook Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
-	<string name="pref_show_soft_function_keys">Show On-Screen Keys</string>
-	<string name="pref_show_soft_numpad">Show On-Screen Numpad</string>
-	<string name="pref_show_soft_numpad_summary" translatable="false">(BETA)</string>
+	<string name="pref_layout">On-screen Layout Type</string>
+	<string name="pref_layout_numpad">Virtual numpad (BETA)</string>
+	<string name="pref_layout_small">Function keys</string>
+	<string name="pref_layout_stealth">Stealth</string>
+	<string name="pref_layout_tray">Suggestion list only</string>
+
 	<string name="pref_help">Help</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">Use this if you have 7–8–9 on the first row, instead of 1–2–3.</string>

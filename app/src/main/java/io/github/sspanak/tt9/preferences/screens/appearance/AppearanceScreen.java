@@ -19,5 +19,10 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.populate()
 			.enableClickHandler()
 			.preview();
+
+		(new ItemSelectLayoutType(activity, findPreference(ItemSelectLayoutType.NAME)))
+			.populate()
+			.enableClickHandler()
+			.preview();
 	}
 }

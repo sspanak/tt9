@@ -5,7 +5,12 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-class SettingsUI extends SettingsTyping {
+public class SettingsUI extends SettingsTyping {
+	public final static int LAYOUT_STEALTH = 0;
+	public final static int LAYOUT_TRAY = 1;
+	public final static int LAYOUT_SMALL = 2;
+	public final static int LAYOUT_NUMPAD = 3;
+
 	SettingsUI(Context context) { super(context); }
 
 	public boolean getDarkTheme() {
@@ -25,7 +30,16 @@ class SettingsUI extends SettingsTyping {
 		}
 	}
 
-	public boolean getShowSoftKeys() { return prefs.getBoolean("pref_show_soft_keys", true); }
+	public int getMainViewLayout() {
+		try {
+			return Integer.parseInt(prefs.getString("pref_layout_type", String.valueOf(LAYOUT_SMALL)));
+		} catch(NumberFormatException e) {
+			return LAYOUT_SMALL;
+		}
+	}
 
-	public boolean getShowSoftNumpad() { return getShowSoftKeys() && prefs.getBoolean("pref_show_soft_numpad", false); }
+	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
+	public boolean isMainLayoutTray() { return getMainViewLayout() == LAYOUT_TRAY; }
+	public boolean isMainLayoutSmall() { return getMainViewLayout() == LAYOUT_SMALL; }
+	public boolean isMainLayoutStealth() { return getMainViewLayout() == LAYOUT_STEALTH; }
 }
