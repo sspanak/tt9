@@ -56,7 +56,7 @@ public class Hotkeys {
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
-			|| settings.getShowSoftNumpad()
+			|| settings.isMainLayoutNumpad()
 		) {
 			backspace = 0;
 		}

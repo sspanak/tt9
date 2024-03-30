@@ -41,8 +41,9 @@
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
 	<string name="pref_hack_fb_messenger">Siųskite pranešimus „Messenger“ programėlėje naudodami „OK“</string>
-	<string name="pref_show_soft_function_keys">Rodyti ekrane pagr. mygtukus</string>
-	<string name="pref_show_soft_numpad">Rodyti ekrane klaviatūrą</string>
+	<string name="pref_layout_numpad">Skaičių klaviatūra (BETA)</string>
+	<string name="pref_layout_small">Funkcijos klavišai</string>
+	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
@@ -115,4 +116,5 @@
 	<string name="dictionary_update_update">Įkelti</string>
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
+	<string name="pref_layout">Ekrano maketo tipas</string>
 </resources>

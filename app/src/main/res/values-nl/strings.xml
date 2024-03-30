@@ -14,6 +14,9 @@
 	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="pref_category_about">Over de applicatie</string>
+	<string name="pref_layout_numpad">Numeriek toetsenbord (BETA)</string>
+	<string name="pref_layout_small">Functieknoppen</string>
+	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_choose_languages">Talen</string>
@@ -73,4 +76,5 @@
 	<string name="dictionary_export_finished_more_info">Woorden geëxporteerd naar: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">CSV exporteren…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV exporteren (%1$s)…</string>
+	<string name="pref_layout">Schermindelingstype</string>
 </resources>

@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
 	private final TextView statusView;
@@ -27,7 +27,6 @@ public class StatusBar {
 
 	public void setDarkTheme(boolean darkTheme) {
 		if (statusView == null) {
-			Logger.w("StatusBar.setDarkTheme", "Not changing the theme of a NULL View.");
 			return;
 		}
 
@@ -49,6 +48,10 @@ public class StatusBar {
 
 
 	private void render() {
+		if (statusView == null) {
+			return;
+		}
+
 		if (statusText == null) {
 			Logger.w("StatusBar.render", "Not displaying NULL status");
 			return;
