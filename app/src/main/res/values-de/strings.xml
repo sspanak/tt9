@@ -17,11 +17,14 @@
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_layout_numpad">Ziffernblock (BETA)</string>
 	<string name="pref_layout_small">Funktionstasten</string>
+	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
 	<string name="pref_layout_tray">Nur Wortliste</string>
 	<string name="pref_help">Hilfe</string>
 	<string name="pref_dark_theme">Dunkles Thema</string>
 	<string name="pref_choose_languages">Sprachen</string>
 
+	<string name="pref_status_icon">Icon für den Schreibmodus</string>
+	<string name="pref_status_icon_summary">Den aktuellen Schreibmodus mit einem Icon anzeigen.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_cancelled">Laden abgebrochen.</string>
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>
@@ -78,5 +81,5 @@
 	<string name="dictionary_export_finished_more_info">Wörter exportiert nach: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">CSV wird exportiert…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV wird exportiert (%1$s)…</string>
-	<string name="pref_layout">Bildschirmlayouttyp</string>
+	<string name="pref_layout">Layout auf dem Bildschirm</string>
 </resources>

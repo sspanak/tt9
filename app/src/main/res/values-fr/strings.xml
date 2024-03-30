@@ -21,6 +21,8 @@
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
+	<string name="pref_status_icon">Icône du mode de saisie</string>
+	<string name="pref_status_icon_summary">Indiquer le mode de saisie actuel avec une icône.</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
@@ -102,5 +104,5 @@
 	<string name="dictionary_export_finished_more_info">Mots exportés vers : «%1$s».</string>
 	<string name="dictionary_export_generating_csv">Exportation CSV en cours…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportation CSV en cours (%1$s)…</string>
-	<string name="pref_layout">Mise en page</string>
+	<string name="pref_layout">Disposition à l\'écran</string>
 </resources>

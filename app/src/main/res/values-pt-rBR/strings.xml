@@ -34,9 +34,12 @@
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_layout_numpad">Teclado numérico (BETA)</string>
 	<string name="pref_layout_small">Teclas de função</string>
+	<string name="pref_layout_stealth">Modo invisível</string>
 	<string name="pref_layout_tray">Apenas lista de palavras</string>
 	<string name="pref_help">Ajuda</string>
 
+	<string name="pref_status_icon">Ícone do modo de digitação</string>
+	<string name="pref_status_icon_summary">Indique o modo de digitação atual com um ícone.</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
 	<string name="dictionary_load_bad_char">Falha no carregamento. \"%1$s\" na linha %2$d do idioma \"%3$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
@@ -102,5 +105,5 @@
 	<string name="dictionary_export_finished_more_info">Palavras exportadas para: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
-	<string name="pref_layout">Tipo de layout na tela</string>
+	<string name="pref_layout">Layout na tela</string>
 </resources>

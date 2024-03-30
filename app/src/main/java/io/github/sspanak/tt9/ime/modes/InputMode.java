@@ -85,6 +85,7 @@ abstract public class InputMode {
 
 	// Utility
 	abstract public int getId();
+	abstract public int getIcon();
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
