@@ -42,7 +42,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	@Override
 	protected void createSuggestionBar(View mainView) {
-		suggestionOps = new SuggestionOps(this, mainView, this::onAcceptSuggestionsDelayed);
+		suggestionOps = new SuggestionOps(settings, mainView, this::onAcceptSuggestionsDelayed, this::onOK);
 	}
 
 	@Override
