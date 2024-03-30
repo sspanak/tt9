@@ -13,6 +13,10 @@
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="pref_category_about">За приложението</string>
+	<string name="pref_layout_numpad">Цифрова клавиатура (БЕТА)</string>
+	<string name="pref_layout_small">Функционални клавиши</string>
+	<string name="pref_layout_stealth">Стелт</string>
+	<string name="pref_layout_tray">Само списък с думи</string>
 	<string name="pref_help">Помощ</string>
 	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_choose_languages">Езици</string>
@@ -34,7 +38,6 @@
 	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
 	<string name="pref_hack_fb_messenger">Изпращай с „ОК“ във Facebook Messenger</string>
 	<string name="pref_hack_google_chat">Изпращай съобщения с „ОК“ в Google Chat</string>
-	<string name="pref_show_soft_function_keys">Бутони на екрана</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Зелена слушалка</string>
 	<string name="dictionary_export">Експортирай избраните</string>
@@ -91,7 +94,6 @@
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
 	<string name="pref_category_setup">Начална настройка</string>
-	<string name="pref_show_soft_numpad">Цифрова клавиатура на екрана</string>
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
@@ -106,4 +108,5 @@
 	<string name="dictionary_export_finished_more_info">Думите са експортирани в: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">Експортиране на CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експортиране на CSV (%1$s)…</string>
+	<string name="pref_layout">Екранно оформление</string>
 </resources>

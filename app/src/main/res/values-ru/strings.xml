@@ -13,6 +13,10 @@
 	<string name="add_word_success">« %1$s » добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
 	<string name="pref_category_about">О приложении</string>
+	<string name="pref_layout_numpad">Цифровая клавиатура (БЕТА)</string>
+	<string name="pref_layout_small">Функциональные клавиши</string>
+	<string name="pref_layout_stealth">Стелс</string>
+	<string name="pref_layout_tray">Только список слов</string>
 	<string name="pref_help">Помощь</string>
 	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_choose_languages">Языки</string>
@@ -47,7 +51,6 @@
 	<string name="pref_auto_text_case_summary">Автоматически начинать предложение с заглавной буквы.</string>
 	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши 0</string>
 	<string name="pref_hack_fb_messenger">Отправка с «ОК» в Messenger</string>
-	<string name="pref_show_soft_function_keys">Кнопки на экране</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове «%1$s» в строке %2$d для языка «%3$s».</string>
 	<string name="function_add_word_key">Добавить новое слово</string>
 	<string name="function_backspace_key">Стереть</string>
@@ -73,7 +76,6 @@
 	<string name="pref_upside_down_keys_summary">Используйте настройку, если в первом ряду 7–8–9 вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Удалить невыбранные</string>
 	<string name="pref_category_setup">Начальная настройка</string>
-	<string name="pref_show_soft_numpad">Экранная цифровая клавиатура</string>
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
@@ -106,4 +108,5 @@
 	<string name="dictionary_export_finished_more_info">Слова экспортированы в: «%1$s».</string>
 	<string name="dictionary_export_generating_csv">Экспорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Экспорт CSV (%1$s)…</string>
+	<string name="pref_layout">Тип макета на экране</string>
 </resources>

@@ -46,8 +46,10 @@
 	<string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
-	<string name="pref_show_soft_function_keys">Показувати кнопки на екрані</string>
-	<string name="pref_show_soft_numpad">Показувати цифрову клавіатуру на екрані</string>
+	<string name="pref_layout_numpad">Цифрова клавіатура (БЕТА)</string>
+	<string name="pref_layout_small">Функціональні клавіші</string>
+	<string name="pref_layout_stealth">Стелс</string>
+	<string name="pref_layout_tray">Лише список слів</string>
 	<string name="pref_help">Допомога</string>
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
@@ -117,4 +119,5 @@
 	<string name="dictionary_export_finished_more_info">Слова експортовані в: \" %1$s \".</string>
 	<string name="dictionary_export_generating_csv">Експорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експорт CSV (%1$s)…</string>
+	<string name="pref_layout">Тип розкладки на екрані</string>
 </resources>

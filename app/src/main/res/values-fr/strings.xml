@@ -13,6 +13,10 @@
 	<string name="add_word_success">« %1$s » est ajouté</string>
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="pref_category_about">À propos de l\'application</string>
+	<string name="pref_layout_numpad">Pavé numérique (BETA)</string>
+	<string name="pref_layout_small">Touches de fonction</string>
+	<string name="pref_layout_stealth">Furtivité</string>
+	<string name="pref_layout_tray">Seulement liste de mots</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_choose_languages">Langues</string>
@@ -34,7 +38,6 @@
 	<string name="dictionary_truncated">Le dictionaire est supprimé avec succès.</string>
 	<string name="pref_hack_fb_messenger">Envoyer avec «OK» dans Facebook Messenger</string>
 	<string name="pref_hack_google_chat">Envoyer des messages avec «OK» dans Google Chat</string>
-	<string name="pref_show_soft_function_keys">Boutons à l\'écran</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
 	<string name="pref_category_predictive_mode">Saisie intuitive</string>
@@ -70,7 +73,6 @@
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
-	<string name="pref_show_soft_numpad">Pavé numérique à l\'écran</string>
 	<string name="dictionary_truncating">Suppression…</string>
 	<string name="error">Erreur</string>
 	<string name="pref_dark_theme_yes">Oui</string>
@@ -100,4 +102,5 @@
 	<string name="dictionary_export_finished_more_info">Mots exportés vers : «%1$s».</string>
 	<string name="dictionary_export_generating_csv">Exportation CSV en cours…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportation CSV en cours (%1$s)…</string>
+	<string name="pref_layout">Mise en page</string>
 </resources>
