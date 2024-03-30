@@ -13,6 +13,8 @@ public class SettingsUI extends SettingsTyping {
 
 	SettingsUI(Context context) { super(context); }
 
+	public boolean isStatusIconEnabled() { return prefs.getBoolean("pref_status_icon", false); }
+
 	public boolean getDarkTheme() {
 		int theme = getTheme();
 		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {

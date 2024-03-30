@@ -77,6 +77,7 @@ public class TraditionalT9 extends HotkeyHandler {
 		if (mainView.createView()) {
 			initTray();
 		}
+		setStatusIcon(mInputMode.getIcon());
 		setStatusText(mInputMode.toString());
 		setDarkTheme();
 		mainView.render();
@@ -116,7 +117,8 @@ public class TraditionalT9 extends HotkeyHandler {
 	protected void onStop() {
 		onFinishTyping();
 		suggestionOps.clear();
-		statusBar.setText("--");
+		setStatusIcon(0);
+		setStatusText("--");
 
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
@@ -162,6 +164,16 @@ public class TraditionalT9 extends HotkeyHandler {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);
+		}
+	}
+
+
+	@Override
+	protected void setStatusIcon(int iconResource) {
+		if (iconResource > 0 && settings.isStatusIconEnabled()) {
+			showStatusIcon(iconResource);
+		} else {
+			hideStatusIcon();
 		}
 	}
 

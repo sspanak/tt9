@@ -246,6 +246,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
 		renderMainView();
+		setStatusIcon(mInputMode.getIcon());
 		forceShowWindowIfHidden();
 
 		return true;

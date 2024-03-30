@@ -21,6 +21,8 @@
 	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
+	<string name="pref_status_icon">Икона за режима на писане</string>
+	<string name="pref_status_icon_summary">Покажи текущия режим на писане с уведомителна икона.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
@@ -108,5 +110,5 @@
 	<string name="dictionary_export_finished_more_info">Думите са експортирани в: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">Експортиране на CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експортиране на CSV (%1$s)…</string>
-	<string name="pref_layout">Екранно оформление</string>
+	<string name="pref_layout">Екранна подредба</string>
 </resources>

@@ -43,11 +43,14 @@
 	<string name="pref_hack_fb_messenger">Siųskite pranešimus „Messenger“ programėlėje naudodami „OK“</string>
 	<string name="pref_layout_numpad">Skaičių klaviatūra (BETA)</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
+	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
 
+	<string name="pref_status_icon">Rašymo režimo piktograma</string>
+	<string name="pref_status_icon_summary">Nurodyti dabartinį rašymo režimą piktograma.</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%3$s\" kalbos nepavyko. Klaida %2$d eilutėje, netinkamas žodis - \"%1$s\".</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" (%2$s) kalbos žodyną.</string>
@@ -116,5 +119,5 @@
 	<string name="dictionary_update_update">Įkelti</string>
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
-	<string name="pref_layout">Ekrano maketo tipas</string>
+	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
 </resources>

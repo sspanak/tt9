@@ -8,6 +8,7 @@
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_layout_numpad">Teclado numérico (BETA)</string>
 	<string name="pref_layout_small">Teclas de función</string>
+	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="completed">Terminado</string>
@@ -43,6 +44,8 @@
 	<string name="dictionary_truncate_title">Borrar todos</string>
 	<string name="dictionary_truncate_unselected">Borrar no seleccionados</string>
 	<string name="dictionary_truncated">Diccionario eliminado con éxito.</string>
+	<string name="pref_status_icon">Icono del modo de escritura</string>
+	<string name="pref_status_icon_summary">Indicar el modo de escritura actual con un icono.</string>
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>
@@ -105,5 +108,5 @@
 	<string name="dictionary_export_finished_more_info">Palabras exportadas a: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
-	<string name="pref_layout">Tipo de diseño en pantalla</string>
+	<string name="pref_layout">Distribución del teclado en pantalla</string>
 </resources>
