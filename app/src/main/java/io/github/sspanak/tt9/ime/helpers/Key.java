@@ -4,7 +4,7 @@ import android.view.KeyEvent;
 
 import java.util.HashMap;
 
-import io.github.sspanak.tt9.preferences.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class Key {
 	private static final HashMap<Integer, Boolean> handledKeys = new HashMap<>();

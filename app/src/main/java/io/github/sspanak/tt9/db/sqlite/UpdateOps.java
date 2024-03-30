@@ -5,10 +5,10 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.preferences.SettingsStore;
 
 
 public class UpdateOps {
