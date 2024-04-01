@@ -31,7 +31,17 @@ public class AppHacks {
 	 * weird side effects occur. Nevertheless, all other text fields in the app are fine, so we detect only these two particular ones.
 	 */
 	private boolean isKindleInvertedTextField() {
-		return isAppField("com.amazon.kindle", EditorInfo.TYPE_CLASS_TEXT);
+		int titleImeOptions = EditorInfo.IME_ACTION_NONE | EditorInfo.IME_ACTION_SEND | EditorInfo.IME_FLAG_NAVIGATE_NEXT;
+		int titleAlternativeImeOptions = titleImeOptions | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS; // sometimes the title field is different for no reason
+		int authorImeOptions = EditorInfo.IME_ACTION_SEND | EditorInfo.IME_ACTION_GO | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
+
+		return
+			isAppField("com.amazon.kindle", EditorInfo.TYPE_CLASS_TEXT)
+			&& (
+				editorInfo.imeOptions == titleImeOptions
+				|| editorInfo.imeOptions == titleAlternativeImeOptions
+				|| editorInfo.imeOptions == authorImeOptions
+			);
 	}
 
 
@@ -107,7 +117,6 @@ public class AppHacks {
 	public boolean onBackspace(InputMode inputMode) {
 		if (isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
-			return true;
 		} else if (isTermux()) {
 			return settings.getKeyBackspace() != KeyEvent.KEYCODE_BACK;
 		}

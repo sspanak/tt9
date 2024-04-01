@@ -138,15 +138,6 @@ public class TextField {
 
 
 	/**
-	 * getStringAfterCursor
-	 * A simplified helper that return up to 50 characters after the cursor and "just works".
-	 */
-	public String getStringAfterCursor() {
-		return getStringAfterCursor(50);
-	}
-
-
-	/**
 	 * getStringBeforeCursor
 	 * A simplified helper that return up to 50 characters before the cursor and "just works".
 	 */
