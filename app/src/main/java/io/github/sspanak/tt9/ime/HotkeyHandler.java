@@ -95,7 +95,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 
 	public boolean onKeyAddWord(boolean validateOnly) {
-		if (!isInputViewShown() || mInputMode.isNumeric()) {
+		if (shouldBeOff() || mInputMode.isNumeric()) {
 			return false;
 		}
 
@@ -123,7 +123,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 
 	public boolean onKeyChangeKeyboard(boolean validateOnly) {
-		if (!isInputViewShown()) {
+		if (shouldBeOff()) {
 			return false;
 		}
 
@@ -200,6 +200,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
 		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode);
+
 		return true;
 	}
 
@@ -221,7 +222,6 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 		setStatusText(mInputMode.toString());
 		renderMainView();
-		forceShowWindowIfHidden();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mLanguage.getClass().getSimpleName(), mLanguage.getName());
 		}
@@ -230,6 +230,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
+		forceShowWindowIfHidden();
 		return true;
 	}
 
@@ -247,14 +248,14 @@ public abstract class HotkeyHandler extends TypingHandler {
 		nextInputMode();
 		renderMainView();
 		setStatusIcon(mInputMode.getIcon());
-		forceShowWindowIfHidden();
 
+		forceShowWindowIfHidden();
 		return true;
 	}
 
 
 	public boolean onKeyShowSettings(boolean validateOnly) {
-		if (!isInputViewShown()) {
+		if (shouldBeOff()) {
 			return false;
 		}
 

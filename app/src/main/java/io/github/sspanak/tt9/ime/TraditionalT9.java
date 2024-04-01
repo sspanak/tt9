@@ -154,9 +154,11 @@ public class TraditionalT9 extends HotkeyHandler {
 	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
 	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
 	 * are invisible. This function forces the InputMethodManager to show our window.
+	 * WARNING! While this is running, it is not possible to load or display suggestions,
+	 * or change the composing text. Use with care, after all processing is done.
 	 */
 	protected void forceShowWindowIfHidden() {
-		if (getInputMode().isPassthrough() || isInputViewShown()) {
+		if (getInputMode().isPassthrough() || isInputViewShown() || settings.isMainLayoutStealth()) {
 			return;
 		}
 

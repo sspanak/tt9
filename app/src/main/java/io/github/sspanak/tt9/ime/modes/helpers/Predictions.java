@@ -102,7 +102,7 @@ public class Predictions {
 		boolean retryAllowed = !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE);
 
 		WordStoreAsync.getWords(
-			(words) -> onDbWords(words, retryAllowed),
+			(dbWords) -> onDbWords(dbWords, retryAllowed),
 			language,
 			digitSequence,
 			stem,

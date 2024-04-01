@@ -124,7 +124,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 */
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		suggestionOps.cancelDelayedAccept();
-		forceShowWindowIfHidden();
 
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
@@ -166,7 +165,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		forceShowWindowIfHidden();
 
 		// accept the previously typed word (if any)
 		String lastWord = suggestionOps.acceptIncomplete();
@@ -178,6 +176,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
 
+		forceShowWindowIfHidden();
 		return true;
 	}
 
@@ -303,5 +302,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// for a more intuitive experience.
 		String trimmedWord = suggestionOps.getCurrent(mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
+
+		forceShowWindowIfHidden();
 	}
 }
