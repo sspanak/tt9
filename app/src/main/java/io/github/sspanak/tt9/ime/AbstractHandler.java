@@ -19,7 +19,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	// helpers
 	abstract public SettingsStore getSettings();
 	abstract protected void onInit();
-	abstract protected void onStart(InputConnection inputConnection, EditorInfo inputField);
+	abstract protected boolean onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
 	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
