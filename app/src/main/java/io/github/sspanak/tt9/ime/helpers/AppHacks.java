@@ -69,9 +69,10 @@ public class AppHacks {
 	}
 
 
-	private boolean isMultilineTextField() {
+	private boolean isMultilineTextInNonSystemApp() {
 		return
 			editorInfo != null
+			&& !editorInfo.packageName.contains("android")
 			&& (editorInfo.inputType & TextField.TYPE_MULTILINE_TEXT) == TextField.TYPE_MULTILINE_TEXT;
 	}
 
@@ -133,27 +134,20 @@ public class AppHacks {
 	 * it does nothing.
 	 */
 	public boolean onEnter() {
-		if (isTermux()) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-			return true;
-		} else if (settings.getFbMessengerHack() && isMessenger()) {
+		if (settings.getFbMessengerHack() && isMessenger()) {
 			return onEnterFbMessenger();
 		} else if (settings.getGoogleChatHack() && isGoogleChat()) {
 			return onEnterGoogleChat();
-		} else if (isMultilineTextField()) {
-			return onEnterMultilineText();
+		} else if (isTermux() || isMultilineTextInNonSystemApp()) {
+			// 1. Termux supports only ENTER, so we convert DPAD_CENTER for it.
+			// 2. Any extra installed apps are likely not designed for hardware keypads, so again,
+			//		we don't want to send DPAD_CENTER to them.
+			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
+		// The rest of the cases are probably system apps or numeric fields, which should
+		// now how to handle the incoming OK key code, be it ENTER or DPAD_CENTER.
 		return false;
-	}
-
-
-	/**
-	 * In generic text fields, or when no hacks are in effect, we just type a new line,
-	 * as one would expect when pressing ENTER.
-	 */
-	private boolean onEnterMultilineText() {
-		return inputConnection != null && inputConnection.commitText("\n", 1);
 	}
 
 
@@ -194,17 +188,18 @@ public class AppHacks {
 	}
 
 
-	private void sendDownUpKeyEvents(int keyCode) {
-		sendDownUpKeyEvents(keyCode, false);
+	private boolean sendDownUpKeyEvents(int keyCode) {
+		return sendDownUpKeyEvents(keyCode, false);
 	}
 
 
-	private void sendDownUpKeyEvents(int keyCode, boolean shift) {
+	private boolean sendDownUpKeyEvents(int keyCode, boolean shift) {
 		if (inputConnection != null) {
 			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
 			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
-			inputConnection.sendKeyEvent(downEvent);
-			inputConnection.sendKeyEvent(upEvent);
+			return inputConnection.sendKeyEvent(downEvent) && inputConnection.sendKeyEvent(upEvent);
 		}
+
+		return false;
 	}
 }

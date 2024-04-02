@@ -301,7 +301,7 @@
 				android:id="@+id/separator_4_2"
 				style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
 				android:id="@+id/soft_key_ok"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
