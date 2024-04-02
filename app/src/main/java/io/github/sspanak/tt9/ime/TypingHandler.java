@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
@@ -46,7 +45,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 	@Override
-	protected void onStart(InputConnection connection, EditorInfo field) {
+	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		// ignore multiple calls for the same field, caused by showWindow()
+		// or weirdly functioning apps, such as the Qin SMS app
+		if (textField.equals(connection, field)) {
+			return false;
+		}
+
 		setInputField(connection, field);
 
 		// in case we are back from Settings screen, update the language list
@@ -58,10 +63,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode = getInputMode();
 		determineTextCase();
 
-		suggestionOps.setTextField(textField);
 		suggestionOps.set(null);
 
 		appHacks = new AppHacks(settings, connection, field, textField);
+
+		return true;
 	}
 
 
@@ -69,6 +75,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		currentInputConnection = connection;
 		inputType = new InputType(currentInputConnection, field);
 		textField = new TextField(currentInputConnection, field);
+		suggestionOps.setTextField(textField);
 	}
 
 
@@ -84,6 +91,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onFinishTyping() {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
+		setInputField(null, null);
 	}
 
 
@@ -94,7 +102,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// 3. Some app may need special treatment, so let it be.
 		boolean noTextBeforeCursor = textField.getStringBeforeCursor(1).isEmpty();
 		if (mInputMode.isPassthrough() || appHacks.onBackspace(mInputMode) || noTextBeforeCursor) {
-			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
 		}
@@ -109,7 +116,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 			super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 
-		Logger.d("onBackspace", "backspace handled");
 		return true;
 	}
 
@@ -207,18 +213,28 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	/**
-	 * getInputMode
-	 * Load the last input mode or choose a more appropriate one.
-	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields)
+	 * getInputModeId
+	 * Return the last input mode ID or choose a more appropriate one.
+	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields).
+	 * Others do not support text retrieval or composing text, or the AppHacks detected them as incompatible with us.
+	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
-	protected InputMode getInputMode() {
+	protected int getInputModeId() {
 		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.isTermux())) {
-			return InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_PASSTHROUGH);
+			return InputMode.MODE_PASSTHROUGH;
 		}
 
 		allowedInputModes = textField.determineInputModes(inputType);
-		int validModeId = InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
-		return InputMode.getInstance(settings, mLanguage, inputType, validModeId);
+		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
+	}
+
+
+	/**
+	 * getInputMode
+	 * Same as getInputModeId(), but returns an actual InputMode.
+	 */
+	protected InputMode getInputMode() {
+		return InputMode.getInstance(settings, mLanguage, inputType, getInputModeId());
 	}
 
 

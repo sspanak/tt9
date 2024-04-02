@@ -34,6 +34,13 @@ public class TextField {
 	}
 
 
+	public boolean equals(InputConnection inputConnection, EditorInfo inputField) {
+		return
+			connection != null && connection == inputConnection
+			&& field != null && field == inputField;
+	}
+
+
 	public boolean isThereText() {
 		if (connection == null) {
 			return false;

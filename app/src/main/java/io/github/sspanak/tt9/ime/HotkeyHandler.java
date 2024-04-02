@@ -29,9 +29,9 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 
 	@Override
-	protected void onStart(InputConnection connection, EditorInfo field) {
-		super.onStart(connection, field);
+	protected boolean onStart(InputConnection connection, EditorInfo field) {
 		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
+		return super.onStart(connection, field);
 	}
 
 

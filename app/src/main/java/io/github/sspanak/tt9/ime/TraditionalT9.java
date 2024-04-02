@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
@@ -85,22 +86,22 @@ public class TraditionalT9 extends HotkeyHandler {
 
 
 	@Override
-	protected void onStart(InputConnection connection, EditorInfo field) {
-		Logger.setLevel(settings.getLogLevel());
-
-		super.onStart(connection, field);
-
-		if (mInputMode.isPassthrough()) {
-			// When the input is invalid or simple, let Android handle it.
-			onStop();
-			updateInputViewShown();
-			return;
+	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		if (!super.onStart(connection, field)) {
+			return false;
 		}
 
-		normalizationHandler.removeCallbacksAndMessages(null);
+		Logger.setLevel(settings.getLogLevel());
 
-		initUi();
+		if (mInputMode.isPassthrough()) {
+			onStop();
+		}	else {
+			normalizationHandler.removeCallbacksAndMessages(null);
+			initUi();
+		}
+
 		updateInputViewShown();
+		return true;
 	}
 
 
@@ -154,11 +155,11 @@ public class TraditionalT9 extends HotkeyHandler {
 	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
 	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
 	 * are invisible. This function forces the InputMethodManager to show our window.
-	 * WARNING! While this is running, it is not possible to load or display suggestions,
-	 * or change the composing text. Use with care, after all processing is done.
+	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending
+	 * on how much time the restart takes, this may erase the current user input.
 	 */
 	protected void forceShowWindowIfHidden() {
-		if (getInputMode().isPassthrough() || isInputViewShown() || settings.isMainLayoutStealth()) {
+		if (getInputModeId() == InputMode.MODE_PASSTHROUGH || isInputViewShown() || settings.isMainLayoutStealth()) {
 			return;
 		}
 
@@ -188,7 +189,7 @@ public class TraditionalT9 extends HotkeyHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return !getInputMode().isPassthrough();
+		return getInputModeId() != InputMode.MODE_PASSTHROUGH;
 	}
 
 
