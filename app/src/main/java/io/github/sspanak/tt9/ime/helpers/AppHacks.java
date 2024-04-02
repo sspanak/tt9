@@ -118,7 +118,8 @@ public class AppHacks {
 		if (isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
 		} else if (isTermux()) {
-			return settings.getKeyBackspace() != KeyEvent.KEYCODE_BACK;
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return true;
 		}
 
 		return false;
