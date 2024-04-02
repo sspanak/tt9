@@ -148,7 +148,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
 		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
 		if (keyId == R.id.soft_key_language) return tt9.onKeyNextLanguage(false);
-		if (keyId == R.id.soft_key_ok) return tt9.onOK();
 		if (keyId == R.id.soft_key_settings) return tt9.onKeyShowSettings(false);
 
 		return false;

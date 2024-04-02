@@ -43,13 +43,19 @@ public abstract class HotkeyHandler extends TypingHandler {
 	@Override public boolean onOK() {
 		suggestionOps.cancelDelayedAccept();
 
-		if (suggestionOps.isEmpty()) {
-			int action = textField.getAction();
-			return action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
-		} else {
+		if (!suggestionOps.isEmpty()) {
 			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
 			return true;
 		}
+
+		int action = textField.getAction();
+		boolean actionPerformed = action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
+
+		if (actionPerformed && action == TextField.IME_ACTION_ENTER) {
+			forceShowWindowIfHidden();
+		}
+
+		return actionPerformed;
 	}
 
 
