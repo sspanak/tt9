@@ -93,7 +93,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
 		// 3. Some app may need special treatment, so let it be.
 		boolean noTextBeforeCursor = textField.getStringBeforeCursor(1).isEmpty();
-		if (mInputMode.isPassthrough() || noTextBeforeCursor || appHacks.onBackspace(mInputMode)) {
+		if (mInputMode.isPassthrough() || appHacks.onBackspace(mInputMode) || noTextBeforeCursor) {
 			Logger.d("onBackspace", "backspace ignored");
 			mInputMode.reset();
 			return false;
