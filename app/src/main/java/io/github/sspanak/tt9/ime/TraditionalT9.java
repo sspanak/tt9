@@ -82,6 +82,10 @@ public class TraditionalT9 extends HotkeyHandler {
 		setStatusText(mInputMode.toString());
 		setDarkTheme();
 		mainView.render();
+
+		if (!isInputViewShown()) {
+			updateInputViewShown();
+		}
 	}
 
 
@@ -100,7 +104,6 @@ public class TraditionalT9 extends HotkeyHandler {
 			initUi();
 		}
 
-		updateInputViewShown();
 		return true;
 	}
 
@@ -120,6 +123,10 @@ public class TraditionalT9 extends HotkeyHandler {
 		suggestionOps.clear();
 		setStatusIcon(0);
 		setStatusText("--");
+
+		if (isInputViewShown()) {
+			updateInputViewShown();
+		}
 
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
