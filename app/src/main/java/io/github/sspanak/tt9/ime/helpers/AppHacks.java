@@ -120,7 +120,6 @@ public class AppHacks {
 			inputMode.clearWordStem();
 		} else if (isTermux()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			return true;
 		}
 
 		return false;

@@ -97,12 +97,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	public boolean onBackspace() {
-		// 1. Dialer fields seem to handle backspace on their own and we must ignore it,
+		// Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
-		// 2. Allow the assigned key to function normally, when there is no text (e.g. "Back" navigates back)
-		// 3. Some app may need special treatment, so let it be.
-		boolean noTextBeforeCursor = textField.getStringBeforeCursor(1).isEmpty();
-		if (mInputMode.isPassthrough() || appHacks.onBackspace(mInputMode) || noTextBeforeCursor) {
+		if (mInputMode.isPassthrough()) {
+			return false;
+		}
+
+		// * Some app may need special treatment, so let them be.
+		// * When there is no text, allow double function keys to function normally (e.g. "Back" navigates back)
+		if (appHacks.onBackspace(mInputMode) || textField.getStringBeforeCursor(1).isEmpty()) {
 			mInputMode.reset();
 			return false;
 		}
