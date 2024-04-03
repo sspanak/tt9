@@ -46,23 +46,25 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		// ignore multiple calls for the same field, caused by showWindow()
-		// or weirdly functioning apps, such as the Qin SMS app
-		if (textField.equals(connection, field)) {
-			return false;
-		}
+		boolean restart = textField.equals(connection, field);
 
 		setInputField(connection, field);
 
 		// in case we are back from Settings screen, update the language list
+		int oldLang = mLanguage != null ? mLanguage.getId() : -1;
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), settings.getInputLanguage());
 		validateLanguages();
 
+		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
+		// or weirdly functioning apps, such as the Qin SMS app
+		if (restart && oldLang == mLanguage.getId() && mInputMode.getId() == getInputModeId()) {
+			return false;
+		}
+
 		resetKeyRepeat();
 		mInputMode = getInputMode();
 		determineTextCase();
-
 		suggestionOps.set(null);
 
 		return true;
