@@ -65,8 +65,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		suggestionOps.set(null);
 
-		appHacks = new AppHacks(settings, connection, field, textField);
-
 		return true;
 	}
 
@@ -75,6 +73,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		currentInputConnection = connection;
 		inputType = new InputType(currentInputConnection, field);
 		textField = new TextField(currentInputConnection, field);
+
+		// changing the TextField and notifying all interested classes is an atomic operation
+		appHacks = new AppHacks(settings, connection, field, textField);
 		suggestionOps.setTextField(textField);
 	}
 
