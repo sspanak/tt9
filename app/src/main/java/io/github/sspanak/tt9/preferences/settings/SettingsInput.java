@@ -3,16 +3,16 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
 
 class SettingsInput extends SettingsHotkeys {
+	private final String LOG_TAG = SettingsInput.class.getSimpleName();
+
 	SettingsInput(Context context) { super(context); }
 
 
@@ -28,13 +28,6 @@ class SettingsInput extends SettingsHotkeys {
 	}
 
 
-	public Set<String> getEnabledLanguagesIdsAsStrings() {
-		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList(
-			String.valueOf(LanguageCollection.getDefault(context).getId())
-		)));
-	}
-
-
 	public void saveEnabledLanguageIds(ArrayList<Integer> languageIds) {
 		Set<String> idsAsStrings = new HashSet<>();
 		for (int langId : languageIds) {
@@ -45,11 +38,18 @@ class SettingsInput extends SettingsHotkeys {
 	}
 
 
+	public Set<String> getEnabledLanguagesIdsAsStrings() {
+		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList(
+			String.valueOf(LanguageCollection.getDefault(context).getId())
+		)));
+	}
+
+
 	public void saveEnabledLanguageIds(Set<String> languageIds) {
 		Set<String> validLanguageIds = new HashSet<>();
 
 		for (String langId : languageIds) {
-			if (!Validators.validateSavedLanguage(context, Integer.parseInt(langId), "saveEnabledLanguageIds")){
+			if (!Validators.validateInputLanguage(context, Integer.parseInt(langId), "saveEnabledLanguageIds")){
 				continue;
 			}
 
@@ -57,31 +57,12 @@ class SettingsInput extends SettingsHotkeys {
 		}
 
 		if (validLanguageIds.isEmpty()) {
-			Logger.w("saveEnabledLanguageIds", "Refusing to save an empty language list");
+			Logger.w(LOG_TAG, "Refusing to save an empty language list");
 			return;
 		}
 
 		prefsEditor.putStringSet("pref_languages", validLanguageIds);
 		prefsEditor.apply();
-	}
-
-
-	public int getTextCase() {
-		return prefs.getInt("pref_text_case", InputMode.CASE_LOWER);
-	}
-
-	public void saveTextCase(int textCase) {
-		boolean isTextCaseValid = Validators.isIntInList(
-			textCase,
-			new ArrayList<>(Arrays.asList(InputMode.CASE_CAPITALIZE, InputMode.CASE_LOWER, InputMode.CASE_UPPER)),
-			"saveTextCase",
-			"Not saving invalid text case: " + textCase
-		);
-
-		if (isTextCaseValid) {
-			prefsEditor.putInt("pref_text_case", textCase);
-			prefsEditor.apply();
-		}
 	}
 
 
@@ -91,7 +72,7 @@ class SettingsInput extends SettingsHotkeys {
 
 
 	public void saveInputLanguage(int language) {
-		if (Validators.validateSavedLanguage(context, language, "saveInputLanguage")){
+		if (Validators.validateInputLanguage(context, language, "saveInputLanguage")){
 			prefsEditor.putInt("pref_input_language", language);
 			prefsEditor.apply();
 		}
@@ -99,20 +80,28 @@ class SettingsInput extends SettingsHotkeys {
 
 
 	public int getInputMode() {
-		return prefs.getInt("pref_input_mode", InputMode.MODE_PREDICTIVE);
+		return prefs.getInt("pref_input_mode", Validators.DEFAULT_INPUT_MODE);
 	}
 
 
 	public void saveInputMode(int mode) {
-		boolean isModeValid = Validators.isIntInList(
-			mode,
-			new ArrayList<>(Arrays.asList(InputMode.MODE_123, InputMode.MODE_PREDICTIVE, InputMode.MODE_ABC)),
-			"saveInputMode",
-			"Not saving invalid input mode: " + mode
-		);
-
+		boolean isModeValid = Validators.validateInputMode(mode, LOG_TAG, "Not saving invalid input mode: " + mode);
 		if (isModeValid) {
 			prefsEditor.putInt("pref_input_mode", mode);
+			prefsEditor.apply();
+		}
+	}
+
+
+	public int getTextCase() {
+		return prefs.getInt("pref_text_case", Validators.DEFAULT_TEXT_CASE);
+	}
+
+
+	public void saveTextCase(int textCase) {
+		boolean isTextCaseValid = Validators.validateTextCase(textCase, LOG_TAG,"Not saving invalid text case: " + textCase);
+		if (isTextCaseValid) {
+			prefsEditor.putInt("pref_text_case", textCase);
 			prefsEditor.apply();
 		}
 	}
