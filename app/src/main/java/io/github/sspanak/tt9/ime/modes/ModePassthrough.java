@@ -12,9 +12,9 @@ public class ModePassthrough extends InputMode {
 	}
 
 	@Override public int getId() { return MODE_PASSTHROUGH; }
-	@Override public int getIcon() { return R.drawable.ic_mode_passthrough; }
+	@Override public int getIcon() { return 0; }
 	@Override public int getSequenceLength() { return 0; }
-	@Override @NonNull public String toString() { return "Passthrough"; }
+	@Override @NonNull public String toString() { return "--"; }
 
 	@Override public boolean isNumeric() { return true; }
 	@Override public boolean isPassthrough() { return true; }
