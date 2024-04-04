@@ -24,5 +24,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.populate()
 			.enableClickHandler()
 			.preview();
+
+		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 	}
 }
