@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.ime.helpers.SystemSettings;
+import io.github.sspanak.tt9.util.SystemSettings;
 
 public class LanguageCollection {
 	private static LanguageCollection self;

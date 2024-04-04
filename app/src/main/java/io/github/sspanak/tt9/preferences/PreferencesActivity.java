@@ -17,7 +17,6 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.LegacyDb;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
-import io.github.sspanak.tt9.ime.helpers.SystemSettings;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
@@ -31,6 +30,7 @@ import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.SystemSettings;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	private SettingsStore settings;
