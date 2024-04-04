@@ -128,6 +128,8 @@
 	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
+	<string name="key_channel_down">Previous Channel</string>
+	<string name="key_channel_up">Next Channel</string>
 	<string name="key_dpad_up" translatable="false">▲</string>
 	<string name="key_dpad_down" translatable="false">▼</string>
 	<string name="key_dpad_left" translatable="false">◀</string>

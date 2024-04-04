@@ -153,6 +153,14 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F5, "F5", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F6, "F6", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F7, "F7", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F8, "F8", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F9, "F9", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F10, "F10", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F11, "F11", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F12, "F12", true);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
@@ -172,8 +180,9 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DIVIDE, "Num /", true);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DOT, "Num .", true);
 
+		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_DOWN, R.string.key_channel_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_UP, R.string.key_channel_up, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
-
 	}
 }

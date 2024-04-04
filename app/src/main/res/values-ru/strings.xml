@@ -78,6 +78,8 @@
 	<string name="pref_upside_down_keys_summary">Используйте настройку, если в первом ряду 7–8–9 вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Удалить невыбранные</string>
 	<string name="pref_category_setup">Начальная настройка</string>
+	<string name="key_channel_down">Предыдущий канал</string>
+	<string name="key_channel_up">Следующий канал</string>
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>

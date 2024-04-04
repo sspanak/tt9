@@ -50,7 +50,9 @@ public class Key {
 	}
 
 
-	public static boolean isBack(int keyCode) { return keyCode == KeyEvent.KEYCODE_BACK; }
+	public static boolean isBack(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_ESCAPE;
+	}
 
 
 	public static boolean isPoundOrStar(int keyCode) {

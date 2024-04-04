@@ -70,6 +70,8 @@
 	<string name="key_back">Voltar</string>
 	<string name="key_call">Chamada</string>
 
+	<string name="key_channel_down">Canal anterior</string>
+	<string name="key_channel_up">Próximo canal</string>
 	<string name="char_newline">Nova Linha</string>
 	<string name="char_space">Espaço</string>
 	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>

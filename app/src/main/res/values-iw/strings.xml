@@ -72,6 +72,8 @@
 	<string name="key_back">חזור</string>
 	<string name="key_call">חיוג</string>
 
+	<string name="key_channel_down">הערוץ הקודם</string>
+	<string name="key_channel_up">הערוץ הבא</string>
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
 	<string name="pref_category_setup">הגדרה ראשונית</string>

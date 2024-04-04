@@ -78,6 +78,8 @@
 	<string name="key_hold_key">Espera</string>
 	<string name="key_back">Volver</string>
 	<string name="key_call">Llamar</string>
+	<string name="key_channel_down">Canal anterior</string>
+	<string name="key_channel_up">Siguiente canal</string>
 	<string name="key_volume_down">Bajar volumen</string>
 	<string name="key_volume_up">Subir Volumen</string>
 	<string name="pref_dark_theme_yes">Sí</string>
