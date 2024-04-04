@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ime.helpers;
+package io.github.sspanak.tt9.util;
 
 import android.app.Activity;
 import android.content.Context;
