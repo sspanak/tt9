@@ -74,7 +74,7 @@ abstract class KeyPadHandler extends AbstractHandler {
 	 */
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		Logger.d(
+		Logger.i(
 			"KeyPadHandler",
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);

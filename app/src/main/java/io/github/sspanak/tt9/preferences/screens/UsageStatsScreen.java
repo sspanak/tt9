@@ -1,22 +1,17 @@
 package io.github.sspanak.tt9.preferences.screens;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.os.Build;
-
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.preferences.items.ItemText;
 
 public class UsageStatsScreen extends BaseScreenFragment {
 	final public static String NAME = "UsageStats";
 	final private static String RESET_BUTTON = "pref_slow_queries_reset_stats";
 	final private static String SUMMARY_CONTAINER = "summary_container";
-	final private static String QUERY_LIST_CONTAINER = "query_list_container";
+	private ItemText queryListContainer;
 
 	public UsageStatsScreen() { init(); }
 	public UsageStatsScreen(PreferencesActivity activity) { init(activity); }
@@ -29,7 +24,6 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		printSummary();
 		printSlowQueries();
-		enableLogsCopy();
 
 		Preference resetButton = findPreference(RESET_BUTTON);
 		if (resetButton != null) {
@@ -50,27 +44,12 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	}
 
 	private void printSlowQueries() {
-		Preference queryListContainer = findPreference(QUERY_LIST_CONTAINER);
-		if (queryListContainer != null) {
-			String slowQueries = SlowQueryStats.getList();
-			queryListContainer.setSummary(slowQueries.isEmpty() ? "No slow queries." : slowQueries);
-		}
-	}
-
-
-	private void enableLogsCopy() {
-		Preference queryListContainer = findPreference(QUERY_LIST_CONTAINER);
-		if (activity == null || queryListContainer == null) {
-			return;
+		if (queryListContainer == null) {
+			queryListContainer = new ItemText(activity, findPreference("query_list_container"));
+			queryListContainer.enableClickHandler();
 		}
 
-		ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
-		queryListContainer.setOnPreferenceClickListener((Preference p) -> {
-			clipboard.setPrimaryClip(ClipData.newPlainText("TT9 debug log", p.getSummary()));
-			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
-				UI.toast(activity, "Logs copied.");
-			}
-			return true;
-		});
+		String slowQueries = SlowQueryStats.getList();
+		queryListContainer.populate(slowQueries.isEmpty() ? "No slow queries." : slowQueries);
 	}
 }
