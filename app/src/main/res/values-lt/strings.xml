@@ -87,6 +87,8 @@
 	<string name="key_hold_key">(laikyti nusp.)</string>
 	<string name="key_back">Atgal mygtukas</string>
 	<string name="key_call">Skambinti mygtukas</string>
+	<string name="key_channel_down">Ankstesnis kanalas</string>
+	<string name="key_channel_up">Sekantis kanalas</string>
 	<string name="key_volume_down">Sumažinti garsą mygt.</string>
 	<string name="key_volume_up">Padidinti garsą mygt.</string>
 

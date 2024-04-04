@@ -149,14 +149,23 @@ public class Hotkeys {
 		add(KeyEvent.KEYCODE_CALL, R.string.key_call, true);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_BACK, R.string.key_back, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_F1, "F1", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", true);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F1, "F1", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F2, "F2", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F3, "F3", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F4, "F4", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F5, "F5", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F6, "F6", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F7, "F7", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F8, "F8", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F9, "F9", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F10, "F10", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F11, "F11", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_F12, "F12", false);
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_MENU, R.string.key_menu, true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, false);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_LEFT, R.string.key_soft_left, true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_SOFT_RIGHT, R.string.key_soft_right, true);
 
 		add(KeyEvent.KEYCODE_POUND, "#", true);
 		add(KeyEvent.KEYCODE_STAR, "✱", true);
@@ -166,14 +175,15 @@ public class Hotkeys {
 		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT, R.string.key_dpad_left, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT, R.string.key_dpad_right, false);
 
-		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_ADD, "Num +", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, "Num -", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, "Num *", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DIVIDE, "Num /", true);
-		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DOT, "Num .", true);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_ADD, "Num +", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_SUBTRACT, "Num -", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_MULTIPLY, "Num *", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DIVIDE, "Num /", false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_NUMPAD_DOT, "Num .", false);
 
+		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_DOWN, R.string.key_channel_down, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_UP, R.string.key_channel_up, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
-
 	}
 }

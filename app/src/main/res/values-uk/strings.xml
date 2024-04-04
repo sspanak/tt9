@@ -112,6 +112,8 @@
 	<string name="key_hold_key">(тримати)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Подзвонити</string>
+	<string name="key_channel_down">Попередній канал</string>
+	<string name="key_channel_up">Наступний канал</string>
 	<string name="key_volume_down">Гучність вниз</string>
 	<string name="key_volume_up">Гучність вверх</string>
 
