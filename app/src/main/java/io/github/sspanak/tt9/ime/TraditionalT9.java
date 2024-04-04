@@ -121,8 +121,8 @@ public class TraditionalT9 extends HotkeyHandler {
 	protected void onStop() {
 		onFinishTyping();
 		suggestionOps.clear();
-		setStatusIcon(0);
-		setStatusText("--");
+		setStatusIcon(mInputMode.getIcon());
+		setStatusText(mInputMode.toString());
 
 		if (isInputViewShown()) {
 			updateInputViewShown();
@@ -144,6 +144,9 @@ public class TraditionalT9 extends HotkeyHandler {
 		mainView.forceCreateView();
 		initTray();
 		setDarkTheme();
+		setStatusText(mInputMode.toString());
+		suggestionOps.set(mInputMode.getSuggestions());
+
 		return mainView.getView();
 	}
 
