@@ -5,6 +5,8 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import io.github.sspanak.tt9.util.DeviceInfo;
+
 public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_STEALTH = 0;
 	public final static int LAYOUT_TRAY = 1;
@@ -13,7 +15,9 @@ public class SettingsUI extends SettingsTyping {
 
 	SettingsUI(Context context) { super(context); }
 
-	public boolean isStatusIconEnabled() { return prefs.getBoolean("pref_status_icon", false); }
+	public boolean isStatusIconEnabled() {
+		return prefs.getBoolean("pref_status_icon", DeviceInfo.isQinF21());
+	}
 
 	public boolean getDarkTheme() {
 		int theme = getTheme();

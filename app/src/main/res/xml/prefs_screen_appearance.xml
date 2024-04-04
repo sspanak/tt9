@@ -17,7 +17,6 @@
 
 
 	<SwitchPreferenceCompat
-		app:defaultValue="false"
 		app:key="pref_status_icon"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_status_icon"
