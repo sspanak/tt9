@@ -80,7 +80,11 @@
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
 	<string name="pref_abc_auto_accept">Автоматичен избор на буква</string>
-	<string name="pref_abc_auto_accept_summary">Автоматично избирай текущата буква след кратко изчакване.</string>
+	<string name="pref_abc_auto_accept_off">Изключен</string>
+	<string name="pref_abc_auto_accept_fastest">Много бърз</string>
+	<string name="pref_abc_auto_accept_fast">Бърз</string>
+	<string name="pref_abc_auto_accept_normal">Умерен</string>
+	<string name="pref_abc_auto_accept_slow">Бавен</string>
 	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички (Андроид 9 или по-стари)</string>
 	<string name="pref_auto_space">Автоматичен интервал</string>

@@ -28,7 +28,7 @@ public class ItemSelectLayoutType extends ItemDropDown {
 		items.put(SettingsUI.LAYOUT_SMALL, context.getString(R.string.pref_layout_small));
 		items.put(SettingsUI.LAYOUT_NUMPAD, context.getString(R.string.pref_layout_numpad));
 
-		super.populate(items);
+		super.populateIntegers(items);
 
 		return this;
 	}

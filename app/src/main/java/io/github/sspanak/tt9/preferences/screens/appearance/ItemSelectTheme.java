@@ -27,7 +27,7 @@ class ItemSelectTheme extends ItemDropDown {
 		themes.put(AppCompatDelegate.MODE_NIGHT_NO, context.getString(R.string.pref_dark_theme_no));
 		themes.put(AppCompatDelegate.MODE_NIGHT_YES, context.getString(R.string.pref_dark_theme_yes));
 
-		super.populate(themes);
+		super.populateIntegers(themes);
 
 		return this;
 	}

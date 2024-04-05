@@ -21,6 +21,12 @@
 	<string name="pref_layout_tray">Nur Wortliste</string>
 	<string name="pref_help">Hilfe</string>
 	<string name="pref_dark_theme">Dunkles Thema</string>
+	<string name="pref_abc_auto_accept">Automatische Buchstabenauswahl</string>
+	<string name="pref_abc_auto_accept_off">Aus</string>
+	<string name="pref_abc_auto_accept_fastest">Sehr schnell</string>
+	<string name="pref_abc_auto_accept_fast">Schnell</string>
+	<string name="pref_abc_auto_accept_normal">Mäßig</string>
+	<string name="pref_abc_auto_accept_slow">Langsam</string>
 	<string name="pref_choose_languages">Sprachen</string>
 
 	<string name="pref_status_icon">Icon für den Schreibmodus</string>
@@ -32,6 +38,7 @@
 	<string name="dictionary_loading_please_wait">Bitte warten Sie, bis das Wörterbuch geladen ist.</string>
 	<string name="dictionary_load_title">Ausgewählte laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
+	<string name="pref_category_abc_mode">ABC-Modus</string>
 	<string name="pref_category_custom_words">Hinzugefügte Wörter</string>
 	<string name="pref_category_delete_words">Hinzugefügte Wörter löschen</string>
 	<string name="pref_category_hacks">Kompatibilität</string>

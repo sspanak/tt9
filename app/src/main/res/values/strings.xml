@@ -34,8 +34,12 @@
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
-	<string name="pref_abc_auto_accept">Automatic Letter Select</string>
-	<string name="pref_abc_auto_accept_summary">Automatically type the selected letter after a short delay.</string>
+	<string name="pref_abc_auto_accept">Automatic Letter Selection</string>
+	<string name="pref_abc_auto_accept_off">Off</string>
+	<string name="pref_abc_auto_accept_fastest">Very Quick</string>
+	<string name="pref_abc_auto_accept_fast">Quick</string>
+	<string name="pref_abc_auto_accept_normal">Moderate</string>
+	<string name="pref_abc_auto_accept_slow">Slow</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them (Android 9 or older).</string>
 	<string name="pref_auto_space">Automatic Space</string>

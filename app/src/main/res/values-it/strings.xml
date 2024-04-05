@@ -22,6 +22,12 @@
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
+	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
+	<string name="pref_abc_auto_accept_off">Spenta</string>
+	<string name="pref_abc_auto_accept_fastest">Molto veloce</string>
+	<string name="pref_abc_auto_accept_fast">Veloce</string>
+	<string name="pref_abc_auto_accept_normal">Moderata</string>
+	<string name="pref_abc_auto_accept_slow">Lenta</string>
 	<string name="pref_choose_languages">Lingue</string>
 
 	<string name="pref_status_icon">Icona modalità di digitazione</string>
@@ -32,6 +38,7 @@
 	<string name="dictionary_loading_please_wait">Attendi che il dizionario si carichi, per favore.</string>
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
+	<string name="pref_category_abc_mode">Modalità ABC</string>
 	<string name="pref_category_custom_words">Parole aggiunte</string>
 	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
 	<string name="pref_category_hacks">Compatibilità</string>

@@ -5,7 +5,16 @@ import android.content.Context;
 class SettingsTyping extends SettingsInput {
 	SettingsTyping(Context context) { super(context); }
 
-	public int getAbcAutoAcceptTimeout() { return prefs.getBoolean("abc_auto_accept", true) ? 800 + getKeyPadDebounceTime() : -1; }
+	public int getAbcAutoAcceptTimeout() {
+		int time;
+		try {
+			time = Integer.parseInt(prefs.getString("pref_abc_auto_accept_time", "800"));
+		} catch (NumberFormatException e) {
+			time = 800;
+		}
+
+		return time > 0 ? time + getKeyPadDebounceTime() : time;
+	}
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
 	public String getDoubleZeroChar() {

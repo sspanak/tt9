@@ -7,8 +7,8 @@ import androidx.preference.Preference;
 
 import java.util.LinkedHashMap;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
+import io.github.sspanak.tt9.util.Logger;
 
 class ItemLogLevel extends ItemDropDown {
 	public static final String NAME = "pref_log_level";
@@ -18,12 +18,12 @@ class ItemLogLevel extends ItemDropDown {
 	}
 
 	public ItemLogLevel populate() {
-		LinkedHashMap<Integer, String> values = new LinkedHashMap<>();
-		values.put(Log.VERBOSE, "Verbose");
-		values.put(Log.DEBUG, "Debug");
-		values.put(Log.INFO, "Info");
-		values.put(Log.WARN, "Warning");
-		values.put(Log.ERROR, "Error (default)");
+		LinkedHashMap<String, String> values = new LinkedHashMap<>();
+		values.put(String.valueOf(Log.VERBOSE), "Verbose");
+		values.put(String.valueOf(Log.DEBUG), "Debug");
+		values.put(String.valueOf(Log.INFO), "Info");
+		values.put(String.valueOf(Log.WARN), "Warning");
+		values.put(String.valueOf(Log.ERROR), "Error (default)");
 
 		super.populate(values);
 		super.setValue(String.valueOf(Logger.LEVEL));

@@ -15,6 +15,14 @@ public class KeyPadScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity)).populate().activate();
+		(new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity))
+			.populate()
+			.enableClickHandler()
+			.preview();
+
+		(new ItemSelectABCAutoAccceptTime(findPreference(ItemSelectABCAutoAccceptTime.NAME), activity))
+			.populate()
+			.enableClickHandler()
+			.preview();
 	}
 }

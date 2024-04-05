@@ -44,7 +44,11 @@
 	<string name="pref_category_appearance">Внешний вид</string>
 	<string name="pref_category_function_keys">Горячие клавиши</string>
 	<string name="pref_abc_auto_accept">Автоматический выбор буквы</string>
-	<string name="pref_abc_auto_accept_summary">Автоматически ввести выбранную букву после короткого ожидания.</string>
+	<string name="pref_abc_auto_accept_off">Выключено</string>
+	<string name="pref_abc_auto_accept_fastest">Очень быстро</string>
+	<string name="pref_abc_auto_accept_fast">Быстро</string>
+	<string name="pref_abc_auto_accept_normal">Умеренное</string>
+	<string name="pref_abc_auto_accept_slow">Медленное</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой (Android 9 или старше).</string>
 	<string name="pref_auto_space">Авто пробел</string>

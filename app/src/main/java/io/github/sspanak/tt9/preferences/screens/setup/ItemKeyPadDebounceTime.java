@@ -20,11 +20,11 @@ class ItemKeyPadDebounceTime extends ItemDropDown {
 	}
 
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> dropDownOptions = new LinkedHashMap<>();
-		dropDownOptions.put(0, context.getString(R.string.pref_hack_key_pad_debounce_off));
+		LinkedHashMap<String, String> dropDownOptions = new LinkedHashMap<>();
+		dropDownOptions.put("0", context.getString(R.string.pref_hack_key_pad_debounce_off));
 
-		int[] values = new int[] { 20, 30, 50, 75, 100, 150, 250, 350 };
-		for (int value : values) {
+		String[] values = new String[] { "20", "30", "50", "75", "100", "150", "250", "350" };
+		for (String value : values) {
 			dropDownOptions.put(value, value + " ms");
 		}
 		super.populate(dropDownOptions);
