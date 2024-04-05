@@ -16,6 +16,7 @@
 	<string name="add_word_title">Adicionar Palavra</string>
 
 	<string name="pref_category_about">Sobre</string>
+	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
 	<string name="pref_category_hacks">Compatibilidade</string>
@@ -25,6 +26,12 @@
 	<string name="pref_category_keypad">Teclado</string>
 
 	<string name="pref_category_setup">Configuração inicial</string>
+	<string name="pref_abc_auto_accept">Seleção automática de letras</string>
+	<string name="pref_abc_auto_accept_off">Desligada</string>
+	<string name="pref_abc_auto_accept_fastest">Muito rápido</string>
+	<string name="pref_abc_auto_accept_fast">Rápido</string>
+	<string name="pref_abc_auto_accept_normal">Moderado</string>
+	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_auto_space">Espaçamento Automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>

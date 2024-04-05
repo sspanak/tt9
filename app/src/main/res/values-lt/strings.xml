@@ -27,7 +27,11 @@
 	<string name="pref_category_setup">Pradiniai nustatymai</string>
 
 	<string name="pref_abc_auto_accept">Automatinis raidės pasirinkimas</string>
-	<string name="pref_abc_auto_accept_summary">Automatiškai įterpti pasirinktą raidę po trumpos delsos.</string>
+	<string name="pref_abc_auto_accept_off">Išjungtas</string>
+	<string name="pref_abc_auto_accept_fastest">Labai greitas</string>
+	<string name="pref_abc_auto_accept_fast">Greitas</string>
+	<string name="pref_abc_auto_accept_normal">Vidutinis</string>
+	<string name="pref_abc_auto_accept_slow">Lėtas</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant („Android“ 9 ar senesnės versijos).</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>

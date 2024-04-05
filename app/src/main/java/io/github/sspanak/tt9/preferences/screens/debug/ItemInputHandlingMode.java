@@ -27,7 +27,7 @@ public class ItemInputHandlingMode extends ItemDropDown {
 		values.put(RETURN_FALSE, "Return False");
 		values.put(CALL_SUPER, "Call Super");
 
-		super.populate(values);
+		super.populateIntegers(values);
 		super.setValue(String.valueOf(settings.getInputHandlingMode()));
 
 		return this;

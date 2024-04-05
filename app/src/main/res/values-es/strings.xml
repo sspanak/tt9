@@ -50,7 +50,11 @@
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>
 	<string name="pref_abc_auto_accept">Selección automática de letra</string>
-	<string name="pref_abc_auto_accept_summary">Escribir automáticamente la letra seleccionada después de una breve pausa.</string>
+	<string name="pref_abc_auto_accept_off">Apagada</string>
+	<string name="pref_abc_auto_accept_fastest">Muy rápido</string>
+	<string name="pref_abc_auto_accept_fast">Rápido</string>
+	<string name="pref_abc_auto_accept_normal">Moderado</string>
+	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>

@@ -51,11 +51,10 @@
 		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="abc_auto_accept"
-			app:layout="@layout/pref_switch"
-			app:summary="@string/pref_abc_auto_accept_summary"
+		<DropDownPreference
+			app:defaultValue="800"
+			app:key="pref_abc_auto_accept_time"
+			app:layout="@layout/pref_dropdown"
 			app:title="@string/pref_abc_auto_accept" />
 	</PreferenceCategory>
 

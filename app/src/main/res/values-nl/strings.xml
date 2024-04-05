@@ -20,6 +20,12 @@
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
+	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
+	<string name="pref_abc_auto_accept_off">Uit</string>
+	<string name="pref_abc_auto_accept_fastest">Zeer snel</string>
+	<string name="pref_abc_auto_accept_fast">Snel</string>
+	<string name="pref_abc_auto_accept_normal">Gematigd</string>
+	<string name="pref_abc_auto_accept_slow">Langzaam</string>
 	<string name="pref_choose_languages">Talen</string>
 	<string name="pref_status_icon">Typemodus-icoon</string>
 	<string name="pref_status_icon_summary">Geef de huidige typmodus aan met een icoon.</string>
@@ -33,6 +39,7 @@
 	<string name="dictionary_truncate_title">Verwijder alle</string>
 	<string name="dictionary_truncate_unselected">Verwijder de niet-geselecteerde</string>
 	<string name="dictionary_truncated">Woordenboek succesvol gewist.</string>
+	<string name="pref_category_abc_mode">ABC-modus</string>
 	<string name="pref_category_custom_words">Toegevoegde woorden</string>
 	<string name="pref_category_delete_words">Verwijder toegevoegde woorden</string>
 	<string name="pref_category_hacks">Compatibiliteit</string>

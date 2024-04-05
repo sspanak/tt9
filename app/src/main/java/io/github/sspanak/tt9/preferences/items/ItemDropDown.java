@@ -10,24 +10,31 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class ItemDropDown {
 	private final DropDownPreference item;
-	private LinkedHashMap<Integer, String> values;
+	private LinkedHashMap<String, String> values;
 
 	public ItemDropDown(DropDownPreference item) {
 		this.item = item;
 	}
 
-	protected void populate(LinkedHashMap<Integer, String> values) {
+	protected void populateIntegers(LinkedHashMap<Integer, String> values) {
+		LinkedHashMap<String, String> stringifiedValues = new LinkedHashMap<>();
+		if (values != null) {
+			for (Integer key : values.keySet()) {
+				stringifiedValues.put(String.valueOf(key), values.get(key));
+			}
+		}
+
+		populate(stringifiedValues);
+	}
+
+	protected void populate(LinkedHashMap<String, String> values) {
 		if (item == null) {
 			Logger.w("ItemDropDown.populate", "Cannot populate a NULL item. Ignoring.");
 			return;
 		}
 
 		this.values = values != null ? values : new LinkedHashMap<>();
-
-		ArrayList<String> keys = new ArrayList<>();
-		for (int key : this.values.keySet()) {
-			keys.add(String.valueOf(key));
-		}
+		ArrayList<String> keys = new ArrayList<>(this.values.keySet());
 
 		item.setEntryValues(keys.toArray(new CharSequence[0]));
 		item.setEntries(this.values.values().toArray(new CharSequence[0]));
@@ -56,14 +63,11 @@ public class ItemDropDown {
 	}
 
 	protected boolean onClick(Preference preference, Object newKey) {
-		try {
-			String previewValue = values.get(Integer.parseInt(newKey.toString()));
-			((DropDownPreference) preference).setValue(newKey.toString());
-			setPreview(previewValue);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
+		String previewValue = values.get(newKey.toString());
+		((DropDownPreference) preference).setValue(newKey.toString());
+		setPreview(previewValue);
+
+		return true;
 	}
 
 	private void setPreview(String value) {
@@ -74,7 +78,7 @@ public class ItemDropDown {
 
 	public ItemDropDown preview() {
 		try {
-			setPreview(values.get(Integer.parseInt(item.getValue())));
+			setPreview(values.get(item.getValue()));
 		} catch (Exception e) {
 			setPreview("");
 		}
