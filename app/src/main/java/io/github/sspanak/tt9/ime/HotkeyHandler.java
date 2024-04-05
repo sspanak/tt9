@@ -290,7 +290,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
-			mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+			mInputMode.setTextFieldCase(inputType.determineTextCase());
 			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 
 			resetKeyRepeat();

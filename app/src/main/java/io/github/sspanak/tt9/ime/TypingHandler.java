@@ -212,7 +212,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 */
 	private void determineTextCase() {
 		mInputMode.defaultTextCase();
-		mInputMode.setTextFieldCase(textField.determineTextCase(inputType));
+		mInputMode.setTextFieldCase(inputType.determineTextCase());
 		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
@@ -230,7 +230,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
-		allowedInputModes = textField.determineInputModes(inputType);
+		allowedInputModes = inputType.determineInputModes();
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 
