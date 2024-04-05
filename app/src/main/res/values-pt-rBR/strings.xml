@@ -35,7 +35,9 @@
 	<string name="pref_auto_space">Espaçamento Automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>
-	<string name="pref_auto_text_case_summary">Inicia automaticamente com letras maiúsculas.</string>
+	<string name="pref_auto_text_case_summary">Iniciar automaticamente as frases com letras maiúsculas.</string>
+	<string name="pref_auto_capitals_after_newline">etras maiúsculas automáticas em cada linha</string>
+	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>

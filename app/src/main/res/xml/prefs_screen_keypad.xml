@@ -36,6 +36,15 @@
 			app:summary="@string/pref_auto_text_case_summary"
 			app:title="@string/pref_auto_text_case" />
 
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:dependency="auto_text_case"
+			app:key="auto_capitals_after_newline"
+			app:layout="@layout/pref_switch"
+			app:summary="@string/pref_auto_capitals_after_newline_summary"
+			app:title="@string/pref_auto_capitals_after_newline" />
+
+
 		<DropDownPreference
 			app:defaultValue="."
 			app:iconSpaceReserved="false"

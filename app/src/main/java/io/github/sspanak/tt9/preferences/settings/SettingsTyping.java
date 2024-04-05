@@ -11,6 +11,10 @@ class SettingsTyping extends SettingsInput {
 	}
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
 	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
+	public boolean getAutoCapitalsAfterNewline() {
+		return getAutoTextCase() && prefs.getBoolean("auto_capitals_after_newline", false);
+	}
+
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");
 
