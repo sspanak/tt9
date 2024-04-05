@@ -29,19 +29,11 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getTheme() {
-		try {
-			return Integer.parseInt(prefs.getString("pref_theme", String.valueOf(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)));
-		} catch (NumberFormatException e) {
-			return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
-		}
+		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 	}
 
 	public int getMainViewLayout() {
-		try {
-			return Integer.parseInt(prefs.getString("pref_layout_type", String.valueOf(LAYOUT_SMALL)));
-		} catch(NumberFormatException e) {
-			return LAYOUT_SMALL;
-		}
+		return getStringifiedInt("pref_layout_type", LAYOUT_SMALL);
 	}
 
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }

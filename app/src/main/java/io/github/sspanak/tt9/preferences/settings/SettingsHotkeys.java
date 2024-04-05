@@ -38,13 +38,11 @@ class SettingsHotkeys extends SettingsHacks {
 			.apply();
 	}
 
+
 	public int getFunctionKey(String functionName) {
-		try {
-			return Integer.parseInt(prefs.getString(functionName, "0"));
-		} catch (NumberFormatException e) {
-			return 0;
-		}
+		return getStringifiedInt(functionName, 0);
 	}
+
 
 	public int getKeyAddWord() {
 		return getFunctionKey(SectionKeymap.ITEM_ADD_WORD);

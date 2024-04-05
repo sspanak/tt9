@@ -6,13 +6,7 @@ class SettingsTyping extends SettingsInput {
 	SettingsTyping(Context context) { super(context); }
 
 	public int getAbcAutoAcceptTimeout() {
-		int time;
-		try {
-			time = Integer.parseInt(prefs.getString("pref_abc_auto_accept_time", "800"));
-		} catch (NumberFormatException e) {
-			time = 800;
-		}
-
+		int time = getStringifiedInt("pref_abc_auto_accept_timeout", 800);
 		return time > 0 ? time + getKeyPadDebounceTime() : time;
 	}
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
