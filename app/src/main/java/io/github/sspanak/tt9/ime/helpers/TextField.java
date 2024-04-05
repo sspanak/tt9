@@ -25,10 +25,16 @@ public class TextField {
 	private final InputConnection connection;
 	private final EditorInfo field;
 
+	private final boolean isComposingSupported;
+	private CharSequence composingText = "";
+
 
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
 		connection = inputConnection;
 		field = inputField;
+
+		InputType inputType = new InputType(inputConnection, inputField);
+		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited();
 	}
 
 
@@ -164,7 +170,8 @@ public class TextField {
 	 * A fail-safe setter for composing text, which ignores NULL input.
 	 */
 	public void setComposingText(CharSequence text, int position) {
-		if (text != null && connection != null) {
+		composingText = text;
+		if (text != null && connection != null && isComposingSupported) {
 			connection.setComposingText(text, position);
 		}
 	}
@@ -194,8 +201,14 @@ public class TextField {
 	 * Finish composing text or do nothing if the text field is invalid.
 	 */
 	public void finishComposingText() {
-		if (connection != null) {
+		if (connection == null) {
+			return;
+		}
+
+		if (isComposingSupported) {
 			connection.finishComposingText();
+		} else {
+			connection.commitText(composingText, 1);
 		}
 	}
 
