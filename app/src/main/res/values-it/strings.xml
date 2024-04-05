@@ -47,6 +47,7 @@
 	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
 	<string name="pref_category_hacks">Compatibilità</string>
 	<string name="pref_category_appearance">Aspetto</string>
+	<string name="pref_category_predictive_mode">Scrittura facilitata</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
@@ -58,6 +59,7 @@
 	<string name="setup_default_keyboard">Seleziona la tastiera predefinita</string>
 	<string name="setup_tt9_on">%1$s è abilitato</string>
 	<string name="setup_tt9_off">%1$s è disabilitato</string>
+	<string name="setup_click_here_to_enable">Clicca qui per abilitare TT9 dalle impostazioni di Android.</string>
 	<string name="key_channel_down">Canale precedente</string>
 	<string name="key_channel_up">Prossimo canale</string>
 	<string name="char_newline">Nuova riga</string>

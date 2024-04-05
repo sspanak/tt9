@@ -75,6 +75,7 @@
 	<string name="setup_default_keyboard">" Selecionar teclado padrão"</string>
 	<string name="setup_tt9_on">%1$s está ativado</string>
 	<string name="setup_tt9_off">%1$s está desativado</string>
+	<string name="setup_click_here_to_enable">Clique aqui para ativar TT9 nas configurações do Android.</string>
 	<string name="key_hold_key">(segurar)</string>
 	<string name="key_back">Voltar</string>
 	<string name="key_call">Chamada</string>

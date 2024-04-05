@@ -49,6 +49,8 @@
 	<string name="pref_category_hacks">Compatibiliteit</string>
 	<string name="dictionary_loading_indeterminate">Woordenboek laden</string>
 	<string name="pref_category_appearance">Uiterlijk</string>
+	<string name="pref_category_predictive_mode">Tekstvoorspelling</string>
+	<string name="pref_category_function_keys">Sneltoetsen</string>
 	<string name="pref_category_keypad">Toetsenbord</string>
 	<string name="char_space">Spatie</string>
 	<string name="function_backspace_key">Backspace</string>
@@ -57,6 +59,7 @@
 	<string name="setup_default_keyboard">Standaardtoetsenbord selecteren</string>
 	<string name="setup_tt9_on">%1$s is ingeschakeld</string>
 	<string name="setup_tt9_off">%1$s is uitgeschakeld</string>
+	<string name="setup_click_here_to_enable">Klik hier om TT9 in te schakelen vanuit de Android-instellingen.</string>
 	<string name="key_channel_down">Vorige kanaal</string>
 	<string name="key_channel_up">Volgende kanaal</string>
 	<string name="char_newline">Nieuwe regel</string>
