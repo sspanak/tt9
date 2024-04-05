@@ -16,4 +16,12 @@ class BaseSettings {
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		prefsEditor = prefs.edit();
 	}
+
+	protected int getStringifiedInt(String key, int defaultValue) {
+		try {
+			return Integer.parseInt(prefs.getString(key, String.valueOf(defaultValue)));
+		} catch (NumberFormatException ignored) {
+			return defaultValue;
+		}
+	}
 }

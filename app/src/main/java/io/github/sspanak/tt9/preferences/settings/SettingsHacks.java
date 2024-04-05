@@ -11,19 +11,11 @@ class SettingsHacks extends BaseSettings {
 	/************* debugging settings *************/
 
 	public int getLogLevel() {
-		try {
-			return Integer.parseInt(prefs.getString("pref_log_level", String.valueOf(Logger.LEVEL)));
-		} catch (NumberFormatException ignored) {
-			return Logger.LEVEL;
-		}
+		return getStringifiedInt("pref_log_level", Logger.LEVEL);
 	}
 
 	public int getInputHandlingMode() {
-		try {
-			return Integer.parseInt(prefs.getString("pref_input_handling_mode", String.valueOf(ItemInputHandlingMode.NORMAL)));
-		} catch (NumberFormatException ignored) {
-			return ItemInputHandlingMode.NORMAL;
-		}
+		return getStringifiedInt("pref_input_handling_mode", ItemInputHandlingMode.NORMAL);
 	}
 
 
@@ -49,10 +41,6 @@ class SettingsHacks extends BaseSettings {
 	 */
 
 	public int getKeyPadDebounceTime() {
-		try {
-			return Integer.parseInt(prefs.getString("pref_key_pad_debounce_time", "0"));
-		} catch (NumberFormatException e) {
-			return 0;
-		}
+		return getStringifiedInt("pref_key_pad_debounce_time", 0);
 	}
 }
