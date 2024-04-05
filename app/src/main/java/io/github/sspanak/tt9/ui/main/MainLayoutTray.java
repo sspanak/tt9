@@ -22,10 +22,8 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	@Override
-	public void render() {
-		getView();
-		enableClickHandlers();
-		setSoftKeysVisibility();
+	protected ArrayList<SoftKey> getKeys() {
+		return keys;
 	}
 
 	@Override
@@ -42,7 +40,12 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	@Override
-	protected ArrayList<SoftKey> getKeys() {
-		return keys;
+	public void render() {
+		getView();
+		enableClickHandlers();
+		setSoftKeysVisibility();
+		for (SoftKey key : getKeys()) {
+			key.render();
+		}
 	}
 }

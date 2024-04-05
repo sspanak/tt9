@@ -24,6 +24,14 @@ class MainLayoutSmall extends MainLayoutTray {
 	}
 
 	@Override
+	protected ArrayList<SoftKey> getKeys() {
+		if (view != null && keys.isEmpty()) {
+			keys = getKeysFromContainer(view.findViewById(R.id.main_soft_keys));
+		}
+		return keys;
+	}
+
+	@Override
 	public void setDarkTheme(boolean darkEnabled) {
 		if (view == null) {
 			return;
@@ -44,13 +52,5 @@ class MainLayoutSmall extends MainLayoutTray {
 
 		view.findViewById(R.id.main_separator_left).setBackground(separatorColor);
 		view.findViewById(R.id.main_separator_right).setBackground(separatorColor);
-	}
-
-	@Override
-	protected ArrayList<SoftKey> getKeys() {
-		if (view != null && keys.isEmpty()) {
-			keys = getKeysFromContainer(view.findViewById(R.id.main_soft_keys));
-		}
-		return keys;
 	}
 }
