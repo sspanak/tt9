@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 
 import java.util.HashMap;
 
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {

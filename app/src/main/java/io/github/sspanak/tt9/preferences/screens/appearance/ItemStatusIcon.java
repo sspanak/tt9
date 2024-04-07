@@ -7,8 +7,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class ItemStatusIcon {
 	public static final String NAME = "pref_status_icon";
 
-	private SwitchPreferenceCompat item;
-	private SettingsStore settings;
+	private final SwitchPreferenceCompat item;
+	private final SettingsStore settings;
 
 	public ItemStatusIcon(SwitchPreferenceCompat item, SettingsStore settings) {
 		this.item = item;

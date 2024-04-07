@@ -85,6 +85,12 @@ public class AppHacks {
 	}
 
 
+	/**
+	 * Simulate the behavior of the Sonim native keyboard. In search fields with integrated lists,
+	 * ENTER is used to select an item from the list. But some of them have actionId = NEXT, instead of NONE,
+	 * which normally means "navigate to the next button or field". This hack correctly allows selection
+	 * of the item, instead of performing navigation.
+	 */
 	private boolean isSonimSearchField(int action) {
 		return
 			DeviceInfo.isSonim() &&
@@ -92,7 +98,7 @@ public class AppHacks {
 			&& (editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION) == action
 			&& (
 				inputType.isText()
-				// in some apps, they forgot to set the TEXT type, but fortunately, they did set the multiline flag.
+				// in some apps, they forgot to set the TEXT type, but fortunately, they did set the NO_SUGGESTIONS flag.
 				|| ((editorInfo.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
 			);
 	}
@@ -139,6 +145,11 @@ public class AppHacks {
 	}
 
 
+	/**
+	 * onAction
+	 * Runs non-standard actions for certain apps and fields. Use instead of inputConnection.performEditorAction(action).
+	 * Returns "true" if the action was handled, "false" otherwise.
+	 */
 	public boolean onAction(int action) {
 		if (isSonimSearchField(action)) {
 			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
