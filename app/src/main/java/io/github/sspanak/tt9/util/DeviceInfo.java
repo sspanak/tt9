@@ -9,6 +9,10 @@ public class DeviceInfo {
 		return Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	}
 
+	public static boolean isSonim() {
+		return Build.MANUFACTURER.equals("Sonimtech");
+	}
+
 	@NonNull
 	@Override
 	public String toString() {

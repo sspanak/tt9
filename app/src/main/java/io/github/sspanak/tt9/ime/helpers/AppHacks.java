@@ -8,12 +8,14 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.DeviceInfo;
 
 public class AppHacks {
 	private final EditorInfo editorInfo;
 	private final InputConnection inputConnection;
 	private final SettingsStore settings;
 	private final TextField textField;
+	private final InputType inputType;
 
 
 	public AppHacks(SettingsStore settings, InputConnection inputConnection, EditorInfo inputField, TextField textField) {
@@ -21,6 +23,7 @@ public class AppHacks {
 		this.inputConnection = inputConnection;
 		this.settings = settings;
 		this.textField = textField;
+		this.inputType = new InputType(inputConnection, inputField);
 	}
 
 
@@ -70,10 +73,7 @@ public class AppHacks {
 
 
 	private boolean isMultilineTextInNonSystemApp() {
-		return
-			editorInfo != null
-			&& !editorInfo.packageName.contains("android")
-			&& (editorInfo.inputType & TextField.TYPE_MULTILINE_TEXT) == TextField.TYPE_MULTILINE_TEXT;
+		return editorInfo != null && !editorInfo.packageName.contains("android") && inputType.isMultilineText();
 	}
 
 
@@ -82,6 +82,19 @@ public class AppHacks {
 			"com.google.android.apps.dynamite",
 			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT
 		);
+	}
+
+
+	private boolean isSonimSearchField(int action) {
+		return
+			DeviceInfo.isSonim() &&
+			editorInfo != null && (editorInfo.packageName.startsWith("com.android") || editorInfo.packageName.startsWith("com.sonim"))
+			&& (editorInfo.imeOptions & EditorInfo.IME_MASK_ACTION) == action
+			&& (
+				inputType.isText()
+				// in some apps, they forgot to set the TEXT type, but fortunately, they did set the multiline flag.
+				|| ((editorInfo.inputType & EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS)
+			);
 	}
 
 
@@ -120,6 +133,15 @@ public class AppHacks {
 			inputMode.clearWordStem();
 		} else if (isTermux()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+		}
+
+		return false;
+	}
+
+
+	public boolean onAction(int action) {
+		if (isSonimSearchField(action)) {
+			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		return false;

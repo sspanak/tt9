@@ -49,13 +49,16 @@ public abstract class HotkeyHandler extends TypingHandler {
 		}
 
 		int action = textField.getAction();
-		boolean actionPerformed = action == TextField.IME_ACTION_ENTER ? appHacks.onEnter() : textField.performAction(action);
 
-		if (actionPerformed && action == TextField.IME_ACTION_ENTER) {
-			forceShowWindowIfHidden();
+		if (action == TextField.IME_ACTION_ENTER) {
+			boolean actionPerformed = appHacks.onEnter();
+			if (actionPerformed) {
+				forceShowWindowIfHidden();
+			}
+			return actionPerformed;
 		}
 
-		return actionPerformed;
+		return appHacks.onAction(action) || textField.performAction(action);
 	}
 
 
