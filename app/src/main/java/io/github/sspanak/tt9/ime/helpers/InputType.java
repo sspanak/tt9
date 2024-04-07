@@ -9,6 +9,8 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 
 
 public class InputType {
+	private static final int TYPE_MULTILINE_TEXT = EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE;
+
 	private final InputConnection connection;
 	private final EditorInfo field;
 
@@ -115,6 +117,16 @@ public class InputType {
 
 	public boolean isSpecialized() {
 		return isEmail() || isPassword() || isUri();
+	}
+
+
+	public boolean isText() {
+		return field != null && (field.inputType & android.text.InputType.TYPE_MASK_CLASS) == android.text.InputType.TYPE_CLASS_TEXT;
+	}
+
+
+	public boolean isMultilineText() {
+		return field != null && (field.inputType & TYPE_MULTILINE_TEXT) == TYPE_MULTILINE_TEXT;
 	}
 
 
