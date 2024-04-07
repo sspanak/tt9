@@ -20,9 +20,13 @@ public class SoftOkKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		return
-			validateTT9Handler()
-				&& tt9.onKeyDown(KeyEvent.KEYCODE_ENTER, new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
-				&& tt9.onKeyUp(KeyEvent.KEYCODE_ENTER, new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER));
+		if (validateTT9Handler() && !tt9.onOK()) {
+			// If no standard editor action was performed, it probably means we can only type a new line,
+			// so we simulate the hardware ENTER key.
+			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+			return true;
+		}
+
+		return false;
 	}
 }
