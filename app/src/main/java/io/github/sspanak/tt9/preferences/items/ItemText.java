@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 
 public class ItemText extends ItemClickable {
-	private PreferencesActivity activity;
+	private final PreferencesActivity activity;
 	public ItemText(PreferencesActivity activity, Preference preference) {
 		super(preference);
 
