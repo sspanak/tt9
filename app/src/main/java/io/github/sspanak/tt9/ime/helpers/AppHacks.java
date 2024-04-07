@@ -130,7 +130,7 @@ public class AppHacks {
 	 * onEnter
 	 * Tries to guess and send the correct confirmation key code or sequence of key codes,
 	 * depending on the connected application and input field. On invalid connection or field,
-	 * it does nothing.
+	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
 	public boolean onEnter() {
 		if (settings.getFbMessengerHack() && isMessenger()) {
@@ -138,17 +138,17 @@ public class AppHacks {
 		} else if (settings.getGoogleChatHack() && isGoogleChat()) {
 			return onEnterGoogleChat();
 		} else if (isTermux() || isMultilineTextInNonSystemApp()) {
-			// 1. Termux supports only ENTER, so we convert DPAD_CENTER for it.
-			// 2. Any extra installed apps are likely not designed for hardware keypads, so again,
-			//		we don't want to send DPAD_CENTER to them.
+			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
+			// Any extra installed apps are likely not designed for hardware keypads, so again,
+			// we don't want to send DPAD_CENTER to them.
 			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		// The rest of the cases are probably system apps or numeric fields, which should
 		// now how to handle the incoming OK key code, be it ENTER or DPAD_CENTER.
+		// As per the docs, we must return "false", to indicate that we have not "seen" the key press.
 		return false;
 	}
-
 
 	/**
 	 * onEnterFbMessenger

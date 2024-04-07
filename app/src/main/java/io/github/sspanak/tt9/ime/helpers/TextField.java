@@ -181,7 +181,7 @@ public class TextField {
 
 	/**
 	 * setComposingTextWithHighlightedStem
-	 *
+	 * <p>
 	 * Sets the composing text, but makes the "stem" substring bold. If "highlightMore" is true,
 	 * the "stem" part will be in bold and italic.
 	 */
@@ -263,12 +263,18 @@ public class TextField {
 			return EditorInfo.IME_ACTION_NONE;
 		}
 
-		if (field.actionId == EditorInfo.IME_ACTION_DONE) {
+		// custom actions handling as in LatinIME. See the example in OpenBoard repo:
+		// https://github.com/openboard-team/openboard/blob/master/app/src/main/java/org/dslul/openboard/inputmethod/latin/utils/InputTypeUtils.java#L107
+		if (field.actionId == EditorInfo.IME_ACTION_DONE || field.actionLabel != null) {
 			return IME_ACTION_ENTER;
 		} else if (field.actionId > 0) {
 			return field.actionId;
 		}
 
+		// As in LatinIME, we want to perform an editor action, including in the case of "IME_ACTION_UNSPECIFIED".
+		// Otherwise, we pass through the ENTER or DPAD_CENTER key press and let the app or the system decide what to do.
+		// See the example below:
+		// https://github.com/openboard-team/openboard/blob/c3772cd56e770975ea5570db903f93b199de8b32/app/src/main/java/org/dslul/openboard/inputmethod/latin/inputlogic/InputLogic.java#L756
 		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
 		switch (standardAction) {
 			case EditorInfo.IME_ACTION_DONE:
@@ -277,10 +283,12 @@ public class TextField {
 			case EditorInfo.IME_ACTION_PREVIOUS:
 			case EditorInfo.IME_ACTION_SEARCH:
 			case EditorInfo.IME_ACTION_SEND:
+			case EditorInfo.IME_ACTION_UNSPECIFIED:
 				return standardAction;
 			default:
 				return IME_ACTION_ENTER;
 		}
+
 	}
 
 	/**
