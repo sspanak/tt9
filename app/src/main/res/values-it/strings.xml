@@ -34,8 +34,8 @@
 	<string name="pref_auto_capitals_after_newline_summary">Iniziare ogni riga con una lettera maiuscola, anche se è nel mezzo di una frase.</string>
 	<string name="pref_choose_languages">Lingue</string>
 
-	<string name="pref_status_icon">Icona modalità di digitazione</string>
-	<string name="pref_status_icon_summary">Indicare la modalità di digitazione attuale con un\'icona.</string>
+	<string name="pref_status_icon">Icona di attività</string>
+	<string name="pref_status_icon_summary">Mostrare un\'icona quando %1$s è attivo.</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>
 	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>

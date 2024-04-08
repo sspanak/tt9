@@ -10,7 +10,6 @@ public class ModePassthrough extends InputMode {
 	}
 
 	@Override public int getId() { return MODE_PASSTHROUGH; }
-	@Override public int getIcon() { return 0; }
 	@Override public int getSequenceLength() { return 0; }
 	@Override @NonNull public String toString() { return "--"; }
 

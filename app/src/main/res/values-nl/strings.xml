@@ -31,8 +31,8 @@
 	<string name="pref_auto_capitals_after_newline">Automatische hoofdletters op elke regel</string>
 	<string name="pref_auto_capitals_after_newline_summary">Elke regel beginnen met een hoofdletter, zelfs als het midden van een zin is.</string>
 	<string name="pref_choose_languages">Talen</string>
-	<string name="pref_status_icon">Typemodus-icoon</string>
-	<string name="pref_status_icon_summary">Geef de huidige typmodus aan met een icoon.</string>
+	<string name="pref_status_icon">Activiteitsicoon</string>
+	<string name="pref_status_icon_summary">" Een icoon tonen wanneer %1$s actief is."</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_cancelled">Laden geannuleerd.</string>
 	<string name="dictionary_loaded">Woordenboek laden voltooid.</string>

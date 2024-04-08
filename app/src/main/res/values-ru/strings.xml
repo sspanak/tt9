@@ -23,8 +23,8 @@
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
-	<string name="pref_status_icon">Иконка режима ввода</string>
-	<string name="pref_status_icon_summary">Отображать текущий режим ввода с помощью иконки.</string>
+	<string name="pref_status_icon">Иконка активности</string>
+	<string name="pref_status_icon_summary">Показать иконку, когда %1$s активен.</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
