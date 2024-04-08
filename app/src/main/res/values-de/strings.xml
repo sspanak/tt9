@@ -33,8 +33,8 @@
 	<string name="pref_auto_capitals_after_newline_summary">Jede Zeile mit einem Großbuchstaben beginnen, auch wenn es mitten im Satz ist.</string>
 	<string name="pref_choose_languages">Sprachen</string>
 
-	<string name="pref_status_icon">Icon für den Schreibmodus</string>
-	<string name="pref_status_icon_summary">Den aktuellen Schreibmodus mit einem Icon anzeigen.</string>
+	<string name="pref_status_icon">Aktivitäticon</string>
+	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn %1$s aktiv ist.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_cancelled">Laden abgebrochen.</string>
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>

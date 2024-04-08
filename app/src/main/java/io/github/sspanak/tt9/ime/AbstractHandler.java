@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 abstract public class AbstractHandler extends InputMethodService {
@@ -29,7 +30,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected void createSuggestionBar(View mainView);
 	abstract protected void forceShowWindowIfHidden();
 	abstract protected void renderMainView();
-	abstract protected void setStatusIcon(int iconResource);
+	abstract protected void setStatusIcon(InputMode mode);
 	abstract protected void setStatusText(String status);
 	abstract protected boolean shouldBeVisible();
 	abstract protected boolean shouldBeOff();

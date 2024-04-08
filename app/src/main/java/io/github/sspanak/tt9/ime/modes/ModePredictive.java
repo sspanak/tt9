@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -22,12 +21,9 @@ import io.github.sspanak.tt9.util.Text;
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
 
-
-
 	private final SettingsStore settings;
 
 	public int getId() { return MODE_PREDICTIVE; }
-	public int getIcon() { return R.drawable.ic_mode_predictive; }
 
 	private String lastAcceptedWord = "";
 

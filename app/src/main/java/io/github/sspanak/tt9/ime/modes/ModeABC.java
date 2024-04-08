@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
@@ -13,7 +12,6 @@ public class ModeABC extends InputMode {
 	private boolean shouldSelectNextLetter = false;
 
 	@Override public int getId() { return MODE_ABC; }
-	@Override public int getIcon() { return textCase == CASE_UPPER ? R.drawable.ic_mode_abc_uppercase : R.drawable.ic_mode_abc; }
 
 	ModeABC(SettingsStore settings, Language lang) {
 		this.settings = settings;

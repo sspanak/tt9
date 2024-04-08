@@ -11,10 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.ime.modes.ModePassthrough;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
@@ -78,7 +78,7 @@ public class TraditionalT9 extends HotkeyHandler {
 		if (mainView.createView()) {
 			initTray();
 		}
-		setStatusIcon(mInputMode.getIcon());
+		setStatusIcon(mInputMode);
 		setStatusText(mInputMode.toString());
 		setDarkTheme();
 		mainView.render();
@@ -110,7 +110,7 @@ public class TraditionalT9 extends HotkeyHandler {
 
 	@Override
 	protected void onFinishTyping() {
-		if (!(mInputMode instanceof ModePassthrough)) {
+		if (!mInputMode.isPassthrough()) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 		super.onFinishTyping();
@@ -121,7 +121,7 @@ public class TraditionalT9 extends HotkeyHandler {
 	protected void onStop() {
 		onFinishTyping();
 		suggestionOps.clear();
-		setStatusIcon(mInputMode.getIcon());
+		setStatusIcon(mInputMode);
 		setStatusText(mInputMode.toString());
 
 		if (isInputViewShown()) {
@@ -182,9 +182,9 @@ public class TraditionalT9 extends HotkeyHandler {
 
 
 	@Override
-	protected void setStatusIcon(int iconResource) {
-		if (iconResource > 0 && settings.isStatusIconEnabled()) {
-			showStatusIcon(iconResource);
+	protected void setStatusIcon(InputMode mode) {
+		if (!mode.isPassthrough() && settings.isStatusIconEnabled()) {
+			showStatusIcon(R.drawable.ic_status);
 		} else {
 			hideStatusIcon();
 		}

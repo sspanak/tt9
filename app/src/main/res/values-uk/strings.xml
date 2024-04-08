@@ -60,8 +60,8 @@
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
 
-	<string name="pref_status_icon">Іконка режиму введення</string>
-	<string name="pref_status_icon_summary">Показати поточний режим введення за допомогою іконка.</string>
+	<string name="pref_status_icon">Іконка активності</string>
+	<string name="pref_status_icon_summary">Показати іконку, коли %1$s активний.</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово \"%1$s\" у рядку %2$d мови \"%3$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>

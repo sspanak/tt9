@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
@@ -14,7 +13,6 @@ import io.github.sspanak.tt9.util.Characters;
 
 public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
-	@Override public int getIcon() { return R.drawable.ic_mode_123; }
 	@Override @NonNull public String toString() { return "123"; }
 
 	@Override public final boolean is123() { return true; }
