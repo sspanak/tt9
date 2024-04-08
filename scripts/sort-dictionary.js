@@ -1,7 +1,7 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
-const { print, printError } = require('./_printers.js');
+const { print, printError, printWordsWithFrequencies } = require('./_printers.js');
 
 
 function printHelp() {
@@ -35,13 +35,6 @@ function validateInput() {
 }
 
 
-function printWords(wordList) {
-	if (Array.isArray(wordList)) {
-		wordList.forEach(w => print(`${w.word}${w.frequency ? '\t' + w.frequency : ''}`));
-	}
-}
-
-
 async function readWords(fileName) {
 	const words = [];
 
@@ -51,9 +44,9 @@ async function readWords(fileName) {
 
 	for await (const line of createInterface({ input: createReadStream(fileName) })) {
 		const [word, frequency] = line.split("\t");
-		words.push({ 
-			word, 
-			frequency: Number.isNaN(Number.parseInt(frequency)) ? 0 : Number.parseInt(frequency) 
+		words.push({
+			word,
+			frequency: Number.isNaN(Number.parseInt(frequency)) ? 0 : Number.parseInt(frequency)
 		});
 	}
 
@@ -122,5 +115,5 @@ async function work({ definitionFile, wordsFile, locale }) {
 
 /** main **/
 work(validateInput())
-	.then(words => printWords(words))
+	.then(words => printWordsWithFrequencies(words))
 	.catch(e => printError(e));
