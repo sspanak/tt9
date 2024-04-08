@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
@@ -109,15 +110,6 @@ public class TraditionalT9 extends HotkeyHandler {
 
 
 	@Override
-	protected void onFinishTyping() {
-		if (!mInputMode.isPassthrough()) {
-			DictionaryLoader.autoLoad(this, mLanguage);
-		}
-		super.onFinishTyping();
-	}
-
-
-	@Override
 	protected void onStop() {
 		onFinishTyping();
 		suggestionOps.clear();
@@ -133,6 +125,15 @@ public class TraditionalT9 extends HotkeyHandler {
 			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) WordStoreAsync.normalizeNext(); },
 			SettingsStore.WORD_NORMALIZATION_DELAY
 		);
+	}
+
+
+	@Override
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		if (mInputMode instanceof ModePredictive && DictionaryLoader.autoLoad(this, mLanguage)) {
+			return true;
+		}
+		return super.onNumber(key, hold, repeat);
 	}
 
 
