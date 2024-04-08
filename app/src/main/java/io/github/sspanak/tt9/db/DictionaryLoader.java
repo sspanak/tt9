@@ -109,15 +109,15 @@ public class DictionaryLoader {
 	}
 
 
-	public static void autoLoad(InputMethodService context, Language language) {
+	public static boolean autoLoad(InputMethodService context, Language language) {
 		if (getInstance(context).isRunning()) {
-			return;
+			return false;
 		}
 
 		Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
 		boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
 		if (isItTooSoon) {
-			return;
+			return false;
 		}
 
 		WordStoreAsync.getLastLanguageUpdateTime(
@@ -135,6 +135,8 @@ public class DictionaryLoader {
 			},
 			language
 		);
+
+		return true;
 	}
 
 
