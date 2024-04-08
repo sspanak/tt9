@@ -60,7 +60,7 @@ public class InputModeValidator {
 	public static void validateTextCase(InputMode inputMode, int newTextCase) {
 		if (!inputMode.setTextCase(newTextCase)) {
 			inputMode.defaultTextCase();
-			Logger.w("validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
+			Logger.d("validateTextCase", "Invalid text case: " + newTextCase + " Enforcing: " + inputMode.getTextCase());
 		}
 	}
 }
