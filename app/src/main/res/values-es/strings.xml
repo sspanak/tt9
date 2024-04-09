@@ -46,8 +46,8 @@
 	<string name="dictionary_truncate_title">Borrar todos</string>
 	<string name="dictionary_truncate_unselected">Borrar no seleccionados</string>
 	<string name="dictionary_truncated">Diccionario eliminado con éxito.</string>
-	<string name="pref_status_icon">Icono de actividad</string>
-	<string name="pref_status_icon_summary">Mostrar un icono cuando %1$s está activo.</string>
+	<string name="pref_status_icon">Icono de estado</string>
+	<string name="pref_status_icon_summary">Mostrar un icono cuando la escritura esté activa.</string>
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>

@@ -55,8 +55,8 @@
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
 
-	<string name="pref_status_icon">Aktyvumo piktograma</string>
-	<string name="pref_status_icon_summary">Rodyti piktogramą, kai %1$s yra aktyvus.</string>
+	<string name="pref_status_icon">Būsenos piktograma</string>
+	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%3$s\" kalbos nepavyko. Klaida %2$d eilutėje, netinkamas žodis - \"%1$s\".</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" (%2$s) kalbos žodyną.</string>

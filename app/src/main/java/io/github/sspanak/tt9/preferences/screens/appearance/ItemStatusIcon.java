@@ -28,7 +28,7 @@ public class ItemStatusIcon {
 			return;
 		}
 
-		String summary = item.getContext().getString(R.string.pref_status_icon_summary, item.getContext().getString(R.string.app_name));
+		String summary = item.getContext().getString(R.string.pref_status_icon_summary);
 		item.setSummary(summary);
 	}
 }
