@@ -23,8 +23,8 @@
 	<string name="pref_auto_capitals_after_newline_summary">Започвай всеки ред с главна буква, дори и да е в средата на изречение.</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
-	<string name="pref_status_icon">Икона за активност</string>
-	<string name="pref_status_icon_summary">Показвай икона, когато %1$s е активен.</string>
+	<string name="pref_status_icon">Икона за състояние</string>
+	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>

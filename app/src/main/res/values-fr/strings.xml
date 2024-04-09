@@ -23,8 +23,8 @@
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
-	<string name="pref_status_icon">Icône d\'activité</string>
-	<string name="pref_status_icon_summary">Afficher une icône lorsque %1$s est actif.</string>
+	<string name="pref_status_icon">Icône d\'état</string>
+	<string name="pref_status_icon_summary">Afficher une icône lorsque la saisie au clavier est active</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>

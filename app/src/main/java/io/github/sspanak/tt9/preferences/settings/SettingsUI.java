@@ -9,9 +9,9 @@ import io.github.sspanak.tt9.util.DeviceInfo;
 
 public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_STEALTH = 0;
-	public final static int LAYOUT_TRAY = 1;
-	public final static int LAYOUT_SMALL = 2;
-	public final static int LAYOUT_NUMPAD = 3;
+	public final static int LAYOUT_TRAY = 2;
+	public final static int LAYOUT_SMALL = 3;
+	public final static int LAYOUT_NUMPAD = 4;
 
 	SettingsUI(Context context) { super(context); }
 
