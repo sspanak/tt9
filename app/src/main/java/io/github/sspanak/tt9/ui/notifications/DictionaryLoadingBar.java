@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ui;
+package io.github.sspanak.tt9.ui.notifications;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,13 +9,13 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
-import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
-import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 
 
-public class DictionaryLoadingBar extends DictionaryNotification {
+public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	private static DictionaryLoadingBar self;
 
 

@@ -6,7 +6,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exporter.AbstractExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
-import io.github.sspanak.tt9.ui.DictionaryNotification;
+import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
 
 abstract class ItemExportAbstract extends ItemClickable {
 	final protected PreferencesActivity activity;
@@ -59,12 +59,12 @@ abstract class ItemExportAbstract extends ItemClickable {
 			setReadyStatus();
 
 			if (outputFile == null) {
-				DictionaryNotification.getInstance(activity).showError(
+				DictionaryProgressNotification.getInstance(activity).showError(
 					activity.getString(R.string.dictionary_export_failed),
 					activity.getString(R.string.dictionary_export_failed_more_info)
 				);
 			} else {
-				DictionaryNotification.getInstance(activity).showMessage(
+				DictionaryProgressNotification.getInstance(activity).showMessage(
 					activity.getString(R.string.dictionary_export_finished),
 					activity.getString(R.string.dictionary_export_finished_more_info, outputFile),
 					activity.getString(R.string.dictionary_export_finished_more_info, outputFile)
@@ -80,7 +80,7 @@ abstract class ItemExportAbstract extends ItemClickable {
 
 		String loadingMessage = getExporter().getStatusMessage();
 		item.setSummary(loadingMessage);
-		DictionaryNotification.getInstance(activity).showLoadingMessage(loadingMessage, "");
+		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMessage, "");
 	}
 
 
