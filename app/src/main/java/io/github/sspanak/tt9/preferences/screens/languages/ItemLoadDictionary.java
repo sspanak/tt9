@@ -12,8 +12,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
-import io.github.sspanak.tt9.ui.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
 
 
 class ItemLoadDictionary extends ItemClickable {
