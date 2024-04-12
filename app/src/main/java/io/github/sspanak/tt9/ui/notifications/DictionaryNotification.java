@@ -8,7 +8,10 @@ import android.content.res.Resources;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
+
+import io.github.sspanak.tt9.languages.Language;
 
 public abstract class DictionaryNotification {
 	private static final int NOTIFICATION_ID = 1;
@@ -24,20 +27,20 @@ public abstract class DictionaryNotification {
 	protected String messageLong = "";
 
 
-	protected DictionaryNotification(Context context) {
+	protected DictionaryNotification(@NonNull Context context, @Nullable Language language) {
 		resources = context.getResources();
 
 		manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationBuilder = getNotificationBuilderCompat(context);
 
 		notificationBuilder
-			.setContentIntent(createNavigationIntent(context))
+			.setContentIntent(createNavigationIntent(context, language))
 			.setSmallIcon(android.R.drawable.stat_notify_sync)
 			.setCategory(NotificationCompat.CATEGORY_PROGRESS)
 			.setOnlyAlertOnce(true);
 	}
 
-	protected abstract PendingIntent createNavigationIntent(Context context);
+	protected abstract PendingIntent createNavigationIntent(@NonNull Context context, @Nullable Language language);
 
 	private NotificationCompat.Builder getNotificationBuilderCompat(Context context) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -54,16 +57,21 @@ public abstract class DictionaryNotification {
 	}
 
 
-	public void showMessage(@NonNull String title, @NonNull String message, @NonNull String messageLong) {
+	public void show() {
 		indeterminate = false;
-		this.title = title;
-		this.message = message;
-		this.messageLong = messageLong;
 		renderMessage();
 	}
 
 
-	public void showError(@NonNull String title, @NonNull String message) {
+	public void showMessage(String title, String message, String messageLong) {
+		this.title = title;
+		this.message = message;
+		this.messageLong = messageLong;
+		this.show();
+	}
+
+
+	public void showError(String title, String message) {
 		indeterminate = false;
 		this.title = title;
 		this.message = message;

@@ -123,7 +123,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Patvirtinkite ištrynimą</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Ar tikrai norite ištrinti „%1$s“?</string>
 	<string name="delete_words_deleted_x">„%1$s“ buvo ištrintas.</string>
-	<string name="dictionary_update_message">Atnaujinta žodyno versija skirta \"%1$s\". Ar norėtumėte ją įkelti?</string>
+	<string name="dictionary_update_message">Atnaujinta žodyno versija skirta \"%1$s\".</string>
 	<string name="dictionary_update_update">Įkelti</string>
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>

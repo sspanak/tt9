@@ -105,7 +105,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Confirme a exclusão</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Tem certeza de que deseja excluir \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" foi excluída.</string>
-	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\". Você gostaria de carregá-lo?</string>
+	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\".</string>
 	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>
 	<string name="donate_summary">Se você gosta de %1$s, você poderia apoiar o seu desenvolvimento em: %2$s.</string>

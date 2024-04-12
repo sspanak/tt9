@@ -90,7 +90,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Підтвердіть видалення</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Ви впевнені, що хочете видалити \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" було видалено.</string>
-	<string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\". Бажаєте його завантажити?</string>
+	<string name="dictionary_update_message">Доступне оновлення словника для \"%1$s\".</string>
 	<string name="dictionary_update_update">Завантажити</string>
 
 	<string name="donate_title">Підтримати</string>

@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 
@@ -18,7 +20,7 @@ public class DictionaryProgressNotification extends DictionaryNotification {
 
 
 	protected DictionaryProgressNotification(Context context) {
-		super(context);
+		super(context, null);
 	}
 
 
@@ -32,7 +34,7 @@ public class DictionaryProgressNotification extends DictionaryNotification {
 
 
 	@Override
-	protected final PendingIntent createNavigationIntent(Context context) {
+	protected final PendingIntent createNavigationIntent(@NonNull Context context, @Nullable Language language) {
 		Intent intent = new Intent(context, PreferencesActivity.class);
 		intent.putExtra("screen", LanguagesScreen.NAME);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

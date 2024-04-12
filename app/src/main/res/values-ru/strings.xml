@@ -107,7 +107,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Подтвердите удаление</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Уверены, что хотите удалить «%1$s»?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" было удалено.</string>
-	<string name="dictionary_update_message">Доступно обновление словаря для «%1$s». Хотите загрузить его?</string>
+	<string name="dictionary_update_message">Доступно обновление словаря для «%1$s».</string>
 	<string name="dictionary_update_update">Загрузить</string>
 	<string name="donate_title">Поддержать</string>
 	<string name="donate_summary">Если вам нравится %1$s, вы можете поддержать его разработку по: %2$s.</string>

@@ -87,7 +87,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Conferma l\'eliminazione</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Sei sicuro di voler eliminare \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" è stata eliminata.</string>
-	<string name="dictionary_update_message">Aggiornamento del dizionario disponibile per \"%1$s\". Vuoi caricarlo?</string>
+	<string name="dictionary_update_message">Aggiornamento del dizionario disponibile per \"%1$s\".</string>
 	<string name="dictionary_update_update">Carica</string>
 	<string name="donate_title">Donare</string>
 	<string name="donate_summary">Se ti piace %1$s, potresti supportarne lo sviluppo su: %2$s.</string>
