@@ -19,7 +19,7 @@ static def validateDictionaryWord(String word, int lineNumber, String validChara
 
 	if (errorCount == 0 && !word.matches(validCharacters)) {
 		errorCount++
-		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contain characters outside of the defined alphabet: $validCharacters.\n"
+		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contains characters outside of the defined alphabet: $validCharacters.\n"
 	}
 
 	return [errorCount, errors]
@@ -133,8 +133,8 @@ static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERR
 	String errorMsg = ""
 
 	def fileContents = dictionaryFile.readLines()
-	for (int lineNumber = 0; lineNumber < fileContents.size() && errorCount < MAX_ERRORS; lineNumber++) {
-		String line = fileContents.get(lineNumber)
+	for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < MAX_ERRORS; lineNumber++) {
+		String line = fileContents.get(lineNumber - 1)
 
 			String error = validateDictionaryLine(line, lineNumber)
 			if (!error.isEmpty()) {
