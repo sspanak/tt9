@@ -4,6 +4,7 @@ import android.view.View;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 
 public class MainView {
 	private final TraditionalT9 tt9;
@@ -37,7 +38,10 @@ public boolean createView() {
 
 	public void forceCreateView() {
 		main = null;
-		createView();
+		if (!createView()) {
+			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
+			main = new MainLayoutSmall(tt9);
+		}
 	}
 
 	public View getView() {
