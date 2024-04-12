@@ -1,4 +1,4 @@
-locale: hr
+locale: hr-HR
 dictionaryFile: hr-utf8.csv
 layout:
   - [SPECIAL] # 0
