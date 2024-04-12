@@ -24,8 +24,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.dialogs.ConfirmDictionaryUpdateDialog;
 import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
+import io.github.sspanak.tt9.ui.notifications.DictionaryUpdateNotification;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
@@ -130,7 +130,7 @@ public class DictionaryLoader {
 				}
 				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
 				else if (!hash.equals(new WordFile(language.getDictionaryFile(), self.assets).getHash())) {
-					ConfirmDictionaryUpdateDialog.show(context, language.getId());
+					new DictionaryUpdateNotification(context, language).show();
 				}
 			},
 			language

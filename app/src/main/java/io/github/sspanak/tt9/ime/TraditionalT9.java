@@ -105,6 +105,8 @@ public class TraditionalT9 extends HotkeyHandler {
 			initUi();
 		}
 
+		DictionaryLoader.autoLoad(this, mLanguage);
+
 		return true;
 	}
 

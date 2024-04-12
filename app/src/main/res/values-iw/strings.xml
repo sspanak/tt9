@@ -103,7 +103,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">אישור מחיקה</string>
 	<string name="delete_words_deleted_confirm_deletion_question">האם אתה בטוח שברצונך להסיר את \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" נמחקה.</string>
-	<string name="dictionary_update_message">עדכון מילון זמין עבור \"%1$s\". האם תרצה לטעון אותו?</string>
+	<string name="dictionary_update_message">עדכון למילון זמין עבור \"%1$s\"</string>
 	<string name="dictionary_update_update">טען</string>
 	<string name="donate_title">לִתְרוֹם</string>
 	<string name="donate_summary">אם אתה אוהב את %1$s, תוכל לתמוך בפיתוח שלו בכתובת: %2$s</string>

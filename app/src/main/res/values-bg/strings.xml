@@ -57,7 +57,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Потвърдете изтриването</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Наистина ли искате да изтриете „%1$s“?</string>
 	<string name="delete_words_deleted_x">„%1$s“ беше изтрита.</string>
-	<string name="dictionary_update_message">Налично е обновление на речника за „%1$s“. Искате ли да го заредите?</string>
+	<string name="dictionary_update_message">Налично е обновление на речника за „%1$s“.</string>
 	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
 	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>

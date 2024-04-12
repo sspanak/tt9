@@ -103,7 +103,7 @@
 	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" was deleted.</string>
 
-	<string name="dictionary_update_message">Dictionary update available for \"%1$s\". Would you like to load it?</string>
+	<string name="dictionary_update_message">Dictionary update available for \"%1$s\".</string>
 	<string name="dictionary_update_update">Load</string>
 
 	<string name="donate_title">Donate</string>

@@ -83,7 +83,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Bevestig verwijdering</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Weet u zeker dat u \"%1$s\" wilt verwijderen?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" is verwijderd.</string>
-	<string name="dictionary_update_message">Woordenboekupdate beschikbaar voor \"%1$s\". Wil je het laden?</string>
+	<string name="dictionary_update_message">Woordenboekupdate beschikbaar voor \"%1$s\".</string>
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Doneer</string>
 	<string name="donate_summary">Als je %1$s leuk vindt, zou je de ontwikkeling kunnen ondersteunen op: %2$s.</string>
