@@ -14,8 +14,35 @@ In some cases, installation permissions are disabled by default, but you can usu
 
 _The setting name or location may be different on different Android versions. Nevertheless, a quick Google search for your phone make and model, should point you in the right direction._
 
-## Phones which allow installing APKs, but do not allow keyboard selection
-TODO
+## Phones which do not allow installing APKs or do not display TT9 after installation
+Some manufacturers prefer to lock their device and disallow installing or enabling (or both) third party keyboards or apps in general. It is likely to reduce the complaints "my phone isn't working", caused by the custom installed apps. The problem has been discussed [here](https://github.com/sspanak/tt9/issues/455) and [here](https://github.com/sspanak/tt9/issues/198).
 
-## Phones which do not allow installing APKs
-TODO
+An examples of such phones are all models by Sonim, especially since the November 2022 update and some Kyocera models, for example: Kyocera DuraXV Extreme+.
+
+### Prepare Your Computer
+To install TT9 on such locked devices, you will have to connect your phone to a computer and use a program called "adb" (Android Debug Bridge). If you feel confident using the command-line, follow the instructions below.
+
+Go through the [adb quick setup](https://www.xda-developers.com/install-adb-windows-macos-linux/). If you need more detailed info, see the [developer documentation](https://developer.android.com/tools/adb).
+
+### Install
+If your phone permits installing APKs, skip this step and install normally. Otherwise, install using:
+
+```bash
+adb install /path/to/apk/on/your/computer/tt9-vXXX.apk
+```
+
+_If you are installing over a previously installed version, you may have to uninstall the old one first. See below._
+
+### Enable
+
+```bash
+adb shell ime enable io.github.sspanak.tt9/.ime.TraditionalT9
+```
+
+_That's it! TT9 should appear the next you start typing._
+
+### Uninstall
+
+```bash
+adb shell pm uninstall io.github.sspanak.tt9
+```
