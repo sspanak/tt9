@@ -20,6 +20,8 @@ This is a modernized version of the [original project](https://github.com/Clam-/
     alt="Get it on GitHub"
     height="80">](https://github.com/sspanak/tt9/releases/latest)
 
+If your phone does not allow installing custom APKs, consult the [Installation Guide](docs/installation.md).
+
 ## ⚙️ System Requirements
 - Android 4.4 or higher. _(Tested and confirmed on Android 6, 10 and 11)_
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.

@@ -1,5 +1,5 @@
 # Traditional T9
-This manual explains how to configure and use Traditional T9 in different scenarios. For download and installation instructions, please consult the README on Github: [https://github.com/sspanak/tt9](https://github.com/sspanak/tt9). The repository includes all source code, a developer's guide, the privacy policy and supplementary documentation.
+This manual explains how to configure and use Traditional T9 in different scenarios. For installation instructions, please consult the [Installation Guide](https://github.com/sspanak/tt9/blob/master/docs/installation.md) on Github. Finally, you may want to check out the [main repository page](https://github.com/sspanak/tt9), which includes all source code, a developer's guide, the privacy policy and supplementary documentation.
 
 ## Initial Setup
 After installing, in order to use Traditional T9, you need to enable it as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup would be disabled and there would be a label saying TT9 is disabled. Go to Initial Setup and enable it.
