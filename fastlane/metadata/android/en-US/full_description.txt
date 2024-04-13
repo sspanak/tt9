@@ -2,4 +2,4 @@ A 12-key (T9) keyboard for devices with a hardware keypad. It supports predictiv
 
 Supported languages: Arabic, Bulgarian, Croatian, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Indonesian, Italian, Norwegian, Polish, Portugues (European and Brazilian), Romanian, Russian, Spanish, Swedish, Ukrainian, Yiddish.
 
-IMPORTANT! If you have the Github or the IzzyOnDroid version, you must uninstall it, before installing this one. Android does not allow installing the same app from different source for security reasons.
+IMPORTANT! If you have the Github or the IzzyOnDroid version, you must uninstall it, before installing this one. Android does not allow installing the same app from a different source for security reasons.
