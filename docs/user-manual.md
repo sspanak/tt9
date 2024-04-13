@@ -200,3 +200,8 @@ If you have opened an application where you can type, but TT9 does not wake up, 
 **Long explanation.** The reason for this problem is Android is originally designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
 
 For these reasons, in order to stick with the expected Android standards, the control is in your hands. Just press a key to "touch" the screen and keep typing.
+
+#### On Qin F21 Pro, holding a 2 or 8 turns up or down the volume instead of typing a number
+To mitigate this problem, go to Settings → Appearance, and enable "Status Icon". TT9 should detect Qin F21 and enable the settings automatically, but in case auto-detection failed, or you have disabled the icon for some reason, you need to have it enabled, for all keys to work properly.
+
+**Long explanation.** Qin F21 Pro (and possibly F22, too), have a hotkey application which allows assigning Volume Up and Volume Down functions to number keys. By default, the hotkey manager is enabled and holding 2 increases the volume, holding 8 decreases it. However, when there is no status icon, the manager assumes no keyboard is active and adjusts the volume, instead of letting Traditional T9 handle the key and type a number. So, enabling the icon just bypasses the hotkey manager and everything works fine.
