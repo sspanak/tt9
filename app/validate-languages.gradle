@@ -126,49 +126,63 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERRORS, String CSV_DELIMITER, int MAX_WORD_FREQUENCY) {
 	final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
 	final VALID_CHARS = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-\\.']+\$"
+	final int MAX_SORTING_ERRORS = Math.ceil(MAX_ERRORS / 10)
 
 	def uniqueWords = [:]
 
 	int errorCount = 0
+	int sortingErrorCount = 0
 	String errorMsg = ""
 
 	def fileContents = dictionaryFile.readLines()
-	for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < MAX_ERRORS; lineNumber++) {
+	for (int lineNumber = 1, previousWordLength = 0; lineNumber <= fileContents.size() && errorCount < MAX_ERRORS; lineNumber++) {
 		String line = fileContents.get(lineNumber - 1)
 
-			String error = validateDictionaryLine(line, lineNumber)
-			if (!error.isEmpty()) {
-				errorCount++
-				errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. ${error}.\n"
-				break
-			}
+		String error = validateDictionaryLine(line, lineNumber)
+		if (!error.isEmpty()) {
+			errorCount++
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. ${error}\n"
+			break
+		}
 
-			String[] parts = line.split(CSV_DELIMITER, 2)
-			String word = parts[0]
-			int frequency
-			try {
-				frequency = (parts.length > 1 ? parts[1] : "0") as int
-			} catch (Exception ignored) {
-				frequency = -1
-			}
+		String[] parts = line.split(CSV_DELIMITER, 2)
+		String word = parts[0]
+		int frequency
+		try {
+			frequency = (parts.length > 1 ? parts[1] : "0") as int
+		} catch (Exception ignored) {
+			frequency = -1
+		}
 
-			if (frequency < 0 || frequency > MAX_WORD_FREQUENCY) {
-				errorCount++
-				errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${parts[1]}' on line ${lineNumber}. Frequency must be an integer between 0 and ${MAX_WORD_FREQUENCY}.\n"
-			}
+		if (frequency < 0 || frequency > MAX_WORD_FREQUENCY) {
+			errorCount++
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found out-of-range word frequency: '${parts[1]}' on line ${lineNumber}. Frequency must be an integer between 0 and ${MAX_WORD_FREQUENCY}.\n"
+		}
 
-			def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, VALID_CHARS, "Dictionary '${dictionaryFile.name}' is invalid")
-			errorCount += wordErrorCount
-			errorMsg += wordErrors
+		if (sortingErrorCount < MAX_SORTING_ERRORS && word.length() < previousWordLength) {
+			sortingErrorCount++
+			errorCount++
 
-			String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
-			if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
-				errorCount++
-				errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found a repeating word: '${word}' on line ${lineNumber}. Ensure all words appear only once.\n"
+			if (sortingErrorCount == MAX_SORTING_ERRORS) {
+				errorMsg += "Too many sorting errors in '${dictionaryFile.name}'. Disabling sorting check until the end of the file.\n"
 			} else {
-				uniqueWords[uniqueWordKey] = true
+				errorMsg += "Dictionary '${dictionaryFile.name}' is not sorted. Word: '${word}' on line ${lineNumber} is shorter than the previous one. Ensure all words are sorted by length and sequence.\n"
 			}
 		}
+		previousWordLength = word.length()
+
+		def (wordErrorCount, wordErrors) = validateDictionaryWord(word, lineNumber, VALID_CHARS, "Dictionary '${dictionaryFile.name}' is invalid")
+		errorCount += wordErrorCount
+		errorMsg += wordErrors
+
+		String uniqueWordKey = word ==~ GEOGRAPHICAL_NAME ? word : word.toLowerCase()
+		if (uniqueWords[uniqueWordKey] != null && uniqueWords[uniqueWordKey] == true) {
+			errorCount++
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found a repeating word: '${word}' on line ${lineNumber}. Ensure all words appear only once.\n"
+		} else {
+			uniqueWords[uniqueWordKey] = true
+		}
+	}
 
 	return [errorMsg, errorCount]
 }
