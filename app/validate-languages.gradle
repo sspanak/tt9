@@ -188,12 +188,19 @@ static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERR
 }
 
 
-ext.validateLanguageFiles = { definitionsDir, dictionariesDir, outputFile ->
+ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 	int errorCount = 0
 
-	outputFile.text = ""
-
 	def errorStream = fileTree(definitionsDir).getFiles().parallelStream().map { File languageFile ->
+		def contentHash = languageFile.text.digest("SHA-1")
+		def outputFile = new File("${validationDir}/${languageFile.name.replace(".yml", "")}.txt")
+
+		if (outputFile.exists() && outputFile.text == "${contentHash} OK") {
+			return ""
+		}
+
+		outputFile.text = ""
+
 		if (errorCount >= MAX_ERRORS) {
 			return "Too many errors! Skipping: ${languageFile}\n"
 		}
@@ -201,18 +208,18 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, outputFile ->
 		def (alphabet, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageFile(languageFile, dictionariesDir)
 		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
-			outputFile.text += "${languageFile.name} INVALID \n"
+			outputFile.text += "${contentHash} INVALID"
 			return langFileErrorMsg
 		}
 
 		def (dictionaryErrorMsg, dictionaryErrorCount) = parseDictionaryFile(alphabet, dictionaryFile, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
 		errorCount += dictionaryErrorCount
 		if (!dictionaryErrorMsg.isEmpty()) {
-			outputFile.text += "${languageFile.name} INVALID \n"
+			outputFile.text += "${contentHash} INVALID"
 			return dictionaryErrorMsg
 		}
 
-		outputFile.text += "${languageFile.name} OK\n"
+		outputFile.text += "${contentHash} OK"
 		return ""
 	}
 

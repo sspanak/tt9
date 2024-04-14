@@ -9,11 +9,11 @@ apply from: 'version-tools.gradle'
 
 
 tasks.register('validateLanguages') {
-	inputs.dir fileTree(dir: LANGUAGES_INPUT_DIR)
-	outputs.file layout.buildDirectory.file("lang.validation.txt")
+	inputs.dir LANGUAGES_INPUT_DIR
+	outputs.dir LANGUAGE_VALIDATION_DIR
 
 	doLast {
-		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, outputs.files.singleFile)
+		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, LANGUAGE_VALIDATION_DIR.get().asFile)
 	}
 }
 
