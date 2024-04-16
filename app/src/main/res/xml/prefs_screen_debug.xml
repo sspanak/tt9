@@ -30,6 +30,11 @@
 		app:layout="@layout/pref_switch"
 		app:title="System Logs" />
 
+	<Preference
+		app:key="pref_export_logcat"
+		app:layout="@layout/pref_text"
+		app:title="Export Logs" />
+
 	<PreferenceCategory
 		app:title="Recent Log Messages"
 		app:layout="@layout/pref_category"

@@ -21,8 +21,8 @@ import java.io.OutputStream;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public abstract class AbstractExporter {
-	final protected static String FILE_EXTENSION = ".csv";
-	final protected static String MIME_TYPE = "text/csv";
+	protected static String FILE_EXTENSION = ".csv";
+	protected static String MIME_TYPE = "text/csv";
 
 	protected Runnable failureHandler;
 	protected Runnable startHandler;
@@ -54,7 +54,7 @@ public abstract class AbstractExporter {
 				if (stream == null) {
 					throw new IOException("Failed to open output stream.");
 				}
-				stream.write(getWords(activity));
+				stream.write(getFileContents(activity));
 			}
 		} catch (IOException e) {
 			if (uri != null) {
@@ -84,7 +84,7 @@ public abstract class AbstractExporter {
 		}
 
 		try (OutputStream stream = new FileOutputStream(file)) {
-			stream.write(getWords(activity));
+			stream.write(getFileContents(activity));
 		}
 
 		MediaScannerConnection.scanFile(activity, new String[]{file.getAbsolutePath()}, new String[]{MIME_TYPE}, null);
@@ -163,5 +163,5 @@ public abstract class AbstractExporter {
 
 	abstract protected void exportSync(Activity activity);
 	@NonNull abstract protected String generateFileName();
-	@NonNull abstract protected byte[] getWords(Activity activity) throws Exception;
+	@NonNull abstract protected byte[] getFileContents(Activity activity) throws Exception;
 }
