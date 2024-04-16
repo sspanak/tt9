@@ -63,6 +63,10 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+			return false;
+		}
+
 		if (keyCode == settings.getKeyAddWord()) {
 			return onKeyAddWord(validateOnly);
 		}

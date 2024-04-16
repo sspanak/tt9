@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
+import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.preferences.screens.hotkeys.SectionKeymap;
 
@@ -40,7 +41,7 @@ class SettingsHotkeys extends SettingsHacks {
 
 
 	public int getFunctionKey(String functionName) {
-		return getStringifiedInt(functionName, 0);
+		return getStringifiedInt(functionName, KeyEvent.KEYCODE_UNKNOWN);
 	}
 
 
