@@ -41,7 +41,7 @@ public class CustomWordsExporter extends AbstractExporter {
 
 	@NonNull
 	@Override
-	protected byte[] getWords(Activity activity) throws Exception {
+	protected byte[] getFileContents(Activity activity) throws Exception {
 		SQLiteDatabase db = SQLiteOpener.getInstance(activity).getDb();
 		if (db == null) {
 			throw new Exception("Could not open database");

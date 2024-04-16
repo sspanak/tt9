@@ -68,7 +68,7 @@ public class DictionaryProgressNotification extends DictionaryNotification {
 
 
 	@Override
-	protected void hide() {
+	public void hide() {
 		progress = maxProgress = 0;
 		super.hide();
 	}

@@ -14,6 +14,10 @@ class SettingsHacks extends BaseSettings {
 		return getStringifiedInt("pref_log_level", Logger.LEVEL);
 	}
 
+	public boolean getEnableSystemLogs() {
+		return prefs.getBoolean("pref_enable_system_logs", false);
+	}
+
 	public int getInputHandlingMode() {
 		return getStringifiedInt("pref_input_handling_mode", ItemInputHandlingMode.NORMAL);
 	}

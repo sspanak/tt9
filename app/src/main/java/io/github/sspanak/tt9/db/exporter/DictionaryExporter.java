@@ -7,12 +7,12 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.util.Timer;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 
 public class DictionaryExporter extends AbstractExporter {
 	private static DictionaryExporter self;
@@ -62,7 +62,7 @@ public class DictionaryExporter extends AbstractExporter {
 
 	@Override
 	@NonNull
-	protected byte[] getWords(Activity activity) throws Exception {
+	protected byte[] getFileContents(Activity activity) throws Exception {
 		SQLiteDatabase db = SQLiteOpener.getInstance(activity).getDb();
 		if (db == null) {
 			throw new Exception("Could not open database");

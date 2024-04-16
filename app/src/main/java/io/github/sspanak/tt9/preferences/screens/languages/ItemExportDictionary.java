@@ -2,10 +2,11 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.db.exporter.DictionaryExporter;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemExportAbstract;
+import io.github.sspanak.tt9.util.Logger;
 
 class ItemExportDictionary extends ItemExportAbstract {
 	final public static String NAME = "dictionary_export";

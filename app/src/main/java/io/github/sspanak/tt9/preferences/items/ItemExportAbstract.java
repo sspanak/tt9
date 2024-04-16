@@ -1,19 +1,18 @@
-package io.github.sspanak.tt9.preferences.screens.languages;
+package io.github.sspanak.tt9.preferences.items;
 
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exporter.AbstractExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
 
-abstract class ItemExportAbstract extends ItemClickable {
+abstract public class ItemExportAbstract extends ItemClickable {
 	final protected PreferencesActivity activity;
 	final private Runnable onStart;
 	final private Runnable onFinish;
 
-	ItemExportAbstract(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
+	public ItemExportAbstract(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item);
 		this.activity = activity;
 		this.onStart = onStart;
@@ -75,7 +74,7 @@ abstract class ItemExportAbstract extends ItemClickable {
 
 
 	protected void setLoadingStatus() {
-		onStart.run();
+		if (onStart != null) onStart.run();
 		disable();
 
 		String loadingMessage = getExporter().getStatusMessage();
@@ -86,6 +85,6 @@ abstract class ItemExportAbstract extends ItemClickable {
 
 	public void setReadyStatus() {
 		enable();
-		onFinish.run();
+		if (onFinish != null) onFinish.run();
 	}
 }
