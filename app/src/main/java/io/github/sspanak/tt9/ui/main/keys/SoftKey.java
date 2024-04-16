@@ -94,7 +94,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 		// sometimes this gets called twice, so we debounce the call to the repeating function
 		repeatHandler.removeCallbacks(this::repeatOnLongPress);
-		repeatHandler.postDelayed(this::repeatOnLongPress, 1);
+		repeatHandler.postDelayed(this::repeatOnLongPress, 20);
 		return true;
 	}
 
