@@ -23,6 +23,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
+	private final String LOG_TAG = getClass().getSimpleName();
+
 	protected TraditionalT9 tt9;
 
 	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
@@ -63,8 +65,13 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	@Override
 	protected void onFinishInflate() {
 		super.onFinishInflate();
-		getRootView().setOnTouchListener(this);
-		getRootView().setOnLongClickListener(this);
+		View keyView = findViewById(getId());
+		if (keyView != null) {
+			keyView.setOnTouchListener(this);
+			keyView.setOnLongClickListener(this);
+		} else {
+			Logger.e(LOG_TAG, "Failed settings touch listeners. Cannot find SoftKey with ID: " + getId());
+		}
 	}
 
 	@Override
@@ -155,7 +162,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	protected boolean validateTT9Handler() {
 		if (tt9 == null) {
-			Logger.w(getClass().getCanonicalName(), "Traditional T9 handler is not set. Ignoring key press.");
+			Logger.w(LOG_TAG, "Traditional T9 handler is not set. Ignoring key press.");
 			return false;
 		}
 
