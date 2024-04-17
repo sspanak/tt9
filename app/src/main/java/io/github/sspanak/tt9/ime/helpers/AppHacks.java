@@ -138,10 +138,11 @@ public class AppHacks {
 		if (isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
 		} else if (isTermux()) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return false;
 		}
 
-		return false;
+		// When there is no text, allow double function keys to function normally (e.g. "Back" navigates back)
+		return inputMode.getSuggestions().isEmpty() && textField.getStringBeforeCursor(1).isEmpty();
 	}
 
 

@@ -17,7 +17,6 @@ public class Mode123 extends ModePassthrough {
 
 	@Override public final boolean is123() { return true; }
 	@Override public boolean isPassthrough() { return false; }
-	@Override public int getSequenceLength() { return 1; }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
@@ -86,6 +85,16 @@ public class Mode123 extends ModePassthrough {
 		return digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
+
+	@Override public boolean onBackspace() {
+		if (suggestions.isEmpty()) {
+			return false;
+		}
+
+		reset();
+		return true;
+	}
+
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
 		digitSequence = String.valueOf(number);
@@ -99,7 +108,6 @@ public class Mode123 extends ModePassthrough {
 
 		return true;
 	}
-
 
 	/**
 	 * shouldIgnoreText
@@ -120,6 +128,9 @@ public class Mode123 extends ModePassthrough {
 			);
 	}
 
+	@Override public void onAcceptSuggestion(@NonNull String ignored, boolean ignored2) {
+		reset();
+	}
 
 	@Override public void reset() {
 		super.reset();

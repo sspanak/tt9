@@ -20,8 +20,12 @@ public class ModeABC extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
+		if (suggestions.isEmpty()) {
+			return false;
+		}
+
 		reset();
-		return false;
+		return true;
 	}
 
 	@Override
