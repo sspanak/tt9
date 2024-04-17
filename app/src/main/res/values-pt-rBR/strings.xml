@@ -32,6 +32,8 @@
 	<string name="pref_abc_auto_accept_fast">Rápido</string>
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
+	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las (Android 9 ou mais antigo).</string>
 	<string name="pref_auto_space">Espaçamento Automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>

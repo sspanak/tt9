@@ -31,6 +31,8 @@
 	<string name="pref_abc_auto_accept_fast">מהיר</string>
 	<string name="pref_abc_auto_accept_normal">בינוני</string>
 	<string name="pref_abc_auto_accept_slow">איטי</string>
+	<string name="pref_alternative_suggestion_scrolling">שיטת גלילת מילים אלטרנטיבית</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">הפעל אם לפעמים אי אפשר לראות את כל ההצעות או יש בעיות בגלילתן (Android 9 או ישן יותר).</string>
 	<string name="pref_auto_space">רווח אוטומטי</string>
 	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
 	<string name="pref_auto_text_case">שימוש אוטומטי באותיות רישיות</string>
