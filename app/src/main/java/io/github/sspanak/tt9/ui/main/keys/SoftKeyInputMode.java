@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 public class SoftKeyInputMode extends SoftKey {
-		public SoftKeyInputMode(Context context) {
+	public SoftKeyInputMode(Context context) {
 		super(context);
 	}
 

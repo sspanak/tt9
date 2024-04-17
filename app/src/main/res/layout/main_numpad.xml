@@ -127,6 +127,7 @@
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
 				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_backspace"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
