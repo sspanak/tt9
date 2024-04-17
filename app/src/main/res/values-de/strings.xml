@@ -27,6 +27,8 @@
 	<string name="pref_abc_auto_accept_fast">Schnell</string>
 	<string name="pref_abc_auto_accept_normal">Mäßig</string>
 	<string name="pref_abc_auto_accept_slow">Langsam</string>
+	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben (Android 9 oder älter).</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
 	<string name="pref_auto_text_case_summary">Automatisch Sätze mit einem Großbuchstaben beginnen.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische Großbuchstaben auf jeder Zeile</string>
@@ -90,6 +92,7 @@
 	<string name="donate_title">Spenden</string>
 	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie die Entwicklung auf %2$s unterstützen.</string>
 	<string name="pref_hack_fb_messenger">Mit \"OK\" in Facebook Messenger senden</string>
+	<string name="pref_double_zero_char">Zeichen bei doppeltem Drücken der Taste „0“</string>
 	<string name="pref_hack_google_chat">Nachrichten mit \"OK\" in Google Chat senden</string>
 	<string name="pref_hack_key_pad_debounce_time">Schutz vor versehentlichem Tastenwiederholen</string>
 	<string name="pref_hack_key_pad_debounce_off">Aus</string>

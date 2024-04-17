@@ -26,6 +26,8 @@
 	<string name="pref_abc_auto_accept_fast">Snel</string>
 	<string name="pref_abc_auto_accept_normal">Gematigd</string>
 	<string name="pref_abc_auto_accept_slow">Langzaam</string>
+	<string name="pref_alternative_suggestion_scrolling">Alternatieve suggestiescrolmethode</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Inschakelen als je soms niet alle suggesties kunt zien of problemen hebt met het scrollen (Android 9 of ouder).</string>
 	<string name="pref_auto_text_case">Automatische hoofdletters</string>
 	<string name="pref_auto_text_case_summary">Automatisch zinnen beginnen met een hoofdletter.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische hoofdletters op elke regel</string>
@@ -88,6 +90,7 @@
 	<string name="donate_title">Doneer</string>
 	<string name="donate_summary">Als je %1$s leuk vindt, zou je de ontwikkeling kunnen ondersteunen op: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Verstuur met \"OK\" in Facebook Messenger</string>
+	<string name="pref_double_zero_char">Teken bij dubbelklikken op toets \"0\"</string>
 	<string name="pref_hack_google_chat">Stuur berichten met \"OK\" in Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Bescherming tegen het per ongeluk herhalen van toetsen</string>
 	<string name="pref_hack_key_pad_debounce_off">Uit</string>
