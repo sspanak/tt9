@@ -47,13 +47,15 @@ public class InputType {
 	 * actually dial and call a phone number. While the Phone field is a text
 	 * field in any app or a webpage, intended for typing phone numbers.
 	 * <p>
-	 * More info: <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>
-	 * and <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>.
+	 * More info (chronological order of bugfixing):
+	 * <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>
+	 * <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/300">Dialer not detected correctly on LG X100S</a>
 	 */
-	public boolean isSpecialNumeric() {
+	private boolean isSpecialNumeric() {
 		return
-			isPhoneNumber() && field.packageName.equals("com.android.dialer")
-			|| isNumeric() && field.packageName.contains("com.android.calculator");
+			field.packageName.contains("com.android.calculator") // there is "calculator2", hence the contains()
+			|| field.packageName.equals("com.android.dialer");
 	}
 
 
