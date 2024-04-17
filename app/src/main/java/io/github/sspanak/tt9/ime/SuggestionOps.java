@@ -85,6 +85,10 @@ public class SuggestionOps {
 
 
 	String acceptPrevious(int sequenceLength) {
+		if (sequenceLength <= 0) {
+			set(null);
+		}
+
 		String lastComposingText = getCurrent(sequenceLength - 1);
 		commitCurrent(false);
 		return lastComposingText;
