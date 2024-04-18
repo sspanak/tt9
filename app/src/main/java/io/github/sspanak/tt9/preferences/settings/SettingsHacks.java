@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
+import android.os.Build;
 
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
+import io.github.sspanak.tt9.util.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
 
 class SettingsHacks extends BaseSettings {
@@ -26,7 +28,8 @@ class SettingsHacks extends BaseSettings {
 	/************* hack settings *************/
 
 	public int getSuggestionScrollingDelay() {
-		return prefs.getBoolean("pref_alternative_suggestion_scrolling", false) ? 200 : 0;
+		boolean defaultOn = DeviceInfo.noTouchScreen(context) && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
+		return prefs.getBoolean("pref_alternative_suggestion_scrolling", defaultOn) ? 200 : 0;
 	}
 
 	public boolean getFbMessengerHack() {

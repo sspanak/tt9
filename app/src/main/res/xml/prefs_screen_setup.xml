@@ -18,7 +18,6 @@
 		app:singleLineTitle="true">
 
 	<SwitchPreferenceCompat
-		app:defaultValue="false"
 		app:key="pref_alternative_suggestion_scrolling"
 		app:layout="@layout/pref_switch"
 		app:title="@string/pref_alternative_suggestion_scrolling"

@@ -47,10 +47,9 @@ public class SetupScreen extends BaseScreenFragment {
 	}
 
 	private void createHacksSection(boolean isTT9On) {
-		Preference altScrolling = findPreference("pref_alternative_suggestion_scrolling");
-		if (altScrolling != null) {
-			altScrolling.setEnabled(isTT9On);
-		}
+		(new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()))
+			.populate()
+			.setEnabled(isTT9On);
 
 		Preference hackGoogleChat = findPreference("pref_hack_google_chat");
 		if (hackGoogleChat != null) {
