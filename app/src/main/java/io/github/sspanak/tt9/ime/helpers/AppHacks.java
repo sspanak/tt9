@@ -190,7 +190,7 @@ public class AppHacks {
 	 * no matter how the hardware key is implemented.
 	 */
 	private boolean onEnterFbMessenger() {
-		if (inputConnection == null || textField == null || !textField.isThereText()) {
+		if (inputConnection == null || textField == null || textField.isEmpty()) {
 			return false;
 		}
 
@@ -205,7 +205,7 @@ public class AppHacks {
 	 * the send button it, then going back to the text field, so that one can continue typing.
 	 */
 	private boolean onEnterGoogleChat() {
-		if (inputConnection == null || textField == null || !textField.isThereText()) {
+		if (inputConnection == null || textField == null || textField.isEmpty()) {
 			return false;
 		}
 

@@ -31,7 +31,11 @@ public abstract class HotkeyHandler extends TypingHandler {
 		suggestionOps.cancelDelayedAccept();
 
 		if (!suggestionOps.isEmpty()) {
-			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+			if (shouldBeVisible() && !isInputViewShown()) {
+				forceShowWindowIfHidden();
+			} else {
+				onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+			}
 			return true;
 		}
 
