@@ -223,7 +223,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		setStatusText(mInputMode.toString());
 		renderMainView();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
-			UI.toastShortSingle(this, mLanguage.getClass().getSimpleName(), mLanguage.getName());
+			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
 		if (mInputMode instanceof ModePredictive) {
@@ -247,6 +247,10 @@ public abstract class HotkeyHandler extends TypingHandler {
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
 		renderMainView();
+
+		if (settings.isMainLayoutStealth()) {
+			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		}
 
 		forceShowWindowIfHidden();
 		return true;
