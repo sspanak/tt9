@@ -6,8 +6,6 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.ExtractedText;
-import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
@@ -44,13 +42,8 @@ public class TextField {
 	}
 
 
-	public boolean isThereText() {
-		if (connection == null) {
-			return false;
-		}
-
-		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
-		return extractedText != null && extractedText.text.length() > 0;
+	public boolean isEmpty() {
+		return getStringBeforeCursor(1).isEmpty() && getStringAfterCursor(1).isEmpty();
 	}
 
 

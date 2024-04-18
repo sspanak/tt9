@@ -172,7 +172,7 @@ public class TraditionalT9 extends HotkeyHandler {
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
 	protected void forceShowWindowIfHidden() {
-		if (getInputModeId() == InputMode.MODE_PASSTHROUGH || isInputViewShown() || settings.isMainLayoutStealth()) {
+		if (isInputViewShown() || !shouldBeVisible()) {
 			return;
 		}
 
@@ -202,7 +202,7 @@ public class TraditionalT9 extends HotkeyHandler {
 
 	@Override
 	protected boolean shouldBeVisible() {
-		return getInputModeId() != InputMode.MODE_PASSTHROUGH;
+		return getInputModeId() != InputMode.MODE_PASSTHROUGH && !settings.isMainLayoutStealth();
 	}
 
 

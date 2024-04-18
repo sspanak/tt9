@@ -195,7 +195,7 @@ This happens if you are using one of the small-sized layouts. Currently, there i
 - You can now go back to the settings and disable the on-screen numpad. The emoji and sticker panels will remain accessible until you restart the app or the phone.
 
 #### Traditional T9 does not appear immediately in some applications
-If you have opened an application where you can type, but TT9 does not wake up, just start typing and it will. Alternatively, you could also use the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-). You may also use the OK key, but this is not recommended, because you may accidentally send a message, submit a form, or perform another action, depending on the application.
+If you have opened an application where you can type, but TT9 does not wake up, just start typing and it will. Alternatively, you could also use the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-). If it still invisible, while you are typing a new word, press the OK key and it should appear.
 
 **Long explanation.** The reason for this problem is Android was originally designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
 
