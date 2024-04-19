@@ -139,6 +139,18 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	}
 
 
+	private String getSortingId() {
+		switch (getLocale().getLanguage()) {
+			case "fi":
+				return "su";
+			case "sw":
+				return "ki";
+			default:
+				return getLocale().toString();
+		}
+	}
+
+
 	@NonNull
 	@Override
 	public String getAbcString() {
@@ -240,8 +252,6 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 	@Override
 	public int compareTo(NaturalLanguage other) {
-		String key = getLocale().getCountry().equals("FI") ? "su" : getLocale().toString();
-		String otherKey = other.getLocale().getCountry().equals("FI") ? "su" : other.getLocale().toString();
-		return key.compareTo(otherKey);
+		return getSortingId().compareTo(other.getSortingId());
 	}
 }
