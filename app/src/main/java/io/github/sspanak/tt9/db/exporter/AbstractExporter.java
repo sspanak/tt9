@@ -1,10 +1,8 @@
 package io.github.sspanak.tt9.db.exporter;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.pm.PackageManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.util.Permissions;
 
 public abstract class AbstractExporter {
 	protected static String FILE_EXTENSION = ".csv";
@@ -67,11 +66,9 @@ public abstract class AbstractExporter {
 
 
 	protected void writeLegacy(Activity activity) throws Exception {
-		if (
-			Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-			&& activity.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-		) {
-			activity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+		Permissions permissions = new Permissions(activity);
+		if (permissions.noWriteStorage()) {
+			permissions.requestWriteStorage();
 		}
 
 		final String exportDir = Environment.getExternalStoragePublicDirectory(getOutputDir()).getAbsolutePath();

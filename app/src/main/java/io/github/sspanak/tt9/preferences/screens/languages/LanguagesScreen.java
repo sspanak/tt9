@@ -26,6 +26,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 	@Override protected int getTitle() { return R.string.pref_choose_languages; }
 	@Override protected int getXml() { return R.xml.prefs_screen_languages; }
 
+
 	@Override
 	protected void onCreate() {
 		ItemSelectLanguage multiSelect = new ItemSelectLanguage(
@@ -33,6 +34,10 @@ public class LanguagesScreen extends BaseScreenFragment {
 			findPreference(ItemSelectLanguage.NAME)
 		);
 		multiSelect.populate().enableValidation();
+
+		new ItemDictionaryNotifications(findPreference(ItemDictionaryNotifications.NAME), activity)
+			.populate()
+			.enableClickHandler();
 
 		loadItem = new ItemLoadDictionary(findPreference(ItemLoadDictionary.NAME),
 			activity,
@@ -76,6 +81,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 		ItemClickable.enableAllClickHandlers(clickables);
 		refreshItems();
 	}
+
 
 	@Override
 	public void onResume() {
