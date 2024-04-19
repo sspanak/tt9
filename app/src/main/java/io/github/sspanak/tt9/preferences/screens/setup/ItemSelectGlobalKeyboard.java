@@ -18,6 +18,8 @@ class ItemSelectGlobalKeyboard extends ItemClickable {
 
 		clickIntent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);
 		clickIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		clickIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		clickIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 	}
 
 	@Override
