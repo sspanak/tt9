@@ -71,6 +71,8 @@
 	<string name="pref_category_setup">Configuración inicial</string>
 	<string name="error">Error</string>
 	<string name="function_change_keyboard_key">Cambiar el teclado</string>
+	<string name="dictionary_no_notifications">Notificaciones del diccionario</string>
+	<string name="dictionary_no_notifications_summary">Recibir notificaciones sobre actualizaciones del diccionario y sobre el progreso de la carga.</string>
 	<string name="function_filter_clear_key">Limpiar el filtro</string>
 	<string name="function_filter_suggestions_key">Filtrar sugerencias</string>
 	<string name="function_previous_suggestion_key">Sugerencia previa</string>

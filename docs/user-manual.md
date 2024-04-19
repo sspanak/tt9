@@ -2,17 +2,23 @@
 This manual explains how to configure and use Traditional T9 in different scenarios. For installation instructions, please consult the [Installation Guide](https://github.com/sspanak/tt9/blob/master/docs/installation.md) on GitHub. Finally, you may want to check out the [main repository page](https://github.com/sspanak/tt9), which includes all source code, a developer's guide, the privacy policy, and supplementary documentation.
 
 ## Initial Setup
-After installing, first, you need to enable Traditional T9 as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup would be disabled and there would be a label saying TT9 is disabled. Go to Initial Setup and enable it.
+After installing, first, you need to enable Traditional T9 as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup will be disabled, and there will be a label: "TT9 is disabled". Go to Initial Setup and enable it.
 
-_If you don't see the icon right after installing, restart your phone and it should appear. Android is trying to save some battery life by not refreshing the newly installed apps list in some cases._
+_If you don't see the icon right after installing, restart your phone, and it should appear. It is due to Android trying to save some battery life by not refreshing the newly installed apps list._
 
 ### Using on a touchscreen-only phone
 If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
 
 ### Enabling Predictive Mode
-Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from: Settings Screen → [Languages](#language-options). In case you have forgotten to load some dictionary, Traditional T9 will do it for you automatically, when you start typing.
-
+Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing.
 For more information, [see below](#language-options).
+
+#### Notes for Android 13 or higher
+By default, the notifications for newly installed apps are disabled. If you enable them, TT9 will let you know when there are dictionary updates, and once you choose to install them, it will show the loading progress.
+
+You can enable the notifications by going to Settings → Languages and toggling Dictionary Notifications.
+
+_If you decide to keep them off, TT9 will continue to work without problems, but you will have to manage the dictionaries manually._
 
 ## Hotkeys
 

@@ -62,6 +62,8 @@
 	<string name="function_add_word_key">Ajouter un mot</string>
 	<string name="function_backspace_key">Retour arrière</string>
 	<string name="function_change_keyboard_key">Changer le clavier</string>
+	<string name="dictionary_no_notifications">Notifications du dictionnaire</string>
+	<string name="dictionary_no_notifications_summary">Recevoir des notifications sur les mises à jour du dictionnaire et sur la progression du chargement.</string>
 	<string name="function_filter_clear_key">Supprimer le filtre</string>
 	<string name="function_filter_suggestions_key">Filtrer les mots</string>
 	<string name="function_previous_suggestion_key">Mot précédent</string>

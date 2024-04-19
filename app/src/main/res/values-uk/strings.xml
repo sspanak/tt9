@@ -99,6 +99,8 @@
 	<string name="function_add_word_key">Додати слово</string>
 	<string name="function_backspace_key">Стерти</string>
 	<string name="function_change_keyboard_key">Змінити клавіатуру</string>
+	<string name="dictionary_no_notifications">Сповіщення словника</string>
+	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
 	<string name="function_filter_clear_key">Очистити фільтр</string>
 	<string name="function_filter_suggestions_key">Фільтрувати пропозиції</string>
 	<string name="function_previous_suggestion_key">Попередня пропозиція</string>

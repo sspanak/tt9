@@ -118,4 +118,6 @@
 	<string name="dictionary_export_generating_csv">מייצא CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">מייצא CSV (%1$s)…</string>
 	<string name="pref_layout">תצורת המקלדת על המסך</string>
+	<string name="dictionary_no_notifications">התראות מילון</string>
+	<string name="dictionary_no_notifications_summary">לקבל התראות על עדכוני המילון ועל התקדמות הטעינה.</string>
 </resources>

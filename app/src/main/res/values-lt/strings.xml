@@ -74,6 +74,8 @@
 	<string name="function_add_word_key">Pridėti žodį</string>
 	<string name="function_backspace_key">Trinti</string>
 	<string name="function_change_keyboard_key">Keisti klaviatūrą</string>
+	<string name="dictionary_no_notifications">Žodyno pranešimai</string>
+	<string name="dictionary_no_notifications_summary">Gaukite pranešimus apie žodynų atnaujinimus ir įkėlimo progresą.</string>
 	<string name="function_filter_clear_key">Panaikinti filtrą</string>
 	<string name="function_filter_suggestions_key">Filtruoti pasiūlymus</string>
 	<string name="function_previous_suggestion_key">Ankstesnis pasiūlytas žodis</string>

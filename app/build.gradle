@@ -59,7 +59,7 @@ android {
 	defaultConfig {
 		applicationId PACKAGE_NAME
 		minSdk 19
-		targetSdk 32
+		targetSdk 33
 		versionCode getVerCode()
 		versionName getVerName()
 	}
