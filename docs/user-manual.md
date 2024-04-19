@@ -195,11 +195,13 @@ This happens if you are using one of the small-sized layouts. Currently, there i
 - You can now go back to the settings and disable the on-screen numpad. The emoji and sticker panels will remain accessible until you restart the app or the phone.
 
 #### Traditional T9 does not appear immediately in some applications
-If you have opened an application where you can type, but TT9 does not wake up, just start typing and it will. Alternatively, you could also use the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-). If it still invisible, while you are typing a new word, press the OK key and it should appear.
+If you have opened an application where you can type, but TT9 does not wake up automatically, just start typing and it will. If it is still invisible, press the OK key, while you are typing the word and it should appear. Alternatively, pressing the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-) can also bring up TT9, when it is hidden.
 
-**Long explanation.** The reason for this problem is Android was originally designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
+**Long explanation.** The reason for this problem is Android is primarily designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
 
 For these reasons, in order to stick with the expected Android standards, the control is in your hands. Just press a key to "touch" the screen and keep typing.
+
+Moreover, there are at least 3 different ways of asking Android to show the keyboard, so just typing something may work on one phone, but pressing OK may be required on another one.
 
 #### On the Qin F21 Pro, holding 2-key or 8-key turns up or down the volume instead of typing a number
 To mitigate this problem, go to Settings → Appearance, and enable "Status Icon". TT9 should detect Qin F21 and enable the settings automatically, but in case auto-detection fails, or you have disabled the icon for some reason, you need to have it enabled, for all keys to work properly.

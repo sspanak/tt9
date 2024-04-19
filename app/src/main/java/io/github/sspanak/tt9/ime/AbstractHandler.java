@@ -28,7 +28,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	// UI
 	abstract protected View createMainView();
 	abstract protected void createSuggestionBar(View mainView);
-	abstract protected void forceShowWindowIfHidden();
+	abstract protected void forceShowWindow(boolean forceHarder);
 	abstract protected void renderMainView();
 	abstract protected void setStatusIcon(InputMode mode);
 	abstract protected void setStatusText(String status);

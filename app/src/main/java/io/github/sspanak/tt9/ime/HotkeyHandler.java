@@ -32,7 +32,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 		if (!suggestionOps.isEmpty()) {
 			if (shouldBeVisible() && !isInputViewShown()) {
-				forceShowWindowIfHidden();
+				forceShowWindow(true);
 			} else {
 				onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
 			}
@@ -44,7 +44,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 		if (action == TextField.IME_ACTION_ENTER) {
 			boolean actionPerformed = appHacks.onEnter();
 			if (actionPerformed) {
-				forceShowWindowIfHidden();
+				forceShowWindow(false);
 			}
 			return actionPerformed;
 		}
@@ -230,7 +230,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
-		forceShowWindowIfHidden();
+		forceShowWindow(false);
 		return true;
 	}
 
@@ -252,7 +252,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
-		forceShowWindowIfHidden();
+		forceShowWindow(false);
 		return true;
 	}
 

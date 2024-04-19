@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -21,6 +22,7 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
 
 public class TraditionalT9 extends HotkeyHandler {
@@ -36,7 +38,7 @@ public class TraditionalT9 extends HotkeyHandler {
 
 		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
 		if (message != null) {
-			forceShowWindowIfHidden();
+			forceShowWindow(false);
 			if (!message.isEmpty()) {
 				UI.toastLong(this, message);
 			}
@@ -164,14 +166,14 @@ public class TraditionalT9 extends HotkeyHandler {
 
 
 	/**
-	 * forceShowWindowIfHidden
+	 * forceShowWindow
 	 * Some applications may hide our window and it remains invisible until the screen is touched or OK is pressed.
 	 * This is fine for touchscreen keyboards, but the hardware keyboard allows typing even when the window and the suggestions
 	 * are invisible. This function forces the InputMethodManager to show our window.
 	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
-	protected void forceShowWindowIfHidden() {
+	protected void forceShowWindow(boolean forceHarder) {
 		if (isInputViewShown() || !shouldBeVisible()) {
 			return;
 		}
@@ -180,6 +182,12 @@ public class TraditionalT9 extends HotkeyHandler {
 			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);
+		}
+
+		// Sonim XP3900 is quite stubborn and wouldn't show the MainView the regular way.
+		// Sending DPAD_CENTER seems to be the only way of doing it.
+		if (forceHarder && !isInputViewShown() && DeviceInfo.noTouchScreen(this)) {
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
 		}
 	}
 

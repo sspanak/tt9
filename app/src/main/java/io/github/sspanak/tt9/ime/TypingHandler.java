@@ -190,7 +190,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
 
-		forceShowWindowIfHidden();
+		forceShowWindow(false);
 		return true;
 	}
 
@@ -327,7 +327,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		forceShowWindowIfHidden();
+		forceShowWindow(false);
 	}
 
 
