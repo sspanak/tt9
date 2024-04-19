@@ -1,13 +1,24 @@
 package io.github.sspanak.tt9.util;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Build;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
 public class DeviceInfo {
 	public static boolean noTouchScreen(Context context) {
-		return !context.getPackageManager().hasSystemFeature("android.hardware.touchscreen");
+		return !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN);
+	}
+
+	public static boolean noKeyboard(Context context) {
+		return
+			context.getResources().getConfiguration().keyboard == Configuration.KEYBOARD_NOKEYS
+			&& !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_STAR)
+			&& !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_POUND);
 	}
 
 	public static boolean isQinF21() {

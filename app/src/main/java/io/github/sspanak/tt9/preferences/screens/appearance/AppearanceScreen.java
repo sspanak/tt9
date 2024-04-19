@@ -17,13 +17,13 @@ public class AppearanceScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		(new ItemSelectTheme(activity, findPreference(ItemSelectTheme.NAME)))
 			.populate()
-			.enableClickHandler()
-			.preview();
+			.preview()
+			.enableClickHandler();
 
 		(new ItemSelectLayoutType(activity, findPreference(ItemSelectLayoutType.NAME)))
 			.populate()
-			.enableClickHandler()
-			.preview();
+			.preview()
+			.enableClickHandler();
 
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 	}
