@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+
+	<DropDownPreference
+		app:defaultValue="-1"
+		app:iconSpaceReserved="false"
+		app:key="pref_theme"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/pref_dark_theme" />
+
+	<DropDownPreference
+		app:defaultValue="2"
+		app:iconSpaceReserved="false"
+		app:key="pref_layout_type"
+		app:layout="@layout/pref_dropdown"
+		app:title="@string/pref_layout" />
+
+
+	<SwitchPreferenceCompat
+		app:key="pref_status_icon"
+		app:layout="@layout/pref_switch"
+		app:title="@string/pref_status_icon"
+		app:summary="@string/pref_status_icon_summary" />
+
+</PreferenceScreen>

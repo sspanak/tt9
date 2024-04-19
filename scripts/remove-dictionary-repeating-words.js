@@ -1,14 +1,14 @@
 const { basename } = require('path');
 const { createReadStream, existsSync } = require('fs');
 const { createInterface } = require('readline');
-
-const GEO_NAME = /[A-Z]\w+\-[^\n]+/;
+const { print, printError } = require('./_printers.js');
 
 
 function printHelp() {
-	console.log(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt `);
-	console.log('Removes repeating words from a word list');
-	console.log('\nLocale could be any valid JS locale, for exmaple: en, en-US, etc...');
+	print(`Usage ${basename(process.argv[1])} LOCALE FILENAME.txt [--prefer-lowercase]`);
+	print('Removes repeating words from a word list');
+	print("If --prefer-lowercase is set, the lowercase variants will be preserved, otherwise capitalized or uppercase variants will remain.")
+	print('\nLocale could be any valid JS locale, for example: en, en-US, etc...');
 }
 
 
@@ -21,14 +21,20 @@ function validateInput() {
 
 
 	if (!existsSync(process.argv[3])) {
-		console.error(`Failure! Could not find file "${process.argv[3]}."`);
+		printError(`Failure! Could not find file "${process.argv[3]}".`);
 		process.exit(2);
 	}
 
-	return { fileName: process.argv[3], locale: process.argv[2] };
+	return {
+		fileName: process.argv[3],
+		locale: process.argv[2],
+		preferLowercase: !!process.argv[4]
+	};
 }
 
 
+/*
+const GEO_NAME = /[A-Z]\w+-[^\n]+/;
 
 function getRegularWordKey(locale, word) {
 	if (typeof word !== 'string' || word.length === 0) {
@@ -37,52 +43,39 @@ function getRegularWordKey(locale, word) {
 
 	return GEO_NAME.test(word) ? word : word.toLocaleLowerCase(locale);
 }
-
+*/
 
 
 function getLowercaseWordKey(locale, word) {
-	return getWordkey(word).toLocaleLowerCase(locale);
-}
-
-
-
-function getWordkey(word) {
 	if (typeof word !== 'string' || word.length === 0) {
 		return '';
 	}
 
-	return word;
+	return word.toLocaleLowerCase(locale);
 }
 
 
 
-async function removeRepeatingWords({ fileName, locale }) {
-
-	const wordMap = {};
+async function removeRepeatingWords({ fileName, locale, preferLowercase }) {
+	const wordMap = new Map();
 
 	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		wordMap[getLowercaseWordKey(locale, line)] = true;
-	}
-
-
-	lineReader = createInterface({ input: createReadStream(fileName) });
-	for await (const line of lineReader) {
-		const word = getWordkey(line);
-		const lowercaseWord = getLowercaseWordKey(locale, line);
-
-		if (word === '') {
+		const lowercaseKey = getLowercaseWordKey(locale, line);
+		if (lowercaseKey === '') {
 			continue;
 		}
 
+		if (!wordMap.has(lowercaseKey)) {
+			wordMap.set(lowercaseKey, line);
+		}
 
-		if (word !== lowercaseWord) {
-			delete wordMap[lowercaseWord];
-			wordMap[word] = true;
+		if (!preferLowercase && wordMap.has(lowercaseKey) && !wordMap.has(line)) {
+			wordMap.set(lowercaseKey, line);
 		}
 	}
 
-	return Object.keys(wordMap).sort();
+	return Array.from(wordMap.values(wordMap)).sort();
 }
 
 
@@ -92,7 +85,7 @@ function printWords(wordList) {
 		return;
 	}
 
-	wordList.forEach(w => console.log(w));
+	wordList.forEach(w => print(w));
 }
 
 
@@ -100,4 +93,4 @@ function printWords(wordList) {
 /** main **/
 removeRepeatingWords(validateInput())
 	.then(words => printWords(words))
-	.catch(e => console.error(e));
+	.catch(e => printError(e));

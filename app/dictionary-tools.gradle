@@ -1,0 +1,13 @@
+ext.getDictionarySizes = { dictionariesDir, sizesDir ->
+	fileTree(dir: dictionariesDir).getFiles().parallelStream().forEach {dictionary ->
+		def dictionarySize = dictionary.exists() ? dictionary.text.split("\n").length : 0
+		new File(sizesDir, "${dictionary.getName()}.size").text = dictionarySize
+	}
+}
+
+ext.getDictionaryHashes = { dictionariesDir, timestampsDir ->
+	fileTree(dir: dictionariesDir).getFiles().parallelStream().forEach {dictionary ->
+		def hash = dictionary.exists() ? dictionary.text.digest("SHA-1") : ""
+		new File(timestampsDir, "${dictionary.getName()}.hash").text = hash
+	}
+}

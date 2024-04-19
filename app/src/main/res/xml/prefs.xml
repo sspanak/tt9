@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:layout="@layout/pref_text"
+	app:orderingFromXml="true">
+
+	<Preference
+		app:key="help"
+		app:layout="@layout/pref_text"
+		app:summary="github.com/sspanak/tt9"
+		app:title="@string/pref_help">
+		<intent
+			android:action="android.intent.action.VIEW"
+			android:data="@string/help_url" />
+	</Preference>
+
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.AppearanceScreen"
+		app:key="screen_appearance"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_appearance" />
+
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.LanguagesScreen"
+		app:key="screen_languages"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_choose_languages" />
+
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.KeyPadScreen"
+		app:key="screen_keypad"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_keypad" />
+
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.SetupScreen"
+		app:key="screen_setup"
+		app:layout="@layout/pref_text"
+		app:title="@string/pref_category_setup" />
+
+	<PreferenceCategory
+		android:title="@string/pref_category_about"
+		app:layout="@layout/pref_category"
+		app:singleLineTitle="true">
+
+		<Preference
+			app:key="donate_link"
+			app:layout="@layout/pref_text"
+			app:title="@string/donate_title"
+			app:summary="@string/donate_summary">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/donate_url" />
+		</Preference>
+
+		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.DebugScreen"
+			app:key="version_info"
+			app:layout="@layout/pref_text"
+			app:title="@string/app_name" />
+
+	</PreferenceCategory>
+
+</PreferenceScreen>

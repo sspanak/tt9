@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
+	<string name="app_name" translatable="false">Traditional T9</string>
+	<string name="app_name_short" translatable="false">TT9</string>
+	<string name="app_settings">TT9 Settings</string>
+	<string name="completed">Completed</string>
+	<string name="error">Error</string>
+	<string name="no_language">No Language</string>
+
+	<string name="error_unexpected">Unexpected error occurred.</string>
+	<string name="failed_loading_language_definitions">Failed loading all language definitions.</string>
+
+	<string name="add_word_add">Add</string>
+	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
+	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
+	<string name="add_word_blank">Blank word not added.</string>
+	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>
+	<string name="add_word_invalid_language" translatable="false">Cannot add a word when no language is selected.</string>
+	<string name="add_word_invalid_language_x">Cannot add a word. Unknown language: \"%1$d\".</string>
+	<string name="add_word_success">\"%1$s\" added.</string>
+	<string name="add_word_title">Add Word</string>
+
+	<string name="pref_category_about">About</string>
+	<string name="pref_category_abc_mode">ABC Mode</string>
+	<string name="pref_category_custom_words">Added Words</string>
+	<string name="pref_category_delete_words">Delete Added Words</string>
+	<string name="pref_category_hacks">Compatibility</string>
+	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
+	<string name="pref_category_predictive_mode">Predictive Mode</string>
+	<string name="pref_category_function_keys">Select Hotkeys</string>
+	<string name="pref_category_keypad">Keypad</string>
+	<string name="pref_category_setup">Initial Setup</string>
+	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
+
+	<string name="pref_abc_auto_accept">Automatic Letter Selection</string>
+	<string name="pref_abc_auto_accept_off">Off</string>
+	<string name="pref_abc_auto_accept_fastest">Very Quick</string>
+	<string name="pref_abc_auto_accept_fast">Quick</string>
+	<string name="pref_abc_auto_accept_normal">Moderate</string>
+	<string name="pref_abc_auto_accept_slow">Slow</string>
+	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them (Android 9 or older).</string>
+	<string name="pref_auto_space">Automatic Space</string>
+	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
+	<string name="pref_auto_text_case">Automatic Capitalization</string>
+	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter.</string>
+	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
+	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
+	<string name="pref_choose_languages">Languages</string>
+	<string name="pref_dark_theme">Dark Theme</string>
+	<string name="pref_dark_theme_yes">Yes</string>
+	<string name="pref_dark_theme_no">No</string>
+	<string name="pref_dark_theme_auto">Auto</string>
+	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
+	<string name="pref_hack_google_chat">Send messages with \"OK\" in Google Chat</string>
+	<string name="pref_hack_fb_messenger">Send with \"OK\" in Facebook Messenger</string>
+	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
+	<string name="pref_hack_key_pad_debounce_off">Off</string>
+	<string name="pref_help">Help</string>
+	<string name="pref_layout">On-screen Layout</string>
+	<string name="pref_layout_numpad">Virtual numpad (BETA)</string>
+	<string name="pref_layout_small">Function keys</string>
+	<string name="pref_layout_stealth">Stealth</string>
+	<string name="pref_layout_tray">Suggestion list only</string>
+	<string name="pref_status_icon">Status Icon</string>
+	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
+	<string name="pref_upside_down_keys">Reverse Key Order</string>
+	<string name="pref_upside_down_keys_summary">Use this if you have 7–8–9 on the first row, instead of 1–2–3.</string>
+
+	<string name="dictionary_cancel_load">Cancel Loading</string>
+	<string name="dictionary_load_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
+	<string name="dictionary_load_error">Failed loading the dictionary for language \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_cancelled">Dictionary load cancelled.</string>
+	<string name="dictionary_loaded">Dictionary load completed.</string>
+	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
+	<string name="dictionary_loading_indeterminate">Loading dictionary</string>
+	<string name="dictionary_loading_please_wait">Please wait for the dictionary to load.</string>
+	<string name="dictionary_load_title">Load Selected</string>
+	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
+	<string name="dictionary_truncate_title">Delete All</string>
+	<string name="dictionary_truncate_unselected">Delete Unselected</string>
+	<string name="dictionary_truncated">Dictionary deleted successfully.</string>
+	<string name="dictionary_truncating">Deleting…</string>
+
+	<string name="dictionary_export">Export Selected</string>
+	<string name="dictionary_export_custom_words">Export</string>
+	<string name="dictionary_export_custom_words_summary">Export a CSV with all added words in: \"%1$s\".</string>
+	<string name="dictionary_export_failed">Exporting Failed</string>
+	<string name="dictionary_export_failed_more_info">For more info, enable debugging mode and see the logs.</string>
+	<string name="dictionary_export_finished">Exporting Completed</string>
+	<string name="dictionary_export_finished_more_info">Words exported to: \"%1$s\".</string>
+	<string name="dictionary_export_generating_csv">Exporting CSV…</string>
+	<string name="dictionary_export_generating_csv_for_language">Exporting CSV (%1$s)…</string>
+
+	<string name="delete_words_delete">Delete</string>
+	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
+	<string name="delete_words_search_placeholder">Search for Words</string>
+	<string name="delete_words_list">Search Results</string>
+	<string name="delete_words_no_result">No results.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
+	<string name="delete_words_deleted_x">\"%1$s\" was deleted.</string>
+
+	<string name="dictionary_update_message">Dictionary update available for \"%1$s\".</string>
+	<string name="dictionary_update_update">Load</string>
+
+	<string name="donate_title">Donate</string>
+	<string name="donate_summary">If you like %1$s, you could support its development at: %2$s.</string>
+	<string name="donate_url" translatable="false">https://www.buymeacoffee.com/sspanak</string>
+	<string name="donate_url_short" translatable="false">www.buymeacoffee.com</string>
+
+	<string name="function_add_word_key">Add Word</string>
+	<string name="function_backspace_key">Backspace</string>
+	<string name="function_change_keyboard_key">Change Keyboard</string>
+	<string name="function_filter_clear_key">Clear Filter</string>
+	<string name="function_filter_suggestions_key">Filter Suggestions</string>
+	<string name="function_previous_suggestion_key">Previous Suggestion</string>
+	<string name="function_next_suggestion_key">Next Suggestion</string>
+	<string name="function_next_language_key">Next Language</string>
+	<string name="function_next_mode_key">Input Mode</string>
+	<string name="function_show_settings_key">Show Settings</string>
+	<string name="function_reset_keys_title">Restore Default Keys</string>
+	<string name="function_reset_keys_done">Default key settings restored.</string>
+
+	<string name="setup_keyboard_status">Status</string>
+	<string name="setup_default_keyboard">Select Default Keyboard</string>
+	<string name="setup_tt9_on">%1$s is enabled</string>
+	<string name="setup_tt9_off">%1$s is disabled</string>
+	<string name="setup_click_here_to_enable">Click here to enable TT9 from Android Settings.</string>
+
+	<string name="key_hold_key">(hold)</string>
+	<string name="key_none" translatable="false">--</string>
+	<string name="key_back">Back</string>
+	<string name="key_call">Call</string>
+	<string name="key_channel_down">Previous Channel</string>
+	<string name="key_channel_up">Next Channel</string>
+	<string name="key_dpad_up" translatable="false">▲</string>
+	<string name="key_dpad_down" translatable="false">▼</string>
+	<string name="key_dpad_left" translatable="false">◀</string>
+	<string name="key_dpad_right" translatable="false">▶</string>
+	<string name="key_menu" translatable="false">Menu</string>
+	<string name="key_soft_left" translatable="false">Left Func</string>
+	<string name="key_soft_right" translatable="false">Right Func</string>
+	<string name="key_volume_down">Volume Down</string>
+	<string name="key_volume_up">Volume Up</string>
+
+	<string name="char_comma" translatable="false">,</string>
+	<string name="char_dot" translatable="false">.</string>
+	<string name="char_newline">New Line</string>
+	<string name="char_space">Space</string>
+</resources>

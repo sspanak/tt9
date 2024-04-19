@@ -10,13 +10,14 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v4
+      - uses: actions/stale@v8
         with:
-          days-before-issue-stale: 100
-          days-before-issue-close: 100
+          any-of-labels: wontfix,invalid,duplicate,stale
+          days-before-issue-stale: 30
+          days-before-issue-close: 14
           stale-issue-label: "stale"
-          stale-issue-message: "This issue is stale because it has been open for 100 days with no activity."
-          close-issue-message: "This issue was closed because it has been inactive for 100 days since being marked as stale."
+          stale-issue-message: "This issue is stale because it is marked as 'duplicate', 'wontfix' or 'invalid' and there has been no activity in the past 30 days."
+          close-issue-message: "This issue was closed because it has been inactive for 14 days since being marked as stale."
           days-before-pr-stale: -1
           days-before-pr-close: -1
           repo-token: ${{ secrets.GITHUB_TOKEN }}

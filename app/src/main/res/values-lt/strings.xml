@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_settings">„TT9“ nustatymai</string>
+	<string name="completed">Baigta</string>
+	<string name="error">Klaida</string>
+	<string name="no_language">Kalbos nėra</string>
+
+	<string name="error_unexpected">Įvyko netikėta klaida.</string>
+	<string name="failed_loading_language_definitions">Nepavyko įkelti kalbos apibrėžimų.</string>
+
+	<string name="add_word_add">Pridėti</string>
+	<string name="add_word_confirm">Pridėti žodį \"%1$s\" į \"%2$s\" žodyną?</string>
+	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>
+	<string name="add_word_blank">Negalima pridėti tuščio žodžio.</string>
+	<string name="add_word_exist">Žodis \"%1$s\" jau yra žodyne.</string>
+	<string name="add_word_invalid_language_x">Negalima pridėti žodžio. Nežinoma kalba: \"%1$d\".</string>
+	<string name="add_word_success">Žodis \"%1$s\" pridėtas.</string>
+	<string name="add_word_title">Pridėti žodį</string>
+
+	<string name="pref_category_about">Apie programėlę</string>
+	<string name="pref_category_abc_mode">ABC metodas</string>
+	<string name="pref_category_hacks">Suderinamumas</string>
+	<string name="pref_category_appearance">Išvaizda</string>
+	<string name="pref_category_predictive_mode">Nuspėjamumas</string>
+	<string name="pref_category_function_keys">Spartieji mygtukai</string>
+	<string name="pref_category_keypad">Mygtukai</string>
+	<string name="pref_category_setup">Pradiniai nustatymai</string>
+
+	<string name="pref_abc_auto_accept">Automatinis raidės pasirinkimas</string>
+	<string name="pref_abc_auto_accept_off">Išjungtas</string>
+	<string name="pref_abc_auto_accept_fastest">Labai greitas</string>
+	<string name="pref_abc_auto_accept_fast">Greitas</string>
+	<string name="pref_abc_auto_accept_normal">Vidutinis</string>
+	<string name="pref_abc_auto_accept_slow">Lėtas</string>
+	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant („Android“ 9 ar senesnės versijos).</string>
+	<string name="pref_auto_space">Automatinis tarpas</string>
+	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
+	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
+	<string name="pref_auto_text_case_summary">Automatiškai pradėti sakinius didžiąja raide.</string>
+	<string name="pref_auto_capitals_after_newline">Automatiniai didžiosios raidės kiekvienoje eilutėje</string>
+	<string name="pref_auto_capitals_after_newline_summary">Pradėti kiekvieną eilutę didžiąja raide, net jei ji yra sakinio viduryje.</string>
+	<string name="pref_choose_languages">Kalbos</string>
+	<string name="pref_dark_theme">Tamsi išvaizda</string>
+	<string name="pref_dark_theme_yes">Taip</string>
+	<string name="pref_dark_theme_no">Ne</string>
+	<string name="pref_dark_theme_auto">Automatiškai</string>
+	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
+	<string name="pref_hack_fb_messenger">Siųskite pranešimus „Messenger“ programėlėje naudodami „OK“</string>
+	<string name="pref_layout_numpad">Skaičių klaviatūra (BETA)</string>
+	<string name="pref_layout_small">Funkcijos klavišai</string>
+	<string name="pref_layout_stealth">Nematomas režimas</string>
+	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
+	<string name="pref_help">Pagalba</string>
+	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
+	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
+
+	<string name="pref_status_icon">Būsenos piktograma</string>
+	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
+	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
+	<string name="dictionary_load_bad_char">Įkelti \"%3$s\" kalbos nepavyko. Klaida %2$d eilutėje, netinkamas žodis - \"%1$s\".</string>
+	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" (%2$s) kalbos žodyną.</string>
+	<string name="dictionary_load_cancelled">Žodyno įkėlimas atšauktas.</string>
+	<string name="dictionary_loaded">Žodynas įkeltas.</string>
+	<string name="dictionary_loading">Žodynas įkeliamas (%1$s)…</string>
+	<string name="dictionary_loading_indeterminate">Žodynas įkeliamas</string>
+	<string name="dictionary_load_title">Įkelti žodyną</string>
+	<string name="dictionary_not_found">Įkelti nepavyko. Žodynas \"%1$s\" nerastas.</string>
+	<string name="dictionary_truncate_title">Ištrinti visus</string>
+	<string name="dictionary_truncate_unselected">Ištrinti nepasirinktus</string>
+	<string name="dictionary_truncated">Žodynas sėkmingai ištrintas.</string>
+	<string name="dictionary_truncating">Ištrinama…</string>
+
+	<string name="function_add_word_key">Pridėti žodį</string>
+	<string name="function_backspace_key">Trinti</string>
+	<string name="function_change_keyboard_key">Keisti klaviatūrą</string>
+	<string name="function_filter_clear_key">Panaikinti filtrą</string>
+	<string name="function_filter_suggestions_key">Filtruoti pasiūlymus</string>
+	<string name="function_previous_suggestion_key">Ankstesnis pasiūlytas žodis</string>
+	<string name="function_next_suggestion_key">Sekantis pasiūlytas žodis</string>
+	<string name="function_next_language_key">Rašymo kalba</string>
+	<string name="function_next_mode_key">Rašymo būdas</string>
+	<string name="function_show_settings_key">Rodyti nustatymus</string>
+	<string name="function_reset_keys_title">Atkurti numatytąsias reikšmes</string>
+	<string name="function_reset_keys_done">Numatytosios reikšmės atkurtos.</string>
+
+	<string name="setup_keyboard_status">Būsena</string>
+	<string name="setup_default_keyboard">Pasirinkite numatytąją klaviatūrą</string>
+	<string name="setup_tt9_on">„%1$s“ yra įjungtas</string>
+	<string name="setup_tt9_off">„%1$s“ yra išjungtas</string>
+	<string name="setup_click_here_to_enable">Spauskite čia norėdami įjungti „TT9“ per „Android“ nustatymus.</string>
+
+	<string name="key_hold_key">(laikyti nusp.)</string>
+	<string name="key_back">Atgal mygtukas</string>
+	<string name="key_call">Skambinti mygtukas</string>
+	<string name="key_channel_down">Ankstesnis kanalas</string>
+	<string name="key_channel_up">Sekantis kanalas</string>
+	<string name="key_volume_down">Sumažinti garsą mygt.</string>
+	<string name="key_volume_up">Padidinti garsą mygt.</string>
+
+	<string name="char_newline">Nauja eilutė</string>
+	<string name="char_space">Tarpas</string>
+	<string name="pref_category_custom_words">Pridėtos žodžiai</string>
+	<string name="pref_category_delete_words">Trinti pridėtus žodžius</string>
+	<string name="pref_hack_google_chat">Siųsti žinutes su „OK“ „Google Chat“ programoje</string>
+	<string name="pref_hack_key_pad_debounce_time">Apsauga nuo atsitiktinio rakto pasikartojimo</string>
+	<string name="pref_hack_key_pad_debounce_off">Išjungta</string>
+	<string name="dictionary_loading_please_wait">Prašome palaukti, kol žodynas bus įkeltas.</string>
+	<string name="dictionary_export">Eksportuoti pasirinktas</string>
+	<string name="dictionary_export_custom_words">Eksportuoti</string>
+	<string name="dictionary_export_custom_words_summary">Eksportuoti CSV su visais pridėtais žodžiais: „%1$s“.</string>
+	<string name="dictionary_export_failed">Eksportavimas nepavyko</string>
+	<string name="dictionary_export_failed_more_info">Norėdami gauti daugiau informacijos, įjunkite derinimo režimą ir peržiūrėkite žurnalą.</string>
+	<string name="dictionary_export_finished">Eksportavimas baigtas</string>
+	<string name="dictionary_export_finished_more_info">Žodžiai eksportuoti į: „%1$s“.</string>
+	<string name="dictionary_export_generating_csv">Eksportuojama CSV…</string>
+	<string name="dictionary_export_generating_csv_for_language">Eksportuojama CSV (%1$s)…</string>
+	<string name="delete_words_delete">Ištrinti</string>
+	<string name="delete_words_link_summary">Raskite ir ištrinkite neteisingai parašytus arba nereikalingus žodžius.</string>
+	<string name="delete_words_search_placeholder">Ieškoti žodžių</string>
+	<string name="delete_words_list">Paieškos rezultatai</string>
+	<string name="delete_words_no_result">Jokių rezultatų.</string>
+	<string name="delete_words_deleted_confirm_deletion_title">Patvirtinkite ištrynimą</string>
+	<string name="delete_words_deleted_confirm_deletion_question">Ar tikrai norite ištrinti „%1$s“?</string>
+	<string name="delete_words_deleted_x">„%1$s“ buvo ištrintas.</string>
+	<string name="dictionary_update_message">Atnaujinta žodyno versija skirta \"%1$s\".</string>
+	<string name="dictionary_update_update">Įkelti</string>
+	<string name="donate_title">Paaukoti</string>
+	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
+	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
+</resources>

@@ -1,0 +1,115 @@
+plugins {
+	id 'com.android.application'
+}
+
+apply from: 'constants.gradle'
+apply from: 'dictionary-tools.gradle'
+apply from: 'validate-languages.gradle'
+apply from: 'version-tools.gradle'
+
+
+tasks.register('validateLanguages') {
+	inputs.dir LANGUAGES_INPUT_DIR
+	outputs.dir LANGUAGE_VALIDATION_DIR
+
+	doLast {
+		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, LANGUAGE_VALIDATION_DIR.get().asFile)
+	}
+}
+
+tasks.register('copyLanguages', Copy) {
+	from LANGUAGES_INPUT_DIR
+	include '**/*.csv'
+	include '**/*.txt'
+	include '**/*.yml'
+	into LANGUAGES_OUTPUT_DIR
+}
+
+tasks.register('writeDictionaryProperties') {
+	inputs.dir fileTree(dir: DICTIONARIES_INPUT_DIR)
+	outputs.dir DICTIONARIES_OUTPUT_DIR
+
+	doLast {
+		[getDictionarySizes, getDictionaryHashes].parallelStream().forEach { action ->
+			action(DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR)
+		}
+	}
+}
+
+tasks.register('updateManifest') {
+	doLast {
+		updateManifestVersion(getVersionCode(), getVersionName())
+	}
+}
+
+clean {
+	delete LANGUAGES_OUTPUT_DIR
+}
+
+// using the exported Closures directly causes weird values, hence the extra wrappers here
+def getVerCode = { -> return getVersionCode() }
+def getVerName = { -> return getVersionName() }
+def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() : getReleaseVersion() }
+
+
+android {
+	namespace PACKAGE_NAME
+	compileSdk 34
+
+	defaultConfig {
+		applicationId PACKAGE_NAME
+		minSdk 19
+		//noinspection ExpiredTargetSdkVersion
+		targetSdk 30
+		versionCode getVerCode()
+		versionName getVerName()
+	}
+
+	buildFeatures {
+		buildConfig true
+	}
+	buildTypes {
+		debug {
+			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
+		}
+
+		release {
+			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
+
+			debuggable false
+			jniDebuggable false
+			minifyEnabled true
+			shrinkResources true
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+
+	applicationVariants.configureEach { variant ->
+		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
+			dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
+		}
+
+		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
+			try {
+				tasks.named(taskName)?.configure {
+					dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
+				}
+			} catch (UnknownTaskException ignored) {}
+		}
+
+		assembleDebug.finalizedBy(updateManifest)
+		assembleRelease.finalizedBy(updateManifest)
+
+		variant.outputs.configureEach {
+			outputFileName = "${APP_NAME}-v${getVerName()}.apk"
+		}
+	}
+}
+
+dependencies {
+	implementation 'androidx.preference:preference:1.2.1'
+}
