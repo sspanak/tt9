@@ -9,7 +9,6 @@
 		app:title="@string/pref_dark_theme" />
 
 	<DropDownPreference
-		app:defaultValue="3"
 		app:iconSpaceReserved="false"
 		app:key="pref_layout_type"
 		app:layout="@layout/pref_dropdown"

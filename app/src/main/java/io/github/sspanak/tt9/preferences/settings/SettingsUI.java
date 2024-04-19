@@ -33,7 +33,14 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getMainViewLayout() {
-		return getStringifiedInt("pref_layout_type", LAYOUT_SMALL);
+		int defaultLayout = LAYOUT_SMALL;
+		if (DeviceInfo.noTouchScreen(context)) {
+			defaultLayout = LAYOUT_TRAY;
+		} else if (DeviceInfo.noKeyboard(context)) {
+			defaultLayout = LAYOUT_NUMPAD;
+		}
+
+		return getStringifiedInt("pref_layout_type", defaultLayout);
 	}
 
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
