@@ -99,6 +99,7 @@ public class AddWordDialog extends PopupDialog {
 	public static void show(InputMethodService ims, int language, String currentWord) {
 		Intent intent = new Intent(ims, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		intent.putExtra(PARAMETER_DIALOG_TYPE, TYPE);
 		intent.putExtra(PARAMETER_LANGUAGE, language);

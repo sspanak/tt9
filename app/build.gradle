@@ -59,8 +59,7 @@ android {
 	defaultConfig {
 		applicationId PACKAGE_NAME
 		minSdk 19
-		//noinspection ExpiredTargetSdkVersion
-		targetSdk 30
+		targetSdk 32
 		versionCode getVerCode()
 		versionName getVerName()
 	}
