@@ -147,7 +147,7 @@ public class InputType {
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (field == null) {
-			allowedModes.add(InputMode.MODE_123);
+			allowedModes.add(InputMode.MODE_PASSTHROUGH);
 			return allowedModes;
 		}
 
