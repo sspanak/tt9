@@ -155,6 +155,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
+			forceShowWindow();
 			return false;
 		}
 
@@ -190,7 +191,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
 
-		forceShowWindow(false);
+		forceShowWindow();
 		return true;
 	}
 
@@ -273,6 +274,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	private void onAcceptSuggestionsDelayed(String word) {
 		onAcceptSuggestionManually(word, -1);
+		forceShowWindow();
 	}
 
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
@@ -327,7 +329,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		forceShowWindow(false);
+		forceShowWindow();
 	}
 
 

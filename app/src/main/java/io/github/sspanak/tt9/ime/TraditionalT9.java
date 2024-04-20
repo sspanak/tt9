@@ -38,7 +38,7 @@ public class TraditionalT9 extends HotkeyHandler {
 
 		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
 		if (message != null) {
-			forceShowWindow(false);
+			forceShowWindow();
 			if (!message.isEmpty()) {
 				UI.toastLong(this, message);
 			}
@@ -173,9 +173,10 @@ public class TraditionalT9 extends HotkeyHandler {
 	 * WARNING! Calling this may cause a restart, which will cause InputMode to be recreated. Depending
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
-	protected void forceShowWindow(boolean forceHarder) {
+	@Override
+	protected boolean forceShowWindow() {
 		if (isInputViewShown() || !shouldBeVisible()) {
-			return;
+			return false;
 		}
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -185,10 +186,13 @@ public class TraditionalT9 extends HotkeyHandler {
 		}
 
 		// Sonim XP3900 is quite stubborn and wouldn't show the MainView the regular way.
-		// Sending DPAD_CENTER seems to be the only way of doing it.
-		if (forceHarder && !isInputViewShown() && DeviceInfo.noTouchScreen(this)) {
+		// Sending DPAD_CENTER seems to be the only way of doing it. But, we only want to do this
+		// when there is no text to avoid undesired submitting of something.
+		if (!isInputViewShown() && DeviceInfo.noTouchScreen(this) && textField.isEmpty()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
 		}
+
+		return true;
 	}
 
 
