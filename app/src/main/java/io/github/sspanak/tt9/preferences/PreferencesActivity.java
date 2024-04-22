@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,17 +27,14 @@ import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
-public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	private SettingsStore settings;
-
-
+public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		settings = new SettingsStore(this);
+		getSettings();
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
 
@@ -84,6 +80,13 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
 		}
+	}
+
+
+	@Override
+	protected boolean onNumberKey(int key) {
+		Logger.d("onNumberKey", "Press: " + key);
+		return false;
 	}
 
 
@@ -165,15 +168,6 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
-	}
-
-
-	public SettingsStore getSettings() {
-		if (settings == null) {
-			settings = new SettingsStore(this);
-		}
-
-		return settings;
 	}
 
 
