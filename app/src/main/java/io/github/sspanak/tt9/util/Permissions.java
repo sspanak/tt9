@@ -6,7 +6,10 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import java.util.HashMap;
+
 public class Permissions {
+	private static final HashMap<String, Boolean> firstTimeAsking = new HashMap<>();
 	private final Activity activity;
 
 	public Permissions(Activity activity) {
@@ -16,11 +19,16 @@ public class Permissions {
 	public boolean noPostNotifications() {
 		return
 			Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-			&& activity.shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS);
+			&& isRefused(Manifest.permission.POST_NOTIFICATIONS)
+			&& (
+				Boolean.TRUE.equals(firstTimeAsking.getOrDefault(Manifest.permission.POST_NOTIFICATIONS, true))
+				|| activity.shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)
+			);
 	}
 
 	public void requestPostNotifications() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			firstTimeAsking.put(Manifest.permission.POST_NOTIFICATIONS, false);
 			requestPermission(Manifest.permission.POST_NOTIFICATIONS);
 		}
 	}
