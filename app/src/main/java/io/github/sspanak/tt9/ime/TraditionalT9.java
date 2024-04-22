@@ -190,6 +190,8 @@ public class TraditionalT9 extends HotkeyHandler {
 		// when there is no text to avoid undesired submitting of something.
 		if (!isInputViewShown() && DeviceInfo.noTouchScreen(this) && textField.isEmpty()) {
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
+		} else {
+			return false;
 		}
 
 		return true;
