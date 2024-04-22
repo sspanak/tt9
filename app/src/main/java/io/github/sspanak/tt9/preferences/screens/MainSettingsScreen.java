@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import androidx.preference.Preference;
+import androidx.preference.PreferenceScreen;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,6 +101,14 @@ public class MainSettingsScreen extends BaseScreenFragment {
 			if (goToScreen != null) {
 				goToScreen.setEnabled(isTT9On);
 			}
+		}
+	}
+
+	@Override
+	public void onNumberKey(int key) {
+		PreferenceScreen prefScreen = getPreferenceScreen();
+		if (key > 0 && key < prefScreen.getPreferenceCount()) {
+			Logger.d("MainSettingsScreen", "onNumberKey: " + prefScreen.getPreference(key - 1).getKey());
 		}
 	}
 }

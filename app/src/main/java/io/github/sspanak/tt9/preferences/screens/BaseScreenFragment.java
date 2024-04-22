@@ -6,8 +6,8 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragmentCompat;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.util.Logger;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	protected PreferencesActivity activity;
@@ -67,6 +67,9 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 
 		return super.onOptionsItemSelected(item);
 	}
+
+
+	public void onNumberKey(int key) {}
 
 
 	abstract public String getName();

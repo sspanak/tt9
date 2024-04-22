@@ -83,13 +83,6 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	}
 
 
-	@Override
-	protected boolean onNumberKey(int key) {
-		Logger.d("onNumberKey", "Press: " + key);
-		return false;
-	}
-
-
 	/**
 	 * getScreenName
 	 * Determines the name of the screen for the given preference, as defined in the preference's "fragment" attribute.
@@ -139,6 +132,8 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	 * Replaces the currently displayed screen fragment with a new one.
 	 */
 	private void displayScreen(BaseScreenFragment screen, boolean addToBackStack) {
+		this.onNumberCallback = screen::onNumberKey;
+
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		transaction.replace(R.id.preferences_container, screen);

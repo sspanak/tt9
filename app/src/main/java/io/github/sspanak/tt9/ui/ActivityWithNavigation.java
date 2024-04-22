@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 
 abstract public class ActivityWithNavigation extends AppCompatActivity {
+	protected ConsumerCompat<Integer> onNumberCallback = null;
 	protected SettingsStore settings;
 	private int lastKeyCode = 0;
 
@@ -49,5 +51,12 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 		return settings;
 	}
 
-	abstract protected boolean onNumberKey(int key);
+	private boolean onNumberKey(int key) {
+		if (onNumberCallback != null) {
+			onNumberCallback.accept(key);
+			return true;
+		}
+
+		return false;
+	}
 }
