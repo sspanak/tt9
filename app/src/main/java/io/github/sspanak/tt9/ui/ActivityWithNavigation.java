@@ -25,17 +25,18 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 
 	private int lastKey = KeyEvent.KEYCODE_UNKNOWN;
 
+
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
 		super.onCreate(savedInstanceState, persistentState);
-		settings = new SettingsStore(this);
+		getSettings();
 	}
 
 
 	@Override
 	final public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// ignore our own key events
-		if (event.getDeviceId() == -1 || event.getSource() == InputDevice.SOURCE_UNKNOWN) {
+		if (event.getSource() == InputDevice.SOURCE_UNKNOWN) {
 			return super.onKeyDown(keyCode, event);
 		}
 
@@ -102,6 +103,8 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 	private void scroll(@NonNull InputConnection connection, int positions, boolean up) {
 		KeyEvent press = new KeyEvent(KeyEvent.ACTION_DOWN, up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
 		KeyEvent release = new KeyEvent(KeyEvent.ACTION_UP, up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+		press.setSource(InputDevice.SOURCE_UNKNOWN);
+		release.setSource(InputDevice.SOURCE_UNKNOWN);
 
 		for (int i = 0; i < positions; i++) {
 			connection.sendKeyEvent(press);
