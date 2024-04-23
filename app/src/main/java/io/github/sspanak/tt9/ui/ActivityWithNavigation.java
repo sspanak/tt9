@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.inputmethod.BaseInputConnection;
 import android.view.inputmethod.InputConnection;
@@ -10,13 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.concurrent.Callable;
+
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 
 abstract public class ActivityWithNavigation extends AppCompatActivity {
-	protected SettingsStore settings;
-	private int lastKeyCode = 0;
+	public static final String LOG_TAG = ActivityWithNavigation.class.getSimpleName();
 
+	protected SettingsStore settings;
+	protected Callable<Integer> getOptionsCount;
+
+	private int lastKey = KeyEvent.KEYCODE_UNKNOWN;
 
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -27,25 +34,28 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 
 	@Override
 	final public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// ignore our own key events
+		if (event.getDeviceId() == -1 || event.getSource() == InputDevice.SOURCE_UNKNOWN) {
+			return super.onKeyDown(keyCode, event);
+		}
+
+		// Reset the last key even if we are not going to process it. This is to avoid
+		// detecting a double click, when the user has pressed a different key in between.
+		boolean click = (keyCode == lastKey);
+		lastKey = keyCode;
+
 		if (!Key.isNumber(keyCode)) {
 			return super.onKeyDown(keyCode, event);
 		}
 
-		if (settings != null) {
-			clickOption(Key.codeToNumber(settings, keyCode));
-			lastKeyCode = keyCode;
-			return true;
-		} else {
-			lastKeyCode = 0;
-		}
-
-		return false;
+		selectOption(Key.codeToNumber(settings, keyCode), click);
+		return true;
 	}
 
 
 	@Override
 	final public boolean onKeyUp(int keyCode, KeyEvent event) {
-		return lastKeyCode == keyCode || super.onKeyUp(keyCode, event);
+		return Key.isNumber(keyCode) || super.onKeyUp(keyCode, event);
 	}
 
 
@@ -59,45 +69,51 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 
 
 	/**
-	 * Simulates a click on the option at the given position.
+	 * Simulates a click on the option at the given position. Positions are 1-based.
 	 */
-	public void clickOption(int position) {
+	protected void selectOption(int position, boolean click) {
+		int optionsCount;
+
+		try {
+			optionsCount = getOptionsCount.call();
+		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Keypad navigation not possible. Failed to get options count. " + e);
+			return;
+		}
+
+		if (position <= 0 || position > optionsCount) {
+			return;
+		}
+
 		BaseInputConnection inputConnection = new BaseInputConnection(getWindow().getDecorView(), true);
-		scrollToTop(inputConnection);
-		selectOption(inputConnection, position);
-		clickSelectedOption(inputConnection);
-	}
 
+		// Scroll to the bottom to make sure we have a correct base for counting to the desired position
+		// Scrolling to top, then down to the position is not possible, because some phones allow
+		// selecting the Back button, but others don't.
+		scroll(inputConnection, optionsCount + 1, false);
+		scroll(inputConnection, optionsCount - position, true);
 
-	private void scrollToTop(@NonNull InputConnection connection) {
-		KeyEvent upPress = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_UP);
-		KeyEvent upRelease = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_UP);
-
-		for (int i = getOptionsCount(); i > 0; i--) {
-			connection.sendKeyEvent(upPress);
-			connection.sendKeyEvent(upRelease);
+		if (click) {
+			clickSelected(inputConnection);
 		}
 	}
 
 
-	private void selectOption(@NonNull InputConnection connection, int position) {
-		KeyEvent downPress = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_DOWN);
-		KeyEvent downRelease = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_DOWN);
+	private void scroll(@NonNull InputConnection connection, int positions, boolean up) {
+		KeyEvent press = new KeyEvent(KeyEvent.ACTION_DOWN, up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
+		KeyEvent release = new KeyEvent(KeyEvent.ACTION_UP, up ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_DPAD_DOWN);
 
-		for (int i = position; i > 0; i--) {
-			connection.sendKeyEvent(downPress);
-			connection.sendKeyEvent(downRelease);
+		for (int i = 0; i < positions; i++) {
+			connection.sendKeyEvent(press);
+			connection.sendKeyEvent(release);
 		}
 	}
 
 
-	private void clickSelectedOption(@NonNull InputConnection connection) {
+	private void clickSelected(@NonNull InputConnection connection) {
 		KeyEvent enterPress = new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER);
 		KeyEvent enterRelease = new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_ENTER);
 		connection.sendKeyEvent(enterPress);
 		connection.sendKeyEvent(enterRelease);
 	}
-
-
-	abstract protected int getOptionsCount();
 }

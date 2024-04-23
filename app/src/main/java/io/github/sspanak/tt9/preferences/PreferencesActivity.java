@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -32,8 +33,6 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	private int screenPreferenceCount = 0;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -81,6 +80,16 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 
 		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
+		}
+	}
+
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
+		if (fragment instanceof BaseScreenFragment) {
+			getOptionsCount = ((BaseScreenFragment) fragment)::getPreferenceCount;
 		}
 	}
 
@@ -134,7 +143,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	 * Replaces the currently displayed screen fragment with a new one.
 	 */
 	private void displayScreen(BaseScreenFragment screen, boolean addToBackStack) {
-		this.screenPreferenceCount = screen.getPreferenceCount();
+		getOptionsCount = screen::getPreferenceCount;
 
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -165,12 +174,6 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
-	}
-
-
-	@Override
-	protected int getOptionsCount() {
-		return screenPreferenceCount;
 	}
 
 
