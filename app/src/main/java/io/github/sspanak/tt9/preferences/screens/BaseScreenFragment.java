@@ -69,7 +69,9 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	}
 
 
-	public void onNumberKey(int key) {}
+	public int getPreferenceCount() {
+		return getPreferenceScreen().getPreferenceCount();
+	}
 
 
 	abstract public String getName();

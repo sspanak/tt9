@@ -32,6 +32,8 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+	private int screenPreferenceCount = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -132,7 +134,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	 * Replaces the currently displayed screen fragment with a new one.
 	 */
 	private void displayScreen(BaseScreenFragment screen, boolean addToBackStack) {
-		this.onNumberCallback = screen::onNumberKey;
+		this.screenPreferenceCount = screen.getPreferenceCount();
 
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -163,6 +165,12 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
+	}
+
+
+	@Override
+	protected int getOptionsCount() {
+		return screenPreferenceCount;
 	}
 
 
