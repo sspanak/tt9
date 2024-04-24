@@ -240,8 +240,8 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 	@Override
 	public int compareTo(NaturalLanguage other) {
-		String key = getName().equals("Suomi") ? "su" : getLocale().toString();
-		String otherKey = other.getName().equals("Suomi") ? "su" : other.getLocale().toString();
+		String key = getLocale().getCountry().equals("FI") ? "su" : getLocale().toString();
+		String otherKey = other.getLocale().getCountry().equals("FI") ? "su" : other.getLocale().toString();
 		return key.compareTo(otherKey);
 	}
 }

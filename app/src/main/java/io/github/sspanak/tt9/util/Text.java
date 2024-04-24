@@ -25,11 +25,9 @@ public class Text extends TextTools {
 			return text;
 		}
 
-		if (text.length() == 1) {
-			return text.toUpperCase(language.getLocale());
-		} else {
-			return text.substring(0, 1).toUpperCase(language.getLocale()) + text.substring(1);
-		}
+		char[] chars = text.toCharArray();
+		chars[0] = Character.toUpperCase(chars[0]);
+		return String.valueOf(chars);
 	}
 
 
