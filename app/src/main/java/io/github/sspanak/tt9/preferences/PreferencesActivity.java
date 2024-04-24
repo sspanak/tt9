@@ -94,6 +94,16 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	}
 
 
+	@Override
+	protected void selectOption(int position, boolean click) {
+		// 0-key selects the last option for convenience
+		try { position = position == 0 ? getOptionsCount.call() : position; }
+		catch (Exception ignore) {}
+
+		super.selectOption(position, click);
+	}
+
+
 	/**
 	 * getScreenName
 	 * Determines the name of the screen for the given preference, as defined in the preference's "fragment" attribute.
