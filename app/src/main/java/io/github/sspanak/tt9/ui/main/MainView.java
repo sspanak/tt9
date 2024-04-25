@@ -16,24 +16,24 @@ public class MainView {
 		forceCreateView();
 	}
 
-public boolean createView() {
-	SettingsStore settings = tt9.getSettings();
+	public boolean createView() {
+		SettingsStore settings = tt9.getSettings();
 
-	if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
-		main = new MainLayoutNumpad(tt9);
-	} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
-		main = new MainLayoutSmall(tt9);
-	} else if (settings.isMainLayoutTray() && (main == null || !main.getClass().equals(MainLayoutTray.class))) {
-		main = new MainLayoutTray(tt9);
-	} else if (settings.isMainLayoutStealth() && !(main instanceof MainLayoutStealth)) {
-		main = new MainLayoutStealth(tt9);
-	} else {
-		return false;
+		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
+			main = new MainLayoutNumpad(tt9);
+		} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
+			main = new MainLayoutSmall(tt9);
+		} else if (settings.isMainLayoutTray() && (main == null || !main.getClass().equals(MainLayoutTray.class))) {
+			main = new MainLayoutTray(tt9);
+		} else if (settings.isMainLayoutStealth() && !(main instanceof MainLayoutStealth)) {
+			main = new MainLayoutStealth(tt9);
+		} else {
+			return false;
+		}
+
+		main.render();
+		return true;
 	}
-
-	main.render();
-	return true;
-}
 
 
 	public void forceCreateView() {
@@ -42,6 +42,10 @@ public boolean createView() {
 			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);
 		}
+	}
+
+	public View getBlankView() {
+		return new MainLayoutStealth(tt9).getView();
 	}
 
 	public View getView() {

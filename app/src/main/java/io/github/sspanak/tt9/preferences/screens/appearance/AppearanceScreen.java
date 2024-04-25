@@ -32,6 +32,15 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.preview()
 			.enableClickHandler();
 
+		(new ItemCandidatesView(findPreference(ItemCandidatesView.NAME), activity.getSettings()))
+			.populate()
+			.enableClickHandler();
+
+		(new ItemClearInsets(findPreference(ItemClearInsets.NAME), activity.getSettings()))
+			.populate()
+			.enableClickHandler();
+
+
 		resetFontSize(true);
 	}
 }
