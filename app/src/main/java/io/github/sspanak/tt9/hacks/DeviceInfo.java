@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.util;
+package io.github.sspanak.tt9.hacks;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

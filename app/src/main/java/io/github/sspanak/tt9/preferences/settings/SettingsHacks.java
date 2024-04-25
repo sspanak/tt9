@@ -3,8 +3,8 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 import android.os.Build;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
-import io.github.sspanak.tt9.util.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
 
 class SettingsHacks extends BaseSettings {
