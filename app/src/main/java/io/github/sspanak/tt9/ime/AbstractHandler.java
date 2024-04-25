@@ -6,7 +6,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 abstract public class AbstractHandler extends InputMethodService {
 	// hardware key handlers
@@ -17,8 +16,6 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract public boolean onOK();
 	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
 
-	// helpers
-	abstract public SettingsStore getSettings();
 	abstract protected void onInit();
 	abstract protected boolean onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
@@ -26,7 +23,6 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
 
 	// UI
-	abstract protected View createMainView();
 	abstract protected void createSuggestionBar(View mainView);
 	abstract protected boolean forceShowWindow();
 	abstract protected void renderMainView();
