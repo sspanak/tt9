@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:layout="@layout/pref_text"
 	app:orderingFromXml="true">
 	<Preference
 			app:key="global_tt9_status"
-			app:layout="@layout/pref_text"
 			app:title="@string/setup_keyboard_status" />
 
 	<Preference
 			app:key="global_default_keyboard"
-			app:layout="@layout/pref_text"
 			app:title="@string/setup_default_keyboard" />
 
 	<PreferenceCategory
 		app:title="@string/pref_category_hacks"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
-	<SwitchPreferenceCompat
-		app:key="pref_alternative_suggestion_scrolling"
-		app:layout="@layout/pref_switch"
-		app:title="@string/pref_alternative_suggestion_scrolling"
-		app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
+		<SwitchPreferenceCompat
+			app:key="pref_alternative_suggestion_scrolling"
+			app:title="@string/pref_alternative_suggestion_scrolling"
+			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
 
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_hack_google_chat"
-		app:layout="@layout/pref_switch"
-		app:title="@string/pref_hack_google_chat"
-		app:summary="(BETA)"/>
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:key="pref_hack_google_chat"
+			app:title="@string/pref_hack_google_chat"
+			app:summary="(BETA)"/>
 
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_hack_fb_messenger"
-		app:layout="@layout/pref_switch"
-		app:title="@string/pref_hack_fb_messenger"/>
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:key="pref_hack_fb_messenger"
+			app:title="@string/pref_hack_fb_messenger"/>
 
-	<DropDownPreference
-		app:iconSpaceReserved="false"
-		app:key="pref_key_pad_debounce_time"
-		app:layout="@layout/pref_dropdown"
-		app:title="@string/pref_hack_key_pad_debounce_time" />
+		<DropDownPreference
+			app:key="pref_key_pad_debounce_time"
+			app:title="@string/pref_hack_key_pad_debounce_time" />
 
 	</PreferenceCategory>
 </PreferenceScreen>

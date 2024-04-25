@@ -6,15 +6,9 @@
 	android:paddingHorizontal="@dimen/pref_large_padding_horizontal"
 	android:paddingVertical="@dimen/pref_large_padding_vertical">
 
-		<TextView android:id="@android:id/title"
+		<TextView
+			android:id="@android:id/summary"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView"
-			android:textSize="@dimen/pref_large_text_size" />
-
-		<TextView android:id="@android:id/summary"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-			android:textSize="@dimen/pref_large_summary_size" />
+			android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView" />
 </LinearLayout>

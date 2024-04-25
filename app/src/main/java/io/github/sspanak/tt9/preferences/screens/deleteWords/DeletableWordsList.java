@@ -27,7 +27,6 @@ class DeletableWordsList {
 		if (item != null) {
 			PreferenceDeletableWord pref = new PreferenceDeletableWord(item.getContext());
 			pref.setWord(word);
-			pref.setLayoutResource(R.layout.pref_deletable_word);
 			item.addPreference(pref);
 		}
 	}

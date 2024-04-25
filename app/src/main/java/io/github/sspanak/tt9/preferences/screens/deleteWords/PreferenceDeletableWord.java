@@ -6,16 +6,16 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
-public class PreferenceDeletableWord extends Preference {
+public class PreferenceDeletableWord extends ScreenPreference {
 	private String word;
 
 
@@ -23,6 +23,10 @@ public class PreferenceDeletableWord extends Preference {
 	public PreferenceDeletableWord(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 	public PreferenceDeletableWord(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public PreferenceDeletableWord(@NonNull Context context) { super(context); }
+
+
+	@Override protected int getDefaultLayout() { return R.layout.pref_deletable_word; }
+	@Override protected int getLargeLayout() { return R.layout.pref_deletable_word_large; }
 
 
 	public void setWord(String word) {

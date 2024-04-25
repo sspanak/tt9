@@ -8,10 +8,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import io.github.sspanak.tt9.util.DeviceInfo;
 
 public class SettingsUI extends SettingsTyping {
+	public final static int FONT_SIZE_DEFAULT = 0;
+	public final static int FONT_SIZE_LARGE = 2;
+
 	public final static int LAYOUT_STEALTH = 0;
 	public final static int LAYOUT_TRAY = 2;
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
+
 
 	SettingsUI(Context context) { super(context); }
 
@@ -26,6 +30,11 @@ public class SettingsUI extends SettingsTyping {
 		} else {
 			return theme == AppCompatDelegate.MODE_NIGHT_YES;
 		}
+	}
+
+	public int getSettingsFontSize() {
+		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
+		return getStringifiedInt("pref_font_size", defaultSize);
 	}
 
 	public int getTheme() {

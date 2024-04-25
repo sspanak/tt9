@@ -11,6 +11,7 @@
 	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>
 	<string name="pref_help">Ayuda</string>
+	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>
 	<string name="no_language">Sin idioma</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
@@ -121,4 +122,6 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_layout">Distribución del teclado en pantalla</string>
+	<string name="pref_font_size">Tamaño de fuente de configuración</string>
+	<string name="pref_font_size_default">Predeterminado</string>
 </resources>

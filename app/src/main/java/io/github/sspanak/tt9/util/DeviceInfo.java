@@ -25,6 +25,10 @@ public class DeviceInfo {
 		return Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	}
 
+	public static boolean isLgX100S() {
+		return Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
+	}
+
 	public static boolean isSonim() {
 		return Build.MANUFACTURER.equals("Sonimtech");
 	}

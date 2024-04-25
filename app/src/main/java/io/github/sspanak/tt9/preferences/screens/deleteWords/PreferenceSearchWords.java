@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 import java.util.ArrayList;
@@ -15,11 +14,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
-public class PreferenceSearchWords extends Preference {
+public class PreferenceSearchWords extends ScreenPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 
@@ -44,6 +44,10 @@ public class PreferenceSearchWords extends Preference {
 			editText.addTextChangedListener(TextChangeListener.getInstance(this::onChange));
 		}
 	}
+
+
+	@Override protected int getDefaultLayout() { return R.layout.pref_input_text; }
+	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
 
 
 	@NonNull

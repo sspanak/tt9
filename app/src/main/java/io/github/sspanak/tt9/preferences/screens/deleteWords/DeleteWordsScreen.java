@@ -26,5 +26,7 @@ public class DeleteWordsScreen extends BaseScreenFragment {
 		if (searchWords != null) {
 			searchWords.setOnWordsHandler((words) -> searchResultsList.setResult(searchWords.getLastSearchTerm(), words));
 		}
+
+		resetFontSize(false);
 	}
 }

@@ -3,9 +3,9 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingHorizontal="@dimen/pref_padding_horizontal"
-	android:paddingTop="@dimen/pref_category_padding_top"
-	android:paddingBottom="@dimen/pref_category_padding_bottom">
+	android:paddingHorizontal="@dimen/pref_large_padding_horizontal"
+	android:paddingTop="@dimen/pref_large_category_padding_top"
+	android:paddingBottom="@dimen/pref_large_category_padding_bottom">
 
 	<TextView
 		android:id="@android:id/title"
@@ -13,5 +13,5 @@
 		android:layout_height="wrap_content"
 		android:textAppearance="@style/TextAppearance.AppCompat.Title"
 		android:textColor="?attr/colorAccent"
-		android:textSize="@dimen/pref_text_size" />
+		android:textSize="@dimen/pref_large_text_size" />
 </LinearLayout>

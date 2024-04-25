@@ -32,6 +32,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		createSettingsSection();
 		addHelpLink();
 		createAboutSection();
+		resetFontSize(false);
 	}
 
 
@@ -40,6 +41,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		init(); // changing the theme recreates the PreferencesActivity, making "this.activity" NULL, so we reinitialize it.
 		super.onResume();
 		createSettingsSection();
+		resetFontSize(false);
 	}
 
 

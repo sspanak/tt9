@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 הגדרות</string>
+	<string name="pref_font_size_large">גדול</string>
 	<string name="completed">הסתיים</string>
 	<string name="no_language">אין שפה</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
@@ -120,4 +121,6 @@
 	<string name="pref_layout">תצורת המקלדת על המסך</string>
 	<string name="dictionary_no_notifications">התראות מילון</string>
 	<string name="dictionary_no_notifications_summary">לקבל התראות על עדכוני המילון ועל התקדמות הטעינה.</string>
+	<string name="pref_font_size">גודל הגופן בהגדרות</string>
+	<string name="pref_font_size_default">ברירת מחדל</string>
 </resources>

@@ -24,5 +24,7 @@ public class KeyPadScreen extends BaseScreenFragment {
 			.populate()
 			.enableClickHandler()
 			.preview();
+
+		resetFontSize(false);
 	}
 }

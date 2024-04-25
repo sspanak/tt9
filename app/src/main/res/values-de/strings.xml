@@ -65,6 +65,7 @@
 	<string name="key_channel_up">Nächster Kanal</string>
 	<string name="char_newline">Neue Zeile</string>
 	<string name="pref_category_setup">Ersteinrichtung</string>
+	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
 	<string name="error">Fehler</string>
 	<string name="pref_dark_theme_yes">Ja</string>
@@ -103,4 +104,6 @@
 	<string name="pref_layout">Layout auf dem Bildschirm</string>
 	<string name="dictionary_no_notifications">Wörterbuchbenachrichtigungen</string>
 	<string name="dictionary_no_notifications_summary">Benachrichtigen über Wörterbuchaktualisierungen und den Ladevorgang.</string>
+	<string name="pref_font_size">Schriftgröße der Einstellungen</string>
+	<string name="pref_font_size_default">Standard</string>
 </resources>
