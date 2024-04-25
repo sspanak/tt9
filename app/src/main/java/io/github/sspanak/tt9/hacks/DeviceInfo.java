@@ -33,6 +33,10 @@ public class DeviceInfo {
 		return Build.MANUFACTURER.equals("Sonimtech");
 	}
 
+	public static boolean isSonimXP3900() {
+		return isSonim() && Build.MODEL.contains("XP3900");
+	}
+
 	@NonNull
 	@Override
 	public String toString() {
