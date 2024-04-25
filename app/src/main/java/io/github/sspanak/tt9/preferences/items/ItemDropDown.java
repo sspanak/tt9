@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.util.Logger;
 
-public class ItemDropDown {
+abstract public class ItemDropDown {
 	private final DropDownPreference item;
 	private LinkedHashMap<String, String> values;
 
@@ -26,6 +26,8 @@ public class ItemDropDown {
 
 		populate(stringifiedValues);
 	}
+
+	abstract public ItemDropDown populate();
 
 	protected void populate(LinkedHashMap<String, String> values) {
 		if (item == null) {

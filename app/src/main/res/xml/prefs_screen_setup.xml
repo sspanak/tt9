@@ -9,14 +9,7 @@
 			app:key="global_default_keyboard"
 			app:title="@string/setup_default_keyboard" />
 
-	<PreferenceCategory
-		app:title="@string/pref_category_hacks"
-		app:singleLineTitle="true">
-
-		<SwitchPreferenceCompat
-			app:key="pref_alternative_suggestion_scrolling"
-			app:title="@string/pref_alternative_suggestion_scrolling"
-			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
+	<PreferenceCategory app:title="@string/pref_category_hacks">
 
 		<SwitchPreferenceCompat
 			app:defaultValue="false"
@@ -28,10 +21,6 @@
 			app:defaultValue="false"
 			app:key="pref_hack_fb_messenger"
 			app:title="@string/pref_hack_fb_messenger"/>
-
-		<DropDownPreference
-			app:key="pref_key_pad_debounce_time"
-			app:title="@string/pref_hack_key_pad_debounce_time" />
 
 	</PreferenceCategory>
 </PreferenceScreen>

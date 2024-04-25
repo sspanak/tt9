@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemDropDown;
+import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class AppearanceScreen extends BaseScreenFragment {
@@ -15,32 +17,34 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemSelectTheme(activity, findPreference(ItemSelectTheme.NAME)))
-			.populate()
-			.preview()
-			.enableClickHandler();
+		createMainSection();
+		createHacksSection();
+		resetFontSize(true);
+	}
 
-		(new ItemSelectLayoutType(activity, findPreference(ItemSelectLayoutType.NAME)))
-			.populate()
-			.preview()
-			.enableClickHandler();
-
+	private void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 
-		(new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this))
-			.populate()
-			.preview()
-			.enableClickHandler();
+		ItemDropDown[] items = {
+			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
+			new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity),
+			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this)
+		};
 
-		(new ItemCandidatesView(findPreference(ItemCandidatesView.NAME), activity.getSettings()))
-			.populate()
-			.enableClickHandler();
+		for (ItemDropDown item : items) {
+			item.populate().preview().enableClickHandler();
+		}
+	}
 
-		(new ItemClearInsets(findPreference(ItemClearInsets.NAME), activity.getSettings()))
-			.populate()
-			.enableClickHandler();
+	private void createHacksSection() {
+		ItemSwitch[] items = {
+			new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()),
+			new ItemCandidatesView(findPreference(ItemCandidatesView.NAME), activity.getSettings()),
+			new ItemClearInsets(findPreference(ItemClearInsets.NAME), activity.getSettings())
+		};
 
-
-		resetFontSize(true);
+		for (ItemSwitch item : items) {
+			item.populate().enableClickHandler();
+		}
 	}
 }

@@ -22,6 +22,11 @@
 	<PreferenceCategory app:title="@string/pref_category_hacks">
 
 		<SwitchPreferenceCompat
+			app:key="pref_alternative_suggestion_scrolling"
+			app:title="@string/pref_alternative_suggestion_scrolling"
+			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
+
+		<SwitchPreferenceCompat
 			app:key="pref_candidates_view"
 			app:title="@string/pref_hack_candidate_view" />
 
