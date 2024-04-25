@@ -25,11 +25,60 @@ import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
 
-public class TraditionalT9 extends HotkeyHandler {
+public class TraditionalT9 extends MainViewOps {
 	@NonNull
 	private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
 	private MainView mainView = null;
 	private StatusBar statusBar = null;
+
+
+	@Override
+	public boolean onEvaluateInputViewShown() {
+		super.onEvaluateInputViewShown();
+		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
+		return shouldBeVisible();
+	}
+
+
+	@Override
+	public boolean onEvaluateFullscreenMode() {
+		return false;
+	}
+
+
+	@Override
+	public View onCreateInputView() {
+		return createMainView();
+	}
+
+
+	@Override
+	public void onStartInput(EditorInfo inputField, boolean restarting) {
+		Logger.i(
+			"KeyPadHandler",
+			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
+		);
+		onStart(getCurrentInputConnection(), inputField);
+	}
+
+
+	@Override
+	public void onStartInputView(EditorInfo inputField, boolean restarting) {
+		onStart(getCurrentInputConnection(), inputField);
+	}
+
+
+	@Override
+	public void onFinishInputView(boolean finishingInput) {
+		super.onFinishInputView(finishingInput);
+		onFinishTyping();
+	}
+
+	@Override
+	public void onFinishInput() {
+		super.onFinishInput();
+		onStop();
+	}
 
 
 	@Override
@@ -145,7 +194,7 @@ public class TraditionalT9 extends HotkeyHandler {
 	 * createMainView
 	 * Generates the actual UI of TT9.
 	 */
-	protected View createMainView() {
+	private View createMainView() {
 		mainView.forceCreateView();
 		initTray();
 		setDarkTheme();
@@ -223,32 +272,5 @@ public class TraditionalT9 extends HotkeyHandler {
 	@Override
 	protected boolean shouldBeOff() {
 		return currentInputConnection == null || mInputMode.isPassthrough();
-	}
-
-
-	/**** Informational methods for the on-screen keyboard ****/
-
-	public int getTextCase() {
-		return mInputMode.getTextCase();
-	}
-
-	public boolean isInputModeNumeric() {
-		return mInputMode.is123();
-	}
-
-	public boolean isNumericModeStrict() {
-		return mInputMode.is123() && inputType.isNumeric() && !inputType.isPhoneNumber();
-	}
-
-	public boolean isNumericModeSigned() {
-		return mInputMode.is123() && inputType.isSignedNumber();
-	}
-
-	public boolean isInputModePhone() {
-		return mInputMode.is123() && inputType.isPhoneNumber();
-	}
-
-	public SettingsStore getSettings() {
-		return settings;
 	}
 }

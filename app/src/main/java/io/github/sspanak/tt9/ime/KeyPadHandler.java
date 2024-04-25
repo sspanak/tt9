@@ -1,13 +1,10 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
 
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 
@@ -37,71 +34,6 @@ abstract class KeyPadHandler extends AbstractHandler {
 		settings = new SettingsStore(getApplicationContext());
 
 		onInit();
-	}
-
-
-	@Override
-	public boolean onEvaluateInputViewShown() {
-		super.onEvaluateInputViewShown();
-		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
-		return shouldBeVisible();
-	}
-
-
-	@Override
-	public boolean onEvaluateFullscreenMode() {
-		return false;
-	}
-
-
-	/**
-	 * Called by the framework when your view for creating input needs to be
-	 * generated. This will be called the first time your input method is
-	 * displayed, and every time it needs to be re-created such as due to a
-	 * configuration change.
-	 */
-	@Override
-	public View onCreateInputView() {
-		return createMainView();
-	}
-
-
-	/**
-	 * This is the main point where we do our initialization of the input method
-	 * to begin operating on an application. At this point we have been bound to
-	 * the client, and are now receiving all of the detailed information about
-	 * the target of our edits.
-	 */
-	@Override
-	public void onStartInput(EditorInfo inputField, boolean restarting) {
-		Logger.i(
-			"KeyPadHandler",
-			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
-		);
-		onStart(getCurrentInputConnection(), inputField);
-	}
-
-
-	@Override
-	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		onStart(getCurrentInputConnection(), inputField);
-	}
-
-
-	@Override
-	public void onFinishInputView(boolean finishingInput) {
-		super.onFinishInputView(finishingInput);
-		onFinishTyping();
-	}
-
-	/**
-	 * This is called when the user is done editing a field. We can use this to
-	 * reset our state.
-	 */
-	@Override
-	public void onFinishInput() {
-		super.onFinishInput();
-		onStop();
 	}
 
 
