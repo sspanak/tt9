@@ -32,12 +32,8 @@ class SettingsHacks extends BaseSettings {
 		return prefs.getBoolean("pref_alternative_suggestion_scrolling", defaultOn) ? 200 : 0;
 	}
 
-	public boolean getCandidatesView() {
-		return prefs.getBoolean("pref_candidates_view", DeviceInfo.isSonimGen1(context));
-	}
-
 	public boolean clearInsets() {
-		return prefs.getBoolean("pref_clear_insets", DeviceInfo.isSonimGen1(context) || DeviceInfo.isSonimGen2(context));
+		return prefs.getBoolean("pref_clear_insets", DeviceInfo.isSonimGen2(context));
 	}
 
 	public boolean getFbMessengerHack() {

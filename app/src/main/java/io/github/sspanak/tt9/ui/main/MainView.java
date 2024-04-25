@@ -44,10 +44,6 @@ public class MainView {
 		}
 	}
 
-	public View getBlankView() {
-		return new MainLayoutStealth(tt9).getView();
-	}
-
 	public View getView() {
 		return main.getView();
 	}

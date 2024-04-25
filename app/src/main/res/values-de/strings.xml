@@ -96,8 +96,6 @@
 	<string name="pref_double_zero_char">Zeichen bei doppeltem Drücken der Taste „0“</string>
 	<string name="pref_hack_always_on_top">Immer im Vordergrund</string>
 	<string name="pref_hack_always_on_top_summary">Andere Anwendungen nicht erlauben, %1$s zu überdecken oder vom Bildschirm zu schieben.</string>
-	<string name="pref_hack_candidate_view">Alternative Anzeigemethode</string>
-	<string name="pref_hack_candidate_view_summary">Aktivieren Sie, wenn %1$s in einigen Apps unsichtbar wird oder überhaupt nicht aktiviert wird. Nach dem Ändern dieser Option ist ein Neustart erforderlich.</string>
 	<string name="pref_hack_google_chat">Nachrichten mit \"OK\" in Google Chat senden</string>
 	<string name="pref_hack_key_pad_debounce_time">Schutz vor versehentlichem Tastenwiederholen</string>
 	<string name="pref_hack_key_pad_debounce_off">Aus</string>
