@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.PreferenceScreen;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.custom.ScreenPreferencesList;
 import io.github.sspanak.tt9.util.Logger;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	protected PreferencesActivity activity;
+	private ScreenPreferencesList preferencesList;
 
 
 	protected void init(PreferencesActivity activity) {
@@ -33,6 +32,13 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	private void setScreenTitle() {
 		if (activity != null) {
 			activity.setScreenTitle(getTitle());
+		}
+	}
+
+
+	private void initPreferencesList() {
+		if (preferencesList == null) {
+			preferencesList = new ScreenPreferencesList(getPreferenceScreen());
 		}
 	}
 
@@ -73,17 +79,16 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 
 
 	public int getPreferenceCount() {
-		PreferenceScreen screen = getPreferenceScreen();
+		initPreferencesList();
+		return preferencesList.size();
+	}
 
-		int count = 0;
-		for (int i = screen.getPreferenceCount(); i > 0; i--) {
-			Preference pref = screen.getPreference(i - 1);
-			if (pref.isVisible()) {
-				count += pref instanceof PreferenceCategory ? ((PreferenceCategory) pref).getPreferenceCount() : 1;
-			}
-		}
 
-		return count;
+
+	public void resetFontSize(boolean reloadList) {
+		initPreferencesList();
+		preferencesList.getAll(reloadList, true);
+		preferencesList.setFontSize(activity.getSettings().getSettingsFontSize());
 	}
 
 

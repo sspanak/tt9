@@ -67,6 +67,7 @@
 	<string name="char_newline">Nieuwe regel</string>
 	<string name="pref_category_setup">Initiële setup</string>
 	<string name="dictionary_truncating">Verwijderen…</string>
+	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
 	<string name="error">Fout</string>
 	<string name="pref_dark_theme_yes">Ja</string>
@@ -101,4 +102,6 @@
 	<string name="pref_layout">Indeling op het scherm</string>
 	<string name="dictionary_no_notifications">Woordenboekmeldingen</string>
 	<string name="dictionary_no_notifications_summary">Ontvang meldingen over woordenboekupdates en de voortgang van het laden.</string>
+	<string name="pref_font_size">Instellingen lettergrootte</string>
+	<string name="pref_font_size_default">Standaard</string>
 </resources>

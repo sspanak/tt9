@@ -3,22 +3,20 @@
 
 	<DropDownPreference
 		app:defaultValue="-1"
-		app:iconSpaceReserved="false"
 		app:key="pref_theme"
-		app:layout="@layout/pref_dropdown"
 		app:title="@string/pref_dark_theme" />
 
 	<DropDownPreference
-		app:iconSpaceReserved="false"
 		app:key="pref_layout_type"
-		app:layout="@layout/pref_dropdown"
 		app:title="@string/pref_layout" />
-
 
 	<SwitchPreferenceCompat
 		app:key="pref_status_icon"
-		app:layout="@layout/pref_switch"
 		app:title="@string/pref_status_icon"
 		app:summary="@string/pref_status_icon_summary" />
+
+	<DropDownPreference
+		app:key="pref_font_size"
+		app:title="@string/pref_font_size" />
 
 </PreferenceScreen>

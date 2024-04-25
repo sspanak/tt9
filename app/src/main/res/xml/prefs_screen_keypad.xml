@@ -7,32 +7,27 @@
 	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.HotkeysScreen"
 		app:key="screen_hotkeys"
-		app:layout="@layout/pref_text"
 		app:title="@string/pref_category_function_keys" />
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:key="pref_upside_down_keys"
-		app:layout="@layout/pref_switch"
 		app:summary="@string/pref_upside_down_keys_summary"
 		app:title="@string/pref_upside_down_keys" />
 
 	<PreferenceCategory
 		android:title="@string/pref_category_predictive_mode"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
 			app:key="auto_space"
-			app:layout="@layout/pref_switch"
 			app:title="@string/pref_auto_space"
 			app:summary="@string/pref_auto_space_summary" />
 
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
 			app:key="auto_text_case"
-			app:layout="@layout/pref_switch"
 			app:summary="@string/pref_auto_text_case_summary"
 			app:title="@string/pref_auto_text_case" />
 
@@ -40,16 +35,13 @@
 			app:defaultValue="false"
 			app:dependency="auto_text_case"
 			app:key="auto_capitals_after_newline"
-			app:layout="@layout/pref_switch"
 			app:summary="@string/pref_auto_capitals_after_newline_summary"
 			app:title="@string/pref_auto_capitals_after_newline" />
 
 
 		<DropDownPreference
 			app:defaultValue="."
-			app:iconSpaceReserved="false"
 			app:key="pref_double_zero_char"
-			app:layout="@layout/pref_dropdown"
 			app:title="@string/pref_double_zero_char" />
 
 	</PreferenceCategory>
@@ -57,13 +49,11 @@
 
 	<PreferenceCategory
 		android:title="@string/pref_category_abc_mode"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<DropDownPreference
 			app:defaultValue="800"
 			app:key="pref_abc_auto_accept_time"
-			app:layout="@layout/pref_dropdown"
 			app:title="@string/pref_abc_auto_accept" />
 	</PreferenceCategory>
 

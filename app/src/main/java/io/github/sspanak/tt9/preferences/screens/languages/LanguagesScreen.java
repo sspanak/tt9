@@ -80,6 +80,8 @@ public class LanguagesScreen extends BaseScreenFragment {
 
 		ItemClickable.enableAllClickHandlers(clickables);
 		refreshItems();
+
+		resetFontSize(false);
 	}
 
 

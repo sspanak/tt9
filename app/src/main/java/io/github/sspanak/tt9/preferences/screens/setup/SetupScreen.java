@@ -21,6 +21,7 @@ public class SetupScreen extends BaseScreenFragment {
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 		createKeyboardSection(isTT9On);
 		createHacksSection(isTT9On);
+		resetFontSize(false);
 	}
 
 	@Override

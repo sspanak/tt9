@@ -3,47 +3,37 @@
 
 	<Preference
 		app:key="pref_device_info"
-		app:layout="@layout/pref_text"
 		app:title="Device Info" />
 
 	<DropDownPreference
-		app:iconSpaceReserved="false"
 		app:key="pref_input_handling_mode"
-		app:layout="@layout/pref_dropdown"
 		app:title="Keypad Handling Mode" />
 
-	<SwitchPreferenceCompat
+	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.UsageStatsScreen"
 		app:key="pref_slow_queries"
-		app:layout="@layout/pref_text"
 		app:title="@string/pref_category_usage_stats" />
 
 	<DropDownPreference
-		app:iconSpaceReserved="false"
 		app:key="pref_log_level"
-		app:layout="@layout/pref_dropdown"
 		app:title="Log Level" />
 
 	<SwitchPreferenceCompat
 		app:defaultValue="false"
 		app:key="pref_enable_system_logs"
-		app:layout="@layout/pref_switch"
 		app:title="System Logs" />
 
 	<Preference
 		app:key="pref_export_logcat"
-		app:layout="@layout/pref_text"
 		app:title="Export Logs" />
 
 	<PreferenceCategory
 		app:title="Recent Log Messages"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
-		<Preference
+		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="debug_logs_container"
-			app:summary="--"
-			app:layout="@layout/pref_plain_text">
-		</Preference>
+			app:summary="--">
+		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
 	</PreferenceCategory>
 
 </PreferenceScreen>

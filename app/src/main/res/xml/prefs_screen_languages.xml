@@ -3,51 +3,42 @@
 
 	<MultiSelectListPreference
 		app:key="pref_languages"
-		app:layout="@layout/pref_text"
 		app:title="@string/pref_choose_languages" />
 
 	<SwitchPreferenceCompat
 		app:isPreferenceVisible="false"
 		app:key="dictionary_notifications"
-		app:layout="@layout/pref_switch"
 		app:title="@string/dictionary_no_notifications"
 		app:summary="@string/dictionary_no_notifications_summary"/>
 
 	<Preference
 		app:key="dictionary_load"
-		app:layout="@layout/pref_text"
 		app:title="@string/dictionary_load_title" />
 
 	<Preference
 		app:key="dictionary_export"
-		app:layout="@layout/pref_text"
 		app:title="@string/dictionary_export"
 		app:isPreferenceVisible="false" />
 
 	<Preference
 		app:key="dictionary_truncate_unselected"
-		app:layout="@layout/pref_text"
 		app:title="@string/dictionary_truncate_unselected" />
 
 	<Preference
 		app:key="dictionary_truncate"
-		app:layout="@layout/pref_text"
 		app:title="@string/dictionary_truncate_title" />
 
 	<PreferenceCategory
 		app:title="@string/pref_category_custom_words"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
 
 		<Preference
 			app:key="dictionary_export_custom"
-			app:layout="@layout/pref_text"
 			app:title="@string/dictionary_export_custom_words" />
 
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.DeleteWordsScreen"
 			app:key="screen_delete_words"
-			app:layout="@layout/pref_text"
 			app:title="@string/delete_words_delete"
 			app:summary="@string/delete_words_link_summary"/>
 

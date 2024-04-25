@@ -34,6 +34,8 @@ public class UsageStatsScreen extends BaseScreenFragment {
 				return true;
 			});
 		}
+
+		resetFontSize(false);
 	}
 
 	private void printSummary() {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Impostazioni</string>
+	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Completato</string>
 	<string name="no_language">Nessuna lingua</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
@@ -105,5 +106,7 @@
 	<string name="pref_layout">Layout sullo schermo</string>
 	<string name="dictionary_no_notifications">Notifiche del dizionario</string>
 	<string name="dictionary_no_notifications_summary">Ricevere notifiche sugli aggiornamenti del dizionario e sul progresso del caricamento.</string>
+	<string name="pref_font_size">Dimensione del carattere delle impostazioni</string>
+	<string name="pref_font_size_default">Predefinita</string>
 </resources>
 

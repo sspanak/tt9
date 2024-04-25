@@ -26,5 +26,12 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.enableClickHandler();
 
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
+
+		(new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this))
+			.populate()
+			.preview()
+			.enableClickHandler();
+
+		resetFontSize(true);
 	}
 }

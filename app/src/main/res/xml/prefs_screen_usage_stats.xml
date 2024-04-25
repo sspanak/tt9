@@ -3,29 +3,24 @@
 
 	<SwitchPreferenceCompat
 		app:key="pref_slow_queries_reset_stats"
-		app:layout="@layout/pref_text"
 		app:title="Clear DB Cache" />
 
 	<PreferenceCategory
 		app:title="Summary"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
-		<Preference
+		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="summary_container"
-			app:summary="--"
-			app:layout="@layout/pref_plain_text">
-		</Preference>
+			app:summary="--">
+		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
 	</PreferenceCategory>
 
 	<PreferenceCategory
 		app:title="Slow Queries"
-		app:layout="@layout/pref_category"
 		app:singleLineTitle="true">
-		<Preference
+		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="query_list_container"
-			app:summary="--"
-			app:layout="@layout/pref_plain_text">
-		</Preference>
+			app:summary="--">
+		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
 	</PreferenceCategory>
 
 </PreferenceScreen>

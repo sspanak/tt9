@@ -36,6 +36,8 @@ public class DebugScreen extends BaseScreenFragment {
 		SwitchPreferenceCompat systemLogs = findPreference(SYSTEM_LOGS_SWITCH);
 		boolean includeSystemLogs = systemLogs != null && systemLogs.isChecked();
 		printLogs(includeSystemLogs);
+
+		resetFontSize(false);
 	}
 
 	private void initSystemLogsSwitch() {

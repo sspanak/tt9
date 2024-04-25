@@ -36,5 +36,7 @@ public class HotkeysScreen extends BaseScreenFragment {
 
 		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, section))
 			.enableClickHandler();
+
+		resetFontSize(false);
 	}
 }
