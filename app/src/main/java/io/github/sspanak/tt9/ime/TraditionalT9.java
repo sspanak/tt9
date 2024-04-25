@@ -45,17 +45,19 @@ public class TraditionalT9 extends MainViewOps {
 	}
 
 
-	@Override
-	public View onCreateInputView() {
-		return createMainView();
-	}
+	// Some devices have their own super.onCreateXxxView(), which does some magic allowing our MainView to remain visible.
+	// This is why we must call the super method, instead of returning null, as in the AOSP code.
+	@Override public View onCreateInputView() { return settings.getCandidatesView() ? super.onCreateInputView() : createMainView(); }
+	@Override public View onCreateCandidatesView() { return settings.getCandidatesView() ? createMainView() : super.onCreateCandidatesView(); }
 
 
 	@Override
 	public void onComputeInsets(Insets outInsets) {
 		super.onComputeInsets(outInsets);
-		if (shouldBeVisible() && DeviceInfo.isSonimXP3900()) {
-			outInsets.contentTopInsets = 0; // otherwise the MainView wouldn't show up
+		if (shouldBeVisible() && settings.clearInsets()) {
+			// otherwise the MainView wouldn't show up on Sonim XP3900
+			// or it expands the application window past the edge of the screen
+			outInsets.contentTopInsets = 0;
 		}
 	}
 
@@ -122,7 +124,13 @@ public class TraditionalT9 extends MainViewOps {
 
 
 	private void initTray() {
-		setInputView(mainView.getView());
+		if (settings.getCandidatesView()) {
+			setCandidatesView(mainView.getView());
+			setInputView(mainView.getBlankView());
+		} else {
+			setCandidatesView(mainView.getBlankView());
+			setInputView(mainView.getView());
+		}
 		createSuggestionBar(mainView.getView());
 		statusBar = new StatusBar(mainView.getView());
 	}
@@ -144,7 +152,9 @@ public class TraditionalT9 extends MainViewOps {
 		setDarkTheme();
 		mainView.render();
 
-		if (!isInputViewShown()) {
+		if (settings.getCandidatesView()) {
+			setCandidatesViewShown(true);
+		} else if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
 	}
@@ -178,6 +188,7 @@ public class TraditionalT9 extends MainViewOps {
 		setStatusIcon(mInputMode);
 		setStatusText(mInputMode.toString());
 
+		setCandidatesViewShown(false);
 		if (isInputViewShown()) {
 			updateInputViewShown();
 		}
@@ -238,7 +249,7 @@ public class TraditionalT9 extends MainViewOps {
 		}
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-			requestShowSelf(DeviceInfo.isSonimXP3900() ? 0 : InputMethodManager.SHOW_IMPLICIT);
+			requestShowSelf(DeviceInfo.isSonimGen2(getApplicationContext()) ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);
 		}

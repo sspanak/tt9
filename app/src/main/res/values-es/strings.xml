@@ -59,7 +59,7 @@
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Habilitar si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas (Android 9 o anterior).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas (Android 9 o anterior).</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
@@ -114,6 +114,10 @@
 	<string name="donate_title">Donar</string>
 	<string name="donate_summary">Si te gusta %1$s, podrías apoyar su desarrollo en: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Enviar con «OK» en Facebook Messenger</string>
+	<string name="pref_hack_always_on_top">Siempre encima</string>
+	<string name="pref_hack_always_on_top_summary">No permitir que otras aplicaciones cubran %1$s o lo empujen fuera de la pantalla.</string>
+	<string name="pref_hack_candidate_view">Método de visualización alternativo</string>
+	<string name="pref_hack_candidate_view_summary">Habilítelo si %1$s se vuelve invisible en algunas aplicaciones o no se activa en absoluto. Se requiere reiniciar después de cambiar esta opción.</string>
 	<string name="pref_hack_google_chat">Enviar mensajes con «OK» en Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Protección contra la repetición accidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Apagado</string>

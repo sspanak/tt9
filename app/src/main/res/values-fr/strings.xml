@@ -42,6 +42,10 @@
 	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s» à la ligne %2$d de langue «%3$s».</string>
 	<string name="dictionary_truncated">Le dictionaire est supprimé avec succès.</string>
 	<string name="pref_hack_fb_messenger">Envoyer avec «OK» dans Facebook Messenger</string>
+	<string name="pref_hack_always_on_top">Toujours au premier plan</string>
+	<string name="pref_hack_always_on_top_summary">Ne pas permettre aux autres applications de couvrir %1$s ou de le pousser hors de l\'écran.</string>
+	<string name="pref_hack_candidate_view">Méthode d\'affichage alternative</string>
+	<string name="pref_hack_candidate_view_summary">Activez si %1$s devient invisible dans certaines applications ou ne s\'active pas du tout. Un redémarrage est nécessaire après la modification de cette option.</string>
 	<string name="pref_hack_google_chat">Envoyer des messages avec «OK» dans Google Chat</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
@@ -53,7 +57,7 @@
 	<string name="pref_abc_auto_accept_normal">Modérée</string>
 	<string name="pref_abc_auto_accept_slow">Lente</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Activer si parfois vous ne pouvez pas voir toutes les suggestions ou vous avez des difficultés à les défiler (Android 9 ou plus ancien).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir toutes les suggestions ou vous avez des difficultés à les défiler (Android 9 ou plus ancien).</string>
 	<string name="pref_auto_space">Espace automatique</string>
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>

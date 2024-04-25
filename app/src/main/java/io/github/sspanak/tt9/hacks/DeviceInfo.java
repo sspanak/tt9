@@ -33,8 +33,12 @@ public class DeviceInfo {
 		return Build.MANUFACTURER.equals("Sonimtech");
 	}
 
-	public static boolean isSonimXP3900() {
-		return isSonim() && Build.MODEL.contains("XP3900");
+	public static boolean isSonimGen1(Context context) {
+		return isSonim() && noTouchScreen(context) && Build.VERSION.SDK_INT < Build.VERSION_CODES.P;
+	}
+
+	public static boolean isSonimGen2(Context context) {
+		return isSonim() && noTouchScreen(context) && Build.VERSION.SDK_INT <= Build.VERSION_CODES.R;
 	}
 
 	@NonNull

@@ -105,6 +105,10 @@
 	<string name="char_space">Tarpas</string>
 	<string name="pref_category_custom_words">Pridėtos žodžiai</string>
 	<string name="pref_category_delete_words">Trinti pridėtus žodžius</string>
+	<string name="pref_hack_always_on_top">Visada viršuje</string>
+	<string name="pref_hack_always_on_top_summary">Neleisti kitiems programoms uždengti %1$s arba atstumti jį nuo ekrano.</string>
+	<string name="pref_hack_candidate_view">Alternatyvus rodymo metodas</string>
+	<string name="pref_hack_candidate_view_summary">Įjungti, jei %1$s tampa nematomas kai kuriuose programose arba išvis neįsijungia. Po šios parinkties pakeitimo reikalingas iš naujo paleidimas.</string>
 	<string name="pref_hack_google_chat">Siųsti žinutes su „OK“ „Google Chat“ programoje</string>
 	<string name="pref_hack_key_pad_debounce_time">Apsauga nuo atsitiktinio rakto pasikartojimo</string>
 	<string name="pref_hack_key_pad_debounce_off">Išjungta</string>

@@ -49,6 +49,10 @@
 	<string name="pref_dark_theme_no">Ні</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
+	<string name="pref_hack_always_on_top">Поверх інших програм</string>
+	<string name="pref_hack_always_on_top_summary">Не дозволяти іншим програмам перекривати %1$s або змушувати його зникати з екрану.</string>
+	<string name="pref_hack_candidate_view">Альтернативний метод відображення</string>
+	<string name="pref_hack_candidate_view_summary">Увімкніть, якщо %1$s стає невидимим у деяких додатках або взагалі не активується. Перезавантаження потрібно після зміни цієї опції.</string>
 	<string name="pref_hack_google_chat">Відправляти повідомлення по натиску \"OK\" в Google Chat</string>
 	<string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
