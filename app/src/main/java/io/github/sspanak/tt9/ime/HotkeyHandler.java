@@ -30,10 +30,6 @@ public abstract class HotkeyHandler extends TypingHandler {
 	@Override public boolean onOK() {
 		suggestionOps.cancelDelayedAccept();
 
-		if (forceShowWindow()) {
-			return true;
-		}
-
 		if (!suggestionOps.isEmpty()) {
 			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
 			return true;

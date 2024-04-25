@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -53,6 +52,15 @@ public class TraditionalT9 extends MainViewOps {
 
 
 	@Override
+	public void onComputeInsets(Insets outInsets) {
+		super.onComputeInsets(outInsets);
+		if (shouldBeVisible() && DeviceInfo.isSonimXP3900()) {
+			outInsets.contentTopInsets = 0; // otherwise the MainView wouldn't show up
+		}
+	}
+
+
+	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		Logger.i(
 			"KeyPadHandler",
@@ -73,6 +81,7 @@ public class TraditionalT9 extends MainViewOps {
 		super.onFinishInputView(finishingInput);
 		onFinishTyping();
 	}
+
 
 	@Override
 	public void onFinishInput() {
@@ -223,27 +232,16 @@ public class TraditionalT9 extends MainViewOps {
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
 	@Override
-	protected boolean forceShowWindow() {
+	protected void forceShowWindow() {
 		if (isInputViewShown() || !shouldBeVisible()) {
-			return false;
+			return;
 		}
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-			requestShowSelf(InputMethodManager.SHOW_IMPLICIT);
+			requestShowSelf(DeviceInfo.isSonimXP3900() ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);
 		}
-
-		// Sonim XP3900 is quite stubborn and wouldn't show the MainView the regular way.
-		// Sending DPAD_CENTER seems to be the only way of doing it. But, we only want to do this
-		// when there is no text to avoid undesired submitting of something.
-		if (!isInputViewShown() && DeviceInfo.noTouchScreen(this) && textField.isEmpty()) {
-			sendDownUpKeyEvents(KeyEvent.KEYCODE_DPAD_CENTER);
-		} else {
-			return false;
-		}
-
-		return true;
 	}
 
 
