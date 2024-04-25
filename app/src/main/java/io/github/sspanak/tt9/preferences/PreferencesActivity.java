@@ -6,8 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -28,17 +28,14 @@ import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
-public class PreferencesActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	private SettingsStore settings;
-
-
+public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		settings = new SettingsStore(this);
+		getSettings();
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
 
@@ -84,6 +81,26 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
 		}
+	}
+
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
+		if (fragment instanceof BaseScreenFragment) {
+			getOptionsCount = ((BaseScreenFragment) fragment)::getPreferenceCount;
+		}
+	}
+
+
+	@Override
+	protected void selectOption(int position, boolean click) {
+		// 0-key selects the last option for convenience
+		try { position = position == 0 ? getOptionsCount.call() : position; }
+		catch (Exception ignore) {}
+
+		super.selectOption(position, click);
 	}
 
 
@@ -136,6 +153,8 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 	 * Replaces the currently displayed screen fragment with a new one.
 	 */
 	private void displayScreen(BaseScreenFragment screen, boolean addToBackStack) {
+		getOptionsCount = screen::getPreferenceCount;
+
 		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		transaction.replace(R.id.preferences_container, screen);
@@ -165,15 +184,6 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 		if (actionBar != null) {
 			actionBar.setTitle(title);
 		}
-	}
-
-
-	public SettingsStore getSettings() {
-		if (settings == null) {
-			settings = new SettingsStore(this);
-		}
-
-		return settings;
 	}
 
 
