@@ -115,8 +115,6 @@
 	<string name="pref_hack_fb_messenger">Enviar com \"OK\" no Facebook Messenger</string>
 	<string name="pref_hack_always_on_top">Sempre na frente</string>
 	<string name="pref_hack_always_on_top_summary">Não permitir que outras aplicações cubram %1$s ou o empurrem para fora do ecrã.</string>
-	<string name="pref_hack_candidate_view">Método de exibição alternativo</string>
-	<string name="pref_hack_candidate_view_summary">Ative se o %1$s se tornar invisível em alguns aplicativos ou não ativar de forma alguma. É necessário reiniciar após alterar esta opção.</string>
 	<string name="pref_hack_google_chat">Enviar mensagens com \"OK\" no Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Proteção contra repetição acidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Desligado</string>

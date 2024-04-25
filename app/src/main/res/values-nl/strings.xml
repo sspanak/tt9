@@ -94,8 +94,6 @@
 	<string name="pref_double_zero_char">Teken bij dubbelklikken op toets \"0\"</string>
 	<string name="pref_hack_always_on_top">Altijd bovenaan</string>
 	<string name="pref_hack_always_on_top_summary">Andere applicaties niet toestaan om %1$s te bedekken of van het scherm te duwen.</string>
-	<string name="pref_hack_candidate_view">Alternatieve weergavemethode</string>
-	<string name="pref_hack_candidate_view_summary">Inschakelen als %1$s onzichtbaar wordt in sommige apps of helemaal niet wordt geactiveerd. Een herstart is vereist na het wijzigen van deze optie.</string>
 	<string name="pref_hack_google_chat">Stuur berichten met \"OK\" in Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Bescherming tegen het per ongeluk herhalen van toetsen</string>
 	<string name="pref_hack_key_pad_debounce_off">Uit</string>

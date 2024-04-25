@@ -27,10 +27,6 @@
 			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
 
 		<SwitchPreferenceCompat
-			app:key="pref_candidates_view"
-			app:title="@string/pref_hack_candidate_view" />
-
-		<SwitchPreferenceCompat
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
 

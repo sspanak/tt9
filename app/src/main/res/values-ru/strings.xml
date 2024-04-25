@@ -116,8 +116,6 @@
 	<string name="donate_summary">Если вам нравится %1$s, вы можете поддержать его разработку по: %2$s.</string>
 	<string name="pref_hack_always_on_top">Поверх других приложений</string>
 	<string name="pref_hack_always_on_top_summary">Не разрешать другим приложениям перекрывать %1$s или выталкивать его с экрана.</string>
-	<string name="pref_hack_candidate_view">Альтернативный метод отображения</string>
-	<string name="pref_hack_candidate_view_summary">Включите, если %1$s становится невидимым в некоторых приложениях или вообще не активируется. Перезагрузка требуется после изменения этой опции.</string>
 	<string name="pref_hack_google_chat">Отправка сообщения с «ОК» в Google Chat</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайного повторения нажатий</string>
 	<string name="pref_hack_key_pad_debounce_off">Выключена</string>

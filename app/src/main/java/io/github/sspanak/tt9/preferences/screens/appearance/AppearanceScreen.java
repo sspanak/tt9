@@ -39,7 +39,6 @@ public class AppearanceScreen extends BaseScreenFragment {
 	private void createHacksSection() {
 		ItemSwitch[] items = {
 			new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()),
-			new ItemCandidatesView(findPreference(ItemCandidatesView.NAME), activity.getSettings()),
 			new ItemClearInsets(findPreference(ItemClearInsets.NAME), activity.getSettings())
 		};
 

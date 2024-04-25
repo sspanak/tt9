@@ -47,8 +47,16 @@ public class TraditionalT9 extends MainViewOps {
 
 	// Some devices have their own super.onCreateXxxView(), which does some magic allowing our MainView to remain visible.
 	// This is why we must call the super method, instead of returning null, as in the AOSP code.
-	@Override public View onCreateInputView() { return settings.getCandidatesView() ? super.onCreateInputView() : createMainView(); }
-	@Override public View onCreateCandidatesView() { return settings.getCandidatesView() ? createMainView() : super.onCreateCandidatesView(); }
+	@Override
+	public View onCreateInputView() {
+		mainView.forceCreateView();
+		initTray();
+		setDarkTheme();
+		setStatusText(mInputMode.toString());
+		suggestionOps.set(mInputMode.getSuggestions());
+
+		return mainView.getView();
+	}
 
 
 	@Override
@@ -124,13 +132,7 @@ public class TraditionalT9 extends MainViewOps {
 
 
 	private void initTray() {
-		if (settings.getCandidatesView()) {
-			setCandidatesView(mainView.getView());
-			setInputView(mainView.getBlankView());
-		} else {
-			setCandidatesView(mainView.getBlankView());
-			setInputView(mainView.getView());
-		}
+		setInputView(mainView.getView());
 		createSuggestionBar(mainView.getView());
 		statusBar = new StatusBar(mainView.getView());
 	}
@@ -152,9 +154,7 @@ public class TraditionalT9 extends MainViewOps {
 		setDarkTheme();
 		mainView.render();
 
-		if (settings.getCandidatesView()) {
-			setCandidatesViewShown(true);
-		} else if (!isInputViewShown()) {
+		if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
 	}
@@ -188,7 +188,6 @@ public class TraditionalT9 extends MainViewOps {
 		setStatusIcon(mInputMode);
 		setStatusText(mInputMode.toString());
 
-		setCandidatesViewShown(false);
 		if (isInputViewShown()) {
 			updateInputViewShown();
 		}
@@ -207,21 +206,6 @@ public class TraditionalT9 extends MainViewOps {
 			return true;
 		}
 		return super.onNumber(key, hold, repeat);
-	}
-
-
-	/**
-	 * createMainView
-	 * Generates the actual UI of TT9.
-	 */
-	private View createMainView() {
-		mainView.forceCreateView();
-		initTray();
-		setDarkTheme();
-		setStatusText(mInputMode.toString());
-		suggestionOps.set(mInputMode.getSuggestions());
-
-		return mainView.getView();
 	}
 
 
