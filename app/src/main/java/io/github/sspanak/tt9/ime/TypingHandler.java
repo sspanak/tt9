@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
-import io.github.sspanak.tt9.ime.helpers.AppHacks;
+import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -229,7 +229,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
 	protected int getInputModeId() {
-		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.isTermux())) {
+		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.getAppInfo().isTermux())) {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 

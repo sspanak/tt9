@@ -5,7 +5,7 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-import io.github.sspanak.tt9.util.DeviceInfo;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;
