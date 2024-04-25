@@ -48,10 +48,6 @@ public class SetupScreen extends BaseScreenFragment {
 	}
 
 	private void createHacksSection(boolean isTT9On) {
-		(new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()))
-			.populate()
-			.setEnabled(isTT9On);
-
 		Preference hackGoogleChat = findPreference("pref_hack_google_chat");
 		if (hackGoogleChat != null) {
 			hackGoogleChat.setEnabled(isTT9On);
@@ -60,14 +56,6 @@ public class SetupScreen extends BaseScreenFragment {
 		Preference hackFBMessenger = findPreference("pref_hack_fb_messenger");
 		if (hackFBMessenger != null) {
 			hackFBMessenger.setEnabled(isTT9On);
-		}
-
-		ItemKeyPadDebounceTime item = new ItemKeyPadDebounceTime(activity, findPreference(ItemKeyPadDebounceTime.NAME));
-		item.populate().preview();
-		if (isTT9On) {
-			item.enable();
-		} else {
-			item.disable();
 		}
 	}
 }

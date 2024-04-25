@@ -172,15 +172,19 @@ The "Export" option allows you to export all added words, for all languages, inc
 Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
 
 ### Compatibility Options & Troubleshooting
-For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them in Settings → Initial Setup, under the Compatibility section.
+For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them at the end of each settings screen, under the Compatibility section.
 
 #### Alternative suggestion scrolling method
 On some devices, in Predictive Mode, you may not be able to see all suggestions, or may not be able to scroll the list to the end. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
+
+_Available in: Settings → Appearance._
 
 #### Key repeat protection
 CAT S22 Flip and Qin F21 phones are known for their low-quality keypads, which degrade quickly over time and start registering multiple clicks for a single key press. You may notice this when typing or navigating the phone menus.
 
 For CAT phones the recommended setting is 50-75 ms. For Qin F21, try with 20-30 ms. If you are still experiencing the issue, increase the value a bit, but generally try to keep it as low as possible.
+
+_Available in: Settings → Keypad._
 
 _**Note:** The higher the value you set, the slower you will have to type. TT9 will ignore very quick key presses._
 
@@ -189,8 +193,12 @@ _**Note 2:** Besides the above, Qin phones may also fail to detect long presses.
 #### Send messages with OK in Facebook Messenger
 Facebook Messenger fails to recognize the OK key on some devices, making it impossible to send messages with it. If you prefer to send messages using OK, instead of Messenger's own send button, enable this option. This ensures sending is possible on any phone.
 
+_Available in: Settings → Initial Setup._
+
 #### Send messages with OK in Google Chat
 Similar to the above, but for Google Chat.
+
+_Available in: Settings → Initial Setup._
 
 _This option is still experimental. It may sometimes fail to detect the "Send" button and click another one. If this starts happening, just close the chat and reopen it._
 

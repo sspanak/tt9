@@ -16,7 +16,7 @@ class ItemSelectTheme extends ItemDropDown {
 
 	private final Context context;
 
-	ItemSelectTheme(Context context, DropDownPreference item) {
+	ItemSelectTheme(DropDownPreference item, Context context) {
 		super(item);
 		this.context = context;
 	}

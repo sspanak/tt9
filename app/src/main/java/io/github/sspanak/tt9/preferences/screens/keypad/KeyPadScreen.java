@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.screens.keypad;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class KeyPadScreen extends BaseScreenFragment {
@@ -15,15 +16,15 @@ public class KeyPadScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity))
-			.populate()
-			.enableClickHandler()
-			.preview();
+		ItemDropDown[] items = {
+			new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity),
+			new ItemSelectABCAutoAccceptTime(findPreference(ItemSelectABCAutoAccceptTime.NAME), activity),
+			new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)
+		};
 
-		(new ItemSelectABCAutoAccceptTime(findPreference(ItemSelectABCAutoAccceptTime.NAME), activity))
-			.populate()
-			.enableClickHandler()
-			.preview();
+		for (ItemDropDown item : items) {
+			item.populate().enableClickHandler().preview();
+		}
 
 		resetFontSize(false);
 	}

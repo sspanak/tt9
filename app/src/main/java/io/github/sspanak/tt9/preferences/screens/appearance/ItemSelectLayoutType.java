@@ -14,8 +14,7 @@ public class ItemSelectLayoutType extends ItemDropDown {
 
 	private final PreferencesActivity activity;
 
-	public ItemSelectLayoutType(PreferencesActivity activity, DropDownPreference item) {
-
+	public ItemSelectLayoutType(DropDownPreference item, PreferencesActivity activity) {
 		super(item);
 		this.activity = activity;
 	}

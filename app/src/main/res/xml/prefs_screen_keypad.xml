@@ -15,9 +15,7 @@
 		app:summary="@string/pref_upside_down_keys_summary"
 		app:title="@string/pref_upside_down_keys" />
 
-	<PreferenceCategory
-		android:title="@string/pref_category_predictive_mode"
-		app:singleLineTitle="true">
+	<PreferenceCategory android:title="@string/pref_category_predictive_mode">
 
 		<SwitchPreferenceCompat
 			app:defaultValue="true"
@@ -47,14 +45,17 @@
 	</PreferenceCategory>
 
 
-	<PreferenceCategory
-		android:title="@string/pref_category_abc_mode"
-		app:singleLineTitle="true">
-
+	<PreferenceCategory android:title="@string/pref_category_abc_mode">
 		<DropDownPreference
 			app:defaultValue="800"
 			app:key="pref_abc_auto_accept_time"
 			app:title="@string/pref_abc_auto_accept" />
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/pref_category_hacks">
+		<DropDownPreference
+			app:key="pref_key_pad_debounce_time"
+			app:title="@string/pref_hack_key_pad_debounce_time" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
