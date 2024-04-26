@@ -10,6 +10,7 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;

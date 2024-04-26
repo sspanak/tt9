@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
 
-public class InputType {
+abstract public class StandardInputType {
 	private static final int TYPE_MULTILINE_TEXT = EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE;
 
-	private final InputConnection connection;
-	private final EditorInfo field;
+	protected final InputConnection connection;
+	protected final EditorInfo field;
 
 
-	public InputType(InputConnection inputConnection, EditorInfo inputField) {
+	protected StandardInputType(InputConnection inputConnection, EditorInfo inputField) {
 		connection = inputConnection;
 		field = inputField;
 	}
@@ -35,27 +35,6 @@ public class InputType {
 	 */
 	public boolean isLimited() {
 		return field != null && field.inputType == android.text.InputType.TYPE_NULL;
-	}
-
-
-	/**
-	 * isSpecialNumeric
-	 * Calculator and Dialer fields seem to take care of numbers and backspace on their own,
-	 * so we need to be aware of them.
-	 * <p>
-	 * NOTE: A Dialer field is not the same as Phone field. Dialer is where you
-	 * actually dial and call a phone number. While the Phone field is a text
-	 * field in any app or a webpage, intended for typing phone numbers.
-	 * <p>
-	 * More info (chronological order of bugfixing):
-	 * <a href="https://github.com/sspanak/tt9/issues/46">in this Github issue</a>
-	 * <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>
-	 * <a href="https://github.com/sspanak/tt9/issues/300">Dialer not detected correctly on LG X100S</a>
-	 */
-	private boolean isSpecialNumeric() {
-		return
-			field.packageName.contains("com.android.calculator") // there is "calculator2", hence the contains()
-			|| field.packageName.equals("com.android.dialer");
 	}
 
 
@@ -83,6 +62,9 @@ public class InputType {
 			isNumeric()
 			&& (field.inputType & android.text.InputType.TYPE_MASK_FLAGS) == android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
 	}
+
+
+	abstract protected boolean isSpecialNumeric();
 
 
 	public boolean isEmail() {
