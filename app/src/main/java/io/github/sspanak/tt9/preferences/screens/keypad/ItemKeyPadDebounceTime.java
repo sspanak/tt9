@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences.screens.keypad;
 
-import android.content.Context;
-
 import androidx.preference.DropDownPreference;
 
 import java.util.LinkedHashMap;
