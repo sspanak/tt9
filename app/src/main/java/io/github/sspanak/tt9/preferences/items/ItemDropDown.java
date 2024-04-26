@@ -42,20 +42,6 @@ abstract public class ItemDropDown {
 		item.setEntries(this.values.values().toArray(new CharSequence[0]));
 	}
 
-	public void disable() {
-		if (item != null) {
-			item.setEnabled(false);
-			item.setOnPreferenceChangeListener(null);
-		}
-	}
-
-	public void enable() {
-		if (item != null) {
-			item.setEnabled(true);
-			enableClickHandler();
-		}
-	}
-
 	public ItemDropDown enableClickHandler() {
 		if (item != null) {
 			item.setOnPreferenceChangeListener(this::onClick);
