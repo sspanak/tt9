@@ -47,7 +47,7 @@ static def extractAlphabetCharsFromLine(String line) {
 
 
 static def parseLanguageFile(File languageFile, String dictionariesDir) {
-	String alphabet = languageFile.name.contains("Hebrew") ? '"' : ''
+	String alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : ''
 	File dictionaryFile
 	int errorCount = 0
 	String errorMsg = ""
