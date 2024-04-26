@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.hacks;
 
 import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
@@ -11,30 +10,26 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppHacks {
-	private final ConnectedAppInfo appInfo;
 	private final InputConnection inputConnection;
+	private final InputType inputType;
 	private final SettingsStore settings;
 	private final TextField textField;
 
 
-	public AppHacks(SettingsStore settings, InputConnection inputConnection, EditorInfo inputField, TextField textField) {
+	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField) {
 		this.inputConnection = inputConnection;
+		this.inputType = inputType;
 		this.settings = settings;
 		this.textField = textField;
-		appInfo = new ConnectedAppInfo(inputConnection, inputField);
 	}
 
-
-	public ConnectedAppInfo getAppInfo() {
-		return appInfo;
-	}
 
 	/**
 	 * setComposingTextWithHighlightedStem
 	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
 	 */
 	public void setComposingTextWithHighlightedStem(@NonNull String word, InputMode inputMode) {
-		if (appInfo.isKindleInvertedTextField()) {
+		if (inputType.isKindleInvertedTextField()) {
 			textField.setComposingText(word);
 		} else {
 			textField.setComposingTextWithHighlightedStem(word, inputMode);
@@ -48,9 +43,9 @@ public class AppHacks {
 	 * returned, you must not attempt to delete text. This function has already done everything necessary.
 	 */
 	public boolean onBackspace(InputMode inputMode) {
-		if (appInfo.isKindleInvertedTextField()) {
+		if (inputType.isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
-		} else if (appInfo.isTermux()) {
+		} else if (inputType.isTermux()) {
 			return false;
 		}
 
@@ -65,7 +60,7 @@ public class AppHacks {
 	 * Returns "true" if the action was handled, "false" otherwise.
 	 */
 	public boolean onAction(int action) {
-		if (appInfo.isSonimSearchField(action)) {
+		if (inputType.isSonimSearchField(action)) {
 			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
@@ -80,11 +75,11 @@ public class AppHacks {
 	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
 	public boolean onEnter() {
-		if (settings.getFbMessengerHack() && appInfo.isMessenger()) {
+		if (settings.getFbMessengerHack() && inputType.isMessenger()) {
 			return onEnterFbMessenger();
-		} else if (settings.getGoogleChatHack() && appInfo.isGoogleChat()) {
+		} else if (settings.getGoogleChatHack() && inputType.isGoogleChat()) {
 			return onEnterGoogleChat();
-		} else if (appInfo.isTermux() || appInfo.isMultilineTextInNonSystemApp()) {
+		} else if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
 			// Any extra installed apps are likely not designed for hardware keypads, so again,
 			// we don't want to send DPAD_CENTER to them.

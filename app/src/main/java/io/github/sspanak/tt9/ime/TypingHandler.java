@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.AppHacks;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
-import io.github.sspanak.tt9.ime.helpers.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
@@ -80,7 +80,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textField = new TextField(currentInputConnection, field);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
-		appHacks = new AppHacks(settings, connection, field, textField);
+		appHacks = new AppHacks(settings, connection, inputType, textField);
 		suggestionOps.setTextField(textField);
 	}
 
@@ -229,7 +229,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
 	protected int getInputModeId() {
-		if (!inputType.isValid() || (inputType.isLimited() && !appHacks.getAppInfo().isTermux())) {
+		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTermux())) {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 

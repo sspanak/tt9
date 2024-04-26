@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import io.github.sspanak.tt9.ime.helpers.InputType;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.util.Characters;
