@@ -41,14 +41,19 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 
 		// Reset the last key even if we are not going to process it. This is to avoid
 		// detecting a double click, when the user has pressed a different key in between.
-		boolean click = (keyCode == lastKey);
+		boolean doubleClick = (keyCode == lastKey);
 		lastKey = keyCode;
 
 		if (!Key.isNumber(keyCode)) {
 			return super.onKeyDown(keyCode, event);
 		}
 
-		selectOption(Key.codeToNumber(settings, keyCode), click);
+		selectOption(Key.codeToNumber(settings, keyCode), doubleClick);
+
+		if (doubleClick) {
+			resetKeyRepeat();
+		}
+
 		return true;
 	}
 
