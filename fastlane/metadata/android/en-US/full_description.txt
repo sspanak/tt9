@@ -1,5 +1,5 @@
 A 12-key (T9) keyboard for devices with a hardware keypad. It supports predictive text typing in 20+ languages, configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. Best of all, it doesn't spy on you.
 
-Supported languages: Arabic, Bulgarian, Croatian, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Indonesian, Italian, Norwegian, Polish, Portuguese (European and Brazilian), Romanian, Russian, Spanish, Swedish, Ukrainian, Yiddish.
+Supported languages: Arabic, Bulgarian, Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Indonesian, Italian, Kiswahili, Norwegian, Polish, Portuguese (European and Brazilian), Romanian, Russian, Spanish, Swedish, Ukrainian, Yiddish.
 
 IMPORTANT! If you have the Github or the IzzyOnDroid version, you must uninstall it, before installing this one. Android does not allow installing the same app from a different source for security reasons.
