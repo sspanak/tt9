@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -175,7 +176,9 @@ public class TraditionalT9 extends MainViewOps {
 			initUi();
 		}
 
-		DictionaryLoader.autoLoad(this, mLanguage);
+		if (new InputType(connection, field).isNotUs(this)) {
+			DictionaryLoader.autoLoad(this, mLanguage);
+		}
 
 		return true;
 	}

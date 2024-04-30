@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.hacks;
 
+import android.content.Context;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -93,6 +94,10 @@ public class InputType extends StandardInputType {
 	 */
 	public boolean isTermux() {
 		return isAppField("com.termux", EditorInfo.TYPE_NULL) && field.fieldId > 0;
+	}
+
+	public boolean isNotUs(Context context) {
+		return !isAppField(context.getPackageName(), EditorInfo.TYPE_NULL);
 	}
 
 
