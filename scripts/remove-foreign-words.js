@@ -47,7 +47,7 @@ async function work({ isBlacklist, locale, fileName, foreignWordsLocale, foreign
 
 	let lineReader = createInterface({ input: createReadStream(fileName) });
 	for await (const line of lineReader) {
-		originalWords.set(line.toLocaleLowerCase(foreignWordsLocale), line);
+		originalWords.set(line.toLocaleLowerCase(locale), line);
 	}
 
 	const goodWords = new Set();
@@ -58,14 +58,14 @@ async function work({ isBlacklist, locale, fileName, foreignWordsLocale, foreign
 			continue;
 		}
 
-		const wordKey = line.toLocaleLowerCase(locale);
+		const wordKey = line.toLocaleLowerCase(foreignWordsLocale);
 
 		if (isBlacklist && originalWords.has(wordKey)) {
 			originalWords.delete(wordKey);
 		}
 
 		if (!isBlacklist && originalWords.has(wordKey)) {
-			goodWords.add(line);
+			goodWords.add(originalWords.get(wordKey));
 		}
 	}
 
