@@ -14,7 +14,7 @@ Predictive Mode requires a language dictionary to be loaded to provide word sugg
 For more information, [see below](#language-options).
 
 #### Notes for Android 13 or higher
-By default, the notifications for newly installed apps are disabled. If you enable them, TT9 will let you know when there are dictionary updates, and once you choose to install them, it will show the loading progress.
+By default, the notifications for newly installed apps are disabled. It is recommended to enable them. This way you will get notified when there are dictionary updates, and once you choose to install them, TT9 will show the loading progress. New updates are released at most once a month, so you don't have to worry about getting too much spam.
 
 You can enable the notifications by going to Settings → Languages and toggling Dictionary Notifications.
 
@@ -144,6 +144,12 @@ Click on the Traditional T9 launcher icon.
 
 _The actual menu names may vary depending on your phone, Android version, and language._
 
+### Navigating Around the Settings
+If you have a device with a hardware keypad, there are two ways of navigating around the Settings.
+
+1. Use the Up/Down keys for scrolling and OK for opening or activating an option.
+2. Press the 1-9 keys to select the respective option and double-press them to open/activate it. Double-pressing will work no matter where you are on the screen. For example, even if you are at the top double-pressing the 3-key will activate the third option. Finally, the 0-key is a convenient shortcut for scrolling to the end but does not open the last option.
+
 ### Language Options
 
 #### Loading a Dictionary
@@ -175,30 +181,38 @@ Using "Delete", you can search for and delete misspelled words or others that yo
 For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them at the end of each settings screen, under the Compatibility section.
 
 #### Alternative suggestion scrolling method
-On some devices, in Predictive Mode, you may not be able to see all suggestions, or may not be able to scroll the list to the end. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
+_In: Settings → Appearance._
 
-_Available in: Settings → Appearance._
+On some devices, in Predictive Mode, you may not be able may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
+
+
+#### Always on top
+_In: Settings → Appearance._
+
+On some phones, especially Sonim XP3plus (XP3900), Traditional T9 may not appear when you start to type, or it may be partially covered by the soft keys. In other cases, there may be white bars around it. The problem may occur in one particular application or all of them. To prevent it, enable the "Always on Top" option.
 
 #### Key repeat protection
+_In: Settings → Keypad._
+
 CAT S22 Flip and Qin F21 phones are known for their low-quality keypads, which degrade quickly over time and start registering multiple clicks for a single key press. You may notice this when typing or navigating the phone menus.
 
 For CAT phones the recommended setting is 50-75 ms. For Qin F21, try with 20-30 ms. If you are still experiencing the issue, increase the value a bit, but generally try to keep it as low as possible.
 
-_Available in: Settings → Keypad._
 
 _**Note:** The higher the value you set, the slower you will have to type. TT9 will ignore very quick key presses._
 
 _**Note 2:** Besides the above, Qin phones may also fail to detect long presses. Unfortunately, in this case, nothing can be done._
 
 #### Send messages with OK in Facebook Messenger
+_In: Settings → Initial Setup._
+
 Facebook Messenger fails to recognize the OK key on some devices, making it impossible to send messages with it. If you prefer to send messages using OK, instead of Messenger's own send button, enable this option. This ensures sending is possible on any phone.
 
-_Available in: Settings → Initial Setup._
 
 #### Send messages with OK in Google Chat
-Similar to the above, but for Google Chat.
+_In: Settings → Initial Setup._
 
-_Available in: Settings → Initial Setup._
+Similar to the above, but for Google Chat.
 
 _This option is still experimental. It may sometimes fail to detect the "Send" button and click another one. If this starts happening, just close the chat and reopen it._
 
@@ -209,9 +223,9 @@ This happens if you are using one of the small-sized layouts. Currently, there i
 - You can now go back to the settings and disable the on-screen numpad. The emoji and sticker panels will remain accessible until you restart the app or the phone.
 
 #### Traditional T9 does not appear immediately in some applications
-If you have opened an application where you can type, but TT9 does not wake up automatically, just start typing and it will. If it is still invisible, erase all text and press the OK key. Alternatively, pressing the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-) can also bring up TT9, when it is hidden.
+If you have opened an application where you can type, but TT9 does not appear automatically, just start typing and it will. Alternatively, pressing the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-) can also bring up TT9, when it is hidden.
 
-_Just typing something may work on one phone, but pressing OK may be the way on another one. It depends on the Android version and the device model._
+On some devices, TT9 may remain invisible, no matter what you do. In such cases, you have to enable [Always on Top](#always-on-top).
 
 **Long explanation.** The reason for this problem is Android is primarily designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
 
@@ -221,3 +235,11 @@ For these reasons, in order to stick with the expected Android standards, the co
 To mitigate this problem, go to Settings → Appearance, and enable "Status Icon". TT9 should detect Qin F21 and enable the settings automatically, but in case auto-detection fails, or you have disabled the icon for some reason, you need to have it enabled, for all keys to work properly.
 
 **Long explanation.** Qin F21 Pro (and possibly F22, too), has a hotkey application that allows assigning Volume Up and Volume Down functions to number keys. By default, the hotkey manager is enabled, and holding 2-key increases the volume, holding 8-key decreases it. However, when there is no status icon, the manager assumes no keyboard is active and adjusts the volume, instead of letting Traditional T9 handle the key and type a number. So, enabling the icon just bypasses the hotkey manager and everything works fine.
+
+#### General problems on Xiaomi phones
+
+Xiaomi has introduced several non-standard permissions on their phones, which prevent Traditional T9's virtual on-screen keyboard from working properly. More precisely, the "Show Settings" and the "Add Word" keys may not perform their respective functions. To fix this, you must grant the "Display pop-up window" and "Display pop-up window while running in the background" permissions to TT9 from your phone's settings. [This guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) for another application explains how to do it.
+
+It is also highly recommended to grant the "Permanent notification" permission. This is similar to the "Notifications" permission introduced in Android 13. See [above](#Notes-for-Android-13-or-higher) for more information on why you need it.
+
+_The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._

@@ -39,7 +39,7 @@
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>
 	<string name="pref_auto_text_case_summary">Iniciar automaticamente as frases com letras maiúsculas.</string>
-	<string name="pref_auto_capitals_after_newline">etras maiúsculas automáticas em cada linha</string>
+	<string name="pref_auto_capitals_after_newline">Letras maiúsculas automáticas em cada linha</string>
 	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
@@ -75,7 +75,7 @@
 	<string name="function_reset_keys_done">Atalhos Restaurados.</string>
 
 	<string name="setup_keyboard_status">Status</string>
-	<string name="setup_default_keyboard">" Selecionar teclado padrão"</string>
+	<string name="setup_default_keyboard">Selecionar teclado padrão</string>
 	<string name="setup_tt9_on">%1$s está ativado</string>
 	<string name="setup_tt9_off">%1$s está desativado</string>
 	<string name="setup_click_here_to_enable">Clique aqui para ativar TT9 nas configurações do Android.</string>
