@@ -5,8 +5,17 @@ A 12-key (T9) keyboard for devices with a hardware keypad. It supports predictiv
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
 ## 📷 Screenshots
-<img src="screenshots/1.png" width="160" height="177"> <img src="screenshots/3.png" width="160" height="177"> <img src="screenshots/5.png" width="160" height="177">
-<img src="screenshots/2.png" width="160" height="177"> <img src="screenshots/4.png" width="160" height="177">
+<table>
+    <tr>
+        <td rowspan="2"> <img src="screenshots/3.png"> </td>
+        <td> <img src="screenshots/1.png"> </td>
+        <td rowspan="2"> <img src="screenshots/5.png"> </td>
+        <td rowspan="2"> <img src="screenshots/4.png"> </td>
+    </tr>
+    <tr>
+        <td> <img src="screenshots/2.png"> </td>
+    </tr>
+</table>
 
 ## 📦 Install
 
