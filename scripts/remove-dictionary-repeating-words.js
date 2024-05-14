@@ -66,11 +66,15 @@ async function removeRepeatingWords({ fileName, locale, preferLowercase }) {
 			continue;
 		}
 
-		if (!wordMap.has(lowercaseKey)) {
-			wordMap.set(lowercaseKey, line);
+		if (wordMap.has(lowercaseKey) && wordMap.get(lowercaseKey) !== line) {
+			if (preferLowercase && lowercaseKey === line) {
+				wordMap.set(lowercaseKey, line);
+			} else if (!preferLowercase && lowercaseKey !== line) {
+				wordMap.set(lowercaseKey, line);
+			}
 		}
 
-		if (!preferLowercase && wordMap.has(lowercaseKey) && !wordMap.has(line)) {
+		if (!wordMap.has(lowercaseKey)) {
 			wordMap.set(lowercaseKey, line);
 		}
 	}
