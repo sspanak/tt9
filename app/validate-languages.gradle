@@ -119,13 +119,16 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 		errorMsg += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
 	}
 
-	return [alphabet, dictionaryFile, errorCount, errorMsg]
+	String[] localeParts = localeString.split(("[-_]"))
+	Locale locale = new Locale(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
+
+	return [alphabet, locale, dictionaryFile, errorCount, errorMsg]
 }
 
 
-static def parseDictionaryFile(String alphabet, File dictionaryFile, int MAX_ERRORS, String CSV_DELIMITER, int MAX_WORD_FREQUENCY) {
+static def parseDictionaryFile(String alphabet, Locale locale, File dictionaryFile, int MAX_ERRORS, String CSV_DELIMITER, int MAX_WORD_FREQUENCY) {
 	final GEOGRAPHICAL_NAME = ~"[A-Z]\\w+-[^\\n]+"
-	final VALID_CHARS = alphabet.toUpperCase() == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase()}\\-\\.']+\$"
+	final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase(locale)}\\-\\.']+\$"
 	final int MAX_SORTING_ERRORS = Math.ceil(MAX_ERRORS / 10)
 
 	def uniqueWords = [:]
@@ -205,14 +208,14 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 			return "Too many errors! Skipping: ${languageFile}\n"
 		}
 
-		def (alphabet, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageFile(languageFile, dictionariesDir)
+		def (alphabet, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageFile(languageFile, dictionariesDir)
 		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
 			outputFile.text += "${contentHash} INVALID"
 			return langFileErrorMsg
 		}
 
-		def (dictionaryErrorMsg, dictionaryErrorCount) = parseDictionaryFile(alphabet, dictionaryFile, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
+		def (dictionaryErrorMsg, dictionaryErrorCount) = parseDictionaryFile(alphabet, locale, dictionaryFile, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
 		errorCount += dictionaryErrorCount
 		if (!dictionaryErrorMsg.isEmpty()) {
 			outputFile.text += "${contentHash} INVALID"
