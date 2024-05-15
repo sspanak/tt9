@@ -34,6 +34,7 @@ cw	44
 cx	81
 d'
 e-
+dB
 da	25
 dc	1
 Ed
@@ -2044,8 +2045,8 @@ Bena
 CDMA	87
 bema	49
 cDNA	71
-Bend	107
 Bene	64
+bend	107
 Benh
 beng
 beni	43
@@ -2489,7 +2490,7 @@ coma	104
 comb	93
 conc
 Anne	115
-Bond	108
+bond	108
 bone	91
 come	160
 cone	109
@@ -2561,9 +2562,9 @@ cosh
 Bork	34
 Cork	90
 bosk	1
-Born	122
 Coro
 Coso
+born	122
 corm
 corn	116
 BMPs	61
@@ -5064,7 +5065,7 @@ Kobi
 Koch
 Loch	87
 loci	87
-Jock	79
+jock	79
 lock	93
 Joan	106
 Joao
@@ -5432,10 +5433,10 @@ obit	44
 Nagy	72
 MCLA	59
 Maja
-Mala
+mala
 naja	43
-Male	97
 make	166
+male	97
 Mali	90
 Makk
 mall	121
@@ -5689,7 +5690,7 @@ ogee
 MIDI	72
 Niel
 mien	53
-MIDs	41
+mids	41
 mies	40
 nigh	74
 Ohio	126
@@ -6913,8 +6914,8 @@ pogy
 Soka
 pola	39
 sola	67
-Pole	96
 poke	81
+pole	96
 role	144
 rolf	81
 soke
@@ -8239,10 +8240,10 @@ yins	10
 Zhou	96
 winy	10
 Wisc	34
-Wise	94
 wipe	94
 wire	122
 wisd
+wise	94
 yipe	1
 Ziph
 wish	123
@@ -8636,7 +8637,7 @@ banks	102
 Banky
 canna	51
 canoe	101
-Canon	96
+canon	96
 banns	59
 Cammy	10
 canny	64
@@ -9879,8 +9880,8 @@ amigo	54
 coign
 boggy	75
 Anika
-Angle	87
 Bohle
+angle	87
 anile	1
 bogle	27
 Anglo	112
@@ -10296,8 +10297,8 @@ bragi
 Arbil
 brail	21
 Brahm
-Brain	94
 Crain
+brain	94
 brags	67
 crags	78
 archt
@@ -10310,8 +10311,8 @@ araks
 Braly
 Asama	47
 Asana
-Crane	94
 brand	95
+crane	94
 crank	93
 Arbor	72
 brans	15
@@ -11373,7 +11374,7 @@ deist	63
 feist
 Edith	95
 edits	94
-Deity	68
+deity	68
 Dejan
 delay	120
 Dekel
@@ -11574,8 +11575,8 @@ filmy	47
 filth	76
 filum
 Dinah	80
-Finch	83
 dhobi	40
+finch	83
 final	155
 dinar	80
 dined	78
@@ -13970,7 +13971,7 @@ laksa	57
 Jakub
 Kajus
 Jamba
-Lance	95
+lance	95
 Jambi	56
 Lanai	28
 Laoag
@@ -14728,7 +14729,7 @@ Loder
 knees	104
 lodes	55
 Jodie	72
-Lodge	104
+lodge	104
 Joell	30
 knell	70
 knelt	74
@@ -15454,7 +15455,7 @@ maple	102
 Marji	15
 Marko	77
 Marlo	70
-Marks	91
+marks	91
 marls	54
 masks	105
 narks	10
@@ -15625,7 +15626,7 @@ odder	46
 offer	138
 Neddy	15
 needy	95
-Media	119
+media	119
 medic	83
 Oddie
 medit
@@ -15888,8 +15889,8 @@ mille	63
 Milli	55
 Nikki	87
 nikko	53
-Mills	108
 milks	54
+mills	108
 Milly	64
 milky	78
 nilly	46
@@ -16072,7 +16073,7 @@ Omaha	101
 mocha	55
 omagh	67
 Mobil	71
-Noble	96
+noble	96
 mocks	84
 nocks	28
 nobly	65
@@ -16842,8 +16843,8 @@ sands	97
 saner	41
 Ramey
 Randy	50
-Sandy	101
 samey	23
+sandy	101
 panga
 panic	106
 ramie	49
@@ -17608,7 +17609,7 @@ ridgy	1
 rifle	121
 shelf	106
 sidle	28
-Shell	95
+shell	95
 riels
 Shena	18
 siena	85
@@ -18458,10 +18459,10 @@ snubs	52
 roved	39
 snuff	82
 Rouen	82
-Rover	89
 poufs	23
 rotes	55
 roues	23
+rover	89
 roves	30
 Povey
 Rouge	75
@@ -18506,7 +18507,7 @@ potty	62
 pouty	40
 Souza
 Royce	94
-Royal	133
+royal	133
 rowan	63
 Roxas
 soyas	1
@@ -19171,7 +19172,7 @@ swell	91
 pydna
 Swere
 swept	115
-Swift	96
+swift	96
 swigs	21
 swill	48
 swine	88
@@ -20631,7 +20632,7 @@ Zelig	50
 Zelin
 Wella
 Zella
-Wells	107
+wells	107
 yells	88
 welly
 Zelma	1
@@ -22201,7 +22202,7 @@ betake	39
 cetane
 betels	1
 bevels	44
-Advent	77
+advent	77
 adverb	78
 cetera	77
 Bevern
@@ -24000,7 +24001,7 @@ brakes	110
 crakes
 Apalis
 Apalit
-Branch	111
+branch	111
 Aramco	60
 Branco
 crambo	15
@@ -24229,8 +24230,8 @@ aphids	78
 ashier	2
 Brigid	65
 Briggs	89
-Bright	94
 aright	45
+bright	94
 brigit	48
 Argill
 Argils	1
@@ -24891,8 +24892,8 @@ burney	70
 Burnie
 cupola	90
 busoni	61
-Aurora	73
 atropa	15
+aurora	73
 Aurore	18
 aurous	15
 bursae	30
@@ -29256,7 +29257,7 @@ Ishtar	66
 grivet	28
 iritis
 gritty	89
-Island	146
+island	146
 islams	10
 islets	93
 GSkill
@@ -31762,7 +31763,7 @@ Nantes	83
 mantes	1
 mantic	39
 mantis	73
-Mantle	74
+mantle	74
 Manton	61
 mantra	91
 manure	87
@@ -31834,8 +31835,8 @@ Marika	56
 Marijo	30
 Marilu
 Marina	96
-Marine	119
 Narine
+marine	119
 oaring	18
 Marino	90
 Marion	102
@@ -31930,7 +31931,7 @@ Mastek
 marvel	80
 Marven	32
 marten	63
-Master	119
+master	119
 Marudu
 obstet
 Martha	101
@@ -32912,8 +32913,8 @@ Nomura	71
 Mooyah
 Monywa
 moraea
-Mosaic	79
 morcha	36
+mosaic	79
 morbid	82
 morale	106
 morals	96
@@ -33113,7 +33114,7 @@ Orbitz	46
 Oralee
 orally	93
 opcode
-Orange	113
+orange	113
 orangs	1
 orangy	27
 Osborn	84
@@ -34802,8 +34803,8 @@ senile	77
 semina	27
 remind	97
 Remini
-Senior	116
 senhor	45
+senior	116
 remise	40
 remiss	45
 Semite	57
@@ -37186,9 +37187,9 @@ quartz	101
 stated	145
 staved	63
 Staten	89
-States	148
 quaver	57
 stater	51
+states	148
 staves	78
 suaver	10
 static	113
@@ -38316,7 +38317,7 @@ temper	101
 tenser	38
 tenses	84
 tenpin	51
-Temple	118
+temple	118
 tempos	80
 tensor	105
 tempts	64
@@ -39552,7 +39553,7 @@ turgot	51
 tusked	53
 tuples	78
 tusker	33
-Turkey	95
+turkey	95
 Turkic	91
 turned	143
 Turner	67
@@ -39878,7 +39879,7 @@ Yasuzo
 Yataro
 Wateen
 Wavell
-Waters	98
+waters	98
 wavers	56
 watery	82
 wavery	1
@@ -43244,7 +43245,7 @@ almsmen	25
 clopped
 blossom	88
 Clopton
-Closure	122
+closure	122
 blotchy	53
 clouded	81
 clovers	58
@@ -44815,7 +44816,7 @@ briefer	63
 briefly	133
 bridged	86
 Bridger	70
-Bridges	93
+bridges	93
 Bridget	84
 Bridgit
 aridity	67
@@ -46469,7 +46470,7 @@ defence	127
 effendi	28
 defends	96
 defense	135
-Federal	124
+federal	124
 Federer
 deficit	110
 defiant	85
@@ -52534,7 +52535,7 @@ libeler	1
 licence	114
 license	127
 licente
-Liberal	126
+liberal	126
 Liberec	62
 Liberia	90
 liberty	111
@@ -53478,7 +53479,7 @@ jussive	30
 lusters	25
 justest	25
 lustful	70
-Justice	123
+justice	123
 lustier	10
 justify	107
 lustily	42
@@ -54170,7 +54171,7 @@ martens	62
 Masters	109
 mastery	99
 mastich	1
-Martial	88
+martial	88
 Martian	60
 mastics	25
 Nasugbu
@@ -55110,7 +55111,7 @@ mirrors	107
 misstep	58
 misrule	60
 mistake	116
-Nirvana	74
+nirvana	74
 misters	1
 mistier	10
 mistily	10
@@ -66535,7 +66536,7 @@ actinias
 actinide
 actinism
 actinium	33
-Catholic	94
+catholic	94
 actioned	47
 cationic	41
 actinoid
@@ -75337,8 +75338,8 @@ garpikes
 harriman	76
 gassings	44
 harpings	1
-Garrison	90
 Harrison	109
+garrison	90
 harpists	57
 hassling	43
 hassocks	18
@@ -76602,7 +76603,7 @@ hookless	28
 hooklets	35
 hooknose	30
 hookworm	64
-Innocent	89
+innocent	89
 immobile	83
 gonocyte
 immodest	55
@@ -78959,7 +78960,7 @@ Lowdales
 lozenges	68
 lowering	104
 joyfully	72
-Lowlands	70
+lowlands	70
 lowlifes	44
 jowliest
 lowliest	50
@@ -79138,7 +79139,7 @@ lutenist	68
 luteolin
 lutetium	61
 Lutheran	104
-Luthiers
+luthiers
 Kutztown	49
 kuwaitis	45
 luxation	54
@@ -81504,7 +81505,7 @@ overgrow	41
 overhung	53
 overlaid	87
 overlain	77
-Overland	98
+overland	98
 overlaps	96
 overlays	77
 overleaf	30
@@ -87093,7 +87094,7 @@ squealer	23
 squeegee	59
 spudding	1
 Spuddler	1
-Prudence	69
+prudence	69
 Prudente
 squeezed	90
 squeezer	41
@@ -88044,7 +88045,7 @@ superfly	15
 superdog	23
 Surfside	55
 supering	1
-Superior	101
+superior	101
 superjet	1
 Supermac
 supernal	41
@@ -91708,7 +91709,7 @@ Wonderer	1
 woodhens	1
 woodiest
 Woodhull	55
-Woodland	113
+woodland	113
 woodlark	18
 Woodlawn	77
 zoneless	1
@@ -95333,7 +95334,7 @@ announcer	112
 announces	104
 communard	34
 communing	51
-Communion	88
+communion	88
 communism	87
 communist	117
 community	153
@@ -95512,7 +95513,7 @@ convicted	123
 convinced	124
 convincer	15
 convinces	106
-Continent	82
+continent	82
 continual	99
 continued	153
 continuer	32
@@ -95978,7 +95979,7 @@ ascendant	75
 ascendent
 ascenders	53
 ascending	101
-Ascension	82
+ascension	82
 ascensive
 Bradshaws	32
 ascertain	92
@@ -97899,7 +97900,7 @@ delftware	42
 delicates	10
 Feliciano
 felicific	31
-Delicious	65
+delicious	65
 delighted	99
 Delighter	1
 delineate	76
@@ -101639,7 +101640,7 @@ Highfield	67
 highflier
 Highflyer	40
 highjacks
-Highlands	97
+highlands	97
 giggliest
 highlight	113
 highrises
@@ -107773,7 +107774,7 @@ paranoias	10
 paranoids	10
 scramming	18
 paramorph
-Paramount	95
+paramount	95
 paramours	46
 sapanwood	1
 paranymph
@@ -107869,7 +107870,7 @@ Parintins
 parisians	59
 scripting	95
 scription	1
-Scripture	85
+scripture	85
 scrivener	53
 Saskatoon	87
 parlaying	37
@@ -117982,7 +117983,7 @@ alabasters	10
 blackballs	10
 Blackbeard	61
 Blackadder	74
-BlackBerry	73
+blackberry	73
 blackbirds	66
 blackcocks
 blackboard	74
@@ -122503,7 +122504,7 @@ enveloping	75
 envenoming	41
 enterotomy
 foudroyant	47
-Enterprise	104
+enterprise	104
 entertains	74
 dovetailed	61
 enticement	58
@@ -130174,7 +130175,7 @@ perishably
 peripheral	107
 periphrase	1
 resistable	1
-Resistance	95
+resistance	95
 resistants	43
 peripteral
 resistible	30
@@ -130445,7 +130446,7 @@ revealable	1
 revealings
 revealment
 revegetate	38
-Revelation	87
+revelation	87
 revelatory	66
 revellings	1
 revengeful	49
@@ -132388,7 +132389,7 @@ protestors	86
 prothallus
 prothalmia
 providable
-Providence	77
+providence	77
 provincial	131
 provisions	120
 provitamin	45
@@ -151759,7 +151760,7 @@ consentingly	1
 cooperatives	93
 conservation	123
 conservatism	95
-Conservative	117
+conservative	117
 conservators	67
 conservatory	94
 consequences	119
@@ -151822,7 +151823,7 @@ conquistador	77
 constituency	129
 constituents	102
 constituting	95
-Constitution	117
+constitution	117
 constitutive	80
 constitutors	1
 amortization	69
@@ -157586,7 +157587,7 @@ restrengthen	43
 restrictedly	15
 restrictions	121
 resurrecting	79
-Resurrection	86
+resurrection	86
 resuspension	28
 restructured	96
 restructures	46
