@@ -27,6 +27,10 @@ public class Characters {
 		",", ".", "-", "„", "“", "(", ")", "[", "]", "&", "§", "~", "\"", "`", "'", ";", ":", "!", "?"
 	));
 
+	final public static ArrayList<String> PunctuationGreek = new ArrayList<>(Arrays.asList(
+		",", ".", "-", "«", "»", "(", ")", "[", "]", "&", "§", "~", "\"", "`", "'", "·", ":", "!", ";"
+	));
+
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
 		"$", "€", "₹", "₿", "₩", "¢", "¤", "₺", "₱", "¥", "₽", "£"
 	));
