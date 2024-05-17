@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
@@ -100,7 +101,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		for (Preference goToScreen : screens) {
 			if (goToScreen != null) {
-				goToScreen.setEnabled(isTT9On);
+				goToScreen.setEnabled(isTT9On || DeviceInfo.isRobo());
 			}
 		}
 	}
