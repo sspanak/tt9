@@ -17,6 +17,7 @@ public class Mode123 extends ModePassthrough {
 
 	@Override public final boolean is123() { return true; }
 	@Override public boolean isPassthrough() { return false; }
+	@Override public int getSequenceLength() { return digitSequence.length(); }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
