@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.Characters;
@@ -27,7 +28,15 @@ public class SoftBackspaceKey extends SoftKey {
 
 	@Override
 	final protected boolean handleHold() {
-		return validateTT9Handler() && tt9.onBackspace();
+		if (validateTT9Handler() && !tt9.onBackspace()) {
+			// Limited or special numeric field (e.g. formatted money or dates) cannot always return
+			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
+			// in fallback to the default hardware key action. Here we simulate the hardware BACKSPACE.
+			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
