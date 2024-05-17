@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -53,14 +54,14 @@ abstract public class StandardInputType {
 	public boolean isDecimal() {
 		return
 			isNumeric()
-			&& (field.inputType & android.text.InputType.TYPE_MASK_FLAGS) == android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
+			&& (field.inputType & android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL) == android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
 	}
 
 
 	public boolean isSignedNumber() {
 		return
 			isNumeric()
-			&& (field.inputType & android.text.InputType.TYPE_MASK_FLAGS) == android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
+			&& (field.inputType & InputType.TYPE_NUMBER_FLAG_SIGNED) == android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
 	}
 
 
