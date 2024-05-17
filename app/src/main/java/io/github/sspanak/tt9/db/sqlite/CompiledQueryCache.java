@@ -60,4 +60,12 @@ class CompiledQueryCache {
 	static long simpleQueryForLong(SQLiteDatabase db, String sql, long defaultValue) {
 		return getInstance(db).simpleQueryForLong(sql, defaultValue);
 	}
+
+	static String simpleQueryForString(SQLiteDatabase db, String sql, String defaultValue) {
+		try {
+			return get(db, sql).simpleQueryForString();
+		} catch (SQLiteDoneException e) {
+			return defaultValue;
+		}
+	}
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -274,11 +275,13 @@ public class ReadOps {
 	}
 
 
-	public int getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
-		return (int) CompiledQueryCache.simpleQueryForLong(
+	public NormalizationList getNextInNormalizationQueue(@NonNull SQLiteDatabase db) {
+		String res = CompiledQueryCache.simpleQueryForString(
 			db,
-			"SELECT langId FROM " + Tables.LANGUAGES_META + " WHERE normalizationPending = 1 LIMIT 1",
-			-1
+			"SELECT langId || ',' || positionsToNormalize FROM " + Tables.LANGUAGES_META + " WHERE positionsToNormalize IS NOT NULL LIMIT 1",
+			null
 		);
+
+		return new NormalizationList(res);
 	}
 }
