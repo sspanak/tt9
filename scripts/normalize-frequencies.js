@@ -50,7 +50,7 @@ async function normalize({ fileName, maxAllowedFrequency }) {
 	const normalizationRatio = maxAllowedFrequency / Math.log(maxWordFrequency);
 
 	for (word of words) {
-		word.frequency = Math.ceil(Math.log(word.frequency) * normalizationRatio);
+		word.frequency = word.frequency > 0 ? Math.ceil(Math.log(word.frequency) * normalizationRatio) : 0;
 	}
 
 	return words;
