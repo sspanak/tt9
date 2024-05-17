@@ -35,33 +35,33 @@ abstract public class StandardInputType {
 	 * More info: <a href="https://developer.android.com/reference/android/text/InputType#TYPE_NULL">android docs</a>.
 	 */
 	public boolean isLimited() {
-		return field != null && field.inputType == android.text.InputType.TYPE_NULL;
+		return field != null && field.inputType == InputType.TYPE_NULL;
 	}
 
 
 	public boolean isPhoneNumber() {
 		return
 			field != null
-			&& (field.inputType & android.text.InputType.TYPE_MASK_CLASS) == android.text.InputType.TYPE_CLASS_PHONE;
+			&& (field.inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_PHONE;
 	}
 
 	public boolean isNumeric() {
 		return
 			field != null
-			&& (field.inputType & android.text.InputType.TYPE_MASK_CLASS) == android.text.InputType.TYPE_CLASS_NUMBER;
+			&& (field.inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_NUMBER;
 	}
 
 	public boolean isDecimal() {
 		return
 			isNumeric()
-			&& (field.inputType & android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL) == android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL;
+			&& (field.inputType & InputType.TYPE_NUMBER_FLAG_DECIMAL) == InputType.TYPE_NUMBER_FLAG_DECIMAL;
 	}
 
 
 	public boolean isSignedNumber() {
 		return
 			isNumeric()
-			&& (field.inputType & InputType.TYPE_NUMBER_FLAG_SIGNED) == android.text.InputType.TYPE_NUMBER_FLAG_SIGNED;
+			&& (field.inputType & InputType.TYPE_NUMBER_FLAG_SIGNED) == InputType.TYPE_NUMBER_FLAG_SIGNED;
 	}
 
 
@@ -73,11 +73,11 @@ abstract public class StandardInputType {
 			return false;
 		}
 
-		int variation = field.inputType & android.text.InputType.TYPE_MASK_VARIATION;
+		int variation = field.inputType & InputType.TYPE_MASK_VARIATION;
 
 		return
-			variation == android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-			|| variation == android.text.InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
+			variation == InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_EMAIL_ADDRESS;
 	}
 
 
@@ -86,17 +86,17 @@ abstract public class StandardInputType {
 			return false;
 		}
 
-		int variation = field.inputType & android.text.InputType.TYPE_MASK_VARIATION;
+		int variation = field.inputType & InputType.TYPE_MASK_VARIATION;
 
 		return
-			variation == android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-			|| variation == android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-			|| variation == android.text.InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
+			variation == InputType.TYPE_TEXT_VARIATION_PASSWORD
+			|| variation == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+			|| variation == InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD;
 	}
 
 
 	boolean isPersonName() {
-		return field != null && (field.inputType & android.text.InputType.TYPE_MASK_VARIATION) == android.text.InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
+		return field != null && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
 	}
 
 
@@ -106,7 +106,7 @@ abstract public class StandardInputType {
 
 
 	public boolean isText() {
-		return field != null && (field.inputType & android.text.InputType.TYPE_MASK_CLASS) == android.text.InputType.TYPE_CLASS_TEXT;
+		return field != null && (field.inputType & InputType.TYPE_MASK_CLASS) == InputType.TYPE_CLASS_TEXT;
 	}
 
 
@@ -116,7 +116,7 @@ abstract public class StandardInputType {
 
 
 	private boolean isUri() {
-		return field != null && (field.inputType & android.text.InputType.TYPE_MASK_VARIATION) == android.text.InputType.TYPE_TEXT_VARIATION_URI;
+		return field != null && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_URI;
 	}
 
 
@@ -142,16 +142,16 @@ abstract public class StandardInputType {
 			return allowedModes;
 		}
 
-		switch (field.inputType & android.text.InputType.TYPE_MASK_CLASS) {
-			case android.text.InputType.TYPE_CLASS_NUMBER:
-			case android.text.InputType.TYPE_CLASS_DATETIME:
-			case android.text.InputType.TYPE_CLASS_PHONE:
+		switch (field.inputType & InputType.TYPE_MASK_CLASS) {
+			case InputType.TYPE_CLASS_NUMBER:
+			case InputType.TYPE_CLASS_DATETIME:
+			case InputType.TYPE_CLASS_PHONE:
 				// Numbers, dates and phone numbers default to the numeric keyboard,
 				// with no extra features.
 				allowedModes.add(InputMode.MODE_123);
 				return allowedModes;
 
-			case android.text.InputType.TYPE_CLASS_TEXT:
+			case InputType.TYPE_CLASS_TEXT:
 				// This is general text editing. We will default to the
 				// normal alphabetic keyboard, and assume that we should
 				// be doing predictive text (showing candidates as the
@@ -178,7 +178,7 @@ abstract public class StandardInputType {
 	 * editor state.
 	 */
 	public int determineTextCase() {
-		if (connection == null || field == null || field.inputType == android.text.InputType.TYPE_NULL) {
+		if (connection == null || field == null || field.inputType == InputType.TYPE_NULL) {
 			return InputMode.CASE_UNDEFINED;
 		}
 
@@ -190,10 +190,10 @@ abstract public class StandardInputType {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		switch (field.inputType & android.text.InputType.TYPE_MASK_FLAGS) {
-			case android.text.InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS:
+		switch (field.inputType & InputType.TYPE_MASK_FLAGS) {
+			case InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS:
 				return InputMode.CASE_UPPER;
-			case android.text.InputType.TYPE_TEXT_FLAG_CAP_WORDS:
+			case InputType.TYPE_TEXT_FLAG_CAP_WORDS:
 				return InputMode.CASE_CAPITALIZE;
 		}
 
