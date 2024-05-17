@@ -32,6 +32,7 @@ public class LogcatExporter extends AbstractExporter {
 	}
 
 
+	@NonNull
 	public static String getLogs(boolean includeSystemLogs) {
 		StringBuilder log = new StringBuilder();
 		try {

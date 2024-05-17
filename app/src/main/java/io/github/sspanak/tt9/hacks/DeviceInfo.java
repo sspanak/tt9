@@ -9,7 +9,13 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
+import java.util.regex.Pattern;
+
+import io.github.sspanak.tt9.db.exporter.LogcatExporter;
+
 public class DeviceInfo {
+	private static Boolean isRobo = null;
+
 	public static boolean noKeyboard(Context context) {
 		return
 			context.getResources().getConfiguration().keyboard == Configuration.KEYBOARD_NOKEYS
@@ -27,6 +33,15 @@ public class DeviceInfo {
 
 	public static boolean isQinF21() {
 		return Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
+	}
+
+	public static boolean isRobo() {
+		if (isRobo == null) {
+			Pattern roboLog = Pattern.compile("\\d+\\s+\\d+\\s+\\|\\s+Robo\\W");
+			isRobo = roboLog.matcher(LogcatExporter.getLogs(false)).find();
+		}
+
+		return isRobo;
 	}
 
 	public static boolean isSonim() {

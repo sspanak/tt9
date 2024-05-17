@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.setup;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.util.SystemSettings;
@@ -20,7 +21,7 @@ public class SetupScreen extends BaseScreenFragment {
 	public void onCreate() {
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 		createKeyboardSection(isTT9On);
-		createHacksSection(isTT9On);
+		createHacksSection(isTT9On | DeviceInfo.isRobo());
 		resetFontSize(false);
 	}
 
@@ -47,15 +48,15 @@ public class SetupScreen extends BaseScreenFragment {
 		}
 	}
 
-	private void createHacksSection(boolean isTT9On) {
+	private void createHacksSection(boolean isEnabled) {
 		Preference hackGoogleChat = findPreference("pref_hack_google_chat");
 		if (hackGoogleChat != null) {
-			hackGoogleChat.setEnabled(isTT9On);
+			hackGoogleChat.setEnabled(isEnabled);
 		}
 
 		Preference hackFBMessenger = findPreference("pref_hack_fb_messenger");
 		if (hackFBMessenger != null) {
-			hackFBMessenger.setEnabled(isTT9On);
+			hackFBMessenger.setEnabled(isEnabled);
 		}
 	}
 }
