@@ -303,10 +303,8 @@ public abstract class HotkeyHandler extends TypingHandler {
 		int next = (previous + 1) % mEnabledLanguages.size();
 		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), mEnabledLanguages.get(next));
 
+		// validate and save it for the next time
 		validateLanguages();
-
-		// save it for the next time
-		settings.saveInputLanguage(mLanguage.getId());
 	}
 
 

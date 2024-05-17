@@ -52,15 +52,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		setInputField(connection, field);
 
-		// in case we are back from Settings screen, update the language list
-		int oldLang = mLanguage != null ? mLanguage.getId() : -1;
-		mEnabledLanguages = settings.getEnabledLanguageIds();
-		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), settings.getInputLanguage());
-		validateLanguages();
+		// 1. In case we are back from Settings screen, update the language list
+		// 2. If the connected app hints it is in a language different than the current one,
+		// we try to switch.
+		boolean languageChanged = determineLanguage();
 
 		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
 		// or weirdly functioning apps, such as the Qin SMS app
-		if (restart && oldLang == mLanguage.getId() && mInputMode.getId() == getInputModeId()) {
+		if (restart && languageChanged && mInputMode.getId() == getInputModeId()) {
 			return false;
 		}
 
@@ -88,9 +87,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void validateLanguages() {
 		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(getApplicationContext(), mEnabledLanguages);
 		mLanguage = InputModeValidator.validateLanguage(getApplicationContext(), mLanguage, mEnabledLanguages);
-
-		settings.saveEnabledLanguageIds(mEnabledLanguages);
 		settings.saveInputLanguage(mLanguage.getId());
+		settings.saveEnabledLanguageIds(mEnabledLanguages);
 	}
 
 
@@ -204,6 +202,27 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
+	}
+
+
+	/**
+	 * determineLanguage
+	 * Restore the last language or auto-select a more appropriate one, if the application hints so.
+	 * In case the settings are not valid, we will fallback to the default language.
+	 */
+	private boolean determineLanguage() {
+		mEnabledLanguages = settings.getEnabledLanguageIds();
+
+		int oldLang = mLanguage != null ? mLanguage.getId() : -1;
+		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), settings.getInputLanguage());
+		validateLanguages();
+
+		Language appLanguage = textField.getLanguage(getApplicationContext(), mEnabledLanguages);
+		if (appLanguage != null) {
+			mLanguage = appLanguage;
+		}
+
+		return oldLang != mLanguage.getId();
 	}
 
 

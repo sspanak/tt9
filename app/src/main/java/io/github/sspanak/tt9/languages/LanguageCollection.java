@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
@@ -50,6 +51,17 @@ public class LanguageCollection {
 		Language language = getByLocale(context, SystemSettings.getLocale());
 		language = language == null ? getByLocale(context, "en") : language;
 		return language == null ? new NullLanguage(context) : language;
+	}
+
+	@Nullable
+	public static NaturalLanguage getByLanguageCode(Context context, String languageCode) {
+		for (NaturalLanguage lang : getInstance(context).languages.values()) {
+			if (lang.getLocale().getLanguage().equals(new Locale(languageCode).getLanguage())) {
+				return lang;
+			}
+		}
+
+		return null;
 	}
 
 	@Nullable
