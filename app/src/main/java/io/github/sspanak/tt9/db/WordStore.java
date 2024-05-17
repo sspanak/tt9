@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -224,7 +225,7 @@ public class WordStore {
 			}
 
 			if (newTopFrequency > SettingsStore.WORD_FREQUENCY_MAX) {
-				scheduleNormalization(language);
+				scheduleNormalization(language, topWordPositions);
 			}
 
 			Logger.d(LOG_TAG, "Changed frequency of '" + word + "' to: " + newTopFrequency + ". Time: " + Timer.stop(LOG_TAG) + " ms");
@@ -243,11 +244,11 @@ public class WordStore {
 
 		try {
 			sqlite.beginTransaction();
-			int nextLangId = readOps.getNextInNormalizationQueue(sqlite.getDb());
-			UpdateOps.normalize(sqlite.getDb(), nextLangId);
+			NormalizationList normalizationList = readOps.getNextInNormalizationQueue(sqlite.getDb());
+			UpdateOps.normalize(sqlite.getDb(), normalizationList);
 			sqlite.finishTransaction();
 
-			String message = nextLangId > 0 ? "Normalized language: " + nextLangId : "No languages to normalize";
+			String message = normalizationList.langId > 0 ? "Normalized language: " + normalizationList.langId + ", positions: " + normalizationList.positions : "No languages to normalize";
 			Logger.d(LOG_TAG, message + ". Time: " + Timer.stop(LOG_TAG) + " ms");
 		} catch (Exception e) {
 			sqlite.failTransaction();
@@ -256,9 +257,9 @@ public class WordStore {
 	}
 
 
-	public void scheduleNormalization(Language language) {
-		if (language != null && !(language instanceof NullLanguage) && checkOrNotify()) {
-			UpdateOps.scheduleNormalization(sqlite.getDb(), language);
+	public void scheduleNormalization(Language language, String positions) {
+		if (language != null && !(language instanceof NullLanguage) && positions != null && !positions.isEmpty() && checkOrNotify()) {
+			UpdateOps.scheduleNormalization(sqlite.getDb(), language, positions);
 		}
 	}
 

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -37,25 +38,26 @@ public class UpdateOps {
 	}
 
 
-	public static void normalize(@NonNull SQLiteDatabase db, int langId) {
-		if (langId <= 0) {
+	public static void normalize(@NonNull SQLiteDatabase db, NormalizationList normalizationList) {
+		if (normalizationList.langId <= 0 || normalizationList.positions == null || normalizationList.positions.isEmpty()) {
 			return;
 		}
 
-		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.getWords(langId) + " SET frequency = frequency / ?");
-		query.bindLong(1, SettingsStore.WORD_FREQUENCY_NORMALIZATION_DIVIDER);
-		query.execute();
+		db.execSQL(
+			"UPDATE " + Tables.getWords(normalizationList.langId) +
+			" SET frequency = frequency / " + SettingsStore.WORD_FREQUENCY_NORMALIZATION_DIVIDER +
+			" WHERE position IN (" + normalizationList.positions + ")"
+		);
 
-		query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
-		query.bindLong(1, 0);
-		query.bindLong(2, langId);
+		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET positionsToNormalize = NULL WHERE langId = ?");
+		query.bindLong(1, normalizationList.langId);
 		query.execute();
 	}
 
 
-	public static void scheduleNormalization(@NonNull SQLiteDatabase db, @NonNull Language language) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET normalizationPending = ? WHERE langId = ?");
-		query.bindLong(1, 1);
+	public static void scheduleNormalization(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "UPDATE " + Tables.LANGUAGES_META + " SET positionsToNormalize = ? WHERE langId = ?");
+		query.bindString(1, positions);
 		query.bindLong(2, language.getId());
 		query.execute();
 	}

@@ -22,7 +22,7 @@ public class SettingsStore extends SettingsUI {
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
 	public final static int WORD_FREQUENCY_MAX = 25500;
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
-	public final static int WORD_NORMALIZATION_DELAY = 120000; // ms
+	public final static int WORD_NORMALIZATION_DELAY = 15000; // ms
 
 	/************* hacks *************/
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms
