@@ -42,11 +42,11 @@ public class InputType extends StandardInputType {
 
 
 	public boolean isLgX100SDialer() {
-		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
+		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return
 			DeviceInfo.isLgX100S()
 			&& isAppField("com.android.contacts", EditorInfo.TYPE_CLASS_PHONE)
-			&& field.imeOptions == imeOptions;
+			&& ((field.imeOptions & imeOptions) == imeOptions);
 	}
 
 
