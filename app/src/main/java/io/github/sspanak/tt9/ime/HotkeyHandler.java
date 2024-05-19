@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
@@ -9,16 +11,27 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 public abstract class HotkeyHandler extends TypingHandler {
+	private boolean isSystemRTL;
+
+
 	@Override
 	protected void onInit() {
 		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
+	}
+
+
+	@Override
+	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
+		return super.onStart(connection, field);
 	}
 
 
@@ -195,6 +208,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 			return true;
 		}
 
+		backward = isSystemRTL != backward;
 		scrollSuggestions(backward);
 
 		return true;
