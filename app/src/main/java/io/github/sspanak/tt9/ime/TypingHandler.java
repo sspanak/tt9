@@ -19,7 +19,6 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 
@@ -30,7 +29,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
 	protected SuggestionOps suggestionOps;
-	private boolean isSystemRTL;
 
 	// input
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -63,7 +61,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
 		resetKeyRepeat();
 		mInputMode = getInputMode();
 		determineTextCase();
@@ -354,7 +351,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void scrollSuggestions(boolean backward) {
 		suggestionOps.cancelDelayedAccept();
-		backward = isSystemRTL != backward;
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
 		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode);
