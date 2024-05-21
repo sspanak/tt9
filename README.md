@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-Traditional T9 is a 12-key (T9) keyboard for devices with a numeric keypad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. And best of all, it doesn't spy on you.
+Traditional T9 is a 12-key (T9) keyboard for devices with a numeric hardware keypad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. And best of all, it doesn't spy on you.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -34,7 +34,7 @@ If your phone does not allow installing custom APKs, consult the [Installation G
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 65 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
+- Minimum 70 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Kiswahili, Indonesian): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
