@@ -113,7 +113,7 @@ public class SoftNumberKey extends SoftKey {
 
 		StringBuilder sb = new StringBuilder();
 		ArrayList<String> chars = language.getKeyCharacters(number);
-		for (int i = 0; i < 5 && i < chars.size(); i++) {
+		for (int i = 0; sb.length() < 5 && i < chars.size(); i++) {
 			String currentLetter = chars.get(i);
 			if (
 				(isLatinBased && currentLetter.charAt(0) > 'z')

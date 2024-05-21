@@ -1,5 +1,6 @@
 locale: hu-HU
 dictionaryFile: hu-utf8.csv
+abcString: abc
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1
