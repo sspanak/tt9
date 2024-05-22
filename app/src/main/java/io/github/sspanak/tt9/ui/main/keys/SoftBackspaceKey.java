@@ -50,6 +50,6 @@ public class SoftBackspaceKey extends SoftKey {
 			return "Del";
 		}
 
-		return LanguageKind.isRTL(getCurrentLanguage()) ? "⌦" : "⌫";
+		return LanguageKind.isRTL(tt9.getLanguage()) ? "⌦" : "⌫";
 	}
 }

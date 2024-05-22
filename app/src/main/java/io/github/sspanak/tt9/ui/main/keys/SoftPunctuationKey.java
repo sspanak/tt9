@@ -52,7 +52,7 @@ public class SoftPunctuationKey extends SoftKey {
 		} else {
 			if (keyId == R.id.soft_key_punctuation_1) return "!";
 			if (keyId == R.id.soft_key_punctuation_2) {
-				return LanguageKind.isArabic(getCurrentLanguage()) ? "؟" : "?";
+				return LanguageKind.isArabic(tt9.getLanguage()) ? "؟" : "?";
 			}
 		}
 
