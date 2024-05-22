@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-Traditional T9 is a 12-key (T9) keyboard for devices with a numeric hardware keypad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. And best of all, it doesn't spy on you.
+Traditional T9 is a 12-key (T9) keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and a virtual on-screen keypad to bring the old-school Nokia experience to modern-day touchscreen smartphones. And best of all, it doesn't spy on you.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -46,7 +46,7 @@ _Storage usage depends on the word root count and the average word length in eac
 ### ⚠️ Compatibility
 If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016.
 
-TT9 may not work well on Kyocera phones, Sonim phones running Android 10+, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality or unexpected text/numbers appearing when you try to type.
+TT9 may not work well on Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
 - Unihertz Atom L (Android 11)

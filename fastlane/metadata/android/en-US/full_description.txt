@@ -1,4 +1,4 @@
-Traditional T9 is a 12-key (T9) keyboard for devices with a numeric hardware keypad. It supports predictive text typing in 25+ languages, configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. And best of all, it doesn't spy on you.
+Traditional T9 is a 12-key (T9) keyboard for devices with a hardware numpad. It supports predictive text typing in 25+ languages, configurable hotkeys, and a virtual on-screen keypad to bring the old-school Nokia experience to modern-day touchscreen smartphones. And best of all, it doesn't spy on you.
 
 Supported languages: Arabic, Bulgarian, Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Hungarian, Indonesian, Italian, Kiswahili, Norwegian, Polish, Portuguese (European and Brazilian), Romanian, Russian, Spanish, Swedish, Turkish, Ukrainian, Yiddish.
 
