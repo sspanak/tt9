@@ -1,5 +1,8 @@
 package io.github.sspanak.tt9.ime;
 
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 abstract public class MainViewOps extends HotkeyHandler {
@@ -22,6 +25,11 @@ abstract public class MainViewOps extends HotkeyHandler {
 
 	public boolean isInputModePhone() {
 		return mInputMode.is123() && inputType.isPhoneNumber();
+	}
+
+	@Nullable
+	public Language getLanguage() {
+		return mLanguage;
 	}
 
 	public SettingsStore getSettings() {

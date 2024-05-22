@@ -12,13 +12,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -167,10 +164,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		return true;
-	}
-
-	@Nullable protected Language getCurrentLanguage() {
-		return LanguageCollection.getLanguage(tt9.getApplicationContext(), tt9.getSettings().getInputLanguage());
 	}
 
 	/**

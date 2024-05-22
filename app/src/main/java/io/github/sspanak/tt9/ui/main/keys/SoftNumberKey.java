@@ -59,10 +59,9 @@ public class SoftNumberKey extends SoftKey {
 	protected String getTitle() {
 		int number = getNumber(getId());
 
-		Language language = getCurrentLanguage();
-		if (LanguageKind.isArabic(language) && tt9 != null && !tt9.isInputModeNumeric()) {
+		if (tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage())) {
 			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
-			return language.getKeyNumber(number);
+			return tt9.getLanguage().getKeyNumber(number);
 		} else {
 			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
 			return String.valueOf(number);
@@ -102,7 +101,7 @@ public class SoftNumberKey extends SoftKey {
 		}
 
 		// 2-9
-		Language language = getCurrentLanguage();
+		Language language = tt9.getLanguage();
 		if (language == null) {
 			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";
