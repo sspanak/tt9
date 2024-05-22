@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-A 12-key (T9) keyboard for devices with a hardware keypad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad for touchscreen phones, bringing an old-school Nokia experience to modern Android devices. Best of all, it doesn't spy on you.
+Traditional T9 is a 12-key (T9) keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and a virtual on-screen keypad to recreate the good old Nokia experience on modern-day touchscreen smartphones. And best of all, it doesn't spy on you.
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -9,11 +9,12 @@ This is a modernized version of the [original project](https://github.com/Clam-/
     <tr>
         <td rowspan="2"> <img src="screenshots/3.png"> </td>
         <td> <img src="screenshots/1.png"> </td>
-        <td rowspan="2"> <img src="screenshots/5.png"> </td>
+        <td> <img src="screenshots/5.png"> </td>
         <td rowspan="2"> <img src="screenshots/4.png"> </td>
     </tr>
     <tr>
         <td> <img src="screenshots/2.png"> </td>
+        <td> <img src="screenshots/6.png"> </td>
     </tr>
 </table>
 
@@ -32,9 +33,9 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 If your phone does not allow installing custom APKs, consult the [Installation Guide](docs/installation.md).
 
 ## ⚙️ System Requirements
-- Android 4.4 or higher. _(Tested and confirmed on Android 6, 10 and 11)_
+- Android 4.4 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 65 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
+- Minimum 70 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Kiswahili, Indonesian): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
@@ -45,7 +46,7 @@ _Storage usage depends on the word root count and the average word length in eac
 ### ⚠️ Compatibility
 If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016.
 
-TT9 may not work well on Kyocera phones, Sonim phones running Android 10+, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality or unexpected text/numbers appearing when you try to type.
+TT9 may not work well on Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
 - Unihertz Atom L (Android 11)
