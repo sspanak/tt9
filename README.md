@@ -32,11 +32,6 @@ This is a modernized version of the [original project](https://github.com/Clam-/
             </a>
         </td>
         <td>
-            <a href="https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9">
-                <img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Download from IzzyOnDroid" height="80">
-            </a>
-        </td>
-        <td>
             <a href="https://github.com/sspanak/tt9/releases/latest">
                 <img src="!RAW/get-it-on-github-badge.png" alt="Download from GitHub" height="80">
             </a>
