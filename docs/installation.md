@@ -3,11 +3,16 @@
 ## Devices that allow installing APKs
 
 ### From F-Droid
-The recommended way of installing is using F-droid. It will automatically manage downloads and keep TT9 up-to-date. The downside is new versions may become available as late as two weeks after the official release.
+The recommended way of installing is using F-droid. It will automatically manage downloads and keep TT9 up-to-date. The downside is new versions may become available as late as two weeks after the official release on Github.
 
 If you don't have F-droid, get the official F-droid APK from https://f-droid.org/ and install it. For more info, refer to the [installation instructions](https://f-droid.org/en/docs/Get_F-Droid/).
 
 After you get F-droid working, just open it, search for "Traditional T9" and install it.
+
+### From Uptodown
+Uptodown is similar to F-droid. You can get Traditional T9 easily, but new versions become available at least a week after the Github release.
+
+If you don't have the Uptodown Store, download and install it from [uptodown.com](https://uptodown-android.en.uptodown.com/android).
 
 ### From GitHub
 If you would like to run the latest version as soon as it is released, go to the GitHub [Releases section](https://github.com/sspanak/tt9/releases). Then either download the APK on your phone or download it on a computer and transfer it to the phone. After that, just click or tap to install. If custom APK installation is enabled, it will just work. If not, your phone may show a popup, asking you to grant the installation permission, before proceeding.
