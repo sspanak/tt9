@@ -19,18 +19,29 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 </table>
 
 ## 📦 Install
+<table>
+    <tr>
+        <td>
+            <a href="https://f-droid.org/app/io.github.sspanak.tt9">
+                <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Download from F-Droid" height="80">
+            </a>
+        </td>
+        <td>
+            <a href="https://io-github-sspanak-tt9.en.uptodown.com/android">
+                <img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from uptodown" height="54">
+            </a>
+        </td>
+        <td>
+            <a href="https://github.com/sspanak/tt9/releases/latest">
+                <img src="!RAW/get-it-on-github-badge.png" alt="Download from GitHub" height="80">
+            </a>
+        </td>
+    </tr>
+</table>
 
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-    alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/app/io.github.sspanak.tt9)
-[<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
-    alt="Get it on IzzyOnDroid"
-    height="80">](https://apt.izzysoft.de/fdroid/index/apk/io.github.sspanak.tt9)
-[<img src="!RAW/get-it-on-github-badge.png"
-    alt="Get it on GitHub"
-    height="80">](https://github.com/sspanak/tt9/releases/latest)
+_Looking for a Google Play Store version? See [this announcement](https://github.com/sspanak/tt9/issues/526)._
 
-If your phone does not allow installing custom APKs, consult the [Installation Guide](docs/installation.md).
+_If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
