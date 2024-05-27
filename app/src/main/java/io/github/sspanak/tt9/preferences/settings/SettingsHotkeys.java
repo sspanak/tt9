@@ -9,33 +9,29 @@ class SettingsHotkeys extends SettingsHacks {
 	SettingsHotkeys(Context context) { super(context); }
 
 	public boolean areHotkeysInitialized() {
-		return !prefs.getBoolean("hotkeys_initialized", false);
+		return !prefs.getBoolean("hotkeys_v2_initialized", false);
 	}
 
 	public void setDefaultKeys(
-		int addWord,
 		int backspace,
-		int changeKeyboard,
+		int comandPalette,
 		int filterClear,
 		int filterSuggestions,
 		int previousSuggestion,
 		int nextSuggestion,
 		int nextInputMode,
-		int nextLanguage,
-		int showSettings
+		int nextLanguage
 	) {
 		prefsEditor
-			.putString(SectionKeymap.ITEM_ADD_WORD, String.valueOf(addWord))
 			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
-			.putString(SectionKeymap.ITEM_CHANGE_KEYBOARD, String.valueOf(changeKeyboard))
+			.putString(SectionKeymap.ITEM_COMMAND_PALETTE, String.valueOf(comandPalette))
 			.putString(SectionKeymap.ITEM_FILTER_CLEAR, String.valueOf(filterClear))
 			.putString(SectionKeymap.ITEM_FILTER_SUGGESTIONS, String.valueOf(filterSuggestions))
 			.putString(SectionKeymap.ITEM_PREVIOUS_SUGGESTION, String.valueOf(previousSuggestion))
 			.putString(SectionKeymap.ITEM_NEXT_SUGGESTION, String.valueOf(nextSuggestion))
 			.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode))
 			.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage))
-			.putString(SectionKeymap.ITEM_SHOW_SETTINGS, String.valueOf(showSettings))
-			.putBoolean("hotkeys_initialized", true)
+			.putBoolean("hotkeys_v2_initialized", true)
 			.apply();
 	}
 
@@ -45,14 +41,8 @@ class SettingsHotkeys extends SettingsHacks {
 	}
 
 
-	public int getKeyAddWord() {
-		return getFunctionKey(SectionKeymap.ITEM_ADD_WORD);
-	}
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
-	}
-	public int getKeyChangeKeyboard() {
-		return getFunctionKey(SectionKeymap.ITEM_CHANGE_KEYBOARD);
 	}
 	public int getKeyFilterClear() {
 		return getFunctionKey(SectionKeymap.ITEM_FILTER_CLEAR);
@@ -72,7 +62,7 @@ class SettingsHotkeys extends SettingsHacks {
 	public int getKeyNextLanguage() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_LANGUAGE);
 	}
-	public int getKeyShowSettings() {
-		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
+	public int getKeyCommandPalette() {
+		return getFunctionKey(SectionKeymap.ITEM_COMMAND_PALETTE);
 	}
 }

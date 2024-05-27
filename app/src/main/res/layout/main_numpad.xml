@@ -84,12 +84,12 @@
 			tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_settings"
+				android:id="@+id/soft_key_command_palette"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="⚙"
+				android:text="🛠"
 				android:textSize="@dimen/soft_key_icon_size" />
 
 			<View
@@ -143,14 +143,10 @@
 			android:layoutDirection="ltr"
 			tools:ignore="HardcodedText">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_add_word"
-				style="@android:style/Widget.Holo.Button.Borderless"
+			<View
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="＋"
-				android:textStyle="bold" />
+				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 			<View
 				android:id="@+id/separator_2_1"

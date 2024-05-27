@@ -56,8 +56,8 @@
 	<string name="pref_category_function_keys">Klavye Kısayolları</string>
 	<string name="pref_category_keypad">Tuş Takımı</string>
 	<string name="char_space">Boşluk</string>
-	<string name="function_backspace_key">Geri Tuşu</string>
-	<string name="function_change_keyboard_key">Klavye Seçimi</string>
+	<string name="function_backspace">Geri Tuşu</string>
+	<string name="function_change_keyboard">Klavye Seçimi</string>
 	<string name="setup_keyboard_status">Durum</string>
 	<string name="setup_default_keyboard">Varsayılan Klavyeyi Seçin</string>
 	<string name="setup_tt9_on">%1$s devrede</string>
@@ -114,14 +114,15 @@
 	<string name="pref_upside_down_keys">Tuş Düzenini Tersine Çevir</string>
 	<string name="pref_upside_down_keys_summary">Eğer ilk satırda 1–2–3 yerine 7–8–9 kullanıyorsanız bunu aktif edin.</string>
 
-	<string name="function_add_word_key">Kelime ekle</string>
-	<string name="function_filter_clear_key">Filtre Temizle</string>
-	<string name="function_filter_suggestions_key">Tahminleri Filtrele</string>
-	<string name="function_previous_suggestion_key">Önceki Tahmin</string>
-	<string name="function_next_suggestion_key">Sonraki Tahmin</string>
-	<string name="function_next_language_key">Sonraki Dil</string>
-	<string name="function_next_mode_key">Giriş Yöntemi</string>
-	<string name="function_show_settings_key">Ayarları Göster</string>
+	<string name="function_add_word">Kelime ekle</string>
+	<string name="function_command_palette">Komut listesini göster</string>
+	<string name="function_filter_clear">Filtre Temizle</string>
+	<string name="function_filter_suggestions">Tahminleri Filtrele</string>
+	<string name="function_previous_suggestion">Önceki Tahmin</string>
+	<string name="function_next_suggestion">Sonraki Tahmin</string>
+	<string name="function_next_language">Sonraki Dil</string>
+	<string name="function_next_mode">Giriş Yöntemi</string>
+	<string name="function_show_settings">Ayarları Göster</string>
 	<string name="function_reset_keys_title">Varsayılan Ayarlara Geri Dön</string>
 	<string name="function_reset_keys_done">Varsayılan tuş ayarlarına dönüldü.</string>
 </resources>

@@ -37,16 +37,14 @@ public class Key {
 
 
 	public static boolean isHotkey(SettingsStore settings, int keyCode) {
-		return keyCode == settings.getKeyAddWord()
-			|| keyCode == settings.getKeyBackspace()
-			|| keyCode == settings.getKeyChangeKeyboard()
+		return keyCode == settings.getKeyBackspace()
+			|| keyCode == settings.getKeyCommandPalette()
 			|| keyCode == settings.getKeyFilterClear()
 			|| keyCode == settings.getKeyFilterSuggestions()
 			|| keyCode == settings.getKeyPreviousSuggestion()
 			|| keyCode == settings.getKeyNextSuggestion()
 			|| keyCode == settings.getKeyNextInputMode()
-			|| keyCode == settings.getKeyNextLanguage()
-			|| keyCode == settings.getKeyShowSettings();
+			|| keyCode == settings.getKeyNextLanguage();
 	}
 
 

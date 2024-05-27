@@ -37,13 +37,13 @@
 		tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
 
 		<io.github.sspanak.tt9.ui.main.keys.SoftKey
-			android:id="@+id/soft_key_settings"
+			android:id="@+id/soft_key_command_palette"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
 			android:focusable="false"
-			android:text="⚙"
+			android:text="🛠"
 			android:textSize="@dimen/soft_key_icon_size" />
 
 		<View

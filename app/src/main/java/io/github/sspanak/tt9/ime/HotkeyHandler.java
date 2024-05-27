@@ -67,12 +67,8 @@ public abstract class HotkeyHandler extends TypingHandler {
 			return false;
 		}
 
-		if (keyCode == settings.getKeyAddWord()) {
-			return onKeyAddWord(validateOnly);
-		}
-
-		if (keyCode == settings.getKeyChangeKeyboard()) {
-			return onKeyChangeKeyboard(validateOnly);
+		if (keyCode == settings.getKeyCommandPalette()) {
+			return onKeyCommandPalette(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyFilterClear()) {
@@ -97,10 +93,6 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 		if (keyCode == settings.getKeyNextSuggestion()) {
 			return onKeyScrollSuggestion(validateOnly, false);
-		}
-
-		if (keyCode == settings.getKeyShowSettings()) {
-			return onKeyShowSettings(validateOnly);
 		}
 
 		return false;
@@ -275,6 +267,19 @@ public abstract class HotkeyHandler extends TypingHandler {
 		if (!validateOnly) {
 			suggestionOps.cancelDelayedAccept();
 			UI.showSettingsScreen(this);
+		}
+
+		return true;
+	}
+
+	public boolean onKeyCommandPalette(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			suggestionOps.cancelDelayedAccept();
+			UI.showCommandPalette(this);
 		}
 
 		return true;
