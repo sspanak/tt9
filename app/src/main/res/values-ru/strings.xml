@@ -66,7 +66,7 @@
 	<string name="function_change_keyboard">Выбор клавиатуры</string>
 	<string name="dictionary_no_notifications">Уведомления словаря</string>
 	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
-	<string name="function_command_palette">Показать список команд</string>
+	<string name="function_show_command_palette">Показать список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>

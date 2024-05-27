@@ -67,7 +67,7 @@
 	<string name="function_change_keyboard">Changer le clavier</string>
 	<string name="dictionary_no_notifications">Notifications du dictionnaire</string>
 	<string name="dictionary_no_notifications_summary">Recevoir des notifications sur les mises à jour du dictionnaire et sur la progression du chargement.</string>
-	<string name="function_command_palette">Afficher la liste des commandes</string>
+	<string name="function_show_command_palette">Afficher la liste des commandes</string>
 	<string name="function_filter_clear">Supprimer le filtre</string>
 	<string name="function_filter_suggestions">Filtrer les mots</string>
 	<string name="function_previous_suggestion">Mot précédent</string>

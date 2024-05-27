@@ -110,6 +110,6 @@
 	<string name="dictionary_no_notifications_summary">Ricevere notifiche sugli aggiornamenti del dizionario e sul progresso del caricamento.</string>
 	<string name="pref_font_size">Dimensione del carattere delle impostazioni</string>
 	<string name="pref_font_size_default">Predefinita</string>
-	<string name="function_command_palette">Mostra elenco comandi</string>
+	<string name="function_show_command_palette">Mostra elenco comandi</string>
 </resources>
 

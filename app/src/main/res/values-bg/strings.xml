@@ -69,7 +69,7 @@
 	<string name="function_change_keyboard">Избор на клавиатура</string>
 	<string name="dictionary_no_notifications">Речникови известия</string>
 	<string name="dictionary_no_notifications_summary">Получавайте известия за обновления на речника и за прогреса при зареждане.</string>
-	<string name="function_command_palette">Списък с команди</string>
+	<string name="function_show_command_palette">Списък с команди</string>
 	<string name="function_filter_clear">Изчистване на филтър</string>
 	<string name="function_filter_suggestions">Филтриране на думи</string>
 	<string name="function_previous_suggestion">Предишна дума</string>

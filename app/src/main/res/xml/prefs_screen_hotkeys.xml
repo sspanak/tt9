@@ -8,7 +8,7 @@
 
 	<DropDownPreference
 		app:key="key_command_palette"
-		app:title="@string/function_command_palette" />
+		app:title="@string/function_show_command_palette" />
 
 	<DropDownPreference
 		app:key="key_filter_clear"
