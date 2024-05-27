@@ -39,8 +39,6 @@ This is a modernized version of the [original project](https://github.com/Clam-/
     </tr>
 </table>
 
-_Looking for a Google Play Store version? See [this announcement](https://github.com/sspanak/tt9/issues/526)._
-
 _If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
