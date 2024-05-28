@@ -9,6 +9,10 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
+	// @todo: maybe handle Back too?
+	// @todo: disable Backspace and OK, we don't want side effects
+	// @todo: hide the microphone and the scissors
+
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		if (!shouldBeOff() && isMainViewCommandPalette()) {
@@ -27,6 +31,7 @@ abstract class CommandHandler extends TypingHandler {
 				break;
 			case 1:
 				displayMainView();
+				// @todo: using this causes the composing text to disappear afterwards
 				addWord();
 				break;
 			case 2:
