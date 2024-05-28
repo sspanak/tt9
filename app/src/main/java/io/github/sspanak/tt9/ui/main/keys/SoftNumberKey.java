@@ -131,7 +131,7 @@ public class SoftNumberKey extends SoftKey {
 		return sb.toString();
 	}
 
-	private int getNumber(int keyId) {
+	protected int getNumber(int keyId) {
 		if (keyId == R.id.soft_key_0) return 0;
 		if (keyId == R.id.soft_key_1) return 1;
 		if (keyId == R.id.soft_key_2) return 2;
@@ -146,7 +146,7 @@ public class SoftNumberKey extends SoftKey {
 		return -1;
 	}
 
-	private int getUpsideDownNumber(int keyId) {
+	protected int getUpsideDownNumber(int keyId) {
 		int number = getNumber(keyId);
 
 		if (tt9 != null && tt9.getSettings().getUpsideDownKeys()) {

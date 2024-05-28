@@ -50,7 +50,7 @@ public class TraditionalT9 extends MainViewOps {
 	// This is why we must call the super method, instead of returning null, as in the AOSP code.
 	@Override
 	public View onCreateInputView() {
-		mainView.forceCreateView();
+		mainView.forceCreateInputView();
 		initTray();
 		setDarkTheme();
 		setStatusText(mInputMode.toString());
@@ -147,7 +147,7 @@ public class TraditionalT9 extends MainViewOps {
 
 
 	private void initUi() {
-		if (mainView.createView()) {
+		if (mainView.createInputView()) {
 			initTray();
 		}
 		setStatusIcon(mInputMode);
@@ -209,6 +209,16 @@ public class TraditionalT9 extends MainViewOps {
 			return true;
 		}
 		return super.onNumber(key, hold, repeat);
+	}
+
+
+	@Override
+	protected void renderCommandsView() {
+		mainView.createCommandsView();
+		initTray();
+		setDarkTheme();
+		mainView.render();
+		setInputView(mainView.getView());
 	}
 
 

@@ -15,7 +15,6 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
-import io.github.sspanak.tt9.ui.dialogs.CommandPaletteDialog;
 
 public abstract class HotkeyHandler extends TypingHandler {
 	private boolean isSystemRTL;
@@ -280,7 +279,7 @@ public abstract class HotkeyHandler extends TypingHandler {
 
 		if (!validateOnly) {
 			suggestionOps.cancelDelayedAccept();
-			CommandPaletteDialog.show(this);
+			renderCommandsView();
 		}
 
 		return true;

@@ -13,10 +13,10 @@ public class MainView {
 	public MainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
-		forceCreateView();
+		forceCreateInputView();
 	}
 
-	public boolean createView() {
+	public boolean createInputView() {
 		SettingsStore settings = tt9.getSettings();
 
 		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
@@ -36,9 +36,15 @@ public class MainView {
 	}
 
 
-	public void forceCreateView() {
+	public void createCommandsView() {
+		main = new MainLayoutCommandPalette(tt9);
+		main.render();
+	}
+
+
+	public void forceCreateInputView() {
 		main = null;
-		if (!createView()) {
+		if (!createInputView()) {
 			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);
 		}
