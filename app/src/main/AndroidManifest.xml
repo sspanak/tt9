@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="546"
-	android:versionName="32.3"
+	android:versionCode="548"
+	android:versionName="32.5"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> <!-- allows displaying notifications on Android >= 13 -->
@@ -34,11 +34,5 @@
 			android:label=""
 			android:name="io.github.sspanak.tt9.ui.dialogs.PopupDialogActivity"
 			android:theme="@style/alertDialog" />
-
-		<activity
-			android:excludeFromRecents="true"
-			android:label=""
-			android:name="io.github.sspanak.tt9.ui.dialogs.CommandPaletteDialog"
-			android:theme="@style/commandPalette" />
 	</application>
 </manifest>

@@ -147,14 +147,7 @@ public class TraditionalT9 extends MainViewOps {
 
 
 	private void initUi() {
-		if (mainView.createInputView()) {
-			initTray();
-		}
-		setStatusIcon(mInputMode);
-		setStatusText(mInputMode.toString());
-		setDarkTheme();
-		mainView.render();
-
+		displayMainView();
 		if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
@@ -212,11 +205,29 @@ public class TraditionalT9 extends MainViewOps {
 	}
 
 
+	protected boolean isMainViewCommandPalette() {
+		return mainView.isCommandPalette();
+	}
+
+
 	@Override
-	protected void renderCommandsView() {
+	protected void displayCommandsView() {
 		mainView.createCommandsView();
 		initTray();
 		setDarkTheme();
+		setStatusText("Select a Command");
+		mainView.render();
+		setInputView(mainView.getView());
+	}
+
+
+	protected void displayMainView() {
+		if (mainView.createInputView()) {
+			initTray();
+		}
+		setDarkTheme();
+		setStatusIcon(mInputMode);
+		setStatusText(mInputMode.toString());
 		mainView.render();
 		setInputView(mainView.getView());
 	}

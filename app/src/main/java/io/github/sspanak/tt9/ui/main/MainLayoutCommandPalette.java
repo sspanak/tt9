@@ -72,6 +72,8 @@ public class MainLayoutCommandPalette extends BaseMainLayout {
 			View row = table.getChildAt(rowId);
 			if (row instanceof ViewGroup) {
 				keys.addAll(getKeysFromContainer((ViewGroup) row));
+			} else if (row instanceof SoftKey) {
+				keys.add((SoftKey) row);
 			}
 		}
 
@@ -81,7 +83,11 @@ public class MainLayoutCommandPalette extends BaseMainLayout {
 	protected ArrayList<View> getSeparators() {
 		return new ArrayList<>(Arrays.asList(
 			view.findViewById(R.id.separator_top),
-			view.findViewById(R.id.separator_candidates_bottom)
+			view.findViewById(R.id.separator_candidates_bottom),
+			view.findViewById(R.id.separator_2_1),
+			view.findViewById(R.id.separator_2_2),
+			view.findViewById(R.id.separator_3_1),
+			view.findViewById(R.id.separator_3_2)
 		));
 	}
 }

@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
-
 public class SoftCommandKey extends SoftNumberKey {
 	public SoftCommandKey(Context context) {
 		super(context);
@@ -20,26 +18,24 @@ public class SoftCommandKey extends SoftNumberKey {
 
 	@Override
 	protected String getTitle() {
-		return getNumber(getId()) <= 3 ? super.getTitle() : null;
+		return getNumber(getId()) + "";
 	}
 
 	@Override
 	protected String getSubTitle() {
-		if (tt9 == null) {
-			return null;
-		}
-
 		int number = getNumber(getId());
 
 		switch (number) {
 			case 0:
-				return "Back";
+				return "⌨";
 			case 1:
-				return getContext().getString(R.string.function_add_word);
+				return "＋";
 			case 2:
-				return getContext().getString(R.string.function_show_settings);
+				return "⚙";
 			case 3:
-				return getContext().getString(R.string.function_change_keyboard);
+				return "🎤";
+			case 5:
+				return "✂";
 		}
 
 		return null;

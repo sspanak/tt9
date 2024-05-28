@@ -50,6 +50,12 @@ public class MainView {
 		}
 	}
 
+
+	public boolean isCommandPalette() {
+		return main != null && main.getClass().equals(MainLayoutCommandPalette.class);
+	}
+
+
 	public View getView() {
 		return main.getView();
 	}
