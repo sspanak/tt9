@@ -60,12 +60,12 @@ abstract class CommandHandler extends TypingHandler {
 				changeKeyboard();
 				break;
 			case 1:
+				showSettings();
+				break;
+			case 2:
 				mainView.hideCommandPalette();
 				statusBar.setText(mInputMode);
 				addWord();
-				break;
-			case 2:
-				showSettings();
 				break;
 		}
 	}

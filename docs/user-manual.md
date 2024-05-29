@@ -113,8 +113,8 @@ Show a list of commands (or functions) not accessible via hotkeys.
 Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
 
 Below is a list of the possible commands:
-- **Add a Word (Default Combo: ✱, 1-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
-- **Show the Settings Screen (Default Combo: ✱, 2-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+- **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+- **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
 - **Select a Different Keyboard (Default Combo: ✱, 0-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
