@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 abstract class CommandHandler extends TypingHandler {
 	// @todo: disable Backspace and OK, we don't want side effects
 	// @todo: hide the microphone and the scissors
-
+	// @todo: fix the colors
 
 	@Override
 	protected boolean onBack() {
