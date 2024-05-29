@@ -9,19 +9,34 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
-	// @todo: disable Backspace and OK, we don't want side effects
 	// @todo: hide the microphone and the scissors
 	// @todo: fix the colors
 
 	@Override
 	protected boolean onBack() {
-		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
+		if (mainView.isCommandPaletteShown()) {
 			mainView.hideCommandPalette();
 			setStatusText(mInputMode.toString());
 			return true;
 		}
 
 		return false;
+	}
+
+
+	@Override
+	public boolean onBackspace() {
+		if (mainView.isCommandPaletteShown()) {
+			return false;
+		}
+
+		return super.onBackspace();
+	}
+
+
+	@Override
+	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
+		return mainView.isCommandPaletteShown();
 	}
 
 
@@ -33,6 +48,12 @@ abstract class CommandHandler extends TypingHandler {
 		}
 
 		return super.onNumber(key, hold, repeat);
+	}
+
+
+	@Override
+	public boolean onOK() {
+		return mainView.isCommandPaletteShown();
 	}
 
 
