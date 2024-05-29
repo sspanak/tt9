@@ -41,4 +41,10 @@ class MainLayoutSmall extends MainLayoutTray {
 
 		return separators;
 	}
+
+	@Override
+	void setDarkTheme(boolean dark) {
+		super.setDarkTheme(dark);
+		view.findViewById(R.id.main_soft_keys).setBackground(getBackgroundColor(view, dark));
+	}
 }

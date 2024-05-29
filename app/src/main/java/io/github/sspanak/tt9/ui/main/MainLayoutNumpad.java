@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,23 +19,43 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	@Override
-	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getDrawable(
+	private int getBackgroundColor(@NonNull View contextView, boolean dark) {
+		return ContextCompat.getColor(
 			contextView.getContext(),
 			dark ? R.color.dark_numpad_background : R.color.numpad_background
 		);
 	}
 
 
-	@Override
-	protected int getSeparatorColor(@NonNull View contextView, boolean dark) {
+	private int getSeparatorColor(@NonNull View contextView, boolean dark) {
 		return ContextCompat.getColor(
 			contextView.getContext(),
 			dark ? R.color.dark_numpad_separator : R.color.numpad_separator
 		);
 	}
 
+	@Override
+	void setDarkTheme(boolean dark) {
+		if (view == null) {
+			return;
+		}
+
+		// background
+		view.setBackgroundColor(getBackgroundColor(view, dark));
+
+		// text
+		for (SoftKey key : getKeys()) {
+			key.setDarkTheme(dark);
+		}
+
+		// separators
+		int separatorColor = getSeparatorColor(view, dark);
+		for (View separator : getSeparators()) {
+			if (separator != null) {
+				separator.setBackgroundColor(separatorColor);
+			}
+		}
+	}
 
 	@Override
 	void render() {

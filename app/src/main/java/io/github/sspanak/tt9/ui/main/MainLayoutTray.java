@@ -25,7 +25,22 @@ class MainLayoutTray extends BaseMainLayout {
 		}
 	}
 
-	@Override
+	void showCommandPalette() {
+		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+	}
+
+	void hideCommandPalette() {
+		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
+		if (this instanceof MainLayoutSmall) {
+			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+		}
+	}
+
+	boolean isCommandPaletteShown() {
+		return view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
+	}
+
 	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) {
 		return ContextCompat.getDrawable(
 			contextView.getContext(),
@@ -33,12 +48,44 @@ class MainLayoutTray extends BaseMainLayout {
 		);
 	}
 
-	@Override
-	protected int getSeparatorColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getColor(
+	protected Drawable getSeparatorColor(@NonNull View contextView, boolean dark) {
+		return ContextCompat.getDrawable(
 			contextView.getContext(),
-			dark ? R.color.dark_numpad_separator : R.color.numpad_separator
+			dark ? R.drawable.button_separator_dark : R.drawable.button_separator
 		);
+	}
+
+	@Override
+	void setDarkTheme(boolean dark) {
+		if (view == null) {
+			return;
+		}
+
+		// background
+		view.findViewById(R.id.main_command_keys).setBackground(getBackgroundColor(view, dark));
+
+		// text
+		for (SoftKey key : getKeys()) {
+			key.setDarkTheme(dark);
+		}
+
+		// separators
+		Drawable separatorColor = getSeparatorColor(view, dark);
+		for (View separator : getSeparators()) {
+			if (separator != null) {
+				separator.setBackground(separatorColor);
+			}
+		}
+	}
+
+	@Override
+	void render() {
+		getView();
+		enableClickHandlers();
+		setSoftKeysVisibility();
+		for (SoftKey key : getKeys()) {
+			key.render();
+		}
 	}
 
 	@NonNull
@@ -58,31 +105,5 @@ class MainLayoutTray extends BaseMainLayout {
 			view.findViewById(R.id.separator_3_1),
 			view.findViewById(R.id.separator_3_2)
 		));
-	}
-
-	@Override
-	void render() {
-		getView();
-		enableClickHandlers();
-		setSoftKeysVisibility();
-		for (SoftKey key : getKeys()) {
-			key.render();
-		}
-	}
-
-	void showCommandPalette() {
-		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
-	}
-
-	void hideCommandPalette() {
-		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
-		if (this instanceof MainLayoutSmall) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
-		}
-	}
-
-	boolean isCommandPaletteShown() {
-		return view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
 	}
 }

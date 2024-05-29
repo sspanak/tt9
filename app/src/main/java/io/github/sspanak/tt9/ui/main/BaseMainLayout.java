@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,27 +34,7 @@ abstract class BaseMainLayout {
 	 * More info:
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
 	 */
-	void setDarkTheme(boolean dark) {
-		if (view == null) {
-			return;
-		}
-
-		// background
-		view.setBackground(getBackgroundColor(view, dark));
-
-		// text
-		for (SoftKey key : getKeys()) {
-			key.setDarkTheme(dark);
-		}
-
-		// separators
-		int separatorColor = getSeparatorColor(view, dark);
-		for (View separator : getSeparators()) {
-			if (separator != null) {
-				separator.setBackgroundColor(separatorColor);
-			}
-		}
-	}
+	void setDarkTheme(boolean dark) {}
 
 
 	/**
@@ -67,12 +46,9 @@ abstract class BaseMainLayout {
 
 	/**
 	 * getSeparators
-	 * Returns a list of all the separators in the layout. Used in conjunction with getSeparatorColor().
+	 * Returns a list of all the separators in the layout so that they can be themed properly.
 	 */
 	protected ArrayList<View> getSeparators() { return new ArrayList<>(); }
-
-	protected int getSeparatorColor(@NonNull View contextView, boolean dark) { return 0; }
-	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) { return null; }
 
 
 	protected View getView() {

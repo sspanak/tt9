@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
 	// @todo: hide the microphone and the scissors
-	// @todo: fix the colors
+	// @todo: remove the [ ] around the status text
 
 	@Override
 	protected boolean onBack() {
