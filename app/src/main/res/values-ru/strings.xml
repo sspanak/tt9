@@ -13,6 +13,7 @@
 	<string name="add_word_invalid_language_x">Невозможно добавить слово. Неизвестный язык: \"%1$d\".</string>
 	<string name="add_word_success">« %1$s » добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
+	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_layout_numpad">Цифровая клавиатура (БЕТА)</string>
 	<string name="pref_layout_small">Функциональные клавиши</string>
@@ -66,7 +67,7 @@
 	<string name="function_change_keyboard">Выбор клавиатуры</string>
 	<string name="dictionary_no_notifications">Уведомления словаря</string>
 	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
-	<string name="function_show_command_palette">Показать список команд</string>
+	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>

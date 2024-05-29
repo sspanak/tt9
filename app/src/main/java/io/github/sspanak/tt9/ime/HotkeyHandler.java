@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
@@ -187,7 +188,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		mInputMode.clearWordStem();
 		getSuggestions();
 
-		setStatusText(mInputMode.toString());
+		statusBar.setText(mInputMode);
 		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
@@ -233,7 +234,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			suggestionOps.cancelDelayedAccept();
 			forceShowWindow();
 			mainView.showCommandPalette();
-			setStatusText("Select a Command");
+			statusBar.setText(getString(R.string.commands_select_command));
 		}
 
 		return true;

@@ -18,6 +18,7 @@
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 
+	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_custom_words">Додані слова</string>
@@ -104,7 +105,7 @@
 	<string name="function_change_keyboard">Змінити клавіатуру</string>
 	<string name="dictionary_no_notifications">Сповіщення словника</string>
 	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
-	<string name="function_show_command_palette">Показати список команд</string>
+	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
 	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
 	<string name="function_previous_suggestion">Попередня пропозиція</string>

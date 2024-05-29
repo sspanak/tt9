@@ -10,13 +10,13 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
 	// @todo: hide the microphone and the scissors
-	// @todo: remove the [ ] around the status text
+	// @todo: increase the font size
 
 	@Override
 	protected boolean onBack() {
 		if (mainView.isCommandPaletteShown()) {
 			mainView.hideCommandPalette();
-			setStatusText(mInputMode.toString());
+			statusBar.setText(mInputMode);
 			return true;
 		}
 
@@ -64,7 +64,7 @@ abstract class CommandHandler extends TypingHandler {
 				break;
 			case 1:
 				mainView.hideCommandPalette();
-				setStatusText(mInputMode.toString());
+				statusBar.setText(mInputMode);
 				addWord();
 				break;
 			case 2:
@@ -128,7 +128,7 @@ abstract class CommandHandler extends TypingHandler {
 		settings.saveInputMode(mInputMode.getId());
 		settings.saveTextCase(mInputMode.getTextCase());
 
-		setStatusText(mInputMode.toString());
+		statusBar.setText(mInputMode);
 	}
 
 

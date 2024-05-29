@@ -13,6 +13,7 @@
 	<string name="add_word_invalid_language_x">Не може да се добави дума. Неразпознат език: \"%1$d\".</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
+	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_layout_numpad">Цифрова клавиатура (БЕТА)</string>
 	<string name="pref_layout_small">Функционални клавиши</string>

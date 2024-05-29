@@ -16,6 +16,7 @@
 	<string name="add_word_success">%1$s נוסף.</string>
 	<string name="add_word_title">הוסף מילה</string>
 
+	<string name="commands_select_command">לבחור פקודה</string>
 	<string name="pref_category_about">אודות</string>
 	<string name="pref_category_abc_mode">מצב אבג</string>
 	<string name="pref_category_custom_words">מילים שהוספו</string>

@@ -13,6 +13,7 @@
 	<string name="add_word_invalid_language_x">Kan geen woord toevoegen. Onbekende taal: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
+	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord (BETA)</string>
 	<string name="pref_layout_small">Functieknoppen</string>

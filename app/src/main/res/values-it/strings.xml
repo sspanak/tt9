@@ -16,6 +16,7 @@
 	<string name="add_word_success">\"%1$s\" aggiunta.</string>
 	<string name="add_word_title">Aggiungi parola</string>
 
+	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
 	<string name="pref_layout_numpad">Tastierino numerico (BETA)</string>
 	<string name="pref_layout_small">Tasti di funzione</string>

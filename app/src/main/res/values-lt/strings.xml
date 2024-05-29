@@ -18,6 +18,7 @@
 	<string name="add_word_success">Žodis \"%1$s\" pridėtas.</string>
 	<string name="add_word_title">Pridėti žodį</string>
 
+	<string name="commands_select_command">Pasirinkti komandą</string>
 	<string name="pref_category_about">Apie programėlę</string>
 	<string name="pref_category_abc_mode">ABC metodas</string>
 	<string name="pref_category_hacks">Suderinamumas</string>

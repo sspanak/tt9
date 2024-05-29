@@ -42,7 +42,7 @@ public class TraditionalT9 extends MainViewOps {
 		mainView.forceCreateInputView();
 		initTray();
 		setDarkTheme();
-		setStatusText(mInputMode.toString());
+		statusBar.setText(mInputMode);
 		suggestionOps.set(mInputMode.getSuggestions());
 
 		return mainView.getView();
@@ -142,7 +142,7 @@ public class TraditionalT9 extends MainViewOps {
 		onFinishTyping();
 		suggestionOps.clear();
 		setStatusIcon(mInputMode);
-		setStatusText(mInputMode.toString());
+		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
 			updateInputViewShown();

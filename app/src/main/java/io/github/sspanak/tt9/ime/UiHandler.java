@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.ui.tray.StatusBar;
 abstract class UiHandler extends AbstractHandler {
 	protected SettingsStore settings;
 	protected MainView mainView = null;
-	private StatusBar statusBar = null;
+	protected StatusBar statusBar = null;
 
 
 	@Override
@@ -38,7 +38,7 @@ abstract class UiHandler extends AbstractHandler {
 		}
 		setDarkTheme();
 		setStatusIcon(getInputMode());
-		setStatusText(getInputMode().toString());
+		statusBar.setText(getInputMode());
 		mainView.hideCommandPalette();
 		mainView.render();
 
@@ -61,11 +61,6 @@ abstract class UiHandler extends AbstractHandler {
 		} else {
 			hideStatusIcon();
 		}
-	}
-
-
-	protected void setStatusText(String status) {
-		statusBar.setText(status);
 	}
 
 

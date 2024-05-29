@@ -13,6 +13,7 @@
 	<string name="add_word_invalid_language_x">Impossible d\'ajouter un mot. Langue inconnue : « %1$d ».</string>
 	<string name="add_word_success">« %1$s » est ajouté</string>
 	<string name="add_word_title">Ajouter un mot</string>
+	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_layout_numpad">Pavé numérique (BETA)</string>
 	<string name="pref_layout_small">Touches de fonction</string>
@@ -67,7 +68,7 @@
 	<string name="function_change_keyboard">Changer le clavier</string>
 	<string name="dictionary_no_notifications">Notifications du dictionnaire</string>
 	<string name="dictionary_no_notifications_summary">Recevoir des notifications sur les mises à jour du dictionnaire et sur la progression du chargement.</string>
-	<string name="function_show_command_palette">Afficher la liste des commandes</string>
+	<string name="function_show_command_palette">Liste des commandes</string>
 	<string name="function_filter_clear">Supprimer le filtre</string>
 	<string name="function_filter_suggestions">Filtrer les mots</string>
 	<string name="function_previous_suggestion">Mot précédent</string>

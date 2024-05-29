@@ -16,6 +16,7 @@
 	<string name="add_word_success">\"%1$s\" adicionada.</string>
 	<string name="add_word_title">Adicionar Palavra</string>
 
+	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
@@ -127,5 +128,5 @@
 	<string name="dictionary_no_notifications_summary">Receber notificações sobre atualizações do dicionário e sobre o progresso do carregamento.</string>
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>
 	<string name="pref_font_size_default">Padrão</string>
-	<string name="function_show_command_palette">Mostrar lista de comandos</string>
+	<string name="function_show_command_palette">Lista de comandos</string>
 </resources>

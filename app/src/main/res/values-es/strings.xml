@@ -42,6 +42,7 @@
 	<string name="dictionary_load_title">Cargar los seleccionados</string>
 	<string name="dictionary_loading_indeterminate">Cargando diccionario</string>
 	<string name="dictionary_loading">Cargando diccionario (%1$s)…</string>
+	<string name="commands_select_command">Seleccionar un comando</string>
 	<string name="pref_category_about">Acerca de esta aplicación</string>
 	<string name="dictionary_not_found">Falló al cargar. No se encontró el diccionario para \"%1$s\".</string>
 	<string name="dictionary_truncate_title">Borrar todos</string>
@@ -74,7 +75,7 @@
 	<string name="function_change_keyboard">Cambiar el teclado</string>
 	<string name="dictionary_no_notifications">Notificaciones del diccionario</string>
 	<string name="dictionary_no_notifications_summary">Recibir notificaciones sobre actualizaciones del diccionario y sobre el progreso de la carga.</string>
-	<string name="function_show_command_palette">Mostrar lista de comandos</string>
+	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>
 	<string name="function_filter_suggestions">Filtrar sugerencias</string>
 	<string name="function_previous_suggestion">Sugerencia previa</string>
