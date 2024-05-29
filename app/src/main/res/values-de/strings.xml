@@ -56,7 +56,6 @@
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>
 	<string name="function_backspace">Rücktaste</string>
-	<string name="function_change_keyboard">Tastaturauswahl</string>
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Standardtastatur auswählen</string>
 	<string name="setup_tt9_on">%1$s ist aktiviert</string>

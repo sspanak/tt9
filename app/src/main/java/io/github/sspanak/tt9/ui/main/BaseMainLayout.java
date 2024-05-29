@@ -15,7 +15,7 @@ abstract class BaseMainLayout {
 	private final int xml;
 
 	protected View view = null;
-	@NonNull protected ArrayList<SoftKey> keys = new ArrayList<>();
+	@NonNull protected final ArrayList<SoftKey> keys = new ArrayList<>();
 
 
 	BaseMainLayout(TraditionalT9 tt9, int xml) {

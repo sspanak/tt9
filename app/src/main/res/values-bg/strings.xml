@@ -65,9 +65,7 @@
 	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
 	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>
-	<string name="function_add_word">Добавяне на нова дума</string>
 	<string name="function_backspace">Триене на текст</string>
-	<string name="function_change_keyboard">Избор на клавиатура</string>
 	<string name="dictionary_no_notifications">Речникови известия</string>
 	<string name="dictionary_no_notifications_summary">Получавайте известия за обновления на речника и за прогреса при зареждане.</string>
 	<string name="function_show_command_palette">Списък с команди</string>
@@ -77,7 +75,6 @@
 	<string name="function_next_suggestion">Следваща дума</string>
 	<string name="function_next_language">Следващ eзик</string>
 	<string name="function_next_mode">Режим на писане</string>
-	<string name="function_show_settings">Настройки</string>
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
 	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>
 	<string name="setup_keyboard_status">Състояние</string>

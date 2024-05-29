@@ -57,7 +57,6 @@
 	<string name="pref_category_keypad">Toetsenbord</string>
 	<string name="char_space">Spatie</string>
 	<string name="function_backspace">Backspace</string>
-	<string name="function_change_keyboard">Toetsenbordkeuze</string>
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Standaardtoetsenbord selecteren</string>
 	<string name="setup_tt9_on">%1$s is ingeschakeld</string>

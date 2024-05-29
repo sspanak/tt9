@@ -73,9 +73,7 @@
 	<string name="dictionary_truncated">Žodynas sėkmingai ištrintas.</string>
 	<string name="dictionary_truncating">Ištrinama…</string>
 
-	<string name="function_add_word">Pridėti žodį</string>
 	<string name="function_backspace">Trinti</string>
-	<string name="function_change_keyboard">Keisti klaviatūrą</string>
 	<string name="dictionary_no_notifications">Žodyno pranešimai</string>
 	<string name="dictionary_no_notifications_summary">Gaukite pranešimus apie žodynų atnaujinimus ir įkėlimo progresą.</string>
 	<string name="function_show_command_palette">Rodyti komandų sąrašą</string>
@@ -85,7 +83,6 @@
 	<string name="function_next_suggestion">Sekantis pasiūlytas žodis</string>
 	<string name="function_next_language">Rašymo kalba</string>
 	<string name="function_next_mode">Rašymo būdas</string>
-	<string name="function_show_settings">Rodyti nustatymus</string>
 	<string name="function_reset_keys_title">Atkurti numatytąsias reikšmes</string>
 	<string name="function_reset_keys_done">Numatytosios reikšmės atkurtos.</string>
 

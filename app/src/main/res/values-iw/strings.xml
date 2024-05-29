@@ -69,12 +69,9 @@
 	<string name="dictionary_truncated">המילון נוקה בהצלחה</string>
 
 	<string name="dictionary_truncating">המחיקה מתבצעת…</string>
-	<string name="function_add_word">לחצן הוספת מילה</string>
 	<string name="function_backspace">לחצן מחיקה</string>
-	<string name="function_change_keyboard">בחירת מקלדת</string>
 	<string name="function_next_language">לחצן למעבר לשפה הבאה</string>
 	<string name="function_next_mode">לחצן מצב קלט</string>
-	<string name="function_show_settings">לחצן הצגת הגדרות</string>
 	<string name="function_reset_keys_title">שחזור לחצני ברירת מחדל</string>
 	<string name="function_reset_keys_done">הגדרות ברירת המחדל שוחזרו.</string>
 

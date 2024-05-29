@@ -62,9 +62,7 @@
 	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши 0</string>
 	<string name="pref_hack_fb_messenger">Отправка с «ОК» в Messenger</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове «%1$s» в строке %2$d для языка «%3$s».</string>
-	<string name="function_add_word">Добавить новое слово</string>
 	<string name="function_backspace">Стереть</string>
-	<string name="function_change_keyboard">Выбор клавиатуры</string>
 	<string name="dictionary_no_notifications">Уведомления словаря</string>
 	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
 	<string name="function_show_command_palette">Список команд</string>
@@ -74,7 +72,6 @@
 	<string name="function_next_suggestion">Следующее слово</string>
 	<string name="function_next_language">Следующий язык</string>
 	<string name="function_next_mode">Режим ввода</string>
-	<string name="function_show_settings">Настройки</string>
 	<string name="function_reset_keys_title">Вернуть кнопки по умолчанию</string>
 	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
 	<string name="setup_keyboard_status">Состояние</string>

@@ -100,9 +100,7 @@
 	<string name="donate_title">Підтримати</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати розробку по посиланню: %2$s.</string>
 
-	<string name="function_add_word">Додати слово</string>
 	<string name="function_backspace">Стерти</string>
-	<string name="function_change_keyboard">Змінити клавіатуру</string>
 	<string name="dictionary_no_notifications">Сповіщення словника</string>
 	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
 	<string name="function_show_command_palette">Список команд</string>
@@ -112,7 +110,6 @@
 	<string name="function_next_suggestion">Наступна пропозиція</string>
 	<string name="function_next_language">Наступна мова</string>
 	<string name="function_next_mode">Режим вводу</string>
-	<string name="function_show_settings">Показати налаштування</string>
 	<string name="function_reset_keys_title">Відновити стандартні клавіші</string>
 	<string name="function_reset_keys_done">Стандартні налаштування клавіш відновленно.</string>
 

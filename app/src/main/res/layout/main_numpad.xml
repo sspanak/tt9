@@ -127,7 +127,6 @@
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
 				style="@android:style/Widget.Holo.Button.Borderless"
-				android:id="@+id/soft_key_backspace"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
@@ -203,7 +202,6 @@
 			tools:ignore="HardcodedText">
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyInputMode
-				android:id="@+id/soft_key_input_mode"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
@@ -303,7 +301,6 @@
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
-				android:id="@+id/soft_key_ok"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
