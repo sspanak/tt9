@@ -232,9 +232,12 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (!validateOnly) {
 			suggestionOps.cancelDelayedAccept();
-			forceShowWindow();
+			suggestionOps.acceptIncomplete();
+			mInputMode.reset();
+
 			mainView.showCommandPalette();
 			statusBar.setText(getString(R.string.commands_select_command));
+			forceShowWindow();
 		}
 
 		return true;
