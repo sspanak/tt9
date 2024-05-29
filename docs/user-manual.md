@@ -107,7 +107,7 @@ _In these cases, you could assign another key (all other keys are fully usable),
 #### Next Language Key (Default: hold #):
 Select the next language, when multiple languages have been enabled from the Settings.
 
-#### Command-List Key (aka Command Palette) (Default: press ✱):
+#### Command-List Key / aka Command Palette / (Default: press ✱):
 Show a list of commands (or functions) not accessible via hotkeys.
 
 Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
