@@ -27,7 +27,6 @@
 
 	</FrameLayout>
 
-
 	<LinearLayout
 		android:id="@+id/main_soft_keys"
 		android:layout_width="match_parent"
@@ -87,10 +86,10 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				android:id="@+id/soft_key_1"
 				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+				android:layout_weight="1" />
 
 			<View
 				android:id="@+id/separator_2_1"
@@ -99,10 +98,10 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				android:id="@+id/soft_key_2"
 				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+				android:layout_weight="1" />
 
 			<View
 				android:id="@+id/separator_2_2"
@@ -111,34 +110,22 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				android:id="@+id/soft_key_3"
 				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+				android:layout_weight="1" />
 
 			<View
 				android:id="@+id/separator_3_1"
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-				android:id="@+id/soft_key_5"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-			<View
-				android:id="@+id/separator_3_2"
-				style="@style/numSeparator" />
-
-			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				android:id="@+id/soft_key_0"
 				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+				android:layout_weight="1" />
 	</LinearLayout>
 
 </LinearLayout>

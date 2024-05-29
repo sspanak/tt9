@@ -34,8 +34,8 @@ public class SoftCommandKey extends SoftNumberKey {
 				return "⚙";
 			case 3:
 				return "🎤";
-			case 5:
-				return "✂";
+//			case 5:
+//				return "✂";
 		}
 
 		return null;

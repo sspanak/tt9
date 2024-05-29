@@ -9,9 +9,6 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
-	// @todo: hide the microphone and the scissors
-	// @todo: increase the font size
-
 	@Override
 	protected boolean onBack() {
 		if (mainView.isCommandPaletteShown()) {
