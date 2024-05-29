@@ -18,6 +18,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 	@Override
 	protected void onInit() {
+		super.onInit();
 		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
@@ -33,12 +34,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 	@Override
 	public boolean onBack() {
-		if (isMainViewCommandPalette()) {
-			displayMainView();
-			return true;
-		}
-
-		return settings.isMainLayoutNumpad();
+		return super.onBack() || settings.isMainLayoutNumpad();
 	}
 
 
@@ -184,7 +180,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		getSuggestions();
 
 		setStatusText(mInputMode.toString());
-		renderMainView();
+		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
@@ -209,7 +205,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
-		renderMainView();
+		mainView.render();
 
 		if (settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
@@ -228,7 +224,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (!validateOnly) {
 			suggestionOps.cancelDelayedAccept();
 			forceShowWindow();
-			displayCommandsView();
+			mainView.showCommandPalette();
+			setStatusText("Select a Command");
 		}
 
 		return true;

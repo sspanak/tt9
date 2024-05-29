@@ -35,13 +35,6 @@ public class MainView {
 		return true;
 	}
 
-
-	public void createCommandsView() {
-		main = new MainLayoutCommandPalette(tt9);
-		main.render();
-	}
-
-
 	public void forceCreateInputView() {
 		main = null;
 		if (!createInputView()) {
@@ -49,12 +42,6 @@ public class MainView {
 			main = new MainLayoutSmall(tt9);
 		}
 	}
-
-
-	public boolean isCommandPalette() {
-		return main != null && main.getClass().equals(MainLayoutCommandPalette.class);
-	}
-
 
 	public View getView() {
 		return main.getView();
@@ -66,5 +53,21 @@ public class MainView {
 
 	public void setDarkTheme(boolean darkEnabled) {
 		main.setDarkTheme(darkEnabled);
+	}
+
+	public void showCommandPalette() {
+		if (main instanceof MainLayoutTray) {
+			((MainLayoutTray) main).showCommandPalette();
+		}
+	}
+
+	public void hideCommandPalette() {
+		if (main instanceof MainLayoutTray) {
+			((MainLayoutTray) main).hideCommandPalette();
+		}
+	}
+
+	public boolean isCommandPaletteShown() {
+		return main != null && main instanceof MainLayoutTray && ((MainLayoutTray) main).isCommandPaletteShown();
 	}
 }

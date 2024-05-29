@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +18,7 @@ abstract class BaseMainLayout {
 	protected View view = null;
 	@NonNull protected ArrayList<SoftKey> keys = new ArrayList<>();
 
+
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
 		this.tt9 = tt9;
 		this.xml = xml;
@@ -33,24 +35,47 @@ abstract class BaseMainLayout {
 	 * More info:
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
 	 */
-	abstract public void setDarkTheme(boolean yes);
+	void setDarkTheme(boolean dark) {
+		if (view == null) {
+			return;
+		}
 
+		// background
+		view.setBackground(getBackgroundColor(view, dark));
 
-	/**
-	 * render
-	 * Do all the necessary stuff to display the View.
-	 */
-	abstract public void render();
+		// text
+		for (SoftKey key : getKeys()) {
+			key.setDarkTheme(dark);
+		}
+
+		// separators
+		int separatorColor = getSeparatorColor(view, dark);
+		for (View separator : getSeparators()) {
+			if (separator != null) {
+				separator.setBackgroundColor(separatorColor);
+			}
+		}
+	}
 
 
 	/**
 	 * getKeys
-	 * Returns a list of all the usable Soft Keys.
+	 * Returns a list of all the usable Soft Keys. Useful for attaching click handlers and changing
+	 * the color theme.
 	 */
-	abstract protected ArrayList<SoftKey> getKeys();
+	@NonNull protected ArrayList<SoftKey> getKeys() { return keys; }
+
+	/**
+	 * getSeparators
+	 * Returns a list of all the separators in the layout. Used in conjunction with getSeparatorColor().
+	 */
+	protected ArrayList<View> getSeparators() { return new ArrayList<>(); }
+
+	protected int getSeparatorColor(@NonNull View contextView, boolean dark) { return 0; }
+	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) { return null; }
 
 
-	public View getView() {
+	protected View getView() {
 		if (view == null) {
 			view = View.inflate(tt9.getApplicationContext(), xml, null);
 		}
@@ -59,7 +84,7 @@ abstract class BaseMainLayout {
 	}
 
 
-	public void enableClickHandlers() {
+	protected void enableClickHandlers() {
 		for (SoftKey key : getKeys()) {
 			key.setTT9(tt9);
 		}
@@ -80,4 +105,11 @@ abstract class BaseMainLayout {
 
 		return keyList;
 	}
+
+
+	/**
+	 * render
+	 * Do all the necessary stuff to display the View.
+	 */
+	abstract void render();
 }

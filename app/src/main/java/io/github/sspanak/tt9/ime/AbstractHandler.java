@@ -24,13 +24,11 @@ abstract public class AbstractHandler extends InputMethodService {
 
 	// UI
 	abstract protected void createSuggestionBar(View mainView);
-	abstract protected void forceShowWindow();
-	@Deprecated abstract protected boolean isMainViewCommandPalette();
-	@Deprecated abstract protected void displayCommandsView();
-	@Deprecated abstract protected void displayMainView();
-	abstract protected void renderMainView();
-	abstract protected void setStatusIcon(InputMode mode);
-	abstract protected void setStatusText(String status);
-	abstract protected boolean shouldBeVisible();
+
+
+	abstract protected InputMode getInputMode();
+	abstract protected int getInputModeId();
+	abstract protected SuggestionOps getSuggestionOps();
 	abstract protected boolean shouldBeOff();
+	abstract protected TraditionalT9 getFinalContext();
 }
