@@ -125,4 +125,9 @@
 	<string name="pref_layout">Екранна подредба</string>
 	<string name="pref_font_size">Размер на шрифта в настройките</string>
 	<string name="pref_font_size_default">По подразбиране</string>
+	<string name="key_red">Червен бутон</string>
+	<string name="key_green">Зелен бутон</string>
+	<string name="key_yellow">Жълт бутон</string>
+	<string name="key_blue">Син бутон</string>
+	<string name="key_volume_mute">Заглушаване на звук</string>
 </resources>

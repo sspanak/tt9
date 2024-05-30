@@ -150,8 +150,13 @@
 	<string name="key_menu" translatable="false">Menu</string>
 	<string name="key_soft_left" translatable="false">Left Func</string>
 	<string name="key_soft_right" translatable="false">Right Func</string>
+	<string name="key_volume_mute">Volume Mute</string>
 	<string name="key_volume_down">Volume Down</string>
 	<string name="key_volume_up">Volume Up</string>
+	<string name="key_red">Red Button</string>
+	<string name="key_green">Green Button</string>
+	<string name="key_yellow">Yellow Button</string>
+	<string name="key_blue">Blue Button</string>
 
 	<string name="char_comma" translatable="false">,</string>
 	<string name="char_dot" translatable="false">.</string>

@@ -65,6 +65,8 @@
 	<string name="setup_click_here_to_enable">Clicca qui per abilitare TT9 dalle impostazioni di Android.</string>
 	<string name="key_channel_down">Canale precedente</string>
 	<string name="key_channel_up">Prossimo canale</string>
+	<string name="key_volume_down">Abbassa il volume</string>
+	<string name="key_volume_up">Alza il volume</string>
 	<string name="char_newline">Nuova riga</string>
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
@@ -111,5 +113,10 @@
 	<string name="pref_font_size">Dimensione del carattere delle impostazioni</string>
 	<string name="pref_font_size_default">Predefinita</string>
 	<string name="function_show_command_palette">Mostra elenco comandi</string>
+	<string name="key_red">Pulsante rosso</string>
+	<string name="key_green">Pulsante verde</string>
+	<string name="key_yellow">Pulsante giallo</string>
+	<string name="key_blue">Pulsante blu</string>
+	<string name="key_volume_mute">Muto</string>
 </resources>
 

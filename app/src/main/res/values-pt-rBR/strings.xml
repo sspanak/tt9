@@ -83,6 +83,8 @@
 
 	<string name="key_channel_down">Canal anterior</string>
 	<string name="key_channel_up">Próximo canal</string>
+	<string name="key_volume_down">Diminuir o volume</string>
+	<string name="key_volume_up">Aumentar o volume</string>
 	<string name="char_newline">Nova Linha</string>
 	<string name="char_space">Espaço</string>
 	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>
@@ -126,4 +128,9 @@
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>
 	<string name="pref_font_size_default">Padrão</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
+	<string name="key_red">Botão vermelho</string>
+	<string name="key_green">Botão verde</string>
+	<string name="key_yellow">Botão amarelo</string>
+	<string name="key_blue">Botão azul</string>
+	<string name="key_volume_mute">Mudo</string>
 </resources>

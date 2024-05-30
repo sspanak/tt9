@@ -181,6 +181,12 @@ public class Hotkeys {
 
 		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_DOWN, R.string.key_channel_down, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_CHANNEL_UP, R.string.key_channel_up, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_PROG_RED, R.string.key_red, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_PROG_GREEN, R.string.key_green, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_PROG_YELLOW, R.string.key_yellow, false);
+		addIfDeviceHasKey(KeyEvent.KEYCODE_PROG_BLUE, R.string.key_blue, false);
+
+		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_MUTE, R.string.key_volume_mute, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_DOWN, R.string.key_volume_down, false);
 		addIfDeviceHasKey(KeyEvent.KEYCODE_VOLUME_UP, R.string.key_volume_up, false);
 	}
