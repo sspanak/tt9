@@ -136,4 +136,9 @@
 	<string name="pref_layout">Екранна розкладка</string>
 	<string name="pref_font_size">Розмір шрифту у налаштуваннях</string>
 	<string name="pref_font_size_default">За замовчуванням</string>
+	<string name="key_red">Червона кнопка</string>
+	<string name="key_green">Зелена кнопка</string>
+	<string name="key_yellow">Жовта кнопка</string>
+	<string name="key_blue">Синя кнопка</string>
+	<string name="key_volume_mute">Вимкнення звуку</string>
 </resources>

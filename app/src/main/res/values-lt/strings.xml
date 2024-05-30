@@ -134,4 +134,9 @@
 	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>
 	<string name="pref_font_size_default">Numatytasis</string>
+	<string name="key_red">Raudonas mygtukas</string>
+	<string name="key_green">Žalias mygtukas</string>
+	<string name="key_yellow">Geltonas mygtukas</string>
+	<string name="key_blue">Mėlynas mygtukas</string>
+	<string name="key_volume_mute">Nutildymo mygt.</string>
 </resources>

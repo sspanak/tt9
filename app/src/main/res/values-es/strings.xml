@@ -125,4 +125,9 @@
 	<string name="pref_layout">Distribución del teclado en pantalla</string>
 	<string name="pref_font_size">Tamaño de fuente de configuración</string>
 	<string name="pref_font_size_default">Predeterminado</string>
+	<string name="key_red">Botón rojo</string>
+	<string name="key_green">Botón verde</string>
+	<string name="key_yellow">Botón amarillo</string>
+	<string name="key_blue">Botón azul</string>
+	<string name="key_volume_mute">Botón de silencio</string>
 </resources>

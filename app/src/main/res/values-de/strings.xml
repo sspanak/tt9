@@ -63,6 +63,8 @@
 	<string name="setup_click_here_to_enable">Klicken Sie hier, um TT9 in den Android-Einstellungen zu aktivieren.</string>
 	<string name="key_channel_down">Vorheriger Kanal</string>
 	<string name="key_channel_up">Nächster Kanal</string>
+	<string name="key_volume_down">Leiser</string>
+	<string name="key_volume_up">Lauter</string>
 	<string name="char_newline">Neue Zeile</string>
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
@@ -109,4 +111,9 @@
 	<string name="pref_font_size">Schriftgröße der Einstellungen</string>
 	<string name="pref_font_size_default">Standard</string>
 	<string name="function_show_command_palette">Befehlsliste anzeigen</string>
+	<string name="key_red">Roter Knopf</string>
+	<string name="key_green">Grüner Knopf</string>
+	<string name="key_yellow">Gelber Knopf</string>
+	<string name="key_blue">Blauer Knopf</string>
+	<string name="key_volume_mute">Stummschalttaste</string>
 </resources>

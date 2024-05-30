@@ -84,6 +84,8 @@
 
 	<string name="key_channel_down">הערוץ הקודם</string>
 	<string name="key_channel_up">הערוץ הבא</string>
+	<string name="key_volume_down">הנמכת עוצמת הקול</string>
+	<string name="key_volume_up">הגברת עוצמת הקול</string>
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
 	<string name="pref_category_setup">הגדרה ראשונית</string>
@@ -124,4 +126,9 @@
 	<string name="pref_font_size">גודל הגופן בהגדרות</string>
 	<string name="pref_font_size_default">ברירת מחדל</string>
 	<string name="function_show_command_palette">הצג רשימת פקודות</string>
+	<string name="key_red">כפתור אדום</string>
+	<string name="key_green">כפתור ירוק</string>
+	<string name="key_yellow">כפתור צהוב</string>
+	<string name="key_blue">כפתור כחול</string>
+	<string name="key_volume_mute">כפתור השתק</string>
 </resources>
