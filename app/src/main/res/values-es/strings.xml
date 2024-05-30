@@ -85,7 +85,7 @@
 	<string name="setup_tt9_on">%1$s está habilitado</string>
 	<string name="setup_tt9_off">%1$s está deshabilitado</string>
 	<string name="setup_click_here_to_enable">Pulse aquí para habilitar TT9 en la configuración de Android</string>
-	<string name="key_hold_key">Espera</string>
+	<string name="key_hold_key">(еspera)</string>
 	<string name="key_back">Volver</string>
 	<string name="key_call">Llamar</string>
 	<string name="key_channel_down">Canal anterior</string>

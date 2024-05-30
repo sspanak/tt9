@@ -32,6 +32,8 @@
 	<string name="pref_abc_auto_accept_slow">Lenta</string>
 	<string name="pref_alternative_suggestion_scrolling">Metodo alternativo di scorrimento delle suggerimenti</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli (Android 9 o precedente).</string>
+	<string name="pref_auto_space">Spazio automatico</string>
+	<string name="pref_auto_space_summary">Aggiungere automaticamente uno spazio dopo la punteggiatura o le parole.</string>
 	<string name="pref_auto_text_case">Maiuscole automatiche</string>
 	<string name="pref_auto_text_case_summary">Iniziare automaticamente le frasi con una lettera maiuscola.</string>
 	<string name="pref_auto_capitals_after_newline">Maiuscole automatiche su ogni riga</string>
