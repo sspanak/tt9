@@ -44,12 +44,6 @@ abstract class BaseMainLayout {
 	 */
 	@NonNull protected ArrayList<SoftKey> getKeys() { return keys; }
 
-	/**
-	 * getSeparators
-	 * Returns a list of all the separators in the layout so that they can be themed properly.
-	 */
-	protected ArrayList<View> getSeparators() { return new ArrayList<>(); }
-
 
 	protected View getView() {
 		if (view == null) {

@@ -96,7 +96,6 @@ class MainLayoutTray extends BaseMainLayout {
 		return keys;
 	}
 
-	@Override
 	protected ArrayList<View> getSeparators() {
 		return new ArrayList<>(Arrays.asList(
 			view.findViewById(R.id.separator_top),
