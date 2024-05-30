@@ -254,7 +254,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
-		allowedInputModes = inputType.determineInputModes();
+		allowedInputModes = inputType.determineInputModes(this);
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 

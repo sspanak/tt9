@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.content.Context;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -65,7 +66,7 @@ abstract public class StandardInputType {
 	}
 
 
-	abstract protected boolean isSpecialNumeric();
+	abstract protected boolean isSpecialNumeric(Context context);
 
 
 	public boolean isEmail() {
@@ -126,7 +127,7 @@ abstract public class StandardInputType {
 	 *
 	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
 	 */
-	public ArrayList<Integer> determineInputModes() {
+	public ArrayList<Integer> determineInputModes(Context context) {
 		ArrayList<Integer> allowedModes = new ArrayList<>();
 
 		if (field == null) {
@@ -137,7 +138,7 @@ abstract public class StandardInputType {
 		// Calculators (only 0-9 and math) and Dialer (0-9, "#" and "*") fields
 		// handle all input themselves, so we are supposed to pass through all key presses.
 		// Note: A Dialer field is not a Phone number field.
-		if (isSpecialNumeric()) {
+		if (isSpecialNumeric(context)) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
 			return allowedModes;
 		}
