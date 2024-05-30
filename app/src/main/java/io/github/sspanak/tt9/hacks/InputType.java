@@ -41,6 +41,11 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean isDumbPhoneDialer(Context context) {
+		return field.packageName.equals("com.android.dialer") && !DeviceInfo.noKeyboard(context);
+	}
+
+
 	public boolean isLgX100SDialer() {
 		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return
@@ -114,11 +119,13 @@ public class InputType extends StandardInputType {
 	 * <a href="https://github.com/sspanak/tt9/issues/46">the initial GitHub issue about Qin F21 Pro+</a>
 	 * <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>
 	 * <a href="https://github.com/sspanak/tt9/issues/300">Dialer not detected correctly on LG X100S</a>
+	 * [NO ISSUE] On touchscreen-only phones, in the Dialer app, we can't switch to passthrough, because
+	 * they don't have a physical keyboard.
 	 */
-	protected boolean isSpecialNumeric() {
+	protected boolean isSpecialNumeric(Context context) {
 		return
 			field.packageName.contains("com.android.calculator") // there is "calculator2", hence the contains()
-			|| field.packageName.equals("com.android.dialer")
+			|| isDumbPhoneDialer(context)
 			|| isLgX100SDialer();
 	}
 
