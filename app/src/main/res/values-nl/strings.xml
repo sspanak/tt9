@@ -29,6 +29,8 @@
 	<string name="pref_abc_auto_accept_slow">Langzaam</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatieve suggestiescrolmethode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Inschakelen als je soms niet alle suggesties kunt zien of problemen hebt met het scrollen (Android 9 of ouder).</string>
+	<string name="pref_auto_space">Automatische spatie</string>
+	<string name="pref_auto_space_summary">Automatisch een spatie toevoegen na interpunctie of woorden.</string>
 	<string name="pref_auto_text_case">Automatische hoofdletters</string>
 	<string name="pref_auto_text_case_summary">Automatisch zinnen beginnen met een hoofdletter.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische hoofdletters op elke regel</string>
@@ -36,6 +38,8 @@
 	<string name="pref_choose_languages">Talen</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
+	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
+	<string name="pref_upside_down_keys_summary">Activeer als het toetsenbord 7–8–9 op de eerste rij heeft, in plaats van 1–2–3.</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_cancelled">Laden geannuleerd.</string>
 	<string name="dictionary_loaded">Woordenboek laden voltooid.</string>

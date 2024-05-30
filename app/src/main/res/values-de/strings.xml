@@ -30,6 +30,8 @@
 	<string name="pref_abc_auto_accept_slow">Langsam</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben (Android 9 oder älter).</string>
+	<string name="pref_auto_space">Automatischer Abstand</string>
+	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
 	<string name="pref_auto_text_case_summary">Automatisch Sätze mit einem Großbuchstaben beginnen.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische Großbuchstaben auf jeder Zeile</string>
@@ -38,6 +40,8 @@
 
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
+	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
+	<string name="pref_upside_down_keys_summary">Aktivieren Sie, wenn die Tastatur in der ersten Zeile 7–8–9 anstelle von 1–2–3 hat.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_cancelled">Laden abgebrochen.</string>
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>
