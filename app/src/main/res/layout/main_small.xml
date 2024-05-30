@@ -5,6 +5,10 @@
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
 
+	<View
+		android:id="@+id/separator_top"
+		style="@style/numRowSeparator" />
+
 	<FrameLayout
 		android:layout_width="fill_parent"
 		android:layout_height="@dimen/candidate_height">
@@ -26,6 +30,10 @@
 			android:scrollbars="none" />
 
 	</FrameLayout>
+
+	<View
+		android:id="@+id/separator_candidates_bottom"
+		style="@style/numRowSeparator" />
 
 	<LinearLayout
 		android:id="@+id/main_soft_keys"

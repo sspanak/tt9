@@ -70,10 +70,9 @@ class MainLayoutTray extends BaseMainLayout {
 		}
 
 		// separators
-		Drawable separatorColor = getSeparatorColor(view, dark);
 		for (View separator : getSeparators()) {
 			if (separator != null) {
-				separator.setBackground(separatorColor);
+				separator.setBackground(getSeparatorColor(separator, dark));
 			}
 		}
 	}
@@ -100,10 +99,11 @@ class MainLayoutTray extends BaseMainLayout {
 	@Override
 	protected ArrayList<View> getSeparators() {
 		return new ArrayList<>(Arrays.asList(
+			view.findViewById(R.id.separator_top),
+			view.findViewById(R.id.separator_candidates_bottom),
 			view.findViewById(R.id.separator_2_1),
 			view.findViewById(R.id.separator_2_2),
-			view.findViewById(R.id.separator_3_1),
-			view.findViewById(R.id.separator_3_2)
+			view.findViewById(R.id.separator_3_1)
 		));
 	}
 }
