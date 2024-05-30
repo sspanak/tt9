@@ -18,6 +18,7 @@
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 
+	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_custom_words">Додані слова</string>
@@ -99,18 +100,16 @@
 	<string name="donate_title">Підтримати</string>
 	<string name="donate_summary">Якщо вам подобається %1$s, ви можете підтримати розробку по посиланню: %2$s.</string>
 
-	<string name="function_add_word_key">Додати слово</string>
-	<string name="function_backspace_key">Стерти</string>
-	<string name="function_change_keyboard_key">Змінити клавіатуру</string>
+	<string name="function_backspace">Стерти</string>
 	<string name="dictionary_no_notifications">Сповіщення словника</string>
 	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
-	<string name="function_filter_clear_key">Очистити фільтр</string>
-	<string name="function_filter_suggestions_key">Фільтрувати пропозиції</string>
-	<string name="function_previous_suggestion_key">Попередня пропозиція</string>
-	<string name="function_next_suggestion_key">Наступна пропозиція</string>
-	<string name="function_next_language_key">Наступна мова</string>
-	<string name="function_next_mode_key">Режим вводу</string>
-	<string name="function_show_settings_key">Показати налаштування</string>
+	<string name="function_show_command_palette">Список команд</string>
+	<string name="function_filter_clear">Очистити фільтр</string>
+	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
+	<string name="function_previous_suggestion">Попередня пропозиція</string>
+	<string name="function_next_suggestion">Наступна пропозиція</string>
+	<string name="function_next_language">Наступна мова</string>
+	<string name="function_next_mode">Режим вводу</string>
 	<string name="function_reset_keys_title">Відновити стандартні клавіші</string>
 	<string name="function_reset_keys_done">Стандартні налаштування клавіш відновленно.</string>
 

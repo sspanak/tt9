@@ -26,6 +26,13 @@ abstract public class ActivityWithNavigation extends AppCompatActivity {
 
 
 	@Override
+	protected void onCreate(@Nullable Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		getSettings();
+	}
+
+
+	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
 		super.onCreate(savedInstanceState, persistentState);
 		getSettings();

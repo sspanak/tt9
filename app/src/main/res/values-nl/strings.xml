@@ -13,6 +13,7 @@
 	<string name="add_word_invalid_language_x">Kan geen woord toevoegen. Onbekende taal: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" toegevoegd.</string>
 	<string name="add_word_title">Woord toevoegen</string>
+	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord (BETA)</string>
 	<string name="pref_layout_small">Functieknoppen</string>
@@ -55,8 +56,7 @@
 	<string name="pref_category_function_keys">Sneltoetsen</string>
 	<string name="pref_category_keypad">Toetsenbord</string>
 	<string name="char_space">Spatie</string>
-	<string name="function_backspace_key">Backspace</string>
-	<string name="function_change_keyboard_key">Toetsenbordkeuze</string>
+	<string name="function_backspace">Backspace</string>
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Standaardtoetsenbord selecteren</string>
 	<string name="setup_tt9_on">%1$s is ingeschakeld</string>
@@ -106,4 +106,5 @@
 	<string name="dictionary_no_notifications_summary">Ontvang meldingen over woordenboekupdates en de voortgang van het laden.</string>
 	<string name="pref_font_size">Instellingen lettergrootte</string>
 	<string name="pref_font_size_default">Standaard</string>
+	<string name="function_show_command_palette">Toon opdrachtenlijst</string>
 </resources>

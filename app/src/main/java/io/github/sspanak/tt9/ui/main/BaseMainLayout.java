@@ -15,7 +15,8 @@ abstract class BaseMainLayout {
 	private final int xml;
 
 	protected View view = null;
-	@NonNull protected ArrayList<SoftKey> keys = new ArrayList<>();
+	@NonNull protected final ArrayList<SoftKey> keys = new ArrayList<>();
+
 
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
 		this.tt9 = tt9;
@@ -33,24 +34,24 @@ abstract class BaseMainLayout {
 	 * More info:
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
 	 */
-	abstract public void setDarkTheme(boolean yes);
-
-
-	/**
-	 * render
-	 * Do all the necessary stuff to display the View.
-	 */
-	abstract public void render();
+	void setDarkTheme(boolean dark) {}
 
 
 	/**
 	 * getKeys
-	 * Returns a list of all the usable Soft Keys.
+	 * Returns a list of all the usable Soft Keys. Useful for attaching click handlers and changing
+	 * the color theme.
 	 */
-	abstract protected ArrayList<SoftKey> getKeys();
+	@NonNull protected ArrayList<SoftKey> getKeys() { return keys; }
+
+	/**
+	 * getSeparators
+	 * Returns a list of all the separators in the layout so that they can be themed properly.
+	 */
+	protected ArrayList<View> getSeparators() { return new ArrayList<>(); }
 
 
-	public View getView() {
+	protected View getView() {
 		if (view == null) {
 			view = View.inflate(tt9.getApplicationContext(), xml, null);
 		}
@@ -59,7 +60,7 @@ abstract class BaseMainLayout {
 	}
 
 
-	public void enableClickHandlers() {
+	protected void enableClickHandlers() {
 		for (SoftKey key : getKeys()) {
 			key.setTT9(tt9);
 		}
@@ -80,4 +81,11 @@ abstract class BaseMainLayout {
 
 		return keyList;
 	}
+
+
+	/**
+	 * render
+	 * Do all the necessary stuff to display the View.
+	 */
+	abstract void render();
 }

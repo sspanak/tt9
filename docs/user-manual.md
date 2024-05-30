@@ -86,11 +86,6 @@ _**Note 2:** In messaging applications, you need to enable their "Send with ENTE
 - **In 123 mode:** type the respective number
 - **In ABC and Predictive mode:** type a letter or hold to type the respective number.
 
-#### Add Word Key (Default: press ✱):
-Add a new word to the dictionary for the current language.
-
-You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
-
 #### Backspace Key:
 Just deletes text.
 
@@ -112,11 +107,17 @@ _In these cases, you could assign another key (all other keys are fully usable),
 #### Next Language Key (Default: hold #):
 Select the next language, when multiple languages have been enabled from the Settings.
 
-#### Settings Key (Default: hold ✱):
-Open the Settings configuration screen.
+#### Command-List Key / aka Command Palette / (Default: press ✱):
+Show a list of commands (or functions) not accessible via hotkeys.
 
-#### Change Keyboard Key (Default: _unassigned_):
-Open the Android Change Keyboard dialog where you can select between all installed keyboards.
+Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
+
+Below is a list of the possible commands:
+- **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+- **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
+- **Select a Different Keyboard (Default Combo: ✱, 0-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
+
+_This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
 
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual numpad".
@@ -133,9 +134,14 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 #### Method 1
 Click on the Traditional T9 launcher icon.
 
-#### Method 2
-- Start typing in a text field to wake up TT9.
+#### Method 2 (touchscreen phones)
+- Tap on a text or a number field to wake up TT9.
 - Use the on-screen gear button or press the assigned hotkey [Default: Hold ✱].
+
+#### Method 3 (non-touchscreen phones)
+- Start typing in a text or a number field to wake up TT9.
+- Open the commands list using the on-screen tools button or by pressing the assigned hotkey [Default: Hold ✱].
+- Press the 2-key.
 
 #### Method 3
 - Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards/Virtual Keyboards). This is where all installed keyboards

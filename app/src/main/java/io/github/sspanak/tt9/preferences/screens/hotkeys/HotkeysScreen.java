@@ -20,16 +20,14 @@ public class HotkeysScreen extends BaseScreenFragment {
 	@Override
 	public void onCreate() {
 		DropDownPreference[] dropDowns = {
-			findPreference(SectionKeymap.ITEM_ADD_WORD),
 			findPreference(SectionKeymap.ITEM_BACKSPACE),
-			findPreference(SectionKeymap.ITEM_CHANGE_KEYBOARD),
+			findPreference(SectionKeymap.ITEM_COMMAND_PALETTE),
 			findPreference(SectionKeymap.ITEM_FILTER_CLEAR),
 			findPreference(SectionKeymap.ITEM_FILTER_SUGGESTIONS),
 			findPreference(SectionKeymap.ITEM_PREVIOUS_SUGGESTION),
 			findPreference(SectionKeymap.ITEM_NEXT_SUGGESTION),
 			findPreference(SectionKeymap.ITEM_NEXT_INPUT_MODE),
 			findPreference(SectionKeymap.ITEM_NEXT_LANGUAGE),
-			findPreference(SectionKeymap.ITEM_SHOW_SETTINGS),
 		};
 		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity);
 		section.populate().activate();

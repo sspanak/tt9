@@ -67,16 +67,14 @@ public class Hotkeys {
 		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
 
 		settings.setDefaultKeys(
-			KeyEvent.KEYCODE_STAR,
 			backspace,
-			0, // "change keyboard" is unassigned by default
+			KeyEvent.KEYCODE_STAR,
 			clearFilter,
 			filter,
 			previousSuggestion,
 			nextSuggestion,
 			KeyEvent.KEYCODE_POUND,
-			-KeyEvent.KEYCODE_POUND, // negative means "hold"
-			-KeyEvent.KEYCODE_STAR
+			-KeyEvent.KEYCODE_POUND // negative means "hold"
 		);
 	}
 

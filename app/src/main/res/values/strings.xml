@@ -21,6 +21,8 @@
 	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
 
+	<string name="commands_select_command">Select a Command</string>
+
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_custom_words">Added Words</string>
@@ -118,16 +120,14 @@
 	<string name="donate_url" translatable="false">https://www.buymeacoffee.com/sspanak</string>
 	<string name="donate_url_short" translatable="false">www.buymeacoffee.com</string>
 
-	<string name="function_add_word_key">Add Word</string>
-	<string name="function_backspace_key">Backspace</string>
-	<string name="function_change_keyboard_key">Change Keyboard</string>
-	<string name="function_filter_clear_key">Clear Filter</string>
-	<string name="function_filter_suggestions_key">Filter Suggestions</string>
-	<string name="function_previous_suggestion_key">Previous Suggestion</string>
-	<string name="function_next_suggestion_key">Next Suggestion</string>
-	<string name="function_next_language_key">Next Language</string>
-	<string name="function_next_mode_key">Input Mode</string>
-	<string name="function_show_settings_key">Show Settings</string>
+	<string name="function_backspace">Backspace</string>
+	<string name="function_show_command_palette">Show Command List</string>
+	<string name="function_filter_clear">Clear Filter</string>
+	<string name="function_filter_suggestions">Filter Suggestions</string>
+	<string name="function_previous_suggestion">Previous Suggestion</string>
+	<string name="function_next_suggestion">Next Suggestion</string>
+	<string name="function_next_language">Next Language</string>
+	<string name="function_next_mode">Input Mode</string>
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>
 

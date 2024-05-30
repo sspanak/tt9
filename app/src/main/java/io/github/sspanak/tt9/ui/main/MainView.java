@@ -13,10 +13,10 @@ public class MainView {
 	public MainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
-		forceCreateView();
+		forceCreateInputView();
 	}
 
-	public boolean createView() {
+	public boolean createInputView() {
 		SettingsStore settings = tt9.getSettings();
 
 		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
@@ -35,10 +35,9 @@ public class MainView {
 		return true;
 	}
 
-
-	public void forceCreateView() {
+	public void forceCreateInputView() {
 		main = null;
-		if (!createView()) {
+		if (!createInputView()) {
 			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);
 		}
@@ -54,5 +53,21 @@ public class MainView {
 
 	public void setDarkTheme(boolean darkEnabled) {
 		main.setDarkTheme(darkEnabled);
+	}
+
+	public void showCommandPalette() {
+		if (main instanceof MainLayoutTray) {
+			((MainLayoutTray) main).showCommandPalette();
+		}
+	}
+
+	public void hideCommandPalette() {
+		if (main instanceof MainLayoutTray) {
+			((MainLayoutTray) main).hideCommandPalette();
+		}
+	}
+
+	public boolean isCommandPaletteShown() {
+		return main != null && main instanceof MainLayoutTray && ((MainLayoutTray) main).isCommandPaletteShown();
 	}
 }

@@ -3,44 +3,36 @@
 	app:orderingFromXml="true">
 
 	<DropDownPreference
-		app:key="key_add_word"
-		app:title="@string/function_add_word_key" />
+		app:key="key_backspace"
+		app:title="@string/function_backspace" />
 
 	<DropDownPreference
-		app:key="key_backspace"
-		app:title="@string/function_backspace_key" />
+		app:key="key_command_palette"
+		app:title="@string/function_show_command_palette" />
 
 	<DropDownPreference
 		app:key="key_filter_clear"
-		app:title="@string/function_filter_clear_key" />
+		app:title="@string/function_filter_clear" />
 
 	<DropDownPreference
 		app:key="key_filter_suggestions"
-		app:title="@string/function_filter_suggestions_key" />
+		app:title="@string/function_filter_suggestions" />
 
 	<DropDownPreference
 		app:key="key_previous_suggestion"
-		app:title="@string/function_previous_suggestion_key" />
+		app:title="@string/function_previous_suggestion" />
 
 	<DropDownPreference
 		app:key="key_next_suggestion"
-		app:title="@string/function_next_suggestion_key" />
+		app:title="@string/function_next_suggestion" />
 
 	<DropDownPreference
 		app:key="key_next_language"
-		app:title="@string/function_next_language_key" />
+		app:title="@string/function_next_language" />
 
 	<DropDownPreference
 		app:key="key_next_input_mode"
-		app:title="@string/function_next_mode_key" />
-
-	<DropDownPreference
-		app:key="key_change_keyboard"
-		app:title="@string/function_change_keyboard_key" />
-
-	<DropDownPreference
-		app:key="key_show_settings"
-		app:title="@string/function_show_settings_key" />
+		app:title="@string/function_next_mode" />
 
 	<Preference
 		app:key="reset_keys"

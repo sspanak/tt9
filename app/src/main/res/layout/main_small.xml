@@ -27,7 +27,6 @@
 
 	</FrameLayout>
 
-
 	<LinearLayout
 		android:id="@+id/main_soft_keys"
 		android:layout_width="match_parent"
@@ -37,13 +36,13 @@
 		tools:ignore="HardcodedText,KeyboardInaccessibleWidget">
 
 		<io.github.sspanak.tt9.ui.main.keys.SoftKey
-			android:id="@+id/soft_key_settings"
+			android:id="@+id/soft_key_command_palette"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
 			android:focusable="false"
-			android:text="⚙"
+			android:text="🛠"
 			android:textSize="@dimen/soft_key_icon_size" />
 
 		<View
@@ -76,4 +75,57 @@
 			android:textSize="@dimen/soft_key_icon_size" />
 
 	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/main_command_keys"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:visibility="gone">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				android:id="@+id/soft_key_1"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_2_1"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				android:id="@+id/soft_key_2"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_2_2"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				android:id="@+id/soft_key_3"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_3_1"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				android:id="@+id/soft_key_0"
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:textSize="@dimen/soft_key_icon_size"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+	</LinearLayout>
+
 </LinearLayout>

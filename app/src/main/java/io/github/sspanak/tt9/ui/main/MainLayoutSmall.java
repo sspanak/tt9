@@ -1,9 +1,9 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.LinearLayout;
 
-import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
@@ -23,34 +23,28 @@ class MainLayoutSmall extends MainLayoutTray {
 		}
 	}
 
+	@NonNull
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
 		if (view != null && keys.isEmpty()) {
-			keys = getKeysFromContainer(view.findViewById(R.id.main_soft_keys));
+			super.getKeys();
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_soft_keys)));
 		}
 		return keys;
 	}
 
 	@Override
-	public void setDarkTheme(boolean darkEnabled) {
-		if (view == null) {
-			return;
-		}
+	protected ArrayList<View> getSeparators() {
+		ArrayList<View> separators = super.getSeparators();
+		separators.add(view.findViewById(R.id.main_separator_left));
+		separators.add(view.findViewById(R.id.main_separator_right));
 
-		super.setDarkTheme(darkEnabled);
+		return separators;
+	}
 
-		// text
-		for (SoftKey key : getKeys()) {
-			key.setDarkTheme(darkEnabled);
-		}
-
-		// separators
-		Drawable separatorColor = ContextCompat.getDrawable(
-			view.getContext(),
-			darkEnabled ? R.drawable.button_separator_dark : R.drawable.button_separator
-		);
-
-		view.findViewById(R.id.main_separator_left).setBackground(separatorColor);
-		view.findViewById(R.id.main_separator_right).setBackground(separatorColor);
+	@Override
+	void setDarkTheme(boolean dark) {
+		super.setDarkTheme(dark);
+		view.findViewById(R.id.main_soft_keys).setBackground(getBackgroundColor(view, dark));
 	}
 }

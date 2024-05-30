@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
@@ -20,8 +21,13 @@ public class StatusBar {
 
 
 	public void setText(String text) {
-		statusText = "[ " + text + " ]";
+		statusText = text;
 		this.render();
+	}
+
+
+	public void setText(InputMode inputMode) {
+		setText("[ " + inputMode.toString() + " ]");
 	}
 
 

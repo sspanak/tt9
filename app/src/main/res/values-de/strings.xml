@@ -14,6 +14,7 @@
 	<string name="add_word_success">\"%1$s\" hinzugefügt.</string>
 	<string name="add_word_title">Wort hinzufügen</string>
 
+	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_layout_numpad">Ziffernblock (BETA)</string>
 	<string name="pref_layout_small">Funktionstasten</string>
@@ -54,8 +55,7 @@
 	<string name="pref_category_function_keys">Tastenkürzel</string>
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>
-	<string name="function_backspace_key">Rücktaste</string>
-	<string name="function_change_keyboard_key">Tastaturauswahl</string>
+	<string name="function_backspace">Rücktaste</string>
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Standardtastatur auswählen</string>
 	<string name="setup_tt9_on">%1$s ist aktiviert</string>
@@ -108,4 +108,5 @@
 	<string name="dictionary_no_notifications_summary">Benachrichtigen über Wörterbuchaktualisierungen und den Ladevorgang.</string>
 	<string name="pref_font_size">Schriftgröße der Einstellungen</string>
 	<string name="pref_font_size_default">Standard</string>
+	<string name="function_show_command_palette">Befehlsliste anzeigen</string>
 </resources>

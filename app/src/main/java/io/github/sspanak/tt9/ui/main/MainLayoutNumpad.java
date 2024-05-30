@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ui.main;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
@@ -17,29 +18,38 @@ class MainLayoutNumpad extends BaseMainLayout {
 		super(tt9, R.layout.main_numpad);
 	}
 
+
+	private int getBackgroundColor(@NonNull View contextView, boolean dark) {
+		return ContextCompat.getColor(
+			contextView.getContext(),
+			dark ? R.color.dark_numpad_background : R.color.numpad_background
+		);
+	}
+
+
+	private int getSeparatorColor(@NonNull View contextView, boolean dark) {
+		return ContextCompat.getColor(
+			contextView.getContext(),
+			dark ? R.color.dark_numpad_separator : R.color.numpad_separator
+		);
+	}
+
 	@Override
-	public void setDarkTheme(boolean darkEnabled) {
+	void setDarkTheme(boolean dark) {
 		if (view == null) {
 			return;
 		}
 
 		// background
-		view.setBackground(ContextCompat.getDrawable(
-			view.getContext(),
-			darkEnabled ? R.color.dark_numpad_background : R.color.numpad_background
-		));
+		view.setBackgroundColor(getBackgroundColor(view, dark));
 
 		// text
 		for (SoftKey key : getKeys()) {
-			key.setDarkTheme(darkEnabled);
+			key.setDarkTheme(dark);
 		}
 
 		// separators
-		int separatorColor = ContextCompat.getColor(
-			view.getContext(),
-			darkEnabled ? R.color.dark_numpad_separator : R.color.numpad_separator
-		);
-
+		int separatorColor = getSeparatorColor(view, dark);
 		for (View separator : getSeparators()) {
 			if (separator != null) {
 				separator.setBackgroundColor(separatorColor);
@@ -48,7 +58,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 	@Override
-	public void render() {
+	void render() {
 		getView();
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
@@ -56,6 +66,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 	}
 
+	@NonNull
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
 		if (!keys.isEmpty()) {

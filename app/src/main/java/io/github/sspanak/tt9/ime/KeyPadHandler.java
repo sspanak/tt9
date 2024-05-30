@@ -8,9 +8,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Timer;
 
 
-abstract class KeyPadHandler extends AbstractHandler {
-	protected SettingsStore settings;
-
+abstract class KeyPadHandler extends UiHandler {
 	// debounce handling
 	private final static String DEBOUNCE_TIMER = "debounce_";
 

@@ -39,9 +39,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected ArrayList<Integer> mEnabledLanguages;
 	protected Language mLanguage;
 
-	@Override
+
 	protected void createSuggestionBar(View mainView) {
 		suggestionOps = new SuggestionOps(settings, mainView, this::onAcceptSuggestionsDelayed, this::onOK);
+	}
+
+
+	protected boolean shouldBeOff() {
+		return currentInputConnection == null || mInputMode.isPassthrough();
 	}
 
 	@Override
@@ -302,6 +307,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
+	@Override
+	public SuggestionOps getSuggestionOps() {
+		return suggestionOps;
+	}
 
 	protected void getSuggestions() {
 		if (mInputMode instanceof ModePredictive && DictionaryLoader.getInstance(this).isRunning()) {
