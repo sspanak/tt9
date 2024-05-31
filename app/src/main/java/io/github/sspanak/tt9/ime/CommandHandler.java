@@ -4,23 +4,26 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModeABC;
+import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
+import io.github.sspanak.tt9.util.Logger;
 
-abstract class CommandHandler extends TypingHandler {
+abstract public class CommandHandler extends TypingHandler {
 	private VoiceInputOps voiceInputOps;
 
 	@Override
 	protected void onInit() {
-		voiceInputOps = new VoiceInputOps(this);
+		voiceInputOps = new VoiceInputOps(this, this::onVoiceInputStarted, this::onVoiceInputStopped, this::onVoiceInputError);
 		super.onInit();
 	}
 
 	@Override
 	protected boolean onBack() {
 		if (mainView.isCommandPaletteShown()) {
+			stopVoiceInput();
 			mainView.hideCommandPalette();
 			statusBar.setText(mInputMode);
 			return true;
@@ -66,22 +69,21 @@ abstract class CommandHandler extends TypingHandler {
 	private void onCommand(int key) {
 		switch (key) {
 			case 0:
+				stopVoiceInput();
 				changeKeyboard();
 				break;
 			case 1:
+				stopVoiceInput();
 				showSettings();
 				break;
 			case 2:
+				stopVoiceInput();
 				mainView.hideCommandPalette();
 				statusBar.setText(mInputMode);
 				addWord();
 				break;
 			case 3:
-				if (voiceInputOps.isListening()) {
-					voiceInputOps.stop();
-				} else {
-					voiceInputOps.listen();
-				}
+				voiceInput();
 				break;
 		}
 	}
@@ -188,5 +190,46 @@ abstract class CommandHandler extends TypingHandler {
 	public void showSettings() {
 		suggestionOps.cancelDelayedAccept();
 		UI.showSettingsScreen(this);
+	}
+
+
+	// @todo: move these to a separate class
+	public void voiceInput() {
+		if (voiceInputOps.isListening()) {
+			stopVoiceInput();
+			return;
+		}
+
+		// @todo: close the permission request dialog properly
+
+		voiceInputOps.listen(mLanguage);
+		statusBar.setText("Loading..."); // @todo: translations
+		// @todo: change the command palette to "listening" mode
+	}
+
+
+	public void stopVoiceInput() {
+		voiceInputOps.stop();
+		statusBar.setText(mInputMode);
+	}
+
+
+	private void onVoiceInputStarted() {
+		statusBar.setText("Listening...");
+	}
+
+
+	private void onVoiceInputStopped(String text) {
+		onText(text, false);
+		statusBar.setText(mInputMode);
+		mainView.hideCommandPalette();
+	}
+
+
+	private void onVoiceInputError(VoiceInputError error) {
+		Logger.e("VoiceInput", "Failed to listen. " + error);
+		statusBar.setText(mInputMode);
+		// @todo: display the error somehow
+		// @todo: change the command palette to normal mode
 	}
 }

@@ -36,10 +36,6 @@ public class Permissions {
 	}
 
 
-	public boolean noRecordAudio() {
-		return isRefused(Manifest.permission.RECORD_AUDIO);
-	}
-
 	public void requestRecordAudio() {
 		requestPermission(Manifest.permission.RECORD_AUDIO);
 	}

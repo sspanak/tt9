@@ -8,14 +8,23 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 
 class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
-	private final @NonNull Runnable onStop;
 
-	VoiceListener(@NonNull Runnable onStop) {
+	private final @NonNull Runnable onStart;
+	private final @NonNull ConsumerCompat<ArrayList<String>> onStop;
+	private final @NonNull ConsumerCompat<VoiceInputError> onError;
+
+	VoiceListener(
+		@NonNull Runnable onStart,
+		@NonNull ConsumerCompat<ArrayList<String>> onStop,
+		@NonNull ConsumerCompat<VoiceInputError> onError
+	) {
+		this.onStart = onStart;
 		this.onStop = onStop;
+		this.onError = onError;
 	}
 
 	public boolean isListening() {
@@ -25,86 +34,27 @@ class VoiceListener implements RecognitionListener {
 	@Override
 	public void onReadyForSpeech(Bundle params) {
 		listening = true;
-		Logger.d(getClass().getSimpleName(), " ====> ready for speech");
-	}
-
-	@Override
-	public void onBeginningOfSpeech() {
-		Logger.d(getClass().getSimpleName(), " ====> speech start");
-	}
-
-	@Override
-	public void onEndOfSpeech() {
-		Logger.d(getClass().getSimpleName(), " ====> speech end");
+		onStart.run();
 	}
 
 	@Override
 	public void onError(int error) {
 		listening = false;
-		onStop.run();
-
-		Logger.e(getClass().getSimpleName(), "Speech recognition failed. " + decodeError(error));
+		onError.accept(new VoiceInputError(error));
 	}
 
 	@Override
 	public void onResults(Bundle resultsRaw) {
 		listening = false;
-		onStop.run();
 
-		Logger.d(getClass().getSimpleName(), " ====> speech end");
 		ArrayList<String> results = resultsRaw.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-		if (results == null) {
-			Logger.d(getClass().getSimpleName(), " ====> no results");
-			return;
-		}
-
-		for (String result : results) {
-			Logger.d(getClass().getSimpleName(), "\n\t - " + result);
-		}
+		onStop.accept(results == null ? new ArrayList<>() : results);
 	}
-
-	@Override
-	public void onPartialResults(Bundle resultsRaw) {
-		Logger.d(getClass().getSimpleName(), " ====> partial results");
-		ArrayList<String> results = resultsRaw.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-		if (results == null) {
-			Logger.d(getClass().getSimpleName(), " ====> no results");
-			return;
-		}
-
-		for (String result : results) {
-			Logger.d(getClass().getSimpleName(), "\n\t - " + result);
-		}
-	}
-
-
-	private String decodeError(int errorCode) {
-		switch (errorCode) {
-			case SpeechRecognizer.ERROR_AUDIO:
-				return "Audio recording error";
-			case SpeechRecognizer.ERROR_CLIENT:
-				return "Client side error";
-			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-				return "Insufficient permissions";
-			case SpeechRecognizer.ERROR_NETWORK:
-				return "Network error";
-			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-				return "Network timeout";
-			case SpeechRecognizer.ERROR_NO_MATCH:
-				return "No match";
-			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-				return "RecognitionService busy";
-			case SpeechRecognizer.ERROR_SERVER:
-				return "Error from server";
-			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-				return "No speech input";
-			default:
-				return "Unknown error";
-		}
-	}
-
 
 	// we don't care about these, but the interface requires us to implement them
+	@Override public void onPartialResults(Bundle results) {}
+	@Override public void onBeginningOfSpeech() {}
+	@Override public void onEndOfSpeech() {}
 	@Override public void onEvent(int e, Bundle b) {}
 	@Override public void onRmsChanged(float r) {}
 	@Override public void onBufferReceived(byte[] b) {}
