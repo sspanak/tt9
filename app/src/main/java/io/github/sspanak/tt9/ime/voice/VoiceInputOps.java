@@ -99,15 +99,20 @@ public class VoiceInputOps {
 	}
 
 
-	private void onStop(ArrayList<String> results) {
+	private void destroy() {
 		if (speechRecognizer != null) {
 			speechRecognizer.destroy();
 			speechRecognizer = null;
 			Logger.d(getClass().getSimpleName(), "SpeechRecognizer destroyed");
 		}
+	}
 
+
+	private void onStop(ArrayList<String> results) {
+		destroy();
 		onStopListening.accept(results.isEmpty() ? null : results.get(0));
 	}
+
 
 	private void onError(VoiceInputError error) {
 		if (error.isNoPermission()) {
@@ -115,6 +120,7 @@ public class VoiceInputOps {
 			return;
 		}
 
+		destroy();
 		onListeningError.accept(error);
 	}
 }
