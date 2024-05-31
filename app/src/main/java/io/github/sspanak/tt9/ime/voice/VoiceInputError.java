@@ -21,6 +21,10 @@ public class VoiceInputError {
 		return code == SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS;
 	}
 
+	public boolean isNoMatch() {
+		return code == SpeechRecognizer.ERROR_NO_MATCH;
+	}
+
 	private String decodeError(int errorCode) {
 		switch (errorCode) {
 			case SpeechRecognizer.ERROR_AUDIO:

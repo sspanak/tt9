@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.ime.CommandHandler;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -28,7 +27,7 @@ public class VoiceInputOps {
 
 
 	public VoiceInputOps(
-		@NonNull CommandHandler ims,
+		@NonNull InputMethodService ims,
 		@NonNull Runnable onStart,
 		@NonNull ConsumerCompat<String> onStop,
 		@NonNull ConsumerCompat<VoiceInputError> onError
