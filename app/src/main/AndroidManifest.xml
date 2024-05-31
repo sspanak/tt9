@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="548"
-	android:versionName="32.5"
+	android:versionCode="554"
+	android:versionName="32.11"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> <!-- allows displaying notifications on Android >= 13 -->
+	<uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- enables voice input -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" /> <!-- allows words exporting on Android < 10 -->
+
+	<queries>
+		<intent>
+			<action android:name="android.speech.RecognitionService" />
+		</intent>
+	</queries>
 
 	<application
 		android:icon="@drawable/ic_launcher"

@@ -4,11 +4,20 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModeABC;
+import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
 abstract class CommandHandler extends TypingHandler {
+	private VoiceInputOps voiceInputOps;
+
+	@Override
+	protected void onInit() {
+		voiceInputOps = new VoiceInputOps(this);
+		super.onInit();
+	}
+
 	@Override
 	protected boolean onBack() {
 		if (mainView.isCommandPaletteShown()) {
@@ -66,6 +75,13 @@ abstract class CommandHandler extends TypingHandler {
 				mainView.hideCommandPalette();
 				statusBar.setText(mInputMode);
 				addWord();
+				break;
+			case 3:
+				if (voiceInputOps.isListening()) {
+					voiceInputOps.stop();
+				} else {
+					voiceInputOps.listen();
+				}
 				break;
 		}
 	}
