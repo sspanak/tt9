@@ -27,7 +27,7 @@ public class RequestPermissionDialog extends PopupDialog {
 	public static void show(InputMethodService ims) {
 		Intent intent = new Intent(ims, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		intent.putExtra(PARAMETER_DIALOG_TYPE, TYPE);
 		ims.startActivity(intent);

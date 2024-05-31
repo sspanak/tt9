@@ -27,10 +27,8 @@ abstract class VoiceHandler extends TypingHandler {
 			return;
 		}
 
-		// @todo: close the permission request dialog properly
-
-		voiceInputOps.listen(mLanguage);
 		statusBar.setText("Loading..."); // @todo: translations
+		voiceInputOps.listen(mLanguage);
 		// @todo: change the command palette to "listening" mode
 	}
 
@@ -60,7 +58,7 @@ abstract class VoiceHandler extends TypingHandler {
 			Logger.e(LOG_TAG, "Failed to listen. " + error);
 		}
 
-		statusBar.setText(mInputMode);
+		// @todo: update the status bar text
 		// @todo: display the error somehow
 		// @todo: change the command palette to normal mode
 	}
