@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:tools="http://schemas.android.com/tools"
-	android:versionCode="554"
-	android:versionName="32.11"
+	android:versionCode="559"
+	android:versionName="32.16"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> <!-- allows displaying notifications on Android >= 13 -->
@@ -10,7 +10,7 @@
 
 	<queries>
 		<intent>
-			<action android:name="android.speech.RecognitionService" />
+			<action android:name="android.speech.RecognitionService" /> <!-- allows voice input on Android >= 11 -->
 		</intent>
 	</queries>
 

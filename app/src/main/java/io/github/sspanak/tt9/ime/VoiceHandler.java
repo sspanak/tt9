@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.util.Logger;
@@ -7,6 +8,7 @@ import io.github.sspanak.tt9.util.Logger;
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
 	private VoiceInputOps voiceInputOps;
+
 
 	@Override
 	protected void onInit() {
@@ -27,9 +29,10 @@ abstract class VoiceHandler extends TypingHandler {
 			return;
 		}
 
+		// @todo: add a virtual numpad button
+
 		statusBar.setText("Loading..."); // @todo: translations
 		voiceInputOps.listen(mLanguage);
-		// @todo: change the command palette to "listening" mode
 	}
 
 
@@ -52,14 +55,12 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputError(VoiceInputError error) {
-		if (error.isNoMatch()) {
-			Logger.i(LOG_TAG, "Ignoring voice input. Could not recognize any speech.");
+		if (error.isIrrelevantToUser()) {
+			Logger.i(LOG_TAG, "Ignoring voice input. " + error);
+			statusBar.setText(getString(R.string.commands_select_command));
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error);
+			statusBar.setText("❌  " + error);
 		}
-
-		// @todo: update the status bar text
-		// @todo: display the error somehow
-		// @todo: change the command palette to normal mode
 	}
 }

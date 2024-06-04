@@ -1,11 +1,11 @@
 package io.github.sspanak.tt9.ime.voice;
 
+import android.os.Build;
 import android.speech.SpeechRecognizer;
 
 import androidx.annotation.NonNull;
 
 public class VoiceInputError {
-	public final static int ERROR_BUSY = 100;
 	public final static int ERROR_NOT_AVAILABLE = 101;
 	public final static int ERROR_INVALID_LANGUAGE = 102;
 
@@ -21,38 +21,53 @@ public class VoiceInputError {
 		return code == SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS;
 	}
 
-	public boolean isNoMatch() {
-		return code == SpeechRecognizer.ERROR_NO_MATCH;
+	public boolean isIrrelevantToUser() {
+		return
+			code == SpeechRecognizer.ERROR_NO_MATCH
+			|| code == SpeechRecognizer.ERROR_SPEECH_TIMEOUT
+			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS)
+			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT)
+			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && code == SpeechRecognizer.ERROR_SERVER_DISCONNECTED);
 	}
 
 	private String decodeError(int errorCode) {
 		switch (errorCode) {
+			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
+				return "Server overloaded. Try again later.";
+			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
+				return "Lost connection to the server.";
+			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED:
+				return "Language not supported.";
+			case SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE:
+				return "Language missing. Try again later.";
+			case SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT:
+				return "Cannot check voice input support.";
+			case SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS:
+				return "Cannot listen to download events.";
 			case SpeechRecognizer.ERROR_AUDIO:
-				return "Audio recording error";
+				return "Audio capture error.";
 			case SpeechRecognizer.ERROR_CLIENT:
-				return "Client side error";
+				return "Speech recognition client error.";
 			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-				return "Insufficient permissions";
+				return "No microphone permissions.";
 			case SpeechRecognizer.ERROR_NETWORK:
-				return "Network error";
+				return "No network connection.";
 			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-				return "Network timeout";
+				return "Network timeout.";
 			case SpeechRecognizer.ERROR_NO_MATCH:
-				return "No match";
+				return "No match.";
 			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-				return "RecognitionService busy";
+				return "Voice input service is busy.";
 			case SpeechRecognizer.ERROR_SERVER:
-				return "Error from server";
+				return "Speech recognition server error.";
 			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-				return "No speech input";
-			case ERROR_BUSY:
-				return "Speech recognition is already in progress";
+				return "No speech detected.";
 			case ERROR_NOT_AVAILABLE:
-				return "Speech recognition is not available";
+				return "Voice input is not available.";
 			case ERROR_INVALID_LANGUAGE:
-				return "Invalid language";
+				return "Invalid language for voice input.";
 			default:
-				return "Unknown error";
+				return "Unknown voice input error.";
 		}
 	}
 

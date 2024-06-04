@@ -78,7 +78,7 @@ public class VoiceInputOps {
 		}
 
 		if (isListening()) {
-			onListeningError.accept(new VoiceInputError(VoiceInputError.ERROR_BUSY));
+			onListeningError.accept(new VoiceInputError(SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
 			return;
 		}
 

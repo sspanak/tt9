@@ -180,4 +180,13 @@ abstract public class CommandHandler extends VoiceHandler {
 		suggestionOps.cancelDelayedAccept();
 		UI.showSettingsScreen(this);
 	}
+
+	public void showCommandPalette() {
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptIncomplete();
+		mInputMode.reset();
+
+		mainView.showCommandPalette();
+		statusBar.setText(getString(R.string.commands_select_command));
+	}
 }
