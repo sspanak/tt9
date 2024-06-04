@@ -187,6 +187,6 @@ abstract public class CommandHandler extends VoiceHandler {
 		mInputMode.reset();
 
 		mainView.showCommandPalette();
-		statusBar.setText(getString(R.string.commands_select_command));
+		statusBar.setText(R.string.commands_select_command);
 	}
 }

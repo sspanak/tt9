@@ -29,9 +29,14 @@ abstract class VoiceHandler extends TypingHandler {
 			return;
 		}
 
-		// @todo: add a virtual numpad button
+		// @todo: (!!!) The error class is overcomplicated. Also some errors are not available before API < 31.
 
-		statusBar.setText("Loading..."); // @todo: translations
+		// @todo: add a virtual numpad button
+		// @todo: hide the microphone buttons when there is no support for voice input
+		// @todo: if permissions are already denied, produce the Insufficient Permissions error
+		// @todo: translations
+
+		statusBar.setText(R.string.loading);
 		voiceInputOps.listen(mLanguage);
 	}
 
@@ -43,7 +48,7 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputStarted() {
-		statusBar.setText("Listening...");
+		statusBar.setText(R.string.voice_input_listening);
 	}
 
 
@@ -57,10 +62,10 @@ abstract class VoiceHandler extends TypingHandler {
 	private void onVoiceInputError(VoiceInputError error) {
 		if (error.isIrrelevantToUser()) {
 			Logger.i(LOG_TAG, "Ignoring voice input. " + error);
-			statusBar.setText(getString(R.string.commands_select_command));
+			statusBar.setText(R.string.commands_select_command);
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error);
-			statusBar.setText("❌  " + error);
+			statusBar.setText("❌  " + error.toUserString(this));
 		}
 	}
 }

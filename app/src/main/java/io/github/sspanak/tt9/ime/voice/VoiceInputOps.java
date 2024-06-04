@@ -82,8 +82,6 @@ public class VoiceInputOps {
 			return;
 		}
 
-		// @todo: if permissions are already requested, return an error
-
 		createRecognizer();
 
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);

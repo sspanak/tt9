@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.util.Permissions;
 
 public class RequestPermissionDialog extends PopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.request_permission";
-	private Permissions permissions;
+	private final Permissions permissions;
 
 	RequestPermissionDialog(@NonNull Activity context, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher);

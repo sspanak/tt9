@@ -20,6 +20,11 @@ public class StatusBar {
 	}
 
 
+	public void setText(int stringResourceId) {
+		setText(statusView.getContext().getString(stringResourceId));
+	}
+
+
 	public void setText(String text) {
 		statusText = text;
 		this.render();

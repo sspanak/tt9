@@ -6,6 +6,7 @@
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
 	<string name="error">Error</string>
+	<string name="loading">Loading…</string>
 	<string name="no_language">No Language</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
@@ -162,4 +163,20 @@
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
+
+	<string name="voice_input_listening">Listening…</string>
+	<string name="voice_input_error_GENERIC">Voice input error.</string>
+	<string name="voice_input_error_ERROR_AUDIO">Audio capture error.</string>
+	<string name="voice_input_error_ERROR_CLIENT">Speech recognition client error.</string>
+	<string name="voice_input_error_ERROR_INVALID_LANGUAGE">Invalid language.</string>
+	<string name="voice_input_error_ERROR_INSUFFICIENT_PERMISSIONS">No microphone permissions.</string>
+	<string name="voice_input_error_ERROR_LANGUAGE_NOT_SUPPORTED">Language not supported.</string>
+	<string name="voice_input_error_ERROR_LANGUAGE_UNAVAILABLE">Language missing. Try again later.</string>
+	<string name="voice_input_error_ERROR_NETWORK">No Internet connection.</string>
+	<string name="voice_input_error_ERROR_NETWORK_TIMEOUT">Network timeout.</string>
+	<string name="voice_input_error_ERROR_NOT_AVAILABLE">Voice input is not available.</string>
+	<string name="voice_input_error_ERROR_RECOGNIZER_BUSY">Voice input is in use by another app.</string>
+	<string name="voice_input_error_ERROR_SERVER">Speech recognition server error.</string>
+	<string name="voice_input_error_ERROR_SERVER_DISCONNECTED">Lost connection to the server.</string>
+	<string name="voice_input_error_ERROR_TOO_MANY_REQUESTS">Server overloaded. Try again later.</string>
 </resources>
