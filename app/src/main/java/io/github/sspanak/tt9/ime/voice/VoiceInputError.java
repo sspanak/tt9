@@ -33,6 +33,7 @@ public class VoiceInputError {
 		return
 			code == SpeechRecognizer.ERROR_NO_MATCH
 			|| code == SpeechRecognizer.ERROR_SPEECH_TIMEOUT
+			|| code == SpeechRecognizer.ERROR_AUDIO
 			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS)
 			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT)
 			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && code == SpeechRecognizer.ERROR_SERVER_DISCONNECTED);
