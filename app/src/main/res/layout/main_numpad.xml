@@ -185,13 +185,13 @@
 				android:id="@+id/separator_2_2"
 				style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftFilterKey
 				android:id="@+id/soft_key_filter_suggestions"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="Fltr" />
+				android:text="Flt/Clr" />
 
 		</LinearLayout>
 
@@ -202,7 +202,7 @@
 			android:layoutDirection="ltr"
 			tools:ignore="HardcodedText">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKeyInputMode
+			<io.github.sspanak.tt9.ui.main.keys.SoftInputModeKey
 				android:id="@+id/soft_key_input_mode"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
@@ -245,12 +245,12 @@
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftKey
-				android:id="@+id/soft_key_clear_filter"
+				android:id="@+id/soft_key_voice_input"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="Clr" />
+				android:text="🎤" />
 
 
 		</LinearLayout>

@@ -12,9 +12,8 @@ abstract public class CommandHandler extends VoiceHandler {
 	@Override
 	protected boolean onBack() {
 		if (mainView.isCommandPaletteShown()) {
-			stopVoiceInput();
 			mainView.hideCommandPalette();
-			statusBar.setText(mInputMode);
+			stopVoiceInput();
 			return true;
 		}
 
@@ -40,6 +39,10 @@ abstract public class CommandHandler extends VoiceHandler {
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
+		if (statusBar.isErrorShown()) {
+			resetStatus();
+		}
+
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
 			onCommand(key);
 			return true;
@@ -66,13 +69,12 @@ abstract public class CommandHandler extends VoiceHandler {
 				showSettings();
 				break;
 			case 2:
-				stopVoiceInput();
 				mainView.hideCommandPalette();
-				statusBar.setText(mInputMode);
+				stopVoiceInput();
 				addWord();
 				break;
 			case 3:
-				startVoiceInput();
+				toggleVoiceInput();
 				break;
 		}
 	}
@@ -103,6 +105,15 @@ abstract public class CommandHandler extends VoiceHandler {
 	public void changeKeyboard() {
 		suggestionOps.cancelDelayedAccept();
 		UI.showChangeKeyboardDialog(this);
+	}
+
+
+	protected void resetStatus() {
+		if (mainView.isCommandPaletteShown()) {
+			statusBar.setText(R.string.commands_select_command);
+		} else {
+			statusBar.setText(mInputMode);
+		}
 	}
 
 
@@ -181,12 +192,13 @@ abstract public class CommandHandler extends VoiceHandler {
 		UI.showSettingsScreen(this);
 	}
 
+
 	public void showCommandPalette() {
 		suggestionOps.cancelDelayedAccept();
 		suggestionOps.acceptIncomplete();
 		mInputMode.reset();
 
 		mainView.showCommandPalette();
-		statusBar.setText(R.string.commands_select_command);
+		resetStatus();
 	}
 }

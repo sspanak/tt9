@@ -20,6 +20,16 @@ public class StatusBar {
 	}
 
 
+	public boolean isErrorShown() {
+		return statusText != null && statusText.startsWith("❌");
+	}
+
+
+	public void setError(String error) {
+		setText("❌  " + error);
+	}
+
+
 	public void setText(int stringResourceId) {
 		setText(statusView.getContext().getString(stringResourceId));
 	}

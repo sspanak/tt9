@@ -23,15 +23,12 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 
-	public void startVoiceInput() {
+	public void toggleVoiceInput() {
 		if (voiceInputOps.isListening()) {
 			stopVoiceInput();
 			return;
 		}
 
-		// @todo: (!!!) The error class is overcomplicated. Also some errors are not available before API < 31.
-
-		// @todo: add a virtual numpad button
 		// @todo: hide the microphone buttons when there is no support for voice input
 		// @todo: if permissions are already denied, produce the Insufficient Permissions error
 		// @todo: translations
@@ -41,9 +38,9 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 
-	public void stopVoiceInput() {
+	protected void stopVoiceInput() {
 		voiceInputOps.stop();
-		statusBar.setText(mInputMode);
+		resetStatus();
 	}
 
 
@@ -54,18 +51,18 @@ abstract class VoiceHandler extends TypingHandler {
 
 	private void onVoiceInputStopped(String text) {
 		onText(text, false);
-		statusBar.setText(mInputMode);
 		mainView.hideCommandPalette();
+		resetStatus();
 	}
 
 
 	private void onVoiceInputError(VoiceInputError error) {
 		if (error.isIrrelevantToUser()) {
 			Logger.i(LOG_TAG, "Ignoring voice input. " + error.debugMessage);
-			statusBar.setText(R.string.commands_select_command);
+			resetStatus();
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
-			statusBar.setText("❌  " + error);
+			statusBar.setError(error.toString());
 		}
 	}
 }
