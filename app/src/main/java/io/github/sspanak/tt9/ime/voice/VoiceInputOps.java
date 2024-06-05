@@ -34,7 +34,7 @@ public class VoiceInputOps {
 	) {
 		isOnDeviceRecognitionAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && SpeechRecognizer.isOnDeviceRecognitionAvailable(ims);
 		isRecognitionAvailable = SpeechRecognizer.isRecognitionAvailable(ims);
-		listener = new VoiceListener(onStart, this::onStop, this::onError);
+		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
 
 		onStopListening = onStop;
 		onListeningError = onError;
@@ -68,17 +68,17 @@ public class VoiceInputOps {
 
 	public void listen(Language language) {
 		if (language == null) {
-			onListeningError.accept(new VoiceInputError(VoiceInputError.ERROR_INVALID_LANGUAGE));
+			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_INVALID_LANGUAGE));
 			return;
 		}
 
 		if (!isAvailable()) {
-			onListeningError.accept(new VoiceInputError(VoiceInputError.ERROR_NOT_AVAILABLE));
+			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
 			return;
 		}
 
 		if (isListening()) {
-			onListeningError.accept(new VoiceInputError(SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
+			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
 			return;
 		}
 

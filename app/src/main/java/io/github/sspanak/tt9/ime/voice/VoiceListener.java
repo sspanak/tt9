@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime.voice;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
@@ -13,15 +14,18 @@ import io.github.sspanak.tt9.util.ConsumerCompat;
 class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
 
-	private final @NonNull Runnable onStart;
-	private final @NonNull ConsumerCompat<ArrayList<String>> onStop;
-	private final @NonNull ConsumerCompat<VoiceInputError> onError;
+	@NonNull private final Context context;
+	@NonNull private final Runnable onStart;
+	@NonNull private final ConsumerCompat<ArrayList<String>> onStop;
+	@NonNull private final ConsumerCompat<VoiceInputError> onError;
 
 	VoiceListener(
+		@NonNull Context context,
 		@NonNull Runnable onStart,
 		@NonNull ConsumerCompat<ArrayList<String>> onStop,
 		@NonNull ConsumerCompat<VoiceInputError> onError
 	) {
+		this.context = context;
 		this.onStart = onStart;
 		this.onStop = onStop;
 		this.onError = onError;
@@ -40,7 +44,7 @@ class VoiceListener implements RecognitionListener {
 	@Override
 	public void onError(int error) {
 		listening = false;
-		onError.accept(new VoiceInputError(error));
+		onError.accept(new VoiceInputError(context, error));
 	}
 
 	@Override

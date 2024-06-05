@@ -132,18 +132,10 @@
 	<string name="key_blue">Син бутон</string>
 	<string name="key_volume_mute">Заглушаване на звук</string>
 	<string name="voice_input_listening">Говорете…</string>
-	<string name="voice_input_error_GENERIC">Неуспешно гласово въвеждане.</string>
-	<string name="voice_input_error_ERROR_AUDIO">Неуспешно записване на говор.</string>
-	<string name="voice_input_error_ERROR_CLIENT">Грешка в клиента за гласово въвеждане.</string>
-	<string name="voice_input_error_ERROR_INVALID_LANGUAGE">Невалиден език.</string>
-	<string name="voice_input_error_ERROR_INSUFFICIENT_PERMISSIONS">Няма достъп до микрофона.</string>
-	<string name="voice_input_error_ERROR_LANGUAGE_NOT_SUPPORTED">Езикът не се поддържа</string>
-	<string name="voice_input_error_ERROR_TOO_MANY_REQUESTS">Сървърът е претоварен. Опитайте по-късно.</string>
-	<string name="voice_input_error_ERROR_SERVER_DISCONNECTED">Връзката към сървъра прекъсна.</string>
-	<string name="voice_input_error_ERROR_SERVER">Грешка в сървъра за разпознаване на говор.</string>
-	<string name="voice_input_error_ERROR_RECOGNIZER_BUSY">Въвеждането с глас се използва от друго приложение.</string>
-	<string name="voice_input_error_ERROR_NOT_AVAILABLE">Не е налично въвеждане с глас.</string>
-	<string name="voice_input_error_ERROR_NETWORK_TIMEOUT">Таймаут на сървъра</string>
-	<string name="voice_input_error_ERROR_LANGUAGE_UNAVAILABLE">Езикът липсва. Опитайте по-късно.</string>
-	<string name="voice_input_error_ERROR_NETWORK">Няма връзка с интернет.</string>
+	<string name="voice_input_error_generic">Неуспешно гласово въвеждане.</string>
+	<string name="voice_input_error_no_permissions">Няма достъп до микрофона.</string>
+	<string name="voice_input_error_language_not_supported">Езикът не се поддържа</string>
+	<string name="voice_input_error_not_available">Не е налично въвеждане с глас.</string>
+	<string name="voice_input_error_no_network">Няма връзка с интернет.</string>
+	<string name="voice_input_error_network_failed">Проблем с мрежата.</string>
 </resources>

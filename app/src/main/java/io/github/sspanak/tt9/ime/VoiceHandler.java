@@ -61,11 +61,11 @@ abstract class VoiceHandler extends TypingHandler {
 
 	private void onVoiceInputError(VoiceInputError error) {
 		if (error.isIrrelevantToUser()) {
-			Logger.i(LOG_TAG, "Ignoring voice input. " + error);
+			Logger.i(LOG_TAG, "Ignoring voice input. " + error.debugMessage);
 			statusBar.setText(R.string.commands_select_command);
 		} else {
-			Logger.e(LOG_TAG, "Failed to listen. " + error);
-			statusBar.setText("❌  " + error.toUserString(this));
+			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
+			statusBar.setText("❌  " + error);
 		}
 	}
 }

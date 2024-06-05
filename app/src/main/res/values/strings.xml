@@ -165,18 +165,10 @@
 	<string name="char_space">Space</string>
 
 	<string name="voice_input_listening">Listening…</string>
-	<string name="voice_input_error_GENERIC">Voice input error.</string>
-	<string name="voice_input_error_ERROR_AUDIO">Audio capture error.</string>
-	<string name="voice_input_error_ERROR_CLIENT">Speech recognition client error.</string>
-	<string name="voice_input_error_ERROR_INVALID_LANGUAGE">Invalid language.</string>
-	<string name="voice_input_error_ERROR_INSUFFICIENT_PERMISSIONS">No microphone permissions.</string>
-	<string name="voice_input_error_ERROR_LANGUAGE_NOT_SUPPORTED">Language not supported.</string>
-	<string name="voice_input_error_ERROR_LANGUAGE_UNAVAILABLE">Language missing. Try again later.</string>
-	<string name="voice_input_error_ERROR_NETWORK">No Internet connection.</string>
-	<string name="voice_input_error_ERROR_NETWORK_TIMEOUT">Network timeout.</string>
-	<string name="voice_input_error_ERROR_NOT_AVAILABLE">Voice input is not available.</string>
-	<string name="voice_input_error_ERROR_RECOGNIZER_BUSY">Voice input is in use by another app.</string>
-	<string name="voice_input_error_ERROR_SERVER">Speech recognition server error.</string>
-	<string name="voice_input_error_ERROR_SERVER_DISCONNECTED">Lost connection to the server.</string>
-	<string name="voice_input_error_ERROR_TOO_MANY_REQUESTS">Server overloaded. Try again later.</string>
+	<string name="voice_input_error_generic">Voice input error.</string>
+	<string name="voice_input_error_no_permissions">No microphone permission.</string>
+	<string name="voice_input_error_language_not_supported">Language not supported.</string>
+	<string name="voice_input_error_network_failed">Network connection failed.</string>
+	<string name="voice_input_error_no_network">No Internet connection.</string>
+	<string name="voice_input_error_not_available">Voice input is not available.</string>
 </resources>

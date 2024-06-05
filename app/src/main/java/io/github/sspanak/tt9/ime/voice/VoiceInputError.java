@@ -6,26 +6,28 @@ import android.speech.SpeechRecognizer;
 
 import androidx.annotation.NonNull;
 
-import java.util.HashMap;
-
 import io.github.sspanak.tt9.R;
 
 public class VoiceInputError {
 	public final static int ERROR_NOT_AVAILABLE = 101;
 	public final static int ERROR_INVALID_LANGUAGE = 102;
 
-
 	public final int code;
 	public final String message;
+	public final String debugMessage;
 
-	public VoiceInputError(int errorCode) {
+
+	public VoiceInputError(Context context, int errorCode) {
 		code = errorCode;
-		message = codeToMessage(errorCode);
+		debugMessage = codeToDebugString(errorCode);
+		message = codeToString(context, errorCode);
 	}
+
 
 	public boolean isNoPermission() {
 		return code == SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS;
 	}
+
 
 	public boolean isIrrelevantToUser() {
 		return
@@ -36,11 +38,36 @@ public class VoiceInputError {
 			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && code == SpeechRecognizer.ERROR_SERVER_DISCONNECTED);
 	}
 
-	private void initModernErrors() {
 
+	@NonNull
+	@Override
+	public String toString() {
+		return message;
 	}
 
-	private String codeToMessage(int code) {
+
+	@NonNull
+	private static String codeToString(Context context, int code) {
+		switch (code) {
+			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
+				return context.getString(R.string.voice_input_error_no_permissions);
+			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED:
+				return context.getString(R.string.voice_input_error_language_not_supported);
+			case SpeechRecognizer.ERROR_NETWORK:
+				return context.getString(R.string.voice_input_error_no_network);
+			case ERROR_NOT_AVAILABLE:
+				return context.getString(R.string.voice_input_error_not_available);
+			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
+			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
+				return context.getString(R.string.voice_input_error_network_failed);
+			default:
+				return context.getString(R.string.voice_input_error_generic);
+		}
+	}
+
+
+	private static String codeToDebugString(int code) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS) {
 			return "Cannot listen to download events.";
 		}
@@ -49,7 +76,15 @@ public class VoiceInputError {
 			return "Cannot check voice input support.";
 		}
 
+		String message = codeToDebugString31(code);
+		message = message != null ? message : codeToDebugStringCommon(code);
+		message = message != null ? message : "Unknown voice input error code: " + code;
 
+		return message;
+	}
+
+
+	private static String codeToDebugString31(int code) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
 			switch (code) {
 				case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
@@ -63,6 +98,11 @@ public class VoiceInputError {
 			}
 		}
 
+		return null;
+	}
+
+
+	private static String codeToDebugStringCommon(int code) {
 		switch (code) {
 			case SpeechRecognizer.ERROR_AUDIO:
 				return "Audio capture error.";
@@ -87,49 +127,7 @@ public class VoiceInputError {
 			case ERROR_INVALID_LANGUAGE:
 				return "Invalid language for voice input.";
 			default:
-				return "Unknown voice input error.";
-		}
-	}
-
-
-	@NonNull
-	@Override
-	public String toString() {
-		return message;
-	}
-
-
-	@NonNull
-	public String toUserString(Context context) {
-		switch (code) {
-			case SpeechRecognizer.ERROR_AUDIO:
-				return context.getString(R.string.voice_input_error_ERROR_AUDIO);
-			case SpeechRecognizer.ERROR_CLIENT:
-				return context.getString(R.string.voice_input_error_ERROR_CLIENT);
-			case ERROR_INVALID_LANGUAGE:
-				return context.getString(R.string.voice_input_error_ERROR_INVALID_LANGUAGE);
-			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-				return context.getString(R.string.voice_input_error_ERROR_INSUFFICIENT_PERMISSIONS);
-			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED:
-				return context.getString(R.string.voice_input_error_ERROR_LANGUAGE_NOT_SUPPORTED);
-			case SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE:
-				return context.getString(R.string.voice_input_error_ERROR_LANGUAGE_UNAVAILABLE);
-			case SpeechRecognizer.ERROR_NETWORK:
-				return context.getString(R.string.voice_input_error_ERROR_NETWORK);
-			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-				return context.getString(R.string.voice_input_error_ERROR_NETWORK_TIMEOUT);
-			case ERROR_NOT_AVAILABLE:
-				return context.getString(R.string.voice_input_error_ERROR_NOT_AVAILABLE);
-			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-				return context.getString(R.string.voice_input_error_ERROR_RECOGNIZER_BUSY);
-			case SpeechRecognizer.ERROR_SERVER:
-				return context.getString(R.string.voice_input_error_ERROR_SERVER);
-			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
-				return context.getString(R.string.voice_input_error_ERROR_SERVER_DISCONNECTED);
-			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
-				return context.getString(R.string.voice_input_error_ERROR_TOO_MANY_REQUESTS);
-			default:
-				return context.getString(R.string.voice_input_error_GENERIC);
+				return null;
 		}
 	}
 }
