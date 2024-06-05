@@ -4,17 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 public class SoftFilterKey extends SoftKey {
-	public SoftFilterKey(Context context) {
-		super(context);
-	}
-
-	public SoftFilterKey(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public SoftFilterKey(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
+	public SoftFilterKey(Context context) { super(context); }
+	public SoftFilterKey(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftFilterKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected boolean handleHold() {

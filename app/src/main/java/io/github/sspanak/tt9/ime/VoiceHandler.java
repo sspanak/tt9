@@ -24,12 +24,12 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	public void toggleVoiceInput() {
-		if (voiceInputOps.isListening()) {
+		if (voiceInputOps.isListening() || !voiceInputOps.isAvailable()) {
 			stopVoiceInput();
 			return;
 		}
 
-		// @todo: hide the microphone buttons when there is no support for voice input
+		// @todo: update the readme and add info about the "com.google.android.googlequicksearchbox" package
 		// @todo: if permissions are already denied, produce the Insufficient Permissions error
 		// @todo: translations
 

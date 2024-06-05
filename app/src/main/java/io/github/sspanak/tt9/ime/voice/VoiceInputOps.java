@@ -28,16 +28,16 @@ public class VoiceInputOps {
 
 	public VoiceInputOps(
 		@NonNull InputMethodService ims,
-		@NonNull Runnable onStart,
-		@NonNull ConsumerCompat<String> onStop,
-		@NonNull ConsumerCompat<VoiceInputError> onError
+		Runnable onStart,
+		ConsumerCompat<String> onStop,
+		ConsumerCompat<VoiceInputError> onError
 	) {
 		isOnDeviceRecognitionAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && SpeechRecognizer.isOnDeviceRecognitionAvailable(ims);
 		isRecognitionAvailable = SpeechRecognizer.isRecognitionAvailable(ims);
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
 
-		onStopListening = onStop;
-		onListeningError = onError;
+		onStopListening = onStop != null ? onStop : result -> {};
+		onListeningError = onError != null ? onError : error -> {};
 
 		this.ims = ims;
 	}

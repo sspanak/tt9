@@ -15,20 +15,20 @@ class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
 
 	@NonNull private final Context context;
-	@NonNull private final Runnable onStart;
-	@NonNull private final ConsumerCompat<ArrayList<String>> onStop;
-	@NonNull private final ConsumerCompat<VoiceInputError> onError;
+	private final Runnable onStart;
+	private final ConsumerCompat<ArrayList<String>> onStop;
+	private final ConsumerCompat<VoiceInputError> onError;
 
 	VoiceListener(
 		@NonNull Context context,
-		@NonNull Runnable onStart,
-		@NonNull ConsumerCompat<ArrayList<String>> onStop,
-		@NonNull ConsumerCompat<VoiceInputError> onError
+		Runnable onStart,
+		ConsumerCompat<ArrayList<String>> onStop,
+		ConsumerCompat<VoiceInputError> onError
 	) {
 		this.context = context;
-		this.onStart = onStart;
-		this.onStop = onStop;
-		this.onError = onError;
+		this.onStart = onStart != null ? onStart : () -> {};
+		this.onStop = onStop != null ? onStop : (t) -> {};
+		this.onError = onError != null ? onError : (e) -> {};
 	}
 
 	public boolean isListening() {

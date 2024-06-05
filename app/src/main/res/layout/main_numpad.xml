@@ -244,13 +244,12 @@
 				android:id="@+id/separator_3_2"
 				style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftVoiceInputKey
 				android:id="@+id/soft_key_voice_input"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="🎤" />
+				android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 
 		</LinearLayout>

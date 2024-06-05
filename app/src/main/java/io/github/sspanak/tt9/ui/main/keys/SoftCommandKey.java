@@ -4,17 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 public class SoftCommandKey extends SoftNumberKey {
-	public SoftCommandKey(Context context) {
-		super(context);
-	}
-
-	public SoftCommandKey(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
+	public SoftCommandKey(Context context) { super(context);}
+	public SoftCommandKey(Context context, AttributeSet attrs) { super(context, attrs);}
+	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 	@Override
 	protected String getTitle() {
@@ -39,5 +31,14 @@ public class SoftCommandKey extends SoftNumberKey {
 		}
 
 		return null;
+	}
+
+	@Override
+	public void render() {
+		if (tt9 != null && tt9.isVoiceInputMissing() && getNumber(getId()) == 3) {
+			setVisibility(GONE);
+		} else {
+			super.render();
+		}
 	}
 }
