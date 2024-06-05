@@ -58,9 +58,10 @@ public class VoiceInputError {
 				return context.getString(R.string.voice_input_error_no_network);
 			case ERROR_NOT_AVAILABLE:
 				return context.getString(R.string.voice_input_error_not_available);
-			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
 			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+			case SpeechRecognizer.ERROR_SERVER:
 			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
+			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
 				return context.getString(R.string.voice_input_error_network_failed);
 			default:
 				return context.getString(R.string.voice_input_error_generic);
