@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -114,11 +113,6 @@ public class VoiceInputOps {
 
 
 	private void onError(VoiceInputError error) {
-		if (error.isNoPermission()) {
-			RequestPermissionDialog.show(ims);
-			return;
-		}
-
 		destroy();
 		onListeningError.accept(error);
 	}

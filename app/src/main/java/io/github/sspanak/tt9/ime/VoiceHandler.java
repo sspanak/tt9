@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
+import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 
 abstract class VoiceHandler extends TypingHandler {
@@ -30,7 +31,6 @@ abstract class VoiceHandler extends TypingHandler {
 		}
 
 		// @todo: update the readme and add info about the "com.google.android.googlequicksearchbox" package
-		// @todo: if permissions are already denied, produce the Insufficient Permissions error
 		// @todo: translations
 
 		statusBar.setText(R.string.loading);
@@ -63,6 +63,9 @@ abstract class VoiceHandler extends TypingHandler {
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
 			statusBar.setError(error.toString());
+			if (error.isNoPermission()) {
+				RequestPermissionDialog.show(this);
+			}
 		}
 	}
 }

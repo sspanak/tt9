@@ -165,6 +165,7 @@
 	<string name="char_space">Space</string>
 
 	<string name="voice_input_listening">Listening…</string>
+	<string name="voice_input_mic_permission_is_needed">You must allow the microphone permission to use voice input.</string>
 	<string name="voice_input_error_generic">Voice input error</string>
 	<string name="voice_input_error_no_permissions">No microphone permission</string>
 	<string name="voice_input_error_language_not_supported">Language not supported</string>

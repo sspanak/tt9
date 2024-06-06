@@ -36,8 +36,6 @@ public class PopupDialogActivity extends AppCompatActivity {
 				return new AddWordDialog(this, i, this::onDialogClose);
 			case AutoUpdateMonologue.TYPE:
 				return new AutoUpdateMonologue(this, i, this::onDialogClose);
-			case RequestPermissionDialog.TYPE:
-				return new RequestPermissionDialog(this, this::onDialogClose);
 			default:
 				Logger.w(LOG_TAG, "Unknown popup type: '" + popupType + "'. Not displaying anything.");
 				return null;
