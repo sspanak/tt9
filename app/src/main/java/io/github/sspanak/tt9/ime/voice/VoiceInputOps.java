@@ -18,7 +18,10 @@ import io.github.sspanak.tt9.util.Logger;
 public class VoiceInputOps {
 	private final boolean isOnDeviceRecognitionAvailable;
 	private final boolean isRecognitionAvailable;
+
+
 	private final InputMethodService ims;
+	private Language language;
 	private SpeechRecognizer speechRecognizer;
 	private final VoiceListener listener;
 
@@ -84,17 +87,19 @@ public class VoiceInputOps {
 
 		createRecognizer();
 
+		this.language = language;
 		String locale = language.getLocale().toString().replace("_", "-");
 
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, ims.getString(R.string.voice_input_listening));
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, toString());
 		speechRecognizer.startListening(intent);
 		Logger.d(getClass().getSimpleName(), "SpeechRecognizer started for locale: " + locale);
 	}
 
 
 	public void stop() {
+		this.language = null;
 		if (isAvailable() && listener.isListening()) {
 			speechRecognizer.stopListening();
 		}
@@ -102,6 +107,7 @@ public class VoiceInputOps {
 
 
 	private void destroy() {
+		this.language = null;
 		if (speechRecognizer != null) {
 			speechRecognizer.destroy();
 			speechRecognizer = null;
@@ -119,5 +125,12 @@ public class VoiceInputOps {
 	private void onError(VoiceInputError error) {
 		destroy();
 		onListeningError.accept(error);
+	}
+
+	@NonNull
+	@Override
+	public String toString() {
+		String languageSuffix = language == null ? "" : " / " + language.getName();
+		return ims.getString(R.string.voice_input_listening) + languageSuffix;
 	}
 }

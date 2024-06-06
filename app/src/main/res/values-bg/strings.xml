@@ -131,7 +131,7 @@
 	<string name="key_yellow">Жълт бутон</string>
 	<string name="key_blue">Син бутон</string>
 	<string name="key_volume_mute">Заглушаване на звук</string>
-	<string name="voice_input_listening">Говорете…</string>
+	<string name="voice_input_listening">Говорете</string>
 	<string name="voice_input_error_generic">Неуспешно гласово въвеждане</string>
 	<string name="voice_input_error_no_permissions">Няма достъп до микрофона</string>
 	<string name="voice_input_error_language_not_supported">Езикът не се поддържа</string>

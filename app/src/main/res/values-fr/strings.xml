@@ -127,4 +127,5 @@
 	<string name="key_yellow">Bouton jaune</string>
 	<string name="key_blue">Bouton bleu</string>
 	<string name="key_volume_mute">Muet</string>
+	<string name="voice_input_listening">Parlez</string>
 </resources>

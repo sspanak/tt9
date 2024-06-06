@@ -133,4 +133,5 @@
 	<string name="key_yellow">Botão amarelo</string>
 	<string name="key_blue">Botão azul</string>
 	<string name="key_volume_mute">Mudo</string>
+	<string name="voice_input_listening">Fale</string>
 </resources>

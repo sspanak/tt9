@@ -130,4 +130,5 @@
 	<string name="key_yellow">Sarı düğme</string>
 	<string name="key_blue">Mavi düğme</string>
 	<string name="key_volume_mute">Sessiz tuşu</string>
+	<string name="voice_input_listening">Konuşun</string>
 </resources>

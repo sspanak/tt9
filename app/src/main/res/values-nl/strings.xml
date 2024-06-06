@@ -118,4 +118,5 @@
 	<string name="key_yellow">Gele knop</string>
 	<string name="key_blue">Blauwe knop</string>
 	<string name="key_volume_mute">Stilteknop</string>
+	<string name="voice_input_listening">Spreek</string>
 </resources>

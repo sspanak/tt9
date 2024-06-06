@@ -120,4 +120,5 @@
 	<string name="key_yellow">Gelber Knopf</string>
 	<string name="key_blue">Blauer Knopf</string>
 	<string name="key_volume_mute">Stummschalttaste</string>
+	<string name="voice_input_listening">Sprechen</string>
 </resources>

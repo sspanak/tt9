@@ -139,4 +139,5 @@
 	<string name="key_yellow">Geltonas mygtukas</string>
 	<string name="key_blue">Mėlynas mygtukas</string>
 	<string name="key_volume_mute">Nutildymo mygt.</string>
+	<string name="voice_input_listening">Kalbėkite</string>
 </resources>

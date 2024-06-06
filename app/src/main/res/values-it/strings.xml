@@ -120,5 +120,6 @@
 	<string name="key_yellow">Pulsante giallo</string>
 	<string name="key_blue">Pulsante blu</string>
 	<string name="key_volume_mute">Muto</string>
+	<string name="voice_input_listening">Parli</string>
 </resources>
 

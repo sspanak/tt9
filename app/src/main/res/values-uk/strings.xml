@@ -141,4 +141,5 @@
 	<string name="key_yellow">Жовта кнопка</string>
 	<string name="key_blue">Синя кнопка</string>
 	<string name="key_volume_mute">Вимкнення звуку</string>
+	<string name="voice_input_listening">Диктуйте</string>
 </resources>

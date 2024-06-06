@@ -45,7 +45,7 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputStarted() {
-		statusBar.setText(R.string.voice_input_listening);
+		statusBar.setText(voiceInputOps);
 	}
 
 
