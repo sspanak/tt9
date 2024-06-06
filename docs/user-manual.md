@@ -115,16 +115,29 @@ Many phones have only two or three "free" buttons that can be used as hotkeys. B
 Below is a list of the possible commands:
 - **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 - **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
+- **Voice Input (Default Combo: ✱, 3-key).** Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
 - **Select a Different Keyboard (Default Combo: ✱, 0-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
+
+If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
+
+## Voice Input
+The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself, but it asks your phone to do it.
+
+_The Voice Input button is hidden on devices that do not support it._
+
+### Supported Devices
+On devices with Google Services, it will use the Google Cloud infrastructure to convert your words to text. You must connect to a Wi-Fi network or enable mobile data for this method to work.
+
+On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment and will usually recognize only simple phrases, such as: "open calendar" or "play music" and similar. The advantage is that it will work offline.
+
+Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox".
 
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual numpad".
 
 It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
-
-If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
 
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
