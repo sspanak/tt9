@@ -134,4 +134,11 @@
 	<string name="key_blue">Botão azul</string>
 	<string name="key_volume_mute">Mudo</string>
 	<string name="voice_input_listening">Fale</string>
+	<string name="voice_input_mic_permission_is_needed">Você deve conceder permissão ao microfone para usar a entrada de voz.</string>
+	<string name="voice_input_error_generic">Erro de entrada de voz</string>
+	<string name="voice_input_error_no_permissions">Sem permissão para o microfone</string>
+	<string name="voice_input_error_language_not_supported">Idioma não suportado</string>
+	<string name="voice_input_error_network_failed">Falha na conexão de rede</string>
+	<string name="voice_input_error_no_network">Sem conexão com a Internet</string>
+	<string name="voice_input_error_not_available">A entrada de voz não está disponível</string>
 </resources>

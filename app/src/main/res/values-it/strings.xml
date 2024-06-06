@@ -121,5 +121,12 @@
 	<string name="key_blue">Pulsante blu</string>
 	<string name="key_volume_mute">Muto</string>
 	<string name="voice_input_listening">Parli</string>
+	<string name="voice_input_mic_permission_is_needed">Devi concedere l\'autorizzazione al microfono per utilizzare l\'input vocale.</string>
+	<string name="voice_input_error_generic">Errore di input vocale</string>
+	<string name="voice_input_error_no_permissions">Nessuna autorizzazione per il microfono</string>
+	<string name="voice_input_error_language_not_supported">Lingua non supportata</string>
+	<string name="voice_input_error_network_failed">Connessione di rete fallita</string>
+	<string name="voice_input_error_no_network">Nessuna connessione Internet</string>
+	<string name="voice_input_error_not_available">L\'input vocale non è disponibile</string>
 </resources>
 

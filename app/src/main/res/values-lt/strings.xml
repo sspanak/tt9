@@ -140,4 +140,11 @@
 	<string name="key_blue">Mėlynas mygtukas</string>
 	<string name="key_volume_mute">Nutildymo mygt.</string>
 	<string name="voice_input_listening">Kalbėkite</string>
+	<string name="voice_input_mic_permission_is_needed">Turite suteikti mikrofonui leidimą naudoti balso įvestį.</string>
+	<string name="voice_input_error_generic">Balso įvesties klaida</string>
+	<string name="voice_input_error_no_permissions">Nėra mikrofono leidimo</string>
+	<string name="voice_input_error_language_not_supported">Kalba nepalaikoma</string>
+	<string name="voice_input_error_network_failed">Tinklo ryšys nepavyko</string>
+	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
+	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 </resources>

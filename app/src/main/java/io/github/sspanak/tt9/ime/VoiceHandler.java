@@ -30,9 +30,6 @@ abstract class VoiceHandler extends TypingHandler {
 			return;
 		}
 
-		// @todo: update the readme and add info about the "com.google.android.googlequicksearchbox" package
-		// @todo: translations
-
 		statusBar.setText(R.string.loading);
 		voiceInputOps.listen(mLanguage);
 	}
