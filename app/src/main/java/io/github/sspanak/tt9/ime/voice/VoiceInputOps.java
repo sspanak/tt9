@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
@@ -83,10 +84,13 @@ public class VoiceInputOps {
 
 		createRecognizer();
 
+		String locale = language.getLocale().toString().replace("_", "-");
+
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, language.getLocale().toString());
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
+		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, ims.getString(R.string.voice_input_listening));
 		speechRecognizer.startListening(intent);
-		Logger.d(getClass().getSimpleName(), "SpeechRecognizer started");
+		Logger.d(getClass().getSimpleName(), "SpeechRecognizer started for locale: " + locale);
 	}
 
 
