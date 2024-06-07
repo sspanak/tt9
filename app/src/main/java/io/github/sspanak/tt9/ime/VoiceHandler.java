@@ -8,7 +8,7 @@ import io.github.sspanak.tt9.util.Logger;
 
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
-	private VoiceInputOps voiceInputOps;
+	protected VoiceInputOps voiceInputOps;
 
 
 	@Override
@@ -23,6 +23,17 @@ abstract class VoiceHandler extends TypingHandler {
 		);
 	}
 
+	@Override
+	protected boolean onBack() {
+		stopVoiceInput();
+		return false; // we don't want to abort other operations, we just silently stop voice input
+	}
+
+	@Override
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		stopVoiceInput();
+		return super.onNumber(key, hold, repeat);
+	}
 
 	public void toggleVoiceInput() {
 		if (voiceInputOps.isListening() || !voiceInputOps.isAvailable()) {
@@ -36,8 +47,10 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	protected void stopVoiceInput() {
-		voiceInputOps.stop();
-		resetStatus();
+		if (voiceInputOps.isListening()) {
+			voiceInputOps.stop();
+			resetStatus();
+		}
 	}
 
 

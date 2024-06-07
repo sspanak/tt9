@@ -11,9 +11,12 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 abstract public class CommandHandler extends VoiceHandler {
 	@Override
 	protected boolean onBack() {
+		if (super.onBack()) {
+			return true;
+		}
+
 		if (mainView.isCommandPaletteShown()) {
 			mainView.hideCommandPalette();
-			stopVoiceInput();
 			return true;
 		}
 
@@ -61,50 +64,18 @@ abstract public class CommandHandler extends VoiceHandler {
 	private void onCommand(int key) {
 		switch (key) {
 			case 0:
-				stopVoiceInput();
 				changeKeyboard();
 				break;
 			case 1:
-				stopVoiceInput();
 				showSettings();
 				break;
 			case 2:
-				mainView.hideCommandPalette();
-				stopVoiceInput();
 				addWord();
 				break;
 			case 3:
 				toggleVoiceInput();
 				break;
 		}
-	}
-
-
-	public void addWord() {
-		if (mInputMode.isNumeric()) {
-			return;
-		}
-
-		if (DictionaryLoader.getInstance(this).isRunning()) {
-			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
-			return;
-		}
-
-		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-
-		String word = textField.getSurroundingWord(mLanguage);
-		if (word.isEmpty()) {
-			UI.toastLong(this, R.string.add_word_no_selection);
-		} else {
-			AddWordDialog.show(this, mLanguage.getId(), word);
-		}
-	}
-
-
-	public void changeKeyboard() {
-		suggestionOps.cancelDelayedAccept();
-		UI.showChangeKeyboardDialog(this);
 	}
 
 
@@ -117,8 +88,38 @@ abstract public class CommandHandler extends VoiceHandler {
 	}
 
 
+	public void addWord() {
+		if (mInputMode.isNumeric() || voiceInputOps.isListening()) {
+			return;
+		}
+
+		if (DictionaryLoader.getInstance(this).isRunning()) {
+			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
+			return;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mainView.hideCommandPalette();
+
+		String word = textField.getSurroundingWord(mLanguage);
+		if (word.isEmpty()) {
+			UI.toastLong(this, R.string.add_word_no_selection);
+		} else {
+			AddWordDialog.show(this, mLanguage.getId(), word);
+		}
+	}
+
+
+	public void changeKeyboard() {
+		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
+		UI.showChangeKeyboardDialog(this);
+	}
+
+
 	protected void nextInputMode() {
-		if (mInputMode.isPassthrough()) {
+		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_123) : mInputMode;
@@ -148,6 +149,8 @@ abstract public class CommandHandler extends VoiceHandler {
 
 
 	protected void nextLang() {
+		stopVoiceInput();
+
 		// select the next language
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
@@ -189,6 +192,7 @@ abstract public class CommandHandler extends VoiceHandler {
 
 	public void showSettings() {
 		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
 		UI.showSettingsScreen(this);
 	}
 
