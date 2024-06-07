@@ -42,6 +42,8 @@ abstract class VoiceHandler extends TypingHandler {
 		}
 
 		statusBar.setText(R.string.loading);
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		voiceInputOps.listen(mLanguage);
 	}
 
