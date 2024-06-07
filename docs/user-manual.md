@@ -262,5 +262,5 @@ It is also highly recommended to grant the "Permanent notification" permission. 
 
 _The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._
 
-#### Voice Input does not stop immediately after pressing the microphone button
+#### Voice Input takes a very long time to stop
 It is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on the TT9 side. To stop the Voice Input operation, stay quiet for a couple of seconds. Android turns off the microphone automatically when it can not detect any speech.
