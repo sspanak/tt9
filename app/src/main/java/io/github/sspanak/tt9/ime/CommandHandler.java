@@ -17,6 +17,9 @@ abstract public class CommandHandler extends VoiceHandler {
 
 		if (mainView.isCommandPaletteShown()) {
 			mainView.hideCommandPalette();
+			if (!voiceInputOps.isListening()) {
+				resetStatus();
+			}
 			return true;
 		}
 
