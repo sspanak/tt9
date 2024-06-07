@@ -209,6 +209,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			return;
 		}
 
+		int titleLength = title.length();
+
 		SpannableStringBuilder sb = new SpannableStringBuilder(title);
 		sb.append('\n');
 		sb.append(subtitle);
@@ -218,10 +220,10 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			padding /= 10;
 		}
 
-		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(padding), 1, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), 2, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}
