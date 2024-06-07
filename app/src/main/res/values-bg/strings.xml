@@ -139,5 +139,5 @@
 	<string name="voice_input_error_not_available">Не е налично въвеждане с глас</string>
 	<string name="voice_input_error_no_network">Няма връзка с интернет</string>
 	<string name="voice_input_error_network_failed">Проблем с мрежовата връзка</string>
-    <string name="voice_input_stopping">Изключване на микрофона…</string>
+	<string name="voice_input_stopping">Изключване на микрофона…</string>
 </resources>
