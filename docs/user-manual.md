@@ -256,9 +256,11 @@ To mitigate this problem, go to Settings → Appearance, and enable "Status Icon
 **Long explanation.** Qin F21 Pro (and possibly F22, too), has a hotkey application that allows assigning Volume Up and Volume Down functions to number keys. By default, the hotkey manager is enabled, and holding 2-key increases the volume, holding 8-key decreases it. However, when there is no status icon, the manager assumes no keyboard is active and adjusts the volume, instead of letting Traditional T9 handle the key and type a number. So, enabling the icon just bypasses the hotkey manager and everything works fine.
 
 #### General problems on Xiaomi phones
-
 Xiaomi has introduced several non-standard permissions on their phones, which prevent Traditional T9's virtual on-screen keyboard from working properly. More precisely, the "Show Settings" and the "Add Word" keys may not perform their respective functions. To fix this, you must grant the "Display pop-up window" and "Display pop-up window while running in the background" permissions to TT9 from your phone's settings. [This guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) for another application explains how to do it.
 
 It is also highly recommended to grant the "Permanent notification" permission. This is similar to the "Notifications" permission introduced in Android 13. See [above](#notes-for-android-13-or-higher) for more information on why you need it.
 
 _The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._
+
+#### Voice Input does not stop immediatelly after pressing the microphone button
+This is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on TT9 side. To end the Voice Input operation, just stay quiet for a couple of seconds. If Android does not detect any speech, it automatically turns off the microphone.
