@@ -141,4 +141,5 @@
 	<string name="voice_input_error_network_failed">חיבור הרשת נכשל</string>
 	<string name="voice_input_error_no_network">אין חיבור לאינטרנט</string>
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>
+	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
 </resources>

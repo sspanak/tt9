@@ -138,4 +138,5 @@
 	<string name="voice_input_error_network_failed">Ağ bağlantısı başarısız</string>
 	<string name="voice_input_error_no_network">İnternet bağlantısı yok</string>
 	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
+	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
 </resources>

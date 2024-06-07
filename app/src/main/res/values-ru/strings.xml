@@ -138,4 +138,5 @@
 	<string name="voice_input_error_network_failed">Сбой сетевого подключения</string>
 	<string name="voice_input_error_no_network">Нет подключения к Интернету</string>
 	<string name="voice_input_error_not_available">Голосовой ввод недоступен</string>
+	<string name="voice_input_stopping">Отключение микрофона…</string>
 </resources>

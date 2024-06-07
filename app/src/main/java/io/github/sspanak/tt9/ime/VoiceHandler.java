@@ -48,8 +48,8 @@ abstract class VoiceHandler extends TypingHandler {
 
 	protected void stopVoiceInput() {
 		if (voiceInputOps.isListening()) {
+			statusBar.setText(R.string.voice_input_stopping);
 			voiceInputOps.stop();
-			resetStatus();
 		}
 	}
 

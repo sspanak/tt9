@@ -147,4 +147,5 @@
 	<string name="voice_input_error_network_failed">Tinklo ryšys nepavyko</string>
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
+	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
 </resources>

@@ -126,4 +126,5 @@
 	<string name="voice_input_error_network_failed">Netwerkverbinding mislukt</string>
 	<string name="voice_input_error_no_network">Geen internetverbinding</string>
 	<string name="voice_input_error_not_available">Spraakopvoer is niet beschikbaar</string>
+	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
 </resources>

@@ -138,4 +138,5 @@
 	<string name="voice_input_error_network_failed">Conexión de red fallida</string>
 	<string name="voice_input_error_no_network">Sin conexión a Internet</string>
 	<string name="voice_input_error_not_available">La entrada de voz no está disponible</string>
+	<string name="voice_input_stopping">Apagando el micrófono…</string>
 </resources>

@@ -128,4 +128,5 @@
 	<string name="voice_input_error_network_failed">Netzwerkverbindung fehlgeschlagen</string>
 	<string name="voice_input_error_no_network">Keine Internetverbindung</string>
 	<string name="voice_input_error_not_available">Spracheingabe ist nicht verfügbar</string>
+	<string name="voice_input_stopping">Mikrofon ausschalten…</string>
 </resources>

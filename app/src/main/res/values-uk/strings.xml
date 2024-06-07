@@ -149,4 +149,5 @@
 	<string name="voice_input_error_network_failed">Помилка підключення до мережі</string>
 	<string name="voice_input_error_no_network">Немає підключення до Інтернету</string>
 	<string name="voice_input_error_not_available">Голосовий ввід недоступний</string>
+	<string name="voice_input_stopping">Вимикання мікрофона…</string>
 </resources>
