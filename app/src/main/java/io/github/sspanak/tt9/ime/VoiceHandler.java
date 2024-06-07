@@ -61,7 +61,6 @@ abstract class VoiceHandler extends TypingHandler {
 
 	private void onVoiceInputStopped(String text) {
 		onText(text, false);
-		mainView.hideCommandPalette();
 		resetStatus();
 	}
 

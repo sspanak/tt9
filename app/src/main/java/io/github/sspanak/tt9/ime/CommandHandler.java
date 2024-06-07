@@ -104,6 +104,7 @@ abstract public class CommandHandler extends VoiceHandler {
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		mainView.hideCommandPalette();
+		resetStatus();
 
 		String word = textField.getSurroundingWord(mLanguage);
 		if (word.isEmpty()) {
