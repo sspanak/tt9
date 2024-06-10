@@ -5,6 +5,8 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.ime.helpers.CursorOps;
+import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -62,6 +64,29 @@ public class AppHacks {
 	public boolean onAction(int action) {
 		if (inputType.isSonimSearchField(action)) {
 			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled, "false" otherwise.
+	 */
+	public boolean onUpdateSelection(
+		@NonNull InputMode inputMode,
+		@NonNull SuggestionOps suggestionOps,
+		int oldSelStart,
+		int oldSelEnd,
+		int newSelStart,
+		int newSelEnd,
+		int candidatesStart,
+		int candidatesEnd
+	) {
+		if (inputType.isViber() && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+			inputMode.reset();
+			return true;
 		}
 
 		return false;

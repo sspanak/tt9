@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -275,12 +276,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 
+		// in case the app has modified the InputField and moved the cursor without notifiying us...
+		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+			return;
+		}
+
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
 		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
 		// This is confusing from user perspective, so we want to avoid it.
 		if (
-			candidatesStart != -1 && candidatesEnd != -1
-			&& (newSelStart != candidatesEnd || newSelEnd != candidatesEnd)
+			CursorOps.isMovedManually(newSelStart, newSelEnd, candidatesStart, candidatesEnd)
 			&& !suggestionOps.isEmpty()
 		) {
 			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
