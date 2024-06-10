@@ -6,7 +6,7 @@ import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-abstract public class MainViewOps extends HotkeyHandler {
+abstract public class MainViewHandler extends HotkeyHandler {
 	/**** Informational methods for the on-screen keyboard ****/
 	public int getTextCase() {
 		return mInputMode.getTextCase();
