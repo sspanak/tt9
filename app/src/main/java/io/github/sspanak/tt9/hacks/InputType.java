@@ -101,6 +101,20 @@ public class InputType extends StandardInputType {
 		return isAppField("com.termux", EditorInfo.TYPE_NULL) && field.fieldId > 0;
 	}
 
+
+	/**
+	 * isViber
+	 * When sending messages using the Viber's SEND button, it does so and clears the text field,
+	 * but without notifying the keyboard. This means, after sending the message, the InputMode still
+	 * holds the old text, while the text field is empty. Attempting to type a new word then results
+	 * in appending to the old word. We use this hack to detect Viber and reset the InputMode upon
+	 * sending a message.
+	 */
+	public boolean isViber() {
+		return isAppField("com.viber.voip", EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE);
+	}
+
+
 	public boolean isNotUs(Context context) {
 		return !isAppField(context.getPackageName(), EditorInfo.TYPE_NULL);
 	}
