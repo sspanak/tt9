@@ -24,6 +24,7 @@ abstract public class AbstractHandler extends InputMethodService {
 
 	// UI
 	abstract protected void createSuggestionBar(View mainView);
+	abstract protected void resetStatus();
 
 
 	abstract protected InputMode getInputMode();

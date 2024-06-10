@@ -120,4 +120,13 @@
 	<string name="key_yellow">Gelber Knopf</string>
 	<string name="key_blue">Blauer Knopf</string>
 	<string name="key_volume_mute">Stummschalttaste</string>
+	<string name="voice_input_listening">Sprechen</string>
+	<string name="voice_input_mic_permission_is_needed">Sie müssen dem Mikrofon die Erlaubnis erteilen, die Spracheingabe zu verwenden.</string>
+	<string name="voice_input_error_generic">Fehler bei der Spracheingabe</string>
+	<string name="voice_input_error_no_permissions">Keine Mikrofonberechtigung</string>
+	<string name="voice_input_error_language_not_supported">Sprache nicht unterstützt</string>
+	<string name="voice_input_error_network_failed">Netzwerkverbindung fehlgeschlagen</string>
+	<string name="voice_input_error_no_network">Keine Internetverbindung</string>
+	<string name="voice_input_error_not_available">Spracheingabe ist nicht verfügbar</string>
+	<string name="voice_input_stopping">Mikrofon ausschalten…</string>
 </resources>

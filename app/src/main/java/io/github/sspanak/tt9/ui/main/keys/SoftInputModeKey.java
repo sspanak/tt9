@@ -3,16 +3,16 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class SoftKeyInputMode extends SoftKey {
-	public SoftKeyInputMode(Context context) {
+public class SoftInputModeKey extends SoftKey {
+	public SoftInputModeKey(Context context) {
 		super(context);
 	}
 
-	public SoftKeyInputMode(Context context, AttributeSet attrs) {
+	public SoftInputModeKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftKeyInputMode(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftInputModeKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 

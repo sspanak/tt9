@@ -4,7 +4,6 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
@@ -231,12 +230,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (!validateOnly) {
-			suggestionOps.cancelDelayedAccept();
-			suggestionOps.acceptIncomplete();
-			mInputMode.reset();
-
-			mainView.showCommandPalette();
-			statusBar.setText(getString(R.string.commands_select_command));
+			showCommandPalette();
 			forceShowWindow();
 		}
 

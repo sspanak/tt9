@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
@@ -20,6 +21,21 @@ public class StatusBar {
 	}
 
 
+	public boolean isErrorShown() {
+		return statusText != null && statusText.startsWith("❌");
+	}
+
+
+	public void setError(String error) {
+		setText("❌  " + error);
+	}
+
+
+	public void setText(int stringResourceId) {
+		setText(statusView.getContext().getString(stringResourceId));
+	}
+
+
 	public void setText(String text) {
 		statusText = text;
 		this.render();
@@ -28,6 +44,11 @@ public class StatusBar {
 
 	public void setText(InputMode inputMode) {
 		setText("[ " + inputMode.toString() + " ]");
+	}
+
+
+	public void setText(VoiceInputOps voiceInputOps) {
+		setText("[ " + voiceInputOps.toString() + " ]");
 	}
 
 

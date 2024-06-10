@@ -8,12 +8,18 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
-abstract class CommandHandler extends TypingHandler {
+abstract public class CommandHandler extends VoiceHandler {
 	@Override
 	protected boolean onBack() {
+		if (super.onBack()) {
+			return true;
+		}
+
 		if (mainView.isCommandPaletteShown()) {
 			mainView.hideCommandPalette();
-			statusBar.setText(mInputMode);
+			if (!voiceInputOps.isListening()) {
+				resetStatus();
+			}
 			return true;
 		}
 
@@ -39,6 +45,10 @@ abstract class CommandHandler extends TypingHandler {
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
+		if (statusBar.isErrorShown()) {
+			resetStatus();
+		}
+
 		if (!shouldBeOff() && mainView.isCommandPaletteShown()) {
 			onCommand(key);
 			return true;
@@ -63,16 +73,26 @@ abstract class CommandHandler extends TypingHandler {
 				showSettings();
 				break;
 			case 2:
-				mainView.hideCommandPalette();
-				statusBar.setText(mInputMode);
 				addWord();
+				break;
+			case 3:
+				toggleVoiceInput();
 				break;
 		}
 	}
 
 
+	protected void resetStatus() {
+		if (mainView.isCommandPaletteShown()) {
+			statusBar.setText(R.string.commands_select_command);
+		} else {
+			statusBar.setText(mInputMode);
+		}
+	}
+
+
 	public void addWord() {
-		if (mInputMode.isNumeric()) {
+		if (mInputMode.isNumeric() || voiceInputOps.isListening()) {
 			return;
 		}
 
@@ -83,6 +103,8 @@ abstract class CommandHandler extends TypingHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mainView.hideCommandPalette();
+		resetStatus();
 
 		String word = textField.getSurroundingWord(mLanguage);
 		if (word.isEmpty()) {
@@ -95,12 +117,13 @@ abstract class CommandHandler extends TypingHandler {
 
 	public void changeKeyboard() {
 		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
 		UI.showChangeKeyboardDialog(this);
 	}
 
 
 	protected void nextInputMode() {
-		if (mInputMode.isPassthrough()) {
+		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_123) : mInputMode;
@@ -130,6 +153,8 @@ abstract class CommandHandler extends TypingHandler {
 
 
 	protected void nextLang() {
+		stopVoiceInput();
+
 		// select the next language
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
@@ -171,6 +196,17 @@ abstract class CommandHandler extends TypingHandler {
 
 	public void showSettings() {
 		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
 		UI.showSettingsScreen(this);
+	}
+
+
+	public void showCommandPalette() {
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptIncomplete();
+		mInputMode.reset();
+
+		mainView.showCommandPalette();
+		resetStatus();
 	}
 }

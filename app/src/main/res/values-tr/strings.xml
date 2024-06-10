@@ -130,4 +130,13 @@
 	<string name="key_yellow">Sarı düğme</string>
 	<string name="key_blue">Mavi düğme</string>
 	<string name="key_volume_mute">Sessiz tuşu</string>
+	<string name="voice_input_listening">Konuşun</string>
+	<string name="voice_input_mic_permission_is_needed">Sesli giriş kullanmak için mikrofona izin vermelisiniz.</string>
+	<string name="voice_input_error_generic">Sesli giriş hatası</string>
+	<string name="voice_input_error_no_permissions">Mikrofon izni yok</string>
+	<string name="voice_input_error_language_not_supported">Dil desteklenmiyor</string>
+	<string name="voice_input_error_network_failed">Ağ bağlantısı başarısız</string>
+	<string name="voice_input_error_no_network">İnternet bağlantısı yok</string>
+	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
+	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
 </resources>

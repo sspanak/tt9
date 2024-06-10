@@ -130,4 +130,13 @@
 	<string name="key_yellow">Botón amarillo</string>
 	<string name="key_blue">Botón azul</string>
 	<string name="key_volume_mute">Botón de silencio</string>
+	<string name="voice_input_listening">Hable</string>
+	<string name="voice_input_mic_permission_is_needed">Debe otorgar permiso al micrófono para usar la entrada de voz.</string>
+	<string name="voice_input_error_generic">Error de entrada de voz</string>
+	<string name="voice_input_error_no_permissions">Sin permiso para el micrófono</string>
+	<string name="voice_input_error_language_not_supported">Idioma no compatible</string>
+	<string name="voice_input_error_network_failed">Conexión de red fallida</string>
+	<string name="voice_input_error_no_network">Sin conexión a Internet</string>
+	<string name="voice_input_error_not_available">La entrada de voz no está disponible</string>
+	<string name="voice_input_stopping">Apagando el micrófono…</string>
 </resources>

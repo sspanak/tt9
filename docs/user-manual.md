@@ -115,16 +115,29 @@ Many phones have only two or three "free" buttons that can be used as hotkeys. B
 Below is a list of the possible commands:
 - **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 - **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
+- **Voice Input (Default Combo: ✱, 3-key).** Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
 - **Select a Different Keyboard (Default Combo: ✱, 0-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
+
+If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
+
+## Voice Input
+The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself, but it asks your phone to do it.
+
+_The Voice Input button is hidden on devices that do not support it._
+
+### Supported Devices
+On devices with Google Services, it will use the Google Cloud infrastructure to convert your words to text. You must connect to a Wi-Fi network or enable mobile data for this method to work.
+
+On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment and will usually recognize only simple phrases, such as: "open calendar" or "play music" and similar. The advantage is that it will work offline.
+
+Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox".
 
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual numpad".
 
 It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
-
-If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
 
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
@@ -243,9 +256,11 @@ To mitigate this problem, go to Settings → Appearance, and enable "Status Icon
 **Long explanation.** Qin F21 Pro (and possibly F22, too), has a hotkey application that allows assigning Volume Up and Volume Down functions to number keys. By default, the hotkey manager is enabled, and holding 2-key increases the volume, holding 8-key decreases it. However, when there is no status icon, the manager assumes no keyboard is active and adjusts the volume, instead of letting Traditional T9 handle the key and type a number. So, enabling the icon just bypasses the hotkey manager and everything works fine.
 
 #### General problems on Xiaomi phones
-
 Xiaomi has introduced several non-standard permissions on their phones, which prevent Traditional T9's virtual on-screen keyboard from working properly. More precisely, the "Show Settings" and the "Add Word" keys may not perform their respective functions. To fix this, you must grant the "Display pop-up window" and "Display pop-up window while running in the background" permissions to TT9 from your phone's settings. [This guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) for another application explains how to do it.
 
 It is also highly recommended to grant the "Permanent notification" permission. This is similar to the "Notifications" permission introduced in Android 13. See [above](#notes-for-android-13-or-higher) for more information on why you need it.
 
 _The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._
+
+#### Voice Input takes a very long time to stop
+It is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on the TT9 side. To stop the Voice Input operation, stay quiet for a couple of seconds. Android turns off the microphone automatically when it can not detect any speech.

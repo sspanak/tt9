@@ -130,6 +130,10 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		repeatHandler.removeCallbacks(this::repeatOnLongPress);
 	}
 
+	protected static int getLastPressedKey() {
+		return lastPressedKey;
+	}
+
 	protected boolean handlePress() {
 		return false;
 	}
@@ -144,16 +148,14 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		int keyId = getId();
-		boolean multiplePress = lastPressedKey == keyId;
 
 		if (keyId == R.id.soft_key_add_word) { tt9.addWord(); return true; }
 		if (keyId == R.id.soft_key_command_palette) return tt9.onKeyCommandPalette(false);
-		if (keyId == R.id.soft_key_filter_suggestions) return tt9.onKeyFilterSuggestions(false, multiplePress);
-		if (keyId == R.id.soft_key_clear_filter) return tt9.onKeyFilterClear(false);
 		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
 		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
 		if (keyId == R.id.soft_key_language) return tt9.onKeyNextLanguage(false);
 		if (keyId == R.id.soft_key_settings) { tt9.showSettings(); return true; }
+		if (keyId == R.id.soft_key_voice_input) { tt9.toggleVoiceInput(); return true; }
 
 		return false;
 	}
@@ -186,6 +188,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		return null;
 	}
 
+
 	/**
 	 * render
 	 * Sets the key label using "getTitle()" and "getSubtitle()" or if they both
@@ -206,6 +209,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			return;
 		}
 
+		int titleLength = title.length();
+
 		SpannableStringBuilder sb = new SpannableStringBuilder(title);
 		sb.append('\n');
 		sb.append(subtitle);
@@ -215,10 +220,10 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			padding /= 10;
 		}
 
-		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, 1, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(padding), 1, 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), 2, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}

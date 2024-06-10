@@ -3,6 +3,7 @@
 	<string name="app_settings">Настройки на TT9</string>
 	<string name="pref_font_size_large">Голям</string>
 	<string name="completed">Завършено</string>
+	<string name="loading">Зареждане…</string>
 	<string name="no_language">Няма език</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="failed_loading_language_definitions">Неуспешно зареждане на езиковите дефиниции.</string>
@@ -130,4 +131,13 @@
 	<string name="key_yellow">Жълт бутон</string>
 	<string name="key_blue">Син бутон</string>
 	<string name="key_volume_mute">Заглушаване на звук</string>
+	<string name="voice_input_listening">Говорете</string>
+	<string name="voice_input_mic_permission_is_needed">Трябва да разрешите достъпа до микрофона, за да използвате гласовото въвеждане.</string>
+	<string name="voice_input_error_generic">Неуспешно гласово въвеждане</string>
+	<string name="voice_input_error_no_permissions">Няма достъп до микрофона</string>
+	<string name="voice_input_error_language_not_supported">Езикът не се поддържа</string>
+	<string name="voice_input_error_not_available">Не е налично въвеждане с глас</string>
+	<string name="voice_input_error_no_network">Няма връзка с интернет</string>
+	<string name="voice_input_error_network_failed">Проблем с мрежовата връзка</string>
+	<string name="voice_input_stopping">Изключване на микрофона…</string>
 </resources>

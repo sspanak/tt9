@@ -6,13 +6,15 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 
 public class Permissions {
 	private static final HashMap<String, Boolean> firstTimeAsking = new HashMap<>();
-	private final Activity activity;
+	@NonNull private final Activity activity;
 
-	public Permissions(Activity activity) {
+	public Permissions(@NonNull Activity activity) {
 		this.activity = activity;
 	}
 
@@ -31,6 +33,11 @@ public class Permissions {
 			firstTimeAsking.put(Manifest.permission.POST_NOTIFICATIONS, false);
 			requestPermission(Manifest.permission.POST_NOTIFICATIONS);
 		}
+	}
+
+
+	public void requestRecordAudio() {
+		requestPermission(Manifest.permission.RECORD_AUDIO);
 	}
 
 	public boolean noWriteStorage() {

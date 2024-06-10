@@ -139,6 +139,7 @@ public class TraditionalT9 extends MainViewOps {
 
 	@Override
 	protected void onStop() {
+		stopVoiceInput();
 		onFinishTyping();
 		suggestionOps.clear();
 		setStatusIcon(mInputMode);

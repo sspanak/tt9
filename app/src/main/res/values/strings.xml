@@ -6,6 +6,7 @@
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
 	<string name="error">Error</string>
+	<string name="loading">Loading…</string>
 	<string name="no_language">No Language</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
@@ -162,4 +163,14 @@
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
+
+	<string name="voice_input_listening">Speak</string>
+	<string name="voice_input_stopping">Turning off the microphone…</string>
+	<string name="voice_input_mic_permission_is_needed">You must allow the microphone permission to use voice input.</string>
+	<string name="voice_input_error_generic">Voice input error</string>
+	<string name="voice_input_error_no_permissions">No microphone permission</string>
+	<string name="voice_input_error_language_not_supported">Language not supported</string>
+	<string name="voice_input_error_network_failed">Network connection failed</string>
+	<string name="voice_input_error_no_network">No Internet connection</string>
+	<string name="voice_input_error_not_available">Voice input is not available</string>
 </resources>
