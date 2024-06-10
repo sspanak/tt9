@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
+import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;

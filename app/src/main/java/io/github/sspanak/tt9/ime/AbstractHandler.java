@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
 abstract public class AbstractHandler extends InputMethodService {

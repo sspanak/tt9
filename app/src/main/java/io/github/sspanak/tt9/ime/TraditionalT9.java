@@ -18,7 +18,7 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
 
-public class TraditionalT9 extends MainViewOps {
+public class TraditionalT9 extends MainViewHandler {
 	@NonNull
 	private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
 
@@ -104,7 +104,6 @@ public class TraditionalT9 extends MainViewOps {
 
 		return result;
 	}
-
 
 	@Override
 	protected void onInit() {

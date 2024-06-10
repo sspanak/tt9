@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.ime;
+package io.github.sspanak.tt9.ime.helpers;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -20,7 +19,7 @@ public class SuggestionOps {
 	@NonNull private TextField textField;
 
 
-	SuggestionOps(@NonNull SettingsStore settings, View mainView, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
+	public SuggestionOps(@NonNull SettingsStore settings, View mainView, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept;
 
@@ -29,44 +28,44 @@ public class SuggestionOps {
 	}
 
 
-	void setTextField(@NonNull TextField textField) {
+	public void setTextField(@NonNull TextField textField) {
 		this.textField = textField;
 	}
 
 
-	boolean isEmpty() {
+	public boolean isEmpty() {
 		return suggestionBar.isEmpty();
 	}
 
 
-	String get(int index) {
+	public String get(int index) {
 		return suggestionBar.getSuggestion(index);
 	}
 
 
-	void clear() {
+	public void clear() {
 		set(null);
 		textField.setComposingText("");
 		textField.finishComposingText();
 	}
 
 
-	void set(ArrayList<String> suggestions) {
+	public void set(ArrayList<String> suggestions) {
 		suggestionBar.setSuggestions(suggestions, 0);
 	}
 
 
-	void set(ArrayList<String> suggestions, int selectIndex) {
+	public void set(ArrayList<String> suggestions, int selectIndex) {
 		suggestionBar.setSuggestions(suggestions, selectIndex);
 	}
 
 
-	void scrollTo(int index) {
+	public void scrollTo(int index) {
 		suggestionBar.scrollToSuggestion(index);
 	}
 
 
-	String acceptCurrent() {
+	public String acceptCurrent() {
 		String word = getCurrent();
 		if (!word.isEmpty()) {
 			commitCurrent(true);
@@ -76,7 +75,7 @@ public class SuggestionOps {
 	}
 
 
-	String acceptIncomplete() {
+	public String acceptIncomplete() {
 		String currentWord = this.getCurrent();
 		commitCurrent(false);
 
@@ -84,7 +83,7 @@ public class SuggestionOps {
 	}
 
 
-	String acceptPrevious(int sequenceLength) {
+	public String acceptPrevious(int sequenceLength) {
 		if (sequenceLength <= 0) {
 			set(null);
 		}
@@ -95,7 +94,7 @@ public class SuggestionOps {
 	}
 
 
-	void commitCurrent(boolean entireSuggestion) {
+	public void commitCurrent(boolean entireSuggestion) {
 		if (!suggestionBar.isEmpty()) {
 			if (entireSuggestion) {
 				textField.setComposingText(getCurrent());
@@ -107,17 +106,17 @@ public class SuggestionOps {
 	}
 
 
-	int getCurrentIndex() {
+	public int getCurrentIndex() {
 		return suggestionBar.getCurrentIndex();
 	}
 
 
-	String getCurrent() {
+	public String getCurrent() {
 		return get(suggestionBar.getCurrentIndex());
 	}
 
 
-	protected String getCurrent(int maxLength) {
+	public String getCurrent(int maxLength) {
 		if (maxLength == 0 || suggestionBar.isEmpty()) {
 			return "";
 		}
@@ -131,7 +130,7 @@ public class SuggestionOps {
 	}
 
 
-	boolean scheduleDelayedAccept(int delay) {
+	public boolean scheduleDelayedAccept(int delay) {
 		cancelDelayedAccept();
 
 		if (suggestionBar.isEmpty()) {
@@ -149,12 +148,12 @@ public class SuggestionOps {
 	}
 
 
-	void cancelDelayedAccept() {
+	public void cancelDelayedAccept() {
 		delayedAcceptHandler.removeCallbacksAndMessages(null);
 	}
 
 
-	void setDarkTheme(boolean yes) {
+	public void setDarkTheme(boolean yes) {
 		suggestionBar.setDarkTheme(yes);
 	}
 }
