@@ -94,7 +94,7 @@ Thanks to your donations, a brand new testing device is available, a Sonim XP380
 ## 💪 Privacy Policy and Philosophy
 - No ads, no premium or paid features. It's all free.
 - No spying, no tracking, no telemetry or reports. No nothing!
-- No network connectivity, except when voice input is active.
+- Network connectivity is only used for voice input and downloading dictionaries from Github. You can also use the Full version that includes all languages and requires no Internet permission.
 - It only does its job.
 - Open-source, so you can verify all the above yourself.
 - Created with help from the entire community.

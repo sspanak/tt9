@@ -68,7 +68,7 @@ public class DictionaryLoader {
 	}
 
 
-	public boolean load(ArrayList<Language> languages) {
+	public boolean load(Context context, ArrayList<Language> languages) {
 		if (isRunning()) {
 			return false;
 		}
@@ -91,7 +91,7 @@ public class DictionaryLoader {
 					if (isInterrupted()) {
 						break;
 					}
-					importAll(lang);
+					importAll(context, lang);
 					currentFile++;
 				}
 			}
@@ -105,7 +105,7 @@ public class DictionaryLoader {
 	public static void load(Context context, Language language) {
 		DictionaryLoadingBar progressBar = DictionaryLoadingBar.getInstance(context);
 		getInstance(context).setOnStatusChange(status -> progressBar.show(context, status));
-		self.load(new ArrayList<Language>() {{ add(language); }});
+		self.load(context, new ArrayList<Language>() {{ add(language); }});
 	}
 
 
@@ -129,7 +129,7 @@ public class DictionaryLoader {
 					load(context, language);
 				}
 				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
-				else if (!hash.equals(new WordFile(language.getDictionaryFile(), self.assets).getHash())) {
+				else if (!hash.equals(new WordFile(context, language.getDictionaryFile(), self.assets).getHash())) {
 					new DictionaryUpdateNotification(context, language).show();
 				}
 			},
@@ -151,7 +151,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void importAll(Language language) {
+	private void importAll(Context context, Language language) {
 		if (language == null) {
 			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
 			sendError(InvalidLanguageException.class.getSimpleName(), -1);
@@ -178,7 +178,7 @@ public class DictionaryLoader {
 			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Letters imported", language, Timer.restart());
 
-			importWordFile(language, lettersCount, progress, 88);
+			importWordFile(context, language, lettersCount, progress, 88);
 			progress = 88;
 			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Dictionary file imported", language, Timer.restart());
@@ -252,8 +252,8 @@ public class DictionaryLoader {
 	}
 
 
-	private void importWordFile(Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
-		WordFile wordFile = new WordFile(language.getDictionaryFile(), assets);
+	private void importWordFile(Context context, Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
+		WordFile wordFile = new WordFile(context, language.getDictionaryFile(), assets);
 		WordBatch batch = new WordBatch(language, wordFile.getTotalLines());
 		int currentLine = 1;
 		float progressRatio = (maxProgress - minProgress) / wordFile.getTotalLines();

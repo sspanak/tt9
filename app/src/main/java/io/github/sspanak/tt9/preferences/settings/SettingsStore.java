@@ -9,6 +9,8 @@ public class SettingsStore extends SettingsUI {
 		/************* internal settings *************/
 	public final static int DELETE_WORDS_SEARCH_DELAY = 500; // ms
 	public final static int DICTIONARY_AUTO_LOAD_COOLDOWN_TIME = 1200000; // 20 minutes in ms
+	public final static int DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT = 10000; // ms
+	public final static int DICTIONARY_DOWNLOAD_READ_TIMEOUT = 10000; // ms
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
