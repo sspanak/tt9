@@ -17,22 +17,25 @@ tasks.register('validateLanguages') {
 	}
 }
 
-tasks.register('copyLanguages', Copy) {
+tasks.register('copyDefinitions', Copy) {
 	from LANGUAGES_INPUT_DIR
-	include '**/*.csv'
-	include '**/*.txt'
 	include '**/*.yml'
 	into LANGUAGES_OUTPUT_DIR
 }
 
+tasks.register('copyDictionaries', Copy) {
+	from DICTIONARIES_INPUT_DIR
+	include '**/*.csv'
+	include '**/*.txt'
+	into DICTIONARIES_OUTPUT_DIR
+}
+
 tasks.register('writeDictionaryProperties') {
 	inputs.dir fileTree(dir: DICTIONARIES_INPUT_DIR)
-	outputs.dir DICTIONARIES_OUTPUT_DIR
+	outputs.dir DICTIONARY_META_OUTPUT_DIR
 
 	doLast {
-		[getDictionarySizes, getDictionaryHashes].parallelStream().forEach { action ->
-			action(DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR)
-		}
+		getDictionaryProperties(DICTIONARIES_INPUT_DIR, DICTIONARY_META_OUTPUT_DIR)
 	}
 }
 
@@ -44,6 +47,7 @@ tasks.register('updateManifest') {
 
 clean {
 	delete LANGUAGES_OUTPUT_DIR
+	delete DICTIONARIES_OUTPUT_DIR
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
@@ -87,24 +91,35 @@ android {
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
 
-	applicationVariants.configureEach { variant ->
-		tasks.named("generate${variant.name.capitalize()}Assets")?.configure {
-			dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
-		}
+	flavorDimensions = ['app']
+	productFlavors {
+		full { dimension 'app' }
+		lite { dimension 'app' }
+	}
 
-		["lintAnalyzeDebug", "generateDebugLintReportModel", "lintVitalAnalyzeRelease", "generateReleaseLintVitalReportModel"].each { taskName ->
+	applicationVariants.configureEach { variant ->
+		[
+			"merge${variant.name.capitalize()}Assets",
+			"lintAnalyze${variant.name.capitalize()}",
+			"generate${variant.name.capitalize()}LintReportModel",
+			"lintVitalAnalyze${variant.name.capitalize()}",
+			"generate${variant.name.capitalize()}LintVitalReportModel"
+		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(validateLanguages, copyLanguages, writeDictionaryProperties)
+					dependsOn(validateLanguages, copyDefinitions, copyDictionaries, writeDictionaryProperties)
 				}
 			} catch (UnknownTaskException ignored) {}
 		}
 
-		assembleDebug.finalizedBy(updateManifest)
-		assembleRelease.finalizedBy(updateManifest)
+		assembleLiteDebug.finalizedBy(updateManifest)
+		assembleFullDebug.finalizedBy(updateManifest)
+		assembleLiteRelease.finalizedBy(updateManifest)
+		assembleFullRelease.finalizedBy(updateManifest)
 
 		variant.outputs.configureEach {
-			outputFileName = "${APP_NAME}-v${getVerName()}.apk"
+			def suffix = variant.flavorName == 'full' ? '-full' : ''
+			outputFileName = "${APP_NAME}-v${getVerName()}${suffix}.apk"
 		}
 	}
 }

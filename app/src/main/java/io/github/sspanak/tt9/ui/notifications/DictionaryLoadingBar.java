@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
@@ -138,6 +140,8 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			message = resources.getString(R.string.add_word_invalid_language);
 		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
 			message = resources.getString(R.string.dictionary_load_bad_char, word, line, lang.getName());
+		} else if (errorType.equals(UnknownHostException.class.getSimpleName()) || errorType.equals(SocketException.class.getSimpleName())) {
+			message = resources.getString(R.string.dictionary_load_no_internet, lang.getName());
 		} else if (errorType.equals(IOException.class.getSimpleName()) || errorType.equals(FileNotFoundException.class.getSimpleName())) {
 			message = resources.getString(R.string.dictionary_not_found, lang.getName());
 		} else {

@@ -16,6 +16,8 @@ gen/
 .gradle/
 assets/
 build/
+full/
+lite/
 release/
 
 # Local configuration file (sdk path, etc)

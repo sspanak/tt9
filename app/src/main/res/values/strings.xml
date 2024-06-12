@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string translatable="false" name="dictionary_url">https://raw.githubusercontent.com/sspanak/tt9/%1$s/app/%2$s</string>
 	<string translatable="false" name="help_url">https://github.com/sspanak/tt9/blob/master/docs/user-manual.md</string>
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
@@ -80,6 +81,7 @@
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word \"%1$s\" on line %2$d of language \"%3$s\".</string>
 	<string name="dictionary_load_error">Failed loading the dictionary for language \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_no_internet">Failed downloading the dictionary for language \"%1$s\". Check your Internet connection.</string>
 	<string name="dictionary_load_cancelled">Dictionary load cancelled.</string>
 	<string name="dictionary_loaded">Dictionary load completed.</string>
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
