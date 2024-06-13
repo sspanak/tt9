@@ -11,7 +11,7 @@
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ вече съществува в речника.</string>
-	<string name="add_word_invalid_language_x">Не може да се добави дума. Неразпознат език: \"%1$d\".</string>
+	<string name="add_word_invalid_language_x">Не може да се добави дума. Неразпознат език: „%1$d“.</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_select_command">Изберете команда</string>
@@ -85,6 +85,7 @@
 	<string name="setup_click_here_to_enable">Натиснете тук, за да включите TT9 от настройките на Андроид.</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
+	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
 	<string name="pref_abc_auto_accept">Автоматичен избор на буква</string>
 	<string name="pref_abc_auto_accept_off">Изключен</string>
@@ -100,7 +101,7 @@
 	<string name="pref_auto_text_case_summary">Започвай автоматично изреченията с главни букви.</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
 	<string name="pref_category_keypad">Клавиатура</string>
-	<string name="pref_double_zero_char">Символ при двойно натисната \"0\"</string>
+	<string name="pref_double_zero_char">Символ при двойно натисната „0“</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
