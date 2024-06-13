@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Opties</string>
+	<string name="loading">Laden…</string>
 	<string name="no_language">Geen taal</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
@@ -41,6 +42,9 @@
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
 	<string name="pref_upside_down_keys_summary">Activeer als het toetsenbord 7–8–9 op de eerste rij heeft, in plaats van 1–2–3.</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
+	<string name="dictionary_load_bad_char">Laden mislukt. Ongeldig woord \"%1$s\" op regel %2$d van taal \"%3$s\".</string>
+	<string name="dictionary_load_error">Het laden van het woordenboek voor de taal \"%1$s\" is mislukt (%2$s).</string>
+	<string name="dictionary_load_no_internet">Het downloaden van het woordenboek voor de taal \"%1$s\" is mislukt. Controleer de internetverbinding.</string>
 	<string name="dictionary_load_cancelled">Laden geannuleerd.</string>
 	<string name="dictionary_loaded">Woordenboek laden voltooid.</string>
 	<string name="dictionary_loading">Woordenboek laden (%1$s)…</string>
@@ -66,6 +70,7 @@
 	<string name="setup_tt9_on">%1$s is ingeschakeld</string>
 	<string name="setup_tt9_off">%1$s is uitgeschakeld</string>
 	<string name="setup_click_here_to_enable">Klik hier om TT9 in te schakelen vanuit de Android-instellingen.</string>
+	<string name="key_back">Terug</string>
 	<string name="key_channel_down">Vorige kanaal</string>
 	<string name="key_channel_up">Volgende kanaal</string>
 	<string name="key_volume_down">Volume omlaag</string>

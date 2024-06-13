@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Великий</string>
 	<string name="completed">Виконано</string>
 	<string name="error">Помилка</string>
+	<string name="loading">Завантаження…</string>
 	<string name="no_language">Немає мови</string>
 
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
@@ -69,6 +70,7 @@
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово \"%1$s\" у рядку %2$d мови \"%3$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_no_internet">Не вдалося завантажити словник для мови \"%1$s\". Перевірте підключення до Інтернету.</string>
 	<string name="dictionary_load_cancelled">Завантаження словника скасовано.</string>
 	<string name="dictionary_loaded">Словник завантажено.</string>
 	<string name="dictionary_loading">Словник завантажується (%1$s)…</string>

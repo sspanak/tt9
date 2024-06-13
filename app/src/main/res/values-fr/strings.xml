@@ -3,6 +3,7 @@
 	<string name="app_settings">Paramètres de TT9</string>
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Fini</string>
+	<string name="loading">Chargement…</string>
 	<string name="no_language">Aucun langue</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="failed_loading_language_definitions">Impossible de charger aucune définition de langue</string>
@@ -47,6 +48,7 @@
 	<string name="pref_hack_always_on_top_summary">Ne pas permettre aux autres applications de couvrir %1$s ou de le pousser hors de l\'écran.</string>
 	<string name="pref_hack_google_chat">Envoyer des messages avec «OK» dans Google Chat</string>
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
+	<string name="dictionary_load_no_internet">Échec du téléchargement du dictionnaire pour la langue « %1$s ». Vérifiez la connexion Internet.</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
 	<string name="pref_category_predictive_mode">Saisie intuitive</string>
 	<string name="pref_abc_auto_accept">Sélection de lettre automatique</string>
@@ -80,6 +82,7 @@
 	<string name="setup_tt9_on">%1$s est activé</string>
 	<string name="setup_tt9_off">%1$s est désactivé</string>
 	<string name="setup_click_here_to_enable">Cliquez ici pour activer TT9 dans les paramètres Android.</string>
+	<string name="key_back">Retour</string>
 	<string name="key_channel_down">Chaîne précédente</string>
 	<string name="key_channel_up">Chaîne suivante</string>
 	<string name="key_volume_down">Baisser le volume</string>

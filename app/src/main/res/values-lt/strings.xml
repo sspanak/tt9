@@ -4,6 +4,7 @@
 	<string name="pref_font_size_large">Didelis</string>
 	<string name="completed">Baigta</string>
 	<string name="error">Klaida</string>
+	<string name="loading">Įkeliama…</string>
 	<string name="no_language">Kalbos nėra</string>
 
 	<string name="error_unexpected">Įvyko netikėta klaida.</string>
@@ -61,7 +62,8 @@
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%3$s\" kalbos nepavyko. Klaida %2$d eilutėje, netinkamas žodis - \"%1$s\".</string>
-	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" (%2$s) kalbos žodyną.</string>
+	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" kalbos žodyną (%2$s).</string>
+	<string name="dictionary_load_no_internet">Nepavyko atsisiųsti žodyno kalbai „%1$s“. Patikrinkite interneto ryšį.</string>
 	<string name="dictionary_load_cancelled">Žodyno įkėlimas atšauktas.</string>
 	<string name="dictionary_loaded">Žodynas įkeltas.</string>
 	<string name="dictionary_loading">Žodynas įkeliamas (%1$s)…</string>

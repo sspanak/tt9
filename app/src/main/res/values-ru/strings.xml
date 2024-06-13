@@ -3,6 +3,7 @@
 	<string name="app_settings">TT9 настройки</string>
 	<string name="pref_font_size_large">Крупный</string>
 	<string name="completed">Выполнено</string>
+	<string name="loading">Загрузка…</string>
 	<string name="no_language">Нет языка</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="failed_loading_language_definitions">Не удалось загрузить какое-либо определение языка.</string>
@@ -36,6 +37,7 @@
 	<string name="dictionary_not_found">Ошибка загрузки. Словарь «%1$s» не найден.</string>
 	<string name="dictionary_truncated">Словарь успешно удален.</string>
 	<string name="dictionary_loading_indeterminate">Загрузка словаря</string>
+	<string name="dictionary_load_no_internet">Не удалось загрузить словарь для языка «%1$s». Проверьте подключение к Интернету.</string>
 	<string name="dictionary_load_cancelled">Загрузка отменена.</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
 	<string name="pref_category_keypad">Клавиатура</string>

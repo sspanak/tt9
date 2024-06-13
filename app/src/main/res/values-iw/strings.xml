@@ -3,6 +3,7 @@
 	<string name="app_settings">TT9 הגדרות</string>
 	<string name="pref_font_size_large">גדול</string>
 	<string name="completed">הסתיים</string>
+	<string name="loading">טוען…</string>
 	<string name="no_language">אין שפה</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
@@ -57,6 +58,7 @@
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
 	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית \"%1$s\" בשורה %2$d עבור \"%3$s\".</string>
 	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_no_internet">נכשל בהורדת המילון עבור השפה \"%1$s\". בדוק את חיבור האינטרנט.</string>
 	<string name="dictionary_load_cancelled">טעינת המילון בוטלה</string>
 	<string name="dictionary_loaded">טעינת המילון הושלמה.</string>
 	<string name="dictionary_loading">טוען מילון (%1$s)…</string>

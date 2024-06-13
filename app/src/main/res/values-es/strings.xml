@@ -13,6 +13,7 @@
 	<string name="pref_help">Ayuda</string>
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>
+	<string name="loading">Cargando…</string>
 	<string name="no_language">Sin idioma</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
@@ -65,6 +66,7 @@
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
 	<string name="dictionary_load_bad_char">Error al cargar. Palabra inválida \"%1$s\" en la línea %2$d del idioma \"%3$s\".</string>
 	<string name="dictionary_load_error">Error al cargar el diccionario para el idioma \"%1$s\" (%2$s).</string>
+	<string name="dictionary_load_no_internet">Error al descargar el diccionario para el idioma \"%1$s\". Verifique la conexión a Internet.</string>
 	<string name="dictionary_load_cancelled">Carga del diccionario cancelada.</string>
 	<string name="dictionary_loaded">Diccionario cargado con éxito.</string>
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>

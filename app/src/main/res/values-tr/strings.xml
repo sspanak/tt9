@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Ayarlar</string>
+	<string name="loading">Yükleniyor…</string>
 	<string name="no_language">Yüklü Dil Yok</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
@@ -41,6 +42,9 @@
 	<string name="pref_status_icon">Durum</string>
 	<string name="pref_status_icon_summary">Klavye girişi etkin olduğunda bir simge göster.</string>
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>
+	<string name="dictionary_load_bad_char">Yükleme başarısız. \"%1$s\" sözcüğü \"%3$s\" dilinin %2$d satırında geçersiz.</string>
+	<string name="dictionary_load_error">“%1$s” dili için sözlük yüklenemedi (%2$s).</string>
+	<string name="dictionary_load_no_internet">“%1$s” dili için sözlük indirilemedi. İnternet bağlantısını kontrol edin.</string>
 	<string name="dictionary_load_cancelled">Yükleme iptal edildi.</string>
 	<string name="dictionary_loaded">Sözlük başarıyla yüklendi.</string>
 	<string name="dictionary_loading">(%1$s) sözlük yükleniyor…</string>
@@ -63,6 +67,7 @@
 	<string name="setup_tt9_on">%1$s devrede</string>
 	<string name="setup_tt9_off">%1$s devre dışı</string>
 	<string name="setup_click_here_to_enable">Android ayarlarında TT9 uygulamasını etkinleştirmek için burayı tıklayın.</string>
+	<string name="key_back">Geri</string>
 	<string name="key_channel_down">Önceki Seçim</string>
 	<string name="key_channel_up">Sonraki Seçim</string>
 	<string name="key_volume_down">Sesi azalt</string>

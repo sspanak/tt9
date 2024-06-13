@@ -3,6 +3,7 @@
 	<string name="app_settings">TT9 Impostazioni</string>
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Completato</string>
+	<string name="loading">Caricamento…</string>
 	<string name="no_language">Nessuna lingua</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
@@ -56,6 +57,9 @@
 	<string name="pref_category_predictive_mode">Scrittura facilitata</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
+	<string name="dictionary_load_bad_char">Caricamento non riuscito. Parola non valida \"%1$s\" alla riga %2$d della lingua \"%3$s\".</string>
+	<string name="dictionary_load_error">Caricamento del dizionario per la lingua \"%1$s\" non riuscito (%2$s).</string>
+	<string name="dictionary_load_no_internet">"Download del dizionario per la lingua \"%1$s\" non riuscito. Controlla la connessione Internet. "</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
 	<string name="pref_category_keypad">Tastiera</string>
 	<string name="char_space">Spazio</string>
@@ -65,6 +69,7 @@
 	<string name="setup_tt9_on">%1$s è abilitato</string>
 	<string name="setup_tt9_off">%1$s è disabilitato</string>
 	<string name="setup_click_here_to_enable">Clicca qui per abilitare TT9 dalle impostazioni di Android.</string>
+	<string name="key_back">Indietro</string>
 	<string name="key_channel_down">Canale precedente</string>
 	<string name="key_channel_up">Prossimo canale</string>
 	<string name="key_volume_down">Abbassa il volume</string>
