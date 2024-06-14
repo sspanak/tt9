@@ -1,5 +1,5 @@
 # Traditional T9
-This manual explains how to configure and use Traditional T9 in different scenarios. For installation instructions, please consult the [Installation Guide](https://github.com/sspanak/tt9/blob/master/docs/installation.md) on GitHub. Finally, you may want to check out the [main repository page](https://github.com/sspanak/tt9), which includes all source code, a developer's guide, the privacy policy, and supplementary documentation.
+This manual explains how to configure and use Traditional T9 in different scenarios. For installation instructions and information about the "lite" and "full" versions, please consult the [Installation Guide](https://github.com/sspanak/tt9/blob/master/docs/installation.md) on GitHub. Finally, you may want to check out the [main repository page](https://github.com/sspanak/tt9), which includes all source code, a developer's guide, the privacy policy, and supplementary documentation.
 
 ## Initial Setup
 After installing, first, you need to enable Traditional T9 as an Android keyboard. To do so, click on the launcher icon. If you need to take any action, all options besides Initial Setup will be disabled, and there will be a label: "TT9 is disabled". Go to Initial Setup and enable it.
@@ -12,6 +12,11 @@ If your phone does not have a hardware keypad, check out the [On-screen Keypad s
 ### Enabling Predictive Mode
 Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing.
 For more information, [see below](#language-options).
+
+#### Notes for low-end phones
+Dictionary loading may saturate low-end phones. When using the TT9 "lite" version, this will cause Android to abort the operation. If loading takes more than 30 seconds, plug in the charger or ensure the screen stays on during loading.
+
+You can avoid the above by using the "full" version instead.
 
 #### Notes for Android 13 or higher
 By default, the notifications for newly installed apps are disabled. It is recommended to enable them. This way you will get notified when there are dictionary updates, and once you choose to install them, TT9 will show the loading progress. New updates are released at most once a month, so you don't have to worry about getting too much spam.
@@ -248,7 +253,7 @@ On some devices, TT9 may remain invisible, no matter what you do. In such cases,
 
 **Long explanation.** The reason for this problem is Android is primarily designed for touchscreen devices. Hence, it expects you to touch the text/number field to show the keyboard. It is possible to make TT9 appear without this confirmation, but then, in some cases, Android will forget to hide it when it must. For example, it may remain visible after you have dialed a phone number or after you have submitted text in a search field.
 
-For these reasons, in order to stick with the expected Android standards, the control is in your hands. Just press a key to "touch" the screen and keep typing.
+For these reasons, to stick with the expected Android standards, the control is in your hands. Just press a key to "touch" the screen and keep typing.
 
 #### On the Qin F21 Pro, holding 2-key or 8-key turns up or down the volume instead of typing a number
 To mitigate this problem, go to Settings → Appearance, and enable "Status Icon". TT9 should detect Qin F21 and enable the settings automatically, but in case auto-detection fails, or you have disabled the icon for some reason, you need to have it enabled, for all keys to work properly.
