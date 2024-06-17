@@ -27,6 +27,10 @@ public class DeviceInfo {
 		return !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN);
 	}
 
+	public static boolean isCatS22Flip() {
+		return Build.MANUFACTURER.equals("Cat") && Build.MODEL.contains("S22");
+	}
+
 	public static boolean isLgX100S() {
 		return Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
 	}
@@ -34,6 +38,8 @@ public class DeviceInfo {
 	public static boolean isQinF21() {
 		return Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	}
+
+
 
 	public static boolean isRobo() {
 		if (isRobo == null) {
