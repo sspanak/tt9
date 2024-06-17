@@ -9,6 +9,10 @@
 		app:key="pref_input_handling_mode"
 		app:title="Keypad Handling Mode" />
 
+	<SwitchPreferenceCompat
+		app:key="pref_demo_mode"
+		app:title="Demo Mode" />
+
 	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.UsageStatsScreen"
 		app:key="pref_slow_queries"

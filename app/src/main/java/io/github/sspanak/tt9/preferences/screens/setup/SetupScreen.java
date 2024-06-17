@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.preferences.screens.setup;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.util.SystemSettings;
@@ -21,7 +20,7 @@ public class SetupScreen extends BaseScreenFragment {
 	public void onCreate() {
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 		createKeyboardSection(isTT9On);
-		createHacksSection(isTT9On | DeviceInfo.isRobo());
+		createHacksSection(isTT9On | activity.getSettings().getDemoMode());
 		resetFontSize(false);
 	}
 

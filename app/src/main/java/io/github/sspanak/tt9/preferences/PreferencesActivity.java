@@ -19,7 +19,6 @@ import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
-import io.github.sspanak.tt9.preferences.screens.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
@@ -27,6 +26,7 @@ import io.github.sspanak.tt9.preferences.screens.deleteWords.DeleteWordsScreen;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
+import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
@@ -168,6 +168,11 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		}
 
 		transaction.commit();
+	}
+
+
+	public void displayScreen(@NonNull String screenName) {
+		displayScreen(getScreen(screenName), true);
 	}
 
 

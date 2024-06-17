@@ -107,6 +107,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected void onInit() {
+		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 		WordStoreAsync.init(this);
 		super.onInit();
