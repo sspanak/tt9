@@ -39,10 +39,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	@Override public boolean onOK() {
-		if (super.onOK()) {
-			return true;
-		}
-
 		suggestionOps.cancelDelayedAccept();
 
 		if (!suggestionOps.isEmpty()) {

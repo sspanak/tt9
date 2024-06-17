@@ -31,6 +31,7 @@ abstract public class CommandHandler extends VoiceHandler {
 	public boolean onBackspace() {
 		if (mainView.isCommandPaletteShown()) {
 			return false;
+
 		}
 
 		return super.onBackspace();
@@ -55,12 +56,6 @@ abstract public class CommandHandler extends VoiceHandler {
 		}
 
 		return super.onNumber(key, hold, repeat);
-	}
-
-
-	@Override
-	public boolean onOK() {
-		return mainView.isCommandPaletteShown();
 	}
 
 
