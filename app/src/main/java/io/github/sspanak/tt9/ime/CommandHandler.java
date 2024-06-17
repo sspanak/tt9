@@ -11,36 +11,19 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 abstract public class CommandHandler extends VoiceHandler {
 	@Override
 	protected boolean onBack() {
-		if (super.onBack()) {
-			return true;
-		}
-
-		if (mainView.isCommandPaletteShown()) {
-			mainView.hideCommandPalette();
-			if (!voiceInputOps.isListening()) {
-				resetStatus();
-			}
-			return true;
-		}
-
-		return false;
+		return super.onBack() || hideCommandPalette();
 	}
 
 
 	@Override
 	public boolean onBackspace() {
-		if (mainView.isCommandPaletteShown()) {
-			return false;
-
-		}
-
-		return super.onBackspace();
+		return hideCommandPalette() || super.onBackspace();
 	}
 
 
 	@Override
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
-		return mainView.isCommandPaletteShown();
+		return mainView.isCommandPaletteShown() && keyCode != settings.getKeyCommandPalette();
 	}
 
 
@@ -203,5 +186,21 @@ abstract public class CommandHandler extends VoiceHandler {
 
 		mainView.showCommandPalette();
 		resetStatus();
+	}
+
+
+	public boolean hideCommandPalette() {
+		if (!mainView.isCommandPaletteShown()) {
+			return false;
+		}
+
+		mainView.hideCommandPalette();
+		if (voiceInputOps.isListening()) {
+			stopVoiceInput();
+		} else {
+			resetStatus();
+		}
+
+		return true;
 	}
 }

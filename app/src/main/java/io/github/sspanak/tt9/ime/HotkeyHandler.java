@@ -225,7 +225,13 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		if (!validateOnly) {
+		if (validateOnly) {
+			return true;
+		}
+
+		if (mainView.isCommandPaletteShown()) {
+			hideCommandPalette();
+		} else {
 			showCommandPalette();
 			forceShowWindow();
 		}
