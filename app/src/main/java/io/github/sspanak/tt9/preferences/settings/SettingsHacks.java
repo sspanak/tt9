@@ -52,6 +52,8 @@ class SettingsHacks extends BaseSettings {
 	 */
 
 	public int getKeyPadDebounceTime() {
-		return getStringifiedInt("pref_key_pad_debounce_time", 0);
+		int defaultTime = DeviceInfo.isCatS22Flip() ? 50 : 0;
+		defaultTime = DeviceInfo.isQinF21() ? 20 : defaultTime;
+		return getStringifiedInt("pref_key_pad_debounce_time", defaultTime);
 	}
 }
