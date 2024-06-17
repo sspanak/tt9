@@ -42,7 +42,7 @@ public class InputType extends StandardInputType {
 
 
 	public boolean isDumbPhoneDialer(Context context) {
-		return field.packageName.equals("com.android.dialer") && !DeviceInfo.noKeyboard(context);
+		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context);
 	}
 
 
