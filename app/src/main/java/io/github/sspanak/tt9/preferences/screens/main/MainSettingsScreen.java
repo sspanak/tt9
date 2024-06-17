@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens;
+package io.github.sspanak.tt9.preferences.screens.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
@@ -71,17 +71,15 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 
 	private void createAboutSection() {
-		Preference vi = findPreference("version_info");
-		if (vi != null) {
-			vi.setSummary(BuildConfig.VERSION_FULL);
-		}
-
 		Preference donate = findPreference("donate_link");
 		if (donate != null) {
 			String appName = getString(R.string.app_name_short);
 			String url = getString(R.string.donate_url_short);
 			donate.setSummary(getString(R.string.donate_summary, appName, url));
 		}
+
+		ItemVersionInfo debugOptions = new ItemVersionInfo(findPreference(ItemVersionInfo.NAME), activity);
+		debugOptions.populate().enableClickHandler();
 	}
 
 
@@ -101,7 +99,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		for (Preference goToScreen : screens) {
 			if (goToScreen != null) {
-				goToScreen.setEnabled(isTT9On || DeviceInfo.isRobo());
+				goToScreen.setEnabled(isTT9On || activity.getSettings().getDemoMode());
 			}
 		}
 	}

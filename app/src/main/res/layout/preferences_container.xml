@@ -5,6 +5,6 @@
 	android:id="@+id/preferences_container"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	tools:context=".preferences.screens.MainSettingsScreen"
+	tools:context=".preferences.screens.main.MainSettingsScreen"
 	android:orientation="vertical">
 </LinearLayout>

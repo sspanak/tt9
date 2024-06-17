@@ -8,9 +8,19 @@ import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 import io.github.sspanak.tt9.util.Logger;
 
 class SettingsHacks extends BaseSettings {
+	private boolean demoMode = false;
+
 	SettingsHacks(Context context) { super(context); }
 
 	/************* debugging settings *************/
+
+	public boolean getDemoMode() {
+		return demoMode;
+	}
+
+	public void setDemoMode(boolean demoMode) {
+		this.demoMode = demoMode;
+	}
 
 	public int getLogLevel() {
 		return getStringifiedInt("pref_log_level", Logger.LEVEL);

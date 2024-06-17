@@ -31,6 +31,7 @@ public class DebugScreen extends BaseScreenFragment {
 		(new ItemInputHandlingMode(findPreference(ItemInputHandlingMode.NAME), activity.getSettings())).populate().preview().enableClickHandler();
 		(new ItemText(activity, findPreference(DEVICE_INFO_CONTAINER))).populate(new DeviceInfo().toString()).enableClickHandler();
 		(new ItemExportLogcat(findPreference(ItemExportLogcat.NAME), activity)).enableClickHandler();
+		(new ItemDemoMode(findPreference(ItemDemoMode.NAME), activity)).populate().enableClickHandler();
 		initSystemLogsSwitch();
 
 		SwitchPreferenceCompat systemLogs = findPreference(SYSTEM_LOGS_SWITCH);
