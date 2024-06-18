@@ -20,11 +20,11 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 
 ## 📦 Install
 
-<img src="docs/badges/80-height.png" alt="" height="80">
-[<img src="docs/badges/google.png" alt="Download from Play Store" height="64">](https://play.google.com/store/apps/details?id=io.github.sspanak.tt9)
-&nbsp;&nbsp;&nbsp;&nbsp;[<img src="docs/badges/f-droid.png" alt="Download from F-Droid" height="64">](https://f-droid.org/app/io.github.sspanak.tt9)
-&nbsp;&nbsp;&nbsp;&nbsp;[<img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from Uptodown" height="64">](https://io-github-sspanak-tt9.en.uptodown.com/android)
-&nbsp;&nbsp;&nbsp;&nbsp;[<img src="docs/badges/github.png" alt="Download from GitHub" height="64">](https://github.com/sspanak/tt9/releases/latest)
+[<img src="docs/badges/google.png" alt="Download from Play Store" height="59">](https://play.google.com/store/apps/details?id=io.github.sspanak.tt9)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="docs/badges/f-droid.png" alt="Download from F-Droid" height="59">](https://f-droid.org/app/io.github.sspanak.tt9)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from Uptodown" height="59">](https://io-github-sspanak-tt9.en.uptodown.com/android)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="docs/badges/github.png" alt="Download from GitHub" height="59">](https://github.com/sspanak/tt9/releases/latest)
+![](docs/badges/80-height.png)
 
 _If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
