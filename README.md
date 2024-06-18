@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-Traditional T9 is a 12-key (T9) keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and a virtual on-screen keypad to recreate the good old Nokia experience on modern-day touchscreen smartphones. And best of all, it doesn't spy on you.
+TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
