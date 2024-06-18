@@ -45,7 +45,7 @@ _If your phone does not allow installing custom APKs, please consult the [Instal
 - Android 4.4 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
 - Minimum 70 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
-    - Very small languages (< 100k words; Kiswahili, Indonesian): 5-6 Mb per language.
+    - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
     - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Spanish, Romanian, Ukrainian, Russian): 100-165 Mb per language
