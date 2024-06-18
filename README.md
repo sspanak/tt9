@@ -19,26 +19,17 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 </table>
 
 ## 📦 Install
-<table>
-    <tr>
-        <td>
-            <a href="https://f-droid.org/app/io.github.sspanak.tt9">
-                <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Download from F-Droid" height="80">
-            </a>
-        </td>
-        <td>
-            <a href="https://io-github-sspanak-tt9.en.uptodown.com/android">
-                <img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from uptodown" height="54">
-            </a>
-        </td>
-        <td>
-            <a href="https://github.com/sspanak/tt9/releases/latest">
-                <img src="!RAW/get-it-on-github-badge.png" alt="Download from GitHub" height="80">
-            </a>
-        </td>
-    </tr>
-</table>
-
+<div>
+    <a href="https://f-droid.org/app/io.github.sspanak.tt9">
+        <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Download from F-Droid" height="80">
+    </a>
+    <a href="https://io-github-sspanak-tt9.en.uptodown.com/android">
+        <img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from uptodown" height="54">
+    </a>
+    <a href="https://github.com/sspanak/tt9/releases/latest">
+        <img src="!RAW/get-it-on-github-badge.png" alt="Download from GitHub" height="80">
+    </a>
+</div>
 _If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
