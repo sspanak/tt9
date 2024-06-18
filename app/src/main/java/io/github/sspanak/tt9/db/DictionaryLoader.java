@@ -94,6 +94,8 @@ public class DictionaryLoader {
 					importAll(context, lang);
 					currentFile++;
 				}
+
+				Timer.stop(IMPORT_TIMER);
 			}
 		};
 
@@ -200,7 +202,6 @@ public class DictionaryLoader {
 
 			sqlite.finishTransaction();
 			SlowQueryStats.clear();
-			Timer.stop(IMPORT_TIMER);
 		} catch (DictionaryImportAbortedException e) {
 			sqlite.failTransaction();
 			stop();
