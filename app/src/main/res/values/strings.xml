@@ -166,6 +166,12 @@
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
 
+	<string name="virtual_key_change_keyboard" translatable="false">Kbd</string>
+	<string name="virtual_key_command_palette" translatable="false">Cmd</string>
+	<string name="virtual_key_del" translatable="false">Del</string>
+	<string name="virtual_key_input_mode" translatable="false">Mode</string>
+	<string name="virtual_key_settings" translatable="false">Cfg</string>
+
 	<string name="voice_input_listening">Speak</string>
 	<string name="voice_input_stopping">Turning off the microphone…</string>
 	<string name="voice_input_mic_permission_is_needed">You must allow the microphone permission to use voice input.</string>

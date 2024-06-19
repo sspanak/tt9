@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import io.github.sspanak.tt9.R;
+
 public class SoftInputModeKey extends SoftKey {
 	public SoftInputModeKey(Context context) {
 		super(context);
@@ -28,10 +30,14 @@ public class SoftInputModeKey extends SoftKey {
 		return false;
 	}
 
-
 	@Override
 	protected boolean handleRelease() {
 		return validateTT9Handler() && tt9.onKeyNextInputMode(false);
+	}
+
+	@Override
+	protected int getNoEmojiTitle() {
+		return R.string.virtual_key_input_mode;
 	}
 
 	@Override
