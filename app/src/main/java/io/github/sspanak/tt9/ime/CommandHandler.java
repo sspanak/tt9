@@ -70,7 +70,7 @@ abstract public class CommandHandler extends VoiceHandler {
 
 
 	public void addWord() {
-		if (mInputMode.isNumeric() || voiceInputOps.isListening()) {
+		if (voiceInputOps.isListening()) {
 			return;
 		}
 

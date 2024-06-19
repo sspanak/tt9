@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -10,6 +11,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	/**** Informational methods for the on-screen keyboard ****/
 	public int getTextCase() {
 		return mInputMode.getTextCase();
+	}
+
+	public boolean isInputModeABC() {
+		return mInputMode.getClass().equals(ModeABC.class);
 	}
 
 	public boolean isInputModeNumeric() {
@@ -26,6 +31,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public boolean isInputModePhone() {
 		return mInputMode.is123() && inputType.isPhoneNumber();
+	}
+
+	public boolean isVoiceInputActive() {
+		return voiceInputOps != null && voiceInputOps.isListening();
 	}
 
 	public boolean isVoiceInputMissing() {
