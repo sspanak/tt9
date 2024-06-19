@@ -207,7 +207,7 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="@dimen/numpad_control_key_layout_weight"
-				android:text="⌨️"
+				android:text="⌨"
 				android:textSize="@dimen/soft_key_icon_size" />
 
 			<View
