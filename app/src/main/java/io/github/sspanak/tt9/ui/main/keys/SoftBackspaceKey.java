@@ -46,10 +46,14 @@ public class SoftBackspaceKey extends SoftKey {
 
 	@Override
 	protected String getTitle() {
+		if (tt9 != null) {
+			setEnabled(!tt9.isVoiceInputActive());
+		}
+
 		if (Characters.noEmojiSupported()) {
 			return "Del";
 		}
 
-		return LanguageKind.isRTL(tt9.getLanguage()) ? "⌦" : "⌫";
+		return LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null) ? "⌦" : "⌫";
 	}
 }

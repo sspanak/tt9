@@ -143,7 +143,7 @@
 			android:layoutDirection="ltr"
 			tools:ignore="HardcodedText">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
 				android:id="@+id/soft_key_add_word"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
@@ -260,7 +260,7 @@
 			android:layoutDirection="ltr"
 			tools:ignore="HardcodedText">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftKey
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNextLanguage
 				android:id="@+id/soft_key_language"
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:layout_width="0dp"
