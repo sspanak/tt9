@@ -30,8 +30,9 @@ _If your phone does not allow installing custom APKs, please consult the [Instal
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
-- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 70 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
+- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
+- About 20 Mb of storage space. The full version requires 70-100 Mb, depending on the Android version.
+- Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
