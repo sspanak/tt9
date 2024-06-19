@@ -60,10 +60,10 @@ public class SoftNumberKey extends SoftKey {
 		int number = getNumber(getId());
 
 		if (tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage())) {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE;
 			return tt9.getLanguage().getKeyNumber(number);
 		} else {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
 			return String.valueOf(number);
 		}
 	}
