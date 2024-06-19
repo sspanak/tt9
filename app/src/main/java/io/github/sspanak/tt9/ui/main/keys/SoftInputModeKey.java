@@ -33,4 +33,12 @@ public class SoftInputModeKey extends SoftKey {
 	protected boolean handleRelease() {
 		return validateTT9Handler() && tt9.onKeyNextInputMode(false);
 	}
+
+	@Override
+	public void render() {
+		super.render();
+		if (tt9 != null) {
+			setEnabled(!tt9.isVoiceInputActive());
+		}
+	}
 }

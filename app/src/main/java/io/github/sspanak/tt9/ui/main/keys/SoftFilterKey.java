@@ -39,4 +39,13 @@ public class SoftFilterKey extends SoftKey {
 	protected String getSubTitle() {
 		return "FLTR";
 	}
+
+
+	@Override
+	public void render() {
+		super.render();
+		if (tt9 != null) {
+			setEnabled(!tt9.isInputModeNumeric() && !tt9.isInputModeABC() && !tt9.isVoiceInputActive());
+		}
+	}
 }
