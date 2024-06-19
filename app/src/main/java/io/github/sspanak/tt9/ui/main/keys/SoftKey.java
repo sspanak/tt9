@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
@@ -24,8 +25,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	protected TraditionalT9 tt9;
 
-	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
-	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE;
+	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
 
 	private boolean hold = false;
 	private boolean repeat = false;
@@ -180,6 +181,13 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	}
 
 	/**
+	 * getNoEmojiTitle
+	 * Generates a text representation of the key title, when emojis are not supported and getTitle()
+	 * is meant to return an emoji.
+	 */
+	protected int getNoEmojiTitle() { return 0; }
+
+	/**
 	 * getSubTitle
 	 * Generates a String describing what the key does.
 	 * For example: "ABC" for 2-key; "⌫" for Backspace key, "⚙" for Settings key, and so on.
@@ -188,6 +196,18 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 */
 	protected String getSubTitle() {
 		return null;
+	}
+
+	/**
+	 * Returns a meaningful key title depending on the current emoji support.
+	 */
+	private String getTitleCompat() {
+		if (Characters.noEmojiSupported() && getNoEmojiTitle() > 0) {
+			setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
+			return getContext().getString(getNoEmojiTitle());
+		} else {
+			return getTitle();
+		}
 	}
 
 	/**
@@ -200,7 +220,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * have their font size adjusted to fit inside the key.
 	 */
 	public void render() {
-		String title = getTitle();
+		String title = getTitleCompat();
 		String subtitle = getSubTitle();
 
 		if (title == null) {
@@ -216,8 +236,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append('\n');
 		sb.append(subtitle);
 
-		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
-		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE) {
+		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
 			padding /= 10;
 		}
 

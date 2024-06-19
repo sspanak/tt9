@@ -4,8 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.util.Characters;
 
 public class SoftBackspaceKey extends SoftKey {
 
@@ -45,15 +45,20 @@ public class SoftBackspaceKey extends SoftKey {
 	}
 
 	@Override
+	protected int getNoEmojiTitle() {
+		return R.string.virtual_key_del;
+	}
+
+	@Override
 	protected String getTitle() {
+		return LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null) ? "⌦" : "⌫";
+	}
+
+	@Override
+	public void render() {
+		super.render();
 		if (tt9 != null) {
 			setEnabled(!tt9.isVoiceInputActive());
 		}
-
-		if (Characters.noEmojiSupported()) {
-			return "Del";
-		}
-
-		return LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null) ? "⌦" : "⌫";
 	}
 }
