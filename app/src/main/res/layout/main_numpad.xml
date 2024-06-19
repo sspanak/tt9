@@ -15,7 +15,7 @@
 		android:layout_height="@dimen/numpad_candidate_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
 			android:id="@+id/soft_key_left_arrow"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="@dimen/numpad_arrow_key_width"
@@ -54,7 +54,7 @@
 			android:id="@+id/separator_candidates_2"
 			style="@style/numSeparator" />
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
 			android:id="@+id/soft_key_right_arrow"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="@dimen/numpad_arrow_key_width"
