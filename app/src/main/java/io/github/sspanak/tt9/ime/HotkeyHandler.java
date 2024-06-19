@@ -101,6 +101,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	public boolean onKeyMoveCursor(boolean backward) {
+		return textField.moveCursor(backward);
+	}
+
+
 	public boolean onKeyFilterClear(boolean validateOnly) {
 		if (suggestionOps.isEmpty()) {
 			return false;
