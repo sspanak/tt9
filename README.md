@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-Traditional T9 is a 12-key (T9) keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and a virtual on-screen keypad to recreate the good old Nokia experience on modern-day touchscreen smartphones. And best of all, it doesn't spy on you.
+TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -19,38 +19,26 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 </table>
 
 ## 📦 Install
-<table>
-    <tr>
-        <td>
-            <a href="https://f-droid.org/app/io.github.sspanak.tt9">
-                <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" alt="Download from F-Droid" height="80">
-            </a>
-        </td>
-        <td>
-            <a href="https://io-github-sspanak-tt9.en.uptodown.com/android">
-                <img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from uptodown" height="54">
-            </a>
-        </td>
-        <td>
-            <a href="https://github.com/sspanak/tt9/releases/latest">
-                <img src="!RAW/get-it-on-github-badge.png" alt="Download from GitHub" height="80">
-            </a>
-        </td>
-    </tr>
-</table>
+
+[<img src="docs/badges/google.png" alt="Download from Play Store" height="59">](https://play.google.com/store/apps/details?id=io.github.sspanak.tt9)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="docs/badges/f-droid.png" alt="Download from F-Droid" height="59">](https://f-droid.org/app/io.github.sspanak.tt9)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="https://stc.utdstc.com/img/mediakit/download-gio-big.png" alt="Download from Uptodown" height="59">](https://io-github-sspanak-tt9.en.uptodown.com/android)&nbsp;&nbsp;&nbsp;&nbsp;
+![](docs/badges/80-height.png)[<img src="docs/badges/github.png" alt="Download from GitHub" height="59">](https://github.com/sspanak/tt9/releases/latest)
+![](docs/badges/80-height.png)
 
 _If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
-- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be enabled in the Settings.
-- Minimum 70 Mb of storage space. Extra space is needed for language dictionaries in Predictive Mode.
-    - Very small languages (< 100k words; Kiswahili, Indonesian): 5-6 Mb per language.
+- A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
+- Storage space depends on the Android version. The lite version requires 3-20 Mb and the full version requires 70-100 Mb.
+- Extra storage space is necessary for language dictionaries in Predictive Mode.
+    - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
     - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Spanish, Romanian, Ukrainian, Russian): 100-165 Mb per language
 
-_Storage usage depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
+_Storage usage for the dictionaries depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
 
 ### ⚠️ Compatibility
 If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016.
