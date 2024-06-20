@@ -10,6 +10,15 @@ public class SoftKeySettings extends SoftKey {
 	public SoftKeySettings(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeySettings(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+	@Override
+	protected boolean handleRelease() {
+		if (validateTT9Handler()) {
+			tt9.showSettings();
+			return true;
+		}
+
+		return false;
+	}
 
 	@Override
 	protected int getNoEmojiTitle() {

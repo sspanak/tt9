@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
+import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -36,14 +37,17 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	public SoftKey(Context context) {
 		super(context);
+		setHapticFeedbackEnabled(false);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		setHapticFeedbackEnabled(false);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		setHapticFeedbackEnabled(false);
 	}
 
 
@@ -51,12 +55,14 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		this.tt9 = tt9;
 	}
 
-	public void setDarkTheme(boolean darkEnabled) {
-		int textColor = ContextCompat.getColor(
-			getContext(),
-			darkEnabled ? R.color.dark_button_text : R.color.button_text
-		);
-		setTextColor(textColor);
+
+	protected boolean validateTT9Handler() {
+		if (tt9 == null) {
+			Logger.w(LOG_TAG, "Traditional T9 handler is not set. Ignoring key press.");
+			return false;
+		}
+
+		return true;
 	}
 
 
@@ -72,6 +78,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 	}
 
+
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
 		super.onTouchEvent(event);
@@ -81,17 +88,17 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (action == MotionEvent.ACTION_DOWN) {
 			return handlePress();
 		} else if (action == MotionEvent.ACTION_UP) {
-			preventRepeat();
-			if (!repeat) {
+			if (!repeat || hold) {
+				hold = false;
 				boolean result = handleRelease();
 				lastPressedKey = getId();
 				return result;
 			}
 			repeat = false;
 		}
-
 		return false;
 	}
+
 
 	@Override
 	public boolean onLongClick(View view) {
@@ -102,6 +109,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		repeatHandler.postDelayed(this::repeatOnLongPress, 5);
 		return true;
 	}
+
 
 	/**
 	 * repeatOnLongPress
@@ -122,6 +130,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 	}
 
+
 	/**
 	 * preventRepeat
 	 * Prevents "handleHold()" from being called repeatedly when the SoftKey is being held.
@@ -131,17 +140,23 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		repeatHandler.removeCallbacks(this::repeatOnLongPress);
 	}
 
+
 	protected static int getLastPressedKey() {
 		return lastPressedKey;
 	}
 
+
 	protected boolean handlePress() {
+		if (validateTT9Handler()) {
+			vibrate(Vibration.getPressVibration(this));
+		}
+
 		return false;
 	}
 
-	protected boolean handleHold() {
-		return false;
-	}
+
+	protected void handleHold() {}
+
 
 	protected boolean handleRelease() {
 		if (!validateTT9Handler()) {
@@ -149,28 +164,28 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		int keyId = getId();
-
 		if (keyId == R.id.soft_key_command_palette) return tt9.onKeyCommandPalette(false);
-		if (keyId == R.id.soft_key_settings) { tt9.showSettings(); return true; }
 		if (keyId == R.id.soft_key_voice_input) { tt9.toggleVoiceInput(); return true; }
 
 		return false;
 	}
 
-	protected boolean validateTT9Handler() {
-		if (tt9 == null) {
-			Logger.w(LOG_TAG, "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
 
-		return true;
+	public void setDarkTheme(boolean darkEnabled) {
+		int textColor = ContextCompat.getColor(
+			getContext(),
+			darkEnabled ? R.color.dark_button_text : R.color.button_text
+		);
+		setTextColor(textColor);
 	}
+
 
 	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
 		setTextColor(getTextColors().withAlpha(enabled ? 255 : 80));
 	}
+
 
 	/**
 	 * getTitle
@@ -180,12 +195,14 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		return null;
 	}
 
+
 	/**
 	 * getNoEmojiTitle
 	 * Generates a text representation of the key title, when emojis are not supported and getTitle()
 	 * is meant to return an emoji.
 	 */
 	protected int getNoEmojiTitle() { return 0; }
+
 
 	/**
 	 * getSubTitle
@@ -198,6 +215,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		return null;
 	}
 
+
 	/**
 	 * Returns a meaningful key title depending on the current emoji support.
 	 */
@@ -209,6 +227,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			return getTitle();
 		}
 	}
+
 
 	/**
 	 * render
@@ -247,5 +266,12 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
+	}
+
+
+	protected void vibrate(int vibrationType) {
+		if (tt9 != null && tt9.getSettings().getHapticFeedback() && vibrationType != Vibration.getNoVibration()) {
+			getRootView().performHapticFeedback(vibrationType, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		}
 	}
 }

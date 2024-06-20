@@ -16,18 +16,18 @@ public class SoftFilterKey extends SoftKey {
 	}
 
 	@Override
-	protected boolean handleHold() {
-		if (!validateTT9Handler()) {
-			return false;
+	protected void handleHold() {
+		preventRepeat();
+		if (validateTT9Handler() && tt9.onKeyFilterClear(false)) {
+			vibrate(Vibration.getHoldVibration());
 		}
-
-		return tt9.onKeyFilterClear(false);
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		boolean multiplePress = getLastPressedKey() == getId();
-		return tt9.onKeyFilterSuggestions(false, multiplePress);
+		return
+			validateTT9Handler()
+			&& tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
 	}
 
 	@Override

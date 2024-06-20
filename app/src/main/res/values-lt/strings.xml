@@ -54,6 +54,7 @@
 	<string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
+	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą.</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
@@ -150,4 +151,5 @@
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
+	<string name="pref_haptic_feedback">Vibracija</string>
 </resources>

@@ -6,17 +6,36 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 
 public class SoftKeyArrow extends SoftKey {
+	private boolean hold;
+
 	public SoftKeyArrow(Context context) { super(context); }
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
-	protected boolean handleRelease() {
-		return handleHold();
+	protected boolean handlePress() {
+		hold = false;
+		return super.handlePress();
 	}
 
 	@Override
-	protected boolean handleHold() {
+	protected void handleHold() {
+		hold = true;
+		moveCursor();
+	}
+
+	@Override
+	protected boolean handleRelease() {
+		if (hold) {
+			hold = false;
+			vibrate(Vibration.getReleaseVibration());
+			return true;
+		} else {
+			return moveCursor();
+		}
+	}
+
+	private boolean moveCursor() {
 		if (!validateTT9Handler()) {
 			return false;
 		}
