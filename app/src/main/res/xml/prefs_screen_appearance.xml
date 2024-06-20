@@ -11,6 +11,11 @@
 		app:title="@string/pref_layout" />
 
 	<SwitchPreferenceCompat
+		app:key="pref_haptic_feedback"
+		app:title="@string/pref_haptic_feedback"
+		app:summary="@string/pref_haptic_feedback_summary"/>
+
+	<SwitchPreferenceCompat
 		app:key="pref_status_icon"
 		app:title="@string/pref_status_icon"
 		app:summary="@string/pref_status_icon_summary" />

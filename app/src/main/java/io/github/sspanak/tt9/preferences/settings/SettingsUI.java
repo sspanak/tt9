@@ -32,6 +32,10 @@ public class SettingsUI extends SettingsTyping {
 		}
 	}
 
+	public boolean getHapticFeedback() {
+		return prefs.getBoolean("pref_haptic_feedback", true);
+	}
+
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);

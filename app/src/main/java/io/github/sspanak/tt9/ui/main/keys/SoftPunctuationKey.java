@@ -21,7 +21,7 @@ public class SoftPunctuationKey extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		return tt9.onText(getKeyChar(), false);
+		return validateTT9Handler() && tt9.onText(getKeyChar(), false);
 	}
 
 	@Override

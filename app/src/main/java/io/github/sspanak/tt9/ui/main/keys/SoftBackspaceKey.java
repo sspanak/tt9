@@ -8,6 +8,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class SoftBackspaceKey extends SoftKey {
+	private boolean hold;
 
 	public SoftBackspaceKey(Context context) {
 		super(context);
@@ -23,11 +24,25 @@ public class SoftBackspaceKey extends SoftKey {
 
 	@Override
 	final protected boolean handlePress() {
-		return handleHold();
+		super.handlePress();
+		hold = false;
+		return deleteText();
 	}
 
 	@Override
-	final protected boolean handleHold() {
+	final protected void handleHold() {
+		hold = true;
+		deleteText();
+	}
+
+	@Override
+	final protected boolean handleRelease() {
+		vibrate(hold ? Vibration.getReleaseVibration() : Vibration.getNoVibration());
+		hold = false;
+		return true;
+	}
+
+	private boolean deleteText() {
 		if (validateTT9Handler() && !tt9.onBackspace()) {
 			// Limited or special numeric field (e.g. formatted money or dates) cannot always return
 			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
@@ -36,11 +51,6 @@ public class SoftBackspaceKey extends SoftKey {
 			return true;
 		}
 
-		return false;
-	}
-
-	@Override
-	final protected boolean handleRelease() {
 		return false;
 	}
 

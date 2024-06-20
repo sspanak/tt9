@@ -23,6 +23,7 @@
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
+	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale.</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
@@ -134,5 +135,6 @@
 	<string name="voice_input_error_no_network">Nessuna connessione Internet</string>
 	<string name="voice_input_error_not_available">L\'input vocale non è disponibile</string>
 	<string name="voice_input_stopping">Spegnimento del microfono…</string>
+	<string name="pref_haptic_feedback">Vibrazione</string>
 </resources>
 
