@@ -20,6 +20,7 @@
 	<string name="pref_layout_small">Функциональные клавиши</string>
 	<string name="pref_layout_stealth">Невидимый режим</string>
 	<string name="pref_layout_tray">Только список слов</string>
+	<string name="pref_haptic_feedback_summary">Вибрировать при нажатии виртуальной клавиши.</string>
 	<string name="pref_help">Помощь</string>
 	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
@@ -141,4 +142,5 @@
 	<string name="voice_input_error_no_network">Нет подключения к Интернету</string>
 	<string name="voice_input_error_not_available">Голосовой ввод недоступен</string>
 	<string name="voice_input_stopping">Отключение микрофона…</string>
+	<string name="pref_haptic_feedback">Вибрация</string>
 </resources>

@@ -20,6 +20,7 @@
 	<string name="pref_layout_small">Touches de fonction</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Seulement liste de mots</string>
+	<string name="pref_haptic_feedback_summary">Vibrer lors de l\'appui sur une touche virtuelle.</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
@@ -139,4 +140,5 @@
 	<string name="voice_input_error_no_network">Pas de connexion Internet</string>
 	<string name="voice_input_error_not_available">La saisie vocale n\'est pas disponible</string>
 	<string name="voice_input_stopping">Désactivation du microphone…</string>
+	<string name="pref_haptic_feedback">Vibration</string>
 </resources>

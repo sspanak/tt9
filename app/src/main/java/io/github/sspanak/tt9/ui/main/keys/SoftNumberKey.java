@@ -28,18 +28,17 @@ public class SoftNumberKey extends SoftKey {
 	}
 
 	@Override
-	protected boolean handleHold() {
+	protected void handleHold() {
 		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		if (keyCode < 0 || !validateTT9Handler()) {
-			return false;
+			return;
 		}
 
 		preventRepeat();
 
+		vibrate(Vibration.getHoldVibration());
 		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
 		tt9.onKeyUp(keyCode, new KeyEvent(KeyEvent.ACTION_UP, keyCode));
-
-		return true;
 	}
 
 	@Override

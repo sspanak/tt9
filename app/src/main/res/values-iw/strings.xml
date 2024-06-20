@@ -49,6 +49,7 @@
 	<string name="pref_layout_small">מקשי פונקציה</string>
 	<string name="pref_layout_stealth">מצב בלתי נראה</string>
 	<string name="pref_layout_tray">רשימת מילים בלבד</string>
+	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי.</string>
 	<string name="pref_help">עזרה</string>
 
 	<string name="pref_status_icon">סמל מצב</string>
@@ -144,4 +145,5 @@
 	<string name="voice_input_error_no_network">אין חיבור לאינטרנט</string>
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>
 	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
+	<string name="pref_haptic_feedback">רטט</string>
 </resources>

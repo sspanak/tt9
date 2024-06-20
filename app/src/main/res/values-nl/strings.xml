@@ -20,6 +20,7 @@
 	<string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
+	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets.</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
@@ -132,4 +133,5 @@
 	<string name="voice_input_error_no_network">Geen internetverbinding</string>
 	<string name="voice_input_error_not_available">Spraakopvoer is niet beschikbaar</string>
 	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
+	<string name="pref_haptic_feedback">Trilling</string>
 </resources>

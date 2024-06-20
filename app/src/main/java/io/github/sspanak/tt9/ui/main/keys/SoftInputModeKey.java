@@ -19,15 +19,13 @@ public class SoftInputModeKey extends SoftKey {
 	}
 
 	@Override
-	protected boolean handleHold() {
+	protected void handleHold() {
 		preventRepeat();
 
 		if (validateTT9Handler()) {
+			vibrate(Vibration.getHoldVibration());
 			tt9.changeKeyboard();
-			return true;
 		}
-
-		return false;
 	}
 
 	@Override

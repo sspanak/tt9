@@ -24,10 +24,11 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 	private void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
+		ItemHapticFeedback hapticFeedback = (new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate();
 
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
-			new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity),
+			new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity, hapticFeedback::populate),
 			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this)
 		};
 

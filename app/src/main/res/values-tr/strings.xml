@@ -21,6 +21,7 @@
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
+	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek.</string>
 	<string name="pref_help">Yardım</string>
 	<string name="pref_dark_theme">Karanlık Tema</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>
@@ -144,4 +145,5 @@
 	<string name="voice_input_error_no_network">İnternet bağlantısı yok</string>
 	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
 	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
+	<string name="pref_haptic_feedback">Titreşim</string>
 </resources>
