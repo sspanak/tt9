@@ -173,6 +173,12 @@ public class Predictions {
 	private ArrayList<String> generateWordVariations(String baseWord) {
 		ArrayList<String> generatedWords = new ArrayList<>();
 
+		// This function is called from async context, so by the time it is executed, the digit sequence
+		// might have been deleted. But in this case, it makes no sense to generate suggestions.
+		if (digitSequence.isEmpty()) {
+			return generatedWords;
+		}
+
 		// Make sure the displayed word and the digit sequence, we will be generating suggestions from,
 		// have the same length, to prevent visual discrepancies.
 		baseWord = (baseWord != null && !baseWord.isEmpty()) ? baseWord.substring(0, Math.min(digitSequence.length() - 1, baseWord.length())) : "";
