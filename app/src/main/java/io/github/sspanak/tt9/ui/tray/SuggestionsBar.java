@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -19,12 +20,14 @@ import java.util.List;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
 public class SuggestionsBar {
 	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
 	private boolean isDarkThemeEnabled = false;
 
+	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
 	private final RecyclerView mView;
 	private final SettingsStore settings;
@@ -33,17 +36,24 @@ public class SuggestionsBar {
 	private final Handler alternativeScrollingHandler = new Handler();
 
 
-	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull View mainView, @NonNull Runnable onItemClick) {
+
+	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
 		this.onItemClick = onItemClick;
 		this.settings = settings;
 
-		mView = mainView.findViewById(R.id.suggestions_bar);
+		this.mainView = mainView;
+		mView = mainView.getView() != null ? mainView.getView().findViewById(R.id.suggestions_bar) : null;
 		if (mView != null) {
-			mView.setLayoutManager(new LinearLayoutManager(mainView.getContext(), RecyclerView.HORIZONTAL, false));
+			Context context = mainView.getView().getContext();
 
-			initDataAdapter(mainView.getContext());
-			initSeparator(mainView.getContext());
+			mView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
+			mView.setOnTouchListener(this::handleDrag);
+
+			initDataAdapter(context);
+			initSeparator(context);
 			configureAnimation();
+
+
 		}
 	}
 
@@ -250,5 +260,28 @@ public class SuggestionsBar {
 	private void handleItemClick(int position) {
 		selectedIndex = position;
 		onItemClick.run();
+	}
+
+
+	private boolean handleDrag(View view, MotionEvent event) {
+		if (!isEmpty()) {
+			return false;
+		}
+
+		int action = event.getAction();
+
+		switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				mainView.onResizeStart(event.getRawY());
+				return true;
+			case MotionEvent.ACTION_MOVE:
+				mainView.onResizeThrottled(event.getRawY());
+				return true;
+			case MotionEvent.ACTION_UP:
+				mainView.onResize(event.getRawY());
+				return true;
+		}
+
+		return false;
 	}
 }

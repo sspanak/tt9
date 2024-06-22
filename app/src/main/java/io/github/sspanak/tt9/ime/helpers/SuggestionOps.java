@@ -2,13 +2,13 @@ package io.github.sspanak.tt9.ime.helpers;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
@@ -19,7 +19,7 @@ public class SuggestionOps {
 	@NonNull private TextField textField;
 
 
-	public SuggestionOps(@NonNull SettingsStore settings, View mainView, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
+	public SuggestionOps(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept;
 

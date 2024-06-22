@@ -7,19 +7,19 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 
 abstract class UiHandler extends AbstractHandler {
 	protected SettingsStore settings;
-	protected MainView mainView = null;
+	protected ResizableMainView mainView = null;
 	protected StatusBar statusBar = null;
 
 
 	@Override
 	protected void onInit() {
 		if (mainView == null) {
-			mainView = new MainView(getFinalContext());
+			mainView = new ResizableMainView(getFinalContext());
 			initTray();
 		}
 	}
@@ -32,7 +32,7 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	protected void initUi() {
+	public void initUi() {
 		if (mainView.createInputView()) {
 			initTray();
 		}
