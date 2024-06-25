@@ -10,11 +10,17 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class DeviceInfo {
-	private static Boolean isRobo = null;
-
 	public static boolean noKeyboard(Context context) {
+		// all Xiaomi phones are only touchscreen, but some of them report they have a keyboard
+		// See: https://github.com/sspanak/tt9/issues/549
+		if (DeviceInfo.isXiaomi()) {
+			return true;
+		}
+
+		Configuration configuration = context.getResources().getConfiguration();
+
 		return
-			context.getResources().getConfiguration().keyboard == Configuration.KEYBOARD_NOKEYS
+			(configuration.keyboard == Configuration.KEYBOARD_NOKEYS || configuration.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES)
 			&& !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_STAR)
 			&& !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_POUND);
 	}
@@ -41,6 +47,10 @@ public class DeviceInfo {
 
 	public static boolean isSonimGen2(Context context) {
 		return isSonim() && Build.VERSION.SDK_INT == Build.VERSION_CODES.R && noTouchScreen(context);
+	}
+
+	public static boolean isXiaomi() {
+		return Build.MANUFACTURER.equals("Xiaomi");
 	}
 
 	@NonNull
