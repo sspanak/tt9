@@ -27,7 +27,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 			height =
 				resources.getDimensionPixelSize(R.dimen.soft_key_height) * 5
 				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
-				+ resources.getDimensionPixelSize(R.dimen.numpad_padding_bottom);
+				+ resources.getDimensionPixelSize(R.dimen.numpad_padding_bottom) * 4;
 		}
 
 		return height;
