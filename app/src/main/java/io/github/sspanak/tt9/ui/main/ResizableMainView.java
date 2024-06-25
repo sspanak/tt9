@@ -1,11 +1,14 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ResizableMainView extends MainView {
+public class ResizableMainView extends MainView implements View.OnAttachStateChangeListener {
 	private int height;
 	private float resizeStartY;
 	private long lastResizeTime;
@@ -13,6 +16,7 @@ public class ResizableMainView extends MainView {
 	private final int heightNumpad;
 	private final int heightSmall;
 	private final int heightTray;
+
 
 	public ResizableMainView(TraditionalT9 tt9) {
 		super(tt9);
@@ -22,31 +26,31 @@ public class ResizableMainView extends MainView {
 		heightTray = new MainLayoutTray(tt9).getHeight();
 	}
 
+
 	@Override
 	public boolean createInputView() {
 		if (!super.createInputView()) {
 			return false;
 		}
 
-		// @todo: this isn't working
-		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height < heightNumpad) {
-			setHeight(height, heightSmall, heightNumpad);
-		}
+		main.getView().removeOnAttachStateChangeListener(this);
+		main.getView().addOnAttachStateChangeListener(this);
 
 		return true;
 	}
+
+
+	private void onResizeAdjustHeight() {
+		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height < heightNumpad) {
+			setHeight((int) Math.max(heightNumpad * 0.6, heightSmall * 1.1), heightSmall, heightNumpad);
+		}
+	}
+
 
 	public void onResizeStart(float startY) {
 		resizeStartY = startY;
 	}
 
-	public void onResizeThrottled(float currentY) {
-		long now = System.currentTimeMillis();
-		if (now - lastResizeTime > 100) {
-			lastResizeTime = now;
-			onResize(currentY);
-		}
-	}
 
 	public void onResize(float currentY) {
 		int resizeDelta = (int) (resizeStartY - currentY);
@@ -58,6 +62,35 @@ public class ResizableMainView extends MainView {
 			expand(resizeDelta);
 		}
 	}
+
+
+	public void onResizeThrottled(float currentY) {
+		long now = System.currentTimeMillis();
+		if (now - lastResizeTime > 100) {
+			lastResizeTime = now;
+			onResize(currentY);
+		}
+	}
+
+
+	private void expand(int delta) {
+		SettingsStore settings = tt9.getSettings();
+
+		if (settings.isMainLayoutTray()) {
+			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
+			height = heightSmall;
+			main = null;
+			tt9.initUi();
+		} else if (settings.isMainLayoutSmall()) {
+			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
+			height = heightSmall + 1;
+			main = null;
+			tt9.initUi();
+		} else {
+			changeHeight(delta, heightSmall, heightNumpad);
+		}
+	}
+
 
 	private void shrink(int delta) {
 		SettingsStore settings = tt9.getSettings();
@@ -79,23 +112,6 @@ public class ResizableMainView extends MainView {
 		}
 	}
 
-	private void expand(int delta) {
-		SettingsStore settings = tt9.getSettings();
-
-		if (settings.isMainLayoutTray()) {
-			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
-			height = heightSmall;
-			main = null;
-			tt9.initUi();
-		} else if (settings.isMainLayoutSmall()) {
-			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
-			height = heightSmall + 1;
-			main = null;
-			tt9.initUi();
-		} else {
-			changeHeight(delta, heightSmall, heightNumpad);
-		}
-	}
 
 	private boolean changeHeight(int delta, int minHeight, int maxHeight) {
 		if (main == null || main.getView() == null) {
@@ -104,6 +120,7 @@ public class ResizableMainView extends MainView {
 
 		return setHeight(main.getView().getMeasuredHeight() + delta, minHeight, maxHeight);
 	}
+
 
 	private boolean setHeight(int height, int minHeight, int maxHeight) {
 		if (main == null || main.getView() == null || height < minHeight || height > maxHeight) {
@@ -121,4 +138,8 @@ public class ResizableMainView extends MainView {
 
 		return true;
 	}
+
+
+	@Override public void onViewAttachedToWindow(@NonNull View v) { onResizeAdjustHeight(); }
+	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 }
