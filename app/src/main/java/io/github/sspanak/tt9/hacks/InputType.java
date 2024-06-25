@@ -42,6 +42,7 @@ public class InputType extends StandardInputType {
 
 
 	public boolean isDumbPhoneDialer(Context context) {
+		// the inputType is not always TYPE_CLASS_PHONE on all devices, so we must not filter by that.
 		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context);
 	}
 
@@ -133,8 +134,10 @@ public class InputType extends StandardInputType {
 	 * <a href="https://github.com/sspanak/tt9/issues/46">the initial GitHub issue about Qin F21 Pro+</a>
 	 * <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>
 	 * <a href="https://github.com/sspanak/tt9/issues/300">Dialer not detected correctly on LG X100S</a>
-	 * [NO ISSUE] On touchscreen-only phones, in the Dialer app, we can't switch to passthrough, because
+	 * [NO ISSUE] On touchscreen-only phones, in the Dialer app, we mustn't switch to passthrough, because
 	 * they don't have a physical keyboard.
+	 * <a href="https://github.com/sspanak/tt9/issues/538">Beeps on CAT S22 Flip</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/549">The UI does not appear on Xiaomi Redmi 12c</a>
 	 */
 	protected boolean isSpecialNumeric(Context context) {
 		return
