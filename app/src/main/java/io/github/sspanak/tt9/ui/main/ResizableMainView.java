@@ -13,23 +13,45 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	private float resizeStartY;
 	private long lastResizeTime;
 
-	private final int heightNumpad;
-	private final int heightSmall;
-	private final int heightTray;
+	private int heightNumpad;
+	private int heightSmall;
+	private int heightTray;
 
 
 	public ResizableMainView(TraditionalT9 tt9) {
 		super(tt9);
+		resetHeight();
+	}
 
+
+	private void calculateSnapHeights() {
 		heightNumpad = new MainLayoutNumpad(tt9).getHeight();
 		heightSmall = new MainLayoutSmall(tt9).getHeight();
 		heightTray = new MainLayoutTray(tt9).getHeight();
 	}
 
 
+	private void calculateInitialHeight() {
+		if (main == null) {
+			return;
+		}
+
+		if (tt9.getSettings().isMainLayoutNumpad()) {
+			height = heightNumpad;
+		} else if (tt9.getSettings().isMainLayoutSmall()) {
+			height = heightSmall;
+		} else {
+			height = heightTray;
+		}
+	}
+
+
 	@Override
 	public boolean createInputView() {
+
 		if (!super.createInputView()) {
+			// recalculate the total height in case the user has changed the key height in the settings
+			resetHeight();
 			return false;
 		}
 
@@ -40,7 +62,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	private void onResizeAdjustHeight() {
+	private void onCreateAdjustHeight() {
 		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height <= heightNumpad) {
 			setHeight(height, heightSmall, heightNumpad);
 		}
@@ -157,6 +179,17 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
+	private void resetHeight() {
+		if (main != null) {
+			main.resetHeight();
+		}
+
+		calculateSnapHeights();
+		calculateInitialHeight();
+		setHeight(height, heightSmall, heightNumpad);
+	}
+
+
 	private void vibrate() {
 		if (tt9.getSettings().getHapticFeedback() && main != null && main.getView() != null) {
 			main.getView().performHapticFeedback(Vibration.getPressVibration(null));
@@ -164,6 +197,6 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	@Override public void onViewAttachedToWindow(@NonNull View v) { onResizeAdjustHeight(); }
+	@Override public void onViewAttachedToWindow(@NonNull View v) { onCreateAdjustHeight(); }
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 }

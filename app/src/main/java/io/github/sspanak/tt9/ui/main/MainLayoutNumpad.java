@@ -24,13 +24,16 @@ class MainLayoutNumpad extends BaseMainLayout {
 	int getHeight() {
 		if (height <= 0) {
 			Resources resources = tt9.getResources();
-			height =
-				resources.getDimensionPixelSize(R.dimen.soft_key_height) * 5
+			height = tt9.getSettings().getNumpadKeyHeight() * 4
 				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_padding_bottom) * 4;
 		}
 
 		return height;
+	}
+
+	void resetHeight() {
+		height = 0;
 	}
 
 	private int getBackgroundColor(@NonNull View contextView, boolean dark) {
@@ -71,9 +74,28 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 	}
 
+	public void setKeyHeight(int height) {
+		if (view == null || height <= 0) {
+			return;
+		}
+
+		ViewGroup table = view.findViewById(R.id.main_soft_keys);
+		int tableRowsCount = table.getChildCount();
+
+		for (int rowId = 0; rowId < tableRowsCount; rowId++) {
+			View row = table.getChildAt(rowId);
+			ViewGroup.LayoutParams layout = row.getLayoutParams();
+			if (layout != null) {
+				layout.height = height;
+				row.setLayoutParams(layout);
+			}
+		}
+	}
+
 	@Override
 	void render() {
 		getView();
+		setKeyHeight(tt9 != null ? tt9.getSettings().getNumpadKeyHeight() : -1);
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();

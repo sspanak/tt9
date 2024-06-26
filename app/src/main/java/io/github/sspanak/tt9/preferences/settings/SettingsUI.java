@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -35,6 +36,14 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getHapticFeedback() {
 		return prefs.getBoolean("pref_haptic_feedback", true);
+	}
+
+	public int getNumpadKeyDefaultHeight() {
+		return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height);
+	}
+
+	public int getNumpadKeyHeight() {
+		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
 	}
 
 	public int getSettingsFontSize() {

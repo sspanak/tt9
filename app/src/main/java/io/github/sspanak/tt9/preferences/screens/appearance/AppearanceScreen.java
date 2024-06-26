@@ -29,7 +29,8 @@ public class AppearanceScreen extends BaseScreenFragment {
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
 			new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity, hapticFeedback::populate),
-			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this)
+			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
+			new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings())
 		};
 
 		for (ItemDropDown item : items) {
