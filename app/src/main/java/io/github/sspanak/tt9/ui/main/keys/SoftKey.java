@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.Vibration;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 

@@ -66,7 +66,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	public void onResizeThrottled(float currentY) {
 		long now = System.currentTimeMillis();
-		if (now - lastResizeTime > 100) {
+		if (now - lastResizeTime > SettingsStore.RESIZE_THROTTLING_TIME) {
 			lastResizeTime = now;
 			onResize(currentY);
 		}
@@ -81,11 +81,13 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			height = heightSmall;
 			main = null;
 			tt9.initUi();
+			vibrate();
 		} else if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
 			height = heightSmall + 1;
 			main = null;
 			tt9.initUi();
+			vibrate();
 		} else {
 			changeHeight(delta, heightSmall, heightNumpad);
 		}
@@ -104,11 +106,13 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			height = heightTray;
 			main = null;
 			tt9.initUi();
+			vibrate();
 		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
 			main = null;
 			tt9.initUi();
+			vibrate();
 		}
 	}
 
@@ -137,6 +141,13 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		this.height = height;
 
 		return true;
+	}
+
+
+	private void vibrate() {
+		if (tt9.getSettings().getHapticFeedback() && main != null && main.getView() != null) {
+			main.getView().performHapticFeedback(Vibration.getPressVibration(null));
+		}
 	}
 
 
