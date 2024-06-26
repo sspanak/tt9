@@ -41,8 +41,8 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private void onResizeAdjustHeight() {
-		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height < heightNumpad) {
-			setHeight((int) Math.max(heightNumpad * 0.6, heightSmall * 1.1), heightSmall, heightNumpad);
+		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height <= heightNumpad) {
+			setHeight(height, heightSmall, heightNumpad);
 		}
 	}
 
@@ -60,6 +60,19 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			shrink(resizeDelta);
 		} else if (resizeDelta > 0) {
 			expand(resizeDelta);
+		}
+	}
+
+
+	public void onSnap() {
+		SettingsStore settings = tt9.getSettings();
+
+		if (settings.isMainLayoutTray()) {
+			expand(1);
+		} else if (settings.isMainLayoutSmall()) {
+			expand(heightNumpad);
+		} else {
+			shrink(heightNumpad);
 		}
 	}
 
@@ -84,7 +97,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			vibrate();
 		} else if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
-			height = heightSmall + 1;
+			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
 			main = null;
 			tt9.initUi();
 			vibrate();

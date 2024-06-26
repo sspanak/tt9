@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
 public class SuggestionsBar {
+	private double lastClickTime = 0;
 	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
 	private boolean isDarkThemeEnabled = false;
@@ -36,7 +37,6 @@ public class SuggestionsBar {
 	private final Handler alternativeScrollingHandler = new Handler();
 
 
-
 	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
 		this.onItemClick = onItemClick;
 		this.settings = settings;
@@ -47,7 +47,7 @@ public class SuggestionsBar {
 			Context context = mainView.getView().getContext();
 
 			mView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false));
-			mView.setOnTouchListener(this::handleDrag);
+			mView.setOnTouchListener(this::onTouch);
 
 			initDataAdapter(context);
 			initSeparator(context);
@@ -263,7 +263,7 @@ public class SuggestionsBar {
 	}
 
 
-	private boolean handleDrag(View view, MotionEvent event) {
+	private boolean onTouch(View view, MotionEvent event) {
 		if (!isEmpty()) {
 			return false;
 		}
@@ -278,7 +278,15 @@ public class SuggestionsBar {
 				mainView.onResizeThrottled(event.getRawY());
 				return true;
 			case MotionEvent.ACTION_UP:
-				mainView.onResize(event.getRawY());
+				long now = System.currentTimeMillis();
+				if (now - lastClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
+					mainView.onSnap();
+				} else {
+					mainView.onResize(event.getRawY());
+				}
+
+				lastClickTime = now;
+
 				return true;
 		}
 
