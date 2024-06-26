@@ -12,11 +12,12 @@ public class SoftCommandKey extends SoftNumberKey {
 	public SoftCommandKey(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
+	@Override protected void handleHold() {}
+
 	@Override
 	protected String getTitle() {
 		return getNumber(getId()) + "";
 	}
-
 
 	private String getTextSubTitle(int resId) {
 		setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
