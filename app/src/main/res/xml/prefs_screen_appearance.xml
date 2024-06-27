@@ -15,6 +15,10 @@
 		app:title="@string/pref_haptic_feedback"
 		app:summary="@string/pref_haptic_feedback_summary"/>
 
+	<DropDownPreference
+		app:key="pref_numpad_key_height"
+		app:title="@string/pref_numpad_key_height" />
+
 	<SwitchPreferenceCompat
 		app:key="pref_status_icon"
 		app:title="@string/pref_status_icon"

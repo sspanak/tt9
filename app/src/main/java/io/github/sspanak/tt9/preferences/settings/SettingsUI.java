@@ -5,7 +5,9 @@ import android.content.res.Configuration;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
+import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;
@@ -36,6 +38,14 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_haptic_feedback", true);
 	}
 
+	public int getNumpadKeyDefaultHeight() {
+		return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height);
+	}
+
+	public int getNumpadKeyHeight() {
+		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
+	}
+
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);
@@ -43,6 +53,16 @@ public class SettingsUI extends SettingsTyping {
 
 	public int getTheme() {
 		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+	}
+
+	public void setMainViewLayout(int layout) {
+		if (layout != LAYOUT_STEALTH && layout != LAYOUT_TRAY && layout != LAYOUT_SMALL && layout != LAYOUT_NUMPAD) {
+			Logger.w(getClass().getSimpleName(), "Ignoring invalid main view layout: " + layout);
+			return;
+		}
+
+		prefsEditor.putString("pref_layout_type", Integer.toString(layout));
+		prefsEditor.apply();
 	}
 
 	public int getMainViewLayout() {

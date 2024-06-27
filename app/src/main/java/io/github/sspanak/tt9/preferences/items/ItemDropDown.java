@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import io.github.sspanak.tt9.util.Logger;
 
 abstract public class ItemDropDown {
-	private final DropDownPreference item;
+	protected final DropDownPreference item;
 	private LinkedHashMap<String, String> values;
 
 	public ItemDropDown(DropDownPreference item) {
