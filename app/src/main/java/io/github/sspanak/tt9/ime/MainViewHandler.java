@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.OrientationEventListener;
+
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.modes.ModeABC;
@@ -8,8 +10,26 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
+/**
+ * Informational methods for the on-screen keyboard
+ **/
 abstract public class MainViewHandler extends HotkeyHandler {
-	/**** Informational methods for the on-screen keyboard ****/
+	@Override
+	protected void onInit() {
+		super.onInit();
+
+		OrientationEventListener orientationListener = new OrientationEventListener(getApplicationContext()) {
+			@Override
+			public void onOrientationChanged(int orientation) {
+				mainView.onOrientationChanged();
+			}
+		};
+
+		if (orientationListener.canDetectOrientation()) {
+			orientationListener.enable();
+		}
+	}
+
 	public int getTextCase() {
 		return mInputMode.getTextCase();
 	}

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
@@ -64,6 +65,25 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
+	/**
+	 * Uses the key height from the settings, but if it takes up too much of the screen, it will
+	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode
+	 * and 75% in portrait mode. Returns the adjusted height of a single key.
+	 */
+	private int getKeyHeightCompat() {
+		int keyHeight = tt9.getSettings().getNumpadKeyHeight();
+		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
+
+		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9.getApplicationContext());
+		double maxScreenHeight = isLandscape ? screenHeight * 0.75 : screenHeight * 0.8;
+		double maxKeyHeight = isLandscape ? screenHeight * 0.115 : screenHeight * 0.125;
+
+		// it's all very approximate but when it comes to screen dimensions,
+		// accuracy is not that important
+		return keyHeight * 5 > maxScreenHeight ? (int) Math.round(maxKeyHeight) : keyHeight;
+	}
+
+
 	void setKeyHeight(int height) {
 		if (view == null || height <= 0) {
 			return;
@@ -86,7 +106,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	int getHeight() {
 		if (height <= 0) {
 			Resources resources = tt9.getResources();
-			height = tt9.getSettings().getNumpadKeyHeight() * 4
+			height = getKeyHeightCompat() * 4
 				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_padding_bottom) * 4;
 		}
@@ -103,7 +123,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override
 	void render() {
 		getView();
-		setKeyHeight(tt9 != null ? tt9.getSettings().getNumpadKeyHeight() : -1);
+		setKeyHeight(getKeyHeightCompat());
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();
