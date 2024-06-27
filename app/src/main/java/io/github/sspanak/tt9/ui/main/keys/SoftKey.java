@@ -39,16 +39,22 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	public SoftKey(Context context) {
 		super(context);
 		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 
@@ -64,19 +70,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		return true;
-	}
-
-
-	@Override
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		View keyView = findViewById(getId());
-		if (keyView != null) {
-			keyView.setOnTouchListener(this);
-			keyView.setOnLongClickListener(this);
-		} else {
-			Logger.e(LOG_TAG, "Failed settings touch listeners. Cannot find SoftKey with ID: " + getId());
-		}
 	}
 
 
@@ -165,7 +158,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		int keyId = getId();
-		if (keyId == R.id.soft_key_command_palette) return tt9.onKeyCommandPalette(false);
 		if (keyId == R.id.soft_key_voice_input) { tt9.toggleVoiceInput(); return true; }
 
 		return false;

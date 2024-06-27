@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
 
 class MainLayoutSmall extends MainLayoutTray {
 	private int height;
@@ -33,6 +34,17 @@ class MainLayoutSmall extends MainLayoutTray {
 	protected void setSoftKeysVisibility() {
 		if (view != null) {
 			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+		}
+	}
+
+	@Override
+	protected void enableClickHandlers() {
+		super.enableClickHandlers();
+
+		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyCommandPalette) {
+				((SoftKeyCommandPalette) key).setMainView(tt9.getMainView());
+			}
 		}
 	}
 
