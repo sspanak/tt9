@@ -27,7 +27,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	protected void initTray() {
 		setInputView(mainView.getView());
-		createSuggestionBar(mainView.getView());
+		createSuggestionBar();
 		statusBar = new StatusBar(mainView.getView());
 	}
 
