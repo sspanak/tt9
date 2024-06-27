@@ -68,6 +68,16 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 	}
 
+	@Override public void onViewAttachedToWindow(@NonNull View v) { onCreateAdjustHeight(); }
+	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
+
+
+	public void onOrientationChanged() {
+		calculateSnapHeights();
+		calculateInitialHeight();
+		render();
+	}
+
 
 	public void onResizeStart(float startY) {
 		resizeStartY = startY;
@@ -86,6 +96,15 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
+	public void onResizeThrottled(float currentY) {
+		long now = System.currentTimeMillis();
+		if (now - lastResizeTime > SettingsStore.RESIZE_THROTTLING_TIME) {
+			lastResizeTime = now;
+			onResize(currentY);
+		}
+	}
+
+
 	public void onSnap() {
 		SettingsStore settings = tt9.getSettings();
 
@@ -95,15 +114,6 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			expand(heightNumpad);
 		} else {
 			shrink(-heightNumpad);
-		}
-	}
-
-
-	public void onResizeThrottled(float currentY) {
-		long now = System.currentTimeMillis();
-		if (now - lastResizeTime > SettingsStore.RESIZE_THROTTLING_TIME) {
-			lastResizeTime = now;
-			onResize(currentY);
 		}
 	}
 
@@ -193,8 +203,4 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			main.getView().performHapticFeedback(Vibration.getPressVibration(null));
 		}
 	}
-
-
-	@Override public void onViewAttachedToWindow(@NonNull View v) { onCreateAdjustHeight(); }
-	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 }

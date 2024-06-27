@@ -10,6 +10,14 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class DeviceInfo {
+	public static boolean isLandscapeOrientation(Context context) {
+		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+	public static int getScreenHeight(Context context) {
+		return context.getResources().getDisplayMetrics().heightPixels;
+	}
+
 	public static boolean noKeyboard(Context context) {
 		// all Xiaomi phones are only touchscreen, but some of them report they have a keyboard
 		// See: https://github.com/sspanak/tt9/issues/549
