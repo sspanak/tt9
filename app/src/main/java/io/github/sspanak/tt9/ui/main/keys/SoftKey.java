@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
@@ -21,6 +22,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.Vibration;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -213,7 +215,13 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * Returns a meaningful key title depending on the current emoji support.
 	 */
 	private String getTitleCompat() {
-		if (Characters.noEmojiSupported() && getNoEmojiTitle() > 0) {
+		if (
+			getNoEmojiTitle() > 0
+			&& (
+				Characters.noEmojiSupported()
+				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
+			)
+		) {
 			setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
 			return getContext().getString(getNoEmojiTitle());
 		} else {
