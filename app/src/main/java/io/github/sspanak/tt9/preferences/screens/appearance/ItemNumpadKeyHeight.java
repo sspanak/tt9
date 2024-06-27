@@ -35,7 +35,14 @@ public class ItemNumpadKeyHeight extends ItemDropDown {
 
 		super.populateIntegers(options);
 		super.setValue(settings.getNumpadKeyHeight() + "");
+		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
+	}
+
+	void onLayoutChange(int mainViewLayout) {
+		if (item != null) {
+			item.setEnabled(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+		}
 	}
 }

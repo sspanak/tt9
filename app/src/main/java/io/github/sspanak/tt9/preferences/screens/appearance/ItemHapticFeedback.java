@@ -22,16 +22,14 @@ class ItemHapticFeedback extends ItemClickable {
 	}
 
 	ItemHapticFeedback populate() {
-		return populate(settings.getMainViewLayout());
+		onLayoutChange(settings.getMainViewLayout());
+		return this;
 	}
 
-
-	ItemHapticFeedback populate(int mainViewLayout) {
+	void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setEnabled(mainViewLayout == SettingsStore.LAYOUT_NUMPAD || mainViewLayout == SettingsStore.LAYOUT_SMALL);
 			((SwitchPreferenceCompat) item).setChecked(settings.getHapticFeedback());
 		}
-
-		return this;
 	}
 }
