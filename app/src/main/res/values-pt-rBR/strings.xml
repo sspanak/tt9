@@ -128,6 +128,7 @@
 	<string name="pref_layout">Layout na tela</string>
 	<string name="dictionary_no_notifications">Notificações do dicionário</string>
 	<string name="dictionary_no_notifications_summary">Receber notificações sobre atualizações do dicionário e sobre o progresso do carregamento.</string>
+	<string name="pref_numpad_key_height">Tamanho das teclas na tela</string>
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>
 	<string name="pref_font_size_default">Padrão</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
