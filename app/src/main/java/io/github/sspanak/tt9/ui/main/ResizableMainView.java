@@ -162,9 +162,11 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private boolean setHeight(int height, int minHeight, int maxHeight) {
-		if (main == null || main.getView() == null || height < minHeight || height > maxHeight) {
+		if (main == null || main.getView() == null || height < minHeight) {
 			return false;
 		}
+
+		height = Math.min(height, maxHeight);
 
 		ViewGroup.LayoutParams params = main.getView().getLayoutParams();
 		if (params == null) {
