@@ -126,6 +126,7 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_layout">Distribución del teclado en pantalla</string>
+	<string name="pref_numpad_key_height">Tamaño de las teclas en pantalla</string>
 	<string name="pref_font_size">Tamaño de fuente de configuración</string>
 	<string name="pref_font_size_default">Predeterminado</string>
 	<string name="key_red">Botón rojo</string>

@@ -135,6 +135,7 @@
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
 	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
+	<string name="pref_numpad_key_height">Ekrano klavišų dydis</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>
 	<string name="pref_font_size_default">Numatytasis</string>
 	<string name="key_red">Raudonas mygtukas</string>
