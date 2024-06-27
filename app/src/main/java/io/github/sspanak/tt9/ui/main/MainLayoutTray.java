@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,8 +16,18 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 
 class MainLayoutTray extends BaseMainLayout {
+	private int height;
+
 	MainLayoutTray(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_small);
+	}
+
+	int getHeight() {
+		if (height <= 0) {
+			Resources resources = tt9.getResources();
+			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
+		}
+		return height;
 	}
 
 	protected void setSoftKeysVisibility() {

@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,8 +13,12 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 
 class MainLayoutNumpad extends BaseMainLayout {
+	private int height;
+
+
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
 	}
@@ -33,6 +38,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 			dark ? R.color.dark_numpad_separator : R.color.numpad_separator
 		);
 	}
+
 
 	@Override
 	void setDarkTheme(boolean dark) {
@@ -57,14 +63,65 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 	}
 
+
+	void setKeyHeight(int height) {
+		if (view == null || height <= 0) {
+			return;
+		}
+
+		ViewGroup table = view.findViewById(R.id.main_soft_keys);
+		int tableRowsCount = table.getChildCount();
+
+		for (int rowId = 0; rowId < tableRowsCount; rowId++) {
+			View row = table.getChildAt(rowId);
+			ViewGroup.LayoutParams layout = row.getLayoutParams();
+			if (layout != null) {
+				layout.height = height;
+				row.setLayoutParams(layout);
+			}
+		}
+	}
+
+
+	int getHeight() {
+		if (height <= 0) {
+			Resources resources = tt9.getResources();
+			height = tt9.getSettings().getNumpadKeyHeight() * 4
+				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
+				+ resources.getDimensionPixelSize(R.dimen.numpad_padding_bottom) * 4;
+		}
+
+		return height;
+	}
+
+
+	void resetHeight() {
+		height = 0;
+	}
+
+
 	@Override
 	void render() {
 		getView();
+		setKeyHeight(tt9 != null ? tt9.getSettings().getNumpadKeyHeight() : -1);
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
 	}
+
+
+	@Override
+	protected void enableClickHandlers() {
+		super.enableClickHandlers();
+
+		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeySettings) {
+				((SoftKeySettings) key).setMainView(tt9.getMainView());
+			}
+		}
+	}
+
 
 	@NonNull
 	@Override
@@ -88,6 +145,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 		return keys;
 	}
+
 
 	protected ArrayList<View> getSeparators() {
 		// it's fine... it's shorter, faster and easier to read than searching with 3 nested loops

@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -24,7 +23,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
 
 	// UI
-	abstract protected void createSuggestionBar(View mainView);
+	abstract protected void createSuggestionBar();
 	abstract protected void resetStatus();
 
 

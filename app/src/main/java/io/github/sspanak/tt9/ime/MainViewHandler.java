@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
 abstract public class MainViewHandler extends HotkeyHandler {
 	/**** Informational methods for the on-screen keyboard ****/
@@ -44,6 +45,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Nullable
 	public Language getLanguage() {
 		return mLanguage;
+	}
+
+	public ResizableMainView getMainView() {
+		return mainView;
 	}
 
 	public SettingsStore getSettings() {

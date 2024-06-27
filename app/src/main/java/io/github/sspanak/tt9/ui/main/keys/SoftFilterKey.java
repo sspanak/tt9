@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.main.Vibration;
 
 public class SoftFilterKey extends SoftKey {
 	public SoftFilterKey(Context context) { super(context); setFontSize(); }
