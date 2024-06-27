@@ -21,6 +21,7 @@
 	<dimen name="pref_padding_vertical">12dp</dimen>
 
 	<!-- Numpad -->
+	<dimen name="numpad_max_width">10000dp</dimen>
 	<dimen name="numpad_padding_bottom">2dp</dimen>
 	<dimen name="numpad_row_separator_margin">0dp</dimen>
 
