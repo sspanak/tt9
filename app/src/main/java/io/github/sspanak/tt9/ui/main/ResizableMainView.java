@@ -94,7 +94,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		} else if (settings.isMainLayoutSmall()) {
 			expand(heightNumpad);
 		} else {
-			shrink(heightNumpad);
+			shrink(-heightNumpad);
 		}
 	}
 
