@@ -39,8 +39,17 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_haptic_feedback", true);
 	}
 
-	public int getNumpadKeyAlignment() {
+	public int getNumpadAlignment() {
 		return getStringifiedInt("pref_numpad_alignment", Gravity.CENTER_HORIZONTAL);
+	}
+
+	public void setNumpadAlignment(int alignment) {
+		if (alignment != Gravity.CENTER_HORIZONTAL && alignment != Gravity.START && alignment != Gravity.END) {
+			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
+		}
+
+		prefsEditor.putString("pref_numpad_alignment", Integer.toString(alignment));
+		prefsEditor.apply();
 	}
 
 	public int getNumpadKeyDefaultHeight() {

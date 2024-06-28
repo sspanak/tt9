@@ -41,7 +41,7 @@ public class ItemNumpadAlignment extends ItemDropDown {
 		options.put(Gravity.END, context.getString(R.string.virtual_numpad_alignment_right));
 
 		super.populateIntegers(options);
-		super.setValue(settings.getNumpadKeyAlignment() + "");
+		super.setValue(settings.getNumpadAlignment() + "");
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
