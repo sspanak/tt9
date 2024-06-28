@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
 import android.os.Build;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -34,7 +33,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 		LinearLayout container = view.findViewById(R.id.numpad_container);
 		if (container != null) {
-			container.setGravity(tt9.getSettings().getNumpadKeyAlignment());
+			container.setGravity(tt9.getSettings().getNumpadAlignment());
 		}
 	}
 

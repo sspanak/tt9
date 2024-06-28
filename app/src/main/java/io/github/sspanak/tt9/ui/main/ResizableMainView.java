@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -80,6 +81,24 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	public void onOrientationChanged() {
 		calculateSnapHeights();
 		calculateInitialHeight();
+		render();
+	}
+
+
+	public void onAlign(float deltaX) {
+		boolean right = deltaX > 0;
+		SettingsStore settings = tt9.getSettings();
+
+		if (settings.getNumpadAlignment() == Gravity.START && right) {
+			settings.setNumpadAlignment(Gravity.CENTER_HORIZONTAL);
+		} else if (settings.getNumpadAlignment() == Gravity.END && !right) {
+			settings.setNumpadAlignment(Gravity.CENTER_HORIZONTAL);
+		} else if (settings.getNumpadAlignment() == Gravity.CENTER_HORIZONTAL && right) {
+			settings.setNumpadAlignment(Gravity.END);
+		} else if (settings.getNumpadAlignment() == Gravity.CENTER_HORIZONTAL && !right) {
+			settings.setNumpadAlignment(Gravity.START);
+		}
+
 		render();
 	}
 

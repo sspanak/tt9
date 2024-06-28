@@ -13,12 +13,17 @@ public class ResizeHandle implements View.OnTouchListener {
 	@NonNull private final Runnable onClick;
 	private ResizableMainView mainView;
 
+	private final float ALIGN_THRESHOLD;
 	private final float RESIZE_THRESHOLD;
-	private boolean dragging;
+
+	private boolean aligning;
+	private boolean resizing;
+	private float startX;
 	private float startY;
 
 
 	ResizeHandle(@NonNull Context context, @NonNull Runnable onClick) {
+		ALIGN_THRESHOLD = context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f;
 		RESIZE_THRESHOLD = context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f;
 		this.onClick = onClick;
 	}
@@ -45,27 +50,34 @@ public class ResizeHandle implements View.OnTouchListener {
 	}
 
 	private void handlePress(MotionEvent event) {
+		startX = event.getRawX();
 		startY = event.getRawY();
 	}
 
 	private void handleDrag(MotionEvent event) {
 		if (mainView == null) {
-			dragging = false;
+			aligning = false;
+			resizing = false;
 			return;
 		}
 
-		if (!dragging && Math.abs(event.getRawY() - startY) >= RESIZE_THRESHOLD) {
+		if (!resizing && Math.abs(event.getRawY() - startY) >= RESIZE_THRESHOLD) {
 			mainView.onResizeStart(event.getRawY());
-			dragging = true;
-		} else if (dragging) {
+			resizing = true;
+		} else if (resizing) {
 			mainView.onResizeThrottled(event.getRawY());
+		} else if (!aligning && Math.abs(event.getRawX() - startX) >= ALIGN_THRESHOLD) {
+			mainView.onAlign(event.getRawX() - startX);
+			aligning = true;
 		}
 	}
 
 	private void handleRelease(MotionEvent event) {
-		if (mainView != null && dragging) {
+		if (mainView != null && resizing) {
 			mainView.onResize(event.getRawY());
-			dragging = false;
+			resizing = false;
+		} else if (mainView != null && aligning) {
+			aligning = false;
 		} else {
 			onClick.run();
 		}
