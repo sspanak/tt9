@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.ui.main.Vibration;
+import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftInputModeKey extends SoftKey {
 	public SoftInputModeKey(Context context) {

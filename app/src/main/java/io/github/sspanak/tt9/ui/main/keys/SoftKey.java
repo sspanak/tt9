@@ -10,7 +10,6 @@ import android.text.Spanned;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
-import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,7 +18,7 @@ import androidx.core.content.ContextCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.main.Vibration;
+import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
@@ -28,6 +27,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	private final String LOG_TAG = getClass().getSimpleName();
 
 	protected TraditionalT9 tt9;
+	protected Vibration vibration;
 
 	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
 	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
@@ -271,8 +271,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	protected void vibrate(int vibrationType) {
-		if (tt9 != null && tt9.getSettings().getHapticFeedback() && vibrationType != Vibration.getNoVibration()) {
-			getRootView().performHapticFeedback(vibrationType, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		if (tt9 != null) {
+			vibration = vibration == null ? new Vibration(tt9.getSettings(), this) : vibration;
+			vibration.vibrate(vibrationType);
 		}
 	}
 }

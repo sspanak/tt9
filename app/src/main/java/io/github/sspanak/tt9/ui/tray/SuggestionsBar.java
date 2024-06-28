@@ -20,6 +20,7 @@ import java.util.List;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
 public class SuggestionsBar {
@@ -33,6 +34,7 @@ public class SuggestionsBar {
 	private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
+	private Vibration vibration;
 
 	private final Handler alternativeScrollingHandler = new Handler();
 
@@ -52,8 +54,7 @@ public class SuggestionsBar {
 			initDataAdapter(context);
 			initSeparator(context);
 			configureAnimation();
-
-
+			vibration = new Vibration(settings, mView);
 		}
 	}
 
@@ -258,6 +259,7 @@ public class SuggestionsBar {
 	 * Passes through suggestion selected using the touchscreen.
 	 */
 	private void handleItemClick(int position) {
+		vibration.vibrate();
 		selectedIndex = position;
 		onItemClick.run();
 	}

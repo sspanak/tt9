@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.ui.main.Vibration;
+import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftBackspaceKey extends SoftKey {
 	private boolean hold;
