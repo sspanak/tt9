@@ -1,12 +1,24 @@
-package io.github.sspanak.tt9.ui.main;
+package io.github.sspanak.tt9.ui;
 
 import android.os.Build;
 import android.view.HapticFeedbackConstants;
+import android.view.View;
 
+import androidx.annotation.NonNull;
+
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftNumberKey;
 
 public class Vibration {
+	@NonNull private final SettingsStore settings;
+	private final View view;
+
+	public Vibration(@NonNull SettingsStore settings, View view) {
+		this.settings = settings;
+		this.view = view;
+	}
+
 	public static int getNoVibration() {
 		return -1;
 	}
@@ -29,5 +41,15 @@ public class Vibration {
 		} else {
 			return HapticFeedbackConstants.VIRTUAL_KEY;
 		}
+	}
+
+	public void vibrate(int vibrationType) {
+		if (settings.getHapticFeedback() && view != null) {
+			view.performHapticFeedback(vibrationType, HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
+		}
+	}
+
+	public void vibrate() {
+		vibrate(getPressVibration(null));
 	}
 }

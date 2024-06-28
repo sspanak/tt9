@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.Vibration;
 
 public class ResizableMainView extends MainView implements View.OnAttachStateChangeListener {
+	private Vibration vibration;
+
 	private int height;
 	private float resizeStartY;
 	private long lastResizeTime;
@@ -57,6 +60,8 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 		main.getView().removeOnAttachStateChangeListener(this);
 		main.getView().addOnAttachStateChangeListener(this);
+
+		vibration = new Vibration(tt9.getSettings(), main.getView());
 
 		return true;
 	}
@@ -125,12 +130,12 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
 			tt9.onCreateInputView();
-			vibrate();
+			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
 			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
 			tt9.onCreateInputView();
-			vibrate();
+			vibration.vibrate();
 		} else {
 			changeHeight(delta, heightSmall, heightNumpad);
 		}
@@ -148,12 +153,12 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			settings.setMainViewLayout(SettingsStore.LAYOUT_TRAY);
 			height = heightTray;
 			tt9.onCreateInputView();
-			vibrate();
+			vibration.vibrate();
 		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
 			tt9.onCreateInputView();
-			vibrate();
+			vibration.vibrate();
 		}
 	}
 
@@ -195,12 +200,5 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		calculateSnapHeights();
 		calculateInitialHeight();
 		setHeight(height, heightSmall, heightNumpad);
-	}
-
-
-	private void vibrate() {
-		if (tt9.getSettings().getHapticFeedback() && main != null && main.getView() != null) {
-			main.getView().performHapticFeedback(Vibration.getPressVibration(null));
-		}
 	}
 }
