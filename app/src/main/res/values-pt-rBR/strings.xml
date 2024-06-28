@@ -46,7 +46,7 @@
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
-	<string name="pref_layout_numpad">Teclado numérico (BETA)</string>
+	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
 	<string name="pref_layout_stealth">Modo invisível</string>
 	<string name="pref_layout_tray">Apenas lista de palavras</string>
@@ -147,4 +147,8 @@
 	<string name="voice_input_error_not_available">A entrada de voz não está disponível</string>
 	<string name="voice_input_stopping">Desligando o microfone…</string>
 	<string name="pref_haptic_feedback">Vibração</string>
+	<string name="pref_numpad_alignment">Alinhamento no modo paisagem</string>
+	<string name="virtual_numpad_alignment_center">No meio</string>
+	<string name="virtual_numpad_alignment_left">À esquerda</string>
+	<string name="virtual_numpad_alignment_right">À direita</string>
 </resources>

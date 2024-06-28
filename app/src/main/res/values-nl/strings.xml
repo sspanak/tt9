@@ -16,7 +16,7 @@
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
-	<string name="pref_layout_numpad">Numeriek toetsenbord (BETA)</string>
+	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
@@ -135,4 +135,8 @@
 	<string name="voice_input_error_not_available">Spraakopvoer is niet beschikbaar</string>
 	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
 	<string name="pref_haptic_feedback">Trilling</string>
+	<string name="pref_numpad_alignment">Uitlijning in landschapsmodus</string>
+	<string name="virtual_numpad_alignment_center">In het midden</string>
+	<string name="virtual_numpad_alignment_left">Links</string>
+	<string name="virtual_numpad_alignment_right">Rechts</string>
 </resources>
