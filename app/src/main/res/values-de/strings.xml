@@ -17,7 +17,7 @@
 
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
-	<string name="pref_layout_numpad">Ziffernblock (BETA)</string>
+	<string name="pref_layout_numpad">Ziffernblock</string>
 	<string name="pref_layout_small">Funktionstasten</string>
 	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
 	<string name="pref_layout_tray">Nur Wortliste</string>
@@ -137,4 +137,8 @@
 	<string name="voice_input_error_not_available">Spracheingabe ist nicht verfügbar</string>
 	<string name="voice_input_stopping">Mikrofon ausschalten…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
+	<string name="pref_numpad_alignment">Ausrichtung im Querformatmodus</string>
+	<string name="virtual_numpad_alignment_center">In der Mitte</string>
+	<string name="virtual_numpad_alignment_left">Links</string>
+	<string name="virtual_numpad_alignment_right">Rechts</string>
 </resources>

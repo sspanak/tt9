@@ -1,8 +1,11 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
+import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -24,6 +27,16 @@ class MainLayoutNumpad extends BaseMainLayout {
 		super(tt9, R.layout.main_numpad);
 	}
 
+	private void alignView() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || view == null) {
+			return;
+		}
+
+		LinearLayout container = view.findViewById(R.id.numpad_container);
+		if (container != null) {
+			container.setGravity(tt9.getSettings().getNumpadKeyAlignment());
+		}
+	}
 
 	private int getBackgroundColor(@NonNull View contextView, boolean dark) {
 		return ContextCompat.getColor(
@@ -123,6 +136,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override
 	void render() {
 		getView();
+		alignView();
 		setKeyHeight(getKeyHeightCompat());
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {

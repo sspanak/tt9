@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -36,6 +37,10 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getHapticFeedback() {
 		return prefs.getBoolean("pref_haptic_feedback", true);
+	}
+
+	public int getNumpadKeyAlignment() {
+		return getStringifiedInt("pref_numpad_alignment", Gravity.CENTER_HORIZONTAL);
 	}
 
 	public int getNumpadKeyDefaultHeight() {

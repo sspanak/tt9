@@ -7,26 +7,27 @@
 		app:title="@string/pref_dark_theme" />
 
 	<DropDownPreference
+		app:key="pref_font_size"
+		app:title="@string/pref_font_size" />
+
+	<DropDownPreference
 		app:key="pref_layout_type"
 		app:title="@string/pref_layout" />
 
-	<SwitchPreferenceCompat
-		app:key="pref_haptic_feedback"
-		app:title="@string/pref_haptic_feedback"
-		app:summary="@string/pref_haptic_feedback_summary"/>
+	<PreferenceCategory app:title="@string/pref_layout_numpad">
+		<SwitchPreferenceCompat
+			app:key="pref_haptic_feedback"
+			app:title="@string/pref_haptic_feedback"
+			app:summary="@string/pref_haptic_feedback_summary"/>
 
-	<DropDownPreference
-		app:key="pref_numpad_key_height"
-		app:title="@string/pref_numpad_key_height" />
+		<DropDownPreference
+			app:key="pref_numpad_key_height"
+			app:title="@string/pref_numpad_key_height" />
 
-	<SwitchPreferenceCompat
-		app:key="pref_status_icon"
-		app:title="@string/pref_status_icon"
-		app:summary="@string/pref_status_icon_summary" />
-
-	<DropDownPreference
-		app:key="pref_font_size"
-		app:title="@string/pref_font_size" />
+		<DropDownPreference
+			app:key="pref_numpad_alignment"
+			app:title="@string/pref_numpad_alignment" />
+	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
 
@@ -38,6 +39,11 @@
 		<SwitchPreferenceCompat
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
+
+		<SwitchPreferenceCompat
+			app:key="pref_status_icon"
+			app:title="@string/pref_status_icon"
+			app:summary="@string/pref_status_icon_summary" />
 
 	</PreferenceCategory>
 

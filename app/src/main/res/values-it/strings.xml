@@ -19,7 +19,7 @@
 
 	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
-	<string name="pref_layout_numpad">Tastierino numerico (BETA)</string>
+	<string name="pref_layout_numpad">Tastierino numerico</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
@@ -137,5 +137,9 @@
 	<string name="voice_input_error_not_available">L\'input vocale non è disponibile</string>
 	<string name="voice_input_stopping">Spegnimento del microfono…</string>
 	<string name="pref_haptic_feedback">Vibrazione</string>
+	<string name="pref_numpad_alignment">Allineamento in modalità orizzontale</string>
+	<string name="virtual_numpad_alignment_center">Al centro</string>
+	<string name="virtual_numpad_alignment_left">A sinistra</string>
+	<string name="virtual_numpad_alignment_right">A destra</string>
 </resources>
 

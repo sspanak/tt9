@@ -16,7 +16,7 @@
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
-	<string name="pref_layout_numpad">Pavé numérique (BETA)</string>
+	<string name="pref_layout_numpad">Pavé numérique</string>
 	<string name="pref_layout_small">Touches de fonction</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Seulement liste de mots</string>
@@ -142,4 +142,8 @@
 	<string name="voice_input_error_not_available">La saisie vocale n\'est pas disponible</string>
 	<string name="voice_input_stopping">Désactivation du microphone…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
+	<string name="pref_numpad_alignment">Alignement en mode paysage</string>
+	<string name="virtual_numpad_alignment_center">Au milieu</string>
+	<string name="virtual_numpad_alignment_left">À gauche</string>
+	<string name="virtual_numpad_alignment_right">À droite</string>
 </resources>

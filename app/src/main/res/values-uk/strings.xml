@@ -57,7 +57,7 @@
 	<string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
-	<string name="pref_layout_numpad">Цифрова клавіатура (БЕТА)</string>
+	<string name="pref_layout_numpad">Цифрова клавіатура</string>
 	<string name="pref_layout_small">Функціональні клавіші</string>
 	<string name="pref_layout_stealth">Невидимий режим</string>
 	<string name="pref_layout_tray">Лише список слів</string>
@@ -155,4 +155,8 @@
 	<string name="voice_input_error_not_available">Голосовий ввід недоступний</string>
 	<string name="voice_input_stopping">Вимикання мікрофона…</string>
 	<string name="pref_haptic_feedback">Вібрація</string>
+	<string name="pref_numpad_alignment">Вирівнювання в ландшафтному режимі</string>
+	<string name="virtual_numpad_alignment_center">Посередині</string>
+	<string name="virtual_numpad_alignment_left">Ліворуч</string>
+	<string name="virtual_numpad_alignment_right">Праворуч</string>
 </resources>

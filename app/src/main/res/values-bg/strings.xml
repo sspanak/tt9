@@ -16,7 +16,7 @@
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
-	<string name="pref_layout_numpad">Цифрова клавиатура (БЕТА)</string>
+	<string name="pref_layout_numpad">Цифрова клавиатура</string>
 	<string name="pref_layout_small">Функционални клавиши</string>
 	<string name="pref_layout_stealth">Невидим режим</string>
 	<string name="pref_layout_tray">Само списък с думи</string>
@@ -144,4 +144,8 @@
 	<string name="voice_input_stopping">Изключване на микрофона…</string>
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
+	<string name="pref_numpad_alignment">Подравняване в пейзажен режим</string>
+	<string name="virtual_numpad_alignment_center">В средата</string>
+	<string name="virtual_numpad_alignment_left">Вляво</string>
+	<string name="virtual_numpad_alignment_right">Вдясно</string>
 </resources>

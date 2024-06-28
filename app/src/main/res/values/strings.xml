@@ -68,10 +68,11 @@
 	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed.</string>
 	<string name="pref_help">Help</string>
 	<string name="pref_layout">On-screen Layout</string>
-	<string name="pref_layout_numpad">Virtual numpad (BETA)</string>
+	<string name="pref_layout_numpad">Virtual numpad</string>
 	<string name="pref_layout_small">Function keys</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Suggestion list only</string>
+	<string name="pref_numpad_alignment">Alignment in Landscape Mode</string>
 	<string name="pref_numpad_key_height">On-screen Key Size</string>
 	<string name="pref_font_size">Settings Font Size</string>
 	<string name="pref_font_size_default">Default</string>
@@ -168,6 +169,10 @@
 	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
+
+	<string name="virtual_numpad_alignment_center">Middle</string>
+	<string name="virtual_numpad_alignment_left">Left</string>
+	<string name="virtual_numpad_alignment_right">Right</string>
 
 	<string name="virtual_key_change_keyboard" translatable="false">Kbd</string>
 	<string name="virtual_key_command_palette" translatable="false">Cmd</string>

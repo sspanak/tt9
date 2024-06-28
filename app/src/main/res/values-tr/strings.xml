@@ -17,7 +17,7 @@
 
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
-	<string name="pref_layout_numpad">Sanal Tuş Takımı (BETA)</string>
+	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
@@ -147,4 +147,8 @@
 	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
 	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
 	<string name="pref_haptic_feedback">Titreşim</string>
+	<string name="pref_numpad_alignment">Yatay modda hizalama</string>
+	<string name="virtual_numpad_alignment_center">Ortada</string>
+	<string name="virtual_numpad_alignment_left">Sola</string>
+	<string name="virtual_numpad_alignment_right">Sağa</string>
 </resources>
