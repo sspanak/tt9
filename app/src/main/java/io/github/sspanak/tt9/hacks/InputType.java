@@ -56,14 +56,6 @@ public class InputType extends StandardInputType {
 	}
 
 
-	boolean isMessenger() {
-		return isAppField(
-			"com.facebook.orca",
-			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES
-		);
-	}
-
-
 	/**
 	 * Third-party apps are usually designed for a touch screen, so the least we can do is convert
 	 * DPAD_CENTER to ENTER for typing new lines, regardless of the implementation of the OK key.
