@@ -83,6 +83,10 @@ abstract class BaseMainLayout {
 
 	void resetHeight() {}
 
+	abstract void showCommandPalette();
+	abstract void hideCommandPalette();
+	abstract boolean isCommandPaletteShown();
+
 	/**
 	 * render
 	 * Do all the necessary stuff to display the View.

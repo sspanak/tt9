@@ -43,9 +43,6 @@ class MainLayoutTray extends BaseMainLayout {
 
 	void hideCommandPalette() {
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
-		if (this instanceof MainLayoutSmall) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
-		}
 	}
 
 	boolean isCommandPaletteShown() {
