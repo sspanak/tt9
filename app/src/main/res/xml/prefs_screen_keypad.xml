@@ -15,6 +15,11 @@
 		app:summary="@string/pref_upside_down_keys_summary"
 		app:title="@string/pref_upside_down_keys" />
 
+	<SwitchPreferenceCompat
+			app:key="pref_haptic_feedback"
+			app:title="@string/pref_haptic_feedback"
+			app:summary="@string/pref_haptic_feedback_summary"/>
+
 	<PreferenceCategory android:title="@string/pref_category_predictive_mode">
 
 		<SwitchPreferenceCompat

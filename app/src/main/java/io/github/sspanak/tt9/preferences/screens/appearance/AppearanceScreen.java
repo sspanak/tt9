@@ -24,11 +24,9 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 	private void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
-		ItemHapticFeedback hapticFeedback = (new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate();
 
 		ItemNumpadAlignment numpadAlignment = new ItemNumpadAlignment(findPreference(ItemNumpadAlignment.NAME), activity.getSettings());
 		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());
-
 
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
@@ -36,7 +34,6 @@ public class AppearanceScreen extends BaseScreenFragment {
 				findPreference(ItemSelectLayoutType.NAME),
 				activity,
 				(layout) -> {
-					hapticFeedback.onLayoutChange(layout);
 					numpadKeyHeight.onLayoutChange(layout);
 					numpadAlignment.onLayoutChange(layout);
 				}),

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.appearance;
+package io.github.sspanak.tt9.preferences.screens.keypad;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
@@ -26,7 +26,7 @@ class ItemHapticFeedback extends ItemClickable {
 		return this;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	private void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setEnabled(mainViewLayout == SettingsStore.LAYOUT_NUMPAD || mainViewLayout == SettingsStore.LAYOUT_SMALL);
 			((SwitchPreferenceCompat) item).setChecked(settings.getHapticFeedback());
