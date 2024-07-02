@@ -38,6 +38,12 @@ class MainLayoutSmall extends MainLayoutTray {
 	}
 
 	@Override
+	void hideCommandPalette() {
+		super.hideCommandPalette();
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+	}
+
+	@Override
 	protected void enableClickHandlers() {
 		super.enableClickHandlers();
 

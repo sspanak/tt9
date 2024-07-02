@@ -77,6 +77,11 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
+	@Override void showCommandPalette() {}
+	@Override void hideCommandPalette() {}
+	@Override boolean isCommandPaletteShown() { return false; }
+
+
 	/**
 	 * Uses the key height from the settings, but if it takes up too much of the screen, it will
 	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode
