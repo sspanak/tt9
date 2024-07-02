@@ -32,7 +32,9 @@ public class StatusBar {
 
 
 	public void setText(int stringResourceId) {
-		setText(statusView.getContext().getString(stringResourceId));
+		if (statusView != null) {
+			setText(statusView.getContext().getString(stringResourceId));
+		}
 	}
 
 

@@ -58,18 +58,18 @@ public class MainView {
 	}
 
 	public void showCommandPalette() {
-		if (main instanceof MainLayoutTray) {
-			((MainLayoutTray) main).showCommandPalette();
+		if (main != null) {
+			main.showCommandPalette();
 		}
 	}
 
 	public void hideCommandPalette() {
-		if (main instanceof MainLayoutTray) {
-			((MainLayoutTray) main).hideCommandPalette();
+		if (main != null) {
+			main.hideCommandPalette();
 		}
 	}
 
 	public boolean isCommandPaletteShown() {
-		return main != null && main instanceof MainLayoutTray && ((MainLayoutTray) main).isCommandPaletteShown();
+		return main != null && main.isCommandPaletteShown();
 	}
 }
