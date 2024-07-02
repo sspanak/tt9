@@ -77,6 +77,12 @@ abstract class BaseMainLayout {
 	}
 
 
+	int getHeight() {
+		return 0;
+	}
+
+	void resetHeight() {}
+
 	/**
 	 * render
 	 * Do all the necessary stuff to display the View.

@@ -57,6 +57,9 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputStarted() {
+		if (!mainView.isCommandPaletteShown()) {
+			mainView.render(); // disable the function keys
+		}
 		statusBar.setText(voiceInputOps);
 	}
 
@@ -64,13 +67,16 @@ abstract class VoiceHandler extends TypingHandler {
 	private void onVoiceInputStopped(String text) {
 		onText(text, false);
 		resetStatus();
+		 if (!mainView.isCommandPaletteShown()) {
+			 mainView.render(); // re-enable the function keys
+		 }
 	}
 
 
 	private void onVoiceInputError(VoiceInputError error) {
 		if (error.isIrrelevantToUser()) {
 			Logger.i(LOG_TAG, "Ignoring voice input. " + error.debugMessage);
-			resetStatus();
+			resetStatus(); // re-enable the function keys
 		} else {
 			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
 			statusBar.setError(error.toString());
@@ -78,5 +84,9 @@ abstract class VoiceHandler extends TypingHandler {
 				RequestPermissionDialog.show(this);
 			}
 		}
+
+		 if (!mainView.isCommandPaletteShown()) {
+			 mainView.render(); // re-enable the function keys
+		 }
 	}
 }

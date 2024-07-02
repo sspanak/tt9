@@ -6,10 +6,11 @@
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
-	<string name="pref_layout_numpad">Teclado numérico (BETA)</string>
+	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de función</string>
 	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>
+	<string name="pref_haptic_feedback_summary">Vibrar al presionar una tecla virtual.</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>
@@ -125,6 +126,7 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_layout">Distribución del teclado en pantalla</string>
+	<string name="pref_numpad_key_height">Tamaño de las teclas en pantalla</string>
 	<string name="pref_font_size">Tamaño de fuente de configuración</string>
 	<string name="pref_font_size_default">Predeterminado</string>
 	<string name="key_red">Botón rojo</string>
@@ -141,4 +143,9 @@
 	<string name="voice_input_error_no_network">Sin conexión a Internet</string>
 	<string name="voice_input_error_not_available">La entrada de voz no está disponible</string>
 	<string name="voice_input_stopping">Apagando el micrófono…</string>
+	<string name="pref_haptic_feedback">Vibración</string>
+	<string name="pref_numpad_alignment">Alineación en modo paisaje</string>
+	<string name="virtual_numpad_alignment_center">En el centro</string>
+	<string name="virtual_numpad_alignment_left">A la izquierda</string>
+	<string name="virtual_numpad_alignment_right">A la derecha</string>
 </resources>

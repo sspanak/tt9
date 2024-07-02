@@ -16,6 +16,8 @@ public class KeyPadScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
+		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
+
 		ItemDropDown[] items = {
 			new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity),
 			new ItemSelectABCAutoAccceptTime(findPreference(ItemSelectABCAutoAccceptTime.NAME), activity),

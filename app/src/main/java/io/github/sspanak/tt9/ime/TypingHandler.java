@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -42,8 +41,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected Language mLanguage;
 
 
-	protected void createSuggestionBar(View mainView) {
-		suggestionOps = new SuggestionOps(settings, mainView, this::onAcceptSuggestionsDelayed, this::onOK);
+	protected void createSuggestionBar() {
+		suggestionOps = new SuggestionOps(settings, mainView, textField, this::onAcceptSuggestionsDelayed, this::onOK);
 	}
 
 

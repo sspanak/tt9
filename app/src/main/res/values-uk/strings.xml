@@ -57,10 +57,11 @@
 	<string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
-	<string name="pref_layout_numpad">Цифрова клавіатура (БЕТА)</string>
+	<string name="pref_layout_numpad">Цифрова клавіатура</string>
 	<string name="pref_layout_small">Функціональні клавіші</string>
 	<string name="pref_layout_stealth">Невидимий режим</string>
 	<string name="pref_layout_tray">Лише список слів</string>
+	<string name="pref_haptic_feedback_summary">Вібрувати при натисканні віртуальної клавіші.</string>
 	<string name="pref_help">Допомога</string>
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
@@ -136,6 +137,7 @@
 	<string name="dictionary_export_generating_csv">Експорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експорт CSV (%1$s)…</string>
 	<string name="pref_layout">Екранна розкладка</string>
+	<string name="pref_numpad_key_height">Розмір екранних клавіш</string>
 	<string name="pref_font_size">Розмір шрифту у налаштуваннях</string>
 	<string name="pref_font_size_default">За замовчуванням</string>
 	<string name="key_red">Червона кнопка</string>
@@ -152,4 +154,9 @@
 	<string name="voice_input_error_no_network">Немає підключення до Інтернету</string>
 	<string name="voice_input_error_not_available">Голосовий ввід недоступний</string>
 	<string name="voice_input_stopping">Вимикання мікрофона…</string>
+	<string name="pref_haptic_feedback">Вібрація</string>
+	<string name="pref_numpad_alignment">Вирівнювання в ландшафтному режимі</string>
+	<string name="virtual_numpad_alignment_center">Посередині</string>
+	<string name="virtual_numpad_alignment_left">Ліворуч</string>
+	<string name="virtual_numpad_alignment_right">Праворуч</string>
 </resources>

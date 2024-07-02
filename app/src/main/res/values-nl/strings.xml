@@ -16,10 +16,11 @@
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
-	<string name="pref_layout_numpad">Numeriek toetsenbord (BETA)</string>
+	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
+	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets.</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
@@ -115,6 +116,7 @@
 	<string name="pref_layout">Indeling op het scherm</string>
 	<string name="dictionary_no_notifications">Woordenboekmeldingen</string>
 	<string name="dictionary_no_notifications_summary">Ontvang meldingen over woordenboekupdates en de voortgang van het laden.</string>
+	<string name="pref_numpad_key_height">Grootte van de schermtoetsen</string>
 	<string name="pref_font_size">Instellingen lettergrootte</string>
 	<string name="pref_font_size_default">Standaard</string>
 	<string name="function_show_command_palette">Toon opdrachtenlijst</string>
@@ -132,4 +134,9 @@
 	<string name="voice_input_error_no_network">Geen internetverbinding</string>
 	<string name="voice_input_error_not_available">Spraakopvoer is niet beschikbaar</string>
 	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
+	<string name="pref_haptic_feedback">Trilling</string>
+	<string name="pref_numpad_alignment">Uitlijning in landschapsmodus</string>
+	<string name="virtual_numpad_alignment_center">In het midden</string>
+	<string name="virtual_numpad_alignment_left">Links</string>
+	<string name="virtual_numpad_alignment_right">Rechts</string>
 </resources>

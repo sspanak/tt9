@@ -50,10 +50,11 @@
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
 	<string name="pref_hack_fb_messenger">Siųskite pranešimus „Messenger“ programėlėje naudodami „OK“</string>
-	<string name="pref_layout_numpad">Skaičių klaviatūra (BETA)</string>
+	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
+	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą.</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
@@ -134,6 +135,7 @@
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
 	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
+	<string name="pref_numpad_key_height">Ekrano klavišų dydis</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>
 	<string name="pref_font_size_default">Numatytasis</string>
 	<string name="key_red">Raudonas mygtukas</string>
@@ -150,4 +152,9 @@
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
+	<string name="pref_haptic_feedback">Vibracija</string>
+	<string name="pref_numpad_alignment">Lygiavimas gulsčiuoju režimu</string>
+	<string name="virtual_numpad_alignment_center">Centre</string>
+	<string name="virtual_numpad_alignment_left">Kairėje</string>
+	<string name="virtual_numpad_alignment_right">Dešinėje</string>
 </resources>

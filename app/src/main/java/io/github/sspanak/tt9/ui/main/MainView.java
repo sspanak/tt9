@@ -7,10 +7,11 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class MainView {
-	private final TraditionalT9 tt9;
-	private BaseMainLayout main;
+	protected final TraditionalT9 tt9;
+	protected BaseMainLayout main;
 
-	public MainView(TraditionalT9 tt9) {
+
+	protected MainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
 		forceCreateInputView();
@@ -32,6 +33,7 @@ public class MainView {
 		}
 
 		main.render();
+
 		return true;
 	}
 

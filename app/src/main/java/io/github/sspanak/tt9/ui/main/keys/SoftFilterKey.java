@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftFilterKey extends SoftKey {
 	public SoftFilterKey(Context context) { super(context); setFontSize(); }
@@ -11,23 +12,23 @@ public class SoftFilterKey extends SoftKey {
 	public SoftFilterKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); setFontSize(); }
 
 	private void setFontSize() {
-		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE / 0.85f;
-		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE / 0.85f;
+		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;
+		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
 	}
 
 	@Override
-	protected boolean handleHold() {
-		if (!validateTT9Handler()) {
-			return false;
+	protected void handleHold() {
+		preventRepeat();
+		if (validateTT9Handler() && tt9.onKeyFilterClear(false)) {
+			vibrate(Vibration.getHoldVibration());
 		}
-
-		return tt9.onKeyFilterClear(false);
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		boolean multiplePress = getLastPressedKey() == getId();
-		return tt9.onKeyFilterSuggestions(false, multiplePress);
+		return
+			validateTT9Handler()
+			&& tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
 	}
 
 	@Override
@@ -38,5 +39,14 @@ public class SoftFilterKey extends SoftKey {
 	@Override
 	protected String getSubTitle() {
 		return "FLTR";
+	}
+
+
+	@Override
+	public void render() {
+		super.render();
+		if (tt9 != null) {
+			setEnabled(!tt9.isInputModeNumeric() && !tt9.isInputModeABC() && !tt9.isVoiceInputActive());
+		}
 	}
 }

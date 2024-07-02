@@ -16,10 +16,11 @@
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
-	<string name="pref_layout_numpad">Pavé numérique (BETA)</string>
+	<string name="pref_layout_numpad">Pavé numérique</string>
 	<string name="pref_layout_small">Touches de fonction</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Seulement liste de mots</string>
+	<string name="pref_haptic_feedback_summary">Vibrer lors de l\'appui sur une touche virtuelle.</string>
 	<string name="pref_help">Aide</string>
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
@@ -123,6 +124,7 @@
 	<string name="dictionary_export_generating_csv">Exportation CSV en cours…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportation CSV en cours (%1$s)…</string>
 	<string name="pref_layout">Disposition à l\'écran</string>
+	<string name="pref_numpad_key_height">Taille des touches à l\'écran</string>
 	<string name="pref_font_size">Taille de la police des paramètres</string>
 	<string name="pref_font_size_default">Par défaut</string>
 	<string name="key_red">Bouton rouge</string>
@@ -139,4 +141,9 @@
 	<string name="voice_input_error_no_network">Pas de connexion Internet</string>
 	<string name="voice_input_error_not_available">La saisie vocale n\'est pas disponible</string>
 	<string name="voice_input_stopping">Désactivation du microphone…</string>
+	<string name="pref_haptic_feedback">Vibration</string>
+	<string name="pref_numpad_alignment">Alignement en mode paysage</string>
+	<string name="virtual_numpad_alignment_center">Au milieu</string>
+	<string name="virtual_numpad_alignment_left">À gauche</string>
+	<string name="virtual_numpad_alignment_right">À droite</string>
 </resources>

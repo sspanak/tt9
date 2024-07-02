@@ -5,6 +5,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
+import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -232,5 +233,22 @@ public class TextField extends InputField {
 		}
 
 		return styledWord;
+	}
+
+
+	public boolean moveCursor(boolean backward) {
+		if (
+			connection == null
+			|| (backward && getStringBeforeCursor(1).isEmpty())
+			|| (!backward && getStringAfterCursor(1).isEmpty())
+		) {
+			return false;
+		}
+
+		int keyCode = backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
+		connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
+		connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, keyCode));
+
+		return true;
 	}
 }

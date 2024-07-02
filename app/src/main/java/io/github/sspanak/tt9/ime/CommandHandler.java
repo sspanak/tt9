@@ -70,7 +70,7 @@ abstract public class CommandHandler extends VoiceHandler {
 
 
 	public void addWord() {
-		if (mInputMode.isNumeric() || voiceInputOps.isListening()) {
+		if (voiceInputOps.isListening()) {
 			return;
 		}
 
@@ -180,6 +180,10 @@ abstract public class CommandHandler extends VoiceHandler {
 
 
 	public void showCommandPalette() {
+		if (mainView.isCommandPaletteShown()) {
+			return;
+		}
+
 		suggestionOps.cancelDelayedAccept();
 		suggestionOps.acceptIncomplete();
 		mInputMode.reset();

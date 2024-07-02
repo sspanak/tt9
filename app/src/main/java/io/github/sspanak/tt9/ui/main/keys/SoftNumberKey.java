@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SoftNumberKey extends SoftKey {
@@ -28,18 +29,17 @@ public class SoftNumberKey extends SoftKey {
 	}
 
 	@Override
-	protected boolean handleHold() {
+	protected void handleHold() {
 		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		if (keyCode < 0 || !validateTT9Handler()) {
-			return false;
+			return;
 		}
 
 		preventRepeat();
 
+		vibrate(Vibration.getHoldVibration());
 		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
 		tt9.onKeyUp(keyCode, new KeyEvent(KeyEvent.ACTION_UP, keyCode));
-
-		return true;
 	}
 
 	@Override
@@ -60,10 +60,10 @@ public class SoftNumberKey extends SoftKey {
 		int number = getNumber(getId());
 
 		if (tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage())) {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE;
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE;
 			return tt9.getLanguage().getKeyNumber(number);
 		} else {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
+			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
 			return String.valueOf(number);
 		}
 	}

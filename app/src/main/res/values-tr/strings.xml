@@ -17,10 +17,11 @@
 
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
-	<string name="pref_layout_numpad">Sanal Tuş Takımı (BETA)</string>
+	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
+	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek.</string>
 	<string name="pref_help">Yardım</string>
 	<string name="pref_dark_theme">Karanlık Tema</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>
@@ -115,6 +116,7 @@
 	<string name="pref_layout">Ekran Düzeni</string>
 	<string name="dictionary_no_notifications">Sözlük Bildirimleri</string>
 	<string name="dictionary_no_notifications_summary">Sözlük güncelleme ve yüklemeleri hakkında bildirimde bulunun.</string>
+	<string name="pref_numpad_key_height">Ekran tuşlarının boyutu</string>
 	<string name="pref_font_size">Yazı tipi boyutunu ayarla</string>
 	<string name="pref_font_size_default">Standart</string>
 
@@ -144,4 +146,9 @@
 	<string name="voice_input_error_no_network">İnternet bağlantısı yok</string>
 	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
 	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
+	<string name="pref_haptic_feedback">Titreşim</string>
+	<string name="pref_numpad_alignment">Yatay modda hizalama</string>
+	<string name="virtual_numpad_alignment_center">Ortada</string>
+	<string name="virtual_numpad_alignment_left">Sola</string>
+	<string name="virtual_numpad_alignment_right">Sağa</string>
 </resources>

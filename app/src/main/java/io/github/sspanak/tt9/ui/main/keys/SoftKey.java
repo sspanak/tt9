@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,15 +18,19 @@ import androidx.core.content.ContextCompat;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.Vibration;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
 
 public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
 	private final String LOG_TAG = getClass().getSimpleName();
 
 	protected TraditionalT9 tt9;
+	protected Vibration vibration;
 
-	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
-	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_SIZE;
+	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
 
 	private boolean hold = false;
 	private boolean repeat = false;
@@ -35,14 +40,23 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	public SoftKey(Context context) {
 		super(context);
+		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		setHapticFeedbackEnabled(false);
+		setOnTouchListener(this);
+		setOnLongClickListener(this);
 	}
 
 
@@ -50,26 +64,16 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		this.tt9 = tt9;
 	}
 
-	public void setDarkTheme(boolean darkEnabled) {
-		int textColor = ContextCompat.getColor(
-			getContext(),
-			darkEnabled ? R.color.dark_button_text : R.color.button_text
-		);
-		setTextColor(textColor);
-	}
 
-
-	@Override
-	protected void onFinishInflate() {
-		super.onFinishInflate();
-		View keyView = findViewById(getId());
-		if (keyView != null) {
-			keyView.setOnTouchListener(this);
-			keyView.setOnLongClickListener(this);
-		} else {
-			Logger.e(LOG_TAG, "Failed settings touch listeners. Cannot find SoftKey with ID: " + getId());
+	protected boolean validateTT9Handler() {
+		if (tt9 == null) {
+			Logger.w(LOG_TAG, "Traditional T9 handler is not set. Ignoring key press.");
+			return false;
 		}
+
+		return true;
 	}
+
 
 	@Override
 	public boolean onTouch(View view, MotionEvent event) {
@@ -80,17 +84,17 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (action == MotionEvent.ACTION_DOWN) {
 			return handlePress();
 		} else if (action == MotionEvent.ACTION_UP) {
-			preventRepeat();
-			if (!repeat) {
+			if (!repeat || hold) {
+				hold = false;
 				boolean result = handleRelease();
 				lastPressedKey = getId();
 				return result;
 			}
 			repeat = false;
 		}
-
 		return false;
 	}
+
 
 	@Override
 	public boolean onLongClick(View view) {
@@ -101,6 +105,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		repeatHandler.postDelayed(this::repeatOnLongPress, 5);
 		return true;
 	}
+
 
 	/**
 	 * repeatOnLongPress
@@ -121,6 +126,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 	}
 
+
 	/**
 	 * preventRepeat
 	 * Prevents "handleHold()" from being called repeatedly when the SoftKey is being held.
@@ -130,17 +136,23 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		repeatHandler.removeCallbacks(this::repeatOnLongPress);
 	}
 
+
 	protected static int getLastPressedKey() {
 		return lastPressedKey;
 	}
 
+
 	protected boolean handlePress() {
+		if (validateTT9Handler()) {
+			vibrate(Vibration.getPressVibration(this));
+		}
+
 		return false;
 	}
 
-	protected boolean handleHold() {
-		return false;
-	}
+
+	protected void handleHold() {}
+
 
 	protected boolean handleRelease() {
 		if (!validateTT9Handler()) {
@@ -148,26 +160,27 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		int keyId = getId();
-
-		if (keyId == R.id.soft_key_add_word) { tt9.addWord(); return true; }
-		if (keyId == R.id.soft_key_command_palette) return tt9.onKeyCommandPalette(false);
-		if (keyId == R.id.soft_key_left_arrow) return tt9.onKeyScrollSuggestion(false, true);
-		if (keyId == R.id.soft_key_right_arrow) return tt9.onKeyScrollSuggestion(false, false);
-		if (keyId == R.id.soft_key_language) return tt9.onKeyNextLanguage(false);
-		if (keyId == R.id.soft_key_settings) { tt9.showSettings(); return true; }
 		if (keyId == R.id.soft_key_voice_input) { tt9.toggleVoiceInput(); return true; }
 
 		return false;
 	}
 
-	protected boolean validateTT9Handler() {
-		if (tt9 == null) {
-			Logger.w(LOG_TAG, "Traditional T9 handler is not set. Ignoring key press.");
-			return false;
-		}
 
-		return true;
+	public void setDarkTheme(boolean darkEnabled) {
+		int textColor = ContextCompat.getColor(
+			getContext(),
+			darkEnabled ? R.color.dark_button_text : R.color.button_text
+		);
+		setTextColor(textColor);
 	}
+
+
+	@Override
+	public void setEnabled(boolean enabled) {
+		super.setEnabled(enabled);
+		setTextColor(getTextColors().withAlpha(enabled ? 255 : 80));
+	}
+
 
 	/**
 	 * getTitle
@@ -176,6 +189,15 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	protected String getTitle() {
 		return null;
 	}
+
+
+	/**
+	 * getNoEmojiTitle
+	 * Generates a text representation of the key title, when emojis are not supported and getTitle()
+	 * is meant to return an emoji.
+	 */
+	protected int getNoEmojiTitle() { return 0; }
+
 
 	/**
 	 * getSubTitle
@@ -190,6 +212,25 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	/**
+	 * Returns a meaningful key title depending on the current emoji support.
+	 */
+	private String getTitleCompat() {
+		if (
+			getNoEmojiTitle() > 0
+			&& (
+				Characters.noEmojiSupported()
+				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
+			)
+		) {
+			setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
+			return getContext().getString(getNoEmojiTitle());
+		} else {
+			return getTitle();
+		}
+	}
+
+
+	/**
 	 * render
 	 * Sets the key label using "getTitle()" and "getSubtitle()" or if they both
 	 * return NULL, the XML "text" attribute will be preserved.
@@ -199,7 +240,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * have their font size adjusted to fit inside the key.
 	 */
 	public void render() {
-		String title = getTitle();
+		String title = getTitleCompat();
 		String subtitle = getSubTitle();
 
 		if (title == null) {
@@ -215,8 +256,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append('\n');
 		sb.append(subtitle);
 
-		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_SIZE;
-		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_SIZE) {
+		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
 			padding /= 10;
 		}
 
@@ -226,5 +267,13 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
+	}
+
+
+	protected void vibrate(int vibrationType) {
+		if (tt9 != null) {
+			vibration = vibration == null ? new Vibration(tt9.getSettings(), this) : vibration;
+			vibration.vibrate(vibrationType);
+		}
 	}
 }

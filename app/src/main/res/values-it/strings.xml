@@ -19,10 +19,11 @@
 
 	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
-	<string name="pref_layout_numpad">Tastierino numerico (BETA)</string>
+	<string name="pref_layout_numpad">Tastierino numerico</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
+	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale.</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
@@ -117,6 +118,7 @@
 	<string name="pref_layout">Layout sullo schermo</string>
 	<string name="dictionary_no_notifications">Notifiche del dizionario</string>
 	<string name="dictionary_no_notifications_summary">Ricevere notifiche sugli aggiornamenti del dizionario e sul progresso del caricamento.</string>
+	<string name="pref_numpad_key_height">Dimensione dei tasti sullo schermo</string>
 	<string name="pref_font_size">Dimensione del carattere delle impostazioni</string>
 	<string name="pref_font_size_default">Predefinita</string>
 	<string name="function_show_command_palette">Mostra elenco comandi</string>
@@ -134,5 +136,10 @@
 	<string name="voice_input_error_no_network">Nessuna connessione Internet</string>
 	<string name="voice_input_error_not_available">L\'input vocale non è disponibile</string>
 	<string name="voice_input_stopping">Spegnimento del microfono…</string>
+	<string name="pref_haptic_feedback">Vibrazione</string>
+	<string name="pref_numpad_alignment">Allineamento in modalità orizzontale</string>
+	<string name="virtual_numpad_alignment_center">Al centro</string>
+	<string name="virtual_numpad_alignment_left">A sinistra</string>
+	<string name="virtual_numpad_alignment_right">A destra</string>
 </resources>
 
