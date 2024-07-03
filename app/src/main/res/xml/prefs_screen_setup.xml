@@ -19,6 +19,7 @@
 
 		<SwitchPreferenceCompat
 			app:defaultValue="false"
+			app:enabled="false"
 			app:key="pref_hack_fb_messenger"
 			app:title="@string/pref_hack_fb_messenger"/>
 

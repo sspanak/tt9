@@ -52,10 +52,5 @@ public class SetupScreen extends BaseScreenFragment {
 		if (hackGoogleChat != null) {
 			hackGoogleChat.setEnabled(isEnabled);
 		}
-
-		Preference hackFBMessenger = findPreference("pref_hack_fb_messenger");
-		if (hackFBMessenger != null) {
-			hackFBMessenger.setEnabled(isEnabled);
-		}
 	}
 }
