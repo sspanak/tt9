@@ -140,9 +140,21 @@ On devices without Google, if the device has a voice assistant app or the native
 Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox".
 
 ## On-screen Keypad
-On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual numpad".
+On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual Numpad".
 
-It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. To do so, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
+It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. Usually, it will happen automatically too, but if it does not, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
+
+### Resizing the Keyboard Panel While Typing
+In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you could slide down Traditional T9 by using the Settings key as a handle. You can also slide it down using the status bar (it is where the current language or typing mode is displayed). And you can double-tap the status bar to minimize or maximize instantly.
+
+_Resizing Traditional T9 also results in resizing the current application. Doing both is computationally very expensive. It may cause flickering or stuttering on many phones, even higher-end ones._
+
+### Changing the Key Height
+It is also possible to change the on-screen key height. To do so, go to Settings → Appearance → On-screen Key Height and adjust it as desired.
+
+The default setting of 100% is a good balance between usable button size and screen space taken. However, if you have large fingers, you may want to increase the setting a bit, while if you use TT9 on a larger screen, like a tablet, you may want to decrease it.
+
+_If the available screen space is limited, TT9 will ignore this setting and reduce its height automatically, to leave enough room for the current application._
 
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
