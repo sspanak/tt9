@@ -230,7 +230,7 @@ _**Note 2:** Besides the above, Qin phones may also fail to detect long presses.
 #### Send messages with OK in Facebook Messenger
 _In: Settings → Initial Setup._
 
-Facebook Messenger fails to recognize the OK key on some devices, making it impossible to send messages with it. If you prefer to send messages using OK, instead of Messenger's own send button, enable this option. This ensures sending is possible on any phone.
+Sending with OK in Messenger has been no longer possible since the June 2024 update. The recent app redesign caused the Send button to become unreachable for all keyboards. If you have technical knowledge and an idea of how to re-enable this feature, please write in [this GitHub issue](https://github.com/sspanak/tt9/issues/558).
 
 
 #### Send messages with OK in Google Chat

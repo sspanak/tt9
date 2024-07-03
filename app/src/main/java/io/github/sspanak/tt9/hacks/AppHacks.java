@@ -100,9 +100,7 @@ public class AppHacks {
 	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
 	public boolean onEnter() {
-		if (settings.getFbMessengerHack() && inputType.isMessenger()) {
-			return onEnterFbMessenger();
-		} else if (settings.getGoogleChatHack() && inputType.isGoogleChat()) {
+		if (settings.getGoogleChatHack() && inputType.isGoogleChat()) {
 			return onEnterGoogleChat();
 		} else if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
@@ -115,21 +113,6 @@ public class AppHacks {
 		// now how to handle the incoming OK key code, be it ENTER or DPAD_CENTER.
 		// As per the docs, we must return "false", to indicate that we have not "seen" the key press.
 		return false;
-	}
-
-	/**
-	 * onEnterFbMessenger
-	 * Messenger responds only to ENTER, but not DPAD_CENTER, so we make sure to send the correct code,
-	 * no matter how the hardware key is implemented.
-	 */
-	private boolean onEnterFbMessenger() {
-		if (inputConnection == null || textField == null || textField.isEmpty()) {
-			return false;
-		}
-
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-
-		return true;
 	}
 
 	/**
