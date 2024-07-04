@@ -66,6 +66,21 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * RustDesk does not support composing text when connected to a remote computer. This detects the
+	 * "remote input field", so that we can prevent inserting any composing text, but still perform
+	 * the composing operation behind the scenes.
+	 */
+	public boolean isRustDesk() {
+		final int OPTIONS_MASK = EditorInfo.IME_ACTION_NONE | EditorInfo.IME_FLAG_NO_FULLSCREEN;
+
+		return isAppField(
+			"com.carriez.flutter_hbb",
+			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+		) && (field.imeOptions & OPTIONS_MASK) == OPTIONS_MASK;
+	}
+
+
+	/**
 	 * Simulate the behavior of the Sonim native keyboard. In search fields with integrated lists,
 	 * ENTER is used to select an item from the list. But some of them have actionId = NEXT, instead of NONE,
 	 * which normally means "navigate to the next button or field". This hack correctly allows selection

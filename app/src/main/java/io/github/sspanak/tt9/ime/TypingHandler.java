@@ -77,6 +77,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void setInputField(InputConnection connection, EditorInfo field) {
+		if (textField.equals(connection, field)) {
+			return;
+		}
+
 		currentInputConnection = connection;
 		inputType = new InputType(currentInputConnection, field);
 		textField = new TextField(currentInputConnection, field);
@@ -198,7 +202,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (mInputMode.shouldDeletePrecedingSpace(inputType)) {
+		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(inputType)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
