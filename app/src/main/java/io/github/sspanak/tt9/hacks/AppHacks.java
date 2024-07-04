@@ -71,6 +71,19 @@ public class AppHacks {
 
 
 	/**
+	 * Handles applications that always report no text around the cursor, preventing the cursor from
+	 * moving the usual way.
+	 */
+	public boolean onMoveCursor(boolean backward) {
+		if (inputType.isRustDesk() || inputType.isTermux()) {
+			return sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+		}
+
+		return false;
+	}
+
+
+	/**
 	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled, "false" otherwise.
 	 */
 	public boolean onUpdateSelection(

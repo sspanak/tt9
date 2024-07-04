@@ -102,7 +102,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyMoveCursor(boolean backward) {
-		return textField.moveCursor(backward);
+		return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
 	}
 
 
