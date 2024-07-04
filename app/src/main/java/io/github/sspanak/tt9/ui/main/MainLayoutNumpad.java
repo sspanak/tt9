@@ -84,20 +84,19 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextManipulationPalette() {
-		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.text_manipulation_ok).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.VISIBLE);
 	}
 
 
 	@Override
 	void hideTextManipulationPalette() {
-		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.GONE);
 	}
 
 
 	@Override
 	boolean isTextManipulationPaletteShown() {
-		return view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE;
+		return view != null && view.findViewById(R.id.text_manipulation_container).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 
@@ -197,8 +196,10 @@ class MainLayoutNumpad extends BaseMainLayout {
 			}
 		}
 
-		ViewGroup statusBarContainer = view.findViewById(R.id.status_bar_container);
-		keys.addAll(getKeysFromContainer(statusBarContainer));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_1)));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_2)));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_3)));
 
 		return keys;
 	}

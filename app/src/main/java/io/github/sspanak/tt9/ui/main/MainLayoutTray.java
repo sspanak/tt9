@@ -14,10 +14,9 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
-import io.github.sspanak.tt9.util.Logger;
 
 class MainLayoutTray extends BaseMainLayout {
-	private int height;
+	protected int height;
 
 	MainLayoutTray(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_small);
@@ -31,7 +30,7 @@ class MainLayoutTray extends BaseMainLayout {
 			if (isCommandPaletteShown()) {
 				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
 			} else if (isTextManipulationPaletteShown()) {
-				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height) * 2;
+				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height) * 3;
 			}
 		}
 		return height;
@@ -44,13 +43,19 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	void showCommandPalette() {
-		hideTextManipulationPalette();
+		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
+
+		height = 0;
+		getHeight();
 	}
 
 	void hideCommandPalette() {
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
+
+		height = 0;
+		getHeight();
 	}
 
 	boolean isCommandPaletteShown() {
@@ -59,23 +64,25 @@ class MainLayoutTray extends BaseMainLayout {
 
 	@Override
 	void showTextManipulationPalette() {
-		Logger.d("MainLayoutTray", "======+> showTextManipulationPalette");
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.VISIBLE);
-//		view.findViewById(R.id.text_manipulation_ok).setVisibility(View.GONE);
+		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.VISIBLE);
+
+		height = 0;
+		getHeight();
 	}
 
 	@Override
 	void hideTextManipulationPalette() {
-		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.GONE);
+
+		height = 0;
+		getHeight();
 	}
 
 	@Override
 	boolean isTextManipulationPaletteShown() {
-		Logger.d("MainLayoutTray", "=====> view: " + (view != null));
-		Logger.d("MainLayoutTray", "=====> visible: " + (view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE));
-		return view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE;
+		return view != null && view.findViewById(R.id.text_manipulation_container).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) {
@@ -100,6 +107,7 @@ class MainLayoutTray extends BaseMainLayout {
 
 		// background
 		view.findViewById(R.id.main_command_keys).setBackground(getBackgroundColor(view, dark));
+		view.findViewById(R.id.text_manipulation_container).setBackground(getBackgroundColor(view, dark));
 
 		// text
 		for (SoftKey key : getKeys()) {
@@ -129,6 +137,9 @@ class MainLayoutTray extends BaseMainLayout {
 	protected ArrayList<SoftKey> getKeys() {
 		if (view != null && keys.isEmpty()) {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_command_keys)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_1)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_2)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_3)));
 		}
 		return keys;
 	}
@@ -137,9 +148,10 @@ class MainLayoutTray extends BaseMainLayout {
 		return new ArrayList<>(Arrays.asList(
 			view.findViewById(R.id.separator_top),
 			view.findViewById(R.id.separator_candidates_bottom),
+			view.findViewById(R.id.separator_1_1),
+			view.findViewById(R.id.separator_1_2),
 			view.findViewById(R.id.separator_2_1),
-			view.findViewById(R.id.separator_2_2),
-			view.findViewById(R.id.separator_3_1)
+			view.findViewById(R.id.separator_2_2)
 		));
 	}
 }

@@ -221,4 +221,28 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		calculateInitialHeight();
 		setHeight(height, heightSmall, heightNumpad);
 	}
+
+	@Override
+	public void showCommandPalette() {
+		super.showCommandPalette();
+		setHeight(main.getHeight(), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void hideCommandPalette() {
+		super.hideCommandPalette();
+		setHeight(main.getHeight(), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void showTextManipulationPalette() {
+		super.showTextManipulationPalette();
+		setHeight(main.getHeight(), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void hideTextManipulationPalette() {
+		super.hideTextManipulationPalette();
+		setHeight(main.getHeight(), heightSmall, heightNumpad);
+	}
 }

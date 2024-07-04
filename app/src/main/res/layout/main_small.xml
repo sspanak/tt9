@@ -96,7 +96,7 @@
 			android:id="@+id/soft_key_1"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="@dimen/numpad_key_height"
 			android:layout_weight="1"
 			android:textSize="@dimen/soft_key_icon_size" />
 
@@ -108,7 +108,7 @@
 			android:id="@+id/soft_key_2"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="@dimen/numpad_key_height"
 			android:layout_weight="1"
 			android:textSize="@dimen/soft_key_icon_size" />
 
@@ -120,7 +120,7 @@
 			android:id="@+id/soft_key_3"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="@dimen/numpad_key_height"
 			android:layout_weight="1"
 			android:textSize="@dimen/soft_key_icon_size" />
 
@@ -132,7 +132,7 @@
 			android:id="@+id/soft_key_5"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="@dimen/numpad_key_height"
 			android:layout_weight="1"
 			android:textSize="@dimen/soft_key_icon_size" />
 
@@ -144,19 +144,15 @@
 			android:id="@+id/soft_key_0"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="@dimen/numpad_key_height"
 			android:layout_weight="1"
 			android:textSize="@dimen/soft_key_icon_size" />
 
 	</LinearLayout>
 
-	<LinearLayout
-		android:id="@+id/main_text_manipulation_keys"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-		android:visibility="gone">
-		<include layout="@layout/panel_text_manipulation" />
-	</LinearLayout>
+	<include
+		layout="@layout/panel_text_manipulation"
+		android:id="@+id/text_manipulation_container"
+		android:visibility="gone" />
 
 </LinearLayout>

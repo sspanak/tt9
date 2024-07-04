@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -12,11 +11,8 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
-import io.github.sspanak.tt9.util.Logger;
 
 class MainLayoutSmall extends MainLayoutTray {
-	private int height;
-
 	MainLayoutSmall(TraditionalT9 tt9) {
 		super(tt9);
 	}
@@ -25,12 +21,11 @@ class MainLayoutSmall extends MainLayoutTray {
 		if (height <= 0) {
 			height = super.getHeight();
 
-			if (isCommandPaletteShown() && !isTextManipulationPaletteShown()) {
+			if (!isCommandPaletteShown() && !isTextManipulationPaletteShown()) {
 				height += tt9.getResources().getDimensionPixelSize(R.dimen.soft_key_height);
 			}
 		}
 
-		Logger.d("MainLayoutSmall", "======+> getHeight: " + height + " text mainpulation shown: " + (isTextManipulationPaletteShown()) + " command palette shown: " + isCommandPaletteShown());
 		return height;
 	}
 

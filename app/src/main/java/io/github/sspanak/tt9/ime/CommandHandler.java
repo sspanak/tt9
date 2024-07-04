@@ -192,7 +192,6 @@ abstract public class CommandHandler extends TextManipulationHandler {
 		mInputMode.reset();
 
 		mainView.showCommandPalette();
-		mainView.resetHeight();
 		resetStatus();
 	}
 
@@ -203,7 +202,6 @@ abstract public class CommandHandler extends TextManipulationHandler {
 		}
 
 		mainView.hideCommandPalette();
-		mainView.resetHeight();
 		if (voiceInputOps.isListening()) {
 			stopVoiceInput();
 		} else {

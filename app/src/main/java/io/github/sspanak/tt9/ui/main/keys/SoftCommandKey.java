@@ -26,24 +26,39 @@ public class SoftCommandKey extends SoftNumberKey {
 
 	@Override
 	protected String getSubTitle() {
-		int number = getNumber(getId());
-
 		boolean noIconSupport = Characters.noEmojiSupported();
+		int keyId = getId();
 
-		switch (number) {
-			case 0:
-				return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
-			case 1:
-				return noIconSupport ? getTextSubTitle(R.string.virtual_key_settings) : "⚙";
-			case 2:
-				return "＋";
-			case 3:
-				return "🎤";
-			case 5:
-				return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
-		}
+		// command palette
+		if (keyId == R.id.soft_key_0) return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
+		if (keyId == R.id.soft_key_1) return noIconSupport ? getTextSubTitle(R.string.virtual_key_settings) : "⚙";
+		if (keyId == R.id.soft_key_2) return "＋";
+		if (keyId == R.id.soft_key_3) return "🎤";
+		if (keyId == R.id.soft_key_5) return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
+
+		// text manipulation
+		if (keyId == R.id.soft_key_101) return "⏮";
+		if (keyId == R.id.soft_key_102) return "|X|";
+		if (keyId == R.id.soft_key_103) return "⏭";
+		if (keyId == R.id.soft_key_105) return "|v|";
+		if (keyId == R.id.soft_key_107) return "cut";
+		if (keyId == R.id.soft_key_108) return "copy";
+		if (keyId == R.id.soft_key_109) return "paste";
 
 		return null;
+	}
+
+	@Override
+	protected int getNumber(int keyId) {
+		if (keyId == R.id.soft_key_101) return 1;
+		if (keyId == R.id.soft_key_102) return 2;
+		if (keyId == R.id.soft_key_103) return 3;
+		if (keyId == R.id.soft_key_105) return 5;
+		if (keyId == R.id.soft_key_107) return 7;
+		if (keyId == R.id.soft_key_108) return 8;
+		if (keyId == R.id.soft_key_109) return 9;
+
+		return super.getNumber(keyId);
 	}
 
 	@Override

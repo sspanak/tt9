@@ -50,17 +50,16 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 		if (!mainView.isTextManipulationPaletteShown()) {
 			stopVoiceInput();
 			mainView.showTextManipulationPalette();
-			mainView.resetHeight();
-			mainView.showTextManipulationPalette();
+			resetStatus();
 		}
 	}
 
 
 	private boolean hideTextManipulationPalette() {
 		if (mainView.isTextManipulationPaletteShown()) {
-			mainView.showCommandPalette();
-			mainView.resetHeight();
-			mainView.showCommandPalette();
+			mainView.hideTextManipulationPalette();
+			mainView.render();
+			resetStatus();
 			return true;
 		}
 

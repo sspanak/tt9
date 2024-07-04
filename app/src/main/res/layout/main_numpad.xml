@@ -329,7 +329,10 @@
 				</LinearLayout>
 			</LinearLayout>
 
-			<include layout="@layout/panel_text_manipulation" />
+			<include
+				layout="@layout/panel_text_manipulation"
+				android:id="@+id/text_manipulation_container"
+				android:visibility="gone" />
 
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
