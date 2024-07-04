@@ -179,6 +179,7 @@
 	<string name="virtual_key_del" translatable="false">Del</string>
 	<string name="virtual_key_input_mode" translatable="false">Mode</string>
 	<string name="virtual_key_settings" translatable="false">Cfg</string>
+	<string name="virtual_key_text_manipulation" translatable="false">Txt</string>
 
 	<string name="voice_input_listening">Speak</string>
 	<string name="voice_input_stopping">Turning off the microphone…</string>

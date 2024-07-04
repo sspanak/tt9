@@ -8,7 +8,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 
-abstract public class CommandHandler extends VoiceHandler {
+abstract public class CommandHandler extends TextManipulationHandler {
 	@Override
 	protected boolean onBack() {
 		return super.onBack() || hideCommandPalette();
@@ -56,12 +56,15 @@ abstract public class CommandHandler extends VoiceHandler {
 			case 3:
 				toggleVoiceInput();
 				break;
+			case 5:
+				showTextManipulationPalette();
+				break;
 		}
 	}
 
 
 	protected void resetStatus() {
-		if (mainView.isCommandPaletteShown()) {
+		if (mainView.isCommandPaletteShown() || mainView.isTextManipulationPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
 		} else {
 			statusBar.setText(mInputMode);
@@ -189,6 +192,7 @@ abstract public class CommandHandler extends VoiceHandler {
 		mInputMode.reset();
 
 		mainView.showCommandPalette();
+		mainView.resetHeight();
 		resetStatus();
 	}
 
@@ -199,6 +203,7 @@ abstract public class CommandHandler extends VoiceHandler {
 		}
 
 		mainView.hideCommandPalette();
+		mainView.resetHeight();
 		if (voiceInputOps.isListening()) {
 			stopVoiceInput();
 		} else {

@@ -14,6 +14,7 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.util.Logger;
 
 class MainLayoutTray extends BaseMainLayout {
 	private int height;
@@ -26,6 +27,12 @@ class MainLayoutTray extends BaseMainLayout {
 		if (height <= 0) {
 			Resources resources = tt9.getResources();
 			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
+
+			if (isCommandPaletteShown()) {
+				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
+			} else if (isTextManipulationPaletteShown()) {
+				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height) * 2;
+			}
 		}
 		return height;
 	}
@@ -37,8 +44,9 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	void showCommandPalette() {
-		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
+		hideTextManipulationPalette();
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
 	}
 
 	void hideCommandPalette() {
@@ -46,7 +54,28 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	boolean isCommandPaletteShown() {
-		return view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
+		return view != null && view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
+	}
+
+	@Override
+	void showTextManipulationPalette() {
+		Logger.d("MainLayoutTray", "======+> showTextManipulationPalette");
+		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.VISIBLE);
+//		view.findViewById(R.id.text_manipulation_ok).setVisibility(View.GONE);
+	}
+
+	@Override
+	void hideTextManipulationPalette() {
+		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.GONE);
+	}
+
+	@Override
+	boolean isTextManipulationPaletteShown() {
+		Logger.d("MainLayoutTray", "=====> view: " + (view != null));
+		Logger.d("MainLayoutTray", "=====> visible: " + (view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE));
+		return view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) {

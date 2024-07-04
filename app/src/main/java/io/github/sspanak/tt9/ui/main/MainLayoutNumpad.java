@@ -82,6 +82,25 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override boolean isCommandPaletteShown() { return false; }
 
 
+	@Override
+	void showTextManipulationPalette() {
+		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.text_manipulation_ok).setVisibility(View.VISIBLE);
+	}
+
+
+	@Override
+	void hideTextManipulationPalette() {
+		view.findViewById(R.id.main_text_manipulation_keys).setVisibility(LinearLayout.GONE);
+	}
+
+
+	@Override
+	boolean isTextManipulationPaletteShown() {
+		return view != null && view.findViewById(R.id.main_text_manipulation_keys).getVisibility() == LinearLayout.VISIBLE;
+	}
+
+
 	/**
 	 * Uses the key height from the settings, but if it takes up too much of the screen, it will
 	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode

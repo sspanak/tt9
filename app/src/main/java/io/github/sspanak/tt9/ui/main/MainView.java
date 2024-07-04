@@ -72,4 +72,20 @@ public class MainView {
 	public boolean isCommandPaletteShown() {
 		return main != null && main.isCommandPaletteShown();
 	}
+
+	public void showTextManipulationPalette() {
+		if (main != null) {
+			main.showTextManipulationPalette();
+		}
+	}
+
+	public void hideTextManipulationPalette() {
+		if (main != null) {
+			main.hideTextManipulationPalette();
+		}
+	}
+
+	public boolean isTextManipulationPaletteShown() {
+		return main != null && main.isTextManipulationPaletteShown();
+	}
 }

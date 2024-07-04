@@ -39,8 +39,8 @@ public class SoftCommandKey extends SoftNumberKey {
 				return "＋";
 			case 3:
 				return "🎤";
-//			case 5:
-//				return "✂";
+			case 5:
+				return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
 		}
 
 		return null;

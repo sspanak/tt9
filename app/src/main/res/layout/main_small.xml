@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -23,9 +24,9 @@
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/suggestions_bar"
-			android:gravity="center_vertical"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:gravity="center_vertical"
 			android:orientation="horizontal"
 			android:scrollbars="none" />
 
@@ -69,12 +70,12 @@
 
 		<View
 			android:id="@+id/main_separator_right"
-			android:background="@drawable/button_separator_dark"
-			style="@style/hSeparator" />
+			style="@style/hSeparator"
+			android:background="@drawable/button_separator_dark" />
 
 		<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
-			style="@android:style/Widget.Holo.Button.Borderless"
 			android:id="@+id/soft_key_backspace"
+			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -91,49 +92,71 @@
 		android:orientation="horizontal"
 		android:visibility="gone">
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-				android:id="@+id/soft_key_1"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:textSize="@dimen/soft_key_icon_size"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+			android:id="@+id/soft_key_1"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textSize="@dimen/soft_key_icon_size" />
 
-			<View
-				android:id="@+id/separator_2_1"
-				style="@style/numSeparator" />
+		<View
+			android:id="@+id/separator_1_1"
+			style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-				android:id="@+id/soft_key_2"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:textSize="@dimen/soft_key_icon_size"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+			android:id="@+id/soft_key_2"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textSize="@dimen/soft_key_icon_size" />
 
-			<View
-				android:id="@+id/separator_2_2"
-				style="@style/numSeparator" />
+		<View
+			android:id="@+id/separator_1_2"
+			style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-				android:id="@+id/soft_key_3"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:textSize="@dimen/soft_key_icon_size"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+			android:id="@+id/soft_key_3"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textSize="@dimen/soft_key_icon_size" />
 
-			<View
-				android:id="@+id/separator_3_1"
-				style="@style/numSeparator" />
+		<View
+			android:id="@+id/separator_2_1"
+			style="@style/numSeparator" />
 
-			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-				android:id="@+id/soft_key_0"
-				style="@android:style/Widget.Holo.Button.Borderless"
-				android:textSize="@dimen/soft_key_icon_size"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+			android:id="@+id/soft_key_5"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+		<View
+			android:id="@+id/separator_2_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+			android:id="@+id/soft_key_0"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/main_text_manipulation_keys"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:visibility="gone">
+		<include layout="@layout/panel_text_manipulation" />
 	</LinearLayout>
 
 </LinearLayout>

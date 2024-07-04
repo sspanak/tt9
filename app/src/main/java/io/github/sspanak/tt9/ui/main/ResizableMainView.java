@@ -212,7 +212,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	private void resetHeight() {
+	public void resetHeight() {
 		if (main != null) {
 			main.resetHeight();
 		}

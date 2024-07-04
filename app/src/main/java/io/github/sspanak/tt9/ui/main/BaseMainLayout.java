@@ -86,6 +86,11 @@ abstract class BaseMainLayout {
 	abstract void showCommandPalette();
 	abstract void hideCommandPalette();
 	abstract boolean isCommandPaletteShown();
+	abstract void showTextManipulationPalette();
+	abstract void hideTextManipulationPalette();
+	abstract boolean isTextManipulationPaletteShown();
+
+
 
 	/**
 	 * render

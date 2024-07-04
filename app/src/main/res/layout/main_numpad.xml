@@ -329,6 +329,8 @@
 				</LinearLayout>
 			</LinearLayout>
 
+			<include layout="@layout/panel_text_manipulation" />
+
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

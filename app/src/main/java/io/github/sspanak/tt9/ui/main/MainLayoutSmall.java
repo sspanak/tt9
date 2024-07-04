@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
+import io.github.sspanak.tt9.util.Logger;
 
 class MainLayoutSmall extends MainLayoutTray {
 	private int height;
@@ -22,11 +23,14 @@ class MainLayoutSmall extends MainLayoutTray {
 
 	int getHeight() {
 		if (height <= 0) {
-			Resources resources = tt9.getResources();
-			height =
-				resources.getDimensionPixelSize(R.dimen.soft_key_height) +
-				resources.getDimensionPixelSize(R.dimen.candidate_height);
+			height = super.getHeight();
+
+			if (isCommandPaletteShown() && !isTextManipulationPaletteShown()) {
+				height += tt9.getResources().getDimensionPixelSize(R.dimen.soft_key_height);
+			}
 		}
+
+		Logger.d("MainLayoutSmall", "======+> getHeight: " + height + " text mainpulation shown: " + (isTextManipulationPaletteShown()) + " command palette shown: " + isCommandPaletteShown());
 		return height;
 	}
 
