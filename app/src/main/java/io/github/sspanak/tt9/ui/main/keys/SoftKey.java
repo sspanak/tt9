@@ -155,13 +155,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	protected boolean handleRelease() {
-		if (!validateTT9Handler()) {
-			return false;
-		}
-
-		int keyId = getId();
-		if (keyId == R.id.soft_key_voice_input) { tt9.toggleVoiceInput(); return true; }
-
 		return false;
 	}
 

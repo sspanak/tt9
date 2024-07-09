@@ -9,6 +9,23 @@ public class SoftVoiceInputKey extends SoftKey {
 	public SoftVoiceInputKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
+	protected void handleHold() {
+		preventRepeat();
+		if (validateTT9Handler()) {
+			tt9.showTextManipulationPalette();
+		}
+	}
+
+	@Override
+	protected boolean handleRelease() {
+		if (validateTT9Handler()) {
+			tt9.toggleVoiceInput();
+			return true;
+		}
+		return false;
+	}
+
+	@Override
 	protected String getTitle() {
 		return "🎤";
 	}

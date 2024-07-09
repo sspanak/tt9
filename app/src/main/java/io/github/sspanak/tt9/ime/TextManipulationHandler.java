@@ -46,7 +46,7 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 	}
 
 
-	protected void showTextManipulationPalette() {
+	public void showTextManipulationPalette() {
 		if (!mainView.isTextManipulationPaletteShown()) {
 			stopVoiceInput();
 			mainView.showTextManipulationPalette();

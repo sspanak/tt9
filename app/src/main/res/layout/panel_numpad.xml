@@ -5,8 +5,7 @@
 	tools:showIn="@layout/main_numpad"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:paddingBottom="@dimen/numpad_padding_bottom">
+	android:orientation="vertical">
 
 	<!-- Row 1 -->
 	<LinearLayout

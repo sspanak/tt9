@@ -88,11 +88,13 @@
 
 			<include
 				layout="@layout/panel_numpad"
-				android:id="@+id/main_soft_keys" />
+				android:id="@+id/main_soft_keys"
+				android:paddingBottom="@dimen/numpad_padding_bottom"/>
 
 			<include
 				layout="@layout/panel_text_manipulation_numpad"
 				android:id="@+id/text_manipulation_container"
+				android:paddingBottom="@dimen/numpad_padding_bottom"
 				android:visibility="gone" />
 
 		</LinearLayout>

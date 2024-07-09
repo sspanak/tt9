@@ -84,15 +84,15 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextManipulationPalette() {
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.VISIBLE);
 	}
 
-
 	@Override
 	void hideTextManipulationPalette() {
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
 		view.findViewById(R.id.text_manipulation_container).setVisibility(LinearLayout.GONE);
 	}
-
 
 	@Override
 	boolean isTextManipulationPaletteShown() {
@@ -197,9 +197,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_1)));
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_2)));
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_3)));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_container)));
 
 		return keys;
 	}

@@ -71,12 +71,15 @@ public class SoftCommandKey extends SoftNumberKey {
 		if (keyId == R.id.soft_key_3) return "🎤";
 		if (keyId == R.id.soft_key_5) return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
 
+		if (keyId == R.id.soft_key_100) return getTextSubTitle(R.string.key_back);
+
 		return null;
 	}
 
 
 	@Override
 	protected int getNumber(int keyId) {
+		if (keyId == R.id.soft_key_100) return 0;
 		if (keyId == R.id.soft_key_101) return 1;
 		if (keyId == R.id.soft_key_102) return 2;
 		if (keyId == R.id.soft_key_103) return 3;
