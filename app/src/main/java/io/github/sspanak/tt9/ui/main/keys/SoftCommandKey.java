@@ -1,7 +1,13 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
+
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.widget.TextViewCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -12,17 +18,46 @@ public class SoftCommandKey extends SoftNumberKey {
 	public SoftCommandKey(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
+
 	@Override protected void handleHold() {}
+
+
+	@Override
+	public void setDarkTheme(boolean darkEnabled) {
+		super.setDarkTheme(darkEnabled);
+
+		final int color = darkEnabled ? R.color.dark_button_text : R.color.button_text;
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(getContext().getColor(color)));
+		} else {
+			setDarkThemeLegacy(color);
+		}
+	}
+
+
+	private void setDarkThemeLegacy(int color) {
+		Drawable[] icons = getCompoundDrawables();
+
+		if (icons.length >= 4 && icons[3] != null) {
+			Drawable icon = DrawableCompat.wrap(icons[3]);
+			DrawableCompat.setTint(icon, getResources().getColor(color));
+			setCompoundDrawables(null, null, null, icon);
+		}
+	}
+
 
 	@Override
 	protected String getTitle() {
 		return getNumber(getId()) + "";
 	}
 
+
 	private String getTextSubTitle(int resId) {
 		setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
 		return getContext().getString(resId);
 	}
+
 
 	@Override
 	protected String getSubTitle() {
@@ -36,12 +71,9 @@ public class SoftCommandKey extends SoftNumberKey {
 		if (keyId == R.id.soft_key_3) return "🎤";
 		if (keyId == R.id.soft_key_5) return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
 
-		// text manipulation
-		if (keyId == R.id.soft_key_101) return noIconSupport ? "|<<" : "⏮";
-		if (keyId == R.id.soft_key_103) return noIconSupport ? ">>|" : "⏭";
-
 		return null;
 	}
+
 
 	@Override
 	protected int getNumber(int keyId) {
@@ -55,6 +87,7 @@ public class SoftCommandKey extends SoftNumberKey {
 
 		return super.getNumber(keyId);
 	}
+
 
 	@Override
 	public void render() {
