@@ -50,6 +50,8 @@ public class MainView {
 	}
 
 	public void render() {
+		main.hideCommandPalette();
+		main.hideTextManipulationPalette();
 		main.render();
 	}
 

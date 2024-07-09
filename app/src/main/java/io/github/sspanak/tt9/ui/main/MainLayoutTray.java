@@ -27,12 +27,11 @@ class MainLayoutTray extends BaseMainLayout {
 			Resources resources = tt9.getResources();
 			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
 
-			if (isCommandPaletteShown()) {
+			if (isCommandPaletteShown() || isTextManipulationPaletteShown()) {
 				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
-			} else if (isTextManipulationPaletteShown()) {
-				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height) * 3;
 			}
 		}
+
 		return height;
 	}
 

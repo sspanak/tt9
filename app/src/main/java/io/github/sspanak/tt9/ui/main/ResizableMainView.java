@@ -40,7 +40,9 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			return;
 		}
 
-		if (tt9.getSettings().isMainLayoutNumpad()) {
+		if (main.getView() != null) {
+			height = main.getHeight();
+		} else if (tt9.getSettings().isMainLayoutNumpad()) {
 			height = heightNumpad;
 		} else if (tt9.getSettings().isMainLayoutSmall()) {
 			height = heightSmall;
@@ -222,27 +224,33 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		setHeight(height, heightSmall, heightNumpad);
 	}
 
-	@Override
-	public void showCommandPalette() {
-		super.showCommandPalette();
-		setHeight(main.getHeight(), heightSmall, heightNumpad);
-	}
-
-	@Override
-	public void hideCommandPalette() {
-		super.hideCommandPalette();
-		setHeight(main.getHeight(), heightSmall, heightNumpad);
-	}
-
-	@Override
-	public void showTextManipulationPalette() {
-		super.showTextManipulationPalette();
-		setHeight(main.getHeight(), heightSmall, heightNumpad);
-	}
-
-	@Override
-	public void hideTextManipulationPalette() {
-		super.hideTextManipulationPalette();
-		setHeight(main.getHeight(), heightSmall, heightNumpad);
-	}
+//	@Override
+//	public void showCommandPalette() {
+//		super.showCommandPalette();
+//		setHeight(main.getHeight(), heightSmall, heightNumpad);
+//	}
+//
+//	@Override
+//	public void hideCommandPalette() {
+//		super.hideCommandPalette();
+//		setHeight(main.getHeight(), heightSmall, heightNumpad);
+//	}
+//
+//	@Override
+//	public void showTextManipulationPalette() {
+//		super.showTextManipulationPalette();
+//		setHeight(main.getHeight(), heightSmall, heightNumpad);
+//	}
+//
+//	@Override
+//	public void hideTextManipulationPalette() {
+//		super.hideTextManipulationPalette();
+//		setHeight(main.getHeight(), heightSmall, heightNumpad);
+//	}
+//
+//	@Override
+//	public void render() {
+//		super.render();
+//		setHeight(main.getHeight(), heightSmall, heightNumpad);
+//	}
 }
