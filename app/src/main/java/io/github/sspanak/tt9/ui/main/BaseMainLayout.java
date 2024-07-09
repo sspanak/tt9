@@ -77,8 +77,12 @@ abstract class BaseMainLayout {
 	}
 
 
-	int getHeight() {
+	int getHeight(boolean forceRecalculate) {
 		return 0;
+	}
+
+	int getHeight() {
+		return getHeight(false);
 	}
 
 	void resetHeight() {}

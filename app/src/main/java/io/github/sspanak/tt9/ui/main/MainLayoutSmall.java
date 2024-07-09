@@ -17,9 +17,10 @@ class MainLayoutSmall extends MainLayoutTray {
 		super(tt9);
 	}
 
-	int getHeight() {
-		if (height <= 0) {
-			height = super.getHeight();
+	@Override
+	int getHeight(boolean forceRecalculate) {
+		if (height <= 0 || forceRecalculate) {
+			height = super.getHeight(forceRecalculate);
 
 			if (!isCommandPaletteShown() && !isTextManipulationPaletteShown()) {
 				height += tt9.getResources().getDimensionPixelSize(R.dimen.soft_key_height);

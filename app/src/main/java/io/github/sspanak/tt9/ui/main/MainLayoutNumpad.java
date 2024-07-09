@@ -138,8 +138,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	int getHeight() {
-		if (height <= 0) {
+	int getHeight(boolean forceRecalculate) {
+		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 			height = getKeyHeightCompat() * 4
 				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)

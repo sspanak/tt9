@@ -22,8 +22,8 @@ class MainLayoutTray extends BaseMainLayout {
 		super(tt9, R.layout.main_small);
 	}
 
-	int getHeight() {
-		if (height <= 0) {
+	int getHeight(boolean forceRecalculate) {
+		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
 

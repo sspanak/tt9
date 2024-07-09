@@ -24,7 +24,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	public ResizableMainView(TraditionalT9 tt9) {
 		super(tt9);
-		resetHeight();
+		calculateSnapHeights();
 	}
 
 
@@ -35,29 +35,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	private void calculateInitialHeight() {
-		if (main == null) {
-			return;
-		}
-
-		if (main.getView() != null) {
-			height = main.getHeight();
-		} else if (tt9.getSettings().isMainLayoutNumpad()) {
-			height = heightNumpad;
-		} else if (tt9.getSettings().isMainLayoutSmall()) {
-			height = heightSmall;
-		} else {
-			height = heightTray;
-		}
-	}
-
-
 	@Override
 	public boolean createInputView() {
 
 		if (!super.createInputView()) {
-			// recalculate the total height in case the user has changed the key height in the settings
-			resetHeight();
 			return false;
 		}
 
@@ -81,9 +62,8 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	public void onOrientationChanged() {
-		calculateSnapHeights();
-		calculateInitialHeight();
 		hideCommandPalette();
+		calculateSnapHeights();
 		render();
 	}
 
@@ -220,37 +200,36 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 
 		calculateSnapHeights();
-		calculateInitialHeight();
 		setHeight(height, heightSmall, heightNumpad);
 	}
 
-//	@Override
-//	public void showCommandPalette() {
-//		super.showCommandPalette();
-//		setHeight(main.getHeight(), heightSmall, heightNumpad);
-//	}
-//
-//	@Override
-//	public void hideCommandPalette() {
-//		super.hideCommandPalette();
-//		setHeight(main.getHeight(), heightSmall, heightNumpad);
-//	}
-//
-//	@Override
-//	public void showTextManipulationPalette() {
-//		super.showTextManipulationPalette();
-//		setHeight(main.getHeight(), heightSmall, heightNumpad);
-//	}
-//
-//	@Override
-//	public void hideTextManipulationPalette() {
-//		super.hideTextManipulationPalette();
-//		setHeight(main.getHeight(), heightSmall, heightNumpad);
-//	}
-//
-//	@Override
-//	public void render() {
-//		super.render();
-//		setHeight(main.getHeight(), heightSmall, heightNumpad);
-//	}
+	@Override
+	public void showCommandPalette() {
+		super.showCommandPalette();
+		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void hideCommandPalette() {
+		super.hideCommandPalette();
+		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void showTextManipulationPalette() {
+		super.showTextManipulationPalette();
+		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void hideTextManipulationPalette() {
+		super.hideTextManipulationPalette();
+		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+	}
+
+	@Override
+	public void render() {
+		super.render();
+		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+	}
 }
