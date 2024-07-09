@@ -137,9 +137,7 @@ class MainLayoutTray extends BaseMainLayout {
 	protected ArrayList<SoftKey> getKeys() {
 		if (view != null && keys.isEmpty()) {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_command_keys)));
-			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_1)));
-			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_2)));
-			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_3)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_manipulation_keys_small)));
 		}
 		return keys;
 	}
@@ -151,7 +149,14 @@ class MainLayoutTray extends BaseMainLayout {
 			view.findViewById(R.id.separator_1_1),
 			view.findViewById(R.id.separator_1_2),
 			view.findViewById(R.id.separator_2_1),
-			view.findViewById(R.id.separator_2_2)
+			view.findViewById(R.id.separator_2_2),
+			view.findViewById(R.id.separator_10_1),
+			view.findViewById(R.id.separator_10_2),
+			view.findViewById(R.id.separator_10_2),
+			view.findViewById(R.id.separator_10_3),
+			view.findViewById(R.id.separator_10_4),
+			view.findViewById(R.id.separator_10_5),
+			view.findViewById(R.id.separator_10_6)
 		));
 	}
 }

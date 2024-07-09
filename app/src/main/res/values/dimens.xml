@@ -6,6 +6,7 @@
 
 	<dimen name="soft_key_height">44dp</dimen>
 	<dimen name="soft_key_icon_size">24sp</dimen>
+	<dimen name="soft_key_complex_title_size">12sp</dimen>
 
 	<!-- Large font size -->
 	<dimen name="pref_large_category_padding_top">30dp</dimen>

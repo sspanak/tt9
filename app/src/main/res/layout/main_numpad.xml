@@ -91,7 +91,7 @@
 				android:id="@+id/main_soft_keys" />
 
 			<include
-				layout="@layout/panel_text_manipulation"
+				layout="@layout/panel_text_manipulation_numpad"
 				android:id="@+id/text_manipulation_container"
 				android:visibility="gone" />
 

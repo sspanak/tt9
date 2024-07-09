@@ -37,13 +37,8 @@ public class SoftCommandKey extends SoftNumberKey {
 		if (keyId == R.id.soft_key_5) return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_manipulation) : "✂";
 
 		// text manipulation
-		if (keyId == R.id.soft_key_101) return "⏮";
-		if (keyId == R.id.soft_key_102) return "|X|";
-		if (keyId == R.id.soft_key_103) return "⏭";
-		if (keyId == R.id.soft_key_105) return "|v|";
-		if (keyId == R.id.soft_key_107) return "cut";
-		if (keyId == R.id.soft_key_108) return "copy";
-		if (keyId == R.id.soft_key_109) return "paste";
+		if (keyId == R.id.soft_key_101) return noIconSupport ? "|<<" : "⏮";
+		if (keyId == R.id.soft_key_103) return noIconSupport ? ">>|" : "⏭";
 
 		return null;
 	}
