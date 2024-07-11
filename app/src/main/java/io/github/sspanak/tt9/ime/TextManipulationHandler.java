@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextManipulationHandler extends VoiceHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
@@ -14,8 +15,12 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 
 
 	@Override
-	protected boolean onBack() {
-		return super.onBack() || hideTextManipulationPalette();
+	protected Ternary onBack() {
+		if (hideTextManipulationPalette()) {
+			return Ternary.TRUE;
+		} else {
+			return super.onBack();
+		}
 	}
 
 
@@ -57,7 +62,7 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 
 	private boolean hideTextManipulationPalette() {
 		if (mainView.isTextManipulationPaletteShown()) {
-			mainView.render();
+			mainView.showCommandPalette();
 			resetStatus();
 			return true;
 		}

@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Ternary;
 
 public abstract class HotkeyHandler extends CommandHandler {
 	private boolean isSystemRTL;
@@ -33,8 +34,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	@Override
-	public boolean onBack() {
-		return super.onBack() || settings.isMainLayoutNumpad();
+	public Ternary onBack() {
+		if (super.onBack() == Ternary.TRUE) {
+			return Ternary.TRUE;
+		} else if (settings.isMainLayoutNumpad()) {
+			return Ternary.ALTERNATIVE;
+		} else {
+			return Ternary.FALSE;
+		}
 	}
 
 

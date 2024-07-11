@@ -7,11 +7,16 @@ import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
+import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class CommandHandler extends TextManipulationHandler {
 	@Override
-	protected boolean onBack() {
-		return super.onBack() || hideCommandPalette();
+	protected Ternary onBack() {
+		if (hideCommandPalette()) {
+			return Ternary.TRUE;
+		} else {
+			return super.onBack();
+		}
 	}
 
 

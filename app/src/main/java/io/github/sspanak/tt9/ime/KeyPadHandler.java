@@ -76,8 +76,13 @@ abstract class KeyPadHandler extends UiHandler {
 			event.startTracking();
 		}
 
+		// on many devices there is a default back handler, so we must fall back to it when we don't
+		// perform any operation
 		if (Key.isBack(keyCode)) {
-			return onBack() && super.onKeyDown(keyCode, event);
+			Key.setHandled(keyCode, onBack());
+			return Key.isHandledInSuper(keyCode) ? super.onKeyDown(keyCode, event) : Key.isHandled(keyCode);
+		} else {
+			Key.setHandled(KeyEvent.KEYCODE_BACK, false);
 		}
 
 		return
@@ -169,11 +174,11 @@ abstract class KeyPadHandler extends UiHandler {
 		}
 
 		if (Key.isBack(keyCode)) {
-			return onBack() && super.onKeyUp(keyCode, event);
+			return Key.isHandledInSuper(keyCode) ? super.onKeyUp(keyCode, event) : Key.isHandled(keyCode);
 		}
 
 		return
-			(Key.isOK(KeyEvent.KEYCODE_ENTER) && Key.isHandled(keyCode))
+			(Key.isOK(keyCode) && Key.isHandled(KeyEvent.KEYCODE_ENTER))
 			|| handleHotkey(keyCode, false, keyRepeatCounter > 0, false)
 			|| Key.isPoundOrStar(keyCode) && onText(String.valueOf((char) event.getUnicodeChar()), false)
 			|| super.onKeyUp(keyCode, event); // let the system handle the keys we don't care about (usually, the touch "buttons")
