@@ -37,7 +37,7 @@
 		style="@style/numRowSeparator" />
 
 	<include
-		layout="@layout/panel_function_keys"
+		layout="@layout/panel_small_function_keys"
 		android:id="@+id/main_soft_keys" />
 
 	<include
@@ -46,7 +46,7 @@
 		android:visibility="gone" />
 
 	<include
-		layout="@layout/panel_text_editing_small"
+		layout="@layout/panel_small_text_editing"
 		android:id="@+id/text_editing_container"
 		android:visibility="gone" />
 

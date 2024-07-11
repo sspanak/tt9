@@ -84,19 +84,65 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.soft_key_0).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_1).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_2).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_3).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_4).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_5).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_6).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_7).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_8).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_9).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_punctuation_1).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_punctuation_2).setVisibility(View.GONE);
+
+		view.findViewById(R.id.soft_key_100).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_101).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_102).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_103).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_104).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_105).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_106).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_107).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_108).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_109).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_placeholder_101).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_placeholder_102).setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	void hideTextEditingPalette() {
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.soft_key_100).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_101).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_102).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_103).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_104).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_105).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_106).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_107).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_108).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_109).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_placeholder_101).setVisibility(View.GONE);
+		view.findViewById(R.id.soft_key_placeholder_102).setVisibility(View.GONE);
+
+		view.findViewById(R.id.soft_key_0).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_1).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_2).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_3).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_4).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_5).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_6).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_7).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_8).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_9).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_punctuation_1).setVisibility(View.VISIBLE);
+		view.findViewById(R.id.soft_key_punctuation_2).setVisibility(View.VISIBLE);
 	}
 
 	@Override
 	boolean isTextEditingPaletteShown() {
-		return view != null && view.findViewById(R.id.text_editing_container).getVisibility() == LinearLayout.VISIBLE;
+		return view != null && view.findViewById(R.id.soft_key_100).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 
@@ -197,7 +243,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_editing_container)));
 
 		return keys;
 	}

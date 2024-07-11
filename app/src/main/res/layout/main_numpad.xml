@@ -91,12 +91,6 @@
 				android:id="@+id/main_soft_keys"
 				android:paddingBottom="@dimen/numpad_padding_bottom"/>
 
-			<include
-				layout="@layout/panel_text_editing_numpad"
-				android:id="@+id/text_editing_container"
-				android:paddingBottom="@dimen/numpad_padding_bottom"
-				android:visibility="gone" />
-
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

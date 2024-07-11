@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<View
+		android:id="@+id/soft_key_104"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+		android:id="@+id/soft_key_105"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:drawableBottom="@drawable/ic_txt_select_all"
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+		android:textSize="@dimen/soft_key_drawable_title_size" />
+
+	<View
+		android:id="@+id/soft_key_106"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1" />
+</merge>
