@@ -3,10 +3,12 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class SoftVoiceInputKey extends SoftKey {
-	public SoftVoiceInputKey(Context context) { super(context); }
-	public SoftVoiceInputKey(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftVoiceInputKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+import io.github.sspanak.tt9.R;
+
+public class SoftCommand32Key extends SoftKey {
+	public SoftCommand32Key(Context context) { super(context); }
+	public SoftCommand32Key(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftCommand32Key(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected void handleHold() {
@@ -27,6 +29,11 @@ public class SoftVoiceInputKey extends SoftKey {
 
 	@Override
 	protected String getTitle() {
+		return getContext().getString(R.string.virtual_key_text_manipulation).toUpperCase();
+	}
+
+	@Override
+	protected String getSubTitle() {
 		return "🎤";
 	}
 

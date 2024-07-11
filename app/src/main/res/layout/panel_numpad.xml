@@ -173,7 +173,7 @@
 			android:id="@+id/separator_3_2"
 			style="@style/numSeparator" />
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftVoiceInputKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftCommand32Key
 			android:id="@+id/soft_key_voice_input"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
