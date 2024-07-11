@@ -26,6 +26,9 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 	private void onCommand(int key) {
 		switch (key) {
+			case 0:
+				hideTextEditingPalette();
+				return;
 			case 1:
 				Logger.d("TXT", "word left");
 				break;
@@ -61,12 +64,17 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	private boolean hideTextEditingPalette() {
-		if (mainView.isTextEditingPaletteShown()) {
-			mainView.showCommandPalette();
-			resetStatus();
-			return true;
+		if (!mainView.isTextEditingPaletteShown()) {
+			return false;
 		}
 
-		return false;
+		if (settings.isMainLayoutNumpad() || settings.isMainLayoutStealth()) {
+			mainView.hideTextEditingPalette();
+		} else {
+			mainView.showCommandPalette();
+		}
+
+		resetStatus();
+		return true;
 	}
 }

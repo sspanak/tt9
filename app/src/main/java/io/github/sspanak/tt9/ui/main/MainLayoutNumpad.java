@@ -146,7 +146,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	boolean isTextEditingPaletteShown() {
-		return view != null && view.findViewById(R.id.soft_key_100).getVisibility() == LinearLayout.VISIBLE;
+		return view != null && view.findViewById(R.id.soft_key_100).getVisibility() == View.VISIBLE;
 	}
 
 
