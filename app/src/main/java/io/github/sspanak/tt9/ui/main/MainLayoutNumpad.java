@@ -84,6 +84,10 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
+		// @todo: create a function that returns just the number keys
+		// @todo: create a function that returns just the text editing keys
+		// @todo: disable the functions keys on both sides, excluding OK, DEL and CFG.
+
 		view.findViewById(R.id.soft_key_0).setVisibility(View.GONE);
 		view.findViewById(R.id.soft_key_1).setVisibility(View.GONE);
 		view.findViewById(R.id.soft_key_2).setVisibility(View.GONE);
