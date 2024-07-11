@@ -8,7 +8,7 @@
 	android:orientation="vertical">
 
 		<LinearLayout
-			android:id="@+id/text_manipulation_keys_small"
+			android:id="@+id/text_editing_keys_small"
 			android:layout_width="match_parent"
 			android:layout_height="@dimen/numpad_key_height">
 

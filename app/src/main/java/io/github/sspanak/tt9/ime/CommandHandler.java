@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.util.Ternary;
 
-abstract public class CommandHandler extends TextManipulationHandler {
+abstract public class CommandHandler extends TextEditingHandler {
 	@Override
 	protected Ternary onBack() {
 		if (hideCommandPalette()) {
@@ -62,14 +62,14 @@ abstract public class CommandHandler extends TextManipulationHandler {
 				toggleVoiceInput();
 				break;
 			case 5:
-				showTextManipulationPalette();
+				showTextEditingPalette();
 				break;
 		}
 	}
 
 
 	protected void resetStatus() {
-		if (mainView.isCommandPaletteShown() || mainView.isTextManipulationPaletteShown()) {
+		if (mainView.isCommandPaletteShown() || mainView.isTextEditingPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
 		} else {
 			statusBar.setText(mInputMode);

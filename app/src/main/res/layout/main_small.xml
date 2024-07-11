@@ -46,8 +46,8 @@
 		android:visibility="gone" />
 
 	<include
-		layout="@layout/panel_text_manipulation_small"
-		android:id="@+id/text_manipulation_container"
+		layout="@layout/panel_text_editing_small"
+		android:id="@+id/text_editing_container"
 		android:visibility="gone" />
 
 </LinearLayout>

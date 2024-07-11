@@ -92,8 +92,8 @@
 				android:paddingBottom="@dimen/numpad_padding_bottom"/>
 
 			<include
-				layout="@layout/panel_text_manipulation_numpad"
-				android:id="@+id/text_manipulation_container"
+				layout="@layout/panel_text_editing_numpad"
+				android:id="@+id/text_editing_container"
 				android:paddingBottom="@dimen/numpad_padding_bottom"
 				android:visibility="gone" />
 

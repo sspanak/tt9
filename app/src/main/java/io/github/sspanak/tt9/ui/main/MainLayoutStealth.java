@@ -5,23 +5,23 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 
 class MainLayoutStealth extends BaseMainLayout {
 	private boolean isCommandPaletteShown = false;
-	private boolean isTextManipulationPaletteShown = false;
+	private boolean isTextEditingPaletteShown = false;
 
 	MainLayoutStealth(TraditionalT9 tt9) { super(tt9, R.layout.main_stealth); }
 
 	@Override void showCommandPalette() {
 		isCommandPaletteShown = true;
-		isTextManipulationPaletteShown = false;
+		isTextEditingPaletteShown = false;
 	}
 	@Override void hideCommandPalette() { isCommandPaletteShown = false; }
 	@Override boolean isCommandPaletteShown() { return isCommandPaletteShown; }
 
-	@Override void showTextManipulationPalette() {
-		isTextManipulationPaletteShown = true;
+	@Override void showTextEditingPalette() {
+		isTextEditingPaletteShown = true;
 		isCommandPaletteShown = false;
 	}
-	@Override void hideTextManipulationPalette() { isTextManipulationPaletteShown = false; }
-	@Override boolean isTextManipulationPaletteShown() { return isTextManipulationPaletteShown; }
+	@Override void hideTextEditingPalette() { isTextEditingPaletteShown = false; }
+	@Override boolean isTextEditingPaletteShown() { return isTextEditingPaletteShown; }
 
 	@Override void render() {}
 }

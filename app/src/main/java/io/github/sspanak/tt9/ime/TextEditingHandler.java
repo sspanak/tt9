@@ -3,9 +3,9 @@ package io.github.sspanak.tt9.ime;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
 
-abstract public class TextManipulationHandler extends VoiceHandler {
+abstract public class TextEditingHandler extends VoiceHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
-		if (!shouldBeOff() && mainView.isTextManipulationPaletteShown()) {
+		if (!shouldBeOff() && mainView.isTextEditingPaletteShown()) {
 			onCommand(key);
 			return true;
 		}
@@ -16,7 +16,7 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 
 	@Override
 	protected Ternary onBack() {
-		if (hideTextManipulationPalette()) {
+		if (hideTextEditingPalette()) {
 			return Ternary.TRUE;
 		} else {
 			return super.onBack();
@@ -51,17 +51,17 @@ abstract public class TextManipulationHandler extends VoiceHandler {
 	}
 
 
-	public void showTextManipulationPalette() {
-		if (!mainView.isTextManipulationPaletteShown()) {
+	public void showTextEditingPalette() {
+		if (!mainView.isTextEditingPaletteShown()) {
 			stopVoiceInput();
-			mainView.showTextManipulationPalette();
+			mainView.showTextEditingPalette();
 			resetStatus();
 		}
 	}
 
 
-	private boolean hideTextManipulationPalette() {
-		if (mainView.isTextManipulationPaletteShown()) {
+	private boolean hideTextEditingPalette() {
+		if (mainView.isTextEditingPaletteShown()) {
 			mainView.showCommandPalette();
 			resetStatus();
 			return true;

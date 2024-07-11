@@ -223,14 +223,14 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 	@Override
-	public void showTextManipulationPalette() {
-		super.showTextManipulationPalette();
+	public void showTextEditingPalette() {
+		super.showTextEditingPalette();
 		fitMain();
 	}
 
 	@Override
-	public void hideTextManipulationPalette() {
-		super.hideTextManipulationPalette();
+	public void hideTextEditingPalette() {
+		super.hideTextEditingPalette();
 		fitMain();
 	}
 

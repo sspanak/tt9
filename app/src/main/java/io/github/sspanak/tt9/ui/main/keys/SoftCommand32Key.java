@@ -14,7 +14,7 @@ public class SoftCommand32Key extends SoftKey {
 	protected void handleHold() {
 		preventRepeat();
 		if (validateTT9Handler()) {
-			tt9.showTextManipulationPalette();
+			tt9.showTextEditingPalette();
 		}
 	}
 
@@ -29,7 +29,7 @@ public class SoftCommand32Key extends SoftKey {
 
 	@Override
 	protected String getTitle() {
-		return getContext().getString(R.string.virtual_key_text_manipulation).toUpperCase();
+		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class MainView {
 
 	public void render() {
 		main.hideCommandPalette();
-		main.hideTextManipulationPalette();
+		main.hideTextEditingPalette();
 		main.render();
 	}
 
@@ -75,19 +75,19 @@ public class MainView {
 		return main != null && main.isCommandPaletteShown();
 	}
 
-	public void showTextManipulationPalette() {
+	public void showTextEditingPalette() {
 		if (main != null) {
-			main.showTextManipulationPalette();
+			main.showTextEditingPalette();
 		}
 	}
 
-	public void hideTextManipulationPalette() {
+	public void hideTextEditingPalette() {
 		if (main != null) {
-			main.hideTextManipulationPalette();
+			main.hideTextEditingPalette();
 		}
 	}
 
-	public boolean isTextManipulationPaletteShown() {
-		return main != null && main.isTextManipulationPaletteShown();
+	public boolean isTextEditingPaletteShown() {
+		return main != null && main.isTextEditingPaletteShown();
 	}
 }
