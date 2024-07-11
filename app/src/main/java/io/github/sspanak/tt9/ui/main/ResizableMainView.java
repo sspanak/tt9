@@ -193,43 +193,50 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		return true;
 	}
 
+	private void fitMain() {
+		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
-	public void resetHeight() {
-		if (main != null) {
-			main.resetHeight();
+		if (main instanceof MainLayoutNumpad) {
+			heightLow = heightSmall;
+			heightHigh = heightNumpad;
+		} else if (main instanceof MainLayoutSmall) {
+			heightLow = 0;
+			heightHigh = Math.max(heightSmall, heightMain); // make room for the command palette
+		} else {
+			heightLow = 0;
+			heightHigh = Math.max(heightTray, heightMain); // make room for the command palette
 		}
 
-		calculateSnapHeights();
-		setHeight(height, heightSmall, heightNumpad);
+		setHeight(heightMain, heightLow, heightHigh);
 	}
 
 	@Override
 	public void showCommandPalette() {
 		super.showCommandPalette();
-		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+		fitMain();
 	}
 
 	@Override
 	public void hideCommandPalette() {
 		super.hideCommandPalette();
-		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+		fitMain();
 	}
 
 	@Override
 	public void showTextManipulationPalette() {
 		super.showTextManipulationPalette();
-		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+		fitMain();
 	}
 
 	@Override
 	public void hideTextManipulationPalette() {
 		super.hideTextManipulationPalette();
-		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+		fitMain();
 	}
 
 	@Override
 	public void render() {
 		super.render();
-		setHeight(main.getHeight(true), heightSmall, heightNumpad);
+		fitMain();
 	}
 }
