@@ -4,11 +4,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class SoftCommand32Key extends SoftKey {
-	public SoftCommand32Key(Context context) { super(context); }
-	public SoftCommand32Key(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftCommand32Key(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+public class SoftKeyRF3 extends SoftKey {
+	public SoftKeyRF3(Context context) { super(context); setFontSize(); }
+	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); setFontSize(); }
+	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); setFontSize(); }
+
+	private void setFontSize() {
+		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;
+		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
+	}
 
 	@Override
 	protected void handleHold() {
