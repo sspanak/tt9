@@ -7,6 +7,8 @@ import android.text.style.StyleSpan;
 import android.text.style.UnderlineSpan;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
@@ -250,5 +252,39 @@ public class TextField extends InputField {
 		connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, keyCode));
 
 		return true;
+	}
+
+
+	public void selectText(boolean backward, boolean wholeWord) {
+		if (connection == null) {
+			return;
+		}
+
+		// @todo: extract to a separate getSelection method
+		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extractedText == null) {
+			return;
+		}
+
+		int selectionStart = extractedText.startOffset + extractedText.selectionStart;
+		int previousCursorPosition = extractedText.startOffset + extractedText.selectionEnd;
+		//////////
+
+		// @todo: possibly do it through app hacks to avoid repeating code?
+		final int DIRECTION_CODE = backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
+		connection.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, DIRECTION_CODE, 0, wholeWord ? KeyEvent.META_CTRL_ON : 0));
+		connection.sendKeyEvent(new KeyEvent(0, 0, KeyEvent.ACTION_UP, DIRECTION_CODE, 0, wholeWord ? KeyEvent.META_CTRL_ON : 0));
+
+		extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extractedText == null) {
+			return;
+		}
+
+		int cursorPosition = extractedText.startOffset + extractedText.selectionEnd;
+		if (cursorPosition == previousCursorPosition ) {
+			cursorPosition = backward ? cursorPosition - 1 : cursorPosition + 1;
+		}
+
+		connection.setSelection(selectionStart, cursorPosition);
 	}
 }

@@ -30,13 +30,13 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				hideTextEditingPalette();
 				return;
 			case 1:
-				Logger.d("TXT", "word left");
+				textField.selectText(true, true);
 				break;
 			case 2:
 				Logger.d("TXT", "select none");
 				break;
 			case 3:
-				Logger.d("TXT", "word right");
+				textField.selectText(false, true);
 				break;
 			case 5:
 				Logger.d("TXT", "select all");
