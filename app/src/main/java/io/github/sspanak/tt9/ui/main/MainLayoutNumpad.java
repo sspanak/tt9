@@ -15,10 +15,14 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ui.main.keys.SoftCommandKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.ui.main.keys.SoftNumberKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey;
 
 class MainLayoutNumpad extends BaseMainLayout {
+	private boolean isTextEditingShown = false;
 	private int height;
 
 
@@ -84,69 +88,67 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
-		// @todo: create a function that returns just the number keys
-		// @todo: create a function that returns just the text editing keys
-		// @todo: disable the functions keys on both sides, excluding OK, DEL and CFG.
+		isTextEditingShown = true;
 
-		view.findViewById(R.id.soft_key_0).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_1).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_2).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_3).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_4).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_5).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_6).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_7).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_8).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_9).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_punctuation_1).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_punctuation_2).setVisibility(View.GONE);
+		for (SoftKey key : getKeys()) {
+			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
+				key.setVisibility(View.GONE);
+			}
 
-		view.findViewById(R.id.soft_key_100).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_101).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_102).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_103).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_104).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_105).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_106).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_107).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_108).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_109).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_placeholder_101).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_placeholder_102).setVisibility(View.VISIBLE);
+			if (key.getClass().equals(SoftCommandKey.class)) {
+				key.setVisibility(View.VISIBLE);
+			}
+
+			int keyId = key.getId();
+			if (
+				keyId == R.id.soft_key_add_word
+				|| keyId == R.id.soft_key_input_mode
+				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_voice_input
+				|| keyId == R.id.soft_key_filter_suggestions
+			) {
+				key.setEnabled(false);
+			}
+		}
+
+		for (View placeholder : getKeyPlaceholders()) {
+			placeholder.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
 	void hideTextEditingPalette() {
-		view.findViewById(R.id.soft_key_100).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_101).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_102).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_103).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_104).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_105).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_106).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_107).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_108).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_109).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_placeholder_101).setVisibility(View.GONE);
-		view.findViewById(R.id.soft_key_placeholder_102).setVisibility(View.GONE);
+		isTextEditingShown = false;
 
-		view.findViewById(R.id.soft_key_0).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_1).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_2).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_3).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_4).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_5).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_6).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_7).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_8).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_9).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_punctuation_1).setVisibility(View.VISIBLE);
-		view.findViewById(R.id.soft_key_punctuation_2).setVisibility(View.VISIBLE);
+		for (SoftKey key : getKeys()) {
+			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
+				key.setVisibility(View.VISIBLE);
+			}
+
+			if (key.getClass().equals(SoftCommandKey.class)) {
+				key.setVisibility(View.GONE);
+			}
+
+			int keyId = key.getId();
+			if (
+				keyId == R.id.soft_key_add_word
+				|| keyId == R.id.soft_key_input_mode
+				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_voice_input
+				|| keyId == R.id.soft_key_filter_suggestions
+			) {
+				key.setEnabled(true);
+			}
+		}
+
+		for (View placeholder : getKeyPlaceholders()) {
+			placeholder.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
 	boolean isTextEditingPaletteShown() {
-		return view != null && view.findViewById(R.id.soft_key_100).getVisibility() == View.VISIBLE;
+		return isTextEditingShown;
 	}
 
 
@@ -249,6 +251,16 @@ class MainLayoutNumpad extends BaseMainLayout {
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		return keys;
+	}
+
+
+	private ArrayList<View> getKeyPlaceholders() {
+		return new ArrayList<>(Arrays.asList(
+			view.findViewById(R.id.soft_key_placeholder_101),
+			view.findViewById(R.id.soft_key_placeholder_102),
+			view.findViewById(R.id.soft_key_104),
+			view.findViewById(R.id.soft_key_106)
+		));
 	}
 
 

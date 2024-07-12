@@ -8,7 +8,8 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_word_back"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 		android:id="@+id/soft_key_102"
@@ -18,7 +19,8 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_select_none"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 		android:id="@+id/soft_key_103"
@@ -28,5 +30,6 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_word_forward"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
 </merge>
