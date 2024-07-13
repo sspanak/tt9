@@ -34,7 +34,15 @@ public class TextSelection {
 		}
 	}
 
-	public void selectText(boolean backward, boolean wholeWord) {
+
+	public void selectChar(boolean backward) {
+		if (connection != null) {
+			connection.setSelection(currentStart, currentEnd + (backward ? -1 : 1));
+		}
+	}
+
+
+	public void selectWord(boolean backward) {
 		if (connection == null) {
 			return;
 		}
@@ -50,5 +58,20 @@ public class TextSelection {
 //		cursorPosition = backward ? cursorPosition - 1 : cursorPosition + 1;
 //
 //		connection.setSelection(selectionStart, cursorPosition);
+	}
+
+
+	public void copy() {
+
+	}
+
+
+	public void cut() {
+
+	}
+
+
+	public void paste() {
+
 	}
 }
