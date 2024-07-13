@@ -63,7 +63,7 @@ public class AppHacks {
 	 */
 	public boolean onAction(int action) {
 		if (inputType.isSonimSearchField(action)) {
-			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		return false;
@@ -76,7 +76,7 @@ public class AppHacks {
 	 */
 	public boolean onMoveCursor(boolean backward) {
 		if (inputType.isRustDesk() || inputType.isTermux()) {
-			return sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+			return textField.sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
 		}
 
 		return false;
@@ -119,7 +119,7 @@ public class AppHacks {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
 			// Any extra installed apps are likely not designed for hardware keypads, so again,
 			// we don't want to send DPAD_CENTER to them.
-			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		// The rest of the cases are probably system apps or numeric fields, which should
@@ -138,30 +138,14 @@ public class AppHacks {
 			return false;
 		}
 
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
 
 		return true;
-	}
-
-
-	private boolean sendDownUpKeyEvents(int keyCode) {
-		return sendDownUpKeyEvents(keyCode, false);
-	}
-
-
-	private boolean sendDownUpKeyEvents(int keyCode, boolean shift) {
-		if (inputConnection != null) {
-			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
-			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
-			return inputConnection.sendKeyEvent(downEvent) && inputConnection.sendKeyEvent(upEvent);
-		}
-
-		return false;
 	}
 }
