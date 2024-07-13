@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
@@ -30,13 +29,13 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				hideTextEditingPalette();
 				return;
 			case 1:
-				textSelection.selectWord(true);
+				textSelection.selectNextWord(true);
 				break;
 			case 2:
 				textSelection.selectNone();
 				break;
 			case 3:
-				textSelection.selectWord(false);
+				textSelection.selectNextWord(false);
 				break;
 			case 5:
 				textSelection.selectAll();

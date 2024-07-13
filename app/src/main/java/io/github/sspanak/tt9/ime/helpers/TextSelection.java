@@ -14,6 +14,7 @@ public class TextSelection {
 
 	public TextSelection(@Nullable InputConnection connection) {
 		this.connection = connection;
+		detectCursorPosition();
 	}
 
 
@@ -37,14 +38,14 @@ public class TextSelection {
 	}
 
 
-	public void selectChar(boolean backward) {
+	public void selectNextChar(boolean backward) {
 		if (connection != null) {
 			connection.setSelection(currentStart, currentEnd + (backward ? -1 : 1));
 		}
 	}
 
 
-	public void selectWord(boolean backward) {
+	public void selectNextWord(boolean backward) {
 		if (connection == null) {
 			return;
 		}
@@ -78,14 +79,33 @@ public class TextSelection {
 			return currentEnd + (backward ? -1 : 1);
 		}
 
-		int textLength = extractedText.text.length();
 		int increment = backward ? -1 : 1;
-		for (int i = currentEnd; i >= 0 && i < textLength; i += increment) {
-			if (Character.isWhitespace(extractedText.text.charAt(i))) {
-				return i + increment;
+		int textLength = extractedText.text.length();
+		for (int ch = currentEnd + increment; ch >= 0 && ch < textLength; ch += increment) {
+			if (!Character.isWhitespace(extractedText.text.charAt(ch))) {
+				continue;
+			}
+
+			if (ch >= currentStart) {
+				return ch;
+			} else if (ch + 1 != currentEnd) {
+				return ch + 1;
 			}
 		}
 
-		return currentEnd + (backward ? -1 : 1);
+		return backward ? 0 : textLength;
+	}
+
+
+	private void detectCursorPosition() {
+		if (connection == null) {
+			return;
+		}
+
+		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extractedText != null) {
+			currentStart = extractedText.startOffset + extractedText.selectionStart;
+			currentEnd = extractedText.startOffset + extractedText.selectionEnd;
+		}
 	}
 }
