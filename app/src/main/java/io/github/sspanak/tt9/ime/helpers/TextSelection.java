@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.view.inputmethod.ExtractedText;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.Nullable;
@@ -47,17 +49,7 @@ public class TextSelection {
 			return;
 		}
 
-//		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
-//		if (extractedText == null) {
-//			return;
-//		}
-//
-//		int selectionStart = extractedText.startOffset + extractedText.selectionStart;
-//		int cursorPosition = extractedText.startOffset + extractedText.selectionEnd;
-//
-//		cursorPosition = backward ? cursorPosition - 1 : cursorPosition + 1;
-//
-//		connection.setSelection(selectionStart, cursorPosition);
+		connection.setSelection(currentStart, getNextWordPosition(backward));
 	}
 
 
@@ -73,5 +65,27 @@ public class TextSelection {
 
 	public void paste() {
 
+	}
+
+
+	private int getNextWordPosition(boolean backward) {
+		if (connection == null) {
+			return currentEnd + (backward ? -1 : 1);
+		}
+
+		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extractedText == null) {
+			return currentEnd + (backward ? -1 : 1);
+		}
+
+		int textLength = extractedText.text.length();
+		int increment = backward ? -1 : 1;
+		for (int i = currentEnd; i >= 0 && i < textLength; i += increment) {
+			if (Character.isWhitespace(extractedText.text.charAt(i))) {
+				return i + increment;
+			}
+		}
+
+		return currentEnd + (backward ? -1 : 1);
 	}
 }
