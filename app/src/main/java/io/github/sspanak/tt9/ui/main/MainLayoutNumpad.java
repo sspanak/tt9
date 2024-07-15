@@ -257,9 +257,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	private ArrayList<View> getKeyPlaceholders() {
 		return new ArrayList<>(Arrays.asList(
 			view.findViewById(R.id.soft_key_placeholder_101),
-			view.findViewById(R.id.soft_key_placeholder_102),
-			view.findViewById(R.id.soft_key_104),
-			view.findViewById(R.id.soft_key_106)
+			view.findViewById(R.id.soft_key_placeholder_102)
 		));
 	}
 

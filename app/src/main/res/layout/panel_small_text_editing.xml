@@ -15,7 +15,7 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:id="@+id/soft_key_101"
-				android:drawableBottom="@drawable/ic_txt_word_back"
+				android:drawableBottom="@drawable/ic_dpad_left"
 				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
 				android:textSize="@dimen/soft_key_drawable_title_size"
 				android:layout_width="0dp"
@@ -43,7 +43,7 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
 				style="@android:style/Widget.Holo.Button.Borderless"
 				android:id="@+id/soft_key_103"
-				android:drawableBottom="@drawable/ic_txt_word_forward"
+				android:drawableBottom="@drawable/ic_dpad_right"
 				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
 				android:textSize="@dimen/soft_key_drawable_title_size"
 				android:layout_width="0dp"
@@ -52,6 +52,20 @@
 
 			<View
 				android:id="@+id/separator_10_3"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_104"
+				android:drawableBottom="@drawable/ic_txt_word_back"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_4"
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
@@ -65,7 +79,21 @@
 				android:layout_weight="1" />
 
 			<View
-				android:id="@+id/separator_10_4"
+				android:id="@+id/separator_10_5"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_106"
+				android:drawableBottom="@drawable/ic_txt_word_forward"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_6"
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
@@ -79,7 +107,7 @@
 				android:layout_weight="1" />
 
 			<View
-				android:id="@+id/separator_10_5"
+				android:id="@+id/separator_10_7"
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
@@ -93,7 +121,7 @@
 				android:layout_weight="1" />
 
 			<View
-				android:id="@+id/separator_10_6"
+				android:id="@+id/separator_10_8"
 				style="@style/numSeparator" />
 
 			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey

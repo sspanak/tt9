@@ -6,7 +6,7 @@
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:drawableBottom="@drawable/ic_txt_word_back"
+		android:drawableBottom="@drawable/ic_dpad_left"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
 		android:textSize="@dimen/soft_key_drawable_title_size"
 		android:visibility="gone" />
@@ -28,7 +28,7 @@
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:drawableBottom="@drawable/ic_txt_word_forward"
+		android:drawableBottom="@drawable/ic_dpad_right"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
 		android:textSize="@dimen/soft_key_drawable_title_size"
 		android:visibility="gone" />

@@ -46,16 +46,22 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				hideTextEditingPalette();
 				return;
 			case 1:
-				textSelection.selectNextWord(!isSystemRTL);
+				textSelection.selectNextChar(!isSystemRTL);
 				break;
 			case 2:
 				textSelection.selectNone();
 				break;
 			case 3:
-				textSelection.selectNextWord(isSystemRTL);
+				textSelection.selectNextChar(isSystemRTL);
+				break;
+			case 4:
+				textSelection.selectNextWord(!isSystemRTL);
 				break;
 			case 5:
 				textSelection.selectAll();
+				break;
+			case 6:
+				textSelection.selectNextWord(isSystemRTL);
 				break;
 			case 7:
 				if (textSelection.cut(textField)) {

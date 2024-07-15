@@ -155,7 +155,9 @@ class MainLayoutTray extends BaseMainLayout {
 			view.findViewById(R.id.separator_10_3),
 			view.findViewById(R.id.separator_10_4),
 			view.findViewById(R.id.separator_10_5),
-			view.findViewById(R.id.separator_10_6)
+			view.findViewById(R.id.separator_10_6),
+			view.findViewById(R.id.separator_10_7),
+			view.findViewById(R.id.separator_10_8)
 		));
 	}
 }
