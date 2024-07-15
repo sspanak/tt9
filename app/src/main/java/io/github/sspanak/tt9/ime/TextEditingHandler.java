@@ -43,10 +43,14 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				textSelection.selectAll();
 				break;
 			case 7:
-				textSelection.cut(textField);
+				if (textSelection.cut(textField)) {
+					resetStatus();
+				}
 				break;
 			case 8:
-				textSelection.copy();
+				if (textSelection.copy()) {
+					resetStatus();
+				}
 				break;
 			case 9:
 				textSelection.paste(textField);

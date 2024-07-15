@@ -72,10 +72,13 @@ public class TextSelection {
 	}
 
 
-	public void cut(@NonNull TextField textField) {
+	public boolean cut(@NonNull TextField textField) {
 		if (copy()) {
 			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return true;
 		}
+
+		return false;
 	}
 
 
