@@ -95,7 +95,12 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyMoveCursor(boolean backward) {
-		return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
+		if (textSelection.isEmpty()) {
+			return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
+		} else {
+			textSelection.clear(backward);
+			return true;
+		}
 	}
 
 

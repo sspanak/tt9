@@ -47,7 +47,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				textSelection.selectNextChar(!isSystemRTL);
 				break;
 			case 2:
-				textSelection.selectNone();
+				textSelection.clear();
 				break;
 			case 3:
 				textSelection.selectNextChar(isSystemRTL);
@@ -79,15 +79,17 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	public void showTextEditingPalette() {
-		if (inputType.isLimited()) {
+		if (inputType.isLimited() || mainView.isTextEditingPaletteShown()) {
 			return;
 		}
 
-		if (!mainView.isTextEditingPaletteShown()) {
-			stopVoiceInput();
-			mainView.showTextEditingPalette();
-			resetStatus();
-		}
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptIncomplete();
+		mInputMode.reset();
+		stopVoiceInput();
+
+		mainView.showTextEditingPalette();
+		resetStatus();
 	}
 
 

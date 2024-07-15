@@ -25,27 +25,37 @@ public class TextSelection {
 	}
 
 
-	public boolean isEmpty() {
-		return currentStart == currentEnd;
-	}
-
-
 	public void onSelectionUpdate(int start, int end) {
 		currentStart = start;
 		currentEnd = end;
 	}
 
 
-	public void selectAll() {
+	public boolean isEmpty() {
+		return currentStart == currentEnd;
+	}
+
+
+	public void clear() {
 		if (connection != null) {
-			connection.performContextMenuAction(android.R.id.selectAll);
+			connection.setSelection(currentEnd, currentEnd);
 		}
 	}
 
 
-	public void selectNone() {
+	public void clear(boolean backward) {
 		if (connection != null) {
-			connection.setSelection(currentEnd, currentEnd);
+			connection.setSelection(
+				backward ? Math.min(currentStart, currentEnd) : Math.max(currentStart, currentEnd),
+				backward ? Math.min(currentStart, currentEnd) : Math.max(currentStart, currentEnd)
+			);
+		}
+	}
+
+
+	public void selectAll() {
+		if (connection != null) {
+			connection.performContextMenuAction(android.R.id.selectAll);
 		}
 	}
 
