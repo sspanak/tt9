@@ -1,35 +1,21 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
-import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
 public abstract class HotkeyHandler extends CommandHandler {
-	private boolean isSystemRTL;
-
-
 	@Override
 	protected void onInit() {
 		super.onInit();
 		if (settings.areHotkeysInitialized()) {
 			Hotkeys.setDefault(settings);
 		}
-	}
-
-
-	@Override
-	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
-		return super.onStart(connection, field);
 	}
 
 

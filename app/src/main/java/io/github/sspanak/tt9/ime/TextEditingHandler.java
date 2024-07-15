@@ -1,10 +1,25 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
+	protected boolean isSystemRTL;
+
+
+	@Override
+	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
+		return super.onStart(connection, field);
+	}
+
+
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		if (!shouldBeOff() && mainView.isTextEditingPaletteShown()) {
 			onCommand(key);
@@ -31,13 +46,13 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				hideTextEditingPalette();
 				return;
 			case 1:
-				textSelection.selectNextWord(true);
+				textSelection.selectNextWord(!isSystemRTL);
 				break;
 			case 2:
 				textSelection.selectNone();
 				break;
 			case 3:
-				textSelection.selectNextWord(false);
+				textSelection.selectNextWord(isSystemRTL);
 				break;
 			case 5:
 				textSelection.selectAll();
