@@ -27,7 +27,7 @@ import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
-	@NonNull protected AppHacks appHacks = new AppHacks(null,null, null, null);
+	@NonNull protected AppHacks appHacks = new AppHacks(null,null, null, null, null);
 	protected InputConnection currentInputConnection = null;
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
@@ -99,7 +99,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		textSelection = new TextSelection(this, currentInputConnection);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
-		appHacks = new AppHacks(settings, connection, inputType, textField);
+		appHacks = new AppHacks(settings, connection, inputType, textField, textSelection);
 		suggestionOps.setTextField(textField);
 	}
 

@@ -65,9 +65,9 @@ public class SoftCommandKey extends SoftNumberKey {
 		int keyId = getId();
 
 		// command palette
-		if (keyId == R.id.soft_key_0) return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
 		if (keyId == R.id.soft_key_1) return noIconSupport ? getTextSubTitle(R.string.virtual_key_settings) : "⚙";
 		if (keyId == R.id.soft_key_2) return "＋";
+		if (keyId == R.id.soft_key_8) return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
 
 		if (keyId == R.id.soft_key_100) return getTextSubTitle(R.string.key_back);
 

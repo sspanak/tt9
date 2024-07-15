@@ -56,7 +56,7 @@
 		style="@style/numSeparator" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
-		android:id="@+id/soft_key_0"
+		android:id="@+id/soft_key_8"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
 		android:layout_height="@dimen/numpad_key_height"

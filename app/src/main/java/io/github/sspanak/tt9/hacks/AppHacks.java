@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -16,13 +17,15 @@ public class AppHacks {
 	private final InputType inputType;
 	private final SettingsStore settings;
 	private final TextField textField;
+	private final TextSelection textSelection;
 
 
-	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField) {
+	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField, TextSelection textSelection) {
 		this.inputConnection = inputConnection;
 		this.inputType = inputType;
 		this.settings = settings;
 		this.textField = textField;
+		this.textSelection = textSelection;
 	}
 
 
@@ -51,8 +54,12 @@ public class AppHacks {
 			return false;
 		}
 
-		// When there is no text, allow double function keys to function normally (e.g. "Back" navigates back)
-		return inputMode.getSuggestions().isEmpty() && textField.getStringBeforeCursor(1).isEmpty();
+		// When no text is selected and the cursor is at the beginning,
+		// allow double function keys to function normally (e.g. "Back" navigates back)
+		return
+			inputMode.getSuggestions().isEmpty()
+			&& textSelection.isEmpty()
+			&& textField.getStringBeforeCursor(1).isEmpty();
 	}
 
 

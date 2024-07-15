@@ -22,12 +22,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	@Override
-	public boolean onBackspace() {
-		return hideCommandPalette() || super.onBackspace();
-	}
-
-
-	@Override
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
 		return mainView.isCommandPaletteShown() && keyCode != settings.getKeyCommandPalette();
 	}
@@ -51,7 +45,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	private void onCommand(int key) {
 		switch (key) {
 			case 0:
-				changeKeyboard();
+				hideCommandPalette();
 				break;
 			case 1:
 				showSettings();
@@ -64,6 +58,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 				break;
 			case 5:
 				showTextEditingPalette();
+				break;
+			case 8:
+				changeKeyboard();
 				break;
 		}
 	}

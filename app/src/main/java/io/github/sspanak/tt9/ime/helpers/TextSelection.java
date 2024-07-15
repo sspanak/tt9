@@ -25,6 +25,11 @@ public class TextSelection {
 	}
 
 
+	public boolean isEmpty() {
+		return currentStart == currentEnd;
+	}
+
+
 	public void onSelectionUpdate(int start, int end) {
 		currentStart = start;
 		currentEnd = end;
@@ -88,7 +93,7 @@ public class TextSelection {
 			return;
 		}
 
-		if (currentStart != currentEnd) {
+		if (!isEmpty()) {
 			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 		}
 
