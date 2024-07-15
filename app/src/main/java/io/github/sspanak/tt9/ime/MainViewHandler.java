@@ -29,6 +29,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return mInputMode.getTextCase();
 	}
 
+	public boolean isInputLimited() {
+		return inputType.isLimited();
+	}
+
 	public boolean isInputModeABC() {
 		return mInputMode.getClass().equals(ModeABC.class);
 	}

@@ -47,15 +47,15 @@ public class SoftCommandKey extends SoftNumberKey {
 	}
 
 
-	@Override
-	protected String getTitle() {
-		return getNumber(getId()) + "";
+	protected String getTextSubTitle(int resId) {
+		setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
+		return getContext().getString(resId);
 	}
 
 
-	private String getTextSubTitle(int resId) {
-		setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
-		return getContext().getString(resId);
+	@Override
+	protected String getTitle() {
+		return getNumber(getId()) + "";
 	}
 
 
@@ -68,8 +68,6 @@ public class SoftCommandKey extends SoftNumberKey {
 		if (keyId == R.id.soft_key_0) return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
 		if (keyId == R.id.soft_key_1) return noIconSupport ? getTextSubTitle(R.string.virtual_key_settings) : "⚙";
 		if (keyId == R.id.soft_key_2) return "＋";
-		if (keyId == R.id.soft_key_3) return "🎤";
-		if (keyId == R.id.soft_key_5) return noIconSupport ? getTextSubTitle(R.string.virtual_key_text_editing) : "✂";
 
 		if (keyId == R.id.soft_key_100) return getTextSubTitle(R.string.key_back);
 
@@ -91,15 +89,5 @@ public class SoftCommandKey extends SoftNumberKey {
 		if (keyId == R.id.soft_key_109) return 9;
 
 		return super.getNumber(keyId);
-	}
-
-
-	@Override
-	public void render() {
-		if (tt9 != null && tt9.isVoiceInputMissing() && getNumber(getId()) == 3) {
-			setVisibility(GONE);
-		} else {
-			super.render();
-		}
 	}
 }

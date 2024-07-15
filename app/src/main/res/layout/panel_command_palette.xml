@@ -31,7 +31,7 @@
 		android:id="@+id/separator_1_2"
 		style="@style/numSeparator" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF3
 		android:id="@+id/soft_key_3"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
@@ -43,7 +43,7 @@
 		android:id="@+id/separator_2_1"
 		style="@style/numSeparator" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF5
 		android:id="@+id/soft_key_5"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"

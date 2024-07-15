@@ -16,6 +16,14 @@ public class SoftKeyRF3 extends SoftKey {
 		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
 	}
 
+	private boolean isPrimaryFunctionMissing() {
+		return tt9 != null && tt9.isVoiceInputMissing();
+	}
+
+	private boolean isSecondaryFunctionMissing() {
+		return tt9 != null && tt9.isInputLimited();
+	}
+
 	@Override
 	protected void handleHold() {
 		preventRepeat();
@@ -35,17 +43,17 @@ public class SoftKeyRF3 extends SoftKey {
 
 	@Override
 	protected String getTitle() {
-		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
+		return isSecondaryFunctionMissing() && !isPrimaryFunctionMissing() ? "🎤" : getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
 
 	@Override
 	protected String getSubTitle() {
-		return "🎤";
+		return !isPrimaryFunctionMissing() && isSecondaryFunctionMissing() ? null : "🎤";
 	}
 
 	@Override
 	public void render() {
-		if (tt9 != null && tt9.isVoiceInputMissing()) {
+		if (isPrimaryFunctionMissing() && isSecondaryFunctionMissing()) {
 			setVisibility(INVISIBLE);
 		} else {
 			super.render();

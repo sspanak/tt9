@@ -3,10 +3,8 @@ package io.github.sspanak.tt9.ime;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
@@ -82,7 +80,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 	public void showTextEditingPalette() {
 		if (inputType.isLimited()) {
-			UI.toast(this, R.string.text_editing_not_supported_in_this_app);
+			return;
 		}
 
 		if (!mainView.isTextEditingPaletteShown()) {
