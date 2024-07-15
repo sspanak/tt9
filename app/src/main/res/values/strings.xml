@@ -144,6 +144,8 @@
 	<string name="setup_tt9_off">%1$s is disabled</string>
 	<string name="setup_click_here_to_enable">Click here to enable TT9 from Android Settings.</string>
 
+	<string name="text_editing_not_supported_in_this_app">Text editing is not supported in this app.</string>
+
 	<string name="key_hold_key">(hold)</string>
 	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>

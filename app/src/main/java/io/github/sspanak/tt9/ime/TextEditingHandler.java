@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
@@ -41,19 +43,23 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				textSelection.selectAll();
 				break;
 			case 7:
-				textSelection.cut();
+				textSelection.cut(textField);
 				break;
 			case 8:
 				textSelection.copy();
 				break;
 			case 9:
-				textSelection.paste();
+				textSelection.paste(textField);
 				break;
 		}
 	}
 
 
 	public void showTextEditingPalette() {
+		if (inputType.isLimited()) {
+			UI.toast(this, R.string.text_editing_not_supported_in_this_app);
+		}
+
 		if (!mainView.isTextEditingPaletteShown()) {
 			stopVoiceInput();
 			mainView.showTextEditingPalette();

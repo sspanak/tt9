@@ -31,7 +31,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected InputConnection currentInputConnection = null;
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
-	@NonNull protected TextSelection textSelection = new TextSelection(null);
+	@NonNull protected TextSelection textSelection = new TextSelection(this,null);
 	protected SuggestionOps suggestionOps;
 	boolean isEnabled = false;
 
@@ -96,7 +96,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		currentInputConnection = connection;
 		inputType = new InputType(currentInputConnection, field);
 		textField = new TextField(currentInputConnection, field);
-		textSelection = new TextSelection(currentInputConnection);
+		textSelection = new TextSelection(this, currentInputConnection);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(settings, connection, inputType, textField);

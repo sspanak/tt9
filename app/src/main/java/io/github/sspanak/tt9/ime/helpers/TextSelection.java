@@ -1,18 +1,25 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.content.Context;
+import android.view.KeyEvent;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.util.Clipboard;
 
 public class TextSelection {
 	@Nullable private final InputConnection connection;
+	private final Context context;
 	private int currentStart = 0;
 	private int currentEnd = 0;
 
 
-	public TextSelection(@Nullable InputConnection connection) {
+	public TextSelection(Context context, @Nullable InputConnection connection) {
+		this.context = context;
 		this.connection = connection;
 		detectCursorPosition();
 	}
@@ -54,18 +61,35 @@ public class TextSelection {
 	}
 
 
-	public void copy() {
+	public boolean copy() {
+		CharSequence selectedText = getSelectedText();
+		if (selectedText.length() == 0) {
+			return false;
+		}
 
+		Clipboard.copy(context, getSelectedText());
+		return true;
 	}
 
 
-	public void cut() {
-
+	public void cut(@NonNull TextField textField) {
+		if (copy()) {
+			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+		}
 	}
 
 
-	public void paste() {
+	public void paste(@NonNull TextField textField) {
+		String clipboardText = Clipboard.paste(context);
+		if (clipboardText == null || clipboardText.isEmpty()) {
+			return;
+		}
 
+		if (currentStart != currentEnd) {
+			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+		}
+
+		textField.setText(clipboardText);
 	}
 
 
@@ -107,5 +131,22 @@ public class TextSelection {
 			currentStart = extractedText.startOffset + extractedText.selectionStart;
 			currentEnd = extractedText.startOffset + extractedText.selectionEnd;
 		}
+	}
+
+
+	private CharSequence getSelectedText() {
+		if (connection == null) {
+			return "";
+		}
+
+		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		if (extractedText == null) {
+			return "";
+		}
+
+
+		int start = Math.min(extractedText.selectionStart, extractedText.selectionEnd);
+		int end = Math.max(extractedText.selectionStart, extractedText.selectionEnd);
+		return extractedText.text.subSequence(start, end);
 	}
 }
