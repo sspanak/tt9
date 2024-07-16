@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.SystemSettings;
 import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
@@ -30,6 +31,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
 	protected SuggestionOps suggestionOps;
+	boolean isEnabled = false;
 
 	// input
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -47,11 +49,19 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected boolean shouldBeOff() {
-		return currentInputConnection == null || mInputMode.isPassthrough();
+		return !isEnabled || currentInputConnection == null || mInputMode.isPassthrough();
+	}
+
+	@Override
+	protected void onInit() {
+		super.onInit();
+		isEnabled = SystemSettings.isTT9Enabled(this);
 	}
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		isEnabled = SystemSettings.isTT9Enabled(this);
+
 		boolean restart = textField.equals(connection, field);
 
 		setInputField(connection, field);

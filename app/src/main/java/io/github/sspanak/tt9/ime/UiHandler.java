@@ -78,7 +78,7 @@ abstract class UiHandler extends AbstractHandler {
 	 * on how much time the restart takes, this may erase the current user input.
 	 */
 	protected void forceShowWindow() {
-		if (isInputViewShown() || !shouldBeVisible()) {
+		if (isInputViewShown() || !shouldBeVisible() || shouldBeOff()) {
 			return;
 		}
 
