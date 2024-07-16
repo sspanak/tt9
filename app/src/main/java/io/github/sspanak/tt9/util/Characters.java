@@ -39,6 +39,35 @@ public class Characters {
 		" ", "\n", "@", "_", "#", "%", "[", "]", "{", "}", "§", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
 
+	/**
+	 * The English punctuation filtered to contain only valid email characters.
+	 */
+	final public static ArrayList<ArrayList<String>> Email = new ArrayList<>(Arrays.asList(
+		new ArrayList<>(Arrays.asList("@", "_", "#", "%", "{", "}", "|", "^", "/", "=", "*", "+")),
+		new ArrayList<>(Arrays.asList(".", "-", "&", "~", "`", "'", "!", "?"))
+	));
+
+	/**
+	 * Special characters for phone number fields, including both characters for conveniently typing a phone number: "()-",
+	 * as well as command characters such as "," = "slight pause" and ";" = "wait" used in Japan and some other countries.
+	 */
+	final public static ArrayList<ArrayList<String>> Phone = new ArrayList<>(Arrays.asList(
+		new ArrayList<>(Arrays.asList("+", " ")),
+		new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ","))
+	));
+
+	/**
+	 * Special characters for all kinds of numeric fields: integer, decimal with +/- included as necessary.
+	 */
+	public static ArrayList<ArrayList<String>> getNumberSpecialCharacters(boolean decimal, boolean signed) {
+		ArrayList<ArrayList<String>> keyCharacters = new ArrayList<>();
+		keyCharacters.add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
+		if (decimal) {
+			keyCharacters.add(new ArrayList<>(Arrays.asList(".", ",")));
+		}
+		return keyCharacters;
+	}
+
 	final private static ArrayList<String> TextEmoticons = new ArrayList<>(Arrays.asList(
 		":)", ":D", ":P", ";)", "\\m/", ":-O", ":|", ":("
 	));

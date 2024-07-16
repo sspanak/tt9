@@ -39,9 +39,9 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive(settings, language);
+				return new ModePredictive(settings, inputType, language);
 			case MODE_ABC:
-				return new ModeABC(settings, language);
+				return new ModeABC(settings, inputType, language);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough();
 			default:
