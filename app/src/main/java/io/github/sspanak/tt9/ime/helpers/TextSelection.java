@@ -81,18 +81,15 @@ public class TextSelection {
 			return false;
 		}
 
-		Clipboard.copy(context, getSelectedText());
+		Clipboard.copy(context, selectedText);
 		return true;
 	}
 
 
-	public boolean cut(@NonNull TextField textField) {
+	public void cut(@NonNull TextField textField) {
 		if (copy()) {
 			textField.setText("");
-			return true;
 		}
-
-		return false;
 	}
 
 

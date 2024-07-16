@@ -5,6 +5,7 @@ import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
@@ -62,14 +63,10 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				textSelection.selectNextWord(isSystemRTL);
 				break;
 			case 7:
-				if (textSelection.cut(textField)) {
-					resetStatus();
-				}
+				textSelection.cut(textField);
 				break;
 			case 8:
-				if (textSelection.copy()) {
-					resetStatus();
-				}
+				textSelection.copy();
 				break;
 			case 9:
 				textSelection.paste(textField);
@@ -89,6 +86,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		stopVoiceInput();
 
 		mainView.showTextEditingPalette();
+		Clipboard.setOnChangeListener(this, this::resetStatus);
 		resetStatus();
 	}
 
@@ -104,6 +102,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 			mainView.showCommandPalette();
 		}
 
+		Clipboard.setOnChangeListener(this, null);
 		resetStatus();
 		return true;
 	}
