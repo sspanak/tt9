@@ -65,7 +65,7 @@ public class VoiceInputOps {
 
 
 	public boolean isListening() {
-		return listener.isListening();
+		return listener.isListening() && speechRecognizer != null;
 	}
 
 
@@ -100,7 +100,7 @@ public class VoiceInputOps {
 
 	public void stop() {
 		this.language = null;
-		if (isAvailable() && listener.isListening()) {
+		if (isAvailable() && isListening()) {
 			speechRecognizer.stopListening();
 		}
 	}
