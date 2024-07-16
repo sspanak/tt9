@@ -2,20 +2,31 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 
 public class ModeABC extends InputMode {
+	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
+
 	private final SettingsStore settings;
 	private boolean shouldSelectNextLetter = false;
 
 	@Override public int getId() { return MODE_ABC; }
 
-	ModeABC(SettingsStore settings, Language lang) {
+	ModeABC(SettingsStore settings, InputType inputType, Language lang) {
 		this.settings = settings;
 		changeLanguage(lang);
+
+		if (inputType.isEmail()) {
+			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));
+			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(1)));
+		}
 	}
 
 	@Override
@@ -44,7 +55,7 @@ public class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(language.getKeyCharacters(number));
+			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : language.getKeyCharacters(number));
 			suggestions.add(language.getKeyNumber(number));
 		}
 
@@ -66,7 +77,7 @@ public class ModeABC extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		if (digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
+		if (KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
 			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
 			return true;
 		}

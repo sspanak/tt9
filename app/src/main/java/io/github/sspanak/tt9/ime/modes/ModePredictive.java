@@ -15,11 +15,14 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
+
+	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	private final SettingsStore settings;
 
@@ -42,7 +45,7 @@ public class ModePredictive extends InputMode {
 	private boolean isCursorDirectionForward = false;
 
 
-	ModePredictive(SettingsStore settings, Language lang) {
+	ModePredictive(SettingsStore settings, InputType inputType, Language lang) {
 		changeLanguage(lang);
 		defaultTextCase();
 
@@ -53,6 +56,11 @@ public class ModePredictive extends InputMode {
 		this.settings = settings;
 
 		digitSequence = "";
+
+		if (inputType.isEmail()) {
+			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));
+			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(1)));
+		}
 	}
 
 
@@ -250,7 +258,7 @@ public class ModePredictive extends InputMode {
 	 */
 	private boolean loadStaticSuggestions(Runnable onLoad) {
 		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-			super.loadSpecialCharacters(language);
+			loadSpecialCharacters(language);
 			onLoad.run();
 			return true;
 		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
@@ -266,6 +274,19 @@ public class ModePredictive extends InputMode {
 		}
 
 		return false;
+	}
+
+
+	@Override
+	protected boolean loadSpecialCharacters(Language altLanguage) {
+		int number = digitSequence.charAt(0) - '0';
+		if (KEY_CHARACTERS.size() > number) {
+			suggestions.clear();
+			suggestions.addAll(KEY_CHARACTERS.get(number));
+			return true;
+		} else {
+			return super.loadSpecialCharacters(language);
+		}
 	}
 
 

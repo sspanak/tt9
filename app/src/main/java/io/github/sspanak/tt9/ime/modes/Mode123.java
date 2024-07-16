@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import io.github.sspanak.tt9.hacks.InputType;
@@ -21,50 +20,39 @@ public class Mode123 extends ModePassthrough {
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
+	private final boolean isEmailMode;
 
 
 	public Mode123(InputType inputType, Language language) {
 		this.language = language;
+		isEmailMode = inputType.isEmail();
 
 		if (inputType.isPhoneNumber()) {
-			getPhoneSpecialCharacters();
+			setSpecificSpecialCharacters(Characters.Phone);
 		} else if (inputType.isNumeric()) {
-			getNumberSpecialCharacters(inputType.isDecimal(), inputType.isSignedNumber());
+			setSpecificSpecialCharacters(Characters.getNumberSpecialCharacters(inputType.isDecimal(), inputType.isSignedNumber()));
+		} else if (inputType.isEmail()) {
+			setSpecificSpecialCharacters(Characters.Email);
 		} else {
-			getDefaultSpecialCharacters();
+			setDefaultSpecialCharacters();
+		}
+
+	}
+
+
+	private void setSpecificSpecialCharacters(ArrayList<ArrayList<String>> chars) {
+		for (ArrayList<String> group : chars) {
+			KEY_CHARACTERS.add(new ArrayList<>(group));
 		}
 	}
 
 
 	/**
-	 * getPhoneSpecialCharacters
-	 * Special characters for phone number fields, including both characters for conveniently typing a phone number: "()-",
-	 * as well as command characters such as "," = "slight pause" and ";" = "wait" used in Japan and some other countries.
-	 */
-	private void getPhoneSpecialCharacters() {
-		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("+", " ")));
-		KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList("-", "(", ")", ".", ";", ",")));
-	}
-
-
-	/**
-	 * getNumberSpecialCharacters
-	 * Special characters for all kinds of numeric fields: integer, decimal with +/- included as necessary.
-	 */
-	private void getNumberSpecialCharacters(boolean decimal, boolean signed) {
-		KEY_CHARACTERS.add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
-		if (decimal) {
-			KEY_CHARACTERS.add(new ArrayList<>(Arrays.asList(".", ",")));
-		}
-	}
-
-
-	/**
-	 * getDefaultSpecialCharacters
+	 * setDefaultSpecialCharacters
 	 * Special characters for when the user has selected 123 mode in a text field. In this case, we just
 	 * use the default list, but reorder it a bit for convenience.
 	 */
-	private void getDefaultSpecialCharacters() {
+	private void setDefaultSpecialCharacters() {
 		// 0-key
 		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
 		for (String character : Characters.Special) {
@@ -82,8 +70,9 @@ public class Mode123 extends ModePassthrough {
 		}
 	}
 
+
 	@Override protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		return !isEmailMode && digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
 	}
 
 
