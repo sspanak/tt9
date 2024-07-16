@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
 import android.content.Context;
-import android.view.KeyEvent;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
@@ -89,7 +88,7 @@ public class TextSelection {
 
 	public boolean cut(@NonNull TextField textField) {
 		if (copy()) {
-			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			textField.setText("");
 			return true;
 		}
 
@@ -99,15 +98,9 @@ public class TextSelection {
 
 	public void paste(@NonNull TextField textField) {
 		String clipboardText = Clipboard.paste(context);
-		if (clipboardText == null || clipboardText.isEmpty()) {
-			return;
+		if (!clipboardText.isEmpty()) {
+			textField.setText(clipboardText);
 		}
-
-		if (!isEmpty()) {
-			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-		}
-
-		textField.setText(clipboardText);
 	}
 
 

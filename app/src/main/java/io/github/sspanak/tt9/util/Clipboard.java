@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -29,18 +28,17 @@ public class Clipboard {
 		copy(context, label, text);
 	}
 
-	@Nullable public static String paste(@NonNull Context context) {
+	@NonNull public static String paste(@NonNull Context context) {
 		ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 		ClipData clip = clipboard.getPrimaryClip();
-		return clip != null ? clip.getItemAt(0).getText().toString() : null;
+		return clip != null ? clip.getItemAt(0).getText().toString() : "";
 	}
 
 
 	@NonNull public static String getPreview(@NonNull Context context) {
 		String text = paste(context);
-		if (text == null) {
-			return "";
-		} else if (text.length() > SettingsStore.CLIPBOARD_PREVIEW_LENGTH) {
+
+		if (text.length() > SettingsStore.CLIPBOARD_PREVIEW_LENGTH) {
 			return text.substring(0, SettingsStore.CLIPBOARD_PREVIEW_LENGTH) + "...";
 		}
 
