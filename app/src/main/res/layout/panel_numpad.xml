@@ -126,7 +126,7 @@
 			style="@style/numSeparator" />
 
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
-			android:id="@+id/soft_key_voice_input"
+			android:id="@+id/soft_key_rf3"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
@@ -157,11 +157,6 @@
 		<include
 			android:id="@+id/numpad_row_4"
 			layout="@layout/panel_numpad_row_4" />
-
-		<include
-			layout="@layout/panel_numpad_text_editing_row_4"
-			android:id="@+id/text_editing_row_4"
-			android:visibility="gone" />
 
 		<View
 			android:id="@+id/separator_4_2"

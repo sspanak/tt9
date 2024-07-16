@@ -37,7 +37,6 @@ public class SoftKeyRF3 extends SoftKey {
 		} else {
 			tt9.showTextEditingPalette();
 		}
-
 	}
 
 	@Override

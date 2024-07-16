@@ -91,28 +91,31 @@ class MainLayoutNumpad extends BaseMainLayout {
 		isTextEditingShown = true;
 
 		for (SoftKey key : getKeys()) {
-			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
+			int keyId = key.getId();
+
+			if (keyId == R.id.soft_key_0) {
+				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric());
+			} else if (key.getClass().equals(SoftNumberKey.class)) {
 				key.setVisibility(View.GONE);
+			}
+
+			if (key.getClass().equals(SoftPunctuationKey.class)) {
+				key.setVisibility(View.INVISIBLE);
 			}
 
 			if (key.getClass().equals(SoftCommandKey.class)) {
 				key.setVisibility(View.VISIBLE);
 			}
 
-			int keyId = key.getId();
 			if (
 				keyId == R.id.soft_key_add_word
 				|| keyId == R.id.soft_key_input_mode
 				|| keyId == R.id.soft_key_language
-				|| keyId == R.id.soft_key_voice_input
+				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(false);
 			}
-		}
-
-		for (View placeholder : getKeyPlaceholders()) {
-			placeholder.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -123,6 +126,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		for (SoftKey key : getKeys()) {
 			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
 				key.setVisibility(View.VISIBLE);
+				key.setEnabled(true);
 			}
 
 			if (key.getClass().equals(SoftCommandKey.class)) {
@@ -134,15 +138,11 @@ class MainLayoutNumpad extends BaseMainLayout {
 				keyId == R.id.soft_key_add_word
 				|| keyId == R.id.soft_key_input_mode
 				|| keyId == R.id.soft_key_language
-				|| keyId == R.id.soft_key_voice_input
+				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(true);
 			}
-		}
-
-		for (View placeholder : getKeyPlaceholders()) {
-			placeholder.setVisibility(View.GONE);
 		}
 	}
 
@@ -251,14 +251,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		return keys;
-	}
-
-
-	private ArrayList<View> getKeyPlaceholders() {
-		return new ArrayList<>(Arrays.asList(
-			view.findViewById(R.id.soft_key_placeholder_101),
-			view.findViewById(R.id.soft_key_placeholder_102)
-		));
 	}
 
 

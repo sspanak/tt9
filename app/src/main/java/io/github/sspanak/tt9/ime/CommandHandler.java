@@ -44,9 +44,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	private void onCommand(int key) {
 		switch (key) {
-			case 0:
-				hideCommandPalette();
-				break;
 			case 1:
 				showSettings();
 				break;

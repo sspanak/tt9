@@ -42,8 +42,10 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	private void onCommand(int key) {
 		switch (key) {
 			case 0:
-				hideTextEditingPalette();
-				return;
+				if (!mInputMode.isNumeric()) {
+					textField.setText(" ");
+				}
+				break;
 			case 1:
 				textSelection.selectNextChar(!isSystemRTL);
 				break;
