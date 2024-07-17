@@ -62,7 +62,6 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	public void onOrientationChanged() {
 		hideCommandPalette();
-		calculateSnapHeights();
 		render();
 	}
 
