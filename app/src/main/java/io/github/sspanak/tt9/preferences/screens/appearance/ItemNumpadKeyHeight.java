@@ -29,6 +29,7 @@ public class ItemNumpadKeyHeight extends ItemDropDown {
 		options.put((int) Math.round(baseSize * 0.9), "90 ％");
 		options.put((int) Math.round(baseSize * 0.95), "95 ％");
 		options.put(baseSize, "100 ％");
+		options.put((int) Math.round(baseSize * 1.05), "105 ％");
 		options.put((int) Math.round(baseSize * 1.1), "110 ％");
 		options.put((int) Math.round(baseSize * 1.2), "120 ％");
 		options.put((int) Math.round(baseSize * 1.33), "133 ％");
