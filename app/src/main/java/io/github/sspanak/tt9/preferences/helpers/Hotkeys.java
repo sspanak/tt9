@@ -74,7 +74,8 @@ public class Hotkeys {
 			previousSuggestion,
 			nextSuggestion,
 			KeyEvent.KEYCODE_POUND,
-			-KeyEvent.KEYCODE_POUND // negative means "hold"
+			-KeyEvent.KEYCODE_POUND, // negative means "hold"
+			KeyEvent.KEYCODE_UNKNOWN // unassigned
 		);
 	}
 

@@ -57,14 +57,12 @@
 		android:layout_height="@dimen/numpad_key_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyLF2
 			android:id="@+id/soft_key_add_word"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_weight="@dimen/numpad_control_key_layout_weight"
-			android:text="＋"
-			android:textStyle="bold" />
+			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 		<View
 			android:id="@+id/separator_2_1"

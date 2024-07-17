@@ -28,6 +28,7 @@ public class HotkeysScreen extends BaseScreenFragment {
 			findPreference(SectionKeymap.ITEM_NEXT_SUGGESTION),
 			findPreference(SectionKeymap.ITEM_NEXT_INPUT_MODE),
 			findPreference(SectionKeymap.ITEM_NEXT_LANGUAGE),
+			findPreference(SectionKeymap.ITEM_TAB),
 		};
 		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity);
 		section.populate().activate();

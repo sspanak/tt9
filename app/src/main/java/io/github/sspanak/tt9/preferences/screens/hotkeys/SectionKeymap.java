@@ -20,6 +20,7 @@ public class SectionKeymap {
 	public static final String ITEM_NEXT_SUGGESTION = "key_next_suggestion";
 	public static final String ITEM_NEXT_INPUT_MODE = "key_next_input_mode";
 	public static final String ITEM_NEXT_LANGUAGE = "key_next_language";
+	public static final String ITEM_TAB = "key_tab";
 
 	private final Hotkeys hotkeys;
 	private final Collection<DropDownPreference> items;
