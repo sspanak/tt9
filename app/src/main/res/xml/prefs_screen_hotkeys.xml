@@ -34,6 +34,10 @@
 		app:key="key_next_input_mode"
 		app:title="@string/function_next_mode" />
 
+	<DropDownPreference
+		app:key="key_tab"
+		app:title="@string/key_tab" />
+
 	<Preference
 		app:key="reset_keys"
 		app:title="@string/function_reset_keys_title" />

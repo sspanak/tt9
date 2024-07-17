@@ -90,6 +90,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyScrollSuggestion(validateOnly, false);
 		}
 
+		if (keyCode == settings.getKeyTab()) {
+			return onTab(validateOnly);
+		}
+
 		return false;
 	}
 
@@ -237,6 +241,25 @@ public abstract class HotkeyHandler extends CommandHandler {
 		} else {
 			showCommandPalette();
 			forceShowWindow();
+		}
+
+		return true;
+	}
+
+
+	public boolean onTab(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (validateOnly) {
+			return true;
+		}
+
+		if (inputType.isMultilineText()) {
+			return onText("\t", validateOnly);
+		} else {
+			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
 		}
 
 		return true;

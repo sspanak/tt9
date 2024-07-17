@@ -20,7 +20,8 @@ class SettingsHotkeys extends SettingsHacks {
 		int previousSuggestion,
 		int nextSuggestion,
 		int nextInputMode,
-		int nextLanguage
+		int nextLanguage,
+		int tab
 	) {
 		prefsEditor
 			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
@@ -31,6 +32,7 @@ class SettingsHotkeys extends SettingsHacks {
 			.putString(SectionKeymap.ITEM_NEXT_SUGGESTION, String.valueOf(nextSuggestion))
 			.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode))
 			.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage))
+			.putString(SectionKeymap.ITEM_TAB, String.valueOf(tab))
 			.putBoolean("hotkeys_v2_initialized", true)
 			.apply();
 	}
@@ -64,5 +66,8 @@ class SettingsHotkeys extends SettingsHacks {
 	}
 	public int getKeyCommandPalette() {
 		return getFunctionKey(SectionKeymap.ITEM_COMMAND_PALETTE);
+	}
+	public int getKeyTab() {
+		return getFunctionKey(SectionKeymap.ITEM_TAB);
 	}
 }
