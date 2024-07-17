@@ -202,11 +202,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	void resetHeight() {
-		height = 0;
-	}
-
-
 	@Override
 	void render() {
 		getView();

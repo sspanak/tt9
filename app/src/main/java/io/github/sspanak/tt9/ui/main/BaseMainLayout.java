@@ -81,11 +81,11 @@ abstract class BaseMainLayout {
 		return 0;
 	}
 
+
 	int getHeight() {
 		return getHeight(false);
 	}
 
-	void resetHeight() {}
 
 	abstract void showCommandPalette();
 	abstract void hideCommandPalette();
@@ -93,7 +93,6 @@ abstract class BaseMainLayout {
 	abstract void showTextEditingPalette();
 	abstract void hideTextEditingPalette();
 	abstract boolean isTextEditingPaletteShown();
-
 
 
 	/**

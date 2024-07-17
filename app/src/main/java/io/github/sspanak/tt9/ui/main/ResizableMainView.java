@@ -37,7 +37,6 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	@Override
 	public boolean createInputView() {
-
 		if (!super.createInputView()) {
 			return false;
 		}
@@ -194,6 +193,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 	private void fitMain() {
+		calculateSnapHeights();
 		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
 		if (main instanceof MainLayoutNumpad) {
