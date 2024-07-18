@@ -107,11 +107,14 @@ class MainLayoutNumpad extends BaseMainLayout {
 				key.setVisibility(View.VISIBLE);
 			}
 
+			if (keyId == R.id.soft_key_rf3) {
+				key.render();
+			}
+
 			if (
 				keyId == R.id.soft_key_add_word
 				|| keyId == R.id.soft_key_input_mode
 				|| keyId == R.id.soft_key_language
-				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(false);
@@ -133,12 +136,17 @@ class MainLayoutNumpad extends BaseMainLayout {
 				key.setVisibility(View.GONE);
 			}
 
+
 			int keyId = key.getId();
+
+			if (keyId == R.id.soft_key_rf3) {
+				key.render();
+			}
+
 			if (
 				keyId == R.id.soft_key_add_word
 				|| keyId == R.id.soft_key_input_mode
 				|| keyId == R.id.soft_key_language
-				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(true);

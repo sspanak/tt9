@@ -53,6 +53,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return mInputMode.is123() && inputType.isPhoneNumber();
 	}
 
+	public boolean isTextEditingActive() {
+		return mainView != null && mainView.isTextEditingPaletteShown();
+	}
+
 	public boolean isVoiceInputActive() {
 		return voiceInputOps != null && voiceInputOps.isListening();
 	}

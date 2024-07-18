@@ -93,7 +93,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	}
 
 
-	private boolean hideTextEditingPalette() {
+	public boolean hideTextEditingPalette() {
 		if (!mainView.isTextEditingPaletteShown()) {
 			return false;
 		}
