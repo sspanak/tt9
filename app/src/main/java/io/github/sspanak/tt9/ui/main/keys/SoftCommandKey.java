@@ -48,7 +48,7 @@ public class SoftCommandKey extends SoftNumberKey {
 
 
 	protected String getTextSubTitle(int resId) {
-		setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
+		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE * 0.8f;
 		return getContext().getString(resId);
 	}
 
