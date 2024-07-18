@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.LocaleList;
@@ -13,7 +14,7 @@ public class SystemSettings {
 	private static InputMethodManager inputManager;
 	private static String packageName;
 
-	public static boolean isTT9Enabled(Context context) {
+	public static boolean isTT9Enabled(Activity context) {
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;
 		packageName = packageName == null ? context.getPackageName() : packageName;
 
