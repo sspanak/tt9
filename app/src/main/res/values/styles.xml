@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<style name="TT9Theme" parent="Theme.AppCompat.DayNight" />
+
 	<style name="hSeparator">
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">3dp</item>
