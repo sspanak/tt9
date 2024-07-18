@@ -17,10 +17,12 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
 	@NonNull
 	private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
+	private final Handler deathDetector = new Handler(Looper.getMainLooper());
 
 
 	@Override
@@ -116,6 +118,8 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		deathDetector.removeCallbacksAndMessages(null);
+
 		if (!super.onStart(connection, field)) {
 			return false;
 		}
@@ -154,6 +158,33 @@ public class TraditionalT9 extends MainViewHandler {
 			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) WordStoreAsync.normalizeNext(); },
 			SettingsStore.WORD_NORMALIZATION_DELAY
 		);
+	}
+
+
+	/**
+	 * On Android 11 the IME is sometimes not killed when the user switches to a different one.
+	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
+	 */
+	protected void onDeath() {
+		if (SystemSettings.isTT9Active(this)) {
+			Logger.w("onDeath", "===> Still active, rescheduling");
+			deathDetector.postDelayed(this::onDeath, 2000);
+			return;
+		} else {
+			deathDetector.removeCallbacksAndMessages(null);
+		}
+
+		Logger.w("onDeath", "===> Killing self");
+		requestHideSelf(0);
+		onStop();
+		stopSelf();
+	}
+
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		onDeath();
 	}
 
 
