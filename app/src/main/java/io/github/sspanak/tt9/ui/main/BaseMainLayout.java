@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 
@@ -47,7 +49,11 @@ abstract class BaseMainLayout {
 
 	protected View getView() {
 		if (view == null) {
-			view = View.inflate(tt9.getApplicationContext(), xml, null);
+			// Adding the ContextThemeWrapper fixes this error log:
+			// "View class SoftKeyXXX is an AppCompat widget that can only be used with a
+			// Theme.AppCompat theme (or descendant)."
+			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TT9Theme);
+			view = View.inflate(themedCtx, xml, null);
 		}
 
 		return view;
