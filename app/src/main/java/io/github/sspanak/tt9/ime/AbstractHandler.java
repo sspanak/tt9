@@ -6,10 +6,11 @@ import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class AbstractHandler extends InputMethodService {
 	// hardware key handlers
-	abstract protected boolean onBack();
+	abstract protected Ternary onBack();
 	abstract public boolean onBackspace();
 	abstract public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly);
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);

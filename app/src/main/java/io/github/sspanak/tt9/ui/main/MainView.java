@@ -50,6 +50,8 @@ public class MainView {
 	}
 
 	public void render() {
+		main.hideCommandPalette();
+		main.hideTextEditingPalette();
 		main.render();
 	}
 
@@ -71,5 +73,21 @@ public class MainView {
 
 	public boolean isCommandPaletteShown() {
 		return main != null && main.isCommandPaletteShown();
+	}
+
+	public void showTextEditingPalette() {
+		if (main != null) {
+			main.showTextEditingPalette();
+		}
+	}
+
+	public void hideTextEditingPalette() {
+		if (main != null) {
+			main.hideTextEditingPalette();
+		}
+	}
+
+	public boolean isTextEditingPaletteShown() {
+		return main != null && main.isTextEditingPaletteShown();
 	}
 }

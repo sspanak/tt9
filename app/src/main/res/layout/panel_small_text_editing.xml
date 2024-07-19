@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="@layout/main_small"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+		<LinearLayout
+			android:id="@+id/text_editing_keys_small"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/numpad_key_height">
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_101"
+				android:drawableBottom="@drawable/ic_dpad_left"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_1"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_102"
+				android:drawableBottom="@drawable/ic_txt_select_none"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_2"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_103"
+				android:drawableBottom="@drawable/ic_dpad_right"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_3"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_104"
+				android:drawableBottom="@drawable/ic_txt_word_back"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_4"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_105"
+				android:drawableBottom="@drawable/ic_txt_select_all"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_5"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_106"
+				android:drawableBottom="@drawable/ic_txt_word_forward"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_6"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_107"
+				android:drawableBottom="@drawable/ic_txt_cut"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:layout_width="0dp"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_7"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_108"
+				android:drawableBottom="@drawable/ic_txt_copy"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:layout_width="0dp"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+			<View
+				android:id="@+id/separator_10_8"
+				style="@style/numSeparator" />
+
+			<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+				style="@android:style/Widget.Holo.Button.Borderless"
+				android:id="@+id/soft_key_109"
+				android:drawableBottom="@drawable/ic_txt_paste"
+				android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+				android:layout_width="0dp"
+				android:textSize="@dimen/soft_key_drawable_title_size"
+				android:layout_height="match_parent"
+				android:layout_weight="1" />
+
+	</LinearLayout>
+</LinearLayout>

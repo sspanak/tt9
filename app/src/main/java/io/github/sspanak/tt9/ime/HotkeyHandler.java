@@ -1,21 +1,15 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
-import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Ternary;
 
 public abstract class HotkeyHandler extends CommandHandler {
-	private boolean isSystemRTL;
-
-
 	@Override
 	protected void onInit() {
 		super.onInit();
@@ -26,15 +20,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	@Override
-	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
-		return super.onStart(connection, field);
-	}
-
-
-	@Override
-	public boolean onBack() {
-		return super.onBack() || settings.isMainLayoutNumpad();
+	public Ternary onBack() {
+		if (super.onBack() == Ternary.TRUE) {
+			return Ternary.TRUE;
+		} else if (settings.isMainLayoutNumpad()) {
+			return Ternary.ALTERNATIVE;
+		} else {
+			return Ternary.FALSE;
+		}
 	}
 
 
@@ -102,7 +95,12 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyMoveCursor(boolean backward) {
-		return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
+		if (textSelection.isEmpty()) {
+			return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
+		} else {
+			textSelection.clear(backward);
+			return true;
+		}
 	}
 
 

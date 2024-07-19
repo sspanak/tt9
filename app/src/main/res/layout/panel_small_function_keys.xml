@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:ignore="HardcodedText,KeyboardInaccessibleWidget"
+	tools:showIn="@layout/main_small"
+	android:layout_width="match_parent"
+	android:layout_height="@dimen/soft_key_height"
+	android:baselineAligned="true"
+	android:orientation="horizontal">
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette
+		android:id="@+id/soft_key_command_palette"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="3"
+		android:focusable="false"
+		android:text="🛠"
+		android:textSize="@dimen/soft_key_icon_size" />
+
+	<View
+		android:id="@+id/main_separator_left"
+		style="@style/hSeparator"
+		android:background="@drawable/button_separator_dark" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
+		android:id="@+id/soft_key_ok"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="5"
+		android:focusable="false"
+		android:text="@android:string/ok" />
+
+	<View
+		android:id="@+id/main_separator_right"
+		style="@style/hSeparator"
+		android:background="@drawable/button_separator_dark" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
+		android:id="@+id/soft_key_backspace"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="3"
+		android:focusable="false"
+		android:text="⌫"
+		android:textSize="@dimen/soft_key_icon_size" />
+</LinearLayout>

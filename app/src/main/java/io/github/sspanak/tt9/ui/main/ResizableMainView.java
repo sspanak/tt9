@@ -24,7 +24,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	public ResizableMainView(TraditionalT9 tt9) {
 		super(tt9);
-		resetHeight();
+		calculateSnapHeights();
 	}
 
 
@@ -35,27 +35,9 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	private void calculateInitialHeight() {
-		if (main == null) {
-			return;
-		}
-
-		if (tt9.getSettings().isMainLayoutNumpad()) {
-			height = heightNumpad;
-		} else if (tt9.getSettings().isMainLayoutSmall()) {
-			height = heightSmall;
-		} else {
-			height = heightTray;
-		}
-	}
-
-
 	@Override
 	public boolean createInputView() {
-
 		if (!super.createInputView()) {
-			// recalculate the total height in case the user has changed the key height in the settings
-			resetHeight();
 			return false;
 		}
 
@@ -79,8 +61,6 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	public void onOrientationChanged() {
-		calculateSnapHeights();
-		calculateInitialHeight();
 		hideCommandPalette();
 		render();
 	}
@@ -211,14 +191,51 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		return true;
 	}
 
+	private void fitMain() {
+		calculateSnapHeights();
+		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
-	private void resetHeight() {
-		if (main != null) {
-			main.resetHeight();
+		if (main instanceof MainLayoutNumpad) {
+			heightLow = heightSmall;
+			heightHigh = heightNumpad;
+		} else if (main instanceof MainLayoutSmall) {
+			heightLow = 0;
+			heightHigh = Math.max(heightSmall, heightMain); // make room for the command palette
+		} else {
+			heightLow = 0;
+			heightHigh = Math.max(heightTray, heightMain); // make room for the command palette
 		}
 
-		calculateSnapHeights();
-		calculateInitialHeight();
-		setHeight(height, heightSmall, heightNumpad);
+		setHeight(heightMain, heightLow, heightHigh);
+	}
+
+	@Override
+	public void showCommandPalette() {
+		super.showCommandPalette();
+		fitMain();
+	}
+
+	@Override
+	public void hideCommandPalette() {
+		super.hideCommandPalette();
+		fitMain();
+	}
+
+	@Override
+	public void showTextEditingPalette() {
+		super.showTextEditingPalette();
+		fitMain();
+	}
+
+	@Override
+	public void hideTextEditingPalette() {
+		super.hideTextEditingPalette();
+		fitMain();
+	}
+
+	@Override
+	public void render() {
+		super.render();
+		fitMain();
 	}
 }

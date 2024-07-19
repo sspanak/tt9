@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,19 +13,20 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
 
 class MainLayoutSmall extends MainLayoutTray {
-	private int height;
-
 	MainLayoutSmall(TraditionalT9 tt9) {
 		super(tt9);
 	}
 
-	int getHeight() {
-		if (height <= 0) {
-			Resources resources = tt9.getResources();
-			height =
-				resources.getDimensionPixelSize(R.dimen.soft_key_height) +
-				resources.getDimensionPixelSize(R.dimen.candidate_height);
+	@Override
+	int getHeight(boolean forceRecalculate) {
+		if (height <= 0 || forceRecalculate) {
+			height = super.getHeight(forceRecalculate);
+
+			if (!isCommandPaletteShown() && !isTextEditingPaletteShown()) {
+				height += tt9.getResources().getDimensionPixelSize(R.dimen.soft_key_height);
+			}
 		}
+
 		return height;
 	}
 

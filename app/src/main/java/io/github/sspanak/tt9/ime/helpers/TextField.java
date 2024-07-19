@@ -245,10 +245,26 @@ public class TextField extends InputField {
 			return false;
 		}
 
-		int keyCode = backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
-		connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
-		connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, keyCode));
+		sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
 
 		return true;
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode) {
+		return sendDownUpKeyEvents(keyCode, false, false);
+	}
+
+
+	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
+	if (connection != null) {
+			int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
+			metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
+			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);
+			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, metaState);
+			return connection.sendKeyEvent(downEvent) && connection.sendKeyEvent(upEvent);
+		}
+
+		return false;
 	}
 }

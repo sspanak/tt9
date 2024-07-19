@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -16,13 +17,15 @@ public class AppHacks {
 	private final InputType inputType;
 	private final SettingsStore settings;
 	private final TextField textField;
+	private final TextSelection textSelection;
 
 
-	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField) {
+	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField, TextSelection textSelection) {
 		this.inputConnection = inputConnection;
 		this.inputType = inputType;
 		this.settings = settings;
 		this.textField = textField;
+		this.textSelection = textSelection;
 	}
 
 
@@ -51,8 +54,12 @@ public class AppHacks {
 			return false;
 		}
 
-		// When there is no text, allow double function keys to function normally (e.g. "Back" navigates back)
-		return inputMode.getSuggestions().isEmpty() && textField.getStringBeforeCursor(1).isEmpty();
+		// When no text is selected and the cursor is at the beginning,
+		// allow double function keys to function normally (e.g. "Back" navigates back)
+		return
+			inputMode.getSuggestions().isEmpty()
+			&& textSelection.isEmpty()
+			&& textField.getStringBeforeCursor(1).isEmpty();
 	}
 
 
@@ -63,7 +70,7 @@ public class AppHacks {
 	 */
 	public boolean onAction(int action) {
 		if (inputType.isSonimSearchField(action)) {
-			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		return false;
@@ -76,7 +83,7 @@ public class AppHacks {
 	 */
 	public boolean onMoveCursor(boolean backward) {
 		if (inputType.isRustDesk() || inputType.isTermux()) {
-			return sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+			return textField.sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
 		}
 
 		return false;
@@ -119,7 +126,7 @@ public class AppHacks {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
 			// Any extra installed apps are likely not designed for hardware keypads, so again,
 			// we don't want to send DPAD_CENTER to them.
-			return sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
 		// The rest of the cases are probably system apps or numeric fields, which should
@@ -138,30 +145,14 @@ public class AppHacks {
 			return false;
 		}
 
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
-		sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
+		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
 
 		return true;
-	}
-
-
-	private boolean sendDownUpKeyEvents(int keyCode) {
-		return sendDownUpKeyEvents(keyCode, false);
-	}
-
-
-	private boolean sendDownUpKeyEvents(int keyCode, boolean shift) {
-		if (inputConnection != null) {
-			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
-			KeyEvent upEvent = new KeyEvent(0, 0, KeyEvent.ACTION_UP, keyCode, 0, shift ? KeyEvent.META_SHIFT_ON : 0);
-			return inputConnection.sendKeyEvent(downEvent) && inputConnection.sendKeyEvent(upEvent);
-		}
-
-		return false;
 	}
 }

@@ -5,6 +5,7 @@ import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Ternary;
 
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
@@ -24,9 +25,9 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 	@Override
-	protected boolean onBack() {
+	protected Ternary onBack() {
 		stopVoiceInput();
-		return false; // we don't want to abort other operations, we just silently stop voice input
+		return Ternary.FALSE; // we don't want to abort other operations, we just silently stop voice input
 	}
 
 	@Override

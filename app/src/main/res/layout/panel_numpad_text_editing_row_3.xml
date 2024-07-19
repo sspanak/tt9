@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+		android:id="@+id/soft_key_107"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:drawableBottom="@drawable/ic_txt_cut"
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+		android:id="@+id/soft_key_108"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:drawableBottom="@drawable/ic_txt_copy"
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
+
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+		android:id="@+id/soft_key_109"
+		style="@android:style/Widget.Holo.Button.Borderless"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:drawableBottom="@drawable/ic_txt_paste"
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
+		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:visibility="gone" />
+</merge>

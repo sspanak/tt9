@@ -7,17 +7,17 @@ import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
+import io.github.sspanak.tt9.util.Clipboard;
+import io.github.sspanak.tt9.util.Ternary;
 
-abstract public class CommandHandler extends VoiceHandler {
+abstract public class CommandHandler extends TextEditingHandler {
 	@Override
-	protected boolean onBack() {
-		return super.onBack() || hideCommandPalette();
-	}
-
-
-	@Override
-	public boolean onBackspace() {
-		return hideCommandPalette() || super.onBackspace();
+	protected Ternary onBack() {
+		if (hideCommandPalette()) {
+			return Ternary.TRUE;
+		} else {
+			return super.onBack();
+		}
 	}
 
 
@@ -44,9 +44,6 @@ abstract public class CommandHandler extends VoiceHandler {
 
 	private void onCommand(int key) {
 		switch (key) {
-			case 0:
-				changeKeyboard();
-				break;
 			case 1:
 				showSettings();
 				break;
@@ -56,6 +53,12 @@ abstract public class CommandHandler extends VoiceHandler {
 			case 3:
 				toggleVoiceInput();
 				break;
+			case 5:
+				showTextEditingPalette();
+				break;
+			case 8:
+				changeKeyboard();
+				break;
 		}
 	}
 
@@ -63,6 +66,9 @@ abstract public class CommandHandler extends VoiceHandler {
 	protected void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
+		} if (mainView.isTextEditingPaletteShown()) {
+			String preview = Clipboard.getPreview(this);
+			statusBar.setText(preview.isEmpty() ? getString(R.string.commands_select_command) : "[ \"" + preview + "\" ]");
 		} else {
 			statusBar.setText(mInputMode);
 		}

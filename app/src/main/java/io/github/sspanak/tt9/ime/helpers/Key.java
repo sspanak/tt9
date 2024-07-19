@@ -5,19 +5,30 @@ import android.view.KeyEvent;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Ternary;
 
 public class Key {
-	private static final HashMap<Integer, Boolean> handledKeys = new HashMap<>();
+	private static final HashMap<Integer, Ternary> handledKeys = new HashMap<>();
+
+
+	public static void setHandled(int keyCode, Ternary handled) {
+		handledKeys.put(keyCode, handled);
+	}
 
 
 	public static boolean setHandled(int keyCode, boolean handled) {
-		handledKeys.put(keyCode, handled);
+		handledKeys.put(keyCode, handled ? Ternary.TRUE : Ternary.FALSE);
 		return handled;
 	}
 
 
 	public static boolean isHandled(int keyCode) {
-		return Boolean.TRUE.equals(handledKeys.get(keyCode));
+		return handledKeys.containsKey(keyCode) && handledKeys.get(keyCode) == Ternary.TRUE;
+	}
+
+
+	public static boolean isHandledInSuper(int keyCode) {
+		return handledKeys.containsKey(keyCode) && handledKeys.get(keyCode) == Ternary.ALTERNATIVE;
 	}
 
 

@@ -15,10 +15,14 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.ui.main.keys.SoftCommandKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.ui.main.keys.SoftNumberKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey;
 
 class MainLayoutNumpad extends BaseMainLayout {
+	private boolean isTextEditingShown = false;
 	private int height;
 
 
@@ -82,6 +86,80 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override boolean isCommandPaletteShown() { return false; }
 
 
+	@Override
+	void showTextEditingPalette() {
+		isTextEditingShown = true;
+
+		for (SoftKey key : getKeys()) {
+			int keyId = key.getId();
+
+			if (keyId == R.id.soft_key_0) {
+				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric());
+			} else if (key.getClass().equals(SoftNumberKey.class)) {
+				key.setVisibility(View.GONE);
+			}
+
+			if (key.getClass().equals(SoftPunctuationKey.class)) {
+				key.setVisibility(View.INVISIBLE);
+			}
+
+			if (key.getClass().equals(SoftCommandKey.class)) {
+				key.setVisibility(View.VISIBLE);
+			}
+
+			if (keyId == R.id.soft_key_rf3) {
+				key.render();
+			}
+
+			if (
+				keyId == R.id.soft_key_add_word
+				|| keyId == R.id.soft_key_input_mode
+				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_filter_suggestions
+			) {
+				key.setEnabled(false);
+			}
+		}
+	}
+
+	@Override
+	void hideTextEditingPalette() {
+		isTextEditingShown = false;
+
+		for (SoftKey key : getKeys()) {
+			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
+				key.setVisibility(View.VISIBLE);
+				key.setEnabled(true);
+			}
+
+			if (key.getClass().equals(SoftCommandKey.class)) {
+				key.setVisibility(View.GONE);
+			}
+
+
+			int keyId = key.getId();
+
+			if (keyId == R.id.soft_key_rf3) {
+				key.render();
+			}
+
+			if (
+				keyId == R.id.soft_key_add_word
+				|| keyId == R.id.soft_key_input_mode
+				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_filter_suggestions
+			) {
+				key.setEnabled(true);
+			}
+		}
+	}
+
+	@Override
+	boolean isTextEditingPaletteShown() {
+		return isTextEditingShown;
+	}
+
+
 	/**
 	 * Uses the key height from the settings, but if it takes up too much of the screen, it will
 	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode
@@ -120,8 +198,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	int getHeight() {
-		if (height <= 0) {
+	int getHeight(boolean forceRecalculate) {
+		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 			height = getKeyHeightCompat() * 4
 				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
@@ -129,11 +207,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 
 		return height;
-	}
-
-
-	void resetHeight() {
-		height = 0;
 	}
 
 
@@ -178,8 +251,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 			}
 		}
 
-		ViewGroup statusBarContainer = view.findViewById(R.id.status_bar_container);
-		keys.addAll(getKeysFromContainer(statusBarContainer));
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		return keys;
 	}

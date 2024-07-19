@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
@@ -26,10 +27,11 @@ import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
-	@NonNull protected AppHacks appHacks = new AppHacks(null,null, null, null);
+	@NonNull protected AppHacks appHacks = new AppHacks(null,null, null, null, null);
 	protected InputConnection currentInputConnection = null;
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
+	@NonNull protected TextSelection textSelection = new TextSelection(this,null);
 	protected SuggestionOps suggestionOps;
 	boolean isEnabled = false;
 
@@ -94,9 +96,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		currentInputConnection = connection;
 		inputType = new InputType(currentInputConnection, field);
 		textField = new TextField(currentInputConnection, field);
+		textSelection = new TextSelection(this, currentInputConnection);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
-		appHacks = new AppHacks(settings, connection, inputType, textField);
+		appHacks = new AppHacks(settings, connection, inputType, textField, textSelection);
 		suggestionOps.setTextField(textField);
 	}
 
@@ -288,6 +291,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// Logger.d("onUpdateSelection", "oldSelStart: " + oldSelStart + " oldSelEnd: " + oldSelEnd + " newSelStart: " + newSelStart + " oldSelEnd: " + oldSelEnd + " candidatesStart: " + candidatesStart + " candidatesEnd: " + candidatesEnd);
 
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
+		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
 
 		// in case the app has modified the InputField and moved the cursor without notifiying us...
 		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {

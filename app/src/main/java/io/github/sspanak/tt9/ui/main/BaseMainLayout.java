@@ -77,15 +77,23 @@ abstract class BaseMainLayout {
 	}
 
 
-	int getHeight() {
+	int getHeight(boolean forceRecalculate) {
 		return 0;
 	}
 
-	void resetHeight() {}
+
+	int getHeight() {
+		return getHeight(false);
+	}
+
 
 	abstract void showCommandPalette();
 	abstract void hideCommandPalette();
 	abstract boolean isCommandPaletteShown();
+	abstract void showTextEditingPalette();
+	abstract void hideTextEditingPalette();
+	abstract boolean isTextEditingPaletteShown();
+
 
 	/**
 	 * render

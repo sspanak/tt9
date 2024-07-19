@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="@layout/main_numpad"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<!-- Row 1 -->
+	<LinearLayout
+		tools:ignore="HardcodedText,KeyboardInaccessibleWidget"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/numpad_key_height"
+		android:layoutDirection="ltr">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettings
+			android:id="@+id/soft_key_settings"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:text="⚙"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+		<View
+			android:id="@+id/separator_1_1"
+			style="@style/numSeparator" />
+
+		<include
+			android:id="@+id/numpad_row_1"
+			layout="@layout/panel_numpad_row_1" />
+
+		<include
+			layout="@layout/panel_numpad_text_editing_row_1"
+			android:id="@+id/text_editing_row_1"
+			android:visibility="gone" />
+
+		<View
+			android:id="@+id/separator_1_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
+			android:id="@+id/soft_key_backspace"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+	</LinearLayout>
+
+	<!-- Row 2 -->
+	<LinearLayout
+		tools:ignore="HardcodedText"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/numpad_key_height"
+		android:layoutDirection="ltr">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
+			android:id="@+id/soft_key_add_word"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:text="＋"
+			android:textStyle="bold" />
+
+		<View
+			android:id="@+id/separator_2_1"
+			style="@style/numSeparator" />
+
+		<include
+			android:id="@+id/numpad_row_2"
+			layout="@layout/panel_numpad_row_2" />
+
+		<include
+			layout="@layout/panel_numpad_text_editing_row_2"
+			android:id="@+id/text_editing_row_2"
+			android:visibility="gone" />
+
+		<View
+			android:id="@+id/separator_2_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftFilterKey
+			android:id="@+id/soft_key_filter_suggestions"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
+
+	</LinearLayout>
+
+	<!-- Row 3 -->
+	<LinearLayout
+		tools:ignore="HardcodedText"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/numpad_key_height"
+		android:layoutDirection="ltr">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftInputModeKey
+			android:id="@+id/soft_key_input_mode"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:text="⌨"
+			android:textSize="@dimen/soft_key_icon_size" />
+
+		<View
+			android:id="@+id/separator_3_1"
+			style="@style/numSeparator" />
+
+		<include
+			android:id="@+id/numpad_row_3"
+			layout="@layout/panel_numpad_row_3" />
+
+		<include
+			layout="@layout/panel_numpad_text_editing_row_3"
+			android:id="@+id/text_editing_row_3"
+			android:visibility="gone" />
+
+		<View
+			android:id="@+id/separator_3_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
+			android:id="@+id/soft_key_rf3"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
+
+
+	</LinearLayout>
+
+	<!-- Row 4 -->
+	<LinearLayout
+		tools:ignore="HardcodedText"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/numpad_key_height"
+		android:layoutDirection="ltr">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyNextLanguage
+			android:id="@+id/soft_key_language"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:text="🌐" />
+
+		<View
+			android:id="@+id/separator_4_1"
+			style="@style/numSeparator" />
+
+		<include
+			android:id="@+id/numpad_row_4"
+			layout="@layout/panel_numpad_row_4" />
+
+		<View
+			android:id="@+id/separator_4_2"
+			style="@style/numSeparator" />
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
+			android:id="@+id/soft_key_ok"
+			style="@android:style/Widget.Holo.Button.Borderless"
+			tools:ignore="ButtonOrder"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:text="OK" />
+
+	</LinearLayout>
+</LinearLayout>
