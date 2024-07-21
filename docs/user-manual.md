@@ -121,11 +121,10 @@ Below is a list of the possible commands:
 - **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 - **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
 - **Voice Input (Default Combo: ✱, 3-key).** Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
-- **Select a Different Keyboard (Default Combo: ✱, 0-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
+- **Text Editing (Default Combo: ✱, 5-key).** Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
+- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
-
-If you do have a hardware keypad and prefer having more screen space, disable the software keys from the Settings → Appearance.
 
 ## Voice Input
 The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself, but it asks your phone to do it.
@@ -142,6 +141,8 @@ Other phones without Google will generally not support voice input. Chinese phon
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual Numpad".
 
+If you do have both a touchscreen and a hardware keypad and prefer having more screen space, disable the software keys from Settings → Appearance.
+
 It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. Usually, it will happen automatically too, but if it does not, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
 
 ### Resizing the Keyboard Panel While Typing
@@ -155,6 +156,22 @@ It is also possible to change the on-screen key height. To do so, go to Settings
 The default setting of 100% is a good balance between usable button size and screen space taken. However, if you have large fingers, you may want to increase the setting a bit, while if you use TT9 on a larger screen, like a tablet, you may want to decrease it.
 
 _If the available screen space is limited, TT9 will ignore this setting and reduce its height automatically, to leave enough room for the current application._
+
+## Text Editing
+From the Text Editing panel, you can select, cut, copy, and paste text, similar to what is possible with a computer keyboard. To exit Text Editing, press the "✱" key, or the Back key (except in web browsers, Spotify, and a few more applications). Or press the letters key on the On-screen Keyboard.
+
+Below is a list of the possible text commands:
+1. Select the previous character (like Shift+Left on a computer keyboard)
+2. Select none
+3. Select the next character (like Shift+Right)
+4. Select the previous word (like Ctrl+Shift+Left)
+5. Select all
+6. Select the next word (like Ctrl+Shift+Right)
+7. Cut
+8. Copy
+9. Paste
+
+For easier editing, backspace, space, and OK keys are also active.
 
 ## Settings Screen
 On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
