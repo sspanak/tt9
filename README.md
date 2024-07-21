@@ -43,7 +43,7 @@ _Storage usage for the dictionaries depends on the word root count and the avera
 ### ⚠️ Compatibility
 If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016.
 
-TT9 may not work well on Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality or unexpected text/numbers appearing when you try to type.
+TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
 - Unihertz Atom L (Android 11)
@@ -67,11 +67,11 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
+If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
+
+If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost: a TCL Flip 2 + delivery is about 50 USD; Kyocera Dura XV Extreme is around 180 USD.
 
 Or if you just want to show your appreciation, give the project a star. Higher-ranked projects on GitHub have the opportunity to use development tools for free and apply for funding more easily.
-
-Thanks to your donations, a brand new testing device is available, a Sonim XP3800! This will result in much better compatibility with Sonim in the future. So, keep going!
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
