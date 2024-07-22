@@ -25,7 +25,7 @@ public class SoftInputModeKey extends SoftKey {
 
 		if (validateTT9Handler()) {
 			vibrate(Vibration.getHoldVibration());
-			tt9.changeKeyboard();
+			tt9.selectKeyboard();
 		}
 	}
 

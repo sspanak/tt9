@@ -57,7 +57,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 				showTextEditingPalette();
 				break;
 			case 8:
-				changeKeyboard();
+				selectKeyboard();
 				break;
 		}
 	}
@@ -99,7 +99,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	public void changeKeyboard() {
+	public void selectKeyboard() {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
 		UI.showChangeKeyboardDialog(this);

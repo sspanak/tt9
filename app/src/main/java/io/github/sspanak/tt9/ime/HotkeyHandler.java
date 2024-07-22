@@ -62,8 +62,16 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
+		if (keyCode == settings.getKeyAddWord()) {
+			return onKeyAddWord(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyCommandPalette()) {
 			return onKeyCommandPalette(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyEditText()) {
+			return onKeyEditText(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyFilterClear()) {
@@ -91,10 +99,65 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (keyCode == settings.getKeyTab()) {
-			return onTab(validateOnly);
+			return onKeyTab(validateOnly);
+		}
+
+		if (keyCode == settings.getKeySelectKeyboard()) {
+			return onKeySelectKeyboard(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyShowSettings()) {
+			return onKeyShowSettings(validateOnly);
 		}
 
 		return false;
+	}
+
+
+	private boolean onKeyAddWord(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			addWord();
+		}
+
+		return true;
+	}
+
+
+	public boolean onKeyCommandPalette(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (validateOnly) {
+			return true;
+		}
+
+		if (mainView.isCommandPaletteShown()) {
+			hideCommandPalette();
+		} else {
+			showCommandPalette();
+			forceShowWindow();
+		}
+
+		return true;
+	}
+
+
+	private boolean onKeyEditText(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			showTextEditingPalette();
+			forceShowWindow();
+		}
+
+		return true;
 	}
 
 
@@ -227,27 +290,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
-	public boolean onKeyCommandPalette(boolean validateOnly) {
-		if (shouldBeOff()) {
-			return false;
-		}
-
-		if (validateOnly) {
-			return true;
-		}
-
-		if (mainView.isCommandPaletteShown()) {
-			hideCommandPalette();
-		} else {
-			showCommandPalette();
-			forceShowWindow();
-		}
-
-		return true;
-	}
-
-
-	public boolean onTab(boolean validateOnly) {
+	public boolean onKeyTab(boolean validateOnly) {
 		if (shouldBeOff()) {
 			return false;
 		}
@@ -260,6 +303,31 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onText("\t", validateOnly);
 		} else {
 			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
+		}
+
+		return true;
+	}
+
+
+	private boolean onKeySelectKeyboard(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			selectKeyboard();
+		}
+
+		return true;
+	}
+
+	private boolean onKeyShowSettings(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			showSettings();
 		}
 
 		return true;

@@ -28,8 +28,17 @@ class SettingsHotkeys extends SettingsHacks {
 	}
 
 
+	public int getKeyAddWord() {
+		return getFunctionKey(SectionKeymap.ITEM_ADD_WORD);
+	}
 	public int getKeyBackspace() {
 		return getFunctionKey(SectionKeymap.ITEM_BACKSPACE);
+	}
+	public int getKeyCommandPalette() {
+		return getFunctionKey(SectionKeymap.ITEM_COMMAND_PALETTE);
+	}
+	public int getKeyEditText() {
+		return getFunctionKey(SectionKeymap.ITEM_EDIT_TEXT);
 	}
 	public int getKeyFilterClear() {
 		return getFunctionKey(SectionKeymap.ITEM_FILTER_CLEAR);
@@ -49,10 +58,13 @@ class SettingsHotkeys extends SettingsHacks {
 	public int getKeyNextLanguage() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_LANGUAGE);
 	}
-	public int getKeyCommandPalette() {
-		return getFunctionKey(SectionKeymap.ITEM_COMMAND_PALETTE);
-	}
 	public int getKeyTab() {
 		return getFunctionKey(SectionKeymap.ITEM_TAB);
+	}
+	public int getKeySelectKeyboard() {
+		return getFunctionKey(SectionKeymap.ITEM_SELECT_KEYBOARD);
+	}
+	public int getKeyShowSettings() {
+		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}
 }
