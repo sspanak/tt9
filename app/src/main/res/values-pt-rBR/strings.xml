@@ -72,6 +72,8 @@
 	<string name="function_backspace">Backspace</string>
 	<string name="function_next_language">Próximo Idioma</string>
 	<string name="function_next_mode">Modo de Entrada</string>
+	<string name="function_add_word">Adicionar palavra</string>
+	<string name="function_show_settings">Entrar em Configurações</string>
 	<string name="function_reset_keys_title">Restaurar Atalhos Padrão</string>
 	<string name="function_reset_keys_done">Atalhos Restaurados.</string>
 
@@ -151,4 +153,5 @@
 	<string name="virtual_numpad_alignment_center">No meio</string>
 	<string name="virtual_numpad_alignment_left">À esquerda</string>
 	<string name="virtual_numpad_alignment_right">À direita</string>
+	<string name="function_select_keyboard">Mude o teclado</string>
 </resources>

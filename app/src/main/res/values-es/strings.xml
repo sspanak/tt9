@@ -83,6 +83,8 @@
 	<string name="function_next_suggestion">Sugerencia siguiente</string>
 	<string name="function_next_language">Idioma siguiente</string>
 	<string name="function_next_mode">Modo de ingreso</string>
+	<string name="function_add_word">Agregar palabra</string>
+	<string name="function_show_settings">Mostrar configuración</string>
 	<string name="function_reset_keys_title">Restaurar valores de teclas por defecto</string>
 	<string name="function_reset_keys_done">Valores de teclas por defecto restaurados</string>
 	<string name="setup_tt9_on">%1$s está habilitado</string>
@@ -148,4 +150,5 @@
 	<string name="virtual_numpad_alignment_center">En el centro</string>
 	<string name="virtual_numpad_alignment_left">A la izquierda</string>
 	<string name="virtual_numpad_alignment_right">A la derecha</string>
+	<string name="function_select_keyboard">Cambiar el teclado</string>
 </resources>
