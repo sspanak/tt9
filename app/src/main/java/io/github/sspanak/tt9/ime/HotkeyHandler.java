@@ -110,6 +110,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyShowSettings(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyVoiceInput()) {
+			return onKeyVoiceInput(validateOnly);
+		}
+
 		return false;
 	}
 
@@ -328,6 +332,18 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (!validateOnly) {
 			showSettings();
+		}
+
+		return true;
+	}
+
+	private boolean onKeyVoiceInput(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff() || !voiceInputOps.isAvailable()) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			toggleVoiceInput();
 		}
 
 		return true;

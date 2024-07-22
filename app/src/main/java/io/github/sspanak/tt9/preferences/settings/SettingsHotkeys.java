@@ -67,4 +67,7 @@ class SettingsHotkeys extends SettingsHacks {
 	public int getKeyShowSettings() {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}
+	public int getKeyVoiceInput() {
+		return getFunctionKey(SectionKeymap.ITEM_VOICE_INPUT);
+	}
 }

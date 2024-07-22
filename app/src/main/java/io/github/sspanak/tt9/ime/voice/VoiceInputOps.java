@@ -1,7 +1,7 @@
 package io.github.sspanak.tt9.ime.voice;
 
+import android.content.Context;
 import android.content.Intent;
-import android.inputmethodservice.InputMethodService;
 import android.os.Build;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -20,7 +20,7 @@ public class VoiceInputOps {
 	private final boolean isRecognitionAvailable;
 
 
-	private final InputMethodService ims;
+	private final Context ims;
 	private Language language;
 	private SpeechRecognizer speechRecognizer;
 	private final VoiceListener listener;
@@ -30,7 +30,7 @@ public class VoiceInputOps {
 
 
 	public VoiceInputOps(
-		@NonNull InputMethodService ims,
+		@NonNull Context ims,
 		Runnable onStart,
 		ConsumerCompat<String> onStop,
 		ConsumerCompat<VoiceInputError> onError

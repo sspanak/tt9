@@ -95,6 +95,7 @@ public class Hotkeys {
 		defaultKeys.put(SectionKeymap.ITEM_TAB, KeyEvent.KEYCODE_UNKNOWN);
 		defaultKeys.put(SectionKeymap.ITEM_SELECT_KEYBOARD, KeyEvent.KEYCODE_UNKNOWN);
 		defaultKeys.put(SectionKeymap.ITEM_SHOW_SETTINGS, KeyEvent.KEYCODE_UNKNOWN);
+		defaultKeys.put(SectionKeymap.ITEM_VOICE_INPUT, KeyEvent.KEYCODE_UNKNOWN);
 
 		settings.setDefaultKeys(defaultKeys);
 	}

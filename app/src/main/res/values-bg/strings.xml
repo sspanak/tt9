@@ -152,4 +152,5 @@
 	<string name="virtual_numpad_alignment_left">Вляво</string>
 	<string name="virtual_numpad_alignment_right">Вдясно</string>
 	<string name="function_select_keyboard">Избор на клавиатура</string>
+	<string name="function_voice_input">Гласово въвеждане</string>
 </resources>

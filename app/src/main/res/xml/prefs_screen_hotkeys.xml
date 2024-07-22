@@ -54,6 +54,10 @@
 		app:key="key_show_settings"
 		app:title="@string/function_show_settings" />
 
+	<DropDownPreference
+		app:key="key_voice_input"
+		app:title="@string/function_voice_input" />
+
 	<Preference
 		app:key="reset_keys"
 		app:title="@string/function_reset_keys_title" />

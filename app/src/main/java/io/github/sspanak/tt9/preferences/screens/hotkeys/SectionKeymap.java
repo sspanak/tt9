@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
+import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -25,16 +26,19 @@ public class SectionKeymap {
 	public static final String ITEM_TAB = "key_tab";
 	public static final String ITEM_SELECT_KEYBOARD = "key_select_keyboard";
 	public static final String ITEM_SHOW_SETTINGS = "key_show_settings";
+	public static final String ITEM_VOICE_INPUT = "key_voice_input";
 
 	private final Hotkeys hotkeys;
 	private final Collection<DropDownPreference> items;
 	private final SettingsStore settings;
+	private final boolean isVoiceInputAvailable;
 
 
 	public SectionKeymap(Collection<DropDownPreference> dropDowns, PreferencesActivity activity) {
 		items = dropDowns;
 		hotkeys = new Hotkeys(activity);
 		this.settings = activity.getSettings();
+		isVoiceInputAvailable = new VoiceInputOps(activity, null, null, null).isAvailable();
 	}
 
 
@@ -129,6 +133,10 @@ public class SectionKeymap {
 		}
 
 		dropDown.setSummary(hotkeys.getHardwareKeyName(key));
+
+		if (dropDown.getKey().equals(ITEM_VOICE_INPUT)) {
+			dropDown.setVisible(isVoiceInputAvailable);
+		}
 	}
 
 
