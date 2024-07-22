@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 import android.view.KeyEvent;
 
+import java.util.HashMap;
+
 import io.github.sspanak.tt9.preferences.screens.hotkeys.SectionKeymap;
 
 class SettingsHotkeys extends SettingsHacks {
@@ -12,29 +14,12 @@ class SettingsHotkeys extends SettingsHacks {
 		return !prefs.getBoolean("hotkeys_v2_initialized", false);
 	}
 
-	public void setDefaultKeys(
-		int backspace,
-		int comandPalette,
-		int filterClear,
-		int filterSuggestions,
-		int previousSuggestion,
-		int nextSuggestion,
-		int nextInputMode,
-		int nextLanguage,
-		int tab
-	) {
-		prefsEditor
-			.putString(SectionKeymap.ITEM_BACKSPACE, String.valueOf(backspace))
-			.putString(SectionKeymap.ITEM_COMMAND_PALETTE, String.valueOf(comandPalette))
-			.putString(SectionKeymap.ITEM_FILTER_CLEAR, String.valueOf(filterClear))
-			.putString(SectionKeymap.ITEM_FILTER_SUGGESTIONS, String.valueOf(filterSuggestions))
-			.putString(SectionKeymap.ITEM_PREVIOUS_SUGGESTION, String.valueOf(previousSuggestion))
-			.putString(SectionKeymap.ITEM_NEXT_SUGGESTION, String.valueOf(nextSuggestion))
-			.putString(SectionKeymap.ITEM_NEXT_INPUT_MODE, String.valueOf(nextInputMode))
-			.putString(SectionKeymap.ITEM_NEXT_LANGUAGE, String.valueOf(nextLanguage))
-			.putString(SectionKeymap.ITEM_TAB, String.valueOf(tab))
-			.putBoolean("hotkeys_v2_initialized", true)
-			.apply();
+	public void setDefaultKeys(HashMap<String, Integer> defaultKeys) {
+		for (String key : defaultKeys.keySet()) {
+			prefsEditor.putString(key, String.valueOf(defaultKeys.get(key)));
+		}
+
+		prefsEditor.putBoolean("hotkeys_v3_initialized", true).apply();
 	}
 
 

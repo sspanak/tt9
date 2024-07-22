@@ -6,10 +6,12 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.ViewConfiguration;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.hotkeys.SectionKeymap;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class Hotkeys {
@@ -17,7 +19,7 @@ public class Hotkeys {
 	private final Resources resources;
 	private final String holdKeyTranslation;
 
-	private final LinkedHashMap<String, String> KEYS = new LinkedHashMap<>();
+	private final LinkedHashMap<String, String> HARDWARE_KEYS = new LinkedHashMap<>();
 
 
 	public Hotkeys(Context context) {
@@ -30,13 +32,13 @@ public class Hotkeys {
 	}
 
 
-	public String get(String key) {
-		return KEYS.get(key);
+	public String getHardwareKeyName(String key) {
+		return HARDWARE_KEYS.get(key);
 	}
 
 
-	public Set<String> toSet() {
-		return KEYS.keySet();
+	public Set<String> getHardwareKeys() {
+		return HARDWARE_KEYS.keySet();
 	}
 
 
@@ -52,31 +54,49 @@ public class Hotkeys {
 	 * Arrow keys for manipulating suggestions are also assigned only if available.
 	 */
 	public static void setDefault(SettingsStore settings) {
-		int backspace = KeyEvent.KEYCODE_BACK;
+		HashMap<String, Integer> defaultKeys = new HashMap<>();
+
+		defaultKeys.put(SectionKeymap.ITEM_ADD_WORD, KeyEvent.KEYCODE_UNKNOWN); // unassigned
+
+		defaultKeys.put(SectionKeymap.ITEM_BACKSPACE, KeyEvent.KEYCODE_BACK);
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
 			|| settings.isMainLayoutNumpad()
 		) {
-			backspace = 0;
+			defaultKeys.put(SectionKeymap.ITEM_BACKSPACE, 0);
 		}
 
-		int clearFilter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : 0;
-		int filter = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : 0;
-		int nextSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : 0;
-		int previousSuggestion = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0;
+		defaultKeys.put(SectionKeymap.ITEM_COMMAND_PALETTE, KeyEvent.KEYCODE_STAR);
+		defaultKeys.put(SectionKeymap.ITEM_EDIT_TEXT, KeyEvent.KEYCODE_UNKNOWN);
 
-		settings.setDefaultKeys(
-			backspace,
-			KeyEvent.KEYCODE_STAR,
-			clearFilter,
-			filter,
-			previousSuggestion,
-			nextSuggestion,
-			KeyEvent.KEYCODE_POUND,
-			-KeyEvent.KEYCODE_POUND, // negative means "hold"
-			KeyEvent.KEYCODE_UNKNOWN // unassigned
+		defaultKeys.put(
+			SectionKeymap.ITEM_FILTER_CLEAR,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : 0
 		);
+
+		defaultKeys.put(
+			SectionKeymap.ITEM_FILTER_SUGGESTIONS,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : 0
+		);
+
+		defaultKeys.put(
+			SectionKeymap.ITEM_PREVIOUS_SUGGESTION,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : 0
+		);
+
+		defaultKeys.put(
+			SectionKeymap.ITEM_NEXT_SUGGESTION,
+			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : 0
+		);
+
+		defaultKeys.put(SectionKeymap.ITEM_NEXT_INPUT_MODE, KeyEvent.KEYCODE_POUND);
+		defaultKeys.put(SectionKeymap.ITEM_NEXT_LANGUAGE, -KeyEvent.KEYCODE_POUND); // negative means "hold"
+		defaultKeys.put(SectionKeymap.ITEM_TAB, KeyEvent.KEYCODE_UNKNOWN);
+		defaultKeys.put(SectionKeymap.ITEM_SELECT_KEYBOARD, KeyEvent.KEYCODE_UNKNOWN);
+		defaultKeys.put(SectionKeymap.ITEM_SHOW_SETTINGS, KeyEvent.KEYCODE_UNKNOWN);
+
+		settings.setDefaultKeys(defaultKeys);
 	}
 
 
@@ -111,10 +131,10 @@ public class Hotkeys {
 	 * No validation will be performed.
 	 */
 	private void add(int code, String name, boolean allowHold) {
-		KEYS.put(String.valueOf(code), name);
+		HARDWARE_KEYS.put(String.valueOf(code), name);
 
 		if (allowHold) {
-			KEYS.put(String.valueOf(-code), name + " " + holdKeyTranslation);
+			HARDWARE_KEYS.put(String.valueOf(-code), name + " " + holdKeyTranslation);
 		}
 	}
 

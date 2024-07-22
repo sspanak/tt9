@@ -12,8 +12,10 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SectionKeymap {
+	public static final String ITEM_ADD_WORD = "key_add_word";
 	public static final String ITEM_BACKSPACE = "key_backspace";
 	public static final String ITEM_COMMAND_PALETTE = "key_command_palette";
+	public static final String ITEM_EDIT_TEXT = "key_edit_text";
 	public static final String ITEM_FILTER_CLEAR = "key_filter_clear";
 	public static final String ITEM_FILTER_SUGGESTIONS = "key_filter_suggestions";
 	public static final String ITEM_PREVIOUS_SUGGESTION = "key_previous_suggestion";
@@ -21,6 +23,8 @@ public class SectionKeymap {
 	public static final String ITEM_NEXT_INPUT_MODE = "key_next_input_mode";
 	public static final String ITEM_NEXT_LANGUAGE = "key_next_language";
 	public static final String ITEM_TAB = "key_tab";
+	public static final String ITEM_SELECT_KEYBOARD = "key_select_keyboard";
+	public static final String ITEM_SHOW_SETTINGS = "key_show_settings";
 
 	private final Hotkeys hotkeys;
 	private final Collection<DropDownPreference> items;
@@ -74,7 +78,7 @@ public class SectionKeymap {
 		}
 
 		ArrayList<String> keys = new ArrayList<>();
-		for (String key : hotkeys.toSet()) {
+		for (String key : hotkeys.getHardwareKeys()) {
 			if (
 				validateKey(dropDown, String.valueOf(key))
 				// backspace works both when pressed short and long,
@@ -87,7 +91,7 @@ public class SectionKeymap {
 
 		ArrayList<String> values = new ArrayList<>();
 		for (String key : keys) {
-			values.add(hotkeys.get(key));
+			values.add(hotkeys.getHardwareKeyName(key));
 		}
 
 		dropDown.setEntries(values.toArray(new CharSequence[0]));
@@ -124,7 +128,7 @@ public class SectionKeymap {
 			return;
 		}
 
-		dropDown.setSummary(hotkeys.get(key));
+		dropDown.setSummary(hotkeys.getHardwareKeyName(key));
 	}
 
 
