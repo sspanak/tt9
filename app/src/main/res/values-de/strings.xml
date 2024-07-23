@@ -143,4 +143,6 @@
 	<string name="virtual_numpad_alignment_right">Rechts</string>
 	<string name="function_select_keyboard">Tastaturauswahl</string>
 	<string name="add_word_no_confirmation">Ohne Bestätigung hinzufügen</string>
+	<string name="dictionary_import_custom_words">Importieren</string>
+	<string name="dictionary_import_custom_words_summary">Wörter aus einer zuvor exportierten CSV-Datei importieren.</string>
 </resources>

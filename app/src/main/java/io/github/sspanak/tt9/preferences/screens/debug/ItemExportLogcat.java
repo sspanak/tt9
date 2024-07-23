@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.screens.debug;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.db.exporter.LogcatExporter;
+import io.github.sspanak.tt9.db.customWords.LogcatExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemExportAbstract;
 import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
@@ -15,17 +15,17 @@ public class ItemExportLogcat extends ItemExportAbstract {
 	}
 
 	@Override
-	protected LogcatExporter getExporter() {
+	protected LogcatExporter getProcessor() {
 		return LogcatExporter.getInstance();
 	}
 
 	@Override
-	protected boolean onStartExporting() {
-		return getExporter().setIncludeSystemLogs(activity.getSettings().getEnableSystemLogs()).export(activity);
+	protected boolean onStartProcessing() {
+		return getProcessor().setIncludeSystemLogs(activity.getSettings().getEnableSystemLogs()).run(activity);
 	}
 
 	@Override
-	protected void onFinishExporting(String outputFile) {
+	protected void onFinishProcessing(String outputFile) {
 		activity.runOnUiThread(() -> {
 			DictionaryProgressNotification.getInstance(activity).hide();
 			setReadyStatus();

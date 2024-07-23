@@ -141,4 +141,6 @@
 	<string name="virtual_numpad_alignment_right">Rechts</string>
 	<string name="function_select_keyboard">Toetsenbordkeuze</string>
 	<string name="add_word_no_confirmation">Toevoegen zonder bevestiging</string>
+	<string name="dictionary_import_custom_words">Importeren</string>
+	<string name="dictionary_import_custom_words_summary">Woorden importeren uit een eerder geëxporteerde CSV.</string>
 </resources>

@@ -3,88 +3,30 @@ package io.github.sspanak.tt9.preferences.items;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.exporter.AbstractExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
 
-abstract public class ItemExportAbstract extends ItemClickable {
-	final protected PreferencesActivity activity;
-	final private Runnable onStart;
-	final private Runnable onFinish;
-
+abstract public class ItemExportAbstract extends ItemProcessCustomWordsAbstract {
 	public ItemExportAbstract(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
-		super(item);
-		this.activity = activity;
-		this.onStart = onStart;
-		this.onFinish = onFinish;
-
-		AbstractExporter exporter = getExporter();
-		exporter.setFailureHandler(() -> onFinishExporting(null));
-		exporter.setStartHandler(() -> activity.runOnUiThread(this::setLoadingStatus));
-		exporter.setSuccessHandler(this::onFinishExporting);
-		refreshStatus();
+		super(item, activity, onStart, onFinish);
 	}
-
-	abstract protected AbstractExporter getExporter();
-
-
-	public ItemExportAbstract refreshStatus() {
-		if (item != null) {
-			if (getExporter().isRunning()) {
-				setLoadingStatus();
-			} else {
-				setReadyStatus();
-			}
-		}
-		return this;
-	}
-
 
 	@Override
-	protected boolean onClick(Preference p) {
-		setLoadingStatus();
-		if (!onStartExporting()) {
-			setReadyStatus();
-		}
-		return true;
+	protected String getFailureTitle() {
+		return activity.getString(R.string.dictionary_export_failed);
 	}
 
-
-	abstract protected boolean onStartExporting();
-
-
-	protected void onFinishExporting(String outputFile) {
-		activity.runOnUiThread(() -> {
-			setReadyStatus();
-
-			if (outputFile == null) {
-				DictionaryProgressNotification.getInstance(activity).showError(
-					activity.getString(R.string.dictionary_export_failed),
-					activity.getString(R.string.dictionary_export_failed_more_info)
-				);
-			} else {
-				DictionaryProgressNotification.getInstance(activity).showMessage(
-					activity.getString(R.string.dictionary_export_finished),
-					activity.getString(R.string.dictionary_export_finished_more_info, outputFile),
-					activity.getString(R.string.dictionary_export_finished_more_info, outputFile)
-				);
-			}
-		});
+	@Override
+	protected String getFailureMessage() {
+		return activity.getString(R.string.dictionary_export_failed_more_info);
 	}
 
-
-	protected void setLoadingStatus() {
-		if (onStart != null) onStart.run();
-		disable();
-
-		String loadingMessage = getExporter().getStatusMessage();
-		item.setSummary(loadingMessage);
-		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMessage, "");
+	@Override
+	protected String getSuccessTitle() {
+		return activity.getString(R.string.dictionary_export_finished);
 	}
 
-
-	public void setReadyStatus() {
-		enable();
-		if (onFinish != null) onFinish.run();
+	@Override
+	protected String getSuccessMessage(String fileName) {
+		return activity.getString(R.string.dictionary_export_finished_more_info, fileName);
 	}
 }

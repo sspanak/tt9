@@ -2,10 +2,11 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 
 import androidx.preference.Preference;
 
-import io.github.sspanak.tt9.db.exporter.DictionaryExporter;
+import io.github.sspanak.tt9.db.customWords.DictionaryExporter;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemExportAbstract;
+import io.github.sspanak.tt9.preferences.items.ItemProcessCustomWordsAbstract;
 import io.github.sspanak.tt9.util.Logger;
 
 class ItemExportDictionary extends ItemExportAbstract {
@@ -16,7 +17,7 @@ class ItemExportDictionary extends ItemExportAbstract {
 	}
 
 	@Override
-	public ItemExportAbstract refreshStatus() {
+	public ItemProcessCustomWordsAbstract refreshStatus() {
 		if (item != null) {
 			item.setVisible(Logger.isDebugLevel());
 		}
@@ -24,14 +25,14 @@ class ItemExportDictionary extends ItemExportAbstract {
 	}
 
 	@Override
-	protected DictionaryExporter getExporter() {
+	protected DictionaryExporter getProcessor() {
 		return DictionaryExporter.getInstance();
 	}
 
-	protected boolean onStartExporting() {
+	protected boolean onStartProcessing() {
 		return DictionaryExporter.getInstance()
 			.setLanguages(LanguageCollection.getAll(activity, activity.getSettings().getEnabledLanguageIds()))
-			.export(activity);
+			.run(activity);
 	}
 
 	public void setReadyStatus() {

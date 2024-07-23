@@ -154,4 +154,6 @@
 	<string name="function_select_keyboard">Избор на клавиатура</string>
 	<string name="function_voice_input">Гласово въвеждане</string>
 	<string name="add_word_no_confirmation">Добавяне без потвърждение</string>
+	<string name="dictionary_import_custom_words">Импортиране</string>
+	<string name="dictionary_import_custom_words_summary">Импортиране на думи от по-рано експортирано CSV.</string>
 </resources>

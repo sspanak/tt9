@@ -104,6 +104,8 @@
 	<string name="dictionary_export">Export Selected</string>
 	<string name="dictionary_export_custom_words">Export</string>
 	<string name="dictionary_export_custom_words_summary">Export a CSV with all added words in: \"%1$s\".</string>
+	<string name="dictionary_import_custom_words">Import</string>
+	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
 	<string name="dictionary_export_failed">Exporting Failed</string>
 	<string name="dictionary_export_failed_more_info">For more info, enable debugging mode and see the logs.</string>
 	<string name="dictionary_export_finished">Exporting Completed</string>

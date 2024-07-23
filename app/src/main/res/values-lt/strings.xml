@@ -161,4 +161,6 @@
 	<string name="virtual_numpad_alignment_right">Dešinėje</string>
 	<string name="function_select_keyboard">Keisti klaviatūrą</string>
 	<string name="add_word_no_confirmation">Pridėti be patvirtinimo</string>
+	<string name="dictionary_import_custom_words">Importuoti</string>
+	<string name="dictionary_import_custom_words_summary">Importuoti žodžius iš anksčiau eksportuoto CSV.</string>
 </resources>

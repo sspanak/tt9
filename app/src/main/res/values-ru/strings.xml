@@ -152,4 +152,6 @@
 	<string name="virtual_numpad_alignment_right">Направо</string>
 	<string name="function_select_keyboard">Выбор клавиатуры</string>
 	<string name="add_word_no_confirmation">Добавить без подтверждения</string>
+	<string name="dictionary_import_custom_words">Импортировать</string>
+	<string name="dictionary_import_custom_words_summary">Импортировать слова из ранее экспортированного CSV.</string>
 </resources>

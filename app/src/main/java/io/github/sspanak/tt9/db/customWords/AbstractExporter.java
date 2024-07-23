@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.exporter;
+package io.github.sspanak.tt9.db.customWords;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -16,19 +16,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Permissions;
 
-public abstract class AbstractExporter {
+public abstract class AbstractExporter extends AbstractFileProcessor {
 	protected static String FILE_EXTENSION = ".csv";
 	protected static String MIME_TYPE = "text/csv";
 
-	protected Runnable failureHandler;
-	protected Runnable startHandler;
-	protected ConsumerCompat<String> successHandler;
-	private Thread processThread;
 	private String outputFile;
-	private String statusMessage = "";
 
 
 	private void writeAndroid10(Activity activity) throws Exception {
@@ -107,18 +101,6 @@ public abstract class AbstractExporter {
 		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Environment.DIRECTORY_DOCUMENTS : Environment.DIRECTORY_DOWNLOADS;
 	}
 
-	protected void sendFailure() {
-		if (failureHandler != null) {
-			failureHandler.run();
-		}
-	}
-
-	protected void sendStart(@NonNull String message) {
-		if (startHandler != null) {
-			statusMessage = message;
-			startHandler.run();
-		}
-	}
 
 	protected void sendSuccess() {
 		if (successHandler != null) {
@@ -126,39 +108,7 @@ public abstract class AbstractExporter {
 		}
 	}
 
-	public boolean export(@NonNull Activity activity) {
-		if (isRunning()) {
-			return false;
-		}
 
-		processThread = new Thread(() -> exportSync(activity));
-		processThread.start();
-
-		return true;
-	}
-
-	public boolean isRunning() {
-		return processThread != null && processThread.isAlive();
-	}
-
-	public String getStatusMessage() {
-		return statusMessage;
-	}
-
-	public void setFailureHandler(Runnable handler) {
-		failureHandler = handler;
-	}
-
-	public void setStartHandler(Runnable handler) {
-		startHandler = handler;
-	}
-
-	public void setSuccessHandler(ConsumerCompat<String> handler) {
-		successHandler = handler;
-	}
-
-
-	abstract protected void exportSync(Activity activity);
 	@NonNull abstract protected String generateFileName();
 	@NonNull abstract protected byte[] getFileContents(Activity activity) throws Exception;
 }

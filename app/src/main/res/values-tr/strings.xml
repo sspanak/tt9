@@ -155,4 +155,6 @@
 	<string name="virtual_numpad_alignment_right">Sağa</string>
 	<string name="function_select_keyboard">Klavye Seçimi</string>
 	<string name="add_word_no_confirmation">Onay olmadan ekle</string>
+	<string name="dictionary_import_custom_words">İçe Aktar</string>
+	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
 </resources>

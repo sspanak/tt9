@@ -163,4 +163,6 @@
 	<string name="virtual_numpad_alignment_right">Праворуч</string>
 	<string name="function_select_keyboard">Змінити клавіатуру</string>
 	<string name="add_word_no_confirmation">Додати без підтвердження</string>
+	<string name="dictionary_import_custom_words">Імпортувати</string>
+	<string name="dictionary_import_custom_words_summary">Імпортувати слова з раніше експортованого CSV.</string>
 </resources>

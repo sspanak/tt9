@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.exporter;
+package io.github.sspanak.tt9.db.customWords;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,7 +23,7 @@ public class CustomWordsExporter extends AbstractExporter {
 	}
 
 	@Override
-	protected void exportSync(Activity activity) {
+	protected void runSync(Activity activity) {
 		try {
 			sendStart(activity.getString(R.string.dictionary_export_generating_csv));
 			write(activity);
