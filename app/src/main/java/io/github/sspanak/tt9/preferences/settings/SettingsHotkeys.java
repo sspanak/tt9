@@ -11,7 +11,7 @@ class SettingsHotkeys extends SettingsHacks {
 	SettingsHotkeys(Context context) { super(context); }
 
 	public boolean areHotkeysInitialized() {
-		return !prefs.getBoolean("hotkeys_v2_initialized", false);
+		return !prefs.getBoolean("hotkeys_v3_initialized", false);
 	}
 
 	public void setDefaultKeys(HashMap<String, Integer> defaultKeys) {
