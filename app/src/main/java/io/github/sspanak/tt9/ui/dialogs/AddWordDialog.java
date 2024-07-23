@@ -8,17 +8,12 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public class AddWordDialog extends PopupDialog {
-	public static final int CODE_SUCCESS = 0;
-	public static final int CODE_BLANK_WORD = 1;
-	public static final int CODE_INVALID_LANGUAGE = 2;
-	public static final int CODE_WORD_EXISTS = 3;
-	public static final int CODE_GENERAL_ERROR = 666;
-
 	public static final String TYPE = "tt9.popup_dialog.add_word";
 	public static final String PARAMETER_LANGUAGE = "lang";
 	public static final String PARAMETER_WORD = "word";
@@ -57,31 +52,10 @@ public class AddWordDialog extends PopupDialog {
 	}
 
 
-	private void onAddingFinished(int statusCode) {
-		String response;
-		switch (statusCode) {
-			case CODE_SUCCESS:
-				response = context.getString(R.string.add_word_success, word);
-				break;
-
-			case CODE_WORD_EXISTS:
-				response = context.getResources().getString(R.string.add_word_exist, word);
-				break;
-
-			case CODE_BLANK_WORD:
-				response = context.getString(R.string.add_word_blank);
-				break;
-
-			case CODE_INVALID_LANGUAGE:
-				response = context.getResources().getString(R.string.add_word_invalid_language);
-				break;
-
-			default:
-				response = context.getString(R.string.error_unexpected);
-				break;
-			}
-
-		activityFinisher.accept(response);
+	private void onAddingFinished(AddWordResult addingResult) {
+		activityFinisher.accept(
+			addingResult.toHumanFriendlyString(context)
+		);
 	}
 
 
