@@ -151,4 +151,5 @@
 	<string name="virtual_numpad_alignment_left">Налево</string>
 	<string name="virtual_numpad_alignment_right">Направо</string>
 	<string name="function_select_keyboard">Выбор клавиатуры</string>
+	<string name="add_word_no_confirmation">Добавить без подтверждения</string>
 </resources>

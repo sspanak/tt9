@@ -80,6 +80,13 @@ public class UI {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 	}
 
+	public static void toastLongFromAsync(Context context, CharSequence msg) {
+		if (Looper.myLooper() == null) {
+			Looper.prepare();
+		}
+		toastLong(context, msg);
+	}
+
 	public static void toastShortSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message) {
 		Toast toast = singleToasts.get(uniqueId);
 

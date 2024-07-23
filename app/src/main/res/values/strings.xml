@@ -15,6 +15,7 @@
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>
+	<string name="add_word_no_confirmation">Add Without Confirmation</string>
 	<string name="add_word_no_selection">Move the cursor inside a word to add it.</string>
 	<string name="add_word_blank">Blank word not added.</string>
 	<string name="add_word_exist">Word \"%1$s\" is already in the dictionary.</string>

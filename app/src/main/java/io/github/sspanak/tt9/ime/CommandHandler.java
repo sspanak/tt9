@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -93,6 +94,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		String word = textField.getSurroundingWord(mLanguage);
 		if (word.isEmpty()) {
 			UI.toastLong(this, R.string.add_word_no_selection);
+		} else if (settings.getAddWordsNoConfirmation()) {
+			WordStoreAsync.put((res) -> UI.toastLongFromAsync(this, res.toHumanFriendlyString(this)), mLanguage, word);
 		} else {
 			AddWordDialog.show(this, mLanguage.getId(), word);
 		}

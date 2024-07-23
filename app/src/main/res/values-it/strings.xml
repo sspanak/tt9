@@ -141,5 +141,6 @@
 	<string name="virtual_numpad_alignment_center">Al centro</string>
 	<string name="virtual_numpad_alignment_left">A sinistra</string>
 	<string name="virtual_numpad_alignment_right">A destra</string>
+	<string name="add_word_no_confirmation">Aggiungere senza conferma</string>
 </resources>
 

@@ -22,6 +22,10 @@ public class SettingsUI extends SettingsTyping {
 
 	SettingsUI(Context context) { super(context); }
 
+	public boolean getAddWordsNoConfirmation() {
+		return prefs.getBoolean("add_word_no_confirmation", false);
+	}
+
 	public boolean isStatusIconEnabled() {
 		return prefs.getBoolean("pref_status_icon", DeviceInfo.isQinF21());
 	}

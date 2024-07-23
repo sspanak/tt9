@@ -32,6 +32,10 @@
 		app:title="@string/pref_category_custom_words"
 		app:singleLineTitle="true">
 
+		<SwitchPreferenceCompat
+			app:key="add_word_no_confirmation"
+			app:title="@string/add_word_no_confirmation" />
+
 		<Preference
 			app:key="dictionary_export_custom"
 			app:title="@string/dictionary_export_custom_words" />

@@ -53,9 +53,7 @@ public class AddWordDialog extends PopupDialog {
 
 
 	private void onAddingFinished(AddWordResult addingResult) {
-		activityFinisher.accept(
-			addingResult.toHumanFriendlyString(context)
-		);
+		activityFinisher.accept(addingResult.toHumanFriendlyString(context));
 	}
 
 
