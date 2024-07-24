@@ -109,5 +109,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		}
 
 		getProcessor().run(activity, file);
+
+		// @todo: benchmark the time it takes on a slow phone and show a progress dialog, if necessary
 	}
 }

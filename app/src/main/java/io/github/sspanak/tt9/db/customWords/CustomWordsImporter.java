@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Timer;
 
 public class CustomWordsImporter extends AbstractFileProcessor {
 	private ConsumerCompat<String> failureHandler;
@@ -63,10 +64,14 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 	@Override
 	protected void runSync(Activity activity) {
+		Timer.start(getClass().getSimpleName());
+
 		sendStart(resources.getString(R.string.dictionary_import_running));
 		if (isFileValid() && isThereRoomForMoreWords() && insertWords()) {
 			sendSuccess();
 		}
+
+		Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 	}
 
 
@@ -112,13 +117,18 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			}
 
 			sqlite.finishTransaction();
-			return true;
 		} catch (IOException e) {
 			sqlite.failTransaction();
 			Logger.e(getClass().getSimpleName(), "Error opening the file. " + e.getMessage());
 			sendFailure(resources.getString(R.string.dictionary_import_error_cannot_read_file));
 			return false;
 		}
+
+		if (ignoredWords > 0) {
+			Logger.i(getClass().getSimpleName(), "Skipped " + ignoredWords + " word(s) that are already in the dictionary.");
+		}
+
+		return true;
 	}
 
 
