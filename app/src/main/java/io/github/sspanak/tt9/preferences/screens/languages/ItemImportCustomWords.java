@@ -83,7 +83,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		Intent intent = new Intent()
 			.addCategory(Intent.CATEGORY_OPENABLE)
-			.setType("*/*") // text/csv does not work for some reason
+			.setType("text/*") // text/csv does not work for some reason
 			.setAction(Intent.ACTION_GET_CONTENT);
 
 		importCustomWordsLauncher.launch(intent);
@@ -91,12 +91,13 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	void onFileSelected(ActivityResult result) {
 		if (result.getResultCode() != Activity.RESULT_OK) {
+			Logger.e(getClass().getSimpleName(), "File picker activity failed with code: " + result.getResultCode());
 			return;
 		}
 
 		Intent intent = result.getData();
 		if (intent == null) {
-			Logger.w(getClass().getSimpleName(), "No data in selected file");
+			Logger.e(getClass().getSimpleName(), "No data in selected file");
 			return;
 		}
 
