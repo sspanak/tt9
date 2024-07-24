@@ -110,6 +110,8 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		getProcessor().run(activity, file);
 
+		// @todo: double-check if duplicate word check works both for custom words and language words
+		// @todo: complete the notifications
 		// @todo: benchmark the time it takes on a slow phone and show a progress dialog, if necessary
 	}
 }
