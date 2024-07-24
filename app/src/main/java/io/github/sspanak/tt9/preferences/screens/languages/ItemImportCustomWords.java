@@ -9,6 +9,7 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
+import io.github.sspanak.tt9.db.entities.CustomWordsFile;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemProcessCustomWordsAbstract;
 import io.github.sspanak.tt9.util.Logger;
@@ -21,12 +22,15 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
+
+		// @todo: display the message to the user
+		getProcessor().setFailureHandler((error) -> Logger.d(getClass().getSimpleName(), "Import failed: " + error));
 	}
 
 	@Override
 	protected CustomWordsImporter getProcessor() {
 		if (importer == null) {
-			importer = new CustomWordsImporter();
+			importer = new CustomWordsImporter(activity.getResources());
 		}
 		return importer;
 	}
@@ -83,7 +87,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		Intent intent = new Intent()
 			.addCategory(Intent.CATEGORY_OPENABLE)
-			.setType("text/*") // text/csv does not work for some reason
+			.setType(CustomWordsFile.MIME_TYPE) // text/csv does not work for some reason
 			.setAction(Intent.ACTION_GET_CONTENT);
 
 		importCustomWordsLauncher.launch(intent);
@@ -95,12 +99,17 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			return;
 		}
 
-		Intent intent = result.getData();
-		if (intent == null) {
-			Logger.e(getClass().getSimpleName(), "No data in selected file");
+		CustomWordsFile file = new CustomWordsFile(
+			result.getData() != null ? result.getData().getData() : null,
+			activity.getContentResolver()
+		);
+
+		if (!file.exists()) {
+			Logger.e(getClass().getSimpleName(), "Failed opening file or file does not exist.");
+			// @todo: show error message
 			return;
 		}
 
-		getProcessor().run(activity, result.getData().getData());
+		getProcessor().run(activity, file);
 	}
 }
