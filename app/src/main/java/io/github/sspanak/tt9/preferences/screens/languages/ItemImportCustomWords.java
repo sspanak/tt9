@@ -24,13 +24,13 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		super(item, activity, onStart, onFinish);
 
 		// @todo: display the message to the user
-		getProcessor().setFailureHandler((error) -> Logger.d(getClass().getSimpleName(), "Import failed: " + error));
+		getProcessor().setFailureHandler((error) -> Logger.e("UNIMPLEMENTEDERRORHANDLER", "Import failed: " + error));
 	}
 
 	@Override
 	protected CustomWordsImporter getProcessor() {
 		if (importer == null) {
-			importer = new CustomWordsImporter(activity.getResources());
+			importer = new CustomWordsImporter(activity);
 		}
 		return importer;
 	}
