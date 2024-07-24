@@ -104,14 +104,19 @@
 	<string name="dictionary_export">Export Selected</string>
 	<string name="dictionary_export_custom_words">Export</string>
 	<string name="dictionary_export_custom_words_summary">Export a CSV with all added words in: \"%1$s\".</string>
-	<string name="dictionary_import_custom_words">Import</string>
-	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
 	<string name="dictionary_export_failed">Exporting Failed</string>
 	<string name="dictionary_export_failed_more_info">For more info, enable debugging mode and see the logs.</string>
 	<string name="dictionary_export_finished">Exporting Completed</string>
 	<string name="dictionary_export_finished_more_info">Words exported to: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exporting CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exporting CSV (%1$s)…</string>
+
+	<string name="dictionary_import_custom_words">Import</string>
+	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
+	<string name="dictionary_import_failed">Importing failed</string>
+	<string name="dictionary_import_error_cannot_read_file">Could not open the file.</string>
+	<string name="dictionary_import_error_file_too_long">Words exceeds the maximum allowed count of %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Unexpected word format: \"%1$s\" on line %2$d.</string>
 
 	<string name="delete_words_delete">Delete</string>
 	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>

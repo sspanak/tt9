@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
-public class CustomWordsFile {
+public class CustomWordFile {
 	public static final String MIME_TYPE = "text/*";
 	private static final Pattern VALID_LINE_PATTERN = Pattern.compile("^\\p{L}+\\t\\d+$");
 
 	private final ContentResolver contentResolver;
 	private final Uri fileUri;
 
-	public CustomWordsFile(Uri fileUri, @NonNull ContentResolver contentResolver) {
+	public CustomWordFile(Uri fileUri, @NonNull ContentResolver contentResolver) {
 		this.contentResolver = contentResolver;
 		this.fileUri = fileUri;
 	}

@@ -9,7 +9,7 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
-import io.github.sspanak.tt9.db.entities.CustomWordsFile;
+import io.github.sspanak.tt9.db.entities.CustomWordFile;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemProcessCustomWordsAbstract;
 import io.github.sspanak.tt9.util.Logger;
@@ -87,7 +87,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		Intent intent = new Intent()
 			.addCategory(Intent.CATEGORY_OPENABLE)
-			.setType(CustomWordsFile.MIME_TYPE) // text/csv does not work for some reason
+			.setType(CustomWordFile.MIME_TYPE) // text/csv does not work for some reason
 			.setAction(Intent.ACTION_GET_CONTENT);
 
 		importCustomWordsLauncher.launch(intent);
@@ -99,7 +99,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 			return;
 		}
 
-		CustomWordsFile file = new CustomWordsFile(
+		CustomWordFile file = new CustomWordFile(
 			result.getData() != null ? result.getData().getData() : null,
 			activity.getContentResolver()
 		);

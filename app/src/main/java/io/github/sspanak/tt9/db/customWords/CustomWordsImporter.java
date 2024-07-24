@@ -8,7 +8,8 @@ import androidx.annotation.NonNull;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import io.github.sspanak.tt9.db.entities.CustomWordsFile;
+import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.entities.CustomWordFile;
 import io.github.sspanak.tt9.db.entities.WordFile;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -17,7 +18,7 @@ import io.github.sspanak.tt9.util.Logger;
 public class CustomWordsImporter extends AbstractFileProcessor {
 	private ConsumerCompat<String> failureHandler;
 
-	private CustomWordsFile file;
+	private CustomWordFile file;
 	private final Resources resources;
 
 	public CustomWordsImporter(Resources resources) {
@@ -36,24 +37,18 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private void sendFailure(int errorMessageId) {
+	private void sendFailure(String errorMessage) {
 		if (failureHandler != null) {
-			failureHandler.accept(resources.getString(errorMessageId));
+			failureHandler.accept(errorMessage);
 		}
-	}
-
-
-	private void sendFailure(String message, int userMessageId) {
-		Logger.e(getClass().getSimpleName(), "Importing failed. " + message);
-		sendFailure(userMessageId);
 	}
 
 
 	@Override
 	protected void runSync(Activity activity) {
 		if (file == null) {
-			// @todo: send a proper user message
-			sendFailure("Can not read a NULL file", 0);
+			Logger.e(getClass().getSimpleName(), "Can not read a NULL file");
+			sendFailure(resources.getString(R.string.dictionary_import_error_cannot_read_file));
 			return;
 		}
 
@@ -63,15 +58,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		try (BufferedReader reader = file.getReader()) {
 			for (String line; (line = reader.readLine()) != null; lineCount++) {
 				if (lineCount > SettingsStore.CUSTOM_WORDS_IMPORT_MAX_LINES) {
-					sendFailure("File too long.", 0);
-					// @todo: send a proper user message
+					sendFailure(resources.getString(R.string.dictionary_import_error_file_too_long, SettingsStore.CUSTOM_WORDS_IMPORT_MAX_LINES));
 					return;
 				}
 
-				if (!CustomWordsFile.isLineValid(line)) {
+				if (!CustomWordFile.isLineValid(line)) {
 					String linePreview = line.length() > 50 ? line.substring(0, 50) + "..." : line;
-					sendFailure("Line " + lineCount + " is invalid. Unexpected format: '" + linePreview + "'", 0);
-					// @todo: send a proper user message
+					sendFailure(resources.getString(R.string.dictionary_import_error_malformed_line, linePreview, lineCount));
 					return;
 				}
 
@@ -82,14 +75,15 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 			}
 		} catch (IOException e) {
 			// @todo: abort transaction
-			// @todo: send a proper user message
-			sendFailure("Error opening the file. " + e.getMessage(), 0);
+			Logger.e(getClass().getSimpleName(), "Error opening the file. " + e.getMessage());
+			sendFailure(resources.getString(R.string.dictionary_import_error_cannot_read_file));
 		}
 	}
 
 
-	public boolean run(@NonNull Activity activity, @NonNull CustomWordsFile file) {
+	public boolean run(@NonNull Activity activity, @NonNull CustomWordFile file) {
 		this.file = file;
 		return super.run(activity);
 	}
+
 }
