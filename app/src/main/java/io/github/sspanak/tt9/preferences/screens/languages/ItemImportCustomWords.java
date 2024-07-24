@@ -22,15 +22,13 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
-
-		// @todo: display the message to the user
-		getProcessor().setFailureHandler((error) -> Logger.e("UNIMPLEMENTEDERRORHANDLER", "Import failed: " + error));
 	}
 
 	@Override
 	protected CustomWordsImporter getProcessor() {
 		if (importer == null) {
 			importer = new CustomWordsImporter(activity);
+			importer.setFailureHandler((error) -> Logger.e("UNIMPLEMENTEDERRORHANDLER", "Import failed: " + error));
 		}
 		return importer;
 	}
