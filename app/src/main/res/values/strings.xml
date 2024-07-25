@@ -115,7 +115,8 @@
 	<string name="dictionary_import_custom_words_summary">Import words from a previously exported CSV.</string>
 	<string name="dictionary_import_failed">Importing failed</string>
 	<string name="dictionary_import_finished">Importing completed</string>
-	<string name="dictionary_import_error_cannot_read_file">Could not open the file.</string>
+	<string name="dictionary_import_error_browsing_error">Android file picker error.</string>
+	<string name="dictionary_import_error_cannot_read_file">Could not open the selected file.</string>
 	<string name="dictionary_import_error_file_too_long">Words exceed the maximum allowed count of %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Unexpected word format: \"%1$s\" on line %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">The added word storage is full. You can not import any more words.</string>

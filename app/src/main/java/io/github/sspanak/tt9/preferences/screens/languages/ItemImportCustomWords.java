@@ -20,6 +20,8 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	private ActivityResultLauncher<Intent> importCustomWordsLauncher;
 	private CustomWordsImporter importer;
 
+	private String lastError;
+
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
 	}
@@ -28,7 +30,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	protected CustomWordsImporter getProcessor() {
 		if (importer == null) {
 			importer = new CustomWordsImporter(activity);
-			importer.setFailureHandler((error) -> Logger.e("UNIMPLEMENTEDERRORHANDLER", "Import failed: " + error));
+			importer.setFailureHandler(this::onFailure);
 		}
 		return importer;
 	}
@@ -41,17 +43,23 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	@Override
 	protected boolean onStartProcessing() {
+		lastError = "";
 		return false;
+	}
+
+	private void onFailure(String error) {
+		lastError = error;
+		onFinishProcessing(null);
 	}
 
 	@Override
 	protected String getFailureMessage() {
-		return "";
+		return lastError;
 	}
 
 	@Override
 	protected String getFailureTitle() {
-		return "";
+		return activity.getString(R.string.dictionary_import_failed);
 	}
 
 	@Override
@@ -61,7 +69,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	@Override
 	protected String getSuccessTitle() {
-		return "";
+		return activity.getString(R.string.dictionary_import_finished);
 	}
 
 	@Override
@@ -93,6 +101,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 	void onFileSelected(ActivityResult result) {
 		if (result.getResultCode() != Activity.RESULT_OK) {
+			onFailure(activity.getString(R.string.dictionary_import_error_browsing_error));
 			Logger.e(getClass().getSimpleName(), "File picker activity failed with code: " + result.getResultCode());
 			return;
 		}
@@ -103,15 +112,14 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		);
 
 		if (!file.exists()) {
-			Logger.e(getClass().getSimpleName(), "Failed opening file or file does not exist.");
-			// @todo: show error message
+			onFailure(activity.getString(R.string.dictionary_import_error_cannot_read_file));
 			return;
 		}
 
 		getProcessor().run(activity, file);
 
 		// @todo: double-check if duplicate word check works both for custom words and language words
-		// @todo: complete the notifications
 		// @todo: benchmark the time it takes on a slow phone and show a progress dialog, if necessary
+		// @todo: translations
 	}
 }
