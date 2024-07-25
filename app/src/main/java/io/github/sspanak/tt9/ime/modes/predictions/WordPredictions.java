@@ -101,7 +101,7 @@ public class WordPredictions extends Predictions {
 			words.addAll(dbWords);
 		} else {
 			suggestStem();
-			dbWords = localeWordsSorter.shouldSort(language, stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
+			dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
 			dbWords = rearrangeByPairFrequency(dbWords);
 			suggestMissingWords(generatePossibleStemVariations(dbWords));
 			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
