@@ -18,5 +18,9 @@ public class CustomWord {
 		this.word = word;
 		this.language = language;
 		this.sequence = language.getDigitSequenceForWord(word);
+
+		if (sequence.contains("1") || sequence.contains("0")) {
+			throw new IllegalArgumentException("Custom word: '" + word + "' contains punctuation.");
+		}
 	}
 }

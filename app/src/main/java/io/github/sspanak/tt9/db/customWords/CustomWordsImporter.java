@@ -69,9 +69,11 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		sendStart(resources.getString(R.string.dictionary_import_running));
 		if (isFileValid() && isThereRoomForMoreWords() && insertWords()) {
 			sendSuccess();
+			Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
+		} else {
+			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
 		}
 
-		Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 	}
 
 
