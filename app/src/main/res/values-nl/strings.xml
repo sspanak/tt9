@@ -90,6 +90,13 @@
 	<string name="dictionary_export_custom_words_summary">Exporteer een CSV met alle toegevoegde woorden naar: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Exporteren mislukt</string>
 	<string name="dictionary_export_failed_more_info">Voor meer informatie, schakel de debug-modus in en bekijk de logs.</string>
+	<string name="dictionary_import_failed">Importeren mislukt.</string>
+	<string name="dictionary_import_finished">Importeren voltooid.</string>
+	<string name="dictionary_import_error_browsing_error">Fout bij het selecteren van bestanden in Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Kan het geselecteerde bestand niet openen.</string>
+	<string name="dictionary_import_error_file_too_long">Woorden overschrijden het maximaal toegestane aantal van %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Onverwacht woordformaat: \"%1$s\" op regel %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">De opslag voor toegevoegde woorden is vol. U kunt geen woorden meer importeren.</string>
 	<string name="delete_words_delete">Verwijderen</string>
 	<string name="delete_words_link_summary">Zoek en verwijder verkeerd gespelde of onnodige woorden.</string>
 	<string name="delete_words_search_placeholder">Zoeken naar woorden</string>
@@ -143,4 +150,6 @@
 	<string name="add_word_no_confirmation">Toevoegen zonder bevestiging</string>
 	<string name="dictionary_import_custom_words">Importeren</string>
 	<string name="dictionary_import_custom_words_summary">Woorden importeren uit een eerder geëxporteerde CSV.</string>
+	<string name="dictionary_import_progress">CSV importeren (%1$s)…</string>
+	<string name="dictionary_import_running">CSV importeren…</string>
 </resources>

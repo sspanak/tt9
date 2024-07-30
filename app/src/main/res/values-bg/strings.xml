@@ -54,6 +54,13 @@
 	<string name="dictionary_export_custom_words_summary">Експортиране на CSV с всички добавени думи в: „%1$s“.</string>
 	<string name="dictionary_export_failed">Неуспешно експортиране</string>
 	<string name="dictionary_export_failed_more_info">За повече информация, активирайте режима за отстраняване на грешки и прегледайте журнала.</string>
+	<string name="dictionary_import_failed">Неуспешно импортиране.</string>
+	<string name="dictionary_import_finished">Импортирането завърши.</string>
+	<string name="dictionary_import_error_browsing_error">Грешка при избора на файлове в Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Избраният файл не може да бъде отворен.</string>
+	<string name="dictionary_import_error_file_too_long">Думите надвишават максимално допустимия брой от %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Неочакван формат на дума: „%1$s“ на ред %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">Хранилището за добавени думи е пълно. Не можете да импортирате повече думи.</string>
 	<string name="delete_words_delete">Изтрий</string>
 	<string name="delete_words_link_summary">Намери и изтрий на неправилно написани или ненужни думи.</string>
 	<string name="delete_words_search_placeholder">Търси думи</string>
@@ -156,4 +163,6 @@
 	<string name="add_word_no_confirmation">Добавяне без потвърждение</string>
 	<string name="dictionary_import_custom_words">Импортиране</string>
 	<string name="dictionary_import_custom_words_summary">Импортиране на думи от по-рано експортирано CSV.</string>
+	<string name="dictionary_import_progress">Импортиране на CSV (%1$s)…</string>
+	<string name="dictionary_import_running">Импортиране на CSV…</string>
 </resources>

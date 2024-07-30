@@ -90,6 +90,13 @@
 	<string name="dictionary_export_custom_words_summary">Seçilenleri CSV dosyası olarak „%1$s“ dizinine dışa aktar.</string>
 	<string name="dictionary_export_failed">Dışa aktarım başarısız oldu.</string>
 	<string name="dictionary_export_failed_more_info">Daha fazla bilgi için Hata Ayıklamayı açıp kayıtları kontrol edin.</string>
+	<string name="dictionary_import_failed">İçe aktarma başarısız oldu.</string>
+	<string name="dictionary_import_finished">İçe aktarma tamamlandı.</string>
+	<string name="dictionary_import_error_browsing_error">Android dosya seçici hatası.</string>
+	<string name="dictionary_import_error_cannot_read_file">Seçilen dosya açılamadı.</string>
+	<string name="dictionary_import_error_file_too_long">Kelime sayısı izin verilen maksimum %1$d\'i aşıyor.</string>
+	<string name="dictionary_import_error_malformed_line">Beklenmeyen kelime formatı: \"%1$s\" satır %2$d\'de.</string>
+	<string name="dictionary_import_error_too_many_words">Eklenen kelime depolama alanı dolu. Daha fazla kelime içe aktaramazsınız.</string>
 	<string name="delete_words_delete">Sil</string>
 	<string name="delete_words_link_summary">Yanlış yazılan ya da gereksiz kelimeleri bulun ve silin.</string>
 	<string name="delete_words_search_placeholder">Aramak istediğiniz kelimeyi yazın…</string>
@@ -157,4 +164,6 @@
 	<string name="add_word_no_confirmation">Onay olmadan ekle</string>
 	<string name="dictionary_import_custom_words">İçe Aktar</string>
 	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
+	<string name="dictionary_import_progress">CSV İçe aktarılıyor (%1$s)…</string>
+	<string name="dictionary_import_running">CSV İçe aktarılıyor…</string>
 </resources>

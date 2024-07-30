@@ -105,6 +105,13 @@
 	<string name="dictionary_export_custom_words_summary">ייצוא CSV עם כל המילים שנוספו ל: \"%1$s\".</string>
 	<string name="dictionary_export_failed">נכשל בייצוא</string>
 	<string name="dictionary_export_failed_more_info">"למידע נוסף, הפעל מצב איתור באגים וראה את הלוגים. "</string>
+	<string name="dictionary_import_failed">הייבוא נכשל.</string>
+	<string name="dictionary_import_finished">הייבוא הושלם.</string>
+	<string name="dictionary_import_error_browsing_error">שגיאת בורר הקבצים של Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">לא ניתן לפתוח את הקובץ שנבחר.</string>
+	<string name="dictionary_import_error_file_too_long">מספר המילים חורג מהמכסה המקסימלית של %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">תבנית מילה בלתי צפויה: \"%1$s\" בשורה %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">אחסון המילים שהתווספו מלא. אינך יכול לייבא עוד מילים.</string>
 	<string name="delete_words_delete">מחיקה</string>
 	<string name="delete_words_link_summary">מצא ומחק מילים שכתובות בטעות או שאינן נדרשות.</string>
 	<string name="delete_words_search_placeholder">חיפוש מילים</string>
@@ -157,4 +164,6 @@
 	<string name="add_word_no_confirmation">להוסיף ללא אישור</string>
 	<string name="dictionary_import_custom_words">לְיַבֵּא</string>
 	<string name="dictionary_import_custom_words_summary">ייבוא מילים מקובץ CSV שיוצא קודם לכן.</string>
+	<string name="dictionary_import_progress">מייבא CSV (%1$s)…</string>
+	<string name="dictionary_import_running">מייבא CSV…</string>
 </resources>

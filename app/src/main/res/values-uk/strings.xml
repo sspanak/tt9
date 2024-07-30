@@ -89,6 +89,13 @@
 	<string name="dictionary_export_custom_words_summary">Експорт CSV з усіма доданими словами в: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Помилка експорту</string>
 	<string name="dictionary_export_failed_more_info">Для отримання додаткової інформації увімкніть режим відлагодження та перегляньте журнали.</string>
+	<string name="dictionary_import_failed">Імпорт не вдався.</string>
+	<string name="dictionary_import_finished">Імпорт завершено.</string>
+	<string name="dictionary_import_error_browsing_error">Помилка вибору файлів Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Не вдалося відкрити вибраний файл.</string>
+	<string name="dictionary_import_error_file_too_long">Кількість слів перевищує максимально дозволену кількість %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">"Несподіваний формат слова: \"%1$s\" у рядку %2$d. "</string>
+	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
 	<string name="delete_words_delete">Видалити</string>
 	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
 	<string name="delete_words_search_placeholder">Пошук слів</string>
@@ -165,4 +172,6 @@
 	<string name="add_word_no_confirmation">Додати без підтвердження</string>
 	<string name="dictionary_import_custom_words">Імпортувати</string>
 	<string name="dictionary_import_custom_words_summary">Імпортувати слова з раніше експортованого CSV.</string>
+	<string name="dictionary_import_progress">Імпорт CSV (%1$s)…</string>
+	<string name="dictionary_import_running">Імпорт CSV…</string>
 </resources>
