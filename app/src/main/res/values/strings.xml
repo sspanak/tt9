@@ -120,6 +120,7 @@
 	<string name="dictionary_import_error_file_too_long">Words exceed the maximum allowed count of %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Unexpected word format: \"%1$s\" on line %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">The added word storage is full. You can not import any more words.</string>
+	<string name="dictionary_import_progress">Importing CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importing CSV…</string>
 
 	<string name="delete_words_delete">Delete</string>

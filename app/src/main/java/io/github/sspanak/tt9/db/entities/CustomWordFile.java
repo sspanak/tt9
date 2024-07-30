@@ -12,12 +12,14 @@ import java.io.InputStreamReader;
 
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.util.Logger;
 
 public class CustomWordFile {
 	public static final String MIME_TYPE = "text/*";
 
 	private final ContentResolver contentResolver;
 	private final Uri fileUri;
+	private int size = -1;
 
 	public CustomWordFile(Uri fileUri, @NonNull ContentResolver contentResolver) {
 		this.contentResolver = contentResolver;
@@ -39,6 +41,29 @@ public class CustomWordFile {
 			return false;
 		}
 	}
+
+	public int getSize() {
+		if (size < 0) {
+			calculateSize();
+		}
+
+		return size;
+	}
+
+
+	private void calculateSize() {
+		size = 0;
+
+		try {
+			BufferedReader reader = getReader();
+			while (reader.readLine() != null) {
+				size++;
+			}
+		} catch (IOException e) {
+			Logger.w(getClass().getSimpleName(), "Failed to read file size. " + e.getMessage());
+		}
+	}
+
 
 	public static NaturalLanguage getLanguage(@NonNull Context context, String line) {
 		if (line == null) {

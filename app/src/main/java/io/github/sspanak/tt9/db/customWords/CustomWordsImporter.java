@@ -21,12 +21,15 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class CustomWordsImporter extends AbstractFileProcessor {
+	private ConsumerCompat<Integer> progressHandler;
 	private ConsumerCompat<String> failureHandler;
 
 	private final Context context;
 	private CustomWordFile file;
 	private final Resources resources;
-	SQLiteOpener sqlite;
+	private SQLiteOpener sqlite;
+
+	private long lastProgressUpdate = 0;
 
 
 	public CustomWordsImporter(Context context) {
@@ -36,8 +39,22 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
+	public void setProgressHandler(ConsumerCompat<Integer> handler) {
+		progressHandler = handler;
+	}
+
+
 	public void setFailureHandler(ConsumerCompat<String> handler) {
 		failureHandler = handler;
+	}
+
+
+	private void sendProgress(int progress) {
+		long now = System.currentTimeMillis();
+		if (lastProgressUpdate + SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME < now) {
+			progressHandler.accept(progress);
+			lastProgressUpdate = now;
+		}
 	}
 
 
@@ -94,7 +111,6 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		int ignoredWords = 0;
 		int lineCount = 1;
 
-
 		try (BufferedReader reader = file.getReader()) {
 			sqlite.beginTransaction();
 
@@ -112,10 +128,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 				if (readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
 					ignoredWords++;
-					continue;
+				} else {
+					InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);
 				}
 
-				InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);
+				if (file.getSize() > 20) {
+					sendProgress(lineCount * 100 / file.getSize());
+				}
 			}
 
 			sqlite.finishTransaction();

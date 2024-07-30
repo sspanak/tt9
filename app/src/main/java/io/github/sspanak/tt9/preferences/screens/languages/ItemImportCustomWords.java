@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.entities.CustomWordFile;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemProcessCustomWordsAbstract;
+import io.github.sspanak.tt9.ui.notifications.DictionaryProgressNotification;
 import io.github.sspanak.tt9.util.Logger;
 
 public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
@@ -31,6 +32,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		if (importer == null) {
 			importer = new CustomWordsImporter(activity);
 			importer.setFailureHandler(this::onFailure);
+			importer.setProgressHandler(this::onProgress);
 		}
 		return importer;
 	}
@@ -45,6 +47,13 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	protected boolean onStartProcessing() {
 		lastError = "";
 		return false;
+	}
+
+	private void onProgress(int progress) {
+		String loadingMsg = activity.getString(R.string.dictionary_import_progress, progress + "%");
+
+		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", progress,100);
+		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
 	private void onFailure(String error) {
@@ -118,8 +127,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		getProcessor().run(activity, file);
 
-		// @todo: double-check if duplicate word check works both for custom words and language words
-		// @todo: benchmark the time it takes on a slow phone and show a progress dialog, if necessary
+		// @todo: lock the items on navigating to the screen
 		// @todo: translations
 	}
 }
