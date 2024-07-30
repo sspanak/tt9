@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.util.Logger;
 
 public class CustomWordFile {
-	public static final String MIME_TYPE = "text/*";
+	public static final String MIME_TYPE = "text/*"; // for some reason, text/csv does not work as a filter when browsing
 
 	private final ContentResolver contentResolver;
 	private final Uri fileUri;

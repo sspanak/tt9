@@ -52,7 +52,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	private void onProgress(int progress) {
 		String loadingMsg = activity.getString(R.string.dictionary_import_progress, progress + "%");
 
-		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", progress,100);
+		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMsg, "", progress, 100);
 		activity.runOnUiThread(() -> item.setSummary(loadingMsg));
 	}
 
@@ -102,7 +102,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 
 		Intent intent = new Intent()
 			.addCategory(Intent.CATEGORY_OPENABLE)
-			.setType(CustomWordFile.MIME_TYPE) // text/csv does not work for some reason
+			.setType(CustomWordFile.MIME_TYPE)
 			.setAction(Intent.ACTION_GET_CONTENT);
 
 		importCustomWordsLauncher.launch(intent);
@@ -126,8 +126,5 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		}
 
 		getProcessor().run(activity, file);
-
-		// @todo: lock the items on navigating to the screen
-		// @todo: translations
 	}
 }

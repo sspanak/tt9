@@ -101,7 +101,6 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		} else {
 			Logger.e(getClass().getSimpleName(), "Failed to import " + file.getName());
 		}
-
 	}
 
 

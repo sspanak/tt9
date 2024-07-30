@@ -11,6 +11,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 	final private Runnable onStart;
 	final private Runnable onFinish;
 
+
 	public ItemProcessCustomWordsAbstract(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item);
 		this.activity = activity;
@@ -23,6 +24,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 		processor.setSuccessHandler(this::onFinishProcessing);
 		refreshStatus();
 	}
+
 
 	abstract protected AbstractFileProcessor getProcessor();
 
@@ -51,6 +53,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 
 	abstract protected boolean onStartProcessing();
 
+
 	protected void onFinishProcessing(String fileName) {
 		activity.runOnUiThread(() -> {
 			setReadyStatus();
@@ -69,6 +72,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 			}
 		});
 	}
+
 
 	abstract protected String getFailureMessage();
 	abstract protected String getFailureTitle();
