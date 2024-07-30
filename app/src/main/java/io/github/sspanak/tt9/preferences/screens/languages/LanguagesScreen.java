@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.customWords.CustomWordsExporter;
+import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.customWords.DictionaryExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
@@ -118,7 +119,11 @@ public class LanguagesScreen extends BaseScreenFragment {
 		if (DictionaryLoader.getInstance(activity).isRunning()) {
 			loadItem.refreshStatus();
 			ItemClickable.disableOthers(clickables, loadItem);
-		} else if (CustomWordsExporter.getInstance().isRunning() || DictionaryExporter.getInstance().isRunning()) {
+		} else if (
+			CustomWordsExporter.getInstance().isRunning()
+			|| DictionaryExporter.getInstance().isRunning()
+			|| CustomWordsImporter.getInstance(activity).isRunning()
+		) {
 			onActionStart();
 		} else {
 			onActionFinish();

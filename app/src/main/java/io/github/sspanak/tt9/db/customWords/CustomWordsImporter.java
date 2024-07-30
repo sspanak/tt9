@@ -21,6 +21,8 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class CustomWordsImporter extends AbstractFileProcessor {
+	private static CustomWordsImporter self;
+
 	private ConsumerCompat<Integer> progressHandler;
 	private ConsumerCompat<String> failureHandler;
 
@@ -32,7 +34,16 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	private long lastProgressUpdate = 0;
 
 
-	public CustomWordsImporter(Context context) {
+	public static CustomWordsImporter getInstance(Context context) {
+		if (self == null) {
+			self = new CustomWordsImporter(context);
+		}
+
+		return self;
+	}
+
+
+	private CustomWordsImporter(Context context) {
 		super();
 		this.context = context;
 		this.resources = context.getResources();

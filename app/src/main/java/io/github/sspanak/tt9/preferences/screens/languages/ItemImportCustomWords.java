@@ -30,7 +30,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	@Override
 	protected CustomWordsImporter getProcessor() {
 		if (importer == null) {
-			importer = new CustomWordsImporter(activity);
+			importer = CustomWordsImporter.getInstance(activity);
 			importer.setFailureHandler(this::onFailure);
 			importer.setProgressHandler(this::onProgress);
 		}
