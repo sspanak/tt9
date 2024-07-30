@@ -10,12 +10,6 @@
 		app:title="@string/pref_category_function_keys" />
 
 	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_upside_down_keys"
-		app:summary="@string/pref_upside_down_keys_summary"
-		app:title="@string/pref_upside_down_keys" />
-
-	<SwitchPreferenceCompat
 			app:key="pref_haptic_feedback"
 			app:title="@string/pref_haptic_feedback"
 			app:summary="@string/pref_haptic_feedback_summary"/>
@@ -61,6 +55,12 @@
 		<DropDownPreference
 			app:key="pref_key_pad_debounce_time"
 			app:title="@string/pref_hack_key_pad_debounce_time" />
+
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:key="pref_upside_down_keys"
+			app:summary="@string/pref_upside_down_keys_summary"
+			app:title="@string/pref_upside_down_keys" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
