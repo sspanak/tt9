@@ -66,6 +66,11 @@ public class ReadOps {
 	}
 
 
+	public long countCustomWords(@NonNull SQLiteDatabase db) {
+		return CompiledQueryCache.simpleQueryForLong(db, "SELECT COUNT(*) FROM " + Tables.CUSTOM_WORDS, 0);
+	}
+
+
 	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String wordFilter) {
 		ArrayList<String> words = new ArrayList<>();
 

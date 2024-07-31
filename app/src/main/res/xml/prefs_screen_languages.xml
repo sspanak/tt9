@@ -37,6 +37,11 @@
 			app:title="@string/add_word_no_confirmation" />
 
 		<Preference
+			app:key="dictionary_import_custom"
+			app:title="@string/dictionary_import_custom_words"
+			app:enabled="false"/>
+
+		<Preference
 			app:key="dictionary_export_custom"
 			app:title="@string/dictionary_export_custom_words" />
 

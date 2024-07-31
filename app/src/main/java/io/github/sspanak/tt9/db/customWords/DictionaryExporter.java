@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.exporter;
+package io.github.sspanak.tt9.db.customWords;
 
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
@@ -31,7 +31,7 @@ public class DictionaryExporter extends AbstractExporter {
 	}
 
 	@Override
-	protected void exportSync(Activity activity) {
+	protected void runSync(Activity activity) {
 		if (languages == null || languages.isEmpty()) {
 			Logger.d(LOG_TAG, "Nothing to do");
 			return;

@@ -11,7 +11,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
-import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;

@@ -92,6 +92,13 @@
 	<string name="dictionary_export_custom_words_summary">Esporta un CSV con tutte le parole aggiunte su: \"%1$s\".</string>
 	<string name="dictionary_export_failed">Esportazione fallita</string>
 	<string name="dictionary_export_failed_more_info">Per ulteriori informazioni, abilita la modalità di debug e consulta i log.</string>
+	<string name="dictionary_import_failed">Importazione fallita.</string>
+	<string name="dictionary_import_finished">Importazione completata.</string>
+	<string name="dictionary_import_error_browsing_error">Errore del selettore di file di Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Impossibile aprire il file selezionato.</string>
+	<string name="dictionary_import_error_file_too_long">Le parole superano il numero massimo consentito di %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Formato di parola imprevisto: \"%1$s\" alla linea %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">Lo spazio di archiviazione delle parole aggiunte è pieno. Non è possibile importare altre parole.</string>
 	<string name="delete_words_delete">Elimina</string>
 	<string name="delete_words_link_summary">Trova ed elimina parole errate o non necessarie.</string>
 	<string name="delete_words_search_placeholder">Ricerca di parole</string>
@@ -142,5 +149,9 @@
 	<string name="virtual_numpad_alignment_left">A sinistra</string>
 	<string name="virtual_numpad_alignment_right">A destra</string>
 	<string name="add_word_no_confirmation">Aggiungere senza conferma</string>
+	<string name="dictionary_import_custom_words">Importare</string>
+	<string name="dictionary_import_custom_words_summary">Importare parole da un CSV precedentemente esportato.</string>
+	<string name="dictionary_import_progress">Importazione CSV (%1$s)…</string>
+	<string name="dictionary_import_running">Importazione CSV…</string>
 </resources>
 

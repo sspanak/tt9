@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.Language;
 
 public class AddWordResult {
 	public static final int CODE_SUCCESS = 0;

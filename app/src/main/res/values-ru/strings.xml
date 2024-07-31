@@ -106,6 +106,13 @@
 	<string name="dictionary_export_custom_words_summary">Экспорт CSV со всеми добавленными словами в: «%1$s».</string>
 	<string name="dictionary_export_failed">Ошибка экспорта</string>
 	<string name="dictionary_export_failed_more_info">Для получения дополнительной информации включите режим отладки и просмотрите журналы.</string>
+	<string name="dictionary_import_failed">Импорт не выполнен.</string>
+	<string name="dictionary_import_finished">Импорт завершен.</string>
+	<string name="dictionary_import_error_browsing_error">Ошибка выбора файлов в Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Не удалось открыть выбранный файл.</string>
+	<string name="dictionary_import_error_file_too_long">Количество слов превышает максимально допустимое значение %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Неожиданный формат слова: «%1$s» на строке %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">Хранилище добавленных слов заполнено. Вы не можете импортировать больше слов.</string>
 	<string name="delete_words_delete">Удалить</string>
 	<string name="delete_words_link_summary">Найти и удалить ошибочно написанные или ненужные слова.</string>
 	<string name="delete_words_search_placeholder">Поиск слов</string>
@@ -152,4 +159,8 @@
 	<string name="virtual_numpad_alignment_right">Направо</string>
 	<string name="function_select_keyboard">Выбор клавиатуры</string>
 	<string name="add_word_no_confirmation">Добавить без подтверждения</string>
+	<string name="dictionary_import_custom_words">Импортировать</string>
+	<string name="dictionary_import_custom_words_summary">Импортировать слова из ранее экспортированного CSV.</string>
+	<string name="dictionary_import_progress">Импортирование CSV (%1$s)…</string>
+	<string name="dictionary_import_running">Импортирование CSV…</string>
 </resources>

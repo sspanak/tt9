@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.debug;
 import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.exporter.LogcatExporter;
+import io.github.sspanak.tt9.db.customWords.LogcatExporter;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;

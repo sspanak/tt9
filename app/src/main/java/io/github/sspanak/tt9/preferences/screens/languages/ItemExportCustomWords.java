@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.exporter.CustomWordsExporter;
+import io.github.sspanak.tt9.db.customWords.CustomWordsExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemExportAbstract;
 
@@ -15,12 +15,12 @@ class ItemExportCustomWords extends ItemExportAbstract {
 	}
 
 	@Override
-	protected CustomWordsExporter getExporter() {
+	protected CustomWordsExporter getProcessor() {
 		return CustomWordsExporter.getInstance();
 	}
 
-	protected boolean onStartExporting() {
-		return CustomWordsExporter.getInstance().export(activity);
+	protected boolean onStartProcessing() {
+		return CustomWordsExporter.getInstance().run(activity);
 	}
 
 	public void setReadyStatus() {

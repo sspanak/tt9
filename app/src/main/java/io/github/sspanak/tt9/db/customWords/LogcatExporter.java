@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db.exporter;
+package io.github.sspanak.tt9.db.customWords;
 
 import android.app.Activity;
 
@@ -60,7 +60,7 @@ public class LogcatExporter extends AbstractExporter {
 
 
 	@Override
-	protected void exportSync(Activity activity) {
+	protected void runSync(Activity activity) {
 		try {
 			sendStart("Exporting logs...");
 			write(activity);

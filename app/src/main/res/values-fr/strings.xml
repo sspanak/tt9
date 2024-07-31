@@ -107,6 +107,13 @@
 	<string name="dictionary_export_custom_words_summary">Exporter un CSV avec tous les mots ajoutés vers : «%1$s».</string>
 	<string name="dictionary_export_failed">Échec de l\'exportation</string>
 	<string name="dictionary_export_failed_more_info">Pour plus d\'informations, activez le mode de débogage et consultez les journaux.</string>
+	<string name="dictionary_import_failed">L\'importation a échoué.</string>
+	<string name="dictionary_import_finished">Importation terminée.</string>
+	<string name="dictionary_import_error_browsing_error">Erreur du sélecteur de fichiers d\'Android.</string>
+	<string name="dictionary_import_error_cannot_read_file">Impossible d\'ouvrir le fichier sélectionné.</string>
+	<string name="dictionary_import_error_file_too_long">Le nombre de mots dépasse le nombre maximal autorisé de %1$d.</string>
+	<string name="dictionary_import_error_malformed_line">Format de mot inattendu : « %1$s » à la ligne %2$d.</string>
+	<string name="dictionary_import_error_too_many_words">Le stockage des mots ajoutés est plein. Vous ne pouvez plus importer de mots.</string>
 	<string name="delete_words_delete">Supprimer</string>
 	<string name="delete_words_link_summary">Trouver et supprimer des mots mal orthographiés ou inutiles.</string>
 	<string name="delete_words_search_placeholder">Rechercher des mots</string>
@@ -150,4 +157,8 @@
 	<string name="virtual_numpad_alignment_right">À droite</string>
 	<string name="function_select_keyboard">Choisir le clavier</string>
 	<string name="add_word_no_confirmation">Ajouter sans confirmation</string>
+	<string name="dictionary_import_custom_words">Importer</string>
+	<string name="dictionary_import_custom_words_summary">Importer des mots à partir d\'un fichier CSV précédemment exporté.</string>
+	<string name="dictionary_import_progress">Importation de CSV (%1$s)…</string>
+	<string name="dictionary_import_running">Importation de CSV…</string>
 </resources>

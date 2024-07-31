@@ -50,12 +50,17 @@ public class DictionaryProgressNotification extends DictionaryNotification {
 
 
 	public void showLoadingMessage(@NonNull String title, @NonNull String message) {
+		showLoadingMessage(title, message, 0, 1);
+	}
+
+
+	public void showLoadingMessage(@NonNull String title, @NonNull String message, int progress, int maxProgress) {
 		this.title = title;
 		this.message = message;
 		messageLong = "";
-		indeterminate = true;
-		progress = 1;
-		maxProgress = 2;
+		this.progress = progress;
+		this.maxProgress = maxProgress;
+		indeterminate = (progress <= 0 && maxProgress <= 0);
 		renderMessage();
 	}
 
