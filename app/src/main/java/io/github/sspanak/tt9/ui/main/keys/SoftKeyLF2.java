@@ -24,7 +24,7 @@ public class SoftKeyLF2 extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		return validateTT9Handler() && tt9.onTab(false);
+		return validateTT9Handler() && tt9.onKeyTab(false);
 	}
 
 	@Override

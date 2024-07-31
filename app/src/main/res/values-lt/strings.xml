@@ -86,6 +86,8 @@
 	<string name="function_next_suggestion">Sekantis pasiūlytas žodis</string>
 	<string name="function_next_language">Rašymo kalba</string>
 	<string name="function_next_mode">Rašymo būdas</string>
+	<string name="function_add_word">Pridėti žodį</string>
+	<string name="function_show_settings">Rodyti nustatymus</string>
 	<string name="function_reset_keys_title">Atkurti numatytąsias reikšmes</string>
 	<string name="function_reset_keys_done">Numatytosios reikšmės atkurtos.</string>
 
@@ -157,4 +159,5 @@
 	<string name="virtual_numpad_alignment_center">Centre</string>
 	<string name="virtual_numpad_alignment_left">Kairėje</string>
 	<string name="virtual_numpad_alignment_right">Dešinėje</string>
+	<string name="function_select_keyboard">Keisti klaviatūrą</string>
 </resources>

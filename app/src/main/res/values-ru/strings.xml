@@ -75,6 +75,8 @@
 	<string name="function_next_suggestion">Следующее слово</string>
 	<string name="function_next_language">Следующий язык</string>
 	<string name="function_next_mode">Режим ввода</string>
+	<string name="function_add_word">Добавить слово</string>
+	<string name="function_show_settings">Настройки</string>
 	<string name="function_reset_keys_title">Вернуть кнопки по умолчанию</string>
 	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
 	<string name="setup_keyboard_status">Состояние</string>
@@ -148,4 +150,5 @@
 	<string name="virtual_numpad_alignment_center">Посередине</string>
 	<string name="virtual_numpad_alignment_left">Налево</string>
 	<string name="virtual_numpad_alignment_right">Направо</string>
+	<string name="function_select_keyboard">Выбор клавиатуры</string>
 </resources>

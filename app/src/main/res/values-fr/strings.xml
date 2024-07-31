@@ -76,6 +76,8 @@
 	<string name="function_next_suggestion">Mot suivant</string>
 	<string name="function_next_language">Langue suivante</string>
 	<string name="function_next_mode">Mode de saisie suivant</string>
+	<string name="function_add_word">Ajouter un mot</string>
+	<string name="function_show_settings">Afficher les paramètres</string>
 	<string name="function_reset_keys_title">Restaurer les paramètres par défaut</string>
 	<string name="function_reset_keys_done">Paramètres par défaut sont restaurés.</string>
 	<string name="setup_keyboard_status">État</string>
@@ -146,4 +148,5 @@
 	<string name="virtual_numpad_alignment_center">Au milieu</string>
 	<string name="virtual_numpad_alignment_left">À gauche</string>
 	<string name="virtual_numpad_alignment_right">À droite</string>
+	<string name="function_select_keyboard">Choisir le clavier</string>
 </resources>
