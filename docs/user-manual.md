@@ -10,8 +10,7 @@ _If you don't see the icon right after installing, restart your phone, and it sh
 If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
 
 ### Enabling Predictive Mode
-Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing.
-For more information, [see below](#language-options).
+Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing. For more information, [see below](#language-options).
 
 #### Notes for low-end phones
 Dictionary loading may saturate low-end phones. When using the TT9 "lite" version, this will cause Android to abort the operation. If loading takes more than 30 seconds, plug in the charger or ensure the screen stays on during loading.
@@ -191,8 +190,7 @@ Click on the Traditional T9 launcher icon.
 - Press the 2-key.
 
 #### Method 3
-- Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards/Virtual Keyboards). This is where all installed keyboards
-  are configured.
+- Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards/Virtual Keyboards). This is where all installed keyboards are configured.
 - Select "Traditional T9".
 
 _The actual menu names may vary depending on your phone, Android version, and language._
