@@ -7,8 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public class WordStoreAsync {
 	private static WordStore store;
@@ -56,7 +57,7 @@ public class WordStoreAsync {
 	}
 
 
-	public static void put(ConsumerCompat<Integer> statusHandler, Language language, String word) {
+	public static void put(ConsumerCompat<AddWordResult> statusHandler, Language language, String word) {
 		new Thread(() -> statusHandler.accept(getStore().put(language, word))).start();
 	}
 

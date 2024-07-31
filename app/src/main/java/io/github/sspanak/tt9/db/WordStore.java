@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -18,7 +19,6 @@ import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
@@ -142,25 +142,24 @@ public class WordStore {
 	}
 
 
-
-	public int put(Language language, String word) {
+	@NonNull public AddWordResult put(Language language, String word) {
 		if (word == null || word.isEmpty()) {
-			return AddWordDialog.CODE_BLANK_WORD;
+			return new AddWordResult(AddWordResult.CODE_BLANK_WORD, word);
 		}
 
 		if (language == null || language instanceof NullLanguage) {
-			return AddWordDialog.CODE_INVALID_LANGUAGE;
+			return new AddWordResult(AddWordResult.CODE_INVALID_LANGUAGE, word);
 		}
 
 		if (!checkOrNotify()) {
-			return AddWordDialog.CODE_GENERAL_ERROR;
+			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, word);
 		}
 
 		language = Text.isGraphic(word) ? new EmojiLanguage() : language;
 
 		try {
 			if (readOps.exists(sqlite.getDb(), language, word)) {
-				return AddWordDialog.CODE_WORD_EXISTS;
+				return new AddWordResult(AddWordResult.CODE_WORD_EXISTS, word);
 			}
 
 			String sequence = language.getDigitSequenceForWord(word);
@@ -173,10 +172,10 @@ public class WordStore {
 		} catch (Exception e) {
 			String msg = "Failed inserting word: '" + word + "' for language: " + language.getId() + ". " + e.getMessage();
 			Logger.e("insertWord", msg);
-			return AddWordDialog.CODE_GENERAL_ERROR;
+			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, word);
 		}
 
-		return AddWordDialog.CODE_SUCCESS;
+		return new AddWordResult(AddWordResult.CODE_SUCCESS, word);
 	}
 
 

@@ -149,4 +149,5 @@
 	<string name="virtual_numpad_alignment_left">À gauche</string>
 	<string name="virtual_numpad_alignment_right">À droite</string>
 	<string name="function_select_keyboard">Choisir le clavier</string>
+	<string name="add_word_no_confirmation">Ajouter sans confirmation</string>
 </resources>
