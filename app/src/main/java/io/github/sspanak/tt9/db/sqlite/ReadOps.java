@@ -102,8 +102,9 @@ public class ReadOps {
 
 		String table = customWords || language == null ? Tables.CUSTOM_WORDS : Tables.getWords(language.getId());
 		String[] columns = customWords || language == null ? new String[]{"word", "langId"} : new String[]{"word", "frequency"};
+		String where = customWords || language == null ? "langId <> " + new EmojiLanguage().getId() : null;
 
-		try (Cursor cursor = db.query(table, columns, null, null, null, null, null)) {
+		try (Cursor cursor = db.query(table, columns, where, null, null, null, null)) {
 			while (cursor.moveToNext()) {
 				words
 					.append(cursor.getString(0))
