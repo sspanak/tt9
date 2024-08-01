@@ -106,7 +106,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
 		UI.showChangeKeyboardDialog(this);
-		onDeath();
 	}
 
 
