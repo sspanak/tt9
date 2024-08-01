@@ -48,9 +48,10 @@ public class HelpActivity extends AppCompatActivity {
 
 		// On API > 30 the WebView does not load the entire String with .loadData(),
 		// so we need to do this weird shit.
+		// The "app:" prefix is mandatory, otherwise the anchor links do not work.
 		// Reference: https://developer.android.com/develop/ui/views/layout/webapps/webview
 		String html = getHelpHtml();
-		String encodedHtml = Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
+		String encodedHtml = "app:" + Base64.encodeToString(html.getBytes(), Base64.NO_PADDING);
 		container.loadDataWithBaseURL(encodedHtml, html, "text/html", "UTF-8", null);
 
 		setContentView(container);
