@@ -29,7 +29,17 @@ public class TraditionalT9 extends MainViewHandler {
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
 		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
-		return shouldBeVisible();
+
+		if (!shouldBeVisible()) {
+			return false;
+		}
+
+		if (SystemSettings.isTT9Enabled(this)) {
+			return true;
+		} else {
+			onDeath();
+			return false;
+		}
 	}
 
 
@@ -177,14 +187,15 @@ public class TraditionalT9 extends MainViewHandler {
 		Logger.w("onDeath", "===> Killing self");
 		requestHideSelf(0);
 		onStop();
+		normalizationHandler.removeCallbacksAndMessages(null);
 		stopSelf();
 	}
 
 
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
 		onDeath();
+		super.onDestroy();
 	}
 
 
