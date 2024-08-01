@@ -5,9 +5,48 @@ ext.markdownToHTML = { markdownPath, htmlPath, version ->
     text = convertOrderedLists(text)
     text = convertUnorderedLists(text)
     text = convertInlineTags(text)
+    text = addStylesToTags(text)
+    text = insertIndex(text, generateIndex(text))
     text = removeWhitespace(text)
 
-    new File(htmlPath).text = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>Help</title></head><body>${text}</body></html>"
+    new File(htmlPath).text = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><style>${getStyles()}</style><title>Help</title></head><body>${text}</body></html>"
+}
+
+
+static getStyles() {
+    return "body {padding: 12px; background-color: #f4f4f4; color: #000;}" +
+        "a {color: #225682}" +
+        "a:visited {color: #644280}" +
+        "p {text-align: justify;}" +
+        "p.wrap{word-wrap: break-word;}" +
+        ".toc {border: 1px solid; display: inline-block; padding: 12px 20px 12px 0; margin: 12px 0;}" +
+        ".toc > h3 {text-align: center; margin: 0;}" +
+        "@media (prefers-color-scheme: dark) {" +
+            "body { background-color: #333; color: #c8c8c8; }" +
+            "a {color: #a0c1de}" +
+            "a:visited {color: #d9bce1}" +
+        "}"
+}
+
+
+static generateIndex(html) {
+    def entries = html.split("\n").collect( { line ->
+        def matches = line =~ "<h2 id=\"(\\S+)\">(.+)</h2>"
+        if (matches.size() > 0 && matches[0].size() > 2) {
+            return "<a href=\"#${matches[0][1]}\">${matches[0][2]}</a>"
+        } else {
+            return null
+        }
+    }).findAll { it != null }
+
+    return "<section class=\"toc\"><h3>Contents</h3>" +
+        "<ol>${entries.collect { "<li>${it}</li>" }.join("\n")}</ol>" +
+        "</section>"
+}
+
+
+static insertIndex(html, index) {
+    return html.replaceFirst("<h2", "${index}<h2")
 }
 
 
@@ -113,6 +152,11 @@ static convertInlineTags(markdown) {
         .replaceAll("_([^_]+)_", "<i>\$1</i>")
         .replaceAll("[*]{2}(.+?)[*]{2}", "<b>\$1</b>")
         .replaceAll("\\[([^]]+)\\]\\(([^)]+)\\)", "<a href=\"\$2\">\$1</a>")
+}
+
+
+static addStylesToTags(html) {
+    return html.replaceAll("<p>([^<]+?googlequicksearchbox[^<]+?)</p>", "<p class=\"wrap\">\$1</p>")
 }
 
 
