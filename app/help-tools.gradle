@@ -14,7 +14,7 @@ ext.markdownToHTML = { markdownPath, htmlPath, version ->
 
 
 static getStyles() {
-    return "body {padding: 12px; background-color: #f4f4f4; color: #000;}" +
+    return "body {padding: 0 6px; background-color: #f4f4f4; color: #000;}" +
         "a {color: #225682}" +
         "a:visited {color: #644280}" +
         "p {text-align: justify;}" +
