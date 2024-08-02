@@ -221,7 +221,8 @@ public class Predictions {
 		}
 
 		// generated "exact matches"
-		for (String w : generateWordVariations(dbWords.get(0))) {
+		String baseWord = inputWord.length() == digitSequence.length() - 1 ? inputWord : dbWords.get(0);
+		for (String w : generateWordVariations(baseWord)) {
 			if (!dbWords.contains(w) && !dbWords.contains(w.toLowerCase(language.getLocale()))) {
 				complementedWords.add(w);
 			}
