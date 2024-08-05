@@ -4,12 +4,13 @@
 	app:orderingFromXml="true">
 
 	<Preference
-		app:key="help"
-		app:summary="github.com/sspanak/tt9"
+		app:key="screen_help"
+		app:summary="English only"
 		app:title="@string/pref_help">
 		<intent
 			android:action="android.intent.action.VIEW"
-			android:data="@string/help_url" />
+			android:targetPackage="io.github.sspanak.tt9"
+			android:targetClass="io.github.sspanak.tt9.preferences.HelpActivity" />
 	</Preference>
 
 	<Preference

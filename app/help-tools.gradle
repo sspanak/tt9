@@ -1,0 +1,166 @@
+ext.markdownToHTML = { markdownPath, htmlPath, version ->
+    def text = new File(markdownPath).text
+
+    text = convertHeaders(text, version)
+    text = convertOrderedLists(text)
+    text = convertUnorderedLists(text)
+    text = convertInlineTags(text)
+    text = addStylesToTags(text)
+    text = insertIndex(text, generateIndex(text))
+    text = removeWhitespace(text)
+
+    new File(htmlPath).text = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><style>${getStyles()}</style><title>Help</title></head><body>${text}</body></html>"
+}
+
+
+static getStyles() {
+    return "body {padding: 0 6px; background-color: #f4f4f4; color: #000;}" +
+        "a {color: #225682}" +
+        "a:visited {color: #644280}" +
+        "li {margin: 4px 0; padding: 1px;}" +
+        "p {text-align: justify;}" +
+        "p.wrap{word-wrap: break-word;}" +
+        ".toc {border: 1px solid; display: inline-block; padding: 12px 20px 12px 0; margin: 12px 0;}" +
+        ".toc > h3 {text-align: center; margin: 0;}" +
+        "@media (prefers-color-scheme: dark) {" +
+            "body { background-color: #333; color: #c8c8c8; }" +
+            "a {color: #a0c1de}" +
+            "a:visited {color: #d9bce1}" +
+        "}"
+}
+
+
+static generateIndex(html) {
+    def entries = html.split("\n").collect( { line ->
+        def matches = line =~ "<h2 id=\"(\\S+)\">(.+)</h2>"
+        if (matches.size() > 0 && matches[0].size() > 2) {
+            return "<a href=\"#${matches[0][1]}\">${matches[0][2]}</a>"
+        } else {
+            return null
+        }
+    }).findAll { it != null }
+
+    return "<section class=\"toc\"><h3>Contents</h3>" +
+        "<ol>${entries.collect { "<li>${it}</li>" }.join("\n")}</ol>" +
+        "</section>"
+}
+
+
+static insertIndex(html, index) {
+    return html.replaceFirst("<h2", "${index}<h2")
+}
+
+
+static convertHeaders(markdown, version) {
+    def html = markdown.split("\n").collect { line ->
+        if (line.startsWith("#")) {
+            def headerNumber = 0
+            for (int i = 0; i < line.length(); i++) {
+                if (line[i] != '#') {
+                    headerNumber = i
+                    break
+                }
+            }
+
+            def header = line.replaceAll("^#+", "").trim()
+            def anchor = header.toLowerCase().replaceAll("[^a-z0-9]+", "-")
+
+            return "<h${headerNumber} id=\"${anchor}\">" +
+                    "${header}${headerNumber == 1 ? " v" + version : ''}" +
+                    "</h${headerNumber}>"
+        } else {
+            return line
+        }
+    }
+
+    return html.join("\n")
+}
+
+
+static convertOrderedLists(markdown) {
+     def html = markdown.split("\n").collect { line ->
+        if (line.matches("^\\d+\\..*")) {
+            return "<li>${line.replaceAll("^\\d+\\.\\s*", "")}</li>"
+        } else {
+            return line
+        }
+    }
+
+    return html.join("\n").replaceAll("(?<!li>\n)<li>", "<ol><li>").replaceAll("</li>(?!\n<li)", "</li></ol>")
+}
+
+
+static convertUnorderedLists(markdown) {
+    boolean inList = false
+    boolean inNestedList = false
+
+    def html = ""
+
+    markdown.split("\n").each { line ->
+        def convertedLine = ""
+
+        def innerLi = line.replaceAll("^\\s*-\\s*", "")
+
+        if (line.matches("^-.*")) {
+            if (!inList) {
+                convertedLine += "<ul>"
+                inList = true
+            }
+
+            if (inNestedList) {
+                convertedLine += "</ul></li>"
+                inNestedList = false
+            }
+
+            convertedLine += "<li>${innerLi}</li>"
+        } else if (line.matches("^\\s+-.*")) {
+            if (!inNestedList) {
+                if (html.endsWith("</li>")) {
+                    html = html.substring(0, html.length() - 5)
+                } else if (html.endsWith("</li>\n")) {
+                    html = html.substring(0, html.length() - 6)
+                }
+
+                convertedLine += "<ul>"
+                inNestedList = true
+            }
+
+            convertedLine += "<li>${innerLi}</li>"
+        } else {
+            if (inNestedList) {
+                inNestedList = false
+                convertedLine += "</ul></li>"
+            }
+
+            if (inList) {
+                inList = false
+                convertedLine += "</ul>"
+            }
+
+            convertedLine += line
+        }
+
+        html += convertedLine + "\n"
+    }
+
+    return html
+}
+
+
+static convertInlineTags(markdown) {
+    return markdown
+        .replaceAll("\n([^\n<]+?)(\n|\$)", "<p>\$1</p>")
+        .replaceAll("_([^_]+)_", "<i>\$1</i>")
+        .replaceAll("[*]{2}(.+?)[*]{2}", "<b>\$1</b>")
+        .replaceAll("\\[([^]]+)\\]\\(([^)]+)\\)", "<a href=\"\$2\">\$1</a>")
+}
+
+
+static addStylesToTags(html) {
+    return html.replaceAll("<p>([^<]+?googlequicksearchbox[^<]+?)</p>", "<p class=\"wrap\">\$1</p>")
+}
+
+
+static removeWhitespace(html) {
+    return html.replaceAll("\\s+", " ").replaceAll("/> <", "/><")
+}

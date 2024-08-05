@@ -31,7 +31,6 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	@Override
 	public void onCreate() {
 		createSettingsSection();
-		addHelpLink();
 		createAboutSection();
 		resetFontSize(false);
 	}
@@ -43,30 +42,6 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		super.onResume();
 		createSettingsSection();
 		resetFontSize(false);
-	}
-
-
-	private void addHelpLink() {
-		try {
-			if (!releaseVersionRegex.matcher(BuildConfig.VERSION_NAME).find()) {
-				throw new Exception("VERSION_NAME does not match: \\d+.\\d+");
-			}
-
-			Preference helpSection = findPreference("help");
-			if (helpSection == null) {
-				throw new Exception("Could not find Help Preference");
-			}
-
-			String majorVersion = BuildConfig.VERSION_NAME.substring(0, BuildConfig.VERSION_NAME.indexOf('.'));
-			String versionedHelpUrl = getString(R.string.help_url).replace("blob/master", "blob/v" + majorVersion + ".0");
-
-			Intent intent = new Intent();
-			intent.setAction("android.intent.action.VIEW");
-			intent.setData(Uri.parse(versionedHelpUrl));
-			helpSection.setIntent(intent);
-		} catch (Exception e) {
-			Logger.w("MainSettingsScreen", "Could not set versioned help URL. Falling back to the default. " + e.getMessage());
-		}
 	}
 
 

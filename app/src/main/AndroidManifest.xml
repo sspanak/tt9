@@ -28,7 +28,9 @@
 			<meta-data android:name="android.view.im" android:resource="@xml/method"/>
 		</service>
 
-		<activity android:label="@string/app_name_short" android:name="io.github.sspanak.tt9.preferences.PreferencesActivity"
+		<activity
+			android:label="@string/app_name_short"
+			android:name="io.github.sspanak.tt9.preferences.PreferencesActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
@@ -41,6 +43,16 @@
 			android:label=""
 			android:name="io.github.sspanak.tt9.ui.dialogs.PopupDialogActivity"
 			android:theme="@style/alertDialog" />
+
+		<activity
+			android:label="@string/pref_help"
+			android:name="io.github.sspanak.tt9.preferences.HelpActivity"
+			android:exported="true">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
 
 		<activity
 			android:excludeFromRecents="true"
