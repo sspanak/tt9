@@ -25,6 +25,7 @@ import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
 import io.github.sspanak.tt9.preferences.screens.deleteWords.DeleteWordsScreen;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen;
 import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
+import io.github.sspanak.tt9.preferences.screens.languageSelection.LanguageSelectionScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
@@ -143,6 +144,8 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 				return new KeyPadScreen(this);
 			case LanguagesScreen.NAME:
 				return new LanguagesScreen(this);
+			case LanguageSelectionScreen.NAME:
+				return new LanguageSelectionScreen(this);
 			case SetupScreen.NAME:
 				return new SetupScreen(this);
 			case UsageStatsScreen.NAME:

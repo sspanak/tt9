@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
 
-	<MultiSelectListPreference
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.screens.languageSelection.LanguageSelectionScreen"
 		app:key="pref_languages"
 		app:title="@string/pref_choose_languages" />
 

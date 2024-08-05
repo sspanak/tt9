@@ -41,7 +41,7 @@ class DeletableWordsList {
 	void addNoResult(boolean noSearchTerm) {
 		if (item != null) {
 			Preference pref = new PreferencePlainText(item.getContext());
-			pref.setSummary(noSearchTerm ? "--" : item.getContext().getString(R.string.delete_words_no_result));
+			pref.setSummary(noSearchTerm ? "--" : item.getContext().getString(R.string.search_results_void));
 			item.addPreference(pref);
 		}
 	}

@@ -103,8 +103,14 @@ android {
 
 	flavorDimensions = ['app']
 	productFlavors {
-		full { dimension 'app' }
-		lite { dimension 'app' }
+		full {
+			dimension 'app'
+			buildConfigField 'Boolean', 'LITE', 'false'
+		}
+		lite {
+			dimension 'app'
+			buildConfigField 'Boolean', 'LITE', 'true'
+		}
 	}
 
 	applicationVariants.configureEach { variant ->
