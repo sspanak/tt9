@@ -108,8 +108,21 @@ public class VoiceInputOps {
 
 	private void destroy() {
 		this.language = null;
-		if (speechRecognizer != null) {
-			speechRecognizer.destroy();
+
+		// We try this multiple times, because it can fail due to a bug in the Android SDK
+		// https://github.com/sspanak/tt9/issues/593
+		for (int i = 0; i < 3 && speechRecognizer != null; i++) {
+			try {
+				speechRecognizer.destroy();
+			} catch (IllegalArgumentException e) {
+				if (i < 2) {
+					Logger.e(getClass().getSimpleName(), "SpeechRecognizer destroy failed. " + e.getMessage() + ". Retrying...");
+					continue;
+				} else {
+					Logger.e(getClass().getSimpleName(), "SpeechRecognizer destroy failed. " + e.getMessage() + ". Giving up and just nulling the reference.");
+				}
+			}
+
 			speechRecognizer = null;
 			Logger.d(getClass().getSimpleName(), "SpeechRecognizer destroyed");
 		}
