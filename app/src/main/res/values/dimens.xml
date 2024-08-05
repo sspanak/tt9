@@ -4,6 +4,8 @@
 	<dimen name="candidate_height">26sp</dimen>
 	<dimen name="candidate_padding_horizontal">6sp</dimen>
 
+	<dimen name="preferences_text_min_height">48dp</dimen>
+
 	<dimen name="soft_key_height">44dp</dimen>
 	<dimen name="soft_key_icon_size">24sp</dimen>
 	<dimen name="soft_key_drawable_bottom_padding">6dp</dimen>

@@ -21,7 +21,8 @@
 		android:focusable="true"
 		android:focusableInTouchMode="true"
 		android:layout_height="wrap_content"
-		android:layout_width="match_parent" />
+		android:layout_width="match_parent"
+		android:minHeight="@dimen/preferences_text_min_height" />
 
 	<TextView android:id="@android:id/summary"
 		android:layout_height="wrap_content"
