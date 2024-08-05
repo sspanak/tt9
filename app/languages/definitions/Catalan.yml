@@ -3,7 +3,7 @@ dictionaryFile: ca-ES-utf8.csv
 name: Català
 layout:
   - [SPECIAL] # 0
-  - [PUNCTUATION] # 1
+  - [PUNCTUATION_FR, ·] # 1
   - [a, b, c, ç, à] # 2
   - [d, e, f, è, é] # 3
   - [g, h, i, í, ï] # 4
