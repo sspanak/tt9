@@ -4,23 +4,34 @@ import android.app.Activity;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.entities.WordFile;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ItemLanguage extends SwitchPreferenceCompat {
-	public ItemLanguage(@NonNull Activity activity, @NonNull NaturalLanguage language, ArrayList<Integer> enabledLanguageIds) {
+	public static final String KEY_PREFIX = "language_";
+
+	private final SettingsStore settings;
+
+	public ItemLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language, ArrayList<Integer> enabledLanguageIds) {
 		super(activity);
 
-		setKey("language_" + language.getId());
+		settings = activity.getSettings();
+
+		setKey(KEY_PREFIX + language.getId());
 		setTitle(language.getName());
 		setSummary(generateSummary(activity, language));
 		setChecked(enabledLanguageIds.contains(language.getId()));
+		setOnPreferenceChangeListener(ItemLanguage::handleChange);
 	}
 
 
@@ -57,5 +68,27 @@ public class ItemLanguage extends SwitchPreferenceCompat {
 		}
 
 		setSummary(summary);
+	}
+
+
+	private String getLanguageId() {
+		return getKey().substring(KEY_PREFIX.length());
+	}
+
+
+	private static boolean handleChange(Preference p, Object newValue) {
+		SettingsStore settings = ((PreferencesActivity) p.getContext()).getSettings();
+		String languageSettingsId = ((ItemLanguage) p).getLanguageId();
+
+		Set<String> enabledLanguages = settings.getEnabledLanguagesIdsAsStrings();
+		if ((boolean) newValue) {
+			enabledLanguages.add(languageSettingsId);
+		} else {
+			enabledLanguages.remove(languageSettingsId);
+		}
+
+		settings.saveEnabledLanguageIds(enabledLanguages);
+
+		return true;
 	}
 }

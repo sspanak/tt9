@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.db.customWords.DictionaryExporter;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.util.Logger;
 
 public class LanguagesScreen extends BaseScreenFragment {
 	public static final String NAME = "Languages";
@@ -107,6 +108,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 
 
 	private void refreshItems() {
+		new ItemSelectLanguage(activity, findPreference(ItemSelectLanguage.NAME)).populate();
 		loadItem.refreshStatus();
 		exportDictionaryItem.refreshStatus();
 		exportCustomWordsItem.refreshStatus();

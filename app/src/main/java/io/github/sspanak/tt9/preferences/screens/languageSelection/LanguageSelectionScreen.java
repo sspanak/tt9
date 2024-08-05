@@ -29,7 +29,6 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-
 		createLanguageList();
 		resetFontSize(false);
 	}
@@ -69,7 +68,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 		activity.runOnUiThread(() -> {
 			for (int languageId : enabledLanguageIds) {
-				ItemLanguage item = languagesCategory.findPreference("language_" + languageId);
+				ItemLanguage item = languagesCategory.findPreference(ItemLanguage.KEY_PREFIX + languageId);
 				if (item != null) {
 					item.setLoaded(true);
 				}
