@@ -172,4 +172,8 @@
 	<string name="dictionary_import_custom_words_summary">Importuoti žodžius iš anksčiau eksportuoto CSV.</string>
 	<string name="dictionary_import_progress">Importuojamas CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importuojamas CSV…</string>
+	<string name="language_selection_language_loaded">(įkelta)</string>
+	<string name="language_selection_title">Įjungti kalbas</string>
+	<string name="language_selection_search_placeholder">Ieškoti kalbų</string>
+	<string name="language_selection_words">žodžių</string>
 </resources>

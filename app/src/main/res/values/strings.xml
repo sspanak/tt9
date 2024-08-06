@@ -156,7 +156,7 @@
 	<string name="function_reset_keys_done">Default key settings restored.</string>
 
 	<string name="language_selection_language_loaded">(loaded)</string>
-	<string name="language_selection_title">Select Languages</string>
+	<string name="language_selection_title">Enable Languages</string>
 	<string name="language_selection_search_placeholder">Search for Languages</string>
 	<string name="language_selection_words">words</string>
 

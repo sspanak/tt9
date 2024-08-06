@@ -174,4 +174,8 @@
 	<string name="dictionary_import_custom_words_summary">Імпортувати слова з раніше експортованого CSV.</string>
 	<string name="dictionary_import_progress">Імпорт CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Імпорт CSV…</string>
+	<string name="language_selection_language_loaded">(завантажено)</string>
+	<string name="language_selection_title">Увімкнути мови</string>
+	<string name="language_selection_search_placeholder">Пошук мов</string>
+	<string name="language_selection_words">слів</string>
 </resources>

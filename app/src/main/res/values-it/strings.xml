@@ -153,5 +153,9 @@
 	<string name="dictionary_import_custom_words_summary">Importare parole da un CSV precedentemente esportato.</string>
 	<string name="dictionary_import_progress">Importazione CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importazione CSV…</string>
+	<string name="language_selection_language_loaded">(caricata)</string>
+	<string name="language_selection_title">Abilita lingue</string>
+	<string name="language_selection_search_placeholder">Cerca lingue</string>
+	<string name="language_selection_words">parole</string>
 </resources>
 

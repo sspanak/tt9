@@ -152,4 +152,8 @@
 	<string name="dictionary_import_custom_words_summary">Woorden importeren uit een eerder geëxporteerde CSV.</string>
 	<string name="dictionary_import_progress">CSV importeren (%1$s)…</string>
 	<string name="dictionary_import_running">CSV importeren…</string>
+	<string name="language_selection_language_loaded">(geladen)</string>
+	<string name="language_selection_title">Talen inschakelen</string>
+	<string name="language_selection_search_placeholder">Zoeken naar talen</string>
+	<string name="language_selection_words">woorden</string>
 </resources>

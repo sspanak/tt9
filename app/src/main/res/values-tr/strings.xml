@@ -166,4 +166,8 @@
 	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
 	<string name="dictionary_import_progress">CSV İçe aktarılıyor (%1$s)…</string>
 	<string name="dictionary_import_running">CSV İçe aktarılıyor…</string>
+	<string name="language_selection_language_loaded">(yüklendi)</string>
+	<string name="language_selection_title">Dilleri etkinleştir</string>
+	<string name="language_selection_search_placeholder">Diller için arama</string>
+	<string name="language_selection_words">kelime</string>
 </resources>
