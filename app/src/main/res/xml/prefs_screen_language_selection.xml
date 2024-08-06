@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<io.github.sspanak.tt9.preferences.screens.deleteWords.PreferenceSearchWords
-		android:key="dictionary_delete_words_search"
-		android:title="@string/delete_words_search_placeholder" />
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<io.github.sspanak.tt9.preferences.screens.languageSelection.PreferenceSearchLanguage
+		android:key="language_search"
+		android:title="@string/language_selection_search_placeholder" />
 
 	<PreferenceCategory
 		android:key="language_list"
 		android:title="@string/language_selection_title"/>
+
+	<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
+		android:key="language_search_no_result"
+		android:summary="@string/search_results_void"
+		app:isPreferenceVisible="false" />
 </androidx.preference.PreferenceScreen>

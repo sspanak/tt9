@@ -17,6 +17,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 	public static final String NAME = "LanguageSelection";
 
 	private PreferenceCategory languagesCategory;
+	private final ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();
 
 	public LanguageSelectionScreen() { init(); }
 	public LanguageSelectionScreen(PreferencesActivity activity) { init(activity); }
@@ -30,6 +31,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 	@Override
 	protected void onCreate() {
 		createLanguageList();
+		enableFiltering();
 		resetFontSize(false);
 	}
 
@@ -53,9 +55,13 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 	private void addLanguagesToCategory(@NonNull PreferenceCategory category, ArrayList<Language> allLanguages) {
 		ArrayList<Integer> enabledLanguageIds = activity.getSettings().getEnabledLanguageIds();
 
+		languageItems.clear();
+
 		for (Language language : allLanguages) {
 			if (language instanceof NaturalLanguage) {
-				category.addPreference(new ItemLanguage(activity, (NaturalLanguage) language, enabledLanguageIds));
+				PreferenceSwitchLanguage item = new PreferenceSwitchLanguage(activity, (NaturalLanguage) language, enabledLanguageIds);
+				languageItems.add(item);
+				category.addPreference(item);
 			}
 		}
 	}
@@ -68,11 +74,21 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 		activity.runOnUiThread(() -> {
 			for (int languageId : enabledLanguageIds) {
-				ItemLanguage item = languagesCategory.findPreference(ItemLanguage.KEY_PREFIX + languageId);
+				PreferenceSwitchLanguage item = languagesCategory.findPreference(PreferenceSwitchLanguage.KEY_PREFIX + languageId);
 				if (item != null) {
-					item.setLoaded(true);
+					item.setLoaded();
 				}
 			}
 		});
+	}
+
+
+	private void enableFiltering() {
+		PreferenceSearchLanguage search = findPreference("language_search");
+		if (search != null) {
+			search
+				.setLanguageItems(languageItems)
+				.setNoResultItem(findPreference("language_search_no_result"));
+		}
 	}
 }

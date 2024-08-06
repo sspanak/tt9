@@ -17,21 +17,18 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemLanguage extends SwitchPreferenceCompat {
+public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 	public static final String KEY_PREFIX = "language_";
 
-	private final SettingsStore settings;
 
-	public ItemLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language, ArrayList<Integer> enabledLanguageIds) {
+	public PreferenceSwitchLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language, ArrayList<Integer> enabledLanguageIds) {
 		super(activity);
-
-		settings = activity.getSettings();
 
 		setKey(KEY_PREFIX + language.getId());
 		setTitle(language.getName());
 		setSummary(generateSummary(activity, language));
 		setChecked(enabledLanguageIds.contains(language.getId()));
-		setOnPreferenceChangeListener(ItemLanguage::handleChange);
+		setOnPreferenceChangeListener(PreferenceSwitchLanguage::handleChange);
 	}
 
 
@@ -54,24 +51,6 @@ public class ItemLanguage extends SwitchPreferenceCompat {
 	}
 
 
-	public void setLoaded(boolean loaded) {
-		Context context = getContext();
-
-		String summary = getSummary() != null ? getSummary().toString() : null;
-		if (summary == null) {
-			return;
-		}
-
-		summary = summary.replace(context.getString(R.string.language_selection_language_loaded), "");
-
-		if (loaded) {
-			summary += " " + context.getString(R.string.language_selection_language_loaded);
-		}
-
-		setSummary(summary);
-	}
-
-
 	private String getLanguageId() {
 		return getKey().substring(KEY_PREFIX.length());
 	}
@@ -79,7 +58,7 @@ public class ItemLanguage extends SwitchPreferenceCompat {
 
 	private static boolean handleChange(Preference p, Object newValue) {
 		SettingsStore settings = ((PreferencesActivity) p.getContext()).getSettings();
-		String languageSettingsId = ((ItemLanguage) p).getLanguageId();
+		String languageSettingsId = ((PreferenceSwitchLanguage) p).getLanguageId();
 
 		Set<String> enabledLanguages = settings.getEnabledLanguagesIdsAsStrings();
 		if ((boolean) newValue) {
@@ -91,5 +70,19 @@ public class ItemLanguage extends SwitchPreferenceCompat {
 		settings.saveEnabledLanguageIds(enabledLanguages);
 
 		return true;
+	}
+
+
+	void setLoaded() {
+		Context context = getContext();
+
+		String summary = getSummary() != null ? getSummary().toString() : null;
+		if (summary == null) {
+			return;
+		}
+
+		summary += " " + context.getString(R.string.language_selection_language_loaded);
+
+		setSummary(summary);
 	}
 }
