@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import java.util.ArrayList;
 import java.util.Set;
 
 import io.github.sspanak.tt9.BuildConfig;
@@ -20,14 +19,12 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 	public static final String KEY_PREFIX = "language_";
 
-
-	public PreferenceSwitchLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language, ArrayList<Integer> enabledLanguageIds) {
+	public PreferenceSwitchLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language) {
 		super(activity);
 
 		setKey(KEY_PREFIX + language.getId());
 		setTitle(language.getName());
 		setSummary(generateSummary(activity, language));
-		setChecked(enabledLanguageIds.contains(language.getId()));
 		setOnPreferenceChangeListener(PreferenceSwitchLanguage::handleChange);
 	}
 

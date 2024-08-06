@@ -59,9 +59,14 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 
 		for (Language language : allLanguages) {
 			if (language instanceof NaturalLanguage) {
-				PreferenceSwitchLanguage item = new PreferenceSwitchLanguage(activity, (NaturalLanguage) language, enabledLanguageIds);
+				PreferenceSwitchLanguage item = new PreferenceSwitchLanguage(activity, (NaturalLanguage) language);
 				languageItems.add(item);
 				category.addPreference(item);
+
+				// Inflating sometimes resets the checked state to false for some reason.
+				// This is why we have to set it at the end.
+				// https://stackoverflow.com/q/42951557
+				item.setChecked(enabledLanguageIds.contains(language.getId()));
 			}
 		}
 	}

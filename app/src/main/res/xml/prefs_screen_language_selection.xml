@@ -7,6 +7,7 @@
 
 	<PreferenceCategory
 		android:key="language_list"
+		android:persistent="false"
 		android:title="@string/language_selection_title"/>
 
 	<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
