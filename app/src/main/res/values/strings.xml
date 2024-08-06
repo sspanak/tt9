@@ -158,6 +158,8 @@
 	<string name="language_selection_language_loaded">(loaded)</string>
 	<string name="language_selection_title">Select Languages</string>
 	<string name="language_selection_search_placeholder">Search for Languages</string>
+	<string name="language_selection_words">words</string>
+
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>

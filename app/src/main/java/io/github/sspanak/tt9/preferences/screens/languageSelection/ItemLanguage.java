@@ -38,11 +38,12 @@ public class ItemLanguage extends SwitchPreferenceCompat {
 	private String generateSummary(Activity activity, NaturalLanguage language) {
 		String summary = language.getLocale().getDisplayLanguage();
 
+		String wordsString = activity.getString(R.string.language_selection_words);
 		WordFile wordFile = new WordFile(activity, language.getDictionaryFile(), activity.getAssets());
 		if (wordFile.getTotalLines() > 1000000) {
-			summary += String.format(", %1.2fM words", wordFile.getTotalLines() / 1000000.0);
+			summary += String.format(", %1.2fM %s", wordFile.getTotalLines() / 1000000.0, wordsString);
 		} else {
-			summary += ", " + wordFile.getTotalLines() / 1000 + "k words";
+			summary += ", " + wordFile.getTotalLines() / 1000 + "k " + wordsString;
 		}
 
 		if (BuildConfig.LITE) {
