@@ -4,6 +4,7 @@ plugins {
 
 apply from: 'constants.gradle'
 apply from: 'dictionary-tools.gradle'
+apply from: 'help-tools.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'version-tools.gradle'
 
@@ -28,6 +29,15 @@ tasks.register('copyDictionaries', Copy) {
 	include '**/*.csv'
 	include '**/*.txt'
 	into DICTIONARIES_OUTPUT_DIR
+}
+
+tasks.register('convertHelp') {
+	inputs.file HELP_MARKDOWN
+	outputs.file HELP_HTML
+
+	doLast {
+		markdownToHTML(HELP_MARKDOWN, HELP_HTML, getVersionName())
+	}
 }
 
 tasks.register('writeDictionaryProperties') {
@@ -107,7 +117,7 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(validateLanguages, copyDefinitions, copyDictionaries, writeDictionaryProperties)
+					dependsOn(validateLanguages, copyDefinitions, copyDictionaries, writeDictionaryProperties, convertHelp)
 				}
 			} catch (UnknownTaskException ignored) {}
 		}
