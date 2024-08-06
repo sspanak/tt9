@@ -17,7 +17,6 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 	public static final String NAME = "LanguageSelection";
 
 	private PreferenceCategory languagesCategory;
-	private final ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();
 
 	public LanguageSelectionScreen() { init(); }
 	public LanguageSelectionScreen(PreferencesActivity activity) { init(activity); }
@@ -55,12 +54,11 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 	private void addLanguagesToCategory(@NonNull PreferenceCategory category, ArrayList<Language> allLanguages) {
 		ArrayList<Integer> enabledLanguageIds = activity.getSettings().getEnabledLanguageIds();
 
-		languageItems.clear();
+		PreferenceSwitchLanguage.clearItems();
 
 		for (Language language : allLanguages) {
 			if (language instanceof NaturalLanguage) {
 				PreferenceSwitchLanguage item = new PreferenceSwitchLanguage(activity, (NaturalLanguage) language);
-				languageItems.add(item);
 				category.addPreference(item);
 
 				// Inflating sometimes resets the checked state to false for some reason.
@@ -92,7 +90,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 		PreferenceSearchLanguage search = findPreference("language_search");
 		if (search != null) {
 			search
-				.setLanguageItems(languageItems)
+				.setLanguageItems(PreferenceSwitchLanguage.getItems())
 				.setNoResultItem(findPreference("language_search_no_result"));
 		}
 	}

@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import io.github.sspanak.tt9.BuildConfig;
@@ -19,6 +21,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 	public static final String KEY_PREFIX = "language_";
 
+	private static final ArrayList<PreferenceSwitchLanguage> items = new ArrayList<>();
+
 	public PreferenceSwitchLanguage(@NonNull PreferencesActivity activity, @NonNull NaturalLanguage language) {
 		super(activity);
 
@@ -26,6 +30,16 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 		setTitle(language.getName());
 		setSummary(generateSummary(activity, language));
 		setOnPreferenceChangeListener(PreferenceSwitchLanguage::handleChange);
+		items.add(this);
+	}
+
+
+	static void clearItems() {
+		items.clear();
+	}
+
+	static ArrayList<PreferenceSwitchLanguage> getItems() {
+		return new ArrayList<>(items);
 	}
 
 
@@ -57,11 +71,16 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 		SettingsStore settings = ((PreferencesActivity) p.getContext()).getSettings();
 		String languageSettingsId = ((PreferenceSwitchLanguage) p).getLanguageId();
 
-		Set<String> enabledLanguages = settings.getEnabledLanguagesIdsAsStrings();
+		Set<String> enabledLanguages = new HashSet<>();
+
 		if ((boolean) newValue) {
 			enabledLanguages.add(languageSettingsId);
-		} else {
-			enabledLanguages.remove(languageSettingsId);
+		}
+
+		for (PreferenceSwitchLanguage item : items) {
+			if (item.isChecked()) {
+				enabledLanguages.add(item.getLanguageId());
+			}
 		}
 
 		settings.saveEnabledLanguageIds(enabledLanguages);
