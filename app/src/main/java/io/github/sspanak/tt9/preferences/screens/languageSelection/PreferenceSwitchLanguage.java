@@ -73,14 +73,16 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 
 		Set<String> enabledLanguages = new HashSet<>();
 
-		if ((boolean) newValue) {
-			enabledLanguages.add(languageSettingsId);
-		}
-
 		for (PreferenceSwitchLanguage item : items) {
 			if (item.isChecked()) {
 				enabledLanguages.add(item.getLanguageId());
 			}
+		}
+
+		if ((boolean) newValue) {
+			enabledLanguages.add(languageSettingsId);
+		} else {
+			enabledLanguages.remove(languageSettingsId);
 		}
 
 		settings.saveEnabledLanguageIds(enabledLanguages);
