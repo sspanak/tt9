@@ -12,7 +12,8 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:labelFor="@id/input_text_input_field"
-		android:text="?android:title" />
+		android:text="?android:title"
+		android:textSize="@dimen/pref_large_summary_size"/>
 
 	<EditText
 		android:id="@+id/input_text_input_field"

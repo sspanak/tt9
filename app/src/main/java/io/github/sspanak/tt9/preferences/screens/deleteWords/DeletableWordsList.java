@@ -7,6 +7,7 @@ import androidx.preference.PreferenceCategory;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.custom.PreferencePlainText;
 
 class DeletableWordsList {
 	static final String NAME = "delete_words_list";
@@ -39,9 +40,8 @@ class DeletableWordsList {
 
 	void addNoResult(boolean noSearchTerm) {
 		if (item != null) {
-			Preference pref = new Preference(item.getContext());
+			Preference pref = new PreferencePlainText(item.getContext());
 			pref.setSummary(noSearchTerm ? "--" : item.getContext().getString(R.string.delete_words_no_result));
-			pref.setLayoutResource(R.layout.pref_text);
 			item.addPreference(pref);
 		}
 	}
