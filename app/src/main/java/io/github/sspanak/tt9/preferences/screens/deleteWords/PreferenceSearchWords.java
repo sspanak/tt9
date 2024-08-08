@@ -9,8 +9,6 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.items.ItemTextInput;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -21,8 +19,11 @@ public class PreferenceSearchWords extends ItemTextInput {
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 
 	private ConsumerCompat<ArrayList<String>> onWords;
+	private ConsumerCompat<Long> onTotalWords;
 	private SettingsStore settings;
+
 	@NonNull private String lastSearchTerm = "";
+	private long totalWords = 0;
 
 
 	public PreferenceSearchWords(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
@@ -39,29 +40,38 @@ public class PreferenceSearchWords extends ItemTextInput {
 	}
 
 
+	@Override
+	protected void onChange(String word) {
+		search(word);
+	}
+
+
 	@NonNull
 	public String getLastSearchTerm() {
 		return lastSearchTerm;
 	}
 
 
-	@Override
-	protected void onChange(String word) {
+	void search(String word) {
 		lastSearchTerm = word == null || word.trim().isEmpty() ? "" : word.trim();
 
 		if (onWords == null) {
 			Logger.w(LOG_TAG, "No handler set for the word change event.");
 		} else if (lastSearchTerm.isEmpty()) {
-			Logger.d(LOG_TAG, "Not searching for an empty word.");
-			onWords.accept(null);
+			WordStoreAsync.countCustomWords(onTotalWords);
+			WordStoreAsync.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
 		} else {
-			Language currentLanguage = LanguageCollection.getLanguage(getContext(), getSettings().getInputLanguage());
-			WordStoreAsync.getCustomWords(onWords, currentLanguage, lastSearchTerm);
+			WordStoreAsync.countCustomWords(onTotalWords);
+			WordStoreAsync.getCustomWords(onWords, lastSearchTerm, -1);
 		}
 	}
 
 
 	void setOnWordsHandler(ConsumerCompat<ArrayList<String>> onWords) {
 		this.onWords = onWords;
+	}
+
+	void setOnTotalWordsHandler(ConsumerCompat<Long> onTotalWords) {
+		this.onTotalWords = onTotalWords;
 	}
 }

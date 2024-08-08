@@ -15,12 +15,12 @@ final public class PreferencePlainText extends ScreenPreference {
 	public PreferencePlainText(@NonNull Context context) { super(context); }
 
 	@Override
-	protected int getDefaultLayout() {
+	public int getDefaultLayout() {
 		return R.layout.pref_plain_text;
 	}
 
 	@Override
-	protected int getLargeLayout() {
+	public int getLargeLayout() {
 		return R.layout.pref_plain_text_large;
 	}
 }
