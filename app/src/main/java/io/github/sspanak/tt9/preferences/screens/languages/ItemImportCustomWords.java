@@ -103,7 +103,7 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 		Intent intent = new Intent()
 			.addCategory(Intent.CATEGORY_OPENABLE)
 			.setType(CustomWordFile.MIME_TYPE)
-			.setAction(Intent.ACTION_GET_CONTENT);
+			.setAction(Intent.ACTION_OPEN_DOCUMENT);
 
 		importCustomWordsLauncher.launch(intent);
 	}
