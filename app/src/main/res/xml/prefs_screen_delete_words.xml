@@ -7,5 +7,5 @@
 
 	<PreferenceCategory
 		android:key="delete_words_list"
-		android:title="@string/delete_words_list" />
+		android:title="@string/search_results" />
 </PreferenceScreen>

@@ -24,6 +24,7 @@ public class WordFile {
 	private String hash = null;
 	private String downloadUrl = null;
 	private int totalLines = -1;
+	private long size = -1;
 
 
 	public WordFile(Context context, String name, AssetManager assets) {
@@ -151,6 +152,29 @@ public class WordFile {
 	}
 
 
+	public long getSize() {
+		if (size < 0) {
+			loadProperties();
+		}
+
+		return size;
+	}
+
+
+	private void setSize(String rawProperty, String rawValue) {
+		if (!rawProperty.equals("size")) {
+			return;
+		}
+
+		try {
+			size = Long.parseLong(rawValue);
+		} catch (Exception e) {
+			Logger.w(LOG_TAG, "Invalid 'size' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
+			size = 0;
+		}
+	}
+
+
 	private void loadProperties() {
 		String propertyFilename = name + ".props.yml";
 
@@ -164,6 +188,7 @@ public class WordFile {
 				setDownloadUrl(parts[0], parts[1]);
 				setHash(parts[0], parts[1]);
 				setTotalLines(parts[0], parts[1]);
+				setSize(parts[0], parts[1]);
 			}
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, "Could not read the property file: " + propertyFilename + ". " + e.getMessage());

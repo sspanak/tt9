@@ -117,8 +117,8 @@
 	<string name="delete_words_delete">Supprimer</string>
 	<string name="delete_words_link_summary">Trouver et supprimer des mots mal orthographiés ou inutiles.</string>
 	<string name="delete_words_search_placeholder">Rechercher des mots</string>
-	<string name="delete_words_list">Mots trouvés</string>
-	<string name="delete_words_no_result">Aucun résultat.</string>
+	<string name="search_results">Mots trouvés</string>
+	<string name="search_results_void">Aucun résultat.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirmer la suppression</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Êtes-vous sûr de vouloir supprimer « %1$s » ?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" a été supprimé.</string>
@@ -161,4 +161,8 @@
 	<string name="dictionary_import_custom_words_summary">Importer des mots à partir d\'un fichier CSV précédemment exporté.</string>
 	<string name="dictionary_import_progress">Importation de CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importation de CSV…</string>
+	<string name="language_selection_language_loaded">(chargée)</string>
+	<string name="language_selection_title">Activer les langues</string>
+	<string name="language_selection_search_placeholder">Rechercher des langues</string>
+	<string name="language_selection_words">mots</string>
 </resources>

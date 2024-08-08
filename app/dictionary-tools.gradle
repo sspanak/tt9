@@ -2,8 +2,9 @@ ext.getDictionaryProperties = { dictionariesDir, sizesDir ->
 	fileTree(dir: dictionariesDir).getFiles().parallelStream().forEach {dictionary ->
 		def hash = dictionary.exists() ? dictionary.text.digest("SHA-1") : ""
 		def revision = dictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${dictionary}") : ""
+		def size = dictionary.exists() ? dictionary.length() : 0
 		def words = dictionary.exists() ? dictionary.text.split("\n").length : 0
 
-		new File(sizesDir, "${dictionary.getName()}.props.yml").text = "hash: ${hash}\nrevision: ${revision}\nwords: ${words}"
+		new File(sizesDir, "${dictionary.getName()}.props.yml").text = "hash: ${hash}\nrevision: ${revision}\nsize: ${size}\nwords: ${words}"
 	}
 }

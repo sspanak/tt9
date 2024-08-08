@@ -36,11 +36,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		ItemSelectLanguage multiSelect = new ItemSelectLanguage(
-			activity,
-			findPreference(ItemSelectLanguage.NAME)
-		);
-		multiSelect.populate().enableValidation();
+		new ItemSelectLanguage(activity, findPreference(ItemSelectLanguage.NAME)).populate();
 
 		new ItemDictionaryNotifications(findPreference(ItemDictionaryNotifications.NAME), activity)
 			.populate()
@@ -111,6 +107,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 
 
 	private void refreshItems() {
+		new ItemSelectLanguage(activity, findPreference(ItemSelectLanguage.NAME)).populate();
 		loadItem.refreshStatus();
 		exportDictionaryItem.refreshStatus();
 		exportCustomWordsItem.refreshStatus();

@@ -79,4 +79,11 @@ public class WordStoreAsync {
 			getStore().getSimilarCustom(language, wordFilter)))
 		).start();
 	}
+
+
+	public static void exists(ConsumerCompat<ArrayList<Integer>> dataHandler, ArrayList<Language> languages) {
+		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
+			getStore().exists(languages))
+		)).start();
+	}
 }

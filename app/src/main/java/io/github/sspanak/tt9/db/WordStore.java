@@ -54,6 +54,26 @@ public class WordStore {
 
 
 	/**
+	 * Returns a list of the languages that are already loaded in the database.
+	 */
+	public ArrayList<Integer> exists(ArrayList<Language> languages) {
+		ArrayList<Integer> loadedLanguages = new ArrayList<>();
+
+		if (!checkOrNotify()) {
+			return loadedLanguages;
+		}
+
+		for (Language language : languages) {
+			if (readOps.exists(sqlite.getDb(), language.getId())) {
+				loadedLanguages.add(language.getId());
+			}
+		}
+
+		return loadedLanguages;
+	}
+
+
+	/**
 	 * Loads words matching and similar to a given digit sequence
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
 	 * and other similar.

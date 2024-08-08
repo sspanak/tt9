@@ -39,9 +39,11 @@ class SettingsInput extends SettingsHotkeys {
 
 
 	public Set<String> getEnabledLanguagesIdsAsStrings() {
-		return prefs.getStringSet("pref_languages", new HashSet<>(Collections.singletonList(
+		Set<String> defaultLanguages =  new HashSet<>(Collections.singletonList(
 			String.valueOf(LanguageCollection.getDefault(context).getId())
-		)));
+		));
+
+		return new HashSet<>(prefs.getStringSet("pref_languages", defaultLanguages));
 	}
 
 
