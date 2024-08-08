@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 
 public class PreferenceDeletableWord extends ScreenPreference {
+	private DeletableWordsList parent;
 	private String word;
 
 
@@ -29,7 +30,14 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	@Override protected int getLargeLayout() { return R.layout.pref_deletable_word_large; }
 
 
-	public void setWord(String word) {
+	void setParent(DeletableWordsList parent) {
+		if (parent != null) {
+			this.parent = parent;
+		}
+	}
+
+
+	void setWord(String word) {
 		this.word = word;
 		setTitle(word);
 	}
@@ -62,14 +70,18 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	}
 
 
-	private void onWordDeleted() {
-		if (getParent() instanceof PreferenceCategory) {
+	private void deleteSelf() {
+		if (parent != null) {
+			parent.delete(this);
+		} else if (getParent() instanceof PreferenceCategory) {
 			getParent().removePreference(this);
 		}
 
-		Activity activity = (Activity) getContext();
-		activity.runOnUiThread(
-			() -> UI.toastFromAsync(getContext(), activity.getString(R.string.delete_words_deleted_x, word))
-		);
+		UI.toastFromAsync(getContext(), getContext().getString(R.string.delete_words_deleted_x, word));
+	}
+
+
+	private void onWordDeleted() {
+		((Activity) getContext()).runOnUiThread(this::deleteSelf);
 	}
 }

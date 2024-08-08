@@ -9,13 +9,13 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.entities.NormalizationList;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.db.SlowQueryStats;
+import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
@@ -71,18 +71,16 @@ public class ReadOps {
 	}
 
 
-	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String wordFilter) {
+	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords) {
 		ArrayList<String> words = new ArrayList<>();
 
 		String[] select = new String[]{"word"};
-		String where = "word LIKE ? AND (langId = ? OR langId = ?)";
-		String[] whereArgs = new String[] {
-			wordFilter + "%",
-			String.valueOf(language.getId()),
-			String.valueOf(new EmojiLanguage().getId())
-		};
+		String where = "word LIKE ?";
+		String[] whereArgs = new String[]{wordFilter + "%"};
+		String limit = maxWords > 0 ? String.valueOf(maxWords) : null;
+		String orderBy = maxWords > 0 ? null : "word";
 
-		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, "word")) {
+		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, orderBy, limit)) {
 			while (cursor.moveToNext()) {
 				words.add(cursor.getString(0));
 			}

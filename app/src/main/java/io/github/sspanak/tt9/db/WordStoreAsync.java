@@ -74,9 +74,16 @@ public class WordStoreAsync {
 	}
 
 
-	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String wordFilter) {
+	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			getStore().getSimilarCustom(language, wordFilter)))
+			getStore().getSimilarCustom(wordFilter, maxWords)))
+		).start();
+	}
+
+
+	public static void countCustomWords(ConsumerCompat<Long> dataHandler) {
+		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
+			getStore().countCustom()))
 		).start();
 	}
 

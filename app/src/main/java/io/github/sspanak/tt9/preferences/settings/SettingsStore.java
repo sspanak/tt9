@@ -10,6 +10,7 @@ public class SettingsStore extends SettingsUI {
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
 	public final static int CUSTOM_WORDS_IMPORT_MAX_LINES = 250;
 	public final static int CUSTOM_WORDS_MAX = 1000;
+	public final static int CUSTOM_WORDS_SEARCH_RESULTS_MAX = 50;
 	public final static int DICTIONARY_AUTO_LOAD_COOLDOWN_TIME = 1200000; // 20 minutes in ms
 	public final static int DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT = 10000; // ms
 	public final static int DICTIONARY_DOWNLOAD_READ_TIMEOUT = 10000; // ms

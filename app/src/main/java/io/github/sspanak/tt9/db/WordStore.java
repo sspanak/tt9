@@ -112,8 +112,13 @@ public class WordStore {
 	}
 
 
-	@NonNull public ArrayList<String> getSimilarCustom(Language language, String wordFilter) {
-		return language != null && !(language instanceof NullLanguage) && checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), language, wordFilter) : new ArrayList<>();
+	@NonNull public ArrayList<String> getSimilarCustom(String wordFilter, int maxWords) {
+		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords) : new ArrayList<>();
+	}
+
+
+	public long countCustom() {
+		return checkOrNotify() ? readOps.countCustomWords(sqlite.getDb()) : 0;
 	}
 
 
