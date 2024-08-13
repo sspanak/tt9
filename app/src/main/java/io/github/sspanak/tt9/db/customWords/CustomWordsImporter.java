@@ -26,7 +26,6 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	private ConsumerCompat<Integer> progressHandler;
 	private ConsumerCompat<String> failureHandler;
 
-	private final Context context;
 	private CustomWordFile file;
 	private final Resources resources;
 	private SQLiteOpener sqlite;
@@ -45,7 +44,6 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 
 	private CustomWordsImporter(Context context) {
 		super();
-		this.context = context;
 		this.resources = context.getResources();
 	}
 
@@ -95,7 +93,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		Timer.start(getClass().getSimpleName());
 
 		sendStart(resources.getString(R.string.dictionary_import_running));
-		if (isFileValid() && isThereRoomForMoreWords() && insertWords()) {
+		if (isFileValid() && isThereRoomForMoreWords(activity) && insertWords(activity)) {
 			sendSuccess();
 			Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 		} else {
@@ -104,7 +102,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private boolean openDb() {
+	private boolean openDb(Context context) {
 		sqlite = SQLiteOpener.getInstance(context);
 		if (sqlite.getDb() != null) {
 			return true;
@@ -116,7 +114,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private boolean insertWords() {
+	private boolean insertWords(Context context) {
 		ReadOps readOps = new ReadOps();
 		int ignoredWords = 0;
 		int lineCount = 1;
@@ -130,7 +128,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 					return false;
 				}
 
-				CustomWord customWord = createCustomWord(line, lineCount);
+				CustomWord customWord = createCustomWord(context, line, lineCount);
 				if (customWord == null) {
 					sqlite.failTransaction();
 					return false;
@@ -174,8 +172,8 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private boolean isThereRoomForMoreWords() {
-		if (!openDb()) {
+	private boolean isThereRoomForMoreWords(Context context) {
+		if (!openDb(context)) {
 			return false;
 		}
 
@@ -198,7 +196,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private CustomWord createCustomWord(String line, int lineCount) {
+	private CustomWord createCustomWord(Context context, String line, int lineCount) {
 		try {
 			return new CustomWord(
 				CustomWordFile.getWord(line),
