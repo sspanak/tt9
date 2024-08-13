@@ -27,7 +27,6 @@ public class UI {
 		Intent prefIntent = new Intent(ims, PreferencesActivity.class);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 		ims.startActivity(prefIntent);
 	}
 
