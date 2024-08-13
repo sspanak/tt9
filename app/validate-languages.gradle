@@ -47,7 +47,7 @@ static def extractAlphabetCharsFromLine(String line) {
 
 
 static def parseLanguageFile(File languageFile, String dictionariesDir) {
-	String alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : ''
+	String alphabet = ""
 	File dictionaryFile
 	int errorCount = 0
 	String errorMsg = ""
@@ -56,6 +56,9 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 	boolean isLocaleValid = false
 	String localeString = ""
 	String dictionaryFileName = ""
+
+	alphabet = languageFile.name.contains("Catalan") ? '·' : alphabet
+	alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : alphabet
 
 	for (String line : languageFile.readLines()) {
 		if (
