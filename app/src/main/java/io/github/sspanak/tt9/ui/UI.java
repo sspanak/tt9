@@ -31,15 +31,6 @@ public class UI {
 		ims.startActivity(prefIntent);
 	}
 
-	public static void alert(Context context, int titleResource, int messageResource) {
-		new AlertDialog.Builder(context)
-			.setTitle(titleResource)
-			.setMessage(messageResource)
-			.setCancelable(false)
-			.setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.cancel())
-			.show();
-	}
-
 	public static void confirm(Context context, String title, String message, String OKLabel, Runnable onOk, Runnable onCancel) {
 		new AlertDialog.Builder(context)
 			.setTitle(title)

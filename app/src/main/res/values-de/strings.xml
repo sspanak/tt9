@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">TT9 Einstellungen</string>
-	<string name="loading">Laden...</string>
+	<string name="loading">Laden…</string>
 	<string name="no_language">Keine Sprache</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
-	<string name="failed_loading_language_definitions">Es ist nicht möglich, Sprachdefinitionen zu laden.</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>
@@ -79,7 +78,6 @@
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
-	<string name="error">Fehler</string>
 	<string name="pref_dark_theme_yes">Ja</string>
 	<string name="pref_dark_theme_no">Nein</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>

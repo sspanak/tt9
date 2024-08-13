@@ -47,13 +47,4 @@ public class SoftKeyTextEdit extends SoftNumberKey {
 			setCompoundDrawables(null, null, null, icon);
 		}
 	}
-
-	private Drawable getIcon(int resId) {
-		return getResources().getDrawable(resId);
-	}
-
-	@Override
-	protected String getSubTitle() {
-		return super.getSubTitle();
-	}
 }

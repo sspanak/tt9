@@ -5,7 +5,6 @@
 	<string name="no_language">Yüklü Dil Yok</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
-	<string name="failed_loading_language_definitions">Tüm dilleri yüklerken hata oluştu.</string>
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>
@@ -77,7 +76,6 @@
 	<string name="pref_category_setup">İlk Kurulum</string>
 	<string name="pref_font_size_large">Büyük</string>
 	<string name="completed">Tamamlandı</string>
-	<string name="error">Hata</string>
 	<string name="pref_dark_theme_yes">Evet</string>
 	<string name="pref_dark_theme_no">Hayır</string>
 	<string name="pref_dark_theme_auto">Otomatik</string>

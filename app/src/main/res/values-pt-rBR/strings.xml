@@ -7,7 +7,6 @@
 	<string name="no_language">Sem idioma</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
-	<string name="failed_loading_language_definitions">Impossível carregar qualquer definição de idioma.</string>
 	<string name="add_word_add">Adicionar</string>
 	<string name="add_word_confirm">Adicionar a palavra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mova o cursor dentro de uma palavra para adicioná-la.</string>
@@ -95,7 +94,6 @@
 	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
-	<string name="error">Erro</string>
 	<string name="pref_dark_theme_yes">Sim</string>
 	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>

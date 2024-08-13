@@ -136,7 +136,7 @@ class MainLayoutTray extends BaseMainLayout {
 	protected ArrayList<SoftKey> getKeys() {
 		if (view != null && keys.isEmpty()) {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_command_keys)));
-			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_editing_keys_small)));
+			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_editing_container)));
 		}
 		return keys;
 	}
