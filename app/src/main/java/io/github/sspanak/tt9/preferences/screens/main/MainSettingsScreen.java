@@ -1,24 +1,17 @@
 package io.github.sspanak.tt9.preferences.screens.main;
 
-import android.content.Intent;
-import android.net.Uri;
-
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.regex.Pattern;
 
-import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class MainSettingsScreen extends BaseScreenFragment {
 	final public static String NAME = "Main";
-	private final Pattern releaseVersionRegex = Pattern.compile("^\\d+\\.\\d+$");
 
 	public MainSettingsScreen() { init(); }
 	public MainSettingsScreen(PreferencesActivity activity) { init(activity); }

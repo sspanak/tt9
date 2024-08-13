@@ -6,7 +6,6 @@
 	<string name="loading">Зареждане…</string>
 	<string name="no_language">Няма език</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
-	<string name="failed_loading_language_definitions">Неуспешно зареждане на езиковите дефиниции.</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
@@ -123,7 +122,6 @@
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
-	<string name="error">Грешка</string>
 	<string name="pref_dark_theme_yes">Да</string>
 	<string name="pref_dark_theme_no">Не</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>

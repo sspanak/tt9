@@ -5,7 +5,6 @@
 	<string name="no_language">Geen taal</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
-	<string name="failed_loading_language_definitions">Kan geen taaldefinities laden.</string>
 	<string name="add_word_add">Toevoegen</string>
 	<string name="add_word_confirm">Voeg woord \"%1$s\" toe aan %2$s?</string>
 	<string name="add_word_no_selection">Verplaats de cursor binnen een woord om het toe te voegen.</string>
@@ -81,7 +80,6 @@
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
-	<string name="error">Fout</string>
 	<string name="pref_dark_theme_yes">Ja</string>
 	<string name="pref_dark_theme_no">Nee</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>

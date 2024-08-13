@@ -17,7 +17,6 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
 
 
-	private String localizedName = null;
 	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
 
@@ -181,15 +180,6 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		}
 
 		return name;
-	}
-
-
-	public String getLocalizedName() {
-		if (localizedName == null) {
-			localizedName = locale.getDisplayName();
-		}
-
-		return localizedName;
 	}
 
 

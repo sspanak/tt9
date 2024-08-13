@@ -10,7 +10,6 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.preferences.items.ItemTextInput;
-import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceSearchLanguage extends ItemTextInput {
 	@NonNull private ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();

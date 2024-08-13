@@ -23,21 +23,12 @@ public class PreferenceSearchWords extends ItemTextInput {
 	private SettingsStore settings;
 
 	@NonNull private String lastSearchTerm = "";
-	private long totalWords = 0;
 
 
 	public PreferenceSearchWords(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
 	public PreferenceSearchWords(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 	public PreferenceSearchWords(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public PreferenceSearchWords(@NonNull Context context) { super(context); }
-
-	private SettingsStore getSettings() {
-		if (settings == null) {
-			settings = new SettingsStore(getContext());
-		}
-
-		return settings;
-	}
 
 
 	@Override

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_settings">Configuración de Traditional T9</string>
-	<string name="failed_loading_language_definitions">Falló al cargar todas las definiciones de idiomas.</string>
 	<string name="add_word_add">Agregar</string>
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
@@ -73,7 +72,6 @@
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
 	<string name="pref_upside_down_keys_summary">Habilite la configuración si hay 7–8–9 en la primera fila, en lugar de 1–2–3.</string>
 	<string name="pref_category_setup">Configuración inicial</string>
-	<string name="error">Error</string>
 	<string name="dictionary_no_notifications">Notificaciones del diccionario</string>
 	<string name="dictionary_no_notifications_summary">Recibir notificaciones sobre actualizaciones del diccionario y sobre el progreso de la carga.</string>
 	<string name="function_show_command_palette">Lista de comandos</string>

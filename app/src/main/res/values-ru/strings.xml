@@ -6,7 +6,6 @@
 	<string name="loading">Загрузка…</string>
 	<string name="no_language">Нет языка</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
-	<string name="failed_loading_language_definitions">Не удалось загрузить какое-либо определение языка.</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
@@ -96,7 +95,6 @@
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
-	<string name="error">Ошибка</string>
 	<string name="pref_dark_theme_yes">Да</string>
 	<string name="pref_dark_theme_no">Нет</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>

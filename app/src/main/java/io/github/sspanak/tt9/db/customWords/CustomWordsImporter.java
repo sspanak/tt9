@@ -82,9 +82,9 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	public boolean run(@NonNull Activity activity, @NonNull CustomWordFile file) {
+	public void run(@NonNull Activity activity, @NonNull CustomWordFile file) {
 		this.file = file;
-		return super.run(activity);
+		super.run(activity);
 	}
 
 

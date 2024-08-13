@@ -265,7 +265,7 @@ public class SuggestionsBar {
 	}
 
 
-	private boolean onTouch(View view, MotionEvent event) {
+	private boolean onTouch(View v, MotionEvent event) {
 		if (!isEmpty()) {
 			return false;
 		}

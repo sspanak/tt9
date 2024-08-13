@@ -6,7 +6,6 @@
 	<string name="loading">Chargement…</string>
 	<string name="no_language">Aucun langue</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
-	<string name="failed_loading_language_definitions">Impossible de charger aucune définition de langue</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>
 	<string name="add_word_blank">Mot vide non ajouté.</string>
@@ -97,7 +96,6 @@
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>
-	<string name="error">Erreur</string>
 	<string name="pref_dark_theme_yes">Oui</string>
 	<string name="pref_dark_theme_no">Non</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
