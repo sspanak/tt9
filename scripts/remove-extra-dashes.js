@@ -61,7 +61,7 @@ function removeCompoundWords(locale, words, lowerCaseWords, separator) {
 	const uniqueWords = new Set();
 	words.forEach(w => {
 		// simple words
-		if (!w.includes(separator)) {
+		if (!w.includes(separator) || w.startsWith(separator) || w.endsWith(separator)) {
 			uniqueWords.add(w);
 			return;
 		}
