@@ -145,7 +145,7 @@ Below is a list of the possible commands:
 - **Add a Word (Default Combo: ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
 - **Voice Input (Default Combo: ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
 - **Edit Text (Default Combo: ✱, 5-key).** Same as pressing [Edit Text](#edit-text-key)
-- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Same as pressing [Change Keyboard](#change-keyboard).
+- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
 
