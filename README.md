@@ -67,11 +67,14 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
+If you just want to show your appreciation, give the project a star on GitHub. Higher-ranked projects have the opportunity to use development tools for free and apply for funding more easily. Or give it 5 stars on Google Play to help it appear higher in the search results.
 
-If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost: a TCL Flip 2 + delivery is about 50 USD; Kyocera Dura XV Extreme is around 180 USD.
+You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
 
-Or if you just want to show your appreciation, give the project a star. Higher-ranked projects on GitHub have the opportunity to use development tools for free and apply for funding more easily.
+If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost (with delivery included):
+- TCL Flip 2: 50 USD
+- Kyocera Dura XV Extreme: ~180 USD
+- Kyocera Digno 4: ~160 USD
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
