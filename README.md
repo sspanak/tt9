@@ -76,6 +76,8 @@ If you own another device that does not run TT9 smoothly, you can fund the purch
 - Kyocera Dura XV Extreme: ~180 USD
 - Kyocera Digno 4: ~160 USD
 
+Buying these devices will help fixing bugs like: [#249](https://github.com/sspanak/tt9/issues/249), [#306](https://github.com/sspanak/tt9/issues/306), [#423](https://github.com/sspanak/tt9/issues/423), or [#522](https://github.com/sspanak/tt9/issues/522).
+
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries), where applicable. Detailed information about the dictionaries is also available there.
