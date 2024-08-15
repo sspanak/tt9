@@ -61,17 +61,22 @@ So make sure to read the initial setup and the hotkey tips in the [user manual](
 As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is how:
 - Add [a new language](CONTRIBUTING.md#adding-a-new-language), [new UI translations](CONTRIBUTING.md#translating-the-ui) or simply fix a spelling mistake. The process is very simple and even with minimum technical knowledge, your skills as a native speaker will be of great use. Or, if you are not tech-savvy, just [open a new issue](https://github.com/sspanak/tt9/issues) and put the correct translations or words there. Correcting misspelled words or adding new ones is the best you can do to help. Processing millions of words in multiple languages is a very difficult task for a single person.
 - Share your list of added words. Use the Export function in Settings → Languages → Added Words and upload the generated CSV file in a [new issue](https://github.com/sspanak/tt9/issues). You are also welcome to [open a PR](https://github.com/sspanak/tt9/pulls) if you have good technical knowledge and can split them by language.
-- [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. It is only possible to verify correct operation and compatibility on [a handful of phones](#%EF%B8%8F-compatibility), but Android behavior and appearance vary a lot across the millions of devices available out there.
+- [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. It is only possible to verify correct operation and compatibility on a handful of phones, but Android behavior and appearance vary a lot across the millions of devices available out there.
 - Experienced developers who are willing to fix a bug, or maybe create a brand new feature, see the [Contribution Guide](CONTRIBUTING.md).
 
 Your PRs are welcome!
 
 ## 👍 Support
-If you like Traditional T9, you could donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
+If you want to show your appreciation, give the project a star on GitHub. Higher-ranked projects have the opportunity to use development tools for free and apply for funding more easily. Or give it 5 stars on Google Play to help it appear higher in the search results.
 
-If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost: a TCL Flip 2 + delivery is about 50 USD; Kyocera Dura XV Extreme is around 180 USD.
+You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
 
-Or if you just want to show your appreciation, give the project a star. Higher-ranked projects on GitHub have the opportunity to use development tools for free and apply for funding more easily.
+If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost (with delivery included):
+- TCL Flip 2: 50 USD
+- Kyocera Dura XV Extreme: ~180 USD
+- Kyocera Digno 4: ~160 USD
+
+Buying these devices will help fixing bugs like: [#249](https://github.com/sspanak/tt9/issues/249), [#306](https://github.com/sspanak/tt9/issues/306), [#423](https://github.com/sspanak/tt9/issues/423), or [#522](https://github.com/sspanak/tt9/issues/522).
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).

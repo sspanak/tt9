@@ -28,6 +28,8 @@ _If you decide to keep them off, TT9 will continue to work without problems, but
 
 All hotkeys can be reconfigured or disabled from Settings → Keypad → Select Hotkeys.
 
+### Typing Keys
+
 #### Previous Suggestion key (Default: D-pad Left):
 Select the previous word/letter suggestion.
 
@@ -82,7 +84,7 @@ _**Note 2:** In messaging applications, you need to enable their "Send with ENTE
 - **In Predictive mode:**
   - **Press:** type sentence characters
   - **Press multiple times:** type emoji
-  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key-default-press-))
+  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key))
   - **Hold:** type "1".
 
 
@@ -90,7 +92,14 @@ _**Note 2:** In messaging applications, you need to enable their "Send with ENTE
 - **In 123 mode:** type the respective number
 - **In ABC and Predictive mode:** type a letter or hold to type the respective number.
 
-#### Backspace Key:
+### Function Keys
+
+#### Add Word Key:
+Add a new word to the dictionary for the current language.
+
+You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
+
+#### Backspace Key (Back, Del, or Backspace):
 Just deletes text.
 
 If your phone has a dedicated "Del" or "Clear" key, you do not need to set anything in the Settings, unless you want to have another Backspace. In this case, the blank option: "--" will be automatically preselected.
@@ -108,20 +117,35 @@ _In these cases, you could assign another key (all other keys are fully usable),
 - **Press while suggestions are on:** Toggle the suggestions between UPPERCASE and lowercase. In case the suggestions are only special characters, switch to the next character group.
 - **Number-only fields:** No special action. Type a "#" with the default key. Changing the mode is not possible in such fields.
 
+#### Edit Text Key:
+Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
+
 #### Next Language Key (Default: hold #):
 Select the next language, when multiple languages have been enabled from the Settings.
 
+#### Tab Key:
+Advance the cursor to the next tab stop or switch to the next focusable UI element. Works exactly like the TAB key on a computer keyboard.
+
+#### Select Keyboard Key:
+Open the Android Change Keyboard dialog where you can select between all installed keyboards.
+
+#### Show Settings Key:
+Open the Settings configuration screen. It is where you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+
+#### Voice Input Key:
+Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
+
 #### Command-List Key / aka Command Palette / (Default: press ✱):
-Show a list of commands (or functions) not accessible via hotkeys.
+Show a list of all commands (or functions).
 
 Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
 
 Below is a list of the possible commands:
-- **Show the Settings Screen (Default Combo: ✱, 1-key).** On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
-- **Add a Word (Default Combo: ✱, 2-key).** Add a new word to the dictionary for the current language. You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
-- **Voice Input (Default Combo: ✱, 3-key).** Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
-- **Text Editing (Default Combo: ✱, 5-key).** Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
-- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Open the Android Change Keyboard dialog allowing you to select between all installed keyboards.
+- **Show the Settings Screen (Default Combo: ✱, 1-key).** Same as pressing [Show Settings](#show-settings-key).
+- **Add a Word (Default Combo: ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
+- **Voice Input (Default Combo: ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
+- **Edit Text (Default Combo: ✱, 5-key).** Same as pressing [Edit Text](#edit-text-key)
+- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
 
@@ -180,20 +204,14 @@ On the Settings screen, you can choose languages for typing, configure the keypa
 #### Method 1
 Click on the Traditional T9 launcher icon.
 
-#### Method 2 (touchscreen phones)
+#### Method 2 (using a touchscreen)
 - Tap on a text or a number field to wake up TT9.
-- Use the on-screen gear button or press the assigned hotkey [Default: Hold ✱].
+- Use the on-screen gear button.
 
-#### Method 3 (non-touchscreen phones)
+#### Method 3 (using a physical keyboard)
 - Start typing in a text or a number field to wake up TT9.
 - Open the commands list using the on-screen tools button or by pressing the assigned hotkey [Default: Hold ✱].
 - Press the 2-key.
-
-#### Method 3
-- Go to Android Settings → System → Languages → Keyboards (or On-Screen Keyboards/Virtual Keyboards). This is where all installed keyboards are configured.
-- Select "Traditional T9".
-
-_The actual menu names may vary depending on your phone, Android version, and language._
 
 ### Navigating Around the Settings
 If you have a device with a hardware keypad, there are two ways of navigating around the Settings.
@@ -208,7 +226,7 @@ After enabling one or more new languages, you must load the respective dictionar
 
 It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), and then re-enable all languages you used before.
 
-Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you oftenly use uncommon words.
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you often use uncommon words.
 
 #### Automatic Dictionary Loading
 
@@ -225,6 +243,12 @@ In all cases, your custom-added words will be preserved and restored once you re
 
 #### Added Words
 The "Export" option allows you to export all added words, for all languages, including any added emoji, to a CSV file. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/issues). After being reviewed and approved, they will be included in the next version.
+
+With "Import", you can import a previously exported CSV. However, there are some restrictions:
+- You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.
+- Emojis are not allowed.
+- One CSV file can contain a maximum of 250 words.
+- You can import up to 1000 words, meaning you can import at most 4 files X 250 words. Beyond that limit, you can still add words while typing.
 
 Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
 
