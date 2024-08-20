@@ -57,7 +57,7 @@ Clear the suggestion filter, if applied.
 
 _**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**Note 2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way. Yet, for some of them, TT9 can be enabled to send messages in the [Compatibility Settings](#send-messages-with-ok-in-facebook-messenger)._
+_**Note 2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way. Yet, for some of them, TT9 can be enabled to send messages in the [Compatibility Settings](#compatibility-options--troubleshooting)._
 
 #### 0-key:
 - **In 123 mode:**
