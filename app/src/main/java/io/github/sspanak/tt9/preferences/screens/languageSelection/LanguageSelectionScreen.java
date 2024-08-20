@@ -6,6 +6,7 @@ import androidx.preference.PreferenceCategory;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -47,7 +48,9 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 		}
 
 		addLanguagesToCategory(languagesCategory, allLanguages);
-		WordStoreAsync.exists(this::addLoadedStatus, allLanguages);
+		if (!DictionaryLoader.getInstance(activity).isRunning()) {
+			WordStoreAsync.exists(this::addLoadedStatus, allLanguages);
+		}
 	}
 
 
