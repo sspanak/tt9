@@ -1,7 +1,7 @@
-ext.markdownToHTML = { markdownPath, htmlPath, version ->
+ext.markdownToHTML = { markdownPath, htmlPath ->
     def text = new File(markdownPath).text
 
-    text = convertHeaders(text, version)
+    text = convertHeaders(text)
     text = convertOrderedLists(text)
     text = convertUnorderedLists(text)
     text = convertInlineTags(text)
@@ -51,7 +51,7 @@ static insertIndex(html, index) {
 }
 
 
-static convertHeaders(markdown, version) {
+static convertHeaders(markdown) {
     def html = markdown.split("\n").collect { line ->
         if (line.startsWith("#")) {
             def headerNumber = 0
@@ -65,9 +65,7 @@ static convertHeaders(markdown, version) {
             def header = line.replaceAll("^#+", "").trim()
             def anchor = header.toLowerCase().replaceAll("[^a-z0-9]+", "-")
 
-            return "<h${headerNumber} id=\"${anchor}\">" +
-                    "${header}${headerNumber == 1 ? " v" + version : ''}" +
-                    "</h${headerNumber}>"
+            return "<h${headerNumber} id=\"${anchor}\">${header}</h${headerNumber}>"
         } else {
             return line
         }
