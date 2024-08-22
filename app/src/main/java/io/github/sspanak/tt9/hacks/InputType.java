@@ -43,7 +43,7 @@ public class InputType extends StandardInputType {
 
 	public boolean isDumbPhoneDialer(Context context) {
 		// the inputType is not always TYPE_CLASS_PHONE on all devices, so we must not filter by that.
-		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context);
+		return field.packageName.endsWith(".dialer") && !DeviceInfo.noKeyboard(context) && !isText();
 	}
 
 
@@ -139,6 +139,7 @@ public class InputType extends StandardInputType {
 	 * <p>
 	 * More info (chronological order of bug fixing):
 	 * <a href="https://github.com/sspanak/tt9/issues/46">the initial GitHub issue about Qin F21 Pro+</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/216">LG Classic Flip says the dialer is a multi-line text field</a>
 	 * <a href="https://github.com/sspanak/tt9/pull/326">the PR about calculators</a>
 	 * <a href="https://github.com/sspanak/tt9/issues/300">Dialer not detected correctly on LG X100S</a>
 	 * [NO ISSUE] On touchscreen-only phones, in the Dialer app, we mustn't switch to passthrough, because
