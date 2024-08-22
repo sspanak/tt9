@@ -145,6 +145,10 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 
 	private String getSortingId() {
+		if ("IN".equals(getLocale().getCountry()) && "en".equals(getLocale().getLanguage())) {
+			return "hi";
+		}
+
 		switch (getLocale().getLanguage()) {
 			case "fi":
 				return "su";
