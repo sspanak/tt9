@@ -14,6 +14,7 @@ import java.util.Set;
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.entities.WordFile;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -44,8 +45,12 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 
 
 	private String generateSummary(Activity activity, NaturalLanguage language) {
-		StringBuilder summary = new StringBuilder(language.getLocale().getDisplayLanguage());
+		// name
+		StringBuilder summary = new StringBuilder(
+			LanguageKind.isHinglish(language) ? language.getName() : language.getLocale().getDisplayLanguage()
+		);
 
+		// word count
 		WordFile wordFile = new WordFile(activity, language.getDictionaryFile(), activity.getAssets());
 		summary
 			.append(", ")
@@ -53,6 +58,7 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 			wordFile.getFormattedTotalLines(activity.getString(R.string.language_selection_words))
 		);
 
+		// download size
 		if (BuildConfig.LITE) {
 			summary.append(", ").append(wordFile.getFormattedSize());
 		}
