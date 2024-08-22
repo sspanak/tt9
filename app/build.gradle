@@ -36,7 +36,7 @@ tasks.register('convertHelp') {
 	outputs.file HELP_HTML
 
 	doLast {
-		markdownToHTML(HELP_MARKDOWN, HELP_HTML, getVersionName())
+		markdownToHTML(HELP_MARKDOWN, HELP_HTML)
 	}
 }
 
@@ -58,6 +58,7 @@ tasks.register('updateManifest') {
 clean {
 	delete LANGUAGES_OUTPUT_DIR
 	delete DICTIONARIES_OUTPUT_DIR
+	delete HELP_HTML
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
