@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 
 public class ModePredictive extends InputMode {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -329,14 +330,19 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
+		if (Characters.isStaticEmoji(currentWord)) {
+			return;
+		}
+
 		// increment the frequency of the given word
 		try {
-			String sequence = language.getDigitSequenceForWord(currentWord);
+			Language workingLanguage = TextTools.isGraphic(currentWord) ? new EmojiLanguage() : language;
+			String sequence = workingLanguage.getDigitSequenceForWord(currentWord);
 
-			// emoji and punctuation are not in the database, so there is no point in
+			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-				WordStoreAsync.makeTopWord(language, currentWord, sequence);
+			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
+				WordStoreAsync.makeTopWord(workingLanguage, currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
