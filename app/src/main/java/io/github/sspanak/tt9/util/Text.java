@@ -95,9 +95,6 @@ public class Text extends TextTools {
 	}
 
 
-
-
-
 	public boolean startsWithWhitespace() {
 		return text != null && !text.isEmpty() && Character.isWhitespace(text.charAt(0));
 	}
@@ -108,6 +105,10 @@ public class Text extends TextTools {
 
 	public boolean startsWithGraphic() {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(0));
+	}
+
+	public boolean startsWithWord() {
+		return text != null && !text.isEmpty() && Character.isAlphabetic(text.charAt(0));
 	}
 
 	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {

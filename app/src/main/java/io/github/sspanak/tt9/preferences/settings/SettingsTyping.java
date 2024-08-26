@@ -15,6 +15,10 @@ class SettingsTyping extends SettingsInput {
 		return getAutoTextCase() && prefs.getBoolean("auto_capitals_after_newline", false);
 	}
 
+	public boolean getBackspaceAcceleration() {
+		return prefs.getBoolean("backspace_acceleration", false);
+	}
+
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");
 

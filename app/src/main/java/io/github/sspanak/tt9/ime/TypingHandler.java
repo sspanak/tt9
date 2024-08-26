@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 
@@ -110,7 +111,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	@Override
-	public boolean onBackspace() {
+	public boolean onBackspace(boolean hold) {
 		// Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		if (mInputMode.isPassthrough()) {
@@ -125,11 +126,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		resetKeyRepeat();
 
-		if (mInputMode.onBackspace()) {
+		if (!hold && mInputMode.onBackspace()) {
 			getSuggestions();
 		} else {
 			suggestionOps.commitCurrent(false);
-			super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			mInputMode.reset();
+
+			int repeats = hold ? Math.min(Math.max(textField.getWordBeforeCursorLength(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
+			for (int i = repeats; i > 0; i--) {
+				super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			}
 		}
 
 		return true;
