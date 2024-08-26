@@ -105,6 +105,26 @@ public class TextField extends InputField {
 
 
 	/**
+	 * Returns the length of the word before the cursor. If the cursor is inside a word, 0 is returned,
+	 * because there is no full word before it. The scanning length is up to the maximum returned by
+	 * getTextBeforeCursor().
+	 */
+	public int getWordBeforeCursorLength() {
+		if (getTextAfterCursor(1).startsWithWord()) {
+			return 0;
+		}
+
+		String before = getStringBeforeCursor();
+		if (before.isEmpty()) {
+			return 0;
+		}
+
+		int spaceShift = Math.max(before.lastIndexOf(' '), 0);
+		return before.length() - spaceShift;
+	}
+
+
+	/**
 	 * deletePrecedingSpace
 	 * Deletes the preceding space before the given word. The word must be before the cursor.
 	 * No action is taken when there is double space or when it's the beginning of the text field.

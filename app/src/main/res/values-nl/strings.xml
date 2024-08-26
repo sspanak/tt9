@@ -154,4 +154,6 @@
 	<string name="language_selection_title">Talen inschakelen</string>
 	<string name="language_selection_search_placeholder">Zoeken naar talen</string>
 	<string name="language_selection_words">woorden</string>
+	<string name="pref_backspace_acceleration">Snel verwijderen</string>
+	<string name="pref_backspace_acceleration_summary">Hele woorden wissen door Backspace ingedrukt te houden.\n(Niet ondersteund in sommige apps)</string>
 </resources>

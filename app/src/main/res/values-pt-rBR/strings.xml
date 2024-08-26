@@ -36,9 +36,9 @@
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las (Android 9 ou mais antigo).</string>
-	<string name="pref_auto_space">Espaçamento Automático</string>
+	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
-	<string name="pref_auto_text_case">Maiúsculas Automáticas</string>
+	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Iniciar automaticamente as frases com letras maiúsculas.</string>
 	<string name="pref_auto_capitals_after_newline">Letras maiúsculas automáticas em cada linha</string>
 	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
@@ -168,4 +168,6 @@
 	<string name="language_selection_title">Habilitar idiomas</string>
 	<string name="language_selection_search_placeholder">Buscar por idiomas</string>
 	<string name="language_selection_words">palavras</string>
+	<string name="pref_backspace_acceleration">Exclusão rápida</string>
+	<string name="pref_backspace_acceleration_summary">Apagar palavras inteiras segurando a tecla Backspace.\n(Não suportado em alguns aplicativos)</string>
 </resources>

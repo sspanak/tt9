@@ -14,6 +14,14 @@
 			app:title="@string/pref_haptic_feedback"
 			app:summary="@string/pref_haptic_feedback_summary"/>
 
+	<PreferenceCategory android:title="@string/function_backspace">
+		<SwitchPreferenceCompat
+			app:defaultValue="false"
+			app:key="backspace_acceleration"
+			app:title="@string/pref_backspace_acceleration"
+			app:summary="@string/pref_backspace_acceleration_summary" />
+	</PreferenceCategory>
+
 	<PreferenceCategory android:title="@string/pref_category_predictive_mode">
 
 		<SwitchPreferenceCompat

@@ -174,4 +174,6 @@
 	<string name="language_selection_title">Įjungti kalbas</string>
 	<string name="language_selection_search_placeholder">Ieškoti kalbų</string>
 	<string name="language_selection_words">žodžių</string>
+	<string name="pref_backspace_acceleration">Greitas ištrynimas</string>
+	<string name="pref_backspace_acceleration_summary">Ištrinti visus žodžius laikant klavišą Backspace.\n(Nepalaikoma kai kuriose programėlėse)</string>
 </resources>
