@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.util.Ternary;
 abstract public class AbstractHandler extends InputMethodService {
 	// hardware key handlers
 	abstract protected Ternary onBack();
-	abstract public boolean onBackspace();
+	abstract public boolean onBackspace(boolean hold);
 	abstract public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly);
 	abstract protected boolean onNumber(int key, boolean hold, int repeat);
 	abstract public boolean onOK();
