@@ -175,10 +175,10 @@ public class TraditionalT9 extends MainViewHandler {
 	 * On Android 11 the IME is sometimes not killed when the user switches to a different one.
 	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
-	protected void onDeath() {
+	private void onDeath() {
 		if (SystemSettings.isTT9Active(this)) {
 			Logger.w("onDeath", "===> Still active, rescheduling");
-			deathDetector.postDelayed(this::onDeath, 2000);
+			deathDetector.postDelayed(this::onDeath, SettingsStore.ZOMBIE_CHECK_INTERVAL);
 			return;
 		} else {
 			deathDetector.removeCallbacksAndMessages(null);
