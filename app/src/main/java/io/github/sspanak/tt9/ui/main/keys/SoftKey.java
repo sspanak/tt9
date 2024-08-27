@@ -34,6 +34,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	private boolean hold = false;
 	private boolean repeat = false;
+	private long lastLongClickTime = 0;
 	private final Handler repeatHandler = new Handler(Looper.getMainLooper());
 	private static int lastPressedKey = -1;
 
@@ -98,11 +99,15 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	@Override
 	public boolean onLongClick(View view) {
-		hold = true;
-
 		// sometimes this gets called twice, so we debounce the call to the repeating function
-		repeatHandler.removeCallbacks(this::repeatOnLongPress);
-		repeatHandler.postDelayed(this::repeatOnLongPress, 5);
+		final long now = System.currentTimeMillis();
+		if (now - lastLongClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
+			return false;
+		}
+
+		hold = true;
+		lastLongClickTime = now;
+		repeatOnLongPress();
 		return true;
 	}
 
@@ -112,18 +117,22 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	 * Repeatedly calls "handleHold()" upon holding the respective SoftKey, to simulate physical keyboard behavior.
 	 */
 	private void repeatOnLongPress() {
-		if (!validateTT9Handler()) {
-			hold = false;
-			return;
-		}
-
 		if (hold) {
 			repeat = true;
 			handleHold();
 			lastPressedKey = getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
-			repeatHandler.postDelayed(this::repeatOnLongPress, SettingsStore.SOFT_KEY_REPEAT_DELAY);
+			repeatHandler.postDelayed(this::repeatOnLongPress, getLongPressRepeatDelay());
 		}
+	}
+
+
+	/**
+	 * Returns the delay between repeated calls to "handleHold()" when the SoftKey is being held.
+	 * Used in "repeatOnLongPress()".
+	 */
+	protected int getLongPressRepeatDelay() {
+		return SettingsStore.SOFT_KEY_REPEAT_DELAY;
 	}
 
 

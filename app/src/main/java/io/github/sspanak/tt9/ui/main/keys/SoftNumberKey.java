@@ -30,12 +30,12 @@ public class SoftNumberKey extends SoftKey {
 
 	@Override
 	protected void handleHold() {
+		preventRepeat();
+
 		int keyCode = Key.numberToCode(getUpsideDownNumber(getId()));
 		if (keyCode < 0 || !validateTT9Handler()) {
 			return;
 		}
-
-		preventRepeat();
 
 		vibrate(Vibration.getHoldVibration());
 		tt9.onKeyLongPress(keyCode, new KeyEvent(KeyEvent.ACTION_DOWN, keyCode));
