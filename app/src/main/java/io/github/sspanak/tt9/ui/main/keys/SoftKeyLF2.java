@@ -13,11 +13,12 @@ public class SoftKeyLF2 extends SoftKey {
 
 	@Override
 	protected void handleHold() {
+		preventRepeat();
+
 		if (!validateTT9Handler()) {
 			return;
 		}
 
-		preventRepeat();
 		vibrate(Vibration.getHoldVibration());
 		tt9.addWord();
 	}

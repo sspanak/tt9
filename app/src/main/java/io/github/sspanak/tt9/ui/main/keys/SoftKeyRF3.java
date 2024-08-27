@@ -30,11 +30,11 @@ public class SoftKeyRF3 extends SoftKey {
 
 	@Override
 	protected void handleHold() {
+		preventRepeat();
+
 		if (!validateTT9Handler() || isTextEdtingActive()) {
 			return;
 		}
-
-		preventRepeat();
 
 		if (tt9.isVoiceInputActive()) {
 			tt9.toggleVoiceInput();

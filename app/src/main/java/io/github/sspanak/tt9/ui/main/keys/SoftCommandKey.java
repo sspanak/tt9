@@ -19,7 +19,9 @@ public class SoftCommandKey extends SoftNumberKey {
 	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 
-	@Override protected void handleHold() {}
+	@Override protected void handleHold() {
+		preventRepeat();
+	}
 
 
 	@Override
