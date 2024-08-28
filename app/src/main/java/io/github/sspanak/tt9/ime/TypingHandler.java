@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime;
 
-import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -132,10 +131,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
 
-			int repeats = hold ? Math.min(Math.max(textField.getWordBeforeCursorLength(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
-			for (int i = repeats; i > 0; i--) {
-				super.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			}
+			int prevChars = hold ? Math.min(Math.max(textField.getWordBeforeCursorStart(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
+			textField.deleteChars(prevChars);
+		}
+
+		if (!hold && suggestionOps.isEmpty() && mInputMode.recompose(textField.getWordBeforeCursor(0))) {
+			textField.deleteChars(mInputMode.getSequenceLength());
+			getSuggestions();
 		}
 
 		return true;
@@ -289,7 +291,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
 
-		// in case the app has modified the InputField and moved the cursor without notifiying us...
+		// in case the app has modified the InputField and moved the cursor without notifying us...
 		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
 			return;
 		}
@@ -324,7 +326,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 			resetKeyRepeat();
 		}
 	}
-
 
 	@Override
 	public SuggestionOps getSuggestionOps() {
