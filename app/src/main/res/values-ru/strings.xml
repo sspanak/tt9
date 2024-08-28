@@ -24,6 +24,7 @@
 	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>
+	<string name="pref_backspace_recomposing">Редактирование</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
 	<string name="pref_status_icon">Иконка состояния</string>

@@ -43,6 +43,7 @@
 	<string name="pref_auto_text_case_summary">Автоматично починати речення з великої букви</string>
 	<string name="pref_auto_capitals_after_newline">Автоматичні великі літери на кожному рядку</string>
 	<string name="pref_auto_capitals_after_newline_summary">Починати кожен рядок з великої літери, навіть якщо він у середині речення.</string>
+	<string name="pref_backspace_recomposing">Редагування</string>
 	<string name="pref_choose_languages">Мови</string>
 	<string name="pref_dark_theme">Темна тема</string>
 	<string name="pref_dark_theme_yes">Так</string>

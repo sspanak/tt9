@@ -20,7 +20,7 @@ class SettingsTyping extends SettingsInput {
 	}
 
 	public boolean getBackspaceRecomposing() {
-		return prefs.getBoolean("backspace_recomposing", true);
+		return prefs.getBoolean("backspace_recomposing", false);
 	}
 
 	public String getDoubleZeroChar() {
