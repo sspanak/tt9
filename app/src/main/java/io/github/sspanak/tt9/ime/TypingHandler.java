@@ -131,11 +131,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
 
-			int prevChars = hold ? Math.min(Math.max(textField.getWordBeforeCursorStart(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
+			int prevChars = hold ? Math.min(Math.max(textField.getPaddedWordBeforeCursorLength(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
 			textField.deleteChars(prevChars);
 		}
 
-		if (!hold && suggestionOps.isEmpty() && mInputMode.recompose(textField.getWordBeforeCursor(0))) {
+		if (!hold && suggestionOps.isEmpty() && mInputMode.recompose(textField.getWordBeforeCursor())) {
 			textField.deleteChars(mInputMode.getSequenceLength());
 			getSuggestions();
 		}
@@ -326,6 +326,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			resetKeyRepeat();
 		}
 	}
+
 
 	@Override
 	public SuggestionOps getSuggestionOps() {

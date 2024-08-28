@@ -104,7 +104,7 @@ public class TextField extends InputField {
 	}
 
 
-	@NonNull public String getWordBeforeCursor(int reduceLength) {
+	@NonNull public String getWordBeforeCursor() {
 		if (getTextAfterCursor(1).startsWithWord()) {
 			return "";
 		}
@@ -115,18 +115,18 @@ public class TextField extends InputField {
 		}
 
 		int lastSpace = Math.max(before.lastIndexOf(' ') + 1, 0);
-		int length = Math.max(Math.min(before.length(), before.length() - reduceLength), lastSpace);
+		int length = Math.max(before.length(), lastSpace);
 
 		return before.substring(lastSpace, length);
 	}
 
 
 	/**
-	 * Returns the length of the word before the cursor. If the cursor is inside a word, 0 is returned,
-	 * because there is no full word before it. The scanning length is up to the maximum returned by
-	 * getTextBeforeCursor().
+	 * Returns the length of the first word before the cursor including any whitespace after it.
+	 * If the cursor is inside a word, 0 is returned, because there is no full word before it.
+	 * The scanning length is up to the maximum returned by getTextBeforeCursor().
 	 */
-	public int getWordBeforeCursorStart() {
+	public int getPaddedWordBeforeCursorLength() {
 		if (getTextAfterCursor(1).startsWithWord()) {
 			return 0;
 		}
