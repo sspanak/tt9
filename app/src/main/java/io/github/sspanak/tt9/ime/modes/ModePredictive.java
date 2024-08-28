@@ -134,9 +134,10 @@ public class ModePredictive extends InputMode {
 		try {
 			reset();
 			digitSequence = language.getDigitSequenceForWord(word);
+			textCase = new Text(language, word).getTextCase();
 			setWordStem(word,  true);
 		} catch (InvalidLanguageCharactersException e) {
-			Logger.e(LOG_TAG, "Failed recomposing word: " + word + ". " + e.getMessage());
+			Logger.d(LOG_TAG, "Not recomposing word: '" + word + "'. " + e.getMessage());
 			return false;
 		}
 

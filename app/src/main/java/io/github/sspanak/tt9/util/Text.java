@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 
 public class Text extends TextTools {
@@ -36,11 +37,39 @@ public class Text extends TextTools {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
 	}
 
+	public int getTextCase() {
+		if (isUpperCase()) {
+			return InputMode.CASE_UPPER;
+		} else if (isCapitalized()) {
+			return InputMode.CASE_CAPITALIZE;
+		} else if (isMixedCase()) {
+			return InputMode.CASE_DICTIONARY;
+		} else {
+			return InputMode.CASE_LOWER;
+		}
+	}
+
 	public boolean isEmpty() {
 		return text == null || text.isEmpty();
 	}
 
+	private boolean isCapitalized() {
+		if (text == null || text.length() < 2) {
+			return false;
+		}
 
+		if (!Character.isUpperCase(text.charAt(0))) {
+			return false;
+		}
+
+		for (int i = 1, end = text.length(); i < end; i++) {
+			if (Character.isUpperCase(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	public boolean isMixedCase() {
 		return
