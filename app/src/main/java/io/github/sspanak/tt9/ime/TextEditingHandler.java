@@ -43,7 +43,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		switch (key) {
 			case 0:
 				if (!mInputMode.isNumeric()) {
-					textField.setText(" ");
+					onText(" ", false);
 				}
 				break;
 			case 1:
