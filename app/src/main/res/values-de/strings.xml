@@ -37,8 +37,9 @@
 	<string name="pref_auto_text_case_summary">Automatisch Sätze mit einem Großbuchstaben beginnen.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische Großbuchstaben auf jeder Zeile</string>
 	<string name="pref_auto_capitals_after_newline_summary">Jede Zeile mit einem Großbuchstaben beginnen, auch wenn es mitten im Satz ist.</string>
+	<string name="pref_backspace_recomposing">Wortnachbearbeitung</string>
+	<string name="pref_backspace_recomposing_summary">Die Vorschlagsliste zurückbringen, indem Sie am Ende eines Wortes die Rücktaste drücken.\n(Nicht in allen Apps unterstützt)</string>
 	<string name="pref_choose_languages">Sprachen</string>
-
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
