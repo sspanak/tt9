@@ -20,6 +20,7 @@ public class Predictions {
 
 	// data
 	private boolean areThereDbWords = false;
+	private boolean containsGeneratedWords = false;
 	private ArrayList<String> words = new ArrayList<>();
 
 
@@ -51,6 +52,10 @@ public class Predictions {
 	public Predictions setWordsChangedHandler(Runnable handler) {
 		onWordsChanged = handler;
 		return this;
+	}
+
+	public boolean containsGeneratedWords() {
+		return containsGeneratedWords;
 	}
 
 	public ArrayList<String> getList() {
@@ -93,6 +98,8 @@ public class Predictions {
 	 * sequence or loads the static ones.
 	 */
 	public void load() {
+		containsGeneratedWords = false;
+
 		if (digitSequence == null || digitSequence.isEmpty()) {
 			words.clear();
 			onWordsChanged.run();
@@ -194,6 +201,7 @@ public class Predictions {
 			generatedWords.add(baseWord + digitSequence.charAt(digitSequence.length() - 1));
 		}
 
+		containsGeneratedWords = true;
 		return generatedWords;
 	}
 
@@ -235,6 +243,7 @@ public class Predictions {
 			}
 		}
 
+		containsGeneratedWords = true;
 		return complementedWords;
 	}
 
@@ -273,6 +282,7 @@ public class Predictions {
 			}
 		}
 
+		containsGeneratedWords = !variations.isEmpty();
 		return variations;
 	}
 }
