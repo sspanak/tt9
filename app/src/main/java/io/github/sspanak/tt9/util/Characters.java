@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Characters {
+	private static String NEW_LINE_CHARACTER = null;
+
 	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
 		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
 	));
@@ -130,5 +132,13 @@ public class Characters {
 
 	public static int getMaxEmojiLevel() {
 		return Emoji.size();
+	}
+
+	public static String getNewLine() {
+		if (NEW_LINE_CHARACTER == null) {
+			NEW_LINE_CHARACTER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
+		}
+
+		return NEW_LINE_CHARACTER;
 	}
 }
