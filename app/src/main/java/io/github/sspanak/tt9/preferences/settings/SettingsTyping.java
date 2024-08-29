@@ -19,6 +19,10 @@ class SettingsTyping extends SettingsInput {
 		return prefs.getBoolean("backspace_acceleration", false);
 	}
 
+	public boolean getBackspaceRecomposing() {
+		return prefs.getBoolean("backspace_recomposing", true);
+	}
+
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");
 

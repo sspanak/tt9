@@ -102,6 +102,7 @@ abstract public class InputMode {
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
+	public boolean recompose(String word) { return false; }
 
 	public void reset() {
 		autoAcceptTimeout = -1;
