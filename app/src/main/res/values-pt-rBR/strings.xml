@@ -42,7 +42,8 @@
 	<string name="pref_auto_text_case_summary">Iniciar automaticamente as frases com letras maiúsculas.</string>
 	<string name="pref_auto_capitals_after_newline">Letras maiúsculas automáticas em cada linha</string>
 	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
-	<string name="pref_backspace_recomposing">Recomposição</string>
+	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
+	<string name="pref_backspace_recomposing_summary">Trazer de volta a lista de sugestões pressionando Backspace no final de uma palavra.\n(Não suportado em alguns aplicativos)</string>
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>

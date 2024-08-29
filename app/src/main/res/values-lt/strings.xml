@@ -41,7 +41,8 @@
 	<string name="pref_auto_text_case_summary">Automatiškai pradėti sakinius didžiąja raide.</string>
 	<string name="pref_auto_capitals_after_newline">Automatiniai didžiosios raidės kiekvienoje eilutėje</string>
 	<string name="pref_auto_capitals_after_newline_summary">Pradėti kiekvieną eilutę didžiąja raide, net jei ji yra sakinio viduryje.</string>
-	<string name="pref_backspace_recomposing">Redagavimas</string>
+	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
+	<string name="pref_backspace_recomposing_summary">Sugrąžinti siūlymų sąrašą paspaudžiant klavišą Backspace žodžio pabaigoje.\n(Nepalaikoma kai kuriose programėlėse)</string>
 	<string name="pref_choose_languages">Kalbos</string>
 	<string name="pref_dark_theme">Tamsi išvaizda</string>
 	<string name="pref_dark_theme_yes">Taip</string>

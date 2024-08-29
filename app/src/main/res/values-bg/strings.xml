@@ -23,8 +23,8 @@
 	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_auto_capitals_after_newline">Автоматични главни букви на всеки ред</string>
 	<string name="pref_auto_capitals_after_newline_summary">Започвай всеки ред с главна буква, дори и да е в средата на изречение.</string>
-	<string name="pref_backspace_recomposing">Редактиране</string>
-	<string name="pref_backspace_recomposing_summary">При натискане на Backspace на края на дума, ще се появи отново списъкът с думи.\n(Не работи в някои приложения.)</string>
+	<string name="pref_backspace_recomposing">Редактиране на думи</string>
+	<string name="pref_backspace_recomposing_summary">Връщай списъка с предложения при натискане на Backspace на края на дума.\n(Не работи в някои приложения.)</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
 	<string name="pref_status_icon">Икона за състояние</string>

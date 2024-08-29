@@ -37,7 +37,8 @@
 	<string name="pref_auto_text_case_summary">Cümlelere otomatik olarak büyük harfle başlar.</string>
 	<string name="pref_auto_capitals_after_newline">Her Satıra Büyük Harf ile Başlama</string>
 	<string name="pref_auto_capitals_after_newline_summary">Cümlenin ortasında olsa bile her yeni satıra büyük harf ile başlar.</string>
-	<string name="pref_backspace_recomposing">Yeniden düzenleme</string>
+	<string name="pref_backspace_recomposing">Kelime Yeniden Düzenleme</string>
+	<string name="pref_backspace_recomposing_summary">Kelimenin sonunda Geri tuşuna basarak öneri listesini geri getirmek.\n(Bazı uygulamalarda desteklenmez)</string>
 	<string name="pref_choose_languages">Diller</string>
 
 	<string name="pref_status_icon">Durum</string>

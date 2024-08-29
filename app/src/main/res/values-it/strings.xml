@@ -39,7 +39,8 @@
 	<string name="pref_auto_text_case_summary">Iniziare automaticamente le frasi con una lettera maiuscola.</string>
 	<string name="pref_auto_capitals_after_newline">Maiuscole automatiche su ogni riga</string>
 	<string name="pref_auto_capitals_after_newline_summary">Iniziare ogni riga con una lettera maiuscola, anche se è nel mezzo di una frase.</string>
-	<string name="pref_backspace_recomposing">Ricomposizione</string>
+	<string name="pref_backspace_recomposing">Ricomposizione delle parole</string>
+	<string name="pref_backspace_recomposing_summary">Riportare l\'elenco dei suggerimenti premendo Backspace alla fine di una parola.\n(Non supportato in alcune app)</string>
 	<string name="pref_choose_languages">Lingue</string>
 
 	<string name="pref_status_icon">Icona di stato</string>
