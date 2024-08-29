@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
+import io.github.sspanak.tt9.util.Characters;
 
 public class SuggestionsBar {
 	private double lastClickTime = 0;
@@ -115,11 +116,10 @@ public class SuggestionsBar {
 			return "";
 		}
 
-		return suggestions.get(id).equals("⏎") ? "\n" : suggestions.get(id);
+		return suggestions.get(id).equals(Characters.getNewLine()) ? "\n" : suggestions.get(id);
 	}
 
 
-	@SuppressLint("NotifyDataSetChanged")
 	public void setSuggestions(List<String> newSuggestions, int initialSel) {
 		ecoSetBackground(newSuggestions);
 
@@ -129,7 +129,7 @@ public class SuggestionsBar {
 		if (newSuggestions != null) {
 			for (String suggestion : newSuggestions) {
 				// make the new line better readable
-				suggestions.add(suggestion.equals("\n") ? "⏎" : suggestion);
+				suggestions.add(suggestion.equals("\n") ? Characters.getNewLine() : suggestion);
 			}
 			selectedIndex = Math.max(initialSel, 0);
 		}
@@ -138,6 +138,7 @@ public class SuggestionsBar {
 	}
 
 
+	@SuppressLint("NotifyDataSetChanged")
 	private void setSuggestionsOnScreen() {
 		if (mView != null) {
 			mSuggestionsAdapter.setSelection(selectedIndex);
