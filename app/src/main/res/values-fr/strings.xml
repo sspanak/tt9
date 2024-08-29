@@ -24,6 +24,8 @@
 	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>
+	<string name="pref_backspace_recomposing">Recomposition de mots</string>
+	<string name="pref_backspace_recomposing_summary">Ramener la liste de suggestions en appuyant sur Retour arrière à la fin d\'un mot.\n(Non pris en charge dans certaines applications)</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
 	<string name="pref_status_icon">Icône d\'état</string>

@@ -10,17 +10,15 @@
 		app:title="@string/pref_category_function_keys" />
 
 	<SwitchPreferenceCompat
+		app:defaultValue="false"
+		app:key="backspace_acceleration"
+		app:title="@string/pref_backspace_acceleration"
+		app:summary="@string/pref_backspace_acceleration_summary" />
+
+	<SwitchPreferenceCompat
 			app:key="pref_haptic_feedback"
 			app:title="@string/pref_haptic_feedback"
 			app:summary="@string/pref_haptic_feedback_summary"/>
-
-	<PreferenceCategory android:title="@string/function_backspace">
-		<SwitchPreferenceCompat
-			app:defaultValue="false"
-			app:key="backspace_acceleration"
-			app:title="@string/pref_backspace_acceleration"
-			app:summary="@string/pref_backspace_acceleration_summary" />
-	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_predictive_mode">
 
@@ -43,6 +41,11 @@
 			app:summary="@string/pref_auto_capitals_after_newline_summary"
 			app:title="@string/pref_auto_capitals_after_newline" />
 
+		<SwitchPreferenceCompat
+			app:defaultValue="true"
+			app:key="backspace_recomposing"
+			app:title="@string/pref_backspace_recomposing"
+			app:summary="@string/pref_backspace_recomposing_summary" />
 
 		<DropDownPreference
 			app:defaultValue="."

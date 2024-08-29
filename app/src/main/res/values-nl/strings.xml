@@ -36,6 +36,8 @@
 	<string name="pref_auto_text_case_summary">Automatisch zinnen beginnen met een hoofdletter.</string>
 	<string name="pref_auto_capitals_after_newline">Automatische hoofdletters op elke regel</string>
 	<string name="pref_auto_capitals_after_newline_summary">Elke regel beginnen met een hoofdletter, zelfs als het midden van een zin is.</string>
+	<string name="pref_backspace_recomposing">Woordherbewerking</string>
+	<string name="pref_backspace_recomposing_summary">Breng de suggestielijst terug door Backspace te drukken aan het einde van een woord.\n(Niet ondersteund in sommige apps)</string>
 	<string name="pref_choose_languages">Talen</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
