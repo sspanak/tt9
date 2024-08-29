@@ -176,7 +176,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			}
 		}
 
-		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex);
+		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
 		textField.setComposingText(suggestionOps.getCurrent());
 	}
 

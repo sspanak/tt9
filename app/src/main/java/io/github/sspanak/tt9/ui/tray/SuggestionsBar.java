@@ -25,6 +25,11 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.util.Characters;
 
 public class SuggestionsBar {
+	private final String STEM_SUFFIX = "… +";
+	private final String STEM_VARIATION_PREFIX = "…";
+	private final String STEM_PUNCTUATION_VARIATION_PREFIX = " ";
+	@NonNull private String stem = "";
+
 	private double lastClickTime = 0;
 	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
@@ -116,25 +121,72 @@ public class SuggestionsBar {
 			return "";
 		}
 
+		if (suggestions.get(id).endsWith(STEM_SUFFIX)) {
+			return stem;
+		} else if (suggestions.get(id).startsWith(STEM_VARIATION_PREFIX)) {
+			return stem + suggestions.get(id).substring(STEM_VARIATION_PREFIX.length());
+		} else if (suggestions.get(id).startsWith(STEM_PUNCTUATION_VARIATION_PREFIX)) {
+			return stem + suggestions.get(id).substring(STEM_PUNCTUATION_VARIATION_PREFIX.length());
+		}
+
 		return suggestions.get(id).equals(Characters.getNewLine()) ? "\n" : suggestions.get(id);
 	}
 
 
-	public void setSuggestions(List<String> newSuggestions, int initialSel) {
+	public void setSuggestions(List<String> newSuggestions, int initialSel, boolean containsGenerated) {
 		ecoSetBackground(newSuggestions);
 
 		suggestions.clear();
-		selectedIndex = 0;
+		selectedIndex = newSuggestions == null || newSuggestions.isEmpty() ? 0 : Math.max(initialSel, 0);
 
-		if (newSuggestions != null) {
-			for (String suggestion : newSuggestions) {
-				// make the new line better readable
-				suggestions.add(suggestion.equals("\n") ? Characters.getNewLine() : suggestion);
-			}
-			selectedIndex = Math.max(initialSel, 0);
+		setStem(newSuggestions, containsGenerated);
+		addAllSuggestions(newSuggestions);
+		setSuggestionsOnScreen();
+	}
+
+
+	private void setStem(List<String> newSuggestions, boolean containsGenerated) {
+		if (newSuggestions == null || newSuggestions.isEmpty()) {
+			stem = "";
+			return;
 		}
 
-		setSuggestionsOnScreen();
+		stem = containsGenerated ? newSuggestions.get(0).substring(0, newSuggestions.get(0).length() - 1) : "";
+
+		// Do not modify single letter + punctuation, such as "j'" or "l'". They look better as they are.
+		stem = (stem.length() == 1 && newSuggestions.get(0).length() == 2 && !Character.isAlphabetic(newSuggestions.get(0).charAt(1))) ? "" : stem;
+
+		if (!stem.isEmpty() && !newSuggestions.contains(stem)) {
+			suggestions.add(stem + STEM_SUFFIX);
+			selectedIndex++;
+		}
+	}
+
+
+	private void addAllSuggestions(List<String> newSuggestions) {
+		if (newSuggestions != null) {
+			for (String suggestion : newSuggestions) {
+				addSuggestion(suggestion);
+			}
+		}
+	}
+
+
+	private void addSuggestion(@NonNull String suggestion) {
+		// shorten the stem variations
+		if (!stem.isEmpty() && suggestion.length() == stem.length() + 1 && suggestion.toLowerCase().startsWith(stem.toLowerCase())) {
+			String trimmedSuggestion = suggestion.substring(stem.length());
+			trimmedSuggestion = Character.isAlphabetic(trimmedSuggestion.charAt(0)) ? STEM_VARIATION_PREFIX + trimmedSuggestion : STEM_PUNCTUATION_VARIATION_PREFIX + trimmedSuggestion;
+			suggestions.add(trimmedSuggestion);
+		}
+		// make the new line better readable
+		else if (suggestion.equals("\n")) {
+			suggestions.add(Characters.getNewLine());
+		}
+		// or add any other suggestion as is
+		else {
+			suggestions.add(suggestion);
+		}
 	}
 
 
