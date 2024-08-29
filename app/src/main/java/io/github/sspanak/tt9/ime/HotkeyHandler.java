@@ -186,7 +186,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 
-		if (mInputMode.clearWordStem() && mInputMode.isStemFilterFuzzy()) {
+		if (mInputMode.clearWordStem()) {
 			mInputMode.loadSuggestions(this::getSuggestions, suggestionOps.getCurrent(mInputMode.getSequenceLength()));
 			return true;
 		}
