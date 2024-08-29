@@ -42,7 +42,7 @@ _Predictive mode only._
 - **Single press**: Filter the suggestion list, leaving out only the ones that start with the current word. It doesn't matter if it is a complete word or not. For example, type "remin" and press Filter. It will leave out all words starting with "remin": "remin" itself, "remind", "reminds", "reminded", "reminding", and so on.
 - **Double press**: Expand the filter to the full suggestion. For example, type "remin" and press Filter twice. It will first filter by "remin", then expand the filter to "remind". You can keep expanding the filter until you get to the longest dictionary word.
 
-Filtering can also be used to type unknown words. Let's say you want to type "Anakin", which is not in the dictionary. Start with "A", then press Filter to hide "B" and "C". Now press 6-key. Since the filter is on, in addition to the real dictionary words, it will provide all possible combinations for 6: "Am", "An", "Ao". Select "An" and press Filter to confirm your selection. Now pressing the 2-key, will provide "Ana", "Anb", and "Anc". Keep going, until you get "Anakin".
+Filtering is also useful for typing unknown words. Let's say you want to type "Anakin", which is not in the dictionary. Start with "A", then press Filter to hide "B" and "C". Now press 6-key. Since the filter is on, in addition to the real dictionary words, it will provide all possible combinations for 1+6: "A..." + "m", "n", "o". Select "n" and press Filter to confirm your selection and produce "An". Now pressing the 2-key, will provide "An..." + "a", "b", and "c". Select "a", and keep going, until you get "Anakin".
 
 When filtering is enabled, the base text will become bold and italicized.
 

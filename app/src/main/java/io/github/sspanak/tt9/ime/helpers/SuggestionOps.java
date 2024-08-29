@@ -49,14 +49,17 @@ public class SuggestionOps {
 		textField.finishComposingText();
 	}
 
-
 	public void set(ArrayList<String> suggestions) {
-		suggestionBar.setSuggestions(suggestions, 0);
+		suggestionBar.setSuggestions(suggestions, 0, false);
+	}
+
+	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
+		suggestionBar.setSuggestions(suggestions, 0, containsGenerated);
 	}
 
 
-	public void set(ArrayList<String> suggestions, int selectIndex) {
-		suggestionBar.setSuggestions(suggestions, selectIndex);
+	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
+		suggestionBar.setSuggestions(suggestions, selectIndex, containsGenerated);
 	}
 
 

@@ -242,6 +242,11 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	@Override
+	public boolean containsGeneratedSuggestions() {
+		return predictions.containsGeneratedWords();
+	}
+
 	/**
 	 * loadSuggestions
 	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used

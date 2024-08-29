@@ -352,7 +352,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		// display the word suggestions
-		suggestionOps.set(mInputMode.getSuggestions());
+		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
 
 		// In case we are here, because the language was changed, and there were words for the old language,
 		// but there are no words for the new language, we'll get only generated suggestions, consisting
