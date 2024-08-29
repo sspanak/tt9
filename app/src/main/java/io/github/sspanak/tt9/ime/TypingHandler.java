@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 
@@ -131,7 +130,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
 
-			int prevChars = hold ? Math.min(Math.max(textField.getPaddedWordBeforeCursorLength(), 1), SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS) : 1;
+			int prevChars = hold ? Math.max(textField.getPaddedWordBeforeCursorLength(), 1) : 1;
 			textField.deleteChars(prevChars);
 		}
 

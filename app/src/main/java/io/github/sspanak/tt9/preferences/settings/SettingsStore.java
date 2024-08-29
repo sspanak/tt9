@@ -7,7 +7,7 @@ public class SettingsStore extends SettingsUI {
 	public SettingsStore(Context context) { super(context); }
 
 	/************* internal settings *************/
-	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 10;
+	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20;
 	public static final int BACKSPACE_ACCELERATION_HARD_KEY_REPEAT_DEBOUNCE = 5;
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
 	public final static int CUSTOM_WORDS_IMPORT_MAX_LINES = 250;
