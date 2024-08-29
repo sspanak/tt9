@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
@@ -137,7 +138,7 @@ public class TextField extends InputField {
 		}
 
 		int spaceShift = Math.max(before.lastIndexOf(' '), 0);
-		return before.length() - spaceShift;
+		return Math.min(before.length() - spaceShift, (int) (SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS * 1.5));
 	}
 
 
