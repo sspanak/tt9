@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
@@ -122,6 +123,27 @@ public class ModePredictive extends InputMode {
 		}
 	}
 
+
+	@Override
+	public boolean recompose(String word) {
+		if (!settings.getBackspaceRecomposing() || word == null || word.length() < 2 || word.contains(" ")) {
+			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + word + "'");
+			textCase = CASE_DICTIONARY;
+			return false;
+		}
+
+		try {
+			reset();
+			digitSequence = language.getDigitSequenceForWord(word);
+			textCase = new Text(language, word).getTextCase();
+			setWordStem(word,  true);
+		} catch (InvalidLanguageCharactersException e) {
+			Logger.d(LOG_TAG, "Not recomposing word: '" + word + "'. " + e.getMessage());
+			return false;
+		}
+
+		return true;
+	}
 
 	@Override
 	public void reset() {
@@ -246,7 +268,7 @@ public class ModePredictive extends InputMode {
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setLanguage(searchLanguage)
-			.setInputWord(currentWord)
+			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setWordsChangedHandler(this::onPredictions)
 			.load();
 	}
