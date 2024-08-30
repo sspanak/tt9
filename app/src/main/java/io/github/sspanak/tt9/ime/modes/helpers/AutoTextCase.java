@@ -41,7 +41,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, String beforeCursor) {
+	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, String beforeCursor, String digitSequence) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -72,8 +72,10 @@ public class AutoTextCase {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		// this is mostly for English "I"
-		if (Text.isNextToWord(beforeCursor)) {
+		// This is mostly for English "I", inserted in the middle of a word. However, we don't want to
+		// enforce lowercase for words like "-ROM" in "CD-ROM". We have to use the digitSequence here,
+		// because the composing text is not yet set in some cases, when this is called.
+		if (Text.isNextToWord(beforeCursor) && !digitSequence.startsWith("1")) {
 			return InputMode.CASE_LOWER;
 		}
 
