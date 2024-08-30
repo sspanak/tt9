@@ -36,7 +36,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	private boolean repeat = false;
 	private long lastLongClickTime = 0;
 	private final Handler repeatHandler = new Handler(Looper.getMainLooper());
+
 	private static int lastPressedKey = -1;
+	private boolean ignoreLastPressedKey = false;
 
 
 	public SoftKey(Context context) {
@@ -88,7 +90,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			if (!repeat || hold) {
 				hold = false;
 				boolean result = handleRelease();
-				lastPressedKey = getId();
+				lastPressedKey = ignoreLastPressedKey ? -1 : getId();
 				return result;
 			}
 			repeat = false;
@@ -120,7 +122,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		if (hold) {
 			repeat = true;
 			handleHold();
-			lastPressedKey = getId();
+			lastPressedKey = ignoreLastPressedKey ? -1 : getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
 			repeatHandler.postDelayed(this::repeatOnLongPress, getLongPressRepeatDelay());
 		}
@@ -148,6 +150,11 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	protected static int getLastPressedKey() {
 		return lastPressedKey;
+	}
+
+
+	protected void ignoreLastPressedKey() {
+		ignoreLastPressedKey = true;
 	}
 
 
