@@ -21,6 +21,7 @@ public class SoftFilterKey extends SoftKey {
 		preventRepeat();
 		if (validateTT9Handler() && tt9.onKeyFilterClear(false)) {
 			vibrate(Vibration.getHoldVibration());
+			ignoreLastPressedKey();
 		}
 	}
 

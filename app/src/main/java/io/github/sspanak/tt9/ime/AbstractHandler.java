@@ -17,6 +17,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract public boolean onOK();
 	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
 
+	// lifecycle
 	abstract protected void onInit();
 	abstract protected boolean onStart(InputConnection inputConnection, EditorInfo inputField);
 	abstract protected void onFinishTyping();
@@ -27,7 +28,7 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected void createSuggestionBar();
 	abstract protected void resetStatus();
 
-
+	// informational
 	abstract protected InputMode getInputMode();
 	abstract protected int getInputModeId();
 	abstract protected SuggestionOps getSuggestionOps();
