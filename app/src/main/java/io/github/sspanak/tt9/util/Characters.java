@@ -6,11 +6,23 @@ import android.os.Build;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+
 public class Characters {
 	private static String NEW_LINE_CHARACTER = null;
 
+
 	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
 		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
+	));
+
+	final public static ArrayList<Character> CombiningPunctuation = new ArrayList<>(Arrays.asList(
+		',', '-', '\'', ';', '!', '?', '.'
+	));
+
+	final public static ArrayList<Character> CombiningPunctuationHebrew = new ArrayList<>(Arrays.asList(
+		',' , '-', '\'', ';', '!', '?', '.', '"'
 	));
 
 	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
@@ -140,5 +152,11 @@ public class Characters {
 		}
 
 		return NEW_LINE_CHARACTER;
+	}
+
+	public static boolean isCombiningPunctuation(Language language, char ch) {
+		return
+			CombiningPunctuation.contains(ch)
+			|| (LanguageKind.isHebrew(language) && CombiningPunctuationHebrew.contains(ch));
 	}
 }
