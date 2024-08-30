@@ -188,6 +188,23 @@ public class TextField extends InputField {
 
 
 	/**
+	 * Erases the previous N characters and sets the given "text" as composing text. N is the length of
+	 * the given "text". Returns "true" if the operation was successful, "false" otherwise.
+	 */
+	public boolean recompose(String text) {
+		if (connection == null || !isComposingSupported) {
+			return false;
+		}
+
+		connection.beginBatchEdit();
+		boolean success = connection.deleteSurroundingText(text.length(), 0) && connection.setComposingText(text, 1);
+		connection.endBatchEdit();
+
+		return success;
+	}
+
+
+	/**
 	 * setText
 	 * A fail-safe setter that appends text to the field, ignoring NULL input.
 	 */
