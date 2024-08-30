@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.db.WordStoreAsync;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 
 public class Predictions {
 
@@ -193,7 +194,9 @@ public class Predictions {
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
 		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
-			generatedWords.add(baseWord + keyLetter);
+			if (Characters.isCombiningPunctuation(language, keyLetter.charAt(0))) {
+				generatedWords.add(baseWord + keyLetter);
+			}
 		}
 
 		// if there are no letters for this key, just append the number
