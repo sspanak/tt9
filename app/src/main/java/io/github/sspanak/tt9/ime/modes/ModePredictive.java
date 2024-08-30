@@ -126,7 +126,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean recompose(String word) {
-		if (!settings.getBackspaceRecomposing() || word == null || word.length() < 2 || word.contains(" ")) {
+		if (word == null || word.length() < 2 || word.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + word + "'");
 			textCase = CASE_CAPITALIZE;
 			return false;
