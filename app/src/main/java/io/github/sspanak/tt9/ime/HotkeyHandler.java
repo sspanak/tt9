@@ -187,7 +187,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 
 		if (mInputMode.clearWordStem()) {
-			mInputMode.loadSuggestions(this::getSuggestions, suggestionOps.getCurrent(mInputMode.getSequenceLength()));
+			mInputMode
+				.setOnSuggestionsUpdated(this::getSuggestions)
+				.loadSuggestions(suggestionOps.getCurrent(mInputMode.getSequenceLength()));
 			return true;
 		}
 
@@ -219,7 +221,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (filter.isEmpty()) {
 			mInputMode.reset();
 		} else if (mInputMode.setWordStem(filter, repeat)) {
-			mInputMode.loadSuggestions(super::getSuggestions, filter);
+			mInputMode
+				.setOnSuggestionsUpdated(super::getSuggestions)
+				.loadSuggestions(filter);
 		}
 
 		return true;
