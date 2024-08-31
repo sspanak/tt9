@@ -38,7 +38,6 @@ public class ModePredictive extends InputMode {
 
 	// async suggestion handling
 	private boolean disablePredictions = false;
-	private Runnable onSuggestionsUpdated;
 
 	// text analysis tools
 	private final AutoSpace autoSpace;
@@ -171,6 +170,12 @@ public class ModePredictive extends InputMode {
 		int lastAcceptedWordLength = lastAcceptedWord.length();
 		digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
 
+		if (digitSequence.length() == 1) {
+			suggestions.clear();
+			loadSuggestions("");
+			return;
+		}
+
 		ArrayList<String> lastSuggestions = new ArrayList<>(suggestions);
 		suggestions.clear();
 		for (String s : lastSuggestions) {
@@ -255,19 +260,18 @@ public class ModePredictive extends InputMode {
 	 * See: Predictions.generatePossibleCompletions()
 	 */
 	@Override
-	public void loadSuggestions(Runnable onLoad, String currentWord) {
+	public void loadSuggestions(String currentWord) {
 		if (disablePredictions) {
-			super.loadSuggestions(onLoad, currentWord);
+			super.loadSuggestions(currentWord);
 			return;
 		}
 
-		if (loadStaticSuggestions(onLoad)) {
+		if (loadStaticSuggestions()) {
 			return;
 		}
 
 		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
 
-		onSuggestionsUpdated = onLoad;
 		predictions
 			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
@@ -284,20 +288,20 @@ public class ModePredictive extends InputMode {
 	 * emoji or the preferred character for double "0". Returns "false", when there are no static
 	 * options for the current digitSequence.
 	 */
-	private boolean loadStaticSuggestions(Runnable onLoad) {
+	private boolean loadStaticSuggestions() {
 		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY)) {
 			loadSpecialCharacters(language);
-			onLoad.run();
+			onSuggestionsUpdated.run();
 			return true;
 		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', digitSequence.length() - 2));
-			onLoad.run();
+			onSuggestionsUpdated.run();
 			return true;
 		} else if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(settings.getDoubleZeroChar());
-			onLoad.run();
+			onSuggestionsUpdated.run();
 			return true;
 		}
 

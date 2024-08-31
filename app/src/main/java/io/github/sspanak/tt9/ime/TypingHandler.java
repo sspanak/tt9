@@ -311,7 +311,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void onAcceptSuggestionAutomatically(String word) {
 		mInputMode.onAcceptSuggestion(word, true);
-		autoCorrectSpace(word, false, -1);
+		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 	}
 
@@ -339,7 +339,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 		} else {
-			mInputMode.loadSuggestions(this::handleSuggestions, suggestionOps.getCurrent());
+			mInputMode
+				.setOnSuggestionsUpdated(this::handleSuggestions)
+				.loadSuggestions(suggestionOps.getCurrent());
 		}
 	}
 
