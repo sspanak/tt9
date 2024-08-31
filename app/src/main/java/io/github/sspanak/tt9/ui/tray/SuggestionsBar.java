@@ -146,7 +146,7 @@ public class SuggestionsBar {
 
 
 	private void setStem(List<String> newSuggestions, boolean containsGenerated) {
-		if (newSuggestions == null || newSuggestions.isEmpty()) {
+		if (newSuggestions == null || newSuggestions.size() < 2) {
 			stem = "";
 			return;
 		}
@@ -155,6 +155,18 @@ public class SuggestionsBar {
 
 		// Do not modify single letter + punctuation, such as "j'" or "l'". They look better as they are.
 		stem = (stem.length() == 1 && newSuggestions.get(0).length() == 2 && !Character.isAlphabetic(newSuggestions.get(0).charAt(1))) ? "" : stem;
+
+		// If no other suggestion contains the stem, it makes no sense to separate them and display:
+		// "STEM" + "one-suggestion". It is only useful when there are multiple suggestions with the
+		// same stem.
+		boolean onlyOneContainsStem = true;
+		for (int i = 1; i < newSuggestions.size(); i++) {
+			if (newSuggestions.get(i).contains(stem)) {
+				onlyOneContainsStem = false;
+				break;
+			}
+		}
+		stem = onlyOneContainsStem ? "" : stem;
 
 		if (!stem.isEmpty() && !newSuggestions.contains(stem)) {
 			suggestions.add(stem + STEM_SUFFIX);

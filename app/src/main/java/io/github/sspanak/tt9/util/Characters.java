@@ -18,11 +18,11 @@ public class Characters {
 	));
 
 	final public static ArrayList<Character> CombiningPunctuation = new ArrayList<>(Arrays.asList(
-		',', '-', '\'', ';', '!', '?', '.'
+		',', '-', '\'', ':', ';', '!', '?', '.'
 	));
 
 	final public static ArrayList<Character> CombiningPunctuationHebrew = new ArrayList<>(Arrays.asList(
-		',' , '-', '\'', ';', '!', '?', '.', '"'
+		',' , '-', '\'', ':', ';', '!', '?', '.', '"'
 	));
 
 	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
