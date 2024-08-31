@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
 
 public class AutoSpace {
@@ -66,6 +67,7 @@ public class AutoSpace {
 	 * because we are not using a QWERTY keyboard here).
 	 */
 	private boolean shouldAddAfterPunctuation(String previousChars, Text nextChars, int nextKey) {
+		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
 		return
@@ -76,7 +78,7 @@ public class AutoSpace {
 				previousChar == '.'
 				|| previousChar == ','
 				|| previousChar == ';'
-				|| previousChar == ':'
+				|| (previousChar == ':' && !Character.isDigit(penultimateChar))
 				|| previousChar == '!'
 				|| previousChar == '?'
 				|| previousChar == ')'
@@ -87,6 +89,7 @@ public class AutoSpace {
 				|| previousChar == '“'
 				|| previousChars.endsWith(" -")
 				|| previousChars.endsWith(" /")
+				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(previousChar + ""))
 			);
 	}
 

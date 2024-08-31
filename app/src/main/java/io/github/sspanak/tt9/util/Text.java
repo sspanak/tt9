@@ -125,7 +125,7 @@ public class Text extends TextTools {
 
 
 	public boolean startsWithWhitespace() {
-		return text != null && !text.isEmpty() && Character.isWhitespace(text.charAt(0));
+		return text != null && !text.isEmpty() && Character.isWhitespace(text.charAt(0)) && !text.startsWith("\n");
 	}
 
 	public boolean startsWithNumber() {
