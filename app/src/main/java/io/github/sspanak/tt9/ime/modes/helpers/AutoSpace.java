@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
 
 public class AutoSpace {
@@ -88,6 +89,7 @@ public class AutoSpace {
 				|| previousChar == '“'
 				|| previousChars.endsWith(" -")
 				|| previousChars.endsWith(" /")
+				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(previousChar + ""))
 			);
 	}
 
