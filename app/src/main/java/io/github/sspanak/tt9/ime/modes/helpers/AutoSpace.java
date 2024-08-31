@@ -66,6 +66,7 @@ public class AutoSpace {
 	 * because we are not using a QWERTY keyboard here).
 	 */
 	private boolean shouldAddAfterPunctuation(String previousChars, Text nextChars, int nextKey) {
+		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
 		return
@@ -76,7 +77,7 @@ public class AutoSpace {
 				previousChar == '.'
 				|| previousChar == ','
 				|| previousChar == ';'
-				|| previousChar == ':'
+				|| (previousChar == ':' && !Character.isDigit(penultimateChar))
 				|| previousChar == '!'
 				|| previousChar == '?'
 				|| previousChar == ')'
