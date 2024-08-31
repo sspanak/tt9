@@ -33,6 +33,7 @@ abstract public class InputMode {
 	@NonNull protected String digitSequence = "";
 	protected Language language;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
+	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
 	protected int specialCharSelectedGroup = 0;
 
 
@@ -62,11 +63,11 @@ abstract public class InputMode {
 	/**
 	 * loadSuggestions
 	 * Loads the suggestions based on the current state, with optional "currentWord" filter.
-	 * Once loading is finished the respective InputMode child will call "onLoad", notifying it
-	 * the suggestions are available using "getSuggestions()".
+	 * Once loading is finished the respective InputMode child will call the Runnable set with
+	 * "setOnSuggestionsUpdated()", notifying it the suggestions are available using "getSuggestions()".
 	 */
-	public void loadSuggestions(Runnable onLoad, String currentWord) {
-		onLoad.run();
+	public void loadSuggestions(String currentWord) {
+		onSuggestionsUpdated.run();
 	}
 
 	public ArrayList<String> getSuggestions() {
@@ -78,6 +79,11 @@ abstract public class InputMode {
 		return newSuggestions;
 	}
 
+	public InputMode setOnSuggestionsUpdated(@NonNull Runnable onSuggestionsUpdated) {
+		this.onSuggestionsUpdated = onSuggestionsUpdated;
+		return this;
+	}
+
 	// Numeric mode identifiers. "instanceof" cannot be used in all cases, because they inherit each other.
 	public boolean is123() { return false; }
 	public boolean isPassthrough() { return false; }
@@ -86,6 +92,7 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }
+	public String getSequence() { return digitSequence; }
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
