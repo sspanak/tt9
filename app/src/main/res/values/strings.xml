@@ -55,7 +55,7 @@
 	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
 	<string name="pref_backspace_acceleration">Fast Delete</string>
 	<string name="pref_backspace_acceleration_summary">Erase entire words by holding Backspace.\n(Not supported in some apps)</string>
-	<string name="pref_backspace_recomposing">Word Re-composition</string>
+	<string name="pref_backspace_recomposing">Word Re-Composition</string>
 	<string name="pref_backspace_recomposing_summary">Bring back the suggestion list by pressing Backspace at the end of a word. (Not supported in some apps)</string>
 	<string name="pref_choose_languages">Languages</string>
 	<string name="pref_dark_theme">Dark Theme</string>
