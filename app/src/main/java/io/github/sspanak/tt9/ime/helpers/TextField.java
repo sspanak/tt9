@@ -105,7 +105,7 @@ public class TextField extends InputField {
 	}
 
 
-	@NonNull public String getWordBeforeCursor() {
+	@NonNull public String getWordBeforeCursor(Language language) {
 		if (getTextAfterCursor(1).startsWithWord()) {
 			return "";
 		}
@@ -115,10 +115,17 @@ public class TextField extends InputField {
 			return "";
 		}
 
-		int lastSpace = Math.max(before.lastIndexOf(' ') + 1, 0);
-		int length = Math.max(before.length(), lastSpace);
+		for (int i = before.length() - 1; i >= 0; i--) {
+			char currentLetter = before.charAt(i);
+			if (
+				!Character.isAlphabetic(currentLetter)
+				&& !(currentLetter == '\'' && (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)))
+			) {
+				return before.substring(i + 1);
+			}
+		}
 
-		return before.substring(lastSpace, length);
+		return before;
 	}
 
 
