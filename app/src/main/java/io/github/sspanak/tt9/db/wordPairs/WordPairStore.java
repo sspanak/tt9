@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class WordPairStore {
-	private final int MAX_PAIRS = 10;
+	private final int MAX_PAIRS = 1000;
 	private final int MIDDLE_PAIR = MAX_PAIRS / 2;
 
 	private final int MAX_WORD_LENGTH = 5;
@@ -18,20 +18,20 @@ public class WordPairStore {
 	private final HashMap<Integer, LinkedList<WordPair>> pairs = new HashMap<>();
 
 
-	public boolean isValid(Language language, String word1, String word2) {
+	public boolean isInvalid(Language language, String word1, String word2) {
 		return
-			language != null
-			&& word1 != null && word2 != null
-			&& word1.length() <= MAX_WORD_LENGTH && word2.length() <= MAX_WORD_LENGTH
-			&& !word1.equals(word2)
-			&& new Text(word1).isAlphabetic() && new Text(word2).isAlphabetic();
+			language == null
+			|| word1 == null || word2 == null
+			|| word1.length() > MAX_WORD_LENGTH || word2.length() > MAX_WORD_LENGTH
+			|| word1.equals(word2)
+			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
 	}
 
 
 	public void add(Language language, String word1, String word2) {
 		Logger.d(getClass().getSimpleName(), "Attempting to add pair: (" + word1 + "," + word2 + ")");
 
-		if (!isValid(language, word1, word2)) {
+		if (isInvalid(language, word1, word2)) {
 			Logger.d(getClass().getSimpleName(), "Invalid pair: (" + word1 + "," + word2 + ")");
 			return;
 		}
@@ -87,7 +87,7 @@ public class WordPairStore {
 
 
 	public int indexOf(Language language, String word1, String word2) {
-		if (!isValid(language, word1, word2)) {
+		if (isInvalid(language, word1, word2)) {
 			return -1;
 		}
 
