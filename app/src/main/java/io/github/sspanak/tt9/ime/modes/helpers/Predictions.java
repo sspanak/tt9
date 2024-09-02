@@ -10,6 +10,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 public class Predictions {
+	private final SettingsStore settings;
+	private final TextField textField;
 
 	private String digitSequence;
 	private String inputWord;
@@ -24,6 +26,11 @@ public class Predictions {
 	private boolean areThereDbWords = false;
 	private boolean containsGeneratedWords = false;
 	private ArrayList<String> words = new ArrayList<>();
+
+	public Predictions(SettingsStore settings, TextField textField) {
+		this.settings = settings;
+		this.textField = textField;
+	}
 
 
 	public Predictions setLanguage(Language language) {
@@ -56,7 +63,7 @@ public class Predictions {
 		return this;
 	}
 
-	public void setLastAcceptedWord(SettingsStore settings, TextField textField, String newlyAcceptedWord) {
+	public void setLastAcceptedWord(String newlyAcceptedWord) {
 		// @todo: do not call this twice
 		if (
 			!settings.getPredictWordPairs()

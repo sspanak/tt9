@@ -99,4 +99,8 @@ public class WordStoreAsync {
 	public static void addPair(Language language, String word1, String word2) {
 		pairs.add(language, word1, word2);
 	}
+
+	public static int indexOfPair(Language language, String word1, String word2) {
+		return pairs.indexOf(language, word1, word2);
+	}
 }

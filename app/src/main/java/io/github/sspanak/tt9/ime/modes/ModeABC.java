@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
@@ -100,7 +99,7 @@ public class ModeABC extends InputMode {
 		shouldSelectNextLetter = true; // do not accept any previous suggestions after loading the new ones
 	}
 
-	@Override public void onAcceptSuggestion(TextField textField, @NonNull String word) { reset(); }
+	@Override public void onAcceptSuggestion(@NonNull String word) { reset(); }
 	@Override public boolean shouldAcceptPreviousSuggestion() { return !shouldSelectNextLetter; }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
 

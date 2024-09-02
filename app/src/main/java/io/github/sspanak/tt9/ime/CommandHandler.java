@@ -87,7 +87,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(textField, suggestionOps.acceptIncomplete());
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		mainView.hideCommandPalette();
 		resetStatus();
 
@@ -113,7 +113,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, InputMode.MODE_123) : mInputMode;
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
 		}
 		// when typing a word or viewing scrolling the suggestions, only change the case
 		else if (!suggestionOps.isEmpty()) {
@@ -124,7 +124,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			mInputMode.nextTextCase();
 		} else {
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, allowedInputModes.get(nextModeIndex));
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(inputType.determineTextCase());
 			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 

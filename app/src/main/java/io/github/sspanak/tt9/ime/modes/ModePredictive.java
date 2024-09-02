@@ -46,13 +46,13 @@ public class ModePredictive extends InputMode {
 	private boolean isCursorDirectionForward = false;
 
 
-	ModePredictive(SettingsStore settings, InputType inputType, Language lang) {
+	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
 		changeLanguage(lang);
 		defaultTextCase();
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
-		predictions = new Predictions();
+		predictions = new Predictions(settings, textField);
 
 		this.settings = settings;
 
@@ -346,7 +346,7 @@ public class ModePredictive extends InputMode {
 	 * with "currentWord" cleaned from them.
 	 */
 	@Override
-	public void onAcceptSuggestion(TextField textField, @NonNull String currentWord, boolean preserveWords) {
+	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
 
 		if (preserveWords) {
@@ -365,7 +365,7 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
-		predictions.setLastAcceptedWord(settings, textField, currentWord);
+		predictions.setLastAcceptedWord(currentWord);
 
 		// increment the frequency of the given word
 		try {
@@ -383,9 +383,9 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void onAcceptSuggestion(TextField textField, @NonNull String word) {
-		super.onAcceptSuggestion(textField, word);
-		predictions.setLastAcceptedWord(settings, textField, word);
+	public void onAcceptSuggestion(@NonNull String word) {
+		super.onAcceptSuggestion(word);
+		predictions.setLastAcceptedWord(word);
 	}
 
 	@Override

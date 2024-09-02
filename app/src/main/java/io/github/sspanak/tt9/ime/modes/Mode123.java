@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.util.Characters;
@@ -120,7 +119,7 @@ public class Mode123 extends ModePassthrough {
 			);
 	}
 
-	@Override public void onAcceptSuggestion(TextField textField, @NonNull String ignored, boolean ignored2) {
+	@Override public void onAcceptSuggestion(@NonNull String ignored, boolean ignored2) {
 		reset();
 	}
 

@@ -35,7 +35,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	// input
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	@NonNull
-	protected InputMode mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
+	protected InputMode mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
@@ -103,7 +103,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		suggestionOps.cancelDelayedAccept();
-		mInputMode = InputMode.getInstance(null, null, null, InputMode.MODE_PASSTHROUGH);
+		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 		setInputField(null, null);
 	}
 
@@ -164,7 +164,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// a new word.
 		if (mInputMode.shouldAcceptPreviousSuggestion(key)) {
 			String lastWord = suggestionOps.acceptIncomplete();
-			mInputMode.onAcceptSuggestion(textField, lastWord);
+			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
 		}
 
@@ -202,11 +202,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// accept the previously typed word (if any)
 		String lastWord = suggestionOps.acceptIncomplete();
-		mInputMode.onAcceptSuggestion(textField, lastWord);
+		mInputMode.onAcceptSuggestion(lastWord);
 		autoCorrectSpace(lastWord, false, -1);
 
 		// "type" and accept the new word
-		mInputMode.onAcceptSuggestion(textField, text);
+		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
 
@@ -283,7 +283,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Same as getInputModeId(), but returns an actual InputMode.
 	 */
 	protected InputMode getInputMode() {
-		return InputMode.getInstance(settings, mLanguage, inputType, getInputModeId());
+		return InputMode.getInstance(settings, mLanguage, inputType, textField, getInputModeId());
 	}
 
 
@@ -306,13 +306,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 			CursorOps.isMovedManually(newSelStart, newSelEnd, candidatesStart, candidatesEnd)
 			&& !suggestionOps.isEmpty()
 		) {
-			mInputMode.onAcceptSuggestion(textField, suggestionOps.acceptIncomplete());
+			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		}
 	}
 
 
 	protected void onAcceptSuggestionAutomatically(String word) {
-		mInputMode.onAcceptSuggestion(textField, word, true);
+		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 	}
@@ -323,7 +323,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
-		mInputMode.onAcceptSuggestion(textField, word);
+		mInputMode.onAcceptSuggestion(word);
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);
 			resetKeyRepeat();

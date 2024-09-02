@@ -37,10 +37,10 @@ abstract public class InputMode {
 	protected int specialCharSelectedGroup = 0;
 
 
-	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, int mode) {
+	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive(settings, inputType, language);
+				return new ModePredictive(settings, inputType, textField, language);
 			case MODE_ABC:
 				return new ModeABC(settings, inputType, language);
 			case MODE_PASSTHROUGH:
@@ -57,8 +57,8 @@ abstract public class InputMode {
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
 
 	// Suggestions
-	public void onAcceptSuggestion(TextField textField, @NonNull String word) { onAcceptSuggestion(textField, word, false); }
-	public void onAcceptSuggestion(TextField textField, @NonNull String word, boolean preserveWordList) {}
+	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
+	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 
 	/**
 	 * loadSuggestions

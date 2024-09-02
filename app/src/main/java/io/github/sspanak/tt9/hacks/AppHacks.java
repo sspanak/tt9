@@ -104,7 +104,7 @@ public class AppHacks {
 		int candidatesEnd
 	) {
 		if (inputType.isViber() && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
-			inputMode.onAcceptSuggestion(textField, suggestionOps.acceptIncomplete());
+			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;
 		}
