@@ -30,7 +30,7 @@ class SettingsTyping extends SettingsInput {
 		return  character.equals("\\n") ? "\n" : character;
 	}
 
-	public boolean getPredictWordPairds() {
+	public boolean getPredictWordPairs() {
 		return prefs.getBoolean("pref_predict_word_pairs", true);
 	}
 
