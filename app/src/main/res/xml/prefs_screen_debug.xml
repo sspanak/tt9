@@ -10,6 +10,10 @@
 		app:title="Keypad Handling Mode" />
 
 	<SwitchPreferenceCompat
+		app:key="pref_predict_word_pairs"
+		app:title="Predict Word Pairs" />
+
+	<SwitchPreferenceCompat
 		app:key="pref_demo_mode"
 		app:title="Demo Mode" />
 
