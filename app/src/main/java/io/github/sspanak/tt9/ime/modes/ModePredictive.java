@@ -365,7 +365,7 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
-		predictions.setLastAcceptedWord(currentWord);
+		predictions.onAccept(currentWord);
 
 		// increment the frequency of the given word
 		try {
@@ -385,7 +385,7 @@ public class ModePredictive extends InputMode {
 	@Override
 	public void onAcceptSuggestion(@NonNull String word) {
 		super.onAcceptSuggestion(word);
-		predictions.setLastAcceptedWord(word);
+		predictions.onAccept(word);
 	}
 
 	@Override

@@ -63,23 +63,6 @@ public class Predictions {
 		return this;
 	}
 
-	public void setLastAcceptedWord(String newlyAcceptedWord) {
-		// @todo: do not call this twice
-		if (
-			!settings.getPredictWordPairs()
-			// If the accepted word is longer than the sequence, it is some different word, not a textonym
-			// of the fist suggestion. We don't need to store it.
-			|| newlyAcceptedWord == null || newlyAcceptedWord.length() != digitSequence.length()
-			// If the word is the first suggestion, we have already guessed it right, and it makes no
-			// sense to store it as a popular pair.
-			|| (!words.isEmpty() && words.get(0).equals(newlyAcceptedWord))
-		) {
-			return;
-		}
-
-		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1), newlyAcceptedWord);
-	}
-
 	public boolean containsGeneratedWords() {
 		return containsGeneratedWords;
 	}
@@ -90,31 +73,6 @@ public class Predictions {
 
 	public boolean noDbWords() {
 		return !areThereDbWords;
-	}
-
-
-	/**
-	 * suggestStem
-	 * Add the current stem filter to the predictions list, when it has length of X and
-	 * the user has pressed X keys (otherwise, it makes no sense to add it).
-	 */
-	private void suggestStem() {
-		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
-			words.add(stem);
-		}
-	}
-
-
-	/**
-	 * suggestMissingWords
-	 * Takes a list of words and appends them to the words list, if they are missing.
-	 */
-	private void suggestMissingWords(ArrayList<String> newWords) {
-		for (String newWord : newWords) {
-			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
-				words.add(newWord);
-			}
-		}
 	}
 
 
@@ -185,12 +143,38 @@ public class Predictions {
 			words.addAll(dbWords);
 		} else {
 			suggestStem();
+			dbWords = rearrangeByPairFrequency(dbWords);
 			suggestMissingWords(generatePossibleStemVariations(dbWords));
 			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
 			words = insertPunctuationCompletions(words);
 		}
 
 		onWordsChanged.run();
+	}
+
+
+	/**
+	 * suggestStem
+	 * Add the current stem filter to the predictions list, when it has length of X and
+	 * the user has pressed X keys (otherwise, it makes no sense to add it).
+	 */
+	private void suggestStem() {
+		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
+			words.add(stem);
+		}
+	}
+
+
+	/**
+	 * suggestMissingWords
+	 * Takes a list of words and appends them to the words list, if they are missing.
+	 */
+	private void suggestMissingWords(ArrayList<String> newWords) {
+		for (String newWord : newWords) {
+			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
+				words.add(newWord);
+			}
+		}
 	}
 
 
@@ -312,5 +296,65 @@ public class Predictions {
 
 		containsGeneratedWords = !variations.isEmpty();
 		return variations;
+	}
+
+
+	/**
+	 * onAccept
+	 * This stores common word pairs, so they can be used in "rearrangeByPairFrequency()" method.
+	 * For example, if the user types "I am an apple", the word "am" will be suggested after "I",
+	 * and "an" after "am", even if "am" frequency was boosted right before typing "an". This both
+	 * prevents from suggesting the same word twice in row and makes the suggestions more intuitive
+	 * when there are many textonyms for a single sequence.
+	 */
+	public void onAccept(String newlyAcceptedWord) {
+		// @todo: do not call this twice
+		if (
+			!settings.getPredictWordPairs()
+			// If the accepted word is longer than the sequence, it is some different word, not a textonym
+			// of the fist suggestion. We don't need to store it.
+			|| newlyAcceptedWord == null || newlyAcceptedWord.length() != digitSequence.length()
+			// If the word is the first suggestion, we have already guessed it right, and it makes no
+			// sense to store it as a popular pair.
+			|| (!words.isEmpty() && words.get(0).equals(newlyAcceptedWord))
+		) {
+			return;
+		}
+
+		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1), newlyAcceptedWord);
+	}
+
+
+	/**
+	 * rearrangeByPairFrequency
+	 * Uses the last two words in the text field to rearrange the suggestions, so that the most popular
+	 * one in a pair comes first. This is useful for typing phrases, like "I am an apple". Since, in
+	 * "onAccept()", we have remembered the "am" comes after "I" and "an" comes after "am", we will
+	 * not suggest the textonyms "am" or "an" twice (depending on which has the highest frequency).
+	 */
+	private ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
+		if (!settings.getPredictWordPairs() || words.size() < 2) {
+			return words;
+		}
+
+		ArrayList<String> rearrangedWords = new ArrayList<>();
+		String penultimateWord = textField.getWordBeforeCursor(language, 1);
+
+		int morePopularIndex = -1;
+		for (int i = 1; i < words.size(); i++) {
+			if (WordStoreAsync.containsPair(language, penultimateWord, words.get(i))) {
+				rearrangedWords.add(words.get(i));
+				morePopularIndex = i;
+				break;
+			}
+		}
+
+		for (int i = 0; i < words.size(); i++) {
+			if (i != morePopularIndex) {
+				rearrangedWords.add(words.get(i));
+			}
+		}
+
+		return rearrangedWords;
 	}
 }
