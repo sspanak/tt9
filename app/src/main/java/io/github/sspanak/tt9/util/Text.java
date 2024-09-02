@@ -49,6 +49,16 @@ public class Text extends TextTools {
 		}
 	}
 
+	public boolean isAlphabetic() {
+		for (int i = 0, end = text == null ? 0 : text.length(); i < end; i++) {
+			if (!Character.isAlphabetic(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public boolean isEmpty() {
 		return text == null || text.isEmpty();
 	}

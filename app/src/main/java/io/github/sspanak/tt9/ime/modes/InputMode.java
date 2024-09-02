@@ -57,8 +57,8 @@ abstract public class InputMode {
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
 
 	// Suggestions
-	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
-	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
+	public void onAcceptSuggestion(TextField textField, @NonNull String word) { onAcceptSuggestion(textField, word, false); }
+	public void onAcceptSuggestion(TextField textField, @NonNull String word, boolean preserveWordList) {}
 
 	/**
 	 * loadSuggestions

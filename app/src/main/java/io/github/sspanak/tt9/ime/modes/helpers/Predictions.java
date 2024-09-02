@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -10,11 +11,11 @@ import io.github.sspanak.tt9.util.Characters;
 
 public class Predictions {
 
-	private Language language;
 	private String digitSequence;
-	private boolean isStemFuzzy;
-	private String stem;
 	private String inputWord;
+	private boolean isStemFuzzy;
+	private Language language;
+	private String stem;
 
 	// async operations
 	private Runnable onWordsChanged = () -> {};
@@ -53,6 +54,15 @@ public class Predictions {
 	public Predictions setWordsChangedHandler(Runnable handler) {
 		onWordsChanged = handler;
 		return this;
+	}
+
+	public void setLastAcceptedWord(SettingsStore settings, TextField textField, String newlyAcceptedWord) {
+		// @todo: do not call this twice
+		if (!settings.getPredictWordPairds() || newlyAcceptedWord == null || newlyAcceptedWord.length() != digitSequence.length()) {
+			return;
+		}
+
+		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1), newlyAcceptedWord);
 	}
 
 	public boolean containsGeneratedWords() {

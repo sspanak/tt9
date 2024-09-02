@@ -346,7 +346,7 @@ public class ModePredictive extends InputMode {
 	 * with "currentWord" cleaned from them.
 	 */
 	@Override
-	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
+	public void onAcceptSuggestion(TextField textField, @NonNull String currentWord, boolean preserveWords) {
 		lastAcceptedWord = currentWord;
 
 		if (preserveWords) {
@@ -365,6 +365,8 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
+		predictions.setLastAcceptedWord(settings, textField, currentWord);
+
 		// increment the frequency of the given word
 		try {
 			Language workingLanguage = TextTools.isGraphic(currentWord) ? new EmojiLanguage() : language;
@@ -380,6 +382,11 @@ public class ModePredictive extends InputMode {
 		}
 	}
 
+	@Override
+	public void onAcceptSuggestion(TextField textField, @NonNull String word) {
+		super.onAcceptSuggestion(textField, word);
+		predictions.setLastAcceptedWord(settings, textField, word);
+	}
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {

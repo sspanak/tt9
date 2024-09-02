@@ -87,7 +87,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mInputMode.onAcceptSuggestion(textField, suggestionOps.acceptIncomplete());
 		mainView.hideCommandPalette();
 		resetStatus();
 

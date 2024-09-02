@@ -8,39 +8,43 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
+import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public class WordStoreAsync {
-	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
+	private static WordPairStore pairs;
+	private static WordStore words;
 
 
 	public static void init(Context context) {
-		store = new WordStore(context);
+		words = new WordStore(context);
+		pairs = new WordPairStore();
 	}
 
 
 	public static void destroy() {
-		if (store != null) {
-			store = null;
+		if (words != null) {
+			pairs = null;
+			words = null;
 		}
 	}
 
 
 	public static void normalizeNext() {
-		new Thread(() -> store.normalizeNext()).start();
+		new Thread(() -> words.normalizeNext()).start();
 	}
 
 
 	public static void getLastLanguageUpdateTime(ConsumerCompat<String> notification, Language language) {
-		new Thread(() -> notification.accept(store.getLanguageFileHash(language))).start();
+		new Thread(() -> notification.accept(words.getLanguageFileHash(language))).start();
 	}
 
 
 	public static void deleteCustomWord(Runnable notification, Language language, String word) {
 		new Thread(() -> {
-			store.removeCustomWord(language, word);
+			words.removeCustomWord(language, word);
 			notification.run();
 		}).start();
 	}
@@ -48,46 +52,51 @@ public class WordStoreAsync {
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-			store.remove(languageIds);
+			words.remove(languageIds);
 			notification.run();
 		}).start();
 	}
 
 
 	public static void put(ConsumerCompat<AddWordResult> statusHandler, Language language, String word) {
-		new Thread(() -> statusHandler.accept(store.put(language, word))).start();
+		new Thread(() -> statusHandler.accept(words.put(language, word))).start();
 	}
 
 
 	public static void makeTopWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		new Thread(() -> store.makeTopWord(language, word, sequence)).start();
+		new Thread(() -> words.makeTopWord(language, word, sequence)).start();
 	}
 
 
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			store.getSimilar(language, sequence, filter, minWords, maxWords)))
+			words.getSimilar(language, sequence, filter, minWords, maxWords)))
 		).start();
 	}
 
 
 	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			store.getSimilarCustom(wordFilter, maxWords)))
+			words.getSimilarCustom(wordFilter, maxWords)))
 		).start();
 	}
 
 
 	public static void countCustomWords(ConsumerCompat<Long> dataHandler) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			store.countCustom()))
+			words.countCustom()))
 		).start();
 	}
 
 
 	public static void exists(ConsumerCompat<ArrayList<Integer>> dataHandler, ArrayList<Language> languages) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			store.exists(languages))
+			words.exists(languages))
 		)).start();
+	}
+
+
+	public static void addPair(Language language, String word1, String word2) {
+		pairs.add(language, word1, word2);
 	}
 }

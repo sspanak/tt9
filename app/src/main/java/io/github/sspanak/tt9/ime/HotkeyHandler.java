@@ -193,7 +193,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mInputMode.onAcceptSuggestion(textField, suggestionOps.acceptIncomplete());
 		resetKeyRepeat();
 
 		return true;
