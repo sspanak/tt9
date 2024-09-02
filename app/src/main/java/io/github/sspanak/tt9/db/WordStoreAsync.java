@@ -15,35 +15,32 @@ public class WordStoreAsync {
 	private static WordStore store;
 	private static final Handler asyncHandler = new Handler();
 
-	public static synchronized void init(Context context) {
-		store = WordStore.getInstance(context);
+
+	public static void init(Context context) {
+		store = new WordStore(context);
 	}
 
 
-	public static synchronized void init() {
-		init(null);
-	}
-
-
-	private static WordStore getStore() {
-		init();
-		return store;
+	public static void destroy() {
+		if (store != null) {
+			store = null;
+		}
 	}
 
 
 	public static void normalizeNext() {
-		new Thread(() -> getStore().normalizeNext()).start();
+		new Thread(() -> store.normalizeNext()).start();
 	}
 
 
 	public static void getLastLanguageUpdateTime(ConsumerCompat<String> notification, Language language) {
-		new Thread(() -> notification.accept(getStore().getLanguageFileHash(language))).start();
+		new Thread(() -> notification.accept(store.getLanguageFileHash(language))).start();
 	}
 
 
 	public static void deleteCustomWord(Runnable notification, Language language, String word) {
 		new Thread(() -> {
-			getStore().removeCustomWord(language, word);
+			store.removeCustomWord(language, word);
 			notification.run();
 		}).start();
 	}
@@ -51,46 +48,46 @@ public class WordStoreAsync {
 
 	public static void deleteWords(Runnable notification, @NonNull ArrayList<Integer> languageIds) {
 		new Thread(() -> {
-			getStore().remove(languageIds);
+			store.remove(languageIds);
 			notification.run();
 		}).start();
 	}
 
 
 	public static void put(ConsumerCompat<AddWordResult> statusHandler, Language language, String word) {
-		new Thread(() -> statusHandler.accept(getStore().put(language, word))).start();
+		new Thread(() -> statusHandler.accept(store.put(language, word))).start();
 	}
 
 
 	public static void makeTopWord(@NonNull Language language, @NonNull String word, @NonNull String sequence) {
-		new Thread(() -> getStore().makeTopWord(language, word, sequence)).start();
+		new Thread(() -> store.makeTopWord(language, word, sequence)).start();
 	}
 
 
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			getStore().getSimilar(language, sequence, filter, minWords, maxWords)))
+			store.getSimilar(language, sequence, filter, minWords, maxWords)))
 		).start();
 	}
 
 
 	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			getStore().getSimilarCustom(wordFilter, maxWords)))
+			store.getSimilarCustom(wordFilter, maxWords)))
 		).start();
 	}
 
 
 	public static void countCustomWords(ConsumerCompat<Long> dataHandler) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			getStore().countCustom()))
+			store.countCustom()))
 		).start();
 	}
 
 
 	public static void exists(ConsumerCompat<ArrayList<Integer>> dataHandler, ArrayList<Language> languages) {
 		new Thread(() -> asyncHandler.post(() -> dataHandler.accept(
-			getStore().exists(languages))
+			store.exists(languages))
 		)).start();
 	}
 }
