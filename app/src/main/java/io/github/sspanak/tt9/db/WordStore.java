@@ -26,13 +26,12 @@ import io.github.sspanak.tt9.util.Timer;
 
 public class WordStore {
 	private final String LOG_TAG = "sqlite.WordStore";
-	private static WordStore self;
 
 	private SQLiteOpener sqlite = null;
 	private ReadOps readOps = null;
 
 
-	private WordStore(@NonNull Context context) {
+	WordStore(@NonNull Context context) {
 		try {
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();
@@ -40,16 +39,6 @@ public class WordStore {
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
 		}
-		self = this;
-	}
-
-
-	public static synchronized WordStore getInstance(@NonNull Context context) {
-		if (self == null) {
-			self = new WordStore(context);
-		}
-
-		return self;
 	}
 
 

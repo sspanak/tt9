@@ -188,6 +188,7 @@ public class TraditionalT9 extends MainViewHandler {
 		requestHideSelf(0);
 		onStop();
 		normalizationHandler.removeCallbacksAndMessages(null);
+		WordStoreAsync.destroy();
 		stopSelf();
 	}
 
