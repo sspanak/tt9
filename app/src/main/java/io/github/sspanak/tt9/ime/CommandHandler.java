@@ -153,27 +153,27 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected void nextTextCase() {
-		String currentSuggestionBefore = suggestionOps.getCurrent();
-		int currentSuggestionIndex = suggestionOps.getCurrentIndex();
-
 		// When we are in AUTO mode and the dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
 		// This is why we retry, until there is a visual change.
 		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
-			String currentSuggestionAfter = mInputMode.getSuggestions().size() >= suggestionOps.getCurrentIndex() ? mInputMode.getSuggestions().get(suggestionOps.getCurrentIndex()) : "";
-			// If the suggestions are special characters, changing the text case means selecting the
-			// next character group. Hence, "before" and "after" are different. Also, if the new suggestion
-			// list is shorter, the "before" index may be invalid, so "after" would be empty.
-			// In these cases, we scroll to the first one, for consistency.
-			if (currentSuggestionAfter.isEmpty() || !currentSuggestionBefore.equalsIgnoreCase(currentSuggestionAfter)) {
-				currentSuggestionIndex = 0;
-				break;
-			}
+			String firstSuggestionAfter = mInputMode.getSuggestions().get(0);
 
-			// the suggestion list is the same and the text case is different, so let's use it
-			if (!currentSuggestionBefore.equals(currentSuggestionAfter)) {
+			// this is a word and the text case has finally changed
+			if (!firstSuggestionAfter.equalsIgnoreCase(suggestionOps.get(0))) {
 				break;
 			}
+		}
+
+		int currentSuggestionIndex = suggestionOps.getCurrentIndex();
+		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
+
+		// If the suggestions are special characters, changing the text case means selecting the
+		// next character group. Hence, "before" and "after" are different. Also, if the new suggestion
+		// list is shorter, the "before" index may be invalid, so "after" would be empty.
+		// In these cases, we scroll to the first one, for consistency.
+		if (!Character.isAlphabetic(mInputMode.getSuggestions().get(0).charAt(0))) {
+			currentSuggestionIndex = 0;
 		}
 
 		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
