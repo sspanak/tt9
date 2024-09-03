@@ -308,7 +308,6 @@ public class Predictions {
 	 * when there are many textonyms for a single sequence.
 	 */
 	public void onAccept(String newlyAcceptedWord) {
-		// @todo: do not call this twice
 		if (
 			!settings.getPredictWordPairs()
 			// If the accepted word is longer than the sequence, it is some different word, not a textonym

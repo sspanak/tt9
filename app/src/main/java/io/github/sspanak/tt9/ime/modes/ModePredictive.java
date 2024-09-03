@@ -383,12 +383,6 @@ public class ModePredictive extends InputMode {
 	}
 
 	@Override
-	public void onAcceptSuggestion(@NonNull String word) {
-		super.onAcceptSuggestion(word);
-		predictions.onAccept(word);
-	}
-
-	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
 	}

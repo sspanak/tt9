@@ -10,7 +10,6 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class WordPairStore {
-	private final int MIN_WORD_LENGTH = 2;
 	private final int MAX_WORD_LENGTH = 5;
 	private final int MAX_PAIRS = 1000;
 	private final int MIDDLE_PAIR = MAX_PAIRS / 2;
@@ -22,7 +21,7 @@ public class WordPairStore {
 		return
 			language == null
 			|| word1 == null || word2 == null
-			|| word1.length() < MIN_WORD_LENGTH || word2.length() < MIN_WORD_LENGTH
+			|| word1.isEmpty() && word2.isEmpty()
 			|| word1.length() > MAX_WORD_LENGTH || word2.length() > MAX_WORD_LENGTH
 			|| word1.equals(word2)
 			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
