@@ -32,9 +32,9 @@ public class SettingsStore extends SettingsUI {
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
 	public final static int TEXT_INPUT_DEBOUNCE_TIME = 500; // ms
+	public final static int WORD_BACKGROUND_TASKS_DELAY = 15000; // ms
 	public final static int WORD_FREQUENCY_MAX = 25500;
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
-	public final static int WORD_NORMALIZATION_DELAY = 15000; // ms
 	public final static int ZOMBIE_CHECK_INTERVAL = 666; // ms
 
 	/************* hacks *************/

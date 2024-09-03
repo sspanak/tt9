@@ -95,27 +95,32 @@ public class DataStore {
 	}
 
 
-	public static void addPair(Language language, String word1, String word2) {
+	public static void addWordPair(Language language, String word1, String word2) {
 		pairs.add(language, word1, word2);
 	}
 
-	public static boolean containsPair(Language language, String word1, String word2) {
+
+	public static boolean containsWordPair(Language language, String word1, String word2) {
 		return pairs.contains(language, word1, word2);
 	}
 
-	public static void savePairs() {
+
+	public static void saveWordPairs() {
 		new Thread(() -> pairs.save()).start();
 	}
 
-	public static void loadPairs(ArrayList<Language> languages) {
+
+	public static void loadWordPairs(ArrayList<Language> languages) {
 		new Thread(() -> pairs.load(languages)).start();
 	}
 
-	public static void clearPairStats() {
+
+	public static void clearWordPairStats() {
 		pairs.clear();
 	}
 
-	public static String getPairStats() {
+
+	public static String getWordPairStats() {
 		return pairs.toString();
 	}
 }

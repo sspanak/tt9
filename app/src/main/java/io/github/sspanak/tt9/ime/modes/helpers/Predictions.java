@@ -321,7 +321,7 @@ public class Predictions {
 			return;
 		}
 
-		DataStore.addPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
+		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
 	}
 
 
@@ -342,7 +342,7 @@ public class Predictions {
 
 		int morePopularIndex = -1;
 		for (int i = 1; i < words.size(); i++) {
-			if (DataStore.containsPair(language, penultimateWord, words.get(i))) {
+			if (DataStore.containsWordPair(language, penultimateWord, words.get(i))) {
 				rearrangedWords.add(words.get(i));
 				morePopularIndex = i;
 				break;

@@ -148,7 +148,7 @@ public class TraditionalT9 extends MainViewHandler {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
-		DataStore.loadPairs(LanguageCollection.getAll(this));
+		DataStore.loadWordPairs(LanguageCollection.getAll(this));
 
 		return true;
 	}
@@ -166,11 +166,13 @@ public class TraditionalT9 extends MainViewHandler {
 			updateInputViewShown();
 		}
 
-		DataStore.savePairs();
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
-			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext(); },
-			SettingsStore.WORD_NORMALIZATION_DELAY
+			() -> {
+				DataStore.saveWordPairs();
+				if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext();
+			},
+			SettingsStore.WORD_BACKGROUND_TASKS_DELAY
 		);
 	}
 

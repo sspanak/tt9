@@ -25,17 +25,17 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	@Override
 	protected void onCreate() {
 		print(SLOW_QUERY_STATS_CONTAINER, SlowQueryStats.getSummary());
-		print(WORD_PAIRS_CONTAINER, DataStore.getPairStats());
+		print(WORD_PAIRS_CONTAINER, DataStore.getWordPairStats());
 		printSlowQueries();
 
 		Preference resetButton = findPreference(RESET_BUTTON);
 		if (resetButton != null) {
 			resetButton.setOnPreferenceClickListener((Preference p) -> {
 				SlowQueryStats.clear();
-				DataStore.clearPairStats();
+				DataStore.clearWordPairStats();
 
 				print(SLOW_QUERY_STATS_CONTAINER, SlowQueryStats.getSummary());
-				print(WORD_PAIRS_CONTAINER, DataStore.getPairStats());
+				print(WORD_PAIRS_CONTAINER, DataStore.getWordPairStats());
 				printSlowQueries();
 				return true;
 			});
