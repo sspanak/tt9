@@ -102,6 +102,10 @@ public class WordStoreAsync {
 		return pairs.contains(language, word1, word2);
 	}
 
+	public static void clearPairStats() {
+		pairs.clear();
+	}
+
 	public static String getPairStats() {
 		return pairs.toString();
 	}

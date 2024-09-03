@@ -32,6 +32,8 @@ public class UsageStatsScreen extends BaseScreenFragment {
 		if (resetButton != null) {
 			resetButton.setOnPreferenceClickListener((Preference p) -> {
 				SlowQueryStats.clear();
+				WordStoreAsync.clearPairStats();
+
 				print(SLOW_QUERY_STATS_CONTAINER, SlowQueryStats.getSummary());
 				print(WORD_PAIRS_CONTAINER, WordStoreAsync.getPairStats());
 				printSlowQueries();
