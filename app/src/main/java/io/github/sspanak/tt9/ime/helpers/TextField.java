@@ -107,7 +107,13 @@ public class TextField extends InputField {
 	}
 
 
-	@NonNull public String getWordBeforeCursor(Language language, int skipWords) {
+	/**
+	 * Returns a word (String containing of alphabetic) characters before the cursor, only if the cursor is
+	 * not in the middle of that word. "skipWords" can be used to return the N-th word before the cursor.
+	 * "stopAtPunctuation" can be used to stop searching at the first punctuation character. In case
+	 * no complete word is found due to any reason, an empty string is returned.
+	 */
+	@NonNull public String getWordBeforeCursor(Language language, int skipWords, boolean stopAtPunctuation) {
 		if (getTextAfterCursor(1).startsWithWord()) {
 			return "";
 		}
@@ -121,6 +127,11 @@ public class TextField extends InputField {
 
 		for (int i = before.length() - 1; i >= 0; i--) {
 			char currentLetter = before.charAt(i);
+
+			if (stopAtPunctuation && language.getKeyCharacters(1).contains(currentLetter + "")) {
+				return "";
+			}
+
 			if (
 				!Character.isAlphabetic(currentLetter)
 				&& !(currentLetter == '\'' && (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)))

@@ -321,7 +321,7 @@ public class Predictions {
 			return;
 		}
 
-		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1), newlyAcceptedWord);
+		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
 	}
 
 
@@ -338,7 +338,7 @@ public class Predictions {
 		}
 
 		ArrayList<String> rearrangedWords = new ArrayList<>();
-		String penultimateWord = textField.getWordBeforeCursor(language, 1);
+		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
 
 		int morePopularIndex = -1;
 		for (int i = 1; i < words.size(); i++) {

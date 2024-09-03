@@ -135,7 +135,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (settings.getBackspaceRecomposing() && !hold && suggestionOps.isEmpty()) {
-			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0);
+			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0, false);
 			if (mInputMode.recompose(previousWord) && textField.recompose(previousWord)) {
 				getSuggestions();
 			} else {
