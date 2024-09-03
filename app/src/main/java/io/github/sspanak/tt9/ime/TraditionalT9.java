@@ -9,10 +9,11 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.db.DictionaryLoader;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
@@ -121,7 +122,7 @@ public class TraditionalT9 extends MainViewHandler {
 	protected void onInit() {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
-		WordStoreAsync.init(this);
+		DataStore.init(this);
 		super.onInit();
 	}
 
@@ -147,6 +148,8 @@ public class TraditionalT9 extends MainViewHandler {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
+		DataStore.loadPairs(LanguageCollection.getAll(this));
+
 		return true;
 	}
 
@@ -163,9 +166,10 @@ public class TraditionalT9 extends MainViewHandler {
 			updateInputViewShown();
 		}
 
+		DataStore.savePairs();
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
-			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) WordStoreAsync.normalizeNext(); },
+			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext(); },
 			SettingsStore.WORD_NORMALIZATION_DELAY
 		);
 	}
@@ -188,7 +192,7 @@ public class TraditionalT9 extends MainViewHandler {
 		requestHideSelf(0);
 		onStop();
 		normalizationHandler.removeCallbacksAndMessages(null);
-		WordStoreAsync.destroy();
+		DataStore.destroy();
 		stopSelf();
 	}
 

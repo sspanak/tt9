@@ -14,8 +14,8 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.LegacyDb;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.words.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -41,7 +41,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		Logger.setLevel(settings.getLogLevel());
 
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
-		WordStoreAsync.init(this);
+		DataStore.init(this);
 
 		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());
 		validateFunctionKeys();

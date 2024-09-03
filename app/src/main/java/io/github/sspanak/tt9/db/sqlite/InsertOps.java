@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordPosition;
+import io.github.sspanak.tt9.db.wordPairs.WordPair;
 import io.github.sspanak.tt9.languages.Language;
 
 
@@ -76,5 +79,18 @@ public class InsertOps {
 			"INSERT INTO " + Tables.getWords(language.getId()) + " (position, word) " +
 				"SELECT -id, word FROM " + Tables.CUSTOM_WORDS + " WHERE langId = " + language.getId()
 		);
+	}
+
+	public static void insertWordPairs(@NonNull SQLiteDatabase db, int langId, List<WordPair> pairs) {
+		if (pairs == null || pairs.isEmpty() || langId <= 0) {
+			return;
+		}
+
+		int i = 0;
+		for (WordPair pair : pairs) {
+			ContentValues values = pair.toContentValues();
+			values.put("frequency", i++);
+			db.insert(Tables.getWordPairs(langId), null, values);
+		}
 	}
 }

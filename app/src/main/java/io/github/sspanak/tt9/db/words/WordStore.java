@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.db.words;
 
 import android.content.Context;
 
@@ -31,7 +31,7 @@ public class WordStore {
 	private ReadOps readOps = null;
 
 
-	WordStore(@NonNull Context context) {
+	public WordStore(@NonNull Context context) {
 		try {
 			sqlite = SQLiteOpener.getInstance(context);
 			sqlite.getDb();

@@ -9,17 +9,18 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
+import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
-public class WordStoreAsync {
+public class DataStore {
 	private static final Handler asyncHandler = new Handler();
 	private static WordPairStore pairs;
 	private static WordStore words;
 
 
 	public static void init(Context context) {
-		pairs = pairs == null ? new WordPairStore() : pairs;
+		pairs = pairs == null ? new WordPairStore(context) : pairs;
 		words = words == null ? new WordStore(context) : words;
 	}
 
@@ -100,6 +101,14 @@ public class WordStoreAsync {
 
 	public static boolean containsPair(Language language, String word1, String word2) {
 		return pairs.contains(language, word1, word2);
+	}
+
+	public static void savePairs() {
+		new Thread(() -> pairs.save()).start();
+	}
+
+	public static void loadPairs(ArrayList<Language> languages) {
+		new Thread(() -> pairs.load(languages)).start();
 	}
 
 	public static void clearPairStats() {

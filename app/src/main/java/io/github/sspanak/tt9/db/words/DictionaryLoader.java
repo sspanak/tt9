@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.db;
+package io.github.sspanak.tt9.db.words;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordFile;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
@@ -122,7 +123,7 @@ public class DictionaryLoader {
 			return false;
 		}
 
-		WordStoreAsync.getLastLanguageUpdateTime(
+		DataStore.getLastLanguageUpdateTime(
 			(hash) -> {
 				self.lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
 

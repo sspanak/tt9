@@ -9,10 +9,11 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.SlowQueryStats;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
+import io.github.sspanak.tt9.db.wordPairs.WordPair;
+import io.github.sspanak.tt9.db.words.SlowQueryStats;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
@@ -287,5 +288,21 @@ public class ReadOps {
 		);
 
 		return new NormalizationList(res);
+	}
+
+
+	@NonNull public ArrayList<WordPair> getWordPairs(@NonNull SQLiteDatabase db, @NonNull Language language) {
+
+		String[] select = new String[]{"word1", "word2"};
+		String orderBy = "frequency";
+		ArrayList<WordPair> pairs = new ArrayList<>();
+
+		try (Cursor cursor = db.query(Tables.getWordPairs(language.getId()), select, null, null, null, null, orderBy)) {
+			while (cursor.moveToNext()) {
+				pairs.add(new WordPair(language, cursor.getString(0), cursor.getString(1)));
+			}
+		}
+
+		return pairs;
 	}
 }

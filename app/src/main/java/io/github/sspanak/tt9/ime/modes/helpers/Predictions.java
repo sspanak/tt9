@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
@@ -92,7 +92,7 @@ public class Predictions {
 
 		boolean retryAllowed = !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE);
 
-		WordStoreAsync.getWords(
+		DataStore.getWords(
 			(dbWords) -> onDbWords(dbWords, retryAllowed),
 			language,
 			digitSequence,
@@ -104,7 +104,7 @@ public class Predictions {
 	}
 
 	private void loadWithoutLeadingPunctuation() {
-		WordStoreAsync.getWords(
+		DataStore.getWords(
 			(dbWords) -> {
 				char firstChar = inputWord.charAt(0);
 				for (int i = 0; i < dbWords.size(); i++) {
@@ -321,7 +321,7 @@ public class Predictions {
 			return;
 		}
 
-		WordStoreAsync.addPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
+		DataStore.addPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
 	}
 
 
@@ -342,7 +342,7 @@ public class Predictions {
 
 		int morePopularIndex = -1;
 		for (int i = 1; i < words.size(); i++) {
-			if (WordStoreAsync.containsPair(language, penultimateWord, words.get(i))) {
+			if (DataStore.containsPair(language, penultimateWord, words.get(i))) {
 				rearrangedWords.add(words.get(i));
 				morePopularIndex = i;
 				break;

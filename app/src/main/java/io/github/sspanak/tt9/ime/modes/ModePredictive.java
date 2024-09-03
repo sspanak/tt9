@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
@@ -375,7 +375,7 @@ public class ModePredictive extends InputMode {
 			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-				WordStoreAsync.makeTopWord(workingLanguage, currentWord, sequence);
+				DataStore.makeTopWord(workingLanguage, currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());

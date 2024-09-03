@@ -7,7 +7,7 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;

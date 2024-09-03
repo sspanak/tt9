@@ -3,8 +3,8 @@ package io.github.sspanak.tt9.preferences.screens;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.SlowQueryStats;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.words.SlowQueryStats;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
 
@@ -25,17 +25,17 @@ public class UsageStatsScreen extends BaseScreenFragment {
 	@Override
 	protected void onCreate() {
 		print(SLOW_QUERY_STATS_CONTAINER, SlowQueryStats.getSummary());
-		print(WORD_PAIRS_CONTAINER, WordStoreAsync.getPairStats());
+		print(WORD_PAIRS_CONTAINER, DataStore.getPairStats());
 		printSlowQueries();
 
 		Preference resetButton = findPreference(RESET_BUTTON);
 		if (resetButton != null) {
 			resetButton.setOnPreferenceClickListener((Preference p) -> {
 				SlowQueryStats.clear();
-				WordStoreAsync.clearPairStats();
+				DataStore.clearPairStats();
 
 				print(SLOW_QUERY_STATS_CONTAINER, SlowQueryStats.getSummary());
-				print(WORD_PAIRS_CONTAINER, WordStoreAsync.getPairStats());
+				print(WORD_PAIRS_CONTAINER, DataStore.getPairStats());
 				printSlowQueries();
 				return true;
 			});

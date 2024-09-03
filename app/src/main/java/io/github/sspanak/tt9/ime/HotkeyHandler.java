@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
 
-import io.github.sspanak.tt9.db.DictionaryLoader;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;

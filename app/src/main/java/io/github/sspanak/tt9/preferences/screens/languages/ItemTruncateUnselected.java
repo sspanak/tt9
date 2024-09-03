@@ -4,7 +4,7 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -30,7 +30,7 @@ class ItemTruncateUnselected extends ItemTruncateAll {
 		}
 
 		onStartDeleting();
-		WordStoreAsync.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
+		DataStore.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
 
 		return true;
 	}
