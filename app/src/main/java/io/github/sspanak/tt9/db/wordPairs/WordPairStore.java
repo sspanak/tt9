@@ -13,28 +13,24 @@ import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
 
 public class WordPairStore {
-	private final int MAX_WORD_LENGTH = 5;
-	private final int MAX_PAIRS = 1000;
-	private final int MIDDLE_PAIR = MAX_PAIRS / 2;
+	private final int MIDDLE_PAIR = SettingsStore.WORD_PAIR_MAX / 2;
 
+	// data
 	private final SQLiteOpener sqlite;
-
 	private final HashMap<Integer, LinkedList<WordPair>> pairs = new HashMap<>();
 
-	private final String ADD_TIMER_NAME = "word_pair_add";
-	private final String SEARCH_TIMER_NAME = "word_pair_search";
-	private final String LOAD_TIMER_NAME = "word_pair_load";
-	private final String SAVE_TIMER_NAME = "word_pair_save";
-
+	// timing
 	private long slowestAddTime = 0;
 	private long slowestSearchTime = 0;
 	private long slowestLoadTime = 0;
 	private long slowestSaveTime = 0;
+
 
 	public WordPairStore(Context context) {
 		sqlite = SQLiteOpener.getInstance(context);
@@ -46,13 +42,14 @@ public class WordPairStore {
 			language == null
 			|| word1 == null || word2 == null
 			|| word1.isEmpty() && word2.isEmpty()
-			|| word1.length() > MAX_WORD_LENGTH || word2.length() > MAX_WORD_LENGTH
+			|| word1.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH || word2.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH
 			|| word1.equals(word2)
 			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
 	}
 
 
 	public void add(Language language, String word1, String word2) {
+		String ADD_TIMER_NAME = "word_pair_add";
 		Timer.start(ADD_TIMER_NAME);
 
 //		Logger.d(getClass().getSimpleName(), "Attempting to add pair: (" + word1 + "," + word2 + ")");
@@ -71,7 +68,7 @@ public class WordPairStore {
 
 		if (index == -1) {
 			addMiddle(language, word1, word2);
-			removeExcess(language, MAX_PAIRS);
+			removeExcess(language, SettingsStore.WORD_PAIR_MAX);
 		} else {
 			removeExcess(language, index);
 			addFirst(language, word1, word2);
@@ -97,11 +94,11 @@ public class WordPairStore {
 
 
 	private void removeExcess(Language language, int index) {
-		if (pairs.get(language.getId()) == null || (index == MAX_PAIRS && pairs.get(language.getId()).size() <= MAX_PAIRS)) {
+		if (pairs.get(language.getId()) == null || (index == SettingsStore.WORD_PAIR_MAX && pairs.get(language.getId()).size() <= SettingsStore.WORD_PAIR_MAX)) {
 			return;
 		}
 
-		if (index == MAX_PAIRS) {
+		if (index == SettingsStore.WORD_PAIR_MAX) {
 			pairs.get(language.getId()).removeLast();
 		} else {
 			pairs.get(language.getId()).remove(index);
@@ -129,6 +126,7 @@ public class WordPairStore {
 
 
 	private int indexOf(Language language, String word1, String word2) {
+		String SEARCH_TIMER_NAME = "word_pair_search";
 		Timer.start(SEARCH_TIMER_NAME);
 
 		if (isInvalid(language, word1, word2)) {
@@ -149,6 +147,7 @@ public class WordPairStore {
 
 
 	public void save() {
+		String SAVE_TIMER_NAME = "word_pair_save";
 		Timer.start(SAVE_TIMER_NAME);
 
 		for (int langId : pairs.keySet()) {
@@ -172,6 +171,7 @@ public class WordPairStore {
 			return;
 		}
 
+		String LOAD_TIMER_NAME = "word_pair_load";
 		Timer.start(LOAD_TIMER_NAME);
 
 		int totalPairs = 0;
