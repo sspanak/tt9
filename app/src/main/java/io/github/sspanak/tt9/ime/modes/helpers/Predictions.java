@@ -312,7 +312,8 @@ public class Predictions {
 			!settings.getPredictWordPairs()
 			// If the accepted word is longer than the sequence, it is some different word, not a textonym
 			// of the fist suggestion. We don't need to store it.
-			|| newlyAcceptedWord == null || newlyAcceptedWord.length() != digitSequence.length()
+			|| newlyAcceptedWord == null || digitSequence == null
+			|| newlyAcceptedWord.length() != digitSequence.length()
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
 			// sense to store it as a popular pair.
 			|| (!words.isEmpty() && words.get(0).equals(newlyAcceptedWord))
