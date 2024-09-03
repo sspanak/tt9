@@ -162,10 +162,6 @@ public class WordPairStore {
 
 
 	public void load(ArrayList<Language> languages) {
-		if (!pairs.isEmpty()) {
-			Logger.d(getClass().getSimpleName(), "Pairs already loaded. Nothing to do.");
-		}
-
 		if (languages == null) {
 			Logger.e(getClass().getSimpleName(), "Cannot load word pairs for NULL language list.");
 			return;
@@ -176,7 +172,10 @@ public class WordPairStore {
 
 		int totalPairs = 0;
 		for (Language language : languages) {
-			clear(language.getId());
+			if (pairs.get(language.getId()) != null && !pairs.get(language.getId()).isEmpty()) {
+				Logger.d(getClass().getSimpleName(), "Pairs for language: " + language.getId() + " loaded. Nothing to do.");
+			}
+
 			ArrayList<WordPair> dbPairs = new ReadOps().getWordPairs(sqlite.getDb(), language);
 
 			for (WordPair pair : dbPairs) {
