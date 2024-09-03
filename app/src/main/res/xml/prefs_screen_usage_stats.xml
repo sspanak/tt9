@@ -15,6 +15,15 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory
+		app:title="Word Pairs"
+		app:singleLineTitle="true">
+		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
+			app:key="word_pairs_container"
+			app:summary="--">
+		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+	</PreferenceCategory>
+
+	<PreferenceCategory
 		app:title="Slow Queries"
 		app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText

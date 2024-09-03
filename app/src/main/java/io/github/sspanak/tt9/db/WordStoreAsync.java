@@ -19,16 +19,14 @@ public class WordStoreAsync {
 
 
 	public static void init(Context context) {
-		words = new WordStore(context);
-		pairs = new WordPairStore();
+		pairs = pairs == null ? new WordPairStore() : pairs;
+		words = words == null ? new WordStore(context) : words;
 	}
 
 
 	public static void destroy() {
-		if (words != null) {
-			pairs = null;
-			words = null;
-		}
+		pairs = null;
+		words = null;
 	}
 
 
@@ -102,5 +100,9 @@ public class WordStoreAsync {
 
 	public static boolean containsPair(Language language, String word1, String word2) {
 		return pairs.contains(language, word1, word2);
+	}
+
+	public static String getPairStats() {
+		return pairs.toString();
 	}
 }

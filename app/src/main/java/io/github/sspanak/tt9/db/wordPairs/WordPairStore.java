@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.Timer;
 
 public class WordPairStore {
 	private final int MAX_WORD_LENGTH = 5;
@@ -15,6 +16,11 @@ public class WordPairStore {
 	private final int MIDDLE_PAIR = MAX_PAIRS / 2;
 
 	private final HashMap<Integer, LinkedList<WordPair>> pairs = new HashMap<>();
+
+	private final String ADD_TIMER_NAME = "word_pair_add";
+	private final String SEARCH_TIMER_NAME = "word_pair_search";
+	private long slowestAddTime = 0;
+	private long slowestSearchTime = 0;
 
 
 	public boolean isInvalid(Language language, String word1, String word2) {
@@ -29,6 +35,8 @@ public class WordPairStore {
 
 
 	public void add(Language language, String word1, String word2) {
+		Timer.start(ADD_TIMER_NAME);
+
 		Logger.d(getClass().getSimpleName(), "Attempting to add pair: (" + word1 + "," + word2 + ")");
 
 		if (isInvalid(language, word1, word2)) {
@@ -50,6 +58,8 @@ public class WordPairStore {
 			removeExcess(language, index);
 			addFirst(language, word1, word2);
 		}
+
+		slowestAddTime = Math.max(slowestAddTime, Timer.stop(ADD_TIMER_NAME));
 	}
 
 
@@ -81,24 +91,37 @@ public class WordPairStore {
 	}
 
 
+	public void clear() {
+		pairs.clear();
+		slowestAddTime = 0;
+		slowestSearchTime = 0;
+	}
+
+
 	public boolean contains(Language language, String word1, String word2) {
 		return indexOf(language, word1, word2) != -1;
 	}
 
 
-	public int indexOf(Language language, String word1, String word2) {
+	private int indexOf(Language language, String word1, String word2) {
+		Timer.start(SEARCH_TIMER_NAME);
+
 		if (isInvalid(language, word1, word2)) {
+			slowestSearchTime = Math.max(slowestSearchTime, Timer.stop(SEARCH_TIMER_NAME));
 			return -1;
 		}
 
 		for (int i = 0; pairs.get(language.getId()) != null && i < pairs.get(language.getId()).size(); i++) {
 			if (pairs.get(language.getId()).get(i).equals(language, word1, word2)) {
+				slowestSearchTime = Math.max(slowestSearchTime, Timer.stop(SEARCH_TIMER_NAME));
 				return i;
 			}
 		}
 
+		slowestSearchTime = Math.max(slowestSearchTime, Timer.stop(SEARCH_TIMER_NAME));
 		return -1;
 	}
+
 
 	@NonNull
 	@Override
@@ -106,18 +129,14 @@ public class WordPairStore {
 		StringBuilder sb = new StringBuilder();
 
 		for (int langId : pairs.keySet()) {
-			sb.append("language ").append(langId).append(": [");
+			sb.append("Language ").append(langId).append(" total: ");
 
 			LinkedList<WordPair> langPairs = pairs.get(langId);
-
-			if (langPairs != null) {
-				for (WordPair pair : langPairs) {
-					sb.append(pair).append(",");
-				}
-			}
-
-			sb.append("]\n");
+			sb.append(langPairs == null ? "0" : langPairs.size()).append("\n");
 		}
+
+		sb.append("Slowest add time: ").append(slowestAddTime).append(" ms\n");
+		sb.append("Slowest search time: ").append(slowestSearchTime).append(" ms\n");
 
 		return sb.toString();
 	}
