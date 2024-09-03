@@ -110,6 +110,11 @@ public class SuggestionsBar {
 	}
 
 
+	public boolean containsStem() {
+		return !stem.isEmpty();
+	}
+
+
 	public int getCurrentIndex() {
 		return selectedIndex;
 	}
@@ -141,6 +146,7 @@ public class SuggestionsBar {
 
 		setStem(newSuggestions, containsGenerated);
 		addAllSuggestions(newSuggestions);
+		selectedIndex = Math.min(selectedIndex, suggestions.size() - 1);
 		setSuggestionsOnScreen();
 	}
 

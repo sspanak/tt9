@@ -38,6 +38,11 @@ public class SuggestionOps {
 	}
 
 
+	public boolean containsStem() {
+		return suggestionBar.containsStem();
+	}
+
+
 	public String get(int index) {
 		return suggestionBar.getSuggestion(index);
 	}
