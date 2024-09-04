@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -161,7 +162,12 @@ public class WordPairStore {
 	}
 
 
-	public void load(ArrayList<Language> languages) {
+	public void load(Context context, ArrayList<Language> languages) {
+		if (DictionaryLoader.getInstance(context).isRunning()) {
+			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while dictionary is still loading.");
+			return;
+		}
+
 		if (languages == null) {
 			Logger.e(getClass().getSimpleName(), "Cannot load word pairs for NULL language list.");
 			return;

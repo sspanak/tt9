@@ -110,8 +110,8 @@ public class DataStore {
 	}
 
 
-	public static void loadWordPairs(ArrayList<Language> languages) {
-		new Thread(() -> pairs.load(languages)).start();
+	public static void loadWordPairs(Context context, ArrayList<Language> languages) {
+		new Thread(() -> pairs.load(context, languages)).start();
 	}
 
 
