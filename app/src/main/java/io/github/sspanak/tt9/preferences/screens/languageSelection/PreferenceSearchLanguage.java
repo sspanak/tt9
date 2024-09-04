@@ -2,17 +2,13 @@ package io.github.sspanak.tt9.preferences.screens.languageSelection;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceViewHolder;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemTextInput;
 
 public class PreferenceSearchLanguage extends ItemTextInput {
@@ -33,15 +29,6 @@ public class PreferenceSearchLanguage extends ItemTextInput {
 
 	public PreferenceSearchLanguage(@NonNull Context context) {
 		super(context);
-	}
-
-	@Override
-	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-		super.onBindViewHolder(holder);
-		EditText editText = holder.itemView.findViewById(R.id.input_text_input_field);
-		if (editText != null) {
-			editText.setImeOptions(EditorInfo.IME_ACTION_NONE);
-		}
 	}
 
 	private void showNoResultItem(boolean show) {

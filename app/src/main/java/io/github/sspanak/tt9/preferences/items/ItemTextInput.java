@@ -6,6 +6,8 @@ import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,6 @@ import io.github.sspanak.tt9.util.Logger;
 
 abstract public class ItemTextInput extends ScreenPreference implements TextWatcher {
 	@NonNull private final Handler debouncer = new Handler(Looper.getMainLooper());
-	private int debounceTime = SettingsStore.TEXT_INPUT_DEBOUNCE_TIME;
 
 	public ItemTextInput(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
@@ -45,6 +46,7 @@ abstract public class ItemTextInput extends ScreenPreference implements TextWatc
 			Logger.e(getClass().getSimpleName(), "Cannot attach a text change listener. Unable to find the EditText element.");
 		} else {
 			editText.addTextChangedListener(this);
+			editText.setOnKeyListener(this::ignoreEnter);
 		}
 	}
 
@@ -56,12 +58,16 @@ abstract public class ItemTextInput extends ScreenPreference implements TextWatc
 
 	@Override
 	public void afterTextChanged(Editable s) {
-		if (debounceTime > 0) {
-			debouncer.removeCallbacksAndMessages(null);
-			debouncer.postDelayed(() -> onChange(s.toString()), debounceTime);
-		} else {
-			onChange(s.toString());
-		}
+		debouncer.removeCallbacksAndMessages(null);
+		debouncer.postDelayed(() -> onChange(s.toString()), SettingsStore.TEXT_INPUT_DEBOUNCE_TIME);
+	}
+
+	/**
+	 * This prevents IllegalStateException "focus search returned a view that wasn't able to take focus!",
+	 * which is thrown when the EditText is focused and it receives a simulated ENTER key event.
+	 */
+	private boolean ignoreEnter(View v, int keyCode, KeyEvent e) {
+		return keyCode == KeyEvent.KEYCODE_ENTER;
 	}
 
 	protected abstract void onChange(String word);
