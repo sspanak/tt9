@@ -27,6 +27,7 @@
 	<string name="pref_category_keypad">Mygtukai</string>
 	<string name="pref_category_setup">Pradiniai nustatymai</string>
 
+	<string name="pref_category_typing_modes">Įvedimo režimai</string>
 	<string name="pref_abc_auto_accept">Automatinis raidės pasirinkimas</string>
 	<string name="pref_abc_auto_accept_off">Išjungtas</string>
 	<string name="pref_abc_auto_accept_fastest">Labai greitas</string>

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.keypad;
+package io.github.sspanak.tt9.preferences.screens.modePredictive;
 
 import android.content.Context;
 

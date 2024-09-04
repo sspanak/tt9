@@ -1,77 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:orderingFromXml="true">
+	android:orderingFromXml="true">
 
 	<Preference
-		app:fragment="io.github.sspanak.tt9.preferences.HotkeysScreen"
-		app:key="screen_hotkeys"
-		app:title="@string/pref_category_function_keys" />
+		android:fragment="io.github.sspanak.tt9.preferences.screens.hotkeys.HotkeysScreen"
+		android:key="screen_hotkeys"
+		android:title="@string/pref_category_function_keys" />
 
 	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="backspace_acceleration"
-		app:title="@string/pref_backspace_acceleration"
-		app:summary="@string/pref_backspace_acceleration_summary" />
+		android:defaultValue="false"
+		android:key="backspace_acceleration"
+		android:title="@string/pref_backspace_acceleration"
+		android:summary="@string/pref_backspace_acceleration_summary" />
 
 	<SwitchPreferenceCompat
-			app:key="pref_haptic_feedback"
-			app:title="@string/pref_haptic_feedback"
-			app:summary="@string/pref_haptic_feedback_summary"/>
+			android:key="pref_haptic_feedback"
+			android:title="@string/pref_haptic_feedback"
+			android:summary="@string/pref_haptic_feedback_summary"/>
 
-	<PreferenceCategory android:title="@string/pref_category_predictive_mode">
+	<PreferenceCategory android:title="@string/pref_category_typing_modes">
+		<Preference
+			android:fragment="io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen"
+			android:key="screen_predictive_mode"
+			android:title="@string/pref_category_predictive_mode" />
 
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="auto_space"
-			app:title="@string/pref_auto_space"
-			app:summary="@string/pref_auto_space_summary" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="auto_text_case"
-			app:summary="@string/pref_auto_text_case_summary"
-			app:title="@string/pref_auto_text_case" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="false"
-			app:dependency="auto_text_case"
-			app:key="auto_capitals_after_newline"
-			app:summary="@string/pref_auto_capitals_after_newline_summary"
-			app:title="@string/pref_auto_capitals_after_newline" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="backspace_recomposing"
-			app:title="@string/pref_backspace_recomposing"
-			app:summary="@string/pref_backspace_recomposing_summary" />
-
-		<DropDownPreference
-			app:defaultValue="."
-			app:key="pref_double_zero_char"
-			app:title="@string/pref_double_zero_char" />
-
-	</PreferenceCategory>
-
-
-	<PreferenceCategory android:title="@string/pref_category_abc_mode">
-		<DropDownPreference
-			app:defaultValue="800"
-			app:key="pref_abc_auto_accept_time"
-			app:title="@string/pref_abc_auto_accept" />
+		<Preference
+			android:fragment="io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen"
+			android:key="screen_abc_mode"
+			android:title="@string/pref_category_abc_mode" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/pref_category_hacks">
 		<DropDownPreference
-			app:key="pref_key_pad_debounce_time"
-			app:title="@string/pref_hack_key_pad_debounce_time" />
+			android:key="pref_key_pad_debounce_time"
+			android:title="@string/pref_hack_key_pad_debounce_time" />
 
 		<SwitchPreferenceCompat
-			app:defaultValue="false"
-			app:key="pref_upside_down_keys"
-			app:summary="@string/pref_upside_down_keys_summary"
-			app:title="@string/pref_upside_down_keys" />
+			android:defaultValue="false"
+			android:key="pref_upside_down_keys"
+			android:summary="@string/pref_upside_down_keys_summary"
+			android:title="@string/pref_upside_down_keys" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

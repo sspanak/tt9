@@ -28,6 +28,8 @@ import io.github.sspanak.tt9.preferences.screens.keypad.KeyPadScreen;
 import io.github.sspanak.tt9.preferences.screens.languageSelection.LanguageSelectionScreen;
 import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
+import io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
@@ -146,6 +148,10 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 				return new LanguagesScreen(this);
 			case LanguageSelectionScreen.NAME:
 				return new LanguageSelectionScreen(this);
+			case ModePredictiveScreen.NAME:
+				return new ModePredictiveScreen(this);
+			case ModeAbcScreen.NAME:
+				return new ModeAbcScreen(this);
 			case SetupScreen.NAME:
 				return new SetupScreen(this);
 			case UsageStatsScreen.NAME:

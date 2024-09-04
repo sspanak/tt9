@@ -51,6 +51,7 @@
 	<string name="pref_category_hacks">Cовместимость</string>
 	<string name="pref_category_appearance">Внешний вид</string>
 	<string name="pref_category_function_keys">Горячие клавиши</string>
+	<string name="pref_category_typing_modes">Режимы ввода</string>
 	<string name="pref_abc_auto_accept">Автоматический выбор буквы</string>
 	<string name="pref_abc_auto_accept_off">Выключено</string>
 	<string name="pref_abc_auto_accept_fastest">Очень быстро</string>

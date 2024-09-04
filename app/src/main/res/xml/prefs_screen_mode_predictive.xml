@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="auto_space"
+		android:summary="@string/pref_auto_space_summary"
+		android:title="@string/pref_auto_space" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="auto_text_case"
+		android:summary="@string/pref_auto_text_case_summary"
+		android:title="@string/pref_auto_text_case" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:dependency="auto_text_case"
+		android:key="auto_capitals_after_newline"
+		android:summary="@string/pref_auto_capitals_after_newline_summary"
+		android:title="@string/pref_auto_capitals_after_newline" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:key="backspace_recomposing"
+		android:summary="@string/pref_backspace_recomposing_summary"
+		android:title="@string/pref_backspace_recomposing" />
+
+	<DropDownPreference
+		android:defaultValue="."
+		android:key="pref_double_zero_char"
+		android:title="@string/pref_double_zero_char" />
+</androidx.preference.PreferenceScreen>

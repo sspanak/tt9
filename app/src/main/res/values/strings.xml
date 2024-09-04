@@ -28,15 +28,16 @@
 
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
-	<string name="pref_category_custom_words">Added Words</string>
-	<string name="pref_category_delete_words">Delete Added Words</string>
-	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_category_custom_words">Added Words</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
-	<string name="pref_category_predictive_mode">Predictive Mode</string>
+	<string name="pref_category_delete_words">Delete Added Words</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>
+	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_keypad">Keypad</string>
+	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_setup">Initial Setup</string>
+	<string name="pref_category_typing_modes">Typing Modes</string>
 	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
 	<string name="pref_abc_auto_accept">Automatic Letter Selection</string>

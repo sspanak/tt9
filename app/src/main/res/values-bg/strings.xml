@@ -98,6 +98,7 @@
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
+	<string name="pref_category_typing_modes">Режими на писане</string>
 	<string name="pref_abc_auto_accept">Автоматичен избор на буква</string>
 	<string name="pref_abc_auto_accept_off">Изключен</string>
 	<string name="pref_abc_auto_accept_fastest">Много бърз</string>
