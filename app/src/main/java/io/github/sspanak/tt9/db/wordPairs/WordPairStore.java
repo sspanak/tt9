@@ -42,8 +42,8 @@ public class WordPairStore {
 		return
 			language == null
 			|| word1 == null || word2 == null
-			|| word1.isEmpty() && word2.isEmpty()
-			|| word1.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH || word2.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH
+			|| word1.isEmpty() || word2.isEmpty()
+			|| (word1.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && word2.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)
 			|| word1.equals(word2)
 			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
 	}
@@ -88,7 +88,7 @@ public class WordPairStore {
 
 	private void addMiddle(Language language, String word1, String word2) {
 		if (pairs.get(language.getId()) != null) {
-			int middleIndex = Math.min(pairs.get(language.getId()).size(), MIDDLE_PAIR);
+			int middleIndex = Math.min(pairs.get(language.getId()).size() / 2, MIDDLE_PAIR);
 			pairs.get(language.getId()).add(middleIndex, new WordPair(language, word1, word2));
 		}
 	}
@@ -110,9 +110,9 @@ public class WordPairStore {
 	public void clear() {
 		pairs.clear();
 		slowestAddTime = 0;
-		slowestLoadTime = 0;
-		slowestSaveTime = 0;
 		slowestSearchTime = 0;
+		slowestSaveTime = 0;
+		slowestLoadTime = 0;
 	}
 
 	public boolean contains(Language language, String word1, String word2) {
@@ -206,10 +206,10 @@ public class WordPairStore {
 			throw new RuntimeException(e);
 		}
 
-		sb.append("\nSlowest add time: ").append(slowestAddTime).append(" ms\n");
-		sb.append("Slowest search time: ").append(slowestSearchTime).append(" ms\n");
-		sb.append("Slowest save time: ").append(slowestSaveTime).append(" ms\n");
-		sb.append("Slowest load time: ").append(slowestLoadTime).append(" ms\n");
+		sb.append("\nSlowest add one time: ").append(slowestAddTime).append(" ms\n");
+		sb.append("Slowest search one time: ").append(slowestSearchTime).append(" ms\n");
+		sb.append("Slowest save all time: ").append(slowestSaveTime).append(" ms\n");
+		sb.append("Slowest load all time: ").append(slowestLoadTime).append(" ms\n");
 
 		return sb.toString();
 	}
