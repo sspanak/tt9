@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orderingFromXml="true">
+	<Preference
+		android:key="pref_device_info"
+		android:title="Device Info" />
 
 	<Preference
-		app:key="pref_device_info"
-		app:title="Device Info" />
+		android:fragment="io.github.sspanak.tt9.preferences.screens.UsageStatsScreen"
+		android:key="pref_slow_queries"
+		android:title="@string/pref_category_usage_stats" />
 
-	<DropDownPreference
-		app:key="pref_input_handling_mode"
-		app:title="Keypad Handling Mode" />
+	<PreferenceCategory android:title="Hacks" android:singleLineTitle="true">
+		<SwitchPreferenceCompat
+			android:key="pref_demo_mode"
+			android:title="Demo Mode" />
 
-	<SwitchPreferenceCompat
-		app:key="pref_demo_mode"
-		app:title="Demo Mode" />
+		<DropDownPreference
+			android:key="pref_input_handling_mode"
+			android:title="Keypad Handling Mode" />
+	</PreferenceCategory>
 
-	<Preference
-		app:fragment="io.github.sspanak.tt9.preferences.UsageStatsScreen"
-		app:key="pref_slow_queries"
-		app:title="@string/pref_category_usage_stats" />
+	<PreferenceCategory android:title="Logging" android:singleLineTitle="true">
+		<DropDownPreference
+			android:key="pref_log_level"
+			android:title="Log Level" />
 
-	<DropDownPreference
-		app:key="pref_log_level"
-		app:title="Log Level" />
+		<SwitchPreferenceCompat
+			android:defaultValue="false"
+			android:key="pref_enable_system_logs"
+			android:title="System Logs" />
 
-	<SwitchPreferenceCompat
-		app:defaultValue="false"
-		app:key="pref_enable_system_logs"
-		app:title="System Logs" />
+		<Preference
+			android:key="pref_export_logcat"
+			android:title="Export Logs" />
 
-	<Preference
-		app:key="pref_export_logcat"
-		app:title="Export Logs" />
-
-	<PreferenceCategory
-		app:title="Recent Log Messages"
-		app:singleLineTitle="true">
-		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
-			app:key="debug_logs_container"
-			app:summary="--">
-		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+		<Preference
+			android:key="screen_logs"
+			android:title="Recent Log Messages...">
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:targetPackage="io.github.sspanak.tt9"
+				android:targetClass="io.github.sspanak.tt9.preferences.LogsActivity" />
+		</Preference>
 	</PreferenceCategory>
 
 </PreferenceScreen>

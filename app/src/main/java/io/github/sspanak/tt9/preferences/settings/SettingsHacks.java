@@ -62,4 +62,8 @@ class SettingsHacks extends BaseSettings {
 		defaultTime = DeviceInfo.isQinF21() ? 20 : defaultTime;
 		return getStringifiedInt("pref_key_pad_debounce_time", defaultTime);
 	}
+
+	public boolean getSystemLogs() {
+		return prefs.getBoolean("pref_enable_system_logs", false);
+	}
 }
