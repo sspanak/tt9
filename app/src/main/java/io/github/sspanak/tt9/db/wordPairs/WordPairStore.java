@@ -156,8 +156,8 @@ public class WordPairStore {
 	}
 
 
-	public void load(Context context, ArrayList<Language> languages) {
-		if (DictionaryLoader.getInstance(context).isRunning()) {
+	public void load(@NonNull DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
+		if (dictionaryLoader.isRunning()) {
 			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while dictionary is still loading.");
 			return;
 		}

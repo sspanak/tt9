@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -112,8 +113,8 @@ public class DataStore {
 	}
 
 
-	public static void loadWordPairs(Context context, ArrayList<Language> languages) {
-		new Thread(() -> pairs.load(context, languages)).start();
+	public static void loadWordPairs(DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
+		new Thread(() -> pairs.load(dictionaryLoader, languages)).start();
 	}
 
 

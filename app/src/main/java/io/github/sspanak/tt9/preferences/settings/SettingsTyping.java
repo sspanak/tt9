@@ -31,7 +31,7 @@ class SettingsTyping extends SettingsInput {
 	}
 
 	public boolean getPredictWordPairs() {
-		return prefs.getBoolean("pref_predict_word_pairs", false);
+		return prefs.getBoolean("pref_predict_word_pairs", true);
 	}
 
 	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", false); }

@@ -144,7 +144,7 @@ public class TraditionalT9 extends MainViewHandler {
 			initUi();
 		}
 
-		DataStore.loadWordPairs(this, LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
+		DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
 
 		if (new InputType(connection, field).isNotUs(this)) {
 			DictionaryLoader.autoLoad(this, mLanguage);
