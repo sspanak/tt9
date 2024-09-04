@@ -144,9 +144,13 @@ public class TraditionalT9 extends MainViewHandler {
 			initUi();
 		}
 
-		DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
+		InputType newInputType = new InputType(connection, field);
 
-		if (new InputType(connection, field).isNotUs(this)) {
+		if (newInputType.isText()) {
+			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
+		}
+
+		if (newInputType.isNotUs(this)) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
