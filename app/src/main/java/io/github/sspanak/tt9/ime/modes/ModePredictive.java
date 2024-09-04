@@ -365,7 +365,6 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
-		predictions.onAccept(currentWord);
 
 		// increment the frequency of the given word
 		try {
@@ -375,7 +374,7 @@ public class ModePredictive extends InputMode {
 			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-				DataStore.makeTopWord(workingLanguage, currentWord, sequence);
+				predictions.onAccept(currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());

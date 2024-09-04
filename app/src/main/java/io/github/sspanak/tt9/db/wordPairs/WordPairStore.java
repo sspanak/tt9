@@ -53,10 +53,7 @@ public class WordPairStore {
 		String ADD_TIMER_NAME = "word_pair_add";
 		Timer.start(ADD_TIMER_NAME);
 
-//		Logger.d(getClass().getSimpleName(), "Attempting to add pair: (" + word1 + "," + word2 + ")");
-
 		if (isInvalid(language, word1, word2)) {
-			Logger.d(getClass().getSimpleName(), "Ignoring invalid pair: (" + word1 + "," + word2 + ")");
 			return;
 		}
 
@@ -158,13 +155,15 @@ public class WordPairStore {
 			sqlite.finishTransaction();
 		}
 
-		slowestSaveTime = Math.max(slowestSaveTime, Timer.stop(SAVE_TIMER_NAME));
+		long currentTime = Timer.stop(SAVE_TIMER_NAME);
+		slowestSaveTime = Math.max(slowestSaveTime, currentTime);
+		Logger.d(getClass().getSimpleName(), "Saved all word pairs in: " + currentTime + " ms");
 	}
 
 
 	public void load(@NonNull DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
 		if (dictionaryLoader.isRunning()) {
-			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while dictionary is still loading.");
+			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while the DictionaryLoader is working.");
 			return;
 		}
 

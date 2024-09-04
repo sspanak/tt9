@@ -19,6 +19,8 @@ public class Predictions {
 	private Language language;
 	private String stem;
 
+	private String lastEnforcedTopWord = "";
+
 	// async operations
 	private Runnable onWordsChanged = () -> {};
 
@@ -307,21 +309,24 @@ public class Predictions {
 	 * prevents from suggesting the same word twice in row and makes the suggestions more intuitive
 	 * when there are many textonyms for a single sequence.
 	 */
-	public void onAccept(String newlyAcceptedWord) {
+	public void onAccept(String word, String sequence) {
 		if (
 			!settings.getPredictWordPairs()
 			// If the accepted word is longer than the sequence, it is some different word, not a textonym
 			// of the fist suggestion. We don't need to store it.
-			|| newlyAcceptedWord == null || digitSequence == null
-			|| newlyAcceptedWord.length() != digitSequence.length()
+			|| word == null || digitSequence == null
+			|| word.length() != digitSequence.length()
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
 			// sense to store it as a popular pair.
-			|| (!words.isEmpty() && words.get(0).equals(newlyAcceptedWord))
+			|| (!words.isEmpty() && words.get(0).equals(word))
 		) {
 			return;
 		}
 
-		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), newlyAcceptedWord);
+		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word);
+		if (!word.equals(lastEnforcedTopWord)) {
+			DataStore.makeTopWord(language, word, sequence);
+		}
 	}
 
 
@@ -343,7 +348,8 @@ public class Predictions {
 		int morePopularIndex = -1;
 		for (int i = 1; i < words.size(); i++) {
 			if (DataStore.containsWordPair(language, penultimateWord, words.get(i))) {
-				rearrangedWords.add(words.get(i));
+				lastEnforcedTopWord = words.get(i);
+				rearrangedWords.add(lastEnforcedTopWord);
 				morePopularIndex = i;
 				break;
 			}
