@@ -53,6 +53,7 @@
 	<string name="dictionary_load_no_internet">Échec du téléchargement du dictionnaire pour la langue « %1$s ». Vérifiez la connexion Internet.</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
 	<string name="pref_category_predictive_mode">Saisie intuitive</string>
+	<string name="pref_category_typing_modes">Modes de saisie</string>
 	<string name="pref_abc_auto_accept">Sélection de lettre automatique</string>
 	<string name="pref_abc_auto_accept_off">Désactivée</string>
 	<string name="pref_abc_auto_accept_fastest">Très rapide</string>

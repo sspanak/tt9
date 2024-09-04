@@ -28,6 +28,7 @@
 	<string name="pref_category_keypad">Teclado</string>
 
 	<string name="pref_category_setup">Configuração inicial</string>
+	<string name="pref_category_typing_modes">Modos de digitação</string>
 	<string name="pref_abc_auto_accept">Seleção automática de letras</string>
 	<string name="pref_abc_auto_accept_off">Desligada</string>
 	<string name="pref_abc_auto_accept_fastest">Muito rápido</string>

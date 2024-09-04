@@ -25,6 +25,7 @@
 	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale.</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
+	<string name="pref_category_typing_modes">Modalità di digitazione</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
 	<string name="pref_abc_auto_accept_off">Spenta</string>
 	<string name="pref_abc_auto_accept_fastest">Molto veloce</string>

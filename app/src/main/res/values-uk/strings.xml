@@ -29,6 +29,7 @@
 	<string name="pref_category_keypad">Клавіатура</string>
 	<string name="pref_category_setup">Початкові налаштування</string>
 
+	<string name="pref_category_typing_modes">Режими введення</string>
 	<string name="pref_abc_auto_accept">Автоматичний вибір літери</string>
 	<string name="pref_abc_auto_accept_off">Вимкнено</string>
 	<string name="pref_abc_auto_accept_fastest">Дуже швидко</string>

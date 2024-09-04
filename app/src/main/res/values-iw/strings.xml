@@ -27,6 +27,7 @@
 	<string name="pref_category_function_keys">בחר מקשי קיצור</string>
 	<string name="pref_category_keypad">מקלדת</string>
 
+	<string name="pref_category_typing_modes">מצבי הקלדה</string>
 	<string name="pref_abc_auto_accept">בחירת אותיות אוטומטית</string>
 	<string name="pref_abc_auto_accept_off">כבויה</string>
 	<string name="pref_abc_auto_accept_fastest">מאוד מהיר</string>

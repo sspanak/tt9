@@ -55,6 +55,7 @@
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Escribir la primera letra de cada frase en mayúscula.</string>
+	<string name="pref_category_typing_modes">Modos de escritura</string>
 	<string name="pref_abc_auto_accept">Selección automática de letra</string>
 	<string name="pref_abc_auto_accept_off">Apagada</string>
 	<string name="pref_abc_auto_accept_fastest">Muy rápido</string>
