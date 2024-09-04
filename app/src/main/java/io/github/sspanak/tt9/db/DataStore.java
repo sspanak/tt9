@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
+import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
@@ -28,6 +29,7 @@ public class DataStore {
 	public static void destroy() {
 		pairs = null;
 		words = null;
+		SQLiteOpener.destroyInstance();
 	}
 
 
