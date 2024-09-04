@@ -3,7 +3,7 @@
 
 	<Preference
 		app:key="pref_slow_queries_reset_stats"
-		app:title="Clear DB Cache" />
+		app:title="Clear Memory Cache" />
 
 	<PreferenceCategory
 		app:title="Summary"

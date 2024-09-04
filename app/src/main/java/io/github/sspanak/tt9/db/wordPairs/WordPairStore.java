@@ -28,9 +28,9 @@ public class WordPairStore {
 
 	// timing
 	private long slowestAddTime = 0;
-	private long slowestSearchTime = 0;
 	private long slowestLoadTime = 0;
 	private long slowestSaveTime = 0;
+	private long slowestSearchTime = 0;
 
 
 	public WordPairStore(Context context) {
@@ -110,16 +110,10 @@ public class WordPairStore {
 	public void clear() {
 		pairs.clear();
 		slowestAddTime = 0;
+		slowestLoadTime = 0;
+		slowestSaveTime = 0;
 		slowestSearchTime = 0;
 	}
-
-
-	private void clear(int langId) {
-		if (pairs.get(langId) != null) {
-			pairs.get(langId).clear();
-		}
-	}
-
 
 	public boolean contains(Language language, String word1, String word2) {
 		return indexOf(language, word1, word2) != -1;
@@ -203,7 +197,7 @@ public class WordPairStore {
 
 		try {
 			for (int langId : pairs.keySet()) {
-				sb.append("Language ").append(langId).append(" total: ");
+				sb.append("Language ").append(langId).append(" pairs: ");
 
 				LinkedList<WordPair> langPairs = pairs.get(langId);
 				sb.append(langPairs == null ? "0" : langPairs.size()).append("\n");
@@ -212,7 +206,7 @@ public class WordPairStore {
 			throw new RuntimeException(e);
 		}
 
-		sb.append("Slowest add time: ").append(slowestAddTime).append(" ms\n");
+		sb.append("\nSlowest add time: ").append(slowestAddTime).append(" ms\n");
 		sb.append("Slowest search time: ").append(slowestSearchTime).append(" ms\n");
 		sb.append("Slowest save time: ").append(slowestSaveTime).append(" ms\n");
 		sb.append("Slowest load time: ").append(slowestLoadTime).append(" ms\n");
