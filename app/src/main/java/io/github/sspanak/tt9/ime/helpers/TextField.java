@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.util.Text;
 public class TextField extends InputField {
 	private CharSequence composingText = "";
 	private final boolean isComposingSupported;
+	private final boolean isNonText;
 
 
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
@@ -29,6 +30,7 @@ public class TextField extends InputField {
 
 		InputType inputType = new InputType(inputConnection, inputField);
 		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk();
+		isNonText = !inputType.isText();
 	}
 
 
@@ -150,16 +152,29 @@ public class TextField extends InputField {
 
 
 	/**
-	 * Deletes one character by emulating a backspace key event (useful for deleting emoji and Unicode
-	 * characters); Or deletes a region of text at once (faster, but may leave half a surrogate pair).
+	 * Deletes one or more characters, by using the most appropriate method for the current input field.
+	 * It can either send a delete key event to delete a single character or use the faster
+	 * "deleteSurroundingText()" to delete a region of text or a Unicode character.
 	 */
 	public void deleteChars(int numberOfChars) {
-		if (numberOfChars == 1) {
-			connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-			connection.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL));
-		} else if (numberOfChars > 1) {
-			connection.deleteSurroundingText(numberOfChars, 0);
+		if (numberOfChars < 0 || connection == null) {
+			return;
 		}
+
+		if (!isNonText) {
+			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+			return;
+		}
+
+		if (numberOfChars == 1) {
+			// if we are about to delete a surrogate pair, make sure to delete both Java chars
+			String before = getStringBeforeCursor(2);
+			if (before.length() > 1 && Character.isSurrogatePair(before.charAt(0), before.charAt(1))) {
+				numberOfChars = 2;
+			}
+		}
+
+		connection.deleteSurroundingText(numberOfChars, 0);
 	}
 
 
