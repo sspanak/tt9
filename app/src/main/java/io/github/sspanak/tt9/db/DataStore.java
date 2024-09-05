@@ -98,13 +98,13 @@ public class DataStore {
 	}
 
 
-	public static void addWordPair(Language language, String word1, String word2) {
-		pairs.add(language, word1, word2);
+	public static void addWordPair(Language language, String word1, String word2, String sequence2) {
+		pairs.add(language, word1, word2, sequence2);
 	}
 
 
-	public static boolean containsWordPair(Language language, String word1, String word2) {
-		return pairs.contains(language, word1, word2);
+	public static String getWord2(Language language, String word1, String sequence2) {
+		return pairs.getWord2(language, word1, sequence2);
 	}
 
 

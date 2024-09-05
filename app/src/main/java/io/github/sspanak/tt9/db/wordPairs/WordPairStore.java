@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.db.wordPairs;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class WordPairStore {
 
 	// data
 	private final SQLiteOpener sqlite;
-	private final ConcurrentHashMap<Integer, HashMap<WordPair, Integer>> pairs = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<Integer, HashMap<WordPair, WordPair>> pairs = new ConcurrentHashMap<>();
 
 	// timing
 	private long slowestAddTime = 0;
@@ -37,78 +38,31 @@ public class WordPairStore {
 		sqlite = SQLiteOpener.getInstance(context);
 	}
 
-	public void add(Language language, String word1, String word2) {
+
+	public void add(Language language, String word1, String word2, String sequence2) {
 		String ADD_TIMER_NAME = "word_pair_add";
 		Timer.start(ADD_TIMER_NAME);
 
-		WordPair pair = new WordPair(language, word1, word2);
+		WordPair pair = new WordPair(language, word1, word2, sequence2);
 		if (pair.isInvalid()) {
 			return;
 		}
 
-		HashMap<WordPair, Integer> languagePairs = pairs.get(language.getId());
+		HashMap<WordPair, WordPair> languagePairs = pairs.get(language.getId());
 		if (languagePairs == null) {
 			languagePairs = new HashMap<>();
 			pairs.put(language.getId(), languagePairs);
 		}
 
-		Integer index = languagePairs.get(pair);
-
-		if (index == null) {
-			removeLast(languagePairs);
-			addMiddle(languagePairs, pair);
-		} else {
-			removePair(languagePairs, index);
-			addFirst(languagePairs, pair);
+		if (languagePairs.size() >= SettingsStore.WORD_PAIR_MAX) {
+			languagePairs.remove(languagePairs.keySet().iterator().next());
 		}
 
-//		Logger.d("WordPairStore", "All pairs: " + languagePairs.keySet());
+		languagePairs.put(pair, pair);
 
 		slowestAddTime = Math.max(slowestAddTime, Timer.stop(ADD_TIMER_NAME));
 	}
 
-	private void addFirst(HashMap<WordPair, Integer> languagePairs, WordPair pair) {
-		languagePairs.put(pair, 0);
-		shiftIndices(languagePairs, 1);
-	}
-
-	private void addMiddle(HashMap<WordPair, Integer> languagePairs, WordPair pair) {
-		int middleIndex = Math.min((int) Math.floor(languagePairs.size() / 2.0), MIDDLE_PAIR);
-		languagePairs.put(pair, middleIndex);
-		shiftIndices(languagePairs, middleIndex + 1);
-	}
-
-	private void removeLast(HashMap<WordPair, Integer> languagePairs) {
-		if (languagePairs.size() > SettingsStore.WORD_PAIR_MAX) {
-			WordPair lastPair = null;
-			int lastIndex = -1;
-			for (Map.Entry<WordPair, Integer> entry : languagePairs.entrySet()) {
-				if (entry.getValue() > lastIndex) {
-					lastIndex = entry.getValue();
-					lastPair = entry.getKey();
-				}
-			}
-			if (lastPair != null) {
-				languagePairs.remove(lastPair);
-			}
-		}
-	}
-
-	private void removePair(HashMap<WordPair, Integer> languagePairs, int index) {
-		shiftIndices(languagePairs, index, -1);
-	}
-
-	private void shiftIndices(HashMap<WordPair, Integer> languagePairs, int startIndex) {
-		shiftIndices(languagePairs, startIndex, 1);
-	}
-
-	private void shiftIndices(HashMap<WordPair, Integer> languagePairs, int startIndex, int increment) {
-		for (Map.Entry<WordPair, Integer> entry : languagePairs.entrySet()) {
-			if (entry.getValue() >= startIndex) {
-				languagePairs.put(entry.getKey(), entry.getValue() + increment);
-			}
-		}
-	}
 
 	public void clear() {
 		pairs.clear();
@@ -118,34 +72,34 @@ public class WordPairStore {
 		slowestLoadTime = 0;
 	}
 
-	public boolean contains(Language language, String word1, String word2) {
+
+	@Nullable
+	public String getWord2(Language language, String word1, String sequence2) {
 		String SEARCH_TIMER_NAME = "word_pair_search";
 		Timer.start(SEARCH_TIMER_NAME);
 
-		HashMap<WordPair, Integer> languagePairs = pairs.get(language.getId());
-		WordPair pair = new WordPair(language, word1, word2);
+		HashMap<WordPair, WordPair> languagePairs = pairs.get(language.getId());
 
-		if (languagePairs == null || pair.isInvalid()) {
+		if (languagePairs == null) {
 			slowestSearchTime = Math.max(slowestSearchTime, Timer.stop(SEARCH_TIMER_NAME));
-			return false;
+			return null;
 		}
 
-		boolean pairExists = languagePairs.containsKey(pair);
-
-//		Logger.d("WordPairStore", "Pair " + pair + " exists: " + pairExists + " is valid: " + !pair.isInvalid());
+		WordPair pair = languagePairs.get(new WordPair(language, word1, null, sequence2));
+		String word2 = pair == null || pair.getWord2().isEmpty() ? null : pair.getWord2();
 
 		slowestSearchTime = Math.max(slowestSearchTime, Timer.stop(SEARCH_TIMER_NAME));
-		return pairExists;
+		return word2;
 	}
 
-	public void save() {
 
+	public void save() {
 		String SAVE_TIMER_NAME = "word_pair_save";
 		Timer.start(SAVE_TIMER_NAME);
 
-		for (Map.Entry<Integer, HashMap<WordPair, Integer>> entry : pairs.entrySet()) {
+		for (Map.Entry<Integer, HashMap<WordPair, WordPair>> entry : pairs.entrySet()) {
 			int langId = entry.getKey();
-			HashMap<WordPair, Integer> languagePairs = entry.getValue();
+			HashMap<WordPair, WordPair> languagePairs = entry.getValue();
 
 			ArrayList<WordPair> pairsToSave = new ArrayList<>(languagePairs.keySet());
 
@@ -178,7 +132,7 @@ public class WordPairStore {
 
 		int totalPairs = 0;
 		for (Language language : languages) {
-			HashMap<WordPair, Integer> wordPairs = pairs.get(language.getId());
+			HashMap<WordPair, WordPair> wordPairs = pairs.get(language.getId());
 			if (wordPairs == null) {
 				wordPairs = new HashMap<>();
 				pairs.put(language.getId(), wordPairs);
@@ -191,7 +145,7 @@ public class WordPairStore {
 			ArrayList<WordPair> dbPairs = new ReadOps().getWordPairs(sqlite.getDb(), language);
 			int end = Math.min(dbPairs.size(), SettingsStore.WORD_PAIR_MAX);
 			for (int i = 0; i < end; i++, totalPairs++) {
-				wordPairs.put(dbPairs.get(i), i);
+				wordPairs.put(dbPairs.get(i), dbPairs.get(i));
 			}
 
 			Logger.d(getClass().getSimpleName(), "Loaded " + wordPairs.size() + " word pairs for language: " + language.getId());
@@ -202,15 +156,16 @@ public class WordPairStore {
 		Logger.d(getClass().getSimpleName(), "Loaded " + totalPairs + " word pairs in " + currentTime + " ms");
 	}
 
+
 	@NonNull
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
 		try {
-			for (Map.Entry<Integer, HashMap<WordPair, Integer>> entry : pairs.entrySet()) {
+			for (Map.Entry<Integer, HashMap<WordPair, WordPair>> entry : pairs.entrySet()) {
 				int langId = entry.getKey();
-				HashMap<WordPair, Integer> languagePairs = entry.getValue();
+				HashMap<WordPair, WordPair> languagePairs = entry.getValue();
 
 				sb.append("Language ").append(langId).append(" pairs: ");
 				sb.append(languagePairs.size()).append("\n");

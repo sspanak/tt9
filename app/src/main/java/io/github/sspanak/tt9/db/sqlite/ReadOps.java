@@ -293,13 +293,12 @@ public class ReadOps {
 
 	@NonNull public ArrayList<WordPair> getWordPairs(@NonNull SQLiteDatabase db, @NonNull Language language) {
 
-		String[] select = new String[]{"word1", "word2"};
-		String orderBy = "frequency";
+		String[] select = new String[]{"word1", "word2", "sequence2"};
 		ArrayList<WordPair> pairs = new ArrayList<>();
 
-		try (Cursor cursor = db.query(Tables.getWordPairs(language.getId()), select, null, null, null, null, orderBy)) {
+		try (Cursor cursor = db.query(Tables.getWordPairs(language.getId()), select, null, null, null, null, null)) {
 			while (cursor.moveToNext()) {
-				pairs.add(new WordPair(language, cursor.getString(0), cursor.getString(1)));
+				pairs.add(new WordPair(language, cursor.getString(0), cursor.getString(1), cursor.getString(2)));
 			}
 		}
 

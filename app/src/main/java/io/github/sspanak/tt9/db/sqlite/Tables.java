@@ -107,7 +107,7 @@ public class Tables {
 		return "CREATE TABLE IF NOT EXISTS " + getWordPairs(langId) + " (" +
 			"word1 TEXT NOT NULL, " +
 			"word2 TEXT NOT NULL, " +
-			"frequency INTEGER NOT NULL DEFAULT 0 " +
+			"sequence2 TEXT NOT NULL " +
 		")";
 	}
 

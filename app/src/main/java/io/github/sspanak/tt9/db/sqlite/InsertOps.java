@@ -82,15 +82,8 @@ public class InsertOps {
 	}
 
 	public static void insertWordPairs(@NonNull SQLiteDatabase db, int langId, List<WordPair> pairs) {
-		if (pairs == null || pairs.isEmpty() || langId <= 0) {
-			return;
-		}
-
-		int i = 0;
-		for (WordPair pair : pairs) {
-			ContentValues values = pair.toContentValues();
-			values.put("frequency", i++);
-			db.insert(Tables.getWordPairs(langId), null, values);
+		for (int i = 0; pairs != null && i < pairs.size() && langId > 0; i++) {
+			db.insert(Tables.getWordPairs(langId), null, pairs.get(i).toContentValues());
 		}
 	}
 }

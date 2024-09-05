@@ -323,7 +323,7 @@ public class Predictions {
 			return;
 		}
 
-		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word);
+		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
 		if (!word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}
@@ -345,15 +345,15 @@ public class Predictions {
 		ArrayList<String> rearrangedWords = new ArrayList<>();
 		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
 
-		int morePopularIndex = -1;
-		for (int i = 0; i < words.size() && words.get(i).length() == digitSequence.length(); i++) {
-			if (DataStore.containsWordPair(language, penultimateWord, words.get(i))) {
-				lastEnforcedTopWord = words.get(i);
-				rearrangedWords.add(lastEnforcedTopWord);
-				morePopularIndex = i;
-				break;
-			}
+		String word = DataStore.getWord2(language, penultimateWord, digitSequence);
+		int morePopularIndex = word == null ? -1 : words.indexOf(word);
+
+		if (morePopularIndex == -1) {
+			return words;
 		}
+
+		lastEnforcedTopWord = word;
+		rearrangedWords.add(word);
 
 		for (int i = 0; i < words.size(); i++) {
 			if (i != morePopularIndex) {
