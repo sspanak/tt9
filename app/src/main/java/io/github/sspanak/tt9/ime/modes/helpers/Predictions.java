@@ -346,7 +346,7 @@ public class Predictions {
 		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
 
 		int morePopularIndex = -1;
-		for (int i = 1; i < words.size(); i++) {
+		for (int i = 0; i < words.size() && words.get(i).length() == digitSequence.length(); i++) {
 			if (DataStore.containsWordPair(language, penultimateWord, words.get(i))) {
 				lastEnforcedTopWord = words.get(i);
 				rearrangedWords.add(lastEnforcedTopWord);

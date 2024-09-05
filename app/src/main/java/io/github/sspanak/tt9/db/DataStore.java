@@ -108,8 +108,8 @@ public class DataStore {
 	}
 
 
-	public static void saveWordPairs() {
-		new Thread(() -> pairs.save()).start();
+	public static void saveWordPairs(@NonNull Context context) {
+		new Thread(() -> pairs.save(context)).start();
 	}
 
 
