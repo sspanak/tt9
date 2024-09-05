@@ -21,8 +21,6 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class WordPairStore {
-	private final int MIDDLE_PAIR = SettingsStore.WORD_PAIR_MAX / 2;
-
 	// data
 	private final SQLiteOpener sqlite;
 	private final ConcurrentHashMap<Integer, HashMap<WordPair, WordPair>> pairs = new ConcurrentHashMap<>();
@@ -64,7 +62,7 @@ public class WordPairStore {
 	}
 
 
-	public void clear() {
+	public void clearCache() {
 		pairs.clear();
 		slowestAddTime = 0;
 		slowestSearchTime = 0;
@@ -150,6 +148,18 @@ public class WordPairStore {
 		long currentTime = Timer.stop(LOAD_TIMER_NAME);
 		slowestLoadTime = Math.max(slowestLoadTime, currentTime);
 		Logger.d(getClass().getSimpleName(), "Loaded " + totalPairs + " word pairs in " + currentTime + " ms");
+	}
+
+
+	public void delete(@NonNull ArrayList<Language> languages) {
+		sqlite.beginTransaction();
+		for (Language language : languages) {
+			DeleteOps.deleteWordPairs(sqlite.getDb(), language.getId());
+		}
+		sqlite.finishTransaction();
+
+		slowestLoadTime = 0;
+		slowestSaveTime = 0;
 	}
 
 

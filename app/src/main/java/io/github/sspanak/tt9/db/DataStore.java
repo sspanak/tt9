@@ -118,8 +118,15 @@ public class DataStore {
 	}
 
 
-	public static void clearWordPairStats() {
-		pairs.clear();
+	public static void clearWordPairCache() {
+		pairs.clearCache();
+	}
+
+	public static void deleteWordPairs(@NonNull ArrayList<Language> languages, @NonNull Runnable onDeleted) {
+		new Thread(() -> {
+			pairs.delete(languages);
+			onDeleted.run();
+		}).start();
 	}
 
 

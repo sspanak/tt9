@@ -2,30 +2,32 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
 
 	<Preference
-		app:key="pref_slow_queries_reset_stats"
-		app:title="Clear Memory Cache" />
+		app:key="slow_queries_clear_cache"
+		app:title="Clear Query Cache" />
 
-	<PreferenceCategory
-		app:title="Summary"
-		app:singleLineTitle="true">
-		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
-			app:key="summary_container"
-			app:summary="--">
-		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
-	</PreferenceCategory>
+	<Preference
+		app:key="word_pair_clear_cache"
+		app:title="Clear Word Pair Memory Cache" />
 
-	<PreferenceCategory
-		app:title="Word Pairs"
-		app:singleLineTitle="true">
+	<Preference
+		app:key="word_pair_clear_db"
+		app:title="Clear Word Pair DB" />
+
+	<PreferenceCategory app:title="Word Pair Stats" app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="word_pairs_container"
 			app:summary="--">
 		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
 	</PreferenceCategory>
 
-	<PreferenceCategory
-		app:title="Slow Queries"
-		app:singleLineTitle="true">
+	<PreferenceCategory app:title="DB Query Stats" app:singleLineTitle="true">
+		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
+			app:key="summary_container"
+			app:summary="--">
+		</io.github.sspanak.tt9.preferences.custom.PreferencePlainText>
+	</PreferenceCategory>
+
+	<PreferenceCategory app:title="Slow Queries" app:singleLineTitle="true">
 		<io.github.sspanak.tt9.preferences.custom.PreferencePlainText
 			app:key="query_list_container"
 			app:summary="--">
