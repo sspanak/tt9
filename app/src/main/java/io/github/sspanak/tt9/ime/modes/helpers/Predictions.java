@@ -338,6 +338,8 @@ public class Predictions {
 	 * not suggest the textonyms "am" or "an" twice (depending on which has the highest frequency).
 	 */
 	private ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
+		lastEnforcedTopWord = "";
+
 		if (!settings.getPredictWordPairs() || words.size() < 2) {
 			return words;
 		}
@@ -347,7 +349,6 @@ public class Predictions {
 
 		String word = DataStore.getWord2(language, penultimateWord, digitSequence);
 		int morePopularIndex = word == null ? -1 : words.indexOf(word);
-
 		if (morePopularIndex == -1) {
 			return words;
 		}
