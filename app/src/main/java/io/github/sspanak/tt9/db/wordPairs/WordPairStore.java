@@ -101,11 +101,9 @@ public class WordPairStore {
 			int langId = entry.getKey();
 			HashMap<WordPair, WordPair> languagePairs = entry.getValue();
 
-			ArrayList<WordPair> pairsToSave = new ArrayList<>(languagePairs.keySet());
-
 			sqlite.beginTransaction();
 			DeleteOps.deleteWordPairs(sqlite.getDb(), langId);
-			InsertOps.insertWordPairs(sqlite.getDb(), langId, pairsToSave);
+			InsertOps.insertWordPairs(sqlite.getDb(), langId, languagePairs.values());
 			sqlite.finishTransaction();
 		}
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteStatement;
 
 import androidx.annotation.NonNull;
 
-import java.util.List;
+import java.util.Collection;
 
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordPosition;
@@ -81,9 +81,13 @@ public class InsertOps {
 		);
 	}
 
-	public static void insertWordPairs(@NonNull SQLiteDatabase db, int langId, List<WordPair> pairs) {
-		for (int i = 0; pairs != null && i < pairs.size() && langId > 0; i++) {
-			db.insert(Tables.getWordPairs(langId), null, pairs.get(i).toContentValues());
+	public static void insertWordPairs(@NonNull SQLiteDatabase db, int langId, Collection<WordPair> pairs) {
+		if (langId <= 0 || pairs == null || pairs.isEmpty()) {
+			return;
+		}
+
+		for (WordPair pair : pairs) {
+			db.insert(Tables.getWordPairs(langId), null, pair.toContentValues());
 		}
 	}
 }
