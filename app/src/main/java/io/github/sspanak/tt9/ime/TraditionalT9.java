@@ -173,7 +173,7 @@ public class TraditionalT9 extends MainViewHandler {
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
 			() -> {
-				DataStore.saveWordPairs(this);
+				DataStore.saveWordPairs();
 				if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext();
 			},
 			SettingsStore.WORD_BACKGROUND_TASKS_DELAY

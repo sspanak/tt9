@@ -3,9 +3,7 @@ package io.github.sspanak.tt9.db.wordPairs;
 import android.content.ContentValues;
 
 import androidx.annotation.NonNull;
-
-import java.util.ArrayList;
-import java.util.Set;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -15,27 +13,7 @@ public class WordPair {
 	private final Language language;
 	private final String word1;
 	private final String word2;
-
-	public static ArrayList<WordPair> fromPairStringSet(Language language, Set<String> pairStrings) {
-		ArrayList<WordPair> wordPairs = new ArrayList<>();
-		for (String pairString : pairStrings) {
-			wordPairs.add(new WordPair(language, pairString));
-		}
-		return wordPairs;
-	}
-
-	WordPair(Language language, String pairString) {
-		String[] words = pairString.split(",");
-		if (words.length == 2) {
-			this.language = language;
-			word1 = words[0].replace("(", "").replace(")", "").trim().toLowerCase(language.getLocale());
-			word2 = words[1].replace("(", "").replace(")", "").trim().toLowerCase(language.getLocale());
-		} else {
-			this.language = null;
-			word1 = null;
-			word2 = null;
-		}
-	}
+	private Integer hash = null;
 
 	public WordPair(Language language, String word1, String word2) {
 		this.language = language;
@@ -58,6 +36,20 @@ public class WordPair {
 		values.put("word1", word1);
 		values.put("word2", word2);
 		return values;
+	}
+
+	@Override
+	public int hashCode() {
+		if (hash == null) {
+			hash = word1 != null && word2 != null ? toString().hashCode() : 0;
+		}
+
+		return hash;
+	}
+
+	@Override
+	public boolean equals(@Nullable Object obj) {
+		return obj instanceof WordPair && obj.hashCode() == hashCode();
 	}
 
 	@NonNull
