@@ -134,16 +134,14 @@ public class WordPairStore {
 			if (wordPairs == null) {
 				wordPairs = new HashMap<>();
 				pairs.put(language.getId(), wordPairs);
-			}
-
-			if (!wordPairs.isEmpty()) {
+			} else if (!wordPairs.isEmpty()) {
 				continue;
 			}
 
-			ArrayList<WordPair> dbPairs = new ReadOps().getWordPairs(sqlite.getDb(), language);
-			int end = Math.min(dbPairs.size(), SettingsStore.WORD_PAIR_MAX);
-			for (int i = 0; i < end; i++, totalPairs++) {
-				wordPairs.put(dbPairs.get(i), dbPairs.get(i));
+			int max = SettingsStore.WORD_PAIR_MAX - wordPairs.size();
+			ArrayList<WordPair> dbPairs = new ReadOps().getWordPairs(sqlite.getDb(), language, max);
+			for (WordPair pair : dbPairs) {
+				wordPairs.put(pair, pair);
 			}
 
 			Logger.d(getClass().getSimpleName(), "Loaded " + wordPairs.size() + " word pairs for language: " + language.getId());
