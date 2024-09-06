@@ -21,6 +21,12 @@
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
+		android:key="pref_predict_word_pairs"
+		android:summary="@string/pref_predict_word_pairs_summary"
+		android:title="@string/pref_predict_word_pairs" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
 		android:key="backspace_recomposing"
 		android:summary="@string/pref_backspace_recomposing_summary"
 		android:title="@string/pref_backspace_recomposing" />

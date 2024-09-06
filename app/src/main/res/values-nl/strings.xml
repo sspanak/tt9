@@ -40,6 +40,8 @@
 	<string name="pref_backspace_recomposing">Woordherbewerking</string>
 	<string name="pref_backspace_recomposing_summary">Breng de suggestielijst terug door Backspace te drukken aan het einde van een woord.\n(Niet ondersteund in sommige apps)</string>
 	<string name="pref_choose_languages">Talen</string>
+	<string name="pref_predict_word_pairs">Woordenparen leren</string>
+	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.\n(Veroorzaakt minimale vertraging op apparaten met &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>

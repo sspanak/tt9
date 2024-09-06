@@ -28,6 +28,8 @@
 	<string name="pref_backspace_recomposing_summary">Вернуть список предложений, нажав клавишу Backspace в конце слова.\n(Не поддерживается в некоторых приложениях)</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
+	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
+	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.\n(Вызывает минимальную задержку на устройствах с &lt; 2 ГБ RAM)</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>

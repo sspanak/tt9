@@ -64,6 +64,9 @@
 	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Auto</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
+	<string name="pref_font_size">Settings Font Size</string>
+	<string name="pref_font_size_default">Default</string>
+	<string name="pref_font_size_large">Large</string>
 	<string name="pref_hack_always_on_top">Always on Top</string>
 	<string name="pref_hack_always_on_top_summary">Prevent other apps from covering %1$s or pushing it off the screen.</string>
 	<string name="pref_hack_google_chat">Send messages with \"OK\" in Google Chat</string>
@@ -80,9 +83,8 @@
 	<string name="pref_layout_tray">Suggestion list only</string>
 	<string name="pref_numpad_alignment">Alignment in Landscape Mode</string>
 	<string name="pref_numpad_key_height">On-screen Key Size</string>
-	<string name="pref_font_size">Settings Font Size</string>
-	<string name="pref_font_size_default">Default</string>
-	<string name="pref_font_size_large">Large</string>
+	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
+	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.\n(Causes minimal lag on devices with &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>

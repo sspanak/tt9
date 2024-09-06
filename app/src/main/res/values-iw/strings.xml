@@ -54,6 +54,8 @@
 	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי.</string>
 	<string name="pref_help">עזרה</string>
 
+	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
+	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.\n(גורם לפיגור מינימלי במכשירים עם פחות מ-2GB RAM)</string>
 	<string name="pref_status_icon">סמל מצב</string>
 	<string name="pref_status_icon_summary">הצגת סמל כאשר קלט המקלדת פעיל.</string>
 	<string name="pref_upside_down_keys">להפוך את סדר המקשים</string>

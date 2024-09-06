@@ -44,6 +44,8 @@
 	<string name="pref_backspace_recomposing_summary">Riportare l\'elenco dei suggerimenti premendo Backspace alla fine di una parola.\n(Non supportato in alcune app)</string>
 	<string name="pref_choose_languages">Lingue</string>
 
+	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
+	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.\n(Provoca un leggero ritardo su dispositivi con &lt; 2GB di RAM)</string>
 	<string name="pref_status_icon">Icona di stato</string>
 	<string name="pref_status_icon_summary">Mostrare un\'icona quando la digitazione è attiva.</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>

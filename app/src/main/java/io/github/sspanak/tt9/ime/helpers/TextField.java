@@ -11,6 +11,8 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -124,11 +126,12 @@ public class TextField extends InputField {
 		}
 
 		int endIndex = before.length();
+		ArrayList<String> punctuation = language.getKeyCharacters(1);
 
 		for (int i = before.length() - 1; i >= 0; i--) {
 			char currentLetter = before.charAt(i);
 
-			if (stopAtPunctuation && language.getKeyCharacters(1).contains(currentLetter + "")) {
+			if (stopAtPunctuation && punctuation.contains(String.valueOf(currentLetter))) {
 				return "";
 			}
 
@@ -137,7 +140,7 @@ public class TextField extends InputField {
 				&& !(currentLetter == '\'' && (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)))
 			) {
 				if (skipWords-- <= 0 || i == 0) {
-					return before.substring(i + 1, endIndex);
+					return i + 1 >= endIndex ? "" : before.substring(i + 1, endIndex);
 				} else {
 					endIndex = i;
 				}

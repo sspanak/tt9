@@ -27,6 +27,8 @@
 	<string name="pref_backspace_recomposing_summary">Връщай списъка с предложения при натискане на Backspace на края на дума.\n(Не работи в някои приложения.)</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
+	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
+	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.\n(Причинява минимално забавяне на устройства с &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>

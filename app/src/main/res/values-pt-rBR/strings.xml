@@ -55,6 +55,8 @@
 	<string name="pref_haptic_feedback_summary">Vibrar ao pressionar uma tecla virtual.</string>
 	<string name="pref_help">Ajuda</string>
 
+	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
+	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.\n(Causa atraso mínimo em dispositivos com &lt; 2 GB de RAM)</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>

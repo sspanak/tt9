@@ -50,6 +50,8 @@
 	<string name="dictionary_truncate_title">Borrar todos</string>
 	<string name="dictionary_truncate_unselected">Borrar no seleccionados</string>
 	<string name="dictionary_truncated">Diccionario eliminado con éxito.</string>
+	<string name="pref_predict_word_pairs">Aprender pares de palabras</string>
+	<string name="pref_predict_word_pairs_summary">Recordar frases de uso común para mejorar las sugerencias de palabras.\n(Causa retraso mínimo en dispositivos con &lt; 2 GB de RAM)</string>
 	<string name="pref_status_icon">Icono de estado</string>
 	<string name="pref_status_icon_summary">Mostrar un icono cuando la escritura esté activa.</string>
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
