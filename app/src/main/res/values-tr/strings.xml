@@ -42,6 +42,8 @@
 	<string name="pref_backspace_recomposing_summary">Kelimenin sonunda Geri tuşuna basarak öneri listesini geri getirmek.\n(Bazı uygulamalarda desteklenmez)</string>
 	<string name="pref_choose_languages">Diller</string>
 
+	<string name="pref_predict_word_pairs">Kelime çiftlerini öğren</string>
+	<string name="pref_predict_word_pairs_summary">Öneri doğruluğunu artırmak için sık kullanılan ifadeleri hatırla.\n(2 GB RAM\'den az cihazlarda minimum gecikmeye neden olur)</string>
 	<string name="pref_status_icon">Durum</string>
 	<string name="pref_status_icon_summary">Klavye girişi etkin olduğunda bir simge göster.</string>
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>

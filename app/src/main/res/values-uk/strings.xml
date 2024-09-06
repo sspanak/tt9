@@ -67,6 +67,8 @@
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
 
+	<string name="pref_predict_word_pairs">Запам’ятовувати пари слів</string>
+	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів.\n(Спричиняє мінімальну затримку на пристроях з &lt; 2 ГБ RAM)</string>
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
