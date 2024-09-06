@@ -7,7 +7,7 @@ import android.inputmethodservice.InputMethodService;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -47,7 +47,7 @@ public class AddWordDialog extends PopupDialog {
 
 	private void onOK() {
 		if (language != null) {
-			WordStoreAsync.put(this::onAddingFinished, language, word);
+			DataStore.put(this::onAddingFinished, language, word);
 		}
 	}
 

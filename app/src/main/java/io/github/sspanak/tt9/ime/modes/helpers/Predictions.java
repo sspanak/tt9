@@ -2,19 +2,24 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 public class Predictions {
+	private final SettingsStore settings;
+	private final TextField textField;
 
-	private Language language;
 	private String digitSequence;
-	private boolean isStemFuzzy;
-	private String stem;
 	private String inputWord;
+	private boolean isStemFuzzy;
+	private Language language;
+	private String stem;
+
+	private String lastEnforcedTopWord = "";
 
 	// async operations
 	private Runnable onWordsChanged = () -> {};
@@ -23,6 +28,11 @@ public class Predictions {
 	private boolean areThereDbWords = false;
 	private boolean containsGeneratedWords = false;
 	private ArrayList<String> words = new ArrayList<>();
+
+	public Predictions(SettingsStore settings, TextField textField) {
+		this.settings = settings;
+		this.textField = textField;
+	}
 
 
 	public Predictions setLanguage(Language language) {
@@ -69,31 +79,6 @@ public class Predictions {
 
 
 	/**
-	 * suggestStem
-	 * Add the current stem filter to the predictions list, when it has length of X and
-	 * the user has pressed X keys (otherwise, it makes no sense to add it).
-	 */
-	private void suggestStem() {
-		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
-			words.add(stem);
-		}
-	}
-
-
-	/**
-	 * suggestMissingWords
-	 * Takes a list of words and appends them to the words list, if they are missing.
-	 */
-	private void suggestMissingWords(ArrayList<String> newWords) {
-		for (String newWord : newWords) {
-			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
-				words.add(newWord);
-			}
-		}
-	}
-
-
-	/**
 	 * load
 	 * Queries the dictionary database for a list of words matching the current language and
 	 * sequence or loads the static ones.
@@ -109,7 +94,7 @@ public class Predictions {
 
 		boolean retryAllowed = !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE);
 
-		WordStoreAsync.getWords(
+		DataStore.getWords(
 			(dbWords) -> onDbWords(dbWords, retryAllowed),
 			language,
 			digitSequence,
@@ -121,7 +106,7 @@ public class Predictions {
 	}
 
 	private void loadWithoutLeadingPunctuation() {
-		WordStoreAsync.getWords(
+		DataStore.getWords(
 			(dbWords) -> {
 				char firstChar = inputWord.charAt(0);
 				for (int i = 0; i < dbWords.size(); i++) {
@@ -160,12 +145,38 @@ public class Predictions {
 			words.addAll(dbWords);
 		} else {
 			suggestStem();
+			dbWords = rearrangeByPairFrequency(dbWords);
 			suggestMissingWords(generatePossibleStemVariations(dbWords));
 			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
 			words = insertPunctuationCompletions(words);
 		}
 
 		onWordsChanged.run();
+	}
+
+
+	/**
+	 * suggestStem
+	 * Add the current stem filter to the predictions list, when it has length of X and
+	 * the user has pressed X keys (otherwise, it makes no sense to add it).
+	 */
+	private void suggestStem() {
+		if (!stem.isEmpty() && stem.length() == digitSequence.length()) {
+			words.add(stem);
+		}
+	}
+
+
+	/**
+	 * suggestMissingWords
+	 * Takes a list of words and appends them to the words list, if they are missing.
+	 */
+	private void suggestMissingWords(ArrayList<String> newWords) {
+		for (String newWord : newWords) {
+			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
+				words.add(newWord);
+			}
+		}
 	}
 
 
@@ -287,5 +298,70 @@ public class Predictions {
 
 		containsGeneratedWords = !variations.isEmpty();
 		return variations;
+	}
+
+
+	/**
+	 * onAccept
+	 * This stores common word pairs, so they can be used in "rearrangeByPairFrequency()" method.
+	 * For example, if the user types "I am an apple", the word "am" will be suggested after "I",
+	 * and "an" after "am", even if "am" frequency was boosted right before typing "an". This both
+	 * prevents from suggesting the same word twice in row and makes the suggestions more intuitive
+	 * when there are many textonyms for a single sequence.
+	 */
+	public void onAccept(String word, String sequence) {
+		if (
+			!settings.getPredictWordPairs()
+			// If the accepted word is longer than the sequence, it is some different word, not a textonym
+			// of the fist suggestion. We don't need to store it.
+			|| word == null || digitSequence == null
+			|| word.length() != digitSequence.length()
+			// If the word is the first suggestion, we have already guessed it right, and it makes no
+			// sense to store it as a popular pair.
+			|| (!words.isEmpty() && words.get(0).equals(word))
+		) {
+			return;
+		}
+
+		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
+		if (!word.equals(lastEnforcedTopWord)) {
+			DataStore.makeTopWord(language, word, sequence);
+		}
+	}
+
+
+	/**
+	 * rearrangeByPairFrequency
+	 * Uses the last two words in the text field to rearrange the suggestions, so that the most popular
+	 * one in a pair comes first. This is useful for typing phrases, like "I am an apple". Since, in
+	 * "onAccept()", we have remembered the "am" comes after "I" and "an" comes after "am", we will
+	 * not suggest the textonyms "am" or "an" twice (depending on which has the highest frequency).
+	 */
+	private ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
+		lastEnforcedTopWord = "";
+
+		if (!settings.getPredictWordPairs() || words.size() < 2) {
+			return words;
+		}
+
+		ArrayList<String> rearrangedWords = new ArrayList<>();
+		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
+
+		String word = DataStore.getWord2(language, penultimateWord, digitSequence);
+		int morePopularIndex = word == null ? -1 : words.indexOf(word);
+		if (morePopularIndex == -1) {
+			return words;
+		}
+
+		lastEnforcedTopWord = word;
+		rearrangedWords.add(word);
+
+		for (int i = 0; i < words.size(); i++) {
+			if (i != morePopularIndex) {
+				rearrangedWords.add(words.get(i));
+			}
+		}
+
+		return rearrangedWords;
 	}
 }

@@ -25,4 +25,8 @@ public class DeleteOps {
 
 		db.delete(Tables.CUSTOM_WORDS, "ROWID IN (" + repeatingWords + ")", null);
 	}
+
+	public static void deleteWordPairs(@NonNull SQLiteDatabase db, int languageId) {
+		db.delete(Tables.getWordPairs(languageId), null, null);
+	}
 }

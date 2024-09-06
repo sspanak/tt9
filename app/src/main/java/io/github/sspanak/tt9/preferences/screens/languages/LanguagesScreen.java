@@ -8,10 +8,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DictionaryLoader;
 import io.github.sspanak.tt9.db.customWords.CustomWordsExporter;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.customWords.DictionaryExporter;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;

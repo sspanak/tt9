@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -62,7 +62,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 
 	private void onDeletionConfirmed() {
 		SettingsStore settings = new SettingsStore(getContext());
-		WordStoreAsync.deleteCustomWord(
+		DataStore.deleteCustomWord(
 			this::onWordDeleted,
 			LanguageCollection.getLanguage(getContext(), settings.getInputLanguage()),
 			word

@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.preferences.items.ItemTextInput;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -49,11 +49,11 @@ public class PreferenceSearchWords extends ItemTextInput {
 		if (onWords == null) {
 			Logger.w(LOG_TAG, "No handler set for the word change event.");
 		} else if (lastSearchTerm.isEmpty()) {
-			WordStoreAsync.countCustomWords(onTotalWords);
-			WordStoreAsync.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
+			DataStore.countCustomWords(onTotalWords);
+			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
 		} else {
-			WordStoreAsync.countCustomWords(onTotalWords);
-			WordStoreAsync.getCustomWords(onWords, lastSearchTerm, -1);
+			DataStore.countCustomWords(onTotalWords);
+			DataStore.getCustomWords(onWords, lastSearchTerm, -1);
 		}
 	}
 

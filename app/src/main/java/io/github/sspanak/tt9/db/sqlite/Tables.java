@@ -14,14 +14,16 @@ public class Tables {
 	static final String CUSTOM_WORDS = "custom_words";
 	private static final String POSITIONS_TABLE_BASE_NAME = "word_positions_";
 	private static final String WORDS_TABLE_BASE_NAME = "words_";
+	private static final String WORD_PAIRS_TABLE_BASE_NAME = "word_pairs_";
 
 	static String getWords(int langId) { return WORDS_TABLE_BASE_NAME + langId; }
 	static String getWordPositions(int langId) { return POSITIONS_TABLE_BASE_NAME + langId; }
+	static String getWordPairs(int langId) { return WORD_PAIRS_TABLE_BASE_NAME + langId; }
 
 
 	static String[] getCreateQueries(ArrayList<Language> languages) {
 		int languageCount = languages.size();
-		String[] queries = new String[languageCount * 2 + 3];
+		String[] queries = new String[languageCount * 3 + 3];
 
 		queries[0] = createCustomWords();
 		queries[1] = createCustomWordsIndex();
@@ -31,6 +33,7 @@ public class Tables {
 		for (Language language : languages) {
 			queries[queryId++] = createWordsTable(language.getId());
 			queries[queryId++] = createWordPositions(language.getId());
+			queries[queryId++] = createWordPairs(language.getId());
 		}
 
 		return queries;
@@ -98,6 +101,14 @@ public class Tables {
 
 	private static String createCustomWordsIndex() {
 		return "CREATE INDEX IF NOT EXISTS idx_langId_sequence ON " + CUSTOM_WORDS + " (langId, sequence)";
+	}
+
+	private static String createWordPairs(int langId) {
+		return "CREATE TABLE IF NOT EXISTS " + getWordPairs(langId) + " (" +
+			"word1 TEXT NOT NULL, " +
+			"word2 TEXT NOT NULL, " +
+			"sequence2 TEXT NOT NULL " +
+		")";
 	}
 
 	private static String createLanguagesMeta() {

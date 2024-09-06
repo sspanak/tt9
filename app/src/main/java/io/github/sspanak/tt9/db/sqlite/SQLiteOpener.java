@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.BuildConfig;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.util.Logger;
 
 public class SQLiteOpener extends SQLiteOpenHelper {
 	private static final String LOG_TAG = SQLiteOpener.class.getSimpleName();
@@ -35,6 +35,19 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 		}
 
 		return self;
+	}
+
+
+	public static void destroyInstance() {
+		try {
+			if (self != null) {
+				self.close();
+			}
+		} catch (IllegalStateException e) {
+			Logger.e(LOG_TAG,  e.getMessage() + ". Ignoring database state and setting reference to NULL.");
+		} finally {
+			self = null;
+		}
 	}
 
 

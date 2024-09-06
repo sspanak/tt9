@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
@@ -46,13 +46,13 @@ public class ModePredictive extends InputMode {
 	private boolean isCursorDirectionForward = false;
 
 
-	ModePredictive(SettingsStore settings, InputType inputType, Language lang) {
+	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
 		changeLanguage(lang);
 		defaultTextCase();
 
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings);
-		predictions = new Predictions();
+		predictions = new Predictions(settings, textField);
 
 		this.settings = settings;
 
@@ -365,6 +365,7 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
+
 		// increment the frequency of the given word
 		try {
 			Language workingLanguage = TextTools.isGraphic(currentWord) ? new EmojiLanguage() : language;
@@ -373,13 +374,12 @@ public class ModePredictive extends InputMode {
 			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
 			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-				WordStoreAsync.makeTopWord(workingLanguage, currentWord, sequence);
+				predictions.onAccept(currentWord, sequence);
 			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
 	}
-
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {

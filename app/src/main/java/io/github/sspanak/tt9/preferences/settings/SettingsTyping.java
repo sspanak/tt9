@@ -29,5 +29,10 @@ class SettingsTyping extends SettingsInput {
 		// SharedPreferences return a corrupted string when using the real "\n"... :(
 		return  character.equals("\\n") ? "\n" : character;
 	}
+
+	public boolean getPredictWordPairs() {
+		return prefs.getBoolean("pref_predict_word_pairs", true);
+	}
+
 	public boolean getUpsideDownKeys() { return prefs.getBoolean("pref_upside_down_keys", false); }
 }

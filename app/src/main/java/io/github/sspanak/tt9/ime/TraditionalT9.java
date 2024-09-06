@@ -9,10 +9,11 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.db.DictionaryLoader;
-import io.github.sspanak.tt9.db.WordStoreAsync;
+import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
@@ -121,7 +122,7 @@ public class TraditionalT9 extends MainViewHandler {
 	protected void onInit() {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
-		WordStoreAsync.init(this);
+		DataStore.init(this);
 		super.onInit();
 	}
 
@@ -143,7 +144,13 @@ public class TraditionalT9 extends MainViewHandler {
 			initUi();
 		}
 
-		if (new InputType(connection, field).isNotUs(this)) {
+		InputType newInputType = new InputType(connection, field);
+
+		if (newInputType.isText()) {
+			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
+		}
+
+		if (newInputType.isNotUs(this)) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
@@ -165,8 +172,11 @@ public class TraditionalT9 extends MainViewHandler {
 
 		normalizationHandler.removeCallbacksAndMessages(null);
 		normalizationHandler.postDelayed(
-			() -> { if (!DictionaryLoader.getInstance(this).isRunning()) WordStoreAsync.normalizeNext(); },
-			SettingsStore.WORD_NORMALIZATION_DELAY
+			() -> {
+				DataStore.saveWordPairs();
+				if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext();
+			},
+			SettingsStore.WORD_BACKGROUND_TASKS_DELAY
 		);
 	}
 
@@ -188,7 +198,7 @@ public class TraditionalT9 extends MainViewHandler {
 		requestHideSelf(0);
 		onStop();
 		normalizationHandler.removeCallbacksAndMessages(null);
-		WordStoreAsync.destroy();
+		DataStore.destroy();
 		stopSelf();
 	}
 
