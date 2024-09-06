@@ -168,22 +168,22 @@ public class WordPairStore {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
-		try {
-			for (Map.Entry<Integer, HashMap<WordPair, WordPair>> entry : pairs.entrySet()) {
-				int langId = entry.getKey();
-				HashMap<WordPair, WordPair> languagePairs = entry.getValue();
+		for (Map.Entry<Integer, HashMap<WordPair, WordPair>> entry : pairs.entrySet()) {
+			int langId = entry.getKey();
+			HashMap<WordPair, WordPair> languagePairs = entry.getValue();
 
-				sb.append("Language ").append(langId).append(" pairs: ");
-				sb.append(languagePairs.size()).append("\n");
-			}
-		} catch (Exception e) {
-			throw new RuntimeException(e);
+			sb.append("Language ").append(langId).append(": ");
+			sb.append(languagePairs.size()).append("\n");
 		}
 
-		sb.append("\nSlowest add one time: ").append(slowestAddTime).append(" ms\n");
-		sb.append("Slowest search one time: ").append(slowestSearchTime).append(" ms\n");
-		sb.append("Slowest save all time: ").append(slowestSaveTime).append(" ms\n");
-		sb.append("Slowest load all time: ").append(slowestLoadTime).append(" ms\n");
+		if (sb.length() == 0) {
+			sb.append("No word pairs.\n");
+		} else {
+			sb.append("\nSlowest add-one: ").append(slowestAddTime).append(" ms\n");
+			sb.append("Slowest search-one: ").append(slowestSearchTime).append(" ms\n");
+			sb.append("Slowest save-all: ").append(slowestSaveTime).append(" ms\n");
+			sb.append("Slowest load-all: ").append(slowestLoadTime).append(" ms\n");
+		}
 
 		return sb.toString();
 	}
