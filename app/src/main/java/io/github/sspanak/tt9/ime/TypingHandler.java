@@ -20,6 +20,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
 
@@ -109,7 +110,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	@Override
-	public boolean onBackspace(boolean hold) {
+	public boolean onBackspace(int repeat) {
 		// Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
 		if (mInputMode.isPassthrough()) {
@@ -124,17 +125,21 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		resetKeyRepeat();
 
-		if (!hold && mInputMode.onBackspace()) {
+		if (settings.getBackspaceAcceleration() && repeat > 0 && repeat % SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE != 0) {
+			return true;
+		}
+
+		if (repeat == 0 && mInputMode.onBackspace()) {
 			getSuggestions();
 		} else {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
 
-			int prevChars = hold ? Math.max(textField.getPaddedWordBeforeCursorLength(), 1) : 1;
-			textField.deleteChars(prevChars);
+			int charsToDelete = settings.getBackspaceAcceleration() && repeat > 0 ? Math.max(textField.getPaddedWordBeforeCursorLength(), 1) : 1;
+			textField.deleteChars(charsToDelete);
 		}
 
-		if (settings.getBackspaceRecomposing() && !hold && suggestionOps.isEmpty()) {
+		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty()) {
 			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0, false);
 			if (mInputMode.recompose(previousWord) && textField.recompose(previousWord)) {
 				getSuggestions();
