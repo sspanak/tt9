@@ -63,7 +63,7 @@ static convertHeaders(markdown) {
             }
 
             def header = line.replaceAll("^#+", "").trim()
-            def anchor = header.toLowerCase().replaceAll("[^a-z0-9]+", "-")
+            def anchor = header.toLowerCase().replaceAll("[^a-z0-9]+", "-").replaceAll("[\\-]+\$", "")
 
             return "<h${headerNumber} id=\"${anchor}\">${header}</h${headerNumber}>"
         } else {
