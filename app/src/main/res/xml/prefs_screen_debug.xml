@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orderingFromXml="true">
+	app:orderingFromXml="true">
 	<Preference
-		android:key="pref_device_info"
-		android:title="Device Info" />
+		app:key="pref_device_info"
+		app:title="Device Info" />
 
 	<Preference
 		android:fragment="io.github.sspanak.tt9.preferences.screens.UsageStatsScreen"
 		android:key="pref_slow_queries"
 		android:title="@string/pref_category_usage_stats" />
 
-	<PreferenceCategory android:title="Hacks" android:singleLineTitle="true">
+	<PreferenceCategory app:title="Hacks" app:singleLineTitle="true">
 		<SwitchPreferenceCompat
-			android:key="pref_demo_mode"
-			android:title="Demo Mode" />
+			app:key="pref_demo_mode"
+			app:title="Demo Mode" />
 
 		<DropDownPreference
-			android:key="pref_input_handling_mode"
-			android:title="Keypad Handling Mode" />
+			app:key="pref_input_handling_mode"
+			app:title="Keypad Handling Mode" />
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="Logging" android:singleLineTitle="true">
+	<PreferenceCategory app:title="Logging" app:singleLineTitle="true">
 		<DropDownPreference
-			android:key="pref_log_level"
-			android:title="Log Level" />
+			app:key="pref_log_level"
+			app:title="Log Level" />
 
 		<SwitchPreferenceCompat
-			android:defaultValue="false"
-			android:key="pref_enable_system_logs"
-			android:title="System Logs" />
+			app:defaultValue="false"
+			app:key="pref_enable_system_logs"
+			app:title="System Logs" />
 
 		<Preference
-			android:key="pref_export_logcat"
-			android:title="Export Logs" />
+			app:key="pref_export_logcat"
+			app:title="Export Logs" />
 
 		<Preference
-			android:key="screen_logs"
-			android:title="Recent Log Messages...">
+			app:key="screen_logs"
+			app:title="Recent Log Messages...">
 			<intent
 				android:action="android.intent.action.VIEW"
 				android:targetPackage="io.github.sspanak.tt9"
