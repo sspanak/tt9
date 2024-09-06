@@ -8,7 +8,7 @@ public class SettingsStore extends SettingsUI {
 
 	/************* internal settings *************/
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20;
-	public static final int BACKSPACE_ACCELERATION_HARD_KEY_REPEAT_DEBOUNCE = 5;
+	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
 	public final static int CUSTOM_WORDS_IMPORT_MAX_LINES = 250;
 	public final static int CUSTOM_WORDS_MAX = 1000;
@@ -22,7 +22,6 @@ public class SettingsStore extends SettingsUI {
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
-	public final static int SOFT_KEY_BACKSPACE_ACCELERATION_REPEAT_DELAY = SOFT_KEY_REPEAT_DELAY * BACKSPACE_ACCELERATION_HARD_KEY_REPEAT_DEBOUNCE; // ms
 	public final static int SOFT_KEY_TITLE_SIZE = 18; // sp
 	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE = 0.55f;
 	public final static float SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE = 0.72f;

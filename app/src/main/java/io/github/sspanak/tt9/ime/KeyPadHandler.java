@@ -60,11 +60,7 @@ abstract class KeyPadHandler extends UiHandler {
 
 		// "backspace" key must repeat its function when held down, so we handle it in a special way
 		if (Key.isBackspace(settings, keyCode)) {
-			if (
-				(settings.getBackspaceAcceleration() && event.getRepeatCount() > 0 && event.getRepeatCount() % SettingsStore.BACKSPACE_ACCELERATION_HARD_KEY_REPEAT_DEBOUNCE == 0 && onBackspace(true))
-				|| (settings.getBackspaceAcceleration() && event.getRepeatCount() > 0)
-				|| onBackspace(false)
-			) {
+			if (onBackspace(event.getRepeatCount())) {
 				return Key.setHandled(KeyEvent.KEYCODE_DEL, true);
 			} else {
 				Key.setHandled(KeyEvent.KEYCODE_DEL, false);

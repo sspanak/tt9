@@ -124,17 +124,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			handleHold();
 			lastPressedKey = ignoreLastPressedKey ? -1 : getId();
 			repeatHandler.removeCallbacks(this::repeatOnLongPress);
-			repeatHandler.postDelayed(this::repeatOnLongPress, getLongPressRepeatDelay());
+			repeatHandler.postDelayed(this::repeatOnLongPress, SettingsStore.SOFT_KEY_REPEAT_DELAY);
 		}
-	}
-
-
-	/**
-	 * Returns the delay between repeated calls to "handleHold()" when the SoftKey is being held.
-	 * Used in "repeatOnLongPress()".
-	 */
-	protected int getLongPressRepeatDelay() {
-		return SettingsStore.SOFT_KEY_REPEAT_DELAY;
 	}
 
 
