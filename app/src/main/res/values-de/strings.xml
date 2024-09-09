@@ -39,10 +39,10 @@
 	<string name="pref_auto_capitals_after_newline">Automatische Großbuchstaben auf jeder Zeile</string>
 	<string name="pref_auto_capitals_after_newline_summary">Jede Zeile mit einem Großbuchstaben beginnen, auch wenn es mitten im Satz ist.</string>
 	<string name="pref_backspace_recomposing">Wortnachbearbeitung</string>
-	<string name="pref_backspace_recomposing_summary">Die Vorschlagsliste zurückbringen, indem Sie am Ende eines Wortes die Rücktaste drücken.\n(Nicht in allen Apps unterstützt)</string>
+	<string name="pref_backspace_recomposing_summary">Die Vorschlagsliste zurückbringen, indem Sie am Ende eines Wortes die Rücktaste drücken. (Nicht in allen Apps unterstützt)</string>
 	<string name="pref_choose_languages">Sprachen</string>
 	<string name="pref_predict_word_pairs">Wortpaare lernen</string>
-	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.\n(Verursacht minimale Verzögerung auf Geräten mit &lt; 2GB RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern. (Verursacht minimale Verzögerung auf Geräten mit &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
@@ -161,5 +161,5 @@
 	<string name="language_selection_search_placeholder">Nach Sprachen suchen</string>
 	<string name="language_selection_words">Wörter</string>
 	<string name="pref_backspace_acceleration">Schnelles Löschen</string>
-	<string name="pref_backspace_acceleration_summary">Ganze Wörter löschen, indem Sie die Rücktaste gedrückt halten.\n(Nicht in allen Apps unterstützt)</string>
+	<string name="pref_backspace_acceleration_summary">Ganze Wörter löschen, indem Sie die Rücktaste gedrückt halten. (Nicht in allen Apps unterstützt)</string>
 </resources>
