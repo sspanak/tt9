@@ -55,7 +55,7 @@
 	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
 	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
 	<string name="pref_backspace_acceleration">Fast Delete</string>
-	<string name="pref_backspace_acceleration_summary">Erase entire words by holding Backspace.\n(Not supported in some apps)</string>
+	<string name="pref_backspace_acceleration_summary">Erase entire words by holding Backspace. (Not supported in some apps)</string>
 	<string name="pref_backspace_recomposing">Word Re-Composition</string>
 	<string name="pref_backspace_recomposing_summary">Bring back the suggestion list by pressing Backspace at the end of a word. (Not supported in some apps)</string>
 	<string name="pref_choose_languages">Languages</string>
@@ -84,7 +84,7 @@
 	<string name="pref_numpad_alignment">Alignment in Landscape Mode</string>
 	<string name="pref_numpad_key_height">On-screen Key Size</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
-	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.\n(Causes minimal lag on devices with &lt; 2GB RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy. (Causes minimal lag on devices with &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>

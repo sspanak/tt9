@@ -25,11 +25,11 @@
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>
 	<string name="pref_backspace_recomposing">Редактирование слов</string>
-	<string name="pref_backspace_recomposing_summary">Вернуть список предложений, нажав клавишу Backspace в конце слова.\n(Не поддерживается в некоторых приложениях)</string>
+	<string name="pref_backspace_recomposing_summary">Вернуть список предложений, нажав клавишу Backspace в конце слова. (Не поддерживается в некоторых приложениях)</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
-	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.\n(Вызывает минимальную задержку на устройствах с &lt; 2 ГБ RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов. (Вызывает минимальную задержку на устройствах с &lt; 2 ГБ RAM)</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
@@ -171,5 +171,5 @@
 	<string name="language_selection_search_placeholder">Поиск языков</string>
 	<string name="language_selection_words">слов</string>
 	<string name="pref_backspace_acceleration">Быстрое удаление</string>
-	<string name="pref_backspace_acceleration_summary">Стирать целые слова, удерживая клавишу Backspace.\n(Не поддерживается в некоторых приложениях)</string>
+	<string name="pref_backspace_acceleration_summary">Стирать целые слова, удерживая клавишу Backspace. (Не поддерживается в некоторых приложениях)</string>
 </resources>

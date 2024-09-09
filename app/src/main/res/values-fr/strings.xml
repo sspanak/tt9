@@ -25,11 +25,11 @@
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>
 	<string name="pref_backspace_recomposing">Recomposition de mots</string>
-	<string name="pref_backspace_recomposing_summary">Ramener la liste de suggestions en appuyant sur Retour arrière à la fin d\'un mot.\n(Non pris en charge dans certaines applications)</string>
+	<string name="pref_backspace_recomposing_summary">Ramener la liste de suggestions en appuyant sur Retour arrière à la fin d\'un mot. (Non pris en charge dans certaines applications)</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
 	<string name="pref_predict_word_pairs">Mémoriser les paires de mots</string>
-	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions.\n(Cause un léger ralentissement sur les appareils avec &lt; 2GB de RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions. (Cause un léger ralentissement sur les appareils avec &lt; 2GB de RAM)</string>
 	<string name="pref_status_icon">Icône d\'état</string>
 	<string name="pref_status_icon_summary">Afficher une icône lorsque la saisie au clavier est active</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
@@ -169,5 +169,5 @@
 	<string name="language_selection_search_placeholder">Rechercher des langues</string>
 	<string name="language_selection_words">mots</string>
 	<string name="pref_backspace_acceleration">Suppression rapide</string>
-	<string name="pref_backspace_acceleration_summary">Effacer des mots entiers en maintenant la touche Retour arrière.\n(Non pris en charge dans certaines applications)</string>
+	<string name="pref_backspace_acceleration_summary">Effacer des mots entiers en maintenant la touche Retour arrière. (Non pris en charge dans certaines applications)</string>
 </resources>
