@@ -98,10 +98,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyScrollSuggestion(validateOnly, false);
 		}
 
-		if (keyCode == settings.getKeyTab()) {
-			return onKeyTab(validateOnly);
-		}
-
 		if (keyCode == settings.getKeySelectKeyboard()) {
 			return onKeySelectKeyboard(validateOnly);
 		}
@@ -294,25 +290,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		forceShowWindow();
-		return true;
-	}
-
-
-	public boolean onKeyTab(boolean validateOnly) {
-		if (shouldBeOff()) {
-			return false;
-		}
-
-		if (validateOnly) {
-			return true;
-		}
-
-		if (inputType.isMultilineText()) {
-			return onText("\t", validateOnly);
-		} else {
-			textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		}
-
 		return true;
 	}
 

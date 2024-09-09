@@ -58,9 +58,6 @@ class SettingsHotkeys extends SettingsHacks {
 	public int getKeyNextLanguage() {
 		return getFunctionKey(SectionKeymap.ITEM_NEXT_LANGUAGE);
 	}
-	public int getKeyTab() {
-		return getFunctionKey(SectionKeymap.ITEM_TAB);
-	}
 	public int getKeySelectKeyboard() {
 		return getFunctionKey(SectionKeymap.ITEM_SELECT_KEYBOARD);
 	}

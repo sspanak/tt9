@@ -43,10 +43,6 @@
 		app:title="@string/function_next_mode" />
 
 	<DropDownPreference
-		app:key="key_tab"
-		app:title="@string/key_tab" />
-
-	<DropDownPreference
 		app:key="key_select_keyboard"
 		app:title="@string/function_select_keyboard" />
 
