@@ -4,17 +4,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
-public class SoftOkKey extends SoftKey {
+public class SoftKeyOk extends SoftKey {
 
-	public SoftOkKey(Context context) {
+	public SoftKeyOk(Context context) {
 		super(context);
 	}
 
-	public SoftOkKey(Context context, AttributeSet attrs) {
+	public SoftKeyOk(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftOkKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 

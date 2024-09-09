@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.util.Characters;
 
-public class SoftKeyF5 extends SoftCommandKey {
+public class SoftKeyF5 extends SoftKeyFn {
 	public SoftKeyF5(Context context) {
 		super(context);
 	}

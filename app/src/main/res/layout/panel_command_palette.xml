@@ -7,7 +7,7 @@
 	android:layout_height="wrap_content"
 	android:orientation="horizontal">
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
 		android:id="@+id/soft_key_1"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
@@ -19,7 +19,7 @@
 		android:id="@+id/separator_1_1"
 		style="@style/numSeparator" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
 		android:id="@+id/soft_key_2"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
@@ -55,7 +55,7 @@
 		android:id="@+id/separator_2_2"
 		style="@style/numSeparator" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftCommandKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
 		android:id="@+id/soft_key_8"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"

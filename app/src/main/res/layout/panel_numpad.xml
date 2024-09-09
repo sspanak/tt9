@@ -40,7 +40,7 @@
 			android:id="@+id/separator_1_2"
 			style="@style/numSeparator" />
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
 			android:id="@+id/soft_key_backspace"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
@@ -81,7 +81,7 @@
 			android:id="@+id/separator_2_2"
 			style="@style/numSeparator" />
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftFilterKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter
 			android:id="@+id/soft_key_filter_suggestions"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
@@ -97,7 +97,7 @@
 		android:layout_height="@dimen/numpad_key_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftInputModeKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyInputMode
 			android:id="@+id/soft_key_input_mode"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
@@ -160,7 +160,7 @@
 			android:id="@+id/separator_4_2"
 			style="@style/numSeparator" />
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
 			android:id="@+id/soft_key_ok"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			tools:ignore="ButtonOrder"

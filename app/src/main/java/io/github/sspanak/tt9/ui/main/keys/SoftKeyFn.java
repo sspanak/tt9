@@ -13,10 +13,10 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class SoftCommandKey extends SoftNumberKey {
-	public SoftCommandKey(Context context) { super(context);}
-	public SoftCommandKey(Context context, AttributeSet attrs) { super(context, attrs);}
-	public SoftCommandKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
+public class SoftKeyFn extends SoftKeyNumber {
+	public SoftKeyFn(Context context) { super(context);}
+	public SoftKeyFn(Context context, AttributeSet attrs) { super(context, attrs);}
+	public SoftKeyFn(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 
 	@Override protected void handleHold() {

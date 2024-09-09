@@ -15,16 +15,16 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.util.Logger;
 
-public class SoftNumberKey extends SoftKey {
-	public SoftNumberKey(Context context) {
+public class SoftKeyNumber extends SoftKey {
+	public SoftKeyNumber(Context context) {
 		super(context);
 	}
 
-	public SoftNumberKey(Context context, AttributeSet attrs) {
+	public SoftKeyNumber(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftNumberKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftKeyNumber(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -103,7 +103,7 @@ public class SoftNumberKey extends SoftKey {
 		// 2-9
 		Language language = tt9.getLanguage();
 		if (language == null) {
-			Logger.d("SoftNumberKey.getLabel", "Cannot generate a label when the language is NULL.");
+			Logger.d("SoftKeyNumber.getLabel", "Cannot generate a label when the language is NULL.");
 			return "";
 		}
 

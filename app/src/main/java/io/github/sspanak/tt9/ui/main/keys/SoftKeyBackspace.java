@@ -8,18 +8,18 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftBackspaceKey extends SoftKey {
+public class SoftKeyBackspace extends SoftKey {
 	private int repeat = 0;
 
-	public SoftBackspaceKey(Context context) {
+	public SoftKeyBackspace(Context context) {
 		super(context);
 	}
 
-	public SoftBackspaceKey(Context context, AttributeSet attrs) {
+	public SoftKeyBackspace(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftBackspaceKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftKeyBackspace(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
