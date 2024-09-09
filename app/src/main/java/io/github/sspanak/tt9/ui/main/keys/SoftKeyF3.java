@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-public class SoftKeyF3 extends SoftCommandKey {
+public class SoftKeyF3 extends SoftKeyFn {
 	public SoftKeyF3(Context context) {
 		super(context);
 	}

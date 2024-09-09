@@ -24,7 +24,7 @@
 		style="@style/hSeparator"
 		android:background="@drawable/button_separator_dark" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftOkKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
 		android:id="@+id/soft_key_ok"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
@@ -38,7 +38,7 @@
 		style="@style/hSeparator"
 		android:background="@drawable/button_separator_dark" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftBackspaceKey
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
 		android:id="@+id/soft_key_backspace"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"

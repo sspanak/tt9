@@ -6,16 +6,16 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftInputModeKey extends SoftKey {
-	public SoftInputModeKey(Context context) {
+public class SoftKeyInputMode extends SoftKey {
+	public SoftKeyInputMode(Context context) {
 		super(context);
 	}
 
-	public SoftInputModeKey(Context context, AttributeSet attrs) {
+	public SoftKeyInputMode(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftInputModeKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftKeyInputMode(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 

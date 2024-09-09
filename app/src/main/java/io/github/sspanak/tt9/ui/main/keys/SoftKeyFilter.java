@@ -6,10 +6,10 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftFilterKey extends SoftKey {
-	public SoftFilterKey(Context context) { super(context); setFontSize(); }
-	public SoftFilterKey(Context context, AttributeSet attrs) { super(context, attrs); setFontSize(); }
-	public SoftFilterKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); setFontSize(); }
+public class SoftKeyFilter extends SoftKey {
+	public SoftKeyFilter(Context context) { super(context); setFontSize(); }
+	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); setFontSize(); }
+	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); setFontSize(); }
 
 	private void setFontSize() {
 		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;

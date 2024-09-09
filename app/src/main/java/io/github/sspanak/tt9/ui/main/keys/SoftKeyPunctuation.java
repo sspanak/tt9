@@ -6,16 +6,16 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
-public class SoftPunctuationKey extends SoftKey {
-	public SoftPunctuationKey(Context context) {
+public class SoftKeyPunctuation extends SoftKey {
+	public SoftKeyPunctuation(Context context) {
 		super(context);
 	}
 
-	public SoftPunctuationKey(Context context, AttributeSet attrs) {
+	public SoftKeyPunctuation(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public SoftPunctuationKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 

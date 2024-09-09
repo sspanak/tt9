@@ -15,11 +15,11 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.ui.main.keys.SoftCommandKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyFn;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyPunctuation;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
-import io.github.sspanak.tt9.ui.main.keys.SoftNumberKey;
-import io.github.sspanak.tt9.ui.main.keys.SoftPunctuationKey;
 
 class MainLayoutNumpad extends BaseMainLayout {
 	private boolean isTextEditingShown = false;
@@ -95,15 +95,15 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 			if (keyId == R.id.soft_key_0) {
 				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric());
-			} else if (key.getClass().equals(SoftNumberKey.class)) {
+			} else if (key.getClass().equals(SoftKeyNumber.class)) {
 				key.setVisibility(View.GONE);
 			}
 
-			if (key.getClass().equals(SoftPunctuationKey.class)) {
+			if (key.getClass().equals(SoftKeyPunctuation.class)) {
 				key.setVisibility(View.INVISIBLE);
 			}
 
-			if (key.getClass().equals(SoftCommandKey.class)) {
+			if (key.getClass().equals(SoftKeyFn.class)) {
 				key.setVisibility(View.VISIBLE);
 			}
 
@@ -127,12 +127,12 @@ class MainLayoutNumpad extends BaseMainLayout {
 		isTextEditingShown = false;
 
 		for (SoftKey key : getKeys()) {
-			if (key.getClass().equals(SoftNumberKey.class) || key.getClass().equals(SoftPunctuationKey.class)) {
+			if (key.getClass().equals(SoftKeyNumber.class) || key.getClass().equals(SoftKeyPunctuation.class)) {
 				key.setVisibility(View.VISIBLE);
 				key.setEnabled(true);
 			}
 
-			if (key.getClass().equals(SoftCommandKey.class)) {
+			if (key.getClass().equals(SoftKeyFn.class)) {
 				key.setVisibility(View.GONE);
 			}
 
