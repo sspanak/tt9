@@ -160,7 +160,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			String firstSuggestionAfter = mInputMode.getSuggestions().get(0);
 
 			// this is a word and the text case has finally changed
-			if (!firstSuggestionAfter.equalsIgnoreCase(suggestionOps.get(0))) {
+			if (!firstSuggestionAfter.equals(suggestionOps.get(0))) {
 				break;
 			}
 		}
