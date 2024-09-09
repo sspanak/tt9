@@ -57,7 +57,7 @@
 		android:layout_height="@dimen/numpad_key_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyLF2
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
 			android:id="@+id/soft_key_add_word"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"

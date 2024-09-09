@@ -123,9 +123,6 @@ Show the text editing panel, which allows you to select, cut, copy, and paste te
 #### Next Language Key (Default: hold #):
 Select the next language, when multiple languages have been enabled from the Settings.
 
-#### Tab Key:
-Advance the cursor to the next tab stop or switch to the next focusable UI element. Works exactly like the TAB key on a computer keyboard.
-
 #### Select Keyboard Key:
 Open the Android Change Keyboard dialog where you can select between all installed keyboards.
 

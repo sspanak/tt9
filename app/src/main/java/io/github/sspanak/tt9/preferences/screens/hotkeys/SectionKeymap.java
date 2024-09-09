@@ -23,7 +23,6 @@ public class SectionKeymap {
 	public static final String ITEM_NEXT_SUGGESTION = "key_next_suggestion";
 	public static final String ITEM_NEXT_INPUT_MODE = "key_next_input_mode";
 	public static final String ITEM_NEXT_LANGUAGE = "key_next_language";
-	public static final String ITEM_TAB = "key_tab";
 	public static final String ITEM_SELECT_KEYBOARD = "key_select_keyboard";
 	public static final String ITEM_SHOW_SETTINGS = "key_show_settings";
 	public static final String ITEM_VOICE_INPUT = "key_voice_input";
