@@ -86,8 +86,16 @@ public class InsertOps {
 			return;
 		}
 
+		StringBuilder sql = new StringBuilder(
+			"INSERT INTO " + Tables.getWordPairs(langId) + " (word1, word2, sequence2) VALUES"
+		);
+
 		for (WordPair pair : pairs) {
-			db.insert(Tables.getWordPairs(langId), null, pair.toContentValues());
+			sql.append(pair.toSqlRow()).append(",");
 		}
+
+		sql.setLength(sql.length() - 1);
+
+		db.execSQL(sql.toString());
 	}
 }
