@@ -59,6 +59,20 @@ public class Text extends TextTools {
 		return true;
 	}
 
+	public boolean isNumeric() {
+		if (text == null) {
+			return false;
+		}
+
+		for (int i = 0, end = text.length(); i < end; i++) {
+			if (!Character.isDigit(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public boolean isEmpty() {
 		return text == null || text.isEmpty();
 	}

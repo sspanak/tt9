@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.db.wordPairs;
 
-import android.content.ContentValues;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -31,7 +29,7 @@ public class WordPair {
 			|| word1.isEmpty() || word2.isEmpty()
 			|| (word1.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && word2.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)
 			|| word1.equals(word2)
-			|| sequence2 == null || word2.length() != sequence2.length()
+			|| sequence2 == null || word2.length() != sequence2.length() || !(new Text(sequence2).isNumeric())
 			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
 	}
 
@@ -39,15 +37,6 @@ public class WordPair {
 	@NonNull
 	public String getWord2() {
 		return word2;
-	}
-
-
-	public ContentValues toContentValues() {
-		ContentValues values = new ContentValues();
-		values.put("word1", word1);
-		values.put("word2", word2);
-		values.put("sequence2", sequence2);
-		return values;
 	}
 
 
@@ -64,6 +53,11 @@ public class WordPair {
 	@Override
 	public boolean equals(@Nullable Object obj) {
 		return obj instanceof WordPair && obj.hashCode() == hashCode();
+	}
+
+
+	public String toSqlRow() {
+		return "('" + word1 + "','" + word2 + "','" + sequence2 + "')";
 	}
 
 
