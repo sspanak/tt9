@@ -22,7 +22,7 @@ import io.github.sspanak.tt9.util.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
 	@NonNull
-	private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
+	private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	private final Handler deathDetector = new Handler(Looper.getMainLooper());
 
 
@@ -140,7 +140,7 @@ public class TraditionalT9 extends MainViewHandler {
 		if (mInputMode.isPassthrough()) {
 			onStop();
 		}	else {
-			normalizationHandler.removeCallbacksAndMessages(null);
+			backgroundTasks.removeCallbacksAndMessages(null);
 			initUi();
 		}
 
@@ -170,14 +170,10 @@ public class TraditionalT9 extends MainViewHandler {
 			updateInputViewShown();
 		}
 
-		normalizationHandler.removeCallbacksAndMessages(null);
-		normalizationHandler.postDelayed(
-			() -> {
-				DataStore.saveWordPairs();
-				if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext();
-			},
-			SettingsStore.WORD_BACKGROUND_TASKS_DELAY
-		);
+		if (SystemSettings.isTT9Active(this)) {
+			backgroundTasks.removeCallbacksAndMessages(null);
+			backgroundTasks.postDelayed(this::runBackgroundTasks, SettingsStore.WORD_BACKGROUND_TASKS_DELAY);
+		}
 	}
 
 
@@ -197,7 +193,7 @@ public class TraditionalT9 extends MainViewHandler {
 		Logger.w("onDeath", "===> Killing self");
 		requestHideSelf(0);
 		onStop();
-		normalizationHandler.removeCallbacksAndMessages(null);
+		backgroundTasks.removeCallbacksAndMessages(null);
 		DataStore.destroy();
 		stopSelf();
 	}
@@ -222,5 +218,13 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	protected TraditionalT9 getFinalContext() {
 		return this;
+	}
+
+
+	private void runBackgroundTasks() {
+		DataStore.saveWordPairs();
+		if (!DictionaryLoader.getInstance(this).isRunning()) {
+			DataStore.normalizeNext();
+		}
 	}
 }
