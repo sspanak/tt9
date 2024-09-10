@@ -180,5 +180,5 @@
 	<string name="language_selection_search_placeholder">Ieškoti kalbų</string>
 	<string name="language_selection_words">žodžių</string>
 	<string name="pref_backspace_acceleration">Greitas ištrynimas</string>
-	<string name="pref_backspace_acceleration_summary">Ištrinti visus žodžius laikant klavišą Backspace. (Nepalaikoma kai kuriose programėlėse)</string>
+	<string name="pref_backspace_acceleration_summary">Ištrinti visus žodžius laikant arba perbraukiant Backspace. (Nepalaikoma kai kuriose programėlėse)</string>
 </resources>

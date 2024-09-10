@@ -171,5 +171,5 @@
 	<string name="language_selection_search_placeholder">Поиск языков</string>
 	<string name="language_selection_words">слов</string>
 	<string name="pref_backspace_acceleration">Быстрое удаление</string>
-	<string name="pref_backspace_acceleration_summary">Стирать целые слова, удерживая клавишу Backspace. (Не поддерживается в некоторых приложениях)</string>
+	<string name="pref_backspace_acceleration_summary">Стереть целые слова, удерживая или проведя по клавише Backspace. (Не поддерживается в некоторых приложениях)</string>
 </resources>
