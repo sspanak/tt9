@@ -16,11 +16,11 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	private static final String LOG_TAG = SQLiteOpener.class.getSimpleName();
 	private static final String DATABASE_NAME = "tt9.db";
 	private static final int DATABASE_VERSION = BuildConfig.VERSION_CODE;
-	private static SQLiteOpener self;
 
-	private final ArrayList<Language> allLanguages;
+	private static SQLiteOpener self;
 	private SQLiteDatabase db;
 
+	private final ArrayList<Language> allLanguages;
 
 	private SQLiteOpener(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,19 +35,6 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 		}
 
 		return self;
-	}
-
-
-	public static void destroyInstance() {
-		try {
-			if (self != null) {
-				self.close();
-			}
-		} catch (IllegalStateException e) {
-			Logger.e(LOG_TAG,  e.getMessage() + ". Ignoring database state and setting reference to NULL.");
-		} finally {
-			self = null;
-		}
 	}
 
 

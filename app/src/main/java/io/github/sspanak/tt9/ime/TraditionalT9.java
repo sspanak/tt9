@@ -194,7 +194,6 @@ public class TraditionalT9 extends MainViewHandler {
 		requestHideSelf(0);
 		onStop();
 		backgroundTasks.removeCallbacksAndMessages(null);
-		DataStore.destroy();
 		stopSelf();
 	}
 

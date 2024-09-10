@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
-import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
@@ -22,15 +21,8 @@ public class DataStore {
 
 
 	public static void init(Context context) {
-		pairs = pairs == null ? new WordPairStore(context) : pairs;
-		words = words == null ? new WordStore(context) : words;
-	}
-
-
-	public static void destroy() {
-		pairs = null;
-		words = null;
-		SQLiteOpener.destroyInstance();
+		words = words == null ? new WordStore(context.getApplicationContext()) : words;
+		pairs = pairs == null ? new WordPairStore(context.getApplicationContext()) : pairs;
 	}
 
 

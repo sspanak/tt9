@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.Word;
@@ -13,7 +14,6 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
-import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
@@ -24,21 +24,14 @@ import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
 
 
-public class WordStore {
+public class WordStore extends BaseSyncStore {
 	private final String LOG_TAG = "sqlite.WordStore";
-
-	private SQLiteOpener sqlite = null;
-	private ReadOps readOps = null;
+	private final ReadOps readOps;
 
 
 	public WordStore(@NonNull Context context) {
-		try {
-			sqlite = SQLiteOpener.getInstance(context);
-			sqlite.getDb();
-			readOps = new ReadOps();
-		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Database connection failure. All operations will return empty results. " + e.getMessage());
-		}
+		super(context);
+		readOps = new ReadOps();
 	}
 
 
@@ -190,16 +183,6 @@ public class WordStore {
 		}
 
 		return new AddWordResult(AddWordResult.CODE_SUCCESS, word);
-	}
-
-
-	private boolean checkOrNotify() {
-		if (sqlite == null || sqlite.getDb() == null) {
-			Logger.e(LOG_TAG, "No database connection. Cannot query any data.");
-			return false;
-		}
-
-		return true;
 	}
 
 
