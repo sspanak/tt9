@@ -174,5 +174,5 @@
 	<string name="language_selection_search_placeholder">Buscar por idiomas</string>
 	<string name="language_selection_words">palavras</string>
 	<string name="pref_backspace_acceleration">Exclusão rápida</string>
-	<string name="pref_backspace_acceleration_summary">Apagar palavras inteiras segurando a tecla Backspace. (Não suportado em alguns aplicativos)</string>
+	<string name="pref_backspace_acceleration_summary">Apagar palavras inteiras mantendo pressionado ou deslizando o Backspace. (Não suportado em alguns aplicativos)</string>
 </resources>
