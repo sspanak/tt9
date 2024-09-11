@@ -33,7 +33,6 @@ public class SystemSettings {
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;
 		packageName = packageName == null ? context.getPackageName() : packageName;
 
-
 		for (final InputMethodInfo imeInfo : inputManager.getEnabledInputMethodList()) {
 			if (packageName.equals(imeInfo.getPackageName()) && imeInfo.getId().equals(defaultIME)) {
 				return true;
