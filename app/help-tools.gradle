@@ -151,6 +151,8 @@ static convertInlineTags(markdown) {
         .replaceAll("_([^_]+)_", "<i>\$1</i>")
         .replaceAll("[*]{2}(.+?)[*]{2}", "<b>\$1</b>")
         .replaceAll("\\[([^]]+)\\]\\(([^)]+)\\)", "<a href=\"\$2\">\$1</a>")
+        .replaceAll("href=\"([^\"]+)-\"", "href=\"\$1\"")
+        .replaceAll("href=\"([^\"]+?)--([^\"]+?)\"", "href=\"\$1-\$2\"")
 }
 
 
