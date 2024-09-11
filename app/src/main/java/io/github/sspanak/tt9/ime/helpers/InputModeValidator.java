@@ -34,7 +34,7 @@ public class InputModeValidator {
 		Language validLanguage = LanguageCollection.getLanguage(context, validLanguageIds.get(0));
 		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault(context);
 
-		Logger.w("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
+		Logger.d("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
 
 		return validLanguage;
 	}
@@ -51,7 +51,7 @@ public class InputModeValidator {
 		}
 
 		if (newModeId != oldModeId) {
-			Logger.w("validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
+			Logger.d("validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
 		}
 
 		return newModeId;

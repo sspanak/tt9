@@ -198,7 +198,4 @@ public class WordPairStore extends BaseSyncStore {
 
 		return sb.toString();
 	}
-
-
-
 }
