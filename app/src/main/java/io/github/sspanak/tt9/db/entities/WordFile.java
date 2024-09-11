@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -138,6 +139,15 @@ public class WordFile {
 	}
 
 
+	public String getFormattedTotalLines(String suffix) {
+		if (getTotalLines() > 1000000) {
+			return String.format(Locale.ROOT, "%1.2fM %s", getTotalLines() / 1000000.0, suffix);
+		} else {
+			return getTotalLines() / 1000 + "k " + suffix;
+		}
+	}
+
+
 	private void setTotalLines(String rawProperty, String rawValue) {
 		if (!rawProperty.equals("words")) {
 			return;
@@ -158,6 +168,11 @@ public class WordFile {
 		}
 
 		return size;
+	}
+
+
+	public String getFormattedSize() {
+		return String.format(Locale.ROOT, "%1.2f Mb", getSize() / 1048576.0);
 	}
 
 

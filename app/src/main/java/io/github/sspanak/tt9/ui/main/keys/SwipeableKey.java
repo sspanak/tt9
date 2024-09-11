@@ -16,7 +16,7 @@ abstract public class SwipeableKey extends SoftKey {
 	private boolean isHolding = false;
 	private boolean isSwipingX = false;
 	private boolean isSwipingY = false;
-	private boolean hasSwiped = false;
+	private boolean notSwiped = false;
 
 	private float startX;
 	private float startY;
@@ -124,7 +124,7 @@ abstract public class SwipeableKey extends SoftKey {
 
 
 	private void onRelease(MotionEvent event) {
-		hasSwiped = !isSwipingY && !isSwipingX;
+		notSwiped = !isSwipingY && !isSwipingX;
 
 		if (isSwipingY) {
 			isSwipingY = false;
@@ -142,5 +142,5 @@ abstract public class SwipeableKey extends SoftKey {
 	protected void handleSwipeY(float position, float delta) {}
 	protected void handleEndSwipeX(float position, float delta) {}
 	protected void handleEndSwipeY(float position, float delta) {}
-	protected boolean notSwiped() { return hasSwiped; }
+	protected boolean notSwiped() { return notSwiped; }
 }
