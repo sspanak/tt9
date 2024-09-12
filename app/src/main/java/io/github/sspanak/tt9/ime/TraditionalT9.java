@@ -124,6 +124,12 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
+		if (!SystemSettings.isTT9Active(this)) {
+			onStop();
+			onDeath();
+			return false;
+		}
+
 		if (!super.onStart(connection, field)) {
 			return false;
 		}
