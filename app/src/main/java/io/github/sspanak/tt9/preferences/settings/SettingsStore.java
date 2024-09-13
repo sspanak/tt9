@@ -36,7 +36,8 @@ public class SettingsStore extends SettingsUI {
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
 	public final static int WORD_PAIR_MAX = 1000;
 	public final static int WORD_PAIR_MAX_WORD_LENGTH = 6;
-	public final static int ZOMBIE_CHECK_INTERVAL = 666; // ms
+	public final static int ZOMBIE_CHECK_INTERVAL = 1500; // ms
+	public final static int ZOMBIE_CHECK_MAX = 2;
 
 	/************* hacks *************/
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms

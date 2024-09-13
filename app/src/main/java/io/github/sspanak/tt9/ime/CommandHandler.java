@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
+import android.os.Build;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -9,6 +11,8 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.util.Clipboard;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.SystemSettings;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class CommandHandler extends TextEditingHandler {
@@ -106,6 +110,23 @@ abstract public class CommandHandler extends TextEditingHandler {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
 		UI.showChangeKeyboardDialog(this);
+	}
+
+
+	public void nextKeyboard() {
+		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+			switchToPreviousInputMethod();
+			return;
+		}
+
+		try {
+			switchInputMethod(SystemSettings.getPreviousIME(this));
+		} catch (Exception e) {
+			Logger.d(getClass().getSimpleName(), "Could not switch to previous input method. " + e);
+		}
 	}
 
 

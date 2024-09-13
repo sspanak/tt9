@@ -20,7 +20,6 @@ public class PreferenceSearchWords extends ItemTextInput {
 
 	private ConsumerCompat<ArrayList<String>> onWords;
 	private ConsumerCompat<Long> onTotalWords;
-	private SettingsStore settings;
 
 	@NonNull private String lastSearchTerm = "";
 

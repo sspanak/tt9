@@ -6,9 +6,10 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyBackspace extends SoftKey {
+public class SoftKeyBackspace extends SwipeableKey {
 	private int repeat = 0;
 
 	public SoftKeyBackspace(Context context) {
@@ -26,7 +27,6 @@ public class SoftKeyBackspace extends SoftKey {
 	@Override
 	final protected boolean handlePress() {
 		super.handlePress();
-		repeat = 0;
 		return deleteText();
 	}
 
@@ -41,6 +41,13 @@ public class SoftKeyBackspace extends SoftKey {
 		vibrate(repeat > 0 ? Vibration.getReleaseVibration() : Vibration.getNoVibration());
 		repeat = 0;
 		return true;
+	}
+
+	@Override
+	protected void handleEndSwipeX(float position, float delta) {
+		if (validateTT9Handler()) {
+			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
+		}
 	}
 
 	private boolean deleteText() {

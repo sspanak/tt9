@@ -67,6 +67,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	public void onAlign(float deltaX) {
+		if (!(main instanceof MainLayoutNumpad)) {
+			return;
+		}
+
 		boolean right = deltaX > 0;
 		SettingsStore settings = tt9.getSettings();
 

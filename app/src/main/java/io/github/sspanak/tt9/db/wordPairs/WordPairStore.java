@@ -10,19 +10,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
-import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
-public class WordPairStore {
+public class WordPairStore extends BaseSyncStore {
 	// data
-	private final SQLiteOpener sqlite;
 	private final ConcurrentHashMap<Integer, HashMap<WordPair, WordPair>> pairs = new ConcurrentHashMap<>();
 
 	// timing
@@ -33,7 +32,7 @@ public class WordPairStore {
 
 
 	public WordPairStore(Context context) {
-		sqlite = SQLiteOpener.getInstance(context);
+		super(context);
 	}
 
 
@@ -92,6 +91,10 @@ public class WordPairStore {
 
 
 	public void save() {
+		if (!checkOrNotify()) {
+			return;
+		}
+
 		String SAVE_TIMER_NAME = "word_pair_save";
 		Timer.start(SAVE_TIMER_NAME);
 
@@ -113,6 +116,10 @@ public class WordPairStore {
 
 
 	public void load(@NonNull DictionaryLoader dictionaryLoader, ArrayList<Language> languages) {
+		if (!checkOrNotify()) {
+			return;
+		}
+
 		if (dictionaryLoader.isRunning()) {
 			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while the DictionaryLoader is working.");
 			return;
@@ -152,6 +159,10 @@ public class WordPairStore {
 
 
 	public void delete(@NonNull ArrayList<Language> languages) {
+		if (!checkOrNotify()) {
+			return;
+		}
+
 		sqlite.beginTransaction();
 		for (Language language : languages) {
 			DeleteOps.deleteWordPairs(sqlite.getDb(), language.getId());

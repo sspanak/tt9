@@ -44,21 +44,20 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 
 
 	private String generateSummary(Activity activity, NaturalLanguage language) {
-		String summary = language.getLocale().getDisplayLanguage();
+		StringBuilder summary = new StringBuilder(language.getLocale().getDisplayLanguage());
 
-		String wordsString = activity.getString(R.string.language_selection_words);
 		WordFile wordFile = new WordFile(activity, language.getDictionaryFile(), activity.getAssets());
-		if (wordFile.getTotalLines() > 1000000) {
-			summary += String.format(", %1.2fM %s", wordFile.getTotalLines() / 1000000.0, wordsString);
-		} else {
-			summary += ", " + wordFile.getTotalLines() / 1000 + "k " + wordsString;
-		}
+		summary
+			.append(", ")
+			.append(
+			wordFile.getFormattedTotalLines(activity.getString(R.string.language_selection_words))
+		);
 
 		if (BuildConfig.LITE) {
-			summary += String.format(", %1.2f Mb", wordFile.getSize() / 1048576.0);
+			summary.append(", ").append(wordFile.getFormattedSize());
 		}
 
-		return summary;
+		return summary.toString();
 	}
 
 

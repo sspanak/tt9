@@ -22,25 +22,20 @@ import io.github.sspanak.tt9.util.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
 	@NonNull
-	private final Handler normalizationHandler = new Handler(Looper.getMainLooper());
-	private final Handler deathDetector = new Handler(Looper.getMainLooper());
+	private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
+	private final Handler zombieDetector = new Handler(Looper.getMainLooper());
+	private int zombieChecks = 0;
 
 
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
+		if (!SystemSettings.isTT9Active(this)) {
+			return false;
+		}
+
 		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
-
-		if (!shouldBeVisible()) {
-			return false;
-		}
-
-		if (SystemSettings.isTT9Enabled(this)) {
-			return true;
-		} else {
-			onDeath();
-			return false;
-		}
+		return shouldBeVisible();
 	}
 
 
@@ -129,8 +124,6 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		deathDetector.removeCallbacksAndMessages(null);
-
 		if (!super.onStart(connection, field)) {
 			return false;
 		}
@@ -140,7 +133,7 @@ public class TraditionalT9 extends MainViewHandler {
 		if (mInputMode.isPassthrough()) {
 			onStop();
 		}	else {
-			normalizationHandler.removeCallbacksAndMessages(null);
+			backgroundTasks.removeCallbacksAndMessages(null);
 			initUi();
 		}
 
@@ -170,14 +163,14 @@ public class TraditionalT9 extends MainViewHandler {
 			updateInputViewShown();
 		}
 
-		normalizationHandler.removeCallbacksAndMessages(null);
-		normalizationHandler.postDelayed(
-			() -> {
-				DataStore.saveWordPairs();
-				if (!DictionaryLoader.getInstance(this).isRunning()) DataStore.normalizeNext();
-			},
-			SettingsStore.WORD_BACKGROUND_TASKS_DELAY
-		);
+		if (SystemSettings.isTT9Active(this)) {
+			backgroundTasks.removeCallbacksAndMessages(null);
+			backgroundTasks.postDelayed(this::runBackgroundTasks, SettingsStore.WORD_BACKGROUND_TASKS_DELAY);
+		}
+
+		if (zombieChecks == 0) {
+			startZombieCheck();
+		}
 	}
 
 
@@ -185,20 +178,32 @@ public class TraditionalT9 extends MainViewHandler {
 	 * On Android 11 the IME is sometimes not killed when the user switches to a different one.
 	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
-	private void onDeath() {
-		if (SystemSettings.isTT9Active(this)) {
-			Logger.w("onDeath", "===> Still active, rescheduling");
-			deathDetector.postDelayed(this::onDeath, SettingsStore.ZOMBIE_CHECK_INTERVAL);
+	private void startZombieCheck() {
+		if (!SystemSettings.isTT9Active(this)) {
+			onDeath();
 			return;
+		}
+
+		if (++zombieChecks < SettingsStore.ZOMBIE_CHECK_MAX) {
+			zombieDetector.postDelayed(this::startZombieCheck, SettingsStore.ZOMBIE_CHECK_INTERVAL);
 		} else {
-			deathDetector.removeCallbacksAndMessages(null);
+			Logger.d("startZombieCheck", "Not a zombie after " + zombieChecks + " checks");
+			zombieChecks = 0;
+		}
+	}
+
+
+	private void onDeath() {
+		if (currentInputConnection == null) {
+			Logger.w("onDeath", "===> Already dead. Nothing to do.");
+			return;
 		}
 
 		Logger.w("onDeath", "===> Killing self");
 		requestHideSelf(0);
-		onStop();
-		normalizationHandler.removeCallbacksAndMessages(null);
-		DataStore.destroy();
+		setInputField(null, null);
+		backgroundTasks.removeCallbacksAndMessages(null);
+		zombieDetector.removeCallbacksAndMessages(null);
 		stopSelf();
 	}
 
@@ -222,5 +227,13 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	protected TraditionalT9 getFinalContext() {
 		return this;
+	}
+
+
+	private void runBackgroundTasks() {
+		DataStore.saveWordPairs();
+		if (!DictionaryLoader.getInstance(this).isRunning()) {
+			DataStore.normalizeNext();
+		}
 	}
 }

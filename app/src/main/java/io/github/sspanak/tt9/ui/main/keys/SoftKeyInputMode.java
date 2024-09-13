@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyInputMode extends SoftKey {
+public class SoftKeyInputMode extends SwipeableKey {
 	public SoftKeyInputMode(Context context) {
 		super(context);
 	}
@@ -31,7 +31,14 @@ public class SoftKeyInputMode extends SoftKey {
 
 	@Override
 	protected boolean handleRelease() {
-		return validateTT9Handler() && tt9.onKeyNextInputMode(false);
+		return notSwiped() && validateTT9Handler() && tt9.onKeyNextInputMode(false);
+	}
+
+	@Override
+	protected void handleEndSwipeX(float position, float delta) {
+		if (validateTT9Handler()) {
+			tt9.nextKeyboard();
+		}
 	}
 
 	@Override

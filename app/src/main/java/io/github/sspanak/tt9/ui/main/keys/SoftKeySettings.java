@@ -2,44 +2,58 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
-public class SoftKeySettings extends SoftKey {
-	private final ResizeHandle resizeHandle = new ResizeHandle(getContext(), this::showSettings);
+public class SoftKeySettings extends SwipeableKey {
+	private ResizableMainView mainView;
 
 	public SoftKeySettings(Context context) {
 		super(context);
-		setOnLongClickListener(null);
 	}
-
 	public SoftKeySettings(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		setOnLongClickListener(null);
 	}
-
 	public SoftKeySettings(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		setOnLongClickListener(null);
 	}
 
 	public void setMainView(ResizableMainView mainView) {
-		resizeHandle.setMainView(mainView);
+		this.mainView = mainView;
+	}
+
+	// this key does not support holding at the moment, so just prevent it
+	@Override protected float getHoldDurationThreshold() { return 1000; }
+	@Override protected float getSwipeXThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f; }
+	@Override protected float getSwipeYThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f; }
+
+	@Override
+	protected boolean handleRelease() {
+		if (notSwiped() && validateTT9Handler()) {
+			tt9.showSettings();
+		}
+		return true;
 	}
 
 	@Override
-	public boolean onTouch(View view, MotionEvent event) {
-		resizeHandle.onTouch(view, event);
-		return super.onTouch(view, event);
+	protected void handleStartSwipeX(float p, float delta) {
+		if (mainView != null) mainView.onAlign(delta);
 	}
 
-	protected void showSettings() {
-		if (validateTT9Handler()) {
-			tt9.showSettings();
-		}
+	@Override
+	protected void handleStartSwipeY(float position, float d) {
+		if (mainView != null) mainView.onResizeStart(position);
+	}
+
+	@Override
+	protected void handleSwipeY(float position, float delta) {
+		if (mainView != null) mainView.onResizeThrottled(position);
+	}
+
+	@Override
+	protected void handleEndSwipeY(float position, float delta) {
+		if (mainView != null) mainView.onResize(position);
 	}
 
 	@Override
