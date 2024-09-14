@@ -29,8 +29,8 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected void resetStatus();
 
 	// informational
-	abstract protected InputMode getInputMode();
-	abstract protected int getInputModeId();
+	abstract protected InputMode determineInputMode();
+	abstract protected int determineInputModeId();
 	abstract protected SuggestionOps getSuggestionOps();
 	abstract protected boolean shouldBeOff();
 	abstract protected TraditionalT9 getFinalContext();
