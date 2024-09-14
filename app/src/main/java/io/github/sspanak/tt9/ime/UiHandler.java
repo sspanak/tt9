@@ -32,13 +32,13 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	public void initUi() {
+	public void initUi(InputMode inputMode) {
 		if (mainView.createInputView()) {
 			initTray();
 		}
 		setDarkTheme();
-		setStatusIcon(getInputMode());
-		statusBar.setText(getInputMode());
+		setStatusIcon(inputMode);
+		statusBar.setText(inputMode);
 		mainView.hideCommandPalette();
 		mainView.render();
 
@@ -65,7 +65,7 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected boolean shouldBeVisible() {
-		return getInputModeId() != InputMode.MODE_PASSTHROUGH && !settings.isMainLayoutStealth();
+		return determineInputModeId() != InputMode.MODE_PASSTHROUGH && !settings.isMainLayoutStealth();
 	}
 
 

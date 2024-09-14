@@ -65,12 +65,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// ignore multiple calls for the same field, caused by requestShowSelf() -> showWindow(),
 		// or weirdly functioning apps, such as the Qin SMS app
-		if (restart && !languageChanged && mInputMode.getId() == getInputModeId()) {
+		if (restart && !languageChanged && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
 
 		resetKeyRepeat();
-		mInputMode = getInputMode();
+		mInputMode = determineInputMode();
 		determineTextCase();
 		suggestionOps.set(null);
 
@@ -267,13 +267,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	/**
-	 * getInputModeId
+	 * determineInputModeId
 	 * Return the last input mode ID or choose a more appropriate one.
 	 * Some input fields support only numbers or are not suited for predictions (e.g. password fields).
 	 * Others do not support text retrieval or composing text, or the AppHacks detected them as incompatible with us.
 	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
-	protected int getInputModeId() {
+	protected int determineInputModeId() {
 		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTermux())) {
 			return InputMode.MODE_PASSTHROUGH;
 		}
@@ -284,11 +284,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	/**
-	 * getInputMode
-	 * Same as getInputModeId(), but returns an actual InputMode.
+	 * determineInputMode
+	 * Same as determineInputModeId(), but returns an actual InputMode.
 	 */
-	protected InputMode getInputMode() {
-		return InputMode.getInstance(settings, mLanguage, inputType, textField, getInputModeId());
+	protected InputMode determineInputMode() {
+		return InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
 	}
 
 

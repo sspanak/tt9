@@ -140,7 +140,7 @@ public class TraditionalT9 extends MainViewHandler {
 			onStop();
 		}	else {
 			backgroundTasks.removeCallbacksAndMessages(null);
-			initUi();
+			initUi(mInputMode);
 		}
 
 		InputType newInputType = new InputType(connection, field);
