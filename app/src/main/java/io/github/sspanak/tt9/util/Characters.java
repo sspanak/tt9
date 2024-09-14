@@ -22,7 +22,9 @@ public class Characters {
 	));
 
 	final public static ArrayList<Character> CombiningPunctuationHebrew = new ArrayList<>(Arrays.asList(
-		',' , '-', '\'', ':', ';', '!', '?', '.', '"'
+		',' , '-', '\'', ':', ';', '!', '?', '.', '"',
+		'·', ';', // Greek
+		'،', '؛', ':', '!', '؟' // Arabic
 	));
 
 	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
@@ -42,7 +44,7 @@ public class Characters {
 	));
 
 	final public static ArrayList<String> PunctuationGreek = new ArrayList<>(Arrays.asList(
-		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", ";", ":", "!", ";"
+		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", ";"
 	));
 
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
