@@ -1,6 +1,7 @@
 locale: th-TH
 dictionaryFile: th-utf8.csv
 abcString: กขค
+hasSpaceBetweenWords: no
 hasUpperCase: no
 name: ภาษาไทย
 layout:

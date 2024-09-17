@@ -46,21 +46,19 @@ public class ModePredictive extends InputMode {
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		changeLanguage(lang);
-		defaultTextCase();
-
-		autoSpace = new AutoSpace(settings);
+		autoSpace = new AutoSpace(settings, lang).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
-		predictions = new Predictions(settings, textField);
-
-		this.settings = settings;
-
 		digitSequence = "";
+		predictions = new Predictions(settings, textField);
+		this.settings = settings;
 
 		if (inputType.isEmail()) {
 			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));
 			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(1)));
 		}
+
+		changeLanguage(lang);
+		defaultTextCase();
 	}
 
 
@@ -113,6 +111,8 @@ public class ModePredictive extends InputMode {
 	public void changeLanguage(Language language) {
 		super.changeLanguage(language);
 
+		autoSpace.setLanguage(language);
+
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
 		if (language.hasUpperCase()) {
@@ -124,6 +124,10 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean recompose(String word) {
+		if (!language.hasSpaceBetweenWords()) {
+			return false;
+		}
+
 		if (word == null || word.length() < 2 || word.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + word + "'");
 			textCase = CASE_CAPITALIZE;

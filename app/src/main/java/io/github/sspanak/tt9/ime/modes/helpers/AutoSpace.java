@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
@@ -12,9 +13,11 @@ public class AutoSpace {
 	private InputType inputType;
 	private TextField textField;
 	private String lastWord;
+	private boolean isLanguageWithSpaceBetweenWords;
 
-	public AutoSpace(SettingsStore settingsStore) {
+	public AutoSpace(SettingsStore settingsStore, Language language) {
 		settings = settingsStore;
+		isLanguageWithSpaceBetweenWords = true;
 	}
 
 	public AutoSpace setInputType(InputType inputType) {
@@ -32,6 +35,11 @@ public class AutoSpace {
 		return this;
 	}
 
+	public AutoSpace setLanguage(Language language) {
+		isLanguageWithSpaceBetweenWords = language != null && language.hasSpaceBetweenWords();
+		return this;
+	}
+
 	public AutoSpace setLastSequence() {
 		return this;
 	}
@@ -40,11 +48,13 @@ public class AutoSpace {
 	 * shouldAddAutoSpace
 	 * When the "auto-space" settings is enabled, this determines whether to automatically add a space
 	 * at the end of a sentence or after accepting a suggestion. This allows faster typing, without
-	 * pressing space.
-	 *
-	 * See the helper functions for the list of rules.
+	 * pressing space. See the helper functions for the list of rules.
 	 */
 	public boolean shouldAddAutoSpace(boolean isWordAcceptedManually, int nextKey) {
+		if (!isLanguageWithSpaceBetweenWords) {
+			return false;
+		}
+
 		String previousChars = textField.getStringBeforeCursor(2);
 		Text nextChars = textField.getTextAfterCursor(2);
 
@@ -114,7 +124,8 @@ public class AutoSpace {
 	 */
 	public boolean shouldDeletePrecedingSpace() {
 		return
-			settings.getAutoSpace()
+			isLanguageWithSpaceBetweenWords
+			&& settings.getAutoSpace()
 			&& (
 				lastWord.equals(".")
 				|| lastWord.equals(",")
