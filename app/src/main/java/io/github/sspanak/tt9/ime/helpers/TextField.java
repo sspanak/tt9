@@ -200,8 +200,8 @@ public class TextField extends InputField {
 
 	/**
 	 * deletePrecedingSpace
-	 * Deletes the preceding space before the given word. The word must be before the cursor.
-	 * No action is taken when there is double space or when it's the beginning of the text field.
+	 * Deletes the space before the given word. The word must be before the cursor.
+	 * No action is taken when there is no such word.
 	 */
 	public void deletePrecedingSpace(String word) {
 		if (connection == null) {
@@ -211,13 +211,8 @@ public class TextField extends InputField {
 		String searchText = " " + word;
 
 		connection.beginBatchEdit();
-		CharSequence beforeText = connection.getTextBeforeCursor(searchText.length() + 1, 0);
-		if (
-			beforeText == null
-			|| beforeText.length() < searchText.length() + 1
-			|| beforeText.charAt(1) != ' ' // preceding char must be " "
-			|| beforeText.charAt(0) == ' ' // but do nothing when there is double space
-		) {
+		CharSequence beforeText = connection.getTextBeforeCursor(searchText.length(), 0);
+		if (beforeText == null || !beforeText.equals(searchText)) {
 			connection.endBatchEdit();
 			return;
 		}

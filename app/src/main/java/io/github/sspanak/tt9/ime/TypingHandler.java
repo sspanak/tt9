@@ -221,11 +221,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(inputType)) {
+		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(inputType, textField)) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddPrecedingSpace(textField)) {
+		if (mInputMode.shouldAddPrecedingSpace(inputType, textField)) {
 			textField.addPrecedingSpace(currentWord);
 		}
 

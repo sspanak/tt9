@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
+import java.util.Set;
+
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
@@ -9,11 +11,14 @@ import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
 
 public class AutoSpace {
-	private final SettingsStore settings;
+	private static final Set<Character> PRECEDING_SPACE_PUNCTUATION = Set.of('(', '«', '„');
+	private static final Set<Character> PRECEDING_SPACE_FRENCH_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
+	private static final Set<Character> TRAILING_SPACE_PUNCTUATION = Set.of('.', ',', ';', '!', '?', ')', '%', '»', '؟', '“');
 
-	private InputType inputType;
-	private TextField textField;
-	private String lastWord;
+	private static final Set<Character> NO_PRECEDING_SPACE_PUNCTUATION = Set.of('.', ',', ')', '\'', '@', '“', '؟');
+	private static final Set<Character> NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
+
+	private final SettingsStore settings;
 
 	private boolean isLanguageFrench;
 	private boolean isLanguageWithSpaceBetweenWords;
@@ -26,31 +31,9 @@ public class AutoSpace {
 	}
 
 
-	public AutoSpace setInputType(InputType inputType) {
-		this.inputType = inputType;
-		return this;
-	}
-
-
-	public AutoSpace setTextField(TextField textField) {
-		this.textField = textField;
-		return this;
-	}
-
-
-	public AutoSpace setLastWord(String lastWord) {
-		this.lastWord = lastWord;
-		return this;
-	}
-
-
 	public AutoSpace setLanguage(Language language) {
 		isLanguageFrench = LanguageKind.isFrench(language);
 		isLanguageWithSpaceBetweenWords = language != null && language.hasSpaceBetweenWords();
-		return this;
-	}
-
-	public AutoSpace setLastSequence() {
 		return this;
 	}
 
@@ -60,7 +43,7 @@ public class AutoSpace {
 	 * suggestion. This allows faster typing, without pressing space. See the helper functions for
 	 * the list of rules.
 	 */
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(TextField textField, InputType inputType, boolean isWordAcceptedManually, int nextKey) {
 		if (!isLanguageWithSpaceBetweenWords) {
 			return false;
 		}
@@ -84,12 +67,12 @@ public class AutoSpace {
 	 * Determines the special French rules for space before punctuation, as well as some standard ones.
 	 * For example, should we transform "word?" to "word ?", or "something(" to "something ("
 	 */
-	public boolean shouldAddBeforePunctuation() {
+	public boolean shouldAddBeforePunctuation(InputType inputType, TextField textField) {
 		String previousChars = textField.getStringBeforeCursor(2);
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
-		if (previousChar == '¡'	|| previousChar == '¿' && settings.getAutoSpace()) {
+		if (previousChar == '¡' || previousChar == '¿' && settings.getAutoSpace()) {
 			return true;
 		}
 
@@ -99,18 +82,8 @@ public class AutoSpace {
 			&& !inputType.isSpecialized()
 			&& Character.isAlphabetic(penultimateChar)
 			&& (
-				previousChar == '('
-				|| previousChar == '['
-				|| previousChar == '«'
-				|| previousChar == '„'
-				|| isLanguageFrench && (
-					previousChar == ';'
-					|| previousChar == ':'
-					|| previousChar == '!'
-					|| previousChar == '?'
-					|| previousChar == ')'
-					|| previousChar == '»'
-				)
+				PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
+				|| (isLanguageFrench && PRECEDING_SPACE_FRENCH_PUNCTUATION.contains(previousChar))
 			);
 	}
 
@@ -129,22 +102,12 @@ public class AutoSpace {
 			&& !Text.nextIsPunctuation(nextChars.toString())
 			&& !nextChars.startsWithNumber()
 			&& (
-				previousChar == '.'
-				|| previousChar == ','
-				|| previousChar == ';'
+				TRAILING_SPACE_PUNCTUATION.contains(previousChar)
 				|| (previousChar == ':' && !Character.isDigit(penultimateChar))
-				|| previousChar == '!'
-				|| previousChar == '?'
-				|| previousChar == ')'
-				|| previousChar == ']'
-				|| previousChar == '%'
-				|| previousChar == '»'
-				|| previousChar == '؟'
-				|| previousChar == '“'
 				|| (isLanguageFrench && previousChar == '«')
 				|| (penultimateChar == ' ' && previousChar == '-')
 				|| (penultimateChar == ' ' && previousChar == '/')
-				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(previousChar + ""))
+				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(String.valueOf(previousChar)))
 			);
 	}
 
@@ -164,22 +127,20 @@ public class AutoSpace {
 	/**
 	 * Determines whether to transform: "word ." to: "word."
 	 */
-	public boolean shouldDeletePrecedingSpace() {
+	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
+		String previousChars = textField.getStringBeforeCursor(3);
+		char prePenultimateChar = previousChars.length() < 3 ? 0 : previousChars.charAt(previousChars.length() - 3);
+		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
+		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
+
 		return
 			isLanguageWithSpaceBetweenWords
 			&& settings.getAutoSpace()
+			&& !Character.isWhitespace(prePenultimateChar)
+			&& Character.isWhitespace(penultimateChar)
 			&& (
-				lastWord.equals(".")
-				|| lastWord.equals(",")
-				|| (!isLanguageFrench && lastWord.equals(";"))
-				|| (!isLanguageFrench && lastWord.equals(":"))
-				|| (!isLanguageFrench && lastWord.equals("!"))
-				|| (!isLanguageFrench && lastWord.equals("?"))
-				|| lastWord.equals("؟")
-				|| (!isLanguageFrench && lastWord.equals(")"))
-				|| lastWord.equals("]")
-				|| lastWord.equals("'")
-				|| lastWord.equals("@")
+				NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
+				|| (!isLanguageFrench && NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar))
 			)
 			&& !inputType.isSpecialized();
 	}

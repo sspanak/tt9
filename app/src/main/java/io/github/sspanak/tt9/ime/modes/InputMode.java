@@ -107,8 +107,8 @@ abstract public class InputMode {
 	public boolean shouldAcceptPreviousSuggestion() { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
 	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
-	public boolean shouldAddPrecedingSpace(TextField textField) { return false; }
-	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
+	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }
+	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 	public boolean recompose(String word) { return false; }
