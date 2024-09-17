@@ -172,6 +172,7 @@ public class ModePredictive extends InputMode {
 
 		int lastAcceptedWordLength = lastAcceptedWord.length();
 		digitSequence = digitSequence.length() > lastAcceptedWordLength ? digitSequence.substring(lastAcceptedWordLength) : "";
+		stem = stem.length() > lastAcceptedWordLength ? stem.substring(lastAcceptedWordLength) : "";
 
 		if (digitSequence.length() == 1) {
 			suggestions.clear();
