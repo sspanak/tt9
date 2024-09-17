@@ -225,7 +225,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddAutoSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddPrecedingSpace(textField)) {
+			textField.addPrecedingSpace(currentWord);
+		}
+
+		if (mInputMode.shouldAddTrailingSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
 	}

@@ -46,7 +46,7 @@ public class ModePredictive extends InputMode {
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		autoSpace = new AutoSpace(settings, lang).setLanguage(lang);
+		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
 		digitSequence = "";
 		predictions = new Predictions(settings, textField);
@@ -464,13 +464,21 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
 		return autoSpace
 			.setLastWord(lastAcceptedWord)
 			.setLastSequence()
 			.setInputType(inputType)
 			.setTextField(textField)
-			.shouldAddAutoSpace(isWordAcceptedManually, nextKey);
+			.shouldAddTrailingSpace(isWordAcceptedManually, nextKey);
+	}
+
+
+	@Override
+	public boolean shouldAddPrecedingSpace(TextField textField) {
+		return autoSpace
+			.setTextField(textField)
+			.shouldAddBeforePunctuation();
 	}
 
 
