@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.languages;
 
 public class LanguageKind {
 	public static boolean isArabic(Language language) { return language != null && language.getKeyCharacters(3).contains("ا"); }
+	public static boolean isBulgarian(Language language) { return language != null && language.getKeyCharacters(4).contains("ѝ"); }
 	public static boolean isCyrillic(Language language) { return language != null && language.getKeyCharacters(2).contains("а"); }
 	public static boolean isHebrew(Language language) { return language != null && language.getKeyCharacters(3).contains("א"); }
 	public static boolean isGreek(Language language) { return language != null && language.getKeyCharacters(2).contains("α"); }

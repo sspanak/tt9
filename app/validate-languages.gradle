@@ -12,7 +12,7 @@ static def validateDictionaryWord(String word, int lineNumber, String validChara
 		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
 	}
 
-	if (word.matches("^.\$")) {
+	if (word.matches("^(.|\\p{L}\\p{M}?)\$")) {
 		errorCount++
 		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
 	}
@@ -65,6 +65,7 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 			line.matches("^[a-zA-Z].*")
 			&& !line.startsWith("abcString")
 			&& !line.startsWith("dictionaryFile")
+			&& !line.startsWith("hasSpaceBetweenWords")
 			&& !line.startsWith("hasUpperCase")
 			&& !line.startsWith("layout")
 			&& !line.startsWith("locale")
@@ -77,10 +78,14 @@ static def parseLanguageFile(File languageFile, String dictionariesDir) {
 			errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
 		}
 
-		if (line.startsWith("hasUpperCase") && !line.endsWith("yes") && !line.endsWith("no")) {
+		if (
+			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
+			&& !line.endsWith("yes") && !line.endsWith("no")
+		) {
+			def property = line.replaceAll(":.*\$", "")
 			def invalidVal = line.replace("hasUpperCase:", "").trim()
 			errorCount++
-			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized 'hasUpperCase' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
 		}
 
 		if (line.startsWith("layout")) {

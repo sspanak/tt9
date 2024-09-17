@@ -29,6 +29,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		NaturalLanguage lang = new NaturalLanguage();
 		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
 		lang.dictionaryFile = definition.getDictionaryFile();
+		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 		lang.setLocale(definition);

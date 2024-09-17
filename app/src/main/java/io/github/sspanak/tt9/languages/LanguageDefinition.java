@@ -20,6 +20,7 @@ public class LanguageDefinition {
 
 	public String abcString = "";
 	public String dictionaryFile = "";
+	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
 	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
@@ -83,27 +84,14 @@ public class LanguageDefinition {
 	@NonNull
 	private static LanguageDefinition parse(ArrayList<String> yaml) {
 		LanguageDefinition definition = new LanguageDefinition();
-		String value;
 
-		value = getPropertyFromYaml(yaml, "abcString");
-		definition.abcString = value != null ? value : definition.abcString;
-
-		value = getPropertyFromYaml(yaml, "dictionaryFile");
-		definition.dictionaryFile = value != null ? value : definition.dictionaryFile;
-
-		value = getPropertyFromYaml(yaml, "locale");
-		definition.locale = value != null ? value : definition.locale;
-
-		value = getPropertyFromYaml(yaml, "name");
-		definition.name = value != null ? value : definition.name;
-
+		definition.abcString = getPropertyFromYaml(yaml, "abcString", definition.abcString);
+		definition.dictionaryFile = getPropertyFromYaml(yaml, "dictionaryFile", definition.dictionaryFile);
+		definition.hasSpaceBetweenWords = getPropertyFromYaml(yaml, "hasSpaceBetweenWords", definition.hasSpaceBetweenWords);
+		definition.hasUpperCase = getPropertyFromYaml(yaml, "hasUpperCase", definition.hasUpperCase);
 		definition.layout = getLayoutFromYaml(yaml);
-
-		value = getPropertyFromYaml(yaml, "hasUpperCase");
-		if (value != null) {
-			value = value.toLowerCase();
-			definition.hasUpperCase = value.equals("true") || value.equals("on") || value.equals("yes") || value.equals("y");
-		}
+		definition.locale = getPropertyFromYaml(yaml, "locale", definition.locale);
+		definition.name = getPropertyFromYaml(yaml, "name", definition.name);
 
 		return definition;
 	}
@@ -112,10 +100,10 @@ public class LanguageDefinition {
 	/**
 	 * getPropertyFromYaml
 	 * Finds "property" in the "yaml" and returns its value.
-	 * Optional properties are allowed. NULL will be returned when they are missing.
+	 * Optional properties are allowed. If the property is not found, "defaultValue" will be returned.
 	 */
 	@Nullable
-	private static String getPropertyFromYaml(ArrayList<String> yaml, String property) {
+	private static String getPropertyFromYaml(ArrayList<String> yaml, String property, String defaultValue) {
 		for (String line : yaml) {
 			line = line.replaceAll("#.+$", "").trim();
 			String[] parts = line.split(":");
@@ -128,7 +116,22 @@ public class LanguageDefinition {
 			}
 		}
 
-		return null;
+		return defaultValue;
+	}
+
+
+	/**
+	 * The boolean variant of getPropertyFromYaml. It returns true if the property is found and is:
+	 * "true", "on", "yes" or "y".
+	 */
+	private static boolean getPropertyFromYaml(ArrayList<String> yaml, String property, boolean defaultValue) {
+		String value = getPropertyFromYaml(yaml, property, null);
+		if (value == null) {
+			return defaultValue;
+		}
+
+		value = value.toLowerCase();
+		return value.equals("true") || value.equals("on") || value.equals("yes") || value.equals("y");
 	}
 
 
