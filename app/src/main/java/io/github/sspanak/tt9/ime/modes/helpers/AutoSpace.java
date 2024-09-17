@@ -81,27 +81,36 @@ public class AutoSpace {
 
 
 	/**
-	 * For languages that require a space before punctuation (currently only French), this determines
-	 * whether to transform: "word?" to: "word ?".
+	 * Determines the special French rules for space before punctuation, as well as some standard ones.
+	 * For example, should we transform "word?" to "word ?", or "something(" to "something ("
 	 */
 	public boolean shouldAddBeforePunctuation() {
 		String previousChars = textField.getStringBeforeCursor(2);
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
+		if (previousChar == '¡'	|| previousChar == '¿' && settings.getAutoSpace()) {
+			return true;
+		}
+
 		return
 			isLanguageWithSpaceBetweenWords
-			&& isLanguageFrench
 			&& settings.getAutoSpace()
 			&& !inputType.isSpecialized()
 			&& Character.isAlphabetic(penultimateChar)
 			&& (
-				previousChar == ';'
-				|| previousChar == ':'
-				|| previousChar == '!'
-				|| previousChar == '?'
-				|| previousChar == ')'
-				|| previousChar == '»'
+				previousChar == '('
+				|| previousChar == '['
+				|| previousChar == '«'
+				|| previousChar == '„'
+				|| isLanguageFrench && (
+					previousChar == ';'
+					|| previousChar == ':'
+					|| previousChar == '!'
+					|| previousChar == '?'
+					|| previousChar == ')'
+					|| previousChar == '»'
+				)
 			);
 	}
 
@@ -129,12 +138,12 @@ public class AutoSpace {
 				|| previousChar == ')'
 				|| previousChar == ']'
 				|| previousChar == '%'
-				|| (isLanguageFrench && previousChar == '«')
 				|| previousChar == '»'
 				|| previousChar == '؟'
 				|| previousChar == '“'
-				|| previousChars.endsWith(" -")
-				|| previousChars.endsWith(" /")
+				|| (isLanguageFrench && previousChar == '«')
+				|| (penultimateChar == ' ' && previousChar == '-')
+				|| (penultimateChar == ' ' && previousChar == '/')
 				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(previousChar + ""))
 			);
 	}
