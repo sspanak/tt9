@@ -230,6 +230,29 @@ public class TextField extends InputField {
 
 
 	/**
+	 * Adds a space before the given word if the word is before the cursor. No action is taken if
+	 * there is no such word before the cursor.
+	 */
+	public void addPrecedingSpace(String word) {
+		if (connection == null) {
+			return;
+		}
+
+		connection.beginBatchEdit();
+		CharSequence beforeText = connection.getTextBeforeCursor(word.length(), 0);
+		if (beforeText == null || !beforeText.equals(word)) {
+			connection.endBatchEdit();
+			return;
+		}
+
+		connection.deleteSurroundingText(word.length(), 0);
+		connection.commitText(" " + word, 1);
+
+		connection.endBatchEdit();
+	}
+
+
+	/**
 	 * Erases the previous N characters and sets the given "text" as composing text. N is the length of
 	 * the given "text". Returns "true" if the operation was successful, "false" otherwise.
 	 */

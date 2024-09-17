@@ -106,7 +106,8 @@ abstract public class InputMode {
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion() { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
-	public boolean shouldAddAutoSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddPrecedingSpace(TextField textField) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
