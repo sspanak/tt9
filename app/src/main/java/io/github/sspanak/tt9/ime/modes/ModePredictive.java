@@ -465,30 +465,19 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace
-			.setLastWord(lastAcceptedWord)
-			.setLastSequence()
-			.setInputType(inputType)
-			.setTextField(textField)
-			.shouldAddTrailingSpace(isWordAcceptedManually, nextKey);
+		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
 	}
 
 
 	@Override
-	public boolean shouldAddPrecedingSpace(TextField textField) {
-		return autoSpace
-			.setTextField(textField)
-			.shouldAddBeforePunctuation();
+	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) {
+		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
 	}
 
 
 	@Override
-	public boolean shouldDeletePrecedingSpace(InputType inputType) {
-		return autoSpace
-			.setLastWord(lastAcceptedWord)
-			.setInputType(inputType)
-			.setTextField(null)
-			.shouldDeletePrecedingSpace();
+	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
 	}
 
 
