@@ -93,6 +93,7 @@ public class Hotkeys {
 		defaultKeys.put(SectionKeymap.ITEM_NEXT_INPUT_MODE, KeyEvent.KEYCODE_POUND);
 		defaultKeys.put(SectionKeymap.ITEM_NEXT_LANGUAGE, -KeyEvent.KEYCODE_POUND); // negative means "hold"
 		defaultKeys.put(SectionKeymap.ITEM_SELECT_KEYBOARD, KeyEvent.KEYCODE_UNKNOWN);
+		defaultKeys.put(SectionKeymap.ITEM_SHIFT, -KeyEvent.KEYCODE_STAR);
 		defaultKeys.put(SectionKeymap.ITEM_SHOW_SETTINGS, KeyEvent.KEYCODE_UNKNOWN);
 		defaultKeys.put(SectionKeymap.ITEM_VOICE_INPUT, KeyEvent.KEYCODE_UNKNOWN);
 

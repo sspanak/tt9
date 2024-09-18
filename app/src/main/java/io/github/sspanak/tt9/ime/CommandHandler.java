@@ -6,7 +6,6 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.ime.modes.ModeABC;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
@@ -135,28 +134,19 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
 			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
-		}
-		// when typing a word or viewing scrolling the suggestions, only change the case
-		else if (!suggestionOps.isEmpty()) {
-			nextTextCase();
-		}
-		// make "abc" and "ABC" separate modes from user perspective
-		else if (mInputMode instanceof ModeABC && mLanguage.hasUpperCase() && mInputMode.getTextCase() == InputMode.CASE_LOWER) {
-			mInputMode.nextTextCase();
 		} else {
+			suggestionOps.cancelDelayedAccept();
+			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+			resetKeyRepeat();
+
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
 			mInputMode.setTextFieldCase(inputType.determineTextCase());
 			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
-
-			resetKeyRepeat();
 		}
 
 		// save the settings for the next time
 		settings.saveInputMode(mInputMode.getId());
-		settings.saveTextCase(mInputMode.getTextCase());
-
-		statusBar.setText(mInputMode);
 	}
 
 
@@ -220,7 +210,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		suggestionOps.cancelDelayedAccept();
-		suggestionOps.acceptIncomplete();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		mInputMode.reset();
 
 		mainView.showCommandPalette();

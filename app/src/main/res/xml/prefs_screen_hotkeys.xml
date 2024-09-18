@@ -47,6 +47,10 @@
 		app:title="@string/function_select_keyboard" />
 
 	<DropDownPreference
+		app:key="key_shift"
+		app:title="@string/virtual_key_shift" />
+
+	<DropDownPreference
 		app:key="key_show_settings"
 		app:title="@string/function_show_settings" />
 

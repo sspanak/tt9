@@ -55,7 +55,8 @@ public class Key {
 			|| keyCode == settings.getKeyPreviousSuggestion()
 			|| keyCode == settings.getKeyNextSuggestion()
 			|| keyCode == settings.getKeyNextInputMode()
-			|| keyCode == settings.getKeyNextLanguage();
+			|| keyCode == settings.getKeyNextLanguage()
+			|| keyCode == settings.getKeyShift();
 	}
 
 

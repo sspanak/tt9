@@ -113,8 +113,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 			if (
 				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_input_mode
-				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_lf3
+				|| keyId == R.id.soft_key_lf4
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(false);
@@ -145,8 +145,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 			if (
 				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_input_mode
-				|| keyId == R.id.soft_key_language
+				|| keyId == R.id.soft_key_lf3
+				|| keyId == R.id.soft_key_lf4
 				|| keyId == R.id.soft_key_filter_suggestions
 			) {
 				key.setEnabled(true);

@@ -11,7 +11,7 @@ class SettingsHotkeys extends SettingsHacks {
 	SettingsHotkeys(Context context) { super(context); }
 
 	public boolean areHotkeysInitialized() {
-		return !prefs.getBoolean("hotkeys_v3_initialized", false);
+		return !prefs.getBoolean("hotkeys_v4_initialized", false);
 	}
 
 	public void setDefaultKeys(HashMap<String, Integer> defaultKeys) {
@@ -19,7 +19,7 @@ class SettingsHotkeys extends SettingsHacks {
 			prefsEditor.putString(key, String.valueOf(defaultKeys.get(key)));
 		}
 
-		prefsEditor.putBoolean("hotkeys_v3_initialized", true).apply();
+		prefsEditor.putBoolean("hotkeys_v4_initialized", true).apply();
 	}
 
 
@@ -60,6 +60,9 @@ class SettingsHotkeys extends SettingsHacks {
 	}
 	public int getKeySelectKeyboard() {
 		return getFunctionKey(SectionKeymap.ITEM_SELECT_KEYBOARD);
+	}
+	public int getKeyShift() {
+		return getFunctionKey(SectionKeymap.ITEM_SHIFT);
 	}
 	public int getKeyShowSettings() {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
