@@ -134,7 +134,7 @@ public class SuggestionsBar {
 			return stem + suggestions.get(id).substring(STEM_PUNCTUATION_VARIATION_PREFIX.length());
 		}
 
-		return suggestions.get(id).equals(Characters.getNewLine()) ? "\n" : suggestions.get(id);
+		return suggestions.get(id).equals(Characters.NEW_LINE) ? "\n" : suggestions.get(id);
 	}
 
 
@@ -199,7 +199,7 @@ public class SuggestionsBar {
 		}
 		// make the new line better readable
 		else if (suggestion.equals("\n")) {
-			suggestions.add(Characters.getNewLine());
+			suggestions.add(Characters.NEW_LINE);
 		}
 		// or add any other suggestion as is
 		else {

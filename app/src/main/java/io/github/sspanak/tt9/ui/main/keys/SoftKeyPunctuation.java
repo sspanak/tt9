@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.Characters;
 
 public class SoftKeyPunctuation extends SoftKey {
 	public SoftKeyPunctuation(Context context) {
@@ -43,19 +44,29 @@ public class SoftKeyPunctuation extends SoftKey {
 		}
 
 		int keyId = getId();
-		if (tt9.isInputModePhone()) {
-			if (keyId == R.id.soft_key_punctuation_1) return "*";
-			if (keyId == R.id.soft_key_punctuation_2) return "#";
-		} else if (tt9.isInputModeNumeric()) {
-			if (keyId == R.id.soft_key_punctuation_1) return ",";
-			if (keyId == R.id.soft_key_punctuation_2) return ".";
-		} else {
-			if (keyId == R.id.soft_key_punctuation_1) return "!";
-			if (keyId == R.id.soft_key_punctuation_2) {
-				return LanguageKind.isArabic(tt9.getLanguage()) ? "؟" : "?";
-			}
+		if (keyId == R.id.soft_key_punctuation_1) {
+			return getKey1Char();
+		} else if (keyId == R.id.soft_key_punctuation_2) {
+			return getKey2Char();
 		}
 
 		return "";
+	}
+
+	private String getKey1Char() {
+		if (tt9.isInputModePhone()) return "*";
+		if (tt9.isInputModeNumeric()) return ",";
+
+		return "!";
+	}
+
+	private String getKey2Char() {
+		if (tt9.isInputModePhone()) return "#";
+		if (tt9.isInputModeNumeric()) return ".";
+
+		if (LanguageKind.isArabic(tt9.getLanguage())) return "؟";
+		if (LanguageKind.isGreek(tt9.getLanguage())) return Characters.GR_QUESTION_MARK;
+
+		return "?";
 	}
 }
