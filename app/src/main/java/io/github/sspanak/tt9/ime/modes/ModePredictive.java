@@ -408,8 +408,18 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean nextTextCase() {
+		int before = textCase;
 		boolean changed = super.nextTextCase();
-		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase; // since it's a user's choice, the default matters no more
+
+		// When Auto Text Case is on, only upper- and automatic cases are available, so we skip lowercase.
+		// Yet, we allow adjusting individual words to lowercase, if needed.
+		if (digitSequence.isEmpty() && settings.getAutoTextCase() && language.hasUpperCase() && (before == CASE_LOWER || textCase == CASE_LOWER)) {
+			changed = super.nextTextCase();
+		}
+
+		// since it's a user's choice, the default matters no more
+		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;
+
 		return changed;
 	}
 
