@@ -139,7 +139,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			textField.deleteChars(charsToDelete);
 		}
 
-		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty()) {
+		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0, false);
 			if (mInputMode.recompose(previousWord) && textField.recompose(previousWord)) {
 				getSuggestions();
