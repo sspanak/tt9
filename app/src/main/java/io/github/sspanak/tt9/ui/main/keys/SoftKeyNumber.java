@@ -225,6 +225,7 @@ public class SoftKeyNumber extends SoftKey {
 		return
 			currentLetter == 'ѝ'
 			|| currentLetter == 'ґ'
+			|| currentLetter == 'ς'
 			|| (isLatinBased && currentLetter > 'z')
 			|| (isGreek && (currentLetter < 'α' || currentLetter > 'ω'));
 	}
