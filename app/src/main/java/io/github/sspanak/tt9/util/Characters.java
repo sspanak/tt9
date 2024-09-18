@@ -10,8 +10,8 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class Characters {
-	private static String NEW_LINE_CHARACTER = null;
-
+	public static final String GR_QUESTION_MARK = ";";
+	public static final String NEW_LINE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
 
 	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
 		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
@@ -23,7 +23,7 @@ public class Characters {
 
 	final public static ArrayList<Character> CombiningPunctuationHebrew = new ArrayList<>(Arrays.asList(
 		',' , '-', '\'', ':', ';', '!', '?', '.', '"',
-		'·', ';', // Greek
+		'·', GR_QUESTION_MARK.charAt(0), // Greek
 		'،', '؛', ':', '!', '؟' // Arabic
 	));
 
@@ -44,7 +44,7 @@ public class Characters {
 	));
 
 	final public static ArrayList<String> PunctuationGreek = new ArrayList<>(Arrays.asList(
-		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", ";"
+		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", GR_QUESTION_MARK
 	));
 
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
@@ -146,14 +146,6 @@ public class Characters {
 
 	public static int getMaxEmojiLevel() {
 		return Emoji.size();
-	}
-
-	public static String getNewLine() {
-		if (NEW_LINE_CHARACTER == null) {
-			NEW_LINE_CHARACTER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
-		}
-
-		return NEW_LINE_CHARACTER;
 	}
 
 	public static boolean isCombiningPunctuation(Language language, char ch) {
