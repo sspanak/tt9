@@ -174,14 +174,20 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected void nextTextCase() {
-		// When we are in AUTO mode and the dictionary word is in uppercase,
+		if (suggestionOps.isEmpty() || mInputMode.getSuggestions().isEmpty()) {
+			// When there are no suggestions, there is no need to execute the code for
+			// adjusting them below.
+			mInputMode.nextTextCase();
+			return;
+		}
+
+		// When we are in AUTO mode and current dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
 		// This is why we retry, until there is a visual change.
+		String before = suggestionOps.get(0);
 		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
-			String firstSuggestionAfter = mInputMode.getSuggestions().get(0);
-
-			// this is a word and the text case has finally changed
-			if (!firstSuggestionAfter.equals(suggestionOps.get(0))) {
+			String after = mInputMode.getSuggestions().get(0);
+			if (!after.equals(before)) {
 				break;
 			}
 		}
@@ -190,9 +196,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
 
 		// If the suggestions are special characters, changing the text case means selecting the
-		// next character group. Hence, "before" and "after" are different. Also, if the new suggestion
-		// list is shorter, the "before" index may be invalid, so "after" would be empty.
-		// In these cases, we scroll to the first one, for consistency.
+		// next character group. It makes no sense to keep the previous selection for a completely
+		// different list of characters, that's why we reset it.
 		if (!Character.isAlphabetic(mInputMode.getSuggestions().get(0).charAt(0))) {
 			currentSuggestionIndex = 0;
 		}
