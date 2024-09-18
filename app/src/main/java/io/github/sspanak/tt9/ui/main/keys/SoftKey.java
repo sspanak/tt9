@@ -262,7 +262,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		}
 
 		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		if (!new Text(title).startsWithGraphic()) {
+			sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+		}
 		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 

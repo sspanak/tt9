@@ -102,6 +102,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeySelectKeyboard(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyShift()) {
+			return onKeyNextTextCase(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyShowSettings()) {
 			return onKeyShowSettings(validateOnly);
 		}
@@ -283,6 +287,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
+		statusBar.setText(mInputMode);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth()) {
@@ -290,6 +295,24 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		forceShowWindow();
+		return true;
+	}
+
+
+	public boolean onKeyNextTextCase(boolean validateOnly) {
+		if (validateOnly) {
+			return true;
+		}
+
+		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
+		nextTextCase();
+		statusBar.setText(mInputMode);
+		mainView.render();
+
+		if (settings.isMainLayoutStealth()) {
+			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		}
+
 		return true;
 	}
 

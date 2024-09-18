@@ -62,7 +62,8 @@
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
+			android:layout_weight="@dimen/numpad_control_key_layout_weight"
+			android:textSize="@dimen/soft_key_icon_size" />
 
 		<View
 			android:id="@+id/separator_2_1"
@@ -97,14 +98,12 @@
 		android:layout_height="@dimen/numpad_key_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyInputMode
-			android:id="@+id/soft_key_input_mode"
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShift
+			android:id="@+id/soft_key_lf3"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_weight="@dimen/numpad_control_key_layout_weight"
-			android:text="⌨"
-			android:textSize="@dimen/soft_key_icon_size" />
+			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 		<View
 			android:id="@+id/separator_3_1"
@@ -130,7 +129,6 @@
 			android:layout_height="match_parent"
 			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
-
 	</LinearLayout>
 
 	<!-- Row 4 -->
@@ -140,13 +138,12 @@
 		android:layout_height="@dimen/numpad_key_height"
 		android:layoutDirection="ltr">
 
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyNextLanguage
-			android:id="@+id/soft_key_language"
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4
+			android:id="@+id/soft_key_lf4"
 			style="@android:style/Widget.Holo.Button.Borderless"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
-			android:layout_weight="@dimen/numpad_control_key_layout_weight"
-			android:text="🌐" />
+			android:layout_weight="@dimen/numpad_control_key_layout_weight" />
 
 		<View
 			android:id="@+id/separator_4_1"
