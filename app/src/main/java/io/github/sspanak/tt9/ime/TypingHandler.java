@@ -258,14 +258,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	/**
 	 * determineTextCase
-	 * Restore the last text case or auto-select a new one. If the InputMode supports it, it can change
-	 * the text case based on grammar rules, otherwise we fallback to the input field properties or the
-	 * last saved mode.
+	 * Restore the last used text case or auto-select a new one based on the input field properties.
 	 */
-	private void determineTextCase() {
-		mInputMode.defaultTextCase();
+	protected void determineTextCase() {
 		mInputMode.setTextFieldCase(inputType.determineTextCase());
-		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 

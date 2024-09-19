@@ -141,8 +141,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
-			mInputMode.setTextFieldCase(inputType.determineTextCase());
-			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
+			determineTextCase();
 		}
 
 		// save the settings for the next time
@@ -167,7 +166,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (suggestionOps.isEmpty() || mInputMode.getSuggestions().isEmpty()) {
 			// When there are no suggestions, there is no need to execute the code for
 			// adjusting them below.
-			mInputMode.nextTextCase();
+			if (mInputMode.nextTextCase()) {
+				settings.saveTextCase(mInputMode.getTextCase());
+			}
 			return;
 		}
 
@@ -194,6 +195,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
 		textField.setComposingText(suggestionOps.getCurrent());
+
+		settings.saveTextCase(mInputMode.getTextCase());
 	}
 
 
