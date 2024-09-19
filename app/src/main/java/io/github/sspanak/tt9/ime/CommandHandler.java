@@ -70,12 +70,16 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
-		} if (mainView.isTextEditingPaletteShown()) {
+			return;
+		}
+
+		if (mainView.isTextEditingPaletteShown()) {
 			String preview = Clipboard.getPreview(this);
 			statusBar.setText(preview.isEmpty() ? getString(R.string.commands_select_command) : "[ \"" + preview + "\" ]");
-		} else {
-			statusBar.setText(mInputMode);
+			return;
 		}
+
+		statusBar.setText(mInputMode);
 	}
 
 
