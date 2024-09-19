@@ -24,17 +24,53 @@ public class SoftKeyBackspace extends SwipeableKey {
 		super(context, attrs, defStyleAttr);
 	}
 
+
+	private boolean isFastDeleteOn() {
+		return tt9 != null && tt9.getSettings().getBackspaceAcceleration();
+	}
+
+
+	/**
+	 * When fast-delete is on, decrease the hold duration threshold for smoother operation.
+	 */
+	@Override
+	protected float getHoldDurationThreshold() {
+		return isFastDeleteOn() ? SettingsStore.SOFT_KEY_REPEAT_DELAY * 3 : super.getHoldDurationThreshold();
+	}
+
+
+	/**
+	 * When fast-delete is on, prevent swapping that does nothing. It may feel frustrating if the user
+	 * moves their finger slightly and the key does not delete anything.
+	 */
+	@Override
+	protected float getSwipeXThreshold(Context context) {
+		return isFastDeleteOn() ? super.getSwipeXThreshold(context) : Integer.MAX_VALUE;
+	}
+
+
+	/**
+	 * Disable vertical swiping for backspace key.
+	 */
+	@Override
+	protected float getSwipeYThreshold(Context context) {
+		return Integer.MAX_VALUE;
+	}
+
+
 	@Override
 	final protected boolean handlePress() {
 		super.handlePress();
 		return deleteText();
 	}
 
+
 	@Override
 	final protected void handleHold() {
 		repeat++;
 		deleteText();
 	}
+
 
 	@Override
 	final protected boolean handleRelease() {
@@ -43,12 +79,14 @@ public class SoftKeyBackspace extends SwipeableKey {
 		return true;
 	}
 
+
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
 		if (validateTT9Handler()) {
 			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
 		}
 	}
+
 
 	private boolean deleteText() {
 		if (validateTT9Handler() && !tt9.onBackspace(repeat)) {
@@ -62,15 +100,18 @@ public class SoftKeyBackspace extends SwipeableKey {
 		return false;
 	}
 
+
 	@Override
 	protected int getNoEmojiTitle() {
 		return R.string.virtual_key_del;
 	}
 
+
 	@Override
 	protected String getTitle() {
 		return LanguageKind.isRTL(tt9 != null ? tt9.getLanguage() : null) ? "⌦" : "⌫";
 	}
+
 
 	@Override
 	public void render() {

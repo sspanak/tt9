@@ -25,36 +25,30 @@ abstract public class SwipeableKey extends SoftKey {
 
 	public SwipeableKey(Context context) {
 		super(context);
-		init(context);
+		resetTimeThresholds(context);
 	}
 
 
 	public SwipeableKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		init(context);
+		resetTimeThresholds(context);
 	}
 
 
 	public SwipeableKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		init(context);
+		resetTimeThresholds(context);
 	}
 
 
-	private void init(Context context) {
-		if (HOLD_DURATION_THRESHOLD == 0) {
-			HOLD_DURATION_THRESHOLD = getHoldDurationThreshold();
-		}
-		if (SWIPE_X_THRESHOLD == 0) {
-			SWIPE_X_THRESHOLD = getSwipeXThreshold(context);
-		}
-		if (SWIPE_Y_THRESHOLD == 0) {
-			SWIPE_Y_THRESHOLD = getSwipeYThreshold(context);
-		}
+	protected final void resetTimeThresholds(Context context) {
+		HOLD_DURATION_THRESHOLD = getHoldDurationThreshold();
+		SWIPE_X_THRESHOLD = getSwipeXThreshold(context);
+		SWIPE_Y_THRESHOLD = getSwipeYThreshold(context);
 	}
 
 
-	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 3; }
+	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 9; }
 	protected float getSwipeXThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
 	protected float getSwipeYThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
 
@@ -80,11 +74,11 @@ abstract public class SwipeableKey extends SoftKey {
 	@Override
 	public boolean onLongClick(View view) {
 		if (System.currentTimeMillis() - startTime < HOLD_DURATION_THRESHOLD) {
-			return true;
+			return false;
 		}
 
 		isHolding = !isSwipingY && !isSwipingX;
-		return isSwipingY || isSwipingX || super.onLongClick(view);
+		return !isHolding || super.onLongClick(view);
 	}
 
 
@@ -143,4 +137,12 @@ abstract public class SwipeableKey extends SoftKey {
 	protected void handleEndSwipeX(float position, float delta) {}
 	protected void handleEndSwipeY(float position, float delta) {}
 	protected boolean notSwiped() { return notSwiped; }
+
+
+	@Override
+	public void render() {
+		// readjust the action detection delays for keys that set them dynamically
+		resetTimeThresholds(getContext());
+		super.render();
+	}
 }
