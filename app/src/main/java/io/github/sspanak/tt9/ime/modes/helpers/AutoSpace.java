@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.util.Text;
 public class AutoSpace {
 	private static final Set<Character> PRECEDING_SPACE_PUNCTUATION = Set.of('(', '«', '„');
 	private static final Set<Character> PRECEDING_SPACE_FRENCH_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
-	private static final Set<Character> TRAILING_SPACE_PUNCTUATION = Set.of('.', ',', ';', '!', '?', ')', '%', '»', '؟', '“', Characters.GR_QUESTION_MARK.charAt(0));
+	private static final Set<Character> TRAILING_SPACE_PUNCTUATION = Set.of(';', '!', '?', ')', '%', '»', '؟', '“', Characters.GR_QUESTION_MARK.charAt(0));
 
 	private static final Set<Character> NO_PRECEDING_SPACE_PUNCTUATION = Set.of('.', ',', ')', '\'', '@', '“', '؟', Characters.GR_QUESTION_MARK.charAt(0));
 	private static final Set<Character> NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
@@ -107,6 +107,8 @@ public class AutoSpace {
 				|| (penultimateChar == ' ' && previousChar == '-')
 				|| (penultimateChar == ' ' && previousChar == '/')
 				|| (!Character.isDigit(penultimateChar) && previousChar == ':')
+				|| (!Character.isDigit(penultimateChar) && previousChar == '.')
+				|| (!Character.isDigit(penultimateChar) && previousChar == ',')
 				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(String.valueOf(previousChar)))
 			);
 	}
