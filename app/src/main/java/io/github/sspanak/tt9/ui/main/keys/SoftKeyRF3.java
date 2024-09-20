@@ -7,14 +7,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SoftKeyRF3 extends SoftKey {
-	public SoftKeyRF3(Context context) { super(context); setFontSize(); }
-	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); setFontSize(); }
-	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); setFontSize(); }
+	public SoftKeyRF3(Context context) { super(context); }
+	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	private void setFontSize() {
-		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;
-		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
-	}
+	@Override protected float getTitleRelativeSize() { return super.getTitleRelativeSize() / 0.85f; }
+	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() / 0.85f; }
 
 	private boolean isVoiceInputMissing() {
 		return tt9 != null && tt9.isVoiceInputMissing();

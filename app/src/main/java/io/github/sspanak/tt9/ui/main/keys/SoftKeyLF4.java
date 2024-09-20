@@ -8,23 +8,12 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends SwipeableKey {
-	public SoftKeyLF4(Context context) {
-		super(context);
-		setFontSize();
-	}
-	public SoftKeyLF4(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		setFontSize();
-	}
-	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		setFontSize();
-	}
+	public SoftKeyLF4(Context context) { super(context); }
+	public SoftKeyLF4(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	private void setFontSize() {
-		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;
-		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
-	}
+	@Override protected float getTitleRelativeSize() { return super.getTitleRelativeSize() / 0.85f; }
+	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() / 0.85f; }
 
 	@Override
 	protected void handleHold() {
