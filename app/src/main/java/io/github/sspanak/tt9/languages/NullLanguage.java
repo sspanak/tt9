@@ -14,6 +14,8 @@ public class NullLanguage extends Language {
 		locale = Locale.ROOT;
 		name = context.getString(R.string.no_language);
 		abcString = "ABC";
+		code = "";
+		dictionaryFile = "";
 		hasUpperCase = false;
 	}
 

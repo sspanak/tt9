@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersExcep
 abstract public class Language {
 	protected int id;
 	protected String abcString;
+	protected String code;
 	protected String dictionaryFile;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
@@ -23,6 +24,10 @@ abstract public class Language {
 
 	@NonNull public String getAbcString() {
 		return abcString;
+	}
+
+	@NonNull public String getCode() {
+		return code;
 	}
 
 	@NonNull final public String getDictionaryFile() {
