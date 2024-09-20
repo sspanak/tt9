@@ -18,6 +18,8 @@ public class SoftKeyFn extends SoftKeyNumber {
 	public SoftKeyFn(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftKeyFn(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
+	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() * 0.8f; }
+
 
 	@Override protected void handleHold() {
 		preventRepeat();
@@ -50,7 +52,6 @@ public class SoftKeyFn extends SoftKeyNumber {
 
 
 	protected String getTextSubTitle(int resId) {
-		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE * 0.8f;
 		return getContext().getString(resId);
 	}
 

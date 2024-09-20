@@ -29,9 +29,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 	protected TraditionalT9 tt9;
 	protected Vibration vibration;
 
-	protected float complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
-	protected float complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
-
 	private boolean hold = false;
 	private boolean repeat = false;
 	private long lastLongClickTime = 0;
@@ -231,6 +228,23 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	/**
+	 * Multiplier for the title font size.
+	 */
+	protected float getTitleRelativeSize() {
+		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+	}
+
+
+	/**
+	 * Multiplier for the subtitle font size.
+	 */
+	protected float getSubTitleRelativeSize() {
+		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
+	}
+
+
+
+	/**
 	 * render
 	 * Sets the key label using "getTitle()" and "getSubtitle()" or if they both
 	 * return NULL, the XML "text" attribute will be preserved.
@@ -257,16 +271,16 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		sb.append(subtitle);
 
 		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
-		if (complexLabelTitleSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
+		if (getTitleRelativeSize() == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
 			padding /= 10;
 		}
 
-		sb.setSpan(new RelativeSizeSpan(complexLabelTitleSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(getTitleRelativeSize()), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		if (!new Text(title).startsWithGraphic()) {
 			sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 		}
 		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(complexLabelSubTitleSize), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		sb.setSpan(new RelativeSizeSpan(getSubTitleRelativeSize()), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}

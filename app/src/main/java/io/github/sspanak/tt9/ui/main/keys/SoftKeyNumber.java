@@ -60,6 +60,27 @@ public class SoftKeyNumber extends SoftKey {
 	}
 
 
+	private boolean isArabicNumber() {
+		return tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage());
+	}
+
+
+	@Override
+	protected float getTitleRelativeSize() {
+		return isArabicNumber() ? SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE : SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+	}
+
+
+	@Override
+	protected float getSubTitleRelativeSize() {
+		if (tt9 != null && !tt9.isInputModeNumeric() && getNumber(getId()) == 0) {
+			return 1.1f;
+		}
+
+		return super.getSubTitleRelativeSize();
+	}
+
+
 	@Override
 	protected void handleHold() {
 		preventRepeat();
@@ -109,11 +130,9 @@ public class SoftKeyNumber extends SoftKey {
 	protected String getTitle() {
 		int number = getNumber(getId());
 
-		if (tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage())) {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE;
+		if (isArabicNumber() && tt9.getLanguage() != null) {
 			return tt9.getLanguage().getKeyNumber(number);
 		} else {
-			complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
 			return String.valueOf(number);
 		}
 	}
@@ -146,7 +165,6 @@ public class SoftKeyNumber extends SoftKey {
 		} else if (tt9.isInputModeNumeric()) {
 			return "+";
 		} else {
-			complexLabelSubTitleSize = 1;
 			return "␣";
 		}
 	}
