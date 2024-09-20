@@ -17,6 +17,7 @@ public class EmojiLanguage extends Language {
 		id = Integer.parseInt(EMOJI_SEQUENCE);
 		locale = Locale.ROOT;
 		abcString = "emoji";
+		code = "emj";
 		name = "Emoji";
 	}
 

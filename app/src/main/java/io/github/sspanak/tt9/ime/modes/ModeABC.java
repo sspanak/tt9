@@ -117,16 +117,14 @@ public class ModeABC extends InputMode {
 			return textCase == CASE_LOWER ? "abc" : "ABC";
 		}
 
-		String langCode = "";
+		String modeString = language.getAbcString();
+
+		// There are many languages written using the same alphabet, so if the user has
+		// enabled multiple ones, make it clear which one is it, by appending the unique
+		// country or language code to "ABC" or "АБВ".
 		if (LanguageKind.isLatinBased(language) || LanguageKind.isCyrillic(language)) {
-			// There are many languages written using the same alphabet, so if the user has enabled multiple,
-			// make it clear which one is it, by appending the country code to "ABC" or "АБВ".
-			langCode = language.getLocale().getCountry();
-			langCode = langCode.isEmpty() ? language.getLocale().getLanguage() : langCode;
-			langCode = langCode.isEmpty() ? language.getName() : langCode;
-			langCode = " / " + langCode;
+			modeString += " / " + language.getCode();
 		}
-		String modeString = language.getAbcString() + langCode.toUpperCase();
 
 		return (textCase == CASE_LOWER) ? modeString.toLowerCase(language.getLocale()) : modeString.toUpperCase(language.getLocale());
 	}
