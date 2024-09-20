@@ -1,27 +1,29 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.os.Build;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends SwipeableKey {
-	private final static float GLOBE_SIZE = 0.35f;
-
 	public SoftKeyLF4(Context context) {
 		super(context);
-		complexLabelTitleSize = GLOBE_SIZE;
+		setFontSize();
 	}
 	public SoftKeyLF4(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		complexLabelTitleSize = GLOBE_SIZE;
+		setFontSize();
 	}
 	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		complexLabelTitleSize = GLOBE_SIZE;
+		setFontSize();
+	}
+
+	private void setFontSize() {
+		complexLabelTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE / 0.85f;
+		complexLabelSubTitleSize = SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE / 0.85f;
 	}
 
 	@Override
@@ -58,16 +60,23 @@ public class SoftKeyLF4 extends SwipeableKey {
 
 	@Override
 	protected String getSubTitle() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && new Paint().hasGlyph("⌨")) {
-			return "⌨";
+		if (tt9 == null || tt9.getLanguage() == null) {
+			return getContext().getString(R.string.virtual_key_input_mode);
 		}
 
-		return getContext().getString(R.string.virtual_key_input_mode).toUpperCase();
+		if (tt9.isInputModeNumeric()) {
+			return "123";
+		}
+
+		if (tt9.isInputModeABC()) {
+			return tt9.getLanguage().getAbcString().toUpperCase(tt9.getLanguage().getLocale());
+		}
+
+		return "T9";
 	}
 
 	@Override
 	public void render() {
-		setTextSize(28);
 		super.render();
 		setEnabled(tt9 != null && !tt9.isVoiceInputActive());
 	}
