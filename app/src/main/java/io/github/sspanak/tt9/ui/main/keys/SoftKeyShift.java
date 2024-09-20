@@ -32,6 +32,6 @@ public class SoftKeyShift extends SoftKey {
 		setTextSize(30);
 		setTypeface(Typeface.DEFAULT_BOLD);
 		super.render();
-		setEnabled(tt9 != null && !tt9.isVoiceInputActive());
+		setEnabled(tt9 != null && !tt9.isVoiceInputActive() && !tt9.isInputModeNumeric());
 	}
 }
