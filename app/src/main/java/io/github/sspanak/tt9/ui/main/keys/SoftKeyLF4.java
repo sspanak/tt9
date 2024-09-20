@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends SwipeableKey {
@@ -44,7 +43,7 @@ public class SoftKeyLF4 extends SwipeableKey {
 
 	@Override
 	protected String getTitle() {
-		return "🌐";
+		return tt9.isInputModeNumeric() ? "" : "🌐";
 	}
 
 	@Override
@@ -67,6 +66,12 @@ public class SoftKeyLF4 extends SwipeableKey {
 	@Override
 	public void render() {
 		super.render();
-		setEnabled(tt9 != null && !tt9.isVoiceInputActive());
+
+		setEnabled(
+			tt9 != null
+			&& !tt9.isVoiceInputActive()
+			&& !tt9.isNumericModeStrict()
+			&& !tt9.isInputModePhone()
+		);
 	}
 }
