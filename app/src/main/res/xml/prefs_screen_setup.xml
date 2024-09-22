@@ -9,6 +9,10 @@
 			app:key="global_default_keyboard"
 			app:title="@string/setup_default_keyboard" />
 
+	<Preference
+			app:key="global_spellchecker"
+			app:title="@string/setup_spell_checker" />
+
 	<PreferenceCategory app:title="@string/pref_category_hacks">
 
 		<SwitchPreferenceCompat

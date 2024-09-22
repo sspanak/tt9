@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
@@ -20,6 +21,25 @@ public class UI {
 
 	public static void showChangeKeyboardDialog(Context context) {
 		((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
+	}
+
+	public static boolean showSystemSpellCheckerSettings(Context context) {
+		ComponentName component = new ComponentName(
+			"com.android.settings",
+			"com.android.settings.Settings$SpellCheckersSettingsActivity"
+		);
+
+		Intent intent = new Intent();
+		intent.addCategory(Intent.CATEGORY_LAUNCHER);
+		intent.setComponent(component);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		try {
+			context.startActivity(intent);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 

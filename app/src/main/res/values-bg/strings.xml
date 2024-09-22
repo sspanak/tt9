@@ -96,6 +96,9 @@
 	<string name="setup_tt9_on">%1$s е активен</string>
 	<string name="setup_tt9_off">%1$s е изключен</string>
 	<string name="setup_click_here_to_enable">Натиснете тук, за да включите TT9 от настройките на Андроид.</string>
+	<string name="setup_spell_checker">Системна проверка на правописа</string>
+	<string name="setup_spell_checker_on">Системната проверка на правописа може да попречи на добавянето на думи. Натиснете тук, за да я изключите.</string>
+	<string name="setup_spell_checker_off">Изключена</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>

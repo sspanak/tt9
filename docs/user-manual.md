@@ -7,7 +7,13 @@ After installing, first, you need to enable Traditional T9 as an Android keyboar
 _If you don't see the icon right after installing, restart your phone, and it should appear. It is due to Android trying to save some battery life by not refreshing the newly installed apps list._
 
 ### Using on a touchscreen-only phone
-If your phone does not have a hardware keypad, check out the [On-screen Keypad section](#on-screen-keypad).
+On touchscreen devices, it is also highly recommended to disable the system spell checker. It can not be used when typing with the number keys, so you can save some battery life by disabling it.
+
+Another problem is, that it may show a confusing "Add Word" popup dialog, which adds words to the default system keyboard (usually, Gboard) and not to Traditional T9's dictionary. Again, to avoid such situations, the system spell checker must be disabled.
+
+If you need to perform this step, the "System Spell Checker" item on the Initial Setup screen will be active. Click it to disable the system component. If you there is no such item, then you don't need to do anything else.
+
+After you are done with the setup, check out the [On-screen Keypad section](#on-screen-keypad) for more tips and tricks.
 
 ### Enabling Predictive Mode
 Predictive Mode requires a language dictionary to be loaded to provide word suggestions. You can toggle the enabled languages and load their dictionaries from Settings Screen → [Languages](#language-options). In case, you have forgotten to load some dictionary, Traditional T9 will do it for you automatically when you start typing. For more information, [see below](#language-options).

@@ -86,6 +86,9 @@
 	<string name="setup_tt9_on">%1$s está ativado</string>
 	<string name="setup_tt9_off">%1$s está desativado</string>
 	<string name="setup_click_here_to_enable">Clique aqui para ativar TT9 nas configurações do Android.</string>
+	<string name="setup_spell_checker">Verificador ortográfico do sistema</string>
+	<string name="setup_spell_checker_on">O verificador ortográfico do sistema pode interferir na adição de palavras. Clique aqui para desativá-lo.</string>
+	<string name="setup_spell_checker_off">Desativado</string>
 	<string name="key_hold_key">(segurar)</string>
 	<string name="key_back">Voltar</string>
 	<string name="key_call">Chamada</string>

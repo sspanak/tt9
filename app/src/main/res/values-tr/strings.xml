@@ -72,6 +72,9 @@
 	<string name="setup_tt9_on">%1$s devrede</string>
 	<string name="setup_tt9_off">%1$s devre dışı</string>
 	<string name="setup_click_here_to_enable">Android ayarlarında TT9 uygulamasını etkinleştirmek için burayı tıklayın.</string>
+	<string name="setup_spell_checker">Sistem Yazım Denetleyicisi</string>
+	<string name="setup_spell_checker_on">Sistem yazım denetleyicisi kelime eklemeye müdahale edebilir. Devre dışı bırakmak için buraya tıklayın.</string>
+	<string name="setup_spell_checker_off">Devre dışı</string>
 	<string name="key_back">Geri</string>
 	<string name="key_channel_down">Önceki Seçim</string>
 	<string name="key_channel_up">Sonraki Seçim</string>
