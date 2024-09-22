@@ -134,6 +134,9 @@
 	<string name="setup_tt9_off">%1$s вимкнуто</string>
 	<string name="setup_click_here_to_enable">Нажміть тут, щоб увімкнути TT9 в налаштуваннях Android.</string>
 
+	<string name="setup_spell_checker">Системна перевірка орфографії</string>
+	<string name="setup_spell_checker_on">Системна перевірка орфографії може заважати додаванню слів. Натисніть тут, щоб вимкнути.</string>
+	<string name="setup_spell_checker_off">Вимкнена</string>
 	<string name="key_hold_key">(тримати)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Подзвонити</string>

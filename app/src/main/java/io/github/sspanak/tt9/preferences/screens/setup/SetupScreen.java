@@ -45,6 +45,8 @@ public class SetupScreen extends BaseScreenFragment {
 		if (defaultKeyboardItem != null) {
 			new ItemSetDefaultGlobalKeyboard(defaultKeyboardItem, activity).enableClickHandler();
 		}
+
+		new ItemSpellCheck(activity, findPreference("global_spellchecker")).enableClickHandler();
 	}
 
 	private void createHacksSection(boolean isEnabled) {

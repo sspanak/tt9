@@ -100,6 +100,9 @@
 	<string name="setup_tt9_off">„%1$s“ yra išjungtas</string>
 	<string name="setup_click_here_to_enable">Spauskite čia norėdami įjungti „TT9“ per „Android“ nustatymus.</string>
 
+	<string name="setup_spell_checker">Sistemos rašybos tikrintuvas</string>
+	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas gali trukdyti pridėti žodžius. Spustelėkite čia, kad išjungtumėte.</string>
+	<string name="setup_spell_checker_off">Išjungtas</string>
 	<string name="key_hold_key">(laikyti nusp.)</string>
 	<string name="key_back">Atgal mygtukas</string>
 	<string name="key_call">Skambinti mygtukas</string>
