@@ -8,6 +8,11 @@
 		android:key="screen_hotkeys"
 		android:title="@string/pref_category_function_keys" />
 
+	<Preference
+		android:fragment="io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen"
+		android:key="screen_punctuation"
+		android:title="@string/pref_category_punctuation_order" />
+
 	<SwitchPreferenceCompat
 		android:defaultValue="false"
 		android:key="backspace_acceleration"

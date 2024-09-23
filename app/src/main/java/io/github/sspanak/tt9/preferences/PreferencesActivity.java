@@ -30,6 +30,7 @@ import io.github.sspanak.tt9.preferences.screens.languages.LanguagesScreen;
 import io.github.sspanak.tt9.preferences.screens.main.MainSettingsScreen;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen;
+import io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
@@ -152,6 +153,8 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 				return new ModePredictiveScreen(this);
 			case ModeAbcScreen.NAME:
 				return new ModeAbcScreen(this);
+			case PunctuationScreen.NAME:
+					return new PunctuationScreen(this);
 			case SetupScreen.NAME:
 				return new SetupScreen(this);
 			case UsageStatsScreen.NAME:

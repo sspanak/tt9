@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceSentencePunctuationList
+		android:key="punctuation_order_sentence"
+		android:title="@string/punctuation_order_sentence" />
+
+	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceSentencePunctuationList
+		android:key="punctuation_order_sentence"
+		android:title="@string/punctuation_order_special" />
+
+	<Preference
+		android:key="punctuation_order_reset_defaults"
+		android:title="@string/punctuation_order_reset_defaults" />
+
+</PreferenceScreen>
