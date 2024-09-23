@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
@@ -36,6 +37,8 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 	private static int lastPressedKey = -1;
 	private boolean ignoreLastPressedKey = false;
+
+	private boolean isTitleDisabled = false;
 
 
 	public SoftKey(Context context) {
@@ -275,14 +278,25 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 			padding /= 10;
 		}
 
+		// title styles
 		sb.setSpan(new RelativeSizeSpan(getTitleRelativeSize()), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		if (!new Text(title).startsWithGraphic()) {
 			sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 		}
+		if (isTitleDisabled) {
+			sb.setSpan(new ForegroundColorSpan(0x44000000), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		}
+
+		// subtitle styles
 		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		sb.setSpan(new RelativeSizeSpan(getSubTitleRelativeSize()), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
+	}
+
+
+	protected void setTitleDisabled(boolean yes) {
+		isTitleDisabled = yes;
 	}
 
 
