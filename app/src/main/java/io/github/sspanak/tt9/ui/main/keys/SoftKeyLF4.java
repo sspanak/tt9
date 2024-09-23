@@ -14,6 +14,10 @@ public class SoftKeyLF4 extends SwipeableKey {
 	@Override protected float getTitleRelativeSize() { return super.getTitleRelativeSize() / 0.85f; }
 	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() / 0.85f; }
 
+	private boolean areThereManyLanguages() {
+		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
+	}
+
 	@Override
 	protected void handleHold() {
 		preventRepeat();
@@ -41,13 +45,11 @@ public class SoftKeyLF4 extends SwipeableKey {
 		}
 	}
 
-	@Override
-	protected String getTitle() {
-		return tt9.isInputModeNumeric() ? "" : "🌐";
+	protected String getHoldIcon() {
+		return "🌐";
 	}
 
-	@Override
-	protected String getSubTitle() {
+	protected String getPressIcon() {
 		if (tt9 == null || tt9.getLanguage() == null) {
 			return getContext().getString(R.string.virtual_key_input_mode);
 		}
@@ -64,7 +66,18 @@ public class SoftKeyLF4 extends SwipeableKey {
 	}
 
 	@Override
+	protected String getTitle() {
+		return areThereManyLanguages() ? getHoldIcon() : getPressIcon();
+	}
+
+	@Override
+	protected String getSubTitle() {
+		return areThereManyLanguages() ? getPressIcon() : null;
+	}
+
+	@Override
 	public void render() {
+		setTitleDisabled(tt9 != null && tt9.isInputModeNumeric() && areThereManyLanguages());
 		super.render();
 
 		setEnabled(
