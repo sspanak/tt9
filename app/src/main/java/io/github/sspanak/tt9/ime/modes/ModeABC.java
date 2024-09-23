@@ -99,8 +99,8 @@ public class ModeABC extends InputMode {
 		shouldSelectNextLetter = true; // do not accept any previous suggestions after loading the new ones
 	}
 
-	@Override public void onAcceptSuggestion(@NonNull String word) { reset(); }
-	@Override public boolean shouldAcceptPreviousSuggestion() { return !shouldSelectNextLetter; }
+	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }
+	@Override public boolean shouldAcceptPreviousSuggestion(String w) { return !shouldSelectNextLetter; }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
 
 	@Override
