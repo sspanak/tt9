@@ -232,6 +232,11 @@ public class SuggestionsBar {
 			selectedIndex = suggestions.size() - 1;
 		}
 
+		if (containsStem() && selectedIndex == 0) {
+			scrollToSuggestion(increment);
+			return;
+		}
+
 		scrollToSuggestionOnScreen(oldIndex);
 	}
 
@@ -246,7 +251,21 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.notifyItemChanged(selectedIndex);
 
 		if (settings.getSuggestionScrollingDelay() > 0) {
-			alternativeScrollingHandler.postDelayed(() -> mView.scrollToPosition(selectedIndex), settings.getSuggestionScrollingDelay());
+			alternativeScrollingHandler.removeCallbacksAndMessages(null);
+			alternativeScrollingHandler.postDelayed(this::scrollToSelectedIndex, settings.getSuggestionScrollingDelay());
+		} else {
+			scrollToSelectedIndex();
+		}
+	}
+
+
+	/**
+	 * Tells the adapter to scroll. Always call scrollToSuggestionOnScreen() first,
+	 * to set the selected index in the adapter.
+	 */
+	private void scrollToSelectedIndex() {
+		if (containsStem() && selectedIndex == 1 && getSuggestion(1).length() < getSuggestion(suggestions.size() - 1).length()) {
+			mView.scrollToPosition(0);
 		} else {
 			mView.scrollToPosition(selectedIndex);
 		}
