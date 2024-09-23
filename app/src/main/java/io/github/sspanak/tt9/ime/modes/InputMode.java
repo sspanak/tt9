@@ -104,7 +104,7 @@ abstract public class InputMode {
 	}
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
-	public boolean shouldAcceptPreviousSuggestion() { return false; }
+	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
 	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }

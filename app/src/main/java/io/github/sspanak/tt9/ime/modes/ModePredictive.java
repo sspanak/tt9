@@ -445,7 +445,7 @@ public class ModePredictive extends InputMode {
 	 * Variant for post suggestion load analysis.
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion() {
+	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
 		// backspace never breaks words
 		if (!isCursorDirectionForward) {
 			return false;
@@ -456,11 +456,8 @@ public class ModePredictive extends InputMode {
 			return true;
 		}
 
-		// allow apostrophes in the middle or at the end of Hebrew and Ukrainian words
-		if (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)) {
-			return
-				predictions.noDbWords()
-				&& digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY);
+		if (shouldAcceptHebrewOrUkrainianWord(unacceptedText)) {
+			return true;
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
@@ -470,6 +467,25 @@ public class ModePredictive extends InputMode {
 			&& digitSequence.contains(NaturalLanguage.PUNCTUATION_KEY)
 			&& !digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
+	}
+
+
+	/**
+	 * Apostrophes never break Ukrainian and Hebrew words because they are used as letters. Same for
+	 * the quotation marks in Hebrew.
+	 */
+	private boolean shouldAcceptHebrewOrUkrainianWord(String unacceptedText) {
+		char penultimateChar = unacceptedText.length() > 1 ? unacceptedText.charAt(unacceptedText.length() - 2) : 0;
+
+		if (LanguageKind.isHebrew(language) && predictions.noDbWords()) {
+			return penultimateChar != '\'' && penultimateChar != '"';
+		}
+
+		if (LanguageKind.isUkrainian(language) && predictions.noDbWords()) {
+			return penultimateChar != '\'';
+		}
+
+		return false;
 	}
 
 

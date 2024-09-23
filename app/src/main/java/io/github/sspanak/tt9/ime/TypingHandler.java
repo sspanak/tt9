@@ -357,7 +357,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
-		if (mInputMode.shouldAcceptPreviousSuggestion()) {
+		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
 			String lastWord = suggestionOps.acceptPrevious(mInputMode.getSequenceLength());
 			onAcceptSuggestionAutomatically(lastWord);
 		}
