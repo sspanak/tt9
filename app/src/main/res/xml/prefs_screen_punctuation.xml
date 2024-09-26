@@ -11,7 +11,8 @@
 
 	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceSpecialCharList
 		android:key="punctuation_order_special_chars"
-		android:title="@string/punctuation_order_special" />
+		android:title="@string/punctuation_order_special"
+		android:summary="@string/punctuation_order_whitespace_will_be_added_automatically"/>
 
 	<Preference
 		android:key="punctuation_order_reset_defaults"

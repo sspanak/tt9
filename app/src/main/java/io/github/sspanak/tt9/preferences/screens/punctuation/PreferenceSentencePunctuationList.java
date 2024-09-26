@@ -6,10 +6,10 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.preferences.items.ItemTextInput;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
 
-public class PreferenceSentencePunctuationList extends ItemTextInput {
+public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_sentence";
 
 	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -33,7 +33,19 @@ public class PreferenceSentencePunctuationList extends ItemTextInput {
 		Logger.d(getClass().getSimpleName(), "new punctuation list: " + word);
 	}
 
-	void onLanguageChanged(@Nullable String newLanguageId) {
-		Logger.d(getClass().getSimpleName(), "new language: " + newLanguageId);
+	@Override
+	@NonNull
+	protected String getChars(Language language) {
+		return getSettings().getPunctuation(language);
+	}
+
+	/**
+	 * We want to all the user to rearrange all characters even the mandatory ones.
+	 * We will verify if they are present upon saving.
+	 */
+	@NonNull
+	@Override
+	protected char[] getMandatoryChars() {
+		 return new char[0];
 	}
 }

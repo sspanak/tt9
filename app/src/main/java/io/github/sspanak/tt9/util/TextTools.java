@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
@@ -69,5 +70,17 @@ public class TextTools {
 		sdf.setTimeZone(TimeZone.getDefault());
 
 		return sdf.format(new Date(timestamp));
+	}
+
+	public static HashSet<Character> stringToSet(String str) {
+		HashSet<Character> set = new HashSet<>();
+
+		if (str != null) {
+			for (char c : str.toCharArray()) {
+				set.add(c);
+			}
+		}
+
+		return set;
 	}
 }
