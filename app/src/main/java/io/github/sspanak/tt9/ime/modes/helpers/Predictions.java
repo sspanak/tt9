@@ -222,10 +222,13 @@ public class Predictions {
 
 	/**
 	 * insertPunctuationCompletions
-	 * When given: "you'", for example, this inserts all other 1-key alternatives, like:
-	 * "you.", "you?", "you!" and so on. The generated words will be inserted after the direct
-	 * database matches and before the fuzzy matches, as if they were direct matches with low frequency.
-	 * This is to preserve the sorting by length and frequency.
+	 * When given: "don'", for example, this inserts all other 1-key alternatives, like:
+	 * "don.", "don?", "don!" and so on. The generated words will be inserted after the exact
+	 * database matches, as if they were in the database with low frequency. This is to preserve the
+	 * sorting by length and frequency.
+	 * Finally, based on the discussion in <a href="https://github.com/sspanak/tt9/issues/634">Issue 634</a>,
+	 * we skip the fuzzy matches, because it is more convenient to select the last word "don?" using
+	 * a single key press, instead of longer words like "don't".
 	 */
 	private ArrayList<String> insertPunctuationCompletions(ArrayList<String> dbWords) {
 		if (!stem.isEmpty() || dbWords.isEmpty() || digitSequence.length() < 2 || !digitSequence.endsWith("1")) {
@@ -250,12 +253,7 @@ public class Predictions {
 			}
 		}
 
-		// longer database words (fuzzy matches)
-		for (String w : dbWords) {
-			if (w.length() > exactMatchLength) {
-				complementedWords.add(w);
-			}
-		}
+		// no longer database words (skip the fuzzy matches)
 
 		containsGeneratedWords = true;
 		return complementedWords;
