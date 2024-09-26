@@ -74,8 +74,13 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void loadCharList(AbstractPreferenceCharList list) {
-		if (list != null) {
-			list.setOnRender(() -> onLanguageChanged(languageList.getValue()));
+		if (list == null) {
+			return;
 		}
+
+		list.setOnRender(() -> {
+			list.setOnRender(null);
+			onLanguageChanged(languageList.getValue());
+		});
 	}
 }

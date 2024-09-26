@@ -6,9 +6,6 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.util.Logger;
-
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_special_chars";
 
@@ -29,13 +26,8 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	}
 
 	@Override
-	protected void onChange(String word) {
-		Logger.d(getClass().getSimpleName(), "new special chars list: " + word);
-	}
-
-	@Override
 	@NonNull
-	protected String getChars(Language language) {
+	protected String getChars() {
 		return getSettings().getSpecialChars(language);
 	}
 
@@ -43,5 +35,31 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	@Override
 	protected char[] getMandatoryChars() {
 		return getSettings().mandatorySpecialChars;
+	}
+
+	@Override
+	protected boolean validateCurrentChars() {
+		StringBuilder validChars = new StringBuilder();
+
+		for (char c : getSettings().mandatorySpecialChars) {
+			if (currentChars.indexOf(c) == -1) {
+				validChars.append(c);
+			}
+		}
+
+		currentChars = validChars.toString();
+
+		return true;
+	}
+
+	@Override
+	protected void saveCurrentChars() {
+		StringBuilder all = new StringBuilder();
+		for (char c : getMandatoryChars()) {
+			all.append(c);
+		}
+		all.append(currentChars);
+
+		getSettings().saveSpecialChars(language, all.toString());
 	}
 }

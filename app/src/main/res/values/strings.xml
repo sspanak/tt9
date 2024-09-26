@@ -167,8 +167,9 @@
 	<string name="language_selection_search_placeholder">Search for Languages</string>
 	<string name="language_selection_words">words</string>
 
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be included automatically.</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be automatically added at the beginning of the list.</string>
 	<string name="punctiation_order_language">Language</string>
+	<string name="punctuation_order_mandatory_char_missing">Missing mandatory character: %1$s</string>
 	<string name="punctuation_order_sentence">1-key Character Order</string>
 	<string name="punctuation_order_special">0-key Character Order</string>
 	<string name="punctuation_order_reset_defaults">Restore Default Order</string>

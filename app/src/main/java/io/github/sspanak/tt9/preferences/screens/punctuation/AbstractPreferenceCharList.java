@@ -13,8 +13,11 @@ import io.github.sspanak.tt9.preferences.items.ItemTextInput;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 abstract class AbstractPreferenceCharList extends ItemTextInput {
-	protected static SettingsStore settings;
+	@NonNull protected String currentChars = "";
+	protected Language language;
 	private Runnable onRender;
+	protected static SettingsStore settings;
+
 
 	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
@@ -51,8 +54,16 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 		return settings;
 	}
 
+	@Override
+	protected void onChange(String word) {
+		currentChars = word == null ? "" : word;
+		validateCurrentChars();
+	}
+
 	void onLanguageChanged(Language language) {
-		String all = getChars(language);
+		this.language = language;
+
+		String all = getChars();
 		char[] mandatory = getMandatoryChars();
 		StringBuilder optional = new StringBuilder();
 
@@ -75,6 +86,8 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 		setText(optional.toString());
 	}
 
-	@NonNull abstract protected String getChars(Language language);
+	@NonNull abstract protected String getChars();
 	@NonNull abstract protected char[] getMandatoryChars();
+	abstract protected boolean validateCurrentChars();
+	abstract protected void saveCurrentChars();
 }

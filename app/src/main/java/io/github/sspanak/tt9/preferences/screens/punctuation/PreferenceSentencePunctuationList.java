@@ -6,8 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.R;
 
 public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_sentence";
@@ -29,13 +28,8 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	}
 
 	@Override
-	protected void onChange(String word) {
-		Logger.d(getClass().getSimpleName(), "new punctuation list: " + word);
-	}
-
-	@Override
 	@NonNull
-	protected String getChars(Language language) {
+	protected String getChars() {
 		return getSettings().getPunctuation(language);
 	}
 
@@ -47,5 +41,22 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	@Override
 	protected char[] getMandatoryChars() {
 		 return new char[0];
+	}
+
+	protected boolean validateCurrentChars() {
+		for (char c : getSettings().mandatoryPunctuation) {
+			if (currentChars.indexOf(c) == -1) {
+				setSummary(getContext().getString(R.string.punctuation_order_mandatory_char_missing, c));
+				return false;
+			}
+		}
+
+		setSummary("");
+		return true;
+	}
+
+	@Override
+	protected void saveCurrentChars() {
+		getSettings().savePunctuation(language, currentChars);
 	}
 }

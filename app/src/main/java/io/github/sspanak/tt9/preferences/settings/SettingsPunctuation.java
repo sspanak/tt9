@@ -18,51 +18,6 @@ class SettingsPunctuation extends SettingsInput {
 	public final char[] mandatorySpecialChars = new char[] {' ', '\n'};
 
 
-	public boolean isMandatoryPunctuationInList(String chars) {
-		int foundCharacters = 0;
-		for (char c : mandatoryPunctuation) {
-			for (int i = 0; chars != null && i < chars.length(); i++) {
-				if (chars.charAt(i) == c) {
-					foundCharacters++;
-					break;
-				}
-			}
-		}
-
-		return foundCharacters == mandatoryPunctuation.length;
-	}
-
-
-	public boolean areMandatorySpecialCharsInList(String chars) {
-		int foundCharacters = 0;
-		for (char c : mandatorySpecialChars) {
-			for (int i = 0; chars != null && i < chars.length(); i++) {
-				if (chars.charAt(i) == c) {
-					foundCharacters++;
-					break;
-				}
-			}
-		}
-
-		return foundCharacters == mandatorySpecialChars.length;
-	}
-
-
-	public boolean areSpecialCharsOrdered(String chars) {
-		if (chars == null || chars.length() < mandatorySpecialChars.length) {
-			return false;
-		}
-
-		for (int i = 0; i < mandatorySpecialChars.length; i++) {
-			if (chars.charAt(i) != mandatorySpecialChars[i]) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-
 	public void savePunctuation(@NonNull Language language, @NonNull String punctuation) {
 		prefsEditor.putString("pref_punctuation_" + language.getId(), punctuation);
 	}
