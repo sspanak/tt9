@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.items;
 
+import androidx.annotation.Nullable;
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
@@ -79,5 +80,9 @@ abstract public class ItemDropDown {
 			item.setValue(value);
 		}
 		return this;
+	}
+
+	@Nullable public String getValue() {
+		return item != null ? item.getValue() : null;
 	}
 }

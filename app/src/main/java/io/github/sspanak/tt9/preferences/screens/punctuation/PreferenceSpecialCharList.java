@@ -10,6 +10,8 @@ import io.github.sspanak.tt9.preferences.items.ItemTextInput;
 import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceSpecialCharList extends ItemTextInput {
+	public static final String NAME = "punctuation_order_special_chars";
+
 	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
@@ -29,5 +31,9 @@ public class PreferenceSpecialCharList extends ItemTextInput {
 	@Override
 	protected void onChange(String word) {
 		Logger.d(getClass().getSimpleName(), "new special chars list: " + word);
+	}
+
+	void onLanguageChanged(@Nullable String newLanguageId) {
+		Logger.d(getClass().getSimpleName(), "new language: " + newLanguageId);
 	}
 }
