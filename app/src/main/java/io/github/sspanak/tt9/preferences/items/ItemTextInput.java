@@ -61,7 +61,11 @@ abstract public class ItemTextInput extends ScreenPreference implements TextWatc
 	@Override
 	public void afterTextChanged(Editable s) {
 		debouncer.removeCallbacksAndMessages(null);
-		debouncer.postDelayed(() -> onChange(s.toString()), SettingsStore.TEXT_INPUT_DEBOUNCE_TIME);
+		debouncer.postDelayed(() -> onChange(s.toString()), getChangeHandlerDebounceTime());
+	}
+
+	protected int getChangeHandlerDebounceTime() {
+		return SettingsStore.TEXT_INPUT_DEBOUNCE_TIME;
 	}
 
 	protected void setText(CharSequence text) {

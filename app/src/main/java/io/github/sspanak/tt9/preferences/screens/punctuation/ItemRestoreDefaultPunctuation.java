@@ -7,7 +7,6 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.Logger;
 
 class ItemRestoreDefaultPunctuation extends ItemClickable {
 	public static final String NAME = "punctuation_order_reset_defaults";
