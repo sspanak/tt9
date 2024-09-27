@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.punctuation;
 
 import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
@@ -34,10 +35,10 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		resetFontSize(false);
 		initLanguageList();
-		loadCharList(findPreference(PreferenceSpecialCharList.NAME));
-		loadCharList(findPreference(PreferenceSentencePunctuationList.NAME));
+		initResetDefaults();
+		loadCharLists();
+		resetFontSize(false);
 	}
 
 
@@ -50,26 +51,43 @@ public class PunctuationScreen extends BaseScreenFragment {
 			.preview();
 	}
 
+	private void initResetDefaults() {
+		Preference item = findPreference(ItemRestoreDefaultPunctuation.NAME);
+		if (item == null) {
+			return;
+		}
+
+		new ItemRestoreDefaultPunctuation(
+			activity.getSettings(),
+			item,
+			LanguageCollection.getLanguage(activity, languageList.getValue()),
+			this::onLanguageChanged
+		).enableClickHandler();
+	}
 
 	private void onLanguageChanged(@Nullable String newLanguageId) {
-		Language language = null;
+		Language language = LanguageCollection.getLanguage(activity, newLanguageId);
 
-		try {
-			language = LanguageCollection.getLanguage(activity, Integer.parseInt(newLanguageId));
-		} catch (NumberFormatException e) {
+		if (language == null) {
 			Logger.w(NAME, "Cannot display punctuation settings for invalid language with id: " + newLanguageId);
 		}
 
 		PreferenceSpecialCharList key0 = findPreference(PreferenceSpecialCharList.NAME);
 		if (key0 != null) {
-			key0.onLanguageChanged(language);
+			key0.onLanguageChange(language);
 		}
 
 
 		PreferenceSentencePunctuationList key1 = findPreference(PreferenceSentencePunctuationList.NAME);
 		if (key1 != null) {
-			key1.onLanguageChanged(language);
+			key1.onLanguageChange(language);
 		}
+	}
+
+
+	private void loadCharLists() {
+		loadCharList(findPreference(PreferenceSpecialCharList.NAME));
+		loadCharList(findPreference(PreferenceSentencePunctuationList.NAME));
 	}
 
 

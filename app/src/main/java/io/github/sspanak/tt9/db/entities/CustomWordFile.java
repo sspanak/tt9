@@ -75,11 +75,7 @@ public class CustomWordFile {
 			return null;
 		}
 
-		try {
-			return LanguageCollection.getLanguage(context, Integer.parseInt(parts[1]));
-		} catch (NumberFormatException e) {
-			return null;
-		}
+		return LanguageCollection.getLanguage(context, parts[1]);
 	}
 
 	@NonNull public static String getWord(String line) {

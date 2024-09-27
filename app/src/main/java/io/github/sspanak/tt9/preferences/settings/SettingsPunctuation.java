@@ -20,11 +20,13 @@ class SettingsPunctuation extends SettingsInput {
 
 	public void savePunctuation(@NonNull Language language, @NonNull String punctuation) {
 		prefsEditor.putString("pref_punctuation_" + language.getId(), punctuation);
+		prefsEditor.apply();
 	}
 
 
 	public void saveSpecialChars(@NonNull Language language, @NonNull String specialChars) {
 		prefsEditor.putString("pref_special_chars_" + language.getId(), specialChars);
+		prefsEditor.apply();
 	}
 
 

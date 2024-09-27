@@ -9,21 +9,10 @@ import androidx.annotation.Nullable;
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_special_chars";
 
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-	}
-
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
-
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public PreferenceSpecialCharList(@NonNull Context context) {
-		super(context);
-	}
+	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
+	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
+	public PreferenceSpecialCharList(@NonNull Context context) { super(context); }
 
 	@Override
 	@NonNull

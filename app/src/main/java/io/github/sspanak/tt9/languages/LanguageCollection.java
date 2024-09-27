@@ -38,6 +38,17 @@ public class LanguageCollection {
 		return self;
 	}
 
+
+	@Nullable
+	public static NaturalLanguage getLanguage(Context context, String langId) {
+		try {
+			return getLanguage(context, Integer.parseInt(langId));
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
+
 	@Nullable
 	public static NaturalLanguage getLanguage(Context context, int langId) {
 		if (getInstance(context).languages.containsKey(langId)) {

@@ -11,21 +11,10 @@ import io.github.sspanak.tt9.R;
 public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_sentence";
 
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-	}
-
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
-
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public PreferenceSentencePunctuationList(@NonNull Context context) {
-		super(context);
-	}
+	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
+	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
+	public PreferenceSentencePunctuationList(@NonNull Context context) { super(context); }
 
 	@Override
 	@NonNull

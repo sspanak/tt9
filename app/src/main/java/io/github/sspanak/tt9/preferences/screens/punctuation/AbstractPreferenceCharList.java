@@ -19,21 +19,11 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 	protected static SettingsStore settings;
 
 
-	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-		super(context, attrs, defStyleAttr, defStyleRes);
-	}
+	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
+	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
+	AbstractPreferenceCharList(@NonNull Context context) { super(context); }
 
-	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
-
-	AbstractPreferenceCharList(@NonNull Context context, @Nullable AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	AbstractPreferenceCharList(@NonNull Context context) {
-		super(context);
-	}
 
 	@Override
 	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
@@ -43,9 +33,6 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 		}
 	}
 
-	public void setOnRender(Runnable onRender) {
-		this.onRender = onRender;
-	}
 
 	protected SettingsStore getSettings() {
 		if (settings == null) {
@@ -54,13 +41,17 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 		return settings;
 	}
 
+
 	@Override
 	protected void onChange(String word) {
 		currentChars = word == null ? "" : word;
-		validateCurrentChars();
+		if (validateCurrentChars()) {
+			saveCurrentChars();
+		}
 	}
 
-	void onLanguageChanged(Language language) {
+
+	void onLanguageChange(Language language) {
 		this.language = language;
 
 		String all = getChars();
@@ -85,6 +76,12 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 
 		setText(optional.toString());
 	}
+
+
+	void setOnRender(Runnable onRender) {
+		this.onRender = onRender;
+	}
+
 
 	@NonNull abstract protected String getChars();
 	@NonNull abstract protected char[] getMandatoryChars();
