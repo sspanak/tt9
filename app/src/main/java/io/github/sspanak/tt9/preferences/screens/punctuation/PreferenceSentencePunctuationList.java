@@ -33,15 +33,24 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	}
 
 	protected boolean validateCurrentChars() {
+		StringBuilder missingCharList = new StringBuilder();
+
 		for (char c : getSettings().mandatoryPunctuation) {
 			if (currentChars.indexOf(c) == -1) {
-				setSummary(getContext().getString(R.string.punctuation_order_mandatory_char_missing, c));
-				return false;
+				missingCharList.append(" ").append(c).append(",");
 			}
 		}
 
-		setSummary("");
-		return true;
+		String error = "";
+		if (missingCharList.length() > 0) {
+			int message = missingCharList.length() == 3 ? R.string.punctuation_order_mandatory_char_missing : R.string.punctuation_order_mandatory_chars_missing;
+			String missingChars = missingCharList.substring(0, missingCharList.length() - 1);
+			error = getContext().getString(message, missingChars);
+		}
+
+		setSummary(error);
+
+		return error.isEmpty();
 	}
 
 	@Override
