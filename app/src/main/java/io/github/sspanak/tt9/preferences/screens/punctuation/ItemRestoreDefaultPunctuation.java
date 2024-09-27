@@ -11,15 +11,19 @@ import io.github.sspanak.tt9.util.ConsumerCompat;
 class ItemRestoreDefaultPunctuation extends ItemClickable {
 	public static final String NAME = "punctuation_order_reset_defaults";
 
-	private final Language language;
+	private Language language;
 	private final ConsumerCompat<String> onClick;
 	private final SettingsStore settings;
 
-	ItemRestoreDefaultPunctuation(@NonNull SettingsStore settings, Preference item, Language language, ConsumerCompat<String> onClick) {
+	ItemRestoreDefaultPunctuation(@NonNull SettingsStore settings, Preference item, ConsumerCompat<String> onClick) {
 		super(item);
-		this.language = language;
 		this.onClick = onClick;
 		this.settings = settings;
+	}
+
+	ItemRestoreDefaultPunctuation setLanguage(Language language) {
+		this.language = language;
+		return this;
 	}
 
 	@Override

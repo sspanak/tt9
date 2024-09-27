@@ -8,11 +8,11 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
-import io.github.sspanak.tt9.util.Logger;
 
 public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
 	private ItemPunctuationOrderLanguage languageList;
+	private ItemRestoreDefaultPunctuation restoreDefaults;
 
 	public PunctuationScreen() { init(); }
 	public PunctuationScreen(PreferencesActivity activity) { init(activity); }
@@ -57,26 +57,21 @@ public class PunctuationScreen extends BaseScreenFragment {
 			return;
 		}
 
-		new ItemRestoreDefaultPunctuation(
-			activity.getSettings(),
-			item,
-			LanguageCollection.getLanguage(activity, languageList.getValue()),
-			this::onLanguageChanged
-		).enableClickHandler();
+		restoreDefaults = new ItemRestoreDefaultPunctuation(activity.getSettings(), item, this::onLanguageChanged);
+		restoreDefaults
+			.setLanguage(LanguageCollection.getLanguage(activity, languageList.getValue()))
+			.enableClickHandler();
 	}
 
 	private void onLanguageChanged(@Nullable String newLanguageId) {
 		Language language = LanguageCollection.getLanguage(activity, newLanguageId);
 
-		if (language == null) {
-			Logger.w(NAME, "Cannot display punctuation settings for invalid language with id: " + newLanguageId);
-		}
+		restoreDefaults.setLanguage(language);
 
 		PreferenceSpecialCharList key0 = findPreference(PreferenceSpecialCharList.NAME);
 		if (key0 != null) {
 			key0.onLanguageChange(language);
 		}
-
 
 		PreferenceSentencePunctuationList key1 = findPreference(PreferenceSentencePunctuationList.NAME);
 		if (key1 != null) {
