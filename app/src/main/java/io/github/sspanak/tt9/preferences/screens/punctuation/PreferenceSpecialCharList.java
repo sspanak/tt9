@@ -28,15 +28,9 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 
 	@Override
 	protected boolean validateCurrentChars() {
-		StringBuilder validChars = new StringBuilder();
-
-		for (char c : getSettings().mandatorySpecialChars) {
-			if (currentChars.indexOf(c) == -1) {
-				validChars.append(c);
-			}
+		for (char c : getMandatoryChars()) {
+			currentChars = currentChars.replace(String.valueOf(c), "");
 		}
-
-		currentChars = validChars.toString();
 
 		return true;
 	}
