@@ -173,4 +173,12 @@
 	<string name="language_selection_words">mots</string>
 	<string name="pref_backspace_acceleration">Suppression rapide</string>
 	<string name="pref_backspace_acceleration_summary">Effacer des mots entiers en maintenant ou en glissant sur Retour arrière. (Non pris en charge dans certaines applications)</string>
+	<string name="pref_category_punctuation_order">Ordre de ponctuation</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Les caractères Espace et Retour à la ligne seront automatiquement ajoutés au début de la liste.</string>
+	<string name="punctuation_order_mandatory_char_missing">Caractère obligatoire manquant :%1$s</string>
+	<string name="punctuation_order_mandatory_chars_missing">Caractères obligatoires manquants :%1$s</string>
+	<string name="punctuation_order_sentence">Ordre des caractères de la touche 1</string>
+	<string name="punctuation_order_special">Ordre des caractères de la touche 0</string>
+	<string name="punctuation_order_reset_defaults">Restaurer l’ordre par défaut</string>
+	<string name="language">Langue</string>
 </resources>

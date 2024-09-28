@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android">
 	<DropDownPreference
 		android:key="punctuation_order_language"
-		android:title="@string/punctiation_order_language" />
+		android:title="@string/language" />
 
 	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceSentencePunctuationList
 		android:key="punctuation_order_sentence"

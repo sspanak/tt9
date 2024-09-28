@@ -165,5 +165,13 @@
 	<string name="language_selection_words">parole</string>
 	<string name="pref_backspace_acceleration">Cancellazione rapida</string>
 	<string name="pref_backspace_acceleration_summary">Cancellare intere parole tenendo premuto o scorrendo Backspace. (Non supportato in alcune app)</string>
+	<string name="pref_category_punctuation_order">Ordine di punteggiatura</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">I caratteri Spazio e Nuova linea verranno automaticamente aggiunti all\'inizio dell\'elenco.</string>
+	<string name="punctuation_order_mandatory_char_missing">Carattere obbligatorio mancante:%1$s</string>
+	<string name="punctuation_order_mandatory_chars_missing">Caratteri obbligatori mancanti:%1$s</string>
+	<string name="punctuation_order_sentence">Ordine dei caratteri del tasto 1</string>
+	<string name="punctuation_order_special">Ordine dei caratteri del tasto 0</string>
+	<string name="punctuation_order_reset_defaults">Ripristina ordine predefinito</string>
+	<string name="language">Lingua</string>
 </resources>
 
