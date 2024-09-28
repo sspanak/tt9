@@ -25,8 +25,6 @@ public class ModePredictive extends InputMode {
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
-	private final SettingsStore settings;
-
 	public int getId() { return MODE_PREDICTIVE; }
 
 	private String lastAcceptedWord = "";
@@ -46,11 +44,12 @@ public class ModePredictive extends InputMode {
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
+		super(settings);
+
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
 		digitSequence = "";
 		predictions = new Predictions(settings, textField);
-		this.settings = settings;
 
 		if (inputType.isEmail()) {
 			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));

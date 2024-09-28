@@ -8,6 +8,7 @@ import java.util.Collections;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 public class Mode123 extends ModePassthrough {
@@ -23,8 +24,9 @@ public class Mode123 extends ModePassthrough {
 	private final boolean isEmailMode;
 
 
-	public Mode123(InputType inputType, Language language) {
-		this.language = language;
+	public Mode123(SettingsStore settings, InputType inputType, Language language) {
+		super(settings);
+
 		isEmailMode = inputType.isEmail();
 
 		if (inputType.isPhoneNumber()) {

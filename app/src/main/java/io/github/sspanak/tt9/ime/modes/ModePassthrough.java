@@ -2,9 +2,12 @@ package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+
 // see: InputType.isSpecialNumeric()
 public class ModePassthrough extends InputMode {
-	ModePassthrough() {
+	ModePassthrough(SettingsStore settings) {
+		super(settings);
 		reset();
 		allowedTextCases.add(CASE_LOWER);
 	}

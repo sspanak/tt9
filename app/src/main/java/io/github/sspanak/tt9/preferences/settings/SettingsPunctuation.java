@@ -53,7 +53,8 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	@NonNull public ArrayList<String> getSpecialCharsAsList(Language language) {
+	@NonNull
+	public ArrayList<String> getSpecialCharsAsList(Language language) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
@@ -63,6 +64,38 @@ class SettingsPunctuation extends SettingsInput {
 			language.getKeyCharacters(0)
 		);
 	}
+
+
+	@NonNull
+	public ArrayList<String> getOrderedKeyChars(Language language, int number) {
+		ArrayList<String> orderedChars = new ArrayList<>();
+		if (language == null) {
+			return orderedChars;
+		}
+
+		if (number == 0) {
+			orderedChars = getSpecialCharsAsList(language);
+		} else if (number == 1) {
+			orderedChars = getPunctuationAsList(language);
+		}
+
+		if (orderedChars.isEmpty()) {
+			orderedChars = language.getKeyCharacters(number);
+		}
+
+		return orderedChars;
+	}
+
+
+	@NonNull
+	public ArrayList<String> getOrderedKeyChars(Language language, int number, int group) {
+		if (group > 0 && language != null) {
+			return language.getKeyCharacters(number, group);
+		}
+
+		return getOrderedKeyChars(language, number);
+	}
+
 
 	private ArrayList<String> getCharsAsList(String chars, ArrayList<String> defaultValue) {
 		if (chars == null) {

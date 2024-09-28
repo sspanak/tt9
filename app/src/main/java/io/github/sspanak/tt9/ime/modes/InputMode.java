@@ -32,9 +32,15 @@ abstract public class InputMode {
 	protected int autoAcceptTimeout = -1;
 	@NonNull protected String digitSequence = "";
 	protected Language language;
+	protected final SettingsStore settings;
 	protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
 	protected int specialCharSelectedGroup = 0;
+
+
+	protected InputMode(SettingsStore settings) {
+		this.settings = settings;
+	}
 
 
 	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, TextField textField, int mode) {
@@ -44,11 +50,11 @@ abstract public class InputMode {
 			case MODE_ABC:
 				return new ModeABC(settings, inputType, language);
 			case MODE_PASSTHROUGH:
-				return new ModePassthrough();
+				return new ModePassthrough(settings);
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123(inputType, language);
+				return new Mode123(settings, inputType, language);
 		}
 	}
 
@@ -180,14 +186,14 @@ abstract public class InputMode {
 		}
 
 		int key = digitSequence.charAt(0) - '0';
-		ArrayList<String> chars = altLanguage.getKeyCharacters(key, specialCharSelectedGroup);
+		ArrayList<String> chars = settings.getOrderedKeyChars(altLanguage, key, specialCharSelectedGroup);
 
 		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
 			specialCharSelectedGroup = 0;
 			return false;
 		} else if (chars.isEmpty()) {
 			specialCharSelectedGroup = 0;
-			chars = altLanguage.getKeyCharacters(key, specialCharSelectedGroup);
+			chars = settings.getOrderedKeyChars(altLanguage, key, specialCharSelectedGroup);
 		}
 
 		suggestions.clear();

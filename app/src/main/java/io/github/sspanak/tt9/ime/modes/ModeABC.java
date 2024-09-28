@@ -14,13 +14,12 @@ import io.github.sspanak.tt9.util.Characters;
 public class ModeABC extends InputMode {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
-	private final SettingsStore settings;
 	private boolean shouldSelectNextLetter = false;
 
 	@Override public int getId() { return MODE_ABC; }
 
 	ModeABC(SettingsStore settings, InputType inputType, Language lang) {
-		this.settings = settings;
+		super(settings);
 		changeLanguage(lang);
 
 		if (inputType.isEmail()) {
@@ -55,7 +54,7 @@ public class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : language.getKeyCharacters(number));
+			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
 			suggestions.add(language.getKeyNumber(number));
 		}
 
