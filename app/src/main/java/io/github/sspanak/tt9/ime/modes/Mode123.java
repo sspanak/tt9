@@ -26,6 +26,7 @@ public class Mode123 extends ModePassthrough {
 
 	public Mode123(SettingsStore settings, InputType inputType, Language language) {
 		super(settings);
+		changeLanguage(language);
 
 		isEmailMode = inputType.isEmail();
 
@@ -57,7 +58,7 @@ public class Mode123 extends ModePassthrough {
 	private void setDefaultSpecialCharacters() {
 		// 0-key
 		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
-		for (String character : Characters.Special) {
+		for (String character : settings.getOrderedKeyChars(language, 0)) {
 			if (!character.equals("+") && !character.equals("\n")) {
 				KEY_CHARACTERS.get(0).add(character);
 			}
@@ -65,7 +66,7 @@ public class Mode123 extends ModePassthrough {
 
 		// 1-key
 		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList(".")));
-		for (String character : Characters.PunctuationEnglish) {
+		for (String character : settings.getOrderedKeyChars(language, 1)) {
 			if (!character.equals(".")) {
 				KEY_CHARACTERS.get(1).add(character);
 			}
