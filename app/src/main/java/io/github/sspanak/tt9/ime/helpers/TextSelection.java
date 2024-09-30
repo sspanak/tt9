@@ -52,6 +52,11 @@ public class TextSelection {
 	}
 
 
+	public int length() {
+		return Math.abs(currentEnd - currentStart);
+	}
+
+
 	public void selectAll() {
 		if (connection != null) {
 			connection.performContextMenuAction(android.R.id.selectAll);
