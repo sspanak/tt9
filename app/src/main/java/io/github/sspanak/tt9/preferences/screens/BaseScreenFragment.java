@@ -96,4 +96,6 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	abstract protected int getTitle();
 	abstract protected int getXml();
 	abstract protected void onCreate();
+
+	public void onBackPressed() {}
 }

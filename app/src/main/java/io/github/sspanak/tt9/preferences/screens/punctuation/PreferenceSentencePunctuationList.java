@@ -32,7 +32,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 		 return new char[0];
 	}
 
-	protected boolean validateCurrentChars() {
+	public boolean validateCurrentChars() {
 		StringBuilder missingCharList = new StringBuilder();
 
 		for (char c : getSettings().mandatoryPunctuation) {
@@ -54,7 +54,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	}
 
 	@Override
-	protected void saveCurrentChars() {
+	public void saveCurrentChars() {
 		getSettings().savePunctuation(language, currentChars);
 	}
 }

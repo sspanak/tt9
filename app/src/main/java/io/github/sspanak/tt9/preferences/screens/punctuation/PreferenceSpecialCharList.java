@@ -27,7 +27,7 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	}
 
 	@Override
-	protected boolean validateCurrentChars() {
+	public boolean validateCurrentChars() {
 		for (char c : getMandatoryChars()) {
 			currentChars = currentChars.replace(String.valueOf(c), "");
 		}
@@ -36,7 +36,7 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	}
 
 	@Override
-	protected void saveCurrentChars() {
+	public void saveCurrentChars() {
 		StringBuilder all = new StringBuilder();
 		for (char c : getMandatoryChars()) {
 			all.append(c);

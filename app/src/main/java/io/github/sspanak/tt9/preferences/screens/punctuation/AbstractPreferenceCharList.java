@@ -50,9 +50,7 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 	@Override
 	protected void onChange(String word) {
 		currentChars = word == null ? "" : word;
-		if (validateCurrentChars()) {
-			saveCurrentChars();
-		}
+		validateCurrentChars();
 	}
 
 
@@ -90,6 +88,6 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 
 	@NonNull abstract protected String getChars();
 	@NonNull abstract protected char[] getMandatoryChars();
-	abstract protected boolean validateCurrentChars();
-	abstract protected void saveCurrentChars();
+	abstract public boolean validateCurrentChars();
+	abstract public void saveCurrentChars();
 }

@@ -192,4 +192,5 @@
 	<string name="punctuation_order_special">Simbolių tvarka ant klavišo 0</string>
 	<string name="punctuation_order_reset_defaults">Atkurti numatytąją tvarką</string>
 	<string name="language">Kalba</string>
+	<string name="punctuation_order_save">Išsaugoti tvarką</string>
 </resources>

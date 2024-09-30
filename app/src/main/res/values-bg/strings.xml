@@ -185,4 +185,5 @@
 	<string name="punctuation_order_special">Ред на символите на клавиш 0</string>
 	<string name="punctuation_order_reset_defaults">Възстанови реда по подразбиране</string>
 	<string name="language">Език</string>
+	<string name="punctuation_order_save">Запази подредбата</string>
 </resources>

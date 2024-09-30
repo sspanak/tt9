@@ -173,4 +173,5 @@
 	<string name="punctuation_order_special">Zeichenreihenfolge der 0-Taste</string>
 	<string name="punctuation_order_reset_defaults">Standardreihenfolge wiederherstellen</string>
 	<string name="language">Sprache</string>
+	<string name="punctuation_order_save">Reihenfolge speichern</string>
 </resources>

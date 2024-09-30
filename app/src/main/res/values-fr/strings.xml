@@ -181,4 +181,5 @@
 	<string name="punctuation_order_special">Ordre des caractères de la touche 0</string>
 	<string name="punctuation_order_reset_defaults">Restaurer l’ordre par défaut</string>
 	<string name="language">Langue</string>
+	<string name="punctuation_order_save">Enregistrer l’ordre</string>
 </resources>

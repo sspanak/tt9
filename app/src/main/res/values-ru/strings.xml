@@ -183,4 +183,5 @@
 	<string name="punctuation_order_special">Порядок символов на клавише 0</string>
 	<string name="punctuation_order_reset_defaults">Восстановить порядок по умолчанию</string>
 	<string name="language">Язык</string>
+	<string name="punctuation_order_save">Сохранить порядок</string>
 </resources>

@@ -186,4 +186,5 @@
 	<string name="punctuation_order_special">Ordem de caracteres da tecla 0</string>
 	<string name="punctuation_order_reset_defaults">Restaurar ordem padrão</string>
 	<string name="language">Idioma</string>
+	<string name="punctuation_order_save">Salvar ordem</string>
 </resources>

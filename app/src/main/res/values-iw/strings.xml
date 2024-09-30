@@ -186,4 +186,5 @@
 	<string name="punctuation_order_special">סדר התווים של מקש 0</string>
 	<string name="punctuation_order_reset_defaults">שחזר את הסדר המוגדר כברירת מחדל</string>
 	<string name="language">שפה</string>
+	<string name="punctuation_order_save">שמור את הסדר</string>
 </resources>

@@ -172,4 +172,5 @@
 	<string name="punctuation_order_special">Tekenvolgorde van de 0-toets</string>
 	<string name="punctuation_order_reset_defaults">Standaardvolgorde herstellen</string>
 	<string name="language">Taal</string>
+	<string name="punctuation_order_save">Volgorde opslaan</string>
 </resources>
