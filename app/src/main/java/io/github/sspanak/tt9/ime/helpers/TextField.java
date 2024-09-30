@@ -177,7 +177,7 @@ public class TextField extends InputField {
 	 * "deleteSurroundingText()" to delete a region of text or a Unicode character.
 	 */
 	public void deleteChars(int numberOfChars) {
-		if (numberOfChars < 0 || connection == null) {
+		if (numberOfChars <= 0 || connection == null) {
 			return;
 		}
 

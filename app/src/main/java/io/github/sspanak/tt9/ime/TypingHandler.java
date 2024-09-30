@@ -135,7 +135,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
 
-			int charsToDelete = settings.getBackspaceAcceleration() && repeat > 0 ? Math.max(textField.getPaddedWordBeforeCursorLength(), 1) : 1;
+			int charsToDelete;
+
+			if (settings.getBackspaceAcceleration() && repeat > 0) {
+				charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
+			} else if (!textSelection.isEmpty()) {
+				charsToDelete = textSelection.length();
+				textSelection.clear(false);
+			} else {
+				charsToDelete = 1;
+			}
 			textField.deleteChars(charsToDelete);
 		}
 
