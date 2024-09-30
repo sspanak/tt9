@@ -1,6 +1,6 @@
 # Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [25+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
+TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [30+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -69,25 +69,19 @@ Your PRs are welcome!
 ## 👍 Support
 If you want to show your appreciation, give the project a star on GitHub. Higher-ranked projects have the opportunity to use development tools for free and apply for funding more easily. Or give it 5 stars on Google Play to help it appear higher in the search results.
 
-You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak). So far, your donations have bought a Sonim XP3800 phone and helped fix numerous Sonim-specific problems.
+You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
 
-If you own another device that does not run TT9 smoothly, you can fund the purchase of one. Just leave a comment you are donating to support the purchase of a testing device. Here is how much some of the most popular phones cost (with delivery included):
-- TCL Flip 2: 50 USD
-- Kyocera Dura XV Extreme: ~180 USD
-- Kyocera Digno 4: ~160 USD
-
-Buying these devices will help fixing bugs like: [#249](https://github.com/sspanak/tt9/issues/249), [#306](https://github.com/sspanak/tt9/issues/306), [#423](https://github.com/sspanak/tt9/issues/423), or [#522](https://github.com/sspanak/tt9/issues/522).
+## 💪 Philosophy and Privacy Policy
+- No ads, no premium or paid features. It's all free.
+- No spying, no tracking, no telemetry or reports. No nothing!
+- No unnecessary bells or whistles. It only does its job, typing.
+- The Full version operates entirely offline with no Internet permission. The Lite version connects only when downloading dictionaries from GitHub and when the voice input is active.
+- Open-source, so you can verify all the above yourself.
+- Created with help from the entire community.
+- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds or other customizations. "It can be any color you like, as long as it is black."
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries), where applicable. Detailed information about the dictionaries is also available there.
 - [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
 - "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
-
-## 💪 Privacy Policy and Philosophy
-- No ads, no premium or paid features. It's all free.
-- No spying, no tracking, no telemetry or reports. No nothing!
-- Network connectivity is only used for voice input and downloading dictionaries from Github. You can also use the Full version that includes all languages and requires no Internet permission.
-- It only does its job.
-- Open-source, so you can verify all the above yourself.
-- Created with help from the entire community.

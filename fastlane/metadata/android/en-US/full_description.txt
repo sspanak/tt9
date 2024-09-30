@@ -2,10 +2,11 @@ TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports pred
 
 Supported languages: Arabic, Bulgarian, Catalan, Croatian, Czech, Danish, Dutch, English, Finnish, French, German, Greek, Hebrew, Hinglish, Hungarian, Indonesian, Italian, Kiswahili, Norwegian, Polish, Portuguese (European and Brazilian), Romanian, Russian, Spanish, Swedish, Thai, Turkish, Ukrainian, Vietnamese, Yiddish.
 
-Privacy Policy and Philosophy:
+Philosophy and Privacy Policy:
 - No ads, no premium or paid features. It's all free.
 - No spying, no tracking, no telemetry or reports. No nothing!
-- Network connectivity is only used for voice input and downloading dictionaries from Github. You can also use the Full version that includes all languages and requires no Internet permission.
-- It only does its job.
+- No unnecessary bells or whistles. It only does its job, typing.
+- The Full version operates entirely offline with no Internet permission. The Lite version connects only when downloading dictionaries from GitHub and when the voice input is active.
 - Open-source, so you can verify all the above yourself.
 - Created with help from the entire community.
+- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds or other customizations. "It can be any color you like, as long as it is black."

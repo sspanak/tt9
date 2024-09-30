@@ -1,15 +1,13 @@
 # Traditional T9 Contribution Guide
 If you would like to contribute to the project by fixing a bug, adding a new language or something else, read below.
 
-
 ## Getting Started
 - If you are about to write code, you need to setup your development environment. See the [Building](#building) section.
 - If you would like to add a new language, follow the [New Language](#adding-a-new-language) section.
 - Finally, see what is the actual [contribution process](#contribution-process) and how to get your code merged.
 
-
 ## Building
-The recommended way of building is using Android Studio. As the of time of writing this, the current version is: Android Studio Hedgehog | 2023.1.1.
+The recommended way of building is using Android Studio. The project is compatible with Android Studio Ladybug | 2024.2.1.
 
 ### Building a Debug .apk
 If you have not configured Android Studio yet, follow [the official manual](https://developer.android.com/training/basics/firstapp), then follow the simple steps below to get the project running.
