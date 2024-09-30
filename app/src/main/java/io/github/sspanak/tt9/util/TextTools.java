@@ -71,16 +71,4 @@ public class TextTools {
 
 		return sdf.format(new Date(timestamp));
 	}
-
-	public static HashSet<Character> stringToSet(String str) {
-		HashSet<Character> set = new HashSet<>();
-
-		if (str != null) {
-			for (char c : str.toCharArray()) {
-				set.add(c);
-			}
-		}
-
-		return set;
-	}
 }
