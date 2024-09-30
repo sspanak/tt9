@@ -10,7 +10,6 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.TextViewCompat;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 public class SoftKeyFn extends SoftKeyNumber {

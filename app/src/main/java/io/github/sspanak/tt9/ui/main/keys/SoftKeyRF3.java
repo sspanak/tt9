@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SoftKeyRF3 extends SoftKey {
 	public SoftKeyRF3(Context context) { super(context); }

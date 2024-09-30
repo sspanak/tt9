@@ -1,8 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.setup;
 
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
-import android.provider.Settings;
 import android.service.textservice.SpellCheckerService;
 
 import androidx.preference.Preference;
