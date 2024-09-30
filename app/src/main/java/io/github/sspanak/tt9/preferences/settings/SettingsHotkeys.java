@@ -8,10 +8,12 @@ import java.util.HashMap;
 import io.github.sspanak.tt9.preferences.screens.hotkeys.SectionKeymap;
 
 class SettingsHotkeys extends SettingsHacks {
+	private static final String HOTKEY_VERSION = "hotkeys_v5";
+
 	SettingsHotkeys(Context context) { super(context); }
 
 	public boolean areHotkeysInitialized() {
-		return !prefs.getBoolean("hotkeys_v4_initialized", false);
+		return !prefs.getBoolean(HOTKEY_VERSION, false);
 	}
 
 	public void setDefaultKeys(HashMap<String, Integer> defaultKeys) {
@@ -19,7 +21,7 @@ class SettingsHotkeys extends SettingsHacks {
 			prefsEditor.putString(key, String.valueOf(defaultKeys.get(key)));
 		}
 
-		prefsEditor.putBoolean("hotkeys_v4_initialized", true).apply();
+		prefsEditor.putBoolean(HOTKEY_VERSION, true).apply();
 	}
 
 
