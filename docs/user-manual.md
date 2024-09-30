@@ -69,16 +69,16 @@ _**Note 2:** In messaging applications, you need to enable their "Send with ENTE
 - **In 123 mode:**
   - **Press:** type "0".
   - **Hold:** type special/math characters.
-  - **Hold "0", then press "Next Mode" (Default: hold "0", press "#"):** type currency characters
+  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters
 - **In ABC mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Hold:** type "0".
-  - **Press "0", then press "Next Mode" (Default: press "0", "#"):** type currency characters
+  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters
 - **In Predictive mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Double press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
-  - **Press "0", then press "Next Mode" (Default: press "0", "#"):** type currency characters
+  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters
 
 #### 1-key:
 - **In 123 mode:**
@@ -119,9 +119,11 @@ _**NB 2:** Holding the "Back" key will always trigger the default system action 
 _In these cases, you could assign another key (all other keys are fully usable), or use the on-screen backspace._
 
 #### Next Input Mode Key (Default: press #):
-- **Press when there are no suggestions:** Cycle the input modes (abc → ABC → Predictive → 123). Note that only 123 mode is available in numeric fields and Predictive mode is not available in password fields.
-- **Press while suggestions are on:** Toggle the suggestions between UPPERCASE and lowercase. In case the suggestions are only special characters, switch to the next character group.
-- **Number-only fields:** No special action. Type a "#" with the default key. Changing the mode is not possible in such fields.
+Cycle the input modes (abc → Predictive → 123).
+
+_Predictive mode is not available in password fields._
+
+_In number-only fields, changing the mode is not possible. In such cases, the key reverts to its default function (i.e. type "#")._
 
 #### Edit Text Key:
 Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
@@ -132,25 +134,29 @@ Select the next language, when multiple languages have been enabled from the Set
 #### Select Keyboard Key:
 Open the Android Change Keyboard dialog where you can select between all installed keyboards.
 
+#### Shift Key (Default: press ✱):
+- **When typing text:** Toggle between uppercase and lowercase.
+- **When typing special characters with the 0-key**: Display the next character group.
+
 #### Show Settings Key:
 Open the Settings configuration screen. It is where you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 
 #### Voice Input Key:
 Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
 
-#### Command-List Key / aka Command Palette / (Default: press ✱):
+#### Command-List Key / aka Command Palette / (Default: hold ✱):
 Show a list of all commands (or functions).
 
 Many phones have only two or three "free" buttons that can be used as hotkeys. But, Traditional T9 has many more functions, meaning there is simply no room for all of them on the keypad. The Command Palette resolves this problem. It allows invoking the additional functions (or commands) using key combos.
 
 Below is a list of the possible commands:
-- **Show the Settings Screen (Default Combo: ✱, 1-key).** Same as pressing [Show Settings](#show-settings-key).
-- **Add a Word (Default Combo: ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
-- **Voice Input (Default Combo: ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
-- **Edit Text (Default Combo: ✱, 5-key).** Same as pressing [Edit Text](#edit-text-key)
-- **Select a Different Keyboard (Default Combo: ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
+- **Show the Settings Screen (Default Combo: hold ✱, 1-key).** Same as pressing [Show Settings](#show-settings-key).
+- **Add a Word (Default Combo: hold ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
+- **Voice Input (Default Combo: hold ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
+- **Edit Text (Default Combo: hold ✱, 5-key).** Same as pressing [Edit Text](#edit-text-key)
+- **Select a Different Keyboard (Default Combo: hold ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
 
-_This key does not do anything when the Screen Layout is set to "Virtual Keyboard" because all keys for all possible functions are already available on the screen._
+_This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
 
 ## Voice Input
 The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself, but it asks your phone to do it.
@@ -170,6 +176,11 @@ On touchscreen-only phones, a fully functional on-screen keypad is available and
 If you do have both a touchscreen and a hardware keypad and prefer having more screen space, disable the software keys from Settings → Appearance.
 
 It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. Usually, it will happen automatically too, but if it does not, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
+
+### Virtual Keys Overview
+The on-screen keypad works the same as the numpad of a phone with hardware keys. If a key provides a single function, it has one label (or icon) indicating that function. And if the key provides a secondary "hold" function, it has two smaller labels (or icons), one below the other.
+
+The Left F4 key (the bottom one on the left-hand side) supports extra functions using swiping. Swipe horizontally to switch to the last used keyboard or swipe vertically to display the keyboard selection dialog and switch to a different keyboard.
 
 ### Resizing the Keyboard Panel While Typing
 In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you can resize it by either holding and dragging the Settings/Command Palette key or by dragging the Status Bar (it is where the current language or typing mode is displayed). When the height becomes too small, the layout will automatically be switched to "Function keys" or "Suggestion list only". Respectively, when resizing up, the layout will change to "Virtual Keypad". You can also double-tap the status bar to minimize or maximize instantly.
@@ -323,3 +334,10 @@ _The Xiaomi problems have been discussed in [this GitHub issue](https://github.c
 
 #### Voice Input takes a very long time to stop
 It is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on the TT9 side. To stop the Voice Input operation, stay quiet for a couple of seconds. Android turns off the microphone automatically when it can not detect any speech.
+
+#### I need to use a QWERTY layout (touchscreen devices only)
+Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like layout.
+
+If you are still learning to use T9 and need to switch back occasionally, or you find it more convenient to type new words using QWERTY, swipe the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
+
+Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
