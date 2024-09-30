@@ -300,6 +300,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyNextTextCase(boolean validateOnly) {
+		if (voiceInputOps.isListening() || inputType.isNumeric() || inputType.isPhoneNumber()) {
+			return false;
+		}
+
 		if (validateOnly) {
 			return true;
 		}

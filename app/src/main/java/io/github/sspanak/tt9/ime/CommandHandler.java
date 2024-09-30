@@ -27,7 +27,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	@Override
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
-		return mainView.isCommandPaletteShown() && keyCode != settings.getKeyCommandPalette();
+		return mainView.isCommandPaletteShown() && Math.abs(keyCode) != Math.abs(settings.getKeyCommandPalette());
 	}
 
 
