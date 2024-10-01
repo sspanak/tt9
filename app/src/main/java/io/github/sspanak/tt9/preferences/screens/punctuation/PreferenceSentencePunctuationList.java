@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_sentence";
@@ -35,7 +36,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	public boolean validateCurrentChars() {
 		StringBuilder missingCharList = new StringBuilder();
 
-		for (char c : getSettings().mandatoryPunctuation) {
+		for (char c : SettingsStore.MANDATORY_PUNCTUATION) {
 			if (currentChars.indexOf(c) == -1) {
 				missingCharList.append(" ").append(c).append(",");
 			}
