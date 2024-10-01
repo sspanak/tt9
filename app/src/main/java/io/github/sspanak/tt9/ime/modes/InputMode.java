@@ -179,6 +179,7 @@ abstract public class InputMode {
 			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
 	}
 
+
 	protected boolean loadSpecialCharacters() {
 		if (language == null || digitSequence.isEmpty()) {
 			return false;
@@ -200,6 +201,27 @@ abstract public class InputMode {
 
 		return true;
 	}
+
+
+	/**
+	 * Applies the punctuation order when we don't want to display the entire
+	 * list of characters, for example in email, numeric or other specialized fields.
+	 */
+	protected ArrayList<String> applyPunctuationOrder(ArrayList<String> unordered, int key) {
+		if (language == null || specialCharSelectedGroup != 0 || key > 1) {
+			return new ArrayList<>(unordered);
+		}
+
+		ArrayList<String> ordered = new ArrayList<>();
+		for (String ch : settings.getOrderedKeyChars(language, key)) {
+			if (unordered.contains(ch)) {
+				ordered.add(ch);
+			}
+		}
+
+		return ordered;
+	}
+
 
 	// Stem filtering.
 	// Where applicable, return "true" if the mode supports it and the operation was possible.

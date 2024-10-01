@@ -23,8 +23,8 @@ public class ModeABC extends InputMode {
 		changeLanguage(lang);
 
 		if (inputType.isEmail()) {
-			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));
-			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(1)));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
 	}
 
