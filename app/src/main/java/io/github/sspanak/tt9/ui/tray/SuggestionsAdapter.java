@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.tray;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -57,8 +58,16 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	}
 
 
-	public void setSelection(int index) {
-		selectedIndex = index;
+	public void setSelection(int newIndex) {
+		notifyItemChanged(selectedIndex);
+		notifyItemChanged(selectedIndex = newIndex);
+	}
+
+
+	@SuppressLint("NotifyDataSetChanged")
+	public void resetItems(int newIndex) {
+		selectedIndex = newIndex;
+		notifyDataSetChanged();
 	}
 
 

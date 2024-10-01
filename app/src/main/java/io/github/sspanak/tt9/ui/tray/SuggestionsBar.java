@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.tray;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -208,11 +207,10 @@ public class SuggestionsBar {
 	}
 
 
-	@SuppressLint("NotifyDataSetChanged")
+
 	private void setSuggestionsOnScreen() {
 		if (mView != null) {
-			mSuggestionsAdapter.setSelection(selectedIndex);
-			mSuggestionsAdapter.notifyDataSetChanged();
+			mSuggestionsAdapter.resetItems(selectedIndex);
 			mView.scrollToPosition(selectedIndex);
 		}
 	}
@@ -223,48 +221,45 @@ public class SuggestionsBar {
 			return;
 		}
 
-		int oldIndex = selectedIndex;
-
-		selectedIndex = selectedIndex + increment;
-		if (selectedIndex == suggestions.size()) {
-			selectedIndex = 0;
-		} else if (selectedIndex < 0) {
-			selectedIndex = suggestions.size() - 1;
-		}
-
-		if (containsStem() && selectedIndex == 0) {
-			scrollToSuggestion(increment);
-			return;
-		}
-
-		scrollToSuggestionOnScreen(oldIndex);
+		calculateScrollIndex(increment);
+		scrollToIndex();
 	}
 
 
-	private void scrollToSuggestionOnScreen(int oldIndex) {
+	private void calculateScrollIndex(int increment) {
+		selectedIndex = selectedIndex + increment;
+		if (selectedIndex == suggestions.size()) {
+			selectedIndex = containsStem() ? 1 : 0;
+		} else if (selectedIndex < 0) {
+			selectedIndex = suggestions.size() - 1;
+		} else if (selectedIndex == 0 && containsStem()) {
+			selectedIndex = suggestions.size() - 1;
+		}
+	}
+
+
+	private void scrollToIndex() {
 		if (mView == null) {
 			return;
 		}
 
 		mSuggestionsAdapter.setSelection(selectedIndex);
-		mSuggestionsAdapter.notifyItemChanged(oldIndex);
-		mSuggestionsAdapter.notifyItemChanged(selectedIndex);
 
 		if (settings.getSuggestionScrollingDelay() > 0) {
 			alternativeScrollingHandler.removeCallbacksAndMessages(null);
-			alternativeScrollingHandler.postDelayed(this::scrollToSelectedIndex, settings.getSuggestionScrollingDelay());
+			alternativeScrollingHandler.postDelayed(this::scrollView, settings.getSuggestionScrollingDelay());
 		} else {
-			scrollToSelectedIndex();
+			scrollView();
 		}
 	}
 
 
 	/**
-	 * Tells the adapter to scroll. Always call scrollToSuggestionOnScreen() first,
+	 * Tells the adapter to scroll. Always call scrollToIndex() first,
 	 * to set the selected index in the adapter.
 	 */
-	private void scrollToSelectedIndex() {
-		if (containsStem() && selectedIndex == 1 && getSuggestion(1).length() < getSuggestion(suggestions.size() - 1).length()) {
+	private void scrollView() {
+		if (containsStem() && selectedIndex == 1) {
 			mView.scrollToPosition(0);
 		} else {
 			mView.scrollToPosition(selectedIndex);
