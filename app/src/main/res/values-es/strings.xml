@@ -184,4 +184,6 @@
 	<string name="punctuation_order_reset_defaults">Restaurar el orden predeterminado</string>
 	<string name="language">Idioma</string>
 	<string name="punctuation_order_save">Guardar orden</string>
+	<string name="punctuation_order_forbidden_char">Carácter prohibido:%1$s</string>
+	<string name="punctuation_order_forbidden_chars">Caracteres prohibidos:%1$s</string>
 </resources>

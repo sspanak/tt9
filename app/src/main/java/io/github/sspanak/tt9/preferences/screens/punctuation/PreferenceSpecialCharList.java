@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
@@ -16,11 +17,20 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public PreferenceSpecialCharList(@NonNull Context context) { super(context); }
 
+
 	@Override
 	@NonNull
 	protected String getChars() {
 		return getSettings().getSpecialChars(language);
 	}
+
+
+	@NonNull
+	@Override
+	protected char[] getForbiddenChars() {
+		return SettingsStore.MANDATORY_PUNCTUATION;
+	}
+
 
 	@NonNull
 	@Override
@@ -28,14 +38,21 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 		return SettingsStore.MANDATORY_SPECIAL_CHARS;
 	}
 
+
 	@Override
 	public boolean validateCurrentChars() {
 		for (char c : getMandatoryChars()) {
 			currentChars = currentChars.replace(String.valueOf(c), "");
 		}
 
+		String error = validateForbiddenChars();
+		setSummary(
+			error.isEmpty() ? getContext().getString(R.string.punctuation_order_whitespace_will_be_added_automatically) : error
+		);
+
 		return true;
 	}
+
 
 	@Override
 	public void saveCurrentChars() {
