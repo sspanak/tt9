@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.util.Logger;
 
 abstract public class ItemTextInput extends ScreenPreference implements TextWatcher {
 	@NonNull private final Handler debouncer = new Handler(Looper.getMainLooper());
+	private EditText editText;
 
 	public ItemTextInput(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
@@ -45,6 +46,7 @@ abstract public class ItemTextInput extends ScreenPreference implements TextWatc
 		if (editText == null) {
 			Logger.e(getClass().getSimpleName(), "Cannot attach a text change listener. Unable to find the EditText element.");
 		} else {
+			this.editText = editText;
 			editText.addTextChangedListener(this);
 			editText.setOnKeyListener(this::ignoreEnter);
 		}
@@ -59,7 +61,17 @@ abstract public class ItemTextInput extends ScreenPreference implements TextWatc
 	@Override
 	public void afterTextChanged(Editable s) {
 		debouncer.removeCallbacksAndMessages(null);
-		debouncer.postDelayed(() -> onChange(s.toString()), SettingsStore.TEXT_INPUT_DEBOUNCE_TIME);
+		debouncer.postDelayed(() -> onChange(s.toString()), getChangeHandlerDebounceTime());
+	}
+
+	protected int getChangeHandlerDebounceTime() {
+		return SettingsStore.TEXT_INPUT_DEBOUNCE_TIME;
+	}
+
+	protected void setText(CharSequence text) {
+		if (editText != null) {
+			editText.setText(text);
+		}
 	}
 
 	/**

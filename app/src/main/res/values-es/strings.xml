@@ -175,4 +175,13 @@
 	<string name="language_selection_words">palabras</string>
 	<string name="pref_backspace_acceleration">Eliminación rápida</string>
 	<string name="pref_backspace_acceleration_summary">Borrar palabras completas manteniendo pulsado o deslizando Retroceso. (No compatible con algunas aplicaciones)</string>
+	<string name="pref_category_punctuation_order">Orden de puntuación</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Los caracteres Espacio y Nueva línea se añadirán automáticamente al principio de la lista.</string>
+	<string name="punctuation_order_mandatory_char_missing">Falta carácter obligatorio:%1$s</string>
+	<string name="punctuation_order_mandatory_chars_missing">Faltan caracteres obligatorios:%1$s</string>
+	<string name="punctuation_order_sentence">Orden de caracteres de la tecla 1</string>
+	<string name="punctuation_order_special">Orden de caracteres de la tecla 0</string>
+	<string name="punctuation_order_reset_defaults">Restaurar el orden predeterminado</string>
+	<string name="language">Idioma</string>
+	<string name="punctuation_order_save">Guardar orden</string>
 </resources>

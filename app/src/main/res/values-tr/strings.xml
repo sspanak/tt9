@@ -178,4 +178,13 @@
 	<string name="language_selection_words">kelime</string>
 	<string name="pref_backspace_acceleration">Hızlı Silme</string>
 	<string name="pref_backspace_acceleration_summary">Geri tuşunu basılı tutarak veya kaydırarak tüm kelimeleri sil. (Bazı uygulamalarda desteklenmez)</string>
+	<string name="pref_category_punctuation_order">Noktalama sırası</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Boşluk ve Yeni Satır karakterleri listenin başına otomatik olarak eklenecektir.</string>
+	<string name="punctuation_order_mandatory_char_missing">Zorunlu karakter eksik:%1$s</string>
+	<string name="punctuation_order_mandatory_chars_missing">Zorunlu karakterler eksik:%1$s</string>
+	<string name="punctuation_order_sentence">1 tuşunun karakter sırası</string>
+	<string name="punctuation_order_special">0 tuşunun karakter sırası</string>
+	<string name="punctuation_order_reset_defaults">Varsayılan sırayı geri yükle</string>
+	<string name="language">Dil</string>
+	<string name="punctuation_order_save">Sıralamayı kaydet</string>
 </resources>

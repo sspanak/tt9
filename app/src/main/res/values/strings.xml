@@ -6,6 +6,7 @@
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
 	<string name="loading">Loading…</string>
+	<string name="language">Language</string>
 	<string name="no_language">No Language</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
@@ -36,6 +37,7 @@
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
+	<string name="pref_category_punctuation_order">Punctuation Order</string>
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_typing_modes">Typing Modes</string>
 	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
@@ -166,6 +168,13 @@
 	<string name="language_selection_search_placeholder">Search for Languages</string>
 	<string name="language_selection_words">words</string>
 
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be automatically added at the beginning of the list.</string>
+	<string name="punctuation_order_mandatory_char_missing">Missing mandatory character:%1$s</string>
+	<string name="punctuation_order_mandatory_chars_missing">Missing mandatory characters:%1$s</string>
+	<string name="punctuation_order_reset_defaults">Restore Default Order</string>
+	<string name="punctuation_order_save">Save Order</string>
+	<string name="punctuation_order_sentence">1-key Character Order</string>
+	<string name="punctuation_order_special">0-key Character Order</string>
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>

@@ -204,7 +204,7 @@ public class Predictions {
 
 		// append all letters for the last digit in the sequence (the last pressed key)
 		int lastSequenceDigit = digitSequence.charAt(digitSequence.length() - 1) - '0';
-		for (String keyLetter : language.getKeyCharacters(lastSequenceDigit)) {
+		for (String keyLetter : settings.getOrderedKeyChars(language, lastSequenceDigit)) {
 			if (Character.isAlphabetic(keyLetter.charAt(0)) || Characters.isCombiningPunctuation(language, keyLetter.charAt(0))) {
 				generatedWords.add(baseWord + keyLetter);
 			}

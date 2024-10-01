@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
-class SettingsTyping extends SettingsInput {
+class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
 
 	public int getAbcAutoAcceptTimeout() {
