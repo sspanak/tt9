@@ -61,6 +61,7 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 		char[] mandatory = getMandatoryChars();
 		StringBuilder optional = new StringBuilder();
 
+		// hide all mandatory characters
 		for (int i = 0; i < all.length(); i++) {
 			char c = all.charAt(i);
 
@@ -86,7 +87,63 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 	}
 
 
+	protected String validateForbiddenChars() {
+		StringBuilder forbiddenCharList = new StringBuilder();
+
+		for (char c : getForbiddenChars()) {
+			if (currentChars.indexOf(c) != -1) {
+				forbiddenCharList.append(" ").append(getCharName(c)).append(",");
+			}
+		}
+
+		if (forbiddenCharList.length() == 0) {
+			return "";
+		}
+
+		int message = forbiddenCharList.length() == 3 ? R.string.punctuation_order_forbidden_chars : R.string.punctuation_order_forbidden_char;
+		String chars = forbiddenCharList.substring(0, forbiddenCharList.length() - 1);
+		return getContext().getString(message, chars);
+	}
+
+
+	protected String validateMandatoryChars() {
+		return validateMandatoryChars(getMandatoryChars());
+	}
+
+
+	protected String validateMandatoryChars(char[] mandatoryChars) {
+		StringBuilder missingCharList = new StringBuilder();
+
+		for (char c : mandatoryChars) {
+			if (currentChars.indexOf(c) == -1) {
+				missingCharList.append(" ").append(getCharName(c)).append(",");
+			}
+		}
+
+		if (missingCharList.length() == 0) {
+			return "";
+		}
+
+		int message = missingCharList.length() == 3 ? R.string.punctuation_order_mandatory_char_missing : R.string.punctuation_order_mandatory_chars_missing;
+		String chars = missingCharList.substring(0, missingCharList.length() - 1);
+		return getContext().getString(message, chars);
+	}
+
+
+	private String getCharName(char c) {
+		switch (c) {
+			case '\n':
+				return getContext().getString(R.string.char_newline);
+			case ' ':
+				return getContext().getString(R.string.char_space);
+			default:
+				return String.valueOf(c);
+		}
+	}
+
+
 	@NonNull abstract protected String getChars();
+	@NonNull abstract protected char[] getForbiddenChars();
 	@NonNull abstract protected char[] getMandatoryChars();
 	abstract public boolean validateCurrentChars();
 	abstract public void saveCurrentChars();

@@ -173,4 +173,6 @@
 	<string name="punctuation_order_reset_defaults">Standaardvolgorde herstellen</string>
 	<string name="language">Taal</string>
 	<string name="punctuation_order_save">Volgorde opslaan</string>
+	<string name="punctuation_order_forbidden_char">Verboden teken:%1$s</string>
+	<string name="punctuation_order_forbidden_chars">Verboden tekens:%1$s</string>
 </resources>

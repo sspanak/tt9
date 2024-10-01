@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
@@ -23,9 +22,15 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 		return getSettings().getPunctuation(language);
 	}
 
+	@NonNull
+	@Override
+	protected char[] getForbiddenChars() {
+		return SettingsStore.MANDATORY_SPECIAL_CHARS;
+	}
+
 	/**
-	 * We want to all the user to rearrange all characters even the mandatory ones.
-	 * We will verify if they are present upon saving.
+	 * Allow the user to rearrange all characters even the mandatory ones. We will verify if they
+	 * are present upon saving.
 	 */
 	@NonNull
 	@Override
@@ -33,22 +38,17 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 		 return new char[0];
 	}
 
+	@Override
+	protected String validateMandatoryChars() {
+		return super.validateMandatoryChars(SettingsStore.MANDATORY_PUNCTUATION);
+	}
+
 	public boolean validateCurrentChars() {
-		StringBuilder missingCharList = new StringBuilder();
+		String forbiddenCharsError = validateForbiddenChars();
+		String mandatoryCharsError = validateMandatoryChars();
 
-		for (char c : SettingsStore.MANDATORY_PUNCTUATION) {
-			if (currentChars.indexOf(c) == -1) {
-				missingCharList.append(" ").append(c).append(",");
-			}
-		}
-
-		String error = "";
-		if (missingCharList.length() > 0) {
-			int message = missingCharList.length() == 3 ? R.string.punctuation_order_mandatory_char_missing : R.string.punctuation_order_mandatory_chars_missing;
-			String missingChars = missingCharList.substring(0, missingCharList.length() - 1);
-			error = getContext().getString(message, missingChars);
-		}
-
+		String separator = forbiddenCharsError.isEmpty() || mandatoryCharsError.isEmpty() ? "" : "\n";
+		String error = forbiddenCharsError + separator + mandatoryCharsError;
 		setSummary(error);
 
 		return error.isEmpty();
