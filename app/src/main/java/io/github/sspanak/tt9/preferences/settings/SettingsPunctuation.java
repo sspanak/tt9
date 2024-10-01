@@ -9,23 +9,26 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.languages.Language;
 
 class SettingsPunctuation extends SettingsInput {
+	private final static String KEY_PREFIX_PUNCTUATION = "pref_punctuation_";
+	private final static String KEY_PREFIX_SPECIAL = "pref_special_chars_";
+	public final static char[] MANDATORY_PUNCTUATION = new char[] {'\'', '"', '-'};
+	public final static char[] MANDATORY_SPECIAL_CHARS = new char[] {' ', '\n'};
+
+
 	SettingsPunctuation(Context context) {
 		super(context);
 	}
 
 
-	public final char[] mandatoryPunctuation = new char[] {'\'', '"', '-'};
-	public final char[] mandatorySpecialChars = new char[] {' ', '\n'};
-
-
 	public void savePunctuation(@NonNull Language language, @NonNull String punctuation) {
-		prefsEditor.putString("pref_punctuation_" + language.getId(), punctuation);
+		prefsEditor.putString(KEY_PREFIX_PUNCTUATION + language.getId(), punctuation);
 		prefsEditor.apply();
 	}
 
 
 	public void saveSpecialChars(@NonNull Language language, @NonNull String specialChars) {
-		prefsEditor.putString("pref_special_chars_" + language.getId(), specialChars);
+		String safeChars = specialChars.replace("\n", "⏎");
+		prefsEditor.putString(KEY_PREFIX_SPECIAL + language.getId(), safeChars);
 		prefsEditor.apply();
 	}
 
@@ -47,7 +50,7 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		return getCharsAsList(
-			prefs.getString("pref_punctuation_" + language.getId(), null),
+			prefs.getString(KEY_PREFIX_PUNCTUATION + language.getId(), null),
 			language.getKeyCharacters(1)
 		);
 	}
@@ -59,8 +62,10 @@ class SettingsPunctuation extends SettingsInput {
 			return new ArrayList<>();
 		}
 
+		String safeChars = prefs.getString(KEY_PREFIX_SPECIAL + language.getId(), null);
+
 		return getCharsAsList(
-			prefs.getString("pref_special_chars_" + language.getId(), null),
+			safeChars == null ? null : safeChars.replace("⏎", "\n"),
 			language.getKeyCharacters(0)
 		);
 	}

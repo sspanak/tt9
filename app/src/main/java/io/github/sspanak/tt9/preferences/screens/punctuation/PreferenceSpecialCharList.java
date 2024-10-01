@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_special_chars";
 
@@ -23,7 +25,7 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	@NonNull
 	@Override
 	protected char[] getMandatoryChars() {
-		return getSettings().mandatorySpecialChars;
+		return SettingsStore.MANDATORY_SPECIAL_CHARS;
 	}
 
 	@Override
