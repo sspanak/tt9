@@ -51,13 +51,13 @@ public class ModePredictive extends InputMode {
 		digitSequence = "";
 		predictions = new Predictions(settings, textField);
 
-		if (inputType.isEmail()) {
-			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(0)));
-			KEY_CHARACTERS.add(new ArrayList<>(Characters.Email.get(1)));
-		}
-
 		changeLanguage(lang);
 		defaultTextCase();
+
+		if (inputType.isEmail()) {
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		}
 	}
 
 

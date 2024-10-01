@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ime.modes;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
@@ -31,21 +30,20 @@ public class Mode123 extends ModePassthrough {
 		isEmailMode = inputType.isEmail();
 
 		if (inputType.isPhoneNumber()) {
-			setSpecificSpecialCharacters(Characters.Phone);
+			setSpecificSpecialCharacters(Characters.Phone, false);
 		} else if (inputType.isNumeric()) {
-			setSpecificSpecialCharacters(Characters.getNumberSpecialCharacters(inputType.isDecimal(), inputType.isSignedNumber()));
+			setSpecificSpecialCharacters(Characters.getNumberSpecialCharacters(inputType.isDecimal(), inputType.isSignedNumber()), false);
 		} else if (inputType.isEmail()) {
-			setSpecificSpecialCharacters(Characters.Email);
+			setSpecificSpecialCharacters(Characters.Email, true);
 		} else {
 			setDefaultSpecialCharacters();
 		}
-
 	}
 
 
-	private void setSpecificSpecialCharacters(ArrayList<ArrayList<String>> chars) {
-		for (ArrayList<String> group : chars) {
-			KEY_CHARACTERS.add(new ArrayList<>(group));
+	private void setSpecificSpecialCharacters(ArrayList<ArrayList<String>> chars, boolean sort) {
+		for (int group = 0; group < chars.size(); group++) {
+			KEY_CHARACTERS.add(sort ? applyPunctuationOrder(chars.get(group), group) : new ArrayList<>(chars.get(group)));
 		}
 	}
 
@@ -56,26 +54,41 @@ public class Mode123 extends ModePassthrough {
 	 * use the default list, but reorder it a bit for convenience.
 	 */
 	private void setDefaultSpecialCharacters() {
-		// 0-key
-		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList("+")));
-		for (String character : settings.getOrderedKeyChars(language, 0)) {
-			if (!character.equals("+") && !character.equals("\n")) {
-				KEY_CHARACTERS.get(0).add(character);
-			}
-		}
-
-		// 1-key
-		KEY_CHARACTERS.add(new ArrayList<>(Collections.singletonList(".")));
-		for (String character : settings.getOrderedKeyChars(language, 1)) {
-			if (!character.equals(".")) {
-				KEY_CHARACTERS.get(1).add(character);
-			}
-		}
+		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0), 0));
+		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1), 1));
 	}
 
 
 	@Override protected boolean nextSpecialCharacters() {
-		return !isEmailMode && digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		if (isEmailMode || !digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) || !super.nextSpecialCharacters()) {
+			return false;
+		}
+
+		ArrayList<String> ordered = applyNumericFieldCharacterOrder(suggestions, specialCharSelectedGroup);
+		suggestions.clear();
+		suggestions.addAll(ordered);
+		return true;
+	}
+
+
+	protected ArrayList<String> applyNumericFieldCharacterOrder(ArrayList<String> unordered, int key) {
+		ArrayList<String> ordered = new ArrayList<>();
+
+		if (unordered.contains(".")) {
+			ordered.add(".");
+		}
+
+		if (unordered.contains("+")) {
+			ordered.add("+");
+		}
+
+		for (String character : unordered) {
+			if (!character.equals("+") && !character.equals(".") && !character.equals("\n")) {
+				ordered.add(character);
+			}
+		}
+
+		return ordered;
 	}
 
 
@@ -87,6 +100,7 @@ public class Mode123 extends ModePassthrough {
 		reset();
 		return true;
 	}
+
 
 	@Override public boolean onNumber(int number, boolean hold, int repeat) {
 		reset();
@@ -101,6 +115,7 @@ public class Mode123 extends ModePassthrough {
 
 		return true;
 	}
+
 
 	/**
 	 * shouldIgnoreText
@@ -122,9 +137,11 @@ public class Mode123 extends ModePassthrough {
 			);
 	}
 
+
 	@Override public void onAcceptSuggestion(@NonNull String ignored, boolean ignored2) {
 		reset();
 	}
+
 
 	@Override public void reset() {
 		super.reset();
