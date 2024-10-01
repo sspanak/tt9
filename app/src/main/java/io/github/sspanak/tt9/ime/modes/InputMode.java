@@ -170,30 +170,29 @@ abstract public class InputMode {
 	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
 	 */
-	protected boolean nextSpecialCharacters() { return nextSpecialCharacters(language); }
-	protected boolean nextSpecialCharacters(Language altLanguage) {
+	protected boolean nextSpecialCharacters() {
 		int previousGroup = specialCharSelectedGroup;
 		specialCharSelectedGroup++;
 
 		return
-			loadSpecialCharacters(altLanguage) // validates specialCharSelectedGroup
+			loadSpecialCharacters() // validates specialCharSelectedGroup
 			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
 	}
 
-	protected boolean loadSpecialCharacters(Language altLanguage) {
-		if (altLanguage == null || digitSequence.isEmpty()) {
+	protected boolean loadSpecialCharacters() {
+		if (language == null || digitSequence.isEmpty()) {
 			return false;
 		}
 
 		int key = digitSequence.charAt(0) - '0';
-		ArrayList<String> chars = settings.getOrderedKeyChars(altLanguage, key, specialCharSelectedGroup);
+		ArrayList<String> chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
 
 		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
 			specialCharSelectedGroup = 0;
 			return false;
 		} else if (chars.isEmpty()) {
 			specialCharSelectedGroup = 0;
-			chars = settings.getOrderedKeyChars(altLanguage, key, specialCharSelectedGroup);
+			chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
 		}
 
 		suggestions.clear();
