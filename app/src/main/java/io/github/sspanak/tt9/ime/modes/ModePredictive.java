@@ -293,7 +293,7 @@ public class ModePredictive extends InputMode {
 	 */
 	private boolean loadStaticSuggestions() {
 		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-			loadSpecialCharacters(language);
+			loadSpecialCharacters();
 			onSuggestionsUpdated.run();
 			return true;
 		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
@@ -313,14 +313,14 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	protected boolean loadSpecialCharacters(Language altLanguage) {
+	protected boolean loadSpecialCharacters() {
 		int number = digitSequence.charAt(0) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
 			suggestions.addAll(KEY_CHARACTERS.get(number));
 			return true;
 		} else {
-			return super.loadSpecialCharacters(language);
+			return super.loadSpecialCharacters();
 		}
 	}
 
