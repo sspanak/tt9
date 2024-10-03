@@ -35,8 +35,8 @@ _If your phone does not allow installing custom APKs, please consult the [Instal
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
-    - Medium languages (400k-800k words; e.g. Danish, Hebrew, Italian, Greek, Portuguese): 40-75 Mb per language
-    - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Spanish, Romanian, Ukrainian, Russian): 100-165 Mb per language
+    - Medium languages (400k-800k words; e.g. Danish, Greek, Italian, Portuguese): 40-75 Mb per language
+    - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Hebrew, Romanian, Spanish): 100-165 Mb per language
 
 _Storage usage for the dictionaries depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
 
