@@ -21,9 +21,9 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
-	@NonNull
-	private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
-	private final Handler zombieDetector = new Handler(Looper.getMainLooper());
+	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
+	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
+	private boolean isDead = false;
 	private int zombieChecks = 0;
 
 
@@ -115,6 +115,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected void onInit() {
+		isDead = false;
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 		DataStore.init(this);
@@ -125,8 +126,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
 		if (!SystemSettings.isTT9Active(this)) {
-			onStop();
-			onDeath();
+			onDestroy(); // it will call onFinishInput() -> onStop() -> onZombie().
 			return false;
 		}
 
@@ -184,9 +184,10 @@ public class TraditionalT9 extends MainViewHandler {
 	 * On Android 11 the IME is sometimes not killed when the user switches to a different one.
 	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
-	private void startZombieCheck() {
+	protected void startZombieCheck() {
 		if (!SystemSettings.isTT9Active(this)) {
-			onDeath();
+			zombieChecks = 0;
+			onZombie();
 			return;
 		}
 
@@ -199,25 +200,19 @@ public class TraditionalT9 extends MainViewHandler {
 	}
 
 
-	private void onDeath() {
-		if (currentInputConnection == null) {
-			Logger.w("onDeath", "===> Already dead. Nothing to do.");
+	private void onZombie() {
+		if (isDead) {
+			Logger.w("onZombie", "===> Already dead. Nothing to do.");
 			return;
 		}
 
-		Logger.w("onDeath", "===> Killing self");
+		Logger.w("onZombie", "===> Killing self");
 		requestHideSelf(0);
 		setInputField(null, null);
 		backgroundTasks.removeCallbacksAndMessages(null);
 		zombieDetector.removeCallbacksAndMessages(null);
 		stopSelf();
-	}
-
-
-	@Override
-	public void onDestroy() {
-		onDeath();
-		super.onDestroy();
+		isDead = true;
 	}
 
 
