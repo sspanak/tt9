@@ -161,13 +161,13 @@ public class TextField extends InputField {
 			return 0;
 		}
 
-		String before = getStringBeforeCursor();
+		Text before = getTextBeforeCursor();
 		if (before.isEmpty()) {
 			return 0;
 		}
 
-		int spaceShift = Math.max(before.lastIndexOf(' '), 0);
-		return Math.min(before.length() - spaceShift, (int) (SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS * 1.5));
+		int whitespaceShift = Math.max(before.lastWhitespaceBlockIndex(), 0);
+		return Math.min(before.length() - whitespaceShift, (int) (SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS * 1.5));
 	}
 
 
