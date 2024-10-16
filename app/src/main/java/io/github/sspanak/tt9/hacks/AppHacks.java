@@ -120,9 +120,7 @@ public class AppHacks {
 	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
 	public boolean onEnter() {
-		if (settings.getGoogleChatHack() && inputType.isGoogleChat()) {
-			return onEnterGoogleChat();
-		} else if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {
+		if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
 			// Any extra installed apps are likely not designed for hardware keypads, so again,
 			// we don't want to send DPAD_CENTER to them.
@@ -133,26 +131,5 @@ public class AppHacks {
 		// now how to handle the incoming OK key code, be it ENTER or DPAD_CENTER.
 		// As per the docs, we must return "false", to indicate that we have not "seen" the key press.
 		return false;
-	}
-
-	/**
-	 * onEnterGoogleChat
-	 * Google Chat does not seem to respond consistently to ENTER. So we trick it by selecting
-	 * the send button it, then going back to the text field, so that one can continue typing.
-	 */
-	private boolean onEnterGoogleChat() {
-		if (inputConnection == null || textField == null || textField.isEmpty()) {
-			return false;
-		}
-
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
-		textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_TAB, true, false);
-
-		return true;
 	}
 }

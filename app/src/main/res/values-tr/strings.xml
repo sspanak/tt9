@@ -119,7 +119,6 @@
 	<string name="pref_double_zero_char">"0" tuşuna iki kere basıldığında yazılacak karakter</string>
 	<string name="pref_hack_always_on_top">Her zaman en üstte tut</string>
 	<string name="pref_hack_always_on_top_summary">Diğer uygulamaların %1$s ekranını kaplamasına veya ekranın dışına itmesine izin vermeyin.</string>
-	<string name="pref_hack_google_chat">Google Chat konuşmalarında mesaj göndermek için \"OK\" tuşunu kull an</string>
 	<string name="pref_hack_key_pad_debounce_time">Tuşlara yanlışlıkla birden fazla basma engelleyici</string>
 	<string name="pref_hack_key_pad_debounce_off">Kapalı</string>
 	<string name="dictionary_export_finished">Dışa aktarma tamamlandı.</string>

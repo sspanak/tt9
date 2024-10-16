@@ -63,7 +63,7 @@ Clear the suggestion filter, if applied.
 
 _**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**Note 2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way. Yet, for some of them, TT9 can be enabled to send messages in the [Compatibility Settings](#compatibility-options--troubleshooting)._
+_**Note 2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
 
 #### 0-key:
 - **In 123 mode:**
@@ -296,14 +296,6 @@ _**Note 2:** Besides the above, Qin phones may also fail to detect long presses.
 _In: Settings → Initial Setup._
 
 Sending with OK in Messenger has been no longer possible since the June 2024 update. The recent app redesign caused the Send button to become unreachable for all keyboards. If you have technical knowledge and an idea of how to re-enable this feature, please write in [this GitHub issue](https://github.com/sspanak/tt9/issues/558).
-
-
-#### Send messages with OK in Google Chat
-_In: Settings → Initial Setup._
-
-Similar to the above, but for Google Chat.
-
-_This option is still experimental. It may sometimes fail to detect the "Send" button and click another one. If this starts happening, just close the chat and reopen it._
 
 #### Telegram/Snapchat stickers and emoji panels won't open
 This happens if you are using one of the small-sized layouts. Currently, there is no permanent fix, but you can use the following workaround:

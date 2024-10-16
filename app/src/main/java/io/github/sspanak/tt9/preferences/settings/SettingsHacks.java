@@ -46,10 +46,6 @@ class SettingsHacks extends BaseSettings {
 		return prefs.getBoolean("pref_clear_insets", DeviceInfo.isSonimGen2(context));
 	}
 
-	public boolean getGoogleChatHack() {
-		return prefs.getBoolean("pref_hack_google_chat", false);
-	}
-
 	/**
 	 * Protection against faulty devices, that sometimes send two (or more) click events
 	 * per a single key press, which absolutely undesirable side effects.
