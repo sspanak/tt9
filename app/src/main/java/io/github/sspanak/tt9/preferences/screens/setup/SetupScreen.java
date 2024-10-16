@@ -20,7 +20,6 @@ public class SetupScreen extends BaseScreenFragment {
 	public void onCreate() {
 		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
 		createKeyboardSection(isTT9On);
-		createHacksSection(isTT9On | activity.getSettings().getDemoMode());
 		resetFontSize(false);
 	}
 
@@ -47,12 +46,5 @@ public class SetupScreen extends BaseScreenFragment {
 		}
 
 		new ItemSpellCheck(activity, findPreference("global_spellchecker")).enableClickHandler();
-	}
-
-	private void createHacksSection(boolean isEnabled) {
-		Preference hackGoogleChat = findPreference("pref_hack_google_chat");
-		if (hackGoogleChat != null) {
-			hackGoogleChat.setEnabled(isEnabled);
-		}
 	}
 }

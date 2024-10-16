@@ -17,14 +17,6 @@ public class InputType extends StandardInputType {
 	}
 
 
-	boolean isGoogleChat() {
-		return isAppField(
-			"com.google.android.apps.dynamite",
-			EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_CAP_SENTENCES | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT
-		);
-	}
-
-
 	/**
 	 * isKindleInvertedTextField
 	 * When sharing a document to the Amazon Kindle app. It displays a screen where one could edit the title and the author of the
