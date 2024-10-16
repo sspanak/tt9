@@ -61,7 +61,7 @@ public class LanguageCollection {
 	@NonNull public static Language getDefault(Context context) {
 		Language language = getByLocale(context, SystemSettings.getLocale());
 		language = language == null ? getByLocale(context, "en") : language;
-		return language == null ? new NullLanguage(context) : language;
+		return language == null ? new NullLanguage() : language;
 	}
 
 	@Nullable

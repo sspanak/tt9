@@ -2,7 +2,6 @@
 <resources>
 	<string name="app_settings">TT9 Einstellungen</string>
 	<string name="loading">Laden…</string>
-	<string name="no_language">Keine Sprache</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
 	<string name="add_word_add">Hinzufügen</string>

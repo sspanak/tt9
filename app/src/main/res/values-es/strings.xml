@@ -14,7 +14,6 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>
 	<string name="loading">Cargando…</string>
-	<string name="no_language">Sin idioma</string>
 	<string name="error_unexpected">Ocurrió un error inesperado.</string>
 	<string name="add_word_exist">La palabra \"%1$s\" ya esta en el diccionario.</string>
 	<string name="add_word_invalid_language_x">No se puede agregar una palabra. Idioma desconocido: \"%1$d\".</string>

@@ -2,7 +2,6 @@
 <resources>
 	<string name="app_settings">TT9 Opties</string>
 	<string name="loading">Laden…</string>
-	<string name="no_language">Geen taal</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
 	<string name="add_word_add">Toevoegen</string>

@@ -7,7 +7,6 @@
 	<string name="completed">Completed</string>
 	<string name="loading">Loading…</string>
 	<string name="language">Language</string>
-	<string name="no_language">No Language</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
 
@@ -23,7 +22,6 @@
 	<string name="add_word_invalid_language_x">Cannot add a word. Unknown language: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" added.</string>
 	<string name="add_word_title">Add Word</string>
-
 
 	<string name="commands_select_command">Select a Command</string>
 
