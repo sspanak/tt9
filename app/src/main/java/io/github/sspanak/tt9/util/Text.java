@@ -11,15 +11,18 @@ public class Text extends TextTools {
 	private final Language language;
 	private final String text;
 
+
 	public Text(Language language, String text) {
 		this.language = language;
 		this.text = text;
 	}
 
+
 	public Text(String text) {
 		this.language = null;
 		this.text = text;
 	}
+
 
 	public String capitalize() {
 		if (language == null || text == null || text.isEmpty() || !language.hasUpperCase()) {
@@ -32,10 +35,10 @@ public class Text extends TextTools {
 	}
 
 
-
 	public boolean endsWithGraphic() {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
 	}
+
 
 	public int getTextCase() {
 		if (isUpperCase()) {
@@ -49,6 +52,7 @@ public class Text extends TextTools {
 		}
 	}
 
+
 	public boolean isAlphabetic() {
 		for (int i = 0, end = text == null ? 0 : text.length(); i < end; i++) {
 			if (!Character.isAlphabetic(text.charAt(i))) {
@@ -58,6 +62,7 @@ public class Text extends TextTools {
 
 		return true;
 	}
+
 
 	public boolean isNumeric() {
 		if (text == null) {
@@ -73,9 +78,11 @@ public class Text extends TextTools {
 		return true;
 	}
 
+
 	public boolean isEmpty() {
 		return text == null || text.isEmpty();
 	}
+
 
 	private boolean isCapitalized() {
 		if (text == null || text.length() < 2) {
@@ -95,6 +102,7 @@ public class Text extends TextTools {
 		return true;
 	}
 
+
 	public boolean isMixedCase() {
 		return
 			language != null
@@ -103,9 +111,11 @@ public class Text extends TextTools {
 			&& !text.toUpperCase(language.getLocale()).equals(text);
 	}
 
+
 	public boolean isUpperCase() {
 		return language != null && text != null && text.toUpperCase(language.getLocale()).equals(text);
 	}
+
 
 	public String leaveEndingGraphics() {
 		if (text == null) {
@@ -126,6 +136,7 @@ public class Text extends TextTools {
 
 		return sb.toString();
 	}
+
 
 	public String leaveStartingGraphics() {
 		if (text == null) {
@@ -148,21 +159,48 @@ public class Text extends TextTools {
 	}
 
 
+	public int length() {
+		return text == null ? 0 : text.length();
+	}
+
+
+	public int lastWhitespaceBlockIndex() {
+		if (text == null) {
+			return -1;
+		}
+
+		for (int i = text.length() - 1; i >= 0; i--) {
+			if (
+				Character.isWhitespace(text.charAt(i))
+				&& (i == 0 || !Character.isWhitespace(text.charAt(i - 1)))
+			) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+
 	public boolean startsWithWhitespace() {
 		return text != null && !text.isEmpty() && Character.isWhitespace(text.charAt(0)) && !text.startsWith("\n");
 	}
+
 
 	public boolean startsWithNumber() {
 		return text != null && !text.isEmpty() && Character.isDigit(text.charAt(0));
 	}
 
+
 	public boolean startsWithGraphic() {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(0));
 	}
 
+
 	public boolean startsWithWord() {
 		return text != null && !text.isEmpty() && Character.isAlphabetic(text.charAt(0));
 	}
+
 
 	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null) {
@@ -184,6 +222,7 @@ public class Text extends TextTools {
 		return sub.toString();
 	}
 
+
 	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null) {
 			return "";
@@ -204,6 +243,7 @@ public class Text extends TextTools {
 		return sub.toString();
 	}
 
+
 	public String toLowerCase() {
 		if (text == null) {
 			return "";
@@ -212,6 +252,7 @@ public class Text extends TextTools {
 		}
 	}
 
+
 	public String toUpperCase() {
 		if (text == null) {
 			return "";
@@ -219,6 +260,7 @@ public class Text extends TextTools {
 			return text.toUpperCase(language != null ? language.getLocale() : Locale.getDefault());
 		}
 	}
+
 
 	@NonNull
 	@Override
