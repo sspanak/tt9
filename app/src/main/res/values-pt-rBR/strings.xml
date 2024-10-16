@@ -4,7 +4,6 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Concluído</string>
 	<string name="loading">Carregando…</string>
-	<string name="no_language">Sem idioma</string>
 	<string name="error_unexpected">Um erro inesperado aconteceu.</string>
 
 	<string name="add_word_add">Adicionar</string>

@@ -2,7 +2,6 @@
 <resources>
 	<string name="app_settings">TT9 Ayarlar</string>
 	<string name="loading">Yükleniyor…</string>
-	<string name="no_language">Yüklü Dil Yok</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
 	<string name="add_word_add">Ekle</string>

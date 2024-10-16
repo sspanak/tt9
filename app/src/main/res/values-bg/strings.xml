@@ -4,7 +4,6 @@
 	<string name="pref_font_size_large">Голям</string>
 	<string name="completed">Завършено</string>
 	<string name="loading">Зареждане…</string>
-	<string name="no_language">Няма език</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>

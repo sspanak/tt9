@@ -4,7 +4,6 @@
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Fini</string>
 	<string name="loading">Chargement…</string>
-	<string name="no_language">Aucun langue</string>
 	<string name="error_unexpected">Une erreur inattendue s\'est produite.</string>
 	<string name="add_word_add">Ajouter</string>
 	<string name="add_word_no_selection">Déplacez le curseur dans un mot pour l\'ajouter.</string>

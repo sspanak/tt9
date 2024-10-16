@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -85,8 +86,8 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
-	public void changeLanguage(Language language) {
-		super.changeLanguage(language);
+	public void changeLanguage(@Nullable Language newLanguage) {
+		super.changeLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
@@ -112,10 +113,6 @@ public class ModeABC extends InputMode {
 	@NonNull
 	@Override
 	public String toString() {
-		if (language == null) {
-			return textCase == CASE_LOWER ? "abc" : "ABC";
-		}
-
 		String modeString = language.getAbcString();
 
 		// There are many languages written using the same alphabet, so if the user has

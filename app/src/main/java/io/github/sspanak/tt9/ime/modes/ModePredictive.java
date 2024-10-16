@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -107,8 +108,8 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public void changeLanguage(Language language) {
-		super.changeLanguage(language);
+	public void changeLanguage(@Nullable Language newLanguage) {
+		super.changeLanguage(newLanguage);
 
 		autoSpace.setLanguage(language);
 
@@ -509,10 +510,6 @@ public class ModePredictive extends InputMode {
 	@NonNull
 	@Override
 	public String toString() {
-		if (language == null) {
-			return "Predictive";
-		}
-
 		String modeString = language.getName();
 		if (textCase == CASE_UPPER) {
 			return modeString.toUpperCase(language.getLocale());

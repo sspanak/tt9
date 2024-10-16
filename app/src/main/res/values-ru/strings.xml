@@ -4,7 +4,6 @@
 	<string name="pref_font_size_large">Крупный</string>
 	<string name="completed">Выполнено</string>
 	<string name="loading">Загрузка…</string>
-	<string name="no_language">Нет языка</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>

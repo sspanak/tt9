@@ -108,8 +108,8 @@ public class Predictions {
 	private void loadWithoutLeadingPunctuation() {
 		DataStore.getWords(
 			(dbWords) -> {
-				char firstChar = inputWord.charAt(0);
-				for (int i = 0; i < dbWords.size(); i++) {
+				char firstChar = inputWord.isEmpty() ? 0 : inputWord.charAt(0);
+				for (int i = 0; firstChar > 0 && i < dbWords.size(); i++) {
 					dbWords.set(i, firstChar + dbWords.get(i));
 				}
 				onDbWords(dbWords, false);

@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
+import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -31,9 +33,9 @@ abstract public class InputMode {
 	// data
 	protected int autoAcceptTimeout = -1;
 	@NonNull protected String digitSequence = "";
-	protected Language language;
+	@NonNull protected Language language = new NullLanguage();
 	protected final SettingsStore settings;
-	protected final ArrayList<String> suggestions = new ArrayList<>();
+	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
 	protected int specialCharSelectedGroup = 0;
 
@@ -43,7 +45,7 @@ abstract public class InputMode {
 	}
 
 
-	public static InputMode getInstance(SettingsStore settings, Language language, InputType inputType, TextField textField, int mode) {
+	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
 				return new ModePredictive(settings, inputType, textField, language);
@@ -103,10 +105,8 @@ abstract public class InputMode {
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
 	}
-	public void changeLanguage(Language newLanguage) {
-		if (newLanguage != null) {
-			language = newLanguage;
-		}
+	public void changeLanguage(@Nullable Language newLanguage) {
+		language = newLanguage != null ? newLanguage : new NullLanguage();
 	}
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
@@ -181,7 +181,7 @@ abstract public class InputMode {
 
 
 	protected boolean loadSpecialCharacters() {
-		if (language == null || digitSequence.isEmpty()) {
+		if (digitSequence.isEmpty()) {
 			return false;
 		}
 
@@ -208,7 +208,7 @@ abstract public class InputMode {
 	 * list of characters, for example in email, numeric or other specialized fields.
 	 */
 	protected ArrayList<String> applyPunctuationOrder(ArrayList<String> unordered, int key) {
-		if (language == null || specialCharSelectedGroup != 0 || key > 1) {
+		if (specialCharSelectedGroup != 0 || key > 1) {
 			return new ArrayList<>(unordered);
 		}
 
