@@ -153,6 +153,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			} else {
 				mInputMode.reset();
 			}
+
+			statusBar.setText(mInputMode);
 		}
 
 		return true;
