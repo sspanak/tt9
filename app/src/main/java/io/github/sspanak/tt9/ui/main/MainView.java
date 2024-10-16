@@ -14,10 +14,10 @@ public class MainView {
 	protected MainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 
-		forceCreateInputView();
+		forceCreate();
 	}
 
-	public boolean createInputView() {
+	public boolean create() {
 		SettingsStore settings = tt9.getSettings();
 
 		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
@@ -37,9 +37,9 @@ public class MainView {
 		return true;
 	}
 
-	public void forceCreateInputView() {
+	public void forceCreate() {
 		main = null;
-		if (!createInputView()) {
+		if (!create()) {
 			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);
 		}

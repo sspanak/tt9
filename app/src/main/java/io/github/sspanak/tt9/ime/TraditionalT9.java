@@ -30,7 +30,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	public boolean onEvaluateInputViewShown() {
 		super.onEvaluateInputViewShown();
-		if (!SystemSettings.isTT9Active(this)) {
+		if (!SystemSettings.isTT9Selected(this)) {
 			return false;
 		}
 
@@ -47,7 +47,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	public View onCreateInputView() {
-		mainView.forceCreateInputView();
+		mainView.forceCreate();
 		initTray();
 		setDarkTheme();
 		statusBar.setText(mInputMode);
@@ -113,6 +113,7 @@ public class TraditionalT9 extends MainViewHandler {
 		return result;
 	}
 
+
 	@Override
 	protected void onInit() {
 		isDead = false;
@@ -125,12 +126,12 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		if (!SystemSettings.isTT9Active(this)) {
-			onDestroy(); // it will call onFinishInput() -> onStop() -> onZombie().
+		if (!SystemSettings.isTT9Selected(this) && !isDead) {
+			zombieDetector.postDelayed(this::startZombieCheck, SettingsStore.ZOMBIE_CHECK_INTERVAL);
 			return false;
 		}
 
-		if (!super.onStart(connection, field)) {
+		if (isDead || !super.onStart(connection, field)) {
 			return false;
 		}
 
@@ -169,7 +170,7 @@ public class TraditionalT9 extends MainViewHandler {
 			updateInputViewShown();
 		}
 
-		if (SystemSettings.isTT9Active(this)) {
+		if (SystemSettings.isTT9Selected(this)) {
 			backgroundTasks.removeCallbacksAndMessages(null);
 			backgroundTasks.postDelayed(this::runBackgroundTasks, SettingsStore.WORD_BACKGROUND_TASKS_DELAY);
 		}
@@ -185,7 +186,7 @@ public class TraditionalT9 extends MainViewHandler {
 	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
 	protected void startZombieCheck() {
-		if (!SystemSettings.isTT9Active(this)) {
+		if (!SystemSettings.isTT9Selected(this)) {
 			zombieChecks = 0;
 			onZombie();
 			return;
@@ -200,7 +201,7 @@ public class TraditionalT9 extends MainViewHandler {
 	}
 
 
-	private void onZombie() {
+	protected void onZombie() {
 		if (isDead) {
 			Logger.w("onZombie", "===> Already dead. Nothing to do.");
 			return;
@@ -208,11 +209,25 @@ public class TraditionalT9 extends MainViewHandler {
 
 		Logger.w("onZombie", "===> Killing self");
 		requestHideSelf(0);
+		cleanUp();
+		stopSelf();
+		isDead = true;
+	}
+
+
+	protected void cleanUp() {
+		super.cleanUp();
 		setInputField(null, null);
 		backgroundTasks.removeCallbacksAndMessages(null);
 		zombieDetector.removeCallbacksAndMessages(null);
-		stopSelf();
+	}
+
+
+	@Override
+	public void onDestroy() {
+		cleanUp();
 		isDead = true;
+		super.onDestroy();
 	}
 
 

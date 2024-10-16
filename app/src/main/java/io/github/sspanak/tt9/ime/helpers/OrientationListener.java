@@ -39,4 +39,8 @@ public class OrientationListener extends android.view.OrientationEventListener {
 			enable();
 		}
 	}
+
+	public void stop() {
+		disable();
+	}
 }
