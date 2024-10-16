@@ -111,6 +111,9 @@ abstract public class StandardInputType {
 	}
 
 
+	abstract protected boolean isDefectiveText();
+
+
 	public boolean isMultilineText() {
 		return field != null && (field.inputType & TYPE_MULTILINE_TEXT) == TYPE_MULTILINE_TEXT;
 	}
@@ -164,6 +167,11 @@ abstract public class StandardInputType {
 				// ↓ fallthrough to add ABC and 123 modes ↓
 
 			default:
+				// Enable predictions for incorrectly defined text fields.
+				if (isDefectiveText() && !isPassword()) {
+					allowedModes.add(InputMode.MODE_PREDICTIVE);
+				}
+
 				// For all unknown input types, default to the alphabetic
 				// keyboard with no special features.
 				allowedModes.add(InputMode.MODE_123);
