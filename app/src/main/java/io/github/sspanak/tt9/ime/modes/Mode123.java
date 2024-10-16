@@ -17,7 +17,7 @@ public class Mode123 extends ModePassthrough {
 	@Override public final boolean is123() { return true; }
 	@Override public boolean isPassthrough() { return false; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey) { return true; }
+	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 	private final boolean isEmailMode;
@@ -60,7 +60,7 @@ public class Mode123 extends ModePassthrough {
 
 
 	@Override protected boolean nextSpecialCharacters() {
-		if (isEmailMode || !digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) || !super.nextSpecialCharacters()) {
+		if (isEmailMode || !digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) || !super.nextSpecialCharacters()) {
 			return false;
 		}
 

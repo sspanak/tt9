@@ -174,7 +174,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// instead of requiring "OK" before that.
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word.
-		if (mInputMode.shouldAcceptPreviousSuggestion(key)) {
+		if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
 			String lastWord = suggestionOps.acceptIncomplete();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
