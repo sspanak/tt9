@@ -109,26 +109,20 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	public void remove(ArrayList<Integer> languageIds) {
+	public void remove(ArrayList<Language> languages) {
 		if (!checkOrNotify()) {
 			return;
 		}
 
 		Timer.start(LOG_TAG);
-		try {
-			sqlite.beginTransaction();
-			for (int langId : languageIds) {
-				if (readOps.exists(sqlite.getDb(), langId)) {
-					DeleteOps.delete(sqlite.getDb(), langId);
-				}
-			}
-			sqlite.finishTransaction();
 
-			Logger.d(LOG_TAG, "Deleted " + languageIds.size() + " languages. Time: " + Timer.stop(LOG_TAG) + " ms");
-		} catch (Exception e) {
-			sqlite.failTransaction();
-			Logger.e(LOG_TAG, "Failed deleting languages. " + e.getMessage());
+		for (Language lang : languages) {
+			if (readOps.exists(sqlite.getDb(), lang.getId())) {
+				DeleteOps.delete(sqlite.getDb(), lang.getId());
+			}
 		}
+
+		Logger.d(LOG_TAG, "Deleted " + languages.size() + " languages. Time: " + Timer.stop(LOG_TAG) + " ms");
 	}
 
 

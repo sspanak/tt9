@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
@@ -21,16 +23,16 @@ class ItemTruncateUnselected extends ItemTruncateAll {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		ArrayList<Integer> unselectedLanguageIds = new ArrayList<>();
-		ArrayList<Integer> selectedLanguageIds = activity.getSettings().getEnabledLanguageIds();
+		ArrayList<Language> unselectedLanguages = new ArrayList<>();
+		Set<Integer> selectedLanguageIds = new HashSet<>(activity.getSettings().getEnabledLanguageIds());
 		for (Language lang : LanguageCollection.getAll(activity, false)) {
 			if (!selectedLanguageIds.contains(lang.getId())) {
-				unselectedLanguageIds.add(lang.getId());
+				unselectedLanguages.add(lang);
 			}
 		}
 
 		onStartDeleting();
-		DataStore.deleteWords(this::onFinishDeleting, unselectedLanguageIds);
+		DataStore.deleteLanguages(this::onFinishDeleting, unselectedLanguages);
 
 		return true;
 	}

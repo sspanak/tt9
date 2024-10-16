@@ -21,6 +21,8 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 public class WordPairStore extends BaseSyncStore {
+	private static final String LOG_TAG = WordPairStore.class.getSimpleName();
+
 	// data
 	private final ConcurrentHashMap<Integer, HashMap<WordPair, WordPair>> pairs = new ConcurrentHashMap<>();
 
@@ -111,7 +113,7 @@ public class WordPairStore extends BaseSyncStore {
 
 		long currentTime = Timer.stop(SAVE_TIMER_NAME);
 		slowestSaveTime = Math.max(slowestSaveTime, currentTime);
-		Logger.d(getClass().getSimpleName(), "Saved all word pairs in: " + currentTime + " ms");
+		Logger.d(LOG_TAG, "Saved all word pairs in: " + currentTime + " ms");
 	}
 
 
@@ -121,12 +123,12 @@ public class WordPairStore extends BaseSyncStore {
 		}
 
 		if (dictionaryLoader.isRunning()) {
-			Logger.e(getClass().getSimpleName(), "Cannot load word pairs while the DictionaryLoader is working.");
+			Logger.e(LOG_TAG, "Cannot load word pairs while the DictionaryLoader is working.");
 			return;
 		}
 
 		if (languages == null) {
-			Logger.e(getClass().getSimpleName(), "Cannot load word pairs for NULL language list.");
+			Logger.e(LOG_TAG, "Cannot load word pairs for NULL language list.");
 			return;
 		}
 
@@ -149,25 +151,27 @@ public class WordPairStore extends BaseSyncStore {
 				wordPairs.put(pair, pair);
 			}
 
-			Logger.d(getClass().getSimpleName(), "Loaded " + wordPairs.size() + " word pairs for language: " + language.getId());
+			Logger.d(LOG_TAG, "Loaded " + wordPairs.size() + " word pairs for language: " + language.getId());
 		}
 
 		long currentTime = Timer.stop(LOAD_TIMER_NAME);
 		slowestLoadTime = Math.max(slowestLoadTime, currentTime);
-		Logger.d(getClass().getSimpleName(), "Loaded " + totalPairs + " word pairs in " + currentTime + " ms");
+		Logger.d(LOG_TAG, "Loaded " + totalPairs + " word pairs in " + currentTime + " ms");
 	}
 
 
-	public void delete(@NonNull ArrayList<Language> languages) {
+	public void remove(@NonNull ArrayList<Language> languages) {
 		if (!checkOrNotify()) {
 			return;
 		}
 
-		sqlite.beginTransaction();
+		Timer.start(LOG_TAG);
+
 		for (Language language : languages) {
 			DeleteOps.deleteWordPairs(sqlite.getDb(), language.getId());
 		}
-		sqlite.finishTransaction();
+
+		Logger.d(LOG_TAG, "Deleted " + languages.size() + " word pair groups. Time: " + Timer.stop(LOG_TAG) + " ms");
 
 		slowestLoadTime = 0;
 		slowestSaveTime = 0;
