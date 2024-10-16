@@ -54,8 +54,8 @@ public class Mode123 extends ModePassthrough {
 	 * use the default list, but reorder it a bit for convenience.
 	 */
 	private void setDefaultSpecialCharacters() {
-		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0), 0));
-		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1), 1));
+		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0)));
+		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1)));
 	}
 
 
@@ -64,14 +64,14 @@ public class Mode123 extends ModePassthrough {
 			return false;
 		}
 
-		ArrayList<String> ordered = applyNumericFieldCharacterOrder(suggestions, specialCharSelectedGroup);
+		ArrayList<String> ordered = applyNumericFieldCharacterOrder(suggestions);
 		suggestions.clear();
 		suggestions.addAll(ordered);
 		return true;
 	}
 
 
-	protected ArrayList<String> applyNumericFieldCharacterOrder(ArrayList<String> unordered, int key) {
+	protected ArrayList<String> applyNumericFieldCharacterOrder(ArrayList<String> unordered) {
 		ArrayList<String> ordered = new ArrayList<>();
 
 		if (unordered.contains(".")) {
