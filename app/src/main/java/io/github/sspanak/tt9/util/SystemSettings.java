@@ -28,7 +28,7 @@ public class SystemSettings {
 		return false;
 	}
 
-	public static boolean isTT9Active(Context context) {
+	public static boolean isTT9Selected(Context context) {
 		String defaultIME = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;
 		packageName = packageName == null ? context.getPackageName() : packageName;

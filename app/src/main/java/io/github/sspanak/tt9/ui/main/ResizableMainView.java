@@ -36,8 +36,8 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	@Override
-	public boolean createInputView() {
-		if (!super.createInputView()) {
+	public boolean create() {
+		if (!super.create()) {
 			return false;
 		}
 
@@ -49,6 +49,11 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		return true;
 	}
 
+	public void removeListeners() {
+		if (main != null && main.getView() != null) {
+			main.getView().removeOnAttachStateChangeListener(this);
+		}
+	}
 
 	private void onCreateAdjustHeight() {
 		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height <= heightNumpad) {

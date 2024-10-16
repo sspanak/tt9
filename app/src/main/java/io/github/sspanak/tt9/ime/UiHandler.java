@@ -33,7 +33,7 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	public void initUi(InputMode inputMode) {
-		if (mainView.createInputView()) {
+		if (mainView.create()) {
 			initTray();
 		}
 		setDarkTheme();

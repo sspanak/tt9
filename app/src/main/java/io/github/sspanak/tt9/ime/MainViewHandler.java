@@ -25,6 +25,12 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		}
 	}
 
+	protected void cleanUp() {
+		mainView.removeListeners();
+		orientationListener.stop();
+		orientationListener = null;
+	}
+
 	public int getTextCase() {
 		return mInputMode.getTextCase();
 	}
