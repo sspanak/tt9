@@ -293,7 +293,7 @@ public class ModePredictive extends InputMode {
 	 * options for the current digitSequence.
 	 */
 	private boolean loadStaticSuggestions() {
-		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY)) {
+		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY)) {
 			loadSpecialCharacters();
 			onSuggestionsUpdated.run();
 			return true;
@@ -377,7 +377,7 @@ public class ModePredictive extends InputMode {
 
 			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
+			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHAR_KEY)) {
 				predictions.onAccept(currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -403,7 +403,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters();
+		return digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override
@@ -431,20 +431,25 @@ public class ModePredictive extends InputMode {
 	 * automatically. This is used for analysis before processing the incoming pressed key.
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
-		final char SPECIAL_CHARS_KEY = NaturalLanguage.SPECIAL_CHARS_KEY.charAt(0);
+	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
+		if (hold) {
+			return true;
+		}
+
+		final char SPECIAL_CHAR_KEY_CODE = NaturalLanguage.SPECIAL_CHAR_KEY.charAt(0);
+		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		if (!stem.isEmpty() && nextKey == SPECIAL_CHARS_KEY - '0' && digitSequence.charAt(0) == SPECIAL_CHARS_KEY) {
+		if (!stem.isEmpty() && nextKey == SPECIAL_CHAR_KEY && digitSequence.charAt(0) == SPECIAL_CHAR_KEY_CODE) {
 			return true;
 		}
 
 		return
 			!digitSequence.isEmpty() && (
-				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != SPECIAL_CHARS_KEY)
-				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == SPECIAL_CHARS_KEY)
+				(nextKey == SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) != SPECIAL_CHAR_KEY_CODE)
+				|| (nextKey != SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) == SPECIAL_CHAR_KEY_CODE)
 			);
 	}
 
@@ -458,11 +463,6 @@ public class ModePredictive extends InputMode {
 		// backspace never breaks words
 		if (!isCursorDirectionForward) {
 			return false;
-		}
-
-		// special characters always break words
-		if (autoAcceptTimeout == 0 && !digitSequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
-			return true;
 		}
 
 		if (shouldAcceptHebrewOrUkrainianWord(unacceptedText)) {

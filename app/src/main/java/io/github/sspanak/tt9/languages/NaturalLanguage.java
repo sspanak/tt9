@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.util.Text;
 
 
 public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
-	final public static String SPECIAL_CHARS_KEY = "0";
+	final public static String SPECIAL_CHAR_KEY = "0";
 	final public static String PUNCTUATION_KEY = "1";
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
 

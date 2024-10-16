@@ -111,7 +111,7 @@ abstract public class InputMode {
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
-	public boolean shouldAcceptPreviousSuggestion(int nextKey) { return false; }
+	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
 	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) { return false; }
@@ -150,7 +150,7 @@ abstract public class InputMode {
 			return true;
 		}
 
-		if (!language.hasUpperCase() || digitSequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.startsWith(NaturalLanguage.SPECIAL_CHARS_KEY)) {
+		if (!language.hasUpperCase() || digitSequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.startsWith(NaturalLanguage.SPECIAL_CHAR_KEY)) {
 			return false;
 		}
 

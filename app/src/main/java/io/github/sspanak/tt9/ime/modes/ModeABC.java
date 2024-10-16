@@ -77,7 +77,7 @@ public class ModeABC extends InputMode {
 
 	@Override
 	protected boolean nextSpecialCharacters() {
-		if (KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHARS_KEY) && super.nextSpecialCharacters()) {
+		if (KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters()) {
 			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
 			return true;
 		}
