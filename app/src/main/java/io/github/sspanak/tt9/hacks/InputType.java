@@ -12,6 +12,11 @@ public class InputType extends StandardInputType {
 	}
 
 
+	private boolean isDuoLingoReportBug() {
+		return isAppField("com.duolingo", EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+	}
+
+
 	boolean isGoogleChat() {
 		return isAppField(
 			"com.google.android.apps.dynamite",
@@ -154,6 +159,14 @@ public class InputType extends StandardInputType {
 			|| isLgX100SDialer();
 	}
 
+
+	/**
+	 * Detects incorrectly defined text fields that miss the EditorInfo.TYPE_TEXT flag.
+	 */
+	@Override
+	protected boolean isDefectiveText() {
+		return isDuoLingoReportBug();
+	}
 
 	/**
 	 * isAppField
