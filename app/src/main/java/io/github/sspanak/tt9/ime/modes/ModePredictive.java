@@ -432,10 +432,19 @@ public class ModePredictive extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey) {
+		final char SPECIAL_CHARS_KEY = NaturalLanguage.SPECIAL_CHARS_KEY.charAt(0);
+
+		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
+		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
+		// the "+" and replacing it with the preferred character.
+		if (!stem.isEmpty() && nextKey == SPECIAL_CHARS_KEY - '0' && digitSequence.charAt(0) == SPECIAL_CHARS_KEY) {
+			return true;
+		}
+
 		return
 			!digitSequence.isEmpty() && (
-				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != '0')
-				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == '0')
+				(nextKey == 0 && digitSequence.charAt(digitSequence.length() - 1) != SPECIAL_CHARS_KEY)
+				|| (nextKey != 0 && digitSequence.charAt(digitSequence.length() - 1) == SPECIAL_CHARS_KEY)
 			);
 	}
 
