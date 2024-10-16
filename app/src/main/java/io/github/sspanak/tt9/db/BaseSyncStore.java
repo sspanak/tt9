@@ -26,4 +26,22 @@ public class BaseSyncStore {
 
 		return true;
 	}
+
+	public void startTransaction() {
+		if (sqlite != null) {
+			sqlite.beginTransaction();
+		}
+	}
+
+	public void failTransaction() {
+		if (sqlite != null) {
+			sqlite.failTransaction();
+		}
+	}
+
+	public void finishTransaction() {
+		if (sqlite != null) {
+			sqlite.finishTransaction();
+		}
+	}
 }

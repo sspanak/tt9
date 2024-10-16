@@ -2,11 +2,8 @@ package io.github.sspanak.tt9.preferences.screens.languages;
 
 import androidx.preference.Preference;
 
-import java.util.ArrayList;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
@@ -32,11 +29,7 @@ class ItemTruncateAll extends ItemClickable {
 	@Override
 	protected boolean onClick(Preference p) {
 		onStartDeleting();
-		ArrayList<Integer> languageIds = new ArrayList<>();
-		for (Language lang : LanguageCollection.getAll(activity, false)) {
-			languageIds.add(lang.getId());
-		}
-		DataStore.deleteWords(this::onFinishDeleting, languageIds);
+		DataStore.deleteLanguages(this::onFinishDeleting, LanguageCollection.getAll(activity, false));
 
 		return true;
 	}
