@@ -230,6 +230,11 @@ public class TraditionalT9 extends MainViewHandler {
 		super.onDestroy();
 	}
 
+	@Override
+	public void onTimeout(int startId) {
+		onZombie();
+		super.onTimeout(startId);
+	}
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {

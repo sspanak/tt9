@@ -25,7 +25,7 @@ class MainLayoutTray extends BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
-			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
+			height = resources.getDimensionPixelSize(R.dimen.candidate_height) + getBottomInsetSize();
 
 			if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
 				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
