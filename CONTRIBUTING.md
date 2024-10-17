@@ -49,7 +49,7 @@ To support a new language one needs to:
 - Find a suitable dictionary and add it to the `app/languages/dictionaries/` folder. Two file formats are supported, [see below](#dictionary-formats).
 - Do not forget to include the dictionary license (or readme) file in the `docs/` folder.
 - Create a new `.yml` file in `app/languages/definitions/` and define the language properties.
-  - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk8-jre8-suported-locales.html#util-text).
+  - `locale` contains the language and the country codes (e.g. "en-US", "es-AR", "it-IT"). Refer to the list of [supported locales in Java](https://www.oracle.com/java/technologies/javase/jdk17-suported-locales.html#modules).
   - `dictionaryFile` is the name of the dictionary in `app/languages/dictionaries/` folder.
   - `layout` contains the letters and punctuation marks associated with each key.
     - For 0-key `[SPECIAL]`, will be fine in most languages, but you could define your own set of special characters, for example: `[@, #, $]`.

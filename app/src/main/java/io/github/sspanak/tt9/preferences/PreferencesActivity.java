@@ -61,12 +61,20 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 
 
 	@Override
+	public void onAttachedToWindow() {
+		super.onAttachedToWindow();
+		preventEdgeToEdge(findViewById(R.id.preferences_container));
+	}
+
+
+	@Override
 	public boolean onPreferenceStartFragment(@NonNull PreferenceFragmentCompat caller, @NonNull Preference pref) {
 		BaseScreenFragment fragment = getScreen((getScreenName(pref)));
 		fragment.setArguments(pref.getExtras());
 		displayScreen(fragment, true);
 		return true;
 	}
+
 
 	@Override
 	protected void onResume() {

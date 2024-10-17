@@ -69,12 +69,12 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 
 android {
 	namespace PACKAGE_NAME
-	compileSdk 34
+	compileSdk 35
 
 	defaultConfig {
 		applicationId PACKAGE_NAME
 		minSdk 19
-		targetSdk 34
+		targetSdk 35
 		versionCode getVerCode()
 		versionName getVerName()
 	}
@@ -96,6 +96,10 @@ android {
 			shrinkResources true
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
 	}
 
 	flavorDimensions = ['app']

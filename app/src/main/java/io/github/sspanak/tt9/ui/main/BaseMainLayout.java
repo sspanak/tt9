@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 
@@ -57,6 +59,21 @@ abstract class BaseMainLayout {
 		}
 
 		return view;
+	}
+
+
+	/**
+	 * Calculate the bottom padding for the edge-to-edge mode in Android 15+. Without padding,
+	 * the bottom of the View will be cut off by the system navigation bar.
+	 */
+	protected int getBottomInsetSize() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM || tt9 == null) {
+			return 0;
+		}
+
+		final int DEFAULT_SIZE = 96;
+		WindowInsets insets = tt9.getWindow().findViewById(android.R.id.content).getRootWindowInsets();
+		return insets != null ? insets.getStableInsetBottom() : DEFAULT_SIZE;
 	}
 
 

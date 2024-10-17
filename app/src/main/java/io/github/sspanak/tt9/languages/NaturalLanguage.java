@@ -134,7 +134,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	@Override
 	public int getId() {
 		if (id == 0) {
-			String idString = (locale.getLanguage() + locale.getCountry()).toUpperCase();
+			String idString = new LocaleCompat(locale).toString();
 			for (int i = 0; i < idString.length(); i++) {
 				id |= (idString.codePointAt(i) & 31) << (i * 5);
 			}
@@ -149,14 +149,11 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 			return "hi";
 		}
 
-		switch (getLocale().getLanguage()) {
-			case "fi":
-				return "su";
-			case "sw":
-				return "ki";
-			default:
-				return getLocale().toString();
-		}
+		return switch (getLocale().getLanguage()) {
+			case "fi" -> "su";
+			case "sw" -> "ki";
+			default -> getLocale().toString();
+		};
 	}
 
 
