@@ -9,7 +9,6 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.Callable;
 
@@ -17,7 +16,7 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
-abstract public class ActivityWithNavigation extends AppCompatActivity {
+abstract public class ActivityWithNavigation extends EdgeToEdgeActivity {
 	public static final String LOG_TAG = ActivityWithNavigation.class.getSimpleName();
 
 	protected SettingsStore settings;

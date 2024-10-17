@@ -2,17 +2,34 @@ package io.github.sspanak.tt9.ui;
 
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.View;
 import android.webkit.WebView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 
-abstract public class WebViewActivity extends AppCompatActivity {
+abstract public class WebViewActivity extends EdgeToEdgeActivity implements View.OnAttachStateChangeListener {
+	private WebView container;
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		buildLayout();
+	}
+
+	@Override
+	public void onViewAttachedToWindow(@NonNull View view) {
+		preventEdgeToEdge((View) view.getParent());
+	}
+
+	@Override
+	public void onViewDetachedFromWindow(@NonNull View view) {}
+
+	@Override
+	protected void onDestroy() {
+		container.removeOnAttachStateChangeListener(this);
+		super.onDestroy();
 	}
 
 	@Override
@@ -35,7 +52,8 @@ abstract public class WebViewActivity extends AppCompatActivity {
 	}
 
 	private void setContent() {
-		WebView container = new WebView(this);
+		container = new WebView(this);
+		container.addOnAttachStateChangeListener(this);
 
 		// On API > 30 the WebView does not load the entire String with .loadData(),
 		// so we need to do this weird shit.

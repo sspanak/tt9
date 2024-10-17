@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +30,11 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private void calculateSnapHeights() {
-		heightNumpad = new MainLayoutNumpad(tt9).getHeight();
-		heightSmall = new MainLayoutSmall(tt9).getHeight();
-		heightTray = new MainLayoutTray(tt9).getHeight();
+		boolean forceRecalculate = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
+
+		heightNumpad = new MainLayoutNumpad(tt9).getHeight(forceRecalculate);
+		heightSmall = new MainLayoutSmall(tt9).getHeight(forceRecalculate);
+		heightTray = new MainLayoutTray(tt9).getHeight(forceRecalculate);
 	}
 
 
@@ -55,13 +58,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 	}
 
-	private void onCreateAdjustHeight() {
-		if (tt9.getSettings().isMainLayoutNumpad() && height > heightSmall && height <= heightNumpad) {
-			setHeight(height, heightSmall, heightNumpad);
-		}
-	}
-
-	@Override public void onViewAttachedToWindow(@NonNull View v) { onCreateAdjustHeight(); }
+	@Override public void onViewAttachedToWindow(@NonNull View v) { setHeight(height, heightSmall, heightNumpad); }
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 
 

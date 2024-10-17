@@ -84,7 +84,6 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	}
 
 
-
 	public void resetFontSize(boolean reloadList) {
 		initPreferencesList();
 		preferencesList.getAll(reloadList, true);
