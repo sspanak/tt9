@@ -145,20 +145,11 @@ public class ReadOps {
 
 
 	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
-		int generations;
-
-		switch (sequence.length()) {
-			case 2:
-				generations = wordFilter.isEmpty() ? 1 : 10;
-				break;
-			case 3:
-			case 4:
-				generations = wordFilter.isEmpty() ? 2 : 10;
-				break;
-			default:
-				generations = 10;
-				break;
-		}
+		int generations = switch (sequence.length()) {
+			case 2 -> wordFilter.isEmpty() ? 1 : 10;
+			case 3, 4 -> wordFilter.isEmpty() ? 2 : 10;
+			default -> 10;
+		};
 
 		return getWordPositions(db, language, sequence, generations, minPositions, wordFilter);
 	}

@@ -28,14 +28,11 @@ public class SoftKeyPunctuation extends SoftKey {
 	@Override
 	protected String getTitle() {
 		String keyChar = getKeyChar();
-		switch (keyChar) {
-			case "":
-				return "PUNC";
-			case "*":
-				return "✱";
-			default:
-				return keyChar;
-		}
+		return switch (keyChar) {
+			case "" -> "PUNC";
+			case "*" -> "✱";
+			default -> keyChar;
+		};
 	}
 
 	private String getKeyChar() {

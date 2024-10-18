@@ -199,13 +199,11 @@ abstract public class StandardInputType {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		switch (field.inputType & InputType.TYPE_MASK_FLAGS) {
-			case InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS:
-				return InputMode.CASE_UPPER;
-			case InputType.TYPE_TEXT_FLAG_CAP_WORDS:
-				return InputMode.CASE_CAPITALIZE;
-		}
+		return switch (field.inputType & InputType.TYPE_MASK_FLAGS) {
+			case InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS -> InputMode.CASE_UPPER;
+			case InputType.TYPE_TEXT_FLAG_CAP_WORDS -> InputMode.CASE_CAPITALIZE;
+			default -> InputMode.CASE_UNDEFINED;
+		};
 
-		return InputMode.CASE_UNDEFINED;
 	}
 }

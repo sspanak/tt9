@@ -31,15 +31,14 @@ public class PopupDialogActivity extends AppCompatActivity {
 		String popupType = i != null ? i.getStringExtra(PopupDialog.PARAMETER_DIALOG_TYPE) : "";
 		popupType = popupType != null ? popupType : "";
 
-		switch (popupType) {
-			case AddWordDialog.TYPE:
-				return new AddWordDialog(this, i, this::onDialogClose);
-			case AutoUpdateMonologue.TYPE:
-				return new AutoUpdateMonologue(this, i, this::onDialogClose);
-			default:
+		return switch (popupType) {
+			case AddWordDialog.TYPE -> new AddWordDialog(this, i, this::onDialogClose);
+			case AutoUpdateMonologue.TYPE -> new AutoUpdateMonologue(this, i, this::onDialogClose);
+			default -> {
 				Logger.w(LOG_TAG, "Unknown popup type: '" + popupType + "'. Not displaying anything.");
-				return null;
-		}
+				yield null;
+			}
+		};
 	}
 
 	private void onDialogClose(String message) {
