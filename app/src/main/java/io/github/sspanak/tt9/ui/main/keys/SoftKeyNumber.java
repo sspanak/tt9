@@ -22,7 +22,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 
 public class SoftKeyNumber extends SoftKey {
-	private final static SparseArray<Integer> NUMBERS = new SparseArray<Integer>() {{
+	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
 		put(R.id.soft_key_0, 0);
 		put(R.id.soft_key_1, 1);
 		put(R.id.soft_key_2, 2);
@@ -35,7 +35,7 @@ public class SoftKeyNumber extends SoftKey {
 		put(R.id.soft_key_9, 9);
 	}};
 
-	private final static SparseArray<Integer> UPSIDE_DOWN_NUMBERS = new SparseArray<Integer>() {{
+	private final static SparseArray<Integer> UPSIDE_DOWN_NUMBERS = new SparseArray<>() {{
 		put(1, 7);
 		put(2, 8);
 		put(3, 9);
@@ -146,14 +146,11 @@ public class SoftKeyNumber extends SoftKey {
 
 		int number = getNumber(getId());
 
-		switch (number) {
-			case 0:
-				return getSpecialCharList(tt9);
-			case 1:
-				return tt9.isNumericModeStrict() ? null : PUNCTUATION_LABEL;
-			default:
-				return getKeyCharList(tt9, number);
-		}
+		return switch (number) {
+			case 0 -> getSpecialCharList(tt9);
+			case 1 -> tt9.isNumericModeStrict() ? null : PUNCTUATION_LABEL;
+			default -> getKeyCharList(tt9, number);
+		};
 	}
 
 

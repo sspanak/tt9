@@ -22,16 +22,13 @@ public class AutoTextCase {
 	 * or Dutch words such as: "'s-Hertogenbosch".
 	 */
 	public String adjustSuggestionTextCase(Text word, int newTextCase) {
-		switch (newTextCase) {
-			case InputMode.CASE_UPPER:
-				return word.toUpperCase();
-			case InputMode.CASE_LOWER:
-				return word.toLowerCase();
-			case InputMode.CASE_CAPITALIZE:
-				return word.isMixedCase() || word.isUpperCase() ? word.toString() : word.capitalize();
-			default:
-				return word.toString();
-		}
+		return switch (newTextCase) {
+			case InputMode.CASE_UPPER -> word.toUpperCase();
+			case InputMode.CASE_LOWER -> word.toLowerCase();
+			case InputMode.CASE_CAPITALIZE ->
+				word.isMixedCase() || word.isUpperCase() ? word.toString() : word.capitalize();
+			default -> word.toString();
+		};
 	}
 
 

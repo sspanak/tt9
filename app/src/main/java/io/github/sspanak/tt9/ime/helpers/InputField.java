@@ -54,18 +54,17 @@ public class InputField {
 		// See the example below:
 		// https://github.com/openboard-team/openboard/blob/c3772cd56e770975ea5570db903f93b199de8b32/app/src/main/java/org/dslul/openboard/inputmethod/latin/inputlogic/InputLogic.java#L756
 		int standardAction = field.imeOptions & (EditorInfo.IME_MASK_ACTION | EditorInfo.IME_FLAG_NO_ENTER_ACTION);
-		switch (standardAction) {
-			case EditorInfo.IME_ACTION_DONE:
-			case EditorInfo.IME_ACTION_GO:
-			case EditorInfo.IME_ACTION_NEXT:
-			case EditorInfo.IME_ACTION_PREVIOUS:
-			case EditorInfo.IME_ACTION_SEARCH:
-			case EditorInfo.IME_ACTION_SEND:
-			case EditorInfo.IME_ACTION_UNSPECIFIED:
-				return standardAction;
-			default:
-				return IME_ACTION_ENTER;
-		}
+		return switch (standardAction) {
+			case EditorInfo.IME_ACTION_DONE,
+					 EditorInfo.IME_ACTION_GO,
+					 EditorInfo.IME_ACTION_NEXT,
+					 EditorInfo.IME_ACTION_PREVIOUS,
+					 EditorInfo.IME_ACTION_SEARCH,
+					 EditorInfo.IME_ACTION_SEND,
+					 EditorInfo.IME_ACTION_UNSPECIFIED
+				-> standardAction;
+			default -> IME_ACTION_ENTER;
+		};
 	}
 
 

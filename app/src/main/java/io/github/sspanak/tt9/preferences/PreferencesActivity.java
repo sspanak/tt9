@@ -149,34 +149,21 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 			return new MainSettingsScreen(this);
 		}
 
-		switch (name) {
-			case AppearanceScreen.NAME:
-				return new AppearanceScreen(this);
-			case DebugScreen.NAME:
-				return new DebugScreen(this);
-			case DeleteWordsScreen.NAME:
-				return new DeleteWordsScreen(this);
-			case HotkeysScreen.NAME:
-				return new HotkeysScreen(this);
-			case KeyPadScreen.NAME:
-				return new KeyPadScreen(this);
-			case LanguagesScreen.NAME:
-				return new LanguagesScreen(this);
-			case LanguageSelectionScreen.NAME:
-				return new LanguageSelectionScreen(this);
-			case ModePredictiveScreen.NAME:
-				return new ModePredictiveScreen(this);
-			case ModeAbcScreen.NAME:
-				return new ModeAbcScreen(this);
-			case PunctuationScreen.NAME:
-					return new PunctuationScreen(this);
-			case SetupScreen.NAME:
-				return new SetupScreen(this);
-			case UsageStatsScreen.NAME:
-				return new UsageStatsScreen(this);
-			default:
-				return new MainSettingsScreen(this);
-		}
+		return switch (name) {
+			case AppearanceScreen.NAME -> new AppearanceScreen(this);
+			case DebugScreen.NAME -> new DebugScreen(this);
+			case DeleteWordsScreen.NAME -> new DeleteWordsScreen(this);
+			case HotkeysScreen.NAME -> new HotkeysScreen(this);
+			case KeyPadScreen.NAME -> new KeyPadScreen(this);
+			case LanguagesScreen.NAME -> new LanguagesScreen(this);
+			case LanguageSelectionScreen.NAME -> new LanguageSelectionScreen(this);
+			case ModePredictiveScreen.NAME -> new ModePredictiveScreen(this);
+			case ModeAbcScreen.NAME -> new ModeAbcScreen(this);
+			case PunctuationScreen.NAME -> new PunctuationScreen(this);
+			case SetupScreen.NAME -> new SetupScreen(this);
+			case UsageStatsScreen.NAME -> new UsageStatsScreen(this);
+			default -> new MainSettingsScreen(this);
+		};
 	}
 
 
