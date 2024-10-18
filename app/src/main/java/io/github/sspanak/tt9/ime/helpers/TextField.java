@@ -36,11 +36,6 @@ public class TextField extends InputField {
 	}
 
 
-	public boolean isEmpty() {
-		return getStringBeforeCursor(1).isEmpty() && getStringAfterCursor(1).isEmpty();
-	}
-
-
 	public String getStringAfterCursor(int numberOfChars) {
 		CharSequence character = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
 		return character != null ? character.toString() : "";

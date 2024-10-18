@@ -29,14 +29,15 @@ abstract class BaseMainLayout {
 
 
 	/** setDarkTheme
-	 * Changes the main view colors according to the theme.
+	 * <p>Changes the main view colors according to the theme.</p>
 	 *
-	 * We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
+	 * <p>We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
 	 * because this View is part of the main service View. And service Views are always locked to the
-	 * system context and theme.
+	 * system context and theme.</p>
 	 *
-	 * More info:
+	 * <p>More info:
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
+	 * </p>
 	 */
 	void setDarkTheme(boolean dark) {}
 
@@ -102,11 +103,6 @@ abstract class BaseMainLayout {
 
 	int getHeight(boolean forceRecalculate) {
 		return 0;
-	}
-
-
-	int getHeight() {
-		return getHeight(false);
 	}
 
 

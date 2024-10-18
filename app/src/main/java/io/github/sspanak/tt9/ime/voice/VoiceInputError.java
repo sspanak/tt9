@@ -49,23 +49,22 @@ public class VoiceInputError {
 
 	@NonNull
 	private static String codeToString(Context context, int code) {
-		switch (code) {
-			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-				return context.getString(R.string.voice_input_error_no_permissions);
-			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED:
-				return context.getString(R.string.voice_input_error_language_not_supported);
-			case SpeechRecognizer.ERROR_NETWORK:
-				return context.getString(R.string.voice_input_error_no_network);
-			case ERROR_NOT_AVAILABLE:
-				return context.getString(R.string.voice_input_error_not_available);
-			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-			case SpeechRecognizer.ERROR_SERVER:
-			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
-			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
-				return context.getString(R.string.voice_input_error_network_failed);
-			default:
-				return context.getString(R.string.voice_input_error_generic);
-		}
+		return switch (code) {
+			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS
+				-> context.getString(R.string.voice_input_error_no_permissions);
+			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED
+				-> context.getString(R.string.voice_input_error_language_not_supported);
+			case SpeechRecognizer.ERROR_NETWORK
+				-> context.getString(R.string.voice_input_error_no_network);
+			case ERROR_NOT_AVAILABLE
+				-> context.getString(R.string.voice_input_error_not_available);
+			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT,
+					 SpeechRecognizer.ERROR_SERVER,
+					 SpeechRecognizer.ERROR_SERVER_DISCONNECTED,
+					 SpeechRecognizer.ERROR_TOO_MANY_REQUESTS
+				-> context.getString(R.string.voice_input_error_network_failed);
+			default -> context.getString(R.string.voice_input_error_generic);
+		};
 	}
 
 
@@ -105,31 +104,19 @@ public class VoiceInputError {
 
 
 	private static String codeToDebugStringCommon(int code) {
-		switch (code) {
-			case SpeechRecognizer.ERROR_AUDIO:
-				return "Audio capture error.";
-			case SpeechRecognizer.ERROR_CLIENT:
-				return "Speech recognition client error.";
-			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS:
-				return "No microphone permissions.";
-			case SpeechRecognizer.ERROR_NETWORK:
-				return "No network connection.";
-			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-				return "Network timeout.";
-			case SpeechRecognizer.ERROR_NO_MATCH:
-				return "No match.";
-			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY:
-				return "Voice input service is busy.";
-			case SpeechRecognizer.ERROR_SERVER:
-				return "Speech recognition server error.";
-			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT:
-				return "No speech detected.";
-			case ERROR_NOT_AVAILABLE:
-				return "Voice input is not available.";
-			case ERROR_INVALID_LANGUAGE:
-				return "Invalid language for voice input.";
-			default:
-				return null;
-		}
+		return switch (code) {
+			case SpeechRecognizer.ERROR_AUDIO -> "Audio capture error.";
+			case SpeechRecognizer.ERROR_CLIENT -> "Speech recognition client error.";
+			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "No microphone permissions.";
+			case SpeechRecognizer.ERROR_NETWORK -> "No network connection.";
+			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Network timeout.";
+			case SpeechRecognizer.ERROR_NO_MATCH -> "No match.";
+			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Voice input service is busy.";
+			case SpeechRecognizer.ERROR_SERVER -> "Speech recognition server error.";
+			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech detected.";
+			case ERROR_NOT_AVAILABLE -> "Voice input is not available.";
+			case ERROR_INVALID_LANGUAGE -> "Invalid language for voice input.";
+			default -> null;
+		};
 	}
 }

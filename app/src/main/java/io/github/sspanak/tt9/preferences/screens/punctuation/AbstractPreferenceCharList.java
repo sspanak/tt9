@@ -131,14 +131,11 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 
 
 	private String getCharName(char c) {
-		switch (c) {
-			case '\n':
-				return getContext().getString(R.string.char_newline);
-			case ' ':
-				return getContext().getString(R.string.char_space);
-			default:
-				return String.valueOf(c);
-		}
+		return switch (c) {
+			case '\n' -> getContext().getString(R.string.char_newline);
+			case ' ' -> getContext().getString(R.string.char_space);
+			default -> String.valueOf(c);
+		};
 	}
 
 

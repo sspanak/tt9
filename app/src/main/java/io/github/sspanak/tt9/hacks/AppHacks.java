@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.hacks;
 
 import android.view.KeyEvent;
-import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
@@ -10,20 +9,15 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppHacks {
-	private final InputConnection inputConnection;
 	private final InputType inputType;
-	private final SettingsStore settings;
 	private final TextField textField;
 	private final TextSelection textSelection;
 
 
-	public AppHacks(SettingsStore settings, InputConnection inputConnection, InputType inputType, TextField textField, TextSelection textSelection) {
-		this.inputConnection = inputConnection;
+	public AppHacks(InputType inputType, TextField textField, TextSelection textSelection) {
 		this.inputType = inputType;
-		this.settings = settings;
 		this.textField = textField;
 		this.textSelection = textSelection;
 	}
