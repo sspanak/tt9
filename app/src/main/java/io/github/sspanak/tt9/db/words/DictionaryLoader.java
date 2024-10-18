@@ -108,7 +108,7 @@ public class DictionaryLoader {
 	public static void load(Context context, Language language) {
 		DictionaryLoadingBar progressBar = DictionaryLoadingBar.getInstance(context);
 		getInstance(context).setOnStatusChange(status -> progressBar.show(context, status));
-		self.load(context, new ArrayList<Language>() {{ add(language); }});
+		self.load(context, new ArrayList<>() {{ add(language); }});
 	}
 
 

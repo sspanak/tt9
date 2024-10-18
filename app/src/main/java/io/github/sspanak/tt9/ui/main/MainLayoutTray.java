@@ -25,7 +25,7 @@ class MainLayoutTray extends BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
-			height = resources.getDimensionPixelSize(R.dimen.candidate_height);
+			height = resources.getDimensionPixelSize(R.dimen.candidate_height) + getBottomInsetSize();
 
 			if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
 				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
@@ -46,15 +46,13 @@ class MainLayoutTray extends BaseMainLayout {
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
 
-		height = 0;
-		getHeight();
+		getHeight(true);
 	}
 
 	void hideCommandPalette() {
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
 
-		height = 0;
-		getHeight();
+		getHeight(true);
 	}
 
 	boolean isCommandPaletteShown() {
@@ -67,16 +65,14 @@ class MainLayoutTray extends BaseMainLayout {
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.VISIBLE);
 
-		height = 0;
-		getHeight();
+		getHeight(true);
 	}
 
 	@Override
 	void hideTextEditingPalette() {
 		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
 
-		height = 0;
-		getHeight();
+		getHeight(true);
 	}
 
 	@Override

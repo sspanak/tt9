@@ -85,40 +85,19 @@ public class Key {
 
 
 	public static int codeToNumber(SettingsStore settings, int keyCode) {
-		switch (keyCode) {
-			case KeyEvent.KEYCODE_0:
-			case KeyEvent.KEYCODE_NUMPAD_0:
-				return 0;
-			case KeyEvent.KEYCODE_1:
-			case KeyEvent.KEYCODE_NUMPAD_1:
-				return settings.getUpsideDownKeys() ? 7 : 1;
-			case KeyEvent.KEYCODE_2:
-			case KeyEvent.KEYCODE_NUMPAD_2:
-				return settings.getUpsideDownKeys() ? 8 : 2;
-			case KeyEvent.KEYCODE_3:
-			case KeyEvent.KEYCODE_NUMPAD_3:
-				return settings.getUpsideDownKeys() ? 9 : 3;
-			case KeyEvent.KEYCODE_4:
-			case KeyEvent.KEYCODE_NUMPAD_4:
-				return 4;
-			case KeyEvent.KEYCODE_5:
-			case KeyEvent.KEYCODE_NUMPAD_5:
-				return 5;
-			case KeyEvent.KEYCODE_6:
-			case KeyEvent.KEYCODE_NUMPAD_6:
-				return 6;
-			case KeyEvent.KEYCODE_7:
-			case KeyEvent.KEYCODE_NUMPAD_7:
-				return settings.getUpsideDownKeys() ? 1 : 7;
-			case KeyEvent.KEYCODE_8:
-			case KeyEvent.KEYCODE_NUMPAD_8:
-				return settings.getUpsideDownKeys() ? 2 : 8;
-			case KeyEvent.KEYCODE_9:
-			case KeyEvent.KEYCODE_NUMPAD_9:
-				return settings.getUpsideDownKeys() ? 3 : 9;
-			default:
-				return -1;
-		}
+		return switch (keyCode) {
+			case KeyEvent.KEYCODE_0, KeyEvent.KEYCODE_NUMPAD_0 -> 0;
+			case KeyEvent.KEYCODE_1, KeyEvent.KEYCODE_NUMPAD_1 -> settings.getUpsideDownKeys() ? 7 : 1;
+			case KeyEvent.KEYCODE_2, KeyEvent.KEYCODE_NUMPAD_2 -> settings.getUpsideDownKeys() ? 8 : 2;
+			case KeyEvent.KEYCODE_3, KeyEvent.KEYCODE_NUMPAD_3 -> settings.getUpsideDownKeys() ? 9 : 3;
+			case KeyEvent.KEYCODE_4, KeyEvent.KEYCODE_NUMPAD_4 -> 4;
+			case KeyEvent.KEYCODE_5, KeyEvent.KEYCODE_NUMPAD_5 -> 5;
+			case KeyEvent.KEYCODE_6, KeyEvent.KEYCODE_NUMPAD_6 -> 6;
+			case KeyEvent.KEYCODE_7, KeyEvent.KEYCODE_NUMPAD_7 -> settings.getUpsideDownKeys() ? 1 : 7;
+			case KeyEvent.KEYCODE_8, KeyEvent.KEYCODE_NUMPAD_8 -> settings.getUpsideDownKeys() ? 2 : 8;
+			case KeyEvent.KEYCODE_9, KeyEvent.KEYCODE_NUMPAD_9 -> settings.getUpsideDownKeys() ? 3 : 9;
+			default -> -1;
+		};
 	}
 
 	public static int numberToCode(int number) {

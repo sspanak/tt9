@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
 
@@ -27,14 +29,15 @@ abstract class BaseMainLayout {
 
 
 	/** setDarkTheme
-	 * Changes the main view colors according to the theme.
+	 * <p>Changes the main view colors according to the theme.</p>
 	 *
-	 * We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
+	 * <p>We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
 	 * because this View is part of the main service View. And service Views are always locked to the
-	 * system context and theme.
+	 * system context and theme.</p>
 	 *
-	 * More info:
+	 * <p>More info:
 	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
+	 * </p>
 	 */
 	void setDarkTheme(boolean dark) {}
 
@@ -57,6 +60,21 @@ abstract class BaseMainLayout {
 		}
 
 		return view;
+	}
+
+
+	/**
+	 * Calculate the bottom padding for the edge-to-edge mode in Android 15+. Without padding,
+	 * the bottom of the View will be cut off by the system navigation bar.
+	 */
+	protected int getBottomInsetSize() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM || tt9 == null) {
+			return 0;
+		}
+
+		final int DEFAULT_SIZE = 96;
+		WindowInsets insets = tt9.getWindow().findViewById(android.R.id.content).getRootWindowInsets();
+		return insets != null ? insets.getStableInsetBottom() : DEFAULT_SIZE;
 	}
 
 
@@ -85,11 +103,6 @@ abstract class BaseMainLayout {
 
 	int getHeight(boolean forceRecalculate) {
 		return 0;
-	}
-
-
-	int getHeight() {
-		return getHeight(false);
 	}
 
 
