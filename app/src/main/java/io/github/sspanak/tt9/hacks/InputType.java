@@ -12,8 +12,18 @@ public class InputType extends StandardInputType {
 	}
 
 
+	/**
+	 * isDuoLingoReportBug
+	 * When reporting a bug in the Duolingo app, the text field is missing the TYPE_TEXT flag, which
+	 * causes us to detect it as a numeric field. This effectively disables Predictive mode, which is
+	 * actually desired there. Here, we detect this particular case and treat it as a text field.
+	 */
 	private boolean isDuoLingoReportBug() {
-		return isAppField("com.duolingo", EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		return
+			field != null
+			&& "com.duolingo".equals(field.packageName)
+			&& field.inputType == EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+			&& field.imeOptions == EditorInfo.IME_ACTION_DONE;
 	}
 
 

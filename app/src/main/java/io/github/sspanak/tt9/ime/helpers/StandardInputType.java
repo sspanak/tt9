@@ -6,6 +6,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
@@ -131,11 +133,11 @@ abstract public class StandardInputType {
 	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
 	 */
 	public ArrayList<Integer> determineInputModes(Context context) {
-		ArrayList<Integer> allowedModes = new ArrayList<>();
+		Set<Integer> allowedModes = new HashSet<>();
 
 		if (field == null) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
-			return allowedModes;
+			return new ArrayList<>(allowedModes);
 		}
 
 		// Calculators (only 0-9 and math) and Dialer (0-9, "#" and "*") fields
@@ -143,7 +145,7 @@ abstract public class StandardInputType {
 		// Note: A Dialer field is not a Phone number field.
 		if (isSpecialNumeric(context)) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
-			return allowedModes;
+			return new ArrayList<>(allowedModes);
 		}
 
 		switch (field.inputType & InputType.TYPE_MASK_CLASS) {
@@ -153,7 +155,7 @@ abstract public class StandardInputType {
 				// Numbers, dates and phone numbers default to the numeric keyboard,
 				// with no extra features.
 				allowedModes.add(InputMode.MODE_123);
-				return allowedModes;
+				return new ArrayList<>(allowedModes);
 
 			case InputType.TYPE_CLASS_TEXT:
 				// This is general text editing. We will default to the
@@ -177,7 +179,7 @@ abstract public class StandardInputType {
 				allowedModes.add(InputMode.MODE_123);
 				allowedModes.add(InputMode.MODE_ABC);
 
-				return allowedModes;
+				return new ArrayList<>(allowedModes);
 		}
 	}
 
