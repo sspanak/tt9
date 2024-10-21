@@ -5,7 +5,6 @@
 
 	<Preference
 		app:key="screen_help"
-		app:summary="English only"
 		app:title="@string/pref_help">
 		<intent
 			android:action="android.intent.action.VIEW"

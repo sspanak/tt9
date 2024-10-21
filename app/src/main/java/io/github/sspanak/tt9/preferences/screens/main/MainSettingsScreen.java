@@ -25,6 +25,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	public void onCreate() {
 		createSettingsSection();
 		createAboutSection();
+		updateHelpButtonDescription();
 		resetFontSize(false);
 	}
 
@@ -48,6 +49,18 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 		ItemVersionInfo debugOptions = new ItemVersionInfo(findPreference(ItemVersionInfo.NAME), activity);
 		debugOptions.populate().enableClickHandler();
+	}
+
+
+	private void updateHelpButtonDescription() {
+		Preference help = findPreference("screen_help");
+		if (help == null) {
+			return;
+		}
+
+		String systemLanguage = SystemSettings.getLocale().replaceAll("_\\w+$", "");
+		boolean missingLanguage = !systemLanguage.equals("en") && !systemLanguage.equals("es") && !systemLanguage.equals("ru");
+		help.setSummary(missingLanguage ? "English only" : "");
 	}
 
 

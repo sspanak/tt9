@@ -32,11 +32,11 @@ tasks.register('copyDictionaries', Copy) {
 }
 
 tasks.register('convertHelp') {
-	inputs.file HELP_MARKDOWN
-	outputs.file HELP_HTML
+	inputs.dir HELP_MARKDOWN_DIR
+	outputs.dir HELP_HTML_DIR
 
 	doLast {
-		markdownToHTML(HELP_MARKDOWN, HELP_HTML)
+		convertHelpDocs(HELP_MARKDOWN_DIR, HELP_HTML_DIR)
 	}
 }
 
@@ -58,7 +58,7 @@ tasks.register('updateManifest') {
 clean {
 	delete LANGUAGES_OUTPUT_DIR
 	delete DICTIONARIES_OUTPUT_DIR
-	delete HELP_HTML
+	delete HELP_HTML_DIR
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
