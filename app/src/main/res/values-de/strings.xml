@@ -157,6 +157,7 @@
 	<string name="dictionary_import_custom_words_summary">Wörter aus einer zuvor exportierten CSV-Datei importieren.</string>
 	<string name="dictionary_import_progress">CSV importieren (%1$s)…</string>
 	<string name="dictionary_import_running">CSV importieren…</string>
+	<string name="help_url_copied">Der Link ist kopiert.</string>
 	<string name="language_selection_language_loaded">(geladen)</string>
 	<string name="language_selection_title">Sprachen aktivieren</string>
 	<string name="language_selection_search_placeholder">Nach Sprachen suchen</string>

@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
 abstract public class WebViewActivity extends EdgeToEdgeActivity implements View.OnAttachStateChangeListener {
-	private WebView container;
+	private WebView webView;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ abstract public class WebViewActivity extends EdgeToEdgeActivity implements View
 
 	@Override
 	protected void onDestroy() {
-		container.removeOnAttachStateChangeListener(this);
+		webView.removeOnAttachStateChangeListener(this);
 		super.onDestroy();
 	}
 
@@ -52,8 +52,9 @@ abstract public class WebViewActivity extends EdgeToEdgeActivity implements View
 	}
 
 	private void setContent() {
-		container = new WebView(this);
-		container.addOnAttachStateChangeListener(this);
+		webView = new WebView(this);
+		webView.addOnAttachStateChangeListener(this);
+		webView.setWebViewClient(new WebViewSafeClient(this));
 
 		// On API > 30 the WebView does not load the entire String with .loadData(),
 		// so we need to do this weird shit.
@@ -61,9 +62,9 @@ abstract public class WebViewActivity extends EdgeToEdgeActivity implements View
 		// Reference: https://developer.android.com/develop/ui/views/layout/webapps/webview
 		String text = getText();
 		String encodedHtml = "app:" + Base64.encodeToString(text.getBytes(), Base64.NO_PADDING);
-		container.loadDataWithBaseURL(encodedHtml, text, getMimeType(), "UTF-8", null);
+		webView.loadDataWithBaseURL(encodedHtml, text, getMimeType(), "UTF-8", null);
 
-		setContentView(container);
+		setContentView(webView);
 	}
 
 	abstract protected String getText();

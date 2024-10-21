@@ -169,6 +169,7 @@
 	<string name="dictionary_import_custom_words_summary">Импортиране на думи от по-рано експортирано CSV.</string>
 	<string name="dictionary_import_progress">Импортиране на CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Импортиране на CSV…</string>
+	<string name="help_url_copied">Връзката е копирана.</string>
 	<string name="language_selection_language_loaded">(зареден)</string>
 	<string name="language_selection_title">Избор на езици</string>
 	<string name="language_selection_search_placeholder">Търси езици</string>

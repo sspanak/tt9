@@ -167,6 +167,7 @@
 	<string name="dictionary_import_custom_words_summary">Импортировать слова из ранее экспортированного CSV.</string>
 	<string name="dictionary_import_progress">Импортирование CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Импортирование CSV…</string>
+	<string name="help_url_copied">Ссылка скопирована.</string>
 	<string name="language_selection_language_loaded">(загружен)</string>
 	<string name="language_selection_title">Включить языки</string>
 	<string name="language_selection_search_placeholder">Поиск языков</string>
