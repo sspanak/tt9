@@ -170,6 +170,7 @@
 	<string name="dictionary_import_custom_words_summary">ייבוא מילים מקובץ CSV שיוצא קודם לכן.</string>
 	<string name="dictionary_import_progress">מייבא CSV (%1$s)…</string>
 	<string name="dictionary_import_running">מייבא CSV…</string>
+	<string name="help_url_copied">הקישור הועתק.</string>
 	<string name="language_selection_language_loaded">(נטען)</string>
 	<string name="language_selection_title">הפעל שפות</string>
 	<string name="language_selection_search_placeholder">חיפוש שפות</string>

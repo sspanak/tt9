@@ -160,6 +160,8 @@
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>
 
+	<string name="help_url_copied">URL copied.</string>
+
 	<string name="language_selection_language_loaded">(loaded)</string>
 	<string name="language_selection_title">Enable Languages</string>
 	<string name="language_selection_search_placeholder">Search for Languages</string>
