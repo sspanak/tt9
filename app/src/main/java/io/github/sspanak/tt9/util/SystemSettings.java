@@ -7,6 +7,7 @@ import android.provider.Settings;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Locale;
@@ -41,6 +42,7 @@ public class SystemSettings {
 		return false;
 	}
 
+	@NonNull
 	public static String getLocale() {
 		Locale locale = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? LocaleList.getDefault().get(0) : Locale.getDefault();
 		String country = locale.getCountry();

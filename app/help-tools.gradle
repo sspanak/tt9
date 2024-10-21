@@ -1,4 +1,10 @@
-ext.markdownToHTML = { markdownPath, htmlPath ->
+ext.convertHelpDocs = {markdownDir, htmlDir ->
+    fileTree(markdownDir).getFiles().parallelStream().forEach { File markdownPath ->
+        markdownToHtml(markdownPath.path, "${htmlDir}/${markdownPath.name.replaceAll("\\.md\$", ".html")}")
+    }
+}
+
+static markdownToHtml(markdownPath, htmlPath) {
     def text = new File(markdownPath).text
 
     text = convertHeaders(text)
@@ -63,7 +69,7 @@ static convertHeaders(markdown) {
             }
 
             def header = line.replaceAll("^#+", "").trim()
-            def anchor = header.toLowerCase().replaceAll("[^a-z0-9]+", "-").replaceAll("[\\-]+\$", "")
+            def anchor = header.toLowerCase().replaceAll("[^\\d\\p{L}]+", "-").replaceAll("[\\-]+\$", "")
 
             return "<h${headerNumber} id=\"${anchor}\">${header}</h${headerNumber}>"
         } else {
