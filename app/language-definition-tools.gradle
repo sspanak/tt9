@@ -1,0 +1,123 @@
+ext.parseLanguageFile = { File languageFile, String dictionariesDir ->
+	String alphabet = ""
+	HashMap<String, String> sounds = new HashMap<>()
+	File dictionaryFile
+	int errorCount = 0
+	String errorMsg = ""
+
+	boolean hasLayout = false
+	boolean hasSounds = false
+	boolean isLocaleValid = false
+	String localeString = ""
+	String dictionaryFileName = ""
+
+	alphabet = languageFile.name.contains("Catalan") ? '·' : alphabet
+	alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : alphabet
+
+	for (String line : languageFile.readLines()) {
+		if (
+			line.matches("^[a-zA-Z].*")
+			&& !line.startsWith("abcString")
+			&& !line.startsWith("dictionaryFile")
+			&& !line.startsWith("hasSpaceBetweenWords")
+			&& !line.startsWith("hasUpperCase")
+			&& !line.startsWith("layout")
+			&& !line.startsWith("locale")
+			&& !line.startsWith("name")
+			&& !line.startsWith("sounds")
+		) {
+			def parts = line.split(":")
+			def property = parts.length > 0 ? parts[0] : line
+
+			errorCount++
+			errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
+		}
+
+		if (
+			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
+			&& !line.endsWith("yes") && !line.endsWith("no")
+		) {
+			def property = line.replaceAll(":.*\$", "")
+			def invalidVal = line.replace("hasUpperCase:", "").trim()
+			errorCount++
+			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+		}
+
+		if (line.startsWith("layout")) {
+			hasLayout = true
+		}
+
+		if (line.startsWith("sounds")) {
+			hasSounds = true
+		}
+
+		if (line.startsWith("locale")) {
+			localeString = line.replace("locale:", "").trim()
+			isLocaleValid = line.matches("^locale:\\s*[a-z]{2}(?:-[A-Z]{2})?")
+		}
+
+		if (line.startsWith("dictionaryFile")) {
+			dictionaryFileName = line.replace("dictionaryFile:", "").trim()
+		}
+
+		def lineCharacters = extractAlphabetCharsFromLine(line)
+		alphabet += lineCharacters
+
+		def (sound, sequence) = extractSoundFromLine(line)
+		if (!sound.isEmpty() && !sequence.isEmpty()) {
+			sounds.put(sound, sequence)
+		}
+	}
+
+	if (!hasLayout) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
+	}
+
+	if (alphabet.isEmpty()) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
+	}
+
+	if (hasSounds && sounds.isEmpty()) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
+	}
+
+	if (!isLocaleValid) {
+		errorCount++
+		def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
+		errorMsg += "Language '${languageFile.name}' is invalid. ${msg}\n"
+	}
+
+	dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
+	if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
+		errorCount++
+		errorMsg += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
+	}
+
+	String[] localeParts = localeString.split(("[-_]"))
+	Locale locale = new Locale(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
+
+	return [alphabet, sounds, locale, dictionaryFile, errorCount, errorMsg]
+}
+
+
+static def extractAlphabetCharsFromLine(String line) {
+	if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !line.matches('\\s+- \\[.+?\\].*') || line.find('\\d+]')) {
+		return ''
+	}
+
+	return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
+}
+
+
+static def extractSoundFromLine(String line) {
+	if (!line.matches('\\s+- \\[\\w+\\s*,\\s*\\d+\\].*')) {
+		return ['', '']
+	}
+
+	def cleanLine = line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(' ', '')
+	def parts = cleanLine.split(',')
+	return parts.length > 1 ? [parts[0], parts[1]] : ['', '']
+}

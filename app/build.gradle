@@ -5,6 +5,7 @@ plugins {
 apply from: 'constants.gradle'
 apply from: 'dictionary-tools.gradle'
 apply from: 'help-tools.gradle'
+apply from: 'language-definition-tools.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'version-tools.gradle'
 
@@ -127,7 +128,7 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(validateLanguages, copyDefinitions, buildDictionaries, writeDictionaryProperties, convertHelp)
+					dependsOn(copyDefinitions, buildDictionaries, writeDictionaryProperties, convertHelp)
 				}
 			} catch (UnknownTaskException ignored) {}
 		}
