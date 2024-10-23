@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
@@ -11,6 +12,7 @@ import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyBackspace extends SwipeableKey {
 	private int repeat = 0;
+	private final Handler waitForSwipe = new Handler();
 
 	public SoftKeyBackspace(Context context) {
 		super(context);
@@ -61,7 +63,15 @@ public class SoftKeyBackspace extends SwipeableKey {
 	@Override
 	final protected boolean handlePress() {
 		super.handlePress();
-		return deleteText();
+		waitForSwipe.postDelayed(this::handlePressDebounced, 15);
+		return true;
+	}
+
+
+	private void handlePressDebounced() {
+		if (notSwiped()) {
+			deleteText();
+		}
 	}
 
 
@@ -81,6 +91,12 @@ public class SoftKeyBackspace extends SwipeableKey {
 
 
 	@Override
+	protected void handleStartSwipeX(float position, float delta) {
+		waitForSwipe.removeCallbacksAndMessages(null);
+	}
+
+
+	@Override
 	protected void handleEndSwipeX(float position, float delta) {
 		if (validateTT9Handler()) {
 			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
@@ -88,16 +104,13 @@ public class SoftKeyBackspace extends SwipeableKey {
 	}
 
 
-	private boolean deleteText() {
+	private void deleteText() {
 		if (validateTT9Handler() && !tt9.onBackspace(repeat)) {
 			// Limited or special numeric field (e.g. formatted money or dates) cannot always return
 			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
 			// in fallback to the default hardware key action. Here we simulate the hardware BACKSPACE.
 			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			return true;
 		}
-
-		return false;
 	}
 
 

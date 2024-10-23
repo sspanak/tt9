@@ -175,12 +175,13 @@ public class Text extends TextTools {
 		boolean endsWithWhitespaceBlock = Character.isWhitespace(lastChar) && Character.isWhitespace(penultimateChar);
 		boolean endsWithPunctuationBlock = (lastChar == '.' || lastChar == ',') && (penultimateChar == '.' || penultimateChar == ',');
 
-		for (int i = text.length() - 1; i >= 0; i--) {
+		for (int i = text.length() - 1, firstChar = 1; i >= 0; i--, firstChar = 0) {
 			char currentChar = text.charAt(i);
+
 			if (
 				(endsWithPunctuationBlock && currentChar != '.' && currentChar != ',')
 				|| (endsWithWhitespaceBlock && !Character.isWhitespace(currentChar))
-				|| (!endsWithWhitespaceBlock && !endsWithPunctuationBlock && (Character.isWhitespace(currentChar) || currentChar == '.' || currentChar == ','))
+				|| (!endsWithWhitespaceBlock && !endsWithPunctuationBlock && firstChar == 0 && Character.isWhitespace(currentChar))
 			) {
 				return i + 1;
 			}
