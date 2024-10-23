@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.util.Logger;
 
 public class LanguageDefinition {
@@ -93,6 +94,9 @@ public class LanguageDefinition {
 		definition.locale = getPropertyFromYaml(yaml, "locale", definition.locale);
 		definition.name = getPropertyFromYaml(yaml, "name", definition.name);
 
+		if (definition.dictionaryFile != null) {
+			definition.dictionaryFile = definition.dictionaryFile.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
+		}
 		return definition;
 	}
 

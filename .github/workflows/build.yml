@@ -24,10 +24,14 @@ jobs:
       uses: gradle/gradle-build-action@v3
 
     # validate and build
+    - name: Validate hELP
+      run: ./gradlew convertHelp
+    - name: Validate Downloads
+      run: ./scripts/validate-downloads.sh app/languages/dictionaries download
     - name: Validate Dictionaries
       run: ./gradlew validateLanguages
     - name: Build Languages
-      run: ./gradlew copyDefinitions copyDictionaries writeDictionaryProperties
+      run: ./gradlew copyDefinitions convertHelp buildDictionaries
     - name: Lint
       run: ./gradlew lint # this actually runs mergeResources, so it must come after the dictionary tasks
     - name: Build all APK variants

@@ -3,10 +3,17 @@ plugins {
 }
 
 apply from: 'constants.gradle'
-apply from: 'dictionary-tools.gradle'
-apply from: 'help-tools.gradle'
+apply from: 'build-dictionary.gradle'
 apply from: 'validate-languages.gradle'
+apply from: 'help-tools.gradle'
 apply from: 'version-tools.gradle'
+
+
+tasks.register('copyDefinitions', Copy) {
+	from LANGUAGES_INPUT_DIR
+	include '**/*.yml'
+	into LANGUAGES_OUTPUT_DIR
+}
 
 
 tasks.register('validateLanguages') {
@@ -18,18 +25,30 @@ tasks.register('validateLanguages') {
 	}
 }
 
-tasks.register('copyDefinitions', Copy) {
-	from LANGUAGES_INPUT_DIR
-	include '**/*.yml'
-	into LANGUAGES_OUTPUT_DIR
+
+tasks.register('buildDictionaries') {
+	inputs.dir DICTIONARIES_INPUT_DIR
+	outputs.dir DICTIONARIES_OUTPUT_DIR
+	outputs.dir DICTIONARY_META_OUTPUT_DIR
+
+	dependsOn validateLanguages
+	mustRunAfter validateLanguages
+
+	doLast {
+		convertDictionaries(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR, DICTIONARY_META_OUTPUT_DIR)
+	}
 }
 
-tasks.register('copyDictionaries', Copy) {
-	from DICTIONARIES_INPUT_DIR
-	include '**/*.csv'
-	include '**/*.txt'
-	into DICTIONARIES_OUTPUT_DIR
+
+tasks.register('generateDownloads', Copy) {
+    from DICTIONARIES_OUTPUT_DIR
+	include "**/*.$DICTIONARY_OUTPUT_EXTENSION"
+    into DICTIONARIES_DOWNLOAD_DIR
+
+	dependsOn buildDictionaries
+	mustRunAfter buildDictionaries
 }
+
 
 tasks.register('convertHelp') {
 	inputs.dir HELP_MARKDOWN_DIR
@@ -37,15 +56,6 @@ tasks.register('convertHelp') {
 
 	doLast {
 		convertHelpDocs(HELP_MARKDOWN_DIR, HELP_HTML_DIR)
-	}
-}
-
-tasks.register('writeDictionaryProperties') {
-	inputs.dir fileTree(dir: DICTIONARIES_INPUT_DIR)
-	outputs.dir DICTIONARY_META_OUTPUT_DIR
-
-	doLast {
-		getDictionaryProperties(DICTIONARIES_INPUT_DIR, DICTIONARY_META_OUTPUT_DIR)
 	}
 }
 
@@ -58,6 +68,7 @@ tasks.register('updateManifest') {
 clean {
 	delete LANGUAGES_OUTPUT_DIR
 	delete DICTIONARIES_OUTPUT_DIR
+	delete DICTIONARIES_DOWNLOAD_DIR
 	delete HELP_HTML_DIR
 }
 
@@ -84,10 +95,12 @@ android {
 	}
 	buildTypes {
 		debug {
+			buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
 			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
 		}
 
 		release {
+			buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
 			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
 
 			debuggable false
@@ -124,15 +137,19 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(validateLanguages, copyDefinitions, copyDictionaries, writeDictionaryProperties, convertHelp)
+					dependsOn(copyDefinitions, convertHelp, validateLanguages, buildDictionaries)
+				}
+
+				if (taskName.toLowerCase().contains("full")) {
+					tasks.named(taskName)?.configure {dependsOn(buildDictionaries) }
 				}
 			} catch (UnknownTaskException ignored) {}
 		}
 
-		assembleLiteDebug.finalizedBy(updateManifest)
-		assembleFullDebug.finalizedBy(updateManifest)
-		assembleLiteRelease.finalizedBy(updateManifest)
-		assembleFullRelease.finalizedBy(updateManifest)
+		assembleLiteDebug.finalizedBy(generateDownloads, updateManifest)
+		assembleFullDebug.finalizedBy(generateDownloads, updateManifest)
+		assembleLiteRelease.finalizedBy(generateDownloads, updateManifest)
+		assembleFullRelease.finalizedBy(generateDownloads, updateManifest)
 
 		variant.outputs.configureEach {
 			def suffix = variant.flavorName == 'full' ? '-full' : ''

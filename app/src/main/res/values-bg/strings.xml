@@ -31,7 +31,7 @@
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
-	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума „%1$s“ на ред %2$d за език „%3$s“.</string>
+	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума на ред %1$d за език „%2$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
 	<string name="dictionary_loaded">Зареждането на речник приключи.</string>
 	<string name="dictionary_loading">Зареждане на речник (%1$s)…</string>

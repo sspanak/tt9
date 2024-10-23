@@ -70,7 +70,7 @@
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
-	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово \"%1$s\" у рядку %2$d мови \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово у рядку %1$d мови \"%2$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_no_internet">Не вдалося завантажити словник для мови \"%1$s\". Перевірте підключення до Інтернету.</string>
 	<string name="dictionary_load_cancelled">Завантаження словника скасовано.</string>

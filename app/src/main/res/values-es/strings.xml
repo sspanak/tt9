@@ -68,7 +68,7 @@
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
-	<string name="dictionary_load_bad_char">Error al cargar. Palabra inválida \"%1$s\" en la línea %2$d del idioma \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">Error al cargar. Palabra inválida en la línea %1$d del idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Error al cargar el diccionario para el idioma \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_no_internet">Error al descargar el diccionario para el idioma \"%1$s\". Verifique la conexión a Internet.</string>
 	<string name="dictionary_load_cancelled">Carga del diccionario cancelada.</string>

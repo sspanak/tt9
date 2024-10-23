@@ -12,8 +12,6 @@ public class WordBatch {
 	@NonNull private final ArrayList<Word> words;
 	@NonNull private final ArrayList<WordPosition> positions;
 
-	private WordPosition lastWordPosition;
-
 	public WordBatch(@NonNull Language language, int size) {
 		this.language = language;
 		words = size > 0 ? new ArrayList<>(size) : new ArrayList<>();
@@ -24,31 +22,19 @@ public class WordBatch {
 		this(language, 0);
 	}
 
-	public boolean add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
+	public void add(String word, int frequency, int position) throws InvalidLanguageCharactersException {
 		words.add(Word.create(word, frequency, position));
+		positions.add(WordPosition.create(language.getDigitSequenceForWord(word), position, position));
+	}
+
+	public void add(@NonNull WordFileLine line, int position) {
+		words.addAll(Word.create(line, position));
 
 		if (position == 0) {
-			return true;
+			return;
 		}
 
-		String sequence = language.getDigitSequenceForWord(word);
-
-		if (position == 1 || lastWordPosition == null) {
-			lastWordPosition = WordPosition.create(sequence, position);
-		} else {
-			lastWordPosition.end = position;
-		}
-
-		if (!sequence.equals(lastWordPosition.sequence)) {
-			lastWordPosition.end--;
-			positions.add(lastWordPosition);
-
-			lastWordPosition = WordPosition.create(sequence, position);
-
-			return true;
-		}
-
-		return false;
+		WordPosition.create(line.digitSequence, position, position + line.words.size() - 1);
 	}
 
 	public void clear() {

@@ -60,7 +60,7 @@
 	<string name="pref_upside_down_keys">להפוך את סדר המקשים</string>
 	<string name="pref_upside_down_keys_summary">הפעל את ההגדרה אם המקלדת כוללת את המספרים 7-8-9 בשורה הראשונה, במקום 1-2-3.</string>
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
-	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית \"%1$s\" בשורה %2$d עבור \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית בשורה %1$d עבור \"%2$s\".</string>
 	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_no_internet">נכשל בהורדת המילון עבור השפה \"%1$s\". בדוק את חיבור האינטרנט.</string>
 	<string name="dictionary_load_cancelled">טעינת המילון בוטלה</string>

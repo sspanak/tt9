@@ -7,10 +7,11 @@ public class WordPosition {
 	public int start;
 	public int end;
 
-	public static WordPosition create(@NonNull String sequence, int start) {
+	public static WordPosition create(@NonNull String sequence, int start, int end) {
 		WordPosition position = new WordPosition();
 		position.sequence = sequence;
 		position.start = start;
+		position.end = end;
 
 		return position;
 	}

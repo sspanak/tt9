@@ -35,7 +35,7 @@ public class WordFile {
 	}
 
 
-	public static String[] splitLine(String line) {
+	public static String[] getLineData(String line) {
 		String[] parts = { line, "" };
 
 		// This is faster than String.split() by around 10%, so it's worth having it.
@@ -49,15 +49,6 @@ public class WordFile {
 		}
 
 		return parts;
-	}
-
-
-	public static short getFrequencyFromLineParts(String[] frequencyParts) {
-		try {
-			return Short.parseShort(frequencyParts[1]);
-		} catch (Exception e) {
-			return 0;
-		}
 	}
 
 
@@ -191,7 +182,7 @@ public class WordFile {
 
 
 	private void loadProperties() {
-		String propertyFilename = name + ".props.yml";
+		String propertyFilename = name.replaceFirst("\\.\\w+$", "") + ".props.yml";
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(propertyFilename)))) {
 			for (String line; (line = reader.readLine()) != null; ) {

@@ -44,7 +44,7 @@
 	<string name="pref_category_delete_words">Supprimer des mots ajoutés</string>
 	<string name="pref_category_hacks">Compatibilité</string>
 	<string name="pref_category_appearance">Apparance</string>
-	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible «%1$s» à la ligne %2$d de langue «%3$s».</string>
+	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible à la ligne %1$d de langue «%2$s».</string>
 	<string name="dictionary_truncated">Le dictionaire est supprimé avec succès.</string>
 	<string name="pref_hack_fb_messenger">Envoyer avec «OK» dans Facebook Messenger</string>
 	<string name="pref_hack_always_on_top">Toujours au premier plan</string>

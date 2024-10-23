@@ -1,0 +1,123 @@
+import java.nio.charset.StandardCharsets
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+apply from: 'dictionary-tools.gradle'
+
+ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionariesOutputDir, dictionariesMetaDir ->
+    int errorCount = 0
+
+    def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
+        def (_, sounds, __, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
+        errorCount += langFileErrorCount
+        if (!langFileErrorMsg.isEmpty()) {
+            return langFileErrorMsg
+        }
+
+        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, locale, MAX_ERRORS, CSV_DELIMITER)
+        errorCount += conversionErrorCount
+        if (!conversionErrorMessages.isEmpty()) {
+            return conversionErrorMessages
+        }
+
+        return ""
+    }
+
+    String errorsMsg = errorStream.reduce("", String::concat)
+    if (errorsMsg) {
+        throw new GradleException(errorsMsg)
+    }
+}
+
+
+// this cannot be static, because DictionaryTools will not be visible
+def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, Locale locale, int maxErrors, String csvDelimiter) {
+    int errorCount = 0
+    String errorMsg = ''
+
+    List<String> fileContents = dictionaryFile.readLines()
+    LinkedHashMap<String, ArrayList<String>> outputDictionary = new LinkedHashMap<>()
+    int wordCount = 0
+
+    for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
+        String line = fileContents.get(lineNumber - 1)
+
+        def (word, transcription) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
+
+        String digitSequence = ""
+        try {
+            def transcribedWord = transcription.isEmpty() ? word : transcription
+            digitSequence = DictionaryTools.wordToDigitSequence(locale, transcribedWord, sounds, !transcription.isEmpty())
+        } catch (IllegalArgumentException e) {
+            errorCount++
+            errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Failed generating digit sequence for word '${word}' on line ${lineNumber}. ${e.message}\n"
+        }
+
+        if (errorCount == 0) {
+            if (!outputDictionary.containsKey(digitSequence)) {
+                outputDictionary.put(digitSequence, new ArrayList<>())
+            }
+            outputDictionary.get(digitSequence).add(word)
+            wordCount++
+        }
+    }
+
+    def (assetError, zippedFileSize) = writeZippedDictionary(dictionariesOutputDir, dictionaryFile, outputDictionary, outputDictionaryExtension)
+    if (assetError) {
+        errorCount++
+        errorMsg += assetError
+    }
+
+    def propertiesError = writeDictionaryProperties(dictionaryFile, dictionariesMetaDir, outputDictionary.size(), zippedFileSize, wordCount)
+    if (propertiesError) {
+        errorCount++
+        errorMsg += propertiesError
+    }
+
+    return [errorCount, errorMsg]
+}
+
+//////////////////// FILE I/O ////////////////////
+
+static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
+    return (digitSequence + words.join()).getBytes(StandardCharsets.UTF_8)
+}
+
+
+/**
+ * Zipping the text files results in a smaller APK in comparison to the uncompressed text files.
+ */
+static def writeZippedDictionary(dictionariesOutputDir, dictionaryFile, outputDictionary, outputDictionaryExtension) {
+    def fileName = dictionaryFile.name.replaceFirst("\\.\\w+\$", "")
+    def outputFile = new File(dictionariesOutputDir, "${fileName}.${outputDictionaryExtension}")
+
+    try {
+        def zipOutputStream = new ZipOutputStream(new FileOutputStream(outputFile))
+        zipOutputStream.putNextEntry(new ZipEntry("${fileName}.txt"))
+        outputDictionary.each { digitSequence, words ->
+            zipOutputStream.write(compressDictionaryLine(digitSequence, words))
+        }
+        zipOutputStream.closeEntry()
+        zipOutputStream.close()
+        return ["", outputFile.length()]
+    } catch (Exception e) {
+        return ["Failed writing to '${outputFile.path}'. ${e.message}\n", 0]
+    }
+}
+
+
+// this cannot be static, because it requires access to exec()
+def writeDictionaryProperties(File csvDictionary, outputDir, int sequences, long size, int words) {
+    def name = "${csvDictionary.getName().replaceFirst("\\.\\w+\$", "")}.props.yml"
+
+    try {
+        def hash = csvDictionary.exists() ? csvDictionary.text.digest("SHA-1") : ""
+        def revision = csvDictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${csvDictionary}") : ""
+
+        new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsequences: ${sequences}\nsize: ${size}\nwords: ${words}"
+
+        return ""
+    } catch (Exception e) {
+        return ("Failed writing dictionary properties to: '${outputDir}/${name}'. ${e.message}\n")
+    }
+}

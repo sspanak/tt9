@@ -14,6 +14,7 @@ import java.util.Locale;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordFile;
+import io.github.sspanak.tt9.db.entities.WordFileLine;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -79,29 +80,29 @@ public class DictionaryLoader {
 			return true;
 		}
 
-		loadThread = new Thread() {
-			@Override
-			public void run() {
-				currentFile = 0;
-				Timer.start(IMPORT_TIMER);
-
-				sendStartMessage(languages.size());
-
-				// SQLite does not support parallel queries, so let's import them one by one
-				for (Language lang : languages) {
-					if (isInterrupted()) {
-						break;
-					}
-					importAll(context, lang);
-					currentFile++;
-				}
-
-				Timer.stop(IMPORT_TIMER);
-			}
-		};
-
+		loadThread = new Thread(() -> loadSync(context, languages));
 		loadThread.start();
+
 		return true;
+	}
+
+
+	private void loadSync(Context context, ArrayList<Language> languages) {
+		currentFile = 0;
+		Timer.start(IMPORT_TIMER);
+
+		sendStartMessage(languages.size());
+
+		// SQLite does not support parallel queries, so let's import them one by one
+		for (Language lang : languages) {
+			if (loadThread.isInterrupted()) {
+				break;
+			}
+			importAll(context, lang);
+			currentFile++;
+		}
+
+		Timer.stop(IMPORT_TIMER);
 	}
 
 
@@ -210,12 +211,11 @@ public class DictionaryLoader {
 		} catch (DictionaryImportException e) {
 			stop();
 			sqlite.failTransaction();
-			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line, e.word);
+			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line);
 
 			Logger.e(
 				LOG_TAG,
-				" Invalid word: '" + e.word
-				+ "' in dictionary: '" + language.getDictionaryFile() + "'"
+				" Invalid word in dictionary: '" + language.getDictionaryFile() + "'"
 				+ " on line " + e.line
 				+ " of language '" + language.getName() + "'. "
 				+ e.getMessage()
@@ -267,18 +267,18 @@ public class DictionaryLoader {
 					throw new DictionaryImportAbortedException();
 				}
 
-				String[] parts = WordFile.splitLine(line);
-				String word = parts[0];
-				short frequency = WordFile.getFrequencyFromLineParts(parts);
-
 				try {
-					boolean isFinalized = batch.add(word, frequency, currentLine + positionShift);
-					if (isFinalized && batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
+					WordFileLine decompressedLine = new WordFileLine(line);
+					batch.add(decompressedLine, currentLine + positionShift);
+					if (batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
 						saveWordBatch(batch);
 						batch.clear();
 					}
+
+					Logger.d(LOG_TAG, "Imported word: " + decompressedLine);
 				} catch (InvalidLanguageCharactersException e) {
-					throw new DictionaryImportException(word, currentLine);
+					Logger.d(LOG_TAG, "Invalid word: " + line);
+					throw new DictionaryImportException(currentLine);
 				}
 
 				if (wordFile.getTotalLines() > 0) {
@@ -353,7 +353,7 @@ public class DictionaryLoader {
 	}
 
 
-	private void sendImportError(String message, int langId, long fileLine, String word) {
+	private void sendImportError(String message, int langId, long fileLine) {
 		if (onStatusChange == null) {
 			Logger.w(LOG_TAG, "Cannot send an import error without a status Handler. Ignoring message.");
 			return;
@@ -363,7 +363,6 @@ public class DictionaryLoader {
 		errorMsg.putString("error", message);
 		errorMsg.putLong("fileLine", fileLine + 1);
 		errorMsg.putInt("languageId", langId);
-		errorMsg.putString("word", word);
 		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
 	}
 

@@ -47,7 +47,7 @@
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
 	<string name="pref_upside_down_keys_summary">Aktivieren Sie, wenn die Tastatur in der ersten Zeile 7–8–9 anstelle von 1–2–3 hat.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
-	<string name="dictionary_load_bad_char">Laden fehlgeschlagen. Ungültiges Wort „%1$s“ in Zeile %2$d der Sprache „%3$s“.</string>
+	<string name="dictionary_load_bad_char">Laden fehlgeschlagen. Ungültiges Wort in Zeile %1$d der Sprache „%2$s“.</string>
 	<string name="dictionary_load_error">Fehler beim Laden des Wörterbuchs für die Sprache „%1$s“ (%2$s).</string>
 	<string name="dictionary_load_no_internet">Fehler beim Herunterladen des Wörterbuchs für die Sprache „%1$s“. Überprüfen Sie die Internetverbindung.</string>
 	<string name="dictionary_load_cancelled">Laden abgebrochen.</string>

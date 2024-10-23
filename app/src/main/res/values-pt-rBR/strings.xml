@@ -59,7 +59,7 @@
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
-	<string name="dictionary_load_bad_char">Falha no carregamento. \"%1$s\" na linha %2$d do idioma \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">Falha no carregamento. Palavra inválida na linha %1$d do idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
 	<string name="dictionary_load_no_internet">Falha ao baixar o dicionário para o idioma \"%1$s\". Verifique a conexão com a Internet.</string>
 	<string name="dictionary_load_cancelled">Carregamento de dicionário cancelado.</string>

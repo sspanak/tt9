@@ -1,10 +1,58 @@
-ext.getDictionaryProperties = { dictionariesDir, sizesDir ->
-	fileTree(dir: dictionariesDir).getFiles().parallelStream().forEach {dictionary ->
-		def hash = dictionary.exists() ? dictionary.text.digest("SHA-1") : ""
-		def revision = dictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${dictionary}") : ""
-		def size = dictionary.exists() ? dictionary.length() : 0
-		def words = dictionary.exists() ? dictionary.text.split("\n").length : 0
+class Wrapper {
+    static def getDictionaryLineData(String line, String delimiter) {
+        String[] parts = line.split(delimiter, 2)
+        String word = parts[0]
+        String transcription = parts.length > 1 && parts[1] =~ "^[a-zA-Z]+\$" ? parts[1] : ""
 
-		new File(sizesDir, "${dictionary.getName()}.props.yml").text = "hash: ${hash}\nrevision: ${revision}\nsize: ${size}\nwords: ${words}"
-	}
+        int frequency
+        try {
+            int partsElement = transcription.isEmpty() ? 1 : 2
+            frequency = (parts.length > partsElement ? parts[partsElement] : "0") as int
+        } catch (Exception ignored) {
+            frequency = -1
+        }
+
+        return [word, transcription, frequency]
+    }
+
+
+    static def wordToDigitSequence(Locale locale, String word, HashMap<String, String> sounds, boolean isTranscribed) {
+        String sequence = ""
+
+        final String normalizedWord = isTranscribed ? word : word.toUpperCase(locale)
+        String currentSound = ""
+
+        for (int i = 0, end = normalizedWord.length() - 1; i <= end; i++) {
+            char currentChar = normalizedWord.charAt(i)
+            char nextChar = i < end ? normalizedWord.charAt(i + 1) : 0
+            int nextCharType = Character.getType(nextChar)
+
+            currentSound += currentChar
+
+            // charAt(i) returns "ΐ" as three separate characters, but they must be treated as one.
+            if (
+                    locale.getLanguage() == "el"
+                            && (nextCharType == Character.NON_SPACING_MARK || nextCharType == Character.ENCLOSING_MARK || nextCharType == Character.COMBINING_SPACING_MARK)
+            ) {
+                continue
+            }
+
+            if (!isTranscribed || i == end || Character.isUpperCase(nextChar)) {
+                if (!sounds.containsKey(currentSound)) {
+                    throw new IllegalArgumentException("Sound or layout entry '${currentSound}' does not belong to the language sound list: ${sounds}.")
+                } else {
+                    sequence += sounds.get(currentSound)
+                    currentSound = ""
+                }
+            }
+        }
+
+        if (sequence.isEmpty()) {
+            throw new IllegalArgumentException("The word does not contain any valid sounds.")
+        }
+
+        return sequence
+    }
 }
+
+ext.DictionaryTools = Wrapper
