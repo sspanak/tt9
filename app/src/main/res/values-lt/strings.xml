@@ -146,7 +146,7 @@
 	<string name="dictionary_update_message">Atnaujinta žodyno versija skirta \"%1$s\".</string>
 	<string name="dictionary_update_update">Įkelti</string>
 	<string name="donate_title">Paaukoti</string>
-	<string name="donate_summary">Jei jums patinka %1$s, galite paremti jo plėtrą čia: %2$s.</string>
+	<string name="donate_summary">Jei jums patinka %1$s, galite pavaišinti mane alumi čia: %2$s.</string>
 	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
 	<string name="pref_numpad_key_height">Ekrano klavišų dydis</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>

@@ -73,7 +73,7 @@
 	<string name="dictionary_update_message">Налично е обновление на речника за „%1$s“.</string>
 	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
-	<string name="donate_summary">Ако харесвате %1$s, подкрепете разработката му на: %2$s.</string>
+	<string name="donate_summary">Ако харесвате %1$s, черпете една бира на: %2$s.</string>
 	<string name="function_edit_text">Редактиране на текст</string>
 	<string name="function_backspace">Триене на текст</string>
 	<string name="dictionary_no_notifications">Речникови известия</string>
