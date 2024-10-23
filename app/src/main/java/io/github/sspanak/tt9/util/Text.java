@@ -164,21 +164,29 @@ public class Text extends TextTools {
 	}
 
 
-	public int lastWhitespaceBlockIndex() {
-		if (text == null) {
+	public int lastBoundaryIndex() {
+		if (text == null || text.length() < 2) {
 			return -1;
 		}
 
+		char lastChar = text.charAt(text.length() - 1);
+		char penultimateChar = text.charAt(text.length() - 2);
+
+		boolean endsWithWhitespaceBlock = Character.isWhitespace(lastChar) && Character.isWhitespace(penultimateChar);
+		boolean endsWithPunctuationBlock = (lastChar == '.' || lastChar == ',') && (penultimateChar == '.' || penultimateChar == ',');
+
 		for (int i = text.length() - 1; i >= 0; i--) {
+			char currentChar = text.charAt(i);
 			if (
-				Character.isWhitespace(text.charAt(i))
-				&& (i == 0 || !Character.isWhitespace(text.charAt(i - 1)))
+				(endsWithPunctuationBlock && currentChar != '.' && currentChar != ',')
+				|| (endsWithWhitespaceBlock && !Character.isWhitespace(currentChar))
+				|| (!endsWithWhitespaceBlock && !endsWithPunctuationBlock && (Character.isWhitespace(currentChar) || currentChar == '.' || currentChar == ','))
 			) {
-				return i;
+				return i + 1;
 			}
 		}
 
-		return -1;
+		return 0;
 	}
 
 
