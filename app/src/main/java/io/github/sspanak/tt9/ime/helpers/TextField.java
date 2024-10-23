@@ -161,7 +161,7 @@ public class TextField extends InputField {
 			return 0;
 		}
 
-		int whitespaceShift = Math.max(before.lastWhitespaceBlockIndex(), 0);
+		int whitespaceShift = Math.max(before.lastBoundaryIndex(), 0);
 		return Math.min(before.length() - whitespaceShift, (int) (SettingsStore.BACKSPACE_ACCELERATION_MAX_CHARS * 1.5));
 	}
 
