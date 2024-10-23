@@ -128,7 +128,7 @@
 	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\".</string>
 	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>
-	<string name="donate_summary">Se você gosta de %1$s, você poderia apoiar o seu desenvolvimento em: %2$s.</string>
+	<string name="donate_summary">Se você gosta de %1$s, pode me pagar uma cerveja em: %2$s.</string>
 	<string name="pref_hack_fb_messenger">Enviar com \"OK\" no Facebook Messenger</string>
 	<string name="pref_hack_always_on_top">Sempre na frente</string>
 	<string name="pref_hack_always_on_top_summary">Não permitir que outras aplicações cubram %1$s ou o empurrem para fora do ecrã.</string>
