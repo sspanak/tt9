@@ -12,7 +12,10 @@ import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyBackspace extends SwipeableKey {
 	private int repeat = 0;
+
+	private boolean isActionPerformed = false;
 	private final Handler waitForSwipe = new Handler();
+
 
 	public SoftKeyBackspace(Context context) {
 		super(context);
@@ -63,20 +66,36 @@ public class SoftKeyBackspace extends SwipeableKey {
 	@Override
 	final protected boolean handlePress() {
 		super.handlePress();
-		waitForSwipe.postDelayed(this::handlePressDebounced, 15);
+		isActionPerformed = false;
+		waitForSwipe.postDelayed(this::handlePressDebounced, 1 + getAverageSwipeProcessingTime());
 		return true;
 	}
 
 
+	/**
+	 * Avoids deleting text twice when swiping - first, when the user touches the screen, and then,
+	 * when they finish the swipe gesture.
+	 */
 	private void handlePressDebounced() {
-		if (notSwiped()) {
+		if (!isActionPerformed) {
+			isActionPerformed = true;
 			deleteText();
 		}
 	}
 
 
 	@Override
+	protected void handleStartSwipeX(float position, float delta) {
+		if (!isActionPerformed && validateTT9Handler()) {
+			isActionPerformed = true;
+			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
+		}
+	}
+
+
+	@Override
 	final protected void handleHold() {
+		isActionPerformed = true;
 		repeat++;
 		deleteText();
 	}
@@ -86,21 +105,8 @@ public class SoftKeyBackspace extends SwipeableKey {
 	final protected boolean handleRelease() {
 		vibrate(repeat > 0 ? Vibration.getReleaseVibration() : Vibration.getNoVibration());
 		repeat = 0;
+
 		return true;
-	}
-
-
-	@Override
-	protected void handleStartSwipeX(float position, float delta) {
-		waitForSwipe.removeCallbacksAndMessages(null);
-	}
-
-
-	@Override
-	protected void handleEndSwipeX(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
-		}
 	}
 
 

@@ -7,8 +7,11 @@ import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Timer;
 
 abstract public class SwipeableKey extends SoftKey {
+	private static final String LOG_TAG = SwipeableKey.class.getSimpleName();
+
 	private float HOLD_DURATION_THRESHOLD;
 	protected float SWIPE_X_THRESHOLD;
 	protected float SWIPE_Y_THRESHOLD;
@@ -21,6 +24,10 @@ abstract public class SwipeableKey extends SoftKey {
 	private float startX;
 	private float startY;
 	private long startTime;
+
+	private int swipeCount = 0;
+	private long swipeProcessingTime = 0;
+	private long swipeProcessingTimeAverage = 40;
 
 
 	public SwipeableKey(Context context) {
@@ -53,10 +60,31 @@ abstract public class SwipeableKey extends SoftKey {
 	protected float getSwipeYThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
 
 
+	private void updateSwipeTimingStats() {
+		long time = Timer.get(LOG_TAG);
+
+		long deltaT = time - swipeProcessingTimeAverage;
+		if (deltaT < -swipeProcessingTimeAverage || deltaT > 5) {
+			swipeCount = 0;
+			swipeProcessingTime = 0;
+		}
+
+		swipeCount++;
+		swipeProcessingTime += time;
+		swipeProcessingTimeAverage = swipeProcessingTime / swipeCount;
+	}
+
+
+	protected long getAverageSwipeProcessingTime() {
+		return swipeProcessingTimeAverage;
+	}
+
+
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		switch(event.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
+				Timer.start(LOG_TAG);
 				onPress(event);
 				break;
 			case MotionEvent.ACTION_MOVE:
@@ -107,9 +135,11 @@ abstract public class SwipeableKey extends SoftKey {
 			handleSwipeX(event.getRawX(), deltaX);
 		} else if (Math.abs(deltaY) >= SWIPE_Y_THRESHOLD) {
 			isSwipingY = true;
+			updateSwipeTimingStats();
 			handleStartSwipeY(event.getRawY(), deltaY);
 		} else if (Math.abs(deltaX) >= SWIPE_X_THRESHOLD) {
 			isSwipingX = true;
+			updateSwipeTimingStats();
 			handleStartSwipeX(event.getRawX(), deltaX);
 		} else if (!isHolding && Math.abs(deltaX) < SWIPE_X_THRESHOLD && Math.abs(deltaY) < SWIPE_Y_THRESHOLD) {
 			onLongClick(v);
