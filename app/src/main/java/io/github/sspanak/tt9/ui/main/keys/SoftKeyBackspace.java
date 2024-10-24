@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
@@ -11,6 +12,10 @@ import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyBackspace extends SwipeableKey {
 	private int repeat = 0;
+
+	private boolean isActionPerformed = false;
+	private final Handler waitForSwipe = new Handler();
+
 
 	public SoftKeyBackspace(Context context) {
 		super(context);
@@ -61,12 +66,36 @@ public class SoftKeyBackspace extends SwipeableKey {
 	@Override
 	final protected boolean handlePress() {
 		super.handlePress();
-		return deleteText();
+		isActionPerformed = false;
+		waitForSwipe.postDelayed(this::handlePressDebounced, 1 + getAverageSwipeProcessingTime());
+		return true;
+	}
+
+
+	/**
+	 * Avoids deleting text twice when swiping - first, when the user touches the screen, and then,
+	 * when they finish the swipe gesture.
+	 */
+	private void handlePressDebounced() {
+		if (!isActionPerformed) {
+			isActionPerformed = true;
+			deleteText();
+		}
+	}
+
+
+	@Override
+	protected void handleStartSwipeX(float position, float delta) {
+		if (!isActionPerformed && validateTT9Handler()) {
+			isActionPerformed = true;
+			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
+		}
 	}
 
 
 	@Override
 	final protected void handleHold() {
+		isActionPerformed = true;
 		repeat++;
 		deleteText();
 	}
@@ -76,28 +105,18 @@ public class SoftKeyBackspace extends SwipeableKey {
 	final protected boolean handleRelease() {
 		vibrate(repeat > 0 ? Vibration.getReleaseVibration() : Vibration.getNoVibration());
 		repeat = 0;
+
 		return true;
 	}
 
 
-	@Override
-	protected void handleEndSwipeX(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
-		}
-	}
-
-
-	private boolean deleteText() {
+	private void deleteText() {
 		if (validateTT9Handler() && !tt9.onBackspace(repeat)) {
 			// Limited or special numeric field (e.g. formatted money or dates) cannot always return
 			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
 			// in fallback to the default hardware key action. Here we simulate the hardware BACKSPACE.
 			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
-			return true;
 		}
-
-		return false;
 	}
 
 

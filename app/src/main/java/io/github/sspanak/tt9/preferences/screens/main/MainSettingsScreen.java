@@ -40,15 +40,8 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 
 	private void createAboutSection() {
-		Preference donate = findPreference("donate_link");
-		if (donate != null) {
-			String appName = getString(R.string.app_name_short);
-			String url = getString(R.string.donate_url_short);
-			donate.setSummary(getString(R.string.donate_summary, appName, url));
-		}
-
-		ItemVersionInfo debugOptions = new ItemVersionInfo(findPreference(ItemVersionInfo.NAME), activity);
-		debugOptions.populate().enableClickHandler();
+		(new ItemDonate(findPreference(ItemDonate.NAME), activity)).populate().enableClickHandler();
+		(new ItemVersionInfo(findPreference(ItemVersionInfo.NAME), activity)).populate().enableClickHandler();
 	}
 
 

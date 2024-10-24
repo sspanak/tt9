@@ -38,12 +38,7 @@
 
 		<Preference
 			app:key="donate_link"
-			app:title="@string/donate_title"
-			app:summary="@string/donate_summary">
-			<intent
-				android:action="android.intent.action.VIEW"
-				android:data="@string/donate_url" />
-		</Preference>
+			app:title="@string/donate_title" />
 
 		<Preference
 			app:key="version_info"

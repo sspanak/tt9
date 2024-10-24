@@ -89,6 +89,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 		} else if (action == MotionEvent.ACTION_UP) {
 			if (!repeat || hold) {
 				hold = false;
+				repeat = false;
 				boolean result = handleRelease();
 				lastPressedKey = ignoreLastPressedKey ? -1 : getId();
 				return result;

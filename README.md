@@ -55,7 +55,7 @@ Compatibility has been verified only on the following devices:
 ## 🤔 How to Use Traditional T9?
 Before using Traditional T9 for the first time you need to configure it and load a dictionary. After that, you can start typing right away in one of the three modes: Predictive, ABC, or Numeric (123). And even if you have mastered the keypad back in the day, you will still find the Predictive mode now offers more powerful and smart new ways of typing with even fewer key presses.
 
-So make sure to read the initial setup and the hotkey tips in the [user manual](docs/user-manual.md). Also, don't miss the convenient [compatibility options](docs/user-manual.md#compatibility-options--troubleshooting) aimed to improve the experience in some applications.
+So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/user-manual.md#compatibility-options--troubleshooting) aimed to improve the experience in some applications.
 
 ## ⌨ Contributing
 As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is how:
