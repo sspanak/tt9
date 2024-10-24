@@ -26,14 +26,14 @@
 
 	<!-- Numpad -->
 	<dimen name="numpad_max_width">10000dp</dimen>
-	<dimen name="numpad_padding_bottom">2dp</dimen>
+	<dimen name="numpad_padding_bottom">6dp</dimen>
 	<dimen name="numpad_row_separator_margin">0dp</dimen>
 
 	<dimen name="numpad_key_height">56dp</dimen>
-	<dimen name="numpad_arrow_key_width">36dp</dimen>
+	<dimen name="numpad_arrow_key_width">38dp</dimen>
 	<dimen name="numpad_function_key_layout_weight">0.66</dimen>
 
 	<dimen name="numpad_candidate_font_size">17sp</dimen>
-	<dimen name="numpad_candidate_height">38dp</dimen>
+	<dimen name="numpad_candidate_height">40dp</dimen>
 	<dimen name="numpad_candidate_min_width">36dp</dimen>
 </resources>
