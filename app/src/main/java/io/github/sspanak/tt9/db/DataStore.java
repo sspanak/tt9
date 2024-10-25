@@ -1,22 +1,35 @@
 package io.github.sspanak.tt9.db;
 
 import android.content.Context;
+import android.os.CancellationSignal;
 import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
 public class DataStore {
-	private static final Handler asyncHandler = new Handler();
+	private final static String LOG_TAG = DataStore.class.getSimpleName();
+
+	private static final Handler asyncReturn = new Handler();
+	private static final ExecutorService executor = Executors.newCachedThreadPool();
+
+	private static Future<?> getWordsTask;
+	private static CancellationSignal getWordsCancellationSignal = new CancellationSignal();
+
 	private static WordPairStore pairs;
 	private static WordStore words;
 
@@ -28,7 +41,7 @@ public class DataStore {
 
 
 	private static void runInThread(@NonNull Runnable action) {
-		new Thread(action).start();
+		executor.submit(action);
 	}
 
 
@@ -40,7 +53,7 @@ public class DataStore {
 				words.finishTransaction();
 			} catch (Exception e) {
 				words.failTransaction();
-				Logger.e(DataStore.class.getSimpleName(), errorMessagePrefix + " " + e.getMessage());
+				Logger.e(LOG_TAG, errorMessagePrefix + " " + e.getMessage());
 			}
 			onFinish.run();
 		});
@@ -85,17 +98,42 @@ public class DataStore {
 
 
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
-		runInThread(() -> {
-			ArrayList<String> data = words.getSimilar(language, sequence, filter, minWords, maxWords);
-			asyncHandler.post(() -> dataHandler.accept(data));
-		});
+		if (getWordsTask != null && !getWordsTask.isDone()) {
+			dataHandler.accept(new ArrayList<>());
+			getWordsCancellationSignal.cancel();
+			return;
+		}
+
+		getWordsCancellationSignal = new CancellationSignal();
+		getWordsTask = executor.submit(() -> getWordsSync(dataHandler, language, sequence, filter, minWords, maxWords));
+		executor.submit(DataStore::setGetWordsTimeout);
+	}
+
+
+	private static void getWordsSync(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
+		try {
+			ArrayList<String> data = words.getSimilar(getWordsCancellationSignal, language, sequence, filter, minWords, maxWords);
+			asyncReturn.post(() -> dataHandler.accept(data));
+		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Error fetching words: " + e.getMessage());
+		}
+	}
+
+
+	private static void setGetWordsTimeout() {
+		try {
+			getWordsTask.get(SettingsStore.SLOW_QUERY_TIMEOUT, TimeUnit.MILLISECONDS);
+		} catch (Exception e) {
+			getWordsCancellationSignal.cancel();
+			Logger.e(LOG_TAG, "Word loading timed out after " + SettingsStore.SLOW_QUERY_TIMEOUT + " ms.");
+		}
 	}
 
 
 	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords) {
 		runInThread(() -> {
 			ArrayList<String> data = words.getSimilarCustom(wordFilter, maxWords);
-			asyncHandler.post(() -> dataHandler.accept(data));
+			asyncReturn.post(() -> dataHandler.accept(data));
 		});
 	}
 
@@ -103,7 +141,7 @@ public class DataStore {
 	public static void countCustomWords(ConsumerCompat<Long> dataHandler) {
 		runInThread(() -> {
 			long data = words.countCustom();
-			asyncHandler.post(() -> dataHandler.accept(data));
+			asyncReturn.post(() -> dataHandler.accept(data));
 		});
 	}
 
@@ -111,7 +149,7 @@ public class DataStore {
 	public static void exists(ConsumerCompat<ArrayList<Integer>> dataHandler, ArrayList<Language> languages) {
 		runInThread(() -> {
 			ArrayList<Integer> data = words.exists(languages);
-			asyncHandler.post(() -> dataHandler.accept(data));
+			asyncReturn.post(() -> dataHandler.accept(data));
 		});
 	}
 
