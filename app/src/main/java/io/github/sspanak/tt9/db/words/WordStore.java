@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db.words;
 
 import android.content.Context;
+import android.os.CancellationSignal;
 
 import androidx.annotation.NonNull;
 
@@ -60,7 +61,7 @@ public class WordStore extends BaseSyncStore {
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
 	 * and other similar.
 	 */
-	public ArrayList<String> getSimilar(Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
+	public ArrayList<String> getSimilar(@NonNull CancellationSignal cancel, Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
 		if (!checkOrNotify()) {
 			return new ArrayList<>();
 		}
@@ -80,15 +81,17 @@ public class WordStore extends BaseSyncStore {
 		final String filter = wordFilter == null ? "" : wordFilter;
 
 		Timer.start("get_positions");
-		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), language, sequence, filter, minWords);
+		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), cancel, language, sequence, filter, minWords);
 		long positionsTime = Timer.stop("get_positions");
 
 		Timer.start("get_words");
-		ArrayList<String> words = readOps.getWords(sqlite.getDb(), language, positions, filter, maxWords, false).toStringList();
+		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, maxWords, false).toStringList();
 		long wordsTime = Timer.stop("get_words");
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
-		SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minWords), (int) (positionsTime + wordsTime), positions);
+		if (!cancel.isCanceled()) { // do not store empty results from aborted queries in the cache
+			SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minWords), (int) (positionsTime + wordsTime), positions);
+		}
 
 		return words;
 	}
@@ -188,8 +191,8 @@ public class WordStore extends BaseSyncStore {
 		try {
 			Timer.start(LOG_TAG);
 
-			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), language, sequence, 0, 0, "");
-			WordList topWords = readOps.getWords(sqlite.getDb(), language, topWordPositions, "", 9999, true);
+			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), null, language, sequence, 0, 0, "");
+			WordList topWords = readOps.getWords(sqlite.getDb(), null, language, topWordPositions, "", 9999, true);
 			if (topWords.isEmpty()) {
 				throw new Exception("No such word");
 			}

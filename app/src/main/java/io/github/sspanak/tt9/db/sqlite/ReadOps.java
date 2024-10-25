@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDoneException;
 import android.database.sqlite.SQLiteStatement;
+import android.os.CancellationSignal;
+import android.os.OperationCanceledException;
 
 import androidx.annotation.NonNull;
 
@@ -118,19 +120,19 @@ public class ReadOps {
 
 
 	@NonNull
-	public WordList getWords(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
+	public WordList getWords(@NonNull SQLiteDatabase db, CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
 
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
-		if (wordsQuery.isEmpty()) {
+		if (wordsQuery.isEmpty() || cancel.isCanceled()) {
 			return new WordList();
 		}
 
 		WordList words = new WordList();
-		try (Cursor cursor = db.rawQuery(wordsQuery, null)) {
+		try (Cursor cursor = db.rawQuery(wordsQuery, null, cancel)) {
 			while (cursor.moveToNext()) {
 					words.add(
 						cursor.getString(0),
@@ -138,26 +140,29 @@ public class ReadOps {
 						fullOutput ? cursor.getInt(2) : 0
 					);
 			}
+		} catch (OperationCanceledException e) {
+			Logger.d(LOG_TAG, "Words query cancelled!");
+			return words;
 		}
 
 		return words;
 	}
 
 
-	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
 		int generations = switch (sequence.length()) {
 			case 2 -> wordFilter.isEmpty() ? 1 : 10;
 			case 3, 4 -> wordFilter.isEmpty() ? 2 : 10;
 			default -> 10;
 		};
 
-		return getWordPositions(db, language, sequence, generations, minPositions, wordFilter);
+		return getWordPositions(db, cancel, language, sequence, generations, minPositions, wordFilter);
 	}
 
 
 	@NonNull
-	public String getWordPositions(@NonNull SQLiteDatabase db, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
-		if (sequence.length() == 1) {
+	public String getWordPositions(@NonNull SQLiteDatabase db, CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
+		if (sequence.length() == 1 || cancel.isCanceled()) {
 			return sequence;
 		}
 
@@ -165,18 +170,24 @@ public class ReadOps {
 
 		String cachedFactoryPositions = SlowQueryStats.getCachedIfSlow(SlowQueryStats.generateKey(language, sequence, wordFilter, minPositions));
 		if (cachedFactoryPositions != null) {
-			String customWordPositions = getCustomWordPositions(db, language, sequence, generations);
+			String customWordPositions = getCustomWordPositions(db, cancel, language, sequence, generations);
 			return customWordPositions.isEmpty() ? cachedFactoryPositions : customWordPositions + "," + cachedFactoryPositions;
 		}
 
-		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), null)) {
+		try (Cursor cursor = db.rawQuery(getPositionsQuery(language, sequence, generations), null, cancel)) {
 			positions.appendFromDbRanges(cursor);
+		} catch (OperationCanceledException ignored) {
+			Logger.d(LOG_TAG, "Word positions query cancelled!");
+			return sequence;
 		}
 
 		if (positions.size < minPositions && generations < Integer.MAX_VALUE) {
 			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
-			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), null)) {
+			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), null, cancel)) {
 				positions.appendFromDbRanges(cursor);
+			} catch (OperationCanceledException ignored) {
+				Logger.d(LOG_TAG, "Word positions query cancelled!");
+				return sequence;
 			}
 		}
 
@@ -184,9 +195,12 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getCustomWordPositions(@NonNull SQLiteDatabase db, Language language, String sequence, int generations) {
-		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), null)) {
+	@NonNull private String getCustomWordPositions(@NonNull SQLiteDatabase db, CancellationSignal cancel, Language language, String sequence, int generations) {
+		try (Cursor cursor = db.rawQuery(getCustomWordPositionsQuery(language, sequence, generations), null, cancel)) {
 			return new WordPositionsStringBuilder().appendFromDbRanges(cursor).toString();
+		} catch (OperationCanceledException e) {
+			Logger.d(LOG_TAG, "Custom word positions query cancelled.");
+			return "";
 		}
 	}
 
