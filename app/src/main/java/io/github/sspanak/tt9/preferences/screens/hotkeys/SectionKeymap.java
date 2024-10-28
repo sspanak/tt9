@@ -114,10 +114,15 @@ public class SectionKeymap {
 				return false;
 			}
 
-			((DropDownPreference) preference).setValue(newKey.toString());
-			previewCurrentKey((DropDownPreference) preference, newKey.toString());
-			populateOtherItems((DropDownPreference) preference);
-			return true;
+			try {
+				((DropDownPreference) preference).setValue(newKey.toString());
+				previewCurrentKey((DropDownPreference) preference, newKey.toString());
+				populateOtherItems((DropDownPreference) preference);
+				return true;
+			} catch (Exception e) {
+				Logger.e("SectionKeymap.onItemClick", "Failed setting new hotkey. " + e.getMessage());
+				return false;
+			}
 		});
 	}
 
