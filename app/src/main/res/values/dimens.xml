@@ -31,7 +31,7 @@
 
 	<dimen name="numpad_key_height">56dp</dimen>
 	<dimen name="numpad_arrow_key_width">38dp</dimen>
-	<dimen name="numpad_function_key_layout_weight">0.65</dimen>
+	<dimen name="numpad_function_key_layout_weight">0.675</dimen>
 
 	<dimen name="numpad_candidate_font_size">17sp</dimen>
 	<dimen name="numpad_candidate_height">40dp</dimen>
