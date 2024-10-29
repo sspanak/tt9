@@ -8,6 +8,7 @@ import android.os.CancellationSignal;
 import android.os.OperationCanceledException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -120,14 +121,14 @@ public class ReadOps {
 
 
 	@NonNull
-	public WordList getWords(@NonNull SQLiteDatabase db, CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
+	public WordList getWords(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
 
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
-		if (wordsQuery.isEmpty() || cancel.isCanceled()) {
+		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
 		}
 
@@ -161,8 +162,8 @@ public class ReadOps {
 
 
 	@NonNull
-	public String getWordPositions(@NonNull SQLiteDatabase db, CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
-		if (sequence.length() == 1 || cancel.isCanceled()) {
+	public String getWordPositions(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
+		if (sequence.length() == 1 || (cancel != null && cancel.isCanceled())) {
 			return sequence;
 		}
 
