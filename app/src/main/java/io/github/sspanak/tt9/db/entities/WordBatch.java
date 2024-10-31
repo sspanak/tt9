@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 
 public class WordBatch {
 	@NonNull private final Language language;
@@ -27,14 +27,20 @@ public class WordBatch {
 		positions.add(WordPosition.create(language.getDigitSequenceForWord(word), position, position));
 	}
 
-	public void add(@NonNull WordFileLine line, int position) {
-		words.addAll(Word.create(line, position));
+	public void add(@NonNull ArrayList<String> words, @NonNull String digitSequence, int position) {
+		if (words.isEmpty() || digitSequence.isEmpty()) {
+			return;
+		}
+
+		for (int i = 0, size = words.size(); i < size; i++) {
+			this.words.add(Word.create(words.get(i), size - i, position + i));
+		}
 
 		if (position == 0) {
 			return;
 		}
 
-		WordPosition.create(line.digitSequence, position, position + line.words.size() - 1);
+		positions.add(WordPosition.create(digitSequence, position, position + words.size() - 1));
 	}
 
 	public void clear() {

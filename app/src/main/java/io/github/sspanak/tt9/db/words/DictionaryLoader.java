@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -14,7 +15,6 @@ import java.util.Locale;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.WordBatch;
 import io.github.sspanak.tt9.db.entities.WordFile;
-import io.github.sspanak.tt9.db.entities.WordFileLine;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportAbortedException;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.db.sqlite.DeleteOps;
@@ -216,7 +216,6 @@ public class DictionaryLoader {
 			Logger.e(
 				LOG_TAG,
 				" Invalid word in dictionary: '" + language.getDictionaryFile() + "'"
-				+ " on line " + e.line
 				+ " of language '" + language.getName() + "'. "
 				+ e.getMessage()
 			);
@@ -256,36 +255,44 @@ public class DictionaryLoader {
 
 	private void importWordFile(Context context, Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
 		WordFile wordFile = new WordFile(context, language.getDictionaryFile(), assets);
-		WordBatch batch = new WordBatch(language, wordFile.getTotalLines());
-		int currentLine = 1;
-		float progressRatio = (maxProgress - minProgress) / wordFile.getTotalLines();
+		WordBatch batch = new WordBatch(language, SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE + 1);
+		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
+		int wordCount = 0;
 
-		try (BufferedReader br = wordFile.getReader()) {
-			for (String line; (line = br.readLine()) != null; currentLine++) {
+		long sequenceTime = 0;
+		long wordsTime = 0;
+		long batchAddTime = 0;
+
+		try (BufferedReader ignored = wordFile.getReader()) {
+			while (wordFile.notEOF()) {
 				if (loadThread.isInterrupted()) {
 					sendProgressMessage(language, 0, 0);
 					throw new DictionaryImportAbortedException();
 				}
 
 				try {
-					WordFileLine decompressedLine = new WordFileLine(line);
-					batch.add(decompressedLine, currentLine + positionShift);
+					String digitSequence = wordFile.getNextSequence();
+					ArrayList<String> words = wordFile.getNextWords(digitSequence);
+					batch.add(words, digitSequence, wordCount + positionShift);
+					wordCount += words.size();
+						batchAddTime += Timer.stop("importer");
+
 					if (batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
 						saveWordBatch(batch);
 						batch.clear();
 					}
 
-					Logger.d(LOG_TAG, "Imported word: " + decompressedLine);
-				} catch (InvalidLanguageCharactersException e) {
-					Logger.d(LOG_TAG, "Invalid word: " + line);
-					throw new DictionaryImportException(currentLine);
+				} catch (IOException e) {
+					throw new DictionaryImportException(e.getMessage(), wordCount);
 				}
 
-				if (wordFile.getTotalLines() > 0) {
-					sendProgressMessage(language, minProgress + progressRatio * currentLine, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+				if (wordFile.getWords() > 0) {
+					sendProgressMessage(language, minProgress + progressRatio * wordCount, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 				}
 			}
 		}
+
+		Logger.d(LOG_TAG, "sequenceTime: " + sequenceTime + " wordsTime: " + wordsTime + " batchAddTime: " + batchAddTime);
 
 		saveWordBatch(batch);
 		InsertOps.replaceLanguageMeta(sqlite.getDb(), language.getId(), wordFile.getHash());

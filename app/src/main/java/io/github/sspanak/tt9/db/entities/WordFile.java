@@ -10,7 +10,10 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -22,25 +25,33 @@ public class WordFile {
 	private final AssetManager assets;
 	private final Context context;
 	private final String name;
+
+	private int lastCharCode;
+	private BufferedReader reader;
+
 	private String hash = null;
 	private String downloadUrl = null;
-	private int totalLines = -1;
+	private int words = -1;
 	private long size = -1;
+	private int sequences = -1;
 
 
 	public WordFile(Context context, String name, AssetManager assets) {
 		this.assets = assets;
 		this.context = context;
 		this.name = name;
+
+		lastCharCode = 0;
+		reader = null;
 	}
 
 
 	public static String[] getLineData(String line) {
-		String[] parts = { line, "" };
+		String[] parts = {line, ""};
 
 		// This is faster than String.split() by around 10%, so it's worth having it.
 		// It runs very often, so any other optimizations are welcome.
-		for (int i = 0 ; i < line.length(); i++) {
+		for (int i = 0; i < line.length(); i++) {
 			if (line.charAt(i) == '	') { // the delimiter is TAB
 				parts[0] = line.substring(0, i);
 				parts[1] = i < line.length() - 1 ? line.substring(i + 1) : "";
@@ -71,8 +82,17 @@ public class WordFile {
 
 
 	public BufferedReader getReader() throws IOException {
+		if (reader != null) {
+			return reader;
+		}
+
 		InputStream stream = exists() ? assets.open(name) : getRemoteStream();
-		return new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+		ZipInputStream zipStream = new ZipInputStream(stream);
+		ZipEntry entry = zipStream.getNextEntry();
+		if (entry == null) {
+			throw new IOException("Dictionary ZIP file: " + name + " is empty.");
+		}
+		return reader = new BufferedReader(new InputStreamReader(zipStream, StandardCharsets.UTF_8));
 	}
 
 
@@ -121,34 +141,57 @@ public class WordFile {
 	}
 
 
-	public int getTotalLines() {
-		if (totalLines < 0) {
+	public int getSequences() {
+		if (sequences < 0) {
 			loadProperties();
 		}
 
-		return totalLines;
+		return sequences;
 	}
 
 
-	public String getFormattedTotalLines(String suffix) {
-		if (getTotalLines() > 1000000) {
-			return String.format(Locale.ROOT, "%1.2fM %s", getTotalLines() / 1000000.0, suffix);
-		} else {
-			return getTotalLines() / 1000 + "k " + suffix;
+	private void setSequences(String rawProperty, String rawValue) {
+		if (!rawProperty.equals("sequences")) {
+			return;
+		}
+
+		try {
+			sequences = Integer.parseInt(rawValue);
+		} catch (Exception e) {
+			Logger.w(LOG_TAG, "Invalid 'sequences' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
+			sequences = 0;
 		}
 	}
 
 
-	private void setTotalLines(String rawProperty, String rawValue) {
+	public int getWords() {
+		if (words < 0) {
+			loadProperties();
+		}
+
+		return words;
+	}
+
+
+	public String getFormattedWords(String suffix) {
+		if (getWords() > 1000000) {
+			return String.format(Locale.ROOT, "%1.2fM %s", getWords() / 1000000.0, suffix);
+		} else {
+			return getWords() / 1000 + "k " + suffix;
+		}
+	}
+
+
+	private void setWords(String rawProperty, String rawValue) {
 		if (!rawProperty.equals("words")) {
 			return;
 		}
 
 		try {
-			totalLines = Integer.parseInt(rawValue);
+			words = Integer.parseInt(rawValue);
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, "Invalid 'words' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
-			totalLines = 0;
+			words = 0;
 		}
 	}
 
@@ -193,11 +236,89 @@ public class WordFile {
 
 				setDownloadUrl(parts[0], parts[1]);
 				setHash(parts[0], parts[1]);
-				setTotalLines(parts[0], parts[1]);
+				setWords(parts[0], parts[1]);
+				setSequences(parts[0], parts[1]);
 				setSize(parts[0], parts[1]);
 			}
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, "Could not read the property file: " + propertyFilename + ". " + e.getMessage());
 		}
+	}
+
+
+	public String getNextSequence() throws IOException {
+		if (reader == null || !notEOF()) {
+			return "";
+		}
+
+		StringBuilder sequence = new StringBuilder();
+
+		// use the last char from getNextWords() if it's a digit
+		if (Character.isDigit(lastCharCode)) {
+			sequence.append((char) lastCharCode);
+		}
+
+		while ((lastCharCode = reader.read()) != -1) {
+			if (Character.isDigit(lastCharCode)) {
+				sequence.append((char) lastCharCode);
+			} else {
+				break;
+			}
+		}
+
+		if (sequence.length() == 0) {
+			throw new IOException("Could not find next sequence. Unexpected end of file.");
+		}
+
+		return sequence.toString();
+	}
+
+
+	public ArrayList<String> getNextWords(String digitSequence) throws IOException {
+		ArrayList<String> words = new ArrayList<>();
+
+		if (reader == null || !notEOF()) {
+			return words;
+		}
+
+		StringBuilder word = new StringBuilder();
+
+		// use the last char from getNextSequence() if it's a letter
+		if (!Character.isDigit(lastCharCode)) {
+			word.append((char) lastCharCode);
+		}
+
+		int sequenceLength = digitSequence.length();
+
+		int wordLength = word.length();
+		while ((lastCharCode = reader.read()) != -1) {
+			if (Character.isDigit(lastCharCode)) {
+				break;
+			}
+
+			word.append((char) lastCharCode);
+			if (++wordLength == sequenceLength) {
+				words.add(word.toString());
+				wordLength = 0;
+				word.setLength(wordLength);
+			}
+    }
+
+		if (wordLength == sequenceLength) {
+			words.add(word.toString());
+		} else if (wordLength > 0) {
+			throw new IOException("Unexpected end of file. Word: '" + word + "' length (" + wordLength + ") differs from the length of sequence: " + digitSequence);
+		}
+
+		if (words.isEmpty()) {
+			throw new IOException("Could not find any words for sequence: " + digitSequence);
+		}
+
+		return words;
+	}
+
+
+	public boolean notEOF() {
+		return lastCharCode != -1;
 	}
 }
