@@ -42,7 +42,7 @@ def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String 
     for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
         String line = fileContents.get(lineNumber - 1)
 
-        def (word, transcription) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
+        def (word, transcription, frequency) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
 
         String digitSequence = ""
         try {
@@ -57,10 +57,13 @@ def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String 
             if (!outputDictionary.containsKey(digitSequence)) {
                 outputDictionary.put(digitSequence, new ArrayList<>())
             }
-            outputDictionary.get(digitSequence).add(word)
+            // prefix the frequency to sort the words later
+            outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${word}")
             wordCount++
         }
     }
+
+    outputDictionary = sortDictionary(outputDictionary)
 
     def (assetError, zippedFileSize) = writeZippedDictionary(dictionariesOutputDir, dictionaryFile, outputDictionary, outputDictionaryExtension)
     if (assetError) {
@@ -76,6 +79,30 @@ def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String 
 
     return [errorCount, errorMsg]
 }
+
+
+/**
+ * Sorts the dictionary in ascending order of sequence length and in descending order of word frequency.
+ * Also, it removes the frequency prefix from each word. The input dictionary is not modified.
+ */
+static LinkedHashMap<String, ArrayList<String>> sortDictionary(LinkedHashMap<String, ArrayList<String>> dictionary) {
+    // sort the sequences in ascending order of length, then lexicographically
+    def sequences = dictionary.keySet().toList()
+    Collections.sort(sequences, { a, b ->
+        a.length() == b.length() ? a.compareTo(b) : a.length() - b.length()
+    })
+    def sortedDictionary = new LinkedHashMap<String, ArrayList<String>>()
+    sequences.each { sequence -> sortedDictionary.put(sequence, dictionary.get(sequence)) }
+
+    // sort the words for each sequence in descending order of frequency
+    sortedDictionary.forEach { _, words -> {
+        Collections.sort(words, Collections.reverseOrder())
+        words.replaceAll { word -> word.replaceFirst("^\\d+", "") }
+    }}
+
+    return sortedDictionary
+}
+
 
 //////////////////// FILE I/O ////////////////////
 

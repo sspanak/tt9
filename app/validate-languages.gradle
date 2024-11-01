@@ -178,7 +178,6 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 
 // this cannot be static, because DictionaryTools will not be visible
 def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, String> sounds, boolean isAlphabeticLanguage, Locale locale, int maxErrors, String csvDelimiter, int maxWordFrequency) {
-    final int MAX_SORTING_ERRORS = Math.ceil(maxErrors / 10)
     final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase(locale)}\\-\\.']+\$"
 
     int errorCount = 0
@@ -186,7 +185,7 @@ def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, Str
     Set<String> uniqueWords = new HashSet<>()
 
     List<String> fileContents = dictionaryFile.readLines()
-    for (int lineNumber = 1, previousWordLength = 0, sortingErrorCount = 0; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
+    for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
         String line = fileContents.get(lineNumber - 1)
         boolean lineHasErrors = false
 
@@ -224,14 +223,6 @@ def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, Str
             // the validations below make no sense if the previous ones have failed
             continue
         }
-
-        String sortingError = validateWordOrder(word, previousWordLength, errorCount, MAX_SORTING_ERRORS, dictionaryFile.name, lineNumber)
-        if (sortingError) {
-            errorCount++
-            sortingErrorCount++
-            errorMsg += sortingError
-        }
-        previousWordLength = word.length()
 
         try {
             def transcribedWord = transcription.isEmpty() ? word : transcription
@@ -318,15 +309,4 @@ static def validateWord(String word, String validCharacters, boolean isAlphabeti
     }
 
     return [errorCount, errors]
-}
-
-
-static def validateWordOrder(String word, int previousWordLength, int sortingErrorCount, int maxSortingErrors, String dictionaryFileName, int lineNumber) {
-    if (word.length() >= previousWordLength || sortingErrorCount > maxSortingErrors) {
-        return ""
-    } else if (sortingErrorCount == maxSortingErrors) {
-        return "Too many sorting errors in '${dictionaryFileName}'. Disabling sorting check until the end of the file.\n"
-    } else {
-        return "Dictionary '${dictionaryFileName}' is not sorted. Word: '${word}' on line ${lineNumber} is shorter than the previous one. Ensure all words are sorted by length and sequence.\n"
-    }
 }
