@@ -14,7 +14,7 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
             return langFileErrorMsg
         }
 
-        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, locale, MAX_ERRORS, CSV_DELIMITER)
+        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, locale, MAX_ERRORS, CSV_DELIMITER)
         errorCount += conversionErrorCount
         if (!conversionErrorMessages.isEmpty()) {
             return conversionErrorMessages
@@ -31,7 +31,12 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 
 
 // this cannot be static, because DictionaryTools will not be visible
-def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, Locale locale, int maxErrors, String csvDelimiter) {
+def convertDictionary(File definition, File dictionaryFile, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, Locale locale, int maxErrors, String csvDelimiter) {
+    if (isDictionaryUpToDate(definition, dictionaryFile, dictionariesMetaDir)) {
+        return [0, ""]
+    }
+
+
     int errorCount = 0
     String errorMsg = ''
 
@@ -71,13 +76,33 @@ def convertDictionary(File dictionaryFile, String dictionariesOutputDir, String 
         errorMsg += assetError
     }
 
-    def propertiesError = writeDictionaryProperties(dictionaryFile, dictionariesMetaDir, outputDictionary.size(), zippedFileSize, wordCount)
+    def propertiesError = writeDictionaryProperties(definition, dictionaryFile, dictionariesMetaDir, outputDictionary.size(), zippedFileSize, wordCount)
     if (propertiesError) {
         errorCount++
         errorMsg += propertiesError
     }
 
     return [errorCount, errorMsg]
+}
+
+
+//////////////////// DICTIONARY PROCESSING ////////////////////
+
+static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
+    return (digitSequence + words.join()).getBytes(StandardCharsets.UTF_8)
+}
+
+
+def isDictionaryUpToDate(File definition, File csvDictionary, String dictionaryPropertiesDir) {
+    def dictionaryProperties = new File(dictionaryPropertiesDir, getPropertyFileName(csvDictionary))
+    if (!dictionaryProperties.exists()) {
+        return false
+    }
+
+    Properties props = new Properties()
+    dictionaryProperties.withInputStream { stream -> props.load(stream) }
+
+    return props.getProperty("hash", "") == DictionaryTools.getLanguageHash(definition, csvDictionary)
 }
 
 
@@ -106,8 +131,12 @@ static LinkedHashMap<String, ArrayList<String>> sortDictionary(LinkedHashMap<Str
 
 //////////////////// FILE I/O ////////////////////
 
-static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
-    return (digitSequence + words.join()).getBytes(StandardCharsets.UTF_8)
+static getOutputDictionaryName(csvDictionary) {
+    return "${csvDictionary.getName().replaceFirst("\\.\\w+\$", "")}"
+}
+
+static getPropertyFileName(csvDictionary) {
+    return "${getOutputDictionaryName(csvDictionary)}.props.yml"
 }
 
 
@@ -115,7 +144,7 @@ static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
  * Zipping the text files results in a smaller APK in comparison to the uncompressed text files.
  */
 static def writeZippedDictionary(dictionariesOutputDir, dictionaryFile, outputDictionary, outputDictionaryExtension) {
-    def fileName = dictionaryFile.name.replaceFirst("\\.\\w+\$", "")
+    def fileName = getOutputDictionaryName(dictionaryFile)
     def outputFile = new File(dictionariesOutputDir, "${fileName}.${outputDictionaryExtension}")
 
     try {
@@ -133,18 +162,18 @@ static def writeZippedDictionary(dictionariesOutputDir, dictionaryFile, outputDi
 }
 
 
-// this cannot be static, because it requires access to exec()
-def writeDictionaryProperties(File csvDictionary, outputDir, int sequences, long size, int words) {
-    def name = "${csvDictionary.getName().replaceFirst("\\.\\w+\$", "")}.props.yml"
+// this cannot be static, because it requires access to exec() and DictionaryTools
+def writeDictionaryProperties(File definition, File csvDictionary, outputDir, int sequences, long size, int words) {
+    def name = getPropertyFileName(csvDictionary)
 
     try {
-        def hash = csvDictionary.exists() ? csvDictionary.text.digest("SHA-1") : ""
+        def hash = DictionaryTools.getLanguageHash(definition, csvDictionary)
         def revision = csvDictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${csvDictionary}") : ""
 
         new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsequences: ${sequences}\nsize: ${size}\nwords: ${words}"
 
         return ""
     } catch (Exception e) {
-        return ("Failed writing dictionary properties to: '${outputDir}/${name}'. ${e.message}\n")
+        return "Failed writing dictionary properties to: '${outputDir}/${name}'. ${e.message}\n"
     }
 }

@@ -26,27 +26,26 @@ tasks.register('validateLanguages') {
 }
 
 
-tasks.register('buildDictionaries') {
+tasks.register('buildDictionaryDownloads') {
 	inputs.dir DICTIONARIES_INPUT_DIR
-	outputs.dir DICTIONARIES_OUTPUT_DIR
+	outputs.dir DICTIONARIES_DOWNLOAD_DIR
 	outputs.dir DICTIONARY_META_OUTPUT_DIR
 
 	dependsOn validateLanguages
 	mustRunAfter validateLanguages
 
 	doLast {
-		convertDictionaries(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, DICTIONARIES_OUTPUT_DIR, DICTIONARY_META_OUTPUT_DIR)
+		convertDictionaries(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, DICTIONARIES_DOWNLOAD_DIR, DICTIONARY_META_OUTPUT_DIR)
 	}
 }
 
 
-tasks.register('generateDownloads', Copy) {
-    from DICTIONARIES_OUTPUT_DIR
-	include "**/*.$DICTIONARY_OUTPUT_EXTENSION"
-    into DICTIONARIES_DOWNLOAD_DIR
-
-	dependsOn buildDictionaries
-	mustRunAfter buildDictionaries
+tasks.register('copyDownloadsToAssets', Copy) {
+	from DICTIONARIES_DOWNLOAD_DIR
+	include '**/*.zip'
+	into DICTIONARIES_OUTPUT_DIR
+	dependsOn buildDictionaryDownloads
+	mustRunAfter buildDictionaryDownloads
 }
 
 
@@ -137,19 +136,19 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(copyDefinitions, convertHelp, validateLanguages, buildDictionaries)
+					dependsOn(copyDefinitions, convertHelp, validateLanguages, buildDictionaryDownloads)
 				}
 
 				if (taskName.toLowerCase().contains("full")) {
-					tasks.named(taskName)?.configure {dependsOn(buildDictionaries) }
+					tasks.named(taskName)?.configure {dependsOn(copyDownloadsToAssets) }
 				}
 			} catch (UnknownTaskException ignored) {}
 		}
 
-		assembleLiteDebug.finalizedBy(generateDownloads, updateManifest)
-		assembleFullDebug.finalizedBy(generateDownloads, updateManifest)
-		assembleLiteRelease.finalizedBy(generateDownloads, updateManifest)
-		assembleFullRelease.finalizedBy(generateDownloads, updateManifest)
+		assembleLiteDebug.finalizedBy(updateManifest)
+		assembleFullDebug.finalizedBy(updateManifest)
+		assembleLiteRelease.finalizedBy(updateManifest)
+		assembleFullRelease.finalizedBy(updateManifest)
 
 		variant.outputs.configureEach {
 			def suffix = variant.flavorName == 'full' ? '-full' : ''

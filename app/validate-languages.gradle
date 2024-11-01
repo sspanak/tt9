@@ -1,5 +1,47 @@
 apply from: 'dictionary-tools.gradle'
 
+
+ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
+    int errorCount = 0
+
+    def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
+        if (errorCount >= MAX_ERRORS) {
+            return "Too many errors! Skipping: ${definition}\n"
+        }
+
+        def (alphabet, sounds, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
+
+        def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
+        def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
+
+        errorCount += langFileErrorCount
+        if (!langFileErrorMsg.isEmpty()) {
+            validationFile.text = "${languageHash} INVALID"
+            return langFileErrorMsg
+        }
+
+        if (validationFile.exists() && validationFile.text == "${languageHash} OK") {
+            return ""
+        }
+
+        def (dictionaryErrorCount, dictionaryErrorMesages) = validateDictionary(dictionaryFile, alphabet, sounds, isAlphabeticLanguage, locale, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
+        errorCount += dictionaryErrorCount
+        if (!dictionaryErrorMesages.isEmpty()) {
+            validationFile.text = "${languageHash} INVALID"
+            return dictionaryErrorMesages
+        }
+
+        validationFile.text = "${languageHash} OK"
+        return ""
+    }
+
+    String errorsMsg = errorStream.reduce("", String::concat)
+    if (errorsMsg) {
+        throw new GradleException(errorsMsg)
+    }
+}
+
+
 ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
     String alphabet = ""
     int layoutKey = 0
@@ -21,15 +63,15 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
     for (String line : languageFile.readLines()) {
         if (
-                line.matches("^[a-zA-Z].*")
-                        && !line.startsWith("abcString")
-                        && !line.startsWith("dictionaryFile")
-                        && !line.startsWith("hasSpaceBetweenWords")
-                        && !line.startsWith("hasUpperCase")
-                        && !line.startsWith("layout")
-                        && !line.startsWith("locale")
-                        && !line.startsWith("name")
-                        && !line.startsWith("sounds")
+            line.matches("^[a-zA-Z].*")
+            && !line.startsWith("abcString")
+            && !line.startsWith("dictionaryFile")
+            && !line.startsWith("hasSpaceBetweenWords")
+            && !line.startsWith("hasUpperCase")
+            && !line.startsWith("layout")
+            && !line.startsWith("locale")
+            && !line.startsWith("name")
+            && !line.startsWith("sounds")
         ) {
             def parts = line.split(":")
             def property = parts.length > 0 ? parts[0] : line
@@ -39,8 +81,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
         }
 
         if (
-                (line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
-                        && !line.endsWith("yes") && !line.endsWith("no")
+            (line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
+            && !line.endsWith("yes") && !line.endsWith("no")
         ) {
             def property = line.replaceAll(":.*\$", "")
             def invalidVal = line.replace("hasUpperCase:", "").trim()
@@ -130,49 +172,6 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
     }
 
     return [alphabet, sounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
-}
-
-
-ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
-    int errorCount = 0
-
-    def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
-        def contentHash = definition.text.digest("SHA-1")
-        def outputFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
-
-        if (outputFile.exists() && outputFile.text == "${contentHash} OK") {
-            return ""
-        }
-
-        outputFile.text = ""
-
-
-        if (errorCount >= MAX_ERRORS) {
-            return "Too many errors! Skipping: ${definition}\n"
-        }
-
-        def (alphabet, sounds, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
-        errorCount += langFileErrorCount
-        if (!langFileErrorMsg.isEmpty()) {
-            outputFile.text += "${contentHash} INVALID"
-            return langFileErrorMsg
-        }
-
-        def (dictionaryErrorCount, dictionaryErrorMesages) = validateDictionary(dictionaryFile, alphabet, sounds, isAlphabeticLanguage, locale, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
-        errorCount += dictionaryErrorCount
-        if (!dictionaryErrorMesages.isEmpty()) {
-            outputFile.text += "${contentHash} INVALID"
-            return dictionaryErrorMesages
-        }
-
-        outputFile.text += "${contentHash} OK"
-        return ""
-    }
-
-    String errorsMsg = errorStream.reduce("", String::concat)
-    if (errorsMsg) {
-        throw new GradleException(errorsMsg)
-    }
 }
 
 

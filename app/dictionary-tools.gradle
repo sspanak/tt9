@@ -53,6 +53,13 @@ class Wrapper {
 
         return sequence
     }
+
+
+    static def getLanguageHash(File definitionFile, File dictionaryFile) {
+        def definitionHash = definitionFile != null && definitionFile.exists() ? definitionFile.text.digest("SHA-256") : ""
+        def dictionaryHash = dictionaryFile != null && dictionaryFile.exists() ? dictionaryFile.text.digest("SHA-256") : ""
+        return definitionHash + dictionaryHash
+    }
 }
 
 ext.DictionaryTools = Wrapper
