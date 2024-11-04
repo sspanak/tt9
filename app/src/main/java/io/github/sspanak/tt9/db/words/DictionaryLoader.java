@@ -259,10 +259,6 @@ public class DictionaryLoader {
 		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
 		int wordCount = 0;
 
-		long sequenceTime = 0;
-		long wordsTime = 0;
-		long batchAddTime = 0;
-
 		try (BufferedReader ignored = wordFile.getReader()) {
 			while (wordFile.notEOF()) {
 				if (loadThread.isInterrupted()) {
@@ -275,24 +271,18 @@ public class DictionaryLoader {
 					ArrayList<String> words = wordFile.getNextWords(digitSequence);
 					batch.add(words, digitSequence, wordCount + positionShift);
 					wordCount += words.size();
-						batchAddTime += Timer.stop("importer");
 
 					if (batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
 						saveWordBatch(batch);
 						batch.clear();
 					}
-
 				} catch (IOException e) {
 					throw new DictionaryImportException(e.getMessage(), wordCount);
 				}
 
-				if (wordFile.getWords() > 0) {
-					sendProgressMessage(language, minProgress + progressRatio * wordCount, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-				}
+				sendProgressMessage(language, minProgress + progressRatio * wordCount, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			}
 		}
-
-		Logger.d(LOG_TAG, "sequenceTime: " + sequenceTime + " wordsTime: " + wordsTime + " batchAddTime: " + batchAddTime);
 
 		saveWordBatch(batch);
 		InsertOps.replaceLanguageMeta(sqlite.getDb(), language.getId(), wordFile.getHash());
