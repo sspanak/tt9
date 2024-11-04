@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string translatable="false" name="dictionary_url">https://raw.githubusercontent.com/sspanak/tt9/%1$s/app/%2$s</string>
+	<string translatable="false" name="dictionary_url">https://raw.githubusercontent.com/sspanak/tt9/%1$s/downloads/%2$s</string>
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>

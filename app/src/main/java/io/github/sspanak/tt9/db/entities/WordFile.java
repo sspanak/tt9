@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -24,7 +25,7 @@ public class WordFile {
 
 	private final AssetManager assets;
 	private final Context context;
-	private final String name;
+	private final String path;
 
 	private int lastCharCode;
 	private BufferedReader reader;
@@ -36,10 +37,10 @@ public class WordFile {
 	private int sequences = -1;
 
 
-	public WordFile(Context context, String name, AssetManager assets) {
+	public WordFile(Context context, String path, AssetManager assets) {
 		this.assets = assets;
 		this.context = context;
-		this.name = name;
+		this.path = path;
 
 		lastCharCode = 0;
 		reader = null;
@@ -65,7 +66,7 @@ public class WordFile {
 
 	public boolean exists() {
 		try {
-			assets.open(name).close();
+			assets.open(path).close();
 			return true;
 		} catch (IOException e) {
 			return false;
@@ -86,11 +87,11 @@ public class WordFile {
 			return reader;
 		}
 
-		InputStream stream = exists() ? assets.open(name) : getRemoteStream();
+		InputStream stream = exists() ? assets.open(path) : getRemoteStream();
 		ZipInputStream zipStream = new ZipInputStream(stream);
 		ZipEntry entry = zipStream.getNextEntry();
 		if (entry == null) {
-			throw new IOException("Dictionary ZIP file: " + name + " is empty.");
+			throw new IOException("Dictionary ZIP file: " + path + " is empty.");
 		}
 		return reader = new BufferedReader(new InputStreamReader(zipStream, StandardCharsets.UTF_8));
 	}
@@ -110,12 +111,20 @@ public class WordFile {
 			return;
 		}
 
-		String revision = rawValue == null || rawValue.isEmpty() ? "" : rawValue;
-		downloadUrl = revision.isEmpty() ? null : context.getString(R.string.dictionary_url, revision, name);
+		downloadUrl = null;
 
+		String revision = rawValue == null || rawValue.isEmpty() ? "" : rawValue;
 		if (revision.isEmpty()) {
-			Logger.w(LOG_TAG, "Invalid 'revision' property of: " + name + ". Expecting a string, got: '" + rawValue + "'.");
+			Logger.w(LOG_TAG, "Invalid 'revision' property of: " + path + ". Expecting a string, got: '" + rawValue + "'.");
+			return;
 		}
+
+		if (path == null || path.isEmpty()) {
+			Logger.w(LOG_TAG, "Cannot generate a download URL for an empty path.");
+			return;
+		}
+
+		downloadUrl = context.getString(R.string.dictionary_url, revision, new File(path).getName());
 	}
 
 
@@ -136,7 +145,7 @@ public class WordFile {
 		hash = rawValue == null || rawValue.isEmpty() ? "" : rawValue;
 
 		if (hash.isEmpty()) {
-			Logger.w(LOG_TAG, "Invalid 'hash' property of: " + name + ". Expecting a string, got: '" + rawValue + "'.");
+			Logger.w(LOG_TAG, "Invalid 'hash' property of: " + path + ". Expecting a string, got: '" + rawValue + "'.");
 		}
 	}
 
@@ -158,7 +167,7 @@ public class WordFile {
 		try {
 			sequences = Integer.parseInt(rawValue);
 		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Invalid 'sequences' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
+			Logger.w(LOG_TAG, "Invalid 'sequences' property of: " + path + ". Expecting an integer, got: '" + rawValue + "'.");
 			sequences = 0;
 		}
 	}
@@ -190,7 +199,7 @@ public class WordFile {
 		try {
 			words = Integer.parseInt(rawValue);
 		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Invalid 'words' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
+			Logger.w(LOG_TAG, "Invalid 'words' property of: " + path + ". Expecting an integer, got: '" + rawValue + "'.");
 			words = 0;
 		}
 	}
@@ -218,14 +227,14 @@ public class WordFile {
 		try {
 			size = Long.parseLong(rawValue);
 		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Invalid 'size' property of: " + name + ". Expecting an integer, got: '" + rawValue + "'.");
+			Logger.w(LOG_TAG, "Invalid 'size' property of: " + path + ". Expecting an integer, got: '" + rawValue + "'.");
 			size = 0;
 		}
 	}
 
 
 	private void loadProperties() {
-		String propertyFilename = name.replaceFirst("\\.\\w+$", "") + ".props.yml";
+		String propertyFilename = path.replaceFirst("\\.\\w+$", "") + ".props.yml";
 
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(assets.open(propertyFilename)))) {
 			for (String line; (line = reader.readLine()) != null; ) {
