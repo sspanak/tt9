@@ -84,7 +84,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			}
 
 			showProgress(
-			context,
+				context,
 				data.getLong("time", 0),
 				data.getInt("currentFile", 0),
 				data.getInt("progress", 0),
