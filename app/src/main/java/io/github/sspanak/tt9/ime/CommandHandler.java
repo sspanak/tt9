@@ -88,6 +88,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
+		if (mLanguage.isSyllabary()) {
+			UI.toastShortSingle(this, R.string.function_add_word_not_available);
+			return;
+		}
+
 		if (DictionaryLoader.getInstance(this).isRunning()) {
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 			return;

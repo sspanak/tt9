@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
@@ -205,6 +206,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
+		if (mLanguage.isSyllabary()) {
+			UI.toastShortSingle(this, R.string.function_filter_suggestions_not_available);
+			return true; // prevent the default key action to acknowledge we have processed the event
+		}
+
 		if (validateOnly) {
 			return true;
 		}
@@ -231,7 +237,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyScrollSuggestion(boolean validateOnly, boolean backward) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
 			return false;
 		}
 

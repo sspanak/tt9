@@ -16,6 +16,7 @@ abstract public class Language {
 	protected String name;
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
+	protected boolean isSyllabary = false;
 
 
 	public int getId() {
@@ -63,6 +64,10 @@ abstract public class Language {
 
 	final public boolean hasUpperCase() {
 		return hasUpperCase;
+	}
+
+	final public boolean isSyllabary() {
+		return isSyllabary;
 	}
 
 	@NonNull

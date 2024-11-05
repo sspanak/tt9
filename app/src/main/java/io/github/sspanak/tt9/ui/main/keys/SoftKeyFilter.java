@@ -44,7 +44,7 @@ public class SoftKeyFilter extends SoftKey {
 	public void render() {
 		super.render();
 		if (tt9 != null) {
-			setEnabled(!tt9.isInputModeNumeric() && !tt9.isInputModeABC() && !tt9.isVoiceInputActive());
+			setEnabled(!tt9.isInputModeNumeric() && !tt9.isInputModeABC() && !tt9.isVoiceInputActive() && !tt9.isLanguageSyllabary());
 		}
 	}
 }

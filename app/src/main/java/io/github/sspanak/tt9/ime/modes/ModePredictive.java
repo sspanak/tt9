@@ -124,7 +124,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public boolean recompose(String word) {
-		if (!language.hasSpaceBetweenWords()) {
+		if (!language.hasSpaceBetweenWords() || language.isSyllabary()) {
 			return false;
 		}
 
