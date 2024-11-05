@@ -290,30 +290,43 @@ public class WordFile {
 			return words;
 		}
 
+		boolean areWordsSeparated = false;
 		StringBuilder word = new StringBuilder();
 
+		// If the word string starts with a space, it means there are words longer than the sequence.
+		// We must make sure to extract them correctly.
+		if (lastCharCode == ' ') {
+			areWordsSeparated = true;
+		}
 		// use the last char from getNextSequence() if it's a letter
-		if (!Character.isDigit(lastCharCode)) {
+		else if (!Character.isDigit(lastCharCode)) {
 			word.append((char) lastCharCode);
 		}
 
 		int sequenceLength = digitSequence.length();
 
+		// start extracting the words
 		int wordLength = word.length();
 		while ((lastCharCode = reader.read()) != -1) {
 			if (Character.isDigit(lastCharCode)) {
 				break;
 			}
 
-			word.append((char) lastCharCode);
-			if (++wordLength == sequenceLength) {
+			if (lastCharCode == ' ') {
+				areWordsSeparated = true;
+			} else {
+				word.append((char) lastCharCode);
+				wordLength++;
+			}
+
+			if ((areWordsSeparated && lastCharCode == ' ' && wordLength > 0) || (!areWordsSeparated && wordLength == sequenceLength)) {
 				words.add(word.toString());
 				wordLength = 0;
 				word.setLength(wordLength);
 			}
     }
 
-		if (wordLength == sequenceLength) {
+		if ((areWordsSeparated && wordLength > 0) || (!areWordsSeparated && wordLength == sequenceLength)) {
 			words.add(word.toString());
 		} else if (wordLength > 0) {
 			throw new IOException("Unexpected end of file. Word: '" + word + "' length (" + wordLength + ") differs from the length of sequence: " + digitSequence);

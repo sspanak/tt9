@@ -89,7 +89,24 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 //////////////////// DICTIONARY PROCESSING ////////////////////
 
 static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
-    return (digitSequence + words.join()).getBytes(StandardCharsets.UTF_8)
+    if (words.isEmpty()) {
+        throw new IllegalArgumentException("No words for digit sequence: ${digitSequence}")
+    }
+
+    boolean shouldSeparateWords = false
+
+    for (def i = 0; i < words.size(); i++) {
+        if (words.get(i).length() != digitSequence.length()) {
+            shouldSeparateWords = true
+            break
+        }
+    }
+
+    return (
+        digitSequence +
+        (shouldSeparateWords ? ' ' : '') +
+        words.join(shouldSeparateWords ? ' ' : null)
+    ).getBytes(StandardCharsets.UTF_8)
 }
 
 

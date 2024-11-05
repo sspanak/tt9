@@ -366,7 +366,7 @@ public class DictionaryLoader {
 
 	private void logLoadingStep(String message, Language language, long time) {
 		if (Logger.isDebugLevel()) {
-			Logger.d(LOG_TAG, message + " for language '" + language.getName() + "' in: " + time + " ms");
+			Logger.d(LOG_TAG, message + " for language '" + language.getName() + "' (" + language.getId() + ") in: " + time + " ms");
 		}
 	}
 }
