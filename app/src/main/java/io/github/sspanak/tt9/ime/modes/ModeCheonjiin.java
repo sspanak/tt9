@@ -56,6 +56,12 @@ public class ModeCheonjiin extends InputMode {
 
 
 	protected void onNumberHold(int number) {
+		if (number > 1) {
+			autoAcceptTimeout = 0;
+		}
+
+		// @todo: on 0 and 1, add the special chars.
+		// @todo: figure out a way of typing emojis.
 		suggestions.add(String.valueOf(number));
 	}
 
@@ -91,6 +97,8 @@ public class ModeCheonjiin extends InputMode {
 			return;
 		}
 
+		// @todo: it is not possible to search for sequences that start with "0", because ReadOps.getFactoryWordPositionsQuery() treats them as integers.
+		// @todo: search only for exact matches
 		predictions
 			.setDigitSequence(digitSequence)
 			.setLanguage(language)
@@ -122,6 +130,10 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
+		// @todo: nextKey is a vowel key:
+		// 1. cut the current word up to the last vowel digit and accept it.
+		// 2. use the last consonant digits of the previous word (if any) as the start of a new character.
+
 		return !digitSequence.isEmpty() && (hold || predictions.noDbWords());
 	}
 
