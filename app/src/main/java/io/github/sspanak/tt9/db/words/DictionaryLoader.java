@@ -235,6 +235,10 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
+		if (language.isSyllabary()) {
+			return 0;
+		}
+
 		int lettersCount = 0;
 		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
 		WordBatch letters = new WordBatch(language);
