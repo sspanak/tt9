@@ -4,15 +4,13 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 
 public class WordBatch {
 	@NonNull private final Language language;
 	@NonNull private final ArrayList<Word> words;
 	@NonNull private final ArrayList<WordPosition> positions;
-
-	private WordPosition lastWordPosition;
 
 	public WordBatch(@NonNull Language language, int size) {
 		this.language = language;
@@ -24,31 +22,25 @@ public class WordBatch {
 		this(language, 0);
 	}
 
-	public boolean add(@NonNull String word, int frequency, int position) throws InvalidLanguageCharactersException {
+	public void add(String word, int frequency, int position) throws InvalidLanguageCharactersException {
 		words.add(Word.create(word, frequency, position));
+		positions.add(WordPosition.create(language.getDigitSequenceForWord(word), position, position));
+	}
+
+	public void add(@NonNull ArrayList<String> words, @NonNull String digitSequence, int position) {
+		if (words.isEmpty() || digitSequence.isEmpty()) {
+			return;
+		}
+
+		for (int i = 0, size = words.size(); i < size; i++) {
+			this.words.add(Word.create(words.get(i), size - i, position + i));
+		}
 
 		if (position == 0) {
-			return true;
+			return;
 		}
 
-		String sequence = language.getDigitSequenceForWord(word);
-
-		if (position == 1 || lastWordPosition == null) {
-			lastWordPosition = WordPosition.create(sequence, position);
-		} else {
-			lastWordPosition.end = position;
-		}
-
-		if (!sequence.equals(lastWordPosition.sequence)) {
-			lastWordPosition.end--;
-			positions.add(lastWordPosition);
-
-			lastWordPosition = WordPosition.create(sequence, position);
-
-			return true;
-		}
-
-		return false;
+		positions.add(WordPosition.create(digitSequence, position, position + words.size() - 1));
 	}
 
 	public void clear() {

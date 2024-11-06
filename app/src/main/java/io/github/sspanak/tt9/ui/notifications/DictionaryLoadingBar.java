@@ -75,8 +75,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 				context,
 				error,
 				data.getInt("languageId", -1),
-				data.getLong("fileLine", -1),
-				data.getString("word", "")
+				data.getLong("fileLine", -1)
 			);
 		} else if (progress >= 0) {
 			hasFailed = false;
@@ -133,13 +132,13 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	private void showError(Context context, String errorType, int langId, long line, String word) {
+	private void showError(Context context, String errorType, int langId, long line) {
 		Language lang = LanguageCollection.getLanguage(context, langId);
 
 		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
 			message = resources.getString(R.string.add_word_invalid_language);
 		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
-			message = resources.getString(R.string.dictionary_load_bad_char, word, line, lang.getName());
+			message = resources.getString(R.string.dictionary_load_bad_char, line, lang.getName());
 		} else if (errorType.equals(UnknownHostException.class.getSimpleName()) || errorType.equals(SocketException.class.getSimpleName())) {
 			message = resources.getString(R.string.dictionary_load_no_internet, lang.getName());
 		} else if (errorType.equals(IOException.class.getSimpleName()) || errorType.equals(FileNotFoundException.class.getSimpleName())) {

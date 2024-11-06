@@ -70,7 +70,7 @@ public class CustomWordFile {
 			return null;
 		}
 
-		String[] parts = WordFile.splitLine(line);
+		String[] parts = WordFile.getLineData(line);
 		if (parts == null || parts.length < 2) {
 			return null;
 		}
@@ -79,7 +79,7 @@ public class CustomWordFile {
 	}
 
 	@NonNull public static String getWord(String line) {
-		String[] parts = WordFile.splitLine(line);
+		String[] parts = WordFile.getLineData(line);
 		return parts != null && parts.length > 0 ? parts[0] : "";
 	}
 }

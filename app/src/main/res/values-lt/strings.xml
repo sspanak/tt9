@@ -64,7 +64,7 @@
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
-	<string name="dictionary_load_bad_char">Įkelti \"%3$s\" kalbos nepavyko. Klaida %2$d eilutėje, netinkamas žodis - \"%1$s\".</string>
+	<string name="dictionary_load_bad_char">Įkelti \"%2$s\" kalbos nepavyko. Klaida %1$d eilutėje, netinkamas žodis.</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" kalbos žodyną (%2$s).</string>
 	<string name="dictionary_load_no_internet">Nepavyko atsisiųsti žodyno kalbai „%1$s“. Patikrinkite interneto ryšį.</string>
 	<string name="dictionary_load_cancelled">Žodyno įkėlimas atšauktas.</string>

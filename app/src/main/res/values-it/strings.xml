@@ -61,7 +61,7 @@
 	<string name="pref_category_predictive_mode">Scrittura facilitata</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
-	<string name="dictionary_load_bad_char">Caricamento non riuscito. Parola non valida \"%1$s\" alla riga %2$d della lingua \"%3$s\".</string>
+	<string name="dictionary_load_bad_char">Caricamento non riuscito. Parola non valida alla riga %1$d della lingua \"%2$s\".</string>
 	<string name="dictionary_load_error">Caricamento del dizionario per la lingua \"%1$s\" non riuscito (%2$s).</string>
 	<string name="dictionary_load_no_internet">"Download del dizionario per la lingua \"%1$s\" non riuscito. Controlla la connessione Internet. "</string>
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>

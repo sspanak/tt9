@@ -1,0 +1,203 @@
+import java.nio.charset.StandardCharsets
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+apply from: 'dictionary-tools.gradle'
+
+ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionariesOutputDir, dictionariesMetaDir ->
+    int errorCount = 0
+
+    def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
+        def (_, sounds, __, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
+        errorCount += langFileErrorCount
+        if (!langFileErrorMsg.isEmpty()) {
+            return langFileErrorMsg
+        }
+
+        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, locale, MAX_ERRORS, CSV_DELIMITER)
+        errorCount += conversionErrorCount
+        if (!conversionErrorMessages.isEmpty()) {
+            return conversionErrorMessages
+        }
+
+        return ""
+    }
+
+    String errorsMsg = errorStream.reduce("", String::concat)
+    if (errorsMsg) {
+        throw new GradleException(errorsMsg)
+    }
+}
+
+
+// this cannot be static, because DictionaryTools will not be visible
+def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, Locale locale, int maxErrors, String csvDelimiter) {
+    if (isDictionaryUpToDate(definition, csvDictionary, dictionariesMetaDir)) {
+        return [0, ""]
+    }
+
+
+    int errorCount = 0
+    String errorMsg = ''
+
+    List<String> fileContents = csvDictionary.readLines()
+    LinkedHashMap<String, ArrayList<String>> outputDictionary = new LinkedHashMap<>()
+    int wordCount = 0
+
+    for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
+        String line = fileContents.get(lineNumber - 1)
+
+        def (word, transcription, frequency) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
+
+        String digitSequence = ""
+        try {
+            def transcribedWord = transcription.isEmpty() ? word : transcription
+            digitSequence = DictionaryTools.wordToDigitSequence(locale, transcribedWord, sounds, !transcription.isEmpty())
+        } catch (IllegalArgumentException e) {
+            errorCount++
+            errorMsg += "Dictionary '${csvDictionary.name}' is invalid. Failed generating digit sequence for word '${word}' on line ${lineNumber}. ${e.message}\n"
+        }
+
+        if (errorCount == 0) {
+            if (!outputDictionary.containsKey(digitSequence)) {
+                outputDictionary.put(digitSequence, new ArrayList<>())
+            }
+            // prefix the frequency to sort the words later
+            outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${word}")
+            wordCount++
+        }
+    }
+
+    outputDictionary = sortDictionary(outputDictionary)
+
+    def (assetError, zippedDictionary) = writeZippedDictionary(dictionariesOutputDir, csvDictionary, outputDictionary, outputDictionaryExtension)
+    if (assetError) {
+        errorCount++
+        errorMsg += assetError
+    }
+
+    def propertiesError = writeDictionaryProperties(definition, csvDictionary, zippedDictionary, dictionariesMetaDir, outputDictionary.size(), wordCount)
+    if (propertiesError) {
+        errorCount++
+        errorMsg += propertiesError
+    }
+
+    return [errorCount, errorMsg]
+}
+
+
+//////////////////// DICTIONARY PROCESSING ////////////////////
+
+static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
+    if (words.isEmpty()) {
+        throw new IllegalArgumentException("No words for digit sequence: ${digitSequence}")
+    }
+
+    boolean shouldSeparateWords = false
+
+    for (def i = 0; i < words.size(); i++) {
+        if (words.get(i).length() != digitSequence.length()) {
+            shouldSeparateWords = true
+            break
+        }
+    }
+
+    return (
+        digitSequence +
+        (shouldSeparateWords ? ' ' : '') +
+        words.join(shouldSeparateWords ? ' ' : null)
+    ).getBytes(StandardCharsets.UTF_8)
+}
+
+
+def isDictionaryUpToDate(File definition, File csvDictionary, String dictionaryPropertiesDir) {
+    def dictionaryProperties = new File(dictionaryPropertiesDir, getPropertyFileName(csvDictionary))
+    if (!dictionaryProperties.exists()) {
+        return false
+    }
+
+    Properties props = new Properties()
+    dictionaryProperties.withInputStream { stream -> props.load(stream) }
+
+    return props.getProperty("hash", "") == DictionaryTools.getLanguageHash(definition, csvDictionary)
+}
+
+
+/**
+ * Sorts the dictionary in ascending order of sequence length and in descending order of word frequency.
+ * Also, it removes the frequency prefix from each word. The input dictionary is not modified.
+ */
+static LinkedHashMap<String, ArrayList<String>> sortDictionary(LinkedHashMap<String, ArrayList<String>> dictionary) {
+    // sort the sequences in ascending order of length, then lexicographically
+    def sequences = dictionary.keySet().toList()
+    Collections.sort(sequences, { a, b ->
+        a.length() == b.length() ? a.compareTo(b) : a.length() - b.length()
+    })
+    def sortedDictionary = new LinkedHashMap<String, ArrayList<String>>()
+    sequences.each { sequence -> sortedDictionary.put(sequence, dictionary.get(sequence)) }
+
+    // sort the words for each sequence in descending order of frequency
+    sortedDictionary.forEach { _, words -> {
+        Collections.sort(words, Collections.reverseOrder())
+        words.replaceAll { word -> word.replaceFirst("^\\d+", "") }
+    }}
+
+    return sortedDictionary
+}
+
+
+//////////////////// FILE I/O ////////////////////
+
+static getDictionaryFileName(csvDictionary) {
+    return "${csvDictionary.getName().replaceFirst("\\.\\w+\$", "")}"
+}
+
+
+static getPropertyFileName(csvDictionary) {
+    return "${getDictionaryFileName(csvDictionary)}.props.yml"
+}
+
+
+static getZipDictionaryFile(dictionariesOutputDir, csvDictionary, outputDictionaryExtension) {
+    return new File(dictionariesOutputDir, "${getDictionaryFileName(csvDictionary)}.${outputDictionaryExtension}")
+}
+
+
+/**
+ * Zipping the text files results in a smaller APK in comparison to the uncompressed text files.
+ */
+static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outputDictionary, outputDictionaryExtension) {
+    def fileName = getDictionaryFileName(csvDictionaryFile)
+    def outputFile = getZipDictionaryFile(dictionariesOutputDir, csvDictionaryFile, outputDictionaryExtension)
+
+    try {
+        def zipOutputStream = new ZipOutputStream(new FileOutputStream(outputFile))
+        zipOutputStream.putNextEntry(new ZipEntry("${fileName}.txt"))
+        outputDictionary.each { digitSequence, words ->
+            zipOutputStream.write(compressDictionaryLine(digitSequence, words))
+        }
+        zipOutputStream.closeEntry()
+        zipOutputStream.close()
+        return ["", outputFile]
+    } catch (Exception e) {
+        return ["Failed writing to '${outputFile.path}'. ${e.message}\n", outputFile]
+    }
+}
+
+
+// this cannot be static, because it requires access to exec() and DictionaryTools
+def writeDictionaryProperties(File definition, File csvDictionary, File zipDictionary, outputDir, int sequences, int words) {
+    def name = getPropertyFileName(csvDictionary)
+
+    try {
+        def hash = DictionaryTools.getLanguageHash(definition, csvDictionary)
+        def revision = zipDictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${zipDictionary}") : ""
+        def size = zipDictionary.exists() ? zipDictionary.length() : 0
+
+        new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsequences: ${sequences}\nsize: ${size}\nwords: ${words}"
+
+        return ""
+    } catch (Exception e) {
+        return "Failed writing dictionary properties to: '${outputDir}/${name}'. ${e.message}\n"
+    }
+}

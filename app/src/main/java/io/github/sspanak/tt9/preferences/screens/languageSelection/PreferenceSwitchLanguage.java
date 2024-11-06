@@ -55,7 +55,7 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 		summary
 			.append(", ")
 			.append(
-			wordFile.getFormattedTotalLines(activity.getString(R.string.language_selection_words))
+			wordFile.getFormattedWords(activity.getString(R.string.language_selection_words))
 		);
 
 		// download size
