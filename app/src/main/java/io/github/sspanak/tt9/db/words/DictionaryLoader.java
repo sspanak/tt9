@@ -133,7 +133,7 @@ public class DictionaryLoader {
 					load(context, language);
 				}
 				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
-				else if (!hash.equals(new WordFile(context, language.getDictionaryFile(), self.assets).getHash())) {
+				else if (!hash.equals(new WordFile(context, language, self.assets).getHash())) {
 					new DictionaryUpdateNotification(context, language).show();
 				}
 			},
@@ -254,7 +254,7 @@ public class DictionaryLoader {
 
 
 	private void importWordFile(Context context, Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
-		WordFile wordFile = new WordFile(context, language.getDictionaryFile(), assets);
+		WordFile wordFile = new WordFile(context, language, assets);
 		WordBatch batch = new WordBatch(language, SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE + 1);
 		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
 		int wordCount = 0;
