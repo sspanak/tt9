@@ -32,7 +32,6 @@ public class ModePredictive extends ModeCheonjiin {
 	private boolean isStemFuzzy = false;
 	private String stem = "";
 
-
 	// text analysis tools
 	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
@@ -47,6 +46,7 @@ public class ModePredictive extends ModeCheonjiin {
 		autoTextCase = new AutoTextCase(settings);
 		digitSequence = "";
 		predictions = new WordPredictions(settings, textField);
+		predictions.setWordsChangedHandler(this::onPredictions);
 
 		changeLanguage(lang);
 		defaultTextCase();
@@ -81,25 +81,25 @@ public class ModePredictive extends ModeCheonjiin {
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		isCursorDirectionForward = true;
+		return super.onNumber(number, hold, repeat);
+	}
 
-		if (hold) {
-			// hold to type any digit
-			reset();
+
+	@Override
+	protected void onNumberHold(int number) {
+		super.onNumberHold(number);
+		autoAcceptTimeout = 0;
+		suggestions.add(language.getKeyNumber(number));
+	}
+
+
+	@Override
+	protected void onNumberPress(int number) {
+		digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
+
+		if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			autoAcceptTimeout = 0;
-			disablePredictions = true;
-			digitSequence = String.valueOf(number);
-			suggestions.add(language.getKeyNumber(number));
-		} else {
-			basicReset();
-			digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
-			disablePredictions = false;
-
-			if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
-				autoAcceptTimeout = 0;
-			}
 		}
-
-		return true;
 	}
 
 
@@ -254,11 +254,6 @@ public class ModePredictive extends ModeCheonjiin {
 	}
 
 
-	@Override
-	public boolean containsGeneratedSuggestions() {
-		return predictions.containsGeneratedWords();
-	}
-
 	/**
 	 * loadSuggestions
 	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used
@@ -282,7 +277,6 @@ public class ModePredictive extends ModeCheonjiin {
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
-			.setWordsChangedHandler(this::onPredictions)
 			.setDigitSequence(digitSequence)
 			.setLanguage(searchLanguage)
 			.load();
@@ -332,7 +326,7 @@ public class ModePredictive extends ModeCheonjiin {
 	 * onPredictions
 	 * Gets the currently available WordPredictions and sends them over to the external caller.
 	 */
-	private void onPredictions() {
+	protected void onPredictions() {
 		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
 		if (predictions.getList().isEmpty() && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
 			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
@@ -456,9 +450,9 @@ public class ModePredictive extends ModeCheonjiin {
 	}
 
 
-		/**
+	/**
 	 * shouldAcceptPreviousSuggestion
-	 * Variant for post suggestion load analysis.
+	 * Used for analysis after loading the suggestions.
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {

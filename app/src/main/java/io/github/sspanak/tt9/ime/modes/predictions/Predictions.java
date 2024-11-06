@@ -41,9 +41,8 @@ abstract public class Predictions {
 		return this;
 	}
 
-	public Predictions setWordsChangedHandler(Runnable handler) {
+	public void setWordsChangedHandler(Runnable handler) {
 		onWordsChanged = handler;
-		return this;
 	}
 
 	public boolean containsGeneratedWords() {

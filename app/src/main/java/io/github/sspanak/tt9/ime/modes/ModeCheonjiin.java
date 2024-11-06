@@ -14,14 +14,16 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class ModeCheonjiin extends InputMode {
 	// async suggestion handling
 	protected boolean disablePredictions = false;
-	private SyllablePredictions predictions;
+	private final SyllablePredictions predictions;
 
 
 	protected ModeCheonjiin(Context context, SettingsStore settings) {
 		super(settings);
 		setLanguage(context != null ? LanguageCollection.getLanguage(context, LanguageKind.KOREAN) : null);
 		allowedTextCases.add(CASE_LOWER);
+
 		predictions = new SyllablePredictions(settings);
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -41,11 +43,25 @@ public class ModeCheonjiin extends InputMode {
 		if (hold) {
 			reset();
 			digitSequence = String.valueOf(number);
+			disablePredictions = true;
+			onNumberHold(number);
 		} else {
-			digitSequence += String.valueOf(number);
+			basicReset();
+			disablePredictions = false;
+			onNumberPress(number);
 		}
 
 		return true;
+	}
+
+
+	protected void onNumberHold(int number) {
+		suggestions.add(String.valueOf(number));
+	}
+
+
+	protected void onNumberPress(int number) {
+		digitSequence += String.valueOf(number);
 	}
 
 
@@ -75,24 +91,54 @@ public class ModeCheonjiin extends InputMode {
 			return;
 		}
 
-		suggestions.clear();
-		if (!digitSequence.isEmpty()) {
-			suggestions.add(digitSequence);
-		}
+		predictions
+			.setDigitSequence(digitSequence)
+			.setLanguage(language)
+			.load();
+	}
 
-		super.loadSuggestions(ignored);
+
+	/**
+	 * onPredictions
+	 * Gets the currently available WordPredictions and sends them over to the external caller.
+	 */
+	protected void onPredictions() {
+		suggestions.clear();
+		suggestions.addAll(predictions.getList());
+
+		onSuggestionsUpdated.run();
 	}
 
 
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
-		return super.shouldAcceptPreviousSuggestion(unacceptedText);
+	public boolean containsGeneratedSuggestions() {
+		return predictions.containsGeneratedWords();
 	}
 
 
+	/**
+	 * shouldAcceptPreviousSuggestion
+	 * Used for analysis before processing the incoming pressed key.
+	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		return super.shouldAcceptPreviousSuggestion(nextKey, hold);
+		return !digitSequence.isEmpty() && (hold || predictions.noDbWords());
+	}
+
+
+	/**
+	 * shouldAcceptPreviousSuggestion
+	 * Used for analysis after loading the suggestions.
+	 */
+	@Override
+	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
+		return false;
+	}
+
+
+	@Override
+	public void onAcceptSuggestion(@NonNull String word) {
+		reset();
 	}
 
 

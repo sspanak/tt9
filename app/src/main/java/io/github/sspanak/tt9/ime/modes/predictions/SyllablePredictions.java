@@ -9,18 +9,14 @@ public class SyllablePredictions extends Predictions {
 		super(settings);
 	}
 
-	@Override
-	public void onAccept(String word, String sequence) {
-
-	}
+	@Override protected boolean isRetryAllowed() { return false; }
+	@Override public void onAccept(String word, String sequence) {} // not used
 
 	@Override
-	protected boolean isRetryAllowed() {
-		return false;
-	}
-
-	@Override
-	protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed) {
-
+	protected void onDbWords(ArrayList<String> dbWords, boolean ignored) {
+		areThereDbWords = !dbWords.isEmpty();
+		words.clear();
+		words.addAll(dbWords);
+		onWordsChanged.run();
 	}
 }
