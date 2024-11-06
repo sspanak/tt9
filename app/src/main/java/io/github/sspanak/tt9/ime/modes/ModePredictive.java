@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
-import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
+import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -21,12 +21,10 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 
-public class ModePredictive extends InputMode {
+public class ModePredictive extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
-
-	public int getId() { return MODE_PREDICTIVE; }
 
 	private String lastAcceptedWord = "";
 
@@ -34,23 +32,21 @@ public class ModePredictive extends InputMode {
 	private boolean isStemFuzzy = false;
 	private String stem = "";
 
-	// async suggestion handling
-	private boolean disablePredictions = false;
 
 	// text analysis tools
 	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
-	private final Predictions predictions;
+	private final WordPredictions predictions;
 	private boolean isCursorDirectionForward = false;
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		super(settings);
+		super(null, settings);
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
 		digitSequence = "";
-		predictions = new Predictions(settings, textField);
+		predictions = new WordPredictions(settings, textField);
 
 		changeLanguage(lang);
 		defaultTextCase();
@@ -94,7 +90,7 @@ public class ModePredictive extends InputMode {
 			digitSequence = String.valueOf(number);
 			suggestions.add(language.getKeyNumber(number));
 		} else {
-			super.reset();
+			basicReset();
 			digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
 			disablePredictions = false;
 
@@ -108,8 +104,12 @@ public class ModePredictive extends InputMode {
 
 
 	@Override
-	public void changeLanguage(@Nullable Language newLanguage) {
-		super.changeLanguage(newLanguage);
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		if (newLanguage != null && newLanguage.isSyllabary()) {
+			return false;
+		}
+
+		super.setLanguage(newLanguage);
 
 		autoSpace.setLanguage(language);
 
@@ -119,6 +119,8 @@ public class ModePredictive extends InputMode {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
+
+		return true;
 	}
 
 
@@ -149,7 +151,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public void reset() {
-		super.reset();
+		basicReset();
 		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
@@ -261,7 +263,7 @@ public class ModePredictive extends InputMode {
 	 * loadSuggestions
 	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used
 	 * for generating suggestions when there are no results.
-	 * See: Predictions.generatePossibleCompletions()
+	 * See: WordPredictions.generatePossibleCompletions()
 	 */
 	@Override
 	public void loadSuggestions(String currentWord) {
@@ -277,12 +279,12 @@ public class ModePredictive extends InputMode {
 		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
 
 		predictions
-			.setDigitSequence(digitSequence)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
-			.setLanguage(searchLanguage)
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setWordsChangedHandler(this::onPredictions)
+			.setDigitSequence(digitSequence)
+			.setLanguage(searchLanguage)
 			.load();
 	}
 
@@ -328,7 +330,7 @@ public class ModePredictive extends InputMode {
 
 	/**
 	 * onPredictions
-	 * Gets the currently available Predictions and sends them over to the external caller.
+	 * Gets the currently available WordPredictions and sends them over to the external caller.
 	 */
 	private void onPredictions() {
 		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group

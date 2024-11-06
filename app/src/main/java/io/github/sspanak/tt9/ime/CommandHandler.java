@@ -142,14 +142,14 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
+			mInputMode = !mInputMode.is123() ? InputMode.getInstance(this, settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
 		} else {
 			suggestionOps.cancelDelayedAccept();
 			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			resetKeyRepeat();
 
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
+			mInputMode = InputMode.getInstance(this, settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
 			determineTextCase();
 		}
 

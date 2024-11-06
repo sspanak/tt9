@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
@@ -263,7 +264,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		nextLang();
-		mInputMode.changeLanguage(mLanguage);
+		if (!mInputMode.changeLanguage(mLanguage)) {
+			mInputMode = InputMode.getInstance(this, settings, mLanguage, inputType, textField, mInputMode.getId());
+		}
 		mInputMode.clearWordStem();
 		getSuggestions();
 

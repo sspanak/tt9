@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -45,10 +48,10 @@ abstract public class InputMode {
 	}
 
 
-	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
+	public static InputMode getInstance(Context context, SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive(settings, inputType, textField, language);
+				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(context, settings) : new ModePredictive(settings, inputType, textField, language));
 			case MODE_ABC:
 				return new ModeABC(settings, inputType, language);
 			case MODE_PASSTHROUGH:
@@ -105,9 +108,23 @@ abstract public class InputMode {
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
 	}
-	public void changeLanguage(@Nullable Language newLanguage) {
+
+	/**
+	 * Switches to a new language if the input mode supports it. If the InputMode return "false",
+	 * it does not support that language, so you must obtain a compatible alternative using the
+	 * getInstance() method and the same ID.
+	 * The default implementation is to switch to the new language (including NullLanguage) and
+	 * return "true".
+	 */
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		setLanguage(language);
+		return true;
+	}
+
+	protected void setLanguage(@Nullable Language newLanguage) {
 		language = newLanguage != null ? newLanguage : new NullLanguage();
 	}
+
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }

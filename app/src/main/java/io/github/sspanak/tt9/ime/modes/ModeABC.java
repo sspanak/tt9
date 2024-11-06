@@ -86,7 +86,7 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
-	public void changeLanguage(@Nullable Language newLanguage) {
+	public boolean changeLanguage(@Nullable Language newLanguage) {
 		super.changeLanguage(newLanguage);
 
 		allowedTextCases.clear();
@@ -97,6 +97,8 @@ public class ModeABC extends InputMode {
 
 		refreshSuggestions();
 		shouldSelectNextLetter = true; // do not accept any previous suggestions after loading the new ones
+
+		return true;
 	}
 
 	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }

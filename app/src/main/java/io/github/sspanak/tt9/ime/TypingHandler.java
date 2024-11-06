@@ -35,7 +35,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	// input
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	@NonNull
-	protected InputMode mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
+	protected InputMode mInputMode = InputMode.getInstance(this, null, null, null, null, InputMode.MODE_PASSTHROUGH);
 
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
@@ -102,7 +102,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	protected void onFinishTyping() {
 		suggestionOps.cancelDelayedAccept();
-		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
+		mInputMode = InputMode.getInstance(this, null, null, null, null, InputMode.MODE_PASSTHROUGH);
 		setInputField(null, null);
 	}
 
@@ -297,7 +297,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Same as determineInputModeId(), but returns an actual InputMode.
 	 */
 	protected InputMode determineInputMode() {
-		return InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+		return InputMode.getInstance(this, settings, mLanguage, inputType, textField, determineInputModeId());
 	}
 
 
