@@ -25,7 +25,6 @@ public class ModeCheonjiin extends InputMode {
 		predictions
 			.setOnlyExactMatches(true)
 			.setMinWords(1)
-			.setMaxWords(2)
 			.setWordsChangedHandler(this::onPredictions);
 	}
 
