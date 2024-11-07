@@ -24,8 +24,8 @@ public class ModeCheonjiin extends InputMode {
 		predictions = new SyllablePredictions(settings);
 		predictions
 			.setOnlyExactMatches(true)
-			.setMinWords(0)
-			.setMaxWords(1)
+			.setMinWords(1)
+			.setMaxWords(2)
 			.setWordsChangedHandler(this::onPredictions);
 	}
 
