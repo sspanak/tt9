@@ -34,10 +34,9 @@ public class ModeCheonjiin extends InputMode {
 	public boolean onBackspace() {
 		if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
-			return true;
 		}
 
-		return false;
+		return !digitSequence.isEmpty();
 	}
 
 
@@ -178,6 +177,12 @@ public class ModeCheonjiin extends InputMode {
 		reset();
 	}
 
+
+	@Override
+	protected boolean nextSpecialCharacters() {
+		// @todo: This messes up the character order. Sort it out without breaking the descendants.
+		return super.nextSpecialCharacters();
+	}
 
 	@Override
 	public int getId() {
