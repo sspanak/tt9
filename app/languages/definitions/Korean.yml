@@ -15,7 +15,6 @@ layout: # only used for the virtual key labels
   - [ㅈ,ㅊ,ㅉ] # 9
 sounds:
   ########## initial consonants ##########
-  - [Z,0] # zero initial consonant, "ㅇ"
   - [G,4]
   - [K,44]
   - [Gg,444]
@@ -33,6 +32,7 @@ sounds:
   - [J,9]
   - [C,99] # also transcribed as "Ch"
   - [Jj,999]
+  - [Z,0] # "ㅇ" when zero initial consonant
   - [Ng,0]
   - [M,00]
   ########## vowels ##########
@@ -41,6 +41,8 @@ sounds:
   - [Ae,121]
   - [Ya,122]
   - [Yae,1221]
+  - [Q,2] # "Q" is just some random unique identifier
+  - [Qq, 22]
   - [Eo,21]
   - [E,211]
   - [Yeo,221]

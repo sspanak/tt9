@@ -178,7 +178,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
 			return false;
 		}
 
@@ -238,7 +238,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyScrollSuggestion(boolean validateOnly, boolean backward) {
-		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
+		if (suggestionOps.isEmpty()) {
 			return false;
 		}
 

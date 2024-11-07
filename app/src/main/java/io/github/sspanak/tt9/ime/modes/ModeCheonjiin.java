@@ -59,19 +59,42 @@ public class ModeCheonjiin extends InputMode {
 
 
 	protected void onNumberHold(int number) {
+		suggestions.add(String.valueOf(number));
+
 		if (number > 1) {
 			autoAcceptTimeout = 0;
+		} else {
+			for (String ch : language.getKeyCharacters(number)) {
+				if (!Character.isAlphabetic(ch.codePointAt(0))) {
+					suggestions.add(ch);
+				}
+			}
 		}
 
-		// @todo: get the layout chars when digitSequence.length == 1
-		// @todo: on 0 and 1, add the special chars.
 		// @todo: figure out a way of typing emojis.
-		suggestions.add(String.valueOf(number));
 	}
 
 
 	protected void onNumberPress(int number) {
-		digitSequence += String.valueOf(number);
+		if (onSameNumbersRewind(number)) {
+			digitSequence = String.valueOf(number);
+		} else {
+			digitSequence += String.valueOf(number);
+		}
+	}
+
+
+	private boolean onSameNumbersRewind(int number) {
+		int nextChar = number + '0';
+
+		if (
+			(digitSequence.length() == 2 && digitSequence.codePointAt(0) == nextChar) ||
+			(digitSequence.length() == 3 && digitSequence.codePointAt(1) == nextChar && digitSequence.codePointAt(2) == nextChar)
+		) {
+			return language.getKeyCharacters(number).size() < digitSequence.length() + 1;
+		}
+
+		return false;
 	}
 
 

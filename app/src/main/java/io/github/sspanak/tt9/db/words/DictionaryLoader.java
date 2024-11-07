@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -240,7 +241,7 @@ public class DictionaryLoader {
 		}
 
 		int lettersCount = 0;
-		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
+		boolean isEnglish = LanguageKind.isEnglish(language);
 		WordBatch letters = new WordBatch(language);
 
 		for (int key = 2; key <= 9; key++) {
