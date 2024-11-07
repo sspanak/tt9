@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -12,9 +13,13 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 abstract public class Predictions {
 	protected final SettingsStore settings;
 
-	@NonNull protected String digitSequence;
-	@NonNull protected Language language;
-	@NonNull protected String stem;
+	// settings
+	@NonNull protected String digitSequence = "";
+	@NonNull protected Language language = new NullLanguage();
+	protected int minWords = SettingsStore.SUGGESTIONS_MIN;
+	protected int maxWords = SettingsStore.SUGGESTIONS_MAX;
+	protected boolean onlyExactMatches = false;
+	@NonNull protected String stem = "";
 
 	// async operations
 	protected Runnable onWordsChanged = () -> {};
@@ -25,10 +30,12 @@ abstract public class Predictions {
 	@NonNull protected ArrayList<String> words = new ArrayList<>();
 
 	public Predictions(SettingsStore settings) {
-		digitSequence = "";
-		language = new NullLanguage();
 		this.settings = settings;
-		stem = "";
+	}
+
+	public Predictions setDigitSequence(String digitSequence) {
+		this.digitSequence = digitSequence;
+		return this;
 	}
 
 	public Predictions setLanguage(Language language) {
@@ -36,8 +43,18 @@ abstract public class Predictions {
 		return this;
 	}
 
-	public Predictions setDigitSequence(String digitSequence) {
-		this.digitSequence = digitSequence;
+	public Predictions setMinWords(int minWords) {
+		this.minWords = minWords;
+		return this;
+	}
+
+	public Predictions setMaxWords(int maxWords) {
+		this.maxWords = maxWords;
+		return this;
+	}
+
+	public Predictions setOnlyExactMatches(boolean onlyExactMatches) {
+		this.onlyExactMatches = onlyExactMatches;
 		return this;
 	}
 
@@ -74,9 +91,9 @@ abstract public class Predictions {
 			(dbWords) -> onDbWords(dbWords, isRetryAllowed()),
 			language,
 			digitSequence,
-			stem,
-			SettingsStore.SUGGESTIONS_MIN,
-			SettingsStore.SUGGESTIONS_MAX
+			onlyExactMatches ? WordStore.FILTER_EXACT_MATCHES_ONLY : stem,
+			minWords,
+			maxWords
 		);
 	}
 

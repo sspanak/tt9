@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ModeCheonjiin extends InputMode {
-	// async suggestion handling
 	protected boolean disablePredictions = false;
 	private final SyllablePredictions predictions;
 
@@ -23,7 +22,11 @@ public class ModeCheonjiin extends InputMode {
 		allowedTextCases.add(CASE_LOWER);
 
 		predictions = new SyllablePredictions(settings);
-		predictions.setWordsChangedHandler(this::onPredictions);
+		predictions
+			.setOnlyExactMatches(true)
+			.setMinWords(0)
+			.setMaxWords(1)
+			.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -60,6 +63,7 @@ public class ModeCheonjiin extends InputMode {
 			autoAcceptTimeout = 0;
 		}
 
+		// @todo: get the layout chars when digitSequence.length == 1
 		// @todo: on 0 and 1, add the special chars.
 		// @todo: figure out a way of typing emojis.
 		suggestions.add(String.valueOf(number));
@@ -97,7 +101,6 @@ public class ModeCheonjiin extends InputMode {
 			return;
 		}
 
-		// @todo: search only for exact matches
 		predictions
 			.setDigitSequence(digitSequence)
 			.setLanguage(language)
