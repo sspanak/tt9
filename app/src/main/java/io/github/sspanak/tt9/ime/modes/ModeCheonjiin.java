@@ -97,7 +97,6 @@ public class ModeCheonjiin extends InputMode {
 			return;
 		}
 
-		// @todo: it is not possible to search for sequences that start with "0", because ReadOps.getFactoryWordPositionsQuery() treats them as integers.
 		// @todo: search only for exact matches
 		predictions
 			.setDigitSequence(digitSequence)
