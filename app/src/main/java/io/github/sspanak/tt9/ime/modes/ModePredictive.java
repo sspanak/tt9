@@ -89,7 +89,7 @@ public class ModePredictive extends ModeCheonjiin {
 	protected void onNumberHold(int number) {
 		super.onNumberHold(number);
 		autoAcceptTimeout = 0;
-		suggestions.add(language.getKeyNumber(number));
+		suggestions.add(language.getKeyNumber(number)); // @todo: this is inconvenient, figure out another way
 	}
 
 

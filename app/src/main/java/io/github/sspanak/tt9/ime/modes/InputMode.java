@@ -133,8 +133,11 @@ abstract public class InputMode {
 	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }
 	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
+	public boolean shouldReplaceLastLetter(int nextKey) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
+
 	public boolean recompose(String word) { return false; }
+	public void replaceLastLetter() {}
 
 	public void reset() {
 		autoAcceptTimeout = -1;

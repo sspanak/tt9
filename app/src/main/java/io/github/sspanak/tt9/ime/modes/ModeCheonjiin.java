@@ -5,15 +5,20 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.ime.modes.helpers.Cheonjiin;
 import io.github.sspanak.tt9.ime.modes.predictions.SyllablePredictions;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 
 public class ModeCheonjiin extends InputMode {
+	private final static String LOG_TAG = ModeCheonjiin.class.getSimpleName();
+
 	protected boolean disablePredictions = false;
 	private final SyllablePredictions predictions;
+	@NonNull private String previousJamoSequence = "";
 
 
 	protected ModeCheonjiin(Context context, SettingsStore settings) {
@@ -106,6 +111,7 @@ public class ModeCheonjiin extends InputMode {
 	public void reset() {
 		basicReset();
 		digitSequence = "";
+		previousJamoSequence = "";
 		disablePredictions = false;
 	}
 
@@ -122,8 +128,11 @@ public class ModeCheonjiin extends InputMode {
 			return;
 		}
 
+		String seq = previousJamoSequence.isEmpty() ? digitSequence : previousJamoSequence;
+//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
+
 		predictions
-			.setDigitSequence(digitSequence)
+			.setDigitSequence(seq)
 			.setLanguage(language)
 			.load();
 	}
@@ -134,10 +143,25 @@ public class ModeCheonjiin extends InputMode {
 	 * Gets the currently available WordPredictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
+//		Logger.d(LOG_TAG, "=========> Predictions for: " + digitSequence + " -> " + predictions.getList());
+
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
 
 		onSuggestionsUpdated.run();
+	}
+
+
+	private void onReplacementPredictions() {
+//		Logger.d(LOG_TAG, "=========> Predictions for: " + digitSequence + " -> " + predictions.getList());
+
+		autoAcceptTimeout = 0;
+		onPredictions();
+		predictions.setWordsChangedHandler(this::onPredictions);
+
+		autoAcceptTimeout = -1;
+		loadSuggestions(null);
+//		Logger.d(LOG_TAG, "=========> Restoring digit sequence: " + digitSequence);
 	}
 
 
@@ -147,17 +171,41 @@ public class ModeCheonjiin extends InputMode {
 	}
 
 
+	@Override
+	public void replaceLastLetter() {
+		previousJamoSequence = Cheonjiin.stripEndingConsonantDigits(digitSequence);
+		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
+			previousJamoSequence = "";
+			Logger.w(LOG_TAG, "Cannot strip ending consonant digits from: " + digitSequence + ". Preserving the original sequence and suggestions.");
+			return;
+		}
+
+		digitSequence = digitSequence.substring(previousJamoSequence.length());
+
+//		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousCharSequence + " || digitSequence: " + digitSequence);
+
+		predictions.setWordsChangedHandler(this::onReplacementPredictions);
+	}
+
+
+	@Override
+	public boolean shouldReplaceLastLetter(int nextKey) {
+		boolean yes = Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+//		if (yes) {
+//			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
+//		}
+
+		return yes;
+	}
+
+
 	/**
 	 * shouldAcceptPreviousSuggestion
 	 * Used for analysis before processing the incoming pressed key.
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		// @todo: nextKey is a vowel key:
-		// 1. cut the current word up to the last vowel digit and accept it.
-		// 2. use the last consonant digits of the previous word (if any) as the start of a new character.
-
-		return !digitSequence.isEmpty() && (hold || predictions.noDbWords());
+		return !digitSequence.isEmpty() && hold;
 	}
 
 
@@ -167,13 +215,28 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
-		return false;
+		return !digitSequence.isEmpty() && predictions.noDbWords();
 	}
 
 
 	@Override
-	public void onAcceptSuggestion(@NonNull String word) {
+	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {
+		String digitSequenceStash = "";
+
+		boolean mustReload = false;
+		if (predictions.noDbWords() && digitSequence.length() >= 2) {
+			digitSequenceStash = digitSequence.substring(digitSequence.length() - 1);
+			mustReload = true;
+		} else if (!previousJamoSequence.isEmpty()) {
+			digitSequenceStash = digitSequence;
+		}
+
 		reset();
+
+		digitSequence = digitSequenceStash;
+		if (mustReload) {
+			loadSuggestions(null);
+		}
 	}
 
 
@@ -182,6 +245,7 @@ public class ModeCheonjiin extends InputMode {
 		// @todo: This messes up the character order. Sort it out without breaking the descendants.
 		return super.nextSpecialCharacters();
 	}
+
 
 	@Override
 	public int getId() {
