@@ -256,7 +256,7 @@ To delete everything, regardless of the selection, use "Delete All".
 In all cases, your custom-added words will be preserved and restored once you reload the respective dictionary.
 
 #### Added Words
-The "Export" option allows you to export all added words, for all languages, including any added emoji, to a CSV file. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/issues). After being reviewed and approved, they will be included in the next version.
+The "Export" option allows you to export all added words, for all languages, including any added emoji, to a CSV file. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
 
 With "Import", you can import a previously exported CSV. However, there are some restrictions:
 - You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.
@@ -273,7 +273,6 @@ For several applications or devices, it is possible to enable special options, w
 _In: Settings → Appearance._
 
 On some devices, in Predictive Mode, you may not be able may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
-
 
 #### Always on top
 _In: Settings → Appearance._

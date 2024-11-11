@@ -24,7 +24,7 @@ static getStyles() {
         "a {color: #225682}" +
         "a:visited {color: #644280}" +
         "li {margin: 4px 0; padding: 1px;}" +
-        "p {text-align: justify;}" +
+        "p {text-align: left;}" +
         "p.wrap{word-wrap: break-word;}" +
         ".toc {border: 1px solid; display: inline-block; padding: 12px 20px 12px 0; margin: 12px 0;}" +
         ".toc > h3 {text-align: center; margin: 0;}" +
