@@ -255,7 +255,7 @@ Para eliminar todo, independientemente de la selección, utiliza "Eliminar todo"
 En todos los casos, tus palabras agregadas de forma personalizada se preservarán y se restaurarán una vez que recargues el diccionario respectivo.
 
 #### Palabras añadidas
-La opción "Exportar" te permite exportar todas las palabras añadidas, para todos los idiomas, incluidos los emoji añadidos, a un archivo CSV. Luego, puedes usar el archivo CSV para mejorar Traditional T9. Ve a GitHub y comparte las palabras en un [nuevo issue](https://github.com/sspanak/tt9/issues) o [pull request](https://github.com/sspanak/tt9/issues). Después de ser revisadas y aprobadas, se incluirán en la próxima versión.
+La opción "Exportar" te permite exportar todas las palabras añadidas, para todos los idiomas, incluidos los emoji añadidos, a un archivo CSV. Luego, puedes usar el archivo CSV para mejorar Traditional T9. Ve a GitHub y comparte las palabras en un [nuevo issue](https://github.com/sspanak/tt9/issues) o [pull request](https://github.com/sspanak/tt9/pulls). Después de ser revisadas y aprobadas, se incluirán en la próxima versión.
 
 Con "Importar", puedes importar un CSV exportado previamente. Sin embargo, hay algunas restricciones:
 - Solo puedes importar palabras que consistan en letras. No se permiten apóstrofes, guiones, otras puntuaciones o caracteres especiales.
