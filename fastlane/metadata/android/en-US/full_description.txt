@@ -10,3 +10,6 @@ Philosophy and Privacy Policy:
 - Open-source, so you can verify all the above yourself.
 - Created with help from the entire community.
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds or other customizations. "It can be any color you like, as long as it is black."
+- Not intended as a clone of Sony Ericsson, Nokia C2, Samsung, Touchpal, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly. 
+
+Thank you for understanding, and enjoy TT9!

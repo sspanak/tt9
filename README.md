@@ -26,7 +26,7 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 ![](docs/badges/80-height.png)[<img src="docs/badges/github.png" alt="Download from GitHub" height="59">](https://github.com/sspanak/tt9/releases/latest)
 ![](docs/badges/80-height.png)
 
-_If your phone does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
+_If your phone does not have Google Play and it does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
@@ -55,7 +55,7 @@ Compatibility has been verified only on the following devices:
 ## 🤔 How to Use Traditional T9?
 Before using Traditional T9 for the first time you need to configure it and load a dictionary. After that, you can start typing right away in one of the three modes: Predictive, ABC, or Numeric (123). And even if you have mastered the keypad back in the day, you will still find the Predictive mode now offers more powerful and smart new ways of typing with even fewer key presses.
 
-So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/user-manual.md#compatibility-options--troubleshooting) aimed to improve the experience in some applications.
+So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/help/help.en.md#compatibility-options--troubleshooting) aimed to improve the experience in some applications.
 
 ## ⌨ Contributing
 As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is how:
@@ -79,6 +79,10 @@ You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak
 - Open-source, so you can verify all the above yourself.
 - Created with help from the entire community.
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds or other customizations. "It can be any color you like, as long as it is black."
+- Not intended as a clone of Sony Ericsson, Nokia C2, Samsung, Touchpal, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly.
+
+Thank you for understanding, and enjoy TT9!
+
 
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
