@@ -116,7 +116,6 @@
 	<string name="dictionary_update_update">Carica</string>
 	<string name="donate_title">Donare</string>
 	<string name="donate_summary">Se ti piace %1$s, puoi offrirmi una birra a: %2$s.</string>
-	<string name="pref_hack_fb_messenger">Inviare con \"OK\" su Facebook Messenger</string>
 	<string name="pref_double_zero_char">Simbolo quando si preme due volte il tasto \"0\"</string>
 	<string name="pref_hack_always_on_top">Sempre in primo piano</string>
 	<string name="pref_hack_always_on_top_summary">Non consentire ad altre applicazioni di coprire %1$s o di spingerlo fuori dallo schermo.</string>

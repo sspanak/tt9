@@ -12,14 +12,4 @@
 	<Preference
 			app:key="global_spellchecker"
 			app:title="@string/setup_spell_checker" />
-
-	<PreferenceCategory app:title="@string/pref_category_hacks">
-
-		<SwitchPreferenceCompat
-			app:defaultValue="false"
-			app:enabled="false"
-			app:key="pref_hack_fb_messenger"
-			app:title="@string/pref_hack_fb_messenger"/>
-
-	</PreferenceCategory>
 </PreferenceScreen>

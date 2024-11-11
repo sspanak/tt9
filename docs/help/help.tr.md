@@ -63,7 +63,7 @@ Uygulanan öneri filtresini temizleyin.
 
 _**Not:** Her uygulama, OK tuşuna basıldığında ne yapılacağını kendisi belirler ve TT9'un üzerinde kontrolü yoktur._
 
-_**Not 2:** Mesajlaşma uygulamalarında, OK ile mesaj göndermek için "ENTER ile Gönder" gibi bir ayarı etkinleştirmeniz gereklidir. Uygulamanın böyle bir ayarı yoksa, genellikle bu, bu şekilde mesaj göndermeyi engellediği anlamına gelir._
+_**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulamanın "ENTER ile Gönder" veya benzer isimli ayarını etkinleştirmeniz gerekir. Uygulamada böyle bir ayar yoksa, muhtemelen bu şekilde mesaj göndermeyi desteklemiyordur. Bu durumda, [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) veya [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/) üzerinden KeyMapper uygulamasını kullanın. KeyMapper, sohbet uygulamalarını algılayabilir ve bir donanım tuşuna basıldığında veya basılı tutulduğunda mesaj gönderme butonuna dokunmayı simüle edebilir. Daha fazla bilgi için [hızlı başlangıç kılavuzuna](https://docs.keymapper.club/quick-start/) göz atın._
 
 #### 0-tușu:
 - **123 modunda:**
@@ -288,11 +288,6 @@ CAT telefonlar için önerilen ayar 50-75 ms’dir. Qin F21 için 20-30 ms ile b
 _**Not:** Değer ne kadar yüksek olursa, yazmanız o kadar yavaş olur. TT9 çok hızlı tuş basışlarını görmezden gelecektir._
 
 _**Not 2:** Yukarıdakilere ek olarak, Qin telefonları bazen uzun basışları algılayamayabilir. Bu durumda maalesef yapılabilecek bir şey yoktur._
-
-#### Facebook Messenger'da OK ile mesaj gönderme
-_Ayarlar → Başlangıç Kurulumu altında._
-
-Haziran 2024 güncellemesinden bu yana Messenger'da OK ile gönderme mümkün değildir. Son uygulama tasarımı, tüm klavyeler için Gönder düğmesini ulaşılmaz hale getirdi. Teknik bilginiz varsa ve bu özelliği nasıl yeniden etkinleştirebileceğiniz hakkında bir fikriniz varsa, lütfen [bu GitHub sorununda](https://github.com/sspanak/tt9/issues/558) yazın.
 
 #### Telegram/Snapchat sticker ve emoji panelleri açılmıyor
 Bu, küçük boyutlu düzenlerden birini kullanıyorsanız gerçekleşir. Şu an için kalıcı bir çözüm yok, ancak şu geçici çözümü kullanabilirsiniz:

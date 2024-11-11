@@ -114,7 +114,6 @@
 	<string name="dictionary_update_update">Yükle</string>
 	<string name="donate_title">Destekte bulun</string>
 	<string name="donate_summary">Eğer %1$s hoşuna gittiyse, bana şu adresten bir bira ısmarlayabilirsin: %2$s.</string>
-	<string name="pref_hack_fb_messenger">Facebook Messenger konuşmalarında mesaj göndermek için \"OK\" tuşunu kullan.</string>
 	<string name="pref_double_zero_char">"0" tuşuna iki kere basıldığında yazılacak karakter</string>
 	<string name="pref_hack_always_on_top">Her zaman en üstte tut</string>
 	<string name="pref_hack_always_on_top_summary">Diğer uygulamaların %1$s ekranını kaplamasına veya ekranın dışına itmesine izin vermeyin.</string>

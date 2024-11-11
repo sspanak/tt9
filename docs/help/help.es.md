@@ -63,7 +63,7 @@ Borrar el filtro de sugerencias, si está aplicado.
 
 _**Nota:** Cada aplicación decide por sí misma qué hacer cuando se presiona OK y TT9 no tiene control sobre esto._
 
-_**Nota 2:** En aplicaciones de mensajería, debe habilitar su configuración de "Enviar con ENTER" o una similar para enviar mensajes con OK. Si la aplicación no tiene tal configuración, generalmente significa que no permite enviar mensajes de esta manera._
+_**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes habilitar la opción "Enviar con ENTER" o una opción con un nombre similar. Si la aplicación no tiene esta opción, probablemente no sea compatible con el envío de mensajes de esta forma. En este caso, usa la aplicación KeyMapper desde [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) o desde [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). KeyMapper puede detectar aplicaciones de chat y simular un toque en el botón de enviar mensaje al presionar o mantener una tecla de hardware. Consulta la [guía de inicio rápido](https://docs.keymapper.club/quick-start/) para más información._
 
 #### Tecla 0:
 - **En modo 123:**
@@ -288,11 +288,6 @@ Para los teléfonos CAT, la configuración recomendada es de 50-75 ms. Para el Q
 _**Nota:** Cuanto mayor sea el valor que configures, más lento tendrás que escribir. TT9 ignorará las pulsaciones de teclas muy rápidas._
 
 _**Nota 2:** Además de lo anterior, los teléfonos Qin también pueden fallar al detectar pulsaciones largas. Desafortunadamente, en este caso, no se puede hacer nada._
-
-#### Enviar mensajes con OK en Facebook Messenger
-_En: Configuración → Configuración Inicial._
-
-Enviar con OK en Messenger ya no es posible desde la actualización de junio de 2024. El rediseño reciente de la aplicación hizo que el botón de Enviar fuera inalcanzable para todos los teclados. Si tienes conocimientos técnicos y una idea de cómo volver a habilitar esta función, por favor escribe en [este issue de GitHub](https://github.com/sspanak/tt9/issues/558).
 
 #### Los paneles de stickers y emoji de Telegram/Snapchat no se abren
 Esto ocurre si estás utilizando uno de los diseños de tamaño pequeño. Actualmente, no hay una solución permanente, pero puedes utilizar el siguiente método alternativo:

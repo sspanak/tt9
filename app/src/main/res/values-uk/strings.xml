@@ -53,7 +53,6 @@
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
 	<string name="pref_hack_always_on_top">Поверх інших програм</string>
 	<string name="pref_hack_always_on_top_summary">Не дозволяти іншим програмам перекривати %1$s або змушувати його зникати з екрану.</string>
-	<string name="pref_hack_fb_messenger">Відправляти повідомлення по натиску \"OK\" в Messenger</string>
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
 	<string name="pref_layout_numpad">Цифрова клавіатура</string>
