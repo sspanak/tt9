@@ -63,7 +63,7 @@ Clear the suggestion filter, if applied.
 
 _**Note:** Every application decides on its own what to do when OK is pressed and TT9 has no control over this._
 
-_**Note 2:** In messaging applications, you need to enable their "Send with ENTER" or similarly named setting, to send messages with OK. If the application has no such setting, it usually means it disallows sending messages this way._
+_**Note 2:** To send messages with OK in messaging applications, you must enable their "Send with ENTER" or similarly named setting. If the application has no such setting, it probably does not support sending messages this way. If so, use the KeyMapper app from the [Play Store](https://play.google.com/store/apps/details?id=io.github.sds100.keymapper) or from [F-droid](https://f-droid.org/packages/io.github.sds100.keymapper/). It can detect chat apps and simulate a touch on the send message button upon pressing or holding a hardware key. Check out the [quick-start guide](https://docs.keymapper.club/quick-start/) for more info._
 
 #### 0-key:
 - **In 123 mode:**
@@ -290,11 +290,6 @@ For CAT phones the recommended setting is 50-75 ms. For Qin F21, try with 20-30 
 _**Note:** The higher the value you set, the slower you will have to type. TT9 will ignore very quick key presses._
 
 _**Note 2:** Besides the above, Qin phones may also fail to detect long presses. Unfortunately, in this case, nothing can be done._
-
-#### Send messages with OK in Facebook Messenger
-_In: Settings → Initial Setup._
-
-Sending with OK in Messenger has been no longer possible since the June 2024 update. The recent app redesign caused the Send button to become unreachable for all keyboards. If you have technical knowledge and an idea of how to re-enable this feature, please write in [this GitHub issue](https://github.com/sspanak/tt9/issues/558).
 
 #### Telegram/Snapchat stickers and emoji panels won't open
 This happens if you are using one of the small-sized layouts. Currently, there is no permanent fix, but you can use the following workaround:
