@@ -7,14 +7,13 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 ## 📷 Screenshots
 <table>
     <tr>
-        <td rowspan="2"> <img src="screenshots/3.png"> </td>
         <td> <img src="screenshots/1.png"> </td>
-        <td> <img src="screenshots/5.png"> </td>
+        <td rowspan="2"> <img src="screenshots/3.png"> </td>
         <td rowspan="2"> <img src="screenshots/4.png"> </td>
+        <td rowspan="2"> <img src="screenshots/5.png"> </td>
     </tr>
     <tr>
         <td> <img src="screenshots/2.png"> </td>
-        <td> <img src="screenshots/6.png"> </td>
     </tr>
 </table>
 
