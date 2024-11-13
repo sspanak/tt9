@@ -19,15 +19,30 @@ public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
 
+	private final int DEFAULT_LAYOUT;
+	private final boolean DEFAULT_STATUS_ICON;
 
-	SettingsUI(Context context) { super(context); }
+
+	SettingsUI(Context context) {
+		super(context);
+
+		if (DeviceInfo.noKeyboard(context)) {
+			DEFAULT_LAYOUT = LAYOUT_NUMPAD;
+		} else if (DeviceInfo.noBackspaceKey(context) && !DeviceInfo.noTouchScreen(context)) {
+			DEFAULT_LAYOUT = LAYOUT_SMALL;
+		} else {
+			DEFAULT_LAYOUT = LAYOUT_TRAY;
+		}
+
+		DEFAULT_STATUS_ICON = DeviceInfo.isQinF21();
+	}
 
 	public boolean getAddWordsNoConfirmation() {
 		return prefs.getBoolean("add_word_no_confirmation", false);
 	}
 
 	public boolean isStatusIconEnabled() {
-		return prefs.getBoolean("pref_status_icon", DeviceInfo.isQinF21());
+		return prefs.getBoolean("pref_status_icon", DEFAULT_STATUS_ICON);
 	}
 
 	public boolean getDarkTheme() {
@@ -84,14 +99,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getMainViewLayout() {
-		int defaultLayout = LAYOUT_SMALL;
-		if (DeviceInfo.noTouchScreen(context)) {
-			defaultLayout = LAYOUT_TRAY;
-		} else if (DeviceInfo.noKeyboard(context)) {
-			defaultLayout = LAYOUT_NUMPAD;
-		}
-
-		return getStringifiedInt("pref_layout_type", defaultLayout);
+		return getStringifiedInt("pref_layout_type", DEFAULT_LAYOUT);
 	}
 
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }

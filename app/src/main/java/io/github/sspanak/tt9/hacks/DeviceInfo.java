@@ -18,6 +18,10 @@ public class DeviceInfo {
 		return context.getResources().getDisplayMetrics().heightPixels;
 	}
 
+	public static boolean noBackspaceKey(Context context) {
+		return !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR);
+	}
+
 	public static boolean noKeyboard(Context context) {
 		// all Xiaomi phones are only touchscreen, but some of them report they have a keyboard
 		// See: https://github.com/sspanak/tt9/issues/549
