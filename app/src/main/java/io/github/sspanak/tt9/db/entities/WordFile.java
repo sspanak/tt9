@@ -18,14 +18,13 @@ import java.util.zip.ZipInputStream;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.AssetFile;
 import io.github.sspanak.tt9.util.Logger;
 
-public class WordFile {
+public class WordFile extends AssetFile {
 	private static final String LOG_TAG = WordFile.class.getSimpleName();
 
-	private final AssetManager assets;
 	private final Context context;
-	private final String path;
 
 	private int lastCharCode;
 	private BufferedReader reader;
@@ -38,9 +37,8 @@ public class WordFile {
 
 
 	public WordFile(Context context, String path, AssetManager assets) {
-		this.assets = assets;
+		super(assets, path);
 		this.context = context;
-		this.path = path;
 
 		lastCharCode = 0;
 		reader = null;
@@ -64,16 +62,6 @@ public class WordFile {
 	}
 
 
-	public boolean exists() {
-		try {
-			assets.open(path).close();
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
-	}
-
-
 	public InputStream getRemoteStream() throws IOException {
 		URLConnection connection = new URL(getDownloadUrl()).openConnection();
 		connection.setConnectTimeout(SettingsStore.DICTIONARY_DOWNLOAD_CONNECTION_TIMEOUT);
@@ -87,7 +75,7 @@ public class WordFile {
 			return reader;
 		}
 
-		InputStream stream = exists() ? assets.open(path) : getRemoteStream();
+		InputStream stream = exists() ? getStream() : getRemoteStream();
 		ZipInputStream zipStream = new ZipInputStream(stream);
 		ZipEntry entry = zipStream.getNextEntry();
 		if (entry == null) {

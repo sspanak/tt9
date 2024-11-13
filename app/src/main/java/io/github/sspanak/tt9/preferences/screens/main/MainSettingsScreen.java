@@ -4,9 +4,9 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.HelpFile;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.util.SystemSettings;
@@ -53,7 +53,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		}
 
 		String systemLanguage = SystemSettings.getLocale().replaceAll("_\\w+$", "");
-		help.setSummary(Set.of("de", "en", "es", "it", "ru", "tr").contains(systemLanguage) ? "" : "English only");
+		help.setSummary(new HelpFile(activity, systemLanguage).exists() ? "" : "English only");
 	}
 
 
