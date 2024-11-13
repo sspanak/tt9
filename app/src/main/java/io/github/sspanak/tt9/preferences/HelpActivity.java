@@ -1,12 +1,7 @@
 package io.github.sspanak.tt9.preferences;
 
-import android.content.res.AssetManager;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 
 import io.github.sspanak.tt9.ui.WebViewActivity;
 import io.github.sspanak.tt9.util.Logger;
@@ -21,8 +16,7 @@ public class HelpActivity extends WebViewActivity {
 	@Override
 	protected String getText() {
 		try {
-			InputStream stream = getHelpFileStream();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
+			BufferedReader reader = getHelpFileReader();
 			StringBuilder builder = new StringBuilder();
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -35,14 +29,10 @@ public class HelpActivity extends WebViewActivity {
 		}
 	}
 
-	private InputStream getHelpFileStream() throws IOException {
-		AssetManager assets = getAssets();
+	private BufferedReader getHelpFileReader() throws IOException {
 		String systemLanguage = SystemSettings.getLocale().replaceFirst("_\\w+$", "");
-
-		try {
-			return assets.open("help/help." + systemLanguage + ".html");
-		} catch (IOException ignored) {
-			return assets.open("help/help.en.html");
-		}
+		HelpFile file = new HelpFile(this, systemLanguage);
+		file = file.exists() ? file : new HelpFile(this);
+		return file.getReader();
 	}
 }
