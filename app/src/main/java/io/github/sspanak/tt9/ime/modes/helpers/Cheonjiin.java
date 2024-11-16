@@ -15,6 +15,11 @@ public class Cheonjiin {
 		return digit == 1 || digit == 2 || digit == 3;
 	}
 
+	public static boolean endsWithDashVowel(@NonNull String digitSequence) {
+		int lastDigit = digitSequence.isEmpty() ? -1 : digitSequence.charAt(digitSequence.length() - 1) - '0';
+		return lastDigit == 1 || lastDigit == 3;
+	}
+
 	public static int getRepeatingDigitsAtEnd(@NonNull String digitSequence) {
 		int count = 0;
 		for (int i = digitSequence.length() - 1; i >= 0; i--) {

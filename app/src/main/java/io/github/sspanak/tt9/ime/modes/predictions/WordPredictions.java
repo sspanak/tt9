@@ -110,19 +110,6 @@ public class WordPredictions extends Predictions {
 
 
 	/**
-	 * suggestMissingWords
-	 * Takes a list of words and appends them to the words list, if they are missing.
-	 */
-	private void suggestMissingWords(ArrayList<String> newWords) {
-		for (String newWord : newWords) {
-			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
-				words.add(newWord);
-			}
-		}
-	}
-
-
-	/**
 	 * generateWordVariations
 	 * When there are no matching suggestions after the last key press, generate a list of possible
 	 * ones, so that the user can complete a missing word that is completely different from the ones
@@ -130,7 +117,7 @@ public class WordPredictions extends Predictions {
 	 * For example, if the word is "missin_" and the last pressed key is "4", the results would be:
 	 * | missing | missinh | missini |
 	 */
-	private ArrayList<String> generateWordVariations(String baseWord) {
+	protected ArrayList<String> generateWordVariations(String baseWord) {
 		ArrayList<String> generatedWords = new ArrayList<>();
 
 		// This function is called from async context, so by the time it is executed, the digit sequence

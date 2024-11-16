@@ -29,50 +29,75 @@ abstract public class Predictions {
 	protected boolean containsGeneratedWords = false;
 	@NonNull protected ArrayList<String> words = new ArrayList<>();
 
+
 	public Predictions(SettingsStore settings) {
 		this.settings = settings;
 	}
+
 
 	public Predictions setDigitSequence(String digitSequence) {
 		this.digitSequence = digitSequence;
 		return this;
 	}
 
+
 	public Predictions setLanguage(Language language) {
 		this.language = language;
 		return this;
 	}
+
 
 	public Predictions setMinWords(int minWords) {
 		this.minWords = minWords;
 		return this;
 	}
 
+
 	public Predictions setMaxWords(int maxWords) {
 		this.maxWords = maxWords;
 		return this;
 	}
+
 
 	public Predictions setOnlyExactMatches(boolean onlyExactMatches) {
 		this.onlyExactMatches = onlyExactMatches;
 		return this;
 	}
 
+
 	public void setWordsChangedHandler(Runnable handler) {
 		onWordsChanged = handler;
 	}
+
 
 	public boolean containsGeneratedWords() {
 		return containsGeneratedWords;
 	}
 
+
 	public ArrayList<String> getList() {
 		return words;
 	}
 
+
 	public boolean noDbWords() {
 		return !areThereDbWords;
 	}
+
+
+	/**
+	 * suggestMissingWords
+	 * Takes a list of words and appends them to the words list, if they are missing.
+	 */
+	protected void suggestMissingWords(ArrayList<String> newWords) {
+		for (String newWord : newWords) {
+			if (!words.contains(newWord) && !words.contains(newWord.toLowerCase(language.getLocale()))) {
+				words.add(newWord);
+			}
+		}
+	}
+
+
 
 	/**
 	 * load
@@ -97,7 +122,9 @@ abstract public class Predictions {
 		);
 	}
 
+
 	abstract public void onAccept(String word, String sequence);
 	abstract protected boolean isRetryAllowed();
 	abstract protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed);
+	abstract protected ArrayList<String> generateWordVariations(String baseWord);
 }

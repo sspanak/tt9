@@ -28,8 +28,9 @@ public class ModeCheonjiin extends InputMode {
 
 		predictions = new SyllablePredictions(settings);
 		predictions
+			.setLanguage(language)
 			.setOnlyExactMatches(true)
-			.setMinWords(1)
+			.setMinWords(0)
 			.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -132,11 +133,10 @@ public class ModeCheonjiin extends InputMode {
 		}
 
 		String seq = previousJamoSequence.isEmpty() ? digitSequence : previousJamoSequence;
-//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
+		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
 
 		predictions
 			.setDigitSequence(seq)
-			.setLanguage(language)
 			.load();
 	}
 
@@ -146,7 +146,7 @@ public class ModeCheonjiin extends InputMode {
 	 * Gets the currently available WordPredictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
-//		Logger.d(LOG_TAG, "=========> Predictions for: " + digitSequence + " -> " + predictions.getList());
+		Logger.d(LOG_TAG, "=========> Sending predictions: " + predictions.getList());
 
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
@@ -156,15 +156,14 @@ public class ModeCheonjiin extends InputMode {
 
 
 	private void onReplacementPredictions() {
-//		Logger.d(LOG_TAG, "=========> Predictions for: " + digitSequence + " -> " + predictions.getList());
-
+//		Logger.d(LOG_TAG, "=========> Replacement predictions for: " + digitSequence + " -> " + predictions.getList());
 		autoAcceptTimeout = 0;
 		onPredictions();
 		predictions.setWordsChangedHandler(this::onPredictions);
 
+		Logger.d(LOG_TAG, "========> replacement predictions sent. Loading next. ");
 		autoAcceptTimeout = -1;
 		loadSuggestions(null);
-//		Logger.d(LOG_TAG, "=========> Restoring digit sequence: " + digitSequence);
 	}
 
 
@@ -185,7 +184,7 @@ public class ModeCheonjiin extends InputMode {
 
 		digitSequence = digitSequence.substring(previousJamoSequence.length());
 
-//		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousCharSequence + " || digitSequence: " + digitSequence);
+		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousJamoSequence + " || digitSequence: " + digitSequence);
 
 		predictions.setWordsChangedHandler(this::onReplacementPredictions);
 	}
@@ -194,11 +193,11 @@ public class ModeCheonjiin extends InputMode {
 	@Override
 	public boolean shouldReplaceLastLetter(int nextKey) {
 		boolean yes = Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
-//		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
-//
-//		if (yes) {
-//			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
-//		}
+		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
+
+		if (yes) {
+			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
+		}
 
 		return yes;
 	}
@@ -220,7 +219,7 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
-		return !digitSequence.isEmpty() && predictions.noDbWords();
+		return !digitSequence.isEmpty() && predictions.noDbWords() && Cheonjiin.endsWithDashVowel(digitSequence);
 	}
 
 
