@@ -15,6 +15,18 @@ public class Cheonjiin {
 		return digit == 1 || digit == 2 || digit == 3;
 	}
 
+	public static int getRepeatingDigitsAtEnd(@NonNull String digitSequence) {
+		int count = 0;
+		for (int i = digitSequence.length() - 1; i >= 0; i--) {
+			if (digitSequence.charAt(i) == digitSequence.charAt(digitSequence.length() - 1)) {
+				count++;
+			} else {
+				break;
+			}
+		}
+		return count;
+	}
+
 	public static String stripEndingConsonantDigits(@NonNull String digitSequence) {
 		return digitSequence.replaceAll("[4-9|0]+$", "");
 	}

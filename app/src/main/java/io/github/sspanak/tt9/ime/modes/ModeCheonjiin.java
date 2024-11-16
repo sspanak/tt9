@@ -79,25 +79,28 @@ public class ModeCheonjiin extends InputMode {
 
 
 	protected void onNumberPress(int number) {
-		if (onSameNumbersRewind(number)) {
-			digitSequence = String.valueOf(number);
-		} else {
-			digitSequence += String.valueOf(number);
+		int rewindAmount = shouldRewindRepeatingNumbers(number);
+//		Logger.d(LOG_TAG, "=======> Rewind amount: " + rewindAmount);
+		if (rewindAmount > 0) {
+			digitSequence = digitSequence.substring(0, digitSequence.length() - rewindAmount);
 		}
+
+		digitSequence += String.valueOf(number);
+
+//		Logger.d(LOG_TAG, "=======> digitSequence: " + digitSequence);
 	}
 
 
-	private boolean onSameNumbersRewind(int number) {
-		int nextChar = number + '0';
+	private int shouldRewindRepeatingNumbers(int nextNumber) {
+		final int nextChar = nextNumber + '0';
+		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingDigitsAtEnd(digitSequence) : 0;
+		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
 
-		if (
-			(digitSequence.length() == 2 && digitSequence.codePointAt(0) == nextChar) ||
-			(digitSequence.length() == 3 && digitSequence.codePointAt(1) == nextChar && digitSequence.codePointAt(2) == nextChar)
-		) {
-			return language.getKeyCharacters(number).size() < digitSequence.length() + 1;
+		if (repeatingDigits == 0 || keyCharsCount < 2) {
+			return 0;
 		}
 
-		return false;
+		return keyCharsCount < repeatingDigits + 1 ? repeatingDigits : 0;
 	}
 
 
@@ -191,6 +194,8 @@ public class ModeCheonjiin extends InputMode {
 	@Override
 	public boolean shouldReplaceLastLetter(int nextKey) {
 		boolean yes = Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+//		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
+//
 //		if (yes) {
 //			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
 //		}
