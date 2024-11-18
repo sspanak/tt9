@@ -4,7 +4,7 @@ abcString: 가나다
 hasUpperCase: no
 layout: # only used for the virtual key labels
   - [ㅇ,ㅁ,SPECIAL] # 0
-  - [ㅣ,PUNCTUATION] # 1
+  - [ㅣ,PUNCTUATION_KR] # 1
   - [ㆍ,：] # 2
   - [ㅡ] # 3
   - [ㄱ,ㅋ,ㄲ] # 4

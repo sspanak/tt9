@@ -63,19 +63,21 @@ public class ModeCheonjiin extends InputMode {
 
 
 	protected void onNumberHold(int number) {
-		suggestions.add(String.valueOf(number));
-
 		if (number > 1) {
+			suggestions.add(String.valueOf(number));
 			autoAcceptTimeout = 0;
-		} else {
-			for (String ch : language.getKeyCharacters(number)) {
-				if (!Character.isAlphabetic(ch.codePointAt(0))) {
-					suggestions.add(ch);
-				}
+			return;
+		}
+
+		for (String ch : language.getKeyCharacters(number)) {
+			if (!Character.isAlphabetic(ch.codePointAt(0))) {
+				suggestions.add(ch);
 			}
 		}
 
-		// @todo: figure out a way of typing emojis.
+		if (number == 0) {
+			suggestions.add(String.valueOf(number));
+		}
 	}
 
 
@@ -93,6 +95,8 @@ public class ModeCheonjiin extends InputMode {
 
 
 	private int shouldRewindRepeatingNumbers(int nextNumber) {
+		// @todo: rewind the emoji sequences too
+
 		final int nextChar = nextNumber + '0';
 		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
 		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
@@ -131,6 +135,10 @@ public class ModeCheonjiin extends InputMode {
 			super.loadSuggestions(ignored);
 			return;
 		}
+
+//		if (digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE) && !suggestions.isEmpty() && !Character.isAlphabetic(suggestions.get(0).charAt(0))) {
+			// @todo: load emojis.
+//		}
 
 		String seq = previousJamoSequence.isEmpty() ? digitSequence : previousJamoSequence;
 //		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
@@ -209,7 +217,7 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		return !digitSequence.isEmpty() && hold;
+		return !digitSequence.isEmpty() && hold; // @todo: && contains no vowels and the incoming is a consonant different from the previous consonant.
 	}
 
 
@@ -219,7 +227,10 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
-		return !digitSequence.isEmpty() && predictions.noDbWords() && Cheonjiin.endsWithDashVowel(digitSequence);
+		return
+			!digitSequence.isEmpty()
+			&& !disablePredictions && predictions.noDbWords()
+			&& Cheonjiin.endsWithDashVowel(digitSequence);
 	}
 
 

@@ -79,6 +79,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		final String FRENCH_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_FR";
 		final String GERMAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_DE";
 		final String GREEK_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_GR";
+		final String KOREAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_KR";
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
@@ -100,6 +101,9 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 					break;
 				case GREEK_PUNCTUATION_STYLE:
 					keyChars.addAll(Characters.PunctuationGreek);
+					break;
+				case KOREAN_PUNCTUATION_STYLE:
+					keyChars.addAll(Characters.PunctuationKorean);
 					break;
 				default:
 					keyChars.add(defChar);
