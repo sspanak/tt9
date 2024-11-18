@@ -51,7 +51,7 @@ abstract public class InputMode {
 	public static InputMode getInstance(Context context, SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(context, settings) : new ModePredictive(settings, inputType, textField, language));
+				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(context, settings, inputType) : new ModePredictive(settings, inputType, textField, language));
 			case MODE_ABC:
 				return new ModeABC(settings, inputType, language);
 			case MODE_PASSTHROUGH:

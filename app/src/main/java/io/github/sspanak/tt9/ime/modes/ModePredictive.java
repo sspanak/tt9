@@ -24,8 +24,6 @@ import io.github.sspanak.tt9.util.TextTools;
 public class ModePredictive extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
 
-	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
-
 	private String lastAcceptedWord = "";
 
 	// stem filter
@@ -40,7 +38,7 @@ public class ModePredictive extends ModeCheonjiin {
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		super(null, settings);
+		super(null, settings, inputType);
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
@@ -50,11 +48,6 @@ public class ModePredictive extends ModeCheonjiin {
 
 		changeLanguage(lang);
 		defaultTextCase();
-
-		if (inputType.isEmail()) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		}
 	}
 
 
@@ -87,9 +80,8 @@ public class ModePredictive extends ModeCheonjiin {
 
 	@Override
 	protected void onNumberHold(int number) {
-		super.onNumberHold(number);
 		autoAcceptTimeout = 0;
-		suggestions.add(language.getKeyNumber(number)); // @todo: this is inconvenient, figure out another way
+		suggestions.add(language.getKeyNumber(number));
 	}
 
 
@@ -262,12 +254,8 @@ public class ModePredictive extends ModeCheonjiin {
 	 */
 	@Override
 	public void loadSuggestions(String currentWord) {
-		if (disablePredictions) {
-			super.loadSuggestions(currentWord);
-			return;
-		}
-
-		if (loadStaticSuggestions()) {
+		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojis()) {
+			onSuggestionsUpdated.run();
 			return;
 		}
 
@@ -282,36 +270,32 @@ public class ModePredictive extends ModeCheonjiin {
 			.load();
 	}
 
-	/**
-	 * loadStatic
-	 * Loads words that are not in the database and are supposed to be in the same order, such as
-	 * emoji or the preferred character for double "0". Returns "false", when there are no static
-	 * options for the current digitSequence.
-	 */
-	private boolean loadStaticSuggestions() {
-		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY)) {
-			loadSpecialCharacters();
-			onSuggestionsUpdated.run();
-			return true;
-		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
-			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', digitSequence.length() - 2));
-			onSuggestionsUpdated.run();
-			return true;
-		} else if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
-			suggestions.clear();
-			suggestions.add(settings.getDoubleZeroChar());
-			onSuggestionsUpdated.run();
-			return true;
-		}
 
-		return false;
+	@Override
+	protected boolean shouldDisplayEmojis() {
+		return !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE);
+	}
+
+
+	@Override
+	protected boolean shouldDisplaySpecialCharacters() {
+		return digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
+	}
+
+
+	@Override
+	protected int getEmojiGroup() {
+		return digitSequence.length() - 2;
 	}
 
 
 	@Override
 	protected boolean loadSpecialCharacters() {
-		int number = digitSequence.charAt(0) - '0';
+		if (!shouldDisplaySpecialCharacters()) {
+			return false;
+		}
+
+		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
 			suggestions.addAll(KEY_CHARACTERS.get(number));
@@ -319,6 +303,17 @@ public class ModePredictive extends ModeCheonjiin {
 		} else {
 			return super.loadSpecialCharacters();
 		}
+	}
+
+
+	private boolean loadPreferredChar() {
+		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
+			suggestions.clear();
+			suggestions.add(settings.getDoubleZeroChar());
+			return true;
+		}
+
+		return false;
 	}
 
 
