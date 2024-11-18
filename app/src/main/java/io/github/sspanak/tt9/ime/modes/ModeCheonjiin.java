@@ -27,7 +27,7 @@ public class ModeCheonjiin extends InputMode {
 	private static final String CUSTOM_EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
 	private static final String SPECIAL_CHAR_SEQUENCE = "000";
 
-	protected final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
+	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	protected boolean disablePredictions = false;
 	private final SyllablePredictions predictions;
@@ -39,6 +39,7 @@ public class ModeCheonjiin extends InputMode {
 		setLanguage(context != null ? LanguageCollection.getLanguage(context, LanguageKind.KOREAN) : null);
 		allowedTextCases.add(CASE_LOWER);
 
+		// @todo: this generates empty lists, fix it
 		if (inputType.isEmail()) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
@@ -201,13 +202,20 @@ public class ModeCheonjiin extends InputMode {
 	}
 
 
+	@Override
 	protected boolean loadSpecialCharacters() {
-		if (shouldDisplaySpecialCharacters()) {
-			super.loadSpecialCharacters();
-			return true;
+		if (!shouldDisplaySpecialCharacters()) {
+			return false;
 		}
 
-		return false;
+		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
+		if (KEY_CHARACTERS.size() > number) {
+			suggestions.clear();
+			suggestions.addAll(KEY_CHARACTERS.get(number));
+			return true;
+		} else {
+			return super.loadSpecialCharacters();
+		}
 	}
 
 

@@ -278,31 +278,14 @@ public class ModePredictive extends ModeCheonjiin {
 
 
 	@Override
-	protected boolean shouldDisplaySpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
-	}
-
-
-	@Override
 	protected int getEmojiGroup() {
 		return digitSequence.length() - 2;
 	}
 
 
 	@Override
-	protected boolean loadSpecialCharacters() {
-		if (!shouldDisplaySpecialCharacters()) {
-			return false;
-		}
-
-		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
-		if (KEY_CHARACTERS.size() > number) {
-			suggestions.clear();
-			suggestions.addAll(KEY_CHARACTERS.get(number));
-			return true;
-		} else {
-			return super.loadSpecialCharacters();
-		}
+	protected boolean shouldDisplaySpecialCharacters() {
+		return digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
 	}
 
 
