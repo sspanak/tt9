@@ -15,6 +15,10 @@ public class Cheonjiin {
 		return digit == 1 || digit == 2 || digit == 3;
 	}
 
+	public static boolean endsWithConsonant(@NonNull String digitSequence, int consonant) {
+		return !digitSequence.isEmpty() && digitSequence.charAt(digitSequence.length() - 1) - '0' == consonant;
+	}
+
 	public static boolean endsWithDashVowel(@NonNull String digitSequence) {
 		int lastDigit = digitSequence.isEmpty() ? -1 : digitSequence.charAt(digitSequence.length() - 1) - '0';
 		return lastDigit == 1 || lastDigit == 3;

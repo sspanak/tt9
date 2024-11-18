@@ -217,7 +217,17 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		return !digitSequence.isEmpty() && hold; // @todo: && contains no vowels and the incoming is a consonant different from the previous consonant.
+		if (digitSequence.isEmpty()) {
+			return false;
+		}
+
+		return
+			hold ||
+			(
+				!Cheonjiin.isVowelDigit(nextKey) &&
+				!Cheonjiin.endsWithConsonant(digitSequence, nextKey) &&
+				!Cheonjiin.isThereMediaVowel(digitSequence)
+			);
 	}
 
 
