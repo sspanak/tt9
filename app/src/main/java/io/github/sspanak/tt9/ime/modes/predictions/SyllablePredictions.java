@@ -12,9 +12,11 @@ public class SyllablePredictions extends Predictions {
 	String lastStableWord = "";
 	int lastStableSequenceLength;
 
+
 	public SyllablePredictions(SettingsStore settings) {
 		super(settings);
 	}
+
 
 	@Override
 	public Predictions setMinWords(int minWords) {
@@ -22,11 +24,12 @@ public class SyllablePredictions extends Predictions {
 		return super.setMinWords(minWords);
 	}
 
-	@Override protected boolean isRetryAllowed() { return loadAttempts == 0; }
-	@Override public void onAccept(String word, String sequence) {
-		lastWord = lastStableWord = "";
-		lastStableSequenceLength = 0;
+
+	@Override
+	protected boolean isRetryAllowed() {
+		return loadAttempts == 0;
 	}
+
 
 	@Override
 	public void load() {
@@ -35,16 +38,16 @@ public class SyllablePredictions extends Predictions {
 		super.load();
 	}
 
+
 	private void loadSimilar() {
 		loadAttempts++;
 		minWords = defaultMinWords + 1;
 		super.load();
 	}
 
+
 	@Override
 	protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed) {
-		// @todo: 0125 + 2. Прецаква се, защото директно отиваме на 522, което не съществува, така че нямаме предишна стабилна дума.
-
 		areThereDbWords = !dbWords.isEmpty();
 
 		if (loadAttempts == 0) {
@@ -95,5 +98,12 @@ public class SyllablePredictions extends Predictions {
 		}
 
 		return variants;
+	}
+
+
+	@Override
+	public void onAccept(String word, String sequence) {
+		lastWord = lastStableWord = "";
+		lastStableSequenceLength = 0;
 	}
 }
