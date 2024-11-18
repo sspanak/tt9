@@ -94,7 +94,7 @@ public class ModeCheonjiin extends InputMode {
 
 	private int shouldRewindRepeatingNumbers(int nextNumber) {
 		final int nextChar = nextNumber + '0';
-		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingDigitsAtEnd(digitSequence) : 0;
+		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
 		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
 
 		if (repeatingDigits == 0 || keyCharsCount < 2) {
@@ -175,7 +175,7 @@ public class ModeCheonjiin extends InputMode {
 
 	@Override
 	public void replaceLastLetter() {
-		previousJamoSequence = Cheonjiin.stripEndingConsonantDigits(digitSequence);
+		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
 			previousJamoSequence = "";
 			Logger.w(LOG_TAG, "Cannot strip ending consonant digits from: " + digitSequence + ". Preserving the original sequence and suggestions.");

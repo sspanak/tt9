@@ -20,7 +20,7 @@ public class Cheonjiin {
 		return lastDigit == 1 || lastDigit == 3;
 	}
 
-	public static int getRepeatingDigitsAtEnd(@NonNull String digitSequence) {
+	public static int getRepeatingEndingDigits(@NonNull String digitSequence) {
 		int count = 0;
 		for (int i = digitSequence.length() - 1; i >= 0; i--) {
 			if (digitSequence.charAt(i) == digitSequence.charAt(digitSequence.length() - 1)) {
@@ -32,7 +32,8 @@ public class Cheonjiin {
 		return count;
 	}
 
-	public static String stripEndingConsonantDigits(@NonNull String digitSequence) {
-		return digitSequence.replaceAll("[4-9|0]+$", "");
+	public static String stripRepeatingEndingDigits(@NonNull String digitSequence) {
+		int end = digitSequence.length() - getRepeatingEndingDigits(digitSequence);
+		return digitSequence.length() > 1 ? digitSequence.substring(0, end) : digitSequence;
 	}
 }

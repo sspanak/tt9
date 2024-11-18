@@ -86,7 +86,7 @@ public class SyllablePredictions extends Predictions {
 		ArrayList<String> variants = new ArrayList<>();
 
 		try {
-			int charIndex = Cheonjiin.getRepeatingDigitsAtEnd(digitSequence) - 1;
+			int charIndex = Cheonjiin.getRepeatingEndingDigits(digitSequence) - 1;
 			int key = digitSequence.charAt(digitSequence.length() - 1) - '0';
 			String variant = baseWord + language.getKeyCharacters(key).get(charIndex);
 			variants.add(variant);
