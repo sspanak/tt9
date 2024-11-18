@@ -87,7 +87,7 @@ public class ModeABC extends InputMode {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		super.changeLanguage(newLanguage);
+		setLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
