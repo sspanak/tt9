@@ -133,7 +133,7 @@ public class ModeCheonjiin extends InputMode {
 		}
 
 		String seq = previousJamoSequence.isEmpty() ? digitSequence : previousJamoSequence;
-		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
+//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
 
 		predictions
 			.setDigitSequence(seq)
@@ -161,7 +161,7 @@ public class ModeCheonjiin extends InputMode {
 		onPredictions();
 		predictions.setWordsChangedHandler(this::onPredictions);
 
-		Logger.d(LOG_TAG, "========> replacement predictions sent. Loading next. ");
+//		Logger.d(LOG_TAG, "========> replacement predictions sent. Loading next. ");
 		autoAcceptTimeout = -1;
 		loadSuggestions(null);
 	}
@@ -178,13 +178,13 @@ public class ModeCheonjiin extends InputMode {
 		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
 			previousJamoSequence = "";
-			Logger.w(LOG_TAG, "Cannot strip ending consonant digits from: " + digitSequence + ". Preserving the original sequence and suggestions.");
+//			Logger.w(LOG_TAG, "Cannot strip ending consonant digits from: " + digitSequence + ". Preserving the original sequence and suggestions.");
 			return;
 		}
 
 		digitSequence = digitSequence.substring(previousJamoSequence.length());
 
-		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousJamoSequence + " || digitSequence: " + digitSequence);
+//		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousJamoSequence + " || digitSequence: " + digitSequence);
 
 		predictions.setWordsChangedHandler(this::onReplacementPredictions);
 	}
@@ -193,11 +193,11 @@ public class ModeCheonjiin extends InputMode {
 	@Override
 	public boolean shouldReplaceLastLetter(int nextKey) {
 		boolean yes = Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
-		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
-
-		if (yes) {
-			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
-		}
+//		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
+//
+//		if (yes) {
+//			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
+//		}
 
 		return yes;
 	}
