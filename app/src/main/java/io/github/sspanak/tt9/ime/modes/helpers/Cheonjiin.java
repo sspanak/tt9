@@ -11,12 +11,27 @@ public class Cheonjiin {
 		return !digitSequence.isEmpty() && MEDIAL_VOWEL.matcher(digitSequence).find();
 	}
 
+	private static boolean isVowelDigit(char digit) {
+		return digit == '1' || digit == '2' || digit == '3';
+	}
+
 	public static boolean isVowelDigit(int digit) {
 		return digit == 1 || digit == 2 || digit == 3;
 	}
 
-	public static boolean endsWithConsonant(@NonNull String digitSequence, int consonant) {
-		return !digitSequence.isEmpty() && digitSequence.charAt(digitSequence.length() - 1) - '0' == consonant;
+	public static boolean endsWithTwoConsonants(@NonNull String digitSequence) {
+		if (digitSequence.length() < 2) {
+			return false;
+		}
+
+		char consonant1 = digitSequence.charAt(digitSequence.length() - 1);
+		for (int i = digitSequence.length() - 2; i >= 0; i--) {
+			if (!isVowelDigit(digitSequence.charAt(i))) {
+				return consonant1 != digitSequence.charAt(i);
+			}
+		}
+
+		return false;
 	}
 
 	public static boolean endsWithDashVowel(@NonNull String digitSequence) {

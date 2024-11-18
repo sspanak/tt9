@@ -282,18 +282,7 @@ public class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		if (digitSequence.isEmpty()) {
-			return false;
-		}
-
-		// @todo: 0125 is broken
-		return
-			hold ||
-			(
-				!Cheonjiin.isVowelDigit(nextKey) &&
-				!Cheonjiin.endsWithConsonant(digitSequence, nextKey) &&
-				!Cheonjiin.isThereMediaVowel(digitSequence)
-			);
+		return hold && !digitSequence.isEmpty();
 	}
 
 
@@ -306,7 +295,7 @@ public class ModeCheonjiin extends InputMode {
 		return
 			!digitSequence.isEmpty()
 			&& !disablePredictions && !shouldDisplayEmojis() && predictions.noDbWords()
-			&& Cheonjiin.endsWithDashVowel(digitSequence);
+			&& (Cheonjiin.endsWithDashVowel(digitSequence) || Cheonjiin.endsWithTwoConsonants(digitSequence));
 	}
 
 
