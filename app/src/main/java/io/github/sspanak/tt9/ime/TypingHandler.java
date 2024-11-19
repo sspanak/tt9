@@ -18,7 +18,6 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -357,7 +356,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 	protected void getSuggestions() {
-		if (mInputMode instanceof ModePredictive && DictionaryLoader.getInstance(this).isRunning()) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 		} else {
@@ -384,7 +383,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// but there are no words for the new language, we'll get only generated suggestions, consisting
 		// of the last word of the previous language + endings from the new language. These words are invalid,
 		// so we discard them.
-		if (mInputMode instanceof ModePredictive && !mLanguage.isValidWord(suggestionOps.getCurrent()) && !Text.isGraphic(suggestionOps.getCurrent())) {
+		if (InputModeKind.isPredictive(mInputMode) && !mLanguage.isValidWord(suggestionOps.getCurrent()) && !Text.isGraphic(suggestionOps.getCurrent())) {
 			mInputMode.reset();
 			suggestionOps.set(null);
 		}

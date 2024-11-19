@@ -9,6 +9,7 @@ import java.util.Locale;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 
 
 public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
@@ -268,7 +269,12 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 
 	public boolean isValidWord(String word) {
-		if (word == null || word.isEmpty() || (word.length() == 1 && Character.isDigit(word.charAt(0)))) {
+		if (
+			word == null
+			|| word.isEmpty()
+			|| (isSyllabary && LanguageKind.isKorean(this) && TextTools.isHangul(word))
+			|| (word.length() == 1 && Character.isDigit(word.charAt(0)))
+		) {
 			return true;
 		}
 
