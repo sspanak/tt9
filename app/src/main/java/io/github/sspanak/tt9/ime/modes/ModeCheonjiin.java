@@ -17,7 +17,7 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class ModeCheonjiin extends InputMode {
+class ModeCheonjiin extends InputMode {
 	private static final String LOG_TAG = ModeCheonjiin.class.getSimpleName();
 
 	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "1";
@@ -34,7 +34,7 @@ public class ModeCheonjiin extends InputMode {
 	@NonNull private String previousJamoSequence = "";
 
 
-	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
+	ModeCheonjiin(SettingsStore settings, InputType inputType) {
 		super(settings, inputType);
 		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		allowedTextCases.add(CASE_LOWER);
