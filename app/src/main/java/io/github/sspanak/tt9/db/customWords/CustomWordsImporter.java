@@ -134,7 +134,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 					return false;
 				}
 
-				if (readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
+				if (customWord.language == null || customWord.language.isSyllabary() || readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
 					ignoredWords++;
 				} else {
 					InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);
@@ -154,7 +154,10 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		}
 
 		if (ignoredWords > 0) {
-			Logger.i(getClass().getSimpleName(), "Skipped " + ignoredWords + " word(s) that are already in the dictionary.");
+			Logger.i(
+				getClass().getSimpleName(),
+				"Skipped " + ignoredWords + " word(s) that are already in the dictionary or do not belong to an alphabetic language."
+			);
 		}
 
 		return true;
