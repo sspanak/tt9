@@ -119,6 +119,7 @@ public class TraditionalT9 extends MainViewHandler {
 		isDead = false;
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
+		LanguageCollection.init(this);
 		DataStore.init(this);
 		super.onInit();
 	}
@@ -147,7 +148,7 @@ public class TraditionalT9 extends MainViewHandler {
 		InputType newInputType = new InputType(connection, field);
 
 		if (newInputType.isText()) {
-			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(this, settings.getEnabledLanguageIds()));
+			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
 		}
 
 		if (newInputType.isNotUs(this)) {

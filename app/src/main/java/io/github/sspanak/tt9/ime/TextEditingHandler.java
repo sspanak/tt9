@@ -14,7 +14,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
+		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault());
 		return super.onStart(connection, field);
 	}
 

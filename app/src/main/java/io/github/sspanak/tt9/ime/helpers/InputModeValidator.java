@@ -4,20 +4,20 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.util.Logger;
 
 public class InputModeValidator {
 	public static ArrayList<Integer> validateEnabledLanguages(Context context, ArrayList<Integer> enabledLanguageIds) {
-		ArrayList<Language> validLanguages = LanguageCollection.getAll(context, enabledLanguageIds);
+		ArrayList<Language> validLanguages = LanguageCollection.getAll(enabledLanguageIds);
 		ArrayList<Integer> validLanguageIds = new ArrayList<>();
 		for (Language lang : validLanguages) {
 			validLanguageIds.add(lang.getId());
 		}
 		if (validLanguageIds.isEmpty()) {
-			validLanguageIds.add(LanguageCollection.getDefault(context).getId());
+			validLanguageIds.add(LanguageCollection.getDefault().getId());
 			Logger.e("validateEnabledLanguages", "The language list seems to be corrupted. Resetting to first language only.");
 		}
 
@@ -31,8 +31,8 @@ public class InputModeValidator {
 
 		String error = language != null ? "Language: " + language.getId() + " is not enabled." : "Invalid language.";
 
-		Language validLanguage = LanguageCollection.getLanguage(context, validLanguageIds.get(0));
-		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault(context);
+		Language validLanguage = LanguageCollection.getLanguage(validLanguageIds.get(0));
+		validLanguage = validLanguage != null ? validLanguage : LanguageCollection.getDefault();
 
 		Logger.d("validateLanguage", error + " Enforcing language: " + validLanguage.getId());
 

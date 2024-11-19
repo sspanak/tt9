@@ -33,12 +33,11 @@ public class ModePredictive extends ModeCheonjiin {
 	// text analysis tools
 	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
-	private final WordPredictions predictions;
 	private boolean isCursorDirectionForward = false;
 
 
 	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		super(null, settings, inputType);
+		super(settings, inputType);
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
@@ -261,7 +260,7 @@ public class ModePredictive extends ModeCheonjiin {
 
 		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
 
-		predictions
+		((WordPredictions) predictions)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)

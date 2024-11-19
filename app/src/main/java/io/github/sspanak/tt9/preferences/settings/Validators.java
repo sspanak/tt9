@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences.settings;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,16 +23,16 @@ class Validators {
 		InputMode.CASE_CAPITALIZE
 	));
 
-	static boolean doesLanguageExist(Context context, int langId) {
-		return LanguageCollection.getLanguage(context, langId) != null;
+	static boolean doesLanguageExist(int langId) {
+		return LanguageCollection.getLanguage(langId) != null;
 	}
 
 	static boolean validateInputMode(int mode, String logTag, String logMsg) {
 		return Validators.isIntInList(mode, validInputModes, logTag, logMsg);
 	}
 
-	static boolean validateInputLanguage(Context context, int langId, String logTag) {
-		if (!doesLanguageExist(context, langId)) {
+	static boolean validateInputLanguage(int langId, String logTag) {
+		if (!doesLanguageExist(langId)) {
 			Logger.w(logTag, "Not saving invalid language with ID: " + langId);
 			return false;
 		}

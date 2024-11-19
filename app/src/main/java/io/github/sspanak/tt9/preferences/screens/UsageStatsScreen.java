@@ -83,7 +83,7 @@ public class UsageStatsScreen extends BaseScreenFragment {
 
 	private boolean deleteWordPairs(Preference ignored) {
 		DataStore.deleteWordPairs(
-			LanguageCollection.getAll(activity),
+			LanguageCollection.getAll(),
 			() -> UI.toastLongFromAsync(activity, "Word pairs deleted. You must reopen the screen manually.")
 		);
 		return true;

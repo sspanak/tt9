@@ -265,7 +265,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 		nextLang();
 		if (!mInputMode.changeLanguage(mLanguage)) {
-			mInputMode = InputMode.getInstance(this, settings, mLanguage, inputType, textField, mInputMode.getId());
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, mInputMode.getId());
 		}
 		mInputMode.clearWordStem();
 		getSuggestions();

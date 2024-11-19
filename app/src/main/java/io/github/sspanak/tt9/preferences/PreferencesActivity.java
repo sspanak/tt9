@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
@@ -43,6 +44,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
 
+		LanguageCollection.init(this);
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
 		DataStore.init(this);
 

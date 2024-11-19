@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.ime.modes;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -9,6 +7,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.helpers.Cheonjiin;
+import io.github.sspanak.tt9.ime.modes.predictions.Predictions;
 import io.github.sspanak.tt9.ime.modes.predictions.SyllablePredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
@@ -30,20 +29,16 @@ public class ModeCheonjiin extends InputMode {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	protected boolean disablePredictions = false;
-	private final SyllablePredictions predictions;
+	protected Predictions predictions;
+
 	@NonNull private String previousJamoSequence = "";
 
 
-	protected ModeCheonjiin(Context context, SettingsStore settings, InputType inputType) {
+	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
 		super(settings);
-		setLanguage(context != null ? LanguageCollection.getLanguage(context, LanguageKind.KOREAN) : null);
+		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		allowedTextCases.add(CASE_LOWER);
 
-		// @todo: this generates empty lists, fix it
-		if (inputType.isEmail()) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		}
 
 		predictions = new SyllablePredictions(settings);
 		predictions
@@ -51,6 +46,11 @@ public class ModeCheonjiin extends InputMode {
 			.setOnlyExactMatches(true)
 			.setMinWords(0)
 			.setWordsChangedHandler(this::onPredictions);
+
+		if (inputType.isEmail()) {
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		}
 	}
 
 
