@@ -34,7 +34,7 @@ class ModeCheonjiin extends InputMode {
 	@NonNull private String previousJamoSequence = "";
 
 
-	ModeCheonjiin(SettingsStore settings, InputType inputType) {
+	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
 		super(settings, inputType);
 		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		allowedTextCases.add(CASE_LOWER);

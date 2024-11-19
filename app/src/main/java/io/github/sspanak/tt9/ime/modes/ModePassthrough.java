@@ -6,8 +6,8 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 // see: InputType.isSpecialNumeric()
-public class ModePassthrough extends InputMode {
-	ModePassthrough(SettingsStore settings, InputType inputType) {
+class ModePassthrough extends InputMode {
+	protected ModePassthrough(SettingsStore settings, InputType inputType) {
 		super(settings, inputType);
 		reset();
 		allowedTextCases.add(CASE_LOWER);

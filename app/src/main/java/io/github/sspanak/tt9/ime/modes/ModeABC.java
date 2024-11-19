@@ -12,14 +12,14 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class ModeABC extends InputMode {
+class ModeABC extends InputMode {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	private boolean shouldSelectNextLetter = false;
 
 	@Override public int getId() { return MODE_ABC; }
 
-	ModeABC(SettingsStore settings, Language lang, InputType inputType) {
+	protected ModeABC(SettingsStore settings, Language lang, InputType inputType) {
 		super(settings, inputType);
 		changeLanguage(lang);
 

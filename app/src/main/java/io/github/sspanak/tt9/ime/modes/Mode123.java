@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class Mode123 extends ModePassthrough {
+class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
 	@Override @NonNull public String toString() { return "123"; }
 
@@ -20,7 +20,7 @@ public class Mode123 extends ModePassthrough {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 
-	public Mode123(SettingsStore settings, Language language, InputType inputType) {
+	protected Mode123(SettingsStore settings, Language language, InputType inputType) {
 		super(settings, inputType);
 		changeLanguage(language);
 

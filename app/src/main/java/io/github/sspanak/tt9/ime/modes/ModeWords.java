@@ -21,7 +21,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 
-public class ModePredictive extends ModeCheonjiin {
+class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
 
 	private String lastAcceptedWord = "";
@@ -39,7 +39,7 @@ public class ModePredictive extends ModeCheonjiin {
 	private int textFieldTextCase;
 
 
-	ModePredictive(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+	protected ModeWords(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, inputType);
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
