@@ -236,15 +236,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(inputType, textField)) {
+		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace()) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddPrecedingSpace(inputType, textField)) {
+		if (mInputMode.shouldAddPrecedingSpace()) {
 			textField.addPrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddTrailingSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddTrailingSpace(isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
 	}
@@ -276,7 +276,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Restore the last used text case or auto-select a new one based on the input field properties.
 	 */
 	protected void determineTextCase() {
-		mInputMode.setTextFieldCase(inputType.determineTextCase());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 

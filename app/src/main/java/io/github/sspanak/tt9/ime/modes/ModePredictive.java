@@ -34,9 +34,12 @@ public class ModePredictive extends ModeCheonjiin {
 	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
 	private boolean isCursorDirectionForward = false;
+	private final InputType inputType;
+	private final TextField textField;
+	private int textFieldTextCase;
 
 
-	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
+	ModePredictive(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, inputType);
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
@@ -44,9 +47,12 @@ public class ModePredictive extends ModeCheonjiin {
 		digitSequence = "";
 		predictions = new WordPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
+		this.inputType = inputType;
+		this.textField = textField;
 
 		changeLanguage(lang);
 		defaultTextCase();
+		determineTextFieldTextCase();
 	}
 
 
@@ -112,6 +118,12 @@ public class ModePredictive extends ModeCheonjiin {
 		}
 
 		return true;
+	}
+
+
+	private void determineTextFieldTextCase() {
+		int fieldCase = inputType.determineTextCase();
+		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
 	}
 
 
@@ -478,19 +490,19 @@ public class ModePredictive extends ModeCheonjiin {
 
 
 	@Override
-	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
 		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
 	}
 
 
 	@Override
-	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) {
+	public boolean shouldAddPrecedingSpace() {
 		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
 	}
 
 
 	@Override
-	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
+	public boolean shouldDeletePrecedingSpace() {
 		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
 	}
 

@@ -29,7 +29,6 @@ abstract public class InputMode {
 	public static final int CASE_DICTIONARY = 3; // do not force it, but use the dictionary word as-is
 	protected final ArrayList<Integer> allowedTextCases = new ArrayList<>();
 	protected int textCase = CASE_LOWER;
-	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
 	protected int autoAcceptTimeout = -1;
@@ -51,7 +50,7 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType) : new ModePredictive(settings, inputType, textField, language));
+				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType) : new ModePredictive(settings, language, inputType, textField));
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:
@@ -129,9 +128,9 @@ abstract public class InputMode {
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
-	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
-	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }
-	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) { return false; }
+	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddPrecedingSpace() { return false; }
+	public boolean shouldDeletePrecedingSpace() { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldReplaceLastLetter(int nextKey) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
@@ -155,10 +154,6 @@ abstract public class InputMode {
 
 		textCase = newTextCase;
 		return true;
-	}
-
-	public void setTextFieldCase(int newTextCase) {
-		textFieldTextCase = allowedTextCases.contains(newTextCase) ? newTextCase : CASE_UNDEFINED;
 	}
 
 	public void defaultTextCase() {
