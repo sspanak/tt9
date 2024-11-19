@@ -34,6 +34,7 @@ abstract public class InputMode {
 	// data
 	protected int autoAcceptTimeout = -1;
 	@NonNull protected String digitSequence = "";
+	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
 	protected final SettingsStore settings;
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
@@ -41,7 +42,8 @@ abstract public class InputMode {
 	protected int specialCharSelectedGroup = 0;
 
 
-	protected InputMode(SettingsStore settings) {
+	protected InputMode(SettingsStore settings, InputType inputType) {
+		isEmailMode = inputType != null && inputType.isEmail();
 		this.settings = settings;
 	}
 
@@ -51,13 +53,13 @@ abstract public class InputMode {
 			case MODE_PREDICTIVE:
 				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType) : new ModePredictive(settings, inputType, textField, language));
 			case MODE_ABC:
-				return new ModeABC(settings, inputType, language);
+				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:
-				return new ModePassthrough(settings);
+				return new ModePassthrough(settings, inputType);
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123(settings, inputType, language);
+				return new Mode123(settings, language, inputType);
 		}
 	}
 
@@ -115,7 +117,7 @@ abstract public class InputMode {
 	 * return "true".
 	 */
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		setLanguage(language);
+		setLanguage(newLanguage);
 		return true;
 	}
 
@@ -184,6 +186,11 @@ abstract public class InputMode {
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return !digitSequence.isEmpty();
+	}
+
+
 	/**
 	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
@@ -193,16 +200,13 @@ abstract public class InputMode {
 		specialCharSelectedGroup++;
 
 		return
-			loadSpecialCharacters() // validates specialCharSelectedGroup
+			shouldSelectNextSpecialCharacters() // check if the operation makes sense at all
+			&& loadSpecialCharacters() // validates specialCharSelectedGroup and advances, if possible
 			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
 	}
 
 
 	protected boolean loadSpecialCharacters() {
-		if (digitSequence.isEmpty()) {
-			return false;
-		}
-
 		int key = digitSequence.charAt(0) - '0';
 		ArrayList<String> chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
 

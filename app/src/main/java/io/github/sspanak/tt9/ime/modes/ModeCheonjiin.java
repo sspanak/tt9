@@ -35,7 +35,7 @@ public class ModeCheonjiin extends InputMode {
 
 
 	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
-		super(settings);
+		super(settings, inputType);
 		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		allowedTextCases.add(CASE_LOWER);
 
@@ -47,7 +47,7 @@ public class ModeCheonjiin extends InputMode {
 			.setMinWords(0)
 			.setWordsChangedHandler(this::onPredictions);
 
-		if (inputType.isEmail()) {
+		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
@@ -148,7 +148,6 @@ public class ModeCheonjiin extends InputMode {
 	@Override
 	public void loadSuggestions(String ignored) {
 		if (disablePredictions || loadSpecialCharacters() || loadEmojis()) {
-			removeLettersFromSpecialCharList();
 			onSuggestionsUpdated.run();
 			return;
 		}
@@ -160,19 +159,6 @@ public class ModeCheonjiin extends InputMode {
 			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
 			.setDigitSequence(seq)
 			.load();
-	}
-
-
-	private void removeLettersFromSpecialCharList() {
-		ArrayList<String> specialChars = new ArrayList<>();
-		for (String s : suggestions) {
-			if (!Character.isAlphabetic(s.codePointAt(0))) {
-				specialChars.add(s);
-			}
-		}
-
-		suggestions.clear();
-		suggestions.addAll(specialChars);
 	}
 
 
@@ -328,10 +314,8 @@ public class ModeCheonjiin extends InputMode {
 	}
 
 
-	@Override
-	protected boolean nextSpecialCharacters() {
-		// @todo: This messes up the character order. Sort it out without breaking the descendants.
-		return super.nextSpecialCharacters();
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
 	}
 
 

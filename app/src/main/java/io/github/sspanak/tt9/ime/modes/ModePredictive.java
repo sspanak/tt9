@@ -363,6 +363,7 @@ public class ModePredictive extends ModeCheonjiin {
 		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
 	}
 
+
 	@Override
 	public void determineNextWordTextCase(String textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor, digitSequence);
@@ -375,8 +376,8 @@ public class ModePredictive extends ModeCheonjiin {
 	}
 
 	@Override
-	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters();
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
 	}
 
 	@Override

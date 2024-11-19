@@ -19,11 +19,11 @@ public class ModeABC extends InputMode {
 
 	@Override public int getId() { return MODE_ABC; }
 
-	ModeABC(SettingsStore settings, InputType inputType, Language lang) {
-		super(settings);
+	ModeABC(SettingsStore settings, Language lang, InputType inputType) {
+		super(settings, inputType);
 		changeLanguage(lang);
 
-		if (inputType.isEmail()) {
+		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
@@ -76,13 +76,18 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
+	}
+
+	@Override
 	protected boolean nextSpecialCharacters() {
-		if (KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters()) {
-			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
-			return true;
+		if (!super.nextSpecialCharacters()) {
+			return false;
 		}
 
-		return false;
+		suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
+		return true;
 	}
 
 	@Override

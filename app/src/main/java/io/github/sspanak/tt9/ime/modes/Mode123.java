@@ -20,14 +20,11 @@ public class Mode123 extends ModePassthrough {
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
-	private final boolean isEmailMode;
 
 
-	public Mode123(SettingsStore settings, InputType inputType, Language language) {
-		super(settings);
+	public Mode123(SettingsStore settings, Language language, InputType inputType) {
+		super(settings, inputType);
 		changeLanguage(language);
-
-		isEmailMode = inputType.isEmail();
 
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);
@@ -59,8 +56,14 @@ public class Mode123 extends ModePassthrough {
 	}
 
 
+	@Override
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return !isEmailMode && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
+	}
+
+
 	@Override protected boolean nextSpecialCharacters() {
-		if (isEmailMode || !digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) || !super.nextSpecialCharacters()) {
+		if (!super.nextSpecialCharacters()) {
 			return false;
 		}
 
