@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ime;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.OrientationListener;
-import io.github.sspanak.tt9.ime.modes.ModeABC;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -44,23 +44,23 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 	public boolean isInputModeABC() {
-		return mInputMode.getClass().equals(ModeABC.class);
+		return InputModeKind.isABC(mInputMode);
 	}
 
 	public boolean isInputModeNumeric() {
-		return mInputMode.is123();
+		return InputModeKind.isNumeric(mInputMode);
 	}
 
 	public boolean isNumericModeStrict() {
-		return mInputMode.is123() && inputType.isNumeric() && !inputType.isPhoneNumber();
+		return InputModeKind.is123(mInputMode) && inputType.isNumeric() && !inputType.isPhoneNumber();
 	}
 
 	public boolean isNumericModeSigned() {
-		return mInputMode.is123() && inputType.isSignedNumber();
+		return InputModeKind.is123(mInputMode) && inputType.isSignedNumber();
 	}
 
 	public boolean isInputModePhone() {
-		return mInputMode.is123() && inputType.isPhoneNumber();
+		return InputModeKind.is123(mInputMode) && inputType.isPhoneNumber();
 	}
 
 	public boolean isTextEditingActive() {

@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.modes.ModePredictive;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -48,7 +49,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected boolean shouldBeOff() {
-		return getCurrentInputConnection() == null || mInputMode.isPassthrough();
+		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
 
 	@Override
@@ -111,7 +112,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	public boolean onBackspace(int repeat) {
 		// Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
-		if (mInputMode.isPassthrough()) {
+		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
 		}
 

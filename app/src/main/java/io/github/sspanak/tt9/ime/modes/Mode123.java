@@ -14,8 +14,6 @@ public class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
 	@Override @NonNull public String toString() { return "123"; }
 
-	@Override public final boolean is123() { return true; }
-	@Override public boolean isPassthrough() { return false; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
 

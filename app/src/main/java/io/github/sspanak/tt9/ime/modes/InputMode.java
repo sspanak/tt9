@@ -94,11 +94,6 @@ abstract public class InputMode {
 		return this;
 	}
 
-	// Numeric mode identifiers. "instanceof" cannot be used in all cases, because they inherit each other.
-	public boolean is123() { return false; }
-	public boolean isPassthrough() { return false; }
-	public boolean isNumeric() { return false; }
-
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }

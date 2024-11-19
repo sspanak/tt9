@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.modes.ModePredictive;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
@@ -138,7 +138,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 		Logger.setLevel(settings.getLogLevel());
 
-		if (mInputMode.isPassthrough()) {
+		if (InputModeKind.isPassthrough(mInputMode)) {
 			onStop();
 		}	else {
 			backgroundTasks.removeCallbacksAndMessages(null);
@@ -239,7 +239,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
-		if (mInputMode instanceof ModePredictive && DictionaryLoader.autoLoad(this, mLanguage)) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, mLanguage)) {
 			return true;
 		}
 		return super.onNumber(key, hold, repeat);

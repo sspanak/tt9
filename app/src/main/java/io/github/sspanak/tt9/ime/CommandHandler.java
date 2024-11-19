@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
@@ -139,10 +140,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected void nextInputMode() {
-		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
+		if (InputModeKind.isPassthrough(mInputMode) || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
+			mInputMode = !InputModeKind.is123(mInputMode) ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
 		} else {
 			suggestionOps.cancelDelayedAccept();
 			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
