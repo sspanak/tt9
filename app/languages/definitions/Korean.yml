@@ -1,6 +1,5 @@
 locale: ko-KR
 dictionaryFile: ko-utf8.csv
-abcString: 가나다
 hasUpperCase: no
 layout: # only used for the virtual key labels
   - [ㅇ,ㅁ,SPECIAL] # 0

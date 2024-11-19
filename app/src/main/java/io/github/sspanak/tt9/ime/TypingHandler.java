@@ -6,6 +6,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -20,6 +21,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
@@ -292,7 +294,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
-		allowedInputModes = inputType.determineInputModes(this);
+		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
+		if (LanguageKind.isKorean(mLanguage)) {
+			allowedInputModes.remove(InputMode.MODE_ABC);
+		}
+
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 

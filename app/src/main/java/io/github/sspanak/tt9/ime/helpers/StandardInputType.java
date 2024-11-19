@@ -130,14 +130,14 @@ abstract public class StandardInputType {
 	 * determineInputModes
 	 * Determine the typing mode based on the input field being edited. Returns an ArrayList of the allowed modes.
 	 *
-	 * @return ArrayList<SettingsStore.MODE_ABC | SettingsStore.MODE_123 | SettingsStore.MODE_PREDICTIVE>
+	 * @return Set<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
 	 */
-	public ArrayList<Integer> determineInputModes(Context context) {
+	public Set<Integer> determineInputModes(Context context) {
 		Set<Integer> allowedModes = new HashSet<>();
 
 		if (field == null) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
-			return new ArrayList<>(allowedModes);
+			return allowedModes;
 		}
 
 		// Calculators (only 0-9 and math) and Dialer (0-9, "#" and "*") fields
@@ -145,7 +145,7 @@ abstract public class StandardInputType {
 		// Note: A Dialer field is not a Phone number field.
 		if (isSpecialNumeric(context)) {
 			allowedModes.add(InputMode.MODE_PASSTHROUGH);
-			return new ArrayList<>(allowedModes);
+			return allowedModes;
 		}
 
 		switch (field.inputType & InputType.TYPE_MASK_CLASS) {
@@ -155,7 +155,7 @@ abstract public class StandardInputType {
 				// Numbers, dates and phone numbers default to the numeric keyboard,
 				// with no extra features.
 				allowedModes.add(InputMode.MODE_123);
-				return new ArrayList<>(allowedModes);
+				return allowedModes;
 
 			case InputType.TYPE_CLASS_TEXT:
 				// This is general text editing. We will default to the
@@ -179,7 +179,7 @@ abstract public class StandardInputType {
 				allowedModes.add(InputMode.MODE_123);
 				allowedModes.add(InputMode.MODE_ABC);
 
-				return new ArrayList<>(allowedModes);
+				return allowedModes;
 		}
 	}
 
