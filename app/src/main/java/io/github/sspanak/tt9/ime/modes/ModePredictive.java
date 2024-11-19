@@ -397,6 +397,11 @@ public class ModePredictive extends ModeCheonjiin {
 	}
 
 
+	@Override
+	public boolean shouldReplaceLastLetter(int nextKey) {
+		return false;
+	}
+
 
 	/**
 	 * shouldAcceptPreviousSuggestion
