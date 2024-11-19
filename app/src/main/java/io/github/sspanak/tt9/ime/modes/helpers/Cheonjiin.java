@@ -15,6 +15,23 @@ public class Cheonjiin {
 		return digit == '1' || digit == '2' || digit == '3';
 	}
 
+	public static boolean isSingleJamo(@NonNull String digitSequence) {
+		int digits = digitSequence.length();
+
+		if (digits == 0 || digits > 3) {
+			return false;
+		}
+
+		char firstDigit = digitSequence.charAt(0);
+		for (int i = 1; i < digits; i++) {
+			if (digitSequence.charAt(i) != firstDigit) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	public static boolean isVowelDigit(int digit) {
 		return digit == 1 || digit == 2 || digit == 3;
 	}

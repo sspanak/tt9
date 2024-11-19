@@ -56,7 +56,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE)) {
+		if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || Cheonjiin.isSingleJamo(digitSequence)) {
 			digitSequence = "";
 		} else if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
