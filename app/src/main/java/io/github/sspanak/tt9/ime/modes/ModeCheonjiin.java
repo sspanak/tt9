@@ -20,37 +20,54 @@ import io.github.sspanak.tt9.util.Characters;
 class ModeCheonjiin extends InputMode {
 	private static final String LOG_TAG = ModeCheonjiin.class.getSimpleName();
 
-	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "1";
-	private static final String PUNCTUATION_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + NaturalLanguage.PUNCTUATION_KEY;
-	private static final String EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.EMOJI_SEQUENCE;
-	private static final String CUSTOM_EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
-	private static final String SPECIAL_CHAR_SEQUENCE = "000";
-
+	// used when we want do display a different set of characters for a given key, for example
+	// in email fields
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
+	// special chars and emojis
+	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "1";
+	protected String CUSTOM_EMOJI_SEQUENCE;
+	protected String EMOJI_SEQUENCE;
+	protected String PUNCTUATION_SEQUENCE;
+	protected String SPECIAL_CHAR_SEQUENCE;
+
+	// predictions
 	protected boolean disablePredictions = false;
 	protected Predictions predictions;
-
 	@NonNull private String previousJamoSequence = "";
 
 
 	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
 		super(settings, inputType);
-		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
+
+		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
 
-
-		predictions = new SyllablePredictions(settings);
-		predictions
-			.setLanguage(language)
-			.setOnlyExactMatches(true)
-			.setMinWords(0)
-			.setWordsChangedHandler(this::onPredictions);
+		initPredictions();
+		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
+		setSpecialCharacterConstants();
 
 		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
+	}
+
+
+	protected void setSpecialCharacterConstants() {
+		CUSTOM_EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
+		EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.EMOJI_SEQUENCE;
+		PUNCTUATION_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + NaturalLanguage.PUNCTUATION_KEY;
+		SPECIAL_CHAR_SEQUENCE = "000";
+	}
+
+
+	protected void initPredictions() {
+		predictions = new SyllablePredictions(settings);
+		predictions
+			.setOnlyExactMatches(true)
+			.setMinWords(0)
+			.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -103,7 +120,7 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		if (digitSequence.startsWith(PUNCTUATION_SEQUENCE)) {
-			digitSequence = "1" + EmojiLanguage.validateEmojiSequence(digitSequence.substring(0, digitSequence.length() - 1), number);
+			digitSequence = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.validateEmojiSequence(digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length()), number);
 		} else {
 			digitSequence += String.valueOf(number);
 		}
@@ -152,8 +169,16 @@ class ModeCheonjiin extends InputMode {
 			return;
 		}
 
-		String seq = previousJamoSequence.isEmpty() ? digitSequence : previousJamoSequence;
-//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq);
+		String seq = digitSequence;
+		if (shouldDisplayCustomEmojis()) {
+			seq = digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length());
+		} else if (!previousJamoSequence.isEmpty()) {
+			seq = previousJamoSequence;
+		}
+
+
+//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq + ", previous: " + previousJamoSequence);
+//		Logger.d(LOG_TAG, "=====> lang: " + (shouldDisplayCustomEmojis() ? new EmojiLanguage() : language));
 
 		predictions
 			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
@@ -179,7 +204,7 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplayEmojis() {
-		return digitSequence.startsWith(EMOJI_SEQUENCE);
+		return digitSequence.startsWith(EMOJI_SEQUENCE) && !digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
 	}
 
 
@@ -212,9 +237,15 @@ class ModeCheonjiin extends InputMode {
 
 	/**
 	 * onPredictions
-	 * Gets the currently available WordPredictions and sends them over to the external caller.
+	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
+		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
+		if (predictions.getList().isEmpty() && digitSequence.startsWith(EMOJI_SEQUENCE)) {
+			digitSequence = EMOJI_SEQUENCE;
+			return;
+		}
+
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
 
@@ -259,7 +290,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean shouldReplaceLastLetter(int nextKey) {
-		boolean yes = Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+		boolean yes = !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
 //		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
 //
 //		if (yes) {

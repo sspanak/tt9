@@ -44,15 +44,27 @@ class ModeWords extends ModeCheonjiin {
 
 		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
-		digitSequence = "";
-		predictions = new WordPredictions(settings, textField);
-		predictions.setWordsChangedHandler(this::onPredictions);
 		this.inputType = inputType;
 		this.textField = textField;
 
 		changeLanguage(lang);
 		defaultTextCase();
 		determineTextFieldTextCase();
+	}
+
+
+	protected void setSpecialCharacterConstants() {
+		PUNCTUATION_SEQUENCE = NaturalLanguage.PUNCTUATION_KEY;
+		EMOJI_SEQUENCE = EmojiLanguage.EMOJI_SEQUENCE;
+		CUSTOM_EMOJI_SEQUENCE = EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
+		SPECIAL_CHAR_SEQUENCE = NaturalLanguage.SPECIAL_CHAR_KEY;
+	}
+
+
+	@Override
+	protected void initPredictions() {
+		predictions = new WordPredictions(settings, textField);
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -118,12 +130,6 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		return true;
-	}
-
-
-	private void determineTextFieldTextCase() {
-		int fieldCase = inputType.determineTextCase();
-		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
 	}
 
 
@@ -270,7 +276,7 @@ class ModeWords extends ModeCheonjiin {
 			return;
 		}
 
-		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
+		Language searchLanguage = digitSequence.equals(CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
 
 		((WordPredictions) predictions)
 			.setIsStemFuzzy(isStemFuzzy)
@@ -283,20 +289,8 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	protected boolean shouldDisplayEmojis() {
-		return !digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE);
-	}
-
-
-	@Override
 	protected int getEmojiGroup() {
 		return digitSequence.length() - 2;
-	}
-
-
-	@Override
-	protected boolean shouldDisplaySpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
 	}
 
 
@@ -308,24 +302,6 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		return false;
-	}
-
-
-	/**
-	 * onPredictions
-	 * Gets the currently available WordPredictions and sends them over to the external caller.
-	 */
-	protected void onPredictions() {
-		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
-			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
-			return;
-		}
-
-		suggestions.clear();
-		suggestions.addAll(predictions.getList());
-
-		onSuggestionsUpdated.run();
 	}
 
 
@@ -362,7 +338,7 @@ class ModeWords extends ModeCheonjiin {
 
 			// punctuation and special chars are not in the database, so there is no point in
 			// running queries that would update nothing
-			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHAR_KEY)) {
+			if (!sequence.equals(PUNCTUATION_SEQUENCE) && !sequence.startsWith(SPECIAL_CHAR_SEQUENCE)) {
 				predictions.onAccept(currentWord, sequence);
 			}
 		} catch (Exception e) {
@@ -370,26 +346,26 @@ class ModeWords extends ModeCheonjiin {
 		}
 	}
 
+
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
 	}
-
 
 	@Override
 	public void determineNextWordTextCase(String textBeforeCursor) {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor, digitSequence);
 	}
 
+	private void determineTextFieldTextCase() {
+		int fieldCase = inputType.determineTextCase();
+		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
+	}
+
 	@Override
 	public int getTextCase() {
 		// Filter out the internally used text cases. They have no meaning outside this class.
 		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
-	}
-
-	@Override
-	protected boolean shouldSelectNextSpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
 	}
 
 	@Override
@@ -427,7 +403,7 @@ class ModeWords extends ModeCheonjiin {
 			return true;
 		}
 
-		final char SPECIAL_CHAR_KEY_CODE = NaturalLanguage.SPECIAL_CHAR_KEY.charAt(0);
+		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(0);
 		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
@@ -464,8 +440,8 @@ class ModeWords extends ModeCheonjiin {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(NaturalLanguage.PUNCTUATION_KEY)
-			&& !digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)
+			&& digitSequence.contains(PUNCTUATION_SEQUENCE)
+			&& !digitSequence.startsWith(EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}
 
