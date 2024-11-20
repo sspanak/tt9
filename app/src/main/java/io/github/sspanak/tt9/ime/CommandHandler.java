@@ -175,23 +175,27 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	protected void nextTextCase() {
+	protected boolean nextTextCase() {
 		if (suggestionOps.isEmpty() || mInputMode.getSuggestions().isEmpty()) {
 			// When there are no suggestions, there is no need to execute the code for
 			// adjusting them below.
 			if (mInputMode.nextTextCase()) {
 				settings.saveTextCase(mInputMode.getTextCase());
+				return true;
+			} else {
+				return false;
 			}
-			return;
 		}
 
 		// When we are in AUTO mode and current dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
 		// This is why we retry, until there is a visual change.
+		boolean isChanged = false;
 		String before = suggestionOps.get(0);
 		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
 			String after = mInputMode.getSuggestions().get(0);
 			if (!after.equals(before)) {
+				isChanged = true;
 				break;
 			}
 		}
@@ -210,6 +214,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		textField.setComposingText(suggestionOps.getCurrent());
 
 		settings.saveTextCase(mInputMode.getTextCase());
+
+		return isChanged;
 	}
 
 

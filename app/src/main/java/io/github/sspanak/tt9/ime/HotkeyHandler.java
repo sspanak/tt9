@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
@@ -105,7 +106,15 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (keyCode == settings.getKeyShift()) {
-			return onKeyNextTextCase(validateOnly);
+			return
+				(onKeyNextTextCase(validateOnly) || !LanguageKind.isKorean(mLanguage))
+				// when "Shift" and "Korean Space" share the same key, allow typing a space, when there
+				// are no special characters to shift
+				|| (keyCode == settings.getKeySpaceKorean() && onKeySpaceKorean(validateOnly));
+		}
+
+		if (keyCode == settings.getKeySpaceKorean()) {
+			return onText(" ", validateOnly);
 		}
 
 		if (keyCode == settings.getKeyShowSettings()) {
@@ -318,7 +327,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
-		nextTextCase();
+		if (!nextTextCase()) {
+			return false;
+		}
 		statusBar.setText(mInputMode);
 		mainView.render();
 
@@ -342,6 +353,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		return true;
 	}
 
+
 	private boolean onKeyShowSettings(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff()) {
 			return false;
@@ -353,6 +365,21 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		return true;
 	}
+
+
+	private boolean onKeySpaceKorean(boolean validateOnly) {
+		if (shouldBeOff()) {
+			return false;
+		}
+
+		if (!LanguageKind.isKorean(mLanguage) || !onText(" ", validateOnly)) {
+			return false;
+		}
+
+		forceShowWindow();
+		return true;
+	}
+
 
 	private boolean onKeyVoiceInput(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff() || !voiceInputOps.isAvailable()) {

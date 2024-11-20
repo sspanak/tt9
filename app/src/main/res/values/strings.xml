@@ -223,6 +223,7 @@
 	<string name="virtual_key_input_mode" translatable="false">Mode</string>
 	<string name="virtual_key_settings" translatable="false">Cfg</string>
 	<string name="virtual_key_shift" translatable="false">Shift</string>
+	<string name="virtual_key_space_korean">Space (Korean)</string>
 	<string name="virtual_key_text_editing" translatable="false">Copy</string>
 
 	<string name="voice_input_listening">Speak</string>
