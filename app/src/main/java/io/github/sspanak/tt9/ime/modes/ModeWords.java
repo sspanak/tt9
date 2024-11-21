@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
@@ -31,21 +30,15 @@ class ModeWords extends ModeCheonjiin {
 	private String stem = "";
 
 	// text analysis tools
-	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
 	private boolean isCursorDirectionForward = false;
-	private final InputType inputType;
-	private final TextField textField;
 	private int textFieldTextCase;
 
 
 	protected ModeWords(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
-		super(settings, inputType);
+		super(settings, inputType, textField);
 
-		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
-		this.inputType = inputType;
-		this.textField = textField;
 
 		changeLanguage(lang);
 		defaultTextCase();
@@ -63,7 +56,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings);
+		predictions = new WordPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -280,7 +273,6 @@ class ModeWords extends ModeCheonjiin {
 			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
-			.setTextField(textField)
 			.setDigitSequence(digitSequence)
 			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
 			.load();
@@ -461,24 +453,6 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		return false;
-	}
-
-
-	@Override
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
-	}
-
-
-	@Override
-	public boolean shouldAddPrecedingSpace() {
-		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
-	}
-
-
-	@Override
-	public boolean shouldDeletePrecedingSpace() {
-		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
 	}
 
 

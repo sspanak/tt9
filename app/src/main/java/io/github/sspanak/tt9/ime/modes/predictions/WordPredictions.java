@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 public class WordPredictions extends Predictions {
-	private TextField textField;
+	private final TextField textField;
 
 	private String inputWord;
 	private boolean isStemFuzzy;
@@ -17,9 +17,10 @@ public class WordPredictions extends Predictions {
 	private String lastEnforcedTopWord = "";
 
 
-	public WordPredictions(SettingsStore settings) {
+	public WordPredictions(SettingsStore settings, TextField textField) {
 		super(settings);
 		stem = "";
+		this.textField = textField;
 	}
 
 
@@ -37,12 +38,6 @@ public class WordPredictions extends Predictions {
 
 	public WordPredictions setInputWord(String inputWord) {
 		this.inputWord = inputWord.toLowerCase(language.getLocale());
-		return this;
-	}
-
-
-	public WordPredictions setTextField(TextField textField) {
-		this.textField = textField;
 		return this;
 	}
 

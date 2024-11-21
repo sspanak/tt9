@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.Cheonjiin;
 import io.github.sspanak.tt9.ime.modes.predictions.Predictions;
 import io.github.sspanak.tt9.ime.modes.predictions.SyllablePredictions;
@@ -36,21 +38,30 @@ class ModeCheonjiin extends InputMode {
 	protected Predictions predictions;
 	@NonNull private String previousJamoSequence = "";
 
+	// text analysis
+	protected final AutoSpace autoSpace;
+	protected final InputType inputType;
+	protected final TextField textField;
 
-	protected ModeCheonjiin(SettingsStore settings, InputType inputType) {
+
+	protected ModeCheonjiin(SettingsStore settings, InputType inputType, TextField textField) {
 		super(settings, inputType);
 
 		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
-
-		initPredictions();
-		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
-		setSpecialCharacterConstants();
+		this.inputType = inputType;
+		this.textField = textField;
 
 		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
+
+		initPredictions();
+		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
+		setSpecialCharacterConstants();
+
+		autoSpace = new AutoSpace(settings).setLanguage(language);
 	}
 
 
@@ -347,6 +358,24 @@ class ModeCheonjiin extends InputMode {
 
 	protected boolean shouldSelectNextSpecialCharacters() {
 		return digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
+	}
+
+
+	@Override
+	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
+		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
+	}
+
+
+	@Override
+	public boolean shouldAddPrecedingSpace() {
+		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
+	}
+
+
+	@Override
+	public boolean shouldDeletePrecedingSpace() {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
 	}
 
 
