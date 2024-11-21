@@ -63,7 +63,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings, textField);
+		predictions = new WordPredictions(settings);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -276,14 +276,13 @@ class ModeWords extends ModeCheonjiin {
 			return;
 		}
 
-		Language searchLanguage = digitSequence.equals(CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
-
 		((WordPredictions) predictions)
+			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
-			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
+			.setTextField(textField)
 			.setDigitSequence(digitSequence)
-			.setLanguage(searchLanguage)
+			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
 			.load();
 	}
 

@@ -208,7 +208,7 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	private boolean shouldDisplayCustomEmojis() {
+	protected boolean shouldDisplayCustomEmojis() {
 		return digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
 	}
 
