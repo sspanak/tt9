@@ -15,10 +15,8 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.TextTools;
 
 class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -317,21 +315,15 @@ class ModeWords extends ModeCheonjiin {
 			return;
 		}
 
-		if (Characters.isStaticEmoji(currentWord)) {
+		// emojis and special chars are not in the database, so there is no point in wasting resources
+		// running queries on them
+		if (!new Text(currentWord).isAlphabetic()) {
 			return;
 		}
 
-
-		// increment the frequency of the given word
 		try {
-			Language workingLanguage = TextTools.isGraphic(currentWord) ? new EmojiLanguage() : language;
-			String sequence = workingLanguage.getDigitSequenceForWord(currentWord);
-
-			// punctuation and special chars are not in the database, so there is no point in
-			// running queries that would update nothing
-			if (!sequence.equals(PUNCTUATION_SEQUENCE) && !sequence.startsWith(SPECIAL_CHAR_SEQUENCE)) {
-				predictions.onAccept(currentWord, sequence);
-			}
+			// increment the frequency of the given word
+			predictions.onAccept(currentWord, language.getDigitSequenceForWord(currentWord));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
