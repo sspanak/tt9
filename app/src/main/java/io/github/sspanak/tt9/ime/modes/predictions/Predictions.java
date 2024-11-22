@@ -53,12 +53,6 @@ abstract public class Predictions {
 	}
 
 
-	public Predictions setMaxWords(int maxWords) {
-		this.maxWords = maxWords;
-		return this;
-	}
-
-
 	public Predictions setOnlyExactMatches(boolean onlyExactMatches) {
 		this.onlyExactMatches = onlyExactMatches;
 		return this;

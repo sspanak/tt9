@@ -48,7 +48,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
 		DataStore.init(this);
 
-		InputModeValidator.validateEnabledLanguages(this, settings.getEnabledLanguageIds());
+		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
 		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);

@@ -5,7 +5,6 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 

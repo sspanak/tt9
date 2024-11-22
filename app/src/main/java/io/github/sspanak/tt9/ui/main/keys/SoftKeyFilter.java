@@ -77,7 +77,7 @@ public class SoftKeyFilter extends SoftKey {
 				!tt9.isInputModeNumeric()
 				&& !tt9.isInputModeABC()
 				&& !tt9.isVoiceInputActive()
-				&& (LanguageKind.isKorean(tt9.getLanguage()) || !tt9.isLanguageSyllabary())
+				&& (LanguageKind.isKorean(tt9.getLanguage()) || tt9.notLanguageSyllabary())
 			);
 		}
 	}

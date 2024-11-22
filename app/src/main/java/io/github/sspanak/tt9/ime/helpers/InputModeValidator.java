@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.content.Context;
-
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -10,7 +8,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
 
 public class InputModeValidator {
-	public static ArrayList<Integer> validateEnabledLanguages(Context context, ArrayList<Integer> enabledLanguageIds) {
+	public static ArrayList<Integer> validateEnabledLanguages(ArrayList<Integer> enabledLanguageIds) {
 		ArrayList<Language> validLanguages = LanguageCollection.getAll(enabledLanguageIds);
 		ArrayList<Integer> validLanguageIds = new ArrayList<>();
 		for (Language lang : validLanguages) {
@@ -24,7 +22,7 @@ public class InputModeValidator {
 		return validLanguageIds;
 	}
 
-	public static Language validateLanguage(Context context, Language language, ArrayList<Integer> validLanguageIds) {
+	public static Language validateLanguage(Language language, ArrayList<Integer> validLanguageIds) {
 		if (language != null && validLanguageIds.contains(language.getId())) {
 			return language;
 		}

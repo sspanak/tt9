@@ -111,15 +111,6 @@ public class Characters {
 		))
 	));
 
-	public static boolean isStaticEmoji(String emoji) {
-		for (ArrayList<String> group : Emoji) {
-			if (group.contains(emoji)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public static boolean isGraphic(char ch) {
 		return !(ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch));
 	}

@@ -18,7 +18,7 @@ public class DeviceInfo {
 		return context.getResources().getDisplayMetrics().heightPixels;
 	}
 
-	public static boolean noBackspaceKey(Context context) {
+	public static boolean noBackspaceKey() {
 		return !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL) && !KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR);
 	}
 

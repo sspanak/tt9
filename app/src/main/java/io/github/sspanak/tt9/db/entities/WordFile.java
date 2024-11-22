@@ -143,15 +143,6 @@ public class WordFile extends AssetFile {
 	}
 
 
-	public int getSequences() {
-		if (sequences < 0) {
-			loadProperties();
-		}
-
-		return sequences;
-	}
-
-
 	private void setSequences(String rawProperty, String rawValue) {
 		if (!rawProperty.equals("sequences")) {
 			return;

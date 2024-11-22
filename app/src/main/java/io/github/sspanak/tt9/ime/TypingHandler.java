@@ -6,7 +6,6 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -95,8 +94,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(getApplicationContext(), mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(getApplicationContext(), mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(mLanguage, mEnabledLanguages);
 		settings.saveInputLanguage(mLanguage.getId());
 		settings.saveEnabledLanguageIds(mEnabledLanguages);
 	}

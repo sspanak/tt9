@@ -80,8 +80,8 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return mLanguage;
 	}
 
-	public boolean isLanguageSyllabary() {
-		return mLanguage != null && mLanguage.isSyllabary();
+	public boolean notLanguageSyllabary() {
+		return mLanguage == null || !mLanguage.isSyllabary();
 	}
 
 	public ResizableMainView getMainView() {

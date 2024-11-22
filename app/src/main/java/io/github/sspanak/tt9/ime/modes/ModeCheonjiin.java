@@ -20,8 +20,6 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
 class ModeCheonjiin extends InputMode {
-	private static final String LOG_TAG = ModeCheonjiin.class.getSimpleName();
-
 	// used when we want do display a different set of characters for a given key, for example
 	// in email fields
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
@@ -125,7 +123,6 @@ class ModeCheonjiin extends InputMode {
 
 	protected void onNumberPress(int number) {
 		int rewindAmount = shouldRewindRepeatingNumbers(number);
-//		Logger.d(LOG_TAG, "=======> Rewind amount: " + rewindAmount);
 		if (rewindAmount > 0) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - rewindAmount);
 		}
@@ -135,8 +132,6 @@ class ModeCheonjiin extends InputMode {
 		} else {
 			digitSequence += String.valueOf(number);
 		}
-
-//		Logger.d(LOG_TAG, "=======> digitSequence: " + digitSequence);
 	}
 
 
@@ -186,10 +181,6 @@ class ModeCheonjiin extends InputMode {
 		} else if (!previousJamoSequence.isEmpty()) {
 			seq = previousJamoSequence;
 		}
-
-
-//		Logger.d(LOG_TAG, "=========> Loading suggestions for: " + seq + ", previous: " + previousJamoSequence);
-//		Logger.d(LOG_TAG, "=====> lang: " + (shouldDisplayCustomEmojis() ? new EmojiLanguage() : language));
 
 		predictions
 			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
@@ -265,12 +256,10 @@ class ModeCheonjiin extends InputMode {
 
 
 	private void onReplacementPredictions() {
-//		Logger.d(LOG_TAG, "=========> Replacement predictions for: " + digitSequence + " -> " + predictions.getList());
 		autoAcceptTimeout = 0;
 		onPredictions();
 		predictions.setWordsChangedHandler(this::onPredictions);
 
-//		Logger.d(LOG_TAG, "========> replacement predictions sent. Loading next. ");
 		autoAcceptTimeout = -1;
 		loadSuggestions(null);
 	}
@@ -287,13 +276,10 @@ class ModeCheonjiin extends InputMode {
 		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
 			previousJamoSequence = "";
-//			Logger.w(LOG_TAG, "Cannot strip ending consonant digits from: " + digitSequence + ". Preserving the original sequence and suggestions.");
 			return;
 		}
 
 		digitSequence = digitSequence.substring(previousJamoSequence.length());
-
-//		Logger.d(LOG_TAG, "=======> previousCharSequence: " + previousJamoSequence + " || digitSequence: " + digitSequence);
 
 		predictions.setWordsChangedHandler(this::onReplacementPredictions);
 	}
@@ -301,14 +287,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean shouldReplaceLastLetter(int nextKey) {
-		boolean yes = !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
-//		Logger.d(LOG_TAG, "========+> is there medial vowel:" + Cheonjiin.isThereMediaVowel(digitSequence) + " + is vowel digit: " + Cheonjiin.isVowelDigit(nextKey));
-//
-//		if (yes) {
-//			Logger.d(LOG_TAG, "========+> should preserve last consonant: " + digitSequence + " + " + nextKey);
-//		}
-
-		return yes;
+		return !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
 	}
 
 
