@@ -14,11 +14,33 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 	public SoftKeyNumber1(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
+	protected String getTitle() {
+		if (tt9 == null) {
+			return super.getTitle();
+		}
+
+
+		if (tt9.isInputModeNumeric() && !tt9.isNumericModeStrict()) {
+			return DEFAULT_LABEL;
+		} else {
+			return "1";
+		}
+	}
+
+	@Override
 	protected String getSubTitle() {
 		if (tt9 == null || tt9.isNumericModeStrict()) {
 			return null;
 		}
 
-		return LanguageKind.isKorean(tt9.getLanguage()) ? KOREAN_LABEL : DEFAULT_LABEL;
+		if (tt9.isNumericModeStrict()) {
+			return null;
+		} else if (tt9.isInputModeNumeric()) {
+			return "1";
+		} else if (LanguageKind.isKorean(tt9.getLanguage())) {
+			return KOREAN_LABEL;
+		} else {
+			return DEFAULT_LABEL;
+		}
 	}
 }
