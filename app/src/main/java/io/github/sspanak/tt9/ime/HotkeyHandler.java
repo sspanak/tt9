@@ -7,7 +7,6 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
@@ -107,7 +106,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (keyCode == settings.getKeyShift()) {
 			return
-				(onKeyNextTextCase(validateOnly) || !LanguageKind.isKorean(mLanguage))
+				onKeyNextTextCase(validateOnly)
 				// when "Shift" and "Korean Space" share the same key, allow typing a space, when there
 				// are no special characters to shift
 				|| (keyCode == settings.getKeySpaceKorean() && onKeySpaceKorean(validateOnly));
@@ -368,7 +367,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeySpaceKorean(boolean validateOnly) {
-		if (shouldBeOff() || !LanguageKind.isKorean(mLanguage)) {
+		if (shouldBeOff() || !InputModeKind.isCheonjiin(mInputMode)) {
 			return false;
 		}
 
