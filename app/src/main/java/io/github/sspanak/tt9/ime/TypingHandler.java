@@ -294,7 +294,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
-		if (LanguageKind.isKorean(mLanguage)) {
+		if (LanguageKind.isKorean(mLanguage) && allowedInputModes.contains(InputMode.MODE_ABC)) {
 			allowedInputModes.remove(InputMode.MODE_ABC);
 		}
 
