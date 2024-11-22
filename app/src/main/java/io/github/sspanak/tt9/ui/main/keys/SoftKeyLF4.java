@@ -55,19 +55,7 @@ public class SoftKeyLF4 extends SwipeableKey {
 	}
 
 	protected String getPressIcon() {
-		if (tt9 == null || tt9.getLanguage() == null) {
-			return getContext().getString(R.string.virtual_key_input_mode);
-		}
-
-		if (tt9.isInputModeNumeric()) {
-			return "123";
-		}
-
-		if (tt9.isInputModeABC()) {
-			return tt9.getLanguage().getAbcString().toUpperCase(tt9.getLanguage().getLocale());
-		}
-
-		return "T9";
+		return tt9 != null ? tt9.getInputModeName() : getContext().getString(R.string.virtual_key_input_mode);
 	}
 
 	@Override

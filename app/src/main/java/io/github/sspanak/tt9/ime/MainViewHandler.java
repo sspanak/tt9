@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.OrientationListener;
@@ -33,10 +34,6 @@ abstract public class MainViewHandler extends HotkeyHandler {
 			orientationListener.stop();
 			orientationListener = null;
 		}
-	}
-
-	public int getTextCase() {
-		return mInputMode.getTextCase();
 	}
 
 	public boolean isInputLimited() {
@@ -75,13 +72,32 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return !(new VoiceInputOps(this, null, null, null)).isAvailable();
 	}
 
+	public boolean notLanguageSyllabary() {
+		return mLanguage == null || !mLanguage.isSyllabary();
+	}
+
+	public String getABCString() {
+		return mLanguage == null || mLanguage.isSyllabary() ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
+	}
+
+	@NonNull
+	public String getInputModeName() {
+		if (InputModeKind.isPredictive(mInputMode)) {
+			return "T9";
+		} else if (InputModeKind.isNumeric(mInputMode)){
+			return "123";
+		} else {
+			return getABCString();
+		}
+	}
+
+	public int getTextCase() {
+		return mInputMode.getTextCase();
+	}
+
 	@Nullable
 	public Language getLanguage() {
 		return mLanguage;
-	}
-
-	public boolean notLanguageSyllabary() {
-		return mLanguage == null || !mLanguage.isSyllabary();
 	}
 
 	public ResizableMainView getMainView() {
