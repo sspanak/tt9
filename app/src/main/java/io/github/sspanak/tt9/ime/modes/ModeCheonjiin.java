@@ -50,14 +50,15 @@ class ModeCheonjiin extends InputMode {
 		this.inputType = inputType;
 		this.textField = textField;
 
-		if (isEmailMode) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		}
-
 		initPredictions();
 		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		setSpecialCharacterConstants();
+
+		if (isEmailMode) {
+			// Note: applyPunctuationOrder() requires the language to be set
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		}
 
 		autoSpace = new AutoSpace(settings).setLanguage(language);
 	}
@@ -206,12 +207,12 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplayEmojis() {
-		return digitSequence.startsWith(EMOJI_SEQUENCE) && !digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
+		return !isEmailMode && digitSequence.startsWith(EMOJI_SEQUENCE) && !digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
 	}
 
 
 	protected boolean shouldDisplayCustomEmojis() {
-		return digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
+		return !isEmailMode && digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
 	}
 
 
