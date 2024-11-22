@@ -367,7 +367,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
-	private boolean onKeySpaceKorean(boolean validateOnly) {
+	public boolean onKeySpaceKorean(boolean validateOnly) {
 		if (shouldBeOff()) {
 			return false;
 		}

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
-	<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber1
 		android:id="@+id/soft_key_1"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"
