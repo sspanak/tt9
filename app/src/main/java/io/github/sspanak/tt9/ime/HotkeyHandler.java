@@ -368,15 +368,20 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeySpaceKorean(boolean validateOnly) {
-		if (shouldBeOff()) {
+		if (shouldBeOff() || !LanguageKind.isKorean(mLanguage)) {
 			return false;
 		}
 
-		if (!LanguageKind.isKorean(mLanguage) || !onText(" ", validateOnly)) {
+		// type a space when there is nothing to accept
+		if (suggestionOps.isEmpty() && !onText(" ", validateOnly)) {
 			return false;
 		}
 
-		forceShowWindow();
+		// simulate accept with OK when there are suggestions
+		if (!suggestionOps.isEmpty()) {
+			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+		}
+
 		return true;
 	}
 
