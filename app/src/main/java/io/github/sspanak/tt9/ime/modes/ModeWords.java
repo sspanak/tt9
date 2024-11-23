@@ -364,7 +364,7 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	public boolean shouldReplaceLastLetter(int nextKey) {
+	public boolean shouldReplaceLastLetter(int n, boolean h) {
 		return false;
 	}
 

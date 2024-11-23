@@ -301,8 +301,8 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
-	public boolean shouldReplaceLastLetter(int nextKey) {
-		return !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) {
+		return !hold && !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
 	}
 
 

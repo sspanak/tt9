@@ -127,7 +127,7 @@ abstract public class InputMode {
 	public boolean shouldAddPrecedingSpace() { return false; }
 	public boolean shouldDeletePrecedingSpace() { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
-	public boolean shouldReplaceLastLetter(int nextKey) { return false; }
+	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
 	public boolean recompose(String word) { return false; }

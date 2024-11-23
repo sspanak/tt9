@@ -176,7 +176,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// In Korean, the next char may "steal" components from the previous one, in which case,
 		// we must replace the previous char with a one containing less strokes.
-		if (mInputMode.shouldReplaceLastLetter(key)) {
+		if (mInputMode.shouldReplaceLastLetter(key, hold)) {
 			mInputMode.replaceLastLetter();
 		}
 		// Automatically accept the previous word, when the next one is a space or punctuation,
