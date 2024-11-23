@@ -7,8 +7,8 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class SoftKeyNumber1 extends SoftKeyNumber {
 	private static final String DEFAULT_LARGE_LABEL = ",:-)";
-	private static final String KOREAN_SMALL_LABEL = "1 :-)";
-	private static final String KOREAN_LARGE_LABEL = "ㅣ";
+	private static final String KOREAN_SMALL_LABEL = "1";
+	private static final String KOREAN_LARGE_LABEL = "ㅣ:)";
 
 	public SoftKeyNumber1(Context context) { super(context); }
 	public SoftKeyNumber1(Context context, AttributeSet attrs) { super(context, attrs); }
