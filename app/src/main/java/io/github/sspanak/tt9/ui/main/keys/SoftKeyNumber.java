@@ -199,14 +199,16 @@ public class SoftKeyNumber extends SoftKey {
 
 	/**
 	 * As suggested by the community, there is no need to display the accented letters.
-	 * People are used to seeing just "ABC", "DEF", etc.
+	 * People are used to seeing just "ABC", "DEF", etc. In the case of Korean, the keypad looks too
+	 * cluttered, so we skip the double consonants, like on phones with a physical keypad.
 	 */
 	private boolean shouldSkipAccents(char currentLetter, boolean isGreek, boolean isLatinBased) {
 		return
 			currentLetter == 'ѝ'
 			|| currentLetter == 'ґ'
-			|| currentLetter == 'ς'
+			|| (currentLetter == 'ㄲ' || currentLetter == 'ㄸ' || currentLetter == 'ㅃ' || currentLetter == 'ㅆ' || currentLetter == 'ㅉ')
 			|| (isLatinBased && currentLetter > 'z')
+			|| currentLetter == 'ς'
 			|| (isGreek && (currentLetter < 'α' || currentLetter > 'ω'));
 	}
 }

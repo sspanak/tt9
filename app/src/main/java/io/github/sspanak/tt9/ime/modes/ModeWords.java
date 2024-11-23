@@ -277,12 +277,6 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
-	@Override
-	protected int getEmojiGroup() {
-		return digitSequence.length() - 2;
-	}
-
-
 	private boolean loadPreferredChar() {
 		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();

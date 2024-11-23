@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class SoftKeyNumber0 extends SoftKeyNumber {
-	private static final String CHARS_KOREAN = "# % @ 0";
-	private static final String CHARS_NUMERIC_MODE = "+ # % @";
+	private static final String CHARS_KOREAN = "+%0";
+	private static final String CHARS_NUMERIC_MODE = "+%$";
 
 	public SoftKeyNumber0(Context context) { super(context); }
 	public SoftKeyNumber0(Context context, AttributeSet attrs) { super(context, attrs); }

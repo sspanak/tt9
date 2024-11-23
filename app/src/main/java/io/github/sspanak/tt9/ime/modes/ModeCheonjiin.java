@@ -25,7 +25,7 @@ class ModeCheonjiin extends InputMode {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	// special chars and emojis
-	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "1";
+	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "11";
 	protected String CUSTOM_EMOJI_SEQUENCE;
 	protected String EMOJI_SEQUENCE;
 	protected String PUNCTUATION_SEQUENCE;
@@ -83,7 +83,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || Cheonjiin.isSingleJamo(digitSequence)) {
+		if (digitSequence.equals(PUNCTUATION_SEQUENCE) || digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || Cheonjiin.isSingleJamo(digitSequence)) {
 			digitSequence = "";
 		} else if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
@@ -114,24 +114,27 @@ class ModeCheonjiin extends InputMode {
 		if (number == 0) {
 			disablePredictions = false;
 			digitSequence = SPECIAL_CHAR_SEQUENCE;
-			suggestions.add(language.getKeyNumber(number));
+		} else if (number == 1) {
+			disablePredictions = false;
+			digitSequence = PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(language.getKeyNumber(number));
 		}
+
+		suggestions.add(language.getKeyNumber(number));
 	}
 
 
-	protected void onNumberPress(int number) {
-		int rewindAmount = shouldRewindRepeatingNumbers(number);
+	protected void onNumberPress(int nextNumber) {
+		int rewindAmount = shouldRewindRepeatingNumbers(nextNumber);
 		if (rewindAmount > 0) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - rewindAmount);
 		}
 
 		if (digitSequence.startsWith(PUNCTUATION_SEQUENCE)) {
-			digitSequence = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.validateEmojiSequence(digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length()), number);
+			digitSequence = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.validateEmojiSequence(digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length()), nextNumber);
 		} else {
-			digitSequence += String.valueOf(number);
+			digitSequence += String.valueOf(nextNumber);
 		}
 	}
 
@@ -202,7 +205,7 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected int getEmojiGroup() {
-		return digitSequence.length() - 3;
+		return digitSequence.length() - EMOJI_SEQUENCE.length();
 	}
 
 
@@ -310,7 +313,7 @@ class ModeCheonjiin extends InputMode {
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
 		return
 			!digitSequence.isEmpty()
-			&& !disablePredictions && !shouldDisplayEmojis() && predictions.noDbWords()
+			&& !disablePredictions && !shouldDisplayEmojis() && !shouldDisplaySpecialCharacters() && predictions.noDbWords()
 			&& (Cheonjiin.endsWithDashVowel(digitSequence) || Cheonjiin.endsWithTwoConsonants(digitSequence));
 	}
 
