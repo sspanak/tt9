@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class SoftKeyNumber0 extends SoftKeyNumber {
-	private static final String CHARS_KOREAN = "0";
 	private static final String CHARS_NUMERIC_MODE = "+%$";
 
 	public SoftKeyNumber0(Context context) { super(context); }
@@ -25,10 +24,8 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return "+/-";
 		} else if (tt9.isInputModePhone()) {
 			return "+";
-		} else if (tt9.isInputModeNumeric()) {
+		} else if (tt9.isInputModeNumeric() || LanguageKind.isKorean(tt9.getLanguage())) {
 			return CHARS_NUMERIC_MODE;
-		} else if (LanguageKind.isKorean(tt9.getLanguage())) {
-			return CHARS_KOREAN;
 		}
 
 		return super.getTitle();
@@ -62,8 +59,6 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 				list.append(character);
 			}
 		}
-
-		list.append("+");
 
 		return list.toString();
 	}

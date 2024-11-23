@@ -60,10 +60,22 @@ class ModeCheonjiin extends InputMode {
 			// Note: applyPunctuationOrder() requires the language to be set
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		} else {
+			setCustomSpecialCharacters();
 		}
 
 		autoSpace = new AutoSpace(settings).setLanguage(language);
 	}
+
+
+	protected void setCustomSpecialCharacters() {
+		if (settings.holdForPunctuationInKorean()) {
+			ArrayList<String> specialChars = new ArrayList<>(applyPunctuationOrder(Characters.Special, 0));
+			specialChars.add(0, "0");
+			KEY_CHARACTERS.add(specialChars);
+		}
+	}
+
 
 
 	protected void setSpecialCharacterConstants() {

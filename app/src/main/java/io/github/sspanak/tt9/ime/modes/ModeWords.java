@@ -44,6 +44,9 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
+	@Override protected void setCustomSpecialCharacters() {} // we use the default ones
+
+
 	protected void setSpecialCharacterConstants() {
 		PUNCTUATION_SEQUENCE = NaturalLanguage.PUNCTUATION_KEY;
 		EMOJI_SEQUENCE = EmojiLanguage.EMOJI_SEQUENCE;
