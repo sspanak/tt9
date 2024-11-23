@@ -119,9 +119,8 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
+			suggestions.add(language.getKeyNumber(number));
 		}
-
-		suggestions.add(language.getKeyNumber(number));
 	}
 
 
@@ -301,7 +300,10 @@ class ModeCheonjiin extends InputMode {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		return hold && !digitSequence.isEmpty();
+		return
+			(hold && !digitSequence.isEmpty())
+			|| digitSequence.equals(SPECIAL_CHAR_SEQUENCE)
+			|| (digitSequence.startsWith(PUNCTUATION_SEQUENCE) && nextKey != 1);
 	}
 
 
@@ -320,6 +322,11 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {
+		if (shouldDisplaySpecialCharacters() || shouldDisplayEmojis()) {
+			reset();
+			return;
+		}
+
 		String digitSequenceStash = "";
 
 		boolean mustReload = false;
