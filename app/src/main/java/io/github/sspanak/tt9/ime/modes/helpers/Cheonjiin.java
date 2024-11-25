@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.regex.Pattern;
 
 public class Cheonjiin {
-	private static final Pattern MEDIAL_VOWEL = Pattern.compile("[1-3]+[4-9|0]+$");
+	private static final Pattern MEDIAL_VOWEL = Pattern.compile("^[4-9|0]+[1-3]+[4-9|0]+$");
 
 	public static boolean isThereMediaVowel(@NonNull String digitSequence) {
 		return !digitSequence.isEmpty() && MEDIAL_VOWEL.matcher(digitSequence).find();
