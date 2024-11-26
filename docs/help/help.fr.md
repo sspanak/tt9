@@ -187,9 +187,27 @@ Si vous disposez d'un écran tactile et d'un pavé numérique matériel et préf
 Il est également recommandé de désactiver le comportement spécial de la touche « Retour » fonctionnant comme « Effacer ». Cette option est utile uniquement pour un clavier matériel. Habituellement, cela se fait automatiquement, mais si ce n'est pas le cas, allez dans Paramètres → Clavier → Sélectionner les raccourcis → Touche Effacer, puis sélectionnez l'option « -- ».
 
 ### Aperçu des touches virtuelles
-Le pavé numérique à l'écran fonctionne de la même manière que le pavé numérique d'un téléphone avec des touches physiques. Si une touche fournit une seule fonction, elle comporte une seule étiquette (ou icône) indiquant cette fonction. Et si la touche fournit une fonction secondaire en la maintenant enfoncée, elle a deux petites étiquettes (ou icônes), l'une en dessous de l'autre.
+Le clavier à l'écran fonctionne de la même manière que le pavé numérique d'un téléphone avec des touches physiques. Si une touche offre une seule fonction, elle comporte une seule étiquette (ou icône) indiquant cette fonction. Si la touche offre une fonction secondaire lorsque vous la maintenez enfoncée, elle comportera deux étiquettes (ou icônes).
 
-La touche F4 gauche (celle du bas à gauche) prend en charge des fonctions supplémentaires en utilisant des balayages. Balayez horizontalement pour passer au dernier clavier utilisé ou balayez verticalement pour afficher la boîte de dialogue de sélection de clavier et passer à un autre clavier.
+Voici une description des touches ayant plus d'une fonction.
+
+#### Touche F2 droite (étiquetée "CLR/FLTR")
+_Mode prédictif uniquement._
+
+- **Appuyer :** Filtre la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut) pour savoir comment fonctionne le filtrage des mots.
+- **Maintenir enfoncé :** Supprime le filtre, s'il est actif.
+
+#### Touche F3 droite (avec une icône de microphone et l'étiquette "COPY")
+- **Appuyer :** Ouvre les options de copier-coller et d'édition de texte.
+- **Maintenir enfoncé :** Active l'entrée vocale.
+
+#### Touche F4 gauche (la touche en bas à gauche)
+- **Appuyer :** Alterne entre les modes de saisie (abc → Prédictif → 123).
+- **Maintenir enfoncé :** Passe à la langue suivante, si plusieurs langues ont été activées dans les paramètres.
+- **Balayer horizontalement :** Passe au dernier clavier utilisé, autre que TT9.
+- **Balayer verticalement :** Ouvre la boîte de dialogue de changement de clavier Android où vous pouvez sélectionner parmi tous les claviers installés.
+
+_La touche affichera une petite icône de globe si vous avez activé plus d'une langue dans Paramètres → Langues. L'icône indique qu'il est possible de changer de langue en maintenant la touche enfoncée._
 
 ### Redimensionner le panneau du clavier pendant la saisie
 Dans certains cas, vous pouvez trouver que le pavé numérique virtuel occupe trop d'espace à l'écran, vous empêchant de voir ce que vous tapez ou certains éléments de l'application. Si c'est le cas, vous pouvez le redimensionner en maintenant enfoncée et en faisant glisser la touche Paramètres/Palette de commandes ou en faisant glisser la barre d'état (elle affiche la langue ou le mode de saisie actuel). Lorsque la hauteur devient trop petite, la disposition sera automatiquement changée en « touches de fonction » ou en « liste de suggestions uniquement ». Respectivement, en redimensionnant vers le haut, la disposition reviendra au « pavé numérique virtuel ». Vous pouvez également double-cliquer sur la barre d'état pour minimiser ou maximiser instantanément.
@@ -335,3 +353,6 @@ Traditional T9 est un clavier T9 et en tant que tel, il ne propose pas de dispos
 Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, balayez la touche F4 gauche pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
 
 La plupart des autres claviers permettent de revenir à Traditional T9 en maintenant la barre d'espace ou la touche « changer de langue ». Consultez la documentation ou le manuel respectif pour plus d'informations.
+
+#### Je ne peux pas changer de langue sur un téléphone tactile
+Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche F4 gauche](#touche-f4-gauche-la-touche-en-bas-à-gauche) pour changer de langue.

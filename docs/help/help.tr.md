@@ -187,9 +187,27 @@ Eğer dokunmatik ekranınız ve donanım tuș takımınız varsa ve daha fazla e
 "Geri" tușunun "Geri Sil" olarak özel davranıșını devre dıșı bırakmanız da önerilir. Bu özellik sadece donanım tuș takımı için yararlıdır. Genellikle otomatik olarak da gerçekleșir, ancak olmuyorsa Ayarlar → Tuș Takımı → Kısayol Tușları Seç → Geri Sil tușuna gidin ve "--" seçeneğini seçin.
 
 ### Sanal Tușlara Genel Bakış
-Ekran üzerindeki tuș takımı, donanım tușları olan bir telefonun numpad'i gibi çalıșır. Eğer bir tuș yalnızca bir işlev sağlıyorsa, o işlevi gösterecek bir etiketi (veya simgesi) vardır. Eğer tuș ikincil bir "basılı tut" işlevi sunuyorsa, üst üste iki küçük etiket (veya simge) içerir.
+Ekran klavyesi, fiziksel tuşlara sahip bir telefonun numpad’i ile aynı şekilde çalışır. Bir tuş yalnızca tek bir işlev sağlıyorsa, bu işlevi belirten bir etikete (veya simgeye) sahiptir. Eğer bir tuş, "basılı tutma" yoluyla ikinci bir işlev sağlıyorsa, iki etikete (veya simgeye) sahip olacaktır.
 
-Sol F4 tușu (soldaki en alt tuș), ekstra işlevleri kaydırarak kullanmanıza olanak tanır. Son kullanılan klavyeye geçiș yapmak için yatay olarak kaydırın veya klavye seçim iletişim kutusunu gösterip farklı bir klavyeye geçiș yapmak için dikey olarak kaydırın.
+Aşağıda birden fazla işlevi olan tuşların açıklamaları yer almaktadır.
+
+#### Sağ F2 tuşu ("CLR/FLTR" etiketi var)
+_Yalnızca tahmin modunda._
+
+- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığını görmek için [yukarıdaki](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) açıklamaya bakın.
+- **Basılı tut:** Eğer aktifse filtreyi temizler.
+
+#### Sağ F3 tuşu (mikrofon simgesi ve "COPY" etiketi var)
+- **Bas:** Kopyalama, yapıştırma ve metin düzenleme seçeneklerini açar.
+- **Basılı tut:** Sesli girişi etkinleştirir.
+
+#### Sol F4 tuşu (sol alt köşedeki tuş)
+- **Bas:** Giriş modlarını döngüsel olarak değiştirir (abc → Tahmin → 123).
+- **Basılı tut:** Ayarlardan birden fazla dil etkinleştirildiğinde bir sonraki dili seçer.
+- **Yatay kaydırma:** TT9 dışında kullanılan son klavyeye geçiş yapar.
+- **Dikey kaydırma:** Tüm yüklü klavyeler arasından seçim yapabileceğiniz Android Klavye Değiştirme diyalog penceresini açar.
+
+_Ayarlar → Diller kısmından birden fazla dili etkinleştirdiyseniz, tuşta küçük bir küre simgesi görüntülenir. Simge, tuşu basılı tutarak dil değiştirebileceğinizi gösterir._
 
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
 Bazı durumlarda, Sanal Tuș Takımının çok fazla ekran alanı kapladığını, yazdıklarınızı veya bazı uygulama öğelerini göremediğinizi fark edebilirsiniz. Bu durumda, Ayarlar/Komut Paleti tușunu basılı tutarak veya Durum Çubuğunu (mevcut dil veya yazma modunun gösterildiği alan) sürükleyerek yeniden boyutlandırabilirsiniz. Yükseklik çok küçük hale geldiğinde, düzen otomatik olarak "İşlev tușları" veya yalnızca "Öneri listesi" olarak değișecektir. Yukarı doğru yeniden boyutlandırdığınızda ise düzen "Sanal Tuș Takımı"na geçer. Durum çubuğuna iki kez dokunarak hızlıca minimize veya maximize edebilirsiniz.
@@ -335,3 +353,6 @@ Geleneksel T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağla
 T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Geleneksel T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
+
+#### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
+Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [Sol F4 tuşunu](#sol-f4-tuşu-sol-alt-köşedeki-tuş) basılı tutun.

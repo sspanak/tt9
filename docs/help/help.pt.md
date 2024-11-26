@@ -188,9 +188,28 @@ Se você tiver tanto um touchscreen quanto um teclado físico e preferir ter mai
 Recomenda-se também desativar o comportamento especial da tecla "Voltar" funcionando como "Backspace". Isso é útil apenas para teclados físicos. Geralmente, isso acontecerá automaticamente, mas se não, vá para Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção "--".
 
 ### Visão Geral das Teclas Virtuais
-O teclado na tela funciona da mesma forma que o teclado numérico de um telefone com teclas físicas. Se uma tecla oferece uma função única, ela possui um rótulo (ou ícone) indicando essa função. Se a tecla fornece uma função secundária ao manter pressionado, ela possui dois rótulos (ou ícones) menores, um abaixo do outro.
+### Visão Geral das Teclas Virtuais
+O teclado na tela funciona da mesma forma que o teclado numérico de um telefone com teclas físicas. Se uma tecla oferece uma única função, ela terá um único rótulo (ou ícone) indicando essa função. Se a tecla tiver uma função secundária ativada ao pressionar e segurar, ela terá dois rótulos (ou ícones).
 
-A tecla F4 esquerda (a inferior no lado esquerdo) suporta funções extras usando deslizamento. Deslize horizontalmente para alternar para o último teclado usado ou deslize verticalmente para exibir o diálogo de seleção de teclado e mudar para um teclado diferente.
+Abaixo está uma descrição das teclas com mais de uma função.
+
+#### Tecla F2 direita (rotulada "CLR/FLTR")
+_Somente no modo preditivo._
+
+- **Pressionar:** Filtra a lista de sugestões. Veja [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima) como funciona o filtro de palavras.
+- **Pressionar e segurar:** Limpa o filtro, se ativo.
+
+#### Tecla F3 direita (com um ícone de microfone e o rótulo "COPY")
+- **Pressionar:** Abre as opções de copiar, colar e editar texto.
+- **Pressionar e segurar:** Ativa a entrada por voz.
+
+#### Tecla F4 esquerda (a tecla inferior esquerda)
+- **Pressionar:** Alterna os modos de entrada (abc → Preditivo → 123).
+- **Pressionar e segurar:** Seleciona o próximo idioma, se vários idiomas estiverem ativados nas configurações.
+- **Deslizar horizontalmente:** Alterna para o último teclado usado, diferente do TT9.
+- **Deslizar verticalmente:** Abre o diálogo de troca de teclado do Android, onde você pode selecionar entre todos os teclados instalados.
+
+_A tecla exibirá um pequeno ícone de globo se você tiver ativado mais de um idioma em Configurações → Idiomas. O ícone indica que é possível mudar o idioma pressionando e segurando a tecla._
 
 ### Redimensionar o Painel do Teclado Durante a Digitação
 Em alguns casos, você pode achar que o Teclado Virtual está ocupando muito espaço na tela, impedindo que você veja o que está digitando ou alguns elementos do aplicativo. Se for o caso, redimensione-o mantendo pressionado e arrastando a tecla de Configurações/Paleta de Comandos ou arrastando a Barra de Status (onde o idioma atual ou modo de digitação são exibidos). Quando a altura ficar muito pequena, o layout mudará automaticamente para "Teclas de Função" ou "Somente Lista de Sugestões". Ao redimensionar para cima, o layout mudará para "Teclado Virtual". Você também pode dar um duplo toque na barra de status para minimizar ou maximizar instantaneamente.
@@ -336,3 +355,6 @@ O Traditional T9 é um teclado T9 e, como tal, não fornece um layout no estilo 
 Se você ainda está aprendendo a usar o T9 e precisa mudar de volta ocasionalmente, ou acha mais conveniente digitar novas palavras usando o QWERTY, deslize a tecla F4 esquerda para alternar para um teclado diferente. Veja a [visão geral das teclas virtuais](#visão-geral-das-teclas-virtuais) para mais informações.
 
 A maioria dos outros teclados permite alternar de volta para o Traditional T9 segurando a barra de espaço ou a tecla de "mudar idioma". Verifique o respectivo manual ou guia do teclado para mais informações.
+
+#### Não consigo mudar o idioma em um telefone com tela sensível ao toque
+Primeiro, certifique-se de que ativou todos os idiomas desejados em Configurações → Idiomas. Em seguida, pressione e segure a [tecla F4 esquerda](#tecla-f4-esquerda-a-tecla-inferior-esquerda) para mudar o idioma.

@@ -187,9 +187,27 @@ If you do have both a touchscreen and a hardware keypad and prefer having more s
 It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. Usually, it will happen automatically too, but if it does not, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
 
 ### Virtual Keys Overview
-The on-screen keypad works the same as the numpad of a phone with hardware keys. If a key provides a single function, it has one label (or icon) indicating that function. And if the key provides a secondary "hold" function, it has two smaller labels (or icons), one below the other.
+The on-screen keypad works the same as the numpad of a phone with hardware keys. If a key provides a single function, it has one label (or icon) indicating that function. If the key provides a secondary "hold" function, it will have two labels (or icons).
 
-The Left F4 key (the bottom one on the left-hand side) supports extra functions using swiping. Swipe horizontally to switch to the last used keyboard or swipe vertically to display the keyboard selection dialog and switch to a different keyboard.
+Below is a description of the keys with more than one function.
+
+#### Right F2 key (labeled "CLR/FLTR")
+_Predictive mode only._
+
+- **Press:** Filtering the suggestion list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
+- **Hold:** Clear the filter, if active.
+
+#### Right F3 key (it has a microphone icon and a "COPY" label)
+- **Press:** Open the copy-pasting and text editing options.
+- **Hold:** Activate the Voice Input.
+
+#### Left F4 key (the bottom-left key)
+- **Press:** Cycle the input modes (abc → Predictive → 123).
+- **Hold:** Select the next language, when multiple languages have been enabled from the Settings.
+- **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
+- **Vertical swipe:** Open the Android Change Keyboard dialog where you can select between all installed keyboards.
+
+_The key will display a small globe icon when you have enabled more than one language from Settings -> Languages. The icon indicates it is possible to change the language by holding the key._
 
 ### Resizing the Keyboard Panel While Typing
 In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you can resize it by either holding and dragging the Settings/Command Palette key or by dragging the Status Bar (it is where the current language or typing mode is displayed). When the height becomes too small, the layout will automatically be switched to "Function keys" or "Suggestion list only". Respectively, when resizing up, the layout will change to "Virtual Keypad". You can also double-tap the status bar to minimize or maximize instantly.
@@ -336,3 +354,6 @@ Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like l
 If you are still learning to use T9 and need to switch back occasionally, or you find it more convenient to type new words using QWERTY, swipe the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
 
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
+
+#### I can't change the language on a touchscreen phone
+First, make sure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-bottom-left-key) to change the language.
