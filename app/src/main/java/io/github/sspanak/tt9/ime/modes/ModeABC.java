@@ -92,6 +92,10 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
+		if (newLanguage != null && newLanguage.isSyllabary()) {
+			return false;
+		}
+
 		setLanguage(newLanguage);
 
 		allowedTextCases.clear();

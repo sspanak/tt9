@@ -169,9 +169,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		// validate and save it for the next time
 		validateLanguages();
-
-		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		mInputMode = determineInputMode();
 	}
 
 

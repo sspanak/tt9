@@ -272,12 +272,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		nextLang();
+
+		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		if (!mInputMode.changeLanguage(mLanguage)) {
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, mInputMode.getId());
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
 		}
 		mInputMode.clearWordStem();
-		getSuggestions();
 
+		getSuggestions();
 		statusBar.setText(mInputMode);
 		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
