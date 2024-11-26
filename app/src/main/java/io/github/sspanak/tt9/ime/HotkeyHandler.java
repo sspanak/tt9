@@ -279,7 +279,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 		mInputMode.clearWordStem();
 
-		getSuggestions();
+		getSuggestions(null);
 		statusBar.setText(mInputMode);
 		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {

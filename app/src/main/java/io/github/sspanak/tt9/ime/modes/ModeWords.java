@@ -143,7 +143,6 @@ class ModeWords extends ModeCheonjiin {
 			reset();
 			digitSequence = language.getDigitSequenceForWord(word);
 			textCase = new Text(language, word).getTextCase();
-			setWordStem(word,  true);
 		} catch (InvalidLanguageCharactersException e) {
 			Logger.d(LOG_TAG, "Not recomposing word: '" + word + "'. " + e.getMessage());
 			return false;
