@@ -198,7 +198,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (mInputMode.clearWordStem()) {
 			mInputMode
-				.setOnSuggestionsUpdated(this::getSuggestions)
+				.setOnSuggestionsUpdated(this::handleSuggestions)
 				.loadSuggestions(suggestionOps.getCurrent(mInputMode.getSequenceLength()));
 			return true;
 		}
@@ -237,7 +237,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			mInputMode.reset();
 		} else if (mInputMode.setWordStem(filter, repeat)) {
 			mInputMode
-				.setOnSuggestionsUpdated(super::getSuggestions)
+				.setOnSuggestionsUpdated(super::handleSuggestions)
 				.loadSuggestions(filter);
 		}
 
