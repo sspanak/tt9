@@ -59,6 +59,7 @@ To support a new language one needs to:
   - `hasSpaceBetweenWords` _(optional)_ set to `no` when the language does not use spaces between words. For example: Thai, Chinese, Japanese, Korean, and so on. The default is `yes`.
   - `hasUpperCase` _(optional)_ set to `no` when the language has no upper- and lowercase letters. For example: Arabic, Hebrew, East Asian languages, and so on. The default is `yes`.
   - `name` _(optional)_ is automatically generated and equals the native name of the language (e.g. "English", "Deutsch", "Українська"). However, sometimes, the automatically selected name may be ambiguous. For example, both Portuguese in Portugal and Brazil will default to "Português", so assigning "Português brasileiro" would make it clear it's the language used in Brazil.
+  - `sounds` _(mandatory for non-alphabetic languages)_ is an array of elements in the format: `[sound,digits]`. It is used for East Asian or other languages where there are thousands of different characters, that can not be described in the layout property. `sounds` contains all possible vowel and consonant sounds and their respective digit combinations. There must be no repeating sounds. If a single Latin letter stands for a sound, the letter must be capital. If more than one letter is necessary to represent the sound, the first letter must be capital, while the rest must be small. For example, "A", "P", "Wo", "Ei", "Dd". The sounds are then used in the dictionary format with phonetic transcriptions. See `Korean.yml` and the respective dictionary file for an example.
 
 ### Dictionary Formats
 
@@ -101,6 +102,35 @@ fourth
 fifth   3
 ...
 ```
+
+#### CSV Containing Words and Phonetic Transcriptions
+The third accepted format is suitable for East Asian and other languages with many different characters. Each character or word has a phonetic representation using Latin letters. Frequencies are not applicable in this format.
+
+Constraints:
+- No header.
+- The separator is `TAB`.
+- The first element is the language character or word
+- The second element is the phonetic representation with Latin letters. It must be a combination of the `sounds` in the respective YAML definition.
+
+Example definition:
+```yaml
+# ...
+- sounds:
+  - [We,123]
+  - [Tt,221]
+  - [Wo,48]
+```
+
+Example dictionary:
+```csv
+다 WeWo
+줘 TtWoWe
+와 Wo
+```
+
+Using the above example, when the user types "221-48-123", it will result in: "줘".
+
+See `Korean.yml` and `ko-utf8.csv` for more examples.
 
 ## Translating the UI
 To translate Traditional T9 menus and messages in your language, add: `res/values-your-lang/strings.xml`. Then use the Android Studio translation editor. It is very handy.

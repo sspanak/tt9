@@ -47,6 +47,10 @@ public class Characters {
 		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", GR_QUESTION_MARK
 	));
 
+	final public static ArrayList<String> PunctuationKorean = new ArrayList<>(Arrays.asList(
+		",", ".", "~", "1", "(", ")", "&", "-", "`", ";", ":", "'", "\"", "!", "?"
+	));
+
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
 		"$", "€", "₹", "₿", "₩", "¢", "¤", "₺", "₱", "¥", "₽", "£"
 	));
@@ -106,15 +110,6 @@ public class Characters {
 			"❤", "🤗", "😍", "😘", "😇", "😈", "🍺", "🎉", "🥱", "🤔", "🥶", "😬"
 		))
 	));
-
-	public static boolean isStaticEmoji(String emoji) {
-		for (ArrayList<String> group : Emoji) {
-			if (group.contains(emoji)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public static boolean isGraphic(char ch) {
 		return !(ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch));

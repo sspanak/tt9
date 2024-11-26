@@ -144,11 +144,13 @@
 	<string name="donate_url_short" translatable="false">www.buymeacoffee.com</string>
 
 	<string name="function_add_word">Add Word</string>
+	<string name="function_add_word_not_available">Adding words is not possible in this language.</string>
 	<string name="function_backspace">Backspace</string>
 	<string name="function_show_command_palette">Show Command List</string>
 	<string name="function_filter_clear">Clear Filter</string>
 	<string name="function_edit_text">Edit Text</string>
 	<string name="function_filter_suggestions">Filter Suggestions</string>
+	<string name="function_filter_suggestions_not_available">Filtering is not possible in this language.</string>
 	<string name="function_previous_suggestion">Previous Suggestion</string>
 	<string name="function_next_suggestion">Next Suggestion</string>
 	<string name="function_next_language">Next Language</string>
@@ -221,6 +223,7 @@
 	<string name="virtual_key_input_mode" translatable="false">Mode</string>
 	<string name="virtual_key_settings" translatable="false">Cfg</string>
 	<string name="virtual_key_shift" translatable="false">Shift</string>
+	<string name="virtual_key_space_korean">Space (Korean)</string>
 	<string name="virtual_key_text_editing" translatable="false">Copy</string>
 
 	<string name="voice_input_listening">Speak</string>

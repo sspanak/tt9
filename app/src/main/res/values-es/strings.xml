@@ -35,6 +35,7 @@
 	<string name="pref_dark_theme">Tema oscuro</string>
 	<string name="char_space">Espacio</string>
 	<string name="dictionary_truncating">Borrando…</string>
+	<string name="function_add_word_not_available">No es posible agregar palabras en este idioma.</string>
 	<string name="function_backspace">Retroceso</string>
 	<string name="setup_keyboard_status">Estado</string>
 	<string name="setup_default_keyboard">Selecciona teclado predeterminado</string>
@@ -81,6 +82,7 @@
 	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>
 	<string name="function_filter_suggestions">Filtrar sugerencias</string>
+	<string name="function_filter_suggestions_not_available">No es posible filtrar en este idioma.</string>
 	<string name="function_previous_suggestion">Sugerencia previa</string>
 	<string name="function_next_suggestion">Sugerencia siguiente</string>
 	<string name="function_next_language">Idioma siguiente</string>

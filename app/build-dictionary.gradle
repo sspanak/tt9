@@ -8,13 +8,13 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
     int errorCount = 0
 
     def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
-        def (_, sounds, __, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
+        def (_, sounds, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
         errorCount += langFileErrorCount
         if (!langFileErrorMsg.isEmpty()) {
             return langFileErrorMsg
         }
 
-        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, locale, MAX_ERRORS, CSV_DELIMITER)
+        def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, noSyllables, locale, MAX_ERRORS, CSV_DELIMITER)
         errorCount += conversionErrorCount
         if (!conversionErrorMessages.isEmpty()) {
             return conversionErrorMessages
@@ -31,7 +31,7 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 
 
 // this cannot be static, because DictionaryTools will not be visible
-def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, Locale locale, int maxErrors, String csvDelimiter) {
+def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, boolean noSyllables, Locale locale, int maxErrors, String csvDelimiter) {
     if (isDictionaryUpToDate(definition, csvDictionary, dictionariesMetaDir)) {
         return [0, ""]
     }
@@ -70,7 +70,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 
     outputDictionary = sortDictionary(outputDictionary)
 
-    def (assetError, zippedDictionary) = writeZippedDictionary(dictionariesOutputDir, csvDictionary, outputDictionary, outputDictionaryExtension)
+    def (assetError, zippedDictionary) = writeZippedDictionary(dictionariesOutputDir, csvDictionary, outputDictionary, outputDictionaryExtension, noSyllables)
     if (assetError) {
         errorCount++
         errorMsg += assetError
@@ -88,12 +88,12 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 
 //////////////////// DICTIONARY PROCESSING ////////////////////
 
-static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
+static byte[] compressDictionaryLine(String digitSequence, List<String> words, boolean noSyllables) {
     if (words.isEmpty()) {
         throw new IllegalArgumentException("No words for digit sequence: ${digitSequence}")
     }
 
-    boolean shouldSeparateWords = false
+    boolean shouldSeparateWords = !noSyllables
 
     for (def i = 0; i < words.size(); i++) {
         if (words.get(i).length() != digitSequence.length()) {
@@ -104,7 +104,7 @@ static byte[] compressDictionaryLine(String digitSequence, List<String> words) {
 
     return (
         digitSequence +
-        (shouldSeparateWords ? ' ' : '') +
+        (shouldSeparateWords && noSyllables ? ' ' : '') + // if the language definition has sounds (aka the characters are syllables), we separate the words for sure, so the initial hint is not needed
         words.join(shouldSeparateWords ? ' ' : null)
     ).getBytes(StandardCharsets.UTF_8)
 }
@@ -166,7 +166,7 @@ static getZipDictionaryFile(dictionariesOutputDir, csvDictionary, outputDictiona
 /**
  * Zipping the text files results in a smaller APK in comparison to the uncompressed text files.
  */
-static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outputDictionary, outputDictionaryExtension) {
+static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outputDictionary, outputDictionaryExtension, noSyllables) {
     def fileName = getDictionaryFileName(csvDictionaryFile)
     def outputFile = getZipDictionaryFile(dictionariesOutputDir, csvDictionaryFile, outputDictionaryExtension)
 
@@ -174,7 +174,7 @@ static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outpu
         def zipOutputStream = new ZipOutputStream(new FileOutputStream(outputFile))
         zipOutputStream.putNextEntry(new ZipEntry("${fileName}.txt"))
         outputDictionary.each { digitSequence, words ->
-            zipOutputStream.write(compressDictionaryLine(digitSequence, words))
+            zipOutputStream.write(compressDictionaryLine(digitSequence, words, noSyllables))
         }
         zipOutputStream.closeEntry()
         zipOutputStream.close()

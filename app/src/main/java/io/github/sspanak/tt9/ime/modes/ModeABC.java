@@ -12,18 +12,18 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class ModeABC extends InputMode {
+class ModeABC extends InputMode {
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	private boolean shouldSelectNextLetter = false;
 
 	@Override public int getId() { return MODE_ABC; }
 
-	ModeABC(SettingsStore settings, InputType inputType, Language lang) {
-		super(settings);
+	protected ModeABC(SettingsStore settings, Language lang, InputType inputType) {
+		super(settings, inputType);
 		changeLanguage(lang);
 
-		if (inputType.isEmail()) {
+		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
 		}
@@ -76,18 +76,27 @@ public class ModeABC extends InputMode {
 	}
 
 	@Override
-	protected boolean nextSpecialCharacters() {
-		if (KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters()) {
-			suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
-			return true;
-		}
-
-		return false;
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
 	}
 
 	@Override
-	public void changeLanguage(@Nullable Language newLanguage) {
-		super.changeLanguage(newLanguage);
+	protected boolean nextSpecialCharacters() {
+		if (!super.nextSpecialCharacters()) {
+			return false;
+		}
+
+		suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
+		return true;
+	}
+
+	@Override
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		if (newLanguage != null && newLanguage.isSyllabary()) {
+			return false;
+		}
+
+		setLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
@@ -97,6 +106,8 @@ public class ModeABC extends InputMode {
 
 		refreshSuggestions();
 		shouldSelectNextLetter = true; // do not accept any previous suggestions after loading the new ones
+
+		return true;
 	}
 
 	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }

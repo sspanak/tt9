@@ -64,7 +64,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	public void show(Context context, Bundle data) {
+	public void show(Bundle data) {
 		String error = data.getString("error", null);
 		int fileCount = data.getInt("fileCount", -1);
 		int progress = data.getInt("progress", -1);
@@ -72,7 +72,6 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 		if (error != null) {
 			hasFailed = true;
 			showError(
-				context,
 				error,
 				data.getInt("languageId", -1),
 				data.getLong("fileLine", -1)
@@ -84,7 +83,6 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			}
 
 			showProgress(
-				context,
 				data.getLong("time", 0),
 				data.getInt("currentFile", 0),
 				data.getInt("progress", 0),
@@ -94,8 +92,8 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	private String generateTitle(Context context, int languageId) {
-		Language lang = LanguageCollection.getLanguage(context, languageId);
+	private String generateTitle(int languageId) {
+		Language lang = LanguageCollection.getLanguage(languageId);
 
 		if (lang != null) {
 			return resources.getString(R.string.dictionary_loading, lang.getName());
@@ -105,7 +103,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	private void showProgress(Context context, long time, int currentFile, int currentFileProgress, int languageId) {
+	private void showProgress(long time, int currentFile, int currentFileProgress, int languageId) {
 		if (currentFileProgress <= 0) {
 			hide();
 			isStopped = true;
@@ -119,12 +117,12 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 		if (progress >= maxProgress) {
 			progress = maxProgress = 0;
-			title = generateTitle(context, -1);
+			title = generateTitle(-1);
 
 			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
 			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
 		} else {
-			title = generateTitle(context, languageId);
+			title = generateTitle(languageId);
 			message = currentFileProgress + "%";
 		}
 
@@ -132,8 +130,8 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	private void showError(Context context, String errorType, int langId, long line) {
-		Language lang = LanguageCollection.getLanguage(context, langId);
+	private void showError(String errorType, int langId, long line) {
+		Language lang = LanguageCollection.getLanguage(langId);
 
 		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
 			message = resources.getString(R.string.add_word_invalid_language);
@@ -147,7 +145,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			message = resources.getString(R.string.dictionary_load_error, lang.getName(), errorType);
 		}
 
-		title = generateTitle(context, -1);
+		title = generateTitle(-1);
 		progress = maxProgress = 0;
 
 		renderError();

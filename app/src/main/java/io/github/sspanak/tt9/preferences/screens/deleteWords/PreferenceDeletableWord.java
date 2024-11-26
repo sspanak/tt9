@@ -64,7 +64,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		SettingsStore settings = new SettingsStore(getContext());
 		DataStore.deleteCustomWord(
 			this::onWordDeleted,
-			LanguageCollection.getLanguage(getContext(), settings.getInputLanguage()),
+			LanguageCollection.getLanguage(settings.getInputLanguage()),
 			word
 		);
 	}

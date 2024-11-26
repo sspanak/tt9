@@ -36,7 +36,7 @@ class ItemPunctuationOrderLanguage extends ItemDropDown {
 		}
 
 		LinkedHashMap<String, String> values = new LinkedHashMap<>();
-		ArrayList<Language> languages = LanguageCollection.getAll(item.getContext(), settings.getEnabledLanguageIds(), true);
+		ArrayList<Language> languages = LanguageCollection.getAll(settings.getEnabledLanguageIds(), true);
 		if (languages.isEmpty()) {
 			return;
 		}

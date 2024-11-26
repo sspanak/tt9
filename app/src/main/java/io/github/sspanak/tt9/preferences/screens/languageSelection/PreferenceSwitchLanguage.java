@@ -51,7 +51,7 @@ public class PreferenceSwitchLanguage extends SwitchPreferenceCompat {
 		);
 
 		// word count
-		WordFile wordFile = new WordFile(activity, language.getDictionaryFile(), activity.getAssets());
+		WordFile wordFile = new WordFile(activity, language, activity.getAssets());
 		summary
 			.append(", ")
 			.append(

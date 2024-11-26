@@ -20,13 +20,13 @@ public class AutoUpdateMonologue extends PopupDialog {
 
 	AutoUpdateMonologue(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher);
-		parseIntent(context, intent);
+		parseIntent(intent);
 	}
 
 
-	private void parseIntent(@NonNull Context context, @NonNull Intent intent) {
+	private void parseIntent(@NonNull Intent intent) {
 		int languageId = intent.getIntExtra(PARAMETER_LANGUAGE, -1);
-		language = LanguageCollection.getLanguage(context, languageId);
+		language = LanguageCollection.getLanguage(languageId);
 
 		if (language == null) {
 			Logger.e(getClass().getSimpleName(), "Auto-updating is not possible. Intent parameter '" + PARAMETER_LANGUAGE + "' is invalid: " + languageId);

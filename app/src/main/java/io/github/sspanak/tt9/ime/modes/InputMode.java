@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -28,11 +29,11 @@ abstract public class InputMode {
 	public static final int CASE_DICTIONARY = 3; // do not force it, but use the dictionary word as-is
 	protected final ArrayList<Integer> allowedTextCases = new ArrayList<>();
 	protected int textCase = CASE_LOWER;
-	protected int textFieldTextCase = CASE_UNDEFINED;
 
 	// data
 	protected int autoAcceptTimeout = -1;
 	@NonNull protected String digitSequence = "";
+	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
 	protected final SettingsStore settings;
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
@@ -40,7 +41,8 @@ abstract public class InputMode {
 	protected int specialCharSelectedGroup = 0;
 
 
-	protected InputMode(SettingsStore settings) {
+	protected InputMode(SettingsStore settings, InputType inputType) {
+		isEmailMode = inputType != null && inputType.isEmail();
 		this.settings = settings;
 	}
 
@@ -48,15 +50,15 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return new ModePredictive(settings, inputType, textField, language);
+				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType, textField) : new ModeWords(settings, language, inputType, textField));
 			case MODE_ABC:
-				return new ModeABC(settings, inputType, language);
+				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:
-				return new ModePassthrough(settings);
+				return new ModePassthrough(settings, inputType);
 			default:
 				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
-				return new Mode123(settings, inputType, language);
+				return new Mode123(settings, language, inputType);
 		}
 	}
 
@@ -92,11 +94,6 @@ abstract public class InputMode {
 		return this;
 	}
 
-	// Numeric mode identifiers. "instanceof" cannot be used in all cases, because they inherit each other.
-	public boolean is123() { return false; }
-	public boolean isPassthrough() { return false; }
-	public boolean isNumeric() { return false; }
-
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }
@@ -105,19 +102,36 @@ abstract public class InputMode {
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;
 	}
-	public void changeLanguage(@Nullable Language newLanguage) {
+
+	/**
+	 * Switches to a new language if the input mode supports it. If the InputMode return "false",
+	 * it does not support that language, so you must obtain a compatible alternative using the
+	 * getInstance() method and the same ID.
+	 * The default implementation is to switch to the new language (including NullLanguage) and
+	 * return "true".
+	 */
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		setLanguage(newLanguage);
+		return true;
+	}
+
+	protected void setLanguage(@Nullable Language newLanguage) {
 		language = newLanguage != null ? newLanguage : new NullLanguage();
 	}
+
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
-	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) { return false; }
-	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) { return false; }
-	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) { return false; }
+	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddPrecedingSpace() { return false; }
+	public boolean shouldDeletePrecedingSpace() { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
+	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
+
 	public boolean recompose(String word) { return false; }
+	public void replaceLastLetter() {}
 
 	public void reset() {
 		autoAcceptTimeout = -1;
@@ -135,10 +149,6 @@ abstract public class InputMode {
 
 		textCase = newTextCase;
 		return true;
-	}
-
-	public void setTextFieldCase(int newTextCase) {
-		textFieldTextCase = allowedTextCases.contains(newTextCase) ? newTextCase : CASE_UNDEFINED;
 	}
 
 	public void defaultTextCase() {
@@ -166,6 +176,11 @@ abstract public class InputMode {
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return !digitSequence.isEmpty();
+	}
+
+
 	/**
 	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
 	 * special chars do not have a text case, but we use this trick to alternate the char groups.
@@ -175,16 +190,13 @@ abstract public class InputMode {
 		specialCharSelectedGroup++;
 
 		return
-			loadSpecialCharacters() // validates specialCharSelectedGroup
+			shouldSelectNextSpecialCharacters() // check if the operation makes sense at all
+			&& loadSpecialCharacters() // validates specialCharSelectedGroup and advances, if possible
 			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
 	}
 
 
 	protected boolean loadSpecialCharacters() {
-		if (digitSequence.isEmpty()) {
-			return false;
-		}
-
 		int key = digitSequence.charAt(0) - '0';
 		ArrayList<String> chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
 

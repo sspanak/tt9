@@ -44,8 +44,6 @@ public class SoftKeyNumber extends SoftKey {
 		put(9, 3);
 	}};
 
-	private static final String PUNCTUATION_LABEL = ",:-)";
-
 
 	public SoftKeyNumber(Context context) {
 		super(context);
@@ -68,16 +66,6 @@ public class SoftKeyNumber extends SoftKey {
 	@Override
 	protected float getTitleRelativeSize() {
 		return isArabicNumber() ? SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE : SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
-	}
-
-
-	@Override
-	protected float getSubTitleRelativeSize() {
-		if (tt9 != null && !tt9.isInputModeNumeric() && getNumber(getId()) == 0) {
-			return 1.1f;
-		}
-
-		return super.getSubTitleRelativeSize();
 	}
 
 
@@ -140,30 +128,7 @@ public class SoftKeyNumber extends SoftKey {
 
 	@Override
 	protected String getSubTitle() {
-		if (tt9 == null) {
-			return null;
-		}
-
-		int number = getNumber(getId());
-
-		return switch (number) {
-			case 0 -> getSpecialCharList(tt9);
-			case 1 -> tt9.isNumericModeStrict() ? null : PUNCTUATION_LABEL;
-			default -> getKeyCharList(tt9, number);
-		};
-	}
-
-
-	private String getSpecialCharList(@NonNull TraditionalT9 tt9) {
-		if (tt9.isNumericModeSigned()) {
-			return "+/-";
-		} else if (tt9.isNumericModeStrict()) {
-			return null;
-		} else if (tt9.isInputModeNumeric()) {
-			return "+";
-		} else {
-			return "␣";
-		}
+		return tt9 == null ? null : getKeyCharList(tt9, getNumber(getId()));
 	}
 
 
@@ -234,14 +199,16 @@ public class SoftKeyNumber extends SoftKey {
 
 	/**
 	 * As suggested by the community, there is no need to display the accented letters.
-	 * People are used to seeing just "ABC", "DEF", etc.
+	 * People are used to seeing just "ABC", "DEF", etc. In the case of Korean, the keypad looks too
+	 * cluttered, so we skip the double consonants, like on phones with a physical keypad.
 	 */
 	private boolean shouldSkipAccents(char currentLetter, boolean isGreek, boolean isLatinBased) {
 		return
 			currentLetter == 'ѝ'
 			|| currentLetter == 'ґ'
-			|| currentLetter == 'ς'
+			|| (currentLetter == 'ㄲ' || currentLetter == 'ㄸ' || currentLetter == 'ㅃ' || currentLetter == 'ㅆ' || currentLetter == 'ㅉ')
 			|| (isLatinBased && currentLetter > 'z')
+			|| currentLetter == 'ς'
 			|| (isGreek && (currentLetter < 'α' || currentLetter > 'ω'));
 	}
 }

@@ -15,9 +15,12 @@ import java.util.Arrays;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyFn;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber1;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyPunctuation;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 
@@ -89,13 +92,14 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override
 	void showTextEditingPalette() {
 		isTextEditingShown = true;
+		boolean notKorean = tt9 != null && !LanguageKind.isKorean(tt9.getLanguage());
 
 		for (SoftKey key : getKeys()) {
 			int keyId = key.getId();
 
 			if (keyId == R.id.soft_key_0) {
-				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric());
-			} else if (key.getClass().equals(SoftKeyNumber.class)) {
+				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric() && notKorean);
+			} else if (key.getClass().equals(SoftKeyNumber.class) || key instanceof SoftKeyNumber0 || key instanceof SoftKeyNumber1) {
 				key.setVisibility(View.GONE);
 			}
 
@@ -115,7 +119,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 				keyId == R.id.soft_key_add_word
 				|| keyId == R.id.soft_key_lf3
 				|| keyId == R.id.soft_key_lf4
-				|| keyId == R.id.soft_key_filter_suggestions
+				|| (keyId == R.id.soft_key_filter_suggestions && notKorean)
 			) {
 				key.setEnabled(false);
 			}
@@ -127,7 +131,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		isTextEditingShown = false;
 
 		for (SoftKey key : getKeys()) {
-			if (key.getClass().equals(SoftKeyNumber.class) || key.getClass().equals(SoftKeyPunctuation.class)) {
+			if (key.getClass().equals(SoftKeyNumber.class) || key.getClass().equals(SoftKeyPunctuation.class) || key instanceof SoftKeyNumber0 || key instanceof SoftKeyNumber1) {
 				key.setVisibility(View.VISIBLE);
 				key.setEnabled(true);
 			}

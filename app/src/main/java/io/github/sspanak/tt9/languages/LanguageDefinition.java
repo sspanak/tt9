@@ -15,6 +15,8 @@ import io.github.sspanak.tt9.util.AssetFile;
 import io.github.sspanak.tt9.util.Logger;
 
 public class LanguageDefinition extends AssetFile {
+	private static final String LOG_TAG = LanguageDefinition.class.getSimpleName();
+
 	private static final String languagesDir = "languages";
 	private static final String definitionsDir = languagesDir + "/definitions";
 
@@ -22,6 +24,7 @@ public class LanguageDefinition extends AssetFile {
 	public String dictionaryFile = "";
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
+	public boolean isSyllabary = false;
 	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
@@ -40,9 +43,9 @@ public class LanguageDefinition extends AssetFile {
 		ArrayList<String> files = new ArrayList<>();
 		try {
 			files.addAll(Arrays.asList(assets.list(definitionsDir)));
-			Logger.d("LanguageDefinition", "Found: " + files.size() + " languages.");
+			Logger.d(LOG_TAG, "Found: " + files.size() + " languages.");
 		} catch (IOException | NullPointerException e) {
-			Logger.e("tt9.LanguageDefinition", "Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
+			Logger.e(LOG_TAG, "Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
 		}
 
 		return files;
@@ -95,6 +98,7 @@ public class LanguageDefinition extends AssetFile {
 
 		hasSpaceBetweenWords = getPropertyFromYaml(yaml, "hasSpaceBetweenWords", hasSpaceBetweenWords);
 		hasUpperCase = getPropertyFromYaml(yaml, "hasUpperCase", hasUpperCase);
+		isSyllabary = hasYamlProperty(yaml, "sounds");
 		layout = getLayoutFromYaml(yaml);
 		locale = getPropertyFromYaml(yaml, "locale", locale);
 		name = getPropertyFromYaml(yaml, "name", name);
@@ -123,6 +127,19 @@ public class LanguageDefinition extends AssetFile {
 		}
 
 		return defaultValue;
+	}
+
+
+	private boolean hasYamlProperty(ArrayList<String> yaml, String property) {
+		final String yamlProperty = property + ":";
+
+		for (String line : yaml) {
+			if (line.startsWith(yamlProperty)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 

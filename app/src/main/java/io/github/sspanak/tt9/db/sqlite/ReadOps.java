@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.db.wordPairs.WordPair;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
+import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
@@ -127,6 +128,9 @@ public class ReadOps {
 			return new WordList();
 		}
 
+		// EXACT_MATCHES concerns only the positions query
+		filter = filter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY) ? "" : filter;
+
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
 		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
@@ -151,11 +155,17 @@ public class ReadOps {
 
 
 	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
-		int generations = switch (sequence.length()) {
-			case 2 -> wordFilter.isEmpty() ? 1 : 10;
-			case 3, 4 -> wordFilter.isEmpty() ? 2 : 10;
-			default -> 10;
-		};
+		int generations;
+
+		if (wordFilter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY)) {
+			generations = 0;
+		} else {
+			generations = switch (sequence.length()) {
+				case 2 -> wordFilter.isEmpty() ? 1 : 10;
+				case 3, 4 -> wordFilter.isEmpty() ? 2 : 10;
+				default -> 10;
+			};
+		}
 
 		return getWordPositions(db, cancel, language, sequence, generations, minPositions, wordFilter);
 	}
@@ -215,26 +225,33 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
+	/**
+	 * Generates a query to search for positions in the dictionary words table. It supports sequences
+	 * that start with a "0" (searches them as strings).
+	 */
+	@NonNull
+	private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
 			.append(Tables.getWordPositions(language.getId()))
 			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
-			sql.append(" sequence IN(").append(sequence);
+			sql.append(" sequence IN('").append(sequence);
 
 			int lastChild = (int)Math.pow(10, generations) - 1;
 
 			for (int seqEnd = 1; seqEnd <= lastChild; seqEnd++) {
 				if (seqEnd % 10 != 0) {
-					sql.append(",").append(sequence).append(seqEnd);
+					sql.append("','").append(sequence).append(seqEnd);
 				}
 			}
 
-			sql.append(")");
+			sql.append("')");
 		} else {
 			String rangeEnd = generations == 10 ? "9" : "999999";
-			sql.append(" sequence = ").append(sequence).append(" OR sequence BETWEEN ").append(sequence).append("1 AND ").append(sequence).append(rangeEnd);
+			sql.append(" sequence = '")
+				.append(sequence)
+				.append("' OR sequence BETWEEN '").append(sequence).append("1' AND '").append(sequence).append(rangeEnd).append("'");
 			sql.append(" ORDER BY `start` ");
 			sql.append(" LIMIT 100");
 		}
@@ -245,7 +262,12 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
+	/**
+	 * Generates a query to search for custom word positions. This does NOT support sequences that
+	 * start with a "0" (searches them as integers).
+	 */
+	@NonNull
+	private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		String sql = "SELECT -id as `start`, -id as `end` FROM " + Tables.CUSTOM_WORDS +
 			" WHERE langId = " + language.getId() +
 			" AND (sequence = " + sequence;

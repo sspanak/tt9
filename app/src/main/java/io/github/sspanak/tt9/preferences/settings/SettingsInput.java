@@ -40,7 +40,7 @@ class SettingsInput extends SettingsHotkeys {
 
 	public Set<String> getEnabledLanguagesIdsAsStrings() {
 		Set<String> defaultLanguages =  new HashSet<>(Collections.singletonList(
-			String.valueOf(LanguageCollection.getDefault(context).getId())
+			String.valueOf(LanguageCollection.getDefault().getId())
 		));
 
 		return new HashSet<>(prefs.getStringSet("pref_languages", defaultLanguages));
@@ -51,7 +51,7 @@ class SettingsInput extends SettingsHotkeys {
 		Set<String> validLanguageIds = new HashSet<>();
 
 		for (String langId : languageIds) {
-			if (!Validators.validateInputLanguage(context, Integer.parseInt(langId), "saveEnabledLanguageIds")){
+			if (!Validators.validateInputLanguage(Integer.parseInt(langId), "saveEnabledLanguageIds")){
 				continue;
 			}
 
@@ -69,12 +69,12 @@ class SettingsInput extends SettingsHotkeys {
 
 
 	public int getInputLanguage() {
-		return prefs.getInt("pref_input_language", LanguageCollection.getDefault(context).getId());
+		return prefs.getInt("pref_input_language", LanguageCollection.getDefault().getId());
 	}
 
 
 	public void saveInputLanguage(int language) {
-		if (Validators.validateInputLanguage(context, language, "saveInputLanguage")){
+		if (Validators.validateInputLanguage(language, "saveInputLanguage")){
 			prefsEditor.putInt("pref_input_language", language);
 			prefsEditor.apply();
 		}

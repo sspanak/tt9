@@ -35,7 +35,7 @@ public class AddWordDialog extends PopupDialog {
 		word = intent.getStringExtra(PARAMETER_WORD);
 
 		int languageId = intent.getIntExtra(PARAMETER_LANGUAGE, -1);
-		language = LanguageCollection.getLanguage(context, languageId);
+		language = LanguageCollection.getLanguage(languageId);
 
 		if (language == null) {
 			message = context.getString(R.string.add_word_invalid_language_x, languageId);

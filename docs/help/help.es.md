@@ -71,31 +71,41 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
   - **Mantenga presionado:** escribir caracteres especiales/matemáticos.
   - **Mantenga presionado "0", luego presione Shift (Por Defecto: mantenga presionado "0", presione "✱")**: escribir caracteres de moneda.
 - **En modo ABC:**
-  - **Presione:** escribir espacio, nueva línea o caracteres especiales/matemáticos.
+  - **Presione:** escribir un espacio, nueva línea o caracteres especiales/matemáticos.
   - **Mantenga presionado:** escribir "0".
   - **Presione "0", luego presione Shift (Por Defecto: presione "0", "✱")**: escribir caracteres de moneda.
-- **En modo predictivo:**
-  - **Presione:** escribir espacio, nueva línea o caracteres especiales/matemáticos.
-  - **Doble presión:** escribir el carácter asignado en la configuración del modo predictivo. (Por Defecto: ".")
+- **En modo Predictivo:**
+  - **Presione:** escribir un espacio, nueva línea o caracteres especiales/matemáticos.
+  - **Presione dos veces:** escribir el carácter asignado en la configuración de modo predictivo. (Por Defecto: ".")
   - **Mantenga presionado:** escribir "0".
   - **Presione "0", luego presione Shift (Por Defecto: presione "0", "✱")**: escribir caracteres de moneda.
+- **En modo Cheonjiin (Coreano):**
+  - **Presione:** escribir "ㅇ" y "ㅁ".
+  - **Mantenga presionado:** escribir espacio, nueva línea, "0" o caracteres especiales/matemáticos.
+  - **Mantenga presionado "0", luego presiona Shift (Por Defecto: Mantenga presionado "0", presiona "✱"):** escribir caracteres de moneda.
 
 #### Tecla 1:
 - **En modo 123:**
   - **Presione:** escribir "1".
-  - **Mantenga presionado:** escribir caracteres de oración.
+  - **Mantenga presionado:** escribir caracteres de puntuación.
 - **En modo ABC:**
-  - **Presione:** escribir caracteres de oración.
+  - **Presione:** escribir caracteres de puntuación.
   - **Mantenga presionado:** escribir "1".
-- **En modo predictivo:**
-  - **Presione:** escribir caracteres de oración.
-  - **Presione varias veces:** escribir emoji.
+- **En modo Predictivo:**
+  - **Presione:** escribir caracteres de puntuación.
+  - **Presione varias veces:** escribir emojis.
   - **Presione 1-1-3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
+  - **Mantenga presionado:** escribir "1".
+- **En modo Cheonjiin (Coreano):**
+  - **Presione:** escribir la vocal "ㅣ".
+  - **Presione dos veces:** escribir caracteres de puntuación.
+  - **Presione varias veces:** escribir emojis.
+  - **Presione 1-1-1-3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
   - **Mantenga presionado:** escribir "1".
 
 #### Teclas del 2 al 9:
-- **En modo 123:** escribir el número respectivo.
-- **En modo ABC y Predictivo:** escribir una letra o mantener presionado para escribir el número respectivo.
+- **En modo 123:** escribir el número correspondiente.
+- **En modo ABC y Predictivo:** escribir una letra o mantener presionado para escribir el número correspondiente.
 
 ### Teclas de Función
 

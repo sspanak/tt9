@@ -21,11 +21,13 @@ public class AutoSpace {
 	private final SettingsStore settings;
 
 	private boolean isLanguageFrench;
+	private boolean isLanguageWithAlphabet;
 	private boolean isLanguageWithSpaceBetweenWords;
 
 
 	public AutoSpace(SettingsStore settingsStore) {
 		settings = settingsStore;
+		isLanguageWithAlphabet = false;
 		isLanguageFrench = false;
 		isLanguageWithSpaceBetweenWords = true;
 	}
@@ -33,6 +35,7 @@ public class AutoSpace {
 
 	public AutoSpace setLanguage(Language language) {
 		isLanguageFrench = LanguageKind.isFrench(language);
+		isLanguageWithAlphabet = language != null && !language.isSyllabary();
 		isLanguageWithSpaceBetweenWords = language != null && language.hasSpaceBetweenWords();
 		return this;
 	}
@@ -120,6 +123,7 @@ public class AutoSpace {
 	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, Text nextChars, int nextKey) {
 		return
 			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
+			&& isLanguageWithAlphabet
 			&& nextKey != 1
 			&& nextChars.isEmpty()
 			&& Text.previousIsLetter(previousChars);

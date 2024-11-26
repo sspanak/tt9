@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.db.entities;
 
 import android.content.ContentResolver;
-import android.content.Context;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -65,7 +64,7 @@ public class CustomWordFile {
 	}
 
 
-	public static NaturalLanguage getLanguage(@NonNull Context context, String line) {
+	public static NaturalLanguage getLanguage(String line) {
 		if (line == null) {
 			return null;
 		}
@@ -75,7 +74,7 @@ public class CustomWordFile {
 			return null;
 		}
 
-		return LanguageCollection.getLanguage(context, parts[1]);
+		return LanguageCollection.getLanguage(parts[1]);
 	}
 
 	@NonNull public static String getWord(String line) {

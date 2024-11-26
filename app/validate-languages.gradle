@@ -60,6 +60,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
     alphabet = languageFile.name.contains("Catalan") ? '·' : alphabet
     alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : alphabet
+    alphabet = languageFile.name.contains("Korean") ? '：' : alphabet
 
     for (String line : languageFile.readLines()) {
         if (
@@ -292,7 +293,7 @@ static def validateWord(String word, String validCharacters, boolean isAlphabeti
         errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
     }
 
-    if (word.matches("^\\P{L}+\$")) {
+    if (word.matches("^\\P{L}+\$") && !validCharacters.contains(word)) {
         errorCount++
         errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
     }

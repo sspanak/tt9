@@ -80,7 +80,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		restoreDefaults = new ItemRestoreDefaultPunctuation(activity.getSettings(), item, this::onLanguageChanged);
 		restoreDefaults
-			.setLanguage(LanguageCollection.getLanguage(activity, languageList.getValue()))
+			.setLanguage(LanguageCollection.getLanguage(languageList.getValue()))
 			.enableClickHandler();
 	}
 
@@ -97,7 +97,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void onLanguageChanged(@Nullable String newLanguageId) {
-		Language language = LanguageCollection.getLanguage(activity, newLanguageId);
+		Language language = LanguageCollection.getLanguage(newLanguageId);
 
 		restoreDefaults.setLanguage(language);
 

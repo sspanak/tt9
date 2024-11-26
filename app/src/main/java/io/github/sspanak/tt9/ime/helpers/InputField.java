@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.content.Context;
 import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -85,13 +84,13 @@ public class InputField {
 	 * it's a text field where the language doesn't matter, the function returns null.
 	 */
 	@Nullable
-	public Language getLanguage(Context context, ArrayList<Integer> allowedLanguageIds) {
+	public Language getLanguage(ArrayList<Integer> allowedLanguageIds) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
 			return null;
 		}
 
 		for (int i = 0; field.hintLocales != null && i < field.hintLocales.size(); i++) {
-			Language lang = LanguageCollection.getByLanguageCode(context, field.hintLocales.get(i).getLanguage());
+			Language lang = LanguageCollection.getByLanguageCode(field.hintLocales.get(i).getLanguage());
 			if (lang != null && allowedLanguageIds.contains(lang.getId())) {
 				return lang;
 			}

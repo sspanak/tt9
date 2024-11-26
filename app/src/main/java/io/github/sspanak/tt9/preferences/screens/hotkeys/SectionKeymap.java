@@ -25,6 +25,7 @@ public class SectionKeymap {
 	public static final String ITEM_NEXT_LANGUAGE = "key_next_language";
 	public static final String ITEM_SELECT_KEYBOARD = "key_select_keyboard";
 	public static final String ITEM_SHIFT = "key_shift";
+	public static final String ITEM_SPACE_KOREAN = "key_space_korean";
 	public static final String ITEM_SHOW_SETTINGS = "key_show_settings";
 	public static final String ITEM_VOICE_INPUT = "key_voice_input";
 
@@ -155,7 +156,22 @@ public class SectionKeymap {
 		}
 
 		for (DropDownPreference item : items) {
-			if (item != null && !dropDown.getKey().equals(item.getKey()) && key.equals(item.getValue())) {
+			if (item == null) {
+				continue;
+			}
+
+			// "Shift" and "Korean Space" can be the same key. It is properly handled in HotkeyHandler.
+			if (
+				(
+					(dropDown.getKey().equals(ITEM_SHIFT) && item.getKey().equals(ITEM_SPACE_KOREAN))
+					|| (dropDown.getKey().equals(ITEM_SPACE_KOREAN) && item.getKey().equals(ITEM_SHIFT))
+				)
+				&& key.equals(item.getValue())
+			) {
+				continue;
+			}
+
+			if (!dropDown.getKey().equals(item.getKey()) && key.equals(item.getValue())) {
 				Logger.i("SectionKeymap.validateKey", "Key: '" + key + "' is already in use for function: " + item.getKey());
 				return false;
 			}

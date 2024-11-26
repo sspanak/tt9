@@ -17,9 +17,10 @@ import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.ime.modes.ModePredictive;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
@@ -48,7 +49,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected boolean shouldBeOff() {
-		return getCurrentInputConnection() == null || mInputMode.isPassthrough();
+		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
 
 	@Override
@@ -93,8 +94,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void validateLanguages() {
-		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(getApplicationContext(), mEnabledLanguages);
-		mLanguage = InputModeValidator.validateLanguage(getApplicationContext(), mLanguage, mEnabledLanguages);
+		mEnabledLanguages = InputModeValidator.validateEnabledLanguages(mEnabledLanguages);
+		mLanguage = InputModeValidator.validateLanguage(mLanguage, mEnabledLanguages);
 		settings.saveInputLanguage(mLanguage.getId());
 		settings.saveEnabledLanguageIds(mEnabledLanguages);
 	}
@@ -111,7 +112,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	public boolean onBackspace(int repeat) {
 		// Dialer fields seem to handle backspace on their own and we must ignore it,
 		// otherwise, keyDown race condition occur for all keys.
-		if (mInputMode.isPassthrough()) {
+		if (InputModeKind.isPassthrough(mInputMode)) {
 			return false;
 		}
 
@@ -172,11 +173,17 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		suggestionOps.cancelDelayedAccept();
 
+
+		// In Korean, the next char may "steal" components from the previous one, in which case,
+		// we must replace the previous char with a one containing less strokes.
+		if (mInputMode.shouldReplaceLastLetter(key, hold)) {
+			mInputMode.replaceLastLetter();
+		}
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word.
-		if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
+		else if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
 			String lastWord = suggestionOps.acceptIncomplete();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
@@ -230,15 +237,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(inputType, textField)) {
+		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace()) {
 			textField.deletePrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddPrecedingSpace(inputType, textField)) {
+		if (mInputMode.shouldAddPrecedingSpace()) {
 			textField.addPrecedingSpace(currentWord);
 		}
 
-		if (mInputMode.shouldAddTrailingSpace(inputType, textField, isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddTrailingSpace(isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
 	}
@@ -253,10 +260,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mEnabledLanguages = settings.getEnabledLanguageIds();
 
 		int oldLang = mLanguage != null ? mLanguage.getId() : -1;
-		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), settings.getInputLanguage());
+		mLanguage = LanguageCollection.getLanguage(settings.getInputLanguage());
 		validateLanguages();
 
-		Language appLanguage = textField.getLanguage(getApplicationContext(), mEnabledLanguages);
+		Language appLanguage = textField.getLanguage(mEnabledLanguages);
 		if (appLanguage != null) {
 			mLanguage = appLanguage;
 		}
@@ -270,7 +277,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Restore the last used text case or auto-select a new one based on the input field properties.
 	 */
 	protected void determineTextCase() {
-		mInputMode.setTextFieldCase(inputType.determineTextCase());
 		InputModeValidator.validateTextCase(mInputMode, settings.getTextCase());
 	}
 
@@ -287,7 +293,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
-		allowedInputModes = inputType.determineInputModes(this);
+		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
+		if (LanguageKind.isKorean(mLanguage) && allowedInputModes.contains(InputMode.MODE_ABC)) {
+			allowedInputModes.remove(InputMode.MODE_ABC);
+		}
+
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 
@@ -351,7 +361,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 	protected void getSuggestions() {
-		if (mInputMode instanceof ModePredictive && DictionaryLoader.getInstance(this).isRunning()) {
+		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 		} else {
@@ -378,7 +388,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// but there are no words for the new language, we'll get only generated suggestions, consisting
 		// of the last word of the previous language + endings from the new language. These words are invalid,
 		// so we discard them.
-		if (mInputMode instanceof ModePredictive && !mLanguage.isValidWord(suggestionOps.getCurrent()) && !Text.isGraphic(suggestionOps.getCurrent())) {
+		if (InputModeKind.isPredictive(mInputMode) && !mLanguage.isValidWord(suggestionOps.getCurrent()) && !Text.isGraphic(suggestionOps.getCurrent())) {
 			mInputMode.reset();
 			suggestionOps.set(null);
 		}

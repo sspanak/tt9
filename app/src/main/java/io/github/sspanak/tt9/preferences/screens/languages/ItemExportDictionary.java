@@ -31,7 +31,7 @@ class ItemExportDictionary extends ItemExportAbstract {
 
 	protected boolean onStartProcessing() {
 		return DictionaryExporter.getInstance()
-			.setLanguages(LanguageCollection.getAll(activity, activity.getSettings().getEnabledLanguageIds()))
+			.setLanguages(LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds()))
 			.run(activity);
 	}
 

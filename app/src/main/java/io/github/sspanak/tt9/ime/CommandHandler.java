@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
@@ -88,6 +89,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
+		if (mLanguage.isSyllabary()) {
+			UI.toastShortSingle(this, R.string.function_add_word_not_available);
+			return;
+		}
+
 		if (DictionaryLoader.getInstance(this).isRunning()) {
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 			return;
@@ -134,10 +140,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected void nextInputMode() {
-		if (mInputMode.isPassthrough() || voiceInputOps.isListening()) {
+		if (InputModeKind.isPassthrough(mInputMode) || voiceInputOps.isListening()) {
 			return;
 		} else if (allowedInputModes.size() == 1 && allowedInputModes.contains(InputMode.MODE_123)) {
-			mInputMode = !mInputMode.is123() ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
+			mInputMode = !InputModeKind.is123(mInputMode) ? InputMode.getInstance(settings, mLanguage, inputType, textField, InputMode.MODE_123) : mInputMode;
 		} else {
 			suggestionOps.cancelDelayedAccept();
 			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
@@ -159,30 +165,34 @@ abstract public class CommandHandler extends TextEditingHandler {
 		// select the next language
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(getApplicationContext(), mEnabledLanguages.get(next));
+		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
 
 		// validate and save it for the next time
 		validateLanguages();
 	}
 
 
-	protected void nextTextCase() {
+	protected boolean nextTextCase() {
 		if (suggestionOps.isEmpty() || mInputMode.getSuggestions().isEmpty()) {
 			// When there are no suggestions, there is no need to execute the code for
 			// adjusting them below.
 			if (mInputMode.nextTextCase()) {
 				settings.saveTextCase(mInputMode.getTextCase());
+				return true;
+			} else {
+				return false;
 			}
-			return;
 		}
 
 		// When we are in AUTO mode and current dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
 		// This is why we retry, until there is a visual change.
+		boolean isChanged = false;
 		String before = suggestionOps.get(0);
 		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
 			String after = mInputMode.getSuggestions().get(0);
 			if (!after.equals(before)) {
+				isChanged = true;
 				break;
 			}
 		}
@@ -201,6 +211,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		textField.setComposingText(suggestionOps.getCurrent());
 
 		settings.saveTextCase(mInputMode.getTextCase());
+
+		return isChanged;
 	}
 
 

@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.Clipboard;
@@ -14,7 +15,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault(this));
+		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault());
 		return super.onStart(connection, field);
 	}
 
@@ -42,7 +43,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	private void onCommand(int key) {
 		switch (key) {
 			case 0:
-				if (!mInputMode.isNumeric()) {
+				if (!InputModeKind.isNumeric(mInputMode)) {
 					onText(" ", false);
 				}
 				break;

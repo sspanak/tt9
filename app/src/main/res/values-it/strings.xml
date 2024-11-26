@@ -67,6 +67,7 @@
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
 	<string name="pref_category_keypad">Tastiera</string>
 	<string name="char_space">Spazio</string>
+	<string name="function_add_word_not_available">Aggiungere parole non è possibile in questa lingua.</string>
 	<string name="function_backspace">Backspace</string>
 	<string name="setup_keyboard_status">Stato</string>
 	<string name="setup_default_keyboard">Seleziona la tastiera predefinita</string>
@@ -174,5 +175,6 @@
 	<string name="punctuation_order_save">Salvare l\'ordine</string>
 	<string name="punctuation_order_forbidden_char">Carattere vietato:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caratteri vietati:%1$s</string>
+	<string name="function_filter_suggestions_not_available">Il filtraggio non è possibile in questa lingua.</string>
 </resources>
 

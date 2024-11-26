@@ -8,7 +8,7 @@
 		android:layout_weight="1"
 		android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0
 		android:id="@+id/soft_key_0"
 		style="@android:style/Widget.Holo.Button.Borderless"
 		android:layout_width="0dp"

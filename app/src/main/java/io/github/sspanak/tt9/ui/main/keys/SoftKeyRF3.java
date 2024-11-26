@@ -57,13 +57,7 @@ public class SoftKeyRF3 extends SoftKey {
 	@Override
 	protected String getTitle() {
 		if (isTextEdtingActive()) {
-			if (tt9 == null) {
-				return "ABC";
-			} else if (tt9.isInputModeNumeric()) {
-				return "123";
-			} else if (tt9.getLanguage() != null) {
-				return tt9.getLanguage().getAbcString().toUpperCase(tt9.getLanguage().getLocale());
-			}
+			return tt9 == null ? "ABC" : tt9.getABCString();
 		}
 
 		return isTextEditingMissing() && !isVoiceInputMissing() ? "🎤" : getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
