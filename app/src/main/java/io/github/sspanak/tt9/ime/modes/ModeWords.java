@@ -135,7 +135,7 @@ class ModeWords extends ModeCheonjiin {
 
 		if (word == null || word.length() < 2 || word.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + word + "'");
-			textCase = CASE_CAPITALIZE;
+			textCase = settings.getTextCase();
 			return false;
 		}
 
