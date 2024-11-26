@@ -4,6 +4,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -129,7 +130,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (repeat == 0 && mInputMode.onBackspace()) {
-			getSuggestions();
+			getSuggestions(null);
 		} else {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
@@ -150,7 +151,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0, false);
 			if (mInputMode.recompose(previousWord) && textField.recompose(previousWord)) {
-				getSuggestions();
+				getSuggestions(previousWord);
 			} else {
 				mInputMode.reset();
 			}
@@ -203,7 +204,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
-			getSuggestions();
+			getSuggestions(null);
 		}
 
 		return true;
@@ -360,14 +361,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 		return suggestionOps;
 	}
 
-	protected void getSuggestions() {
+
+	protected void getSuggestions(@Nullable String currentWord) {
 		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 		} else {
 			mInputMode
 				.setOnSuggestionsUpdated(this::handleSuggestions)
-				.loadSuggestions(suggestionOps.getCurrent());
+				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
 		}
 	}
 

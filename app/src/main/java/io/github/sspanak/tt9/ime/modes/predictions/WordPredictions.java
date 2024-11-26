@@ -14,11 +14,12 @@ public class WordPredictions extends Predictions {
 	private String inputWord;
 	private boolean isStemFuzzy;
 
-	private String lastEnforcedTopWord = "";
+	private String lastEnforcedTopWord;
 
 
 	public WordPredictions(SettingsStore settings, TextField textField) {
 		super(settings);
+		lastEnforcedTopWord = "";
 		stem = "";
 		this.textField = textField;
 	}
@@ -77,7 +78,7 @@ public class WordPredictions extends Predictions {
 
 		// If there were no database words for ",a", try getting the letters only (e.g. "a", "b", "c").
 		// We do this to display them in the correct order.
-		if (dbWords.isEmpty() && isRetryAllowed && digitSequence.length() == 2 && digitSequence.charAt(0) == '1') {
+		if (isRetryAllowed && dbWords.isEmpty() && digitSequence.length() == 2 && digitSequence.charAt(0) == '1') {
 			loadWithoutLeadingPunctuation();
 			return;
 		}
