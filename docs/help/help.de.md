@@ -186,9 +186,27 @@ Falls Sie sowohl einen Touchscreen als auch eine Hardwaretastatur haben und mehr
 Es wird auch empfohlen, das spezielle Verhalten der "Zurück"-Taste als "Rückschritt" zu deaktivieren. Dies ist nur für eine Hardwaretastatur sinnvoll. In der Regel geschieht dies auch automatisch, aber falls nicht, gehen Sie zu Einstellungen → Tastatur → Hotkeys auswählen → Rückschritt-Taste und wählen die Option "--" aus.
 
 ### Übersicht der virtuellen Tasten
-Die Bildschirmtastatur funktioniert wie das Ziffernfeld eines Telefons mit Hardwaretasten. Falls eine Taste nur eine Funktion hat, gibt es eine Beschriftung (oder ein Icon) für diese Funktion. Falls die Taste eine zweite Funktion bei gedrücktem Halten bietet, gibt es zwei kleinere Beschriftungen (oder Icons), die übereinander angezeigt werden.
+Die Bildschirmtastatur funktioniert genauso wie das Nummernfeld eines Telefons mit physischen Tasten. Wenn eine Taste nur eine Funktion bietet, hat sie ein Label (oder Symbol), das diese Funktion anzeigt. Wenn die Taste eine sekundäre "Halten"-Funktion bietet, hat sie zwei Labels (oder Symbole).
 
-Die linke F4-Taste (unten auf der linken Seite) unterstützt zusätzliche Funktionen durch Wischen. Wischen Sie horizontal, um zur zuletzt verwendeten Tastatur zu wechseln, oder wischen Sie vertikal, um den Tastaturauswahldialog anzuzeigen und zu einer anderen Tastatur zu wechseln.
+Unten finden Sie eine Beschreibung der Tasten mit mehr als einer Funktion.
+
+#### Rechte F2-Taste (beschriftet mit "CLR/FLTR")
+_Nur im Vorhersagemodus._
+
+- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben), wie das Wortfiltern funktioniert.
+- **Halten:** Löscht den Filter, falls aktiv.
+
+#### Rechte F3-Taste (mit Mikrofon-Symbol und "COPY"-Beschriftung)
+- **Drücken:** Öffnet die Optionen für Kopieren, Einfügen und Textbearbeitung.
+- **Halten:** Aktiviert die Spracheingabe.
+
+#### Linke F4-Taste (die untere linke Taste)
+- **Drücken:** Wechselt die Eingabemodi (abc → Vorhersage → 123).
+- **Halten:** Wechselt die Sprache, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
+- **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur, abgesehen von TT9.
+- **Vertikal wischen:** Öffnet den Android-Tastaturwechsel-Dialog, in dem Sie zwischen allen installierten Tastaturen wählen können.
+
+_Die Taste zeigt ein kleines Globus-Symbol an, wenn Sie mehr als eine Sprache unter Einstellungen → Sprachen aktiviert haben. Das Symbol zeigt an, dass es möglich ist, die Sprache durch Halten der Taste zu ändern._
 
 ### Tastaturfeld beim Tippen anpassen
 In manchen Fällen nimmt das virtuelle Tastenfeld möglicherweise zu viel Platz ein, wodurch Sie Ihren Text oder Anwendungsinhalte nicht sehen können. Sie können die Größe anpassen, indem Sie die Einstellungen-/Befehlspalette-Taste gedrückt halten und ziehen oder die Statusleiste ziehen (dort wird die aktuelle Sprache oder der Eingabemodus angezeigt). Wenn die Höhe zu klein wird, wechselt das Layout automatisch zu „Funktionstasten“ oder „nur Vorschlagsliste“. Beim Vergrößern wechselt das Layout wieder zum „Virtuellen Tastenfeld“. Durch Doppeltippen auf die Statusleiste können Sie das Tastenfeld sofort minimieren oder maximieren.
@@ -334,3 +352,6 @@ Traditional T9 ist eine T9-Tastatur und bietet daher kein QWERTY-Layout.
 Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten).
 
 Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, indem Sie die Leertaste oder die „Sprache wechseln“-Taste gedrückt halten. Sehen Sie im jeweiligen Handbuch nach.
+
+#### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
+Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [linke F4-Taste](#linke-f4-taste-die-untere-linke-taste), um die Sprache zu ändern.

@@ -186,9 +186,27 @@ Se hai sia un touchscreen che un tastierino fisico e preferisci avere più spazi
 Si consiglia anche di disabilitare il comportamento speciale del tasto "Indietro" come "Backspace". È utile solo con un tastierino hardware. Di solito ciò avviene automaticamente, ma se non accade, vai su Impostazioni → Tastierino → Seleziona Tasti Rapidi → Tasto Backspace, quindi seleziona l'opzione "--".
 
 ### Panoramica dei Tasti Virtuali
-Il tastierino su schermo funziona come il tastierino di un telefono con tasti fisici. Se un tasto fornisce una singola funzione, ha un'etichetta (o icona) che la indica. Se il tasto offre una funzione secondaria "hold", ha due etichette (o icone) più piccole, una sopra l'altra.
+La tastiera su schermo funziona come il tastierino numerico di un telefono con tasti fisici. Se un tasto offre una sola funzione, ha un'etichetta (o un'icona) che indica quella funzione. Se il tasto ha una funzione secondaria da attivare tenendolo premuto, avrà due etichette (o icone).
 
-Il tasto F4 sinistro (in basso a sinistra) supporta funzioni extra con lo scorrimento. Scorri orizzontalmente per passare all'ultima tastiera utilizzata o scorri verticalmente per visualizzare il menu di selezione della tastiera e cambiare tastiera.
+Di seguito è riportata una descrizione dei tasti con più di una funzione.
+
+#### Tasto destro F2 (etichettato "CLR/FLTR")
+_Solo in modalità predittiva._
+
+- **Premere:** Filtra l'elenco dei suggerimenti. Vedi [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per sapere come funziona il filtro delle parole.
+- **Tenere premuto:** Cancella il filtro, se attivo.
+
+#### Tasto destro F3 (con icona del microfono e etichetta "COPY")
+- **Premere:** Apre le opzioni per copiare, incollare e modificare il testo.
+- **Tenere premuto:** Attiva l'immissione vocale.
+
+#### Tasto sinistro F4 (il tasto in basso a sinistra)
+- **Premere:** Cambia modalità di input (abc → Predittiva → 123).
+- **Tenere premuto:** Cambia lingua, se più lingue sono state abilitate nelle impostazioni.
+- **Scorrere orizzontalmente:** Passa all'ultima tastiera utilizzata, diversa da TT9.
+- **Scorrere verticalmente:** Apre il dialogo Cambia tastiera di Android, dove è possibile selezionare tra tutte le tastiere installate.
+
+_Il tasto mostrerà una piccola icona a forma di globo quando hai abilitato più di una lingua in Impostazioni → Lingue. L'icona indica che è possibile cambiare lingua tenendo premuto il tasto._
 
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
 A volte potresti trovare che il Tastierino Virtuale occupi troppo spazio, impedendoti di vedere cosa stai digitando o alcuni elementi dell’app. Se è così, puoi ridimensionarlo tenendo premuto e trascinando il tasto Impostazioni/Tavolozza Comandi o trascinando la Barra di Stato (dove è visualizzata la lingua corrente o modalità di digitazione). Quando l’altezza diventa troppo ridotta, il layout cambierà automaticamente a "Tasti Funzione" o "Solo Lista Suggerimenti". Analogamente, ingrandendo il layout tornerà al "Tastierino Virtuale". È anche possibile fare doppio tap sulla barra di stato per minimizzare o massimizzare istantaneamente.
@@ -334,3 +352,6 @@ T9 Tradizionale è una tastiera T9 e, in quanto tale, non fornisce un layout sim
 Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri il tasto F4 sinistro per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
 
 La maggior parte delle altre tastiere permette di tornare a T9 Tradizionale tenendo premuta la barra spaziatrice o il tasto "cambia lingua". Controlla il rispettivo manuale per ulteriori informazioni.
+
+#### Non riesco a cambiare lingua su un telefono touchscreen
+Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto sinistro F4](#tasto-sinistro-f4-il-tasto-in-basso-a-sinistra) per cambiare lingua.
