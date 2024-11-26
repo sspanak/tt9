@@ -7,26 +7,19 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
-import io.github.sspanak.tt9.ime.modes.helpers.Predictions;
+import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.TextTools;
 
-public class ModePredictive extends InputMode {
+class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
-
-	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
-
-	public int getId() { return MODE_PREDICTIVE; }
 
 	private String lastAcceptedWord = "";
 
@@ -34,31 +27,38 @@ public class ModePredictive extends InputMode {
 	private boolean isStemFuzzy = false;
 	private String stem = "";
 
-	// async suggestion handling
-	private boolean disablePredictions = false;
-
 	// text analysis tools
-	private final AutoSpace autoSpace;
 	private final AutoTextCase autoTextCase;
-	private final Predictions predictions;
 	private boolean isCursorDirectionForward = false;
+	private int textFieldTextCase;
 
 
-	ModePredictive(SettingsStore settings, InputType inputType, TextField textField, Language lang) {
-		super(settings);
+	protected ModeWords(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+		super(settings, inputType, textField);
 
-		autoSpace = new AutoSpace(settings).setLanguage(lang);
 		autoTextCase = new AutoTextCase(settings);
-		digitSequence = "";
-		predictions = new Predictions(settings, textField);
 
 		changeLanguage(lang);
 		defaultTextCase();
+		determineTextFieldTextCase();
+	}
 
-		if (inputType.isEmail()) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		}
+
+	@Override protected void setCustomSpecialCharacters() {} // we use the default ones
+
+
+	protected void setSpecialCharacterConstants() {
+		PUNCTUATION_SEQUENCE = NaturalLanguage.PUNCTUATION_KEY;
+		EMOJI_SEQUENCE = EmojiLanguage.EMOJI_SEQUENCE;
+		CUSTOM_EMOJI_SEQUENCE = EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
+		SPECIAL_CHAR_SEQUENCE = NaturalLanguage.SPECIAL_CHAR_KEY;
+	}
+
+
+	@Override
+	protected void initPredictions() {
+		predictions = new WordPredictions(settings, textField);
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -85,31 +85,34 @@ public class ModePredictive extends InputMode {
 	@Override
 	public boolean onNumber(int number, boolean hold, int repeat) {
 		isCursorDirectionForward = true;
-
-		if (hold) {
-			// hold to type any digit
-			reset();
-			autoAcceptTimeout = 0;
-			disablePredictions = true;
-			digitSequence = String.valueOf(number);
-			suggestions.add(language.getKeyNumber(number));
-		} else {
-			super.reset();
-			digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
-			disablePredictions = false;
-
-			if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
-				autoAcceptTimeout = 0;
-			}
-		}
-
-		return true;
+		return super.onNumber(number, hold, repeat);
 	}
 
 
 	@Override
-	public void changeLanguage(@Nullable Language newLanguage) {
-		super.changeLanguage(newLanguage);
+	protected void onNumberHold(int number) {
+		autoAcceptTimeout = 0;
+		suggestions.add(language.getKeyNumber(number));
+	}
+
+
+	@Override
+	protected void onNumberPress(int number) {
+		digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
+
+		if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
+			autoAcceptTimeout = 0;
+		}
+	}
+
+
+	@Override
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		if (newLanguage != null && newLanguage.isSyllabary()) {
+			return false;
+		}
+
+		super.setLanguage(newLanguage);
 
 		autoSpace.setLanguage(language);
 
@@ -119,12 +122,14 @@ public class ModePredictive extends InputMode {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
+
+		return true;
 	}
 
 
 	@Override
 	public boolean recompose(String word) {
-		if (!language.hasSpaceBetweenWords()) {
+		if (!language.hasSpaceBetweenWords() || language.isSyllabary()) {
 			return false;
 		}
 
@@ -149,7 +154,7 @@ public class ModePredictive extends InputMode {
 
 	@Override
 	public void reset() {
-		super.reset();
+		basicReset();
 		digitSequence = "";
 		disablePredictions = false;
 		stem = "";
@@ -252,95 +257,37 @@ public class ModePredictive extends InputMode {
 	}
 
 
-	@Override
-	public boolean containsGeneratedSuggestions() {
-		return predictions.containsGeneratedWords();
-	}
-
 	/**
 	 * loadSuggestions
 	 * Loads the possible list of suggestions for the current digitSequence. "currentWord" is used
 	 * for generating suggestions when there are no results.
-	 * See: Predictions.generatePossibleCompletions()
+	 * See: WordPredictions.generatePossibleCompletions()
 	 */
 	@Override
 	public void loadSuggestions(String currentWord) {
-		if (disablePredictions) {
-			super.loadSuggestions(currentWord);
+		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojis()) {
+			onSuggestionsUpdated.run();
 			return;
 		}
 
-		if (loadStaticSuggestions()) {
-			return;
-		}
-
-		Language searchLanguage = digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) ? new EmojiLanguage() : language;
-
-		predictions
-			.setDigitSequence(digitSequence)
+		((WordPredictions) predictions)
+			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
-			.setLanguage(searchLanguage)
-			.setInputWord(currentWord.isEmpty() ? stem : currentWord)
-			.setWordsChangedHandler(this::onPredictions)
+			.setDigitSequence(digitSequence)
+			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
 			.load();
 	}
 
-	/**
-	 * loadStatic
-	 * Loads words that are not in the database and are supposed to be in the same order, such as
-	 * emoji or the preferred character for double "0". Returns "false", when there are no static
-	 * options for the current digitSequence.
-	 */
-	private boolean loadStaticSuggestions() {
-		if (digitSequence.equals(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY)) {
-			loadSpecialCharacters();
-			onSuggestionsUpdated.run();
-			return true;
-		} else if (!digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE) && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
-			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', digitSequence.length() - 2));
-			onSuggestionsUpdated.run();
-			return true;
-		} else if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
+
+	private boolean loadPreferredChar() {
+		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(settings.getDoubleZeroChar());
-			onSuggestionsUpdated.run();
 			return true;
 		}
 
 		return false;
-	}
-
-
-	@Override
-	protected boolean loadSpecialCharacters() {
-		int number = digitSequence.charAt(0) - '0';
-		if (KEY_CHARACTERS.size() > number) {
-			suggestions.clear();
-			suggestions.addAll(KEY_CHARACTERS.get(number));
-			return true;
-		} else {
-			return super.loadSpecialCharacters();
-		}
-	}
-
-
-	/**
-	 * onPredictions
-	 * Gets the currently available Predictions and sends them over to the external caller.
-	 */
-	private void onPredictions() {
-		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)) {
-			digitSequence = EmojiLanguage.EMOJI_SEQUENCE;
-			return;
-		}
-
-		suggestions.clear();
-		suggestions.addAll(predictions.getList());
-
-		onSuggestionsUpdated.run();
 	}
 
 
@@ -365,25 +312,20 @@ public class ModePredictive extends InputMode {
 			return;
 		}
 
-		if (Characters.isStaticEmoji(currentWord)) {
+		// emojis and special chars are not in the database, so there is no point in wasting resources
+		// running queries on them
+		if (!new Text(currentWord).isAlphabetic()) {
 			return;
 		}
 
-
-		// increment the frequency of the given word
 		try {
-			Language workingLanguage = TextTools.isGraphic(currentWord) ? new EmojiLanguage() : language;
-			String sequence = workingLanguage.getDigitSequenceForWord(currentWord);
-
-			// punctuation and special chars are not in the database, so there is no point in
-			// running queries that would update nothing
-			if (!sequence.equals(NaturalLanguage.PUNCTUATION_KEY) && !sequence.startsWith(NaturalLanguage.SPECIAL_CHAR_KEY)) {
-				predictions.onAccept(currentWord, sequence);
-			}
+			// increment the frequency of the given word
+			predictions.onAccept(currentWord, language.getDigitSequenceForWord(currentWord));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
 	}
+
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
@@ -395,15 +337,15 @@ public class ModePredictive extends InputMode {
 		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textBeforeCursor, digitSequence);
 	}
 
+	private void determineTextFieldTextCase() {
+		int fieldCase = inputType.determineTextCase();
+		textFieldTextCase = allowedTextCases.contains(fieldCase) ? fieldCase : CASE_UNDEFINED;
+	}
+
 	@Override
 	public int getTextCase() {
 		// Filter out the internally used text cases. They have no meaning outside this class.
 		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
-	}
-
-	@Override
-	protected boolean nextSpecialCharacters() {
-		return digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) && super.nextSpecialCharacters();
 	}
 
 	@Override
@@ -424,6 +366,11 @@ public class ModePredictive extends InputMode {
 	}
 
 
+	@Override
+	public boolean shouldReplaceLastLetter(int n, boolean h) {
+		return false;
+	}
+
 
 	/**
 	 * shouldAcceptPreviousSuggestion
@@ -436,7 +383,7 @@ public class ModePredictive extends InputMode {
 			return true;
 		}
 
-		final char SPECIAL_CHAR_KEY_CODE = NaturalLanguage.SPECIAL_CHAR_KEY.charAt(0);
+		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(0);
 		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
@@ -454,9 +401,9 @@ public class ModePredictive extends InputMode {
 	}
 
 
-		/**
+	/**
 	 * shouldAcceptPreviousSuggestion
-	 * Variant for post suggestion load analysis.
+	 * Used for analysis after loading the suggestions.
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
@@ -473,8 +420,8 @@ public class ModePredictive extends InputMode {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(NaturalLanguage.PUNCTUATION_KEY)
-			&& !digitSequence.startsWith(EmojiLanguage.EMOJI_SEQUENCE)
+			&& digitSequence.contains(PUNCTUATION_SEQUENCE)
+			&& !digitSequence.startsWith(EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}
 
@@ -495,24 +442,6 @@ public class ModePredictive extends InputMode {
 		}
 
 		return false;
-	}
-
-
-	@Override
-	public boolean shouldAddTrailingSpace(InputType inputType, TextField textField, boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
-	}
-
-
-	@Override
-	public boolean shouldAddPrecedingSpace(InputType inputType, TextField textField) {
-		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
-	}
-
-
-	@Override
-	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
-		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
 	}
 
 

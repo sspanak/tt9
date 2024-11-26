@@ -77,6 +77,7 @@
 	<string name="dictionary_truncated">המילון נמחק בהצלחה.</string>
 
 	<string name="dictionary_truncating">המחיקה מתבצעת…</string>
+	<string name="function_add_word_not_available">אין אפשרות להוסיף מילים בשפה זו.</string>
 	<string name="function_backspace">לחצן מחיקה</string>
 	<string name="function_next_language">לחצן למעבר לשפה הבאה</string>
 	<string name="function_next_mode">לחצן מצב קלט</string>
@@ -187,4 +188,5 @@
 	<string name="punctuation_order_save">שמור את הסדר</string>
 	<string name="punctuation_order_forbidden_char">תו אסור:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">תווים אסורים:%1$s</string>
+	<string name="function_filter_suggestions_not_available">לא ניתן לסנן בשפה זו.</string>
 </resources>

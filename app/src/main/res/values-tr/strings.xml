@@ -65,6 +65,7 @@
 	<string name="pref_category_function_keys">Klavye Kısayolları</string>
 	<string name="pref_category_keypad">Tuş Takımı</string>
 	<string name="char_space">Boşluk</string>
+	<string name="function_add_word_not_available">Bu dilde kelime eklemek mümkün değil.</string>
 	<string name="function_backspace">Geri Tuşu</string>
 	<string name="setup_keyboard_status">Durum</string>
 	<string name="setup_default_keyboard">Varsayılan Klavyeyi Seçin</string>
@@ -136,6 +137,7 @@
 	<string name="function_show_command_palette">Komut listesini göster</string>
 	<string name="function_filter_clear">Filtre Temizle</string>
 	<string name="function_filter_suggestions">Tahminleri Filtrele</string>
+	<string name="function_filter_suggestions_not_available">Bu dilde filtreleme mümkün değil.</string>
 	<string name="function_previous_suggestion">Önceki Tahmin</string>
 	<string name="function_next_suggestion">Sonraki Tahmin</string>
 	<string name="function_next_language">Sonraki Dil</string>

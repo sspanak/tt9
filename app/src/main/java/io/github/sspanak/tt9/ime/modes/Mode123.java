@@ -10,24 +10,19 @@ import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 
-public class Mode123 extends ModePassthrough {
+class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
 	@Override @NonNull public String toString() { return "123"; }
 
-	@Override public final boolean is123() { return true; }
-	@Override public boolean isPassthrough() { return false; }
 	@Override public int getSequenceLength() { return digitSequence.length(); }
 	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
-	private final boolean isEmailMode;
 
 
-	public Mode123(SettingsStore settings, InputType inputType, Language language) {
-		super(settings);
+	protected Mode123(SettingsStore settings, Language language, InputType inputType) {
+		super(settings, inputType);
 		changeLanguage(language);
-
-		isEmailMode = inputType.isEmail();
 
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);
@@ -59,8 +54,14 @@ public class Mode123 extends ModePassthrough {
 	}
 
 
+	@Override
+	protected boolean shouldSelectNextSpecialCharacters() {
+		return !isEmailMode && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
+	}
+
+
 	@Override protected boolean nextSpecialCharacters() {
-		if (isEmailMode || !digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY) || !super.nextSpecialCharacters()) {
+		if (!super.nextSpecialCharacters()) {
 			return false;
 		}
 

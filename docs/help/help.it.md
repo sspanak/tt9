@@ -75,10 +75,14 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
   - **Tenere premuto:** digita "0".
   - **Premere "0", quindi premere Maiusc (Default: premere "0", "✱"):** digita caratteri di valuta
 - **In modalità Predittiva:**
-  - **Premere:** digita spazio, nuova riga o caratteri speciali/matematici.
+  - **Premere:** digita uno spazio, una nuova linea, "0" o caratteri speciali/matematici.
   - **Premere due volte:** digita il carattere assegnato nelle impostazioni della modalità predittiva. (Default: ".")
   - **Tenere premuto:** digita "0".
   - **Premere "0", quindi premere Maiusc (Default: premere "0", "✱"):** digita caratteri di valuta
+- **In modalità Cheonjiin (Coreano):**
+  - **Premi:** digita "ㅇ" e "ㅁ".
+  - **Tieni premuto:** digita uno spazio, una nuova linea, "0" o caratteri speciali/matematici.
+  - **Tieni premuto "0", poi premi Maiusc (Predefinito: tieni premuto "0", premi "✱"):** Digita caratteri monetari.
 
 #### Tasto 1:
 - **In modalità 123:**
@@ -91,6 +95,12 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
   - **Premere:** digita caratteri di punteggiatura
   - **Premere più volte:** digita emoji
   - **Premere 1-1-3:** digita emoji aggiunti personalizzati (è necessario averne aggiunti alcuni utilizzando [il Tasto Aggiungi Parola](#tasto-aggiungi-parola))
+  - **Tenere premuto:** digita "1".
+- **In modalità Cheonjiin (Coreano):**
+  - **Premere:** digita la vocale "ㅣ".
+  - **Doppia pressione:** digita caratteri di punteggiatura.
+  - **Premere più volte:** digita emoji.
+  - **Premere 1-1-1-3:** digita emoji aggiunti personalizzati (è necessario averne aggiunti alcuni utilizzando [il Tasto Aggiungi Parola](#tasto-aggiungi-parola))
   - **Tenere premuto:** digita "1".
 
 #### Tasti da 2 a 9:

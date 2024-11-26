@@ -42,7 +42,7 @@ public class LanguageSelectionScreen  extends BaseScreenFragment {
 			return;
 		}
 
-		ArrayList<Language> allLanguages = LanguageCollection.getAll(activity, true);
+		ArrayList<Language> allLanguages = LanguageCollection.getAll(true);
 		if (allLanguages.isEmpty()) {
 			return;
 		}

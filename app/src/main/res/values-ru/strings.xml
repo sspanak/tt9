@@ -67,12 +67,14 @@
 	<string name="pref_auto_text_case_summary">Автоматически начинать предложение с заглавной буквы.</string>
 	<string name="pref_double_zero_char">Символ при двойном нажатии клавиши 0</string>
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове в строке %1$d для языка «%2$s».</string>
+	<string name="function_add_word_not_available">Добавление слов невозможно на этом языке.</string>
 	<string name="function_backspace">Стереть</string>
 	<string name="dictionary_no_notifications">Уведомления словаря</string>
 	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
+	<string name="function_filter_suggestions_not_available">Фильтрация невозможна на этом языке.</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>
 	<string name="function_next_suggestion">Следующее слово</string>
 	<string name="function_next_language">Следующий язык</string>
