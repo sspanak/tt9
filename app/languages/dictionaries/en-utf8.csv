@@ -11,9 +11,10 @@ ad	74
 af	94
 be	173
 cf	103
-ah	84
-bg	87
-bh	73
+AI	10
+ah	11
+bg
+bh
 ch	102
 Al
 CJ
@@ -123,10 +124,10 @@ mg	25
 mi
 ng	98
 oh	105
+OK	150
 Ol
 mk	60
 ml	92
-ok	150
 mm	135
 mo
 nm
@@ -161,10 +162,11 @@ PJ	87
 pk	36
 sk	100
 sl	99
+PM	110
 Po
-pm	110
 rn
 so	163
+QQ
 QR	32
 pr	101
 ps	25
@@ -473,6 +475,7 @@ yw
 .ws
 .yt
 .zw
+AAC
 Aba
 Abb
 Bac
@@ -591,6 +594,7 @@ Anh
 Ani
 Aoi
 Boh	28
+CNG
 bog	96
 cog	76
 Bok
@@ -840,8 +844,8 @@ dug	108
 duk
 Dum
 Dun
-duo	122
-fun	120
+duo	10
+fun	12
 FTP	70
 fur	116
 ftw
@@ -942,6 +946,7 @@ Imo	79
 goo	72
 inn	104
 ion	113
+IMS
 gnp	79
 gop	95
 hop	124
@@ -968,11 +973,13 @@ Ise
 ire	89
 Irl	83
 irk	39
+GSM
 GPS	106
 IPS	82
 irs	98
 GPU	87
 Irt
+HTC
 ITC	88
 Iva	34
 hub	119
@@ -1130,11 +1137,13 @@ Loy
 joy	97
 low	148
 lsd	98
+LPG
 LSI	74
 kph	47
 JVC	77
 Luc
 Jud	63
+LTE
 Ltd
 Lud
 Lue
@@ -1216,6 +1225,7 @@ Mic	69
 Nha
 Nia
 mid	147
+Ogg
 Nik
 mil	81
 ngl	61
@@ -1240,6 +1250,7 @@ Olo
 olm
 NLP	83
 oks	21
+mkv
 Moa	68
 NMB
 NOC
@@ -1744,6 +1755,7 @@ ysk
 WPS
 wry	78
 Yua
+ZTE
 wtf
 Yul	39
 wya
@@ -3373,6 +3385,7 @@ Eizo
 Dixy
 fizz	56
 Elba	71
+FLAC
 flab	28
 Elbe	82
 flag	132
@@ -4490,6 +4503,7 @@ gros
 isms	59
 grot	33
 grow	130
+HSPA
 IPSA	53
 IPSC	59
 Issa
@@ -6048,6 +6062,7 @@ Orsa	1
 ossa	27
 NRPE
 Orsk	1
+Oppo
 MPPs	66
 MPRP	62
 MPRS	55
@@ -7699,8 +7714,8 @@ titi	59
 TiVo	76
 Tito	88
 Vito	82
+Vivo	93
 thun
-vivo	93
 Thur	1
 Ugur
 thus	147
@@ -7827,6 +7842,7 @@ toul
 Toto	75
 unto	100
 unum	57
+UMTS
 tots	52
 tour	144
 tout	76
@@ -17250,6 +17266,7 @@ reeky
 Reema
 Reena	15
 Sedna
+Redmi
 redon
 peens	1
 redos	1
@@ -19009,6 +19026,7 @@ rummy	62
 runny	65
 stony	85
 sunny	88
+Quora
 stope
 store	137
 stork	78
@@ -19658,8 +19676,8 @@ tibur	1
 thaws	60
 theca
 thebe
-Vidal	79
 tidal	109
+Vidal	79
 tieck	47
 vidar
 Theda	49
@@ -25660,6 +25678,7 @@ deftly	72
 defuse	81
 effuse	25
 Deezen
+Deezer
 deiced	38
 deicer	27
 deices
@@ -39082,6 +39101,7 @@ unsafe	99
 unpaid	100
 unsaid	55
 Torahs	33
+Vorbis
 unsays
 unread	56
 unreal	76
@@ -39527,6 +39547,7 @@ vulvar	55
 vulvas
 Tumbes
 tumble	82
+Tumblr
 tumefy
 Tuneln	25
 tundra	90
@@ -39943,6 +39964,7 @@ WebDAV	61
 Yeadon
 Webern	59
 webers	28
+WeChat
 Yeager	67
 Yeakel
 weaken	99
@@ -40499,6 +40521,7 @@ Yvette	75
 Yuichi
 Yukawa	52
 yukked	1
+Yulong
 Xunlei
 Yunnan	83
 Yvonne	82
@@ -43325,6 +43348,7 @@ bluejay	25
 alveoli	73
 altdorf	56
 altered	121
+Bluesky
 Alteryx
 Bluetit	1
 althing
@@ -47220,7 +47244,7 @@ DiSalvo
 discoed	10
 discoid
 DiPaolo
-discord	85
+Discord	85
 disarms	67
 disbuds
 disavow	65
