@@ -11,6 +11,16 @@ public class InputType extends StandardInputType {
 		super(inputConnection, inputField);
 	}
 
+	/**
+	 * isDeezerSearchBar
+	 * The field for searching songs and artists in Deezer does not support composing text, which
+	 * prevents the user from typing normally. This hack detects the search field, so that we can
+	 * disable composing at the right place.
+	 */
+	public boolean isDeezerSearchBar() {
+		return isAppField("deezer.android.app", 32769) && field.imeOptions == 33554438;
+	}
+
 
 	/**
 	 * isDuoLingoReportBug
