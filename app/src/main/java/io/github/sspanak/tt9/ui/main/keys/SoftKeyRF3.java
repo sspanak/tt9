@@ -21,7 +21,7 @@ public class SoftKeyRF3 extends SoftKey {
 		return tt9 != null && tt9.isInputLimited();
 	}
 
-	private boolean isTextEdtingActive() {
+	private boolean isTextEditingActive() {
 		return tt9 != null && tt9.isTextEditingActive();
 	}
 
@@ -29,51 +29,55 @@ public class SoftKeyRF3 extends SoftKey {
 	protected void handleHold() {
 		preventRepeat();
 
-		if (!validateTT9Handler() || isTextEdtingActive()) {
+		if (!validateTT9Handler() || isTextEditingActive() || isVoiceInputMissing()) {
 			return;
 		}
 
-		if (tt9.isVoiceInputActive()) {
-			tt9.toggleVoiceInput();
-		} else {
-			tt9.showTextEditingPalette();
-		}
+		tt9.toggleVoiceInput();
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		if (!validateTT9Handler()) {
+		if (!validateTT9Handler() && isTextEditingMissing() && isVoiceInputMissing()) {
 			return false;
 		}
 
-		if (isTextEdtingActive()) {
+		if (tt9.isVoiceInputActive() || isTextEditingMissing()) {
+			tt9.toggleVoiceInput();
+		} else if (isTextEditingActive()) {
 			tt9.hideTextEditingPalette();
 		} else {
-			tt9.toggleVoiceInput();
+			tt9.showTextEditingPalette();
 		}
+
 		return true;
 	}
 
 	@Override
 	protected String getTitle() {
-		if (isTextEdtingActive()) {
+		if (isTextEditingActive()) {
 			return tt9 == null ? "ABC" : tt9.getABCString();
 		}
 
-		return isTextEditingMissing() && !isVoiceInputMissing() ? "🎤" : getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
+		if (!isVoiceInputMissing()) {
+			return "🎤";
+		}
+
+		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
 
 	@Override
 	protected String getSubTitle() {
-		return isTextEdtingActive() || (!isVoiceInputMissing() && isTextEditingMissing()) ? null : "🎤";
+		if (isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
+			return null;
+		}
+
+		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
 
 	@Override
 	public void render() {
-		if (isVoiceInputMissing() && isTextEditingMissing()) {
-			setVisibility(INVISIBLE);
-		} else {
-			super.render();
-		}
+		super.render();
+		setEnabled(!(isVoiceInputMissing() && isTextEditingMissing()));
 	}
 }
