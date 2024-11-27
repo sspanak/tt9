@@ -11,9 +11,10 @@ ad	74
 af	94
 be	173
 cf	103
-ah	84
-bg	87
-bh	73
+AI	10
+ah	11
+bg
+bh
 ch	102
 Al
 CJ
@@ -123,10 +124,10 @@ mg	25
 mi
 ng	98
 oh	105
+OK	150
 Ol
 mk	60
 ml	92
-ok	150
 mm	135
 mo
 nm
@@ -161,8 +162,8 @@ PJ	87
 pk	36
 sk	100
 sl	99
+PM	110
 Po
-pm	110
 rn
 so	163
 QR	32
@@ -473,6 +474,7 @@ yw
 .ws
 .yt
 .zw
+AAC
 Aba
 Abb
 Bac
@@ -591,6 +593,7 @@ Anh
 Ani
 Aoi
 Boh	28
+CNG
 bog	96
 cog	76
 Bok
@@ -840,8 +843,8 @@ dug	108
 duk
 Dum
 Dun
-duo	122
-fun	120
+duo	10
+fun	12
 FTP	70
 fur	116
 ftw
@@ -942,6 +945,7 @@ Imo	79
 goo	72
 inn	104
 ion	113
+IMS
 gnp	79
 gop	95
 hop	124
@@ -968,6 +972,7 @@ Ise
 ire	89
 Irl	83
 irk	39
+GSM
 GPS	106
 IPS	82
 irs	98
@@ -1130,11 +1135,13 @@ Loy
 joy	97
 low	148
 lsd	98
+LPG
 LSI	74
 kph	47
 JVC	77
 Luc
 Jud	63
+LTE
 Ltd
 Lud
 Lue
@@ -1216,6 +1223,7 @@ Mic	69
 Nha
 Nia
 mid	147
+Ogg
 Nik
 mil	81
 ngl	61
@@ -1240,6 +1248,7 @@ Olo
 olm
 NLP	83
 oks	21
+mkv
 Moa	68
 NMB
 NOC
@@ -3373,6 +3382,7 @@ Eizo
 Dixy
 fizz	56
 Elba	71
+FLAC
 flab	28
 Elbe	82
 flag	132
@@ -4490,6 +4500,7 @@ gros
 isms	59
 grot	33
 grow	130
+HSPA
 IPSA	53
 IPSC	59
 Issa
@@ -7827,6 +7838,7 @@ toul
 Toto	75
 unto	100
 unum	57
+UMTS
 tots	52
 tour	144
 tout	76
@@ -25660,6 +25672,7 @@ deftly	72
 defuse	81
 effuse	25
 Deezen
+Deezer
 deiced	38
 deicer	27
 deices
@@ -39082,6 +39095,7 @@ unsafe	99
 unpaid	100
 unsaid	55
 Torahs	33
+Vorbis
 unsays
 unread	56
 unreal	76
