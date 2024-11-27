@@ -31,7 +31,7 @@ public class TextField extends InputField {
 		super(inputConnection, inputField);
 
 		InputType inputType = new InputType(inputConnection, inputField);
-		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk();
+		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && !inputType.isDeezerSearchBar();
 		isNonText = !inputType.isText();
 	}
 
