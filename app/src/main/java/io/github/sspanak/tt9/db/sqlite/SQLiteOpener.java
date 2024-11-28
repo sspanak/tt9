@@ -24,7 +24,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 	private SQLiteOpener(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		allLanguages = new ArrayList<>(LanguageCollection.getAll(context));
+		allLanguages = new ArrayList<>(LanguageCollection.getAll());
 		allLanguages.add(new EmojiLanguage());
 	}
 

@@ -9,6 +9,7 @@ import java.util.Locale;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 
 
 public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
@@ -31,6 +32,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
+		lang.isSyllabary = definition.isSyllabary;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 		lang.setLocale(definition);
 		lang.setLayout(definition);
@@ -78,6 +80,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		final String FRENCH_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_FR";
 		final String GERMAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_DE";
 		final String GREEK_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_GR";
+		final String KOREAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_KR";
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
@@ -99,6 +102,9 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 					break;
 				case GREEK_PUNCTUATION_STYLE:
 					keyChars.addAll(Characters.PunctuationGreek);
+					break;
+				case KOREAN_PUNCTUATION_STYLE:
+					keyChars.addAll(Characters.PunctuationKorean);
 					break;
 				default:
 					keyChars.add(defChar);
@@ -263,7 +269,12 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 
 	public boolean isValidWord(String word) {
-		if (word == null || word.isEmpty() || (word.length() == 1 && Character.isDigit(word.charAt(0)))) {
+		if (
+			word == null
+			|| word.isEmpty()
+			|| (isSyllabary && LanguageKind.isKorean(this) && TextTools.isHangul(word))
+			|| (word.length() == 1 && Character.isDigit(word.charAt(0)))
+		) {
 			return true;
 		}
 

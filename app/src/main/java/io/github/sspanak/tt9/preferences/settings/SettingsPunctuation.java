@@ -88,6 +88,10 @@ class SettingsPunctuation extends SettingsInput {
 			orderedChars = language.getKeyCharacters(number);
 		}
 
+		if (number < 2) {
+			orderedChars = removeLettersFromList(orderedChars);
+		}
+
 		return orderedChars;
 	}
 
@@ -113,5 +117,17 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		return charsList;
+	}
+
+
+	private ArrayList<String> removeLettersFromList(ArrayList<String> list) {
+		ArrayList<String> cleanList = new ArrayList<>();
+		for (String s : list) {
+			if (!Character.isAlphabetic(s.codePointAt(0))) {
+				cleanList.add(s);
+			}
+		}
+
+		return cleanList;
 	}
 }

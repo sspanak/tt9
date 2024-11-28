@@ -2,9 +2,11 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.ModePredictive;
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
@@ -103,7 +105,15 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (keyCode == settings.getKeyShift()) {
-			return onKeyNextTextCase(validateOnly);
+			return
+				onKeyNextTextCase(validateOnly)
+				// when "Shift" and "Korean Space" share the same key, allow typing a space, when there
+				// are no special characters to shift
+				|| (keyCode == settings.getKeySpaceKorean() && onKeySpaceKorean(validateOnly));
+		}
+
+		if (keyCode == settings.getKeySpaceKorean()) {
+			return onText(" ", validateOnly);
 		}
 
 		if (keyCode == settings.getKeyShowSettings()) {
@@ -176,7 +186,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty()) {
+		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
 			return false;
 		}
 
@@ -203,6 +213,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 	public boolean onKeyFilterSuggestions(boolean validateOnly, boolean repeat) {
 		if (suggestionOps.isEmpty()) {
 			return false;
+		}
+
+		if (mLanguage.isSyllabary()) {
+			UI.toastShortSingle(this, R.string.function_filter_suggestions_not_available);
+			return true; // prevent the default key action to acknowledge we have processed the event
 		}
 
 		if (validateOnly) {
@@ -247,7 +262,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyNextLanguage(boolean validateOnly) {
-		if (mInputMode.isNumeric() || mEnabledLanguages.size() < 2) {
+		if (InputModeKind.isNumeric(mInputMode) || mEnabledLanguages.size() < 2) {
 			return false;
 		}
 
@@ -257,17 +272,21 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		nextLang();
-		mInputMode.changeLanguage(mLanguage);
-		mInputMode.clearWordStem();
-		getSuggestions();
 
+		// for languages that do not have ABC or Predictive, make sure we remain in valid state
+		if (!mInputMode.changeLanguage(mLanguage)) {
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+		}
+		mInputMode.clearWordStem();
+
+		getSuggestions();
 		statusBar.setText(mInputMode);
 		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
-		if (mInputMode instanceof ModePredictive) {
+		if (InputModeKind.isPredictive(mInputMode)) {
 			DictionaryLoader.autoLoad(this, mLanguage);
 		}
 
@@ -309,7 +328,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
-		nextTextCase();
+		if (!nextTextCase()) {
+			return false;
+		}
 		statusBar.setText(mInputMode);
 		mainView.render();
 
@@ -333,6 +354,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		return true;
 	}
 
+
 	private boolean onKeyShowSettings(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff()) {
 			return false;
@@ -344,6 +366,26 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		return true;
 	}
+
+
+	public boolean onKeySpaceKorean(boolean validateOnly) {
+		if (shouldBeOff() || !InputModeKind.isCheonjiin(mInputMode)) {
+			return false;
+		}
+
+		// type a space when there is nothing to accept
+		if (suggestionOps.isEmpty() && !onText(" ", validateOnly)) {
+			return false;
+		}
+
+		// simulate accept with OK when there are suggestions
+		if (!suggestionOps.isEmpty()) {
+			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+		}
+
+		return true;
+	}
+
 
 	private boolean onKeyVoiceInput(boolean validateOnly) {
 		if (!isInputViewShown() || shouldBeOff() || !voiceInputOps.isAvailable()) {

@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.db.sqlite.SQLiteOpener;
 import io.github.sspanak.tt9.db.sqlite.Tables;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -108,7 +109,7 @@ public class DictionaryLoader {
 
 	public static void load(Context context, Language language) {
 		DictionaryLoadingBar progressBar = DictionaryLoadingBar.getInstance(context);
-		getInstance(context).setOnStatusChange(status -> progressBar.show(context, status));
+		getInstance(context).setOnStatusChange(progressBar::show);
 		self.load(context, new ArrayList<>() {{ add(language); }});
 	}
 
@@ -133,7 +134,7 @@ public class DictionaryLoader {
 					load(context, language);
 				}
 				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
-				else if (!hash.equals(new WordFile(context, language.getDictionaryFile(), self.assets).getHash())) {
+				else if (!hash.equals(new WordFile(context, language, self.assets).getHash())) {
 					new DictionaryUpdateNotification(context, language).show();
 				}
 			},
@@ -235,8 +236,12 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
+		if (language.isSyllabary()) {
+			return 0;
+		}
+
 		int lettersCount = 0;
-		boolean isEnglish = language.getLocale().equals(Locale.ENGLISH);
+		boolean isEnglish = LanguageKind.isEnglish(language);
 		WordBatch letters = new WordBatch(language);
 
 		for (int key = 2; key <= 9; key++) {
@@ -254,7 +259,7 @@ public class DictionaryLoader {
 
 
 	private void importWordFile(Context context, Language language, int positionShift, float minProgress, float maxProgress) throws Exception {
-		WordFile wordFile = new WordFile(context, language.getDictionaryFile(), assets);
+		WordFile wordFile = new WordFile(context, language, assets);
 		WordBatch batch = new WordBatch(language, SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE + 1);
 		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
 		int wordCount = 0;

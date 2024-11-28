@@ -112,7 +112,7 @@ public class DataStore {
 
 	private static void getWordsSync(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, String filter, int minWords, int maxWords) {
 		try {
-			ArrayList<String> data = words.getSimilar(getWordsCancellationSignal, language, sequence, filter, minWords, maxWords);
+			ArrayList<String> data = words.getMany(getWordsCancellationSignal, language, sequence, filter, minWords, maxWords);
 			asyncReturn.post(() -> dataHandler.accept(data));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Error fetching words: " + e.getMessage());

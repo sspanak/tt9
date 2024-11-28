@@ -79,19 +79,29 @@ _**Nota 2**: Para enviar mensagens com OK em aplicativos de mensagens, você dev
   - **Toque duas vezes**: insere o caractere atribuído nas configurações do modo Preditivo (padrão: ".").
   - **Pressione e segure**: insere "0".
   - **Pressione "0", depois pressione Shift (padrão: pressione "0", "✱")**: insere símbolos monetários.
+- **No modo Cheonjiin (Coreano):**
+  - **Pressione:** insere "ㅇ" e "ㅁ".
+  - **Segure:** insere espaço, nova linha, "0" ou caracteres especiais/matemáticos.
+  - **Segure "0", depois pressione Shift (Padrão: segure "0", pressione "✱")**: insere símbolos monetários.
+
 
 #### Tecla 1:
 - **No modo 123:**
   - **Toque**: insere "1".
-  - **Pressione e segure**: insere caracteres de frase.
+  - **Pressione e segure**: insere caracteres de pontuação.
 - **No modo ABC:**
-  - **Toque**: insere caracteres de frase.
+  - **Toque**: insere caracteres de pontuação.
   - **Pressione e segure**: insere "1".
 - **No modo Preditivo:**
-  - **Toque**: insere caracteres de frase.
+  - **Toque**: insere caracteres de pontuação.
   - **Toque múltiplo**: insere emojis.
   - **Toque 1-1-3**: insere emojis adicionados (é necessário adicionar usando a [tecla Adicionar Palavra](#tecla-adicionar-palavra)).
   - **Pressione e segure**: insere "1".
+- **No modo Cheonjiin (Coreano):**
+  - **Pressione:** insere a vogal "ㅣ".
+  - **Pressione e segure:** insere caracteres de pontuação.
+  - **Segure, depois pressione:** insere emojis.
+  - **Segure 1, pressione 1, depois 3:** insere emojis adicionados (é necessário adicionar usando a [tecla Adicionar Palavra](#tecla-adicionar-palavra)).
 
 #### Teclas de 2 a 9:
 - **No modo 123**: insere o número correspondente.

@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.db.entities;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.AssetFile;
 import io.github.sspanak.tt9.util.Logger;
@@ -25,6 +28,7 @@ public class WordFile extends AssetFile {
 	private static final String LOG_TAG = WordFile.class.getSimpleName();
 
 	private final Context context;
+	private final boolean hasSyllables;
 
 	private int lastCharCode;
 	private BufferedReader reader;
@@ -36,9 +40,10 @@ public class WordFile extends AssetFile {
 	private int sequences = -1;
 
 
-	public WordFile(Context context, String path, AssetManager assets) {
-		super(assets, path);
+	public WordFile(@NonNull Context context, Language language, AssetManager assets) {
+		super(assets, language != null ? language.getDictionaryFile() : "");
 		this.context = context;
+		hasSyllables = language != null && language.isSyllabary();
 
 		lastCharCode = 0;
 		reader = null;
@@ -135,15 +140,6 @@ public class WordFile extends AssetFile {
 		if (hash.isEmpty()) {
 			Logger.w(LOG_TAG, "Invalid 'hash' property of: " + path + ". Expecting a string, got: '" + rawValue + "'.");
 		}
-	}
-
-
-	public int getSequences() {
-		if (sequences < 0) {
-			loadProperties();
-		}
-
-		return sequences;
 	}
 
 
@@ -278,7 +274,7 @@ public class WordFile extends AssetFile {
 			return words;
 		}
 
-		boolean areWordsSeparated = false;
+		boolean areWordsSeparated = hasSyllables; // if the language chars are syllables, there is no leading space to hint word separation
 		StringBuilder word = new StringBuilder();
 
 		// If the word string starts with a space, it means there are words longer than the sequence.

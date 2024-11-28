@@ -79,6 +79,10 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
   - **Doppeldruck:** tippt das Zeichen, das in den Einstellungen für den Prädiktiven Modus zugewiesen wurde (Standard: „.“)
   - **Halten:** tippt „0“.
   - **Drücken „0“ und Drücken der Umschalt-Taste (Standard: Drücken „0“, „✱“):** tippt Währungszeichen
+- **Im Cheonjiin-Modus (Koreanisch):**
+  - **Drücken:** Gibt "ㅇ" und "ㅁ" ein.
+  - **Halten:** Gibt Leerzeichen, neue Zeilen, "0" oder Sonder-/Mathematikzeichen ein.
+  - **Halten von "0" und Drücken von Shift (Standard: Halten von "0", Drücken von "✱"):** Gibt Währungszeichen ein.
 
 #### 1-Taste:
 - **Im 123 Modus:**
@@ -92,7 +96,11 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
   - **Mehrfaches Drücken:** tippt Emoji
   - **Drücken von 1-1-3:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
   - **Halten:** tippt „1“.
-
+- **Im Cheonjiin-Modus (Koreanisch):**
+  - **Drücken:** tippt den Vokal "ㅣ".
+  - **Halten:** tippt Satzzeichen.
+  - **Halten, dann drücken:** tippt Emoji.
+  - **Halten 1, 1 drücken, 3 drücken:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
 
 #### 2- bis 9-Taste:
 - **Im 123 Modus:** tippt die entsprechende Zahl

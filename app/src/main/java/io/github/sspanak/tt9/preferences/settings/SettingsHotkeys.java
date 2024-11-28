@@ -66,6 +66,9 @@ class SettingsHotkeys extends SettingsHacks {
 	public int getKeyShift() {
 		return getFunctionKey(SectionKeymap.ITEM_SHIFT);
 	}
+	public int getKeySpaceKorean() {
+		return getFunctionKey(SectionKeymap.ITEM_SPACE_KOREAN);
+	}
 	public int getKeyShowSettings() {
 		return getFunctionKey(SectionKeymap.ITEM_SHOW_SETTINGS);
 	}

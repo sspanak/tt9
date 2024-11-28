@@ -28,7 +28,7 @@ public class SettingsUI extends SettingsTyping {
 
 		if (DeviceInfo.noKeyboard(context)) {
 			DEFAULT_LAYOUT = LAYOUT_NUMPAD;
-		} else if (DeviceInfo.noBackspaceKey(context) && !DeviceInfo.noTouchScreen(context)) {
+		} else if (DeviceInfo.noBackspaceKey() && !DeviceInfo.noTouchScreen(context)) {
 			DEFAULT_LAYOUT = LAYOUT_SMALL;
 		} else {
 			DEFAULT_LAYOUT = LAYOUT_TRAY;

@@ -28,7 +28,7 @@ class ItemSelectLanguage {
 		}
 
 		item.setSummary(
-			LanguageCollection.toString(LanguageCollection.getAll(activity, activity.getSettings().getEnabledLanguageIds(), true))
+			LanguageCollection.toString(LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds(), true))
 		);
 	}
 }

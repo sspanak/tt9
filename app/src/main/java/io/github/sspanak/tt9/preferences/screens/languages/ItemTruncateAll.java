@@ -29,7 +29,7 @@ class ItemTruncateAll extends ItemClickable {
 	@Override
 	protected boolean onClick(Preference p) {
 		onStartDeleting();
-		DataStore.deleteLanguages(this::onFinishDeleting, LanguageCollection.getAll(activity, false));
+		DataStore.deleteLanguages(this::onFinishDeleting, LanguageCollection.getAll(false));
 
 		return true;
 	}

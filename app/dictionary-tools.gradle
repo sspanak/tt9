@@ -17,7 +17,7 @@ class Wrapper {
 
 
     static def wordToDigitSequence(Locale locale, String word, HashMap<String, String> sounds, boolean isTranscribed) {
-        String sequence = ""
+        def sequence = new StringBuilder()
 
         final String normalizedWord = isTranscribed ? word : word.toUpperCase(locale)
         String currentSound = ""
@@ -32,7 +32,7 @@ class Wrapper {
             // charAt(i) returns "ΐ" as three separate characters, but they must be treated as one.
             if (
                     locale.getLanguage() == "el"
-                            && (nextCharType == Character.NON_SPACING_MARK || nextCharType == Character.ENCLOSING_MARK || nextCharType == Character.COMBINING_SPACING_MARK)
+                    && (nextCharType == Character.NON_SPACING_MARK || nextCharType == Character.ENCLOSING_MARK || nextCharType == Character.COMBINING_SPACING_MARK)
             ) {
                 continue
             }
@@ -41,7 +41,7 @@ class Wrapper {
                 if (!sounds.containsKey(currentSound)) {
                     throw new IllegalArgumentException("Sound or layout entry '${currentSound}' does not belong to the language sound list: ${sounds}.")
                 } else {
-                    sequence += sounds.get(currentSound)
+                    sequence << sounds.get(currentSound)
                     currentSound = ""
                 }
             }
@@ -51,7 +51,7 @@ class Wrapper {
             throw new IllegalArgumentException("The word does not contain any valid sounds.")
         }
 
-        return sequence
+        return sequence.toString()
     }
 
 

@@ -30,19 +30,17 @@ public class LanguageCollection {
 	}
 
 
-	public static LanguageCollection getInstance(Context context) {
+	public static void init(Context context) {
 		if (self == null) {
 			self = new LanguageCollection(context);
 		}
-
-		return self;
 	}
 
 
 	@Nullable
-	public static NaturalLanguage getLanguage(Context context, String langId) {
+	public static NaturalLanguage getLanguage(String langId) {
 		try {
-			return getLanguage(context, Integer.parseInt(langId));
+			return getLanguage(Integer.parseInt(langId));
 		} catch (NumberFormatException e) {
 			return null;
 		}
@@ -50,23 +48,23 @@ public class LanguageCollection {
 
 
 	@Nullable
-	public static NaturalLanguage getLanguage(Context context, int langId) {
-		if (getInstance(context).languages.containsKey(langId)) {
-			return getInstance(context).languages.get(langId);
+	public static NaturalLanguage getLanguage(int langId) {
+		if (self.languages.containsKey(langId)) {
+			return self.languages.get(langId);
 		}
 
 		return null;
 	}
 
-	@NonNull public static Language getDefault(Context context) {
-		Language language = getByLocale(context, SystemSettings.getLocale());
-		language = language == null ? getByLocale(context, "en") : language;
+	@NonNull public static Language getDefault() {
+		Language language = getByLocale(SystemSettings.getLocale());
+		language = language == null ? getByLocale("en") : language;
 		return language == null ? new NullLanguage() : language;
 	}
 
 	@Nullable
-	public static NaturalLanguage getByLanguageCode(Context context, String languageCode) {
-		for (NaturalLanguage lang : getInstance(context).languages.values()) {
+	public static NaturalLanguage getByLanguageCode(String languageCode) {
+		for (NaturalLanguage lang : self.languages.values()) {
 			if (lang.getLocale().getLanguage().equals(new Locale(languageCode).getLanguage())) {
 				return lang;
 			}
@@ -76,8 +74,8 @@ public class LanguageCollection {
 	}
 
 	@Nullable
-	public static NaturalLanguage getByLocale(Context context, String locale) {
-		for (NaturalLanguage lang : getInstance(context).languages.values()) {
+	public static NaturalLanguage getByLocale(String locale) {
+		for (NaturalLanguage lang : self.languages.values()) {
 			if (lang.getLocale().toString().equals(locale)) {
 				return lang;
 			}
@@ -86,14 +84,14 @@ public class LanguageCollection {
 		return null;
 	}
 
-	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds, boolean sort) {
+	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds, boolean sort) {
 		if (languageIds == null) {
 			return new ArrayList<>();
 		}
 
 		ArrayList<NaturalLanguage> langList = new ArrayList<>();
 		for (int languageId : languageIds) {
-			NaturalLanguage lang = getLanguage(context, languageId);
+			NaturalLanguage lang = getLanguage(languageId);
 			if (lang != null) {
 				langList.add(lang);
 			}
@@ -106,12 +104,12 @@ public class LanguageCollection {
 		return new ArrayList<>(langList);
 	}
 
-	public static ArrayList<Language> getAll(Context context, ArrayList<Integer> languageIds) {
-		return getAll(context, languageIds, false);
+	public static ArrayList<Language> getAll(ArrayList<Integer> languageIds) {
+		return getAll(languageIds, false);
 	}
 
-	public static ArrayList<Language> getAll(Context context, boolean sort) {
-		ArrayList<NaturalLanguage> langList = new ArrayList<>(getInstance(context).languages.values());
+	public static ArrayList<Language> getAll(boolean sort) {
+		ArrayList<NaturalLanguage> langList = new ArrayList<>(self.languages.values());
 
 		if (sort) {
 			Collections.sort(langList);
@@ -120,8 +118,8 @@ public class LanguageCollection {
 		return new ArrayList<>(langList);
 	}
 
-	public static ArrayList<Language> getAll(Context context) {
-		return getAll(context,false);
+	public static ArrayList<Language> getAll() {
+		return getAll(false);
 	}
 
 	public static String toString(ArrayList<Language> list) {

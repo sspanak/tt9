@@ -79,19 +79,28 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
   - **Çift bas:** Tahmin modunda ayarlanan karakteri yaz. (Varsayılan: ".")
   - **Basılı tut:** "0" yaz.
   - **"0" bas, ardından Shift'e bas (Varsayılan: "0" bas, "✱"e bas):** para birimi karakterleri yaz.
+- **Cheonjiin modunda (Korece):**
+  - **Bas:** "ㅇ" ve "ㅁ" yaz.
+  - **Basılı tut:** boşluk, yeni satır, "0" veya özel/matematiksel karakterler yaz.
+  - **"0" tuşuna basılı tut, ardından Shift'e bas (Varsayılan: "0" tuşunu basılı tutun, "✱"ye basın):** Para birimi karakterleri yazar.
 
 #### 1-tușu:
 - **123 modunda:**
   - **Bas:** "1" yaz.
-  - **Basılı tut:** cümle işaretleri yaz.
+  - **Basılı tut:** noktalama işaretleri yaz.
 - **ABC modunda:**
-  - **Bas:** cümle işaretleri yaz.
+  - **Bas:** noktalama işaretleri yaz.
   - **Basılı tut:** "1" yaz.
 - **Tahmin modunda:**
-  - **Bas:** cümle işaretleri yaz.
+  - **Bas:** noktalama işaretleri yaz.
   - **Çoklu basış:** emoji yaz.
   - **1-1-3 bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
   - **Basılı tut:** "1" yaz.
+- **Cheonjiin modunda (Korece):**
+  - **Bas:** "ㅣ" ünlüsünü yaz.
+  - **Basılı tut:** noktalama işaretleri yaz.
+  - **Basılı tut, ardından bas:** emoji yaz.
+  - **1 basılı tut, ardından 1'e ve 3'e bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
 
 #### 2-9 tușu:
 - **123 modunda:** ilgili sayıyı yaz.

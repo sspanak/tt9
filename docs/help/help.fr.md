@@ -75,23 +75,32 @@ _**Remarque 2** : Pour envoyer des messages avec OK dans les applications de mes
   - **Appui long** : tape "0".
   - **Appui sur "0", puis appui sur Maj (par défaut : appui sur "0", "✱") :** tape des symboles monétaires.
 - **En mode Prédictif :**
-  - **Appui** : tape espace, nouvelle ligne, ou caractères spéciaux/mathématiques.
+  - **Appui** : tape un espace, une nouvelle ligne, ou caractères spéciaux/mathématiques.
   - **Double appui** : tape le caractère attribué dans les paramètres du mode Prédictif (par défaut : ".").
   - **Appui long** : tape "0".
   - **Appui sur "0", puis appui sur Maj (par défaut : appui sur "0", "✱") :** tape des symboles monétaires.
+- **En mode Cheonjiin (Coréen) :**
+  - **Appui :** tape "ㅇ" et "ㅁ".
+  - **Appui long :** tape un espace, une nouvelle ligne, "0" ou des caractères spéciaux/mathématiques.
+  - **Appui long sur "0", puis appui sur Maj (Par défaut : appui long sur "0", appuyer sur "✱") :** tape des symboles monétaires.
 
 #### Touche 1 :
 - **En mode 123 :**
   - **Appui** : tape "1".
-  - **Appui long** : tape des caractères de phrase.
+  - **Appui long** : tape des caractères de ponctuation.
 - **En mode ABC :**
-  - **Appui** : tape des caractères de phrase.
+  - **Appui** : tape des caractères de ponctuation.
   - **Appui long** : tape "1".
 - **En mode Prédictif :**
-  - **Appui** : tape des caractères de phrase.
+  - **Appui** : tape des caractères de ponctuation.
   - **Appui multiple** : tape des émojis.
   - **Appui 1-1-3** : tape des émojis ajoutés (vous devez en ajouter en utilisant [la touche Ajouter un Mot](#touche-ajouter-un-mot)).
   - **Appui long** : tape "1".
+- **En mode Cheonjiin (Coréen) :**
+  - **Appui :** tape la voyelle "ㅣ".
+  - **Appui long :** tape des caractères de ponctuation.
+  - **Appui long, puis appui court :** tape des emojis.
+  - **Appui long sur 1, appui sur 1, puis sur 3 :** tape des emojis ajoutés (vous devez en ajouter en utilisant [la touche Ajouter un Mot](#touche-ajouter-un-mot)).
 
 #### Touche 2 à 9 :
 - **En mode 123** : tape le chiffre correspondant.

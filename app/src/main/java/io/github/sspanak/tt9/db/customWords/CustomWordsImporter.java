@@ -93,7 +93,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		Timer.start(getClass().getSimpleName());
 
 		sendStart(resources.getString(R.string.dictionary_import_running));
-		if (isFileValid() && isThereRoomForMoreWords(activity) && insertWords(activity)) {
+		if (isFileValid() && isThereRoomForMoreWords(activity) && insertWords()) {
 			sendSuccess();
 			Logger.i(getClass().getSimpleName(), "Imported " + file.getName() + " in " + Timer.get(getClass().getSimpleName()) + " ms");
 		} else {
@@ -114,7 +114,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private boolean insertWords(Context context) {
+	private boolean insertWords() {
 		ReadOps readOps = new ReadOps();
 		int ignoredWords = 0;
 		int lineCount = 1;
@@ -128,13 +128,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 					return false;
 				}
 
-				CustomWord customWord = createCustomWord(context, line, lineCount);
+				CustomWord customWord = createCustomWord(line, lineCount);
 				if (customWord == null) {
 					sqlite.failTransaction();
 					return false;
 				}
 
-				if (readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
+				if (customWord.language == null || customWord.language.isSyllabary() || readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
 					ignoredWords++;
 				} else {
 					InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);
@@ -154,7 +154,10 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 		}
 
 		if (ignoredWords > 0) {
-			Logger.i(getClass().getSimpleName(), "Skipped " + ignoredWords + " word(s) that are already in the dictionary.");
+			Logger.i(
+				getClass().getSimpleName(),
+				"Skipped " + ignoredWords + " word(s) that are already in the dictionary or do not belong to an alphabetic language."
+			);
 		}
 
 		return true;
@@ -196,11 +199,11 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
-	private CustomWord createCustomWord(Context context, String line, int lineCount) {
+	private CustomWord createCustomWord(String line, int lineCount) {
 		try {
 			return new CustomWord(
 				CustomWordFile.getWord(line),
-				CustomWordFile.getLanguage(context, line)
+				CustomWordFile.getLanguage(line)
 			);
 		} catch (Exception e) {
 			String linePreview = line.length() > 50 ? line.substring(0, 50) + "..." : line;

@@ -69,33 +69,41 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
 - **In 123 mode:**
   - **Press:** type "0".
   - **Hold:** type special/math characters.
-  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters
+  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters.
 - **In ABC mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Hold:** type "0".
-  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters
+  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters.
 - **In Predictive mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Double press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
-  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters
+  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters.
+- **In Cheonjiin mode (Korean):**
+  - **Press:** type "ㅇ" and "ㅁ".
+  - **Hold:** type space, newline, 0, or special/math characters.
+  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters.
 
 #### 1-key:
 - **In 123 mode:**
   - **Press:** type "1".
-  - **Hold:** type sentence characters
+  - **Hold:** type sentence characters.
 - **In ABC mode:**
-  - **Press:** type sentence characters
+  - **Press:** type sentence characters.
   - **Hold:** type "1".
 - **In Predictive mode:**
-  - **Press:** type sentence characters
-  - **Press multiple times:** type emoji
-  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key))
+  - **Press:** type punctuation and sentence characters.
+  - **Press multiple times:** type emoji.
+  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
   - **Hold:** type "1".
-
+- **In Cheonjiin mode (Korean):**
+  - **Press:** type the "ㅣ" vowel.
+  - **Hold:** type punctuation and sentence characters.
+  - **Hold, then press:** type emoji.
+  - **Hold 1, press 1, press 3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
 
 #### 2- to 9-key:
-- **In 123 mode:** type the respective number
+- **In 123 mode:** type the respective number.
 - **In ABC and Predictive mode:** type a letter or hold to type the respective number.
 
 ### Function Keys
