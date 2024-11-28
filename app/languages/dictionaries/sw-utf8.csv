@@ -82,6 +82,7 @@ je	93
 ke
 le	83
 KG	26
+LG
 Li	32
 ji
 ki	64
@@ -147,6 +148,7 @@ SK	42
 po
 ro
 so	16
+QQ
 QR	32
 RS	48
 SP	51
@@ -255,9 +257,9 @@ zu
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -837,6 +839,7 @@ ISP
 IST	16
 ipu
 HRW	32
+HTC
 gua
 hua
 hub	16
@@ -1295,6 +1298,7 @@ UAE	61
 TAG	16
 tai	42
 TBL	26
+TCL
 UBL	16
 tao
 vam
@@ -1495,6 +1499,7 @@ zoz
 WTC	71
 yua
 zua
+ZTE
 zug
 zui
 zuk
@@ -2618,6 +2623,7 @@ inzi	16
 gozo
 IPAC	26
 Graf	38
+iPad
 Isah	16
 Iran	108
 Iraq	63
@@ -2630,6 +2636,7 @@ ISIS	16
 ishu	26
 IPOB	16
 IRNA	16
+iPod
 Groz	32
 Issa	94
 ipua
@@ -3599,6 +3606,7 @@ opoa
 osmi
 msoo
 NSSF	58
+Oppo
 ORPP	16
 mpua
 mrua
@@ -4404,6 +4412,7 @@ titi	16
 viti	91
 vivi
 Tito	48
+Vivo
 uguo
 vito	38
 UGTT	16
@@ -6796,6 +6805,7 @@ imbia
 Image	32
 imche
 inchi	38
+Gmail
 goboa
 inama
 imani	85
@@ -9007,6 +9017,7 @@ Moita	26
 nolea
 onjea
 noleo
+Nokia
 Nollo	26
 Molly	16
 nokoa
@@ -9873,6 +9884,7 @@ redio	38
 refix	16
 sedka
 sefle
+Redmi
 Pedro	51
 Sefue	32
 refuk
@@ -10203,6 +10215,7 @@ Skewa
 ploti
 skuli
 skuta
+Skype
 sobea
 Sochi	26
 pochi	56
@@ -10456,6 +10469,7 @@ punju
 Sunna	16
 Stone	38
 Sunni	16
+Quora
 Store	16
 stori	38
 story	26
@@ -10776,6 +10790,7 @@ Thabo	26
 vibao	38
 tiabu
 Viben	16
+Viber
 Tibet	16
 tibia
 ticha
@@ -10810,6 +10825,7 @@ ugawa
 vibya
 viazi	58
 vifaa	60
+Tidal
 vidau
 video	16
 ugege
@@ -11740,6 +11756,7 @@ zebra	16
 Years	16
 Zeebu
 zeeka
+Weibo
 wehua
 Welby	38
 wekea
@@ -13452,6 +13469,7 @@ ffffff
 fedeha
 fedheh
 efendi
+Deezer
 deheni
 deheri
 Feisal	66
@@ -14870,6 +14888,7 @@ huanza	54
 gubuka
 itatoa	73
 gubuwa
+Huawei
 gufadi
 hufana
 gudamu
@@ -15588,6 +15607,7 @@ Leonce	16
 Kennes	45
 Leonid	16
 Lemomo	16
+Lenovo
 Jensen	16
 kenuka
 jeraha	67
@@ -20170,6 +20190,7 @@ Search	38
 season	16
 sebule	26
 pedali
+Reddit
 sedeka
 pedeli
 Reform	16
@@ -22392,6 +22413,7 @@ Tumain	16
 utoaji	38
 uumaji
 tunalo	16
+Tumblr
 tumana
 tunana
 vunana
@@ -22604,6 +22626,7 @@ uzisha
 uzishi
 twisho
 twisti
+Twitch
 twiter	26
 uzoefu	42
 uzoevu
@@ -23064,6 +23087,7 @@ wazuka
 yayuka
 wazuri	93
 zebaki
+WeChat
 Webuye
 zeekea
 Weekly	16
@@ -23123,6 +23147,7 @@ wibari
 zibika
 Wickre
 Xiamen	26
+Xiaomi
 zianze	32
 Xiaoyi	16
 zibuka
@@ -23275,6 +23300,7 @@ Zuhura	60
 zukika
 zulika
 zuliwa
+Yulong
 yumbia
 zumari
 zumbua
@@ -23964,6 +23990,7 @@ Albania	42
 akaamka
 akaamua	63
 akaanza	70
+Alcatel
 akaavyo
 akademi	16
 akafika
@@ -24331,6 +24358,7 @@ Alphayo	26
 akubali	26
 Alvarez	26
 akuavyo
+Bluesky
 akthari
 akulika
 akuliwa
@@ -25445,6 +25473,7 @@ dirabia
 diradir
 firangi
 firanji
+Discord
 firaria
 firasha
 firashi
@@ -25629,6 +25658,7 @@ Ephraim	26
 eritrea	60
 friwili
 Ernesto	16
+Dropbox
 erosoli
 Eprahim	16
 Essance	16
@@ -32494,6 +32524,7 @@ pakogea
 Salmoni
 pakubwa	54
 pakulia
+Rakuten
 Sakweli	16
 pambaja
 Pambalu	32
@@ -36222,6 +36253,7 @@ zimeiva
 zimejaa	32
 zimekaa	16
 zimeoza
+Windows
 Winfrey	32
 Windsor	54
 zimetia	26
@@ -38850,6 +38882,7 @@ drammeja
 Fredrick	73
 erevukia
 erevusha
+Ericsson
 Epifania
 Fridolin	26
 Frierson	16
@@ -41370,6 +41403,7 @@ Kingunge	26
 linitoke
 kingwagu
 Kingwana
+LinkedIn
 limkisha
 jiokoeni
 jiologia
@@ -45055,6 +45089,7 @@ mmeamini
 mmefanya
 mmeelewa
 modereta
+OneDrive
 Modestus	16
 onekania
 omekesha
@@ -45159,6 +45194,7 @@ movement	32
 Mnunguri
 motokari
 motomoto	16
+Motorola
 Mountain	32
 Mnunuaji
 mmumunye
@@ -46563,6 +46599,7 @@ Slovakia	26
 Slovenia
 sochagua
 Robinson	38
+Snapchat
 podoleka
 podolewa
 Podolyak	26
@@ -56652,6 +56689,7 @@ nachelewa	16
 machinjio	26
 mabilioni	80
 machotara
+Macintosh
 mabishano	48
 machubuko
 machukizi
@@ -58426,6 +58464,7 @@ sambizika
 pambizoni
 Ramaphosa	104
 Samarkand	16
+Panasonic
 pambulika
 pambuliwa
 panaundwa
@@ -58813,6 +58852,7 @@ shortened
 simruhusu
 sintaksia
 simtaraji
+Pinterest
 simuliana
 simulieni
 simulisha
@@ -69162,6 +69202,7 @@ poromokeka
 poromolewa
 roromolewa
 postmortem	16
+SoundCloud
 praseodimi
 spekshenia
 Production	16

@@ -564,9 +564,9 @@ ww	57
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -1635,6 +1635,7 @@ ISU	81
 HPY	72
 GTA	87
 GTB	81
+HTC
 ITC	82
 IVA	73
 ita	80
@@ -4464,6 +4465,7 @@ itke	81
 itki	89
 Hulk	102
 Hull	91
+Hulu
 huku	52
 itku	75
 Hume	95
@@ -5456,6 +5458,7 @@ Orri	52
 Ossi	101
 oppi	130
 orsi	60
+Oppo
 orpo	90
 osta	91
 osua	103
@@ -6355,6 +6358,7 @@ viti	60
 vivi	43
 Tito	92
 Vito	87
+Vivo
 uitu	72
 Vlad	81
 Ulan	76
@@ -12750,6 +12754,7 @@ seebu	52
 Peder	77
 Sedin	72
 redin	43
+Redmi
 pedon	99
 pedot	95
 pedra	43
@@ -13753,6 +13758,7 @@ runot	109
 suomu	43
 stony	43
 sunny	52
+Quora
 stora	73
 suora	127
 ruori	70
@@ -14406,6 +14412,7 @@ Teuvo	101
 vetyä	112
 texas	96
 Vicar	60
+Viber
 Tibet	69
 thain	81
 Thais	43
@@ -14415,6 +14422,7 @@ Vicky	84
 Tibor	70
 Thant	65
 uhata	99
+Tidal
 Vidal	78
 Vidar	60
 tiedä	122
@@ -15067,6 +15075,7 @@ webiä	43
 webin	67
 Yeats	63
 Zeeuw	52
+Weibo
 Weill	60
 Zeiss	74
 weiss	57
@@ -17026,6 +17035,7 @@ edessä	139
 edestä	118
 edeten	103
 edetty	79
+Deezer
 Edgard	63
 Degerö	57
 edikti	82
@@ -19085,6 +19095,7 @@ guanon	69
 Ivanov	90
 itäosa	103
 itävät	81
+Huawei
 Gudean	57
 Guelph	65
 Huesca	57
@@ -20541,6 +20552,7 @@ Lennox	81
 Kenora	67
 Lenore	57
 lennuk	43
+Lenovo
 Jennyn	70
 Lennyn	60
 kennyn	43
@@ -25161,6 +25173,7 @@ SEATin	76
 Reebok	65
 pedata	60
 Reedin	88
+Reddit
 Seeger	77
 Redigo	57
 Seeley	65
@@ -28286,6 +28299,7 @@ Tilson	52
 vilppi	65
 Vilppu	63
 Tiktak	73
+TikTok
 Viktor	115
 uimaan	103
 Vincen	67
@@ -28856,6 +28870,7 @@ tulvii	92
 tultua	127
 tumaan	82
 Uumaja	73
+Tumblr
 tunari	57
 tuoden	106
 vuoden	176
@@ -29071,6 +29086,7 @@ tyhmän	75
 tyhmät	57
 tyhmiä	74
 tyhmin	60
+Twitch
 tykein	83
 tykkää	91
 tykkiä	117
@@ -29192,6 +29208,7 @@ Waxman	43
 Waynen	89
 Webber	93
 Webern	73
+WeChat
 Yeager	65
 Zdanov
 Zedong	77
@@ -29226,6 +29243,7 @@ Zeusta	72
 Wetzer	60
 Wexler	52
 yhäkin	69
+Xiaomi
 Whelan	52
 Wiener	82
 Wieniä	73
@@ -29375,6 +29393,7 @@ Yvette	72
 ytimen	116
 ytimet	92
 ytimiä	92
+Yulong
 Yunnan	69
 Yvonne	85
 Wuorio	67
@@ -30400,6 +30419,7 @@ alueita	136
 aluekin	67
 bluesia	104
 bluesin	101
+Bluesky
 aluetta	138
 aktiivi	92
 akuilla	77
@@ -31840,6 +31860,7 @@ ehostus	65
 Diotima	60
 Diracin	84
 Fischer	100
+Discord
 Eirassa	65
 Firaxis	60
 Eireann
@@ -32374,6 +32395,7 @@ eroonsa	80
 eronnut	117
 eroosio	95
 eroraha	57
+Dropbox
 Frosini	60
 Frostia	57
 Ernstin	67
@@ -38952,6 +38974,7 @@ metalli	112
 nevasta	43
 meteliä	82
 metelin	81
+Netflix
 meteori	80
 NetHack	77
 Neuhaus	60
@@ -40939,6 +40962,7 @@ rajussa	79
 pajusta	73
 rajusta	79
 rajusti	117
+Rakuten
 Saltvik	63
 paluuna	80
 rakuuna	72
@@ -43310,6 +43334,7 @@ Sportia	81
 Prostin	92
 sportin	52
 protein	74
+Spotify
 ProTour	105
 Sprague	63
 spriitä	80
@@ -46694,6 +46719,7 @@ tyhmien	60
 tyhminä	67
 tyhmyri	60
 tyhmyys	70
+Twitter
 Tylerin	76
 tykillä	106
 tykille	79
@@ -56090,6 +56116,7 @@ linjansa	85
 linjassa	98
 linjasta	105
 linjattu	73
+LinkedIn
 linkillä	63
 Linkille	63
 linkistä	67
@@ -60596,6 +60623,7 @@ Nobunaga	78
 omatunto	90
 modeemin	82
 modeemit	70
+OneDrive
 modernia	110
 modernin	124
 modernit	99
@@ -65101,6 +65129,7 @@ Rockstar	80
 Rockwell	77
 Soamesin	57
 robottia	87
+Snapchat
 smaragdi	67
 Robsonin	77
 robustus	77
@@ -70943,6 +70972,7 @@ wichitan	43
 Wickberg	65
 Wickholm	69
 Xiaoping	67
+WhatsApp
 Wheatley	69
 yhdeksää	94
 yhdeksän	142
@@ -76732,6 +76762,7 @@ Hornetsin	57
 hormoneja	94
 hormonien	92
 impressio	43
+Instagram
 instanssi	67
 Hortensia	72
 Institute	110
@@ -89098,6 +89129,7 @@ rinteille	94
 rinteiltä	87
 rinteissä	73
 rinteistä	67
+Pinterest
 simulator	43
 simuloida	85
 simuloitu	73
@@ -116095,6 +116127,7 @@ potkiminen	72
 potkittiin	84
 potkureita	80
 potkurilla	79
+SoundCloud
 soundeihin	72
 soundtrack	107
 Potsdamiin	57

@@ -113,6 +113,7 @@ lc	98
 lá	142
 lã	109
 lê	112
+LG	89
 kg	130
 ki	92
 li	90
@@ -198,6 +199,7 @@ ro	91
 sm	90
 sn	82
 só	158
+QQ	69
 pr	122
 ps	106
 rs	126
@@ -308,9 +310,9 @@ zw	59
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -638,6 +640,7 @@ Grã	101
 Irã	106
 ira	111
 irá	133
+HTC
 hum	88
 lar	117
 las	131
@@ -656,6 +659,7 @@ los	140
 lua	121
 jus	94
 luz	144
+Mac	74
 oba	57
 oca	88
 mãe	149
@@ -669,6 +673,7 @@ más	109
 nas	170
 mau	120
 MDC	77
+NEC	89
 ode	83
 mel	113
 nem	147
@@ -778,6 +783,7 @@ suo	67
 pus	88
 uai	72
 vai	147
+TCL
 tal	150
 tão	147
 vão	137
@@ -826,6 +832,7 @@ uso	154
 tua	103
 uva	108
 zen	84
+ZTE
 .biz
 .com
 .edu
@@ -1606,6 +1613,7 @@ goze	65
 gozo	88
 gôzo
 isca	87
+iPad
 grão	115
 irão	118
 irás	47
@@ -1617,6 +1625,7 @@ iria	132
 íris	105
 islã	85
 irmã	139
+iPod	105
 isso	157
 isto	145
 ítem	72
@@ -1625,6 +1634,7 @@ guiá	77
 guie	58
 guio	29
 gula	74
+Hulu
 gume	75
 humo	53
 huno	72
@@ -1973,6 +1983,7 @@ orno
 opor	101
 opôs	107
 orou	74
+Oppo
 osso	118
 opta	93
 optá
@@ -2310,6 +2321,7 @@ somo	57
 sono	115
 sons	126
 soou	75
+Sony	108
 Rosa	121
 porá	60
 posa	73
@@ -3996,6 +4008,7 @@ arrie
 arrio	29
 assim	162
 assis	112
+Apple	108
 arpoa
 arpoá
 assoa
@@ -5329,6 +5342,7 @@ incas	97
 incha	63
 inchá
 inche	38
+Gmail
 incho
 inala	49
 inalá
@@ -6305,6 +6319,7 @@ moldá	57
 molde	101
 moldo
 moles	96
+Nokia	53
 molha	68
 molhá
 molhe	83
@@ -6880,6 +6895,7 @@ pedir	120
 pedis	52
 pediu	128
 refiz
+Redmi
 redor	156
 pedra	139
 Pedro	139
@@ -7291,6 +7307,7 @@ pluga	38
 plugá
 plugo
 pluma	89
+Skype	29
 roçai
 socai
 poção	96
@@ -7762,6 +7779,7 @@ sumiu	89
 rumor	92
 rumos	105
 rumou	94
+Quora
 quota	91
 rural	134
 puras	97
@@ -8130,6 +8148,7 @@ vezes	159
 vexou
 texto	139
 tição	49
+Viber
 tíbia	86
 vicia	60
 viciá
@@ -8147,6 +8166,7 @@ vibra	80
 vibrá
 vibre	49
 vibro	43
+Tidal	29
 tidas	96
 vidas	125
 vídeo	138
@@ -8591,6 +8611,7 @@ zarpá
 zarpe
 zarpo
 zebra	89
+Weibo
 zelai
 zelam	57
 zelar	87
@@ -10669,6 +10690,7 @@ coaxas
 coaxei
 coaxem
 coaxes
+Amazon	58
 coaxou
 ameaça	127
 ameaçá	64
@@ -12609,6 +12631,7 @@ deduza	43
 deduze	38
 deduzi
 deduzo
+Deezer
 edição	148
 feição	99
 eficaz	119
@@ -13111,6 +13134,7 @@ firmas	94
 firmei
 firmem
 firmes	94
+Disney	116
 firmou	107
 fissão	101
 díspar	53
@@ -15023,6 +15047,7 @@ homens	148
 homero	94
 iônica	92
 iônico	85
+Google	75
 gongos	58
 ioniza	70
 ionizá
@@ -15264,6 +15289,7 @@ grilou
 grinfa
 grinfo
 gringo	59
+iPhone	93
 gritai
 gritam	74
 gritar	94
@@ -15323,6 +15349,7 @@ guarda	132
 guardá	74
 guarde	83
 guardo	49
+Huawei
 guedes	97
 gueixa	85
 guelra
@@ -15565,6 +15592,7 @@ lembro	83
 lendas	120
 lengas
 lenhos	43
+Lenovo
 lentas	94
 lentes	110
 lentos	100
@@ -17745,6 +17773,7 @@ refará
 refaze	38
 refazê	59
 rédeas	88
+Reddit
 reféns	105
 refere	138
 referi	66
@@ -20193,6 +20222,7 @@ tijela
 vileza	55
 vilões	114
 tijolo	104
+TikTok
 vincai
 vincam
 vincar	53
@@ -20842,6 +20872,7 @@ tulipa	72
 vulvas	49
 vultos	90
 tumbas	99
+Tumblr
 túneis	110
 tundra	89
 túnica	95
@@ -20878,6 +20909,7 @@ tutela	108
 tutelá
 tutele	38
 tutelo
+Twitch
 xadrez	120
 walter	115
 Zâmbia	104
@@ -20908,6 +20940,7 @@ zarpem
 zarpes
 zarpou	80
 xavier	113
+WeChat
 zebras	83
 Zéfiro	43
 zelado	43
@@ -20940,6 +20973,7 @@ xerocá
 xeroco
 xeques	55
 xícara	84
+Xiaomi
 zigoto	89
 xiitas	97
 xingai
@@ -20961,6 +20995,7 @@ zonzas
 zonzos
 xucras
 xucros	38
+Yulong
 zumbam
 zumbas
 zumbem
@@ -23826,6 +23861,7 @@ alçasse
 alçaste
 alçavam	43
 alçavas
+Alcatel	58
 alcatra	59
 alcemos
 alberga	102
@@ -24221,6 +24257,7 @@ alteras
 alterei
 alterem	71
 alteres	43
+Bluesky
 alterna	92
 alterná
 alterne	53
@@ -24581,6 +24618,7 @@ andrajo
 América	142
 coesiva	53
 coesivo	55
+Android	59
 anexada	107
 anexado	107
 anexais
@@ -29047,6 +29085,7 @@ discara
 discará
 discava
 firamos
+Discord
 discuta	63
 discute	106
 discuti	58
@@ -31009,6 +31048,7 @@ esmolou
 frontal	115
 frontão	107
 frontes	63
+Dropbox
 epopéia	88
 erosiva	78
 erosivo	73
@@ -35464,6 +35504,7 @@ nevasse	29
 nevaste
 nevavam
 nevavas
+Netflix
 metendo	79
 metemos
 nevemos
@@ -36922,6 +36963,7 @@ saltitá
 saltite
 saltito
 Palumbo	29
+Rakuten
 pancada	85
 sambado	29
 sambais
@@ -36996,6 +37038,7 @@ ranjamo
 pamonha	68
 samovar	29
 sampaio	107
+Samsung	79
 santana	117
 pântano	97
 pantera	87
@@ -40480,6 +40523,7 @@ provias
 provida	90
 provido	94
 provier	38
+Spotify
 provimo
 provirá	38
 provoca	118
@@ -43026,6 +43070,7 @@ tutelem
 tuteles
 tutelou	53
 tutores	89
+Twitter	70
 zabumba	79
 zangado	79
 zangais
@@ -43107,6 +43152,7 @@ xerocas
 xerocou
 xeroque
 xícaras	73
+Windows	80
 xingado	49
 xingais
 xingamo
@@ -43126,6 +43172,7 @@ zombará
 zombava	49
 zombeis
 zombemo
+YouTube	105
 zumbais
 zumbemo
 zumbiam
@@ -53006,6 +53053,7 @@ azulejou
 azulemos
 azuritas
 façanhas	93
+Facebook	38
 faceiras
 faceiros	38
 facetada	65
@@ -58617,6 +58665,7 @@ esgarcei
 esgarcem
 esgarces
 esgarçou
+Ericsson	79
 Epicteto	38
 Epifania	62
 Epidauro	61
@@ -63499,6 +63548,7 @@ limiteis
 limitemo
 lingueta	43
 linguiça	76
+LinkedIn	65
 limoeiro	55
 linóleos
 limonada	67
@@ -65527,6 +65577,7 @@ moderará
 moderava
 modereis
 moderemo
+OneDrive
 modernas	123
 modernos	129
 modestas	93
@@ -65920,6 +65971,7 @@ motiveis
 motivemo
 notórias	88
 notórios	93
+Motorola	57
 mourisca	79
 mourisco	81
 motrizes	78
@@ -70943,6 +70995,7 @@ socorros	96
 robótica	98
 robótico	94
 sobrados	86
+Snapchat
 sobrando	85
 sobramos
 soáramos
@@ -75950,6 +76003,7 @@ xerocava
 xeroquei
 xeroquem
 xeroques
+WhatsApp
 xingação
 xingando	59
 xingamos
@@ -100515,6 +100569,7 @@ improvisá
 improvise	43
 improviso	92
 insucesso	95
+Instagram
 instalada	125
 instalado	128
 instalais
@@ -102585,6 +102640,7 @@ machistas	68
 macilenta	43
 macilento	38
 nacionais	137
+Macintosh	90
 machucada	75
 machucado	91
 machucais
@@ -104008,6 +104064,7 @@ miaríamos
 micróbios	87
 microfone	101
 microonda	53
+Microsoft	114
 miássemos
 niilismos
 niilistas	67
@@ -105737,6 +105794,7 @@ rancoroso	57
 sanáramos
 sanaremos
 sanaríeis
+Panasonic	70
 sanásseis
 sanávamos
 sanatório	89
@@ -110389,6 +110447,7 @@ pintastes
 pintáveis
 sintática	94
 sintático	90
+Pinterest
 sintética	100
 sintético	101
 sintetiza	88
@@ -153860,6 +153919,7 @@ povoaremos
 povoaríeis
 povoásseis
 povoávamos
+SoundCloud
 poupáramos
 pousáramos
 pouparemos
