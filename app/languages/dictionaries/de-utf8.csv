@@ -119,6 +119,7 @@ la	141
 lb	88
 lc	90
 je	151
+LG
 kg	137
 ki	95
 lk	71
@@ -200,6 +201,7 @@ sm	104
 sn	82
 so	172
 PR	91
+QQ
 SS	124
 ps	133
 rs	97
@@ -311,9 +313,9 @@ zu	195
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -650,6 +652,7 @@ IRQ	54
 irr	46
 iss	106
 ist	197
+HTC
 Hub	47
 Huf	65
 Gut	149
@@ -692,6 +695,7 @@ Kur	48
 jur
 Jux	23
 kWh	100
+Mac
 Mai	149
 NAG	70
 mag	121
@@ -700,6 +704,7 @@ Mal	135
 man	170
 Maß	96
 max	105
+NEC
 Ode	53
 med
 öde
@@ -789,6 +794,7 @@ pur	83
 süß	94
 übe
 Tag	134
+TCL
 Tal	124
 Tat	117
 Tau	59
@@ -848,6 +854,7 @@ wir	136
 wog	105
 zog	150
 Zoo	102
+ZTE
 Zug	120
 zum	185
 zur	181
@@ -2076,6 +2083,7 @@ Grad	79
 Graf	129
 Gräf	66
 ISAF	88
+iPad
 Gral	74
 Irak	108
 Isak	57
@@ -2147,6 +2155,7 @@ ITIL	73
 Hugo	115
 Huhn	80
 Hulk	80
+Hulu
 Hume	81
 Hund	107
 Hüne	48
@@ -2941,6 +2950,7 @@ Orly	58
 mRNA	91
 ÖPNV	106
 MRSA	68
+Oppo
 Opry	75
 Orte	127
 Oste	73
@@ -3629,6 +3639,7 @@ vita	87
 vive	51
 Tito	86
 Vito	80
+Vivo
 thun	69
 vivo	81
 Thür	59
@@ -8428,6 +8439,7 @@ Pfeil	96
 pedis	59
 Seele	108
 reell	76
+Redmi
 Redon	61
 Pferd	110
 Reese	76
@@ -9206,6 +9218,7 @@ Stone	68
 Summe	111
 summt	48
 Stony	69
+Quora
 Pumpe	89
 Rumpf	107
 Stöße	73
@@ -9488,6 +9501,7 @@ Texel	69
 Texte	120
 Thabo	57
 Tiber	74
+Viber
 Tibet	62
 Thais	59
 Tichy	58
@@ -9499,6 +9513,7 @@ tickt	56
 Vicky	75
 Tibor	73
 Tiara	65
+Tidal
 Tieck	76
 Vidal	76
 Tiefe	118
@@ -9961,6 +9976,7 @@ wedle
 Weeze	65
 Weibe	14
 weich	105
+Weibo
 wegaß
 Weida	77
 Weide	85
@@ -11191,6 +11207,7 @@ Anatol	70
 Anatom	76
 Coburg	100
 Coburn	63
+Amazon
 amazon	66
 Anfall	78
 Anfang	141
@@ -12088,6 +12105,7 @@ Federn	54
 federt	56
 Fedora	31
 deftig	59
+Deezer
 Deiche	80
 Edgars	52
 Fehden	53
@@ -14331,6 +14349,7 @@ Hübner	87
 Guanin	59
 Ivanov	56
 hübsch	80
+Huawei
 Guelph	66
 Hudson	100
 guerre	78
@@ -14910,6 +14929,7 @@ Leonor	63
 Lennox	80
 Lenore	63
 kennst	53
+Lenovo
 Jensen	89
 Kempen	78
 Kemper	72
@@ -17253,6 +17273,7 @@ Pedals	52
 Reebok	58
 Seeamt	50
 Reeder	84
+Reddit
 redend	73
 redest
 redete	81
@@ -18971,6 +18992,7 @@ Villen	94
 Tilman	77
 Vilmos	58
 Tilsit	82
+TikTok
 Viktor	103
 Vincis	60
 timing	51
@@ -19419,6 +19441,7 @@ Tullio	60
 Tulpen	64
 tünche
 tüncht
+Tumblr
 Tundra	79
 Tunika	66
 tunken
@@ -19460,6 +19483,7 @@ Tuvalu	64
 tutete
 Tycoon	64
 Twiste	59
+Twitch
 Tykwer	57
 Uznach	67
 Tyrann	75
@@ -19636,6 +19660,7 @@ Webber	79
 webend
 Webern	71
 Webers	81
+WeChat
 Yeager	56
 Wechte	40
 Zecken	71
@@ -19817,6 +19842,7 @@ Zicken
 zickig
 wickle
 Xiamen	65
+Xiaomi
 Wiebke	63
 Wieden	74
 Widder	51
@@ -20076,6 +20102,7 @@ Zukauf	72
 Zulauf	88
 zulegt	52
 zuließ	94
+Yulong
 Yüksel	61
 Wülste	51
 zunahm	94
@@ -21486,6 +21513,7 @@ Altdorf	89
 älteren	50
 älterer
 älteres
+Bluesky
 alternd
 Alterns	58
 alterst
@@ -23144,6 +23172,7 @@ Fischer	116
 Fisches	74
 fischst
 fischte	56
+Discord
 DirectX	83
 Eisfeld	72
 Firefox	78
@@ -23914,6 +23943,7 @@ frontal	90
 Fronten	89
 frönten
 Frösche	82
+Dropbox
 Drosera	79
 Erosion	94
 Drossel	63
@@ -27946,6 +27976,7 @@ Metaxas	60
 Neudeck	71
 Neuffen	65
 Neufeld	68
+Netflix
 Meteore	58
 Neudorf	84
 Meteors	51
@@ -29051,6 +29082,7 @@ säkular	68
 Säkulum
 Sakurai	57
 Paltrow	62
+Rakuten
 Salzach	79
 salzige	71
 salzlos
@@ -30560,6 +30592,7 @@ Sportes	58
 Protein	72
 Protest	103
 Proteus	66
+Spotify
 Provinz	139
 Protons	60
 Provost	61
@@ -32417,6 +32450,7 @@ tutende
 tuteten
 Tutoren	58
 Tutzing	70
+Twitter
 Tyndall	56
 typisch	122
 Tyrosin	62
@@ -36531,6 +36565,7 @@ azurblau	50
 Ayurveda	58
 d'Italia	92
 d'Ivoire	69
+Facebook
 Facetten	78
 facialis	76
 Facharzt	82
@@ -42194,6 +42229,7 @@ Lindwurm	64
 Kingsley	72
 Kingston	92
 Linguist	74
+LinkedIn
 Linksfuß	60
 Kinnbart	46
 Linnaeus	59
@@ -43886,6 +43922,7 @@ Modehaus	63
 Modellen	104
 Modelles
 moderate	85
+OneDrive
 modernem	87
 modernen	138
 moderner	120
@@ -46202,6 +46239,7 @@ Rockstar	68
 Rockwell	75
 Robotern	71
 Roboters	67
+Snapchat
 Smaragde	54
 Socrates
 robustem	52
@@ -50199,6 +50237,7 @@ zickiger
 Zicklein	43
 Wicklung	34
 Xiaoping	67
+WhatsApp
 Wiechert	60
 Wiederau	57
 wiederum	143
@@ -60945,6 +60984,7 @@ Hörspiele	90
 Hörspiels	60
 Horstmann	61
 instabile	88
+Instagram
 inständig	61
 Instanzen	86
 Hostessen
@@ -66888,6 +66928,7 @@ Rinnstein	45
 sinnvolle	99
 Phosphate	73
 Phosphors	50
+Pinterest
 Simulator	73
 simuliere
 simuliert	97
@@ -91957,6 +91998,7 @@ Rothirsche	63
 Rothschild	91
 Rotliegend	56
 Soundcheck	57
+SoundCloud
 Soundkarte	61
 Soundtrack	102
 poussieren

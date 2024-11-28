@@ -39,6 +39,7 @@ ka	1
 la	5
 je	1
 ke	45
+LG
 ji	1
 ki	1
 Lo	1
@@ -65,6 +66,7 @@ qi	1
 si	3
 po	1
 ro	1
+QQ
 ru	1
 ta	1
 ua	1
@@ -146,9 +148,9 @@ yu	1
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -546,6 +548,7 @@ ira	1
 iri	1
 isi	1
 isu	1
+HTC
 gua	1
 gue	1
 huh	1
@@ -654,6 +657,7 @@ lup	1
 lus	1
 lut	1
 juz	1
+Mac
 mad	1
 naf	1
 mag	1
@@ -676,6 +680,7 @@ nas	1
 mat	1
 mau	1
 nau	1
+NEC
 ode	1
 Mei	1
 mek	1
@@ -824,6 +829,7 @@ taf	1
 tah	1
 uai	1
 ubi	1
+TCL
 tak	6
 tal	1
 uak	1
@@ -915,6 +921,7 @@ wih	1
 wol	1
 won	1
 yos	1
+ZTE
 yuk	1
 zus	1
 .biz
@@ -2400,6 +2407,7 @@ imut
 gowa
 grad	1
 graf	1
+iPad
 grah
 irah
 irak
@@ -2431,6 +2439,7 @@ irit	1
 isit	1
 irja
 isob
+iPod
 isme
 isof
 ipoh
@@ -4373,6 +4382,7 @@ romp
 somp
 ront
 sont
+Sony
 rony
 pora	1
 rosa
@@ -4875,6 +4885,7 @@ tipu	1
 tiru	1
 tisu	1
 titi	1
+Vivo
 tium
 vium
 tiup	1
@@ -6572,6 +6583,7 @@ arsir	1
 arsis	1
 aprit	1
 arsit
+Apple
 apron	1
 arpus	1
 aruba
@@ -8062,6 +8074,7 @@ incer	1
 gobet	1
 image
 incii
+Gmail
 imago	1
 imbit	1
 incit	1
@@ -10925,6 +10938,7 @@ molen
 noken	1
 moler	1
 moles	1
+Nokia
 mokin
 molis
 nolit
@@ -11874,6 +11888,7 @@ redih	1
 sedih	1
 redik	1
 pedis	1
+Redmi
 pedok	1
 sedot	1
 sedua
@@ -12701,6 +12716,7 @@ rkuri
 rkusi
 rkuro
 Pluto	1
+Skype
 robah
 robak
 soban	1
@@ -13150,6 +13166,7 @@ sungu	1
 stola
 suomi
 rumor	1
+Quora
 rumpi	1
 stori	1
 sumsi
@@ -13698,12 +13715,14 @@ teyan	1
 tewas	2
 tiban	1
 tiada	1
+Viber
 tiaga	1
 vicia
 tiang	1
 tiara	1
 tiasa
 viasi
+Tidal
 tidak	37
 video	4
 tidur	1
@@ -14229,6 +14248,7 @@ wedam	1
 wedar	1
 wedel	1
 weduk	1
+Weibo
 wekas
 welas	1
 wekel	1
@@ -15348,6 +15368,7 @@ amatir	1
 ambung	1
 amatol	1
 ambyar	1
+Amazon
 andaka	1
 andang	1
 codang	1
@@ -16020,6 +16041,7 @@ dedare	1
 defile	1
 efelis	1
 efendi	1
+Deezer
 deging	1
 deisme	1
 edison
@@ -16377,6 +16399,7 @@ diplot
 diskot
 diskus	1
 firman	1
+Disney
 dipola
 disolv
 dipnor
@@ -17316,6 +17339,7 @@ gondok	1
 gondol	1
 gongan
 gonggo	1
+Google
 gongli	1
 homili	1
 gongok
@@ -17427,6 +17451,7 @@ isilah
 isikan
 grinch
 iringi
+iPhone
 isinya
 irisan
 islami	1
@@ -17468,6 +17493,7 @@ itarad	1
 itaraf	1
 gubris	1
 hubung	1
+Huawei
 gudang	1
 guderi	1
 hudhud	1
@@ -18301,6 +18327,7 @@ jenong
 kemong	1
 kenong	1
 lenong	1
+Lenovo
 lempah	1
 lempai	1
 kempal	1
@@ -21052,6 +21079,7 @@ sedasi
 pedati	1
 sedawa	1
 sedaya
+Reddit
 pedena	1
 sedeng	1
 pedemo
@@ -23200,6 +23228,7 @@ tijani
 tilang	1
 tikong
 tikung	1
+TikTok
 timbal	1
 timbau	1
 timbel	1
@@ -23490,6 +23519,7 @@ tumbal	1
 tumbas	1
 tumben	1
 tumbil
+Tumblr
 tumang	1
 tunang	1
 tumbuh	2
@@ -23549,6 +23579,7 @@ utusan
 tutung	1
 tutupi
 tuwung	1
+Twitch
 wacana	1
 waadah	1
 waadat	1
@@ -23613,6 +23644,7 @@ zatnya
 wayang	1
 wazari	1
 zawiat	1
+WeChat
 wedana	1
 wedang	1
 wedani	1
@@ -23631,6 +23663,7 @@ wesket	1
 wicara	1
 wibawa	1
 ziadah	1
+Xiaomi
 ziarah	1
 ziarat	1
 widara	1
@@ -23688,6 +23721,7 @@ yudoka	1
 Zuhara	1
 wulang	1
 zulmat	1
+Yulong
 wulung	1
 Yunani	1
 wungon	1
@@ -24926,6 +24960,7 @@ albanat	1
 albania
 albasir
 albasit
+Alcatel
 akademi	1
 akadkan
 ajaiban
@@ -25048,6 +25083,7 @@ akuaris	1
 akuatik	1
 alufiru	1
 bludrek	1
+Bluesky
 akuifer	1
 aktifis
 akuilah
@@ -25137,6 +25173,7 @@ anehnya
 anekdot	1
 andorra
 amerika
+Android
 aneroid	1
 anduhan
 ametria	1
@@ -26389,6 +26426,7 @@ disamak
 disandi
 dipanen
 dipandu
+Discord
 disamun
 diparaf
 dipapah
@@ -26923,6 +26961,7 @@ eskapis
 frologi
 esoknya
 frontal	1
+Dropbox
 droping
 erotasi
 erotika	1
@@ -30756,6 +30795,7 @@ metafor
 metalik	1
 metanol	1
 metazoa	1
+Netflix
 meterai	1
 meteran
 metodik	1
@@ -31425,6 +31465,7 @@ sakunya
 saluran
 rajutan
 salutan
+Rakuten
 pancaka	1
 pancang	1
 rambang	1
@@ -31589,6 +31630,7 @@ pamplet
 samplok	1
 scorpio
 sampuli
+Samsung
 rampung	1
 pantang	1
 rantang	1
@@ -33750,6 +33792,7 @@ sportif	1
 proteid	1
 protein	1
 protese	1
+Spotify
 provisi	1
 provost
 rsuasif
@@ -35015,6 +35058,7 @@ tutupan
 tuturan
 tuwuhan	1
 twinged
+Twitter
 uwungan	1
 wabakdu	1
 wahadah	1
@@ -35087,6 +35131,7 @@ william
 wilmana	1
 xilofon	1
 xilonit	1
+Windows
 winglet	1
 zimosis	1
 zimotik	1
@@ -35104,6 +35149,7 @@ wolanda	1
 wolfram	1
 zoogani	1
 zoologi	1
+YouTube
 Wrisaba	1
 wukerar	1
 zurafah	1
@@ -37257,6 +37303,7 @@ azeotrop	1
 cynogale
 bypasser
 cyprinus
+Facebook
 dadaisme	1
 daendels
 dafologi
@@ -38430,6 +38477,7 @@ fredrich
 frenatus
 esensial	1
 erfpacht
+Ericsson
 epidemik
 epifisis	1
 epifiton	1
@@ -40271,6 +40319,7 @@ linglung	1
 lingkupi
 liminasi
 limitasi	1
+LinkedIn
 linnacus
 linnaeus
 limnetik	1
@@ -42729,6 +42778,7 @@ modeling	1
 modelnya
 moderato	1
 onderdil	1
+OneDrive
 modernis
 mnemonik	1
 modulasi	1
@@ -42822,6 +42872,7 @@ ontogeni	1
 ontologi	1
 motokros
 motorbot
+Motorola
 motornya
 mozambik
 orcaella
@@ -45034,6 +45085,7 @@ societas
 robohlah
 robohkan
 robotika	1
+Snapchat
 socrates
 rmatitis
 rmatolog
@@ -46793,6 +46845,7 @@ werangka	1
 weselbor	1
 zeppelin
 wewenang
+WhatsApp
 Widiwasa	1
 zigomorf	1
 wilangan
@@ -49866,6 +49919,7 @@ inspektif
 inspektur	1
 inspirasi	1
 gossypium
+Instagram
 instalasi	1
 institusi	1
 insulator	1
@@ -51348,6 +51402,7 @@ kwesioner
 lyncornis
 macaranga
 macaranya
+Macintosh
 macrobium
 macrosoma
 maculatum
@@ -52974,6 +53029,7 @@ ngangenin
 nicotiana
 micriceps
 microphis
+Microsoft
 ngatupkan
 mifinalis
 midiurnal
@@ -53364,6 +53420,7 @@ pancingku
 pancingmu
 panakawan	1
 pancoleng
+Panasonic
 pancungan
 sambungan
 sanatogen	1
@@ -55036,6 +55093,7 @@ sintaksis	1
 sintaktik
 sintaktis
 rintangan
+Pinterest
 sintilasi
 simulator	1
 simulfiks	1
@@ -63509,6 +63567,7 @@ posteriori
 portofolio	1
 rostratula
 sovinistis
+SoundCloud
 rotundanus
 roxburghii
 pragmatika	1

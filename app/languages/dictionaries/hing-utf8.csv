@@ -1,7 +1,7 @@
-'d
-'m
--o
-'s
+'d	10
+'m	10
+-o	10
+'s	10
 a-
 AB	253
 BA	169
@@ -305,6 +305,7 @@ ro	15
 so	163
 PS	25
 QP	62
+QQ
 RR	86
 SP
 pp	209
@@ -450,7 +451,7 @@ yu	248
 .bt
 .cu
 .cv
--by
+-by	10
 .aw
 .ax
 .az
@@ -493,7 +494,7 @@ yu	248
 .gl
 .hk
 .il
--in
+-in	10
 .gm
 .gn
 .hm
@@ -525,7 +526,7 @@ yu	248
 .kh
 .ki
 .li
-'ll
+'ll	10
 .lk
 .jm
 .jo
@@ -560,7 +561,7 @@ yu	248
 .mk
 .ml
 .nl
--on
+-on	10
 .mm
 .mn
 .mo
@@ -586,7 +587,7 @@ yu	248
 .sa
 .sb
 .sc
-'re
+'re	10
 .pe
 .pf
 .re
@@ -617,7 +618,7 @@ yu	248
 .st
 .su
 .sv
--RW
+-RW	10
 .pw
 .py
 .rw
@@ -628,7 +629,7 @@ yu	248
 .ua
 .va
 .vc
-'ve
+'ve	10
 .td
 .tf
 .ve
@@ -645,7 +646,7 @@ yu	248
 .tn
 .to
 .vn
--up
+-up	10
 .tr
 .us
 .tt
@@ -3494,6 +3495,7 @@ tah	218
 tai	78
 uai	76
 vah	50
+TCL
 Taj	40
 UCL	87
 Val	15
@@ -3923,6 +3925,7 @@ wry	78
 WTA	94
 WTC	79
 YTD	31
+ZTE
 Yuh	35
 Zug	27
 yug	16
@@ -3946,17 +3949,17 @@ www	72
 .biz
 .com
 .edu
--hoo
+-hoo	10
 .gov
 .int
--off
+-off	10
 .net
 .org
--out
--Pei
--per
--ROM
--toc
+-out	10
+-Pei	10
+-per	10
+-ROM	10
+-toc	10
 ACCA	70
 ACCC	70
 Abba	15
@@ -9213,6 +9216,7 @@ Orne	35
 orsa	1
 ossa	27
 orsk	1
+Oppo
 MPPs	66
 MPRP	62
 MPRS	55
@@ -12030,11 +12034,11 @@ YWHA	39
 WWII	107
 Wynn	82
 WWOR	70
--back
--away
--down
+-back	10
+-away	10
+-down	10
 .info
--over
+-over	10
 -per-
 .tech
 Ababa	77
@@ -23702,6 +23706,7 @@ peena	199
 reema	198
 peene	237
 seene	214
+Redmi
 pedon	231
 peens	1
 redos	1
@@ -25745,6 +25750,7 @@ Sunny	97
 rummy	62
 runny	65
 stony	85
+Quora
 stord	17
 store	137
 svope	15
@@ -27896,6 +27902,7 @@ weeta	15
 weeto	186
 weeur	15
 wefts	41
+Weibo
 zehan	15
 weigh	105
 Yeggs	10
@@ -33864,6 +33871,7 @@ defter	47
 deftly	72
 defuse	81
 effuse	25
+Deezer
 deiced	38
 deicer	27
 edible	102
@@ -37833,6 +37841,7 @@ hubris	71
 itarsi	146
 guavas	58
 itavar	15
+Huawei
 Gudadi
 gufaon	222
 guffar	79
@@ -39368,6 +39377,7 @@ lemony	45
 Lenora	47
 Lenore	64
 jenova	32
+Lenovo
 jemsan	15
 lensed	58
 Jensen	90
@@ -44913,6 +44923,7 @@ seedhe	15
 peedhi	15
 seedhi	15
 redfin	44
+Reddit
 peedit	133
 reedit	30
 peddle	55
@@ -49537,6 +49548,7 @@ tilsmi	33
 viktar	15
 tilted	92
 tilter	34
+TikTok
 Viktor	88
 vilupt	233
 Vilyui	1
@@ -50547,6 +50559,7 @@ vulvar	55
 tukuda	15
 Tumble	82
 tumako	15
+Tumblr
 tumane	15
 tumase	15
 tumaro	15
@@ -50982,6 +50995,7 @@ xebecs	43
 WebDAV	61
 Webern	59
 webers	28
+WeChat
 Yeager	67
 weaken	99
 weaker	107
@@ -51105,6 +51119,7 @@ whaler	76
 whales	105
 Wicket	116
 Whaley	62
+Xiaomi
 Whammy	64
 wicopy	15
 wharfs	67
@@ -51436,6 +51451,7 @@ Yukawa	52
 yukesh	226
 yukked	1
 wuller	15
+Yulong
 yunaan	240
 yunani	245
 wumens	98
@@ -54909,6 +54925,7 @@ Bluejay	25
 alveoli	73
 Altdorf	56
 altered	121
+Bluesky
 Bluetit	1
 Alvinia	1
 Althorn	1
@@ -69389,6 +69406,7 @@ salukis	1
 salvoes	60
 saltpan	25
 saluted	75
+Rakuten
 saluter	10
 salutes	77
 paluxed	86
@@ -78885,7 +78903,7 @@ zymurgy	21
 WYSIWYG	74
 wyverns	49
 zyzzyva	10
--through
+-through	10
 aabaadee	15
 abbacies	42
 cabbages	64
@@ -94681,6 +94699,7 @@ modelled	104
 modeller	59
 moderate	123
 moderato	54
+OneDrive
 moderner	2
 modernly	54
 modestly	87

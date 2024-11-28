@@ -110,6 +110,7 @@ lc	93
 là	145
 je	140
 le	209
+LG	87
 kg	129
 kh	61
 li
@@ -194,6 +195,7 @@ pm	88
 pn	85
 sn	90
 PS	121
+QQ	63
 SS	121
 rs	95
 pt	90
@@ -306,9 +308,9 @@ zm	64
 .fj
 .fk
 -en	10
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -737,6 +739,7 @@ gri
 GPL	102
 ISO	113
 GPS	103
+HTC	80
 hua	58
 gué	103
 hue	49
@@ -1018,6 +1021,7 @@ sut	103
 sût	64
 puy	88
 tac	65
+TCL
 val	107
 tam	73
 tan	82
@@ -1098,6 +1102,7 @@ XML	104
 won	67
 zoo	107
 zou	45
+ZTE
 zut	42
 WWF	109
 www	114
@@ -2036,6 +2041,7 @@ houp	38
 goût	130
 houx	82
 isba	47
+iPad	79
 irai	51
 Irak	101
 ISBN	105
@@ -2053,6 +2059,7 @@ irez	46
 gril	73
 gris	126
 iris	90
+iPod	90
 grog	56
 gros	137
 issu	134
@@ -2079,6 +2086,7 @@ guis	39
 huis	84
 huit	143
 iule	27
+Hulu
 huma	14
 hume	85
 humé	38
@@ -2545,6 +2553,7 @@ orna	66
 orme	76
 orne	97
 orné	114
+Oppo
 ossu	14
 opta	88
 opte	100
@@ -3221,6 +3230,7 @@ tirs	123
 vite	138
 vive	118
 titi	63
+Vivo	87
 thym	89
 vlan	65
 ulve
@@ -4731,6 +4741,7 @@ arsin
 assis	115
 assit	58
 assît
+Apple	58
 arqua	22
 arque	31
 arqué	71
@@ -6349,6 +6360,7 @@ hoche	45
 hoché
 image	130
 imagé	76
+Gmail	50
 imago	72
 goals	70
 imams	82
@@ -7708,6 +7720,7 @@ moité
 moiti
 mokas
 môles	65
+Nokia	85
 nolis
 molle	96
 molli	31
@@ -8521,6 +8534,7 @@ refit	81
 refît
 réels	123
 réélu	126
+Redmi
 réent
 réera
 Pedro	106
@@ -9045,6 +9059,7 @@ pluie	124
 pluma	38
 plume	117
 plumé	50
+Skype	41
 robai
 snack	68
 robas
@@ -9529,6 +9544,7 @@ sunna	73
 puons
 ruons
 suons
+Quora
 ptôse	38
 store	78
 stops	53
@@ -9923,6 +9939,7 @@ vexes
 vexés	51
 vexez
 texte	142
+Viber
 vices	94
 Tibet	114
 tibia	87
@@ -9937,6 +9954,7 @@ tiare	84
 vibre	76
 vibré	52
 vidai
+Tidal
 vidas	53
 vidât
 tiffe
@@ -10391,6 +10409,7 @@ zébra
 zèbre	79
 zébré	66
 zébus	74
+Weibo
 zélée	54
 zèles
 zélés	75
@@ -12535,6 +12554,7 @@ amatis
 coatis	54
 amatit
 amatît
+Amazon	54
 codage	106
 andain	47
 codais
@@ -14738,6 +14758,7 @@ déesse	120
 déduis	49
 déduit	110
 défunt	114
+Deezer
 dégage	106
 dégagé	102
 déhala
@@ -17942,6 +17963,7 @@ gonfla	39
 gonfle	80
 gonflé	85
 ionien	75
+Google	68
 gomina	14
 gomine
 gominé	27
@@ -18260,6 +18282,7 @@ grimés	52
 grimez
 gringe	14
 gringo	47
+iPhone	91
 irions	27
 grimpa	74
 grimpe	95
@@ -18358,6 +18381,7 @@ huards
 huasse
 huarts
 huâtes
+Huawei
 guéais
 guéait
 guéant	57
@@ -18853,6 +18877,7 @@ kendos
 lemmes	72
 léonin	49
 Lennon	100
+Lenovo
 jennys
 lentes	90
 kentia	27
@@ -22192,6 +22217,7 @@ pédalé	31
 Pédalo	62
 redans	72
 pédant	67
+Reddit
 refend	70
 redent	38
 refera	67
@@ -25433,6 +25459,7 @@ tilles	14
 tillés
 villes	147
 tillez
+TikTok
 tincal
 vinage	44
 vinais
@@ -26198,6 +26225,7 @@ tulipe	79
 tulles	49
 vulpin	47
 vulves	47
+Tumblr
 tuners	56
 tumeur	105
 tungar
@@ -26235,6 +26263,7 @@ twista	44
 twiste
 twisté
 twists	39
+Twitch
 tympan	101
 typais
 typait
@@ -26272,6 +26301,7 @@ waters	45
 Xavier	106
 zazous	55
 webers
+WeChat
 yèbles	14
 zébrai
 zébras	27
@@ -26314,6 +26344,7 @@ zibées
 zibent
 zibera
 zibiez
+Xiaomi
 zibons
 wharfs
 zieuta
@@ -26383,6 +26414,7 @@ Wright	100
 ysopet
 ypréau
 yuccas	59
+Yulong
 yttria	34
 zwanze	47
 zygène	38
@@ -29377,6 +29409,7 @@ clabota
 clabote
 claboté
 clabots
+Alcatel	70
 albâtre	81
 blafard	56
 albédos	39
@@ -29897,6 +29930,7 @@ altères
 altérer	91
 altérés	81
 altérez
+Bluesky
 alterna	60
 alterne	100
 alterné	84
@@ -30136,6 +30170,7 @@ amenons
 andrène
 America	106
 âneries	41
+Android	90
 boësses	27
 ânesses	39
 amerrir	59
@@ -35834,6 +35869,7 @@ fiscaux	103
 égraina
 égraine	27
 égrainé	38
+Discord
 discret	108
 égrappa
 égrappe
@@ -38232,6 +38268,7 @@ fronton	110
 dropais
 dropait
 dropant	27
+Dropbox
 dropées
 épopées	88
 dropent
@@ -44045,6 +44082,7 @@ meublez
 métallo	34
 métayer	75
 méteils
+Netflix
 mévende
 mévends
 mévendu
@@ -46171,6 +46209,7 @@ salures
 rajusta
 rajuste	31
 rajusté	27
+Rakuten
 panacée	70
 panacha
 panache	94
@@ -46353,6 +46392,7 @@ rampons
 sampots
 pampres	67
 pansues
+Samsung	81
 scotcha
 scotche
 scotché	42
@@ -51095,6 +51135,7 @@ protèle	36
 provenu	36
 protêts
 protide	27
+Spotify
 provins	85
 provint	51
 provînt
@@ -54299,6 +54340,7 @@ twistât
 twister	48
 twistes
 twistez
+Twitter	72
 tympans	82
 typâmes
 typasse
@@ -54469,6 +54511,7 @@ zouaves	89
 youpine
 youpins	27
 yourtes	61
+YouTube	98
 youyous	53
 zozotai
 zozotas
@@ -63815,6 +63858,7 @@ byzantin	120
 écachera
 écachiez
 écachons
+Facebook	72
 écaffais
 écaffait
 écaffant
@@ -72107,6 +72151,7 @@ fricotés
 fricotez
 Fribourg	100
 épiasses
+Ericsson	74
 friction	95
 épicycle	38
 épidémie	110
@@ -78010,6 +78055,7 @@ limitiez
 limitons	39
 linkages	22
 kinkajou	61
+LinkedIn	65
 lionceau	63
 linnéens	41
 limogeai
@@ -80858,6 +80904,7 @@ modérées	93
 modèrent	51
 modérera
 modériez
+OneDrive
 modernes	132
 modérons
 modestes	112
@@ -81422,6 +81469,7 @@ moumoute	34
 motorisa	27
 motorise	57
 motorisé	96
+Motorola	80
 mourante	81
 mourants	78
 motrices	107
@@ -88934,6 +88982,7 @@ robotise
 robotisé	71
 rocouons
 rocouyer
+Snapchat
 smashais
 smashait
 smashant
@@ -95221,6 +95270,7 @@ zibèrent
 ziberiez
 ziberons
 ziberont
+WhatsApp
 zieutais
 zieutait
 zieutant
@@ -121775,6 +121825,7 @@ imprudent	77
 instables	95
 impubères	47
 impuberté
+Instagram
 installai
 installas
 installât	31
@@ -124832,6 +124883,7 @@ mâchonner	39
 mâchonnes
 mâchonnés
 mâchonnez
+Macintosh	89
 occipital	75
 occitanes	78
 mâchurais
@@ -129792,6 +129844,7 @@ rançonnés	54
 rançonnez
 pancraces
 samariums
+Panasonic	27
 ramassage	92
 ramarrais
 ramassais
@@ -136472,6 +136525,7 @@ pintasses
 pinterais
 pinterait
 pintèrent
+Pinterest
 pinteriez
 sintérisa
 sintérise
@@ -189046,6 +189100,7 @@ roulottent
 roulottera
 roulottiez
 roulottons
+SoundCloud
 soumettais
 soumettait	71
 soumettant	86

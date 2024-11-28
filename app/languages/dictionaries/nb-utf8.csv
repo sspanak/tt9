@@ -104,6 +104,7 @@ lå	152
 LD	65
 jf	115
 le	119
+LG
 kg	137
 li	92
 LO	115
@@ -184,6 +185,7 @@ pø	49
 ro	121
 PP	87
 PS	98
+QQ
 RP	81
 pr	138
 sp	95
@@ -287,9 +289,9 @@ yr	83
 .dk
 .fj
 .fk
-.fm
 .dm
 .do
+.fm
 .fo
 .er
 .es
@@ -1000,6 +1002,7 @@ irr	63
 ISU	93
 gru	77
 gry	49
+HTC
 ITA	82
 hua	69
 hva	149
@@ -1187,6 +1190,7 @@ LYR	58
 kyr	107
 lys	141
 Lyv	41
+Mac
 NBC	107
 NCB	61
 NAF	89
@@ -1220,6 +1224,7 @@ OAU	63
 mat	137
 nat	79
 max	82
+NEC
 Nea	76
 NFF	103
 Odd	119
@@ -1630,6 +1635,7 @@ vag	86
 vai	54
 våg	88
 TBK	49
+TCL
 tak	132
 tal	73
 vak	61
@@ -1794,6 +1800,7 @@ who	102
 YLE	81
 zoo	73
 yre	41
+ZTE
 yte	106
 ytt	86
 WWF	93
@@ -3303,6 +3310,7 @@ hule	110
 gull	144
 hulk	49
 hull	130
+Hulu
 gult	124
 gulv	103
 hult	86
@@ -4285,6 +4293,7 @@ OSSE	89
 oppe	129
 orre	49
 oppi	94
+Oppo
 NSSR	63
 orta	41
 oste	54
@@ -5461,6 +5470,7 @@ Thue	80
 Tite	41
 vite	130
 vivi	41
+Vivo
 tiur	77
 vits	93
 titt	81
@@ -8150,6 +8160,7 @@ hobby	102
 gnagd	65
 gnage	96
 image	99
+Gmail
 imago	122
 hocke	54
 Hobøl	83
@@ -10681,6 +10692,7 @@ seder	81
 redet	98
 reell	114
 reelt	105
+Redmi
 refse	58
 seere	112
 Pedro	106
@@ -11264,6 +11276,7 @@ skyll	49
 skylt	91
 skynd	54
 slyng	63
+Skype
 plysj	54
 skyss	87
 skyte	122
@@ -11914,6 +11927,7 @@ suomi	41
 stønn	54
 stomp	41
 svømt	73
+Quora
 Storå	61
 pumpa	77
 rumpa	68
@@ -12441,12 +12455,14 @@ tetta	49
 tette	119
 vette	68
 Texas	123
+Viber
 tiber	49
 Tibet	107
 ugagn	72
 Vichy	68
 tiara	78
 tiårs	77
+Tidal
 Vidar	102
 tidas	80
 vidda	84
@@ -13093,6 +13109,7 @@ watts	63
 Yatzy	58
 Webbe	58
 weben	54
+Weibo
 Yemen	58
 xenon	81
 ydmyk	80
@@ -13833,6 +13850,7 @@ ambolt	73
 anarki	90
 anatom	75
 amatør	101
+Amazon
 Amdahl	61
 anfall	103
 Åmdals	49
@@ -14807,6 +14825,7 @@ effekt	133
 defilé	54
 fedres	54
 Efesos	86
+Deezer
 Edgars	69
 feiden	87
 feider	86
@@ -16824,6 +16843,7 @@ inngav	54
 gongen	58
 inngir	61
 inngis	54
+Google
 ionisk	67
 innhul	61
 innlån	67
@@ -17114,6 +17134,7 @@ hvalen	97
 hvaler	104
 Italia	139
 hvasse	41
+Huawei
 Guddal	58
 gudfar	91
 Guffen	54
@@ -17720,6 +17741,7 @@ lemmer	100
 Kennet	61
 lemmet	49
 Lennon	107
+Lenovo
 Jennys	41
 Jensen	112
 lensen	61
@@ -20438,6 +20460,7 @@ seedes	54
 reddet	128
 seedet	82
 reddik	67
+Reddit
 redene	70
 sedene	49
 redere	87
@@ -23286,6 +23309,7 @@ tiltar	77
 vilter	65
 viltet	95
 viktig	156
+TikTok
 tiltok	95
 Viktor	102
 tiltre	92
@@ -24030,6 +24054,7 @@ tuktet	70
 utlyse	76
 utlyst	99
 utmåle	49
+Tumblr
 utmålt	61
 utmark	99
 utnavn	49
@@ -24128,6 +24153,7 @@ tyende	54
 tygger	81
 tygges	73
 tygget	69
+Twitch
 tykker	49
 tykkes	58
 tykner	61
@@ -24174,6 +24200,7 @@ Waters	102
 Wathne	68
 yawlen	49
 Webber	83
+WeChat
 weasel	41
 welfer	41
 Wenche	94
@@ -24186,6 +24213,7 @@ Westby	54
 Xerxes	90
 yetien	41
 Wettre	61
+Xiaomi
 wiener	49
 Wiesel	65
 whiger	67
@@ -24223,6 +24251,7 @@ ystere	58
 ysteri	73
 ysting	74
 ytelse	118
+Yulong
 zuluer	69
 Yvonne	80
 Zürich	102
@@ -25191,6 +25220,7 @@ alvenes	88
 aktenom	49
 bluesen	79
 alteret	109
+Bluesky
 akterut	97
 alteter	72
 Alvheim	73
@@ -25282,6 +25312,7 @@ amerika	77
 åndsliv	87
 Andsnes	77
 boernes	85
+Android
 bødtker	41
 andunge	41
 ametyst	81
@@ -26810,6 +26841,7 @@ dioptri	58
 finpuss	67
 firbent	54
 firblad	58
+Discord
 fireårs	70
 firedel	73
 direkte	149
@@ -27838,6 +27870,7 @@ frontal	69
 fronten	121
 fronter	101
 fronton	49
+Dropbox
 eposene	75
 eposets	49
 drosjen	69
@@ -31891,6 +31924,7 @@ metalls	41
 metanol	90
 Oftebro	69
 Oftedal	79
+Netflix
 nevenes	49
 meteren	86
 neveren	76
@@ -33006,6 +33040,7 @@ saltoer	58
 saktnet	58
 saltsjø	67
 Saltrød	65
+Rakuten
 sambaen	63
 samband	108
 Ramberg	78
@@ -33119,6 +33154,7 @@ pansret	107
 Ramstad	70
 samsvar	114
 Ramsund	65
+Samsung
 samtale	113
 santali	63
 samtalt	58
@@ -35284,6 +35320,7 @@ proveny	49
 proverb	49
 protese	69
 protest	119
+Spotify
 prøving	81
 provins	132
 protist	49
@@ -37961,6 +37998,7 @@ tyfonen	70
 tyfoner	81
 tygging	75
 twister	41
+Twitter
 tylfter	58
 tykkere	107
 tykkest	76
@@ -45473,6 +45511,7 @@ lingvist	93
 linjalen	65
 linjaler	68
 linjefag	49
+LinkedIn
 linjenes	41
 linklede	58
 kinobygg	58
@@ -47614,6 +47653,7 @@ modenhet	85
 moderate	117
 moderere	78
 moderert	78
+OneDrive
 moderlig	63
 modigere	65
 modighet	58
@@ -47955,6 +47995,7 @@ motorikk	67
 motorisk	84
 notorisk	93
 motorlyd	58
+Motorola
 motorsag	84
 motorrom	65
 motorveg	65
@@ -50537,6 +50578,7 @@ robotene	78
 robotens	61
 robotikk	58
 småøyene	83
+Snapchat
 småsaker	54
 småparti	58
 snareste	41
@@ -54418,6 +54460,7 @@ xenofobi	69
 ydmykede	49
 ydmykhet	87
 westerns	49
+WhatsApp
 Widerøes	65
 ziggurat	63
 whiplash	54
@@ -61099,6 +61142,7 @@ hospitset	61
 hopplaget	54
 impromptu	65
 hoppsport	72
+Instagram
 instansen	73
 instanser	98
 høstdagen	49
@@ -66466,6 +66510,7 @@ Rånåsfoss	78
 samaritan	72
 Samarkand	79
 ramaskrik	63
+Panasonic
 rambukken	65
 rambukker	68
 Randaberg	92
@@ -67727,6 +67772,7 @@ simpleste	54
 shopperen	54
 pimpstein	68
 shortsene	54
+Pinterest
 simulator	77
 simulerer	79
 simuleres	70
@@ -87472,6 +87518,7 @@ sovjetstat	49
 rotknoller	68
 soulmusikk	67
 soulsanger	58
+SoundCloud
 søvnløshet	85
 søvnmangel	73
 snuplassen	54

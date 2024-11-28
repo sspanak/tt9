@@ -79,6 +79,7 @@ ja	121
 la	141
 lä	85
 le	121
+LG
 kg	134
 kl
 jo	80
@@ -125,6 +126,7 @@ ro	108
 so	105
 PR	95
 PS	101
+QQ
 st	127
 sy	94
 ta	158
@@ -148,249 +150,249 @@ ty	121
 vy	98
 WC	83
 yr	76
-.ca
-.bb
-.ba
-.cc
 .ac
-.be
-.ae
-.bf
+.ba
+.bb
+.ca
+.cc
 .ad
-.cf
-.cd
+.ae
 .af
 .bd
-.ch
+.be
+.bf
+.cd
+.cf
 .ag
-.bh
-.bg
-.ci
 .ai
+.bg
+.bh
 .bi
 .cg
-.cl
+.ch
+.ci
 .al
-.ck
 .bj
-.cn
-.bo
-.co
+.ck
+.cl
+.am
+.ao
 .bm
 .bn
-.am
+.bo
 .cm
-.ao
-.ar
-.br
-.cr
-.bs
+.cn
+.co
 .aq
+.ar
 .as
 .bq
-.au
+.br
+.bs
+.cr
 .at
+.au
+.bt
 .cu
 .cv
-.bt
-.bz
-.cz
-.bw
-.az
-.by
-.cy
 .aw
-.cx
 .ax
+.az
+.bw
+.by
+.bz
 .cw
+.cx
+.cy
+.cz
 .ec
 .de
 .ee
+.eg
 .eh
 .fi
-.eg
+.dj
 .dk
 .fj
-.dj
 .fk
-.do
 .dm
-.fo
+.do
 .fm
-.fr
-.es
+.fo
 .er
+.es
+.fr
 .et
 .eu
 .dz
 .ga
-.ie
 .gd
 .ge
-.id
 .gf
+.id
+.ie
+.gg
 .gh
 .gi
-.gg
-.il
-.hk
 .gl
-.in
-.hn
-.gn
-.im
+.hk
+.il
 .gm
+.gn
 .hm
+.hn
+.im
+.in
 .io
-.is
-.gr
-.hr
-.ir
 .gp
-.iq
 .gq
+.gr
 .gs
-.it
-.hu
+.hr
+.iq
+.ir
+.is
 .gt
 .gu
 .ht
-.gy
+.hu
+.it
 .gw
-.lc
-.lb
+.gy
 .la
-.ke
+.lb
+.lc
 .je
-.li
-.ki
+.ke
 .kg
 .kh
+.ki
+.li
 .lk
-.kn
 .jm
 .jo
 .km
+.kn
 .jp
-.kr
-.ls
-.lr
 .kp
+.kr
+.lr
+.ls
 .lt
-.lv
 .lu
+.lv
 .kw
-.kz
 .ky
+.kz
 .ly
-.na
-.nc
 .ma
 .mc
+.na
+.nc
 .md
-.nf
-.ne
 .me
-.ni
-.ng
+.ne
+.nf
 .mg
 .mh
-.nl
+.ng
+.ni
 .mk
 .ml
-.no
-.mo
-.mn
-.om
+.nl
 .mm
-.np
-.mr
+.mn
+.mo
+.no
+.om
 .mp
-.ms
 .mq
+.mr
+.ms
+.np
 .nr
 .mt
 .mu
 .mv
 .nu
-.nz
-.my
-.mx
-.mz
 .mw
-.sb
-.sa
+.mx
+.my
+.mz
+.nz
 .pa
 .qa
+.sa
+.sb
 .sc
-.se
 .pe
 .pf
-.sd
 .re
-.sg
-.ph
+.sd
+.se
 .pg
-.si
+.ph
+.sg
 .sh
-.pl
+.si
 .pk
+.pl
 .sk
 .sl
-.ro
-.sn
-.sm
-.pn
 .pm
+.pn
+.ro
+.sm
+.sn
 .so
 .pr
-.sr
 .ps
 .rs
+.sr
 .ss
 .pt
-.su
 .ru
-.sv
 .st
-.py
-.sz
-.sy
-.rw
+.su
+.sv
 .pw
+.py
+.rw
 .sx
-.vc
+.sy
+.sz
+.tc
 .ua
 .va
-.tc
-.ve
-.tf
+.vc
 .td
+.tf
+.ve
+.tg
 .th
 .ug
-.vi
-.tg
 .vg
-.uk
-.tk
+.vi
 .tj
+.tk
 .tl
-.tn
-.vn
-.to
+.uk
 .tm
-.us
+.tn
+.to
+.vn
 .tr
+.us
 .tt
-.vu
 .tv
+.vu
 .tw
+.tz
 .uy
 .uz
-.tz
 .za
-.ye
 .wf
+.ye
 .zm
 .ws
 .yt
@@ -861,6 +863,7 @@ ism	77
 GPS	103
 gpq	63
 gry	74
+HTC
 hua	47
 gud	124
 hud	115
@@ -1081,6 +1084,7 @@ nav	96
 nät	121
 nåt	97
 max	114
+NEC
 Nea	56
 öda	39
 Odd	90
@@ -1423,6 +1427,7 @@ tåg	134
 vag	88
 väg	148
 våg	115
+TCL
 tak	127
 tal	143
 tål	112
@@ -1573,6 +1578,7 @@ yra	81
 XSL	69
 yrt	39
 yta	147
+ZTE
 Yui	65
 yvs	52
 yxa	103
@@ -1582,8 +1588,8 @@ www	119
 .biz
 .com
 .edu
-.int
 .gov
+.int
 .net
 .org
 ABBA	114
@@ -3079,6 +3085,7 @@ gråa	99
 grad	138
 graf	102
 gråe	47
+iPad
 isad	39
 Isai	39
 Irak	116
@@ -4165,6 +4172,7 @@ oros	39
 örns	69
 Orsa	93
 orre	84
+Oppo
 Opry	59
 östa	59
 öste	78
@@ -5265,6 +5273,7 @@ viti	52
 vivi	39
 Tito	92
 Vito	81
+Vivo
 vits	86
 titt	89
 vitt	133
@@ -8668,6 +8677,7 @@ hobby	102
 gnaga	71
 image	103
 gnägg	47
+Gmail
 imago	101
 gnagt	56
 gnäll	39
@@ -11975,6 +11985,7 @@ Seeka	47
 SEELE	72
 reell	97
 sedna	47
+Redmi
 Pedro	103
 refug	59
 sefyr
@@ -13297,6 +13308,7 @@ Sunne	95
 stone	75
 SunOS	61
 runor	109
+Quora
 Runsa	56
 pumpa	96
 rumpa	71
@@ -13949,6 +13961,7 @@ Texan	47
 Texas	121
 texta	59
 texts	67
+Viber
 Tibet	102
 Vichy	66
 ticka	56
@@ -13959,6 +13972,7 @@ tians	47
 tibro	39
 Vibys	39
 Thebe	92
+Tidal
 Tieck	72
 Vidbo	63
 Theas	39
@@ -14611,6 +14625,7 @@ Webbs	52
 Weber	96
 zebra	77
 Yeats	85
+Weibo
 Weils	47
 Weirs	56
 Zeiss	86
@@ -17447,6 +17462,7 @@ ederna	39
 feerna	63
 Efesos	82
 Efesus	59
+Deezer
 fegare	47
 Edgars	52
 degars
@@ -20673,6 +20689,7 @@ gubbes	39
 Guccis	39
 Hubble	88
 Hubert	91
+Huawei
 gudars	83
 hudars
 gudfar	89
@@ -21725,6 +21742,7 @@ Kennet	77
 Jennie	82
 Leonid	82
 Lennon	105
+Lenovo
 Jennys	52
 Kennys	52
 Jensen	103
@@ -25563,6 +25581,7 @@ seedad	77
 seedas	59
 redden	74
 reddes	52
+Reddit
 sedeln	81
 redena	52
 redens
@@ -29371,6 +29390,7 @@ vikten	122
 vikter	97
 viltet	86
 viktig	146
+TikTok
 Viktor	112
 vinbär	88
 timade	61
@@ -30285,6 +30305,7 @@ utlyst	92
 Tumbai	47
 Tumbas	56
 utmåla	72
+Tumblr
 utmana	107
 utnämn	39
 Tunari	56
@@ -30461,6 +30482,7 @@ tyglad	39
 tyglar	79
 tyglas	56
 tyglat	47
+Twitch
 Tylers	61
 vykort	96
 tynade	82
@@ -30522,6 +30544,7 @@ Watson	101
 webben	103
 Webber	86
 Webers	71
+WeChat
 zebran	63
 zebras	39
 zebror	77
@@ -30544,6 +30567,7 @@ Westin	84
 Xerxes	88
 Wiberg	86
 Xiamen	65
+Xiaomi
 Zidane	83
 Widman	69
 Wiener	89
@@ -30630,6 +30654,7 @@ Wulffs	47
 ytliga	100
 ytlige	52
 ytligt	92
+Yulong
 Yukons	52
 zuluer	63
 ytmått	71
@@ -31873,6 +31898,7 @@ albaner	102
 albansk	107
 Albanys	39
 blåaste
+Alcatel
 Alcazar	82
 aladåbs
 Aladdin	82
@@ -32217,6 +32243,7 @@ bluffen	76
 bjudits	79
 bluesen	87
 bluesig	63
+Bluesky
 akterna	81
 alverna	101
 akterns	39
@@ -34623,6 +34650,7 @@ Fischer	100
 firande	97
 discona	39
 discons	56
+Discord
 firaren	39
 firares
 firarna
@@ -36147,6 +36175,7 @@ frontal	52
 frontat	59
 fronten	119
 fronter	97
+Dropbox
 eposens
 eposets	59
 erosion	99
@@ -42858,6 +42887,7 @@ metande
 metanet	61
 metanol	94
 Oftedal	63
+Netflix
 Meteors	39
 meterns	47
 Metheny	85
@@ -44532,6 +44562,7 @@ paltors
 salvors
 saltsjö	77
 Paltrow	65
+Rakuten
 saluten	56
 saluter
 Saltvik	67
@@ -47852,6 +47883,7 @@ provens
 provers
 protest	119
 provets	56
+Spotify
 provins	133
 provkör	39
 protons	39
@@ -63546,6 +63578,7 @@ lingvist	94
 linjalen	63
 linjaler	65
 linkande	52
+LinkedIn
 linjeman	66
 linjenät	84
 linjerad	39
@@ -66841,6 +66874,7 @@ modemens
 modemets
 moderata	109
 moderera	61
+OneDrive
 moderlig	59
 moderliv
 moderlös	65
@@ -70877,6 +70911,7 @@ robotars	52
 Robotech	56
 robotens	75
 Robotman	39
+Snapchat
 småsaker	78
 snaraste	56
 Socrates	47
@@ -76800,6 +76835,7 @@ Werthers	59
 Westlund	66
 Westmans	63
 Westrins	39
+WhatsApp
 Zieglers	39
 Wielands	39
 Zhejiang	86
@@ -87267,6 +87303,7 @@ instabila	99
 instabilt	92
 höstackar	52
 höstacken	39
+Instagram
 inställas	59
 inställda	103
 inställde	77
@@ -96621,6 +96658,7 @@ simsnäppa	75
 rimsmeden
 shoppings	39
 simstrand	70
+Pinterest
 simulator	78
 simulerad	78
 simulerar	83
@@ -125549,6 +125587,7 @@ smuligaste
 Souljacker	47
 smultronet	39
 soundcheck	52
+SoundCloud
 Soundhouse	67
 soundtrack	107
 soundtrade	39
