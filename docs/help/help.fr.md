@@ -98,10 +98,9 @@ _**Remarque 2** : Pour envoyer des messages avec OK dans les applications de mes
   - **Appui long** : tape "1".
 - **En mode Cheonjiin (Coréen) :**
   - **Appui :** tape la voyelle "ㅣ".
-  - **Double appui :** tape des caractères de ponctuation.
-  - **Appuis multiples :** tape des emojis.
-  - **Appui sur 1-1-1-3 :** tape des emojis ajoutés (vous devez en ajouter en utilisant [la touche Ajouter un Mot](#touche-ajouter-un-mot)).
-  - **Maintien :** tape "1".
+  - **Appui long :** tape des caractères de ponctuation.
+  - **Appui long, puis appui court :** tape des emojis.
+  - **Appui long sur 1, appui sur 1, puis sur 3 :** tape des emojis ajoutés (vous devez en ajouter en utilisant [la touche Ajouter un Mot](#touche-ajouter-un-mot)).
 
 #### Touche 2 à 9 :
 - **En mode 123** : tape le chiffre correspondant.

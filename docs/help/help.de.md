@@ -98,10 +98,9 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
   - **Halten:** tippt „1“.
 - **Im Cheonjiin-Modus (Koreanisch):**
   - **Drücken:** tippt den Vokal "ㅣ".
-  - **Doppeldrücken:** tippt Satzzeichen.
-  - **Mehrfaches Drücken:** tippt Emoji.
-  - **Drücken von 1-1-1-3:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
-  - **Halten:** tippt „1“.
+  - **Halten:** tippt Satzzeichen.
+  - **Halten, dann drücken:** tippt Emoji.
+  - **Halten 1, 1 drücken, 3 drücken:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
 
 #### 2- bis 9-Taste:
 - **Im 123 Modus:** tippt die entsprechende Zahl

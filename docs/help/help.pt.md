@@ -99,10 +99,9 @@ _**Nota 2**: Para enviar mensagens com OK em aplicativos de mensagens, você dev
   - **Pressione e segure**: insere "1".
 - **No modo Cheonjiin (Coreano):**
   - **Pressione:** insere a vogal "ㅣ".
-  - **Pressione duas vezes:** insere caracteres de pontuação.
-  - **Pressione várias vezes:** insere emojis.
-  - **Pressione 1-1-1-3:** insere emojis adicionados (é necessário adicionar usando a [tecla Adicionar Palavra](#tecla-adicionar-palavra)).
-  - **Segure:** insere "1".
+  - **Pressione e segure:** insere caracteres de pontuação.
+  - **Segure, depois pressione:** insere emojis.
+  - **Segure 1, pressione 1, depois 3:** insere emojis adicionados (é necessário adicionar usando a [tecla Adicionar Palavra](#tecla-adicionar-palavra)).
 
 #### Teclas de 2 a 9:
 - **No modo 123**: insere o número correspondente.

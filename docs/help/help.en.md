@@ -98,10 +98,9 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
   - **Hold:** type "1".
 - **In Cheonjiin mode (Korean):**
   - **Press:** type the "ㅣ" vowel.
-  - **Double Press:** type punctuation and sentence characters.
-  - **Press multiple times:** type emoji.
-  - **Press 1-1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
-  - **Hold:** type "1".
+  - **Hold:** type punctuation and sentence characters.
+  - **Hold, then press:** type emoji.
+  - **Hold 1, press 1, press 3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
 
 #### 2- to 9-key:
 - **In 123 mode:** type the respective number.

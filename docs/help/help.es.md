@@ -82,7 +82,7 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
 - **En modo Cheonjiin (Coreano):**
   - **Presione:** escribir "ㅇ" y "ㅁ".
   - **Mantenga presionado:** escribir espacio, nueva línea, "0" o caracteres especiales/matemáticos.
-  - **Mantenga presionado "0", luego presiona Shift (Por Defecto: Mantenga presionado "0", presiona "✱"):** escribir caracteres de moneda.
+  - **Mantenga presionado "0", luego presione Shift (Por Defecto: Mantenga presionado "0", presione "✱"):** escribir caracteres de moneda.
 
 #### Tecla 1:
 - **En modo 123:**
@@ -98,10 +98,9 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
   - **Mantenga presionado:** escribir "1".
 - **En modo Cheonjiin (Coreano):**
   - **Presione:** escribir la vocal "ㅣ".
-  - **Presione dos veces:** escribir caracteres de puntuación.
-  - **Presione varias veces:** escribir emojis.
-  - **Presione 1-1-1-3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
-  - **Mantenga presionado:** escribir "1".
+  - **Mantenga presionado:** escribir caracteres de puntuación.
+  - **Mantene, luego presione:** escribir emojis.
+  - **Mantenga presionado 1, presione 1, presione 3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
 
 #### Teclas del 2 al 9:
 - **En modo 123:** escribir el número correspondiente.

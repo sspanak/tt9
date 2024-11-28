@@ -98,10 +98,9 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
   - **Basılı tut:** "1" yaz.
 - **Cheonjiin modunda (Korece):**
   - **Bas:** "ㅣ" ünlüsünü yaz.
-  - **Çift basın:** noktalama işaretleri yaz.
-  - **Çoklu basış:** emoji yaz.
-  - **1-1-1-3 bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
-  - **Basılı tut:** "1" yaz.
+  - **Basılı tut:** noktalama işaretleri yaz.
+  - **Basılı tut, ardından bas:** emoji yaz.
+  - **1 basılı tut, ardından 1'e ve 3'e bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
 
 #### 2-9 tușu:
 - **123 modunda:** ilgili sayıyı yaz.
