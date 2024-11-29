@@ -14,8 +14,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_dpad_left"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_1"
@@ -28,8 +27,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_select_none"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_2"
@@ -42,8 +40,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_dpad_right"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_3"
@@ -56,8 +53,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_word_back"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_4"
@@ -70,8 +66,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_select_all"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_5"
@@ -84,8 +79,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_word_forward"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_6"
@@ -98,8 +92,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_cut"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_7"
@@ -112,8 +105,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_copy"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 	<View
 		android:id="@+id/separator_10_8"
@@ -126,7 +118,6 @@
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_paste"
-		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size" />
+		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding" />
 
 </LinearLayout>

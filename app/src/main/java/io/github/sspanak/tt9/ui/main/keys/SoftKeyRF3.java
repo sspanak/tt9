@@ -10,20 +10,34 @@ public class SoftKeyRF3 extends SoftKey {
 	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override protected float getTitleRelativeSize() { return super.getTitleRelativeSize() / 0.85f; }
-	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() / 0.85f; }
 
 	private boolean isVoiceInputMissing() {
 		return tt9 != null && tt9.isVoiceInputMissing();
 	}
 
+
 	private boolean isTextEditingMissing() {
 		return tt9 != null && tt9.isInputLimited();
 	}
 
+
 	private boolean isTextEditingActive() {
 		return tt9 != null && tt9.isTextEditingActive();
 	}
+
+
+	@Override
+	protected float getTitleRelativeSize() {
+		return super.getTitleRelativeSize() / 0.85f;
+	}
+
+
+	@Override
+	protected float getSubTitleRelativeSize() {
+		float scale = (isTextEditingMissing() && !isVoiceInputMissing()) || isTextEditingActive() ? 0.85f : 0.96f;
+		return super.getSubTitleRelativeSize() / scale;
+	}
+
 
 	@Override
 	protected void handleHold() {
@@ -35,6 +49,7 @@ public class SoftKeyRF3 extends SoftKey {
 
 		tt9.toggleVoiceInput();
 	}
+
 
 	@Override
 	protected boolean handleRelease() {
@@ -53,6 +68,7 @@ public class SoftKeyRF3 extends SoftKey {
 		return true;
 	}
 
+
 	@Override
 	protected String getTitle() {
 		if (isTextEditingActive()) {
@@ -66,6 +82,7 @@ public class SoftKeyRF3 extends SoftKey {
 		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
 
+
 	@Override
 	protected String getSubTitle() {
 		if (isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
@@ -74,6 +91,7 @@ public class SoftKeyRF3 extends SoftKey {
 
 		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
 	}
+
 
 	@Override
 	public void render() {
