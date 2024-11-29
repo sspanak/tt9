@@ -17,19 +17,17 @@ public class SoftKeyShift extends SoftKey {
 		super(context, attrs, defStyleAttr);
 	}
 
+	@Override protected float getTitleRelativeSize() { return 1.7f; }
+	@Override protected float getSubTitleRelativeSize() { return getTitleRelativeSize(); }
+	@Override protected String getTitle() { return "⇧"; }
+
 	@Override
 	protected boolean handleRelease() {
 		return validateTT9Handler() && tt9.onKeyNextTextCase(false);
 	}
 
 	@Override
-	protected String getTitle() {
-		return "⇧";
-	}
-
-	@Override
 	public void render() {
-		setTextSize(36);
 		setTypeface(Typeface.DEFAULT_BOLD);
 		super.render();
 		setEnabled(tt9 != null && !tt9.isVoiceInputActive() && !tt9.isInputModePhone() && !tt9.isNumericModeSigned());

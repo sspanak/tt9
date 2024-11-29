@@ -8,6 +8,10 @@ public class SoftKeyAddWord extends SoftKey {
 	public SoftKeyAddWord(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyAddWord(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+	@Override protected float getTitleRelativeSize() { return 1; }
+	@Override protected float getSubTitleRelativeSize() { return 1; }
+	@Override protected String getTitle() { return "＋"; }
+
 	@Override
 	protected boolean handleRelease() {
 		if (validateTT9Handler()) {
@@ -16,11 +20,6 @@ public class SoftKeyAddWord extends SoftKey {
 		}
 
 		return false;
-	}
-
-	@Override
-	protected String getTitle() {
-		return "＋";
 	}
 
 	@Override
