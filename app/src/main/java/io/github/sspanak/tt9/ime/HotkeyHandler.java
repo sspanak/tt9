@@ -64,6 +64,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
+		if (keyCode == KeyEvent.KEYCODE_DPAD_LEFT && onTrimTrailingSpace(validateOnly)) {
+			return true;
+		}
+
 		if (keyCode == settings.getKeyAddWord()) {
 			return onKeyAddWord(validateOnly);
 		}
@@ -177,7 +181,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 	public boolean onKeyMoveCursor(boolean backward) {
 		if (textSelection.isEmpty()) {
-			return appHacks.onMoveCursor(backward) || textField.moveCursor(backward);
+			return
+				appHacks.onMoveCursor(backward)
+				|| (backward && onTrimTrailingSpace(false))
+				|| textField.moveCursor(backward);
 		} else {
 			textSelection.clear(backward);
 			return true;
@@ -394,6 +401,29 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		if (!validateOnly) {
 			toggleVoiceInput();
+		}
+
+		return true;
+	}
+
+
+	private boolean onTrimTrailingSpace(boolean validateOnly) {
+		if (!settings.getAutoSpace() || !suggestionOps.isEmpty()) {
+			return false;
+		}
+
+		String after = textField.getStringAfterCursor(1);
+		if (!after.isEmpty() && after.charAt(0) != '\n') {
+			return false;
+		}
+
+		String before = textField.getStringBeforeCursor(2);
+		if (before.length() != 2 || !Character.isWhitespace(before.charAt(1)) || Character.isWhitespace(before.charAt(0))) {
+			return false;
+		}
+
+		if (!validateOnly) {
+			textField.deleteChars(1);
 		}
 
 		return true;
