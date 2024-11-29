@@ -60,7 +60,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	public void onComputeInsets(Insets outInsets) {
 		super.onComputeInsets(outInsets);
-		if (shouldBeVisible() && settings.clearInsets()) {
+		if (settings.clearInsets() && shouldBeVisible()) {
 			// otherwise the MainView wouldn't show up on Sonim XP3900
 			// or it expands the application window past the edge of the screen
 			outInsets.contentTopInsets = 0;
