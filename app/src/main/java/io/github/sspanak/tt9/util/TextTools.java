@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
@@ -43,6 +44,17 @@ public class TextTools {
 
 	public static boolean isHangul(String str) {
 		return str != null && isHangul.matcher(str).find();
+	}
+
+
+	public static int indexOfIgnoreCase(List<String> list, String str) {
+		for (int i = 0, size = list != null && str != null ? list.size() : 0; i < size; i++) {
+			if (list.get(i).equalsIgnoreCase(str)) {
+				return i;
+			}
+		}
+
+		return -1;
 	}
 
 

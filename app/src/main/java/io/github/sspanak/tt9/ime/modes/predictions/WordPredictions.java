@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.TextTools;
 
 public class WordPredictions extends Predictions {
 	private final TextField textField;
@@ -274,14 +275,14 @@ public class WordPredictions extends Predictions {
 		ArrayList<String> rearrangedWords = new ArrayList<>();
 		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
 
-		String word = DataStore.getWord2(language, penultimateWord, digitSequence);
-		int morePopularIndex = word == null ? -1 : words.indexOf(word);
+		String pairWord = DataStore.getWord2(language, penultimateWord, digitSequence);
+		int morePopularIndex = TextTools.indexOfIgnoreCase(words, pairWord);
 		if (morePopularIndex == -1) {
 			return words;
 		}
 
-		lastEnforcedTopWord = word;
-		rearrangedWords.add(word);
+		lastEnforcedTopWord = words.get(morePopularIndex);
+		rearrangedWords.add(lastEnforcedTopWord);
 
 		for (int i = 0; i < words.size(); i++) {
 			if (i != morePopularIndex) {
