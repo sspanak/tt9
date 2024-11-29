@@ -263,32 +263,38 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 		if (title == null) {
 			return;
-		} else if (subtitle == null) {
-			setText(title);
-			return;
 		}
 
-		int titleLength = title.length();
-
 		SpannableStringBuilder sb = new SpannableStringBuilder(title);
-		sb.append('\n');
-		sb.append(subtitle);
-
-		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
-		if (getTitleRelativeSize() == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
-			padding /= 10;
+		if (subtitle != null) {
+			sb.append('\n');
+			sb.append(subtitle);
 		}
 
 		// title styles
-		sb.setSpan(new RelativeSizeSpan(getTitleRelativeSize()), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		if (!new Text(title).startsWithGraphic()) {
+		int titleLength = title.length();
+		float titleRelativeSize = subtitle == null ? getSubTitleRelativeSize() : getTitleRelativeSize();
+
+		sb.setSpan(new RelativeSizeSpan(titleRelativeSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+		if (subtitle != null && !new Text(title).startsWithGraphic()) {
 			sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
 		}
+
 		if (isTitleDisabled) {
 			sb.setSpan(new ForegroundColorSpan(0x44000000), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		}
 
+		if (subtitle == null) {
+			setText(sb);
+			return;
+		}
+
 		// subtitle styles
+		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+		if (titleRelativeSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
+			padding /= 10;
+		}
+
 		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		sb.setSpan(new RelativeSizeSpan(getSubTitleRelativeSize()), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
