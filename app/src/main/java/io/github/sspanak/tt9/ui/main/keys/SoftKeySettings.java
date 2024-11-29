@@ -23,6 +23,9 @@ public class SoftKeySettings extends SwipeableKey {
 		this.mainView = mainView;
 	}
 
+	@Override protected float getTitleRelativeSize() { return 1;}
+	@Override protected float getSubTitleRelativeSize() { return 1; }
+
 	// this key does not support holding at the moment, so just prevent it
 	@Override protected float getHoldDurationThreshold() { return 1000; }
 	@Override protected float getSwipeXThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f; }

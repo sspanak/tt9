@@ -17,22 +17,18 @@ public class SoftKeyBackspace extends SwipeableKey {
 	private final Handler waitForSwipe = new Handler();
 
 
-	public SoftKeyBackspace(Context context) {
-		super(context);
-	}
-
-	public SoftKeyBackspace(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public SoftKeyBackspace(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
+	public SoftKeyBackspace(Context context) { super(context); }
+	public SoftKeyBackspace(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyBackspace(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	private boolean isFastDeleteOn() {
 		return tt9 != null && tt9.getSettings().getBackspaceAcceleration();
 	}
+
+
+	@Override protected float getTitleRelativeSize() { return 1; }
+	@Override protected float getSubTitleRelativeSize() { return 1; }
 
 
 	/**
