@@ -88,16 +88,28 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 
 
 	public void failTransaction() {
-		if (db != null) {
+		if (db == null) {
+			return;
+		}
+
+		if (db.inTransaction()) {
 			db.endTransaction();
+		} else {
+			Logger.e(LOG_TAG, "Cannot fail a transaction when not in transaction.");
 		}
 	}
 
 
 	public void finishTransaction() {
-		if (db != null) {
+		if (db == null) {
+			return;
+		}
+
+		if (db.inTransaction()) {
 			db.setTransactionSuccessful();
 			db.endTransaction();
+		} else {
+			Logger.e(LOG_TAG, "Cannot finish a transaction when not in transaction.");
 		}
 	}
 }
