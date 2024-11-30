@@ -17,8 +17,7 @@ public class SoftKeyShift extends SoftKey {
 		super(context, attrs, defStyleAttr);
 	}
 
-	@Override protected float getTitleRelativeSize() { return 1.7f; }
-	@Override protected float getSubTitleRelativeSize() { return getTitleRelativeSize(); }
+	@Override protected float getSingleLabelRelativeSize() { return 1.7f; }
 	@Override protected String getTitle() { return "⇧"; }
 
 	@Override

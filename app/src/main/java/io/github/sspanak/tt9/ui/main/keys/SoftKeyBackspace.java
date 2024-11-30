@@ -27,10 +27,6 @@ public class SoftKeyBackspace extends SwipeableKey {
 	}
 
 
-	@Override protected float getTitleRelativeSize() { return 1; }
-	@Override protected float getSubTitleRelativeSize() { return 1; }
-
-
 	/**
 	 * When fast-delete is on, decrease the hold duration threshold for smoother operation.
 	 */

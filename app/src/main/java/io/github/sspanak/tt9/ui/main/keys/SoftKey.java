@@ -232,7 +232,15 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	/**
-	 * Multiplier for the title font size.
+	 * Multiplier for the font size when there is only one label.
+	 */
+	protected float getSingleLabelRelativeSize() {
+		return 1;
+	}
+
+
+	/**
+	 * Multiplier for the title font size when there are two labels.
 	 */
 	protected float getTitleRelativeSize() {
 		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
@@ -240,7 +248,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	/**
-	 * Multiplier for the subtitle font size.
+	 * Multiplier for the subtitle font size when there are two labels.
 	 */
 	protected float getSubTitleRelativeSize() {
 		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
@@ -273,7 +281,7 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 		// title styles
 		int titleLength = title.length();
-		float titleRelativeSize = subtitle == null ? getSubTitleRelativeSize() : getTitleRelativeSize();
+		float titleRelativeSize = subtitle == null ? getSingleLabelRelativeSize() : getTitleRelativeSize();
 
 		sb.setSpan(new RelativeSizeSpan(titleRelativeSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 		if (subtitle != null && !new Text(title).startsWithGraphic()) {
