@@ -18,10 +18,6 @@ public class SoftKeyLF4 extends SwipeableKey {
 		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
 	}
 
-	@Override
-	protected float getSwipeXThreshold(Context context) {
-		return super.getSwipeXThreshold(context) * 3;
-	}
 
 	@Override
 	protected void handleHold() {

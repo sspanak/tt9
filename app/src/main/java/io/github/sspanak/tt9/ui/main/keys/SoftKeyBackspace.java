@@ -41,8 +41,8 @@ public class SoftKeyBackspace extends SwipeableKey {
 	 * moves their finger slightly and the key does not delete anything.
 	 */
 	@Override
-	protected float getSwipeXThreshold(Context context) {
-		return isFastDeleteOn() ? super.getSwipeXThreshold(context) : Integer.MAX_VALUE;
+	protected float getSwipeXThreshold() {
+		return isFastDeleteOn() ? super.getSwipeXThreshold() : Integer.MAX_VALUE;
 	}
 
 
@@ -50,7 +50,7 @@ public class SoftKeyBackspace extends SwipeableKey {
 	 * Disable vertical swiping for backspace key.
 	 */
 	@Override
-	protected float getSwipeYThreshold(Context context) {
+	protected float getSwipeYThreshold() {
 		return Integer.MAX_VALUE;
 	}
 

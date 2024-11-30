@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
  * Informational methods for the on-screen keyboard
  **/
 abstract public class MainViewHandler extends HotkeyHandler {
+	private int width = 0;
 	OrientationListener orientationListener;
 
 	@Override
@@ -21,8 +22,15 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		super.onInit();
 
 		if (orientationListener == null) {
-			orientationListener = new OrientationListener(this, mainView::onOrientationChanged);
+			orientationListener = new OrientationListener(this, this::onOrientationChanged);
 			orientationListener.start();
+		}
+	}
+
+	private void onOrientationChanged() {
+		width = 0;
+		if (mainView != null) {
+			mainView.onOrientationChanged();
 		}
 	}
 
@@ -106,5 +114,13 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public SettingsStore getSettings() {
 		return settings;
+	}
+
+	public int getWidth() {
+		if (width == 0 && mainView != null && mainView.getView() != null) {
+			width = mainView.getView().getWidth();
+		}
+
+		return width;
 	}
 }
