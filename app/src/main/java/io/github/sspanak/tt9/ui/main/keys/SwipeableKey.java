@@ -2,11 +2,13 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 abstract public class SwipeableKey extends SoftKey {
@@ -32,32 +34,62 @@ abstract public class SwipeableKey extends SoftKey {
 
 	public SwipeableKey(Context context) {
 		super(context);
-		resetTimeThresholds(context);
 	}
 
 
 	public SwipeableKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		resetTimeThresholds(context);
 	}
 
 
 	public SwipeableKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		resetTimeThresholds(context);
 	}
 
 
-	protected final void resetTimeThresholds(Context context) {
+	private void resetTimeThreshold() {
 		HOLD_DURATION_THRESHOLD = getHoldDurationThreshold();
-		SWIPE_X_THRESHOLD = getSwipeXThreshold(context);
-		SWIPE_Y_THRESHOLD = getSwipeYThreshold(context);
+	}
+
+
+	private void initSwipeThresholds() {
+		if (SWIPE_X_THRESHOLD == 0) {
+			SWIPE_X_THRESHOLD = getSwipeXThreshold();
+		}
+
+		if (SWIPE_Y_THRESHOLD == 0) {
+			SWIPE_Y_THRESHOLD = getSwipeYThreshold();
+		}
 	}
 
 
 	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 9; }
-	protected float getSwipeXThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
-	protected float getSwipeYThreshold(Context context) { return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
+	protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
+
+
+	/**
+	 * Calculate the minimum amount of finger movement to be considered a swipe. It is meant
+	 * to prevent accidental swipes when pressing or holding the key.
+	 */
+	protected float getSwipeXThreshold() {
+		// If the key width is not available, use the old method. It's better than nothing.
+		if (tt9 == null || tt9.getWidth() == 0) {
+			return getSwipeYThreshold();
+		}
+
+		try {
+			// The simpler getResource.getFloat() requires API 29, so we must get the value manually.
+			TypedValue outValue = new TypedValue();
+			getResources().getValue(R.dimen.numpad_function_key_layout_weight, outValue, true);
+			float functionKeyScale = outValue.getFloat();
+
+			float keyWidth = tt9.getWidth() / 5f * functionKeyScale;
+			return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_WIDTH_FOR_SWIPE;
+		} catch (Exception e) {
+			Logger.e(LOG_TAG, "Error calculating the swipe X threshold. Using default to prevent crashing. " + e);
+			return getSwipeYThreshold();
+		}
+	}
 
 
 	private void updateSwipeTimingStats() {
@@ -85,6 +117,7 @@ abstract public class SwipeableKey extends SoftKey {
 		switch(event.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
 				Timer.start(LOG_TAG);
+				initSwipeThresholds();
 				onPress(event);
 				break;
 			case MotionEvent.ACTION_MOVE:
@@ -172,7 +205,7 @@ abstract public class SwipeableKey extends SoftKey {
 	@Override
 	public void render() {
 		// readjust the action detection delays for keys that set them dynamically
-		resetTimeThresholds(getContext());
+		resetTimeThreshold();
 		super.render();
 	}
 }
