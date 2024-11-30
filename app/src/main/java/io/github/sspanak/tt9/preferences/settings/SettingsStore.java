@@ -21,7 +21,7 @@ public class SettingsStore extends SettingsUI {
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SLOW_QUERY_TIMEOUT = 3000; // ms
-	public final static float SOFT_KEY_AMOUNT_OF_KEY_WIDTH_FOR_SWIPE = 0.75f; // amount of key width
+	public final static float SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE = 0.5f; // 1 = full key size
 	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SOFT_KEY_TITLE_MAX_CHARS = 5;

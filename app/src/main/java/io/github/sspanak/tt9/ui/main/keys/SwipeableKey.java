@@ -64,7 +64,7 @@ abstract public class SwipeableKey extends SoftKey {
 
 
 	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 9; }
-	protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 10.0f; }
+	protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE; }
 
 
 	/**
@@ -84,7 +84,7 @@ abstract public class SwipeableKey extends SoftKey {
 			float functionKeyScale = outValue.getFloat();
 
 			float keyWidth = tt9.getWidth() / 5f * functionKeyScale;
-			return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_WIDTH_FOR_SWIPE;
+			return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE;
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Error calculating the swipe X threshold. Using default to prevent crashing. " + e);
 			return getSwipeYThreshold();
