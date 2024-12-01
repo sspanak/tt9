@@ -12,6 +12,10 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 public class Characters {
 	public static final String GR_QUESTION_MARK = ";";
 	public static final String NEW_LINE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
+	public static final String ZWJ = "\u200D";
+	public static final String ZWJ_GRAPHIC = "ZWJ";
+	public static final String ZWNJ = "\u200C";
+	public static final String ZWNJ_GRAPHIC = "ZWNJ";
 
 	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
 		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
@@ -45,6 +49,10 @@ public class Characters {
 
 	final public static ArrayList<String> PunctuationGreek = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", GR_QUESTION_MARK
+	));
+
+	final public static ArrayList<String> PunctuationIndic = new ArrayList<>(Arrays.asList(
+		",", ".", "-", ZWJ, ZWNJ, "(", ")", "।", "॰", "॥", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
 	));
 
 	final public static ArrayList<String> PunctuationKorean = new ArrayList<>(Arrays.asList(

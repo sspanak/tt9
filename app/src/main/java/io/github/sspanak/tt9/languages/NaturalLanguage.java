@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Characters;
@@ -76,39 +78,24 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	private ArrayList<String> generateSpecialChars(ArrayList<String> definitionChars) {
 		final String SPECIAL_CHARS_PLACEHOLDER = "SPECIAL";
 		final String PUNCTUATION_PLACEHOLDER = "PUNCTUATION";
-		final String ARABIC_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_AR";
-		final String FRENCH_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_FR";
-		final String GERMAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_DE";
-		final String GREEK_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_GR";
-		final String KOREAN_PUNCTUATION_STYLE = PUNCTUATION_PLACEHOLDER + "_KR";
+
+		final Map<String, List<String>> specialChars = new HashMap<>();
+		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.Special);
+		specialChars.put(PUNCTUATION_PLACEHOLDER, Characters.PunctuationEnglish);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_AR", Characters.PunctuationArabic);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FR", Characters.PunctuationFrench);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_DE", Characters.PunctuationGerman);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_GR", Characters.PunctuationGreek);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_IN", Characters.PunctuationIndic);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_KR", Characters.PunctuationKorean);
 
 		ArrayList<String> keyChars = new ArrayList<>();
 		for (String defChar : definitionChars) {
-			switch (defChar) {
-				case SPECIAL_CHARS_PLACEHOLDER:
-					keyChars.addAll(Characters.Special);
-					break;
-				case PUNCTUATION_PLACEHOLDER:
-					keyChars.addAll(Characters.PunctuationEnglish);
-					break;
-				case ARABIC_PUNCTUATION_STYLE:
-					keyChars.addAll(Characters.PunctuationArabic);
-					break;
-				case FRENCH_PUNCTUATION_STYLE:
-					keyChars.addAll(Characters.PunctuationFrench);
-					break;
-				case GERMAN_PUNCTUATION_STYLE:
-					keyChars.addAll(Characters.PunctuationGerman);
-					break;
-				case GREEK_PUNCTUATION_STYLE:
-					keyChars.addAll(Characters.PunctuationGreek);
-					break;
-				case KOREAN_PUNCTUATION_STYLE:
-					keyChars.addAll(Characters.PunctuationKorean);
-					break;
-				default:
-					keyChars.add(defChar);
-					break;
+			List<String> keySpecialChars = specialChars.containsKey(defChar) ? specialChars.get(defChar) : null;
+			if (keySpecialChars != null) {
+				keyChars.addAll(keySpecialChars);
+			} else {
+				keyChars.add(defChar);
 			}
 		}
 

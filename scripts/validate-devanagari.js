@@ -65,9 +65,23 @@ function containsMultipleMatraNasalizations(word) {
 		.test(word);
 }
 
+function containsModifierMatra(word) {
+    return /[\u{900}-\u{903}\u{94d}][\u{93E}-\u{944}\u{947}\u{948}\u{94B}\u{94C}\u{962}\u{963}]/u.test(word);
+}
+
 
 function containsTooManyRepeatedLetters(word) {
 	return /(.)\1{2,}/.test(word);
+}
+
+
+function containsForeignLetters(word) {
+	return /[\u{944}ऑऍऎऒॠ]+[\u{900}-\u{903}\u{94d}\u{93E}-\u{944}\u{947}\u{948}\u{94B}\u{94C}\u{962}\u{963}]?/u.test(word);
+}
+
+
+function fixNuqta(word) {
+	return word.replaceAll('ऴ', '\u{933}\u{93c}');
 }
 
 
@@ -83,13 +97,15 @@ function isValid(word) {
 		&& !containsInvalidZWJ(word)
 		&& !containsMultipleNasalizations(word)
 		&& !containsMultipleMatraNasalizations(word)
+		&& !containsModifierMatra(word)
 		&& !containsTooManyRepeatedLetters(word)
+		&& !containsForeignLetters(word)
 }
 
 
 function work({ file }) {
 	Array.from(getWordsFromFile(file)).forEach(w => {
-		if (isValid(w)) print(w);
+		if (isValid(w)) print(fixNuqta(w));
 	});
 }
 

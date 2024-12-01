@@ -18,6 +18,7 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.TextTools;
 
 class ModeCheonjiin extends InputMode {
 	// used when we want do display a different set of characters for a given key, for example
@@ -68,14 +69,23 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
+	/**
+	 * setCustomSpecialCharacters
+	 * Filter out the letters from the 0-key list and add "0", because there is no other way of
+	 * typing it.
+	 */
 	protected void setCustomSpecialCharacters() {
+		// special
+		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.Special, 0)));
 		if (settings.holdForPunctuationInKorean()) {
-			ArrayList<String> specialChars = new ArrayList<>(applyPunctuationOrder(Characters.Special, 0));
-			specialChars.add(0, "0");
-			KEY_CHARACTERS.add(specialChars);
+			KEY_CHARACTERS.get(0).add(0, "0");
 		}
-	}
 
+		// punctuation
+		KEY_CHARACTERS.add(
+			TextTools.removeLettersFromList(applyPunctuationOrder(Characters.PunctuationKorean, 1))
+		);
+	}
 
 
 	protected void setSpecialCharacterConstants() {
