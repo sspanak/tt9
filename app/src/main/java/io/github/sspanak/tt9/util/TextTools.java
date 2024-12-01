@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.util;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -87,5 +88,17 @@ public class TextTools {
 		sdf.setTimeZone(TimeZone.getDefault());
 
 		return sdf.format(new Date(timestamp));
+	}
+
+
+	public static ArrayList<String> removeLettersFromList(ArrayList<String> list) {
+		ArrayList<String> cleanList = new ArrayList<>();
+		for (String ch : list) {
+			if (!Character.isAlphabetic(ch.codePointAt(0))) {
+				cleanList.add(ch);
+			}
+		}
+
+		return cleanList;
 	}
 }

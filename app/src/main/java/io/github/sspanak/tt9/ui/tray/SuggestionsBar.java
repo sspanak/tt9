@@ -125,15 +125,21 @@ public class SuggestionsBar {
 			return "";
 		}
 
-		if (suggestions.get(id).endsWith(STEM_SUFFIX)) {
+		String suggestion = suggestions.get(id);
+
+		if (suggestion.endsWith(STEM_SUFFIX)) {
 			return stem;
-		} else if (suggestions.get(id).startsWith(STEM_VARIATION_PREFIX)) {
-			return stem + suggestions.get(id).substring(STEM_VARIATION_PREFIX.length());
-		} else if (suggestions.get(id).startsWith(STEM_PUNCTUATION_VARIATION_PREFIX)) {
-			return stem + suggestions.get(id).substring(STEM_PUNCTUATION_VARIATION_PREFIX.length());
+		} else if (suggestion.startsWith(STEM_VARIATION_PREFIX)) {
+			return stem + suggestion.substring(STEM_VARIATION_PREFIX.length());
+		} else if (suggestion.startsWith(STEM_PUNCTUATION_VARIATION_PREFIX)) {
+			return stem + suggestion.substring(STEM_PUNCTUATION_VARIATION_PREFIX.length());
 		}
 
-		return suggestions.get(id).equals(Characters.NEW_LINE) ? "\n" : suggestions.get(id);
+		return switch (suggestion) {
+			case Characters.ZWJ_GRAPHIC -> Characters.ZWJ;
+			case Characters.ZWNJ_GRAPHIC -> Characters.ZWNJ;
+			default -> suggestion.equals(Characters.NEW_LINE) ? "\n" : suggestion;
+		};
 	}
 
 
@@ -195,14 +201,15 @@ public class SuggestionsBar {
 			String trimmedSuggestion = suggestion.substring(stem.length());
 			trimmedSuggestion = Character.isAlphabetic(trimmedSuggestion.charAt(0)) ? STEM_VARIATION_PREFIX + trimmedSuggestion : STEM_PUNCTUATION_VARIATION_PREFIX + trimmedSuggestion;
 			suggestions.add(trimmedSuggestion);
+			return;
 		}
-		// make the new line better readable
-		else if (suggestion.equals("\n")) {
-			suggestions.add(Characters.NEW_LINE);
-		}
-		// or add any other suggestion as is
-		else {
-			suggestions.add(suggestion);
+
+		// convert the unreadable special characters to their readable form or add the readable ones
+		switch (suggestion) {
+			case "\n" -> suggestions.add(Characters.NEW_LINE);
+			case Characters.ZWJ -> suggestions.add(Characters.ZWJ_GRAPHIC);
+			case Characters.ZWNJ -> suggestions.add(Characters.ZWNJ_GRAPHIC);
+			default -> suggestions.add(suggestion);
 		}
 	}
 
