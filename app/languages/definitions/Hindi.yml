@@ -1,0 +1,15 @@
+locale: hi-IN
+dictionaryFile: hi-utf8.csv
+abcString: कखग
+hasUpperCase: no
+layout:
+  - [SPECIAL, ॐ] # 0 ==> [SPECIAL, Om]
+  - [्, ़, ऽ, ।, ॥, PUNCTUATION] # 1 ==> [halant (cancel vowel sign), nuqta (converts k -> q, ph -> f, etc), avagraha, end of half-verse, end of verse PUNCTUATION]
+  - [अ, आ, ब, भ, च, छ, ा] # 2 ==> [a, ā, b, bh, c, ch, ā (combining)]
+  - [द, ध, ड, ढ, ए, ऐ, फ, े, ै, ॆ, ॅ] # 3 ==> [d, dh, ḍ, ḍh, ē, ai, ph, ē (combining), ai (combining), e (combining), ê (ae-combining)];
+  - [ग, घ, ह, इ, ई, ि, ी] # 4 ==> [g, gh, h, i, ī, i (combining), ī (combining)]
+  - [ज, झ, क, ख, ल, ळ, ॢ, ऌ] # 5 ==> [j, jh, jna, k, kh, l, ḷ, l̥ (combining), l̥]
+  - [म, न, ण, ओ, औ, ं, ँ, ो, ौ, ॊ] # 6 ==> [m, n, ṇ, o, au, ṁ (n-combining with consonant, e.g. "ng", "nd"), m̐ (m-combining with vowel, e.g. "am", "em"), ō (combining), au (combining), o (combining)]
+  - [प, र, ऋ, स, श, ष, ृ] # 7 ==> [p, r, r̥ (ri), s, sh, rsh (like "norsk"), r̥ (ri-combining)]
+  - [त, थ, ट, ठ, उ, ऊ, व, ु, ू] # 8 ==> [t, th, ṭ, ṭh, u, ū, v, u (combining), ū (combining)]
+  - [य, ञ, ङ] # 9 ==> [x, y, ñ, ṅ]

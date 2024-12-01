@@ -61,6 +61,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
     alphabet = languageFile.name.contains("Catalan") ? '·' : alphabet
     alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : alphabet
     alphabet = languageFile.name.contains("Korean") ? '：' : alphabet
+    alphabet = languageFile.name.contains("Hindi") ?  '़्ऽ' : alphabet
 
     for (String line : languageFile.readLines()) {
         if (
@@ -123,6 +124,9 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
             layoutSounds.put("'", layoutKey.toString())
             layoutSounds.put('"', layoutKey.toString())
             layoutSounds.put('·', layoutKey.toString())
+            layoutSounds.put('्', layoutKey.toString())
+            layoutSounds.put('़', layoutKey.toString())
+            layoutSounds.put('ऽ', layoutKey.toString())
         }
 
         if (isLayoutLine(line)) {
