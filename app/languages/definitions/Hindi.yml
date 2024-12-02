@@ -4,7 +4,7 @@ abcString: कखग
 hasUpperCase: no
 layout:
   - [SPECIAL, ॐ] # 0 ==> [SPECIAL, Om]
-  - [्, ़, ऽ, ।, ॥, PUNCTUATION] # 1 ==> [halant (cancel vowel sign), nuqta (converts k -> q, ph -> f, etc), avagraha, end of half-verse, end of verse PUNCTUATION]
+  - [्, ़, ऽ, PUNCTUATION_IN] # 1 ==> [halant (cancel vowel sign), nuqta (converts k -> q, ph -> f, etc), avagraha]
   - [अ, आ, ब, भ, च, छ, ा] # 2 ==> [a, ā, b, bh, c, ch, ā (combining)]
   - [द, ध, ड, ढ, ए, ऐ, फ, े, ै, ॆ, ॅ] # 3 ==> [d, dh, ḍ, ḍh, ē, ai, ph, ē (combining), ai (combining), e (combining), ê (ae-combining)];
   - [ग, घ, ह, इ, ई, ि, ी] # 4 ==> [g, gh, h, i, ī, i (combining), ī (combining)]

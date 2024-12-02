@@ -47,6 +47,10 @@ public class Characters {
 		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", GR_QUESTION_MARK
 	));
 
+	final public static ArrayList<String> PunctuationIndic = new ArrayList<>(Arrays.asList(
+		",", ".", "-", "।", "॥", "(", ")", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
+	));
+
 	final public static ArrayList<String> PunctuationKorean = new ArrayList<>(Arrays.asList(
 		",", ".", "~", "1", "(", ")", "&", "-", "`", ";", ":", "'", "\"", "!", "?"
 	));
