@@ -43,7 +43,7 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 
 
 ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
-    String alphabet = ""
+    String alphabet = ''
     int layoutKey = 0
     HashMap<String, String> sounds = new HashMap<>()
     HashMap<String, String> layoutSounds = new HashMap<>()
@@ -57,11 +57,6 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
     boolean isLocaleValid = false
     String localeString = ""
     String dictionaryFileName = ""
-
-    alphabet = languageFile.name.contains("Catalan") ? '·' : alphabet
-    alphabet = languageFile.name.contains("Hebrew") || languageFile.name.contains("Yiddish") ? '"' : alphabet
-    alphabet = languageFile.name.contains("Korean") ? '：' : alphabet
-    alphabet = languageFile.name.contains("Hindi") ?  '़्ऽ' : alphabet
 
     for (String line : languageFile.readLines()) {
         if (
@@ -111,22 +106,15 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
         // alphabet string
         def lineCharacters = extractAlphabetCharsFromLine(line)
+        lineCharacters = lineCharacters.isEmpty() ? extractAlphabetExtraCharsFromLine(languageFile.name, line) : lineCharacters
+
         alphabet += lineCharacters
 
-        // sounds, single letters
+        // sounds, single letters or special characters that are treated as letters
         if (lineCharacters) {
             lineCharacters.each { letter ->
                 layoutSounds.put(letter, layoutKey.toString())
             }
-        } else if (line.contains("PUNCTUATION")) {
-            layoutSounds.put("-", layoutKey.toString())
-            layoutSounds.put(".", layoutKey.toString())
-            layoutSounds.put("'", layoutKey.toString())
-            layoutSounds.put('"', layoutKey.toString())
-            layoutSounds.put('·', layoutKey.toString())
-            layoutSounds.put('्', layoutKey.toString())
-            layoutSounds.put('़', layoutKey.toString())
-            layoutSounds.put('ऽ', layoutKey.toString())
         }
 
         if (isLayoutLine(line)) {
@@ -182,7 +170,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 // this cannot be static, because DictionaryTools will not be visible
 def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, String> sounds, boolean isAlphabeticLanguage, Locale locale, int maxErrors, String csvDelimiter, int maxWordFrequency) {
-    final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${alphabet}\\-\\.']+\$" : "^[${alphabet}${alphabet.toUpperCase(locale)}\\-\\.']+\$"
+    String regexSafeAlphabet = alphabet.replaceAll("([\\[\\]\\-\\.])", "")
+    final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${regexSafeAlphabet}\\.\\-]+\$" : "^[${regexSafeAlphabet}${regexSafeAlphabet.toUpperCase(locale)}\\.\\-]+\$"
 
     int errorCount = 0
     String errorMsg = ''
@@ -241,6 +230,41 @@ def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, Str
 }
 
 //////////////////// PARSING ////////////////////
+
+static def extractAlphabetExtraCharsFromLine(String languageName, String line) {
+    if (languageName == null || !line.contains('PUNCTUATION') || !isLayoutLine(line)) {
+        return ''
+    }
+
+    final DEFAULT = "'-."
+
+    if (languageName.contains('Korean')) {
+        return DEFAULT
+    } else if (languageName.contains("Catalan")) {
+        return DEFAULT + '·'
+    } else if (languageName.contains("Hebrew") || languageName.contains("Yiddish")) {
+        return DEFAULT + '"'
+    }
+
+    String allChars = line
+            .replaceFirst('\\].*', '')
+            .replaceFirst('^\\s+- \\[', '')
+            .replaceFirst("PUNCTUATION[^,\\s]*", '')
+            .replace(',', '')
+            .replace(' ', '')
+
+    String extraChars = ''
+    for (int i = 0; i < allChars.length(); i++) {
+        char ch = allChars.charAt(i)
+        int charType = Character.getType(ch)
+        if (Character.isAlphabetic(allChars.codePointAt(i)) || charType == Character.NON_SPACING_MARK || charType == Character.ENCLOSING_MARK || charType == Character.COMBINING_SPACING_MARK) {
+            extraChars += ch
+        }
+    }
+
+    return extraChars + DEFAULT
+}
+
 
 static def extractAlphabetCharsFromLine(String line) {
     if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !isLayoutLine(line)) {
