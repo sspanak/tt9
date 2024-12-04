@@ -48,7 +48,7 @@ public class Characters {
 	));
 
 	final public static ArrayList<String> PunctuationIndic = new ArrayList<>(Arrays.asList(
-		",", ".", "-", "।", "॥", "(", ")", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
+		",", ".", "-", "(", ")", "।", "॰", "॥", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
 	));
 
 	final public static ArrayList<String> PunctuationKorean = new ArrayList<>(Arrays.asList(
