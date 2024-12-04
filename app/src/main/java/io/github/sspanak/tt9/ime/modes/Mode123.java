@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.TextTools;
 
 class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }
@@ -49,8 +50,12 @@ class Mode123 extends ModePassthrough {
 	 * use the default list, but reorder it a bit for convenience.
 	 */
 	private void setDefaultSpecialCharacters() {
-		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0)));
-		KEY_CHARACTERS.add(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1)));
+		KEY_CHARACTERS.add(
+			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0)))
+		);
+		KEY_CHARACTERS.add(
+			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1)))
+		);
 	}
 
 
