@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersExcep
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 
 class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -311,15 +312,19 @@ class ModeWords extends ModeCheonjiin {
 			return;
 		}
 
-		// emojis and special chars are not in the database, so there is no point in wasting resources
-		// running queries on them
-		if (!new Text(currentWord).isAlphabetic()) {
+		if (TextTools.isGraphic(currentWord) || new Text(currentWord).isNumeric()) {
 			return;
 		}
 
 		try {
+			// special chars are not in the database, no need to run queries on them
+			String digitSequence = language.getDigitSequenceForWord(currentWord);
+			if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+				return;
+			}
+
 			// increment the frequency of the given word
-			predictions.onAccept(currentWord, language.getDigitSequenceForWord(currentWord));
+			predictions.onAccept(currentWord, digitSequence);
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
