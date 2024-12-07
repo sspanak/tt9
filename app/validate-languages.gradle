@@ -240,8 +240,6 @@ static def extractAlphabetExtraCharsFromLine(String languageName, String line) {
 
     if (languageName.contains('Korean')) {
         return DEFAULT
-    } else if (languageName.contains("Catalan")) {
-        return DEFAULT + '·'
     } else if (languageName.contains("Hebrew") || languageName.contains("Yiddish")) {
         return DEFAULT + '"'
     }
@@ -253,16 +251,7 @@ static def extractAlphabetExtraCharsFromLine(String languageName, String line) {
             .replace(',', '')
             .replace(' ', '')
 
-    String extraChars = ''
-    for (int i = 0; i < allChars.length(); i++) {
-        char ch = allChars.charAt(i)
-        int charType = Character.getType(ch)
-        if (Character.isAlphabetic(allChars.codePointAt(i)) || charType == Character.NON_SPACING_MARK || charType == Character.ENCLOSING_MARK || charType == Character.COMBINING_SPACING_MARK) {
-            extraChars += ch
-        }
-    }
-
-    return extraChars + DEFAULT
+    return DEFAULT + allChars
 }
 
 
