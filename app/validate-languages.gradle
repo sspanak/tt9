@@ -315,7 +315,7 @@ static def validateWord(String word, String validCharacters, boolean isAlphabeti
         errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
     }
 
-    if (isAlphabeticLanguage && word.matches("^(.|\\p{L}\\p{M}?)\$")) {
+    if (isAlphabeticLanguage && word.trim().length() == 1) {
         errorCount++
         errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
     }
