@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class Text extends TextTools {
 	private final Language language;

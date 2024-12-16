@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyPunctuation extends SoftKey {
 	public SoftKeyPunctuation(Context context) {

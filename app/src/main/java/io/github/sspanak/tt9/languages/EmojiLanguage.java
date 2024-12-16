@@ -5,8 +5,8 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class EmojiLanguage extends Language {
 	final public static String EMOJI_SEQUENCE = "11";

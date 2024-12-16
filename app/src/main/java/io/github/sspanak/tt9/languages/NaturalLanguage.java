@@ -9,9 +9,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 
 public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
