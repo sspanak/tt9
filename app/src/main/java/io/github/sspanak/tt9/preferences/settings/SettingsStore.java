@@ -32,6 +32,7 @@ public class SettingsStore extends SettingsUI {
 	public final static float SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE = 0.8f;
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
+	public final static int SUGGESTIONS_POSITIONS_LIMIT = 100;
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
 	public final static int TEXT_INPUT_DEBOUNCE_TIME = 500; // ms
