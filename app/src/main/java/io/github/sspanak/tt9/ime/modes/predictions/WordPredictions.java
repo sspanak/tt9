@@ -252,19 +252,22 @@ public class WordPredictions extends Predictions {
 	 */
 	public void onAccept(String word, String sequence) {
 		if (
-			!settings.getPredictWordPairs()
-			// If the accepted word is longer than the sequence, it is some different word, not a textonym
-			// of the fist suggestion. We don't need to store it.
-			|| word == null
-			|| word.length() != digitSequence.length()
+			word == null
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
-			// sense to store it as a popular pair.
+			// sense to store it as a popular pair or increase its priority.
 			|| (!words.isEmpty() && words.get(0).equals(word))
 		) {
 			return;
 		}
 
-		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
+		// Second condition note: If the accepted word is longer than the sequence, it is some different word,
+		// not a textonym of the fist suggestion. We don't need to store it.
+		if (settings.getPredictWordPairs() && word.length() == digitSequence.length()) {
+			DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
+		}
+
+		// Update the priority only if the user has selected the word, not when we have enforced it
+		// because it is in a popular word pair.
 		if (!word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}
