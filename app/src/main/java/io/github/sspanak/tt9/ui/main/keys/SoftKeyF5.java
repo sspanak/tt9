@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyF5 extends SoftKeyFn {
 	public SoftKeyF5(Context context) {
