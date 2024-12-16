@@ -8,6 +8,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.util.chars.Characters;
+
 public class TextTools {
 	private static final Pattern containsOtherThan1 = Pattern.compile("[02-9]");
 	private static final Pattern combiningString = Pattern.compile("^\\p{M}+$");

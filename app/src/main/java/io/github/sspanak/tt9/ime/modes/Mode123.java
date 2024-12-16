@@ -8,8 +8,8 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 class Mode123 extends ModePassthrough {
 	@Override public int getId() { return MODE_123; }

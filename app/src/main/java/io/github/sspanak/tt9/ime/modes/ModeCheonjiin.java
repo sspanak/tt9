@@ -17,8 +17,8 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 class ModeCheonjiin extends InputMode {
 	// used when we want do display a different set of characters for a given key, for example
