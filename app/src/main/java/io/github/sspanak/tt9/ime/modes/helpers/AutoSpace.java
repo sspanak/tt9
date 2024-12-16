@@ -7,8 +7,8 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class AutoSpace {
 	private static final Set<Character> PRECEDING_SPACE_PUNCTUATION = Set.of('(', '«', '„');

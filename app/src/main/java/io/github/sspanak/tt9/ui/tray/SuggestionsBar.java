@@ -21,12 +21,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
-import io.github.sspanak.tt9.util.Characters;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
 	private final String STEM_SUFFIX = "… +";
 	private final String STEM_VARIATION_PREFIX = "…";
-	private final String STEM_PUNCTUATION_VARIATION_PREFIX = " ";
+	private final String STEM_PUNCTUATION_VARIATION_PREFIX = "​";
 	@NonNull private String stem = "";
 
 	private double lastClickTime = 0;
@@ -199,7 +199,11 @@ public class SuggestionsBar {
 		// shorten the stem variations
 		if (!stem.isEmpty() && suggestion.length() == stem.length() + 1 && suggestion.toLowerCase().startsWith(stem.toLowerCase())) {
 			String trimmedSuggestion = suggestion.substring(stem.length());
-			trimmedSuggestion = Character.isAlphabetic(trimmedSuggestion.charAt(0)) ? STEM_VARIATION_PREFIX + trimmedSuggestion : STEM_PUNCTUATION_VARIATION_PREFIX + trimmedSuggestion;
+			char firstChar = trimmedSuggestion.charAt(0);
+
+			String prefix = Character.isAlphabetic(firstChar) && !Characters.isCombiningPunctuation(firstChar) ? STEM_VARIATION_PREFIX : STEM_PUNCTUATION_VARIATION_PREFIX;
+			trimmedSuggestion = prefix + trimmedSuggestion;
+
 			suggestions.add(trimmedSuggestion);
 			return;
 		}
