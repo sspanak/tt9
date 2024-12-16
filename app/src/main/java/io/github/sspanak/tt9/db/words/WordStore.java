@@ -78,6 +78,10 @@ public class WordStore extends BaseSyncStore {
 			return new ArrayList<>();
 		}
 
+		Timer.start("cache_long_positions");
+		readOps.cacheLongPositionsIfMissing(sqlite.getDb(), language);
+		long longPositionsTime = Timer.stop("cache_long_positions");
+
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = Math.max(maximumWords, minWords);
 		final String filter = wordFilter == null ? "" : wordFilter;
@@ -90,7 +94,7 @@ public class WordStore extends BaseSyncStore {
 		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, maxWords, false).toStringList();
 		long wordsTime = Timer.stop("get_words");
 
-		printLoadingSummary(sequence, words, positionsTime, wordsTime);
+		printLoadingSummary(sequence, words, longPositionsTime, positionsTime, wordsTime);
 		if (!cancel.isCanceled()) { // do not cache empty results from aborted queries
 			SlowQueryStats.add(SlowQueryStats.generateKey(language, sequence, wordFilter, minWords), (int) (positionsTime + wordsTime), positions);
 		}
@@ -259,7 +263,7 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	private void printLoadingSummary(String sequence, ArrayList<String> words, long positionIndexTime, long wordsTime) {
+	private void printLoadingSummary(String sequence, ArrayList<String> words, long longPositionsTime, long positionIndexTime, long wordsTime) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
@@ -269,6 +273,7 @@ public class WordStore extends BaseSyncStore {
 			.append("\nWord Count: ").append(words.size())
 			.append(".\nTime: ").append(positionIndexTime + wordsTime)
 			.append(" ms (positions: ").append(positionIndexTime)
+			.append(" ms, long positions: ").append(longPositionsTime)
 			.append(" ms, words: ").append(wordsTime).append(" ms).");
 
 		if (words.isEmpty()) {
