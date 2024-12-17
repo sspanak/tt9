@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.TextTools;
 
 public class WordPredictions extends Predictions {
 	private final TextField textField;
+	private LocaleWordsSorter localeWordsSorter;
 
 	private String inputWord;
 	private boolean isStemFuzzy;
@@ -21,8 +23,18 @@ public class WordPredictions extends Predictions {
 	public WordPredictions(SettingsStore settings, TextField textField) {
 		super(settings);
 		lastEnforcedTopWord = "";
+		localeWordsSorter = new LocaleWordsSorter(null);
 		stem = "";
 		this.textField = textField;
+	}
+
+
+	@Override
+	public Predictions setLanguage(Language language) {
+		super.setLanguage(language);
+		localeWordsSorter = new LocaleWordsSorter(language);
+
+		return this;
 	}
 
 
@@ -89,6 +101,7 @@ public class WordPredictions extends Predictions {
 			words.addAll(dbWords);
 		} else {
 			suggestStem();
+			dbWords = localeWordsSorter.shouldSort(language, stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
 			dbWords = rearrangeByPairFrequency(dbWords);
 			suggestMissingWords(generatePossibleStemVariations(dbWords));
 			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
