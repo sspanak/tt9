@@ -144,22 +144,17 @@ public class SoftKeyNumber extends SoftKey {
 		}
 
 		ArrayList<String> chars = language.getKeyCharacters(number);
-		boolean isBulgarian = LanguageKind.isBulgarian(language);
 		boolean isGreek = LanguageKind.isGreek(language);
 		boolean isLatinBased = LanguageKind.isLatinBased(language);
-		boolean isUkrainian = LanguageKind.isUkrainian(language);
 		boolean isUppercase = tt9.getTextCase() == InputMode.CASE_UPPER;
+		final int maxChars = LanguageKind.isIndic(language) ? SettingsStore.SOFT_KEY_TITLE_MAX_CHARS_INDIC : SettingsStore.SOFT_KEY_TITLE_MAX_CHARS;
 
-		if (
-			isBulgarian
-			|| isGreek
-			|| isLatinBased
-			|| (isUkrainian && number == 2)
-			|| chars.size() < SettingsStore.SOFT_KEY_TITLE_MAX_CHARS) {
-			return getDefaultCharList(chars, language.getLocale(), isGreek, isLatinBased, isUppercase);
-		} else {
-			return abbreviateCharList(chars, language.getLocale(), isUppercase);
+		String displayChars = getDefaultCharList(chars, language.getLocale(), isGreek, isLatinBased, isUppercase);
+		if (displayChars.length() > maxChars) {
+			displayChars = abbreviateCharList(displayChars, language.getLocale(), isUppercase);
 		}
+
+		return displayChars;
 	}
 
 
@@ -188,27 +183,37 @@ public class SoftKeyNumber extends SoftKey {
 	 * on one key. As suggested by the community, we could display them as "A-Z".
 	 * @see <a href="https://github.com/sspanak/tt9/issues/628">Issue #628</a>
 	 */
-	private String abbreviateCharList(ArrayList<String> chars, Locale locale, boolean isUppercase) {
-		boolean containsCombiningChars = TextTools.isCombining(chars.get(0)) || TextTools.isCombining(chars.get(chars.size() - 1));
+	private String abbreviateCharList(String chars, Locale locale, boolean isUppercase) {
+		String firstLetter = chars.substring(0, 1);
+		String lastLetter = chars.substring(chars.length() - 1);
+		boolean containsCombiningChars = TextTools.isCombining(firstLetter) || TextTools.isCombining(lastLetter);
+
 		return
-			(isUppercase ? chars.get(0).toUpperCase(locale) : chars.get(0))
+			(isUppercase ? firstLetter.toUpperCase(locale) : firstLetter)
 			+ (containsCombiningChars ? "–  " : "–")
-			+ (isUppercase ? chars.get(chars.size() - 1).toUpperCase(locale) : chars.get(chars.size() - 1));
+			+ (isUppercase ? lastLetter.toUpperCase(locale) : lastLetter);
 	}
 
 
 	/**
-	 * As suggested by the community, there is no need to display the accented letters.
-	 * People are used to seeing just "ABC", "DEF", etc. In the case of Korean, the keypad looks too
-	 * cluttered, so we skip the double consonants, like on phones with a physical keypad.
+	 * Reduces the number of displayed characters by leaving the most descriptive ones. This prevents
+	 * the visual clutter on the keys.
 	 */
 	private boolean shouldSkipAccents(char currentLetter, boolean isGreek, boolean isLatinBased) {
 		return
-			currentLetter == 'ѝ'
-			|| currentLetter == 'ґ'
+			// Latin. As suggested by the community, there is no need to display the accented letters. People are
+			// used to seeing just "ABC", "DEF", etc.
+			(isLatinBased && currentLetter > 'z')
+			// Cyrillic. Same as above.
+			|| currentLetter == 'ѝ' || currentLetter == 'ґ'
+			// Korean double consonants
 			|| (currentLetter == 'ㄲ' || currentLetter == 'ㄸ' || currentLetter == 'ㅃ' || currentLetter == 'ㅆ' || currentLetter == 'ㅉ')
-			|| (isLatinBased && currentLetter > 'z')
+			// Greek diacritics and ending sigma
 			|| currentLetter == 'ς'
-			|| (isGreek && (currentLetter < 'α' || currentLetter > 'ω'));
+			|| (isGreek && (currentLetter < 'α' || currentLetter > 'ω'))
+			// Hindi matras
+			|| (currentLetter >= 0x0900 && currentLetter <= 0x0903) || (currentLetter >= 0x093A && currentLetter <= 0x094F)
+			|| (currentLetter >= 0x0951 && currentLetter <= 0x0957) || currentLetter == 0x0962 || currentLetter == 0x0963
+		;
 	}
 }

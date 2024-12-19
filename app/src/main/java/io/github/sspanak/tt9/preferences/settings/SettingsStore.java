@@ -25,6 +25,7 @@ public class SettingsStore extends SettingsUI {
 	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SOFT_KEY_TITLE_MAX_CHARS = 5;
+	public final static int SOFT_KEY_TITLE_MAX_CHARS_INDIC = 3;
 	public final static int SOFT_KEY_TITLE_SIZE = 18; // sp
 	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE = 0.55f;
 	public final static float SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE = 0.72f;
