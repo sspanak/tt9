@@ -30,7 +30,7 @@ _If your phone does not have Google Play and it does not allow installing custom
 ## ⚙️ System Requirements
 - Android 4.4 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
-- Storage space depends on the Android version. The lite version requires at least 4-7 Mb and the full version requires at least 110 Mb.
+- Storage space depends on the Android version. The lite version requires at least 4-7 Mb and the full version requires at least 120 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
     - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
@@ -62,7 +62,7 @@ As with many other open-source projects, this one is also maintained by its auth
 - Add [a new language](CONTRIBUTING.md#adding-a-new-language), [new UI translations](CONTRIBUTING.md#translating-the-ui) or simply fix a spelling mistake. The process is very simple and even with minimum technical knowledge, your skills as a native speaker will be of great use. Or, if you are not tech-savvy, just [open a new issue](https://github.com/sspanak/tt9/issues) and put the correct translations or words there. Correcting misspelled words or adding new ones is the best you can do to help. Processing millions of words in multiple languages is a very difficult task for a single person.
 - Share your list of added words. Use the Export function in Settings → Languages → Added Words and upload the generated CSV file in a [new issue](https://github.com/sspanak/tt9/issues). You are also welcome to [open a PR](https://github.com/sspanak/tt9/pulls) if you have good technical knowledge and can split them by language.
 - [Report bugs](https://github.com/sspanak/tt9/issues) or other unusual behavior on different phones. It is only possible to verify correct operation and compatibility on a handful of phones, but Android behavior and appearance vary a lot across the millions of devices available out there.
-- Experienced developers who are willing to fix a bug, or maybe create a brand new feature, see the [Contribution Guide](CONTRIBUTING.md).
+- Experienced developers, who are willing to get your hands dirty with the code, see the [Contribution Guide](CONTRIBUTING.md).
 
 Your PRs are welcome!
 

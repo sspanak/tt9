@@ -37,10 +37,6 @@ class SettingsHacks extends BaseSettings {
 
 	/************* hack settings *************/
 
-	public boolean holdForPunctuationInKorean() {
-		return prefs.getBoolean("pref_hold_for_punctuation_in_korean", true);
-	}
-
 	public int getSuggestionScrollingDelay() {
 		boolean defaultOn = DeviceInfo.noTouchScreen(context) && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
 		return prefs.getBoolean("pref_alternative_suggestion_scrolling", defaultOn) ? 200 : 0;

@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -16,10 +17,10 @@ public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
 	@NonNull private final ConsumerCompat<String> onDelayedAccept;
 	@NonNull protected final SuggestionsBar suggestionBar;
-	@NonNull private TextField textField;
+	@Nullable private TextField textField;
 
 
-	public SuggestionOps(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull TextField textField, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
+	public SuggestionOps(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @Nullable TextField textField, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept;
 
@@ -28,7 +29,7 @@ public class SuggestionOps {
 	}
 
 
-	public void setTextField(@NonNull TextField textField) {
+	public void setTextField(@Nullable TextField textField) {
 		this.textField = textField;
 	}
 
@@ -50,8 +51,10 @@ public class SuggestionOps {
 
 	public void clear() {
 		set(null);
-		textField.setComposingText("");
-		textField.finishComposingText();
+		if (textField != null) {
+			textField.setComposingText("");
+			textField.finishComposingText();
+		}
 	}
 
 	public void set(ArrayList<String> suggestions) {
@@ -103,7 +106,7 @@ public class SuggestionOps {
 
 
 	public void commitCurrent(boolean entireSuggestion) {
-		if (!suggestionBar.isEmpty()) {
+		if (textField != null && !suggestionBar.isEmpty()) {
 			if (entireSuggestion) {
 				textField.setComposingText(getCurrent());
 			}

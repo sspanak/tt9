@@ -59,6 +59,6 @@ class Emoji extends Punctuation {
 	}
 
 	public static int getMaxEmojiLevel() {
-		return Emoji.size();
+		return noEmojiSupported() ? 1 : Emoji.size();
 	}
 }
