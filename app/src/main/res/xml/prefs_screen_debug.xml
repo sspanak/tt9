@@ -19,13 +19,6 @@
 		<DropDownPreference
 			app:key="pref_input_handling_mode"
 			app:title="Keypad Handling Mode" />
-
-		<SwitchPreferenceCompat
-			app:defaultValue="true"
-			app:key="pref_hold_for_punctuation_in_korean"
-			app:title="Hold to type special chars in Korean"
-			app:summaryOff="Type special chars by multi-pressing 1-key or 0-key"
-			app:summaryOn="Type special chars by holding 1-key or 0-key" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="Logging" app:singleLineTitle="true">

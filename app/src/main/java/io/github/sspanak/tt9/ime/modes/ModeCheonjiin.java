@@ -46,7 +46,7 @@ class ModeCheonjiin extends InputMode {
 	protected ModeCheonjiin(SettingsStore settings, InputType inputType, TextField textField) {
 		super(settings, inputType);
 
-		SPECIAL_CHAR_SEQUENCE_PREFIX = settings.holdForPunctuationInKorean() ? "11" : "1";
+		SPECIAL_CHAR_SEQUENCE_PREFIX = "11";
 
 		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
@@ -77,9 +77,7 @@ class ModeCheonjiin extends InputMode {
 	protected void setCustomSpecialCharacters() {
 		// special
 		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.Special, 0)));
-		if (settings.holdForPunctuationInKorean()) {
-			KEY_CHARACTERS.get(0).add(0, "0");
-		}
+		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation
 		KEY_CHARACTERS.add(
@@ -107,7 +105,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (settings.holdForPunctuationInKorean() && digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(PUNCTUATION_SEQUENCE)) {
 			digitSequence = "";
 		} else if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || (!digitSequence.startsWith(PUNCTUATION_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
 			digitSequence = "";
@@ -137,10 +135,10 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected void onNumberHold(int number) {
-		if (settings.holdForPunctuationInKorean() && number == 0) {
+		if (number == 0) {
 			disablePredictions = false;
 			digitSequence = SPECIAL_CHAR_SEQUENCE;
-		} else if (settings.holdForPunctuationInKorean() && number == 1) {
+		} else if (number == 1) {
 			disablePredictions = false;
 			digitSequence = PUNCTUATION_SEQUENCE;
 		} else {
@@ -168,10 +166,6 @@ class ModeCheonjiin extends InputMode {
 		final int nextChar = nextNumber + '0';
 		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
 		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
-
-		if (!settings.holdForPunctuationInKorean() && SPECIAL_CHAR_SEQUENCE.equals(digitSequence + nextNumber)) {
-			return 0;
-		}
 
 		if (SPECIAL_CHAR_SEQUENCE.equals(digitSequence)) {
 			return SPECIAL_CHAR_SEQUENCE.length();
