@@ -254,8 +254,10 @@ public class WordPredictions extends Predictions {
 		if (
 			word == null
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
-			// sense to store it as a popular pair or increase its priority.
-			|| (!words.isEmpty() && words.get(0).equals(word))
+			// sense to store it as a popular pair or increase its priority. However, if the stem has been
+			// set using word filtering, the user has probably tried to search for a word that has not been
+			// displayed at the beginning. In this case, we process it after all.
+			|| (!words.isEmpty() && words.get(0).equals(word) && stem.isEmpty())
 		) {
 			return;
 		}
