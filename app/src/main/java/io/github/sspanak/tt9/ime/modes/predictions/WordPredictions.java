@@ -7,8 +7,8 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Characters;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPredictions extends Predictions {
 	private final TextField textField;
@@ -252,19 +252,24 @@ public class WordPredictions extends Predictions {
 	 */
 	public void onAccept(String word, String sequence) {
 		if (
-			!settings.getPredictWordPairs()
-			// If the accepted word is longer than the sequence, it is some different word, not a textonym
-			// of the fist suggestion. We don't need to store it.
-			|| word == null
-			|| word.length() != digitSequence.length()
+			word == null
 			// If the word is the first suggestion, we have already guessed it right, and it makes no
-			// sense to store it as a popular pair.
-			|| (!words.isEmpty() && words.get(0).equals(word))
+			// sense to store it as a popular pair or increase its priority. However, if the stem has been
+			// set using word filtering, the user has probably tried to search for a word that has not been
+			// displayed at the beginning. In this case, we process it after all.
+			|| (!words.isEmpty() && words.get(0).equals(word) && stem.isEmpty())
 		) {
 			return;
 		}
 
-		DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
+		// Second condition note: If the accepted word is longer than the sequence, it is some different word,
+		// not a textonym of the fist suggestion. We don't need to store it.
+		if (settings.getPredictWordPairs() && word.length() == digitSequence.length()) {
+			DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
+		}
+
+		// Update the priority only if the user has selected the word, not when we have enforced it
+		// because it is in a popular word pair.
 		if (!word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}

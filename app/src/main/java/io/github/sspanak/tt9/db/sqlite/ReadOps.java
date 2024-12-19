@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.db.entities.LongPositionsCache;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
@@ -20,10 +21,12 @@ import io.github.sspanak.tt9.db.words.SlowQueryStats;
 import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
+	private final LongPositionsCache longPositionsCache = new LongPositionsCache();
 
 
 	/**
@@ -253,7 +256,7 @@ public class ReadOps {
 				.append(sequence)
 				.append("' OR sequence BETWEEN '").append(sequence).append("1' AND '").append(sequence).append(rangeEnd).append("'");
 			sql.append(" ORDER BY `start` ");
-			sql.append(" LIMIT 100");
+			sql.append(" LIMIT ").append(longPositionsCache.get(language, sequence));
 		}
 
 		String positionsSql = sql.toString();
@@ -335,5 +338,32 @@ public class ReadOps {
 		}
 
 		return pairs;
+	}
+
+
+	/**
+	 * Returns the sequences that result in more words than the standard performance-balanced limit of 100.
+	 */
+	public void cacheLongPositionsIfMissing(@NonNull SQLiteDatabase db, @NonNull Language language) {
+		if (longPositionsCache.contains(language)) {
+			return;
+		}
+
+		String[] select = new String[]{"sequence", "`end` - `start`"};
+		String table = Tables.getWordPositions(language.getId());
+		String where = "LENGTH(sequence) > " + SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
+
+		boolean hasResults = false;
+
+		try (Cursor cursor = db.query(table, select, where, null, null, null, null)) {
+			while (cursor.moveToNext()) {
+				hasResults = true;
+				longPositionsCache.put(language, cursor.getString(0), cursor.getInt(1));
+			}
+		}
+
+		if (!hasResults) {
+			longPositionsCache.put(language, "", 0);
+		}
 	}
 }
