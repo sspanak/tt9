@@ -54,6 +54,7 @@
 	<string name="pref_haptic_feedback_summary">Vibrar ao pressionar uma tecla virtual.</string>
 	<string name="pref_help">Ajuda</string>
 
+	<string name="pref_numpad_width">Largura</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
 	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras. (Causa atraso mínimo em dispositivos com &lt; 2 GB de RAM)</string>
 	<string name="pref_status_icon">Ícone de status</string>
@@ -141,7 +142,7 @@
 	<string name="pref_layout">Layout na tela</string>
 	<string name="dictionary_no_notifications">Notificações do dicionário</string>
 	<string name="dictionary_no_notifications_summary">Receber notificações sobre atualizações do dicionário e sobre o progresso do carregamento.</string>
-	<string name="pref_numpad_key_height">Tamanho das teclas na tela</string>
+	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>
 	<string name="pref_font_size_default">Padrão</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
@@ -160,7 +161,7 @@
 	<string name="voice_input_error_not_available">A entrada de voz não está disponível</string>
 	<string name="voice_input_stopping">Desligando o microfone…</string>
 	<string name="pref_haptic_feedback">Vibração</string>
-	<string name="pref_numpad_alignment">Alinhamento no modo paisagem</string>
+	<string name="pref_numpad_alignment">Alinhamento</string>
 	<string name="virtual_numpad_alignment_center">No meio</string>
 	<string name="virtual_numpad_alignment_left">À esquerda</string>
 	<string name="virtual_numpad_alignment_right">À direita</string>

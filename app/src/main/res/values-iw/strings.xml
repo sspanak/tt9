@@ -53,6 +53,7 @@
 	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי.</string>
 	<string name="pref_help">עזרה</string>
 
+	<string name="pref_numpad_width">רוחב</string>
 	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות. (גורם לפיגור מינימלי במכשירים עם פחות מ-2GB RAM)</string>
 	<string name="pref_status_icon">סמל מצב</string>
@@ -141,7 +142,7 @@
 	<string name="pref_layout">תצורת המקלדת על המסך</string>
 	<string name="dictionary_no_notifications">התראות מילון</string>
 	<string name="dictionary_no_notifications_summary">לקבל התראות על עדכוני המילון ועל התקדמות הטעינה.</string>
-	<string name="pref_numpad_key_height">גודל המקשים על המסך</string>
+	<string name="pref_numpad_key_height">גובה</string>
 	<string name="pref_font_size">גודל הגופן בהגדרות</string>
 	<string name="pref_font_size_default">ברירת מחדל</string>
 	<string name="function_show_command_palette">הצג רשימת פקודות</string>
@@ -160,7 +161,7 @@
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>
 	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
 	<string name="pref_haptic_feedback">רטט</string>
-	<string name="pref_numpad_alignment">יישור במצב נוף</string>
+	<string name="pref_numpad_alignment">יישור</string>
 	<string name="virtual_numpad_alignment_center">באמצע</string>
 	<string name="virtual_numpad_alignment_left">שמאלה</string>
 	<string name="virtual_numpad_alignment_right">ימינה</string>

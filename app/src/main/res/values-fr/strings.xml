@@ -27,6 +27,7 @@
 	<string name="pref_backspace_recomposing_summary">Ramener la liste de suggestions en appuyant sur Retour arrière à la fin d\'un mot. (Non pris en charge dans certaines applications)</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
+	<string name="pref_numpad_width">Largeur</string>
 	<string name="pref_predict_word_pairs">Mémoriser les paires de mots</string>
 	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions. (Cause un léger ralentissement sur les appareils avec &lt; 2GB de RAM)</string>
 	<string name="pref_status_icon">Icône d\'état</string>
@@ -138,7 +139,7 @@
 	<string name="dictionary_export_generating_csv">Exportation CSV en cours…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportation CSV en cours (%1$s)…</string>
 	<string name="pref_layout">Disposition à l\'écran</string>
-	<string name="pref_numpad_key_height">Taille des touches à l\'écran</string>
+	<string name="pref_numpad_key_height">Hauteur</string>
 	<string name="pref_font_size">Taille de la police des paramètres</string>
 	<string name="pref_font_size_default">Par défaut</string>
 	<string name="key_red">Bouton rouge</string>
@@ -156,7 +157,7 @@
 	<string name="voice_input_error_not_available">La saisie vocale n\'est pas disponible</string>
 	<string name="voice_input_stopping">Désactivation du microphone…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
-	<string name="pref_numpad_alignment">Alignement en mode paysage</string>
+	<string name="pref_numpad_alignment">Alignement</string>
 	<string name="virtual_numpad_alignment_center">Au milieu</string>
 	<string name="virtual_numpad_alignment_left">À gauche</string>
 	<string name="virtual_numpad_alignment_right">À droite</string>

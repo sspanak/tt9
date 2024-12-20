@@ -26,6 +26,7 @@
 	<string name="pref_backspace_recomposing_summary">Връщай списъка с предложения при натискане на Backspace на края на дума. (Не работи в някои приложения.)</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
+	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи. (Причинява минимално забавяне на устройства с &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Икона за състояние</string>
@@ -140,7 +141,7 @@
 	<string name="dictionary_export_generating_csv">Експортиране на CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експортиране на CSV (%1$s)…</string>
 	<string name="pref_layout">Екранна подредба</string>
-	<string name="pref_numpad_key_height">Размер на екранните клавиши</string>
+	<string name="pref_numpad_key_height">Височина</string>
 	<string name="pref_font_size">Размер на шрифта в настройките</string>
 	<string name="pref_font_size_default">По подразбиране</string>
 	<string name="key_red">Червен бутон</string>
@@ -159,7 +160,7 @@
 	<string name="voice_input_stopping">Изключване на микрофона…</string>
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш.</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
-	<string name="pref_numpad_alignment">Подравняване в пейзажен режим</string>
+	<string name="pref_numpad_alignment">Подравняване</string>
 	<string name="virtual_numpad_alignment_center">В средата</string>
 	<string name="virtual_numpad_alignment_left">Вляво</string>
 	<string name="virtual_numpad_alignment_right">Вдясно</string>
