@@ -16,7 +16,7 @@ public class TextTools {
 	private static final Pattern nextIsPunctuation = Pattern.compile("^\\p{Punct}");
 	private static final Pattern isHangul = Pattern.compile("[\u1100-\u11FF\u302E-\u302F\u3131-\u318F\u3200-\u321F\u3260-\u327E\uA960-\uA97F\uAC00-\uD7FB\uFFA0-\uFFDF]+");
 	private static final Pattern nextToWord = Pattern.compile("\\b$");
-	private static final Pattern previousIsLetter = Pattern.compile("\\p{L}$");
+	private static final Pattern previousIsLetter = Pattern.compile("[\\p{L}\\p{M}]$");
 	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
