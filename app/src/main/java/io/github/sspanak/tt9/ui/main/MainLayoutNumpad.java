@@ -215,11 +215,30 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
+	private void setWidth(int width) {
+		if (view == null || width <= 0) {
+			return;
+		}
+
+		View widthConstraintWrapper = view.findViewById(R.id.numpad_width_constraint_wrapper);
+		if (widthConstraintWrapper == null) {
+			return;
+		}
+
+		ViewGroup.LayoutParams layout = widthConstraintWrapper.getLayoutParams();
+		if (layout != null) {
+			layout.width = width;
+			widthConstraintWrapper.setLayoutParams(layout);
+		}
+	}
+
+
 	@Override
 	void render() {
 		getView();
 		alignView();
 		setKeyHeight(getKeyHeightCompat());
+		setWidth(tt9.getSettings().getNumpadWidth());
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();
