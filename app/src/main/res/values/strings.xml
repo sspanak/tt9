@@ -79,8 +79,9 @@
 	<string name="pref_layout_small">Function keys</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Suggestion list only</string>
-	<string name="pref_numpad_alignment">Alignment in Landscape Mode</string>
-	<string name="pref_numpad_key_height">On-screen Key Size</string>
+	<string name="pref_numpad_alignment">Alignment</string>
+	<string name="pref_numpad_key_height">Height</string>
+	<string name="pref_numpad_width">Width</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy. (Causes minimal lag on devices with &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Status Icon</string>

@@ -8,6 +8,7 @@
 	android:gravity="center_horizontal">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/numpad_width_constraint_wrapper"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:maxWidth="@dimen/numpad_max_width"

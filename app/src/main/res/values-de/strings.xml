@@ -40,6 +40,7 @@
 	<string name="pref_backspace_recomposing">Wortnachbearbeitung</string>
 	<string name="pref_backspace_recomposing_summary">Die Vorschlagsliste zurückbringen, indem Sie am Ende eines Wortes die Rücktaste drücken. (Nicht in allen Apps unterstützt)</string>
 	<string name="pref_choose_languages">Sprachen</string>
+	<string name="pref_numpad_width">Breite</string>
 	<string name="pref_predict_word_pairs">Wortpaare lernen</string>
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern. (Verursacht minimale Verzögerung auf Geräten mit &lt; 2GB RAM)</string>
 	<string name="pref_status_icon">Statusicon</string>
@@ -128,7 +129,7 @@
 	<string name="pref_layout">Layout auf dem Bildschirm</string>
 	<string name="dictionary_no_notifications">Wörterbuchbenachrichtigungen</string>
 	<string name="dictionary_no_notifications_summary">Benachrichtigen über Wörterbuchaktualisierungen und den Ladevorgang.</string>
-	<string name="pref_numpad_key_height">Größe der Bildschirmtasten</string>
+	<string name="pref_numpad_key_height">Höhe</string>
 	<string name="pref_font_size">Schriftgröße der Einstellungen</string>
 	<string name="pref_font_size_default">Standard</string>
 	<string name="function_show_command_palette">Befehlsliste anzeigen</string>
@@ -147,7 +148,7 @@
 	<string name="voice_input_error_not_available">Spracheingabe ist nicht verfügbar</string>
 	<string name="voice_input_stopping">Mikrofon ausschalten…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
-	<string name="pref_numpad_alignment">Ausrichtung im Querformatmodus</string>
+	<string name="pref_numpad_alignment">Ausrichtung</string>
 	<string name="virtual_numpad_alignment_center">In der Mitte</string>
 	<string name="virtual_numpad_alignment_left">Links</string>
 	<string name="virtual_numpad_alignment_right">Rechts</string>

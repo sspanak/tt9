@@ -27,6 +27,7 @@
 	<string name="pref_backspace_recomposing_summary">Вернуть список предложений, нажав клавишу Backspace в конце слова. (Не поддерживается в некоторых приложениях)</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
+	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов. (Вызывает минимальную задержку на устройствах с &lt; 2 ГБ RAM)</string>
 	<string name="pref_status_icon">Иконка состояния</string>
@@ -140,7 +141,7 @@
 	<string name="dictionary_export_generating_csv">Экспорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Экспорт CSV (%1$s)…</string>
 	<string name="pref_layout">Экранная раскладка</string>
-	<string name="pref_numpad_key_height">Размер экранных клавиш</string>
+	<string name="pref_numpad_key_height">Высота</string>
 	<string name="pref_font_size">Размер шрифта в настройках</string>
 	<string name="pref_font_size_default">По умолчанию</string>
 	<string name="key_red">Красная кнопка</string>
@@ -158,7 +159,7 @@
 	<string name="voice_input_error_not_available">Голосовой ввод недоступен</string>
 	<string name="voice_input_stopping">Отключение микрофона…</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
-	<string name="pref_numpad_alignment">Выравнивание в ландшафтном режиме</string>
+	<string name="pref_numpad_alignment">Выравнивание</string>
 	<string name="virtual_numpad_alignment_center">Посередине</string>
 	<string name="virtual_numpad_alignment_left">Налево</string>
 	<string name="virtual_numpad_alignment_right">Направо</string>

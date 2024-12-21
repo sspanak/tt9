@@ -79,6 +79,14 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
 	}
 
+	public int getNumpadMaxWidth() {
+		return Math.min(context.getResources().getDimensionPixelSize(R.dimen.numpad_max_width), DeviceInfo.getScreenWidth(context));
+	}
+
+	public int getNumpadWidth() {
+		return getStringifiedInt("pref_numpad_width", 100) * getNumpadMaxWidth() / 100;
+	}
+
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);
