@@ -61,12 +61,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 				db.execSQL(migration.query);
 				Logger.d(LOG_TAG, "Migration succeeded: '" + migration.query);
 			} catch (Exception e) {
-				if (migration.mayFail) {
-					Logger.e(LOG_TAG, "Ignoring migration: '" + migration.query + "'. ");
-				} else {
-					Logger.e(LOG_TAG, "Migration failed: '" + migration.query + "'. " + e.getMessage() + "\nAborting all subsequent migrations.");
-					break;
-				}
+				Logger.e(LOG_TAG, "Ignoring migration: '" + migration.query + "'. ");
 			}
 		}
 	}

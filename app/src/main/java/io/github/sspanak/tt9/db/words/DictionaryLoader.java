@@ -263,6 +263,7 @@ public class DictionaryLoader {
 		WordBatch batch = new WordBatch(language, SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE + 1);
 		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
 		int wordCount = 0;
+		int maxWordCount = 0;
 
 		try (BufferedReader ignored = wordFile.getReader()) {
 			while (wordFile.notEOF()) {
@@ -276,6 +277,7 @@ public class DictionaryLoader {
 					ArrayList<String> words = wordFile.getNextWords(digitSequence);
 					batch.add(words, digitSequence, wordCount + positionShift);
 					wordCount += words.size();
+					maxWordCount = Math.max(maxWordCount, wordCount);
 
 					if (batch.getWords().size() > SettingsStore.DICTIONARY_IMPORT_BATCH_SIZE) {
 						saveWordBatch(batch);
@@ -290,7 +292,7 @@ public class DictionaryLoader {
 		}
 
 		saveWordBatch(batch);
-		InsertOps.replaceLanguageMeta(sqlite.getDb(), language.getId(), wordFile.getHash());
+		InsertOps.replaceLanguageMeta(sqlite.getDb(), language.getId(), wordFile.getHash(), maxWordCount);
 	}
 
 

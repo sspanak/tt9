@@ -42,10 +42,11 @@ public class InsertOps {
 	}
 
 
-	public static void replaceLanguageMeta(@NonNull SQLiteDatabase db, int langId, String fileHash) {
-		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, fileHash) VALUES (?, ?)");
+	public static void replaceLanguageMeta(@NonNull SQLiteDatabase db, int langId, String fileHash, int maxWordsPerSequence) {
+		SQLiteStatement query = CompiledQueryCache.get(db, "REPLACE INTO " + Tables.LANGUAGES_META + " (langId, fileHash, maxWordsPerSequence) VALUES (?, ?, ?)");
 		query.bindLong(1, langId);
 		query.bindString(2, fileHash);
+		query.bindLong(3, maxWordsPerSequence);
 		query.execute();
 	}
 

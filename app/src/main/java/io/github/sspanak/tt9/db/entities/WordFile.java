@@ -37,7 +37,6 @@ public class WordFile extends AssetFile {
 	private String downloadUrl = null;
 	private int words = -1;
 	private long size = -1;
-	private int sequences = -1;
 
 
 	public WordFile(@NonNull Context context, Language language, AssetManager assets) {
@@ -143,20 +142,6 @@ public class WordFile extends AssetFile {
 	}
 
 
-	private void setSequences(String rawProperty, String rawValue) {
-		if (!rawProperty.equals("sequences")) {
-			return;
-		}
-
-		try {
-			sequences = Integer.parseInt(rawValue);
-		} catch (Exception e) {
-			Logger.w(LOG_TAG, "Invalid 'sequences' property of: " + path + ". Expecting an integer, got: '" + rawValue + "'.");
-			sequences = 0;
-		}
-	}
-
-
 	public int getWords() {
 		if (words < 0) {
 			loadProperties();
@@ -230,7 +215,6 @@ public class WordFile extends AssetFile {
 				setDownloadUrl(parts[0], parts[1]);
 				setHash(parts[0], parts[1]);
 				setWords(parts[0], parts[1]);
-				setSequences(parts[0], parts[1]);
 				setSize(parts[0], parts[1]);
 			}
 		} catch (Exception e) {
