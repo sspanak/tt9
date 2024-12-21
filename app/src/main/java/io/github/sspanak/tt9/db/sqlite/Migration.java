@@ -13,6 +13,10 @@ class Migration {
 		new Migration(
 			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN positionsToNormalize TEXT NULL",
 			true
+		),
+		new Migration(
+			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN maxWordsPerSequence INTEGER NOT NULL DEFAULT -1",
+			true
 		)
 	};
 

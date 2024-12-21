@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import io.github.sspanak.tt9.db.entities.LongPositionsCache;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
@@ -26,7 +26,7 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
-	private final LongPositionsCache longPositionsCache = new LongPositionsCache();
+	private final HashMap<Language, Integer> maxWordsPerSequence = new HashMap<>();
 
 
 	/**
@@ -256,7 +256,7 @@ public class ReadOps {
 				.append(sequence)
 				.append("' OR sequence BETWEEN '").append(sequence).append("1' AND '").append(sequence).append(rangeEnd).append("'");
 			sql.append(" ORDER BY `start` ");
-			sql.append(" LIMIT ").append(longPositionsCache.get(language, sequence));
+			sql.append(" LIMIT ").append(maxWordsPerSequence.get(language));
 		}
 
 		String positionsSql = sql.toString();
@@ -342,28 +342,17 @@ public class ReadOps {
 
 
 	/**
-	 * Returns the sequences that result in more words than the standard performance-balanced limit of 100.
+	 * Caches the languages with more than 100 words per a sequence (the balanced performance limit).
 	 */
 	public void cacheLongPositionsIfMissing(@NonNull SQLiteDatabase db, @NonNull Language language) {
-		if (longPositionsCache.contains(language)) {
+		if (maxWordsPerSequence.containsKey(language)) {
 			return;
 		}
 
-		String[] select = new String[]{"sequence", "`end` - `start`"};
-		String table = Tables.getWordPositions(language.getId());
-		String where = "LENGTH(sequence) > " + SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
+		String sql = "SELECT maxWordsPerSequence FROM " + Tables.LANGUAGES_META + " WHERE langId = " + language.getId();
+		int maxWords = (int) CompiledQueryCache.simpleQueryForLong(db, sql, SettingsStore.SUGGESTIONS_POSITIONS_LIMIT);
+		maxWords = maxWords > 0 ? maxWords : SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
 
-		boolean hasResults = false;
-
-		try (Cursor cursor = db.query(table, select, where, null, null, null, null)) {
-			while (cursor.moveToNext()) {
-				hasResults = true;
-				longPositionsCache.put(language, cursor.getString(0), cursor.getInt(1));
-			}
-		}
-
-		if (!hasResults) {
-			longPositionsCache.put(language, "", 0);
-		}
+		maxWordsPerSequence.put(language, maxWords);
 	}
 }
