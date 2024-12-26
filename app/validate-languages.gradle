@@ -58,24 +58,26 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
     String localeString = ""
     String dictionaryFileName = ""
 
-    for (String line : languageFile.readLines()) {
+    for (String rawLine : languageFile.readLines()) {
         if (
-            line.matches("^[a-zA-Z].*")
-            && !line.startsWith("abcString")
-            && !line.startsWith("dictionaryFile")
-            && !line.startsWith("hasSpaceBetweenWords")
-            && !line.startsWith("hasUpperCase")
-            && !line.startsWith("layout")
-            && !line.startsWith("locale")
-            && !line.startsWith("name")
-            && !line.startsWith("sounds")
+            rawLine.matches("^[a-zA-Z].*")
+            && !rawLine.startsWith("abcString")
+            && !rawLine.startsWith("dictionaryFile")
+            && !rawLine.startsWith("hasSpaceBetweenWords")
+            && !rawLine.startsWith("hasUpperCase")
+            && !rawLine.startsWith("layout")
+            && !rawLine.startsWith("locale")
+            && !rawLine.startsWith("name")
+            && !rawLine.startsWith("sounds")
         ) {
-            def parts = line.split(":")
-            def property = parts.length > 0 ? parts[0] : line
+            def parts = rawLine.split(":")
+            def property = parts.length > 0 ? parts[0] : rawLine
 
             errorCount++
             errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
         }
+
+        String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
 
         if (
             (line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
@@ -97,7 +99,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
         if (line.startsWith("locale")) {
             localeString = line.replace("locale:", "").trim()
-            isLocaleValid = line.matches("^locale:\\s*[a-z]{2}(?:-[A-Z]{2})?")
+            isLocaleValid = localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")
         }
 
         if (line.startsWith("dictionaryFile")) {
