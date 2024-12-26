@@ -1,0 +1,13 @@
+locale: zgh-MA
+dictionaryFile: tamazight-utf8.txt
+layout:
+  - [SPECIAL] # 0
+  - [PUNCTUATION] # 1
+  - [ⴰ, ⴱ, ⴳ, ⴷ] # 2
+  - [ⴹ, ⴻ, ⴼ, ⴽ] # 3
+  - [ⵀ, ⵃ, ⵄ, ⵅ] # 4
+  - [ⵇ, ⵉ, ⵊ, ⵍ] # 5
+  - [ⵎ, ⵏ, ⵓ, ⵔ] # 6
+  - [ⵕ, ⵖ, ⵙ, ⵚ] # 7
+  - [ⵛ, ⵜ, ⵟ, ⵡ] # 8
+  - [ⵢ, ⵣ, ⵥ, ⵯ] # 9

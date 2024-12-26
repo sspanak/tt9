@@ -145,6 +145,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		return switch (getLocale().getLanguage()) {
 			case "fi" -> "su";
 			case "sw" -> "ki";
+			case "zgh" -> "tam";
 			default -> getLocale().toString();
 		};
 	}
@@ -171,22 +172,11 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	@NonNull
 	@Override
 	public String getCode() {
-		if (code != null) {
-			return code;
+		if (code == null) {
+			code = new LocaleCompat(locale).getUniqueLanguageCode();
 		}
 
-		String country = getLocale().getCountry().toLowerCase();
-		String language = getLocale().getLanguage().toLowerCase();
-
-		if ("en".equals(language) && "in".equalsIgnoreCase(country)) {
-			return code = "hi";
-		}
-
-		if ("ar".equals(language) || "ca".equals(language) || "en".equals(language)) {
-			return code = language;
-		}
-
-		return code = country.equals("ji") ? "yi" : country;
+		return code;
 	}
 
 

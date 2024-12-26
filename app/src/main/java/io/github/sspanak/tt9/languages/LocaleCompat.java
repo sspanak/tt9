@@ -25,10 +25,35 @@ class LocaleCompat {
 			case "yi" -> "ji";
 			case "he" -> "iw";
 			case "id" -> "in";
+			case "zgh" -> "zg";
 			default -> language;
 		};
 	}
 
+	public String getUniqueLanguageCode() {
+		if (locale == null) {
+			return "";
+		}
+
+		String country = locale.getCountry().toLowerCase();
+		String language = locale.getLanguage().toLowerCase();
+
+		switch (language) {
+			case "en":
+				if ("in".equals(country)) { // en-IN = Hinglish
+					return "hi";
+				}
+				// otherwise, fall-through to return "en"
+			case "ca":
+				return language;
+			case "ji":
+				return "yi";
+			case "zgh":
+				return "tmz";
+			default:
+				return country;
+		}
+	}
 
 	@NonNull
 	@Override
