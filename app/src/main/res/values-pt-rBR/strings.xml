@@ -35,11 +35,11 @@
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las (Android 9 ou mais antigo).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
-	<string name="pref_auto_text_case_summary">Iniciar automaticamente as frases com letras maiúsculas.</string>
+	<string name="pref_auto_text_case_summary">Inicie frases automaticamente com letra maiúscula. (Não é possível em todos os idiomas)</string>
 	<string name="pref_auto_capitals_after_newline">Letras maiúsculas automáticas em cada linha</string>
 	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
@@ -56,7 +56,7 @@
 
 	<string name="pref_numpad_width">Largura</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
-	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras. (Causa atraso mínimo em dispositivos com &lt; 2 GB de RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>

@@ -47,11 +47,11 @@
 	<string name="pref_abc_auto_accept_normal">Moderate</string>
 	<string name="pref_abc_auto_accept_slow">Slow</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them (Android 9 or older).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them.</string>
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
 	<string name="pref_auto_text_case">Automatic Capitalization</string>
-	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter.</string>
+	<string name="pref_auto_text_case_summary">Automatically start sentences with a capital letter. (Not possible in all languages)</string>
 	<string name="pref_auto_capitals_after_newline">Automatically Capitalize Every Line</string>
 	<string name="pref_auto_capitals_after_newline_summary">Start every line with a capital letter, even it is in the middle of a sentence.</string>
 	<string name="pref_backspace_acceleration">Fast Delete</string>
@@ -83,7 +83,7 @@
 	<string name="pref_numpad_key_height">Height</string>
 	<string name="pref_numpad_width">Width</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
-	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy. (Causes minimal lag on devices with &lt; 2GB RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>

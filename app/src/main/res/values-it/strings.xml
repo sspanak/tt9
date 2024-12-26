@@ -32,11 +32,11 @@
 	<string name="pref_abc_auto_accept_normal">Moderata</string>
 	<string name="pref_abc_auto_accept_slow">Lenta</string>
 	<string name="pref_alternative_suggestion_scrolling">Metodo alternativo di scorrimento delle suggerimenti</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli (Android 9 o precedente).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli.</string>
 	<string name="pref_auto_space">Spazio automatico</string>
 	<string name="pref_auto_space_summary">Aggiungere automaticamente uno spazio dopo la punteggiatura o le parole.</string>
 	<string name="pref_auto_text_case">Maiuscole automatiche</string>
-	<string name="pref_auto_text_case_summary">Iniziare automaticamente le frasi con una lettera maiuscola.</string>
+	<string name="pref_auto_text_case_summary">Inizia automaticamente le frasi con una lettera maiuscola. (Non possibile in tutte le lingue)</string>
 	<string name="pref_auto_capitals_after_newline">Maiuscole automatiche su ogni riga</string>
 	<string name="pref_auto_capitals_after_newline_summary">Iniziare ogni riga con una lettera maiuscola, anche se è nel mezzo di una frase.</string>
 	<string name="pref_backspace_recomposing">Ricomposizione delle parole</string>
@@ -45,7 +45,7 @@
 
 	<string name="pref_numpad_width">Larghezza</string>
 	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
-	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole. (Provoca un leggero ritardo su dispositivi con &lt; 2GB di RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.</string>
 	<string name="pref_status_icon">Icona di stato</string>
 	<string name="pref_status_icon_summary">Mostrare un\'icona quando la digitazione è attiva.</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>

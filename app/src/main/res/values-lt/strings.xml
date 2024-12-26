@@ -34,11 +34,11 @@
 	<string name="pref_abc_auto_accept_normal">Vidutinis</string>
 	<string name="pref_abc_auto_accept_slow">Lėtas</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant („Android“ 9 ar senesnės versijos).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
-	<string name="pref_auto_text_case_summary">Automatiškai pradėti sakinius didžiąja raide.</string>
+	<string name="pref_auto_text_case_summary">Automatiškai pradėkite sakinius didžiąja raide. (Neįmanoma visomis kalbomis)</string>
 	<string name="pref_auto_capitals_after_newline">Automatiniai didžiosios raidės kiekvienoje eilutėje</string>
 	<string name="pref_auto_capitals_after_newline_summary">Pradėti kiekvieną eilutę didžiąja raide, net jei ji yra sakinio viduryje.</string>
 	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
@@ -60,7 +60,7 @@
 
 	<string name="pref_numpad_width">Plotis</string>
 	<string name="pref_predict_word_pairs">Išmokti žodžių poras</string>
-	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus. (Sukelia minimalų vėlavimą įrenginiuose, kuriuose yra &lt; 2 GB RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus.</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>

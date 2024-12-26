@@ -36,11 +36,11 @@
 	<string name="pref_abc_auto_accept_normal">Середній</string>
 	<string name="pref_abc_auto_accept_slow">Повільний</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити (Android 9 або старіші).</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
 	<string name="pref_auto_space">Автоматичний пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
 	<string name="pref_auto_text_case">Автоматична велика літера</string>
-	<string name="pref_auto_text_case_summary">Автоматично починати речення з великої букви</string>
+	<string name="pref_auto_text_case_summary">Автоматично починати речення з великої букви. (Не у всіх мовах можливо)</string>
 	<string name="pref_auto_capitals_after_newline">Автоматичні великі літери на кожному рядку</string>
 	<string name="pref_auto_capitals_after_newline_summary">Починати кожен рядок з великої літери, навіть якщо він у середині речення.</string>
 	<string name="pref_backspace_recomposing">Редагування слів</string>
@@ -66,7 +66,7 @@
 
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запам’ятовувати пари слів</string>
-	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів. (Спричиняє мінімальну затримку на пристроях з &lt; 2 ГБ RAM)</string>
+	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів.</string>
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
