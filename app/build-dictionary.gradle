@@ -76,7 +76,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 		errorMsg += assetError
 	}
 
-	def propertiesError = writeDictionaryProperties(definition, csvDictionary, zippedDictionary, dictionariesMetaDir, outputDictionary.size(), wordCount)
+	def propertiesError = writeDictionaryProperties(definition, csvDictionary, zippedDictionary, dictionariesMetaDir, wordCount)
 	if (propertiesError) {
 		errorCount++
 		errorMsg += propertiesError
@@ -186,7 +186,7 @@ static def writeZippedDictionary(dictionariesOutputDir, csvDictionaryFile, outpu
 
 
 // this cannot be static, because it requires access to exec() and DictionaryTools
-def writeDictionaryProperties(File definition, File csvDictionary, File zipDictionary, outputDir, int sequences, int words) {
+def writeDictionaryProperties(File definition, File csvDictionary, File zipDictionary, outputDir, int words) {
 	def name = getPropertyFileName(csvDictionary)
 
 	try {
@@ -194,7 +194,7 @@ def writeDictionaryProperties(File definition, File csvDictionary, File zipDicti
 		def revision = zipDictionary.exists() ? exec("git log --pretty=tformat:%H -n 1 ${zipDictionary}") : ""
 		def size = zipDictionary.exists() ? zipDictionary.length() : 0
 
-		new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsequences: ${sequences}\nsize: ${size}\nwords: ${words}"
+		new File(outputDir, name).text = "hash: ${hash}\nrevision: ${revision}\nsize: ${size}\nwords: ${words}"
 
 		return ""
 	} catch (Exception e) {
