@@ -39,16 +39,20 @@ public class PreferenceSearchLanguage extends ItemTextInput {
 
 	@Override
 	protected void onChange(String word) {
-		word = word == null ? "" : word.trim();
+		word = word == null ? "" : word.trim().toLowerCase();
+		String wordInTheMiddle = " " + word;
+		String wordInParenthesis = "(" + word;
 
 		int visibleLanguages = languageItems.size();
 		for (PreferenceSwitchLanguage languageItem : languageItems) {
-			CharSequence title = languageItem.getTitle() == null ? "" : languageItem.getTitle();
-			CharSequence summary = languageItem.getSummary() == null ? "" : languageItem.getSummary();
+			String title = languageItem.getTitle() == null ? "" : languageItem.getTitle().toString().toLowerCase();
+			String summary = languageItem.getSummary() == null ? "" : languageItem.getSummary().toString().toLowerCase();
 
 			languageItem.setVisible(
-				title.toString().toLowerCase().startsWith(word.toLowerCase()) ||
-				summary.toString().toLowerCase().startsWith(word.toLowerCase())
+				// ordered by most likely to be found
+				title.startsWith(word) || summary.startsWith(word) ||
+				summary.contains(wordInTheMiddle) || title.contains(wordInParenthesis) ||
+				summary.contains(wordInParenthesis) || title.contains(wordInTheMiddle)
 			);
 
 			if (!languageItem.isVisible()) {
