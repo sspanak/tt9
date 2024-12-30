@@ -1,7 +1,7 @@
 # Editor configuration, see https://editorconfig.org
 root = true
 
-[*.{java,properties,xml}]
+[*.{gradle,java,properties,xml}]
 charset = utf-8
 indent_style = tab
 indent_size = 2

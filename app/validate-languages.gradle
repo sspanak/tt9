@@ -2,330 +2,330 @@ apply from: 'dictionary-tools.gradle'
 
 
 ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
-    int errorCount = 0
+	int errorCount = 0
 
-    def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
-        if (errorCount >= MAX_ERRORS) {
-            return "Too many errors! Skipping: ${definition}\n"
-        }
+	def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
+		if (errorCount >= MAX_ERRORS) {
+			return "Too many errors! Skipping: ${definition}\n"
+		}
 
-        def (alphabet, sounds, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
+		def (alphabet, sounds, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
 
-        def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
-        def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
+		def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
+		def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
 
-        errorCount += langFileErrorCount
-        if (!langFileErrorMsg.isEmpty()) {
-            validationFile.text = "${languageHash} INVALID"
-            return langFileErrorMsg
-        }
+		errorCount += langFileErrorCount
+		if (!langFileErrorMsg.isEmpty()) {
+			validationFile.text = "${languageHash} INVALID"
+			return langFileErrorMsg
+		}
 
-        if (validationFile.exists() && validationFile.text == "${languageHash} OK") {
-            return ""
-        }
+		if (validationFile.exists() && validationFile.text == "${languageHash} OK") {
+			return ""
+		}
 
-        def (dictionaryErrorCount, dictionaryErrorMesages) = validateDictionary(dictionaryFile, alphabet, sounds, isAlphabeticLanguage, locale, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
-        errorCount += dictionaryErrorCount
-        if (!dictionaryErrorMesages.isEmpty()) {
-            validationFile.text = "${languageHash} INVALID"
-            return dictionaryErrorMesages
-        }
+		def (dictionaryErrorCount, dictionaryErrorMesages) = validateDictionary(dictionaryFile, alphabet, sounds, isAlphabeticLanguage, locale, MAX_ERRORS, CSV_DELIMITER, MAX_WORD_FREQUENCY)
+		errorCount += dictionaryErrorCount
+		if (!dictionaryErrorMesages.isEmpty()) {
+			validationFile.text = "${languageHash} INVALID"
+			return dictionaryErrorMesages
+		}
 
-        validationFile.text = "${languageHash} OK"
-        return ""
-    }
+		validationFile.text = "${languageHash} OK"
+		return ""
+	}
 
-    String errorsMsg = errorStream.reduce("", String::concat)
-    if (errorsMsg) {
-        throw new GradleException(errorsMsg)
-    }
+	String errorsMsg = errorStream.reduce("", String::concat)
+	if (errorsMsg) {
+		throw new GradleException(errorsMsg)
+	}
 }
 
 
 ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
-    String alphabet = ''
-    int layoutKey = 0
-    HashMap<String, String> sounds = new HashMap<>()
-    HashMap<String, String> layoutSounds = new HashMap<>()
+	String alphabet = ''
+	int layoutKey = 0
+	HashMap<String, String> sounds = new HashMap<>()
+	HashMap<String, String> layoutSounds = new HashMap<>()
 
-    File dictionaryFile
-    int errorCount = 0
-    String errorMsg = ""
+	File dictionaryFile
+	int errorCount = 0
+	String errorMsg = ""
 
-    boolean hasLayout = false
-    boolean hasSounds = false
-    boolean isLocaleValid = false
-    String localeString = ""
-    String dictionaryFileName = ""
+	boolean hasLayout = false
+	boolean hasSounds = false
+	boolean isLocaleValid = false
+	String localeString = ""
+	String dictionaryFileName = ""
 
-    for (String rawLine : languageFile.readLines()) {
-        if (
-            rawLine.matches("^[a-zA-Z].*")
-            && !rawLine.startsWith("abcString")
-            && !rawLine.startsWith("dictionaryFile")
-            && !rawLine.startsWith("hasSpaceBetweenWords")
-            && !rawLine.startsWith("hasUpperCase")
-            && !rawLine.startsWith("layout")
-            && !rawLine.startsWith("locale")
-            && !rawLine.startsWith("name")
-            && !rawLine.startsWith("sounds")
-        ) {
-            def parts = rawLine.split(":")
-            def property = parts.length > 0 ? parts[0] : rawLine
+	for (String rawLine : languageFile.readLines()) {
+		if (
+			rawLine.matches("^[a-zA-Z].*")
+			&& !rawLine.startsWith("abcString")
+			&& !rawLine.startsWith("dictionaryFile")
+			&& !rawLine.startsWith("hasSpaceBetweenWords")
+			&& !rawLine.startsWith("hasUpperCase")
+			&& !rawLine.startsWith("layout")
+			&& !rawLine.startsWith("locale")
+			&& !rawLine.startsWith("name")
+			&& !rawLine.startsWith("sounds")
+		) {
+			def parts = rawLine.split(":")
+			def property = parts.length > 0 ? parts[0] : rawLine
 
-            errorCount++
-            errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
-        }
+			errorCount++
+			errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
+		}
 
-        String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
+		String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
 
-        if (
-            (line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
-            && !line.endsWith("yes") && !line.endsWith("no")
-        ) {
-            def property = line.replaceAll(":.*\$", "")
-            def invalidVal = line.replace("hasUpperCase:", "").trim()
-            errorCount++
-            errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
-        }
+		if (
+			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
+			&& !line.endsWith("yes") && !line.endsWith("no")
+		) {
+			def property = line.replaceAll(":.*\$", "")
+			def invalidVal = line.replace("hasUpperCase:", "").trim()
+			errorCount++
+			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+		}
 
-        if (line.startsWith("layout")) {
-            hasLayout = true
-        }
+		if (line.startsWith("layout")) {
+			hasLayout = true
+		}
 
-        if (line.startsWith("sounds")) {
-            hasSounds = true
-        }
+		if (line.startsWith("sounds")) {
+			hasSounds = true
+		}
 
-        if (line.startsWith("locale")) {
-            localeString = line.replace("locale:", "").trim()
-            isLocaleValid = localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")
-        }
+		if (line.startsWith("locale")) {
+			localeString = line.replace("locale:", "").trim()
+			isLocaleValid = localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")
+		}
 
-        if (line.startsWith("dictionaryFile")) {
-            dictionaryFileName = line.replace("dictionaryFile:", "").trim()
-        }
+		if (line.startsWith("dictionaryFile")) {
+			dictionaryFileName = line.replace("dictionaryFile:", "").trim()
+		}
 
-        // alphabet string
-        def lineCharacters = extractAlphabetCharsFromLine(line)
-        lineCharacters = lineCharacters.isEmpty() ? extractAlphabetExtraCharsFromLine(languageFile.name, line) : lineCharacters
+		// alphabet string
+		def lineCharacters = extractAlphabetCharsFromLine(line)
+		lineCharacters = lineCharacters.isEmpty() ? extractAlphabetExtraCharsFromLine(languageFile.name, line) : lineCharacters
 
-        alphabet += lineCharacters
+		alphabet += lineCharacters
 
-        // sounds, single letters or special characters that are treated as letters
-        if (lineCharacters) {
-            lineCharacters.each { letter ->
-                layoutSounds.put(letter, layoutKey.toString())
-            }
-        }
+		// sounds, single letters or special characters that are treated as letters
+		if (lineCharacters) {
+			lineCharacters.each { letter ->
+				layoutSounds.put(letter, layoutKey.toString())
+			}
+		}
 
-        if (isLayoutLine(line)) {
-            layoutKey++
-        }
+		if (isLayoutLine(line)) {
+			layoutKey++
+		}
 
-        // sounds, syllables
-        def (sound, sequence) = extractSoundFromLine(line)
-        if (!sound.isEmpty() && !sequence.isEmpty()) {
-            sounds.put(sound, sequence)
-        }
-    }
+		// sounds, syllables
+		def (sound, sequence) = extractSoundFromLine(line)
+		if (!sound.isEmpty() && !sequence.isEmpty()) {
+			sounds.put(sound, sequence)
+		}
+	}
 
-    if (!hasLayout) {
-        errorCount++
-        errorMsg += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
-    }
+	if (!hasLayout) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
+	}
 
-    if (alphabet.isEmpty()) {
-        errorCount++
-        errorMsg += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
-    }
+	if (alphabet.isEmpty()) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
+	}
 
-    if (hasSounds && sounds.isEmpty()) {
-        errorCount++
-        errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
-    }
+	if (hasSounds && sounds.isEmpty()) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
+	}
 
-    if (!isLocaleValid) {
-        errorCount++
-        def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
-        errorMsg += "Language '${languageFile.name}' is invalid. ${msg}\n"
-    }
+	if (!isLocaleValid) {
+		errorCount++
+		def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
+		errorMsg += "Language '${languageFile.name}' is invalid. ${msg}\n"
+	}
 
-    dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
-    if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
-        errorCount++
-        errorMsg += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
-    }
+	dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
+	if (dictionaryFileName.isEmpty() || !dictionaryFile.exists()) {
+		errorCount++
+		errorMsg += "Could not find dictionary file: '${dictionaryFileName}' in: '${dictionariesDir}'. Make sure 'dictionaryFile' is set correctly in: '${languageFile.name}'.\n"
+	}
 
-    String[] localeParts = localeString.split(("[-_]"))
-    Locale locale = new Locale(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
+	String[] localeParts = localeString.split(("[-_]"))
+	Locale locale = new Locale(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
 
-    if (!hasSounds && locale != null) {
-        layoutSounds.forEach { sound, sequence ->
-            sounds.put(sound.toUpperCase(locale), sequence)
-        }
-    }
+	if (!hasSounds && locale != null) {
+		layoutSounds.forEach { sound, sequence ->
+			sounds.put(sound.toUpperCase(locale), sequence)
+		}
+	}
 
-    return [alphabet, sounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
+	return [alphabet, sounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
 }
 
 
 // this cannot be static, because DictionaryTools will not be visible
 def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, String> sounds, boolean isAlphabeticLanguage, Locale locale, int maxErrors, String csvDelimiter, int maxWordFrequency) {
-    String regexSafeAlphabet = alphabet.replaceAll("([\\[\\]\\-\\.])", "")
-    final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${regexSafeAlphabet}\\.\\-]+\$" : "^[${regexSafeAlphabet}${regexSafeAlphabet.toUpperCase(locale)}\\.\\-]+\$"
+	String regexSafeAlphabet = alphabet.replaceAll("([\\[\\]\\-\\.])", "")
+	final VALID_CHARS = alphabet.toUpperCase(locale) == alphabet ? "^[${regexSafeAlphabet}\\.\\-]+\$" : "^[${regexSafeAlphabet}${regexSafeAlphabet.toUpperCase(locale)}\\.\\-]+\$"
 
-    int errorCount = 0
-    String errorMsg = ''
-    Set<String> uniqueWords = new HashSet<>()
+	int errorCount = 0
+	String errorMsg = ''
+	Set<String> uniqueWords = new HashSet<>()
 
-    List<String> fileContents = dictionaryFile.readLines()
-    for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
-        String line = fileContents.get(lineNumber - 1)
-        boolean lineHasErrors = false
+	List<String> fileContents = dictionaryFile.readLines()
+	for (int lineNumber = 1; lineNumber <= fileContents.size() && errorCount < maxErrors; lineNumber++) {
+		String line = fileContents.get(lineNumber - 1)
+		boolean lineHasErrors = false
 
-        String whiteSpaceError = validateNoWhitespace(line, lineNumber)
-        if (whiteSpaceError) {
-            lineHasErrors = true
-            errorCount++
-            errorMsg += whiteSpaceError
-        }
+		String whiteSpaceError = validateNoWhitespace(line, lineNumber)
+		if (whiteSpaceError) {
+			lineHasErrors = true
+			errorCount++
+			errorMsg += whiteSpaceError
+		}
 
-        def (word, transcription, frequency) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
+		def (word, transcription, frequency) = DictionaryTools.getDictionaryLineData(line, csvDelimiter)
 
-        String frequencyError = validateFrequency(frequency, maxWordFrequency, dictionaryFile.name, lineNumber)
-        if (frequencyError) {
-            lineHasErrors = true
-            errorCount++
-            errorMsg += frequencyError
-        }
+		String frequencyError = validateFrequency(frequency, maxWordFrequency, dictionaryFile.name, lineNumber)
+		if (frequencyError) {
+			lineHasErrors = true
+			errorCount++
+			errorMsg += frequencyError
+		}
 
-        def (wordErrorCount, wordErrors) = validateWord(word, VALID_CHARS, isAlphabeticLanguage, lineNumber, "Dictionary '${dictionaryFile.name}' is invalid")
-        if (wordErrorCount > 0) {
-            errorCount += wordErrorCount
-            errorMsg += wordErrors
-        }
+		def (wordErrorCount, wordErrors) = validateWord(word, VALID_CHARS, isAlphabeticLanguage, lineNumber, "Dictionary '${dictionaryFile.name}' is invalid")
+		if (wordErrorCount > 0) {
+			errorCount += wordErrorCount
+			errorMsg += wordErrors
+		}
 
-        if (uniqueWords.contains(word)) {
-            lineHasErrors = true
-            errorCount++
-            errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found duplicate word: '${word}' on line ${lineNumber}. Remove all duplicates.\n"
-        } else {
-            uniqueWords.add(word)
-        }
+		if (uniqueWords.contains(word)) {
+			lineHasErrors = true
+			errorCount++
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found duplicate word: '${word}' on line ${lineNumber}. Remove all duplicates.\n"
+		} else {
+			uniqueWords.add(word)
+		}
 
-        if (lineHasErrors) {
-            // the validations below make no sense if the previous ones have failed
-            continue
-        }
+		if (lineHasErrors) {
+			// the validations below make no sense if the previous ones have failed
+			continue
+		}
 
-        try {
-            def transcribedWord = transcription.isEmpty() ? word : transcription
-            DictionaryTools.wordToDigitSequence(locale, transcribedWord, sounds, !transcription.isEmpty())
-        } catch (IllegalArgumentException e) {
-            errorCount++
-            errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Failed generating digit sequence for word '${word}' on line ${lineNumber}. ${e.message}\n"
-        }
-    }
+		try {
+			def transcribedWord = transcription.isEmpty() ? word : transcription
+			DictionaryTools.wordToDigitSequence(locale, transcribedWord, sounds, !transcription.isEmpty())
+		} catch (IllegalArgumentException e) {
+			errorCount++
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Failed generating digit sequence for word '${word}' on line ${lineNumber}. ${e.message}\n"
+		}
+	}
 
-    return [errorCount, errorMsg]
+	return [errorCount, errorMsg]
 }
 
 //////////////////// PARSING ////////////////////
 
 static def extractAlphabetExtraCharsFromLine(String languageName, String line) {
-    if (languageName == null || !line.contains('PUNCTUATION') || !isLayoutLine(line)) {
-        return ''
-    }
+	if (languageName == null || !line.contains('PUNCTUATION') || !isLayoutLine(line)) {
+		return ''
+	}
 
-    final DEFAULT = "'-."
+	final DEFAULT = "'-."
 
-    if (languageName.contains('Korean')) {
-        return DEFAULT
-    } else if (languageName.contains("Hebrew") || languageName.contains("Yiddish")) {
-        return DEFAULT + '"'
-    }
+	if (languageName.contains('Korean')) {
+		return DEFAULT
+	} else if (languageName.contains("Hebrew") || languageName.contains("Yiddish")) {
+		return DEFAULT + '"'
+	}
 
-    String allChars = line
-            .replaceFirst('\\].*', '')
-            .replaceFirst('^\\s+- \\[', '')
-            .replaceFirst("PUNCTUATION[^,\\s]*", '')
-            .replace(',', '')
-            .replace(' ', '')
+	String allChars = line
+			.replaceFirst('\\].*', '')
+			.replaceFirst('^\\s+- \\[', '')
+			.replaceFirst("PUNCTUATION[^,\\s]*", '')
+			.replace(',', '')
+			.replace(' ', '')
 
-    return DEFAULT + allChars
+	return DEFAULT + allChars
 }
 
 
 static def extractAlphabetCharsFromLine(String line) {
-    if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !isLayoutLine(line)) {
-        return ''
-    }
+	if (line.contains('PUNCTUATION') || line.contains('SPECIAL') || !isLayoutLine(line)) {
+		return ''
+	}
 
-    return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
+	return line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(',', '').replace(' ', '')
 }
 
 
 static def extractSoundFromLine(String line) {
-    if (!line.matches('\\s+- \\[\\w+\\s*,\\s*\\d+\\].*')) {
-        return ['', '']
-    }
+	if (!line.matches('\\s+- \\[\\w+\\s*,\\s*\\d+\\].*')) {
+		return ['', '']
+	}
 
-    def cleanLine = line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(' ', '')
-    def parts = cleanLine.split(',')
-    return parts.length > 1 ? [parts[0], parts[1]] : ['', '']
+	def cleanLine = line.replaceFirst('^\\s+- \\[', '').replaceFirst('\\].*', '').replace(' ', '')
+	def parts = cleanLine.split(',')
+	return parts.length > 1 ? [parts[0], parts[1]] : ['', '']
 }
 
 
 static def isLayoutLine(String line) {
-    return line.matches('\\s+- \\[.+?\\].*') && !line.find('\\d+]')
+	return line.matches('\\s+- \\[.+?\\].*') && !line.find('\\d+]')
 }
 
 //////////////////// VALIDATION ////////////////////
 
 static def validateNoWhitespace(String line, int lineNumber) {
-    if (line == "") {
-        return "There is no word on line ${lineNumber}. Remove all empty lines.\n"
-    } else if (line.contains(" ")) {
-        return "Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed.\n"
-    }
+	if (line == "") {
+		return "There is no word on line ${lineNumber}. Remove all empty lines.\n"
+	} else if (line.contains(" ")) {
+		return "Found space on line ${lineNumber}. Make sure each word is on a new line. Phrases are not allowed.\n"
+	}
 
-    return ''
+	return ''
 }
 
 
 static def validateFrequency(int frequency, int maxFrequency, String dictionaryFileName, int lineNumber) {
-    if (frequency < 0 || frequency > maxFrequency) {
-        return "Dictionary '${dictionaryFileName}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be an integer between 0 and ${maxFrequency}.\n"
-    }
+	if (frequency < 0 || frequency > maxFrequency) {
+		return "Dictionary '${dictionaryFileName}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be an integer between 0 and ${maxFrequency}.\n"
+	}
 
-    return ''
+	return ''
 }
 
 
 static def validateWord(String word, String validCharacters, boolean isAlphabeticLanguage, int lineNumber, String errorMsgPrefix) {
-    int errorCount = 0
-    def errors = ''
+	int errorCount = 0
+	def errors = ''
 
-    if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
-        errorCount++
-        errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
-    }
+	if (word.matches("(\\d.+?|.+?\\d|\\d)")) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found numbers on line ${lineNumber}. Remove all numbers.\n"
+	}
 
-    if (word.matches("^\\P{L}+\$") && !validCharacters.contains(word)) {
-        errorCount++
-        errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
-    }
+	if (word.matches("^\\P{L}+\$") && !validCharacters.contains(word)) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a garbage word: '${word}' on line ${lineNumber}.\n"
+	}
 
-    if (isAlphabeticLanguage && word.trim().length() == 1) {
-        errorCount++
-        errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
-    }
+	if (isAlphabeticLanguage && word.trim().length() == 1) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Found a single letter: '${word}' on line ${lineNumber}. Only uppercase single letters are allowed. The rest of the alphabet will be added automatically.\n"
+	}
 
-    if (errorCount == 0 && isAlphabeticLanguage && !word.matches(validCharacters)) {
-        errorCount++
-        errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contains characters outside of the defined alphabet: $validCharacters.\n"
-    }
+	if (errorCount == 0 && isAlphabeticLanguage && !word.matches(validCharacters)) {
+		errorCount++
+		errors += "${errorMsgPrefix}. Word '${word}' on line ${lineNumber} contains characters outside of the defined alphabet: $validCharacters.\n"
+	}
 
-    return [errorCount, errors]
+	return [errorCount, errors]
 }
