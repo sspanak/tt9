@@ -58,7 +58,7 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 		onCreate(db);
 		for (Migration migration : Migration.LIST) {
 			if (oldVersion > migration.oldVersion) {
-				Logger.d(LOG_TAG, "Skipping migration: '" + migration.query + "'. Required previous version: " + migration.oldVersion + " but we are at: " + oldVersion);
+				Logger.d(LOG_TAG, "Skipping migration: '" + migration.query + "'. Highest previous version: " + migration.oldVersion + " but we are at: " + oldVersion);
 				continue;
 			}
 
