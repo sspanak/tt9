@@ -5,6 +5,7 @@
 	<string name="completed">Завършено</string>
 	<string name="loading">Зареждане…</string>
 	<string name="error_unexpected">Възникна неочаквана грешка.</string>
+	<string name="error_unstable_input_connection">Нестабилна връзка с приложението!</string>
 	<string name="add_word_add">Добави</string>
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>

@@ -4,6 +4,7 @@
 	<string name="loading">Laden…</string>
 	<string name="error_unexpected">Unerwarteter Fehler aufgetreten.</string>
 
+	<string name="error_unstable_input_connection">Instabile Anwendungsverbindung!</string>
 	<string name="add_word_add">Hinzufügen</string>
 	<string name="add_word_confirm">Wort \"%1$s\" zu %2$s hinzufügen?</string>
 	<string name="add_word_no_selection">Bewegen Sie den Cursor innerhalb eines Wortes, um es hinzuzufügen.</string>

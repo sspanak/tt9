@@ -14,11 +14,11 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 public class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
-	protected final InputConnection connection;
-	protected final EditorInfo field;
+	@Nullable protected final InputConnection connection;
+	@Nullable protected final EditorInfo field;
 
 
-	protected InputField(InputConnection inputConnection, EditorInfo inputField) {
+	protected InputField(@Nullable InputConnection inputConnection, @Nullable EditorInfo inputField) {
 		connection = inputConnection;
 		field = inputField;
 	}
@@ -85,11 +85,11 @@ public class InputField {
 	 */
 	@Nullable
 	public Language getLanguage(ArrayList<Integer> allowedLanguageIds) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || field == null || field.hintLocales == null) {
 			return null;
 		}
 
-		for (int i = 0; field.hintLocales != null && i < field.hintLocales.size(); i++) {
+		for (int i = 0; i < field.hintLocales.size(); i++) {
 			Language lang = LanguageCollection.getByLanguageCode(field.hintLocales.get(i).getLanguage());
 			if (lang != null && allowedLanguageIds.contains(lang.getId())) {
 				return lang;
