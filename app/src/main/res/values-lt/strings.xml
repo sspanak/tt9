@@ -7,6 +7,7 @@
 
 	<string name="error_unexpected">Įvyko netikėta klaida.</string>
 
+	<string name="error_unstable_input_connection">Nestabilus programėlės ryšys!</string>
 	<string name="add_word_add">Pridėti</string>
 	<string name="add_word_confirm">Pridėti žodį \"%1$s\" į \"%2$s\" žodyną?</string>
 	<string name="add_word_no_selection">Perkelkite žymeklį prie žodžio kurį norite pridėti.</string>

@@ -11,6 +11,7 @@
 	<string name="search_results_void">No results.</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
+	<string name="error_unstable_input_connection">Unstable application connection!</string>
 
 	<string name="add_word_add">Add</string>
 	<string name="add_word_confirm">Add word \"%1$s\" to %2$s?</string>

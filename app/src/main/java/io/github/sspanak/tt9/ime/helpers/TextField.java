@@ -18,10 +18,13 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.InputConnectionTools;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
+	@NonNull private final InputConnectionTools connectionTools;
+
 	private CharSequence composingText = "";
 	private final boolean isComposingSupported;
 	private final boolean isNonText;
@@ -30,6 +33,8 @@ public class TextField extends InputField {
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
 		super(inputConnection, inputField);
 
+		connectionTools = new InputConnectionTools(inputConnection);
+
 		InputType inputType = new InputType(inputConnection, inputField);
 		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && !inputType.isDeezerSearchBar();
 		isNonText = !inputType.isText();
@@ -37,14 +42,14 @@ public class TextField extends InputField {
 
 
 	public String getStringAfterCursor(int numberOfChars) {
-		CharSequence character = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
-		return character != null ? character.toString() : "";
+		CharSequence chars = connectionTools.getTextAfterCursor(numberOfChars, 0);
+		return chars != null ? chars.toString() : "";
 	}
 
 
 	public String getStringBeforeCursor(int numberOfChars) {
-		CharSequence character = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
-		return character != null ? character.toString() : "";
+		CharSequence chars = connectionTools.getTextBeforeCursor(numberOfChars, 0);
+		return chars != null ? chars.toString() : "";
 	}
 
 
@@ -206,7 +211,7 @@ public class TextField extends InputField {
 		String searchText = " " + word;
 
 		connection.beginBatchEdit();
-		CharSequence beforeText = connection.getTextBeforeCursor(searchText.length(), 0);
+		String beforeText = getStringBeforeCursor(searchText.length());
 		if (beforeText == null || !beforeText.equals(searchText)) {
 			connection.endBatchEdit();
 			return;
@@ -229,7 +234,7 @@ public class TextField extends InputField {
 		}
 
 		connection.beginBatchEdit();
-		CharSequence beforeText = connection.getTextBeforeCursor(word.length(), 0);
+		String beforeText = getStringBeforeCursor(word.length());
 		if (beforeText == null || !beforeText.equals(word)) {
 			connection.endBatchEdit();
 			return;
@@ -390,5 +395,10 @@ public class TextField extends InputField {
 		}
 
 		return false;
+	}
+
+
+	public boolean shouldReportConnectionErrors() {
+		return connectionTools.shouldReportTimeout();
 	}
 }
