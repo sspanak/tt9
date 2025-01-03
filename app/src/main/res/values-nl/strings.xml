@@ -4,6 +4,7 @@
 	<string name="loading">Laden…</string>
 	<string name="error_unexpected">Er is een onverwachte fout opgetreden.</string>
 
+	<string name="error_unstable_input_connection">Onstabiele applicatieverbinding!</string>
 	<string name="add_word_add">Toevoegen</string>
 	<string name="add_word_confirm">Voeg woord \"%1$s\" toe aan %2$s?</string>
 	<string name="add_word_no_selection">Verplaats de cursor binnen een woord om het toe te voegen.</string>

@@ -97,7 +97,7 @@ public class UI {
 		toastLong(context, msg);
 	}
 
-	public static void toastShortSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message) {
+	public static void toastSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message, boolean isShort) {
 		Toast toast = singleToasts.get(uniqueId);
 
 		if (toast != null) {
@@ -105,14 +105,21 @@ public class UI {
 		}
 
 		// we recreate the toast, because if set new text, when it is fading out, it is ignored
-		toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+		toast = Toast.makeText(context, message, isShort ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
 		toast.show();
 
 		singleToasts.put(uniqueId, toast);
 	}
 
+	public static void toastShortSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message) {
+		toastSingle(context, uniqueId, message, true);
+	}
 
 	public static void toastShortSingle(@NonNull Context context, int resourceId) {
-		toastShortSingle(context, String.valueOf(resourceId), context.getString(resourceId));
+		toastSingle(context, String.valueOf(resourceId), context.getString(resourceId), true);
+	}
+
+	public static void toastLongSingle(@NonNull Context context, int resourceId) {
+		toastSingle(context, String.valueOf(resourceId), context.getString(resourceId), false);
 	}
 }
