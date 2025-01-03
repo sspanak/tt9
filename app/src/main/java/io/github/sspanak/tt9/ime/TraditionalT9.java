@@ -21,6 +21,8 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
+	private static final String LOG_TAG = "MAIN";
+
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
 	private boolean isDead = false;
@@ -71,7 +73,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	public void onStartInput(EditorInfo inputField, boolean restarting) {
 		Logger.i(
-			"KeyPadHandler",
+			LOG_TAG,
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);
 		onStart(getCurrentInputConnection(), inputField);
@@ -117,6 +119,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	protected void onInit() {
 		isDead = false;
+		zombieChecks = 0;
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 		LanguageCollection.init(this);
@@ -127,8 +130,8 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		if (!SystemSettings.isTT9Selected(this) && !isDead) {
-			zombieDetector.postDelayed(this::startZombieCheck, SettingsStore.ZOMBIE_CHECK_INTERVAL);
+		if (zombieChecks == 0 && !SystemSettings.isTT9Selected(this)) {
+			startZombieCheck();
 			return false;
 		}
 
@@ -183,20 +186,20 @@ public class TraditionalT9 extends MainViewHandler {
 
 
 	/**
-	 * On Android 11 the IME is sometimes not killed when the user switches to a different one.
+	 * On Android 11+ the IME is sometimes not killed when the user switches to a different one.
 	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
 	protected void startZombieCheck() {
-		if (!SystemSettings.isTT9Selected(this)) {
+		if (zombieChecks > 0 && !SystemSettings.isTT9Selected(this)) {
 			zombieChecks = 0;
 			onZombie();
 			return;
 		}
 
-		if (++zombieChecks < SettingsStore.ZOMBIE_CHECK_MAX) {
+		if (!isDead && ++zombieChecks < SettingsStore.ZOMBIE_CHECK_MAX) {
 			zombieDetector.postDelayed(this::startZombieCheck, SettingsStore.ZOMBIE_CHECK_INTERVAL);
 		} else {
-			Logger.d("startZombieCheck", "Not a zombie after " + zombieChecks + " checks");
+			Logger.d(LOG_TAG, "Not a zombie after " + zombieChecks + " checks");
 			zombieChecks = 0;
 		}
 	}
@@ -204,11 +207,11 @@ public class TraditionalT9 extends MainViewHandler {
 
 	protected void onZombie() {
 		if (isDead) {
-			Logger.w("onZombie", "===> Already dead. Nothing to do.");
+			Logger.w(LOG_TAG, "===> Already dead. Nothing to do.");
 			return;
 		}
 
-		Logger.w("onZombie", "===> Killing self");
+		Logger.w(LOG_TAG, "===> Killing self");
 		requestHideSelf(0);
 		cleanUp();
 		stopSelf();
@@ -220,7 +223,9 @@ public class TraditionalT9 extends MainViewHandler {
 		super.cleanUp();
 		setInputField(null, null);
 		backgroundTasks.removeCallbacksAndMessages(null);
+		zombieChecks = SettingsStore.ZOMBIE_CHECK_MAX;
 		zombieDetector.removeCallbacksAndMessages(null);
+		Logger.d(LOG_TAG, "===> Final cleanup completed");
 	}
 
 
@@ -229,6 +234,7 @@ public class TraditionalT9 extends MainViewHandler {
 		cleanUp();
 		isDead = true;
 		super.onDestroy();
+		Logger.d(LOG_TAG, "===> Shutdown completed");
 	}
 
 	@Override
