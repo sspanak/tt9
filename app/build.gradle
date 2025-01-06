@@ -130,12 +130,13 @@ android {
 	}
 
 	applicationVariants.configureEach { variant ->
+		def variantName = variant.name.capitalize()
 		[
-			"merge${variant.name.capitalize()}Assets",
-			"lintAnalyze${variant.name.capitalize()}",
-			"generate${variant.name.capitalize()}LintReportModel",
-			"lintVitalAnalyze${variant.name.capitalize()}",
-			"generate${variant.name.capitalize()}LintVitalReportModel"
+			"merge${variantName}Assets",
+			"lintAnalyze${variantName}",
+			"generate${variantName}LintReportModel",
+			"lintVitalAnalyze${variantName}",
+			"generate${variantName}LintVitalReportModel"
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
@@ -154,8 +155,9 @@ android {
 		assembleFullRelease.finalizedBy(updateManifest)
 
 		variant.outputs.configureEach {
-			def suffix = variant.flavorName == 'full' ? '-full' : ''
-			outputFileName = "${APP_NAME}-v${getVerName()}${suffix}.apk"
+			def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
+			def debugSuffix = variant.name.containsIgnoreCase('debug') ? '-debug' : ''
+			outputFileName = "${APP_NAME}-v${getVerName()}${fullSuffix}${debugSuffix}.apk"
 		}
 	}
 }
