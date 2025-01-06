@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -31,8 +30,9 @@ class ItemTruncateUnselected extends ItemTruncateAll {
 			}
 		}
 
-		onStartDeleting();
-		DataStore.deleteLanguages(this::onFinishDeleting, unselectedLanguages);
+		setBusy();
+		deleter.setOnFinish(this::onFinishDeleting);
+		deleter.deleteLanguages(unselectedLanguages);
 
 		return true;
 	}

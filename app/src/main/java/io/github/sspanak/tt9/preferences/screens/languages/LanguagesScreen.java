@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.customWords.CustomWordsExporter;
 import io.github.sspanak.tt9.db.customWords.CustomWordsImporter;
 import io.github.sspanak.tt9.db.customWords.DictionaryExporter;
+import io.github.sspanak.tt9.db.words.DictionaryDeleter;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
@@ -19,12 +20,14 @@ import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 public class LanguagesScreen extends BaseScreenFragment {
 	public static final String NAME = "Languages";
 
-	private final ArrayList<ItemClickable> clickables = new ArrayList<>();
+	private static final ArrayList<ItemClickable> clickables = new ArrayList<>();
 
 	private ItemLoadDictionary loadItem;
 	private ItemImportCustomWords importCustomWordsItem;
 	private ItemExportDictionary exportDictionaryItem;
 	private ItemExportCustomWords exportCustomWordsItem;
+	private ItemTruncateAll truncateAllItem;
+	private ItemTruncateUnselected truncateUnselectedItem;
 
 	public LanguagesScreen() { init(); }
 	public LanguagesScreen(PreferencesActivity activity) { init(activity); }
@@ -56,22 +59,25 @@ public class LanguagesScreen extends BaseScreenFragment {
 			this::onActionFinish
 		);
 
-		clickables.add(loadItem);
-		clickables.add(exportDictionaryItem);
-
-		clickables.add(new ItemTruncateUnselected(
+		truncateUnselectedItem = new ItemTruncateUnselected(
 			findPreference(ItemTruncateUnselected.NAME),
 			activity,
 			this::onActionStart,
 			this::onActionFinish
-		));
+		);
 
-		clickables.add(new ItemTruncateAll(
+		truncateAllItem = new ItemTruncateAll(
 			findPreference(ItemTruncateAll.NAME),
 			activity,
 			this::onActionStart,
 			this::onActionFinish
-		));
+		);
+
+		clickables.clear();
+		clickables.add(loadItem);
+		clickables.add(exportDictionaryItem);
+		clickables.add(truncateUnselectedItem);
+		clickables.add(truncateAllItem);
 
 		clickables.add(new ItemDeleteCustomWords(findPreference(ItemDeleteCustomWords.NAME)));
 
@@ -112,6 +118,8 @@ public class LanguagesScreen extends BaseScreenFragment {
 		exportDictionaryItem.refreshStatus();
 		exportCustomWordsItem.refreshStatus();
 		importCustomWordsItem.refreshStatus();
+		truncateUnselectedItem.refreshStatus();
+		truncateAllItem.refreshStatus();
 
 		if (DictionaryLoader.getInstance(activity).isRunning()) {
 			loadItem.refreshStatus();
@@ -120,6 +128,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 			CustomWordsExporter.getInstance().isRunning()
 			|| DictionaryExporter.getInstance().isRunning()
 			|| CustomWordsImporter.getInstance(activity).isRunning()
+			|| DictionaryDeleter.getInstance(activity).isRunning()
 		) {
 			onActionStart();
 		} else {
