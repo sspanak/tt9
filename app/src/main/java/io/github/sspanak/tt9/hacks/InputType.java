@@ -11,6 +11,19 @@ public class InputType extends StandardInputType {
 		super(inputConnection, inputField);
 	}
 
+
+	/**
+	 * isContactsAndroid15Field
+	 * "First Name" and "Last Name" fields in Android 15 are specified absolutely incorrectly.
+	 * Thank you for wasting my time, Google!
+	 */
+	private boolean isContactsAndroid15Field() {
+		return
+			isAppField("com.google.android.contacts", 8288)
+			&& field.privateImeOptions.contains("requestPhoneticOutput");
+	}
+
+
 	/**
 	 * isDeezerSearchBar
 	 * The field for searching songs and artists in Deezer does not support composing text, which
@@ -177,7 +190,7 @@ public class InputType extends StandardInputType {
 	 */
 	@Override
 	protected boolean isDefectiveText() {
-		return isDuoLingoReportBug();
+		return isDuoLingoReportBug() || isContactsAndroid15Field();
 	}
 
 	/**
