@@ -1,22 +1,22 @@
-# Geleneksel T9
-Bu kılavuz, Geleneksel T9'un farklı senaryolarda nasıl yapılandırılacağını ve kullanılacağını açıklar. Kurulum talimatları ve "lite" ve "full" sürümleri hakkında bilgi için lütfen GitHub'daki [Kurulum Kılavuzu'na](https://github.com/sspanak/tt9/blob/master/docs/installation.md) bakın. Son olarak, tüm kaynak kodları, bir geliştirici kılavuzunu, gizlilik politikasını ve ek belgeleri içeren [ana depo sayfasına](https://github.com/sspanak/tt9) göz atabilirsiniz.
+# Traditional T9
+Bu kılavuz, Traditional T9'un farklı senaryolarda nasıl yapılandırılacağını ve kullanılacağını açıklar. Kurulum talimatları ve "lite" ve "full" sürümleri hakkında bilgi için lütfen GitHub'daki [Kurulum Kılavuzu'na](https://github.com/sspanak/tt9/blob/master/docs/installation.md) bakın. Son olarak, tüm kaynak kodları, bir geliştirici kılavuzunu, gizlilik politikasını ve ek belgeleri içeren [ana depo sayfasına](https://github.com/sspanak/tt9) göz atabilirsiniz.
 
 ## İlk Kurulum
-Kurulumu yaptıktan sonra, ilk olarak Geleneksel T9'u bir Android klavyesi olarak etkinleştirmeniz gerekir. Bunu yapmak için başlatıcı simgesine tıklayın. Herhangi bir işlem yapmanız gerekiyorsa, İlk Kurulum dışındaki tüm seçenekler devre dışı bırakılacak ve bir etiket görünecektir: "TT9 devre dışı". İlk Kuruluma gidin ve etkinleştirin.
+Kurulumu yaptıktan sonra, ilk olarak Traditional T9'u bir Android klavyesi olarak etkinleştirmeniz gerekir. Bunu yapmak için başlatıcı simgesine tıklayın. Herhangi bir işlem yapmanız gerekiyorsa, İlk Kurulum dışındaki tüm seçenekler devre dışı bırakılacak ve bir etiket görünecektir: "TT9 devre dışı". İlk Kuruluma gidin ve etkinleştirin.
 
 _Yüklemeden hemen sonra simgeyi görmüyorsanız, telefonunuzu yeniden başlatın, simge görünmelidir. Bu, Android'in yeni yüklenen uygulamalar listesini yenilemeyerek biraz pil tasarrufu sağlamaya çalışmasından kaynaklanmaktadır._
 
 ### Sadece Dokunmatik Ekranlı Telefonlarda Kullanım
 Dokunmatik ekran cihazlarında, sistemin yazım denetleyicisini devre dışı bırakmak da önemle tavsiye edilir. Yazarken numara tuşları kullanıldığında işlev göremez, bu nedenle devre dışı bırakarak pil tasarrufu yapabilirsiniz.
 
-Bir başka sorun da, karışıklığa neden olabilecek "Kelime Ekle" açılır iletişim kutusunu göstermesidir. Bu iletişim kutusu varsayılan sistem klavyesine (genellikle Gboard) ve değil, Geleneksel T9'un sözlüğüne kelimeler ekler. Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
+Bir başka sorun da, karışıklığa neden olabilecek "Kelime Ekle" açılır iletişim kutusunu göstermesidir. Bu iletişim kutusu varsayılan sistem klavyesine (genellikle Gboard) ve değil, Traditional T9'un sözlüğüne kelimeler ekler. Bu tür durumları önlemek için sistem yazım denetleyicisi devre dışı bırakılmalıdır.
 
 Bu adımı yapmanız gerekiyorsa, İlk Kurulum ekranında "Sistem Yazım Denetleyicisi" öğesi etkin olacaktır. Sistem bileşenini devre dışı bırakmak için üzerine tıklayın. Böyle bir öğe yoksa başka bir şey yapmanıza gerek yoktur.
 
 Kurulumu tamamladıktan sonra daha fazla ipucu ve püf noktası için [Ekran Üzerindeki Tuş Takımı bölümüne](#ekran-üzeri-tuș-takımı) göz atın.
 
 ### Tahmin Modunu Etkinleştirme
-Tahmin Modu, kelime önerileri sağlamak için bir dil sözlüğünün yüklenmesini gerektirir. Etkin dilleri değiştirebilir ve Ayarlar Ekranı → [Diller](#dil-seçenekleri) bölümünden sözlüklerini yükleyebilirsiniz. Sözlüklerden bazılarını yüklemeyi unutursanız, Geleneksel T9 yazmaya başladığınızda otomatik olarak yükleyecektir. Daha fazla bilgi için [aşağıya bakın](#dil-seçenekleri).
+Tahmin Modu, kelime önerileri sağlamak için bir dil sözlüğünün yüklenmesini gerektirir. Etkin dilleri değiştirebilir ve Ayarlar Ekranı → [Diller](#dil-seçenekleri) bölümünden sözlüklerini yükleyebilirsiniz. Sözlüklerden bazılarını yüklemeyi unutursanız, Traditional T9 yazmaya başladığınızda otomatik olarak yükleyecektir. Daha fazla bilgi için [aşağıya bakın](#dil-seçenekleri).
 
 #### Düşük Donanımlı Telefonlar için Notlar
 Sözlük yükleme, düşük donanımlı telefonları zorlayabilir. TT9 "lite" sürümü kullanılırken, bu durum Android'in işlemi sonlandırmasına neden olabilir. Yükleme 30 saniyeden fazla sürerse, şarj cihazını takın veya yükleme sırasında ekranın açık kalmasını sağlayın.
@@ -155,7 +155,7 @@ Desteklenen telefonlarda sesli giriși etkinleştirir. Daha fazla bilgi için [a
 #### Komut Listesi Tușu / Komut Paleti / (Varsayılan: ✱ basılı tut):
 Tüm komutları (veya işlevleri) içeren bir liste gösterir.
 
-Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş bulunur. Ancak, Geleneksel T9 daha fazla işlev sunar ve bu, tüm işlevler için tuș takımında yeterli yer olmadığı anlamına gelir. Komut Paleti bu sorunu çözer. Ek işlevleri (veya komutları) tuş kombinasyonlarıyla çağırmanızı sağlar.
+Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş bulunur. Ancak, Traditional T9 daha fazla işlev sunar ve bu, tüm işlevler için tuș takımında yeterli yer olmadığı anlamına gelir. Komut Paleti bu sorunu çözer. Ek işlevleri (veya komutları) tuş kombinasyonlarıyla çağırmanızı sağlar.
 
 İşte olası komutların listesi:
 - **Ayarlar Ekranını Göster (Varsayılan Kombinasyon: ✱ basılı tut, 1-tușu).** [Ayarlar Tușu](#ayarlar-tușu)'na basmakla aynıdır.
@@ -167,7 +167,7 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
 
 ## Sesli Giriş
-Sesli giriş işlevi, Gboard'a benzer şekilde konuşmayı metne dönüştürme olanağı sunar. Diğer klavyelerde olduğu gibi, Geleneksel T9 da kendi başına ses tanıma gerçekleştirmez, ancak telefonunuzdan bunu yapmasını ister.
+Sesli giriş işlevi, Gboard'a benzer şekilde konuşmayı metne dönüştürme olanağı sunar. Diğer klavyelerde olduğu gibi, Traditional T9 da kendi başına ses tanıma gerçekleştirmez, ancak telefonunuzdan bunu yapmasını ister.
 
 _Sesli Giriş tușu, bu işlevi desteklemeyen cihazlarda gizlidir._
 
@@ -211,7 +211,7 @@ _Ayarlar → Diller kısmından birden fazla dili etkinleştirdiyseniz, tuşta k
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
 Bazı durumlarda, Sanal Tuș Takımının çok fazla ekran alanı kapladığını, yazdıklarınızı veya bazı uygulama öğelerini göremediğinizi fark edebilirsiniz. Bu durumda, Ayarlar/Komut Paleti tușunu basılı tutarak veya Durum Çubuğunu (mevcut dil veya yazma modunun gösterildiği alan) sürükleyerek yeniden boyutlandırabilirsiniz. Yükseklik çok küçük hale geldiğinde, düzen otomatik olarak "İşlev tușları" veya yalnızca "Öneri listesi" olarak değișecektir. Yukarı doğru yeniden boyutlandırdığınızda ise düzen "Sanal Tuș Takımı"na geçer. Durum çubuğuna iki kez dokunarak hızlıca minimize veya maximize edebilirsiniz.
 
-_Geleneksel T9'u yeniden boyutlandırmak, aynı zamanda mevcut uygulamanın yeniden boyutlandırılmasına neden olur. Her ikisini birden yapmak hesaplama açısından oldukça maliyetlidir. Birçok telefonda, hatta üst düzey olanlarda bile titreme veya takılma olabilir._
+_Traditional T9'u yeniden boyutlandırmak, aynı zamanda mevcut uygulamanın yeniden boyutlandırılmasına neden olur. Her ikisini birden yapmak hesaplama açısından oldukça maliyetlidir. Birçok telefonda, hatta üst düzey olanlarda bile titreme veya takılma olabilir._
 
 ### Tuș Yüksekliğini Değiștirme
 Ekran üzerindeki tuș yüksekliğini de değiștirmek mümkündür. Bunu yapmak için Ayarlar → Görünüm → Ekran Üzeri Tuș Yüksekliği bölümüne gidin ve istediğiniz gibi ayarlayın.
@@ -242,7 +242,7 @@ Ayarlar ekranında, yazma dillerini seçebilir, tuș takımı kısayol tușları
 ### Ayarlara Nasıl Erişilir?
 
 #### Yöntem 1
-Geleneksel T9 kısayol simgesine tıklayın.
+Traditional T9 kısayol simgesine tıklayın.
 
 #### Yöntem 2 (dokunmatik ekran kullanarak)
 - TT9'u uyandırmak için bir metin veya sayı alanına dokunun.
@@ -282,7 +282,7 @@ Her şeyi seçiminize bakılmaksızın silmek için "Hepsini Sil" seçeneğini k
 Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yeniden yüklediğinizde geri yüklenecektir.
 
 #### Eklenen Kelimeler
-"Export" seçeneği, eklediğiniz tüm kelimeleri, eklenen emojiler dahil olmak üzere, tüm diller için bir CSV dosyasına dışa aktarmanıza olanak tanır. Ardından bu CSV dosyasını Geleneksel T9'u iyileştirmek için kullanabilirsiniz! GitHub'a gidip kelimeleri [yeni bir konu](https://github.com/sspanak/tt9/issues) veya [pull request](https://github.com/sspanak/tt9/pulls) açarak paylaşabilirsiniz. Gözden geçirildikten ve onaylandıktan sonra bir sonraki sürüme ekleneceklerdir.
+"Export" seçeneği, eklediğiniz tüm kelimeleri, eklenen emojiler dahil olmak üzere, tüm diller için bir CSV dosyasına dışa aktarmanıza olanak tanır. Ardından bu CSV dosyasını Traditional T9'u iyileştirmek için kullanabilirsiniz! GitHub'a gidip kelimeleri [yeni bir konu](https://github.com/sspanak/tt9/issues) veya [pull request](https://github.com/sspanak/tt9/pulls) açarak paylaşabilirsiniz. Gözden geçirildikten ve onaylandıktan sonra bir sonraki sürüme ekleneceklerdir.
 
 "Import" ile daha önce dışa aktardığınız bir CSV'yi içe aktarabilirsiniz. Ancak bazı kısıtlamalar vardır:
 - Yalnızca harflerden oluşan kelimeleri içe aktarabilirsiniz. Kesme işaretleri, kısa çizgiler, diğer noktalama işaretleri veya özel karakterler kabul edilmez.
@@ -293,7 +293,7 @@ Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yenide
 "Delete" seçeneğini kullanarak yanlış yazılmış veya sözlükte bulunmasını istemediğiniz kelimeleri arayıp silebilirsiniz.
 
 ### Uyumluluk Seçenekleri & Sorun Giderme
-Bazı uygulama veya cihazlar için, Geleneksel T9'un bunlarla daha iyi çalışmasını sağlayacak özel seçenekleri etkinleştirmek mümkündür. Her ayar ekranının sonunda Uyumluluk bölümünde bulabilirsiniz.
+Bazı uygulama veya cihazlar için, Traditional T9'un bunlarla daha iyi çalışmasını sağlayacak özel seçenekleri etkinleştirmek mümkündür. Her ayar ekranının sonunda Uyumluluk bölümünde bulabilirsiniz.
 
 #### Alternatif öneri kaydırma yöntemi
 _Ayarlar → Görünüm altında._
@@ -303,7 +303,7 @@ Bazı cihazlarda, Tahmin Modunda, listeyi sonuna kadar kaydıramayabilir veya so
 #### Her Zaman Üstte
 _Ayarlar → Görünüm altında._
 
-Bazı telefonlarda, özellikle Sonim XP3plus (XP3900) modelinde, Geleneksel T9 yazmaya başladığınızda görünmeyebilir veya yumuşak tuşlarla kısmen örtülebilir. Diğer durumlarda, etrafında beyaz çubuklar olabilir. Sorunu önlemek için "Her Zaman Üstte" seçeneğini etkinleştirin.
+Bazı telefonlarda, özellikle Sonim XP3plus (XP3900) modelinde, Traditional T9 yazmaya başladığınızda görünmeyebilir veya yumuşak tuşlarla kısmen örtülebilir. Diğer durumlarda, etrafında beyaz çubuklar olabilir. Sorunu önlemek için "Her Zaman Üstte" seçeneğini etkinleştirin.
 
 #### Tuş tekrarı koruması
 _Ayarlar → Tuş Takımı altında._
@@ -322,7 +322,7 @@ Bu, küçük boyutlu düzenlerden birini kullanıyorsanız gerçekleşir. Şu an
 - SoHBETe geri dönün ve emoji veya sticker butonuna tıklayın. Artık görünecekler.
 - Ayarlara geri dönüp ekran üzeri numpadi devre dışı bırakabilirsiniz. Emoji ve sticker panelleri, uygulamayı veya telefonu yeniden başlatana kadar erişilebilir durumda kalacaktır.
 
-#### Geleneksel T9 bazı uygulamalarda hemen görünmüyor
+#### Traditional T9 bazı uygulamalarda hemen görünmüyor
 Yazabileceğiniz bir uygulamayı açtıysanız ancak TT9 otomatik olarak görünmüyorsa, yazmaya başlayın, ortaya çıkacaktır. Alternatif olarak, [giriş modunu değiştirmek](#sonraki-giriş-modu-tușu-varsayılan-bas) veya [dil değiştirmek](#sonraki-dil-tușu-varsayılan-basılı-tut) için kısayol tuşlarına basmak TT9'u ortaya çıkarmaya yardımcı olabilir.
 
 Bazı cihazlarda TT9 görünmez kalabilir, ne yaparsanız yapın. Bu durumda, [Her Zaman Üstte](#her-zaman-üstte) seçeneğini etkinleştirmeniz gerekir.
@@ -334,10 +334,10 @@ Bu nedenlerden dolayı, Android standartlarına uygun kalmak için kontrol sizin
 #### Qin F21 Pro'da 2 veya 8 tuşuna basılı tutmak, sayı yazmak yerine sesi açıyor veya kısıyor
 Bu sorunu hafifletmek için Ayarlar → Görünüm yoluna gidin ve "Durum Simgesi"ni etkinleştirin. TT9, Qin F21'i otomatik olarak algılamalı ve ayarları etkinleştirmelidir, ancak otomatik algılama başarısız olursa veya simgeyi bir nedenle devre dışı bıraktıysanız, tüm tuşların düzgün çalışması için simgeyi etkinleştirmeniz gerekir.
 
-**Uzun açıklama:** Qin F21 Pro (ve muhtemelen F22), numara tuşlarına Ses Aç ve Ses Kıs işlevlerini atama olanağı sunan bir kısayol uygulamasına sahiptir. Varsayılan olarak, kısayol yöneticisi etkinleştirilmiştir ve 2 tuşuna basılı tutmak sesi artırır, 8 tuşuna basılı tutmak ise sesi kısar. Ancak, durum simgesi yoksa, yönetici etkin bir klavye olmadığını varsayar ve ses seviyesini ayarlar; bu durumda, Geleneksel T9 tuşu kullanamaz ve bir sayı yazamaz. Simgeyi etkinleştirmek, kısayol yöneticisini atlayarak her şeyin sorunsuz çalışmasını sağlar.
+**Uzun açıklama:** Qin F21 Pro (ve muhtemelen F22), numara tuşlarına Ses Aç ve Ses Kıs işlevlerini atama olanağı sunan bir kısayol uygulamasına sahiptir. Varsayılan olarak, kısayol yöneticisi etkinleştirilmiştir ve 2 tuşuna basılı tutmak sesi artırır, 8 tuşuna basılı tutmak ise sesi kısar. Ancak, durum simgesi yoksa, yönetici etkin bir klavye olmadığını varsayar ve ses seviyesini ayarlar; bu durumda, Traditional T9 tuşu kullanamaz ve bir sayı yazamaz. Simgeyi etkinleştirmek, kısayol yöneticisini atlayarak her şeyin sorunsuz çalışmasını sağlar.
 
 #### Xiaomi telefonlarda genel sorunlar
-Xiaomi, telefonlarında Geleneksel T9'un sanal ekran klavyesinin düzgün çalışmasını engelleyen bir dizi standart dışı izin tanıtmıştır. Daha spesifik olarak, "Ayarları Göster" ve "Kelime Ekle" tuşları, ilgili işlevlerini yerine getiremeyebilir. Bunu düzeltmek için TT9'a telefonunuzun ayarlarından "Ekran pop-up penceresi göster" ve "Arka planda çalışırken ekran pop-up penceresi göster" izinlerini vermelisiniz. [Bu rehber](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi), başka bir uygulama için nasıl yapılacağını anlatıyor.
+Xiaomi, telefonlarında Traditional T9'un sanal ekran klavyesinin düzgün çalışmasını engelleyen bir dizi standart dışı izin tanıtmıştır. Daha spesifik olarak, "Ayarları Göster" ve "Kelime Ekle" tuşları, ilgili işlevlerini yerine getiremeyebilir. Bunu düzeltmek için TT9'a telefonunuzun ayarlarından "Ekran pop-up penceresi göster" ve "Arka planda çalışırken ekran pop-up penceresi göster" izinlerini vermelisiniz. [Bu rehber](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi), başka bir uygulama için nasıl yapılacağını anlatıyor.
 
 "Açık bildirim" iznini vermek de şiddetle tavsiye edilir. Bu, Android 13'te tanıtılan "Bildirimler" iznine benzer. Neden gerektiği konusunda daha fazla bilgi için [yukarıya bakın](#android-13-veya-üstü-için-notlar).
 
@@ -347,11 +347,11 @@ _Xiaomi sorunları [bu GitHub sorununda](https://github.com/sspanak/tt9/issues/4
 Bu, Android 10'da Google'ın asla düzeltmediği [bilinen bir sorun](https://issuetracker.google.com/issues/158198432). TT9 tarafında hafifletmek mümkün değildir. Sesli Giriş işlemini durdurmak için birkaç saniye sessiz kalın. Android, herhangi bir konuşma algılamadığında mikrofonu otomatik olarak kapatır.
 
 #### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
-Geleneksel T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
+Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
 T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
 
-Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Geleneksel T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
+Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 
 #### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
 Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [Sol F4 tuşunu](#sol-f4-tuşu-sol-alt-köşedeki-tuş) basılı tutun.
