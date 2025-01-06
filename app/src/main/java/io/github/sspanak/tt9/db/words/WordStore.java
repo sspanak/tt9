@@ -118,13 +118,6 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	public void remove(Language language) {
-		if (checkOrNotify() && readOps.exists(sqlite.getDb(), language.getId())) {
-			DeleteOps.delete(sqlite.getDb(), language.getId());
-		}
-	}
-
-
 	public void removeCustomWord(Language language, String word) {
 		if (language == null || language instanceof NullLanguage || !checkOrNotify()) {
 			return;
