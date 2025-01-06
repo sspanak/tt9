@@ -1,22 +1,22 @@
-# T9 Tradizionale
-Questo manuale spiega come configurare e utilizzare T9 Tradizionale in diversi scenari. Per le istruzioni di installazione e le informazioni sulle versioni "lite" e "full", consultare la [Guida all’installazione](https://github.com/sspanak/tt9/blob/master/docs/installation.md) su GitHub. Infine, è possibile dare un’occhiata alla [pagina principale del repository](https://github.com/sspanak/tt9), che include tutto il codice sorgente, una guida per sviluppatori, la politica sulla privacy e la documentazione supplementare.
+# Traditional T9
+Questo manuale spiega come configurare e utilizzare Traditional T9 in diversi scenari. Per le istruzioni di installazione e le informazioni sulle versioni "lite" e "full", consultare la [Guida all’installazione](https://github.com/sspanak/tt9/blob/master/docs/installation.md) su GitHub. Infine, è possibile dare un’occhiata alla [pagina principale del repository](https://github.com/sspanak/tt9), che include tutto il codice sorgente, una guida per sviluppatori, la politica sulla privacy e la documentazione supplementare.
 
 ## Configurazione iniziale
-Dopo l’installazione, per prima cosa bisogna abilitare T9 Tradizionale come tastiera Android. Per farlo, cliccare sull'icona del launcher. Se è necessaria un'azione, tutte le opzioni tranne Configurazione Iniziale saranno disabilitate e apparirà l'etichetta: "TT9 è disabilitato". Andare su Configurazione Iniziale e abilitarlo.
+Dopo l’installazione, per prima cosa bisogna abilitare Traditional T9 come tastiera Android. Per farlo, cliccare sull'icona del launcher. Se è necessaria un'azione, tutte le opzioni tranne Configurazione Iniziale saranno disabilitate e apparirà l'etichetta: "TT9 è disabilitato". Andare su Configurazione Iniziale e abilitarlo.
 
 _Se l'icona non appare subito dopo l’installazione, riavviare il telefono, e dovrebbe apparire. Ciò è dovuto al tentativo di Android di risparmiare batteria non aggiornando la lista delle app appena installate._
 
 ### Utilizzo su telefoni solo touchscreen
 Sui dispositivi touchscreen, si consiglia vivamente di disabilitare il correttore ortografico di sistema. Non può essere usato quando si digita con i tasti numerici, quindi è possibile risparmiare batteria disabilitandolo.
 
-Un altro problema è che potrebbe mostrare un fastidioso popup "Aggiungi Parola", che aggiunge parole alla tastiera di sistema predefinita (solitamente, Gboard) e non al dizionario di T9 Tradizionale. Di nuovo, per evitare tali situazioni, il correttore ortografico di sistema deve essere disabilitato.
+Un altro problema è che potrebbe mostrare un fastidioso popup "Aggiungi Parola", che aggiunge parole alla tastiera di sistema predefinita (solitamente, Gboard) e non al dizionario di Traditional T9. Di nuovo, per evitare tali situazioni, il correttore ortografico di sistema deve essere disabilitato.
 
 Se è necessario eseguire questo passaggio, l'opzione "Correttore ortografico di sistema" nella schermata Configurazione Iniziale sarà attiva. Cliccarci per disabilitare il componente di sistema. Se tale opzione non è presente, non è necessario fare altro.
 
 Dopo aver completato la configurazione, dare un'occhiata alla sezione [Tastierino su Schermo](#tastierino-su-schermo) per ulteriori suggerimenti e trucchi.
 
 ### Abilitare la Modalità Predittiva
-La Modalità Predittiva richiede che venga caricato un dizionario di lingua per fornire suggerimenti di parole. È possibile attivare le lingue abilitate e caricare i loro dizionari da Schermata Impostazioni → [Lingue](#opzioni-di-lingua). In caso di dimenticanza, T9 Tradizionale caricherà automaticamente il dizionario quando si inizia a digitare. Per ulteriori informazioni, [vedi sotto](#opzioni-di-lingua).
+La Modalità Predittiva richiede che venga caricato un dizionario di lingua per fornire suggerimenti di parole. È possibile attivare le lingue abilitate e caricare i loro dizionari da Schermata Impostazioni → [Lingue](#opzioni-di-lingua). In caso di dimenticanza, Traditional T9 caricherà automaticamente il dizionario quando si inizia a digitare. Per ulteriori informazioni, [vedi sotto](#opzioni-di-lingua).
 
 #### Note per telefoni di fascia bassa
 Il caricamento del dizionario può saturare i telefoni di fascia bassa. Quando si usa la versione "lite" di TT9, ciò può causare l'interruzione dell’operazione da parte di Android. Se il caricamento dura più di 30 secondi, collegare il caricatore o assicurarsi che lo schermo rimanga acceso durante il caricamento.
@@ -155,7 +155,7 @@ Attiva l'input vocale sui telefoni che lo supportano. Vedere [sotto](#input-voca
 #### Tasto Elenco Comandi / aka Tavolozza Comandi / (Default: tenere premuto ✱):
 Mostra un elenco di tutti i comandi (o funzioni).
 
-Molti telefoni hanno solo due o tre pulsanti "liberi" che possono essere usati come tasti rapidi. Tuttavia, T9 Tradizionale ha molte più funzioni, il che significa che semplicemente non c’è spazio per tutte sul tastierino. La Tavolozza Comandi risolve questo problema. Permette di invocare le funzioni aggiuntive (o comandi) usando combinazioni di tasti.
+Molti telefoni hanno solo due o tre pulsanti "liberi" che possono essere usati come tasti rapidi. Tuttavia, Traditional T9 ha molte più funzioni, il che significa che semplicemente non c’è spazio per tutte sul tastierino. La Tavolozza Comandi risolve questo problema. Permette di invocare le funzioni aggiuntive (o comandi) usando combinazioni di tasti.
 
 Di seguito è riportato un elenco dei comandi possibili:
 - **Mostra la schermata delle impostazioni (Combinazione predefinita: tenere premuto ✱, tasto 1).** Uguale a premere [Mostra Impostazioni](#tasto-mostra-impostazioni).
@@ -167,7 +167,7 @@ Di seguito è riportato un elenco dei comandi possibili:
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
 
 ## Input Vocale
-La funzione di input vocale consente l’inserimento vocale, simile a Gboard. Come tutte le altre tastiere, T9 Tradizionale non esegue il riconoscimento vocale autonomamente, ma richiede al telefono di farlo.
+La funzione di input vocale consente l’inserimento vocale, simile a Gboard. Come tutte le altre tastiere, Traditional T9 non esegue il riconoscimento vocale autonomamente, ma richiede al telefono di farlo.
 
 _Il tasto Input Vocale è nascosto sui dispositivi che non lo supportano._
 
@@ -211,7 +211,7 @@ _Il tasto mostrerà una piccola icona a forma di globo quando hai abilitato più
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
 A volte potresti trovare che il Tastierino Virtuale occupi troppo spazio, impedendoti di vedere cosa stai digitando o alcuni elementi dell’app. Se è così, puoi ridimensionarlo tenendo premuto e trascinando il tasto Impostazioni/Tavolozza Comandi o trascinando la Barra di Stato (dove è visualizzata la lingua corrente o modalità di digitazione). Quando l’altezza diventa troppo ridotta, il layout cambierà automaticamente a "Tasti Funzione" o "Solo Lista Suggerimenti". Analogamente, ingrandendo il layout tornerà al "Tastierino Virtuale". È anche possibile fare doppio tap sulla barra di stato per minimizzare o massimizzare istantaneamente.
 
-_Ridimensionare T9 Tradizionale ridimensiona anche l'applicazione corrente, ma questa operazione è molto impegnativa. Potrebbe causare sfarfallii o rallentamenti su molti telefoni, anche di fascia alta._
+_Ridimensionare Traditional T9 ridimensiona anche l'applicazione corrente, ma questa operazione è molto impegnativa. Potrebbe causare sfarfallii o rallentamenti su molti telefoni, anche di fascia alta._
 
 ### Modificare l'Altezza dei Tasti
 È anche possibile modificare l'altezza dei tasti su schermo. Vai su Impostazioni → Aspetto → Altezza Tasti su Schermo e regolala come desideri.
@@ -242,7 +242,7 @@ Nella schermata delle impostazioni, puoi scegliere le lingue per la digitazione,
 ### Come accedere alle Impostazioni?
 
 #### Metodo 1
-Clicca sull'icona di avvio di T9 Tradizionale.
+Clicca sull'icona di avvio di Traditional T9.
 
 #### Metodo 2 (usando un touchscreen)
 - Tocca un campo di testo o numero per attivare TT9.
@@ -282,7 +282,7 @@ Per cancellare tutto, indipendentemente dalla selezione, usa "Cancella Tutto".
 In tutti i casi, le parole aggiunte personalizzate verranno conservate e ripristinate una volta ricaricato il dizionario.
 
 #### Parole Aggiunte
-L'opzione "Esporta" ti permette di esportare tutte le parole aggiunte, per tutte le lingue, inclusi eventuali emoji, in un file CSV. Successivamente, puoi utilizzare il file CSV per migliorare T9 Tradizionale! Vai su GitHub e condividi le parole in una [nuova issue](https://github.com/sspanak/tt9/issues) o una [pull request](https://github.com/sspanak/tt9/pulls). Dopo la revisione e l’approvazione, saranno incluse nella prossima versione.
+L'opzione "Esporta" ti permette di esportare tutte le parole aggiunte, per tutte le lingue, inclusi eventuali emoji, in un file CSV. Successivamente, puoi utilizzare il file CSV per migliorare Traditional T9! Vai su GitHub e condividi le parole in una [nuova issue](https://github.com/sspanak/tt9/issues) o una [pull request](https://github.com/sspanak/tt9/pulls). Dopo la revisione e l’approvazione, saranno incluse nella prossima versione.
 
 Con "Importa", puoi importare un CSV precedentemente esportato. Tuttavia, ci sono alcune restrizioni:
 - È possibile importare solo parole composte da lettere. Apostrofi, trattini, altri segni di punteggiatura o caratteri speciali non sono ammessi.
@@ -293,7 +293,7 @@ Con "Importa", puoi importare un CSV precedentemente esportato. Tuttavia, ci son
 Con "Elimina", puoi cercare e cancellare parole errate o altre che non vuoi nel dizionario.
 
 ### Opzioni di Compatibilità & Risoluzione dei Problemi
-Per alcune applicazioni o dispositivi, è possibile abilitare opzioni speciali, che miglioreranno la compatibilità con T9 Tradizionale. Puoi trovarle alla fine di ciascuna schermata di impostazioni, nella sezione Compatibilità.
+Per alcune applicazioni o dispositivi, è possibile abilitare opzioni speciali, che miglioreranno la compatibilità con Traditional T9. Puoi trovarle alla fine di ciascuna schermata di impostazioni, nella sezione Compatibilità.
 
 #### Metodo Alternativo di Scorrimento dei Suggerimenti
 _In: Impostazioni → Aspetto._
@@ -303,7 +303,7 @@ Su alcuni dispositivi, in Modalità Predittiva, potrebbe non essere possibile sc
 #### Sempre in Primo Piano
 _In: Impostazioni → Aspetto._
 
-Su alcuni telefoni, in particolare Sonim XP3plus (XP3900), T9 Tradizionale potrebbe non apparire quando inizi a digitare, oppure potrebbe essere parzialmente coperto dai tasti software. In altri casi, potrebbero apparire delle barre bianche attorno alla tastiera. Il problema può verificarsi in un'applicazione specifica o in tutte. Per evitarlo, abilita l'opzione "Sempre in Primo Piano".
+Su alcuni telefoni, in particolare Sonim XP3plus (XP3900), Traditional T9 potrebbe non apparire quando inizi a digitare, oppure potrebbe essere parzialmente coperto dai tasti software. In altri casi, potrebbero apparire delle barre bianche attorno alla tastiera. Il problema può verificarsi in un'applicazione specifica o in tutte. Per evitarlo, abilita l'opzione "Sempre in Primo Piano".
 
 #### Protezione dalla Ripetizione dei Tasti
 _In: Impostazioni → Tastierino._
@@ -322,7 +322,7 @@ Questo accade se stai utilizzando uno dei layout di dimensioni ridotte. Al momen
 - Torna alla chat e clicca sul pulsante emoji o sticker. Ora appariranno.
 - Puoi ora tornare alle impostazioni e disabilitare il tastierino su schermo. I pannelli degli emoji e degli sticker rimarranno accessibili fino a quando non riavvii l'app o il telefono.
 
-#### T9 Tradizionale non appare immediatamente in alcune applicazioni
+#### Traditional T9 non appare immediatamente in alcune applicazioni
 Se hai aperto un'applicazione in cui puoi scrivere, ma TT9 non appare automaticamente, inizia semplicemente a digitare e apparirà. In alternativa, premere i tasti di scelta rapida per cambiare [la modalità di input](#tasto-modalità-di-input-successiva-default-premere) o [la lingua](#tasto-lingua-successiva-default-tenere-premuto) può anche far apparire TT9, quando è nascosto.
 
 Su alcuni dispositivi, TT9 potrebbe rimanere invisibile, indipendentemente da ciò che fai. In questi casi, devi abilitare [Sempre in Primo Piano](#sempre-in-primo-piano).
@@ -334,10 +334,10 @@ Per questi motivi, per seguire gli standard attesi di Android, il controllo è n
 #### Sul Qin F21 Pro, tenendo premuto il tasto 2 o il tasto 8 si alza o abbassa il volume invece di digitare un numero
 Per attenuare questo problema, vai su Impostazioni → Aspetto e abilita "Icona di Stato". TT9 dovrebbe rilevare il Qin F21 e abilitare le impostazioni automaticamente, ma in caso di fallimento del rilevamento automatico, o se hai disabilitato l'icona per qualche motivo, devi attivarla per consentire il corretto funzionamento di tutti i tasti.
 
-**Spiegazione lunga.** Il Qin F21 Pro (e possibilmente anche il F22) ha un'applicazione di tasti rapidi che consente di assegnare le funzioni Volume Su e Volume Giù ai tasti numerici. Di default, il gestore dei tasti rapidi è abilitato, e tenendo premuto il tasto 2 il volume aumenta, mentre tenendo premuto l'8 il volume diminuisce. Tuttavia, quando non c'è un'icona di stato, il gestore presuppone che non sia attiva alcuna tastiera e regola il volume, anziché lasciare che T9 Tradizionale gestisca il tasto e digiti un numero. Quindi, abilitare l'icona bypassa semplicemente il gestore dei tasti rapidi e tutto funziona correttamente.
+**Spiegazione lunga.** Il Qin F21 Pro (e possibilmente anche il F22) ha un'applicazione di tasti rapidi che consente di assegnare le funzioni Volume Su e Volume Giù ai tasti numerici. Di default, il gestore dei tasti rapidi è abilitato, e tenendo premuto il tasto 2 il volume aumenta, mentre tenendo premuto l'8 il volume diminuisce. Tuttavia, quando non c'è un'icona di stato, il gestore presuppone che non sia attiva alcuna tastiera e regola il volume, anziché lasciare che Traditional T9 gestisca il tasto e digiti un numero. Quindi, abilitare l'icona bypassa semplicemente il gestore dei tasti rapidi e tutto funziona correttamente.
 
 #### Problemi generali sui telefoni Xiaomi
-Xiaomi ha introdotto diverse autorizzazioni non standard sui loro telefoni, che impediscono il corretto funzionamento della tastiera virtuale su schermo di T9 Tradizionale. Più precisamente, i tasti "Mostra Impostazioni" e "Aggiungi Parola" potrebbero non svolgere le rispettive funzioni. Per risolvere questo problema, devi concedere a TT9 i permessi di "Visualizza finestra pop-up" e "Visualizza finestra pop-up in esecuzione in background" dalle impostazioni del telefono. [Questa guida](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) per un'altra applicazione spiega come fare.
+Xiaomi ha introdotto diverse autorizzazioni non standard sui loro telefoni, che impediscono il corretto funzionamento della tastiera virtuale su schermo di Traditional T9. Più precisamente, i tasti "Mostra Impostazioni" e "Aggiungi Parola" potrebbero non svolgere le rispettive funzioni. Per risolvere questo problema, devi concedere a TT9 i permessi di "Visualizza finestra pop-up" e "Visualizza finestra pop-up in esecuzione in background" dalle impostazioni del telefono. [Questa guida](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) per un'altra applicazione spiega come fare.
 
 È anche altamente raccomandato concedere l'autorizzazione per la "Notifica permanente". Questa è simile all'autorizzazione per le "Notifiche" introdotta in Android 13. Vedi [sopra](#note-per-android-13-o-versioni-successive) per ulteriori informazioni sul motivo per cui è necessaria.
 
@@ -347,11 +347,11 @@ _I problemi di Xiaomi sono stati discussi in [questa issue su GitHub](https://gi
 È [un problema noto](https://issuetracker.google.com/issues/158198432) su Android 10 che Google non ha mai risolto. Non è possibile attenuarlo dal lato TT9. Per fermare l'operazione di Input Vocale, resta in silenzio per qualche secondo. Android spegne il microfono automaticamente quando non rileva alcun suono.
 
 #### Ho bisogno di usare un layout QWERTY (solo dispositivi touchscreen)
-T9 Tradizionale è una tastiera T9 e, in quanto tale, non fornisce un layout simile al QWERTY.
+Traditional T9 è una tastiera T9 e, in quanto tale, non fornisce un layout simile al QWERTY.
 
 Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri il tasto F4 sinistro per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
 
-La maggior parte delle altre tastiere permette di tornare a T9 Tradizionale tenendo premuta la barra spaziatrice o il tasto "cambia lingua". Controlla il rispettivo manuale per ulteriori informazioni.
+La maggior parte delle altre tastiere permette di tornare a Traditional T9 tenendo premuta la barra spaziatrice o il tasto "cambia lingua". Controlla il rispettivo manuale per ulteriori informazioni.
 
 #### Non riesco a cambiare lingua su un telefono touchscreen
 Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto sinistro F4](#tasto-sinistro-f4-il-tasto-in-basso-a-sinistra) per cambiare lingua.
