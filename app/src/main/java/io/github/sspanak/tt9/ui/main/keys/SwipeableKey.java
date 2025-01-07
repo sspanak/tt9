@@ -29,7 +29,7 @@ abstract public class SwipeableKey extends SoftKey {
 
 	private int swipeCount = 0;
 	private long swipeProcessingTime = 0;
-	private long swipeProcessingTimeAverage = 40;
+	private long swipeProcessingTimeAverage = 50;
 
 
 	public SwipeableKey(Context context) {
