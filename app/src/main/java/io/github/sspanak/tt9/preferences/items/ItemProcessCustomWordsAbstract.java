@@ -20,9 +20,8 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 
 		AbstractFileProcessor processor = getProcessor();
 		processor.setFailureHandler(() -> onFinishProcessing(null));
-		processor.setStartHandler(() -> activity.runOnUiThread(this::setLoadingStatus));
+		processor.setStartHandler(() -> activity.runOnUiThread(this::setBusy));
 		processor.setSuccessHandler(this::onFinishProcessing);
-		refreshStatus();
 	}
 
 
@@ -32,9 +31,9 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 	public ItemProcessCustomWordsAbstract refreshStatus() {
 		if (item != null) {
 			if (getProcessor().isRunning()) {
-				setLoadingStatus();
+				setBusy();
 			} else {
-				setReadyStatus();
+				enable();
 			}
 		}
 		return this;
@@ -43,9 +42,9 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
-		setLoadingStatus();
+		setBusy();
 		if (!onStartProcessing()) {
-			setReadyStatus();
+			setAndNotifyReady();
 		}
 		return true;
 	}
@@ -56,7 +55,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 
 	protected void onFinishProcessing(String fileName) {
 		activity.runOnUiThread(() -> {
-			setReadyStatus();
+			setAndNotifyReady();
 
 			if (fileName == null) {
 				DictionaryProgressNotification.getInstance(activity).showError(
@@ -80,7 +79,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 	abstract protected String getSuccessTitle();
 
 
-	protected void setLoadingStatus() {
+	protected void setBusy() {
 		if (onStart != null) onStart.run();
 		disable();
 
@@ -89,8 +88,7 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 		DictionaryProgressNotification.getInstance(activity).showLoadingMessage(loadingMessage, "");
 	}
 
-
-	public void setReadyStatus() {
+	protected void setAndNotifyReady() {
 		enable();
 		if (onFinish != null) onFinish.run();
 	}

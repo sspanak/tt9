@@ -82,9 +82,9 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	}
 
 	@Override
-	public void setReadyStatus() {
+	public void enable() {
 		item.setSummary(R.string.dictionary_import_custom_words_summary);
-		super.setReadyStatus();
+		super.enable();
 	}
 
 	void setBrowseFilesLauncher(ActivityResultLauncher<Intent> launcher) {
