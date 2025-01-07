@@ -35,16 +35,14 @@ class ItemLoadDictionary extends ItemClickable {
 		this.progressBar = DictionaryLoadingBar.getInstance(context);
 		this.onStart = onStart;
 		this.onFinish = onFinish;
-
-		refreshStatus();
 	}
 
 
 	public void refreshStatus() {
 		if (loader.isRunning()) {
-			setLoadingStatus();
+			setBusy();
 		} else {
-			setReadyStatus();
+			setReady();
 		}
 	}
 
@@ -54,12 +52,15 @@ class ItemLoadDictionary extends ItemClickable {
 		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 		if (progressBar.isCancelled()) {
-			setReadyStatus();
+			setReady();
+			onFinish.run();
 		} else if (progressBar.isFailed()) {
-			setReadyStatus();
+			setReady();
+			onFinish.run();
 			UI.toastFromAsync(activity, progressBar.getMessage());
 		} else if (!progressBar.inProgress()) {
-			setReadyStatus();
+			setReady();
+			onFinish.run();
 			UI.toastFromAsync(activity, R.string.dictionary_loaded);
 		}
 	}
@@ -69,25 +70,25 @@ class ItemLoadDictionary extends ItemClickable {
 	protected boolean onClick(Preference p) {
 		ArrayList<Language> languages = LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds());
 
-		setLoadingStatus();
+		setBusy();
 		if (!loader.load(activity, languages)) {
 			loader.stop();
-			setReadyStatus();
+			setReady();
+			onFinish.run();
 		}
 
 		return true;
 	}
 
 
-	private void setLoadingStatus() {
+	private void setBusy() {
 		loader.setOnStatusChange(this::onLoadingStatusChange);
 		onStart.run();
 		item.setTitle(activity.getString(R.string.dictionary_cancel_load));
 	}
 
 
-	private void setReadyStatus() {
-		onFinish.run();
+	private void setReady() {
 		item.setTitle(activity.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}

@@ -23,8 +23,8 @@ class ItemExportCustomWords extends ItemExportAbstract {
 		return CustomWordsExporter.getInstance().run(activity);
 	}
 
-	public void setReadyStatus() {
-		super.setReadyStatus();
+	public void enable() {
+		super.enable();
 		item.setSummary(activity.getString(
 			R.string.dictionary_export_custom_words_summary,
 			CustomWordsExporter.getInstance().getOutputDir()

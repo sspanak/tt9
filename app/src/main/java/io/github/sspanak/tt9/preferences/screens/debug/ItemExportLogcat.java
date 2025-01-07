@@ -28,7 +28,7 @@ public class ItemExportLogcat extends ItemExportAbstract {
 	protected void onFinishProcessing(String outputFile) {
 		activity.runOnUiThread(() -> {
 			DictionaryProgressNotification.getInstance(activity).hide();
-			setReadyStatus();
+			setAndNotifyReady();
 
 			if (outputFile == null) {
 				item.setSummary("Export failed");

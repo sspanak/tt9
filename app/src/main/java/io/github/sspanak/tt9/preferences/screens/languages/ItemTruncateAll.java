@@ -25,8 +25,6 @@ class ItemTruncateAll extends ItemClickable {
 		this.deleter = DictionaryDeleter.getInstance(activity);
 		this.onStart = onStart;
 		this.onFinish = onFinish;
-
-		refreshStatus();
 	}
 
 

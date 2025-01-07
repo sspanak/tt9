@@ -35,8 +35,8 @@ class ItemExportDictionary extends ItemExportAbstract {
 			.run(activity);
 	}
 
-	public void setReadyStatus() {
-		super.setReadyStatus();
+	public void enable() {
+		super.enable();
 		item.setSummary("");
 	}
 }
