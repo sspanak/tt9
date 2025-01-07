@@ -292,7 +292,7 @@ Avec "Importer", vous pouvez importer un fichier CSV précédemment exporté. Ce
 
 L'option "Supprimer" vous permet de rechercher et de supprimer les mots mal orthographiés ou ceux que vous ne souhaitez plus dans le dictionnaire.
 
-### Options de compatibilité et dépannage
+### Options de compatibilité
 Pour certaines applications ou appareils, il est possible d'activer des options spéciales, qui permettront à Traditional T9 de mieux fonctionner avec eux. Vous les trouverez à la fin de chaque écran de paramètres, dans la section Compatibilité.
 
 #### Méthode alternative de défilement des suggestions
@@ -346,10 +346,53 @@ _Les problèmes Xiaomi ont été discutés dans [ce problème GitHub](https://gi
 #### La saisie vocale prend beaucoup de temps pour s'arrêter
 C'est [un problème connu](https://issuetracker.google.com/issues/158198432) sous Android 10 que Google n'a jamais corrigé. Il est impossible de le résoudre côté TT9. Pour arrêter l'opération de saisie vocale, restez silencieux pendant quelques secondes. Android éteint automatiquement le microphone lorsqu'il ne détecte aucune parole.
 
+## Questions Fréquemment Posées
+
+#### Ne peux-tu pas ajouter la fonctionnalité X ?
+Non.
+
+Chacun a ses préférences. Certains veulent des touches plus grandes, d'autres dans un ordre différent, certains veulent une touche de raccourci pour taper ".com", et d'autres regrettent leur ancien téléphone ou clavier. Mais veuillez comprendre que je fais ce travail bénévolement sur mon temps libre. Il est impossible de satisfaire des milliers de demandes différentes, dont certaines se contredisent même.
+
+Henry Ford a dit un jour : "Le client peut choisir n'importe quelle couleur, tant que c'est noir." De la même manière, Traditional T9 est simple, efficace et gratuit, mais vous obtenez ce qui est proposé.
+
+#### Ne peux-tu pas le rendre plus similaire à Sony Ericsson ou Xperia, Nokia C2, Samsung, ou un autre clavier logiciel ?
+Non.
+
+Traditional T9 n'est pas conçu pour être un substitut ou une application clonée. Il possède un design unique, principalement inspiré des Nokia 3310 et 6303i. Et bien qu'il capture l'essence des classiques, il offre une expérience propre qui ne répliquera exactement aucun appareil.
+
+#### Tu devrais copier Touchpal, c'est le meilleur clavier du monde !
+Non, je ne devrais pas. Voir les points précédents.
+
+Touchpal était autrefois le meilleur clavier en 2015 lorsqu'il n'avait pas de réelle concurrence. Cependant, les choses ont changé depuis. Voici une comparaison entre Traditional T9 et Touchpal :
+
+_**Traditional T9**_
+  - Respecte votre vie privée.
+  - Ne contient pas de publicités et est gratuit.
+  - Compatible avec un large éventail d'appareils : téléphones basiques et téléviseurs avec claviers physiques, ainsi que smartphones et tablettes uniquement tactiles.
+  - Offre un véritable clavier T9 à 12 touches adapté à chaque langue.
+  - Fournit des suggestions de mots améliorées. Par exemple, si vous essayez de taper des expressions textonymes comme "go in", il apprendra à ne pas suggérer "go go" ou "in in", mais l'expression correcte que vous aviez en tête.
+  - Tout ce que vous tapez reste sur votre téléphone. Aucune information n'est envoyée ailleurs.
+  - Est open source, vous permettant de consulter tout le code source et les dictionnaires, de contribuer au projet pour l'améliorer (de nombreux utilisateurs ont aidé à corriger des bugs et à ajouter de nouvelles langues et traductions) ou même de créer un mod basé sur vos préférences et votre vision.
+  - A un design propre et très lisible qui s'intègre au système. Il n'y a pas d'éléments inutiles pour vous distraire, vous permettant ainsi de vous concentrer sur la saisie.
+  - La vitesse de chargement du dictionnaire est lente.
+
+_**Touchpal**_
+  - Demande agressivement l'accès à tout votre appareil et à vos contacts ; écrit des fichiers aléatoires partout ; il a finalement été banni du Play Store parce qu'il se comportait comme un virus.
+  - Rempli de publicités.
+  - Ne prend en charge que les appareils à écran tactile.
+  - N'est pas un vrai clavier T9. Il propose un agencement T9 uniquement pour certaines langues. De plus, certains agencements sont incorrects (par exemple, le bulgare manque d'une lettre et certaines lettres sont mal placées entre la touche 8 et la touche 9).
+  - Lors de la saisie de textonymes à la suite, il ne suggère que le dernier mot sélectionné. Par exemple, si vous essayez de taper "go in", il affichera soit "go go" soit "in in".
+  - Les suggestions basées sur le cloud pourraient améliorer la précision. Cependant, pour que cela fonctionne, vous et tous les autres utilisateurs devez envoyer tout ce que vous tapez aux serveurs de Touchpal pour traitement.
+  - Code fermé. Il n'y a aucun moyen de vérifier ce qu'il fait en arrière-plan.
+  - Inclut de nombreux thèmes, couleurs, GIFs et autres distractions sans rapport avec la saisie.
+  - La vitesse de chargement du dictionnaire est rapide. Touchpal remporte ce point.
+
+Si vous n'êtes pas d'accord ou souhaitez expliquer votre point de vue, rejoignez [la discussion ouverte](https://github.com/sspanak/tt9/issues/647) sur GitHub. N'oubliez pas de rester respectueux envers les autres. Les messages haineux ne seront pas tolérés.
+
 #### J'ai besoin d'utiliser un clavier QWERTY (uniquement pour les appareils tactiles)
 Traditional T9 est un clavier T9 et en tant que tel, il ne propose pas de disposition de type QWERTY.
 
-Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, balayez la touche F4 gauche pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
+Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, glisser vers le haut la touche F4 Gauche pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
 
 La plupart des autres claviers permettent de revenir à Traditional T9 en maintenant la barre d'espace ou la touche « changer de langue ». Consultez la documentation ou le manuel respectif pour plus d'informations.
 

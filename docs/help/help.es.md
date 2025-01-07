@@ -292,7 +292,7 @@ Con "Importar", puedes importar un CSV exportado previamente. Sin embargo, hay a
 
 Con la opción "Eliminar", puedes buscar y eliminar palabras mal escritas u otras que no deseas en el diccionario.
 
-### Opciones de compatibilidad y resolución de problemas
+### Opciones de compatibilidad
 Para varias aplicaciones o dispositivos, es posible habilitar opciones especiales que harán que Traditional T9 funcione mejor con ellos. Puedes encontrarlas al final de cada pantalla de configuración, en la sección Compatibilidad.
 
 #### Método alternativo de desplazamiento de sugerencias
@@ -346,10 +346,54 @@ _Los problemas con Xiaomi se han discutido en [este issue de GitHub](https://git
 #### La entrada por voz tarda mucho en detenerse
 Es [un problema conocido](https://issuetracker.google.com/issues/158198432) en Android 10 que Google nunca solucionó. No es posible mitigar este problema en el lado de TT9. Para detener la operación de Entrada por Voz, permanece en silencio durante un par de segundos. Android apaga el micrófono automáticamente cuando no puede detectar ningún habla.
 
+## Preguntas Frecuentes
+
+#### ¿No puedes añadir la función X?
+No.
+
+Cada persona tiene sus propias preferencias. Algunos quieren teclas más grandes, otros un orden diferente, algunos quieren una tecla de acceso rápido para escribir ".com" y otros extrañan su antiguo teléfono o teclado. Pero por favor, entiende que hago esto voluntariamente en mi tiempo libre. Es imposible cumplir con miles de solicitudes diferentes, algunas de las cuales incluso se contradicen entre sí.
+
+Henry Ford dijo una vez: "Puede ser de cualquier color que el cliente quiera, siempre que sea negro." De manera similar, Traditional T9 es simple, efectivo y gratuito, pero obtienes lo que ves.
+
+#### ¿No puedes hacer que se parezca más a Sony Ericsson o Xperia, Nokia C2, Samsung u otro teclado de software?
+No.
+
+Traditional T9 no está diseñado para ser un reemplazo o una aplicación clon. Tiene un diseño único, inspirado principalmente en los Nokia 3310 y 6303i. Y aunque captura la esencia de los clásicos, ofrece una experiencia propia que no replicará exactamente ningún dispositivo.
+
+#### ¡Deberías copiar Touchpal, es el mejor teclado del mundo!
+No, no debería. Consulta los puntos anteriores.
+
+Touchpal solía ser el mejor teclado en 2015 cuando no tenía competencia real. Sin embargo, desde entonces las cosas han cambiado. Consulta la comparación entre Traditional T9 y Touchpal:
+
+_**Traditional T9**_
+  - Respeta tu privacidad.
+  - No contiene anuncios y es gratuito.
+  - Es compatible con una amplia variedad de dispositivos: teléfonos básicos y televisores con teclados físicos, así como smartphones y tablets solo con pantalla táctil.
+  - Ofrece un diseño T9 de 12 teclas adecuado para cada idioma.
+  - Mejora las sugerencias de palabras. Por ejemplo, si intentas escribir expresiones textónimas como "go in", aprenderá a no sugerir "go go" o "in in", sino la expresión significativa que tenías en mente.
+  - Todo lo que escribes permanece en tu teléfono. No se envía ninguna información a ningún servidor.
+  - Es de código abierto, lo que te permite revisar todo el código fuente y los diccionarios, contribuir al proyecto para mejorarlo (muchos usuarios han ayudado corrigiendo errores y agregando nuevos idiomas y traducciones) o incluso crear un mod según tus preferencias y visión.
+  - Tiene un diseño limpio y altamente legible que se integra con el sistema. No hay elementos innecesarios que distraigan, permitiéndote concentrarte en escribir.
+  - La velocidad de carga del diccionario es lenta.
+
+_**Touchpal**_
+  - Solicita acceso a todo tu dispositivo y contactos de manera agresiva; escribe archivos aleatorios en diferentes lugares; finalmente, fue prohibido en la Play Store porque actuaba como un virus.
+  - Está lleno de anuncios.
+  - Solo es compatible con dispositivos con pantalla táctil.
+  - No es un teclado T9 real. Solo ofrece un diseño T9 en algunos idiomas. Además, algunos diseños son incorrectos (por ejemplo, en búlgaro falta una letra y algunas están intercambiadas entre la tecla 8 y la tecla 9).
+  - Al escribir textónimos seguidos, solo sugiere la última palabra que seleccionaste. Por ejemplo, al intentar escribir "go in", mostrará "go go" o "in in".
+  - Las sugerencias basadas en la nube podrían mejorar la precisión. Sin embargo, para que esto funcione, tú y todos los demás usuarios deben enviar todo lo que escriben a los servidores de Touchpal para su procesamiento.
+  - Código cerrado. No hay forma de comprobar qué hace en segundo plano.
+  - Incluye muchos temas, colores, GIFs y otras distracciones que no tienen relación con la escritura.
+  - La velocidad de carga del diccionario es rápida. Touchpal gana en este aspecto.
+
+Si no estás de acuerdo o quieres explicar tu punto de vista, únete a [la discusión abierta](https://github.com/sspanak/tt9/issues/647) en GitHub. Solo recuerda ser respetuoso con los demás. No se tolerarán publicaciones de odio.
+
+
 #### Necesito usar un diseño QWERTY (solo dispositivos con pantalla táctil)
 Traditional T9 es un teclado T9 y, como tal, no proporciona un diseño similar a QWERTY.
 
-Si aún estás aprendiendo a usar T9 y necesitas cambiar de vez en cuando, o encuentras más conveniente escribir nuevas palabras usando QWERTY, desliza la tecla F4 izquierda para cambiar a un teclado diferente. Consulta la [visión general de teclas virtuales](#descripción-general-de-las-teclas-virtuales) para obtener más información.
+Si aún estás aprendiendo a usar T9 y necesitas cambiar de vez en cuando, o encuentras más conveniente escribir nuevas palabras usando QWERTY, desliza hacia la tecla F4 izquierda para cambiar a un teclado diferente. Consulta la [visión general de teclas virtuales](#descripción-general-de-las-teclas-virtuales) para obtener más información.
 
 La mayoría de los otros teclados permiten cambiar de nuevo a Traditional T9 manteniendo presionada la barra espaciadora o la tecla de "cambiar idioma". Consulta el respectivo readme o manual para más información.
 
