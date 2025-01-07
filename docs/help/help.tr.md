@@ -292,7 +292,7 @@ Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yenide
 
 "Delete" seçeneğini kullanarak yanlış yazılmış veya sözlükte bulunmasını istemediğiniz kelimeleri arayıp silebilirsiniz.
 
-### Uyumluluk Seçenekleri & Sorun Giderme
+### Uyumluluk Seçenekleri
 Bazı uygulama veya cihazlar için, Traditional T9'un bunlarla daha iyi çalışmasını sağlayacak özel seçenekleri etkinleştirmek mümkündür. Her ayar ekranının sonunda Uyumluluk bölümünde bulabilirsiniz.
 
 #### Alternatif öneri kaydırma yöntemi
@@ -346,10 +346,53 @@ _Xiaomi sorunları [bu GitHub sorununda](https://github.com/sspanak/tt9/issues/4
 #### Sesli Giriş'in durması çok uzun sürüyor
 Bu, Android 10'da Google'ın asla düzeltmediği [bilinen bir sorun](https://issuetracker.google.com/issues/158198432). TT9 tarafında hafifletmek mümkün değildir. Sesli Giriş işlemini durdurmak için birkaç saniye sessiz kalın. Android, herhangi bir konuşma algılamadığında mikrofonu otomatik olarak kapatır.
 
+## Sıkça Sorulan Sorular
+
+#### Özellik X'i ekleyemez misiniz?
+Hayır.
+
+Herkesin kendi tercihleri vardır. Kimisi daha büyük tuşlar ister, kimisi farklı bir düzen, kimisi ".com" yazmak için bir kısayol tuşu ister ve kimisi de eski telefonunu veya klavyesini özler. Ancak lütfen anlayın ki, bu projeyi boş zamanlarımda gönüllü olarak yürütüyorum. Birbirleriyle çelişen binlerce farklı isteği yerine getirmek imkansızdır.
+
+Henry Ford bir keresinde şöyle demiştir: "Müşteri istediği herhangi bir rengi seçebilir, yeter ki siyah olsun." Benzer şekilde, Traditional T9 sade, etkili ve ücretsizdir; ne alıyorsanız onu kullanırsınız.
+
+#### Neden Sony Ericsson, Xperia, Nokia C2, Samsung veya başka bir yazılım klavyesine daha çok benzetmiyorsunuz?
+Hayır.
+
+Traditional T9, bir kopya uygulama ya da eski bir klavyenin birebir ikamesi olmak için tasarlanmadı. Kendine özgü bir tasarımı vardır ve temel olarak Nokia 3310 ve 6303i modellerinden ilham almıştır. Klasik telefonların hissini verse de, tam olarak hiçbir cihazı taklit etmez.
+
+#### Touchpal'ı kopyalamalısınız, o dünyanın en iyi klavyesi!
+Hayır, kopyalamamalıyım. Önceki maddelere bakın.
+
+Touchpal, 2015 yılında rakipsiz olduğu dönemde gerçekten en iyi klavyelerden biriydi. Ancak o zamandan beri işler değişti. İşte Traditional T9 ve Touchpal'ın karşılaştırması:
+
+_**Traditional T9**_
+  - Gizliliğinize saygı duyar.
+  - Reklam içermez ve tamamen ücretsizdir.
+  - Geniş bir cihaz yelpazesini destekler: tuşlu telefonlar, donanım klavyeli televizyonlar ve yalnızca dokunmatik ekrana sahip akıllı telefonlar ve tabletler.
+  - Her dil için tam uyumlu 12 tuşlu bir T9 düzeni sunar.
+  - Gelişmiş kelime önerileri sağlar. Örneğin, "go in" gibi bir textonym ifadesi yazmaya çalışırsanız, "go go" veya "in in" yerine anlamlı olan ifadeyi öğrenerek önerir.
+  - Yazdığınız her şey cihazınızda kalır. Hiçbir veri herhangi bir yere gönderilmez.
+  - Açık kaynaklıdır, böylece tüm kaynak kodunu ve sözlükleri inceleyebilir, projeye katkıda bulunarak geliştirebilir (birçok kullanıcı hataları düzeltmeye ve yeni diller ile çeviriler eklemeye yardımcı oldu) veya kendi isteğinize göre bir mod oluşturabilirsiniz.
+  - Sisteme uyum sağlayan sade ve okunaklı bir tasarıma sahiptir. Gereksiz süslemeler içermez, böylece yazmaya odaklanabilirsiniz.
+  - Sözlük yükleme hızı düşüktür.
+
+_**Touchpal**_
+  - Cihazınızdaki tüm verilere ve kişilerinize erişmek için ısrarcıdır; rastgele dosyalar oluşturur; en sonunda bir virüs gibi davrandığı için Play Store'dan kaldırılmıştır.
+  - Reklamlarla doludur.
+  - Sadece dokunmatik ekranlı cihazları destekler.
+  - Gerçek bir T9 klavyesi değildir. Yalnızca bazı dillerde T9 düzeni sunar. Ayrıca, bazı düzenler hatalıdır (örneğin, Bulgarca'da bir harf eksik ve bazı harfler 8 ve 9 tuşları arasında yanlış sıralanmıştır).
+  - Arka arkaya textonym yazarken yalnızca son seçtiğiniz kelimeyi önerir. Örneğin, "go in" yazmaya çalıştığınızda, ya "go go" ya da "in in" şeklinde önerir.
+  - Bulut tabanlı öneriler doğruluğu artırabilir, ancak bunun çalışması için sizin ve diğer tüm kullanıcıların yazdıkları her şeyi Touchpal sunucularına göndermesi gerekir.
+  - Kapalı kaynaklıdır. Arka planda ne yaptığını kontrol etmenin hiçbir yolu yoktur.
+  - Klavyeyle ilgisi olmayan birçok tema, renk, GIF ve dikkat dağıtıcı unsur içerir.
+  - Sözlük yükleme hızı yüksektir. Bu noktada Touchpal kazanıyor.
+
+Eğer aynı fikirde değilseniz veya bakış açınızı açıklamak isterseniz, GitHub'daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Sadece diğer kullanıcılara saygılı olun. Nefret içerikli mesajlara izin verilmeyecektir.
+
 #### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
-T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
+T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 

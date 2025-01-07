@@ -190,13 +190,13 @@ The on-screen keypad works the same as the numpad of a phone with hardware keys.
 
 Below is a description of the keys with more than one function.
 
-#### Right F2 key (labeled "CLR/FLTR")
+#### Right F2 key (the one with the filter icons; located below "Backspace")
 _Predictive mode only._
 
-- **Press:** Filtering the suggestion list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
+- **Press:** Filter the suggestion list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
 - **Hold:** Clear the filter, if active.
 
-#### Right F3 key (it has a microphone icon and a "COPY" label)
+#### Right F3 key (it has scisors and microphone icons)
 - **Press:** Open the copy-pasting and text editing options.
 - **Hold:** Activate the Voice Input.
 
@@ -292,7 +292,7 @@ With "Import", you can import a previously exported CSV. However, there are some
 
 Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
 
-### Compatibility Options & Troubleshooting
+### Compatibility Options
 For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them at the end of each settings screen, under the Compatibility section.
 
 #### Alternative suggestion scrolling method
@@ -347,12 +347,55 @@ _The Xiaomi problems have been discussed in [this GitHub issue](https://github.c
 #### Voice Input takes a very long time to stop
 It is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on the TT9 side. To stop the Voice Input operation, stay quiet for a couple of seconds. Android turns off the microphone automatically when it can not detect any speech.
 
+## Frequently Asked Questions
+
+#### Can't you add feature X?
+No.
+
+Everyone has their preferences. Some want larger keys, some in a different order, some want a shortcut key for typing ".com," and some miss their old phone or keyboard. But please understand that I am doing voluntary work in my free time. It is impossible to fulfill thousands of different wishes, some of which contradict each other.
+
+Henry Ford once said, "It can be any color the customer wants, as long as it is black." Similarly, Traditional T9 is unadorned, effective, and free but you get what you get.
+
+#### Can't you make it more similar to Sony Ericsson or Xperia, Nokia C2, Samsung, some other software keyboard, etc?
+No.
+
+Traditional T9 is not meant to be a replacement or a clone app. It has its own unique design, inspired mainly by the Nokia 3310 and 6303i. And while it captures the feel of the classics, it provides its own experience that won’t replicate any device exactly.
+
+#### You should copy Touchpal, it's the greatest keyboard in the world!
+No, I should not. See the previous points.
+
+Touchpal used to be the greatest keyboard back in 2015 when it had no real competition. However, things have changed since then. See the side-by-side comparison between Traditional T9 and Touchpal:
+
+_**Traditional T9**_
+  - Respects your privacy.
+  - Contains no ads and it's free.
+  - Supports a wide range of devices: dumbphones and TVs with hardware keypads or keyboards, as well as touchscreen-only smartphones and tablets.
+  - Offers a proper 12-key T9 layout for every language.
+  - Provides enhanced word suggestions. For example, if you try to type textonym expressions like "go in", it will learn not to suggest "go go" or "in in", but the meaningful expression you had in mind.
+  - Everything you type remains on your phone. No information is sent anywhere.
+  - Is open source, allowing you to review all the source code and the dictionaries, or contribute to the project and make it better (many users have helped with fixing bugs and adding new languages and translations), or even create a mod based on your preferences and vision.
+  - Has a clean and highly readable design that blends with the system. There are no unnecessary bells and whistles so that you can focus on typing.
+  - Dictionary loading speed is slow.
+
+_**Touchpal**_
+  - Aggressively asks for access to your entire device and to your contacts; writes random files everywhere; ultimately, it got banned from the Play Store because it acts like a virus.
+  - Is full of ads.
+  - Supports only touchscreen devices.
+  - Is not a true T9 keyboard. It offers a T9 layout only in some languages. Moreover, some layouts are incorrect (e.g. Bulgarian is missing a letter and some letters are wrongly swapped between the 8-key and the 9-key).
+  - When typing textonyms one after another, it only suggests the last word you selected. For example, when you try to type "go in", it will display either "go go" or "in in".
+  - Cloud-based suggestions could be used to improve accuracy. However, for this to work, you and all other users must send everything you type to the Touchpal servers for processing.
+  - Closed source. There is no way to check what it does in the background.
+  - Includes many themes, colors, GIFs, and other distractions unrelated to typing.
+  - Dictionary loading speed is fast. Touchpal wins this point.
+
+If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
+
 #### I need to use a QWERTY layout (touchscreen devices only)
 Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like layout.
 
-If you are still learning to use T9 and need to switch back occasionally, or you find it more convenient to type new words using QWERTY, swipe the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
+If you are still learning to use T9 and need to switch back occasionally or find it more convenient to type new words using QWERTY, swipe up the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
 
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
 
 #### I can't change the language on a touchscreen phone
-First, make sure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-bottom-left-key) to change the language.
+First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-bottom-left-key) to change the language.

@@ -292,7 +292,7 @@ Mit „Importieren“ können Sie eine zuvor exportierte CSV-Datei importieren. 
 
 Mit „Löschen“ können Sie nach falsch geschriebenen Wörtern suchen und diese oder andere unerwünschte Wörter aus dem Wörterbuch entfernen.
 
-### Kompatibilitätsoptionen & Fehlerbehebung
+### Kompatibilitätsoptionen
 Für verschiedene Anwendungen oder Geräte ist es möglich, spezielle Optionen zu aktivieren, die Traditional T9 besser kompatibel machen. Diese finden Sie am Ende jeder Einstellungsseite unter dem Abschnitt Kompatibilität.
 
 #### Alternative Methode zum Scrollen durch Vorschläge
@@ -346,10 +346,53 @@ _Die Xiaomi-Probleme wurden in [diesem GitHub-Problem](https://github.com/sspana
 #### Spracheingabe dauert sehr lange, um zu stoppen
 Es ist [ein bekanntes Problem](https://issuetracker.google.com/issues/158198432) unter Android 10, das Google nie behoben hat. Es ist auf der TT9-Seite nicht möglich, das zu lindern. Um den Sprachbefehl zu beenden, bleiben Sie ein paar Sekunden lang ruhig. Android schaltet das Mikrofon automatisch aus, wenn keine Sprache erkannt wird.
 
+## Häufig gestellte Fragen
+
+#### Kannst du nicht Funktion X hinzufügen?
+Nein.
+
+Jeder hat seine eigenen Vorlieben. Manche möchten größere Tasten, manche eine andere Anordnung, manche eine Schnellzugriffstaste für ".com", und manche vermissen ihr altes Telefon oder ihre alte Tastatur. Aber bitte versteht, dass ich dies in meiner Freizeit freiwillig mache. Es ist unmöglich, Tausende von unterschiedlichen Wünschen zu erfüllen, von denen einige sich sogar widersprechen.
+
+Henry Ford sagte einmal: „Es kann jede Farbe haben, die der Kunde will, solange sie schwarz ist.“ Ebenso ist Traditional T9 schlicht, effektiv und kostenlos – aber du bekommst, was du bekommst.
+
+#### Kannst du es nicht mehr wie Sony Ericsson oder Xperia, Nokia C2, Samsung oder eine andere Software-Tastatur machen?
+Nein.
+
+Traditional T9 ist nicht als Ersatz oder Klon-App gedacht. Es hat sein eigenes einzigartiges Design, das hauptsächlich von den Nokia 3310 und 6303i inspiriert wurde. Während es das Gefühl der Klassiker einfängt, bietet es eine eigene Erfahrung, die kein Gerät exakt nachahmen wird.
+
+#### Du solltest Touchpal kopieren, es ist die beste Tastatur der Welt!
+Nein, sollte ich nicht. Siehe die vorherigen Punkte.
+
+Touchpal war 2015 vielleicht die beste Tastatur, als es noch keine echte Konkurrenz gab. Aber seitdem hat sich viel verändert. Sieh dir den Vergleich zwischen Traditional T9 und Touchpal an:
+
+_**Traditional T9**_
+  - Respektiert deine Privatsphäre.
+  - Enthält keine Werbung und ist kostenlos.
+  - Unterstützt eine breite Palette von Geräten: Tastenhandys und Fernseher mit Hardware-Tastaturen sowie reine Touchscreen-Smartphones und Tablets.
+  - Bietet ein echtes 12-Tasten-T9-Layout für jede Sprache.
+  - Verbessert Wortvorschläge. Zum Beispiel, wenn du textonyme Ausdrücke wie „go in“ tippst, wird es lernen, nicht „go go“ oder „in in“ vorzuschlagen, sondern den beabsichtigten Ausdruck.
+  - Alles, was du tippst, bleibt auf deinem Gerät. Es werden keine Informationen gesendet.
+  - Ist Open Source, sodass du den Quellcode und die Wörterbücher einsehen oder zum Projekt beitragen kannst.
+  - Hat ein klares und gut lesbares Design, das sich in das System einfügt. Es gibt keine unnötigen Spielereien, sodass du dich aufs Tippen konzentrieren kannst.
+  - Die Ladegeschwindigkeit des Wörterbuchs ist langsam.
+
+_**Touchpal**_
+  - Fordert aggressiv Zugriff auf dein gesamtes Gerät und deine Kontakte, schreibt zufällige Dateien überall; wurde schließlich aus dem Play Store verbannt, weil es sich wie ein Virus verhielt.
+  - Enthält viele Anzeigen.
+  - Unterstützt nur Touchscreen-Geräte.
+  - Ist keine echte T9-Tastatur. Es bietet ein T9-Layout nur in einigen Sprachen an. Zudem sind einige Layouts fehlerhaft (z. B. fehlt im bulgarischen Layout ein Buchstabe, und einige Buchstaben sind zwischen der 8er- und 9er-Taste vertauscht).
+  - Beim Eingeben von Textonymen schlägt es nur das zuletzt gewählte Wort vor. Zum Beispiel wird bei „go in“ entweder „go go“ oder „in in“ angezeigt.
+  - Cloud-basierte Vorschläge könnten die Genauigkeit verbessern. Damit das funktioniert, müssen jedoch du und alle anderen Nutzer alles, was ihr tippt, an die Touchpal-Server senden.
+  - Geschlossene Quelle. Es gibt keine Möglichkeit zu überprüfen, was im Hintergrund passiert.
+  - Enthält viele Themes, Farben, GIFs und andere Ablenkungen, die nichts mit dem Tippen zu tun haben.
+  - Die Ladegeschwindigkeit des Wörterbuchs ist schnell. Touchpal gewinnt diesen Punkt.
+
+Wenn du anderer Meinung bist oder deine Sichtweise erklären möchtest, beteilige dich an [der offenen Diskussion](https://github.com/sspanak/tt9/issues/647) auf GitHub. Bitte sei respektvoll gegenüber anderen. Hasskommentare werden nicht toleriert.
+
 #### Ich muss ein QWERTY-Layout verwenden (nur Touchscreen-Geräte)
 Traditional T9 ist eine T9-Tastatur und bietet daher kein QWERTY-Layout.
 
-Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten).
+Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
 
 Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, indem Sie die Leertaste oder die „Sprache wechseln“-Taste gedrückt halten. Sehen Sie im jeweiligen Handbuch nach.
 
