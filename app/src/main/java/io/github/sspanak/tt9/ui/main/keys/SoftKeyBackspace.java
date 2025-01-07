@@ -78,9 +78,31 @@ public class SoftKeyBackspace extends SwipeableKey {
 
 	@Override
 	protected void handleStartSwipeX(float position, float delta) {
-		if (!isActionPerformed && validateTT9Handler()) {
+		if (!isActionPerformed) {
 			isActionPerformed = true;
-			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
+			deleteWord();
+		}
+	}
+
+
+	@Override
+	protected void handleSwipeX(float position, float delta) {
+		handleStartSwipeX(position, delta);
+	}
+
+
+	@Override
+	protected void handleEndSwipeX(float position, float delta) {
+		if (isActionPerformed) {
+			return;
+		}
+
+		isActionPerformed = true;
+
+		if (delta < SWIPE_X_THRESHOLD) {
+			deleteText();
+		} else {
+			deleteWord();
 		}
 	}
 
@@ -108,6 +130,13 @@ public class SoftKeyBackspace extends SwipeableKey {
 			// the text length, therefore onBackspace() seems them as empty and does nothing. This results
 			// in fallback to the default hardware key action. Here we simulate the hardware BACKSPACE.
 			tt9.sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
+		}
+	}
+
+
+	private void deleteWord() {
+		if (validateTT9Handler()) {
+			tt9.onBackspace(SettingsStore.BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE);
 		}
 	}
 
