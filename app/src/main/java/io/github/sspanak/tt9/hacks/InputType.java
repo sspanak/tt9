@@ -186,12 +186,13 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * Detects incorrectly defined text fields that miss the EditorInfo.TYPE_TEXT flag.
+	 * Detects incorrectly defined text fields.
 	 */
 	@Override
-	protected boolean isDefectiveText() {
+	public boolean isDefectiveText() {
 		return isDuoLingoReportBug() || isContactsAndroid15Field();
 	}
+
 
 	/**
 	 * isAppField

@@ -112,8 +112,11 @@ abstract public class StandardInputType {
 	}
 
 
-	abstract protected boolean isDefectiveText();
+	abstract public boolean isDefectiveText();
 
+	private boolean isNoSuggestionsText() {
+		return isText() && (field.inputType & InputType.TYPE_MASK_FLAGS & InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) == InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
+	}
 
 	public boolean isMultilineText() {
 		return field != null && (field.inputType & TYPE_MULTILINE_TEXT) == TYPE_MULTILINE_TEXT;
@@ -169,7 +172,7 @@ abstract public class StandardInputType {
 
 			default:
 				// Enable predictions for incorrectly defined text fields.
-				if (isDefectiveText() && !isPassword()) {
+				if (isDefectiveText()) {
 					allowedModes.add(InputMode.MODE_PREDICTIVE);
 				}
 
@@ -192,12 +195,12 @@ abstract public class StandardInputType {
 			return InputMode.CASE_UNDEFINED;
 		}
 
-		if (isSpecialized()) {
-			return InputMode.CASE_LOWER;
-		}
-
 		if (isPersonName()) {
 			return InputMode.CASE_CAPITALIZE;
+		}
+
+		if (isSpecialized() || isNoSuggestionsText()) {
+			return InputMode.CASE_LOWER;
 		}
 
 		return switch (field.inputType & InputType.TYPE_MASK_FLAGS) {
