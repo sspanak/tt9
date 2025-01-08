@@ -18,12 +18,12 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.InputConnectionTools;
+import io.github.sspanak.tt9.util.InputConnectionCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
-	@NonNull private final InputConnectionTools connectionTools;
+	@NonNull private final InputConnectionCompat connectionCompat;
 
 	private CharSequence composingText = "";
 	private final boolean isComposingSupported;
@@ -33,7 +33,7 @@ public class TextField extends InputField {
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
 		super(inputConnection, inputField);
 
-		connectionTools = new InputConnectionTools(inputConnection);
+		connectionCompat = new InputConnectionCompat(inputConnection);
 
 		InputType inputType = new InputType(inputConnection, inputField);
 		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && !inputType.isDeezerSearchBar();
@@ -42,13 +42,13 @@ public class TextField extends InputField {
 
 
 	public String getStringAfterCursor(int numberOfChars) {
-		CharSequence chars = connectionTools.getTextAfterCursor(numberOfChars, 0);
+		CharSequence chars = connectionCompat.getTextAfterCursor(numberOfChars, 0);
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	public String getStringBeforeCursor(int numberOfChars) {
-		CharSequence chars = connectionTools.getTextBeforeCursor(numberOfChars, 0);
+		CharSequence chars = connectionCompat.getTextBeforeCursor(numberOfChars, 0);
 		return chars != null ? chars.toString() : "";
 	}
 
@@ -399,6 +399,6 @@ public class TextField extends InputField {
 
 
 	public boolean shouldReportConnectionErrors() {
-		return connectionTools.shouldReportTimeout();
+		return connectionCompat.shouldReportTimeout();
 	}
 }
