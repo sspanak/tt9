@@ -192,7 +192,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (suggestionOps.getCurrent().isEmpty()) {
-			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
+			mInputMode.determineNextWordTextCase();
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -339,7 +339,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onAcceptSuggestionAutomatically(String word) {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
-		mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor());
+		mInputMode.determineNextWordTextCase();
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {

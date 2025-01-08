@@ -170,7 +170,7 @@ abstract public class InputMode {
 		return true;
 	}
 
-	public void determineNextWordTextCase(String textBeforeCursor) {}
+	public void determineNextWordTextCase() {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }

@@ -16,20 +16,20 @@ import java.util.concurrent.TimeoutException;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class InputConnectionTools {
-	private static final String LOG_TAG = InputConnectionTools.class.getSimpleName();
+public class InputConnectionCompat {
+	private static final String LOG_TAG = InputConnectionCompat.class.getSimpleName();
 
 	@Nullable private final InputConnection connection;
 
-	@Nullable CompletableFuture<Boolean> future;
-	@NonNull ExecutorService executor = Executors.newSingleThreadExecutor();
+	@Nullable private CompletableFuture<Boolean> future;
+	@NonNull private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private int connectionErrors = 0;
 	private boolean isErrorReported = false;
 
 	private CharSequence result;
 
 
-	public InputConnectionTools(@Nullable InputConnection connection) {
+	public InputConnectionCompat(@Nullable InputConnection connection) {
 		this.connection = connection;
 	}
 
@@ -73,7 +73,7 @@ public class InputConnectionTools {
 	 */
 	@RequiresApi(api = Build.VERSION_CODES.N)
 	private void getTextNextToCursorModern(int i, int ii, boolean after) {
-		// CompletableFuture is supported only in Android 24 and above, so we initialize it here.
+		// CompletableFuture is supported only in API 24 and above, so we initialize it here.
 		future = new CompletableFuture<>();
 
 		// Start only the watchdog in a separate thread. If we start the main operation there too,
