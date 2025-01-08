@@ -42,7 +42,7 @@ abstract public class InputMode {
 
 
 	protected InputMode(SettingsStore settings, InputType inputType) {
-		isEmailMode = inputType != null && inputType.isEmail();
+		isEmailMode = inputType != null && inputType.isEmail() && !inputType.isDefectiveText();
 		this.settings = settings;
 	}
 

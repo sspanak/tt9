@@ -29,7 +29,7 @@ class Mode123 extends ModePassthrough {
 			setSpecificSpecialCharacters(Characters.Phone, false);
 		} else if (inputType.isNumeric()) {
 			setSpecificSpecialCharacters(Characters.getNumberSpecialCharacters(inputType.isDecimal(), inputType.isSignedNumber()), false);
-		} else if (inputType.isEmail()) {
+		} else if (isEmailMode) {
 			setSpecificSpecialCharacters(Characters.Email, true);
 		} else {
 			setDefaultSpecialCharacters();
