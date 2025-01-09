@@ -48,8 +48,8 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 
 
 	@Override
-	protected void onChange(String word) {
-		currentChars = word == null ? "" : word;
+	protected void onTextChange() {
+		currentChars = text;
 		validateCurrentChars();
 	}
 
@@ -78,7 +78,7 @@ abstract class AbstractPreferenceCharList extends ItemTextInput {
 			}
 		}
 
-		setText(optional.toString());
+		setText(currentChars = optional.toString());
 	}
 
 

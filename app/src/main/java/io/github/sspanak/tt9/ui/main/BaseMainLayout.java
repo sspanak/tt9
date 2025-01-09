@@ -55,7 +55,7 @@ abstract class BaseMainLayout {
 			// Adding the ContextThemeWrapper fixes this error log:
 			// "View class SoftKeyXXX is an AppCompat widget that can only be used with a
 			// Theme.AppCompat theme (or descendant)."
-			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TT9Theme);
+			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TTheme);
 			view = View.inflate(themedCtx, xml, null);
 		}
 

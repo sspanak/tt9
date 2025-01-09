@@ -9,12 +9,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.preferences.items.ItemTextInput;
+import io.github.sspanak.tt9.preferences.items.ItemSearch;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
-public class PreferenceSearchWords extends ItemTextInput {
+public class PreferenceSearchWords extends ItemSearch {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 
@@ -31,16 +31,14 @@ public class PreferenceSearchWords extends ItemTextInput {
 
 
 	@Override
-	protected void onChange(String word) {
-		search(word);
+	protected void onTextChange() {
+		search(text);
 	}
-
 
 	@NonNull
 	public String getLastSearchTerm() {
 		return lastSearchTerm;
 	}
-
 
 	void search(String word) {
 		lastSearchTerm = word == null || word.trim().isEmpty() ? "" : word.trim();
@@ -55,7 +53,6 @@ public class PreferenceSearchWords extends ItemTextInput {
 			DataStore.getCustomWords(onWords, lastSearchTerm, -1);
 		}
 	}
-
 
 	void setOnWordsHandler(ConsumerCompat<ArrayList<String>> onWords) {
 		this.onWords = onWords;

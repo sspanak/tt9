@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="TT9Theme" parent="Theme.AppCompat.DayNight" />
+	<style name="TTheme" parent="Theme.AppCompat.DayNight" />
 
 	<style name="hSeparator">
 		<item name="android:layout_height">match_parent</item>
@@ -22,7 +22,7 @@
 		<item name="android:layout_width">match_parent</item>
 	</style>
 
-	<style name="alertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="android:windowBackground">@android:color/transparent</item>
+	<style name="TTheme.AddWord" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
 	</style>
 </resources>

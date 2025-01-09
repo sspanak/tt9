@@ -47,11 +47,11 @@ abstract public class ScreenPreference extends Preference {
 		if (pref instanceof PreferenceCategory) {
 			return R.layout.pref_category;
 		} else if (pref instanceof SwitchPreferenceCompat) {
-			return R.layout.pref_switch;
+			return R.layout.pref_switch_large;
 		} else if (pref instanceof DropDownPreference) {
 			return R.layout.pref_dropdown;
 		} else {
-			return R.layout.pref_text;
+			return R.layout.pref_default_large;
 		}
 	}
 
