@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="TTheme" parent="Theme.Material3.DynamicColors.Light">
+		<item name="preferenceTheme">@style/PreferenceOverlay</item>
+
+		<!-- title bar -->
+		<item name="tint">@color/material_dynamic_neutral20</item> <!-- back button color -->
+		<item name="colorSurfaceContainer">@color/material_dynamic_neutral_variant90</item> <!-- title bar background -->
+
+		<!-- page -->
+		<item name="android:windowBackground">@color/material_dynamic_neutral95</item> <!-- page background -->
+		<item name="colorSecondary">@color/material_dynamic_primary40</item> <!-- category title -->
+		<item name="android:textAppearanceListItem">@style/TextAppearance.Material3.TitleLarge</item> <!-- preference title -->
+
+<!--		<item name="android:popupWindowStyle">@style/AppDropDownStyle</item> &lt;!&ndash; dropdown background &ndash;&gt;-->
+
+		<!--
+				// ANY PREFERENCE
+				android:textColor = preference text color
+				android:textColorSecondary = preference summary color
+
+				// SWITCH
+				colorOutline = switch outline
+				colorSurfaceContainerHighest = switch background when off
+				colorPrimary = switch background when on
+				colorOnPrimary = switch handle color
+				colorPrimaryContainer = switch handle color when moving
+		-->
+	</style>
+
+	<style name="PreferenceOverlay" parent="@style/PreferenceThemeOverlay">
+		<item name="switchPreferenceCompatStyle">@style/AppSwitchStyle</item>
+	</style>
+
+	<style name="AppSwitchStyle" parent="@style/Preference.SwitchPreferenceCompat.Material">
+		<item name="widgetLayout">@layout/pref_switch_v31</item>
+	</style>
+
+<!--	<style name="AppDropDownStyle" parent="Widget.Material3.PopupMenu.ListPopupWindow">-->
+<!--		<item name="android:background">@color/material_dynamic_neutral_variant90</item>-->
+<!--		<item name="popupMenuBackground">@color/material_dynamic_neutral_variant90</item>-->
+<!--	</style>-->
+
+	<style name="TTheme.AddWord" parent="Theme.Material3.Light.Dialog.Alert">
+		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
+		<item name="android:textColor">@color/material_dynamic_neutral10</item> <!-- headline (title) text color -->
+		<item name="android:textColorPrimary">@color/material_dynamic_neutral_variant10</item> <!-- supporting text (body text) color -->
+		<item name="android:background">@color/material_dynamic_neutral95</item> <!-- container background -->
+		<item name="colorPrimary">@color/material_dynamic_primary20</item> <!-- label text (button text) color -->
+
+		<item name="textAppearanceBodyMedium">@style/TextAppearance.AppCompat.Widget.PopupMenu.Large</item> <!-- body text size -->
+		<item name="textAppearanceLabelLarge">@style/TextAppearance.MaterialComponents.Button</item> <!-- button text size -->
+	</style>
+</resources>

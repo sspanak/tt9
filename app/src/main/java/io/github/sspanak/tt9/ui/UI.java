@@ -5,11 +5,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
+import android.os.Build;
 import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 
@@ -22,6 +25,7 @@ public class UI {
 	public static void showChangeKeyboardDialog(Context context) {
 		((InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE)).showInputMethodPicker();
 	}
+
 
 	public static boolean showSystemSpellCheckerSettings(Context context) {
 		ComponentName component = new ComponentName(
@@ -50,19 +54,32 @@ public class UI {
 		ims.startActivity(prefIntent);
 	}
 
+
 	public static void confirm(Context context, String title, String message, String OKLabel, Runnable onOk, Runnable onCancel) {
-		new AlertDialog.Builder(context)
-			.setTitle(title)
-			.setMessage(message)
-			.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
-			.setNegativeButton(android.R.string.cancel, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
-			.setCancelable(false)
-			.show();
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+			new AlertDialog.Builder(context)
+				.setTitle(title)
+				.setMessage(message)
+				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
+				.setNegativeButton(android.R.string.cancel, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
+				.setCancelable(false)
+				.show();
+		} else {
+			new MaterialAlertDialogBuilder(context)
+				.setTitle(title)
+				.setMessage(message)
+				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
+				.setNegativeButton(android.R.string.cancel, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
+				.setCancelable(false)
+				.show();
+		}
 	}
+
 
 	public static void toast(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
+
 
 	public static void toastFromAsync(Context context, CharSequence msg) {
 		if (Looper.myLooper() == null) {
@@ -71,9 +88,11 @@ public class UI {
 		toast(context, msg);
 	}
 
+
 	public static void toast(Context context, int resourceId) {
 		Toast.makeText(context, resourceId, Toast.LENGTH_SHORT).show();
 	}
+
 
 	public static void toastFromAsync(Context context, int resourceId) {
 		if (Looper.myLooper() == null) {
@@ -82,13 +101,16 @@ public class UI {
 		toast(context, resourceId);
 	}
 
+
 	public static void toastLong(Context context, int resourceId) {
 		Toast.makeText(context, resourceId, Toast.LENGTH_LONG).show();
 	}
 
+
 	public static void toastLong(Context context, CharSequence msg) {
 		Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
 	}
+
 
 	public static void toastLongFromAsync(Context context, CharSequence msg) {
 		if (Looper.myLooper() == null) {
@@ -96,6 +118,7 @@ public class UI {
 		}
 		toastLong(context, msg);
 	}
+
 
 	public static void toastSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message, boolean isShort) {
 		Toast toast = singleToasts.get(uniqueId);
@@ -111,13 +134,16 @@ public class UI {
 		singleToasts.put(uniqueId, toast);
 	}
 
+
 	public static void toastShortSingle(@NonNull Context context, @NonNull String uniqueId, @NonNull String message) {
 		toastSingle(context, uniqueId, message, true);
 	}
 
+
 	public static void toastShortSingle(@NonNull Context context, int resourceId) {
 		toastSingle(context, String.valueOf(resourceId), context.getString(resourceId), true);
 	}
+
 
 	public static void toastLongSingle(@NonNull Context context, int resourceId) {
 		toastSingle(context, String.valueOf(resourceId), context.getString(resourceId), false);

@@ -9,27 +9,26 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.preferences.items.ItemTextInput;
+import io.github.sspanak.tt9.preferences.items.ItemSearch;
 
-public class PreferenceSearchLanguage extends ItemTextInput {
+public class PreferenceSearchLanguage extends ItemSearch {
 	@NonNull private ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();
 	private Preference noResultItem;
+
 
 	public PreferenceSearchLanguage(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
-
 	public PreferenceSearchLanguage(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
-
 	public PreferenceSearchLanguage(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 	}
-
 	public PreferenceSearchLanguage(@NonNull Context context) {
 		super(context);
 	}
+
 
 	private void showNoResultItem(boolean show) {
 		if (noResultItem != null) {
@@ -37,9 +36,10 @@ public class PreferenceSearchLanguage extends ItemTextInput {
 		}
 	}
 
+
 	@Override
-	protected void onChange(String word) {
-		word = word == null ? "" : word.trim().toLowerCase();
+	protected void onTextChange() {
+		String word = text.trim().toLowerCase();
 		String wordInTheMiddle = " " + word;
 		String wordInParenthesis = "(" + word;
 
@@ -63,10 +63,12 @@ public class PreferenceSearchLanguage extends ItemTextInput {
 		showNoResultItem(visibleLanguages == 0);
 	}
 
+
 	PreferenceSearchLanguage setLanguageItems(@NonNull ArrayList<PreferenceSwitchLanguage> languageItems) {
 		this.languageItems = languageItems;
 		return this;
 	}
+
 
 	void setNoResultItem(Preference noResultItem) {
 		this.noResultItem = noResultItem;
