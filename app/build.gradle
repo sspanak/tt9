@@ -83,7 +83,7 @@ android {
 
 	defaultConfig {
 		applicationId PACKAGE_NAME
-		minSdk 19
+		minSdk 21
 		targetSdk 35
 		versionCode getVerCode()
 		versionName getVerName()
@@ -164,5 +164,5 @@ android {
 
 dependencies {
 	implementation 'androidx.preference:preference:1.2.1'
-	implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+	implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
 }
