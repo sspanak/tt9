@@ -1,4 +1,4 @@
-# Traditional T9 [![codebeat badge](https://codebeat.co/badges/f7ab222f-4c5d-4b79-b1c8-401eea79c206)](https://codebeat.co/projects/github-com-sspanak-tt9-master) ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
+# Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
 TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [30+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
 
@@ -46,6 +46,7 @@ If you own a phone with Android 2.2 up to 4.4, please refer to the original vers
 TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
+- CAT S22 Flip (Android 11)
 - Unihertz Atom L (Android 11)
 - Qin F21 Pro+ (Android 11)
 - Energizer H620SEU (Android 10)
@@ -56,6 +57,8 @@ Compatibility has been verified only on the following devices:
 Before using Traditional T9 for the first time you need to configure it and load a dictionary. After that, you can start typing right away in one of the three modes: Predictive, ABC, or Numeric (123). And even if you have mastered the keypad back in the day, you will still find the Predictive mode now offers more powerful and smart new ways of typing with even fewer key presses.
 
 So make sure to read the initial setup and the hotkey tips in the [user manual](docs/help/help.en.md). Also, don't miss the convenient [compatibility options](docs/help/help.en.md#compatibility-options--troubleshooting) aimed to improve the experience in some applications.
+
+_The user manual is also available in: [Brazilian Portuguese](docs/help/help.pt.md), [German](docs/help/help.de.md), [French](docs/help/help.fr.md), [Italian](docs/help/help.it.md), [Russian](docs/help/help.ru.md), [Spanish](docs/help/help.es.md), [Turkish](docs/help/help.tr.md), [Ukrainian](docs/help/help.uk.md)._
 
 ## ⌨ Contributing
 As with many other open-source projects, this one is also maintained by its author in his free time. Any help in making Traditional T9 better will be highly appreciated. Here is how:
