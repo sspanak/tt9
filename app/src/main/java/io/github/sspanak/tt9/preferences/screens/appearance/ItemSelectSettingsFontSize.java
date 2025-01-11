@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
+import android.os.Build;
+
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
@@ -19,11 +21,16 @@ public class ItemSelectSettingsFontSize extends ItemDropDown {
 	}
 
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> themes = new LinkedHashMap<>();
-		themes.put(SettingsStore.FONT_SIZE_DEFAULT, screen.getString(R.string.pref_font_size_default));
-		themes.put(SettingsStore.FONT_SIZE_LARGE, screen.getString(R.string.pref_font_size_large));
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+			if (item != null) item.setVisible(false);
+			return this;
+		}
 
-		super.populateIntegers(themes);
+		LinkedHashMap<Integer, String> sizes = new LinkedHashMap<>();
+		sizes.put(SettingsStore.FONT_SIZE_DEFAULT, screen.getString(R.string.pref_font_size_default));
+		sizes.put(SettingsStore.FONT_SIZE_LARGE, screen.getString(R.string.pref_font_size_large));
+
+		super.populateIntegers(sizes);
 		setValue(String.valueOf(new SettingsStore(screen.getContext()).getSettingsFontSize()));
 
 		return this;

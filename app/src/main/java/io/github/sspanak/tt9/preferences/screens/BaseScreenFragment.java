@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreferencesList;
+import io.github.sspanak.tt9.preferences.settings.SettingsUI;
 import io.github.sspanak.tt9.util.Logger;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
@@ -87,7 +89,12 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	public void resetFontSize(boolean reloadList) {
 		initPreferencesList();
 		preferencesList.getAll(reloadList, true);
-		preferencesList.setFontSize(activity.getSettings().getSettingsFontSize());
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+			preferencesList.setFontSize(SettingsUI.FONT_SIZE_DEFAULT);
+		} else {
+			preferencesList.setFontSize(activity.getSettings().getSettingsFontSize());
+		}
+
 	}
 
 
