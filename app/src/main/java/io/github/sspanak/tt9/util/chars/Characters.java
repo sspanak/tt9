@@ -16,7 +16,7 @@ public class Characters extends Emoji {
 	 * The English punctuation filtered to contain only valid email characters.
 	 */
 	final public static ArrayList<ArrayList<String>> Email = new ArrayList<>(Arrays.asList(
-		new ArrayList<>(Arrays.asList("@", "_", "#", "%", "{", "}", "|", "^", "/", "=", "*", "+")),
+		new ArrayList<>(Arrays.asList("@", "_", " ", "#", "%", "{", "}", "|", "^", "/", "=", "*", "+")),
 		new ArrayList<>(Arrays.asList(".", "-", "&", "~", "`", "'", "!", "?"))
 	));
 
