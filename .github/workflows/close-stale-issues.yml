@@ -1,4 +1,4 @@
-name: Close inactive issues
+name: Close inactive or unwanted issues
 on:
   schedule:
     - cron: "21 0 * * *"
@@ -10,7 +10,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v8
+      - uses: actions/stale@v9
         with:
           any-of-labels: wontfix,invalid,duplicate,stale
           days-before-issue-stale: 30
@@ -20,4 +20,22 @@ jobs:
           close-issue-message: "This issue was closed because it has been inactive for 14 days since being marked as stale."
           days-before-pr-stale: -1
           days-before-pr-close: -1
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+  close-spam:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: -1
+          days-before-close: 0
+          stale-issue-label: "spam"
+          stale-pr-label: "spam"
+          stale-issue-message: "This issue will be closed soon because it is marked as spam."
+          close-issue-message: "This issue was closed because it has been marked as spam."
+          stale-pr-message: "This pull request will be closed soon because it is marked as spam."
+          close-pr-message: "This pull request was closed because it has been marked as spam."
+          delete-branch: true
           repo-token: ${{ secrets.GITHUB_TOKEN }}
