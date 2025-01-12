@@ -225,7 +225,17 @@ abstract public class InputMode {
 		}
 
 		ArrayList<String> ordered = new ArrayList<>();
+
+		if (isEmailMode) {
+			if (unordered.contains("@")) ordered.add("@");
+			if (unordered.contains("_")) ordered.add("_");
+		}
+
 		for (String ch : settings.getOrderedKeyChars(language, key)) {
+			if (isEmailMode && (ch.charAt(0) == '@' || ch.charAt(0) == '_')) {
+				continue;
+			}
+
 			if (unordered.contains(ch)) {
 				ordered.add(ch);
 			}
