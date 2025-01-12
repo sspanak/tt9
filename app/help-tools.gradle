@@ -20,19 +20,14 @@ static markdownToHtml(markdownPath, htmlPath) {
 
 
 static getStyles() {
-	return "body {padding: 0 6px; background-color: #f4f4f4; color: #000;}" +
-		"a {color: #225682}" +
-		"a:visited {color: #644280}" +
+	return "body {color: default; padding: 0 6px;}" +
+		"a {color: accent;}" +
+		"a:visited {color: inherit;}" +
 		"li {margin: 4px 0; padding: 1px;}" +
 		"p {text-align: left;}" +
 		"p.wrap{word-wrap: break-word;}" +
 		".toc {border: 1px solid; display: inline-block; padding: 12px 20px 12px 0; margin: 12px 0;}" +
-		".toc > h3 {text-align: center; margin: 0;}" +
-		"@media (prefers-color-scheme: dark) {" +
-			"body { background-color: #333; color: #c8c8c8; }" +
-			"a {color: #a0c1de}" +
-			"a:visited {color: #d9bce1}" +
-		"}"
+		".toc > h3 {text-align: center; margin: 0;}"
 }
 
 

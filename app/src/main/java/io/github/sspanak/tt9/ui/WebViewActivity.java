@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.appcompat.app.ActionBar;
 
 abstract public class WebViewActivity extends EdgeToEdgeActivity implements View.OnAttachStateChangeListener {
 	private WebView webView;
+	protected boolean transparentBackground = false;
 
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +57,9 @@ abstract public class WebViewActivity extends EdgeToEdgeActivity implements View
 		webView = new WebView(this);
 		webView.addOnAttachStateChangeListener(this);
 		webView.setWebViewClient(new WebViewSafeClient(this));
+		if (transparentBackground) {
+			webView.setBackgroundColor(Color.TRANSPARENT);
+		}
 
 		// On API > 30 the WebView does not load the entire String with .loadData(),
 		// so we need to do this weird shit.
