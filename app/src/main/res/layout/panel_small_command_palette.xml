@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="@layout/main_small"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_1"
+		android:drawableBottom="@drawable/ic_fn_settings" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_2"
+		android:drawableBottom="@drawable/ic_fn_add_word" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF3
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_3"
+		android:drawableBottom="@drawable/ic_fn_voice" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF5
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_5"
+		android:drawableBottom="@drawable/ic_txt_cut" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_8"
+		android:drawableBottom="@drawable/ic_fn_next_keyboard" />
+</LinearLayout>

@@ -54,28 +54,6 @@ public class StatusBar {
 	}
 
 
-	public void setDarkTheme(boolean darkTheme) {
-		if (statusView == null) {
-			return;
-		}
-
-		Context context = statusView.getContext();
-
-		int backgroundColor = ContextCompat.getColor(
-			context,
-			darkTheme ? R.color.dark_candidate_background : R.color.candidate_background
-		);
-		int color = ContextCompat.getColor(
-			context,
-			darkTheme ? R.color.dark_candidate_color : R.color.candidate_color
-		);
-
-		statusView.setBackgroundColor(backgroundColor);
-		statusView.setTextColor(color);
-		this.render();
-	}
-
-
 	private void render() {
 		if (statusView == null) {
 			return;

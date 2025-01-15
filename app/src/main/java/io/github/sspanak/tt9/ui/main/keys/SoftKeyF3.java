@@ -17,11 +17,6 @@ public class SoftKeyF3 extends SoftKeyFn {
 	}
 
 	@Override
-	protected String getSubTitle() {
-		return "🎤";
-	}
-
-	@Override
 	public void render() {
 		setVisibility(tt9 != null && tt9.isVoiceInputMissing() ? GONE : VISIBLE);
 		super.render();

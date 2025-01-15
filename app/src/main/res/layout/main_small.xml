@@ -2,6 +2,7 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/TTheme.Keyboard"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical">
@@ -11,46 +12,34 @@
 		style="@style/numRowSeparator" />
 
 	<FrameLayout
-		android:layout_width="fill_parent"
-		android:layout_height="@dimen/candidate_height"
+		style="@style/TTheme.MainSmall.StatusBar.Wrapper"
 		android:defaultFocusHighlightEnabled="false"
 		android:focusable="false"
 		android:focusableInTouchMode="false">
 
 		<TextView
 			android:id="@+id/status_bar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			style="@style/TTheme.MainSmall.StatusBar.Status"
 			android:defaultFocusHighlightEnabled="false"
 			android:focusable="false"
 			android:focusableInTouchMode="false"
-			android:gravity="center"
-			android:textStyle="italic"
 			tools:text="@tools:sample/lorem" />
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/suggestions_bar"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			style="@style/TTheme.MainSmall.StatusBar.SuggestionList"
 			android:defaultFocusHighlightEnabled="false"
 			android:focusable="false"
-			android:focusableInTouchMode="false"
-			android:gravity="center_vertical"
-			android:orientation="horizontal"
-			android:scrollbars="none" />
+			android:focusableInTouchMode="false" />
 
 	</FrameLayout>
-
-	<View
-		android:id="@+id/separator_candidates_bottom"
-		style="@style/numRowSeparator" />
 
 	<include
 		layout="@layout/panel_small_function_keys"
 		android:id="@+id/main_soft_keys" />
 
 	<include
-		layout="@layout/panel_command_palette"
+		layout="@layout/panel_small_command_palette"
 		android:id="@+id/main_command_keys"
 		android:visibility="gone" />
 

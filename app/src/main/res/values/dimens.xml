@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="candidate_font_size">18sp</dimen>
-	<dimen name="candidate_height">26sp</dimen>
-	<dimen name="candidate_padding_horizontal">6sp</dimen>
+	<dimen name="status_bar_height">26sp</dimen>
+	<dimen name="status_bar_font_size">16sp</dimen>
+	<dimen name="suggestion_font_size">18sp</dimen> <!-- for some reason the RecyclerView displays the text smaller than the TextView, so we to make the suggestions slightly bigger than the regular Status Bar text. -->
+	<dimen name="suggestion_padding_horizontal">6sp</dimen>
 
+	<dimen name="main_small_key_icon_size">32sp</dimen>
+	<dimen name="main_small_key_height">44dp</dimen>
+	<dimen name="main_small_key_wrapper_height">46dp</dimen>
+
+	<dimen name="main_small_key_text_editing_height">65dp</dimen>
+
+	<!-- Preferences, default font size -->
 	<dimen name="preferences_text_min_height">48dp</dimen>
 	<dimen name="preference_search_height">72dp</dimen>
+	<dimen name="pref_padding_horizontal">16dp</dimen>
+	<dimen name="pref_padding_vertical">12dp</dimen>
 
-	<dimen name="soft_key_height">44dp</dimen>
-	<dimen name="soft_key_icon_size">24sp</dimen>
-	<dimen name="soft_key_drawable_bottom_padding">6dp</dimen>
-	<dimen name="soft_key_drawable_title_size">12sp</dimen>
-
-	<!-- Large font size -->
+	<!-- Preferences, large font size -->
 	<dimen name="pref_large_category_padding_top">30dp</dimen>
 	<dimen name="pref_large_category_padding_bottom">12dp</dimen>
 	<dimen name="pref_large_padding_horizontal">16dp</dimen>
@@ -20,10 +25,6 @@
 	<dimen name="pref_large_text_size">22sp</dimen>
 	<dimen name="pref_large_summary_size">19sp</dimen>
 
-
-	<!-- Default font size -->
-	<dimen name="pref_padding_horizontal">16dp</dimen>
-	<dimen name="pref_padding_vertical">12dp</dimen>
 
 	<!-- Numpad -->
 	<dimen name="numpad_max_width">10000dp</dimen>
@@ -37,4 +38,7 @@
 	<dimen name="numpad_candidate_font_size">17sp</dimen>
 	<dimen name="numpad_candidate_height">40dp</dimen>
 	<dimen name="numpad_candidate_min_width">36dp</dimen>
+
+	<dimen name="numpad_text_editing_font_size">17sp</dimen>
+	<dimen name="soft_key_drawable_bottom_padding">6dp</dimen>
 </resources>

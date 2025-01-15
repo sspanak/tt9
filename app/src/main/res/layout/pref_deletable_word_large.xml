@@ -15,7 +15,7 @@
 		android:paddingEnd="15dp"
 		android:text="✕"
 		android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView"
-		android:textSize="@dimen/soft_key_icon_size"
+		android:textSize="@dimen/main_small_key_icon_size"
 		tools:ignore="HardcodedText,RtlSymmetry" />
 
 	<TextView

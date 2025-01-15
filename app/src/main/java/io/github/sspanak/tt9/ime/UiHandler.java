@@ -51,8 +51,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	protected void setDarkTheme() {
 		mainView.setDarkTheme(settings.getDarkTheme());
-		statusBar.setDarkTheme(settings.getDarkTheme());
-		getSuggestionOps().setDarkTheme(settings.getDarkTheme());
+		getSuggestionOps().setDarkTheme();
 	}
 
 

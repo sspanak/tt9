@@ -164,7 +164,7 @@ public class SuggestionOps {
 	}
 
 
-	public void setDarkTheme(boolean yes) {
-		suggestionBar.setDarkTheme(yes);
+	public void setDarkTheme() {
+		suggestionBar.setDarkTheme();
 	}
 }

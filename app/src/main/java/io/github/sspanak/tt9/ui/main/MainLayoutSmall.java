@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,7 @@ class MainLayoutSmall extends MainLayoutTray {
 			height = super.getHeight(forceRecalculate);
 
 			if (!isCommandPaletteShown() && !isTextEditingPaletteShown()) {
-				height += tt9.getResources().getDimensionPixelSize(R.dimen.soft_key_height);
+				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_key_wrapper_height);
 			}
 		}
 
@@ -62,20 +61,5 @@ class MainLayoutSmall extends MainLayoutTray {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.main_soft_keys)));
 		}
 		return keys;
-	}
-
-	@Override
-	protected ArrayList<View> getSeparators() {
-		ArrayList<View> separators = super.getSeparators();
-		separators.add(view.findViewById(R.id.main_separator_left));
-		separators.add(view.findViewById(R.id.main_separator_right));
-
-		return separators;
-	}
-
-	@Override
-	void setDarkTheme(boolean dark) {
-		super.setDarkTheme(dark);
-		view.findViewById(R.id.main_soft_keys).setBackground(getBackgroundColor(view, dark));
 	}
 }

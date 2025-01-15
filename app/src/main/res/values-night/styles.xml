@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--	<style name="TTheme" parent="Theme.AppCompat" />-->
+
+<!--	<style name="TTheme.Colored.Key" parent="TTheme.Key">-->
+<!--		<item name="android:textColor">@color/button_text</item>-->
+<!--		<item name="android:color">@color/dark_button_color</item>-->
+<!--		<item name="android:textColor">@color/dark_button_color</item>-->
+<!--		<item name="android:textColorPrimary">@color/dark_button_color</item>-->
+<!--		<item name="android:tint">@color/dark_button_color</item>-->
+<!--		<item name="tint">@color/dark_button_color</item>-->
+<!--	</style>-->
+
+</resources>

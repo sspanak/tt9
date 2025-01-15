@@ -1,79 +1,18 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.widget.TextViewCompat;
-
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyFn extends SoftKeyNumber {
 	public SoftKeyFn(Context context) { super(context);}
 	public SoftKeyFn(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftKeyFn(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
-	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() * 0.8f; }
-
-
-	@Override protected void handleHold() {
-		preventRepeat();
-	}
-
-
-	@Override
-	public void setDarkTheme(boolean darkEnabled) {
-		super.setDarkTheme(darkEnabled);
-
-		final int color = darkEnabled ? R.color.dark_button_text : R.color.button_text;
-
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-			TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(getContext().getColor(color)));
-		} else {
-			setDarkThemeLegacy(color);
-		}
-	}
-
-
-	private void setDarkThemeLegacy(int color) {
-		Drawable[] icons = getCompoundDrawables();
-
-		if (icons.length >= 4 && icons[3] != null) {
-			Drawable icon = DrawableCompat.wrap(icons[3]);
-			DrawableCompat.setTint(icon, getResources().getColor(color));
-			setCompoundDrawables(null, null, null, icon);
-		}
-	}
-
-
-	protected String getTextSubTitle(int resId) {
-		return getContext().getString(resId);
-	}
-
-
-	@Override
-	protected String getTitle() {
-		return getNumber(getId()) + "";
-	}
-
-
-	@Override
-	protected String getSubTitle() {
-		boolean noIconSupport = Characters.noEmojiSupported();
-		int keyId = getId();
-
-		// command palette
-		if (keyId == R.id.soft_key_1) return noIconSupport ? getTextSubTitle(R.string.virtual_key_settings) : "⚙";
-		if (keyId == R.id.soft_key_2) return "＋";
-		if (keyId == R.id.soft_key_8) return noIconSupport ? getTextSubTitle(R.string.virtual_key_change_keyboard) : "⌨";
-
-		return null;
-	}
-
+	@Override protected void handleHold() { preventRepeat(); }
+	@Override protected String getTitle() { return getNumber(getId()) + ""; }
+	@Override protected String getSubTitle() { return null; }
 
 	@Override
 	protected int getNumber(int keyId) {

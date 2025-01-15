@@ -1,15 +1,11 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
-import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -25,10 +21,10 @@ class MainLayoutTray extends BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
-			height = resources.getDimensionPixelSize(R.dimen.candidate_height) + getBottomInsetSize();
+			height = resources.getDimensionPixelSize(R.dimen.status_bar_height) + getBottomInsetSize();
 
 			if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
-				height += resources.getDimensionPixelSize(R.dimen.numpad_key_height);
+				height += resources.getDimensionPixelSize(R.dimen.main_small_key_text_editing_height);
 			}
 		}
 
@@ -45,13 +41,11 @@ class MainLayoutTray extends BaseMainLayout {
 		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
-
 		getHeight(true);
 	}
 
 	void hideCommandPalette() {
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
-
 		getHeight(true);
 	}
 
@@ -64,57 +58,18 @@ class MainLayoutTray extends BaseMainLayout {
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.VISIBLE);
-
 		getHeight(true);
 	}
 
 	@Override
 	void hideTextEditingPalette() {
 		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
-
 		getHeight(true);
 	}
 
 	@Override
 	boolean isTextEditingPaletteShown() {
 		return view != null && view.findViewById(R.id.text_editing_container).getVisibility() == LinearLayout.VISIBLE;
-	}
-
-	protected Drawable getBackgroundColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getDrawable(
-			contextView.getContext(),
-			dark ? R.drawable.button_background_dark : R.drawable.button_background
-		);
-	}
-
-	protected Drawable getSeparatorColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getDrawable(
-			contextView.getContext(),
-			dark ? R.drawable.button_separator_dark : R.drawable.button_separator
-		);
-	}
-
-	@Override
-	void setDarkTheme(boolean dark) {
-		if (view == null) {
-			return;
-		}
-
-		// background
-		view.findViewById(R.id.main_command_keys).setBackground(getBackgroundColor(view, dark));
-		view.findViewById(R.id.text_editing_container).setBackground(getBackgroundColor(view, dark));
-
-		// text
-		for (SoftKey key : getKeys()) {
-			key.setDarkTheme(dark);
-		}
-
-		// separators
-		for (View separator : getSeparators()) {
-			if (separator != null) {
-				separator.setBackground(getSeparatorColor(separator, dark));
-			}
-		}
 	}
 
 	@Override
@@ -135,25 +90,5 @@ class MainLayoutTray extends BaseMainLayout {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_editing_container)));
 		}
 		return keys;
-	}
-
-	protected ArrayList<View> getSeparators() {
-		return new ArrayList<>(Arrays.asList(
-			view.findViewById(R.id.separator_top),
-			view.findViewById(R.id.separator_candidates_bottom),
-			view.findViewById(R.id.separator_1_1),
-			view.findViewById(R.id.separator_1_2),
-			view.findViewById(R.id.separator_2_1),
-			view.findViewById(R.id.separator_2_2),
-			view.findViewById(R.id.separator_10_1),
-			view.findViewById(R.id.separator_10_2),
-			view.findViewById(R.id.separator_10_2),
-			view.findViewById(R.id.separator_10_3),
-			view.findViewById(R.id.separator_10_4),
-			view.findViewById(R.id.separator_10_5),
-			view.findViewById(R.id.separator_10_6),
-			view.findViewById(R.id.separator_10_7),
-			view.findViewById(R.id.separator_10_8)
-		));
 	}
 }

@@ -2,21 +2,13 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import androidx.core.content.ContextCompat;
-
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
@@ -24,7 +16,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKey extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener, View.OnLongClickListener {
+public class SoftKey extends com.google.android.material.button.MaterialButton implements View.OnTouchListener, View.OnLongClickListener {
 	private final String LOG_TAG = getClass().getSimpleName();
 
 	protected TraditionalT9 tt9;
@@ -168,11 +160,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 
 	public void setDarkTheme(boolean darkEnabled) {
-		int textColor = ContextCompat.getColor(
-			getContext(),
-			darkEnabled ? R.color.dark_button_text : R.color.button_text
-		);
-		setTextColor(textColor);
 	}
 
 
@@ -223,7 +210,6 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
 			)
 		) {
-			setTextSize(SettingsStore.SOFT_KEY_TITLE_SIZE);
 			return getContext().getString(getNoEmojiTitle());
 		} else {
 			return getTitle();
@@ -275,36 +261,9 @@ public class SoftKey extends androidx.appcompat.widget.AppCompatButton implement
 
 		SpannableStringBuilder sb = new SpannableStringBuilder(title);
 		if (subtitle != null) {
-			sb.append('\n');
+			sb.append(" ");
 			sb.append(subtitle);
 		}
-
-		// title styles
-		int titleLength = title.length();
-		float titleRelativeSize = subtitle == null ? getSingleLabelRelativeSize() : getTitleRelativeSize();
-
-		sb.setSpan(new RelativeSizeSpan(titleRelativeSize), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		if (subtitle != null && !new Text(title).startsWithGraphic()) {
-			sb.setSpan(new StyleSpan(Typeface.ITALIC), 0, titleLength, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-		}
-
-		if (isTitleDisabled) {
-			sb.setSpan(new ForegroundColorSpan(0x44000000), 0, titleLength, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		}
-
-		if (subtitle == null) {
-			setText(sb);
-			return;
-		}
-
-		// subtitle styles
-		float padding = SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
-		if (titleRelativeSize == SettingsStore.SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE) {
-			padding /= 10;
-		}
-
-		sb.setSpan(new RelativeSizeSpan(padding), titleLength, titleLength + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-		sb.setSpan(new RelativeSizeSpan(getSubTitleRelativeSize()), titleLength + 1, sb.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
 
 		setText(sb);
 	}

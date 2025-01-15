@@ -21,7 +21,7 @@
 			android:layout_height="match_parent"
 			android:layout_weight="@dimen/numpad_function_key_layout_weight"
 			android:text="⚙"
-			android:textSize="@dimen/soft_key_icon_size" />
+			android:textSize="@dimen/main_small_key_icon_size" />
 
 		<View
 			android:id="@+id/separator_1_1"
@@ -46,7 +46,7 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="@dimen/numpad_function_key_layout_weight"
-			android:textSize="@dimen/soft_key_icon_size" />
+			android:textSize="@dimen/main_small_key_icon_size" />
 
 	</LinearLayout>
 
@@ -63,7 +63,7 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="@dimen/numpad_function_key_layout_weight"
-			android:textSize="@dimen/soft_key_icon_size" />
+			android:textSize="@dimen/main_small_key_icon_size" />
 
 		<View
 			android:id="@+id/separator_2_1"

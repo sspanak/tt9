@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="TTheme" parent="Theme.Material3.DynamicColors.Dark">
-		<item name="preferenceTheme">@style/PreferenceOverlay</item>
+	<style name="TTheme" parent="Theme.Material3.DynamicColors.Dark" />
+
+	<style name="TTheme.Preferences" parent="Theme.Material3.DynamicColors.Dark">
+		<item name="preferenceTheme">@style/TTheme.PreferenceOverlay</item>
 
 		<!-- title bar -->
 		<item name="tint">@color/material_dynamic_neutral90</item> <!-- back button color -->
@@ -15,8 +17,8 @@
 <!--		<item name="android:popupMenuStyle">@style/AppDropDownStyle</item> &lt;!&ndash; dropdown background &ndash;&gt;-->
 	</style>
 
-	<style name="PreferenceOverlay" parent="@style/PreferenceThemeOverlay">
-		<item name="switchPreferenceCompatStyle">@style/AppSwitchStyle</item>
+	<style name="TTheme.PreferenceOverlay" parent="@style/PreferenceThemeOverlay">
+		<item name="switchPreferenceCompatStyle">@style/TTheme.Switch</item>
 	</style>
 
 <!--	<style name="AppDropDownStyle" parent="Widget.AppCompat.ListPopupWindow">-->
@@ -24,7 +26,7 @@
 <!--		<item name="popupMenuBackground">@color/material_dynamic_neutral_variant30</item>-->
 <!--	</style>-->
 
-	<style name="AppSwitchStyle" parent="@style/Preference.SwitchPreferenceCompat.Material">
+	<style name="TTheme.Switch" parent="@style/Preference.SwitchPreferenceCompat.Material">
 		<item name="widgetLayout">@layout/pref_switch_v31</item>
 	</style>
 

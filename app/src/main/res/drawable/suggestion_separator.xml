@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
-	<size android:width="1px" />
-	<solid android:color="@color/candidate_separator" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="2dp" android:bottom="2dp"> <!-- padding -->
+        <shape>
+            <size android:width="1dp" />
+            <solid android:color="@color/suggestion_separator" />
+        </shape>
+    </item>
+</layer-list>

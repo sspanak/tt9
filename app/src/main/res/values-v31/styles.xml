@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="TTheme" parent="Theme.Material3.DynamicColors.Light">
-		<item name="preferenceTheme">@style/PreferenceOverlay</item>
+	<style name="TTheme" parent="Theme.Material3.DynamicColors.Light" />
+
+	<style name="TTheme.Preferences" parent="Theme.Material3.DynamicColors.Light">
+		<item name="preferenceTheme">@style/TTheme.PreferenceOverlay</item>
 
 		<!-- title bar -->
 		<item name="tint">@color/material_dynamic_neutral20</item> <!-- back button color -->
@@ -28,11 +30,11 @@
 		-->
 	</style>
 
-	<style name="PreferenceOverlay" parent="@style/PreferenceThemeOverlay">
-		<item name="switchPreferenceCompatStyle">@style/AppSwitchStyle</item>
+	<style name="TTheme.PreferenceOverlay" parent="@style/PreferenceThemeOverlay">
+		<item name="switchPreferenceCompatStyle">@style/TTheme.Switch</item>
 	</style>
 
-	<style name="AppSwitchStyle" parent="@style/Preference.SwitchPreferenceCompat.Material">
+	<style name="TTheme.Switch" parent="@style/Preference.SwitchPreferenceCompat.Material">
 		<item name="widgetLayout">@layout/pref_switch_v31</item>
 	</style>
 
