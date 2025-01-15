@@ -8,7 +8,7 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_cut"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:textSize="@dimen/numpad_text_editing_font_size"
 		android:visibility="gone" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
@@ -19,7 +19,7 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_copy"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:textSize="@dimen/numpad_text_editing_font_size"
 		android:visibility="gone" />
 
 
@@ -31,6 +31,6 @@
 		android:layout_weight="1"
 		android:drawableBottom="@drawable/ic_txt_paste"
 		android:paddingBottom="@dimen/soft_key_drawable_bottom_padding"
-		android:textSize="@dimen/soft_key_drawable_title_size"
+		android:textSize="@dimen/numpad_text_editing_font_size"
 		android:visibility="gone" />
 </merge>

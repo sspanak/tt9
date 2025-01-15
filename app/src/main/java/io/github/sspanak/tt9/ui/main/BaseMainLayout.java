@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.content.res.Configuration;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -28,17 +29,7 @@ abstract class BaseMainLayout {
 	}
 
 
-	/** setDarkTheme
-	 * <p>Changes the main view colors according to the theme.</p>
-	 *
-	 * <p>We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
-	 * because this View is part of the main service View. And service Views are always locked to the
-	 * system context and theme.</p>
-	 *
-	 * <p>More info:
-	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
-	 * </p>
-	 */
+	@Deprecated
 	void setDarkTheme(boolean dark) {}
 
 
@@ -50,13 +41,27 @@ abstract class BaseMainLayout {
 	@NonNull protected ArrayList<SoftKey> getKeys() { return keys; }
 
 
+	/**
+	 * getThemedContext
+	 * 1. Overrides the system dark/light them with the one in our settings.
+	 * 2. Fixes this error log: "View class SoftKeyXXX is an AppCompat widget that can only be used
+	 * with a Theme.AppCompat theme (or descendant)."
+	 */
+	private ContextThemeWrapper getThemedContext() {
+			int nightModeFlag = tt9.getSettings().getDarkTheme() ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO;
+			Configuration config = new Configuration(tt9.getResources().getConfiguration());
+			config.uiMode = nightModeFlag | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+
+			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TTheme);
+			themedCtx.applyOverrideConfiguration(config);
+
+			return themedCtx;
+	}
+
+
 	protected View getView() {
 		if (view == null) {
-			// Adding the ContextThemeWrapper fixes this error log:
-			// "View class SoftKeyXXX is an AppCompat widget that can only be used with a
-			// Theme.AppCompat theme (or descendant)."
-			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TTheme);
-			view = View.inflate(themedCtx, xml, null);
+			view = View.inflate(getThemedContext(), xml, null);
 		}
 
 		return view;

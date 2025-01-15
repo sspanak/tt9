@@ -29,10 +29,10 @@ public class SuggestionsBar {
 	private final String STEM_PUNCTUATION_VARIATION_PREFIX = "​";
 	@NonNull private String stem = "";
 
+	private int backgroundColor = Color.TRANSPARENT;
 	private double lastClickTime = 0;
-	private final List<String> suggestions = new ArrayList<>();
 	protected int selectedIndex = 0;
-	private boolean isDarkThemeEnabled = false;
+	private final List<String> suggestions = new ArrayList<>();
 
 	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
@@ -86,7 +86,7 @@ public class SuggestionsBar {
 		);
 		mView.setAdapter(mSuggestionsAdapter);
 
-		setDarkTheme(settings.getDarkTheme());
+		setDarkTheme();
 	}
 
 
@@ -280,28 +280,21 @@ public class SuggestionsBar {
 
 	/**
 	 * setDarkTheme
-	 * Changes the suggestion colors according to the theme.
-	 *
-	 * We need to do this manually, instead of relying on the Context to resolve the appropriate colors,
-	 * because this View is part of the main service View. And service Views are always locked to the
-	 * system context and theme.
-	 *
-	 * More info:
-	 * <a href="https://stackoverflow.com/questions/72382886/system-applies-night-mode-to-views-added-in-service-type-application-overlay">...</a>
+	 * Changes the suggestion colors according to the theme. Due to the fact we change the colors
+	 * dynamically based on the selected index and whether the suggestions are empty or not, we
+	 * need to set them manually.
 	 */
-	public void setDarkTheme(boolean darkEnabled) {
+	public void setDarkTheme() {
 		if (mView == null) {
 			return;
 		}
 
-		isDarkThemeEnabled = darkEnabled;
 		Context context = mView.getContext();
 
-		int defaultColor = darkEnabled ? R.color.dark_candidate_color : R.color.candidate_color;
-		int highlightColor = darkEnabled ? R.color.dark_candidate_selected : R.color.candidate_selected;
-
-		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, defaultColor));
-		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, highlightColor));
+		backgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
+		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text_color));
+		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_color));
+		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
 
 		setBackground(suggestions);
 	}
@@ -323,12 +316,7 @@ public class SuggestionsBar {
 			return;
 		}
 
-		int color = ContextCompat.getColor(
-			mView.getContext(),
-			isDarkThemeEnabled ? R.color.dark_candidate_background : R.color.candidate_background
-		);
-
-		mView.setBackgroundColor(color);
+		mView.setBackgroundColor(backgroundColor);
 	}
 
 

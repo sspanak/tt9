@@ -1,7 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="TTheme" parent="Theme.AppCompat.DayNight" />
+	<style name="TTheme" parent="Theme.MaterialComponents.DayNight" />
+	<style name="TTheme.Preferences" parent="Theme.AppCompat.DayNight" />
 
+
+	<style name="TTheme.AddWord" parent="Theme.AppCompat.Dialog.Alert">
+		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
+	</style>
+
+
+	<style name="TTheme.Keyboard">
+		<item name="android:background">@color/keyboard_background</item>
+	</style>
+
+
+	<!-- status bar -->
+	<style name="TTheme.MainSmall.StatusBar.Wrapper" parent="">
+		<item name="android:layout_height">@dimen/status_bar_height</item>
+		<item name="android:layout_width">match_parent</item>
+	</style>
+
+	<style name="TTheme.MainSmall.StatusBar.Status" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">match_parent</item>
+
+		<item name="android:textSize">@dimen/status_bar_font_size</item>
+		<item name="android:textStyle">italic</item>
+		<item name="android:textColor">@color/keyboard_text_color</item>
+	</style>
+
+	<style name="TTheme.MainSmall.StatusBar.SuggestionList" parent="">
+		<item name="android:layout_gravity">center_vertical</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:orientation">horizontal</item>
+		<item name="android:scrollbars">none</item>
+	</style>
+
+	<style name="TTheme.MainSmall.StatusBar.SuggestionList.Item" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:paddingLeft">@dimen/suggestion_padding_horizontal</item>
+		<item name="android:paddingRight">@dimen/suggestion_padding_horizontal</item>
+
+		<item name="android:textSize">@dimen/suggestion_font_size</item>
+	</style>
+
+
+	<!-- general purpose key style -->
+	<style name="TTheme.Key" parent="Widget.MaterialComponents.Button">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+
+	<!-- Main Small view (backspace and OK) -->
+	<style name="TTheme.MainSmall.Wrapper" parent="">
+		<item name="android:baselineAligned">true</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_height">@dimen/main_small_key_wrapper_height</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="TTheme.MainSmall.Key" parent="TTheme.Key">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_marginLeft">6dp</item>
+		<item name="android:layout_marginRight">6dp</item>
+		<item name="android:layout_marginTop">1dp</item>
+		<item name="android:layout_marginBottom">1dp</item>
+
+		<item name="android:paddingTop">0dp</item>
+		<item name="android:paddingBottom">0dp</item>
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+
+		<item name="android:textColor">@color/keyboard_text_color</item>
+		<item name="backgroundTint">@color/key_num_background</item>
+	</style>
+
+	<style name="TTheme.MainSmall.Key.OK" parent="TTheme.MainSmall.Key">
+		<item name="android:textColor">@color/key_ok_color</item>
+		<item name="backgroundTint">@color/key_ok_background</item>
+	</style>
+
+
+	<!-- Fn keys (command palette or text-editing palette) -->
+	<style name="TTheme.CommandPalette.Wrapper" parent="">
+		<item name="android:layout_height">@dimen/main_small_key_text_editing_height</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="TTheme.CommandPalette.Key" parent="TTheme.MainSmall.Key">
+		<item name="android:drawablePadding">0dp</item>
+		<item name="android:layout_marginTop">0dp</item>
+		<item name="android:layout_marginBottom">0dp</item>
+		<item name="android:layout_marginLeft">1dp</item>
+		<item name="android:layout_marginRight">1dp</item>
+		<item name="android:paddingTop">0dp</item>
+		<item name="android:paddingBottom">2dp</item>
+		<item name="android:paddingLeft">0dp</item>
+		<item name="android:paddingRight">0dp</item>
+
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+		<item name="android:textSize">@dimen/status_bar_font_size</item>
+		<item name="drawableTint">@color/keyboard_text_color</item>
+	</style>
+
+
+
+	<!-- LEGACY -->
 	<style name="hSeparator">
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">3dp</item>
@@ -20,9 +131,7 @@
 		<item name="android:layout_marginRight">@dimen/numpad_row_separator_margin</item>
 		<item name="android:layout_height">1dp</item>
 		<item name="android:layout_width">match_parent</item>
-	</style>
 
-	<style name="TTheme.AddWord" parent="Theme.AppCompat.DayNight.Dialog.Alert">
-		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
+		<item name="android:background">@color/suggestion_separator</item>
 	</style>
 </resources>

@@ -40,7 +40,7 @@
 					android:layout_width="@dimen/numpad_arrow_key_width"
 					android:layout_height="match_parent"
 					android:text="@string/key_dpad_left"
-					android:textSize="@dimen/soft_key_icon_size" />
+					android:textSize="@dimen/main_small_key_icon_size" />
 
 				<View
 					android:id="@+id/separator_candidates_1"
@@ -79,7 +79,7 @@
 					android:layout_width="@dimen/numpad_arrow_key_width"
 					android:layout_height="match_parent"
 					android:text="@string/key_dpad_right"
-					android:textSize="@dimen/soft_key_icon_size" />
+					android:textSize="@dimen/main_small_key_icon_size" />
 
 			</LinearLayout>
 

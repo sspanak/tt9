@@ -24,6 +24,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 	private int colorDefault;
 	private int colorHighlight;
+	private int backgroundHighlight;
 	private int selectedIndex = 0;
 
 
@@ -46,8 +47,8 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
 		holder.suggestionItem.setText(mSuggestions.get(position));
-		holder.suggestionItem.setTextColor(colorDefault);
-		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? colorHighlight : Color.TRANSPARENT);
+		holder.suggestionItem.setTextColor(selectedIndex == position ? colorHighlight : colorDefault);
+		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? backgroundHighlight : Color.TRANSPARENT);
 		holder.suggestionItem.setOnClickListener(v -> onItemClick.accept(holder.getAdapterPosition()));
 	}
 
@@ -78,6 +79,11 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 	public void setColorHighlight(int colorHighlight) {
 		this.colorHighlight = colorHighlight;
+	}
+
+
+	public void setBackgroundHighlight(int backgroundHighlight) {
+		this.backgroundHighlight = backgroundHighlight;
 	}
 
 

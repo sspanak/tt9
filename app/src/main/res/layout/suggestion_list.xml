@@ -4,17 +4,13 @@
 	android:layout_height="match_parent"
 	android:defaultFocusHighlightEnabled="false"
 	android:focusable="false"
-	android:focusableInTouchMode="false"
-	android:orientation="horizontal">
+	android:focusableInTouchMode="false">
 
 	<TextView
 		android:id="@+id/suggestion_list_item"
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent"
+		style="@style/TTheme.MainSmall.StatusBar.SuggestionList.Item"
 		android:defaultFocusHighlightEnabled="false"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
-		android:gravity="center"
-		android:paddingHorizontal="@dimen/candidate_padding_horizontal"
-		android:textSize="@dimen/candidate_font_size" />
+		/>
 </LinearLayout>

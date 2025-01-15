@@ -31,7 +31,8 @@
 		<activity
 			android:label="@string/app_name_short"
 			android:name="io.github.sspanak.tt9.preferences.PreferencesActivity"
-			android:exported="true">
+			android:exported="true"
+			android:theme="@style/TTheme.Preferences">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER" />
