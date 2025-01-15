@@ -16,7 +16,7 @@
 		android:layout_height="match_parent"
 		android:layout_weight="3"
 		android:focusable="false"
-		android:text="🛠"
+		android:text="☰"
 		android:textSize="@dimen/soft_key_icon_size" />
 
 	<View
