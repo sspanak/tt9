@@ -208,7 +208,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	protected void onZombie() {
 		if (isDead) {
-			Logger.w(LOG_TAG, "===> Already dead. Nothing to do.");
+			Logger.w(LOG_TAG, "===> Already dead. Cannot kill self.");
 			return;
 		}
 
@@ -232,8 +232,10 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	public void onDestroy() {
-		cleanUp();
-		isDead = true;
+		if (!isDead) {
+			cleanUp();
+			isDead = true;
+		}
 		super.onDestroy();
 		Logger.d(LOG_TAG, "===> Shutdown completed");
 	}
