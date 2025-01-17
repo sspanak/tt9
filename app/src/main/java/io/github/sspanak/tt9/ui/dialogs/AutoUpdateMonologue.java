@@ -20,6 +20,7 @@ public class AutoUpdateMonologue extends PopupDialog {
 
 	AutoUpdateMonologue(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher);
+		LanguageCollection.init(context);
 		parseIntent(intent);
 	}
 
