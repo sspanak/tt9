@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.util;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -33,6 +34,17 @@ public class Text extends TextTools {
 		char[] chars = text.toCharArray();
 		chars[0] = Character.toUpperCase(chars[0]);
 		return String.valueOf(chars);
+	}
+
+
+	public boolean isValidWordWithPunctuation(List<Character> punctuation) {
+		for (int i = 0, end = text != null ? text.length() : 0; i < end; i++) {
+			if (!Character.isAlphabetic(text.charAt(i)) && !punctuation.contains(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 

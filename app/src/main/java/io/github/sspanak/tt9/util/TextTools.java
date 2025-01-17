@@ -20,10 +20,10 @@ public class TextTools {
 	private static final Pattern startOfSentence = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
-
 	public static boolean containsOtherThan1(String str) {
 		return str != null && containsOtherThan1.matcher(str).find();
 	}
+
 
 	public static boolean isCombining(String str) {
 		return str != null && combiningString.matcher(str).find();

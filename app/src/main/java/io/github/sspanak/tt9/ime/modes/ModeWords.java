@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -416,8 +417,8 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-		if (shouldAcceptHebrewOrUkrainianWord(unacceptedText)) {
-			return true;
+		if (shouldContinueHebrewOrUkrainianWord(unacceptedText)) {
+			return false;
 		}
 
 		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
@@ -434,15 +435,17 @@ class ModeWords extends ModeCheonjiin {
 	 * Apostrophes never break Ukrainian and Hebrew words because they are used as letters. Same for
 	 * the quotation marks in Hebrew.
 	 */
-	private boolean shouldAcceptHebrewOrUkrainianWord(String unacceptedText) {
-		char penultimateChar = unacceptedText.length() > 1 ? unacceptedText.charAt(unacceptedText.length() - 2) : 0;
-
-		if (LanguageKind.isHebrew(language) && predictions.noDbWords()) {
-			return penultimateChar != '\'' && penultimateChar != '"';
+	private boolean shouldContinueHebrewOrUkrainianWord(String unacceptedText) {
+		if (unacceptedText.length() <= 1 || !predictions.noDbWords()) {
+			return false;
 		}
 
-		if (LanguageKind.isUkrainian(language) && predictions.noDbWords()) {
-			return penultimateChar != '\'';
+		if (LanguageKind.isHebrew(language)) {
+			return new Text(language, unacceptedText).isValidWordWithPunctuation(List.of('"', '\''));
+		}
+
+		if (LanguageKind.isUkrainian(language)) {
+			return new Text(language, unacceptedText).isValidWordWithPunctuation(List.of('\''));
 		}
 
 		return false;
