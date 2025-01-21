@@ -1,96 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/numpad_container"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:gravity="center_horizontal">
+	style="@style/TTheme.Numpad.FullScreenAlignmentContainer"
+	android:id="@+id/numpad_container">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/numpad_width_constraint_wrapper"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:maxWidth="@dimen/numpad_max_width"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent">
+		style="@style/TTheme.Numpad.FullScreenContainer"
+		android:id="@+id/numpad_width_constraint_wrapper">
 
 		<LinearLayout
+			style="@style/TTheme.Numpad"
 			android:id="@+id/linearLayout"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent">
+			tools:ignore="MissingConstraints"> <!-- the constraints are set in the styles -->
 
-			<View
-				android:id="@+id/separator_top"
-				style="@style/numRowSeparator" />
+			<View style="@style/TTheme.Keyboard.TopSeparator" />
+			<include layout="@layout/panel_numpad_status_bar" />
 
 			<LinearLayout
-				android:id="@+id/status_bar_container"
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/numpad_candidate_height"
-				android:layoutDirection="ltr">
-
-				<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
-					android:id="@+id/soft_key_left_arrow"
-					style="@android:style/Widget.Holo.Button.Borderless"
-					android:layout_width="@dimen/numpad_arrow_key_width"
-					android:layout_height="match_parent"
-					android:text="@string/key_dpad_left"
-					android:textSize="@dimen/main_small_key_icon_size" />
-
-				<View
-					android:id="@+id/separator_candidates_1"
-					style="@style/numSeparator" />
-
-				<FrameLayout
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="1">
-
-					<TextView
-						android:id="@+id/status_bar"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:gravity="center"
-						android:textStyle="italic"
-						tools:text="@tools:sample/lorem" />
-
-					<androidx.recyclerview.widget.RecyclerView
-						android:id="@+id/suggestions_bar"
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:gravity="center"
-						android:layoutDirection="locale"
-						android:orientation="horizontal"
-						android:scrollbars="none" />
-				</FrameLayout>
-
-				<View
-					android:id="@+id/separator_candidates_2"
-					style="@style/numSeparator" />
-
-				<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
-					android:id="@+id/soft_key_right_arrow"
-					style="@android:style/Widget.Holo.Button.Borderless"
-					android:layout_width="@dimen/numpad_arrow_key_width"
-					android:layout_height="match_parent"
-					android:text="@string/key_dpad_right"
-					android:textSize="@dimen/main_small_key_icon_size" />
-
-			</LinearLayout>
-
-			<View
-				android:id="@+id/separator_candidates_bottom"
-				style="@style/numRowSeparator" />
-
-			<include
-				layout="@layout/panel_numpad"
 				android:id="@+id/main_soft_keys"
-				android:paddingBottom="@dimen/numpad_padding_bottom"/>
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<include layout="@layout/panel_numpad_left" />
+				<include layout="@layout/panel_numpad_digits" />
+				<include layout="@layout/panel_numpad_text_editing" />
+				<include layout="@layout/panel_numpad_right"/>
+			</LinearLayout>
 
 		</LinearLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>

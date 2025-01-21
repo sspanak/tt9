@@ -5,10 +5,10 @@
 
 	<color name="key_num_background">#484c4f</color>
 	<color name="key_num_color">#fff</color>
-	<color name="key_num_alternative_color">#b6b7b9</color> <!-- 'hold' functions -->
+	<color name="key_num_alternative_color">#c3c5c6</color> <!-- 'hold' functions -->
 
 	<color name="key_fn_background">#373c41</color>
-	<color name="key_fn_alternative_color">#898c8f</color> <!-- 'hold' functions -->
+	<color name="key_fn_alternative_color">#c2c3c4</color> <!-- 'hold' functions -->
 
 	<color name="key_ok_background">#5e97f6</color>
 	<color name="key_ok_color">#fff</color>

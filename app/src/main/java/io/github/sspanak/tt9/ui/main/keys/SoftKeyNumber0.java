@@ -13,13 +13,18 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	public SoftKeyNumber0(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
-	protected String getTitle() {
+	protected int getNumber(int keyId) {
+		return 0;
+	}
+
+	@Override
+	protected String getHoldText() {
 		if (tt9 == null) {
-			return super.getTitle();
+			return null;
 		}
 
-		if (tt9.isNumericModeStrict()) {
-			return "0";
+		if (tt9.isTextEditingActive() || tt9.isNumericModeStrict()) {
+			return "";
 		} if (tt9.isNumericModeSigned()) {
 			return "+/-";
 		} else if (tt9.isInputModePhone()) {
@@ -28,24 +33,16 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return CHARS_NUMERIC_MODE;
 		}
 
-		return super.getTitle();
+		return super.getLocalizedNumber(getNumber(getId()));
 	}
 
 	@Override
-	protected String getSubTitle() {
-		if (tt9 == null) {
-			return null;
+	protected String getTitle() {
+		if (tt9 == null || tt9.isInputModeNumeric()) {
+			return "0";
 		}
 
-		if (tt9.isNumericModeStrict()) {
-			return null;
-		} else if (tt9.isInputModeNumeric()) {
-			return "0";
-		} else if (LanguageKind.isKorean(tt9.getLanguage())) {
-			return getKoreanCharList();
-		} else {
-			return "␣";
-		}
+		return (LanguageKind.isKorean(tt9.getLanguage())) ? getKoreanCharList() : "␣";
 	}
 
 	private String getKoreanCharList() {
@@ -64,11 +61,31 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	}
 
 	@Override
-	protected float getSubTitleRelativeSize() {
+	protected float getTitleScale() {
 		if (tt9 != null && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage())) {
-			return 1.1f;
+			return 1.5f * getTT9Height();
 		}
 
-		return super.getSubTitleRelativeSize();
+		return super.getTitleScale();
+	}
+
+
+	@Override
+	public void render() {
+		if (tt9 != null && LanguageKind.isKorean(tt9.getLanguage()) && tt9.isTextEditingActive()) {
+			setVisibility(GONE);
+		} else {
+			setVisibility(VISIBLE);
+		}
+
+		setEnabled(
+			tt9 != null
+				&& (
+					!tt9.isTextEditingActive()
+					|| (!LanguageKind.isKorean(tt9.getLanguage()) && !tt9.isInputModeNumeric())
+				)
+		);
+
+		super.render();
 	}
 }

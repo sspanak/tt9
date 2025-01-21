@@ -12,7 +12,11 @@ public class SoftKeyFn extends SoftKeyNumber {
 
 	@Override protected void handleHold() { preventRepeat(); }
 	@Override protected String getTitle() { return getNumber(getId()) + ""; }
-	@Override protected String getSubTitle() { return null; }
+
+	@Override
+	protected float getTitleScale() {
+		return 1;
+	}
 
 	@Override
 	protected int getNumber(int keyId) {

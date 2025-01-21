@@ -1,8 +1,9 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
+
+import io.github.sspanak.tt9.R;
 
 public class SoftKeyShift extends SoftKey {
 	public SoftKeyShift(Context context) {
@@ -17,8 +18,9 @@ public class SoftKeyShift extends SoftKey {
 		super(context, attrs, defStyleAttr);
 	}
 
-	@Override protected float getSingleLabelRelativeSize() { return 1.7f; }
-	@Override protected String getTitle() { return "⇧"; }
+	@Override protected int getCentralIcon() {
+		return R.drawable.ic_fn_shift;
+	}
 
 	@Override
 	protected boolean handleRelease() {
@@ -27,8 +29,13 @@ public class SoftKeyShift extends SoftKey {
 
 	@Override
 	public void render() {
-		setTypeface(Typeface.DEFAULT_BOLD);
+		setEnabled(
+			tt9 != null
+			&& !tt9.isVoiceInputActive()
+			&& !tt9.isInputModePhone()
+			&& !tt9.isNumericModeSigned()
+			&& !tt9.isTextEditingActive()
+		);
 		super.render();
-		setEnabled(tt9 != null && !tt9.isVoiceInputActive() && !tt9.isInputModePhone() && !tt9.isNumericModeSigned());
 	}
 }

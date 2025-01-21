@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.Gravity;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.Vibration;
@@ -11,13 +12,9 @@ public class SoftKeyLF4 extends SwipeableKey {
 	public SoftKeyLF4(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override protected float getTitleRelativeSize() { return super.getTitleRelativeSize() / 0.85f; }
-	@Override protected float getSubTitleRelativeSize() { return super.getSubTitleRelativeSize() / 0.85f; }
-
 	private boolean areThereManyLanguages() {
 		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
 	}
-
 
 	@Override
 	protected void handleHold() {
@@ -46,34 +43,42 @@ public class SoftKeyLF4 extends SwipeableKey {
 		}
 	}
 
-	protected String getHoldIcon() {
-		return "🌐";
-	}
-
-	protected String getPressIcon() {
+	@Override
+	protected String getTitle() {
 		return tt9 != null ? tt9.getInputModeName() : getContext().getString(R.string.virtual_key_input_mode);
 	}
 
 	@Override
-	protected String getTitle() {
-		return areThereManyLanguages() ? getHoldIcon() : getPressIcon();
+	protected int getHoldIcon() {
+		return areThereManyLanguages() ? R.drawable.ic_fn_next_language : -1;
 	}
 
 	@Override
-	protected String getSubTitle() {
-		return areThereManyLanguages() ? getPressIcon() : null;
+	protected float getHoldElementScale() {
+		return super.getHoldElementScale() * 0.8f;
+	}
+
+	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && !tt9.isInputModeNumeric();
 	}
 
 	@Override
 	public void render() {
-		setTitleDisabled(tt9 != null && tt9.isInputModeNumeric() && areThereManyLanguages());
-		super.render();
+		if (tt9 != null && tt9.isInputModeNumeric()) {
+			resetIconCache();
+		}
+
+		setGravity(areThereManyLanguages() ? Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM : Gravity.CENTER);
 
 		setEnabled(
 			tt9 != null
 			&& !tt9.isVoiceInputActive()
 			&& !tt9.isNumericModeStrict()
 			&& !tt9.isInputModePhone()
+			&& !tt9.isTextEditingActive()
 		);
+
+		super.render();
 	}
 }

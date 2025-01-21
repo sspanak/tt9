@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/status_bar_container"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+		style="@style/TTheme.Numpad.Key.Arrow"
+		android:id="@+id/soft_key_left_arrow"
+		android:text="@string/key_dpad_left" />
+
+	<FrameLayout style="@style/TTheme.Numpad.StatusBar.Wrapper">
+		<TextView
+			style="@style/TTheme.MainSmall.StatusBar.Status"
+			android:id="@+id/status_bar" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			style="@style/TTheme.MainSmall.StatusBar.SuggestionList"
+			android:id="@+id/suggestions_bar" />
+	</FrameLayout>
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow
+		style="@style/TTheme.Numpad.Key.Arrow"
+		android:id="@+id/soft_key_right_arrow"
+		android:text="@string/key_dpad_right" />
+
+</LinearLayout>

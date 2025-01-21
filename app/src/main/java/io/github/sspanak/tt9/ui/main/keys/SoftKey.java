@@ -1,13 +1,23 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.SpannableStringBuilder;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -30,7 +40,9 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	private static int lastPressedKey = -1;
 	private boolean ignoreLastPressedKey = false;
 
-	private boolean isTitleDisabled = false;
+	private Drawable icon = null;
+	private Drawable holdIcon = null;
+	private RelativeLayout overlay = null;
 
 
 	public SoftKey(Context context) {
@@ -67,6 +79,16 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 		}
 
 		return true;
+	}
+
+
+	protected float getTT9Width() {
+		return tt9 != null ? tt9.getSettings().getNumpadWidthPercent() / 100f : 1;
+	}
+
+
+	protected float getTT9Height() {
+		return tt9 != null ? (float) tt9.getSettings().getNumpadKeyHeight() / (float) tt9.getSettings().getNumpadKeyDefaultHeight() : 1;
 	}
 
 
@@ -159,14 +181,8 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	}
 
 
-	public void setDarkTheme(boolean darkEnabled) {
-	}
-
-
-	@Override
-	public void setEnabled(boolean enabled) {
-		super.setEnabled(enabled);
-		setTextColor(getTextColors().withAlpha(enabled ? 255 : 80));
+	public boolean isHoldEnabled() {
+		return true;
 	}
 
 
@@ -187,14 +203,56 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	protected int getNoEmojiTitle() { return 0; }
 
 
+	protected int getCentralIcon() {
+		return -1;
+	}
+
+
+	protected int getHoldIcon() {
+		return -1;
+	}
+
+
+	protected void resetIconCache() {
+		icon = null;
+		holdIcon = null;
+	}
+
+
 	/**
-	 * getSubTitle
-	 * Generates a String describing what the key does.
-	 * For example: "ABC" for 2-key; "⌫" for Backspace key, "⚙" for Settings key, and so on.
-	 *
-	 * The sub title label is optional.
+	 * Generates a String describing the "hold" function of the key. The String will be displayed
+	 * in the upper right corner.
 	 */
-	protected String getSubTitle() {
+	protected String getHoldText() {
+		return null;
+	}
+
+
+	/**
+	 * Generates a String describing for the swipe up function of the key
+	 */
+	protected String getTopText() {
+		return null;
+	}
+
+	/**
+	 * Generates a String describing for the swipe right function of the key
+	 */
+	protected String getRightText() {
+		return null;
+	}
+
+	/**
+	 * Generates a String describing for the swipe down function of the key
+	 */
+	protected String getBottomText() {
+		return null;
+	}
+
+	/**
+	 * Generates a String describing for the swipe left function of the key
+	 */
+	protected String getLeftText() {
 		return null;
 	}
 
@@ -218,59 +276,166 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 
 
 	/**
-	 * Multiplier for the font size when there is only one label.
+	 * A fail-safe method to get the central icon drawable.
 	 */
-	protected float getSingleLabelRelativeSize() {
-		return 1;
+	private Drawable getIconCompat() {
+		if (icon == null && getCentralIcon() > 0) {
+			icon = AppCompatResources.getDrawable(getContext(), getCentralIcon());
+		}
+
+		return icon;
 	}
 
 
 	/**
-	 * Multiplier for the title font size when there are two labels.
+	 * A fail-safe method to get the hold icon drawable.
 	 */
-	protected float getTitleRelativeSize() {
-		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE;
+	private Drawable getHoldIconCompat() {
+		if (holdIcon == null && getHoldIcon() > 0) {
+			holdIcon = AppCompatResources.getDrawable(getContext(), getHoldIcon());
+		}
+
+		return holdIcon;
 	}
 
 
 	/**
-	 * Multiplier for the subtitle font size when there are two labels.
+	 * Multiplier for the main text font size. Used for automatically adjusting the font size to fit
+	 * the key when changing the keyboard dimensions.
 	 */
-	protected float getSubTitleRelativeSize() {
-		return SettingsStore.SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE;
+	protected float getTitleScale() {
+		return SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE * Math.min(getTT9Width(), getTT9Height());
 	}
 
+
+	/**
+	 * Same as getTitleScale(), but for keys that have icons instead of text.
+	 */
+	protected float getCentralIconScale() {
+		float width = getTT9Width();
+		return width > 0.95f ? Math.min(1.15f, getTT9Height()) : Math.min(width, getTT9Height());
+	}
+
+
+	/**
+	 * Similar to getTitleScale(), adjusts the font size of the hold text or icon
+	 */
+	protected float getHoldElementScale() {
+		return SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE * Math.min(1, getTT9Height());
+	}
+
+
+	private void getOverlayWrapper() {
+		if (overlay == null) {
+			ViewParent parent = getParent();
+			if (parent instanceof RelativeLayout) {
+				overlay = (RelativeLayout) parent;
+			}
+		}
+	}
 
 
 	/**
 	 * render
-	 * Sets the key label using "getTitle()" and "getSubtitle()" or if they both
-	 * return NULL, the XML "text" attribute will be preserved.
-	 *
-	 * If there is only name label, it will be centered and at normal font size.
-	 * If there is also a function label, it will be displayed below the name label and both will
-	 * have their font size adjusted to fit inside the key.
+	 * Sets the key labels and icons using "getTitle()", "getCenterIcon()", "getHoldText()",
+	 * "getTopText()", "getRightText()", "getHoldIcon()", etc. Also takes care of styling the labels
+	 * depending on "isEnabled()" and "isHoldEnabled()".
 	 */
 	public void render() {
-		String title = getTitleCompat();
-		String subtitle = getSubTitle();
+		boolean isKeyEnabled = isEnabled();
+		boolean isHoldEnabled = isHoldEnabled();
 
+		renderTitle(isKeyEnabled);
+
+		getOverlayWrapper();
+
+		renderOverlayDrawable("overlay_icon", getIconCompat(), getCentralIconScale(), isKeyEnabled);
+
+		renderOverlayText("overlay_hold_text", getHoldText(), getHoldElementScale(), isKeyEnabled && isHoldEnabled);
+		renderOverlayDrawable("overlay_hold_icon", getHoldIconCompat(), getHoldElementScale(), isKeyEnabled && isHoldEnabled);
+
+		renderOverlayText("overlay_top_text", getTopText(), getHoldElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_right_text", getRightText(), getHoldElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_bottom_text", getBottomText(), getHoldElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_left_text", getLeftText(), getHoldElementScale(), isKeyEnabled);
+	}
+
+
+	/**
+	 * Renders the central text of the key and styles it based on "isEnabled".
+	 */
+	private void renderTitle(boolean isEnabled) {
+		String title = getTitleCompat();
 		if (title == null) {
 			return;
 		}
 
-		SpannableStringBuilder sb = new SpannableStringBuilder(title);
-		if (subtitle != null) {
-			sb.append(" ");
-			sb.append(subtitle);
+		setTextColor(getTextColors().withAlpha(isEnabled ? 255 : 110));
+
+		float scale = getTitleScale();
+		if (scale == 1) {
+			setText(title);
+			return;
 		}
 
-		setText(sb);
+		SpannableString text = new SpannableString(title);
+		text.setSpan(new RelativeSizeSpan(scale), 0, title.length(), 0);
+		setText(text);
 	}
 
 
-	protected void setTitleDisabled(boolean yes) {
-		isTitleDisabled = yes;
+	/**
+	 * Renders text in the given overlay element, with optional scaling and alpha. The overlay
+	 * text elements are either the "hold" text or the "swipe" text.
+	 */
+	private void renderOverlayText(String elementTag, @Nullable String text, float scale, boolean isEnabled) {
+		if (overlay == null) {
+			return;
+		}
+
+		View element = ((RelativeLayout) getParent()).findViewWithTag(elementTag);
+		if (!(element instanceof TextView el)) {
+			return;
+		}
+
+		el.setTextColor(el.getTextColors().withAlpha(isEnabled ? 255 : 110));
+
+		if (text == null || scale == 1) {
+			el.setText(text);
+			return;
+		}
+
+		SpannableString scaledText = new SpannableString(text);
+		scaledText.setSpan(new RelativeSizeSpan(scale), 0, scaledText.length(), 0);
+		el.setText(scaledText);
+	}
+
+
+	/**
+	 * Renders one of the key icons. It could be either the central icon, in the place of the main title,
+	 * or a hold icon, displayed in the upper right corner.
+	 */
+	private void renderOverlayDrawable(String elementTag, @Nullable Drawable drawable, float scale, boolean isEnabled) {
+		if (overlay == null) {
+			return;
+		}
+
+		View element = ((RelativeLayout) getParent()).findViewWithTag(elementTag);
+		if (!(element instanceof ImageView el)) {
+			return;
+		}
+
+		el.setImageDrawable(drawable);
+		if (!isEnabled) {
+			el.setColorFilter(Color.GRAY);
+		} else {
+			el.clearColorFilter();
+		}
+
+		if (drawable != null) {
+			el.setScaleX(scale);
+			el.setScaleY(scale);
+		}
 	}
 
 

@@ -53,7 +53,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	protected void setStatusIcon(InputMode mode) {
 		if (!InputModeKind.isPassthrough(mode) && settings.isStatusIconEnabled()) {
-			showStatusIcon(R.drawable.ic_status);
+			showStatusIcon(R.drawable.ic_keyboard);
 		} else {
 			hideStatusIcon();
 		}

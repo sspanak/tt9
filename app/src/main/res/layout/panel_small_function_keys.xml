@@ -24,6 +24,5 @@
 		android:id="@+id/soft_key_backspace"
 		style="@style/TTheme.MainSmall.Key"
 		android:layout_weight="3"
-		android:focusable="false"
-		android:text="⌫" />
+		android:focusable="false" />
 </LinearLayout>

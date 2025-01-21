@@ -8,34 +8,15 @@
 
 	<color name="key_num_background">#fff</color>
 	<color name="key_num_color">#333</color>
-	<color name="key_num_alternative_color">#666</color> <!-- 'hold' functions -->
+	<color name="key_num_alternative_color">#4d4d4f</color> <!-- 'hold' functions -->
 
 	<color name="key_fn_background">#ccced5</color>
-	<color name="key_fn_alternative_color">#888</color> <!-- 'hold' functions -->
+	<color name="key_fn_alternative_color">#4e4e50</color> <!-- 'hold' functions -->
 
 	<color name="key_ok_background">#1a73e8</color>
 	<color name="key_ok_color">#fff</color>
 
-	<color name="suggestion_selected_background">#8ab5f6</color> <!-- 8ed0fe / 7ecbff / #FFB27E / 73c7ff / 7ecfe2 / 8ac8f1 -->
+	<color name="suggestion_selected_background">#8cb7f9</color> <!-- 8ed0fe / 7ecbff / #FFB27E / 73c7ff / 7ecfe2 / 8ac8f1 -->
 	<color name="suggestion_selected_color">#000</color>
 	<color name="suggestion_separator">#888888</color>
-
-	<!-- legacy -->
-
-	<!-- Light theme -->
-	<color name="candidate_background">#D3D3D3</color>
-	<color name="candidate_color">#202020</color>
-	<color name="candidate_selected">#B8B8B8</color>
-	<color name="candidate_separator">#888888</color>
-
-	<color name="numpad_background">#E7E7E7</color>
-	<color name="numpad_separator">#CCC</color>
-
-	<!-- Dark theme -->
-	<color name="dark_candidate_background">#2C2C2C</color>
-	<color name="dark_candidate_color">#CCCCCC</color>
-	<color name="dark_candidate_selected">#555555</color>
-
-	<color name="dark_numpad_background">#353835</color>
-	<color name="dark_numpad_separator">#555</color>
 </resources>

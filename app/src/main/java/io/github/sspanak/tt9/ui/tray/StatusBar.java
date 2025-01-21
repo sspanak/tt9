@@ -1,10 +1,7 @@
 package io.github.sspanak.tt9.ui.tray;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;

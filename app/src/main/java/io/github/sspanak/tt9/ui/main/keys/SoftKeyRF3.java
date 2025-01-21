@@ -27,15 +27,8 @@ public class SoftKeyRF3 extends SoftKey {
 
 
 	@Override
-	protected float getTitleRelativeSize() {
-		return super.getTitleRelativeSize() / 0.85f;
-	}
-
-
-	@Override
-	protected float getSubTitleRelativeSize() {
-		float scale = (isTextEditingMissing() && !isVoiceInputMissing()) || isTextEditingActive() ? 0.85f : 0.96f;
-		return super.getSubTitleRelativeSize() / scale;
+	protected float getTitleScale() {
+		return super.getTitleScale() / 0.85f;
 	}
 
 
@@ -72,30 +65,44 @@ public class SoftKeyRF3 extends SoftKey {
 	@Override
 	protected String getTitle() {
 		if (isTextEditingActive()) {
-			return tt9 == null ? "ABC" : tt9.getABCString();
+			return "";
 		}
 
-		if (!isVoiceInputMissing()) {
-			return "🎤";
+		if (isTextEditingMissing() && !isVoiceInputMissing()) {
+			return "";
 		}
 
-		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
+		return "✂";
 	}
 
 
 	@Override
-	protected String getSubTitle() {
-		if (isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
-			return null;
+	protected int getCentralIcon() {
+		if (isTextEditingActive()) {
+			return R.drawable.ic_keyboard;
 		}
 
-		return getContext().getString(R.string.virtual_key_text_editing).toUpperCase();
+		if (isTextEditingMissing() && !isVoiceInputMissing()) {
+			return R.drawable.ic_fn_voice;
+		}
+
+		return -1;
 	}
 
+
+	@Override
+	protected int getHoldIcon() {
+		if (isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
+			return -1;
+		}
+
+		return R.drawable.ic_fn_voice;
+	}
 
 	@Override
 	public void render() {
-		super.render();
+		resetIconCache();
 		setEnabled(!(isVoiceInputMissing() && isTextEditingMissing()));
+		super.render();
 	}
 }

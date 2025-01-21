@@ -5,11 +5,6 @@
 	android:orientation="horizontal">
 
 	<TextView
-		android:id="@+id/suggestion_list_item"
-		android:layout_width="wrap_content"
-		android:layout_height="match_parent"
-		android:gravity="center"
-		android:minWidth="@dimen/numpad_candidate_min_width"
-		android:paddingHorizontal="@dimen/suggestion_padding_horizontal"
-		android:textSize="@dimen/numpad_candidate_font_size" />
+		style="@style/TTheme.Numpad.StatusBar.SuggestionList.Item"
+		android:id="@+id/suggestion_list_item" />
 </LinearLayout>

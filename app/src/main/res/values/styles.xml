@@ -13,6 +13,25 @@
 		<item name="android:background">@color/keyboard_background</item>
 	</style>
 
+	<style name="TTheme.MainSmall" parent="TTheme.Keyboard">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+
+	<style name="TTheme.Keyboard.TopSeparator">
+		<item name="android:layout_margin">0dp</item>
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_width">match_parent</item>
+
+		<item name="android:background">@color/key_fn_background</item>
+	</style>
+
+
+	<!--*******************************************
+		Status Bar
+	*******************************************-->
 
 	<!-- status bar -->
 	<style name="TTheme.MainSmall.StatusBar.Wrapper" parent="">
@@ -42,20 +61,16 @@
 		<item name="android:gravity">center</item>
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">match_parent</item>
-		<item name="android:paddingLeft">@dimen/suggestion_padding_horizontal</item>
-		<item name="android:paddingRight">@dimen/suggestion_padding_horizontal</item>
+		<item name="android:paddingLeft">@dimen/main_small_suggestion_padding_horizontal</item>
+		<item name="android:paddingRight">@dimen/main_small_suggestion_padding_horizontal</item>
 
-		<item name="android:textSize">@dimen/suggestion_font_size</item>
+		<item name="android:textSize">@dimen/main_small_suggestion_font_size</item>
 	</style>
 
 
-	<!-- general purpose key style -->
-	<style name="TTheme.Key" parent="Widget.MaterialComponents.Button">
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_weight">1</item>
-	</style>
-
+	<!--*******************************************
+		Small Keys
+	*******************************************-->
 
 	<!-- Main Small view (backspace and OK) -->
 	<style name="TTheme.MainSmall.Wrapper" parent="">
@@ -66,8 +81,10 @@
 		<item name="android:orientation">horizontal</item>
 	</style>
 
-	<style name="TTheme.MainSmall.Key" parent="TTheme.Key">
+	<style name="TTheme.MainSmall.Key" parent="Widget.MaterialComponents.Button">
 		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
 		<item name="android:layout_marginLeft">6dp</item>
 		<item name="android:layout_marginRight">6dp</item>
 		<item name="android:layout_marginTop">1dp</item>
@@ -77,7 +94,7 @@
 		<item name="android:paddingBottom">0dp</item>
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
 
-		<item name="android:textColor">@color/keyboard_text_color</item>
+		<item name="android:textColor">@color/key_num_color</item>
 		<item name="backgroundTint">@color/key_num_background</item>
 	</style>
 
@@ -107,31 +124,179 @@
 
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
 		<item name="android:textSize">@dimen/status_bar_font_size</item>
-		<item name="drawableTint">@color/keyboard_text_color</item>
+
+		<item name="android:textColor">@color/key_num_color</item>
+		<item name="drawableTint">@color/key_num_color</item>
 	</style>
 
 
+	<!--*******************************************
+		Numpad
+	*******************************************-->
 
-	<!-- LEGACY -->
-	<style name="hSeparator">
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">3dp</item>
-		<item name="android:layout_marginBottom">1dp</item>
-		<item name="android:layout_marginTop">1dp</item>
-	</style>
-
-	<style name="numSeparator">
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">1dp</item>
-	</style>
-
-	<style name="numRowSeparator">
-		<item name="android:layout_marginBottom">@dimen/numpad_row_separator_margin</item>
-		<item name="android:layout_marginLeft">@dimen/numpad_row_separator_margin</item>
-		<item name="android:layout_marginRight">@dimen/numpad_row_separator_margin</item>
-		<item name="android:layout_height">1dp</item>
+	<!-- Full screen containers -->
+	<style name="TTheme.Numpad.FullScreenAlignmentContainer" parent="">
 		<item name="android:layout_width">match_parent</item>
-
-		<item name="android:background">@color/suggestion_separator</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:gravity">center_horizontal</item>
 	</style>
+
+	<style name="TTheme.Numpad.FullScreenContainer" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:maxWidth">@dimen/numpad_max_width</item>
+		<item name="layout_constraintStart_toStartOf">parent</item>
+		<item name="layout_constraintTop_toTopOf">parent</item>
+	</style>
+
+	<!-- The keyboard itself -->
+	<style name="TTheme.Numpad" parent="TTheme.Keyboard">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+		<item name="layout_constraintEnd_toEndOf">parent</item>
+		<item name="layout_constraintStart_toStartOf">parent</item>
+		<item name="layout_constraintTop_toTopOf">parent</item>
+		<item name="android:paddingBottom">@dimen/numpad_padding_bottom</item>
+	</style>
+
+
+	<!-- Status Bar -->
+	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
+		<item name="android:layout_height">@dimen/numpad_suggestion_height</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="TTheme.Numpad.StatusBar.SuggestionList.Item" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:minWidth">@dimen/numpad_suggestion_min_width</item>
+		<item name="android:paddingLeft">@dimen/main_small_suggestion_padding_horizontal</item>
+		<item name="android:paddingRight">@dimen/main_small_suggestion_padding_horizontal</item>
+
+		<item name="android:textSize">@dimen/numpad_suggestion_font_size</item>
+	</style>
+
+	<!-- Key Columns -->
+	<style name="TTheme.Numpad.Column" parent="">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="TTheme.Numpad.Column.Fn" parent="TTheme.Numpad.Column">
+		<item name="android:layout_weight">@dimen/numpad_function_key_layout_weight</item>
+	</style>
+
+	<!-- Key Overlay (allows for a central icon and corner labels or icons) -->
+	<style name="TTheme.Numpad.Key.Overlay.Wrapper" parent="">
+		<item name="android:layout_height">@dimen/numpad_key_height</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_margin">0dp</item>
+		<item name="android:padding">0dp</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Icon" parent="">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_centerInParent">true</item>
+		<item name="android:paddingTop">2dp</item>
+		<item name="android:translationZ">@dimen/numpad_key_overlay_z</item>
+		<item name="android:tint">@color/keyboard_text_color</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Element" parent="">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:translationZ">@dimen/numpad_key_overlay_z</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.HoldIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.Element">
+		<item name="android:gravity">top|right</item>
+		<item name="android:paddingRight">3dp</item>
+		<item name="android:paddingTop">7dp</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.HoldIcon" parent="TTheme.Numpad.Key.Overlay.Element">
+		<item name="android:layout_height">@dimen/numpad_key_overlay_small_icon_size</item>
+		<item name="android:layout_width">@dimen/numpad_key_overlay_small_icon_size</item>
+
+		<item name="android:tint">@color/key_fn_alternative_color</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text" parent="TTheme.Numpad.Key.Overlay.Element">
+		<item name="android:textSize">@dimen/numpad_key_overlay_text_size</item>
+		<item name="android:textColor">@color/key_fn_alternative_color</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">top|right</item>
+		<item name="android:layout_margin">5dp</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Number.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text.Hold">
+		<item name="android:textColor">@color/key_num_alternative_color</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text.Top" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">top|center</item>
+		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_text_margin</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text.Right" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">center|right</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_text_margin</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text.Bottom" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">bottom|center</item>
+		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_side_text_margin</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Text.Left" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">center|left</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_margin</item>
+	</style>
+
+	<!-- General Purpose Key -->
+	<style name="TTheme.Numpad.Key" parent="Widget.MaterialComponents.Button">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">@dimen/numpad_key_height</item>
+		<item name="android:layout_marginLeft">3dp</item>
+		<item name="android:layout_marginRight">3dp</item>
+		<item name="android:padding">0dp</item>
+
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+
+		<item name="android:textColor">@color/keyboard_text_color</item>
+		<item name="backgroundTint">@color/key_fn_background</item>
+	</style>
+
+	<!-- Suggestion arrow keys -->
+	<style name="TTheme.Numpad.Key.Arrow" parent="TTheme.Numpad.Key">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">@dimen/numpad_arrow_key_width</item>
+		<item name="android:padding">0dp</item>
+	</style>
+
+	<!-- Keypad keys -->
+	<style name="TTheme.Numpad.Key.Number" parent="TTheme.Numpad.Key">
+		<item name="android:textColor">@color/key_num_color</item>
+		<item name="backgroundTint">@color/key_num_background</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.OK" parent="TTheme.Numpad.Key">
+		<item name="android:textColor">@color/key_ok_color</item>
+		<item name="backgroundTint">@color/key_ok_background</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Placeholder">
+		<item name="android:layout_height">0dp</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
 </resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.Numpad.Column.Fn">
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettings
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_settings" />
+		<include layout="@layout/key_overlay_settings" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyAddWord
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_add_word" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShift
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_shift" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_lf4" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+</LinearLayout>

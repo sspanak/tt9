@@ -4,24 +4,19 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyFn;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber1;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyPunctuation;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 
 class MainLayoutNumpad extends BaseMainLayout {
@@ -44,45 +39,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 	}
 
-	private int getBackgroundColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getColor(
-			contextView.getContext(),
-			dark ? R.color.dark_numpad_background : R.color.numpad_background
-		);
-	}
-
-
-	private int getSeparatorColor(@NonNull View contextView, boolean dark) {
-		return ContextCompat.getColor(
-			contextView.getContext(),
-			dark ? R.color.dark_numpad_separator : R.color.numpad_separator
-		);
-	}
-
-
-	@Override
-	void setDarkTheme(boolean dark) {
-		if (view == null) {
-			return;
-		}
-
-		// background
-		view.setBackgroundColor(getBackgroundColor(view, dark));
-
-		// text
-		for (SoftKey key : getKeys()) {
-			key.setDarkTheme(dark);
-		}
-
-		// separators
-		int separatorColor = getSeparatorColor(view, dark);
-		for (View separator : getSeparators()) {
-			if (separator != null) {
-				separator.setBackgroundColor(separatorColor);
-			}
-		}
-	}
-
 
 	@Override void showCommandPalette() {}
 	@Override void hideCommandPalette() {}
@@ -92,36 +48,28 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override
 	void showTextEditingPalette() {
 		isTextEditingShown = true;
-		boolean notKorean = tt9 != null && !LanguageKind.isKorean(tt9.getLanguage());
+
+		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.GONE);
+
+		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.VISIBLE);
 
 		for (SoftKey key : getKeys()) {
 			int keyId = key.getId();
 
-			if (keyId == R.id.soft_key_0) {
-				key.setEnabled(tt9 != null && !tt9.isInputModeNumeric() && notKorean);
-			} else if (key.getClass().equals(SoftKeyNumber.class) || key instanceof SoftKeyNumber0 || key instanceof SoftKeyNumber1) {
-				key.setVisibility(View.GONE);
-			}
-
-			if (key.getClass().equals(SoftKeyPunctuation.class)) {
-				key.setVisibility(View.INVISIBLE);
-			}
-
-			if (key.getClass().equals(SoftKeyFn.class)) {
-				key.setVisibility(View.VISIBLE);
-			}
-
-			if (keyId == R.id.soft_key_rf3) {
-				key.render();
-			}
-
 			if (
 				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_lf3
+				|| keyId == R.id.soft_key_filter
+				|| keyId == R.id.soft_key_shift
+				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_lf4
-				|| (keyId == R.id.soft_key_filter_suggestions && notKorean)
+				|| keyId == R.id.soft_key_0
+				|| keyId == R.id.soft_key_100
 			) {
-				key.setEnabled(false);
+				key.render();
 			}
 		}
 	}
@@ -130,30 +78,27 @@ class MainLayoutNumpad extends BaseMainLayout {
 	void hideTextEditingPalette() {
 		isTextEditingShown = false;
 
+		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.VISIBLE);
+
+		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.GONE);
+
 		for (SoftKey key : getKeys()) {
-			if (key.getClass().equals(SoftKeyNumber.class) || key.getClass().equals(SoftKeyPunctuation.class) || key instanceof SoftKeyNumber0 || key instanceof SoftKeyNumber1) {
-				key.setVisibility(View.VISIBLE);
-				key.setEnabled(true);
-			}
-
-			if (key.getClass().equals(SoftKeyFn.class)) {
-				key.setVisibility(View.GONE);
-			}
-
-
 			int keyId = key.getId();
-
-			if (keyId == R.id.soft_key_rf3) {
-				key.render();
-			}
 
 			if (
 				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_lf3
+				|| keyId == R.id.soft_key_filter
+				|| keyId == R.id.soft_key_shift
+				|| keyId == R.id.soft_key_rf3
 				|| keyId == R.id.soft_key_lf4
-				|| keyId == R.id.soft_key_filter_suggestions
+				|| keyId == R.id.soft_key_0
+				|| keyId == R.id.soft_key_100
 			) {
-				key.setEnabled(true);
+				key.render();
 			}
 		}
 	}
@@ -188,15 +133,28 @@ class MainLayoutNumpad extends BaseMainLayout {
 			return;
 		}
 
-		ViewGroup table = view.findViewById(R.id.main_soft_keys);
-		int tableRowsCount = table.getChildCount();
+		for (SoftKey key : getKeys()) {
+			if ((key instanceof SoftKeyArrow)) {
+				continue;
+			}
 
-		for (int rowId = 0; rowId < tableRowsCount; rowId++) {
-			View row = table.getChildAt(rowId);
-			ViewGroup.LayoutParams layout = row.getLayoutParams();
+			// adjust the key height
+			ViewGroup.LayoutParams layout = key.getLayoutParams();
 			if (layout != null) {
 				layout.height = height;
-				row.setLayoutParams(layout);
+				key.setLayoutParams(layout);
+			}
+
+			// adjust the overlay height (if it exists)
+			ViewParent parent = key.getParent();
+			if (!(parent instanceof RelativeLayout)) {
+				continue;
+			}
+
+			layout = ((RelativeLayout) parent).getLayoutParams();
+			if (layout != null) {
+				layout.height = height;
+				((RelativeLayout) parent).setLayoutParams(layout);
 			}
 		}
 	}
@@ -206,7 +164,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 			height = getKeyHeightCompat() * 4
-				+ resources.getDimensionPixelSize(R.dimen.numpad_candidate_height)
+				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
 				+ Math.round(resources.getDimension(R.dimen.numpad_padding_bottom))
 				+ getBottomInsetSize();
 		}
@@ -265,37 +223,47 @@ class MainLayoutNumpad extends BaseMainLayout {
 			return keys;
 		}
 
-		ViewGroup table = view.findViewById(R.id.main_soft_keys);
-		int tableRowsCount = table.getChildCount();
+		ViewGroup statusBar = view.findViewById(R.id.status_bar_container);
+		keys.add(statusBar.findViewById(R.id.soft_key_left_arrow));
+		keys.add(statusBar.findViewById(R.id.soft_key_right_arrow));
 
-		for (int rowId = 0; rowId < tableRowsCount; rowId++) {
-			View row = table.getChildAt(rowId);
-			if (row instanceof ViewGroup) {
-				keys.addAll(getKeysFromContainer((ViewGroup) row));
-			}
-		}
+		ViewGroup table = view.findViewById(R.id.main_soft_keys);
+		keys.add(table.findViewById(R.id.soft_key_settings));
+		keys.add(table.findViewById(R.id.soft_key_add_word));
+		keys.add(table.findViewById(R.id.soft_key_shift));
+		keys.add(table.findViewById(R.id.soft_key_lf4));
+
+		keys.add(table.findViewById(R.id.soft_key_numpad_backspace));
+		keys.add(table.findViewById(R.id.soft_key_filter));
+		keys.add(table.findViewById(R.id.soft_key_rf3));
+		keys.add(table.findViewById(R.id.soft_key_numpad_ok));
+
+		keys.add(table.findViewById(R.id.soft_key_0));
+		keys.add(table.findViewById(R.id.soft_key_1));
+		keys.add(table.findViewById(R.id.soft_key_2));
+		keys.add(table.findViewById(R.id.soft_key_3));
+		keys.add(table.findViewById(R.id.soft_key_4));
+		keys.add(table.findViewById(R.id.soft_key_5));
+		keys.add(table.findViewById(R.id.soft_key_6));
+		keys.add(table.findViewById(R.id.soft_key_7));
+		keys.add(table.findViewById(R.id.soft_key_8));
+		keys.add(table.findViewById(R.id.soft_key_9));
+		keys.add(table.findViewById(R.id.soft_key_punctuation_1));
+		keys.add(table.findViewById(R.id.soft_key_punctuation_2));
+
+		keys.add(table.findViewById(R.id.soft_key_100));
+		keys.add(table.findViewById(R.id.soft_key_101));
+		keys.add(table.findViewById(R.id.soft_key_102));
+		keys.add(table.findViewById(R.id.soft_key_103));
+		keys.add(table.findViewById(R.id.soft_key_104));
+		keys.add(table.findViewById(R.id.soft_key_105));
+		keys.add(table.findViewById(R.id.soft_key_106));
+		keys.add(table.findViewById(R.id.soft_key_107));
+		keys.add(table.findViewById(R.id.soft_key_108));
+		keys.add(table.findViewById(R.id.soft_key_109));
 
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		return keys;
-	}
-
-
-	protected ArrayList<View> getSeparators() {
-		// it's fine... it's shorter, faster and easier to read than searching with 3 nested loops
-		return new ArrayList<>(Arrays.asList(
-			view.findViewById(R.id.separator_top),
-			view.findViewById(R.id.separator_candidates_1),
-			view.findViewById(R.id.separator_candidates_2),
-			view.findViewById(R.id.separator_candidates_bottom),
-			view.findViewById(R.id.separator_1_1),
-			view.findViewById(R.id.separator_1_2),
-			view.findViewById(R.id.separator_2_1),
-			view.findViewById(R.id.separator_2_2),
-			view.findViewById(R.id.separator_3_1),
-			view.findViewById(R.id.separator_3_2),
-			view.findViewById(R.id.separator_4_1),
-			view.findViewById(R.id.separator_4_2)
-		));
 	}
 }

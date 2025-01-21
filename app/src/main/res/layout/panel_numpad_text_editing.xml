@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- 1-4-7 -->
+	<LinearLayout
+		style="@style/TTheme.Numpad.Column"
+		android:id="@+id/numpad_column_101"
+		android:visibility="gone">
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_101" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_104" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_107" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<View	style="@style/TTheme.Numpad.Key.Placeholder" />
+
+	</LinearLayout>
+
+	<!-- 2-5-8 -->
+	<LinearLayout style="@style/TTheme.Numpad.Column"
+		android:id="@+id/numpad_column_102"
+		android:visibility="gone">
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_102" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_105" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_108" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_100" />
+			<include layout="@layout/key_overlay_hold_text" />
+		</RelativeLayout>
+
+	</LinearLayout>
+
+
+	<!-- 3-6-9 -->
+	<LinearLayout
+		style="@style/TTheme.Numpad.Column"
+		android:id="@+id/numpad_column_103"
+		android:visibility="gone">
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_103" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_106" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
+				style="@style/TTheme.Numpad.Key.Number"
+				android:id="@+id/soft_key_109" />
+			<include layout="@layout/key_overlay_hold_text" />
+			<include layout="@layout/key_overlay_icons" />
+		</RelativeLayout>
+
+		<View	style="@style/TTheme.Numpad.Key.Placeholder" />
+
+	</LinearLayout>
+</merge>

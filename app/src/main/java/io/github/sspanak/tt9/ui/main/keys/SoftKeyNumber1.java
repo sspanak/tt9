@@ -16,33 +16,27 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 
 	@Override
 	protected String getTitle() {
-		if (tt9 == null) {
-			return super.getTitle();
-		}
-
-		if (tt9.isInputModeNumeric() && !tt9.isNumericModeStrict()) {
-			return DEFAULT_LARGE_LABEL;
-		} else if (LanguageKind.isKorean(tt9.getLanguage())) {
-			return KOREAN_SMALL_LABEL;
-		} else {
+		if (tt9 == null || tt9.isInputModeNumeric()) {
 			return "1";
 		}
+
+		return LanguageKind.isKorean(tt9.getLanguage()) ? KOREAN_LARGE_LABEL : DEFAULT_LARGE_LABEL;
 	}
 
 	@Override
-	protected String getSubTitle() {
+	protected String getHoldText() {
 		if (tt9 == null || tt9.isNumericModeStrict()) {
 			return null;
 		}
 
-		if (tt9.isNumericModeStrict()) {
-			return null;
-		} else if (tt9.isInputModeNumeric()) {
-			return "1";
-		} else if (LanguageKind.isKorean(tt9.getLanguage())) {
-			return KOREAN_LARGE_LABEL;
-		} else {
+		if (tt9.isInputModeNumeric()) {
 			return DEFAULT_LARGE_LABEL;
 		}
+
+		if (LanguageKind.isKorean(tt9.getLanguage())) {
+			return KOREAN_SMALL_LABEL;
+		}
+
+		return super.getLocalizedNumber(getNumber(getId()));
 	}
 }

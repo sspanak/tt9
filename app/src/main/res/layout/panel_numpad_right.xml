@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/TTheme.Numpad.Column.Fn">
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
+		style="@style/TTheme.Numpad.Key"
+		android:id="@+id/soft_key_numpad_backspace" />
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_filter" />
+
+		<include layout="@layout/key_overlay_hold_text" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
+			style="@style/TTheme.Numpad.Key"
+			android:id="@+id/soft_key_rf3" />
+
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
+		style="@style/TTheme.Numpad.Key.OK"
+		android:id="@+id/soft_key_numpad_ok"
+		android:text="OK"
+		tools:ignore="HardcodedText" />
+</LinearLayout>
