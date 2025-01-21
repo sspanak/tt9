@@ -18,7 +18,7 @@ class ItemDonate extends ItemClickable {
 	ItemDonate(Preference preference, PreferencesActivity activity, boolean isTT9On) {
 		super(preference);
 		this.activity = activity;
-		this.isVisible = isTT9On && !activity.getSettings().getDemoMode();
+		this.isVisible = false;
 	}
 
 	public ItemDonate populate() {
