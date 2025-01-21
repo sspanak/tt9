@@ -24,14 +24,11 @@ public class SettingsStore extends SettingsUI {
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SLOW_QUERY_TIMEOUT = 3000; // ms
 	public final static float SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE = 0.5f; // 1 = full key size
+	public final static float SOFT_KEY_CONTENT_DEFAULT_SCALE = 1.15f; // % / 100
 	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SOFT_KEY_TITLE_MAX_CHARS = 5;
 	public final static int SOFT_KEY_TITLE_MAX_CHARS_INDIC = 3;
-	public final static int SOFT_KEY_TITLE_SIZE = 18; // sp
-	public final static float SOFT_KEY_COMPLEX_LABEL_TITLE_RELATIVE_SIZE = 0.55f;
-	public final static float SOFT_KEY_COMPLEX_LABEL_ARABIC_TITLE_RELATIVE_SIZE = 0.72f;
-	public final static float SOFT_KEY_COMPLEX_LABEL_SUB_TITLE_RELATIVE_SIZE = 0.8f;
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_POSITIONS_LIMIT = 100;

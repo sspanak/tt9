@@ -56,8 +56,34 @@ public class SoftKeySettings extends SwipeableKey {
 		if (mainView != null) mainView.onResize(position);
 	}
 
+
 	@Override
-	protected int getNoEmojiTitle() {
-		return R.string.virtual_key_settings;
+	protected int getCentralIcon() {
+		return R.drawable.ic_fn_settings;
+	}
+
+	@Override
+	protected String getTopText() {
+		return getContext().getString(R.string.key_dpad_up);
+	}
+
+	@Override
+	protected String getRightText() {
+		return getContext().getString(R.string.key_dpad_right);
+	}
+
+	@Override
+	protected String getBottomText() {
+		return getContext().getString(R.string.key_dpad_down);
+	}
+
+	@Override
+	protected String getLeftText() {
+		return getContext().getString(R.string.key_dpad_left);
+	}
+
+	@Override
+	protected float getCentralIconScale() {
+		return super.getCentralIconScale() * 0.9f;
 	}
 }

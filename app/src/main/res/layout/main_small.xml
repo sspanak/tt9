@@ -2,14 +2,9 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	style="@style/TTheme.Keyboard"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical">
+	style="@style/TTheme.MainSmall">
 
-	<View
-		android:id="@+id/separator_top"
-		style="@style/numRowSeparator" />
+	<View style="@style/TTheme.Keyboard.TopSeparator" />
 
 	<FrameLayout
 		style="@style/TTheme.MainSmall.StatusBar.Wrapper"
@@ -18,16 +13,16 @@
 		android:focusableInTouchMode="false">
 
 		<TextView
-			android:id="@+id/status_bar"
 			style="@style/TTheme.MainSmall.StatusBar.Status"
+			android:id="@+id/status_bar"
 			android:defaultFocusHighlightEnabled="false"
 			android:focusable="false"
 			android:focusableInTouchMode="false"
 			tools:text="@tools:sample/lorem" />
 
 		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/suggestions_bar"
 			style="@style/TTheme.MainSmall.StatusBar.SuggestionList"
+			android:id="@+id/suggestions_bar"
 			android:defaultFocusHighlightEnabled="false"
 			android:focusable="false"
 			android:focusableInTouchMode="false" />

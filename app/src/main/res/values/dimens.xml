@@ -2,12 +2,11 @@
 <resources>
 	<dimen name="status_bar_height">26sp</dimen>
 	<dimen name="status_bar_font_size">16sp</dimen>
-	<dimen name="suggestion_font_size">18sp</dimen> <!-- for some reason the RecyclerView displays the text smaller than the TextView, so we to make the suggestions slightly bigger than the regular Status Bar text. -->
-	<dimen name="suggestion_padding_horizontal">6sp</dimen>
+	<dimen name="main_small_suggestion_font_size">18sp</dimen> <!-- for some reason the RecyclerView displays the text smaller than the TextView, so we to make the suggestions slightly bigger than the regular Status Bar text. -->
+	<dimen name="main_small_suggestion_padding_horizontal">6sp</dimen>
 
 	<dimen name="main_small_key_icon_size">32sp</dimen>
-	<dimen name="main_small_key_height">44dp</dimen>
-	<dimen name="main_small_key_wrapper_height">46dp</dimen>
+	<dimen name="main_small_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
 
 	<dimen name="main_small_key_text_editing_height">65dp</dimen>
 
@@ -27,18 +26,19 @@
 
 
 	<!-- Numpad -->
-	<dimen name="numpad_max_width">10000dp</dimen>
+	<dimen name="numpad_max_width">9999dp</dimen>
 	<dimen name="numpad_padding_bottom">6dp</dimen>
-	<dimen name="numpad_row_separator_margin">0dp</dimen>
 
 	<dimen name="numpad_key_height">56dp</dimen>
 	<dimen name="numpad_arrow_key_width">38dp</dimen>
 	<dimen name="numpad_function_key_layout_weight">0.675</dimen>
 
-	<dimen name="numpad_candidate_font_size">17sp</dimen>
-	<dimen name="numpad_candidate_height">40dp</dimen>
-	<dimen name="numpad_candidate_min_width">36dp</dimen>
+	<dimen name="numpad_key_overlay_z">666dp</dimen>
+	<dimen name="numpad_key_overlay_small_icon_size">13sp</dimen>
+	<dimen name="numpad_key_overlay_text_size">11sp</dimen>
+	<dimen name="numpad_key_overlay_side_text_margin">2dp</dimen>
 
-	<dimen name="numpad_text_editing_font_size">17sp</dimen>
-	<dimen name="soft_key_drawable_bottom_padding">6dp</dimen>
+	<dimen name="numpad_suggestion_font_size">17sp</dimen>
+	<dimen name="numpad_suggestion_height">40dp</dimen>
+	<dimen name="numpad_suggestion_min_width">36dp</dimen>
 </resources>

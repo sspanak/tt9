@@ -84,7 +84,11 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getNumpadWidth() {
-		return getStringifiedInt("pref_numpad_width", 100) * getNumpadMaxWidth() / 100;
+		return getNumpadWidthPercent() * getNumpadMaxWidth() / 100;
+	}
+
+	public int getNumpadWidthPercent() {
+		return getStringifiedInt("pref_numpad_width", 100);
 	}
 
 	public int getSettingsFontSize() {

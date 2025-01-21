@@ -29,7 +29,7 @@ public class ItemNumpadWidth extends ItemDropDown {
 		options.put(100, "100 ％");
 		super.populateIntegers(options);
 
-		float currentValue = 100f * settings.getNumpadWidth() / settings.getNumpadMaxWidth();
+		float currentValue = settings.getNumpadWidthPercent();
 		currentValue = Math.round(currentValue / 5f) * 5f;
 		currentValue = Math.max(Math.min(currentValue, 100f), 50f);
 
