@@ -29,10 +29,6 @@ abstract class BaseMainLayout {
 	}
 
 
-	@Deprecated
-	void setDarkTheme(boolean dark) {}
-
-
 	/**
 	 * getKeys
 	 * Returns a list of all the usable Soft Keys. Useful for attaching click handlers and changing

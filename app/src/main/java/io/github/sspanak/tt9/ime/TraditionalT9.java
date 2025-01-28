@@ -52,7 +52,6 @@ public class TraditionalT9 extends MainViewHandler {
 	public View onCreateInputView() {
 		mainView.forceCreate();
 		initTray();
-		setDarkTheme();
 		statusBar.setText(mInputMode);
 		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
 

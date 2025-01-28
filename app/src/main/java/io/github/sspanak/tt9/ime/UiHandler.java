@@ -29,6 +29,7 @@ abstract class UiHandler extends AbstractHandler {
 	protected void initTray() {
 		setInputView(mainView.getView());
 		createSuggestionBar();
+		getSuggestionOps().setDarkTheme();
 		statusBar = new StatusBar(mainView.getView());
 	}
 
@@ -36,8 +37,9 @@ abstract class UiHandler extends AbstractHandler {
 	public void initUi(InputMode inputMode) {
 		if (mainView.create()) {
 			initTray();
+		} else {
+			getSuggestionOps().setDarkTheme();
 		}
-		setDarkTheme();
 		setStatusIcon(inputMode);
 		statusBar.setText(inputMode);
 		mainView.hideCommandPalette();
@@ -46,12 +48,6 @@ abstract class UiHandler extends AbstractHandler {
 		if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
-	}
-
-
-	protected void setDarkTheme() {
-		mainView.setDarkTheme(settings.getDarkTheme());
-		getSuggestionOps().setDarkTheme();
 	}
 
 

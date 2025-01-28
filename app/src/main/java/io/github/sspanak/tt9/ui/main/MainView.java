@@ -9,6 +9,7 @@ import io.github.sspanak.tt9.util.Logger;
 public class MainView {
 	protected final TraditionalT9 tt9;
 	protected BaseMainLayout main;
+	private boolean darkTheme;
 
 
 	protected MainView(TraditionalT9 tt9) {
@@ -19,6 +20,11 @@ public class MainView {
 
 	public boolean create() {
 		SettingsStore settings = tt9.getSettings();
+
+		if (darkTheme != settings.getDarkTheme()) {
+			darkTheme = settings.getDarkTheme();
+			main = null;
+		}
 
 		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
 			main = new MainLayoutNumpad(tt9);
@@ -53,10 +59,6 @@ public class MainView {
 		main.hideCommandPalette();
 		main.hideTextEditingPalette();
 		main.render();
-	}
-
-	public void setDarkTheme(boolean darkEnabled) {
-		main.setDarkTheme(darkEnabled);
 	}
 
 	public void showCommandPalette() {
