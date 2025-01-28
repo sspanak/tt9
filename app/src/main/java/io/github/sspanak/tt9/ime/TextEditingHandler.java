@@ -10,13 +10,21 @@ import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Ternary;
 
 abstract public class TextEditingHandler extends VoiceHandler {
-	protected boolean isSystemRTL;
+	protected boolean isLanguageRTL;
 
 
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
-		isSystemRTL = LanguageKind.isRTL(LanguageCollection.getDefault());
+		detectRTL();
+		suggestionOps.setRTL(isLanguageRTL);
 		return super.onStart(connection, field);
+	}
+
+
+	protected void detectRTL() {
+		isLanguageRTL = LanguageKind.isRTL(
+			LanguageCollection.getLanguage(settings.getInputLanguage())
+		);
 	}
 
 
@@ -48,22 +56,22 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				}
 				break;
 			case 1:
-				textSelection.selectNextChar(!isSystemRTL);
+				textSelection.selectNextChar(!isLanguageRTL);
 				break;
 			case 2:
 				textSelection.clear();
 				break;
 			case 3:
-				textSelection.selectNextChar(isSystemRTL);
+				textSelection.selectNextChar(isLanguageRTL);
 				break;
 			case 4:
-				textSelection.selectNextWord(!isSystemRTL);
+				textSelection.selectNextWord(!isLanguageRTL);
 				break;
 			case 5:
 				textSelection.selectAll();
 				break;
 			case 6:
-				textSelection.selectNextWord(isSystemRTL);
+				textSelection.selectNextWord(isLanguageRTL);
 				break;
 			case 7:
 				textSelection.cut(textField);

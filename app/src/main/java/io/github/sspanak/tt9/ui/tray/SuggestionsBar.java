@@ -143,6 +143,11 @@ public class SuggestionsBar {
 	}
 
 
+	public void setRTL(boolean yes) {
+		mView.setLayoutDirection(yes ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+	}
+
+
 	public void setSuggestions(List<String> newSuggestions, int initialSel, boolean containsGenerated) {
 		ecoSetBackground(newSuggestions);
 

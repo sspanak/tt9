@@ -151,17 +151,21 @@
 
 	<!-- The keyboard itself -->
 	<style name="TTheme.Numpad" parent="TTheme.Keyboard">
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:orientation">vertical</item>
 		<item name="layout_constraintEnd_toEndOf">parent</item>
 		<item name="layout_constraintStart_toStartOf">parent</item>
 		<item name="layout_constraintTop_toTopOf">parent</item>
+		<item name="android:layoutDirection">ltr</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:orientation">vertical</item>
 		<item name="android:paddingBottom">@dimen/numpad_padding_bottom</item>
 	</style>
 
 
-	<!-- Status Bar -->
+	<!--*******************************************
+		Numpad Status Bar
+	*******************************************-->
+
 	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
 		<item name="android:layout_height">@dimen/numpad_suggestion_height</item>
 		<item name="android:layout_width">0dp</item>
@@ -179,7 +183,11 @@
 		<item name="android:textSize">@dimen/numpad_suggestion_font_size</item>
 	</style>
 
-	<!-- Key Columns -->
+
+	<!--*******************************************
+		Numpad Columns
+	*******************************************-->
+
 	<style name="TTheme.Numpad.Column" parent="">
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_height">wrap_content</item>
@@ -191,6 +199,11 @@
 		<item name="android:layout_weight">@dimen/numpad_function_key_layout_weight</item>
 	</style>
 
+
+	<!--*******************************************
+		Numpad Key Overlays
+	*******************************************-->
+
 	<!-- Key Overlay (allows for a central icon and corner labels or icons) -->
 	<style name="TTheme.Numpad.Key.Overlay.Wrapper" parent="">
 		<item name="android:layout_height">@dimen/numpad_key_height</item>
@@ -199,6 +212,13 @@
 		<item name="android:padding">0dp</item>
 	</style>
 
+	<style name="TTheme.Numpad.Key.Overlay.Element" parent="">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:translationZ">@dimen/numpad_key_overlay_z</item>
+	</style>
+
+	<!-- Overlay: Central Icon -->
 	<style name="TTheme.Numpad.Key.Overlay.Icon" parent="">
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">wrap_content</item>
@@ -208,12 +228,7 @@
 		<item name="android:tint">@color/keyboard_text_color</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.Overlay.Element" parent="">
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:translationZ">@dimen/numpad_key_overlay_z</item>
-	</style>
-
+	<!-- Overlay: Hold Icon -->
 	<style name="TTheme.Numpad.Key.Overlay.HoldIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:gravity">top|right</item>
 		<item name="android:paddingRight">3dp</item>
@@ -227,6 +242,7 @@
 		<item name="android:tint">@color/key_fn_alternative_color</item>
 	</style>
 
+	<!-- Overlay: Hold Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:textSize">@dimen/numpad_key_overlay_text_size</item>
 		<item name="android:textColor">@color/key_fn_alternative_color</item>
@@ -241,6 +257,7 @@
 		<item name="android:textColor">@color/key_num_alternative_color</item>
 	</style>
 
+	<!-- Overlay: Side Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text.Top" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">top|center</item>
 		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_text_margin</item>
@@ -261,7 +278,10 @@
 		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_margin</item>
 	</style>
 
-	<!-- General Purpose Key -->
+
+	<!--*******************************************
+		Numpad Keys
+	*******************************************-->
 	<style name="TTheme.Numpad.Key" parent="Widget.MaterialComponents.Button">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">@dimen/numpad_key_height</item>

@@ -261,7 +261,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		backward = isSystemRTL != backward;
+		backward = isLanguageRTL != backward;
 		scrollSuggestions(backward);
 
 		return true;
@@ -279,6 +279,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		nextLang();
+		detectRTL();
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		if (!mInputMode.changeLanguage(mLanguage)) {
@@ -288,6 +289,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		getSuggestions(null);
 		statusBar.setText(mInputMode);
+		suggestionOps.setRTL(isLanguageRTL);
 		mainView.render();
 		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());

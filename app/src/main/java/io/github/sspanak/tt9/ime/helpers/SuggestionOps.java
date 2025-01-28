@@ -29,6 +29,11 @@ public class SuggestionOps {
 	}
 
 
+	public void setRTL(boolean yes) {
+		suggestionBar.setRTL(yes);
+	}
+
+
 	public void setTextField(@Nullable TextField textField) {
 		this.textField = textField;
 	}
