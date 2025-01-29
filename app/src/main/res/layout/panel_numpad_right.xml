@@ -9,20 +9,16 @@
 		android:id="@+id/soft_key_numpad_backspace" />
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter
 			style="@style/TTheme.Numpad.Key"
 			android:id="@+id/soft_key_filter" />
-
-		<include layout="@layout/key_overlay_hold_text" />
+		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
 			style="@style/TTheme.Numpad.Key"
 			android:id="@+id/soft_key_rf3" />
-
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 

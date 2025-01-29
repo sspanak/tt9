@@ -2,8 +2,8 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.Gravity;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
@@ -12,15 +12,9 @@ public class SoftKeyFilter extends SoftKey {
 	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override
-	protected float getTitleScale() {
-		return isKorean() ? 1.5f * getTT9Height() : Math.min(getTT9Width(), getTT9Height());
-	}
-
 	private boolean isKorean() {
 		return tt9 != null && LanguageKind.isKorean(tt9.getLanguage());
 	}
-
 
 	@Override
 	protected void handleHold() {
@@ -51,24 +45,14 @@ public class SoftKeyFilter extends SoftKey {
 	}
 
 
-	@Override
-	protected String getTitle() {
-		return isKorean() ? "␣" : "FLTR";
-	}
+	@Override protected String getTitle() { return isKorean() ? "␣" : ""; }
+	@Override protected int getCentralIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter; }
+	@Override protected int getHoldIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter_off; }
 
-
-	@Override
-	protected String getHoldText() {
-		return isKorean() ? null : "CLR";
-	}
-
+	@Override protected float getTitleScale() { return isKorean() ? 1.5f * getTT9Height() : 1; }
 
 	@Override
 	public void render() {
-		setGravity(
-			isKorean() ? Gravity.TOP | Gravity.CENTER_HORIZONTAL: Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL
-		);
-
 		if (tt9 != null) {
 			setEnabled(
 				!tt9.isInputModeNumeric()
