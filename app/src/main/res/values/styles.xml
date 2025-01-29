@@ -44,7 +44,7 @@
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">match_parent</item>
 
-		<item name="android:textSize">@dimen/status_bar_font_size</item>
+		<item name="android:textSize">@dimen/status_bar_text_size</item>
 		<item name="android:textStyle">italic</item>
 		<item name="android:textColor">@color/keyboard_text_color</item>
 	</style>
@@ -64,7 +64,11 @@
 		<item name="android:paddingLeft">@dimen/main_small_suggestion_padding_horizontal</item>
 		<item name="android:paddingRight">@dimen/main_small_suggestion_padding_horizontal</item>
 
-		<item name="android:textSize">@dimen/main_small_suggestion_font_size</item>
+		<!--
+		for some reason the RecyclerView displays the text smaller than the TextView,
+		so we to make the suggestions slightly bigger than the regular Status Bar text.
+		-->
+		<item name="android:textSize">@dimen/main_text_size</item>
 	</style>
 
 
@@ -93,6 +97,7 @@
 		<item name="android:paddingTop">0dp</item>
 		<item name="android:paddingBottom">0dp</item>
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+		<item name="android:textSize">@dimen/main_text_size</item>
 
 		<item name="android:textColor">@color/key_num_color</item>
 		<item name="backgroundTint">@color/key_num_background</item>
@@ -123,7 +128,7 @@
 		<item name="android:paddingRight">0dp</item>
 
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
-		<item name="android:textSize">@dimen/status_bar_font_size</item>
+		<item name="android:textSize">@dimen/status_bar_text_size</item>
 
 		<item name="android:textColor">@color/key_num_color</item>
 		<item name="drawableTint">@color/key_num_color</item>
@@ -290,6 +295,7 @@
 		<item name="android:padding">0dp</item>
 
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+		<item name="android:textSize">@dimen/main_text_size</item>
 
 		<item name="android:textColor">@color/keyboard_text_color</item>
 		<item name="backgroundTint">@color/key_fn_background</item>

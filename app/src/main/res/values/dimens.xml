@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<dimen name="status_bar_height">26sp</dimen>
-	<dimen name="status_bar_font_size">16sp</dimen>
-	<dimen name="main_small_suggestion_font_size">18sp</dimen> <!-- for some reason the RecyclerView displays the text smaller than the TextView, so we to make the suggestions slightly bigger than the regular Status Bar text. -->
+	<!--
+	All keyboard element text sizes must be in "dp" instead of "sp"
+	to ignore the Android text size scale. We can't allow scaling because it breaks the layout.
+	-->
+
+	<!-- standard font size for suggestions and keys -->
+	<dimen name="main_text_size">18dp</dimen>
+
+	<!-- Status Bar -->
+	<dimen name="status_bar_height">26dp</dimen>
+	<dimen name="status_bar_text_size">16dp</dimen>
+
+	<!-- Main Small -->
 	<dimen name="main_small_suggestion_padding_horizontal">6sp</dimen>
 
 	<dimen name="main_small_key_icon_size">32sp</dimen>
-	<dimen name="main_small_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
-
 	<dimen name="main_small_key_text_editing_height">65dp</dimen>
+	<dimen name="main_small_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
 
 	<!-- Preferences, default font size -->
 	<dimen name="preferences_text_min_height">48dp</dimen>
@@ -34,11 +43,11 @@
 	<dimen name="numpad_function_key_layout_weight">0.675</dimen>
 
 	<dimen name="numpad_key_overlay_z">666dp</dimen>
-	<dimen name="numpad_key_overlay_small_icon_size">13sp</dimen>
-	<dimen name="numpad_key_overlay_text_size">11sp</dimen>
+	<dimen name="numpad_key_overlay_small_icon_size">13dp</dimen>
+	<dimen name="numpad_key_overlay_text_size">11dp</dimen>
 	<dimen name="numpad_key_overlay_side_text_margin">2dp</dimen>
 
-	<dimen name="numpad_suggestion_font_size">17sp</dimen>
+	<dimen name="numpad_suggestion_font_size">17dp</dimen>
 	<dimen name="numpad_suggestion_height">40dp</dimen>
 	<dimen name="numpad_suggestion_min_width">36dp</dimen>
 </resources>

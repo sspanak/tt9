@@ -281,6 +281,8 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	private Drawable getIconCompat() {
 		if (icon == null && getCentralIcon() > 0) {
 			icon = AppCompatResources.getDrawable(getContext(), getCentralIcon());
+		} else if (getCentralIcon() <= 0) {
+			icon = null;
 		}
 
 		return icon;
@@ -293,6 +295,8 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	private Drawable getHoldIconCompat() {
 		if (holdIcon == null && getHoldIcon() > 0) {
 			holdIcon = AppCompatResources.getDrawable(getContext(), getHoldIcon());
+		} else if (getHoldIcon() <= 0) {
+			holdIcon = null;
 		}
 
 		return holdIcon;
