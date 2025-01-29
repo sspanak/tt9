@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--*******************************************
+		Preferences
+	*******************************************-->
+
+	<!-- title bar -->
+	<color name="prefs_title_background">@color/material_dynamic_neutral_variant90</color>
+	<color name="prefs_title_text_color">@color/material_dynamic_neutral20</color>
+
+	<!-- page -->
+	<color name="prefs_page_background">@color/material_dynamic_neutral95</color>
+	<color name="prefs_category_title_color">@color/material_dynamic_primary40</color>
+</resources>

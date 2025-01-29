@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<style name="TTheme" parent="Theme.MaterialComponents.DayNight" />
-	<style name="TTheme.Preferences" parent="Theme.AppCompat.DayNight" />
 
-
-	<style name="TTheme.AddWord" parent="Theme.AppCompat.Dialog.Alert">
+	<style name="TTheme.AddWord" parent="Theme.AppCompat.DayNight.Dialog.Alert">
 		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
 	</style>
 
+	<style name="TTheme.Preferences" parent="Theme.AppCompat.DayNight" />
 
-	<style name="TTheme.Keyboard">
+	<style name="TTheme.Keyboard" parent="TTheme">
 		<item name="android:background">@color/keyboard_background</item>
 	</style>
 

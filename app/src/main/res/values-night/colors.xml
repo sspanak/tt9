@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!--*******************************************
+		Keyboard
+	*******************************************-->
+
 	<color name="keyboard_background">#292e33</color>
 	<color name="keyboard_text_color">#d4d5d6</color>
 
