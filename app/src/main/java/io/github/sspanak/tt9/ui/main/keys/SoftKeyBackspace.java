@@ -143,7 +143,8 @@ public class SoftKeyBackspace extends SwipeableKey {
 
 	@Override
 	protected float getTitleScale() {
-		return tt9 != null && tt9.getSettings().isMainLayoutNumpad() ? super.getTitleScale() : SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE;
+		float scale = tt9 != null && tt9.getSettings().isMainLayoutNumpad() ? super.getTitleScale() : SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE;
+		return scale * 1.1f;
 	}
 
 
