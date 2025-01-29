@@ -5,18 +5,19 @@
 	to ignore the Android text size scale. We can't allow scaling because it breaks the layout.
 	-->
 
-	<!-- standard font size for suggestions and keys -->
-	<dimen name="main_text_size">18dp</dimen>
+	<!-- standard font size for keys -->
+	<dimen name="key_text_size">18dp</dimen>
 
 	<!-- Status Bar -->
-	<dimen name="status_bar_height">26dp</dimen>
-	<dimen name="status_bar_text_size">16dp</dimen>
+	<dimen name="status_bar_height">26sp</dimen>
+	<dimen name="status_bar_text_size">16sp</dimen>
 
 	<!-- Main Small -->
 	<dimen name="main_small_suggestion_padding_horizontal">6sp</dimen>
+	<dimen name="main_small_suggestion_text_size">18sp</dimen>
 
 	<dimen name="main_small_key_icon_size">32sp</dimen>
-	<dimen name="main_small_key_text_editing_height">65dp</dimen>
+	<dimen name="main_small_key_text_editing_height">66dp</dimen>
 	<dimen name="main_small_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
 
 	<!-- Preferences, default font size -->
@@ -47,7 +48,7 @@
 	<dimen name="numpad_key_overlay_text_size">11dp</dimen>
 	<dimen name="numpad_key_overlay_side_text_margin">2dp</dimen>
 
-	<dimen name="numpad_suggestion_font_size">17dp</dimen>
-	<dimen name="numpad_suggestion_height">40dp</dimen>
-	<dimen name="numpad_suggestion_min_width">36dp</dimen>
+	<dimen name="numpad_suggestion_font_size">17sp</dimen>
+	<dimen name="numpad_suggestion_height">40sp</dimen>
+	<dimen name="numpad_suggestion_min_width">36sp</dimen>
 </resources>
