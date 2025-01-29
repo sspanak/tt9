@@ -48,7 +48,8 @@
 		<activity
 			android:label="@string/pref_help"
 			android:name="io.github.sspanak.tt9.preferences.HelpActivity"
-			android:exported="true">
+			android:exported="true"
+			android:theme="@style/TTheme.Preferences">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -58,7 +59,8 @@
 		<activity
 			android:label="Log Messages"
 			android:name="io.github.sspanak.tt9.preferences.LogsActivity"
-			android:exported="true">
+			android:exported="true"
+			android:theme="@style/TTheme.Preferences">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
@@ -68,6 +70,7 @@
 		<activity
 			android:excludeFromRecents="true"
 			android:label=""
-			android:name="io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog" />
+			android:name="io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog"
+			android:theme="@style/TTheme.Preferences" />
 	</application>
 </manifest>

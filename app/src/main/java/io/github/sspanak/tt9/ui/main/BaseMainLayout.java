@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.content.res.Configuration;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -14,6 +13,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.util.ThemedContextBuilder;
 
 abstract class BaseMainLayout {
 	protected final TraditionalT9 tt9;
@@ -37,27 +37,15 @@ abstract class BaseMainLayout {
 	@NonNull protected ArrayList<SoftKey> getKeys() { return keys; }
 
 
-	/**
-	 * getThemedContext
-	 * 1. Overrides the system dark/light them with the one in our settings.
-	 * 2. Fixes this error log: "View class SoftKeyXXX is an AppCompat widget that can only be used
-	 * with a Theme.AppCompat theme (or descendant)."
-	 */
-	private ContextThemeWrapper getThemedContext() {
-			int nightModeFlag = tt9.getSettings().getDarkTheme() ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO;
-			Configuration config = new Configuration(tt9.getResources().getConfiguration());
-			config.uiMode = nightModeFlag | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
-
-			ContextThemeWrapper themedCtx = new ContextThemeWrapper(tt9, R.style.TTheme);
-			themedCtx.applyOverrideConfiguration(config);
-
-			return themedCtx;
-	}
-
-
 	protected View getView() {
 		if (view == null) {
-			view = View.inflate(getThemedContext(), xml, null);
+			ContextThemeWrapper themedContext = new ThemedContextBuilder()
+				.setConfiguration(tt9.getResources().getConfiguration())
+				.setContext(tt9)
+				.setSettings(tt9.getSettings())
+				.setTheme(R.style.TTheme)
+				.build();
+			view = View.inflate(themedContext, xml, null);
 		}
 
 		return view;

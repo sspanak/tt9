@@ -3,6 +3,10 @@
 	What colors look good together: https://www.canva.com/colors/color-wheel/
 -->
 <resources>
+	<!--*******************************************
+		Keyboard
+	*******************************************-->
+
 	<color name="keyboard_background">#e8eaed</color>
 	<color name="keyboard_text_color">#3d3d3f</color>
 
