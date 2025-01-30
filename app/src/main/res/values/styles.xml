@@ -12,21 +12,28 @@
 		<item name="android:background">@color/keyboard_background</item>
 	</style>
 
-	<style name="TTheme.MainSmall" parent="TTheme.Keyboard">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:orientation">vertical</item>
+	<style name="TTheme.Keyboard.Key.VersionStyle" parent="Widget.MaterialComponents.Button">
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+		<item name="android:textSize">@dimen/key_text_size</item>
 	</style>
-
 
 	<style name="TTheme.Keyboard.TopSeparator">
 		<item name="android:layout_margin">0dp</item>
 		<item name="android:layout_height">1dp</item>
 		<item name="android:layout_width">match_parent</item>
 
-		<item name="android:background">@color/key_fn_background</item>
+		<item name="android:background">@color/keyboard_top_separator</item>
 	</style>
 
+	<!--*******************************************
+		Small
+	*******************************************-->
+
+	<style name="TTheme.MainSmall" parent="TTheme.Keyboard">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+	</style>
 
 	<!--*******************************************
 		Status Bar
@@ -45,7 +52,7 @@
 
 		<item name="android:textSize">@dimen/status_bar_text_size</item>
 		<item name="android:textStyle">italic</item>
-		<item name="android:textColor">@color/keyboard_text_color</item>
+		<item name="android:textColor">@color/keyboard_text</item>
 	</style>
 
 	<style name="TTheme.MainSmall.StatusBar.SuggestionList" parent="">
@@ -84,7 +91,7 @@
 		<item name="android:orientation">horizontal</item>
 	</style>
 
-	<style name="TTheme.MainSmall.Key" parent="Widget.MaterialComponents.Button">
+	<style name="TTheme.MainSmall.Key" parent="TTheme.Keyboard.Key.VersionStyle">
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_weight">1</item>
@@ -95,16 +102,17 @@
 
 		<item name="android:paddingTop">0dp</item>
 		<item name="android:paddingBottom">0dp</item>
-		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
-		<item name="android:textSize">@dimen/key_text_size</item>
 
-		<item name="android:textColor">@color/key_num_color</item>
 		<item name="backgroundTint">@color/key_num_background</item>
+		<item name="android:textColor">@color/key_num_text</item>
+		<item name="drawableTint">@color/key_num_text</item>
+		<item name="rippleColor">@color/key_num_ripple</item>
 	</style>
 
 	<style name="TTheme.MainSmall.Key.OK" parent="TTheme.MainSmall.Key">
-		<item name="android:textColor">@color/key_ok_color</item>
+		<item name="android:textColor">@color/key_ok_text</item>
 		<item name="backgroundTint">@color/key_ok_background</item>
+		<item name="rippleColor">@color/key_ok_ripple</item>
 	</style>
 
 
@@ -125,12 +133,6 @@
 		<item name="android:paddingRight">0dp</item>
 		<item name="android:paddingBottom">2dp</item>
 		<item name="android:paddingLeft">0dp</item>
-
-		<item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
-		<item name="android:textSize">@dimen/key_text_size</item>
-
-		<item name="android:textColor">@color/key_num_color</item>
-		<item name="drawableTint">@color/key_num_color</item>
 	</style>
 
 
@@ -229,7 +231,7 @@
 		<item name="android:layout_centerInParent">true</item>
 		<item name="android:paddingTop">2dp</item>
 		<item name="android:translationZ">@dimen/numpad_key_overlay_z</item>
-		<item name="android:tint">@color/keyboard_text_color</item>
+		<item name="android:tint">@color/key_fn_text</item>
 	</style>
 
 	<!-- Overlay: Hold Icon -->
@@ -243,13 +245,13 @@
 		<item name="android:layout_height">@dimen/numpad_key_overlay_hold_icon_size</item>
 		<item name="android:layout_width">@dimen/numpad_key_overlay_hold_icon_size</item>
 
-		<item name="android:tint">@color/key_fn_alternative_color</item>
+		<item name="android:tint">@color/key_fn_alternative_text</item>
 	</style>
 
 	<!-- Overlay: Hold Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:textSize">@dimen/numpad_key_overlay_side_text_size</item>
-		<item name="android:textColor">@color/key_fn_alternative_color</item>
+		<item name="android:textColor">@color/key_fn_alternative_text</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text">
@@ -262,7 +264,7 @@
 	</style>
 
 	<style name="TTheme.Numpad.Key.Number.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text.Hold">
-		<item name="android:textColor">@color/key_num_alternative_color</item>
+		<item name="android:textColor">@color/key_num_alternative_text</item>
 	</style>
 
 	<!-- Overlay: Side Text -->
@@ -290,7 +292,8 @@
 	<!--*******************************************
 		Numpad Keys
 	*******************************************-->
-	<style name="TTheme.Numpad.Key" parent="Widget.MaterialComponents.Button">
+	<style name="TTheme.Numpad.Key.VersionStyle" parent="TTheme.Keyboard.Key.VersionStyle" />
+	<style name="TTheme.Numpad.Key" parent="TTheme.Numpad.Key.VersionStyle">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">@dimen/numpad_key_height</item>
 
@@ -304,8 +307,9 @@
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
 		<item name="android:textSize">@dimen/key_text_size</item>
 
-		<item name="android:textColor">@color/keyboard_text_color</item>
+		<item name="android:textColor">@color/key_fn_text</item>
 		<item name="backgroundTint">@color/key_fn_background</item>
+		<item name="rippleColor">@color/key_fn_ripple</item>
 	</style>
 
 	<!-- Suggestion arrow keys -->
@@ -316,13 +320,15 @@
 
 	<!-- Keypad keys -->
 	<style name="TTheme.Numpad.Key.Number" parent="TTheme.Numpad.Key">
-		<item name="android:textColor">@color/key_num_color</item>
+		<item name="android:textColor">@color/key_num_text</item>
 		<item name="backgroundTint">@color/key_num_background</item>
+		<item name="rippleColor">@color/key_num_ripple</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.OK" parent="TTheme.Numpad.Key">
-		<item name="android:textColor">@color/key_ok_color</item>
+		<item name="android:textColor">@color/key_ok_text</item>
 		<item name="backgroundTint">@color/key_ok_background</item>
+		<item name="rippleColor">@color/key_ok_ripple</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Placeholder">

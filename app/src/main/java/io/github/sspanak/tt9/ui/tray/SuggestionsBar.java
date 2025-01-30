@@ -297,8 +297,8 @@ public class SuggestionsBar {
 		Context context = mView.getContext();
 
 		backgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
-		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text_color));
-		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_color));
+		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text));
+		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
 		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
 
 		setBackground(suggestions);

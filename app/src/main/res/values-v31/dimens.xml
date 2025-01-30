@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="numpad_key_overlay_hold_icon_spacing_top">5dp</dimen>
+	<dimen name="numpad_key_overlay_hold_icon_spacing_right">4dp</dimen>
+</resources>

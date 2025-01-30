@@ -5,19 +5,22 @@
 	*******************************************-->
 
 	<color name="keyboard_background">#292e33</color>
-	<color name="keyboard_text_color">#d4d5d6</color>
+	<color name="keyboard_text">#d4d5d6</color>
 
 	<color name="key_num_background">#484c4f</color>
-	<color name="key_num_color">#fff</color>
-	<color name="key_num_alternative_color">#c3c5c6</color> <!-- 'hold' functions -->
+	<color name="key_num_ripple">#5b5f62</color>
+	<color name="key_num_text">#fff</color>
+	<color name="key_num_alternative_text">#c3c5c6</color> <!-- 'hold' functions -->
 
 	<color name="key_fn_background">#373c41</color>
-	<color name="key_fn_alternative_color">#c2c3c4</color> <!-- 'hold' functions -->
+	<color name="key_fn_ripple">#474c51</color>
+	<color name="key_fn_alternative_text">#c2c3c4</color> <!-- 'hold' functions -->
 
 	<color name="key_ok_background">#5e97f6</color>
-	<color name="key_ok_color">#fff</color>
+	<color name="key_ok_ripple">#4c85e4</color>
+	<color name="key_ok_text">#fff</color>
 
 	<color name="suggestion_selected_background">#007ACC</color>
-	<color name="suggestion_selected_color">#fff</color>
+	<color name="suggestion_selected_text">#fff</color>
 	<color name="suggestion_separator">#888888</color>
 </resources>

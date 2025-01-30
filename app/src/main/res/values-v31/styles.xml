@@ -2,11 +2,32 @@
 <resources>
 	<style name="TTheme" parent="Theme.Material3.DynamicColors.DayNight" />
 
+	<!--*******************************************
+		Add Word
+	*******************************************-->
+
 	<style name="TTheme.AddWord" parent="Theme.Material3.DayNight.Dialog.Alert">
 		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
 		<item name="textAppearanceBodyMedium">@style/TextAppearance.AppCompat.Widget.PopupMenu.Large</item> <!-- body text size -->
 		<item name="textAppearanceLabelLarge">@style/TextAppearance.MaterialComponents.Button</item> <!-- button text size -->
 	</style>
+
+	<!--*******************************************
+		Keyboard
+	*******************************************-->
+
+	<style name="TTheme.Keyboard.Key.VersionStyle" parent="Widget.Material3.Button">
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+		<item name="android:textSize">@dimen/key_text_size</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.VersionStyle" parent="TTheme.Keyboard.Key.VersionStyle">
+		<item name="cornerRadius">8dp</item>
+	</style>
+
+	<!--*******************************************
+		Preferences
+	*******************************************-->
 
 	<style name="TTheme.Preferences" parent="TTheme">
 		<item name="preferenceTheme">@style/TTheme.Preferences.Overlay</item>
