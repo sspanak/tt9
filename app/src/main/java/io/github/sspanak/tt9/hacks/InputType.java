@@ -195,7 +195,7 @@ public class InputType extends StandardInputType {
 	 */
 	@Override
 	public boolean isDefectiveText() {
-		return isDuoLingoReportBug() || isAndroid15ContactsField();
+		return isDuoLingoReportBug() || isAndroid15ContactsField() || isTermux();
 	}
 
 
