@@ -2,10 +2,8 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	tools:showIn="@layout/main_small"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="horizontal">
+	style="@style/TTheme.CommandPalette.Wrapper"
+	tools:showIn="@layout/main_small">
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
 		style="@style/TTheme.CommandPalette.Key"

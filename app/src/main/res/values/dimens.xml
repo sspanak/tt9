@@ -16,14 +16,14 @@
 	<dimen name="main_small_suggestion_spacing_horizontal">6sp</dimen>
 	<dimen name="main_small_suggestion_text_size">18sp</dimen>
 
-	<dimen name="main_small_key_icon_size">32sp</dimen>
-	<dimen name="main_small_key_text_editing_height">66dp</dimen>
-	<dimen name="main_small_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
+	<dimen name="main_small_main_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
+	<dimen name="main_small_command_palette_height">66dp</dimen>
 
 	<!-- Preferences, default font size -->
 	<dimen name="pref_custom_min_height">48dp</dimen>
 	<dimen name="pref_custom_spacing_horizontal">16dp</dimen>
 	<dimen name="pref_custom_spacing_vertical">12dp</dimen>
+	<dimen name="pref_deletable_word_icon_size">32sp</dimen>
 	<dimen name="pref_search_height">72dp</dimen>
 
 	<!-- Preferences, large font size -->

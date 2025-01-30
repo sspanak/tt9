@@ -22,7 +22,7 @@ class MainLayoutSmall extends MainLayoutTray {
 			height = super.getHeight(forceRecalculate);
 
 			if (!isCommandPaletteShown() && !isTextEditingPaletteShown()) {
-				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_key_wrapper_height);
+				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);
 			}
 		}
 

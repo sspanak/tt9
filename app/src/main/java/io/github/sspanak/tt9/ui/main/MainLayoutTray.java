@@ -24,7 +24,7 @@ class MainLayoutTray extends BaseMainLayout {
 			height = resources.getDimensionPixelSize(R.dimen.status_bar_height) + getBottomInsetSize();
 
 			if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
-				height += resources.getDimensionPixelSize(R.dimen.main_small_key_text_editing_height);
+				height += resources.getDimensionPixelSize(R.dimen.main_small_command_palette_height);
 			}
 		}
 
