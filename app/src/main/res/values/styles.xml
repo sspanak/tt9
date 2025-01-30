@@ -79,7 +79,7 @@
 	<style name="TTheme.MainSmall.Wrapper" parent="">
 		<item name="android:baselineAligned">true</item>
 		<item name="android:gravity">center</item>
-		<item name="android:layout_height">@dimen/main_small_key_wrapper_height</item>
+		<item name="android:layout_height">@dimen/main_small_main_key_wrapper_height</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:orientation">horizontal</item>
 	</style>
@@ -110,7 +110,7 @@
 
 	<!-- Fn keys (command palette or text-editing palette) -->
 	<style name="TTheme.CommandPalette.Wrapper" parent="">
-		<item name="android:layout_height">@dimen/main_small_key_text_editing_height</item>
+		<item name="android:layout_height">@dimen/main_small_command_palette_height</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:orientation">horizontal</item>
 	</style>
@@ -118,13 +118,13 @@
 	<style name="TTheme.CommandPalette.Key" parent="TTheme.MainSmall.Key">
 		<item name="android:drawablePadding">0dp</item>
 		<item name="android:layout_marginTop">0dp</item>
+		<item name="android:layout_marginRight">1dp</item>
 		<item name="android:layout_marginBottom">0dp</item>
 		<item name="android:layout_marginLeft">1dp</item>
-		<item name="android:layout_marginRight">1dp</item>
 		<item name="android:paddingTop">0dp</item>
+		<item name="android:paddingRight">0dp</item>
 		<item name="android:paddingBottom">2dp</item>
 		<item name="android:paddingLeft">0dp</item>
-		<item name="android:paddingRight">0dp</item>
 
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
 		<item name="android:textSize">@dimen/key_text_size</item>
