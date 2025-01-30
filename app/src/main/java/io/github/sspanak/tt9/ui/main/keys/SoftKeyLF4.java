@@ -16,6 +16,10 @@ public class SoftKeyLF4 extends SwipeableKey {
 		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
 	}
 
+	private boolean isKeySmall() {
+		return Math.max(getTT9Height(), getTT9Width()) < 0.9f;
+	}
+
 	@Override
 	protected void handleHold() {
 		preventRepeat();
@@ -49,13 +53,18 @@ public class SoftKeyLF4 extends SwipeableKey {
 	}
 
 	@Override
+	protected float getTitleScale() {
+		return super.getTitleScale() * 0.9f;
+	}
+
+	@Override
 	protected int getHoldIcon() {
 		return areThereManyLanguages() ? R.drawable.ic_fn_next_language : -1;
 	}
 
 	@Override
 	protected float getHoldElementScale() {
-		return super.getHoldElementScale() * 0.8f;
+		return super.getHoldElementScale() * 0.75f;
 	}
 
 	@Override
@@ -69,7 +78,13 @@ public class SoftKeyLF4 extends SwipeableKey {
 			resetIconCache();
 		}
 
-		setGravity(areThereManyLanguages() ? Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM : Gravity.CENTER);
+		if (areThereManyLanguages() && isKeySmall()) {
+			setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
+		} else {
+			setPaddingRelative(0, 20, 0, 0);
+			setGravity(Gravity.CENTER);
+		}
+
 
 		setEnabled(
 			tt9 != null
