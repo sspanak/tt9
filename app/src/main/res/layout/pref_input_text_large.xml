@@ -4,8 +4,8 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingHorizontal="@dimen/pref_large_padding_horizontal"
-	android:paddingVertical="@dimen/pref_large_padding_vertical">
+	android:paddingHorizontal="@dimen/large_pref_spacing_horizontal"
+	android:paddingVertical="@dimen/large_pref_spacing_vertical">
 
 	<TextView
 		android:id="@android:id/title"
@@ -13,7 +13,7 @@
 		android:layout_height="wrap_content"
 		android:labelFor="@id/input_text_input_field"
 		android:text="?android:title"
-		android:textSize="@dimen/pref_large_summary_size"/>
+		android:textSize="@dimen/large_pref_summary_size"/>
 
 	<EditText
 		android:id="@+id/input_text_input_field"
@@ -23,13 +23,13 @@
 		android:focusableInTouchMode="true"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:minHeight="@dimen/preferences_text_min_height"
-		android:textSize="@dimen/pref_large_text_size" />
+		android:minHeight="@dimen/pref_custom_min_height"
+		android:textSize="@dimen/large_pref_text_size" />
 
 	<TextView android:id="@android:id/summary"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-		android:textSize="@dimen/pref_large_summary_size" />
+		android:textSize="@dimen/large_pref_summary_size" />
 
 </LinearLayout>

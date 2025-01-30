@@ -4,8 +4,8 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingHorizontal="@dimen/pref_padding_horizontal"
-	android:paddingVertical="@dimen/pref_padding_vertical">
+	android:paddingHorizontal="@dimen/pref_custom_spacing_horizontal"
+	android:paddingVertical="@dimen/pref_custom_spacing_vertical">
 
 	<TextView
 		android:id="@android:id/title"
@@ -22,7 +22,7 @@
 		android:focusableInTouchMode="true"
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent"
-		android:minHeight="@dimen/preferences_text_min_height"
+		android:minHeight="@dimen/pref_custom_min_height"
 		android:singleLine="true"
 		android:imeOptions="actionNone" />
 

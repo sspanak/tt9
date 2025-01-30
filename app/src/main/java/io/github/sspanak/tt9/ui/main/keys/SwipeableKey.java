@@ -80,7 +80,7 @@ abstract public class SwipeableKey extends SoftKey {
 		try {
 			// The simpler getResource.getFloat() requires API 29, so we must get the value manually.
 			TypedValue outValue = new TypedValue();
-			getResources().getValue(R.dimen.numpad_function_key_layout_weight, outValue, true);
+			getResources().getValue(R.dimen.numpad_key_fn_layout_weight, outValue, true);
 			float functionKeyScale = outValue.getFloat();
 
 			float keyWidth = tt9.getWidth() / 5f * functionKeyScale;

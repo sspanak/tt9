@@ -10,24 +10,24 @@
 		android:layout_weight="3"
 		android:gravity="start|center_vertical"
 		android:orientation="vertical"
-		android:paddingStart="@dimen/pref_large_padding_horizontal"
-		android:paddingTop="@dimen/pref_large_padding_vertical"
+		android:paddingStart="@dimen/large_pref_spacing_horizontal"
+		android:paddingTop="@dimen/large_pref_spacing_vertical"
 		android:paddingEnd="4dp"
-		android:paddingBottom="@dimen/pref_large_padding_vertical">
+		android:paddingBottom="@dimen/large_pref_spacing_vertical">
 
 		<TextView
 			android:id="@android:id/title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TextView"
-			android:textSize="@dimen/pref_large_text_size" />
+			android:textSize="@dimen/large_pref_text_size" />
 
 		<TextView
 			android:id="@android:id/summary"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-			android:textSize="@dimen/pref_large_summary_size" />
+			android:textSize="@dimen/large_pref_summary_size" />
 	</LinearLayout>
 
 	<androidx.appcompat.widget.SwitchCompat
@@ -37,5 +37,5 @@
 		android:layout_weight="1"
 		android:gravity="end|center_vertical"
 		android:paddingStart="2dp"
-		android:paddingEnd="@dimen/pref_large_padding_horizontal" />
+		android:paddingEnd="@dimen/large_pref_spacing_horizontal" />
 </LinearLayout>
