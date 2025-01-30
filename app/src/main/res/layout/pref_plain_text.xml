@@ -3,12 +3,12 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:paddingHorizontal="@dimen/pref_padding_horizontal"
-	android:paddingVertical="@dimen/pref_padding_vertical">
+	android:paddingHorizontal="@dimen/pref_custom_spacing_horizontal"
+	android:paddingVertical="@dimen/pref_custom_spacing_vertical">
 
 		<TextView
 			android:id="@android:id/summary"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
-			android:minHeight="@dimen/preferences_text_min_height" />
+			android:minHeight="@dimen/pref_custom_min_height" />
 </LinearLayout>

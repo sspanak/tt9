@@ -45,11 +45,11 @@ abstract public class ScreenPreference extends Preference {
 
 	public static int getLargeLayout(Preference pref) {
 		if (pref instanceof PreferenceCategory) {
-			return R.layout.pref_category;
+			return R.layout.pref_category_large;
 		} else if (pref instanceof SwitchPreferenceCompat) {
 			return R.layout.pref_switch_large;
 		} else if (pref instanceof DropDownPreference) {
-			return R.layout.pref_dropdown;
+			return R.layout.pref_dropdown_large;
 		} else {
 			return R.layout.pref_default_large;
 		}

@@ -60,8 +60,8 @@
 		<item name="android:gravity">center</item>
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">match_parent</item>
-		<item name="android:paddingLeft">@dimen/main_small_suggestion_padding_horizontal</item>
-		<item name="android:paddingRight">@dimen/main_small_suggestion_padding_horizontal</item>
+		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
+		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
 
 		<!--
 		for some reason the RecyclerView displays the text smaller than the TextView,
@@ -162,7 +162,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">0dp</item>
 		<item name="android:orientation">vertical</item>
-		<item name="android:paddingBottom">@dimen/numpad_padding_bottom</item>
+		<item name="android:paddingBottom">@dimen/numpad_spacing_bottom</item>
 	</style>
 
 
@@ -181,8 +181,8 @@
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:minWidth">@dimen/numpad_suggestion_min_width</item>
-		<item name="android:paddingLeft">@dimen/main_small_suggestion_padding_horizontal</item>
-		<item name="android:paddingRight">@dimen/main_small_suggestion_padding_horizontal</item>
+		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
+		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
 
 		<item name="android:textSize">@dimen/numpad_suggestion_font_size</item>
 	</style>
@@ -200,7 +200,7 @@
 	</style>
 
 	<style name="TTheme.Numpad.Column.Fn" parent="TTheme.Numpad.Column">
-		<item name="android:layout_weight">@dimen/numpad_function_key_layout_weight</item>
+		<item name="android:layout_weight">@dimen/numpad_key_fn_layout_weight</item>
 	</style>
 
 
@@ -235,26 +235,30 @@
 	<!-- Overlay: Hold Icon -->
 	<style name="TTheme.Numpad.Key.Overlay.HoldIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:gravity">top|right</item>
-		<item name="android:paddingRight">3dp</item>
-		<item name="android:paddingTop">7dp</item>
+		<item name="android:paddingTop">@dimen/numpad_key_overlay_hold_icon_spacing_top</item>
+		<item name="android:paddingRight">@dimen/numpad_key_overlay_hold_icon_spacing_right</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.HoldIcon" parent="TTheme.Numpad.Key.Overlay.Element">
-		<item name="android:layout_height">@dimen/numpad_key_overlay_small_icon_size</item>
-		<item name="android:layout_width">@dimen/numpad_key_overlay_small_icon_size</item>
+		<item name="android:layout_height">@dimen/numpad_key_overlay_hold_icon_size</item>
+		<item name="android:layout_width">@dimen/numpad_key_overlay_hold_icon_size</item>
 
 		<item name="android:tint">@color/key_fn_alternative_color</item>
 	</style>
 
 	<!-- Overlay: Hold Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text" parent="TTheme.Numpad.Key.Overlay.Element">
-		<item name="android:textSize">@dimen/numpad_key_overlay_text_size</item>
+		<item name="android:textSize">@dimen/numpad_key_overlay_side_text_size</item>
 		<item name="android:textColor">@color/key_fn_alternative_color</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">top|right</item>
-		<item name="android:layout_margin">5dp</item>
+		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_hold_text_spacing_top</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_hold_text_spacing_right</item>
+		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_hold_text_spacing_top</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_hold_text_spacing_right</item>
+		<item name="android:textSize">@dimen/numpad_key_overlay_hold_text_size</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Number.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text.Hold">
@@ -264,22 +268,22 @@
 	<!-- Overlay: Side Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text.Top" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">top|center</item>
-		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_text_margin</item>
+		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Right" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">center|right</item>
-		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_text_margin</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Bottom" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">bottom|center</item>
-		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_side_text_margin</item>
+		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Left" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">center|left</item>
-		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_margin</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 
@@ -289,8 +293,12 @@
 	<style name="TTheme.Numpad.Key" parent="Widget.MaterialComponents.Button">
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">@dimen/numpad_key_height</item>
-		<item name="android:layout_marginLeft">3dp</item>
-		<item name="android:layout_marginRight">3dp</item>
+
+		<!-- reset the spacing and apply our own -->
+		<item name="android:insetTop">@dimen/numpad_key_spacing</item>
+		<item name="android:insetBottom">@dimen/numpad_key_spacing</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_spacing</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_spacing</item>
 		<item name="android:padding">0dp</item>
 
 		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
@@ -303,8 +311,7 @@
 	<!-- Suggestion arrow keys -->
 	<style name="TTheme.Numpad.Key.Arrow" parent="TTheme.Numpad.Key">
 		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">@dimen/numpad_arrow_key_width</item>
-		<item name="android:padding">0dp</item>
+		<item name="android:layout_width">@dimen/numpad_key_arrow_width</item>
 	</style>
 
 	<!-- Keypad keys -->
@@ -319,9 +326,9 @@
 	</style>
 
 	<style name="TTheme.Numpad.Key.Placeholder">
-		<item name="android:layout_height">0dp</item>
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_weight">1</item>
+		<item name="android:layout_height">@dimen/numpad_key_height</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_margin">@dimen/numpad_key_spacing</item>
 	</style>
 
 </resources>
