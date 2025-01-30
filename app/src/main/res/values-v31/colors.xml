@@ -11,4 +11,30 @@
 	<!-- page -->
 	<color name="prefs_page_background">@color/material_dynamic_neutral95</color>
 	<color name="prefs_category_title_color">@color/material_dynamic_primary40</color>
+
+	<!--*******************************************
+		Keyboard
+	*******************************************-->
+
+	<color name="keyboard_background">@color/material_dynamic_neutral90</color>
+	<color name="keyboard_text">@color/material_dynamic_neutral_variant20</color>
+	<color name="keyboard_top_separator">@color/material_dynamic_neutral_variant80</color>
+
+	<color name="key_num_background">@color/material_dynamic_neutral_variant99</color>
+	<color name="key_num_ripple">@color/material_dynamic_neutral90</color>
+	<color name="key_num_text">@color/keyboard_text</color>
+	<color name="key_num_alternative_text">@color/material_dynamic_neutral30</color> <!-- 'hold' functions -->
+
+	<color name="key_fn_background">@color/material_dynamic_secondary80</color>
+	<color name="key_fn_ripple">@color/material_dynamic_secondary70</color>
+	<color name="key_fn_text">@color/material_dynamic_secondary20</color>
+	<color name="key_fn_alternative_text">@color/material_dynamic_secondary30</color> <!-- 'hold' functions -->
+
+	<color name="key_ok_background">@color/suggestion_selected_background</color>
+	<color name="key_ok_ripple">@color/material_dynamic_primary70</color>
+	<color name="key_ok_text">@color/suggestion_selected_text</color>
+
+	<color name="suggestion_selected_background">@color/material_dynamic_primary80</color>
+	<color name="suggestion_selected_text">@color/keyboard_text</color>
+	<color name="suggestion_separator">@color/material_dynamic_secondary60</color>
 </resources>
