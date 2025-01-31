@@ -10,7 +10,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_101" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -18,7 +17,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_104" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -26,7 +24,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_107" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -43,7 +40,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_102" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -51,7 +47,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_105" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -59,7 +54,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_108" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -67,7 +61,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_100" />
-			<include layout="@layout/key_overlay_hold_text" />
 		</RelativeLayout>
 
 	</LinearLayout>
@@ -83,7 +76,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_103" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -91,7 +83,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_106" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
@@ -99,7 +90,6 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyFText
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_109" />
-			<include layout="@layout/key_overlay_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
