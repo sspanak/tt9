@@ -13,18 +13,26 @@ import io.github.sspanak.tt9.util.Logger;
 class ItemDonate extends ItemClickable {
 	static final String NAME = "donate_link";
 	private final PreferencesActivity activity;
+	private final boolean isVisible;
 
-	ItemDonate(Preference preference, PreferencesActivity activity) {
+	ItemDonate(Preference preference, PreferencesActivity activity, boolean isTT9On) {
 		super(preference);
 		this.activity = activity;
+		this.isVisible = false;
 	}
 
 	public ItemDonate populate() {
-		if (item != null) {
+		if (item == null) {
+			return this;
+		}
+
+		if (isVisible) {
 			String appName = activity.getString(R.string.app_name_short);
 			String url = activity.getString(R.string.donate_url_short);
 			item.setSummary(activity.getString(R.string.donate_summary, appName, url));
 		}
+		item.setVisible(isVisible);
+
 		return this;
 	}
 

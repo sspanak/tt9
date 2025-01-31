@@ -24,8 +24,9 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 	@Override
 	public void onCreate() {
-		createSettingsSection();
-		createAboutSection();
+		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
+		createSettingsSection(isTT9On);
+		createAboutSection(isTT9On);
 		updateHelpButtonDescription();
 		resetFontSize(false);
 	}
@@ -35,13 +36,16 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	public void onResume() {
 		init(); // changing the theme recreates the PreferencesActivity, making "this.activity" NULL, so we reinitialize it.
 		super.onResume();
-		createSettingsSection();
+
+		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
+		createSettingsSection(isTT9On);
+		createAboutSection(isTT9On);
 		resetFontSize(false);
 	}
 
 
-	private void createAboutSection() {
-		(new ItemDonate(findPreference(ItemDonate.NAME), activity)).populate().enableClickHandler();
+	private void createAboutSection(boolean isTT9On) {
+		(new ItemDonate(findPreference(ItemDonate.NAME), activity, isTT9On)).populate().enableClickHandler();
 		(new ItemVersionInfo(findPreference(ItemVersionInfo.NAME), activity)).populate().enableClickHandler();
 	}
 
@@ -57,9 +61,7 @@ public class MainSettingsScreen extends BaseScreenFragment {
 	}
 
 
-	private void createSettingsSection() {
-		boolean isTT9On = SystemSettings.isTT9Enabled(activity);
-
+	private void createSettingsSection(boolean isTT9On) {
 		Preference gotoSetup = findPreference("screen_setup");
 		if (gotoSetup != null) {
 			gotoSetup.setSummary(isTT9On ? "" : activity.getString(R.string.setup_click_here_to_enable));

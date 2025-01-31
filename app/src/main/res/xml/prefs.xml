@@ -38,7 +38,8 @@
 
 		<Preference
 			app:key="donate_link"
-			app:title="@string/donate_title" />
+			app:title="@string/donate_title"
+			app:isPreferenceVisible="false" />
 
 		<Preference
 			app:key="version_info"
