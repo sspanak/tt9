@@ -164,8 +164,10 @@ class MainLayoutNumpad extends BaseMainLayout {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 			height = getKeyHeightCompat() * 4
+				+ Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
+				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
-				+ Math.round(resources.getDimension(R.dimen.numpad_spacing_bottom))
+				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom))
 				+ getBottomInsetSize();
 		}
 
