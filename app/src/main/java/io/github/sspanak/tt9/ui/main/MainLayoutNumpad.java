@@ -1,7 +1,7 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
-import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -26,17 +26,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
-	}
-
-	private void alignView() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || view == null) {
-			return;
-		}
-
-		LinearLayout container = view.findViewById(R.id.numpad_container);
-		if (container != null) {
-			container.setGravity(tt9.getSettings().getNumpadAlignment());
-		}
 	}
 
 
@@ -163,42 +152,92 @@ class MainLayoutNumpad extends BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
-			height = getKeyHeightCompat() * 4
+			height =
 				+ Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
 				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
-				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom))
-				+ getBottomInsetSize();
+				+ getKeyHeightCompat() * 4
+				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom));
 		}
 
 		return height;
 	}
 
 
-	private void setWidth(int width) {
-		if (view == null || width <= 0) {
+	/**
+	 * Adjusts the width of the keyboard to the given percentage of the screen width.
+	 */
+	private void setKeyboardWidth(int widthPercent) {
+		View keyboard = view != null ? view.findViewById(R.id.numpad_container) : null;
+		if (keyboard == null) {
 			return;
 		}
 
-		View widthConstraintWrapper = view.findViewById(R.id.numpad_width_constraint_wrapper);
-		if (widthConstraintWrapper == null) {
-			return;
-		}
-
-		ViewGroup.LayoutParams layout = widthConstraintWrapper.getLayoutParams();
+		LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) keyboard.getLayoutParams();
 		if (layout != null) {
-			layout.width = width;
-			widthConstraintWrapper.setLayoutParams(layout);
+			layout.weight = widthPercent;
+			keyboard.setLayoutParams(layout);
 		}
+	}
+
+
+	/**
+	 * Adjust the padding on both sides of the keyboard to make it centered, or aligned to the
+	 * left or right.
+	 */
+	private void setBumperWidth(int widthPercent, int gravity) {
+		View leftBumper = view.findViewById(R.id.numpad_bumper_left);
+		View rightBumper = view.findViewById(R.id.numpad_bumper_right);
+		if (leftBumper == null || rightBumper == null) {
+			return;
+		}
+
+		int leftPadding = 0;
+		int rightPadding = 0;
+
+		switch (gravity) {
+			case Gravity.CENTER_HORIZONTAL:
+				leftPadding = rightPadding = (100 - widthPercent) / 2;
+				break;
+
+			case Gravity.START:
+				rightPadding = 100 - widthPercent;
+				break;
+
+			case Gravity.END:
+				leftPadding = 100 - widthPercent;
+				break;
+		}
+
+		LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) leftBumper.getLayoutParams();
+		if (layout != null) {
+			layout.weight = leftPadding;
+			leftBumper.setLayoutParams(layout);
+		}
+
+		layout = (LinearLayout.LayoutParams) rightBumper.getLayoutParams();
+		if (layout != null) {
+			layout.weight = rightPadding;
+			rightBumper.setLayoutParams(layout);
+		}
+	}
+
+
+	void setWidth(int widthPercent, int gravity) {
+		if (view == null || widthPercent <= 0 || widthPercent > 100) {
+			return;
+		}
+
+		setBumperWidth(widthPercent, gravity);
+		setKeyboardWidth(widthPercent);
 	}
 
 
 	@Override
 	void render() {
 		getView();
-		alignView();
 		setKeyHeight(getKeyHeightCompat());
-		setWidth(tt9.getSettings().getNumpadWidth());
+		setWidth(tt9.getSettings().getNumpadWidthPercent(), tt9.getSettings().getNumpadAlignment());
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();

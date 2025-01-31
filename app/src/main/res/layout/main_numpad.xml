@@ -1,34 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	style="@style/TTheme.Numpad.FullScreenAlignmentContainer"
-	android:id="@+id/numpad_container">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.FullScreenContainer"
+	android:id="@+id/full_screen_container">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
-		style="@style/TTheme.Numpad.FullScreenContainer"
-		android:id="@+id/numpad_width_constraint_wrapper">
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/numpad_bumper_left" />
+
+	<LinearLayout style="@style/TTheme.Numpad" android:id="@+id/numpad_container">
+		<View style="@style/TTheme.Keyboard.TopSeparator" />
+		<include layout="@layout/panel_numpad_status_bar" />
 
 		<LinearLayout
-			style="@style/TTheme.Numpad"
-			android:id="@+id/linearLayout"
-			tools:ignore="MissingConstraints"> <!-- the constraints are set in the styles -->
+			android:id="@+id/main_soft_keys"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
 
-			<View style="@style/TTheme.Keyboard.TopSeparator" />
-			<include layout="@layout/panel_numpad_status_bar" />
-
-			<LinearLayout
-				android:id="@+id/main_soft_keys"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal">
-
-				<include layout="@layout/panel_numpad_left" />
-				<include layout="@layout/panel_numpad_digits" />
-				<include layout="@layout/panel_numpad_text_editing" />
-				<include layout="@layout/panel_numpad_right"/>
-			</LinearLayout>
-
+			<include layout="@layout/panel_numpad_left" />
+			<include layout="@layout/panel_numpad_digits" />
+			<include layout="@layout/panel_numpad_text_editing" />
+			<include layout="@layout/panel_numpad_right" />
 		</LinearLayout>
-	</androidx.constraintlayout.widget.ConstraintLayout>
+	</LinearLayout>
+
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/numpad_bumper_right" />
+
 </LinearLayout>

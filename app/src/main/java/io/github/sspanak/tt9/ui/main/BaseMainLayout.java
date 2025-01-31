@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.graphics.Insets;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -7,6 +8,8 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 
@@ -46,24 +49,45 @@ abstract class BaseMainLayout {
 				.setTheme(R.style.TTheme)
 				.build();
 			view = View.inflate(themedContext, xml, null);
+			view.setOnApplyWindowInsetsListener(this::onApplyInsets);
 		}
 
 		return view;
 	}
 
 
+	protected WindowInsets onApplyInsets(@NonNull View v, @NonNull WindowInsets windowInsets) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+			return preventEdgeToEdge(v, windowInsets);
+		} else {
+			return windowInsets;
+		}
+	}
+
+
 	/**
-	 * Calculate the bottom padding for the edge-to-edge mode in Android 15+. Without padding,
+	 * Apply the padding to prevent edge-to-edge on Android 15+. Without padding,
 	 * the bottom of the View will be cut off by the system navigation bar.
 	 */
-	protected int getBottomInsetSize() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM || tt9 == null) {
-			return 0;
+	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
+	protected WindowInsets preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
+		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+		ViewGroup.MarginLayoutParams layout = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+		if (layout != null) {
+			layout.rightMargin = insets.right;
+			layout.bottomMargin = insets.bottom;
+			layout.leftMargin = insets.left;
+			v.setLayoutParams(layout);
 		}
 
-		final int DEFAULT_SIZE = 96;
-		WindowInsets insets = tt9.getWindow().findViewById(android.R.id.content).getRootWindowInsets();
-		return insets != null ? insets.getStableInsetBottom() : DEFAULT_SIZE;
+		return WindowInsets.CONSUMED;
+	}
+
+
+	void requestPreventEdgeToEdge() {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM && view != null) {
+			view.requestApplyInsets();
+		}
 	}
 
 
@@ -93,6 +117,25 @@ abstract class BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		return 0;
 	}
+
+
+	boolean setHeight(int height) {
+		if (view == null) {
+			return false;
+		}
+
+		ViewGroup.LayoutParams params = view.getLayoutParams();
+		if (params == null) {
+			return false;
+		}
+
+		params.height = height;
+		view.setLayoutParams(params);
+		return true;
+	}
+
+
+	void setWidth(int widthPercent) {}
 
 
 	abstract void showCommandPalette();

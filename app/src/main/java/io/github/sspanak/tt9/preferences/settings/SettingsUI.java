@@ -22,6 +22,9 @@ public class SettingsUI extends SettingsTyping {
 	private final int DEFAULT_LAYOUT;
 	private final boolean DEFAULT_STATUS_ICON;
 
+	public final static int MIN_WIDTH_PERCENT = 50;
+	private int DEFAULT_WIDTH_LANDSCAPE = 0;
+
 
 	SettingsUI(Context context) {
 		super(context);
@@ -79,16 +82,29 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
 	}
 
-	public int getNumpadMaxWidth() {
-		return Math.min(context.getResources().getDimensionPixelSize(R.dimen.numpad_max_width), DeviceInfo.getScreenWidth(context));
-	}
+	public int getNumpadDefaultWidthPercent() {
+		if (!DeviceInfo.isLandscapeOrientation(context)) {
+			return 100;
+		}
 
-	public int getNumpadWidth() {
-		return getNumpadWidthPercent() * getNumpadMaxWidth() / 100;
+		if (DEFAULT_WIDTH_LANDSCAPE > 0) {
+			return DEFAULT_WIDTH_LANDSCAPE;
+		}
+
+		int screenWidth = DeviceInfo.getScreenWidth(context.getApplicationContext());
+		if (screenWidth < 1) {
+			return 100;
+		}
+
+		int stylesMaxWidth = Math.round(context.getResources().getDimension(R.dimen.numpad_max_width));
+		float width = screenWidth < stylesMaxWidth ? 100 : 100f * stylesMaxWidth / screenWidth;
+		width = width < MIN_WIDTH_PERCENT ? MIN_WIDTH_PERCENT : width;
+
+		return DEFAULT_WIDTH_LANDSCAPE = Math.round(width / 5) * 5;
 	}
 
 	public int getNumpadWidthPercent() {
-		return getStringifiedInt("pref_numpad_width", 100);
+		return getStringifiedInt("pref_numpad_width", getNumpadDefaultWidthPercent());
 	}
 
 	public int getSettingsFontSize() {
