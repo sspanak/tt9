@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ui.main;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
@@ -58,7 +57,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 	}
 
-	@Override public void onViewAttachedToWindow(@NonNull View v) { setHeight(height, heightSmall, heightNumpad); }
+	@Override public void onViewAttachedToWindow(@NonNull View v) {
+		setHeight(height, heightSmall, heightNumpad);
+		main.setWidth(tt9.getSettings().getNumpadWidthPercent());
+	}
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 
 
@@ -136,11 +138,13 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
 			tt9.onCreateInputView();
+			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
 			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
 			tt9.onCreateInputView();
+			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else {
 			changeHeight(delta, heightSmall, heightNumpad);
@@ -159,11 +163,13 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			settings.setMainViewLayout(SettingsStore.LAYOUT_TRAY);
 			height = heightTray;
 			tt9.onCreateInputView();
+			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
 			tt9.onCreateInputView();
+			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		}
 	}
@@ -184,17 +190,12 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 
 		height = Math.min(height, maxHeight);
-
-		ViewGroup.LayoutParams params = main.getView().getLayoutParams();
-		if (params == null) {
-			return false;
+		if (main.setHeight(height)) {
+			this.height = height;
+			return true;
 		}
 
-		params.height = height;
-		main.getView().setLayoutParams(params);
-		this.height = height;
-
-		return true;
+		return false;
 	}
 
 	private void fitMain() {

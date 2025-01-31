@@ -20,13 +20,9 @@ public class ItemNumpadWidth extends ItemDropDown {
 	@Override
 	public ItemDropDown populate() {
 		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		options.put(70, "70 ％");
-		options.put(75, "75 ％");
-		options.put(80, "80 ％");
-		options.put(85, "85 ％");
-		options.put(90, "90 ％");
-		options.put(95, "95 ％");
-		options.put(100, "100 ％");
+		for (int i = SettingsStore.MIN_WIDTH_PERCENT; i <= 100; i += 5) {
+			options.put(i, i + " ％");
+		}
 		super.populateIntegers(options);
 
 		float currentValue = settings.getNumpadWidthPercent();
