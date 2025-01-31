@@ -30,7 +30,7 @@
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
-		<View	style="@style/TTheme.Numpad.Key.Placeholder" />
+		<View style="@style/TTheme.Numpad.Key.Large.Placeholder" />
 
 	</LinearLayout>
 
@@ -103,7 +103,7 @@
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 
-		<View	style="@style/TTheme.Numpad.Key.Placeholder" />
+		<View style="@style/TTheme.Numpad.Key.Large.Placeholder" />
 
 	</LinearLayout>
 </merge>

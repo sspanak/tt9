@@ -77,7 +77,6 @@
 		<item name="android:textSize">@dimen/main_small_suggestion_text_size</item>
 	</style>
 
-
 	<!--*******************************************
 		Small Keys
 	*******************************************-->
@@ -164,7 +163,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">0dp</item>
 		<item name="android:orientation">vertical</item>
-		<item name="android:paddingBottom">@dimen/numpad_spacing_bottom</item>
+		<item name="android:paddingBottom">@dimen/numpad_keys_spacing_bottom</item>
 	</style>
 
 
@@ -172,12 +171,23 @@
 		Numpad Status Bar
 	*******************************************-->
 
-	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
+	<!-- Status Bar + Arrows. The Arrow keys themselves are under the "Numpad.Key." section -->
+	<style name="TTheme.Numpad.TopBar" parent="">
+		<item name="android:gravity">center_horizontal</item>
+		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">@dimen/numpad_suggestion_height</item>
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_weight">1</item>
+		<item name="android:layout_marginTop">@dimen/numpad_status_bar_spacing_top</item>
+		<item name="android:layout_marginBottom">@dimen/numpad_status_bar_spacing_bottom</item>
 	</style>
 
+	<!-- status + suggestions container -->
+	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>"
+	</style>
+
+	<!-- one suggestion -->
 	<style name="TTheme.Numpad.StatusBar.SuggestionList.Item" parent="">
 		<item name="android:gravity">center</item>
 		<item name="android:layout_width">wrap_content</item>
@@ -293,18 +303,14 @@
 		Numpad Keys
 	*******************************************-->
 	<style name="TTheme.Numpad.Key.VersionStyle" parent="TTheme.Keyboard.Key.VersionStyle" />
-	<style name="TTheme.Numpad.Key" parent="TTheme.Numpad.Key.VersionStyle">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">@dimen/numpad_key_height</item>
-
-		<!-- reset the spacing and apply our own -->
-		<item name="android:insetTop">@dimen/numpad_key_spacing</item>
-		<item name="android:insetBottom">@dimen/numpad_key_spacing</item>
+	<!-- Suggestion arrow keys -->
+	<style name="TTheme.Numpad.Key.Arrow" parent="TTheme.Numpad.Key.VersionStyle">
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">@dimen/numpad_key_arrow_width</item>
 		<item name="android:layout_marginLeft">@dimen/numpad_key_spacing</item>
 		<item name="android:layout_marginRight">@dimen/numpad_key_spacing</item>
 		<item name="android:padding">0dp</item>
 
-		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
 		<item name="android:textSize">@dimen/key_text_size</item>
 
 		<item name="android:textColor">@color/key_fn_text</item>
@@ -312,26 +318,30 @@
 		<item name="rippleColor">@color/key_fn_ripple</item>
 	</style>
 
-	<!-- Suggestion arrow keys -->
-	<style name="TTheme.Numpad.Key.Arrow" parent="TTheme.Numpad.Key">
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">@dimen/numpad_key_arrow_width</item>
+	<!-- Keypad keys -->
+	<style name="TTheme.Numpad.Key.Large" parent="TTheme.Numpad.Key.Arrow">
+		<item name="android:layout_height">@dimen/numpad_key_height</item>
+		<item name="android:layout_width">match_parent</item>
+
+		<!-- reset the spacing and apply our own -->
+		<item name="android:insetTop">@dimen/numpad_key_spacing</item>
+		<item name="android:insetBottom">@dimen/numpad_key_spacing</item>
 	</style>
 
-	<!-- Keypad keys -->
-	<style name="TTheme.Numpad.Key.Number" parent="TTheme.Numpad.Key">
+
+	<style name="TTheme.Numpad.Key.Number" parent="TTheme.Numpad.Key.Large">
 		<item name="android:textColor">@color/key_num_text</item>
 		<item name="backgroundTint">@color/key_num_background</item>
 		<item name="rippleColor">@color/key_num_ripple</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.OK" parent="TTheme.Numpad.Key">
+	<style name="TTheme.Numpad.Key.OK" parent="TTheme.Numpad.Key.Large">
 		<item name="android:textColor">@color/key_ok_text</item>
 		<item name="backgroundTint">@color/key_ok_background</item>
 		<item name="rippleColor">@color/key_ok_ripple</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.Placeholder">
+	<style name="TTheme.Numpad.Key.Large.Placeholder">
 		<item name="android:layout_height">@dimen/numpad_key_height</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_margin">@dimen/numpad_key_spacing</item>
