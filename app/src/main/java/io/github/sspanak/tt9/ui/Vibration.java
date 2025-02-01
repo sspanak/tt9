@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.BaseClickableKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
 
 public class Vibration {
@@ -23,7 +23,7 @@ public class Vibration {
 		return -1;
 	}
 
-	public static int getPressVibration(SoftKey key) {
+	public static int getPressVibration(BaseClickableKey key) {
 		return key instanceof SoftKeyNumber ? HapticFeedbackConstants.KEYBOARD_TAP : HapticFeedbackConstants.VIRTUAL_KEY;
 	}
 

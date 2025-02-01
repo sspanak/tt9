@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 
-public class SoftKeyRF3 extends SoftKey {
+public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 	public SoftKeyRF3(Context context) { super(context); }
 	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

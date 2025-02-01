@@ -7,7 +7,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyFilter extends SoftKey {
+public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	public SoftKeyFilter(Context context) { super(context); }
 	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

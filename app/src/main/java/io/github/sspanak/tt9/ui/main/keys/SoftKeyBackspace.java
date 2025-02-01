@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyBackspace extends SwipeableKey {
+public class SoftKeyBackspace extends BaseSwipeableKey {
 	private int repeat = 0;
 
 	private boolean isActionPerformed = false;

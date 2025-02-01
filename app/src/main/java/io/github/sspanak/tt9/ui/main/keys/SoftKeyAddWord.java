@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 
-public class SoftKeyAddWord extends SoftKey {
+public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 	public SoftKeyAddWord(Context context) { super(context); }
 	public SoftKeyAddWord(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyAddWord(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
