@@ -132,6 +132,7 @@
 		<item name="android:paddingRight">0dp</item>
 		<item name="android:paddingBottom">2dp</item>
 		<item name="android:paddingLeft">0dp</item>
+		<item name="android:textSize">@dimen/main_small_command_palette_key_text_size</item>
 	</style>
 
 
@@ -193,7 +194,7 @@
 		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
 		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
 
-		<item name="android:textSize">@dimen/numpad_suggestion_font_size</item>
+		<item name="android:textSize">@dimen/numpad_suggestion_text_size</item>
 	</style>
 
 
@@ -307,8 +308,6 @@
 		<item name="android:layout_marginLeft">@dimen/numpad_key_spacing</item>
 		<item name="android:layout_marginRight">@dimen/numpad_key_spacing</item>
 		<item name="android:padding">0dp</item>
-
-		<item name="android:textSize">@dimen/key_text_size</item>
 
 		<item name="android:textColor">@color/key_fn_text</item>
 		<item name="backgroundTint">@color/key_fn_background</item>

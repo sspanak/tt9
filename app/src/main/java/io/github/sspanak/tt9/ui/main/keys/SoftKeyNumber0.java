@@ -63,7 +63,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	@Override
 	protected float getTitleScale() {
 		if (tt9 != null && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage())) {
-			return 1.5f * getTT9Height();
+			return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
 		}
 
 		return super.getTitleScale();

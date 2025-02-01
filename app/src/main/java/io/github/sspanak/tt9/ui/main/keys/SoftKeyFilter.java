@@ -49,7 +49,7 @@ public class SoftKeyFilter extends SoftKey {
 	@Override protected int getCentralIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter; }
 	@Override protected int getHoldIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter_off; }
 
-	@Override protected float getTitleScale() { return isKorean() ? 1.5f * getTT9Height() : 1; }
+	@Override protected float getTitleScale() { return isKorean() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
 
 	@Override
 	public void render() {

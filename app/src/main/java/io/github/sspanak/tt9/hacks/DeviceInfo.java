@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.hacks;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -10,16 +11,33 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class DeviceInfo {
+	private static Resources resources;
+
+	private static Resources getResources(Context context) {
+		if (resources == null) {
+			resources = context.getResources();
+		}
+		return resources;
+	}
+
 	public static boolean isLandscapeOrientation(Context context) {
-		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+		return getResources(context).getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
 
 	public static int getScreenWidth(Context context) {
-		return context.getResources().getDisplayMetrics().widthPixels;
+		return getResources(context).getDisplayMetrics().widthPixels;
 	}
 
 	public static int getScreenHeight(Context context) {
-		return context.getResources().getDisplayMetrics().heightPixels;
+		return getResources(context).getDisplayMetrics().heightPixels;
+	}
+
+	public static float getScreenHeightDp(Context context) {
+		return getScreenHeight(context) / getResources(context).getDisplayMetrics().density;
+	}
+
+	public static float getScreenWidthDp(Context context) {
+		return getScreenWidth(context) / getResources(context).getDisplayMetrics().density;
 	}
 
 	public static boolean noBackspaceKey() {
