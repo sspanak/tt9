@@ -80,8 +80,11 @@ public class SoftKeyLF4 extends SwipeableKey {
 
 		if (areThereManyLanguages() && isKeySmall()) {
 			setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM);
-		} else {
+			setPaddingRelative(0, 0, 0, 10);
+		} else if (areThereManyLanguages()) {
 			setPaddingRelative(0, 20, 0, 0);
+			setGravity(Gravity.CENTER);
+		} else {
 			setGravity(Gravity.CENTER);
 		}
 

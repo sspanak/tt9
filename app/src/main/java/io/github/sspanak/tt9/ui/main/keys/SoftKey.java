@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
@@ -43,6 +44,9 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	private Drawable icon = null;
 	private Drawable holdIcon = null;
 	private RelativeLayout overlay = null;
+
+	private static float screenScaleX = 0;
+	private static float screenScaleY = 0;
 
 
 	public SoftKey(Context context) {
@@ -79,6 +83,34 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 		}
 
 		return true;
+	}
+
+
+	protected float getScreenScaleX() {
+		if (screenScaleX == 0) {
+			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
+			float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
+
+			screenScaleX = Math.min(
+				width / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH,
+				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+			);
+		}
+		return screenScaleX;
+	}
+
+
+	protected float getScreenScaleY() {
+		if (screenScaleY == 0) {
+			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
+			float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
+
+			screenScaleY = Math.min(
+				height / SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT,
+				SettingsStore.SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX
+			);
+		}
+		return screenScaleY;
 	}
 
 
@@ -305,10 +337,12 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 
 	/**
 	 * Multiplier for the main text font size. Used for automatically adjusting the font size to fit
-	 * the key when changing the keyboard dimensions.
+	 * the key when changing the keyboard dimensions, and to look good on different screen sizes.
 	 */
 	protected float getTitleScale() {
-		return SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE * Math.min(getTT9Width(), getTT9Height());
+		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
+		float screenSizeScale = Math.min(getScreenScaleX(), getScreenScaleY());
+		return keyboardSizeScale * screenSizeScale;
 	}
 
 
@@ -316,8 +350,9 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	 * Same as getTitleScale(), but for keys that have icons instead of text.
 	 */
 	protected float getCentralIconScale() {
-		float width = getTT9Width();
-		return width > 0.95f ? Math.min(1.15f, getTT9Height()) : Math.min(width, getTT9Height());
+		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
+		keyboardSizeScale = Math.min(1.15f, keyboardSizeScale);
+		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY());
 	}
 
 
@@ -325,7 +360,8 @@ public class SoftKey extends com.google.android.material.button.MaterialButton i
 	 * Similar to getTitleScale(), adjusts the font size of the hold text or icon
 	 */
 	protected float getHoldElementScale() {
-		return SettingsStore.SOFT_KEY_CONTENT_DEFAULT_SCALE * Math.min(1, getTT9Height());
+		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
+		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY());
 	}
 
 
