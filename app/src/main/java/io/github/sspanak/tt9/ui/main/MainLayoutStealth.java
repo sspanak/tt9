@@ -22,6 +22,6 @@ class MainLayoutStealth extends BaseMainLayout {
 	}
 	@Override void hideTextEditingPalette() { isTextEditingPaletteShown = false; }
 	@Override boolean isTextEditingPaletteShown() { return isTextEditingPaletteShown; }
-
+	@Override void setWidth(int w, int g) {}
 	@Override void render() {}
 }

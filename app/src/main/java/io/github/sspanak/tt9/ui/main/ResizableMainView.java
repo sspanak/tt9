@@ -57,10 +57,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 	}
 
-	@Override public void onViewAttachedToWindow(@NonNull View v) {
-		setHeight(height, heightSmall, heightNumpad);
-		main.setWidth(tt9.getSettings().getNumpadWidthPercent());
-	}
+	@Override public void onViewAttachedToWindow(@NonNull View v) { setHeight(height, heightSmall, heightNumpad); }
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 
 

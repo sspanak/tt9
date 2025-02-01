@@ -30,6 +30,7 @@
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_appearance">Appearance</string>
 	<string name="pref_category_custom_words">Added Words</string>
+	<string name="pref_category_geometry">Geometry</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
 	<string name="pref_category_delete_words">Delete Added Words</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	style="@style/TTheme.FullScreenContainer"
-	android:id="@+id/full_screen_container">
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.FullScreenContainer">
 
-	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/numpad_bumper_left" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_left" />
 
-	<LinearLayout style="@style/TTheme.Numpad" android:id="@+id/numpad_container">
+	<LinearLayout style="@style/TTheme.Numpad" android:id="@+id/keyboard_container">
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
 		<include layout="@layout/panel_numpad_status_bar" />
 
@@ -22,6 +22,6 @@
 		</LinearLayout>
 	</LinearLayout>
 
-	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/numpad_bumper_right" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right" />
 
 </LinearLayout>

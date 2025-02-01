@@ -6,6 +6,21 @@
 		<item name="windowNoTitle">true</item> <!-- hide some weird floating rectangle above the dialog -->
 	</style>
 
+	<style name="TTheme.FullScreenContainer" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layoutDirection">ltr</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
+	<style name="TTheme.FullScreenContainer.SideBumper" parent="">
+		<item name="android:layout_height">1dp</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">0</item>
+		<item name="android:layoutDirection">ltr</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
 	<style name="TTheme.Preferences" parent="Theme.AppCompat.DayNight" />
 
 	<style name="TTheme.Keyboard" parent="TTheme">
@@ -30,8 +45,9 @@
 	*******************************************-->
 
 	<style name="TTheme.MainSmall" parent="TTheme.Keyboard">
-		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">100</item>
 		<item name="android:orientation">vertical</item>
 	</style>
 
@@ -139,21 +155,6 @@
 	<!--*******************************************
 		Numpad
 	*******************************************-->
-
-	<style name="TTheme.FullScreenContainer" parent="">
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layoutDirection">ltr</item>
-		<item name="android:orientation">horizontal</item>
-	</style>
-
-	<style name="TTheme.FullScreenContainer.SideBumper" parent="">
-		<item name="android:layout_height">1dp</item>
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_weight">0</item>
-		<item name="android:layoutDirection">ltr</item>
-		<item name="android:orientation">horizontal</item>
-	</style>
 
 	<!-- The keyboard itself -->
 	<style name="TTheme.Numpad" parent="TTheme.Keyboard">

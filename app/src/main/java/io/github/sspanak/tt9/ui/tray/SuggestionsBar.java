@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -36,7 +37,7 @@ public class SuggestionsBar {
 
 	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
-	private final RecyclerView mView;
+	@Nullable private final RecyclerView mView;
 	private final SettingsStore settings;
 	private SuggestionsAdapter mSuggestionsAdapter;
 	private Vibration vibration;
@@ -65,6 +66,10 @@ public class SuggestionsBar {
 
 
 	private void configureAnimation() {
+		if (mView == null) {
+			return;
+		}
+
 		DefaultItemAnimator animator = new DefaultItemAnimator();
 
 		animator.setMoveDuration(SettingsStore.SUGGESTIONS_SELECT_ANIMATION_DURATION);
@@ -77,6 +82,10 @@ public class SuggestionsBar {
 
 
 	private void initDataAdapter(Context context) {
+		if (mView == null) {
+			return;
+		}
+
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
 			this::handleItemClick,
@@ -84,6 +93,7 @@ public class SuggestionsBar {
 			R.id.suggestion_list_item,
 			suggestions
 		);
+
 		mView.setAdapter(mSuggestionsAdapter);
 
 		setDarkTheme();
@@ -91,6 +101,10 @@ public class SuggestionsBar {
 
 
 	private void initSeparator(Context context) {
+		if (mView == null) {
+			return;
+		}
+
 		// Extra XML is required instead of a ColorDrawable object, because setting the highlight color
 		// erases the borders defined using the ColorDrawable.
 		Drawable separatorDrawable = ContextCompat.getDrawable(context, R.drawable.suggestion_separator);
@@ -144,7 +158,9 @@ public class SuggestionsBar {
 
 
 	public void setRTL(boolean yes) {
-		mView.setLayoutDirection(yes ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+		if (mView != null) {
+			mView.setLayoutDirection(yes ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
+		}
 	}
 
 
@@ -275,6 +291,10 @@ public class SuggestionsBar {
 	 * to set the selected index in the adapter.
 	 */
 	private void scrollView() {
+		if (mView == null) {
+			return;
+		}
+
 		if (containsStem() && selectedIndex == 1) {
 			mView.scrollToPosition(0);
 		} else {

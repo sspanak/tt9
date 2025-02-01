@@ -14,18 +14,18 @@
 		app:key="pref_layout_type"
 		app:title="@string/pref_layout" />
 
-	<PreferenceCategory app:title="@string/pref_layout_numpad">
+	<PreferenceCategory app:title="@string/pref_category_geometry">
 		<DropDownPreference
-			app:key="pref_numpad_key_height"
-			app:title="@string/pref_numpad_key_height" />
+			app:key="pref_numpad_alignment"
+			app:title="@string/pref_numpad_alignment" />
 
 		<DropDownPreference
 			app:key="pref_numpad_width"
 			app:title="@string/pref_numpad_width" />
 
 		<DropDownPreference
-			app:key="pref_numpad_alignment"
-			app:title="@string/pref_numpad_alignment" />
+			app:key="pref_numpad_key_height"
+			app:title="@string/pref_numpad_key_height" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">

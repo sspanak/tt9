@@ -72,16 +72,6 @@ class MainLayoutTray extends BaseMainLayout {
 		return view != null && view.findViewById(R.id.text_editing_container).getVisibility() == LinearLayout.VISIBLE;
 	}
 
-	@Override
-	void render() {
-		getView();
-		enableClickHandlers();
-		setSoftKeysVisibility();
-		for (SoftKey key : getKeys()) {
-			key.render();
-		}
-	}
-
 	@NonNull
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
@@ -90,5 +80,16 @@ class MainLayoutTray extends BaseMainLayout {
 			keys.addAll(getKeysFromContainer(view.findViewById(R.id.text_editing_container)));
 		}
 		return keys;
+	}
+
+	@Override
+	void render() {
+		getView();
+		setSoftKeysVisibility();
+		setWidth(tt9.getSettings().getNumpadWidthPercent(), tt9.getSettings().getNumpadAlignment());
+		enableClickHandlers();
+		for (SoftKey key : getKeys()) {
+			key.render();
+		}
 	}
 }

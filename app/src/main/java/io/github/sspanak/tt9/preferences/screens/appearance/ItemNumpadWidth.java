@@ -37,7 +37,7 @@ public class ItemNumpadWidth extends ItemDropDown {
 
 	void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
-			item.setEnabled(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+			item.setEnabled(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
 		}
 	}
 }
