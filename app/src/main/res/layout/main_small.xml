@@ -1,46 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	style="@style/TTheme.MainSmall">
+	style="@style/TTheme.FullScreenContainer">
 
-	<View style="@style/TTheme.Keyboard.TopSeparator" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_left" />
 
-	<FrameLayout
-		style="@style/TTheme.MainSmall.StatusBar.Wrapper"
-		android:defaultFocusHighlightEnabled="false"
-		android:focusable="false"
-		android:focusableInTouchMode="false">
+	<LinearLayout style="@style/TTheme.MainSmall" android:id="@+id/keyboard_container">
+		<View style="@style/TTheme.Keyboard.TopSeparator" />
+		<include layout="@layout/panel_small_status_bar" />
+		<include layout="@layout/panel_small_function_keys" android:id="@+id/main_soft_keys" />
 
-		<TextView
-			style="@style/TTheme.MainSmall.StatusBar.Status"
-			android:id="@+id/status_bar"
-			android:defaultFocusHighlightEnabled="false"
-			android:focusable="false"
-			android:focusableInTouchMode="false"
-			tools:text="@tools:sample/lorem" />
+		<include
+			layout="@layout/panel_small_command_palette"
+			android:id="@+id/main_command_keys"
+			android:visibility="gone" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			style="@style/TTheme.MainSmall.StatusBar.SuggestionList"
-			android:id="@+id/suggestions_bar"
-			android:defaultFocusHighlightEnabled="false"
-			android:focusable="false"
-			android:focusableInTouchMode="false" />
+		<include
+			layout="@layout/panel_small_text_editing"
+			android:id="@+id/text_editing_container"
+			android:visibility="gone" />
+	</LinearLayout>
 
-	</FrameLayout>
-
-	<include
-		layout="@layout/panel_small_function_keys"
-		android:id="@+id/main_soft_keys" />
-
-	<include
-		layout="@layout/panel_small_command_palette"
-		android:id="@+id/main_command_keys"
-		android:visibility="gone" />
-
-	<include
-		layout="@layout/panel_small_text_editing"
-		android:id="@+id/text_editing_container"
-		android:visibility="gone" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right" />
 
 </LinearLayout>

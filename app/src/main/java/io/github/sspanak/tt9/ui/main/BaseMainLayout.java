@@ -3,9 +3,11 @@ package io.github.sspanak.tt9.ui.main;
 import android.graphics.Insets;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -135,7 +137,73 @@ abstract class BaseMainLayout {
 	}
 
 
-	void setWidth(int widthPercent) {}
+	/**
+	 * Adjusts the width of the keyboard to the given percentage of the screen width.
+	 */
+	private void setKeyboardWidth(int widthPercent) {
+		View keyboard = view != null ? view.findViewById(R.id.keyboard_container) : null;
+		if (keyboard == null) {
+			return;
+		}
+
+		LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) keyboard.getLayoutParams();
+		if (layout != null) {
+			layout.weight = widthPercent;
+			keyboard.setLayoutParams(layout);
+		}
+	}
+
+
+	/**
+	 * Adjust the padding on both sides of the keyboard to make it centered, or aligned to the
+	 * left or right.
+	 */
+	private void setBumperWidth(int widthPercent, int gravity) {
+		View leftBumper = view.findViewById(R.id.bumper_left);
+		View rightBumper = view.findViewById(R.id.bumper_right);
+		if (leftBumper == null || rightBumper == null) {
+			return;
+		}
+
+		int leftPadding = 0;
+		int rightPadding = 0;
+
+		switch (gravity) {
+			case Gravity.CENTER_HORIZONTAL:
+				leftPadding = rightPadding = (100 - widthPercent) / 2;
+				break;
+
+			case Gravity.START:
+				rightPadding = 100 - widthPercent;
+				break;
+
+			case Gravity.END:
+				leftPadding = 100 - widthPercent;
+				break;
+		}
+
+		LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams) leftBumper.getLayoutParams();
+		if (layout != null) {
+			layout.weight = leftPadding;
+			leftBumper.setLayoutParams(layout);
+		}
+
+		layout = (LinearLayout.LayoutParams) rightBumper.getLayoutParams();
+		if (layout != null) {
+			layout.weight = rightPadding;
+			rightBumper.setLayoutParams(layout);
+		}
+	}
+
+
+	void setWidth(int widthPercent, int gravity) {
+		if (view == null || widthPercent <= 0 || widthPercent > 100) {
+			return;
+		}
+
+		setBumperWidth(widthPercent, gravity);
+		setKeyboardWidth(widthPercent);
+	}
 
 
 	abstract void showCommandPalette();
