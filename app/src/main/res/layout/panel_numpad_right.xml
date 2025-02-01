@@ -24,7 +24,5 @@
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
 		style="@style/TTheme.Numpad.Key.OK"
-		android:id="@+id/soft_key_numpad_ok"
-		android:text="OK"
-		tools:ignore="HardcodedText" />
+		android:id="@+id/soft_key_numpad_ok" />
 </LinearLayout>

@@ -5,17 +5,13 @@ import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 public class SoftKeyOk extends SoftKey {
+	public SoftKeyOk(Context context) { super(context); }
+	public SoftKeyOk(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	public SoftKeyOk(Context context) {
-		super(context);
-	}
-
-	public SoftKeyOk(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
+	@Override protected String getTitle() {
+		CharSequence layoutTitle = getText();
+		return layoutTitle.length() == 0 ? "OK" : layoutTitle.toString();
 	}
 
 	@Override
@@ -29,7 +25,6 @@ public class SoftKeyOk extends SoftKey {
 
 		return false;
 	}
-
 
 	@Override
 	public void render() {
