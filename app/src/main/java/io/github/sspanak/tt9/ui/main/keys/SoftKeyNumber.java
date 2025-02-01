@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyNumber extends SoftKey {
+public class SoftKeyNumber extends BaseSoftKeyWithIcons {
 	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
 		put(R.id.soft_key_0, 0);
 		put(R.id.soft_key_1, 1);

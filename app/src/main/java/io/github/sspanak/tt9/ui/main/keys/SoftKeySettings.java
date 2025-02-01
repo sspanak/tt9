@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
-public class SoftKeySettings extends SwipeableKey {
+public class SoftKeySettings extends BaseSwipeableKey {
 	private ResizableMainView mainView;
 
 	public SoftKeySettings(Context context) {

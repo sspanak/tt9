@@ -11,8 +11,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
-abstract public class SwipeableKey extends SoftKey {
-	private static final String LOG_TAG = SwipeableKey.class.getSimpleName();
+abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
+	private static final String LOG_TAG = BaseSwipeableKey.class.getSimpleName();
 
 	private float HOLD_DURATION_THRESHOLD;
 	protected float SWIPE_X_THRESHOLD;
@@ -32,17 +32,17 @@ abstract public class SwipeableKey extends SoftKey {
 	private long swipeProcessingTimeAverage = 50;
 
 
-	public SwipeableKey(Context context) {
+	public BaseSwipeableKey(Context context) {
 		super(context);
 	}
 
 
-	public SwipeableKey(Context context, AttributeSet attrs) {
+	public BaseSwipeableKey(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
 
-	public SwipeableKey(Context context, AttributeSet attrs, int defStyleAttr) {
+	public BaseSwipeableKey(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 

@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 
-public class SoftKeyShift extends SoftKey {
+public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	public SoftKeyShift(Context context) {
 		super(context);
 	}

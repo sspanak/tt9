@@ -7,7 +7,7 @@ import android.view.Gravity;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyLF4 extends SwipeableKey {
+public class SoftKeyLF4 extends BaseSwipeableKey {
 	public SoftKeyLF4(Context context) { super(context); }
 	public SoftKeyLF4(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
