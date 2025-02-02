@@ -12,12 +12,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemNumpadAlignment extends ItemDropDown {
+public class ItemAlignment extends ItemDropDown {
 	public static final String NAME = "pref_numpad_alignment";
 
 	private final SettingsStore settings;
 
-	ItemNumpadAlignment(DropDownPreference item, SettingsStore settings) {
+	ItemAlignment(DropDownPreference item, SettingsStore settings) {
 		super(item);
 		this.settings = settings;
 	}
@@ -41,7 +41,7 @@ public class ItemNumpadAlignment extends ItemDropDown {
 		options.put(Gravity.END, context.getString(R.string.virtual_numpad_alignment_right));
 
 		super.populateIntegers(options);
-		super.setValue(settings.getNumpadAlignment() + "");
+		super.setValue(settings.getAlignment() + "");
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;

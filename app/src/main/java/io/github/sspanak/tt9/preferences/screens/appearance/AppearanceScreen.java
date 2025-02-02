@@ -25,9 +25,9 @@ public class AppearanceScreen extends BaseScreenFragment {
 	private void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 
-		ItemNumpadAlignment numpadAlignment = new ItemNumpadAlignment(findPreference(ItemNumpadAlignment.NAME), activity.getSettings());
+		ItemAlignment alignment = new ItemAlignment(findPreference(ItemAlignment.NAME), activity.getSettings());
 		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());
-		ItemNumpadWidth numpadWidth = new ItemNumpadWidth(findPreference(ItemNumpadWidth.NAME), activity.getSettings());
+		ItemWidth keyboardWidth = new ItemWidth(findPreference(ItemWidth.NAME), activity.getSettings());
 
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
@@ -36,14 +36,14 @@ public class AppearanceScreen extends BaseScreenFragment {
 				activity,
 				(layout) -> {
 					numpadKeyHeight.onLayoutChange(layout);
-					numpadAlignment.onLayoutChange(layout);
-					numpadWidth.onLayoutChange(layout);
+					alignment.onLayoutChange(layout);
+					keyboardWidth.onLayoutChange(layout);
 				}
 			),
 			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
 			numpadKeyHeight,
-			numpadAlignment,
-			numpadWidth
+			alignment,
+			keyboardWidth
 		};
 
 		for (ItemDropDown item : items) {
