@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import android.content.Context;
-import android.view.Gravity;
 
 import androidx.preference.DropDownPreference;
 
@@ -11,12 +10,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemAlignment extends ItemDropDown {
-	public static final String NAME = "pref_numpad_alignment";
+public class ItemNumpadShape extends ItemDropDown {
+	static final String NAME = "pref_numpad_shape";
 
 	private final SettingsStore settings;
 
-	ItemAlignment(DropDownPreference item, SettingsStore settings) {
+	public ItemNumpadShape(DropDownPreference item, SettingsStore settings) {
 		super(item);
 		this.settings = settings;
 	}
@@ -30,12 +29,12 @@ public class ItemAlignment extends ItemDropDown {
 		Context context = item.getContext();
 
 		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		options.put(Gravity.START, context.getString(R.string.virtual_numpad_alignment_left));
-		options.put(Gravity.CENTER_HORIZONTAL, context.getString(R.string.virtual_numpad_alignment_center));
-		options.put(Gravity.END, context.getString(R.string.virtual_numpad_alignment_right));
+		options.put(SettingsStore.NUMPAD_SHAPE_SQUARE, context.getString(R.string.pref_numpad_shape_square));
+		options.put(SettingsStore.NUMPAD_SHAPE_V, context.getString(R.string.pref_numpad_shape_v));
+		options.put(SettingsStore.NUMPAD_SHAPE_LONG_SPACE, context.getString(R.string.pref_numpad_shape_long_space));
 
 		super.populateIntegers(options);
-		super.setValue(String.valueOf(settings.getAlignment()));
+		super.setValue(String.valueOf(settings.getNumpadShape()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
@@ -43,7 +42,7 @@ public class ItemAlignment extends ItemDropDown {
 
 	void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
-			item.setVisible(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
+			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 			item.setIconSpaceReserved(false);
 		}
 	}

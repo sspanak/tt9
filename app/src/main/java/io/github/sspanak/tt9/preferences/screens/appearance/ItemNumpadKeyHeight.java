@@ -43,7 +43,8 @@ public class ItemNumpadKeyHeight extends ItemDropDown {
 
 	void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
-			item.setEnabled(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+			item.setIconSpaceReserved(false);
 		}
 	}
 }

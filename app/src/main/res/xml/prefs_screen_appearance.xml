@@ -16,6 +16,10 @@
 
 	<PreferenceCategory app:title="@string/pref_category_geometry">
 		<DropDownPreference
+			app:key="pref_numpad_shape"
+			app:title="@string/pref_numpad_shape" />
+
+		<DropDownPreference
 			app:key="pref_numpad_alignment"
 			app:title="@string/pref_numpad_alignment" />
 
