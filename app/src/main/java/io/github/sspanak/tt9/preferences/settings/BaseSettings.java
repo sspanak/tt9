@@ -24,4 +24,12 @@ class BaseSettings {
 			return defaultValue;
 		}
 	}
+
+	protected float getStringifiedFloat(String key, float defaultValue) {
+		try {
+			return Float.parseFloat(prefs.getString(key, String.valueOf(defaultValue)));
+		} catch (NumberFormatException ignored) {
+			return defaultValue;
+		}
+	}
 }

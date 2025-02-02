@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -88,6 +89,21 @@ public class SettingsUI extends SettingsTyping {
 
 	public int getNumpadKeyHeight() {
 		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
+	}
+
+	public float getNumpadFnKeyDefaultScale() {
+		// The simpler getResource.getFloat() requires API 29, so we must get the value manually.
+		try {
+			TypedValue outValue = new TypedValue();
+			context.getResources().getValue(R.dimen.numpad_key_fn_layout_weight, outValue, true);
+			return outValue.getFloat();
+		} catch (Exception e) {
+			return 0.625f;
+		}
+	}
+
+	public float getNumpadFnKeyScale() {
+		return getStringifiedFloat("pref_numpad_fn_key_width", getNumpadFnKeyDefaultScale());
 	}
 
 	public int getNumpadShape() {

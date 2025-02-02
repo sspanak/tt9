@@ -132,6 +132,7 @@
 	<string name="dictionary_no_notifications">Woordenboekmeldingen</string>
 	<string name="dictionary_no_notifications_summary">Ontvang meldingen over woordenboekupdates en de voortgang van het laden.</string>
 	<string name="pref_numpad_key_height">Hoogte</string>
+	<string name="pref_numpad_fn_key_width">Breedte van lettertoetsen</string>
 	<string name="pref_font_size">Instellingen lettergrootte</string>
 	<string name="pref_font_size_default">Standaard</string>
 	<string name="function_show_command_palette">Toon opdrachtenlijst</string>

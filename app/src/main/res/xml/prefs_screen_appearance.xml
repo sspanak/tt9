@@ -35,6 +35,10 @@
 			app:key="pref_arrow_keys_visible"
 			app:title="@string/pref_arrow_keys_visible"
 			app:summary="@string/pref_arrow_keys_visible_summary" />
+
+		<DropDownPreference
+			app:key="pref_numpad_fn_key_width"
+			app:title="@string/pref_numpad_fn_key_width" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">

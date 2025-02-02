@@ -2,13 +2,11 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
 abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
@@ -77,18 +75,8 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 			return getSwipeYThreshold();
 		}
 
-		try {
-			// The simpler getResource.getFloat() requires API 29, so we must get the value manually.
-			TypedValue outValue = new TypedValue();
-			getResources().getValue(R.dimen.numpad_key_fn_layout_weight, outValue, true);
-			float functionKeyScale = outValue.getFloat();
-
-			float keyWidth = tt9.getWidth() / 5f * functionKeyScale;
-			return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE;
-		} catch (Exception e) {
-			Logger.e(LOG_TAG, "Error calculating the swipe X threshold. Using default to prevent crashing. " + e);
-			return getSwipeYThreshold();
-		}
+		float keyWidth = tt9.getWidth() / 5f * tt9.getSettings().getNumpadFnKeyDefaultScale();
+		return keyWidth * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE;
 	}
 
 

@@ -145,6 +145,7 @@
 	<string name="dictionary_no_notifications">התראות מילון</string>
 	<string name="dictionary_no_notifications_summary">לקבל התראות על עדכוני המילון ועל התקדמות הטעינה.</string>
 	<string name="pref_numpad_key_height">גובה</string>
+	<string name="pref_numpad_fn_key_width">רוחב מקשי האותיות</string>
 	<string name="pref_font_size">גודל הגופן בהגדרות</string>
 	<string name="pref_font_size_default">ברירת מחדל</string>
 	<string name="function_show_command_palette">הצג רשימת פקודות</string>
