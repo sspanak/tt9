@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<color name="key_lf4_background">@color/key_fn_background</color>
+	<color name="key_lf4_ripple">@color/key_fn_ripple</color>
+	<color name="key_lf4_text">@color/key_fn_text</color>
+	<color name="key_lf4_alternative_text">@color/key_fn_alternative_text</color> <!-- 'hold' functions -->
+
 	<color name="key_ok_background">@color/key_fn_background</color>
 	<color name="key_ok_ripple">@color/key_fn_ripple</color>
 	<color name="key_ok_text">@color/key_fn_text</color>

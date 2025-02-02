@@ -25,10 +25,10 @@
 	<color name="key_num_text">@color/keyboard_text</color>
 	<color name="key_num_alternative_text">@color/material_dynamic_neutral80</color> <!-- 'hold' functions -->
 
-	<color name="key_fn_background">@color/material_dynamic_secondary30</color>
-	<color name="key_fn_ripple">@color/material_dynamic_secondary40</color>
-	<color name="key_fn_text">@color/material_dynamic_secondary90</color>
-	<color name="key_fn_alternative_text">@color/material_dynamic_secondary80</color> <!-- 'hold' functions -->
+	<color name="key_fn_background">@color/material_dynamic_neutral_variant30</color>
+	<color name="key_fn_ripple">@color/material_dynamic_neutral40</color>
+	<color name="key_fn_text">@color/material_dynamic_neutral90</color>
+	<color name="key_fn_alternative_text">@color/material_dynamic_neutral80</color> <!-- 'hold' functions -->
 
 	<color name="key_ok_background">@color/suggestion_selected_background</color>
 	<color name="key_ok_ripple">@color/material_dynamic_primary50</color>

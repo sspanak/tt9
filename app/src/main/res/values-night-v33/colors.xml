@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="key_lf4_background">@color/material_dynamic_secondary30</color>
+	<color name="key_lf4_ripple">@color/material_dynamic_secondary40</color>
+	<color name="key_lf4_text">@color/keyboard_text</color>
+	<color name="key_lf4_alternative_text">@color/material_dynamic_secondary80</color> <!-- 'hold' functions -->
+</resources>
