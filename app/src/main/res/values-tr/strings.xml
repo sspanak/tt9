@@ -32,6 +32,7 @@
 	<string name="pref_abc_auto_accept_slow">Yavaş</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatif Kaydırmalı Tahmin</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Tüm önerileri göremediğiniz ya da tahminlerde kaydırma yapamadığınız zaman etkinleştirin.</string>
+	<string name="pref_arrow_keys_visible_summary">Kelime öneri listesinin her iki tarafında kaydırma tuşlarını göster.</string>
 	<string name="pref_auto_space">Otomatik Boşluk</string>
 	<string name="pref_auto_space_summary">Seçimlerin sonrasında otomatik olarak boşluk ekler.</string>
 	<string name="pref_auto_text_case">Otomatik Büyük Harf</string>
@@ -195,4 +196,5 @@
 	<string name="pref_numpad_shape">Şekil</string>
 	<string name="pref_numpad_shape_square">Kare</string>
 	<string name="pref_numpad_shape_v">V-şekli</string>
+	<string name="pref_arrow_keys_visible">Ok tuşları</string>
 </resources>

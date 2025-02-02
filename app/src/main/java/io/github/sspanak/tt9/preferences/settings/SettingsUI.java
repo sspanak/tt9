@@ -44,6 +44,10 @@ public class SettingsUI extends SettingsTyping {
 		DEFAULT_STATUS_ICON = DeviceInfo.isQinF21();
 	}
 
+	public boolean areArrowKeysHidden() {
+		return !prefs.getBoolean("pref_arrow_keys_visible", true);
+	}
+
 	public boolean getAddWordsNoConfirmation() {
 		return prefs.getBoolean("add_word_no_confirmation", false);
 	}

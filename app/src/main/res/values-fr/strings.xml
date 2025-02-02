@@ -63,6 +63,7 @@
 	<string name="pref_abc_auto_accept_slow">Lente</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir toutes les suggestions ou vous avez des difficultés à les défiler.</string>
+	<string name="pref_arrow_keys_visible_summary">Afficher les touches de défilement des deux côtés de la liste de suggestions de mots.</string>
 	<string name="pref_auto_space">Espace automatique</string>
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
@@ -190,4 +191,5 @@
 	<string name="pref_numpad_shape">Forme</string>
 	<string name="pref_numpad_shape_square">Carré</string>
 	<string name="pref_numpad_shape_v">Forme en V</string>
+	<string name="pref_arrow_keys_visible">Touches fléchées</string>
 </resources>

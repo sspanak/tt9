@@ -30,6 +30,11 @@
 		<DropDownPreference
 			app:key="pref_numpad_key_height"
 			app:title="@string/pref_numpad_key_height" />
+
+		<SwitchPreferenceCompat
+			app:key="pref_arrow_keys_visible"
+			app:title="@string/pref_arrow_keys_visible"
+			app:summary="@string/pref_arrow_keys_visible_summary" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">

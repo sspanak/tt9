@@ -29,6 +29,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());
 		ItemWidth keyboardWidth = new ItemWidth(findPreference(ItemWidth.NAME), activity.getSettings());
 		ItemNumpadShape numpadShape = new ItemNumpadShape(findPreference(ItemNumpadShape.NAME), activity.getSettings());
+		ItemShowArrows showArrows = new ItemShowArrows(findPreference(ItemShowArrows.NAME), activity.getSettings());
 
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
@@ -40,18 +41,21 @@ public class AppearanceScreen extends BaseScreenFragment {
 					alignment.onLayoutChange(layout);
 					keyboardWidth.onLayoutChange(layout);
 					numpadShape.onLayoutChange(layout);
+					showArrows.onLayoutChange(layout);
 				}
 			),
 			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
 			numpadKeyHeight,
 			alignment,
 			keyboardWidth,
-			numpadShape
+			numpadShape,
 		};
 
 		for (ItemDropDown item : items) {
 			item.populate().preview().enableClickHandler();
 		}
+
+		showArrows.populate();
 	}
 
 	private void createHacksSection() {

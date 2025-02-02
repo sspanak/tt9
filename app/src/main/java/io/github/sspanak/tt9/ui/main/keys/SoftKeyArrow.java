@@ -57,4 +57,10 @@ public class SoftKeyArrow extends SoftKey {
 	private boolean onRight() {
 		return tt9.onKeyScrollSuggestion(false, false) || tt9.onKeyMoveCursor(false);
 	}
+
+	@Override
+	public void render() {
+		setVisibility(tt9 != null && tt9.getSettings().areArrowKeysHidden() ? GONE : VISIBLE);
+		super.render();
+	}
 }

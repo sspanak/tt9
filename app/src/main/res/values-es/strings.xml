@@ -68,6 +68,7 @@
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
+	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de desplazamiento en ambos lados de la lista de sugerencias de palabras.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
@@ -192,4 +193,5 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Cuadrado</string>
 	<string name="pref_numpad_shape_v">Forma de V</string>
+	<string name="pref_arrow_keys_visible">Teclas de flecha</string>
 </resources>
