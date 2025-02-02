@@ -38,6 +38,7 @@
 	<string name="pref_abc_auto_accept_slow">Повільний</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
+	<string name="pref_arrow_keys_visible_summary">Показувати клавіші прокрутки з обох боків списку пропонованих слів.</string>
 	<string name="pref_auto_space">Автоматичний пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
 	<string name="pref_auto_text_case">Автоматична велика літера</string>
@@ -203,4 +204,5 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-подібна</string>
+	<string name="pref_arrow_keys_visible">Клавіші зі стрілками</string>
 </resources>

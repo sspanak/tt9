@@ -37,6 +37,7 @@
 	<string name="pref_abc_auto_accept_slow">Lento</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
+	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de rolagem em ambos os lados da lista de sugestões de palavras.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
@@ -195,4 +196,5 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrado</string>
 	<string name="pref_numpad_shape_v">Forma em V</string>
+	<string name="pref_arrow_keys_visible">Teclas de seta</string>
 </resources>

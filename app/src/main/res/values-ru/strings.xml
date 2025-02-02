@@ -63,6 +63,7 @@
 	<string name="pref_abc_auto_accept_slow">Медленное</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой.</string>
+	<string name="pref_arrow_keys_visible_summary">Показывать клавиши прокрутки с обеих сторон списка предложенных слов.</string>
 	<string name="pref_auto_space">Авто пробел</string>
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>
@@ -192,4 +193,5 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-образная форма</string>
+	<string name="pref_arrow_keys_visible">Клавиши со стрелками</string>
 </resources>

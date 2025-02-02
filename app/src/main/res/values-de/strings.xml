@@ -32,6 +32,7 @@
 	<string name="pref_abc_auto_accept_slow">Langsam</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
+	<string name="pref_arrow_keys_visible_summary">Bildlauf-Tasten auf beiden Seiten der Wortvorschlagsliste anzeigen.</string>
 	<string name="pref_auto_space">Automatischer Abstand</string>
 	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
@@ -182,4 +183,5 @@
 	<string name="pref_numpad_shape">Form</string>
 	<string name="pref_numpad_shape_square">Quadrat</string>
 	<string name="pref_numpad_shape_v">V-Form</string>
+	<string name="pref_arrow_keys_visible">Pfeiltasten</string>
 </resources>

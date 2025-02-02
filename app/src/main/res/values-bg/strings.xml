@@ -113,6 +113,7 @@
 	<string name="pref_abc_auto_accept_slow">Бавен</string>
 	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички.</string>
+	<string name="pref_arrow_keys_visible_summary">Показвай клавишите за избор на думи от двете страни на списъка с предложения.</string>
 	<string name="pref_auto_space">Автоматичен интервал</string>
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
@@ -194,4 +195,5 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-образна</string>
+	<string name="pref_arrow_keys_visible">Клавиши стрелки</string>
 </resources>

@@ -36,6 +36,7 @@
 	<string name="pref_abc_auto_accept_slow">Lėtas</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
+	<string name="pref_arrow_keys_visible_summary">Rodyti slinkties klavišus abiejose žodžių pasiūlymų sąrašo pusėse.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
@@ -201,4 +202,5 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Kvadratas</string>
 	<string name="pref_numpad_shape_v">V formos</string>
+	<string name="pref_arrow_keys_visible">Rodyklių klavišai</string>
 </resources>

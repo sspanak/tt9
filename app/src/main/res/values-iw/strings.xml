@@ -36,6 +36,7 @@
 	<string name="pref_abc_auto_accept_slow">איטי</string>
 	<string name="pref_alternative_suggestion_scrolling">שיטת גלילת מילים אלטרנטיבית</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">הפעל אם לפעמים אי אפשר לראות את כל ההצעות או יש בעיות בגלילתן.</string>
+	<string name="pref_arrow_keys_visible_summary">הצגת מקשי גלילה בשני צידי רשימת הצעות המילים.</string>
 	<string name="pref_auto_space">רווח אוטומטי</string>
 	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
 	<string name="pref_auto_text_case">שימוש אוטומטי באותיות רישיות</string>
@@ -195,4 +196,5 @@
 	<string name="pref_numpad_shape">צורה</string>
 	<string name="pref_numpad_shape_square">ריבוע</string>
 	<string name="pref_numpad_shape_v">צורת V</string>
+	<string name="pref_arrow_keys_visible">מקשי חצים</string>
 </resources>
