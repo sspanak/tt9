@@ -131,12 +131,34 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
+	private void setKeyColumnWidth(float layoutWeight) {
+		if (view == null || layoutWeight <= 0) {
+			return;
+		}
+
+		LinearLayout leftColumn = view.findViewById(R.id.numpad_column_fn_left);
+		LinearLayout rightColumn = view.findViewById(R.id.numpad_column_fn_right);
+
+		LinearLayout.LayoutParams leftParams = leftColumn != null ? (LinearLayout.LayoutParams) leftColumn.getLayoutParams() : null;
+		LinearLayout.LayoutParams rightParams = rightColumn != null ? (LinearLayout.LayoutParams) rightColumn.getLayoutParams() : null;
+		if (leftParams == null || rightParams == null) {
+			return;
+		}
+
+		leftParams.weight = layoutWeight;
+		rightParams.weight = layoutWeight;
+		leftColumn.setLayoutParams(leftParams);
+		rightColumn.setLayoutParams(rightParams);
+
+	}
+
+
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
 
 			height =
-				+ Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
+				Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
 				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
 				+ getKeyColumnHeight()
@@ -219,6 +241,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		enableClickHandlers();
 		setKeyHeight(calculateKeyHeight());
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
+		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
