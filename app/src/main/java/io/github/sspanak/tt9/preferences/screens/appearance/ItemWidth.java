@@ -7,12 +7,12 @@ import java.util.LinkedHashMap;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemNumpadWidth extends ItemDropDown {
+public class ItemWidth extends ItemDropDown {
 	public static final String NAME = "pref_numpad_width";
 
 	private final SettingsStore settings;
 
-	public ItemNumpadWidth(DropDownPreference item, SettingsStore settings) {
+	public ItemWidth(DropDownPreference item, SettingsStore settings) {
 		super(item);
 		this.settings = settings;
 	}
@@ -25,7 +25,7 @@ public class ItemNumpadWidth extends ItemDropDown {
 		}
 		super.populateIntegers(options);
 
-		float currentValue = settings.getNumpadWidthPercent();
+		float currentValue = settings.getWidthPercent();
 		currentValue = Math.round(currentValue / 5f) * 5f;
 		currentValue = Math.max(Math.min(currentValue, 100f), 50f);
 

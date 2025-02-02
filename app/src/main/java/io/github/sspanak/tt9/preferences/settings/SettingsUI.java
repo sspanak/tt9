@@ -61,11 +61,11 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_haptic_feedback", true);
 	}
 
-	public int getNumpadAlignment() {
+	public int getAlignment() {
 		return getStringifiedInt("pref_numpad_alignment", Gravity.CENTER_HORIZONTAL);
 	}
 
-	public void setNumpadAlignment(int alignment) {
+	public void setAlignment(int alignment) {
 		if (alignment != Gravity.CENTER_HORIZONTAL && alignment != Gravity.START && alignment != Gravity.END) {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
 		}
@@ -82,7 +82,7 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
 	}
 
-	public int getNumpadDefaultWidthPercent() {
+	public int getDefaultWidthPercent() {
 		if (!DeviceInfo.isLandscapeOrientation(context)) {
 			return 100;
 		}
@@ -103,8 +103,8 @@ public class SettingsUI extends SettingsTyping {
 		return DEFAULT_WIDTH_LANDSCAPE = Math.round(width / 5) * 5;
 	}
 
-	public int getNumpadWidthPercent() {
-		return getStringifiedInt("pref_numpad_width", getNumpadDefaultWidthPercent());
+	public int getWidthPercent() {
+		return getStringifiedInt("pref_numpad_width", getDefaultWidthPercent());
 	}
 
 	public int getSettingsFontSize() {

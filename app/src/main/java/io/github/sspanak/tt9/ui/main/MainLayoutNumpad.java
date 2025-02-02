@@ -230,7 +230,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	void render() {
 		getView();
 		setKeyHeight(getKeyHeightCompat());
-		setWidth(tt9.getSettings().getNumpadWidthPercent(), tt9.getSettings().getNumpadAlignment());
+		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		enableClickHandlers();
 		for (SoftKey key : getKeys()) {
 			key.render();
