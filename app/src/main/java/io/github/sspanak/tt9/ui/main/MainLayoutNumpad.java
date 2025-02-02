@@ -2,9 +2,7 @@ package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 
 class MainLayoutNumpad extends BaseMainLayout {
@@ -101,7 +99,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode
 	 * and 75% in portrait mode. Returns the adjusted height of a single key.
 	 */
-	private int getKeyHeightCompat() {
+	private int calculateKeyHeight() {
 		int keyHeight = tt9.getSettings().getNumpadKeyHeight();
 		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
 
@@ -115,46 +113,33 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	void setKeyHeight(int height) {
+	private void setKeyHeight(int height) {
 		if (view == null || height <= 0) {
 			return;
 		}
 
 		for (SoftKey key : getKeys()) {
-			if ((key instanceof SoftKeyArrow)) {
-				continue;
-			}
-
-			// adjust the key height
-			ViewGroup.LayoutParams layout = key.getLayoutParams();
-			if (layout != null) {
-				layout.height = height;
-				key.setLayoutParams(layout);
-			}
-
-			// adjust the overlay height (if it exists)
-			ViewParent parent = key.getParent();
-			if (!(parent instanceof RelativeLayout)) {
-				continue;
-			}
-
-			layout = ((RelativeLayout) parent).getLayoutParams();
-			if (layout != null) {
-				layout.height = height;
-				((RelativeLayout) parent).setLayoutParams(layout);
-			}
+			key.setHeight(height);
 		}
+	}
+
+
+	private int getKeyColumnHeight() {
+		int keyHeight = calculateKeyHeight();
+		int lastKeyHeight = tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
+		return keyHeight * 3 + lastKeyHeight;
 	}
 
 
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
+
 			height =
 				+ Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
 				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
-				+ getKeyHeightCompat() * 4
+				+ getKeyColumnHeight()
 				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom));
 		}
 
@@ -177,7 +162,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@NonNull
 	@Override
 	protected ArrayList<SoftKey> getKeys() {
-		if (!keys.isEmpty()) {
+		if (!keys.isEmpty() || view == null) {
 			return keys;
 		}
 
@@ -219,6 +204,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 		keys.add(table.findViewById(R.id.soft_key_107));
 		keys.add(table.findViewById(R.id.soft_key_108));
 		keys.add(table.findViewById(R.id.soft_key_109));
+		keys.add(table.findViewById(R.id.soft_key_punctuation_101));
+		keys.add(table.findViewById(R.id.soft_key_punctuation_102));
 
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
@@ -229,9 +216,9 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override
 	void render() {
 		getView();
-		setKeyHeight(getKeyHeightCompat());
-		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		enableClickHandlers();
+		setKeyHeight(calculateKeyHeight());
+		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}

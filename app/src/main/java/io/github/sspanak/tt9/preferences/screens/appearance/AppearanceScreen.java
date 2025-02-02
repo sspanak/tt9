@@ -28,22 +28,25 @@ public class AppearanceScreen extends BaseScreenFragment {
 		ItemAlignment alignment = new ItemAlignment(findPreference(ItemAlignment.NAME), activity.getSettings());
 		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());
 		ItemWidth keyboardWidth = new ItemWidth(findPreference(ItemWidth.NAME), activity.getSettings());
+		ItemNumpadShape numpadShape = new ItemNumpadShape(findPreference(ItemNumpadShape.NAME), activity.getSettings());
 
 		ItemDropDown[] items = {
 			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
 			new ItemSelectLayoutType(
 				findPreference(ItemSelectLayoutType.NAME),
 				activity,
-				(layout) -> {
+				(layout) -> { // on layout change
 					numpadKeyHeight.onLayoutChange(layout);
 					alignment.onLayoutChange(layout);
 					keyboardWidth.onLayoutChange(layout);
+					numpadShape.onLayoutChange(layout);
 				}
 			),
 			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
 			numpadKeyHeight,
 			alignment,
-			keyboardWidth
+			keyboardWidth,
+			numpadShape
 		};
 
 		for (ItemDropDown item : items) {

@@ -179,4 +179,7 @@
 	<string name="punctuation_order_forbidden_chars">Verbotene Zeichen:%1$s</string>
 	<string name="function_filter_suggestions_not_available">Das Filtern ist in dieser Sprache nicht möglich.</string>
 	<string name="pref_category_geometry">Geometrie</string>
+	<string name="pref_numpad_shape">Form</string>
+	<string name="pref_numpad_shape_square">Quadrat</string>
+	<string name="pref_numpad_shape_v">V-Form</string>
 </resources>

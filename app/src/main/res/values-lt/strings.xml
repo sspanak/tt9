@@ -198,4 +198,7 @@
 	<string name="punctuation_order_forbidden_char">Draudžiamas simbolis:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Draudžiami simboliai:%1$s</string>
 	<string name="pref_category_geometry">Geometrija</string>
+	<string name="pref_numpad_shape">Forma</string>
+	<string name="pref_numpad_shape_square">Kvadratas</string>
+	<string name="pref_numpad_shape_v">V formos</string>
 </resources>

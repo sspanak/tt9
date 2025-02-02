@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+
 public class SoftKeyOk extends SoftKey {
 	public SoftKeyOk(Context context) { super(context); }
 	public SoftKeyOk(Context context, AttributeSet attrs) { super(context, attrs); }
@@ -24,6 +26,15 @@ public class SoftKeyOk extends SoftKey {
 		}
 
 		return false;
+	}
+
+	@Override
+	public void setHeight(int height) {
+		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
+			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER);
+		}
+
+		super.setHeight(height);
 	}
 
 	@Override

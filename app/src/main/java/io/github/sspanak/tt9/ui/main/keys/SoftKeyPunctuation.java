@@ -5,34 +5,26 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyPunctuation extends SoftKey {
-	public SoftKeyPunctuation(Context context) {
-		super(context);
-	}
-
-	public SoftKeyPunctuation(Context context, AttributeSet attrs) {
-		super(context, attrs);
-	}
-
-	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-	}
+	public SoftKeyPunctuation(Context context) { super(context); }
+	public SoftKeyPunctuation(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected boolean handleRelease() {
-		return validateTT9Handler() && tt9.onText(getKeyChar(), false);
+		return
+			tt9 != null
+			&& !tt9.isTextEditingActive()
+			&& tt9.onText(getKeyChar(), false);
 	}
 
 	@Override
 	protected String getTitle() {
 		String keyChar = getKeyChar();
-		return switch (keyChar) {
-			case "" -> "PUNC";
-			case "*" -> "✱";
-			default -> keyChar;
-		};
+		return "*".equals(keyChar) ? "✱" : keyChar;
 	}
 
 	private String getKeyChar() {
@@ -65,5 +57,14 @@ public class SoftKeyPunctuation extends SoftKey {
 		if (LanguageKind.isGreek(tt9.getLanguage())) return Characters.GR_QUESTION_MARK;
 
 		return "?";
+	}
+
+	@Override
+	public void setHeight(int height) {
+		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
+			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_INNER);
+		}
+
+		super.setHeight(height);
 	}
 }

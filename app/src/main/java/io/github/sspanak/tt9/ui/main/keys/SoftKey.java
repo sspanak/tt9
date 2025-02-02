@@ -6,6 +6,7 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -72,6 +73,29 @@ public class SoftKey extends BaseClickableKey {
 	protected float getTT9Height() {
 		return tt9 != null ? (float) tt9.getSettings().getNumpadKeyHeight() / (float) tt9.getSettings().getNumpadKeyDefaultHeight() : 1;
 	}
+
+
+	public void setHeight(int height) {
+		if (height <= 0) {
+			return;
+		}
+
+		// adjust the key height
+		ViewGroup.LayoutParams layout = getLayoutParams();
+		if (layout != null) {
+			layout.height = height;
+			setLayoutParams(layout);
+		}
+
+		// adjust the overlay height (if it exists)
+		getOverlayWrapper();
+		layout = overlay != null ? overlay.getLayoutParams() : null;
+		if (layout != null) {
+			layout.height = height;
+			overlay.setLayoutParams(layout);
+		}
+	}
+
 
 
 	/**

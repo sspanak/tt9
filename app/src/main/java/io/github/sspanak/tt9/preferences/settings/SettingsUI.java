@@ -19,6 +19,10 @@ public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
 
+	public final static int NUMPAD_SHAPE_SQUARE = 0;
+	public final static int NUMPAD_SHAPE_V = 1;
+	public final static int NUMPAD_SHAPE_LONG_SPACE = 2;
+
 	private final int DEFAULT_LAYOUT;
 	private final boolean DEFAULT_STATUS_ICON;
 
@@ -82,6 +86,23 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
 	}
 
+	public int getNumpadShape() {
+		return getStringifiedInt("pref_numpad_shape", NUMPAD_SHAPE_SQUARE);
+	}
+
+	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
+	public boolean isNumpadShapeSquare() { return getNumpadShape() == NUMPAD_SHAPE_SQUARE; }
+	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
+
+	public int getSettingsFontSize() {
+		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
+		return getStringifiedInt("pref_font_size", defaultSize);
+	}
+
+	public int getTheme() {
+		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+	}
+
 	public int getDefaultWidthPercent() {
 		if (!DeviceInfo.isLandscapeOrientation(context)) {
 			return 100;
@@ -105,15 +126,6 @@ public class SettingsUI extends SettingsTyping {
 
 	public int getWidthPercent() {
 		return getStringifiedInt("pref_numpad_width", getDefaultWidthPercent());
-	}
-
-	public int getSettingsFontSize() {
-		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
-		return getStringifiedInt("pref_font_size", defaultSize);
-	}
-
-	public int getTheme() {
-		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 	}
 
 	public void setMainViewLayout(int layout) {

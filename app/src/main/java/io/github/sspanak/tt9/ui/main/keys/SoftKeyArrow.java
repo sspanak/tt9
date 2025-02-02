@@ -13,6 +13,8 @@ public class SoftKeyArrow extends SoftKey {
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+	@Override public void setHeight(int height) {}
+
 	@Override
 	protected boolean handlePress() {
 		hold = false;

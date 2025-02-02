@@ -179,5 +179,8 @@
 	<string name="punctuation_order_forbidden_chars">Caratteri vietati:%1$s</string>
 	<string name="function_filter_suggestions_not_available">Il filtraggio non è possibile in questa lingua.</string>
 	<string name="pref_category_geometry">Geometria</string>
+	<string name="pref_numpad_shape">Forma</string>
+	<string name="pref_numpad_shape_square">Quadrato</string>
+	<string name="pref_numpad_shape_v">Forma a V</string>
 </resources>
 

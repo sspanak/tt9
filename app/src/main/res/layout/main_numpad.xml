@@ -9,12 +9,7 @@
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
 		<include layout="@layout/panel_numpad_status_bar" />
 
-		<LinearLayout
-			android:id="@+id/main_soft_keys"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal">
-
+		<LinearLayout style="@style/TTheme.Numpad.Column.Container" android:id="@+id/main_soft_keys">
 			<include layout="@layout/panel_numpad_left" />
 			<include layout="@layout/panel_numpad_digits" />
 			<include layout="@layout/panel_numpad_text_editing" />

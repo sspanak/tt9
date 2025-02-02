@@ -24,13 +24,15 @@ public class SettingsStore extends SettingsUI {
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SLOW_QUERY_TIMEOUT = 3000; // ms
 	public final static float SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE = 0.5f; // 1 = full key size
+	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
+	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT = 360; // dp
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH = 640; // dp
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX = 1.4f;
-	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
-	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
 	public final static int SOFT_KEY_TITLE_MAX_CHARS = 5;
 	public final static int SOFT_KEY_TITLE_MAX_CHARS_INDIC = 3;
+	public final static float SOFT_KEY_V_SHAPE_RATIO_INNER = 1.1f;
+	public final static float SOFT_KEY_V_SHAPE_RATIO_OUTER = (float) Math.pow(SOFT_KEY_V_SHAPE_RATIO_INNER, 2);
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_POSITIONS_LIMIT = 100;
