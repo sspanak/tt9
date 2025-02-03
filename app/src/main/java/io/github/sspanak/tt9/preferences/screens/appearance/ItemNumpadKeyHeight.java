@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemNumpadKeyHeight extends ItemDropDown {
+public class ItemNumpadKeyHeight extends ItemDropDown implements ItemLayoutChangeReactive {
 	public static final String NAME = "pref_numpad_key_height";
 
 	private final SettingsStore settings;
@@ -41,7 +41,7 @@ public class ItemNumpadKeyHeight extends ItemDropDown {
 		return this;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 			item.setIconSpaceReserved(false);

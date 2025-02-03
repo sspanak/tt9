@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemNumpadShape extends ItemDropDown {
+public class ItemNumpadShape extends ItemDropDown implements ItemLayoutChangeReactive {
 	static final String NAME = "pref_numpad_shape";
 
 	private final SettingsStore settings;
@@ -40,7 +40,7 @@ public class ItemNumpadShape extends ItemDropDown {
 		return this;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 			item.setIconSpaceReserved(false);

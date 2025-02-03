@@ -1,26 +1,26 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
+import androidx.annotation.NonNull;
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsUI;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public class ItemSelectLayoutType extends ItemDropDown {
 	public static final String NAME = "pref_layout_type";
 
 	private final PreferencesActivity activity;
-	private final ConsumerCompat<Integer> onChange;
+	private final ArrayList<ItemLayoutChangeReactive> onChangeReactiveItems = new ArrayList<>();
 
-	public ItemSelectLayoutType(DropDownPreference item, PreferencesActivity activity, ConsumerCompat<Integer> onChange) {
+	public ItemSelectLayoutType(DropDownPreference item, PreferencesActivity activity) {
 		super(item);
 		this.activity = activity;
-		this.onChange = onChange;
 	}
 
 	public ItemDropDown populate() {
@@ -36,11 +36,18 @@ public class ItemSelectLayoutType extends ItemDropDown {
 		return this;
 	}
 
+	public ItemSelectLayoutType addOnChangeItem(@NonNull ItemLayoutChangeReactive reactiveItem) {
+		onChangeReactiveItems.add(reactiveItem);
+		return this;
+	}
+
 	@Override
 	protected boolean onClick(Preference preference, Object newKey) {
-		if (onChange != null) {
-			onChange.accept(Integer.parseInt(newKey.toString()));
+		int newLayout = Integer.parseInt(newKey.toString());
+		for (ItemLayoutChangeReactive item : onChangeReactiveItems) {
+			item.onLayoutChange(newLayout);
 		}
+
 		return super.onClick(preference, newKey);
 	}
 }
