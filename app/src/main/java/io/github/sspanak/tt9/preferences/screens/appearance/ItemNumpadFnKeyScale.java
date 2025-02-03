@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemNumpadFnKeyScale extends ItemDropDown {
+public class ItemNumpadFnKeyScale extends ItemDropDown implements ItemLayoutChangeReactive {
 	public static final String NAME = "pref_numpad_fn_key_width";
 
 	private final SettingsStore settings;
@@ -26,8 +26,10 @@ public class ItemNumpadFnKeyScale extends ItemDropDown {
 		LinkedHashMap<String, String> options = new LinkedHashMap<>();
 		options.put("1", "100 ％");
 		options.put("0.85", "115 ％");
+		options.put("0.75", "125 ％");
 		options.put("0.675", "135 ％");
-		options.put("0.477", "150 ％"); // whatever...
+		options.put("0.576", "145 ％");
+		options.put("0.477", "155 ％"); // whatever...
 
 		super.populate(options);
 		super.setValue(getClosestOption(settings.getNumpadFnKeyScale(), options));
@@ -53,7 +55,7 @@ public class ItemNumpadFnKeyScale extends ItemDropDown {
 		return closest;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 			item.setIconSpaceReserved(false);

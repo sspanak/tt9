@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemAlignment extends ItemDropDown {
+public class ItemAlignment extends ItemDropDown implements ItemLayoutChangeReactive {
 	public static final String NAME = "pref_numpad_alignment";
 
 	private final SettingsStore settings;
@@ -41,7 +41,7 @@ public class ItemAlignment extends ItemDropDown {
 		return this;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setVisible(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
 			item.setIconSpaceReserved(false);

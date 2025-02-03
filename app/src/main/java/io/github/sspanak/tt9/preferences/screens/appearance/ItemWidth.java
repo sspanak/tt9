@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemWidth extends ItemDropDown {
+public class ItemWidth extends ItemDropDown implements ItemLayoutChangeReactive {
 	public static final String NAME = "pref_numpad_width";
 
 	private final SettingsStore settings;
@@ -35,7 +35,7 @@ public class ItemWidth extends ItemDropDown {
 		return this;
 	}
 
-	void onLayoutChange(int mainViewLayout) {
+	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
 			item.setEnabled(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
 		}
