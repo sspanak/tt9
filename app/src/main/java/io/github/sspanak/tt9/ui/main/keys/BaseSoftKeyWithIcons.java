@@ -47,7 +47,8 @@ public class BaseSoftKeyWithIcons extends SoftKey {
 	protected float getCentralIconScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
 		keyboardSizeScale = Math.min(1.15f, keyboardSizeScale);
-		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY());
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
 	}
 
 

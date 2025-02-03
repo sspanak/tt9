@@ -32,6 +32,10 @@
 			app:title="@string/pref_numpad_key_height" />
 
 		<DropDownPreference
+			app:key="pref_numpad_key_font_size"
+			app:title="@string/pref_numpad_key_font_size" />
+
+		<DropDownPreference
 			app:key="pref_numpad_fn_key_width"
 			app:title="@string/pref_numpad_fn_key_width" />
 

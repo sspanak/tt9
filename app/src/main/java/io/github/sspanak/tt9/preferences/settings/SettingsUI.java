@@ -106,6 +106,10 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedFloat("pref_numpad_fn_key_width", getNumpadFnKeyDefaultScale());
 	}
 
+	public int getNumpadKeyFontSizePercent() {
+		return isMainLayoutNumpad() ? getStringifiedInt("pref_numpad_key_font_size", 100) : 100;
+	}
+
 	public int getNumpadShape() {
 		return getStringifiedInt("pref_numpad_shape", NUMPAD_SHAPE_SQUARE);
 	}

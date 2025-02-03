@@ -138,7 +138,8 @@ public class SoftKey extends BaseClickableKey {
 	protected float getTitleScale() {
 		float keyboardSizeScale = Math.max(0.7f, Math.min(getTT9Width(), getTT9Height()));
 		float screenSizeScale = Math.min(getScreenScaleX(), getScreenScaleY());
-		return keyboardSizeScale * screenSizeScale;
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		return keyboardSizeScale * screenSizeScale * settingsScale;
 	}
 
 
@@ -155,7 +156,8 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getHoldElementScale() {
 		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
-		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY());
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
 	}
 
 
