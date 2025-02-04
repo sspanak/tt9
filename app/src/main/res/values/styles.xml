@@ -200,9 +200,10 @@
 
 
 	<!--*******************************************
-		Numpad Columns
+		Numpad Blocks and Columns
 	*******************************************-->
 
+	<!-- Fn + Digit keys container -->
 	<style name="TTheme.Numpad.Column.Container" parent="">
 		<item name="android:gravity">bottom</item>
 		<item name="android:layout_width">match_parent</item>
@@ -210,6 +211,7 @@
 		<item name="android:orientation">horizontal</item>
 	</style>
 
+	<!-- any column, including digit columns inside the CentralBlock -->
 	<style name="TTheme.Numpad.Column" parent="">
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_height">wrap_content</item>
@@ -217,10 +219,33 @@
 		<item name="android:orientation">vertical</item>
 	</style>
 
+	<!-- left and right columns -->
 	<style name="TTheme.Numpad.Column.Fn" parent="TTheme.Numpad.Column">
 		<item name="android:layout_weight">@dimen/numpad_key_fn_layout_weight</item>
 	</style>
 
+	<!-- digit columns, text editing columns, long spacebar row -->
+	<style name="TTheme.Numpad.CentralBlock" parent="">
+		<item name="android:gravity">bottom</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">3</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="TTheme.Numpad.CentralBlock.Digits1to9" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:gravity">bottom</item>
+	</style>
+
+	<style name="TTheme.Numpad.CentralBlock.Row.LongSpacebar" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">horizontal</item>
+		<item name="android:visibility">gone</item>
+	</style>
 
 	<!--*******************************************
 		Numpad Key Overlays
@@ -232,6 +257,11 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_margin">0dp</item>
 		<item name="android:padding">0dp</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.LongSpace.Overlay.Wrapper" parent="TTheme.Numpad.Key.Overlay.Wrapper">
+		<item name="android:layout_weight">3</item>
+		<item name="android:layout_width">0dp</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Element" parent="">
@@ -357,6 +387,11 @@
 	<style name="TTheme.Numpad.Key.Large.Placeholder" parent="TTheme.Numpad.Key.Number">
 		<item name="android:textColor">@android:color/transparent</item>
 		<item name="android:background">@android:color/transparent</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.ShortPunctuation" parent="TTheme.Numpad.Key.Number">
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">0dp</item>
 	</style>
 
 </resources>

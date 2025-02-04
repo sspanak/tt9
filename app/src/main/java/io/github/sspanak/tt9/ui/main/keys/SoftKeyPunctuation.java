@@ -13,6 +13,18 @@ public class SoftKeyPunctuation extends SoftKey {
 	public SoftKeyPunctuation(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+	protected boolean isHiddenWhenLongSpace() {
+		return
+			tt9 != null
+			&& tt9.getSettings().isNumpadShapeLongSpace()
+			&& !tt9.isInputModeNumeric()
+			&& !LanguageKind.isKorean(tt9.getLanguage());
+	}
+
+	protected boolean isTransparentWhenTextEditing() {
+		return tt9 != null && tt9.isTextEditingActive();
+	}
+
 	@Override
 	protected boolean handleRelease() {
 		return
@@ -33,9 +45,9 @@ public class SoftKeyPunctuation extends SoftKey {
 		}
 
 		int keyId = getId();
-		if (keyId == R.id.soft_key_punctuation_1) {
+		if (keyId == R.id.soft_key_punctuation_1 || keyId == R.id.soft_key_punctuation_201) {
 			return getKey1Char();
-		} else if (keyId == R.id.soft_key_punctuation_2) {
+		} else if (keyId == R.id.soft_key_punctuation_2 || keyId == R.id.soft_key_punctuation_202) {
 			return getKey2Char();
 		}
 
@@ -66,5 +78,19 @@ public class SoftKeyPunctuation extends SoftKey {
 		}
 
 		super.setHeight(height);
+	}
+
+
+	@Override
+	public void render() {
+		if (isHiddenWhenLongSpace()) {
+			setVisibility(GONE);
+		} else if (isTransparentWhenTextEditing()) {
+			setVisibility(INVISIBLE);
+		} else {
+			setVisibility(VISIBLE);
+		}
+
+		super.render();
 	}
 }

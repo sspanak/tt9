@@ -12,14 +12,29 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	public SoftKeyNumber0(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyNumber0(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+
+	private boolean isTransparentWhenTextEditing() {
+		return tt9 != null && LanguageKind.isKorean(tt9.getLanguage()) && tt9.isTextEditingActive();
+	}
+
+
+	protected boolean isHiddenWhenLongSpace() {
+		return tt9 != null
+			&& tt9.getSettings().isNumpadShapeLongSpace()
+			&& !tt9.isInputModeNumeric()
+			&& !LanguageKind.isKorean(tt9.getLanguage());
+	}
+
+
 	@Override
 	protected int getNumber(int keyId) {
 		return 0;
 	}
 
+
 	@Override
 	protected String getHoldText() {
-		if (tt9 == null) {
+		if (tt9 == null || isHiddenWhenLongSpace()) {
 			return null;
 		}
 
@@ -36,6 +51,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 		return super.getLocalizedNumber(getNumber(getId()));
 	}
 
+
 	@Override
 	protected String getTitle() {
 		if (tt9 == null || tt9.isInputModeNumeric()) {
@@ -44,6 +60,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 		return (LanguageKind.isKorean(tt9.getLanguage())) ? getKoreanCharList() : "␣";
 	}
+
 
 	private String getKoreanCharList() {
 		if (tt9 == null || tt9.getLanguage() == null) {
@@ -60,6 +77,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 		return list.toString();
 	}
 
+
 	@Override
 	protected float getTitleScale() {
 		if (tt9 != null && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage())) {
@@ -70,14 +88,19 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	}
 
 
-	@Override
-	public void render() {
-		if (tt9 != null && LanguageKind.isKorean(tt9.getLanguage()) && tt9.isTextEditingActive()) {
-			setVisibility(GONE);
+	private void setVisibility() {
+		getOverlayWrapper();
+		if (isHiddenWhenLongSpace()) {
+			overlay.setVisibility(GONE);
+		} else if (isTransparentWhenTextEditing()) {
+			overlay.setVisibility(INVISIBLE);
 		} else {
-			setVisibility(VISIBLE);
+			overlay.setVisibility(VISIBLE);
 		}
+	}
 
+
+	private void setEnabled() {
 		setEnabled(
 			tt9 != null
 				&& (
@@ -85,7 +108,13 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 					|| (!LanguageKind.isKorean(tt9.getLanguage()) && !tt9.isInputModeNumeric())
 				)
 		);
+	}
 
+
+	@Override
+	public void render() {
+		setVisibility();
+		setEnabled();
 		super.render();
 	}
 }

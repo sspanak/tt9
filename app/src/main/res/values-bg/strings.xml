@@ -27,6 +27,7 @@
 	<string name="pref_backspace_recomposing_summary">Връщай списъка с предложения при натискане на Backspace на края на дума. (Не работи в някои приложения.)</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
+	<string name="pref_numpad_shape_long_space">Дълъг интервал</string>
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>

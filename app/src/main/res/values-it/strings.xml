@@ -45,6 +45,7 @@
 	<string name="pref_backspace_recomposing_summary">Riportare l\'elenco dei suggerimenti premendo Backspace alla fine di una parola. (Non supportato in alcune app)</string>
 	<string name="pref_choose_languages">Lingue</string>
 
+	<string name="pref_numpad_shape_long_space">Barra spaziatrice lunga</string>
 	<string name="pref_numpad_width">Larghezza</string>
 	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
 	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.</string>
