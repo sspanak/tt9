@@ -115,7 +115,6 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
-	public boolean isNumpadShapeSquare() { return getNumpadShape() == NUMPAD_SHAPE_SQUARE; }
 	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
 
 	public int getSettingsFontSize() {

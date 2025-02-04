@@ -75,13 +75,14 @@ abstract class BaseMainLayout {
 	protected WindowInsets preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
 		ViewGroup.MarginLayoutParams layout = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-		if (layout != null) {
-			layout.rightMargin = insets.right;
-			layout.bottomMargin = insets.bottom;
-			layout.leftMargin = insets.left;
-			v.setLayoutParams(layout);
+		if (layout == null) {
+			return windowInsets;
 		}
 
+		layout.rightMargin = insets.right;
+		layout.bottomMargin = insets.bottom;
+		layout.leftMargin = insets.left;
+		v.setLayoutParams(layout);
 		return WindowInsets.CONSUMED;
 	}
 
