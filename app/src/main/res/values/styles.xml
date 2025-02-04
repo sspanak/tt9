@@ -57,6 +57,7 @@
 
 	<!-- status bar -->
 	<style name="TTheme.MainSmall.StatusBar.Wrapper" parent="">
+		<item name="android:layoutDirection">locale</item>
 		<item name="android:layout_height">@dimen/status_bar_height</item>
 		<item name="android:layout_width">match_parent</item>
 	</style>
@@ -157,11 +158,7 @@
 	*******************************************-->
 
 	<!-- The keyboard itself -->
-	<style name="TTheme.Numpad" parent="TTheme.Keyboard">
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_weight">100</item>
-		<item name="android:orientation">vertical</item>
+	<style name="TTheme.Numpad" parent="TTheme.MainSmall">
 		<item name="android:paddingBottom">@dimen/numpad_keys_spacing_bottom</item>
 	</style>
 
@@ -181,9 +178,10 @@
 
 	<!-- status + suggestions container -->
 	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
+		<item name="android:layoutDirection">locale</item>
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">0dp</item>
-		<item name="android:layout_weight">1</item>"
+		<item name="android:layout_weight">1</item>
 	</style>
 
 	<!-- one suggestion -->
