@@ -10,10 +10,20 @@
 		<include layout="@layout/panel_numpad_status_bar" />
 
 		<LinearLayout style="@style/TTheme.Numpad.Column.Container" android:id="@+id/main_soft_keys">
+
 			<include layout="@layout/panel_numpad_left" />
-			<include layout="@layout/panel_numpad_digits" />
-			<include layout="@layout/panel_numpad_text_editing" />
+
+			<LinearLayout style="@style/TTheme.Numpad.CentralBlock">
+				<LinearLayout style="@style/TTheme.Numpad.CentralBlock.Digits1to9">
+					<include layout="@layout/panel_numpad_digits" />
+					<include layout="@layout/panel_numpad_text_editing" />
+				</LinearLayout>
+
+				<include layout="@layout/panel_long_spacebar" />
+			</LinearLayout>
+
 			<include layout="@layout/panel_numpad_right" />
+
 		</LinearLayout>
 	</LinearLayout>
 

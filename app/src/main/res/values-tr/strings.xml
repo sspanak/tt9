@@ -43,6 +43,7 @@
 	<string name="pref_backspace_recomposing_summary">Kelimenin sonunda Geri tuşuna basarak öneri listesini geri getirmek. (Bazı uygulamalarda desteklenmez)</string>
 	<string name="pref_choose_languages">Diller</string>
 
+	<string name="pref_numpad_shape_long_space">Uzun boşluk tuşu</string>
 	<string name="pref_numpad_width">Genişlik</string>
 	<string name="pref_predict_word_pairs">Kelime çiftlerini öğren</string>
 	<string name="pref_predict_word_pairs_summary">Öneri doğruluğunu artırmak için sık kullanılan ifadeleri hatırla.</string>

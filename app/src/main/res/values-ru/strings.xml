@@ -28,6 +28,7 @@
 	<string name="pref_backspace_recomposing_summary">Вернуть список предложений, нажав клавишу Backspace в конце слова. (Не поддерживается в некоторых приложениях)</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
+	<string name="pref_numpad_shape_long_space">Длинный пробел</string>
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>

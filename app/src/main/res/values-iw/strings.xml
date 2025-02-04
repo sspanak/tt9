@@ -55,6 +55,7 @@
 	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי.</string>
 	<string name="pref_help">עזרה</string>
 
+	<string name="pref_numpad_shape_long_space">מקש רווח ארוך</string>
 	<string name="pref_numpad_width">רוחב</string>
 	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.</string>

@@ -51,6 +51,7 @@
 	<string name="dictionary_truncate_title">Borrar todos</string>
 	<string name="dictionary_truncate_unselected">Borrar no seleccionados</string>
 	<string name="dictionary_truncated">Diccionario eliminado con éxito.</string>
+	<string name="pref_numpad_shape_long_space">Barra espaciadora larga</string>
 	<string name="pref_numpad_width">Anchura</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palabras</string>
 	<string name="pref_predict_word_pairs_summary">Recordar frases de uso común para mejorar las sugerencias de palabras.</string>

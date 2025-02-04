@@ -28,6 +28,7 @@
 	<string name="pref_backspace_recomposing_summary">Ramener la liste de suggestions en appuyant sur Retour arrière à la fin d\'un mot. (Non pris en charge dans certaines applications)</string>
 	<string name="pref_choose_languages">Langues</string>
 	<string name="dictionary_truncate_title">Supprimer tous</string>
+	<string name="pref_numpad_shape_long_space">Grande barre d\'espace</string>
 	<string name="pref_numpad_width">Largeur</string>
 	<string name="pref_predict_word_pairs">Mémoriser les paires de mots</string>
 	<string name="pref_predict_word_pairs_summary">Apprendre des phrases couramment utilisées pour améliorer les suggestions.</string>
