@@ -11,19 +11,10 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
-	private boolean isVoiceInputMissing() {
-		return tt9 != null && tt9.isVoiceInputMissing();
-	}
-
-
-	private boolean isTextEditingMissing() {
-		return tt9 != null && tt9.isInputLimited();
-	}
-
-
-	private boolean isTextEditingActive() {
-		return tt9 != null && tt9.isTextEditingActive();
-	}
+	private boolean isVoiceInputActive() { return tt9 != null && tt9.isVoiceInputActive(); }
+	private boolean isVoiceInputMissing() { return tt9 != null && tt9.isVoiceInputMissing(); }
+	private boolean isTextEditingActive() { return tt9 != null && tt9.isTextEditingActive(); }
+	private boolean isTextEditingMissing() { return tt9 != null && tt9.isInputLimited(); }
 
 
 	@Override
@@ -64,7 +55,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected String getTitle() {
-		if (isTextEditingActive()) {
+		if (isTextEditingActive() || isVoiceInputActive()) {
 			return "";
 		}
 
@@ -82,7 +73,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return R.drawable.ic_keyboard;
 		}
 
-		if (isTextEditingMissing() && !isVoiceInputMissing()) {
+		if (isVoiceInputActive() || (isTextEditingMissing() && !isVoiceInputMissing())) {
 			return R.drawable.ic_fn_voice;
 		}
 
@@ -92,7 +83,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected int getHoldIcon() {
-		if (isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
+		if (isVoiceInputActive() || isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
 			return -1;
 		}
 
