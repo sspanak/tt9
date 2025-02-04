@@ -163,9 +163,9 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 
 	@Override
 	public void render() {
-		super.render();
 		if (tt9 != null) {
 			setEnabled(!tt9.isVoiceInputActive());
 		}
+		super.render();
 	}
 }
