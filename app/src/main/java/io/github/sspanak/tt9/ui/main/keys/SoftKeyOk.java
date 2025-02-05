@@ -38,6 +38,11 @@ public class SoftKeyOk extends SoftKey {
 	}
 
 	@Override
+	protected float getTitleScale() {
+		return tt9 != null && tt9.getSettings().isMainLayoutNumpad() ? super.getTitleScale() : 1;
+	}
+
+	@Override
 	public void render() {
 		if (tt9 != null) {
 			setEnabled(!tt9.isVoiceInputActive());
