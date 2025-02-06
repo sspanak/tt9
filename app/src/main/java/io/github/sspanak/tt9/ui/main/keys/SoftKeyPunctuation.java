@@ -39,29 +39,27 @@ public class SoftKeyPunctuation extends SoftKey {
 		return "*".equals(keyChar) ? "✱" : keyChar;
 	}
 
-	private String getKeyChar() {
-		if (!validateTT9Handler()) {
-			return "";
-		}
-
+	protected String getKeyChar() {
 		int keyId = getId();
-		if (keyId == R.id.soft_key_punctuation_1 || keyId == R.id.soft_key_punctuation_201) {
+		if (keyId == R.id.soft_key_punctuation_1) {
 			return getKey1Char();
-		} else if (keyId == R.id.soft_key_punctuation_2 || keyId == R.id.soft_key_punctuation_202) {
+		} else if (keyId == R.id.soft_key_punctuation_2) {
 			return getKey2Char();
 		}
 
 		return "";
 	}
 
-	private String getKey1Char() {
+	protected String getKey1Char() {
+		if (tt9 == null) return "";
 		if (tt9.isInputModePhone()) return "*";
 		if (tt9.isInputModeNumeric()) return ",";
 
 		return "!";
 	}
 
-	private String getKey2Char() {
+	protected String getKey2Char() {
+		if (tt9 == null) return "";
 		if (tt9.isInputModePhone()) return "#";
 		if (tt9.isInputModeNumeric()) return ".";
 
