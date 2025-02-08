@@ -66,12 +66,12 @@ public class SoftKey extends BaseClickableKey {
 
 
 	protected float getTT9Width() {
-		return tt9 != null ? tt9.getSettings().getWidthPercent() / 100f : 1;
+		return tt9 != null ? tt9.getNormalizedWidth() : 1;
 	}
 
 
 	protected float getTT9Height() {
-		return tt9 != null ? (float) tt9.getSettings().getNumpadKeyHeight() / (float) tt9.getSettings().getNumpadKeyDefaultHeight() : 1;
+		return tt9 != null ? tt9.getNormalizedHeight() : 1;
 	}
 
 
