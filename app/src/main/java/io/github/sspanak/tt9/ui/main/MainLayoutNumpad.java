@@ -54,6 +54,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 				|| keyId == R.id.soft_key_lf4
 				|| keyId == R.id.soft_key_0
 				|| keyId == R.id.soft_key_100
+				|| keyId == R.id.soft_key_punctuation_101
+				|| keyId == R.id.soft_key_punctuation_102
 				|| keyId == R.id.soft_key_punctuation_201
 				|| keyId == R.id.soft_key_punctuation_202
 			) {
@@ -85,6 +87,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 				|| keyId == R.id.soft_key_lf4
 				|| keyId == R.id.soft_key_0
 				|| keyId == R.id.soft_key_100
+				|| keyId == R.id.soft_key_punctuation_101
+				|| keyId == R.id.soft_key_punctuation_102
 				|| keyId == R.id.soft_key_punctuation_201
 				|| keyId == R.id.soft_key_punctuation_202
 			) {

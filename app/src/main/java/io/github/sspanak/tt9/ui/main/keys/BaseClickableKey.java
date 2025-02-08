@@ -139,7 +139,7 @@ public class BaseClickableKey extends com.google.android.material.button.Materia
 
 
 	protected boolean handlePress() {
-		if (validateTT9Handler()) {
+		if (validateTT9Handler() && getVisibility() == VISIBLE) {
 			vibrate(Vibration.getPressVibration(this));
 		}
 
