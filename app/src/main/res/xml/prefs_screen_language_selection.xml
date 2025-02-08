@@ -2,8 +2,7 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<io.github.sspanak.tt9.preferences.screens.languageSelection.PreferenceSearchLanguage
-		android:key="language_search"
-		android:title="@string/language_selection_search_placeholder" />
+		android:key="language_search" />
 
 	<PreferenceCategory
 		android:key="language_list"
