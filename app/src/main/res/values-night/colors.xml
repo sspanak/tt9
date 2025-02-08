@@ -20,7 +20,7 @@
 	<color name="key_ok_ripple">#4c85e4</color>
 	<color name="key_ok_text">#fff</color>
 
-	<color name="suggestion_selected_background">#007ACC</color>
+	<color name="suggestion_selected_background">#347bac</color>
 	<color name="suggestion_selected_text">#fff</color>
 	<color name="suggestion_separator">#888888</color>
 </resources>
