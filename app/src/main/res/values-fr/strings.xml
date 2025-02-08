@@ -125,7 +125,6 @@
 	<string name="dictionary_import_error_too_many_words">Le stockage des mots ajoutés est plein. Vous ne pouvez plus importer de mots.</string>
 	<string name="delete_words_delete">Supprimer</string>
 	<string name="delete_words_link_summary">Trouver et supprimer des mots mal orthographiés ou inutiles.</string>
-	<string name="delete_words_search_placeholder">Rechercher des mots</string>
 	<string name="search_results">Mots trouvés</string>
 	<string name="search_results_void">Aucun résultat.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirmer la suppression</string>
@@ -175,7 +174,6 @@
 	<string name="help_url_copied">Le lien est copié.</string>
 	<string name="language_selection_language_loaded">(chargée)</string>
 	<string name="language_selection_title">Activer les langues</string>
-	<string name="language_selection_search_placeholder">Rechercher des langues</string>
 	<string name="language_selection_words">mots</string>
 	<string name="pref_backspace_acceleration">Suppression rapide</string>
 	<string name="pref_backspace_acceleration_summary">Effacer des mots entiers en maintenant ou en glissant sur Retour arrière. (Non pris en charge dans certaines applications)</string>

@@ -141,7 +141,6 @@
 
 	<string name="delete_words_delete">Delete</string>
 	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
-	<string name="delete_words_search_placeholder">Search for Words</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" was deleted.</string>
@@ -176,7 +175,6 @@
 
 	<string name="language_selection_language_loaded">(loaded)</string>
 	<string name="language_selection_title">Enable Languages</string>
-	<string name="language_selection_search_placeholder">Search for Languages</string>
 	<string name="language_selection_words">words</string>
 
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be automatically added at the beginning of the list.</string>
