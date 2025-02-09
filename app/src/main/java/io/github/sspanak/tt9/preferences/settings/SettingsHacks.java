@@ -62,4 +62,12 @@ class SettingsHacks extends BaseSettings {
 	public boolean getSystemLogs() {
 		return prefs.getBoolean("pref_enable_system_logs", false);
 	}
+
+	public boolean getDonationsVisible() {
+		return prefs.getBoolean("pref_show_donations", false);
+	}
+
+	public void setDonationsVisible(boolean yes) {
+		prefsEditor.putBoolean("pref_show_donations", yes).apply();
+	}
 }

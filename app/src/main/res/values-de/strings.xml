@@ -117,7 +117,7 @@
 	<string name="dictionary_update_message">" Wörterbuchupdate verfügbar für „%1$s“."</string>
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Spenden</string>
-	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie mir ein Bier spendieren auf: %2$s.</string>
+	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie mir ein Bier spendieren.</string>
 	<string name="pref_double_zero_char">Zeichen bei doppeltem Drücken der Taste „0“</string>
 	<string name="pref_hack_always_on_top">Immer im Vordergrund</string>
 	<string name="pref_hack_always_on_top_summary">Andere Anwendungen nicht erlauben, %1$s zu überdecken oder vom Bildschirm zu schieben.</string>
@@ -185,4 +185,5 @@
 	<string name="pref_numpad_shape_square">Quadrat</string>
 	<string name="pref_numpad_shape_v">V-Form</string>
 	<string name="pref_arrow_keys_visible">Pfeiltasten</string>
+	<string name="donate_hold_to_open">Drücken und halten, um in einem Browser zu öffnen.</string>
 </resources>

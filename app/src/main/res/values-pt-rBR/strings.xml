@@ -131,7 +131,7 @@
 	<string name="dictionary_update_message">Atualização do dicionário disponível para \"%1$s\".</string>
 	<string name="dictionary_update_update">Carregar</string>
 	<string name="donate_title">Doar</string>
-	<string name="donate_summary">Se você gosta de %1$s, pode me pagar uma cerveja em: %2$s.</string>
+	<string name="donate_summary">Se você gosta de %1$s, pode me pagar uma cerveja.</string>
 	<string name="pref_hack_always_on_top">Sempre na frente</string>
 	<string name="pref_hack_always_on_top_summary">Não permitir que outras aplicações cubram %1$s ou o empurrem para fora do ecrã.</string>
 	<string name="pref_hack_key_pad_debounce_time">Proteção contra repetição acidental de teclas</string>
@@ -198,4 +198,5 @@
 	<string name="pref_numpad_shape_square">Quadrado</string>
 	<string name="pref_numpad_shape_v">Forma em V</string>
 	<string name="pref_arrow_keys_visible">Teclas de seta</string>
+	<string name="donate_hold_to_open">Pressione e segure para abrir no navegador.</string>
 </resources>
