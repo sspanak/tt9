@@ -131,7 +131,6 @@
 	<string name="dictionary_update_message">עדכון למילון זמין עבור \"%1$s\"</string>
 	<string name="dictionary_update_update">טען</string>
 	<string name="donate_title">תרומה</string>
-	<string name="donate_summary">אם אתה אוהב את %1$s, אתה יכול לפנק אותי בבירה בכתובת: %2$s.</string>
 	<string name="pref_hack_always_on_top">נראה תמיד</string>
 	<string name="pref_hack_always_on_top_summary">אל תאפשר ליישומים אחרים לכסות %1$s או לדחות אותו מהמסך.</string>
 	<string name="pref_hack_key_pad_debounce_time">הגנה מפני חזרת מפתח בשוגג</string>
@@ -198,4 +197,6 @@
 	<string name="pref_numpad_shape_square">ריבוע</string>
 	<string name="pref_numpad_shape_v">צורת V</string>
 	<string name="pref_arrow_keys_visible">מקשי חצים</string>
+	<string name="donate_summary">אם אתה אוהב %1$s, אתה יכול לקנות לי בירה.</string>
+	<string name="donate_hold_to_open">לחצו והחזיקו כדי לפתוח בדפדפן.</string>
 </resources>

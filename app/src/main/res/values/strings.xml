@@ -148,7 +148,8 @@
 	<string name="dictionary_update_update">Load</string>
 
 	<string name="donate_title">Donate</string>
-	<string name="donate_summary">If you like %1$s, you could buy me a beer at: %2$s.</string>
+	<string name="donate_summary">If you like %1$s, you could buy me a beer.</string>
+	<string name="donate_hold_to_open">Press and hold to open in the browser.</string>
 	<string name="donate_url" translatable="false">https://www.buymeacoffee.com/sspanak</string>
 	<string name="donate_url_short" translatable="false">www.buymeacoffee.com</string>
 

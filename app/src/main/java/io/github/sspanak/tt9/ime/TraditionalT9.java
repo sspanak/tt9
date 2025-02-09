@@ -144,6 +144,7 @@ public class TraditionalT9 extends MainViewHandler {
 			onStop();
 		}	else {
 			backgroundTasks.removeCallbacksAndMessages(null);
+			settings.setDonationsVisible(true);
 			initUi(mInputMode);
 		}
 

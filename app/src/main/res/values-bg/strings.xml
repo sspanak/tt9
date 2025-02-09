@@ -73,7 +73,7 @@
 	<string name="dictionary_update_message">Налично е обновление на речника за „%1$s“.</string>
 	<string name="dictionary_update_update">Зареди</string>
 	<string name="donate_title">Дарете</string>
-	<string name="donate_summary">Ако харесвате %1$s, черпете една бира на: %2$s.</string>
+	<string name="donate_summary">Ако харесвате %1$s, черпете една бира.</string>
 	<string name="function_edit_text">Редактиране на текст</string>
 	<string name="function_add_word_not_available">Добавянето на думи не е възможно на този език.</string>
 	<string name="function_backspace">Триене на текст</string>
@@ -197,4 +197,5 @@
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-образна</string>
 	<string name="pref_arrow_keys_visible">Клавиши стрелки</string>
+	<string name="donate_hold_to_open">Натиснете и задръжте, за да отворите в браузъра.</string>
 </resources>
