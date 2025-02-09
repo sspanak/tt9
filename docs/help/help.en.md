@@ -190,23 +190,23 @@ The on-screen keypad works the same as the numpad of a phone with hardware keys.
 
 Below is a description of the keys with more than one function.
 
-#### Right F2 key (the one with the filter icons; located below "Backspace")
+#### Right F2 key (the second key from the top in the right column)
 _Predictive mode only._
 
 - **Press:** Filter the suggestion list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
 - **Hold:** Clear the filter, if active.
 
-#### Right F3 key (it has scisors and microphone icons)
+#### Right F3 key (the third key from the top in the right column)
 - **Press:** Open the copy-pasting and text editing options.
 - **Hold:** Activate the Voice Input.
 
-#### Left F4 key (the bottom-left key)
+#### Left F4 key (located above "OK")
 - **Press:** Cycle the input modes (abc → Predictive → 123).
 - **Hold:** Select the next language, when multiple languages have been enabled from the Settings.
 - **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
 - **Vertical swipe:** Open the Android Change Keyboard dialog where you can select between all installed keyboards.
 
-_The key will display a small globe icon when you have enabled more than one language from Settings -> Languages. The icon indicates it is possible to change the language by holding the key._
+_The key will display a small globe icon when you have enabled multiple languages from Settings -> Languages. The icon indicates it is possible to change the language by holding the key._
 
 ### Resizing the Keyboard Panel While Typing
 In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you can resize it by either holding and dragging the Settings/Command Palette key or by dragging the Status Bar (it is where the current language or typing mode is displayed). When the height becomes too small, the layout will automatically be switched to "Function keys" or "Suggestion list only". Respectively, when resizing up, the layout will change to "Virtual Keypad". You can also double-tap the status bar to minimize or maximize instantly.

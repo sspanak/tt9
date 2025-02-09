@@ -190,13 +190,13 @@ Ekran klavyesi, fiziksel tuşlara sahip bir telefonun numpad’i ile aynı şeki
 
 Aşağıda birden fazla işlevi olan tuşların açıklamaları yer almaktadır.
 
-#### Sağ F2 tuşu ("CLR/FLTR" etiketi var)
+#### Sağ F2 Tuşu (sağ sütundaki en üstten ikinci tuş)
 _Yalnızca tahmin modunda._
 
 - **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığını görmek için [yukarıdaki](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) açıklamaya bakın.
 - **Basılı tut:** Eğer aktifse filtreyi temizler.
 
-#### Sağ F3 tuşu (mikrofon simgesi ve "COPY" etiketi var)
+#### Sağ F3 Tuşu (sağ sütundaki en üstten üçüncü tuş)
 - **Bas:** Kopyalama, yapıştırma ve metin düzenleme seçeneklerini açar.
 - **Basılı tut:** Sesli girişi etkinleştirir.
 
