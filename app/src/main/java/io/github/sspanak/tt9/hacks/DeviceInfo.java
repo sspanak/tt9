@@ -51,7 +51,7 @@ public class DeviceInfo {
 			return true;
 		}
 
-		Configuration configuration = context.getResources().getConfiguration();
+		Configuration configuration = getResources(context).getConfiguration();
 
 		return
 			(configuration.keyboard == Configuration.KEYBOARD_NOKEYS || configuration.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES)
