@@ -144,6 +144,7 @@
 	<string name="key_volume_mute">Stilteknop</string>
 	<string name="voice_input_listening">Spreek</string>
 	<string name="voice_input_mic_permission_is_needed">U moet de microfoon toestemming geven om spraakopvoer te gebruiken.</string>
+	<string name="voice_input_error_incompatible_voice_service">Onverenigbare spraakassistent</string>
 	<string name="voice_input_error_generic">Fout bij spraakopvoer</string>
 	<string name="voice_input_error_no_permissions">Geen microfoontoestemming</string>
 	<string name="voice_input_error_language_not_supported">Taal niet ondersteund</string>

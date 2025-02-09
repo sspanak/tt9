@@ -11,7 +11,7 @@
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
 	<string name="add_word_invalid_language_x">Невозможно добавить слово. Неизвестный язык: \"%1$d\".</string>
-	<string name="add_word_success">« %1$s » добавлено</string>
+	<string name="add_word_success">«%1$s» добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
@@ -155,6 +155,7 @@
 	<string name="key_volume_mute">Выключения звука</string>
 	<string name="voice_input_listening">Говорите</string>
 	<string name="voice_input_mic_permission_is_needed">Вы должны предоставить микрофону разрешение на использование голосового ввода.</string>
+	<string name="voice_input_error_incompatible_voice_service">Несовместимый голосовой ассистент</string>
 	<string name="voice_input_error_generic">Ошибка голосового ввода</string>
 	<string name="voice_input_error_no_permissions">Нет разрешения на использование микрофона</string>
 	<string name="voice_input_error_language_not_supported">Язык не поддерживается</string>

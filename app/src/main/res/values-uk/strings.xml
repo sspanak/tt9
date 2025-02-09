@@ -166,6 +166,7 @@
 	<string name="key_volume_mute">Вимкнення звуку</string>
 	<string name="voice_input_listening">Диктуйте</string>
 	<string name="voice_input_mic_permission_is_needed">Ви повинні надати мікрофону дозвіл на використання голосового введення.</string>
+	<string name="voice_input_error_incompatible_voice_service">Несумісний голосовий асистент</string>
 	<string name="voice_input_error_generic">Помилка голосового введення</string>
 	<string name="voice_input_error_no_permissions">Немає дозволу на використання мікрофона</string>
 	<string name="voice_input_error_language_not_supported">Мова не підтримується</string>

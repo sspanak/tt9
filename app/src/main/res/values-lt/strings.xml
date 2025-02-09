@@ -164,6 +164,7 @@
 	<string name="key_volume_mute">Nutildymo mygt.</string>
 	<string name="voice_input_listening">Kalbėkite</string>
 	<string name="voice_input_mic_permission_is_needed">Turite suteikti mikrofonui leidimą naudoti balso įvestį.</string>
+	<string name="voice_input_error_incompatible_voice_service">Nesuderinamas balso asistentas</string>
 	<string name="voice_input_error_generic">Balso įvesties klaida</string>
 	<string name="voice_input_error_no_permissions">Nėra mikrofono leidimo</string>
 	<string name="voice_input_error_language_not_supported">Kalba nepalaikoma</string>

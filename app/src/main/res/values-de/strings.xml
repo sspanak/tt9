@@ -144,6 +144,7 @@
 	<string name="key_volume_mute">Stummschalttaste</string>
 	<string name="voice_input_listening">Sprechen</string>
 	<string name="voice_input_mic_permission_is_needed">Sie müssen dem Mikrofon die Erlaubnis erteilen, die Spracheingabe zu verwenden.</string>
+	<string name="voice_input_error_incompatible_voice_service">Inkompatibler Sprachassistent</string>
 	<string name="voice_input_error_generic">Fehler bei der Spracheingabe</string>
 	<string name="voice_input_error_no_permissions">Keine Mikrofonberechtigung</string>
 	<string name="voice_input_error_language_not_supported">Sprache nicht unterstützt</string>
