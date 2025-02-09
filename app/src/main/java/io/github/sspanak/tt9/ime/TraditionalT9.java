@@ -9,7 +9,6 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -252,19 +251,7 @@ public class TraditionalT9 extends MainViewHandler {
 		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.autoLoad(this, mLanguage)) {
 			return true;
 		}
-		if (textField.shouldReportConnectionErrors()) {
-			UI.toastLongSingle(getApplicationContext(), R.string.error_unstable_input_connection);
-		}
 		return super.onNumber(key, hold, repeat);
-	}
-
-
-	@Override
-	public boolean onBackspace(int repeat) {
-		if (textField.shouldReportConnectionErrors()) {
-			UI.toastLongSingle(getApplicationContext(), R.string.error_unstable_input_connection);
-		}
-		return super.onBackspace(repeat);
 	}
 
 

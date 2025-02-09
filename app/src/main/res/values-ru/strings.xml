@@ -5,7 +5,6 @@
 	<string name="completed">Выполнено</string>
 	<string name="loading">Загрузка…</string>
 	<string name="error_unexpected">Произошла непредвиденная ошибка.</string>
-	<string name="error_unstable_input_connection">Нестабильное соединение с приложением!</string>
 	<string name="add_word_add">Добавить</string>
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>

@@ -7,7 +7,6 @@
 
 	<string name="error_unexpected">Сталася неочікувана помилка.</string>
 
-	<string name="error_unstable_input_connection">Нестабільне з\'єднання з додатком!</string>
 	<string name="add_word_add">Додати</string>
 	<string name="add_word_confirm">Додати слово \"%1$s\" в %2$s?</string>
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
