@@ -190,17 +190,17 @@ El teclado en pantalla funciona igual que el teclado numérico de un teléfono c
 
 A continuación, se describe las teclas con más de una función.
 
-#### Tecla derecha F2 (etiquetada "CLR/FLTR")
+#### Tecla F2 derecha (segunda tecla desde arriba en la columna derecha)
 _Solo en el modo predictivo._
 
-- **Presionar:** Filtra la lista de sugerencias. Consulte [arriba](#tecla-de-filtrar-sugerencias-por-defecto-flecha-arriba-del-d-pad) cómo funciona el filtrado de palabras.
+- **Presionar:** Filtrar la lista de sugerencias. Consulte [arriba](#tecla-de-filtrar-sugerencias-por-defecto-flecha-arriba-del-d-pad) cómo funciona el filtrado de palabras.
 - **Mantener pulsado:** Borra el filtro si está activo.
 
-#### Tecla derecha F3 (tiene un ícono de micrófono y la etiqueta "COPY")
+#### Tecla F3 derecha (tercera tecla desde arriba en la columna derecha)
 - **Presionar:** Abre las opciones de copiar, pegar y editar texto.
 - **Mantener pulsado:** Activa la entrada por voz.
 
-#### Tecla izquierda F4 (la tecla inferior izquierda)
+#### Tecla F4 izquierda (la tecla inferior izquierda)
 - **Presionar:** Cambia entre los modos de entrada (abc → Predictivo → 123).
 - **Mantener pulsado:** Cambia al siguiente idioma si se han habilitado varios idiomas desde la configuración.
 - **Deslizar horizontalmente:** Cambia al último teclado usado, diferente al TT9.

@@ -190,13 +190,13 @@ Die Bildschirmtastatur funktioniert genauso wie das Nummernfeld eines Telefons m
 
 Unten finden Sie eine Beschreibung der Tasten mit mehr als einer Funktion.
 
-#### Rechte F2-Taste (beschriftet mit "CLR/FLTR")
+#### Rechte F2-Taste (zweite Taste von oben in der rechten Spalte)
 _Nur im Vorhersagemodus._
 
-- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben), wie das Wortfiltern funktioniert.
+- **Drücken:** Die Vorschlagsliste filtern. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben), wie das Wortfiltern funktioniert.
 - **Halten:** Löscht den Filter, falls aktiv.
 
-#### Rechte F3-Taste (mit Mikrofon-Symbol und "COPY"-Beschriftung)
+#### Rechte F3-Taste (dritte Taste von oben in der rechten Spalte)
 - **Drücken:** Öffnet die Optionen für Kopieren, Einfügen und Textbearbeitung.
 - **Halten:** Aktiviert die Spracheingabe.
 

@@ -190,17 +190,17 @@ La tastiera su schermo funziona come il tastierino numerico di un telefono con t
 
 Di seguito è riportata una descrizione dei tasti con più di una funzione.
 
-#### Tasto destro F2 (etichettato "CLR/FLTR")
+#### Tasto F2 destro (secondo tasto dall'alto nella colonna di destra)
 _Solo in modalità predittiva._
 
 - **Premere:** Filtra l'elenco dei suggerimenti. Vedi [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per sapere come funziona il filtro delle parole.
 - **Tenere premuto:** Cancella il filtro, se attivo.
 
-#### Tasto destro F3 (con icona del microfono e etichetta "COPY")
+#### Tasto F3 destro (terzo tasto dall'alto nella colonna di destra)
 - **Premere:** Apre le opzioni per copiare, incollare e modificare il testo.
 - **Tenere premuto:** Attiva l'immissione vocale.
 
-#### Tasto sinistro F4 (il tasto in basso a sinistra)
+#### Tasto F4 sinistro (il tasto in basso a sinistra)
 - **Premere:** Cambia modalità di input (abc → Predittiva → 123).
 - **Tenere premuto:** Cambia lingua, se più lingue sono state abilitate nelle impostazioni.
 - **Scorrere orizzontalmente:** Passa all'ultima tastiera utilizzata, diversa da TT9.

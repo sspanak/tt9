@@ -190,13 +190,13 @@ Le clavier à l'écran fonctionne de la même manière que le pavé numérique d
 
 Voici une description des touches ayant plus d'une fonction.
 
-#### Touche F2 droite (étiquetée "CLR/FLTR")
+#### Touche F2 droite (deuxième touche en partant du haut dans la colonne de droite)
 _Mode prédictif uniquement._
 
 - **Appuyer :** Filtre la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut) pour savoir comment fonctionne le filtrage des mots.
 - **Maintenir enfoncé :** Supprime le filtre, s'il est actif.
 
-#### Touche F3 droite (avec une icône de microphone et l'étiquette "COPY")
+#### Touche F3 droite (troisième touche en partant du haut dans la colonne de droite)
 - **Appuyer :** Ouvre les options de copier-coller et d'édition de texte.
 - **Maintenir enfoncé :** Active l'entrée vocale.
 
