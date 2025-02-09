@@ -157,6 +157,7 @@
 	<string name="key_volume_mute">Mudo</string>
 	<string name="voice_input_listening">Fale</string>
 	<string name="voice_input_mic_permission_is_needed">Você deve conceder permissão ao microfone para usar a entrada de voz.</string>
+	<string name="voice_input_error_incompatible_voice_service">Assistente de voz incompatível</string>
 	<string name="voice_input_error_generic">Erro de entrada de voz</string>
 	<string name="voice_input_error_no_permissions">Sem permissão para o microfone</string>
 	<string name="voice_input_error_language_not_supported">Idioma não suportado</string>

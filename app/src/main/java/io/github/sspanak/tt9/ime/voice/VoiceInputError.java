@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.R;
 public class VoiceInputError {
 	public final static int ERROR_NOT_AVAILABLE = 101;
 	public final static int ERROR_INVALID_LANGUAGE = 102;
+	public final static int ERROR_CANNOT_BIND_TO_VOICE_SERVICE = 103;
 
 	public final int code;
 	public final String message;
@@ -50,6 +51,8 @@ public class VoiceInputError {
 	@NonNull
 	private static String codeToString(Context context, int code) {
 		return switch (code) {
+			case ERROR_CANNOT_BIND_TO_VOICE_SERVICE
+				-> context.getString(R.string.voice_input_error_incompatible_voice_service);
 			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS
 				-> context.getString(R.string.voice_input_error_no_permissions);
 			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED
@@ -116,6 +119,7 @@ public class VoiceInputError {
 			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech detected.";
 			case ERROR_NOT_AVAILABLE -> "Voice input is not available.";
 			case ERROR_INVALID_LANGUAGE -> "Invalid language for voice input.";
+			case ERROR_CANNOT_BIND_TO_VOICE_SERVICE -> "Cannot bind to the current voice input service.";
 			default -> null;
 		};
 	}

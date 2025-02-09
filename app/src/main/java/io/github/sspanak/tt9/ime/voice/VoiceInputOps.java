@@ -93,8 +93,14 @@ public class VoiceInputOps {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
 		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, toString());
-		speechRecognizer.startListening(intent);
-		Logger.d(getClass().getSimpleName(), "SpeechRecognizer started for locale: " + locale);
+
+		try {
+			speechRecognizer.startListening(intent);
+			Logger.d(getClass().getSimpleName(), "SpeechRecognizer started for locale: " + locale);
+		} catch (SecurityException e) {
+			Logger.e(getClass().getSimpleName(), "SpeechRecognizer start failed due to a SecurityException. " + e.getMessage());
+			onError(new VoiceInputError(ims, VoiceInputError.ERROR_CANNOT_BIND_TO_VOICE_SERVICE));
+		}
 	}
 
 

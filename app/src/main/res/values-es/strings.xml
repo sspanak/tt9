@@ -155,6 +155,7 @@
 	<string name="key_volume_mute">Botón de silencio</string>
 	<string name="voice_input_listening">Hable</string>
 	<string name="voice_input_mic_permission_is_needed">Debe otorgar permiso al micrófono para usar la entrada de voz.</string>
+	<string name="voice_input_error_incompatible_voice_service">Asistente de voz incompatible</string>
 	<string name="voice_input_error_generic">Error de entrada de voz</string>
 	<string name="voice_input_error_no_permissions">Sin permiso para el micrófono</string>
 	<string name="voice_input_error_language_not_supported">Idioma no compatible</string>

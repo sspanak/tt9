@@ -157,6 +157,7 @@
 	<string name="key_volume_mute">כפתור השתק</string>
 	<string name="voice_input_listening">האזנה</string>
 	<string name="voice_input_mic_permission_is_needed">עליך להעניק למיקרופון הרשאה להשתמש בקלט קולי.</string>
+	<string name="voice_input_error_incompatible_voice_service">עוזר קולי לא תואם</string>
 	<string name="voice_input_error_generic">שגיאת קלט קולי</string>
 	<string name="voice_input_error_no_permissions">אין הרשאת מיקרופון</string>
 	<string name="voice_input_error_language_not_supported">השפה אינה נתמכת</string>
