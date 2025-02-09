@@ -90,7 +90,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
-		suggestionOps.setTextField(textField);
+		suggestionOps.setTextField(connection == null || field == null ? null : textField);
 	}
 
 
