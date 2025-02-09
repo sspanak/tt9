@@ -20,7 +20,7 @@ public class InputType extends StandardInputType {
 	private boolean isContactsAndroid15Field() {
 		return
 			isAppField("com.google.android.contacts", 8288)
-			&& field.privateImeOptions.contains("requestPhoneticOutput");
+			&& field.privateImeOptions != null && field.privateImeOptions.contains("requestPhoneticOutput");
 	}
 
 
