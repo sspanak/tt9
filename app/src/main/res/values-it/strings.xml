@@ -6,7 +6,6 @@
 	<string name="loading">Caricamento…</string>
 	<string name="error_unexpected">Si è verificato un errore imprevisto.</string>
 
-	<string name="error_unstable_input_connection">Connessione instabile all\'applicazione!</string>
 	<string name="add_word_add">Aggiungere</string>
 	<string name="add_word_confirm">Aggiungi la parola \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Sposta il cursore dentro un parola per aggiungerla.</string>

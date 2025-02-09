@@ -6,7 +6,6 @@
 	<string name="loading">טוען…</string>
 	<string name="error_unexpected">אירעה שגיאה לא צפויה.</string>
 
-	<string name="error_unstable_input_connection">חיבור לא יציב לאפליקציה!</string>
 	<string name="add_word_add">הוסף</string>
 	<string name="add_word_confirm">האם להוסיף את המילה \"%1$s\" ל-%2$s?</string>
 	<string name="add_word_no_selection">הזיזו את הסמן בתוך מילה כדי להוסיף אותה.</string>

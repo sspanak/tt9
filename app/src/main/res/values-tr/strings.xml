@@ -4,7 +4,6 @@
 	<string name="loading">Yükleniyor…</string>
 	<string name="error_unexpected">Beklenmeyen bir hata ile karşılaşıldı.</string>
 
-	<string name="error_unstable_input_connection">Uygulama bağlantısı kararsız!</string>
 	<string name="add_word_add">Ekle</string>
 	<string name="add_word_confirm">\"%1$s\" kelimesi %2$s sözlüğe eklensin mi?</string>
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>

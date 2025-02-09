@@ -18,13 +18,10 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.InputConnectionCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
-	@NonNull private final InputConnectionCompat connectionCompat;
-
 	private CharSequence composingText = "";
 	private final boolean isComposingSupported;
 	private final boolean isNonText;
@@ -33,8 +30,6 @@ public class TextField extends InputField {
 	public TextField(InputConnection inputConnection, EditorInfo inputField) {
 		super(inputConnection, inputField);
 
-		connectionCompat = new InputConnectionCompat(inputConnection);
-
 		InputType inputType = new InputType(inputConnection, inputField);
 		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && !inputType.isDeezerSearchBar();
 		isNonText = !inputType.isText();
@@ -42,13 +37,13 @@ public class TextField extends InputField {
 
 
 	public String getStringAfterCursor(int numberOfChars) {
-		CharSequence chars = connectionCompat.getTextAfterCursor(numberOfChars, 0);
+		CharSequence chars = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	public String getStringBeforeCursor(int numberOfChars) {
-		CharSequence chars = connectionCompat.getTextBeforeCursor(numberOfChars, 0);
+		CharSequence chars = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
@@ -395,10 +390,5 @@ public class TextField extends InputField {
 		}
 
 		return false;
-	}
-
-
-	public boolean shouldReportConnectionErrors() {
-		return connectionCompat.shouldReportTimeout();
 	}
 }
