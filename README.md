@@ -25,15 +25,15 @@ This is a modernized version of the [original project](https://github.com/Clam-/
 ![](docs/badges/80-height.png)[<img src="docs/badges/github.png" alt="Download from GitHub" height="59">](https://github.com/sspanak/tt9/releases/latest)
 ![](docs/badges/80-height.png)
 
-_If your phone does not have Google Play and it does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
+_If your phone does not have Google Play and does not allow installing custom APKs, please consult the [Installation Guide](docs/installation.md)._
 
 ## ⚙️ System Requirements
-- Android 4.4 or higher.
+- Android 5.0 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
-- Storage space depends on the Android version. The lite version requires at least 4-7 Mb and the full version requires at least 130 Mb.
+- Storage space depends on the Android version. The lite version requires at least 5-8 Mb and the full version requires at least 132 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
-    - Very small languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
+    - Tiny languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
     - Medium languages (400k-800k words; e.g. Danish, Greek, Italian, Portuguese): 40-75 Mb per language
     - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Hebrew, Romanian, Spanish): 100-165 Mb per language
@@ -41,9 +41,9 @@ _If your phone does not have Google Play and it does not allow installing custom
 _Storage usage for the dictionaries depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
 
 ### ⚠️ Compatibility
-If you own a phone with Android 2.2 up to 4.4, please refer to the original version of Traditional T9 from 2016.
+If you own a phone with Android 4.4, the latest TT9 version you can use is [v44.0](https://github.com/sspanak/tt9/releases/tag/v44.0). On devices with Android 4.3 or earlier, please refer to the original Traditional T9 from 2016.
 
-TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, and some other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
+TT9 may not work well on TCL Flip 2, Kyocera phones, especially ones running Android 10 or newer, or other devices that run highly customized Android versions, where all apps are integrated and intended to work with the respective native keyboard. You may experience missing functionality, empty gaps/misaligned items on the screen, or unexpected text/numbers appearing when you try to type.
 
 Compatibility has been verified only on the following devices:
 - CAT S22 Flip (Android 11)
@@ -70,7 +70,7 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-If you want to show your appreciation, give the project a star on GitHub. Higher-ranked projects have the opportunity to use development tools for free and apply for funding more easily. Or give it 5 stars on Google Play to help it appear higher in the search results.
+If you want to show appreciation, give the project a star on GitHub. Higher-ranked projects can use development tools for free and apply for funding more easily. You can also give it 5 stars on Google Play to increase its rating, which will prompt the Play Store to recommend it to more people.
 
 You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
 
@@ -90,5 +90,3 @@ Thank you for understanding, and enjoy TT9!
 ## 🕮 License
 - The source code, the logo image, and the icons are licensed under the conditions described in [LICENSE.txt](LICENSE.txt).
 - The dictionaries are licensed under the licenses provided in the [respective readme files](docs/dictionaries), where applicable. Detailed information about the dictionaries is also available there.
-- [Silver foil photo created by rawpixel.com - www.freepik.com](https://www.freepik.com/photos/silver-foil)
-- "Negotiate" and "Vibrocentric" fonts are under [The Fontspring Desktop/Ebook Font End User License](docs/desktop-ebook-EULA-1.8.txt).
