@@ -132,6 +132,9 @@ Using the above example, when the user types "221-48-123", it will result in: "ì
 
 See `Korean.yml` and `ko-utf8.csv` for more examples.
 
+## Merging Languages
+Traditional T9 does not officially support typing in more than one language simultaneously, and it will not provide such a possibility in the future. But if you are interested in a do-it-yourself solution, you can achieve it by merging the dictionaries for two (or more) languages into a new language. Follow the steps in [this discussion](https://github.com/sspanak/tt9/issues/713) about merging Czech and English. Just keep in mind: a) there can be no repeating words; b) it is not recommended to go over 2 million words, especially on low-end devices. Normal performance is not guaranteed beyond that limit.
+
 ## Translating the UI
 To translate Traditional T9 menus and messages in your language, add: `res/values-your-lang/strings.xml`. Then use the Android Studio translation editor. It is very handy.
 
