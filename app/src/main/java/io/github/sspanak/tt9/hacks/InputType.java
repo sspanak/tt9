@@ -12,15 +12,42 @@ public class InputType extends StandardInputType {
 	}
 
 
+	@Override
+	public boolean isEmail() {
+		return super.isEmail() && !isAndroidContactsSearch();
+	}
+
+
 	/**
-	 * isContactsAndroid15Field
+	 * isAndroid15ContactsField
 	 * "First Name" and "Last Name" fields in Android 15 are specified absolutely incorrectly.
 	 * Thank you for wasting my time, Google!
 	 */
-	private boolean isContactsAndroid15Field() {
+	private boolean isAndroid15ContactsField() {
 		return
 			isAppField("com.google.android.contacts", 8288)
 			&& field.privateImeOptions != null && field.privateImeOptions.contains("requestPhoneticOutput");
+	}
+
+
+	/**
+	 * Yet another randomly defined field. On Unihertz Atom L (Android 11) and Show F2 (Android 8),
+	 * the search field in the Contacts app is defined as "email", instead of a plain text field, like
+	 * in other devices. This causes us to display suggestions for email addresses, which is not desired.
+	 * Bug report: <a href="https://github.com/sspanak/tt9/issues/698">#698</a>
+	 */
+	public boolean isAndroidContactsSearch() {
+		if (field == null) {
+			return false;
+		}
+
+		boolean isActionDone = (field.imeOptions & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE;
+		boolean notNavigateNext = (field.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_NEXT) != EditorInfo.IME_FLAG_NAVIGATE_NEXT;
+		boolean notNavigatePrevious = (field.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS) != EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
+
+		return
+			(isAppField("com.android.contacts", 33) || isAppField("com.google.android.contacts", 33))
+			&& (isActionDone || (notNavigateNext && notNavigatePrevious));
 	}
 
 
@@ -190,7 +217,7 @@ public class InputType extends StandardInputType {
 	 */
 	@Override
 	public boolean isDefectiveText() {
-		return isDuoLingoReportBug() || isContactsAndroid15Field();
+		return isDuoLingoReportBug() || isAndroid15ContactsField();
 	}
 
 
