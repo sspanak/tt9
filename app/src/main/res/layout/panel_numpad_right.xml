@@ -19,7 +19,7 @@
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
 			style="@style/TTheme.Numpad.Key.Large"
 			android:id="@+id/soft_key_rf3" />
-		<include layout="@layout/key_overlay_lf4" />
+		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
