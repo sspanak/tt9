@@ -203,7 +203,15 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.cancelDelayedAccept();
 
-		if (mInputMode.clearWordStem()) {
+		// This achieves the "back to leave word as-is" behavior of Nokia 3310. As suggested by the
+		// community, clearing the filter makes sense only when it is actually in effect. Otherwise,
+		// it simply causes the current selection to be reset, which is confusing.
+		// References:
+		//  - https://github.com/sspanak/tt9/issues/698#issuecomment-2600441061
+		//  - https://github.com/sspanak/tt9/issues/418
+		boolean isFilteringOn = mInputMode.isStemFilterFuzzy() || (mInputMode.getSequenceLength() != mInputMode.getWordStem().length());
+
+		if (mInputMode.clearWordStem() && isFilteringOn) {
 			mInputMode
 				.setOnSuggestionsUpdated(this::handleSuggestions)
 				.loadSuggestions(suggestionOps.getCurrent(mInputMode.getSequenceLength()));
