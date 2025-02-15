@@ -1,4 +1,5 @@
 locale: th-TH
+currency: ฿
 dictionaryFile: th-utf8.csv
 abcString: กขค
 hasSpaceBetweenWords: no

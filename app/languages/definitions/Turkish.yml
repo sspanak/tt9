@@ -1,4 +1,5 @@
 locale: tr-TR
+currency: ₺
 dictionaryFile: tr-utf8.csv
 layout:
   - [SPECIAL] # 0

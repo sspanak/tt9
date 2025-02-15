@@ -3,9 +3,11 @@ package io.github.sspanak.tt9.util.chars;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.languages.Language;
+
 public class Characters extends Emoji {
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
-		"$", "€", "₹", "₿", "₩", "¢", "¤", "₺", "₱", "¥", "₽", "£"
+		"$", "€", "₿", "¢", "¤", "₱", "¥", "£"
 	));
 
 	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
@@ -39,5 +41,9 @@ public class Characters extends Emoji {
 			keyCharacters.add(new ArrayList<>(Arrays.asList(".", ",")));
 		}
 		return keyCharacters;
+	}
+
+	public static boolean isCurrency(Language language, String c) {
+		return Currency.contains(c) || (language != null && language.getCurrency().equals(c));
 	}
 }

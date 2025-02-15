@@ -62,6 +62,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		if (
 			rawLine.matches("^[a-zA-Z].*")
 			&& !rawLine.startsWith("abcString")
+			&& !rawLine.startsWith("currency")
 			&& !rawLine.startsWith("dictionaryFile")
 			&& !rawLine.startsWith("hasSpaceBetweenWords")
 			&& !rawLine.startsWith("hasUpperCase")

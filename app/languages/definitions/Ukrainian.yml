@@ -1,4 +1,5 @@
 locale: uk-UA
+currency: ₴
 dictionaryFile: uk-utf8.csv
 layout:
   - [SPECIAL] # 0
