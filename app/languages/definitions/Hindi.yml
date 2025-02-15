@@ -1,4 +1,5 @@
 locale: hi-IN
+currency: ₹
 dictionaryFile: hi-utf8.csv
 abcString: कखग
 hasUpperCase: no

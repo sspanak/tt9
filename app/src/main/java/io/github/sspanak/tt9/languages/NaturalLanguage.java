@@ -31,6 +31,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 		NaturalLanguage lang = new NaturalLanguage();
 		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
+		lang.currency = definition.currency;
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
@@ -213,6 +214,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 				chars = new ArrayList<>();
 			} else if (characterGroup == 1) {
 				chars = new ArrayList<>(Characters.Currency);
+				if (!currency.isEmpty()) chars.add(2, currency);
 			}
 		}
 

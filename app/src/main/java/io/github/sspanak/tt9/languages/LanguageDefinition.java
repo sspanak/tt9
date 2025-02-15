@@ -21,6 +21,7 @@ public class LanguageDefinition extends AssetFile {
 	private static final String definitionsDir = languagesDir + "/definitions";
 
 	public String abcString = "";
+	public String currency = "";
 	public String dictionaryFile = "";
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
@@ -90,6 +91,7 @@ public class LanguageDefinition extends AssetFile {
 
 	private void parse(ArrayList<String> yaml) {
 		abcString = getPropertyFromYaml(yaml, "abcString", abcString);
+		currency = getPropertyFromYaml(yaml, "currency", currency);
 
 		dictionaryFile = getPropertyFromYaml(yaml, "dictionaryFile", dictionaryFile);
 		if (dictionaryFile != null) {
@@ -102,8 +104,6 @@ public class LanguageDefinition extends AssetFile {
 		layout = getLayoutFromYaml(yaml);
 		locale = getPropertyFromYaml(yaml, "locale", locale);
 		name = getPropertyFromYaml(yaml, "name", name);
-
-
 	}
 
 

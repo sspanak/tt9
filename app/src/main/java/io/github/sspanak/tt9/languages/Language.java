@@ -11,6 +11,7 @@ abstract public class Language {
 	protected int id;
 	protected String abcString;
 	protected String code;
+	protected String currency;
 	protected String dictionaryFile;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
@@ -29,6 +30,10 @@ abstract public class Language {
 
 	@NonNull public String getCode() {
 		return code;
+	}
+
+	@NonNull public String getCurrency() {
+		return currency;
 	}
 
 	@NonNull final public String getDictionaryFile() {
