@@ -83,15 +83,17 @@ android {
 
 	defaultConfig {
 		applicationId PACKAGE_NAME
+		buildFeatures.buildConfig true
 		minSdk 21
 		targetSdk 35
 		versionCode getVerCode()
 		versionName getVerName()
+
+		// F-droid hacks
+		dependenciesInfo.includeInApk false
+		vectorDrawables.generatedDensities = []
 	}
 
-	buildFeatures {
-		buildConfig true
-	}
 	buildTypes {
 		debug {
 			buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
@@ -112,9 +114,6 @@ android {
 	compileOptions {
 		sourceCompatibility JavaVersion.VERSION_17
 		targetCompatibility JavaVersion.VERSION_17
-	}
-	dependenciesInfo {
-		includeInApk false
 	}
 
 	flavorDimensions = ['app']
