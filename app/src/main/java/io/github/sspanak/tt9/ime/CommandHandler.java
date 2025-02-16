@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
@@ -159,13 +160,18 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	public Language getNextLanguage() {
+		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
+		int next = (previous + 1) % mEnabledLanguages.size();
+		return LanguageCollection.getLanguage(mEnabledLanguages.get(next));
+	}
+
+
 	protected void nextLang() {
 		stopVoiceInput();
 
 		// select the next language
-		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
-		int next = (previous + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
+		mLanguage = getNextLanguage();
 
 		// validate and save it for the next time
 		validateLanguages();
