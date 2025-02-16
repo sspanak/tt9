@@ -8,17 +8,17 @@ import androidx.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.util.AssetFile;
 import io.github.sspanak.tt9.util.Logger;
 
-public class LanguageDefinition extends AssetFile {
+public class LanguageDefinition {
 	private static final String LOG_TAG = LanguageDefinition.class.getSimpleName();
 
-	private static final String languagesDir = "languages";
-	private static final String definitionsDir = languagesDir + "/definitions";
+	private static final String LANGUAGES_DIR = "languages";
+	private static final String DEFINITIONS_PATH = LANGUAGES_DIR + "/definitions.yml";
+	private static final String YAML_SEPARATOR = "---";
 
 	public String abcString = "";
 	public String currency = "";
@@ -30,160 +30,144 @@ public class LanguageDefinition extends AssetFile {
 	public String locale = "";
 	public String name = "";
 
+	private boolean inLayout = false;
 
-	public LanguageDefinition(AssetManager assets, String name) {
-		super(assets, definitionsDir + "/" + name);
-	}
 
 
 	/**
-	 * getAllFiles
-	 * Returns a list of the paths of all language definition files in the assets folder or an empty list on error.
-	 */
-	public static ArrayList<String> getAllFiles(AssetManager assets) {
-		ArrayList<String> files = new ArrayList<>();
-		try {
-			files.addAll(Arrays.asList(assets.list(definitionsDir)));
-			Logger.d(LOG_TAG, "Found: " + files.size() + " languages.");
-		} catch (IOException | NullPointerException e) {
-			Logger.e(LOG_TAG, "Failed reading language definitions from: '" + definitionsDir + "'. " + e.getMessage());
-		}
-
-		return files;
-	}
-
-
-	/**
-	 * fromFile
-	 * Takes the path to a language definition in the assets folder and parses that file into a LanguageDefinition
-	 * or throws an IOException on error.
-	 */
-	public static LanguageDefinition fromFile(AssetManager assetManager, String definitionFile) throws IOException {
-		LanguageDefinition definition = new LanguageDefinition(assetManager, definitionFile);
-		definition.parse(definition.load(definition));
-		return definition;
-	}
-
-
-	/**
-	 * load
-	 * Loads a language definition file from the assets folder into a String or throws an IOException on error.
-	 */
-	private ArrayList<String> load(LanguageDefinition definitionFile) throws IOException {
-		BufferedReader reader = definitionFile.getReader();
-		ArrayList<String> fileContents = new ArrayList<>();
-		String line;
-		while ((line = reader.readLine()) != null) {
-			fileContents.add(line);
-		}
-
-		return fileContents;
-	}
-
-
-	/**
-	 * parse
-	 * Converts "yaml" to a LanguageDefinition object. All properties in the YAML are considered optional,
-	 * so the LanguageDefinition defaults will be used when some property is omitted.
+	 * Converts YAML definitions to a LanguageDefinition objects. All properties in the YAML are
+	 * considered optional, so the LanguageDefinition defaults will be used when some property is omitted.
 	 * Had to write all this, because the only usable library, SnakeYAML, works fine on Android 10+,
 	 * but causes crashes on older devices.
 	 */
+	private LanguageDefinition() {}
 
-	private void parse(ArrayList<String> yaml) {
-		abcString = getPropertyFromYaml(yaml, "abcString", abcString);
-		currency = getPropertyFromYaml(yaml, "currency", currency);
 
-		dictionaryFile = getPropertyFromYaml(yaml, "dictionaryFile", dictionaryFile);
-		if (dictionaryFile != null) {
-			dictionaryFile = dictionaryFile.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
+	/**
+	 * Returns a list of all language definitions contained in the asset at DEFINITIONS_PATH,
+	 * or an empty list on error.
+	 */
+	public static ArrayList<LanguageDefinition> getAll(AssetManager assets) {
+		String[] definitionLines = readDefinitions(assets);
+		if (definitionLines.length == 0) {
+			return new ArrayList<>();
 		}
 
-		hasSpaceBetweenWords = getPropertyFromYaml(yaml, "hasSpaceBetweenWords", hasSpaceBetweenWords);
-		hasUpperCase = getPropertyFromYaml(yaml, "hasUpperCase", hasUpperCase);
-		isSyllabary = hasYamlProperty(yaml, "sounds");
-		layout = getLayoutFromYaml(yaml);
-		locale = getPropertyFromYaml(yaml, "locale", locale);
-		name = getPropertyFromYaml(yaml, "name", name);
+		ArrayList<LanguageDefinition> definitions = new ArrayList<>();
+
+		LanguageDefinition definition = new LanguageDefinition();
+		for (String line : definitionLines) {
+			if (YAML_SEPARATOR.equals(line)) {
+				definitions.add(definition);
+				definition = new LanguageDefinition();
+			} else if (!definition.setLayoutEntry(line)) {
+				definition.setProperty(line);
+			}
+		}
+
+		definitions.add(definition);
+
+		Logger.d("tt9.LanguageCollection", "Found " + definitions.size() + " languages");
+		return definitions;
 	}
 
 
 	/**
-	 * getPropertyFromYaml
-	 * Finds "property" in the "yaml" and returns its value.
-	 * Optional properties are allowed. If the property is not found, "defaultValue" will be returned.
+	 * Reads the language definitions from DEFINITIONS_PATH and returns them as an array of strings.
 	 */
-	@Nullable
-	private String getPropertyFromYaml(ArrayList<String> yaml, String property, String defaultValue) {
-		for (String line : yaml) {
-			line = line.replaceAll("#.+$", "").trim();
-			String[] parts = line.split(":");
-			if (parts.length < 2) {
-				continue;
+	private static String[] readDefinitions(AssetManager assets) {
+		try {
+			BufferedReader reader = new AssetFile(assets, DEFINITIONS_PATH).getReader();
+			StringBuilder contents = new StringBuilder();
+			char[] buffer = new char[10000];
+			int read;
+
+			while ((read = reader.read(buffer)) != -1) {
+				contents.append(buffer, 0, read);
 			}
 
-			if (property.equals(parts[0].trim())) {
-				return parts[1].trim();
-			}
+			return contents.toString().split("\n");
+		} catch (IOException e) {
+			Logger.e(LOG_TAG, "Failed reading language definitions from: '" + DEFINITIONS_PATH + "'. " + e.getMessage());
+			return new String[0];
 		}
-
-		return defaultValue;
 	}
 
 
-	private boolean hasYamlProperty(ArrayList<String> yaml, String property) {
-		final String yamlProperty = property + ":";
+	/**
+	 * Normalizes a YAML boolean to a Java boolean.
+	 */
+	private boolean parseYamlBoolean(@Nullable String value) {
+		if (value == null) {
+			return false;
+		}
 
-		for (String line : yaml) {
-			if (line.startsWith(yamlProperty)) {
-				return true;
-			}
+		return switch (value.toLowerCase()) {
+			case "true", "on", "yes", "y" -> true;
+			default -> false;
+		};
+	}
+
+
+	/**
+	 * Sets a property based on the key-value pair in a YAML line. If the key does not match any
+	 * property, the line is ignored.
+	 */
+	private void setProperty(@NonNull String line) {
+		int colonIndex = line.indexOf(':');
+		if (colonIndex == -1) {
+			return;
+		}
+
+		String key = line.substring(0, colonIndex).trim();
+		String value = (colonIndex + 1 < line.length()) ? line.substring(colonIndex + 1).trim() : "";
+
+		switch (key) {
+			case "abcString":
+				abcString = value;
+				break;
+			case "currency":
+				currency = value;
+				break;
+			case "dictionaryFile":
+				dictionaryFile = value.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
+				break;
+			case "hasSpaceBetweenWords":
+				hasSpaceBetweenWords = parseYamlBoolean(value);
+				break;
+			case "hasUpperCase":
+				hasUpperCase = parseYamlBoolean(value);
+				break;
+			case "sounds":
+				isSyllabary = true;
+				break;
+			case "locale":
+				locale = value;
+				break;
+			case "name":
+				name = value;
+				break;
+		}
+	}
+
+
+	/**
+	 * Builds the key layout line by line. Returns true when a layout entry is successfully set.
+	 */
+	private boolean setLayoutEntry(@NonNull String line) {
+		if (!inLayout) {
+			return inLayout = "layout:".equals(line);
+		}
+
+		ArrayList<String> layoutEntry = getLayoutEntryFromYamlLine(line);
+		if (layoutEntry == null) {
+			inLayout = false;
+		} else {
+			layout.add(layoutEntry);
+			return true;
 		}
 
 		return false;
-	}
-
-
-	/**
-	 * The boolean variant of getPropertyFromYaml. It returns true if the property is found and is:
-	 * "true", "on", "yes" or "y".
-	 */
-	private boolean getPropertyFromYaml(ArrayList<String> yaml, String property, boolean defaultValue) {
-		String value = getPropertyFromYaml(yaml, property, null);
-		if (value == null) {
-			return defaultValue;
-		}
-
-		value = value.toLowerCase();
-		return value.equals("true") || value.equals("on") || value.equals("yes") || value.equals("y");
-	}
-
-
-	/**
-	 * getLayoutFromYaml
-	 * Finds and extracts the keypad layout. Less than 10 keys are accepted allowed leaving the ones up to 9-key empty.
-	 */
-	@NonNull
-	private ArrayList<ArrayList<String>> getLayoutFromYaml(ArrayList<String> yaml) {
-		ArrayList<ArrayList<String>> layout = new ArrayList<>();
-
-		boolean inLayout = false;
-		for (int i = 0; i < yaml.size(); i++) {
-			if (yaml.get(i).contains("layout")) {
-				inLayout = true;
-				continue;
-			}
-
-			if (inLayout) {
-				ArrayList<String> lineChars = getLayoutEntryFromYamlLine(yaml.get(i));
-				if (lineChars != null) {
-					layout.add(lineChars);
-				} else {
-					break;
-				}
-			}
-		}
-
-		return layout;
 	}
 
 
@@ -193,23 +177,34 @@ public class LanguageDefinition extends AssetFile {
 	 * If the YAML line is invalid, NULL will be returned.
 	 */
 	@Nullable
-	private ArrayList<String> getLayoutEntryFromYamlLine(String yamlLine) {
-		if (!yamlLine.contains("[") || !yamlLine.contains("]")) {
+	private ArrayList<String> getLayoutEntryFromYamlLine(@NonNull String yamlLine) {
+		int start = yamlLine.indexOf('[');
+		int end = yamlLine.indexOf(']');
+		if (start == -1 || end == -1 || start >= end) {
 			return null;
 		}
 
-		String line = yamlLine
-			.replaceAll("#.+$", "")
-			.replace('-', ' ')
-			.replace('[', ' ')
-			.replace(']', ' ')
-			.replace(" ", "");
+		String entryTxt = yamlLine.substring(start + 1, end).replace(" ", "");
 
-		return new ArrayList<>(Arrays.asList(line.split(",")));
+		ArrayList<String> entry = new ArrayList<>();
+		int last = 0, len = entryTxt.length();
+
+		for (int i = 0; i < len; i++) {
+			if (entryTxt.charAt(i) == ',') {
+				entry.add(entryTxt.substring(last, i));
+				last = i + 1;
+			}
+		}
+
+		if (last < len) {
+			entry.add(entryTxt.substring(last));
+		}
+
+		return entry;
 	}
 
 
 	public String getDictionaryFile() {
-		return languagesDir + "/dictionaries/" + dictionaryFile;
+		return LANGUAGES_DIR + "/dictionaries/" + dictionaryFile;
 	}
 }
