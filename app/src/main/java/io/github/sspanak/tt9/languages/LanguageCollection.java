@@ -19,12 +19,12 @@ public class LanguageCollection {
 	private final HashMap<Integer, NaturalLanguage> languages = new HashMap<>();
 
 	private LanguageCollection(Context context) {
-		for (String file : LanguageDefinition.getAllFiles(context.getAssets())) {
+		for (LanguageDefinition definition : LanguageDefinition.getAll(context.getAssets())) {
 			try {
-				NaturalLanguage lang = NaturalLanguage.fromDefinition(LanguageDefinition.fromFile(context.getAssets(), file));
+				NaturalLanguage lang = NaturalLanguage.fromDefinition(definition);
 				languages.put(lang.getId(), lang);
 			} catch (Exception e) {
-				Logger.e("tt9.LanguageCollection", "Skipping invalid language: '" + file + "'. " + e.getMessage());
+				Logger.e("tt9.LanguageCollection", "Skipping invalid language: '" + definition.name + "'. " + e.getMessage());
 			}
 		}
 	}
