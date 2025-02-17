@@ -55,7 +55,7 @@ abstract public class Language {
 		return getKeyCharacters(key, 0);
 	}
 
-	@NonNull public String getKeyNumber(int key) {
+	@NonNull public String getKeyNumeral(int key) {
 		return String.valueOf(key);
 	}
 

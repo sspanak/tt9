@@ -54,7 +54,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 	boolean hasLayout = false
 	boolean hasSounds = false
-	boolean isLocaleValid = false
+	boolean areNumeralsValid = true
 	String localeString = ""
 	String dictionaryFileName = ""
 
@@ -69,6 +69,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("layout")
 			&& !rawLine.startsWith("locale")
 			&& !rawLine.startsWith("name")
+			&& !rawLine.startsWith("numerals")
 			&& !rawLine.startsWith("sounds")
 		) {
 			def parts = rawLine.split(":")
@@ -90,6 +91,10 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
 		}
 
+		if (line.startsWith("numerals")) {
+			areNumeralsValid = line.matches("^numerals:\\s*\\[(.,\\s*?){9}.\\]")
+		}
+
 		if (line.startsWith("layout")) {
 			hasLayout = true
 		}
@@ -100,7 +105,6 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 		if (line.startsWith("locale")) {
 			localeString = line.replace("locale:", "").trim()
-			isLocaleValid = localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")
 		}
 
 		if (line.startsWith("dictionaryFile")) {
@@ -146,10 +150,15 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
 	}
 
-	if (!isLocaleValid) {
+	if (!localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")) {
 		errorCount++
 		def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
 		errorMsg += "Language '${languageFile.name}' is invalid. ${msg}\n"
+	}
+
+	if (!areNumeralsValid) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. 'numerals' property must contain a comma-separated list of 10 characters representing the digits from 0 to 9.\n"
 	}
 
 	dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")

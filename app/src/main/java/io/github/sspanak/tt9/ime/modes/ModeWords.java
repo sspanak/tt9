@@ -94,7 +94,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
-		suggestions.add(language.getKeyNumber(number));
+		suggestions.add(language.getKeyNumeral(number));
 	}
 
 

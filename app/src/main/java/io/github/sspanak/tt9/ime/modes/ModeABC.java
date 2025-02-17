@@ -46,7 +46,7 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = 0;
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.add(language.getKeyNumber(number));
+			suggestions.add(language.getKeyNumeral(number));
 		} else if (repeat > 0) {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			shouldSelectNextLetter = true;
@@ -56,7 +56,7 @@ class ModeABC extends InputMode {
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
 			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
-			suggestions.add(language.getKeyNumber(number));
+			suggestions.add(language.getKeyNumeral(number));
 		}
 
 		return true;
@@ -86,7 +86,7 @@ class ModeABC extends InputMode {
 			return false;
 		}
 
-		suggestions.add(language.getKeyNumber(digitSequence.charAt(0) - '0'));
+		suggestions.add(language.getKeyNumeral(digitSequence.charAt(0) - '0'));
 		return true;
 	}
 
