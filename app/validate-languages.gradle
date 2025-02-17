@@ -279,7 +279,7 @@ static def extractSoundFromLine(String line) {
 
 
 static def isLayoutLine(String line) {
-	return line.matches('\\s+- \\[.+?\\].*') && !line.find('\\d+]')
+	return line.matches('\\s+- \\[.*?\\].*') && !line.find('\\d+]')
 }
 
 //////////////////// VALIDATION ////////////////////
