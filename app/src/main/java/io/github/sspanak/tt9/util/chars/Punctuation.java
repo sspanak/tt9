@@ -17,10 +17,6 @@ class Punctuation {
 	public static final String ZWNJ = "\u200C";
 	public static final String ZWNJ_GRAPHIC = "ZWNJ";
 
-	final public static ArrayList<String> ArabicNumbers = new ArrayList<>(Arrays.asList(
-		"٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
-	));
-
 	final public static ArrayList<Character> CombiningPunctuation = new ArrayList<>(Arrays.asList(
 		',', '-', '\'', ':', ';', '!', '?', '.'
 	));

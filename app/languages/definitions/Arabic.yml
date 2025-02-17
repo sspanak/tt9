@@ -3,6 +3,7 @@ currency: ﷼
 dictionaryFile: ar-utf8.csv
 abcString: أﺏﺕ
 hasUpperCase: no
+numerals: [٠,١,٢,٣,٤,٥,٦,٧,٨,٩]
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION_AR] # 1

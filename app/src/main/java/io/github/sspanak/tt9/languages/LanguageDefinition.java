@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.util.AssetFile;
@@ -29,6 +30,7 @@ public class LanguageDefinition {
 	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
+	@NonNull public HashMap<Integer, String> numerals = new HashMap<>();
 
 	private boolean inLayout = false;
 
@@ -125,28 +127,31 @@ public class LanguageDefinition {
 		switch (key) {
 			case "abcString":
 				abcString = value;
-				break;
+				return;
 			case "currency":
 				currency = value;
-				break;
+				return;
 			case "dictionaryFile":
 				dictionaryFile = value.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
-				break;
+				return;
 			case "hasSpaceBetweenWords":
 				hasSpaceBetweenWords = parseYamlBoolean(value);
-				break;
+				return;
 			case "hasUpperCase":
 				hasUpperCase = parseYamlBoolean(value);
-				break;
+				return;
 			case "sounds":
 				isSyllabary = true;
-				break;
+				return;
 			case "locale":
 				locale = value;
-				break;
+				return;
 			case "name":
 				name = value;
-				break;
+				return;
+			case "numerals":
+				setNumerals(value);
+				return;
 		}
 	}
 
@@ -159,7 +164,7 @@ public class LanguageDefinition {
 			return inLayout = "layout:".equals(line);
 		}
 
-		ArrayList<String> layoutEntry = getLayoutEntryFromYamlLine(line);
+		ArrayList<String> layoutEntry = parseList(line);
 		if (layoutEntry == null) {
 			inLayout = false;
 		} else {
@@ -171,13 +176,25 @@ public class LanguageDefinition {
 	}
 
 
+	private void setNumerals(@NonNull String yamlList) {
+		ArrayList<String> numberList = parseList(yamlList);
+		if (numberList == null || numberList.size() != 10) {
+			return;
+		}
+
+		for (int i = 0; i < 10; i++) {
+			numerals.put(i, numberList.get(i));
+		}
+	}
+
+
+
 	/**
-	 * getLayoutEntryFromYamlLine
 	 * Validates a YAML line as an array and returns the character list to be assigned to a given key (a layout entry).
 	 * If the YAML line is invalid, NULL will be returned.
 	 */
 	@Nullable
-	private ArrayList<String> getLayoutEntryFromYamlLine(@NonNull String yamlLine) {
+	private ArrayList<String> parseList(@NonNull String yamlLine) {
 		int start = yamlLine.indexOf('[');
 		int end = yamlLine.indexOf(']');
 		if (start == -1 || end == -1 || start >= end) {

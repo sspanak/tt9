@@ -143,7 +143,7 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(language.getKeyNumber(number));
+			suggestions.add(language.getKeyNumeral(number));
 		}
 	}
 
