@@ -195,6 +195,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	private void generateCharacterKeyMap() {
 		characterKeyMap.clear();
 		for (int digit = 0; digit <= 9; digit++) {
+			characterKeyMap.put(getKeyNumber(digit).charAt(0), String.valueOf(digit));
 			for (String keyChar : getKeyCharacters(digit)) {
 				characterKeyMap.put(keyChar.charAt(0), String.valueOf(digit));
 			}

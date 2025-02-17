@@ -60,7 +60,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 			displayChars = abbreviateCharList(displayChars, language.getLocale(), isUppercase);
 		}
 
-		return displayChars;
+		return displayChars.isEmpty() ? "--" : displayChars;
 	}
 
 

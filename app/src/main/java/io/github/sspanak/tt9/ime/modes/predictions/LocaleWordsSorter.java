@@ -38,7 +38,7 @@ class LocaleWordsSorter {
 
 
 	ArrayList<String> sort(ArrayList<String> words) {
-		if (sortingPattern == null || words == null) {
+		if (sortingPattern == null || words == null || words.isEmpty()) {
 			return words;
 		}
 
