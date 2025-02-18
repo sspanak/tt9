@@ -71,7 +71,7 @@ abstract public class StandardInputType {
 
 
 	public boolean isEmail() {
-		if (field == null) {
+		if (!isText()) {
 			return false;
 		}
 
@@ -84,7 +84,7 @@ abstract public class StandardInputType {
 
 
 	public boolean isPassword() {
-		if (field == null) {
+		if (!isText()) {
 			return false;
 		}
 
@@ -98,7 +98,7 @@ abstract public class StandardInputType {
 
 
 	boolean isPersonName() {
-		return field != null && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
+		return isText() && (field.inputType & InputType.TYPE_MASK_VARIATION) == InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
 	}
 
 
