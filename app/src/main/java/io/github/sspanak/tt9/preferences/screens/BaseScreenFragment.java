@@ -66,6 +66,7 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	public void onResume() {
 		super.onResume();
 		setScreenTitle();
+		setActivityOptionCounter();
 	}
 
 
@@ -83,6 +84,13 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	public int getPreferenceCount() {
 		initPreferencesList();
 		return preferencesList.size();
+	}
+
+
+	private void setActivityOptionCounter() {
+		if (activity != null) {
+			activity.setOptionsCount(this::getPreferenceCount);
+		}
 	}
 
 
