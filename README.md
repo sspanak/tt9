@@ -30,7 +30,7 @@ _If your phone does not have Google Play and does not allow installing custom AP
 ## ⚙️ System Requirements
 - Android 5.0 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
-- Storage space depends on the Android version. The lite version requires at least 5-8 Mb and the full version requires at least 132 Mb.
+- Storage space depends on the Android version. The lite version requires at least 5-8 Mb and the full version requires at least 150 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
     - Tiny languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
