@@ -390,6 +390,13 @@ _**Touchpal**_
 
 If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
 
+#### Vibration is not working (touchscreen devices only)
+Battery-saving and optimization options and the "Do not disturb" function prevent vibration. Check if any of them are on in your device's System Settings. On some devices, it is possible to configure the battery-optimization options individually, per each application from System Settings → Applications. If yours permits this, turn off the optimizations for TT9.
+
+Another reason vibration does not work is that it may be disabled on the system level. See if your device has "vibrate on touch" or "vibrate on key press" options in System Settings → Accessibility and enable them. Xiaomi and Oneplus devices allow for even more granular vibration control. Make sure all relevant settings are on.
+
+In the end, vibration does not work reliably on some devices. Fixing this will require permission and access to more device functions. However, being a privacy-first keyboard, TT9 will not request such access.
+
 #### I need to use a QWERTY layout (touchscreen devices only)
 Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like layout.
 

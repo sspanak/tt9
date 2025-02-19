@@ -389,6 +389,13 @@ _**Touchpal**_
 
 Eğer aynı fikirde değilseniz veya bakış açınızı açıklamak isterseniz, GitHub'daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Sadece diğer kullanıcılara saygılı olun. Nefret içerikli mesajlara izin verilmeyecektir.
 
+#### Titreşim çalışmıyor (yalnızca dokunmatik ekran cihazları)
+Pil tasarrufu, optimizasyon seçenekleri ve "Rahatsız Etmeyin" modu titreşimi engelleyebilir. Cihazınızın Sistem Ayarlarında bu seçeneklerden herhangi birinin açık olup olmadığını kontrol edin. Bazı cihazlarda, pil optimizasyonunu her uygulama için ayrı ayrı ayarlamak mümkündür. Bunu yapmak için Sistem Ayarları → Uygulamalar bölümüne gidin. Eğer cihazınız destekliyorsa, TT9 için optimizasyonu kapatın.
+
+Titreşimin çalışmamasının bir diğer nedeni, sistem düzeyinde devre dışı bırakılmış olması olabilir. Cihazınızın Sistem Ayarları → Erişilebilirlik bölümünde "Dokunmada titreşim" veya "Tuş basışında titreşim" seçenekleri olup olmadığını kontrol edin ve etkinleştirin. Xiaomi ve OnePlus cihazları titreşim üzerinde daha ayrıntılı kontrol imkanı sunar. Tüm ilgili ayarların açık olduğundan emin olun.
+
+Son olarak, bazı cihazlarda titreşim güvenilir şekilde çalışmayabilir. Bunu düzeltmek için daha fazla izin ve cihaz fonksiyonlarına erişim gereklidir. Ancak, TT9 gizliliği ön planda tutan bir klavye olduğu için bu tür erişimleri talep etmeyecektir.
+
 #### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
