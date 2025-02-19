@@ -389,6 +389,13 @@ _**Touchpal**_
 
 Si vous n'êtes pas d'accord ou souhaitez expliquer votre point de vue, rejoignez [la discussion ouverte](https://github.com/sspanak/tt9/issues/647) sur GitHub. N'oubliez pas de rester respectueux envers les autres. Les messages haineux ne seront pas tolérés.
 
+#### La vibration ne fonctionne pas (appareils à écran tactile uniquement)
+Les options d'économie de batterie, d'optimisation et la fonction "Ne pas déranger" peuvent empêcher la vibration. Vérifiez si l'une de ces options est activée dans les paramètres système de votre appareil. Sur certains appareils, il est possible de configurer l'optimisation de la batterie individuellement pour chaque application via Paramètres système → Applications. Si votre appareil le permet, désactivez l'optimisation pour TT9.
+
+Une autre raison pour laquelle la vibration ne fonctionne pas est qu'elle peut être désactivée au niveau du système. Vérifiez si votre appareil dispose des options "Vibrer au toucher" ou "Vibrer à l'appui des touches" dans Paramètres système → Accessibilité et activez-les. Les appareils Xiaomi et OnePlus offrent un contrôle encore plus précis de la vibration. Assurez-vous que tous les paramètres pertinents sont activés.
+
+Enfin, la vibration ne fonctionne pas de manière fiable sur certains appareils. Pour corriger cela, il faudrait des permissions et un accès à davantage de fonctions du système. Cependant, TT9 étant un clavier qui respecte la confidentialité, il ne demandera pas ces accès.
+
 #### J'ai besoin d'utiliser un clavier QWERTY (uniquement pour les appareils tactiles)
 Traditional T9 est un clavier T9 et en tant que tel, il ne propose pas de disposition de type QWERTY.
 
