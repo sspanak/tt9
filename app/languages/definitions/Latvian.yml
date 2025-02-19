@@ -1,5 +1,6 @@
 locale: lv-LV
 dictionaryFile: lv-utf8.csv
+abcString: abc
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1
