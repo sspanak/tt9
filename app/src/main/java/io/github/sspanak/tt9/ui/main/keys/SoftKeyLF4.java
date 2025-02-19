@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
@@ -59,13 +60,23 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
-	protected int getHoldIcon() {
-		return areThereManyLanguages() ? R.drawable.ic_fn_next_language : -1;
+	protected String getHoldText() {
+		if (!areThereManyLanguages() || tt9 == null) {
+			return null;
+		}
+		Language current = tt9.getLanguage();
+		if (current == null) {
+			return null;
+		}
+		Language next = tt9.getNextLanguage();
+		return current.getCode().toUpperCase(current.getLocale())
+			+ " ➧ "
+			+ next.getCode().toUpperCase(next.getLocale());
 	}
 
 	@Override
 	protected float getHoldElementScale() {
-		return super.getHoldElementScale() * 0.75f;
+		return super.getHoldElementScale() * 0.85f;
 	}
 
 	@Override
