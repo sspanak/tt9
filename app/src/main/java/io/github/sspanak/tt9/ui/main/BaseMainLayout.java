@@ -87,6 +87,18 @@ abstract class BaseMainLayout {
 	}
 
 
+	protected void preventEdgeToEdge() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM || tt9 == null || tt9.isInputLimited()) {
+			return;
+		}
+
+		WindowInsets insets = view != null ? view.getRootWindowInsets() : null;
+		if (insets != null) {
+			preventEdgeToEdge(view, insets);
+		}
+	}
+
+
 	void requestPreventEdgeToEdge() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM && view != null) {
 			view.requestApplyInsets();
