@@ -43,13 +43,9 @@ public class InputType extends StandardInputType {
 			return false;
 		}
 
-		boolean isActionDone = (field.imeOptions & EditorInfo.IME_MASK_ACTION) == EditorInfo.IME_ACTION_DONE;
-		boolean notNavigateNext = (field.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_NEXT) != EditorInfo.IME_FLAG_NAVIGATE_NEXT;
-		boolean notNavigatePrevious = (field.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS) != EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
-
 		return
-			(isAppInput("com.android.contacts", 33) || isAppInput("com.google.android.contacts", 33))
-			&& (isActionDone || (notNavigateNext && notNavigatePrevious));
+			(isAppInput("com.android.contacts", 33)) // only detect the old Contacts
+			&& (field.imeOptions & EditorInfo.IME_FLAG_NO_EXTRACT_UI) == EditorInfo.IME_FLAG_NO_EXTRACT_UI;
 	}
 
 

@@ -282,5 +282,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
+
+		preventEdgeToEdge();
 	}
 }
