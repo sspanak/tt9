@@ -1,4 +1,5 @@
 locale: vi-VN
+currency: ₫
 dictionaryFile: vi-utf8.csv
 layout:
   - [SPECIAL] # 0

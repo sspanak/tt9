@@ -1,4 +1,5 @@
 locale: ru-RU
+currency: ₽
 dictionaryFile: ru-utf8.csv
 layout:
   - [SPECIAL] # 0

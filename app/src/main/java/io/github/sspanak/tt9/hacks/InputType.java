@@ -25,7 +25,7 @@ public class InputType extends StandardInputType {
 	 */
 	private boolean isAndroid15ContactsField() {
 		return
-			isAppField("com.google.android.contacts", 8288)
+			isAppInput("com.google.android.contacts", 8288)
 			&& field.privateImeOptions != null && field.privateImeOptions.contains("requestPhoneticOutput");
 	}
 
@@ -34,7 +34,9 @@ public class InputType extends StandardInputType {
 	 * Yet another randomly defined field. On Unihertz Atom L (Android 11) and Show F2 (Android 8),
 	 * the search field in the Contacts app is defined as "email", instead of a plain text field, like
 	 * in other devices. This causes us to display suggestions for email addresses, which is not desired.
-	 * Bug report: <a href="https://github.com/sspanak/tt9/issues/698">#698</a>
+	 * Bug reports:
+	 * <a href="https://github.com/sspanak/tt9/issues/698">#698</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/735">#735</a>
 	 */
 	public boolean isAndroidContactsSearch() {
 		if (field == null) {
@@ -46,7 +48,7 @@ public class InputType extends StandardInputType {
 		boolean notNavigatePrevious = (field.imeOptions & EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS) != EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
 
 		return
-			(isAppField("com.android.contacts", 33) || isAppField("com.google.android.contacts", 33))
+			(isAppInput("com.android.contacts", 33) || isAppInput("com.google.android.contacts", 33))
 			&& (isActionDone || (notNavigateNext && notNavigatePrevious));
 	}
 
@@ -58,7 +60,7 @@ public class InputType extends StandardInputType {
 	 * disable composing at the right place.
 	 */
 	public boolean isDeezerSearchBar() {
-		return isAppField("deezer.android.app", 32769) && field.imeOptions == 33554438;
+		return isAppInput("deezer.android.app", 32769) && field.imeOptions == 33554438;
 	}
 
 
@@ -223,12 +225,22 @@ public class InputType extends StandardInputType {
 
 	/**
 	 * isAppField
-	 * Detects a particular input field of a particular application.
+	 * Checks if a particular app field has specific inputType flags.
 	 */
 	boolean isAppField(String appPackageName, int fieldSpec) {
 		return
 			field != null
 			&& ((field.inputType & fieldSpec) == fieldSpec)
+			&& field.packageName.equals(appPackageName);
+	}
+
+	/**
+	 * Similar to isAppField, but checks the inputType for strict equality, instead for contained flags.
+	 */
+	boolean isAppInput(String appPackageName, int inputType) {
+		return
+			field != null
+			&& field.inputType == inputType
 			&& field.packageName.equals(appPackageName);
 	}
 }

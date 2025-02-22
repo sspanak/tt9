@@ -18,6 +18,7 @@ public class EmojiLanguage extends Language {
 		locale = Locale.ROOT;
 		abcString = "emoji";
 		code = "emj";
+		currency = "";
 		name = "Emoji";
 	}
 

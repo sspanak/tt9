@@ -3,17 +3,11 @@ plugins {
 }
 
 apply from: 'constants.gradle'
-apply from: 'build-dictionary.gradle'
+apply from: 'build-definitions.gradle'
+apply from: 'build-dictionaries.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'help-tools.gradle'
 apply from: 'version-tools.gradle'
-
-
-tasks.register('copyDefinitions', Copy) {
-	from LANGUAGES_INPUT_DIR
-	include '**/*.yml'
-	into LANGUAGES_OUTPUT_DIR
-}
 
 
 tasks.register('validateLanguages') {
@@ -26,8 +20,18 @@ tasks.register('validateLanguages') {
 }
 
 
+tasks.register('buildDefinition') {
+	inputs.dir DEFINITIONS_INPUT_DIR
+	outputs.file DEFINITIONS_OUTPUT_FILE
+
+	doLast {
+		mergeDefinitions(DEFINITIONS_INPUT_DIR, DEFINITIONS_OUTPUT_FILE)
+	}
+}
+
+
 tasks.register('buildDictionaryDownloads') {
-	inputs.dir DICTIONARIES_INPUT_DIR
+	inputs.dir LANGUAGES_INPUT_DIR
 	outputs.dir DICTIONARIES_DOWNLOAD_DIR
 	outputs.dir DICTIONARY_META_OUTPUT_DIR
 
@@ -139,7 +143,7 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(copyDefinitions, convertHelp, validateLanguages, buildDictionaryDownloads)
+					dependsOn(buildDefinition, convertHelp, validateLanguages, buildDictionaryDownloads)
 				}
 
 				if (taskName.toLowerCase().contains("full")) {

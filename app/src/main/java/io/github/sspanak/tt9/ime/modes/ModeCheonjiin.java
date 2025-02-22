@@ -143,7 +143,7 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
-			suggestions.add(language.getKeyNumber(number));
+			suggestions.add(language.getKeyNumeral(number));
 		}
 	}
 
@@ -252,14 +252,27 @@ class ModeCheonjiin extends InputMode {
 			return false;
 		}
 
+		// KEY_CHARACTERS contains chars for group 0 only. If it turns out we are at group > 0
+		// we must allow super to do its job.
+		boolean callSuper = true;
+		if (specialCharSelectedGroup > 0) {
+			super.loadSpecialCharacters(); // this increments specialCharSelectedGroup or resets it to 0, if no more groups are available
+			callSuper = false;
+			if (specialCharSelectedGroup > 0) {
+				return true;
+			}
+		}
+
+		// ... otherwise display our custom first groups, if available
 		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
 			suggestions.addAll(KEY_CHARACTERS.get(number));
 			return true;
-		} else {
-			return super.loadSpecialCharacters();
 		}
+
+		// if we never asked super to advance the group and load the respective chars, do it now
+		return callSuper && super.loadSpecialCharacters();
 	}
 
 

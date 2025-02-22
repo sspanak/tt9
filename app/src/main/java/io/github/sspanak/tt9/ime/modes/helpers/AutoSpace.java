@@ -6,6 +6,7 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -18,6 +19,7 @@ public class AutoSpace {
 	private static final Set<Character> NO_PRECEDING_SPACE_PUNCTUATION = Set.of('.', ',', ')', '\'', '@', '“', '؟', Characters.GR_QUESTION_MARK.charAt(0));
 	private static final Set<Character> NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
 
+	private Language language;
 	private final SettingsStore settings;
 
 	private boolean isLanguageFrench;
@@ -26,6 +28,7 @@ public class AutoSpace {
 
 
 	public AutoSpace(SettingsStore settingsStore) {
+		language = new NullLanguage();
 		settings = settingsStore;
 		isLanguageWithAlphabet = false;
 		isLanguageFrench = false;
@@ -33,10 +36,11 @@ public class AutoSpace {
 	}
 
 
-	public AutoSpace setLanguage(Language language) {
-		isLanguageFrench = LanguageKind.isFrench(language);
-		isLanguageWithAlphabet = language != null && !language.isSyllabary();
-		isLanguageWithSpaceBetweenWords = language != null && language.hasSpaceBetweenWords();
+	public AutoSpace setLanguage(Language lang) {
+		language = language == null ? new NullLanguage() : lang;
+		isLanguageFrench = LanguageKind.isFrench(lang);
+		isLanguageWithAlphabet = !language.isSyllabary();
+		isLanguageWithSpaceBetweenWords = language.hasSpaceBetweenWords();
 		return this;
 	}
 
@@ -112,7 +116,9 @@ public class AutoSpace {
 				|| (!Character.isDigit(penultimateChar) && previousChar == ':')
 				|| (!Character.isDigit(penultimateChar) && previousChar == '.')
 				|| (!Character.isDigit(penultimateChar) && previousChar == ',')
-				|| (Character.isDigit(penultimateChar) && Characters.Currency.contains(String.valueOf(previousChar)))
+				|| (
+					Character.isDigit(penultimateChar) && Characters.isCurrency(language, String.valueOf(previousChar))
+				)
 			);
 	}
 

@@ -85,8 +85,8 @@ public class SoftKeyNumber extends BaseSoftKeyWithIcons {
 
 
 	protected String getLocalizedNumber(int number) {
-		if (isArabicNumber() && tt9 != null && tt9.getLanguage() != null) {
-			return tt9.getLanguage().getKeyNumber(number);
+		if (tt9 != null && !tt9.isInputModeNumeric() && tt9.getLanguage() != null) {
+			return tt9.getLanguage().getKeyNumeral(number);
 		} else {
 			return String.valueOf(number);
 		}
@@ -97,10 +97,5 @@ public class SoftKeyNumber extends BaseSoftKeyWithIcons {
 	protected float getHoldElementScale() {
 		float defaultScale = super.getHoldElementScale();
 		return tt9 != null && LanguageKind.isArabic(tt9.getLanguage()) ? defaultScale * 1.25f : defaultScale;
-	}
-
-
-	private boolean isArabicNumber() {
-		return tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isArabic(tt9.getLanguage());
 	}
 }

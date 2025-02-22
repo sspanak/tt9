@@ -22,6 +22,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
+	@NonNull private HashMap<Integer, String> numerals = new HashMap<>();
 
 
 	public static NaturalLanguage fromDefinition(LanguageDefinition definition) throws Exception {
@@ -31,11 +32,13 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 		NaturalLanguage lang = new NaturalLanguage();
 		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
+		lang.currency = definition.currency;
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.isSyllabary = definition.isSyllabary;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
+		lang.numerals = definition.numerals;
 		lang.setLocale(definition);
 		lang.setLayout(definition);
 
@@ -194,6 +197,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 	private void generateCharacterKeyMap() {
 		characterKeyMap.clear();
 		for (int digit = 0; digit <= 9; digit++) {
+			characterKeyMap.put(getKeyNumeral(digit).charAt(0), String.valueOf(digit));
 			for (String keyChar : getKeyCharacters(digit)) {
 				characterKeyMap.put(keyChar.charAt(0), String.valueOf(digit));
 			}
@@ -213,6 +217,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 				chars = new ArrayList<>();
 			} else if (characterGroup == 1) {
 				chars = new ArrayList<>(Characters.Currency);
+				if (!currency.isEmpty()) chars.add(2, currency);
 			}
 		}
 
@@ -221,8 +226,9 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 
 
 	@NonNull
-	public String getKeyNumber(int key) {
-		return key >= 0 && key < 10 && LanguageKind.isArabic(this) ? Characters.ArabicNumbers.get(key) : super.getKeyNumber(key);
+	public String getKeyNumeral(int key) {
+		String digit = numerals.containsKey(key) ? numerals.get(key) : null;
+		return  digit != null ? digit : super.getKeyNumeral(key);
 	}
 
 

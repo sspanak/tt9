@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -52,6 +53,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);
+		setOnBackPressed();
 
 		// changing the theme causes onCreate(), which displays the MainSettingsScreen,
 		// but leaves the old "back" history, which is no longer valid,
@@ -98,20 +100,26 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	}
 
 
-	@Override
-	public void onBackPressed() {
-		Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
-		if (previousFragment instanceof BaseScreenFragment) {
-			((BaseScreenFragment) previousFragment).onBackPressed();
-		}
+	/**
+	 * onBackPressed() is deprecated, so calling the onBackPressed() on the Fragments is now more complicated.
+	 */
+	private void setOnBackPressed() {
+		OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+			@Override
+			public void handleOnBackPressed() {
+				Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
+				if (previousFragment instanceof BaseScreenFragment) {
+					((BaseScreenFragment) previousFragment).onBackPressed();
+				}
 
-		super.onBackPressed();
+				setEnabled(false);
+				getOnBackPressedDispatcher().onBackPressed();
+				setEnabled(true);
+			}
+    };
 
-		Fragment nextFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
-		if (nextFragment instanceof BaseScreenFragment) {
-			((BaseScreenFragment) nextFragment).onBackPressed();
-			getOptionsCount = ((BaseScreenFragment) nextFragment)::getPreferenceCount;
-		}
+		// On API >= 33, this requires android:enableOnBackInvokedCallback="true" in the manifest
+		getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 	}
 
 

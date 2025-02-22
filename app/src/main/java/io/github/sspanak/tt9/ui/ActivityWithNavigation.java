@@ -79,6 +79,11 @@ abstract public class ActivityWithNavigation extends EdgeToEdgeActivity {
 	}
 
 
+	public void setOptionsCount(@NonNull Callable<Integer> getOptionsCount) {
+		this.getOptionsCount = getOptionsCount;
+	}
+
+
 	protected void resetKeyRepeat() {
 		lastKey = KeyEvent.KEYCODE_UNKNOWN;
 	}

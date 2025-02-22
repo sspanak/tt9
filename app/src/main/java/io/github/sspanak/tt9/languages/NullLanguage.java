@@ -7,12 +7,13 @@ import java.util.Locale;
 
 public class NullLanguage extends Language {
 	public NullLanguage() {
-		locale = Locale.ROOT;
-		name = "Nulla Lingua";
 		abcString = "ABC";
 		code = "";
+		currency = "";
 		dictionaryFile = "";
 		hasUpperCase = false;
+		locale = Locale.ROOT;
+		name = "Nulla Lingua";
 	}
 
 	@NonNull
