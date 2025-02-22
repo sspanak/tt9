@@ -52,12 +52,12 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	protected void cleanUp() {
-		if (mainView != null) {
-			mainView.removeListeners();
-		}
 		if (orientationListener != null) {
 			orientationListener.stop();
 			orientationListener = null;
+		}
+		if (mainView != null) {
+			mainView.destroy();
 		}
 	}
 
