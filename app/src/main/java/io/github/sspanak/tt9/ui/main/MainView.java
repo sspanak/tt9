@@ -43,8 +43,12 @@ public class MainView {
 		return true;
 	}
 
-	public void forceCreate() {
+	public void destroy() {
 		main = null;
+	}
+
+	public void forceCreate() {
+		destroy();
 		if (!create()) {
 			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);

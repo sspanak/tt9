@@ -49,6 +49,8 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	public View onCreateInputView() {
+		// This may get called even when not switching IMEs, but we can't reuse the previous view
+		// because it will cause: "IllegalStateException: The specified child already has a parent"
 		mainView.forceCreate();
 		initTray();
 		statusBar.setText(mInputMode);

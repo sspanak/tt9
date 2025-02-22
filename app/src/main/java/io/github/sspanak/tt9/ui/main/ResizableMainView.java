@@ -51,11 +51,15 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		return true;
 	}
 
-	public void removeListeners() {
+
+	@Override
+	public void destroy() {
 		if (main != null && main.getView() != null) {
 			main.getView().removeOnAttachStateChangeListener(this);
 		}
+		super.destroy();
 	}
+
 
 	@Override public void onViewAttachedToWindow(@NonNull View v) { setHeight(height, heightSmall, heightNumpad); }
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
