@@ -292,10 +292,6 @@
 		<item name="android:tint">@color/key_fn_alternative_text</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.LF4.Overlay.HoldIcon" parent="TTheme.Numpad.Key.Overlay.HoldIcon">
-		<item name="android:tint">@color/key_lf4_alternative_text</item>
-	</style>
-
 	<!-- Overlay: Hold Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:textSize">@dimen/numpad_key_overlay_side_text_size</item>
@@ -309,6 +305,10 @@
 		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_hold_text_spacing_top</item>
 		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_hold_text_spacing_right</item>
 		<item name="android:textSize">@dimen/numpad_key_overlay_hold_text_size</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.LF4.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text.Hold">
+		<item name="android:textColor">@color/key_lf4_alternative_text</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Number.Overlay.Text.Hold" parent="TTheme.Numpad.Key.Overlay.Text.Hold">
