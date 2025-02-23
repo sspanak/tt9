@@ -61,8 +61,11 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	@Override public void onViewAttachedToWindow(@NonNull View v) { setHeight(height, heightSmall, heightNumpad); }
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
+	@Override public void onViewAttachedToWindow(@NonNull View v) {
+		setHeight(height, heightSmall, heightNumpad);
+		main.preventEdgeToEdge();
+	}
 
 
 	public void onOrientationChanged() {

@@ -273,6 +273,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		getView();
 		enableClickHandlers();
 		setKeyHeight(defaultKeyHeight);
+		preventEdgeToEdge();
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		showLongSpace(
@@ -282,7 +283,5 @@ class MainLayoutNumpad extends BaseMainLayout {
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
-
-		preventEdgeToEdge();
 	}
 }
