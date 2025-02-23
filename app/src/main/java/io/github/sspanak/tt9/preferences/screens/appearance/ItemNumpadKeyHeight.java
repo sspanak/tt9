@@ -22,18 +22,9 @@ public class ItemNumpadKeyHeight extends ItemDropDown implements ItemLayoutChang
 		int baseSize = settings.getNumpadKeyDefaultHeight();
 
 		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		options.put((int) Math.round(baseSize * 0.7), "70 ％");
-		options.put((int) Math.round(baseSize * 0.75), "75 ％");
-		options.put((int) Math.round(baseSize * 0.8), "80 ％");
-		options.put((int) Math.round(baseSize * 0.85), "85 ％");
-		options.put((int) Math.round(baseSize * 0.9), "90 ％");
-		options.put((int) Math.round(baseSize * 0.95), "95 ％");
-		options.put(baseSize, "100 ％");
-		options.put((int) Math.round(baseSize * 1.05), "105 ％");
-		options.put((int) Math.round(baseSize * 1.1), "110 ％");
-		options.put((int) Math.round(baseSize * 1.2), "120 ％");
-		options.put((int) Math.round(baseSize * 1.33), "133 ％");
-
+		for (int i = 70; i <= 150; i += 5) {
+			options.put((int) Math.round(baseSize * i / 100.0), i + " ％");
+		}
 		super.populateIntegers(options);
 		super.setValue(settings.getNumpadKeyHeight() + "");
 		onLayoutChange(settings.getMainViewLayout());
