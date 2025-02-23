@@ -16,12 +16,14 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 
 abstract class BaseMainLayout {
-	private static ViewGroup.MarginLayoutParams edgeToEdgeMargins = null;
+	protected int e2ePaddingBottomLandscape = -1;
+	protected int e2ePaddingBottomPortrait = -1;
 
 	protected final TraditionalT9 tt9;
 	private final int xml;
@@ -76,26 +78,36 @@ abstract class BaseMainLayout {
 	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
 	protected WindowInsets preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-		ViewGroup.MarginLayoutParams marginParams = setMargins(v, insets.right, insets.bottom, insets.left);
-		if (marginParams != null) {
-			edgeToEdgeMargins = marginParams;
-			return WindowInsets.CONSUMED;
+		v.setPadding(insets.left, 0, insets.right, insets.bottom);
+
+		// cache the padding for use when the insets are not available
+		if (e2ePaddingBottomLandscape < 0 || e2ePaddingBottomPortrait < 0) {
+			boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
+			if (isLandscape) {
+				e2ePaddingBottomLandscape = insets.bottom;
+			} else {
+				e2ePaddingBottomPortrait = insets.bottom;
+			}
 		}
 
-		return windowInsets;
+		return WindowInsets.CONSUMED;
 	}
 
 
 	/**
-	 * Similar to the above method, but reuses the last known margins. Useful for when the Main View
+	 * Similar to the above method, but reuses the last known padding. Useful for when the Main View
 	 * is re-created and it is not yet possible to get the new window insets.
  	 */
 	public void preventEdgeToEdge() {
-		if (view == null || edgeToEdgeMargins == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+		if (tt9 == null || view == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
 			return;
 		}
 
-		setMargins(view, edgeToEdgeMargins.rightMargin, edgeToEdgeMargins.bottomMargin, edgeToEdgeMargins.leftMargin);
+		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
+
+		int bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
+		bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(view.getContext(), isLandscape) : bottomPadding;
+		view.setPadding(view.getPaddingLeft(), 0, view.getPaddingRight(), bottomPadding);
 	}
 
 
@@ -129,40 +141,30 @@ abstract class BaseMainLayout {
 	}
 
 
-	private ViewGroup.MarginLayoutParams setMargins(View v, int right, int bottom, int left) {
-		if (v == null) {
-			return null;
-		}
-
-		ViewGroup.MarginLayoutParams layout = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-		if (layout != null) {
-			layout.rightMargin = right;
-			layout.bottomMargin = bottom;
-			layout.leftMargin = left;
-			v.setLayoutParams(layout);
-		}
-
-		return layout;
-	}
-
-
 	int getHeight(boolean forceRecalculate) {
 		return 0;
 	}
 
 
-	boolean setHeight(int height) {
-		if (view == null) {
+	int getKeyboardHeight() {
+		View keyboard = view != null ? view.findViewById(R.id.keyboard_container) : null;
+		return keyboard != null ? keyboard.getMeasuredHeight() : 0;
+	}
+
+
+	boolean setKeyboardHeight(int height) {
+		View keyboard = view != null ? view.findViewById(R.id.keyboard_container) : null;
+		if (keyboard == null) {
 			return false;
 		}
 
-		ViewGroup.LayoutParams params = view.getLayoutParams();
+		ViewGroup.LayoutParams params = keyboard.getLayoutParams();
 		if (params == null) {
 			return false;
 		}
 
 		params.height = height;
-		view.setLayoutParams(params);
+		keyboard.setLayoutParams(params);
 		return true;
 	}
 

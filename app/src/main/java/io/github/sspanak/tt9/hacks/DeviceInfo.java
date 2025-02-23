@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.R;
+
 public class DeviceInfo {
 	private static Resources resources;
 
@@ -22,6 +24,21 @@ public class DeviceInfo {
 
 	public static boolean isLandscapeOrientation(Context context) {
 		return getResources(context).getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+	public static int getNavigationBarHeight(Context context, boolean isLandscape) {
+		Resources resources = getResources(context);
+
+		// navBarMode = 0: 3-button, 1 = 2-button, 2 = gesture
+		int resourceId = resources.getIdentifier("config_navBarInteractionMode", "integer", "android");
+		int navBarMode = resourceId > 0 ? resources.getInteger(resourceId) : 0;
+
+		int navBarHeight = resources.getDimensionPixelSize(R.dimen.android_navigation_bar_height);
+		if (isLandscape) {
+			return navBarMode == 0 ? 0 : navBarHeight;
+		} else {
+			return navBarHeight;
+		}
 	}
 
 	public static int getScreenWidth(Context context) {
