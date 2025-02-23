@@ -21,6 +21,8 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 
 abstract class BaseMainLayout {
+	private static ViewGroup.MarginLayoutParams edgeToEdgeMargins = null;
+
 	protected final TraditionalT9 tt9;
 	private final int xml;
 
@@ -74,28 +76,26 @@ abstract class BaseMainLayout {
 	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
 	protected WindowInsets preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-		ViewGroup.MarginLayoutParams layout = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-		if (layout == null) {
-			return windowInsets;
+		ViewGroup.MarginLayoutParams marginParams = setMargins(v, insets.right, insets.bottom, insets.left);
+		if (marginParams != null) {
+			edgeToEdgeMargins = marginParams;
+			return WindowInsets.CONSUMED;
 		}
 
-		layout.rightMargin = insets.right;
-		layout.bottomMargin = insets.bottom;
-		layout.leftMargin = insets.left;
-		v.setLayoutParams(layout);
-		return WindowInsets.CONSUMED;
+		return windowInsets;
 	}
 
 
-	protected void preventEdgeToEdge() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM || tt9 == null || tt9.isInputLimited()) {
+	/**
+	 * Similar to the above method, but reuses the last known margins. Useful for when the Main View
+	 * is re-created and it is not yet possible to get the new window insets.
+ 	 */
+	public void preventEdgeToEdge() {
+		if (view == null || edgeToEdgeMargins == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
 			return;
 		}
 
-		WindowInsets insets = view != null ? view.getRootWindowInsets() : null;
-		if (insets != null) {
-			preventEdgeToEdge(view, insets);
-		}
+		setMargins(view, edgeToEdgeMargins.rightMargin, edgeToEdgeMargins.bottomMargin, edgeToEdgeMargins.leftMargin);
 	}
 
 
@@ -126,6 +126,23 @@ abstract class BaseMainLayout {
 		}
 
 		return keyList;
+	}
+
+
+	private ViewGroup.MarginLayoutParams setMargins(View v, int right, int bottom, int left) {
+		if (v == null) {
+			return null;
+		}
+
+		ViewGroup.MarginLayoutParams layout = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+		if (layout != null) {
+			layout.rightMargin = right;
+			layout.bottomMargin = bottom;
+			layout.leftMargin = left;
+			v.setLayoutParams(layout);
+		}
+
+		return layout;
 	}
 
 
