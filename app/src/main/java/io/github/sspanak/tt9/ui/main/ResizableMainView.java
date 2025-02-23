@@ -63,8 +63,8 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 	@Override public void onViewAttachedToWindow(@NonNull View v) {
-		setHeight(height, heightSmall, heightNumpad);
 		main.preventEdgeToEdge();
+		setHeight(height, heightSmall, heightNumpad);
 	}
 
 
@@ -180,11 +180,12 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private boolean changeHeight(int delta, int minHeight, int maxHeight) {
-		if (main == null || main.getView() == null) {
+		int keyboardHeight = main.getKeyboardHeight();
+		if (keyboardHeight == 0) {
 			return false;
 		}
 
-		return setHeight(main.getView().getMeasuredHeight() + delta, minHeight, maxHeight);
+		return setHeight(keyboardHeight + delta, minHeight, maxHeight);
 	}
 
 
@@ -194,7 +195,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		}
 
 		height = Math.min(height, maxHeight);
-		if (main.setHeight(height)) {
+		if (main.setKeyboardHeight(height)) {
 			this.height = height;
 			return true;
 		}
