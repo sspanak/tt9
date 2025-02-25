@@ -104,21 +104,26 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 
 	/**
-	 * Uses the key height from the settings, but if it takes up too much of the screen, it will
-	 * be adjusted so that the entire Main View would take up around 50%  of the screen in landscape mode
-	 * and 75% in portrait mode. Returns the adjusted height of a single key.
+	 * Uses the key height from the settings, but if the keyboard takes up too much screen space, it
+	 * will be adjusted limited to 60% of the screen height in landscape mode and 75% in portrait mode.
+	 * This prevents Android from auto-closing the keyboard in some apps that have a lot of content.
+	 * Returns the adjusted height of a single key.
 	 */
 	private int calculateKeyHeight() {
 		int keyHeight = tt9.getSettings().getNumpadKeyHeight();
-		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
-
 		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9.getApplicationContext());
-		double maxScreenHeight = isLandscape ? screenHeight * 0.75 : screenHeight * 0.8;
-		double maxKeyHeight = isLandscape ? screenHeight * 0.115 : screenHeight * 0.125;
 
-		// it's all very approximate but when it comes to screen dimensions,
-		// accuracy is not that important
-		return keyHeight * 5 > maxScreenHeight ? (int) Math.round(maxKeyHeight) : keyHeight;
+		int bottomPadding = 0;
+		if (DeviceInfo.AT_LEAST_ANDROID_15) {
+			bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
+			bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(tt9.getApplicationContext(), isLandscape) : bottomPadding;
+		}
+
+		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext()) - bottomPadding;
+		double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
+		int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
+
+		return Math.min(keyHeight, maxKeyHeight);
 	}
 
 
