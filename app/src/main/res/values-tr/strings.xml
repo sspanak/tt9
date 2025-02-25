@@ -19,7 +19,7 @@
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
-	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek.</string>
+	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
 	<string name="pref_help">Yardım</string>
 	<string name="pref_dark_theme">Karanlık Tema</string>
 	<string name="pref_category_typing_modes">Yazma Modları</string>

@@ -76,7 +76,7 @@
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
 	<string name="pref_haptic_feedback">Vibration</string>
-	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed.</string>
+	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed. (Not possible on all devices)</string>
 	<string name="pref_help">Help</string>
 	<string name="pref_layout">On-screen Layout</string>
 	<string name="pref_layout_numpad">Virtual numpad</string>
