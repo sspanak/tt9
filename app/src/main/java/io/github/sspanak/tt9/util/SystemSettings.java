@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.util;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.LocaleList;
 import android.provider.Settings;
 import android.view.Window;
@@ -13,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Locale;
+
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 
 public class SystemSettings {
@@ -46,7 +47,7 @@ public class SystemSettings {
 
 	@NonNull
 	public static String getLocale() {
-		Locale locale = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? LocaleList.getDefault().get(0) : Locale.getDefault();
+		Locale locale = DeviceInfo.AT_LEAST_ANDROID_7 ? LocaleList.getDefault().get(0) : Locale.getDefault();
 		String country = locale.getCountry();
 		String language = locale.getLanguage();
 
@@ -77,7 +78,7 @@ public class SystemSettings {
 	 * @see : <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
 	 */
 	public static void setNavigationBarDarkTheme(@Nullable Window window, boolean dark) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_11) {
 			return;
 		}
 

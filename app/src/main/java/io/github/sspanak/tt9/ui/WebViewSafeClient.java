@@ -2,13 +2,13 @@ package io.github.sspanak.tt9.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -26,9 +26,9 @@ public class WebViewSafeClient extends WebViewClient {
 			return super.shouldOverrideUrlLoading(view, url);
 		}
 
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || !shareLink(url)) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_10 || !shareLink(url)) {
 			Clipboard.copy(activity, url);
-			if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+			if (!DeviceInfo.AT_LEAST_ANDROID_13) {
 				UI.toastShortSingle(activity, R.string.help_url_copied);
 			}
 		}

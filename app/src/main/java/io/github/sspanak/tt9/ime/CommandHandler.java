@@ -1,10 +1,9 @@
 package io.github.sspanak.tt9.ime;
 
-import android.os.Build;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -126,7 +125,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+		if (DeviceInfo.AT_LEAST_ANDROID_9) {
 			switchToPreviousInputMethod();
 			return;
 		}
