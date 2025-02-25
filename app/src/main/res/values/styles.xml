@@ -11,6 +11,7 @@
 		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layoutDirection">ltr</item>
 		<item name="android:orientation">horizontal</item>
+		<item name="android:background">@color/keyboard_wrapper_background</item>
 	</style>
 
 	<style name="TTheme.FullScreenContainer.SideBumper" parent="">
@@ -38,6 +39,10 @@
 		<item name="android:layout_width">match_parent</item>
 
 		<item name="android:background">@color/keyboard_top_separator</item>
+	</style>
+
+	<style name="TTheme.Bumper.TopSeparator" parent="TTheme.Keyboard.TopSeparator">
+		<item name="android:background">@color/keyboard_wrapper_top_separator</item>
 	</style>
 
 	<!--*******************************************

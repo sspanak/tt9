@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.graphics.Color;
 import android.graphics.Insets;
 import android.os.Build;
 import android.view.ContextThemeWrapper;
@@ -235,6 +236,45 @@ abstract class BaseMainLayout {
 
 		setBumperWidth(widthPercent, gravity);
 		setKeyboardWidth(widthPercent);
+	}
+
+
+	private boolean shouldEnableBackgroundBlending() {
+		if (view == null || tt9 == null) {
+			return true;
+		}
+
+		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
+		int width = tt9.getSettings().getWidthPercent();
+
+		return
+			Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+			&& ((isLandscape && width >= 75) || (!isLandscape && width >= 65));
+	}
+
+
+	protected void setBackgroundBlending() {
+		if (view == null) {
+			return;
+		}
+
+		boolean yes = shouldEnableBackgroundBlending();
+
+		view.setBackgroundColor(
+				yes ? view.getContext().getResources().getColor(R.color.keyboard_background) : Color.TRANSPARENT
+		);
+
+		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;
+
+		View leftBumperTopSeparator = view.findViewById(R.id.bumper_left_top_separator);
+		if (leftBumperTopSeparator != null) {
+			leftBumperTopSeparator.setVisibility(separatorVisibility);
+		}
+
+		View rightBumperTopSeparator = view.findViewById(R.id.bumper_right_top_separator);
+		if (rightBumperTopSeparator != null) {
+			rightBumperTopSeparator.setVisibility(separatorVisibility);
+		}
 	}
 
 

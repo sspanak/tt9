@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- only used for calculating the initial default width -->
 	<dimen name="numpad_max_width">720dp</dimen>
 </resources>

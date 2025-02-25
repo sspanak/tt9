@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
 	protected SettingsStore settings;
@@ -44,6 +45,7 @@ abstract class UiHandler extends AbstractHandler {
 		statusBar.setText(inputMode);
 		mainView.hideCommandPalette();
 		mainView.render();
+		SystemSettings.setNavigationBarDarkTheme(getWindow().getWindow(), settings.getDarkTheme());
 
 		if (!isInputViewShown()) {
 			updateInputViewShown();
