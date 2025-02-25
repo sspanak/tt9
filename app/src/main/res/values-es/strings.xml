@@ -9,7 +9,7 @@
 	<string name="pref_layout_small">Teclas de función</string>
 	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>
-	<string name="pref_haptic_feedback_summary">Vibrar al presionar una tecla virtual.</string>
+	<string name="pref_haptic_feedback_summary">Vibrar al presionar una tecla virtual. (No es posible en todos los dispositivos)</string>
 	<string name="pref_help">Ayuda</string>
 	<string name="pref_font_size_large">Grande</string>
 	<string name="completed">Terminado</string>

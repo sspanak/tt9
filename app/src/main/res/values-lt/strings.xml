@@ -54,7 +54,7 @@
 	<string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
-	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą.</string>
+	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą. (Neįmanoma visuose įrenginiuose)</string>
 	<string name="pref_help">Pagalba</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
 	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>

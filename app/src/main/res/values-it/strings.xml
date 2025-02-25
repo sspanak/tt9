@@ -21,7 +21,7 @@
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
-	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale.</string>
+	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale. (Non possibile su tutti i dispositivi)</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
 	<string name="pref_category_typing_modes">Modalità di digitazione</string>

@@ -51,7 +51,7 @@
 	<string name="pref_layout_small">מקשי פונקציה</string>
 	<string name="pref_layout_stealth">מצב בלתי נראה</string>
 	<string name="pref_layout_tray">רשימת מילים בלבד</string>
-	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי.</string>
+	<string name="pref_haptic_feedback_summary">לרטוט בעת לחיצה על מקש וירטואלי. (לא אפשרי בכל המכשירים)</string>
 	<string name="pref_help">עזרה</string>
 
 	<string name="pref_numpad_shape_long_space">מקש רווח ארוך</string>
