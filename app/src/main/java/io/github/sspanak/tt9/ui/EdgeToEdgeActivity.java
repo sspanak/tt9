@@ -1,15 +1,16 @@
 package io.github.sspanak.tt9.ui;
 
-import android.os.Build;
 import android.view.View;
 import android.view.WindowInsets;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
+
 
 public class EdgeToEdgeActivity extends AppCompatActivity {
 	public void preventEdgeToEdge(View view) {
-		if (view == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+		if (view == null || !DeviceInfo.AT_LEAST_ANDROID_15) {
 			return;
 		}
 
@@ -33,13 +34,13 @@ public class EdgeToEdgeActivity extends AppCompatActivity {
 	}
 
 	private void applyThemeToSystemUi() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+		if (DeviceInfo.AT_LEAST_ANDROID_10) {
 			getWindow().setStatusBarContrastEnforced(true);
 		}
 	}
 
 	private WindowInsets getInsets(View view) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_6) {
 			return null;
 		}
 

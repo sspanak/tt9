@@ -64,7 +64,7 @@ abstract class BaseMainLayout {
 
 
 	protected WindowInsets onApplyInsets(@NonNull View v, @NonNull WindowInsets windowInsets) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+		if (DeviceInfo.AT_LEAST_ANDROID_15) {
 			return preventEdgeToEdge(v, windowInsets);
 		} else {
 			return windowInsets;
@@ -100,7 +100,7 @@ abstract class BaseMainLayout {
 	 * is re-created and it is not yet possible to get the new window insets.
  	 */
 	public void preventEdgeToEdge() {
-		if (tt9 == null || view == null || Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+		if (tt9 == null || view == null || !DeviceInfo.AT_LEAST_ANDROID_15) {
 			return;
 		}
 
@@ -113,7 +113,7 @@ abstract class BaseMainLayout {
 
 
 	void requestPreventEdgeToEdge() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM && view != null) {
+		if (view != null && DeviceInfo.AT_LEAST_ANDROID_15) {
 			view.requestApplyInsets();
 		}
 	}
@@ -248,7 +248,7 @@ abstract class BaseMainLayout {
 		int width = tt9.getSettings().getWidthPercent();
 
 		return
-			Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM
+			DeviceInfo.AT_LEAST_ANDROID_15
 			&& ((isLandscape && width >= 75) || (!isLandscape && width >= 65));
 	}
 

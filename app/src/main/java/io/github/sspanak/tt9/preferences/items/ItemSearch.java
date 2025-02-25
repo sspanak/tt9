@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -11,13 +10,11 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 abstract public class ItemSearch extends ItemTextInput {
-	private final boolean isModernDevice = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
-
-
 	public ItemSearch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
@@ -33,7 +30,7 @@ abstract public class ItemSearch extends ItemTextInput {
 
 
 	@Override protected int getLargeLayout() {
-		return isModernDevice ? R.layout.pref_input_text : R.layout.pref_input_text_large;
+		return DeviceInfo.AT_LEAST_ANDROID_12 ? R.layout.pref_input_text : R.layout.pref_input_text_large;
 	}
 
 

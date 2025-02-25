@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ime.voice;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
@@ -11,6 +10,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
@@ -35,7 +35,7 @@ public class VoiceInputOps {
 		ConsumerCompat<String> onStop,
 		ConsumerCompat<VoiceInputError> onError
 	) {
-		isOnDeviceRecognitionAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && SpeechRecognizer.isOnDeviceRecognitionAvailable(ims);
+		isOnDeviceRecognitionAvailable = DeviceInfo.AT_LEAST_ANDROID_12 && SpeechRecognizer.isOnDeviceRecognitionAvailable(ims);
 		isRecognitionAvailable = SpeechRecognizer.isRecognitionAvailable(ims);
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
 
@@ -47,7 +47,7 @@ public class VoiceInputOps {
 
 
 	private void createRecognizer() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && isOnDeviceRecognitionAvailable) {
+		if (DeviceInfo.AT_LEAST_ANDROID_12 && isOnDeviceRecognitionAvailable) {
 			speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(ims);
 		} else if (isRecognitionAvailable) {
 			speechRecognizer = SpeechRecognizer.createSpeechRecognizer(ims);

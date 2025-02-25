@@ -5,12 +5,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 
 public abstract class DictionaryNotification {
@@ -43,7 +43,7 @@ public abstract class DictionaryNotification {
 	protected abstract PendingIntent createNavigationIntent(@NonNull Context context, @Nullable Language language);
 
 	private NotificationCompat.Builder getNotificationBuilderCompat(Context context) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+		if (DeviceInfo.AT_LEAST_ANDROID_8) {
 			manager.createNotificationChannel(new NotificationChannel(
 				NOTIFICATION_CHANNEL_ID,
 				"Dictionary Status",

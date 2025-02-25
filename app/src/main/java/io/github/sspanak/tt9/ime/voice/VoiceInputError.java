@@ -1,12 +1,12 @@
 package io.github.sspanak.tt9.ime.voice;
 
 import android.content.Context;
-import android.os.Build;
 import android.speech.SpeechRecognizer;
 
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 public class VoiceInputError {
 	public final static int ERROR_NOT_AVAILABLE = 101;
@@ -35,9 +35,9 @@ public class VoiceInputError {
 			code == SpeechRecognizer.ERROR_NO_MATCH
 			|| code == SpeechRecognizer.ERROR_SPEECH_TIMEOUT
 			|| code == SpeechRecognizer.ERROR_AUDIO
-			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS)
-			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT)
-			|| (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && code == SpeechRecognizer.ERROR_SERVER_DISCONNECTED);
+			|| (DeviceInfo.AT_LEAST_ANDROID_12 && code == SpeechRecognizer.ERROR_SERVER_DISCONNECTED)
+			|| (DeviceInfo.AT_LEAST_ANDROID_13 && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT)
+			|| (DeviceInfo.AT_LEAST_ANDROID_14 && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS);
 	}
 
 
@@ -72,37 +72,18 @@ public class VoiceInputError {
 
 
 	private static String codeToDebugString(int code) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS) {
+		if (DeviceInfo.AT_LEAST_ANDROID_14 && code == SpeechRecognizer.ERROR_CANNOT_LISTEN_TO_DOWNLOAD_EVENTS) {
 			return "Cannot listen to download events.";
 		}
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT) {
+		if (DeviceInfo.AT_LEAST_ANDROID_13 && code == SpeechRecognizer.ERROR_CANNOT_CHECK_SUPPORT) {
 			return "Cannot check voice input support.";
 		}
 
-		String message = codeToDebugString31(code);
-		message = message != null ? message : codeToDebugStringCommon(code);
+		String message = codeToDebugStringCommon(code);
 		message = message != null ? message : "Unknown voice input error code: " + code;
 
 		return message;
-	}
-
-
-	private static String codeToDebugString31(int code) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-			switch (code) {
-				case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS:
-					return "Server overloaded. Try again later.";
-				case SpeechRecognizer.ERROR_SERVER_DISCONNECTED:
-					return "Lost connection to the server.";
-				case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED:
-					return "Language not supported.";
-				case SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE:
-					return "Language missing. Try again later.";
-			}
-		}
-
-		return null;
 	}
 
 
@@ -111,12 +92,16 @@ public class VoiceInputError {
 			case SpeechRecognizer.ERROR_AUDIO -> "Audio capture error.";
 			case SpeechRecognizer.ERROR_CLIENT -> "Speech recognition client error.";
 			case SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "No microphone permissions.";
+			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED -> "Language not supported.";
+			case SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE -> "Language missing. Try again later.";
 			case SpeechRecognizer.ERROR_NETWORK -> "No network connection.";
 			case SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Network timeout.";
 			case SpeechRecognizer.ERROR_NO_MATCH -> "No match.";
 			case SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Voice input service is busy.";
 			case SpeechRecognizer.ERROR_SERVER -> "Speech recognition server error.";
+			case SpeechRecognizer.ERROR_SERVER_DISCONNECTED -> "Lost connection to the server.";
 			case SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "No speech detected.";
+			case SpeechRecognizer.ERROR_TOO_MANY_REQUESTS -> "Server overloaded. Try again later.";
 			case ERROR_NOT_AVAILABLE -> "Voice input is not available.";
 			case ERROR_INVALID_LANGUAGE -> "Invalid language for voice input.";
 			case ERROR_CANNOT_BIND_TO_VOICE_SERVICE -> "Cannot bind to the current voice input service.";

@@ -120,7 +120,7 @@ public class SoftKey extends BaseClickableKey {
 		if (
 			getNoEmojiTitle() > 0
 			&& (
-				Characters.noEmojiSupported()
+				Characters.NO_EMOJI_SUPPORT
 				|| (new Text(getText().toString()).startsWithGraphic() && !new Paint().hasGlyph(getText().toString()))
 			)
 		) {

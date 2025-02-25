@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
-import android.os.Build;
 import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -16,6 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
@@ -56,8 +56,8 @@ public class UI {
 
 
 	public static void confirm(Context context, String title, String message, String OKLabel, Runnable onOk, Runnable onCancel) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-			new AlertDialog.Builder(context)
+		if (DeviceInfo.AT_LEAST_ANDROID_12) {
+			new MaterialAlertDialogBuilder(context)
 				.setTitle(title)
 				.setMessage(message)
 				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
@@ -65,7 +65,7 @@ public class UI {
 				.setCancelable(false)
 				.show();
 		} else {
-			new MaterialAlertDialogBuilder(context)
+			new AlertDialog.Builder(context)
 				.setTitle(title)
 				.setMessage(message)
 				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })

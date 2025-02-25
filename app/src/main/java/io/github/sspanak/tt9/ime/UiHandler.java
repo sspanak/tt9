@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime;
 
-import android.os.Build;
 import android.view.inputmethod.InputMethodManager;
 
 import io.github.sspanak.tt9.R;
@@ -80,7 +79,7 @@ abstract class UiHandler extends AbstractHandler {
 			return;
 		}
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+		if (DeviceInfo.AT_LEAST_ANDROID_9) {
 			requestShowSelf(DeviceInfo.isSonimGen2(getApplicationContext()) ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
 			showWindow(true);

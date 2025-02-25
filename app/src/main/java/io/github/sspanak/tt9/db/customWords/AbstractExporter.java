@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 
@@ -16,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.Permissions;
 
 public abstract class AbstractExporter extends AbstractFileProcessor {
@@ -83,7 +83,7 @@ public abstract class AbstractExporter extends AbstractFileProcessor {
 
 
 	protected void write(Activity activity) throws Exception {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+		if (DeviceInfo.AT_LEAST_ANDROID_10) {
 			writeAndroid10(activity);
 		} else {
 			writeLegacy(activity);
@@ -98,7 +98,7 @@ public abstract class AbstractExporter extends AbstractFileProcessor {
 
 	public String getOutputDir() {
 		// on some older phones, files may not be visible in the DOCUMENTS directory, so we use DOWNLOADS
-		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ? Environment.DIRECTORY_DOCUMENTS : Environment.DIRECTORY_DOWNLOADS;
+		return DeviceInfo.AT_LEAST_ANDROID_10 ? Environment.DIRECTORY_DOCUMENTS : Environment.DIRECTORY_DOWNLOADS;
 	}
 
 

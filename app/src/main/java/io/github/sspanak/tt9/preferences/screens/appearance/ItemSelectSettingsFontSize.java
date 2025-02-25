@@ -1,13 +1,12 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
-import android.os.Build;
-
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -21,7 +20,7 @@ public class ItemSelectSettingsFontSize extends ItemDropDown {
 	}
 
 	public ItemDropDown populate() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+		if (DeviceInfo.AT_LEAST_ANDROID_12) {
 			if (item != null) item.setVisible(false);
 			return this;
 		}

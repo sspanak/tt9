@@ -1,10 +1,9 @@
 package io.github.sspanak.tt9.preferences.items;
 
-import android.os.Build;
-
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Clipboard;
@@ -29,7 +28,7 @@ public class ItemText extends ItemClickable {
 			p.getSummary()
 		);
 
-		if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_13) {
 			UI.toast(activity, "\"" + Clipboard.getPreview(activity) + "\" copied.");
 		}
 

@@ -1,11 +1,11 @@
 package io.github.sspanak.tt9.ui;
 
-import android.os.Build;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.BaseClickableKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
@@ -28,7 +28,7 @@ public class Vibration {
 	}
 
 	public static int getHoldVibration() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+		if (DeviceInfo.AT_LEAST_ANDROID_11) {
 			return HapticFeedbackConstants.CONFIRM;
 		} else {
 			return HapticFeedbackConstants.VIRTUAL_KEY;
@@ -36,7 +36,7 @@ public class Vibration {
 	}
 
 	public static int getReleaseVibration() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+		if (DeviceInfo.AT_LEAST_ANDROID_8_1) {
 			return HapticFeedbackConstants.KEYBOARD_RELEASE;
 		} else {
 			return HapticFeedbackConstants.VIRTUAL_KEY;

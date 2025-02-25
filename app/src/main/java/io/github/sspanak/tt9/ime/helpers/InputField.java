@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.os.Build;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -8,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 
@@ -85,7 +85,7 @@ public class InputField {
 	 */
 	@Nullable
 	public Language getLanguage(ArrayList<Integer> allowedLanguageIds) {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N || field == null || field.hintLocales == null) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_7 || field == null || field.hintLocales == null) {
 			return null;
 		}
 

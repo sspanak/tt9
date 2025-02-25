@@ -4,11 +4,12 @@ package io.github.sspanak.tt9.util;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
+
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 public class Permissions {
 	private static final HashMap<String, Boolean> firstTimeAsking = new HashMap<>();
@@ -20,7 +21,7 @@ public class Permissions {
 
 	public boolean noPostNotifications() {
 		return
-			Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+			DeviceInfo.AT_LEAST_ANDROID_13
 			&& isRefused(Manifest.permission.POST_NOTIFICATIONS)
 			&& (
 				Boolean.TRUE.equals(firstTimeAsking.getOrDefault(Manifest.permission.POST_NOTIFICATIONS, true))
@@ -29,7 +30,7 @@ public class Permissions {
 	}
 
 	public void requestPostNotifications() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+		if (DeviceInfo.AT_LEAST_ANDROID_13) {
 			firstTimeAsking.put(Manifest.permission.POST_NOTIFICATIONS, false);
 			requestPermission(Manifest.permission.POST_NOTIFICATIONS);
 		}
@@ -42,25 +43,25 @@ public class Permissions {
 
 	public boolean noWriteStorage() {
 		return
-			Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+			!DeviceInfo.AT_LEAST_ANDROID_11
 			&& isRefused(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 	}
 
 	public void requestWriteStorage() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_11) {
 			requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
 		}
 	}
 
 	private void requestPermission(String permission) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+		if (DeviceInfo.AT_LEAST_ANDROID_6) {
 			activity.requestPermissions(new String[] { permission }, 0);
 		}
 	}
 
 	private boolean isRefused(String permission) {
 		return
-			Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+			DeviceInfo.AT_LEAST_ANDROID_6
 			&& activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
 	}
 }

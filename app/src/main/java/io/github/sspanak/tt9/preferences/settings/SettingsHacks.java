@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
-import android.os.Build;
 
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
@@ -38,7 +37,7 @@ class SettingsHacks extends BaseSettings {
 	/************* hack settings *************/
 
 	public int getSuggestionScrollingDelay() {
-		boolean defaultOn = DeviceInfo.noTouchScreen(context) && Build.VERSION.SDK_INT < Build.VERSION_CODES.Q;
+		boolean defaultOn = DeviceInfo.noTouchScreen(context) && !DeviceInfo.AT_LEAST_ANDROID_10;
 		return prefs.getBoolean("pref_alternative_suggestion_scrolling", defaultOn) ? 200 : 0;
 	}
 

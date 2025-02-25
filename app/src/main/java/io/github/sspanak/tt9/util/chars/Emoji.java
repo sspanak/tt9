@@ -1,12 +1,15 @@
 package io.github.sspanak.tt9.util.chars;
 
 import android.graphics.Paint;
-import android.os.Build;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
+
 class Emoji extends Punctuation {
+	final public static boolean NO_EMOJI_SUPPORT = !DeviceInfo.AT_LEAST_ANDROID_6;
+
 	final private static ArrayList<String> TextEmoticons = new ArrayList<>(Arrays.asList(
 		":)", ":D", ":P", ";)", "\\m/", ":-O", ":|", ":("
 	));
@@ -34,12 +37,8 @@ class Emoji extends Punctuation {
 		return !(ch < 256 || Character.isLetterOrDigit(ch) || Character.isAlphabetic(ch));
 	}
 
-	public static boolean noEmojiSupported() {
-		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M;
-	}
-
 	public static ArrayList<String> getEmoji(int level) {
-		if (noEmojiSupported()) {
+		if (NO_EMOJI_SUPPORT) {
 			return new ArrayList<>(TextEmoticons);
 		}
 
@@ -59,6 +58,6 @@ class Emoji extends Punctuation {
 	}
 
 	public static int getMaxEmojiLevel() {
-		return noEmojiSupported() ? 1 : Emoji.size();
+		return NO_EMOJI_SUPPORT ? 1 : Emoji.size();
 	}
 }
