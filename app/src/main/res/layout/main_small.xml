@@ -3,7 +3,9 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	style="@style/TTheme.FullScreenContainer">
 
-	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_left" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_left">
+		<View android:id="@+id/bumper_left_top_separator" style="@style/TTheme.Bumper.TopSeparator" />
+	</LinearLayout>
 
 	<LinearLayout style="@style/TTheme.MainSmall" android:id="@+id/keyboard_container">
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
@@ -21,6 +23,8 @@
 			android:visibility="gone" />
 	</LinearLayout>
 
-	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right" />
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">
+		<View android:id="@+id/bumper_right_top_separator" style="@style/TTheme.Bumper.TopSeparator" />
+	</LinearLayout>
 
 </LinearLayout>

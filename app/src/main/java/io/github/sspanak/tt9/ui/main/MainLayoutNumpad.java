@@ -276,6 +276,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		preventEdgeToEdge();
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
+		setBackgroundBlending();
 		showLongSpace(
 			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage()),
 			defaultKeyHeight

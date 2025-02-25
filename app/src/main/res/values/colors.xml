@@ -10,6 +10,8 @@
 	<color name="keyboard_background">#e8eaed</color>
 	<color name="keyboard_text">#3d3d3f</color>
 	<color name="keyboard_top_separator">@color/key_fn_background</color>
+	<color name="keyboard_wrapper_background">#00000000</color>
+	<color name="keyboard_wrapper_top_separator">#00000000</color>
 
 	<color name="key_num_background">#fff</color>
 	<color name="key_num_ripple">#eff0f1</color>
