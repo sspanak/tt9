@@ -19,7 +19,7 @@ class ItemDemoMode extends ItemClickable {
 	@Override
 	protected boolean onClick(Preference p) {
 		activity.getSettings().setDemoMode(((SwitchPreferenceCompat) p).isChecked());
-		activity.onBackPressed();
+		activity.onBackPressedCallback.handleOnBackPressed();
 		return true;
 	}
 

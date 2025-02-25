@@ -39,6 +39,24 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.SystemSettings;
 
 public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+	/**
+	 * onBackPressed() is deprecated, so calling the onBackPressed() on the Fragments is now more complicated.
+	 */
+	@NonNull public OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+		@Override
+		public void handleOnBackPressed() {
+			Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
+			if (previousFragment instanceof BaseScreenFragment) {
+				((BaseScreenFragment) previousFragment).onBackPressed();
+			}
+
+			setEnabled(false);
+			getOnBackPressedDispatcher().onBackPressed();
+			setEnabled(true);
+		}
+	};
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -53,7 +71,9 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);
-		setOnBackPressed();
+
+		// On API >= 33, this requires android:enableOnBackInvokedCallback="true" in the manifest
+		getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 
 		// changing the theme causes onCreate(), which displays the MainSettingsScreen,
 		// but leaves the old "back" history, which is no longer valid,
@@ -97,29 +117,6 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
 		}
-	}
-
-
-	/**
-	 * onBackPressed() is deprecated, so calling the onBackPressed() on the Fragments is now more complicated.
-	 */
-	private void setOnBackPressed() {
-		OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
-			@Override
-			public void handleOnBackPressed() {
-				Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
-				if (previousFragment instanceof BaseScreenFragment) {
-					((BaseScreenFragment) previousFragment).onBackPressed();
-				}
-
-				setEnabled(false);
-				getOnBackPressedDispatcher().onBackPressed();
-				setEnabled(true);
-			}
-    };
-
-		// On API >= 33, this requires android:enableOnBackInvokedCallback="true" in the manifest
-		getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 	}
 
 
