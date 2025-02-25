@@ -27,10 +27,10 @@ public class LanguageDefinition {
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
 	public boolean isSyllabary = false;
-	public ArrayList<ArrayList<String>> layout = new ArrayList<>();
+	public final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
-	@NonNull public HashMap<Integer, String> numerals = new HashMap<>();
+	@NonNull public final HashMap<Integer, String> numerals = new HashMap<>();
 
 	private boolean inLayout = false;
 
