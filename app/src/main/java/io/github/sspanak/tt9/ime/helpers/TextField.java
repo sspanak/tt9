@@ -314,6 +314,7 @@ public class TextField extends InputField {
 			connection.finishComposingText();
 		} else {
 			connection.commitText(composingText, 1);
+			composingText = "";
 		}
 	}
 

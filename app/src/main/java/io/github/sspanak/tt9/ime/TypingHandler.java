@@ -32,7 +32,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(this,null);
-	protected SuggestionOps suggestionOps;
+	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null);
 
 	// input
 	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -90,7 +90,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
-		suggestionOps.setTextField(connection == null || field == null ? null : textField);
+		suggestionOps.setTextField(textField);
 	}
 
 
@@ -356,6 +356,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
+	@NonNull
 	@Override
 	public SuggestionOps getSuggestionOps() {
 		return suggestionOps;

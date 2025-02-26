@@ -16,68 +16,79 @@ import io.github.sspanak.tt9.util.ConsumerCompat;
 public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
 	@NonNull private final ConsumerCompat<String> onDelayedAccept;
-	@NonNull protected final SuggestionsBar suggestionBar;
-	@Nullable private TextField textField;
+	@Nullable protected SuggestionsBar suggestionBar;
+	@NonNull private TextField textField;
 
 
-	public SuggestionOps(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @Nullable TextField textField, @NonNull ConsumerCompat<String> onDelayedAccept, @NonNull Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
-		this.onDelayedAccept = onDelayedAccept;
+		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
-		suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
-		this.textField = textField;
+		this.textField = textField != null ? textField : new TextField(null, null);
+		if (settings != null && mainView != null && onSuggestionClick != null) {
+			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
+		}
 	}
 
 
 	public void setRTL(boolean yes) {
-		suggestionBar.setRTL(yes);
+		if (suggestionBar != null) {
+			suggestionBar.setRTL(yes);
+		}
 	}
 
 
-	public void setTextField(@Nullable TextField textField) {
+	public void setTextField(@NonNull TextField textField) {
 		this.textField = textField;
 	}
 
 
 	public boolean isEmpty() {
-		return suggestionBar.isEmpty();
+		return suggestionBar == null || suggestionBar.isEmpty();
 	}
 
 
 	public boolean containsStem() {
-		return suggestionBar.containsStem();
+		return suggestionBar != null && suggestionBar.containsStem();
 	}
 
 
+	@NonNull
 	public String get(int index) {
-		return suggestionBar.getSuggestion(index);
+		return suggestionBar != null ? suggestionBar.getSuggestion(index) : "";
 	}
 
 
 	public void clear() {
 		set(null);
-		if (textField != null) {
-			textField.setComposingText("");
-			textField.finishComposingText();
-		}
+		textField.setComposingText("");
+		textField.finishComposingText();
 	}
 
 	public void set(ArrayList<String> suggestions) {
-		suggestionBar.setSuggestions(suggestions, 0, false);
+		if (suggestionBar != null) {
+			suggestionBar.setSuggestions(suggestions, 0, false);
+		}
 	}
 
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
-		suggestionBar.setSuggestions(suggestions, 0, containsGenerated);
+		if (suggestionBar != null) {
+			suggestionBar.setSuggestions(suggestions, 0, containsGenerated);
+		}
 	}
 
 
 	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
-		suggestionBar.setSuggestions(suggestions, selectIndex, containsGenerated);
+		if (suggestionBar != null) {
+			suggestionBar.setSuggestions(suggestions, selectIndex, containsGenerated);
+		}
 	}
 
 
 	public void scrollTo(int index) {
-		suggestionBar.scrollToSuggestion(index);
+		if (suggestionBar != null) {
+			suggestionBar.scrollToSuggestion(index);
+		}
 	}
 
 
@@ -111,7 +122,7 @@ public class SuggestionOps {
 
 
 	public void commitCurrent(boolean entireSuggestion) {
-		if (textField != null && !suggestionBar.isEmpty()) {
+		if (!isEmpty()) {
 			if (entireSuggestion) {
 				textField.setComposingText(getCurrent());
 			}
@@ -123,17 +134,17 @@ public class SuggestionOps {
 
 
 	public int getCurrentIndex() {
-		return suggestionBar.getCurrentIndex();
+		return suggestionBar != null ? suggestionBar.getCurrentIndex() : 0;
 	}
 
 
 	public String getCurrent() {
-		return get(suggestionBar.getCurrentIndex());
+		return get(getCurrentIndex());
 	}
 
 
 	public String getCurrent(int maxLength) {
-		if (maxLength == 0 || suggestionBar.isEmpty()) {
+		if (maxLength == 0 || isEmpty()) {
 			return "";
 		}
 
@@ -149,7 +160,7 @@ public class SuggestionOps {
 	public boolean scheduleDelayedAccept(int delay) {
 		cancelDelayedAccept();
 
-		if (suggestionBar.isEmpty()) {
+		if (isEmpty()) {
 			return false;
 		}
 
@@ -170,6 +181,8 @@ public class SuggestionOps {
 
 
 	public void setDarkTheme() {
-		suggestionBar.setDarkTheme();
+		if (suggestionBar != null) {
+			suggestionBar.setDarkTheme();
+		}
 	}
 }
