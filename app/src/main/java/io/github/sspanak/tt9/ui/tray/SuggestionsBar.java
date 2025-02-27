@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
+import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
@@ -141,19 +142,24 @@ public class SuggestionsBar {
 
 		String suggestion = suggestions.get(id);
 
-		if (suggestion.endsWith(STEM_SUFFIX)) {
-			return stem;
-		} else if (suggestion.startsWith(STEM_VARIATION_PREFIX)) {
-			return stem + suggestion.substring(STEM_VARIATION_PREFIX.length());
-		} else if (suggestion.startsWith(STEM_PUNCTUATION_VARIATION_PREFIX)) {
-			return stem + suggestion.substring(STEM_PUNCTUATION_VARIATION_PREFIX.length());
+		if (Characters.ZWJ_GRAPHIC.equals(suggestion)) return Characters.ZWJ;
+		if (Characters.ZWNJ_GRAPHIC.equals(suggestion)) return Characters.ZWNJ;
+		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
+
+		int endIndex = suggestion.indexOf(STEM_SUFFIX);
+		endIndex = endIndex == -1 ? suggestion.length() : endIndex;
+
+		int startIndex = 0;
+		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.COMBINING_ZERO_BASE};
+    for (String prefix : prefixes) {
+			startIndex = Math.max(startIndex, suggestion.indexOf(prefix) + 1);
+    }
+
+		if (startIndex == 0 && endIndex == suggestion.length()) {
+			return suggestion;
 		}
 
-		return switch (suggestion) {
-			case Characters.ZWJ_GRAPHIC -> Characters.ZWJ;
-			case Characters.ZWNJ_GRAPHIC -> Characters.ZWNJ;
-			default -> suggestion.equals(Characters.NEW_LINE) ? "\n" : suggestion;
-		};
+		return stem + suggestion.substring(startIndex, endIndex);
 	}
 
 
@@ -232,6 +238,10 @@ public class SuggestionsBar {
 
 
 	private String formatUnreadableSuggestion(String suggestion) {
+		if (TextTools.isCombining(suggestion)) {
+			return Characters.COMBINING_ZERO_BASE + suggestion;
+		}
+
 		return switch (suggestion) {
 			case "\n" -> Characters.NEW_LINE;
 			case Characters.ZWJ -> Characters.ZWJ_GRAPHIC;
