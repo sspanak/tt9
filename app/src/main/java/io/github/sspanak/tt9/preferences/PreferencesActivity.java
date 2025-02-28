@@ -19,7 +19,6 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
@@ -225,7 +224,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 
 	private void validateFunctionKeys() {
 		if (settings.areHotkeysInitialized()) {
-			Hotkeys.setDefault(settings);
+			settings.setDefaultKeys();
 		}
 	}
 }

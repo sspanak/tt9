@@ -1,15 +1,19 @@
 package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
-import androidx.preference.DropDownPreference;
+import androidx.annotation.NonNull;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class HotkeysScreen extends BaseScreenFragment {
-	final public static String NAME = "Hotkeys";
+	public static final String NAME = "Hotkeys";
+	@NonNull static HashMap<String, PreferenceHotkey> hotkeys = new HashMap<>();
+
+
 	public HotkeysScreen() { init(); }
 	public HotkeysScreen(PreferencesActivity activity) { init(activity); }
 
@@ -19,29 +23,22 @@ public class HotkeysScreen extends BaseScreenFragment {
 
 	@Override
 	public void onCreate() {
-		DropDownPreference[] dropDowns = {
-			findPreference(SectionKeymap.ITEM_ADD_WORD),
-			findPreference(SectionKeymap.ITEM_BACKSPACE),
-			findPreference(SectionKeymap.ITEM_COMMAND_PALETTE),
-			findPreference(SectionKeymap.ITEM_EDIT_TEXT),
-			findPreference(SectionKeymap.ITEM_FILTER_CLEAR),
-			findPreference(SectionKeymap.ITEM_FILTER_SUGGESTIONS),
-			findPreference(SectionKeymap.ITEM_PREVIOUS_SUGGESTION),
-			findPreference(SectionKeymap.ITEM_NEXT_SUGGESTION),
-			findPreference(SectionKeymap.ITEM_NEXT_INPUT_MODE),
-			findPreference(SectionKeymap.ITEM_NEXT_LANGUAGE),
-			findPreference(SectionKeymap.ITEM_SELECT_KEYBOARD),
-			findPreference(SectionKeymap.ITEM_SHIFT),
-			findPreference(SectionKeymap.ITEM_SPACE_KOREAN),
-			findPreference(SectionKeymap.ITEM_SHOW_SETTINGS),
-			findPreference(SectionKeymap.ITEM_VOICE_INPUT),
-		};
-		SectionKeymap section = new SectionKeymap(Arrays.asList(dropDowns), activity);
-		section.populate().activate();
-
-		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, section))
-			.enableClickHandler();
-
+		getHotkeys();
+		(new ItemResetKeys(findPreference(ItemResetKeys.NAME), activity, hotkeys.values())).enableClickHandler();
 		resetFontSize(false);
+	}
+
+	@Override
+	public int getPreferenceCount() {
+		return -1; // prevent scrolling and item selection using the number keys on this screen
+	}
+
+	private void getHotkeys() {
+		for (String function : SettingsStore.FUNCTIONS) {
+			PreferenceHotkey hotkey = findPreference(function);
+			if (hotkey != null) {
+				hotkeys.put(function, hotkey);
+			}
+		}
 	}
 }
