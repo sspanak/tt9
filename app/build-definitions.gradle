@@ -3,7 +3,7 @@ ext.mergeDefinitions = { String definitionsInputDir, String definitionsOutputPat
 	merged.delete()
 
 	boolean isFirst = true
-	fileTree(dir: definitionsInputDir).getFiles().each { file ->
+	fileTree(dir: definitionsInputDir).getFiles().sort().each { file ->
 		if (!file.isFile() || !file.name.endsWith(".yml")) {
 			return
 		}
@@ -16,7 +16,7 @@ ext.mergeDefinitions = { String definitionsInputDir, String definitionsOutputPat
 
 		merged << file.text
 			.replaceAll("\\s*#[^\n]+", "")
-			.replaceAll("^[ ]+\n", "")
+			.replaceAll("^ +\n", "")
 			.trim()
 	}
 }
