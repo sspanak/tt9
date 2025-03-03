@@ -41,7 +41,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	/**
 	 * onBackPressed() is deprecated, so calling the onBackPressed() on the Fragments is now more complicated.
 	 */
-	@NonNull public OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+	@NonNull public final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
 		@Override
 		public void handleOnBackPressed() {
 			Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
