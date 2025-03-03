@@ -27,11 +27,11 @@ public class TextField extends InputField {
 	private final boolean isNonText;
 
 
-	public TextField(InputConnection inputConnection, EditorInfo inputField) {
+	public TextField(SettingsStore settings, InputConnection inputConnection, EditorInfo inputField) {
 		super(inputConnection, inputField);
 
 		InputType inputType = new InputType(inputConnection, inputField);
-		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && !inputType.isDeezerSearchBar();
+		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && (settings == null || settings.getAllowComposingText());
 		isNonText = !inputType.isText();
 	}
 

@@ -24,7 +24,7 @@ public class SuggestionOps {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
-		this.textField = textField != null ? textField : new TextField(null, null);
+		this.textField = textField != null ? textField : new TextField(null, null, null);
 		if (settings != null && mainView != null && onSuggestionClick != null) {
 			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
 		}
