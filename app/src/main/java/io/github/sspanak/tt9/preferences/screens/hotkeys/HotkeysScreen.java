@@ -11,7 +11,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class HotkeysScreen extends BaseScreenFragment {
 	public static final String NAME = "Hotkeys";
-	@NonNull static HashMap<String, PreferenceHotkey> hotkeys = new HashMap<>();
+	@NonNull static final HashMap<String, PreferenceHotkey> hotkeys = new HashMap<>();
 
 
 	public HotkeysScreen() { init(); }
