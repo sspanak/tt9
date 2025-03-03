@@ -51,14 +51,18 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 		}
 
 		ArrayList<String> chars = language.getKeyCharacters(number);
+		boolean isArabic = LanguageKind.isArabic(language) || LanguageKind.isFarsi(language);
 		boolean isGreek = LanguageKind.isGreek(language);
 		boolean isLatinBased = LanguageKind.isLatinBased(language);
 		boolean isUppercase = tt9.getTextCase() == InputMode.CASE_UPPER;
-		final int maxChars = LanguageKind.isIndic(language) ? SettingsStore.SOFT_KEY_TITLE_MAX_CHARS_INDIC : SettingsStore.SOFT_KEY_TITLE_MAX_CHARS;
+		int maxChars = LanguageKind.isIndic(language) ? SettingsStore.SOFT_KEY_TITLE_MAX_CHARS_INDIC : SettingsStore.SOFT_KEY_TITLE_MAX_CHARS;
+		maxChars = isArabic ? maxChars * 2 : maxChars; // Arabic chars are split by ZWNJ, so we must take it into account
 
-		String displayChars = getDefaultCharList(chars, language.getLocale(), isGreek, isLatinBased, isUppercase);
-		if (displayChars.length() > maxChars) {
-			displayChars = abbreviateCharList(displayChars, language.getLocale(), isUppercase);
+		String displayChars = getDefaultCharList(chars, language.getLocale(), isArabic, isGreek, isLatinBased, isUppercase);
+
+		if (displayChars.length() > maxChars || (isArabic && (number == 2 || number == 4))) {
+			String abbreviationSign = isArabic ? "…" : "–"; // prevent vertical alignment issues on some devices
+			displayChars = abbreviateCharList(displayChars, abbreviationSign, language.getLocale(), isUppercase);
 		}
 
 		return displayChars.isEmpty() ? "--" : displayChars;
@@ -67,11 +71,13 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 	/**
 	 * Joins the key characters into a single string, skipping accented characters
-	 * when neccessary
+	 * when necessary
 	 */
-	private String getDefaultCharList(ArrayList<String> chars, Locale locale, boolean isGreek, boolean isLatinBased, boolean isUppercase) {
+	private String getDefaultCharList(ArrayList<String> chars, Locale locale, boolean isArabic, boolean isGreek, boolean isLatinBased, boolean isUppercase) {
 		StringBuilder sb = new StringBuilder();
-		for (String currentLetter : chars) {
+		for (int i = 0; i < chars.size(); i++) {
+			String currentLetter = chars.get(i);
+
 			if (shouldSkipAccents(currentLetter.charAt(0), isGreek, isLatinBased)) {
 				continue;
 			}
@@ -79,6 +85,10 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 			sb.append(
 				isUppercase ? currentLetter.toUpperCase(locale) : currentLetter
 			);
+
+			if (isArabic && i < chars.size() - 1) {
+				sb.append(Characters.ZWNJ);
+			}
 		}
 
 		return sb.toString();
@@ -91,14 +101,14 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 	 * @see <a href="https://github.com/sspanak/tt9/issues/628">Issue #628</a>
 	 * Additionally, for combining characters, we want to add a dummy base, to ensure they look properly.
 	 */
-	private String abbreviateCharList(String chars, Locale locale, boolean isUppercase) {
+	private String abbreviateCharList(String chars, String abbreviationSign, Locale locale, boolean isUppercase) {
 		String firstLetter = chars.substring(0, 1);
 		firstLetter = TextTools.isCombining(firstLetter) ? Characters.COMBINING_ZERO_BASE + firstLetter : firstLetter;
 
 		String lastLetter = chars.substring(chars.length() - 1);
 		lastLetter = TextTools.isCombining(lastLetter) ? Characters.COMBINING_ZERO_BASE + lastLetter : lastLetter;
 
-		String list = firstLetter + "–" + lastLetter;
+		String list = firstLetter + abbreviationSign + lastLetter;
 		return isUppercase ? list.toUpperCase(locale) : list;
 	}
 
