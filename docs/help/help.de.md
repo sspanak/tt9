@@ -316,6 +316,13 @@ _**Hinweis:** Je höher der Wert, desto langsamer müssen Sie tippen. TT9 ignori
 
 _**Hinweis 2:** Neben dem oben genannten können Qin-Telefone möglicherweise auch lange Tastendrücke nicht erkennen. In diesem Fall lässt sich leider nichts tun._
 
+#### Zusammengesetzten Text anzeigen
+_In: Einstellungen → Tastenfeld._
+
+Wenn du Probleme hast, in Deezer oder Smouldering Durtles zu tippen, weil die Vorschläge schnell verschwinden, bevor du sie sehen kannst, deaktiviere diese Option. Dadurch bleibt das aktuelle Wort verborgen, bis du OK oder die Leertaste drückst oder auf die Vorschlagsliste tippst.
+
+Das Problem tritt auf, weil Deezer und Smouldering Durtles manchmal den eingegebenen Text ändern, wodurch TT9 nicht richtig funktioniert.
+
 #### Telegram/Snapchat Sticker und Emoji-Panels lassen sich nicht öffnen
 Dies passiert, wenn Sie eines der kleineren Layouts verwenden. Es gibt derzeit keine dauerhafte Lösung, aber Sie können den folgenden Workaround nutzen:
 - Gehen Sie zu Einstellungen → Erscheinungsbild und aktivieren Sie „Bildschirm-Ziffernblock“.

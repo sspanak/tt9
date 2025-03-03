@@ -30,14 +30,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
 	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
 	@NonNull protected InputType inputType = new InputType(null, null);
-	@NonNull protected TextField textField = new TextField(null, null);
+	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(this,null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null);
 
 	// input
-	protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
-	@NonNull
-	protected InputMode mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
+	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
+	@NonNull protected InputMode mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
@@ -85,7 +84,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		inputType = new InputType(connection, field);
-		textField = new TextField(connection, field);
+		textField = new TextField(settings, connection, field);
 		textSelection = new TextSelection(this, connection);
 
 		// changing the TextField and notifying all interested classes is an atomic operation

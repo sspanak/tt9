@@ -66,6 +66,7 @@
 	<string name="pref_abc_auto_accept_fast">Rápido</string>
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
+	<string name="pref_allow_composing_text_summary">Mostrar las palabras en los campos de texto al escribirlas. Desactivar cuando una aplicación interrumpa la escritura.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
 	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de desplazamiento en ambos lados de la lista de sugerencias de palabras.</string>
@@ -203,4 +204,5 @@
 	<string name="donate_hold_to_open">Mantén presionado para abrir en un navegador.</string>
 	<string name="function_already_assigned">La tecla \"%1$s\" ya está asignada a la función \"%2$s\". ¿Desea asignarla a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
+	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
 </resources>

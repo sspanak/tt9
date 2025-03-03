@@ -35,6 +35,7 @@
 	<string name="pref_abc_auto_accept_fast">Швидко</string>
 	<string name="pref_abc_auto_accept_normal">Середній</string>
 	<string name="pref_abc_auto_accept_slow">Повільний</string>
+	<string name="pref_allow_composing_text_summary">Відображати слова в текстових полях під час введення. Вимикати, коли застосунок перериває введен</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
 	<string name="pref_arrow_keys_visible_summary">Показувати клавіші прокрутки з обох боків списку пропонованих слів.</string>
@@ -214,4 +215,5 @@
 	<string name="donate_hold_to_open">Натисніть і утримуйте, щоб відкрити в браузері.</string>
 	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
 	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
+	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
 </resources>
