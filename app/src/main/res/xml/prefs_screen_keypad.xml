@@ -42,6 +42,12 @@
 			android:title="@string/pref_hack_key_pad_debounce_time" />
 
 		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="pref_allow_composing_text"
+			android:summary="@string/pref_allow_composing_text_summary"
+			android:title="@string/pref_allow_composing_text" />
+
+		<SwitchPreferenceCompat
 			android:defaultValue="false"
 			android:key="pref_upside_down_keys"
 			android:summary="@string/pref_upside_down_keys_summary"

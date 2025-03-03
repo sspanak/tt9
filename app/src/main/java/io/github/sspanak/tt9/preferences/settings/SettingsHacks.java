@@ -69,4 +69,8 @@ class SettingsHacks extends BaseSettings {
 	public void setDonationsVisible(boolean yes) {
 		prefsEditor.putBoolean("pref_show_donations", yes).apply();
 	}
+
+	public boolean getAllowComposingText() {
+		return prefs.getBoolean("pref_allow_composing_text", true);
+	}
 }
