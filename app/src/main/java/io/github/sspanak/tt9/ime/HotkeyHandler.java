@@ -7,7 +7,6 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
-import io.github.sspanak.tt9.preferences.helpers.Hotkeys;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
@@ -16,7 +15,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	protected void onInit() {
 		super.onInit();
 		if (settings.areHotkeysInitialized()) {
-			Hotkeys.setDefault(settings);
+			settings.setDefaultKeys();
 		}
 	}
 

@@ -83,7 +83,6 @@ public class SyllablePredictions extends Predictions {
 	}
 
 
-	@Override
 	protected ArrayList<String> generateWordVariations(String baseWord) {
 		baseWord = baseWord == null ? "" : baseWord;
 		ArrayList<String> variants = new ArrayList<>();

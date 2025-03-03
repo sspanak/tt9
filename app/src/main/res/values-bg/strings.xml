@@ -79,6 +79,7 @@
 	<string name="function_backspace">Триене на текст</string>
 	<string name="dictionary_no_notifications">Речникови известия</string>
 	<string name="dictionary_no_notifications_summary">Получавайте известия за обновления на речника и за прогреса при зареждане.</string>
+	<string name="function_reassign">Задай нов</string>
 	<string name="function_add_word">Добавяне на дума</string>
 	<string name="function_show_command_palette">Списък с команди</string>
 	<string name="function_filter_clear">Изчистване на филтър</string>
@@ -99,6 +100,7 @@
 	<string name="setup_spell_checker">Системна проверка на правописа</string>
 	<string name="setup_spell_checker_on">Системната проверка на правописа може да попречи на добавянето на думи. Натиснете тук, за да я изключите.</string>
 	<string name="setup_spell_checker_off">Изключена</string>
+	<string name="key_key">Бутон</string>
 	<string name="key_hold_key">(задръж)</string>
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>
@@ -152,6 +154,7 @@
 	<string name="key_yellow">Жълт бутон</string>
 	<string name="key_blue">Син бутон</string>
 	<string name="key_volume_mute">Заглушаване на звук</string>
+	<string name="virtual_key_space_korean">Интервал (корейски)</string>
 	<string name="voice_input_listening">Говорете</string>
 	<string name="voice_input_mic_permission_is_needed">Трябва да разрешите достъпа до микрофона, за да използвате гласовото въвеждане.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несъвместим гласов асистент</string>
@@ -198,4 +201,6 @@
 	<string name="pref_numpad_shape_v">V-образна</string>
 	<string name="pref_arrow_keys_visible">Клавиши стрелки</string>
 	<string name="donate_hold_to_open">Натиснете и задръжте, за да отворите в браузъра.</string>
+	<string name="function_already_assigned">Бутон „%1$s“ е зададен за функция „%2$s“. Искате ли да го зададете за „%3$s“?</string>
+	<string name="function_assign_instructions">* Натиснете или задръжте клавиш, за да го присвоите на функцията „%1$s“.\n\n* Натиснете 0, за да отмените.\n\n* Натиснете 2, за да деактивирате функцията.</string>
 </resources>

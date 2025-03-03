@@ -118,14 +118,17 @@
 	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
+	<string name="function_edit_text">Редагувати тексту</string>
 	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
 	<string name="function_filter_suggestions_not_available">Фільтрація неможлива цією мовою.</string>
 	<string name="function_previous_suggestion">Попередня пропозиція</string>
 	<string name="function_next_suggestion">Наступна пропозиція</string>
 	<string name="function_next_language">Наступна мова</string>
 	<string name="function_next_mode">Режим вводу</string>
+	<string name="function_reassign">Перепризначити</string>
 	<string name="function_add_word">Додати слово</string>
 	<string name="function_show_settings">Показати налаштування</string>
+	<string name="function_voice_input">Голосове введення</string>
 	<string name="function_reset_keys_title">Відновити стандартні клавіші</string>
 	<string name="function_reset_keys_done">Стандартні налаштування клавіш відновленно.</string>
 
@@ -138,6 +141,7 @@
 	<string name="setup_spell_checker">Системна перевірка орфографії</string>
 	<string name="setup_spell_checker_on">Системна перевірка орфографії може заважати додаванню слів. Натисніть тут, щоб вимкнути.</string>
 	<string name="setup_spell_checker_off">Вимкнена</string>
+	<string name="key_key">Клавіша</string>
 	<string name="key_hold_key">(тримати)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Подзвонити</string>
@@ -163,6 +167,7 @@
 	<string name="key_yellow">Жовта кнопка</string>
 	<string name="key_blue">Синя кнопка</string>
 	<string name="key_volume_mute">Вимкнення звуку</string>
+	<string name="virtual_key_space_korean">Пробіл (корейська)</string>
 	<string name="voice_input_listening">Диктуйте</string>
 	<string name="voice_input_mic_permission_is_needed">Ви повинні надати мікрофону дозвіл на використання голосового введення.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несумісний голосовий асистент</string>
@@ -207,4 +212,6 @@
 	<string name="pref_numpad_shape_v">V-подібна</string>
 	<string name="pref_arrow_keys_visible">Клавіші зі стрілками</string>
 	<string name="donate_hold_to_open">Натисніть і утримуйте, щоб відкрити в браузері.</string>
+	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
+	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
 </resources>

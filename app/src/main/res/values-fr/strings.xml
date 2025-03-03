@@ -76,14 +76,17 @@
 	<string name="dictionary_no_notifications_summary">Recevoir des notifications sur les mises à jour du dictionnaire et sur la progression du chargement.</string>
 	<string name="function_show_command_palette">Liste des commandes</string>
 	<string name="function_filter_clear">Supprimer le filtre</string>
+	<string name="function_edit_text">Modifier le texte</string>
 	<string name="function_filter_suggestions">Filtrer les mots</string>
 	<string name="function_filter_suggestions_not_available">Le filtrage n\'est pas possible dans cette langue.</string>
 	<string name="function_previous_suggestion">Mot précédent</string>
 	<string name="function_next_suggestion">Mot suivant</string>
 	<string name="function_next_language">Langue suivante</string>
 	<string name="function_next_mode">Mode de saisie suivant</string>
+	<string name="function_reassign">Réattribuer</string>
 	<string name="function_add_word">Ajouter un mot</string>
 	<string name="function_show_settings">Afficher les paramètres</string>
+	<string name="function_voice_input">Saisie vocale</string>
 	<string name="function_reset_keys_title">Restaurer les paramètres par défaut</string>
 	<string name="function_reset_keys_done">Paramètres par défaut sont restaurés.</string>
 	<string name="setup_keyboard_status">État</string>
@@ -95,6 +98,7 @@
 	<string name="setup_spell_checker_on">Le correcteur orthographique du système peut interférer avec l\'ajout de mots. Cliquez ici pour le désactiver.</string>
 	<string name="setup_spell_checker_off">Désactivé</string>
 	<string name="key_back">Retour</string>
+	<string name="key_call">Appel</string>
 	<string name="key_channel_down">Chaîne précédente</string>
 	<string name="key_channel_up">Chaîne suivante</string>
 	<string name="key_volume_down">Baisser le volume</string>
@@ -150,6 +154,7 @@
 	<string name="key_yellow">Bouton jaune</string>
 	<string name="key_blue">Bouton bleu</string>
 	<string name="key_volume_mute">Muet</string>
+	<string name="virtual_key_space_korean">Espace (coréen)</string>
 	<string name="voice_input_listening">Parlez</string>
 	<string name="voice_input_mic_permission_is_needed">Vous devez accorder l\'autorisation au microphone pour utiliser la saisie vocale.</string>
 	<string name="voice_input_error_incompatible_voice_service">Assistant vocal incompatible</string>
@@ -194,4 +199,8 @@
 	<string name="pref_numpad_shape_v">Forme en V</string>
 	<string name="pref_arrow_keys_visible">Touches fléchées</string>
 	<string name="donate_hold_to_open">Appuyez et maintenez pour ouvrir dans un navigateur.</string>
+	<string name="key_key">Touche</string>
+	<string name="function_already_assigned">La touche \"%1$s\" est déjà attribuée à la fonction \"%2$s\". Voulez-vous l’attribuer à \"%3$s\" ?</string>
+	<string name="function_assign_instructions">* Appuyez ou maintenez une touche pour l’attribuer à la fonction \"%1$s\".\n\n* Appuyez sur 0 pour annuler.\n\n* Appuyez sur 2 pour désactiver la fonction.</string>
+	<string name="key_hold_key">(maintenir)</string>
 </resources>

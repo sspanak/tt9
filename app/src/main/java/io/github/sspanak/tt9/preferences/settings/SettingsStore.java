@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 
-public class SettingsStore extends SettingsUI {
+public class SettingsStore extends SettingsHotkeys {
 	public SettingsStore(Context context) { super(context); }
 
 	/************* internal settings *************/

@@ -10,9 +10,7 @@ import java.util.Set;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
 
-class SettingsInput extends SettingsHotkeys {
-	private final String LOG_TAG = SettingsInput.class.getSimpleName();
-
+class SettingsInput extends SettingsHacks {
 	SettingsInput(Context context) { super(context); }
 
 

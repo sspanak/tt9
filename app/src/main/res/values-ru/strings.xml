@@ -76,14 +76,17 @@
 	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
+	<string name="function_edit_text">Редактировать текста</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_filter_suggestions_not_available">Фильтрация невозможна на этом языке.</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>
 	<string name="function_next_suggestion">Следующее слово</string>
 	<string name="function_next_language">Следующий язык</string>
 	<string name="function_next_mode">Режим ввода</string>
+	<string name="function_reassign">Назначить заново</string>
 	<string name="function_add_word">Добавить слово</string>
 	<string name="function_show_settings">Настройки</string>
+	<string name="function_voice_input">Голосовой ввод</string>
 	<string name="function_reset_keys_title">Вернуть кнопки по умолчанию</string>
 	<string name="function_reset_keys_done">Настройки кнопок по умолчанию восстановлены.</string>
 	<string name="setup_keyboard_status">Состояние</string>
@@ -94,6 +97,7 @@
 	<string name="setup_spell_checker">Системная проверка орфографии</string>
 	<string name="setup_spell_checker_on">Системная проверка орфографии может мешать добавлению слов. Нажмите здесь, чтобы отключить.</string>
 	<string name="setup_spell_checker_off">Отключена</string>
+	<string name="key_key">Клавиш</string>
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
@@ -152,6 +156,7 @@
 	<string name="key_yellow">Жёлтая кнопка</string>
 	<string name="key_blue">Синяя кнопка</string>
 	<string name="key_volume_mute">Выключения звука</string>
+	<string name="virtual_key_space_korean">Пробел (корейский)</string>
 	<string name="voice_input_listening">Говорите</string>
 	<string name="voice_input_mic_permission_is_needed">Вы должны предоставить микрофону разрешение на использование голосового ввода.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несовместимый голосовой ассистент</string>
@@ -196,4 +201,6 @@
 	<string name="pref_numpad_shape_v">V-образная форма</string>
 	<string name="pref_arrow_keys_visible">Клавиши со стрелками</string>
 	<string name="donate_hold_to_open">Нажмите и удерживайте, чтобы открыть в браузере.</string>
+	<string name="function_already_assigned">Клавиша «%1$s» уже назначена на функцию «%2$s». Назначить её на «%3$s»?</string>
+	<string name="function_assign_instructions">* Нажмите или удерживайте клавишу, чтобы назначить её на функцию «%1$s».\n\n* Нажмите 0, чтобы отменить.\n\n* Нажмите 2, чтобы отключить функцию.</string>
 </resources>

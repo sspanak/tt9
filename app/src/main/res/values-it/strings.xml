@@ -70,6 +70,7 @@
 	<string name="dictionary_load_cancelled">Caricamento annullato.</string>
 	<string name="pref_category_keypad">Tastiera</string>
 	<string name="char_space">Spazio</string>
+	<string name="function_add_word">Aggiungere parola</string>
 	<string name="function_add_word_not_available">Aggiungere parole non è possibile in questa lingua.</string>
 	<string name="function_backspace">Backspace</string>
 	<string name="setup_keyboard_status">Stato</string>
@@ -81,6 +82,7 @@
 	<string name="setup_spell_checker_on">Il controllo ortografico di sistema può interferire con l\'aggiunta di parole. Clicca qui per disabilitarlo.</string>
 	<string name="setup_spell_checker_off">Disabilitato</string>
 	<string name="key_back">Indietro</string>
+	<string name="key_call">Chiamata</string>
 	<string name="key_channel_down">Canale precedente</string>
 	<string name="key_channel_up">Prossimo canale</string>
 	<string name="key_volume_down">Abbassa il volume</string>
@@ -142,6 +144,7 @@
 	<string name="key_yellow">Pulsante giallo</string>
 	<string name="key_blue">Pulsante blu</string>
 	<string name="key_volume_mute">Muto</string>
+	<string name="virtual_key_space_korean">Spazio (coreano)</string>
 	<string name="voice_input_listening">Parli</string>
 	<string name="voice_input_mic_permission_is_needed">Devi concedere l\'autorizzazione al microfono per utilizzare l\'input vocale.</string>
 	<string name="voice_input_error_incompatible_voice_service">Assistente vocale incompatibile</string>
@@ -162,6 +165,7 @@
 	<string name="dictionary_import_custom_words_summary">Importare parole da un CSV precedentemente esportato.</string>
 	<string name="dictionary_import_progress">Importazione CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importazione CSV…</string>
+	<string name="function_reset_keys_done">Impostazioni predefinite dei tasti ripristinate.</string>
 	<string name="help_url_copied">Il link è copiato.</string>
 	<string name="language_selection_language_loaded">(caricata)</string>
 	<string name="language_selection_title">Abilita lingue</string>
@@ -179,6 +183,8 @@
 	<string name="punctuation_order_save">Salvare l\'ordine</string>
 	<string name="punctuation_order_forbidden_char">Carattere vietato:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caratteri vietati:%1$s</string>
+	<string name="function_edit_text">Modifica testo</string>
+	<string name="function_filter_suggestions">Filtrare suggerimenti</string>
 	<string name="function_filter_suggestions_not_available">Il filtraggio non è possibile in questa lingua.</string>
 	<string name="pref_category_geometry">Geometria</string>
 	<string name="pref_numpad_shape">Forma</string>
@@ -186,5 +192,19 @@
 	<string name="pref_numpad_shape_v">Forma a V</string>
 	<string name="pref_arrow_keys_visible">Tasti freccia</string>
 	<string name="donate_hold_to_open">Tieni premuto per aprire nel browser.</string>
+	<string name="key_key">Tasto</string>
+	<string name="function_already_assigned">Il tasto \"%1$s\" è già assegnato alla funzione \"%2$s\". Vuoi assegnarlo a \"%3$s\"?</string>
+	<string name="function_assign_instructions">* Premi o tieni premuto un tasto per assegnarlo alla funzione \"%1$s\".\n\n* Premi 0 per annullare.\n\n* Premi 2 per disabilitare la funzione.</string>
+	<string name="function_reassign">Riassegnare</string>
+	<string name="function_voice_input">Input vocale</string>
+	<string name="function_reset_keys_title">Ripristina i tasti predefiniti</string>
+	<string name="key_hold_key">(tenere premuto)</string>
+	<string name="function_previous_suggestion">Suggerimento precedente</string>
+	<string name="function_next_suggestion">Suggerimento successivo</string>
+	<string name="function_filter_clear">Cancellare filtro</string>
+	<string name="function_next_language">Lingua successiva</string>
+	<string name="function_next_mode">Modalità di input successiva</string>
+	<string name="function_select_keyboard">Selezionare tastiera</string>
+	<string name="function_show_settings">Mostrare impostazioni</string>
 </resources>
 

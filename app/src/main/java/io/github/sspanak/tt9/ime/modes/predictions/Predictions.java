@@ -120,5 +120,4 @@ abstract public class Predictions {
 	abstract public void onAccept(String word, String sequence);
 	abstract protected boolean isRetryAllowed();
 	abstract protected void onDbWords(ArrayList<String> dbWords, boolean retryAllowed);
-	abstract protected ArrayList<String> generateWordVariations(String baseWord);
 }

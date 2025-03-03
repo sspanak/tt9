@@ -86,14 +86,17 @@
 	<string name="dictionary_no_notifications_summary">Gaukite pranešimus apie žodynų atnaujinimus ir įkėlimo progresą.</string>
 	<string name="function_show_command_palette">Rodyti komandų sąrašą</string>
 	<string name="function_filter_clear">Panaikinti filtrą</string>
+	<string name="function_edit_text">Redaguoti tekstą</string>
 	<string name="function_filter_suggestions">Filtruoti pasiūlymus</string>
 	<string name="function_filter_suggestions_not_available">Filtravimas šia kalba nėra galimas.</string>
 	<string name="function_previous_suggestion">Ankstesnis pasiūlytas žodis</string>
 	<string name="function_next_suggestion">Sekantis pasiūlytas žodis</string>
 	<string name="function_next_language">Rašymo kalba</string>
 	<string name="function_next_mode">Rašymo būdas</string>
+	<string name="function_reassign">Perpriskirti</string>
 	<string name="function_add_word">Pridėti žodį</string>
 	<string name="function_show_settings">Rodyti nustatymus</string>
+	<string name="function_voice_input">Balso įvestis</string>
 	<string name="function_reset_keys_title">Atkurti numatytąsias reikšmes</string>
 	<string name="function_reset_keys_done">Numatytosios reikšmės atkurtos.</string>
 
@@ -106,7 +109,8 @@
 	<string name="setup_spell_checker">Sistemos rašybos tikrintuvas</string>
 	<string name="setup_spell_checker_on">Sistemos rašybos tikrintuvas gali trukdyti pridėti žodžius. Spustelėkite čia, kad išjungtumėte.</string>
 	<string name="setup_spell_checker_off">Išjungtas</string>
-	<string name="key_hold_key">(laikyti nusp.)</string>
+	<string name="key_key">Klavišas</string>
+	<string name="key_hold_key">(laikyti nuspaudus)</string>
 	<string name="key_back">Atgal mygtukas</string>
 	<string name="key_call">Skambinti mygtukas</string>
 	<string name="key_channel_down">Ankstesnis kanalas</string>
@@ -161,6 +165,7 @@
 	<string name="key_yellow">Geltonas mygtukas</string>
 	<string name="key_blue">Mėlynas mygtukas</string>
 	<string name="key_volume_mute">Nutildymo mygt.</string>
+	<string name="virtual_key_space_korean">Tarpas (korėjiečių)</string>
 	<string name="voice_input_listening">Kalbėkite</string>
 	<string name="voice_input_mic_permission_is_needed">Turite suteikti mikrofonui leidimą naudoti balso įvestį.</string>
 	<string name="voice_input_error_incompatible_voice_service">Nesuderinamas balso asistentas</string>
@@ -205,4 +210,6 @@
 	<string name="pref_numpad_shape_v">V formos</string>
 	<string name="pref_arrow_keys_visible">Rodyklių klavišai</string>
 	<string name="donate_hold_to_open">Paspauskite ir laikykite, kad atidarytumėte naršyklėje.</string>
+	<string name="function_already_assigned">Klavišas „%1$s“ jau priskirtas funkcijai „%2$s“. Ar norite jį priskirti „%3$s“?</string>
+	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 </resources>
