@@ -82,10 +82,13 @@
 	<string name="dictionary_truncating">המחיקה מתבצעת…</string>
 	<string name="function_add_word_not_available">אין אפשרות להוסיף מילים בשפה זו.</string>
 	<string name="function_backspace">לחצן מחיקה</string>
+	<string name="function_next_suggestion">ההצעה הבאה</string>
 	<string name="function_next_language">לחצן למעבר לשפה הבאה</string>
 	<string name="function_next_mode">לחצן מצב קלט</string>
+	<string name="function_reassign">הקצה מחדש</string>
 	<string name="function_add_word">לחצן הוספת מילה</string>
 	<string name="function_show_settings">לחצן הצגת הגדרות</string>
+	<string name="function_voice_input">קלט קולי</string>
 	<string name="function_reset_keys_title">שחזור לחצני ברירת מחדל</string>
 	<string name="function_reset_keys_done">הגדרות ברירת המחדל שוחזרו.</string>
 
@@ -95,6 +98,7 @@
 	<string name="setup_spell_checker">בודק איות מערכת</string>
 	<string name="setup_spell_checker_on">בודק האיות של המערכת עלול להפריע להוספת מילים. לחץ כאן כדי להשבית.</string>
 	<string name="setup_spell_checker_off">מנוטרל</string>
+	<string name="key_key">לחצן</string>
 	<string name="key_hold_key">(החזק)</string>
 	<string name="key_back">חזור</string>
 	<string name="key_call">חיוג</string>
@@ -153,6 +157,7 @@
 	<string name="key_yellow">כפתור צהוב</string>
 	<string name="key_blue">כפתור כחול</string>
 	<string name="key_volume_mute">כפתור השתק</string>
+	<string name="virtual_key_space_korean">רווח (קוריאנית)</string>
 	<string name="voice_input_listening">האזנה</string>
 	<string name="voice_input_mic_permission_is_needed">עליך להעניק למיקרופון הרשאה להשתמש בקלט קולי.</string>
 	<string name="voice_input_error_incompatible_voice_service">עוזר קולי לא תואם</string>
@@ -191,6 +196,7 @@
 	<string name="punctuation_order_save">שמור את הסדר</string>
 	<string name="punctuation_order_forbidden_char">תו אסור:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">תווים אסורים:%1$s</string>
+	<string name="function_filter_suggestions">סינון הצעות</string>
 	<string name="function_filter_suggestions_not_available">לא ניתן לסנן בשפה זו.</string>
 	<string name="pref_category_geometry">גיאומטריה</string>
 	<string name="pref_numpad_shape">צורה</string>
@@ -199,4 +205,9 @@
 	<string name="pref_arrow_keys_visible">מקשי חצים</string>
 	<string name="donate_summary">אם אתה אוהב %1$s, אתה יכול לקנות לי בירה.</string>
 	<string name="donate_hold_to_open">לחצו והחזיקו כדי לפתוח בדפדפן.</string>
+	<string name="function_already_assigned">המקש \"%1$s\" כבר מוקצה לפונקציה \"%2$s\". האם ברצונך להקצות אותו ל-“%3$s”?</string>
+	<string name="function_assign_instructions">* לחצו או החזיקו מקש כדי להקצות אותו לפונקציה \"%1$s\". \n\n* לחצו 0 כדי לבטל. \n\n* לחצו 2 כדי להשבית את הפונקציה.</string>
+	<string name="function_filter_clear">נקה מסנן</string>
+	<string name="function_edit_text">ערוך טקסט</string>
+	<string name="function_previous_suggestion">הצעה קודמת</string>
 </resources>

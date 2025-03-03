@@ -79,6 +79,7 @@
 	<string name="setup_spell_checker_on">Sistem yazım denetleyicisi kelime eklemeye müdahale edebilir. Devre dışı bırakmak için buraya tıklayın.</string>
 	<string name="setup_spell_checker_off">Devre dışı</string>
 	<string name="key_back">Geri</string>
+	<string name="key_call">Ara</string>
 	<string name="key_channel_down">Önceki Seçim</string>
 	<string name="key_channel_up">Sonraki Seçim</string>
 	<string name="key_volume_down">Sesi azalt</string>
@@ -138,15 +139,18 @@
 	<string name="pref_upside_down_keys_summary">Eğer ilk satırda 1–2–3 yerine 7–8–9 kullanıyorsanız bunu aktif edin.</string>
 
 	<string name="function_show_command_palette">Komut listesini göster</string>
-	<string name="function_filter_clear">Filtre Temizle</string>
-	<string name="function_filter_suggestions">Tahminleri Filtrele</string>
+	<string name="function_filter_clear">Filtre temizle</string>
+	<string name="function_edit_text">Metin düzenleme</string>
+	<string name="function_filter_suggestions">Tahminleri filtrele</string>
 	<string name="function_filter_suggestions_not_available">Bu dilde filtreleme mümkün değil.</string>
-	<string name="function_previous_suggestion">Önceki Tahmin</string>
-	<string name="function_next_suggestion">Sonraki Tahmin</string>
-	<string name="function_next_language">Sonraki Dil</string>
-	<string name="function_next_mode">Giriş Yöntemi</string>
+	<string name="function_previous_suggestion">Önceki tahmin</string>
+	<string name="function_next_suggestion">Sonraki tahmin</string>
+	<string name="function_next_language">Sonraki dil</string>
+	<string name="function_next_mode">Giriş yöntemi</string>
+	<string name="function_reassign">Yeniden ata</string>
 	<string name="function_add_word">Kelime ekle</string>
-	<string name="function_show_settings">Ayarları Göster</string>
+	<string name="function_show_settings">Ayarları göster</string>
+	<string name="function_voice_input">Sesli giriş</string>
 	<string name="function_reset_keys_title">Varsayılan Ayarlara Geri Dön</string>
 	<string name="function_reset_keys_done">Varsayılan tuş ayarlarına dönüldü.</string>
 	<string name="key_red">Kırmızı düğme</string>
@@ -154,6 +158,7 @@
 	<string name="key_yellow">Sarı düğme</string>
 	<string name="key_blue">Mavi düğme</string>
 	<string name="key_volume_mute">Sessiz tuşu</string>
+	<string name="virtual_key_space_korean">Boşluk (Korece)</string>
 	<string name="voice_input_listening">Konuşun</string>
 	<string name="voice_input_mic_permission_is_needed">Sesli giriş kullanmak için mikrofona izin vermelisiniz.</string>
 	<string name="voice_input_error_incompatible_voice_service">Uyumsuz sesli asistan</string>
@@ -169,7 +174,7 @@
 	<string name="virtual_numpad_alignment_center">Ortada</string>
 	<string name="virtual_numpad_alignment_left">Sola</string>
 	<string name="virtual_numpad_alignment_right">Sağa</string>
-	<string name="function_select_keyboard">Klavye Seçimi</string>
+	<string name="function_select_keyboard">Klavye seçimi</string>
 	<string name="add_word_no_confirmation">Onay olmadan ekle</string>
 	<string name="dictionary_import_custom_words">İçe Aktar</string>
 	<string name="dictionary_import_custom_words_summary">Daha önce dışa aktarılan bir CSV\'den kelimeleri içe aktar.</string>
@@ -199,4 +204,8 @@
 	<string name="pref_arrow_keys_visible">Ok tuşları</string>
 	<string name="donate_summary">Eğer %1$s\'ı beğendiyseniz bana bir bira ısmarlayabilirsiniz</string>
 	<string name="donate_hold_to_open">Tarayıcıda açmak için basılı tutun.</string>
+	<string name="key_key">Tuş</string>
+	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
+	<string name="function_assign_instructions">* \"%1$s\" işlevine atamak için bir tuşa basın veya basılı tutun.\n\n* İptal etmek için 0\'a basın.\n\n* İşlevi devre dışı bırakmak için 2\'ye basın.</string>
+	<string name="key_hold_key">(basılı tut)</string>
 </resources>
