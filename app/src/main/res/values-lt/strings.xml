@@ -33,6 +33,7 @@
 	<string name="pref_abc_auto_accept_fast">Greitas</string>
 	<string name="pref_abc_auto_accept_normal">Vidutinis</string>
 	<string name="pref_abc_auto_accept_slow">Lėtas</string>
+	<string name="pref_allow_composing_text_summary">Rodyti žodžius teksto laukuose rašant. Išjungti, kai programa nutraukia rašymą.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
 	<string name="pref_arrow_keys_visible_summary">Rodyti slinkties klavišus abiejose žodžių pasiūlymų sąrašo pusėse.</string>
@@ -212,4 +213,5 @@
 	<string name="donate_hold_to_open">Paspauskite ir laikykite, kad atidarytumėte naršyklėje.</string>
 	<string name="function_already_assigned">Klavišas „%1$s“ jau priskirtas funkcijai „%2$s“. Ar norite jį priskirti „%3$s“?</string>
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
+	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
 </resources>
