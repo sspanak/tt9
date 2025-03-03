@@ -316,6 +316,13 @@ _**Remarque :** Plus la valeur est élevée, plus vous devrez taper lentement. T
 
 _**Remarque 2 :** Outre ce qui précède, les téléphones Qin peuvent également ne pas détecter les pressions longues. Malheureusement, dans ce cas, rien ne peut être fait._
 
+#### Afficher le texte en cours de saisie
+_Dans : Paramètres → Clavier._
+
+Si vous avez des difficultés à taper dans Deezer ou Smouldering Durtles parce que les suggestions disparaissent trop rapidement avant que vous puissiez les voir, désactivez cette option. Cela fera en sorte que le mot actuel reste caché jusqu'à ce que vous appuyiez sur OK ou Espace, ou jusqu'à ce que vous appuyiez sur la liste de suggestions.
+
+Le problème survient parce que Deezer et Smouldering Durtles modifient parfois le texte que vous tapez, ce qui empêche TT9 de fonctionner correctement.
+
 #### Les stickers et panneaux d'emoji de Telegram/Snapchat ne s'ouvrent pas
 Cela se produit si vous utilisez l'un des petits formats de clavier. Actuellement, il n'existe pas de solution permanente, mais vous pouvez utiliser la solution suivante :
 - Allez dans Paramètres → Apparence et activez le Pavé numérique à l'écran.

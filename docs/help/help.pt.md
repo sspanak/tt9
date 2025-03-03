@@ -318,6 +318,13 @@ _**Nota:** Quanto maior o valor configurado, mais lento você precisará digitar
 
 _**Nota 2:** Além do problema acima, os celulares Qin também podem falhar ao detectar pressões longas. Infelizmente, neste caso, nada pode ser feito._
 
+#### Mostrar texto em composição
+_Em: Configurações → Teclado._
+
+Se você está tendo problemas para digitar no Deezer ou Smouldering Durtles porque as sugestões desaparecem rapidamente antes que você possa vê-las, desative esta opção. Isso fará com que a palavra atual permaneça oculta até que você pressione OK ou Espaço, ou até que toque na lista de sugestões.
+
+O problema ocorre porque Deezer e Smouldering Durtles às vezes modificam o texto que você digita, causando um mau funcionamento do TT9.
+
 #### Painéis de figurinhas e emojis do Telegram/Snapchat não abrem
 Isso ocorre se você estiver usando um dos layouts de tamanho reduzido. Atualmente, não há uma correção permanente, mas você pode usar o seguinte procedimento:
 - Vá para Configurações → Aparência e ative o Teclado Numérico na Tela.

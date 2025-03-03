@@ -316,6 +316,13 @@ _**Nota:** Più alto è il valore impostato, più lentamente dovrai digitare. TT
 
 _**Nota 2:** Oltre a ciò, i telefoni Qin potrebbero non rilevare le pressioni prolungate dei tasti. Sfortunatamente, in questo caso non c'è nulla che si possa fare._
 
+#### Mostra il testo in composizione
+_In: Impostazioni → Tastierino._
+
+Se hai problemi a digitare su Deezer o Smouldering Durtles perché i suggerimenti scompaiono rapidamente prima che tu possa vederli, disattiva questa opzione. Questo farà sì che la parola attuale rimanga nascosta fino a quando non premi OK o Spazio, o fino a quando non tocchi la lista dei suggerimenti.
+
+Il problema si verifica perché Deezer e Smouldering Durtles a volte modificano il testo che digiti, causando un malfunzionamento di TT9.
+
 #### I pannelli degli sticker ed emoji su Telegram/Snapchat non si aprono
 Questo accade se stai utilizzando uno dei layout di dimensioni ridotte. Al momento, non esiste una soluzione definitiva, ma puoi utilizzare la seguente procedura temporanea:
 - Vai su Impostazioni → Aspetto e abilita il Tastierino su Schermo.

@@ -317,6 +317,13 @@ _**Note:** The higher the value you set, the slower you will have to type. TT9 w
 
 _**Note 2:** Besides the above, Qin phones may also fail to detect long presses. Unfortunately, in this case, nothing can be done._
 
+#### Show Composing Text
+_In: Settings → Keypad._
+
+If you have trouble typing in Deezer or Smouldering Durtles, because the suggestions disappear quickly before you can see them, disable this option. It will cause the current word to remain hidden until you press OK or Space, or until you tap on the suggestion list.
+
+The problem occurs because Deezer and Smouldering Durtles sometimes modify the text you type causing TT9 to malfunction.
+
 #### Telegram/Snapchat stickers and emoji panels won't open
 This happens if you are using one of the small-sized layouts. Currently, there is no permanent fix, but you can use the following workaround:
 - Go to Settings → Appearance and enable On-Screen Numpad.

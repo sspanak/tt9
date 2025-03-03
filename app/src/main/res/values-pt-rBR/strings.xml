@@ -34,6 +34,7 @@
 	<string name="pref_abc_auto_accept_fast">Rápido</string>
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
+	<string name="pref_allow_composing_text_summary">Exibir as palavras nos campos de texto ao digitá-las. Desativar quando um app interromper a digitação.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
 	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de rolagem em ambos os lados da lista de sugestões de palavras.</string>
@@ -210,4 +211,5 @@
 	<string name="function_filter_clear">Limpar Filtro</string>
 	<string name="function_edit_text">Editar Texto</string>
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
+	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
 </resources>

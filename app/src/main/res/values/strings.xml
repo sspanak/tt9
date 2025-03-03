@@ -47,6 +47,8 @@
 	<string name="pref_abc_auto_accept_fast">Quick</string>
 	<string name="pref_abc_auto_accept_normal">Moderate</string>
 	<string name="pref_abc_auto_accept_slow">Slow</string>
+	<string name="pref_allow_composing_text">Show Composing Text</string>
+	<string name="pref_allow_composing_text_summary">Display the words in text fields while typing them. Disable when an app interrupts typing.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them.</string>
 	<string name="pref_arrow_keys_visible">Arrow Keys</string>

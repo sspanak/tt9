@@ -316,6 +316,13 @@ _**Not:** Değer ne kadar yüksek olursa, yazmanız o kadar yavaş olur. TT9 ço
 
 _**Not 2:** Yukarıdakilere ek olarak, Qin telefonları bazen uzun basışları algılayamayabilir. Bu durumda maalesef yapılabilecek bir şey yoktur._
 
+#### Yazılan metni göster
+_Ayarlar → Tuş Takımı altında._
+
+Eğer Deezer veya Smouldering Durtles uygulamalarında yazı yazarken öneriler çok hızlı kayboluyorsa ve göremiyorsanız, bu seçeneği devre dışı bırakın. Bu, mevcut kelimenin OK veya Boşluk tuşuna basana ya da öneri listesine dokunana kadar gizli kalmasını sağlar.
+
+Bu sorun, Deezer ve Smouldering Durtles uygulamalarının bazen yazdığınız metni değiştirmesi nedeniyle TT9’un düzgün çalışmamasından kaynaklanmaktadır.
+
 #### Telegram/Snapchat sticker ve emoji panelleri açılmıyor
 Bu, küçük boyutlu düzenlerden birini kullanıyorsanız gerçekleşir. Şu an için kalıcı bir çözüm yok, ancak şu geçici çözümü kullanabilirsiniz:
 - Ayarlar → Görünüm yoluna gidin ve Ekran Üzeri Numpad'i etkinleştirin.

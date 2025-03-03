@@ -61,6 +61,7 @@
 	<string name="pref_abc_auto_accept_fast">Rapide</string>
 	<string name="pref_abc_auto_accept_normal">Modérée</string>
 	<string name="pref_abc_auto_accept_slow">Lente</string>
+	<string name="pref_allow_composing_text_summary">Afficher les mots dans les champs de texte en les tapant. Désactiver lorsqu\'une application interrompt la saisie.</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir toutes les suggestions ou vous avez des difficultés à les défiler.</string>
 	<string name="pref_arrow_keys_visible_summary">Afficher les touches de défilement des deux côtés de la liste de suggestions de mots.</string>
@@ -203,4 +204,5 @@
 	<string name="function_already_assigned">La touche \"%1$s\" est déjà attribuée à la fonction \"%2$s\". Voulez-vous l’attribuer à \"%3$s\" ?</string>
 	<string name="function_assign_instructions">* Appuyez ou maintenez une touche pour l’attribuer à la fonction \"%1$s\".\n\n* Appuyez sur 0 pour annuler.\n\n* Appuyez sur 2 pour désactiver la fonction.</string>
 	<string name="key_hold_key">(maintenir)</string>
+	<string name="pref_allow_composing_text">Afficher texte en cours</string>
 </resources>

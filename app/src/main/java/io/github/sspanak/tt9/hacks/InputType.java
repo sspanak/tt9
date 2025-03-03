@@ -50,17 +50,6 @@ public class InputType extends StandardInputType {
 
 
 	/**
-	 * isDeezerSearchBar
-	 * The field for searching songs and artists in Deezer does not support composing text, which
-	 * prevents the user from typing normally. This hack detects the search field, so that we can
-	 * disable composing at the right place.
-	 */
-	public boolean isDeezerSearchBar() {
-		return isAppInput("deezer.android.app", 32769) && field.imeOptions == 33554438;
-	}
-
-
-	/**
 	 * isDuoLingoReportBug
 	 * When reporting a bug in the Duolingo app, the text field is missing the TYPE_TEXT flag, which
 	 * causes us to detect it as a numeric field. This effectively disables Predictive mode, which is

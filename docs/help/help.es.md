@@ -316,6 +316,13 @@ _**Nota:** Cuanto mayor sea el valor que configures, más lento tendrás que esc
 
 _**Nota 2:** Además de lo anterior, los teléfonos Qin también pueden fallar al detectar pulsaciones largas. Desafortunadamente, en este caso, no se puede hacer nada._
 
+#### Mostrar texto en composición
+_En: Configuración → Teclado._
+
+Si tienes problemas al escribir en Deezer o Smouldering Durtles porque las sugerencias desaparecen rápidamente antes de que puedas verlas, desactiva esta opción. Esto hará que la palabra actual permanezca oculta hasta que presiones OK o Espacio, o hasta que toques la lista de sugerencias.
+
+El problema ocurre porque Deezer y Smouldering Durtles a veces modifican el texto que escribes, causando un mal funcionamiento en TT9.
+
 #### Los paneles de stickers y emoji de Telegram/Snapchat no se abren
 Esto ocurre si estás utilizando uno de los diseños de tamaño pequeño. Actualmente, no hay una solución permanente, pero puedes utilizar el siguiente método alternativo:
 - Ve a Configuración → Apariencia y habilita Teclado numérico en pantalla.
