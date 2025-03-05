@@ -51,7 +51,6 @@ class SettingsHacks extends BaseSettings {
 	 * There were reports about this on <a href="https://github.com/sspanak/tt9/issues/117">Kyocera KYF31</a>
 	 * and on <a href="https://github.com/sspanak/tt9/issues/399">CAT S22</a>.
 	 */
-
 	public int getKeyPadDebounceTime() {
 		int defaultTime = DeviceInfo.isCatS22Flip() ? 50 : 0;
 		defaultTime = DeviceInfo.isQinF21() ? 20 : defaultTime;
@@ -72,5 +71,15 @@ class SettingsHacks extends BaseSettings {
 
 	public boolean getAllowComposingText() {
 		return prefs.getBoolean("pref_allow_composing_text", true);
+	}
+
+	/**
+	 * On Samsung S25 (SM-S931B), edge-to-edge does not work like on Pixel/Xiaomi/etc. Like on Android 14,
+	 * the navigation bar is subtracted from the initial available screen size, so we must not add padding
+	 * to compensate.
+	 * @see <a href="https://github.com/sspanak/tt9/issues/755">extra space at the bottom of the layout</a>
+	 */
+	public boolean getPrecalculateNavbarHeight() {
+		return prefs.getBoolean("hack_precalculate_navbar_height_v3", !DeviceInfo.IS_SAMSUNG);
 	}
 }
