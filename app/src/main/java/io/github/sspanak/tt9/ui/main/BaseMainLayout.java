@@ -106,7 +106,7 @@ abstract class BaseMainLayout {
 		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
 
 		int bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
-		bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(view.getContext(), isLandscape) : bottomPadding;
+		bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(view.getContext(), tt9.getSettings(), isLandscape) : bottomPadding;
 		view.setPadding(view.getPaddingLeft(), 0, view.getPaddingRight(), bottomPadding);
 	}
 

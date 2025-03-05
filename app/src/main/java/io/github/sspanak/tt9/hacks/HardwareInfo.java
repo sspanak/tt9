@@ -11,6 +11,9 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class HardwareInfo {
+	public static final boolean IS_SAMSUNG = Build.MANUFACTURER.equals("samsung") || Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("SAMSUNG");
+
+
 	private static Resources resources;
 
 
