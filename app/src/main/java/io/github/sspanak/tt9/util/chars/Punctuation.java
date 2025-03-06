@@ -45,10 +45,7 @@ class Punctuation {
 		",", ".", "-", "(", ")", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
 	));
 
-	// the same as Arabic + ZWNJ
-	final public static ArrayList<String> PunctuationFarsi = new ArrayList<>(Arrays.asList(
-		"،", ".", "-", ZWNJ, "(", ")", "&", "~", "`", "'", "\"",  "؛", ":", "!", "؟"
-	));
+	final public static ArrayList<String> PunctuationFarsi = insertChar(PunctuationArabic, ZWNJ, "-");
 
 	final public static ArrayList<String> PunctuationFrench = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "«", "»", "(", ")", "&", "`", "~", ";", ":", "'", "\"", "!", "?"
@@ -61,6 +58,8 @@ class Punctuation {
 	final public static ArrayList<String> PunctuationGreek = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "«", "»", "(", ")", "&", "~", "`", "'", "\"", "·", ":", "!", GR_QUESTION_MARK
 	));
+
+	final public static ArrayList<String> PunctuationIrish = insertChar(PunctuationEnglish, "⁊", "&");
 
 	final public static ArrayList<String> PunctuationIndic = new ArrayList<>(Arrays.asList(
 		",", ".", "-", ZWJ, ZWNJ, "(", ")", "।", "॰", "॥", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
@@ -86,5 +85,11 @@ class Punctuation {
 			|| CombiningPunctuationGujarati.contains(ch)
 			|| CombiningPunctuationHindi.contains(ch)
 			|| CombiningPunctuationHebrew.contains(ch);
+	}
+
+	private static ArrayList<String> insertChar(ArrayList<String> list, String newChar, String afterChar) {
+		ArrayList<String> newList = new ArrayList<>(list);
+		newList.add(list.indexOf(afterChar) + 1, newChar);
+		return newList;
 	}
 }
