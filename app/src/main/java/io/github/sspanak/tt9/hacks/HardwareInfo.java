@@ -11,8 +11,14 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class HardwareInfo {
+	public static final boolean IS_CAT_S22_FLIP = Build.MANUFACTURER.equals("Cat") && Build.MODEL.contains("S22");
+	public static final boolean IS_LG_X100S = Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
+	public static final boolean IS_QIN_F21 = Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
 	public static final boolean IS_SAMSUNG = Build.MANUFACTURER.equals("samsung") || Build.MANUFACTURER.equals("Samsung") || Build.MANUFACTURER.equals("SAMSUNG");
+	public static final boolean IS_SONIM = Build.MANUFACTURER.equals("Sonimtech");
+	public static final boolean IS_XIAOMI = Build.MANUFACTURER.equals("Xiaomi");
 
+	private static Boolean NO_TOUCH_SCREEN = null;
 
 	private static Resources resources;
 
@@ -54,7 +60,7 @@ public class HardwareInfo {
 	public static boolean noKeyboard(Context context) {
 		// all Xiaomi phones are only touchscreen, but some of them report they have a keyboard
 		// See: https://github.com/sspanak/tt9/issues/549
-		if (isXiaomi()) {
+		if (IS_XIAOMI) {
 			return true;
 		}
 
@@ -68,37 +74,15 @@ public class HardwareInfo {
 
 
 	public static boolean noTouchScreen(Context context) {
-		return !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN);
-	}
-
-
-	public static boolean isCatS22Flip() {
-		return Build.MANUFACTURER.equals("Cat") && Build.MODEL.contains("S22");
-	}
-
-
-	public static boolean isLgX100S() {
-		return Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
-	}
-
-
-	public static boolean isQinF21() {
-		return Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");
-	}
-
-
-	public static boolean isSonim() {
-		return Build.MANUFACTURER.equals("Sonimtech");
+		if (NO_TOUCH_SCREEN == null) {
+			NO_TOUCH_SCREEN = !context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_TOUCHSCREEN);
+		}
+		return NO_TOUCH_SCREEN;
 	}
 
 
 	public static boolean isSonimGen2(Context context) {
-		return isSonim() && DeviceInfo.AT_LEAST_ANDROID_11 && noTouchScreen(context);
-	}
-
-
-	public static boolean isXiaomi() {
-		return Build.MANUFACTURER.equals("Xiaomi");
+		return IS_SONIM && DeviceInfo.AT_LEAST_ANDROID_11 && noTouchScreen(context);
 	}
 
 

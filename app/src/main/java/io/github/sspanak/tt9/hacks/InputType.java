@@ -94,7 +94,7 @@ public class InputType extends StandardInputType {
 	public boolean isLgX100SDialer() {
 		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return
-			DeviceInfo.isLgX100S()
+			DeviceInfo.IS_LG_X100S
 			&& isAppField("com.android.contacts", EditorInfo.TYPE_CLASS_PHONE)
 			&& ((field.imeOptions & imeOptions) == imeOptions);
 	}
@@ -132,7 +132,7 @@ public class InputType extends StandardInputType {
 	 */
 	boolean isSonimSearchField(int action) {
 		return
-			DeviceInfo.isSonim() &&
+			DeviceInfo.IS_SONIM &&
 			field != null && (field.packageName.startsWith("com.android") || field.packageName.startsWith("com.sonim"))
 			&& (field.imeOptions & EditorInfo.IME_MASK_ACTION) == action
 			&& (
