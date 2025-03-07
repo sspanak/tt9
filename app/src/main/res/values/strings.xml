@@ -224,8 +224,6 @@
 	<string name="key_yellow">Yellow Button</string>
 	<string name="key_blue">Blue Button</string>
 
-	<string name="char_comma" translatable="false">,</string>
-	<string name="char_dot" translatable="false">.</string>
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
 

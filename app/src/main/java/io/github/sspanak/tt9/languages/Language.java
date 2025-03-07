@@ -13,11 +13,13 @@ abstract public class Language {
 	protected String code;
 	protected String currency;
 	protected String dictionaryFile;
-	protected Locale locale = Locale.ROOT;
-	protected String name;
+	protected boolean hasABC = true;
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
-	protected boolean isSyllabary = false;
+	protected boolean hasTranscriptionsEmbedded = false;
+	protected boolean isTranscribed = false;
+	protected Locale locale = Locale.ROOT;
+	protected String name;
 
 
 	public int getId() {
@@ -63,6 +65,10 @@ abstract public class Language {
 		return name;
 	}
 
+	final public boolean hasABC() {
+		return hasABC;
+	}
+
 	final public boolean hasSpaceBetweenWords() {
 		return hasSpaceBetweenWords;
 	}
@@ -71,8 +77,12 @@ abstract public class Language {
 		return hasUpperCase;
 	}
 
-	final public boolean isSyllabary() {
-		return isSyllabary;
+	final public boolean hasTranscriptionsEmbedded() {
+		return hasTranscriptionsEmbedded;
+	}
+
+	final public boolean isTranscribed() {
+		return isTranscribed;
 	}
 
 	@NonNull
