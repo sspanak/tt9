@@ -165,6 +165,7 @@
 	<string name="voice_input_error_generic">שגיאת קלט קולי</string>
 	<string name="voice_input_error_no_permissions">אין הרשאת מיקרופון</string>
 	<string name="voice_input_error_language_not_supported">השפה אינה נתמכת</string>
+	<string name="voice_input_error_language_missing">השפה חסרה במכשיר</string>
 	<string name="voice_input_error_network_failed">חיבור הרשת נכשל</string>
 	<string name="voice_input_error_no_network">אין חיבור לאינטרנט</string>
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>

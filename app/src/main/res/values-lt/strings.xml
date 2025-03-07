@@ -173,6 +173,7 @@
 	<string name="voice_input_error_generic">Balso įvesties klaida</string>
 	<string name="voice_input_error_no_permissions">Nėra mikrofono leidimo</string>
 	<string name="voice_input_error_language_not_supported">Kalba nepalaikoma</string>
+	<string name="voice_input_error_language_missing">Kalba nėra įrenginyje</string>
 	<string name="voice_input_error_network_failed">Tinklo ryšys nepavyko</string>
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
