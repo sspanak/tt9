@@ -1,6 +1,7 @@
 locale: ko-KR
 currency: ₩
 dictionaryFile: ko-utf8.csv
+hasABC: no
 hasUpperCase: no
 layout: # only used for the virtual key labels
   - [ㅇ,ㅁ,SPECIAL] # 0

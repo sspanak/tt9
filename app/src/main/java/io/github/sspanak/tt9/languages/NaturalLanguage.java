@@ -10,11 +10,10 @@ import java.util.Map;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 
-public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
+public class NaturalLanguage extends TranscribedLanguage implements Comparable<NaturalLanguage> {
 	final public static String SPECIAL_CHAR_KEY = "0";
 	final public static String PUNCTUATION_KEY = "1";
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
@@ -34,9 +33,11 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
 		lang.currency = definition.currency;
 		lang.dictionaryFile = definition.getDictionaryFile();
+		lang.hasABC = definition.hasABC;
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
-		lang.isSyllabary = definition.isSyllabary;
+		lang.hasTranscriptionsEmbedded = definition.filterBySounds;
+		lang.isTranscribed = definition.isTranscribed;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 		lang.numerals = definition.numerals;
 		lang.setLocale(definition);
@@ -86,6 +87,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.Special);
 		specialChars.put(PUNCTUATION_PLACEHOLDER, Characters.PunctuationEnglish);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_AR", Characters.PunctuationArabic);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_ZH", Characters.PunctuationChinese);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FA", Characters.PunctuationFarsi);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FR", Characters.PunctuationFrench);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_DE", Characters.PunctuationGerman);
@@ -257,7 +259,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		if (
 			word == null
 			|| word.isEmpty()
-			|| (isSyllabary && LanguageKind.isKorean(this) && TextTools.isHangul(word))
+			|| (super.isValidWord(word))
 			|| (word.length() == 1 && Character.isDigit(word.charAt(0)))
 		) {
 			return true;

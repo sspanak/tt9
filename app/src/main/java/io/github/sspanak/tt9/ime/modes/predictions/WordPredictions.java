@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
@@ -30,7 +32,7 @@ public class WordPredictions extends Predictions {
 
 
 	@Override
-	public Predictions setLanguage(Language language) {
+	public Predictions setLanguage(@NonNull Language language) {
 		super.setLanguage(language);
 		localeWordsSorter = new LocaleWordsSorter(language);
 
@@ -67,6 +69,7 @@ public class WordPredictions extends Predictions {
 			},
 			language,
 			digitSequence.substring(1),
+			onlyExactMatches,
 			stem.length() > 1 ? stem.substring(1) : "",
 			SettingsStore.SUGGESTIONS_MIN,
 			SettingsStore.SUGGESTIONS_MAX

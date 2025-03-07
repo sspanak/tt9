@@ -110,12 +110,18 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (newLanguage != null && newLanguage.isSyllabary()) {
+		if (newLanguage != null && newLanguage.isTranscribed()) {
 			return false;
 		}
 
-		super.setLanguage(newLanguage);
+		setLanguage(newLanguage);
+		return true;
+	}
 
+
+	@Override
+	protected void setLanguage(@Nullable Language newLanguage) {
+		super.setLanguage(newLanguage);
 		autoSpace.setLanguage(language);
 
 		allowedTextCases.clear();
@@ -124,14 +130,11 @@ class ModeWords extends ModeCheonjiin {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
-
-		return true;
 	}
-
 
 	@Override
 	public boolean recompose(String word) {
-		if (!language.hasSpaceBetweenWords() || language.isSyllabary()) {
+		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return false;
 		}
 
@@ -284,11 +287,16 @@ class ModeWords extends ModeCheonjiin {
 	private boolean loadPreferredChar() {
 		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
-			suggestions.add(settings.getDoubleZeroChar());
+			suggestions.add(getPreferredChar());
 			return true;
 		}
 
 		return false;
+	}
+
+
+	protected String getPreferredChar() {
+		return settings.getDoubleZeroChar();
 	}
 
 

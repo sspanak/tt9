@@ -24,9 +24,11 @@ public class LanguageDefinition {
 	public String abcString = "";
 	public String currency = "";
 	public String dictionaryFile = "";
+	public boolean filterBySounds = false;
+	public boolean hasABC = true;
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
-	public boolean isSyllabary = false;
+	public boolean isTranscribed = false;
 	public final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
@@ -134,6 +136,12 @@ public class LanguageDefinition {
 			case "dictionaryFile":
 				dictionaryFile = value.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
 				return;
+			case "filterBySounds":
+				filterBySounds = parseYamlBoolean(value);
+				return;
+			case "hasABC":
+				hasABC = parseYamlBoolean(value);
+				return;
 			case "hasSpaceBetweenWords":
 				hasSpaceBetweenWords = parseYamlBoolean(value);
 				return;
@@ -141,7 +149,7 @@ public class LanguageDefinition {
 				hasUpperCase = parseYamlBoolean(value);
 				return;
 			case "sounds":
-				isSyllabary = true;
+				isTranscribed = true;
 				return;
 			case "locale":
 				locale = value;

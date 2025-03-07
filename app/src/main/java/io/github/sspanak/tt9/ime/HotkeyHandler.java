@@ -192,7 +192,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
+		if (suggestionOps.isEmpty() || mLanguage.isTranscribed()) {
 			return false;
 		}
 
@@ -213,7 +213,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (mInputMode.clearWordStem() && isFilteringOn) {
 			mInputMode
 				.setOnSuggestionsUpdated(this::handleSuggestions)
-				.loadSuggestions(suggestionOps.getCurrent(mInputMode.getSequenceLength()));
+				.loadSuggestions(suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength()));
 			return true;
 		}
 
@@ -229,7 +229,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		if (mLanguage.isSyllabary()) {
+		if (mLanguage.isTranscribed()) {
 			UI.toastShortSingle(this, R.string.function_filter_suggestions_not_available);
 			return true; // prevent the default key action to acknowledge we have processed the event
 		}
@@ -244,7 +244,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (repeat && !suggestionOps.get(1).isEmpty()) {
 			filter = suggestionOps.get(1);
 		} else {
-			filter = suggestionOps.getCurrent(mInputMode.getSequenceLength());
+			filter = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		}
 
 		if (filter.isEmpty()) {
@@ -289,10 +289,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 		detectRTL();
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		if (!mInputMode.changeLanguage(mLanguage)) {
+		if (mInputMode.changeLanguage(mLanguage)) {
+			mInputMode.clearWordStem();
+		} else {
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
 		}
-		mInputMode.clearWordStem();
 
 		getSuggestions(null);
 		statusBar.setText(mInputMode);

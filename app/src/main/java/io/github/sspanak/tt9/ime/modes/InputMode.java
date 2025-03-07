@@ -42,6 +42,7 @@ abstract public class InputMode {
 
 
 	protected InputMode(SettingsStore settings, InputType inputType) {
+		allowedTextCases.add(CASE_LOWER);
 		isEmailMode = inputType != null && inputType.isEmail() && !inputType.isDefectiveText();
 		this.settings = settings;
 	}
@@ -50,7 +51,9 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType, textField) : new ModeWords(settings, language, inputType, textField));
+				if (LanguageKind.isChinese(language)) return new ModePinyin(settings, language, inputType, textField);
+				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
+				return new ModeWords(settings, language, inputType, textField);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:

@@ -18,7 +18,6 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.db.wordPairs.WordPair;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
-import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -131,9 +130,6 @@ public class ReadOps {
 			return new WordList();
 		}
 
-		// EXACT_MATCHES concerns only the positions query
-		filter = filter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY) ? "" : filter;
-
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
 		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
@@ -157,10 +153,10 @@ public class ReadOps {
 	}
 
 
-	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, boolean onlyExactSequenceMatches, String wordFilter, int minPositions) {
 		int generations;
 
-		if (wordFilter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY)) {
+		if (onlyExactSequenceMatches) {
 			generations = 0;
 		} else {
 			generations = switch (sequence.length()) {
@@ -176,7 +172,7 @@ public class ReadOps {
 
 	@NonNull
 	public String getWordPositions(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
-		if (sequence.length() == 1 || (cancel != null && cancel.isCanceled())) {
+		if ((sequence.length() == 1 && !language.isTranscribed()) || (cancel != null && cancel.isCanceled())) {
 			return sequence;
 		}
 
@@ -301,9 +297,13 @@ public class ReadOps {
 			sql.append(" AND word LIKE '").append(filter.replaceAll("'", "''")).append("%'");
 		}
 
-		sql
-			.append(" ORDER BY LENGTH(word), frequency DESC")
-			.append(" LIMIT ").append(maxWords);
+		sql.append(" ORDER BY LENGTH(word), frequency DESC");
+
+		if (maxWords < 0 && maxWordsPerSequence.containsKey(language)) {
+			Integer limit = maxWordsPerSequence.get(language);
+			maxWords = limit != null ? limit : SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
+		}
+		sql.append(" LIMIT ").append(maxWords);
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);
