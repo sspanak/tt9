@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat;
 
 import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.Logger;
 
 public abstract class DictionaryNotification {
 	private static final int NOTIFICATION_ID = 1;
@@ -110,6 +111,10 @@ public abstract class DictionaryNotification {
 			.setContentTitle(title)
 			.setContentText(message);
 
-		manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+		try {
+			manager.notify(NOTIFICATION_ID, notificationBuilder.build());
+		} catch (SecurityException e) {
+			Logger.e(getClass().getSimpleName(), "Failed to show dictionary notification. " + e);
+		}
 	}
 }
