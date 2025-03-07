@@ -22,6 +22,8 @@ abstract class UiHandler extends AbstractHandler {
 		if (mainView == null) {
 			mainView = new ResizableMainView(getFinalContext());
 			initTray();
+		} else {
+			mainView.destroy();
 		}
 	}
 
