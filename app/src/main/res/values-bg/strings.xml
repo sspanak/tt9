@@ -164,6 +164,7 @@
 	<string name="voice_input_error_language_not_supported">Езикът не се поддържа</string>
 	<string name="voice_input_error_not_available">Не е налично въвеждане с глас</string>
 	<string name="voice_input_error_no_network">Няма връзка с интернет</string>
+	<string name="voice_input_error_language_missing">Езикът липсва на устройството</string>
 	<string name="voice_input_error_network_failed">Проблем с мрежовата връзка</string>
 	<string name="voice_input_stopping">Изключване на микрофона…</string>
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш. (Не е възможно на всички устройства)</string>

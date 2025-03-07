@@ -57,6 +57,8 @@ public class VoiceInputError {
 				-> context.getString(R.string.voice_input_error_no_permissions);
 			case SpeechRecognizer.ERROR_LANGUAGE_NOT_SUPPORTED
 				-> context.getString(R.string.voice_input_error_language_not_supported);
+			case SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE
+				-> context.getString(R.string.voice_input_error_language_missing);
 			case SpeechRecognizer.ERROR_NETWORK
 				-> context.getString(R.string.voice_input_error_no_network);
 			case ERROR_NOT_AVAILABLE

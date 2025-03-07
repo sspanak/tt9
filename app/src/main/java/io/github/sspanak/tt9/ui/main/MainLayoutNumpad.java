@@ -116,7 +116,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		int bottomPadding = 0;
 		if (DeviceInfo.AT_LEAST_ANDROID_15) {
 			bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
-			bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(tt9.getApplicationContext(), isLandscape) : bottomPadding;
+			bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(tt9.getApplicationContext(), tt9.getSettings(), isLandscape) : bottomPadding;
 		}
 
 		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext()) - bottomPadding;

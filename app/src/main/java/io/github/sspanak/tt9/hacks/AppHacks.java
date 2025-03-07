@@ -85,7 +85,15 @@ public class AppHacks {
 
 
 	/**
-	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled, "false" otherwise.
+	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled,
+	 * "false" otherwise.
+	 *
+	 * CURSOR RESET
+	 * When sending messages using the Viber or the SMS app SEND button, it does so and clears the text
+	 * field, but without notifying the keyboard. This means, after sending the message, the InputMode
+	 * still holds the old text, while the text field is empty. Attempting to type a new word then
+	 * results in appending to the old word. We use this hack to detect Viber and reset the InputMode
+	 * upon sending a message.
 	 */
 	public boolean onUpdateSelection(
 		@NonNull InputMode inputMode,
@@ -97,7 +105,7 @@ public class AppHacks {
 		int candidatesStart,
 		int candidatesEnd
 	) {
-		if (inputType.isViber() && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
 			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;

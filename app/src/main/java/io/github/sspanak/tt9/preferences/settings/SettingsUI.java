@@ -25,7 +25,6 @@ public class SettingsUI extends SettingsTyping {
 	public final static int NUMPAD_SHAPE_LONG_SPACE = 2;
 
 	private final int DEFAULT_LAYOUT;
-	private final boolean DEFAULT_STATUS_ICON;
 
 	public final static int MIN_WIDTH_PERCENT = 50;
 	private int DEFAULT_WIDTH_LANDSCAPE = 0;
@@ -41,8 +40,6 @@ public class SettingsUI extends SettingsTyping {
 		} else {
 			DEFAULT_LAYOUT = LAYOUT_TRAY;
 		}
-
-		DEFAULT_STATUS_ICON = DeviceInfo.isQinF21();
 	}
 
 	public boolean areArrowKeysHidden() {
@@ -54,7 +51,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean isStatusIconEnabled() {
-		return prefs.getBoolean("pref_status_icon", DEFAULT_STATUS_ICON);
+		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21);
 	}
 
 	public boolean getDarkTheme() {
@@ -118,7 +115,7 @@ public class SettingsUI extends SettingsTyping {
 	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
 
 	public int getSettingsFontSize() {
-		int defaultSize = DeviceInfo.isQinF21() || DeviceInfo.isLgX100S() ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
+		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);
 	}
 

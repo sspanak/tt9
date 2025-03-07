@@ -162,6 +162,7 @@
 	<string name="voice_input_error_generic">Erreur de saisie vocale</string>
 	<string name="voice_input_error_no_permissions">Pas d\'autorisation pour le microphone</string>
 	<string name="voice_input_error_language_not_supported">Langue non prise en charge</string>
+	<string name="voice_input_error_language_missing">Langue absente de l’appareil</string>
 	<string name="voice_input_error_network_failed">Échec de la connexion réseau</string>
 	<string name="voice_input_error_no_network">Pas de connexion Internet</string>
 	<string name="voice_input_error_not_available">La saisie vocale n\'est pas disponible</string>

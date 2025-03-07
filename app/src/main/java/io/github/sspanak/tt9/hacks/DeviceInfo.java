@@ -5,7 +5,10 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class DeviceInfo extends HardwareInfo {
 	public static final boolean AT_LEAST_ANDROID_6 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
@@ -26,7 +29,11 @@ public class DeviceInfo extends HardwareInfo {
 	}
 
 
-	public static int getNavigationBarHeight(Context context, boolean isLandscape) {
+	public static int getNavigationBarHeight(@NonNull Context context, @NonNull SettingsStore settings, boolean isLandscape) {
+		if (!settings.getPrecalculateNavbarHeight()) {
+			return 0;
+		}
+
 		Resources resources = getResources(context);
 
 		// navBarMode = 0: 3-button, 1 = 2-button, 2 = gesture
