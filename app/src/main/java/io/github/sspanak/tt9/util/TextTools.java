@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class TextTools {
@@ -49,6 +50,19 @@ public class TextTools {
 		return str != null && isHangul.matcher(str).find();
 	}
 
+	public static boolean isChinese(String str) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_7) {
+			return true;
+		}
+
+		for (int i = 0, size = str != null ? str.length() : 0; i < size; i++) {
+			if (!Character.UnicodeScript.of(str.codePointAt(i)).equals(Character.UnicodeScript.HAN)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	public static int indexOfIgnoreCase(List<String> list, String str) {
 		for (int i = 0, size = list != null && str != null ? list.size() : 0; i < size; i++) {
