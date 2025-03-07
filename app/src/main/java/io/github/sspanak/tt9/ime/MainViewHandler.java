@@ -64,8 +64,18 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public boolean isAddingWordsSupported() {
+		return mLanguage == null || !mLanguage.isTranscribed();
+	}
+
+
 	public boolean isDragResizeOn() {
 		return dragResize;
+	}
+
+
+	public boolean isFilteringSupported() {
+		return mInputMode.supportsFiltering();
 	}
 
 
@@ -114,13 +124,8 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
-	public boolean notLanguageSyllabary() {
-		return mLanguage == null || !mLanguage.isSyllabary();
-	}
-
-
 	public String getABCString() {
-		return mLanguage == null || mLanguage.isSyllabary() ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
+		return mLanguage == null ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
 	}
 
 

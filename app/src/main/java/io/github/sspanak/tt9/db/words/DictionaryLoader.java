@@ -236,7 +236,7 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		if (language.isSyllabary()) {
+		if (language.isTranscribed()) {
 			return 0;
 		}
 

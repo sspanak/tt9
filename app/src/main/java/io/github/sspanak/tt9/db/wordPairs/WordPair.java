@@ -24,13 +24,16 @@ public class WordPair {
 
 
 	boolean isInvalid() {
+		Text w1 = new Text(word1);
+		Text w2 = new Text(word2);
+
 		return
 			language == null
 			|| word1.isEmpty() || word2.isEmpty()
-			|| (word1.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && word2.length() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)
 			|| word1.equals(word2)
-			|| sequence2 == null || word2.length() != sequence2.length() || !(new Text(sequence2).isNumeric())
-			|| !(new Text(word1).isAlphabetic()) || !(new Text(word2).isAlphabetic());
+			|| sequence2 == null || !(new Text(sequence2).isNumeric())
+			|| (w1.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && w2.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)
+			|| !w1.isAlphabetic() || !w2.isAlphabetic();
 	}
 
 

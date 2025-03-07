@@ -26,7 +26,6 @@ import io.github.sspanak.tt9.util.Timer;
 
 
 public class WordStore extends BaseSyncStore {
-	public static final String FILTER_EXACT_MATCHES_ONLY = "__exact__";
 	private final String LOG_TAG = "sqlite.WordStore";
 	private final ReadOps readOps;
 
@@ -60,10 +59,10 @@ public class WordStore extends BaseSyncStore {
 	/**
 	 * Loads words matching and similar to a given digit sequence
 	 * For example: "7655" -> "roll" (exact match), but also: "rolled", "roller", "rolling", ...
-	 * and other similar. When "wordFilter" is set to FILTER_EXACT_MATCHES_ONLY, the word list is
-	 * constrained only to the words with length equal to the digit sequence length (exact matches).
+	 * and other similar. When "onlyExactSequence" is TRUE, the word list is constrained only to
+	 * the words with length equal to the digit sequence length (exact matches).
 	 */
-	public ArrayList<String> getMany(@NonNull CancellationSignal cancel, Language language, String sequence, String wordFilter, int minimumWords, int maximumWords) {
+	public ArrayList<String> getMany(@NonNull CancellationSignal cancel, Language language, String sequence, boolean onlyExactSequence, String wordFilter, int minimumWords, int maximumWords) {
 		if (!checkOrNotify()) {
 			return new ArrayList<>();
 		}
@@ -83,11 +82,11 @@ public class WordStore extends BaseSyncStore {
 		long longPositionsTime = Timer.stop("cache_long_positions");
 
 		final int minWords = Math.max(minimumWords, 0);
-		final int maxWords = Math.max(maximumWords, minWords);
+		final int maxWords = maximumWords >= 0 ? Math.max(maximumWords, minWords) : maximumWords;
 		final String filter = wordFilter == null ? "" : wordFilter;
 
 		Timer.start("get_positions");
-		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), cancel, language, sequence, filter, minWords);
+		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), cancel, language, sequence, onlyExactSequence, filter, minWords);
 		long positionsTime = Timer.stop("get_positions");
 
 		Timer.start("get_words");

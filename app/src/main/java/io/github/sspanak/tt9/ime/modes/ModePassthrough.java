@@ -10,7 +10,6 @@ class ModePassthrough extends InputMode {
 	protected ModePassthrough(SettingsStore settings, InputType inputType) {
 		super(settings, inputType);
 		reset();
-		allowedTextCases.add(CASE_LOWER);
 	}
 
 	@Override public int getId() { return MODE_PASSTHROUGH; }

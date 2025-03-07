@@ -8,10 +8,12 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.util.Text;
 
 public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
@@ -110,12 +112,12 @@ public class SuggestionOps {
 	}
 
 
-	public String acceptPrevious(int sequenceLength) {
+	public String acceptPrevious(Language language, int sequenceLength) {
 		if (sequenceLength <= 0) {
 			set(null);
 		}
 
-		String lastComposingText = getCurrent(sequenceLength - 1);
+		String lastComposingText = getCurrent(language, sequenceLength - 1);
 		commitCurrent(false);
 		return lastComposingText;
 	}
@@ -143,17 +145,17 @@ public class SuggestionOps {
 	}
 
 
-	public String getCurrent(int maxLength) {
+	public String getCurrent(Language language, int maxLength) {
 		if (maxLength == 0 || isEmpty()) {
 			return "";
 		}
 
-		String text = getCurrent();
-		if (maxLength > 0 && !text.isEmpty() && text.length() > maxLength) {
-			text = text.substring(0, maxLength);
+		Text text = new Text(language, getCurrent());
+		if (maxLength > 0 && !text.isEmpty() && text.codePointLength() > maxLength) {
+			return text.substringCodePoints(0, maxLength);
 		}
 
-		return text;
+		return text.toString();
 	}
 
 

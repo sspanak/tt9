@@ -42,7 +42,7 @@ public class WordFile extends AssetFile {
 	public WordFile(@NonNull Context context, Language language, AssetManager assets) {
 		super(assets, language != null ? language.getDictionaryFile() : "");
 		this.context = context;
-		hasSyllables = language != null && language.isSyllabary();
+		hasSyllables = language != null && language.isTranscribed();
 
 		lastCharCode = 0;
 		reader = null;
