@@ -10,11 +10,10 @@ import java.util.Map;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 
-public class NaturalLanguage extends Language implements Comparable<NaturalLanguage> {
+public class NaturalLanguage extends SyllabaryLanguage implements Comparable<NaturalLanguage> {
 	final public static String SPECIAL_CHAR_KEY = "0";
 	final public static String PUNCTUATION_KEY = "1";
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
@@ -257,7 +256,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		if (
 			word == null
 			|| word.isEmpty()
-			|| (isSyllabary && LanguageKind.isKorean(this) && TextTools.isHangul(word))
+			|| (super.isValidWord(word))
 			|| (word.length() == 1 && Character.isDigit(word.charAt(0)))
 		) {
 			return true;

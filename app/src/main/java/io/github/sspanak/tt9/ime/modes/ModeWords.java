@@ -110,7 +110,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (newLanguage != null && newLanguage.isSyllabary()) {
+		if (LanguageKind.isKorean(newLanguage)) {
 			return false;
 		}
 
