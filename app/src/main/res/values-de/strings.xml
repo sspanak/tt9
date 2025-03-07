@@ -151,6 +151,7 @@
 	<string name="voice_input_error_generic">Fehler bei der Spracheingabe</string>
 	<string name="voice_input_error_no_permissions">Keine Mikrofonberechtigung</string>
 	<string name="voice_input_error_language_not_supported">Sprache nicht unterstützt</string>
+	<string name="voice_input_error_language_missing">Sprache fehlt auf dem Gerät</string>
 	<string name="voice_input_error_network_failed">Netzwerkverbindung fehlgeschlagen</string>
 	<string name="voice_input_error_no_network">Keine Internetverbindung</string>
 	<string name="voice_input_error_not_available">Spracheingabe ist nicht verfügbar</string>
