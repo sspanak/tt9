@@ -10,7 +10,13 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 class Punctuation {
+	public static final String AR_QUESTION_MARK = "؟";
 	public static final String GR_QUESTION_MARK = ";";
+	public static final String ZH_COMMA_LIST = "、";
+	public static final String ZH_FULL_STOP = "。";
+	public static final String ZH_QUESTION_MARK = "？";
+	public static final String ZH_EXCLAMATION_MARK = "！";
+
 	public static final String NEW_LINE = DeviceInfo.AT_LEAST_ANDROID_6 && new Paint().hasGlyph("⏎") ? "⏎" : "\\n";
 	public static final String ZWJ = "\u200D";
 	public static final String ZWJ_GRAPHIC = "ZWJ";
@@ -22,7 +28,7 @@ class Punctuation {
 	));
 
 	final public static ArrayList<Character> CombiningPunctuationFarsi = new ArrayList<>(Arrays.asList(
-		'،', ZWNJ.charAt(0), '-', '\'', ':', '؛', '!', '؟', '.'
+		'،', ZWNJ.charAt(0), '-', '\'', ':', AR_QUESTION_MARK.charAt(0), '!', '؛', '.'
 	));
 
 	final private static ArrayList<Character> CombiningPunctuationGujarati = new ArrayList<>(Arrays.asList(
@@ -38,7 +44,11 @@ class Punctuation {
 	));
 
 	final public static ArrayList<String> PunctuationArabic = new ArrayList<>(Arrays.asList(
-		"،", ".", "-", "(", ")", "&", "~", "`", "'", "\"",  "؛", ":", "!", "؟"
+		"،", ".", "-", "(", ")", "&", "~", "`", "'", "\"", "؛", ":", "!", AR_QUESTION_MARK
+	));
+
+	final public static ArrayList<String> PunctuationChinese = new ArrayList<>(Arrays.asList(
+		"，", ZH_COMMA_LIST, ZH_FULL_STOP, "—", "～", "（", "）", ".", "「", "」", "『", "』", "•", "《", "》", "〈", "〉", "'", "“", "”", "；", "：", ZH_EXCLAMATION_MARK, ZH_QUESTION_MARK
 	));
 
 	final public static ArrayList<String> PunctuationEnglish = new ArrayList<>(Arrays.asList(

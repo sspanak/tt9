@@ -48,13 +48,15 @@ class ModeCheonjiin extends InputMode {
 
 		SPECIAL_CHAR_SEQUENCE_PREFIX = "11";
 
+		super.setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
+
+		autoSpace = new AutoSpace(settings).setLanguage(language);
 		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
 		this.inputType = inputType;
 		this.textField = textField;
 
 		initPredictions();
-		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		setSpecialCharacterConstants();
 
 		if (isEmailMode) {
@@ -64,8 +66,6 @@ class ModeCheonjiin extends InputMode {
 		} else {
 			setCustomSpecialCharacters();
 		}
-
-		autoSpace = new AutoSpace(settings).setLanguage(language);
 	}
 
 

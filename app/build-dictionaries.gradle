@@ -8,13 +8,13 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
-		def (_, sounds, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
+		def (_, sounds, prependSoundsToWords, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
 		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
 			return langFileErrorMsg
 		}
 
-		def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, noSyllables, locale, MAX_ERRORS, CSV_DELIMITER)
+		def (conversionErrorCount, conversionErrorMessages) = convertDictionary(definition, dictionaryFile, dictionariesOutputDir, dictionariesMetaDir, DICTIONARY_OUTPUT_EXTENSION, sounds, prependSoundsToWords, noSyllables, locale, MAX_ERRORS, CSV_DELIMITER)
 		errorCount += conversionErrorCount
 		if (!conversionErrorMessages.isEmpty()) {
 			return conversionErrorMessages
@@ -31,12 +31,12 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 
 
 // this cannot be static, because DictionaryTools will not be visible
-def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, boolean noSyllables, Locale locale, int maxErrors, String csvDelimiter) {
+def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, boolean prependSoundsToWords, boolean noSyllables, Locale locale, int maxErrors, String csvDelimiter) {
 	if (isDictionaryUpToDate(definition, csvDictionary, dictionariesMetaDir)) {
 		return [0, ""]
 	}
 
-
+	final LATIN_ONLY_WORD = "^[A-Za-z]+\$"
 	int errorCount = 0
 	String errorMsg = ''
 
@@ -63,7 +63,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 				outputDictionary.put(digitSequence, new ArrayList<>())
 			}
 			// prefix the frequency to sort the words later
-			outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${word}")
+			outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${prependSoundsToWords && !(word =~ LATIN_ONLY_WORD) ? transcription : ''}${word}")
 			wordCount++
 		}
 	}

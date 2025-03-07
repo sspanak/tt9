@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
@@ -11,7 +13,7 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class WordPredictions extends Predictions {
-	private final TextField textField;
+	protected final TextField textField;
 	private LocaleWordsSorter localeWordsSorter;
 
 	private String inputWord;
@@ -30,7 +32,7 @@ public class WordPredictions extends Predictions {
 
 
 	@Override
-	public Predictions setLanguage(Language language) {
+	public Predictions setLanguage(@NonNull Language language) {
 		super.setLanguage(language);
 		localeWordsSorter = new LocaleWordsSorter(language);
 
@@ -67,6 +69,7 @@ public class WordPredictions extends Predictions {
 			},
 			language,
 			digitSequence.substring(1),
+			onlyExactMatches,
 			stem.length() > 1 ? stem.substring(1) : "",
 			SettingsStore.SUGGESTIONS_MIN,
 			SettingsStore.SUGGESTIONS_MAX
@@ -262,14 +265,16 @@ public class WordPredictions extends Predictions {
 			return;
 		}
 
-		// Second condition note: If the accepted word is longer than the sequence, it is some different word,
-		// not a textonym of the fist suggestion. We don't need to store it.
-		if (settings.getPredictWordPairs() && word.length() == digitSequence.length()) {
-			DataStore.addWordPair(language, textField.getWordBeforeCursor(language, 1, true), word, sequence);
-		}
+		pairWithPreviousWord(word, sequence);
+		makeTopWord(word, sequence);
+	}
 
-		// Update the priority only if the user has selected the word, not when we have enforced it
-		// because it is in a popular word pair.
+
+	/**
+	 * Update the priority only if the user has selected the word, not when we have enforced it
+	 * because it is in a popular word pair.
+	 */
+	protected void makeTopWord(String word, String sequence) {
 		if (!word.equals(lastEnforcedTopWord)) {
 			DataStore.makeTopWord(language, word, sequence);
 		}
@@ -283,7 +288,7 @@ public class WordPredictions extends Predictions {
 	 * "onAccept()", we have remembered the "am" comes after "I" and "an" comes after "am", we will
 	 * not suggest the textonyms "am" or "an" twice (depending on which has the highest frequency).
 	 */
-	private ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
+	protected ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
 		lastEnforcedTopWord = "";
 
 		if (!settings.getPredictWordPairs() || words.size() < 2) {
@@ -291,7 +296,7 @@ public class WordPredictions extends Predictions {
 		}
 
 		ArrayList<String> rearrangedWords = new ArrayList<>();
-		String penultimateWord = textField.getWordBeforeCursor(language, 1, true);
+		String penultimateWord = getWordBeforeCursor(words.get(0));
 
 		String pairWord = DataStore.getWord2(language, penultimateWord, digitSequence);
 		int morePopularIndex = TextTools.indexOfIgnoreCase(words, pairWord);
@@ -309,5 +314,27 @@ public class WordPredictions extends Predictions {
 		}
 
 		return rearrangedWords;
+	}
+
+
+	/**
+	 * Pairs the given word and its digit sequence to the last word in the text field.
+	 * Second condition note: If the accepted word is longer than the sequence, it is some different word,
+	 * not a textonym of the fist suggestion. We don't need to store it.
+	 */
+	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence) {
+		if (settings.getPredictWordPairs() && sequence.length() == digitSequence.length()) {
+			DataStore.addWordPair(language, getWordBeforeCursor(word), word, sequence);
+		}
+	}
+
+
+	/**
+	 * Returns the last word in the text field. The way of finding it depends on the language, so
+	 * we have a separate method for that.
+	 */
+	@NonNull
+	protected String getWordBeforeCursor(@NonNull String currentWord) {
+		return textField.getWordBeforeCursor(language, 1, true);
 	}
 }

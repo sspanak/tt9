@@ -60,7 +60,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 				&& !tt9.isVoiceInputActive()
 				&& (
 					LanguageKind.isKorean(tt9.getLanguage())
-					|| (tt9.notLanguageSyllabary() && !tt9.isTextEditingActive())
+					|| (tt9.isFilteringSupported() && !tt9.isTextEditingActive())
 				)
 			);
 		}

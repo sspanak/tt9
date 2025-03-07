@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -41,7 +40,7 @@ abstract public class Predictions {
 	}
 
 
-	public Predictions setLanguage(Language language) {
+	public Predictions setLanguage(@NonNull Language language) {
 		this.language = language;
 		return this;
 	}
@@ -110,7 +109,8 @@ abstract public class Predictions {
 			(dbWords) -> onDbWords(dbWords, isRetryAllowed()),
 			language,
 			digitSequence,
-			onlyExactMatches ? WordStore.FILTER_EXACT_MATCHES_ONLY : stem,
+			onlyExactMatches,
+			stem,
 			minWords,
 			maxWords
 		);

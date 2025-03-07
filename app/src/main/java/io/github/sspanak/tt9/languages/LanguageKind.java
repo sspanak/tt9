@@ -11,6 +11,7 @@ public class LanguageKind {
 
 	public static boolean isArabic(Language language) { return language != null && language.getId() == 502337; }
 	public static boolean isEnglish(Language language) { return language != null && language.getLocale().equals(Locale.ENGLISH); }
+	public static boolean isChinese(Language language) { return language != null && language.getId() == 462106; }
 	public static boolean isFarsi(Language language) { return language != null && language.getId() == 599078; }
 	public static boolean isFrench(Language language) { return language != null && language.getId() == 596550; }
 	public static boolean isGreek(Language language) { return language != null && language.getId() == 597381; }

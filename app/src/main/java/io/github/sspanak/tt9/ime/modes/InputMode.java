@@ -42,6 +42,7 @@ abstract public class InputMode {
 
 
 	protected InputMode(SettingsStore settings, InputType inputType) {
+		allowedTextCases.add(CASE_LOWER);
 		isEmailMode = inputType != null && inputType.isEmail() && !inputType.isDefectiveText();
 		this.settings = settings;
 	}
@@ -50,7 +51,9 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				return (LanguageKind.isKorean(language) ? new ModeCheonjiin(settings, inputType, textField) : new ModeWords(settings, language, inputType, textField));
+				if (LanguageKind.isChinese(language)) return new ModePinyin(settings, language, inputType, textField);
+				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
+				return new ModeWords(settings, language, inputType, textField);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
 			case MODE_PASSTHROUGH:
@@ -69,6 +72,7 @@ abstract public class InputMode {
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
+	public void onReplaceSuggestion(@NonNull String word) {}
 
 	/**
 	 * loadSuggestions
@@ -123,6 +127,7 @@ abstract public class InputMode {
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
+	public boolean shouldReplacePreviousSuggestion() { return false; }
 	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace() { return false; }
 	public boolean shouldDeletePrecedingSpace() { return false; }
@@ -251,4 +256,5 @@ abstract public class InputMode {
 	public boolean isStemFilterFuzzy() { return false; }
 	public String getWordStem() { return ""; }
 	public boolean setWordStem(String stem, boolean exact) { return false; }
+	public boolean supportsFiltering() { return false; }
 }

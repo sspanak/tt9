@@ -206,7 +206,7 @@ public class SuggestionsBar {
 			return;
 		}
 
-		stem = containsGenerated ? newSuggestions.get(0).substring(0, newSuggestions.get(0).length() - 1) : "";
+		stem = containsGenerated && newSuggestions.get(0).length() > 1 ? newSuggestions.get(0).substring(0, newSuggestions.get(0).length() - 1) : "";
 
 		// Do not modify single letter + punctuation, such as "j'" or "l'". They look better as they are.
 		stem = (stem.length() == 1 && newSuggestions.get(0).length() == 2 && !Character.isAlphabetic(newSuggestions.get(0).charAt(1))) ? "" : stem;

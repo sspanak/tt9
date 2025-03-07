@@ -92,7 +92,7 @@ class ModeABC extends InputMode {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (newLanguage != null && newLanguage.isSyllabary()) {
+		if (newLanguage != null && newLanguage.isTranscribed()) {
 			return false;
 		}
 
