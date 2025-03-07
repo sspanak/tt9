@@ -217,6 +217,9 @@ public class TraditionalT9 extends MainViewHandler {
 		requestHideSelf(0);
 		cleanUp();
 		stopSelf();
+		if (mainView != null) {
+			mainView.destroy();
+		}
 		isDead = true;
 	}
 
@@ -238,6 +241,9 @@ public class TraditionalT9 extends MainViewHandler {
 			isDead = true;
 		}
 		super.onDestroy();
+		if (mainView != null) { // this run last because the MainView is used in super.onDestroy()
+			mainView.destroy();
+		}
 		Logger.d(LOG_TAG, "===> Shutdown completed");
 	}
 
