@@ -69,14 +69,17 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 	@Override
 	protected void onClick() {
 		super.onClick();
+
+		boolean enableCancelButton = !DeviceInfo.noTouchScreen(getContext());
+
 		UI.confirm(
 			getContext(),
 			getKey(),
 			getContext().getString(R.string.function_assign_instructions, getTitle()),
 			null,
 			null,
-			false,
-			null,
+			enableCancelButton,
+			enableCancelButton ? ()->{} : null,
 			this
 		);
 	}
