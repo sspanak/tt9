@@ -52,11 +52,16 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 
-	@Override
-	public void destroy() {
+	public void stopListeners() {
 		if (main != null && main.getView() != null) {
 			main.getView().removeOnAttachStateChangeListener(this);
 		}
+	}
+
+
+	@Override
+	public void destroy() {
+		stopListeners();
 		super.destroy();
 	}
 
