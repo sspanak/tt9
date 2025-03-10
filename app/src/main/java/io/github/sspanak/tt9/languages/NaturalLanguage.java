@@ -90,6 +90,7 @@ public class NaturalLanguage extends Language implements Comparable<NaturalLangu
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FR", Characters.PunctuationFrench);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_DE", Characters.PunctuationGerman);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_GR", Characters.PunctuationGreek);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_IE", Characters.PunctuationIrish);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_IN", Characters.PunctuationIndic);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_KR", Characters.PunctuationKorean);
 
