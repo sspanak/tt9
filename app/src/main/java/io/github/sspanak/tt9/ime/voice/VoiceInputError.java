@@ -41,6 +41,11 @@ public class VoiceInputError {
 	}
 
 
+	public boolean isLanguageMissing() {
+		return DeviceInfo.AT_LEAST_ANDROID_12 && code == SpeechRecognizer.ERROR_LANGUAGE_UNAVAILABLE;
+	}
+
+
 	@NonNull
 	@Override
 	public String toString() {
