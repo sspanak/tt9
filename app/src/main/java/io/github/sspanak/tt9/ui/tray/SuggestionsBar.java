@@ -142,13 +142,19 @@ public class SuggestionsBar {
 
 		String suggestion = suggestions.get(id);
 
-		if (Characters.ZWJ_GRAPHIC.equals(suggestion)) return Characters.ZWJ;
-		if (Characters.ZWNJ_GRAPHIC.equals(suggestion)) return Characters.ZWNJ;
+		// single char
 		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
 
+		suggestion = suggestion.replace(Characters.ZWNJ_GRAPHIC, Characters.ZWNJ);
+		suggestion = suggestion.replace(Characters.ZWJ_GRAPHIC, Characters.ZWJ);
+		if (suggestion.length() == 1) return suggestion;
+
+
+		// combined with "... +"
 		int endIndex = suggestion.indexOf(STEM_SUFFIX);
 		endIndex = endIndex == -1 ? suggestion.length() : endIndex;
 
+		// "..." prefix
 		int startIndex = 0;
 		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.COMBINING_ZERO_BASE};
     for (String prefix : prefixes) {
