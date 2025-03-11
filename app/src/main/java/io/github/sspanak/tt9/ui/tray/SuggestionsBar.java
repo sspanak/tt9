@@ -152,7 +152,10 @@ public class SuggestionsBar {
 		int startIndex = 0;
 		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.COMBINING_ZERO_BASE};
     for (String prefix : prefixes) {
-			startIndex = Math.max(startIndex, suggestion.indexOf(prefix) + 1);
+			int prefixIndex = suggestion.indexOf(prefix) + 1;
+			if (prefixIndex < endIndex) { // do not match the prefix chars when they are part of STEM_SUFFIX
+				startIndex = Math.max(startIndex, prefixIndex);
+			}
     }
 
 		if (startIndex == 0 && endIndex == suggestion.length()) {
