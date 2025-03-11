@@ -9,7 +9,7 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 			return "Too many errors! Skipping: ${definition}\n"
 		}
 
-		def (alphabet, sounds, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
+		def (alphabet, sounds, _, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
 
 		def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
 		def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
@@ -54,6 +54,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 	boolean hasLayout = false
 	boolean hasSounds = false
+	boolean soundFilter = false
 	boolean areNumeralsValid = true
 	String localeString = ""
 	String dictionaryFileName = ""
@@ -71,6 +72,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("name")
 			&& !rawLine.startsWith("numerals")
 			&& !rawLine.startsWith("sounds")
+			&& !rawLine.startsWith("soundFilter")
 		) {
 			def parts = rawLine.split(":")
 			def property = parts.length > 0 ? parts[0] : rawLine
@@ -82,7 +84,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
 
 		if (
-			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords"))
+			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords") || line.startsWith("soundFilter"))
 			&& !line.endsWith("yes") && !line.endsWith("no")
 		) {
 			def property = line.replaceAll(":.*\$", "")
@@ -101,6 +103,10 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 		if (line.startsWith("sounds")) {
 			hasSounds = true
+		}
+
+		if (line.startsWith("soundFilter")) {
+			soundFilter = line.endsWith("yes")
 		}
 
 		if (line.startsWith("locale")) {
@@ -150,6 +156,11 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
 	}
 
+	if (soundFilter && !hasSounds) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. 'soundFilter' property can only be used with 'sounds' property.\n"
+	}
+
 	if (!localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")) {
 		errorCount++
 		def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
@@ -176,7 +187,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		}
 	}
 
-	return [alphabet, sounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
+	return [alphabet, sounds, soundFilter, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
 }
 
 
