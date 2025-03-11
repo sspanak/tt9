@@ -265,6 +265,8 @@ public class DictionaryLoader {
 		int wordCount = 0;
 		int maxWordsPerSequence = 0;
 
+		positionShift = positionShift == 0 ? 1 : positionShift;
+
 		try (BufferedReader ignored = wordFile.getReader()) {
 			while (wordFile.notEOF()) {
 				if (loadThread.isInterrupted()) {
