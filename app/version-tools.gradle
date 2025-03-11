@@ -1,26 +1,12 @@
-def execThing (String cmdStr) {
-	def stdout = new ByteArrayOutputStream()
-	String prefix = System.getenv("GITCMDPREFIX")
-	if (prefix != null) {
-		String cmd = prefix + cmdStr
-		exec {
-			commandLine cmd.tokenize()
-			standardOutput = stdout
-		}
-	} else {
-		exec {
-			commandLine cmdStr.tokenize()
-			standardOutput = stdout
-		}
-	}
-	return stdout.toString().trim()
+static def execThing (String cmd) {
+	return cmd.execute().text.trim()
 }
 
-def getCurrentGitHash() {
+static def getCurrentGitHash() {
 	return execThing('git rev-parse --short=8 HEAD')
 }
 
-def generateVersionName() {
+static def generateVersionName() {
 	// major version
 	String versionTagsRaw = execThing('git tag --list v[0-9]*')
 	int versionTagsCount = versionTagsRaw == "" ? 0 : versionTagsRaw.split('\n').size()
