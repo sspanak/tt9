@@ -299,9 +299,11 @@ public class ReadOps {
 
 		sql.append(" ORDER BY LENGTH(word), frequency DESC");
 
-		if (maxWords > 0) {
-			sql.append(" LIMIT ").append(maxWords);
+		if (maxWords < 0 && maxWordsPerSequence.containsKey(language)) {
+			Integer limit = maxWordsPerSequence.get(language);
+			maxWords = limit != null ? limit : SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
 		}
+		sql.append(" LIMIT ").append(maxWords);
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);

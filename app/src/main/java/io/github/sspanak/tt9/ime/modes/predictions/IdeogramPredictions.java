@@ -17,8 +17,8 @@ public class IdeogramPredictions extends WordPredictions {
 		ArrayList<String> cleanWords = new ArrayList<>();
 
 		for (int i = 0; i < words.size(); i++) {
-			String word = words.get(i);
-			cleanWords.add(word.replaceAll("[a-zA-Z]+", ""));
+			String cleanWord = words.get(i).replaceAll("[a-zA-Z]+", "");
+			cleanWords.add(cleanWord.isEmpty() ? words.get(i) : cleanWord);
 		}
 
 		words = cleanWords;

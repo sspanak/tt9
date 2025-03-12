@@ -36,7 +36,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 		return [0, ""]
 	}
 
-
+	final LATIN_ONLY_WORD = "^[A-Za-z]+\$"
 	int errorCount = 0
 	String errorMsg = ''
 
@@ -63,7 +63,7 @@ def convertDictionary(File definition, File csvDictionary, String dictionariesOu
 				outputDictionary.put(digitSequence, new ArrayList<>())
 			}
 			// prefix the frequency to sort the words later
-			outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${prependSoundsToWords ? transcription : ''}${word}")
+			outputDictionary.get(digitSequence).add("${String.format('%03d', frequency)}${prependSoundsToWords && !(word =~ LATIN_ONLY_WORD) ? transcription : ''}${word}")
 			wordCount++
 		}
 	}
