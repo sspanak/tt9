@@ -4,25 +4,24 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.predictions.LogographicPredictions;
+import io.github.sspanak.tt9.ime.modes.predictions.IdeogramPredictions;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ModeLogograms extends ModeWords {
-	protected ModeLogograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
+public class ModeIdeograms extends ModeWords {
+	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
 	}
 
 	@Override
 	protected void initPredictions() {
-		predictions = new LogographicPredictions(settings, textField);
+		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 		// @todo: predictions.setMaxWords( <SOME_LARGE_NUMBER> )
 		// @todo: when digitSequence.length == 1, get all words, not only the first one
-		// @todo: rename Language.isSylabary -> Language.isLogographic
 		// @todo: Switching the language while typing may produce weird results on Android < 7
 		// @todo: add Chinese punctuation marks, numerals and currency sign
-		// @todo: documentation for "soundFilter"
+		// @todo: documentation for "filterBySounds"
 	}
 
 	@Override
@@ -33,8 +32,8 @@ public class ModeLogograms extends ModeWords {
 
 	@Override
 	protected void onPredictions() {
-		// @todo: stripping transcriptions should be optional, based on "soundFilter"
-		((LogographicPredictions) predictions).stripTranscriptions();
+		// @todo: stripping transcriptions should be optional, based on "filterBySound"
+		((IdeogramPredictions) predictions).stripTranscriptions();
 		// @todo: when filtering is on, keep only the latin letters instead
 
 		super.onPredictions();

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class LogographicPredictions extends WordPredictions {
-	public LogographicPredictions(SettingsStore settings, TextField textField) {
+public class IdeogramPredictions extends WordPredictions {
+	public IdeogramPredictions(SettingsStore settings, TextField textField) {
 		super(settings, textField);
 		minWords = 1;
 		onlyExactMatches = true;

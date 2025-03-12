@@ -54,7 +54,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 	boolean hasLayout = false
 	boolean hasSounds = false
-	boolean soundFilter = false
+	boolean filterBySounds = false
 	boolean areNumeralsValid = true
 	String localeString = ""
 	String dictionaryFileName = ""
@@ -72,7 +72,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("name")
 			&& !rawLine.startsWith("numerals")
 			&& !rawLine.startsWith("sounds")
-			&& !rawLine.startsWith("soundFilter")
+			&& !rawLine.startsWith("filterBySounds")
 		) {
 			def parts = rawLine.split(":")
 			def property = parts.length > 0 ? parts[0] : rawLine
@@ -84,7 +84,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
 
 		if (
-			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords") || line.startsWith("soundFilter"))
+			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords") || line.startsWith("filterBySounds"))
 			&& !line.endsWith("yes") && !line.endsWith("no")
 		) {
 			def property = line.replaceAll(":.*\$", "")
@@ -105,8 +105,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			hasSounds = true
 		}
 
-		if (line.startsWith("soundFilter")) {
-			soundFilter = line.endsWith("yes")
+		if (line.startsWith("filterBySounds")) {
+			filterBySounds = line.endsWith("yes")
 		}
 
 		if (line.startsWith("locale")) {
@@ -156,9 +156,9 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
 	}
 
-	if (soundFilter && !hasSounds) {
+	if (filterBySounds && !hasSounds) {
 		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. 'soundFilter' property can only be used with 'sounds' property.\n"
+		errorMsg += "Language '${languageFile.name}' is invalid. 'filterBySounds' property can only be used with 'sounds' property.\n"
 	}
 
 	if (!localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")) {
@@ -187,7 +187,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		}
 	}
 
-	return [alphabet, sounds, soundFilter, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
+	return [alphabet, sounds, filterBySounds, !hasSounds, locale, dictionaryFile, errorCount, errorMsg]
 }
 
 

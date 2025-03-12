@@ -2,11 +2,11 @@ package io.github.sspanak.tt9.languages;
 
 import io.github.sspanak.tt9.util.TextTools;
 
-abstract class SyllabaryLanguage extends Language {
+abstract class TranscribedLanguage extends Language {
 
 	@Override
 	public boolean isValidWord(String word) {
-		if (!isSyllabary) {
+		if (!isTranscribed) {
 			return false;
 		}
 

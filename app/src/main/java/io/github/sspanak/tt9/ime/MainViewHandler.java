@@ -107,13 +107,13 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
-	public boolean notLanguageSyllabary() {
-		return mLanguage == null || !mLanguage.isSyllabary();
+	public boolean notTranscribed() {
+		return mLanguage == null || !mLanguage.isTranscribed();
 	}
 
 
 	public String getABCString() {
-		return mLanguage == null || mLanguage.isSyllabary() ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
+		return mLanguage == null ? "ABC" : mLanguage.getAbcString().toUpperCase(mLanguage.getLocale());
 	}
 
 

@@ -192,7 +192,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty() || mLanguage.isSyllabary()) {
+		if (suggestionOps.isEmpty() || mLanguage.isTranscribed()) {
 			return false;
 		}
 
@@ -229,7 +229,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		if (mLanguage.isSyllabary()) {
+		if (mLanguage.isTranscribed()) {
 			UI.toastShortSingle(this, R.string.function_filter_suggestions_not_available);
 			return true; // prevent the default key action to acknowledge we have processed the event
 		}

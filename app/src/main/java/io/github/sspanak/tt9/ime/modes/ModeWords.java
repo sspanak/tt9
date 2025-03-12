@@ -131,7 +131,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public boolean recompose(String word) {
-		if (!language.hasSpaceBetweenWords() || language.isSyllabary()) {
+		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return false;
 		}
 

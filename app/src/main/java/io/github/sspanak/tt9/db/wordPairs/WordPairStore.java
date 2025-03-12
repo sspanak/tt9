@@ -137,8 +137,8 @@ public class WordPairStore extends BaseSyncStore {
 
 		int totalPairs = 0;
 		for (Language language : languages) {
-			if (language.isSyllabary()) {
-				Logger.d(LOG_TAG, "Not loading word pairs for syllabary language: " + language.getId());
+			if (language.isTranscribed()) {
+				Logger.d(LOG_TAG, "Not loading word pairs for transcribed language: " + language.getId());
 				continue;
 			}
 

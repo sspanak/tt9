@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 
-public class NaturalLanguage extends SyllabaryLanguage implements Comparable<NaturalLanguage> {
+public class NaturalLanguage extends TranscribedLanguage implements Comparable<NaturalLanguage> {
 	final public static String SPECIAL_CHAR_KEY = "0";
 	final public static String PUNCTUATION_KEY = "1";
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
@@ -35,7 +35,7 @@ public class NaturalLanguage extends SyllabaryLanguage implements Comparable<Nat
 		lang.dictionaryFile = definition.getDictionaryFile();
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
-		lang.isSyllabary = definition.isSyllabary;
+		lang.isTranscribed = definition.isTranscribed;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 		lang.numerals = definition.numerals;
 		lang.setLocale(definition);

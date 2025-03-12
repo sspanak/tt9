@@ -26,7 +26,7 @@ public class LanguageDefinition {
 	public String dictionaryFile = "";
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
-	public boolean isSyllabary = false;
+	public boolean isTranscribed = false;
 	public final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
 	public String name = "";
@@ -141,7 +141,7 @@ public class LanguageDefinition {
 				hasUpperCase = parseYamlBoolean(value);
 				return;
 			case "sounds":
-				isSyllabary = true;
+				isTranscribed = true;
 				return;
 			case "locale":
 				locale = value;

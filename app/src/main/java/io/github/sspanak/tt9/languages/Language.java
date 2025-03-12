@@ -17,7 +17,7 @@ abstract public class Language {
 	protected String name;
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
-	protected boolean isSyllabary = false;
+	protected boolean isTranscribed = false;
 
 
 	public int getId() {
@@ -71,8 +71,8 @@ abstract public class Language {
 		return hasUpperCase;
 	}
 
-	final public boolean isSyllabary() {
-		return isSyllabary;
+	final public boolean isTranscribed() {
+		return isTranscribed;
 	}
 
 	@NonNull

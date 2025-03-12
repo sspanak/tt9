@@ -13,7 +13,7 @@ layout:
   - [p, q, r, s] # 7
   - [t, u, v] # 8
   - [w, x, y, z] # 9
-soundFilter: yes
+filterBySounds: yes
 sounds:
   - [A,2]
   - [B,2]
