@@ -82,7 +82,7 @@ public class WordStore extends BaseSyncStore {
 		long longPositionsTime = Timer.stop("cache_long_positions");
 
 		final int minWords = Math.max(minimumWords, 0);
-		final int maxWords = Math.max(maximumWords, minWords);
+		final int maxWords = maximumWords >= 0 ? Math.max(maximumWords, minWords) : maximumWords;
 		final String filter = wordFilter == null ? "" : wordFilter;
 
 		Timer.start("get_positions");

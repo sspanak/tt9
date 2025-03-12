@@ -297,9 +297,11 @@ public class ReadOps {
 			sql.append(" AND word LIKE '").append(filter.replaceAll("'", "''")).append("%'");
 		}
 
-		sql
-			.append(" ORDER BY LENGTH(word), frequency DESC")
-			.append(" LIMIT ").append(maxWords);
+		sql.append(" ORDER BY LENGTH(word), frequency DESC");
+
+		if (maxWords > 0) {
+			sql.append(" LIMIT ").append(maxWords);
+		}
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);
