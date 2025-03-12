@@ -110,12 +110,18 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (LanguageKind.isKorean(newLanguage)) {
+		if (newLanguage != null && newLanguage.isTranscribed()) {
 			return false;
 		}
 
-		super.setLanguage(newLanguage);
+		setLanguage(newLanguage);
+		return true;
+	}
 
+
+	@Override
+	protected void setLanguage(@Nullable Language newLanguage) {
+		super.setLanguage(newLanguage);
 		autoSpace.setLanguage(language);
 
 		allowedTextCases.clear();
@@ -124,10 +130,7 @@ class ModeWords extends ModeCheonjiin {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
-
-		return true;
 	}
-
 
 	@Override
 	public boolean recompose(String word) {

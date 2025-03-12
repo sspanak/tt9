@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -24,6 +25,16 @@ public class ModeIdeograms extends ModeWords {
 		// @todo: documentation the new YAML properties
 	}
 
+
+	@Override
+	public boolean changeLanguage(@Nullable Language newLanguage) {
+		if (newLanguage != null && !newLanguage.isTranscribed()) {
+			return false;
+		}
+
+		setLanguage(newLanguage);
+		return true;
+	}
 
 	@Override
 	public boolean onBackspace() {
