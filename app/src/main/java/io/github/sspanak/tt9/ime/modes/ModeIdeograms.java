@@ -24,6 +24,7 @@ public class ModeIdeograms extends ModeWords {
 		// @todo: documentation for "filterBySounds"
 	}
 
+
 	@Override
 	public boolean onBackspace() {
 		// @todo: make sure not to break characters in the middle

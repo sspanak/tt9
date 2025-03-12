@@ -18,7 +18,6 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.db.wordPairs.WordPair;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
-import io.github.sspanak.tt9.db.words.WordStore;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -131,9 +130,6 @@ public class ReadOps {
 			return new WordList();
 		}
 
-		// EXACT_MATCHES concerns only the positions query
-		filter = filter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY) ? "" : filter;
-
 		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
 		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
@@ -157,10 +153,10 @@ public class ReadOps {
 	}
 
 
-	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, String wordFilter, int minPositions) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, boolean onlyExactSequenceMatches, String wordFilter, int minPositions) {
 		int generations;
 
-		if (wordFilter.equals(WordStore.FILTER_EXACT_MATCHES_ONLY)) {
+		if (onlyExactSequenceMatches) {
 			generations = 0;
 		} else {
 			generations = switch (sequence.length()) {
