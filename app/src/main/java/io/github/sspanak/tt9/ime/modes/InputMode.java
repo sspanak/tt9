@@ -42,6 +42,7 @@ abstract public class InputMode {
 
 
 	protected InputMode(SettingsStore settings, InputType inputType) {
+		allowedTextCases.add(CASE_LOWER);
 		isEmailMode = inputType != null && inputType.isEmail() && !inputType.isDefectiveText();
 		this.settings = settings;
 	}

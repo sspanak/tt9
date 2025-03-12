@@ -150,6 +150,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 			int nextModeIndex = (allowedInputModes.indexOf(mInputMode.getId()) + 1) % allowedInputModes.size();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, allowedInputModes.get(nextModeIndex));
+			if (!mLanguage.hasABC() && InputModeKind.isABC(mInputMode)) {
+				nextInputMode();
+				return;
+			}
+
 			determineTextCase();
 		}
 

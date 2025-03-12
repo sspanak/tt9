@@ -52,6 +52,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 	int errorCount = 0
 	String errorMsg = ""
 
+	String abcString = ""
+	boolean hasABC = true
 	boolean hasLayout = false
 	boolean hasSounds = false
 	boolean filterBySounds = false
@@ -65,6 +67,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("abcString")
 			&& !rawLine.startsWith("currency")
 			&& !rawLine.startsWith("dictionaryFile")
+			&& !rawLine.startsWith("filterBySounds")
+			&& !rawLine.startsWith("hasABC")
 			&& !rawLine.startsWith("hasSpaceBetweenWords")
 			&& !rawLine.startsWith("hasUpperCase")
 			&& !rawLine.startsWith("layout")
@@ -72,7 +76,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("name")
 			&& !rawLine.startsWith("numerals")
 			&& !rawLine.startsWith("sounds")
-			&& !rawLine.startsWith("filterBySounds")
+
 		) {
 			def parts = rawLine.split(":")
 			def property = parts.length > 0 ? parts[0] : rawLine
@@ -83,14 +87,29 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 		String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
 
-		if (
-			(line.startsWith("hasUpperCase") || line.startsWith("hasSpaceBetweenWords") || line.startsWith("filterBySounds"))
-			&& !line.endsWith("yes") && !line.endsWith("no")
-		) {
-			def property = line.replaceAll(":.*\$", "")
-			def invalidVal = line.replace("hasUpperCase:", "").trim()
-			errorCount++
-			errorMsg += "Language '${languageFile.name}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+		def booleanProperties = ["hasUpperCase", "hasSpaceBetweenWords", "filterBySounds", "hasABC"]
+		for (String property : booleanProperties) {
+			String booleanError = validateBooleanProperty(line, property, languageFile.name)
+			if (booleanError) {
+				errorCount++
+				errorMsg += booleanError
+			}
+		}
+
+		if (line.startsWith("abcString")) {
+			abcString = line.replace("abcString:", "").trim()
+		}
+
+		if (line.startsWith("dictionaryFile")) {
+			dictionaryFileName = line.replace("dictionaryFile:", "").trim()
+		}
+
+		if (line.startsWith("filterBySounds")) {
+			filterBySounds = line.endsWith("yes")
+		}
+
+		if (line.startsWith("hasABC")) {
+			hasABC = line.endsWith("yes")
 		}
 
 		if (line.startsWith("numerals")) {
@@ -105,16 +124,8 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			hasSounds = true
 		}
 
-		if (line.startsWith("filterBySounds")) {
-			filterBySounds = line.endsWith("yes")
-		}
-
 		if (line.startsWith("locale")) {
 			localeString = line.replace("locale:", "").trim()
-		}
-
-		if (line.startsWith("dictionaryFile")) {
-			dictionaryFileName = line.replace("dictionaryFile:", "").trim()
 		}
 
 		// alphabet string
@@ -139,6 +150,11 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		if (!sound.isEmpty() && !sequence.isEmpty()) {
 			sounds.put(sound, sequence)
 		}
+	}
+
+	if (!hasABC && !abcString.isEmpty()) {
+		errorCount++
+		errorMsg += "Language '${languageFile.name}' is invalid. hasABC must be 'true' when abcString is provided.\n"
 	}
 
 	if (!hasLayout) {
@@ -308,6 +324,16 @@ static def isLayoutLine(String line) {
 }
 
 //////////////////// VALIDATION ////////////////////
+
+static def validateBooleanProperty(String line, String propertyName, String languageFileName) {
+	if (line.startsWith(propertyName) && !line.endsWith("yes") && !line.endsWith("no")) {
+		def property = line.replaceAll(":.*\$", "")
+		def invalidVal = line.replace("hasUpperCase:", "").trim()
+		return "Language '${languageFileName}' is invalid. Unrecognized '${property}' value: '${invalidVal}'. Only 'yes' and 'no' are allowed.\n"
+	}
+
+	return ''
+}
 
 static def validateNoWhitespace(String line, int lineNumber) {
 	if (line == "") {

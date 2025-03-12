@@ -15,6 +15,7 @@ abstract public class Language {
 	protected String dictionaryFile;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
+	protected boolean hasABC = true;
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
 	protected boolean isTranscribed = false;
@@ -61,6 +62,10 @@ abstract public class Language {
 
 	@NonNull public String getName() {
 		return name;
+	}
+
+	final public boolean hasABC() {
+		return hasABC;
 	}
 
 	final public boolean hasSpaceBetweenWords() {

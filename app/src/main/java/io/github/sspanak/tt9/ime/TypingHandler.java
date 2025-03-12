@@ -21,7 +21,6 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
@@ -294,10 +293,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
-		if (LanguageKind.isKorean(mLanguage)) {
-			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
-		}
-
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 

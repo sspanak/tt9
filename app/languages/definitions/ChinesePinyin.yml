@@ -1,7 +1,9 @@
 locale: zh-CN
 dictionaryFile: zh-pinyin.csv
-hasUpperCase: no
 name: 中文 / 简体
+hasABC: no
+hasSpaceBetweenWords: no
+hasUpperCase: no
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1

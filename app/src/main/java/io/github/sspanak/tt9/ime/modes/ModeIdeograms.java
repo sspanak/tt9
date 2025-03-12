@@ -21,7 +21,7 @@ public class ModeIdeograms extends ModeWords {
 		// @todo: when digitSequence.length == 1, get all words, not only the first one
 		// @todo: Switching the language while typing may produce weird results on Android < 7
 		// @todo: add Chinese punctuation marks, numerals and currency sign
-		// @todo: documentation for "filterBySounds"
+		// @todo: documentation the new YAML properties
 	}
 
 

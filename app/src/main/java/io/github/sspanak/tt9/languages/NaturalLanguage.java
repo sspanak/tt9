@@ -33,6 +33,7 @@ public class NaturalLanguage extends TranscribedLanguage implements Comparable<N
 		lang.abcString = definition.abcString.isEmpty() ? null : definition.abcString;
 		lang.currency = definition.currency;
 		lang.dictionaryFile = definition.getDictionaryFile();
+		lang.hasABC = definition.hasABC;
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.isTranscribed = definition.isTranscribed;

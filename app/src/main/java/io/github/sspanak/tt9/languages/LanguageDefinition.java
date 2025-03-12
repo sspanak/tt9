@@ -24,6 +24,7 @@ public class LanguageDefinition {
 	public String abcString = "";
 	public String currency = "";
 	public String dictionaryFile = "";
+	public boolean hasABC = true;
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
 	public boolean isTranscribed = false;
@@ -133,6 +134,9 @@ public class LanguageDefinition {
 				return;
 			case "dictionaryFile":
 				dictionaryFile = value.replaceFirst("\\.\\w+$", "." + BuildConfig.DICTIONARY_EXTENSION);
+				return;
+			case "hasABC":
+				hasABC = parseYamlBoolean(value);
 				return;
 			case "hasSpaceBetweenWords":
 				hasSpaceBetweenWords = parseYamlBoolean(value);
