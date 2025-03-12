@@ -19,6 +19,7 @@ public class ModeIdeograms extends ModeWords {
 		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 
+		// @todo: onlyExactMatches is not working
 		// @todo: when digitSequence.length == 1, get all words, not only the first one
 		// @todo: Switching the language while typing may produce weird results on Android < 7
 		// @todo: add Chinese punctuation marks, numerals and currency sign

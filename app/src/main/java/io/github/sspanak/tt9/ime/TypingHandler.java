@@ -293,6 +293,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
+		if (!mLanguage.hasABC()) {
+			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+		}
+
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
 	}
 

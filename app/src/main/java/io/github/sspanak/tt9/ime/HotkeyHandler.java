@@ -289,10 +289,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 		detectRTL();
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		if (!mInputMode.changeLanguage(mLanguage)) {
+		if (mInputMode.changeLanguage(mLanguage)) {
+			mInputMode.clearWordStem();
+		} else {
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
 		}
-		mInputMode.clearWordStem();
 
 		getSuggestions(null);
 		statusBar.setText(mInputMode);
