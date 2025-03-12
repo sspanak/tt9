@@ -172,7 +172,7 @@ public class ReadOps {
 
 	@NonNull
 	public String getWordPositions(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
-		if (sequence.length() == 1 || (cancel != null && cancel.isCanceled())) {
+		if ((sequence.length() == 1 && !language.isTranscribed()) || (cancel != null && cancel.isCanceled())) {
 			return sequence;
 		}
 
