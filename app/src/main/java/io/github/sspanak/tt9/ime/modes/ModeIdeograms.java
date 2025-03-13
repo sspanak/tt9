@@ -19,13 +19,15 @@ public class ModeIdeograms extends ModeWords {
 		super(settings, lang, inputType, textField);
 	}
 
+	@Override public void determineNextWordTextCase() {}
+	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
+
 	@Override
 	protected void initPredictions() {
 		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 
 		// @todo: accept words on space
-		// @todo: typing the preferred character does not work
 		// @todo: implement lazy displaying of the predictions when they are more than 20
 		// @todo: Switching the language while typing may produce weird results on Android < 7
 		// @todo: documentation of the new YAML properties
@@ -52,8 +54,30 @@ public class ModeIdeograms extends ModeWords {
 		super.onPredictions();
 	}
 
-	@Override public void determineNextWordTextCase() {}
-	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
+
+	@Override
+	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
+		String lastDigitSequence = digitSequence;
+		reset();
+		setWordStem("", true);
+
+		if (currentWord.isEmpty()) {
+			Logger.i(LOG_TAG, "Current word is empty. Nothing to accept.");
+			return;
+		}
+
+		if (TextTools.isGraphic(currentWord) || new Text(currentWord).isNumeric()) {
+			return;
+		}
+
+		// @todo: increment frequency
+
+		int len = lastDigitSequence.length();
+		if (preserveWords && len >= 2) {
+			digitSequence = lastDigitSequence.substring(len - 2, len - 1);
+			loadSuggestions("");
+		}
+	}
 
 
 	@Override
@@ -87,29 +111,6 @@ public class ModeIdeograms extends ModeWords {
 			);
 	}
 
-	@Override
-	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
-		String lastDigitSequence = digitSequence;
-		reset();
-		setWordStem("", true);
-
-		if (currentWord.isEmpty()) {
-			Logger.i(LOG_TAG, "Current word is empty. Nothing to accept.");
-			return;
-		}
-
-		if (TextTools.isGraphic(currentWord) || new Text(currentWord).isNumeric()) {
-			return;
-		}
-
-		// @todo: increment frequency
-
-		int len = lastDigitSequence.length();
-		if (preserveWords && len >= 2) {
-			digitSequence = lastDigitSequence.substring(len - 2, len - 1);
-			loadSuggestions("");
-		}
-	}
 
 	@Override
 	public boolean setWordStem(String newStem, boolean exact) {

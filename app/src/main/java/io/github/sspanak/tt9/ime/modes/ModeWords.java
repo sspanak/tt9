@@ -287,11 +287,16 @@ class ModeWords extends ModeCheonjiin {
 	private boolean loadPreferredChar() {
 		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
-			suggestions.add(settings.getDoubleZeroChar());
+			suggestions.add(getPreferredChar());
 			return true;
 		}
 
 		return false;
+	}
+
+
+	protected String getPreferredChar() {
+		return settings.getDoubleZeroChar();
 	}
 
 
