@@ -8,8 +8,13 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.predictions.IdeogramPredictions;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.TextTools;
 
 public class ModeIdeograms extends ModeWords {
+	private static String LOG_TAG = ModeIdeograms.class.getSimpleName();
+
 	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
 	}
@@ -19,7 +24,8 @@ public class ModeIdeograms extends ModeWords {
 		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 
-		// @todo: if there are no more words, proceed to the next word
+		// @todo: accept words on space
+		// @todo: typing the preferred character does not work
 		// @todo: implement lazy displaying of the predictions when they are more than 20
 		// @todo: Switching the language while typing may produce weird results on Android < 7
 		// @todo: documentation of the new YAML properties
@@ -49,38 +55,65 @@ public class ModeIdeograms extends ModeWords {
 	@Override public void determineNextWordTextCase() {}
 	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
-	// @todo: maybe implement this?
-	@Override public boolean recompose(String word) { return false; }
 
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) {
-		// @todo: implement...
-		return false;
+	public boolean shouldAcceptPreviousSuggestion(String s) {
+		return
+			!digitSequence.isEmpty()
+			&& predictions.noDbWords()
+			&& !digitSequence.equals(EMOJI_SEQUENCE)
+			&& !digitSequence.equals(PUNCTUATION_SEQUENCE)
+			&& !digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
 	}
+
 
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		// @todo: implement...
-		return hold;
-	}
+		if (digitSequence.isEmpty()) {
+			return false;
+		}
 
-	@Override
-	public void onAcceptSuggestion(@NonNull String word) {
-		// @todo: implement rules for filtering. Must switch from Latin to Logograms
-		// @todo: implement rules for Chinese here or in another class?
-		super.onAcceptSuggestion(word);
+		if (super.shouldAcceptPreviousSuggestion(nextKey, hold)) {
+			return true;
+		}
+
+		String nextSequence = digitSequence + (char)(nextKey + '0');
+
+		return
+			TextTools.containsOtherThan1(nextSequence)
+			&& (
+				nextSequence.endsWith(EMOJI_SEQUENCE) || nextSequence.startsWith(EMOJI_SEQUENCE) ||
+				nextSequence.endsWith(PUNCTUATION_SEQUENCE) || nextSequence.startsWith(PUNCTUATION_SEQUENCE)
+			);
 	}
 
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
-		// @todo: implement rules for filtering. Must switch from Latin to Logograms
-		// @todo: implement rules for Chinese here or in another class?
-		super.onAcceptSuggestion(currentWord, preserveWords);
+		String lastDigitSequence = digitSequence;
+		reset();
+		setWordStem("", true);
+
+		if (currentWord.isEmpty()) {
+			Logger.i(LOG_TAG, "Current word is empty. Nothing to accept.");
+			return;
+		}
+
+		if (TextTools.isGraphic(currentWord) || new Text(currentWord).isNumeric()) {
+			return;
+		}
+
+		// @todo: increment frequency
+
+		int len = lastDigitSequence.length();
+		if (preserveWords && len >= 2) {
+			digitSequence = lastDigitSequence.substring(len - 2, len - 1);
+			loadSuggestions("");
+		}
 	}
 
 	@Override
 	public boolean setWordStem(String newStem, boolean exact) {
-		// @todo: allow filter only by latin letters
+		// @todo: implement filtering by latin letters
 		return false;
 	}
 }
