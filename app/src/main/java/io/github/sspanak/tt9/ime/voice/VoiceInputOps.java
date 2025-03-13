@@ -2,10 +2,13 @@ package io.github.sspanak.tt9.ime.voice;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -16,14 +19,13 @@ import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
 public class VoiceInputOps {
-	private final boolean isOnDeviceRecognitionAvailable;
-	private final boolean isRecognitionAvailable;
-
+	private final static String LOG_TAG = VoiceInputOps.class.getSimpleName();
 
 	private final Context ims;
 	private Language language;
-	private SpeechRecognizer speechRecognizer;
 	private final VoiceListener listener;
+	private final SpeechRecognizerSupportLegacy recognizerSupport;
+	private SpeechRecognizer speechRecognizer;
 
 	private final ConsumerCompat<String> onStopListening;
 	private final ConsumerCompat<VoiceInputError> onListeningError;
@@ -35,9 +37,8 @@ public class VoiceInputOps {
 		ConsumerCompat<String> onStop,
 		ConsumerCompat<VoiceInputError> onError
 	) {
-		isOnDeviceRecognitionAvailable = DeviceInfo.AT_LEAST_ANDROID_12 && SpeechRecognizer.isOnDeviceRecognitionAvailable(ims);
-		isRecognitionAvailable = SpeechRecognizer.isRecognitionAvailable(ims);
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
+		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
 
 		onStopListening = onStop != null ? onStop : result -> {};
 		onListeningError = onError != null ? onError : error -> {};
@@ -46,12 +47,33 @@ public class VoiceInputOps {
 	}
 
 
-	private void createRecognizer() {
-		if (DeviceInfo.AT_LEAST_ANDROID_12 && isOnDeviceRecognitionAvailable) {
+	static String getLocale(@NonNull Language lang) {
+		return lang.getLocale().toString().replace("_", "-");
+	}
+
+
+	static Intent createIntent(@NonNull String locale) {
+		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
+		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		return intent;
+	}
+
+
+	static Intent createIntent(@NonNull Language language) {
+		return createIntent(getLocale(language));
+	}
+
+
+	private void createRecognizer(@Nullable Language language) {
+		if (DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(language)) {
+			Logger.d(LOG_TAG, "Creating on-device SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(ims);
-		} else if (isRecognitionAvailable) {
+		} else if (recognizerSupport.isRecognitionAvailable) {
+			Logger.d(LOG_TAG, "Creating online SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createSpeechRecognizer(ims);
 		} else {
+			Logger.d(LOG_TAG, "Cannot create SpeechRecognizer, recognition not available.");
 			return;
 		}
 
@@ -60,7 +82,7 @@ public class VoiceInputOps {
 
 
 	public boolean isAvailable() {
-		return isRecognitionAvailable || isOnDeviceRecognitionAvailable;
+		return recognizerSupport.isRecognitionAvailable || recognizerSupport.isOnDeviceRecognitionAvailable;
 	}
 
 
@@ -69,7 +91,7 @@ public class VoiceInputOps {
 	}
 
 
-	public void listen(Language language) {
+	public void listen(@Nullable Language language) {
 		if (language == null) {
 			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_INVALID_LANGUAGE));
 			return;
@@ -85,20 +107,37 @@ public class VoiceInputOps {
 			return;
 		}
 
-		createRecognizer();
-
 		this.language = language;
-		String locale = language.getLocale().toString().replace("_", "-");
+		recognizerSupport.setLanguage(language).checkOfflineSupport(this::listenAsync);
+	}
 
-		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
-		intent.putExtra(RecognizerIntent.EXTRA_PROMPT, toString());
+
+	private void listenAsync() {
+		Handler mainHandler = new Handler(Looper.getMainLooper());
+		mainHandler.post(this::listen);
+	}
+
+
+	private void listen() {
+		if (!isAvailable()) {
+			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
+			return;
+		}
+
+		if (isListening()) {
+			onListeningError.accept(new VoiceInputError(ims, SpeechRecognizer.ERROR_RECOGNIZER_BUSY));
+			return;
+		}
+
+		createRecognizer(language);
+
+		String locale = getLocale(language);
 
 		try {
-			speechRecognizer.startListening(intent);
-			Logger.d(getClass().getSimpleName(), "SpeechRecognizer started for locale: " + locale);
+			speechRecognizer.startListening(createIntent(locale));
+			Logger.d(LOG_TAG, "SpeechRecognizer started for locale: " + locale);
 		} catch (SecurityException e) {
-			Logger.e(getClass().getSimpleName(), "SpeechRecognizer start failed due to a SecurityException. " + e.getMessage());
+			Logger.e(LOG_TAG, "SpeechRecognizer start failed due to a SecurityException. " + e.getMessage());
 			onError(new VoiceInputError(ims, VoiceInputError.ERROR_CANNOT_BIND_TO_VOICE_SERVICE));
 		}
 	}
@@ -122,16 +161,33 @@ public class VoiceInputOps {
 				speechRecognizer.destroy();
 			} catch (IllegalArgumentException e) {
 				if (i < 2) {
-					Logger.e(getClass().getSimpleName(), "SpeechRecognizer destroy failed. " + e.getMessage() + ". Retrying...");
+					Logger.e(LOG_TAG, "SpeechRecognizer destroy failed. " + e.getMessage() + ". Retrying...");
 					continue;
 				} else {
-					Logger.e(getClass().getSimpleName(), "SpeechRecognizer destroy failed. " + e.getMessage() + ". Giving up and just nulling the reference.");
+					Logger.e(LOG_TAG, "SpeechRecognizer destroy failed. " + e.getMessage() + ". Giving up and just nulling the reference.");
 				}
 			}
 
 			speechRecognizer = null;
-			Logger.d(getClass().getSimpleName(), "SpeechRecognizer destroyed");
+			Logger.d(LOG_TAG, "SpeechRecognizer destroyed");
 		}
+	}
+
+
+	public boolean downloadLanguage(Language language) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_13 || !recognizerSupport.isLanguageSupportedOffline(language) || isListening()) {
+			return false;
+		}
+
+		createRecognizer(language);
+		if (speechRecognizer == null) {
+			return false;
+		}
+
+		speechRecognizer.triggerModelDownload(createIntent(language));
+		destroy();
+
+		return true;
 	}
 
 
@@ -145,6 +201,7 @@ public class VoiceInputOps {
 		destroy();
 		onListeningError.accept(error);
 	}
+
 
 	@NonNull
 	@Override

@@ -75,7 +75,15 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputError(VoiceInputError error) {
-		if (error.isIrrelevantToUser()) {
+		if (error.isLanguageMissing()) {
+			if (voiceInputOps.downloadLanguage(mLanguage)) {
+				Logger.i(LOG_TAG, "Downloading voice input language '" + mLanguage.getName() + "'");
+				resetStatus();
+			} else {
+				Logger.e(LOG_TAG, "Could not start download for voice input language '" + mLanguage.getName() + "'");
+				statusBar.setError(error.toString());
+			}
+		} else if (error.isIrrelevantToUser()) {
 			Logger.i(LOG_TAG, "Ignoring voice input. " + error.debugMessage);
 			resetStatus(); // re-enable the function keys
 		} else {
