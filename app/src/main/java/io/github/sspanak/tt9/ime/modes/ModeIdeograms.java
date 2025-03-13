@@ -19,11 +19,9 @@ public class ModeIdeograms extends ModeWords {
 		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 
-		// @todo: typing is still messed up. Try typing "zhongguo". It should result in "中国", "种过", "种果" but there are many more
 		// @todo: if there are no more words, proceed to the next word
 		// @todo: implement lazy displaying of the predictions when they are more than 20
 		// @todo: Switching the language while typing may produce weird results on Android < 7
-		// @todo: add Chinese punctuation marks, numerals and currency sign
 		// @todo: documentation of the new YAML properties
 	}
 

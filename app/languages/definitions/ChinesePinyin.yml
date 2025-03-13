@@ -6,7 +6,7 @@ hasSpaceBetweenWords: no
 hasUpperCase: no
 layout:
   - [SPECIAL] # 0
-  - [PUNCTUATION] # 1
+  - [PUNCTUATION_ZH] # 1
   - [a, b, c] # 2
   - [d, e, f] # 3
   - [g, h, i] # 4
