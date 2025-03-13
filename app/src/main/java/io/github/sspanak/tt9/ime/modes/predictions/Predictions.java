@@ -25,7 +25,7 @@ abstract public class Predictions {
 	protected Runnable onWordsChanged = () -> {};
 
 	// data
-	protected boolean areThereDbWords = false;
+	protected boolean areThereDbWords = true;
 	protected boolean containsGeneratedWords = false;
 	@NonNull protected ArrayList<String> words = new ArrayList<>();
 
