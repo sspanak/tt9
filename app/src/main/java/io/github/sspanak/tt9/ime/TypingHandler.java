@@ -378,7 +378,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
-			String lastWord = suggestionOps.acceptPrevious(mInputMode.getSequenceLength());
+			String lastWord = suggestionOps.acceptPrevious(mLanguage, mInputMode.getSequenceLength());
 			onAcceptSuggestionAutomatically(lastWord);
 		}
 
@@ -402,7 +402,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// Otherwise, put the first suggestion in the text field,
 		// but cut it off to the length of the sequence (how many keys were pressed),
 		// for a more intuitive experience.
-		String trimmedWord = suggestionOps.getCurrent(mInputMode.getSequenceLength());
+		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
 		forceShowWindow();

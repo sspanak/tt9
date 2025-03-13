@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class Text extends TextTools {
@@ -172,8 +173,19 @@ public class Text extends TextTools {
 	}
 
 
+	/**
+	 * Returns the number of regular 8-bit chars
+	 */
 	public int length() {
 		return text == null ? 0 : text.length();
+	}
+
+
+	/**
+	 * Returns the number of UTF-16 chars
+	 */
+	public int codePointLength() {
+		return text == null ? 0 : text.codePointCount(0, text.length());
 	}
 
 
@@ -221,6 +233,28 @@ public class Text extends TextTools {
 
 	public boolean startsWithWord() {
 		return text != null && !text.isEmpty() && Character.isAlphabetic(text.charAt(0));
+	}
+
+
+	/**
+	 * A safe substring method that works with code points (UTF-16 chars), instead of 8-bit chars.
+	 * Useful for languages with complex characters, like Chinese.
+	 */
+	public String substringCodePoints(int start, int end) {
+		if (text == null) {
+			return "";
+		}
+
+		if (!LanguageKind.isChinese(language)) {
+			return text.substring(start, end);
+		}
+
+		StringBuilder output = new StringBuilder();
+		for (int i = Math.max(start, 0), finish = Math.min(text.length(), end); i < finish; i++) {
+			output.append(text.charAt(i));
+		}
+
+		return output.toString();
 	}
 
 

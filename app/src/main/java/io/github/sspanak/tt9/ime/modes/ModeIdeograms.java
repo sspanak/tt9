@@ -36,11 +36,6 @@ public class ModeIdeograms extends ModeWords {
 		return true;
 	}
 
-	@Override
-	public boolean onBackspace() {
-		// @todo: make sure not to break characters in the middle
-		return super.onBackspace();
-	}
 
 	@Override
 	protected void onPredictions() {

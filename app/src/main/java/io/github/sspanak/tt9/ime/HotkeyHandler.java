@@ -213,7 +213,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (mInputMode.clearWordStem() && isFilteringOn) {
 			mInputMode
 				.setOnSuggestionsUpdated(this::handleSuggestions)
-				.loadSuggestions(suggestionOps.getCurrent(mInputMode.getSequenceLength()));
+				.loadSuggestions(suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength()));
 			return true;
 		}
 
@@ -244,7 +244,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (repeat && !suggestionOps.get(1).isEmpty()) {
 			filter = suggestionOps.get(1);
 		} else {
-			filter = suggestionOps.getCurrent(mInputMode.getSequenceLength());
+			filter = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		}
 
 		if (filter.isEmpty()) {
