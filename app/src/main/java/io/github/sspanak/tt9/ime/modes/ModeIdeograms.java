@@ -30,6 +30,7 @@ public class ModeIdeograms extends ModeWords {
 		// @todo: accept words on space
 		// @todo: implement lazy displaying of the predictions when they are more than 20
 		// @todo: Switching the language while typing may produce weird results on Android < 7
+		// @todo: add frequencies to the dictionary
 		// @todo: documentation of the new YAML properties
 	}
 
