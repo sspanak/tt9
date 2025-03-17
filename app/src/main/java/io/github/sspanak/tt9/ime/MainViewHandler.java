@@ -57,7 +57,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 			orientationListener = null;
 		}
 		if (mainView != null) {
-			mainView.stopListeners();
+			mainView.destroy();
 		}
 	}
 
