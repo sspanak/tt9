@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
+import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
@@ -70,7 +71,7 @@ public class DonatePreference extends Preference {
 
 	private boolean onLongClick(View v) {
 		try {
-			getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getContext().getString(R.string.donate_url))));
+			getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(BuildConfig.DONATION_URL)));
 			return true;
 		} catch (Exception e) {
 			Logger.w(getClass().getSimpleName(), "Cannot navigate to the donation page. " + e.getMessage() + " (do you have a browser?)");

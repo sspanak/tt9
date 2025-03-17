@@ -11,6 +11,8 @@ def APP_ROOT_DIR = "${project.rootDir}/app"
 def MAIN_ASSETS_DIR = "${APP_ROOT_DIR}/src/main/assets"
 def FULL_VERSION_ASSETS_DIR = "${APP_ROOT_DIR}/src/full/assets"
 
+ext.FUNDING_FILE = "${project.rootDir}/.github/FUNDING.yml"
+
 ext.HELP_MARKDOWN_DIR = "${project.rootDir}/docs/help"
 ext.HELP_HTML_DIR = "${MAIN_ASSETS_DIR}/help"
 
