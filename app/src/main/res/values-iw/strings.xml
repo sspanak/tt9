@@ -47,6 +47,7 @@
 	<string name="pref_backspace_recomposing_summary">להחזיר את רשימת ההצעות על ידי לחיצה על מקש Backspace בסוף מילה. (לא נתמך בחלק מהאפליקציות)</string>
 	<string name="pref_choose_languages">שפות</string>
 	<string name="pref_dark_theme">ערכת נושא שחורה</string>
+	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>
 	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
 	<string name="pref_layout_numpad">לוח מספרים</string>
 	<string name="pref_layout_small">מקשי פונקציה</string>
@@ -213,4 +214,5 @@
 	<string name="function_edit_text">ערוך טקסט</string>
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
+	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>
 </resources>

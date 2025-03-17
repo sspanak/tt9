@@ -121,6 +121,8 @@
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Doneer</string>
 	<string name="donate_summary">Als je %1$s leuk vindt, kun je me trakteren op een biertje.</string>
+	<string name="pref_drag_resize">Grootte wijzigen door te slepen</string>
+	<string name="pref_drag_resize_summary">Grootte wijzigen en toetsenbord verplaatsen door de statusbalk of de instellingenknop te slepen.</string>
 	<string name="pref_double_zero_char">Teken bij dubbelklikken op toets \"0\"</string>
 	<string name="pref_hack_always_on_top">Altijd bovenaan</string>
 	<string name="pref_hack_always_on_top_summary">Andere applicaties niet toestaan om %1$s te bedekken of van het scherm te duwen.</string>

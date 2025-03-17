@@ -48,6 +48,7 @@
 	<string name="pref_backspace_recomposing_summary">Trazer de volta a lista de sugestões pressionando Backspace no final de uma palavra. (Não suportado em alguns aplicativos)</string>
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
+	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
@@ -213,4 +214,5 @@
 	<string name="function_edit_text">Editar Texto</string>
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
+	<string name="pref_drag_resize">Redimensionar arrastando</string>
 </resources>

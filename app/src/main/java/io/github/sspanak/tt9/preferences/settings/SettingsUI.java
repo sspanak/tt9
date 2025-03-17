@@ -63,6 +63,10 @@ public class SettingsUI extends SettingsTyping {
 		}
 	}
 
+	public boolean getDragResize() {
+		return prefs.getBoolean("pref_drag_resize", true);
+	}
+
 	public boolean getHapticFeedback() {
 		return prefs.getBoolean("pref_haptic_feedback", true);
 	}

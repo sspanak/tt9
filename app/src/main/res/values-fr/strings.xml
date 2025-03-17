@@ -105,6 +105,7 @@
 	<string name="key_volume_down">Baisser le volume</string>
 	<string name="key_volume_up">Augmenter le volume</string>
 	<string name="char_newline">Nouvelle ligne</string>
+	<string name="pref_drag_resize_summary">Activer le redimensionnement et le déplacement du clavier en faisant glisser la barre d’état ou la touche Paramètres.</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
@@ -206,4 +207,5 @@
 	<string name="function_assign_instructions">* Appuyez ou maintenez une touche pour l’attribuer à la fonction \"%1$s\".\n\n* Appuyez sur 0 pour annuler.\n\n* Appuyez sur 2 pour désactiver la fonction.</string>
 	<string name="key_hold_key">(maintenir)</string>
 	<string name="pref_allow_composing_text">Afficher texte en cours</string>
+	<string name="pref_drag_resize">Redimensionner en faisant glisser</string>
 </resources>
