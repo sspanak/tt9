@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 abstract public class MainViewHandler extends HotkeyHandler {
 	OrientationListener orientationListener;
 
+	private boolean dragResize = true;
 	private float normalizedWidth = -1;
 	private float normalizedHeight = -1;
 	private int width = 0;
@@ -38,6 +39,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	@Override
 	protected boolean onStart(InputConnection connection, EditorInfo field) {
 		resetNormalizedDimensions();
+		dragResize = settings.getDragResize();
 		return super.onStart(connection, field);
 	}
 
@@ -59,6 +61,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		if (mainView != null) {
 			mainView.destroy();
 		}
+	}
+
+
+	public boolean isDragResizeOn() {
+		return dragResize;
 	}
 
 

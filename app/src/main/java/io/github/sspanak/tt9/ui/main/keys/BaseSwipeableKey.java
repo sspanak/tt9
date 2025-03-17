@@ -60,6 +60,12 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 		}
 	}
 
+	protected void resetSwipeThresholds() {
+		SWIPE_X_THRESHOLD = 0;
+		SWIPE_Y_THRESHOLD = 0;
+		initSwipeThresholds();
+	}
+
 
 	protected float getHoldDurationThreshold() { return SettingsStore.SOFT_KEY_REPEAT_DELAY * 9; }
 	protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * SettingsStore.SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE; }

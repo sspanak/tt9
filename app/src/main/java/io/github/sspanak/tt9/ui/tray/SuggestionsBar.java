@@ -400,7 +400,7 @@ public class SuggestionsBar {
 
 
 	private boolean onTouch(View v, MotionEvent event) {
-		if (!isEmpty()) {
+		if (!isEmpty() || !settings.getDragResize()) {
 			return false;
 		}
 

@@ -122,6 +122,7 @@
 	<string name="pref_auto_text_case_summary">Автоматично започвайте изречения с главна буква. (Не е възможно на всички езици)</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
 	<string name="pref_category_keypad">Клавиатура</string>
+	<string name="pref_drag_resize_summary">Позволява преоразмеряване и местене на клавиатурата чрез влачене на лентата на състоянието или клавиша за настройки.</string>
 	<string name="pref_double_zero_char">Символ при двойно натисната „0“</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
@@ -206,4 +207,5 @@
 	<string name="function_already_assigned">Бутон „%1$s“ е зададен за функция „%2$s“. Искате ли да го зададете за „%3$s“?</string>
 	<string name="function_assign_instructions">* Натиснете или задръжте клавиш, за да го присвоите на функцията „%1$s“.\n\n* Натиснете 0, за да отмените.\n\n* Натиснете 2, за да деактивирате функцията.</string>
 	<string name="pref_allow_composing_text">Показвай текст при съставяне</string>
+	<string name="pref_drag_resize">Оразмеряване чрез влачене</string>
 </resources>

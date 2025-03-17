@@ -19,14 +19,18 @@ public class SoftKeySettings extends BaseSwipeableKey {
 		super(context, attrs, defStyleAttr);
 	}
 
+	private boolean isDragResizeOn() {
+		return tt9 != null && tt9.isDragResizeOn();
+	}
+
 	public void setMainView(ResizableMainView mainView) {
 		this.mainView = mainView;
 	}
 
 	// this key does not support holding at the moment, so just prevent it
 	@Override protected float getHoldDurationThreshold() { return 1000; }
-	@Override protected float getSwipeXThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f; }
-	@Override protected float getSwipeYThreshold() { return getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f; }
+	@Override protected float getSwipeXThreshold() { return isDragResizeOn() ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f : Integer.MAX_VALUE; }
+	@Override protected float getSwipeYThreshold() { return isDragResizeOn() ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f : Integer.MAX_VALUE; }
 
 	@Override
 	protected boolean handleRelease() {
@@ -64,26 +68,32 @@ public class SoftKeySettings extends BaseSwipeableKey {
 
 	@Override
 	protected String getTopText() {
-		return getContext().getString(R.string.key_dpad_up);
+		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_up) : "";
 	}
 
 	@Override
 	protected String getRightText() {
-		return getContext().getString(R.string.key_dpad_right);
+		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_right) : "";
 	}
 
 	@Override
 	protected String getBottomText() {
-		return getContext().getString(R.string.key_dpad_down);
+		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_down) : "";
 	}
 
 	@Override
 	protected String getLeftText() {
-		return getContext().getString(R.string.key_dpad_left);
+		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_left) : "";
 	}
 
 	@Override
 	protected float getCentralIconScale() {
-		return super.getCentralIconScale() * 0.9f;
+		return isDragResizeOn() ? super.getCentralIconScale() * 0.9f : super.getCentralIconScale();
+	}
+
+	@Override
+	public void render() {
+		resetSwipeThresholds();
+		super.render();
 	}
 }
