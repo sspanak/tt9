@@ -168,7 +168,11 @@ public class SuggestionsBar {
 			return suggestion;
 		}
 
-		return stem + suggestion.substring(startIndex, endIndex);
+		try {
+			return stem + suggestion.substring(startIndex, endIndex);
+		} catch (Exception e) {
+			throw new IndexOutOfBoundsException("Failed cutting '" + suggestion + "' from: " + startIndex + " to: " + endIndex);
+		}
 	}
 
 
