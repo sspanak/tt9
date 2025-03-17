@@ -152,7 +152,6 @@
 	<string name="donate_title">Donate</string>
 	<string name="donate_summary">If you like %1$s, you could buy me a beer.</string>
 	<string name="donate_hold_to_open">Press and hold to open in the browser.</string>
-	<string name="donate_url" translatable="false">https://www.buymeacoffee.com/sspanak</string>
 
 	<string name="function_already_assigned">Key \"%1$s\" is already assigned to function \"%2$s\". Do you want to assign it to \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Press or hold a key to assign it to the \"%1$s\" function.\n\n* Press 0 to cancel.\n\n* Press 2 to disable the function.</string>
