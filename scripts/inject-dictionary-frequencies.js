@@ -7,7 +7,7 @@ const DELIMITER = '	';
 
 
 function printHelp() {
-	print(`Usage ${basename(process.argv[1])} LOCALE DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt`);
+	print(`Usage ${basename(process.argv[1])} LOCALE DICTIONARY-FILE-NAME.txt WORDS-WITH-FREQUENCIES.txt --transcribed`);
 	print('Matches up the words from DICTIONARY-FILE-NAME with the frequencies in WORDS-WITH-FREQUENCIES file.');
 	print('LOCALE could be any valid JS locale, for exmaple: en, en-US, etc...');
 }
@@ -34,12 +34,13 @@ function validateInput() {
 	return {
 		locale: process.argv[2],
 		dictionaryFileName: process.argv[3],
+		transcribed: process.argv[5] !== undefined && process.argv[5] === '--transcribed',
 		wordsWithFrequenciesFileName: process.argv[4]
 	};
 }
 
 
-async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale }) {
+async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale, transcribed }) {
 	// read the frequencies
 	let lineReader = require('readline').createInterface({
 	  input: createReadStream(wordsWithFrequenciesFileName)
@@ -69,9 +70,17 @@ async function inject({ wordsWithFrequenciesFileName, dictionaryFileName, locale
 
 
 	const outputWords = [];
-	for await (const word of lineReader) {
-		const lowercaseWord = word.toLocaleLowerCase(locale);
-		outputWords.push(`${word}${ (frequencies.get(lowercaseWord) || 0) > 0 ? DELIMITER + frequencies.get(lowercaseWord) : '' }`);
+	for await (const line of lineReader) {
+		let word = '';
+
+		if (transcribed) {
+			const parts = line.split(DELIMITER);
+			word = parts[0];
+		} else {
+			word = line.toLocaleLowerCase(locale);
+		}
+
+		outputWords.push(`${line}${ (frequencies.get(word) || 0) > 0 ? DELIMITER + frequencies.get(word) : '' }`);
 	}
 
 	return outputWords;
