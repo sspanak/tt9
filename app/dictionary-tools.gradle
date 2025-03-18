@@ -1,6 +1,6 @@
 class Wrapper {
 	static def getDictionaryLineData(String line, String delimiter) {
-		String[] parts = line.split(delimiter, 2)
+		String[] parts = line.split(delimiter, 3)
 		String word = parts[0]
 		String transcription = parts.length > 1 && parts[1] =~ "^[a-zA-Z]+\$" ? parts[1] : ""
 
