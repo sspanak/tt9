@@ -72,7 +72,7 @@ Your PRs are welcome!
 ## 👍 Support
 If you want to show appreciation, give the project a star on GitHub. Higher-ranked projects can use development tools for free and apply for funding more easily. You can also give it 5 stars on Google Play to increase its rating, which will prompt the Play Store to recommend it to more people.
 
-You could also donate on [buymeacoffee.com](https://www.buymeacoffee.com/sspanak).
+You could also donate on [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
 
 ## 💪 Philosophy and Privacy Policy
 - No ads, no premium or paid features. It's all free.
