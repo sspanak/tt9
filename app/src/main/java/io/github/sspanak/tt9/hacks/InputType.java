@@ -7,8 +7,11 @@ import android.view.inputmethod.InputConnection;
 import io.github.sspanak.tt9.ime.helpers.StandardInputType;
 
 public class InputType extends StandardInputType {
-	public InputType(InputConnection inputConnection, EditorInfo inputField){
+	private final boolean isUs;
+
+	public InputType(Context context, InputConnection inputConnection, EditorInfo inputField) {
 		super(inputConnection, inputField);
+		isUs = isAppField(context != null ? context.getPackageName() : "", EditorInfo.TYPE_NULL);
 	}
 
 
@@ -154,8 +157,8 @@ public class InputType extends StandardInputType {
 	}
 
 
-	public boolean isNotUs(Context context) {
-		return !isAppField(context.getPackageName(), EditorInfo.TYPE_NULL);
+	public boolean isUs() {
+		return isUs;
 	}
 
 

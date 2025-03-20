@@ -2,12 +2,19 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
+		android:key="pref_predictive_mode"
+		android:title="@string/pref_category_predictive_mode" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="true"
+		android:dependency="pref_predictive_mode"
 		android:key="auto_space"
 		android:summary="@string/pref_auto_space_summary"
 		android:title="@string/pref_auto_space" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
+		android:dependency="pref_predictive_mode"
 		android:key="auto_text_case"
 		android:summary="@string/pref_auto_text_case_summary"
 		android:title="@string/pref_auto_text_case" />
@@ -21,18 +28,21 @@
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
+		android:dependency="pref_predictive_mode"
 		android:key="pref_predict_word_pairs"
 		android:summary="@string/pref_predict_word_pairs_summary"
 		android:title="@string/pref_predict_word_pairs" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
+		android:dependency="pref_predictive_mode"
 		android:key="backspace_recomposing"
 		android:summary="@string/pref_backspace_recomposing_summary"
 		android:title="@string/pref_backspace_recomposing" />
 
 	<DropDownPreference
 		android:defaultValue="."
+		android:dependency="pref_predictive_mode"
 		android:key="pref_double_zero_char"
 		android:title="@string/pref_double_zero_char" />
 </androidx.preference.PreferenceScreen>

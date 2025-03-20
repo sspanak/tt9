@@ -1,15 +1,21 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 
 public class AutoTextCase {
-	private final SettingsStore settings;
+	@NonNull private final SettingsStore settings;
+	private final boolean isUs;
 
 
-	public AutoTextCase(SettingsStore settingsStore) {
+	public AutoTextCase(@NonNull SettingsStore settingsStore, @Nullable InputType inputType) {
 		settings = settingsStore;
+		isUs = inputType != null && inputType.isUs();
 	}
 
 	/**
@@ -44,6 +50,8 @@ public class AutoTextCase {
 			!settings.getAutoTextCase()
 			// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
 			|| currentTextCase == InputMode.CASE_UPPER
+			// we do not have text fields that expect sentences, so disable the feature to save some resources
+			|| isUs
 		) {
 			return currentTextCase;
 		}

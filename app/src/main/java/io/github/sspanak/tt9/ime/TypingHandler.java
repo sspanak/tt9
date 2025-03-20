@@ -29,7 +29,7 @@ import io.github.sspanak.tt9.util.Text;
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
 	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
-	@NonNull protected InputType inputType = new InputType(null, null);
+	@NonNull protected InputType inputType = new InputType(null, null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(this,null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null);
@@ -83,7 +83,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return;
 		}
 
-		inputType = new InputType(connection, field);
+		inputType = new InputType(getApplicationContext(), connection, field);
 		textField = new TextField(settings, connection, field);
 		textSelection = new TextSelection(this, connection);
 
@@ -296,6 +296,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
 		if (LanguageKind.isKorean(mLanguage)) {
 			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+		} else if (!settings.getPredictiveMode()) {
+			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
 
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
