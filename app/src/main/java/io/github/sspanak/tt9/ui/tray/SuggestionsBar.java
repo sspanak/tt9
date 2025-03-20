@@ -437,7 +437,7 @@ public class SuggestionsBar {
 
 
 	private boolean onTouch(View v, MotionEvent event) {
-		if (!isEmpty() || !settings.getDragResize()) {
+		if (!isEmpty()) {
 			return false;
 		}
 
@@ -448,13 +448,15 @@ public class SuggestionsBar {
 				mainView.onResizeStart(event.getRawY());
 				return true;
 			case MotionEvent.ACTION_MOVE:
-				mainView.onResizeThrottled(event.getRawY());
+				if (settings.getDragResize()) {
+					mainView.onResizeThrottled(event.getRawY());
+				}
 				return true;
 			case MotionEvent.ACTION_UP:
 				long now = System.currentTimeMillis();
 				if (now - lastClickTime < SettingsStore.SOFT_KEY_DOUBLE_CLICK_DELAY) {
 					mainView.onSnap();
-				} else {
+				} else if (settings.getDragResize()){
 					mainView.onResize(event.getRawY());
 				}
 
