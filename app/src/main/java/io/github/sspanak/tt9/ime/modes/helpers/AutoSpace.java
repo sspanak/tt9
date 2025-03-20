@@ -51,7 +51,13 @@ public class AutoSpace {
 	 * the list of rules.
 	 */
 	public boolean shouldAddTrailingSpace(TextField textField, InputType inputType, boolean isWordAcceptedManually, int nextKey) {
-		if (!isLanguageWithSpaceBetweenWords) {
+		if (
+			!isLanguageWithSpaceBetweenWords
+			|| nextKey == 0
+			|| !settings.getAutoSpace()
+			|| inputType.isSpecialized()
+			|| inputType.isUs()
+		) {
 			return false;
 		}
 
@@ -59,10 +65,7 @@ public class AutoSpace {
 		Text nextChars = textField.getTextAfterCursor(2);
 
 		return
-			settings.getAutoSpace()
-			&& !inputType.isSpecialized()
-			&& nextKey != 0
-			&& !nextChars.startsWithWhitespace()
+			!nextChars.startsWithWhitespace()
 			&& (
 				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
 				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
@@ -75,6 +78,15 @@ public class AutoSpace {
 	 * For example, should we transform "word?" to "word ?", or "something(" to "something ("
 	 */
 	public boolean shouldAddBeforePunctuation(InputType inputType, TextField textField) {
+		if (
+			!isLanguageWithSpaceBetweenWords
+			|| !settings.getAutoSpace()
+			|| inputType.isSpecialized()
+			|| inputType.isUs()
+		) {
+			return false;
+		}
+
 		String previousChars = textField.getStringBeforeCursor(2);
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
@@ -84,10 +96,7 @@ public class AutoSpace {
 		}
 
 		return
-			isLanguageWithSpaceBetweenWords
-			&& settings.getAutoSpace()
-			&& !inputType.isSpecialized()
-			&& Character.isAlphabetic(penultimateChar)
+			Character.isAlphabetic(penultimateChar)
 			&& (
 				PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
 				|| (isLanguageFrench && PRECEDING_SPACE_FRENCH_PUNCTUATION.contains(previousChar))
@@ -140,20 +149,27 @@ public class AutoSpace {
 	 * Determines whether to transform: "word ." to: "word."
 	 */
 	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
+		if (
+			!isLanguageWithSpaceBetweenWords
+			|| !settings.getAutoSpace()
+			|| inputType.isSpecialized()
+			|| inputType.isUs()
+		) {
+			return false;
+		}
+
+
 		String previousChars = textField.getStringBeforeCursor(3);
 		char prePenultimateChar = previousChars.length() < 3 ? 0 : previousChars.charAt(previousChars.length() - 3);
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
 		return
-			isLanguageWithSpaceBetweenWords
-			&& settings.getAutoSpace()
-			&& !Character.isWhitespace(prePenultimateChar)
+			!Character.isWhitespace(prePenultimateChar)
 			&& Character.isWhitespace(penultimateChar)
 			&& (
 				NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
 				|| (!isLanguageFrench && NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar))
-			)
-			&& !inputType.isSpecialized();
+			);
 	}
 }
