@@ -26,6 +26,7 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
+	private final String SHOW_MORE_SUGGESTION = "(...)";
 	private final String STEM_SUFFIX = "… +";
 	private final String STEM_VARIATION_PREFIX = "…";
 	private final String STEM_PUNCTUATION_VARIATION_PREFIX = "​";
@@ -34,7 +35,8 @@ public class SuggestionsBar {
 	private int backgroundColor = Color.TRANSPARENT;
 	private double lastClickTime = 0;
 	protected int selectedIndex = 0;
-	private final List<String> suggestions = new ArrayList<>();
+	@Nullable private List<String> suggestions = new ArrayList<>();
+	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
 	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
@@ -92,10 +94,11 @@ public class SuggestionsBar {
 			this::handleItemClick,
 			settings.isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
 			R.id.suggestion_list_item,
-			suggestions
+			visibleSuggestions
 		);
 
 		mView.setAdapter(mSuggestionsAdapter);
+		mView.setHasFixedSize(true); // Optimizes performance
 
 		setDarkTheme();
 	}
@@ -120,7 +123,7 @@ public class SuggestionsBar {
 
 
 	public boolean isEmpty() {
-		return suggestions.isEmpty();
+		return visibleSuggestions.isEmpty();
 	}
 
 
@@ -136,13 +139,14 @@ public class SuggestionsBar {
 
 	@NonNull
 	public String getSuggestion(int id) {
-		if (id < 0 || id >= suggestions.size()) {
+		if (id < 0 || id >= visibleSuggestions.size()) {
 			return "";
 		}
 
-		String suggestion = suggestions.get(id);
+		String suggestion = visibleSuggestions.get(id);
 
 		// single char
+		if (suggestion.equals(SHOW_MORE_SUGGESTION)) return Characters.COMBINING_ZERO_BASE;
 		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
 
 		suggestion = suggestion.replace(Characters.ZWNJ_GRAPHIC, Characters.ZWNJ);
@@ -183,16 +187,17 @@ public class SuggestionsBar {
 	}
 
 
-	public void setSuggestions(List<String> newSuggestions, int initialSel, boolean containsGenerated) {
+	public void setSuggestions(@Nullable List<String> newSuggestions, int initialSel, boolean containsGenerated) {
+		suggestions = newSuggestions;
 		ecoSetBackground(newSuggestions);
 
-		suggestions.clear();
+		visibleSuggestions.clear();
 		selectedIndex = newSuggestions == null || newSuggestions.isEmpty() ? 0 : Math.max(initialSel, 0);
 
 		setStem(newSuggestions, containsGenerated);
-		addAllSuggestions(newSuggestions);
-		selectedIndex = Math.min(selectedIndex, suggestions.size() - 1);
-		setSuggestionsOnScreen();
+		addManySuggestions(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
+		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
+		displaySuggestions();
 	}
 
 
@@ -220,17 +225,28 @@ public class SuggestionsBar {
 		stem = onlyOneContainsStem ? "" : stem;
 
 		if (!stem.isEmpty() && !newSuggestions.contains(stem)) {
-			suggestions.add(stem + STEM_SUFFIX);
+			visibleSuggestions.add(stem + STEM_SUFFIX);
 			selectedIndex++;
 		}
 	}
 
 
-	private void addAllSuggestions(List<String> newSuggestions) {
-		if (newSuggestions != null) {
-			for (String suggestion : newSuggestions) {
-				addSuggestion(suggestion);
-			}
+	/**
+	 * Adds suggestions to the list displayed on the screen. By default, they should be limited
+	 * for performance reasons, hence the "limit" parameter. When they are too many, the SHOW_MORE_SUGGESTION,
+	 * will be displayed at the end.
+	 */
+	private void addManySuggestions(List<String> newSuggestions, int limit) {
+		if (newSuggestions == null) {
+			return;
+		}
+
+		for (int i = 0, end = Math.min(limit, newSuggestions.size()); i < end; i++) {
+			addSuggestion(newSuggestions.get(i));
+		}
+
+		if (newSuggestions.size() > limit) {
+			visibleSuggestions.add(SHOW_MORE_SUGGESTION);
 		}
 	}
 
@@ -243,11 +259,39 @@ public class SuggestionsBar {
 
 			String prefix = Character.isAlphabetic(firstChar) && !Characters.isCombiningPunctuation(firstChar) ? STEM_VARIATION_PREFIX : STEM_PUNCTUATION_VARIATION_PREFIX;
 			prefix = Characters.isFathatan(firstChar) ? " " : prefix; // Fix incorrect display of fathatan without a base character. It is a combining character, but since it is a letter, we must include a base character not to break it, with a "..." prefix
-			suggestions.add(prefix + formatUnreadableSuggestion(trimmedSuggestion));
+			visibleSuggestions.add(prefix + formatUnreadableSuggestion(trimmedSuggestion));
 			return;
 		}
 
-		suggestions.add(formatUnreadableSuggestion(suggestion));
+		visibleSuggestions.add(formatUnreadableSuggestion(suggestion));
+	}
+
+
+	private void displaySuggestions() {
+		if (mView == null) {
+			return;
+		}
+
+		mSuggestionsAdapter.resetItems(selectedIndex);
+		if (selectedIndex > 0) {
+			mView.scrollToPosition(selectedIndex);
+		}
+	}
+
+
+	/**
+	 * If addManySuggestions() constrained the visible suggestions, the end of the list will contain
+	 * the SHOW_MORE_SUGGESTION. This method will display remove the SHOW_MORE_SUGGESTION and display
+	 * all the hidden suggestions. It also scrolls correctly to the new visible suggestion.
+	 */
+	private void displayHiddenSuggestionsIfNeeded(boolean scrollBack) {
+		if (mView == null || !visibleSuggestions.get(selectedIndex).equals(SHOW_MORE_SUGGESTION)) {
+			return;
+		}
+
+		visibleSuggestions.clear();
+		addManySuggestions(suggestions, Integer.MAX_VALUE);
+		selectedIndex = scrollBack ? visibleSuggestions.size() - 1 : selectedIndex;
 	}
 
 
@@ -265,32 +309,25 @@ public class SuggestionsBar {
 	}
 
 
-	private void setSuggestionsOnScreen() {
-		if (mView != null) {
-			mSuggestionsAdapter.resetItems(selectedIndex);
-			mView.scrollToPosition(selectedIndex);
-		}
-	}
-
-
 	public void scrollToSuggestion(int increment) {
-		if (suggestions.size() <= 1) {
+		if (visibleSuggestions.size() <= 1) {
 			return;
 		}
 
 		calculateScrollIndex(increment);
+		displayHiddenSuggestionsIfNeeded(increment < 0);
 		scrollToIndex();
 	}
 
 
 	private void calculateScrollIndex(int increment) {
 		selectedIndex = selectedIndex + increment;
-		if (selectedIndex == suggestions.size()) {
+		if (selectedIndex == visibleSuggestions.size()) {
 			selectedIndex = containsStem() ? 1 : 0;
 		} else if (selectedIndex < 0) {
-			selectedIndex = suggestions.size() - 1;
+			selectedIndex = visibleSuggestions.size() - 1;
 		} else if (selectedIndex == 0 && containsStem()) {
-			selectedIndex = suggestions.size() - 1;
+			selectedIndex = visibleSuggestions.size() - 1;
 		}
 	}
 
@@ -346,7 +383,7 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
 		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
 
-		setBackground(suggestions);
+		setBackground(visibleSuggestions);
 	}
 
 
@@ -378,8 +415,8 @@ public class SuggestionsBar {
 	private void ecoSetBackground(List<String> newSuggestions) {
 		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
 		if (
-			(newSuggestionsSize == 0 && suggestions.isEmpty())
-			|| (newSuggestionsSize > 0 && !suggestions.isEmpty())
+			(newSuggestionsSize == 0 && visibleSuggestions.isEmpty())
+			|| (newSuggestionsSize > 0 && !visibleSuggestions.isEmpty())
 		) {
 			return;
 		}
