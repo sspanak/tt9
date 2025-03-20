@@ -296,6 +296,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
 		if (LanguageKind.isKorean(mLanguage)) {
 			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+		} else if (!settings.getPredictiveMode()) {
+			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
 
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);

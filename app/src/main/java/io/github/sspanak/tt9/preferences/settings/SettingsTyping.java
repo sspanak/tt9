@@ -30,6 +30,10 @@ class SettingsTyping extends SettingsPunctuation {
 		return  character.equals("\\n") ? "\n" : character;
 	}
 
+	public boolean getPredictiveMode() {
+		return prefs.getBoolean("pref_predictive_mode", true);
+	}
+
 	public boolean getPredictWordPairs() {
 		return prefs.getBoolean("pref_predict_word_pairs", true);
 	}
