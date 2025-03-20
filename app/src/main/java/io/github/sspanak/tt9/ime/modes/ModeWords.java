@@ -38,7 +38,7 @@ class ModeWords extends ModeCheonjiin {
 	protected ModeWords(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, inputType, textField);
 
-		autoTextCase = new AutoTextCase(settings);
+		autoTextCase = new AutoTextCase(settings, inputType);
 
 		changeLanguage(lang);
 		defaultTextCase();
