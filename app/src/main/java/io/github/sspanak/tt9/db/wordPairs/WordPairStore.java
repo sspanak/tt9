@@ -137,11 +137,6 @@ public class WordPairStore extends BaseSyncStore {
 
 		int totalPairs = 0;
 		for (Language language : languages) {
-			if (language.isSyllabary()) {
-				Logger.d(LOG_TAG, "Not loading word pairs for syllabary language: " + language.getId());
-				continue;
-			}
-
 			HashMap<WordPair, WordPair> wordPairs = pairs.get(language.getId());
 			if (wordPairs == null) {
 				wordPairs = new HashMap<>();

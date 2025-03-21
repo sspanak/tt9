@@ -28,7 +28,7 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 	@Override
 	public void render() {
 		if (tt9 != null) {
-			setEnabled(!tt9.isVoiceInputActive() && tt9.notLanguageSyllabary() && !tt9.isTextEditingActive());
+			setEnabled(!tt9.isVoiceInputActive() && tt9.isAddingWordsSupported() && !tt9.isTextEditingActive());
 		}
 		super.render();
 	}

@@ -236,7 +236,7 @@ public class DictionaryLoader {
 
 
 	private int importLetters(Language language) throws InvalidLanguageCharactersException {
-		if (language.isSyllabary()) {
+		if (language.isTranscribed()) {
 			return 0;
 		}
 
@@ -264,6 +264,8 @@ public class DictionaryLoader {
 		float progressRatio = (maxProgress - minProgress) / wordFile.getWords();
 		int wordCount = 0;
 		int maxWordsPerSequence = 0;
+
+		positionShift = positionShift == 0 ? 1 : positionShift;
 
 		try (BufferedReader ignored = wordFile.getReader()) {
 			while (wordFile.notEOF()) {

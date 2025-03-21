@@ -39,7 +39,7 @@ public class AutoSpace {
 	public AutoSpace setLanguage(Language lang) {
 		language = language == null ? new NullLanguage() : lang;
 		isLanguageFrench = LanguageKind.isFrench(lang);
-		isLanguageWithAlphabet = !language.isSyllabary();
+		isLanguageWithAlphabet = !language.isTranscribed();
 		isLanguageWithSpaceBetweenWords = language.hasSpaceBetweenWords();
 		return this;
 	}

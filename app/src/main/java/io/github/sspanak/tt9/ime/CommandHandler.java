@@ -88,7 +88,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return;
 		}
 
-		if (mLanguage.isSyllabary()) {
+		if (mLanguage.isTranscribed()) {
 			UI.toastShortSingle(this, R.string.function_add_word_not_available);
 			return;
 		}

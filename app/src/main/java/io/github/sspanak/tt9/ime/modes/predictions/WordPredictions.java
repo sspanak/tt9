@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime.modes.predictions;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
@@ -30,7 +32,7 @@ public class WordPredictions extends Predictions {
 
 
 	@Override
-	public Predictions setLanguage(Language language) {
+	public Predictions setLanguage(@NonNull Language language) {
 		super.setLanguage(language);
 		localeWordsSorter = new LocaleWordsSorter(language);
 
@@ -67,6 +69,7 @@ public class WordPredictions extends Predictions {
 			},
 			language,
 			digitSequence.substring(1),
+			onlyExactMatches,
 			stem.length() > 1 ? stem.substring(1) : "",
 			SettingsStore.SUGGESTIONS_MIN,
 			SettingsStore.SUGGESTIONS_MAX
@@ -283,7 +286,7 @@ public class WordPredictions extends Predictions {
 	 * "onAccept()", we have remembered the "am" comes after "I" and "an" comes after "am", we will
 	 * not suggest the textonyms "am" or "an" twice (depending on which has the highest frequency).
 	 */
-	private ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
+	protected ArrayList<String> rearrangeByPairFrequency(ArrayList<String> words) {
 		lastEnforcedTopWord = "";
 
 		if (!settings.getPredictWordPairs() || words.size() < 2) {

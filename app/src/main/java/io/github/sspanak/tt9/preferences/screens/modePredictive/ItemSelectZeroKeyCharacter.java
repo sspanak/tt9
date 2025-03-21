@@ -21,8 +21,8 @@ class ItemSelectZeroKeyCharacter extends ItemDropDown {
 
 	public ItemSelectZeroKeyCharacter populate() {
 		LinkedHashMap<String, String> items = new LinkedHashMap<>();
-		items.put(".", context.getString(R.string.char_dot));
-		items.put(",", context.getString(R.string.char_comma));
+		items.put(".", ".");
+		items.put(",", ",");
 		items.put("\\n", context.getString(R.string.char_newline)); // SharedPreferences return a corrupted string when using the real "\n"... :(
 		items.put(" ", context.getString(R.string.char_space));
 
