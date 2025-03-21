@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 
-public class NaturalLanguage extends TranscribedLanguage implements Comparable<NaturalLanguage> {
+public class NaturalLanguage extends TranscribedLanguage {
 	final public static String SPECIAL_CHAR_KEY = "0";
 	final public static String PUNCTUATION_KEY = "1";
 	final public static String PREFERRED_CHAR_SEQUENCE = "00";
@@ -143,8 +143,12 @@ public class NaturalLanguage extends TranscribedLanguage implements Comparable<N
 		return id;
 	}
 
+	@Override
+	protected String getSortingId() {
+		if (isTranscribed) {
+			return super.getSortingId();
+		}
 
-	private String getSortingId() {
 		if ("IN".equals(getLocale().getCountry()) && "en".equals(getLocale().getLanguage())) {
 			return "hi";
 		}
@@ -274,11 +278,5 @@ public class NaturalLanguage extends TranscribedLanguage implements Comparable<N
 		}
 
 		return true;
-	}
-
-
-	@Override
-	public int compareTo(NaturalLanguage other) {
-		return getSortingId().compareTo(other.getSortingId());
 	}
 }
