@@ -48,6 +48,7 @@
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.</string>
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
+	<string name="pref_suggestion_smooth_scroll">Sanftes Scrollen der Wortliste</string>
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
 	<string name="pref_upside_down_keys_summary">Aktivieren Sie, wenn die Tastatur in der ersten Zeile 7–8–9 anstelle von 1–2–3 hat.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>

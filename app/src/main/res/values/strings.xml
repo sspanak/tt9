@@ -99,6 +99,7 @@
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
+	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">Enable if the keypad has 7–8–9 on the first row, instead of 1–2–3.</string>
 

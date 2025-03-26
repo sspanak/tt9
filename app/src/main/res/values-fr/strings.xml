@@ -63,8 +63,8 @@
 	<string name="pref_abc_auto_accept_slow">Lente</string>
 	<string name="pref_allow_composing_text_summary">Afficher les mots dans les champs de texte en les tapant. Désactiver lorsqu\'une application interrompt la saisie.</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
-	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir toutes les suggestions ou vous avez des difficultés à les défiler.</string>
-	<string name="pref_arrow_keys_visible_summary">Afficher les touches de défilement des deux côtés de la liste de suggestions de mots.</string>
+	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir tous les mots ou vous avez des difficultés à les défiler.</string>
+	<string name="pref_arrow_keys_visible_summary">Afficher les touches de défilement des deux côtés de la liste de mots.</string>
 	<string name="pref_auto_space">Espace automatique</string>
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
 	<string name="pref_auto_space_summary">Ajouter automatiquement un espace après signes de ponctuation et mots.</string>
@@ -107,6 +107,7 @@
 	<string name="char_newline">Nouvelle ligne</string>
 	<string name="pref_drag_resize_summary">Activer le redimensionnement et le déplacement du clavier en faisant glisser la barre d’état ou la touche Paramètres.</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
+	<string name="pref_suggestion_smooth_scroll">Défilement fluide de la liste de mots</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
 	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
