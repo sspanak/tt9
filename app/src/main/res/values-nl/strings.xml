@@ -48,6 +48,7 @@
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
+	<string name="pref_suggestion_smooth_scroll">Vloeiend suggesties scrollen</string>
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
 	<string name="pref_upside_down_keys_summary">Activeer als het toetsenbord 7–8–9 op de eerste rij heeft, in plaats van 1–2–3.</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>

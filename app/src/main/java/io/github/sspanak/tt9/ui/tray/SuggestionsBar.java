@@ -270,7 +270,8 @@ public class SuggestionsBar {
 			return;
 		}
 
-		mView.setItemAnimator(visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1 ? animator : null);
+		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+		mView.setItemAnimator(smooth ? animator : null);
 
 		mSuggestionsAdapter.resetItems(selectedIndex);
 		if (selectedIndex > 0) {
@@ -361,7 +362,8 @@ public class SuggestionsBar {
 			return;
 		}
 
-		mView.setItemAnimator(Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX ? animator : null);
+		boolean smooth = settings.getSuggestionSmoothScroll() && Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX;
+		mView.setItemAnimator(smooth ? animator : null);
 		mView.scrollToPosition(containsStem() && selectedIndex == 1 ? 0 : selectedIndex);
 		lastScrollIndex = selectedIndex;
 	}

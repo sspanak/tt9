@@ -23,7 +23,7 @@
 	<string name="pref_auto_capitals_after_newline">Автоматични главни букви на всеки ред</string>
 	<string name="pref_auto_capitals_after_newline_summary">Започвай всеки ред с главна буква, дори и да е в средата на изречение.</string>
 	<string name="pref_backspace_recomposing">Редактиране на думи</string>
-	<string name="pref_backspace_recomposing_summary">Връщай списъка с предложения при натискане на Backspace на края на дума. (Не работи в някои приложения.)</string>
+	<string name="pref_backspace_recomposing_summary">Връщай списъка с думи при натискане на Backspace на края на дума. (Не работи в някои приложения.)</string>
 	<string name="pref_choose_languages">Езици</string>
 	<string name="dictionary_truncate_title">Изтрий всички</string>
 	<string name="pref_numpad_shape_long_space">Дълъг интервал</string>
@@ -126,6 +126,7 @@
 	<string name="pref_double_zero_char">Символ при двойно натисната „0“</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
+	<string name="pref_suggestion_smooth_scroll">Плавно превъртане на списъка с думи</string>
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
 	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>

@@ -123,6 +123,10 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_font_size", defaultSize);
 	}
 
+	public boolean getSuggestionSmoothScroll() {
+		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
+	}
+
 	public int getTheme() {
 		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 	}
