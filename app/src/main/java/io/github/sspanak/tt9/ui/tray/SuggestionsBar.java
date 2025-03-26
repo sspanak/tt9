@@ -38,6 +38,7 @@ public class SuggestionsBar {
 	@Nullable private List<String> suggestions = new ArrayList<>();
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
+	private final DefaultItemAnimator animator = new DefaultItemAnimator();
 	private final ResizableMainView mainView;
 	private final Runnable onItemClick;
 	@Nullable private final RecyclerView mView;
@@ -72,8 +73,6 @@ public class SuggestionsBar {
 		if (mView == null) {
 			return;
 		}
-
-		DefaultItemAnimator animator = new DefaultItemAnimator();
 
 		animator.setMoveDuration(SettingsStore.SUGGESTIONS_SELECT_ANIMATION_DURATION);
 		animator.setChangeDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
@@ -197,7 +196,7 @@ public class SuggestionsBar {
 		setStem(newSuggestions, containsGenerated);
 		addManySuggestions(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
 		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
-		displaySuggestions();
+		displaySuggestions(visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX);
 	}
 
 
@@ -267,11 +266,12 @@ public class SuggestionsBar {
 	}
 
 
-	private void displaySuggestions() {
+	private void displaySuggestions(boolean withScrollAnimation) {
 		if (mView == null) {
 			return;
 		}
 
+		mView.setItemAnimator(withScrollAnimation ? animator : null);
 		mSuggestionsAdapter.resetItems(selectedIndex);
 		if (selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
