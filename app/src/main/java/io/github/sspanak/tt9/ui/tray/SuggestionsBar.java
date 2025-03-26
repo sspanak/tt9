@@ -34,7 +34,8 @@ public class SuggestionsBar {
 
 	private int backgroundColor = Color.TRANSPARENT;
 	private double lastClickTime = 0;
-	protected int selectedIndex = 0;
+	private int lastScrollIndex = 0;
+	private int selectedIndex = 0;
 	@Nullable private List<String> suggestions = new ArrayList<>();
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
@@ -78,8 +79,6 @@ public class SuggestionsBar {
 		animator.setChangeDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
 		animator.setAddDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
 		animator.setRemoveDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
-
-		mView.setItemAnimator(animator);
 	}
 
 
@@ -196,7 +195,7 @@ public class SuggestionsBar {
 		setStem(newSuggestions, containsGenerated);
 		addManySuggestions(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
 		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
-		displaySuggestions(visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX);
+		displaySuggestions();
 	}
 
 
@@ -266,12 +265,13 @@ public class SuggestionsBar {
 	}
 
 
-	private void displaySuggestions(boolean withScrollAnimation) {
+	private void displaySuggestions() {
 		if (mView == null) {
 			return;
 		}
 
-		mView.setItemAnimator(withScrollAnimation ? animator : null);
+		mView.setItemAnimator(visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1 ? animator : null);
+
 		mSuggestionsAdapter.resetItems(selectedIndex);
 		if (selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
@@ -284,14 +284,16 @@ public class SuggestionsBar {
 	 * the SHOW_MORE_SUGGESTION. This method will display remove the SHOW_MORE_SUGGESTION and display
 	 * all the hidden suggestions. It also scrolls correctly to the new visible suggestion.
 	 */
-	private void displayHiddenSuggestionsIfNeeded(boolean scrollBack) {
+	private boolean appendHiddenSuggestionsIfNeeded(boolean scrollBack) {
 		if (mView == null || !visibleSuggestions.get(selectedIndex).equals(SHOW_MORE_SUGGESTION)) {
-			return;
+			return false;
 		}
 
 		visibleSuggestions.clear();
 		addManySuggestions(suggestions, Integer.MAX_VALUE);
-		selectedIndex = scrollBack ? visibleSuggestions.size() - 1 : selectedIndex;
+		selectedIndex = scrollBack || selectedIndex >= visibleSuggestions.size() ? visibleSuggestions.size() - 1 : selectedIndex;
+
+		return true;
 	}
 
 
@@ -315,7 +317,9 @@ public class SuggestionsBar {
 		}
 
 		calculateScrollIndex(increment);
-		displayHiddenSuggestionsIfNeeded(increment < 0);
+		if (appendHiddenSuggestionsIfNeeded(increment < 0)) {
+			displaySuggestions();
+		}
 		scrollToIndex();
 	}
 
@@ -357,11 +361,9 @@ public class SuggestionsBar {
 			return;
 		}
 
-		if (containsStem() && selectedIndex == 1) {
-			mView.scrollToPosition(0);
-		} else {
-			mView.scrollToPosition(selectedIndex);
-		}
+		mView.setItemAnimator(Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX ? animator : null);
+		mView.scrollToPosition(containsStem() && selectedIndex == 1 ? 0 : selectedIndex);
+		lastScrollIndex = selectedIndex;
 	}
 
 
@@ -432,7 +434,11 @@ public class SuggestionsBar {
 	private void handleItemClick(int position) {
 		vibration.vibrate();
 		selectedIndex = position;
-		onItemClick.run();
+		if (appendHiddenSuggestionsIfNeeded(false)) {
+			displaySuggestions();
+		} else {
+			onItemClick.run();
+		}
 	}
 
 
