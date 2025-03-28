@@ -18,7 +18,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.SystemSettings;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class TraditionalT9 extends MainViewHandler {
 	private static final String LOG_TAG = "MAIN";

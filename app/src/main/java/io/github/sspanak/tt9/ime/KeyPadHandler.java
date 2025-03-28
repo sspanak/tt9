@@ -5,8 +5,8 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.SystemSettings;
 import io.github.sspanak.tt9.util.Timer;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 
 abstract class KeyPadHandler extends UiHandler {

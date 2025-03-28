@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.util;
+package io.github.sspanak.tt9.util.sys;
 
 import android.content.Context;
 import android.os.LocaleList;
@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.Locale;
-
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 
 public class SystemSettings {

@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.util;
+package io.github.sspanak.tt9.util.sys;
 
 
 import android.Manifest;
@@ -8,8 +8,6 @@ import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 
 import java.util.HashMap;
-
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 
 public class Permissions {
 	private static final HashMap<String, Boolean> firstTimeAsking = new HashMap<>();

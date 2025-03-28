@@ -1,10 +1,10 @@
 package io.github.sspanak.tt9.preferences.screens.debug;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemText;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class DebugScreen extends BaseScreenFragment {
 	public static final String NAME = "Debug";

@@ -5,7 +5,7 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class Emoji extends Punctuation {
 	final public static boolean NO_EMOJI_SUPPORT = !DeviceInfo.AT_LEAST_ANDROID_6;

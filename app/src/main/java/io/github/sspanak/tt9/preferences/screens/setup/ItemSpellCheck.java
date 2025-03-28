@@ -9,10 +9,10 @@ import android.view.textservice.TextServicesManager;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ItemSpellCheck extends ItemClickable {
 	public ItemSpellCheck(PreferencesActivity activity, Preference item) {
