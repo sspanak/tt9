@@ -135,7 +135,7 @@ abstract public class InputMode {
 	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
-	public boolean recompose(String word) { return false; }
+	public String recompose() { return null; }
 	public void replaceLastLetter() {}
 
 	public void reset() {

@@ -133,27 +133,28 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public boolean recompose(String word) {
+	public String recompose() {
 		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
-			return false;
+			return null;
 		}
 
-		if (word == null || word.length() < 2 || word.contains(" ")) {
-			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + word + "'");
+		String previousWord = textField.getWordBeforeCursor(language, 0, false);
+		if (previousWord.length() < 2 || previousWord.contains(" ")) {
+			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
-			return false;
+			return null;
 		}
 
 		try {
 			reset();
-			digitSequence = language.getDigitSequenceForWord(word);
-			textCase = new Text(language, word).getTextCase();
+			digitSequence = language.getDigitSequenceForWord(previousWord);
+			textCase = new Text(language, previousWord).getTextCase();
 		} catch (InvalidLanguageCharactersException e) {
-			Logger.d(LOG_TAG, "Not recomposing word: '" + word + "'. " + e.getMessage());
-			return false;
+			Logger.d(LOG_TAG, "Not recomposing word: '" + previousWord + "'. " + e.getMessage());
+			return null;
 		}
 
-		return true;
+		return previousWord;
 	}
 
 	@Override

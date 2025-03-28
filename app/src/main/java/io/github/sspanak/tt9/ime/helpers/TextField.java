@@ -252,7 +252,7 @@ public class TextField extends InputField {
 	 * the given "text". Returns "true" if the operation was successful, "false" otherwise.
 	 */
 	public boolean recompose(String text) {
-		if (connection == null || !isComposingSupported) {
+		if (text == null || connection == null || !isComposingSupported) {
 			return false;
 		}
 
