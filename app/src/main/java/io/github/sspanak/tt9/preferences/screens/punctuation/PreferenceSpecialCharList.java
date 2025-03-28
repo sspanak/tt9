@@ -6,7 +6,6 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
@@ -46,11 +45,9 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 		}
 
 		String error = validateForbiddenChars();
-		setSummary(
-			error.isEmpty() ? getContext().getString(R.string.punctuation_order_whitespace_will_be_added_automatically) : error
-		);
+		setError(error);
 
-		return true;
+		return error.isEmpty();
 	}
 
 
