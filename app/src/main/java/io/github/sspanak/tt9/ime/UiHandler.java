@@ -24,6 +24,7 @@ abstract class UiHandler extends AbstractHandler {
 			initTray();
 		} else {
 			mainView.destroy();
+			setInputView(mainView.getView());
 		}
 	}
 

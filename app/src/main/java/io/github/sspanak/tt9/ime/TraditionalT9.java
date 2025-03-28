@@ -1,14 +1,17 @@
 package io.github.sspanak.tt9.ime;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.InputType;
@@ -240,7 +243,21 @@ public class TraditionalT9 extends MainViewHandler {
 
 		cleanUp();
 		isDead = true;
-		super.onDestroy();
+
+		// @todo: investigate the crash and remove this try-catch
+		try {
+			super.onDestroy();
+		} catch (Exception e) {
+			Dialog win = getWindow();
+			Window winwin = win != null ? win.getWindow() : null;
+			View keys = winwin != null ? winwin.findViewById(R.id.main_soft_keys) : null;
+			boolean hasWindowToken = keys != null && keys.getWindowToken() != null;
+			boolean hasAppToken = keys != null && keys.getApplicationWindowToken() != null;
+
+			String shutdownDebug = "Window token: " + hasWindowToken + "; App token: " + hasAppToken + "; main view: " + (keys != null) + "; window.window: " + (winwin != null) + "; window: " + (win != null);
+			throw new RuntimeException("Parent failed to destroy." + shutdownDebug);
+		}
+
 		Logger.d(LOG_TAG, "===> Shutdown completed");
 	}
 

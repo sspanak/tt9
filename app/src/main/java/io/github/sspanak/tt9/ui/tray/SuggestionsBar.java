@@ -170,6 +170,7 @@ public class SuggestionsBar {
 			return suggestion;
 		}
 
+		// @todo: investigate the crash and remove this try-catch
 		try {
 			return stem + suggestion.substring(startIndex, endIndex);
 		} catch (Exception e) {
