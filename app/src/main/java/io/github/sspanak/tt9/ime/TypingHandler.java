@@ -147,8 +147,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
-			final String previousWord = textField.getWordBeforeCursor(mLanguage, 0, false);
-			if (mInputMode.recompose(previousWord) && textField.recompose(previousWord)) {
+			final String previousWord = mInputMode.recompose();
+			if (textField.recompose(previousWord)) {
 				getSuggestions(previousWord);
 			} else {
 				mInputMode.reset();
