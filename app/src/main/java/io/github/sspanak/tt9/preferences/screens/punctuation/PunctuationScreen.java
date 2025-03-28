@@ -8,6 +8,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.ui.UI;
 
 public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
@@ -86,11 +87,10 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void onSaveOrdering() {
-		if (specialCharList != null && specialCharList.validateCurrentChars()) {
+		if (specialCharList == null || !specialCharList.validateCurrentChars() || punctuationList == null || !punctuationList.validateCurrentChars()) {
+			UI.toastShortSingle(activity, R.string.punctuation_order_save_error);
+		} else {
 			specialCharList.saveCurrentChars();
-		}
-
-		if (punctuationList != null && punctuationList.validateCurrentChars()) {
 			punctuationList.saveCurrentChars();
 		}
 	}

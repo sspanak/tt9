@@ -182,6 +182,7 @@
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Leer- und Zeilenumbruchzeichen werden automatisch am Anfang der Liste hinzugefügt.</string>
 	<string name="punctuation_order_mandatory_char_missing">Fehlendes erforderliches Zeichen:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Fehlende erforderliche Zeichen:%1$s</string>
+	<string name="punctuation_order_save_error">Zeichenreihenfolge konnte nicht gespeichert werden.</string>
 	<string name="punctuation_order_sentence">Zeichenreihenfolge der 1-Taste</string>
 	<string name="punctuation_order_special">Zeichenreihenfolge der 0-Taste</string>
 	<string name="punctuation_order_reset_defaults">Standardreihenfolge wiederherstellen</string>

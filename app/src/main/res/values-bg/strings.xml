@@ -192,6 +192,7 @@
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Интервал и нов ред ще бъдат автоматично добавени в началото на списъка.</string>
 	<string name="punctuation_order_mandatory_char_missing">Липсва задължителен символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Липсват задължителни символи:%1$s</string>
+	<string name="punctuation_order_save_error">Неуспешно запазване на реда на знаците.</string>
 	<string name="punctuation_order_sentence">Ред на символите на клавиш 1</string>
 	<string name="punctuation_order_special">Ред на символите на клавиш 0</string>
 	<string name="punctuation_order_reset_defaults">Възстанови реда по подразбиране</string>
