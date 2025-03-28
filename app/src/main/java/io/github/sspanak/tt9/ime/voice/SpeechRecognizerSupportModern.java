@@ -14,8 +14,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.Executors;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implements RecognitionSupportCallback {

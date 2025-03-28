@@ -35,7 +35,7 @@ import io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.ActivityWithNavigation;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.SystemSettings;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	/**

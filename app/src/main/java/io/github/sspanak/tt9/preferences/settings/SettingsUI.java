@@ -8,8 +8,8 @@ import android.view.Gravity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;

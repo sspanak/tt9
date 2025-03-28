@@ -7,9 +7,9 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;

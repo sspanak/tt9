@@ -3,16 +3,16 @@ package io.github.sspanak.tt9.ime;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
-import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.SystemSettings;
 import io.github.sspanak.tt9.util.Ternary;
+import io.github.sspanak.tt9.util.sys.Clipboard;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract public class CommandHandler extends TextEditingHandler {
 	@Override

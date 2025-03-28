@@ -5,10 +5,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ResizableMainView extends MainView implements View.OnAttachStateChangeListener {
 	private Vibration vibration;

@@ -10,9 +10,9 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class ItemSearch extends ItemTextInput {
 	public ItemSearch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {

@@ -15,8 +15,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
-import io.github.sspanak.tt9.util.Permissions;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.Permissions;
 
 public abstract class AbstractExporter extends AbstractFileProcessor {
 	protected static String FILE_EXTENSION = ".csv";

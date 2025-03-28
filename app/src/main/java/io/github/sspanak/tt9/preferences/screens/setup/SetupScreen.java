@@ -5,7 +5,7 @@ import androidx.preference.Preference;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
-import io.github.sspanak.tt9.util.SystemSettings;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class SetupScreen extends BaseScreenFragment {
 	final public static String NAME = "Setup";

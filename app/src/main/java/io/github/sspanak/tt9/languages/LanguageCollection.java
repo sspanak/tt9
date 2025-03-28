@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.SystemSettings;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class LanguageCollection {
 	private static LanguageCollection self;

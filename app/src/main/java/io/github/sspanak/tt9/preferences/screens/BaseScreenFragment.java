@@ -6,11 +6,11 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragmentCompat;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreferencesList;
 import io.github.sspanak.tt9.preferences.settings.SettingsUI;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	protected PreferencesActivity activity;

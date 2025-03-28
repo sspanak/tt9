@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.hacks;
+package io.github.sspanak.tt9.util.sys;
 
 import android.content.Context;
 import android.content.res.Configuration;

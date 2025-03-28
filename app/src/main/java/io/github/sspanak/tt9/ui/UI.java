@@ -17,8 +17,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.HashMap;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class UI {
 	private static final HashMap<String, Toast> singleToasts = new HashMap<>();

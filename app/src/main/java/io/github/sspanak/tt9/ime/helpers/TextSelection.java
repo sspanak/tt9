@@ -8,7 +8,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.util.Clipboard;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class TextSelection {
 	@Nullable private final InputConnection connection;
