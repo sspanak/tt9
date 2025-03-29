@@ -21,7 +21,6 @@ public class IdeogramPredictions extends WordPredictions {
 	public IdeogramPredictions(SettingsStore settings, TextField textField) {
 		super(settings, textField);
 		minWords = 1;
-		maxWords = -1;
 		onlyExactMatches = true;
 	}
 
