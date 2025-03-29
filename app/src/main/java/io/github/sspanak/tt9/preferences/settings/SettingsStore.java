@@ -33,7 +33,6 @@ public class SettingsStore extends SettingsHotkeys {
 	public final static float SOFT_KEY_V_SHAPE_RATIO_OUTER = (float) Math.pow(SOFT_KEY_V_SHAPE_RATIO_INNER, 2);
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
-	public final static int SUGGESTIONS_POSITIONS_LIMIT = 100;
 	public final static int SUGGESTIONS_RENDER_DEBOUNCE_TIME = 25; // ms
 	public final static int SUGGESTIONS_RENDER_CLEAR_DEBOUNCE_TIME = 60; // ms
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
