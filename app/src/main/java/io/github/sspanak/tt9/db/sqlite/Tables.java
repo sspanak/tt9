@@ -115,8 +115,7 @@ public class Tables {
 		return "CREATE TABLE IF NOT EXISTS " + LANGUAGES_META + " (" +
 			"langId INTEGER UNIQUE NOT NULL, " +
 			"positionsToNormalize TEXT NULL," +
-			"fileHash TEXT NOT NULL DEFAULT 0, " +
-			"maxWordsPerSequence INTEGER NOT NULL DEFAULT -1 " +
+			"fileHash TEXT NOT NULL DEFAULT 0 " +
 		")";
 	}
 }

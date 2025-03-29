@@ -77,23 +77,19 @@ public class WordStore extends BaseSyncStore {
 			return new ArrayList<>();
 		}
 
-		Timer.start("cache_long_positions");
-		readOps.cacheLongPositionsIfMissing(sqlite.getDb(), language);
-		long longPositionsTime = Timer.stop("cache_long_positions");
-
 		final int minWords = Math.max(minimumWords, 0);
 		final int maxWords = maximumWords >= 0 ? Math.max(maximumWords, minWords) : maximumWords;
 		final String filter = wordFilter == null ? "" : wordFilter;
 
 		Timer.start("get_positions");
-		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), cancel, language, sequence, onlyExactSequence, filter, minWords);
+		String positions = readOps.getSimilarWordPositions(sqlite.getDb(), cancel, language, sequence, onlyExactSequence, filter, minWords, maxWords);
 		long positionsTime = Timer.stop("get_positions");
 
 		Timer.start("get_words");
-		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, maxWords, false).toStringList();
+		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, false).toStringList();
 		long wordsTime = Timer.stop("get_words");
 
-		printLoadingSummary(sequence, words, longPositionsTime, positionsTime, wordsTime);
+		printLoadingSummary(sequence, words, positionsTime, wordsTime);
 		if (!cancel.isCanceled()) { // do not cache empty results from aborted queries
 			SlowQueryStats.add(language, sequence, wordFilter, minWords, (int) (positionsTime + wordsTime), positions);
 		}
@@ -179,8 +175,8 @@ public class WordStore extends BaseSyncStore {
 		try {
 			Timer.start(LOG_TAG);
 
-			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), null, language, sequence, 0, 0, "");
-			WordList topWords = readOps.getWords(sqlite.getDb(), null, language, topWordPositions, "", 9999, true);
+			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), null, language, sequence, 0, 0, Integer.MAX_VALUE, "");
+			WordList topWords = readOps.getWords(sqlite.getDb(), null, language, topWordPositions, "", true);
 			if (topWords.isEmpty()) {
 				throw new Exception("No such word");
 			}
@@ -245,7 +241,7 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	private void printLoadingSummary(String sequence, ArrayList<String> words, long longPositionsTime, long positionIndexTime, long wordsTime) {
+	private void printLoadingSummary(String sequence, ArrayList<String> words, long positionIndexTime, long wordsTime) {
 		if (!Logger.isDebugLevel()) {
 			return;
 		}
@@ -255,7 +251,6 @@ public class WordStore extends BaseSyncStore {
 			.append("\nWord Count: ").append(words.size())
 			.append(".\nTime: ").append(positionIndexTime + wordsTime)
 			.append(" ms (positions: ").append(positionIndexTime)
-			.append(" ms, long positions: ").append(longPositionsTime)
 			.append(" ms, words: ").append(wordsTime).append(" ms).");
 
 		if (words.isEmpty()) {
