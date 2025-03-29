@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -14,6 +15,8 @@ import androidx.preference.PreferenceViewHolder;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.colors.AccentSystemColor;
+import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
 
 abstract public class ItemTextInput extends ScreenPreference {
 	@NonNull private final Handler listener = new Handler(Looper.getMainLooper());
@@ -55,11 +58,16 @@ abstract public class ItemTextInput extends ScreenPreference {
 	}
 
 
-	protected void setTextField(@NonNull PreferenceViewHolder holder) {
-		EditText editText = holder.itemView.findViewById(R.id.input_text_input_field);
-		if (editText != null) {
-			this.textField = editText;
+	protected void setError(String error) {
+		if (textField == null) {
+			return;
 		}
+
+		final boolean noError = error == null || error.isEmpty();
+		textField.setError(noError ? null : error);
+
+		int color = noError ? new AccentSystemColor(getContext()).get() : new ErrorSystemColor(getContext()).get();
+		textField.getBackground().mutate().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
 	}
 
 
@@ -67,6 +75,14 @@ abstract public class ItemTextInput extends ScreenPreference {
 		if (textField != null && newText != null && !text.equals(newText.toString())) {
 			textField.setText(newText);
 			text = newText.toString();
+		}
+	}
+
+
+	protected void setTextField(@NonNull PreferenceViewHolder holder) {
+		EditText editText = holder.itemView.findViewById(R.id.input_text_input_field);
+		if (editText != null) {
+			this.textField = editText;
 		}
 	}
 

@@ -5,10 +5,10 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.BaseClickableKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class Vibration {
 	@NonNull private final SettingsStore settings;

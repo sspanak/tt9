@@ -57,7 +57,7 @@ public class SuggestionOps {
 
 	@NonNull
 	public String get(int index) {
-		return suggestionBar != null ? suggestionBar.getSuggestion(index) : "";
+		return suggestionBar != null ? suggestionBar.get(index) : "";
 	}
 
 
@@ -69,20 +69,20 @@ public class SuggestionOps {
 
 	public void set(ArrayList<String> suggestions) {
 		if (suggestionBar != null) {
-			suggestionBar.setSuggestions(suggestions, 0, false);
+			suggestionBar.setMany(suggestions, 0, false);
 		}
 	}
 
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
 		if (suggestionBar != null) {
-			suggestionBar.setSuggestions(suggestions, 0, containsGenerated);
+			suggestionBar.setMany(suggestions, 0, containsGenerated);
 		}
 	}
 
 
 	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
 		if (suggestionBar != null) {
-			suggestionBar.setSuggestions(suggestions, selectIndex, containsGenerated);
+			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
 		}
 	}
 

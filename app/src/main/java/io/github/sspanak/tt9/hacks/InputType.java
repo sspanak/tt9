@@ -5,6 +5,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.ime.helpers.StandardInputType;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class InputType extends StandardInputType {
 	private final boolean isUs;

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -25,7 +24,6 @@ import io.github.sspanak.tt9.util.Logger;
 
 public class ReadOps {
 	private final String LOG_TAG = "ReadOperations";
-	private final HashMap<Language, Integer> maxWordsPerSequence = new HashMap<>();
 
 
 	/**
@@ -124,13 +122,13 @@ public class ReadOps {
 
 
 	@NonNull
-	public WordList getWords(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, int maximumWords, boolean fullOutput) {
+	public WordList getWords(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
 
-		String wordsQuery = getWordsQuery(language, positions, filter, maximumWords, fullOutput);
+		String wordsQuery = getWordsQuery(language, positions, filter, fullOutput);
 		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
 		}
@@ -153,7 +151,7 @@ public class ReadOps {
 	}
 
 
-	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, boolean onlyExactSequenceMatches, String wordFilter, int minPositions) {
+	public String getSimilarWordPositions(@NonNull SQLiteDatabase db, @NonNull CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, boolean onlyExactSequenceMatches, String wordFilter, int minPositions, int maxPositions) {
 		int generations;
 
 		if (onlyExactSequenceMatches) {
@@ -166,17 +164,17 @@ public class ReadOps {
 			};
 		}
 
-		return getWordPositions(db, cancel, language, sequence, generations, minPositions, wordFilter);
+		return getWordPositions(db, cancel, language, sequence, generations, minPositions, maxPositions, wordFilter);
 	}
 
 
 	@NonNull
-	public String getWordPositions(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, String wordFilter) {
+	public String getWordPositions(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String sequence, int generations, int minPositions, int maxPositions, String wordFilter) {
 		if ((sequence.length() == 1 && !language.isTranscribed()) || (cancel != null && cancel.isCanceled())) {
 			return sequence;
 		}
 
-		WordPositionsStringBuilder positions = new WordPositionsStringBuilder();
+		WordPositionsStringBuilder positions = new WordPositionsStringBuilder().setMaxFuzzy(maxPositions);
 
 		String cachedFactoryPositions = SlowQueryStats.getCachedIfSlow(SlowQueryStats.generateKey(language, sequence, wordFilter, minPositions));
 		if (cachedFactoryPositions != null) {
@@ -191,8 +189,8 @@ public class ReadOps {
 			return sequence;
 		}
 
-		if (positions.size < minPositions && generations < Integer.MAX_VALUE) {
-			Logger.d(LOG_TAG, "Not enough positions: " + positions.size + " < " + minPositions + ". Searching for more.");
+		if (positions.getSize() < minPositions && generations < Integer.MAX_VALUE) {
+			Logger.d(LOG_TAG, "Not enough positions: " + positions.getSize() + " < " + minPositions + ". Searching for more.");
 			try (Cursor cursor = db.rawQuery(getFactoryWordPositionsQuery(language, sequence, Integer.MAX_VALUE), null, cancel)) {
 				positions.appendFromDbRanges(cursor);
 			} catch (OperationCanceledException ignored) {
@@ -217,7 +215,7 @@ public class ReadOps {
 
 	private String getPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
 		return
-			"SELECT `start`, `end` FROM ( " +
+			"SELECT `start`, `end`, `exact` FROM ( " +
 				getFactoryWordPositionsQuery(language, sequence, generations) +
 				") UNION " +
 				getCustomWordPositionsQuery(language, sequence, generations);
@@ -230,8 +228,8 @@ public class ReadOps {
 	 */
 	@NonNull
 	private String getFactoryWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
-		StringBuilder sql = new StringBuilder("SELECT `start`, `end` FROM ")
-			.append(Tables.getWordPositions(language.getId()))
+		StringBuilder sql = new StringBuilder("SELECT `start`, `end`, LENGTH(`sequence`) = ").append(sequence.length()).append(" AS `exact`")
+			.append(" FROM ").append(Tables.getWordPositions(language.getId()))
 			.append(" WHERE ");
 
 		if (generations >= 0 && generations < 10) {
@@ -252,7 +250,7 @@ public class ReadOps {
 				.append(sequence)
 				.append("' OR sequence BETWEEN '").append(sequence).append("1' AND '").append(sequence).append(rangeEnd).append("'");
 			sql.append(" ORDER BY `start` ");
-			sql.append(" LIMIT ").append(maxWordsPerSequence.get(language));
+			sql.append(" LIMIT ").append(SettingsStore.SUGGESTIONS_MAX);
 		}
 
 		String positionsSql = sql.toString();
@@ -267,7 +265,8 @@ public class ReadOps {
 	 */
 	@NonNull
 	private String getCustomWordPositionsQuery(@NonNull Language language, @NonNull String sequence, int generations) {
-		String sql = "SELECT -id as `start`, -id as `end` FROM " + Tables.CUSTOM_WORDS +
+		String sql = "SELECT -id as `start`, -id as `end`, LENGTH(`sequence`) = " + sequence.length() + " as `exact` " +
+			" FROM " + Tables.CUSTOM_WORDS +
 			" WHERE langId = " + language.getId() +
 			" AND (sequence = " + sequence;
 
@@ -282,7 +281,7 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, int maxWords, boolean fullOutput) {
+	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, boolean fullOutput) {
 		StringBuilder sql = new StringBuilder();
 		sql
 			.append("SELECT word");
@@ -298,12 +297,6 @@ public class ReadOps {
 		}
 
 		sql.append(" ORDER BY LENGTH(word), frequency DESC");
-
-		if (maxWords < 0 && maxWordsPerSequence.containsKey(language)) {
-			Integer limit = maxWordsPerSequence.get(language);
-			maxWords = limit != null ? limit : SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
-		}
-		sql.append(" LIMIT ").append(maxWords);
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);
@@ -338,21 +331,5 @@ public class ReadOps {
 		}
 
 		return pairs;
-	}
-
-
-	/**
-	 * Caches the languages with more than 100 words per a sequence (the balanced performance limit).
-	 */
-	public void cacheLongPositionsIfMissing(@NonNull SQLiteDatabase db, @NonNull Language language) {
-		if (maxWordsPerSequence.containsKey(language)) {
-			return;
-		}
-
-		String sql = "SELECT maxWordsPerSequence FROM " + Tables.LANGUAGES_META + " WHERE langId = " + language.getId();
-		int maxWords = (int) CompiledQueryCache.simpleQueryForLong(db, sql, SettingsStore.SUGGESTIONS_POSITIONS_LIMIT);
-		maxWords = maxWords > 0 ? maxWords : SettingsStore.SUGGESTIONS_POSITIONS_LIMIT;
-
-		maxWordsPerSequence.put(language, maxWords);
 	}
 }

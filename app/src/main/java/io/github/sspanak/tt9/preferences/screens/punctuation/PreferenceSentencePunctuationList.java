@@ -49,7 +49,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 
 		String separator = forbiddenCharsError.isEmpty() || mandatoryCharsError.isEmpty() ? "" : "\n";
 		String error = forbiddenCharsError + separator + mandatoryCharsError;
-		setSummary(error);
+		setError(error);
 
 		return error.isEmpty();
 	}

@@ -8,8 +8,8 @@ import android.view.Gravity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;
@@ -121,6 +121,10 @@ public class SettingsUI extends SettingsTyping {
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);
+	}
+
+	public boolean getSuggestionSmoothScroll() {
+		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
 	}
 
 	public int getTheme() {

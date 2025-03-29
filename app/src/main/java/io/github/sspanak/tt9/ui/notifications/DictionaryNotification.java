@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public abstract class DictionaryNotification {
 	private static final int NOTIFICATION_ID = 1;

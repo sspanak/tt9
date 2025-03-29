@@ -6,9 +6,9 @@ import androidx.preference.Preference;
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ItemSelectSettingsFontSize extends ItemDropDown {
 	public static final String NAME = "pref_font_size";

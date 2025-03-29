@@ -9,12 +9,12 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class AddWordDialog extends PopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.add_word";

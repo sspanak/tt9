@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Permissions;
+import io.github.sspanak.tt9.util.sys.Permissions;
 
 public class RequestPermissionDialog extends AppCompatActivity {
 	private final Permissions permissions;

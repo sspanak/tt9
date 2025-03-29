@@ -56,7 +56,7 @@ public class IdeogramPredictions extends WordPredictions {
 
 	@Override
 	@NonNull
-	protected String getWordBeforeCursor(@NonNull String currentWord) {
+	protected String getPenultimateWord(@NonNull String currentWord) {
 		int currentWordLength = currentWord.length();
 		int lastWordLength = lastTypedWord.length();
 		int requiredTextLength = currentWordLength + lastWordLength;
@@ -97,7 +97,7 @@ public class IdeogramPredictions extends WordPredictions {
 			return;
 		}
 
-		String previousWord = getWordBeforeCursor(nativeWord);
+		String previousWord = getPenultimateWord(nativeWord);
 		if (previousWord.equals(lastTypedWord)) {
 //			Logger.d("LOG_TAG", "====+> Pairing words: " + previousWord + " + " + nativeWord);
 			DataStore.addWordPair(language, previousWord, nativeWord, sequence);

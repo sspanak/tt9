@@ -7,6 +7,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
 public class MainView {
+	private final static String LOG_TAG = MainView.class.getSimpleName();
+
 	protected final TraditionalT9 tt9;
 	protected BaseMainLayout main;
 	private boolean darkTheme;
@@ -49,11 +51,11 @@ public class MainView {
 
 	public void forceCreate() {
 		if (main != null) {
-			Logger.w(getClass().getSimpleName(), "MainView already exists. Re-creating by request.");
+			Logger.w(LOG_TAG, "MainView already exists. Re-creating by request.");
 			destroy();
 		}
 		if (!create()) {
-			Logger.w(getClass().getSimpleName(), "Invalid MainView setting. Creating default.");
+			Logger.w(LOG_TAG, "Invalid MainView setting. Creating default.");
 			main = new MainLayoutSmall(tt9);
 		}
 	}
@@ -63,6 +65,11 @@ public class MainView {
 	}
 
 	public void render() {
+		if (main == null) {
+			Logger.e(LOG_TAG, "Cannot render a null MainView.");
+			return;
+		}
+
 		main.hideCommandPalette();
 		main.hideTextEditingPalette();
 		main.render();

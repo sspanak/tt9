@@ -72,6 +72,7 @@ abstract public class InputMode {
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
+	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
 	public void onReplaceSuggestion(@NonNull String word) {}
 
 	/**
@@ -135,7 +136,7 @@ abstract public class InputMode {
 	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
-	public boolean recompose(String word) { return false; }
+	public String recompose() { return null; }
 	public void replaceLastLetter() {}
 
 	public void reset() {

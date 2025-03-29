@@ -5,7 +5,7 @@ import android.view.WindowInsets;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 
 public class EdgeToEdgeActivity extends AppCompatActivity {

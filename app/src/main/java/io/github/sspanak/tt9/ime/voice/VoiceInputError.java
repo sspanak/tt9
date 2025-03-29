@@ -6,7 +6,7 @@ import android.speech.SpeechRecognizer;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class VoiceInputError {
 	public final static int ERROR_NOT_AVAILABLE = 101;

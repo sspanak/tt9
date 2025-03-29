@@ -5,7 +5,7 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
-import io.github.sspanak.tt9.util.Permissions;
+import io.github.sspanak.tt9.util.sys.Permissions;
 
 public class ItemDictionaryNotifications extends ItemSwitch {
 	public static final String NAME = "dictionary_notifications";

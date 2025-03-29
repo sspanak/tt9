@@ -62,6 +62,7 @@
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.</string>
 	<string name="pref_status_icon">סמל מצב</string>
 	<string name="pref_status_icon_summary">הצגת סמל כאשר קלט המקלדת פעיל.</string>
+	<string name="pref_suggestion_smooth_scroll">גלילה חלקה של הצעות</string>
 	<string name="pref_upside_down_keys">להפוך את סדר המקשים</string>
 	<string name="pref_upside_down_keys_summary">הפעל את ההגדרה אם המקלדת כוללת את המספרים 7-8-9 בשורה הראשונה, במקום 1-2-3.</string>
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
@@ -192,6 +193,7 @@
 	<string name="punctuation_order_whitespace_will_be_added_automatically">תווי רווח ושורה חדשה יתווספו אוטומטית בתחילת הרשימה.</string>
 	<string name="punctuation_order_mandatory_char_missing">תו חובה חסר: %1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">תווי חובה חסרים:%1$s</string>
+	<string name="punctuation_order_save_error">שמירת סדר התווים נכשלה.</string>
 	<string name="punctuation_order_sentence">סדר התווים של מקש 1</string>
 	<string name="punctuation_order_special">סדר התווים של מקש 0</string>
 	<string name="punctuation_order_reset_defaults">שחזר את הסדר המוגדר כברירת מחדל</string>

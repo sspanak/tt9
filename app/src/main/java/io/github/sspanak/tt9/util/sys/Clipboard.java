@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.util;
+package io.github.sspanak.tt9.util.sys;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;

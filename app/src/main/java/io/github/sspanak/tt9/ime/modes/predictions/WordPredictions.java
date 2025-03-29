@@ -20,16 +20,26 @@ public class WordPredictions extends Predictions {
 	private boolean isStemFuzzy;
 
 	private String lastEnforcedTopWord;
+	protected String penultimateWord;
 
 
 	public WordPredictions(SettingsStore settings, TextField textField) {
 		super(settings);
 		lastEnforcedTopWord = "";
 		localeWordsSorter = new LocaleWordsSorter(null);
+		penultimateWord = "";
 		stem = "";
 		this.textField = textField;
 	}
 
+
+	@Override
+	public Predictions setDigitSequence(@NonNull String digitSequence) {
+		if (digitSequence.length() == 1 || digitSequence.equals(this.digitSequence)) {
+			penultimateWord = ""; // enforce reloading the penultimate word
+		}
+		return super.setDigitSequence(digitSequence);
+	}
 
 	@Override
 	public Predictions setLanguage(@NonNull Language language) {
@@ -296,7 +306,9 @@ public class WordPredictions extends Predictions {
 		}
 
 		ArrayList<String> rearrangedWords = new ArrayList<>();
-		String penultimateWord = getWordBeforeCursor(words.get(0));
+		if (penultimateWord.isEmpty()) {
+			penultimateWord = getPenultimateWord(words.get(0));
+		}
 
 		String pairWord = DataStore.getWord2(language, penultimateWord, digitSequence);
 		int morePopularIndex = TextTools.indexOfIgnoreCase(words, pairWord);
@@ -324,7 +336,7 @@ public class WordPredictions extends Predictions {
 	 */
 	protected void pairWithPreviousWord(@NonNull String word, @NonNull String sequence) {
 		if (settings.getPredictWordPairs() && sequence.length() == digitSequence.length()) {
-			DataStore.addWordPair(language, getWordBeforeCursor(word), word, sequence);
+			DataStore.addWordPair(language, getPenultimateWord(word), word, sequence);
 		}
 	}
 
@@ -334,7 +346,7 @@ public class WordPredictions extends Predictions {
 	 * we have a separate method for that.
 	 */
 	@NonNull
-	protected String getWordBeforeCursor(@NonNull String currentWord) {
+	protected String getPenultimateWord(@NonNull String currentWord) {
 		return textField.getWordBeforeCursor(language, 1, true);
 	}
 }

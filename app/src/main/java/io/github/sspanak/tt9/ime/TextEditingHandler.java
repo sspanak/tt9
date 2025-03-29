@@ -3,8 +3,8 @@ package io.github.sspanak.tt9.ime;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Ternary;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 abstract public class TextEditingHandler extends VoiceHandler {
 	protected boolean isLanguageRTL;

@@ -17,10 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract class BaseMainLayout {
 	protected int e2ePaddingBottomLandscape = -1;

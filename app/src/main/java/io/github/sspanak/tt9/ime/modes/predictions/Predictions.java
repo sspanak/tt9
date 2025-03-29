@@ -34,7 +34,7 @@ abstract public class Predictions {
 	}
 
 
-	public Predictions setDigitSequence(String digitSequence) {
+	public Predictions setDigitSequence(@NonNull String digitSequence) {
 		this.digitSequence = digitSequence;
 		return this;
 	}

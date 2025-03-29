@@ -106,6 +106,12 @@ public class ModeIdeograms extends ModeWords {
 	}
 
 
+	@Override public void onCursorMove(@NonNull String word) {
+		isFiltering = false;
+		super.onCursorMove(word);
+	}
+
+
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String s) {
 		return

@@ -51,6 +51,9 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
+		<SwitchPreferenceCompat
+			app:key="pref_suggestion_smooth_scroll"
+			app:title="@string/pref_suggestion_smooth_scroll"/>
 
 		<SwitchPreferenceCompat
 			app:key="pref_alternative_suggestion_scrolling"

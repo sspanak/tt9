@@ -5,9 +5,9 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class Punctuation {
 	public static final String AR_QUESTION_MARK = "؟";

@@ -6,8 +6,8 @@ import android.speech.SpeechRecognizer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SpeechRecognizerSupportLegacy {
 	final boolean isOnDeviceRecognitionAvailable;

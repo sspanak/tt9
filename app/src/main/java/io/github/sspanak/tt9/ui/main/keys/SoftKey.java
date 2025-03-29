@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SoftKey extends BaseClickableKey {
 	protected RelativeLayout overlay = null;

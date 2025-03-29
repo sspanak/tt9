@@ -8,9 +8,9 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
-import io.github.sspanak.tt9.util.Clipboard;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.Clipboard;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class WebViewSafeClient extends WebViewClient {
 	private final Activity activity;

@@ -3,10 +3,10 @@ package io.github.sspanak.tt9.preferences.items;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.hacks.DeviceInfo;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Clipboard;
+import io.github.sspanak.tt9.util.sys.Clipboard;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ItemText extends ItemClickable {
 	private final PreferencesActivity activity;

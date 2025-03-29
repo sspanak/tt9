@@ -32,9 +32,12 @@ public class SuggestionsBar {
 	private final String STEM_PUNCTUATION_VARIATION_PREFIX = "​";
 	@NonNull private String stem = "";
 
-	private int backgroundColor = Color.TRANSPARENT;
+	private int defaultBackgroundColor = Color.TRANSPARENT;
+	private int backgroundColor;
+
 	private double lastClickTime = 0;
-	protected int selectedIndex = 0;
+	private int lastScrollIndex = 0;
+	private int selectedIndex = 0;
 	@Nullable private List<String> suggestions = new ArrayList<>();
 	@NonNull private final List<String> visibleSuggestions = new ArrayList<>();
 
@@ -46,7 +49,7 @@ public class SuggestionsBar {
 	private SuggestionsAdapter mSuggestionsAdapter;
 	private Vibration vibration;
 
-	private final Handler alternativeScrollingHandler = new Handler();
+	private final Handler delayedDisplayHandler = new Handler();
 
 
 	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
@@ -78,8 +81,6 @@ public class SuggestionsBar {
 		animator.setChangeDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
 		animator.setAddDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
 		animator.setRemoveDuration(SettingsStore.SUGGESTIONS_TRANSLATE_ANIMATION_DURATION);
-
-		mView.setItemAnimator(animator);
 	}
 
 
@@ -137,7 +138,7 @@ public class SuggestionsBar {
 
 
 	@NonNull
-	public String getSuggestion(int id) {
+	public String get(int id) {
 		if (id < 0 || id >= visibleSuggestions.size()) {
 			return "";
 		}
@@ -171,6 +172,7 @@ public class SuggestionsBar {
 			return suggestion;
 		}
 
+		// @todo: investigate the crash and remove this try-catch
 		try {
 			return stem + suggestion.substring(startIndex, endIndex);
 		} catch (Exception e) {
@@ -186,17 +188,17 @@ public class SuggestionsBar {
 	}
 
 
-	public void setSuggestions(@Nullable List<String> newSuggestions, int initialSel, boolean containsGenerated) {
+	public void setMany(@Nullable List<String> newSuggestions, int initialSel, boolean containsGenerated) {
 		suggestions = newSuggestions;
-		ecoSetBackground(newSuggestions);
-
-		visibleSuggestions.clear();
 		selectedIndex = newSuggestions == null || newSuggestions.isEmpty() ? 0 : Math.max(initialSel, 0);
 
+		visibleSuggestions.clear();
 		setStem(newSuggestions, containsGenerated);
-		addManySuggestions(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
+		addMany(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
+
 		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
-		displaySuggestions(visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX);
+
+		renderDebounced();
 	}
 
 
@@ -235,13 +237,13 @@ public class SuggestionsBar {
 	 * for performance reasons, hence the "limit" parameter. When they are too many, the SHOW_MORE_SUGGESTION,
 	 * will be displayed at the end.
 	 */
-	private void addManySuggestions(List<String> newSuggestions, int limit) {
+	private void addMany(List<String> newSuggestions, int limit) {
 		if (newSuggestions == null) {
 			return;
 		}
 
 		for (int i = 0, end = Math.min(limit, newSuggestions.size()); i < end; i++) {
-			addSuggestion(newSuggestions.get(i));
+			add(newSuggestions.get(i));
 		}
 
 		if (newSuggestions.size() > limit) {
@@ -250,14 +252,14 @@ public class SuggestionsBar {
 	}
 
 
-	private void addSuggestion(@NonNull String suggestion) {
+	private void add(@NonNull String suggestion) {
 		// shorten the stem variations
 		if (!stem.isEmpty() && suggestion.length() == stem.length() + 1 && suggestion.toLowerCase().startsWith(stem.toLowerCase())) {
 			String trimmedSuggestion = suggestion.substring(stem.length());
 			char firstChar = trimmedSuggestion.charAt(0);
 
 			String prefix = Character.isAlphabetic(firstChar) && !Characters.isCombiningPunctuation(firstChar) ? STEM_VARIATION_PREFIX : STEM_PUNCTUATION_VARIATION_PREFIX;
-			prefix = Characters.isFathatan(firstChar) ? " " : prefix; // Fix incorrect display of fathatan without a base character. It is a combining character, but since it is a letter, we must include a base character not to break it, with a "..." prefix
+			prefix = Characters.isFathatan(firstChar) ? " " : prefix; // Fix incorrect display of Fathatan without a base character. It is a combining character, but since it is a letter, we must include a base character not to break it, with a "..." prefix
 			visibleSuggestions.add(prefix + formatUnreadableSuggestion(trimmedSuggestion));
 			return;
 		}
@@ -266,12 +268,27 @@ public class SuggestionsBar {
 	}
 
 
-	private void displaySuggestions(boolean withScrollAnimation) {
+	/**
+	 * Reduces flashing of the suggestions bar when the suggestions are empty and saves some resources
+	 * by reducing the calls to render().
+	 */
+	private void renderDebounced() {
+		final int delay = visibleSuggestions.isEmpty() ? SettingsStore.SUGGESTIONS_RENDER_CLEAR_DEBOUNCE_TIME : SettingsStore.SUGGESTIONS_RENDER_DEBOUNCE_TIME;
+		delayedDisplayHandler.removeCallbacksAndMessages(null);
+		delayedDisplayHandler.postDelayed(this::render, delay);
+	}
+
+
+	private void render() {
 		if (mView == null) {
 			return;
 		}
 
-		mView.setItemAnimator(withScrollAnimation ? animator : null);
+		setBackground(false);
+
+		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
+		mView.setItemAnimator(smooth ? animator : null);
+
 		mSuggestionsAdapter.resetItems(selectedIndex);
 		if (selectedIndex > 0) {
 			mView.scrollToPosition(selectedIndex);
@@ -280,18 +297,21 @@ public class SuggestionsBar {
 
 
 	/**
-	 * If addManySuggestions() constrained the visible suggestions, the end of the list will contain
-	 * the SHOW_MORE_SUGGESTION. This method will display remove the SHOW_MORE_SUGGESTION and display
-	 * all the hidden suggestions. It also scrolls correctly to the new visible suggestion.
+	 * If addMany() constrained the visible suggestions, the end of the list will contain
+	 * the SHOW_MORE_SUGGESTION. This method will remove the SHOW_MORE_SUGGESTION, prepare
+	 * all hidden suggestions for displaying, and will scroll correctly to the new visible suggestion.
+	 * After that, you must call render(), to visualize the changes.
 	 */
-	private void displayHiddenSuggestionsIfNeeded(boolean scrollBack) {
+	private boolean appendHiddenSuggestionsIfNeeded(boolean scrollBack) {
 		if (mView == null || !visibleSuggestions.get(selectedIndex).equals(SHOW_MORE_SUGGESTION)) {
-			return;
+			return false;
 		}
 
 		visibleSuggestions.clear();
-		addManySuggestions(suggestions, Integer.MAX_VALUE);
-		selectedIndex = scrollBack ? visibleSuggestions.size() - 1 : selectedIndex;
+		addMany(suggestions, Integer.MAX_VALUE);
+		selectedIndex = scrollBack || selectedIndex >= visibleSuggestions.size() ? visibleSuggestions.size() - 1 : selectedIndex;
+
+		return true;
 	}
 
 
@@ -315,8 +335,10 @@ public class SuggestionsBar {
 		}
 
 		calculateScrollIndex(increment);
-		displayHiddenSuggestionsIfNeeded(increment < 0);
-		scrollToIndex();
+		if (appendHiddenSuggestionsIfNeeded(increment < 0)) {
+			render();
+		}
+		scrollToSelected();
 	}
 
 
@@ -332,7 +354,7 @@ public class SuggestionsBar {
 	}
 
 
-	private void scrollToIndex() {
+	private void scrollToSelected() {
 		if (mView == null) {
 			return;
 		}
@@ -340,28 +362,27 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.setSelection(selectedIndex);
 
 		if (settings.getSuggestionScrollingDelay() > 0) {
-			alternativeScrollingHandler.removeCallbacksAndMessages(null);
-			alternativeScrollingHandler.postDelayed(this::scrollView, settings.getSuggestionScrollingDelay());
+			delayedDisplayHandler.removeCallbacksAndMessages(null);
+			delayedDisplayHandler.postDelayed(this::renderScroll, settings.getSuggestionScrollingDelay());
 		} else {
-			scrollView();
+			renderScroll();
 		}
 	}
 
 
 	/**
-	 * Tells the adapter to scroll. Always call scrollToIndex() first,
+	 * Tells the adapter to scroll. Always call scrollToSelected() first,
 	 * to set the selected index in the adapter.
 	 */
-	private void scrollView() {
+	private void renderScroll() {
 		if (mView == null) {
 			return;
 		}
 
-		if (containsStem() && selectedIndex == 1) {
-			mView.scrollToPosition(0);
-		} else {
-			mView.scrollToPosition(selectedIndex);
-		}
+		boolean smooth = settings.getSuggestionSmoothScroll() && Math.abs(selectedIndex - lastScrollIndex) < SettingsStore.SUGGESTIONS_MAX;
+		mView.setItemAnimator(smooth ? animator : null);
+		mView.scrollToPosition(containsStem() && selectedIndex == 1 ? 0 : selectedIndex);
+		lastScrollIndex = selectedIndex;
 	}
 
 
@@ -378,12 +399,12 @@ public class SuggestionsBar {
 
 		Context context = mView.getContext();
 
-		backgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
+		defaultBackgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
 		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text));
 		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
 		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
 
-		setBackground(visibleSuggestions);
+		setBackground(true);
 	}
 
 
@@ -392,36 +413,20 @@ public class SuggestionsBar {
 	 * Makes the background transparent, when there are no suggestions and theme-colored,
 	 * when there are suggestions.
 	 */
-	private void setBackground(List<String> newSuggestions) {
+	private void setBackground(boolean force) {
 		if (mView == null) {
 			return;
 		}
 
-		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
-		if (newSuggestionsSize == 0) {
-			mView.setBackgroundColor(Color.TRANSPARENT);
-			return;
+		boolean mustChange = (
+			(backgroundColor == Color.TRANSPARENT && !visibleSuggestions.isEmpty()) ||
+			(backgroundColor == defaultBackgroundColor && visibleSuggestions.isEmpty())
+		);
+
+		if (force || mustChange) {
+			backgroundColor = visibleSuggestions.isEmpty() ? Color.TRANSPARENT : defaultBackgroundColor;
+			mView.setBackgroundColor(backgroundColor);
 		}
-
-		mView.setBackgroundColor(backgroundColor);
-	}
-
-
-	/**
-	 * ecoSetBackground
-	 * A performance-optimized version of "setBackground().
-	 * Determines if the suggestions have changed and only then it changes the background.
-	 */
-	private void ecoSetBackground(List<String> newSuggestions) {
-		int newSuggestionsSize = newSuggestions != null ? newSuggestions.size() : 0;
-		if (
-			(newSuggestionsSize == 0 && visibleSuggestions.isEmpty())
-			|| (newSuggestionsSize > 0 && !visibleSuggestions.isEmpty())
-		) {
-			return;
-		}
-
-		setBackground(newSuggestions);
 	}
 
 
@@ -432,7 +437,11 @@ public class SuggestionsBar {
 	private void handleItemClick(int position) {
 		vibration.vibrate();
 		selectedIndex = position;
-		onItemClick.run();
+		if (appendHiddenSuggestionsIfNeeded(false)) {
+			render();
+		} else {
+			onItemClick.run();
+		}
 	}
 
 

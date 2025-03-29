@@ -103,6 +103,7 @@
 	<string name="key_hold_key">(зажать)</string>
 	<string name="key_back">Назад</string>
 	<string name="key_call">Позвонить</string>
+	<string name="pref_suggestion_smooth_scroll">Плавная прокрутка списка слов</string>
 	<string name="pref_upside_down_keys">Перевернутая клавиатура</string>
 	<string name="pref_upside_down_keys_summary">Используйте настройку, если в первом ряду 7–8–9 вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Удалить невыбранные</string>
@@ -191,6 +192,7 @@
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Пробел и символ новой строки будут автоматически добавлены в начало списка.</string>
 	<string name="punctuation_order_mandatory_char_missing">Отсутствует обязательный символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Отсутствуют обязательные символы:%1$s</string>
+	<string name="punctuation_order_save_error">е удалось сохранить порядок символов.</string>
 	<string name="punctuation_order_sentence">Порядок символов на клавише 1</string>
 	<string name="punctuation_order_special">Порядок символов на клавише 0</string>
 	<string name="punctuation_order_reset_defaults">Восстановить порядок по умолчанию</string>
