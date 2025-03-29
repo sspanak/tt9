@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Effective Date:** 2025-01-01
+**Effective Date:** 2025-04-11
 
 Thank you for using Traditional T9. Your privacy is a priority. This Privacy Policy explains how the app handles your data.
 
@@ -13,12 +13,16 @@ The app does not contain any analytics, advertising trackers, or background data
 ## **Two Versions: Full and Lite**
 There are two versions of the app:
 
-- **Full Version**: Operates **completely offline** and does not require Internet access. This version has **no network permissions** and guarantees absolute privacy.
-- **Lite Version**: Requires an Internet connection only in two specific cases:
-  1. **Downloading dictionaries from GitHub** (when requested by the user).
-  2. **Using voice input** (which relies on external speech recognition services).
+- **Full Version**: Operates **completely offline** and does not require Internet access. This version has **no network permissions** and guarantees maximum privacy.
+- **Lite Version**: Requires an Internet connection only when **downloading dictionaries from GitHub** (only at user's request). Aside from this, the Lite version does not make any other network requests.
 
-Aside from these two cases, the Lite version does not make any other network requests.
+## **Using Voice Input**
+Voice input functionality in Traditional T9 relies on external speech recognition services, which may require an Internet connection to operate. These services are not part of Traditional T9 and function independently.
+
+When voice input is activated, your speech may be sent to third-party providers for processing. Traditional T9 does not record, transmit, or process the voice data, and cannot guarantee how external services handle your information.
+
+If you are concerned about this, you may choose not to use the Voice Input feature and deny Microphone permissions when prompted.
+
 
 ## **Open-Source Transparency**
 Traditional T9 is **open-source**, meaning that anyone can review the source code to verify the privacy claims above. You can inspect the code yourself to ensure that the app does not collect or transmit any data.
