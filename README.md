@@ -1,6 +1,6 @@
 # Traditional T9 ![GitHub Downloads (latest release)](https://img.shields.io/github/downloads/sspanak/tt9/latest/total)
 
-TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [30+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
+TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in [40+ languages](app/languages/definitions), configurable hotkeys, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
 
 This is a modernized version of the [original project](https://github.com/Clam-/TraditionalT9) by Clam-.
 
@@ -30,12 +30,12 @@ _If your phone does not have Google Play and does not allow installing custom AP
 ## ⚙️ System Requirements
 - Android 5.0 or higher.
 - A hardware keypad or a keyboard. For touchscreen-only devices, an on-screen keypad can be activated from the Settings.
-- Storage space depends on the Android version. The lite version requires at least 5-8 Mb and the full version requires at least 160 Mb.
+- Storage space depends on the Android version. The lite version requires at least 6-8 Mb and the full version requires at least 165 Mb.
 - Extra storage space is necessary for language dictionaries in Predictive Mode.
     - Languages with character predictions only (Korean): ~1 Mb per language
     - Tiny languages (< 100k words; Kiswahili, Indonesian, Vietnamese): 5-6 Mb per language.
     - Small languages (100k-400k words; e.g. English, Norwegian, Swedish, Finnish, German, French): 15-30 Mb per language.
-    - Medium languages (400k-800k words; e.g. Danish, Greek, Italian, Portuguese): 40-75 Mb per language
+    - Medium languages (400k-800k words; e.g. Chinese, Danish, Greek, Italian, Portuguese): 40-75 Mb per language
     - Large languages (800k-1.5M words; e.g. Arabic, Bulgarian, Hebrew, Romanian, Spanish): 100-165 Mb per language
 
 _Storage usage for the dictionaries depends on the word root count and the average word length in each language. Some languages will require more space, even if they have fewer words than others._
