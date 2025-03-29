@@ -72,6 +72,7 @@ abstract public class InputMode {
 	// Suggestions
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
+	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
 	public void onReplaceSuggestion(@NonNull String word) {}
 
 	/**

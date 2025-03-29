@@ -327,11 +327,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
 		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
 		// This is confusing from user perspective, so we want to avoid it.
-		if (
-			CursorOps.isMovedManually(newSelStart, newSelEnd, candidatesStart, candidatesEnd)
-			&& !suggestionOps.isEmpty()
-		) {
-			mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		if (CursorOps.isMovedManually(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+			mInputMode.onCursorMove(suggestionOps.acceptIncomplete());
 		}
 	}
 
