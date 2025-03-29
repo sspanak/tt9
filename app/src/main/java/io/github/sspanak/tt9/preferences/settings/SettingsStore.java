@@ -34,6 +34,8 @@ public class SettingsStore extends SettingsHotkeys {
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_POSITIONS_LIMIT = 100;
+	public final static int SUGGESTIONS_RENDER_DEBOUNCE_TIME = 25; // ms
+	public final static int SUGGESTIONS_RENDER_CLEAR_DEBOUNCE_TIME = 60; // ms
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
 	public final static int TEXT_INPUT_DEBOUNCE_TIME = 500; // ms
