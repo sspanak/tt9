@@ -53,6 +53,7 @@ abstract public class InputMode {
 			case MODE_PREDICTIVE:
 				if (LanguageKind.isChinese(language)) return new ModePinyin(settings, language, inputType, textField);
 				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
+				if (language != null && language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
 				return new ModeWords(settings, language, inputType, textField);
 			case MODE_ABC:
 				return new ModeABC(settings, language, inputType);
