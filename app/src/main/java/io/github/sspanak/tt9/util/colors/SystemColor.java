@@ -15,10 +15,6 @@ public class SystemColor {
 		return color;
 	}
 
-	final public SystemColor toComplementary() {
-		return new SystemColor(0xFFFFFF - color);
-	}
-
 	final public String toCssColor() {
 		return "color:" + toHex() + ";";
 	}
