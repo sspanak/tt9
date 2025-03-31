@@ -18,6 +18,7 @@ layout:
 filterBySounds: yes
 sounds:
   - [Ii,1]
+  - [Qx,1]
   - [A,2]
   - [B,2]
   - [C,2]
