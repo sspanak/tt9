@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -194,7 +195,9 @@ public class SuggestionsBar {
 
 		visibleSuggestions.clear();
 		setStem(newSuggestions, containsGenerated);
-		addMany(newSuggestions, mView != null ? SettingsStore.SUGGESTIONS_MAX : Integer.MAX_VALUE);
+
+		boolean onlySpecialChars = newSuggestions != null && !newSuggestions.isEmpty() && !(new Text(newSuggestions.get(0)).isAlphabetic());
+		addMany(newSuggestions, mView == null || onlySpecialChars ? Integer.MAX_VALUE : SettingsStore.SUGGESTIONS_MAX);
 
 		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
 
