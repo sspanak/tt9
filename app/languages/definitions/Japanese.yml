@@ -17,6 +17,7 @@ layout:
   - [w, x, y, z] # 9
 filterBySounds: yes
 sounds:
+  - [Ii,1]
   - [A,2]
   - [B,2]
   - [C,2]
