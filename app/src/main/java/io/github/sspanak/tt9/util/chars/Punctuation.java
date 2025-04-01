@@ -48,7 +48,7 @@ class Punctuation {
 	));
 
 	final public static ArrayList<String> PunctuationChinese = new ArrayList<>(Arrays.asList(
-		"，", ZH_COMMA_LIST, ZH_FULL_STOP, "—", "～", "（", "）", ".", "「", "」", "『", "』", "•", "《", "》", "〈", "〉", "'", "“", "”", "；", "：", ZH_EXCLAMATION_MARK, ZH_QUESTION_MARK
+		"，", ZH_COMMA_LIST, ZH_FULL_STOP, "—", "～", "゠", "（", "）", ".", "「", "」", "『", "』", "•", "《", "》", "〈", "〉", "'", "“", "”", "；", "：", ZH_EXCLAMATION_MARK, ZH_QUESTION_MARK
 	));
 
 	final public static ArrayList<String> PunctuationEnglish = new ArrayList<>(Arrays.asList(
