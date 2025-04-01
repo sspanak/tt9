@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 class ModeCheonjiin extends InputMode {
 	// used when we want do display a different set of characters for a given key, for example
 	// in email fields
-	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
+	protected final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	// special chars and emojis
 	private static String SPECIAL_CHAR_SEQUENCE_PREFIX;

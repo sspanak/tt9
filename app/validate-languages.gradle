@@ -243,12 +243,13 @@ def validateDictionary(File dictionaryFile, String alphabet, HashMap<String, Str
 			errorMsg += wordErrors
 		}
 
-		if (uniqueWords.contains(word)) {
+		final uniqueWord = transcription + word
+		if (uniqueWords.contains(uniqueWord)) {
 			lineHasErrors = true
 			errorCount++
-			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found duplicate word: '${word}' on line ${lineNumber}. Remove all duplicates.\n"
+			errorMsg += "Dictionary '${dictionaryFile.name}' is invalid. Found duplicate word: '${word}${!transcription.isEmpty() ? ' [' + transcription + ']' : ''}' on line ${lineNumber}. Remove all duplicates.\n"
 		} else {
-			uniqueWords.add(word)
+			uniqueWords.add(uniqueWord)
 		}
 
 		if (lineHasErrors) {
