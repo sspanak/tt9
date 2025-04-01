@@ -9,6 +9,7 @@ import java.util.HashSet;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 
@@ -16,6 +17,7 @@ public class IdeogramPredictions extends WordPredictions {
 	private boolean isTranscriptionFilterAllowed = false;
 	private String lastTypedWord = "";
 	@NonNull protected ArrayList<String> transcriptions = new ArrayList<>();
+	@NonNull protected ArrayList<String> lastTranscriptions = new ArrayList<>();
 
 
 	public IdeogramPredictions(SettingsStore settings, TextField textField) {
@@ -34,13 +36,16 @@ public class IdeogramPredictions extends WordPredictions {
 
 	@Override
 	public void load() {
-		transcriptions.clear();
+		if (digitSequence.isEmpty()) {
+			transcriptions.clear();
+		}
 		super.load();
 	}
 
 
 	@Override
 	protected void onDbWords(ArrayList<String> dbWords, boolean isRetryAllowed) {
+		lastTranscriptions = new ArrayList<>(transcriptions); // backup in case of auto-accept, so that we can still find previous transcriptions
 		transcriptions = onlyExactMatches ? reduceFuzzyMatches(dbWords, SettingsStore.SUGGESTIONS_MAX) : dbWords;
 		words = new ArrayList<>(transcriptions);
 		areThereDbWords = !words.isEmpty();
@@ -48,7 +53,9 @@ public class IdeogramPredictions extends WordPredictions {
 	}
 
 
-	public void onAcceptTranscription(String word, String transcription, String sequence) {
+	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
+		String transcription = getTranscription(word);
+		String sequence = language.getDigitSequenceForWord(transcription);
 		super.onAccept(transcription + word, sequence);
 	}
 
@@ -60,9 +67,21 @@ public class IdeogramPredictions extends WordPredictions {
 		int lastWordLength = lastTypedWord.length();
 		int requiredTextLength = currentWordLength + lastWordLength;
 		String text = textField.getStringBeforeCursor(requiredTextLength);
-//		Logger.d("LOG_TAG", "====+> previous string: " + text);
 
-		return lastWordLength < text.length() ? text.substring(0, lastWordLength) : "";
+		if (text.isEmpty()) {
+			return "";
+		}
+
+		int currentWordPosition = text.indexOf(currentWord);
+		int lastWordPosition = text.indexOf(lastTypedWord);
+		if (lastWordPosition == -1) {
+			return "";
+		} else if (currentWordPosition == -1 && lastWordPosition == text.length() - lastWordLength) {
+			return lastTypedWord;
+		}
+
+		int cutEnd = text.length() - currentWordLength;
+		return text.substring(lastWordPosition, cutEnd);
 	}
 
 
@@ -184,11 +203,19 @@ public class IdeogramPredictions extends WordPredictions {
 
 	/**
 	 * Similar to "stripNativeWords()", but finds and returns the transcription of the given word.
-	 * Returns an empty string if the word is not in the current suggestion list.
+	 * In case of an auto-accept, the `transcriptions` would be empty, so we check the `lastTranscriptions`.
+	 * If no transcription is found, an empty string is returned.
 	 */
 	@NonNull
 	public String getTranscription(@NonNull String word) {
-		for (String w : transcriptions) {
+		String transcription = getTranscription(word, transcriptions);
+		return transcription.isEmpty() ? getTranscription(word, lastTranscriptions) : transcription;
+	}
+
+
+	@NonNull
+	private String getTranscription(@NonNull String word, @NonNull ArrayList<String> transcriptionList) {
+		for (String w : transcriptionList) {
 			if (w.endsWith(word)) {
 				return w.replace(word, "");
 			}

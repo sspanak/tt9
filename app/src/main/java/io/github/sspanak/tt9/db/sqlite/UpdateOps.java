@@ -17,6 +17,7 @@ public class UpdateOps {
 
 
 	public static boolean changeFrequency(@NonNull SQLiteDatabase db, @NonNull Language language, Text wordFilter, int position, int frequency) {
+		boolean isFilterOn = wordFilter != null && !wordFilter.isEmpty();
 		String sql = "UPDATE " + Tables.getWords(language.getId()) + " SET frequency = ? WHERE position = ?";
 
 		if (wordFilter != null && !wordFilter.isEmpty()) {
@@ -26,13 +27,17 @@ public class UpdateOps {
 		SQLiteStatement query = CompiledQueryCache.get(db, sql);
 		query.bindLong(1, frequency);
 		query.bindLong(2, position);
-		if (wordFilter != null && !wordFilter.isEmpty()) {
+		if (isFilterOn) {
 			query.bindString(3, wordFilter.capitalize());
 			query.bindString(4, wordFilter.toLowerCase());
 			query.bindString(5, wordFilter.toUpperCase());
 		}
 
-		Logger.v(LOG_TAG, "Change frequency SQL: " + query + "; (" + frequency + ", " + position + ", " + wordFilter + ")");
+		if (!isFilterOn) {
+			Logger.v(LOG_TAG, "Change frequency SQL: " + sql + "; (" + frequency + ", " + position + ")");
+		} else {
+			Logger.v(LOG_TAG, "Change frequency SQL: " + sql + "; (" + frequency + ", " + position + ", '" + wordFilter + "')");
+		}
 
 		return query.executeUpdateDelete() > 0;
 	}

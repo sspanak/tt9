@@ -93,9 +93,7 @@ public class ModeIdeograms extends ModeWords {
 		}
 
 		try {
-			String latinWord = ((IdeogramPredictions) predictions).getTranscription(currentWord);
-			String digits = language.getDigitSequenceForWord(latinWord);
-			((IdeogramPredictions) predictions).onAcceptTranscription(currentWord, latinWord, digits);
+			((IdeogramPredictions) predictions).onAcceptIdeogram(currentWord);
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}

@@ -15,6 +15,7 @@ abstract public class Predictions {
 	// settings
 	@NonNull protected String digitSequence = "";
 	@NonNull protected Language language = new NullLanguage();
+	protected boolean orderWordsByLength = true;
 	protected int minWords = SettingsStore.SUGGESTIONS_MIN;
 	protected final int maxWords = SettingsStore.SUGGESTIONS_MAX;
 	protected boolean onlyExactMatches = false;
@@ -111,6 +112,7 @@ abstract public class Predictions {
 			digitSequence,
 			onlyExactMatches,
 			stem,
+			orderWordsByLength,
 			minWords,
 			maxWords
 		);
