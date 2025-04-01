@@ -17,8 +17,8 @@ layout:
   - [w, x, y, z] # 9
 filterBySounds: yes
 sounds:
-  - [Ii,1]
-  - [Qx,1]
+  - [Qh,0] # Hiragana prefix. For loading the specific characters in the respective mode
+  - [Qk,1] # Katakana prefix
   - [A,2]
   - [B,2]
   - [C,2]

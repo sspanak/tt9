@@ -149,16 +149,21 @@ public class IdeogramPredictions extends WordPredictions {
 		HashSet<String> uniqueTranscriptions = new HashSet<>();
 
 		for (int i = 0; i < transcriptions.size(); i++) {
-			String transcription = transcriptions.get(i);
-			int firstNative = TextTools.lastIndexOfLatin(transcription) + 1;
-			uniqueTranscriptions.add(
-				firstNative < 1 || firstNative >= transcription.length() ? transcription : transcription.substring(0, firstNative)
-			);
+			uniqueTranscriptions.add(stripNativeWord(transcriptions.get((i))));
 		}
 
 		words.clear();
 		words.addAll(uniqueTranscriptions);
 		Collections.sort(words);
+	}
+
+
+	/**
+	 * Does the actual stripping of the native word from the transcription for stripNativeWords().
+	 */
+	protected String stripNativeWord(@NonNull String dbTranscription) {
+		int firstNative = TextTools.lastIndexOfLatin(dbTranscription) + 1;
+		return firstNative < 1 || firstNative >= dbTranscription.length() ? dbTranscription : dbTranscription.substring(0, firstNative);
 	}
 
 

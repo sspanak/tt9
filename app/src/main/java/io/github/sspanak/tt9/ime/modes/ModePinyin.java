@@ -30,6 +30,17 @@ public class ModePinyin extends ModeIdeograms {
 
 
 	@Override
+	protected String getPreferredChar() {
+		final String preferredChar = settings.getDoubleZeroChar();
+		return switch (preferredChar) {
+			case "." -> Characters.ZH_FULL_STOP;
+			case "," -> Characters.ZH_COMMA_LIST;
+			default -> preferredChar;
+		};
+	}
+
+
+	@Override
 	protected void onNumberPress(int number) {
 		if (ignoreNextSpace && number == SPECIAL_CHAR_SEQUENCE.charAt(0) - '0') {
 			ignoreNextSpace = false;
@@ -56,16 +67,5 @@ public class ModePinyin extends ModeIdeograms {
 		}
 
 		return super.shouldAcceptPreviousSuggestion(nextKey, hold);
-	}
-
-
-	@Override
-	protected String getPreferredChar() {
-		final String preferredChar = settings.getDoubleZeroChar();
-		return switch (preferredChar) {
-			case "." -> Characters.ZH_FULL_STOP;
-			case "," -> Characters.ZH_COMMA_LIST;
-			default -> preferredChar;
-		};
 	}
 }

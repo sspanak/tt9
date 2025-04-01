@@ -15,24 +15,19 @@ import io.github.sspanak.tt9.util.TextTools;
 
 public class ModeIdeograms extends ModeWords {
 	private static final String LOG_TAG = ModeIdeograms.class.getSimpleName();
+	protected String NAME;
 
 	private boolean isFiltering = false;
 
 
 	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
+		NAME = super.toString();
 	}
 
 
-	@Override public void determineNextWordTextCase() {}
 	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
-
-
-	@Override
-	protected void initPredictions() {
-		predictions = new IdeogramPredictions(settings, textField);
-		predictions.setWordsChangedHandler(this::onPredictions);
-	}
+	@Override public void determineNextWordTextCase() {}
 
 
 	@Override
@@ -50,6 +45,14 @@ public class ModeIdeograms extends ModeWords {
 	public void reset() {
 		super.reset();
 		isFiltering = false;
+	}
+
+	/******************************* LOAD SUGGESTIONS *********************************/
+
+	@Override
+	protected void initPredictions() {
+		predictions = new IdeogramPredictions(settings, textField);
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -72,6 +75,7 @@ public class ModeIdeograms extends ModeWords {
 		super.onPredictions();
 	}
 
+	/******************************* ACCEPT WORDS *********************************/
 
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
@@ -103,12 +107,6 @@ public class ModeIdeograms extends ModeWords {
 		} else {
 			reset();
 		}
-	}
-
-
-	@Override public void onCursorMove(@NonNull String word) {
-		isFiltering = false;
-		super.onCursorMove(word);
 	}
 
 
@@ -174,6 +172,19 @@ public class ModeIdeograms extends ModeWords {
 		return isFiltering;
 	}
 
+	/********************************* FILTERING *********************************/
+
+	@Override
+	public boolean clearWordStem() {
+		if (!supportsFiltering()) {
+			return false;
+		}
+
+		isFiltering = false;
+		stem = "";
+		return true;
+	}
+
 
 	@Override
 	public boolean setWordStem(String newStem, boolean fromScrolling) {
@@ -192,18 +203,6 @@ public class ModeIdeograms extends ModeWords {
 
 
 	@Override
-	public boolean clearWordStem() {
-		if (!supportsFiltering()) {
-			return false;
-		}
-
-		isFiltering = false;
-		stem = "";
-		return true;
-	}
-
-
-	@Override
 	public boolean supportsFiltering() {
 		return language.hasTranscriptionsEmbedded();
 	}
@@ -212,5 +211,19 @@ public class ModeIdeograms extends ModeWords {
 	@Override
 	public boolean isStemFilterFuzzy() {
 		return isFiltering;
+	}
+
+
+	@Override public void onCursorMove(@NonNull String word) {
+		isFiltering = false;
+		super.onCursorMove(word);
+	}
+
+	/********************************* NAME *********************************/
+
+	@NonNull
+	@Override
+	public String toString() {
+		return NAME;
 	}
 }
