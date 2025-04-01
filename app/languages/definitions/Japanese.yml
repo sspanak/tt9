@@ -1,5 +1,5 @@
-locale: jp-JP
-dictionaryFile: jp-romaji.csv
+locale: ja-JP
+dictionaryFile: ja-romaji.csv
 name: 日本語 / ローマ字
 hasABC: no
 hasSpaceBetweenWords: no
@@ -17,9 +17,9 @@ layout:
   - [w, x, y, z] # 9
 filterBySounds: yes
 sounds:
-  - [Qh,0] # Hiragana prefix. For loading the specific characters in the respective mode
-  - [Qk,1] # Katakana prefix
-  - [A,2]
+  - [Qh,0] # Hiragana prefix. For identifying and loading only the specific characters in Hiragana mode.
+  - [Qk,1] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
+  - [A,2] # All others will appear in Predictive mode
   - [B,2]
   - [C,2]
   - [D,3]
