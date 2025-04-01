@@ -19,7 +19,7 @@ public class KanaPredictions extends IdeogramPredictions {
 
 	@Override
 	public Predictions setDigitSequence(@NonNull String digitSequence) {
-		return super.setDigitSequence(SEQUENCE_PREFIX + digitSequence);
+		return super.setDigitSequence(digitSequence.isEmpty() ? digitSequence : SEQUENCE_PREFIX + digitSequence);
 	}
 
 	@Override

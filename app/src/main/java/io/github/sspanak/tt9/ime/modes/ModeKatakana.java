@@ -17,4 +17,9 @@ public class ModeKatakana extends ModeHiragana {
 		predictions = new KanaPredictions(settings, textField, true);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
+
+	@Override
+	public int getId() {
+		return MODE_KATAKANA;
+	}
 }
