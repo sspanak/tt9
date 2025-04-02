@@ -63,25 +63,24 @@ public class IdeogramPredictions extends WordPredictions {
 	@Override
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
-		int currentWordLength = currentWord.length();
-		int lastWordLength = lastTypedWord.length();
-		int requiredTextLength = currentWordLength + lastWordLength;
+		final int lastWordLength = lastTypedWord.length();
+		if (lastWordLength == 0) {
+			return "";
+		}
+
+		final int currentWordLength = currentWord.length();
+		final int requiredTextLength = currentWordLength + lastWordLength;
 		String text = textField.getStringBeforeCursor(requiredTextLength);
-
-		if (text.isEmpty()) {
+		final int textLength = text.length();
+		if (textLength == 0) {
 			return "";
 		}
 
-		int currentWordPosition = text.indexOf(currentWord);
-		int lastWordPosition = text.indexOf(lastTypedWord);
-		if (lastWordPosition == -1) {
-			return "";
-		} else if (currentWordPosition == -1 && lastWordPosition == text.length() - lastWordLength) {
-			return lastTypedWord;
+		if (text.endsWith(currentWord) && textLength > currentWordLength) {
+			text = text.substring(0, textLength - currentWordLength);
 		}
 
-		int cutEnd = text.length() - currentWordLength;
-		return text.substring(lastWordPosition, cutEnd);
+		return text.contains(lastTypedWord) ? lastTypedWord : "";
 	}
 
 
