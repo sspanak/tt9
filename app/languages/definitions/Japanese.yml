@@ -19,7 +19,11 @@ filterBySounds: yes
 sounds:
   - [Qh,0] # Hiragana prefix. For identifying and loading only the specific characters in Hiragana mode.
   - [Qk,1] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
-  - [A,2] # All others will appear in Predictive mode
+  # All others will appear in Predictive mode
+  - [Qd,1] # ・
+  - [Ql,1] # ー
+  - [Qw,1] # ～
+  - [A,2]
   - [B,2]
   - [C,2]
   - [D,3]
