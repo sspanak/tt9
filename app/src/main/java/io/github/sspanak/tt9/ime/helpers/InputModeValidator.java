@@ -42,14 +42,18 @@ public class InputModeValidator {
 
 		if (allowedModes.contains(oldModeId)) {
 			newModeId = oldModeId;
+		} else if ((oldModeId == InputMode.MODE_HIRAGANA || oldModeId == InputMode.MODE_KATAKANA) && allowedModes.contains(InputMode.MODE_PREDICTIVE)) {
+			newModeId = InputMode.MODE_PREDICTIVE;
 		} else if (allowedModes.contains(InputMode.MODE_ABC)) {
 			newModeId = InputMode.MODE_ABC;
+		} else if (allowedModes.contains(InputMode.MODE_HIRAGANA)) {
+			newModeId = InputMode.MODE_HIRAGANA;
 		} else if (!allowedModes.isEmpty()) {
 			newModeId = allowedModes.get(0);
 		}
 
 		if (newModeId != oldModeId) {
-			Logger.d("validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId);
+			Logger.d("validateMode", "Invalid input mode: " + oldModeId + " Enforcing: " + newModeId + " from " + allowedModes);
 		}
 
 		return newModeId;

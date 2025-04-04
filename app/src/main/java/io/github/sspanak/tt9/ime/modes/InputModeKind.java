@@ -18,7 +18,11 @@ public class InputModeKind {
 	}
 
 	public static boolean isPredictive(InputMode mode) {
-		return mode != null && mode.getId() == InputMode.MODE_PREDICTIVE;
+		return mode != null && (
+			mode.getId() == InputMode.MODE_PREDICTIVE ||
+			mode.getId() == InputMode.MODE_HIRAGANA ||
+			mode.getId() == InputMode.MODE_KATAKANA
+		);
 	}
 
 	public static boolean isCheonjiin(InputMode mode) {

@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
@@ -293,13 +294,28 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		allowedInputModes = new ArrayList<>(inputType.determineInputModes(getApplicationContext()));
-		if (!mLanguage.hasABC()) {
+		if (LanguageKind.isJapanese(mLanguage)) {
+			determineJapaneseInputModes();
+		} else if (!mLanguage.hasABC()) {
 			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
 		} else if (!settings.getPredictiveMode()) {
 			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
 
 		return InputModeValidator.validateMode(settings.getInputMode(), allowedInputModes);
+	}
+
+
+	/**
+	 * Since Japanese is unique with its 3 alphabets, we need to setup the input modes separately.
+	 */
+	private void determineJapaneseInputModes() {
+		allowedInputModes.add(InputMode.MODE_HIRAGANA);
+		allowedInputModes.add(InputMode.MODE_KATAKANA);
+		allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+		if (!settings.getPredictiveMode()) {
+			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
+		}
 	}
 
 

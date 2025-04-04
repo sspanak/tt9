@@ -122,13 +122,13 @@ public class ReadOps {
 
 
 	@NonNull
-	public WordList getWords(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, boolean fullOutput) {
+	public WordList getWords(@NonNull SQLiteDatabase db, @Nullable CancellationSignal cancel, @NonNull Language language, @NonNull String positions, String filter, boolean orderByLength, boolean fullOutput) {
 		if (positions.isEmpty()) {
 			Logger.d(LOG_TAG, "No word positions. Not searching words.");
 			return new WordList();
 		}
 
-		String wordsQuery = getWordsQuery(language, positions, filter, fullOutput);
+		String wordsQuery = getWordsQuery(language, positions, filter, orderByLength, fullOutput);
 		if (wordsQuery.isEmpty() || (cancel != null && cancel.isCanceled())) {
 			return new WordList();
 		}
@@ -281,7 +281,7 @@ public class ReadOps {
 	}
 
 
-	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, boolean fullOutput) {
+	@NonNull private String getWordsQuery(@NonNull Language language, @NonNull String positions, @NonNull String filter, boolean orderByLength, boolean fullOutput) {
 		StringBuilder sql = new StringBuilder();
 		sql
 			.append("SELECT word");
@@ -296,7 +296,11 @@ public class ReadOps {
 			sql.append(" AND word LIKE '").append(filter.replaceAll("'", "''")).append("%'");
 		}
 
-		sql.append(" ORDER BY LENGTH(word), frequency DESC");
+		sql.append(" ORDER BY ");
+		if (orderByLength) {
+			sql.append("LENGTH(word), ");
+		}
+		sql.append("frequency DESC");
 
 		String wordsSql = sql.toString();
 		Logger.v(LOG_TAG, "Words SQL: " + wordsSql);

@@ -5,6 +5,8 @@ import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -134,7 +136,7 @@ abstract public class StandardInputType {
 	 *
 	 * @return Set<InputMode.MODE_PASSTHROUGH | InputMode.MODE_ABC | InputMode.MODE_123 | InputMode.MODE_PREDICTIVE>
 	 */
-	public Set<Integer> determineInputModes(Context context) {
+	public Set<Integer> determineInputModes(@NonNull Context context) {
 		Set<Integer> allowedModes = new HashSet<>();
 
 		if (field == null) {
