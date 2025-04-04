@@ -23,4 +23,18 @@ public class ModeKanji extends ModePinyin {
 
 		return false;
 	}
+
+	@Override
+	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
+		if (digitSequence.isEmpty()) {
+			return false;
+		}
+
+		String nextSequence = digitSequence + (char)(nextKey + '0');
+		if (nextSequence.endsWith(PUNCTUATION_SEQUENCE) && !predictions.noDbWords()) {
+			return false;
+		}
+
+		return super.shouldAcceptPreviousSuggestion(nextKey, hold);
+	}
 }
