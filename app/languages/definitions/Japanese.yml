@@ -20,7 +20,6 @@ sounds:
   - [Qh,0] # Hiragana prefix. For identifying and loading only the specific characters in Hiragana mode.
   - [Qk,1] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
   # All others will appear in Predictive mode
-  - [Qd,1] # ・
   - [Ql,1] # ー
   - [Qw,1] # ～
   - [A,2]
