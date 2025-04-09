@@ -43,6 +43,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 			return false;
 		}
 
+		if (main == null) {
+			return false;
+		}
+
 		main.getView().removeOnAttachStateChangeListener(this);
 		main.getView().addOnAttachStateChangeListener(this);
 
@@ -63,8 +67,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 	@Override public void onViewAttachedToWindow(@NonNull View v) {
-		main.preventEdgeToEdge();
-		setHeight(height, heightSmall, heightNumpad);
+		if (main != null) {
+			main.preventEdgeToEdge();
+			setHeight(height, heightSmall, heightNumpad);
+		}
 	}
 
 
@@ -136,6 +142,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private void expand(int delta) {
+		if (main == null) {
+			return;
+		}
+
 		SettingsStore settings = tt9.getSettings();
 
 		if (settings.isMainLayoutTray()) {
@@ -159,7 +169,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	private void shrink(int delta) {
 		SettingsStore settings = tt9.getSettings();
 
-		if (settings.isMainLayoutTray()) {
+		if (main == null || settings.isMainLayoutTray()) {
 			return;
 		}
 
@@ -180,7 +190,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private boolean changeHeight(int delta, int minHeight, int maxHeight) {
-		int keyboardHeight = main.getKeyboardHeight();
+		int keyboardHeight = main != null ? main.getKeyboardHeight() : -1;
 		if (keyboardHeight == 0) {
 			return false;
 		}
@@ -190,7 +200,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	private boolean setHeight(int height, int minHeight, int maxHeight) {
-		if (main == null || main.getView() == null || height < minHeight) {
+		if (main == null || height < minHeight) {
 			return false;
 		}
 
@@ -204,6 +214,10 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 	private void fitMain() {
+		if (main == null || main instanceof MainLayoutStealth) {
+			return;
+		}
+
 		calculateSnapHeights();
 		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
