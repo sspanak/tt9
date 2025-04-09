@@ -297,7 +297,7 @@ static def extractAlphabetExtraCharsFromLine(String languageName, String line) {
 	}
 
 	if (line.contains("PUNCTUATION") && languageName.contains("Japanese")) {
-		allChars += '〇＆◎△※〒'
+		allChars += '〇'
 	}
 
 	return DEFAULT + allChars
