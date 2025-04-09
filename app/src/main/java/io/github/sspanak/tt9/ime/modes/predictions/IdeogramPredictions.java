@@ -24,6 +24,12 @@ public class IdeogramPredictions extends WordPredictions {
 		super(settings, textField);
 		minWords = 1;
 		onlyExactMatches = true;
+
+		// Prevent incorrect ordering of words that have the same sequence, but different character lengths.
+		// In East Asian languages, we almost always want exact matches, so anything that appears longer, is
+		// usually only spelled longer, not that it contains more sounds.
+		// For example, "KONO" = "この" and "九". "九" must not come before "この", because it is shorter.
+		orderWordsByLength = false;
 	}
 
 
