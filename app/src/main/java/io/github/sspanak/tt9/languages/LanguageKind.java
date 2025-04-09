@@ -5,6 +5,7 @@ import java.util.Locale;
 public class LanguageKind {
 	public static final int KOREAN = 601579;
 
+	public static boolean isCJK(Language language) { return isChinese(language) || isJapanese(language) || isKorean(language); }
 	public static boolean isCyrillic(Language language) { return language != null && language.getKeyCharacters(2).contains("а"); }
 	public static boolean isLatinBased(Language language) { return language != null && language.getKeyCharacters(2).contains("a"); }
 	public static boolean isRTL(Language language) { return isArabic(language) || isFarsi(language) || isHebrew(language); }
