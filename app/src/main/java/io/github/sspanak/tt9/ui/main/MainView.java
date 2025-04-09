@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ui.main;
 
 import android.view.View;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -10,7 +12,7 @@ public class MainView {
 	private final static String LOG_TAG = MainView.class.getSimpleName();
 
 	protected final TraditionalT9 tt9;
-	protected BaseMainLayout main;
+	@Nullable protected BaseMainLayout main;
 	private boolean darkTheme;
 
 
@@ -60,8 +62,9 @@ public class MainView {
 		}
 	}
 
+	@Nullable
 	public View getView() {
-		return main.getView();
+		return main != null ? main.getView() : null;
 	}
 
 	public void render() {

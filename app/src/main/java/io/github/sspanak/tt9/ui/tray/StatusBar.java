@@ -3,18 +3,20 @@ package io.github.sspanak.tt9.ui.tray;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
-	private final TextView statusView;
-	private String statusText;
+	@Nullable private final TextView statusView;
+	@Nullable private String statusText;
 
 
-	public StatusBar(View mainView) {
-		statusView = mainView.findViewById(R.id.status_bar);
+	public StatusBar(@Nullable View mainView) {
+		statusView = mainView != null ? mainView.findViewById(R.id.status_bar) : null;
 	}
 
 
