@@ -21,7 +21,6 @@ sounds:
   - [Qk,1] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
   # All others will appear in Predictive mode
   - [Ql,1] # ー
-  - [Qw,1] # ～
   - [A,2]
   - [B,2]
   - [C,2]
