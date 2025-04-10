@@ -49,6 +49,10 @@ public class IdeogramPredictions extends WordPredictions {
 		transcriptions = onlyExactMatches ? reduceFuzzyMatches(dbWords, SettingsStore.SUGGESTIONS_MAX) : dbWords;
 		words = new ArrayList<>(transcriptions);
 		areThereDbWords = !words.isEmpty();
+		if (!areThereDbWords) {
+			onNoWords();
+		}
+
 		onWordsChanged.run();
 	}
 
@@ -57,6 +61,14 @@ public class IdeogramPredictions extends WordPredictions {
 		String transcription = getTranscription(word);
 		String sequence = language.getDigitSequenceForWord(transcription);
 		super.onAccept(transcription + word, sequence);
+	}
+
+
+	protected void onNoWords() {
+		if (digitSequence.length() == 1) {
+			transcriptions = generateWordVariations(null);
+			words = new ArrayList<>(transcriptions);
+		}
 	}
 
 
@@ -164,6 +176,10 @@ public class IdeogramPredictions extends WordPredictions {
 	 * Example operation: [SHIWU食物, SHIWU事物, SHIWU事务, SHIZU十足] -> [SHIWU, SHIZU]
 	 */
 	public void stripNativeWords() {
+		if (!areThereDbWords) {
+			return;
+		}
+
 		HashSet<String> uniqueTranscriptions = new HashSet<>();
 
 		for (int i = 0; i < transcriptions.size(); i++) {
@@ -191,6 +207,10 @@ public class IdeogramPredictions extends WordPredictions {
 	 * Example operation: [SHIWU食物, SHIZU十足] -> [食物, 十足]
 	 */
 	public void stripTranscriptions() {
+		if (!areThereDbWords) {
+			return;
+		}
+
 		words.clear();
 		for (int i = 0; i < transcriptions.size(); i++) {
 			String transcription = transcriptions.get(i);
