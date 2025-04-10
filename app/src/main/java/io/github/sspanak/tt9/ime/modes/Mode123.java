@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
@@ -47,14 +48,16 @@ class Mode123 extends ModePassthrough {
 	/**
 	 * setDefaultSpecialCharacters
 	 * Special characters for when the user has selected 123 mode in a text field. In this case, we just
-	 * use the default list, but reorder it a bit for convenience.
+	 * use the default list, but reorder it a bit for convenience. We enforce English characters, to
+	 * ensure number field compatibility with all apps and websites.
 	 */
 	private void setDefaultSpecialCharacters() {
+		Language english = LanguageCollection.getByLocale("en");
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 0)))
+			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(english, 0)))
 		);
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(language, 1)))
+			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(english, 1)))
 		);
 	}
 
