@@ -122,7 +122,7 @@ public class ModeIdeograms extends ModeWords {
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String s) {
 		return
-			!digitSequence.isEmpty()
+			digitSequence.length() > 1
 			&& predictions.noDbWords()
 			&& !digitSequence.equals(EMOJI_SEQUENCE)
 			&& !digitSequence.equals(PUNCTUATION_SEQUENCE)
