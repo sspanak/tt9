@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime.modes.predictions;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -50,5 +52,13 @@ public class KanaPredictions extends IdeogramPredictions {
 		String transcription = getTranscription(word);
 		String sequence = SEQUENCE_PREFIX + language.getDigitSequenceForWord(stripStemPrefix(transcription));
 		super.onAccept(transcription + word, sequence);
+	}
+
+	@Override
+	protected void onNoWords() {
+		if (digitSequence.length() == 2) {
+			transcriptions = generateWordVariations(null);
+			words = new ArrayList<>(transcriptions);
+		}
 	}
 }
