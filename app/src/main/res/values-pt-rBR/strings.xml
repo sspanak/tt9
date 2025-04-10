@@ -45,7 +45,7 @@
 	<string name="pref_auto_capitals_after_newline">Letras maiúsculas automáticas em cada linha</string>
 	<string name="pref_auto_capitals_after_newline_summary">Começar cada linha com uma letra maiúscula, mesmo que esteja no meio de uma frase.</string>
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
-	<string name="pref_backspace_recomposing_summary">Trazer de volta a lista de sugestões pressionando Backspace no final de uma palavra. (Não suportado em alguns aplicativos)</string>
+	<string name="pref_backspace_recomposing_summary">Pressionar Backspace no fim da palavra para editar. (Não funciona em alguns apps, texto misto ou ideográfico)</string>
 	<string name="pref_choose_languages">Idiomas</string>
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
