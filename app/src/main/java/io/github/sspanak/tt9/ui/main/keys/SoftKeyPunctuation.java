@@ -60,7 +60,9 @@ public class SoftKeyPunctuation extends SoftKey {
 		if (tt9.isInputModePhone()) return "*";
 		if (tt9.isInputModeNumeric()) return ",";
 
-		if (LanguageKind.isChinese(tt9.getLanguage())) return Characters.ZH_EXCLAMATION_MARK;
+		if (LanguageKind.isChinese(tt9.getLanguage()) || LanguageKind.isJapanese(tt9.getLanguage())) {
+			return Characters.ZH_EXCLAMATION_MARK;
+		}
 
 		return "!";
 	}
@@ -72,7 +74,9 @@ public class SoftKeyPunctuation extends SoftKey {
 
 		if (LanguageKind.isArabic(tt9.getLanguage())) return Characters.AR_QUESTION_MARK;
 		if (LanguageKind.isGreek(tt9.getLanguage())) return Characters.GR_QUESTION_MARK;
-		if (LanguageKind.isChinese(tt9.getLanguage())) return Characters.ZH_QUESTION_MARK;
+		if (LanguageKind.isChinese(tt9.getLanguage()) || LanguageKind.isJapanese(tt9.getLanguage())) {
+			return Characters.ZH_QUESTION_MARK;
+		}
 
 		return "?";
 	}

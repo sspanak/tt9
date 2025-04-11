@@ -245,7 +245,7 @@ public class Text extends TextTools {
 			return "";
 		}
 
-		if (!LanguageKind.isChinese(language)) {
+		if (!LanguageKind.isCJK(language)) {
 			return text.substring(start, end);
 		}
 

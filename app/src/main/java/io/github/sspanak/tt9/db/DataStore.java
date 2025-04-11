@@ -88,7 +88,7 @@ public class DataStore {
 	}
 
 
-	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, int minWords, int maxWords) {
+	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, boolean orderByLength, int minWords, int maxWords) {
 		if (getWordsTask != null && !getWordsTask.isDone()) {
 			dataHandler.accept(new ArrayList<>());
 			getWordsCancellationSignal.cancel();
@@ -96,14 +96,14 @@ public class DataStore {
 		}
 
 		getWordsCancellationSignal = new CancellationSignal();
-		getWordsTask = executor.submit(() -> getWordsSync(dataHandler, language, sequence, onlyExactSequence, filter, minWords, maxWords));
+		getWordsTask = executor.submit(() -> getWordsSync(dataHandler, language, sequence, onlyExactSequence, filter, orderByLength, minWords, maxWords));
 		executor.submit(DataStore::setGetWordsTimeout);
 	}
 
 
-	private static void getWordsSync(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, int minWords, int maxWords) {
+	private static void getWordsSync(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, boolean orderByLength, int minWords, int maxWords) {
 		try {
-			ArrayList<String> data = words.getMany(getWordsCancellationSignal, language, sequence, onlyExactSequence, filter, minWords, maxWords);
+			ArrayList<String> data = words.getMany(getWordsCancellationSignal, language, sequence, onlyExactSequence, filter, orderByLength, minWords, maxWords);
 			asyncReturn.post(() -> dataHandler.accept(data));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Error fetching words: " + e.getMessage());
