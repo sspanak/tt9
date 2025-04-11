@@ -14,7 +14,9 @@ class Validators {
 	private static final ArrayList<Integer> validInputModes = new ArrayList<>(Arrays.asList(
 		InputMode.MODE_123,
 		InputMode.MODE_PREDICTIVE,
-		InputMode.MODE_ABC
+		InputMode.MODE_ABC,
+		InputMode.MODE_HIRAGANA,
+		InputMode.MODE_KATAKANA
 	));
 
 	private static final ArrayList<Integer> validTextCases = new ArrayList<>(Arrays.asList(
