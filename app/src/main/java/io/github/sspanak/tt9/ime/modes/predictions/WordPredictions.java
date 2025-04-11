@@ -81,6 +81,7 @@ public class WordPredictions extends Predictions {
 			digitSequence.substring(1),
 			onlyExactMatches,
 			stem.length() > 1 ? stem.substring(1) : "",
+			orderWordsByLength,
 			minWords,
 			maxWords
 		);

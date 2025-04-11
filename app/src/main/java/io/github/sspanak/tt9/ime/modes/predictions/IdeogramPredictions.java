@@ -9,6 +9,7 @@ import java.util.HashSet;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 
@@ -16,12 +17,19 @@ public class IdeogramPredictions extends WordPredictions {
 	private boolean isTranscriptionFilterAllowed = false;
 	private String lastTypedWord = "";
 	@NonNull protected ArrayList<String> transcriptions = new ArrayList<>();
+	@NonNull protected ArrayList<String> lastTranscriptions = new ArrayList<>();
 
 
 	public IdeogramPredictions(SettingsStore settings, TextField textField) {
 		super(settings, textField);
 		minWords = 1;
 		onlyExactMatches = true;
+
+		// Prevent incorrect ordering of words that have the same sequence, but different character lengths.
+		// In East Asian languages, we almost always want exact matches, so anything that appears longer, is
+		// usually only spelled longer, not that it contains more sounds.
+		// For example, "KONO" = "この" and "九". "九" must not come before "この", because it is shorter.
+		orderWordsByLength = false;
 	}
 
 
@@ -34,35 +42,63 @@ public class IdeogramPredictions extends WordPredictions {
 
 	@Override
 	public void load() {
-		transcriptions.clear();
+		if (digitSequence.isEmpty()) {
+			transcriptions.clear();
+		}
 		super.load();
 	}
 
 
 	@Override
 	protected void onDbWords(ArrayList<String> dbWords, boolean isRetryAllowed) {
+		lastTranscriptions = new ArrayList<>(transcriptions); // backup in case of auto-accept, so that we can still find previous transcriptions
 		transcriptions = onlyExactMatches ? reduceFuzzyMatches(dbWords, SettingsStore.SUGGESTIONS_MAX) : dbWords;
 		words = new ArrayList<>(transcriptions);
 		areThereDbWords = !words.isEmpty();
+		if (!areThereDbWords) {
+			onNoWords();
+		}
+
 		onWordsChanged.run();
 	}
 
 
-	public void onAcceptTranscription(String word, String transcription, String sequence) {
+	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
+		String transcription = getTranscription(word);
+		String sequence = language.getDigitSequenceForWord(transcription);
 		super.onAccept(transcription + word, sequence);
+	}
+
+
+	protected void onNoWords() {
+		if (digitSequence.length() == 1) {
+			transcriptions = generateWordVariations(null);
+			words = new ArrayList<>(transcriptions);
+		}
 	}
 
 
 	@Override
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
-		int currentWordLength = currentWord.length();
-		int lastWordLength = lastTypedWord.length();
-		int requiredTextLength = currentWordLength + lastWordLength;
-		String text = textField.getStringBeforeCursor(requiredTextLength);
-//		Logger.d("LOG_TAG", "====+> previous string: " + text);
+		final int lastWordLength = lastTypedWord.length();
+		if (lastWordLength == 0) {
+			return "";
+		}
 
-		return lastWordLength < text.length() ? text.substring(0, lastWordLength) : "";
+		final int currentWordLength = currentWord.length();
+		final int requiredTextLength = currentWordLength + lastWordLength;
+		String text = textField.getStringBeforeCursor(requiredTextLength);
+		final int textLength = text.length();
+		if (textLength == 0) {
+			return "";
+		}
+
+		if (text.endsWith(currentWord) && textLength > currentWordLength) {
+			text = text.substring(0, textLength - currentWordLength);
+		}
+
+		return text.contains(lastTypedWord) ? lastTypedWord : "";
 	}
 
 
@@ -146,14 +182,14 @@ public class IdeogramPredictions extends WordPredictions {
 	 * Example operation: [SHIWU食物, SHIWU事物, SHIWU事务, SHIZU十足] -> [SHIWU, SHIZU]
 	 */
 	public void stripNativeWords() {
+		if (!areThereDbWords) {
+			return;
+		}
+
 		HashSet<String> uniqueTranscriptions = new HashSet<>();
 
 		for (int i = 0; i < transcriptions.size(); i++) {
-			String transcription = transcriptions.get(i);
-			int firstNative = TextTools.lastIndexOfLatin(transcription) + 1;
-			uniqueTranscriptions.add(
-				firstNative < 1 || firstNative >= transcription.length() ? transcription : transcription.substring(0, firstNative)
-			);
+			uniqueTranscriptions.add(stripNativeWord(transcriptions.get((i))));
 		}
 
 		words.clear();
@@ -163,11 +199,24 @@ public class IdeogramPredictions extends WordPredictions {
 
 
 	/**
+	 * Does the actual stripping of the native word from the transcription for stripNativeWords().
+	 */
+	protected String stripNativeWord(@NonNull String dbTranscription) {
+		int firstNative = TextTools.lastIndexOfLatin(dbTranscription) + 1;
+		return firstNative < 1 || firstNative >= dbTranscription.length() ? dbTranscription : dbTranscription.substring(0, firstNative);
+	}
+
+
+	/**
 	 * Removes the Latin transcriptions from native words. Directly modifies the words list, but the
 	 * original is preserved in this.transcriptions.
 	 * Example operation: [SHIWU食物, SHIZU十足] -> [食物, 十足]
 	 */
 	public void stripTranscriptions() {
+		if (!areThereDbWords) {
+			return;
+		}
+
 		words.clear();
 		for (int i = 0; i < transcriptions.size(); i++) {
 			String transcription = transcriptions.get(i);
@@ -179,11 +228,19 @@ public class IdeogramPredictions extends WordPredictions {
 
 	/**
 	 * Similar to "stripNativeWords()", but finds and returns the transcription of the given word.
-	 * Returns an empty string if the word is not in the current suggestion list.
+	 * In case of an auto-accept, the `transcriptions` would be empty, so we check the `lastTranscriptions`.
+	 * If no transcription is found, an empty string is returned.
 	 */
 	@NonNull
 	public String getTranscription(@NonNull String word) {
-		for (String w : transcriptions) {
+		String transcription = getTranscription(word, transcriptions);
+		return transcription.isEmpty() ? getTranscription(word, lastTranscriptions) : transcription;
+	}
+
+
+	@NonNull
+	private String getTranscription(@NonNull String word, @NonNull ArrayList<String> transcriptionList) {
+		for (String w : transcriptionList) {
 			if (w.endsWith(word)) {
 				return w.replace(word, "");
 			}

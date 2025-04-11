@@ -62,7 +62,7 @@ public class WordStore extends BaseSyncStore {
 	 * and other similar. When "onlyExactSequence" is TRUE, the word list is constrained only to
 	 * the words with length equal to the digit sequence length (exact matches).
 	 */
-	public ArrayList<String> getMany(@NonNull CancellationSignal cancel, Language language, String sequence, boolean onlyExactSequence, String wordFilter, int minimumWords, int maximumWords) {
+	public ArrayList<String> getMany(@NonNull CancellationSignal cancel, Language language, String sequence, boolean onlyExactSequence, String wordFilter, boolean orderByLength, int minimumWords, int maximumWords) {
 		if (!checkOrNotify()) {
 			return new ArrayList<>();
 		}
@@ -86,7 +86,7 @@ public class WordStore extends BaseSyncStore {
 		long positionsTime = Timer.stop("get_positions");
 
 		Timer.start("get_words");
-		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, false).toStringList();
+		ArrayList<String> words = readOps.getWords(sqlite.getDb(), cancel, language, positions, filter, orderByLength, false).toStringList();
 		long wordsTime = Timer.stop("get_words");
 
 		printLoadingSummary(sequence, words, positionsTime, wordsTime);
@@ -176,7 +176,7 @@ public class WordStore extends BaseSyncStore {
 			Timer.start(LOG_TAG);
 
 			String topWordPositions = readOps.getWordPositions(sqlite.getDb(), null, language, sequence, 0, 0, Integer.MAX_VALUE, "");
-			WordList topWords = readOps.getWords(sqlite.getDb(), null, language, topWordPositions, "", true);
+			WordList topWords = readOps.getWords(sqlite.getDb(), null, language, topWordPositions, "", false, true);
 			if (topWords.isEmpty()) {
 				throw new Exception("No such word");
 			}
