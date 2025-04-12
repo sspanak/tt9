@@ -223,7 +223,7 @@ class ModeCheonjiin extends InputMode {
 	protected boolean loadEmojis() {
 		if (shouldDisplayEmojis()) {
 			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', getEmojiGroup()));
+			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup()));
 			return true;
 		}
 
@@ -264,7 +264,7 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		// ... otherwise display our custom first groups, if available
-		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
+		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
 			suggestions.addAll(KEY_CHARACTERS.get(number));
