@@ -63,10 +63,13 @@ public class IdeogramPredictions extends WordPredictions {
 	}
 
 
+	/**
+	 * Here we don't need to generate a new digit sequence, because either the word was an exact search
+	 * match (the digit sequence is the current one), or it was a fuzzy match (a longer sequence), that
+	 * must not cause a frequency change, because it belongs to a different position group.
+	 */
 	public void onAcceptIdeogram(String word) throws InvalidLanguageCharactersException {
-		String transcription = getTranscription(word);
-		String sequence = language.getDigitSequenceForWord(transcription);
-		super.onAccept(transcription + word, sequence);
+		super.onAccept(getTranscription(word) + word, digitSequence);
 	}
 
 
