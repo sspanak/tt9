@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFilter extends BaseSoftKeyWithIcons {
@@ -12,13 +11,9 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	private boolean isKorean() {
-		return tt9 != null && LanguageKind.isKorean(tt9.getLanguage());
-	}
-
 	@Override
 	protected void handleHold() {
-		if (isKorean()) {
+		if (hasLettersOnAllKeys()) {
 			handleRelease();
 			return;
 		}
@@ -37,7 +32,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 			return false;
 		}
 
-		if (isKorean()) {
+		if (hasLettersOnAllKeys()) {
 			return tt9.onKeySpaceKorean(false);
 		} else {
 			return tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
@@ -45,21 +40,21 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	}
 
 
-	@Override protected String getTitle() { return isKorean() ? "␣" : ""; }
-	@Override protected int getCentralIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter; }
-	@Override protected int getHoldIcon() { return isKorean() ? 0 : R.drawable.ic_fn_filter_off; }
+	@Override protected String getTitle() { return hasLettersOnAllKeys() ? "␣" : ""; }
+	@Override protected int getCentralIcon() { return hasLettersOnAllKeys() ? 0 : R.drawable.ic_fn_filter; }
+	@Override protected int getHoldIcon() { return hasLettersOnAllKeys() ? 0 : R.drawable.ic_fn_filter_off; }
 
-	@Override protected float getTitleScale() { return isKorean() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
+	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
 
 	@Override
 	public void render() {
 		if (tt9 != null) {
 			setEnabled(
 				!tt9.isInputModeNumeric()
-				&& !tt9.isInputModeABC()
 				&& !tt9.isVoiceInputActive()
+				&& (!tt9.isInputModeABC() || hasLettersOnAllKeys())
 				&& (
-					LanguageKind.isKorean(tt9.getLanguage())
+					hasLettersOnAllKeys()
 					|| (tt9.isFilteringSupported() && !tt9.isTextEditingActive())
 				)
 			);

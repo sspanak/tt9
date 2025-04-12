@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.util.TextTools;
 
 public class SoftKeyNumber0 extends SoftKeyNumber {
 	private static final String CHARS_NUMERIC_MODE = "+%$";
@@ -13,8 +14,13 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	public SoftKeyNumber0(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
+	private boolean isKorean() {
+		return tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isKorean(tt9.getLanguage());
+	}
+
+
 	private boolean isTransparentWhenTextEditing() {
-		return tt9 != null && LanguageKind.isKorean(tt9.getLanguage()) && tt9.isTextEditingActive();
+		return tt9 != null && tt9.isTextEditingActive() && hasLettersOnAllKeys();
 	}
 
 
@@ -22,7 +28,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 		return tt9 != null
 			&& tt9.getSettings().isNumpadShapeLongSpace()
 			&& !tt9.isInputModeNumeric()
-			&& !LanguageKind.isKorean(tt9.getLanguage());
+			&& !hasLettersOnAllKeys();
 	}
 
 
@@ -44,7 +50,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return "+/-";
 		} else if (tt9.isInputModePhone()) {
 			return "+";
-		} else if (tt9.isInputModeNumeric() || LanguageKind.isKorean(tt9.getLanguage())) {
+		} else if (tt9.isInputModeNumeric() || hasLettersOnAllKeys()) {
 			return CHARS_NUMERIC_MODE;
 		}
 
@@ -58,33 +64,26 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return "0";
 		}
 
-		return (LanguageKind.isKorean(tt9.getLanguage())) ? getKoreanCharList() : "␣";
-	}
-
-
-	private String getKoreanCharList() {
-		if (tt9 == null || tt9.getLanguage() == null) {
-			return null;
+		if (hasLettersOnAllKeys() && tt9.getLanguage() != null) {
+			return TextTools.removeNonLettersFromListAndJoin(tt9.getLanguage().getKeyCharacters(0));
 		}
 
-		StringBuilder list = new StringBuilder();
-		for (String character : tt9.getLanguage().getKeyCharacters(0)) {
-			if (Character.isAlphabetic(character.charAt(0))) {
-				list.append(character);
-			}
-		}
-
-		return list.toString();
+		return "␣";
 	}
 
 
 	@Override
 	protected float getTitleScale() {
-		if (tt9 != null && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage())) {
-			return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
+		if (isBopomofo()) {
+			return super.getTitleScale() * TITLE_SCALE_BOPOMOFO;
 		}
 
-		return super.getTitleScale();
+		if (isKorean()) {
+			return super.getTitleScale();
+		}
+
+		// scale up the space character, because it is too small
+		return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
 	}
 
 
@@ -101,13 +100,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 
 	private void setEnabled() {
-		setEnabled(
-			tt9 != null
-				&& (
-					!tt9.isTextEditingActive()
-					|| (!LanguageKind.isKorean(tt9.getLanguage()) && !tt9.isInputModeNumeric())
-				)
-		);
+		setEnabled(tt9 != null && !(tt9.isTextEditingActive() && hasLettersOnAllKeys()));
 	}
 
 

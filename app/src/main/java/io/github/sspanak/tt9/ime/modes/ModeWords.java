@@ -290,7 +290,7 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
-	private boolean loadPreferredChar() {
+	protected boolean loadPreferredChar() {
 		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(getPreferredChar());

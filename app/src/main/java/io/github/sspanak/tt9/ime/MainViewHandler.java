@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.helpers.OrientationListener;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
@@ -188,6 +189,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 			normalizedHeight = (float) settings.getNumpadKeyHeight() / (float) settings.getNumpadKeyDefaultHeight();
 		}
 		return normalizedHeight;
+	}
+
+
+	public boolean hasLettersOnAllKeys() {
+		return LanguageKind.isKorean(mLanguage) || LanguageKind.isChineseBopomofo(mLanguage);
 	}
 
 

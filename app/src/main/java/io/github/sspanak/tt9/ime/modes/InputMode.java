@@ -53,7 +53,8 @@ abstract public class InputMode {
 	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
 		switch (mode) {
 			case MODE_PREDICTIVE:
-				if (LanguageKind.isChinese(language)) return new ModePinyin(settings, language, inputType, textField);
+				if (LanguageKind.isChineseBopomofo(language)) return new ModeBopomofo(settings, language, inputType, textField);
+				if (LanguageKind.isChinesePinyin(language)) return new ModePinyin(settings, language, inputType, textField);
 				if (LanguageKind.isJapanese(language)) return new ModeKanji(settings, language, inputType, textField);
 				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
 				if (language != null && language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
