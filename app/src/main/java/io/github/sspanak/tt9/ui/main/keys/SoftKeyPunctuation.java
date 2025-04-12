@@ -18,7 +18,7 @@ public class SoftKeyPunctuation extends SoftKey {
 			tt9 != null
 			&& tt9.getSettings().isNumpadShapeLongSpace()
 			&& !tt9.isInputModeNumeric()
-			&& !LanguageKind.isKorean(tt9.getLanguage());
+			&& !hasLettersOnAllKeys();
 	}
 
 	protected boolean isTransparentWhenTextEditing() {

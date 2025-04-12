@@ -11,6 +11,8 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyNumber extends BaseSoftKeyWithIcons {
+	protected static final float TITLE_SCALE_BOPOMOFO = 0.7f;
+
 	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
 		put(R.id.soft_key_0, 0);
 		put(R.id.soft_key_1, 1);

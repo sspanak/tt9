@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -28,6 +29,20 @@ public class SoftKey extends BaseClickableKey {
 	public SoftKey(Context context) { super(context); }
 	public SoftKey(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	/**
+	 * Bopomofo letters are very large, so we need to scale them down a bit in some keys. Hence,
+	 * the convenience method.
+	 */
+	protected boolean isBopomofo() {
+		return tt9 != null && !tt9.isInputModeNumeric() && LanguageKind.isChineseBopomofo(tt9.getLanguage());
+	}
+
+
+	protected boolean hasLettersOnAllKeys() {
+		return tt9 != null && tt9.hasLettersOnAllKeys();
+	}
 
 
 	/**
