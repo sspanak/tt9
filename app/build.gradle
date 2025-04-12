@@ -76,7 +76,11 @@ clean {
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
-def getDonationUrl = { -> return new File(FUNDING_FILE).text.replace("custom:", "").replaceAll("['\\s\\[\\]]+", "") }
+def getDonationUrl = { -> new File(FUNDING_FILE)
+		.readLines().get(0).trim()
+		.replaceFirst("^([^:]+)\\s*:\\s*([^\\n]+)", "https://\$1.com/\$2")
+		.replace('_', '-')
+}
 def getVerCode = { -> return getVersionCode() }
 def getVerName = { -> return getVersionName() }
 def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() : getReleaseVersion() }
