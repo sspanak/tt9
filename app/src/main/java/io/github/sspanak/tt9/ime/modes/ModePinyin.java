@@ -6,11 +6,13 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModePinyin extends ModeIdeograms {
-	boolean ignoreNextSpace = false;
+	private final int SPECIAL_CHAR_KEY = NaturalLanguage.SPECIAL_CHAR_KEY.charAt(0) - '0';
+	private boolean ignoreNextSpace = false;
 
 
 	protected ModePinyin(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
@@ -42,7 +44,7 @@ public class ModePinyin extends ModeIdeograms {
 
 	@Override
 	protected void onNumberPress(int number) {
-		if (ignoreNextSpace && number == SPECIAL_CHAR_SEQUENCE.charAt(0) - '0') {
+		if (ignoreNextSpace && number == SPECIAL_CHAR_KEY) {
 			ignoreNextSpace = false;
 			return;
 		}
@@ -62,7 +64,7 @@ public class ModePinyin extends ModeIdeograms {
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		// In East Asian languages, 0-key must accept the current word, or type a space when there is no word.
-		if (!digitSequence.isEmpty() && !digitSequence.endsWith(SPECIAL_CHAR_SEQUENCE) && nextKey == SPECIAL_CHAR_SEQUENCE.charAt(0) - '0') {
+		if (!digitSequence.isEmpty() && !digitSequence.endsWith(SPECIAL_CHAR_SEQUENCE) && nextKey == SPECIAL_CHAR_KEY) {
 			ignoreNextSpace = true;
 		}
 

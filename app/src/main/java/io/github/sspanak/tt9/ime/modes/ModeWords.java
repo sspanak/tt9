@@ -403,7 +403,7 @@ class ModeWords extends ModeCheonjiin {
 			return true;
 		}
 
-		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(0);
+		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(SPECIAL_CHAR_SEQUENCE.length() - 1);
 		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
