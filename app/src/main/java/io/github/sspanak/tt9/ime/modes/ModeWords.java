@@ -122,7 +122,6 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected void setLanguage(@Nullable Language newLanguage) {
 		super.setLanguage(newLanguage);
-		autoSpace.setLanguage(language);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
