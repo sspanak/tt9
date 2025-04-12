@@ -153,10 +153,15 @@ public class WordFile extends AssetFile {
 
 	public String getFormattedWords(String suffix) {
 		if (getWords() > 1000000) {
-			return String.format(Locale.ROOT, "%1.2fM %s", getWords() / 1000000.0, suffix);
-		} else {
+			return String
+				.format(Locale.ROOT, "%1.2fM %s", getWords() / 1000000.0, suffix)
+				.replace("0M ", "M ");
+		} else if (getWords() > 1000) {
 			return getWords() / 1000 + "k " + suffix;
+		} else {
+			return getWords() + " " + suffix;
 		}
+
 	}
 
 
@@ -184,7 +189,9 @@ public class WordFile extends AssetFile {
 
 
 	public String getFormattedSize() {
-		return String.format(Locale.ROOT, "%1.2f Mb", getSize() / 1048576.0);
+		return String
+			.format(Locale.ROOT, "%1.2f Mb", getSize() / 1048576.0)
+			.replace("0 ", " ");
 	}
 
 
