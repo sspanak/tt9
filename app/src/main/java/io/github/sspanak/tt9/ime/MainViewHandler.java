@@ -131,7 +131,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	@NonNull
 	public String getInputModeName() {
-		if (InputModeKind.isPredictive(mInputMode)) {
+		if (InputModeKind.isHiragana(mInputMode)) {
+			return "あ";
+		} else if (InputModeKind.isKatakana(mInputMode)) {
+			return "ア";
+		}  else if (InputModeKind.isPredictive(mInputMode)) {
 			return "T9";
 		} else if (InputModeKind.isNumeric(mInputMode)){
 			return "123";

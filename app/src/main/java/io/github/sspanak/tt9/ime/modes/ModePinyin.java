@@ -20,7 +20,23 @@ public class ModePinyin extends ModeIdeograms {
 
 	@Override
 	public boolean changeLanguage(@Nullable Language newLanguage) {
-		return LanguageKind.isChinese(newLanguage) && super.changeLanguage(newLanguage);
+		if (LanguageKind.isChinese(newLanguage)) {
+			setLanguage(newLanguage);
+			return true;
+		}
+
+		return false;
+	}
+
+
+	@Override
+	protected String getPreferredChar() {
+		final String preferredChar = settings.getDoubleZeroChar();
+		return switch (preferredChar) {
+			case "." -> Characters.ZH_FULL_STOP;
+			case "," -> Characters.ZH_COMMA_LIST;
+			default -> preferredChar;
+		};
 	}
 
 
@@ -51,16 +67,5 @@ public class ModePinyin extends ModeIdeograms {
 		}
 
 		return super.shouldAcceptPreviousSuggestion(nextKey, hold);
-	}
-
-
-	@Override
-	protected String getPreferredChar() {
-		final String preferredChar = settings.getDoubleZeroChar();
-		return switch (preferredChar) {
-			case "." -> Characters.ZH_FULL_STOP;
-			case "," -> Characters.ZH_COMMA_LIST;
-			default -> preferredChar;
-		};
 	}
 }
