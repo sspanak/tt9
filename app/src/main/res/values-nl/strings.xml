@@ -147,7 +147,7 @@
 	<string name="key_yellow">Gele knop</string>
 	<string name="key_blue">Blauwe knop</string>
 	<string name="key_volume_mute">Stilteknop</string>
-	<string name="virtual_key_space_korean">Spatie (Koreaans)</string>
+	<string name="virtual_key_space_korean">Spatie</string>
 	<string name="voice_input_listening">Spreek</string>
 	<string name="voice_input_mic_permission_is_needed">U moet de microfoon toestemming geven om spraakopvoer te gebruiken.</string>
 	<string name="voice_input_error_incompatible_voice_service">Onverenigbare spraakassistent</string>

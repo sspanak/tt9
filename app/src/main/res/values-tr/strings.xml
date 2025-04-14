@@ -161,7 +161,7 @@
 	<string name="key_yellow">Sarı düğme</string>
 	<string name="key_blue">Mavi düğme</string>
 	<string name="key_volume_mute">Sessiz tuşu</string>
-	<string name="virtual_key_space_korean">Boşluk (Korece)</string>
+	<string name="virtual_key_space_korean">Boşluk</string>
 	<string name="voice_input_listening">Konuşun</string>
 	<string name="voice_input_mic_permission_is_needed">Sesli giriş kullanmak için mikrofona izin vermelisiniz.</string>
 	<string name="voice_input_error_incompatible_voice_service">Uyumsuz sesli asistan</string>

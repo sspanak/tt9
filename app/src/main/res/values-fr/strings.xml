@@ -157,7 +157,7 @@
 	<string name="key_yellow">Bouton jaune</string>
 	<string name="key_blue">Bouton bleu</string>
 	<string name="key_volume_mute">Muet</string>
-	<string name="virtual_key_space_korean">Espace (coréen)</string>
+	<string name="virtual_key_space_korean">Espace</string>
 	<string name="voice_input_listening">Parlez</string>
 	<string name="voice_input_mic_permission_is_needed">Vous devez accorder l\'autorisation au microphone pour utiliser la saisie vocale.</string>
 	<string name="voice_input_error_incompatible_voice_service">Assistant vocal incompatible</string>

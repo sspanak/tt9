@@ -161,7 +161,7 @@
 	<string name="key_yellow">Botão amarelo</string>
 	<string name="key_blue">Botão azul</string>
 	<string name="key_volume_mute">Mudo</string>
-	<string name="virtual_key_space_korean">Espaço (coreano)</string>
+	<string name="virtual_key_space_korean">Espaço</string>
 	<string name="voice_input_listening">Fale</string>
 	<string name="voice_input_mic_permission_is_needed">Você deve conceder permissão ao microfone para usar a entrada de voz.</string>
 	<string name="voice_input_error_incompatible_voice_service">Assistente de voz incompatível</string>

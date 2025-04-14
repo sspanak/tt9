@@ -281,10 +281,13 @@ class MainLayoutNumpad extends BaseMainLayout {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		setBackgroundBlending();
+
+		boolean hasLettersOnAllKeys = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
 		showLongSpace(
-			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !tt9.hasLettersOnAllKeys(),
+			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !hasLettersOnAllKeys,
 			defaultKeyHeight
 		);
+
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}
