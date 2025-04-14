@@ -7,6 +7,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
 
@@ -121,7 +122,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (keyCode == settings.getKeySpaceKorean()) {
-			return onText(" ", validateOnly);
+			return onKeySpaceKorean(validateOnly);
 		}
 
 		if (keyCode == settings.getKeyShowSettings()) {
@@ -391,22 +392,26 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	/**
+	 * For CJK languages: when there are suggestions, accept the current one, otherwise type a space.
+	 * For Non-CJK languages: accept the current suggestion (if any) AND type a space.
+	 * The name is kept for historical reasons, because Korean was the first to introduce this behavior.
+	 */
 	public boolean onKeySpaceKorean(boolean validateOnly) {
-		if (shouldBeOff() || !InputModeKind.isCheonjiin(mInputMode)) {
-			return false;
-		}
-
-		// type a space when there is nothing to accept
-		if (suggestionOps.isEmpty() && !onText(" ", validateOnly)) {
+		if (shouldBeOff()) {
 			return false;
 		}
 
 		// simulate accept with OK when there are suggestions
-		if (!suggestionOps.isEmpty()) {
-			onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+		if (!suggestionOps.isEmpty() && LanguageKind.isCJK(mLanguage)) {
+			if (!validateOnly) {
+				onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
+			}
+			return true;
 		}
 
-		return true;
+		// type a space when there is nothing to accept
+		return onText(" ", validateOnly);
 	}
 
 

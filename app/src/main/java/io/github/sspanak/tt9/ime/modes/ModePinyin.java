@@ -63,7 +63,9 @@ public class ModePinyin extends ModeIdeograms {
 
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		// In East Asian languages, 0-key must accept the current word, or type a space when there is no word.
+		// In East Asian languages, Space must accept the current word, or type a space when there is no word.
+		// Here, we handle the case when 0-key is Space, unlike the Space hotkey in HotkeyHandler,
+		// which could be a different key, assigned by the user.
 		if (!digitSequence.isEmpty() && !digitSequence.endsWith(SPECIAL_CHAR_SEQUENCE) && nextKey == SPECIAL_CHAR_KEY) {
 			ignoreNextSpace = true;
 		}

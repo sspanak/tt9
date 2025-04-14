@@ -147,7 +147,7 @@
 	<string name="key_yellow">Gelber Knopf</string>
 	<string name="key_blue">Blauer Knopf</string>
 	<string name="key_volume_mute">Stummschalttaste</string>
-	<string name="virtual_key_space_korean">Leertaste (Koreanisch)</string>
+	<string name="virtual_key_space_korean">Leertaste</string>
 	<string name="voice_input_listening">Sprechen</string>
 	<string name="voice_input_mic_permission_is_needed">Sie müssen dem Mikrofon die Erlaubnis erteilen, die Spracheingabe zu verwenden.</string>
 	<string name="voice_input_error_incompatible_voice_service">Inkompatibler Sprachassistent</string>

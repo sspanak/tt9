@@ -41,7 +41,7 @@ public class SoftKey extends BaseClickableKey {
 
 
 	protected boolean hasLettersOnAllKeys() {
-		return tt9 != null && tt9.hasLettersOnAllKeys();
+		return tt9 != null && tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
 	}
 
 
