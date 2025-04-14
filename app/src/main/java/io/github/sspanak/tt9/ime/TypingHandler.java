@@ -289,7 +289,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
 	protected int determineInputModeId() {
-		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTermux())) {
+		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTeams() && !inputType.isTermux())) {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 
