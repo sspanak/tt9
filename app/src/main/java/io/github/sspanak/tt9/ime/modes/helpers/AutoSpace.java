@@ -136,11 +136,13 @@ public class AutoSpace {
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
 	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, Text nextChars, int nextKey) {
+		char firstNextChar = nextChars.isEmpty() ? 0 : nextChars.toString().charAt(0);
+
 		return
 			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
 			&& isLanguageWithAlphabet
 			&& nextKey != 1
-			&& nextChars.isEmpty()
+			&& (nextChars.isEmpty() || nextChars.startsWithNewline())
 			&& Text.previousIsLetter(previousChars);
 	}
 

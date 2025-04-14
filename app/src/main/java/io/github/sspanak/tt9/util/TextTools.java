@@ -18,7 +18,7 @@ public class TextTools {
 	private static final Pattern IS_JAPANESE = Pattern.compile("\\p{script=Hiragana}+|\\p{script=Katakana}+|\\p{script=Han}+");
 	private static final Pattern IS_HANGUL = Pattern.compile("[\u1100-\u11FF\u302E-\u302F\u3131-\u318F\u3200-\u321F\u3260-\u327E\uA960-\uA97F\uAC00-\uD7FB\uFFA0-\uFFDF]+");
 	private static final Pattern NEXT_TO_WORD = Pattern.compile("\\b$");
-	private static final Pattern PREVIOUS_IS_LETTER = Pattern.compile("[\\p{L}\\p{M}]$");
+	private static final Pattern PREVIOUS_IS_LETTER = Pattern.compile("[\\p{L}\\p{M}](?!\\n)$");
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
