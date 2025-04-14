@@ -5,6 +5,10 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
+		if (!definition.name.endsWith("yml")) {
+			return ""
+		}
+
 		if (errorCount >= MAX_ERRORS) {
 			return "Too many errors! Skipping: ${definition}\n"
 		}
