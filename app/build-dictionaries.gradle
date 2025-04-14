@@ -8,6 +8,10 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
+		if (!definition.name.endsWith("yml")) {
+			return ""
+		}
+
 		def (_, sounds, prependSoundsToWords, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
 		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
