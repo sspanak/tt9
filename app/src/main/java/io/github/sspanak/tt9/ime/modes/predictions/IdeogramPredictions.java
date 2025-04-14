@@ -118,7 +118,6 @@ public class IdeogramPredictions extends WordPredictions {
 		}
 
 		if (!settings.getPredictWordPairs() || sequence.length() != digitSequence.length()) {
-//			Logger.d("LOG_TAG", "====+> sequence length mismatch: " + sequence.length() + " != " + digitSequence.length());
 			return;
 		}
 
@@ -127,20 +126,13 @@ public class IdeogramPredictions extends WordPredictions {
 
 		if (lastTypedWord.isEmpty() || (!words.isEmpty() && nativeWord.equals(words.get(0)))) {
 			lastTypedWord = nativeWord;
-//			Logger.d("LOG_TAG", "====+> Will not pair the first word. native word: " + nativeWord + " first suggestion: " + words.get(0));
-//			if (lastTypedWord.isEmpty()) {
-//				Logger.d("LOG_TAG", "====+> No previous word to pair with: " + lastTypedWord);
-//			}
 
 			return;
 		}
 
 		String previousWord = getPenultimateWord(nativeWord);
 		if (previousWord.equals(lastTypedWord)) {
-//			Logger.d("LOG_TAG", "====+> Pairing words: " + previousWord + " + " + nativeWord);
 			DataStore.addWordPair(language, previousWord, nativeWord, sequence);
-//		} else {
-//			Logger.d("LOG_TAG", "===> Last word mismatch: " + previousWord + " != " + lastTypedWord + ". Not pairing.");
 		}
 
 		lastTypedWord = nativeWord;
