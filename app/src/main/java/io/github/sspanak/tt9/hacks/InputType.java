@@ -158,6 +158,20 @@ public class InputType extends StandardInputType {
 	}
 
 
+	/**
+	 * isTeams
+	 * M$ Teams seems to control the keyboard visibility on its own. Initially, it always reports
+	 * the input fields as TYPE_NULL, but once the keyboard accepts the show request, it switches to
+	 * TYPE_CLASS_TEXT. This method used to enforce us to stay active at all times in Teams.
+	 * The problem does not occur on all Android versions. I was able to reproduce it only on Unihertz
+	 * Atom L (Android 11), but not on Energizer H620S (Android 10). The bug report also suggests it
+	 * occurs on newer versions. See: <a href="https://github.com/sspanak/tt9/issues/749">#749</a>.
+	 */
+	public boolean isTeams() {
+		return isAppField("com.microsoft.teams", EditorInfo.TYPE_NULL);
+	}
+
+
 	public boolean isUs() {
 		return isUs;
 	}
