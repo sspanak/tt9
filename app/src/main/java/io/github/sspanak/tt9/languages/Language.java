@@ -14,6 +14,7 @@ abstract public class Language {
 	protected String currency;
 	protected String dictionaryFile;
 	protected boolean hasABC = true;
+	private Boolean hasLettersOnAllKeys = null;
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
 	protected boolean hasTranscriptionsEmbedded = false;
@@ -67,6 +68,30 @@ abstract public class Language {
 
 	final public boolean hasABC() {
 		return hasABC;
+	}
+
+	final public boolean hasLettersOnAllKeys() {
+		if (hasLettersOnAllKeys != null) {
+			return hasLettersOnAllKeys;
+		}
+
+		boolean hasCharsOn0 = false;
+		for (String ch : getKeyCharacters(0)) {
+			if (Character.isAlphabetic(ch.charAt(0))) {
+				hasCharsOn0 = true;
+				break;
+			}
+		}
+
+		boolean hasCharsOn1 = false;
+		for (String ch : getKeyCharacters(1)) {
+			if (Character.isAlphabetic(ch.charAt(0))) {
+				hasCharsOn1 = true;
+				break;
+			}
+		}
+
+		return hasLettersOnAllKeys = hasCharsOn0 && hasCharsOn1;
 	}
 
 	final public boolean hasSpaceBetweenWords() {

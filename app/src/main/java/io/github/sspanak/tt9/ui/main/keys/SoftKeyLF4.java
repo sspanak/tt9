@@ -55,7 +55,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	protected float getTitleScale() {
-		return super.getTitleScale() * 0.9f;
+		return super.getTitleScale() * (isBopomofo() && tt9.isInputModeABC() ? 0.63f : 0.9f);
 	}
 
 	@Override

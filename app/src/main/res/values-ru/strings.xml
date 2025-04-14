@@ -159,7 +159,7 @@
 	<string name="key_yellow">Жёлтая кнопка</string>
 	<string name="key_blue">Синяя кнопка</string>
 	<string name="key_volume_mute">Выключения звука</string>
-	<string name="virtual_key_space_korean">Пробел (корейский)</string>
+	<string name="virtual_key_space_korean">Пробел</string>
 	<string name="voice_input_listening">Говорите</string>
 	<string name="voice_input_mic_permission_is_needed">Вы должны предоставить микрофону разрешение на использование голосового ввода.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несовместимый голосовой ассистент</string>

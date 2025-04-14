@@ -48,24 +48,16 @@ class ModeCheonjiin extends InputMode {
 
 		SPECIAL_CHAR_SEQUENCE_PREFIX = "11";
 
-		super.setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 
-		autoSpace = new AutoSpace(settings).setLanguage(language);
+		autoSpace = new AutoSpace(settings);
 		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
 		this.inputType = inputType;
 		this.textField = textField;
 
+		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		initPredictions();
 		setSpecialCharacterConstants();
-
-		if (isEmailMode) {
-			// Note: applyPunctuationOrder() requires the language to be set
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		} else {
-			setCustomSpecialCharacters();
-		}
 	}
 
 
@@ -83,6 +75,22 @@ class ModeCheonjiin extends InputMode {
 		KEY_CHARACTERS.add(
 			TextTools.removeLettersFromList(applyPunctuationOrder(Characters.PunctuationKorean, 1))
 		);
+	}
+
+
+	@Override
+	protected void setLanguage(@Nullable Language newLanguage) {
+		super.setLanguage(newLanguage);
+
+		autoSpace.setLanguage(language);
+
+		KEY_CHARACTERS.clear();
+		if (isEmailMode) {
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
+			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		} else {
+			setCustomSpecialCharacters();
+		}
 	}
 
 
@@ -223,7 +231,7 @@ class ModeCheonjiin extends InputMode {
 	protected boolean loadEmojis() {
 		if (shouldDisplayEmojis()) {
 			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(0) - '0', getEmojiGroup()));
+			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup()));
 			return true;
 		}
 
@@ -264,7 +272,7 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		// ... otherwise display our custom first groups, if available
-		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(0) - '0';
+		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
 			suggestions.addAll(KEY_CHARACTERS.get(number));

@@ -51,6 +51,8 @@ class Punctuation {
 		"，", ZH_COMMA_LIST, ZH_FULL_STOP, "—", "～", "゠", "（", "）", ".", "「", "」", "『", "』", "•", "《", "》", "〈", "〉", "'", "“", "”", "；", "：", ZH_EXCLAMATION_MARK, ZH_QUESTION_MARK
 	));
 
+	final public static ArrayList<String> PunctuationChineseBopomofo = insertChar(PunctuationChinese, "1", ZH_FULL_STOP);
+
 	final public static ArrayList<String> PunctuationEnglish = new ArrayList<>(Arrays.asList(
 		",", ".", "-", "(", ")", "&", "~", "`", ";", ":", "'", "\"", "!", "?"
 	));

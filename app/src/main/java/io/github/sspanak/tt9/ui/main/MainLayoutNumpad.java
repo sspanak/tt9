@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
@@ -282,10 +281,13 @@ class MainLayoutNumpad extends BaseMainLayout {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		setBackgroundBlending();
+
+		boolean hasLettersOnAllKeys = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
 		showLongSpace(
-			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !LanguageKind.isKorean(tt9.getLanguage()),
+			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !hasLettersOnAllKeys,
 			defaultKeyHeight
 		);
+
 		for (SoftKey key : getKeys()) {
 			key.render();
 		}

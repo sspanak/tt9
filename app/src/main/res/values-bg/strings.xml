@@ -157,7 +157,7 @@
 	<string name="key_yellow">Жълт бутон</string>
 	<string name="key_blue">Син бутон</string>
 	<string name="key_volume_mute">Заглушаване на звук</string>
-	<string name="virtual_key_space_korean">Интервал (корейски)</string>
+	<string name="virtual_key_space_korean">Интервал</string>
 	<string name="voice_input_listening">Говорете</string>
 	<string name="voice_input_mic_permission_is_needed">Трябва да разрешите достъпа до микрофона, за да използвате гласовото въвеждане.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несъвместим гласов асистент</string>

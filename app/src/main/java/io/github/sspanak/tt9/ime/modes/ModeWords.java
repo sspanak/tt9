@@ -122,7 +122,6 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected void setLanguage(@Nullable Language newLanguage) {
 		super.setLanguage(newLanguage);
-		autoSpace.setLanguage(language);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
@@ -291,7 +290,7 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
-	private boolean loadPreferredChar() {
+	protected boolean loadPreferredChar() {
 		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(getPreferredChar());
@@ -403,7 +402,7 @@ class ModeWords extends ModeCheonjiin {
 			return true;
 		}
 
-		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(0);
+		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(SPECIAL_CHAR_SEQUENCE.length() - 1);
 		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.

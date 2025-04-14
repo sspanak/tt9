@@ -43,6 +43,12 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 	}
 
 
+	@Override
+	protected float getTitleScale() {
+		return super.getTitleScale() * (isBopomofo() ? TITLE_SCALE_BOPOMOFO : 1);
+	}
+
+
 	private String getKeyChars(@NonNull TraditionalT9 tt9, int number) {
 		Language language = tt9.getLanguage();
 		if (language == null) {

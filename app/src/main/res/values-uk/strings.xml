@@ -170,7 +170,7 @@
 	<string name="key_yellow">Жовта кнопка</string>
 	<string name="key_blue">Синя кнопка</string>
 	<string name="key_volume_mute">Вимкнення звуку</string>
-	<string name="virtual_key_space_korean">Пробіл (корейська)</string>
+	<string name="virtual_key_space_korean">Пробіл</string>
 	<string name="voice_input_listening">Диктуйте</string>
 	<string name="voice_input_mic_permission_is_needed">Ви повинні надати мікрофону дозвіл на використання голосового введення.</string>
 	<string name="voice_input_error_incompatible_voice_service">Несумісний голосовий асистент</string>

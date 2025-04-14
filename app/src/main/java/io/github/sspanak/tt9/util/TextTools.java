@@ -127,4 +127,16 @@ public class TextTools {
 
 		return cleanList;
 	}
+
+
+	public static String removeNonLettersFromListAndJoin(ArrayList<String> list) {
+		StringBuilder cleanList = new StringBuilder();
+		for (String ch : list) {
+			if (Character.isAlphabetic(ch.codePointAt(0))) {
+				cleanList.append(ch);
+			}
+		}
+
+		return cleanList.toString();
+	}
 }

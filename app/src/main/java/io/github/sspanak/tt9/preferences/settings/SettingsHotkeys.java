@@ -106,7 +106,10 @@ public class SettingsHotkeys extends SettingsUI {
 		prefsEditor.putString(FUNC_NEXT_INPUT_MODE, String.valueOf(KeyEvent.KEYCODE_POUND));
 		prefsEditor.putString(FUNC_NEXT_LANGUAGE, String.valueOf(-KeyEvent.KEYCODE_POUND)); // negative means "hold"
 		prefsEditor.putString(FUNC_SHIFT, String.valueOf(KeyEvent.KEYCODE_STAR));
-		prefsEditor.putString(FUNC_SPACE_KOREAN, String.valueOf(KeyEvent.KEYCODE_STAR));
+		prefsEditor.putString(
+			FUNC_SPACE_KOREAN,
+			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_SPACE) ? KeyEvent.KEYCODE_SPACE : KeyEvent.KEYCODE_STAR)
+		);
 
 		prefsEditor.putBoolean(HOTKEY_VERSION, true).apply();
 	}
