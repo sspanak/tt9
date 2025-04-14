@@ -25,7 +25,6 @@ public class DebugScreen extends BaseScreenFragment {
 		(new ItemText(activity, findPreference(DEVICE_INFO_CONTAINER))).populate(new DeviceInfo().toString()).enableClickHandler();
 		(new ItemExportLogcat(findPreference(ItemExportLogcat.NAME), activity)).enableClickHandler();
 		(new ItemDemoMode(findPreference(ItemDemoMode.NAME), activity)).populate().enableClickHandler();
-		(new ItemPrecalculateNavbarHeight(activity.getSettings(), findPreference(ItemPrecalculateNavbarHeight.NAME))).populate();
 
 		resetFontSize(false);
 	}
