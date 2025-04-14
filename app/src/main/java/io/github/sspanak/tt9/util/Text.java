@@ -221,6 +221,11 @@ public class Text extends TextTools {
 	}
 
 
+	public boolean startsWithNewline() {
+		return text != null && !text.isEmpty() && text.charAt(0) == '\n';
+	}
+
+
 	public boolean startsWithNumber() {
 		return text != null && !text.isEmpty() && Character.isDigit(text.charAt(0));
 	}
