@@ -267,6 +267,11 @@
 		<item name="android:layout_width">0dp</item>
 	</style>
 
+	<style name="TTheme.Numpad.Key.ShortPunctuation.Overlay.Wrapper" parent="TTheme.Numpad.Key.Number">
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">0dp</item>
+	</style>
+
 	<style name="TTheme.Numpad.Key.Overlay.Element" parent="">
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:layout_width">match_parent</item>
@@ -385,11 +390,6 @@
 		<item name="android:textColor">@color/key_ok_text</item>
 		<item name="backgroundTint">@color/key_ok_background</item>
 		<item name="rippleColor">@color/key_ok_ripple</item>
-	</style>
-
-	<style name="TTheme.Numpad.Key.ShortPunctuation" parent="TTheme.Numpad.Key.Number">
-		<item name="android:layout_weight">1</item>
-		<item name="android:layout_width">0dp</item>
 	</style>
 
 </resources>

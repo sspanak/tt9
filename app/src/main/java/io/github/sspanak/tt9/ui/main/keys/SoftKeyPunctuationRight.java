@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -10,7 +11,6 @@ public class SoftKeyPunctuationRight extends SoftKeyPunctuation {
 	public SoftKeyPunctuationRight(Context context) { super(context); }
 	public SoftKeyPunctuationRight(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyPunctuationRight(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-
 
 	protected String getKeyChar() {
 		if (tt9 == null) return "";
@@ -27,9 +27,18 @@ public class SoftKeyPunctuationRight extends SoftKeyPunctuation {
 		return "?";
 	}
 
-
 	@Override
 	protected boolean handleRelease() {
 		return tt9 != null && tt9.isTextEditingActive() ? tt9.onKeyRedo(false) : super.handleRelease();
+	}
+
+	@Override
+	protected String getTitle() {
+		return isTextEditingOn() ? "" : super.getTitle();
+	}
+
+	@Override
+	protected int getCentralIcon() {
+		return isTextEditingOn() && !isHiddenWhenLongSpace() ? R.drawable.ic_fn_redo : -1;
 	}
 }

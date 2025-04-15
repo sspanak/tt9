@@ -2,17 +2,24 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ViewParent;
+import android.widget.RelativeLayout;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-abstract public class SoftKeyPunctuation extends SoftKey {
+abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
 	public SoftKeyPunctuation(Context context) { super(context); }
 	public SoftKeyPunctuation(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	abstract protected String getKeyChar();
+
+
+	protected boolean isTextEditingOn() {
+		return tt9 != null && tt9.isTextEditingActive();
+	}
 
 
 	protected boolean isHiddenWhenLongSpace() {
@@ -54,10 +61,12 @@ abstract public class SoftKeyPunctuation extends SoftKey {
 
 	@Override
 	public void render() {
-		if (isHiddenWhenLongSpace()) {
-			setVisibility(GONE);
-		} else {
-			setVisibility(VISIBLE);
+		boolean isHidden = isHiddenWhenLongSpace();
+		setVisibility(isHidden ? GONE : VISIBLE);
+
+		ViewParent parent = getParent();
+		if (parent instanceof RelativeLayout) {
+			((RelativeLayout) parent).setVisibility(isHidden ? RelativeLayout.GONE : RelativeLayout.VISIBLE);
 		}
 
 		super.render();
