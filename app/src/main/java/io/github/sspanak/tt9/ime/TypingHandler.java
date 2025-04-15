@@ -133,18 +133,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		} else {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
-
-			int charsToDelete;
-
-			if (settings.getBackspaceAcceleration() && repeat > 0) {
-				charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
-			} else if (!textSelection.isEmpty()) {
-				charsToDelete = textSelection.length();
-				textSelection.clear(false);
-			} else {
-				charsToDelete = 1;
-			}
-			textField.deleteChars(charsToDelete);
+			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
 		}
 
 		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
@@ -248,6 +237,18 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (mInputMode.shouldAddTrailingSpace(isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
 		}
+	}
+
+
+	private void deleteText(boolean deleteMany) {
+		int charsToDelete = 1;
+		if (deleteMany) {
+			charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
+		} else if (!textSelection.isEmpty()) {
+			charsToDelete = textSelection.length();
+			textSelection.clear(false);
+		}
+		textField.deleteChars(charsToDelete);
 	}
 
 
