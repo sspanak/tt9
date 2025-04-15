@@ -12,12 +12,14 @@ import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class AutoSpace {
-	private static final Set<Character> PRECEDING_SPACE_PUNCTUATION = Set.of('(', '«', '„');
-	private static final Set<Character> PRECEDING_SPACE_FRENCH_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
-	private static final Set<Character> TRAILING_SPACE_PUNCTUATION = Set.of(';', '!', '?', ')', '%', '»', '؟', '“', Characters.GR_QUESTION_MARK.charAt(0));
+	private static final Set<Character> PRECEDING_SPACE_CHARS = Set.of('(', '«', '„');
+	private static final Set<Character> PRECEDING_SPACE_CHARS_FRENCH = Set.of(';', ':', '!', '?', '»');
+	private static final Set<Character> TRAILING_SPACE_CHARS = Set.of(';', '!', '?', ')', '%', '»', '،', Characters.AR_QUESTION_MARK.charAt(0), '“', Characters.GR_QUESTION_MARK.charAt(0));
+	private static final Set<Character> TRAILING_SPACE_POST_DIGIT_CHARS = Set.of(':', '.', ',');
+	private static final Set<Character> PADDING_SPACE_CHARS = Set.of('-', '/');
 
-	private static final Set<Character> NO_PRECEDING_SPACE_PUNCTUATION = Set.of('.', ',', ')', '\'', '@', '“', '؟', Characters.GR_QUESTION_MARK.charAt(0));
-	private static final Set<Character> NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION = Set.of(';', ':', '!', '?', '»');
+	private static final Set<Character> NO_PRECEDING_SPACE_CHARS = Set.of('.', ',', ')', '\'', '“', Characters.AR_QUESTION_MARK.charAt(0), Characters.GR_QUESTION_MARK.charAt(0));
+	private static final Set<Character> NO_PRECEDING_SPACE_CHARS_NOT_FRENCH = Set.of(';', ':', '!', '?', '»');
 
 	private Language language;
 	private final SettingsStore settings;
@@ -98,8 +100,8 @@ public class AutoSpace {
 		return
 			Character.isAlphabetic(penultimateChar)
 			&& (
-				PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
-				|| (isLanguageFrench && PRECEDING_SPACE_FRENCH_PUNCTUATION.contains(previousChar))
+				PRECEDING_SPACE_CHARS.contains(previousChar)
+				|| (isLanguageFrench && PRECEDING_SPACE_CHARS_FRENCH.contains(previousChar))
 			);
 	}
 
@@ -118,13 +120,10 @@ public class AutoSpace {
 			&& !Text.nextIsPunctuation(nextChars.toString())
 			&& !nextChars.startsWithNumber()
 			&& (
-				TRAILING_SPACE_PUNCTUATION.contains(previousChar)
+				TRAILING_SPACE_CHARS.contains(previousChar)
 				|| (isLanguageFrench && previousChar == '«')
-				|| (penultimateChar == ' ' && previousChar == '-')
-				|| (penultimateChar == ' ' && previousChar == '/')
-				|| (!Character.isDigit(penultimateChar) && previousChar == ':')
-				|| (!Character.isDigit(penultimateChar) && previousChar == '.')
-				|| (!Character.isDigit(penultimateChar) && previousChar == ',')
+				|| (penultimateChar == ' ' && PADDING_SPACE_CHARS.contains(previousChar))
+				|| (!Character.isDigit(penultimateChar) && TRAILING_SPACE_POST_DIGIT_CHARS.contains(previousChar))
 				|| (
 					Character.isDigit(penultimateChar) && Characters.isCurrency(language, String.valueOf(previousChar))
 				)
@@ -170,8 +169,8 @@ public class AutoSpace {
 			!Character.isWhitespace(prePenultimateChar)
 			&& Character.isWhitespace(penultimateChar)
 			&& (
-				NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar)
-				|| (!isLanguageFrench && NOT_FRENCH_NO_PRECEDING_SPACE_PUNCTUATION.contains(previousChar))
+				NO_PRECEDING_SPACE_CHARS.contains(previousChar)
+				|| (!isLanguageFrench && NO_PRECEDING_SPACE_CHARS_NOT_FRENCH.contains(previousChar))
 			);
 	}
 }
