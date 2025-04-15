@@ -129,6 +129,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return onKeyShowSettings(validateOnly);
 		}
 
+		if (keyCode == settings.getKeyUndo()) {
+			return onKeyUndo(validateOnly);
+		}
+
+		if (keyCode == settings.getKeyRedo()) {
+			return onKeyRedo(validateOnly);
+		}
+
 		if (keyCode == settings.getKeyVoiceInput()) {
 			return onKeyVoiceInput(validateOnly);
 		}
@@ -412,6 +420,24 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		// type a space when there is nothing to accept
 		return onText(" ", validateOnly);
+	}
+
+
+	public boolean onKeyUndo(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		return validateOnly || textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, false, true);
+	}
+
+
+	public boolean onKeyRedo(boolean validateOnly) {
+		if (!isInputViewShown() || shouldBeOff()) {
+			return false;
+		}
+
+		return validateOnly || textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
 	}
 
 

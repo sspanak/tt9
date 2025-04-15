@@ -11,7 +11,9 @@ abstract public class SoftKeyPunctuation extends SoftKey {
 	public SoftKeyPunctuation(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+
 	abstract protected String getKeyChar();
+
 
 	protected boolean isHiddenWhenLongSpace() {
 		return
@@ -21,10 +23,12 @@ abstract public class SoftKeyPunctuation extends SoftKey {
 			&& !hasLettersOnAllKeys();
 	}
 
+
 	@Override
 	protected boolean handleRelease() {
 		return tt9 != null && tt9.onText(getKeyChar(), false);
 	}
+
 
 	@Override
 	protected String getTitle() {
@@ -37,6 +41,7 @@ abstract public class SoftKeyPunctuation extends SoftKey {
 		};
 	}
 
+
 	@Override
 	public void setHeight(int height) {
 		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
@@ -45,6 +50,7 @@ abstract public class SoftKeyPunctuation extends SoftKey {
 
 		super.setHeight(height);
 	}
+
 
 	@Override
 	public void render() {

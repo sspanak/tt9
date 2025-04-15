@@ -29,6 +29,6 @@ public class SoftKeyPunctuationLeft extends SoftKeyPunctuation {
 
 	@Override
 	protected boolean handleRelease() {
-		return tt9 != null && tt9.isTextEditingActive() ? tt9.undo() : super.handleRelease();
+		return tt9 != null && tt9.isTextEditingActive() ? tt9.onKeyUndo(false) : super.handleRelease();
 	}
 }
