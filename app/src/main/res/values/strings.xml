@@ -176,6 +176,8 @@
 	<string name="function_next_mode">Input Mode</string>
 	<string name="function_select_keyboard">Select Keyboard</string>
 	<string name="function_show_settings">Show Settings</string>
+	<string name="function_undo">Undo</string>
+	<string name="function_redo">Redo</string>
 	<string name="function_voice_input">Voice Input</string>
 	<string name="function_reset_keys_title">Restore Default Keys</string>
 	<string name="function_reset_keys_done">Default key settings restored.</string>

@@ -58,6 +58,14 @@
 		app:key="key_show_settings"
 		app:title="@string/function_show_settings" />
 
+	<io.github.sspanak.tt9.preferences.screens.hotkeys.PreferenceHotkey
+		app:key="key_undo"
+		app:title="@string/function_undo" />
+
+	<io.github.sspanak.tt9.preferences.screens.hotkeys.PreferenceHotkey
+		app:key="key_redo"
+		app:title="@string/function_redo" />
+
 	<io.github.sspanak.tt9.preferences.screens.hotkeys.PreferenceVoiceInputHotkey
 		app:key="key_voice_input"
 		app:title="@string/function_voice_input" />

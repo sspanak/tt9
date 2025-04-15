@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.ime;
 
-import android.view.KeyEvent;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -251,23 +249,5 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		return true;
-	}
-
-
-	public boolean undo() {
-		if (shouldBeOff()) {
-			return false;
-		}
-
-		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, false, true);
-	}
-
-
-	public boolean redo() {
-		if (shouldBeOff()) {
-			return false;
-		}
-
-		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Y, false, true);
 	}
 }
