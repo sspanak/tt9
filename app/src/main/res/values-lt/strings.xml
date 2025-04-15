@@ -100,6 +100,7 @@
 	<string name="function_reassign">Perpriskirti</string>
 	<string name="function_add_word">Pridėti žodį</string>
 	<string name="function_show_settings">Rodyti nustatymus</string>
+	<string name="function_redo">Pakartoti (Redo)</string>
 	<string name="function_voice_input">Balso įvestis</string>
 	<string name="function_reset_keys_title">Atkurti numatytąsias reikšmes</string>
 	<string name="function_reset_keys_done">Numatytosios reikšmės atkurtos.</string>
@@ -220,4 +221,5 @@
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
 	<string name="pref_drag_resize">Keisti dydį tempiant</string>
+	<string name="function_undo">Atšaukti (Undo)</string>
 </resources>

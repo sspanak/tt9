@@ -154,6 +154,7 @@
 	<string name="function_reassign">Yeniden ata</string>
 	<string name="function_add_word">Kelime ekle</string>
 	<string name="function_show_settings">Ayarları göster</string>
+	<string name="function_redo">Yinele (Redo)</string>
 	<string name="function_voice_input">Sesli giriş</string>
 	<string name="function_reset_keys_title">Varsayılan Ayarlara Geri Dön</string>
 	<string name="function_reset_keys_done">Varsayılan tuş ayarlarına dönüldü.</string>
@@ -216,4 +217,5 @@
 	<string name="key_hold_key">(basılı tut)</string>
 	<string name="pref_allow_composing_text">Yazılan metni göster</string>
 	<string name="pref_drag_resize">Sürükleyerek yeniden boyutlandır</string>
+	<string name="function_undo">Geri al (Undo)</string>
 </resources>

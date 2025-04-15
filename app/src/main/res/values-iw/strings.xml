@@ -92,6 +92,7 @@
 	<string name="function_reassign">הקצה מחדש</string>
 	<string name="function_add_word">לחצן הוספת מילה</string>
 	<string name="function_show_settings">לחצן הצגת הגדרות</string>
+	<string name="function_redo">ביצוע חוזר (Redo)</string>
 	<string name="function_voice_input">קלט קולי</string>
 	<string name="function_reset_keys_title">שחזור לחצני ברירת מחדל</string>
 	<string name="function_reset_keys_done">הגדרות ברירת המחדל שוחזרו.</string>
@@ -218,4 +219,5 @@
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
 	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>
+	<string name="function_undo">ביטול (Undo)</string>
 </resources>

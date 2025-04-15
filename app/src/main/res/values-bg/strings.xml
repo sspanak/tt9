@@ -177,6 +177,7 @@
 	<string name="virtual_numpad_alignment_left">Вляво</string>
 	<string name="virtual_numpad_alignment_right">Вдясно</string>
 	<string name="function_select_keyboard">Избор на клавиатура</string>
+	<string name="function_redo">Повторение (Redo)</string>
 	<string name="function_voice_input">Гласово въвеждане</string>
 	<string name="add_word_no_confirmation">Добавяне без потвърждение</string>
 	<string name="dictionary_import_custom_words">Импортирай</string>
@@ -211,4 +212,5 @@
 	<string name="function_assign_instructions">* Натиснете или задръжте клавиш, за да го присвоите на функцията „%1$s“.\n\n* Натиснете 0, за да отмените.\n\n* Натиснете 2, за да деактивирате функцията.</string>
 	<string name="pref_allow_composing_text">Показвай текст при съставяне</string>
 	<string name="pref_drag_resize">Оразмеряване чрез влачене</string>
+	<string name="function_undo">Отмяна (Undo)</string>
 </resources>
