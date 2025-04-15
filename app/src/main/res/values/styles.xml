@@ -387,11 +387,6 @@
 		<item name="rippleColor">@color/key_ok_ripple</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.Large.Placeholder" parent="TTheme.Numpad.Key.Number">
-		<item name="android:textColor">@android:color/transparent</item>
-		<item name="android:background">@android:color/transparent</item>
-	</style>
-
 	<style name="TTheme.Numpad.Key.ShortPunctuation" parent="TTheme.Numpad.Key.Number">
 		<item name="android:layout_weight">1</item>
 		<item name="android:layout_width">0dp</item>
