@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -13,6 +15,8 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class Text extends TextTools {
 	private final Language language;
 	private final String text;
+
+	private final static Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
 
 
 	public Text(Language language, String text) {
@@ -189,26 +193,38 @@ public class Text extends TextTools {
 	}
 
 
-	public int lastBoundaryIndex() {
+	/**
+	 * Returns the starting index of the last word boundary. This could be start of a word, of a whitespace
+	 * block or of a punctuation block (e.g. "..."). In the case of languages that do not use spaces
+	 * it is not possible to determine where a word starts, so in case the text ends with letters only,
+	 * we assume the last word is at most MAX_WORD_LENGTH_NO_SPACE letters long.
+	 */
+	public int lastBoundaryIndex(final int MAX_WORD_LENGTH_NO_SPACE) {
 		if (text == null || text.length() < 2) {
 			return -1;
 		}
 
-		char lastChar = text.charAt(text.length() - 1);
-		char penultimateChar = text.charAt(text.length() - 2);
+		Matcher matcher = QUICK_DELETE_GROUP.matcher(text);
+		for (int i = matcher.find() ? matcher.groupCount() : 0, nonLetterGroup = 0; i >= 0; i--, nonLetterGroup = 1) {
+			String group = matcher.group(i);
+			if (group == null) {
+				continue;
+			}
 
-		boolean endsWithWhitespaceBlock = Character.isWhitespace(lastChar) && Character.isWhitespace(penultimateChar);
-		boolean endsWithPunctuationBlock = (lastChar == '.' || lastChar == ',') && (penultimateChar == '.' || penultimateChar == ',');
+			if (nonLetterGroup == 1) {
+				return matcher.start();
+			}
 
-		for (int i = text.length() - 1, firstChar = 1; i >= 0; i--, firstChar = 0) {
-			char currentChar = text.charAt(i);
+			Text gr = new Text(group);
+			int codePoints = gr.codePointLength();
 
-			if (
-				(endsWithPunctuationBlock && currentChar != '.' && currentChar != ',')
-				|| (endsWithWhitespaceBlock && !Character.isWhitespace(currentChar))
-				|| (!endsWithWhitespaceBlock && !endsWithPunctuationBlock && firstChar == 0 && Character.isWhitespace(currentChar))
-			) {
-				return i + 1;
+			// In the writing systems that do not use spaces, the last group is not the last word, but
+			// it could be an entire sentence or a paragraph. That's why we assume an average word length
+			// of N letters
+			if (codePoints > MAX_WORD_LENGTH_NO_SPACE && (TextTools.isChinese(group) || TextTools.isJapanese(group) || TextTools.isThai(group))) {
+				return text.length() - gr.substringCodePoints(codePoints - 4, codePoints).length();
+			} else {
+				return matcher.start();
 			}
 		}
 
