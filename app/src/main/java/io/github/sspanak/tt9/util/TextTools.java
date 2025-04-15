@@ -17,6 +17,7 @@ public class TextTools {
 	private static final Pattern IS_CHINESE = Pattern.compile("\\p{script=Han}+");
 	private static final Pattern IS_JAPANESE = Pattern.compile("\\p{script=Hiragana}+|\\p{script=Katakana}+|\\p{script=Han}+");
 	private static final Pattern IS_HANGUL = Pattern.compile("[\u1100-\u11FF\u302E-\u302F\u3131-\u318F\u3200-\u321F\u3260-\u327E\uA960-\uA97F\uAC00-\uD7FB\uFFA0-\uFFDF]+");
+	private static final Pattern IS_THAI = Pattern.compile("[\\u0E00-\\u0E7F]+");
 	private static final Pattern NEXT_TO_WORD = Pattern.compile("\\b$");
 	private static final Pattern PREVIOUS_IS_LETTER = Pattern.compile("[\\p{L}\\p{M}](?!\\n)$");
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
@@ -59,6 +60,11 @@ public class TextTools {
 
 	public static boolean isJapanese(String str) {
 		return str != null && IS_JAPANESE.matcher(str).find();
+	}
+
+
+	public static boolean isThai(String str) {
+		return str != null && IS_THAI.matcher(str).find();
 	}
 
 
