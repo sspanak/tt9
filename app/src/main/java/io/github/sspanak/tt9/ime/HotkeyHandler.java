@@ -428,7 +428,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, false, true);
+		return validateOnly || undo();
 	}
 
 
@@ -437,7 +437,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
+		return validateOnly || redo();
 	}
 
 
