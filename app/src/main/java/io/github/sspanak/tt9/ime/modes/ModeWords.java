@@ -137,7 +137,8 @@ class ModeWords extends ModeCheonjiin {
 			return null;
 		}
 
-		String previousWord = textField.getWordBeforeCursor(language, 0, false);
+		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
+		String previousWord = textField.getTextBeforeCursor().getPreviousWord(false, includeApostrophes);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
