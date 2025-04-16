@@ -7,7 +7,8 @@ public class SettingsStore extends SettingsHotkeys {
 	public SettingsStore(Context context) { super(context); }
 
 	/************* internal settings *************/
-	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20;
+	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20; // maximum chars to be deleted at once in very long words
+	public static final int BACKSPACE_ACCELERATION_MAX_CHARS_NO_SPACE = 4; // maximum chars to be deleted at once for languages with no spaces
 	public static final int BACKSPACE_ACCELERATION_REPEAT_DEBOUNCE = 5;
 	public final static int CLIPBOARD_PREVIEW_LENGTH = 20;
 	public final static int CUSTOM_WORDS_IMPORT_MAX_LINES = 250;

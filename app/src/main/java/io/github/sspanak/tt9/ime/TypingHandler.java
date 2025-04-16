@@ -133,18 +133,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		} else {
 			suggestionOps.commitCurrent(false);
 			mInputMode.reset();
-
-			int charsToDelete;
-
-			if (settings.getBackspaceAcceleration() && repeat > 0) {
-				charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
-			} else if (!textSelection.isEmpty()) {
-				charsToDelete = textSelection.length();
-				textSelection.clear(false);
-			} else {
-				charsToDelete = 1;
-			}
-			textField.deleteChars(charsToDelete);
+			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
 		}
 
 		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
@@ -251,6 +240,18 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
+	private void deleteText(boolean deleteMany) {
+		int charsToDelete = 1;
+		if (deleteMany) {
+			charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
+		} else if (!textSelection.isEmpty()) {
+			charsToDelete = textSelection.length();
+			textSelection.clear(false);
+		}
+		textField.deleteChars(charsToDelete);
+	}
+
+
 	/**
 	 * determineLanguage
 	 * Restore the last language or auto-select a more appropriate one, if the application hints so.
@@ -289,7 +290,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * We do not want to handle any of these, hence we pass through all input to the system.
 	 */
 	protected int determineInputModeId() {
-		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTermux())) {
+		if (!inputType.isValid() || (inputType.isLimited() && !inputType.isTeams() && !inputType.isTermux())) {
 			return InputMode.MODE_PASSTHROUGH;
 		}
 

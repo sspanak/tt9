@@ -208,10 +208,12 @@ public class DictionaryLoader {
 		} catch (DictionaryImportAbortedException e) {
 			sqlite.failTransaction();
 			stop();
+			self.lastAutoLoadAttemptTime.put(language.getId(), null);
 			Logger.i(LOG_TAG, e.getMessage() + ". File '" + language.getDictionaryFile() + "' not imported.");
 		} catch (DictionaryImportException e) {
 			stop();
 			sqlite.failTransaction();
+			self.lastAutoLoadAttemptTime.put(language.getId(), null);
 			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line);
 
 			Logger.e(
@@ -223,6 +225,7 @@ public class DictionaryLoader {
 		} catch (Exception | Error e) {
 			stop();
 			sqlite.failTransaction();
+			self.lastAutoLoadAttemptTime.put(language.getId(), null);
 			sendError(e.getClass().getSimpleName(), language.getId());
 
 			Logger.e(
