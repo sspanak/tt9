@@ -24,8 +24,8 @@ public class WordPair {
 
 
 	boolean isInvalid() {
-		Text w1 = new Text(word1);
-		Text w2 = new Text(word2);
+		Text w1 = new Text(language, word1);
+		Text w2 = new Text(language, word2);
 
 		return
 			language == null
@@ -33,7 +33,7 @@ public class WordPair {
 			|| word1.equals(word2)
 			|| sequence2 == null || !(new Text(sequence2).isNumeric())
 			|| (w1.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH && w2.codePointLength() > SettingsStore.WORD_PAIR_MAX_WORD_LENGTH)
-			|| !w1.isAlphabetic() || !w2.isAlphabetic();
+			|| !w1.isWord() || !w2.isWord();
 	}
 
 

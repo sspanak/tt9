@@ -16,7 +16,11 @@ public class Text extends TextTools {
 	private final Language language;
 	private final String text;
 
-	private final static Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
+	private static final Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
+	private static final Pattern PREVIOUS_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)$");
+	private static final Pattern PREVIOUS_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)$");
+	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
+	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
 
 
 	public Text(Language language, String text) {
@@ -58,6 +62,24 @@ public class Text extends TextTools {
 	}
 
 
+	@NonNull
+	public String getPreviousWord(boolean skipOne, boolean isLanguageWithApostrophes) {
+		if (text == null || text.isEmpty()) {
+			return "";
+		}
+
+		Matcher matcher;
+		if (isLanguageWithApostrophes) {
+			matcher = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES.matcher(text) : PREVIOUS_WORD_WITH_APOSTROPHES.matcher(text);
+		} else {
+			matcher = skipOne ? PENULTIMATE_WORD.matcher(text) : PREVIOUS_WORD.matcher(text);
+		}
+
+		String word = matcher.find() ? matcher.group(1) : null;
+		return word == null ? "" : word;
+	}
+
+
 	public int getTextCase() {
 		if (isUpperCase()) {
 			return InputMode.CASE_UPPER;
@@ -89,6 +111,18 @@ public class Text extends TextTools {
 
 		for (int i = 0, end = text.length(); i < end; i++) {
 			if (!Character.isDigit(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+
+	public boolean isWord() {
+		boolean isApostropheAllowed = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
+		for (int i = 0, end = text == null ? 0 : text.length(); i < end; i++) {
+			if (!Character.isAlphabetic(text.charAt(i)) && !(isApostropheAllowed && text.charAt(i) == '\'')) {
 				return false;
 			}
 		}
