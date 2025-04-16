@@ -40,7 +40,7 @@
 	<string name="pref_auto_capitals_after_newline">Her Satıra Büyük Harf ile Başlama</string>
 	<string name="pref_auto_capitals_after_newline_summary">Cümlenin ortasında olsa bile her yeni satıra büyük harf ile başlar.</string>
 	<string name="pref_backspace_recomposing">Kelime Yeniden Düzenleme</string>
-	<string name="pref_backspace_recomposing_summary">Kelime sonunda Backspace tuşuna basarak düzenle. (Bazı uygulamalarda, karışık ya da ideografik metinlerde mümkün değil)</string>
+	<string name="pref_backspace_recomposing_summary">Kelime sonunda Backspace tuşuna basarak düzenle. (Bazı uygulamalarda ve çok dilli metinlerde mümkün değil)</string>
 	<string name="pref_choose_languages">Diller</string>
 
 	<string name="pref_numpad_shape_long_space">Uzun boşluk tuşu</string>
