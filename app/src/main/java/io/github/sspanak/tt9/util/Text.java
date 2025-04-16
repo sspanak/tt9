@@ -63,13 +63,13 @@ public class Text extends TextTools {
 
 
 	@NonNull
-	public String getPreviousWord(boolean skipOne, boolean isLanguageWithApostrophes) {
+	public String getPreviousWord(boolean skipOne, boolean includeApostrophes) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
 		Matcher matcher;
-		if (isLanguageWithApostrophes) {
+		if (includeApostrophes) { // Ukrainian and Hebrew
 			matcher = skipOne ? PENULTIMATE_WORD_WITH_APOSTROPHES.matcher(text) : PREVIOUS_WORD_WITH_APOSTROPHES.matcher(text);
 		} else {
 			matcher = skipOne ? PENULTIMATE_WORD.matcher(text) : PREVIOUS_WORD.matcher(text);
