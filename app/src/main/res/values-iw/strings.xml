@@ -44,7 +44,7 @@
 	<string name="pref_auto_capitals_after_newline">רישיות אוטומטיות בכל שורה</string>
 	<string name="pref_auto_capitals_after_newline_summary">להתחיל כל שורה באות ראשונה גדולה, גם אם היא באמצע משפט.</string>
 	<string name="pref_backspace_recomposing">עריכת מילים</string>
-	<string name="pref_backspace_recomposing_summary">ללחוץ Backspace בסוף מילה כדי לערוך אותה. (לא אפשרי בחלק מהאפליקציות, טקסט מעורב או אידאוגרפי)</string>
+	<string name="pref_backspace_recomposing_summary">ללחוץ על Backspace בסוף מילה כדי לערוך אותה. (לא אפשרי בחלק מהאפליקציות ובטקסט רב-לשוני)</string>
 	<string name="pref_choose_languages">שפות</string>
 	<string name="pref_dark_theme">ערכת נושא שחורה</string>
 	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>

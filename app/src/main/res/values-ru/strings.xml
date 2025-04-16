@@ -24,7 +24,7 @@
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>
 	<string name="pref_backspace_recomposing">Редактирование слов</string>
-	<string name="pref_backspace_recomposing_summary">Нажать Backspace в конце слова, чтобы его изменить. (Недоступно в некоторых приложениях, при смешанном или иероглифическом тексте)</string>
+	<string name="pref_backspace_recomposing_summary">Нажать Backspace в конце слова, чтобы его изменить. (Недоступно в некоторых приложениях и при многоязычном тексте)</string>
 	<string name="pref_choose_languages">Языки</string>
 	<string name="dictionary_truncate_title">Удалить все</string>
 	<string name="pref_numpad_shape_long_space">Длинный пробел</string>
