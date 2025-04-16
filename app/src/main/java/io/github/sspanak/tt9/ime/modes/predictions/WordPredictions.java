@@ -8,7 +8,9 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -348,6 +350,23 @@ public class WordPredictions extends Predictions {
 	 */
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
-		return textField.getWordBeforeCursor(language, 1, true);
+		// We are in the middle of a word or at the beginning of a new one. Pairing makes no sense.
+		Text after = textField.getTextAfterCursor(1);
+		if (after.startsWithWord()) {
+			return "";
+		}
+
+		Text before = textField.getTextBeforeCursor();
+
+		// We are at the end of word. The user is probably typing a compound word. We do not want to
+		// pair with the first part of the compound word.
+		if (before.length() > currentWord.length() && before.toString().endsWith(currentWord) && Character.isAlphabetic(before.toString().charAt(before.length() - currentWord.length() - 1))) {
+			return "";
+		}
+
+		return before.getPreviousWord(
+			!currentWord.isEmpty(),
+			LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language)
+		);
 	}
 }
