@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.util.Logger;
 
 public class SettingsHotkeys extends SettingsUI {
-	private static final String HOTKEY_VERSION = "hotkeys_v5";
+	private static final String HOTKEY_VERSION = "hotkeys_v6";
 
 	public static final String FUNC_ADD_WORD = "key_add_word";
 	public static final String FUNC_BACKSPACE = "key_backspace";
@@ -23,6 +23,8 @@ public class SettingsHotkeys extends SettingsUI {
 	public static final String FUNC_SHIFT = "key_shift";
 	public static final String FUNC_SPACE_KOREAN = "key_space_korean";
 	public static final String FUNC_SHOW_SETTINGS = "key_show_settings";
+	public static final String FUNC_UNDO = "key_undo";
+	public static final String FUNC_REDO = "key_redo";
 	public static final String FUNC_VOICE_INPUT = "key_voice_input";
 
 	public static final String[] FUNCTIONS = {
@@ -40,6 +42,8 @@ public class SettingsHotkeys extends SettingsUI {
 		FUNC_SHIFT,
 		FUNC_SPACE_KOREAN,
 		FUNC_SHOW_SETTINGS,
+		FUNC_UNDO,
+		FUNC_REDO,
 		FUNC_VOICE_INPUT,
 	};
 
@@ -62,7 +66,7 @@ public class SettingsHotkeys extends SettingsUI {
 	 */
 	public void setDefaultKeys() {
 		// no default keys
-		String[] unassigned = { FUNC_ADD_WORD, FUNC_EDIT_TEXT, FUNC_SELECT_KEYBOARD, FUNC_SHOW_SETTINGS, FUNC_VOICE_INPUT };
+		String[] unassigned = { FUNC_ADD_WORD, FUNC_EDIT_TEXT, FUNC_SELECT_KEYBOARD, FUNC_SHOW_SETTINGS, FUNC_UNDO, FUNC_REDO, FUNC_VOICE_INPUT };
 		for (String key : unassigned) {
 			prefsEditor.putString(key, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		}
@@ -171,6 +175,12 @@ public class SettingsHotkeys extends SettingsUI {
 	}
 	public int getKeyShowSettings() {
 		return getFunctionKey(FUNC_SHOW_SETTINGS);
+	}
+	public int getKeyUndo() {
+		return getFunctionKey(FUNC_UNDO);
+	}
+	public int getKeyRedo() {
+		return getFunctionKey(FUNC_REDO);
 	}
 	public int getKeyVoiceInput() {
 		return getFunctionKey(FUNC_VOICE_INPUT);
