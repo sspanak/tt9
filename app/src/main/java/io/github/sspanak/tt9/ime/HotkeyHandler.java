@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Ternary;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public abstract class HotkeyHandler extends CommandHandler {
 	@Override
@@ -411,7 +412,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		// type a space when there is nothing to accept
-		return onText(" ", validateOnly);
+		return onText(Characters.getSpace(mLanguage), validateOnly);
 	}
 
 
