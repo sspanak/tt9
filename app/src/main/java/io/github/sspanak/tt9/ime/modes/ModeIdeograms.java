@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
-import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModeIdeograms extends ModeWords {
 	private static final String LOG_TAG = ModeIdeograms.class.getSimpleName();
@@ -48,16 +47,6 @@ public class ModeIdeograms extends ModeWords {
 	public void reset() {
 		super.reset();
 		isFiltering = false;
-	}
-
-
-	@Override
-	protected void setCustomSpecialCharacters() {
-		KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Special, 0));
-		int spaceIndex = KEY_CHARACTERS.get(0).indexOf(" ");
-		if (spaceIndex >= 0) {
-			KEY_CHARACTERS.get(0).set(spaceIndex, Characters.IDEOGRAPHIC_SPACE);
-		}
 	}
 
 	/******************************* LOAD SUGGESTIONS *********************************/
