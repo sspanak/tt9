@@ -42,7 +42,7 @@
 	<string name="pref_auto_capitals_after_newline">Maiuscole automatiche su ogni riga</string>
 	<string name="pref_auto_capitals_after_newline_summary">Iniziare ogni riga con una lettera maiuscola, anche se è nel mezzo di una frase.</string>
 	<string name="pref_backspace_recomposing">Ricomposizione delle parole</string>
-	<string name="pref_backspace_recomposing_summary">Premere Backspace alla fine della parola per modificarla. (Non possibile in alcune app, testo misto o ideografico)</string>
+	<string name="pref_backspace_recomposing_summary">Premere Backspace alla fine della parola per modificarla. (Non possibile in alcune app e con testo multilingue)</string>
 	<string name="pref_choose_languages">Lingue</string>
 
 	<string name="pref_numpad_shape_long_space">Barra spaziatrice lunga</string>

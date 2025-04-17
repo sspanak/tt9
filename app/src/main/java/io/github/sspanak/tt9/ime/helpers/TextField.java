@@ -11,8 +11,6 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -42,13 +40,13 @@ public class TextField extends InputField {
 
 
 	@NonNull public String getStringAfterCursor(int numberOfChars) {
-		CharSequence chars = connection != null ? connection.getTextAfterCursor(numberOfChars, 0) : null;
+		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextAfterCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	@NonNull public String getStringBeforeCursor(int numberOfChars) {
-		CharSequence chars = connection != null ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
+		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
@@ -106,48 +104,6 @@ public class TextField extends InputField {
 		}
 
 		return before.subStringEndingWord(keepApostrophe, keepQuote) + after.subStringStartingWord(keepApostrophe, keepQuote);
-	}
-
-
-	/**
-	 * Returns a word (String containing of alphabetic) characters before the cursor, only if the cursor is
-	 * not in the middle of that word. "skipWords" can be used to return the N-th word before the cursor.
-	 * "stopAtPunctuation" can be used to stop searching at the first punctuation character. In case
-	 * no complete word is found due to any reason, an empty string is returned.
-	 */
-	@NonNull public String getWordBeforeCursor(Language language, int skipWords, boolean stopAtPunctuation) {
-		if (getTextAfterCursor(1).startsWithWord()) {
-			return "";
-		}
-
-		String before = getStringBeforeCursor();
-		if (before.isEmpty() || !Character.isAlphabetic(before.charAt(before.length() - 1))) {
-			return "";
-		}
-
-		int endIndex = before.length();
-		ArrayList<String> punctuation = language.getKeyCharacters(1);
-
-		for (int i = before.length() - 1; i >= 0; i--) {
-			char currentLetter = before.charAt(i);
-
-			if (stopAtPunctuation && punctuation.contains(String.valueOf(currentLetter))) {
-				return "";
-			}
-
-			if (
-				!Character.isAlphabetic(currentLetter)
-				&& !(currentLetter == '\'' && (LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language)))
-			) {
-				if (skipWords-- <= 0 || i == 0) {
-					return i + 1 >= endIndex ? "" : before.substring(i + 1, endIndex);
-				} else {
-					endIndex = i;
-				}
-			}
-		}
-
-		return endIndex == before.length() ? before : before.substring(0, endIndex);
 	}
 
 

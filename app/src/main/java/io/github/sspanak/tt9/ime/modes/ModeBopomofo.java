@@ -47,7 +47,7 @@ public class ModeBopomofo extends ModePinyin {
 	 */
 	protected void setCustomSpecialCharacters() {
 		// special
-		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.Special, 0)));
+		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.getSpecial(language), 0)));
 		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation

@@ -12,13 +12,14 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
-import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModeIdeograms extends ModeWords {
 	private static final String LOG_TAG = ModeIdeograms.class.getSimpleName();
 	protected String NAME;
 
 	private boolean isFiltering = false;
+	@NonNull private String lastAcceptedSequence = "";
+	@NonNull private String lastAcceptedWord = "";
 
 
 	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
@@ -46,16 +47,6 @@ public class ModeIdeograms extends ModeWords {
 	public void reset() {
 		super.reset();
 		isFiltering = false;
-	}
-
-
-	@Override
-	protected void setCustomSpecialCharacters() {
-		KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Special, 0));
-		int spaceIndex = KEY_CHARACTERS.get(0).indexOf(" ");
-		if (spaceIndex >= 0) {
-			KEY_CHARACTERS.get(0).set(spaceIndex, Characters.IDEOGRAPHIC_SPACE);
-		}
 	}
 
 	/******************************* LOAD SUGGESTIONS *********************************/
@@ -86,11 +77,30 @@ public class ModeIdeograms extends ModeWords {
 		super.onPredictions();
 	}
 
+
+	@Override
+	public String recompose() {
+		if (lastAcceptedWord.isEmpty()) {
+			return null;
+		}
+
+		String before = textField.getStringBeforeCursor(lastAcceptedWord.length());
+		if (lastAcceptedWord.equals(before)) {
+			reset();
+			digitSequence = lastAcceptedSequence;
+			return lastAcceptedWord;
+		} else {
+			Logger.d(LOG_TAG, "Not recomposing word: '" + before + "' != last word: '" + lastAcceptedWord + "'");
+			return null;
+		}
+	}
+
 	/******************************* ACCEPT WORDS *********************************/
 
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
-		if (currentWord.isEmpty() || new Text(currentWord).isNumeric()) {
+		Text text = new Text(currentWord);
+		if (text.isEmpty() || text.startsWithWhitespace() || text.isNumeric()) {
 			reset();
 			Logger.i(LOG_TAG, "Current word is empty or numeric. Nothing to accept.");
 			return;
@@ -103,8 +113,14 @@ public class ModeIdeograms extends ModeWords {
 			return;
 		}
 
+
+
 		try {
-			((IdeogramPredictions) predictions).onAcceptIdeogram(currentWord);
+			if (!digitSequence.equals(SPECIAL_CHAR_SEQUENCE) && !digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+				((IdeogramPredictions) predictions).onAcceptIdeogram(currentWord);
+				lastAcceptedSequence = digitSequence;
+				lastAcceptedWord = currentWord;
+			}
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
