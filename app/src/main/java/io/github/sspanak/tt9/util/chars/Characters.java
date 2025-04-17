@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class Characters extends Emoji {
 	public static final String COMBINING_ZERO_BASE = "◌";
@@ -11,10 +12,6 @@ public class Characters extends Emoji {
 
 	final public static ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
 		"$", "€", "₿", "¢", "¤", "₱", "¥", "£"
-	));
-
-	final public static ArrayList<String> Special = new ArrayList<>(Arrays.asList(
-		" ", "\n", "@", "_", "#", "%", "[", "]", "{", "}", "§", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
 	));
 
 	/**
@@ -35,9 +32,26 @@ public class Characters extends Emoji {
 	));
 
 	/**
+	 * Returns the language-specific space character.
+	 */
+	public static String getSpace(Language language) {
+		return LanguageKind.isChinese(language) || LanguageKind.isJapanese(language) ? IDEOGRAPHIC_SPACE : " ";
+	}
+
+	/**
+	 * Standard special characters with automatic Space selection based on the language. Useful for
+	 * text fields.
+	 */
+	public static ArrayList<String> getSpecial(Language language) {
+		return new ArrayList<>(Arrays.asList(
+			getSpace(language), "\n", "@", "_", "#", "%", "[", "]", "{", "}", "§", "|", "^", "<", ">", "\\", "/", "=", "*", "+"
+		));
+	}
+
+	/**
 	 * Special characters for all kinds of numeric fields: integer, decimal with +/- included as necessary.
 	 */
-	public static ArrayList<ArrayList<String>> getNumberSpecialCharacters(boolean decimal, boolean signed) {
+	public static ArrayList<ArrayList<String>> getSpecialForNumbers(boolean decimal, boolean signed) {
 		ArrayList<ArrayList<String>> keyCharacters = new ArrayList<>();
 		keyCharacters.add(signed ? new ArrayList<>(Arrays.asList("-", "+")) : new ArrayList<>());
 		if (decimal) {

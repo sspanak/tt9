@@ -84,7 +84,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 		final String PUNCTUATION_PLACEHOLDER = "PUNCTUATION";
 
 		final Map<String, List<String>> specialChars = new HashMap<>();
-		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.Special);
+		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.getSpecial(this));
 		specialChars.put(PUNCTUATION_PLACEHOLDER, Characters.PunctuationEnglish);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_AR", Characters.PunctuationArabic);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_ZH", Characters.PunctuationChinese);
