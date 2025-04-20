@@ -362,6 +362,7 @@ zm	64
 .lb
 .lc
 -je	10
+-le
 .je
 .ke
 .kg
@@ -670,6 +671,7 @@ erg	58
 dru	57
 est	202
 dry	72
+Eva
 duc	145
 etc	151
 DVD	129
@@ -762,8 +764,10 @@ jar	60
 jas	67
 las	108
 lat	82
+Léa	81
 Lee	114
 lei
+Léo	99
 les	204
 lès
 jet	110
@@ -790,6 +794,7 @@ lob	68
 Joe	113
 lof
 loi	151
+Lou
 lot	110
 ksi	42
 Luc	107
@@ -1098,6 +1103,7 @@ yen	81
 zen	92
 zig	41
 yin	84
+Zoé	59
 XML	104
 won	67
 zoo	107
@@ -1576,6 +1582,7 @@ axas
 czar	49
 axât
 axée	102
+Axel	52
 axer	57
 axes	120
 axés	85
@@ -1726,6 +1733,7 @@ flop	80
 flot	105
 flou	98
 flow	81
+Elsa	84
 flua
 flue	43
 flué
@@ -1761,6 +1769,7 @@ dolé	27
 folk
 dols
 fols
+Emma	97
 donc	163
 dôme	112
 fond	140
@@ -1810,6 +1819,7 @@ fout	68
 émût
 doux	120
 foxé	49
+Enzo	82
 down
 frac	76
 frai	74
@@ -2009,6 +2019,7 @@ iode	77
 iodé	66
 indo
 info	88
+Inès	66
 indu	52
 gogo	68
 goïm
@@ -2155,6 +2166,7 @@ Jeff	103
 jeep	79
 lège	53
 legs	103
+Léna	74
 Léon	118
 Lens	101
 Kent	101
@@ -2233,6 +2245,7 @@ lofé
 lods	54
 lofs
 loft	79
+Loïc	81
 joie	118
 loge	115
 logé	95
@@ -2241,6 +2254,7 @@ logo	120
 loin	142
 loir	64
 lois	136
+Lola	87
 kola	59
 joli	96
 lolo	42
@@ -2320,6 +2334,7 @@ Mach	67
 macs	42
 nafé
 obéi	75
+Mael
 obel	41
 maïa	61
 mage	94
@@ -2441,6 +2456,7 @@ mile	91
 milk
 mils	65
 oils
+Nina	92
 mima	31
 mina	59
 mime	90
@@ -2690,6 +2706,7 @@ paon	85
 pans	107
 sans	165
 ranz
+Sara	94
 papa	96
 para	95
 parc	147
@@ -2780,11 +2797,13 @@ rêne	44
 semé	92
 sème	91
 séné	49
+Rémi	85
 semi	93
 péon	31
 rems	41
 sens	148
 sent	116
+Rémy	90
 pesa	65
 sera	157
 perd	137
@@ -3191,6 +3210,7 @@ tics	76
 vida	83
 vide	127
 vidé	91
+Theo
 tien	62
 thés	83
 tifs	36
@@ -3361,6 +3381,7 @@ yaks	63
 Walt	108
 yang	83
 zani	38
+Yann	94
 yard
 watt	72
 zébu	74
@@ -3627,6 +3648,7 @@ basin	59
 cargo	105
 abris	103
 caris	14
+Carla	83
 Carlo	106
 carma	36
 carme	65
@@ -3786,6 +3808,7 @@ celés	27
 cèles
 bêlez
 celez
+Célia	54
 belge	140
 cella	86
 belle	132
@@ -3997,6 +4020,7 @@ cille	38
 cillé
 bills
 Billy	104
+Chloé	81
 bijou	91
 aimai
 binai
@@ -4020,6 +4044,7 @@ bines
 binés
 cimes	82
 cinés	34
+Cindy	78
 aimez	64
 binez
 choie	31
@@ -4135,6 +4160,7 @@ clamé	70
 clamp	69
 clams	27
 clans	111
+Clara	95
 blasa
 clapa
 blase	22
@@ -4257,6 +4283,7 @@ coche	74
 coché	36
 côche
 côché
+Anaïs	71
 ambla	14
 amble	43
 amblé
@@ -4941,6 +4968,7 @@ axons	31
 ayons	80
 azote	88
 azoté	66
+Cyril	90
 azura	34
 azure	34
 azuré	63
@@ -5038,6 +5066,7 @@ damne	49
 damné	64
 fanon	71
 faons	64
+Fanny	94
 dansa	67
 écopa	62
 écora
@@ -5428,7 +5457,9 @@ flics	84
 élimé	31
 djinn	69
 flint	52
+Elisa
 élira	56
+Elise
 élire	113
 élise	45
 flirt	76
@@ -5832,6 +5863,7 @@ estoc	47
 drupe	73
 épure	70
 épuré	88
+Erwan	67
 ducal	96
 ducat	60
 évadé	87
@@ -5978,6 +6010,7 @@ exila	62
 exile	73
 exilé	109
 exils	68
+Dylan	96
 exode	97
 expia
 expie	50
@@ -6780,6 +6813,8 @@ latin	140
 lavis	85
 jaune	133
 jauni	47
+Laura	97
+Laure
 lauré
 latta	22
 jatte	51
@@ -7123,6 +7158,7 @@ ksour	61
 Lucas	102
 jubés	57
 jucha	22
+Lucie	91
 juche	56
 juché	77
 lubie	59
@@ -7268,6 +7304,7 @@ madré
 obère	49
 obèse	83
 obéré	44
+Maéva
 maïas
 nagea	45
 nagée	36
@@ -7328,6 +7365,7 @@ manie	92
 manié	65
 obole	65
 manne	85
+Manon	84
 mammy
 manse	72
 maori	89
@@ -7461,6 +7499,7 @@ médoc	56
 odéon	52
 offre	139
 odeur	107
+Mehdi	79
 mégie	14
 neige	125
 neigé	54
@@ -10395,6 +10434,7 @@ yacks	53
 zabre
 wagon	97
 zains
+Yanis	57
 zanis
 zanni	41
 zanzi
@@ -11319,6 +11359,7 @@ bêches	58
 bêchés
 bêchez
 adagio	70
+Cécile	93
 beagle	74
 cécité	92
 béance	55
@@ -11394,6 +11435,7 @@ cédrat	63
 affres	84
 cèdres	86
 béerez
+Cédric	88
 adepte	101
 cédule	53
 affura
@@ -11438,6 +11480,7 @@ belges	119
 bélier	95
 bêliez
 celiez
+Céline	95
 cellas	31
 belles	121
 celles	144
@@ -11473,6 +11516,7 @@ benito	85
 bénits	42
 bennes	75
 adonis	41
+Benoit
 Benoît	111
 bémols	65
 adonné	70
@@ -11527,6 +11571,7 @@ aèrent	44
 aérera
 adrets	50
 bérets	71
+Adrien	98
 aérien	121
 berger	105
 berges	109
@@ -11697,6 +11742,7 @@ agaves	64
 agavés
 chauds	112
 châtia	38
+Agathe	81
 châtie	61
 châtié	69
 chaula
@@ -12305,7 +12351,9 @@ bleute
 bleuté	85
 bletti
 alezan	71
+Alexia	65
 Alexis	103
+Alicia	84
 clicha
 cliche	14
 cliché	96
@@ -12573,6 +12621,7 @@ codiez
 andine	83
 Boeing	101
 andins	77
+Amélie	88
 amenai
 amenas	22
 amenât
@@ -12588,6 +12637,7 @@ anémia
 anémie	84
 anémié	27
 codons	73
+Andréa	65
 amères	81
 Andrew	105
 ânerie	38
@@ -12705,6 +12755,7 @@ bolduc	27
 bolets	67
 bolide	74
 bolier
+Coline	47
 colins	42
 colite	66
 collai
@@ -13909,6 +13960,7 @@ avérée	98
 avères
 avérer	31
 avérés	89
+Audrey	83
 avérez
 averse	73
 cuesta	78
@@ -14047,7 +14099,7 @@ aurons	77
 burons	65
 curons
 auront	119
-aurore	70
+Aurore	70
 auprès	146
 busses	34
 cursif	60
@@ -14137,6 +14189,7 @@ cycles	116
 axâmes
 axasse
 axâtes
+Axelle	58
 axerai
 axeras
 axerez
@@ -14178,6 +14231,7 @@ facial	81
 fâchas
 fâchât
 fâchée	58
+Fabien	90
 faciès	91
 fâcher	69
 fâches	14
@@ -14343,6 +14397,7 @@ fameux	126
 faneux
 dandys	62
 Daniel	121
+Damien	91
 danien	38
 damier	93
 danger	128
@@ -15280,6 +15335,7 @@ diffas
 fieffa
 fieffe
 fieffé	49
+Eiffel	93
 fidèle	126
 égéens	38
 eiders	54
@@ -15581,7 +15637,9 @@ flirts	58
 floche	34
 flocon	69
 élodée	34
+Elodie
 éloges	96
+Éloïse	43
 élonge
 élongé	34
 floral	93
@@ -15786,6 +15844,7 @@ doigta
 doigte
 doigté	77
 doigts	117
+Emilie
 Émilie	85
 englua
 englue
@@ -16017,6 +16076,7 @@ doseur	51
 forets	71
 foreur	58
 forêts	133
+Dorian	73
 forgea	75
 forgée	88
 dorien	71
@@ -17133,8 +17193,10 @@ gadget	79
 gadins	27
 hadith	88
 hadjis
+Gaelle
 gadoue	49
 ibères	71
+Gaëtan	74
 gaïacs	14
 hagard	51
 gageai
@@ -17469,6 +17531,7 @@ gelant	61
 hélant
 gelées	101
 hélées
+Helene
 Hélène	103
 gèlent	67
 hèlent
@@ -18815,6 +18878,7 @@ jaunît
 lavons
 laurée	46
 laurés
+Laurie	82
 latrie
 lattai
 lattas
@@ -18889,6 +18953,7 @@ lésait	42
 lésant	44
 lésées	59
 lèsent	38
+Jérémy	78
 lésera
 lésiez
 képhir
@@ -19402,6 +19467,7 @@ juchés	60
 lubies	56
 juchez
 jubila
+Lucile	71
 jubile	53
 jubilé	92
 lucres
@@ -19602,6 +19668,7 @@ maculé	68
 occupa	113
 occupe	137
 occupé	131
+Océane	63
 madame	104
 océans	109
 maffia	52
@@ -19611,6 +19678,7 @@ mafias	70
 obéira	53
 nadirs	22
 obèles
+Maëlle
 ocelle	81
 ocellé	65
 ocelot	51
@@ -19818,11 +19886,13 @@ margez
 mariez	22
 ocriez
 margis
-marina	86
+Marina	86
 marine	135
 mariné	66
 narine	66
+Marion	96
 marins	127
+Margot	79
 nargua
 naphte	61
 nargue	63
@@ -19945,6 +20015,7 @@ navets	78
 octets	96
 natice
 obviai
+Nathan	99
 obvias
 obviât
 obviée
@@ -19957,6 +20028,7 @@ obviés
 matiez
 mâtiez
 obviez
+Mathis	73
 mâtina
 matine
 mâtiné	71
@@ -20017,7 +20089,7 @@ obtuse	47
 mayens	45
 nazies	95
 maxima	88
-maxime	87
+Maxime	87
 mazout	79
 mécano	62
 mécène	105
@@ -20503,6 +20575,7 @@ modéré	111
 ondine	47
 ondins	46
 moelle	103
+Noémie	67
 ondoie	22
 ondoya
 ondoyé	46
@@ -21160,6 +21233,7 @@ ozonés
 myopes	54
 myopie	78
 nymphe	94
+Myriam	84
 myrrhe	73
 myrtes	57
 mythes	111
@@ -21514,6 +21588,7 @@ palmez
 salmis	54
 saloir	52
 salols
+Salomé	82
 saloon	82
 râlons
 salons	113
@@ -21597,6 +21672,7 @@ panent
 pâment	36
 rament	50
 Sandow	45
+Sandra	86
 panera	14
 pâmera
 ramera
@@ -23688,6 +23764,7 @@ solfia
 solfie
 solfié
 soleil	130
+Solène
 solens
 pokers
 poliça
@@ -24708,6 +24785,7 @@ sylphe	54
 sylves	31
 syndic	95
 synode	105
+sympas
 pyrale	77
 pyrène	54
 syrien	98
@@ -24884,6 +24962,7 @@ tangua
 tangue	62
 tangué
 vanité	91
+Tanguy	78
 tanker	63
 tannai
 vannai
@@ -27704,6 +27783,7 @@ baquets	70
 capteur	104
 caquets	27
 bastide	96
+Bastien	77
 captifs	98
 cartier	52
 captiez
@@ -29577,6 +29657,7 @@ blêmais
 blêmait
 blêmant
 blendes
+Clement	78
 clément	84
 blêmera
 blêmies
@@ -29987,6 +30068,7 @@ bocards	31
 cocasse	73
 cobayes	79
 bobèche	31
+Anaelle
 amadoua
 amadoue	34
 amadoué	36
@@ -30787,6 +30869,7 @@ corbeau	98
 copaïer
 copains	97
 corbins
+Coralie	65
 boscots
 cosaque	87
 borates	55
@@ -31156,6 +31239,7 @@ boument
 boumera
 côtoies
 Antoine	119
+Antonin	86
 Antonio	113
 cotonna
 cotonne	14
@@ -32773,6 +32857,7 @@ cuscute	52
 bureaux	126
 burelée
 burelés
+Aurélie	75
 burelle	34
 auréola
 auréole	79
@@ -36244,6 +36329,8 @@ florale	90
 floraux	97
 floréal	94
 flopées
+Florent	93
+Florian	87
 Floride	113
 florins	102
 flouais
@@ -36589,6 +36676,7 @@ enflées	47
 enflent	53
 enflera
 enfliez
+Emeline
 enflons
 enflure	49
 enfoiré	45
@@ -38445,6 +38533,7 @@ estarie
 éructez
 érudite	78
 érudits	103
+Estelle	80
 équerra
 équerre	81
 équerré
@@ -39803,6 +39892,7 @@ gélives	51
 héliums
 hellène	85
 hélodée
+Heloise
 géloses	49
 helvète	66
 gélules	67
@@ -41099,6 +41189,7 @@ gredine
 gredins	48
 gréerai
 gréions
+Grégory	83
 grègues
 grêlait
 grêlera
@@ -41987,6 +42078,7 @@ laurées	31
 Laurent	116
 latries
 laurier	95
+Laurine
 lattage
 lattais
 lattait
@@ -42095,6 +42187,7 @@ jerkiez
 jerkons
 lépreux	93
 jerseys	41
+Jessica	91
 lessiva
 lessive	84
 lessivé	60
@@ -42801,6 +42894,7 @@ ludisme	39
 kufique	57
 ludique	98
 judokas	69
+Ludovic	88
 luétine
 luettes	27
 jugales	54
@@ -42901,6 +42995,7 @@ lussiez
 jussion	47
 jusques	78
 justice	137
+Justine	83
 lupulin
 lustrai
 lustral	34
@@ -43417,6 +43512,7 @@ mariait	71
 mariale	82
 marials
 mariant	87
+Margaux	48
 mariaux	53
 margays	38
 margeai
@@ -43740,6 +43836,7 @@ octupla
 octuple	63
 octuplé	27
 Nazaire	63
+Maxence	75
 Mayence	103
 Mayenne	101
 mazette
@@ -43898,6 +43995,7 @@ négrier	79
 meistre
 mélaena
 mêlâmes
+Mélanie	87
 mélange	130
 mélangé	99
 mélasse	81
@@ -43910,6 +44008,7 @@ mêlerez
 mélèzes	76
 mélilot	51
 mêlions
+Melissa
 mélisse	71
 mélique	41
 mélitte	14
@@ -44189,6 +44288,7 @@ niaisât
 niaiser	27
 niaises	42
 niaisez
+Mickael	67
 nickela
 nickelé	55
 nickels	36
@@ -44486,7 +44586,7 @@ oléoduc	77
 oléolat
 olifant	48
 olivaie
-olivier	77
+Olivier	77
 olivine	64
 ollaire	47
 okoumés
@@ -44794,6 +44894,7 @@ mordrez
 noperez
 mordues	49
 mosette	59
+Morgane	76
 morille	51
 morions
 nopions
@@ -45073,6 +45174,7 @@ orgasme	73
 orgeats
 orifice	85
 orgelet	42
+Ophélie
 orienta	69
 oriente	95
 orienté	115
@@ -45719,6 +45821,7 @@ sabreur	63
 sacrets
 sabriez
 sacriez
+Sabrina	77
 scarole	53
 pacsons
 sabrons
@@ -46543,6 +46646,7 @@ sapeurs	91
 rasette	27
 scriban
 pariade
+Raphael
 Raphaël	101
 scribes	94
 pariage	54
@@ -46925,6 +47029,7 @@ ravivez
 saulaie	49
 saulées
 paulien	14
+Pauline	95
 sculpta	72
 sculpte	85
 sculpté	110
@@ -51950,7 +52055,7 @@ syllabé
 pylônes	96
 pylores
 sylphes	60
-sylvain	56
+Sylvain	56
 symbole	133
 syncopa
 syncope	79
@@ -53046,6 +53151,7 @@ thermos	61
 thèques	50
 viduité	45
 vidures
+Thibaut	84
 tigelle	31
 Thierry	110
 tigette
@@ -54077,6 +54183,7 @@ trisses
 trissés
 trissez
 triquai
+Tristan	94
 triquas
 triquât
 triquée
@@ -57149,7 +57256,7 @@ admisses
 bénisses
 bénissez	27
 bénitier	83
-benjamin	90
+Benjamin	90
 cénobite	57
 adonisée
 adoniser
@@ -57650,6 +57757,7 @@ charités	60
 chapitra
 chapitre	131
 chapitré	39
+Charlène
 charmais
 charmait	49
 charmant	94
@@ -59538,6 +59646,7 @@ analysez	27
 analyste	92
 amandaie
 amandier	53
+Amandine	27
 amanites	65
 ancolies	47
 anamnèse	57
@@ -60749,7 +60858,7 @@ bordasse
 cordasse
 bordâtes
 cordâtes
-bordeaux	83
+Bordeaux	83
 cordeaux	38
 cordelai
 cordelas	22
@@ -60778,6 +60887,7 @@ cordions
 cordonna	14
 cordonne
 cordonné
+Corentin	72
 ansérine	43
 bordures	91
 coriaces	83
@@ -63455,6 +63565,7 @@ ausculté	41
 curcumas
 cuscutes	36
 burelées
+Aurélien
 burelles	41
 auréolai
 auréolas
@@ -77223,6 +77334,7 @@ ladanums
 jadéites	27
 kafkaïen	50
 ladrerie	41
+Laëtitia
 laïcisai
 laïcisas
 laïcisât
@@ -78562,6 +78674,7 @@ ludiciel	31
 ludismes
 kufiques	27
 ludiques	88
+Ludivine	53
 luétines
 jugeable	27
 jugeâmes
@@ -78605,6 +78718,7 @@ jugulera
 juguliez
 jugulons
 julienne	96
+Juliette	98
 jujubier	62
 lumbagos
 lunchais
@@ -79738,6 +79852,7 @@ matières	125
 obvierez
 matheuse
 navigant	81
+Mathilde	98
 obviions
 naviguai
 naviguas
@@ -79834,6 +79949,7 @@ natteras
 natterez
 nattière
 nattiers
+Matthieu	96
 nautiles	55
 nattions
 nautisme	77
@@ -91207,6 +91323,7 @@ querellé	57
 stérerai
 stéreras
 stérerez
+Stephane
 Stéphane	107
 stérides	36
 puériles	52
@@ -92265,6 +92382,7 @@ talaient
 valaient	73
 talasses
 valences
+Valentin	92
 talerais
 talerait
 talèrent
@@ -93475,6 +93593,7 @@ thétique
 viduités
 théurgie	61
 thibaude	14
+Thibault	84
 thiamine	64
 tigelles
 tigettes
@@ -97364,6 +97483,7 @@ barracuda	52
 barraient	52
 carraient
 cassaient	54
+Cassandra	77
 cassantes	59
 barrasses
 carrasses
@@ -100623,7 +100743,7 @@ blettirez
 blettisse
 blettîtes
 Alexander	107
-alexandra	93
+Alexandra	93
 Alexandre	122
 alicantes
 clichages
@@ -101456,7 +101576,7 @@ anhéleras
 anhélerez
 anhélions
 angélisme	27
-angélique	81
+Angélique	81
 bohémiens	70
 amidonnai
 amidonnas
@@ -131364,6 +131484,7 @@ réabsorbe	36
 réabsorbé	51
 recarrela
 recarrelé
+Sebastien
 Sébastien	106
 rebaptisa	82
 rebaptise	93
@@ -141298,6 +141419,7 @@ talassiez
 valdingua
 valdingue
 valdingué
+Valentine	89
 valériane	63
 talerions
 valetâmes
@@ -149890,6 +150012,7 @@ alfatières
 aléatoires	102
 alémanique	93
 clématites	55
+Clementine
 clémentine	64
 blêmerions
 blêmissent
@@ -212565,6 +212688,7 @@ finlandisés
 finlandisez
 dimorphisme	98
 dinothérium	14
+dimmusaurus
 dionysiaque	73
 égorgeaient	36
 égorgeasses
