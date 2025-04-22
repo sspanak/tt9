@@ -96,6 +96,7 @@ abstract public class InputMode {
 		onSuggestionsUpdated.run();
 	}
 
+	@NonNull
 	public ArrayList<String> getSuggestions() {
 		ArrayList<String> newSuggestions = new ArrayList<>();
 		for (String s : suggestions) {

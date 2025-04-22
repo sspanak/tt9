@@ -131,7 +131,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (repeat == 0 && mInputMode.onBackspace()) {
 			getSuggestions(null);
 		} else {
-			suggestionOps.commitCurrent(false);
+			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
 		}
@@ -171,15 +171,18 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		// First pass, analyze the incoming key press and decide whether it could be the start of
-		// a new word.
+		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
+		// to prevent flashing while the next suggestions are being loaded.
 		else if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
-			String lastWord = suggestionOps.acceptIncomplete();
+			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
+			// the suggestions in SuggestionOps, since we don't clear that list.
+			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
-		if (suggestionOps.getCurrent().isEmpty()) {
+		if (mInputMode.getSuggestions().isEmpty()) {
 			mInputMode.determineNextWordTextCase();
 		}
 
@@ -188,7 +191,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (mInputMode.shouldSelectNextSuggestion() && !suggestionOps.isEmpty()) {
+		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.getSuggestions().isEmpty()) {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
