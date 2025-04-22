@@ -20,7 +20,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
-	private CharSequence composingText = "";
+	@NonNull private CharSequence composingText = "";
 	private final boolean isComposingSupported;
 	private final boolean isNonText;
 
@@ -228,6 +228,12 @@ public class TextField extends InputField {
 		if (text != null && connection != null) {
 			connection.commitText(text, 1);
 		}
+	}
+
+
+	@NonNull
+	public String getComposingText() {
+		return composingText.toString();
 	}
 
 
