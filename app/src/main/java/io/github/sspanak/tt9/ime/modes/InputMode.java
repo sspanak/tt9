@@ -114,7 +114,8 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }
-	public String getSequence() { return digitSequence; }
+	@NonNull public String getSequence() { return digitSequence; }
+	public void setSequence(@NonNull String sequence) { digitSequence = sequence; }
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
 	public int getAutoAcceptTimeout() {
 		return autoAcceptTimeout;

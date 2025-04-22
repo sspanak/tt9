@@ -308,7 +308,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (mInputMode.changeLanguage(mLanguage)) {
 			mInputMode.clearWordStem();
 		} else {
+			final String digits = mInputMode.getSequence();
 			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+			mInputMode.setSequence(digits);
 		}
 
 		getSuggestions(null);

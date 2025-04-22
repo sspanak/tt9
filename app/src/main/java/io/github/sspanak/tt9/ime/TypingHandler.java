@@ -24,7 +24,6 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
@@ -406,15 +405,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// display the word suggestions
 		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
-
-		// In case we are here, because the language was changed, and there were words for the old language,
-		// but there are no words for the new language, we'll get only generated suggestions, consisting
-		// of the last word of the previous language + endings from the new language. These words are invalid,
-		// so we discard them.
-		if (InputModeKind.isPredictive(mInputMode) && !mLanguage.isValidWord(suggestionOps.getCurrent()) && !Text.isGraphic(suggestionOps.getCurrent())) {
-			mInputMode.reset();
-			suggestionOps.set(null);
-		}
 
 		// flush the first suggestion, if the InputMode has requested it
 		if (suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
