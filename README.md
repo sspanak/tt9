@@ -70,9 +70,9 @@ As with many other open-source projects, this one is also maintained by its auth
 Your PRs are welcome!
 
 ## 👍 Support
-If you want to show appreciation, give the project a star on GitHub. Higher-ranked projects can use development tools for free and apply for funding more easily. You can also give it 5 stars on Google Play to increase its rating, which will prompt the Play Store to recommend it to more people.
+The easiest way to support the project is to give it a star on GitHub. Higher-ranked projects can use development tools for free and apply for funding more easily. You can also give it five stars on Google Play to increase its rating, prompting the Play Store to recommend it to more people.
 
-You could also donate on [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
+If you truly enjoy using TT9, buy me a beer on [Ko-Fi](https://ko-fi.com/sspanak) or [PayPal](https://www.paypal.com/donate/?hosted_button_id=LW97X3JM2CRZC).
 
 ## 💪 Philosophy
 - No ads, no premium or paid features. It's all free.
@@ -82,7 +82,7 @@ You could also donate on [PayPal](https://www.paypal.com/donate/?hosted_button_i
 - Open-source, so you can verify all the above yourself.
 - Created with help from the entire community.
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds, or other customizations. "It can be any color you like, as long as it is black."
-- Not intended as a clone of Touchpal, Sony Ericsson, Nokia C2, Samsung, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly.
+- Not intended as a clone of Touchpal, Sony Ericsson, KaiOS, Samsung, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly.
 
 Thank you for understanding, and enjoy TT9!
 
