@@ -30,6 +30,7 @@
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>
+	<string name="pref_privacy_policy">Политика за поверителност</string>
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>

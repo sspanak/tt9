@@ -66,6 +66,7 @@
 	<string name="pref_numpad_width">Plotis</string>
 	<string name="pref_predict_word_pairs">Išmokti žodžių poras</string>
 	<string name="pref_predict_word_pairs_summary">Įsiminti dažnai naudojamas frazes, kad pagerintumėte žodžių pasiūlymus.</string>
+	<string name="pref_privacy_policy">Privatumo politika</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>

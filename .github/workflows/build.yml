@@ -24,8 +24,8 @@ jobs:
       uses: gradle/gradle-build-action@v3
 
     # validate and build
-    - name: Validate Help
-      run: ./gradlew convertHelp
+    - name: Generate Documents
+      run: ./gradlew generateDocs
     - name: Validate Dictionaries
       run: ./gradlew validateLanguages
     - name: Build Languages

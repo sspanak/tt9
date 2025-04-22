@@ -60,7 +60,11 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		}
 
 		String systemLanguage = SystemSettings.getLocale().replaceAll("_\\w+$", "");
-		help.setSummary(new HelpFile(activity, systemLanguage).exists() ? "" : "English only");
+		if (new HelpFile(activity, systemLanguage).exists()) {
+			help.setSummary("");
+		} else {
+			help.setSummary(R.string.english_only);
+		}
 	}
 
 

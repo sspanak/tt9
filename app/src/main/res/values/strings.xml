@@ -5,6 +5,7 @@
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>
 	<string name="completed">Completed</string>
+	<string name="english_only" translatable="false">English only</string>
 	<string name="loading">Loading…</string>
 	<string name="language">Language</string>
 	<string name="search_results">Search Results</string>
@@ -97,6 +98,7 @@
 	<string name="pref_numpad_width">Width</string>
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
+	<string name="pref_privacy_policy">Privacy Policy</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>

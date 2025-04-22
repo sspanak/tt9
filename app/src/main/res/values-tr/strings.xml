@@ -47,6 +47,7 @@
 	<string name="pref_numpad_width">Genişlik</string>
 	<string name="pref_predict_word_pairs">Kelime çiftlerini öğren</string>
 	<string name="pref_predict_word_pairs_summary">Öneri doğruluğunu artırmak için sık kullanılan ifadeleri hatırla.</string>
+	<string name="pref_privacy_policy">Gizlilik politikası</string>
 	<string name="pref_status_icon">Durum</string>
 	<string name="pref_status_icon_summary">Klavye girişi etkin olduğunda bir simge göster.</string>
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>

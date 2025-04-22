@@ -13,8 +13,10 @@ def FULL_VERSION_ASSETS_DIR = "${APP_ROOT_DIR}/src/full/assets"
 
 ext.FUNDING_FILE = "${project.rootDir}/.github/FUNDING.yml"
 
-ext.HELP_MARKDOWN_DIR = "${project.rootDir}/docs/help"
-ext.HELP_HTML_DIR = "${MAIN_ASSETS_DIR}/help"
+ext.DOCS_DIR_NAME = "docs"
+ext.HELP_MARKDOWN_DIR = "${project.rootDir}/${DOCS_DIR_NAME}/help"
+ext.PRIVACY_POLICY_MARKDOWN = "${project.rootDir}/${DOCS_DIR_NAME}/privacy.md"
+ext.DOCS_HTML_DIR = "${MAIN_ASSETS_DIR}/${DOCS_DIR_NAME}"
 
 ext.LANGUAGES_INPUT_DIR = "${APP_ROOT_DIR}/${LANGUAGES_DIR_NAME}"
 ext.DEFINITIONS_INPUT_DIR = "${LANGUAGES_INPUT_DIR}/${DEFINITIONS_DIR_NAME}"

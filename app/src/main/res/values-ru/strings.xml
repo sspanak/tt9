@@ -31,6 +31,7 @@
 	<string name="pref_numpad_width">Ширина</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>
+	<string name="pref_privacy_policy">Политика конфиденциальности</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
