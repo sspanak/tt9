@@ -70,6 +70,17 @@
 		</activity>
 
 		<activity
+			android:label="@string/pref_privacy_policy"
+			android:name="io.github.sspanak.tt9.preferences.PrivacyPolicyActivity"
+			android:exported="true"
+			android:theme="@style/TTheme.Preferences">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+
+		<activity
 			android:excludeFromRecents="true"
 			android:label=""
 			android:name="io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog"

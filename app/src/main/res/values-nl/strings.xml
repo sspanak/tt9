@@ -46,6 +46,7 @@
 	<string name="pref_numpad_width">Breedte</string>
 	<string name="pref_predict_word_pairs">Woordenparen leren</string>
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
+	<string name="pref_privacy_policy">Privacybeleid</string>
 	<string name="pref_status_icon">Statusicoon</string>
 	<string name="pref_status_icon_summary">Een icoon tonen wanneer toetsenbordinvoer actief is.</string>
 	<string name="pref_suggestion_smooth_scroll">Vloeiend suggesties scrollen</string>

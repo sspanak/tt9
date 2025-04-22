@@ -53,12 +53,13 @@ tasks.register('copyDownloadsToAssets', Copy) {
 }
 
 
-tasks.register('convertHelp') {
+tasks.register('generateDocs') {
 	inputs.dir HELP_MARKDOWN_DIR
-	outputs.dir HELP_HTML_DIR
+	inputs.file PRIVACY_POLICY_MARKDOWN
+	outputs.dir DOCS_HTML_DIR
 
 	doLast {
-		convertHelpDocs(HELP_MARKDOWN_DIR, HELP_HTML_DIR)
+		convertDocs(HELP_MARKDOWN_DIR, PRIVACY_POLICY_MARKDOWN, DOCS_HTML_DIR)
 	}
 }
 
@@ -72,7 +73,7 @@ clean {
 	delete LANGUAGES_OUTPUT_DIR
 	delete DICTIONARIES_OUTPUT_DIR
 	delete DICTIONARIES_DOWNLOAD_DIR
-	delete HELP_HTML_DIR
+	delete DOCS_HTML_DIR
 }
 
 // using the exported Closures directly causes weird values, hence the extra wrappers here
@@ -98,23 +99,18 @@ android {
 		versionCode getVerCode()
 		versionName getVerName()
 
+		buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
+		buildConfigField 'String', 'DOCS_DIR', "\"${DOCS_DIR_NAME}\""
+		buildConfigField 'String', 'DONATION_URL', "\"${getDonationUrl()}\""
+		buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
+
 		// F-droid hacks
 		dependenciesInfo.includeInApk false
 		vectorDrawables.generatedDensities = []
 	}
 
 	buildTypes {
-		debug {
-			buildConfigField 'String', 'DONATION_URL', "\"${getDonationUrl()}\""
-			buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
-			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('debug')}\""
-		}
-
 		release {
-			buildConfigField 'String', 'DONATION_URL', "\"${getDonationUrl()}\""
-			buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
-			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
-
 			debuggable false
 			jniDebuggable false
 			minifyEnabled true
@@ -150,7 +146,7 @@ android {
 		].each { taskName ->
 			try {
 				tasks.named(taskName)?.configure {
-					dependsOn(buildDefinition, convertHelp, validateLanguages, buildDictionaryDownloads)
+					dependsOn(buildDefinition, generateDocs, validateLanguages, buildDictionaryDownloads)
 				}
 
 				if (taskName.toLowerCase().contains("full")) {

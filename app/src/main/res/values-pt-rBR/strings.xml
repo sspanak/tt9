@@ -61,6 +61,7 @@
 	<string name="pref_numpad_width">Largura</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palavras</string>
 	<string name="pref_predict_word_pairs_summary">Lembrar de frases comumente usadas para melhorar as sugestões de palavras.</string>
+	<string name="pref_privacy_policy">Política de privacidade</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>

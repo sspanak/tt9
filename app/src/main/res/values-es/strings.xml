@@ -54,6 +54,7 @@
 	<string name="pref_numpad_width">Anchura</string>
 	<string name="pref_predict_word_pairs">Aprender pares de palabras</string>
 	<string name="pref_predict_word_pairs_summary">Recordar frases de uso común para mejorar las sugerencias de palabras.</string>
+	<string name="pref_privacy_policy">Política de privacidad</string>
 	<string name="pref_status_icon">Icono de estado</string>
 	<string name="pref_status_icon_summary">Mostrar un icono cuando la escritura esté activa.</string>
 	<string name="dictionary_cancel_load">Cancelar la carga</string>

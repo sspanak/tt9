@@ -1,18 +1,23 @@
-ext.convertHelpDocs = {markdownDir, htmlDir ->
-	fileTree(markdownDir).getFiles().parallelStream().forEach { File markdownPath ->
-		markdownToHtml(markdownPath.path, "${htmlDir}/${markdownPath.name.replaceAll("\\.md\$", ".html")}")
+ext.convertDocs = {String DOCS_MARKDOWN_DIR, String PRIVACY_POLICY_MARKDOWN, String HTML_DIR ->
+	Set<File> docs = fileTree(DOCS_MARKDOWN_DIR).getFiles()
+	docs.add(new File(PRIVACY_POLICY_MARKDOWN))
+	docs.parallelStream().forEach { File markdownPath ->
+		markdownToHtml(markdownPath.path, "${HTML_DIR}/${markdownPath.name.replaceAll("\\.md\$", ".html")}", !PRIVACY_POLICY_MARKDOWN.contains(markdownPath.name))
 	}
 }
 
-static markdownToHtml(markdownPath, htmlPath) {
+static markdownToHtml(markdownPath, htmlPath, addIndex) {
 	def text = new File(markdownPath).text
 
 	text = convertHeaders(text)
+	text = convertHorizontalRules(text)
 	text = convertOrderedLists(text)
 	text = convertUnorderedLists(text)
 	text = convertInlineTags(text)
 	text = addStylesToTags(text)
-	text = insertIndex(text, generateIndex(text))
+	if (addIndex) {
+		text = insertIndex(text, generateIndex(text))
+	}
 	text = removeWhitespace(text)
 
 	new File(htmlPath).text = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><style>${getStyles()}</style><title>Help</title></head><body>${text}</body></html>"
@@ -76,6 +81,10 @@ static convertHeaders(markdown) {
 }
 
 
+static convertHorizontalRules(markdown) {
+	return markdown.replaceAll("\\-{3,}", "<hr>")
+}
+
 static convertOrderedLists(markdown) {
 	 def html = markdown.split("\n").collect { line ->
 		if (line.matches("^\\d+\\..*")) {
@@ -100,7 +109,7 @@ static convertUnorderedLists(markdown) {
 
 		def innerLi = line.replaceAll("^\\s*-\\s*", "")
 
-		if (line.matches("^-.*")) {
+		if (line.matches("^-(?!-).*")) {
 			if (!inList) {
 				convertedLine += "<ul>"
 				inList = true
