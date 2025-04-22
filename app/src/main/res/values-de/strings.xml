@@ -204,6 +204,7 @@
 	<string name="function_already_assigned">\tDie Taste \"%1$s\" ist bereits der Funktion \"%2$s\" zugewiesen. Möchten Sie sie \"%3$s\" zuweisen?</string>
 	<string name="function_assign_instructions">* Drücken oder halten Sie eine Taste, um sie der Funktion \"%1$s\" zuzuweisen.\n\n* Drücken Sie 0, um abzubrechen.\n\n* Drücken Sie 2, um die Funktion zu deaktivieren.</string>
 	<string name="function_reassign">Neu zuweisen</string>
+	<string name="function_redo">Wiederholen</string>
 	<string name="function_voice_input">Spracheingabe</string>
 	<string name="function_reset_keys_title">Standardtasten wiederherstellen</string>
 	<string name="key_hold_key">(halten)</string>
@@ -213,4 +214,5 @@
 	<string name="function_show_settings">Einstellungsbildschirm anzeigen</string>
 	<string name="pref_allow_composing_text">Zusammengesetzten Text anzeigen</string>
 	<string name="pref_drag_resize">Größe durch Ziehen ändern</string>
+	<string name="function_undo">Rückgängig machen</string>
 </resources>

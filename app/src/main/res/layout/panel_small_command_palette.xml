@@ -20,10 +20,20 @@
 		android:id="@+id/soft_key_3"
 		android:drawableBottom="@drawable/ic_fn_voice" />
 
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF4
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_4"
+		android:drawableBottom="@drawable/ic_fn_undo" />
+
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF5
 		style="@style/TTheme.CommandPalette.Key"
 		android:id="@+id/soft_key_5"
 		android:drawableBottom="@drawable/ic_txt_cut" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyF6
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_6"
+		android:drawableBottom="@drawable/ic_fn_redo" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyFn
 		style="@style/TTheme.CommandPalette.Key"

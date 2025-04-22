@@ -86,6 +86,7 @@
 	<string name="function_reassign">Reatribuir</string>
 	<string name="function_add_word">Adicionar palavra</string>
 	<string name="function_show_settings">Entrar em Configurações</string>
+	<string name="function_redo">Refazer</string>
 	<string name="function_voice_input">Entrada por Voz</string>
 	<string name="function_reset_keys_title">Restaurar Atalhos Padrão</string>
 	<string name="function_reset_keys_done">Atalhos Restaurados.</string>
@@ -218,4 +219,5 @@
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
 	<string name="pref_drag_resize">Redimensionar arrastando</string>
+	<string name="function_undo">Desfazer</string>
 </resources>

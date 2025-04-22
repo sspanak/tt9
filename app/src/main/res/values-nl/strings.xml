@@ -204,6 +204,7 @@
 	<string name="function_assign_instructions">* Druk of houd een toets ingedrukt om deze toe te wijzen aan de functie \"%1$s\".\n\n* Druk op 0 om te annuleren.\n\n* Druk op 2 om de functie uit te schakelen.</string>
 	<string name="function_reassign">Opnieuw toewijzen</string>
 	<string name="function_show_settings">Instellingen weergeven</string>
+	<string name="function_redo">Opnieuw uitvoeren</string>
 	<string name="function_voice_input">Spraakinvoer</string>
 	<string name="function_reset_keys_title">Standaardtoetsen herstellen</string>
 	<string name="key_hold_key">(Ingedrukt houden)</string>
@@ -212,4 +213,5 @@
 	<string name="function_next_language">Volgende taal</string>
 	<string name="function_filter_clear">Filter wissen</string>
 	<string name="pref_allow_composing_text">Compositietekst weergeven</string>
+	<string name="function_undo">Ongedaan maken</string>
 </resources>

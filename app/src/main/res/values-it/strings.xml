@@ -202,6 +202,7 @@
 	<string name="function_already_assigned">Il tasto \"%1$s\" è già assegnato alla funzione \"%2$s\". Vuoi assegnarlo a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Premi o tieni premuto un tasto per assegnarlo alla funzione \"%1$s\".\n\n* Premi 0 per annullare.\n\n* Premi 2 per disabilitare la funzione.</string>
 	<string name="function_reassign">Riassegnare</string>
+	<string name="function_redo">Ripristina (Redo)</string>
 	<string name="function_voice_input">Input vocale</string>
 	<string name="function_reset_keys_title">Ripristina i tasti predefiniti</string>
 	<string name="key_hold_key">(tenere premuto)</string>
@@ -214,5 +215,6 @@
 	<string name="function_show_settings">Mostrare impostazioni</string>
 	<string name="pref_allow_composing_text">Mostra testo in composizione</string>
 	<string name="pref_drag_resize">Ridimensionare trascinando</string>
+	<string name="function_undo">Annulla (Undo)</string>
 </resources>
 
