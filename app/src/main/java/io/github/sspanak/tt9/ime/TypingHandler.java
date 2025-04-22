@@ -245,12 +245,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	private void deleteText(boolean deleteMany) {
 		int charsToDelete = 1;
-		if (deleteMany) {
-			charsToDelete = Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
-		} else if (!textSelection.isEmpty()) {
+
+		if (!textSelection.isEmpty()) {
 			charsToDelete = textSelection.length();
 			textSelection.clear(false);
+		} else if (deleteMany) {
+			charsToDelete = textField.getComposingText().length();
+			charsToDelete = charsToDelete > 0 ? charsToDelete : Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
 		}
+
 		textField.deleteChars(charsToDelete);
 	}
 
