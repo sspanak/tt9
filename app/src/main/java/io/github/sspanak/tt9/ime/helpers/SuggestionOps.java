@@ -97,7 +97,7 @@ public class SuggestionOps {
 	public String acceptCurrent() {
 		String word = getCurrent();
 		if (!word.isEmpty()) {
-			commitCurrent(true);
+			commitCurrent(true, true);
 		}
 
 		return word;
@@ -106,9 +106,15 @@ public class SuggestionOps {
 
 	public String acceptIncomplete() {
 		String currentWord = this.getCurrent();
-		commitCurrent(false);
+		commitCurrent(false, true);
 
 		return currentWord;
+	}
+
+
+	public String acceptIncompleteAndKeepList() {
+		commitCurrent(false, false);
+		return this.getCurrent();
 	}
 
 
@@ -118,12 +124,12 @@ public class SuggestionOps {
 		}
 
 		String lastComposingText = getCurrent(language, sequenceLength - 1);
-		commitCurrent(false);
+		commitCurrent(false, true);
 		return lastComposingText;
 	}
 
 
-	public void commitCurrent(boolean entireSuggestion) {
+	public void commitCurrent(boolean entireSuggestion, boolean clearList) {
 		if (!isEmpty()) {
 			if (entireSuggestion) {
 				textField.setComposingText(getCurrent());
@@ -131,7 +137,10 @@ public class SuggestionOps {
 			textField.finishComposingText();
 		}
 
-		set(null);
+
+		if (clearList) {
+			set(null);
+		}
 	}
 
 
