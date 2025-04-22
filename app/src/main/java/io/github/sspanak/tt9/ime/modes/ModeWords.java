@@ -323,8 +323,8 @@ class ModeWords extends ModeCheonjiin {
 		}
 		stem = "";
 
-		if (currentWord.isEmpty()) {
-			Logger.i(LOG_TAG, "Current word is empty. Nothing to accept.");
+		if (currentWord.isEmpty() || !language.isValidWord(currentWord)) {
+			Logger.i(LOG_TAG, "Current word is empty or invalid. Nothing to accept.");
 			return;
 		}
 

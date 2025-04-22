@@ -264,10 +264,13 @@ public class NaturalLanguage extends TranscribedLanguage {
 		if (
 			word == null
 			|| word.isEmpty()
-			|| (super.isValidWord(word))
 			|| (word.length() == 1 && Character.isDigit(word.charAt(0)))
 		) {
 			return true;
+		}
+
+		if (isTranscribed) {
+			return super.isValidWord(word);
 		}
 
 		String lowerCaseWord = word.toLowerCase(locale);

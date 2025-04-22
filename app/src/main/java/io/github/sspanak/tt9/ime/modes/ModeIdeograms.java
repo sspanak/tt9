@@ -100,9 +100,9 @@ public class ModeIdeograms extends ModeWords {
 	@Override
 	public void onAcceptSuggestion(@NonNull String currentWord, boolean preserveWords) {
 		final Text text = new Text(currentWord);
-		if (text.isEmpty() || text.startsWithWhitespace() || text.isNumeric()) {
+		if (text.isEmpty() || text.startsWithWhitespace() || text.isNumeric() || !language.isValidWord(currentWord)) {
 			reset();
-			Logger.i(LOG_TAG, "Current word is empty or numeric. Nothing to accept.");
+			Logger.i(LOG_TAG, "Current word is empty, numeric or invalid. Nothing to accept.");
 			return;
 		}
 
@@ -114,7 +114,7 @@ public class ModeIdeograms extends ModeWords {
 		}
 
 		final int initialLength = digitSequence.length();
-		final boolean lastDigitBelongsToNewWord = preserveWords && initialLength >= 2;
+		boolean lastDigitBelongsToNewWord = preserveWords && initialLength >= 2;
 
 		try {
 			if (!digitSequence.equals(SPECIAL_CHAR_SEQUENCE) && !digitSequence.equals(PUNCTUATION_SEQUENCE)) {
@@ -125,8 +125,8 @@ public class ModeIdeograms extends ModeWords {
 				((IdeogramPredictions) predictions).onAcceptIdeogram(currentWord);
 			}
 		} catch (Exception e) {
-			lastAcceptedSequence = lastAcceptedWord = "";
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
+			lastAcceptedSequence = lastAcceptedWord = "";
 		}
 
 		if (lastDigitBelongsToNewWord) {
