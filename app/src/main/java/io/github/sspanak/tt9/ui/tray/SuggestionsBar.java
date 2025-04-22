@@ -185,6 +185,10 @@ public class SuggestionsBar {
 
 
 	public void setMany(@Nullable List<String> newSuggestions, int initialSel, boolean containsGenerated) {
+		if ((suggestions == null || suggestions.isEmpty()) && (newSuggestions == null || newSuggestions.isEmpty())) {
+			return;
+		}
+
 		suggestions = newSuggestions;
 		selectedIndex = newSuggestions == null || newSuggestions.isEmpty() ? 0 : Math.max(initialSel, 0);
 
@@ -194,9 +198,9 @@ public class SuggestionsBar {
 		boolean onlySpecialChars = newSuggestions != null && !newSuggestions.isEmpty() && !(new Text(newSuggestions.get(0)).isAlphabetic());
 		addMany(newSuggestions, mView == null || onlySpecialChars ? Integer.MAX_VALUE : SettingsStore.SUGGESTIONS_MAX);
 
-		selectedIndex = Math.min(selectedIndex, visibleSuggestions.size() - 1);
+		selectedIndex = Math.max(Math.min(selectedIndex, visibleSuggestions.size() - 1), 0);
 
-		renderDebounced();
+		render();
 	}
 
 
@@ -266,17 +270,6 @@ public class SuggestionsBar {
 	}
 
 
-	/**
-	 * Reduces flashing of the suggestions bar when the suggestions are empty and saves some resources
-	 * by reducing the calls to render().
-	 */
-	private void renderDebounced() {
-		final int delay = visibleSuggestions.isEmpty() ? SettingsStore.SUGGESTIONS_RENDER_CLEAR_DEBOUNCE_TIME : SettingsStore.SUGGESTIONS_RENDER_DEBOUNCE_TIME;
-		delayedDisplayHandler.removeCallbacksAndMessages(null);
-		delayedDisplayHandler.postDelayed(this::render, delay);
-	}
-
-
 	private void render() {
 		if (mView == null) {
 			return;
@@ -308,6 +301,7 @@ public class SuggestionsBar {
 		visibleSuggestions.clear();
 		addMany(suggestions, Integer.MAX_VALUE);
 		selectedIndex = scrollBack || selectedIndex >= visibleSuggestions.size() ? visibleSuggestions.size() - 1 : selectedIndex;
+		selectedIndex = Math.max(selectedIndex, 0);
 
 		return true;
 	}
@@ -341,6 +335,11 @@ public class SuggestionsBar {
 
 
 	private void calculateScrollIndex(int increment) {
+		if (visibleSuggestions.isEmpty()) {
+			selectedIndex = 0;
+			return;
+		}
+
 		selectedIndex = selectedIndex + increment;
 		if (selectedIndex == visibleSuggestions.size()) {
 			selectedIndex = containsStem() ? 1 : 0;
