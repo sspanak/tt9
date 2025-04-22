@@ -74,12 +74,12 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 	@Override
 	protected float getTitleScale() {
-		if (isBopomofo()) {
-			return super.getTitleScale() * TITLE_SCALE_BOPOMOFO;
+		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric())) {
+			return super.getTitleScale();
 		}
 
-		if (isKorean()) {
-			return super.getTitleScale();
+		if (isBopomofo()) {
+			return super.getTitleScale() * TITLE_SCALE_BOPOMOFO;
 		}
 
 		// scale up the space character, because it is too small
