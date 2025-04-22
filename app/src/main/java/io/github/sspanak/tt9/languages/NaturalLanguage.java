@@ -87,6 +87,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.getSpecial(this));
 		specialChars.put(PUNCTUATION_PLACEHOLDER, Characters.PunctuationEnglish);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_AR", Characters.PunctuationArabic);
+		specialChars.put(PUNCTUATION_PLACEHOLDER + "_BP", Characters.PunctuationChineseBopomofo);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_ZH", Characters.PunctuationChinese);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FA", Characters.PunctuationFarsi);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_FR", Characters.PunctuationFrench);

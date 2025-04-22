@@ -6,7 +6,7 @@ hasSpaceBetweenWords: no
 hasUpperCase: no
 layout:
   - [ㄧ, ㄨ, ㄩ, SPECIAL] # 0
-  - [ㄅ, ㄆ, ㄇ, ㄈ, PUNCTUATION_ZH] # 1
+  - [ㄅ, ㄆ, ㄇ, ㄈ, PUNCTUATION_BP] # 1
   - [ㄉ, ㄊ, ㄋ, ㄌ] # 2
   - [ㄍ, ㄎ, ㄏ] # 3
   - [ㄐ, ㄑ, ㄒ] # 4
