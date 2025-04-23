@@ -276,6 +276,7 @@ public class SuggestionsBar {
 		}
 
 		setBackground(false);
+		mSuggestionsAdapter.setTextSize(settings.getSuggestionFontScale());
 
 		boolean smooth = settings.getSuggestionSmoothScroll() && visibleSuggestions.size() <= SettingsStore.SUGGESTIONS_MAX + 1;
 		mView.setItemAnimator(smooth ? animator : null);

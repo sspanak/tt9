@@ -64,6 +64,7 @@
 	<string name="pref_layout_tray">Лише список слів</string>
 	<string name="pref_haptic_feedback_summary">Вібрувати при натисканні віртуальної клавіші. (Неможливо на всіх пристроях)</string>
 	<string name="pref_help">Допомога</string>
+	<string name="pref_suggestion_font_size">Розмір шрифту пропозицій</string>
 	<string name="pref_suggestion_smooth_scroll">Плавне гортання пропозицій</string>
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
 	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>

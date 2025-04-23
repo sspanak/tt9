@@ -90,6 +90,7 @@
 	<string name="key_volume_down">Abbassa il volume</string>
 	<string name="key_volume_up">Alza il volume</string>
 	<string name="char_newline">Nuova riga</string>
+	<string name="pref_suggestion_font_size">Dimensione carattere suggerimenti</string>
 	<string name="pref_suggestion_smooth_scroll">Scorrimento fluido dei suggerimenti</string>
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
@@ -137,7 +138,7 @@
 	<string name="pref_layout">Layout sullo schermo</string>
 	<string name="dictionary_no_notifications">Notifiche del dizionario</string>
 	<string name="dictionary_no_notifications_summary">Ricevere notifiche sugli aggiornamenti del dizionario e sul progresso del caricamento.</string>
-	<string name="pref_numpad_key_font_size">Dimensione del carattere dei tasti</string>
+	<string name="pref_numpad_key_font_size">Dimensione carattere dei tasti</string>
 	<string name="pref_numpad_key_height">Altezza</string>
 	<string name="pref_numpad_fn_key_width">Larghezza dei tasti lettera</string>
 	<string name="pref_font_size">Dimensione del carattere delle impostazioni</string>

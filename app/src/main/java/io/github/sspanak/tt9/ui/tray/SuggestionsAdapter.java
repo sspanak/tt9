@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.ui.tray;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	private final int textViewResourceId;
 	private final LayoutInflater mInflater;
 	private final List<String> mSuggestions;
+	private float textSize;
 
 	private int colorDefault;
 	private int colorHighlight;
@@ -46,7 +49,10 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 	@Override
 	public void onBindViewHolder(ViewHolder holder, int position) {
-		holder.suggestionItem.setText(mSuggestions.get(position));
+		SpannableString scaledText = new SpannableString(mSuggestions.get(position));
+		scaledText.setSpan(new RelativeSizeSpan(textSize), 0, scaledText.length(), 0);
+		holder.suggestionItem.setText(scaledText);
+
 		holder.suggestionItem.setTag(position);
 		holder.suggestionItem.setTextColor(selectedIndex == position ? colorHighlight : colorDefault);
 		holder.suggestionItem.setBackgroundColor(selectedIndex == position ? backgroundHighlight : Color.TRANSPARENT);
@@ -70,6 +76,11 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 	public void resetItems(int newIndex) {
 		selectedIndex = newIndex;
 		notifyDataSetChanged();
+	}
+
+
+	public void setTextSize(float size) {
+		textSize = size;
 	}
 
 
