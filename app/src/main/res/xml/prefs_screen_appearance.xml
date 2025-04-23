@@ -6,11 +6,6 @@
 		app:key="pref_theme"
 		app:title="@string/pref_dark_theme" />
 
-	<SwitchPreferenceCompat
-		app:key="pref_drag_resize"
-		app:title="@string/pref_drag_resize"
-		app:summary="@string/pref_drag_resize_summary" />
-
 	<DropDownPreference
 		app:key="pref_font_size"
 		app:title="@string/pref_font_size" />
@@ -18,6 +13,11 @@
 	<DropDownPreference
 		app:key="pref_layout_type"
 		app:title="@string/pref_layout" />
+
+	<SwitchPreferenceCompat
+		app:key="pref_drag_resize"
+		app:title="@string/pref_drag_resize"
+		app:summary="@string/pref_drag_resize_summary" />
 
 	<PreferenceCategory app:title="@string/pref_category_geometry">
 		<DropDownPreference
