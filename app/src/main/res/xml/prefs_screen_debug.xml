@@ -13,10 +13,6 @@
 
 	<PreferenceCategory app:title="Hacks" app:singleLineTitle="true">
 		<SwitchPreferenceCompat
-			app:key="hack_precalculate_navbar_height_v3"
-			app:title="Precalculate Navbar Height" />
-
-		<SwitchPreferenceCompat
 			app:key="pref_demo_mode"
 			app:title="Demo Mode" />
 

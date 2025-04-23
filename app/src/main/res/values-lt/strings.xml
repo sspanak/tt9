@@ -182,6 +182,7 @@
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
+	<string name="pref_hack_precalculate_navbar_height_summary">Venkite tuščios vietos po klavišais. Išjunkite „Samsung“ įrenginiuose, kad išvengtumėte persidengimo su navigacijos juosta.</string>
 	<string name="pref_haptic_feedback">Vibracija</string>
 	<string name="pref_numpad_alignment">Lygiavimas</string>
 	<string name="virtual_numpad_alignment_center">Centre</string>
@@ -222,4 +223,5 @@
 	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
 	<string name="pref_drag_resize">Keisti dydį tempiant</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
+	<string name="pref_hack_precalculate_navbar_height">Perskaičiuoti apatinį paraštę</string>
 </resources>

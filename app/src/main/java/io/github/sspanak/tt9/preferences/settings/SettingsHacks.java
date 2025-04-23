@@ -77,6 +77,7 @@ class SettingsHacks extends BaseSettings {
 	 * On Samsung S25 (SM-S931B), edge-to-edge does not work like on Pixel/Xiaomi/etc. Like on Android 14,
 	 * the navigation bar is subtracted from the initial available screen size, so we must not add padding
 	 * to compensate.
+	 * There has been a report that Samsung S24U also behaves like this after upgrading to Android 15.
 	 * @see <a href="https://github.com/sspanak/tt9/issues/755">extra space at the bottom of the layout</a>
 	 */
 	public boolean getPrecalculateNavbarHeight() {

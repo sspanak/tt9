@@ -307,6 +307,13 @@ _Em: Configurações → Aparência._
 
 Em alguns celulares, especialmente Sonim XP3plus (XP3900), o Traditional T9 pode não aparecer ao começar a digitar ou pode ser parcialmente coberto pelas teclas de navegação na tela. Em outros casos, podem aparecer barras brancas ao redor. O problema pode ocorrer em um aplicativo específico ou em todos. Para evitar isso, ative a opção "Sempre no Topo".
 
+#### Recalcular Espaçamento Inferior
+_Em: Configurações → Aparência._
+
+O Android 15 introduziu o recurso de tela de ponta a ponta, que pode ocasionalmente causar a aparição de um espaço em branco desnecessário abaixo das teclas do teclado. Ative esta opção para garantir que o espaçamento inferior seja calculado para cada aplicativo e removido quando não for necessário.
+
+Em dispositivos Samsung Galaxy com Android 15 ou que receberam a atualização, essa opção pode fazer com que o TT9 se sobreponha à Barra de Navegação do Sistema, especialmente quando ela estiver configurada com 2 ou 3 botões. Se isso acontecer, desative a opção para permitir espaço suficiente para a barra de navegação.
+
 #### Proteção contra repetição de teclas
 _Em: Configurações → Teclado._
 

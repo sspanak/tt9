@@ -26,6 +26,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
+		(new ItemPrecalculateNavbarHeight(activity.getSettings(), findPreference(ItemPrecalculateNavbarHeight.NAME))).populate();
 
 		ItemAlignment alignment = new ItemAlignment(findPreference(ItemAlignment.NAME), activity.getSettings());
 		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());

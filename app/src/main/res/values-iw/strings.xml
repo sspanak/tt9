@@ -174,6 +174,7 @@
 	<string name="voice_input_error_no_network">אין חיבור לאינטרנט</string>
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>
 	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
+	<string name="pref_hack_precalculate_navbar_height_summary">\tלמנוע רווח ריק מתחת למקשים. יש להשבית בסמסונג כדי למנוע חפיפה עם סרגל הניווט של המערכת.</string>
 	<string name="pref_haptic_feedback">רטט</string>
 	<string name="pref_numpad_alignment">יישור</string>
 	<string name="virtual_numpad_alignment_center">באמצע</string>
@@ -220,4 +221,5 @@
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
 	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>
 	<string name="function_undo">ביטול (Undo)</string>
+	<string name="pref_hack_precalculate_navbar_height">חשב מחדש ריווח תחתון</string>
 </resources>

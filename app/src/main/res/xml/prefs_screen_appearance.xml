@@ -65,6 +65,11 @@
 			app:title="@string/pref_hack_always_on_top" />
 
 		<SwitchPreferenceCompat
+			app:key="hack_precalculate_navbar_height_v3"
+			app:title="@string/pref_hack_precalculate_navbar_height"
+			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />
+
+		<SwitchPreferenceCompat
 			app:key="pref_status_icon"
 			app:title="@string/pref_status_icon"
 			app:summary="@string/pref_status_icon_summary" />

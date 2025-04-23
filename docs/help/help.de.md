@@ -301,12 +301,20 @@ _In: Einstellungen → Erscheinungsbild._
 Auf einigen Geräten kann es im prädiktiven Modus vorkommen, dass die Liste nicht bis zum Ende gescrollt werden kann oder mehrmals vor- und zurückgescrollt werden muss, bis der letzte Vorschlag erscheint. Dieses Problem tritt manchmal bei Android 9 oder älter auf. Aktivieren Sie die Option, falls Sie dieses Problem haben.
 
 #### Immer im Vordergrund
-_Unter: Einstellungen → Erscheinungsbild._
+_In: Einstellungen → Erscheinungsbild._
 
 Auf einigen Telefonen, insbesondere dem Sonim XP3plus (XP3900), wird Traditional T9 möglicherweise nicht angezeigt, wenn Sie zu tippen beginnen, oder es wird teilweise von den Softkeys verdeckt. In anderen Fällen können weiße Balken darum erscheinen. Das Problem kann in einer bestimmten Anwendung oder in allen auftreten. Um dies zu verhindern, aktivieren Sie die Option „Immer im Vordergrund“.
 
+#### Unteren Abstand neu berechnen
+_In: Einstellungen → Erscheinungsbild._
+
+Android 15 hat die Edge-to-Edge-Funktion eingeführt, die gelegentlich dazu führen kann, dass unter den Tastaturtasten unnötiger Leerraum erscheint. Aktivieren Sie diese Option, um sicherzustellen, dass der untere Abstand für jede App neu berechnet und bei Bedarf entfernt wird.
+
+Auf Samsung Galaxy-Geräten mit Android 15 oder nach einem Upgrade darauf kann diese Option dazu führen, dass sich TT9 mit der Systemnavigationsleiste überlappt, insbesondere wenn diese auf 2 oder 3 Tasten eingestellt ist. Falls dies geschieht, deaktivieren Sie die Option, um genügend Platz für die Navigationsleiste zu lassen.
+
+
 #### Schutz vor Tastenwiederholung
-_Unter: Einstellungen → Tastenfeld._
+_In: Einstellungen → Tastenfeld._
 
 Die Telefone CAT S22 Flip und Qin F21 sind für ihre minderwertigen Tastenfelder bekannt, die im Laufe der Zeit schnell abnutzen und bei einem Tastendruck mehrere Klicks registrieren. Dies kann beim Tippen oder Navigieren in den Telefonmenüs auffallen.
 

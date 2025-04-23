@@ -1,4 +1,4 @@
-package io.github.sspanak.tt9.preferences.screens.debug;
+package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;

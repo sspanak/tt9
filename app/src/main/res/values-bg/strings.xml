@@ -171,6 +171,7 @@
 	<string name="voice_input_error_network_failed">Проблем с мрежовата връзка</string>
 	<string name="voice_input_stopping">Изключване на микрофона…</string>
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш. (Не е възможно на всички устройства)</string>
+	<string name="pref_hack_precalculate_navbar_height_summary">Избягва празно място под клавишите. Изключете на Samsung за да няма застъпване с навигационната лента.</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
 	<string name="pref_numpad_alignment">Подравняване</string>
 	<string name="virtual_numpad_alignment_center">В средата</string>
@@ -213,4 +214,5 @@
 	<string name="pref_allow_composing_text">Показвай текст при съставяне</string>
 	<string name="pref_drag_resize">Оразмеряване чрез влачене</string>
 	<string name="function_undo">Отмяна (Undo)</string>
+	<string name="pref_hack_precalculate_navbar_height">Преизчисли долното отстояние</string>
 </resources>
