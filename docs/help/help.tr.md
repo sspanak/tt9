@@ -305,6 +305,13 @@ _Ayarlar → Görünüm altında._
 
 Bazı telefonlarda, özellikle Sonim XP3plus (XP3900) modelinde, Traditional T9 yazmaya başladığınızda görünmeyebilir veya yumuşak tuşlarla kısmen örtülebilir. Diğer durumlarda, etrafında beyaz çubuklar olabilir. Sorunu önlemek için "Her Zaman Üstte" seçeneğini etkinleştirin.
 
+#### Alt Dolguyu Yeniden Hesapla
+_Ayarlar → Görünüm altında._
+
+Android 15, klavye tuşlarının altında gereksiz boşluklar oluşmasına neden olabilecek kenardan kenara ekran özelliğini tanıttı. Bu seçeneği etkinleştirerek her uygulama için alt dolguların yeniden hesaplanmasını ve gereksizse kaldırılmasını sağlayabilirsiniz.
+
+Android 15 yüklü veya bu sürüme yükseltilmiş Samsung Galaxy cihazlarda bu seçenek, özellikle 2 veya 3 tuşlu olarak ayarlanmış sistem gezinme çubuğu ile TT9’un çakışmasına neden olabilir. Böyle bir durumda, gezinme çubuğu için yeterli alan sağlamak amacıyla bu seçeneği devre dışı bırakın.
+
 #### Tuş tekrarı koruması
 _Ayarlar → Tuş Takımı altında._
 

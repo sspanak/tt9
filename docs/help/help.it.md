@@ -305,6 +305,13 @@ _In: Impostazioni → Aspetto._
 
 Su alcuni telefoni, in particolare Sonim XP3plus (XP3900), Traditional T9 potrebbe non apparire quando inizi a digitare, oppure potrebbe essere parzialmente coperto dai tasti software. In altri casi, potrebbero apparire delle barre bianche attorno alla tastiera. Il problema può verificarsi in un'applicazione specifica o in tutte. Per evitarlo, abilita l'opzione "Sempre in Primo Piano".
 
+#### Ricalcola il margine inferiore
+_In: Impostazioni → Aspetto._
+
+Android 15 ha introdotto la funzione edge-to-edge, che a volte può causare la comparsa di uno spazio vuoto inutile sotto i tasti della tastiera. Attiva questa opzione per assicurarti che il margine inferiore venga calcolato per ogni app e rimosso quando non è necessario.
+
+Sui dispositivi Samsung Galaxy con Android 15 o che hanno ricevuto l’aggiornamento, questa opzione potrebbe far sovrapporre TT9 alla barra di navigazione di sistema, soprattutto se configurata con 2 o 3 pulsanti. In tal caso, disattiva l’opzione per lasciare abbastanza spazio alla barra di navigazione.
+
 #### Protezione dalla Ripetizione dei Tasti
 _In: Impostazioni → Tastierino._
 

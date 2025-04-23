@@ -305,6 +305,13 @@ _In: Settings → Appearance._
 
 On some phones, especially Sonim XP3plus (XP3900), Traditional T9 may not appear when you start to type, or it may be partially covered by the soft keys. In other cases, there may be white bars around it. The problem may occur in one particular application or all of them. To prevent it, enable the "Always on Top" option.
 
+#### Recalculate Bottom Padding
+_In: Settings → Appearance._
+
+Android 15 introduced the edge-to-edge feature, which may occasionally cause unnecessary blank space to appear under the keyboard keys. Turn on this option to ensure the bottom padding is calculated for every app and removed when unnecessary.
+
+On Samsung Galaxy devices that come with Android 15 or that have received an upgrade to it, this option may cause TT9 to overlap with the System Navigation Bar, especially when configured to have 2 or 3 keys. If this happens, turn off the option to allow enough space for the Navigation Bar.
+
 #### Key repeat protection
 _In: Settings → Keypad._
 

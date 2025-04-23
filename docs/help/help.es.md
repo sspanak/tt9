@@ -305,6 +305,13 @@ _En: Configuración → Apariencia._
 
 En algunos teléfonos, especialmente Sonim XP3plus (XP3900), Traditional T9 puede no aparecer cuando comienzas a escribir o puede estar parcialmente cubierto por las teclas táctiles. En otros casos, puede haber barras blancas a su alrededor. El problema puede ocurrir en una aplicación en particular o en todas ellas. Para evitarlo, habilita la opción "Siempre en la parte superior".
 
+#### Recalcular relleno inferior
+_En: Configuración → Apariencia._
+
+Android 15 introdujo la función de borde a borde, que puede ocasionar que aparezca un espacio en blanco innecesario debajo de las teclas del teclado. Activa esta opción para asegurarte de que el relleno inferior se calcule para cada aplicación y se elimine cuando no sea necesario.
+
+En dispositivos Samsung Galaxy con Android 15 o que hayan recibido una actualización a dicha versión, esta opción puede hacer que TT9 se superponga con la barra de navegación del sistema, especialmente si está configurada con 2 o 3 botones. Si esto ocurre, desactiva la opción para dejar suficiente espacio para la barra de navegación.
+
 #### Protección contra repetición de teclas
 _En: Configuración → Teclado._
 

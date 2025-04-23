@@ -160,6 +160,7 @@
 	<string name="voice_input_error_no_network">Nessuna connessione Internet</string>
 	<string name="voice_input_error_not_available">L\'input vocale non è disponibile</string>
 	<string name="voice_input_stopping">Spegnimento del microfono…</string>
+	<string name="pref_hack_precalculate_navbar_height_summary">Evita lo spazio vuoto sotto i tasti. Disattiva su Samsung per evitare sovrapposizioni con la barra di navigazione.</string>
 	<string name="pref_haptic_feedback">Vibrazione</string>
 	<string name="pref_numpad_alignment">Allineamento</string>
 	<string name="virtual_numpad_alignment_center">Al centro</string>
@@ -216,5 +217,6 @@
 	<string name="pref_allow_composing_text">Mostra testo in composizione</string>
 	<string name="pref_drag_resize">Ridimensionare trascinando</string>
 	<string name="function_undo">Annulla (Undo)</string>
+	<string name="pref_hack_precalculate_navbar_height">Ricalcola il margine inferiore</string>
 </resources>
 

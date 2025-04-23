@@ -305,6 +305,13 @@ _Dans : Paramètres → Apparence._
 
 Sur certains téléphones, notamment le Sonim XP3plus (XP3900), Traditional T9 peut ne pas s'afficher lorsque vous commencez à taper, ou il peut être partiellement couvert par les touches virtuelles. Dans d'autres cas, il peut y avoir des bandes blanches autour. Ce problème peut se produire dans une application spécifique ou dans toutes. Pour l’éviter, activez l'option « Toujours au premier plan ».
 
+#### Recalculer le remplissage inférieur
+_Dans : Paramètres → Apparence._
+
+Android 15 a introduit la fonction "bord à bord", qui peut parfois provoquer l'apparition d’un espace vide inutile sous les touches du clavier. Activez cette option pour que le remplissage inférieur soit recalculé pour chaque application et supprimé si inutile.
+
+Sur les appareils Samsung Galaxy avec Android 15 ou ayant reçu la mise à jour, cette option peut entraîner un chevauchement de TT9 avec la barre de navigation système, surtout si elle est configurée avec 2 ou 3 boutons. Si cela se produit, désactivez l’option afin de laisser suffisamment de place pour la barre de navigation.
+
 #### Protection contre la répétition des touches
 _Dans : Paramètres → Clavier._
 

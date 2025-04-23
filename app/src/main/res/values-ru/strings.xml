@@ -173,6 +173,7 @@
 	<string name="voice_input_error_no_network">Нет подключения к Интернету</string>
 	<string name="voice_input_error_not_available">Голосовой ввод недоступен</string>
 	<string name="voice_input_stopping">Отключение микрофона…</string>
+	<string name="pref_hack_precalculate_navbar_height_summary">Убирает пустоту под клавишами. Отключите на Samsung, чтобы избежать перекрытия навигационной панели.</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
 	<string name="pref_numpad_alignment">Выравнивание</string>
 	<string name="virtual_numpad_alignment_center">Посередине</string>
@@ -213,4 +214,5 @@
 	<string name="pref_allow_composing_text">Показывать текст при вводе</string>
 	<string name="pref_drag_resize">Изменять размер перетаскиванием</string>
 	<string name="function_undo">Отменить (Undo)</string>
+	<string name="pref_hack_precalculate_navbar_height">Пересчитать нижний отступ</string>
 </resources>
