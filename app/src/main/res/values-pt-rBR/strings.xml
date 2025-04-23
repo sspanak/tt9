@@ -111,6 +111,7 @@
 	<string name="char_newline">Nova Linha</string>
 	<string name="char_space">Espaço</string>
 	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>
+	<string name="pref_suggestion_font_size">Tamanho da fonte das sugestões</string>
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>

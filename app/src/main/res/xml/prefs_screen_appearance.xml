@@ -44,6 +44,10 @@
 			app:key="pref_numpad_fn_key_width"
 			app:title="@string/pref_numpad_fn_key_width" />
 
+		<DropDownPreference
+			app:key="pref_suggestion_font_size"
+			app:title="@string/pref_suggestion_font_size" />
+
 		<SwitchPreferenceCompat
 			app:key="pref_arrow_keys_visible"
 			app:title="@string/pref_arrow_keys_visible"

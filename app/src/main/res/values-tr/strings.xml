@@ -138,6 +138,7 @@
 	<string name="pref_font_size">Yazı tipi boyutunu ayarla</string>
 	<string name="pref_font_size_default">Standart</string>
 
+	<string name="pref_suggestion_font_size">Öneri yazı tipi boyutu</string>
 	<string name="pref_suggestion_smooth_scroll">Akıcı öneri kaydırma</string>
 	<string name="pref_upside_down_keys">Tuş Düzenini Tersine Çevir</string>
 	<string name="pref_upside_down_keys_summary">Eğer ilk satırda 1–2–3 yerine 7–8–9 kullanıyorsanız bunu aktif edin.</string>

@@ -123,6 +123,14 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt("pref_font_size", defaultSize);
 	}
 
+	public float getSuggestionFontScale() {
+		return getSuggestionFontSizePercent() / 100f;
+	}
+
+	public int getSuggestionFontSizePercent() {
+		return getStringifiedInt("pref_suggestion_font_size", 100);
+	}
+
 	public boolean getSuggestionSmoothScroll() {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
 	}

@@ -35,6 +35,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 		ItemShowArrows showArrows = new ItemShowArrows(findPreference(ItemShowArrows.NAME), activity.getSettings());
 		ItemNumpadFnKeyScale fnKeyWidth = new ItemNumpadFnKeyScale(findPreference(ItemNumpadFnKeyScale.NAME), activity.getSettings());
 		ItemNumpadKeyFontSize numpadKeyFontSize = new ItemNumpadKeyFontSize(findPreference(ItemNumpadKeyFontSize.NAME), activity.getSettings());
+		ItemSuggestionFontSize suggestionFontSize = new ItemSuggestionFontSize(findPreference(ItemSuggestionFontSize.NAME), activity.getSettings());
 
 		ItemSelectLayoutType selectLayout = new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity)
 			.addOnChangeItem(alignment)
@@ -43,7 +44,8 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.addOnChangeItem(numpadKeyFontSize)
 			.addOnChangeItem(numpadKeyHeight)
 			.addOnChangeItem(numpadShape)
-			.addOnChangeItem(showArrows);
+			.addOnChangeItem(showArrows)
+			.addOnChangeItem(suggestionFontSize);
 
 
 		ItemDropDown[] items = {
@@ -55,7 +57,8 @@ public class AppearanceScreen extends BaseScreenFragment {
 			keyboardWidth,
 			numpadShape,
 			fnKeyWidth,
-			numpadKeyFontSize
+			numpadKeyFontSize,
+			suggestionFontSize
 		};
 
 		for (ItemDropDown item : items) {
