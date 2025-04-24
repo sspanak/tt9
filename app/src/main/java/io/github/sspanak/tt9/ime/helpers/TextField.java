@@ -138,6 +138,7 @@ public class TextField extends InputField {
 		}
 
 		if (isNonText) {
+			composingText = composingText.length() > 1 ? composingText.subSequence(0, composingText.length() - 1) : "";
 			sendDownUpKeyEvents(KeyEvent.KEYCODE_DEL);
 			return;
 		}
@@ -150,6 +151,7 @@ public class TextField extends InputField {
 			}
 		}
 
+		composingText = composingText.length() > numberOfChars ? composingText.subSequence(0, composingText.length() - numberOfChars) : "";
 		connection.deleteSurroundingText(numberOfChars, 0);
 	}
 
