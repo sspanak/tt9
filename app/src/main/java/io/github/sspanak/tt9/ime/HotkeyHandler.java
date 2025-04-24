@@ -207,7 +207,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyFilterClear(boolean validateOnly) {
-		if (suggestionOps.isEmpty() || !mInputMode.supportsFiltering()) {
+		if (suggestionOps.isEmpty()) {
 			return false;
 		}
 
