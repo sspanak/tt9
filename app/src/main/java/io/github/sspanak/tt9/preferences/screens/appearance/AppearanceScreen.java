@@ -36,9 +36,11 @@ public class AppearanceScreen extends BaseScreenFragment {
 		ItemNumpadFnKeyScale fnKeyWidth = new ItemNumpadFnKeyScale(findPreference(ItemNumpadFnKeyScale.NAME), activity.getSettings());
 		ItemNumpadKeyFontSize numpadKeyFontSize = new ItemNumpadKeyFontSize(findPreference(ItemNumpadKeyFontSize.NAME), activity.getSettings());
 		ItemSuggestionFontSize suggestionFontSize = new ItemSuggestionFontSize(findPreference(ItemSuggestionFontSize.NAME), activity.getSettings());
+		ItemFnKeyOrder fnKeyOrder = new ItemFnKeyOrder(activity.getSettings(), findPreference(ItemFnKeyOrder.NAME));
 
 		ItemSelectLayoutType selectLayout = new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity)
 			.addOnChangeItem(alignment)
+			.addOnChangeItem(fnKeyOrder)
 			.addOnChangeItem(fnKeyWidth)
 			.addOnChangeItem(keyboardWidth)
 			.addOnChangeItem(numpadKeyFontSize)

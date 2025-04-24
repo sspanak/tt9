@@ -34,6 +34,7 @@
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
 	<string name="pref_category_delete_words">Delete Added Words</string>
 	<string name="pref_category_function_keys">Select Hotkeys</string>
+	<string name="pref_category_fn_key_order">Function Key Order</string>
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>

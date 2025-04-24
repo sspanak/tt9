@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"  app:orderingFromXml="true">
+	<!-- @todo: Description:
+		1 = Settings, 2 = Add Word, 3 = Shift, 4 = Input Mode
+		5 = Backspace, 6 = Filter/Asian Space, 7 = Text Editing/Voice Input, 8 = OK
+	-->
+	<!-- @todo: Column 1 (left), validate 1-9, max 4 values, no duplicates with 2 -->
+	<!-- @todo: Column 2 (right), validate 1-9, max 4 values, no duplicates with 1 -->
+	<!-- @todo: Preview
+		X	1	2	3 X
+		X	4	5	6	X
+		X	...
+		X
+	-->
+</PreferenceScreen>
