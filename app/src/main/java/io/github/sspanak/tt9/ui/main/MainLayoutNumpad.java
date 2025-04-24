@@ -1,27 +1,44 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class MainLayoutNumpad extends BaseMainLayout {
+	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
+
 	private boolean isTextEditingShown = false;
 	private int height;
 
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
+	}
+
+
+	@Override
+	protected View getView() {
+		if (view == null) {
+			super.getView();
+			reorderFnKeys();
+		}
+		return view;
 	}
 
 
@@ -217,18 +234,16 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 
 		// left Fn
-		ViewGroup left = view.findViewById(R.id.numpad_column_fn_left);
-		keys.add(left.findViewById(R.id.soft_key_settings));
-		keys.add(left.findViewById(R.id.soft_key_add_word));
-		keys.add(left.findViewById(R.id.soft_key_shift));
-		keys.add(left.findViewById(R.id.soft_key_lf4));
+		keys.add(view.findViewById(R.id.soft_key_settings));
+		keys.add(view.findViewById(R.id.soft_key_add_word));
+		keys.add(view.findViewById(R.id.soft_key_shift));
+		keys.add(view.findViewById(R.id.soft_key_lf4));
 
 		// right Fn
-		ViewGroup right = view.findViewById(R.id.numpad_column_fn_right);
-		keys.add(right.findViewById(R.id.soft_key_numpad_backspace));
-		keys.add(right.findViewById(R.id.soft_key_filter));
-		keys.add(right.findViewById(R.id.soft_key_rf3));
-		keys.add(right.findViewById(R.id.soft_key_numpad_ok));
+		keys.add(view.findViewById(R.id.soft_key_numpad_backspace));
+		keys.add(view.findViewById(R.id.soft_key_filter));
+		keys.add(view.findViewById(R.id.soft_key_rf3));
+		keys.add(view.findViewById(R.id.soft_key_numpad_ok));
 
 		// digits panel
 		ViewGroup table = view.findViewById(R.id.main_soft_keys);
@@ -267,6 +282,58 @@ class MainLayoutNumpad extends BaseMainLayout {
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		return keys;
+	}
+
+
+	private void reorderFnKeys() {
+		if (view == null) {
+			return;
+		}
+
+		ViewGroup left = view.findViewById(R.id.numpad_column_fn_left);
+		ViewGroup right = view.findViewById(R.id.numpad_column_fn_right);
+		if (left == null || right == null) {
+			Logger.w(LOG_TAG, "Reordering keys failed: left or right column is null");
+			return;
+		}
+
+		String lfnOrder = tt9.getSettings().getLfnKeyOrder();
+		String rfnOrder = tt9.getSettings().getRfnKeyOrder();
+
+		if (
+			SettingsVirtualNumpad.DEFAULT_LFN_KEY_ORDER.equals(lfnOrder)
+			&& SettingsVirtualNumpad.DEFAULT_RFN_KEY_ORDER.equals(rfnOrder)
+		) {
+			Logger.d(LOG_TAG, "Preserving default key order");
+			return;
+		}
+
+		Map<Integer, View> keyWrappers = new HashMap<>();
+		for (Map.Entry<Character, Integer> entry : SettingsVirtualNumpad.KEY_ORDER_MAP.entrySet()) {
+			keyWrappers.put(entry.getValue(), view.findViewById(entry.getValue()));
+		}
+
+		reorderFnColumn(left, lfnOrder, keyWrappers);
+		reorderFnColumn(right, rfnOrder, keyWrappers);
+	}
+
+
+	private void reorderFnColumn(ViewGroup column, String order, Map<Integer, View> keyWrappers) {
+		for (char keyId : order.toCharArray()) {
+			Integer viewId = SettingsVirtualNumpad.KEY_ORDER_MAP.get(keyId);
+			if (viewId == null) {
+				continue;
+			}
+
+			View key = keyWrappers.get(viewId);
+			if (key == null) {
+				Logger.w(LOG_TAG, "Failed reordering a NULL key with expected ID: " + keyId);
+				continue;
+			}
+
+			((ViewGroup) key.getParent()).removeView(key);
+			column.addView(key);
+		}
 	}
 
 

@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.util.TypedValue;
 import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -20,10 +19,6 @@ public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
 
-	public final static int NUMPAD_SHAPE_SQUARE = 0;
-	public final static int NUMPAD_SHAPE_V = 1;
-	public final static int NUMPAD_SHAPE_LONG_SPACE = 2;
-
 	private final int DEFAULT_LAYOUT;
 
 	public final static int MIN_WIDTH_PERCENT = 50;
@@ -40,10 +35,6 @@ public class SettingsUI extends SettingsTyping {
 		} else {
 			DEFAULT_LAYOUT = LAYOUT_TRAY;
 		}
-	}
-
-	public boolean areArrowKeysHidden() {
-		return !prefs.getBoolean("pref_arrow_keys_visible", true);
 	}
 
 	public boolean getAddWordsNoConfirmation() {
@@ -83,40 +74,6 @@ public class SettingsUI extends SettingsTyping {
 		prefsEditor.putString("pref_numpad_alignment", Integer.toString(alignment));
 		prefsEditor.apply();
 	}
-
-	public int getNumpadKeyDefaultHeight() {
-		return context.getResources().getDimensionPixelSize(R.dimen.numpad_key_height);
-	}
-
-	public int getNumpadKeyHeight() {
-		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
-	}
-
-	public float getNumpadFnKeyDefaultScale() {
-		// The simpler getResource.getFloat() requires API 29, so we must get the value manually.
-		try {
-			TypedValue outValue = new TypedValue();
-			context.getResources().getValue(R.dimen.numpad_key_fn_layout_weight, outValue, true);
-			return outValue.getFloat();
-		} catch (Exception e) {
-			return 0.625f;
-		}
-	}
-
-	public float getNumpadFnKeyScale() {
-		return getStringifiedFloat("pref_numpad_fn_key_width", getNumpadFnKeyDefaultScale());
-	}
-
-	public int getNumpadKeyFontSizePercent() {
-		return isMainLayoutNumpad() ? getStringifiedInt("pref_numpad_key_font_size", 100) : 100;
-	}
-
-	public int getNumpadShape() {
-		return getStringifiedInt("pref_numpad_shape", NUMPAD_SHAPE_SQUARE);
-	}
-
-	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
-	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
 
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;

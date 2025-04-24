@@ -4,25 +4,29 @@
 	style="@style/TTheme.Numpad.Column.Fn"
 	android:id="@+id/numpad_column_fn_right">
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
-		style="@style/TTheme.Numpad.Key.Large"
-		android:id="@+id/soft_key_numpad_backspace" />
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_5">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_numpad_backspace" />
+	</RelativeLayout>
 
-	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_6">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyFilter
 			style="@style/TTheme.Numpad.Key.Large"
 			android:id="@+id/soft_key_filter" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
-	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_7">
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeyRF3
 			style="@style/TTheme.Numpad.Key.Large"
 			android:id="@+id/soft_key_rf3" />
 		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
-		style="@style/TTheme.Numpad.Key.OK"
-		android:id="@+id/soft_key_numpad_ok" />
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_8">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
+			style="@style/TTheme.Numpad.Key.OK"
+			android:id="@+id/soft_key_numpad_ok" />
+	</RelativeLayout>
 </LinearLayout>
