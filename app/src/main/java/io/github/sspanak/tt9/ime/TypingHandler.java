@@ -127,7 +127,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return true;
 		}
 
-		if (repeat == 0 && mInputMode.onBackspace()) {
+		boolean noTextSelection = textSelection.isEmpty(); // loading words after deleting selected text is confusing
+		if (repeat == 0 && mInputMode.onBackspace() && noTextSelection) {
 			getSuggestions(null);
 		} else {
 			suggestionOps.commitCurrent(false, true);
@@ -135,7 +136,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
 		}
 
-		if (settings.getBackspaceRecomposing() && repeat == 0 && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
+		if (settings.getBackspaceRecomposing() && repeat == 0 && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = mInputMode.recompose();
 			if (textField.recompose(previousWord)) {
 				getSuggestions(previousWord);
