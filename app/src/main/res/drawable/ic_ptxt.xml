@@ -1,3 +1,5 @@
+<!-- Vectors and icons by <a href="http://www.icojam.com/?ref=svgrepo.com" target="_blank">Icojam</a> in CC Attribution License via <a href="https://www.svgrepo.com/" target="_blank">SVG Repo</a> -->
+
 <vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
 
     <path android:fillColor="@android:color/white" android:pathData="M9,15a1,1 0,0 1,-1 -1V12a1,1 0,0 1,2 0v2A1,1 0,0 1,9 15Z"/>
@@ -11,3 +13,4 @@
     <path android:fillColor="@android:color/white" android:pathData="M21,20H3a1,1 0,0 1,-1 -1V14.5a10,10 0,0 1,20 0V19A1,1 0,0 1,21 20ZM4,18H20V14.5a8,8 0,0 0,-16 0Z"/>
 
 </vector>
+
