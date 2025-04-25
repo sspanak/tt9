@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -225,13 +226,19 @@ public class DictionaryLoader {
 		} catch (Exception | Error e) {
 			stop();
 			sqlite.failTransaction();
-			self.lastAutoLoadAttemptTime.put(language.getId(), null);
 			sendError(e.getClass().getSimpleName(), language.getId());
+
+			if (e instanceof UnknownHostException) {
+				self.lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
+			} else {
+				self.lastAutoLoadAttemptTime.put(language.getId(), null);
+			}
 
 			Logger.e(
 				LOG_TAG,
 				"Failed loading dictionary: " + language.getDictionaryFile()
 				+ " for language '" + language.getName() + "'. "
+				+ e.getClass().getSimpleName() + ": "
 				+ e.getMessage()
 			);
 		}
