@@ -340,6 +340,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
 		statusBar.setText(mInputMode);
+		setStatusIcon(mInputMode);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth()) {
