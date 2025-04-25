@@ -16,7 +16,7 @@
 
 	<Preference
 		android:key="punctuation_order_reset_defaults"
-		android:title="@string/punctuation_order_reset_defaults" />
+		android:title="@string/restore_default_order" />
 
 	<Preference
 		android:key="punctuation_order_save"

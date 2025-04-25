@@ -6,6 +6,7 @@ import android.util.TypedValue;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
 public class SettingsVirtualNumpad extends SettingsUI {
 	public final static int NUMPAD_SHAPE_SQUARE = 0;
@@ -39,7 +40,19 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public String getRfnKeyOrder() {
-		return prefs.getString("pref_lfn_key_order", DEFAULT_RFN_KEY_ORDER);
+		return prefs.getString("pref_rfn_key_order", DEFAULT_RFN_KEY_ORDER);
+	}
+
+	public FnKeyOrderValidator setFnKeyOrder(String left, String right) {
+		FnKeyOrderValidator validator = new FnKeyOrderValidator(left, right);
+		if (validator.validate()) {
+			prefsEditor
+				.putString("pref_rfn_key_order", right)
+				.putString("pref_lfn_key_order", left)
+				.apply();
+		}
+
+		return validator;
 	}
 
 	public int getNumpadKeyDefaultHeight() {

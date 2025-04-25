@@ -199,7 +199,7 @@
 	<string name="punctuation_order_save_error">Неуспешно запазване на реда на знаците.</string>
 	<string name="punctuation_order_sentence">Ред на символите на клавиш 1</string>
 	<string name="punctuation_order_special">Ред на символите на клавиш 0</string>
-	<string name="punctuation_order_reset_defaults">Възстанови реда по подразбиране</string>
+	<string name="restore_default_order">Възстанови реда по подразбиране</string>
 	<string name="language">Език</string>
 	<string name="punctuation_order_save">Запази подредбата</string>
 	<string name="punctuation_order_forbidden_char">Забранен символ:%1$s</string>

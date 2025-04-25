@@ -8,6 +8,7 @@
 	<string name="english_only" translatable="false">English only</string>
 	<string name="loading">Loading…</string>
 	<string name="language">Language</string>
+	<string name="restore_default_order">Restore Default Order</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
 
@@ -161,6 +162,15 @@
 	<string name="donate_summary">If you like %1$s, you could buy me a beer.</string>
 	<string name="donate_hold_to_open">Press and hold to open in the browser.</string>
 
+	<string name="fn_key_order_column_1">Column 1</string>
+	<string name="fn_key_order_column_2">Column 2</string>
+	<string name="fn_key_order_error_wrong_key_count">There must be exactly 4 keys per column.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Only key codes 1–8 are allowed.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Keys cannot appear in both columns.</string>
+	<string name="fn_key_order_error_duplicate_key">No duplicate keys allowed.</string>
+	<string name="fn_key_order_legend">Legend:</string>
+	<string name="fn_key_order_preview_tip">Hint: After reordering the keys in column 1, tap on column 2 to see the result immediately (or vice versa).</string>
+
 	<string name="function_already_assigned">Key \"%1$s\" is already assigned to function \"%2$s\". Do you want to assign it to \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Press or hold a key to assign it to the \"%1$s\" function.\n\n* Press 0 to cancel.\n\n* Press 2 to disable the function.</string>
 	<string name="function_reassign">Reassign</string>
@@ -196,7 +206,6 @@
 	<string name="punctuation_order_mandatory_chars_missing">Missing mandatory characters:%1$s</string>
 	<string name="punctuation_order_forbidden_char">Forbidden character:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Forbidden characters:%1$s</string>
-	<string name="punctuation_order_reset_defaults">Restore Default Order</string>
 	<string name="punctuation_order_save">Save Order</string>
 	<string name="punctuation_order_save_error">Failed saving the character order.</string>
 	<string name="punctuation_order_sentence">1-key Character Order</string>

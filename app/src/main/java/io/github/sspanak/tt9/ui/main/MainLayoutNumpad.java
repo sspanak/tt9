@@ -23,8 +23,9 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 class MainLayoutNumpad extends BaseMainLayout {
 	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
 
-	private boolean isTextEditingShown = false;
+	@NonNull private String fnKeyOrder = "";
 	private int height;
+	private boolean isTextEditingShown = false;
 
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
@@ -36,8 +37,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 	protected View getView() {
 		if (view == null) {
 			super.getView();
-			reorderFnKeys();
 		}
+
 		return view;
 	}
 
@@ -300,11 +301,9 @@ class MainLayoutNumpad extends BaseMainLayout {
 		String lfnOrder = tt9.getSettings().getLfnKeyOrder();
 		String rfnOrder = tt9.getSettings().getRfnKeyOrder();
 
-		if (
-			SettingsVirtualNumpad.DEFAULT_LFN_KEY_ORDER.equals(lfnOrder)
-			&& SettingsVirtualNumpad.DEFAULT_RFN_KEY_ORDER.equals(rfnOrder)
-		) {
-			Logger.d(LOG_TAG, "Preserving default key order");
+		final String newOrder = lfnOrder + "," + rfnOrder;
+		if (newOrder.equals(fnKeyOrder)) {
+			Logger.d(LOG_TAG, "Preserving current key order: '" + fnKeyOrder + "'");
 			return;
 		}
 
@@ -315,6 +314,9 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 		reorderFnColumn(left, lfnOrder, keyWrappers);
 		reorderFnColumn(right, rfnOrder, keyWrappers);
+
+		fnKeyOrder = newOrder;
+		Logger.d(LOG_TAG, "Reordered keys: '" + fnKeyOrder + "'");
 	}
 
 
@@ -342,6 +344,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		int defaultKeyHeight = calculateKeyHeight();
 
 		getView();
+		reorderFnKeys();
 		enableClickHandlers();
 		setKeyHeight(defaultKeyHeight);
 		preventEdgeToEdge();
