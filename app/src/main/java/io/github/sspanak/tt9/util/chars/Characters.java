@@ -67,4 +67,10 @@ public class Characters extends Emoji {
 	public static boolean isFathatan(char ch) {
 		return ch == 0x064B;
 	}
+
+	public static boolean isOm(char ch) {
+		return
+			ch == 0x0950 // Devanagari
+			|| ch == 0x0AD0; // Gujarati
+	}
 }
