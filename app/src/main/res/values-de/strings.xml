@@ -66,6 +66,7 @@
 	<string name="pref_category_abc_mode">ABC-Modus</string>
 	<string name="pref_category_custom_words">Hinzugefügte Wörter</string>
 	<string name="pref_category_delete_words">Hinzugefügte Wörter löschen</string>
+	<string name="pref_category_fn_key_order">Reihenfolge der Funktionstasten</string>
 	<string name="pref_category_hacks">Kompatibilität</string>
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_appearance">Erscheinungsbild</string>
@@ -203,6 +204,9 @@
 	<string name="pref_arrow_keys_visible">Pfeiltasten</string>
 	<string name="donate_hold_to_open">Drücken und halten, um in einem Browser zu öffnen.</string>
 	<string name="key_key">Taste</string>
+	<string name="fn_key_order_error_duplicate_key">Doppelte Tasten sind nicht erlaubt.</string>
+	<string name="fn_key_order_legend">Legende:</string>
+	<string name="fn_key_order_preview_tip">Tipp: Nach dem Neuanordnen der Tasten in Spalte 1, tippe auf Spalte 2, um das Ergebnis sofort zu sehen (oder umgekehrt).</string>
 	<string name="function_already_assigned">\tDie Taste \"%1$s\" ist bereits der Funktion \"%2$s\" zugewiesen. Möchten Sie sie \"%3$s\" zuweisen?</string>
 	<string name="function_assign_instructions">* Drücken oder halten Sie eine Taste, um sie der Funktion \"%1$s\" zuzuweisen.\n\n* Drücken Sie 0, um abzubrechen.\n\n* Drücken Sie 2, um die Funktion zu deaktivieren.</string>
 	<string name="function_reassign">Neu zuweisen</string>
@@ -218,4 +222,9 @@
 	<string name="pref_drag_resize">Größe durch Ziehen ändern</string>
 	<string name="function_undo">Rückgängig machen</string>
 	<string name="pref_hack_precalculate_navbar_height">Unteren Abstand neu berechnen</string>
+	<string name="fn_key_order_column_2">Spalte 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Es müssen genau 4 Tasten pro Spalte sein.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Nur Tastencodes 1–8 sind erlaubt.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Eine Taste kann nicht in beiden Spalten platziert werden.</string>
+	<string name="fn_key_order_column_1">Spalte 1</string>
 </resources>

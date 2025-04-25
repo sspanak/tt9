@@ -20,6 +20,7 @@
 	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
+	<string name="pref_category_fn_key_order">Ordem das teclas de função</string>
 	<string name="pref_category_hacks">Compatibilidade</string>
 	<string name="pref_category_appearance">Aparência</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
@@ -214,6 +215,9 @@
 	<string name="pref_numpad_shape_v">Forma em V</string>
 	<string name="pref_arrow_keys_visible">Teclas de seta</string>
 	<string name="donate_hold_to_open">Pressione e segure para abrir no navegador.</string>
+	<string name="fn_key_order_error_duplicate_key">Teclas duplicadas não são permitidas.</string>
+	<string name="fn_key_order_legend">Legenda:</string>
+	<string name="fn_key_order_preview_tip">Dica: Após reorganizar as teclas na coluna 1, toque na coluna 2 para ver o resultado imediatamente (ou vice-versa).</string>
 	<string name="function_already_assigned">A tecla \"%1$s\" já está atribuída à função \"%2$s\". Deseja atribuí-la a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Pressione ou segure uma tecla para atribuí-la à função \"%1$s\".\n\n* Pressione 0 para cancelar.\n\n* Pressione 2 para desativar a função.</string>
 	<string name="function_filter_clear">Limpar Filtro</string>
@@ -223,4 +227,9 @@
 	<string name="pref_drag_resize">Redimensionar arrastando</string>
 	<string name="function_undo">Desfazer</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalcular o espaçamento inferior</string>
+	<string name="fn_key_order_column_2">Coluna 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Deve haver exatamente 4 teclas por coluna.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Uma tecla não pode estar nas duas colunas.</string>
+	<string name="fn_key_order_column_1">Coluna 1</string>
 </resources>

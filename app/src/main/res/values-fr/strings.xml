@@ -45,6 +45,7 @@
 	<string name="pref_category_abc_mode">Saisie ABC</string>
 	<string name="pref_category_custom_words">Mots ajoutés</string>
 	<string name="pref_category_delete_words">Supprimer des mots ajoutés</string>
+	<string name="pref_category_fn_key_order">Ordre des touches de fonction</string>
 	<string name="pref_category_hacks">Compatibilité</string>
 	<string name="pref_category_appearance">Apparance</string>
 	<string name="dictionary_load_bad_char">Echec du chargement. Mot inadmissible à la ligne %1$d de langue «%2$s».</string>
@@ -209,6 +210,9 @@
 	<string name="pref_arrow_keys_visible">Touches fléchées</string>
 	<string name="donate_hold_to_open">Appuyez et maintenez pour ouvrir dans un navigateur.</string>
 	<string name="key_key">Touche</string>
+	<string name="fn_key_order_error_duplicate_key">Les touches en double ne sont pas autorisées.</string>
+	<string name="fn_key_order_legend">Légende :</string>
+	<string name="fn_key_order_preview_tip">Astuce : Après avoir réorganisé les touches dans la colonne 1, touchez la colonne 2 pour voir le résultat immédiatement (ou inversement).</string>
 	<string name="function_already_assigned">La touche \"%1$s\" est déjà attribuée à la fonction \"%2$s\". Voulez-vous l’attribuer à \"%3$s\" ?</string>
 	<string name="function_assign_instructions">* Appuyez ou maintenez une touche pour l’attribuer à la fonction \"%1$s\".\n\n* Appuyez sur 0 pour annuler.\n\n* Appuyez sur 2 pour désactiver la fonction.</string>
 	<string name="key_hold_key">(maintenir)</string>
@@ -216,4 +220,9 @@
 	<string name="pref_drag_resize">Redimensionner en faisant glisser</string>
 	<string name="function_undo">Annuler (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalculer le remplissage inférieur</string>
+	<string name="fn_key_order_column_2">Colonne 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Il doit y avoir exactement 4 touches par colonne.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Seuls les codes de touche 1 à 8 sont autorisés.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Une touche ne peut pas être placée dans les deux colonnes.</string>
+	<string name="fn_key_order_column_1">Colonne 1</string>
 </resources>

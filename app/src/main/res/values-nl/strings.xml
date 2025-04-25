@@ -69,6 +69,7 @@
 	<string name="pref_category_abc_mode">ABC-modus</string>
 	<string name="pref_category_custom_words">Toegevoegde woorden</string>
 	<string name="pref_category_delete_words">Verwijder toegevoegde woorden</string>
+	<string name="pref_category_fn_key_order">Volgorde van functietoetsen</string>
 	<string name="pref_category_hacks">Compatibiliteit</string>
 	<string name="dictionary_loading_indeterminate">Woordenboek laden</string>
 	<string name="pref_category_appearance">Uiterlijk</string>
@@ -202,6 +203,9 @@
 	<string name="pref_numpad_shape_v">V-vorm</string>
 	<string name="donate_hold_to_open">Druk lang in om in een browser te openen.</string>
 	<string name="key_key">Toets</string>
+	<string name="fn_key_order_error_duplicate_key">Dubbele toetsen zijn niet toegestaan.</string>
+	<string name="fn_key_order_legend">Legenda:</string>
+	<string name="fn_key_order_preview_tip">Tip: Na het herschikken van de toetsen in kolom 1, tik op kolom 2 om het resultaat direct te zien (of andersom).</string>
 	<string name="function_already_assigned">Toets \"%1$s\" is al toegewezen aan functie \"%2$s\". Wilt u deze toewijzen aan \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Druk of houd een toets ingedrukt om deze toe te wijzen aan de functie \"%1$s\".\n\n* Druk op 0 om te annuleren.\n\n* Druk op 2 om de functie uit te schakelen.</string>
 	<string name="function_reassign">Opnieuw toewijzen</string>
@@ -217,4 +221,9 @@
 	<string name="pref_allow_composing_text">Compositietekst weergeven</string>
 	<string name="function_undo">Ongedaan maken</string>
 	<string name="pref_hack_precalculate_navbar_height">Onderrand opnieuw berekenen</string>
+	<string name="fn_key_order_column_2">Kolom 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Er moeten precies 4 toetsen per kolom zijn.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Alleen toetscodes 1–8 zijn toegestaan.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Eén toets kan niet in beide kolommen staan.</string>
+	<string name="fn_key_order_column_1">Kolom 1</string>
 </resources>

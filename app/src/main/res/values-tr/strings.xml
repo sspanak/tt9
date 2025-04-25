@@ -63,6 +63,7 @@
 	<string name="pref_category_abc_mode">ABC Modu</string>
 	<string name="pref_category_custom_words">Eklenen sözcükler</string>
 	<string name="pref_category_delete_words">Eklenen sözcükleri sil</string>
+	<string name="pref_category_fn_key_order">Fonksiyon tuşlarının sırası</string>
 	<string name="pref_category_hacks">Uyumluluk</string>
 	<string name="dictionary_loading_indeterminate">Sözlüğü yükle</string>
 	<string name="pref_category_appearance">Görünüş</string>
@@ -214,6 +215,9 @@
 	<string name="donate_summary">Eğer %1$s\'ı beğendiyseniz bana bir bira ısmarlayabilirsiniz</string>
 	<string name="donate_hold_to_open">Tarayıcıda açmak için basılı tutun.</string>
 	<string name="key_key">Tuş</string>
+	<string name="fn_key_order_error_duplicate_key">Yinelenen tuşlara izin verilmez.</string>
+	<string name="fn_key_order_legend">Açıklama:</string>
+	<string name="fn_key_order_preview_tip">İpucu: 1. sütundaki tuşları yeniden sıraladıktan sonra sonucu hemen görmek için 2. sütuna dokunun (veya tam tersi).</string>
 	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
 	<string name="function_assign_instructions">* \"%1$s\" işlevine atamak için bir tuşa basın veya basılı tutun.\n\n* İptal etmek için 0\'a basın.\n\n* İşlevi devre dışı bırakmak için 2\'ye basın.</string>
 	<string name="key_hold_key">(basılı tut)</string>
@@ -221,4 +225,9 @@
 	<string name="pref_drag_resize">Sürükleyerek yeniden boyutlandır</string>
 	<string name="function_undo">Geri al (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Alt boşluğu yeniden hesapla</string>
+	<string name="fn_key_order_column_2">Sütun 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Her sütunda tam olarak 4 tuş olmalıdır.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Yalnızca 1–8 arası tuş kodlarına izin verilir.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Bir tuş her iki sütuna da yerleştirilemez.</string>
+	<string name="fn_key_order_column_1">Sütun 1</string>
 </resources>

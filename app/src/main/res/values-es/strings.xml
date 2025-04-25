@@ -22,6 +22,7 @@
 	<string name="pref_category_abc_mode">Modo ABC</string>
 	<string name="pref_category_custom_words">Palabras añadidas</string>
 	<string name="pref_category_delete_words">Eliminar palabras añadidas</string>
+	<string name="pref_category_fn_key_order">Orden de las teclas de función</string>
 	<string name="pref_category_hacks">Compatibilidad</string>
 	<string name="pref_category_appearance">Apariencia</string>
 	<string name="pref_category_function_keys">Teclas de acceso rápido</string>
@@ -210,10 +211,18 @@
 	<string name="pref_numpad_shape_v">Forma de V</string>
 	<string name="pref_arrow_keys_visible">Teclas de flecha</string>
 	<string name="donate_hold_to_open">Mantén presionado para abrir en un navegador.</string>
+	<string name="fn_key_order_error_duplicate_key">No se permiten teclas duplicadas.</string>
+	<string name="fn_key_order_legend">Leyenda:</string>
+	<string name="fn_key_order_preview_tip">Sugerencia: Después de reorganizar las teclas en la columna 1, toca la columna 2 para ver el resultado al instante (o viceversa).</string>
 	<string name="function_already_assigned">La tecla \"%1$s\" ya está asignada a la función \"%2$s\". ¿Desea asignarla a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
 	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
 	<string name="pref_drag_resize">Redimensionar arrastrando</string>
 	<string name="function_undo">Deshacer</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalcular el relleno inferior</string>
+	<string name="fn_key_order_column_2">Columna 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Debe haber exactamente 4 teclas por columna.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Solo se permiten los códigos de tecla del 1 al 8.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Una tecla no puede colocarse en ambas columnas.</string>
+	<string name="fn_key_order_column_1">Columna 1</string>
 </resources>

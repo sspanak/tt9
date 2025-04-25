@@ -19,6 +19,7 @@
 	<string name="commands_select_command">Pasirinkti komandą</string>
 	<string name="pref_category_about">Apie programėlę</string>
 	<string name="pref_category_abc_mode">ABC metodas</string>
+	<string name="pref_category_fn_key_order">Funkcinių klavišų tvarka</string>
 	<string name="pref_category_hacks">Suderinamumas</string>
 	<string name="pref_category_appearance">Išvaizda</string>
 	<string name="pref_category_predictive_mode">Nuspėjamumas</string>
@@ -219,10 +220,18 @@
 	<string name="pref_numpad_shape_v">V formos</string>
 	<string name="pref_arrow_keys_visible">Rodyklių klavišai</string>
 	<string name="donate_hold_to_open">Paspauskite ir laikykite, kad atidarytumėte naršyklėje.</string>
+	<string name="fn_key_order_error_duplicate_key">Pasikartojantys klavišai neleidžiami.</string>
+	<string name="fn_key_order_legend">Legenda:</string>
+	<string name="fn_key_order_preview_tip">Patarimas: Perkėlus klavišus 1 stulpelyje, palieskite 2 stulpelį, kad iškart pamatytumėte rezultatą (arba atvirkščiai).</string>
 	<string name="function_already_assigned">Klavišas „%1$s“ jau priskirtas funkcijai „%2$s“. Ar norite jį priskirti „%3$s“?</string>
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
 	<string name="pref_drag_resize">Keisti dydį tempiant</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Perskaičiuoti apatinį paraštę</string>
+	<string name="fn_key_order_column_2">Stulpelis 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Kiekvienoje stulpelyje turi būti tiksliai 4 klavišai.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Leidžiami tik klavišų kodai nuo 1 iki 8.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Vieno klavišo negalima dėti į abu stulpelius.</string>
+	<string name="fn_key_order_column_1">Stulpelis 1</string>
 </resources>

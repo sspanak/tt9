@@ -4,6 +4,7 @@ import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ItemFnKeyOrder extends ItemClickable implements ItemLayoutChangeReactive {
 	public static final String NAME = "screen_fn_key_order";
@@ -16,7 +17,7 @@ public class ItemFnKeyOrder extends ItemClickable implements ItemLayoutChangeRea
 
 	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
-			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD && !DeviceInfo.noTouchScreen(item.getContext()));
 			item.setIconSpaceReserved(false);
 		}
 	}
