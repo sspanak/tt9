@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 abstract public class Language {
 	protected int id;
@@ -77,7 +78,7 @@ abstract public class Language {
 
 		boolean hasCharsOn0 = false;
 		for (String ch : getKeyCharacters(0)) {
-			if (Character.isAlphabetic(ch.charAt(0))) {
+			if (Character.isAlphabetic(ch.charAt(0)) && !Characters.isOm(ch.charAt(0))) {
 				hasCharsOn0 = true;
 				break;
 			}
@@ -85,7 +86,7 @@ abstract public class Language {
 
 		boolean hasCharsOn1 = false;
 		for (String ch : getKeyCharacters(1)) {
-			if (Character.isAlphabetic(ch.charAt(0))) {
+			if (Character.isAlphabetic(ch.charAt(0)) && !Characters.isOm(ch.charAt(0))) {
 				hasCharsOn1 = true;
 				break;
 			}
