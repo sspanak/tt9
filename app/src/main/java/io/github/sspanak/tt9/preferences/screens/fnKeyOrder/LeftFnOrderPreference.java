@@ -14,13 +14,25 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 public class LeftFnOrderPreference extends TextInputPreference {
 	public final static String NAME = "pref_lfn_key_order";
 
-	protected final SettingsStore settings = new SettingsStore(getContext());
+	protected final SettingsStore settings;
 	@NonNull private Runnable textChangeHandler = () -> {};
 
-	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
-	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
-	public LeftFnOrderPreference(@NonNull Context context) { super(context); }
+	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+		super(context, attrs, defStyleAttr, defStyleRes);
+		this.settings = new SettingsStore(context);
+	}
+	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		this.settings = new SettingsStore(context);
+	}
+	public LeftFnOrderPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+		super(context, attrs);
+		this.settings = new SettingsStore(context);
+	}
+	public LeftFnOrderPreference(@NonNull Context context) {
+		super(context);
+		this.settings = new SettingsStore(context);
+	}
 
 	@Override
 	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {

@@ -27,6 +27,7 @@ public class FnKeyOrderValidator {
 		return error;
 	}
 
+
 	public int getErrorSide() {
 		return errorSide;
 	}
@@ -54,6 +55,7 @@ public class FnKeyOrderValidator {
 		return true;
 	}
 
+
 	private boolean validateDigits(String text, int side) {
 		if (text == null || !text.matches("^[1-8]+$")) {
 			error = R.string.fn_key_order_error_unsupported_key_code;
@@ -63,6 +65,7 @@ public class FnKeyOrderValidator {
 
 		return true;
 	}
+
 
 	private boolean validateNoRepeat(String text, int side) {
 		if (text == null) {
@@ -83,6 +86,7 @@ public class FnKeyOrderValidator {
 
 		return true;
 	}
+
 
 	private boolean validateNoOverlap(String column, String otherColumn) {
 		if (column == null || otherColumn == null) {
