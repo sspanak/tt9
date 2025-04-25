@@ -9,12 +9,12 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.preferences.items.ItemSearch;
+import io.github.sspanak.tt9.preferences.items.SearchPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
-public class PreferenceSearchWords extends ItemSearch {
+public class PreferenceSearchWords extends SearchPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 

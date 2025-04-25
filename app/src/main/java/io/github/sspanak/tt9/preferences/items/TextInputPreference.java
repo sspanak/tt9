@@ -18,22 +18,22 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.colors.AccentSystemColor;
 import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
 
-abstract public class ItemTextInput extends ScreenPreference {
+abstract public class TextInputPreference extends ScreenPreference {
 	@NonNull private final Handler listener = new Handler(Looper.getMainLooper());
 	protected EditText textField;
 	@NonNull protected String text = "";
 
 
-	public ItemTextInput(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public TextInputPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
-	public ItemTextInput(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public TextInputPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
-	public ItemTextInput(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public TextInputPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 	}
-	public ItemTextInput(@NonNull Context context) {
+	public TextInputPreference(@NonNull Context context) {
 		super(context);
 	}
 
@@ -68,6 +68,11 @@ abstract public class ItemTextInput extends ScreenPreference {
 
 		int color = noError ? new AccentSystemColor(getContext()).get() : new ErrorSystemColor(getContext()).get();
 		textField.getBackground().mutate().setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+	}
+
+
+	public CharSequence getText() {
+		return text;
 	}
 
 

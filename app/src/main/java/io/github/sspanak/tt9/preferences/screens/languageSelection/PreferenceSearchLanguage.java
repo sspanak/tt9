@@ -9,9 +9,9 @@ import androidx.preference.Preference;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.preferences.items.ItemSearch;
+import io.github.sspanak.tt9.preferences.items.SearchPreference;
 
-public class PreferenceSearchLanguage extends ItemSearch {
+public class PreferenceSearchLanguage extends SearchPreference {
 	@NonNull private ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();
 	private Preference noResultItem;
 
