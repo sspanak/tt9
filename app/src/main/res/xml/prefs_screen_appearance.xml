@@ -69,6 +69,12 @@
 			app:title="@string/pref_status_icon"
 			app:summary="@string/pref_status_icon_summary" />
 
+		<SwitchPreferenceCompat
+			app:key="pref_status_icon_input_mode"
+			app:dependency="pref_status_icon"
+			app:title="Status Icon Shows Input Mode"
+			app:summary="Replace the icon with a corresponding icon for different input modes." />
+
 	</PreferenceCategory>
 
 </PreferenceScreen>

@@ -56,11 +56,11 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected void setStatusIcon(InputMode mode) {
-		if (InputModeKind.isPredictive(mode) && settings.isStatusIconEnabled()) {
+		if (InputModeKind.isPredictive(mode) && settings.isStatusIconEnabled() && settings.isStatusIconTypeModeEnabled()) {
 			showStatusIcon(R.drawable.ic_ptxt);
-		} else if (InputModeKind.isABC(mode) && settings.isStatusIconEnabled()) {
+		} else if (InputModeKind.isABC(mode) && settings.isStatusIconEnabled() && settings.isStatusIconTypeModeEnabled()) {
 			showStatusIcon(R.drawable.ic_entxt);
-		} else if (InputModeKind.is123(mode) && settings.isStatusIconEnabled()) {
+		} else if (InputModeKind.is123(mode) && settings.isStatusIconEnabled() && settings.isStatusIconTypeModeEnabled()) {
 			showStatusIcon(R.drawable.ic_numtxt);
 		} else if (!InputModeKind.isPassthrough(mode) && settings.isStatusIconEnabled()) {
 			showStatusIcon(R.drawable.ic_keyboard);
