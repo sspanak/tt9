@@ -169,7 +169,7 @@ public class LanguageDefinition {
 	 */
 	private boolean setLayoutEntry(@NonNull String line) {
 		if (!inLayout) {
-			return inLayout = "layout:".equals(line);
+			return inLayout = "layout:\r".equals(line);
 		}
 
 		ArrayList<String> layoutEntry = parseList(line);
