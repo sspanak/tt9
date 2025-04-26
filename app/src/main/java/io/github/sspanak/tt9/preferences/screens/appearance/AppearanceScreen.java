@@ -23,6 +23,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 	}
 
 	private void createMainSection() {
+		(new ItemStatusIconInputMode(findPreference(ItemStatusIconInputMode.NAME), activity.getSettings())).populate();
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();

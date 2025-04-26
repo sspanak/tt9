@@ -54,6 +54,10 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21);
 	}
 
+	public boolean isStatusIconTypeModeEnabled(){
+		return prefs.getBoolean("pref_status_icon_input_mode", false);
+	}
+
 	public boolean getDarkTheme() {
 		int theme = getTheme();
 		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
