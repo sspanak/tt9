@@ -36,8 +36,12 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 
 // this cannot be static, because DictionaryTools will not be visible
 def convertDictionary(File definition, File csvDictionary, String dictionariesOutputDir, String dictionariesMetaDir, String outputDictionaryExtension, HashMap<String, String> sounds, boolean prependSoundsToWords, boolean noSyllables, Locale locale, int maxErrors, String csvDelimiter) {
-	if (isDictionaryUpToDate(definition, csvDictionary, dictionariesMetaDir)) {
-		return [0, ""]
+	try {
+		if (isDictionaryUpToDate(definition, csvDictionary, dictionariesMetaDir)) {
+			return [0, ""]
+		}
+	} catch (Exception e) { // not sure why this crashes sometimes...
+		return [1, "Failed checking freshness of '${csvDictionary.name}'. ${e.message}\n"]
 	}
 
 	final LATIN_ONLY_WORD = "^[A-Za-z]+\$"
