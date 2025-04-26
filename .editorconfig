@@ -1,6 +1,9 @@
 # Editor configuration, see https://editorconfig.org
 root = true
 
+[*]
+end_of_line = lf
+
 [*.{gradle,java,properties,xml}]
 charset = utf-8
 indent_style = tab
