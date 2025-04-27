@@ -2,10 +2,11 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.InputMethodManager;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.StatusIcon;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -43,7 +44,7 @@ abstract class UiHandler extends AbstractHandler {
 		} else {
 			getSuggestionOps().setDarkTheme();
 		}
-		setStatusIcon(inputMode);
+		setStatusIcon(inputMode, getFinalContext().getLanguage());
 		statusBar.setText(inputMode);
 		mainView.hideCommandPalette();
 		mainView.render();
@@ -55,11 +56,12 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	protected void setStatusIcon(InputMode mode) {
-		if (!InputModeKind.isPassthrough(mode) && settings.isStatusIconEnabled()) {
-			showStatusIcon(R.drawable.ic_keyboard);
-		} else {
+	protected void setStatusIcon(InputMode mode, Language language) {
+		int resId = (InputModeKind.isPassthrough(mode) || !settings.isStatusIconEnabled()) ? 0 : new StatusIcon(mode, language).getResourceId();
+		if (resId == 0) {
 			hideStatusIcon();
+		} else {
+			showStatusIcon(resId);
 		}
 	}
 

@@ -161,8 +161,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 			determineTextCase();
 		}
 
-		// save the settings for the next time
 		settings.saveInputMode(mInputMode.getId());
+		setStatusIcon(mInputMode, mLanguage);
 	}
 
 
@@ -176,6 +176,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		// validate and save it for the next time
 		validateLanguages();
+		setStatusIcon(mInputMode, mLanguage);
 	}
 
 
@@ -185,6 +186,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			// adjusting them below.
 			if (mInputMode.nextTextCase()) {
 				settings.saveTextCase(mInputMode.getTextCase());
+				setStatusIcon(mInputMode, mLanguage);
 				return true;
 			} else {
 				return false;
@@ -218,6 +220,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		textField.setComposingText(suggestionOps.getCurrent());
 
 		settings.saveTextCase(mInputMode.getTextCase());
+		setStatusIcon(mInputMode, mLanguage);
 
 		return isChanged;
 	}

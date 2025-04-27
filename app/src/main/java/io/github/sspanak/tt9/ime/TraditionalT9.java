@@ -172,7 +172,7 @@ public class TraditionalT9 extends MainViewHandler {
 		stopVoiceInput();
 		onFinishTyping();
 		suggestionOps.clear();
-		setStatusIcon(mInputMode);
+		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
