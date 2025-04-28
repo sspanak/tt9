@@ -4,7 +4,7 @@ import java.util.zip.ZipOutputStream
 
 apply from: 'dictionary-tools.gradle'
 
-ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionariesOutputDir, dictionariesMetaDir ->
+ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionariesOutputDir, dictionariesMetaDir, iconsDir ->
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsInputDir).getFiles().parallelStream().map { definition ->
@@ -12,7 +12,7 @@ ext.convertDictionaries = { definitionsInputDir, dictionariesInputDir, dictionar
 			return ""
 		}
 
-		def (_, sounds, prependSoundsToWords, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir)
+		def (_, sounds, prependSoundsToWords, noSyllables, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesInputDir, iconsDir)
 		errorCount += langFileErrorCount
 		if (!langFileErrorMsg.isEmpty()) {
 			return langFileErrorMsg
