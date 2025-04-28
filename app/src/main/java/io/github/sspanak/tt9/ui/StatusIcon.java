@@ -26,8 +26,10 @@ public class StatusIcon {
 		} else if (InputModeKind.is123(mode)) {
 			resId = R.drawable.ic_lang_123;
 		} else if (InputModeKind.isABC(mode)) {
-			if (LanguageKind.isCyrillic(language)) {
-				resId = mode.getTextCase() == InputMode.CASE_UPPER ? R.drawable.ic_lang_cyrilic_up : R.drawable.ic_lang_cyrilic_lo;
+			if (language.getId() == 46330) {
+				resId = R.drawable.ic_lang_tifinagh;
+			} else if (LanguageKind.isCyrillic(language)) {
+				resId = mode.getTextCase() == InputMode.CASE_UPPER ? R.drawable.ic_lang_cyrillic_up : R.drawable.ic_lang_cyrillic_lo;
 			} else if (LanguageKind.isLatinBased(language)) {
 				resId = mode.getTextCase() == InputMode.CASE_UPPER ? R.drawable.ic_lang_latin_up : R.drawable.ic_lang_latin_lo;
 			}
@@ -44,6 +46,8 @@ public class StatusIcon {
 				resId = R.drawable.ic_lang_zh_pinyin;
 			} else if (LanguageKind.isKorean(language)) {
 				resId = R.drawable.ic_lang_kr;
+			} else if (language.getId() == 46330) {
+				resId = R.drawable.ic_lang_zgh_tifinagh;
 			}
 		}
 
