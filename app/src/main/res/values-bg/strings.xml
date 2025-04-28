@@ -45,6 +45,7 @@
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_custom_words">Добавени думи</string>
 	<string name="pref_category_delete_words">Изтрий добавени думи</string>
+	<string name="pref_category_fn_key_order">Ред на функционалните клавиши</string>
 	<string name="pref_category_hacks">Съвместимост</string>
 	<string name="pref_category_appearance">Облик</string>
 	<string name="pref_category_function_keys">Бутони за бърз достъп</string>
@@ -199,7 +200,7 @@
 	<string name="punctuation_order_save_error">Неуспешно запазване на реда на знаците.</string>
 	<string name="punctuation_order_sentence">Ред на символите на клавиш 1</string>
 	<string name="punctuation_order_special">Ред на символите на клавиш 0</string>
-	<string name="punctuation_order_reset_defaults">Възстанови реда по подразбиране</string>
+	<string name="restore_default_order">Възстанови реда по подразбиране</string>
 	<string name="language">Език</string>
 	<string name="punctuation_order_save">Запази подредбата</string>
 	<string name="punctuation_order_forbidden_char">Забранен символ:%1$s</string>
@@ -210,10 +211,18 @@
 	<string name="pref_numpad_shape_v">V-образна</string>
 	<string name="pref_arrow_keys_visible">Клавиши стрелки</string>
 	<string name="donate_hold_to_open">Натиснете и задръжте, за да отворите в браузъра.</string>
+	<string name="fn_key_order_error_duplicate_key">Не са разрешени повтарящи се клавиши.</string>
+	<string name="fn_key_order_legend">Легенда:</string>
+	<string name="fn_key_order_preview_tip">Съвет: След пренареждане на клавишите в колона 1, докоснете колона 2, за да видите резултата веднага (или обратно).</string>
 	<string name="function_already_assigned">Бутон „%1$s“ е зададен за функция „%2$s“. Искате ли да го зададете за „%3$s“?</string>
 	<string name="function_assign_instructions">* Натиснете или задръжте клавиш, за да го присвоите на функцията „%1$s“.\n\n* Натиснете 0, за да отмените.\n\n* Натиснете 2, за да деактивирате функцията.</string>
 	<string name="pref_allow_composing_text">Показвай текст при съставяне</string>
 	<string name="pref_drag_resize">Оразмеряване чрез влачене</string>
 	<string name="function_undo">Отмяна (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Преизчисли долното отстояние</string>
+	<string name="fn_key_order_column_2">Колона 2</string>
+	<string name="fn_key_order_error_wrong_key_count">Трябва да има точно по 4 клавиша в колона.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Разрешени са само кодове на клавиши от 1 до 8.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Един клавиш не може да бъде поставен и в двете колони.</string>
+	<string name="fn_key_order_column_1">Колона 1</string>
 </resources>

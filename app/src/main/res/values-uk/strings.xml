@@ -21,6 +21,7 @@
 	<string name="pref_category_abc_mode">Режим АБВ</string>
 	<string name="pref_category_custom_words">Додані слова</string>
 	<string name="pref_category_delete_words">Видалити додані слова</string>
+	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
 	<string name="pref_category_hacks">Сумістність</string>
 	<string name="pref_category_appearance">Зовнішній вигляд</string>
 	<string name="pref_category_predictive_mode">Предиктивний режим</string>
@@ -210,7 +211,7 @@
 	<string name="punctuation_order_save_error">Не вдалося зберегти порядок символів.</string>
 	<string name="punctuation_order_sentence">Порядок символів на клавіші 1</string>
 	<string name="punctuation_order_special">Порядок символів на клавіші 0</string>
-	<string name="punctuation_order_reset_defaults">Відновити початковий порядок</string>
+	<string name="restore_default_order">Відновити початковий порядок</string>
 	<string name="language">Мова</string>
 	<string name="punctuation_order_save">Зберегти порядок</string>
 	<string name="punctuation_order_forbidden_char">Заборонений символ:%1$s</string>
@@ -221,10 +222,18 @@
 	<string name="pref_numpad_shape_v">V-подібна</string>
 	<string name="pref_arrow_keys_visible">Клавіші зі стрілками</string>
 	<string name="donate_hold_to_open">Натисніть і утримуйте, щоб відкрити в браузері.</string>
+	<string name="fn_key_order_error_duplicate_key">Повторювані клавіші не дозволені.</string>
+	<string name="fn_key_order_legend">Умовні позначення:</string>
+	<string name="fn_key_order_preview_tip">Підказка: Після зміни порядку клавіш у стовпці 1, натисніть на стовпець 2, щоб одразу побачити результат (або навпаки).</string>
 	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
 	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
 	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
 	<string name="pref_drag_resize">Змінювати розмір перетягуванням</string>
 	<string name="function_undo">Скасувати (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Перерахувати нижній відступ</string>
+	<string name="fn_key_order_column_2">Стовпець 2</string>
+	<string name="fn_key_order_error_wrong_key_count">У кожному стовпці має бути рівно 4 клавіші.</string>
+	<string name="fn_key_order_error_unsupported_key_code">Дозволено лише коди клавіш від 1 до 8.</string>
+	<string name="fn_key_order_error_key_on_both_sides">Одна клавіша не може бути в обох стовпцях.</string>
+	<string name="fn_key_order_column_1">Стовпець 1</string>
 </resources>

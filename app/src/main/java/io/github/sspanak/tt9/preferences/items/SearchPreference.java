@@ -14,17 +14,17 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-abstract public class ItemSearch extends ItemTextInput {
-	public ItemSearch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+abstract public class SearchPreference extends TextInputPreference {
+	public SearchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
-	public ItemSearch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public SearchPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
-	public ItemSearch(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public SearchPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 	}
-	public ItemSearch(@NonNull Context context) {
+	public SearchPreference(@NonNull Context context) {
 		super(context);
 	}
 

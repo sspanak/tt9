@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.util.Logger;
 
-public class SettingsHotkeys extends SettingsUI {
+public class SettingsHotkeys extends SettingsVirtualNumpad {
 	private static final String HOTKEY_VERSION = "hotkeys_v6";
 
 	public static final String FUNC_ADD_WORD = "key_add_word";

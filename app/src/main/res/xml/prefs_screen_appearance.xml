@@ -14,6 +14,11 @@
 		app:key="pref_layout_type"
 		app:title="@string/pref_layout" />
 
+	<Preference
+		app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
+		app:key="screen_fn_key_order"
+		app:title="@string/pref_category_fn_key_order" />
+
 	<SwitchPreferenceCompat
 		app:key="pref_drag_resize"
 		app:title="@string/pref_drag_resize"

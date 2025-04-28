@@ -9,10 +9,10 @@ import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.preferences.items.ItemTextInput;
+import io.github.sspanak.tt9.preferences.items.TextInputPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-abstract class AbstractPreferenceCharList extends ItemTextInput {
+abstract class AbstractPreferenceCharList extends TextInputPreference {
 	@NonNull protected String currentChars = "";
 	protected Language language;
 	private Runnable onRender;
