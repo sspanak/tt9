@@ -1,6 +1,8 @@
 locale: ar-JO
 currency: ﷼
 dictionaryFile: ar-utf8.csv
+iconABC: ic_lang_alifba
+iconT9: ic_lang_ar
 abcString: أﺏﺕ
 hasUpperCase: no
 numerals: [٠,١,٢,٣,٤,٥,٦,٧,٨,٩]

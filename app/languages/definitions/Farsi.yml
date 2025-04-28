@@ -1,6 +1,8 @@
 locale: fa-IR
 currency: ﷼
 dictionaryFile: fa-utf8.csv
+iconABC: ic_lang_alifba
+iconT9: ic_lang_fa
 abcString: أﺏﺕ
 hasUpperCase: no
 numerals: [۰,۱,۲,۳,۴,۵,۶,۷,۸,۹]

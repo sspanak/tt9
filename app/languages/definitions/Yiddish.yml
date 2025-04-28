@@ -1,5 +1,7 @@
 locale: ji-JI
 dictionaryFile: ji-utf8.csv
+iconABC: ic_lang_alefbet
+iconT9: ic_lang_ji
 abcString: אבג
 hasUpperCase: no
 layout:
