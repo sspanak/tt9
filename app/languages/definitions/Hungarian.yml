@@ -1,5 +1,7 @@
 locale: hu-HU
 dictionaryFile: hu-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_hu
 abcString: abc
 layout:
   - [SPECIAL] # 0

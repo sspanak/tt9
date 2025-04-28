@@ -1,6 +1,7 @@
 locale: ja-JP
 dictionaryFile: ja-romaji.csv
 name: 日本語 / ローマ字
+iconT9: ic_lang_kanji
 hasABC: no
 hasSpaceBetweenWords: no
 hasUpperCase: no

@@ -1,5 +1,7 @@
 locale: in-ID
 dictionaryFile: id-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_id
 name: Bahasa Indonesia
 layout:
   - [SPECIAL] # 0

@@ -1,5 +1,7 @@
 locale: en-IN
 dictionaryFile: hing-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_hn
 name: Hinglish
 layout:
   - [SPECIAL] # 0

@@ -1,5 +1,7 @@
 locale: hr-HR
 dictionaryFile: hr-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_hr
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1

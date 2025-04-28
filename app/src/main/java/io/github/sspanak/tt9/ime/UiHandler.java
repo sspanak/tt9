@@ -57,7 +57,7 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected void setStatusIcon(InputMode mode, Language language) {
-		int resId = (InputModeKind.isPassthrough(mode) || !settings.isStatusIconEnabled()) ? 0 : new StatusIcon(mode, language).getResourceId();
+		int resId = (InputModeKind.isPassthrough(mode) || !settings.isStatusIconEnabled()) ? 0 : new StatusIcon(this, mode, language).getResourceId();
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {

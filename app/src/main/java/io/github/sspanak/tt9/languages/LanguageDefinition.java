@@ -28,6 +28,8 @@ public class LanguageDefinition {
 	public boolean hasABC = true;
 	public boolean hasSpaceBetweenWords = true;
 	public boolean hasUpperCase = true;
+	public String iconABC = "";
+	public String iconT9 = "";
 	public boolean isTranscribed = false;
 	public final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	public String locale = "";
@@ -147,6 +149,12 @@ public class LanguageDefinition {
 				return;
 			case "hasUpperCase":
 				hasUpperCase = parseYamlBoolean(value);
+				return;
+			case "iconABC":
+				iconABC = value;
+				return;
+			case "iconT9":
+				iconT9 = value;
 				return;
 			case "sounds":
 				isTranscribed = true;
