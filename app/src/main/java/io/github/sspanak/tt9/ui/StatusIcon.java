@@ -5,20 +5,37 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.HashMap;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 
 public class StatusIcon {
+	private static final HashMap<String, Integer> cache = new HashMap<>();
+
 	private final int resourceId;
 
 	public StatusIcon(@Nullable Context ctx, @Nullable InputMode mode, @Nullable Language language) {
 		resourceId = (mode == null || language == null) ? 0 : resolveResourcePerMode(ctx, mode, language);
 	}
 
+	private String getCacheKey(@Nullable InputMode mode, @Nullable Language language) {
+		if (mode == null || language == null) {
+			return null;
+		}
+		return mode.getId() + "_" + language.getId() + "_" + (language.hasUpperCase() ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
+	}
+
 	private int resolveResourcePerMode(@Nullable Context ctx, @NonNull InputMode mode, @NonNull Language language) {
-		int resId = 0;
+		final String cacheKey = getCacheKey(mode, language);
+		Integer resId;
+
+		resId = cache.containsKey(cacheKey) ? cache.get(cacheKey) : Integer.valueOf(0);
+		if (resId != null && resId != 0) {
+			return resId;
+		}
 
 		if (InputModeKind.isHiragana(mode)) {
 			resId = R.drawable.ic_lang_hiragana;
@@ -32,7 +49,12 @@ public class StatusIcon {
 			resId = resolveResource(ctx, language.getIconT9(), language.hasUpperCase() ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
 		}
 
-		return resId == 0 ? R.drawable.ic_keyboard : resId;
+		if (resId != null && resId != 0) {
+			cache.put(cacheKey, resId);
+			return resId;
+		}
+
+		return R.drawable.ic_keyboard;
 	}
 
 	private int resolveResource(Context ctx, String name, int textCase) {
