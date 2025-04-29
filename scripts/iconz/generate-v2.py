@@ -3,10 +3,10 @@ from PIL import Image, ImageDraw, ImageFont
 import io
 
 # Configurations
-CANVAS_SIZE = 96        # Size of the canvas in pixels
-FONT_SCALE = 0.8      # Font size as a percentage of canvas size (before padding)
-VERTICAL_ADJUST = -0.225  # Vertical tweak to center text
-PADDING = 0.0           # Padding around the text
+CANVAS_SIZE = 48        # Size of the canvas in pixels
+FONT_SCALE = 1      # Font size as a percentage of canvas size (before padding)
+VERTICAL_ADJUST = -0.08  # Vertical tweak to center text
+PADDING = 0.15          # Padding around the text
 
 # Read input arguments
 if len(sys.argv) < 3:
@@ -16,7 +16,7 @@ if len(sys.argv) < 3:
 # Optional VERTICAL_ADJUST argument
 if len(sys.argv) >= 4:
     try:
-        VERTICAL_ADJUST = float(sys.argv[3])
+        VERTICAL_ADJUST += float(sys.argv[3])
     except ValueError:
         print("Error: VERTICAL_ADJUST must be a floating point number.")
         sys.exit(1)
