@@ -44,8 +44,8 @@ abstract class UiHandler extends AbstractHandler {
 		} else {
 			getSuggestionOps().setDarkTheme();
 		}
-		setStatusIcon(inputMode, getFinalContext().getLanguage());
 		statusBar.setText(inputMode);
+		setStatusIcon(inputMode, getFinalContext().getLanguage());
 		mainView.hideCommandPalette();
 		mainView.render();
 		SystemSettings.setNavigationBarDarkTheme(getWindow().getWindow(), settings.getDarkTheme());

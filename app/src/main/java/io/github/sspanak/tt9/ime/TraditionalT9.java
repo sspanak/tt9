@@ -140,6 +140,7 @@ public class TraditionalT9 extends MainViewHandler {
 		}
 
 		if (isDead || !super.onStart(connection, field)) {
+			setStatusIcon(mInputMode, mLanguage);
 			return false;
 		}
 
@@ -172,7 +173,6 @@ public class TraditionalT9 extends MainViewHandler {
 		stopVoiceInput();
 		onFinishTyping();
 		suggestionOps.clear();
-		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
@@ -187,6 +187,13 @@ public class TraditionalT9 extends MainViewHandler {
 		if (zombieChecks == 0) {
 			startZombieCheck();
 		}
+	}
+
+
+	@Override
+	protected void onFinishTyping() {
+		super.onFinishTyping();
+		setStatusIcon(mInputMode, mLanguage);
 	}
 
 

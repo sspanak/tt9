@@ -313,6 +313,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			mInputMode.setSequence(digits);
 		}
 
+		setStatusIcon(mInputMode, mLanguage);
 		getSuggestions(null);
 		statusBar.setText(mInputMode);
 		suggestionOps.setRTL(isLanguageRTL);
@@ -341,6 +342,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout()); // restart the timer
 		nextInputMode();
+
+		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
 		mainView.render();
 
@@ -367,6 +370,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 		statusBar.setText(mInputMode);
+		setStatusIcon(mInputMode, mLanguage);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth()) {
