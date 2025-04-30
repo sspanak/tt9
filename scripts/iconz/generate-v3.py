@@ -1,6 +1,7 @@
 import sys
 from PIL import Image, ImageDraw, ImageFont
 import io
+import re
 
 # Configurations
 OUTPUT_WIDTH_DP = 24
@@ -65,11 +66,11 @@ for y in range(CANVAS_HEIGHT):
                     break
                 x += 1
             width = x - start_x
-            color_hex = "@android:color/white"
+            color_hex = f"#{r:02X}{g:02X}{b:02X}"
             output.write(f'    <path android:fillColor="{color_hex}" android:pathData="M{start_x},{y}h{width}v1h-{width}z"/>\n')
         else:
             x += 1
 
 output.write('</vector>\n')
 
-print(output.getvalue())
+print(re.sub(r'\s+', ' ', output.getvalue()).replace('> <', '><').strip())

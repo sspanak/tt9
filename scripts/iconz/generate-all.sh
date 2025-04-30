@@ -79,7 +79,7 @@ generate_all_cases "NotoSans-Bold.ttf" "cz" "cz" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "da" "da" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "nl" "nl" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "en" "en" -0.1 -0.1 -0.1
-generate_all_cases "NotoSans-Bold.ttf" "et" "et" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "ee" "et" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "su" "su" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "fr" "fr" -0.1 -0.1 -0.1
 generate_all_cases "NotoSans-Bold.ttf" "de" "de" -0.1 -0.1 -0.1
