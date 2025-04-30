@@ -161,6 +161,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			determineTextCase();
 		}
 
+		// save the settings for the next time
 		settings.saveInputMode(mInputMode.getId());
 	}
 

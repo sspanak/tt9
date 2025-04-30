@@ -313,8 +313,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 			mInputMode.setSequence(digits);
 		}
 
-		setStatusIcon(mInputMode, mLanguage);
 		getSuggestions(null);
+		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
 		suggestionOps.setRTL(isLanguageRTL);
 		mainView.render();
@@ -369,8 +369,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 		if (!nextTextCase()) {
 			return false;
 		}
-		statusBar.setText(mInputMode);
 		setStatusIcon(mInputMode, mLanguage);
+		statusBar.setText(mInputMode);
 		mainView.render();
 
 		if (settings.isMainLayoutStealth()) {

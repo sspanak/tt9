@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ime;
 import android.view.inputmethod.InputMethodManager;
 
 import io.github.sspanak.tt9.ime.modes.InputMode;
-import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
@@ -44,8 +43,8 @@ abstract class UiHandler extends AbstractHandler {
 		} else {
 			getSuggestionOps().setDarkTheme();
 		}
-		statusBar.setText(inputMode);
 		setStatusIcon(inputMode, getFinalContext().getLanguage());
+		statusBar.setText(inputMode);
 		mainView.hideCommandPalette();
 		mainView.render();
 		SystemSettings.setNavigationBarDarkTheme(getWindow().getWindow(), settings.getDarkTheme());
@@ -57,7 +56,7 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected void setStatusIcon(InputMode mode, Language language) {
-		int resId = (InputModeKind.isPassthrough(mode) || !settings.isStatusIconEnabled()) ? 0 : new StatusIcon(this, mode, language).getResourceId();
+		int resId = StatusIcon.getResource(this, settings, mode, language);
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {
