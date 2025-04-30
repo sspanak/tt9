@@ -8,7 +8,7 @@ generate_async() {
   local args=("${@:1:count-1}")
 
   # Run Python with args and output to XML named after suffix
-  python generate-v2.py "${args[@]}" > "ic_lang_${suffix}.xml" &
+  python generate-v3.py "${args[@]}" > "ic_lang_${suffix}.xml" &
 }
 
 generate_all_cases() {
@@ -25,83 +25,83 @@ generate_all_cases() {
 }
 
 # 123
-generate_async NotoSans-Bold.ttf 12 -0.12 123
+generate_async NotoSans-Bold.ttf 12 -0.1 123
 
 # ABC
-generate_async NotoSans-Bold.ttf ab -0.08 latin_lo
-generate_async NotoSans-Bold.ttf AB -0.12 latin_up
-generate_async NotoSans-Bold.ttf аб -0.08 cyrillic_lo
-generate_async NotoSans-Bold.ttf АБ -0.12 cyrillic_up
+generate_async NotoSans-Bold.ttf ab -0.1 latin_lo
+generate_async NotoSans-Bold.ttf AB -0.1 latin_up
+generate_async NotoSans-Bold.ttf аб -0.1 cyrillic_lo
+generate_async NotoSans-Bold.ttf АБ -0.1 cyrillic_up
 
 # Arabic / Farsi
-generate_async NotoSansArabic-Bold.ttf ع -0.17 ar
-generate_async NotoSansArabic-Bold.ttf ف -0.3 fa
-generate_async NotoSansArabic-Bold.ttf أﺏ -0.14 alifba
+generate_async NotoSansArabic-Bold.ttf ع ar
+generate_async NotoSansArabic-Bold.ttf ف -0.25 fa
+generate_async NotoSansArabic-Bold.ttf أﺏ -0.1 alifba
 
 # CJK
-generate_async NotoSansJP-Bold.ttf あ -0.13 hiragana
-generate_async NotoSansJP-Bold.ttf ア -0.15 katakana
-generate_async NotoSansJP-Bold.ttf 漢 -0.11 kanji
-generate_async NotoSansKR-Bold.ttf 한 -0.15 ko
-generate_async NotoSansSC-Bold.ttf 拼 -0.125 zh_pinyin
+generate_async NotoSansJP-Bold.ttf あ -0.1 hiragana
+generate_async NotoSansJP-Bold.ttf ア -0.1 katakana
+generate_async NotoSansJP-Bold.ttf 漢 -0.17 kanji
+generate_async NotoSansKR-Bold.ttf 한 -0.17 ko
+generate_async NotoSansSC-Bold.ttf 拼 -0.17 zh_pinyin
 
 # Greek
-generate_all_cases "NotoSans-Bold.ttf" "ελ" "el" -0.075 -0.075 -0.12
+generate_all_cases "NotoSans-Bold.ttf" "ελ" "el" -0.1 -0.1 -0.1
 generate_async NotoSans-Bold.ttf αβ alfabeta_lo
-generate_async NotoSans-Bold.ttf ΑΒ -0.12 alfabeta_up
+generate_async NotoSans-Bold.ttf ΑΒ -0.1 alfabeta_up
 
 # Hebrew / Yiddish
-generate_async NotoSansHebrew-Bold יי -0.15 ji
-generate_async NotoSansHebrew-Bold אב -0.18 he
-generate_async NotoSansHebrew-Bold עב -0.13 alefbet
+generate_async NotoSansHebrew-Bold יי -0.1 ji
+generate_async NotoSansHebrew-Bold אב -0.1 he
+generate_async NotoSansHebrew-Bold עב -0.07 alefbet
 
 # Hindi
-generate_async NotoSansDevanagari-Bold.ttf ह -0.03 hi
-generate_async NotoSansDevanagari-Bold.ttf कख -0.08 hi_abc
+generate_async NotoSansDevanagari-Bold.ttf ह hi
+generate_async NotoSansDevanagari-Bold.ttf कख hi_abc
 
 # Gujarati
-generate_async NotoSansGujarati-Bold.ttf ગુ gu
-generate_async NotoSansGujarati-Bold.ttf કખ gu_abc
+generate_async NotoSansGujarati-Bold.ttf ગુ -0.1 gu
+generate_async NotoSansGujarati-Bold.ttf કખ -0.1 gu_abc
 
 # Tamazight / Tifinagh
-generate_async NotoSansTifinagh.ttf ⵜⵎ -0.12 tm_tifinagh
-generate_async NotoSansTifinagh.ttf ⴰⴱ -0.12 tifinagh
+generate_async NotoSansTifinagh.ttf ⵜⵎ -0.1 tm_tifinagh
+generate_async NotoSansTifinagh.ttf ⴰⴱ -0.1 tifinagh
 
 # Thai
-generate_async NotoSansThai-Bold.ttf ไท -0.05 th
-generate_async NotoSansThai-Bold.ttf กข -0.15 th_abc
+generate_async NotoSansThai-Bold.ttf ไท -0.1 th
+generate_async NotoSansThai-Bold.ttf กข -0.1 th_abc
 
-generate_all_cases "NotoSans-Bold.ttf" "br" "br" -0.12 -0.14 -0.14
-generate_all_cases "NotoSans-Bold.ttf" "бг" "bg" -0.08 -0.12 -0.13
-generate_all_cases "NotoSans-Bold.ttf" "ca" "ca" -0.16 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "hr" "hr" -0.1 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "cz" "cz" -0.15 -0.11 -0.11
-generate_all_cases "NotoSans-Bold.ttf" "da" "da" -0.1 -0.12 -0.13
-generate_all_cases "NotoSans-Bold.ttf" "nl" "nl" -0.1 -0.11 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "en" "en" -0.16 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "et" "et" -0.14 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "su" "su" -0.15 -0.11 -0.11
-generate_all_cases "NotoSans-Bold.ttf" "fr" "fr" -0.11 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "de" "de" -0.1 -0.12 -0.13
-generate_all_cases "NotoSans-Bold.ttf" "hn" "hn" -0.1 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "mg" "mg" -0.12 -0.06 -0.13
-generate_all_cases "NotoSans-Bold.ttf" "id" "id" -0.1 -0.1 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "ga" "ga" -0.1 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "it" "it" -0.1 -0.11 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "sw" "sw" -0.15 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "lv" "lv" -0.11 -0.13 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "lt" "lt" -0.1 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "no" "no" -0.15 -0.12 -0.11
-generate_all_cases "NotoSans-Bold.ttf" "pl" "pl" 0 -0.11 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "pt" "pt" -0.07 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "ro" "ro" -0.15 -0.11 -0.11
-generate_all_cases "NotoSans-Bold.ttf" "ру" "ru" -0.1 -0.04 -0.1
-generate_all_cases "NotoSans-Bold.ttf" "sl" "sl" -0.1 -0.1 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "es" "es" -0.16 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "sv" "sv" -0.16 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "tm" "tm" -0.12 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "tr" "tr" -0.12 -0.12 -0.12
-generate_all_cases "NotoSans-Bold.ttf" "уk" "uk" 0 -0.09 -0.11
-generate_all_cases "NotoSans-Bold.ttf" "vi" "vi" -0.12 -0.12 -0.14
+generate_all_cases "NotoSans-Bold.ttf" "br" "br" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "бг" "bg" -0.1 -0.1 -0.1 
+generate_all_cases "NotoSans-Bold.ttf" "ca" "ca" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "hr" "hr" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "cz" "cz" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "da" "da" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "nl" "nl" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "en" "en" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "et" "et" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "su" "su" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "fr" "fr" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "de" "de" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "hn" "hn" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "mg" "mg" -0.1 -0.1 -0.2
+generate_all_cases "NotoSans-Bold.ttf" "id" "id" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "ga" "ga" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "it" "it" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "sw" "sw" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "lv" "lv" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "lt" "lt" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "no" "no" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "pl" "pl" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "pt" "pt" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "ro" "ro" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "ру" "ru" -0.05 -0.05 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "sl" "sl" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "es" "es" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "sv" "sv" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "tm" "tm" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "tr" "tr" -0.1 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "уk" "uk" -0.05 -0.1 -0.1
+generate_all_cases "NotoSans-Bold.ttf" "vi" "vi" -0.1 -0.1 -0.1
 
 wait
