@@ -1,63 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
-    android:height="24dp"
+    android:height="16dp"
     android:viewportWidth="48"
-    android:viewportHeight="48">
-    <path android:fillColor="@android:color/white" android:pathData="M9,14h4v1h-4z"/>
+    android:viewportHeight="32">
+    <path android:fillColor="@android:color/white" android:pathData="M9,8h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,9h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,10h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,11h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,12h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,13h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M23,13h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M36,13h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,14h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M24,14h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M36,14h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,15h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M24,15h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M35,15h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,16h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M25,16h4v1h-4z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M35,16h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,17h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M25,17h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M35,17h4v1h-4z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,18h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M25,18h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M34,18h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,19h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M26,19h4v1h-4z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M34,19h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,20h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M24,20h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M37,20h6v1h-6z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M26,20h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M34,20h4v1h-4z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,21h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M25,21h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M37,21h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M26,21h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M33,21h5v1h-5z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,22h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M25,22h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M37,22h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M27,22h4v1h-4z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M33,22h4v1h-4z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,23h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M25,23h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M36,23h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M27,23h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M33,23h4v1h-4z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,24h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M26,24h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M36,24h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M28,24h9v1h-9z"/>
     <path android:fillColor="@android:color/white" android:pathData="M9,25h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M26,25h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M36,25h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,26h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M26,26h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M36,26h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,27h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M27,27h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M35,27h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,28h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M27,28h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M35,28h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,29h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M28,29h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M35,29h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,30h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M28,30h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M34,30h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,31h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M28,31h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M34,31h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,32h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M29,32h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M34,32h4v1h-4z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,33h5v1h-5z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M29,33h9v1h-9z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,34h14v1h-14z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M30,34h7v1h-7z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,35h14v1h-14z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M30,35h7v1h-7z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,36h14v1h-14z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M30,36h7v1h-7z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M9,37h14v1h-14z"/>
-    <path android:fillColor="@android:color/white" android:pathData="M31,37h5v1h-5z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M28,25h8v1h-8z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,26h14v1h-14z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M28,26h8v1h-8z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,27h14v1h-14z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M29,27h7v1h-7z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,28h14v1h-14z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M29,28h6v1h-6z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M9,29h14v1h-14z"/>
+    <path android:fillColor="@android:color/white" android:pathData="M29,29h6v1h-6z"/>
 </vector>
 
