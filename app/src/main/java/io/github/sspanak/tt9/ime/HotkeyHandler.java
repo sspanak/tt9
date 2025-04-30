@@ -318,7 +318,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		statusBar.setText(mInputMode);
 		suggestionOps.setRTL(isLanguageRTL);
 		mainView.render();
-		if (!suggestionOps.isEmpty() || settings.isMainLayoutStealth()) {
+		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
@@ -347,7 +347,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		statusBar.setText(mInputMode);
 		mainView.render();
 
-		if (settings.isMainLayoutStealth()) {
+		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
@@ -373,7 +373,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		statusBar.setText(mInputMode);
 		mainView.render();
 
-		if (settings.isMainLayoutStealth()) {
+		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
 
