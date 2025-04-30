@@ -129,7 +129,7 @@ class ModeABC extends InputMode {
 		// There are many languages written using the same alphabet, so if the user has
 		// enabled multiple ones, make it clear which one is it, by appending the unique
 		// country or language code to "ABC" or "АБВ".
-		if (LanguageKind.isLatinBased(language) || LanguageKind.isCyrillic(language)) {
+		if (LanguageKind.isArabicBased(language) || LanguageKind.isCyrillic(language) || LanguageKind.isHebrew(language) || LanguageKind.isLatinBased(language)) {
 			modeString += " / " + language.getCode();
 		}
 

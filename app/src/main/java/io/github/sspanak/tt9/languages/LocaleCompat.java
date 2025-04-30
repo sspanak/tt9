@@ -38,21 +38,21 @@ class LocaleCompat {
 		String country = locale.getCountry().toLowerCase();
 		String language = locale.getLanguage().toLowerCase();
 
-		switch (language) {
-			case "en":
-				if ("in".equals(country)) { // en-IN = Hinglish
-					return "hi";
-				}
-				// otherwise, fall-through to return "en"
-			case "ca":
-				return language;
-			case "ji":
-				return "yi";
-			case "zgh":
-				return "tmz";
-			default:
-				return country;
-		}
+		return switch (language) {
+			case "ar" -> "ع";
+			case "bg" -> "бг";
+			case "en" -> ("in".equals(country)) ? "hn" : language; // en-IN = Hinglish
+			case "fa" -> "ف";
+			case "fi" -> "su";
+			case "he", "iw" -> "אב";
+			case "hu" -> "mg";
+			case "ji", "yi" -> "יי";
+			case "ru" -> "ру";
+			case "uk" -> "ук";
+			case "zgh" -> "tm";
+			case "ca", "ga", "sw" -> language;
+			default -> country;
+		};
 	}
 
 	@NonNull
