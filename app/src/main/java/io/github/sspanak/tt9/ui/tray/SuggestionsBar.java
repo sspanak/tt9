@@ -295,7 +295,7 @@ public class SuggestionsBar {
 	 * After that, you must call render(), to visualize the changes.
 	 */
 	private boolean appendHiddenSuggestionsIfNeeded(boolean scrollBack) {
-		if (mView == null || !visibleSuggestions.get(selectedIndex).equals(SHOW_MORE_SUGGESTION)) {
+		if (mView == null || selectedIndex < 0 || selectedIndex >= visibleSuggestions.size() || !visibleSuggestions.get(selectedIndex).equals(SHOW_MORE_SUGGESTION)) {
 			return false;
 		}
 
