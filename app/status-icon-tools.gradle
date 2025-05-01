@@ -1,0 +1,78 @@
+ext.updateStatusIconCache = { String definitionsDir, String drawablesDir, String javaFile ->
+	def java = new File(javaFile)
+	if (!java.exists()) {
+		throw new GradleException("Cannot update the status icons. Java file not found: ${javaFile}")
+	}
+
+	final METHOD_NAME = "generateIconsCache()"
+
+	def javaText = java.getText()
+	if (!javaText.contains(METHOD_NAME)) {
+		throw new GradleException("Cannot update the status icons. Method not found: ${METHOD_NAME}")
+	}
+
+	def hashMap = generateMap(definitionsDir, drawablesDir)
+
+	def newJava = java.getText().replaceFirst(/$METHOD_NAME.+?}/, "$METHOD_NAME { $hashMap }")
+	java.write(newJava)
+}
+
+
+static def generateMap(String definitionsDirPath, String drawablesDirPath) {
+	def drawablesDir = new File(drawablesDirPath)
+	if (!drawablesDir.exists()) {
+		throw new GradleException("Cannot update the status icons. Icons directory not found: ${drawablesDir}")
+	}
+
+	def definitionsDir = new File(definitionsDirPath)
+	if (!definitionsDir.exists()) {
+		throw new GradleException("Cannot update the status icons. Definitions directory not found: ${definitionsDir}")
+	}
+
+	def icons = []
+
+	definitionsDir.listFiles().each{ file ->
+		file.readLines().each { line ->
+			if (!line.contains("icon")) {
+				return
+			}
+
+			def parts = line.split(":")
+			if (parts.length != 2) {
+				return
+			}
+
+			def iconName = parts[1].trim()
+			def iconFile = new File(drawablesDir, "${iconName}.xml")
+			if (iconFile.exists()) {
+				icons << iconName
+			}
+
+			def iconUppercase = new File(drawablesDir, "${iconName}_up.xml")
+			if (iconUppercase.exists()) {
+				icons << iconName + "_up"
+			}
+
+			def iconLowercase = new File(drawablesDir, "${iconName}_lo.xml")
+			if (iconLowercase.exists()) {
+				icons << iconName + "_lo"
+			}
+
+
+			def iconCapitalized = new File(drawablesDir, "${iconName}_cp.xml")
+			if (iconCapitalized.exists()) {
+				icons << iconName + "_cp"
+			}
+		}
+	}
+
+	def javaHashMap = ""
+	icons = icons.sort()
+
+	for (int i = 0; i < icons.size(); i++) {
+		def iconName = icons[i]
+		javaHashMap += "ICONS.put(\"${iconName}\", R.drawable.${iconName});"
+	}
+
+	return javaHashMap
+}

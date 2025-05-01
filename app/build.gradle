@@ -7,6 +7,7 @@ apply from: 'build-definitions.gradle'
 apply from: 'build-dictionaries.gradle'
 apply from: 'validate-languages.gradle'
 apply from: 'help-tools.gradle'
+apply from: 'status-icon-tools.gradle'
 apply from: 'version-tools.gradle'
 
 
@@ -60,6 +61,12 @@ tasks.register('generateDocs') {
 
 	doLast {
 		convertDocs(HELP_MARKDOWN_DIR, PRIVACY_POLICY_MARKDOWN, DOCS_HTML_DIR)
+	}
+}
+
+tasks.register('updateStatusIcons') {
+	doLast {
+		updateStatusIconCache(DEFINITIONS_INPUT_DIR, ICONS_DIR, ICONS_JAVA_FILE)
 	}
 }
 
@@ -141,6 +148,8 @@ android {
 
 	applicationVariants.configureEach { variant ->
 		def variantName = variant.name.capitalize()
+		tasks.named("javaPreCompile${variantName}")?.configure {dependsOn(updateStatusIcons) }
+
 		[
 			"merge${variantName}Assets",
 			"lintAnalyze${variantName}",
