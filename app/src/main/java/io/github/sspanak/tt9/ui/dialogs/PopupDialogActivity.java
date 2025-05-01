@@ -33,7 +33,8 @@ public class PopupDialogActivity extends AppCompatActivity {
 
 		return switch (popupType) {
 			case AddWordDialog.TYPE -> new AddWordDialog(this, i, this::onDialogClose);
-			case AutoUpdateMonologue.TYPE -> new AutoUpdateMonologue(this, i, this::onDialogClose);
+			case AutoUpdateMonolog.TYPE -> new AutoUpdateMonolog(this, i, this::onDialogClose);
+			case ChangeLanguageDialog.TYPE -> new ChangeLanguageDialog(this, this::onDialogClose);
 			default -> {
 				Logger.w(LOG_TAG, "Unknown popup type: '" + popupType + "'. Not displaying anything.");
 				yield null;

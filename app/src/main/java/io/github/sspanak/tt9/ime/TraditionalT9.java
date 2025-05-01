@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
@@ -109,11 +110,15 @@ public class TraditionalT9 extends MainViewHandler {
 		int result = super.onStartCommand(intent, flags, startId);
 
 		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
-		if (message != null) {
-			forceShowWindow();
-			if (!message.isEmpty()) {
-				UI.toastLong(this, message);
-			}
+		if (message == null) {
+			return result;
+		}
+
+		forceShowWindow();
+		if (message.startsWith(ChangeLanguageDialog.INTENT_SET_LANGUAGE) && message.length() > ChangeLanguageDialog.INTENT_SET_LANGUAGE.length()) {
+			setLang(Integer.parseInt(message.substring(ChangeLanguageDialog.INTENT_SET_LANGUAGE.length())));
+		} else if (!message.isEmpty()) {
+			UI.toastLong(this, message);
 		}
 
 		return result;

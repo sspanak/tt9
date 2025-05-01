@@ -3,9 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.UI;
@@ -300,33 +298,12 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		suggestionOps.cancelDelayedAccept();
-		nextLang();
-		detectRTL();
-
-		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		if (mInputMode.changeLanguage(mLanguage)) {
-			mInputMode.clearWordStem();
+		if (settings.getQuickSwitchLanguage()) {
+			nextLang();
 		} else {
-			final String digits = mInputMode.getSequence();
-			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
-			mInputMode.setSequence(digits);
+			changeLang();
 		}
 
-		getSuggestions(null);
-		setStatusIcon(mInputMode, mLanguage);
-		statusBar.setText(mInputMode);
-		suggestionOps.setRTL(isLanguageRTL);
-		mainView.render();
-		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
-			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
-		}
-
-		if (InputModeKind.isPredictive(mInputMode)) {
-			DictionaryLoader.autoLoad(this, mLanguage);
-		}
-
-		forceShowWindow();
 		return true;
 	}
 
