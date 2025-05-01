@@ -9,6 +9,7 @@ ext.DICTIONARY_SIZES_DIR_NAME = 'dictionary-sizes'
 
 def APP_ROOT_DIR = "${project.rootDir}/app"
 ext.ICONS_DIR = "${APP_ROOT_DIR}/src/main/res/drawable"
+ext.ICONS_JAVA_FILE = "${APP_ROOT_DIR}/src/main/java/${PACKAGE_NAME.replaceAll("\\.", "/")}/ui/StatusIcon.java"
 def MAIN_ASSETS_DIR = "${APP_ROOT_DIR}/src/main/assets"
 def FULL_VERSION_ASSETS_DIR = "${APP_ROOT_DIR}/src/full/assets"
 
