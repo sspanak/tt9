@@ -115,7 +115,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (appHacks.onBackspace(mInputMode)) {
+		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
 			return false;
 		}

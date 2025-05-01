@@ -5,10 +5,12 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AppHacks {
 	private final InputType inputType;
@@ -41,17 +43,19 @@ public class AppHacks {
 	 * Performs extra Backspace operations and returns "false", or completely replaces Backspace and returns "true". When "true" is
 	 * returned, you must not attempt to delete text. This function has already done everything necessary.
 	 */
-	public boolean onBackspace(InputMode inputMode) {
+	public boolean onBackspace(@NonNull SettingsStore settings, @NonNull InputMode inputMode) {
 		if (inputType.isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
 		} else if (inputType.isTermux()) {
 			return false;
 		}
 
-		// When no text is selected and the cursor is at the beginning,
-		// allow double function keys to function normally (e.g. "Back" navigates back)
+		// When Backspace function is assigned to a different key (not hardware Backspace), we must
+		// allow the key to function normally if there is nothing to delete (e.g. "Back" navigates back).
 		return
-			inputMode.getSuggestions().isEmpty()
+			Key.exists(settings.getKeyBackspace())
+			&& !Key.isHardwareBackspace(settings.getKeyBackspace())
+			&& inputMode.getSuggestions().isEmpty()
 			&& textSelection.isEmpty()
 			&& textField.getStringBeforeCursor(1).isEmpty();
 	}
@@ -87,7 +91,6 @@ public class AppHacks {
 	/**
 	 * Performs extra operations when the cursor moves and returns "true" if the selection was handled,
 	 * "false" otherwise.
-	 *
 	 * CURSOR RESET
 	 * When sending messages using the Viber or the SMS app SEND button, it does so and clears the text
 	 * field, but without notifying the keyboard. This means, after sending the message, the InputMode

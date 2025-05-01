@@ -40,11 +40,18 @@ public class Key {
 	}
 
 
+	public static boolean exists(int keyCode) {
+		return keyCode != KeyEvent.KEYCODE_UNKNOWN;
+	}
+
+
 	public static boolean isBackspace(SettingsStore settings, int keyCode) {
-		return
-			keyCode == KeyEvent.KEYCODE_DEL
-			|| keyCode == KeyEvent.KEYCODE_CLEAR
-			|| keyCode == settings.getKeyBackspace();
+		return isHardwareBackspace(keyCode) || keyCode == settings.getKeyBackspace();
+	}
+
+
+	public static boolean isHardwareBackspace(int keyCode) {
+		return keyCode == KeyEvent.KEYCODE_DEL || keyCode == KeyEvent.KEYCODE_CLEAR;
 	}
 
 
