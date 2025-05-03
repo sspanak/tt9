@@ -56,9 +56,15 @@ class Wrapper {
 
 
 	static def getLanguageHash(File definitionFile, File dictionaryFile) {
-		def definitionHash = definitionFile != null && definitionFile.exists() ? definitionFile.text.digest("SHA-256") : ""
-		def dictionaryHash = dictionaryFile != null && dictionaryFile.exists() ? dictionaryFile.text.digest("SHA-256") : ""
+		def definitionHash = definitionFile != null && definitionFile.exists() ? sha256(definitionFile.path) : ""
+		def dictionaryHash = dictionaryFile != null && dictionaryFile.exists() ? sha256(dictionaryFile.path) : ""
 		return definitionHash + dictionaryHash
+	}
+
+
+	static def sha256(String filePath) {
+		def parts = "sha256sum $filePath".execute().text.trim().split(" ")
+		return parts.length > 0 ? parts[0] : ""
 	}
 }
 
