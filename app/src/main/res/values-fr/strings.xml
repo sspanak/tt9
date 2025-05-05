@@ -221,7 +221,7 @@
 	<string name="function_undo">Annuler (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalculer le remplissage inférieur</string>
 	<string name="fn_key_order_column_2">Colonne 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Il doit y avoir exactement 4 touches par colonne.</string>
+	<string name="fn_key_order_error_wrong_key_count">La colonne peut contenir au maximum 4 touches.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Seuls les codes de touche 1 à 8 sont autorisés.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Une touche ne peut pas être placée dans les deux colonnes.</string>
 	<string name="fn_key_order_column_1">Colonne 1</string>

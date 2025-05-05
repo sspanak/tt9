@@ -226,7 +226,7 @@
 	<string name="function_undo">Geri al (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Alt boşluğu yeniden hesapla</string>
 	<string name="fn_key_order_column_2">Sütun 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Her sütunda tam olarak 4 tuş olmalıdır.</string>
+	<string name="fn_key_order_error_wrong_key_count">Sütun en fazla 4 tuş içerebilir.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Yalnızca 1–8 arası tuş kodlarına izin verilir.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Bir tuş her iki sütuna da yerleştirilemez.</string>
 	<string name="fn_key_order_column_1">Sütun 1</string>

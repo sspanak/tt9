@@ -221,7 +221,7 @@
 	<string name="function_undo">Отменить (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Пересчитать нижний отступ</string>
 	<string name="fn_key_order_column_2">Столбец 2</string>
-	<string name="fn_key_order_error_wrong_key_count">В каждой колонке должно быть ровно 4 клавиши.</string>
+	<string name="fn_key_order_error_wrong_key_count">В столбце может быть не более 4 клавиш.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Разрешены только коды клавиш от 1 до 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Одна клавиша не может находиться в обеих колонках.</string>
 	<string name="fn_key_order_column_1">Столбец 1</string>

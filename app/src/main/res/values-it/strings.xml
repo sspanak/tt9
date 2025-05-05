@@ -224,7 +224,7 @@
 	<string name="function_undo">Annulla (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Ricalcola il margine inferiore</string>
 	<string name="fn_key_order_column_2">Colonna 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Devono esserci esattamente 4 tasti per colonna.</string>
+	<string name="fn_key_order_error_wrong_key_count">La colonna può contenere al massimo 4 tasti.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Sono consentiti solo i codici dei tasti da 1 a 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Un tasto non può essere inserito in entrambe le colonne.</string>
 	<string name="fn_key_order_column_1">Colonna 1</string>

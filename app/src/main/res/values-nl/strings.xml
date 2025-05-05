@@ -222,7 +222,7 @@
 	<string name="function_undo">Ongedaan maken</string>
 	<string name="pref_hack_precalculate_navbar_height">Onderrand opnieuw berekenen</string>
 	<string name="fn_key_order_column_2">Kolom 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Er moeten precies 4 toetsen per kolom zijn.</string>
+	<string name="fn_key_order_error_wrong_key_count">De kolom mag maximaal 4 toetsen bevatten.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Alleen toetscodes 1–8 zijn toegestaan.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Eén toets kan niet in beide kolommen staan.</string>
 	<string name="fn_key_order_column_1">Kolom 1</string>

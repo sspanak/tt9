@@ -221,7 +221,7 @@
 	<string name="function_undo">Deshacer</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalcular el relleno inferior</string>
 	<string name="fn_key_order_column_2">Columna 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Debe haber exactamente 4 teclas por columna.</string>
+	<string name="fn_key_order_error_wrong_key_count">La columna puede contener como máximo 4 teclas.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Solo se permiten los códigos de tecla del 1 al 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Una tecla no puede colocarse en ambas columnas.</string>
 	<string name="fn_key_order_column_1">Columna 1</string>

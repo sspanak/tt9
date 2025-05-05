@@ -228,7 +228,7 @@
 	<string name="function_undo">Desfazer</string>
 	<string name="pref_hack_precalculate_navbar_height">Recalcular o espaçamento inferior</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Deve haver exatamente 4 teclas por coluna.</string>
+	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Uma tecla não pode estar nas duas colunas.</string>
 	<string name="fn_key_order_column_1">Coluna 1</string>

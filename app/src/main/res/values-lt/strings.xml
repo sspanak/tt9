@@ -230,7 +230,7 @@
 	<string name="function_undo">Atšaukti (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Perskaičiuoti apatinį paraštę</string>
 	<string name="fn_key_order_column_2">Stulpelis 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Kiekvienoje stulpelyje turi būti tiksliai 4 klavišai.</string>
+	<string name="fn_key_order_error_wrong_key_count">Stulpelyje gali būti daugiausiai 4 klavišai.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Leidžiami tik klavišų kodai nuo 1 iki 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Vieno klavišo negalima dėti į abu stulpelius.</string>
 	<string name="fn_key_order_column_1">Stulpelis 1</string>

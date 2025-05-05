@@ -232,7 +232,7 @@
 	<string name="function_undo">Скасувати (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Перерахувати нижній відступ</string>
 	<string name="fn_key_order_column_2">Стовпець 2</string>
-	<string name="fn_key_order_error_wrong_key_count">У кожному стовпці має бути рівно 4 клавіші.</string>
+	<string name="fn_key_order_error_wrong_key_count">У стовпці може бути щонайбільше 4 клавіші.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Дозволено лише коди клавіш від 1 до 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Одна клавіша не може бути в обох стовпцях.</string>
 	<string name="fn_key_order_column_1">Стовпець 1</string>
