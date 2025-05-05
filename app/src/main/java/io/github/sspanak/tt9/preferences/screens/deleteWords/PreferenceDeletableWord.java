@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.UI;
 
 public class PreferenceDeletableWord extends ScreenPreference {
@@ -48,17 +49,13 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		super.onClick();
 
 		Context context = getContext();
-
-		UI.confirm(
-			context,
-			context.getString(R.string.delete_words_deleted_confirm_deletion_title),
-			context.getString(R.string.delete_words_deleted_confirm_deletion_question, word),
-			context.getString(R.string.delete_words_delete),
-			this::onDeletionConfirmed,
-			true,
-			null,
-			null
-		);
+		new PopupBuilder(context)
+			.setCancelable(true)
+			.setTitle(context.getString(R.string.delete_words_deleted_confirm_deletion_title))
+			.setMessage(context.getString(R.string.delete_words_deleted_confirm_deletion_question, word))
+			.setNegativeButton(true, null)
+			.setPositiveButton(context.getString(R.string.delete_words_delete), this::onDeletionConfirmed)
+			.show();
 	}
 
 

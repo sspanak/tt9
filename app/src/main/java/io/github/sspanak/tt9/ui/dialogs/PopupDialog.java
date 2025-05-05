@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 abstract public class PopupDialog implements DialogInterface.OnKeyListener {
@@ -37,7 +36,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 	}
 
 	protected void render(Runnable OKAction) {
-		UI.confirm(context, title, message, OKLabel, OKAction, true, () -> activityFinisher.accept(""), this);
+//		UI.confirm(context, title, message, OKLabel, OKAction, true, () -> activityFinisher.accept(""), this);
 	}
 
 	abstract void render();
