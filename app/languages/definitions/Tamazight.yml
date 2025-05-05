@@ -1,5 +1,8 @@
 locale: zgh-MA
 dictionaryFile: tamazight-utf8.txt
+iconABC: ic_lang_tifinagh
+iconT9: ic_lang_tm_tifinagh
+hasUpperCase: no
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1

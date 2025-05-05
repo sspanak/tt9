@@ -15,7 +15,7 @@ tasks.register('validateLanguages') {
 	outputs.dir LANGUAGE_VALIDATION_DIR
 
 	doLast {
-		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, LANGUAGE_VALIDATION_DIR.get().asFile)
+		validateLanguageFiles(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, LANGUAGE_VALIDATION_DIR.get().asFile, ICONS_DIR)
 	}
 }
 
@@ -39,7 +39,7 @@ tasks.register('buildDictionaryDownloads') {
 	mustRunAfter validateLanguages
 
 	doLast {
-		convertDictionaries(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, DICTIONARIES_DOWNLOAD_DIR, DICTIONARY_META_OUTPUT_DIR)
+		convertDictionaries(DEFINITIONS_INPUT_DIR, DICTIONARIES_INPUT_DIR, DICTIONARIES_DOWNLOAD_DIR, DICTIONARY_META_OUTPUT_DIR, ICONS_DIR)
 	}
 }
 

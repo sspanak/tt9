@@ -1,6 +1,8 @@
 locale: iw-IL
 currency: ₪
 dictionaryFile: he-utf8.csv
+iconABC: ic_lang_alefbet
+iconT9: ic_lang_he
 abcString: אבג
 hasUpperCase: no
 layout:

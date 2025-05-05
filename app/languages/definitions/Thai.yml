@@ -1,6 +1,8 @@
 locale: th-TH
 currency: ฿
 dictionaryFile: th-utf8.csv
+iconABC: ic_lang_th_abc
+iconT9: ic_lang_th
 abcString: กขค
 hasSpaceBetweenWords: no
 hasUpperCase: no

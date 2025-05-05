@@ -37,6 +37,8 @@ public class NaturalLanguage extends TranscribedLanguage {
 		lang.hasSpaceBetweenWords = definition.hasSpaceBetweenWords;
 		lang.hasUpperCase = definition.hasUpperCase;
 		lang.hasTranscriptionsEmbedded = definition.filterBySounds;
+		lang.iconABC = definition.iconABC;
+		lang.iconT9 = definition.iconT9;
 		lang.isTranscribed = definition.isTranscribed;
 		lang.name = definition.name.isEmpty() ? lang.name : definition.name;
 		lang.numerals = definition.numerals;

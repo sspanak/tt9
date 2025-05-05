@@ -1,5 +1,7 @@
 locale: lv-LV
 dictionaryFile: lv-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_lv
 abcString: abc
 layout:
   - [SPECIAL] # 0

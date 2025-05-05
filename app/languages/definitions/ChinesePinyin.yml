@@ -1,5 +1,6 @@
 locale: zh-CN
 dictionaryFile: zh-pinyin.csv
+iconT9: ic_lang_zh_pinyin
 name: 中文 / 简体
 hasABC: no
 hasSpaceBetweenWords: no

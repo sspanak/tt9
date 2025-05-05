@@ -1,7 +1,7 @@
 apply from: 'dictionary-tools.gradle'
 
 
-ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
+ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir, iconsDir ->
 	int errorCount = 0
 
 	def errorStream = fileTree(dir: definitionsDir).getFiles().parallelStream().map { definition ->
@@ -13,7 +13,7 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 			return "Too many errors! Skipping: ${definition}\n"
 		}
 
-		def (alphabet, sounds, _, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir)
+		def (alphabet, sounds, _, isAlphabeticLanguage, locale, dictionaryFile, langFileErrorCount, langFileErrorMsg) = parseLanguageDefintion(definition, dictionariesDir, iconsDir)
 
 		def languageHash = DictionaryTools.getLanguageHash(definition, dictionaryFile)
 		def validationFile = new File("${validationDir}/${definition.name.replace(".yml", "")}.txt")
@@ -46,7 +46,7 @@ ext.validateLanguageFiles = { definitionsDir, dictionariesDir, validationDir ->
 }
 
 
-ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
+ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String iconsDir ->
 	String alphabet = ''
 	int layoutKey = 0
 	HashMap<String, String> sounds = new HashMap<>()
@@ -60,10 +60,15 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 	boolean hasABC = true
 	boolean hasLayout = false
 	boolean hasSounds = false
+	boolean hasUpperCase = true
 	boolean filterBySounds = false
 	boolean areNumeralsValid = true
+	String iconABC = ""
+	String iconT9 = ""
 	String localeString = ""
 	String dictionaryFileName = ""
+
+	final String INVALID_FILE = "Language '${languageFile.name}' is invalid."
 
 	for (String rawLine : languageFile.readLines()) {
 		if (
@@ -75,6 +80,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			&& !rawLine.startsWith("hasABC")
 			&& !rawLine.startsWith("hasSpaceBetweenWords")
 			&& !rawLine.startsWith("hasUpperCase")
+			&& !rawLine.startsWith("iconABC") && !rawLine.startsWith("iconT9")
 			&& !rawLine.startsWith("layout")
 			&& !rawLine.startsWith("locale")
 			&& !rawLine.startsWith("name")
@@ -86,7 +92,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 			def property = parts.length > 0 ? parts[0] : rawLine
 
 			errorCount++
-			errorMsg += "Language '${languageFile.name}' is invalid. Found unknown property: '${property}'.\n"
+			errorMsg += "${INVALID_FILE} Found unknown property: '${property}'.\n"
 		}
 
 		String line = rawLine.replaceFirst("#[\\s\\S]+\$", "")
@@ -114,6 +120,18 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 
 		if (line.startsWith("hasABC")) {
 			hasABC = line.endsWith("yes")
+		}
+
+		if (line.startsWith("hasUpperCase")) {
+			hasUpperCase = !line.endsWith("no")
+		}
+
+		if (line.startsWith("iconABC")) {
+			iconABC = line.replaceFirst("^icon[^:]+:", "").trim()
+		}
+
+		if (line.startsWith("iconT9")) {
+			iconT9 = line.replaceFirst("^icon[^:]+:", "").trim()
 		}
 
 		if (line.startsWith("numerals")) {
@@ -156,40 +174,56 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir ->
 		}
 	}
 
+	if (alphabet.isEmpty()) {
+		errorCount++
+		errorMsg += "${INVALID_FILE} No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
+	}
+
+	if (!areNumeralsValid) {
+		errorCount++
+		errorMsg += "${INVALID_FILE} 'numerals' property must contain a comma-separated list of 10 characters representing the digits from 0 to 9.\n"
+	}
+
 	if (!hasABC && !abcString.isEmpty()) {
 		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. hasABC must be 'true' when abcString is provided.\n"
+		errorMsg += "${INVALID_FILE} hasABC must be 'true' when abcString is provided.\n"
 	}
 
 	if (!hasLayout) {
 		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. Missing 'layout' property.\n"
-	}
-
-	if (alphabet.isEmpty()) {
-		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. No language characters found. Make sure 'layout' contains series of characters per each key in the format: ' - [a, b, c]' and so on\n"
+		errorMsg += "${INVALID_FILE} Missing 'layout' property.\n"
 	}
 
 	if (hasSounds && sounds.isEmpty()) {
 		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
+		errorMsg += "${INVALID_FILE} 'sounds' property must contain series of phonetic transcriptions per digit sequence in the format: ' - [Yae,1221]' and so on.\n"
 	}
 
-	if (filterBySounds && !hasSounds) {
+	if (!hasSounds && filterBySounds) {
 		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. 'filterBySounds' property can only be used with 'sounds' property.\n"
+		errorMsg += "${INVALID_FILE} 'filterBySounds' property can only be used with 'sounds' property.\n"
+	}
+
+	if (!iconABC.isEmpty()) {
+		String iconError = validateIcon(INVALID_FILE, iconsDir, iconABC, true, hasABC, hasUpperCase)
+		if (iconError) {
+			errorCount++
+			errorMsg += iconError
+		}
+	}
+
+	if (!iconT9.isEmpty()) {
+		String iconError = validateIcon(INVALID_FILE, iconsDir, iconT9, false, hasABC, hasUpperCase)
+		if (iconError) {
+			errorCount++
+			errorMsg += iconError
+		}
 	}
 
 	if (!localeString.matches("^[a-z]{2,3}(?:-[A-Z]{2})?\$")) {
 		errorCount++
 		def msg = localeString.isEmpty() ? "Missing 'locale' property." : "Unrecognized locale format: '${localeString}'"
-		errorMsg += "Language '${languageFile.name}' is invalid. ${msg}\n"
-	}
-
-	if (!areNumeralsValid) {
-		errorCount++
-		errorMsg += "Language '${languageFile.name}' is invalid. 'numerals' property must contain a comma-separated list of 10 characters representing the digits from 0 to 9.\n"
+		errorMsg += "${INVALID_FILE} ${msg}\n"
 	}
 
 	dictionaryFile = new File("$dictionariesDir/${dictionaryFileName}")
@@ -358,6 +392,33 @@ static def validateNoWhitespace(String line, int lineNumber) {
 static def validateFrequency(int frequency, int maxFrequency, String dictionaryFileName, int lineNumber) {
 	if (frequency < 0 || frequency > maxFrequency) {
 		return "Dictionary '${dictionaryFileName}' is invalid. Found out-of-range word frequency: '${frequency}' on line ${lineNumber}. Frequency must be an integer between 0 and ${maxFrequency}.\n"
+	}
+
+	return ''
+}
+
+
+static def validateIcon(String INVALID_FILE, String iconsDir, String iconName, boolean isABCIcon, boolean hasABC, boolean hasUpperCase) {
+	def icons = []
+
+	if (!hasABC && isABCIcon) {
+		return "${INVALID_FILE} hasABC must be 'true' when iconABC is provided.\n"
+	}
+
+	if (hasUpperCase) {
+		icons.add(new File(iconsDir, "${iconName}_up.xml"))
+		icons.add(new File(iconsDir, "${iconName}_lo.xml"))
+		if (!isABCIcon) {
+			icons.add(new File(iconsDir, "${iconName}_cp.xml"))
+		}
+	} else {
+		icons.add(new File(iconsDir, "${iconName}.xml"))
+	}
+
+	for (File icon : icons) {
+		if (!icon.exists()) {
+			return "${INVALID_FILE} Missing icon: '${icon.path}'.\n"
+		}
 	}
 
 	return ''

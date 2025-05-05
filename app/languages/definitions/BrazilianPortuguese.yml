@@ -1,5 +1,7 @@
 locale: pt-BR
 dictionaryFile: pt-BR-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_br
 name: Português / BR
 layout:
   - [SPECIAL] # 0

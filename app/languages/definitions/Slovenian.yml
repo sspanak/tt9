@@ -1,5 +1,7 @@
 locale: sl-SI
 dictionaryFile: sl-utf8.csv
+iconABC: ic_lang_latin
+iconT9: ic_lang_sl
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1

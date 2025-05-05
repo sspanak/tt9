@@ -19,6 +19,8 @@ abstract public class Language {
 	protected boolean hasSpaceBetweenWords = true;
 	protected boolean hasUpperCase = true;
 	protected boolean hasTranscriptionsEmbedded = false;
+	protected String iconABC = "";
+	protected String iconT9 = "";
 	protected boolean isTranscribed = false;
 	protected Locale locale = Locale.ROOT;
 	protected String name;
@@ -105,6 +107,14 @@ abstract public class Language {
 
 	final public boolean hasTranscriptionsEmbedded() {
 		return hasTranscriptionsEmbedded;
+	}
+
+	final public String getIconABC() {
+		return iconABC;
+	}
+
+	final public String getIconT9() {
+		return iconT9;
 	}
 
 	final public boolean isTranscribed() {

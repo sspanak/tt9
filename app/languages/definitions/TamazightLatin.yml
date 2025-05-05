@@ -1,6 +1,8 @@
 locale: zgh-DZ # zgh = Morroccan Tamazight, DZ = Algeria. We combine these just to get a unique ID.
 name: Tamaziɣt / MA
 dictionaryFile: tamazight-latin-utf8.txt
+iconABC: ic_lang_latin
+iconT9: ic_lang_tm
 layout:
   - [SPECIAL] # 0
   - [PUNCTUATION] # 1
