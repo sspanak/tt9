@@ -1,12 +1,18 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
-import android.content.Context;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -15,29 +21,45 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
 public class ChangeLanguageDialog extends ThemedPopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.change_language";
 	public static final String INTENT_SET_LANGUAGE = "tt9.popup_dialog.command.set_language";
 
+	private final LayoutInflater inflater;
 	private final ArrayList<Language> languages;
 	private final SettingsStore settings;
 
+	private Dialog popup;
 
-	// @todo: layout with radio buttons for touchscreens
+
 	// @todo: maybe styles?
-	// @todo: make it cancelable
-	// @todo: preferences + translations
+	// @todo: preferences
+	// @todo: translations
 
 
-	ChangeLanguageDialog(@NonNull Context context, ConsumerCompat<String> activityFinisher) {
+	ChangeLanguageDialog(@NonNull AppCompatActivity context, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher, R.style.TTheme_AddWord);
 		title = context.getResources().getString(R.string.pref_choose_languages);
 		OKLabel = null;
 
+		inflater = context.getLayoutInflater();
 		settings = new SettingsStore(context);
 		languages = LanguageCollection.getAll(settings.getEnabledLanguageIds(), true);
+	}
+
+
+	private void onSelect(int languageId) {
+		if (popup != null) {
+			popup.dismiss();
+			popup = null;
+		}
+
+		if (activityFinisher != null) {
+			activityFinisher.accept(INTENT_SET_LANGUAGE + languageId);
+		}
 	}
 
 
@@ -47,30 +69,51 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 			return false;
 		}
 
-		int language = Key.codeToNumber(settings, keyCode) - 1;
-		if (language < 0 || language >= languages.size()) {
+		int selection = Key.codeToNumber(settings, keyCode) - 1;
+		if (selection < 0 || selection >= languages.size()) {
 			return false;
 		}
 
-		dialog.dismiss();
-		if (activityFinisher != null) {
-			activityFinisher.accept(INTENT_SET_LANGUAGE + languages.get(language).getId());
+		onSelect(languages.get(selection).getId());
+		return true;
+	}
+
+
+	private void onChecked(CompoundButton buttonView, boolean isChecked) {
+		if (isChecked) {
+			onSelect(buttonView.getId());
+		}
+	}
+
+
+	private View generateRadioButtons() {
+		View view = inflater.inflate(R.layout.popup_language_selection, null);
+		RadioGroup radioGroup = view.findViewById(R.id.radio_group_language_list);
+
+		for (int i = 0; i < languages.size(); i++) {
+			final String text = (i + 1) + ". " + languages.get(i).getName();
+
+			RadioButton radioButton = new RadioButton(context);
+			radioButton.setId(languages.get(i).getId());
+			radioButton.setOnCheckedChangeListener(this::onChecked);
+			radioButton.setText(text);
+			radioGroup.addView(radioButton);
 		}
 
-		return true;
+		return view;
 	}
 
 
 	@Override
 	void render() {
-		StringBuilder tmp = new StringBuilder();
-		for (int i = 0; i < languages.size(); i++) {
-			Language lang = languages.get(i);
-			tmp.append("\n").append(i+1).append(". ").append(lang.getName());
-		}
-
-		message = tmp.toString();
-		super.render(() -> {});
+		popup = new PopupBuilder(context)
+			.setCancelable(true)
+			.setTitle(title)
+			.setMessage(message)
+			.setNegativeButton(true, this::close)
+			.setOnKeyListener(this)
+			.setView(generateRadioButtons())
+			.show();
 	}
 
 

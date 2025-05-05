@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
@@ -98,11 +99,11 @@ public class PopupBuilder {
 	}
 
 
-	public PopupBuilder setView(int viewId) {
+	public PopupBuilder setView(View view) {
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
-			builder12.setView(viewId);
+			builder12.setView(view);
 		} else {
-			builderLegacy.setView(viewId);
+			builderLegacy.setView(view);
 		}
 		return this;
 	}
