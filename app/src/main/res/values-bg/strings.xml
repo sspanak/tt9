@@ -221,7 +221,7 @@
 	<string name="function_undo">Отмяна (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">Преизчисли долното отстояние</string>
 	<string name="fn_key_order_column_2">Колона 2</string>
-	<string name="fn_key_order_error_wrong_key_count">Трябва да има точно по 4 клавиша в колона.</string>
+	<string name="fn_key_order_error_wrong_key_count">Колоната може да съдържа най-много 4 клавиша.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Разрешени са само кодове на клавиши от 1 до 8.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Един клавиш не може да бъде поставен и в двете колони.</string>
 	<string name="fn_key_order_column_1">Колона 1</string>

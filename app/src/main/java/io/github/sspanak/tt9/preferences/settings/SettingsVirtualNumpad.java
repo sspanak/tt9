@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 import android.util.TypedValue;
 
+import androidx.annotation.NonNull;
+
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
@@ -35,11 +37,11 @@ public class SettingsVirtualNumpad extends SettingsUI {
 		return !prefs.getBoolean("pref_arrow_keys_visible", true);
 	}
 
-	public String getLfnKeyOrder() {
+	@NonNull public String getLfnKeyOrder() {
 		return prefs.getString("pref_lfn_key_order", DEFAULT_LFN_KEY_ORDER);
 	}
 
-	public String getRfnKeyOrder() {
+	@NonNull public String getRfnKeyOrder() {
 		return prefs.getString("pref_rfn_key_order", DEFAULT_RFN_KEY_ORDER);
 	}
 

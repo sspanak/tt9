@@ -11,6 +11,7 @@ import android.view.WindowInsets;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -36,6 +37,24 @@ abstract class BaseMainLayout {
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
 		this.tt9 = tt9;
 		this.xml = xml;
+	}
+
+
+	protected void addKey(int keyId, @Nullable ViewGroup container) {
+		View source = container != null ? container : view;
+		if (source == null) {
+			return;
+		}
+
+		SoftKey key = source.findViewById(keyId);
+		if (key != null) {
+			keys.add(key);
+		}
+	}
+
+
+	protected void addKey(int keyId) {
+		addKey(keyId, null);
 	}
 
 

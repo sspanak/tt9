@@ -164,7 +164,7 @@
 
 	<string name="fn_key_order_column_1">Column 1</string>
 	<string name="fn_key_order_column_2">Column 2</string>
-	<string name="fn_key_order_error_wrong_key_count">There must be exactly 4 keys per column.</string>
+	<string name="fn_key_order_error_wrong_key_count">The column can contain at most 4 keys.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Only key codes 1–8 are allowed.</string>
 	<string name="fn_key_order_error_key_on_both_sides">One key cannot be placed in both columns.</string>
 	<string name="fn_key_order_error_duplicate_key">No duplicate keys allowed.</string>

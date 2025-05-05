@@ -116,9 +116,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 	 * This prevents Android from auto-closing the keyboard in some apps that have a lot of content.
 	 * Returns the adjusted height of a single key.
 	 */
-	private int calculateKeyHeight() {
-		int keyHeight = tt9.getSettings().getNumpadKeyHeight();
-		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9.getApplicationContext());
+	private int[] calculateKeyHeight() {
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9.getApplicationContext());
 
 		int bottomPadding = 0;
 		if (DeviceInfo.AT_LEAST_ANDROID_15) {
@@ -126,21 +125,42 @@ class MainLayoutNumpad extends BaseMainLayout {
 			bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(tt9.getApplicationContext(), tt9.getSettings(), isLandscape) : bottomPadding;
 		}
 
-		int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext()) - bottomPadding;
-		double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
-		int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
+		final int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext()) - bottomPadding;
+		final double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
+		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
 
-		return Math.min(keyHeight, maxKeyHeight);
+		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(), maxKeyHeight);
+
+		// in case some of the Fn keys are hidden, we need to stretch the rest
+		final int lfnCount = tt9.getSettings().getLfnKeyOrder().length();
+		final int lfnHeight = lfnCount > 0 ? defaultHeight * 4 / lfnCount : defaultHeight;
+
+		final int rfnCount = tt9.getSettings().getRfnKeyOrder().length();
+		final int rfnHeight = rfnCount > 0 ? defaultHeight * 4 / rfnCount : defaultHeight;
+
+		return new int[] {defaultHeight, lfnHeight, rfnHeight};
 	}
 
 
-	private void setKeyHeight(int height) {
-		if (view == null || height <= 0) {
+	private void setKeyHeight(int defaultHeight, int leftHeight, int rightHeight) {
+		if (view == null || defaultHeight <= 0) {
 			return;
 		}
 
+		final View leftColumn = view.findViewById(R.id.numpad_column_fn_left);
+		final View rightColumn = view.findViewById(R.id.numpad_column_fn_right);
+
 		for (SoftKey key : getKeys()) {
-			key.setHeight(height);
+			final View wrapper = (View) key.getParent();
+			final View container = wrapper != null ? (View) wrapper.getParent() : null;
+
+			if (container != null && container.equals(leftColumn)) {
+				key.setHeight(leftHeight);
+			}	else if (container != null && container.equals(rightColumn)) {
+				key.setHeight(rightHeight);
+			} else {
+				key.setHeight(defaultHeight);
+			}
 		}
 	}
 
@@ -180,7 +200,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 				Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
 				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
 				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
-				+ getKeyColumnHeight(calculateKeyHeight())
+				+ getKeyColumnHeight(calculateKeyHeight()[0])
 				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom));
 		}
 
@@ -219,58 +239,53 @@ class MainLayoutNumpad extends BaseMainLayout {
 		}
 
 		// status bar
-		ViewGroup statusBar = view.findViewById(R.id.status_bar_container);
-		keys.add(statusBar.findViewById(R.id.soft_key_left_arrow));
-		keys.add(statusBar.findViewById(R.id.soft_key_right_arrow));
-
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		// left Fn
-		keys.add(view.findViewById(R.id.soft_key_settings));
-		keys.add(view.findViewById(R.id.soft_key_add_word));
-		keys.add(view.findViewById(R.id.soft_key_shift));
-		keys.add(view.findViewById(R.id.soft_key_lf4));
+		addKey(R.id.soft_key_settings);
+		addKey(R.id.soft_key_add_word);
+		addKey(R.id.soft_key_shift);
+		addKey(R.id.soft_key_lf4);
 
 		// right Fn
-		keys.add(view.findViewById(R.id.soft_key_numpad_backspace));
-		keys.add(view.findViewById(R.id.soft_key_filter));
-		keys.add(view.findViewById(R.id.soft_key_rf3));
-		keys.add(view.findViewById(R.id.soft_key_numpad_ok));
+		addKey(R.id.soft_key_numpad_backspace);
+		addKey(R.id.soft_key_filter);
+		addKey(R.id.soft_key_rf3);
+		addKey(R.id.soft_key_numpad_ok);
 
 		// digits panel
 		ViewGroup table = view.findViewById(R.id.main_soft_keys);
-		keys.add(table.findViewById(R.id.soft_key_0));
-		keys.add(table.findViewById(R.id.soft_key_1));
-		keys.add(table.findViewById(R.id.soft_key_2));
-		keys.add(table.findViewById(R.id.soft_key_3));
-		keys.add(table.findViewById(R.id.soft_key_4));
-		keys.add(table.findViewById(R.id.soft_key_5));
-		keys.add(table.findViewById(R.id.soft_key_6));
-		keys.add(table.findViewById(R.id.soft_key_7));
-		keys.add(table.findViewById(R.id.soft_key_8));
-		keys.add(table.findViewById(R.id.soft_key_9));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_1));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_2));
+		addKey(R.id.soft_key_0, table);
+		addKey(R.id.soft_key_1, table);
+		addKey(R.id.soft_key_2, table);
+		addKey(R.id.soft_key_3, table);
+		addKey(R.id.soft_key_4, table);
+		addKey(R.id.soft_key_5, table);
+		addKey(R.id.soft_key_6, table);
+		addKey(R.id.soft_key_7, table);
+		addKey(R.id.soft_key_8, table);
+		addKey(R.id.soft_key_9, table);
+		addKey(R.id.soft_key_punctuation_1, table);
+		addKey(R.id.soft_key_punctuation_2, table);
 
 		// text editing panel
-		keys.add(table.findViewById(R.id.soft_key_100));
-		keys.add(table.findViewById(R.id.soft_key_101));
-		keys.add(table.findViewById(R.id.soft_key_102));
-		keys.add(table.findViewById(R.id.soft_key_103));
-		keys.add(table.findViewById(R.id.soft_key_104));
-		keys.add(table.findViewById(R.id.soft_key_105));
-		keys.add(table.findViewById(R.id.soft_key_106));
-		keys.add(table.findViewById(R.id.soft_key_107));
-		keys.add(table.findViewById(R.id.soft_key_108));
-		keys.add(table.findViewById(R.id.soft_key_109));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_101));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_102));
+		addKey(R.id.soft_key_100, table);
+		addKey(R.id.soft_key_101, table);
+		addKey(R.id.soft_key_102, table);
+		addKey(R.id.soft_key_103, table);
+		addKey(R.id.soft_key_104, table);
+		addKey(R.id.soft_key_105, table);
+		addKey(R.id.soft_key_106, table);
+		addKey(R.id.soft_key_107, table);
+		addKey(R.id.soft_key_108, table);
+		addKey(R.id.soft_key_109, table);
+		addKey(R.id.soft_key_punctuation_101, table);
+		addKey(R.id.soft_key_punctuation_102, table);
 
 		// Long space panel
-		keys.add(table.findViewById(R.id.soft_key_200));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_201));
-		keys.add(table.findViewById(R.id.soft_key_punctuation_202));
-
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
+		addKey(R.id.soft_key_200, table);
+		addKey(R.id.soft_key_punctuation_201, table);
+		addKey(R.id.soft_key_punctuation_202, table);
 
 		return keys;
 	}
@@ -302,6 +317,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 			keyWrappers.put(entry.getValue(), view.findViewById(entry.getValue()));
 		}
 
+		hideUnusedFnKeys(keyWrappers, lfnOrder, rfnOrder);
 		reorderFnColumn(left, lfnOrder, keyWrappers);
 		reorderFnColumn(right, rfnOrder, keyWrappers);
 
@@ -310,7 +326,29 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-	private void reorderFnColumn(ViewGroup column, String order, Map<Integer, View> keyWrappers) {
+	private void hideUnusedFnKeys(@NonNull Map<Integer, View> keyWrappers, @NonNull String leftOrder, @NonNull String rightOrder) {
+		for (Map.Entry<Integer, View> entry : keyWrappers.entrySet()) {
+			Integer keyId = entry.getKey();
+			View key = entry.getValue();
+
+			if (key != null && leftOrder.indexOf(keyId) < 0 && rightOrder.indexOf(keyId) < 0) {
+				key.setVisibility(View.GONE);
+			}
+		}
+
+		View leftColumn = view.findViewById(R.id.numpad_column_fn_left);
+		if (leftColumn != null) {
+			leftColumn.setVisibility(leftOrder.isEmpty() ? View.GONE : View.VISIBLE);
+		}
+
+		View rightColumn = view.findViewById(R.id.numpad_column_fn_right);
+		if (rightColumn != null) {
+			rightColumn.setVisibility(rightOrder.isEmpty() ? View.GONE : View.VISIBLE);
+		}
+	}
+
+
+	private void reorderFnColumn(@NonNull ViewGroup column, @NonNull String order, @NonNull Map<Integer, View> keyWrappers) {
 		for (char keyId : order.toCharArray()) {
 			Integer viewId = SettingsVirtualNumpad.KEY_ORDER_MAP.get(keyId);
 			if (viewId == null) {
@@ -325,18 +363,19 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 			((ViewGroup) key.getParent()).removeView(key);
 			column.addView(key);
+			key.setVisibility(View.VISIBLE);
 		}
 	}
 
 
 	@Override
 	void render() {
-		int defaultKeyHeight = calculateKeyHeight();
+		final int[] keyHeights = calculateKeyHeight();
 
 		getView();
 		reorderFnKeys();
 		enableClickHandlers();
-		setKeyHeight(defaultKeyHeight);
+		setKeyHeight(keyHeights[0], keyHeights[1], keyHeights[2]);
 		preventEdgeToEdge();
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
@@ -345,7 +384,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		boolean hasLettersOnAllKeys = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
 		showLongSpace(
 			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !hasLettersOnAllKeys,
-			defaultKeyHeight
+			keyHeights[0]
 		);
 
 		for (SoftKey key : getKeys()) {

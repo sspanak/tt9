@@ -228,7 +228,7 @@
 	<string name="function_undo">ביטול (Undo)</string>
 	<string name="pref_hack_precalculate_navbar_height">חשב מחדש ריווח תחתון</string>
 	<string name="fn_key_order_column_2">עמודה 2</string>
-	<string name="fn_key_order_error_wrong_key_count">חייבים להיות בדיוק 4 מקשים בכל עמודה.</string>
+	<string name="fn_key_order_error_wrong_key_count">העמודה יכולה להכיל לכל היותר 4 מקשים.</string>
 	<string name="fn_key_order_error_unsupported_key_code">רק קודי מקשים 1–8 מותרים.</string>
 	<string name="fn_key_order_error_key_on_both_sides">לא ניתן למקם מקש אחד בשתי העמודות.</string>
 	<string name="fn_key_order_column_1">עמודה 1</string>

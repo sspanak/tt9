@@ -46,7 +46,7 @@ public class FnKeyOrderValidator {
 
 
 	private boolean validateLength(String text, int side) {
-		if (text == null || text.length() != 4) {
+		if (text == null || text.length() > 4) {
 			error = R.string.fn_key_order_error_wrong_key_count;
 			errorSide = side;
 			return false;
@@ -57,7 +57,7 @@ public class FnKeyOrderValidator {
 
 
 	private boolean validateDigits(String text, int side) {
-		if (text == null || !text.matches("^[1-8]+$")) {
+		if (text == null || !text.matches("^[1-8]*$")) {
 			error = R.string.fn_key_order_error_unsupported_key_code;
 			errorSide = side;
 			return false;
