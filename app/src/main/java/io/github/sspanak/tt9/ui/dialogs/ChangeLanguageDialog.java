@@ -33,7 +33,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	private final SettingsStore settings;
 
 	private Dialog popup;
-	private ArrayList<LanguageRadioButton> radioButtons = new ArrayList<>();
+	private final ArrayList<LanguageRadioButton> radioButtons = new ArrayList<>();
 
 
 	// @todo: slightly adjust the padding on Android 12+
@@ -59,12 +59,19 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 
 	@Override
 	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (Key.isBack(keyCode)) {
+			close();
+			return true;
+		}
+
 		int languageId = -1;
 
 		if (Key.isOK(keyCode)) {
 			languageId = getSelected();
 		} else if (Key.isNumber(keyCode)) {
 			languageId = getByIndex(Key.codeToNumber(settings, keyCode) - 1);
+		} else if (event.getAction() == KeyEvent.ACTION_UP && (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP)) {
+			for (LanguageRadioButton radio : radioButtons) radio.autoHighlightCompat(); // yet another device hack
 		}
 
 		if (languageId == -1) {
