@@ -116,7 +116,11 @@ public class TraditionalT9 extends MainViewHandler {
 
 		forceShowWindow();
 		if (message.startsWith(ChangeLanguageDialog.INTENT_SET_LANGUAGE) && message.length() > ChangeLanguageDialog.INTENT_SET_LANGUAGE.length()) {
-			setLang(Integer.parseInt(message.substring(ChangeLanguageDialog.INTENT_SET_LANGUAGE.length())));
+			try {
+				setLang(Integer.parseInt(message.substring(ChangeLanguageDialog.INTENT_SET_LANGUAGE.length())));
+			} catch (NumberFormatException e) {
+				Logger.e(LOG_TAG, "Failed to parse language ID from intent: '" + message + "'. " + e);
+			}
 		} else if (!message.isEmpty()) {
 			UI.toastLong(this, message);
 		}
