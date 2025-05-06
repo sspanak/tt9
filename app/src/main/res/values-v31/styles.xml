@@ -26,6 +26,24 @@
 	</style>
 
 	<!--*******************************************
+		Language Selection Dialog
+	*******************************************-->
+
+	<style name="TTheme.LanguageSelect.RadioButton.Radio">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:paddingEnd">0dp</item>
+		<item name="android:paddingStart">0dp</item>
+	</style>
+
+	<style name="TTheme.LanguageSelect.RadioButton.Label">
+		<item name="android:paddingTop">0dp</item>
+		<item name="android:paddingBottom">0dp</item>
+		<item name="android:paddingStart">0dp</item>
+		<item name="android:paddingEnd">0dp</item>
+	</style>
+
+	<!--*******************************************
 		Preferences
 	*******************************************-->
 
