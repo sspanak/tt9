@@ -76,7 +76,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean getQuickSwitchLanguage() {
-		return prefs.getBoolean("pref_quick_switch_language", false);
+		return prefs.getBoolean("pref_quick_switch_language", true);
 	}
 
 	public int getSettingsFontSize() {

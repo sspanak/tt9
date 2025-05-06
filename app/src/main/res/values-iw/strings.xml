@@ -62,6 +62,7 @@
 	<string name="pref_predict_word_pairs">ללמוד צמדי מילים</string>
 	<string name="pref_predict_word_pairs_summary">לזכור ביטויים נפוצים כדי לשפר את דיוק ההצעות.</string>
 	<string name="pref_privacy_policy">מדיניות פרטיות</string>
+	<string name="pref_quick_switch_language_summary">לחיצה על מקש השפה תעביר אוטומטית לשפה הבאה במקום להציג חלון קופץ עם כל השפות הפעילות.</string>
 	<string name="pref_status_icon">סמל מצב</string>
 	<string name="pref_status_icon_summary">הצגת סמל כאשר קלט המקלדת פעיל.</string>
 	<string name="pref_suggestion_font_size">גודל גופן להצעות</string>
@@ -195,6 +196,7 @@
 	<string name="pref_backspace_acceleration">מחיקה מהירה</string>
 	<string name="pref_backspace_acceleration_summary">למחוק מילים שלמות על ידי החזקת Backspace או החלקה עליו. (לא נתמך בחלק מהאפליקציות)</string>
 	<string name="pref_category_punctuation_order">סדר סימני פיסוק</string>
+	<string name="language_popup_title">בחר שפה</string>
 	<string name="punctuation_order_whitespace_will_be_added_automatically">תווי רווח ושורה חדשה יתווספו אוטומטית בתחילת הרשימה.</string>
 	<string name="punctuation_order_mandatory_char_missing">תו חובה חסר: %1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">תווי חובה חסרים:%1$s</string>
@@ -232,4 +234,5 @@
 	<string name="fn_key_order_error_unsupported_key_code">רק קודי מקשים 1–8 מותרים.</string>
 	<string name="fn_key_order_error_key_on_both_sides">לא ניתן למקם מקש אחד בשתי העמודות.</string>
 	<string name="fn_key_order_column_1">עמודה 1</string>
+	<string name="pref_quick_switch_language">החלפה מהירה של שפות</string>
 </resources>

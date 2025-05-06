@@ -31,6 +31,8 @@
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>
 	<string name="pref_privacy_policy">Политика за поверителност</string>
+	<string name="pref_quick_switch_language">Бързо превключване на езиците</string>
+	<string name="pref_quick_switch_language_summary">Натискането на клавиша за език автоматично превключва към следващия език, вместо да показва изскачащ списък с всички активирани езици.</string>
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
@@ -194,6 +196,7 @@
 	<string name="pref_backspace_acceleration">Бързо изтриване</string>
 	<string name="pref_backspace_acceleration_summary">Изтривай цели думи при задържане или плъзване на Backspace. (Не работи в някои приложения.)</string>
 	<string name="pref_category_punctuation_order">Ред на пунктуацията</string>
+	<string name="language_popup_title">Изберете език</string>
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Интервал и нов ред ще бъдат автоматично добавени в началото на списъка.</string>
 	<string name="punctuation_order_mandatory_char_missing">Липсва задължителен символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Липсват задължителни символи:%1$s</string>

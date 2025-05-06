@@ -102,6 +102,8 @@
 	<string name="pref_predict_word_pairs">Learn Word Pairs</string>
 	<string name="pref_predict_word_pairs_summary">Remember commonly used phrases to improve the suggestions accuracy.</string>
 	<string name="pref_privacy_policy">Privacy Policy</string>
+	<string name="pref_quick_switch_language">Quick Switch Languages</string>
+	<string name="pref_quick_switch_language_summary">Pressing the Language key switches to the next language automatically, instead of showing a popup with all enabled languages.</string>
 	<string name="pref_status_icon">Status Icon</string>
 	<string name="pref_status_icon_summary">Show an icon when keyboard input is active.</string>
 	<string name="pref_suggestion_font_size">Suggestion Font Size</string>
@@ -200,6 +202,8 @@
 	<string name="language_selection_language_loaded">(loaded)</string>
 	<string name="language_selection_title">Enable Languages</string>
 	<string name="language_selection_words">words</string>
+
+	<string name="language_popup_title">Select Language</string>
 
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be automatically added at the beginning of the list.</string>
 	<string name="punctuation_order_mandatory_char_missing">Missing mandatory character:%1$s</string>

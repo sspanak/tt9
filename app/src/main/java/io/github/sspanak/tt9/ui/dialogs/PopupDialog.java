@@ -38,7 +38,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 
 	protected void render(Runnable OKAction) {
 		new PopupBuilder(context)
-			.setCancelable(true)
+			.setCancelable(false)
 			.setTitle(title)
 			.setMessage(message)
 			.setPositiveButton(OKLabel, OKAction)

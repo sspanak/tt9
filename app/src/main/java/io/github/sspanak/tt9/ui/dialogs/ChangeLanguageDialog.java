@@ -36,14 +36,9 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	private final ArrayList<LanguageRadioButton> radioButtons = new ArrayList<>();
 
 
-	// @todo: slightly adjust the padding on Android 12+
-	// @todo: preferences
-	// @todo: translations
-
-
 	ChangeLanguageDialog(@NonNull AppCompatActivity context, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher, R.style.TTheme_AddWord);
-		title = context.getResources().getString(R.string.pref_choose_languages);
+		title = context.getResources().getString(R.string.language_popup_title);
 		OKLabel = null;
 
 		inflater = context.getLayoutInflater();
@@ -136,7 +131,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	@Override
 	void render() {
 		popup = new PopupBuilder(context)
-			.setCancelable(true)
+			.setCancelable(false)
 			.setTitle(title)
 			.setMessage(message)
 			.setNegativeButton(true, this::close)
