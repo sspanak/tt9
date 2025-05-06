@@ -7,9 +7,7 @@ import android.inputmethodservice.InputMethodService;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +19,10 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.LanguageRadioButton;
 import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ChangeLanguageDialog extends ThemedPopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.change_language";
@@ -33,9 +33,10 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	private final SettingsStore settings;
 
 	private Dialog popup;
+	private ArrayList<LanguageRadioButton> radioButtons = new ArrayList<>();
 
 
-	// @todo: maybe styles?
+	// @todo: slightly adjust the padding on Android 12+
 	// @todo: preferences
 	// @todo: translations
 
@@ -51,7 +52,47 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	}
 
 
-	private void onSelect(int languageId) {
+	private void onClick(View button) {
+		changeLanguage(button.getId());
+	}
+
+
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		int languageId = -1;
+
+		if (Key.isOK(keyCode)) {
+			languageId = getSelected();
+		} else if (Key.isNumber(keyCode)) {
+			languageId = getByIndex(Key.codeToNumber(settings, keyCode) - 1);
+		}
+
+		if (languageId == -1) {
+			return false;
+		}
+
+		changeLanguage(languageId);
+		return true;
+	}
+
+
+	private int getSelected() {
+		for (LanguageRadioButton radio : radioButtons) {
+			if (radio.hasFocus()) {
+				return radio.getId();
+			}
+		}
+
+		return -1;
+	}
+
+
+	private int getByIndex(int index) {
+		return (index < 0 || index >= languages.size()) ? -1 : languages.get(index).getId();
+	}
+
+
+	private void changeLanguage(int languageId) {
 		if (popup != null) {
 			popup.dismiss();
 			popup = null;
@@ -63,41 +104,22 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	}
 
 
-	@Override
-	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-		if (!Key.isNumber(keyCode)) {
-			return false;
-		}
-
-		int selection = Key.codeToNumber(settings, keyCode) - 1;
-		if (selection < 0 || selection >= languages.size()) {
-			return false;
-		}
-
-		onSelect(languages.get(selection).getId());
-		return true;
-	}
-
-
-	private void onChecked(CompoundButton buttonView, boolean isChecked) {
-		if (isChecked) {
-			onSelect(buttonView.getId());
-		}
-	}
-
-
 	private View generateRadioButtons() {
-		View view = inflater.inflate(R.layout.popup_language_selection, null);
-		RadioGroup radioGroup = view.findViewById(R.id.radio_group_language_list);
+		final int currentLanguageId = settings.getInputLanguage();
+		final View view = inflater.inflate(R.layout.popup_language_select, null);
+		final LinearLayout radioGroup = view.findViewById(R.id.language_select_list);
+
+		radioButtons.clear();
 
 		for (int i = 0; i < languages.size(); i++) {
-			final String text = (i + 1) + ". " + languages.get(i).getName();
+			final String labelPrefix = DeviceInfo.noKeyboard(context) ? null : (i + 1) + ". ";
 
-			RadioButton radioButton = new RadioButton(context);
-			radioButton.setId(languages.get(i).getId());
-			radioButton.setOnCheckedChangeListener(this::onChecked);
-			radioButton.setText(text);
+			LanguageRadioButton radioButton = new LanguageRadioButton(context)
+				.setLanguage(languages.get(i), labelPrefix)
+				.setChecked(languages.get(i).getId() == currentLanguageId)
+				.setOnClick(this::onClick);
 			radioGroup.addView(radioButton);
+			radioButtons.add(radioButton);
 		}
 
 		return view;
