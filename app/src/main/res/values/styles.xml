@@ -81,6 +81,7 @@
 		<item name="android:paddingEnd">0dp</item>
 		<item name="android:paddingTop">12dp</item>
 		<item name="android:paddingBottom">12dp</item>
+		<item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.PopupMenu.Large</item>
 	</style>
 
 	<!--*******************************************
