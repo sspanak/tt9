@@ -113,7 +113,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 			popup.dismiss();
 			popup = null;
 		}
-		super.close();
+		activityFinisher.accept(null);
 	}
 
 
@@ -189,8 +189,8 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	public static void show(InputMethodService ims, String currentSequence, String currentWord) {
 		Intent intent = new Intent(ims, PopupDialogActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+		intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+		intent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 		intent.putExtra(PARAMETER_DIALOG_TYPE, TYPE);
 		intent.putExtra(PARAMETER_SEQUENCE, currentSequence);
 		intent.putExtra(PARAMETER_WORD, currentWord);

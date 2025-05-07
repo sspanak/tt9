@@ -47,17 +47,22 @@ public class PopupDialogActivity extends AppCompatActivity {
 	private void onDialogClose(String message) {
 		finish();
 		Intent intent = new Intent(this, TraditionalT9.class);
-		intent.putExtra(PopupDialog.INTENT_CLOSE, message);
+		if (message != null) {
+			intent.putExtra(PopupDialog.INTENT_CLOSE, message);
+		}
 		startService(intent);
 	}
 
 	private void onDialogClose(HashMap<String, String> messages) {
 		finish();
 		Intent intent = new Intent(this, TraditionalT9.class);
-		intent.putExtra(PopupDialog.INTENT_CLOSE, "");
-		for (String key : messages.keySet()) {
-			intent.putExtra(key, messages.get(key));
+		if (messages != null) {
+			intent.putExtra(PopupDialog.INTENT_CLOSE, "");
+			for (String key : messages.keySet()) {
+				intent.putExtra(key, messages.get(key));
+			}
 		}
+
 		startService(intent);
 	}
 
