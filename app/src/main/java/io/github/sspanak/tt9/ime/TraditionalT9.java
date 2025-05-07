@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
@@ -115,14 +116,15 @@ public class TraditionalT9 extends MainViewHandler {
 		}
 
 		forceShowWindow();
-		if (message.startsWith(ChangeLanguageDialog.INTENT_SET_LANGUAGE) && message.length() > ChangeLanguageDialog.INTENT_SET_LANGUAGE.length()) {
-			try {
-				setLang(Integer.parseInt(message.substring(ChangeLanguageDialog.INTENT_SET_LANGUAGE.length())));
-			} catch (NumberFormatException e) {
-				Logger.e(LOG_TAG, "Failed to parse language ID from intent: '" + message + "'. " + e);
-			}
-		} else if (!message.isEmpty()) {
+
+		if (!message.isEmpty()) {
 			UI.toastLong(this, message);
+		} else if (ChangeLanguageDialog.INTENT_SET_LANGUAGE.equals(intent.getStringExtra(ChangeLanguageDialog.INTENT_SET_LANGUAGE))) {
+			onResume(
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_LANGUAGE),
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_SEQUENCE),
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_WORD)
+			);
 		}
 
 		return result;
@@ -174,6 +176,24 @@ public class TraditionalT9 extends MainViewHandler {
 		}
 
 		return true;
+	}
+
+
+	private void onResume(@Nullable String langStringId, @Nullable String sequence, @Nullable String word) {
+		int languageId;
+		try {
+			langStringId = langStringId == null ? "(null)" : langStringId;
+			languageId = Integer.parseInt(langStringId);
+		} catch (NumberFormatException e) {
+			Logger.e(LOG_TAG, "Can not resume typing. Failed to parse language ID '" + langStringId + "'. " + e);
+			return;
+		}
+
+		if (word != null && !word.isEmpty() && sequence != null && !sequence.isEmpty()) {
+			mInputMode.setSequence(sequence);
+		}
+
+		setLang(languageId);
 	}
 
 
