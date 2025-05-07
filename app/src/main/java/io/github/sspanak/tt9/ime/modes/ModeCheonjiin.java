@@ -395,11 +395,6 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	protected boolean shouldSelectNextSpecialCharacters() {
-		return digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
-	}
-
-
 	@Override
 	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
 		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
