@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ class Mode123 extends ModePassthrough {
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);
 		} else if (inputType.isNumeric()) {
-			setSpecificSpecialCharacters(Characters.getSpecialForNumbers(inputType.isDecimal(), inputType.isSignedNumber()), false);
+			setSpecificSpecialCharacters(Characters.getAllForDecimal(inputType.isDecimal(), inputType.isSignedNumber()), false);
 		} else if (isEmailMode) {
 			setSpecificSpecialCharacters(Characters.Email, true);
 		} else {
@@ -52,16 +53,15 @@ class Mode123 extends ModePassthrough {
 	 */
 	private void setDefaultSpecialCharacters() {
 		Language english = LanguageCollection.getByLocale("en");
+		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(english, 0)))
-		);
-		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(english, 1)))
+			TextTools.removeLettersFromList(orderSpecialChars(settings.getOrderedKeyChars(english, 1), null))
 		);
 	}
 
 
-	protected ArrayList<String> applyNumericFieldCharacterOrder(ArrayList<String> unordered) {
+	@Override
+	public ArrayList<String> orderSpecialChars(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> o) {
 		ArrayList<String> ordered = new ArrayList<>();
 
 		if (unordered.contains(".")) {

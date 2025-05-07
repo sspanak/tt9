@@ -9,13 +9,13 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.Cheonjiin;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.modes.predictions.Predictions;
 import io.github.sspanak.tt9.ime.modes.predictions.SyllablePredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -26,11 +26,8 @@ class ModeCheonjiin extends InputMode {
 	protected final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
 	// special chars and emojis
-	private static String SPECIAL_CHAR_SEQUENCE_PREFIX;
-	protected String CUSTOM_EMOJI_SEQUENCE;
-	protected String EMOJI_SEQUENCE;
-	protected String PUNCTUATION_SEQUENCE;
-	protected String SPECIAL_CHAR_SEQUENCE;
+	private final String PUNCTUATION_SEQUENCE_PREFIX = "11";
+	private final String SPECIAL_CHAR_SEQUENCE_PREFIX = "00";
 
 	// predictions
 	protected boolean disablePredictions = false;
@@ -46,18 +43,15 @@ class ModeCheonjiin extends InputMode {
 	protected ModeCheonjiin(SettingsStore settings, InputType inputType, TextField textField) {
 		super(settings, inputType);
 
-		SPECIAL_CHAR_SEQUENCE_PREFIX = "11";
-
-
 		autoSpace = new AutoSpace(settings);
-		digitSequence = "";
 		allowedTextCases.add(CASE_LOWER);
+		digitSequence = "";
+		seq = new Sequences(PUNCTUATION_SEQUENCE_PREFIX, SPECIAL_CHAR_SEQUENCE_PREFIX);
 		this.inputType = inputType;
 		this.textField = textField;
 
 		setLanguage(LanguageCollection.getLanguage(LanguageKind.KOREAN));
 		initPredictions();
-		setSpecialCharacterConstants();
 	}
 
 
@@ -68,7 +62,7 @@ class ModeCheonjiin extends InputMode {
 	 */
 	protected void setCustomSpecialCharacters() {
 		// special
-		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.getSpecial(language), 0)));
+		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation
@@ -94,14 +88,6 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	protected void setSpecialCharacterConstants() {
-		CUSTOM_EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
-		EMOJI_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.EMOJI_SEQUENCE;
-		PUNCTUATION_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + NaturalLanguage.PUNCTUATION_KEY;
-		SPECIAL_CHAR_SEQUENCE = "000";
-	}
-
-
 	protected void initPredictions() {
 		predictions = new SyllablePredictions(settings);
 		predictions
@@ -113,9 +99,9 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
 			digitSequence = "";
-		} else if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || (!digitSequence.startsWith(PUNCTUATION_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
+		} else if (digitSequence.equals(seq.WHITESPACE_SEQUENCE) || (!digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
 			digitSequence = "";
 		} else if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
@@ -145,10 +131,10 @@ class ModeCheonjiin extends InputMode {
 	protected void onNumberHold(int number) {
 		if (number == 0) {
 			disablePredictions = false;
-			digitSequence = SPECIAL_CHAR_SEQUENCE;
+			digitSequence = seq.WHITESPACE_SEQUENCE;
 		} else if (number == 1) {
 			disablePredictions = false;
-			digitSequence = PUNCTUATION_SEQUENCE;
+			digitSequence = seq.PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
 			suggestions.add(language.getKeyNumeral(number));
@@ -162,8 +148,8 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - rewindAmount);
 		}
 
-		if (digitSequence.startsWith(PUNCTUATION_SEQUENCE)) {
-			digitSequence = SPECIAL_CHAR_SEQUENCE_PREFIX + EmojiLanguage.validateEmojiSequence(digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length()), nextNumber);
+		if (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE)) {
+			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
 		} else {
 			digitSequence += String.valueOf(nextNumber);
 		}
@@ -175,8 +161,8 @@ class ModeCheonjiin extends InputMode {
 		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
 		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
 
-		if (SPECIAL_CHAR_SEQUENCE.equals(digitSequence)) {
-			return SPECIAL_CHAR_SEQUENCE.length();
+		if (seq.WHITESPACE_SEQUENCE.equals(digitSequence)) {
+			return seq.WHITESPACE_SEQUENCE.length();
 		}
 
 		if (repeatingDigits == 0 || keyCharsCount < 2) {
@@ -214,16 +200,16 @@ class ModeCheonjiin extends InputMode {
 			return;
 		}
 
-		String seq = digitSequence;
+		String currentSeq = digitSequence;
 		if (shouldDisplayCustomEmojis()) {
-			seq = digitSequence.substring(SPECIAL_CHAR_SEQUENCE_PREFIX.length());
+			currentSeq = digitSequence.substring(PUNCTUATION_SEQUENCE_PREFIX.length());
 		} else if (!previousJamoSequence.isEmpty()) {
-			seq = previousJamoSequence;
+			currentSeq = previousJamoSequence;
 		}
 
 		predictions
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
-			.setDigitSequence(seq)
+			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
+			.setDigitSequence(currentSeq)
 			.load();
 	}
 
@@ -231,7 +217,7 @@ class ModeCheonjiin extends InputMode {
 	protected boolean loadEmojis() {
 		if (shouldDisplayEmojis()) {
 			suggestions.clear();
-			suggestions.addAll(new EmojiLanguage().getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup()));
+			suggestions.addAll(new EmojiLanguage(seq).getKeyCharacters(digitSequence.charAt(digitSequence.length() - 1) - '0', getEmojiGroup()));
 			return true;
 		}
 
@@ -240,17 +226,17 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected int getEmojiGroup() {
-		return digitSequence.length() - EMOJI_SEQUENCE.length();
+		return digitSequence.length() - seq.EMOJI_SEQUENCE.length();
 	}
 
 
 	protected boolean shouldDisplayEmojis() {
-		return !isEmailMode && digitSequence.startsWith(EMOJI_SEQUENCE) && !digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
+		return !isEmailMode && digitSequence.startsWith(seq.EMOJI_SEQUENCE) && !digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
 	}
 
 
 	protected boolean shouldDisplayCustomEmojis() {
-		return !isEmailMode && digitSequence.equals(CUSTOM_EMOJI_SEQUENCE);
+		return !isEmailMode && digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
 	}
 
 
@@ -285,7 +271,7 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplaySpecialCharacters() {
-		return digitSequence.equals(PUNCTUATION_SEQUENCE) || digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
+		return digitSequence.equals(seq.PUNCTUATION_SEQUENCE) || digitSequence.equals(seq.WHITESPACE_SEQUENCE);
 	}
 
 
@@ -295,8 +281,8 @@ class ModeCheonjiin extends InputMode {
 	 */
 	protected void onPredictions() {
 		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.startsWith(EMOJI_SEQUENCE)) {
-			digitSequence = EMOJI_SEQUENCE;
+		if (predictions.getList().isEmpty() && digitSequence.startsWith(seq.EMOJI_SEQUENCE)) {
+			digitSequence = seq.EMOJI_SEQUENCE;
 			return;
 		}
 
@@ -351,8 +337,8 @@ class ModeCheonjiin extends InputMode {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		return
 			(hold && !digitSequence.isEmpty())
-			|| (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) && nextKey != 0)
-			|| (digitSequence.startsWith(PUNCTUATION_SEQUENCE) && nextKey != 1);
+			|| (digitSequence.equals(seq.WHITESPACE_SEQUENCE) && nextKey != 0)
+			|| (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && nextKey != 1);
 	}
 
 

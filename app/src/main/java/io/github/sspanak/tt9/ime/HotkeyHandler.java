@@ -36,8 +36,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 		suggestionOps.cancelDelayedAccept();
 
 		if (!suggestionOps.isEmpty()) {
-			if (mInputMode.shouldReplacePreviousSuggestion()) {
-				mInputMode.onReplaceSuggestion(suggestionOps.getCurrent());
+			if (mInputMode.shouldReplacePreviousSuggestion(suggestionOps.getCurrent())) {
+				mInputMode.onReplaceSuggestion(suggestionOps.getCurrentRaw());
 			} else {
 				onAcceptSuggestionManually(suggestionOps.acceptCurrent(), KeyEvent.KEYCODE_ENTER);
 			}

@@ -14,7 +14,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	protected void initTray() {
 		super.initTray();
 		detectRTL();
-		suggestionOps.setRTL(isLanguageRTL);
+		suggestionOps.setLanguage(LanguageCollection.getLanguage(settings.getInputLanguage()));
 	}
 
 

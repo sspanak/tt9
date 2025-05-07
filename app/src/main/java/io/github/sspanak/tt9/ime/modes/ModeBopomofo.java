@@ -4,20 +4,19 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModeBopomofo extends ModePinyin {
-	private static final String SPECIAL_CHAR_SEQUENCE_PREFIX = "S0";
-	private static final String PUNCTUATION_SEQUENCE_PREFIX = "S1";
 
 	protected ModeBopomofo(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
+		seq = new Sequences("S1", "S0");
 	}
 
 
@@ -47,7 +46,7 @@ public class ModeBopomofo extends ModePinyin {
 	 */
 	protected void setCustomSpecialCharacters() {
 		// special
-		KEY_CHARACTERS.add(TextTools.removeLettersFromList(applyPunctuationOrder(Characters.getSpecial(language), 0)));
+		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation
@@ -56,20 +55,11 @@ public class ModeBopomofo extends ModePinyin {
 		);
 	}
 
-
-	protected void setSpecialCharacterConstants() {
-		CUSTOM_EMOJI_SEQUENCE = PUNCTUATION_SEQUENCE_PREFIX + EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
-		EMOJI_SEQUENCE = PUNCTUATION_SEQUENCE_PREFIX + EmojiLanguage.EMOJI_SEQUENCE;
-		PUNCTUATION_SEQUENCE = PUNCTUATION_SEQUENCE_PREFIX + NaturalLanguage.PUNCTUATION_KEY;
-		SPECIAL_CHAR_SEQUENCE = SPECIAL_CHAR_SEQUENCE_PREFIX + NaturalLanguage.SPECIAL_CHAR_KEY;
-	}
-
-
 	/***************************** TYPING *********************************/
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(PUNCTUATION_SEQUENCE) || digitSequence.equals(SPECIAL_CHAR_SEQUENCE)) {
+		if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE) || digitSequence.equals(seq.WHITESPACE_SEQUENCE)) {
 			digitSequence = "";
 			return false;
 		} else {
@@ -80,8 +70,8 @@ public class ModeBopomofo extends ModePinyin {
 
 	@Override
 	protected void onNumberPress(int nextNumber) {
-		if (digitSequence.startsWith(PUNCTUATION_SEQUENCE)) {
-			digitSequence = PUNCTUATION_SEQUENCE_PREFIX + EmojiLanguage.validateEmojiSequence(digitSequence.substring(PUNCTUATION_SEQUENCE_PREFIX.length()), nextNumber);
+		if (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE)) {
+			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
 		} else {
 			digitSequence += String.valueOf(nextNumber);
 		}
@@ -92,10 +82,10 @@ public class ModeBopomofo extends ModePinyin {
 	protected void onNumberHold(int number) {
 		if (number == 0) {
 			disablePredictions = false;
-			digitSequence = SPECIAL_CHAR_SEQUENCE;
+			digitSequence = seq.WHITESPACE_SEQUENCE;
 		} else if (number == 1) {
 			disablePredictions = false;
-			digitSequence = PUNCTUATION_SEQUENCE;
+			digitSequence = seq.PUNCTUATION_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
 			suggestions.add(language.getKeyNumeral(number));
@@ -112,7 +102,7 @@ public class ModeBopomofo extends ModePinyin {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		String newSequence = digitSequence + (char)(nextKey + '0');
 		return hold
-			|| newSequence.startsWith(SPECIAL_CHAR_SEQUENCE)
-			|| (newSequence.startsWith(PUNCTUATION_SEQUENCE) && nextKey != NaturalLanguage.PUNCTUATION_KEY.charAt(0) - '0');
+			|| newSequence.startsWith(seq.WHITESPACE_SEQUENCE)
+			|| (newSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && nextKey != Sequences.PUNCTUATION_KEY);
 	}
 }

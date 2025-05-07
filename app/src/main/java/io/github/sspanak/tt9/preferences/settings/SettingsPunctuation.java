@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 class SettingsPunctuation extends SettingsInput {
 	private final static String KEY_PREFIX_PUNCTUATION = "pref_punctuation_";
@@ -27,7 +28,9 @@ class SettingsPunctuation extends SettingsInput {
 
 
 	public void saveSpecialChars(@NonNull Language language, @NonNull String specialChars) {
-		String safeChars = specialChars.replace("\n", "⏎");
+		String safeChars = specialChars
+			.replace("\n", "⏎")
+			.replace("\t", Characters.TAB);
 		prefsEditor.putString(KEY_PREFIX_SPECIAL + language.getId(), safeChars);
 		prefsEditor.apply();
 	}
@@ -65,7 +68,7 @@ class SettingsPunctuation extends SettingsInput {
 		String safeChars = prefs.getString(KEY_PREFIX_SPECIAL + language.getId(), null);
 
 		return getCharsAsList(
-			safeChars == null ? null : safeChars.replace("⏎", "\n"),
+			safeChars == null ? null : safeChars.replace("⏎", "\n").replace(Characters.TAB, "\t"),
 			language.getKeyCharacters(0)
 		);
 	}

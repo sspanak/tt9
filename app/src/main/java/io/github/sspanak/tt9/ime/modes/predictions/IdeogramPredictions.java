@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -20,8 +21,8 @@ public class IdeogramPredictions extends WordPredictions {
 	@NonNull protected ArrayList<String> lastTranscriptions = new ArrayList<>();
 
 
-	public IdeogramPredictions(SettingsStore settings, TextField textField) {
-		super(settings, textField);
+	public IdeogramPredictions(SettingsStore settings, TextField textField, Sequences sequences) {
+		super(settings, textField, sequences);
 		minWords = 1;
 		onlyExactMatches = true;
 

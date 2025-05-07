@@ -25,6 +25,9 @@ class ModeABC extends InputMode {
 		if (isEmailMode) {
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
 			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+		} else {
+			KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
+			KEY_CHARACTERS.add(settings.getOrderedKeyChars(language, 1));
 		}
 	}
 
@@ -54,7 +57,7 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
+			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : new ArrayList<>());
 			suggestions.add(language.getKeyNumeral(number));
 		}
 

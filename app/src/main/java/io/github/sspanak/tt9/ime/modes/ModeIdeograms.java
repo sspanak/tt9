@@ -53,7 +53,7 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new IdeogramPredictions(settings, textField);
+		predictions = new IdeogramPredictions(settings, textField, seq);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -117,7 +117,7 @@ public class ModeIdeograms extends ModeWords {
 		boolean lastDigitBelongsToNewWord = preserveWords && initialLength >= 2;
 
 		try {
-			if (!digitSequence.equals(SPECIAL_CHAR_SEQUENCE) && !digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+			if (!digitSequence.equals(seq.WHITESPACE_SEQUENCE) && !digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
 				lastAcceptedWord = currentWord;
 				lastAcceptedSequence = lastDigitBelongsToNewWord ? digitSequence.substring(0, initialLength - 1) : digitSequence;
 
@@ -143,9 +143,9 @@ public class ModeIdeograms extends ModeWords {
 		return
 			digitSequence.length() > 1
 			&& predictions.noDbWords()
-			&& !digitSequence.equals(EMOJI_SEQUENCE)
-			&& !digitSequence.equals(PUNCTUATION_SEQUENCE)
-			&& !digitSequence.equals(SPECIAL_CHAR_SEQUENCE);
+			&& !digitSequence.equals(seq.EMOJI_SEQUENCE)
+			&& !digitSequence.equals(seq.PUNCTUATION_SEQUENCE)
+			&& !digitSequence.equals(seq.WHITESPACE_SEQUENCE);
 	}
 
 
@@ -164,8 +164,8 @@ public class ModeIdeograms extends ModeWords {
 		return
 			TextTools.containsOtherThan1(nextSequence)
 			&& (
-				nextSequence.endsWith(EMOJI_SEQUENCE) || nextSequence.startsWith(EMOJI_SEQUENCE) ||
-				nextSequence.endsWith(PUNCTUATION_SEQUENCE) || nextSequence.startsWith(PUNCTUATION_SEQUENCE)
+				nextSequence.endsWith(seq.EMOJI_SEQUENCE) || nextSequence.startsWith(seq.EMOJI_SEQUENCE) ||
+				nextSequence.endsWith(seq.PUNCTUATION_SEQUENCE) || nextSequence.startsWith(seq.PUNCTUATION_SEQUENCE)
 			);
 	}
 
@@ -196,8 +196,8 @@ public class ModeIdeograms extends ModeWords {
 	 * accept it.
 	 */
 	@Override
-	public boolean shouldReplacePreviousSuggestion() {
-		return isFiltering;
+	public boolean shouldReplacePreviousSuggestion(@Nullable String word) {
+		return isFiltering || super.shouldReplacePreviousSuggestion(word);
 	}
 
 	/********************************* FILTERING *********************************/

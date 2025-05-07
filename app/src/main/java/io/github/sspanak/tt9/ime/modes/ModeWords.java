@@ -9,11 +9,11 @@ import java.util.List;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -39,6 +39,7 @@ class ModeWords extends ModeCheonjiin {
 		super(settings, inputType, textField);
 
 		autoTextCase = new AutoTextCase(settings, inputType);
+		seq = new Sequences();
 
 		changeLanguage(lang);
 		defaultTextCase();
@@ -46,20 +47,14 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 
-	@Override protected void setCustomSpecialCharacters() {} // we use the default ones
-
-
-	protected void setSpecialCharacterConstants() {
-		PUNCTUATION_SEQUENCE = NaturalLanguage.PUNCTUATION_KEY;
-		EMOJI_SEQUENCE = EmojiLanguage.EMOJI_SEQUENCE;
-		CUSTOM_EMOJI_SEQUENCE = EmojiLanguage.CUSTOM_EMOJI_SEQUENCE;
-		SPECIAL_CHAR_SEQUENCE = NaturalLanguage.SPECIAL_CHAR_KEY;
+	@Override protected void setCustomSpecialCharacters() {
+		KEY_CHARACTERS.add(getAbbreviatedSpecialChars()); // special
 	}
 
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings, textField);
+		predictions = new WordPredictions(settings, textField, seq);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -100,9 +95,9 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void onNumberPress(int number) {
-		digitSequence = EmojiLanguage.validateEmojiSequence(digitSequence, number);
+		digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, number);
 
-		if (digitSequence.equals(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
+		if (digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
 			autoAcceptTimeout = 0;
 		}
 	}
@@ -286,13 +281,13 @@ class ModeWords extends ModeCheonjiin {
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setDigitSequence(digitSequence)
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage() : language)
+			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
 			.load();
 	}
 
 
 	protected boolean loadPreferredChar() {
-		if (digitSequence.startsWith(NaturalLanguage.PREFERRED_CHAR_SEQUENCE)) {
+		if (digitSequence.startsWith(seq.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(getPreferredChar());
 			return true;
@@ -334,13 +329,13 @@ class ModeWords extends ModeCheonjiin {
 
 		try {
 			// special chars are not in the database, no need to run queries on them
-			String digitSequence = language.getDigitSequenceForWord(currentWord);
-			if (digitSequence.equals(SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(PUNCTUATION_SEQUENCE)) {
+			String currentWordSeq = language.getDigitSequenceForWord(currentWord);
+			if (seq.isAnySpecialCharSequence(currentWordSeq)) {
 				return;
 			}
 
 			// increment the frequency of the given word
-			predictions.onAccept(currentWord, digitSequence);
+			predictions.onAccept(currentWord, currentWordSeq);
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Failed incrementing priority of word: '" + currentWord + "'. " + e.getMessage());
 		}
@@ -382,8 +377,7 @@ class ModeWords extends ModeCheonjiin {
 			changed = super.nextTextCase();
 		}
 
-		boolean onlySpecialChars = digitSequence.startsWith(PUNCTUATION_SEQUENCE) || digitSequence.startsWith(SPECIAL_CHAR_SEQUENCE) || digitSequence.startsWith(EMOJI_SEQUENCE);
-		if (onlySpecialChars && textCase == CASE_CAPITALIZE) {
+		if (seq.startsWithAnySpecialCharSequence(digitSequence) && textCase == CASE_CAPITALIZE) {
 			super.nextTextCase();
 		}
 
@@ -411,20 +405,17 @@ class ModeWords extends ModeCheonjiin {
 			return true;
 		}
 
-		final char SPECIAL_CHAR_KEY_CODE = SPECIAL_CHAR_SEQUENCE.charAt(SPECIAL_CHAR_SEQUENCE.length() - 1);
-		final int SPECIAL_CHAR_KEY = SPECIAL_CHAR_KEY_CODE - '0';
-
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		if (!stem.isEmpty() && nextKey == SPECIAL_CHAR_KEY && digitSequence.charAt(0) == SPECIAL_CHAR_KEY_CODE) {
+		if (!stem.isEmpty() && nextKey == Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(0) == Sequences.SPECIAL_CHAR_CODE) {
 			return true;
 		}
 
 		return
 			!digitSequence.isEmpty() && (
-				(nextKey == SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) != SPECIAL_CHAR_KEY_CODE)
-				|| (nextKey != SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) == SPECIAL_CHAR_KEY_CODE)
+				(nextKey == Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) != Sequences.SPECIAL_CHAR_CODE)
+				|| (nextKey != Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) == Sequences.SPECIAL_CHAR_CODE)
 			);
 	}
 
@@ -448,8 +439,8 @@ class ModeWords extends ModeCheonjiin {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(PUNCTUATION_SEQUENCE)
-			&& !digitSequence.startsWith(EMOJI_SEQUENCE)
+			&& digitSequence.contains(seq.PUNCTUATION_SEQUENCE)
+			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}
 
