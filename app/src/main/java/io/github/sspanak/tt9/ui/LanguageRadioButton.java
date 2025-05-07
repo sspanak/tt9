@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 
@@ -54,6 +56,29 @@ public class LanguageRadioButton extends LinearLayout {
 		label.setText(text);
 
 		return this;
+	}
+
+	public static boolean differs(@Nullable ArrayList<LanguageRadioButton> radios, @Nullable ArrayList<Integer> languageIds) {
+		if (languageIds == null && radios == null) {
+			return false;
+		}
+
+		if (radios == null || languageIds == null) {
+			return true;
+		}
+
+		int languageCount = languageIds.size();
+		if (languageCount != radios.size()) {
+			return true;
+		}
+
+		for (LanguageRadioButton radio : radios) {
+			if (languageIds.contains(radio.getId())) {
+				languageCount--;
+			}
+		}
+
+		return languageCount != 0;
 	}
 
 	public LanguageRadioButton setChecked(boolean checked) {

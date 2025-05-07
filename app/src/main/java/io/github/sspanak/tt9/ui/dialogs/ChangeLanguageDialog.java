@@ -33,7 +33,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	private final SettingsStore settings;
 
 	private Dialog popup;
-	private final ArrayList<LanguageRadioButton> radioButtons = new ArrayList<>();
+	private final static ArrayList<LanguageRadioButton> radioButtonsCache = new ArrayList<>();
 
 
 	ChangeLanguageDialog(@NonNull AppCompatActivity context, ConsumerCompat<String> activityFinisher) {
@@ -66,7 +66,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 		} else if (Key.isNumber(keyCode)) {
 			languageId = getByIndex(Key.codeToNumber(settings, keyCode) - 1);
 		} else if (event.getAction() == KeyEvent.ACTION_UP && (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP)) {
-			for (LanguageRadioButton radio : radioButtons) radio.autoHighlightCompat(); // yet another device hack
+			for (LanguageRadioButton radio : radioButtonsCache) radio.autoHighlightCompat(); // yet another device hack
 		}
 
 		if (languageId == -1) {
@@ -79,7 +79,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 
 
 	private int getSelected() {
-		for (LanguageRadioButton radio : radioButtons) {
+		for (LanguageRadioButton radio : radioButtonsCache) {
 			if (radio.hasFocus()) {
 				return radio.getId();
 			}
@@ -94,7 +94,19 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	}
 
 
+	@Override
+	protected void close() {
+		detachRadioButtons();
+		if (popup != null) {
+			popup.dismiss();
+			popup = null;
+		}
+		super.close();
+	}
+
+
 	private void changeLanguage(int languageId) {
+		detachRadioButtons();
 		if (popup != null) {
 			popup.dismiss();
 			popup = null;
@@ -106,22 +118,37 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	}
 
 
+	private void detachRadioButtons() {
+		for (LanguageRadioButton radio : radioButtonsCache) {
+			LinearLayout parent = (LinearLayout) radio.getParent();
+			if (parent != null) {
+				parent.removeView(radio);
+			}
+		}
+	}
+
+
 	private View generateRadioButtons() {
 		final int currentLanguageId = settings.getInputLanguage();
-		final View view = inflater.inflate(R.layout.popup_language_select, null);
-		final LinearLayout radioGroup = view.findViewById(R.id.language_select_list);
 
-		radioButtons.clear();
+		if (LanguageRadioButton.differs(radioButtonsCache, settings.getEnabledLanguageIds())) {
+			radioButtonsCache.clear();
+		}
 
-		for (int i = 0; i < languages.size(); i++) {
+		for (int i = 0, end = radioButtonsCache.isEmpty() ? languages.size() : 0; i < end; i++) {
 			final String labelPrefix = DeviceInfo.noKeyboard(context) ? null : (i + 1) + ". ";
 
 			LanguageRadioButton radioButton = new LanguageRadioButton(context)
 				.setLanguage(languages.get(i), labelPrefix)
 				.setChecked(languages.get(i).getId() == currentLanguageId)
 				.setOnClick(this::onClick);
-			radioGroup.addView(radioButton);
-			radioButtons.add(radioButton);
+			radioButtonsCache.add(radioButton);
+		}
+
+		final View view = inflater.inflate(R.layout.popup_language_select, null);
+		final LinearLayout radioGroup = view.findViewById(R.id.language_select_list);
+		for (LanguageRadioButton radio : radioButtonsCache) {
+			radioGroup.addView(radio);
 		}
 
 		return view;
