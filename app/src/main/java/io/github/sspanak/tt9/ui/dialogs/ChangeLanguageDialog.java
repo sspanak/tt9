@@ -39,7 +39,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	private final String currentSequence;
 	private final String currentWord;
 
-	private final static ArrayList<LanguageRadioButton> radioButtonsCache = new ArrayList<>();
+	private final ArrayList<LanguageRadioButton> radioButtonsCache = new ArrayList<>();
 	private Dialog popup;
 
 
@@ -147,28 +147,22 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 
 
 	private View generateRadioButtons() {
-
-		if (LanguageRadioButton.differs(radioButtonsCache, settings.getEnabledLanguageIds())) {
-			radioButtonsCache.clear();
-		}
-
-		for (int i = 0, end = radioButtonsCache.isEmpty() ? languages.size() : 0; i < end; i++) {
-			final String labelPrefix = DeviceInfo.noKeyboard(context) ? null : (i + 1) + ". ";
-
-			LanguageRadioButton radioButton = new LanguageRadioButton(context)
-				.setLanguage(languages.get(i), labelPrefix);
-			radioButtonsCache.add(radioButton);
-		}
-
 		final int currentLanguageId = settings.getInputLanguage();
 		final View view = inflater.inflate(R.layout.popup_language_select, null);
 		final LinearLayout radioGroup = view.findViewById(R.id.language_select_list);
 
-		for (LanguageRadioButton radio : radioButtonsCache) {
-			radio
+		radioButtonsCache.clear();
+
+		for (int i = 0, end = languages.size(); i < end; i++) {
+			final String labelPrefix = DeviceInfo.noKeyboard(context) ? null : (i + 1) + ". ";
+
+			LanguageRadioButton radioButton = new LanguageRadioButton(context)
 				.setOnClick(this::onClick)
-				.setChecked(radio.getId() == currentLanguageId);
-			radioGroup.addView(radio);
+				.setLanguage(languages.get(i), labelPrefix)
+				.setChecked(languages.get(i).getId() == currentLanguageId);
+
+			radioButtonsCache.add(radioButton);
+			radioGroup.addView(radioButton);
 		}
 
 		return view;
