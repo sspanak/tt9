@@ -14,11 +14,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 
 public class NaturalLanguage extends TranscribedLanguage {
-	final public static String SPECIAL_CHAR_KEY = "0";
-	final public static String PUNCTUATION_KEY = "1";
-	final public static String PREFERRED_CHAR_SEQUENCE = "00";
-
-
 	protected final ArrayList<ArrayList<String>> layout = new ArrayList<>();
 	private final HashMap<Character, String> characterKeyMap = new HashMap<>();
 	@NonNull private HashMap<Integer, String> numerals = new HashMap<>();
@@ -86,7 +81,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 		final String PUNCTUATION_PLACEHOLDER = "PUNCTUATION";
 
 		final Map<String, List<String>> specialChars = new HashMap<>();
-		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, Characters.getSpecial(this));
+		specialChars.put(SPECIAL_CHARS_PLACEHOLDER, new ArrayList<>(Characters.Special));
 		specialChars.put(PUNCTUATION_PLACEHOLDER, Characters.PunctuationEnglish);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_AR", Characters.PunctuationArabic);
 		specialChars.put(PUNCTUATION_PLACEHOLDER + "_BP", Characters.PunctuationChineseBopomofo);
@@ -222,17 +217,7 @@ public class NaturalLanguage extends TranscribedLanguage {
 			return new ArrayList<>();
 		}
 
-		ArrayList<String> chars = layout.get(key);
-		if (key == 0) {
-			if (characterGroup > 1) {
-				chars = new ArrayList<>();
-			} else if (characterGroup == 1) {
-				chars = new ArrayList<>(Characters.Currency);
-				if (!currency.isEmpty()) chars.add(2, currency);
-			}
-		}
-
-		return chars;
+		return layout.get(key);
 	}
 
 

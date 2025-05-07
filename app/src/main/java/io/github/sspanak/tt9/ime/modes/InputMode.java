@@ -7,11 +7,14 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 abstract public class InputMode {
 	// typing mode
@@ -40,6 +43,7 @@ abstract public class InputMode {
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
 	protected int specialCharSelectedGroup = 0;
+	@NonNull protected Sequences seq = new Sequences();
 
 
 	protected InputMode(SettingsStore settings, InputType inputType) {
@@ -83,7 +87,15 @@ abstract public class InputMode {
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
-	public void onReplaceSuggestion(@NonNull String word) {}
+	public void onReplaceSuggestion(@NonNull String rawWord) {
+		if (SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION.equals(rawWord)) {
+			Logger.d("InputMode", "Loading special characters for: " + seq.SPECIAL_CHAR_SEQUENCE);
+		}
+
+		if (SuggestionsBar.SHOW_CURRENCIES_SUGGESTION.equals(rawWord)) {
+			Logger.d("InputMode", "Loading special characters for: " + seq.CURRENCY_SEQUENCE);
+		}
+	}
 
 	/**
 	 * loadSuggestions
@@ -140,7 +152,7 @@ abstract public class InputMode {
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
-	public boolean shouldReplacePreviousSuggestion() { return false; }
+	public boolean shouldReplacePreviousSuggestion(@Nullable String currentWord) { return Characters.PLACEHOLDER.equals(currentWord); }
 	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace() { return false; }
 	public boolean shouldDeletePrecedingSpace() { return false; }
@@ -190,6 +202,14 @@ abstract public class InputMode {
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 
+	protected ArrayList<String> getAbbreviatedSpecialChars() {
+		ArrayList<String> special = Characters.getWhitespaces(language);
+		special.add(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION);
+		special.add(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION);
+		return special;
+	}
+
+
 	protected boolean loadSpecialCharacters() {
 		int key = digitSequence.charAt(0) - '0';
 		ArrayList<String> chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
@@ -218,14 +238,22 @@ abstract public class InputMode {
 			return new ArrayList<>(unordered);
 		}
 
+		return orderSpecialChars(unordered, settings.getOrderedKeyChars(language, key));
+	}
+
+
+	public ArrayList<String> orderSpecialChars(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> order) {
 		ArrayList<String> ordered = new ArrayList<>();
+		if (unordered.isEmpty() || order == null || order.isEmpty()) {
+			return ordered;
+		}
 
 		if (isEmailMode) {
 			if (unordered.contains("@")) ordered.add("@");
 			if (unordered.contains("_")) ordered.add("_");
 		}
 
-		for (String ch : settings.getOrderedKeyChars(language, key)) {
+		for (String ch : order) {
 			if (isEmailMode && (ch.charAt(0) == '@' || ch.charAt(0) == '_')) {
 				continue;
 			}

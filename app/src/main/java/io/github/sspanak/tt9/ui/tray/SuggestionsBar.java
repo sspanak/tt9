@@ -27,6 +27,9 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
+	public static final String SHOW_SPECIAL_CHARS_SUGGESTION = "(@#*…)";
+	public static final String SHOW_CURRENCIES_SUGGESTION = "($€£…)";
+
 	private final String SHOW_MORE_SUGGESTION = "(...)";
 	private final String STEM_SUFFIX = "… +";
 	private final String STEM_VARIATION_PREFIX = "…";
@@ -140,15 +143,16 @@ public class SuggestionsBar {
 
 	@NonNull
 	public String get(int id) {
-		if (id < 0 || id >= visibleSuggestions.size()) {
-			return "";
+		String suggestion = getRaw(id);
+
+		// show more...
+		if (suggestion.equals(SHOW_MORE_SUGGESTION) || suggestion.equals(SHOW_CURRENCIES_SUGGESTION) || suggestion.equals(SHOW_SPECIAL_CHARS_SUGGESTION)) {
+			return Characters.PLACEHOLDER;
 		}
 
-		String suggestion = visibleSuggestions.get(id);
-
 		// single char
-		if (suggestion.equals(SHOW_MORE_SUGGESTION)) return Characters.COMBINING_ZERO_BASE;
 		if (suggestion.equals(Characters.NEW_LINE)) return "\n";
+		if (suggestion.equals(Characters.TAB)) return "\t";
 
 		suggestion = suggestion.replace(Characters.ZWNJ_GRAPHIC, Characters.ZWNJ);
 		suggestion = suggestion.replace(Characters.ZWJ_GRAPHIC, Characters.ZWJ);
@@ -161,7 +165,7 @@ public class SuggestionsBar {
 
 		// "..." prefix
 		int startIndex = 0;
-		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.COMBINING_ZERO_BASE};
+		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.PLACEHOLDER};
 		for (String prefix : prefixes) {
 			int prefixIndex = suggestion.indexOf(prefix) + 1;
 			if (prefixIndex < endIndex) { // do not match the prefix chars when they are part of STEM_SUFFIX
@@ -174,6 +178,16 @@ public class SuggestionsBar {
 		}
 
 		return stem + suggestion.substring(startIndex, endIndex);
+	}
+
+
+	@NonNull
+	public String getRaw(int id) {
+		if (id < 0 || id >= visibleSuggestions.size()) {
+			return "";
+		}
+
+		return visibleSuggestions.get(id);
 	}
 
 
@@ -310,11 +324,12 @@ public class SuggestionsBar {
 
 	private String formatUnreadableSuggestion(String suggestion) {
 		if (TextTools.isCombining(suggestion)) {
-			return Characters.COMBINING_ZERO_BASE + suggestion;
+			return Characters.PLACEHOLDER + suggestion;
 		}
 
 		return switch (suggestion) {
 			case "\n" -> Characters.NEW_LINE;
+			case "\t" -> Characters.TAB;
 			case Characters.ZWJ -> Characters.ZWJ_GRAPHIC;
 			case Characters.ZWNJ -> Characters.ZWNJ_GRAPHIC;
 			default -> suggestion;

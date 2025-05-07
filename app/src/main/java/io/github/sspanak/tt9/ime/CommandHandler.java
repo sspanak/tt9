@@ -162,7 +162,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			determineTextCase();
 		}
 
-		// save the settings for the next time
+		suggestionOps.setInputMode(mInputMode);
 		settings.saveInputMode(mInputMode.getId());
 	}
 
@@ -206,7 +206,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		getSuggestions(null);
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
-		suggestionOps.setRTL(isLanguageRTL);
+		suggestionOps.setLanguage(mLanguage);
 		mainView.render();
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());

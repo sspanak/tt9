@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class WordPredictions extends Predictions {
 	protected final TextField textField;
 	private LocaleWordsSorter localeWordsSorter;
+	private final Sequences seq;
 
 	private String inputWord;
 	private boolean isStemFuzzy;
@@ -25,11 +26,12 @@ public class WordPredictions extends Predictions {
 	protected String penultimateWord;
 
 
-	public WordPredictions(SettingsStore settings, TextField textField) {
+	public WordPredictions(SettingsStore settings, TextField textField, Sequences sequences) {
 		super(settings);
 		lastEnforcedTopWord = "";
 		localeWordsSorter = new LocaleWordsSorter(null);
 		penultimateWord = "";
+		seq = sequences;
 		stem = "";
 		this.textField = textField;
 	}
@@ -92,7 +94,7 @@ public class WordPredictions extends Predictions {
 
 	@Override
 	protected boolean isRetryAllowed() {
-		return !EmojiLanguage.CUSTOM_EMOJI_SEQUENCE.equals(digitSequence);
+		return !seq.CUSTOM_EMOJI_SEQUENCE.equals(digitSequence);
 	}
 
 	/**
@@ -113,7 +115,7 @@ public class WordPredictions extends Predictions {
 		}
 
 		words.clear();
-		if (digitSequence.equals(EmojiLanguage.CUSTOM_EMOJI_SEQUENCE)) {
+		if (digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)) {
 			words.addAll(dbWords);
 		} else {
 			suggestStem();
