@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -73,21 +72,6 @@ class ModeABC extends InputMode {
 		} else {
 			onNumber(digitSequence.charAt(0) - '0', false, 0);
 		}
-	}
-
-	@Override
-	protected boolean shouldSelectNextSpecialCharacters() {
-		return KEY_CHARACTERS.isEmpty() && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
-	}
-
-	@Override
-	protected boolean nextSpecialCharacters() {
-		if (!super.nextSpecialCharacters()) {
-			return false;
-		}
-
-		suggestions.add(language.getKeyNumeral(digitSequence.charAt(0) - '0'));
-		return true;
 	}
 
 	@Override

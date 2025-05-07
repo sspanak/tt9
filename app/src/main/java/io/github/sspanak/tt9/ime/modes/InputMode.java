@@ -9,7 +9,6 @@ import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -175,11 +174,7 @@ abstract public class InputMode {
 	}
 
 	public boolean nextTextCase() {
-		if (nextSpecialCharacters()) {
-			return true;
-		}
-
-		if (!language.hasUpperCase() || digitSequence.startsWith(NaturalLanguage.PUNCTUATION_KEY) || digitSequence.startsWith(NaturalLanguage.SPECIAL_CHAR_KEY)) {
+		if (!language.hasUpperCase()) {
 			return false;
 		}
 
@@ -193,26 +188,6 @@ abstract public class InputMode {
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
-
-
-	protected boolean shouldSelectNextSpecialCharacters() {
-		return !digitSequence.isEmpty();
-	}
-
-
-	/**
-	 * This is used in nextTextCase() for switching to the next set of characters. Obviously,
-	 * special chars do not have a text case, but we use this trick to alternate the char groups.
-	 */
-	protected boolean nextSpecialCharacters() {
-		int previousGroup = specialCharSelectedGroup;
-		specialCharSelectedGroup++;
-
-		return
-			shouldSelectNextSpecialCharacters() // check if the operation makes sense at all
-			&& loadSpecialCharacters() // validates specialCharSelectedGroup and advances, if possible
-			&& previousGroup != specialCharSelectedGroup; // verifies validation has passed
-	}
 
 
 	protected boolean loadSpecialCharacters() {

@@ -368,15 +368,23 @@ class ModeWords extends ModeCheonjiin {
 		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
 	}
 
+
 	@Override
 	public boolean nextTextCase() {
 		int before = textCase;
 		boolean changed = super.nextTextCase();
 
-		// When Auto Text Case is on, only upper- and automatic cases are available, so we skip lowercase.
+		// When we are in AUTO mode and current dictionary word is in uppercase,
+		// the mode would switch to UPPERCASE, but visually, the word would not change.
+		// This is why we retry, until there is a visual change.
 		// Yet, we allow adjusting individual words to lowercase, if needed.
 		if (digitSequence.isEmpty() && settings.getAutoTextCase() && language.hasUpperCase() && (before == CASE_LOWER || textCase == CASE_LOWER)) {
 			changed = super.nextTextCase();
+		}
+
+		boolean onlySpecialChars = digitSequence.startsWith(PUNCTUATION_SEQUENCE) || digitSequence.startsWith(SPECIAL_CHAR_SEQUENCE) || digitSequence.startsWith(EMOJI_SEQUENCE);
+		if (onlySpecialChars && textCase == CASE_CAPITALIZE) {
+			super.nextTextCase();
 		}
 
 		// since it's a user's choice, the default matters no more

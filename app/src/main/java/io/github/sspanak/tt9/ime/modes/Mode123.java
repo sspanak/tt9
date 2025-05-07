@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -59,24 +58,6 @@ class Mode123 extends ModePassthrough {
 		KEY_CHARACTERS.add(
 			TextTools.removeLettersFromList(applyNumericFieldCharacterOrder(settings.getOrderedKeyChars(english, 1)))
 		);
-	}
-
-
-	@Override
-	protected boolean shouldSelectNextSpecialCharacters() {
-		return !isEmailMode && digitSequence.equals(NaturalLanguage.SPECIAL_CHAR_KEY);
-	}
-
-
-	@Override protected boolean nextSpecialCharacters() {
-		if (!super.nextSpecialCharacters()) {
-			return false;
-		}
-
-		ArrayList<String> ordered = applyNumericFieldCharacterOrder(suggestions);
-		suggestions.clear();
-		suggestions.addAll(ordered);
-		return true;
 	}
 
 

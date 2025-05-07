@@ -221,26 +221,24 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected boolean nextTextCase() {
-		if (suggestionOps.isEmpty() || mInputMode.getSuggestions().isEmpty()) {
-			// When there are no suggestions, there is no need to execute the code for
-			// adjusting them below.
-			if (mInputMode.nextTextCase()) {
-				settings.saveTextCase(mInputMode.getTextCase());
-				return true;
-			} else {
-				return false;
-			}
+		if (!mInputMode.nextTextCase()) {
+			return false;
+		}
+
+		// When there are no suggestions, there is no need to execute the code below for adjusting their text case.
+		if (mInputMode.getSuggestions().isEmpty()) {
+			settings.saveTextCase(mInputMode.getTextCase());
+			return true;
 		}
 
 		// When we are in AUTO mode and current dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
 		// This is why we retry, until there is a visual change.
-		boolean isChanged = false;
 		String before = suggestionOps.get(0);
-		for (int retries = 0; retries < 2 && mInputMode.nextTextCase(); retries++) {
+		boolean beforeStartsWithLetter = !before.isEmpty() && Character.isAlphabetic(before.charAt(0));
+		for (int retries = 0; beforeStartsWithLetter && retries < 2 && mInputMode.nextTextCase(); retries++) {
 			String after = mInputMode.getSuggestions().get(0);
 			if (!after.equals(before)) {
-				isChanged = true;
 				break;
 			}
 		}
@@ -248,19 +246,12 @@ abstract public class CommandHandler extends TextEditingHandler {
 		int currentSuggestionIndex = suggestionOps.getCurrentIndex();
 		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
 
-		// If the suggestions are special characters, changing the text case means selecting the
-		// next character group. It makes no sense to keep the previous selection for a completely
-		// different list of characters, that's why we reset it.
-		if (!Character.isAlphabetic(mInputMode.getSuggestions().get(0).charAt(0))) {
-			currentSuggestionIndex = 0;
-		}
-
 		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
 		textField.setComposingText(suggestionOps.getCurrent());
 
 		settings.saveTextCase(mInputMode.getTextCase());
 
-		return isChanged;
+		return true;
 	}
 
 
