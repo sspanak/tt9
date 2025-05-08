@@ -212,7 +212,8 @@ public class NaturalLanguage extends TranscribedLanguage {
 
 
 	@NonNull
-	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
+	@Override
+	public ArrayList<String> getKeyCharacters(int key) {
 		if (key < 0 || key >= layout.size()) {
 			return new ArrayList<>();
 		}

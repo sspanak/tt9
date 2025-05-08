@@ -33,9 +33,14 @@ public class EmojiLanguage extends Language {
 	}
 
 	@NonNull
-	@Override
 	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
 		return key == 1 && characterGroup >= 0 ? Characters.getEmoji(characterGroup) : new ArrayList<>();
+	}
+
+	@NonNull
+	@Override
+	public ArrayList<String> getKeyCharacters(int key) {
+		return getKeyCharacters(key, 0);
 	}
 
 	@Override

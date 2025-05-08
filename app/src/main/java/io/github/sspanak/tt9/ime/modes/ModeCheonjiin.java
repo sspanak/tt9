@@ -67,7 +67,7 @@ class ModeCheonjiin extends InputMode {
 
 		// punctuation
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyPunctuationOrder(Characters.PunctuationKorean, 1))
+			TextTools.removeLettersFromList(Characters.orderByList(Characters.PunctuationKorean, settings.getOrderedKeyChars(language, 1), false))
 		);
 	}
 
@@ -80,8 +80,8 @@ class ModeCheonjiin extends InputMode {
 
 		KEY_CHARACTERS.clear();
 		if (isEmailMode) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(language, 0), true));
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(language, 1), true));
 		} else {
 			setCustomSpecialCharacters();
 		}
@@ -246,18 +246,6 @@ class ModeCheonjiin extends InputMode {
 			return false;
 		}
 
-		// KEY_CHARACTERS contains chars for group 0 only. If it turns out we are at group > 0
-		// we must allow super to do its job.
-		boolean callSuper = true;
-		if (specialCharSelectedGroup > 0) {
-			super.loadSpecialCharacters(); // this increments specialCharSelectedGroup or resets it to 0, if no more groups are available
-			callSuper = false;
-			if (specialCharSelectedGroup > 0) {
-				return true;
-			}
-		}
-
-		// ... otherwise display our custom first groups, if available
 		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
 		if (KEY_CHARACTERS.size() > number) {
 			suggestions.clear();
@@ -265,8 +253,7 @@ class ModeCheonjiin extends InputMode {
 			return true;
 		}
 
-		// if we never asked super to advance the group and load the respective chars, do it now
-		return callSuper && super.loadSpecialCharacters();
+		return super.loadSpecialCharacters();
 	}
 
 

@@ -40,7 +40,9 @@ class Mode123 extends ModePassthrough {
 
 	private void setSpecificSpecialCharacters(ArrayList<ArrayList<String>> chars, boolean sort) {
 		for (int group = 0; group < chars.size(); group++) {
-			KEY_CHARACTERS.add(sort ? applyPunctuationOrder(chars.get(group), group) : new ArrayList<>(chars.get(group)));
+			KEY_CHARACTERS.add(
+				sort ? Characters.orderByList(chars.get(group), settings.getOrderedKeyChars(language, group), isEmailMode) : new ArrayList<>(chars.get(group))
+			);
 		}
 	}
 
@@ -55,13 +57,12 @@ class Mode123 extends ModePassthrough {
 		Language english = LanguageCollection.getByLocale("en");
 		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(orderSpecialChars(settings.getOrderedKeyChars(english, 1), null))
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 1), null))
 		);
 	}
 
 
-	@Override
-	public ArrayList<String> orderSpecialChars(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> o) {
+	private ArrayList<String> orderCharsForNumericField(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> o) {
 		ArrayList<String> ordered = new ArrayList<>();
 
 		if (unordered.contains(".")) {

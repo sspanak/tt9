@@ -16,15 +16,15 @@ public class NullLanguage extends Language {
 		name = "Nulla Lingua";
 	}
 
-	@NonNull
-	@Override
-	public ArrayList<String> getKeyCharacters(int key, int characterGroup) {
-		return new ArrayList<>();
-	}
-
 	@Override
 	public boolean isValidWord(String word) {
 		return false;
+	}
+
+	@NonNull
+	@Override
+	public ArrayList<String> getKeyCharacters(int key) {
+		return new ArrayList<>();
 	}
 
 	@NonNull

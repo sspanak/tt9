@@ -21,14 +21,6 @@ class ModeABC extends InputMode {
 	protected ModeABC(SettingsStore settings, Language lang, InputType inputType) {
 		super(settings, inputType);
 		changeLanguage(lang);
-
-		if (isEmailMode) {
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(0), 0));
-			KEY_CHARACTERS.add(applyPunctuationOrder(Characters.Email.get(1), 1));
-		} else {
-			KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
-			KEY_CHARACTERS.add(settings.getOrderedKeyChars(language, 1));
-		}
 	}
 
 	@Override
@@ -57,7 +49,7 @@ class ModeABC extends InputMode {
 			autoAcceptTimeout = settings.getAbcAutoAcceptTimeout();
 			digitSequence = String.valueOf(number);
 			shouldSelectNextLetter = false;
-			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : new ArrayList<>());
+			suggestions.addAll(KEY_CHARACTERS.size() > number ? KEY_CHARACTERS.get(number) : settings.getOrderedKeyChars(language, number));
 			suggestions.add(language.getKeyNumeral(number));
 		}
 
@@ -89,6 +81,14 @@ class ModeABC extends InputMode {
 		allowedTextCases.add(CASE_LOWER);
 		if (language.hasUpperCase()) {
 			allowedTextCases.add(CASE_UPPER);
+		}
+
+		KEY_CHARACTERS.clear();
+		if (isEmailMode) {
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(language, 0), true));
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(language, 1), true));
+		} else {
+			KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		}
 
 		refreshSuggestions();

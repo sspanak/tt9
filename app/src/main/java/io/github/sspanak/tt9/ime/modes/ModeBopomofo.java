@@ -51,7 +51,7 @@ public class ModeBopomofo extends ModePinyin {
 
 		// punctuation
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(applyPunctuationOrder(Characters.PunctuationChineseBopomofo, 1))
+			TextTools.removeLettersFromList(Characters.orderByList(Characters.PunctuationChineseBopomofo, settings.getOrderedKeyChars(language, 1), false))
 		);
 	}
 

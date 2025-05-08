@@ -95,16 +95,6 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	@NonNull
-	public ArrayList<String> getOrderedKeyChars(Language language, int number, int group) {
-		if (group > 0 && language != null) {
-			return language.getKeyCharacters(number, group);
-		}
-
-		return getOrderedKeyChars(language, number);
-	}
-
-
 	private ArrayList<String> getCharsAsList(String chars, ArrayList<String> defaultValue) {
 		if (chars == null) {
 			return defaultValue;
