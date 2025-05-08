@@ -86,14 +86,23 @@ abstract public class InputMode {
 	public void onAcceptSuggestion(@NonNull String word) { onAcceptSuggestion(word, false); }
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
-	public void onReplaceSuggestion(@NonNull String rawWord) {
-		if (SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION.equals(rawWord)) {
-			Logger.d("InputMode", "Loading special characters for: " + seq.SPECIAL_CHAR_SEQUENCE);
+	public boolean onReplaceSuggestion(@NonNull String rawWord) {
+		reset();
+
+		boolean result = false;
+
+		if (rawWord.equals(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION)) {
+			digitSequence = seq.SPECIAL_CHAR_SEQUENCE;
+			loadSpecialCharacters();
+			result = true;
+		} else if (rawWord.equals(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION)) {
+			digitSequence = seq.CURRENCY_SEQUENCE;
+			loadSpecialCharacters();
+			result = true;
 		}
 
-		if (SuggestionsBar.SHOW_CURRENCIES_SUGGESTION.equals(rawWord)) {
-			Logger.d("InputMode", "Loading special characters for: " + seq.CURRENCY_SEQUENCE);
-		}
+		onSuggestionsUpdated.run();
+		return result;
 	}
 
 	/**
@@ -208,9 +217,20 @@ abstract public class InputMode {
 	}
 
 
+	/**
+	 * Loads the special characters for 0-key or 1-key. For 0-key, this could be a minimized (show more)
+	 * special character list, or the whitespace list.
+	 */
 	protected boolean loadSpecialCharacters() {
 		suggestions.clear();
-		suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
+
+		if (digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+			suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
+		} else if (digitSequence.equals(seq.CURRENCY_SEQUENCE)) {
+			suggestions.addAll(Characters.getCurrencies(language));
+		} else {
+			suggestions.addAll(getAbbreviatedSpecialChars());
+		}
 
 		return true;
 	}

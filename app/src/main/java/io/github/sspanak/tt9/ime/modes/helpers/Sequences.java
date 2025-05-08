@@ -40,6 +40,12 @@ public class Sequences {
 		CURRENCY_SEQUENCE = SPECIAL_CHAR_SEQUENCE + SPECIAL_CHAR_KEY;
 	}
 
+	public boolean startsWithEmojiSequence(String sequence) {
+		return
+			sequence != null
+			&& (sequence.startsWith(EMOJI_SEQUENCE) || sequence.startsWith(CUSTOM_EMOJI_SEQUENCE));
+	}
+
 	public boolean isAnySpecialCharSequence(String sequence) {
 		if (sequence == null) {
 			return false;

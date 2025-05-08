@@ -69,21 +69,16 @@ _**Nota 2**: Para enviar mensagens com OK em aplicativos de mensagens, você dev
 - **No modo 123:**
   - **Toque**: insere "0".
   - **Pressione e segure**: insere caracteres especiais/matemáticos.
-  - **Pressione e segure "0", depois pressione Shift (padrão: pressione e segure "0", depois "*")**: insere símbolos monetários.
 - **No modo ABC:**
   - **Toque**: insere espaço, nova linha, ou caracteres especiais/matemáticos.
   - **Pressione e segure**: insere "0".
-  - **Pressione "0", depois pressione Shift (padrão: pressione "0", "*")**: insere símbolos monetários.
 - **No modo Preditivo:**
   - **Toque**: insere espaço, nova linha, ou caracteres especiais/matemáticos.
   - **Toque duas vezes**: insere o caractere atribuído nas configurações do modo Preditivo (padrão: ".").
   - **Pressione e segure**: insere "0".
-  - **Pressione "0", depois pressione Shift (padrão: pressione "0", "✱")**: insere símbolos monetários.
 - **No modo Cheonjiin (Coreano):**
   - **Pressione:** insere "ㅇ" e "ㅁ".
   - **Segure:** insere espaço, nova linha, "0" ou caracteres especiais/matemáticos.
-  - **Segure "0", depois pressione Shift (Padrão: segure "0", pressione "✱")**: insere símbolos monetários.
-
 
 #### Tecla 1:
 - **No modo 123:**

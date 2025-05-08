@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
@@ -68,7 +69,12 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-		digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
+		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE)) {
+			digitSequence = seq.WHITESPACE_SEQUENCE;
+		} else {
+			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
+		}
+
 		if (digitSequence.isEmpty()) {
 			clearWordStem();
 		} else if (stem.length() > digitSequence.length()) {
@@ -90,16 +96,6 @@ class ModeWords extends ModeCheonjiin {
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
 		suggestions.add(language.getKeyNumeral(number));
-	}
-
-
-	@Override
-	protected void onNumberPress(int number) {
-		digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, number);
-
-		if (digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
-			autoAcceptTimeout = 0;
-		}
 	}
 
 
@@ -222,7 +218,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		try {
-			digitSequence = language.getDigitSequenceForWord(newStem);
+			digitSequence = Characters.getWhitespaces(language).contains(newStem) ? seq.WHITESPACE_SEQUENCE : language.getDigitSequenceForWord(newStem);
 			isStemFuzzy = !exact;
 			stem = newStem.toLowerCase(language.getLocale());
 
@@ -287,7 +283,7 @@ class ModeWords extends ModeCheonjiin {
 
 
 	protected boolean loadPreferredChar() {
-		if (digitSequence.startsWith(seq.PREFERRED_CHAR_SEQUENCE)) {
+		if (digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
 			suggestions.clear();
 			suggestions.add(getPreferredChar());
 			return true;
@@ -408,7 +404,9 @@ class ModeWords extends ModeCheonjiin {
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		if (!stem.isEmpty() && nextKey == Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(0) == Sequences.SPECIAL_CHAR_CODE) {
+		boolean specialOrCurrency = digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(seq.CURRENCY_SEQUENCE);
+		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.WHITESPACE_SEQUENCE) && !stem.isEmpty();
+		if (nextKey == Sequences.SPECIAL_CHAR_KEY && (isWhitespaceAndScrolled || specialOrCurrency)) {
 			return true;
 		}
 
@@ -464,6 +462,9 @@ class ModeWords extends ModeCheonjiin {
 
 		return false;
 	}
+
+
+	@Override protected int shouldRewindRepeatingNumbers(int nextNumber) { return 0; }
 
 
 	@NonNull

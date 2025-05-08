@@ -176,16 +176,21 @@ public class ModeIdeograms extends ModeWords {
 	 * the given Latin word.
 	 */
 	@Override
-	public void onReplaceSuggestion(@NonNull String word) {
+	public boolean onReplaceSuggestion(@NonNull String word) {
 		if (word.isEmpty() || new Text(word).isNumeric()) {
 			reset();
 			Logger.i(LOG_TAG, "Can not replace an empty or numeric word.");
-			return;
+			return false;
+		}
+
+		if (super.onReplaceSuggestion(word)) {
+			return true;
 		}
 
 		isFiltering = false;
 		stem = word;
 		loadSuggestions("");
+		return true;
 	}
 
 

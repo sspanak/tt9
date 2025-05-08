@@ -69,20 +69,16 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
 - **Im 123 Modus:**
   - **Drücken:** tippt „0“.
   - **Halten:** tippt Sonder-/Mathematikzeichen.
-  - **Halten der „0“ und Drücken der Umschalt-Taste (Standard: Halten der „0“, Drücken von „✱“):** tippt Währungszeichen
 - **Im ABC Modus:**
   - **Drücken:** tippt Leerzeichen, neue Zeile oder Sonder-/Mathematikzeichen.
   - **Halten:** tippt „0“.
-  - **Drücken „0“ und Drücken der Umschalt-Taste (Standard: Drücken „0“, „✱“):** tippt Währungszeichen
 - **Im Prädiktiven Modus:**
   - **Drücken:** tippt Leerzeichen, neue Zeile oder Sonder-/Mathematikzeichen.
   - **Doppeldruck:** tippt das Zeichen, das in den Einstellungen für den Prädiktiven Modus zugewiesen wurde (Standard: „.“)
   - **Halten:** tippt „0“.
-  - **Drücken „0“ und Drücken der Umschalt-Taste (Standard: Drücken „0“, „✱“):** tippt Währungszeichen
 - **Im Cheonjiin-Modus (Koreanisch):**
   - **Drücken:** Gibt "ㅇ" und "ㅁ" ein.
   - **Halten:** Gibt Leerzeichen, neue Zeilen, "0" oder Sonder-/Mathematikzeichen ein.
-  - **Halten von "0" und Drücken von Shift (Standard: Halten von "0", Drücken von "✱"):** Gibt Währungszeichen ein.
 
 #### 1-Taste:
 - **Im 123 Modus:**

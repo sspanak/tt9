@@ -69,20 +69,16 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
 - **In 123 mode:**
   - **Press:** type "0".
   - **Hold:** type special/math characters.
-  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters.
 - **In ABC mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Hold:** type "0".
-  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters.
 - **In Predictive mode:**
   - **Press:** type space, newline, or special/math characters.
   - **Double press:** type the character assigned in Predictive mode settings. (Default: ".")
   - **Hold:** type "0".
-  - **Press "0", then press Shift (Default: press "0", "✱"):** type currency characters.
 - **In Cheonjiin mode (Korean):**
   - **Press:** type "ㅇ" and "ㅁ".
   - **Hold:** type space, newline, 0, or special/math characters.
-  - **Hold "0", then press Shift (Default: hold "0", press "✱"):** type currency characters.
 
 #### 1-key:
 - **In 123 mode:**

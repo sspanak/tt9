@@ -69,20 +69,16 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
 - **In modalità 123:**
   - **Premere:** digita "0".
   - **Tenere premuto:** digita caratteri speciali/matematici.
-  - **Tenere premuto "0", quindi premere Maiusc (Default: tenere premuto "0", premere "✱"):** digita caratteri di valuta
 - **In modalità ABC:**
   - **Premere:** digita spazio, nuova riga o caratteri speciali/matematici.
   - **Tenere premuto:** digita "0".
-  - **Premere "0", quindi premere Maiusc (Default: premere "0", "✱"):** digita caratteri di valuta
 - **In modalità Predittiva:**
   - **Premere:** digita uno spazio, una nuova linea, "0" o caratteri speciali/matematici.
   - **Premere due volte:** digita il carattere assegnato nelle impostazioni della modalità predittiva. (Default: ".")
   - **Tenere premuto:** digita "0".
-  - **Premere "0", quindi premere Maiusc (Default: premere "0", "✱"):** digita caratteri di valuta
 - **In modalità Cheonjiin (Coreano):**
   - **Premere:** digita "ㅇ" e "ㅁ".
   - **Tenere premuto:** digita uno spazio, una nuova linea, "0" o caratteri speciali/matematici.
-  - **Tenere premuto "0", poi premere Maiusc (Predefinito: tenere premuto "0", premere "✱"):** Digita caratteri monetari.
 
 #### Tasto 1:
 - **In modalità 123:**
