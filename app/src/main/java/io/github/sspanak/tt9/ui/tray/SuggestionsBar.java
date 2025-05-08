@@ -27,8 +27,8 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
-	public static final String SHOW_SPECIAL_CHARS_SUGGESTION = "(@#*…)";
-	public static final String SHOW_CURRENCIES_SUGGESTION = "($€£…)";
+	public static final String SHOW_SPECIAL_CHARS_SUGGESTION = "#%…";
+	public static final String SHOW_CURRENCIES_SUGGESTION = "$€…";
 
 	private final String SHOW_MORE_SUGGESTION = "(...)";
 	private final String STEM_SUFFIX = "… +";
@@ -165,7 +165,7 @@ public class SuggestionsBar {
 
 		// "..." prefix
 		int startIndex = 0;
-		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.PLACEHOLDER};
+		String[] prefixes = {STEM_VARIATION_PREFIX, STEM_PUNCTUATION_VARIATION_PREFIX, Characters.COMBINING_BASE};
 		for (String prefix : prefixes) {
 			int prefixIndex = suggestion.indexOf(prefix) + 1;
 			if (prefixIndex < endIndex) { // do not match the prefix chars when they are part of STEM_SUFFIX
@@ -324,7 +324,7 @@ public class SuggestionsBar {
 
 	private String formatUnreadableSuggestion(String suggestion) {
 		if (TextTools.isCombining(suggestion)) {
-			return Characters.PLACEHOLDER + suggestion;
+			return Characters.COMBINING_BASE + suggestion;
 		}
 
 		return switch (suggestion) {

@@ -65,7 +65,7 @@ public class ModePinyin extends ModeIdeograms {
 		// In East Asian languages, Space must accept the current word, or type a space when there is no word.
 		// Here, we handle the case when 0-key is Space, unlike the Space hotkey in HotkeyHandler,
 		// which could be a different key, assigned by the user.
-		if (!digitSequence.isEmpty() && !digitSequence.endsWith(seq.WHITESPACE_SEQUENCE) && nextKey == Sequences.SPECIAL_CHAR_KEY) {
+		if (!digitSequence.isEmpty() && !digitSequence.equals(seq.WHITESPACE_SEQUENCE) && nextKey == Sequences.SPECIAL_CHAR_KEY) {
 			ignoreNextSpace = true;
 		}
 

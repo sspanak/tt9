@@ -10,9 +10,10 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 
 public class Characters extends Emoji {
-	public static final String PLACEHOLDER = "◌";
+	public static final String COMBINING_BASE = "◌";
 	public static final String IDEOGRAPHIC_SPACE = "　";
-	public static final String TAB = "↹";
+	public static final String PLACEHOLDER = "\u200A";
+	public static final String TAB = "Tab";
 
 
 	public static final ArrayList<String> Currency = new ArrayList<>(Arrays.asList(

@@ -69,20 +69,16 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
 - **123 modunda:**
   - **Bas:** "0" yaz.
   - **Basılı tut:** özel/matematik karakterleri yaz.
-  - **"0" basılı tut, ardından Shift'e bas (Varsayılan: "0"u basılı tut, "✱"e bas):** para birimi karakterleri yaz.
 - **ABC modunda:**
   - **Bas:** boşluk, yeni satır veya özel/matematik karakterleri yaz.
   - **Basılı tut:** "0" yaz.
-  - **"0" bas, ardından Shift'e bas (Varsayılan: "0" bas, "✱"e bas):** para birimi karakterleri yaz.
 - **Tahmin modunda:**
   - **Bas:** boşluk, yeni satır veya özel/matematik karakterleri yaz.
   - **Çift bas:** Tahmin modunda ayarlanan karakteri yaz. (Varsayılan: ".")
   - **Basılı tut:** "0" yaz.
-  - **"0" bas, ardından Shift'e bas (Varsayılan: "0" bas, "✱"e bas):** para birimi karakterleri yaz.
 - **Cheonjiin modunda (Korece):**
   - **Bas:** "ㅇ" ve "ㅁ" yaz.
   - **Basılı tut:** boşluk, yeni satır, "0" veya özel/matematiksel karakterler yaz.
-  - **"0" tuşuna basılı tut, ardından Shift'e bas (Varsayılan: "0" tuşunu basılı tutun, "✱"ye basın):** Para birimi karakterleri yazar.
 
 #### 1-tușu:
 - **123 modunda:**

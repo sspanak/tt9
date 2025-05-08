@@ -109,10 +109,10 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 	 */
 	private String abbreviateCharList(String chars, String abbreviationSign, Locale locale, boolean isUppercase) {
 		String firstLetter = chars.substring(0, 1);
-		firstLetter = TextTools.isCombining(firstLetter) ? Characters.PLACEHOLDER + firstLetter : firstLetter;
+		firstLetter = TextTools.isCombining(firstLetter) ? Characters.COMBINING_BASE + firstLetter : firstLetter;
 
 		String lastLetter = chars.substring(chars.length() - 1);
-		lastLetter = TextTools.isCombining(lastLetter) ? Characters.PLACEHOLDER + lastLetter : lastLetter;
+		lastLetter = TextTools.isCombining(lastLetter) ? Characters.COMBINING_BASE + lastLetter : lastLetter;
 
 		String list = firstLetter + abbreviationSign + lastLetter;
 		return isUppercase ? list.toUpperCase(locale) : list;

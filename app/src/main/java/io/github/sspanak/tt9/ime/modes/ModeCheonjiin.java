@@ -99,7 +99,9 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE)) {
+			digitSequence = seq.WHITESPACE_SEQUENCE;
+		} else if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
 			digitSequence = "";
 		} else if (digitSequence.equals(seq.WHITESPACE_SEQUENCE) || (!digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
 			digitSequence = "";
@@ -148,22 +150,26 @@ class ModeCheonjiin extends InputMode {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - rewindAmount);
 		}
 
-		if (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE)) {
+		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else {
+		} else if (!seq.SPECIAL_CHAR_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
+		}
+
+		if (seq.PREFERRED_CHAR_SEQUENCE.equals(digitSequence)) {
+			autoAcceptTimeout = 0;
 		}
 	}
 
 
-	private int shouldRewindRepeatingNumbers(int nextNumber) {
+	protected int shouldRewindRepeatingNumbers(int nextNumber) {
+		if (seq.isAnySpecialCharSequence(digitSequence)) {
+			return 0;
+		}
+
 		final int nextChar = nextNumber + '0';
 		final int repeatingDigits = digitSequence.length() > 1 && digitSequence.charAt(digitSequence.length() - 1) == nextChar ? Cheonjiin.getRepeatingEndingDigits(digitSequence) : 0;
 		final int keyCharsCount = nextNumber == 0 ? 2 : language.getKeyCharacters(nextNumber).size();
-
-		if (seq.WHITESPACE_SEQUENCE.equals(digitSequence)) {
-			return seq.WHITESPACE_SEQUENCE.length();
-		}
 
 		if (repeatingDigits == 0 || keyCharsCount < 2) {
 			return 0;
@@ -246,11 +252,13 @@ class ModeCheonjiin extends InputMode {
 			return false;
 		}
 
-		int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
-		if (KEY_CHARACTERS.size() > number) {
-			suggestions.clear();
-			suggestions.addAll(KEY_CHARACTERS.get(number));
-			return true;
+		if (digitSequence.equals(seq.WHITESPACE_SEQUENCE) || digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+			int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
+			if (KEY_CHARACTERS.size() > number) {
+				suggestions.clear();
+				suggestions.addAll(KEY_CHARACTERS.get(number));
+				return true;
+			}
 		}
 
 		return super.loadSpecialCharacters();
@@ -258,7 +266,11 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplaySpecialCharacters() {
-		return digitSequence.equals(seq.PUNCTUATION_SEQUENCE) || digitSequence.equals(seq.WHITESPACE_SEQUENCE);
+		return
+			digitSequence.equals(seq.PUNCTUATION_SEQUENCE)
+			|| digitSequence.equals(seq.WHITESPACE_SEQUENCE)
+			|| digitSequence.equals(seq.CURRENCY_SEQUENCE)
+			|| digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE);
 	}
 
 
@@ -324,8 +336,8 @@ class ModeCheonjiin extends InputMode {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		return
 			(hold && !digitSequence.isEmpty())
-			|| (digitSequence.equals(seq.WHITESPACE_SEQUENCE) && nextKey != 0)
-			|| (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && nextKey != 1);
+			|| (nextKey != Sequences.SPECIAL_CHAR_KEY && digitSequence.startsWith(seq.WHITESPACE_SEQUENCE))
+			|| (nextKey != Sequences.PUNCTUATION_KEY && digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE));
 	}
 
 

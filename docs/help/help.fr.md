@@ -69,20 +69,16 @@ _**Remarque 2** : Pour envoyer des messages avec OK dans les applications de mes
 - **En mode 123 :**
   - **Appui** : tape "0".
   - **Appui long** : tape des caractères spéciaux/mathématiques.
-  - **Appui long sur "0", puis appui sur Maj (par défaut : appui long sur "0", puis sur "✱") :** tape des symboles monétaires.
 - **En mode ABC :**
   - **Appui** : tape espace, nouvelle ligne, ou caractères spéciaux/mathématiques.
   - **Appui long** : tape "0".
-  - **Appui sur "0", puis appui sur Maj (par défaut : appui sur "0", "✱") :** tape des symboles monétaires.
 - **En mode Prédictif :**
   - **Appui** : tape un espace, une nouvelle ligne, ou caractères spéciaux/mathématiques.
   - **Double appui** : tape le caractère attribué dans les paramètres du mode Prédictif (par défaut : ".").
   - **Appui long** : tape "0".
-  - **Appui sur "0", puis appui sur Maj (par défaut : appui sur "0", "✱") :** tape des symboles monétaires.
 - **En mode Cheonjiin (Coréen) :**
   - **Appui :** tape "ㅇ" et "ㅁ".
   - **Appui long :** tape un espace, une nouvelle ligne, "0" ou des caractères spéciaux/mathématiques.
-  - **Appui long sur "0", puis appui sur Maj (Par défaut : appui long sur "0", appuyer sur "✱") :** tape des symboles monétaires.
 
 #### Touche 1 :
 - **En mode 123 :**

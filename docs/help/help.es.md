@@ -69,20 +69,16 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
 - **En modo 123:**
   - **Presione:** escribir "0".
   - **Mantenga presionado:** escribir caracteres especiales/matemáticos.
-  - **Mantenga presionado "0", luego presione Shift (Por Defecto: mantenga presionado "0", presione "✱")**: escribir caracteres de moneda.
 - **En modo ABC:**
   - **Presione:** escribir un espacio, nueva línea o caracteres especiales/matemáticos.
   - **Mantenga presionado:** escribir "0".
-  - **Presione "0", luego presione Shift (Por Defecto: presione "0", "✱")**: escribir caracteres de moneda.
 - **En modo Predictivo:**
   - **Presione:** escribir un espacio, nueva línea o caracteres especiales/matemáticos.
   - **Presione dos veces:** escribir el carácter asignado en la configuración de modo predictivo. (Por Defecto: ".")
   - **Mantenga presionado:** escribir "0".
-  - **Presione "0", luego presione Shift (Por Defecto: presione "0", "✱")**: escribir caracteres de moneda.
 - **En modo Cheonjiin (Coreano):**
   - **Presione:** escribir "ㅇ" y "ㅁ".
   - **Mantenga presionado:** escribir espacio, nueva línea, "0" o caracteres especiales/matemáticos.
-  - **Mantenga presionado "0", luego presione Shift (Por Defecto: Mantenga presionado "0", presione "✱"):** escribir caracteres de moneda.
 
 #### Tecla 1:
 - **En modo 123:**

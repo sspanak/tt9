@@ -70,9 +70,9 @@ public class ModeBopomofo extends ModePinyin {
 
 	@Override
 	protected void onNumberPress(int nextNumber) {
-		if (digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE)) {
+		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else {
+		} else if (!seq.SPECIAL_CHAR_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
 		}
 	}

@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
@@ -112,6 +113,10 @@ public class SuggestionOps {
 
 	public String acceptCurrent() {
 		String word = getCurrent();
+		if (Characters.PLACEHOLDER.equals(word)) {
+			return "";
+		}
+
 		if (!word.isEmpty()) {
 			commitCurrent(true, true);
 		}
@@ -122,6 +127,10 @@ public class SuggestionOps {
 
 	public String acceptIncomplete() {
 		String currentWord = this.getCurrent();
+		if (Characters.PLACEHOLDER.equals(currentWord)) {
+			return "";
+		}
+
 		commitCurrent(false, true);
 
 		return currentWord;
@@ -129,6 +138,10 @@ public class SuggestionOps {
 
 
 	public String acceptIncompleteAndKeepList() {
+		if (Characters.PLACEHOLDER.equals(this.getCurrent())) {
+			return "";
+		}
+
 		commitCurrent(false, false);
 		return this.getCurrent();
 	}
@@ -140,6 +153,9 @@ public class SuggestionOps {
 		}
 
 		String lastComposingText = getCurrent(language, sequenceLength - 1);
+		if (Characters.PLACEHOLDER.equals(lastComposingText)) {
+			return "";
+		}
 		commitCurrent(false, true);
 		return lastComposingText;
 	}
