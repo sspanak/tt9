@@ -53,13 +53,8 @@ abstract public class Language {
 	/**
 	 * Returns the characters that the key would type in ABC or Predictive mode. For example,
 	 * the key 2 in English would return A-B-C.
-	 * Keys that have special characters assigned, may have more than one group assigned. The specific
-	 * group is selected by the characterGroup parameter. By default, group 0 is returned.
 	 */
-	@NonNull abstract public ArrayList<String> getKeyCharacters(int key, int characterGroup);
-	@NonNull public ArrayList<String> getKeyCharacters(int key) {
-		return getKeyCharacters(key, 0);
-	}
+	@NonNull abstract public ArrayList<String> getKeyCharacters(int key);
 
 	@NonNull public String getKeyNumeral(int key) {
 		return String.valueOf(key);

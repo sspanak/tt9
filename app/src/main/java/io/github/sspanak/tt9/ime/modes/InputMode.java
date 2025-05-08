@@ -42,7 +42,6 @@ abstract public class InputMode {
 	protected final SettingsStore settings;
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
-	protected int specialCharSelectedGroup = 0;
 	@NonNull protected Sequences seq = new Sequences();
 
 
@@ -165,7 +164,6 @@ abstract public class InputMode {
 
 	public void reset() {
 		autoAcceptTimeout = -1;
-		specialCharSelectedGroup = 0;
 		suggestions.clear();
 	}
 
@@ -211,59 +209,10 @@ abstract public class InputMode {
 
 
 	protected boolean loadSpecialCharacters() {
-		int key = digitSequence.charAt(0) - '0';
-		ArrayList<String> chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
-
-		if (chars.isEmpty() && specialCharSelectedGroup == 1) {
-			specialCharSelectedGroup = 0;
-			return false;
-		} else if (chars.isEmpty()) {
-			specialCharSelectedGroup = 0;
-			chars = settings.getOrderedKeyChars(language, key, specialCharSelectedGroup);
-		}
-
 		suggestions.clear();
-		suggestions.addAll(chars);
+		suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
 
 		return true;
-	}
-
-
-	/**
-	 * Applies the punctuation order when we don't want to display the entire
-	 * list of characters, for example in email, numeric or other specialized fields.
-	 */
-	protected ArrayList<String> applyPunctuationOrder(ArrayList<String> unordered, int key) {
-		if (specialCharSelectedGroup != 0 || key > 1) {
-			return new ArrayList<>(unordered);
-		}
-
-		return orderSpecialChars(unordered, settings.getOrderedKeyChars(language, key));
-	}
-
-
-	public ArrayList<String> orderSpecialChars(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> order) {
-		ArrayList<String> ordered = new ArrayList<>();
-		if (unordered.isEmpty() || order == null || order.isEmpty()) {
-			return ordered;
-		}
-
-		if (isEmailMode) {
-			if (unordered.contains("@")) ordered.add("@");
-			if (unordered.contains("_")) ordered.add("_");
-		}
-
-		for (String ch : order) {
-			if (isEmailMode && (ch.charAt(0) == '@' || ch.charAt(0) == '_')) {
-				continue;
-			}
-
-			if (unordered.contains(ch)) {
-				ordered.add(ch);
-			}
-		}
-
-		return ordered;
 	}
 
 

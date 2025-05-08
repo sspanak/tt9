@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.util.chars;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -106,5 +107,35 @@ public class Characters extends Emoji {
 		return
 			ch == 0x0950 // Devanagari
 			|| ch == 0x0AD0; // Gujarati
+	}
+
+
+	/**
+	 * Orders a list of characters according according to the order of another list. Any characters
+	 * from "unordered" list that are not present in the "order" list will be ignored. In email mode,
+	 * email-specific characters will be moved to the beginning of the list.
+	 */
+	public static ArrayList<String> orderByList(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> order, boolean isEmailMode) {
+		ArrayList<String> ordered = new ArrayList<>();
+		if (unordered.isEmpty() || order == null || order.isEmpty()) {
+			return ordered;
+		}
+
+		if (isEmailMode) {
+			if (unordered.contains("@")) ordered.add("@");
+			if (unordered.contains("_")) ordered.add("_");
+		}
+
+		for (String ch : order) {
+			if (isEmailMode && (ch.charAt(0) == '@' || ch.charAt(0) == '_')) {
+				continue;
+			}
+
+			if (unordered.contains(ch)) {
+				ordered.add(ch);
+			}
+		}
+
+		return ordered;
 	}
 }
