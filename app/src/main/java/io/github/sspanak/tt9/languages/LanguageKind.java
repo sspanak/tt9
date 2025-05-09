@@ -8,7 +8,7 @@ public class LanguageKind {
 	public static boolean isArabicBased(Language language) { return isArabic(language) || isFarsi(language); }
 	public static boolean isCJK(Language language) { return isChinese(language) || isJapanese(language) || isKorean(language); }
 	public static boolean isCyrillic(Language language) { return language != null && language.getKeyCharacters(2).contains("а"); }
-	public static boolean isLatinBased(Language language) { return language != null && language.getKeyCharacters(2).contains("a"); }
+	public static boolean isLatinBased(Language language) { return language != null && language.getKeyCharacters(2).contains("a") && !language.isTranscribed(); }
 	public static boolean isRTL(Language language) { return isArabic(language) || isFarsi(language) || isHebrew(language); }
 
 	public static boolean isArabic(Language language) { return language != null && language.getId() == 502337; }

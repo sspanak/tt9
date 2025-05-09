@@ -29,12 +29,14 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	@Override
 	protected char[] getForbiddenChars() {
 		if (forbiddenChars == null) {
-			forbiddenChars = new char[SettingsStore.MANDATORY_PUNCTUATION.length + SettingsStore.FORBIDDEN_SPECIAL_CHARS.length];
-			for (char i = 0; i < SettingsStore.MANDATORY_PUNCTUATION.length; i++) {
-				forbiddenChars[i] = SettingsStore.MANDATORY_PUNCTUATION[i];
+			char[] mandatoryChars = getSettings().getMandatoryPunctuation(language);
+
+			forbiddenChars = new char[mandatoryChars.length + SettingsStore.FORBIDDEN_SPECIAL_CHARS.length];
+			for (char i = 0; i < mandatoryChars.length; i++) {
+				forbiddenChars[i] = mandatoryChars[i];
 			}
 			for (char i = 0; i < SettingsStore.FORBIDDEN_SPECIAL_CHARS.length; i++) {
-				forbiddenChars[i + SettingsStore.MANDATORY_PUNCTUATION.length] = SettingsStore.FORBIDDEN_SPECIAL_CHARS[i];
+				forbiddenChars[i + mandatoryChars.length] = SettingsStore.FORBIDDEN_SPECIAL_CHARS[i];
 			}
 		}
 

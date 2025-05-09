@@ -198,6 +198,7 @@
 	<string name="pref_backspace_acceleration_summary">Apagar palavras inteiras mantendo pressionado ou deslizando o Backspace. (Não suportado em alguns aplicativos)</string>
 	<string name="pref_category_punctuation_order">Ordem de pontuação</string>
 	<string name="language_popup_title">Selecione o idioma</string>
+	<string name="punctuation_order_cannot_be_empty">A lista não pode estar vazia.</string>
 	<string name="punctuation_order_mandatory_char_missing">Caractere obrigatório ausente:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Caracteres obrigatórios ausentes:%1$s</string>
 	<string name="punctuation_order_save_error">Falha ao salvar a ordem dos caracteres.</string>
