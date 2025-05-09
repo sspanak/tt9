@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_special_chars";
+	private char[] forbiddenChars;
 
 	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
 	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
@@ -27,14 +28,24 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	@NonNull
 	@Override
 	protected char[] getForbiddenChars() {
-		return SettingsStore.MANDATORY_PUNCTUATION;
+		if (forbiddenChars == null) {
+			forbiddenChars = new char[SettingsStore.MANDATORY_PUNCTUATION.length + SettingsStore.FORBIDDEN_SPECIAL_CHARS.length];
+			for (char i = 0; i < SettingsStore.MANDATORY_PUNCTUATION.length; i++) {
+				forbiddenChars[i] = SettingsStore.MANDATORY_PUNCTUATION[i];
+			}
+			for (char i = 0; i < SettingsStore.FORBIDDEN_SPECIAL_CHARS.length; i++) {
+				forbiddenChars[i + SettingsStore.MANDATORY_PUNCTUATION.length] = SettingsStore.FORBIDDEN_SPECIAL_CHARS[i];
+			}
+		}
+
+		return forbiddenChars;
 	}
 
 
 	@NonNull
 	@Override
 	protected char[] getMandatoryChars() {
-		return SettingsStore.MANDATORY_SPECIAL_CHARS;
+		return new char[0];
 	}
 
 
