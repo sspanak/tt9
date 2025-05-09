@@ -10,25 +10,34 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 	public SoftKeyAddWord(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyAddWord(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override
-	protected int getCentralIcon() {
-		return R.drawable.ic_fn_add_word;
-	}
+	@Override protected String getTitle() { return hasLettersOnAllKeys() ? "␣" : ""; }
+	@Override protected int getCentralIcon() { return hasLettersOnAllKeys() ? 0 : R.drawable.ic_fn_add_word; }
+	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
 
 	@Override
 	protected boolean handleRelease() {
-		if (validateTT9Handler()) {
+		if (!validateTT9Handler()) {
+			return false;
+		}
+
+		if (hasLettersOnAllKeys()) {
+			return tt9.onKeySpaceKorean(false);
+		} else {
 			tt9.addWord();
 			return true;
 		}
-
-		return false;
 	}
 
 	@Override
 	public void render() {
 		if (tt9 != null) {
-			setEnabled(!tt9.isVoiceInputActive() && tt9.isAddingWordsSupported() && !tt9.isTextEditingActive());
+			setEnabled(
+				(
+					(tt9.isAddingWordsSupported() && !tt9.isTextEditingActive())
+					|| hasLettersOnAllKeys()
+				)
+				&& !tt9.isVoiceInputActive()
+			);
 		}
 		super.render();
 	}
