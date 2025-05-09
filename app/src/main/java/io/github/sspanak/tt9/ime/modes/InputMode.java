@@ -211,8 +211,12 @@ abstract public class InputMode {
 
 	protected ArrayList<String> getAbbreviatedSpecialChars() {
 		ArrayList<String> special = Characters.getWhitespaces(language);
-		special.add(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION);
-		special.add(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION);
+		if (!Characters.getCurrencies(language).isEmpty()) {
+			special.add(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION);
+		}
+		if (!settings.getSpecialChars(language).isEmpty()) {
+			special.add(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION);
+		}
 		return special;
 	}
 

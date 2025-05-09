@@ -87,10 +87,6 @@ class SettingsPunctuation extends SettingsInput {
 			orderedChars = getPunctuationAsList(language);
 		}
 
-		if (orderedChars.isEmpty()) {
-			orderedChars = language.getKeyCharacters(number);
-		}
-
 		return orderedChars;
 	}
 
