@@ -84,6 +84,6 @@
 			android:excludeFromRecents="true"
 			android:label=""
 			android:name="io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog"
-			android:theme="@style/TTheme.Preferences" />
+			android:theme="@style/TTheme.AddWord" />
 	</application>
 </manifest>
