@@ -42,7 +42,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean isStatusIconEnabled() {
-		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21);
+		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21 || !DeviceInfo.noKeyboard(context));
 	}
 
 	public boolean getDarkTheme() {
