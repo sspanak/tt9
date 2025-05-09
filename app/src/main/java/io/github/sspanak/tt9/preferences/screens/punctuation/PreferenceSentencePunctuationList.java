@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
@@ -40,10 +41,15 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 
 	@Override
 	protected String validateMandatoryChars() {
-		return super.validateMandatoryChars(SettingsStore.MANDATORY_PUNCTUATION);
+		return super.validateMandatoryChars(getSettings().getMandatoryPunctuation(language));
 	}
 
 	public boolean validateCurrentChars() {
+		if (currentChars.isEmpty()) {
+			setError(getContext().getString(R.string.punctuation_order_cannot_be_empty));
+			return false;
+		}
+
 		String forbiddenCharsError = validateForbiddenChars();
 		String mandatoryCharsError = validateMandatoryChars();
 

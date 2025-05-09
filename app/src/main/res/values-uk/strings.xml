@@ -207,6 +207,7 @@
 	<string name="pref_backspace_acceleration_summary">Видалити цілі слова, утримуючи або провівши клавішею Backspace. (Не підтримується в деяких додатках)</string>
 	<string name="pref_category_punctuation_order">Порядок пунктуації</string>
 	<string name="language_popup_title">Виберіть мову</string>
+	<string name="punctuation_order_cannot_be_empty">Список не може бути порожнім.</string>
 	<string name="punctuation_order_mandatory_char_missing">Відсутній обов’язковий символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Відсутні обов’язкові символи:%1$s</string>
 	<string name="punctuation_order_save_error">Не вдалося зберегти порядок символів.</string>

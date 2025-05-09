@@ -7,17 +7,23 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class SettingsPunctuation extends SettingsInput {
 	private final static String KEY_PREFIX_PUNCTUATION = "pref_punctuation_";
 	private final static String KEY_PREFIX_SPECIAL = "pref_special_chars_";
-	public final static char[] MANDATORY_PUNCTUATION = new char[] {'\'', '"', '-'};
+	private final static char[] MANDATORY_EU_PUNCTUATION = new char[] {'\'', '"', '-'};
 	public final static char[] FORBIDDEN_SPECIAL_CHARS = new char[] {' ', '\n', '\t'};
 
 
 	SettingsPunctuation(Context context) {
 		super(context);
+	}
+
+
+	public char[] getMandatoryPunctuation(Language language) {
+		return LanguageKind.isCyrillic(language) || LanguageKind.isLatinBased(language) ? MANDATORY_EU_PUNCTUATION : new char[0];
 	}
 
 

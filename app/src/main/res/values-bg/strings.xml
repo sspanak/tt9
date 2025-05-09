@@ -197,6 +197,7 @@
 	<string name="pref_backspace_acceleration_summary">Изтривай цели думи при задържане или плъзване на Backspace. (Не работи в някои приложения.)</string>
 	<string name="pref_category_punctuation_order">Ред на пунктуацията</string>
 	<string name="language_popup_title">Изберете език</string>
+	<string name="punctuation_order_cannot_be_empty">Списъкът не може да бъде празен.</string>
 	<string name="punctuation_order_mandatory_char_missing">Липсва задължителен символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Липсват задължителни символи:%1$s</string>
 	<string name="punctuation_order_save_error">Неуспешно запазване на реда на знаците.</string>
