@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
+import android.Manifest;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
@@ -90,7 +92,7 @@ abstract class VoiceHandler extends TypingHandler {
 			Logger.e(LOG_TAG, "Failed to listen. " + error.debugMessage);
 			statusBar.setError(error.toString());
 			if (error.isNoPermission()) {
-				RequestPermissionDialog.show(this);
+				RequestPermissionDialog.show(this, Manifest.permission.RECORD_AUDIO);
 			}
 		}
 

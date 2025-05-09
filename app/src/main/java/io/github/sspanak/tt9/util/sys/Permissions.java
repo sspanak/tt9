@@ -34,6 +34,9 @@ public class Permissions {
 		}
 	}
 
+	public boolean noRecordAudio() {
+		return DeviceInfo.AT_LEAST_ANDROID_6 && isRefused(Manifest.permission.RECORD_AUDIO);
+	}
 
 	public void requestRecordAudio() {
 		requestPermission(Manifest.permission.RECORD_AUDIO);

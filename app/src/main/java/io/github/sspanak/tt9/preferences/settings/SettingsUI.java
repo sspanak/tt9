@@ -6,6 +6,7 @@ import android.view.Gravity;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -39,6 +40,17 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getAddWordsNoConfirmation() {
 		return prefs.getBoolean("add_word_no_confirmation", false);
+	}
+
+	public boolean shouldAskForNotifications() {
+		return getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
+	}
+
+	public void setNotificationsApproved(boolean yes) {
+		prefsEditor.putString(
+			"pref_asked_for_notifications_version",
+			Integer.toString(yes ? Integer.MAX_VALUE : BuildConfig.VERSION_CODE)
+		);
 	}
 
 	public boolean isStatusIconEnabled() {
