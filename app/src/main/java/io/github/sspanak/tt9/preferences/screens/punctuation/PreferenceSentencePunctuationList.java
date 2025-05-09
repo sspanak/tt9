@@ -25,7 +25,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 	@NonNull
 	@Override
 	protected char[] getForbiddenChars() {
-		return SettingsStore.MANDATORY_SPECIAL_CHARS;
+		return SettingsStore.FORBIDDEN_SPECIAL_CHARS;
 	}
 
 	/**

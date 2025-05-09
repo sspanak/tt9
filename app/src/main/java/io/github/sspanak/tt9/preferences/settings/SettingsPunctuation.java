@@ -13,7 +13,7 @@ class SettingsPunctuation extends SettingsInput {
 	private final static String KEY_PREFIX_PUNCTUATION = "pref_punctuation_";
 	private final static String KEY_PREFIX_SPECIAL = "pref_special_chars_";
 	public final static char[] MANDATORY_PUNCTUATION = new char[] {'\'', '"', '-'};
-	public final static char[] MANDATORY_SPECIAL_CHARS = new char[] {' ', '\n'};
+	public final static char[] FORBIDDEN_SPECIAL_CHARS = new char[] {' ', '\n', '\t'};
 
 
 	SettingsPunctuation(Context context) {
