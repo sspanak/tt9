@@ -167,6 +167,7 @@ abstract public class InputMode {
 	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) { return false; }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
+	public void beforeDeleteText() {}
 	public String recompose() { return null; }
 	public void replaceLastLetter() {}
 
