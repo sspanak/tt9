@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
+import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
 import io.github.sspanak.tt9.util.sys.Clipboard;
@@ -166,16 +167,56 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	protected void nextLang() {
+	protected void changeLang() {
+		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
+		ChangeLanguageDialog.show(this, mInputMode.getSequence(), textField.getComposingText());
+	}
 
-		// select the next language
+
+	protected void nextLang() {
 		int previous = mEnabledLanguages.indexOf(mLanguage.getId());
 		int next = (previous + 1) % mEnabledLanguages.size();
-		mLanguage = LanguageCollection.getLanguage(mEnabledLanguages.get(next));
+		setLang(mEnabledLanguages.get(next));
+	}
 
-		// validate and save it for the next time
+
+	public void setLang(int langId) {
+		if (!mEnabledLanguages.contains(langId)) {
+			return;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		stopVoiceInput();
+
+		mLanguage = LanguageCollection.getLanguage(langId);
 		validateLanguages();
+
+		detectRTL();
+
+		// for languages that do not have ABC or Predictive, make sure we remain in valid state
+		if (mInputMode.changeLanguage(mLanguage)) {
+			mInputMode.clearWordStem();
+		} else {
+			final String digits = mInputMode.getSequence();
+			mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+			mInputMode.setSequence(digits);
+		}
+
+		getSuggestions(null);
+		setStatusIcon(mInputMode, mLanguage);
+		statusBar.setText(mInputMode);
+		suggestionOps.setRTL(isLanguageRTL);
+		mainView.render();
+		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
+			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
+		}
+
+		if (InputModeKind.isPredictive(mInputMode)) {
+			DictionaryLoader.autoLoad(this, mLanguage);
+		}
+
+		forceShowWindow();
 	}
 
 

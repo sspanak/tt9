@@ -47,6 +47,7 @@
 	<string name="pref_predict_word_pairs">Wortpaare lernen</string>
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.</string>
 	<string name="pref_privacy_policy">Datenschutzerklärung</string>
+	<string name="pref_quick_switch_language_summary">Durch Drücken der Sprachentaste wird automatisch zur nächsten Sprache gewechselt, anstatt ein Popup mit allen aktivierten Sprachen anzuzeigen.</string>
 	<string name="pref_status_icon">Statusicon</string>
 	<string name="pref_status_icon_summary">Ein Icon anzeigen, wenn die Tastatureingabe aktiv ist.</string>
 	<string name="pref_suggestion_font_size">Schriftgröße der Vorschläge</string>
@@ -183,6 +184,7 @@
 	<string name="pref_backspace_acceleration">Schnelles Löschen</string>
 	<string name="pref_backspace_acceleration_summary">Ganze Wörter löschen, indem Sie die Rücktaste gedrückt halten oder wischen. (Nicht in allen Apps unterstützt)</string>
 	<string name="pref_category_punctuation_order">Interpunktionsreihenfolge</string>
+	<string name="language_popup_title">Sprache auswählen</string>
 	<string name="punctuation_order_whitespace_will_be_added_automatically">Leer- und Zeilenumbruchzeichen werden automatisch am Anfang der Liste hinzugefügt.</string>
 	<string name="punctuation_order_mandatory_char_missing">Fehlendes erforderliches Zeichen:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Fehlende erforderliche Zeichen:%1$s</string>
@@ -227,4 +229,5 @@
 	<string name="fn_key_order_error_unsupported_key_code">Nur Tastencodes 1–8 sind erlaubt.</string>
 	<string name="fn_key_order_error_key_on_both_sides">Eine Taste kann nicht in beiden Spalten platziert werden.</string>
 	<string name="fn_key_order_column_1">Spalte 1</string>
+	<string name="pref_quick_switch_language">Schneller Sprachwechsel</string>
 </resources>

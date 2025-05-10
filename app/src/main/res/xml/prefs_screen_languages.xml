@@ -29,6 +29,12 @@
 		app:key="dictionary_truncate"
 		app:title="@string/dictionary_truncate_title" />
 
+	<SwitchPreferenceCompat
+		app:defaultValue="true"
+		app:key="pref_quick_switch_language"
+		app:title="@string/pref_quick_switch_language"
+		app:summary="@string/pref_quick_switch_language_summary" />
+
 	<PreferenceCategory
 		app:title="@string/pref_category_custom_words"
 		app:singleLineTitle="true">

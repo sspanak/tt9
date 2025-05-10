@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
@@ -19,6 +20,7 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
@@ -109,11 +111,20 @@ public class TraditionalT9 extends MainViewHandler {
 		int result = super.onStartCommand(intent, flags, startId);
 
 		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
-		if (message != null) {
-			forceShowWindow();
-			if (!message.isEmpty()) {
-				UI.toastLong(this, message);
-			}
+		if (message == null) {
+			return result;
+		}
+
+		forceShowWindow();
+
+		if (!message.isEmpty()) {
+			UI.toastLong(this, message);
+		} else if (ChangeLanguageDialog.INTENT_SET_LANGUAGE.equals(intent.getStringExtra(ChangeLanguageDialog.INTENT_SET_LANGUAGE))) {
+			onResume(
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_LANGUAGE),
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_SEQUENCE),
+				intent.getStringExtra(ChangeLanguageDialog.PARAMETER_WORD)
+			);
 		}
 
 		return result;
@@ -165,6 +176,24 @@ public class TraditionalT9 extends MainViewHandler {
 		}
 
 		return true;
+	}
+
+
+	private void onResume(@Nullable String langStringId, @Nullable String sequence, @Nullable String word) {
+		int languageId;
+		try {
+			langStringId = langStringId == null ? "(null)" : langStringId;
+			languageId = Integer.parseInt(langStringId);
+		} catch (NumberFormatException e) {
+			Logger.e(LOG_TAG, "Can not resume typing. Failed to parse language ID '" + langStringId + "'. " + e);
+			return;
+		}
+
+		if (word != null && !word.isEmpty() && sequence != null && !sequence.isEmpty()) {
+			mInputMode.setSequence(sequence);
+		}
+
+		setLang(languageId);
 	}
 
 

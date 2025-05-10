@@ -11,14 +11,14 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 
-public class AutoUpdateMonologue extends PopupDialog {
+public class AutoUpdateMonolog extends PopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.confirm_words_update";
 	public static final String PARAMETER_LANGUAGE = "lang";
 
 	private Language language;
 
 
-	AutoUpdateMonologue(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
+	AutoUpdateMonolog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
 		super(context, activityFinisher);
 		LanguageCollection.init(context);
 		parseIntent(intent);

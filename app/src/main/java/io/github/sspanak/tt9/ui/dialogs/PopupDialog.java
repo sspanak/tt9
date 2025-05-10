@@ -1,13 +1,15 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
 
-import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
-abstract public class PopupDialog {
+abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 	public static final String INTENT_CLOSE = "tt9.popup_dialog.close";
 	public static final String PARAMETER_DIALOG_TYPE = "popup_type";
 
@@ -29,8 +31,20 @@ abstract public class PopupDialog {
 		}
 	}
 
+	@Override
+	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		return false;
+	}
+
 	protected void render(Runnable OKAction) {
-		UI.confirm(context, title, message, OKLabel, OKAction, true, () -> activityFinisher.accept(""), null);
+		new PopupBuilder(context)
+			.setCancelable(false)
+			.setTitle(title)
+			.setMessage(message)
+			.setPositiveButton(OKLabel, OKAction)
+			.setNegativeButton(true, () -> activityFinisher.accept(""))
+			.setOnKeyListener(this)
+			.show();
 	}
 
 	abstract void render();

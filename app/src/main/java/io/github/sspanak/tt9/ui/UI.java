@@ -1,10 +1,7 @@
 package io.github.sspanak.tt9.ui;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.os.Looper;
@@ -13,12 +10,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class UI {
 	private static final HashMap<String, Toast> singleToasts = new HashMap<>();
@@ -54,31 +48,6 @@ public class UI {
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		prefIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		ims.startActivity(prefIntent);
-	}
-
-
-	public static void confirm(@NonNull Context context, String title, String message, String OKLabel, Runnable onOk, boolean cancelLabel, Runnable onCancel, DialogInterface.OnKeyListener onKey) {
-		Dialog dialogue;
-
-		if (DeviceInfo.AT_LEAST_ANDROID_12) {
-			 dialogue = new MaterialAlertDialogBuilder(context)
-				.setMessage(message)
-				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
-				.setNegativeButton(cancelLabel ? context.getString(android.R.string.cancel) : null, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
-				.show();
-		} else {
-			dialogue = new AlertDialog.Builder(context)
-				.setMessage(message)
-				.setPositiveButton(OKLabel, (dialog, whichButton) -> { if (onOk != null) onOk.run(); })
-				.setNegativeButton(cancelLabel ? context.getString(android.R.string.cancel) : null, (dialog, whichButton) -> { if (onCancel != null) onCancel.run(); })
-				.show();
-		}
-
-		dialogue.setTitle(title);
-		dialogue.setCancelable(false);
-		if (onKey != null) {
-			dialogue.setOnKeyListener(onKey);
-		}
 	}
 
 

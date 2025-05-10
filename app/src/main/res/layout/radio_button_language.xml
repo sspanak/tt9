@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout
+		style="@style/TTheme.LanguageSelect.RadioButton"
+		android:id="@+id/radio_button_container"
+		android:focusable="true"
+		android:focusableInTouchMode="true">
+
+		<RadioButton
+			style="@style/TTheme.LanguageSelect.RadioButton.Radio"
+			android:id="@+id/radio_button"
+			android:clickable="false"
+			android:focusableInTouchMode="false"
+			android:focusable="false"
+			/>
+
+		<TextView style="@style/TTheme.LanguageSelect.RadioButton.Label" android:id="@+id/radio_label" />
+
+	</LinearLayout>
+</merge>

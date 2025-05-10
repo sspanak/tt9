@@ -75,6 +75,10 @@ public class SettingsUI extends SettingsTyping {
 		prefsEditor.apply();
 	}
 
+	public boolean getQuickSwitchLanguage() {
+		return prefs.getBoolean("pref_quick_switch_language", true);
+	}
+
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
 		return getStringifiedInt("pref_font_size", defaultSize);

@@ -11,12 +11,9 @@ import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
-import io.github.sspanak.tt9.util.ThemedContextBuilder;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class AddWordDialog extends PopupDialog {
+public class AddWordDialog extends ThemedPopupDialog {
 	public static final String TYPE = "tt9.popup_dialog.add_word";
 	public static final String PARAMETER_LANGUAGE = "lang";
 	public static final String PARAMETER_WORD = "word";
@@ -26,18 +23,7 @@ public class AddWordDialog extends PopupDialog {
 
 
 	AddWordDialog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
-		super(
-			new ThemedContextBuilder()
-				.setConfiguration(context.getApplicationContext().getResources().getConfiguration())
-				.setContext(context)
-				.setSettings(new SettingsStore(context))
-				// The main theme does not work on Android <= 11 and the _AddWord theme does not work on 12+.
-				// Not sure why since they inherit from the same parent, but it is what it is.
-				.setTheme(DeviceInfo.AT_LEAST_ANDROID_12 ? R.style.TTheme : R.style.TTheme_AddWord)
-				.build(),
-			activityFinisher
-		);
-
+		super(context, activityFinisher, R.style.TTheme_AddWord);
 		title = context.getResources().getString(R.string.add_word_title);
 		OKLabel = context.getResources().getString(R.string.add_word_add);
 		parseIntent(context, intent);

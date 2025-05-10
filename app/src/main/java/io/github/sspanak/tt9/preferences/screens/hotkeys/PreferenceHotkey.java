@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class PreferenceHotkey extends ScreenPreference implements DialogInterface.OnKeyListener{
@@ -72,16 +72,12 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 
 		boolean enableCancelButton = !DeviceInfo.noTouchScreen(getContext());
 
-		UI.confirm(
-			getContext(),
-			getKey(),
-			getContext().getString(R.string.function_assign_instructions, getTitle()),
-			null,
-			null,
-			enableCancelButton,
-			enableCancelButton ? ()->{} : null,
-			this
-		);
+		new PopupBuilder(getContext())
+			.setCancelable(false)
+			.setMessage(getContext().getString(R.string.function_assign_instructions, getTitle()))
+			.setNegativeButton(enableCancelButton, () -> {})
+			.setOnKeyListener(this)
+			.show();
 	}
 
 
@@ -164,19 +160,17 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 			getTitle()
 		);
 
-		UI.confirm(
-			getContext(),
-			getKey(),
-			question,
-			getContext().getString(R.string.function_reassign),
-			() -> {
-				settings.setFunctionKey(otherFunction, KeyEvent.KEYCODE_UNKNOWN);
-				onAssign(dialog, keyCode);
-			},
-			true,
-			null,
-			null
-		);
+		new PopupBuilder(getContext())
+			.setCancelable(false)
+			.setMessage(question)
+			.setNegativeButton(true, null)
+			.setPositiveButton(
+				getContext().getString(R.string.function_reassign),
+				() -> {
+					settings.setFunctionKey(otherFunction, KeyEvent.KEYCODE_UNKNOWN);
+					onAssign(dialog, keyCode);
+				}
+			).show();
 
 		return true;
 	}
