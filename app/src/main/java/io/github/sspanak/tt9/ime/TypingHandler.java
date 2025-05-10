@@ -129,6 +129,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return true;
 		}
 
+		mInputMode.beforeDeleteText();
+
 		boolean noTextSelection = textSelection.isEmpty(); // loading words after deleting selected text is confusing
 		if (repeat == 0 && mInputMode.onBackspace() && noTextSelection) {
 			getSuggestions(null);

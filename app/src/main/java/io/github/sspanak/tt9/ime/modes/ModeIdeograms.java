@@ -20,6 +20,7 @@ public class ModeIdeograms extends ModeWords {
 	private boolean isFiltering = false;
 	@NonNull private String lastAcceptedSequence = "";
 	@NonNull private String lastAcceptedWord = "";
+	@NonNull private String lastTextBeforeDelete = "";
 
 
 	protected ModeIdeograms(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
@@ -79,18 +80,26 @@ public class ModeIdeograms extends ModeWords {
 
 
 	@Override
+	public void beforeDeleteText() {
+		String textBefore = textField.getComposingText();
+		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getStringBeforeCursor(1) : textBefore;
+	}
+
+
+	@Override
 	public String recompose() {
 		if (lastAcceptedWord.isEmpty()) {
 			return null;
 		}
 
 		String before = textField.getStringBeforeCursor(lastAcceptedWord.length());
-		if (lastAcceptedWord.equals(before)) {
+		char after = lastTextBeforeDelete.isEmpty() ? 0 : lastTextBeforeDelete.charAt(0);
+		if (lastAcceptedWord.equals(before) && Character.isWhitespace(after)) {
 			reset();
 			digitSequence = lastAcceptedSequence;
 			return lastAcceptedWord;
 		} else {
-			Logger.d(LOG_TAG, "Not recomposing word: '" + before + "' != last word: '" + lastAcceptedWord + "'");
+			Logger.d(LOG_TAG, "Not recomposing word: '" + before + "' != last word: '" + lastAcceptedWord + "' and followed by: '" + after + "'");
 			return null;
 		}
 	}
