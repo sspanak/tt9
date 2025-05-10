@@ -36,7 +36,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 		return false;
 	}
 
-	protected void render(Runnable OKAction) {
+	protected void show(Runnable OKAction) {
 		new PopupBuilder(context)
 			.setCancelable(false)
 			.setTitle(title)
@@ -47,5 +47,5 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 			.show();
 	}
 
-	abstract void render();
+	abstract void show();
 }

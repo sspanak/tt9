@@ -36,7 +36,7 @@ public class AutoUpdateMonolog extends PopupDialog {
 
 
 	@Override
-	void render() {
+	void show() {
 		if (language != null) {
 			DictionaryLoader.load(context, language);
 		}

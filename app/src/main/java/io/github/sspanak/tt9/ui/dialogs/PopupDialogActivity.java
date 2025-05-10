@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -20,7 +18,7 @@ public class PopupDialogActivity extends AppCompatActivity {
 		super.onCreate(savedData);
 		PopupDialog dialog = getDialog();
 		if (dialog != null) {
-			dialog.render();
+			dialog.show();
 		} else {
 			onDialogClose("");
 		}
@@ -36,7 +34,6 @@ public class PopupDialogActivity extends AppCompatActivity {
 		return switch (popupType) {
 			case AddWordDialog.TYPE -> new AddWordDialog(this, i, this::onDialogClose);
 			case AutoUpdateMonolog.TYPE -> new AutoUpdateMonolog(this, i, this::onDialogClose);
-			case ChangeLanguageDialog.TYPE -> new ChangeLanguageDialog(this, i, this::onDialogClose);
 			default -> {
 				Logger.w(LOG_TAG, "Unknown popup type: '" + popupType + "'. Not displaying anything.");
 				yield null;
@@ -53,23 +50,10 @@ public class PopupDialogActivity extends AppCompatActivity {
 		startService(intent);
 	}
 
-	private void onDialogClose(HashMap<String, String> messages) {
-		finish();
-		Intent intent = new Intent(this, TraditionalT9.class);
-		if (messages != null) {
-			intent.putExtra(PopupDialog.INTENT_CLOSE, "");
-			for (String key : messages.keySet()) {
-				intent.putExtra(key, messages.get(key));
-			}
-		}
-
-		startService(intent);
-	}
-
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-		onDialogClose((String) null);
+		onDialogClose(null);
 	}
 }
