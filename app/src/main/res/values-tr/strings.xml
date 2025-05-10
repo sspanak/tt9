@@ -9,7 +9,6 @@
 	<string name="add_word_no_selection">Ekleme yapmak için imleci eklemek istediğiniz kelimeye götürün.</string>
 	<string name="add_word_blank">Boşluk eklenemedi.</string>
 	<string name="add_word_exist">\"%1$s\" kelimesi zaten kelime listesinde mevcut.</string>
-	<string name="add_word_invalid_language_x">Kelime eklenemedi. Bilinmeyen dil: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" başarıyla eklendi.</string>
 	<string name="add_word_title">Kelime Ekle</string>
 

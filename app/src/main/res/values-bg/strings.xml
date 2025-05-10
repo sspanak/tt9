@@ -9,7 +9,6 @@
 	<string name="add_word_no_selection">Преместете показалеца върху дума, за да я добавите към речника.</string>
 	<string name="add_word_blank">Не може да се въведе празна дума.</string>
 	<string name="add_word_exist">Думата „%1$s“ вече съществува в речника.</string>
-	<string name="add_word_invalid_language_x">Не може да се добави дума. Неразпознат език: „%1$d“.</string>
 	<string name="add_word_success">„%1$s“ е добавена.</string>
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_select_command">Изберете команда</string>

@@ -9,7 +9,6 @@
 	<string name="add_word_no_selection">Переместите курсор внутрь слова, чтобы добавить его.</string>
 	<string name="add_word_blank">Невозможно добавить слово.</string>
 	<string name="add_word_exist">Слово «%1$s» уже есть в словаре.</string>
-	<string name="add_word_invalid_language_x">Невозможно добавить слово. Неизвестный язык: \"%1$d\".</string>
 	<string name="add_word_success">«%1$s» добавлено</string>
 	<string name="add_word_title">Добавить слово</string>
 	<string name="commands_select_command">Выбрать команду</string>
