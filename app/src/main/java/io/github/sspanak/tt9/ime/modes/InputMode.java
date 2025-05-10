@@ -87,22 +87,21 @@ abstract public class InputMode {
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
 	public boolean onReplaceSuggestion(@NonNull String rawWord) {
-		reset();
+		String newSequence = switch(rawWord) {
+			case SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION -> seq.SPECIAL_CHAR_SEQUENCE;
+			case SuggestionsBar.SHOW_CURRENCIES_SUGGESTION -> seq.CURRENCY_SEQUENCE;
+			default -> null;
+		};
 
-		boolean result = false;
-
-		if (rawWord.equals(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION)) {
-			digitSequence = seq.SPECIAL_CHAR_SEQUENCE;
-			loadSpecialCharacters();
-			result = true;
-		} else if (rawWord.equals(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION)) {
-			digitSequence = seq.CURRENCY_SEQUENCE;
-			loadSpecialCharacters();
-			result = true;
+		if (newSequence == null) {
+			return false;
 		}
 
+		reset();
+		digitSequence = newSequence;
+		loadSpecialCharacters();
 		onSuggestionsUpdated.run();
-		return result;
+		return true;
 	}
 
 	/**
