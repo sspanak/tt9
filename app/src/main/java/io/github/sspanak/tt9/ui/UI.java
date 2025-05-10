@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
+import android.os.Handler;
 import android.os.Looper;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -57,10 +58,7 @@ public class UI {
 
 
 	public static void toastFromAsync(Context context, CharSequence msg) {
-		if (Looper.myLooper() == null) {
-			Looper.prepare();
-		}
-		toast(context, msg);
+		new Handler(Looper.getMainLooper()).post(() -> toast(context, msg));
 	}
 
 
@@ -70,10 +68,7 @@ public class UI {
 
 
 	public static void toastFromAsync(Context context, int resourceId) {
-		if (Looper.myLooper() == null) {
-			Looper.prepare();
-		}
-		toast(context, resourceId);
+		new Handler(Looper.getMainLooper()).post(() -> toast(context, resourceId));
 	}
 
 
@@ -88,10 +83,7 @@ public class UI {
 
 
 	public static void toastLongFromAsync(Context context, CharSequence msg) {
-		if (Looper.myLooper() == null) {
-			Looper.prepare();
-		}
-		toastLong(context, msg);
+		new Handler(Looper.getMainLooper()).post(() -> toastLong(context, msg));
 	}
 
 
