@@ -49,7 +49,7 @@ public class RequestPermissionDialog extends AppCompatActivity {
 
 	private void reviveMain() {
 		Intent intent = new Intent(this, TraditionalT9.class);
-		intent.putExtra(PopupDialog.INTENT_CLOSE, "");
+		intent.putExtra(UI.COMMAND_WAKEUP_MAIN, UI.COMMAND_WAKEUP_MAIN);
 		startService(intent);
 	}
 

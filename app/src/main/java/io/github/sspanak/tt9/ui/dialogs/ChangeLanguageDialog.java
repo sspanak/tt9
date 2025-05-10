@@ -18,12 +18,11 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.LanguageRadioButton;
-import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class ChangeLanguageDialog extends ThemedPopupDialog {
+public class ChangeLanguageDialog extends PopupDialog {
 	private final ArrayList<Language> languages;
 	private final MainView mainView;
 	private final SettingsStore settings;
@@ -34,7 +33,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 
 
 	public ChangeLanguageDialog(@NonNull TraditionalT9 tt9, @Nullable ConsumerCompat<Integer> changeHandler) {
-		super(tt9, null, R.style.TTheme_AddWord);
+		super(tt9, R.style.TTheme_AddWord);
 
 		title = tt9.getResources().getString(R.string.language_popup_title);
 		OKLabel = null;
@@ -102,10 +101,7 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 	@Override
 	protected void close() {
 		detachRadioButtons();
-		if (popup != null) {
-			popup.dismiss();
-			popup = null;
-		}
+		super.close();
 	}
 
 
@@ -144,13 +140,6 @@ public class ChangeLanguageDialog extends ThemedPopupDialog {
 
 
 	public void show() {
-		popup = new PopupBuilder(context)
-			.setCancelable(true)
-			.setTitle(title)
-			.setMessage(message)
-			.setNegativeButton(true, this::close)
-			.setOnKeyListener(this)
-			.setView(generateRadioButtons())
-			.showFromIme(mainView);
+		render(null, this::close, generateRadioButtons());
 	}
 }
