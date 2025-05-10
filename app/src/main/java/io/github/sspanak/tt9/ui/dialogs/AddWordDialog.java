@@ -57,13 +57,13 @@ public class AddWordDialog extends ThemedPopupDialog {
 
 
 	@Override
-	void render() {
+	void show() {
 		if (message == null || word == null || word.isEmpty()) {
 			close();
 			return;
 		}
 
-		super.render(this::onOK);
+		super.show(this::onOK);
 	}
 
 
