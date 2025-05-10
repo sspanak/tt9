@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
-import io.github.sspanak.tt9.ui.dialogs.PopupDialog;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -111,15 +110,9 @@ public class TraditionalT9 extends MainViewHandler {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		int result = super.onStartCommand(intent, flags, startId);
 
-		String message = intent != null ? intent.getStringExtra(PopupDialog.INTENT_CLOSE) : null;
-		if (message == null) {
-			return result;
-		}
-
-		forceShowWindow();
-
-		if (!message.isEmpty()) {
-			UI.toastLong(this, message);
+		String wakeupCommand = intent != null ? intent.getStringExtra(UI.COMMAND_WAKEUP_MAIN) : null;
+		if (UI.COMMAND_WAKEUP_MAIN.equals(wakeupCommand)) {
+			forceShowWindow();
 		}
 
 		return result;

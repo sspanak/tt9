@@ -16,6 +16,7 @@ import java.util.HashMap;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 
 public class UI {
+	public static final String COMMAND_WAKEUP_MAIN = "tt9.command.wakeup";
 	private static final HashMap<String, Toast> singleToasts = new HashMap<>();
 
 
