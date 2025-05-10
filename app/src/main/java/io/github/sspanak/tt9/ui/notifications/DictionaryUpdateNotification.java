@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.ui.dialogs.AutoUpdateMonolog;
+import io.github.sspanak.tt9.ui.dialogs.AutoUpdateMonologActivity;
 
 public class DictionaryUpdateNotification extends DictionaryNotification {
 	private final Language language;
@@ -25,7 +25,7 @@ public class DictionaryUpdateNotification extends DictionaryNotification {
 
 	@Override
 	protected PendingIntent createNavigationIntent(@NonNull Context context, @Nullable Language language) {
-		Intent intent = AutoUpdateMonolog.generateShowIntent(context, language != null ? language.getId() : -1);
+		Intent intent = AutoUpdateMonologActivity.generateShowIntent(context, language != null ? language.getId() : -1);
 		return PendingIntent.getActivity(context, 0, intent,PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 	}
 
