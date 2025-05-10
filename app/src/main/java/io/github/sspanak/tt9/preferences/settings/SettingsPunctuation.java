@@ -82,18 +82,11 @@ class SettingsPunctuation extends SettingsInput {
 
 	@NonNull
 	public ArrayList<String> getOrderedKeyChars(Language language, int number) {
-		ArrayList<String> orderedChars = new ArrayList<>();
-		if (language == null) {
-			return orderedChars;
-		}
-
-		if (number == 0) {
-			orderedChars = getSpecialCharsAsList(language);
-		} else if (number == 1) {
-			orderedChars = getPunctuationAsList(language);
-		}
-
-		return orderedChars;
+		return switch (number) {
+			case 0 -> getSpecialCharsAsList(language);
+			case 1 -> getPunctuationAsList(language);
+			default -> language != null ? language.getKeyCharacters(number) : new ArrayList<>();
+		};
 	}
 
 
