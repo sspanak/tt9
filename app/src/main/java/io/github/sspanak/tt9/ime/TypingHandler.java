@@ -319,9 +319,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 	 * Since Japanese is unique with its 3 alphabets, we need to setup the input modes separately.
 	 */
 	private void determineJapaneseInputModes() {
-		allowedInputModes.add(InputMode.MODE_HIRAGANA);
-		allowedInputModes.add(InputMode.MODE_KATAKANA);
-		allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+		if (allowedInputModes.contains(InputMode.MODE_ABC)) {
+			allowedInputModes.remove((Integer) InputMode.MODE_ABC);
+			allowedInputModes.add(InputMode.MODE_HIRAGANA);
+			allowedInputModes.add(InputMode.MODE_KATAKANA);
+		}
 		if (!settings.getPredictiveMode()) {
 			allowedInputModes.remove((Integer) InputMode.MODE_PREDICTIVE);
 		}
