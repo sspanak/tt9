@@ -1,80 +1,81 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
-import android.content.Context;
-import android.content.Intent;
-import android.inputmethodservice.InputMethodService;
+import android.app.Dialog;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.db.entities.AddWordResult;
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.languages.LanguageCollection;
-import io.github.sspanak.tt9.util.ConsumerCompat;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.ui.PopupBuilder;
+import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.ui.main.MainView;
 
 public class AddWordDialog extends ThemedPopupDialog {
-	public static final String TYPE = "tt9.popup_dialog.add_word";
-	public static final String PARAMETER_LANGUAGE = "lang";
-	public static final String PARAMETER_WORD = "word";
+	@Nullable private final MainView mainView;
+	@NonNull private final Language language;
+	@NonNull private final SettingsStore settings;
+	@Nullable private final String word;
 
-	private Language language;
-	private String word;
+	private Dialog popup;
 
 
-	AddWordDialog(@NonNull Context context, @NonNull Intent intent, ConsumerCompat<String> activityFinisher) {
-		super(context, activityFinisher, R.style.TTheme_AddWord);
-		title = context.getResources().getString(R.string.add_word_title);
-		OKLabel = context.getResources().getString(R.string.add_word_add);
-		parseIntent(context, intent);
+	public AddWordDialog(@NonNull TraditionalT9 tt9, @NonNull Language language, @Nullable String word) {
+		super(tt9, null, R.style.TTheme_AddWord);
+		mainView = tt9.getMainView();
+
+		title = tt9.getResources().getString(R.string.add_word_title);
+		OKLabel = tt9.getResources().getString(R.string.add_word_add);
+		message = tt9.getString(R.string.add_word_confirm, word, language.getName());
+		settings = tt9.getSettings();
+
+		this.language = language;
+		this.word = word;
 	}
 
 
-	private void parseIntent(@NonNull Context context, @NonNull Intent intent) {
-		word = intent.getStringExtra(PARAMETER_WORD);
-
-		int languageId = intent.getIntExtra(PARAMETER_LANGUAGE, -1);
-		language = LanguageCollection.getLanguage(languageId);
-
-		if (language == null) {
-			message = context.getString(R.string.add_word_invalid_language_x, languageId);
-		} else {
-			message = context.getString(R.string.add_word_confirm, word, language.getName());
+	@Override
+	protected void close() {
+		if (popup != null) {
+			popup.dismiss();
+			popup = null;
 		}
 	}
 
 
 	private void onOK() {
-		if (language != null) {
-			DataStore.put(this::onAddingFinished, language, word);
-		}
-	}
-
-
-	private void onAddingFinished(AddWordResult addingResult) {
-		activityFinisher.accept(addingResult.toHumanFriendlyString(context));
+		close();
+		DataStore.put(
+			(result) -> UI.toastLongFromAsync(context, result.toHumanFriendlyString(context)),
+			language,
+			word
+		);
 	}
 
 
 	@Override
-	void show() {
-		if (message == null || word == null || word.isEmpty()) {
+	public void show() {
+		if (word == null || word.isEmpty()) {
+			UI.toastLong(context, R.string.add_word_no_selection);
 			close();
 			return;
 		}
 
-		super.show(this::onOK);
-	}
+		if (settings.getAddWordsNoConfirmation()) {
+			onOK();
+			return;
+		}
 
-
-	public static void show(InputMethodService ims, int language, String currentWord) {
-		Intent intent = new Intent(ims, PopupDialogActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-		intent.putExtra(PARAMETER_DIALOG_TYPE, TYPE);
-		intent.putExtra(PARAMETER_LANGUAGE, language);
-		intent.putExtra(PARAMETER_WORD, currentWord);
-		ims.startActivity(intent);
+		popup = new PopupBuilder(context)
+			.setCancelable(true)
+			.setTitle(title)
+			.setMessage(message)
+			.setPositiveButton(OKLabel, this::onOK)
+			.setNegativeButton(true, null)
+			.setOnKeyListener(this)
+			.showFromIme(mainView);
 	}
 }

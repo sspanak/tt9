@@ -12,7 +12,6 @@
 	<string name="add_word_no_selection">Перемістіть курсор у слово, щоб додати його.</string>
 	<string name="add_word_blank">Пусте слово не додано.</string>
 	<string name="add_word_exist">Слово \"%1$s\" вже існує у словнику.</string>
-	<string name="add_word_invalid_language_x">Не вдається додати слово. Невідома мова: \"%1$d\".</string>
 	<string name="add_word_success">\"%1$s\" додано.</string>
 	<string name="add_word_title">Додати слово</string>
 

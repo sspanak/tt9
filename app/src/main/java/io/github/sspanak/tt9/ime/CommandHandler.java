@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
@@ -112,14 +111,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		mainView.hideCommandPalette();
 		resetStatus();
 
-		String word = textField.getSurroundingWord(mLanguage);
-		if (word.isEmpty()) {
-			UI.toastLong(this, R.string.add_word_no_selection);
-		} else if (settings.getAddWordsNoConfirmation()) {
-			DataStore.put((res) -> UI.toastLongFromAsync(this, res.toHumanFriendlyString(this)), mLanguage, word);
-		} else {
-			AddWordDialog.show(this, mLanguage.getId(), word);
-		}
+		new AddWordDialog(getFinalContext(), mLanguage, textField.getSurroundingWord(mLanguage)).show();
 	}
 
 

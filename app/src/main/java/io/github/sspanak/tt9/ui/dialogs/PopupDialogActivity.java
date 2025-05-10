@@ -32,7 +32,6 @@ public class PopupDialogActivity extends AppCompatActivity {
 		popupType = popupType != null ? popupType : "";
 
 		return switch (popupType) {
-			case AddWordDialog.TYPE -> new AddWordDialog(this, i, this::onDialogClose);
 			case AutoUpdateMonolog.TYPE -> new AutoUpdateMonolog(this, i, this::onDialogClose);
 			default -> {
 				Logger.w(LOG_TAG, "Unknown popup type: '" + popupType + "'. Not displaying anything.");
