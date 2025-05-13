@@ -110,7 +110,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 			mainView.showCommandPalette();
 		}
 
-		Clipboard.setOnChangeListener(this, null);
+		Clipboard.clearListener(this);
 		resetStatus();
 		return true;
 	}

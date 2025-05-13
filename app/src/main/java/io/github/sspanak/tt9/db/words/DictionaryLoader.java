@@ -350,7 +350,12 @@ public class DictionaryLoader {
 		progressMsg.putLong("time", Timer.get(IMPORT_TIMER));
 		progressMsg.putInt("progress", Math.round(progress));
 		progressMsg.putInt("currentFile", currentFile);
-		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
+		asyncHandler.post(() -> {
+			onStatusChange.accept(progressMsg);
+			if (progress >= 100) {
+				onStatusChange = null;
+			}
+		});
 	}
 
 
@@ -363,7 +368,10 @@ public class DictionaryLoader {
 		Bundle errorMsg = new Bundle();
 		errorMsg.putString("error", message);
 		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
+		asyncHandler.post(() -> {
+			onStatusChange.accept(errorMsg);
+			onStatusChange = null;
+		});
 	}
 
 
@@ -377,7 +385,10 @@ public class DictionaryLoader {
 		errorMsg.putString("error", message);
 		errorMsg.putLong("fileLine", fileLine + 1);
 		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
+		asyncHandler.post(() -> {
+			onStatusChange.accept(errorMsg);
+			onStatusChange = null;
+		});
 	}
 
 

@@ -58,10 +58,7 @@ public class DictionaryDeleter extends BaseSyncStore {
 		}
 
 		deleteTask = null;
-
-		if (notification != null) {
-			notification.run();
-		}
+		onFinish();
 
 		Logger.d(LOG_TAG, "Deleted " + languages.size() + " languages. Time: " + Timer.stop(LOG_TAG) + " ms");
 	}
@@ -91,6 +88,7 @@ public class DictionaryDeleter extends BaseSyncStore {
 	private void onFinish() {
 		if (notification != null) {
 			notification.run();
+			notification = null;
 		}
 	}
 

@@ -65,6 +65,10 @@ public class Clipboard {
 		externalChangeListener = newListener;
 	}
 
+	public static void clearListener(Context context) {
+		setOnChangeListener(context, null);
+	}
+
 	private static void changeListener() {
 		if (ignoreNextChange) {
 			ignoreNextChange = false;
