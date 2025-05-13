@@ -50,7 +50,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 		return false;
 	}
 
-	protected Dialog render(Runnable onOK, Runnable onCancel, View customView) {
+	protected boolean render(Runnable onOK, Runnable onCancel, View customView) {
 		PopupBuilder popupBuilder = new PopupBuilder(context);
 		if (onOK != null) {
 			popupBuilder.setPositiveButton(OKLabel, onOK);
@@ -59,12 +59,14 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 			popupBuilder.setView(customView);
 		}
 
-		return popup = popupBuilder
+		popup = popupBuilder
 			.setCancelable(true)
 			.setTitle(title)
 			.setMessage(message)
 			.setNegativeButton(true, onCancel)
 			.setOnKeyListener(this)
 			.showFromIme(mainView);
+
+		return popup != null;
 	}
 }

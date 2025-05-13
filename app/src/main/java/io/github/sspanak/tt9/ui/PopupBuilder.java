@@ -132,6 +132,11 @@ public class PopupBuilder {
 			return null;
 		}
 
+		if (main.getView().getWindowToken() == null) {
+			Logger.d(LOG_TAG, "Not creating popup dialog, because the Main view has no token yet. Try again when it is shown to the user.");
+			return null;
+		}
+
 		Dialog dialog = DeviceInfo.AT_LEAST_ANDROID_12 ? builder12.create() : builderLegacy.create();
 
 		Window window = dialog.getWindow();

@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.view.KeyEvent;
 import android.view.View;
@@ -18,17 +17,14 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.LanguageRadioButton;
-import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class ChangeLanguageDialog extends PopupDialog {
 	private final ArrayList<Language> languages;
-	private final MainView mainView;
 	private final SettingsStore settings;
 
 	private final ConsumerCompat<Integer> onLanguageChanged;
-	private Dialog popup;
 	private final ArrayList<LanguageRadioButton> radioButtonsCache = new ArrayList<>();
 
 
@@ -38,7 +34,6 @@ public class ChangeLanguageDialog extends PopupDialog {
 		title = tt9.getResources().getString(R.string.language_popup_title);
 		OKLabel = null;
 
-		mainView = tt9.getMainView();
 		settings = tt9.getSettings();
 		languages = LanguageCollection.getAll(settings.getEnabledLanguageIds(), true);
 		onLanguageChanged = changeHandler;
@@ -139,7 +134,7 @@ public class ChangeLanguageDialog extends PopupDialog {
 	}
 
 
-	public void show() {
-		render(null, this::close, generateRadioButtons());
+	public boolean show() {
+		return render(null, this::close, generateRadioButtons());
 	}
 }

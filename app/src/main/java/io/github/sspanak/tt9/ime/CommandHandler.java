@@ -159,10 +159,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
-	protected void changeLang() {
+	protected boolean changeLang() {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
-		new ChangeLanguageDialog(getFinalContext(), this::setLang).show();
+		return new ChangeLanguageDialog(getFinalContext(), this::setLang).show();
 	}
 
 
