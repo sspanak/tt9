@@ -48,6 +48,13 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	}
 
 
+	public void clearAllHandlers() {
+		failureHandler = null;
+		progressHandler = null;
+		successHandler = null;
+	}
+
+
 	public void setProgressHandler(ConsumerCompat<Integer> handler) {
 		progressHandler = handler;
 	}
@@ -71,6 +78,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	protected void sendSuccess() {
 		if (successHandler != null) {
 			successHandler.accept(file.getName());
+			clearAllHandlers();
 		}
 	}
 
@@ -78,6 +86,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 	private void sendFailure(String errorMessage) {
 		if (failureHandler != null) {
 			failureHandler.accept(errorMessage);
+			clearAllHandlers();
 		}
 	}
 

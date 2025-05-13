@@ -22,6 +22,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
@@ -174,6 +175,7 @@ public class TraditionalT9 extends MainViewHandler {
 		stopVoiceInput();
 		onFinishTyping();
 		suggestionOps.clear();
+		Clipboard.clearListener(this);
 		statusBar.setText(mInputMode);
 
 		if (isInputViewShown()) {
