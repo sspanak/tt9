@@ -298,10 +298,8 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		if (settings.getQuickSwitchLanguage()) {
+		if (settings.getQuickSwitchLanguage() || !changeLang()) {
 			nextLang();
-		} else {
-			changeLang();
 		}
 
 		return true;
