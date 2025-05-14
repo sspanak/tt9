@@ -9,24 +9,24 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class PreferenceSentencePunctuationList extends AbstractPreferenceCharList {
+public class PreferenceChars1 extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_sentence";
 
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-	public PreferenceSentencePunctuationList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
-	public PreferenceSentencePunctuationList(@NonNull Context context) { super(context); }
+	public PreferenceChars1(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
+	public PreferenceChars1(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public PreferenceChars1(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
+	public PreferenceChars1(@NonNull Context context) { super(context); }
 
 	@Override
 	@NonNull
 	protected String getChars() {
-		return getSettings().getPunctuation(language);
+		return getSettings().getChars1(language);
 	}
 
 	@NonNull
 	@Override
 	protected char[] getForbiddenChars() {
-		return SettingsStore.FORBIDDEN_SPECIAL_CHARS;
+		return SettingsStore.FORBIDDEN_CHARS_0;
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 
 	@Override
 	protected String validateMandatoryChars() {
-		return super.validateMandatoryChars(getSettings().getMandatoryPunctuation(language));
+		return super.validateMandatoryChars(getSettings().getMandatoryChars0(language));
 	}
 
 	public boolean validateCurrentChars() {
@@ -62,6 +62,6 @@ public class PreferenceSentencePunctuationList extends AbstractPreferenceCharLis
 
 	@Override
 	public void saveCurrentChars() {
-		getSettings().savePunctuation(language, currentChars);
+		getSettings().saveChars1(language, currentChars);
 	}
 }
