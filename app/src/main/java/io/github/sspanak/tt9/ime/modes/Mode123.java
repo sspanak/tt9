@@ -55,7 +55,9 @@ class Mode123 extends ModePassthrough {
 	 */
 	private void setDefaultSpecialCharacters() {
 		Language english = LanguageCollection.getByLocale("en");
-		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
+		KEY_CHARACTERS.add(
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 0), null))
+		);
 		KEY_CHARACTERS.add(
 			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 1), null))
 		);

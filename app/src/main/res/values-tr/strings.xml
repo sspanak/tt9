@@ -201,8 +201,8 @@
 	<string name="punctuation_order_mandatory_char_missing">Zorunlu karakter eksik:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Zorunlu karakterler eksik:%1$s</string>
 	<string name="punctuation_order_save_error">Karakter sırası kaydedilemedi.</string>
-	<string name="punctuation_order_sentence">1 tuşunun karakter sırası</string>
-	<string name="punctuation_order_special">0 tuşunun karakter sırası</string>
+	<string name="punctuation_order_key_1">1 tuşunun karakter sırası</string>
+	<string name="punctuation_order_key_0">0 tuşunun karakter sırası</string>
 	<string name="restore_default_order">Varsayılan sırayı geri yükle</string>
 	<string name="language">Dil</string>
 	<string name="punctuation_order_save">Sıralamayı kaydet</string>

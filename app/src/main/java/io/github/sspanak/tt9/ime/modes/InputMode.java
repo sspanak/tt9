@@ -87,13 +87,12 @@ abstract public class InputMode {
 	public void onAcceptSuggestion(@NonNull String word, boolean preserveWordList) {}
 	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
 	public boolean onReplaceSuggestion(@NonNull String rawWord) {
-		String newSequence = switch(rawWord) {
-			case SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION -> seq.CHARS_GROUP_0_SEQUENCE;
-			case SuggestionsBar.SHOW_CURRENCIES_SUGGESTION -> seq.CURRENCY_SEQUENCE;
-			default -> null;
-		};
-
-		if (newSequence == null) {
+		String newSequence;
+		if (SuggestionsBar.SHOW_GROUP_0_SUGGESTION.equalsIgnoreCase(rawWord)) {
+			newSequence = seq.CHARS_GROUP_0_SEQUENCE;
+		} else if (SuggestionsBar.SHOW_GROUP_1_SUGGESTION.equalsIgnoreCase(rawWord)) {
+			newSequence = seq.CHARS_GROUP_1_SEQUENCE;
+		} else {
 			return false;
 		}
 
@@ -209,18 +208,6 @@ abstract public class InputMode {
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 
 
-	protected ArrayList<String> getAbbreviatedSpecialChars() {
-		ArrayList<String> special = Characters.getWhitespaces(language);
-		if (!Characters.getCurrencies(language).isEmpty()) {
-			special.add(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION);
-		}
-		if (!settings.getChars0(language).isEmpty()) {
-			special.add(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION);
-		}
-		return special;
-	}
-
-
 	/**
 	 * Loads the special characters for 0-key or 1-key. For 0-key, this could be a minimized (show more)
 	 * special character list, or the whitespace list.
@@ -228,12 +215,12 @@ abstract public class InputMode {
 	protected boolean loadSpecialCharacters() {
 		suggestions.clear();
 
-		if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 			suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
-		} else if (digitSequence.equals(seq.CURRENCY_SEQUENCE)) {
-			suggestions.addAll(Characters.getCurrencies(language));
-		} else {
-			suggestions.addAll(getAbbreviatedSpecialChars());
+		} else if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
+			suggestions.addAll(settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_0));
+		} else if (digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)) {
+			suggestions.addAll(settings.getCharsExtraAsList(language, SettingsStore.CHARS_GROUP_1));
 		}
 
 		return true;

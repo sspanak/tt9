@@ -3,6 +3,8 @@ package io.github.sspanak.tt9.preferences.screens.punctuation;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import java.util.ArrayList;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -14,8 +16,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
 	private ItemPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
-	private PreferenceChars0 charList0;
-	private PreferenceChars1 charList1;
+	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
 
 	public PunctuationScreen() { init(); }
 	public PunctuationScreen(PreferencesActivity activity) { init(activity); }
@@ -44,8 +45,11 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		charList0 = findPreference(PreferenceChars0.NAME);
-		charList1 = findPreference(PreferenceChars1.NAME);
+		charLists.add(findPreference(PreferenceChars0.NAME));
+		charLists.add(findPreference(PreferenceChars1.NAME));
+		for (int i = 0; i < PreferenceCharsExtra.NAMES.length; i++) {
+			charLists.add(findPreference(PreferenceCharsExtra.NAMES[i]));
+		}
 
 		initLanguageList();
 		initResetDefaults();
@@ -87,11 +91,15 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void onSaveOrdering() {
-		if (charList0 == null || !charList0.validateCurrentChars() || charList1 == null || !charList1.validateCurrentChars()) {
-			UI.toastShortSingle(activity, R.string.punctuation_order_save_error);
-		} else {
-			charList0.saveCurrentChars();
-			charList1.saveCurrentChars();
+		for (AbstractPreferenceCharList charList : charLists) {
+			if (charList == null || !charList.validateCurrentChars()) {
+				UI.toastShortSingle(activity, R.string.punctuation_order_save_error);
+				return;
+			}
+		}
+
+		for (AbstractPreferenceCharList charList : charLists) {
+			charList.saveCurrentChars();
 		}
 	}
 
@@ -101,30 +109,23 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		restoreDefaults.setLanguage(language);
 
-		if (charList0 != null) {
-			charList0.onLanguageChange(language);
-		}
-
-		if (charList1 != null) {
-			charList1.onLanguageChange(language);
+		for (AbstractPreferenceCharList list : charLists) {
+			if (list != null) {
+				list.onLanguageChange(language);
+			}
 		}
 	}
 
 
 	private void loadCharLists() {
-		loadCharList(findPreference(PreferenceChars0.NAME));
-		loadCharList(findPreference(PreferenceChars1.NAME));
-	}
-
-
-	private void loadCharList(AbstractPreferenceCharList list) {
-		if (list == null) {
-			return;
+		for (AbstractPreferenceCharList list : charLists) {
+			if (list == null) {
+				continue;
+			}
+			list.setOnRender(() -> {
+				list.setOnRender(null);
+				onLanguageChanged(languageList.getValue());
+			});
 		}
-
-		list.setOnRender(() -> {
-			list.setOnRender(null);
-			onLanguageChanged(languageList.getValue());
-		});
 	}
 }

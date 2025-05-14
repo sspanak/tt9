@@ -46,7 +46,7 @@ public class ModeBopomofo extends ModePinyin {
 	 */
 	protected void setCustomSpecialCharacters() {
 		// special
-		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
+		KEY_CHARACTERS.add(TextTools.removeLettersFromList(Characters.orderByList(Characters.Special, settings.getOrderedKeyChars(language, 0), false)));
 		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation
@@ -72,7 +72,7 @@ public class ModeBopomofo extends ModePinyin {
 	protected void onNumberPress(int nextNumber) {
 		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
+		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CHARS_GROUP_1_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
 		}
 	}

@@ -87,8 +87,6 @@ class ModeABC extends InputMode {
 		if (isEmailMode) {
 			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(language, 0), true));
 			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(language, 1), true));
-		} else {
-			KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
 		}
 
 		refreshSuggestions();

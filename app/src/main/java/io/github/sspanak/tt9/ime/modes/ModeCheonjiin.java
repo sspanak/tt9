@@ -62,12 +62,12 @@ class ModeCheonjiin extends InputMode {
 	 */
 	protected void setCustomSpecialCharacters() {
 		// special
-		KEY_CHARACTERS.add(getAbbreviatedSpecialChars());
+		KEY_CHARACTERS.add(TextTools.removeLettersFromList(settings.getOrderedKeyChars(language, 0)));
 		KEY_CHARACTERS.get(0).add(0, "0");
 
 		// punctuation
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(Characters.orderByList(Characters.PunctuationKorean, settings.getOrderedKeyChars(language, 1), false))
+			TextTools.removeLettersFromList(settings.getOrderedKeyChars(language, 1))
 		);
 	}
 
@@ -99,11 +99,11 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)) {
+			digitSequence = seq.CHARS_1_SEQUENCE;
+		} else if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
 			digitSequence = seq.CHARS_0_SEQUENCE;
-		} else if (digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
-			digitSequence = "";
-		} else if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || (!digitSequence.startsWith(seq.CHARS_1_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
+		} else if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE) || (!digitSequence.startsWith(seq.CHARS_1_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
 			digitSequence = "";
 		} else if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
@@ -152,7 +152,7 @@ class ModeCheonjiin extends InputMode {
 
 		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
+		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CHARS_GROUP_1_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
 		}
 
@@ -269,7 +269,7 @@ class ModeCheonjiin extends InputMode {
 		return
 			digitSequence.equals(seq.CHARS_1_SEQUENCE)
 			|| digitSequence.equals(seq.CHARS_0_SEQUENCE)
-			|| digitSequence.equals(seq.CURRENCY_SEQUENCE)
+			|| digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)
 			|| digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE);
 	}
 
