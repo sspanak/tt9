@@ -185,6 +185,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		validateLanguages();
 
 		detectRTL();
+		settings.setDefaultCharOrder(mLanguage, false);
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		if (mInputMode.changeLanguage(mLanguage)) {
