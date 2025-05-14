@@ -38,6 +38,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 		resetIconCache();
 		setEnabled(
 			tt9 != null
+			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
 			&& !tt9.isVoiceInputActive()
 			&& !tt9.isInputModePhone()
 			&& !tt9.isNumericModeSigned()
