@@ -8,11 +8,18 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class SettingsPunctuation extends SettingsInput {
 	private final static String CHARS_1_PREFIX = "pref_punctuation_";
+	public final static String CHARS_GROUP_1 = "punctuation_order_key_1_group";
+	public final static String CHARS_AFTER_GROUP_1 = "punctuation_order_key_1_after_group";
+
 	private final static String CHARS_0_PREFIX = "pref_special_chars_";
+	public final static String CHARS_GROUP_0 = "punctuation_order_key_0_group";
+	public final static String CHARS_AFTER_GROUP_0 = "punctuation_order_key_0_after_group";
+
 	private final static char[] MANDATORY_CHARS_1_EU = new char[] {'\'', '"', '-'};
 	public final static char[] FORBIDDEN_CHARS_0 = new char[] {' ', '\n', '\t'};
 
@@ -27,17 +34,23 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	public void saveChars1(@NonNull Language language, @NonNull String punctuation) {
-		prefsEditor.putString(CHARS_1_PREFIX + language.getId(), punctuation);
+	public void saveChars1(@NonNull Language language, @NonNull String chars) {
+		prefsEditor.putString(CHARS_1_PREFIX + language.getId(), chars);
 		prefsEditor.apply();
 	}
 
 
-	public void saveChars0(@NonNull Language language, @NonNull String specialChars) {
-		String safeChars = specialChars
+	public void saveChars0(@NonNull Language language, @NonNull String chars) {
+		String safeChars = chars
 			.replace("\n", "⏎")
 			.replace("\t", Characters.TAB);
 		prefsEditor.putString(CHARS_0_PREFIX + language.getId(), safeChars);
+		prefsEditor.apply();
+	}
+
+
+	public void saveCharsExtra(@NonNull Language language, @NonNull String listKey, @NonNull String chars) {
+		prefsEditor.putString(listKey + "_" + language.getId(), chars);
 		prefsEditor.apply();
 	}
 
@@ -49,6 +62,11 @@ class SettingsPunctuation extends SettingsInput {
 
 	@NonNull public String getChars0(Language language) {
 		return String.join("", getChars0AsList(language));
+	}
+
+
+	@NonNull public String getCharsExtra(Language language, String listKey) {
+		return prefs.getString(listKey + "_" + language.getId(), "");
 	}
 
 
@@ -80,13 +98,40 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
+	public ArrayList<String> getCharsExtraAsList(Language language, String listKey) {
+		return getCharsAsList(getCharsExtra(language, listKey), new ArrayList<>());
+	}
+
+
 	@NonNull
 	public ArrayList<String> getOrderedKeyChars(Language language, int number) {
-		return switch (number) {
-			case 0 -> getChars0AsList(language);
-			case 1 -> getChars1AsList(language);
-			default -> language != null ? language.getKeyCharacters(number) : new ArrayList<>();
-		};
+		if (language == null) {
+			return new ArrayList<>();
+		}
+
+		ArrayList<String> chars;
+
+		switch (number) {
+			case 0 -> {
+				chars = getChars0AsList(language);
+				if (!getCharsExtra(language, CHARS_GROUP_0).isEmpty()) {
+					chars.add(SuggestionsBar.SHOW_GROUP_0_SUGGESTION);
+				}
+				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_0));
+			}
+			case 1 -> {
+				chars = getChars1AsList(language);
+				if (!getCharsExtra(language, CHARS_GROUP_1).isEmpty()) {
+					chars.add(SuggestionsBar.SHOW_GROUP_1_SUGGESTION);
+				}
+				chars.addAll(getCharsExtraAsList(language, CHARS_AFTER_GROUP_1));
+			}
+			default -> {
+				return language.getKeyCharacters(number);
+			}
+		}
+
+		return chars;
 	}
 
 

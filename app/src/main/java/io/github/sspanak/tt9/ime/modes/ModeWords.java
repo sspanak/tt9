@@ -47,10 +47,7 @@ class ModeWords extends ModeCheonjiin {
 		determineTextFieldTextCase();
 	}
 
-
-	@Override protected void setCustomSpecialCharacters() {
-		KEY_CHARACTERS.add(getAbbreviatedSpecialChars()); // special
-	}
+	@Override protected void setCustomSpecialCharacters() {} // use defaults
 
 
 	@Override
@@ -69,7 +66,9 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)) {
+			digitSequence = seq.CHARS_1_SEQUENCE;
+		} else if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
 			digitSequence = seq.CHARS_0_SEQUENCE;
 		} else {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
@@ -404,7 +403,7 @@ class ModeWords extends ModeCheonjiin {
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		boolean specialOrCurrency = digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CURRENCY_SEQUENCE);
+		boolean specialOrCurrency = digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE);
 		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.CHARS_0_SEQUENCE) && !stem.isEmpty();
 		if (nextKey == Sequences.CHARS_0_KEY && (isWhitespaceAndScrolled || specialOrCurrency)) {
 			return true;

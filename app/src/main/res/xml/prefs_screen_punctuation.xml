@@ -5,20 +5,45 @@
 		android:key="punctuation_order_language"
 		android:title="@string/language" />
 
-	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars1
-		android:key="punctuation_order_sentence"
-		android:title="@string/punctuation_order_sentence" />
+	<PreferenceCategory
+		android:title="@string/punctuation_order_key_1">
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars1
+			android:key="punctuation_order_sentence"
+			android:title="@string/punctuation_order_initial" />
 
-	<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars0
-		android:key="punctuation_order_special_chars"
-		android:title="@string/punctuation_order_special"/>
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceCharsExtra
+			android:key="punctuation_order_key_1_group"
+			android:title="@string/punctuation_order_group"/>
 
-	<Preference
-		android:key="punctuation_order_reset_defaults"
-		android:title="@string/restore_default_order" />
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceCharsExtra
+			android:key="punctuation_order_key_1_after_group"
+			android:title="@string/punctuation_order_after_group"/>
+	</PreferenceCategory>
 
-	<Preference
-		android:key="punctuation_order_save"
-		android:title="@string/punctuation_order_save" />
+
+	<PreferenceCategory
+		android:title="@string/punctuation_order_key_0">
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars0
+			android:key="punctuation_order_special_chars"
+			android:title="@string/punctuation_order_initial"/>
+
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceCharsExtra
+			android:key="punctuation_order_key_0_group"
+			android:title="@string/punctuation_order_group"/>
+
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceCharsExtra
+			android:key="punctuation_order_key_0_after_group"
+			android:title="@string/punctuation_order_after_group"/>
+	</PreferenceCategory>
+
+	<PreferenceCategory>
+		<Preference
+			android:key="punctuation_order_reset_defaults"
+			android:title="@string/restore_default_order" />
+
+		<Preference
+			android:key="punctuation_order_save"
+			android:title="@string/punctuation_order_save" />
+	</PreferenceCategory>
 
 </PreferenceScreen>
