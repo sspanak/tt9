@@ -25,7 +25,8 @@
 		android:title="@string/punctuation_order_key_0">
 		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars0
 			android:key="punctuation_order_special_chars"
-			android:title="@string/punctuation_order_initial"/>
+			android:title="@string/punctuation_order_initial"
+			android:summary="@string/punctuation_order_whitespace_will_be_added_automatically" />
 
 		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceCharsExtra
 			android:key="punctuation_order_key_0_group"
