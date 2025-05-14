@@ -99,11 +99,11 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE)) {
-			digitSequence = seq.WHITESPACE_SEQUENCE;
-		} else if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
+			digitSequence = seq.CHARS_0_SEQUENCE;
+		} else if (digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 			digitSequence = "";
-		} else if (digitSequence.equals(seq.WHITESPACE_SEQUENCE) || (!digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
+		} else if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || (!digitSequence.startsWith(seq.CHARS_1_SEQUENCE) && Cheonjiin.isSingleJamo(digitSequence))) {
 			digitSequence = "";
 		} else if (!digitSequence.isEmpty()) {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
@@ -133,10 +133,10 @@ class ModeCheonjiin extends InputMode {
 	protected void onNumberHold(int number) {
 		if (number == 0) {
 			disablePredictions = false;
-			digitSequence = seq.WHITESPACE_SEQUENCE;
+			digitSequence = seq.CHARS_0_SEQUENCE;
 		} else if (number == 1) {
 			disablePredictions = false;
-			digitSequence = seq.PUNCTUATION_SEQUENCE;
+			digitSequence = seq.CHARS_1_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
 			suggestions.add(language.getKeyNumeral(number));
@@ -152,7 +152,7 @@ class ModeCheonjiin extends InputMode {
 
 		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else if (!seq.SPECIAL_CHAR_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
+		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
 		}
 
@@ -252,7 +252,7 @@ class ModeCheonjiin extends InputMode {
 			return false;
 		}
 
-		if (digitSequence.equals(seq.WHITESPACE_SEQUENCE) || digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 			int number = digitSequence.isEmpty() ? Integer.MAX_VALUE : digitSequence.charAt(digitSequence.length() - 1) - '0';
 			if (KEY_CHARACTERS.size() > number) {
 				suggestions.clear();
@@ -267,10 +267,10 @@ class ModeCheonjiin extends InputMode {
 
 	protected boolean shouldDisplaySpecialCharacters() {
 		return
-			digitSequence.equals(seq.PUNCTUATION_SEQUENCE)
-			|| digitSequence.equals(seq.WHITESPACE_SEQUENCE)
+			digitSequence.equals(seq.CHARS_1_SEQUENCE)
+			|| digitSequence.equals(seq.CHARS_0_SEQUENCE)
 			|| digitSequence.equals(seq.CURRENCY_SEQUENCE)
-			|| digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE);
+			|| digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE);
 	}
 
 
@@ -336,8 +336,8 @@ class ModeCheonjiin extends InputMode {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		return
 			(hold && !digitSequence.isEmpty())
-			|| (nextKey != Sequences.SPECIAL_CHAR_KEY && digitSequence.startsWith(seq.WHITESPACE_SEQUENCE))
-			|| (nextKey != Sequences.PUNCTUATION_KEY && digitSequence.startsWith(seq.PUNCTUATION_SEQUENCE));
+			|| (nextKey != Sequences.CHARS_0_KEY && digitSequence.startsWith(seq.CHARS_0_SEQUENCE))
+			|| (nextKey != Sequences.CHARS_1_KEY && digitSequence.startsWith(seq.CHARS_1_SEQUENCE));
 	}
 
 
