@@ -211,8 +211,11 @@
 	<string name="punctuation_order_forbidden_chars">Forbidden characters:%1$s</string>
 	<string name="punctuation_order_save">Save Order</string>
 	<string name="punctuation_order_save_error">Failed saving the character order.</string>
-	<string name="punctuation_order_sentence">1-key Character Order</string>
-	<string name="punctuation_order_special">0-key Character Order</string>
+	<string name="punctuation_order_key_1">1-key Character Order</string>
+	<string name="punctuation_order_key_0">0-key Character Order</string>
+	<string name="punctuation_order_initial">Initial characters</string>
+	<string name="punctuation_order_group">Grouped characters (optional)</string>
+	<string name="punctuation_order_after_group">After the group (optional)</string>
 
 	<string name="setup_keyboard_status">Status</string>
 	<string name="setup_default_keyboard">Select Default Keyboard</string>

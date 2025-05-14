@@ -27,8 +27,8 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SuggestionsBar {
-	public static final String SHOW_SPECIAL_CHARS_SUGGESTION = "#%…";
-	public static final String SHOW_CURRENCIES_SUGGESTION = "$€…";
+	public static final String SHOW_GROUP_0_SUGGESTION = "(…\u200A)";
+	public static final String SHOW_GROUP_1_SUGGESTION = "(…\u200B)";
 
 	private final String SHOW_MORE_SUGGESTION = "(...)";
 	private final String STEM_SUFFIX = "… +";
@@ -146,7 +146,7 @@ public class SuggestionsBar {
 		String suggestion = getRaw(id);
 
 		// show more...
-		if (suggestion.equals(SHOW_MORE_SUGGESTION) || suggestion.equals(SHOW_CURRENCIES_SUGGESTION) || suggestion.equals(SHOW_SPECIAL_CHARS_SUGGESTION)) {
+		if (suggestion.equals(SHOW_MORE_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_1_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_0_SUGGESTION)) {
 			return Characters.PLACEHOLDER;
 		}
 
