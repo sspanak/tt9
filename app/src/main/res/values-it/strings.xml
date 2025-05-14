@@ -183,6 +183,7 @@
 	<string name="pref_category_punctuation_order">Ordine di punteggiatura</string>
 	<string name="language_popup_title">Seleziona la lingua</string>
 	<string name="punctuation_order_cannot_be_empty">L\'elenco non può essere vuoto.</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">I caratteri Spazio e Nuova linea verranno automaticamente aggiunti all\'inizio dell\'elenco.</string>
 	<string name="punctuation_order_mandatory_char_missing">Carattere obbligatorio mancante:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Caratteri obbligatori mancanti:%1$s</string>
 	<string name="punctuation_order_save_error">Salvataggio dell’ordine dei caratteri non riuscito.</string>

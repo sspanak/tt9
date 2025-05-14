@@ -43,7 +43,7 @@ public class PreferenceChars0 extends AbstractPreferenceCharList {
 	@NonNull
 	@Override
 	protected char[] getMandatoryChars() {
-		return new char[0];
+		return SettingsStore.FORBIDDEN_CHARS_0;
 	}
 
 
