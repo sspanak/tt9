@@ -74,7 +74,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 		}
 
 		if (isVoiceInputActive() || (isTextEditingMissing() && !isVoiceInputMissing())) {
-			return R.drawable.ic_fn_voice;
+			return R.drawable.ic_fn_voice_off;
 		}
 
 		return -1;

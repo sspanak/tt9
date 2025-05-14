@@ -78,6 +78,14 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return mInputMode.supportsFiltering();
 	}
 
+	public boolean isFilteringFuzzy() {
+		return mInputMode.isStemFilterFuzzy();
+	}
+
+	public boolean isFilteringOn() {
+		String stem = mInputMode.getWordStem();
+		return stem != null && !stem.isEmpty();
+	}
 
 	public boolean isInputLimited() {
 		return inputType.isLimited();
