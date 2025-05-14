@@ -119,6 +119,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
+			mainView.render();
 			return false;
 		}
 
@@ -150,6 +151,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 			statusBar.setText(mInputMode);
 		}
+
+		mainView.render();
 
 		return true;
 	}

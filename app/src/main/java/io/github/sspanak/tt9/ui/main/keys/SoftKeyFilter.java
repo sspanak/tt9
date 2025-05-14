@@ -27,11 +27,21 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 			&& tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
 	}
 
-	@Override protected int getCentralIcon() { return R.drawable.ic_fn_filter; }
-	@Override protected int getHoldIcon() { return R.drawable.ic_fn_filter_off; }
+	@Override protected int getCentralIcon() {
+		if (tt9 != null) {
+			if (tt9.isFilteringFuzzy()) return R.drawable.ic_fn_filter_fuzzy;
+			if (tt9.isFilteringOn()) return R.drawable.ic_fn_filter_exact;
+		}
+		return R.drawable.ic_fn_filter;
+	}
+
+	@Override protected int getHoldIcon() {
+		return R.drawable.ic_fn_filter_off;
+	}
 
 	@Override
 	public void render() {
+		resetIconCache();
 		if (tt9 != null) {
 			setEnabled(
 				tt9.isFilteringSupported()
