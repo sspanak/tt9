@@ -14,8 +14,8 @@ public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
 	private ItemPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
-	private PreferenceSpecialCharList specialCharList;
-	private PreferenceSentencePunctuationList punctuationList;
+	private PreferenceChars0 charList0;
+	private PreferenceChars1 charList1;
 
 	public PunctuationScreen() { init(); }
 	public PunctuationScreen(PreferencesActivity activity) { init(activity); }
@@ -44,8 +44,8 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		specialCharList = findPreference(PreferenceSpecialCharList.NAME);
-		punctuationList = findPreference(PreferenceSentencePunctuationList.NAME);
+		charList0 = findPreference(PreferenceChars0.NAME);
+		charList1 = findPreference(PreferenceChars1.NAME);
 
 		initLanguageList();
 		initResetDefaults();
@@ -87,11 +87,11 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	private void onSaveOrdering() {
-		if (specialCharList == null || !specialCharList.validateCurrentChars() || punctuationList == null || !punctuationList.validateCurrentChars()) {
+		if (charList0 == null || !charList0.validateCurrentChars() || charList1 == null || !charList1.validateCurrentChars()) {
 			UI.toastShortSingle(activity, R.string.punctuation_order_save_error);
 		} else {
-			specialCharList.saveCurrentChars();
-			punctuationList.saveCurrentChars();
+			charList0.saveCurrentChars();
+			charList1.saveCurrentChars();
 		}
 	}
 
@@ -101,19 +101,19 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		restoreDefaults.setLanguage(language);
 
-		if (specialCharList != null) {
-			specialCharList.onLanguageChange(language);
+		if (charList0 != null) {
+			charList0.onLanguageChange(language);
 		}
 
-		if (punctuationList != null) {
-			punctuationList.onLanguageChange(language);
+		if (charList1 != null) {
+			charList1.onLanguageChange(language);
 		}
 	}
 
 
 	private void loadCharLists() {
-		loadCharList(findPreference(PreferenceSpecialCharList.NAME));
-		loadCharList(findPreference(PreferenceSentencePunctuationList.NAME));
+		loadCharList(findPreference(PreferenceChars0.NAME));
+		loadCharList(findPreference(PreferenceChars1.NAME));
 	}
 
 

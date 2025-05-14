@@ -32,12 +32,12 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 			return false;
 		}
 
-		settings.saveSpecialChars(
+		settings.saveChars0(
 			language,
 			String.join("", language.getKeyCharacters(0))
 		);
 
-		settings.savePunctuation(
+		settings.saveChars1(
 			language,
 			String.join("", language.getKeyCharacters(1))
 		);

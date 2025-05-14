@@ -126,7 +126,7 @@ public class ModeIdeograms extends ModeWords {
 		boolean lastDigitBelongsToNewWord = preserveWords && initialLength >= 2;
 
 		try {
-			if (!digitSequence.equals(seq.WHITESPACE_SEQUENCE) && !digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+			if (!digitSequence.equals(seq.CHARS_0_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 				lastAcceptedWord = currentWord;
 				lastAcceptedSequence = lastDigitBelongsToNewWord ? digitSequence.substring(0, initialLength - 1) : digitSequence;
 
@@ -153,8 +153,8 @@ public class ModeIdeograms extends ModeWords {
 			digitSequence.length() > 1
 			&& predictions.noDbWords()
 			&& !digitSequence.equals(seq.EMOJI_SEQUENCE)
-			&& !digitSequence.equals(seq.PUNCTUATION_SEQUENCE)
-			&& !digitSequence.equals(seq.WHITESPACE_SEQUENCE);
+			&& !digitSequence.equals(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.equals(seq.CHARS_0_SEQUENCE);
 	}
 
 
@@ -174,7 +174,7 @@ public class ModeIdeograms extends ModeWords {
 			TextTools.containsOtherThan1(nextSequence)
 			&& (
 				nextSequence.endsWith(seq.EMOJI_SEQUENCE) || nextSequence.startsWith(seq.EMOJI_SEQUENCE) ||
-				nextSequence.endsWith(seq.PUNCTUATION_SEQUENCE) || nextSequence.startsWith(seq.PUNCTUATION_SEQUENCE)
+				nextSequence.endsWith(seq.CHARS_1_SEQUENCE) || nextSequence.startsWith(seq.CHARS_1_SEQUENCE)
 			);
 	}
 

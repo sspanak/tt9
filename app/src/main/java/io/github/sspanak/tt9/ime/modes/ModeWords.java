@@ -69,8 +69,8 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE)) {
-			digitSequence = seq.WHITESPACE_SEQUENCE;
+		if (digitSequence.equals(seq.CURRENCY_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE)) {
+			digitSequence = seq.CHARS_0_SEQUENCE;
 		} else {
 			digitSequence = digitSequence.substring(0, digitSequence.length() - 1);
 		}
@@ -218,7 +218,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		try {
-			digitSequence = Characters.getWhitespaces(language).contains(newStem) ? seq.WHITESPACE_SEQUENCE : language.getDigitSequenceForWord(newStem);
+			digitSequence = Characters.getWhitespaces(language).contains(newStem) ? seq.CHARS_0_SEQUENCE : language.getDigitSequenceForWord(newStem);
 			isStemFuzzy = !exact;
 			stem = newStem.toLowerCase(language.getLocale());
 
@@ -404,16 +404,16 @@ class ModeWords extends ModeCheonjiin {
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		boolean specialOrCurrency = digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(seq.CURRENCY_SEQUENCE);
-		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.WHITESPACE_SEQUENCE) && !stem.isEmpty();
-		if (nextKey == Sequences.SPECIAL_CHAR_KEY && (isWhitespaceAndScrolled || specialOrCurrency)) {
+		boolean specialOrCurrency = digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CURRENCY_SEQUENCE);
+		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.CHARS_0_SEQUENCE) && !stem.isEmpty();
+		if (nextKey == Sequences.CHARS_0_KEY && (isWhitespaceAndScrolled || specialOrCurrency)) {
 			return true;
 		}
 
 		return
 			!digitSequence.isEmpty() && (
-				(nextKey == Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) != Sequences.SPECIAL_CHAR_CODE)
-				|| (nextKey != Sequences.SPECIAL_CHAR_KEY && digitSequence.charAt(digitSequence.length() - 1) == Sequences.SPECIAL_CHAR_CODE)
+				(nextKey == Sequences.CHARS_0_KEY && digitSequence.charAt(digitSequence.length() - 1) != Sequences.CHARS_0_CODE)
+				|| (nextKey != Sequences.CHARS_0_KEY && digitSequence.charAt(digitSequence.length() - 1) == Sequences.CHARS_0_CODE)
 			);
 	}
 
@@ -437,7 +437,7 @@ class ModeWords extends ModeCheonjiin {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(seq.PUNCTUATION_SEQUENCE)
+			&& digitSequence.contains(seq.CHARS_1_SEQUENCE)
 			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE)
 			&& Text.containsOtherThan1(digitSequence);
 	}

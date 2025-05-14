@@ -8,20 +8,20 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
+public class PreferenceChars0 extends AbstractPreferenceCharList {
 	public static final String NAME = "punctuation_order_special_chars";
 	private char[] forbiddenChars;
 
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-	public PreferenceSpecialCharList(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
-	public PreferenceSpecialCharList(@NonNull Context context) { super(context); }
+	public PreferenceChars0(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
+	public PreferenceChars0(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public PreferenceChars0(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
+	public PreferenceChars0(@NonNull Context context) { super(context); }
 
 
 	@Override
 	@NonNull
 	protected String getChars() {
-		return getSettings().getSpecialChars(language);
+		return getSettings().getChars0(language);
 	}
 
 
@@ -29,11 +29,11 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 	@Override
 	protected char[] getForbiddenChars() {
 		if (forbiddenChars == null) {
-			char[] mandatoryChars = getSettings().getMandatoryPunctuation(language);
+			char[] mandatoryChars = getSettings().getMandatoryChars0(language);
 
-			forbiddenChars = new char[mandatoryChars.length + SettingsStore.FORBIDDEN_SPECIAL_CHARS.length];
+			forbiddenChars = new char[mandatoryChars.length + SettingsStore.FORBIDDEN_CHARS_0.length];
 			System.arraycopy(mandatoryChars, 0, forbiddenChars, 0, mandatoryChars.length);
-			System.arraycopy(SettingsStore.FORBIDDEN_SPECIAL_CHARS, 0, forbiddenChars, mandatoryChars.length, SettingsStore.FORBIDDEN_SPECIAL_CHARS.length);
+			System.arraycopy(SettingsStore.FORBIDDEN_CHARS_0, 0, forbiddenChars, mandatoryChars.length, SettingsStore.FORBIDDEN_CHARS_0.length);
 		}
 
 		return forbiddenChars;
@@ -68,6 +68,6 @@ public class PreferenceSpecialCharList extends AbstractPreferenceCharList {
 		}
 		all.append(currentChars);
 
-		getSettings().saveSpecialChars(language, all.toString());
+		getSettings().saveChars0(language, all.toString());
 	}
 }

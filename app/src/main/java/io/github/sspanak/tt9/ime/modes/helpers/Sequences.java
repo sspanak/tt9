@@ -4,40 +4,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Sequences {
-	public static final int SPECIAL_CHAR_KEY = 0;
-	public static final int SPECIAL_CHAR_CODE = SPECIAL_CHAR_KEY + '0';
-	public static final int PUNCTUATION_KEY = 1;
+	public static final int CHARS_0_KEY = 0;
+	public static final int CHARS_0_CODE = CHARS_0_KEY + '0';
+	public static final int CHARS_1_KEY = 1;
 	public static final int CUSTOM_EMOJI_KEY = 3;
 
 	public final int PUNCTUATION_PREFIX_LENGTH;
 
-	@NonNull public final String PUNCTUATION_SEQUENCE;
+	@NonNull public final String CHARS_1_SEQUENCE;
 	@NonNull public final String EMOJI_SEQUENCE;
 	@NonNull public final String CUSTOM_EMOJI_SEQUENCE;
 
 	@NonNull public final String CURRENCY_SEQUENCE;
 	@NonNull public final String PREFERRED_CHAR_SEQUENCE;
-	@NonNull public final String SPECIAL_CHAR_SEQUENCE;
-	@NonNull public final String WHITESPACE_SEQUENCE;
+	@NonNull public final String CHARS_GROUP_0_SEQUENCE;
+	@NonNull public final String CHARS_0_SEQUENCE;
 
 	public Sequences() {
 		this(null, null);
 	}
 
-	public Sequences(@Nullable String punctuationPrefix, @Nullable String specialCharPrefix) {
-		final String PUNCTUATION_PREFIX = punctuationPrefix != null ? punctuationPrefix : "";
-		final String SPECIAL_CHAR_PREFIX = specialCharPrefix != null ? specialCharPrefix : "";
+	public Sequences(@Nullable String chars1Prefix, @Nullable String chars0Prefix) {
+		final String CHARS_1_PREFIX = chars1Prefix != null ? chars1Prefix : "";
+		final String CHARS_0_PREFIX = chars0Prefix != null ? chars0Prefix : "";
 
-		PUNCTUATION_SEQUENCE = PUNCTUATION_PREFIX + PUNCTUATION_KEY;
-		PUNCTUATION_PREFIX_LENGTH = PUNCTUATION_PREFIX.length();
+		CHARS_1_SEQUENCE = CHARS_1_PREFIX + CHARS_1_KEY;
+		PUNCTUATION_PREFIX_LENGTH = CHARS_1_PREFIX.length();
 
-		EMOJI_SEQUENCE = PUNCTUATION_SEQUENCE + PUNCTUATION_KEY;
+		EMOJI_SEQUENCE = CHARS_1_SEQUENCE + CHARS_1_KEY;
 		CUSTOM_EMOJI_SEQUENCE = EMOJI_SEQUENCE + CUSTOM_EMOJI_KEY;
 
-		WHITESPACE_SEQUENCE = SPECIAL_CHAR_PREFIX + SPECIAL_CHAR_KEY;
-		PREFERRED_CHAR_SEQUENCE = WHITESPACE_SEQUENCE + SPECIAL_CHAR_KEY;
-		SPECIAL_CHAR_SEQUENCE = SPECIAL_CHAR_PREFIX + SPECIAL_CHAR_KEY + SPECIAL_CHAR_KEY + SPECIAL_CHAR_KEY;
-		CURRENCY_SEQUENCE = SPECIAL_CHAR_SEQUENCE + SPECIAL_CHAR_KEY;
+		CHARS_0_SEQUENCE = CHARS_0_PREFIX + CHARS_0_KEY;
+		PREFERRED_CHAR_SEQUENCE = CHARS_0_SEQUENCE + CHARS_0_KEY;
+		CHARS_GROUP_0_SEQUENCE = CHARS_0_PREFIX + CHARS_0_KEY + CHARS_0_KEY + CHARS_0_KEY;
+		CURRENCY_SEQUENCE = CHARS_GROUP_0_SEQUENCE + CHARS_0_KEY;
 	}
 
 	public boolean startsWithEmojiSequence(String sequence) {
@@ -52,11 +52,11 @@ public class Sequences {
 		}
 
 		return
-			sequence.equals(PUNCTUATION_SEQUENCE)
-			|| sequence.equals(WHITESPACE_SEQUENCE)
+			sequence.equals(CHARS_1_SEQUENCE)
+			|| sequence.equals(CHARS_0_SEQUENCE)
 			|| sequence.equals(EMOJI_SEQUENCE)
 			|| sequence.equals(PREFERRED_CHAR_SEQUENCE)
-			|| sequence.equals(SPECIAL_CHAR_SEQUENCE)
+			|| sequence.equals(CHARS_GROUP_0_SEQUENCE)
 			|| sequence.equals(CURRENCY_SEQUENCE);
 	}
 
@@ -66,11 +66,11 @@ public class Sequences {
 		}
 
 		return
-			sequence.startsWith(PUNCTUATION_SEQUENCE)
-				|| sequence.startsWith(WHITESPACE_SEQUENCE)
+			sequence.startsWith(CHARS_1_SEQUENCE)
+				|| sequence.startsWith(CHARS_0_SEQUENCE)
 				|| sequence.startsWith(EMOJI_SEQUENCE)
 				|| sequence.startsWith(PREFERRED_CHAR_SEQUENCE)
-				|| sequence.startsWith(SPECIAL_CHAR_SEQUENCE)
+				|| sequence.startsWith(CHARS_GROUP_0_SEQUENCE)
 				|| sequence.startsWith(CURRENCY_SEQUENCE);
 	}
 }

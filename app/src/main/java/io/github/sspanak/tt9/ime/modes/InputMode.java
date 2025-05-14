@@ -88,7 +88,7 @@ abstract public class InputMode {
 	public void onCursorMove(@NonNull String word) { if (!digitSequence.isEmpty()) onAcceptSuggestion(word); }
 	public boolean onReplaceSuggestion(@NonNull String rawWord) {
 		String newSequence = switch(rawWord) {
-			case SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION -> seq.SPECIAL_CHAR_SEQUENCE;
+			case SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION -> seq.CHARS_GROUP_0_SEQUENCE;
 			case SuggestionsBar.SHOW_CURRENCIES_SUGGESTION -> seq.CURRENCY_SEQUENCE;
 			default -> null;
 		};
@@ -214,7 +214,7 @@ abstract public class InputMode {
 		if (!Characters.getCurrencies(language).isEmpty()) {
 			special.add(SuggestionsBar.SHOW_CURRENCIES_SUGGESTION);
 		}
-		if (!settings.getSpecialChars(language).isEmpty()) {
+		if (!settings.getChars0(language).isEmpty()) {
 			special.add(SuggestionsBar.SHOW_SPECIAL_CHARS_SUGGESTION);
 		}
 		return special;
@@ -228,7 +228,7 @@ abstract public class InputMode {
 	protected boolean loadSpecialCharacters() {
 		suggestions.clear();
 
-		if (digitSequence.equals(seq.SPECIAL_CHAR_SEQUENCE) || digitSequence.equals(seq.PUNCTUATION_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
 			suggestions.addAll(settings.getOrderedKeyChars(language, digitSequence.charAt(0) - '0'));
 		} else if (digitSequence.equals(seq.CURRENCY_SEQUENCE)) {
 			suggestions.addAll(Characters.getCurrencies(language));

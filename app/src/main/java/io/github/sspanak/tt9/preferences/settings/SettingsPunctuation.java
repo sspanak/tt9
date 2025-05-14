@@ -11,10 +11,10 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class SettingsPunctuation extends SettingsInput {
-	private final static String KEY_PREFIX_PUNCTUATION = "pref_punctuation_";
-	private final static String KEY_PREFIX_SPECIAL = "pref_special_chars_";
-	private final static char[] MANDATORY_EU_PUNCTUATION = new char[] {'\'', '"', '-'};
-	public final static char[] FORBIDDEN_SPECIAL_CHARS = new char[] {' ', '\n', '\t'};
+	private final static String CHARS_1_PREFIX = "pref_punctuation_";
+	private final static String CHARS_0_PREFIX = "pref_special_chars_";
+	private final static char[] MANDATORY_CHARS_1_EU = new char[] {'\'', '"', '-'};
+	public final static char[] FORBIDDEN_CHARS_0 = new char[] {' ', '\n', '\t'};
 
 
 	SettingsPunctuation(Context context) {
@@ -22,56 +22,56 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	public char[] getMandatoryPunctuation(Language language) {
-		return LanguageKind.isCyrillic(language) || LanguageKind.isLatinBased(language) ? MANDATORY_EU_PUNCTUATION : new char[0];
+	public char[] getMandatoryChars0(Language language) {
+		return LanguageKind.isCyrillic(language) || LanguageKind.isLatinBased(language) ? MANDATORY_CHARS_1_EU : new char[0];
 	}
 
 
-	public void savePunctuation(@NonNull Language language, @NonNull String punctuation) {
-		prefsEditor.putString(KEY_PREFIX_PUNCTUATION + language.getId(), punctuation);
+	public void saveChars1(@NonNull Language language, @NonNull String punctuation) {
+		prefsEditor.putString(CHARS_1_PREFIX + language.getId(), punctuation);
 		prefsEditor.apply();
 	}
 
 
-	public void saveSpecialChars(@NonNull Language language, @NonNull String specialChars) {
+	public void saveChars0(@NonNull Language language, @NonNull String specialChars) {
 		String safeChars = specialChars
 			.replace("\n", "⏎")
 			.replace("\t", Characters.TAB);
-		prefsEditor.putString(KEY_PREFIX_SPECIAL + language.getId(), safeChars);
+		prefsEditor.putString(CHARS_0_PREFIX + language.getId(), safeChars);
 		prefsEditor.apply();
 	}
 
 
-	@NonNull public String getPunctuation(Language language) {
-		return String.join("", getPunctuationAsList(language));
+	@NonNull public String getChars1(Language language) {
+		return String.join("", getChars1AsList(language));
 	}
 
 
-	@NonNull public String getSpecialChars(Language language) {
-		return String.join("", getSpecialCharsAsList(language));
+	@NonNull public String getChars0(Language language) {
+		return String.join("", getChars0AsList(language));
 	}
 
 
 	@NonNull
-	public ArrayList<String> getPunctuationAsList(Language language) {
+	public ArrayList<String> getChars1AsList(Language language) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
 
 		return getCharsAsList(
-			prefs.getString(KEY_PREFIX_PUNCTUATION + language.getId(), null),
+			prefs.getString(CHARS_1_PREFIX + language.getId(), null),
 			language.getKeyCharacters(1)
 		);
 	}
 
 
 	@NonNull
-	public ArrayList<String> getSpecialCharsAsList(Language language) {
+	public ArrayList<String> getChars0AsList(Language language) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
 
-		String safeChars = prefs.getString(KEY_PREFIX_SPECIAL + language.getId(), null);
+		String safeChars = prefs.getString(CHARS_0_PREFIX + language.getId(), null);
 
 		return getCharsAsList(
 			safeChars == null ? null : safeChars.replace("⏎", "\n").replace(Characters.TAB, "\t"),
@@ -83,8 +83,8 @@ class SettingsPunctuation extends SettingsInput {
 	@NonNull
 	public ArrayList<String> getOrderedKeyChars(Language language, int number) {
 		return switch (number) {
-			case 0 -> getSpecialCharsAsList(language);
-			case 1 -> getPunctuationAsList(language);
+			case 0 -> getChars0AsList(language);
+			case 1 -> getChars1AsList(language);
 			default -> language != null ? language.getKeyCharacters(number) : new ArrayList<>();
 		};
 	}

@@ -59,7 +59,7 @@ public class ModeBopomofo extends ModePinyin {
 
 	@Override
 	public boolean onBackspace() {
-		if (digitSequence.equals(seq.PUNCTUATION_SEQUENCE) || digitSequence.equals(seq.WHITESPACE_SEQUENCE)) {
+		if (digitSequence.equals(seq.CHARS_1_SEQUENCE) || digitSequence.equals(seq.CHARS_0_SEQUENCE)) {
 			digitSequence = "";
 			return false;
 		} else {
@@ -72,7 +72,7 @@ public class ModeBopomofo extends ModePinyin {
 	protected void onNumberPress(int nextNumber) {
 		if (seq.startsWithEmojiSequence(digitSequence)) {
 			digitSequence = EmojiLanguage.validateEmojiSequence(seq, digitSequence, nextNumber);
-		} else if (!seq.SPECIAL_CHAR_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
+		} else if (!seq.CHARS_GROUP_0_SEQUENCE.equals(digitSequence) && !seq.CURRENCY_SEQUENCE.equals(digitSequence)) {
 			digitSequence += String.valueOf(nextNumber);
 		}
 	}
@@ -82,10 +82,10 @@ public class ModeBopomofo extends ModePinyin {
 	protected void onNumberHold(int number) {
 		if (number == 0) {
 			disablePredictions = false;
-			digitSequence = seq.WHITESPACE_SEQUENCE;
+			digitSequence = seq.CHARS_0_SEQUENCE;
 		} else if (number == 1) {
 			disablePredictions = false;
-			digitSequence = seq.PUNCTUATION_SEQUENCE;
+			digitSequence = seq.CHARS_1_SEQUENCE;
 		} else {
 			autoAcceptTimeout = 0;
 			suggestions.add(language.getKeyNumeral(number));
@@ -102,7 +102,7 @@ public class ModeBopomofo extends ModePinyin {
 	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
 		String newSequence = digitSequence + (char)(nextKey + '0');
 		return hold
-			|| newSequence.startsWith(seq.WHITESPACE_SEQUENCE)
-			|| (newSequence.startsWith(seq.PUNCTUATION_SEQUENCE) && nextKey != Sequences.PUNCTUATION_KEY);
+			|| newSequence.startsWith(seq.CHARS_0_SEQUENCE)
+			|| (newSequence.startsWith(seq.CHARS_1_SEQUENCE) && nextKey != Sequences.CHARS_1_KEY);
 	}
 }
