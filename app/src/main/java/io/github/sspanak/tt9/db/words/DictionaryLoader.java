@@ -104,6 +104,8 @@ public class DictionaryLoader {
 			currentFile++;
 		}
 
+		onStatusChange = null;
+
 		Timer.stop(IMPORT_TIMER);
 	}
 
@@ -350,12 +352,7 @@ public class DictionaryLoader {
 		progressMsg.putLong("time", Timer.get(IMPORT_TIMER));
 		progressMsg.putInt("progress", Math.round(progress));
 		progressMsg.putInt("currentFile", currentFile);
-		asyncHandler.post(() -> {
-			onStatusChange.accept(progressMsg);
-			if (progress >= 100) {
-				onStatusChange = null;
-			}
-		});
+		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
 	}
 
 
