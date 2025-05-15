@@ -20,13 +20,8 @@ public class ModePinyin extends ModeIdeograms {
 
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (LanguageKind.isChinesePinyin(newLanguage)) {
-			setLanguage(newLanguage);
-			return true;
-		}
-
-		return false;
+	public boolean validateLanguage(@Nullable Language newLanguage) {
+		return LanguageKind.isChinesePinyin(newLanguage);
 	}
 
 
