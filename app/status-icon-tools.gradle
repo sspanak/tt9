@@ -67,7 +67,7 @@ static def generateMap(String definitionsDirPath, String drawablesDirPath) {
 	}
 
 	def javaHashMap = ""
-	icons = icons.sort()
+	icons = icons.sort().unique()
 
 	for (int i = 0; i < icons.size(); i++) {
 		def iconName = icons[i]
