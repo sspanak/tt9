@@ -88,7 +88,7 @@ public class ModeBopomofo extends ModePinyin {
 	}
 
 
-	/******************************* ACCEPT WORDS *********************************/
+	/* ****************************** ACCEPT WORDS *********************************/
 
 	/**
 	 * In Bopomofo mode, the 0-key is not Spacebar, so we do not rely on the parents to handle accepting
