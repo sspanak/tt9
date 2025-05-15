@@ -73,7 +73,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode = determineInputMode();
 		determineTextCase();
 		suggestionOps.set(null);
-		suggestionOps.setInputMode(mInputMode);
 
 		return true;
 	}
@@ -91,7 +90,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
 		suggestionOps.setTextField(textField);
-		suggestionOps.setInputMode(mInputMode);
 	}
 
 

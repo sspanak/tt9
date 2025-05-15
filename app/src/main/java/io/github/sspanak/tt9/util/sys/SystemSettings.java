@@ -73,7 +73,7 @@ public class SystemSettings {
 	/**
 	 * Even though the background changes automatically on Android 15, thanks to edge-to-edge,
 	 * the text/icon color remains the device default. This function allows us to change it.
-	 * @see: <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
+	 * {@code @see:} <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
 	 */
 	public static void setNavigationBarDarkTheme(@Nullable Window window, boolean dark) {
 		if (!DeviceInfo.AT_LEAST_ANDROID_11) {
