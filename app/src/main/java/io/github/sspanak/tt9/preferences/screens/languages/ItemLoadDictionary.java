@@ -89,6 +89,7 @@ class ItemLoadDictionary extends ItemClickable {
 
 
 	private void setReady() {
+		loader.setOnStatusChange(null);
 		item.setTitle(activity.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}

@@ -104,8 +104,6 @@ public class DictionaryLoader {
 			currentFile++;
 		}
 
-		onStatusChange = null;
-
 		Timer.stop(IMPORT_TIMER);
 	}
 
