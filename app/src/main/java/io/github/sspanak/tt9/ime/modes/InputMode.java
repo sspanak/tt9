@@ -145,13 +145,9 @@ abstract public class InputMode {
 	 * The default implementation is to switch to the new language (including NullLanguage) and
 	 * return "true".
 	 */
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		setLanguage(newLanguage);
-		return true;
-	}
-
-	protected void setLanguage(@Nullable Language newLanguage) {
+	protected boolean setLanguage(@Nullable Language newLanguage) {
 		language = newLanguage != null ? newLanguage : new NullLanguage();
+		return true;
 	}
 
 

@@ -24,7 +24,7 @@ class Mode123 extends ModePassthrough {
 
 	protected Mode123(SettingsStore settings, Language language, InputType inputType) {
 		super(settings, inputType);
-		changeLanguage(language);
+		setLanguage(language);
 
 		if (inputType.isPhoneNumber()) {
 			setSpecificSpecialCharacters(Characters.Phone, false);

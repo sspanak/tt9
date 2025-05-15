@@ -15,13 +15,8 @@ public class ModeKanji extends ModePinyin {
 	}
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (LanguageKind.isJapanese(newLanguage)) {
-			setLanguage(newLanguage);
-			return true;
-		}
-
-		return false;
+	public boolean validateLanguage(@Nullable Language newLanguage) {
+		return LanguageKind.isJapanese(newLanguage);
 	}
 
 	@Override

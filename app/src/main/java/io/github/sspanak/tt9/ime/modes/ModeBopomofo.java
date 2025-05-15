@@ -21,13 +21,8 @@ public class ModeBopomofo extends ModePinyin {
 
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (LanguageKind.isChineseBopomofo(newLanguage)) {
-			setLanguage(newLanguage);
-			return true;
-		}
-
-		return false;
+	public boolean validateLanguage(@Nullable Language newLanguage) {
+		return LanguageKind.isChineseBopomofo(newLanguage);
 	}
 
 

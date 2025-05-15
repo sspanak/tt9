@@ -34,13 +34,8 @@ public class ModeIdeograms extends ModeWords {
 
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (newLanguage != null && !newLanguage.isTranscribed() || LanguageKind.isKorean(newLanguage)) {
-			return false;
-		}
-
-		setLanguage(newLanguage);
-		return true;
+	public boolean validateLanguage(@Nullable Language newLanguage) {
+		return newLanguage != null && newLanguage.isTranscribed() && !LanguageKind.isKorean(newLanguage);
 	}
 
 

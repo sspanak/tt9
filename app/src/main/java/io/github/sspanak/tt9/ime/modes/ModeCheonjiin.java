@@ -73,18 +73,31 @@ class ModeCheonjiin extends InputMode {
 
 
 	@Override
-	protected void setLanguage(@Nullable Language newLanguage) {
+	protected boolean setLanguage(@Nullable Language newLanguage) {
+		if (!validateLanguage(newLanguage)) {
+			return false;
+		}
+
 		super.setLanguage(newLanguage);
 
 		autoSpace.setLanguage(language);
 
 		KEY_CHARACTERS.clear();
 		if (isEmailMode) {
-			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(language, 0), true));
-			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(language, 1), true));
+			// Asian punctuation can not be used in email addresses, so we need to use the English locale.
+			Language lang = LanguageKind.isCJK(language) ? LanguageCollection.getByLocale("en") : language;
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(lang, 0), true));
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(lang, 1), true));
 		} else {
 			setCustomSpecialCharacters();
 		}
+
+		return true;
+	}
+
+
+	protected boolean validateLanguage(Language newLanguage) {
+		return LanguageKind.isKorean(newLanguage);
 	}
 
 
@@ -176,12 +189,6 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		return keyCharsCount < repeatingDigits + 1 ? repeatingDigits : 0;
-	}
-
-
-	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		return LanguageKind.isKorean(newLanguage);
 	}
 
 
