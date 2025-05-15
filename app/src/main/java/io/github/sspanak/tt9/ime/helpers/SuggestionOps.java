@@ -8,10 +8,8 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
-import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
@@ -23,9 +21,6 @@ public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
 	@NonNull private final ConsumerCompat<String> onDelayedAccept;
 
-	@Nullable private InputMode inputMode;
-	@NonNull private Language language;
-	@Nullable private final SettingsStore settings;
 	@Nullable protected SuggestionsBar suggestionBar;
 	@NonNull private TextField textField;
 
@@ -34,8 +29,6 @@ public class SuggestionOps {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
-		language = new NullLanguage();
-		this.settings = settings;
 		this.textField = textField != null ? textField : new TextField(null, null, null);
 
 		if (settings != null && mainView != null && onSuggestionClick != null) {
@@ -43,16 +36,9 @@ public class SuggestionOps {
 		}
 	}
 
-
-	public void setInputMode(@Nullable InputMode inputMode) {
-		this.inputMode = inputMode;
-	}
-
-
-	public void setLanguage(@Nullable Language language) {
-		this.language = language == null ? new NullLanguage() : language;
+	public void setLanguage(@Nullable Language newLanguage) {
 		if (suggestionBar != null) {
-			suggestionBar.setRTL(LanguageKind.isRTL(language));
+			suggestionBar.setRTL(LanguageKind.isRTL(newLanguage));
 		}
 	}
 

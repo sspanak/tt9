@@ -32,8 +32,4 @@ public class InputModeKind {
 			mode.getId() == InputMode.MODE_KATAKANA
 		);
 	}
-
-	public static boolean isCheonjiin(InputMode mode) {
-		return mode != null && mode.getClass().equals(ModeCheonjiin.class);
-	}
 }
