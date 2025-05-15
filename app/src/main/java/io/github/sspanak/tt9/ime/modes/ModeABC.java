@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -20,7 +21,7 @@ class ModeABC extends InputMode {
 
 	protected ModeABC(SettingsStore settings, Language lang, InputType inputType) {
 		super(settings, inputType);
-		changeLanguage(lang);
+		setLanguage(lang);
 	}
 
 	@Override
@@ -70,12 +71,12 @@ class ModeABC extends InputMode {
 	}
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
+	public boolean setLanguage(@Nullable Language newLanguage) {
 		if (newLanguage != null && !newLanguage.hasABC()) {
 			return false;
 		}
 
-		setLanguage(newLanguage);
+		super.setLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
@@ -85,8 +86,10 @@ class ModeABC extends InputMode {
 
 		KEY_CHARACTERS.clear();
 		if (isEmailMode) {
-			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(language, 0), true));
-			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(language, 1), true));
+			// Asian punctuation can not be used in email addresses, so we need to use the English locale.
+			Language lang = LanguageKind.isCJK(language) ? LanguageCollection.getByLocale("en") : language;
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(0), settings.getOrderedKeyChars(lang, 0), true));
+			KEY_CHARACTERS.add(Characters.orderByList(Characters.Email.get(1), settings.getOrderedKeyChars(lang, 1), true));
 		}
 
 		refreshSuggestions();

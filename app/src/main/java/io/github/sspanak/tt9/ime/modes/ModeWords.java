@@ -42,7 +42,7 @@ class ModeWords extends ModeCheonjiin {
 		autoTextCase = new AutoTextCase(settings, inputType);
 		seq = new Sequences();
 
-		changeLanguage(lang);
+		setLanguage(lang);
 		defaultTextCase();
 		determineTextFieldTextCase();
 	}
@@ -99,19 +99,10 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
-	public boolean changeLanguage(@Nullable Language newLanguage) {
-		if (newLanguage != null && newLanguage.isTranscribed()) {
+	protected boolean setLanguage(@Nullable Language newLanguage) {
+		if (!super.setLanguage(newLanguage)) {
 			return false;
 		}
-
-		setLanguage(newLanguage);
-		return true;
-	}
-
-
-	@Override
-	protected void setLanguage(@Nullable Language newLanguage) {
-		super.setLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
@@ -119,7 +110,16 @@ class ModeWords extends ModeCheonjiin {
 			allowedTextCases.add(CASE_CAPITALIZE);
 			allowedTextCases.add(CASE_UPPER);
 		}
+
+		return true;
 	}
+
+
+	@Override
+	public boolean validateLanguage(@Nullable Language newLanguage) {
+		return newLanguage != null && !newLanguage.isTranscribed();
+	}
+
 
 	@Override
 	public String recompose() {
