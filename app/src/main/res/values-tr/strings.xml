@@ -73,6 +73,7 @@
 	<string name="char_space">Boşluk</string>
 	<string name="function_add_word_not_available">Bu dilde kelime eklemek mümkün değil.</string>
 	<string name="function_backspace">Geri Tuşu</string>
+	<string name="punctuation_order_after_group">Gruptan sonra (isteğe bağlı)</string>
 	<string name="setup_keyboard_status">Durum</string>
 	<string name="setup_default_keyboard">Varsayılan Klavyeyi Seçin</string>
 	<string name="setup_tt9_on">%1$s devrede</string>
@@ -233,4 +234,6 @@
 	<string name="fn_key_order_error_key_on_both_sides">Bir tuş her iki sütuna da yerleştirilemez.</string>
 	<string name="fn_key_order_column_1">Sütun 1</string>
 	<string name="pref_quick_switch_language">Hızlı dil geçişi</string>
+	<string name="punctuation_order_initial">Başlangıç karakterleri</string>
+	<string name="punctuation_order_group">Gruplanmış karakterler (isteğe bağlı)</string>
 </resources>
