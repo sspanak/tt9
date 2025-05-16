@@ -183,11 +183,11 @@ public class SuggestionsBar {
 
 	@NonNull
 	public String getRaw(int id) {
-		if (id < 0 || id >= visibleSuggestions.size()) {
+		if (id < 0 || suggestions == null || id >= suggestions.size()) {
 			return "";
 		}
 
-		return visibleSuggestions.get(id);
+		return suggestions.get(id);
 	}
 
 
