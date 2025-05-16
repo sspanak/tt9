@@ -292,6 +292,15 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 
 	private void reorderFnKeys() {
+		String lfnOrder = tt9.getSettings().getLfnKeyOrder();
+		String rfnOrder = tt9.getSettings().getRfnKeyOrder();
+
+		final String newOrder = lfnOrder + "," + rfnOrder;
+		if (newOrder.equals(lastFnKeyOrder)) {
+			Logger.d(LOG_TAG, "Preserving current key order: '" + lastFnKeyOrder + "'");
+			return;
+		}
+
 		if (view == null) {
 			return;
 		}
@@ -300,15 +309,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		ViewGroup right = view.findViewById(R.id.numpad_column_fn_right);
 		if (left == null || right == null) {
 			Logger.w(LOG_TAG, "Reordering keys failed: left or right column is null");
-			return;
-		}
-
-		String lfnOrder = tt9.getSettings().getLfnKeyOrder();
-		String rfnOrder = tt9.getSettings().getRfnKeyOrder();
-
-		final String newOrder = lfnOrder + "," + rfnOrder;
-		if (newOrder.equals(lastFnKeyOrder)) {
-			Logger.d(LOG_TAG, "Preserving current key order: '" + lastFnKeyOrder + "'");
 			return;
 		}
 
