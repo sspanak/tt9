@@ -47,7 +47,7 @@ public class ModeKanji extends ModePinyin {
 		}
 
 		String nextSequence = digitSequence + (char)(nextKey + '0');
-		if (nextSequence.endsWith(seq.CHARS_1_SEQUENCE) && !predictions.noDbWords()) {
+		if (seq.isAnySpecialCharSequence(nextSequence)) {
 			return false;
 		}
 
