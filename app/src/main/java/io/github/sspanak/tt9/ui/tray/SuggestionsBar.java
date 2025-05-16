@@ -183,11 +183,12 @@ public class SuggestionsBar {
 
 	@NonNull
 	public String getRaw(int id) {
-		if (id < 0 || id >= visibleSuggestions.size()) {
+		final int index = containsStem() ? id - 1 : id;
+		if (index < 0 || suggestions == null || index >= suggestions.size()) {
 			return "";
 		}
 
-		return visibleSuggestions.get(id);
+		return suggestions.get(index);
 	}
 
 
