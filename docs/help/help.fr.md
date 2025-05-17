@@ -145,6 +145,16 @@ Ouvre la boîte de dialogue de changement de clavier d'Android, où vous pouvez 
 #### Touche Afficher les Paramètres :
 Ouvre l’écran de configuration des Paramètres, où vous pouvez choisir les langues pour la saisie, configurer les raccourcis clavier, modifier l’apparence de l’application, ou améliorer la compatibilité avec votre téléphone.
 
+#### Touche Annuler :
+Annule la dernière action. Équivaut à appuyer sur Ctrl+Z sur un ordinateur ou Cmd+Z sur un Mac.
+
+_L’historique d’annulation est géré par les applications, et non par Traditional T9. Cela signifie que l’annulation peut ne pas être possible dans toutes les applications._
+
+#### Touche Rétablir :
+Répète la dernière action annulée. Équivaut à appuyer sur Ctrl+Y ou Ctrl+Maj+Z sur un ordinateur ou Cmd+Y sur un Mac.
+
+_Comme pour Annuler, la commande Rétablir peut ne pas être disponible dans toutes les applications._
+
 #### Touche Saisie Vocale :
 Active la saisie vocale pour les téléphones compatibles. Voir [ci-dessous](#saisie-vocale) pour plus d'informations.
 
