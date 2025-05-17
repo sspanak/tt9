@@ -32,6 +32,7 @@ class SettingsPunctuation extends SettingsInput {
 	public void setDefaultCharOrder(@NonNull Language language, boolean overwrite) {
 		if (overwrite || noDefault0Chars(language)) {
 			String chars = new String(FORBIDDEN_CHARS_0) + String.join("", language.getKeyCharacters(0));
+			chars = chars.replace(" ", Characters.getSpace(language));
 			final int splitPosition = 7;
 			saveChars0(language, String.join("", chars.substring(0, splitPosition)));
 			saveCharsExtra(language, CHARS_GROUP_0, String.join("", Characters.getCurrencies(language)));
@@ -117,11 +118,9 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		String safeChars = prefs.getString(CHARS_0_PREFIX + language.getId(), null);
+		safeChars = safeChars == null ? null : safeChars.replace("⏎", "\n").replace(Characters.TAB, "\t").replace(" ", Characters.getSpace(language));
 
-		return getCharsAsList(
-			safeChars == null ? null : safeChars.replace("⏎", "\n").replace(Characters.TAB, "\t"),
-			language.getKeyCharacters(0)
-		);
+		return getCharsAsList(safeChars, language.getKeyCharacters(0));
 	}
 
 
