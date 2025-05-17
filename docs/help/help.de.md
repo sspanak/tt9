@@ -145,6 +145,16 @@ Wählt die nächste Sprache, wenn in den Einstellungen mehrere Sprachen aktivier
 #### Einstellungen anzeigen Taste:
 Öffnet den Einstellungsbildschirm. Hier können Sie die Sprachen für das Tippen auswählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
 
+#### Rückgängig-Taste:
+Macht die letzte Aktion rückgängig. Entspricht dem Drücken von Strg+Z auf einem Computer oder Cmd+Z auf einem Mac.
+
+_Der Verlauf für Rückgängig wird von den Apps verwaltet, nicht von Traditional T9. Das bedeutet, dass Rückgängig möglicherweise nicht in jeder App funktioniert._
+
+#### Wiederholen-Taste:
+Wiederholt die zuletzt rückgängig gemachte Aktion. Entspricht dem Drücken von Strg+Y oder Strg+Umschalt+Z auf einem Computer oder Cmd+Y auf einem Mac.
+
+_Ähnlich wie bei „Rückgängig“ ist der Befehl „Wiederholen“ möglicherweise nicht in jeder App verfügbar._
+
 #### Spracheingabe Taste:
 Aktiviert die Spracheingabe auf kompatiblen Telefonen. Weitere Informationen finden Sie [unten](#spracheingabe).
 
