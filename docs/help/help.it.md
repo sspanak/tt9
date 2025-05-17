@@ -145,6 +145,16 @@ Apre la finestra di dialogo Cambia Tastiera di Android, dove è possibile selezi
 #### Tasto Mostra Impostazioni:
 Apre la schermata di configurazione Impostazioni. Qui è possibile scegliere le lingue per digitare, configurare i tasti rapidi del tastierino, cambiare l’aspetto dell’applicazione o migliorare la compatibilità con il proprio telefono.
 
+#### Tasto Annulla:
+Annulla l’ultima azione. Equivale a premere Ctrl+Z su un computer o Cmd+Z su un Mac.
+
+_La cronologia delle azioni annullate è gestita dalle app, non da Traditional T9. Ciò significa che l’annullamento potrebbe non essere disponibile in tutte le app._
+
+#### Tasto Ripristina:
+Ripete l’ultima azione annullata. Equivale a premere Ctrl+Y o Ctrl+Shift+Z su un computer o Cmd+Y su un Mac.
+
+_Come per Annulla, il comando Ripristina potrebbe non essere disponibile in tutte le app._
+
 #### Tasto Input Vocale:
 Attiva l'input vocale sui telefoni che lo supportano. Vedere [sotto](#input-vocale) per ulteriori informazioni.
 
