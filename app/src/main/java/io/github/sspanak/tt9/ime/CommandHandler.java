@@ -190,8 +190,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		final String digits = mInputMode.getSequence();
 		final int textCase = mInputMode.getTextCase();
 		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
-		mInputMode.setTextCase(textCase);
-		if (InputModeKind.isPredictive(mInputMode)) {
+		if (!InputModeKind.isNumeric(mInputMode)) {
+			mInputMode.setTextCase(textCase);
 			mInputMode.setSequence(digits);
 		}
 
