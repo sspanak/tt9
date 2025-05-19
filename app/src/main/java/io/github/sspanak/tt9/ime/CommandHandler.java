@@ -184,11 +184,13 @@ abstract public class CommandHandler extends TextEditingHandler {
 		validateLanguages();
 
 		detectRTL();
-		settings.setDefaultCharOrder(mLanguage, false);
+		settings.setDefaultCharOrder(mLanguage, false); // initialize default order, if missing
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		final String digits = mInputMode.getSequence();
+		final int textCase = mInputMode.getTextCase();
 		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
+		mInputMode.setTextCase(textCase);
 		if (InputModeKind.isPredictive(mInputMode)) {
 			mInputMode.setSequence(digits);
 		}
