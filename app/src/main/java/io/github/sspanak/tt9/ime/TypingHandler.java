@@ -118,7 +118,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
-			mainView.render();
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 			return false;
 		}
 
@@ -151,7 +153,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			statusBar.setText(mInputMode);
 		}
 
-		mainView.render();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
 
 		return true;
 	}
@@ -185,6 +189,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
@@ -230,6 +237,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		autoCorrectSpace(text, true, -1);
 
 		forceShowWindow();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
+
 		return true;
 	}
 
@@ -368,6 +379,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {
@@ -380,6 +394,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);
 			resetKeyRepeat();
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 		}
 	}
 

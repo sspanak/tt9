@@ -288,7 +288,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 		backward = isLanguageRTL != backward;
 		scrollSuggestions(backward);
-		mainView.render();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
 
 		return true;
 	}
