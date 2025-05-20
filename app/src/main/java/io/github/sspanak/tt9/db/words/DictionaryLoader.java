@@ -98,6 +98,7 @@ public class DictionaryLoader {
 		// SQLite does not support parallel queries, so let's import them one by one
 		for (Language lang : languages) {
 			if (loadThread.isInterrupted()) {
+				sendProgressMessage(lang, 0, 0);
 				break;
 			}
 			importAll(context, lang);

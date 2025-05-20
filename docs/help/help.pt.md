@@ -145,6 +145,16 @@ Abre a caixa de diálogo de mudança de teclado do Android, onde você pode esco
 #### Tecla Exibir Configurações:
 Abre a tela de configuração das Configurações, onde você pode escolher os idiomas de entrada, configurar atalhos de teclado, modificar a aparência do aplicativo, ou melhorar a compatibilidade com seu telefone.
 
+#### Tecla Desfazer:
+Reverte a última ação. Equivale a pressionar Ctrl+Z em um computador ou Cmd+Z em um Mac.
+
+_O histórico de desfazer é gerenciado pelos aplicativos, não pelo Traditional T9. Isso significa que desfazer pode não funcionar em todos os aplicativos._
+
+#### Tecla Refazer:
+Repete a última ação desfeita. Equivale a pressionar Ctrl+Y ou Ctrl+Shift+Z em um computador ou Cmd+Y em um Mac.
+
+_Assim como o desfazer, o comando de refazer pode não estar disponível em todos os aplicativos._
+
 #### Tecla Entrada por Voz:
 Ativa a entrada por voz para telefones compatíveis. Consulte [abaixo](#entrada-por-voz) para mais informações.
 

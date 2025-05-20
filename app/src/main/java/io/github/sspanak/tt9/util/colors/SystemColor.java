@@ -3,10 +3,6 @@ package io.github.sspanak.tt9.util.colors;
 public class SystemColor {
 	protected int color;
 
-	protected SystemColor(int color) {
-		this.color = color;
-	}
-
 	public SystemColor() {
 		color = 0;
 	}

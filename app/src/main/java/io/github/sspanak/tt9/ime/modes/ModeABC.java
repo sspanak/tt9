@@ -98,6 +98,13 @@ class ModeABC extends InputMode {
 		return true;
 	}
 
+	@Override
+	public void setSequence(@NonNull String sequence) {
+		super.setSequence(sequence);
+		refreshSuggestions();
+		shouldSelectNextLetter = true;
+	}
+
 	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }
 	@Override public boolean shouldAcceptPreviousSuggestion(String w) { return !shouldSelectNextLetter; }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }

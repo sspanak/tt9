@@ -73,7 +73,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode = determineInputMode();
 		determineTextCase();
 		suggestionOps.set(null);
-		suggestionOps.setInputMode(mInputMode);
 
 		return true;
 	}
@@ -91,7 +90,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
 		suggestionOps.setTextField(textField);
-		suggestionOps.setInputMode(mInputMode);
 	}
 
 
@@ -120,7 +118,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
-			mainView.render();
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 			return false;
 		}
 
@@ -153,7 +153,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 			statusBar.setText(mInputMode);
 		}
 
-		mainView.render();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
 
 		return true;
 	}
@@ -170,7 +172,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		suggestionOps.cancelDelayedAccept();
 
-
 		// In Korean, the next char may "steal" components from the previous one, in which case,
 		// we must replace the previous char with a one containing less strokes.
 		if (mInputMode.shouldReplaceLastLetter(key, hold)) {
@@ -181,12 +182,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
-		else if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
+		else if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
@@ -232,6 +236,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		autoCorrectSpace(text, true, -1);
 
 		forceShowWindow();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
+
 		return true;
 	}
 
@@ -370,6 +378,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.render();
+		}
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {
@@ -382,6 +393,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);
 			resetKeyRepeat();
+			if (settings.isMainLayoutNumpad()) {
+				mainView.render();
+			}
 		}
 	}
 

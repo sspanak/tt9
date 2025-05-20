@@ -56,7 +56,7 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected void setStatusIcon(InputMode mode, Language language) {
-		int resId = new StatusIcon(this, settings, mode, language).resourceId;
+		int resId = new StatusIcon(settings, mode, language).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {

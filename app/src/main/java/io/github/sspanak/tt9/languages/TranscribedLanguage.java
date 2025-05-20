@@ -11,7 +11,7 @@ abstract class TranscribedLanguage extends Language implements Comparable<Transc
 		}
 
 		return
-			(LanguageKind.isKorean(this) && TextTools.isHangul(word))
+			(LanguageKind.isKorean(this) && TextTools.isHangulText(word)) // because of the way Korean works, we only need to check if it's text.
 			|| (LanguageKind.isChinese(this) && TextTools.isChinese(word))
 			|| (LanguageKind.isJapanese(this) && TextTools.isJapanese(word));
 	}

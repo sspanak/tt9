@@ -10,14 +10,14 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersExcep
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class KanaPredictions extends IdeogramPredictions {
-	private final char SEQUENCE_PREFIX;
+	private final String SEQUENCE_PREFIX;
 	@NonNull private final String STEM_PREFIX;
 	private final int STEM_PREFIX_LENGTH;
 
 	public KanaPredictions(SettingsStore settings, TextField textField, Sequences sequences, boolean isKatakana) {
 		super(settings, textField, sequences);
 
-		SEQUENCE_PREFIX = isKatakana ? '1' : '0';
+		SEQUENCE_PREFIX = isKatakana ? "0" : "01";
 		STEM_PREFIX = isKatakana ? "Qk" : "Qh";
 		STEM_PREFIX_LENGTH = STEM_PREFIX.length();
 

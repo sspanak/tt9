@@ -18,8 +18,8 @@ layout:
   - [w, x, y, z] # 9
 filterBySounds: yes
 sounds:
-  - [Qh,0] # Hiragana prefix. For identifying and loading only the specific characters in Hiragana mode.
-  - [Qk,1] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
+  - [Qh,01] # Hiragana prefix. For identifying and loading only the specific characters in Hiragana mode.
+  - [Qk,0] # Katakana prefix. The prefixed ones will appear only in Katakana mode.
   # All others will appear in Predictive mode
   - [Ql,1] # ー
   - [A,2]

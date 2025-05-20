@@ -145,6 +145,16 @@ Android Klavye Değiştirme iletişim kutusunu açarak yüklü tüm klavyeler ar
 #### Ayarlar Tușu:
 Ayarlar yapılandırma ekranını açar. Bu, yazma dillerini seçebileceğiniz, tuş takımı kısayol tușlarını yapılandırabileceğiniz, uygulama görünümünü değiştirebileceğiniz veya telefonunuzla uyumluluğu geliştirebileceğiniz yerdir.
 
+#### Geri Alma Tuşu:
+Son işlemi geri alır. Bilgisayarda Ctrl+Z veya Mac’te Cmd+Z tuşlarına basmakla aynıdır.
+
+_Geri alma geçmişi uygulamalar tarafından yönetilir, Traditional T9 tarafından değil. Bu nedenle, her uygulamada geri alma mümkün olmayabilir._
+
+#### Yinele Tuşu:
+Geri alınan son işlemi tekrarlar. Bilgisayarda Ctrl+Y veya Ctrl+Shift+Z, Mac’te Cmd+Y tuşlarına basmakla aynıdır.
+
+_Geri alma gibi, yineleme komutu da her uygulamada mevcut olmayabilir._
+
 #### Sesli Giriş Tușu:
 Desteklenen telefonlarda sesli giriși etkinleştirir. Daha fazla bilgi için [așağıya bakın](#sesli-giriş).
 

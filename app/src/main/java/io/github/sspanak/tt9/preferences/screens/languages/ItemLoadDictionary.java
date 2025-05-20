@@ -30,9 +30,11 @@ class ItemLoadDictionary extends ItemClickable {
 	ItemLoadDictionary(Preference item, PreferencesActivity context, Runnable onStart, Runnable onFinish) {
 		super(item);
 
+		loader = DictionaryLoader.getInstance(context);
+		progressBar = DictionaryLoadingBar.getInstance(context);
+		loader.setOnStatusChange(progressBar::show);
+
 		this.activity = context;
-		this.loader = DictionaryLoader.getInstance(context);
-		this.progressBar = DictionaryLoadingBar.getInstance(context);
 		this.onStart = onStart;
 		this.onFinish = onFinish;
 	}
@@ -47,8 +49,7 @@ class ItemLoadDictionary extends ItemClickable {
 	}
 
 
-	private void onLoadingStatusChange(Bundle status) {
-		progressBar.show(status);
+	private void onLoadingStatusChange() {
 		item.setSummary(progressBar.getTitle() + " " + progressBar.getMessage());
 
 		if (progressBar.isCancelled()) {
@@ -82,14 +83,14 @@ class ItemLoadDictionary extends ItemClickable {
 
 
 	private void setBusy() {
-		loader.setOnStatusChange(this::onLoadingStatusChange);
+		progressBar.setOnStatusChange(this::onLoadingStatusChange);
 		onStart.run();
 		item.setTitle(activity.getString(R.string.dictionary_cancel_load));
 	}
 
 
 	private void setReady() {
-		loader.setOnStatusChange(null);
+		progressBar.setOnStatusChange(null);
 		item.setTitle(activity.getString(R.string.dictionary_load_title));
 		item.setSummary(progressBar.isFailed() || progressBar.isCancelled() ? progressBar.getMessage() : "");
 	}

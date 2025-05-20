@@ -153,7 +153,7 @@ abstract public class InputMode {
 
 	// Interaction with the IME. Return "true" if it should perform the respective action.
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return false; }
+	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return false; }
 	public boolean shouldReplacePreviousSuggestion(@Nullable String currentWord) { return Characters.PLACEHOLDER.equals(currentWord); }
 	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
 	public boolean shouldAddPrecedingSpace() { return false; }

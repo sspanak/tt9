@@ -145,6 +145,16 @@ Abra el diálogo de Cambiar Teclado de Android, donde puede seleccionar entre to
 #### Tecla de Mostrar Ajustes:
 Abra la pantalla de configuración de Ajustes. Aquí puede elegir los idiomas para escribir, configurar las teclas de acceso rápido del teclado, cambiar la apariencia de la aplicación o mejorar la compatibilidad con su teléfono.
 
+#### Tecla de Deshacer:
+Revierte la última acción. Equivale a presionar Ctrl+Z en un ordenador o Cmd+Z en un Mac.
+
+_El historial de deshacer lo gestionan las aplicaciones, no Traditional T9. Esto significa que puede que no sea posible deshacer en todas las aplicaciones._
+
+#### Tecla de Rehacer:
+Repite la última acción deshecha. Equivale a presionar Ctrl+Y o Ctrl+Shift+Z en un ordenador o Cmd+Y en un Mac.
+
+_Al igual que con Deshacer, el comando Rehacer puede no estar disponible en todas las aplicaciones._
+
 #### Tecla de Entrada por Voz:
 Active la entrada por voz en teléfonos que lo soporten. Consulte [a continuación](#entrada-por-voz) para obtener más información.
 

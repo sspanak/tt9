@@ -20,9 +20,9 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	private static DictionaryLoadingBar self;
 
-
 	private boolean isStopped = false;
 	private boolean hasFailed = false;
+	private Runnable onStatusChange = null;
 
 
 	public static DictionaryLoadingBar getInstance(Context context) {
@@ -54,6 +54,11 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
+	public void setOnStatusChange(Runnable onStatusChange) {
+		this.onStatusChange = onStatusChange;
+	}
+
+
 	public boolean isCancelled() {
 		return isStopped;
 	}
@@ -76,6 +81,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 				data.getInt("languageId", -1),
 				data.getLong("fileLine", -1)
 			);
+			if (onStatusChange != null) onStatusChange.run();
 		} else if (progress >= 0) {
 			hasFailed = false;
 			if (fileCount >= 0) {
@@ -88,6 +94,8 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 				data.getInt("progress", 0),
 				data.getInt("languageId", -1)
 			);
+
+			if (onStatusChange != null) onStatusChange.run();
 		}
 	}
 

@@ -145,6 +145,16 @@ Open the Android Change Keyboard dialog where you can select between all install
 #### Show Settings Key:
 Open the Settings configuration screen. It is where you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
 
+#### Undo Key:
+Reverts the last action. Same as pressing Ctrl+Z on a computer or Cmd+Z on a Mac.
+
+_The undo history is managed by the apps, not Traditional T9. This means, undoing may not be possible in every app._
+
+#### Redo Key:
+Repeats the last undone action. Same as pressing Ctrl+Y or Ctrl+Shift+Z on a computer or Cmd+Y on a Mac.
+
+_Similar to Undo, the Redo command may not be available in every app._
+
 #### Voice Input Key:
 Activate the voice input on the phones that support it. See [below](#voice-input) for more info.
 

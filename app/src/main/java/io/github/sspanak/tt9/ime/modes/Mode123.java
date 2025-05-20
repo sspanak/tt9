@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime.modes;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ class Mode123 extends ModePassthrough {
 	@Override @NonNull public String toString() { return "123"; }
 
 	@Override public int getSequenceLength() { return digitSequence.length(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
+	@Override public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 
@@ -56,15 +55,15 @@ class Mode123 extends ModePassthrough {
 	private void setDefaultSpecialCharacters() {
 		Language english = LanguageCollection.getByLocale("en");
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 0), null))
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 0)))
 		);
 		KEY_CHARACTERS.add(
-			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 1), null))
+			TextTools.removeLettersFromList(orderCharsForNumericField(settings.getOrderedKeyChars(english, 1)))
 		);
 	}
 
 
-	private ArrayList<String> orderCharsForNumericField(@NonNull ArrayList<String> unordered, @Nullable ArrayList<String> o) {
+	private ArrayList<String> orderCharsForNumericField(@NonNull ArrayList<String> unordered) {
 		ArrayList<String> ordered = new ArrayList<>();
 
 		if (unordered.contains(".")) {
