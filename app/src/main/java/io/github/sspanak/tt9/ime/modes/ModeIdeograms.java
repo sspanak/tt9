@@ -11,7 +11,6 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
-import io.github.sspanak.tt9.util.TextTools;
 
 public class ModeIdeograms extends ModeWords {
 	private static final String LOG_TAG = ModeIdeograms.class.getSimpleName();
@@ -107,7 +106,7 @@ public class ModeIdeograms extends ModeWords {
 		final Text text = new Text(currentWord);
 		if (text.isEmpty() || text.startsWithWhitespace() || text.isNumeric() || !language.isValidWord(currentWord)) {
 			reset();
-			Logger.i(LOG_TAG, "Current word is empty, numeric or invalid. Nothing to accept.");
+			Logger.i(LOG_TAG, "Current word: '" + currentWord + "' is empty, numeric or invalid. Nothing to accept.");
 			return;
 		}
 
@@ -122,7 +121,7 @@ public class ModeIdeograms extends ModeWords {
 		boolean lastDigitBelongsToNewWord = preserveWords && initialLength >= 2;
 
 		try {
-			if (!digitSequence.equals(seq.CHARS_0_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE)) {
+			if (!seq.isAnySpecialCharSequence(digitSequence)) {
 				lastAcceptedWord = currentWord;
 				lastAcceptedSequence = lastDigitBelongsToNewWord ? digitSequence.substring(0, initialLength - 1) : digitSequence;
 
@@ -148,30 +147,8 @@ public class ModeIdeograms extends ModeWords {
 		return
 			digitSequence.length() > 1
 			&& predictions.noDbWords()
-			&& !digitSequence.equals(seq.EMOJI_SEQUENCE)
-			&& !digitSequence.equals(seq.CHARS_1_SEQUENCE)
-			&& !digitSequence.equals(seq.CHARS_0_SEQUENCE);
-	}
-
-
-	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		if (digitSequence.isEmpty()) {
-			return false;
-		}
-
-		if (super.shouldAcceptPreviousSuggestion(nextKey, hold)) {
-			return true;
-		}
-
-		String nextSequence = digitSequence + (char)(nextKey + '0');
-
-		return
-			TextTools.containsOtherThan1(nextSequence)
-			&& (
-				nextSequence.endsWith(seq.EMOJI_SEQUENCE) || nextSequence.startsWith(seq.EMOJI_SEQUENCE) ||
-				nextSequence.endsWith(seq.CHARS_1_SEQUENCE) || nextSequence.startsWith(seq.CHARS_1_SEQUENCE)
-			);
+			&& !seq.isAnySpecialCharSequence(digitSequence)
+			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 

@@ -94,10 +94,10 @@ public class ModeBopomofo extends ModePinyin {
 	 * In Bopomofo mode, the 0-key is not Spacebar, so we do not rely on the parents to handle accepting
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		String newSequence = digitSequence + (char)(nextKey + '0');
+	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextDigit, boolean hold) {
+		String newSequence = digitSequence + (char)(nextDigit + '0');
 		return hold
 			|| newSequence.startsWith(seq.CHARS_0_SEQUENCE)
-			|| (newSequence.startsWith(seq.CHARS_1_SEQUENCE) && nextKey != Sequences.CHARS_1_KEY);
+			|| (newSequence.startsWith(seq.CHARS_1_SEQUENCE) && nextDigit != Sequences.CHARS_1_KEY);
 	}
 }

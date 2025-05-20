@@ -255,7 +255,7 @@ public class Text extends TextTools {
 			// In the writing systems that do not use spaces, the last group is not the last word, but
 			// it could be an entire sentence or a paragraph. That's why we assume an average word length
 			// of N letters
-			if (codePoints > MAX_WORD_LENGTH_NO_SPACE && (TextTools.isChinese(group) || TextTools.isJapanese(group) || TextTools.isThai(group))) {
+			if (codePoints > MAX_WORD_LENGTH_NO_SPACE && (TextTools.isChineseText(group) || TextTools.isJapaneseText(group) || TextTools.isThaiText(group))) {
 				return text.length() - gr.substringCodePoints(codePoints - 4, codePoints).length();
 			} else {
 				return matcher.start();

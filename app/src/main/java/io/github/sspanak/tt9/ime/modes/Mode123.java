@@ -16,7 +16,7 @@ class Mode123 extends ModePassthrough {
 	@Override @NonNull public String toString() { return "123"; }
 
 	@Override public int getSequenceLength() { return digitSequence.length(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) { return true; }
+	@Override public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return true; }
 
 	private final ArrayList<ArrayList<String>> KEY_CHARACTERS = new ArrayList<>();
 

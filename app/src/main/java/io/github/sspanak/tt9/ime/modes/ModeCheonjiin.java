@@ -340,7 +340,7 @@ class ModeCheonjiin extends InputMode {
 	 * Used for analysis before processing the incoming pressed key.
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
+	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) {
 		return
 			(hold && !digitSequence.isEmpty())
 			|| (nextKey != Sequences.CHARS_0_KEY && digitSequence.startsWith(seq.CHARS_0_SEQUENCE))
