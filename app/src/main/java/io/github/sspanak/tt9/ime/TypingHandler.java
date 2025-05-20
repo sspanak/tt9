@@ -172,7 +172,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		suggestionOps.cancelDelayedAccept();
 
-
 		// In Korean, the next char may "steal" components from the previous one, in which case,
 		// we must replace the previous char with a one containing less strokes.
 		if (mInputMode.shouldReplaceLastLetter(key, hold)) {
@@ -183,7 +182,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
-		else if (mInputMode.shouldAcceptPreviousSuggestion(key, hold)) {
+		else if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();

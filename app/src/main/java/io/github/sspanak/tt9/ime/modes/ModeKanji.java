@@ -41,21 +41,6 @@ public class ModeKanji extends ModePinyin {
 
 
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
-		if (digitSequence.isEmpty()) {
-			return false;
-		}
-
-		String nextSequence = digitSequence + (char)(nextKey + '0');
-		if (seq.isAnySpecialCharSequence(nextSequence)) {
-			return false;
-		}
-
-		return super.shouldAcceptPreviousSuggestion(nextKey, hold);
-	}
-
-
-	@Override
 	public boolean validateLanguage(@Nullable Language newLanguage) {
 		return LanguageKind.isJapanese(newLanguage);
 	}

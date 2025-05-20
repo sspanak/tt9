@@ -11,21 +11,17 @@ import java.util.regex.Pattern;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class TextTools {
-	private static final Pattern CONTAINS_OTHER_THAN_1 = Pattern.compile("[02-9]");
 	private static final Pattern COMBINING_STRING = Pattern.compile("^\\p{M}+$");
 	private static final Pattern NEXT_IS_PUNCTUATION = Pattern.compile("^\\p{Punct}");
-	private static final Pattern IS_CHINESE = Pattern.compile("\\p{script=Han}+");
-	private static final Pattern IS_JAPANESE = Pattern.compile("\\p{script=Hiragana}+|\\p{script=Katakana}+|\\p{script=Han}+");
-	private static final Pattern IS_HANGUL = Pattern.compile("[\u1100-\u11FF\u302E-\u302F\u3131-\u318F\u3200-\u321F\u3260-\u327E\uA960-\uA97F\uAC00-\uD7FB\uFFA0-\uFFDF]+");
-	private static final Pattern IS_THAI = Pattern.compile("[\\u0E00-\\u0E7F]+");
+	private static final Pattern IS_CHINESE = Pattern.compile("[\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
+	private static final Pattern IS_HANGUL_TEXT = Pattern.compile("[\u1100-\u11FF\u302E-\u302F\u3131-\u318F\u3200-\u321F\u3260-\u327E\uA960-\uA97F\uAC00-\uD7FB\uFFA0-\uFFDF]+");
+	private static final Pattern IS_JAPANESE = Pattern.compile("[\\p{script=Hiragana}\\p{script=Katakana}\\p{script=Han}" + String.join("", Characters.PunctuationChinese) + "]+");
+	private static final Pattern IS_CHINESE_TEXT = Pattern.compile("\\p{script=Han}+");
+	private static final Pattern IS_JAPANESE_TEXT = Pattern.compile("[\\p{script=Hiragana}\\p{script=Katakana}\\p{script=Han}]+");
+	private static final Pattern IS_THAI_TEXT = Pattern.compile("[\\u0E00-\\u0E7F]+");
 	private static final Pattern NEXT_TO_WORD = Pattern.compile("\\b$");
 	private static final Pattern PREVIOUS_IS_LETTER = Pattern.compile("[\\p{L}\\p{M}](?!\\n)$");
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
-
-
-	public static boolean containsOtherThan1(String str) {
-		return str != null && CONTAINS_OTHER_THAN_1.matcher(str).find();
-	}
 
 
 	public static boolean isCombining(String str) {
@@ -33,6 +29,9 @@ public class TextTools {
 	}
 
 
+	/**
+	 * Validates if the string contains only graphic characters (e.g. emojis)
+	 */
 	public static boolean isGraphic(String str) {
 		if (str == null || str.isEmpty()) {
 			return false;
@@ -48,23 +47,51 @@ public class TextTools {
 	}
 
 
+	/**
+	 * Validates Chinese text and punctuation.
+	 */
 	public static boolean isChinese(String str) {
 		return str != null && IS_CHINESE.matcher(str).find();
 	}
 
 
-	public static boolean isHangul(String str) {
-		return str != null && IS_HANGUL.matcher(str).find();
-	}
-
-
+	/**
+	 * Validates Japanese text and punctuation.
+	 */
 	public static boolean isJapanese(String str) {
 		return str != null && IS_JAPANESE.matcher(str).find();
 	}
 
 
-	public static boolean isThai(String str) {
-		return str != null && IS_THAI.matcher(str).find();
+	/**
+	 * Validates Chinese text only, but no punctuation.
+	 */
+	public static boolean isChineseText(String str) {
+		return str != null && IS_CHINESE_TEXT.matcher(str).find();
+	}
+
+
+	/**
+	 * Validates Japanese text only, but no punctuation.
+	 */
+	public static boolean isJapaneseText(String str) {
+		return str != null && IS_JAPANESE_TEXT.matcher(str).find();
+	}
+
+
+	/**
+	 * Validates Korean text only, but no punctuation.
+	 */
+	public static boolean isHangulText(String str) {
+		return str != null && IS_HANGUL_TEXT.matcher(str).find();
+	}
+
+
+	/**
+	 * Validates Thai text only, but no punctuation.
+	 */
+	public static boolean isThaiText(String str) {
+		return str != null && IS_THAI_TEXT.matcher(str).find();
 	}
 
 

@@ -395,25 +395,36 @@ class ModeWords extends ModeCheonjiin {
 	 * automatically. This is used for analysis before processing the incoming pressed key.
 	 */
 	@Override
-	public boolean shouldAcceptPreviousSuggestion(int nextKey, boolean hold) {
+	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextDigit, boolean hold) {
 		if (hold) {
+			return true;
+		}
+
+		if (digitSequence.isEmpty()) {
+			return false;
+		} else if (
+			digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE) ||
+			(seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY && nextDigit != Sequences.CUSTOM_EMOJI_KEY)
+		) {
 			return true;
 		}
 
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.
-		boolean specialOrCurrency = digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE);
-		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.CHARS_0_SEQUENCE) && !stem.isEmpty();
-		if (nextKey == Sequences.CHARS_0_KEY && (isWhitespaceAndScrolled || specialOrCurrency)) {
+		// Also don't type the preferred character when viewing a group. In that case we obviously want to
+		// type a space after the character from the group.
+		boolean inGroup = digitSequence.equals(seq.CHARS_GROUP_0_SEQUENCE) || digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE);
+		boolean isWhitespaceAndScrolled = digitSequence.equals(seq.CHARS_0_SEQUENCE) && !suggestions.isEmpty() && !suggestions.get(0).equals(currentWord);
+		if (nextDigit == Sequences.CHARS_0_KEY && (isWhitespaceAndScrolled || inGroup)) {
 			return true;
 		}
 
+		final char lastDigit = digitSequence.charAt(digitSequence.length() - 1);
+
 		return
-			!digitSequence.isEmpty() && (
-				(nextKey == Sequences.CHARS_0_KEY && digitSequence.charAt(digitSequence.length() - 1) != Sequences.CHARS_0_CODE)
-				|| (nextKey != Sequences.CHARS_0_KEY && digitSequence.charAt(digitSequence.length() - 1) == Sequences.CHARS_0_CODE)
-			);
+			(nextDigit == Sequences.CHARS_0_KEY && lastDigit != Sequences.CHARS_0_CODE)
+			|| (nextDigit != Sequences.CHARS_0_KEY && lastDigit == Sequences.CHARS_0_CODE);
 	}
 
 
@@ -432,13 +443,15 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 
-		// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& digitSequence.contains(seq.CHARS_1_SEQUENCE)
-			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE)
-			&& Text.containsOtherThan1(digitSequence);
+			&& (
+				// when no custom emoji, assume the last digit is the beginning of a new word
+				digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)
+				// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
+				|| (digitSequence.contains(seq.CHARS_1_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE))
+			);
 	}
 
 
