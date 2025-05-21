@@ -14,3 +14,8 @@ More Serbian word frequencies from The Leipzig Corpora Collection:
 Source: https://wortschatz.uni-leipzig.de/en/download/Serbian
 Version: Web/2016/1M, Wikipedia/2021/1M
 License: https://creativecommons.org/licenses/by-nc/4.0/
+
+Yet even more word frequencies obtained from LatinIME dictionaries:
+Source: https://android.googlesource.com/platform/packages/inputmethods/LatinIME
+Version: 66093bf509ea92fa31d796326d5f30a8d9582ffe (2023-12-21)
+License: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/+/refs/heads/main/NOTICE
