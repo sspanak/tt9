@@ -98,7 +98,7 @@ generate_all_cases "NotoSans-Bold.ttf" "ro" "ro" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "ру" "ru" -0.08 -0.08 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "sk" "sk" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "sl" "sl" -0.15 -0.15 -0.15
-generate_all_cases "NotoSans-Bold.ttf" "sr" "sr" -0.15 -0.15 -0.15
+generate_all_cases "NotoSans-Bold.ttf" "ср" "sr" -0.08 -0.08 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "es" "es" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "sv" "sv" -0.15 -0.15 -0.15
 generate_all_cases "NotoSans-Bold.ttf" "tm" "tm" -0.15 -0.15 -0.15
