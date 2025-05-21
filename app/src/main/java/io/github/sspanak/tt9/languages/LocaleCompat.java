@@ -41,6 +41,7 @@ class LocaleCompat {
 		return switch (language) {
 			case "ar" -> "ع";
 			case "bg" -> "бг";
+			case "ca", "ga", "sw" -> language;
 			case "en" -> "in".equals(country) ? "hn" : language; // en-IN = Hinglish
 			case "fa" -> "ف";
 			case "fi" -> "su";
@@ -53,11 +54,11 @@ class LocaleCompat {
 			case "ja" -> "漢";
 			case "ko" -> "한";
 			case "ru" -> "ру";
+			case "sr" -> "rs".equals(country) ? "ср" : language;
 			case "th" -> "ไท";
 			case "uk" -> "ук";
 			case "zgh" -> "dz".equals(country) ? "tm" : "ⵜⵎ";
 			case "zh" -> "cn".equals(country) ? "拼" : language;
-			case "ca", "ga", "sw" -> language;
 			default -> country;
 		};
 	}

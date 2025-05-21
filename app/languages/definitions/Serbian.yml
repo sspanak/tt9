@@ -4,7 +4,7 @@ iconABC: ic_lang_cyrillic
 iconT9: ic_lang_sr
 layout:
   - [SPECIAL] # 0
-  - [PUNCTUATION] # 1
+  - [PUNCTUATION_DE] # 1
   - [а, б, в, г] # 2
   - [д, ђ, џ, е, ж, з] # 3
   - [и, ј, к, л, љ] # 4
