@@ -90,8 +90,6 @@ class MainLayoutTray extends BaseMainLayout {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setBackgroundBlending();
 		enableClickHandlers();
-		for (SoftKey key : getKeys()) {
-			key.render();
-		}
+		renderKeys();
 	}
 }

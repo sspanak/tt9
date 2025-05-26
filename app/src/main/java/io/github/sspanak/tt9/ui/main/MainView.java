@@ -78,6 +78,15 @@ public class MainView {
 		main.render();
 	}
 
+	public void renderKeys() {
+		if (main == null) {
+			Logger.e(LOG_TAG, "Cannot render keys for a null MainView.");
+			return;
+		}
+
+		main.renderKeys();
+	}
+
 	public void showCommandPalette() {
 		if (main != null) {
 			main.showCommandPalette();
