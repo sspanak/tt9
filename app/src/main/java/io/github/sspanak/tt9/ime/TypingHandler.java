@@ -150,7 +150,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 				mInputMode.reset();
 			}
 
-			statusBar.setText(mInputMode);
+			if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
+				statusBar.setText(mInputMode);
+			}
 		}
 
 		if (settings.isMainLayoutNumpad()) {
