@@ -234,7 +234,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 		resetKeyRepeat();
 
-		mainView.render();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.renderKeys();
+		}
 
 		return true;
 	}
@@ -271,7 +273,9 @@ public abstract class HotkeyHandler extends CommandHandler {
 				.loadSuggestions(filter);
 		}
 
-		mainView.render();
+		if (settings.isMainLayoutNumpad()) {
+			mainView.renderKeys();
+		}
 
 		return true;
 	}
@@ -289,7 +293,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		backward = isLanguageRTL != backward;
 		scrollSuggestions(backward);
 		if (settings.isMainLayoutNumpad()) {
-			mainView.render();
+			mainView.renderKeys();
 		}
 
 		return true;

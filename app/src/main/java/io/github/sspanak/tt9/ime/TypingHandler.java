@@ -119,7 +119,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
 			if (settings.isMainLayoutNumpad()) {
-				mainView.render();
+				mainView.renderKeys();
 			}
 			return false;
 		}
@@ -154,7 +154,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (settings.isMainLayoutNumpad()) {
-			mainView.render();
+			mainView.renderKeys();
 		}
 
 		return true;
@@ -189,7 +189,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
 			if (settings.isMainLayoutNumpad()) {
-				mainView.render();
+				mainView.renderKeys();
 			}
 		}
 
@@ -237,7 +237,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		forceShowWindow();
 		if (settings.isMainLayoutNumpad()) {
-			mainView.render();
+			mainView.renderKeys();
 		}
 
 		return true;
@@ -379,7 +379,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase();
 		if (settings.isMainLayoutNumpad()) {
-			mainView.render();
+			mainView.renderKeys();
 		}
 	}
 
@@ -394,7 +394,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			autoCorrectSpace(word, true, fromKey);
 			resetKeyRepeat();
 			if (settings.isMainLayoutNumpad()) {
-				mainView.render();
+				mainView.renderKeys();
 			}
 		}
 	}

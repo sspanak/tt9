@@ -50,25 +50,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.VISIBLE);
 		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.VISIBLE);
 
-		for (SoftKey key : getKeys()) {
-			int keyId = key.getId();
-
-			if (
-				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_filter
-				|| keyId == R.id.soft_key_shift
-				|| keyId == R.id.soft_key_rf3
-				|| keyId == R.id.soft_key_lf4
-				|| keyId == R.id.soft_key_0
-				|| keyId == R.id.soft_key_100
-				|| keyId == R.id.soft_key_punctuation_101
-				|| keyId == R.id.soft_key_punctuation_102
-				|| keyId == R.id.soft_key_punctuation_201
-				|| keyId == R.id.soft_key_punctuation_202
-			) {
-				key.render();
-			}
-		}
+		renderKeys();
 	}
 
 	@Override
@@ -83,25 +65,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.GONE);
 
-		for (SoftKey key : getKeys()) {
-			int keyId = key.getId();
-
-			if (
-				keyId == R.id.soft_key_add_word
-				|| keyId == R.id.soft_key_filter
-				|| keyId == R.id.soft_key_shift
-				|| keyId == R.id.soft_key_rf3
-				|| keyId == R.id.soft_key_lf4
-				|| keyId == R.id.soft_key_0
-				|| keyId == R.id.soft_key_100
-				|| keyId == R.id.soft_key_punctuation_101
-				|| keyId == R.id.soft_key_punctuation_102
-				|| keyId == R.id.soft_key_punctuation_201
-				|| keyId == R.id.soft_key_punctuation_202
-			) {
-				key.render();
-			}
-		}
+		renderKeys();
 	}
 
 	@Override
@@ -387,8 +351,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 			keyHeights[0]
 		);
 
-		for (SoftKey key : getKeys()) {
-			key.render();
-		}
+		renderKeys();
 	}
 }

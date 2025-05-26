@@ -309,4 +309,13 @@ abstract class BaseMainLayout {
 	 * Do all the necessary stuff to display the View.
 	 */
 	abstract void render();
+
+	/**
+	 * Run render only on the keys, for example, to refresh their state.
+	 */
+	void renderKeys() {
+		for (SoftKey key : getKeys()) {
+			key.render();
+		}
+	}
 }
