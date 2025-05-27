@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -51,7 +52,7 @@ public class ChangeLanguageDialog extends PopupDialog {
 	@Override
 	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
 		if (Key.isBack(keyCode)) {
-			close();
+			closeAsync();
 			return true;
 		}
 
@@ -72,7 +73,10 @@ public class ChangeLanguageDialog extends PopupDialog {
 		if (onLanguageChanged != null) {
 			onLanguageChanged.accept(languageId);
 		}
-		close();
+
+
+		// close after returning to prevent the key event from leaking into the current input field
+		closeAsync();
 		return true;
 	}
 
@@ -90,6 +94,11 @@ public class ChangeLanguageDialog extends PopupDialog {
 
 	private int getByIndex(int index) {
 		return (index < 0 || index >= languages.size()) ? -1 : languages.get(index).getId();
+	}
+
+
+	private void closeAsync() {
+		new Handler().post(this::close);
 	}
 
 
