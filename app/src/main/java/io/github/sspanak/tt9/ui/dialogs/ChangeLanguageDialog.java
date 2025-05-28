@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ui.dialogs;
 
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -51,8 +50,12 @@ public class ChangeLanguageDialog extends PopupDialog {
 
 	@Override
 	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (event.getAction() == KeyEvent.ACTION_DOWN) {
+			return true;
+		}
+
 		if (Key.isBack(keyCode)) {
-			closeAsync();
+			close();
 			return true;
 		}
 
@@ -62,21 +65,19 @@ public class ChangeLanguageDialog extends PopupDialog {
 			languageId = getSelected();
 		} else if (Key.isNumber(keyCode)) {
 			languageId = getByIndex(Key.codeToNumber(settings, keyCode) - 1);
-		} else if (event.getAction() == KeyEvent.ACTION_UP && (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP)) {
+		} else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN || keyCode == KeyEvent.KEYCODE_DPAD_UP) {
 			for (LanguageRadioButton radio : radioButtonsCache) radio.autoHighlightCompat(); // yet another device hack
 		}
 
 		if (languageId == -1) {
-			return false;
+			return true;
 		}
 
 		if (onLanguageChanged != null) {
 			onLanguageChanged.accept(languageId);
 		}
 
-
-		// close after returning to prevent the key event from leaking into the current input field
-		closeAsync();
+		close();
 		return true;
 	}
 
@@ -94,11 +95,6 @@ public class ChangeLanguageDialog extends PopupDialog {
 
 	private int getByIndex(int index) {
 		return (index < 0 || index >= languages.size()) ? -1 : languages.get(index).getId();
-	}
-
-
-	private void closeAsync() {
-		new Handler().post(this::close);
 	}
 
 
