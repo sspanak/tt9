@@ -50,6 +50,10 @@ public class ChangeLanguageDialog extends PopupDialog {
 
 	@Override
 	public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+		if (Key.isArrow(keyCode)) {
+			return false;
+		}
+
 		if (event.getAction() == KeyEvent.ACTION_DOWN) {
 			return true;
 		}
