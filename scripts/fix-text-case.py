@@ -6,14 +6,18 @@ from collections import defaultdict
 import hunspell
 
 def load_unique_words(full_list_path):
-    words = set()
+    words = dict()
     with open(full_list_path, 'r', encoding='utf-8', errors='replace') as f:
         for line in f:
             word = line.strip()
             if '�' in word:
                 continue
-            words.add(word.lower())
-    return words
+
+            word_lower = word.lower()
+            if word_lower not in words or words[word_lower] == word_lower:
+                words[word_lower] = word
+
+    return words.values()
 
 def init_hunspell_worker(aff_path, dic_path):
     global hobj, dictionary_words
@@ -31,9 +35,14 @@ def fix_word_text_case(word):
         if variant in dictionary_words:
             return variant
 
-    for suggestion in hobj.suggest(word_lower):
+    hunspell_variants = hobj.suggest(word_lower)
+    for suggestion in hunspell_variants:
         if suggestion.lower() == word_lower:
             return suggestion
+
+    for suggestion in hunspell_variants:
+        if suggestion == word:
+            return word
 
     return word
 
