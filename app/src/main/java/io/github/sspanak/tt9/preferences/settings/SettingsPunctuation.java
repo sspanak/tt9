@@ -12,11 +12,11 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 class SettingsPunctuation extends SettingsInput {
-	private final static String CHARS_1_PREFIX = "pref_punctuation_";
+	private final static String CHARS_1_PREFIX = "punctuation_order_key_1_initial_";
 	public final static String CHARS_GROUP_1 = "punctuation_order_key_1_group";
 	public final static String CHARS_AFTER_GROUP_1 = "punctuation_order_key_1_after_group";
 
-	private final static String CHARS_0_PREFIX = "pref_special_chars_";
+	private final static String CHARS_0_PREFIX = "punctuation_order_key_0_initial_";
 	public final static String CHARS_GROUP_0 = "punctuation_order_key_0_group";
 	public final static String CHARS_AFTER_GROUP_0 = "punctuation_order_key_0_after_group";
 
