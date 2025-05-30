@@ -8,7 +8,7 @@ def load_stem_buckets(whitelist_path):
     with open(whitelist_path, 'r', encoding='utf-8', errors='replace') as f:
         for line in f:
             word = line.strip()
-            if '�' in word or len(word) < 4:
+            if '�' in word:
                 continue
             word_lc = word.lower()
             first_char = word_lc[0]
@@ -33,8 +33,6 @@ def load_known_suffixes(suffix_file_path):
             if suffix:
                 suffixes.add(suffix)
     return suffixes
-
-# aááá
 
 def match_word(word, buckets, known_suffixes):
     """Return all valid combinations: base word and word+suffix if found in stems."""
