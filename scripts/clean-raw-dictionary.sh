@@ -62,11 +62,10 @@ whitelist_filter() {
 	    return
 	fi
 
-	echo "Preparing to filter words using Hunspell and whitelist file $WHITELIST_FILE." \
-		&& cp $WHITELIST_FILE $WORK_DIR/white.txt \
-		&& printf "Enriching the whitelist with "good" Hunspell from our list... " && hunspell -i UTF-8 -G -d "$DICTIONARY" "$CLEAN_WORDS" >> $WORK_DIR/white.txt && echo "OK" \
-		&& printf "Sorting the good words... " && cat $WORK_DIR/white.txt | sort | uniq > $WORK_DIR/white-clean.txt && echo "OK" \
-		&& python $SCRIPT_DIR/whitelist-filter.py $WORK_DIR/white-clean.txt $CLEAN_WORDS $SUFFIXES_FILE $OUTPUT
+	echo "Preparing to filter words using whitelist file $WHITELIST_FILE." \
+		&& cat $WHITELIST_FILE | sort -u | uniq > $WORK_DIR/whitelist-uniq.txt \
+		&& python $SCRIPT_DIR/whitelist-filter.py $WORK_DIR/whitelist-uniq.txt $CLEAN_WORDS $SUFFIXES_FILE $WORK_DIR/whitelisted-raw.txt \
+		&& printf "Validating the whitelisted words with Hunspell... " && hunspell -i UTF-8 -G -d "$DICTIONARY" $WORK_DIR/whitelisted-raw.txt > $OUTPUT && echo "OK"
 }
 
 # remove Roman numerals: ^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$
