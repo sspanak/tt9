@@ -68,7 +68,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		settings.setDefaultCharOrder(mLanguage, true);
+		settings.setDefaultCharOrder(mLanguage, false);
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();

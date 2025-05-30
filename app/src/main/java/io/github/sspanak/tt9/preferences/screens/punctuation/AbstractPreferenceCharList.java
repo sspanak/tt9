@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 abstract class AbstractPreferenceCharList extends TextInputPreference {
 	@NonNull protected String currentChars = "";
 	protected Language language;
-	private Runnable onRender;
+	private boolean isInitialized = false;
 	protected static SettingsStore settings;
 
 
@@ -28,8 +28,9 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 	@Override
 	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
 		super.onBindViewHolder(holder);
-		if (holder.itemView.findViewById(R.id.input_text_input_field) != null && onRender != null) {
-			onRender.run();
+		if (!isInitialized && holder.itemView.findViewById(R.id.input_text_input_field) != null) {
+			isInitialized = true;
+			onLanguageChange(language);
 		}
 	}
 
@@ -56,6 +57,9 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 
 	void onLanguageChange(Language language) {
 		this.language = language;
+		if (!isInitialized) {
+			return;
+		}
 
 		String all = getChars();
 		char[] mandatory = getMandatoryChars();
@@ -80,11 +84,6 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 
 		setError(null);
 		setText(currentChars = optional.toString());
-	}
-
-
-	void setOnRender(Runnable onRender) {
-		this.onRender = onRender;
 	}
 
 
