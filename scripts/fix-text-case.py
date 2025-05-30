@@ -1,5 +1,6 @@
 import argparse
 import os
+import time
 from multiprocessing import Pool, cpu_count, Manager
 from collections import defaultdict
 import hunspell
@@ -36,13 +37,28 @@ def fix_word_text_case(word):
 
     return word
 
+def print_progress(current, total, start_time, interval):
+    if current % interval == 0 or current == total:
+        avg_time = (time.time() - start_time) / current
+        remaining_time = (total - current) * avg_time
+        HH, rem = divmod(int(remaining_time), 3600)
+        MM, SS = divmod(rem, 60)
+        print(f"\rFixing text case using hunspell... {current}/{total}, Remaining: {HH:02}:{MM:02}:{SS:02}", end=" ")
+
+
 def run_hunspell_batch(words, aff_path, dic_path, num_workers):
+    total = len(words)
+    start_time = time.time()
+
     with Pool(
         processes=num_workers,
         initializer=init_hunspell_worker,
         initargs=(aff_path, dic_path)
     ) as pool:
-        return pool.map(fix_word_text_case, words, chunksize=1)
+        for i, correct_word in enumerate (pool.imap_unordered(fix_word_text_case, words), 1):
+            print_progress(i, total, start_time, 300)
+            yield correct_word
+
 
 def main():
     parser = argparse.ArgumentParser(description="Correct the text case of a word list using Hunspell.")
@@ -65,13 +81,13 @@ def main():
     all_words = load_unique_words(args.word_list)
     print(f"Loaded {len(all_words)} candidate words.")
 
-    print(f"Fixing text case using hunspell...", end=" ")
     corrected_words = run_hunspell_batch(all_words, args.aff, args.dic, cpu_count())
-    print("OK")
 
     with open(args.output, 'w', encoding='utf-8') as f:
         for word in sorted(corrected_words):
             f.write(word + '\n')
+
+    print(" ") # clear the '\r'
 
 if __name__ == "__main__":
     main()
