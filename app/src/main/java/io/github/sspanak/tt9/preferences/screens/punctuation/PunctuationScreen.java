@@ -54,7 +54,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 		initLanguageList();
 		initResetDefaults();
 		initSaveButton();
-		loadCharLists();
+		onLanguageChanged(languageList.getValue());
 		resetFontSize(false);
 	}
 
@@ -113,19 +113,6 @@ public class PunctuationScreen extends BaseScreenFragment {
 			if (list != null) {
 				list.onLanguageChange(language);
 			}
-		}
-	}
-
-
-	private void loadCharLists() {
-		for (AbstractPreferenceCharList list : charLists) {
-			if (list == null) {
-				continue;
-			}
-			list.setOnRender(() -> {
-				list.setOnRender(null);
-				onLanguageChanged(languageList.getValue());
-			});
 		}
 	}
 }
