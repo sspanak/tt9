@@ -6,6 +6,8 @@ import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.annotation.NonNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -42,8 +44,8 @@ public class DictionaryLoader {
 	private final AssetManager assets;
 	private final SQLiteOpener sqlite;
 
-	private static final Handler asyncHandler = new Handler();
-	private ConsumerCompat<Bundle> onStatusChange;
+	@NonNull private static final Handler asyncHandler = new Handler();
+	@NonNull private final ConsumerCompat<Bundle> onStatusChange;
 	private Thread loadThread;
 
 	private final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
@@ -63,12 +65,8 @@ public class DictionaryLoader {
 
 	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
+		onStatusChange = DictionaryLoadingBar.getInstance(context)::show;
 		sqlite = SQLiteOpener.getInstance(context);
-	}
-
-
-	public void setOnStatusChange(ConsumerCompat<Bundle> callback) {
-		onStatusChange = callback;
 	}
 
 
@@ -110,8 +108,6 @@ public class DictionaryLoader {
 
 
 	public static void load(Context context, Language language) {
-		DictionaryLoadingBar progressBar = DictionaryLoadingBar.getInstance(context);
-		getInstance(context).setOnStatusChange(progressBar::show);
 		self.load(context, new ArrayList<>() {{ add(language); }});
 	}
 
@@ -321,11 +317,6 @@ public class DictionaryLoader {
 
 
 	private void sendStartMessage(int fileCount) {
-		if (onStatusChange == null) {
-			Logger.w(LOG_TAG, "Cannot send file count without a status Handler. Ignoring message.");
-			return;
-		}
-
 		Bundle progressMsg = new Bundle();
 		progressMsg.putInt("fileCount", fileCount);
 		progressMsg.putInt("progress", 1);
@@ -334,11 +325,6 @@ public class DictionaryLoader {
 
 
 	private void sendProgressMessage(Language language, float progress, int progressUpdateInterval) {
-		if (onStatusChange == null) {
-			Logger.w(LOG_TAG, "Cannot send progress without a status Handler. Ignoring message.");
-			return;
-		}
-
 		long now = System.currentTimeMillis();
 		if (now - lastProgressUpdate < progressUpdateInterval) {
 			return;
@@ -356,35 +342,19 @@ public class DictionaryLoader {
 
 
 	private void sendError(String message, int langId) {
-		if (onStatusChange == null) {
-			Logger.w(LOG_TAG, "Cannot send an error without a status Handler. Ignoring message.");
-			return;
-		}
-
 		Bundle errorMsg = new Bundle();
 		errorMsg.putString("error", message);
 		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> {
-			onStatusChange.accept(errorMsg);
-			onStatusChange = null;
-		});
+		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
 	}
 
 
 	private void sendImportError(String message, int langId, long fileLine) {
-		if (onStatusChange == null) {
-			Logger.w(LOG_TAG, "Cannot send an import error without a status Handler. Ignoring message.");
-			return;
-		}
-
 		Bundle errorMsg = new Bundle();
 		errorMsg.putString("error", message);
 		errorMsg.putLong("fileLine", fileLine + 1);
 		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> {
-			onStatusChange.accept(errorMsg);
-			onStatusChange = null;
-		});
+		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
 	}
 
 
