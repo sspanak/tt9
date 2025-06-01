@@ -1,7 +1,5 @@
 package io.github.sspanak.tt9.preferences.screens.languages;
 
-import android.os.Bundle;
-
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
@@ -32,7 +30,6 @@ class ItemLoadDictionary extends ItemClickable {
 
 		loader = DictionaryLoader.getInstance(context);
 		progressBar = DictionaryLoadingBar.getInstance(context);
-		loader.setOnStatusChange(progressBar::show);
 
 		this.activity = context;
 		this.onStart = onStart;
