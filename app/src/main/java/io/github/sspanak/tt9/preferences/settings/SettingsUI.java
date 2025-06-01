@@ -24,6 +24,7 @@ public class SettingsUI extends SettingsTyping {
 
 	public final static int MIN_WIDTH_PERCENT = 50;
 	private int DEFAULT_WIDTH_LANDSCAPE = 0;
+	private Boolean DEFAULT_QUICK_SWITCH_LANGUAGE = null;
 
 
 	SettingsUI(Context context) {
@@ -88,7 +89,11 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean getQuickSwitchLanguage() {
-		return prefs.getBoolean("pref_quick_switch_language", true);
+		if (DEFAULT_QUICK_SWITCH_LANGUAGE == null) {
+			DEFAULT_QUICK_SWITCH_LANGUAGE = !isMainLayoutStealth() && getEnabledLanguagesIdsAsStrings().size() <= 2;
+		}
+
+		return prefs.getBoolean("pref_quick_switch_language", DEFAULT_QUICK_SWITCH_LANGUAGE);
 	}
 
 	public int getSettingsFontSize() {

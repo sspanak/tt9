@@ -32,10 +32,12 @@ public class QuickSwitchLanguagePreference extends SwitchPreferenceCompat {
 	}
 
 	private void init(Context context) {
-		setDefaultValue(true);
+		SettingsStore settings = new SettingsStore(context);
+
+		setDefaultValue(settings.getQuickSwitchLanguage());
 		setKey("pref_quick_switch_language");
 		setTitle(R.string.pref_quick_switch_language);
 		setSummary(R.string.pref_quick_switch_language_summary);
-		setVisible(!new SettingsStore(context).isMainLayoutStealth());
+		setVisible(!settings.isMainLayoutStealth());
 	}
 }
