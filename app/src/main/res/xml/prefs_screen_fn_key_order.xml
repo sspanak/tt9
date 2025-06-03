@@ -8,6 +8,6 @@
 		app:key="pref_rfn_key_order"
 		app:title="@string/fn_key_order_column_2"
 		/>
-	<Preference app:key="pref_reset_fn_key_order" app:title="@string/restore_default_order" />
+	<Preference app:key="pref_reset_fn_key_order" app:title="@string/fn_key_order_restore_default" />
 	<io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderLegendPreference />
 </PreferenceScreen>

@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.punctuation;
 import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.items.ItemClickable;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -23,6 +24,9 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 
 	ItemRestoreDefaultPunctuation setLanguage(Language language) {
 		this.language = language;
+		if (item != null) {
+			item.setTitle(item.getContext().getString(R.string.punctuation_order_restore_default_for, language.getName()));
+		}
 		return this;
 	}
 

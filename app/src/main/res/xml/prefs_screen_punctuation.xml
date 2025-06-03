@@ -40,7 +40,7 @@
 	<PreferenceCategory>
 		<Preference
 			android:key="punctuation_order_reset_defaults"
-			android:title="@string/restore_default_order" />
+			android:title="@string/punctuation_order_restore_default_for" />
 
 		<Preference
 			android:key="punctuation_order_save"
