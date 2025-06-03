@@ -39,8 +39,8 @@ class ModeWords extends ModeCheonjiin {
 	protected ModeWords(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, inputType, textField);
 
-		autoTextCase = new AutoTextCase(settings, inputType);
 		seq = new Sequences();
+		autoTextCase = new AutoTextCase(settings, seq, inputType);
 
 		setLanguage(lang);
 		defaultTextCase();
@@ -343,8 +343,8 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public void determineNextWordTextCase() {
-		textCase = autoTextCase.determineNextWordTextCase(textCase, textFieldTextCase, textField.getStringBeforeCursor(), digitSequence);
+	public void determineNextWordTextCase(int nextDigit) {
+		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField.getStringBeforeCursor(), digitSequence + nextDigit);
 	}
 
 	private void determineTextFieldTextCase() {

@@ -217,26 +217,25 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return false;
 		}
 
-		// When there are no suggestions, there is no need to execute the code below for adjusting their text case.
-		if (mInputMode.getSuggestions().isEmpty()) {
+		// if there are no suggestions or they are special chars, we don't need to adjust their text case
+		final String before = suggestionOps.getCurrent();
+		boolean beforeStartsWithLetter = !before.isEmpty() && Character.isAlphabetic(before.charAt(0));
+		if (!beforeStartsWithLetter) {
 			settings.saveTextCase(mInputMode.getTextCase());
 			return true;
 		}
 
 		// When we are in AUTO mode and current dictionary word is in uppercase,
 		// the mode would switch to UPPERCASE, but visually, the word would not change.
-		// This is why we retry, until there is a visual change.
-		String before = suggestionOps.get(0);
-		boolean beforeStartsWithLetter = !before.isEmpty() && Character.isAlphabetic(before.charAt(0));
-		for (int retries = 0; beforeStartsWithLetter && retries < 2 && mInputMode.nextTextCase(); retries++) {
-			String after = mInputMode.getSuggestions().get(0);
-			if (!after.equals(before)) {
+		// This is why we retry using the code below, until there is a visual change.
+		int currentSuggestionIndex = suggestionOps.getCurrentIndex();
+		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
+
+		for (int retries = 0; retries <= 2; retries++) {
+			if (!before.equals(mInputMode.getSuggestions().get(currentSuggestionIndex)) || !mInputMode.nextTextCase()) {
 				break;
 			}
 		}
-
-		int currentSuggestionIndex = suggestionOps.getCurrentIndex();
-		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
 
 		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
 		textField.setComposingText(suggestionOps.getCurrent());
