@@ -150,11 +150,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 				mInputMode.reset();
 			}
 
+			setStatusIcon(mInputMode, mLanguage);
+
 			if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
 				statusBar.setText(mInputMode);
 			}
 		}
 
+		// this updates Shift and Filter, so we can't do it only when recomposing
 		if (settings.isMainLayoutNumpad()) {
 			mainView.renderKeys();
 		}
@@ -190,14 +193,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
 			autoCorrectSpace(lastWord, false, key);
-			if (settings.isMainLayoutNumpad()) {
-				mainView.renderKeys();
-			}
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (mInputMode.getSuggestions().isEmpty()) {
-			mInputMode.determineNextWordTextCase();
+			mInputMode.determineNextWordTextCase(key);
 		}
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
@@ -379,7 +379,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onAcceptSuggestionAutomatically(String word) {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
-		mInputMode.determineNextWordTextCase();
+		mInputMode.determineNextWordTextCase(-1);
 		if (settings.isMainLayoutNumpad()) {
 			mainView.renderKeys();
 		}
@@ -443,6 +443,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// for a more intuitive experience.
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
+
+		setStatusIcon(mInputMode, mLanguage);
+		if (settings.isMainLayoutNumpad()) {
+			mainView.renderKeys();
+		}
 
 		forceShowWindow();
 	}

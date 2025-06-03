@@ -8,6 +8,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
@@ -55,8 +56,23 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
+	public int getDisplayTextCase(Language language, int modeTextCase) {
+		boolean hasUpperCase = language != null && language.hasUpperCase();
+		if (!hasUpperCase) {
+			return InputMode.CASE_UNDEFINED;
+		}
+
+		if (modeTextCase == InputMode.CASE_UPPER) {
+			return InputMode.CASE_UPPER;
+		}
+
+		int wordTextCase = new Text(language, getSuggestionOps().getCurrent()).getTextCase();
+		return wordTextCase == InputMode.CASE_UPPER ? InputMode.CASE_CAPITALIZE : wordTextCase;
+	}
+
+
 	protected void setStatusIcon(InputMode mode, Language language) {
-		int resId = new StatusIcon(settings, mode, language).resourceId;
+		int resId = new StatusIcon(settings, mode, language, getDisplayTextCase(language, mode.getTextCase())).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {

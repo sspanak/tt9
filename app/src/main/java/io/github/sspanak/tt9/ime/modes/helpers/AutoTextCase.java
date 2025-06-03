@@ -5,15 +5,18 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 
 public class AutoTextCase {
+	@NonNull private final Sequences sequences;
 	@NonNull private final SettingsStore settings;
 	private final boolean isUs;
 
 
-	public AutoTextCase(@NonNull SettingsStore settingsStore, @Nullable InputType inputType) {
+	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
+		this.sequences = sequences;
 		settings = settingsStore;
 		isUs = inputType != null && inputType.isUs();
 	}
@@ -44,7 +47,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(int currentTextCase, int textFieldTextCase, String beforeCursor, String digitSequence) {
+	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, String beforeCursor, String digitSequence) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -55,7 +58,6 @@ public class AutoTextCase {
 		) {
 			return currentTextCase;
 		}
-
 
 		if (textFieldTextCase != InputMode.CASE_UNDEFINED) {
 			return textFieldTextCase;
@@ -77,10 +79,8 @@ public class AutoTextCase {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		// This is mostly for English "I", inserted in the middle of a word. However, we don't want to
-		// enforce lowercase for words like "-ROM" in "CD-ROM". We have to use the digitSequence here,
-		// because the composing text is not yet set in some cases, when this is called.
-		if (Text.isNextToWord(beforeCursor) && !digitSequence.startsWith("1")) {
+		// Prevent English "I", inserted in the middle of a word, from being uppercase.
+		if (sequences.isEnglishI(language, digitSequence) && Text.isNextToWord(beforeCursor)) {
 			return InputMode.CASE_LOWER;
 		}
 

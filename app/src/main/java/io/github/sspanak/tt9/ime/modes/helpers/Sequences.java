@@ -3,6 +3,9 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.languages.Language;
+import io.github.sspanak.tt9.languages.LanguageKind;
+
 public class Sequences {
 	public static final int CHARS_0_KEY = 0;
 	public static final int CHARS_0_CODE = CHARS_0_KEY + '0';
@@ -72,5 +75,9 @@ public class Sequences {
 				|| sequence.startsWith(PREFERRED_CHAR_SEQUENCE)
 				|| sequence.startsWith(CHARS_GROUP_0_SEQUENCE)
 				|| sequence.startsWith(CHARS_GROUP_1_SEQUENCE);
+	}
+
+	public boolean isEnglishI(@Nullable Language language, @NonNull String digitSequence) {
+		return LanguageKind.isEnglish(language) && digitSequence.equals("4");
 	}
 }
