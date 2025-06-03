@@ -16,6 +16,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
 	private ItemPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
+	private ItemPunctuationOrderSave saveOrder;
 	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
 
 	public PunctuationScreen() { init(); }
@@ -52,8 +53,9 @@ public class PunctuationScreen extends BaseScreenFragment {
 		}
 
 		initLanguageList();
-		initResetDefaults();
-		initSaveButton();
+		Language initalLanguage = LanguageCollection.getLanguage(languageList.getValue());
+		initResetDefaults(initalLanguage);
+		initSaveButton(initalLanguage);
 		loadCharLists();
 		resetFontSize(false);
 	}
@@ -69,15 +71,16 @@ public class PunctuationScreen extends BaseScreenFragment {
 	}
 
 
-	private void initSaveButton() {
+	private void initSaveButton(Language initialLanguage) {
 		Preference item = findPreference(ItemPunctuationOrderSave.NAME);
 		if (item != null) {
-			new ItemPunctuationOrderSave(item, this::onSaveOrdering).enableClickHandler();
+			saveOrder = new ItemPunctuationOrderSave(item, this::onSaveOrdering).setLanguage(initialLanguage);
+			saveOrder.enableClickHandler();
 		}
 	}
 
 
-	private void initResetDefaults() {
+	private void initResetDefaults(Language initialLanguage) {
 		Preference item = findPreference(ItemRestoreDefaultPunctuation.NAME);
 		if (item == null) {
 			return;
@@ -85,7 +88,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 		restoreDefaults = new ItemRestoreDefaultPunctuation(activity.getSettings(), item, this::onLanguageChanged);
 		restoreDefaults
-			.setLanguage(LanguageCollection.getLanguage(languageList.getValue()))
+			.setLanguage(initialLanguage)
 			.enableClickHandler();
 	}
 
@@ -108,6 +111,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 		Language language = LanguageCollection.getLanguage(newLanguageId);
 
 		restoreDefaults.setLanguage(language);
+		saveOrder.setLanguage(language);
 
 		for (AbstractPreferenceCharList list : charLists) {
 			if (list != null) {

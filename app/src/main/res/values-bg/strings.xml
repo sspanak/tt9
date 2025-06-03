@@ -204,9 +204,10 @@
 	<string name="punctuation_order_save_error">Неуспешно запазване на реда на знаците.</string>
 	<string name="punctuation_order_key_1">Ред на символите на клавиш 1</string>
 	<string name="punctuation_order_key_0">Ред на символите на клавиш 0</string>
-	<string name="restore_default_order">Възстанови реда по подразбиране</string>
+	<string name="fn_key_order_restore_default">Възстанови реда по подразбиране</string>
 	<string name="language">Език</string>
-	<string name="punctuation_order_save">Запази подредбата</string>
+	<string name="punctuation_order_restore_default_for">Възстанови стандартната подредба за %1$s</string>
+	<string name="punctuation_order_save">Запази подредбата за %1$s</string>
 	<string name="punctuation_order_forbidden_char">Забранен символ:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Забранени символи:%1$s</string>
 	<string name="pref_category_geometry">Геометрия</string>
