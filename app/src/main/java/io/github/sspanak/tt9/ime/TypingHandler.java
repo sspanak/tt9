@@ -150,16 +150,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 				mInputMode.reset();
 			}
 
-			setStatusIcon(mInputMode, mLanguage);
-
 			if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
 				statusBar.setText(mInputMode);
 			}
-		}
-
-		// this updates Shift and Filter, so we can't do it only when recomposing
-		if (settings.isMainLayoutNumpad()) {
-			mainView.renderKeys();
 		}
 
 		return true;

@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -56,7 +58,7 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	public int getDisplayTextCase(Language language, int modeTextCase) {
+	public int getDisplayTextCase(@Nullable Language language, int modeTextCase) {
 		boolean hasUpperCase = language != null && language.hasUpperCase();
 		if (!hasUpperCase) {
 			return InputMode.CASE_UNDEFINED;
@@ -66,13 +68,19 @@ abstract class UiHandler extends AbstractHandler {
 			return InputMode.CASE_UPPER;
 		}
 
-		int wordTextCase = new Text(language, getSuggestionOps().getCurrent()).getTextCase();
+		Text currentWord = new Text(language, getSuggestionOps().getCurrent());
+		if (currentWord.isEmpty() || !currentWord.isAlphabetic()) {
+			return modeTextCase;
+		}
+
+		int wordTextCase = currentWord.getTextCase();
 		return wordTextCase == InputMode.CASE_UPPER ? InputMode.CASE_CAPITALIZE : wordTextCase;
 	}
 
 
-	protected void setStatusIcon(InputMode mode, Language language) {
-		int resId = new StatusIcon(settings, mode, language, getDisplayTextCase(language, mode.getTextCase())).resourceId;
+	protected void setStatusIcon(@Nullable InputMode mode, @Nullable Language language) {
+		int displayTextCase = getDisplayTextCase(language, mode != null ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
+		int resId = new StatusIcon(settings, mode, language, displayTextCase).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {
