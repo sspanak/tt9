@@ -355,7 +355,10 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public int getTextCase() {
 		// Filter out the internally used text cases. They have no meaning outside this class.
-		return (textCase == CASE_UPPER || textCase == CASE_LOWER) ? textCase : CASE_CAPITALIZE;
+		return switch (textCase) {
+			case CASE_UPPER, CASE_LOWER -> textCase;
+			default -> seq.isAnySpecialCharSequence(digitSequence) ? CASE_LOWER : CASE_CAPITALIZE;
+		};
 	}
 
 
