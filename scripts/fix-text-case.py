@@ -20,10 +20,10 @@ def load_unique_words(full_list_path):
     return words.values()
 
 def init_hunspell_worker(aff_path, dic_path):
-    global hobj, dictionary_words
+    global hobj, hunspell_stems
     hobj = hunspell.HunSpell(dic_path, aff_path)
     with open(dic_path, "r") as f:
-        dictionary_words = set({
+        hunspell_stems = set({
             line.split('/')[0].strip()
             for line in f
             if not line.startswith('#')
@@ -31,19 +31,25 @@ def init_hunspell_worker(aff_path, dic_path):
 
 def fix_word_text_case(word):
     word_lower = word.lower()
-    for variant in [word, word_lower, word.capitalize(), word.upper()]:
-        if variant in dictionary_words:
+
+    # check for direct matches to avoid expensive calls to HunSpell.suggest()
+    if word_lower != word and word_lower in hunspell_stems:
+        return word_lower
+
+    if word in hunspell_stems:
+        return word
+
+    # name -> Name
+    hunspell_variants = hobj.suggest(word_lower)
+    for variant in hunspell_variants:
+        if word_lower != variant and word_lower == variant.lower():
             return variant
 
-    hunspell_variants = hobj.suggest(word_lower)
-    for suggestion in hunspell_variants:
-        if suggestion.lower() == word_lower:
-            return suggestion
+    # if it can be either lowercase or uppercase, then we want to keep the lowercase
+    if word_lower in hunspell_variants:
+        return word_lower
 
-    for suggestion in hunspell_variants:
-        if suggestion == word:
-            return word
-
+    # if it is an unknown word, keep it as-is
     return word
 
 def print_progress(current, total, start_time, interval):
