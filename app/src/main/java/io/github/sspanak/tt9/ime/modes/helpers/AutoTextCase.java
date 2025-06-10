@@ -51,8 +51,8 @@ public class AutoTextCase {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
-			// If the user wants to type in uppercase, this must be for a reason, so we better not override it.
-			|| currentTextCase == InputMode.CASE_UPPER
+			// If the user has explicitly selected a text case, we respect that.
+			|| currentTextCase == InputMode.CASE_UPPER || currentTextCase == InputMode.CASE_LOWER
 			// we do not have text fields that expect sentences, so disable the feature to save some resources
 			|| isUs
 		) {

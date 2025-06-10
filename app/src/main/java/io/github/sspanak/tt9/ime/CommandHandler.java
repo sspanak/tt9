@@ -218,8 +218,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		// if there are no suggestions or they are special chars, we don't need to adjust their text case
 		final String before = suggestionOps.isEmpty() || mInputMode.getSequence().isEmpty() ? "" : suggestionOps.getCurrent();
-		final boolean beforeStartsWithLetter = !before.isEmpty() && Character.isAlphabetic(before.charAt(0));
-		if (!beforeStartsWithLetter) {
+		if (before.isEmpty() || !Character.isAlphabetic(before.charAt(0))) {
 			settings.saveTextCase(mInputMode.getTextCase());
 			return true;
 		}
