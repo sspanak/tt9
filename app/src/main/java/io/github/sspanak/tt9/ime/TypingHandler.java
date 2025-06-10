@@ -24,6 +24,7 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Text;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
@@ -437,9 +438,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		setStatusIcon(mInputMode, mLanguage);
-		if (settings.isMainLayoutNumpad()) {
-			mainView.renderKeys();
+		if (new Text(suggestionOps.getCurrent()).isAlphabetic()) {
+			setStatusIcon(mInputMode, mLanguage);
+			if (settings.isMainLayoutNumpad()) {
+				mainView.renderKeys();
+			}
 		}
 
 		forceShowWindow();

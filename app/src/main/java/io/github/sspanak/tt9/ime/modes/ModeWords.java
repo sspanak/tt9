@@ -362,28 +362,16 @@ class ModeWords extends ModeCheonjiin {
 	public int getTextCase() {
 		// Filter out the internally used text cases. They have no meaning outside this class.
 		return switch (textCase) {
-			case CASE_UPPER, CASE_LOWER -> textCase;
-			default -> seq.isAnySpecialCharSequence(digitSequence) ? CASE_LOWER : CASE_CAPITALIZE;
+			case CASE_UPPER, CASE_CAPITALIZE -> textCase;
+			case CASE_DICTIONARY -> CASE_CAPITALIZE;
+			default -> CASE_LOWER;
 		};
 	}
 
 
 	@Override
 	public boolean nextTextCase() {
-		int before = textCase;
 		boolean changed = super.nextTextCase();
-
-		// When we are in AUTO mode and current dictionary word is in uppercase,
-		// the mode would switch to UPPERCASE, but visually, the word would not change.
-		// This is why we retry, until there is a visual change.
-		// Yet, we allow adjusting individual words to lowercase, if needed.
-		if (digitSequence.isEmpty() && settings.getAutoTextCase() && language.hasUpperCase() && (before == CASE_LOWER || textCase == CASE_LOWER)) {
-			changed = super.nextTextCase();
-		}
-
-		if (seq.startsWithAnySpecialCharSequence(digitSequence) && textCase == CASE_CAPITALIZE) {
-			super.nextTextCase();
-		}
 
 		// since it's a user's choice, the default matters no more
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;
@@ -494,7 +482,7 @@ class ModeWords extends ModeCheonjiin {
 		String modeString = language.getName();
 		if (textCase == CASE_UPPER) {
 			return modeString.toUpperCase(language.getLocale());
-		} else if (textCase == CASE_LOWER && !settings.getAutoTextCase()) {
+		} else if (textCase == CASE_LOWER) {
 			return modeString.toLowerCase(language.getLocale());
 		} else {
 			return modeString;
