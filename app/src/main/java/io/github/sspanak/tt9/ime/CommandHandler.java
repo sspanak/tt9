@@ -188,11 +188,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
 		final String digits = mInputMode.getSequence();
-		final int textCase = mInputMode.getTextCase();
 		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
 		if (!InputModeKind.isNumeric(mInputMode)) {
-			mInputMode.setTextCase(textCase);
 			mInputMode.setSequence(digits);
+			mInputMode.determineNextWordTextCase(-1);
 		}
 
 		getSuggestions(null);
