@@ -120,9 +120,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		if (appHacks.onBackspace(settings, mInputMode)) {
 			mInputMode.reset();
-			if (settings.isMainLayoutNumpad()) {
-				mainView.renderKeys();
-			}
+			mainView.renderDynamicKeys();
 			return false;
 		}
 
@@ -147,6 +145,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (settings.getBackspaceRecomposing() && repeat == 0 && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = mInputMode.recompose();
 			if (textField.recompose(previousWord)) {
+				mInputMode.setOnEndRecomposing(this::updateShiftState);
 				getSuggestions(previousWord);
 			} else {
 				mInputMode.reset();
@@ -233,9 +232,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		autoCorrectSpace(text, true, -1);
 
 		forceShowWindow();
-		if (settings.isMainLayoutNumpad()) {
-			mainView.renderKeys();
-		}
+		mainView.renderDynamicKeys();
 
 		return true;
 	}
@@ -375,9 +372,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
 		mInputMode.determineNextWordTextCase(-1);
-		if (settings.isMainLayoutNumpad()) {
-			mainView.renderKeys();
-		}
+		updateShiftState();
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {
@@ -390,9 +385,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);
 			resetKeyRepeat();
-			if (settings.isMainLayoutNumpad()) {
-				mainView.renderKeys();
-			}
 		}
 	}
 
@@ -439,13 +431,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		if (new Text(suggestionOps.getCurrent()).isAlphabetic()) {
-			setStatusIcon(mInputMode, mLanguage);
-			if (settings.isMainLayoutNumpad()) {
-				mainView.renderKeys();
-			}
+		if (!suggestionOps.isEmpty() && new Text(suggestionOps.getCurrent()).isAlphabetic()) {
+			updateShiftState();
 		}
-
 		forceShowWindow();
 	}
 
@@ -455,5 +443,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
 		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode);
+	}
+
+
+	protected void updateShiftState() {
+		setStatusIcon(mInputMode, mLanguage);
+		mainView.renderDynamicKeys();
+		if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
+			statusBar.setText(mInputMode);
+		}
 	}
 }

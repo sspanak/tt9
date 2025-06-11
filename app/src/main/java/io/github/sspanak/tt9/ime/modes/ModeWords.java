@@ -33,6 +33,7 @@ class ModeWords extends ModeCheonjiin {
 	// text analysis tools
 	private final AutoTextCase autoTextCase;
 	private boolean isCursorDirectionForward = false;
+	private boolean isRecomposing = false;
 	private int textFieldTextCase;
 
 
@@ -76,6 +77,7 @@ class ModeWords extends ModeCheonjiin {
 
 		if (digitSequence.isEmpty()) {
 			clearWordStem();
+			endRecomposing();
 		} else if (stem.length() > digitSequence.length()) {
 			stem = stem.substring(0, digitSequence.length());
 		}
@@ -123,6 +125,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	public String recompose() {
+		isRecomposing = false;
 		if (!language.hasSpaceBetweenWords() || language.isTranscribed()) {
 			return null;
 		}
@@ -144,12 +147,21 @@ class ModeWords extends ModeCheonjiin {
 			reset();
 			digitSequence = language.getDigitSequenceForWord(previousWord);
 			textCase = new Text(language, previousWord).getTextCase();
+			isRecomposing = true;
 		} catch (InvalidLanguageCharactersException e) {
 			Logger.d(LOG_TAG, "Not recomposing word: '" + previousWord + "'. " + e.getMessage());
 			return null;
 		}
 
 		return previousWord;
+	}
+
+	private void endRecomposing() {
+		if (isRecomposing) {
+			isRecomposing = false;
+			textCase = settings.getTextCase();
+			onEndRecomposing.run();
+		}
 	}
 
 	@Override
@@ -315,6 +327,7 @@ class ModeWords extends ModeCheonjiin {
 			clearLastAcceptedWord();
 		} else {
 			reset();
+			endRecomposing();
 		}
 		stem = "";
 

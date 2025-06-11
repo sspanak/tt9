@@ -39,6 +39,7 @@ abstract public class InputMode {
 	@NonNull protected String digitSequence = "";
 	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
+	@NonNull protected Runnable onEndRecomposing = () -> {};
 	protected final SettingsStore settings;
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
@@ -164,6 +165,7 @@ abstract public class InputMode {
 
 	public void beforeDeleteText() {}
 	public String recompose() { return null; }
+	public void setOnEndRecomposing(Runnable r) { onEndRecomposing = r != null ? r : () -> {}; }
 	public void replaceLastLetter() {}
 
 	public void reset() {
