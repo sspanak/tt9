@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
@@ -14,19 +15,25 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
-	@Nullable protected final InputConnection connection;
+	@Nullable protected final InputMethodService ims;
 	@Nullable protected final EditorInfo field;
 
 
-	protected InputField(@Nullable InputConnection inputConnection, @Nullable EditorInfo inputField) {
-		connection = inputConnection;
+	protected InputField(@Nullable InputMethodService ims, @Nullable EditorInfo inputField) {
+		this.ims = ims;
 		field = inputField;
+	}
+
+
+	@Nullable
+	protected InputConnection getConnection() {
+		return ims != null ? ims.getCurrentInputConnection() : null;
 	}
 
 
 	public boolean equals(InputConnection inputConnection, EditorInfo inputField) {
 		return
-			connection != null && connection == inputConnection
+			inputConnection != null && inputConnection == getConnection()
 			&& field != null && field == inputField;
 	}
 
@@ -73,6 +80,7 @@ public class InputField {
 	 * Note that it is up to the app to decide what to do or ignore the action ID.
 	 */
 	public boolean performAction(int actionId) {
+		InputConnection connection = getConnection();
 		return connection != null && actionId != EditorInfo.IME_ACTION_NONE && connection.performEditorAction(actionId);
 	}
 

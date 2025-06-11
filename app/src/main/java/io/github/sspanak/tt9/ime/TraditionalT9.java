@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 
@@ -39,7 +38,7 @@ public class TraditionalT9 extends MainViewHandler {
 			return false;
 		}
 
-		setInputField(getCurrentInputConnection(), getCurrentInputEditorInfo());
+		setInputField(getCurrentInputEditorInfo());
 		return shouldBeVisible();
 	}
 
@@ -80,13 +79,13 @@ public class TraditionalT9 extends MainViewHandler {
 			LOG_TAG,
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);
-		onStart(getCurrentInputConnection(), inputField);
+		onStart(inputField);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		onStart(getCurrentInputConnection(), inputField);
+		onStart(inputField);
 	}
 
 
@@ -130,13 +129,13 @@ public class TraditionalT9 extends MainViewHandler {
 
 
 	@Override
-	protected boolean onStart(InputConnection connection, EditorInfo field) {
+	protected boolean onStart(EditorInfo field) {
 		if (zombieChecks == 0 && !SystemSettings.isTT9Selected(this)) {
 			startZombieCheck();
 			return false;
 		}
 
-		if (isDead || !super.onStart(connection, field)) {
+		if (isDead || !super.onStart(field)) {
 			setStatusIcon(mInputMode, mLanguage);
 			return false;
 		}
@@ -151,7 +150,7 @@ public class TraditionalT9 extends MainViewHandler {
 			initUi(mInputMode);
 		}
 
-		InputType newInputType = new InputType(getApplicationContext(), connection, field);
+		InputType newInputType = new InputType(this, field);
 
 		if (newInputType.isText()) {
 			DataStore.loadWordPairs(DictionaryLoader.getInstance(this), LanguageCollection.getAll(settings.getEnabledLanguageIds()));
@@ -241,7 +240,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	protected void cleanUp() {
 		super.cleanUp();
-		setInputField(null, null);
+		setInputField(null);
 		backgroundTasks.removeCallbacksAndMessages(null);
 		zombieChecks = SettingsStore.ZOMBIE_CHECK_MAX;
 		zombieDetector.removeCallbacksAndMessages(null);
