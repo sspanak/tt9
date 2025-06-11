@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime.helpers;
 
 import android.graphics.Typeface;
+import android.inputmethodservice.InputMethodService;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -10,6 +11,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -25,10 +27,10 @@ public class TextField extends InputField {
 	private final boolean isNonText;
 
 
-	public TextField(SettingsStore settings, InputConnection inputConnection, EditorInfo inputField) {
-		super(inputConnection, inputField);
+	public TextField(@Nullable InputMethodService ims, SettingsStore settings, EditorInfo inputField) {
+		super(ims, inputField);
 
-		InputType inputType = new InputType(null, inputConnection, inputField);
+		InputType inputType = new InputType(ims, inputField);
 		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && (settings == null || settings.getAllowComposingText());
 		isNonText = !inputType.isText();
 	}
@@ -40,12 +42,14 @@ public class TextField extends InputField {
 
 
 	@NonNull public String getStringAfterCursor(int numberOfChars) {
+		InputConnection connection = getConnection();
 		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextAfterCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	@NonNull public String getStringBeforeCursor(int numberOfChars) {
+		InputConnection connection = getConnection();
 		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
@@ -133,6 +137,7 @@ public class TextField extends InputField {
 	 * "deleteSurroundingText()" to delete a region of text or a Unicode character.
 	 */
 	public void deleteChars(int numberOfChars) {
+		InputConnection connection = getConnection();
 		if (numberOfChars <= 0 || connection == null) {
 			return;
 		}
@@ -162,6 +167,7 @@ public class TextField extends InputField {
 	 * No action is taken when there is no such word.
 	 */
 	public void deletePrecedingSpace(String word) {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;
 		}
@@ -187,6 +193,7 @@ public class TextField extends InputField {
 	 * there is no such word before the cursor.
 	 */
 	public void addPrecedingSpace(String word) {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;
 		}
@@ -210,6 +217,7 @@ public class TextField extends InputField {
 	 * the given "text". Returns "true" if the operation was successful, "false" otherwise.
 	 */
 	public boolean recompose(String text) {
+		InputConnection connection = getConnection();
 		if (text == null || connection == null || !isComposingSupported) {
 			return false;
 		}
@@ -227,6 +235,7 @@ public class TextField extends InputField {
 	 * A fail-safe setter that appends text to the field, ignoring NULL input.
 	 */
 	public void setText(String text) {
+		InputConnection connection = getConnection();
 		if (text != null && connection != null) {
 			connection.commitText(text, 1);
 		}
@@ -245,6 +254,7 @@ public class TextField extends InputField {
 	 */
 	public void setComposingText(CharSequence text, int position) {
 		composingText = text;
+		InputConnection connection = getConnection();
 		if (text != null && connection != null && isComposingSupported) {
 			connection.setComposingText(text, position);
 		}
@@ -275,6 +285,7 @@ public class TextField extends InputField {
 	 * Finish composing text or do nothing if the text field is invalid.
 	 */
 	public void finishComposingText() {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;
 		}
@@ -332,7 +343,7 @@ public class TextField extends InputField {
 
 	public boolean moveCursor(boolean backward) {
 		if (
-			connection == null
+			getConnection() == null
 			|| (backward && getStringBeforeCursor(1).isEmpty())
 			|| (!backward && getStringAfterCursor(1).isEmpty())
 		) {
@@ -351,7 +362,8 @@ public class TextField extends InputField {
 
 
 	public boolean sendDownUpKeyEvents(int keyCode, boolean shift, boolean ctrl) {
-	if (connection != null) {
+		InputConnection connection = getConnection();
+		if (connection != null) {
 			int metaState = shift ? KeyEvent.META_SHIFT_ON : 0;
 			metaState |= ctrl ? KeyEvent.META_CTRL_ON : 0;
 			KeyEvent downEvent = new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, keyCode, 0, metaState);

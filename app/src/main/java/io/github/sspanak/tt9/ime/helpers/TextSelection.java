@@ -1,6 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
-import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
@@ -11,16 +11,19 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class TextSelection {
-	@Nullable private final InputConnection connection;
-	private final Context context;
+	@Nullable private final InputMethodService ims;
 	private int currentStart = 0;
 	private int currentEnd = 0;
 
 
-	public TextSelection(Context context, @Nullable InputConnection connection) {
-		this.context = context;
-		this.connection = connection;
+	public TextSelection(@Nullable InputMethodService ims) {
+		this.ims = ims;
 		detectCursorPosition();
+	}
+
+
+	private InputConnection getConnection() {
+		return ims != null ? ims.getCurrentInputConnection() : null;
 	}
 
 
@@ -36,6 +39,7 @@ public class TextSelection {
 
 
 	public void clear() {
+		InputConnection connection = getConnection();
 		if (connection != null) {
 			connection.setSelection(currentEnd, currentEnd);
 		}
@@ -43,6 +47,7 @@ public class TextSelection {
 
 
 	public void clear(boolean backward) {
+		InputConnection connection = getConnection();
 		if (connection != null) {
 			connection.setSelection(
 				backward ? Math.min(currentStart, currentEnd) : Math.max(currentStart, currentEnd),
@@ -58,6 +63,7 @@ public class TextSelection {
 
 
 	public void selectAll() {
+		InputConnection connection = getConnection();
 		if (connection != null) {
 			connection.performContextMenuAction(android.R.id.selectAll);
 		}
@@ -65,6 +71,7 @@ public class TextSelection {
 
 
 	public void selectNextChar(boolean backward) {
+		InputConnection connection = getConnection();
 		if (connection != null) {
 			connection.setSelection(currentStart, currentEnd + (backward ? -1 : 1));
 		}
@@ -72,6 +79,7 @@ public class TextSelection {
 
 
 	public void selectNextWord(boolean backward) {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;
 		}
@@ -81,12 +89,16 @@ public class TextSelection {
 
 
 	public boolean copy() {
+		if (ims == null) {
+			return false;
+		}
+
 		CharSequence selectedText = getSelectedText();
 		if (selectedText.length() == 0) {
 			return false;
 		}
 
-		Clipboard.copy(context, selectedText);
+		Clipboard.copy(ims, selectedText);
 		return true;
 	}
 
@@ -99,7 +111,11 @@ public class TextSelection {
 
 
 	public void paste(@NonNull TextField textField) {
-		String clipboardText = Clipboard.paste(context);
+		if (ims == null) {
+			return;
+		}
+
+		String clipboardText = Clipboard.paste(ims);
 		if (!clipboardText.isEmpty()) {
 			textField.setText(clipboardText);
 		}
@@ -107,6 +123,7 @@ public class TextSelection {
 
 
 	private int getNextWordPosition(boolean backward) {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return currentEnd + (backward ? -1 : 1);
 		}
@@ -135,6 +152,7 @@ public class TextSelection {
 
 
 	private void detectCursorPosition() {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return;
 		}
@@ -148,6 +166,7 @@ public class TextSelection {
 
 
 	private CharSequence getSelectedText() {
+		InputConnection connection = getConnection();
 		if (connection == null) {
 			return "";
 		}

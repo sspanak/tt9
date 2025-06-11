@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.hacks;
 
 import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
+
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.StandardInputType;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -10,9 +12,9 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class InputType extends StandardInputType {
 	private final boolean isUs;
 
-	public InputType(Context context, InputConnection inputConnection, EditorInfo inputField) {
-		super(inputConnection, inputField);
-		isUs = isAppField(context != null ? context.getPackageName() : "", EditorInfo.TYPE_NULL);
+	public InputType(@Nullable InputMethodService ims, EditorInfo inputField) {
+		super(ims, inputField);
+		isUs = isAppField(ims != null ? ims.getPackageName() : null, EditorInfo.TYPE_NULL);
 	}
 
 

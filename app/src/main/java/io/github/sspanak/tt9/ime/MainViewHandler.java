@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,10 +36,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	@Override
-	protected boolean onStart(InputConnection connection, EditorInfo field) {
+	protected boolean onStart(EditorInfo field) {
 		resetNormalizedDimensions();
 		dragResize = settings.getDragResize();
-		return super.onStart(connection, field);
+		return super.onStart(field);
 	}
 
 
