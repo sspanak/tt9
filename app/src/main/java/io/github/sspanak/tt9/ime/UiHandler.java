@@ -79,6 +79,10 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	protected void setStatusIcon(@Nullable InputMode mode, @Nullable Language language) {
+		if (!settings.isStatusIconEnabled()) {
+			return;
+		}
+
 		final int displayTextCase = getDisplayTextCase(language, mode != null ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
 		final int resId = new StatusIcon(settings, mode, language, displayTextCase).resourceId;
 		if (resId == 0) {
