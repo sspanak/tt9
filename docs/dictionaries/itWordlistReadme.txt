@@ -74,3 +74,10 @@ Contractions and capitalization: https://github.com/wooorm/dictionaries/tree/mai
 2- and 3-letter words and frequencies obtained from the AOSP project
 Link: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/
 Git commit: 2023-03-20 [fe0c000f40a5cb33c518cc7a12204b5810886c0e]
+======
+Proper names list by: napolux
+Version: 47ed161e2c5cfab69a7e6b0ddc10bc79ff53cd8e (2025-05-01)
+Source: https://github.com/napolux/paroleitaliane
+License: MIT
+======
+A big Italian dictionary, as well as hand-picked lists of small town names and just random words, provided by Crash9999, as discussed here: https://github.com/sspanak/tt9/issues/789
