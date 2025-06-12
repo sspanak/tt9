@@ -208,7 +208,9 @@
 	<string name="pref_category_punctuation_order">Порядок пунктуації</string>
 	<string name="language_popup_title">Виберіть мову</string>
 	<string name="punctuation_order_cannot_be_empty">Список не може бути порожнім.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Пробіл і символ нового рядка буде автоматично додано на початок списку.</string>
+	<string name="punctuation_order_include_newline">Вставити новий рядок</string>
+	<string name="punctuation_order_include_tab">Вставити табуляцію</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Символ пробілу буде автоматично додано на початок списку.</string>
 	<string name="punctuation_order_mandatory_char_missing">Відсутній обов’язковий символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Відсутні обов’язкові символи:%1$s</string>
 	<string name="punctuation_order_save_error">Не вдалося зберегти порядок символів.</string>

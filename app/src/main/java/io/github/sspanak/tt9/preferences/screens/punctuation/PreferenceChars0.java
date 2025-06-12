@@ -64,7 +64,17 @@ public class PreferenceChars0 extends AbstractPreferenceCharList {
 	public void saveCurrentChars() {
 		StringBuilder all = new StringBuilder();
 		for (char c : getMandatoryChars()) {
-			all.append(c);
+			if (c == '\t') {
+				if (settings.getIncludeTabInChars0(language)) {
+					all.append(c);
+				}
+			} else if (c == '\n') {
+				if (settings.getIncludeNewlineInChars0(language)) {
+					all.append(c);
+				}
+			} else {
+				all.append(c);
+			}
 		}
 		all.append(currentChars);
 

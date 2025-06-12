@@ -56,6 +56,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 		Language initalLanguage = LanguageCollection.getLanguage(languageList.getValue());
 		initResetDefaults(initalLanguage);
 		initSaveButton(initalLanguage);
+		initIncludeSwitches(initalLanguage);
 		loadCharLists();
 		resetFontSize(false);
 	}
@@ -68,6 +69,21 @@ public class PunctuationScreen extends BaseScreenFragment {
 			.enableClickHandler()
 			.populate()
 			.preview();
+	}
+
+
+	private void initIncludeSwitches(Language language) {
+		PreferenceIncludeTab includeTab = findPreference(PreferenceIncludeTab.NAME);
+		if (includeTab != null && language != null) {
+			includeTab.setLanguage(activity.getSettings(), language);
+			includeTab.setOnChange(this::onSaveOrdering);
+		}
+
+		PreferenceIncludeNewline includeNewline = findPreference(PreferenceIncludeNewline.NAME);
+		if (includeNewline != null && language != null) {
+			includeNewline.setLanguage(activity.getSettings(), language);
+			includeNewline.setOnChange(this::onSaveOrdering);
+		}
 	}
 
 
@@ -110,6 +126,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	private void onLanguageChanged(@Nullable String newLanguageId) {
 		Language language = LanguageCollection.getLanguage(newLanguageId);
 
+		initIncludeSwitches(language);
 		restoreDefaults.setLanguage(language);
 		saveOrder.setLanguage(language);
 
