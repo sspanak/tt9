@@ -30,6 +30,11 @@ class SettingsPunctuation extends SettingsInput {
 
 
 	public void setDefaultCharOrder(@NonNull Language language, boolean overwrite) {
+		if (overwrite) {
+			setIncludeNewlineInChars0(language, true);
+			setIncludeTabInChars0(language, true);
+		}
+
 		if (overwrite || noDefault0Chars(language)) {
 			String chars = new String(FORBIDDEN_CHARS_0) + String.join("", language.getKeyCharacters(0));
 			chars = chars.replace(" ", Characters.getSpace(language));
@@ -172,5 +177,23 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		return charsList;
+	}
+
+	public boolean getIncludeNewlineInChars0(Language language) {
+		return prefs.getBoolean("punctuation_order_include_newline_" + language.getId(), true);
+	}
+
+	public void setIncludeNewlineInChars0(Language language, boolean include) {
+		prefsEditor.putBoolean("punctuation_order_include_newline_" + language.getId(), include);
+		prefsEditor.apply();
+	}
+
+	public boolean getIncludeTabInChars0(Language language) {
+		return prefs.getBoolean("punctuation_order_include_tab_" + language.getId(), true);
+	}
+
+	public void setIncludeTabInChars0(Language language, boolean include) {
+		prefsEditor.putBoolean("punctuation_order_include_tab_" + language.getId(), include);
+		prefsEditor.apply();
 	}
 }

@@ -199,7 +199,9 @@
 	<string name="pref_category_punctuation_order">Ordem de pontuação</string>
 	<string name="language_popup_title">Selecione o idioma</string>
 	<string name="punctuation_order_cannot_be_empty">A lista não pode estar vazia.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Os caracteres de Espaço e Nova linha serão automaticamente adicionados no início da lista.</string>
+	<string name="punctuation_order_include_newline">Incluir nova linha</string>
+	<string name="punctuation_order_include_tab">Incluir tabulação</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">O caractere de espaço será adicionado automaticamente no início da lista.</string>
 	<string name="punctuation_order_mandatory_char_missing">Caractere obrigatório ausente:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Caracteres obrigatórios ausentes:%1$s</string>
 	<string name="punctuation_order_save_error">Falha ao salvar a ordem dos caracteres.</string>
