@@ -165,7 +165,7 @@ public class Text extends TextTools {
 
 
 	public boolean isUpperCase() {
-		return language != null && text != null && text.toUpperCase(language.getLocale()).equals(text);
+		return language != null && text != null && language.hasUpperCase() && text.toUpperCase(language.getLocale()).equals(text);
 	}
 
 

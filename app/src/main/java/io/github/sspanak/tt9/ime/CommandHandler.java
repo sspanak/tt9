@@ -187,12 +187,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 		settings.setDefaultCharOrder(mLanguage, false); // initialize default order, if missing
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		final String digits = mInputMode.getSequence();
-		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
-		if (!InputModeKind.isNumeric(mInputMode)) {
-			mInputMode.setSequence(digits);
-			mInputMode.determineNextWordTextCase(-1);
-		}
+		mInputMode = InputMode
+			.getInstance(settings, mLanguage, inputType, textField, determineInputModeId())
+			.copy(mInputMode);
 
 		getSuggestions(null);
 		setStatusIcon(mInputMode, mLanguage);

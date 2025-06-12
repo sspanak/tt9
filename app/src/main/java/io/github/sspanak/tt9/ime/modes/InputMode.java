@@ -79,6 +79,20 @@ abstract public class InputMode {
 		}
 	}
 
+
+	public InputMode copy(InputMode other) {
+		if (other == null || InputModeKind.isNumeric(this) || InputModeKind.isNumeric(other)) {
+			return this;
+		}
+
+		autoAcceptTimeout = -1;
+		textCase = other.textCase;
+		setSequence(other.digitSequence);
+
+		return this;
+	}
+
+
 	// Key handlers. Return "true" when handling the key or "false", when is nothing to do.
 	public boolean onBackspace() { return false; }
 	abstract public boolean onNumber(int number, boolean hold, int repeat);
