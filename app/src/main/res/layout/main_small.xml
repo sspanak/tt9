@@ -10,6 +10,7 @@
 	<LinearLayout style="@style/TTheme.MainSmall" android:id="@+id/keyboard_container">
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
 		<include layout="@layout/panel_small_status_bar" />
+		<LinearLayout style="@style/TTheme.MainSmall.MessengerPaddingHack" android:id="@+id/main_small_messenger_padding_hack"/>
 		<include layout="@layout/panel_small_function_keys" android:id="@+id/main_soft_keys" />
 
 		<include

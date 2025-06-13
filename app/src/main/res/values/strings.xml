@@ -118,6 +118,7 @@
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Loading dictionary</string>
 	<string name="dictionary_loading_please_wait">Please wait for the dictionary to load.</string>
+	<string name="dictionary_loading_short">Loading / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Load Selected</string>
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
 	<string name="dictionary_no_notifications">Dictionary Notifications</string>
@@ -205,7 +206,10 @@
 	<string name="language_popup_title">Select Language</string>
 
 	<string name="punctuation_order_cannot_be_empty">The list can not be empty.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Space and Newline characters will be automatically added at the beginning of the list.</string>
+	<string name="punctuation_order_include_newline">Include Newline</string>
+	<string name="punctuation_order_include_tab">Include Tab</string>
+
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Space character will be automatically added at the beginning of the list.</string>
 	<string name="punctuation_order_mandatory_char_missing">Missing mandatory character:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Missing mandatory characters:%1$s</string>
 	<string name="punctuation_order_forbidden_char">Forbidden character:%1$s</string>

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.Executors;
 
 import io.github.sspanak.tt9.languages.Language;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
+
 
 @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
 class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implements RecognitionSupportCallback {
@@ -45,7 +45,6 @@ class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implem
 	void checkOfflineSupport(@NonNull Runnable onSupportChecked) {
 		if (
 			locale == null
-			|| !DeviceInfo.AT_LEAST_ANDROID_13
 			|| !isOnDeviceRecognitionAvailable
 			|| missingOfflineLanguages.contains(locale)
 			|| availableOfflineLanguages.contains(locale)

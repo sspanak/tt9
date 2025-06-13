@@ -56,6 +56,7 @@
 	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Attendi che il dizionario si carichi, per favore.</string>
+	<string name="dictionary_loading_short">Caricamento / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 	<string name="pref_category_abc_mode">Modalità ABC</string>
@@ -184,7 +185,9 @@
 	<string name="pref_category_punctuation_order">Ordine di punteggiatura</string>
 	<string name="language_popup_title">Seleziona la lingua</string>
 	<string name="punctuation_order_cannot_be_empty">L\'elenco non può essere vuoto.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">I caratteri Spazio e Nuova linea verranno automaticamente aggiunti all\'inizio dell\'elenco.</string>
+	<string name="punctuation_order_include_newline">Includi a capo</string>
+	<string name="punctuation_order_include_tab">Includi tabulazione</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Il carattere spazio verrà aggiunto automaticamente all’inizio dell’elenco.</string>
 	<string name="punctuation_order_mandatory_char_missing">Carattere obbligatorio mancante:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Caratteri obbligatori mancanti:%1$s</string>
 	<string name="punctuation_order_save_error">Salvataggio dell’ordine dei caratteri non riuscito.</string>

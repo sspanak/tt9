@@ -39,6 +39,7 @@
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
 	<string name="dictionary_loading">Загрузка словаря (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Пожалуйста, подождите, пока словарь загружается.</string>
+	<string name="dictionary_loading_short">Загрузка / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Загрузить выбранные</string>
 	<string name="dictionary_not_found">Ошибка загрузки. Словарь «%1$s» не найден.</string>
 	<string name="dictionary_truncated">Словарь успешно удален.</string>
@@ -197,7 +198,9 @@
 	<string name="pref_category_punctuation_order">Порядок пунктуации</string>
 	<string name="language_popup_title">Выберите язык</string>
 	<string name="punctuation_order_cannot_be_empty">Список не может быть пустым.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Пробел и символ новой строки будут автоматически добавлены в начало списка.</string>
+	<string name="punctuation_order_include_newline">Вставить перевод строки</string>
+	<string name="punctuation_order_include_tab">Вставить табуляцию</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Символ пробела будет автоматически добавлен в начало списка.</string>
 	<string name="punctuation_order_mandatory_char_missing">Отсутствует обязательный символ:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Отсутствуют обязательные символы:%1$s</string>
 	<string name="punctuation_order_save_error">е удалось сохранить порядок символов.</string>

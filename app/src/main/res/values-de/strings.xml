@@ -61,6 +61,7 @@
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Bitte warten Sie, bis das Wörterbuch geladen ist.</string>
+	<string name="dictionary_loading_short">Laden / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Ausgewählte laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 	<string name="pref_category_abc_mode">ABC-Modus</string>
@@ -186,7 +187,9 @@
 	<string name="pref_category_punctuation_order">Interpunktionsreihenfolge</string>
 	<string name="language_popup_title">Sprache auswählen</string>
 	<string name="punctuation_order_cannot_be_empty">Die Liste darf nicht leer sein.</string>
-	<string name="punctuation_order_whitespace_will_be_added_automatically">Leer- und Zeilenumbruchzeichen werden automatisch am Anfang der Liste hinzugefügt.</string>
+	<string name="punctuation_order_include_newline">Zeilenumbruch einfügen</string>
+	<string name="punctuation_order_include_tab">Tabulator einfügen</string>
+	<string name="punctuation_order_whitespace_will_be_added_automatically">Das Leerzeichen wird automatisch am Anfang der Liste hinzugefügt.</string>
 	<string name="punctuation_order_mandatory_char_missing">Fehlendes erforderliches Zeichen:%1$s</string>
 	<string name="punctuation_order_mandatory_chars_missing">Fehlende erforderliche Zeichen:%1$s</string>
 	<string name="punctuation_order_save_error">Zeichenreihenfolge konnte nicht gespeichert werden.</string>
