@@ -61,6 +61,7 @@
 	<string name="dictionary_loaded">Wörterbuch laden abgeschlossen.</string>
 	<string name="dictionary_loading">Lade Wörterbuch (%1$s)…</string>
 	<string name="dictionary_loading_please_wait">Bitte warten Sie, bis das Wörterbuch geladen ist.</string>
+	<string name="dictionary_loading_short">Laden / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Ausgewählte laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 	<string name="pref_category_abc_mode">ABC-Modus</string>
