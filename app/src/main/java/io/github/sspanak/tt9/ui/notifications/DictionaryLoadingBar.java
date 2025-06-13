@@ -13,6 +13,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.exceptions.DictionaryImportException;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 
@@ -22,7 +23,9 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 	private boolean isStopped = false;
 	private boolean hasFailed = false;
+	private String shortMessage = "";
 	private Runnable onStatusChange = null;
+	private Runnable onStatusChange2 = null;
 
 
 	public static DictionaryLoadingBar getInstance(Context context) {
@@ -44,6 +47,11 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
+	public String getShortMessage() {
+		return shortMessage;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}
@@ -56,6 +64,11 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 	public void setOnStatusChange(Runnable onStatusChange) {
 		this.onStatusChange = onStatusChange;
+	}
+
+
+	public void setOnStatusChange2(Runnable onStatusChange2) {
+		this.onStatusChange2 = onStatusChange2;
 	}
 
 
@@ -82,6 +95,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 				data.getLong("fileLine", -1)
 			);
 			if (onStatusChange != null) onStatusChange.run();
+			if (onStatusChange2 != null) onStatusChange2.run();
 		} else if (progress >= 0) {
 			hasFailed = false;
 			if (fileCount >= 0) {
@@ -96,6 +110,7 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 			);
 
 			if (onStatusChange != null) onStatusChange.run();
+			if (onStatusChange2 != null) onStatusChange2.run();
 		}
 	}
 
@@ -108,6 +123,13 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 		}
 
 		return resources.getString(R.string.dictionary_loading_indeterminate);
+	}
+
+
+	private String generateShortMessage(int languageId, int progress) {
+		Language lang = LanguageCollection.getLanguage(languageId);
+		lang = lang != null ? lang : new NullLanguage();
+		return resources.getString(R.string.dictionary_loading_short, lang.getCode().toUpperCase(lang.getLocale()), progress) + "%";
 	}
 
 
@@ -129,9 +151,11 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 
 			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
 			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
+			shortMessage = resources.getString(R.string.completed);
 		} else {
 			title = generateTitle(languageId);
 			message = currentFileProgress + "%";
+			shortMessage = generateShortMessage(languageId, currentFileProgress);
 		}
 
 		renderMessage();

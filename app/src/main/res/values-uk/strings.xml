@@ -86,6 +86,7 @@
 	<string name="dictionary_loading">Словник завантажується (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Словник завантажується</string>
 	<string name="dictionary_loading_please_wait">Будь ласка, дочекайтесь завантаження словника.</string>
+	<string name="dictionary_loading_short">Завантаження / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Завантажити вибрані</string>
 	<string name="dictionary_not_found">Помилка завантаження. Словник для мови \"%1$s\" не знайдений.</string>
 	<string name="dictionary_truncate_title">Видалити все</string>
