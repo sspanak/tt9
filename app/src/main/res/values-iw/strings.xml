@@ -80,6 +80,7 @@
 	<string name="punctuation_order_after_group">אחרי הקבוצה (לא חובה)</string>
 	<string name="setup_keyboard_status">מצב</string>
 	<string name="setup_default_keyboard">בחר מקלדת ברירת מחדל</string>
+	<string name="dictionary_loading_short">טוען / %1$s… %2$d</string>
 	<string name="dictionary_load_title">טען את הנבחרים</string>
 	<string name="dictionary_not_found">הטעינה נכשלה, לא נמצא מילון עבור \"%1$s\".</string>
 	<string name="dictionary_truncate_title">מחק הכל</string>

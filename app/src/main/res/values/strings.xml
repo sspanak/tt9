@@ -118,6 +118,7 @@
 	<string name="dictionary_loading">Loading dictionary (%1$s)…</string>
 	<string name="dictionary_loading_indeterminate">Loading dictionary</string>
 	<string name="dictionary_loading_please_wait">Please wait for the dictionary to load.</string>
+	<string name="dictionary_loading_short">Loading / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Load Selected</string>
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
 	<string name="dictionary_no_notifications">Dictionary Notifications</string>
