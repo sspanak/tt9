@@ -24,6 +24,10 @@ class MainLayoutSmall extends MainLayoutTray {
 			if (!isCommandPaletteShown() && !isTextEditingPaletteShown()) {
 				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);
 			}
+
+			if (tt9.getSettings().getMessengerReplyExtraPadding()) {
+				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_extra_height_for_messenger);
+			}
 		}
 
 		return height;
@@ -33,6 +37,9 @@ class MainLayoutSmall extends MainLayoutTray {
 	protected void setSoftKeysVisibility() {
 		if (view != null) {
 			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+			view.findViewById(R.id.main_small_messenger_padding_hack).setVisibility(
+				tt9.getSettings().getMessengerReplyExtraPadding() ? LinearLayout.VISIBLE : LinearLayout.GONE
+			);
 		}
 	}
 
