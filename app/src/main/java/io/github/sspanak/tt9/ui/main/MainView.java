@@ -18,7 +18,6 @@ public class MainView {
 
 	protected MainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
-
 		forceCreate();
 	}
 
@@ -78,13 +77,13 @@ public class MainView {
 		main.render();
 	}
 
-	public void renderKeys() {
+	public void renderDynamicKeys() {
 		if (main == null) {
-			Logger.e(LOG_TAG, "Cannot render keys for a null MainView.");
+			Logger.e(LOG_TAG, "Cannot render dynamic keys for a null MainView.");
 			return;
 		}
 
-		main.renderKeys();
+		main.renderDynamicKeys();
 	}
 
 	public void showCommandPalette() {

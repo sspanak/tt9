@@ -30,6 +30,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
+		dynamicKeys.add(R.id.soft_key_filter);
+		dynamicKeys.add(R.id.soft_key_shift);
 	}
 
 

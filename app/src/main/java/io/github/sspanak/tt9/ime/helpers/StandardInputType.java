@@ -1,11 +1,13 @@
 package io.github.sspanak.tt9.ime.helpers;
 
 import android.content.Context;
+import android.inputmethodservice.InputMethodService;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,18 +18,24 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 abstract public class StandardInputType {
 	private static final int TYPE_MULTILINE_TEXT = EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE;
 
-	protected final InputConnection connection;
+	@Nullable protected final InputMethodService ims;
 	protected final EditorInfo field;
 
 
-	protected StandardInputType(InputConnection inputConnection, EditorInfo inputField) {
-		connection = inputConnection;
+	protected StandardInputType(@Nullable InputMethodService ims, EditorInfo inputField) {
+		this.ims = ims;
 		field = inputField;
 	}
 
 
+	@Nullable
+	protected InputConnection getConnection() {
+		return ims != null ? ims.getCurrentInputConnection() : null;
+	}
+
+
 	public boolean isValid() {
-		return field != null && connection != null;
+		return field != null && getConnection() != null;
 	}
 
 
@@ -193,7 +201,7 @@ abstract public class StandardInputType {
 	 * editor state.
 	 */
 	public int determineTextCase() {
-		if (connection == null || field == null || field.inputType == InputType.TYPE_NULL) {
+		if (getConnection() == null || field == null || field.inputType == InputType.TYPE_NULL) {
 			return InputMode.CASE_UNDEFINED;
 		}
 

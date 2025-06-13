@@ -16,10 +16,8 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 	private boolean isTextEditingActive() { return tt9 != null && tt9.isTextEditingActive(); }
 	private boolean isTextEditingMissing() { return tt9 != null && tt9.isInputLimited(); }
 
-
-	@Override
-	protected float getTitleScale() {
-		return super.getTitleScale() / 0.85f;
+	private boolean isKeySmall() {
+		return getTT9Height() < 0.8f && getTT9Width() < 0.7f;
 	}
 
 
@@ -54,20 +52,6 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 
 
 	@Override
-	protected String getTitle() {
-		if (isTextEditingActive() || isVoiceInputActive()) {
-			return "";
-		}
-
-		if (isTextEditingMissing() && !isVoiceInputMissing()) {
-			return "";
-		}
-
-		return "✂";
-	}
-
-
-	@Override
 	protected int getCentralIcon() {
 		if (isTextEditingActive()) {
 			return R.drawable.ic_keyboard;
@@ -77,7 +61,18 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return R.drawable.ic_fn_voice_off;
 		}
 
-		return -1;
+		return R.drawable.ic_txt_cut;
+	}
+
+
+	@Override
+	protected float getCentralIconScale() {
+		float scale = 1;
+		if (!isVoiceInputActive() && !isTextEditingActive() && !isTextEditingMissing()) {
+			scale = isKeySmall() ? 0.7f : 0.8f;
+		}
+
+		return super.getCentralIconScale() * scale;
 	}
 
 
@@ -89,6 +84,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 
 		return R.drawable.ic_fn_voice;
 	}
+
 
 	@Override
 	public void render() {

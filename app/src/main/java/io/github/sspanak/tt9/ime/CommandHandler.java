@@ -187,13 +187,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 		settings.setDefaultCharOrder(mLanguage, false); // initialize default order, if missing
 
 		// for languages that do not have ABC or Predictive, make sure we remain in valid state
-		final String digits = mInputMode.getSequence();
-		final int textCase = mInputMode.getTextCase();
-		mInputMode = InputMode.getInstance(settings, mLanguage, inputType, textField, determineInputModeId());
-		if (!InputModeKind.isNumeric(mInputMode)) {
-			mInputMode.setTextCase(textCase);
-			mInputMode.setSequence(digits);
-		}
+		mInputMode = InputMode
+			.getInstance(settings, mLanguage, inputType, textField, determineInputModeId())
+			.copy(mInputMode);
 
 		getSuggestions(null);
 		setStatusIcon(mInputMode, mLanguage);
@@ -218,9 +214,8 @@ abstract public class CommandHandler extends TextEditingHandler {
 		}
 
 		// if there are no suggestions or they are special chars, we don't need to adjust their text case
-		final String before = suggestionOps.getCurrent();
-		boolean beforeStartsWithLetter = !before.isEmpty() && Character.isAlphabetic(before.charAt(0));
-		if (!beforeStartsWithLetter) {
+		final String before = suggestionOps.isEmpty() || mInputMode.getSequence().isEmpty() ? "" : suggestionOps.getCurrent();
+		if (before.isEmpty() || !Character.isAlphabetic(before.charAt(0))) {
 			settings.saveTextCase(mInputMode.getTextCase());
 			return true;
 		}

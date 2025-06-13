@@ -2,7 +2,6 @@ package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
 
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.modes.InputMode;
@@ -19,10 +18,10 @@ abstract public class AbstractHandler extends InputMethodService {
 
 	// lifecycle
 	abstract protected void onInit();
-	abstract protected boolean onStart(InputConnection inputConnection, EditorInfo inputField);
+	abstract protected boolean onStart(EditorInfo inputField);
 	abstract protected void onFinishTyping();
 	abstract protected void onStop();
-	abstract protected void setInputField(InputConnection inputConnection, EditorInfo inputField);
+	abstract protected void setInputField(EditorInfo inputField);
 
 	// UI
 	abstract protected void createSuggestionBar();

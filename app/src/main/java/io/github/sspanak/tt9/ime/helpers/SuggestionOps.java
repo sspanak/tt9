@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ime.helpers;
 
+import android.inputmethodservice.InputMethodService;
 import android.os.Handler;
 import android.os.Looper;
 
@@ -25,11 +26,11 @@ public class SuggestionOps {
 	@NonNull private TextField textField;
 
 
-	public SuggestionOps(@Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
-		this.textField = textField != null ? textField : new TextField(null, null, null);
+		this.textField = textField != null ? textField : new TextField(ims, null, null);
 
 		if (settings != null && mainView != null && onSuggestionClick != null) {
 			suggestionBar = new SuggestionsBar(settings, mainView, onSuggestionClick);
