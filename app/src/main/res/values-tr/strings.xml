@@ -58,6 +58,7 @@
 	<string name="dictionary_loaded">Sözlük başarıyla yüklendi.</string>
 	<string name="dictionary_loading">(%1$s) sözlük yükleniyor…</string>
 	<string name="dictionary_loading_please_wait">Sözlük yüklenirken lütfen bekleyiniz.</string>
+	<string name="dictionary_loading_short">Yükleniyor / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Seçilenleri yükle</string>
 	<string name="dictionary_not_found">Yükleme başarısız oldu. \"%1$s\" sözlüğü bulunamadı.</string>
 	<string name="pref_category_abc_mode">ABC Modu</string>
