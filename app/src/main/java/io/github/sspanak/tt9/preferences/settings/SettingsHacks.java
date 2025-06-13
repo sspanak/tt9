@@ -83,4 +83,21 @@ class SettingsHacks extends BaseSettings {
 	public boolean getPrecalculateNavbarHeight() {
 		return prefs.getBoolean("hack_precalculate_navbar_height_v3", !DeviceInfo.IS_SAMSUNG);
 	}
+
+
+	/**
+	 * Facebook Messenger has a bug where when trying to reply to a message, and when the keyboard
+	 * has certain height, it somehow switches the focus outside of the text field. The problematic
+	 * height is exactly the height when the Main View is Small or when the Command Palette is shown.
+	 * With this hack, we tell the Main View to become taller and mitigate the issue.
+	 * More info: <a href="https://github.com/sspanak/tt9/issues/815">Issue 815</a>. Note that the
+	 * bug happens on every phone, not only on Freetel.
+	 */
+	public boolean getMessengerReplyExtraPadding() {
+		return prefs.getBoolean("hack_messenger_reply_extra_padding", false);
+	}
+
+	public void setMessengerReplyExtraPadding(boolean enabled) {
+		prefsEditor.putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
+	}
 }
