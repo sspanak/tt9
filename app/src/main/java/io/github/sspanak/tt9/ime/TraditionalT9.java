@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
+import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -130,6 +131,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(EditorInfo field) {
+		AppHacks.onStart(settings, field);
 		if (zombieChecks == 0 && !SystemSettings.isTT9Selected(this)) {
 			startZombieCheck();
 			return false;

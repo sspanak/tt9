@@ -19,6 +19,7 @@
 	<dimen name="main_small_suggestion_text_size">18sp</dimen>
 
 	<dimen name="main_small_main_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
+	<dimen name="main_small_main_key_wrapper_extra_height_for_messenger">50dp</dimen> <!-- empirically found the correct amount -->
 	<dimen name="main_small_command_palette_height">66dp</dimen>
 	<dimen name="main_small_command_palette_key_text_size">18dp</dimen>
 

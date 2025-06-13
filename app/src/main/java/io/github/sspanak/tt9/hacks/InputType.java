@@ -106,6 +106,20 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean notMessenger() {
+		return field == null || !field.packageName.equals("com.facebook.orca");
+	}
+
+	public boolean isMessengerChat() {
+		return isAppInput("com.facebook.orca", 147457);
+	}
+
+
+	public boolean isMessengerNonText() {
+		return isAppInput("com.facebook.orca", EditorInfo.TYPE_NULL);
+	}
+
+
 	/**
 	 * Third-party apps are usually designed for a touch screen, so the least we can do is convert
 	 * DPAD_CENTER to ENTER for typing new lines, regardless of the implementation of the OK key.
