@@ -10,7 +10,6 @@ import android.speech.SpeechRecognizer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
@@ -39,36 +38,12 @@ public class VoiceInputOps {
 		ConsumerCompat<VoiceInputError> onError
 	) {
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
-		recognizerSupport = lazyLoadSupportClass(ims);
+		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
 
 		onStopListening = onStop != null ? onStop : result -> {};
 		onListeningError = onError != null ? onError : error -> {};
 
 		this.ims = ims;
-	}
-
-
-	/**
-	 * Android normally loads all classes even if they are not used on specific version. This here
-	 * prevents the following error on older devices like Sonim XP3800:
-	 * java.lang.NoClassDefFoundError: Failed resolution of: Landroid/speech/RecognitionSupportCallback;
-	 * 		Caused by: java.lang.ClassNotFoundException: Didn't find class "android.speech.RecognitionSupportCallback"
-	 *
-	 */
-	private SpeechRecognizerSupportLegacy lazyLoadSupportClass(Context context) {
-		if (DeviceInfo.AT_LEAST_ANDROID_13) {
-			try {
-				Package voicePackage = SpeechRecognizerSupportLegacy.class.getPackage();
-				String className = voicePackage != null ? voicePackage.getName() + ".SpeechRecognizerSupportModern" : "";
-				Class<?> clazz = Class.forName(className);
-				Constructor<?> ctor = clazz.getDeclaredConstructor(Context.class);
-				return (SpeechRecognizerSupportLegacy) ctor.newInstance(context);
-			} catch (Exception e) {
-				return new SpeechRecognizerSupportLegacy(context);
-			}
-		}
-
-		return new SpeechRecognizerSupportLegacy(context);
 	}
 
 

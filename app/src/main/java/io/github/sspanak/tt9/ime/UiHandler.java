@@ -36,7 +36,7 @@ abstract class UiHandler extends AbstractHandler {
 		setInputView(mainView.getView());
 		createSuggestionBar();
 		getSuggestionOps().setDarkTheme();
-		statusBar = new StatusBar(settings, mainView.getView());
+		statusBar = new StatusBar(this, settings, mainView.getView(), this::resetStatus);
 	}
 
 

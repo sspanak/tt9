@@ -142,10 +142,16 @@
 		Small Keys
 	*******************************************-->
 
+	<!-- A dummy element that adds extra height for when FB Messenger misbehaves -->
+	<style name="TTheme.MainSmall.MessengerPaddingHack" parent="">
+		<item name="android:layout_height">@dimen/main_small_main_key_wrapper_extra_height_for_messenger</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:orientation">horizontal</item>
+		<item name="android:visibility">gone</item>
+	</style>
+
 	<!-- Main Small view (backspace and OK) -->
 	<style name="TTheme.MainSmall.Wrapper" parent="">
-		<item name="android:baselineAligned">true</item>
-		<item name="android:gravity">center</item>
 		<item name="android:layout_height">@dimen/main_small_main_key_wrapper_height</item>
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:orientation">horizontal</item>

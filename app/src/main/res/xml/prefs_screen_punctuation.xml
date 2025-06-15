@@ -23,6 +23,15 @@
 
 	<PreferenceCategory
 		android:title="@string/punctuation_order_key_0">
+
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceIncludeNewline
+			android:key="punctuation_order_include_newline"
+			android:title="@string/punctuation_order_include_newline" />
+
+		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceIncludeTab
+			android:key="punctuation_order_include_tab"
+			android:title="@string/punctuation_order_include_tab" />
+
 		<io.github.sspanak.tt9.preferences.screens.punctuation.PreferenceChars0
 			android:key="punctuation_order_special_chars"
 			android:title="@string/punctuation_order_initial"

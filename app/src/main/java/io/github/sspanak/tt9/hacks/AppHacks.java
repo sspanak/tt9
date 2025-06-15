@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.hacks;
 
 import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
 
@@ -11,8 +12,13 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Timer;
 
 public class AppHacks {
+	private final static String TYPING_SESSION_TIMER = "TYPING_SESSION_TIMER";
+	private static boolean previousWasMessengerChat = false;
+
+
 	private final InputType inputType;
 	private final TextField textField;
 	private final TextSelection textSelection;
@@ -136,5 +142,33 @@ public class AppHacks {
 		// now how to handle the incoming OK key code, be it ENTER or DPAD_CENTER.
 		// As per the docs, we must return "false", to indicate that we have not "seen" the key press.
 		return false;
+	}
+
+
+	public static void onStart(@NonNull SettingsStore settings, @NonNull EditorInfo field) {
+		// currently, onStart() only adjusts the padding of MainSmall, so save some resources by not
+		// doing anything if another layout is used.
+		if (!settings.isMainLayoutSmall()) {
+			settings.setMessengerReplyExtraPadding(false);
+			return;
+		}
+
+		final InputType newInputType = new InputType(null, field);
+		if (newInputType.notMessenger()) {
+			settings.setMessengerReplyExtraPadding(false);
+			return;
+		}
+
+		final long previousSessionTime = Timer.stop(TYPING_SESSION_TIMER);
+		final boolean currentIsMessengerNonText = newInputType.isMessengerNonText();
+
+		if (previousSessionTime < 1000 && previousWasMessengerChat && currentIsMessengerNonText) {
+			settings.setMessengerReplyExtraPadding(true);
+		} else if (previousSessionTime > 1000 && previousWasMessengerChat) {
+			settings.setMessengerReplyExtraPadding(false);
+		}
+
+		Timer.start(TYPING_SESSION_TIMER);
+		previousWasMessengerChat = newInputType.isMessengerChat();
 	}
 }
