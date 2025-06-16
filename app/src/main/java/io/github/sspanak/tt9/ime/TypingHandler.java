@@ -372,6 +372,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onAcceptSuggestionAutomatically(String word) {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
+		mInputMode.determineNextWordTextCase(-1);
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {
