@@ -123,7 +123,14 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		String safeChars = prefs.getString(CHARS_0_PREFIX + language.getId(), null);
-		safeChars = safeChars == null ? null : safeChars.replace("⏎", "\n").replace(Characters.TAB, "\t").replace(" ", Characters.getSpace(language));
+		if (safeChars != null) {
+			safeChars = safeChars
+				.replace("⏎", "\n")
+				.replace(Characters.TAB, "\t")
+				.replace("Tab", "\t") // also convert the legacy "Tab" string
+				.replace(" ", Characters.getSpace(language));
+
+		}
 
 		return getCharsAsList(safeChars, language.getKeyCharacters(0));
 	}
