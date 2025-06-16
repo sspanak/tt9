@@ -95,23 +95,23 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 
 
 android {
-	namespace PACKAGE_NAME
-	compileSdk 35
+	namespace = PACKAGE_NAME
+	compileSdk = 35
 
 	defaultConfig {
-		applicationId PACKAGE_NAME
-		buildFeatures.buildConfig true
-		minSdk 21
-		targetSdk 35
-		versionCode getVerCode()
-		versionName getVerName()
+		applicationId = PACKAGE_NAME
+		buildFeatures.buildConfig = true
+		minSdk = 21
+		targetSdk = 35
+		versionCode = getVerCode()
+		versionName = getVerName()
 
 		buildConfigField 'String', 'DICTIONARY_EXTENSION', "\"${DICTIONARY_OUTPUT_EXTENSION}\""
 		buildConfigField 'String', 'DOCS_DIR', "\"${DOCS_DIR_NAME}\""
 		buildConfigField 'String', 'DONATION_URL', "\"${getDonationUrl()}\""
 
 		// F-droid hacks
-		dependenciesInfo.includeInApk false
+		dependenciesInfo.includeInApk = false
 		vectorDrawables.generatedDensities = []
 	}
 
@@ -122,10 +122,10 @@ android {
 		release {
 			buildConfigField 'String', 'VERSION_FULL', "\"${getVersionString('release')}\""
 
-			debuggable false
-			jniDebuggable false
-			minifyEnabled true
-			shrinkResources true
+			debuggable = false
+			jniDebuggable = false
+			minifyEnabled = true
+			shrinkResources = true
 			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 		}
 	}
