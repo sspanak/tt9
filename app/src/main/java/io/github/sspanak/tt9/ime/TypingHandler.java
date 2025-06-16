@@ -73,6 +73,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();
+		updateShiftState(true, false);
 		suggestionOps.set(null);
 
 		return true;
@@ -232,7 +233,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		autoCorrectSpace(text, true, -1);
 
 		forceShowWindow();
-		mainView.renderDynamicKeys();
+		updateShiftState(true, false);
 
 		return true;
 	}
@@ -371,8 +372,6 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onAcceptSuggestionAutomatically(String word) {
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getSequence().isEmpty() ? -1 : mInputMode.getSequence().charAt(0) - '0');
-		mInputMode.determineNextWordTextCase(-1);
-		updateShiftState();
 	}
 
 	private void onAcceptSuggestionsDelayed(String word) {
@@ -384,6 +383,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(word);
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);
+			updateShiftState(true, false);
 			resetKeyRepeat();
 		}
 	}
@@ -431,9 +431,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		if (!suggestionOps.isEmpty() && new Text(suggestionOps.getCurrent()).isAlphabetic()) {
-			updateShiftState();
-		}
+		updateShiftState(false, true);
 		forceShowWindow();
 	}
 
@@ -446,11 +444,24 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void updateShiftState() {
+	protected void updateShiftState(boolean determineTextCase, boolean onlyWhenWords) {
+		if (onlyWhenWords && (suggestionOps.isEmpty() || !new Text(suggestionOps.getCurrent()).isAlphabetic())) {
+			return;
+		}
+
+		if (determineTextCase) {
+			mInputMode.determineNextWordTextCase(-1);
+		}
+
 		setStatusIcon(mInputMode, mLanguage);
 		mainView.renderDynamicKeys();
 		if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
 			statusBar.setText(mInputMode);
 		}
+	}
+
+
+	protected void updateShiftState() {
+		updateShiftState(false, false);
 	}
 }

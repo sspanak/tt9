@@ -51,15 +51,16 @@ public class AutoTextCase {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
-			// If the user has explicitly selected a text case, we respect that.
-			|| currentTextCase == InputMode.CASE_UPPER || currentTextCase == InputMode.CASE_LOWER
+			// If the user has explicitly selected uppercase, we respect that.
+			|| currentTextCase == InputMode.CASE_UPPER
 			// we do not have text fields that expect sentences, so disable the feature to save some resources
 			|| isUs
 		) {
 			return currentTextCase;
 		}
 
-		if (textFieldTextCase != InputMode.CASE_UNDEFINED) {
+		// lowercase also takes priority but not as strict as uppercase
+		if (textFieldTextCase != InputMode.CASE_UNDEFINED && currentTextCase != InputMode.CASE_LOWER) {
 			return textFieldTextCase;
 		}
 
@@ -79,8 +80,9 @@ public class AutoTextCase {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
-		// Prevent English "I", inserted in the middle of a word, from being uppercase.
-		if (sequences.isEnglishI(language, digitSequence) && Text.isNextToWord(beforeCursor)) {
+		// 1. Stay in lowercase within the same sentence, in case the user has selected lowercase.
+		// or 2. Prevent English "I", inserted in the middle of a word, from being uppercase.
+		if (currentTextCase == InputMode.CASE_LOWER || (sequences.isEnglishI(language, digitSequence) && Text.isNextToWord(beforeCursor))) {
 			return InputMode.CASE_LOWER;
 		}
 
