@@ -13,7 +13,7 @@ public class Characters extends Emoji {
 	public static final String COMBINING_BASE = "◌";
 	public static final String IDEOGRAPHIC_SPACE = "　";
 	public static final String PLACEHOLDER = "\u200A";
-	public static final String TAB = "Tab";
+	public static final String TAB = "Тab"; // "T" is cyrillic to avoid corruption when typing the word "Tab"
 
 
 	public static final ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
