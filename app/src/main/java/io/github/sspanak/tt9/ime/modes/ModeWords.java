@@ -381,10 +381,16 @@ class ModeWords extends ModeCheonjiin {
 		};
 	}
 
-
 	@Override
-	public boolean nextTextCase() {
-		boolean changed = super.nextTextCase();
+	public boolean nextTextCase(boolean analyzeSurroundingText) {
+		boolean changed = super.nextTextCase(analyzeSurroundingText);
+
+		// Prevent lowercase at the beginning of a line when the respective setting is enabled.
+		// "analyzeSurroundingText" is true only when Shift is pressed to avoid expensive
+		// calls to getStringBeforeCursor().
+		if (analyzeSurroundingText && textCase == CASE_LOWER && language.hasUpperCase() && settings.getAutoCapitalsAfterNewline() && textField.getStringBeforeCursor(1).equals("\n")) {
+			changed = super.nextTextCase(analyzeSurroundingText);
+		}
 
 		// since it's a user's choice, the default matters no more
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;
