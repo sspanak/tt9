@@ -88,4 +88,25 @@ public class AutoTextCase {
 
 		return InputMode.CASE_DICTIONARY;
 	}
+
+
+	/**
+	 * Prevent lowercase at the beginning of a line when the respective setting is enabled,
+	 * or at the beginning of a sentence, when auto capitalization is enabled.
+	 */
+	public boolean isLowerCaseForbidden(@NonNull Language language, @NonNull String beforeCursor) {
+		if (!language.hasUpperCase()) {
+			return false;
+		}
+
+		if (settings.getAutoTextCase() && (beforeCursor.isEmpty() || Text.isStartOfSentence(beforeCursor))) {
+			return true;
+		}
+
+		if (settings.getAutoCapitalsAfterNewline() && beforeCursor.endsWith("\n")) {
+			return true;
+		}
+
+		return false;
+	}
 }
