@@ -203,7 +203,12 @@ abstract public class InputMode {
 		textCase = allowedTextCases.get(0);
 	}
 
-	public boolean nextTextCase() {
+	/**
+	 * Switches to the next available text case. Returns "false" when the language has no upper case.
+	 * If "analyzeSurroundingText" is true, and when the mode supports text analyzing, it may apply
+	 * additional logic to determine the next valid text case.
+	 */
+	public boolean nextTextCase(boolean analyzeSurroundingText) {
 		if (!language.hasUpperCase()) {
 			return false;
 		}
