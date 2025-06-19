@@ -1,5 +1,4 @@
-Polish Dictionary (Pl.dic).
-
+Polish word list 1:
   This version of Polish dictionary was compiled
   by Włodzimierz Macewicz <W.Macewicz@ia.pw.edu.pl>
 
@@ -11,5 +10,9 @@ Polish Dictionary (Pl.dic).
   the Mazovia dictionary
 
   ftp://iapw.ia.pw.edu.pl/sys/pub/slownik
+
+Polish word list 2:
+  Based on aspell dictionary word list:  http://www.kurnik.pl/slownik/
+  Compiled by Michal Joachimczak <guhru (at) gabri.pl>, June 2005
 
 Word Frequencies obtained from: https://github.com/openboard-team/openboard/blob/master/dictionaries/pl_wordlist.combined.gz
