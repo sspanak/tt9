@@ -73,7 +73,7 @@ abstract class UiHandler extends AbstractHandler {
 			return modeTextCase;
 		}
 
-		int wordTextCase = currentWord.getTextCase();
+		final int wordTextCase = currentWord.getTextCase();
 		return wordTextCase == InputMode.CASE_UPPER ? InputMode.CASE_CAPITALIZE : wordTextCase;
 	}
 

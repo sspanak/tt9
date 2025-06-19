@@ -209,9 +209,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	protected boolean nextTextCase() {
-		if (!mInputMode.nextTextCase(true)) {
+		if (!mInputMode.nextTextCase()) {
 			return false;
 		}
+
+		mInputMode.skipNextTextCaseDetection();
 
 		// if there are no suggestions or they are special chars, we don't need to adjust their text case
 		final String currentWord = suggestionOps.isEmpty() || mInputMode.getSequence().isEmpty() ? "" : suggestionOps.getCurrent();
@@ -227,7 +229,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
 
 		for (int retries = 0; retries <= 2; retries++) {
-			if (!currentWord.equals(mInputMode.getSuggestions().get(currentSuggestionIndex)) || !mInputMode.nextTextCase(false)) {
+			if (!currentWord.equals(mInputMode.getSuggestions().get(currentSuggestionIndex)) || !mInputMode.nextTextCase()) {
 				break;
 			}
 		}
