@@ -146,14 +146,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (settings.getBackspaceRecomposing() && repeat == 0 && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = mInputMode.recompose();
 			if (textField.recompose(previousWord)) {
-				mInputMode.setOnEndRecomposing(this::updateShiftState);
 				getSuggestions(previousWord);
 			} else {
 				mInputMode.reset();
-			}
-
-			if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
-				statusBar.setText(mInputMode);
 			}
 		}
 
@@ -432,7 +427,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		updateShiftState(false, true);
+		updateShiftState(mInputMode.getSuggestions().isEmpty(), true);
 		forceShowWindow();
 	}
 
@@ -445,8 +440,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void updateShiftState(boolean determineTextCase, boolean onlyWhenWords) {
-		if (onlyWhenWords && (suggestionOps.isEmpty() || !new Text(suggestionOps.getCurrent()).isAlphabetic())) {
+	protected void updateShiftState(boolean determineTextCase, boolean onlyWhenLetters) {
+		if (onlyWhenLetters && !new Text(suggestionOps.getCurrent()).isAlphabetic()) {
 			return;
 		}
 
@@ -459,10 +454,5 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {
 			statusBar.setText(mInputMode);
 		}
-	}
-
-
-	protected void updateShiftState() {
-		updateShiftState(false, false);
 	}
 }
