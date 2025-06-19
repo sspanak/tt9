@@ -13,12 +13,14 @@ public class AutoTextCase {
 	@NonNull private final Sequences sequences;
 	@NonNull private final SettingsStore settings;
 	private final boolean isUs;
+	private boolean skipNext;
 
 
 	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
 		isUs = inputType != null && inputType.isUs();
+		skipNext = false;
 	}
 
 	/**
@@ -59,6 +61,11 @@ public class AutoTextCase {
 			return currentTextCase;
 		}
 
+		if (skipNext) {
+			skipNext = false;
+			return textFieldTextCase != InputMode.CASE_UNDEFINED ? textFieldTextCase : currentTextCase;
+		}
+
 		// lowercase also takes priority but not as strict as uppercase
 		if (textFieldTextCase != InputMode.CASE_UNDEFINED && currentTextCase != InputMode.CASE_LOWER) {
 			return textFieldTextCase;
@@ -90,23 +97,7 @@ public class AutoTextCase {
 	}
 
 
-	/**
-	 * Prevent lowercase at the beginning of a line when the respective setting is enabled,
-	 * or at the beginning of a sentence, when auto capitalization is enabled.
-	 */
-	public boolean isLowerCaseForbidden(@NonNull Language language, @NonNull String beforeCursor) {
-		if (!language.hasUpperCase()) {
-			return false;
-		}
-
-		if (settings.getAutoTextCase() && (beforeCursor.isEmpty() || Text.isStartOfSentence(beforeCursor))) {
-			return true;
-		}
-
-		if (settings.getAutoCapitalsAfterNewline() && beforeCursor.endsWith("\n")) {
-			return true;
-		}
-
-		return false;
+	public void skipNext() {
+		skipNext = true;
 	}
 }

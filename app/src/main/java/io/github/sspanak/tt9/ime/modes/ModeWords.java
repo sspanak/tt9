@@ -160,9 +160,9 @@ class ModeWords extends ModeCheonjiin {
 		if (isRecomposing) {
 			isRecomposing = false;
 			textCase = settings.getTextCase();
-			onEndRecomposing.run();
 		}
 	}
+
 
 	@Override
 	public void reset() {
@@ -382,14 +382,12 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public boolean nextTextCase(boolean analyzeSurroundingText) {
-		boolean changed = super.nextTextCase(analyzeSurroundingText);
+	public boolean nextTextCase() {
+		// convert any internally used text cases to user-friendly, because this is what the user
+		// is allowed to choose from.
+		textCase = getTextCase();
 
-		// "analyzeSurroundingText" is true only when Shift is pressed to avoid expensive
-		// calls to getStringBeforeCursor().
-		if (analyzeSurroundingText && textCase == CASE_LOWER && autoTextCase.isLowerCaseForbidden(language, textField.getStringBeforeCursor())) {
-			changed = super.nextTextCase(true);
-		}
+		boolean changed = super.nextTextCase();
 
 		// since it's a user's choice, the default matters no more
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;
@@ -397,6 +395,10 @@ class ModeWords extends ModeCheonjiin {
 		return changed;
 	}
 
+	@Override
+	public void skipNextTextCaseDetection() {
+		autoTextCase.skipNext();
+	}
 
 	@Override
 	public boolean shouldReplaceLastLetter(int n, boolean h) {
