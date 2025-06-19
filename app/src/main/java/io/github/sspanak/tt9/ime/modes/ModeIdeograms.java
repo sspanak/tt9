@@ -30,7 +30,7 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
 	@Override public void determineNextWordTextCase(int nextDigit) {}
-	@Override public boolean nextTextCase(boolean analyzeSurroundingText) { return false; }
+	@Override public boolean nextTextCase() { return false; }
 
 
 	@Override

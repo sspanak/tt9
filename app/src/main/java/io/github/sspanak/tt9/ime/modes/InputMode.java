@@ -39,7 +39,6 @@ abstract public class InputMode {
 	@NonNull protected String digitSequence = "";
 	protected final boolean isEmailMode;
 	@NonNull protected Language language = new NullLanguage();
-	@NonNull protected Runnable onEndRecomposing = () -> {};
 	protected final SettingsStore settings;
 	@NonNull protected final ArrayList<String> suggestions = new ArrayList<>();
 	@NonNull protected Runnable onSuggestionsUpdated = () -> {};
@@ -179,7 +178,6 @@ abstract public class InputMode {
 
 	public void beforeDeleteText() {}
 	public String recompose() { return null; }
-	public void setOnEndRecomposing(Runnable r) { onEndRecomposing = r != null ? r : () -> {}; }
 	public void replaceLastLetter() {}
 
 	public void reset() {
@@ -208,7 +206,7 @@ abstract public class InputMode {
 	 * If "analyzeSurroundingText" is true, and when the mode supports text analyzing, it may apply
 	 * additional logic to determine the next valid text case.
 	 */
-	public boolean nextTextCase(boolean analyzeSurroundingText) {
+	public boolean nextTextCase() {
 		if (!language.hasUpperCase()) {
 			return false;
 		}
@@ -220,6 +218,7 @@ abstract public class InputMode {
 	}
 
 	public void determineNextWordTextCase(int nextDigit) {}
+	public void skipNextTextCaseDetection() {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
 	protected String adjustSuggestionTextCase(String word, int newTextCase) { return word; }
