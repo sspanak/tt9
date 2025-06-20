@@ -95,6 +95,16 @@ ________________________________________________________________
 
 =====
 
+Dutch word list 2 by: Erik Frambach
+Version: 2002-08-20
+Source: https://www.winedt.org/dict.html
+Additional notes: https://www.winedt.org/dict/Dutch.html
+
+Valdiation and text case correction performed using Dutch Hunspel dictionary:
+Version: 836d7c2 (2023-11-03)
+Source: https://github.com/wooorm/dictionaries/tree/main/dictionaries/nl
+License: Revised BSD License en/of CC BY 3.0; https://github.com/wooorm/dictionaries/blob/main/dictionaries/nl/license
+
 Word frequencies obtained from the AOSP project
 Link: https://android.googlesource.com/platform/packages/inputmethods/LatinIME/
 Git commit: 2023-03-20 [fe0c000f40a5cb33c518cc7a12204b5810886c0e]
