@@ -382,12 +382,18 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public boolean nextTextCase() {
-		// convert any internally used text cases to user-friendly, because this is what the user
-		// is allowed to choose from.
-		textCase = getTextCase();
+	public boolean nextTextCase(@Nullable String currentWord) {
+		if (currentWord == null || currentWord.isEmpty() || (currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0)))) {
+			textCase = getTextCase();
+		} else {
+			textCase = new Text(language, currentWord).getTextCase();
+		}
 
-		boolean changed = super.nextTextCase();
+		// Skip capitalized text for words like: 've, 's, 'll, etc... only allow upper and lower cases.
+		boolean changed = super.nextTextCase(currentWord);
+		if (textCase != CASE_LOWER && textCase != CASE_UPPER && currentWord != null && currentWord.length() > 1 && !Character.isAlphabetic(currentWord.charAt(0))) {
+			changed = super.nextTextCase(currentWord);
+		}
 
 		// since it's a user's choice, the default matters no more
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;

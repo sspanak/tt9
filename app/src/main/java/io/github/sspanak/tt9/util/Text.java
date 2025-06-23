@@ -36,7 +36,7 @@ public class Text extends TextTools {
 
 
 	public String capitalize() {
-		if (language == null || text == null || text.isEmpty() || !language.hasUpperCase()) {
+		if (language == null || text == null || text.isEmpty() || !language.hasUpperCase() || !Character.isAlphabetic(text.charAt(0))) {
 			return text;
 		}
 
@@ -141,12 +141,24 @@ public class Text extends TextTools {
 			return false;
 		}
 
-		if (!Character.isUpperCase(text.charAt(0))) {
-			return false;
-		}
+		char[] chars = text.toCharArray();
+		boolean firstLetterFound = false;
 
-		for (int i = 1, end = text.length(); i < end; i++) {
-			if (Character.isUpperCase(text.charAt(i))) {
+		for (int i = 0, end = text.length(); i < end; i++) {
+			if (!Character.isAlphabetic(chars[i])) {
+				continue;
+			}
+
+			if (!firstLetterFound) {
+				if (Character.isUpperCase(chars[i])) {
+					firstLetterFound = true;
+					continue;
+				} else {
+					return false;
+				}
+			}
+
+			if (Character.isUpperCase(chars[i])) {
 				return false;
 			}
 		}
