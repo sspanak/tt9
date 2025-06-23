@@ -28,6 +28,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
+	@NonNull private final Handler heartbeatDetector = new Handler(Looper.getMainLooper());
 	private boolean isDead = false;
 	private int zombieChecks = 0;
 
@@ -131,11 +132,16 @@ public class TraditionalT9 extends MainViewHandler {
 
 	@Override
 	protected boolean onStart(EditorInfo field) {
-		AppHacks.onStart(settings, field);
-		if (zombieChecks == 0 && !SystemSettings.isTT9Selected(this)) {
-			startZombieCheck();
+		if (SystemSettings.isTT9Selected(this)) {
+			startHeartbeatCheck();
+		} else {
+			if (zombieChecks == 0) {
+				startZombieCheck();
+			}
 			return false;
 		}
+
+		AppHacks.onStart(settings, field);
 
 		if (isDead || !super.onStart(field)) {
 			setStatusIcon(mInputMode, mLanguage);
@@ -188,6 +194,8 @@ public class TraditionalT9 extends MainViewHandler {
 		if (zombieChecks == 0) {
 			startZombieCheck();
 		}
+
+		stopHeartbeatCheck();
 	}
 
 
@@ -207,10 +215,31 @@ public class TraditionalT9 extends MainViewHandler {
 
 
 	/**
-	 * On Android 11+ the IME is sometimes not killed when the user switches to a different one.
-	 * Here we attempt to detect if we are disabled, then hide and kill ourselves.
+	 * On Android 11+ onStop() and onDestroy() are sometimes not called when the user switches to a
+	 * different IME. Here we attempt to detect if we are disabled, then hide and kill ourselves.
 	 */
-	protected void startZombieCheck() {
+	private void startHeartbeatCheck() {
+		if (!SystemSettings.isTT9Selected(this)) {
+			onZombie();
+		} else if (!isDead && !InputModeKind.isPassthrough(mInputMode)) {
+			heartbeatDetector.postDelayed(this::startHeartbeatCheck, SettingsStore.ZOMBIE_HEARTBEAT_INTERVAL);
+			Logger.v(LOG_TAG, "===> Heart is beating");
+		}
+	}
+
+
+	private void stopHeartbeatCheck() {
+		if (!DeviceInfo.AT_LEAST_ANDROID_10 || heartbeatDetector.hasCallbacks(this::startHeartbeatCheck)) {
+			heartbeatDetector.removeCallbacksAndMessages(null);
+			Logger.d(LOG_TAG, "===> Heartbeat check stopped");
+		}
+	}
+
+
+	/**
+	 * Similar to the heartbeat check, but detects if we are on when invisible or after re-init.
+	 */
+	private void startZombieCheck() {
 		if (zombieChecks > 0 && !SystemSettings.isTT9Selected(this)) {
 			zombieChecks = 0;
 			onZombie();
@@ -226,7 +255,7 @@ public class TraditionalT9 extends MainViewHandler {
 	}
 
 
-	protected void onZombie() {
+	private void onZombie() {
 		if (isDead) {
 			Logger.w(LOG_TAG, "===> Already dead. Cannot kill self.");
 			return;
@@ -241,13 +270,12 @@ public class TraditionalT9 extends MainViewHandler {
 
 
 	protected void cleanUp() {
+		stopHeartbeatCheck();
+		zombieDetector.removeCallbacksAndMessages(null);
+		zombieChecks = SettingsStore.ZOMBIE_CHECK_MAX;
+		backgroundTasks.removeCallbacksAndMessages(null);
 		super.cleanUp();
 		setInputField(null);
-		backgroundTasks.removeCallbacksAndMessages(null);
-		zombieChecks = SettingsStore.ZOMBIE_CHECK_MAX;
-		zombieDetector.removeCallbacksAndMessages(null);
-		LanguageCollection.destroy();
-		DataStore.destroy();
 		Logger.d(LOG_TAG, "===> Final cleanup completed");
 	}
 
