@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.ime;
 
 import android.inputmethodservice.InputMethodService;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null);
+	@NonNull private Handler shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
 
 	// input
 	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -141,6 +144,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
+			updateShiftStateDebounced(mInputMode.getSuggestions().isEmpty(), false);
 		}
 
 		if (settings.getBackspaceRecomposing() && repeat == 0 && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
@@ -427,7 +431,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
 
-		updateShiftState(mInputMode.getSuggestions().isEmpty(), true);
+		if (mInputMode.getSuggestions().isEmpty()) {
+			updateShiftStateDebounced(true, false);
+		} else {
+			updateShiftStateDebounced(false, true);
+		}
+
 		forceShowWindow();
 	}
 
@@ -437,6 +446,12 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
 		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode);
+	}
+
+
+	protected void updateShiftStateDebounced(boolean determineTextCase, boolean onlyWhenLetters) {
+		shiftStateDebounceHandler.removeCallbacksAndMessages(null);
+		shiftStateDebounceHandler.postDelayed(() -> updateShiftState(determineTextCase, onlyWhenLetters), SettingsStore.SHIFT_STATE_DEBOUNCE_TIME);
 	}
 
 

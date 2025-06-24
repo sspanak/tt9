@@ -61,6 +61,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public boolean onBackspace() {
 		isCursorDirectionForward = false;
+		autoTextCase.doNotSkipNext();
 
 		if (digitSequence.isEmpty()) {
 			clearWordStem();

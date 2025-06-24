@@ -100,4 +100,8 @@ public class AutoTextCase {
 	public void skipNext() {
 		skipNext = true;
 	}
+
+	public void doNotSkipNext() {
+		skipNext = false;
+	}
 }
