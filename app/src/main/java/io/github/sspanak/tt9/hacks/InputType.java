@@ -55,6 +55,13 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean isCalculator() {
+		return field != null
+			&& (field.packageName.endsWith("calculator") || field.packageName.endsWith(".calc"))
+			&& (field.inputType & EditorInfo.TYPE_MASK_CLASS) == EditorInfo.TYPE_CLASS_NUMBER;
+	}
+
+
 	/**
 	 * isDuoLingoReportBug
 	 * When reporting a bug in the Duolingo app, the text field is missing the TYPE_TEXT flag, which
@@ -211,12 +218,10 @@ public class InputType extends StandardInputType {
 	 * they don't have a physical keyboard.
 	 * <a href="https://github.com/sspanak/tt9/issues/538">Beeps on CAT S22 Flip</a>
 	 * <a href="https://github.com/sspanak/tt9/issues/549">The UI does not appear on Xiaomi Redmi 12c</a>
+	 * <a href="https://github.com/sspanak/tt9/issues/827">UI not hiding in 3rd-party calculators</a>
 	 */
 	protected boolean isSpecialNumeric(Context context) {
-		return
-			field.packageName.contains("com.android.calculator") // there is "calculator2", hence the contains()
-			|| isDumbPhoneDialer(context)
-			|| isLgX100SDialer();
+		return isCalculator() || isDumbPhoneDialer(context) || isLgX100SDialer();
 	}
 
 

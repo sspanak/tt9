@@ -20,6 +20,7 @@ public class SettingsStore extends SettingsHotkeys {
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
+	public final static int SHIFT_STATE_DEBOUNCE_TIME = 175; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
 	public final static int SLOW_QUERY_TIMEOUT = 3000; // ms
 	public final static float SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE = 0.5f; // 1 = full key size
@@ -43,8 +44,9 @@ public class SettingsStore extends SettingsHotkeys {
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
 	public final static int WORD_PAIR_MAX = 1000;
 	public final static int WORD_PAIR_MAX_WORD_LENGTH = 6;
-	public final static int ZOMBIE_CHECK_INTERVAL = 1500; // ms
+	public final static int ZOMBIE_CHECK_INTERVAL = 5000; // ms
 	public final static int ZOMBIE_CHECK_MAX = 2;
+	public final static int ZOMBIE_HEARTBEAT_INTERVAL = 2000; // ms
 
 	/************* hacks *************/
 	public final static int PREFERENCES_CLICK_DEBOUNCE_TIME = 250; // ms

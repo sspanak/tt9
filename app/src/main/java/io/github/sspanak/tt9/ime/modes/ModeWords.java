@@ -61,6 +61,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public boolean onBackspace() {
 		isCursorDirectionForward = false;
+		autoTextCase.doNotSkipNext();
 
 		if (digitSequence.isEmpty()) {
 			clearWordStem();
@@ -160,9 +161,9 @@ class ModeWords extends ModeCheonjiin {
 		if (isRecomposing) {
 			isRecomposing = false;
 			textCase = settings.getTextCase();
-			onEndRecomposing.run();
 		}
 	}
+
 
 	@Override
 	public void reset() {
@@ -382,21 +383,38 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public boolean nextTextCase(boolean analyzeSurroundingText) {
-		boolean changed = super.nextTextCase(analyzeSurroundingText);
-
-		// "analyzeSurroundingText" is true only when Shift is pressed to avoid expensive
-		// calls to getStringBeforeCursor().
-		if (analyzeSurroundingText && textCase == CASE_LOWER && autoTextCase.isLowerCaseForbidden(language, textField.getStringBeforeCursor())) {
-			changed = super.nextTextCase(true);
+	public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) {
+		if (!language.hasUpperCase()) {
+			return false;
 		}
 
-		// since it's a user's choice, the default matters no more
+		boolean isTyping = currentWord != null && !currentWord.isEmpty();
+		boolean isTyingSpecialChar = isTyping && currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0));
+
+		if (isTyingSpecialChar) {
+			textCase = displayTextCase;
+		} else if (isTyping) {
+			textCase = new Text(language, currentWord).getTextCase();
+		} else {
+			textCase = getTextCase();
+		}
+
+		// do not capitalize words like: 've, 's, 'll, etc, only allow upper and lower cases.
+		boolean changed = super.nextTextCase(currentWord, displayTextCase);
+		if (textCase != CASE_LOWER && textCase != CASE_UPPER && currentWord != null && currentWord.length() > 1 && !Character.isAlphabetic(currentWord.charAt(0))) {
+			changed = super.nextTextCase(currentWord, displayTextCase);
+		}
+
+		// since the user made an explicit choice, the app default matters no more
 		textFieldTextCase = changed ? CASE_UNDEFINED : textFieldTextCase;
 
 		return changed;
 	}
 
+	@Override
+	public void skipNextTextCaseDetection() {
+		autoTextCase.skipNext();
+	}
 
 	@Override
 	public boolean shouldReplaceLastLetter(int n, boolean h) {
