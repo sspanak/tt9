@@ -1,6 +1,8 @@
 locale: zh-TW
 dictionaryFile: zh-bopomofo.csv
-name: 中文 / 繁體
+iconABC: ic_lang_zh_bopomofo
+iconT9: ic_lang_zh_traditional
+name: 中文 / 繁體 / small
 abcString: ㄅㄆㄇ
 hasSpaceBetweenWords: no
 hasUpperCase: no
@@ -15,15 +17,11 @@ layout:
   - [ㄚ, ㄛ, ㄜ, ㄝ] # 7
   - [ㄞ, ㄟ, ㄠ, ㄡ] # 8
   - [ㄢ, ㄣ, ㄤ, ㄥ, ㄦ] # 9
+filterBySounds: yes
 sounds:
   - [I,0] # ㄧ
-  - [Yi,0] # ㄧ, probably unnecessary
-  - [Y,0] # ㄧ, probably unnecessary
   - [U,0] # ㄨ
-  - [Wu,0] # ㄨ, probably unnecessary
-  - [W,0] # ㄨ, probably unnecessary
   - [Yu,0] # ㄩ
-  - [Uu,0] # ㄩ, actually "ü", probably unnecessary
   - [B,1] # ㄅ
   - [P,1] # ㄆ
   - [M,1] # ㄇ
