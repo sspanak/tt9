@@ -1,9 +1,13 @@
 package io.github.sspanak.tt9.ime.modes;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.BopomofoConverter;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
@@ -13,9 +17,11 @@ import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModeBopomofo extends ModePinyin {
+	private final BopomofoConverter bpmfConvert;
 
 	protected ModeBopomofo(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
+		bpmfConvert = new BopomofoConverter();
 		seq = new Sequences("S1", "S0");
 	}
 
@@ -27,6 +33,20 @@ public class ModeBopomofo extends ModePinyin {
 
 
 	/* **************************** LOAD SUGGESTIONS *********************************/
+
+	@NonNull
+	@Override
+	public ArrayList<String> getSuggestions() {
+		ArrayList<String> newSuggestions = new ArrayList<>();
+		for (String latinSuggestion : suggestions) {
+			// all transcriptions are stored in Latin in the database, so we need to convert them to
+			// Bopomofo before presenting them to the user
+			newSuggestions.add(bpmfConvert.toBopomofo(latinSuggestion));
+		}
+
+		return newSuggestions;
+	}
+
 
 	/**
 	 * Not possible in Bopomofo mode, because 0-key is used for typing letters.
@@ -48,6 +68,13 @@ public class ModeBopomofo extends ModePinyin {
 		KEY_CHARACTERS.add(
 			TextTools.removeLettersFromList(Characters.orderByList(Characters.PunctuationChineseBopomofo, settings.getOrderedKeyChars(language, 1), false))
 		);
+	}
+
+
+	@Override
+	public boolean onReplaceSuggestion(@NonNull String bopomofoWord) {
+		// convert the Bopomofo word to Latin to search for it in the database
+		return super.onReplaceSuggestion(bpmfConvert.toLatin(bopomofoWord));
 	}
 
 	/***************************** TYPING *********************************/
