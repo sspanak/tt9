@@ -211,7 +211,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected boolean nextTextCase() {
 		final String currentWord = suggestionOps.isEmpty() || mInputMode.getSequence().isEmpty() ? "" : suggestionOps.getCurrent();
 
-		if (!mInputMode.nextTextCase(currentWord, statusBar.getText())) {
+		if (!mInputMode.nextTextCase(currentWord, statusIconTextCase)) {
 			return false;
 		}
 
