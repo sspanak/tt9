@@ -248,7 +248,7 @@ public class ReadOps {
 			String rangeEnd = generations == 10 ? "9" : "999999";
 			sql.append(" sequence = '")
 				.append(sequence)
-				.append("' OR sequence BETWEEN '").append(sequence).append("1' AND '").append(sequence).append(rangeEnd).append("'");
+				.append("' OR sequence BETWEEN '").append(sequence).append("0' AND '").append(sequence).append(rangeEnd).append("'");
 			sql.append(" ORDER BY `start` ");
 			sql.append(" LIMIT ").append(SettingsStore.SUGGESTIONS_MAX);
 		}
@@ -271,7 +271,7 @@ public class ReadOps {
 			" AND (sequence = " + sequence;
 
 		if (generations > 0) {
-			sql += " OR sequence BETWEEN " + sequence + "1 AND " + sequence + "999999)";
+			sql += " OR sequence BETWEEN " + sequence + "0 AND " + sequence + "999999)";
 		} else {
 			sql += ")";
 		}
