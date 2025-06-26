@@ -383,28 +383,26 @@ class ModeWords extends ModeCheonjiin {
 	}
 
 	@Override
-	public boolean nextTextCase(@Nullable String currentWord, @Nullable String statusBarText) {
+	public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) {
 		if (!language.hasUpperCase()) {
 			return false;
 		}
 
-		// if the user is typing, assume the text case of the current word
-		if (currentWord == null || currentWord.isEmpty()) {
-			textCase = getTextCase();
-		}
-		// if not typing, assume the displayed text case
-		else if (statusBarText != null && !statusBarText.isEmpty() && currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0))) {
-			textCase = new Text(language, statusBarText).getTextCase();
-		}
-		// ... or fallback to the mode text case
-		else {
+		boolean isTyping = currentWord != null && !currentWord.isEmpty();
+		boolean isTyingSpecialChar = isTyping && currentWord.length() == 1 && !Character.isAlphabetic(currentWord.charAt(0));
+
+		if (isTyingSpecialChar) {
+			textCase = displayTextCase;
+		} else if (isTyping) {
 			textCase = new Text(language, currentWord).getTextCase();
+		} else {
+			textCase = getTextCase();
 		}
 
 		// do not capitalize words like: 've, 's, 'll, etc, only allow upper and lower cases.
-		boolean changed = super.nextTextCase(currentWord, statusBarText);
+		boolean changed = super.nextTextCase(currentWord, displayTextCase);
 		if (textCase != CASE_LOWER && textCase != CASE_UPPER && currentWord != null && currentWord.length() > 1 && !Character.isAlphabetic(currentWord.charAt(0))) {
-			changed = super.nextTextCase(currentWord, statusBarText);
+			changed = super.nextTextCase(currentWord, displayTextCase);
 		}
 
 		// since the user made an explicit choice, the app default matters no more
