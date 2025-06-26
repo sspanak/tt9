@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
+	protected int statusIconTextCase = InputMode.CASE_UNDEFINED;
 	protected SettingsStore settings;
 	protected ResizableMainView mainView = null;
 	protected StatusBar statusBar = null;
@@ -83,8 +84,8 @@ abstract class UiHandler extends AbstractHandler {
 			return;
 		}
 
-		final int displayTextCase = getDisplayTextCase(language, mode != null ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
-		final int resId = new StatusIcon(settings, mode, language, displayTextCase).resourceId;
+		statusIconTextCase = getDisplayTextCase(language, mode != null ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
+		final int resId = new StatusIcon(settings, mode, language, statusIconTextCase).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {

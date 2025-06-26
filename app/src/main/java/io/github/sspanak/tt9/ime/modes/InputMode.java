@@ -206,7 +206,7 @@ abstract public class InputMode {
 	 * If "analyzeSurroundingText" is true, and when the mode supports text analyzing, it may apply
 	 * additional logic to determine the next valid text case.
 	 */
-	public boolean nextTextCase(@Nullable String currentWord, @Nullable String statusBarText) {
+	public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) {
 		if (!language.hasUpperCase()) {
 			return false;
 		}
