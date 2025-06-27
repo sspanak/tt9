@@ -1,5 +1,7 @@
 locale: zh-TW
 dictionaryFile: zh-bopomofo.csv
+iconABC: ic_lang_zh_bopomofo
+iconT9: ic_lang_zh_traditional
 name: 中文 / 繁體 / small
 abcString: ㄅㄆㄇ
 hasSpaceBetweenWords: no
