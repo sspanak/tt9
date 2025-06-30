@@ -37,11 +37,6 @@ public class LanguageCollection {
 	}
 
 
-	public static void destroy() {
-		self = null;
-	}
-
-
 	@Nullable
 	public static NaturalLanguage getLanguage(String langId) {
 		try {

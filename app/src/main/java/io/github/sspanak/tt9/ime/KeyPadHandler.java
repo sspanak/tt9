@@ -6,7 +6,6 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Timer;
-import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 
 abstract class KeyPadHandler extends UiHandler {
@@ -29,10 +28,6 @@ abstract class KeyPadHandler extends UiHandler {
 	 */
 	@Override
 	public void onCreate() {
-		if (!SystemSettings.isTT9Selected(this)) {
-			return;
-		}
-
 		super.onCreate();
 		settings = new SettingsStore(getApplicationContext());
 
