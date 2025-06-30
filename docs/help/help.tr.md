@@ -133,7 +133,7 @@ _Sadece sayı alanlarında, mod değiştirme mümkün değildir. Böyle durumlar
 Metin düzenleme panelini gösterir, bu panel seçme, kesme, kopyalama ve yapıştırma işlemlerini yapmanıza olanak tanır. Paneli kapatmak için tekrar "✱" tușuna basın veya çoğu uygulamada Geri tușuna basın. Detaylar [aşağıda](#metin-düzenleme) bulunmaktadır.
 
 #### Sonraki Dil Tușu (Varsayılan: # basılı tut):
-Ayarlar'dan birden fazla dil etkinleştirildiğinde sonraki dili seçin.
+Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
 
 #### Klavye Seç Tușu:
 Android Klavye Değiştirme iletişim kutusunu açarak yüklü tüm klavyeler arasında seçim yapabilirsiniz.
@@ -208,7 +208,7 @@ _Yalnızca tahmin modunda._
 
 #### Sol F4 tuşu (sol alt köşedeki tuş)
 - **Bas:** Giriş modlarını döngüsel olarak değiştirir (abc → Tahmin → 123).
-- **Basılı tut:** Ayarlardan birden fazla dil etkinleştirildiğinde bir sonraki dili seçer.
+- **Basılı tut:** Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
 - **Yatay kaydırma:** TT9 dışında kullanılan son klavyeye geçiş yapar.
 - **Dikey kaydırma:** Tüm yüklü klavyeler arasından seçim yapabileceğiniz Android Klavye Değiştirme diyalog penceresini açar.
 
@@ -425,3 +425,12 @@ T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya ye
 
 #### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
 Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [Sol F4 tuşunu](#sol-f4-tuşu-sol-alt-köşedeki-tuş) basılı tutun.
+
+#### "I've" veya "don't" gibi kısaltmaları sözlüğe ekleyemiyorum
+Tüm dillerdeki kısaltmalar zaten ayrı kelimeler olarak mevcut, bu yüzden herhangi bir şey eklemenize gerek yok. Bu maksimum esneklik sağlar — istediğiniz herhangi bir kelimeyi herhangi bir kısaltma ile birleştirebilir ve aynı zamanda önemli miktarda depolama alanı tasarrufu elde edersiniz.
+
+Örneğin, 've yazmak için: 183 tuşlayın; veya 'll için: 155. Bu, "I'll" = 4155 ve "we've" = 93183 anlamına gelir. Ayrıca "google.com" yazmak için: 466453 (google) 1266 (.com) tuşlayabilirsiniz.
+
+Fransızca daha karmaşık bir örnek: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+
+_Bu kuralın dikkate değer istisnaları İngilizcedeki "can't" ve "don't" kelimeleridir. Burada 't ayrı bir kelime değildir, ancak yukarıda açıklandığı şekilde yazabilirsiniz._

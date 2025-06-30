@@ -133,7 +133,7 @@ _Dans les champs numériques uniquement, changer de mode est impossible. Dans ce
 Affiche le panneau de modification de texte, permettant de sélectionner, couper, copier et coller du texte. Vous pouvez fermer le panneau en appuyant à nouveau sur la touche "✱" ou, dans la plupart des applications, en appuyant sur le bouton Retour. Détails disponibles [ci-dessous](#édition-de-texte).
 
 #### Touche Langue Suivante (par défaut : appui long sur #) :
-Sélectionne la langue suivante lorsque plusieurs langues sont activées dans les Paramètres.
+Changer la langue de saisie lorsque plusieurs langues ont été activées dans les paramètres.
 
 #### Touche Sélectionner le Clavier :
 Ouvre la boîte de dialogue de changement de clavier d'Android, où vous pouvez choisir parmi tous les claviers installés.
@@ -208,7 +208,7 @@ _Mode prédictif uniquement._
 
 #### Touche F4 gauche (la touche en bas à gauche)
 - **Appuyer :** Alterne entre les modes de saisie (abc → Prédictif → 123).
-- **Maintenir enfoncé :** Passe à la langue suivante, si plusieurs langues ont été activées dans les paramètres.
+- **Maintenir enfoncé :** Changer la langue de saisie lorsque plusieurs langues ont été activées dans les paramètres.
 - **Balayer horizontalement :** Passe au dernier clavier utilisé, autre que TT9.
 - **Balayer verticalement :** Ouvre la boîte de dialogue de changement de clavier Android où vous pouvez sélectionner parmi tous les claviers installés.
 
@@ -425,3 +425,12 @@ La plupart des autres claviers permettent de revenir à Traditional T9 en mainte
 
 #### Je ne peux pas changer de langue sur un téléphone tactile
 Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche F4 gauche](#touche-f4-gauche-la-touche-en-bas-à-gauche) pour changer de langue.
+
+#### Je ne peux pas ajouter de contractions comme "I've" ou "don't" au dictionnaire
+Toutes les contractions dans toutes les langues sont déjà disponibles sous forme de mots séparés, donc vous n'avez rien à ajouter. Cela offre une flexibilité maximale : vous pouvez combiner n'importe quel mot avec n'importe quelle contraction, et cela permet également de gagner beaucoup d'espace de stockage.
+
+Par exemple, vous pouvez taper 've en appuyant sur : 183 ; ou 'll avec : 155. Cela signifie que "I'll" = 4155 et "we've" = 93183. Vous pouvez également taper des choses comme "google.com" en appuyant sur : 466453 (google) 1266 (.com).
+
+Un exemple plus complexe en français : "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+
+_Les exceptions notables à cette règle sont "can't" et "don't" en anglais. Ici, 't n'est pas un mot séparé, mais vous pouvez tout de même les taper comme expliqué ci-dessus._
