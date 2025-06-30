@@ -43,8 +43,12 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("add_word_no_confirmation", false);
 	}
 
+	public boolean getNotificationsApproved() {
+		return !DeviceInfo.AT_LEAST_ANDROID_13 || getStringifiedInt("pref_asked_for_notifications_version", 0) == Integer.MAX_VALUE;
+	}
+
 	public boolean shouldAskForNotifications() {
-		return getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
+		return DeviceInfo.AT_LEAST_ANDROID_13 && getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
 	}
 
 	public void setNotificationsApproved(boolean yes) {

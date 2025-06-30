@@ -88,8 +88,6 @@
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
 	<string name="pref_upside_down_keys_summary">Habilite la configuración si hay 7–8–9 en la primera fila, en lugar de 1–2–3.</string>
 	<string name="pref_category_setup">Configuración inicial</string>
-	<string name="dictionary_no_notifications">Notificaciones del diccionario</string>
-	<string name="dictionary_no_notifications_summary">Recibir notificaciones sobre actualizaciones del diccionario y sobre el progreso de la carga.</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>
 	<string name="function_edit_text">Editar texto</string>

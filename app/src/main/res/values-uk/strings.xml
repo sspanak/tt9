@@ -121,8 +121,6 @@
 
 	<string name="function_add_word_not_available">Додавання слів неможливе цією мовою.</string>
 	<string name="function_backspace">Стерти</string>
-	<string name="dictionary_no_notifications">Сповіщення словника</string>
-	<string name="dictionary_no_notifications_summary">Отримувати повідомлення про оновлення словника та процес завантаження.</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
 	<string name="function_edit_text">Редагувати тексту</string>

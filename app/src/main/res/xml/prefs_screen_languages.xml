@@ -6,12 +6,6 @@
 		app:key="pref_languages"
 		app:title="@string/pref_choose_languages" />
 
-	<SwitchPreferenceCompat
-		app:isPreferenceVisible="false"
-		app:key="dictionary_notifications"
-		app:title="@string/dictionary_no_notifications"
-		app:summary="@string/dictionary_no_notifications_summary"/>
-
 	<Preference
 		app:key="dictionary_load"
 		app:title="@string/dictionary_load_title" />

@@ -81,8 +81,6 @@
 	<string name="function_edit_text">Редактиране на текст</string>
 	<string name="function_add_word_not_available">Добавянето на думи не е възможно на този език.</string>
 	<string name="function_backspace">Триене на текст</string>
-	<string name="dictionary_no_notifications">Речникови известия</string>
-	<string name="dictionary_no_notifications_summary">Получавайте известия за обновления на речника и за прогреса при зареждане.</string>
 	<string name="function_reassign">Задай нов</string>
 	<string name="function_add_word">Добавяне на дума</string>
 	<string name="function_show_command_palette">Списък с команди</string>

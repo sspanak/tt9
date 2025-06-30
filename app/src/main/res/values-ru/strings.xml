@@ -77,8 +77,6 @@
 	<string name="dictionary_load_bad_char">Не удалось загрузить словарь. Проблема в слове в строке %1$d для языка «%2$s».</string>
 	<string name="function_add_word_not_available">Добавление слов невозможно на этом языке.</string>
 	<string name="function_backspace">Стереть</string>
-	<string name="dictionary_no_notifications">Уведомления словаря</string>
-	<string name="dictionary_no_notifications_summary">Получать уведомления о обновлениях словаря и о процессе загрузки.</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
 	<string name="function_edit_text">Редактировать текста</string>
