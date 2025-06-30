@@ -133,7 +133,7 @@ _In reinen Zahlenfeldern ist ein Wechsel des Modus nicht möglich. In solchen F�
 Zeigt das Textbearbeitungsfenster, das es Ihnen ermöglicht, Text auszuwählen, zu schneiden, zu kopieren und einzufügen. Sie können das Fenster schließen, indem Sie erneut die „✱“-Taste drücken oder in den meisten Anwendungen die Zurück-Taste drücken. Details sind [unten](#textbearbeitung) verfügbar.
 
 #### Nächste Sprache Taste (Standard: Halten #):
-Wählt die nächste Sprache, wenn in den Einstellungen mehrere Sprachen aktiviert wurden.
+Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
 
 #### Tastatur auswählen Taste:
 Öffnet den Android-Dialog "Tastatur wechseln", in dem Sie zwischen allen installierten Tastaturen auswählen können.
@@ -208,7 +208,7 @@ _Nur im Vorhersagemodus._
 
 #### Linke F4-Taste (die untere linke Taste)
 - **Drücken:** Wechselt die Eingabemodi (abc → Vorhersage → 123).
-- **Halten:** Wechselt die Sprache, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
+- **Halten:** Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
 - **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur, abgesehen von TT9.
 - **Vertikal wischen:** Öffnet den Android-Tastaturwechsel-Dialog, in dem Sie zwischen allen installierten Tastaturen wählen können.
 
@@ -426,3 +426,12 @@ Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, i
 
 #### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
 Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [linke F4-Taste](#linke-f4-taste-die-untere-linke-taste), um die Sprache zu ändern.
+
+#### Ich kann keine Kontraktionen wie "I've" oder "don't" zum Wörterbuch hinzufügen
+Alle Kontraktionen in allen Sprachen sind bereits als separate Wörter verfügbar, daher müssen Sie nichts hinzufügen. Dies bietet maximale Flexibilität – Sie können jedes Wort mit jeder Kontraktion kombinieren und gleichzeitig erheblich Speicherplatz sparen.
+
+Zum Beispiel können Sie 've eingeben, indem Sie: 183 drücken; oder 'll mit: 155. Das bedeutet: "I'll" = 4155 und "we've" = 93183. Sie können auch Begriffe wie "google.com" eingeben, indem Sie: 466453 (google) 1266 (.com) drücken.
+
+Ein komplexeres Beispiel auf Französisch: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+
+_Besondere Ausnahmen sind "can't" und "don't" im Englischen. Hier ist 't kein separates Wort, aber Sie können sie trotzdem wie oben beschrieben eingeben._

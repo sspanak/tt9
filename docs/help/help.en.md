@@ -133,7 +133,7 @@ _In number-only fields, changing the mode is not possible. In such cases, the ke
 Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
 
 #### Next Language Key (Default: hold #):
-Select the next language, when multiple languages have been enabled from the Settings.
+Change the typing language, when multiple languages have been enabled from the Settings.
 
 #### Select Keyboard Key:
 Open the Android Change Keyboard dialog where you can select between all installed keyboards.
@@ -208,7 +208,7 @@ _Predictive mode only._
 
 #### Left F4 key (located above "OK")
 - **Press:** Cycle the input modes (abc → Predictive → 123).
-- **Hold:** Select the next language, when multiple languages have been enabled from the Settings.
+- **Hold:** Change the typing language, when multiple languages have been enabled from the Settings.
 - **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
 - **Vertical swipe:** Open the Android Change Keyboard dialog where you can select between all installed keyboards.
 
@@ -426,3 +426,12 @@ Most other keyboards allow switching back to Traditional T9 by holding the space
 
 #### I can't change the language on a touchscreen phone
 First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-located-above-ok) to change the language.
+
+#### I can't add contractions like "I've" or "don't" to the dictionary
+All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibilty—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
+
+For example, you can type: 've by pressing: 183; or: 'll, using: 155. This means, "I'll" = 4155 and "we've" = 93183. You can also type things like "google.com", by pressing: 466453 (google) 1266 (.com).
+
+A more complex example in French: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+
+_Notable exceptions to the rule are "can't" and "don't" in English. Here, 't is not a separate word, but nevertheless you can still type them as described above.

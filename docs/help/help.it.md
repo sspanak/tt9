@@ -133,7 +133,7 @@ _Nei campi a soli numeri, cambiare modalità non è possibile. In questi casi, i
 Mostra il pannello di modifica del testo, che consente di selezionare, tagliare, copiare e incollare testo. È possibile chiudere il pannello premendo di nuovo il tasto "✱" o, nella maggior parte delle applicazioni, premendo il tasto Indietro. Per dettagli, vedere [sotto](#modifica-testo).
 
 #### Tasto Lingua Successiva (Default: tenere premuto #):
-Seleziona la lingua successiva, quando sono abilitate più lingue nelle Impostazioni.
+Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
 
 #### Tasto Seleziona Tastiera:
 Apre la finestra di dialogo Cambia Tastiera di Android, dove è possibile selezionare una tastiera tra tutte quelle installate.
@@ -208,7 +208,7 @@ _Solo in modalità predittiva._
 
 #### Tasto F4 sinistro (il tasto in basso a sinistra)
 - **Premere:** Cambia modalità di input (abc → Predittiva → 123).
-- **Tenere premuto:** Cambia lingua, se più lingue sono state abilitate nelle impostazioni.
+- **Tenere premuto:** Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
 - **Scorrere orizzontalmente:** Passa all'ultima tastiera utilizzata, diversa da TT9.
 - **Scorrere verticalmente:** Apre il dialogo Cambia tastiera di Android, dove è possibile selezionare tra tutte le tastiere installate.
 
@@ -425,3 +425,12 @@ La maggior parte delle altre tastiere permette di tornare a Traditional T9 tenen
 
 #### Non riesco a cambiare lingua su un telefono touchscreen
 Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto sinistro F4](#tasto-f4-sinistro-il-tasto-in-basso-a-sinistra) per cambiare lingua.
+
+#### Non posso aggiungere contrazioni come "I've" o "don't" al dizionario
+Tutte le contrazioni in tutte le lingue sono già disponibili come parole separate, quindi non è necessario aggiungere nulla. Questo garantisce la massima flessibilità: puoi combinare qualsiasi parola con qualsiasi contrazione e risparmiare molto spazio di archiviazione.
+
+Ad esempio, puoi digitare 've premendo: 183; oppure 'll con: 155. Questo significa che "I'll" = 4155 e "we've" = 93183. Puoi anche scrivere termini come "google.com" premendo: 466453 (google) 1266 (.com).
+
+Un esempio più complesso in francese: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
+
+_Un'eccezione importante alla regola sono "can't" e "don't" in inglese. In questi casi, 't non è una parola separata, ma puoi comunque digitarli come spiegato sopra._
