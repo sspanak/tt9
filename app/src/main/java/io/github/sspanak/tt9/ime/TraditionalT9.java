@@ -207,7 +207,7 @@ public class TraditionalT9 extends MainViewHandler {
 
 
 	private void askForNotifications() {
-		if (!InputModeKind.isPassthrough(mInputMode) && settings.shouldAskForNotifications() && !inputType.isUs()) {
+		if (settings.shouldAskForNotifications() && !InputModeKind.isPassthrough(mInputMode) && !inputType.isUs()) {
 			settings.setNotificationsApproved(false);
 			RequestPermissionDialog.show(this, Manifest.permission.POST_NOTIFICATIONS);
 		}

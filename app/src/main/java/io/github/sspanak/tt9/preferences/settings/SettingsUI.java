@@ -56,6 +56,7 @@ public class SettingsUI extends SettingsTyping {
 			"pref_asked_for_notifications_version",
 			Integer.toString(yes ? Integer.MAX_VALUE : BuildConfig.VERSION_CODE)
 		);
+		prefsEditor.apply();
 	}
 
 	public boolean isStatusIconEnabled() {
