@@ -79,8 +79,13 @@ public class RequestPermissionDialog extends AppCompatActivity {
 	private void render(@NonNull String permission) {
 		if (permission.equals(Manifest.permission.RECORD_AUDIO) && permissions.noRecordAudio()) {
 			permissions.requestRecordAudio();
-		} else if (permission.equals(Manifest.permission.POST_NOTIFICATIONS) && permissions.noPostNotifications()) {
-			permissions.requestPostNotifications();
+		} else if (permission.equals(Manifest.permission.POST_NOTIFICATIONS)) {
+			if (permissions.noPostNotifications()) {
+				permissions.requestPostNotifications();
+			} else {
+				new SettingsStore(this).setNotificationsApproved(true);
+				finish();
+			}
 		} else {
 			finish();
 		}
