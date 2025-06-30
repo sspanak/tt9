@@ -76,8 +76,6 @@
 	<string name="char_space">Espace</string>
 	<string name="function_add_word_not_available">L\'ajout de mots n\'est pas possible dans cette langue.</string>
 	<string name="function_backspace">Retour arrière</string>
-	<string name="dictionary_no_notifications">Notifications du dictionnaire</string>
-	<string name="dictionary_no_notifications_summary">Recevoir des notifications sur les mises à jour du dictionnaire et sur la progression du chargement.</string>
 	<string name="function_show_command_palette">Liste des commandes</string>
 	<string name="function_filter_clear">Supprimer le filtre</string>
 	<string name="function_edit_text">Modifier le texte</string>

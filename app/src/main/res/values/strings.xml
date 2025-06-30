@@ -121,8 +121,6 @@
 	<string name="dictionary_loading_short">Loading / %1$s… %2$d</string>
 	<string name="dictionary_load_title">Load Selected</string>
 	<string name="dictionary_not_found">Loading failed. Dictionary for \"%1$s\" not found.</string>
-	<string name="dictionary_no_notifications">Dictionary Notifications</string>
-	<string name="dictionary_no_notifications_summary">Get notified about dictionary updates and see the loading progress.</string>
 	<string name="dictionary_truncate_title">Delete All</string>
 	<string name="dictionary_truncate_unselected">Delete Unselected</string>
 	<string name="dictionary_truncated">Dictionary deleted successfully.</string>

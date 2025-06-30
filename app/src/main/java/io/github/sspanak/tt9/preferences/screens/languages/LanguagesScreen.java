@@ -41,10 +41,6 @@ public class LanguagesScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		new ItemSelectLanguage(activity, findPreference(ItemSelectLanguage.NAME)).populate();
 
-		new ItemDictionaryNotifications(findPreference(ItemDictionaryNotifications.NAME), activity)
-			.populate()
-			.enableClickHandler();
-
 		loadItem = new ItemLoadDictionary(
 			findPreference(ItemLoadDictionary.NAME),
 			activity,

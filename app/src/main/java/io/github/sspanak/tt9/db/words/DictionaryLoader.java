@@ -117,8 +117,8 @@ public class DictionaryLoader {
 			return false;
 		}
 
-		Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
-		boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
+		final Long lastUpdateTime = self.lastAutoLoadAttemptTime.get(language.getId());
+		final boolean isItTooSoon = lastUpdateTime != null && System.currentTimeMillis() - lastUpdateTime < SettingsStore.DICTIONARY_AUTO_LOAD_COOLDOWN_TIME;
 		if (isItTooSoon) {
 			return false;
 		}
@@ -127,12 +127,13 @@ public class DictionaryLoader {
 			(hash) -> {
 				getInstance(context).lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
 
-				// no words at all, load without confirmation
-				if (hash.isEmpty()) {
+				final boolean noDictionary = hash == null || hash.isEmpty();
+				final boolean isDictionaryOutdated = noDictionary || !hash.equals(new WordFile(context, language, self.assets).getHash());
+				final boolean noNotifications = !(new SettingsStore(context).getNotificationsApproved());
+
+				if (noDictionary || (isDictionaryOutdated && noNotifications)) {
 					load(context, language);
-				}
-				// or if the database is outdated, compared to the dictionary file, ask for confirmation and load
-				else if (!hash.equals(new WordFile(context, language, self.assets).getHash())) {
+				} else if (isDictionaryOutdated) {
 					new DictionaryUpdateNotification(context, language).show();
 				}
 			},
