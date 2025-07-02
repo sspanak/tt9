@@ -39,8 +39,9 @@ public class PunctuationScreen extends BaseScreenFragment {
 
 
 	@Override
-	public void onBackPressed() {
+	public void onStop() {
 		onSaveOrdering();
+		super.onStop();
 	}
 
 
