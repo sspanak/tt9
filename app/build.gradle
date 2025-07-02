@@ -96,13 +96,13 @@ def getVersionString = { flavor -> return flavor == 'debug' ? getDebugVersion() 
 
 android {
 	namespace = PACKAGE_NAME
-	compileSdk = 35
+	compileSdk = 36
 
 	defaultConfig {
 		applicationId = PACKAGE_NAME
 		buildFeatures.buildConfig = true
 		minSdk = 21
-		targetSdk = 35
+		targetSdk = 36
 		versionCode = getVerCode()
 		versionName = getVerName()
 
