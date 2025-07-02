@@ -2,13 +2,12 @@ package io.github.sspanak.tt9.preferences;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.Preference;
@@ -39,24 +38,6 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
-	/**
-	 * onBackPressed() is deprecated, so calling the onBackPressed() on the Fragments is now more complicated.
-	 */
-	@NonNull public final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
-		@Override
-		public void handleOnBackPressed() {
-			Fragment previousFragment = getSupportFragmentManager().findFragmentById(R.id.preferences_container);
-			if (previousFragment instanceof BaseScreenFragment) {
-				((BaseScreenFragment) previousFragment).onBackPressed();
-			}
-
-			setEnabled(false);
-			getOnBackPressedDispatcher().onBackPressed();
-			setEnabled(true);
-		}
-	};
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -71,9 +52,6 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		validateFunctionKeys();
 
 		super.onCreate(savedInstanceState);
-
-		// On API >= 33, this requires android:enableOnBackInvokedCallback="true" in the manifest
-		getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 
 		// changing the theme causes onCreate(), which displays the MainSettingsScreen,
 		// but leaves the old "back" history, which is no longer valid,
@@ -117,6 +95,16 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 		if (screen.getName().equals(screenName)) {
 			displayScreen(screen, false);
 		}
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			getOnBackPressedDispatcher().onBackPressed();
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 
