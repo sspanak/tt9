@@ -60,4 +60,14 @@ class Emoji extends Punctuation {
 	public static int getMaxEmojiLevel() {
 		return NO_EMOJI_SUPPORT ? 1 : Emoji.size();
 	}
+
+	public static boolean isBuiltInEmoji(String emoji) {
+		for (ArrayList<String> group : Emoji) {
+			if (group.contains(emoji)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
