@@ -76,10 +76,10 @@ public class ReadOps {
 	}
 
 
-	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords) {
+	public ArrayList<String> getCustomWords(@NonNull SQLiteDatabase db, @NonNull String wordFilter, int maxWords, boolean withDebugInfo) {
 		ArrayList<String> words = new ArrayList<>();
 
-		String[] select = new String[]{"word"};
+		String[] select = withDebugInfo ? new String[]{"word", "langId", "sequence"} : new String[]{"word"};
 		String where = "word LIKE ?";
 		String[] whereArgs = new String[]{wordFilter + "%"};
 		String limit = maxWords > 0 ? String.valueOf(maxWords) : null;
@@ -87,7 +87,9 @@ public class ReadOps {
 
 		try (Cursor cursor = db.query(Tables.CUSTOM_WORDS, select, where, whereArgs, null, null, orderBy, limit)) {
 			while (cursor.moveToNext()) {
-				words.add(cursor.getString(0));
+				words.add(
+					withDebugInfo ? cursor.getString(0) + " / "  + cursor.getString(1) + " / " + cursor.getString(2) : cursor.getString(0)
+				);
 			}
 		}
 
