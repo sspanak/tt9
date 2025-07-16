@@ -40,12 +40,6 @@ public class DataStore {
 	}
 
 
-	public static void destroy() {
-		words = null;
-		pairs = null;
-	}
-
-
 	private static void runInThread(@NonNull Runnable action) {
 		executor.submit(action);
 	}
