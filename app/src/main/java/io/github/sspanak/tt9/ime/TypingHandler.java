@@ -35,7 +35,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null);
-	@NonNull private Handler shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
+	@NonNull private final Handler shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
 
 	// input
 	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();

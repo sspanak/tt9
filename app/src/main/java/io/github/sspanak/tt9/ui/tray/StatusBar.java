@@ -35,12 +35,6 @@ public class StatusBar {
 	}
 
 
-	@Nullable
-	public String getText() {
-		return statusText;
-	}
-
-
 	public boolean isErrorShown() {
 		return statusText != null && statusText.startsWith("❌");
 	}

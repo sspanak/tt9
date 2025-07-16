@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.deleteWords;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.util.Logger;
 
 public class DeleteWordsScreen extends BaseScreenFragment {
 	final public static String NAME = "DeleteWords";
@@ -27,7 +28,7 @@ public class DeleteWordsScreen extends BaseScreenFragment {
 		if (searchWords != null) {
 			searchWords.setOnWordsHandler((words) -> searchResultsList.setResult(searchWords.getLastSearchTerm(), words));
 			searchWords.setOnTotalWordsHandler(searchResultsList::setTotalWords);
-			searchWords.search("");
+			searchWords.search("", Logger.isDebugLevel());
 		}
 
 		resetFontSize(false);

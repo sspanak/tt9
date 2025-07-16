@@ -192,7 +192,6 @@ Se você tiver tanto um touchscreen quanto um teclado físico e preferir ter mai
 Recomenda-se também desativar o comportamento especial da tecla "Voltar" funcionando como "Backspace". Isso é útil apenas para teclados físicos. Geralmente, isso acontecerá automaticamente, mas se não, vá para Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção "--".
 
 ### Visão Geral das Teclas Virtuais
-### Visão Geral das Teclas Virtuais
 O teclado na tela funciona da mesma forma que o teclado numérico de um telefone com teclas físicas. Se uma tecla oferece uma única função, ela terá um único rótulo (ou ícone) indicando essa função. Se a tecla tiver uma função secundária ativada ao pressionar e segurar, ela terá dois rótulos (ou ícones).
 
 Abaixo está uma descrição das teclas com mais de uma função.

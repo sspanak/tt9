@@ -1,9 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.preference.PreferenceFragmentCompat;
 
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -72,17 +70,6 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	}
 
 
-	@Override
-	public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-		if (item.getItemId() == android.R.id.home && activity != null && !super.onOptionsItemSelected(item)) {
-			activity.onBackPressedCallback.handleOnBackPressed();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
-
-
 	public int getPreferenceCount() {
 		initPreferencesList();
 		return preferencesList.size();
@@ -112,6 +99,4 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	abstract protected int getTitle();
 	abstract protected int getXml();
 	abstract protected void onCreate();
-
-	public void onBackPressed() {}
 }

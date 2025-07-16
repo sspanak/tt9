@@ -40,12 +40,6 @@ public class DataStore {
 	}
 
 
-	public static void destroy() {
-		words = null;
-		pairs = null;
-	}
-
-
 	private static void runInThread(@NonNull Runnable action) {
 		executor.submit(action);
 	}
@@ -127,9 +121,9 @@ public class DataStore {
 	}
 
 
-	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords) {
+	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords, boolean withDebugInfo) {
 		runInThread(() -> {
-			ArrayList<String> data = words.getSimilarCustom(wordFilter, maxWords);
+			ArrayList<String> data = words.getSimilarCustom(wordFilter, maxWords, withDebugInfo);
 			asyncReturn.post(() -> dataHandler.accept(data));
 		});
 	}

@@ -1,5 +1,8 @@
 package io.github.sspanak.tt9.db.sqlite;
 
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
+import io.github.sspanak.tt9.languages.EmojiLanguage;
+
 class Migration {
 	static final Migration[] LIST = {
 		new Migration(
@@ -20,6 +23,10 @@ class Migration {
 			// DROP COLUMN is supported in SQLite 3.35.0 which comes with API 34+, so...
 			"ALTER TABLE " + Tables.LANGUAGES_META + " RENAME COLUMN  maxWordsPerSequence TO _delete_me_1",
 			1009
+		),
+		new Migration(
+			"UPDATE " + Tables.CUSTOM_WORDS + " SET sequence = " + new Sequences().CUSTOM_EMOJI_SEQUENCE + " WHERE langId = " + new EmojiLanguage().getId(),
+			1202
 		)
 	};
 

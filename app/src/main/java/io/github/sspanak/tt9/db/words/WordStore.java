@@ -98,8 +98,8 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	@NonNull public ArrayList<String> getSimilarCustom(String wordFilter, int maxWords) {
-		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords) : new ArrayList<>();
+	@NonNull public ArrayList<String> getSimilarCustom(String wordFilter, int maxWords, boolean withDebugInfo) {
+		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords, withDebugInfo) : new ArrayList<>();
 	}
 
 
