@@ -63,20 +63,6 @@ public class Sequences {
 			|| sequence.equals(CHARS_GROUP_1_SEQUENCE);
 	}
 
-	public boolean startsWithAnySpecialCharSequence(String sequence) {
-		if (sequence == null) {
-			return false;
-		}
-
-		return
-			sequence.startsWith(CHARS_1_SEQUENCE)
-				|| sequence.startsWith(CHARS_0_SEQUENCE)
-				|| sequence.startsWith(EMOJI_SEQUENCE)
-				|| sequence.startsWith(PREFERRED_CHAR_SEQUENCE)
-				|| sequence.startsWith(CHARS_GROUP_0_SEQUENCE)
-				|| sequence.startsWith(CHARS_GROUP_1_SEQUENCE);
-	}
-
 	public boolean isEnglishI(@Nullable Language language, @NonNull String digitSequence) {
 		return LanguageKind.isEnglish(language) && digitSequence.equals("4");
 	}
