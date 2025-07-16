@@ -29,7 +29,11 @@ public class EmojiLanguage extends Language {
 	@NonNull
 	@Override
 	public String getDigitSequenceForWord(String word) {
-		return isValidWord(word) ? seq.EMOJI_SEQUENCE : "";
+		if (!isValidWord(word)) {
+			return "";
+		}
+
+		return Characters.isBuiltInEmoji(word) ? seq.EMOJI_SEQUENCE : seq.CUSTOM_EMOJI_SEQUENCE;
 	}
 
 	@NonNull
