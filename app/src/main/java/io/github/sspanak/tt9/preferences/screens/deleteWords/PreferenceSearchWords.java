@@ -32,7 +32,7 @@ public class PreferenceSearchWords extends SearchPreference {
 
 	@Override
 	protected void onTextChange() {
-		search(text);
+		search(text, Logger.isDebugLevel());
 	}
 
 	@NonNull
@@ -40,17 +40,17 @@ public class PreferenceSearchWords extends SearchPreference {
 		return lastSearchTerm;
 	}
 
-	void search(String word) {
+	void search(String word, boolean withDebugInfo) {
 		lastSearchTerm = word == null || word.trim().isEmpty() ? "" : word.trim();
 
 		if (onWords == null) {
 			Logger.w(LOG_TAG, "No handler set for the word change event.");
 		} else if (lastSearchTerm.isEmpty()) {
 			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
+			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX, withDebugInfo);
 		} else {
 			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, -1);
+			DataStore.getCustomWords(onWords, lastSearchTerm, -1, withDebugInfo);
 		}
 	}
 
