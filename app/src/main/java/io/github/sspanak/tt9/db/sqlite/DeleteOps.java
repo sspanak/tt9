@@ -20,7 +20,7 @@ public class DeleteOps {
 
 		String repeatingWords =
 			"SELECT " + Tables.CUSTOM_WORDS + ".ROWID FROM " + Tables.CUSTOM_WORDS +
-			" JOIN " + words + " ON " + words + ".word = " + Tables.CUSTOM_WORDS + ".word " +
+			" JOIN " + words + " ON LOWER(" + words + ".word) = LOWER(" + Tables.CUSTOM_WORDS + ".word) " +
 			" WHERE langId = " + languageId + " AND " + words + ".position > 0";
 
 		db.delete(Tables.CUSTOM_WORDS, "ROWID IN (" + repeatingWords + ")", null);
