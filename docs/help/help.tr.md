@@ -173,16 +173,20 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
 
 ## Sesli Giriş
-Sesli giriş işlevi, Gboard'a benzer şekilde konuşmayı metne dönüştürme olanağı sunar. Diğer klavyelerde olduğu gibi, Traditional T9 da kendi başına ses tanıma gerçekleştirmez, ancak telefonunuzdan bunu yapmasını ister.
+Sesli giriş özelliği, Gboard’a benzer şekilde konuşmayı metne dönüştürmenizi sağlar. Diğer tüm klavyeler gibi Traditional T9 da kendi başına ses tanıma yapmaz; bunun yerine telefonunuza bu görevi verir.
 
-_Sesli Giriş tușu, bu işlevi desteklemeyen cihazlarda gizlidir._
+_Sesli Giriş düğmesi, bu özelliği desteklemeyen cihazlarda gizlenir._
 
-### Desteklenen Cihazlar
-Google Hizmetleri olan cihazlarda, kelimelerinizi metne dönüştürmek için Google Cloud altyapısını kullanır. Bu yöntemin çalışması için bir Wi-Fi ağına bağlanmanız veya mobil veriyi etkinleştirmeniz gerekmektedir.
+### Google'lı Cihazlar
+Google Servisleri olan cihazlarda, TT9 kelimelerinizi metne dönüştürmek için Google altyapısını kullanır. Android 12 veya daha önceki sürümlerde bu yöntemin çalışması için Wi-Fi bağlantınızın olması veya mobil verinin açık olması gerekir. Android 13 veya üzeri sürümlerde TT9, cihazın dil paketlerini kullanarak hem çevrimiçi hem de çevrimdışı ses tanıma gerçekleştirebilir. Çevrimdışı kullanım için, şu adımlardan gerekli dilleri indirdiğinizden emin olun: Android Ayarları → Sistem → Cihaz üzerindeki tanıma → Dil Ekle.
 
-Google olmayan cihazlarda, eğer cihaz bir sesli asistan uygulamasına sahipse veya yerel klavye sesli giriş desteği sunuyorsa, kullanılabilir olan yöntem ses tanıma için kullanılacaktır. Bu yöntemin Google'dan çok daha sınırlı olduğunu unutmayın. Gürültülü ortamlarda çalışmaz ve genellikle yalnızca "takvimi aç" veya "müzik çal" gibi basit ifadeleri tanır. Avantajı, çevrimdışı olarak çalışabilmesidir.
+_Google Voice, diğer sesli asistanlar veya klavyeler için yüklenen dil paketleri Traditional T9 ile uyumlu çalışmayabilir. "Cihaz üzerindeki tanıma" ekranından global paketleri yüklemeniz tavsiye edilir._
 
-Google olmayan diğer telefonlar genellikle sesli girişi desteklemeyecektir. Çinli telefonlarda güvenlik politikaları nedeniyle ses tanıma özellikleri bulunmamaktadır. Bu telefonlarda, "com.google.android.googlequicksearchbox" paket adına sahip Google uygulamasını yükleyerek sesli giriş desteğini etkinleştirmek mümkün olabilir.
+### Google Olmayan Cihazlar
+Google olmayan cihazlarda, eğer bir sesli asistan uygulaması varsa veya yerel klavye sesli girişi destekliyorsa, ses tanıma için mevcut olan bu seçenekler kullanılır. Ancak bu yöntem, Google kadar güçlü değildir. Gürültülü ortamlarda çalışmaz ve genellikle yalnızca “takvimi aç” veya “müzik çal” gibi basit ifadeleri tanır.
+
+### Diğer Cihazlar
+Google olmayan diğer telefonlar genellikle sesli girişi desteklemez. Çinli telefonlar, Çin güvenlik politikaları nedeniyle ses tanıma özelliğine sahip değildir. Bu cihazlarda, "com.google.android.googlequicksearchbox" paket adına sahip Google uygulamasını yükleyerek sesli girişi etkinleştirmek mümkün olabilir. Alternatif olarak, "com.google.android.apps.searchlite" uygulaması olan Google Go’yu da deneyebilirsiniz.
 
 ## Ekran Üzeri Tuș Takımı
 Yalnızca dokunmatik ekranlı telefonlarda, tamamen işlevsel bir ekran üstü tuș takımı mevcuttur ve otomatik olarak etkinleșir. Bir şekilde telefonunuzun dokunmatik ekranı olduğunun algılanmadığını düşünüyorsanız, Ayarlar → Görünüm → Ekran Üzeri Düzen yoluyla "Sanal Numpad" seçeneğini etkinleștirin.

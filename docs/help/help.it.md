@@ -173,16 +173,20 @@ Di seguito è riportato un elenco dei comandi possibili:
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
 
 ## Input Vocale
-La funzione di input vocale consente l’inserimento vocale, simile a Gboard. Come tutte le altre tastiere, Traditional T9 non esegue il riconoscimento vocale autonomamente, ma richiede al telefono di farlo.
+La funzione di inserimento vocale consente la conversione del parlato in testo, simile a Gboard. Come tutte le altre tastiere, Traditional T9 non esegue il riconoscimento vocale da solo, ma chiede al telefono di farlo.
 
-_Il tasto Input Vocale è nascosto sui dispositivi che non lo supportano._
+_Il pulsante di inserimento vocale è nascosto sui dispositivi che non lo supportano._
 
-### Dispositivi Supportati
-Sui dispositivi con Google Services, verrà utilizzata l'infrastruttura Google Cloud per convertire le parole in testo. Per usare questo metodo, è necessario essere connessi a una rete Wi-Fi o abilitare i dati mobili.
+### Dispositivi con Google
+Nei dispositivi con i Servizi Google, TT9 utilizza l’infrastruttura di Google per convertire la voce in testo. Su Android 12 o versioni precedenti, è necessario essere connessi a una rete Wi-Fi o attivare i dati mobili affinché funzioni. Su Android 13 o versioni successive, TT9 può eseguire il riconoscimento vocale sia online che offline utilizzando i pacchetti lingua del dispositivo. Per l’uso offline, assicurati di scaricare tutte le lingue desiderate da: Impostazioni Android → Sistema → Riconoscimento sul dispositivo → Aggiungi una lingua.
 
-Sui dispositivi senza Google, se il dispositivo dispone di un’app assistente vocale o se la tastiera nativa supporta l'input vocale, verrà utilizzata una di queste per il riconoscimento vocale. Questo metodo è meno preciso rispetto a Google: non funziona in ambienti rumorosi e riconosce solitamente solo frasi semplici, come: "apri calendario" o "riproduci musica". Il vantaggio è che funziona offline.
+_I pacchetti installati per Google Voice, altri assistenti vocali o tastiere potrebbero non funzionare con Traditional T9. È consigliato installare i pacchetti globali dallo schermo "Riconoscimento sul dispositivo"._
 
-Altri telefoni senza Google generalmente non supportano l'input vocale. I telefoni cinesi non dispongono di funzionalità di riconoscimento vocale a causa delle politiche di sicurezza cinesi. Su questi telefoni, è possibile abilitare il supporto per l'input vocale installando l’applicazione Google, nome del pacchetto: "com.google.android.googlequicksearchbox".
+### Dispositivi senza Google
+Nei dispositivi senza Google, se è presente un'app di assistente vocale o se la tastiera nativa supporta l’inserimento vocale, verrà utilizzata l’opzione disponibile. Tieni presente che questo metodo è molto meno efficace rispetto a Google. Non funziona in ambienti rumorosi e di solito riconosce solo frasi semplici come "apri calendario" o "riproduci musica".
+
+### Altri dispositivi
+Altri telefoni senza Google generalmente non supportano l’inserimento vocale. I telefoni cinesi non hanno capacità di riconoscimento vocale a causa delle politiche di sicurezza cinesi. Su questi dispositivi, è possibile abilitare il supporto vocale installando l’app di Google con nome pacchetto: "com.google.android.googlequicksearchbox". In alternativa, puoi provare a installare Google Go: "com.google.android.apps.searchlite".
 
 ## Tastierino su Schermo
 Sui telefoni solo touchscreen, è disponibile un tastierino su schermo completamente funzionale, che verrà abilitato automaticamente. Se, per qualche motivo, il tuo telefono non è stato rilevato come touchscreen, attivalo andando su Impostazioni → Aspetto → Layout su Schermo e selezionando "Tastierino Virtuale".
