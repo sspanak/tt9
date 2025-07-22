@@ -173,16 +173,20 @@ Voici une liste des commandes possibles :
 _Cette touche ne fait rien lorsque l'Affichage de l'Écran est réglé sur "Pavé Virtuel", car toutes les touches pour toutes les fonctions possibles sont déjà disponibles à l’écran._
 
 ## Saisie vocale
-La fonction de saisie vocale permet de convertir la voix en texte, similaire à Gboard. Comme tous les autres claviers, Traditional T9 ne réalise pas lui-même la reconnaissance vocale, mais il demande à votre téléphone de le faire.
+La fonction de saisie vocale permet de convertir la parole en texte, comme sur Gboard. Comme tous les autres claviers, Traditional T9 ne réalise pas la reconnaissance vocale lui-même ; il demande à votre téléphone de le faire.
 
-_Le bouton de saisie vocale est masqué sur les appareils qui ne le prennent pas en charge._
+_Le bouton de saisie vocale est masqué sur les appareils qui ne la prennent pas en charge._
 
-### Appareils pris en charge
-Sur les appareils avec les services Google, il utilise l'infrastructure de Google Cloud pour convertir vos paroles en texte. Vous devez être connecté à un réseau Wi-Fi ou activer les données mobiles pour que cette méthode fonctionne.
+### Appareils avec Google
+Sur les appareils dotés des services Google, TT9 utilise l'infrastructure Google pour convertir votre voix en texte. Sous Android 12 ou version antérieure, vous devez être connecté à un réseau Wi-Fi ou activer les données mobiles pour que cela fonctionne. À partir d’Android 13, TT9 peut effectuer la reconnaissance vocale en ligne et hors ligne à l’aide des paquets linguistiques du système. Pour une utilisation hors ligne, veillez à télécharger les langues souhaitées via : Paramètres Android → Système → Reconnaissance sur l'appareil → Ajouter une langue.
 
-Sur les appareils sans Google, si l'appareil dispose d'une application d'assistant vocal ou si le clavier natif prend en charge la saisie vocale, ce qui est disponible sera utilisé pour la reconnaissance vocale. Notez que cette méthode est nettement moins performante que Google. Elle ne fonctionnera pas dans un environnement bruyant et reconnaîtra généralement uniquement des phrases simples, telles que : « ouvrir le calendrier » ou « jouer de la musique ». L'avantage est qu'elle fonctionne hors ligne.
+_Les paquets installés pour Google Voice, d'autres assistants vocaux ou claviers ne sont pas garantis pour fonctionner avec Traditional T9. Il est recommandé d’installer les paquets globaux via l’écran "Reconnaissance sur l’appareil"._
 
-Les autres téléphones sans Google ne prendront généralement pas en charge la saisie vocale. Les téléphones chinois n'ont pas de capacités de reconnaissance vocale en raison des politiques de sécurité chinoises. Sur ces téléphones, il peut être possible d'activer la saisie vocale en installant l'application Google, nom de package : « com.google.android.googlequicksearchbox ».
+### Appareils sans Google
+Sur les appareils sans Google, si une application d’assistant vocal est présente ou si le clavier natif prend en charge la saisie vocale, la reconnaissance vocale utilisera ce qui est disponible. Notez que cette méthode est bien moins performante que celle de Google. Elle ne fonctionne pas dans un environnement bruyant et ne reconnaît en général que des phrases simples comme "ouvrir calendrier" ou "jouer musique".
+
+### Autres appareils
+Les autres téléphones sans Google ne prennent généralement pas en charge la saisie vocale. Les téléphones chinois n’ont pas de capacités de reconnaissance vocale en raison des politiques de sécurité chinoises. Sur ces téléphones, vous pouvez essayer d’activer la saisie vocale en installant l’application Google, nom du paquet : « com.google.android.googlequicksearchbox ». Vous pouvez aussi essayer d’installer Google Go : « com.google.android.apps.searchlite ».
 
 ## Pavé numérique à l'écran
 Sur les téléphones entièrement tactiles, un pavé numérique complet est disponible et sera activé automatiquement. Si, pour une raison quelconque, votre téléphone n'a pas été détecté comme ayant un écran tactile, activez-le en allant dans Paramètres → Apparence → Disposition à l'écran et en sélectionnant « Pavé numérique virtuel ».

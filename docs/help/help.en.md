@@ -173,16 +173,20 @@ Below is a list of the possible commands:
 _This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
 
 ## Voice Input
-The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself, but it asks your phone to do it.
+The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself; instead, it asks your phone to do it.
 
 _The Voice Input button is hidden on devices that do not support it._
 
-### Supported Devices
-On devices with Google Services, it will use the Google Cloud infrastructure to convert your words to text. You must connect to a Wi-Fi network or enable mobile data for this method to work.
+### Devices with Google
+On devices with Google Services, TT9 will use the Google infrastructure to convert your words to text. On Android 12 or earlier, you must connect to a Wi-Fi network or enable mobile data for this method to work. On Android 13 or higher, TT9 can perform speech recognition both online and offline, using the device's language packages. For offline usage, make sure to download all desired languages from: Android Settings → System → On-device recognition → Add a Language.
 
-On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment and will usually recognize only simple phrases, such as: "open calendar" or "play music" and similar. The advantage is that it will work offline.
+_The language packages installed for Google Voice, other voice assistants, or keyboards are not guaranteed to work with Traditional T9. Installing the global packages on the "On-device recognition" screen is the recommended way._
 
-Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox".
+### Devices without Google
+On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment, and it will usually recognize only simple phrases, such as "open calendar" or "play music" and similar.
+
+### Other devices
+Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox". Alternatively, you can try installing the Google Go application: "com.google.android.apps.searchlite".
 
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual Numpad".
