@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.UI;
+import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceDeletableWord extends ScreenPreference {
 	private DeletableWordsList parent;
@@ -64,7 +65,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		DataStore.deleteCustomWord(
 			this::onWordDeleted,
 			LanguageCollection.getLanguage(settings.getInputLanguage()),
-			word
+			Logger.isDebugLevel() ? word.replaceFirst(" / .+$", "") : word // strip debug info, if any
 		);
 	}
 
