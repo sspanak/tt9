@@ -192,6 +192,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			.copy(mInputMode);
 
 		getSuggestions(null);
+		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
 		suggestionOps.setLanguage(mLanguage);
@@ -211,7 +212,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected boolean nextTextCase() {
 		final String currentWord = suggestionOps.isEmpty() || mInputMode.getSequence().isEmpty() ? "" : suggestionOps.getCurrent();
 
-		if (!mInputMode.nextTextCase(currentWord, statusIconTextCase)) {
+		if (!mInputMode.nextTextCase(currentWord, displayTextCase)) {
 			return false;
 		}
 

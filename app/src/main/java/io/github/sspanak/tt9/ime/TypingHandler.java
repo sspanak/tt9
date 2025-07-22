@@ -464,6 +464,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			mInputMode.determineNextWordTextCase(-1);
 		}
 
+		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		mainView.renderDynamicKeys();
 		if (!mainView.isTextEditingPaletteShown() && !mainView.isCommandPaletteShown()) {

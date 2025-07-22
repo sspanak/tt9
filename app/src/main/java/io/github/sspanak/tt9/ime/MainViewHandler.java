@@ -136,6 +136,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public int getDisplayTextCase() {
+		return getDisplayTextCase(mLanguage, mInputMode.getTextCase());
+	}
+
+
 	@NonNull
 	public String getInputModeName() {
 		if (InputModeKind.isHiragana(mInputMode)) {
