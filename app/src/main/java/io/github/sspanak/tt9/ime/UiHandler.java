@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
-	protected int statusIconTextCase = InputMode.CASE_UNDEFINED;
+	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected SettingsStore settings;
 	protected ResizableMainView mainView = null;
 	protected StatusBar statusBar = null;
@@ -59,23 +59,23 @@ abstract class UiHandler extends AbstractHandler {
 	}
 
 
-	public int getDisplayTextCase(@Nullable Language language, int modeTextCase) {
+	protected int getDisplayTextCase(@Nullable Language language, int modeTextCase) {
 		boolean hasUpperCase = language != null && language.hasUpperCase();
 		if (!hasUpperCase) {
-			return InputMode.CASE_UNDEFINED;
+			return displayTextCase = InputMode.CASE_UNDEFINED;
 		}
 
 		if (modeTextCase == InputMode.CASE_UPPER) {
-			return InputMode.CASE_UPPER;
+			return displayTextCase = InputMode.CASE_UPPER;
 		}
 
 		Text currentWord = new Text(language, getSuggestionOps().getCurrent());
 		if (currentWord.isEmpty() || !currentWord.isAlphabetic()) {
-			return modeTextCase;
+			return displayTextCase = modeTextCase;
 		}
 
 		final int wordTextCase = currentWord.getTextCase();
-		return wordTextCase == InputMode.CASE_UPPER ? InputMode.CASE_CAPITALIZE : wordTextCase;
+		return displayTextCase = wordTextCase == InputMode.CASE_UPPER ? InputMode.CASE_CAPITALIZE : wordTextCase;
 	}
 
 
@@ -84,8 +84,7 @@ abstract class UiHandler extends AbstractHandler {
 			return;
 		}
 
-		statusIconTextCase = getDisplayTextCase(language, mode != null ? mode.getTextCase() : InputMode.CASE_UNDEFINED);
-		final int resId = new StatusIcon(settings, mode, language, statusIconTextCase).resourceId;
+		final int resId = new StatusIcon(settings, mode, language, displayTextCase).resourceId;
 		if (resId == 0) {
 			hideStatusIcon();
 		} else {

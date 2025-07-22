@@ -20,7 +20,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	}
 
 	@Override protected int getCentralIcon() {
-		final int textCase = tt9 != null ? tt9.getDisplayTextCase(tt9.getLanguage(), tt9.getTextCase()) : InputMode.CASE_UNDEFINED;
+		final int textCase = tt9 != null ? tt9.getDisplayTextCase() : InputMode.CASE_UNDEFINED;
 		return switch (textCase) {
 			case InputMode.CASE_CAPITALIZE -> R.drawable.ic_fn_shift_caps;
 			case InputMode.CASE_UPPER -> R.drawable.ic_fn_shift_up;

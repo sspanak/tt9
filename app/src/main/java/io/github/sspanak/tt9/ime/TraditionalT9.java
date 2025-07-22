@@ -144,6 +144,7 @@ public class TraditionalT9 extends MainViewHandler {
 		AppHacks.onStart(settings, field);
 
 		if (isDead || !super.onStart(field)) {
+			getDisplayTextCase();
 			setStatusIcon(mInputMode, mLanguage);
 			return false;
 		}
@@ -202,6 +203,7 @@ public class TraditionalT9 extends MainViewHandler {
 	@Override
 	protected void onFinishTyping() {
 		super.onFinishTyping();
+		getDisplayTextCase();
 		setStatusIcon(mInputMode, mLanguage);
 	}
 
