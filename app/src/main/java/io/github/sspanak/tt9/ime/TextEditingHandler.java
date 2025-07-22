@@ -71,15 +71,44 @@ abstract public class TextEditingHandler extends VoiceHandler {
 				textSelection.selectNextWord(isLanguageRTL);
 				break;
 			case 7:
-				textSelection.cut(textField);
+				cut();
 				break;
 			case 8:
-				textSelection.copy();
+				copy();
 				break;
 			case 9:
-				textSelection.paste(textField);
+				paste();
 				break;
 		}
+	}
+
+
+	private void cut() {
+		if (copy()) {
+			suggestionOps.clear();
+		}
+	}
+
+
+	private boolean copy() {
+		CharSequence selectedText = textSelection.getSelectedText();
+		if (selectedText.length() == 0) {
+			return false;
+		}
+
+		Clipboard.copy(this, selectedText);
+		return true;
+	}
+
+
+	private void paste() {
+		String clipboardText = Clipboard.paste(this);
+		if (clipboardText.isEmpty()) {
+			return;
+		}
+
+		onAcceptSuggestionAutomatically(suggestionOps.acceptIncomplete());
+		textField.setText(clipboardText);
 	}
 
 

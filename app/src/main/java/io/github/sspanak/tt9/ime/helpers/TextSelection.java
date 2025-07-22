@@ -5,10 +5,7 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
-import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class TextSelection {
 	@Nullable private final InputMethodService ims;
@@ -88,40 +85,6 @@ public class TextSelection {
 	}
 
 
-	public boolean copy() {
-		if (ims == null) {
-			return false;
-		}
-
-		CharSequence selectedText = getSelectedText();
-		if (selectedText.length() == 0) {
-			return false;
-		}
-
-		Clipboard.copy(ims, selectedText);
-		return true;
-	}
-
-
-	public void cut(@NonNull TextField textField) {
-		if (copy()) {
-			textField.setText("");
-		}
-	}
-
-
-	public void paste(@NonNull TextField textField) {
-		if (ims == null) {
-			return;
-		}
-
-		String clipboardText = Clipboard.paste(ims);
-		if (!clipboardText.isEmpty()) {
-			textField.setText(clipboardText);
-		}
-	}
-
-
 	private int getNextWordPosition(boolean backward) {
 		InputConnection connection = getConnection();
 		if (connection == null) {
@@ -165,7 +128,7 @@ public class TextSelection {
 	}
 
 
-	private CharSequence getSelectedText() {
+	public CharSequence getSelectedText() {
 		InputConnection connection = getConnection();
 		if (connection == null) {
 			return "";
