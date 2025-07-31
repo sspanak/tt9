@@ -1,29 +1,33 @@
-ba	1
-ca	1
+á	120
+ba	194
+ca	190
 cc
 ad
+à	133
 be	120
-bê	2
+bê	152
 cd
 Ag
 CH
-ai	3
-bi	2
+ai	187
+ả	117
+bi	152
 AK
 Al
 Cl
 am	127
-an	1
-ao	1
-bo	3
-bô	2
-bơ	1
+an	194
+ao	142
+ạ
+bo	129
+bô	132
+bơ	131
 cm
 cn
-co	3
+co	167
 cô	206
 cơ	215
-âm	1
+âm	190
 ân	145
 ăm	76
 ăn	204
@@ -35,139 +39,150 @@ Cr
 cp
 cs
 au	78
-bu	2
+bu	104
 bư	92
 ct
-cu	2
-cư	2
+cu	160
+cư	183
 âu	132
 ay
 cy
-da	2
+da	188
 fa
-đa	1
+ế	111
+đa	190
 Fe
-de	1
-dê	2
-đe	1
-đê	2
-di	1
+de	161
+dê	135
+ề	33
+đe	155
+đê	157
+di	187
 fi
 đi	215
 el
 do	211
 dô	83
-dơ	100
+dơ	1
 em	204
 en	101
 eo	134
-êm	2
+êm	136
 ên
-đo	1
-đô	2
+đo	165
+đô	186
 đơ	114
 dt
-du	1
-dư	2
+du	192
+dư	165
 eV
 fu
 êu	30
 đt
-đu	3
+đu	129
 Dy
-ga	3
+ga	155
 gb
 ha	164
 ic
 Ge
 hd
-he	3
-hê	1
+he	108
+hê	125
 II
 gg
-gi	2
+gi	116
 hg
-hi	3
+hi	144
+ỉ	98
 HK	97
 go	121
 gô	105
 gơ	75
-ho	2
-hô	1
+ho	152
+hô	158
 hơ	121
 im	140
-in	3
+in	180
 gr
 gs
 gu	110
 ht
-hu	1
-hư	3
+hu	96
+hư	157
 it
 iu	75
 Hz
-hy	2
+hy	162
 ka	69
 kb
-la	2
+la	173
 lc
-ke	2
-kê	1
-le	2
-lê	1
+ke	114
+kê	172
+le	122
+lê	138
 kg
-ki	2
-li	1
+ki	112
+li	134
 Kơ
 km
 ko
-lo	1
-lô	3
-lơ	1
+lo	178
+lô	148
+lơ	141
 Ku
 kt
 lu	120
 lư	123
 kw
 ky
-ly	2
+ly	163
 m-
-ma	1
+ma	169
 mb
 mc
-na	1
-oa	1
-me	1
-mê	1
+na	144
+oa	72
+ó	91
+ớ	70
+me	127
+mê	166
 ne	86
 nê	115
 nđ
-oe	1
+oe	59
+ò	43
+ồ	119
+ờ	82
 Mg
-mi	3
-ni	2
+mi	148
+ni	119
 oi	107
-ôi	1
-ơi	2
+ỏ
+ôi	108
+ơi	144
+ở	229
 ml
 ok
 Mn
 On
 mm
 mo	120
-mô	1
-mơ	2
+mô	2
+mơ	167
 no	148
-nô	1
-nơ	1
+nô	144
+nơ	112
 om	101
-ôm	2
+ôm	151
 ôn	145
-ơn	3
+ơn	165
+ợ	91
 mp
 nq
 mt
-mu	1
+mu	116
 nt
 nu
 nư	115
@@ -178,168 +193,173 @@ Sb
 pa	85
 pc
 ra	228
-sa	3
+sa	160
 pe	50
 pê	47
 qđ
 re	108
 rê	106
-se	3
+se	142
 sê	81
 ph
 pi	76
 qh
-ri	1
-si	2
+ri	109
+si	119
 Sn
-pô	1
+pô	91
 pơ	71
-ro	1
-rô	2
+ro	153
+rô	127
 rơ	95
-so	1
+so	191
 sô	139
-sơ	1
+sơ	184
 qs
 Pt
 Pu	50
 ru	117
 rư	84
 st
-su	3
-sư	3
+su	148
+sư	184
 sx
 ta	207
 tb
 ua
 ub
-va	2
+ú	87
+va	166
 ưa	153
-te	2
-tê	2
-ve	2
+te	1
+tê	143
+ù	101
+ve	133
 vê	138
+ừ	96
 th
-ti	3
+ti	149
 ui
-vi	1
+ủ	131
+vi	191
 tl
 VN	158
-to	1
-tô	1
-tơ	1
-um	1
+to	173
+tô	167
+tơ	140
+um	97
 un	75
+ụ	103
 vo	119
-vô	3
-vơ	1
-tp	3
+vô	191
+vơ	145
+tp	155
 tr
 ts
 vp
 TV	141
 tt
-tu	2
+tu	163
 tư	207
-vu	3
+vu	138
 ưu	178
 Vy
 tw
 ty	201
-uy	3
+uy	161
 Ya
 Za
-xa	2
+xa	184
 xe	201
 xê	106
 yd
 Wh
 Wi
-xi	3
+xi	137
 Zn
 xn
 xo	111
 xô	132
-xơ	1
+xơ	142
 yô
 zơ
-xu	2
+xu	167
 Xy
 -rô
 BBC
 Băc
 abc	110
 acc
-ác
-bá
-cá
+ác	153
+bá	155
+cá	196
 ắc
-bà
-cà
-ái
-bai	1
-bả
+bà	196
+cà	165
+ái	150
+bai	110
+bả	103
 bch
-cai	3
-cả
+cai	154
+cả	214
 bã
 cal
-ám
-án
-áo
+ám	150
+án	2
+áo	180
 bam
-ban	1
+ban	196
 bao	202
 bạ
 bân	47
-băm	2
+băm	116
 băn	134
-cam	3
-can	3
+cam	167
+can	160
 cao	215
 cạ
 câm	109
-cân	2
+cân	177
 căm	120
-căn	3
+căn	183
 ấm
 ấn
-áp
+áp	189
 bar
 ấp
 ắp
 BCT
 Bau
-át
+át	113
 bâu	59
-cau	1
-câu	1
+cau	118
+câu	192
 ất
 ấu
 ắt
-áy
-bay	1
-bây	3
-cay	3
-cây	1
+áy	85
+bay	195
+bây	161
+cay	141
+cây	192
 ấy
 bé
-bế
+bế	138
 bè
-bề
+bề	163
 bẻ
 bể
 adj
 bẽ
 bễ
 ADN
-ào
+ào	131
 bem	33
 ben	94
-beo	1
+beo	82
 bẹ
 bfn
-bên	1
+bên	199
 bệ
 ceo
 ầm
@@ -347,25 +367,25 @@ adv
 bêu	87
 ầu
 ầy
-bia	1
+bia	152
 bí
-cha	3
+cha	178
 bgđ
 bì
-che	1
-chê	1
+che	157
+chê	138
 cif
 Bih
-ải
+ải	116
 big
-bỉ
-chi	2
+bỉ	121
+chi	195
 bĩ
 Chô
-ảm
-ảo
+ảm	109
+ảo	152
 bim
-bin	1
+bin	113
 bị
 cho	240
 chơ	1
@@ -373,7 +393,7 @@ chơ	1
 ẩn
 bis
 bit
-chu	1
+chu	160
 chư	141
 ẩu
 ẩy
@@ -387,32 +407,32 @@ blu
 cô-
 CNC
 boa
-bó
+bó	155
 bố
-bớ
-có
+bớ	88
+có	249
 cố
-cớ
+cớ	129
 ậc
 ặc
 and
-bò
-bồ
-bờ
-cò
-cồ
-cờ
+bò	164
+bồ	131
+bờ	168
+cò	125
+cồ	61
+cờ	162
 ang	64
 anh	209
 boi
-bỏ
+bỏ	194
 bôi	134
 bổ
-bơi	1
-bở
-coi	3
-cỏ
-côi	2
+bơi	150
+bở	103
+coi	178
+cỏ	157
+côi	127
 cổ
 cơi	80
 ăng	85
@@ -424,22 +444,22 @@ bỡ
 cỗ
 cỡ
 ạo
-bom	1
-bon	1
+bom	155
+bon	106
 bọ
 bôm	41
 bôn	97
 bộ
 bơm	141
-bơn	1
-bợ
+bơn	63
+bợ	1
 com	91
 con	217
 cọ
 côm	39
 côn	140
 cộ
-cơm	2
+cơm	160
 cơn	164
 ậm
 Cor
@@ -457,21 +477,21 @@ API
 Bru
 cpu
 bua	72
-bú
+bú	134
 bưa	13
 bứ
-cua	1
-cú
-cưa	1
+cua	144
+cú	151
+cưa	124
 cứ
-bù
+bù	149
 bừ
-cù
-cừ
+cù	118
+cừ	1
 Bui
-bủ
+bủ	36
 cui	83
-củ
+củ	146
 cử
 ATK
 Cul
@@ -480,67 +500,67 @@ cữ
 Bun
 atm
 bum
-bụ
+bụ	81
 bự
 cum	67
 cun	53
-cụ
+cụ	187
 cự
 Cur
-bưu	3
+bưu	137
 cưu	93
 cty
 bxl
-dá
+dá	54
 éc
-đá
-dà
-đà
-dai	2
-dả
-đai	3
-đả
+đá	186
+dà	94
+đà	149
+dai	133
+dả	88
+đai	156
+đả	119
 dã
 Đăk
 đã
 dam	82
-dan	2
-dao	1
+dan	104
+dao	157
 dạ
-dâm	1
+dâm	145
 dân	217
 dăm	109
 dăn	30
 ém
 én
 éo
-ếm
+ếm	64
 Đạ
 đam	149
-đan	1
+đan	133
 đao	126
-đâm	3
-đăm	2
+đâm	146
+đăm	88
 ép
 ếp
-dâu	1
+dâu	154
 ét
 êcu
-đau	2
-đâu	3
+đau	179
+đâu	177
 day	116
-dây	2
+dây	172
 fax
-đay	1
+đay	106
 đây	208
 dé
-dế
+dế	109
 đé
-đế
+đế	166
 dè
-dề
+dề	85
 đè
-đề
+đề	207
 dẻ
 dể
 Đêh
@@ -555,10 +575,10 @@ deo	60
 dên
 dệ
 èo
-đem	2
-đen	2
-đeo	2
-đêm	2
+đem	174
+đen	175
+đeo	148
+đêm	179
 đên	88
 đệ
 đêu	46
@@ -586,27 +606,27 @@ flo
 ĐKZ
 FOB
 doa	63
-dó
-dớ
+dó	96
+dớ	13
 ẹc
-đó
+đó	226
 đố
-đớ
-dò
+đớ	36
+dò	146
 dồ
-dờ
-đò
-đồ
-đờ
-doi	3
-dỏ
+dờ	36
+đò	122
+đồ	190
+đờ	92
+doi	102
+dỏ	33
 dôi	87
 dơi	111
-dở
+dở	137
 eng	39
 đoi	36
-đỏ
-đôi	3
+đỏ	177
+đôi	185
 đổ
 dol
 dỗ
@@ -618,7 +638,7 @@ Dơn
 dom	43
 don	89
 dọ
-dợ
+dợ	46
 ẹo
 ện
 đom	85
@@ -629,7 +649,7 @@ ẹo
 độ
 đơm	88
 đơn	202
-đợ
+đợ	52
 ẹp
 ệp
 ẹt
@@ -640,58 +660,58 @@ dưa	136
 dứ
 eta
 êta
-đua	1
-đú
-đưa	1
+đua	169
+đú	61
+đưa	198
 đứ
-dù
+dù	191
 dvd
-dừ
+dừ	54
 ete
 ête
-đù
-đừ
+đù	76
+đừ	67
 dử
 đui	55
-đủ
+đủ	192
 đử
 dũ
 dữ
 dun	46
-dụ
+dụ	173
 dự
 eto
 êtô
 đum	1
-đun	2
-đụ
+đun	135
+đụ	33
 Đup
 fut
-duy	3
+duy	184
 fuy
 dyn
-gá
-há
-gà
-hà
-gai	1
-gả
+gá	77
+há	106
+gà	164
+hà	147
+gai	139
+gả	113
 hai	211
-hả
+hả	127
 iai
 gã
-HCM	1
+HCM	175
 gam	136
-gan	3
-gao	100
+gan	154
+gao	1
 gạ
 gâm	1
-gân	3
-găm	100
+gân	128
+găm	1
 găn	41
 ham	140
-han	2
-hao	2
+han	107
+hao	139
 hạ
 hâm	150
 hân	120
@@ -700,18 +720,18 @@ ín
 Gar
 gas
 gau	21
-gâu	1
+gâu	54
 hau	68
 hâu	79
 ít
 gay	134
-gây	3
+gây	195
 hay	207
-hây	1
+hây	59
 hec
 hé
 hè
-hề
+hề	162
 hdi
 hẻ
 hể
@@ -719,7 +739,7 @@ hễ
 gen	142
 hem	69
 hen	115
-heo	2
+heo	145
 hẹ
 hên	84
 hệ
@@ -729,17 +749,17 @@ gia	220
 gí
 hia	54
 hí
-ỉa
+ỉa	86
 GIF	84
 ghe	117
 ghê	124
 gie
-giê	1
+giê	75
 gì
 hì
-ghi	3
-gỉ
-hỉ
+ghi	186
+gỉ	114
+hỉ	99
 gĩ
 hĩ
 gin
@@ -749,38 +769,38 @@ giơ	131
 him	50
 hin
 hị
-ỉm
-ỉn
+ỉm	64
+ỉn	47
 gip	13
 hip
 Giư
 HIV
 giu	107
 hiu	1
-ỉu
+ỉu	59
 glô
 HlV
-hoa	1
+hoa	189
 hoc
 hó
 hố
-hớ
-gò
-gồ
-gờ
-hoe	2
-hò
-hồ
-hờ
+hớ	83
+gò	129
+gồ	102
+gờ	1
+hoe	90
+hò	138
+hồ	186
+hờ	105
 iod
 gổ
-gở
-hoi	2
+gở	84
+hoi	129
 hỏ
-hôi	1
+hôi	145
 hổ
-hơi	1
-hở
+hơi	174
+hở	137
 inh	84
 gõ
 gỗ
@@ -793,11 +813,11 @@ gọ
 gôm	72
 gôn	92
 gộ
-hom	1
-hon	2
+hom	87
+hon	111
 họ
-hôm	2
-hôn	3
+hôm	177
+hôn	175
 hộ
 hơn	220
 ion
@@ -814,60 +834,60 @@ iso
 gps
 isp
 hua	44
-hú
+hú	103
 hứ
-gù
-gừ
+gù	99
+gừ	73
 huê	70
-hù
-hừ
+hù	84
+hừ	59
 hui
-hủ
+hủ	118
 hử
 hũ
 hữ
-gụ
+gụ	76
 hum	56
 hun	105
-huơ	2
+huơ	70
 hụ
 hự
-hưu	3
+hưu	145
 htx
-huy	2
+huy	180
 hý
 iý
 hỷ
-lá
-là
-lai	2
-lả
+lá	178
+là	249
+lai	173
+lả	99
 lã
-lam	1
-lan	1
-lao	1
+lam	142
+lan	162
+lao	185
 lạ
-lâm	1
+lâm	162
 lân	141
-lăm	2
-lăn	2
+lăm	119
+lăn	139
 kcs
 lâp
 lat
-lau	1
-lâu	3
+lau	136
+lâu	185
 Kay
 jaz
-lay	3
-lây	2
+lay	118
+lây	145
 ké
-kế
+kế	202
 lé
 kde
 kè
-kề
+kề	136
 lè
-lề
+lề	131
 kẻ
 kể
 lei
@@ -877,41 +897,41 @@ kẽ
 lek
 lẽ
 lễ
-kem	2
+kem	151
 ken	79
-keo	3
+keo	131
 kẹ
 kên
 kệ
-lem	2
+lem	102
 len	134
-leo	3
+leo	146
 lẹ
 lên	211
 lệ
-kêu	3
+kêu	159
 leu
 lev
 lêu	74
 kha	136
-kia	2
+kia	166
 kí
-lia	3
+lia	86
 lí
-khe	3
+khe	143
 khê	93
 kì
 lie
 lì
 khi	229
-kỉ
+kỉ	145
 kĩ
 lĩ
 jin
-kho	1
-khô	1
+kho	162
+khô	169
 khơ	85
-kim	1
+kim	173
 kin
 kị
 lim	105
@@ -920,57 +940,57 @@ lị
 LHQ	113
 kip
 khu	202
-khư	1
+khư	94
 liu	105
 loa	142
-ló
+ló	97
 lố
-lớ
+lớ	65
 kò
 loe	83
-lò
-lồ
-lờ
+lò	153
+lồ	150
+lờ	121
 Kơi
 log
 loi	99
-lôi	1
+lôi	148
 lổ
 lơi	92
-lở
+lở	131
 lõ
 lỗ
 lỡ
 Kôn
 Lôn
-lom	2
+lom	70
 lon	112
 lọ
 lôm	54
 lộ
 lơn	81
-lợ
+lợ	98
 Jor
 Kpă
 Kre
 lua	73
-lú
+lú	77
 lưa
 lưc
 lứ
-lù
-lừ
-lui	3
-lủ
+lù	82
+lừ	85
+lui	149
+lủ	43
 lử
 lũ
 lữ
 jun
 lum	61
-lụ
+lụ	49
 lự
 ktt
-lưu	2
+lưu	190
 KTy
 luy
 ký
@@ -982,35 +1002,35 @@ Lỹ
 kỹ
 kỵ
 lỵ
-má
-ná
-óc
+má	140
+ná	97
+óc	135
 ốc
-mà
-nà
-oà
+mà	216
+nà	99
+oà	70
 óe
-mai	2
-mả
-nai	2
-nả
-oai	3
-ói
+mai	158
+mả	97
+nai	115
+nả	68
+oai	109
+ói	99
 ối
-ới
+ới	84
 Măk
 mã
 nã
-man	3
+man	131
 mao	105
 mạ
 mâm	126
 mân	69
-măm	1
+măm	72
 măn	43
-nam	1
-nan	2
-nao	3
+nam	184
+nan	129
+nao	117
 nạ
 nâm
 nân	39
@@ -1020,140 +1040,140 @@ oan	132
 oăm	82
 oăn
 ốm
-ớm
-ớn
+ớm	1
+ớn	88
 Mâp
 ncs
-óp
+óp	26
 ốp
 mau	132
 mâu	141
 nau	50
-nâu	1
-ót
+nâu	153
+ót	53
 ốt
-ớt
-may	1
-mây	3
+ớt	138
+may	173
+mây	150
 nay	207
 nây	43
 mé
-mế
+mế	66
 né
 oda
 oé
 òa
 mè
-mề
+mề	94
 nè
-nề
+nề	148
 mẻ
 mể
 nẻ
 nể
 oẻ
-òi
+òi	26
 ồi
 ời
 Nễ
 mẽ
 mễ
 mem	84
-men	1
-meo	1
+men	145
+meo	87
 mẹ
 mên	49
 mệ
-nem	1
+nem	118
 nen	94
-neo	2
+neo	126
 nẹ
 nêm	122
 nên	213
 nệ
 oeo
 oẹ
-òm
+òm	39
 òn
-ồm
-ồn
-ờn
+ồm	59
+ồn	137
+ờn	1
 MeV
 nêu	161
 new
 Ní
 mia	26
 mí
-nga	3
-nha	2
+nga	136
+nha	151
 nia	76
 ỏc
 mì
-nhe	1
+nhe	108
 nì
 ỏe
-mỉ
+mỉ	123
 ngh
-nhi	1
-nỉ
-ỏi
+nhi	154
+nỉ	115
+ỏi	118
 ổi
 mĩ
 mim	21
 min	79
 mị
 ngo
-ngô	2
-ngơ	1
+ngô	140
+ngơ	120
 nho	142
 nhô	121
-nhơ	1
+nhơ	105
 nin	66
 nị
 ohm
-ỏm
-ỏn
+ỏm	43
+ỏn	46
 ổm
 ổn
 ởn
 miu
 ngu	124
-ngư	2
-nhu	2
+ngư	149
+nhu	179
 như	226
 niu	101
 ôkê
 ỡm
 moa
-mó
+mó	101
 mố
-mớ
+mớ	110
 noa	33
-nó
+nó	205
 nố
-nớ
+nớ	54
 ọc
 ộc
-mò
-mồ
-mờ
-nò
-nồ
-nờ
+mò	137
+mồ	144
+mờ	147
+nò	33
+nồ	21
+nờ	41
 ọe
-moi	2
-mỏ
-môi	2
+moi	114
+mỏ	153
+môi	186
 mổ
 mơi	58
-mở
-noi	3
-nỏ
+mở	193
+noi	119
+nỏ	96
 nôi	115
 nổ
-nơi	2
-nở
-ong	3
+nơi	198
+nở	152
+ong	147
 ọi
 ông	216
 ợi
@@ -1168,35 +1188,35 @@ mom	55
 mon	92
 mọ
 môm	30
-môn	2
+môn	185
 mộ
 mơm
 mơn	94
 mợ
 nom	105
-non	2
+non	159
 nọ
 nôm	98
-nôn	1
+nôn	137
 nộ
 nơm	81
-nợ
+nợ	167
 ộn
 ọp
 ộp
 Môt
 ọt
-ợt
+ợt	47
 MPs
 Nú
-mua	1
-mú
-mưa	1
+mua	196
+mú	91
+mưa	170
 nua	98
 nưa	58
-mù
+mù	146
 mui	102
-mủ
+mủ	119
 mử
 nui
 nử
@@ -1204,13 +1224,13 @@ mũ
 nữ
 mum	13
 mun	82
-mụ
+mụ	111
 mự
 num
-nụ
+nụ	143
 nự
 ôtô
-mưu	2
+mưu	160
 muy
 nuy
 nxb
@@ -1222,18 +1242,18 @@ mỵ
 oxy
 ôxy
 Păc
-rá
-sá
+rá	79
+sá	108
 Pà
-rà
-sà
+rà	140
+sà	94
 Pai
 Pả
 Păh
 rai	88
-rả
-sai	3
-sả
+rả	93
+sai	176
+sả	106
 Păk
 rã
 sã
@@ -1242,41 +1262,41 @@ SCN
 pan	61
 pao	72
 pân
-ram	91
-ran	2
-rao	2
+ram	129
+ran	97
+rao	130
 rạ
 râm	110
-rân	1
+rân	50
 răm	92
 răn	115
 sam	99
-san	2
-sao	1
+san	144
+sao	195
 sạ
 sâm	128
-sân	2
+sân	185
 săm	91
-săn	1
+săn	159
 rap
 Pâu
-rau	2
-râu	2
+rau	164
+râu	132
 sau	217
-sâu	3
+sâu	182
 ray	116
 rây	87
-say	1
+say	151
 sây	50
 pda
 pé
 ré
-rế
+rế	52
 PDF	107
 rè
-rề
+rề	51
 sè
-sề
+sề	50
 sđd
 Pẻ
 rẻ
@@ -1290,11 +1310,11 @@ sễ
 Pen
 rem
 ren	122
-reo	2
+reo	115
 rêm
 rên	95
 rệ
-sen	2
+sen	136
 seo	106
 sẹ
 sên	101
@@ -1302,26 +1322,26 @@ sệ
 rêu	114
 sêu	36
 sex
-pha	2
+pha	168
 ria	88
 rí
 sia
 sic
 sí
 phe	147
-phê	1
+phê	175
 rì
 sì
-phi	3
-rỉ
-sỉ
+phi	172
+rỉ	134
+sỉ	114
 rĩ
 sgk
 sĩ
 pho	131
 phô	133
 phơ	87
-pin	1
+pin	151
 rho
 rim	81
 rin	39
@@ -1330,37 +1350,37 @@ sim	132
 sin	89
 sị
 pgs
-phu	1
-riu	1
+phu	153
+riu	82
 siu	26
 sô-
 pó
 pố
 roa	21
-ró
-rớ
+ró	52
+rớ	72
 soa	80
 số
-sớ
+sớ	104
 Pờ
-rò
-rồ
-rờ
-sò
-sồ
-sờ
+rò	128
+rồ	106
+rờ	64
+sò	114
+sồ	59
+sờ	121
 PNG	71
 Roh
-roi	2
-rỏ
+roi	119
+rỏ	82
 rổ
-rơi	1
-rở
-soi	3
-sỏ
-sôi	1
+rơi	167
+rở	51
+soi	135
+sỏ	88
+sôi	157
 sổ
-sở
+sở	199
 rõ
 rỗ
 rỡ
@@ -1374,17 +1394,17 @@ rọ
 rôm	99
 rôn
 rộ
-rơm	2
+rơm	122
 rơn	54
-rợ
+rợ	101
 som
-son	2
+son	135
 sọ
 sôn
 sộ
 sơm	43
-sơn	3
-sợ
+sơn	156
+sợ	171
 pop
 sos
 spa
@@ -1393,102 +1413,102 @@ Pú
 pua
 qua	212
 rua	76
-rú
+rú	94
 rưa	26
 rứ
 sua
-sú
+sú	99
 sưa	115
 sứ
 Ruê
-que	3
-quê	1
-rù
+que	120
+quê	170
+rù	69
 rừ
 suê	61
-sù
+sù	70
 Pui
 Sủ
 qui
 rui
-rủ
+rủ	129
 sui	67
 sử
 rũ
 pun
 quơ	82
 rum	77
-run	2
+run	126
 rụ
-sum	3
+sum	115
 sun	60
-sụ
+sụ	72
 sự
 pts
 STT
 sưu	150
 quy	2
 ruy
-suy	3
+suy	177
 Sỹ
-tá
-úa
+tá	155
+úa	89
 úc
 vac
-vá
+vá	123
 ứa
 ức
-tà
-và
+tà	127
+và	254
 vcd
-tai	1
-tả
-úi
-vai	1
-vả
+tai	175
+tả	203
+úi	44
+vai	185
+vả	145
 tã
 vã
 TCN
-tam	2
-tan	1
-tao	3
+tam	144
+tan	162
+tao	132
 tạ
 tâm	207
-tân	1
-tăm	2
+tân	154
+tăm	127
 tăn	88
-úm
+úm	67
 vam
-van	2
-vao	1
+van	141
+vao	99
 vạ
 vâm	33
-vân	3
+vân	140
 văn	202
 Uar
 tâp
-úp
+úp	118
 tau
 tbt
-tâu	2
-út
+tâu	111
+út	128
 vat
-tay	1
-tây	3
+tay	198
+tây	166
 úy
-vay	2
-vây	2
+vay	167
+vây	159
 té
-tế
-uế
-ùa
+tế	211
+uế	96
+ùa	102
 vé
-vế
+vế	111
 tè
-tề
+tề	104
 tđd
 vè
-về
+về	227
 tẻ
 tể
 uể
@@ -1497,91 +1517,91 @@ tel
 tẽ
 tễ
 vẽ
-tem	1
-ten	1
-teo	1
+tem	130
+ten	99
+teo	111
 têm	70
 tên	202
 tệ
-ùm
-ùn
-ven	3
+ùm	59
+ùn	119
+ven	150
 veo	95
-vên	1
+vên	61
 vệ
 ter
 têt	13
 têu	46
 vêu	30
 vđv
-tha	1
-tia	1
+tha	156
+tia	145
 tí
-ủa
+ủa	77
 via
 ví
 tgđ
-the	2
-thê	1
+the	161
+thê	147
 tì
 vie
 vì
 thi	204
-tỉ
-ủi
-vỉ
+tỉ	169
+ủi	127
+vỉ	1
 tĩ
 vĩ
 tho	106
-thô	3
-thơ	2
-tim	1
+thô	150
+thơ	176
+tim	170
 tin	209
 tị
-ủn
+ủn	36
 vin
 vị
 vip
 thu	203
-thư	1
+thư	191
 tiu	59
 ủy
 vks
 toa	131
-tó
+tó	46
 tố
-tớ
-ụa
-ục
-vó
+tớ	134
+ụa	21
+ục	62
+vó	93
 vố
-vớ
+vớ	106
 ựa
 ực
-toe	2
-tò
-tồ
-tờ
-vò
-vồ
-vờ
+toe	77
+tò	129
+tồ	62
+tờ	167
+vò	111
+vồ	98
+vờ	121
 Tở
 VNI	73
 toi	109
-tỏ
+tỏ	170
 tôi	214
 tổ
-tơi	3
-ung	3
-uở
-voi	1
-vỏ
+tơi	113
+ung	161
+uở	1
+voi	145
+vỏ	161
 vôi	132
 vổ
 vơi	113
-vở
+vở	148
 ưng	126
-ươi	1
+ươi	79
 võ
 vỗ
 vỡ
@@ -1589,56 +1609,56 @@ Tọ
 Umo
 tom	61
 ton	89
-tôm	2
-tôn	2
+tôm	155
+tôn	172
 tộ
 tơn
-tợ
+tợ	47
 uôm	43
 vom
-von	1
+von	135
 vọ
 vôn	73
-vợ
+vợ	182
 ươm	118
 ươn	75
 top
-ụp
-ụt
+ụp	57
+ụt	33
 Tr'
-tra	1
-tre	1
+tra	194
+tre	142
 trê	90
 urê
 usd
-tri	2
+tri	164
 url	108
-tro	3
+tro	132
 trô	92
 trơ	127
 ups
 tru	115
-tua	1
-tú
+tua	113
+tú	134
 tưa	67
 tứ
-vua	2
-vú
-tù
-từ
-vù
-tui	2
-tủ
+vua	175
+vú	141
+tù	163
+từ	227
+vù	88
+tui	124
+tủ	152
 tử
-vui	1
+vui	184
 TTL
 vũ
 tum	76
 tun	36
-tụ
+tụ	159
 tự
 vun	111
-vụ
+vụ	212
 tts
 VTV
 vưu	43
@@ -1651,60 +1671,60 @@ uỷ
 Vỹ
 tỵ
 y-a
-xá
-xà
-xả
+xá	140
+xà	136
+xả	144
 xã
 xam	50
 xan	51
-xao	3
+xao	131
 xạ
-xâm	3
+xâm	160
 xăm	129
 xăn	30
 xâu	106
-xay	1
-xây	3
-web	1
+xay	133
+xây	2
+web	171
 xé
-xế
+xế	137
 xè
 xề
 xẻ
 xể
 Yêm
-xem	3
-xen	1
+xem	193
+xen	138
 xeo	44
 xẹ
 xên	33
 xệ
 yen
-yên	3
+yên	165
 xêu	13
 yêu	203
 xia	21
 xí
 xì
-xỉ
+xỉ	140
 Win
 xim	75
-xin	3
+xin	181
 xị
 xit	41
-xoa	1
-xó
+xoa	130
+xó	88
 xố
-xớ
+xớ	44
 xoe	75
-xồ
-xờ
+xồ	50
+xờ	33
 xoi	65
-xỏ
-xôi	1
+xỏ	101
+xôi	136
 xổ
-xơi	3
-xở
+xơi	86
+xở	98
 xml
 xnk
 xỡ
@@ -1719,21 +1739,21 @@ xơn	30
 yôn
 Xrê
 xua	122
-xú
+xú	64
 xưa	164
 xứ
 xte
 xuê	78
-xù
-xừ
-xui	1
+xù	113
+xừ	46
+xui	105
 xủ
 xử
 xũ
 Yun
 xum	78
 xun
-xụ
+xụ	46
 xự
 xuy	59
 a-đa
@@ -1743,24 +1763,24 @@ a-lê	1
 a-lô	1
 a-mi
 a-vi
-bác
+bác	176
 bấc
 bắc
-các
+các	245
 cấc
 cắc
-ách
-bái
-cái
-bám
-bán
-báo
+ách	112
+bái	123
+cái	197
+bám	151
+bán	2
+báo	202
 bấm
 bấn
 bắn
-cám
-cán
-cáo
+cám	136
+cán	181
+cáo	192
 cấm
 cấn
 cắm
@@ -1768,73 +1788,73 @@ cắn
 báp
 bấp
 bắp
-cáp
+cáp	146
 cấp
 cắp
-bát
-báu
+bát	150
+báu	135
 bất
 bấu
 bắt
-cát
-cáu
+cát	154
+cáu	109
 cất
 cấu
 cắt
 Báy
 bấy
-cáy
+cáy	74
 cấy
 cafe
 cafê
-bài
-cài
+bài	198
+cài	158
 Abel
-bàm
-bàn
-bào
+bàm	13
+bàn	192
+bào	173
 bầm
 bần
 bằm
 bằn
 càm
-càn
-cào
+càn	111
+cào	122
 cầm
 cần
 cằm
 cằn
-bàu
+bàu	76
 bầu
-càu
+càu	70
 cầu
-bày
+bày	174
 bầy
-cày
+cày	128
 cầy
 acid
-bải
-cải
-bản
-bảo
+bải	64
+cải	182
+bản	210
+bảo	206
 bẩm
 bẩn
 bẳm
 bẳn
-cảm
-cản
-cảo
+cảm	201
+cản	156
+cảo	93
 cẩm
 cẩn
 cẳn
 baht
-bảu
+bảu	21
 bẩu
-cảu
+cảu	84
 cẩu
-bảy
+bảy	152
 bẩy
-cảy
+cảy	1
 cẩy
 balê
 bãi
@@ -1856,18 +1876,18 @@ bậc
 bặc
 cạc
 cặc
-áng
-ánh
-bang	3
+áng	101
+ánh	175
+bang	168
 banh	104
 bại
 bâng	92
-băng	1
+băng	171
 cang
-canh	1
+canh	157
 cại
-câng	1
-căng	2
+câng	36
+căng	158
 ắng
 bạm
 bạn
@@ -1918,26 +1938,26 @@ bazơ
 béc
 bén
 béo
-bến
+bến	149
 bép
-bếp
+bếp	161
 bét
-bết
+bết	97
 bếu
 cedi
 bèm
 bèn
 bèo
-bền
-bều
+bền	165
+bều	26
 bẻm
 bẻo
 bển
 bẽn
 bẽo
 ành
-beng	1
-bênh	2
+beng	77
+bênh	118
 ầng
 ằng
 bẹn
@@ -1954,28 +1974,28 @@ beta
 bêta
 bi-a	69
 CHCC
-chá
-chà
-chai	1
-chả
+chá	39
+chà	118
+chai	143
+chả	138
 chã
 Cham
 bím
 bín
 chan	113
-chao	3
+chao	107
 chạ
 châm	144
-chân	1
-chăm	2
-chăn	3
+chân	189
+chăm	175
+chăn	158
 agar
 bíp
 bít
 bíu
 chat
 chau	89
-châu	3
+châu	169
 cít
 chay	131
 chây	81
@@ -1983,16 +2003,16 @@ CHDC
 bida
 bìa
 ché
-chế
+chế	201
 chè
-chề
+chề	77
 chẻ
 chẽ
-biên	3
+biên	176
 bìm
 chem	64
-chen	1
-cheo	2
+chen	122
+cheo	96
 chẹ
 chêm	69
 chên
@@ -2002,34 +2022,34 @@ Biêt
 biêu
 bìu
 chêu
-chia	1
+chia	190
 chí
 chì
-chỉ
+chỉ	220
 Chil
-bỉm
-chim	1
+bỉm	91
+chim	160
 chin
 chị
 chip
-bỉu
+bỉu	69
 chiu	93
 bĩu
 bịa
 choa
-chó
-chớ
+chó	158
+chớ	122
 choe
-chò
-chồ
-chờ
-ảng
-ảnh
-binh	1
-choi	1
-chỏ
-chơi	2
-chở
+chò	61
+chồ	58
+chờ	170
+ảng	60
+ảnh	203
+binh	180
+choi	81
+chỏ	77
+chơi	197
+chở	156
 ẩng
 ẳng
 chõ
@@ -2038,26 +2058,26 @@ Chom
 bịn
 chon
 chọ
-chôm	1
-chôn	3
+chôm	103
+chôn	141
 chộ
 chơm	30
 chơn	62
-chợ
+chợ	167
 bios
 bịp
 bịt
 bịu
 birr
-chua	3
-chú
+chua	153
+chú	183
 chưa	201
 chứ
-chù
-chừ
+chù	70
+chừ	109
 Chử
-chui	3
-chủ
+chui	126
+chủ	208
 chữ
 chum	94
 chun	89
@@ -2066,73 +2086,73 @@ BHXH
 BHYT
 blâu
 bloc
-bóc
+bóc	134
 bốc
 coca
-cóc
+cóc	135
 côca
 cốc
 ạch
-bói
+bói	115
 bối
-bới
-cói
+bới	115
+cói	1
 cối
-bón
+bón	146
 bốn
 bớn
 cóm
 cón
 cốm
 cốn
-cớm
-cớn
-bóp
+cớm	52
+cớn	30
+bóp	130
 bốp
-bớp
-cóp
+bớp	61
+cóp	97
 cốp
-bót
+bót	74
 bốt
-bớt
-cót
+bớt	153
+cót	85
 cốt
-cớt
+cớt	13
 âớu
 bôđê
-bòi
-bồi
-bời
-còi
+bòi	26
+bồi	161
+bời	106
+còi	122
 cồi
-cời
+cời	41
 amen
-bòm
-bòn
-bồm
-bồn
-bờm
-bờn
-còm
-còn
-cồm
-cồn
-cờn
+bòm	21
+bòn	79
+bồm	36
+bồn	134
+bờm	96
+bờn	36
+còm	81
+còn	217
+cồm	61
+cồn	131
+cờn	21
 amib
 Aỏi
-bỏi
+bỏi	58
 bổi
-bởi
-cỏi
+bởi	201
+cỏi	103
 cổi
-cởi
+cởi	136
 Aỏn
 amin
-bỏm
+bỏm	43
 bỏn
 bổn
-cỏm
-cỏn
+cỏm	33
+cỏn	65
 cổn
 amip
 âởu
@@ -2152,37 +2172,37 @@ cọc
 cộc
 anod
 ạnh
-bong	1
-bông	1
+bong	130
+bông	153
 bội
-cong	1
+cong	149
 cọi
 công	230
 cội
 ậng
 bọn
 bộn
-bợm
-bợn
+bợm	72
+bợn	26
 cọm
 cọn
 cộm
 cộn
 cợm
-cợn
+cợn	49
 bọp
 bộp
-bợp
+bợp	26
 cọp
 cộp
 cợp
 anot
 bọt
 bột
-bợt
+bợt	52
 cọt
 cột
-cợt
+cợt	93
 ampe
 CNTB
 cota
@@ -2202,49 +2222,49 @@ apxe
 Búc
 Cuba
 buá
-búa
+búa	123
 bứa
 bức
-cúa
-cúc
+cúa	60
+cúc	122
 cứa
 cức
-búi
-cúi
-bún
-cúm
+búi	111
+cúi	124
+bún	129
+cúm	135
 cún
-búp
+búp	121
 ctcp
-cúp
-bút
+cúp	130
+bút	150
 bứt
 bứu
-cút
+cút	102
 cứt
 cứu
 Cùa
-bùa
-bừa
-bùi
-cùi
-bùm
-bùn
-cùm
-cùn
-cừu
-bủa
+bùa	116
+bừa	120
+bùi	113
+cùi	103
+bùm	43
+bùn	136
+cùm	69
+cùn	83
+cừu	141
+bủa	91
 bửa
-của
+của	252
 cửa
 bugi
-củi
+củi	119
 cửi
-bủm
-bủn
+bủm	13
+bủn	73
 bửn
 củm
-củn
+củn	39
 bửu
 cửu
 bữa
@@ -2254,34 +2274,34 @@ cũi
 bũm
 cũn
 cữu
-bụa
-bục
+bụa	61
+bục	110
 bựa
 bực
-cục
+cục	166
 cựa
 cực
-bung	3
+bung	110
 buôi
-bụi
+bụi	153
 bưng	104
 bươi	36
-cung	2
-cụi
-cưng	2
+cung	194
+cụi	88
+cưng	124
 atom
 buôn	157
-bụm
+bụm	53
 bươm	67
 bươn	87
-cụm
+cụm	153
 Cuôr
-bụp
-cụp
-bụt
+bụp	64
+cụp	87
+bụt	81
 bươu	76
 bựt
-cụt
+cụt	121
 cựu
 buỷ
 axit
@@ -2294,84 +2314,84 @@ Ayun
 ê-ta
 ê-te	13
 ê-tô	13
-dác
+dác	49
 dắc
-đác
+đác	88
 đắc
-dái
-ếch
-đái
+dái	74
+ếch	125
+đái	123
 Đắk
-dám
-dán
+dám	156
+dán	144
 dáo
 dấm
 dấn
 dắm
 dắn
-đám
-đán
-đáo
+đám	165
+đán	125
+đáo	166
 đấm
 đắm
 đắn
 dáp
 dấp
-đáp
+đáp	178
 đắp
-dát
+dát	101
 dáu
 dấu
 dắt
 fát
-đát
+đát	95
 đáu
 đất
 đấu
 đắt
-dáy
+dáy	54
 dấy
-đáy
+đáy	147
 đấy
 dada
 đađa
-dài
-đài
+dài	196
+đài	169
 dàm
-dàn
-dào
+dàn	151
+dào	131
 dầm
 dần
 dằm
 dằn
-đàm
-đàn
-đào
+đàm	154
+đàn	183
+đào	185
 đầm
 đần
 đằm
 đằn
-dàu
+dàu	41
 dầu
 đầu
-dày
+dày	165
 dầy
-đày
+đày	121
 đầy
-dải
+dải	145
 dảo
 dẩm
 dẩn
 dẳn
-đảm
-đản
-đảo
+đảm	187
+đản	92
+đảo	186
 đẩn
 dẩu
 đẩu
-dảy
+dảy	13
 dẩy
-đảy
+đảy	36
 đẩy
 êcle
 dãi
@@ -2394,8 +2414,8 @@ dạc
 dặc
 đạc
 đặc
-dang	1
-danh	1
+dang	129
+danh	193
 dại
 dâng	147
 dăng	62
@@ -2403,7 +2423,7 @@ dăng	62
 đang	211
 đanh	94
 đại
-đăng	3
+đăng	186
 dạm
 dạn
 dạo
@@ -2442,8 +2462,8 @@ Déo
 dém
 đém
 đéo
-đếm
-đến
+đếm	135
+đến	229
 dép
 dết
 đét
@@ -2452,16 +2472,16 @@ dền
 đèm
 đèn
 đèo
-đềm
-đền
-đều
+đềm	102
+đền	159
+đều	202
 dẻo
 đểm
 đểu
 đẽo
 dênh	13
 èng
-ềnh
+ềnh	33
 Đeng
 đênh	92
 dẹm
@@ -2490,20 +2510,20 @@ diêm	104
 diên	89
 dìm
 Đìn
-điên	1
+điên	139
 diêu	72
 dìu
 điêu	139
 đìu
-đỉa
+đỉa	91
 dĩa
 đĩa
 file
 dĩn
 địa
 diod
-dinh	2
-đinh	3
+dinh	160
+đinh	133
 dịp
 điop
 dịt
@@ -2517,68 +2537,68 @@ elip
 êkip
 ễng
 ễnh
-doá
+doá	1
 dóa
-dóc
+dóc	63
 dốc
 Đóa
-đoá
-đóc
+đoá	71
+đóc	26
 đốc
 dói
 dối
 ệch
-đói
+đói	150
 đối
-đới
+đới	152
 doan	76
 doạ
-dóm
-dón
+dóm	21
+dón	13
 dốn
 dớn
 đoan	128
 đoạ
-đóm
-đón
+đóm	94
+đón	172
 đốm
 đốn
-đớn
-dớp
+đớn	138
+dớp	62
 đóp
 đốp
-đớp
+đớp	79
 Dớt
-dót
+dót	21
 dốt
-đót
+đót	69
 đốt
-đớt
-dòi
-dồi
-dời
-đòi
-đồi
-đời
-dòm
+đớt	54
+dòi	72
+dồi	136
+dời	139
+đòi	166
+đồi	151
+đời	194
+dòm	89
 dòn
-dồn
+dồn	139
 dờn
-đòm
-đòn
-đồm
-đồn
-đờm
-đờn
+đòm	26
+đòn	143
+đồm	76
+đồn	153
+đờm	103
+đờn	94
 dổi
-đỏi
+đỏi	59
 đổi
-dỏm
+dỏm	107
 dổm
-dởm
-đỏm
-đởm
-đởn
+dởm	60
+đỏm	54
+đởm	64
+đởn	39
 đôla
 dõi
 dỗi
@@ -2589,16 +2609,16 @@ dộc
 đọa
 đọc
 độc
-dong	1
+dong	123
 dọi
 dông	116
 dội
 ệnh
 đong	108
 đọi
-đông	1
+đông	187
 đội
-đợi
+đợi	164
 dọn
 dộn
 dợm
@@ -2609,76 +2629,76 @@ dọp
 dộp
 đọp
 độp
-đợp
+đợp	13
 dột
 foot
 đọt
 đột
-đợt
+đợt	162
 Đrá
 Drăm
 dram
 êpan
 đpcm
 este
-dúa
+dúa	61
 dứa
 dức
 đúa
-đúc
+đúc	145
 đứa
 đức
-dúi
-dúm
-dún
-đúm
-đún
-đúp
-dút
+dúi	85
+dúm	72
+dún	30
+đúm	59
+đún	13
+đúp	112
+dút	33
 dứt
-đút
+đút	101
 đứt
-dùa
-dừa
-đùa
-đừa
+dùa	33
+dừa	143
+đùa	140
+đừa	13
 đtdđ
-dùi
-đùi
+dùi	102
+đùi	129
 Duệ
 dùm
-dùn
-đùm
-đùn
+dùn	30
+đùm	103
+đùn	98
 dủi
-đủi
+đủi	73
 dũa
 đũa
 dũi
 đũi
 dụa
-dục
+dục	190
 dựa
 dực
-đục
+đục	134
 đươc
 đực
-dung	2
+dung	189
 duôi
 dụi
-dưng	1
+dưng	125
 đung	80
-đuôi	2
+đuôi	155
 đụi
 đưng	47
 duơn
-dụm
+dụm	99
 đuôn
-đụn
-đụp
+đụn	82
+đụp	30
 dụt
 dựt
-đụt
+đụt	41
 dura
 đura
 euro
@@ -2687,74 +2707,74 @@ Dýn
 dyne
 i-on
 i-ôn
-gác
+gác	137
 gấc
-hác
+hác	75
 hắc
-gái
-hái
+gái	186
+hái	142
 ích
-gán
-gáo
+gán	119
+gáo	88
 gấm
 gấn
 gắm
 gắn
-hám
-hán
-háo
+hám	86
+hán	118
+háo	123
 hấm
 hấn
 hắn
 Háp
-gáp
+gáp	86
 gấp
 gắp
 hấp
-gáu
+gáu	1
 gấu
 gắt
-hát
-háu
+hát	185
+háu	68
 hất
 hấu
 hắt
-gáy
+gáy	119
 gấy
-háy
+háy	43
 hấy
-gài
-hài
-gàn
-gào
+gài	98
+hài	169
+gàn	78
+gào	108
 gầm
 gần
 gằm
 gằn
-hàm
-hàn
-hào
+hàm	163
+hàn	140
+hào	164
 hầm
 hằm
 hằn
-gàu
+gàu	109
 gầu
-hàu
+hàu	96
 hầu
 gày
 gầy
 hầy
-hải
+hải	171
 gain
 gẩm
-hảm
-hảo
+hảm	39
+hảo	157
 hẩm
 hẳm
 hẳn
 gbit
 hẩu
-gảy
+gảy	89
 gẩy
 hảy
 hẩy
@@ -2777,11 +2797,11 @@ gạc
 gặc
 hạc
 hặc
-gang	3
+gang	112
 ganh	105
 gại
 găng	113
-hang	1
+hang	150
 hanh	111
 hại
 hăng	130
@@ -2815,10 +2835,10 @@ gatô
 héc
 hén
 héo
-hến
+hến	93
 hét
-hết
-hếu
+hết	196
+hếu	26
 hèm
 hèn
 hèo
@@ -2844,14 +2864,14 @@ gệt
 hệt
 herb
 hđqt
-giá
-già
+giá	213
+già	162
 giai	180
-giả
+giả	190
 giã
-giam	3
+giam	151
 gian	208
-giao	1
+giao	2
 giạ
 giâm	74
 giăm	67
@@ -2862,37 +2882,37 @@ giâu	21
 hít
 giây	158
 ghé
-ghế
+ghế	159
 gié
 ghè
-ghề
-giề
+ghề	97
+giề	39
 ghẻ
 giẻ
 ghẽ
 giẽ
-ghen	2
+ghen	130
 ghẹ
 ghệ
 gien
 gieo	133
 gìm
 gìn
-hiên	1
+hiên	120
 ghì
 ghim	97
 gilê
 hĩm
-gió
+gió	168
 gịa
 Hine
-giò
-giồ
-giờ
+giò	122
+giồ	1
+giờ	198
 Hinh
 gioi	87
-giỏ
-giở
+giỏ	123
+giở	104
 giỗ
 gion	13
 giọ
@@ -2901,82 +2921,82 @@ giộ
 gịt
 hịt
 giua	65
-giú
-giừ
+giú	33
+giừ	33
 giũ
 giữ
-giun	2
+giun	122
 Glai
 Glây
 ĩnh
-goá
+goá	71
 góa
-góc
+góc	166
 gốc
 gớc
-hoá
+hoá	173
 hóa
-hóc
+hóc	116
 hốc
-hoà
+hoà	149
 Hới
-gói
+gói	163
 gối
 hoai
-hoả
-hói
+hoả	112
+hói	90
 hối
 inch
 ịch
 gốm
-gớm
-hoan	1
+gớm	110
+hoan	148
 hoạ
 hoăm	1
 hoăn
-hóm
+hóm	98
 hón
-hớm
-hớn
-góp
-hóp
-hớp
-gót
-hót
+hớm	21
+hớn	91
+góp	185
+hóp	67
+hớp	80
+gót	123
+hót	107
 hốt
-hớt
+hớt	95
 iốt
-hoay	1
+hoay	107
 hòa
 hoè
 hòe
 iode
-gồi
-hòi
-hồi
-hời
+gồi	30
+hòi	88
+hồi	182
+hời	102
 inđi
-gòn
-gồm
-gờm
-gờn
+gòn	149
+gồm	196
+gờm	97
+gờn	30
 hoen	82
 hoẹ
-hòm
-hòn
+hòm	110
+hòn	148
 hồm
-hồn
+hồn	160
 hờm
-hờn
+hờn	105
 hỏa
-gỏi
-gởi
-hỏi
+gỏi	106
+gởi	127
+hỏi	190
 hổi
-hởi
+hởi	102
 gỏl
-hỏm
-hỏn
+hỏm	13
+hỏn	61
 hổm
 hổn
 hởn
@@ -2996,132 +3016,132 @@ họe
 gọi
 gông	75
 gội
-gợi
+gợi	156
 hong	83
 hông	128
 hội
 hơng
-hợi
+hợi	64
 gọn
-gợn
+gợn	1
 hộn
-hợm
+hợm	68
 gộp
 gợp
 họp
 hộp
-hợp
+hợp	216
 gọt
 gột
-gợt
+gợt	1
 hột
-hợt
+hợt	93
 inox
 insơ
 iota
 gram	112
 Hroi
 gúa
-húc
+húc	97
 hứa
 hức
-húi
+húi	77
 huân	108
 húm
-húp
-gút
-hút
+húp	78
+gút	101
+hút	179
 húy
 Huế
 Hừa
 gùa
-hùa
-huề
-gùi
+hùa	77
+huề	75
+gùi	93
 hùi
-gùn
+gùn	13
 huệ
-hùm
-hùn
-hừm
+hùm	105
+hùn	86
+hừm	43
 gủa
 gửi
-hủi
+hủi	82
 hủm
-hủn
+hủn	21
 hủy
 gũi
 hũi
 hũm
 hũu
 hữu
-gục
-hục
+gục	129
+hục	87
 hực
-gụi
-hung	2
-hụi
+gụi	52
+hung	142
+hụi	91
 hưng	133
 HTML	109
-gươm	3
-hụm
+gươm	109
+hụm	13
 hươm
 hươn
-hụp
+hụp	53
 Huơu
-gụt
-hụt
-hươu	1
+gụt	1
+hụt	141
+hươu	118
 hựu
 huý
 huỷ
 gỵa
 jắc
-lác
+lác	1
 lấc
 lắc
-lái
+lái	163
 Lắk
 labo
 lám
-lán
-láo
+lán	96
+láo	89
 lấm
 lấn
 lắm
-láp
+láp	66
 lấp
 lắp
-lát
-láu
+lát	140
+láu	75
 lất
 lấu
 lắt
-láy
+láy	89
 lấy
 lade
-lài
-làm
-làn
-lào
+lài	76
+làm	226
+làn	160
+lào	93
 lầm
 lần
 lằm
 lằn
-làu
+làu	80
 lầu
 lày
 lầy
-lải
-lảm
-lảo
+lải	60
+lảm	66
+lảo	78
 lẩm
 lẩn
 lẳm
 lẳn
-lảu
+lảu	13
 lẩu
-lảy
+lảy	36
 lẩy
 kaki
 kali
@@ -3134,11 +3154,11 @@ lẫn
 lẫy
 lạc
 lặc
-lang	2
+lang	151
 lanh	127
 lại
-lâng	1
-lăng	3
+lâng	96
+lăng	143
 Kạn
 lạm
 lạn
@@ -3172,26 +3192,26 @@ lém
 lén
 léo
 kép
-kếp
+kếp	70
 lép
 lếp
 két
-kết
+kết	211
 kếu
 lét
-lết
-lếu
+lết	92
+lếu	62
 kèm
 kèn
 kèo
-kềm
-kền
+kềm	83
+kền	94
 lèm
 lèn
 lèo
 jeep
-kều
-lều
+kều	52
+lều	121
 kẻm
 kẻo
 lẻm
@@ -3204,9 +3224,9 @@ lẽn
 lẽo
 lễu
 Kêng
-keng	1
-kênh	1
-leng	1
+keng	74
+kênh	163
+leng	71
 lênh	98
 kẹn
 kẹo
@@ -3223,19 +3243,19 @@ lđvp
 li-e
 lí'
 Lía
-khá
+khá	187
 líc
-khà
-khai	1
-khả
+khà	77
+khai	196
+khả	191
 Khạ
 kham	94
 khan	128
-khao	3
+khao	133
 khâm	113
 khân	41
 khăm	75
-khăn	1
+khăn	185
 kín
 jíp
 kíp
@@ -3248,20 +3268,20 @@ lít
 líu
 khay	116
 khé
-khế
+khế	104
 kìa
 lìa
 khè
-khề
+khề	44
 khẻ
 khẽ
 Lìn
 khem	85
-khen	1
+khen	161
 kheo	90
 khệ
 kiêm	144
-kiên	3
+kiên	155
 kìm
 kìn
 liêm	108
@@ -3273,35 +3293,35 @@ liêu	117
 lìu
 khí
 khì
-khỉ
+khỉ	130
 khin	26
 khị
 kỉm
-lỉm
+lỉm	21
 khiu	69
 lỉu
 kilô
 kĩn
 kĩu
 khoa	204
-khó
+khó	197
 khố
-khớ
+khớ	39
 kina
 kịa
 lịa
-khoe	3
-khò
-khờ
+khoe	144
+khò	89
+khờ	95
 Khoi
 khỏ
-khôi	1
+khôi	146
 khổ
 khơi	143
 kinh	208
-linh	1
-khom	1
-khôn	1
+linh	174
+khom	84
+khôn	140
 lịm
 kịp
 kiôt
@@ -3309,17 +3329,17 @@ kịt
 lịu
 lira
 khua	87
-khú
+khú	54
 khứ
 khuê	77
-khù
-khừ
+khù	47
+khừ	33
 khui	74
-khủ
+khủ	41
 khử
-khum	1
+khum	74
 khuơ	44
-khụ
+khụ	46
 khự
 kitô
 lito
@@ -3328,59 +3348,59 @@ khuy	90
 Kốc
 loá
 lóa
-lóc
+lóc	117
 lốc
-loà
+loà	59
 lóe
 loai
 loả
-lói
+lói	81
 lối
-lới
+lới	73
 loã
 loan	113
 loăn
-lóm
+lóm	43
 lón
 lốm
 lốn
-lớn
-lóp
+lớn	210
+lóp	47
 lốp
-lớp
+lớp	189
 Kót
-lót
+lót	138
 lốt
-lớt
+lớt	33
 loay	107
 loé
 lòa
 loè
 lòe
-lòi
-lồi
-lời
+lòi	91
+lồi	118
+lời	193
 loen	13
-lòm
-lòn
-lồm
-lồn
-lờm
-lờn
+lòm	54
+lòn	63
+lồm	66
+lồn	44
+lờm	33
+lờn	60
 KNia
 loga
 lỏa
 lôga
-lỏi
-lởi
+lỏi	101
+lởi	53
 logo
-lỏm
-lỏn
+lỏm	74
+lỏn	69
 lổm
 lổn
 lơgo
-lởm
-lởn
+lởm	86
+lởn	64
 lõa
 lõi
 lỗi
@@ -3392,23 +3412,23 @@ lọc
 lộc
 Lơng
 kông
-long	1
+long	145
 lọi
-lông	1
+lông	165
 lội
-lợi
+lợi	194
 lọm
 lọn
 lộm
 lộn
-lợm
-lợn
+lợm	83
+lợn	151
 lọp
 lộp
-lợp
+lợp	118
 lọt
 lột
-lợt
+lợt	64
 loti
 Kmun
 JPEG	76
@@ -3416,31 +3436,31 @@ Krem
 Krêy
 Krôm
 ksmt
-lúa
-lúc
+lúa	159
+lúc	195
 lứa
 lức
-lúi
+lúi	73
 luân	137
-lúm
-lún
-lúp
+lúm	78
+lún	115
+lúp	78
 Jút
-lút
+lút	104
 lứt
 lúy
-lùa
-lừa
-lùi
+lùa	101
+lừa	151
+lùi	140
 Juđô
-lùm
-lùn
+lùm	1
+lùn	120
 lủa
 lửa
-lủi
+lủi	87
 Kủo
-lủm
-lủn
+lủm	1
+lủn	43
 lũa
 lữa
 Ktlê
@@ -3449,22 +3469,22 @@ lũm
 lũn
 lũy
 kuna
-lụa
-lục
+lụa	131
+lục	169
 lựa
 lực
 kung
-lung	1
-lụi
-lưng	1
+lung	132
+lụi	99
+lưng	163
 luôm	21
-luôn	3
+luôn	194
 lụm
-lụn
+lụn	61
 lươm	21
-lươn	2
-lụp
-lụt
+lươn	108
+lụp	79
+lụt	137
 lựu
 lụy
 Ktul
@@ -3486,90 +3506,90 @@ o-xi
 o-xy
 ô-xy
 Oắc
-mác
+mác	126
 mắc
-nác
+nác	69
 nấc
 nắc
-oác
-mái
-nái
-oái
+oác	13
+mái	173
+nái	104
+oái	88
 macô
 mám
-mán
-máo
+mán	55
+máo	68
 mấn
 mắm
 mắn
-nám
-nán
-náo
+nám	125
+nán	82
+náo	124
 nấm
 nấn
 nắm
 nắn
-oán
+oán	119
 mấp
 náp
 nấp
 nắp
 oáp
-mát
-máu
+mát	164
+máu	177
 mất
 mấu
 mắt
-nát
-náu
+nát	143
+náu	107
 nấu
-oát
+oát	50
 oắt
-máy
+máy	207
 mấy
-náy
+náy	85
 nấy
-mài
-nài
+mài	134
+nài	98
 oài
-màn
-mào
+màn	176
+mào	118
 mầm
 mần
 mằn
-nàn
-nào
+nàn	134
+nào	208
 nầm
 nần
 nằm
 nằn
-oàm
+oàm	21
 oằn
-màu
+màu	198
 mầu
-mày
+mày	145
 mầy
-này
+này	234
 nầy
 magi
-mải
-nải
-oải
+mải	116
+nải	83
+oải	104
 mail
 mản
 mẩm
 mẩn
 mẳn
-nản
+nản	128
 nảo
 nẳm
-oản
+oản	64
 oẳn
 mbit
 mẩu
-mảy
+mảy	87
 mẩy
-nảy
+nảy	144
 nẩy
 mãi
 Nẫm
@@ -3590,21 +3610,21 @@ nạc
 nặc
 oạc
 ôboa
-mang	2
+mang	199
 manh	136
 mại
 mâng	13
-măng	2
-nang	1
+măng	141
+nang	136
 nanh	102
 nại
-nâng	2
+nâng	184
 năng	211
-oang	1
+oang	73
 oanh	114
 oại
 oăng	1
-óng
+óng	112
 ống
 mạn
 mạo
@@ -3642,29 +3662,29 @@ oéc
 mém
 mén
 méo
-mến
+mến	145
 ném
 nén
 néo
-nếm
-nến
+nếm	118
+nến	125
 mép
 nép
-nếp
+nếp	146
 mét
 mết
-mếu
+mếu	79
 nét
-nết
-nếu
+nết	99
+nếu	195
 mèm
 mèn
 mèo
-mềm
-mền
+mềm	179
+mền	94
 nèn
 nèo
-nền
+nền	184
 oèo
 mega
 mêga
@@ -3677,8 +3697,8 @@ mẹc
 mênh	118
 nênh
 oeng
-òng
-ồng
+òng	41
+ồng	44
 mẹo
 neon
 nệm
@@ -3694,13 +3714,13 @@ mesơ
 mica
 mía
 míc
-nhá
-ngà
-nhà
+nhá	106
+ngà	119
+nhà	222
 ngai	124
-ngả
-nhai	1
-nhả
+ngả	124
+nhai	126
+nhả	107
 ngã
 nhã
 Nhạ
@@ -3708,17 +3728,17 @@ mím
 mín
 ngam	36
 ngan	101
-ngao	1
-ngâm	3
-ngân	1
-ngăm	2
-ngăn	1
+ngao	111
+ngâm	141
+ngân	180
+ngăm	86
+ngăn	172
 nham	112
-nhan	3
-nhao	1
+nhan	137
+nhao	82
 nhâm	104
 nhân	218
-nhăm	2
+nhăm	79
 nhăn	131
 ním
 nín
@@ -3732,8 +3752,8 @@ nhau	203
 nhâu	30
 nít
 níu
-ngay	1
-ngây	3
+ngay	191
+ngây	128
 nhay	63
 nhây	26
 nhé
@@ -3742,27 +3762,27 @@ nhẻ
 nhể
 nhẽ
 nhễ
-miên	1
+miên	123
 mìn
-nhem	2
+nhem	82
 nhen	97
-nheo	3
+nheo	105
 nhẹ
 niêm	143
-niên	1
+niên	181
 miêu	190
 mìu
 niêu	85
-mỉa
+mỉa	98
 nhí
-nghe	1
+nghe	184
 nghê	114
 nhì
-nghi	2
-nhỉ
+nghi	173
+nhỉ	134
 nhĩ
 Ohio
-mỉm
+mỉm	124
 nhị
 NHHP
 mỉu
@@ -3772,35 +3792,35 @@ nĩa
 mili
 mĩm
 ngoa	115
-ngó
+ngó	117
 ngố
-ngớ
-nhó
+ngớ	104
+nhó	83
 nhố
-nhớ
+nhớ	180
 nina
-ngoe	1
-ngò
+ngoe	66
+ngò	89
 ngồ
-ngờ
+ngờ	173
 nhoe	33
-nhò
-nhờ
-minh	2
+nhò	49
+nhờ	176
+minh	188
 mini
 ngoi	83
-ngỏ
-ngôi	2
+ngỏ	120
+ngôi	182
 ngổ
 ngơi	147
 nhoi	94
-nhỏ
+nhỏ	198
 nhôi	21
 nhổ
 nhơi	1
-nhở
-ninh	1
-ỏng
+nhở	136
+ninh	164
+ỏng	36
 ổng
 ngõ
 ngỗ
@@ -3809,37 +3829,37 @@ nhõ
 nhỡ
 minơ
 mịn
-ngon	1
+ngon	165
 ngọ
-ngôn	3
+ngôn	170
 ngộ
 ngơm	13
 ngơn	13
-ngợ
+ngợ	60
 nhom	75
 nhon
 nhọ
-nhôm	2
+nhôm	133
 nhôn	33
 nhơm	36
 nhơn	85
-nhợ
+nhợ	61
 nino
 mịt
 nịt
 nịu
-ngú
+ngú	1
 ngưa	43
 ngứ
-nhú
+nhú	94
 nhứ
 ngù
-ngừ
-nhù
-nhừ
-ngủ
+ngừ	113
+nhù	30
+nhừ	101
+ngủ	174
 nhui	13
-nhủ
+nhủ	119
 nhử
 Nhữ
 ngũ
@@ -3848,65 +3868,65 @@ nhũ
 Nhum
 ngun
 nguơ
-ngụ
+ngụ	139
 ngự
 nhun
-nhụ
+nhụ	41
 nhự
 nitơ
 nivô
 ngưu	91
-nguy	2
+nguy	178
 okay
 ôliu
 õng
-móc
+móc	149
 mốc
-nóc
+nóc	123
 nốc
 oóc
-mói
+mói	83
 mối
-mới
-nói
+mới	215
+nói	207
 nối
-nới
-móm
-món
-mớm
+nới	124
+móm	89
+món	179
+mớm	74
 mớn
-nón
+nón	129
 Nốp
-móp
-mớp
+móp	78
+mớp	21
 nóp
-nớp
-mót
+nớp	77
+mót	81
 mốt
-nót
+nót	74
 nốt
-nớt
+nớt	94
 moay	13
-mòi
-mồi
-mời
-nòi
-nồi
+mòi	91
+mồi	144
+mời	167
+nòi	102
+nồi	144
 noel
 Nôen
-mòm
-mòn
-mồm
-mồn
-mờm
+mòm	13
+mòn	143
+mồm	114
+mồn	68
+mờm	30
 nòm
-nồm
-nờm
-mỏi
-nỏi
+nồm	73
+nờm	13
+mỏi	152
+nỏi	46
 nổi
-mỏm
-mởn
+mỏm	97
+mởn	83
 nỏm
 mỗi
 nỗi
@@ -3917,12 +3937,12 @@ mọc
 mộc
 nọc
 Nọi
-mong	3
+mong	178
 mọi
-mông	3
+mông	131
 mội
 nong	99
-nông	2
+nông	186
 nội
 oong
 ôông
@@ -3933,7 +3953,7 @@ nộm
 nộn
 mọp
 nộp
-nợp
+nợp	13
 mọt
 một
 nọt
@@ -3948,64 +3968,64 @@ Mrơn
 nsưt
 Núa
 muá
-múa
-múc
+múa	145
+múc	104
 mứa
 mức
-núc
+núc	89
 nứa
 nức
-múi
-núi
+múi	109
+núi	178
 Mual
 Mứn
-múm
-mún
-núm
+múm	13
+mún	95
+núm	111
 ôvan
-múp
-núp
-mút
+múp	55
+núp	97
+mút	112
 mứt
 mứu
-nút
+nút	155
 nứt
-mùa
-mùi
-nùi
-mùn
-nùn
+mùa	189
+mùi	160
+nùi	49
+mùn	94
+nùn	1
 mửa
-nủa
+nủa	30
 nửa
-mủi
-mủm
-mủn
+mủi	69
+mủm	36
+mủn	70
 nữa
 mũi
 nũi
 null
 mũm
 nũy
-mục
+mục	195
 mựa
 mực
-nục
+nục	79
 nực
 mung	59
 muôi	67
-mụi
+mụi	26
 mưng
 mươi	146
 nung	129
-nuôi	1
+nuôi	182
 nưng	46
 nươi
 muôm
 muôn	133
-mụn
+mụn	146
 mươn
-mụp
+mụp	1
 mụt
 Otto
 Muya
@@ -4014,86 +4034,86 @@ oxid
 ozon
 Pấc
 Pắc
-pác
-rác
+pác	61
+rác	155
 rắc
-sác
+sác	71
 sắc
-rái
-sái
+rái	85
+sái	74
 Pắk
 Pán
 Rcăm
 páo
-rám
-rán
-ráo
+rám	81
+rán	120
+ráo	131
 rấm
 rấn
 rắm
 rắn
-sám
-sán
-sáo
+sám	88
+sán	106
+sáo	120
 sấm
 sấn
 sắm
 sắn
-páp
-ráp
+páp	33
+ráp	134
 rấp
 rắp
-sáp
+sáp	147
 sấp
 sắp
 Pát
-rát
+rát	115
 ráu
 rất
 rắt
-sát
-sáu
+sát	195
+sáu	157
 sất
 sấu
 sắt
-ráy
+ráy	76
 sấy
 sà-
 rađa
 Pài
-rài
-sài
+rài	51
+sài	108
 Pằn
 pào
 ràm
-ràn
-rào
+ràn	43
+rào	148
 rầm
 rần
 rằm
 rằn
-sàm
-sàn
-sào
+sàm	80
+sàn	161
+sào	123
 sầm
 sần
 rầu
 sầu
-rày
+rày	69
 rầy
 sầy
-rải
-sải
-rảo
+rải	136
+sải	110
+rảo	80
 rẩm
-sản
-sảo
+sản	215
+sảo	113
 sẩm
 sẩn
 rảu
-rảy
+rảy	47
 rẩy
-sảy
+sảy	107
 sẩy
 sakê
 rãi
@@ -4114,12 +4134,12 @@ Pang
 Păng
 Sại
 panh
-rang	1
-ranh	1
+rang	124
+ranh	139
 rại
-răng	1
-sang	2
-sanh	1
+răng	165
+sang	189
+sanh	127
 sâng
 săng	54
 panô
@@ -4155,25 +4175,25 @@ real
 Péo
 rén
 réo
-rến
+rến	36
 sém
 séo
-sến
-rếp
-sếp
+sến	89
+rếp	1
+sếp	128
 rét
-rết
+rết	86
 rếu
 sét
-sếu
+sếu	84
 pêđê
 rèm
 rèn
 rèo
-rền
+rền	81
 sèo
-sền
-rều
+sền	83
+rều	33
 sều
 rẻo
 sẻn
@@ -4197,19 +4217,19 @@ sệt
 seri
 peso
 sexy
-phá
+phá	186
 síc
-phà
+phà	115
 rià
 phai	123
-phả
+phả	114
 rial
 Phan	159
 Phạ
 Sín
-phao	1
-phân	1
-phăm	1
+phao	122
+phân	198
+phăm	51
 phăn	67
 pín
 rím
@@ -4221,17 +4241,17 @@ rít
 ríu
 sít
 phay	87
-phây	1
+phây	66
 SIDA
 phé
-phế
+phế	142
 rìa
 phè
-phề
+phề	13
 sìi
 riel
 Sìn
-phen	1
+phen	107
 pheo	39
 phên	84
 phệ
@@ -4241,31 +4261,31 @@ phêu
 piêu
 riêu	85
 rìu
-siêu	2
+siêu	173
 phí
-rỉa
-sỉa
+rỉa	75
+sỉa	21
 phì
-phỉ
-phim	1
+phỉ	104
+phim	193
 phin	75
 phị
 rỉn
 phiu	72
 rĩn
-phó
+phó	163
 phố
 phớ
 rịa
 sịa
-phò
-phồ
-phờ
+phò	102
+phồ	44
+phờ	80
 phoi	61
 phôi	124
 phổ
-phơi	2
-phở
+phơi	140
+phở	122
 ping	66
 rinh	97
 sinh	217
@@ -4283,80 +4303,80 @@ pint
 rịt
 sịt
 phua
-phú
-phù
+phú	161
+phù	183
 rivê
 phui	88
-phủ
+phủ	191
 phũ
 phum
-phun	2
-phụ
+phun	148
+phụ	196
 shtt
 phuy	77
 Rlâm
 plây
 Roá
 róa
-róc
+róc	85
 rốc
-sóc
+sóc	171
 sốc
-soà
-rói
+soà	1
+rói	88
 rối
-sói
-sới
+sói	127
+sới	76
 rock
 Rốm
-róm
-rón
+róm	58
+rón	78
 rốn
-rớm
-sóm
-són
-sớm
-sớn
+rớm	80
+sóm	1
+són	66
+sớm	176
+sớn	21
 rốp
 rớp
 sốp
-rót
+rót	117
 rốt
-rớt
-sót
+rớt	125
+sót	155
 sốt
-sớt
+sớt	61
 soda
 sòa
 sôđa
-ròi
-rồi
-rời
-sòi
-sồi
-ròm
+ròi	80
+rồi	194
+rời	168
+sòi	26
+sồi	102
+ròm	66
 ròn
-rồm
+rồm	13
 rồn
-rờm
-rờn
-sòm
+rờm	26
+rờn	75
+sòm	64
 sòn
 sồm
-sồn
-sờm
-sờn
+sồn	66
+sờm	21
+sờn	77
 rỏi
 rổi
-sỏi
+sỏi	129
 sổi
-sởi
-rỏm
-rỏn
+sởi	112
+rỏm	13
+rỏn	13
 rổn
-rởm
-rởn
-sởn
+rởm	82
+rởn	13
+sởn	64
 rơle
 rõi
 rỗi
@@ -4373,25 +4393,25 @@ pông	46
 rong	129
 rọi
 rông	99
-rợi
-song	1
-sông	1
+rợi	33
+song	173
+sông	183
 sơmi
-sợi
+sợi	155
 rọm
 rọn
 rộm
 rộn
-rợm
-rợn
+rợm	13
+rợn	106
 sọm
 rộp
-rợp
+rợp	96
 sộp
 pơmu
 rọt
 rột
-rợt
+rợt	1
 sọt
 sột
 rose
@@ -4402,18 +4422,18 @@ Prao
 Preh
 prep
 SRó
-quá
-rúc
+quá	203
+rúc	85
 rứa
 rức
-súc
+súc	142
 sứa
 sức
-quà
+quà	167
 quai	117
-quả
+quả	206
 rubi
-rúi
+rúi	26
 quã
 quan	219
 quao	36
@@ -4421,53 +4441,53 @@ quạ
 quân	206
 quăm	59
 quăn	79
-rúm
-rún
-sún
+rúm	73
+rún	41
+sún	55
 ptcs
-rúp
-súp
+rúp	89
+súp	116
 pút
 quau	1
-rút
+rút	172
 rứt
-sút
+sút	143
 sứt
-quay	1
+quay	179
 quây	113
 qúy
 ruby
 súy
 qué
-quế
-rùa
+quế	121
+rùa	128
 què
 quề
 quẻ
 quể
-sùi
+sùi	105
 quẽ
-quen	2
-queo	1
-quên	3
+quen	173
+queo	80
+quên	163
 quệ
-rùm
-rùn
-sùm
-sừn
+rùm	67
+rùn	21
+sùm	43
+sừn	47
 qùy
 quí
-rủa
+rủa	102
 rửa
-sủa
+sủa	114
 sửa
 quì
 quỉ
-rủi
-sủi
+rủi	152
+sủi	94
 quĩ
 quị
-rủn
+rủn	63
 sửu
 pula
 rũa
@@ -4478,23 +4498,23 @@ pull
 rulô
 qũy
 Pụa
-quớ
+quớ	1
 rụa
-rục
+rục	92
 rựa
 rực
-sụa
-sục
+sụa	63
+sục	115
 sực
-quờ
+quờ	63
 Pươi
-quở
+quở	80
 rung	139
-rụi
-rưng	1
+rụi	104
+rưng	104
 rươi	90
-sung	2
-sưng	1
+sung	173
+sưng	129
 sươi
 quọ
 ruôn
@@ -4502,14 +4522,14 @@ rụm
 rươm	13
 rươn
 suôn	113
-sụm
-sụn
+sụm	44
+sụn	121
 rụp
 stop
-sụp
+sụp	141
 Pụt
-rụt
-sụt
+rụt	102
+sụt	134
 sựt
 sựu
 qụy
@@ -4524,71 +4544,71 @@ quỵ
 Rỵn
 u-rê
 u-su
-tác
+tác	211
 tấc
 tắc
-vác
+vác	125
 vắc
-tái
-vái
-tám
-tán
-táo
+tái	174
+vái	1
+tám	147
+tán	162
+táo	150
 tấm
 tấn
 tắm
 tắn
-ván
-váo
+ván	136
+váo	59
 vấn
 vắn
-táp
+táp	97
 tấp
 tắp
-váp
+váp	69
 vấp
 tabu
-tát
-táu
+tát	121
+táu	49
 tất
 tấu
 tắt
 uất
-vát
+vát	101
 vất
 vấu
 vắt
-táy
+táy	50
 tấy
-váy
+váy	151
 vấy
-tài
-vài
+tài	203
+vài	184
 tàm
-tàn
-tào
+tàn	158
+tào	94
 tầm
 tần
 tằm
 tằn
-vàm
-vàn
-vào
+vàm	69
+vàn	120
+vào	229
 vần
 vằm
 vằn
-tàu
+tàu	187
 tầu
 vầu
-tày
+tày	85
 tầy
 uầy
-vày
+vày	60
 vầy
-tải
-vải
-tản
-tảo
+tải	179
+vải	153
+tản	131
+tảo	125
 tẩm
 tẩn
 tẳn
@@ -4598,7 +4618,7 @@ tẩu
 vẩu
 tẩy
 uẩy
-vảy
+vảy	121
 vẩy
 taka
 tala
@@ -4616,18 +4636,18 @@ vạc
 vặc
 UBND	171
 tand
-tang	2
-tanh	3
+tang	147
+tanh	111
 tại
 tâng	84
 tăng	207
-úng
-vang	2
+úng	111
+vang	152
 vanh	73
 vani
 vại
 vâng	110
-văng	3
+văng	120
 ứng
 tạm
 tạo
@@ -4652,7 +4672,7 @@ vặt
 vạy
 vậy
 tarô
-TCVN	100
+TCVN	1
 vatu
 tcty
 taxi
@@ -4665,18 +4685,18 @@ vén
 véo
 tép
 tét
-tết
-tếu
+tết	151
+tếu	77
 vét
-vết
-vếu
+vết	161
+vếu	33
 tèm
 tèn
 tèo
 vèn
 vèo
-vền
-vều
+vền	21
+vều	21
 Tẻh
 tẻm
 tẻo
@@ -4685,11 +4705,11 @@ vẻo
 tẽn
 tẹc
 vẹc
-teng	1
-tênh	1
-ùng
+teng	51
+tênh	74
+ùng	54
 vênh	103
-ừng
+ừng	59
 tẹo
 tênô
 vẹm
@@ -4704,92 +4724,92 @@ vệt
 verb
 test
 TDTT
-thá
+thá	44
 tía
 viá
 vía
-thà
-thai	1
-thả
+thà	116
+thai	169
+thả	156
 tham	204
-than	3
-thao	1
-thâm	1
-thân	1
-thăm	1
-thăn	2
+than	154
+thao	172
+thâm	149
+thân	197
+thăm	175
+thăn	85
 tím
 tín
 THCS
 típ
-thau	100
+thau	1
 thâu	120
 tít
 tíu
 vít
 víu
-thay	2
+thay	198
 thây	102
 thé
-thế
+thế	216
 thè
-thề
+thề	126
 thẻ
 thể
 thẽ
 then	119
 theo	217
-thêm	2
+thêm	198
 thệ
-tiêm	1
+tiêm	152
 tiên	210
 tìm
 tìn
-viêm	3
+viêm	163
 viên	217
-thêu	2
+thêu	124
 tiêu	204
 thia	69
 thí
-tỉa
-vỉa
+tỉa	121
+vỉa	128
 thì
-thỉ
+thỉ	90
 thĩ
 thin	56
 thị
-tỉm
-thiu	1
+tỉm	77
+thiu	92
 tỉu
 vila
 tĩn
 vĩo
 tĩu
 thoa	132
-thó
+thó	79
 thố
-thớ
-thò
-thồ
-thờ
+thớ	94
+thò	1
+thồ	87
+thờ	171
 Ting
-thoi	3
-thỏ
-thôi	2
+thoi	118
+thỏ	127
+thôi	170
 thổ
-thơi	1
-thở
-tinh	1
-ủng
-vinh	2
+thơi	95
+thở	155
+tinh	191
+ủng	167
+vinh	158
 ửng
 thom	43
-thon	1
+thon	128
 thọ
-thôn	1
-thơm	2
+thôn	175
+thơm	159
 thơn	36
-thợ
+thợ	151
 tịn
 vịm
 vịn
@@ -4801,89 +4821,89 @@ tipô
 VIQR	36
 THPT
 thua	161
-thú
-thưa	2
+thú	177
+thưa	139
 thứ
-thuê	2
-thù
-thừ
+thuê	173
+thù	164
+thừ	69
 thui	102
-thủ
+thủ	199
 thử
 tivi	127
 thum	51
-thun	3
-thụ
+thun	125
+thụ	172
 thự
 toá
-tóc
+tóc	174
 tốc
-vóc
+vóc	136
 vốc
-ước
-toà
+ước	177
+toà	132
 tóe
 VNCH
-toả
-tói
+toả	115
+tói	41
 tối
-tới
-vói
+tới	206
+vói	82
 vối
-với
-toan	2
+với	239
+toan	126
 toạ
-tóm
+tóm	136
 tốn
-tớn
+tớn	30
 uốn
 voan	105
-vón
+vón	88
 vốn
-ướm
-tóp
+ướm	71
+tóp	85
 tốp
-tớp
-ướp
-tót
+tớp	30
+ướp	129
+tót	101
 tốt
-tớt
-vót
-vớt
-ướt
+tớt	13
+vót	94
+vớt	127
+ướt	139
 toé
 tòa
 toè
 tòe
 toẻ
-tòi
-tồi
-tời
-vòi
-vồi
-vời
+tòi	116
+tồi	134
+tời	87
+vòi	131
+vồi	1
+vời	161
 toẽ
 toen	26
-tòm
-tòn
+tòm	51
+tòn	33
 tồm
-tồn
-vòm
-vòn
-vồn
-vờn
-ườn
+tồn	177
+vòm	130
+vòn	36
+vồn	66
+vờn	82
+ườn	47
 Uní
 tỏa
 tỏe
 tơì
-tỏi
-tỏm
+tỏi	132
+tỏm	1
 tổn
-tởm
+tởm	99
 tởn
-vỏn
-vởn
+vỏn	104
+vởn	64
 vôlê
 tõm
 ưỡn
@@ -4894,119 +4914,119 @@ tộc
 vọc
 Uông
 tong	92
-tông	1
+tông	154
 tội
-vong	3
+vong	160
 vọi
-vông	1
+vông	92
 vội
-vợi
-ương	1
+vợi	83
+ương	169
 tônô
-tợn
+tợn	101
 tọp
 tộp
-tợp
+tợp	33
 vọp
 tọt
 tột
 uột
 vọt
-vợt
+vợt	142
 topo
 tour
 tout	33
-trá
-trà
-trai	1
-trả
+trá	110
+trà	154
+trai	182
+trả	187
 trã
 tram	64
 tran	76
 trao	180
 trâm	92
-trân	3
-trăm	3
+trân	142
+trăm	168
 trăn	127
 trau	118
-trâu	2
+trâu	144
 trây	30
 urea
 trè
-trề
+trề	92
 trẻ
 trể
 trẽ
 trễ
-treo	1
+treo	155
 trẹ
 trên	225
 trệ
-trêu	1
+trêu	121
 trí
 trì
 trĩ
 trị
 Tró
 trố
-trớ
-trò
-trồ
-trờ
+trớ	102
+trò	190
+trồ	101
+trờ	75
 troi	67
-trỏ
-trôi	1
+trỏ	119
+trôi	149
 trổ
-trơi	1
-trở
+trơi	61
+trở	207
 trỗ
 tron	93
 trọ
 trôm	63
 trôn	64
 trộ
-trơn	1
-trợ
-trú
+trơn	136
+trợ	196
+trú	162
 trưa	150
 trứ
-trù
-trừ
+trù	127
+trừ	169
 trui	77
-trủ
+trủ	30
 trữ
 trun	33
-trụ
+trụ	169
 trự
-truy	2
+truy	170
 túa
-túc
+túc	155
 tứa
 tức
-vúc
+vúc	1
 vức
-túi
+túi	161
 tuân	150
-túm
-túp
-tút
-vút
+túm	103
+túp	96
+tút	82
+vút	107
 vứt
 túy
-tuế
+tuế	90
 từa
-vùa
-vừa
-vùi
+vùa	57
+vừa	195
+vùi	118
 tuệ
-tùm
-vùn
+tùm	93
+vùn	74
 tùy
-tủa
+tủa	104
 tửa
-tủi
-tủm
-tủn
+tủi	113
+tủm	76
+tủn	46
 vủn
 tửu
 tủy
@@ -5014,26 +5034,26 @@ vữa
 tũm
 tũn
 vũm
-tục
+tục	2
 tựa
 vụa
-vục
+vục	68
 vựa
 vực
-tung	1
-tụi
-tưng	2
-tươi	1
-vung	3
+tung	158
+tụi	118
+tưng	117
+tươi	168
+vung	113
 vưng	21
-tuôn	2
-tụm
+tuôn	101
+tụm	78
 tươm	92
-vụn
-vươn	1
-tụt
+vụn	124
+vươn	147
+tụt	124
 tựu
-vụt
+vụt	105
 vươt
 tụy
 tuya
@@ -5045,45 +5065,45 @@ tuỵ
 uýt
 uyên	116
 typo
-xác
+xác	192
 xấc
 xắc
 zắc
-xái
-xám
-xán
-xáo
+xái	39
+xám	146
+xán	63
+xáo	119
 xắm
 xắn
-xáp
+xáp	64
 xấp
 xắp
-xát
+xát	124
 xáu
 xất
 xấu
 xắt
-xáy
-xài
-xàm
-xào
+xáy	13
+xài	121
+xàm	36
+xào	131
 xầm
-xàu
+xàu	26
 xầu
 xải
-xảm
-xảo
+xảm	36
+xảo	127
 xẩm
 xẩn
-xảu
+xảu	1
 xẩu
-xảy
+xảy	180
 xẩy
 xạc
 Yang
-xang	1
-xanh	1
-xăng	1
+xang	81
+xanh	180
+xăng	155
 xạm
 xạo
 xậm
@@ -5097,17 +5117,17 @@ xéc
 xém
 xén
 xéo
-yếm
-yến
+yếm	117
+yến	129
 xép
-xếp
+xếp	179
 xét
-yết
-yếu
+yết	137
+yếu	194
 xèn
 xèo
-xềm
-xều
+xềm	1
+xều	1
 xẻn
 xẻo
 yểm
@@ -5138,105 +5158,105 @@ xìa
 xiêm	94
 xiên	110
 Xier
-xiêu	100
+xiêu	1
 xìu
-xỉa
-xỉn
-xỉu
+xỉa	84
+xỉn	109
+xỉu	103
 wiki
 wind
 xinê
 Xing
-xinh	1
+xinh	158
 xịn
 xịt
 xịu
 xirô
 xita
-xoá
+xoá	123
 xóa
-xóc
+xóc	99
 xốc
-xoà
+xoà	47
 xoai
-xoả
-xói
+xoả	13
+xói	116
 xối
-xới
+xới	1
 xoã
-xoan	1
-xoăn	3
-xóm
-xón
+xoan	102
+xoăn	117
+xóm	152
+xón	26
 xốn
 xớm
 xớn
-xóp
+xóp	1
 xốp
-xớp
-xót
+xớp	1
+xót	129
 xốt
-xớt
-xoay	3
+xớt	36
+xoay	151
 xòa
 xôđa
 xoè
 xòe
 xoen	13
 xoẹ
-xòm
-xồm
-xồn
-xờm
+xòm	36
+xồm	60
+xồn	30
+xờm	44
 xỏa
 yoga
 yôga
 xổi
-xởi
+xởi	50
 xổm
 xổn
-xởn
+xởn	21
 xõa
 xõm
 xọc
 xôma
 xộc
 xọe
-xong	3
+xong	167
 xông	138
 xộn
 xọp
 xộp
-xợp
-xợt
+xợp	26
+xợt	13
 Xúa
-xúc
+xúc	177
 xức
-xúi
+xúi	99
 yuck
 xuân	158
-xúm
+xúm	88
 yuan
-xúp
-xút
+xúp	76
+xút	69
 xuây	1
 xúy
 Xùa
-xuề
+xuề	69
 xuể
-xùi
-xùm
+xùi	1
+xùm	90
 xùy
 xửa
 xủi
-xục
+xục	41
 xực
-xung	1
-xuôi	1
-xụi
-xưng	3
+xung	172
+xuôi	134
+xụi	26
+xưng	140
 xtôn
-xụp
+xụp	85
 xụt
 xuya	1
 xuý
@@ -5277,32 +5297,32 @@ ba-tê	13
 ba-za
 ba-zơ
 ắc-ê
-bách
-cách
+bách	136
+cách	214
 cacao
 cabin
 acbit
 ăccoc
-báng
-bánh
+báng	110
+bánh	172
 bấng
 bắng
-cáng
-cánh
+cáng	93
+cánh	179
 cắng
 café
-bàng
-bành
+bàng	135
+bành	112
 bầng
 bằng
-càng
-cành
+càng	190
+cành	138
 cằng
 bai-t
-bảng
-bảnh
-cảng
-cảnh
+bảng	176
+bảnh	87
+cảng	160
+cảnh	193
 cẳng
 BCHTW
 balat
@@ -5340,52 +5360,52 @@ bê-rê
 bê-ta	30
 béng
 bếnh
-bềnh
+bềnh	108
 bểnh
 cello
 bệch
 bệnh
 bi-da	39
 Ch'om
-chác
+chác	80
 chắc
 bích
-chái
-chán
-cháo
+chái	84
+chán	146
+cháo	131
 chấm
 chấn
 chắm
 chắn
 chấp
 chắp
-chát
-cháu
+chát	115
+cháu	171
 chất
 chấu
 chắt
-cháy
+cháy	165
 chấy
-chài
-chàm
-chào
+chài	115
+chàm	105
+chào	163
 chầm
 chần
 chằm
 chằn
 chàu
 chầu
-chày
+chày	113
 chầy
-chải
+chải	128
 chảm
-chảo
+chảo	127
 chẩm
 chẩn
 chẳn
-chảu
+chảu	26
 chẩu
-chảy
+chảy	166
 chẩy
 chãi
 chão
@@ -5397,8 +5417,8 @@ chạc
 chậc
 chặc
 bính
-chang	1
-chanh	3
+chang	102
+chanh	140
 châng
 chăng	143
 chạm
@@ -5417,23 +5437,23 @@ chậu
 chặt
 chạy
 chậy
-biếc
-biếm
-biến
+biếc	101
+biếm	111
+biến	197
 chém
 chén
 chéo
 chép
 chếp
-biết
-biếu
+biết	209
+biếu	117
 chét
-chết
-biền
+chết	186
+biền	90
 chèm
 chèn
 chèo
-chềm
+chềm	1
 Biều
 chều
 biển
@@ -5444,10 +5464,10 @@ biểu
 chẽm
 chẽn
 chễm
-biêng	2
+biêng	58
 bình
 cheng	30
-chênh	2
+chênh	140
 biện
 chẹn
 chẹo
@@ -5466,62 +5486,62 @@ chít
 chíu
 chìa
 chiêm	135
-chiên	3
+chiên	133
 chìm
-chiêu	1
+chiêu	148
 chìu
 chỉa
-chỉn
+chỉn	95
 chĩa
 chĩn
 chịa
 Bhing
-bỉnh
+bỉnh	95
 chinh	150
 chịn
 chịt
 chịu
 bĩnh
 chlor
-choá
+choá	33
 chóa
-chóc
+chóc	108
 chốc
 chóe
 Choah
 bịch
 choai
-chói
+chói	118
 chối
-chới
+chới	80
 choăn	1
 chốn
-chớm
+chớm	96
 chớn
-chóp
+chóp	110
 chốp
-chớp
-chót
+chớp	127
+chót	120
 chốt
-chớt
+chớt	30
 choé
 choè
 chòe
-chòi
-chồi
+chòi	106
+chồi	113
 choen
 choẹ
-chòm
-chồm
-chồn
-chờm
-chờn
+chòm	114
+chồm	87
+chồn	111
+chờm	47
+chờn	94
 chỏi
 chổi
-chỏm
-chỏn
+chỏm	92
+chỏn	1
 chổm
-chởm
+chởm	82
 chõi
 chỗi
 chõm
@@ -5535,47 +5555,47 @@ chông	104
 chội
 chọn
 chộn
-chợn
+chợn	33
 chọp
 chộp
-chợp
+chợp	86
 chọt
 chột
-chợt
+chợt	132
 chrom
-chúa
-chúc
+chúa	158
+chúc	158
 chứa
 chức
-chúi
-chúm
+chúi	80
+chúm	63
 Chứt
-chút
+chút	169
 Chuế
-chùa
-chừa
-chùi
-chùm
-chùn
+chùa	161
+chừa	99
+chùi	110
+chùm	131
+chùn	90
 chùy
 chủa
 chửa
 chửi
 chủm
-chủn
+chủn	1
 chữa
 chũi
 chũm
 chũn
-chục
+chục	160
 chực
-chung	1
+chung	193
 chuôi	84
 chưng	123
 chuôm	44
-chụm
-chụp
-chụt
+chụm	87
+chụp	167
+chụt	43
 bitum
 chuỳ
 blăng
@@ -5601,22 +5621,22 @@ Cơ-tu	21
 ao-xơ
 bobin
 bôbin
-bóng
+bóng	187
 bống
-cóng
+cóng	87
 cống
 anbom
 boạt
 amatơ
 anbum
-bòng
-bồng
-còng
-cồng
+bòng	78
+bồng	121
+còng	102
+cồng	116
 amian
-bỏng
+bỏng	139
 bổng
-cỏng
+cỏng	21
 cổng
 amino
 bohri
@@ -5625,7 +5645,7 @@ bỗng
 cõng
 colon
 boóc
-coóc
+coóc	33
 bombê
 Annam
 anode
@@ -5657,45 +5677,45 @@ cu-đơ
 bu-gi	41
 cu-li
 au-xơ
-búng
+búng	80
 bứng
-cúng
+cúng	148
 cứng
 cuarơ
 audio
-bùng
-bừng
-cùng
-bủng
+bùng	145
+bừng	128
+cùng	213
+bủng	52
 bửng
-củng
+củng	147
 cửng
 atisô
 atlas
 culit
 cũng
 culon
-bước
+bước	184
 cuốc
-cước
+cước	144
 buối
 cuối
-cưới
-bướm
+cưới	165
+bướm	125
 cuốn
-bướp
-cướp
+bướp	13
+cướp	154
 buốt
-bướu
-buồi
+bướu	112
+buồi	39
 cuồi
-cười
-buồm
-buồn
-cuồn
-cườm
+cười	168
+buồm	120
+buồn	163
+cuồn	89
+cườm	89
 buổi
-bưởi
+bưởi	127
 cưởi
 bunke
 cưỡi
@@ -5706,16 +5726,16 @@ cược
 Cuông
 buông	133
 buội
-bụng
+bụng	162
 bương	53
 bựng
 cuội
-cụng
-cương	2
+cụng	75
+cương	156
 buộm
 cuộn
 buột
-bượt
+bượt	13
 bupbê
 curoa
 burst
@@ -5725,23 +5745,23 @@ axít
 e-ste
 fa-ra
 dách
-đách
-dáng
+đách	26
+dáng	167
 dắng
-đáng
-đánh
+đáng	187
+đánh	201
 đấng
 đắng
-dàng
-dành
+dàng	175
+dành	185
 dằng
-đàng
-đành
+đàng	122
+đành	142
 đằng
 dảnh
 dẳng
 Đảnh
-đảng
+đảng	170
 đẳng
 dãng
 đãng
@@ -5755,11 +5775,11 @@ dê-rô
 đê-xi
 đeca-
 dếch
-đếch
+đếch	53
 decor
 đềca
-dềnh
-đềnh
+dềnh	61
+đềnh	13
 đểnh
 đễnh
 delta
@@ -5774,20 +5794,20 @@ dích
 đích
 dính
 đính
-diếc
-điếc
+diếc	68
+điếc	105
 diến
-điếm
+điếm	99
 điến
-diếp
-diết
-diếu
-điếu
-diềm
+diếp	92
+diết	97
+diếu	33
+điếu	113
+diềm	82
 điềm
-điền
-diều
-điều
+điền	143
+diều	118
+điều	214
 diển
 điểm
 điển
@@ -5810,7 +5830,7 @@ diệu
 điệt
 điệu
 Dgieh
-đỉnh
+đỉnh	164
 dĩnh
 đĩnh
 dịch
@@ -5823,28 +5843,28 @@ fluor
 em-mê
 Đơ-ro
 đoác
-đoái
-đoán
-đoài
-đoàn
+đoái	1
+đoán	166
+đoài	36
+đoàn	199
 email	151
-đoản
+đoản	98
 doãi
 doãn
 Dống
 doanh	205
 dóng
-đóng
+đóng	189
 đống
 đoạn
 đoạt
 dobra
 đờ-o
-dòng
+dòng	183
 dồng
-đòng
-đồng
-dỏng
+đòng	86
+đồng	218
+dỏng	60
 êning
 đỏng
 đổng
@@ -5866,57 +5886,57 @@ fu-la
 đu-ra
 Duẩn
 dubni
-dúng
+dúng	61
 dứng
-đúng
+đúng	188
 đứng
 duật
-dùng
-dừng
-đùng
-đừng
+dùng	204
+dừng	163
+đùng	108
+đừng	159
 ether
 dửng
-đủng
+đủng	68
 dũng
 đũng
 duốc
 đuốc
-đước
+đước	89
 duối
-dưới
+dưới	194
 đuối
 dướn
 đướu
-đười
+đười	76
 Duồn
 đuồn
-đườn
+đườn	30
 đuổi
 duỗi
 đuỗn
 đưỡn
 duộc
-dược
-được
-dụng
-dương	1
+dược	157
+được	247
+dụng	219
+dương	168
 dượi
 dựng
 đuông
 đuội
-đụng
+đụng	134
 đương	169
 đượi
 đựng
-đượm
-dượt
+đượm	99
+dượt	83
 đuột
-duyên	1
+duyên	151
 đuyra
 i-ốt
 i-tan
-i-tờ
+i-tờ	13
 ga-la
 ga-lê	30
 ga-li
@@ -5925,21 +5945,21 @@ ga-ra	46
 ga-rô	13
 ga-tô	33
 gách
-hách
-gánh
+hách	98
+gánh	145
 gắng
-háng
-hánh
+háng	90
+hánh	26
 hấng
 hắng
-gàng
-gành
-hàng
-hành
+gàng	126
+gành	66
+hàng	219
+hành	214
 hằng
 gảng
 gảnh
-hảng
+hảng	52
 hảnh
 hẩng
 galen
@@ -5958,10 +5978,10 @@ hạng
 hạnh
 he-li
 hê-li
-hếch
+hếch	75
 hecta
 hecto
-hềnh
+hềnh	41
 hểnh
 idiom
 hệch
@@ -5969,43 +5989,43 @@ hertz
 hi-fi
 hi-la
 gi-lê	21
-giác
+giác	177
 giấc
 giắc
 giái
 gích
 hích
-giám
-gián
-giáo
+giám	181
+gián	146
+giáo	201
 giấm
 giấn
 giắm
 giắn
-giáp
+giáp	162
 giấp
-giát
+giát	55
 giấu
 giắt
 Giáy
 giấy
 giàm
-giàn
-giào
+giàn	129
+giào	26
 giầm
 giần
 giằm
 giằn
-giàu
+giàu	167
 giầu
-giày
+giày	150
 giầy
-giải
-giảm
-giản
-giảo
+giải	209
+giảm	199
+giản	178
+giảo	84
 giẳn
-giảu
+giảu	13
 giẩy
 giãi
 giãn
@@ -6015,7 +6035,7 @@ giãy
 giẫy
 giạc
 giặc
-giang	3
+giang	133
 gianh	73
 giại
 giăng	107
@@ -6030,23 +6050,23 @@ giạt
 giật
 giậu
 giặt
-giếc
+giếc	41
 hiếc
 ghém
 giéo
-giếm
-hiếm
-hiến
+giếm	90
+hiếm	160
+hiến	160
 ghép
-hiếp
+hiếp	131
 ghét
-giết
-hiếu
+giết	171
+hiếu	142
 ghèn
 gièm
-giền
-hiềm
-hiền
+giền	21
+hiềm	95
+hiền	141
 gièy
 hiểm
 hiển
@@ -6072,31 +6092,31 @@ giga-
 ghín
 ghít
 ghìm
-hỉnh
+hỉnh	99
 ghịt
 ghita
 hĩnh
 gĩữ
-gióc
+gióc	21
 giốc
-giói
+giói	46
 giối
-giới
+giới	208
 hịch
-gión
+gión	13
 Gióp
 Giót
 giốt
-giòi
-giồi
-giời
-giòn
-giờn
+giòi	70
+giồi	46
+giời	101
+giòn	132
+giờn	1
 Hinđu
 hindu
-giỏi
+giỏi	163
 giổi
-giỏn
+giỏn	1
 giởn
 giỗi
 giỡn
@@ -6108,16 +6128,16 @@ giội
 giộp
 giọt
 hippy
-giúi
-giúp
-giùi
-giùm
-giủi
+giúi	43
+giúp	203
+giùi	46
+giùm	103
+giủi	1
 giũa
 giữa
-giụa
-giục
-giụi
+giụa	77
+giục	119
+giụi	21
 giụn
 giựt
 gluco
@@ -6127,37 +6147,37 @@ in-đi
 gô-ri
 in-sơ
 in-va
-hoác
+hoác	68
 hoắc
 hoái
-hoán
+hoán	117
 hoắm
 hoắt
-hoáy
-hoài
-hoàn
+hoáy	56
+hoài	137
+hoàn	2
 hoằn
-hoải
+hoải	59
 hoẳn
 hoãn
 hoặc
-hoang	1
+hoang	159
 hoại
 hoăng	57
-hóng
+hóng	88
 hống
 hoạn
 hoặn
 hoạt
 hoét
 hoẻn
-gồng
-hòng
-hồng
+gồng	1
+hòng	108
+hồng	164
 hoẹt
 Hning
-gỏng
-hỏng
+gỏng	72
+hỏng	153
 hổng
 hơgơr
 Hơleo
@@ -6177,33 +6197,33 @@ Islam
 huấn
 huầy
 Gứng
-húng
+húng	98
 hứng
-gùng
-gừng
+gùng	1
+gừng	127
 huênh	63
-hùng
-hừng
+hùng	161
+hừng	91
 Hủó
 hủng
 hửng
 hững
 guốc
-hước
-hướm
+hước	135
+hướm	46
 huốt
-guồi
-gườm
+guồi	1
+gườm	55
 huờn
 hườm
 gưởi
 huỡn
 guộc
-gương	1
-hương	2
+gương	163
+hương	173
 guộn
-gượm
-hượm
+gượm	21
+hượm	1
 guột
 huýt
 huyên	93
@@ -6216,18 +6236,18 @@ la-ga
 ka-ki	21
 ka-li	30
 Kách
-lách
+lách	123
 lăclê
-láng
-lánh
+láng	130
+lánh	134
 lắng
 Kađai
-làng
-lành
+làng	180
+lành	162
 lằng
 ladơn
-lảng
-lảnh
+lảng	95
+lảnh	72
 lẳng
 lãng
 lãnh
@@ -6247,12 +6267,12 @@ layơn
 kê-pi	36
 le-va
 Lê-vi	1
-kếch
-lếch
+kếch	81
+lếch	64
 léng
 Lèng
-kềnh
-lềnh
+kềnh	106
+lềnh	68
 lèõ
 kẻng
 lẻng
@@ -6273,42 +6293,42 @@ li-vê
 Ki-tô	21
 li-tô	46
 li-xê
-khác
+khác	215
 khấc
 khắc
-khái
+khái	152
 kích
 lích
-khám
-khán
-kháo
+khám	172
+khán	165
+kháo	80
 khấm
 khấn
 khắm
 khắn
-kháp
+kháp	44
 khấp
 khắp
-khát
-kháu
+khát	148
+kháu	85
 khất
 khấu
 khắt
-kháy
-khàn
+kháy	43
+khàn	89
 khào
 khần
 khằn
-khải
-khảm
-khản
-khảo
+khải	95
+khảm	106
+khản	80
+khảo	174
 khẩm
 khẩn
 khẳm
 khẳn
 khẩu
-khảy
+khảy	41
 khẩy
 khạc
 khậc
@@ -6317,7 +6337,7 @@ Jiang
 khang	123
 khanh	110
 khâng
-khăng	1
+khăng	113
 kính
 lính
 khạo
@@ -6325,29 +6345,29 @@ khậm
 khạp
 khập
 khật
-liếc
+liếc	102
 khén
 khéo
-kiếm
-kiến
-liếm
-liến
+kiếm	182
+kiến	197
+liếm	96
+liến	58
 khép
-kiếp
-liếp
+kiếp	125
+liếp	75
 khét
-kiết
-kiếu
+kiết	91
+kiếu	47
 liếu
 khèn
 khèo
-kiềm
-kiền
-liềm
-liền
-khều
-kiều
-liều
+kiềm	133
+kiền	58
+liềm	103
+liền	170
+khều	61
+kiều	135
+liều	151
 khẻo
 kiểm
 kiểu
@@ -6383,44 +6403,44 @@ khìn
 khiêu	132
 khịa
 khinh	125
-kỉnh
-lỉnh
+kỉnh	94
+lỉnh	90
 khịt
 khịu
 Khlá
 kilo-
 lĩnh
-khoá
+khoá	144
 khóa
-khóc
+khóc	155
 khốc
 khóe
-khoai	1
-khoả
-khói
+khoai	140
+khoả	78
+khói	145
 khối
 khới
 kịch
 lịch
-khoan	1
+khoan	142
 khoăm	1
-khoăn	1
-khóm
+khoăn	135
+khóm	102
 khốn
-khớp
+khớp	154
 khót
 khoé
 khòe
 khoẻ
 khoen
 khoeo	61
-khòm
+khòm	33
 khòn
 Khmer
 khỏa
 khỏe
-khỏi
-khởi
+khỏi	184
+khởi	178
 Kinho
 khổn
 khởm
@@ -6433,10 +6453,10 @@ khọt
 lintô
 Linux
 lipid
-khúc
+khúc	171
 khứa
 khuân	91
-khúm
+khúm	50
 litas
 khứu
 khuây	79
@@ -6445,15 +6465,15 @@ Khừa
 Khủa
 lithi
 khủy
-khục
+khục	58
 khựa
 khuờ
-khung	2
+khung	160
 khươi	1
-khuôn	1
+khuôn	162
 khươm	13
 khươn	13
-khụt
+khụt	1
 khụy
 khuya	123
 khuỷ
@@ -6468,29 +6488,29 @@ loác
 loán
 loáo
 loắn
-loát
+loát	93
 loắt
 loáy
-loài
-loàn
+loài	184
+loàn	50
 loằn
 loạc
 loang	103
 loanh	91
 loại
 loăng	53
-lóng
+lóng	104
 loạn
 loạt
 lôcôt
 loét
 loẻo
-lòng
-lồng
+lòng	189
+lồng	148
 loẹt
 logic
 lôgic
-lỏng
+lỏng	149
 lổng
 lõng
 Loong	49
@@ -6507,42 +6527,42 @@ Krung
 ju-đô
 luấn
 luẩn
-lúng
+lúng	119
 luận
 luật
 Kuênh
-lùng
-lừng
+lùng	138
+lừng	124
 kudzu
-lủng
+lủng	85
 lửng
 lũng
 lững
 luốc
-lưới
+lưới	163
 lướp
 luốt
-lướt
+lướt	134
 lướu
 luồi
 lưòi
-lười
-luồn
-lườm
-lườn
+lười	122
+luồn	106
+lườm	73
+lườn	104
 lưởi
 lưỡi
 luộc
-lược
+lược	173
 luông	54
-lụng
-lương	3
+lụng	85
+lương	170
 lựng
 luộm
-lượm
-lượn
+lượm	105
+lượn	129
 luột
-lượt
+lượt	171
 juýp
 kuýp
 luýt
@@ -6562,34 +6582,34 @@ ma-de
 ma-dê
 na-di
 ma-gi
-mách
-nách
-oách
+mách	112
+nách	120
+oách	67
 macma
 Oánh
-máng
-mánh
+máng	110
+mánh	95
 mắng
-náng
-nánh
+náng	49
+nánh	21
 nấng
 nắng
 macro
 mađam
 mafia
-màng
-mành
+màng	153
+mành	93
 mầng
-nàng
-nành
+nàng	165
+nành	120
 nằng
-oàng
-oành
+oàng	33
+oành	26
 magie
 magma
 oẳnc
-mảng
-mảnh
+mảng	147
+mảnh	158
 oẳng
 naira
 nakfa
@@ -6618,7 +6638,7 @@ mazut
 me-ga
 mê-ga
 mê-lô
-mếch
+mếch	51
 media
 mêđia
 mèng
@@ -6637,86 +6657,86 @@ Ni-nô	1
 mi-nơ
 ni-tơ	41
 ni-vô
-ngác
+ngác	98
 ngấc
 ngắc
-nhác
+nhác	98
 nhấc
 nhắc
 mích
-ngái
-nhái
+ngái	83
+nhái	119
 ních
-ngám
-ngán
-ngáo
+ngám	1
+ngán	117
+ngáo	88
 ngấm
 ngấn
 ngắm
 ngắn
-nhám
-nháo
+nhám	107
+nháo	93
 nhấm
 nhấn
 nhắm
 nhắn
-ngáp
+ngáp	84
 ngấp
-nháp
+nháp	104
 nhấp
 nhắp
-ngát
-ngáu
+ngát	106
+ngáu	1
 ngất
 ngấu
 ngắt
-nhát
+nhát	127
 nháu
 nhất
 nhắt
-ngáy
+ngáy	102
 ngấy
-nháy
+nháy	115
 nhấy
-ngài
-nhài
-ngàm
-ngàn
-ngào
+ngài	132
+nhài	87
+ngàm	79
+ngàn	163
+ngào	139
 ngầm
 ngần
 ngằn
-nhàm
-nhàn
-nhào
+nhàm	119
+nhàn	119
+nhào	119
 nhầm
 nhần
 nhằm
 nhằn
-ngàu
+ngàu	47
 ngầu
-nhàu
+nhàu	89
 nhầu
-ngày
+ngày	221
 ngầy
-nhày
+nhày	80
 nhầy
-ngải
-nhải
+ngải	101
+nhải	59
 Ngảo
 ngẩm
 ngẩn
 ngẳn
-nhảm
-nhản
+nhảm	94
+nhản	87
 nhảo
 nhẩm
 nhẩn
 nhẳn
 ngẩu
-nhảu
+nhảu	66
 nhẩu
-nhảy
+nhảy	159
 nhẩy
 ngãi
 nhãi
@@ -6732,14 +6752,14 @@ ngẫu
 nhẫy
 ngạc
 nhạc
-ngang	1
+ngang	165
 nganh
 ngại
 nhang	122
-nhanh	1
+nhanh	191
 nhại
 nhâng	21
-nhăng	1
+nhăng	92
 nính
 ngạn
 ngạo
@@ -6768,24 +6788,24 @@ nhạy
 nhậy
 micro
 micrô
-miến
+miến	102
 nhém
 nhén
 nhéo
 nhép
-miết
-miếu
+miết	98
+miếu	130
 nhét
 nhếu
-niết
-miền
+niết	59
+miền	181
 ngèo
 nhèm
 nhèn
 nhèo
-niềm
-niền
-miều
+niềm	170
+niền	50
+miều	82
 nhều
 Miẻo
 nhẻm
@@ -6821,7 +6841,7 @@ nhít
 nhíu
 nghé
 nghè
-nghề
+nghề	182
 nghể
 nghễ
 nghen
@@ -6831,12 +6851,12 @@ nghệ
 nhiên	208
 nhìn
 Nhìu
-nghêu	2
+nghêu	1
 nhiêt
-nhiêu	1
+nhiêu	162
 nghí
 nghì
-nghỉ
+nghỉ	175
 nghĩ
 nghim
 nghị
@@ -6850,49 +6870,49 @@ ngịu
 nhịt
 nhịu
 niken
-ngóc
+ngóc	96
 ngốc
-nhoá
+nhoá	1
 nhóa
-nhóc
+nhóc	113
 nhốc
 ngóe
-nhoà
+nhoà	71
 nhóe
 mịch
 ngoai
-ngói
+ngói	122
 nhoai	13
-nhói
+nhói	99
 nhối
 nịch
 ngoã
 ngoam
-ngoan	1
-ngoao	1
+ngoan	140
+ngoao	33
 ngoạ
 ngoăn
-ngóm
-ngón
+ngóm	43
+ngón	148
 ngốn
-ngớn
+ngớn	33
 nhoam
-nhóm
-nhón
+nhóm	190
+nhón	70
 nhốn
-nhớm
-nhớn
-ngóp
-ngớp
-nhóp
+nhớm	21
+nhớn	55
+ngóp	41
+ngớp	21
+nhóp	51
 nhốp
-nhớp
-ngót
+nhớp	67
+ngót	102
 ngốt
-ngớt
-nhót
+ngớt	99
+nhót	90
 nhốt
-nhớt
+nhớt	112
 ngoay	21
 nhoay	36
 ngoé
@@ -6900,37 +6920,37 @@ nhoé
 nhòa
 nhoè
 nhòe
-ngòi
-ngồi
-ngời
-nhồi
-nhời
+ngòi	122
+ngồi	172
+ngời	116
+nhồi	126
+nhời	49
 ngoem
 ngoen
 ngoeo
-ngòm
-ngòn
-ngồm
-ngồn
-ngờm
+ngòm	71
+ngòn	67
+ngồm	21
+ngồn	72
+ngờm	1
 nhoen	1
-nhòm
+nhòm	98
 nhòn
-nhồm
-nhồn
+nhồm	44
+nhồn	26
 nhờm
-nhờn
+nhờn	124
 nhởi
-ngỏm
-ngỏn
+ngỏm	21
+ngỏn	21
 ngổm
 ngổn
 ngởn
-nhỏm
+nhỏm	51
 nhỏn
 nhổm
 nhổn
-nhởn
+nhởn	73
 ngõa
 Ngỗi
 ngõi
@@ -6947,78 +6967,78 @@ nhọc
 mịnh
 ngong	46
 ngông	93
-ngợi
-nhong	1
+ngợi	147
+nhong	57
 nhông	81
 nhội
 nịnh
 ngọm
 ngọn
 ngộn
-ngợm
+ngợm	104
 nhọn
 nhộm
 nhộn
 nhợn
 ngộp
-ngợp
+ngợp	105
 nhợp
 ngọt
 ngột
 nhọt
 nhột
-nhợt
-ngúc
+nhợt	96
+ngúc	36
 ngứa
-nhúa
-nhúc
+nhúa	41
+nhúc	89
 nhức
 nhúi
 ngún
-nhúm
-nhún
-ngút
+nhúm	84
+nhún	103
+ngút	106
 ngứt
-nhút
+nhút	111
 nhứt
 nguây
-ngừa
-nhuế
+ngừa	151
+nhuế	33
 nhừa
-ngùi
-nhùi
+ngùi	112
+nhùi	47
 ngùn
 nhuệ
-nhùn
+nhùn	52
 ngửa
-ngủi
+ngủi	119
 ngửi
-nhủi
+nhủi	43
 ngủm
-ngủn
-nhủn
+ngủn	57
+nhủn	1
 ngũn
 nhũn
-ngụa
-ngục
+ngụa	54
+ngục	131
 ngựa
 ngực
-nhụa
-nhục
+nhụa	56
+nhục	130
 nhựa
 ngườ
 nguôi
 ngưng	138
 ngươi	129
-nhung	3
-nhụi
+nhung	128
+nhụi	1
 nhưng	214
 Ngươn
-ngụm
+ngụm	92
 nhuôm	36
-ngụp
+ngụp	78
 ngụt
-nhụt
+nhụt	75
 nhựt
 ngụy
 nhụy
@@ -7034,25 +7054,25 @@ mô-tô	66
 mô-tơ	64
 noãn
 Móoc
-móng
+móng	149
 mống
-nóng
+nóng	175
 nống
 moayơ
 model
 modem
 omega
-mòng
-mồng
+mòng	83
+mồng	115
 nòng
-nồng
+nồng	151
 môđun
-mỏng
+mỏng	156
 mổng
 nổng
 Môise
 nỗng
-moóc
+moóc	68
 mômen
 money
 nôộc
@@ -7072,54 +7092,54 @@ opera
 organ
 ôplêt
 opset
-núng
+núng	84
 nứng
 ôvăng
 Nuêng
-mùng
-mừng
-nùng
-nừng
-mủng
+mùng	123
+mừng	166
+nùng	53
+nừng	41
+mủng	46
 mửng
 mững
 nũng
 nuốc
-nước
+nước	221
 ôtôca
 ounce
 muối
 nuối
 muốn
-mướn
+mướn	110
 nuốm
-mướp
+mướp	104
 muốt
-mướt
+mướt	108
 nuốt
 nướu
-muồi
-mười
+muồi	88
+mười	155
 muồm
 mườn
-nườm
+nườm	78
 mưởi
 muỗi
 muỗm
 mưỡu
 mược
 nuộc
-nược
+nược	46
 muông	87
 muội
-mương	2
+mương	116
 nuông	88
 nương	134
 nựng
 muộn
-mượn
-nượp
-mượt
+mượn	144
+nượp	78
+mượt	132
 nuột
 ôxít
 oxide
@@ -7134,27 +7154,27 @@ ra-đô	1
 ra-gu	1
 pa-nô	59
 pa-tê	36
-rách
-sách
+rách	127
+sách	199
 săảm
-ráng
-sáng
-sánh
+ráng	98
+sáng	199
+sánh	155
 sắng
 radar
 radio
 rađiô
 Pàng
-ràng
-rành
+ràng	170
+rành	108
 rằng
-sàng
-sành
+sàng	166
+sành	132
 sằng
 rảng
-rảnh
-sảng
-sảnh
+rảnh	121
+sảng	116
+sảnh	119
 palan
 rãnh
 rẵng
@@ -7167,7 +7187,7 @@ rặng
 sê-đa
 sê-ri	103
 pê-sô	1
-rếch
+rếch	13
 pêđan
 sêếu
 rềnh
@@ -7182,41 +7202,41 @@ si-đa	1
 ri-đô	13
 Si-ôn
 ri-vê
-phác
+phác	126
 phắc
-phái
+phái	164
 pích
 rích
-phán
-pháo
+phán	160
+pháo	165
 phấn
 phắn
-pháp
+pháp	204
 phấp
 phắp
-phát
+phát	217
 phất
 phắt
 pháy
 Phài
-phàm
-phàn
-phào
+phàm	110
+phàn	120
+phào	98
 phầm
 phần
-phải
-phản
+phải	221
+phản	185
 phẩm
 phẩn
 phẩu
-phảy
+phảy	50
 phẩy
 phẫn
 phẫu
 phạc
 phang	68
 phanh	130
-phăng	2
+phăng	96
 sính
 phạm
 phạn
@@ -7230,23 +7250,23 @@ phéc
 siếc
 phép
 phét
-phết
-riết
-riếu
-siết
+phết	98
+riết	107
+riếu	50
+siết	115
 phèn
 phèo
-riềm
-phều
+riềm	43
+phều	41
 siểm
 phễn
 siễn
 phễu
 riễu
 phênh
-riêng	1
+riêng	188
 rình
-siêng	100
+siêng	1
 sình
 phẹt
 phệt
@@ -7259,65 +7279,65 @@ phít
 phìa
 phidê
 Phìn
-phiên	3
-phiêu	2
+phiên	182
+phiêu	130
 phìu
 phịa
 sigma
 phinh	13
-rỉnh
-sỉnh
+rỉnh	74
+sỉnh	26
 phịt
 phịu
 silic
 rĩnh
-phóc
+phóc	58
 phốc
 phối
-phới
+phới	85
 rịch
 sịch
 phón
 phớn
 phốp
-phót
+phót	1
 phốt
-phớt
+phớt	110
 Phời
-phòi
+phòi	13
 phòm
-phồm
-phồn
+phồm	1
+phồn	110
 phổi
 phỏm
 phởn
 phỡn
 phọc
 phộc
-phong	3
+phong	193
 phông	120
 phọp
 phọt
 phôtô
 pirit
-phúc
+phúc	171
 phứa
 phức
-phún
-phút
+phún	59
+phút	177
 phứt
 phùa
-phùn
+phùn	91
 phừn
-phủi
+phủi	88
 phula
-phục
+phục	197
 phựa
 phực
 phung	91
 phưng	49
 phụp
-phụt
+phụt	82
 phựt
 riyal
 pizza
@@ -7337,27 +7357,27 @@ rô-ti	13
 rô-to	33
 sơ-vơ
 smach
-soái
-soán
-soát
-soài
+soái	123
+soán	90
+soát	174
+soài	52
 soàm
 soàn
 soải
 sóoc
-róng
+róng	49
 rống
-sóng
+sóng	172
 sống
 soạn
 soạp
 roạt
 robot
 soạt
-ròng
-rồng
-sòng
-sồng
+ròng	130
+rồng	142
+sòng	113
+sồng	59
 soẹt
 rỏng
 rổng
@@ -7367,7 +7387,7 @@ rõng
 rỗng
 sõng
 poóc
-soóc
+soóc	69
 rondo
 roneo
 rônêô
@@ -7387,38 +7407,38 @@ ru-lô	30
 su-lơ
 ru-pi	1
 su-su	13
-quác
+quác	43
 quấc
 quắc
-quái
-quán
-quáo
+quái	146
+quán	171
+quáo	1
 quấn
 quắm
 quắn
 quắp
-quát
-quáu
+quát	142
+quáu	1
 quất
 quắt
 suất
 quáy
 quấy
-quài
-quàn
-quào
+quài	41
+quàn	75
+quào	44
 quần
 quằm
 quằn
-quàu
-quày
+quàu	1
+quày	52
 quầy
-quải
-quản
+quải	46
+quản	196
 quẩn
 quẳm
 quẳn
-quảy
+quảy	57
 quẩy
 ruble
 quẫn
@@ -7426,12 +7446,12 @@ quẫy
 quạc
 quặc
 stand
-quang	1
-quanh	1
+quang	160
+quanh	180
 quại
-quăng	1
-rúng
-súng
+quăng	107
+rúng	89
+súng	165
 quạo
 quận
 quặm
@@ -7452,17 +7472,17 @@ quén
 quéo
 quến
 quét
-quết
-quếu
+quết	82
+quếu	1
 quèn
 quèo
 quền
-quều
+quều	13
 queng
-rùng
-rừng
-sùng
-sừng
+rùng	107
+rừng	175
+sùng	119
+sừng	134
 quẹn
 quẹo
 quện
@@ -7470,9 +7490,9 @@ quẹt
 quệt
 stick
 quít
-rủng
+rủng	76
 rửng
-sủng
+sủng	114
 sửng
 quịt
 suite
@@ -7482,44 +7502,44 @@ puốc
 quốc
 rumba
 ruốc
-rước
+rước	129
 Quới
 ruối
-rưới
+rưới	95
 suối
-rướm
-rướn
+rướm	52
+rướn	67
 quớt
 ruốt
 suốt
 sưót
-sướt
-ruồi
-rười
+sướt	67
+ruồi	123
+rười	61
 quờn
-rườm
-rườn
+rườm	104
+rườn	30
 sưòn
-sườn
+sườn	140
 ruổi
-rưởi
-sưởi
+rưởi	82
+sưởi	125
 quởn
 rưỡi
 Puộc
-rụng
+rụng	140
 rương	99
-rượi
+rượi	93
 rựng
 suông	107
 sương	138
 sựng
 ruộm
-rượn
+rượn	13
 ruột
-rượt
-rượu
-sượt
+rượt	107
+rượu	166
+sượt	67
 quota
 rupee
 supde
@@ -7543,26 +7563,26 @@ ta-pi
 ta-rô
 va-rơ
 ta-tu
-tách
-vách
-táng
-tánh
-váng
-vánh
+tách	161
+vách	137
+táng	133
+tánh	104
+váng	116
+vánh	89
 vắng
 tăcte
 tăcxi
-tàng
-tành
+tàng	160
+tành	97
 tầng
 tằng
-vàng
-vành
+vàng	187
+vành	137
 vầng
 vằng
 taiga
-tảng
-vảng
+tảng	158
+vảng	69
 vảnh
 vẳng
 vãng
@@ -7582,12 +7602,12 @@ Tbuăn
 tay-ơ
 tê-lê
 tê-nô
-tếch
-vếch
+tếch	64
+vếch	21
 vecni
 vectơ
 tèng
-tềnh
+tềnh	47
 tểnh
 vểnh
 telex	54
@@ -7603,53 +7623,53 @@ Ti-rơ
 ti-pô	1
 ủ-su
 ti-vi	68
-thác
+thác	173
 thắc
 thach
-thái
+thái	178
 tích
 vích
-thám
-thán
-tháo
+thám	141
+thán	111
+tháo	153
 thấm
 thắm
 thắn
-tháp
+tháp	157
 thấp
 thắp
 Thát
-tháu
+tháu	41
 thất
 thấu
 thắt
-tháy
+tháy	50
 thấy
-thài
-thàm
-thào
+thài	52
+thàm	30
+thào	84
 thầm
 thần
 thằn
 thầu
-thày
+thày	108
 thầy
-thải
-thảm
-thản
-thảo
+thải	166
+thảm	156
+thản	123
+thảo	180
 thẩm
 thẩn
 thẳm
 thẩu
-thảy
+thảy	110
 thẩy
 thãi
 thẫm
 thẫn
 thạc
-thang	1
-thanh	1
+thang	158
+thanh	192
 thăng	157
 tính
 vính
@@ -7659,27 +7679,27 @@ thận
 thạp
 thập
 thật
-tiếc
-tiếm
-tiến
+tiếc	151
+tiếm	81
+tiến	196
 thép
-thếp
-tiếp
+thếp	81
+tiếp	211
 thét
-thết
-tiết
-tiếu
-viết
+thết	70
+tiết	193
+tiếu	106
+viết	190
 thèm
 thèn
 thèo
-thềm
-tiềm
-tiền
+thềm	122
+tiềm	161
+tiền	201
 video
-viền
-thều
-tiều
+viền	135
+thều	64
+tiều	91
 Thẻn
 Tiẻn
 thẻo
@@ -7717,13 +7737,13 @@ thíp
 thít
 thìa
 thiêm	70
-thiên	2
+thiên	178
 thìn
 thiêu	126
 thìu
-thỉu
+thỉu	89
 thinh	90
-tỉnh
+tỉnh	2
 tigôn
 thịt
 thịu
@@ -7731,15 +7751,15 @@ thhủ
 villa
 tĩnh
 vĩnh
-thoá
+thoá	39
 thóa
-thóc
+thóc	118
 thốc
-thoà
+thoà	1
 Thới
 thoai	98
-thoả
-thói
+thoả	132
+thói	153
 thối
 tịch
 thoã
@@ -7747,25 +7767,25 @@ thoăn	75
 thóm
 thốn
 thớm
-thóp
+thóp	84
 thốp
-thót
+thót	95
 thốt
-thớt
+thớt	114
 thòa
-thòi
-thồi
-thời
+thòi	119
+thồi	26
+thời	218
 thờl
-thòm
-thồm
-thồn
+thòm	56
+thồm	1
+thồn	13
 thờm
-thờn
+thờn	21
 thỏa
-thỏi
+thỏi	107
 thổi
-thỏm
+thỏm	96
 thổn
 thõa
 viola
@@ -7773,7 +7793,7 @@ thõm
 thỗn
 thọc
 thộc
-thong	1
+thong	111
 thọi
 thông	214
 tịnh
@@ -7782,39 +7802,39 @@ thộn
 thộp
 thọt
 thột
-thợt
+thợt	1
 visco
 virus
-thúc
+thúc	181
 thức
-thúi
+thúi	61
 titan
 vitcô
-thút
+thút	70
 thúy
-thuế
-thùa
-thừa
+thuế	176
+thùa	74
+thừa	170
 thuể
-thùi
+thùi	33
 thừi
-thùm
+thùm	30
 thùn
 thùy
-thủa
+thủa	86
 thửa
-thủi
-thủm
+thủi	78
+thủm	39
 thủy
-thục
+thục	127
 thực
 thung	135
-thuở
-thụi
+thuở	124
+thụi	33
 thưng	60
-thuôn	2
-thụp
-thụt
+thuôn	113
+thụp	56
+thụt	99
 thụy
 thuý
 thuỳ
@@ -7827,14 +7847,14 @@ Tơ-lô
 to-nô
 tô-nô
 tô-pô	26
-toác
-toái
-toán
-toát
-toáy
-toài
-toàn
-toản
+toác	66
+toái	111
+toán	186
+toát	119
+toáy	13
+toài	44
+toàn	208
+toản	52
 tớim
 toạc
 toang	85
@@ -7842,22 +7862,22 @@ toanh	84
 toại
 tống
 uống
-vóng
+vóng	36
 vống
 toét
 toefl
 toèn
-tòng
-tồng
+tòng	102
+tồng	69
 vòmg
-vòng
-vồng
+vòng	186
+vồng	107
 toẹt
 voice
-tỏng
+tỏng	59
 tổng
 uổng
-vỏng
+vỏng	26
 vổng
 tolar
 võnc
@@ -7873,51 +7893,51 @@ tơrơt
 totem
 tôtem
 Tnưng
-trác
+trác	80
 trắc
-trái
-trám
-trán
-tráo
+trái	183
+trám	102
+trán	132
+tráo	96
 trấn
 trắm
-tráp
+tráp	82
 trấp
-trát
+trát	92
 trất
 trấu
 trắt
-trài
-tràm
-tràn
-trào
+trài	49
+tràm	101
+tràn	155
+trào	170
 trầm
 trần
 trằm
 trằn
-tràu
+tràu	43
 trầu
-trày
+trày	41
 trầy
-trải
-trảm
+trải	174
+trảm	91
 trản
-trảo
+trảo	76
 trẩm
 trẩn
-trảu
+trảu	13
 trẩu
-trảy
+trảy	57
 trẩy
 trãi
 trẫm
 trạc
 trặc
 trang	202
-tranh	2
+tranh	196
 trại
 trâng	26
-trăng	1
+trăng	144
 urani
 trạm
 trạn
@@ -7933,7 +7953,7 @@ tréc
 trém
 tréo
 trét
-trết
+trết	1
 trếu
 trèm
 trèn
@@ -7953,32 +7973,32 @@ trít
 tríu
 triêu	59
 trìu
-trỉa
+trỉa	56
 trĩu
 trịa
 triod
 trinh	139
 trịt
-tróc
+tróc	107
 trốc
 Trới
-trói
+trói	119
 trối
-tróm
+tróm	1
 trốn
-trớn
-trớp
-trót
+trớn	81
+trớp	1
+trót	104
 trốt
-trớt
-tròi
-trồi
-trời
-tròm
-tròn
+trớt	59
+tròi	21
+trồi	96
+trời	179
+tròm	44
+tròn	163
 trờm
-trờn
-trỏi
+trờn	30
+trỏi	1
 trổi
 trỗi
 trõm
@@ -7987,35 +8007,35 @@ trọc
 trộc
 trong	242
 trọi
-trông	3
+trông	161
 trội
 trọn
 trộm
 trộn
-trợn
+trợn	103
 trọt
-trợt
-trúc
+trợt	70
+trúc	176
 truân	87
-trúm
-trút
-trừa
-trùi
-trùm
-trùn
+trúm	26
+trút	116
+trừa	1
+trùi	41
+trùm	136
+trùn	80
 trừu
 trũi
-trụa
-trục
+trụa	26
+trục	159
 trực
 Trươi
 trung	204
-trụi
+trụi	103
 trưng	170
-trụm
-trụn
-trụp
-trụt
+trụm	1
+trụn	13
+trụp	1
+trụt	13
 trụy
 trust
 truỵ
@@ -8023,11 +8043,11 @@ tuấn
 tuất
 tuần
 tuẫn
-túng
-tùng
-từng
-vùng
-vừng
+túng	132
+tùng	137
+từng	196
+vùng	194
+vừng	108
 Tủng
 tửng
 vửng
@@ -8035,44 +8055,44 @@ tulip
 vũng
 vững
 tuốc
-tước
-tưới
+tước	155
+tưới	135
 tuốn
-tướn
-tướp
+tướn	1
+tướp	30
 tuốt
-tướt
+tướt	41
 vuốt
 tuồi
-tuồn
-tườm
-vườn
-tườu
+tuồn	85
+tườm	13
+vườn	164
+tườu	1
 tươì
 tuổi
-tưởi
+tưởi	83
 vưỡn
 tuộc
-tược
-vược
+tược	74
+vược	83
 tuông	103
-tụng
-tương	1
-vuông	1
-vụng
-vương	3
+tụng	137
+tương	194
+vuông	151
+vụng	113
+vương	168
 vựng
-vượn
-tượp
+vượn	101
+tượp	1
 tuột
-tượt
+tượt	13
 vuột
-vượt
+vượt	179
 Tupsa
 tuy-ô	1
 tuýp
 tuýt
-tuyên	1
+tuyên	177
 uýnh
 uyển
 uỳnh
@@ -8080,22 +8100,22 @@ uỵch
 uytky
 xa-bô
 xa-lô
-xách
+xách	144
 xáng
 xắng
-xàng
-xành
+xàng	26
+xành	30
 xằng
-xảnh
+xảnh	1
 Wales
 xẵng
 xạch
 xê-ri	71
 zê-rô
 zê-ta
-xếch
+xếch	60
 xèng
-xềnh
+xềnh	44
 xẻng
 xểnh
 yểng
@@ -8111,9 +8131,9 @@ xi-rô	59
 xi-ta
 xích
 xính
-xiếc
+xiếc	109
 xiến
-xiết
+xiết	110
 xiếu
 xiền
 xiều
@@ -8121,20 +8141,20 @@ xiểm
 xiển
 xiệc
 xình
-xỉnh
+xỉnh	53
 xilip
 xĩnh
 xịch
 zloty
 xô-đa	1
-xoác
+xoác	1
 xoắn
-xoát
-xoáy
-xoài
-xoàm
-xoàn
-xoải
+xoát	13
+xoáy	130
+xoài	118
+xoàm	41
+xoàn	56
+xoải	33
 xoẳn
 xoạc
 xoang	118
@@ -8144,10 +8164,10 @@ xoạt
 xơcua
 xoét
 xoèn
-xòng
-xồng
+xòng	13
+xồng	36
 xoẹt
-xỏng
+xỏng	1
 xổng
 xõng
 xonat
@@ -8157,20 +8177,20 @@ xôpha
 xuất
 xuẩn
 xtăng
-xúng
+xúng	74
 xứng
 xúyt
-xùng
+xùng	36
 xừng
-xủng
+xủng	13
 xửng
-xước
+xước	120
 xtốp
-xười
+xười	13
 Zuoih
-xược
+xược	66
 xụng
-xương	2
+xương	164
 xượi
 xuộm
 xượt
@@ -8178,7 +8198,7 @@ xupap
 wushu
 xtucô
 xuýt
-xuyên	1
+xuyên	179
 xuynh	1
 xuỵt
 a-dốt
@@ -8204,7 +8224,7 @@ cacbin
 cacbon
 cacbua
 cacten
-cà-ri
+cà-ri	41
 càfé
 cafein
 badôca
@@ -8223,7 +8243,7 @@ can-xi	71
 camera
 băngca
 canông
-áp-xe
+áp-xe	70
 carbin
 basalt
 carbon
@@ -8250,13 +8270,13 @@ benzen
 bêtông
 bi-tum	1
 chách
-cháng
-chánh
-chàng
-chành
+cháng	43
+chánh	131
+chàng	165
+chành	77
 chằng
 chảng
-chảnh
+chảnh	94
 chẳng
 Bhallê
 chạch
@@ -8265,11 +8285,11 @@ chạnh
 chặng
 Champa
 Chămpa
-chếch
+chếch	90
 Chéng
-biếng
-chếnh
-chềnh
+biếng	113
+chếnh	54
+chềnh	39
 chẻng
 chểnh
 chễnh
@@ -8278,46 +8298,46 @@ biđông
 chệnh
 chích
 chính
-chiếc
-chiếm
-chiến
-chiếp
-chiết
-chiếu
-chiền
-chiều
+chiếc	195
+chiếm	181
+chiến	204
+chiếp	36
+chiết	137
+chiếu	171
+chiền	90
+chiều	181
 Chiển
 chiểu
 chiệc
-chiêng	1
+chiêng	115
 chình
 chiện
-chỉnh
+chỉnh	179
 chĩnh
 chịch
 Chơ-ro
 Chơ-ru
 choác
 choắc
-choái
-choán
+choái	1
+choán	82
 choắt
-choài
+choài	13
 choàm
 choãi
 choạc
 choang	64
 choại
-chóng
+chóng	175
 chống
 choạp
 choét
 choèn
-chòng
-chồng
+chòng	74
+chồng	183
 choẹt
 biogas
-chỏng
+chỏng	65
 chổng
 chõng
 Chơnam
@@ -8325,32 +8345,32 @@ bismut
 biptêt
 Chu-ru
 chuẩn
-chúng
+chúng	209
 chứng
 bitcôt
-chùng
-chừng
-chủng
+chùng	99
+chừng	154
+chủng	160
 chửng
 chững
 chuốc
-chước
+chước	122
 chuối
 chuốt
-chuồi
-chuồn
-chườm
-chưởi
+chuồi	47
+chuồn	111
+chườm	92
+chưởi	41
 chuỗi
 chuộc
-chược
-chuông	3
+chược	52
+chuông	138
 chuội
-chương	2
+chương	195
 chựng
-chượp
+chượp	59
 chuột
-chuyên	2
+chuyên	196
 CHXHCN
 Albani
 cli-sê
@@ -8381,8 +8401,8 @@ bobbin
 cocain
 côcain
 cobalt
-cờ-lê
-bờ-lu
+cờ-lê	30
+bờ-lu	1
 cò-mi
 codein
 anđôza
@@ -8402,7 +8422,7 @@ com-mi
 com-pa	39
 com-pô
 Côống
-boóng
+boóng	13
 coóng
 anofen
 bơngai
@@ -8436,13 +8456,13 @@ culong
 culông
 cướì
 buống
-bướng
+bướng	102
 cuống
 cướng
-buồng
-cuồng
+buồng	138
+cuồng	134
 cuờng
-cường
+cường	175
 bưởng
 bunker
 cưỡì
@@ -8470,15 +8490,15 @@ Eczêma
 Debian
 đề-ca
 đề-bô
-đề-pa
-đề-pô
+đề-pa	1
+đề-pô	21
 đề-xi
 đen-ta
 Di-đà
 đi-ốp
 đi-ốt
 dicdăc
-điếng
+điếng	78
 diềng
 diesel
 điezen
@@ -8499,10 +8519,10 @@ fo-mon
 fo-rin
 en-zim
 doàng
-doành
-đoàng
-đoành
-đoảng
+doành	13
+đoàng	44
+đoành	26
+đoảng	51
 doãng
 đoãng
 doạng
@@ -8519,20 +8539,20 @@ formol
 enzyme
 escudo
 euclid
-duềnh
+duềnh	21
 đuềnh
 đuểnh
 đuễnh
 dướỉ
-dướng
+dướng	49
 đuống
-dường
+dường	155
 Đuờng
-đường
+đường	208
 dumdum
 đumđum
 dưỡng
-dượng
+dượng	95
 đuy-ra
 đuých
 etxăng
@@ -8567,23 +8587,23 @@ hêrôin
 Hđrung
 hi-đrô
 gic-lơ
-giáng
+giáng	130
 giắng
-giàng
-giành
+giàng	59
+giành	176
 giằng
-giảng
-giảnh
+giảng	174
+giảnh	36
 Gialai
 giạng
 Giê-su
 Giê-xu
-ghếch
-giếng
-hiếng
+ghếch	21
+giếng	134
+hiếng	13
 gìặt
-ghềnh
-giềng
+ghềnh	1
+giềng	125
 giềnh
 ghểnh
 hìinh
@@ -8592,17 +8612,17 @@ ghệch
 ghi-sê
 ghi-ta	73
 ghính
-ghiếc
-ghiền
+ghiếc	69
+ghiền	83
 ghình
 Hin-đi
 Hin-đu
 gioăng
-gióng
+gióng	86
 giống
 giòng
-giồng
-giỏng
+giồng	69
+giỏng	21
 gioong
 giọng
 giu-đô
@@ -8617,17 +8637,17 @@ hoáng
 hoánh
 hoắng
 Hoằng
-hoàng
-hoành
-hoảng
-hoảnh
+hoàng	176
+hoành	137
+hoảng	154
+hoảnh	50
 hoãng
 hoẵng
 hoạch
 hoạnh
 hocmon
 gòong
-goòng
+goòng	63
 gôrila
 hormon
 interj
@@ -8635,21 +8655,21 @@ gothic
 gourde
 granit
 Israel
-huếch
+huếch	33
 guđron
 guitar
 huống
-hướng
-guồng
-gường
-hường
+hướng	197
+guồng	94
+gường	66
+hường	81
 guổng
-hưởng
+hưởng	190
 gưỡng
-gượng
+gượng	105
 huých
-huyết
-huyền
+huyết	167
+huyền	147
 huyễn
 huỳnh
 huyện
@@ -8688,27 +8708,27 @@ ki-nin	1
 li-thi
 li-vrê
 kí-lô
-khách
+khách	207
 Libăng
-kháng
-khánh
+kháng	168
+khánh	135
 khắng
-khàng
+khàng	72
 khành
 khầng
 khằng
 khảch
-khảng
-khảnh
+khảng	72
+khảnh	84
 khẳng
 khạch
 khạng
 kiếng
-liếng
+liếng	94
 Liềng
 khèng
 khềnh
-kiềng
+kiềng	88
 khểnh
 kiểng
 liểng
@@ -8718,31 +8738,31 @@ khệch
 khệnh
 liệng
 khích
-khiếm
-khiến
-khiếp
-khiết
-khiếu
-khiền
+khiếm	127
+khiến	192
+khiếp	132
+khiết	130
+khiếu	149
+khiền	33
 khiển
 khiêng	98
-khỉnh
+khỉnh	86
 khĩnh
 Khơ-me
-khoác
+khoác	141
 khoắc
-khoái
-khoán
+khoái	132
+khoán	153
 khoắm
 khoắn
-khoát
+khoát	117
 khoắt
-khoáy
-khoào
+khoáy	58
+khoào	1
 khoằm
-khoải
-khoản
-khoang	3
+khoải	86
+khoản	180
+khoang	135
 khoanh	116
 khống
 khoặm
@@ -8750,8 +8770,8 @@ khoén
 khoét
 khoèo
 khoẻo
-khòng
-khỏng
+khòng	33
+khỏng	36
 khổng
 Khoong
 kimono
@@ -8763,20 +8783,20 @@ khuâng	90
 khúng
 khứng
 khuều
-khùng
-khừng
-khủng
+khùng	97
+khừng	44
+khủng	165
 khửng
-khước
-khướt
-khướu
+khước	99
+khướt	63
+khướu	63
 khuông	81
 khụng
 khương	79
 khựng
 khượt
 khuýp
-khuyên	3
+khuyên	157
 khuỷu
 khuynh	126
 khuỵu
@@ -8784,32 +8804,32 @@ khyển
 lô-can	1
 lô-gic
 loách
-loáng
-loàng
+loáng	97
+loàng	21
 loằng
-loảng
+loảng	53
 loãng
 loạch
 loạng
-lò-xo
+lò-xo	1
 loẻng
 Jordan
 koruna
 luống
-lướng
-luồng
+lướng	39
+luồng	141
 lưòng
-lường
+lường	141
 lưởng
 lưỡí
 lưỡì
 lưỡỉ
 luỗng
 lưỡng
-lượng
+lượng	212
 luých
 luýnh
-luyến
+luyến	119
 luyện
 kwacha
 Lybăng
@@ -8863,24 +8883,24 @@ newton
 mi-crô
 ni-ken	26
 ni-lon	36
-ngách
-nhách
-ngáng
+ngách	110
+nhách	56
+ngáng	71
 ngánh
-nháng
-nhánh
+nháng	41
+nhánh	158
 nhắng
-ngàng
-ngành
+ngàng	119
+ngành	193
 ngầng
-nhàng
-nhành
+nhàng	154
+nhành	84
 nhằng
 ngảng
-ngảnh
+ngảnh	30
 ngẩng
 ngẳng
-nhảnh
+nhảnh	91
 nhẳng
 nickel
 ngãng
@@ -8898,8 +8918,8 @@ nhặng
 micron
 ngếch
 nhếch
-miếng
-niềng
+miếng	153
+niềng	96
 miểng
 miêlin
 niễng
@@ -8909,17 +8929,17 @@ miệng
 nhích
 nghãi
 nhính
-nhiếc
+nhiếc	75
 nghén
 nghến
-nhiếp
+nhiếp	137
 nghét
 nhiết
 nghèn
 nghèo
 nghền
-nghều
-nhiều
+nghều	30
+nhiều	225
 nghẻn
 nghẻo
 nghển
@@ -8932,7 +8952,7 @@ nhiễn
 nghễu
 nhiễu
 nghêng
-nghênh	2
+nghênh	127
 nghẹn
 nghẹo
 nghệm
@@ -8945,39 +8965,39 @@ nhiệt
 nghía
 nghiã
 nghít
-nghiêm	2
-nghiên	2
+nghiêm	173
+nghiên	190
 nghìm
 nghìn
 nghiêu	39
-nghỉm
-nghỉn
-nghỉu
+nghỉm	67
+nghỉn	13
+nghỉu	53
 nghĩa
 nghinh	75
-nhỉnh
+nhỉnh	99
 nghịt
 nghịu
 milli-
 nilông
-ngoác
+ngoác	49
 ngoắc
-ngoái
-ngoáo
+ngoái	145
+ngoáo	13
 ngoáp
 ngoắt
-ngoáy
-nhoáy
-ngoài
-nhoài
-ngoàm
+ngoáy	77
+nhoáy	39
+ngoài	199
+nhoài	85
+ngoàm	36
 ngoằn
 ngóeo
-nhoàm
-ngoải
+nhoàm	36
+ngoải	61
 ngoảm
 ngoẳn
-ngoảy
+ngoảy	13
 ngoẩy
 ngoãn
 ngoạc
@@ -8985,9 +9005,9 @@ ngoặc
 ngoang	1
 ngoại
 ngoăng
-ngóng
+ngóng	111
 nhoang	13
-nhóng
+nhóng	46
 ngoạm
 ngoạn
 nhoạm
@@ -9008,16 +9028,16 @@ ngoẻm
 ngoẻn
 ngoẻo
 nhoẻn
-ngòng
-ngồng
+ngòng	1
+ngồng	54
 nhòng
-nhồng
+nhồng	59
 ngờõ
 ngoẹo
 nhoẹt
-ngỏng
+ngỏng	26
 ngổng
-nhỏng
+nhỏng	26
 nhổng
 ngõng
 ngỗng
@@ -9028,14 +9048,14 @@ nhộng
 nhuần
 nguầy
 nguẩy
-ngúng
+ngúng	43
 ngứng
-nhúng
+nhúng	122
 nhuận
 nguậy
-ngùng
-ngừng
-nhùng
+ngùng	104
+ngừng	163
+nhùng	70
 ngủng
 ngửng
 nhủng
@@ -9043,27 +9063,27 @@ nhửng
 ngũng
 nhũng
 những
-ngước
+ngước	1
 nhuốc
 ngưới
 nhuốm
 nhướn
-nguồi
-người
+nguồi	44
+người	238
 Nhuồn
-nguồn
+nguồn	191
 ngươí
-ngược
-nhược
+ngược	167
+nhược	136
 nguội
-nhụng
+nhụng	33
 nhương	64
 nhuộm
 nitrat
 nitric
 niutơn
 nguýt
-nguyên	1
+nguyên	196
 nguỷu
 õbăng
 mluộm
@@ -9091,10 +9111,10 @@ nơtron
 nơtrôn
 Muggle
 muống
-nướng
-Mường
+nướng	151
+Mường	96
 muồng
-nường
+nường	54
 muỗng
 ôtômat
 ôtôray
@@ -9137,10 +9157,10 @@ pi-nhê
 pi-rin
 Rha-đê
 pha-lê	13
-phách
-phàng
-phành
-phảng
+phách	117
+phàng	89
+phành	43
+phảng	96
 phẳng
 phạch
 picnic
@@ -9148,11 +9168,11 @@ Phặng
 phạng
 phe-pa
 Phê-rô	1
-phếch
+phếch	43
 phéng
 phèng
-phềnh
-riềng
+phềnh	47
+riềng	98
 siểng
 shekel
 phệnh
@@ -9161,17 +9181,17 @@ phi-lê	26
 phi-lu
 phích
 phính
-phiếm
-phiến
-phiết
-phiếu
-phiền
+phiếm	95
+phiến	134
+phiết	39
+phiếu	172
+phiền	141
 phình
 phiện
 phiệt
 phiệu
 Phierơ
-phỉnh
+phỉnh	68
 phĩnh
 phịch
 Phlắc
@@ -9180,12 +9200,12 @@ Phlạo
 silica
 phô-nô
 phô-tô	36
-phóng
-phòng
-phồng
+phóng	174
+phòng	203
+phồng	120
 phổí
 sinhll
-phỏng
+phỏng	156
 phổng
 phỗng
 phoóc
@@ -9195,20 +9215,20 @@ photon
 phrăng
 siphon
 phu-la	1
-phúng
-phùng
-phừng
+phúng	94
+phùng	86
+phừng	65
 phủng
 phũng
-phước
-phướn
+phước	109
+phướn	77
 phuồm
 phưỡn
 phược
-phụng
+phụng	127
 phương	203
 phượt
-phượu
+phượu	1
 plasma
 platin
 Pleiku
@@ -9221,7 +9241,7 @@ rocket
 rôcket
 sôcôla
 soạng
-rờ-ve
+rờ-ve	1
 polime
 pơluya
 son-nê
@@ -9238,14 +9258,14 @@ protid
 proton
 prôton
 sta-to
-quách
-quáng
-quánh
+quách	91
+quáng	101
+quánh	85
 stacte
-quàng
-quành
+quàng	105
+quành	50
 quầng
-quảng
+quảng	174
 quẩng
 quẳng
 quãng
@@ -9257,7 +9277,7 @@ quặng
 stator
 quếch
 quếnh
-quềnh
+quềnh	21
 quệch
 quệnh
 stereo
@@ -9269,28 +9289,28 @@ sulfat
 sulfur
 rum-ba
 quoắt
-sướng
+sướng	134
 sunfat
-ruồng
-rường
-suồng
-sường
+ruồng	84
+rường	87
+suồng	61
+sường	43
 sunfua
 Sưởng
 quởng
 ruỗng
 ruộng
 rượng
-sượng
+sượng	61
 stress
 rupiah
 studio
 quých
 quýnh
-quyến
+quyến	146
 suyến
-quyết
-quyền
+quyết	201
+quyền	2
 suyền
 quyển
 suyển
@@ -9307,7 +9327,7 @@ ta-nin	21
 va-rơi
 vaccin
 vacxin
-Tà-ôi
+Tà-ôi	1
 tai-ga
 vagông
 talông
@@ -9335,37 +9355,37 @@ ti-tan	13
 vi-xcô
 tia-ra	1
 tí-te
-thách
-tháng
-thánh
+thách	162
+tháng	215
+thánh	151
 thắng
 Thàng
-thành
+thành	227
 thằng
 tichkê
-thảng
-thảnh
+thảng	82
+thảnh	94
 thẳng
 thạch
 thạnh
 thặng
 thê-ta
-thếch
-tiếng
-viếng
+thếch	72
+tiếng	201
+viếng	132
 tiềng
 thểnh
 Viêtic
 thích
 thính
-thiếc
-thiến
-thiếp
-thiết
-thiếu
-thiềm
-thiền
-thiều
+thiếc	104
+thiến	85
+thiếp	124
+thiết	205
+thiếu	184
+thiềm	58
+thiền	130
+thiều	90
 thiểm
 thiển
 thiểu
@@ -9375,20 +9395,20 @@ thiện
 thiệp
 thiệt
 thiệu
-thỉnh
+thỉnh	139
 thịch
 thịnh
-thoái
-thoán
-thoát
+thoái	148
+thoán	51
+thoát	170
 thoắt
-thoàn
-thoải
+thoàn	43
+thoải	158
 thoang	87
 thoại
 thống
 thoạt
-thòng
+thòng	86
 violet
 thõng
 violon
@@ -9398,47 +9418,47 @@ Thuấn
 thuần
 thuẩn
 thuẫn
-thúng
+thúng	97
 thuận
 thuật
-thùng
-thừng
+thùng	145
+thừng	112
 thửà
-thủng
+thủng	129
 thửng
 thũng
 thững
 thuốc
-thước
+thước	165
 thuốn
 thuốt
-thướt
+thướt	92
 thuồi
 thười
-thuồn
-thườn
+thuồn	1
+thườn	58
 thuổc
 thưỡi
 thuỗn
 thưỡn
 thuộc
 thươnc
-thược
+thược	80
 thuông
 thuội
 thuơng
-thụng
+thụng	73
 thương	201
 thuộm
 Thuột
-thượt
-thuyên	2
+thượt	60
+thuyên	113
 tô-giơ
 Tô-Tân
 tô-tan
 tô-tem	1
-toáng
-toàng
+toáng	77
+toàng	70
 toạng
 tò-he
 tờ-rô
@@ -9446,33 +9466,33 @@ toilet
 vôlăng
 ton-nô
 Vôn-ta
-toòng
+toòng	41
 tôngđơ
 tơrưng
-trách
-tráng
-tránh
+trách	183
+tráng	147
+tránh	176
 trắng
 tracom
-tràng
-trành
+tràng	142
+trành	67
 trằng
-trảng
+trảng	78
 trảnh
 trẳng
 trạch
 trạng
 trạnh
-trếch
+trếch	1
 trếnh
 trêfin
 trệch
 trích
 trính
-triến
-triết
-triền
-triều
+triến	52
+triết	144
+triền	113
+triều	168
 triển
 triêng	41
 trình
@@ -9484,53 +9504,53 @@ trĩnh
 trịch
 trịnh
 upload
-tróng
+tróng	33
 trống
-tròng
-trồng
+tròng	102
+trồng	175
 troẹt
-trỏng
+trỏng	50
 trổng
 Troóc
 troốc
 trọng
 trộng
 truất
-trúng
+trúng	157
 trứng
 truật
-trùng
-trừng
+trùng	167
+trừng	135
 trủng
 trửng
 trũng
-trước
+trước	210
 Truồi
-trườn
+trườn	86
 truông	51
-trụng
-trương	2
+trụng	68
+trương	163
 truột
-trượt
+trượt	144
 truýp
 tu-bin
 tuabin
 tuavit
-tuếch
+tuếch	67
 tuềnh
 tuệch
-tướng
-vướng
-tuồng
-tường
-tưởng
-vưởng
-tượng
-vượng
+tướng	184
+vướng	141
+tuồng	112
+tường	163
+tưởng	187
+vưởng	67
+tượng	195
+vượng	133
 turbin
-tuyến
-tuyết
-tuyền
+tuyến	183
+tuyết	144
+tuyền	103
 tuyển
 tuyệt
 tuynen
@@ -9555,7 +9575,7 @@ xi-ren
 xi-vin
 xichlô
 ziczac
-xiềng
+xiềng	80
 xiểng
 xifông
 xilanh
@@ -9565,9 +9585,9 @@ Xla-vơ
 xơ-cua	1
 xo-nat
 xô-pha
-xoàng
-xoành
-xoảng
+xoàng	75
+xoành	44
+xoảng	54
 xoạch
 xoạng
 xoẻng
@@ -9575,20 +9595,20 @@ xon-nê	1
 xôviêt
 xú-ve
 xta-to
-xuềnh
+xuềnh	36
 xuệch
 Xtiêng
 xuống
-xướng
-xuồng
+xướng	133
+xuồng	116
 xường
 xuổng
-xưởng
+xưởng	146
 xượng
 xtrết
 xtu-cô
-xuyến
-xuyết
+xuyến	105
+xuyết	85
 -vie-n-
 a-giăng
 a-ma-tơ
@@ -9609,7 +9629,7 @@ ca-nông
 ba-ri-e	21
 ca-pốt
 ca-táp
-ca-vát
+ca-vát	21
 Ca-tang
 ba-tanh
 ba-tăng
@@ -9617,7 +9637,7 @@ ca-vét
 ca-tốt
 ba-trui
 ắc-qui
-ác-quy
+ác-quy	13
 ắc-quy
 ác-ten
 cắc-tê
@@ -9626,13 +9646,13 @@ cácbon
 cácbua
 ăccoóc
 cát-mi
-cát-sê
+cát-sê	69
 bát-tê
 bắt-tê
-cát-xê
+cát-xê	75
 cactông
 cà-rem
-cà-phê
+cà-phê	72
 caffein
 cadmium
 acetone
@@ -9670,34 +9690,34 @@ Chăm-rê
 chạồm
 bít-kê
 Châu-ro
-chiếng
-chiềng
+chiếng	50
+chiềng	50
 chlorat
 chlorur
 Chơ-rai
-choáng
-choàng
-choảng
+choáng	125
+choàng	116
+choảng	61
 choạng
 binđinh
 chòong
-choòng
+choòng	33
 bismuth
-chuếch
+chuếch	1
 chuếnh
 chuểnh
 chuệch
 chuệnh
-chướng
-chuồng
-chường
+chướng	122
+chuồng	131
+chường	88
 chưởì
-chưởng
+chưởng	109
 chưỡng
 chuộng
-chuyến
+chuyến	173
 Chuyết
-chuyền
+chuyền	146
 chuyển
 chuyện
 albumin
@@ -9766,7 +9786,7 @@ cu-lông
 cu-pông
 cua-roa	26
 cua-ron
-búp-bê
+búp-bê	1
 bù-ét
 Bulgari
 Bungari
@@ -9784,7 +9804,7 @@ fe-rít
 đêcamet
 decibel
 đét-xe
-đề-can
+đề-can	26
 êđê-êga
 fenspat
 đexiben
@@ -9840,9 +9860,9 @@ ghin-de
 gioàng
 Giơnevơ
 hipebol
-giướng
-giường
-giượng
+giướng	1
+giường	150
+giượng	1
 glaucom
 glô-côm
 glu-xit
@@ -9900,20 +9920,20 @@ kilôgam
 kilooat
 kilomet
 Khơ-mú
-khoáng
+khoáng	153
 khoắng
 khoành
-khoảng
-khoảnh
+khoảng	2
+khoảnh	135
 khoạng
 Khôống
 khuắng
-khuếch
+khuếch	119
 lithium
 khưởng
 khưỡng
-khuyến
-khuyết
+khuyến	171
+khuyết	150
 khuyển
 khuyênh
 khuỳnh
@@ -9931,7 +9951,7 @@ Ly-băng
 ô-pê-ra	1
 ô-tô-ca
 ma-bùn
-ma-dút
+ma-dút	1
 ma-lát
 ma-két
 ma-ki-ê
@@ -9939,7 +9959,7 @@ oa-lít
 ma-măng
 ma-níp
 ma-nớp
-ma-mút
+ma-mút	1
 ma-phăm
 ma-rông
 ma-tít
@@ -9947,7 +9967,7 @@ mác-ca
 Mác-Lê
 mác-ma
 nát-ri
-mát-xa
+mát-xa	85
 magazin
 magneto
 Mã-lai
@@ -9987,34 +10007,34 @@ ni-lông	70
 ni-trat
 Nha-Kẻ
 nicotin
-nghếch
+nghếch	91
 nghềnh
 nghểnh
 nghễnh
 nghệch
-nghiến
-nghiền
+nghiến	103
+nghiền	127
 nghiễm
-nghiêng	2
+nghiêng	141
 nghiệm
 nghiện
 nghiệp
 nghiệt
-nghỉnh
+nghỉnh	1
 nghĩnh
 nghịch
 nghoéo
 nghoét
 nghoèo
 Mĩ-Phi
-ngoách
+ngoách	13
 ngoắng
-nhoáng
+nhoáng	108
 ngoằng
 nhoàng
 nhoằng
-ngoảng
-ngoảnh
+ngoảng	13
+ngoảnh	89
 ngoẳng
 ngoẵng
 ngoạch
@@ -10024,20 +10044,20 @@ niu-tơn
 nguếch
 nhuếnh
 nguệch
-nhướng
+nhướng	54
 ngườí
 ngườì
-ngường
-nhường
-ngưởng
+ngường	41
+nhường	134
+ngưởng	91
 ngưỡng
 nhưỡng
-ngượng
-nhượng
+ngượng	101
+nhượng	148
 nitrate
 mittinh
 nguých
-nguyền
+nguyền	119
 Nguyễn
 nhuyễn
 nguyện
@@ -10047,7 +10067,7 @@ olympic
 mô-đéc
 ôm-lét
 mơ-lông
-mo-rát
+mo-rát	1
 mô-rát
 mô-típ
 nơ-tron	1
@@ -10076,7 +10096,7 @@ Ra-clay
 ra-đi-ô	33
 Ra-glai
 Ra-glây
-sa-lát
+sa-lát	13
 pa-lăng	21
 pa-lét
 ra-két
@@ -10092,8 +10112,8 @@ sắc-xô
 sacarin
 scanner
 rát-tê
-sát-xi
-sà-lan
+sát-xi	1
+sà-lan	1
 săm-pan
 sâmbanh
 săng-ta
@@ -10128,9 +10148,9 @@ sinhcó
 ringgit
 phospho
 photpho
-phướng
-phường
-phượng
+phướng	54
+phường	165
+phượng	117
 pittông
 pla-sma
 pla-tin
@@ -10169,14 +10189,14 @@ protide
 Su-đăng
 ru-lét
 ru-pi-a
-súp-de
-súp-lơ
+súp-de	1
+súp-lơ	33
 starter
 rufiyaa
 quetzal
 sulfate
 sun-fua
-quoàng
+quoàng	1
 quoạng
 quuyết
 quy-nin
@@ -10185,11 +10205,11 @@ va-gông
 ta-lông	33
 ta-nanh	1
 ta-tăng
-Tác-ta
+Tác-ta	1
 tắc-te
 tắc-xê
 tắc-xi
-táp-lô
+táp-lô	52
 vao-chơ
 vao-trơ
 tăng-bo	1
@@ -10217,26 +10237,26 @@ tetanos
 têtanôt
 vettông
 vi-đê-ô	1
-vi-rút
+vi-rút	99
 thảẳm
-thiềng
-thoáng
+thiềng	21
+thoáng	150
 thoắng
-thoảng
+thoảng	143
 viôlông
 Thoòng
 vinylon
 Thu-lao
 vitamin
 thướng
-thuồng
-thường
+thuồng	78
+thường	210
 thuổng
-thưởng
+thưởng	182
 Thưọng
-thượng
-thuyết
-thuyền
+thượng	159
+thuyết	178
+thuyền	163
 vơ-đét
 Tơ-đrá
 Tơ-hung
@@ -10244,7 +10264,7 @@ vô-lăng	83
 tô-mát
 tơ-năng
 Tơ-ring
-tơ-rớt
+tơ-rớt	13
 tơ-rưng
 tốc-kê
 tờ-ram
@@ -10256,21 +10276,21 @@ tông-đơ	1
 tra-côm
 uranium
 tri-ốt
-triềng
+triềng	13
 triệng
 trompet
 upsilon
-trướng
-Trường
-truồng
+trướng	122
+Trường	218
+truồng	86
 truờng
 trưởnc
-trưởng
+trưởng	196
 trưỡng
 truộng
-trượng
+trượng	112
 trumpet
-truyền
+truyền	199
 truyện
 tu-gric
 Tu-vang
@@ -10282,15 +10302,15 @@ tulơkhơ
 tuôcbin
 uýt-ki
 x-quang
-xa-lát
+xa-lát	13
 xa-lông
 xa-phia
 xa-tanh	13
 xa-tăng
 Xá-Cao
 xabôchê
-xà-lan
-xà-lim
+xà-lan	13
+xà-lim	21
 xà-lù
 xen-tim
 xenlulô
@@ -10316,7 +10336,7 @@ wolfram
 xpen-xe
 Xrêpốc
 Xu-đăng
-xu-páp
+xu-páp	13
 xúp-de
 a-ba-toa
 a-đê-nin
@@ -10351,8 +10371,8 @@ ca-ti-ôn
 ba-toong	13
 ác-bít
 ắc-cóc
-các-bin
-các-bon
+các-bin	1
+các-bon	71
 các-bua
 các-ten
 các-xtơ
@@ -10361,10 +10381,10 @@ cacbonic
 cà-mèn
 cà-rốt
 cà-vạt
-bành-tô
+bành-tô	1
 acetylen
 bakelite
-cao-bồi
+cao-bồi	1
 ban-công	44
 cao-đài
 cao-lanh
@@ -10421,7 +10441,7 @@ bốt-can
 cốt-pha
 bốt-tin
 coctison
-Cồ-đàm
+Cồ-đàm	21
 cờ-lếp
 cờ-rếp
 bồ-tạt
@@ -10433,7 +10453,7 @@ com-pắc
 boóc-đô
 coóc-nê
 boóc-tê
-coóc-xê
+coóc-xê	13
 concerto
 confetti
 bông-bay
@@ -10466,7 +10486,7 @@ críc-kê
 crô-mít
 armonica
 cu-soong
-búp-phê
+búp-phê	21
 atmosphe
 atropine
 buy-vét
@@ -10504,7 +10524,7 @@ electron
 đốc-tờ
 đờ-măng
 Đỏ-Bông
-đỏ-lục
+đỏ-lục	1
 foocmica
 đông-nam	39
 download
@@ -10514,7 +10534,7 @@ dynamite
 ha-fi-ni
 ga-lơ-ri
 ga-tuýt
-gác-dan
+gác-dan	1
 gabardin
 gacđiêng
 ích-xì
@@ -10637,7 +10657,7 @@ oóc-giơ
 Mỏ-địa
 mỏ-lết
 môi-răng
-môi-vòm
+môi-vòm	1
 moóc-xơ
 Mông-Dao
 mông-taj
@@ -10688,7 +10708,7 @@ phi-năng
 shilling
 silicium
 silicone
-pho-mát
+pho-mát	46
 pho-xép
 Phờ-lin
 phosphat
@@ -10701,7 +10721,7 @@ plăng-sê
 rô-bi-nê
 sô-cô-la	84
 pô-li-me
-rơ-moóc
+rơ-moóc	53
 sơ-va-lê
 Sô-Viết
 sốp-phơ
@@ -10729,9 +10749,9 @@ puốcboa
 sunfamit
 sunfuric
 ruy-băng
-quy-lát
+quy-lát	1
 syndicat
-vác-xin
+vác-xin	1
 vắc-xin
 táp-blô
 tăm-bông	1
@@ -10798,7 +10818,7 @@ xích-lô
 xì-cút
 Xinh-mun	1
 ximôkinh
-xô-viết
+xô-viết	1
 xốp-phơ
 xolenoit
 xmô-kinh
@@ -10831,9 +10851,9 @@ ca-phê-in	1
 ca-rô-ten	21
 ác-coóc
 ắc-coóc
-ác-ti-sô
+ác-ti-sô	21
 các-táp
-các-tông
+các-tông	49
 Bái-công
 accordeon
 bát-két
@@ -11028,7 +11048,7 @@ pác-séc
 saccharin
 saccharos
 pát-xten
-sài-gòn
+sài-gòn	13
 schilling
 păng-túp
 Patenôtre
@@ -11064,7 +11084,7 @@ prô-tê-in
 quinacrin
 sulfamide
 stơ-re-sơ
-sun-phát
+sun-phát	1
 strichnin
 strychnin
 puy-lơ-ve
@@ -11098,7 +11118,7 @@ tuốc-bin
 xa-ca-rin
 xa-bô-chê
 xắc-cốt
-xà-lách
+xà-lách	26
 Xcốt-len
 watt-giờ
 xéc-măng
@@ -11187,7 +11207,7 @@ hipôclorit
 gli-xe-rin
 gli-xê-rin
 in-tơ-nét
-hoá-Thông
+hoá-Thông	1
 gơn-đờ-lu
 hội-nghề
 ka-ra-ô-kê
@@ -11199,7 +11219,7 @@ kăng-gu-ru
 Lăng-Xương
 Lê-ba-nông
 ki-lô-lít
-ki-lô-oát
+ki-lô-oát	1
 ki-lô-mét
 ki-na-crin
 li-mô-nát
@@ -11292,7 +11312,7 @@ tút-xuỵt
 tuốc-năng
 tuyếc-bin
 Y-sơ-ra-ên
-xà-phòng
+xà-phòng	26
 xan-tô-nin
 xanh-đi-ca
 xăngtimét
@@ -11467,7 +11487,7 @@ Ka-dắc-xtan
 lập-gioòng
 lê-vi-a-than
 kilooat-giờ
-ma-cà-rồng
+ma-cà-rồng	49
 ma-két-tinh
 ma-kết-tinh
 mác-ke-tinh
@@ -11541,7 +11561,7 @@ sun-fua-rích
 sun-phu-rích
 ruy-bờ-rích
 vi-ô-lông-xen
-thanh-truyền
+thanh-truyền	39
 Ung-Khâm-Liêm
 trô-lây-buýt
 tuốc-nơ-vít
