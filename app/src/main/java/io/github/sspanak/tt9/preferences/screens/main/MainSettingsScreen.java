@@ -69,6 +69,8 @@ public class MainSettingsScreen extends BaseScreenFragment {
 
 
 	private void createSettingsSection(boolean isTT9On) {
+		new PremiumPreference(findPreference(PremiumPreference.NAME), activity).populate().enableClickHandler();
+
 		Preference gotoSetup = findPreference("screen_setup");
 		if (gotoSetup != null) {
 			gotoSetup.setSummary(isTT9On ? "" : activity.getString(R.string.setup_click_here_to_enable));
@@ -77,7 +79,8 @@ public class MainSettingsScreen extends BaseScreenFragment {
 		ArrayList<Preference> screens = new ArrayList<>(Arrays.asList(
 			findPreference("screen_appearance"),
 			findPreference("screen_keypad"),
-			findPreference("screen_languages")
+			findPreference("screen_languages"),
+			findPreference(PremiumPreference.NAME)
 		));
 
 		for (Preference goToScreen : screens) {

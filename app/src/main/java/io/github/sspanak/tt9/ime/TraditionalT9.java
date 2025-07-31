@@ -23,7 +23,7 @@ import io.github.sspanak.tt9.util.sys.Clipboard;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
-public class TraditionalT9 extends MainViewHandler {
+public class TraditionalT9 extends PremiumHandler {
 	private static final String LOG_TAG = "MAIN";
 
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
