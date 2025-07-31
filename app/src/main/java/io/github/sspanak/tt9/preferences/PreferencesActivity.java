@@ -19,6 +19,7 @@ import io.github.sspanak.tt9.db.words.LegacyDb;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.preferences.screens.PremiumScreen;
 import io.github.sspanak.tt9.preferences.screens.UsageStatsScreen;
 import io.github.sspanak.tt9.preferences.screens.appearance.AppearanceScreen;
 import io.github.sspanak.tt9.preferences.screens.debug.DebugScreen;
@@ -34,10 +35,11 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveSc
 import io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
 import io.github.sspanak.tt9.ui.ActivityWithNavigation;
+import io.github.sspanak.tt9.ui.PremiumPreferencesActivity;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
-public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+public class PreferencesActivity extends PremiumPreferencesActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -139,7 +141,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	 * Finds a screen fragment by name. If there is no fragment with such name, the main screen
 	 * fragment will be returned.
 	 */
-	private BaseScreenFragment getScreen(@Nullable String name) {
+	protected BaseScreenFragment getScreen(@Nullable String name) {
 		if (name == null) {
 			return new MainSettingsScreen(this);
 		}
@@ -155,6 +157,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 			case LanguageSelectionScreen.NAME -> new LanguageSelectionScreen(this);
 			case ModePredictiveScreen.NAME -> new ModePredictiveScreen(this);
 			case ModeAbcScreen.NAME -> new ModeAbcScreen(this);
+			case PremiumScreen.NAME -> new PremiumScreen(this);
 			case PunctuationScreen.NAME -> new PunctuationScreen(this);
 			case SetupScreen.NAME -> new SetupScreen(this);
 			case UsageStatsScreen.NAME -> new UsageStatsScreen(this);

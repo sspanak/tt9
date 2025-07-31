@@ -139,10 +139,17 @@ android {
 		full {
 			dimension 'app'
 			buildConfigField 'Boolean', 'LITE', 'false'
+			buildConfigField 'Boolean', 'PREMIUM', 'false'
 		}
 		lite {
 			dimension 'app'
 			buildConfigField 'Boolean', 'LITE', 'true'
+			buildConfigField 'Boolean', 'PREMIUM', 'false'
+		}
+		premium {
+			dimension 'app'
+			buildConfigField 'Boolean', 'LITE', 'true'
+			buildConfigField 'Boolean', 'PREMIUM', 'true'
 		}
 	}
 
@@ -170,8 +177,10 @@ android {
 
 		assembleLiteDebug.finalizedBy(updateManifest)
 		assembleFullDebug.finalizedBy(updateManifest)
+		assemblePremiumDebug.finalizedBy(updateManifest)
 		assembleLiteRelease.finalizedBy(updateManifest)
 		assembleFullRelease.finalizedBy(updateManifest)
+		assemblePremiumRelease.finalizedBy(updateManifest)
 
 		variant.outputs.configureEach {
 			def fullSuffix = variant.flavorName == 'full' ? '-full' : ''
@@ -182,6 +191,7 @@ android {
 }
 
 dependencies {
-	implementation 'com.google.android.material:material:1.12.0'
 	implementation 'androidx.preference:preference:1.2.1'
+	implementation 'com.google.android.material:material:1.12.0'
+	premiumImplementation 'com.android.billingclient:billing:8.0.0'
 }

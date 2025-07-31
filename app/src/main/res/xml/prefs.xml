@@ -28,6 +28,11 @@
 		app:title="@string/pref_category_keypad" />
 
 	<Preference
+		app:key="screen_premium"
+		app:title="@string/pref_category_premium"
+		app:isPreferenceVisible="false" />
+
+	<Preference
 		app:fragment="io.github.sspanak.tt9.preferences.SetupScreen"
 		app:key="screen_setup"
 		app:title="@string/pref_category_setup" />

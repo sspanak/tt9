@@ -46,7 +46,7 @@ public class DonatePreference extends Preference {
 
 
 	public DonatePreference populate(SettingsStore settings, boolean isTT9On) {
-		boolean isVisible = isTT9On && !settings.getDemoMode() && settings.getDonationsVisible();
+		boolean isVisible = !BuildConfig.PREMIUM && isTT9On && !settings.getDemoMode() && settings.getDonationsVisible();
 		Context context = getContext();
 
 		if (isVisible) {
