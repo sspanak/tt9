@@ -42,6 +42,11 @@
 			app:isPreferenceVisible="false" />
 
 		<Preference
+			app:key="screen_premium"
+			app:title="@string/pref_category_premium"
+			app:isPreferenceVisible="false" />
+
+		<Preference
 			app:key="screen_privacy_policy"
 			app:title="@string/pref_privacy_policy"
 			app:summary="@string/english_only">

@@ -34,5 +34,5 @@ jobs:
       run: ./gradlew copyDownloadsToAssets
     - name: Lint
       run: ./gradlew lint # this actually runs mergeResources, so it must come after the dictionary tasks
-    - name: Build all APK variants
-      run: ./gradlew build
+    - name: Build 'Lite' and 'Full' APK variants
+      run: ./gradlew assembleLiteRelease assembleFullRelease
