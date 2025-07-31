@@ -33,11 +33,11 @@ import io.github.sspanak.tt9.preferences.screens.modeAbc.ModeAbcScreen;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.ModePredictiveScreen;
 import io.github.sspanak.tt9.preferences.screens.punctuation.PunctuationScreen;
 import io.github.sspanak.tt9.preferences.screens.setup.SetupScreen;
-import io.github.sspanak.tt9.ui.ActivityWithNavigation;
+import io.github.sspanak.tt9.ui.PremiumPreferencesActivity;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
-public class PreferencesActivity extends ActivityWithNavigation implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+public class PreferencesActivity extends PremiumPreferencesActivity implements PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getSettings();
@@ -139,7 +139,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 	 * Finds a screen fragment by name. If there is no fragment with such name, the main screen
 	 * fragment will be returned.
 	 */
-	private BaseScreenFragment getScreen(@Nullable String name) {
+	protected BaseScreenFragment getScreen(@Nullable String name) {
 		if (name == null) {
 			return new MainSettingsScreen(this);
 		}
@@ -158,7 +158,7 @@ public class PreferencesActivity extends ActivityWithNavigation implements Prefe
 			case PunctuationScreen.NAME -> new PunctuationScreen(this);
 			case SetupScreen.NAME -> new SetupScreen(this);
 			case UsageStatsScreen.NAME -> new UsageStatsScreen(this);
-			default -> new MainSettingsScreen(this);
+			default -> super.getScreen(this, name);
 		};
 	}
 

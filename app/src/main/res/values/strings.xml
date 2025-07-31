@@ -37,6 +37,7 @@
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
+	<string name="pref_category_premium">Premium Subscription</string>
 	<string name="pref_category_punctuation_order">Punctuation Order</string>
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_typing_modes">Typing Modes</string>

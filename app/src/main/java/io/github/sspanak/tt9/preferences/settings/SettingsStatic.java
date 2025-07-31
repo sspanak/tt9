@@ -2,9 +2,8 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
-
-public class SettingsStore extends SettingsHotkeys {
-	public SettingsStore(Context context) { super(context); }
+public class SettingsStatic extends SettingsHotkeys {
+	protected SettingsStatic(Context context) { super(context); }
 
 	/************* internal settings *************/
 	public static final int BACKSPACE_ACCELERATION_MAX_CHARS = 20; // maximum chars to be deleted at once in very long words

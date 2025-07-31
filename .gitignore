@@ -16,9 +16,14 @@ gen/
 .gradle/
 assets/
 build/
-full/
-lite/
+app/full/
+app/lite/
+app/premium/
 release/
+app/src/full/assets/
+
+# Premium code (it's in a different repo)
+app/src/premium/
 
 # Local configuration file (sdk path, etc)
 local.properties
