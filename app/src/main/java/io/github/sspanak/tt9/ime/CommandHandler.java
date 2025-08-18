@@ -229,7 +229,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 		currentSuggestionIndex = suggestionOps.containsStem() ? currentSuggestionIndex - 1 : currentSuggestionIndex;
 
 		suggestionOps.set(mInputMode.getSuggestions(), currentSuggestionIndex, mInputMode.containsGeneratedSuggestions());
-		textField.setComposingText(suggestionOps.getCurrent());
+		appHacks.setComposingText(suggestionOps.getCurrent());
 
 		return true;
 	}
