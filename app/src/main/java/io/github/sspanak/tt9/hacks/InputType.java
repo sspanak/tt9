@@ -137,6 +137,20 @@ public class InputType extends StandardInputType {
 
 
 	/**
+	 * The main search field in Reddit does some weird stuff accepting the first character of the
+	 * composing text, causing issues when typing a new word and when recomposing. This method detects
+	 * it so that we can perform composing internally, without inserting the text into the field.
+	 */
+	public boolean isRedditSearchField() {
+		final int navigateFlags = EditorInfo.IME_FLAG_NAVIGATE_NEXT | EditorInfo.IME_FLAG_NAVIGATE_PREVIOUS;
+
+		return
+			isAppField("com.reddit.frontpage", 65537)
+			&& (field.imeOptions & navigateFlags) == navigateFlags;
+	}
+
+
+	/**
 	 * RustDesk does not support composing text when connected to a remote computer. This detects the
 	 * "remote input field", so that we can prevent inserting any composing text, but still perform
 	 * the composing operation behind the scenes.
