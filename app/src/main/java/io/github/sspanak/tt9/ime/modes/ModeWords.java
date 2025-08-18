@@ -285,6 +285,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public void loadSuggestions(String currentWord) {
 		if (disablePredictions || loadPreferredChar() || loadSpecialCharacters() || loadEmojis()) {
+			predictions.reset();
 			onSuggestionsUpdated.run();
 			return;
 		}
@@ -482,8 +483,8 @@ class ModeWords extends ModeCheonjiin {
 			&& (
 				// when no custom emoji, assume the last digit is the beginning of a new word
 				digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)
-				// punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
-				|| (digitSequence.contains(seq.CHARS_1_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE))
+				// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
+				|| (digitSequence.contains(seq.CHARS_1_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE) && !digitSequence.startsWith(seq.EMOJI_SEQUENCE))
 			);
 	}
 

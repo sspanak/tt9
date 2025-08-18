@@ -35,6 +35,13 @@ abstract public class Predictions {
 	}
 
 
+	public void reset() {
+		areThereDbWords = false;
+		containsGeneratedWords = false;
+		words.clear();
+	}
+
+
 	public Predictions setDigitSequence(@NonNull String digitSequence) {
 		this.digitSequence = digitSequence;
 		return this;
@@ -101,7 +108,7 @@ abstract public class Predictions {
 		containsGeneratedWords = false;
 
 		if (digitSequence.isEmpty()) {
-			words.clear();
+			reset();
 			onWordsChanged.run();
 			return;
 		}

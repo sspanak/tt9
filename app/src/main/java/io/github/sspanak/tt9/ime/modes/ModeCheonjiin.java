@@ -209,6 +209,7 @@ class ModeCheonjiin extends InputMode {
 	@Override
 	public void loadSuggestions(String ignored) {
 		if (disablePredictions || loadSpecialCharacters() || loadEmojis()) {
+			predictions.reset();
 			onSuggestionsUpdated.run();
 			return;
 		}
