@@ -31,7 +31,10 @@ public class TextField extends InputField {
 		super(ims, inputField);
 
 		InputType inputType = new InputType(ims, inputField);
-		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk() && (settings == null || settings.getAllowComposingText());
+		isComposingSupported =
+			!inputType.isNumeric() && !inputType.isLimited() // unsupported input fields
+			&& !inputType.isRustDesk() && !inputType.isRedditSearchField() // stupid apps
+			&& (settings == null || settings.getAllowComposingText()); // disabled in settings
 		isNonText = !inputType.isText();
 	}
 
@@ -225,6 +228,10 @@ public class TextField extends InputField {
 		connection.beginBatchEdit();
 		boolean success = connection.deleteSurroundingText(text.length(), 0) && connection.setComposingText(text, 1);
 		connection.endBatchEdit();
+
+		if (success) {
+			composingText = text;
+		}
 
 		return success;
 	}
