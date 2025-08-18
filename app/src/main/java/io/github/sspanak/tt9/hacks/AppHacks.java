@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.helpers.TextSelection;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
 
 public class AppHacks {
@@ -32,15 +33,34 @@ public class AppHacks {
 
 
 	/**
+	 * setComposingText
+	 * Performs extra operations when setting composing text for apps that do not do it properly themselves.
+	 */
+	public void setComposingText(@NonNull String word) {
+		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
+			textField.setComposingText("");
+		}
+
+		textField.setComposingText(word);
+	}
+
+
+	/**
 	 * setComposingTextWithHighlightedStem
 	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
+	 * Also, performs extra operations when setting composing text for apps that do not do it properly themselves.
 	 */
 	public void setComposingTextWithHighlightedStem(@NonNull String word, InputMode inputMode) {
 		if (inputType.isKindleInvertedTextField()) {
 			textField.setComposingText(word);
-		} else {
-			textField.setComposingTextWithHighlightedStem(word, inputMode);
+			return;
 		}
+
+		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
+			textField.setComposingText("");
+		}
+
+		textField.setComposingTextWithHighlightedStem(word, inputMode);
 	}
 
 
