@@ -168,6 +168,9 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 				getContext().getString(R.string.function_reassign),
 				() -> {
 					settings.setFunctionKey(otherFunction, KeyEvent.KEYCODE_UNKNOWN);
+					if (otherHotkey != null) {
+						otherHotkey.populate(KeyEvent.KEYCODE_UNKNOWN);
+					}
 					onAssign(dialog, keyCode);
 				}
 			).show();
