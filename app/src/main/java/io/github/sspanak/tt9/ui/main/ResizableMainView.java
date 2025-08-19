@@ -75,7 +75,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 
 
 	public void onOrientationChanged() {
-		hideCommandPalette();
+		showKeyboard();
 		render();
 	}
 
@@ -242,20 +242,14 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 	}
 
 	@Override
-	public void hideCommandPalette() {
-		super.hideCommandPalette();
+	public void showKeyboard() {
+		super.showKeyboard();
 		fitMain();
 	}
 
 	@Override
 	public void showTextEditingPalette() {
 		super.showTextEditingPalette();
-		fitMain();
-	}
-
-	@Override
-	public void hideTextEditingPalette() {
-		super.hideTextEditingPalette();
 		fitMain();
 	}
 

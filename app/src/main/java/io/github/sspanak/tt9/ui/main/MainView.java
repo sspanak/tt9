@@ -72,8 +72,7 @@ public class MainView {
 			return;
 		}
 
-		main.hideCommandPalette();
-		main.hideTextEditingPalette();
+		main.showKeyboard();
 		main.render();
 	}
 
@@ -92,14 +91,10 @@ public class MainView {
 		}
 	}
 
-	public void hideCommandPalette() {
+	public void showKeyboard() {
 		if (main != null) {
-			main.hideCommandPalette();
+			main.showKeyboard();
 		}
-	}
-
-	public boolean isCommandPaletteShown() {
-		return main != null && main.isCommandPaletteShown();
 	}
 
 	public void showTextEditingPalette() {
@@ -108,10 +103,8 @@ public class MainView {
 		}
 	}
 
-	public void hideTextEditingPalette() {
-		if (main != null) {
-			main.hideTextEditingPalette();
-		}
+	public boolean isCommandPaletteShown() {
+		return main != null && main.isCommandPaletteShown();
 	}
 
 	public boolean isTextEditingPaletteShown() {

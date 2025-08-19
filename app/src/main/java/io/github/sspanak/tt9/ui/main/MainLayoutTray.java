@@ -44,13 +44,10 @@ class MainLayoutTray extends BaseMainLayout {
 		getHeight(true);
 	}
 
-	void hideCommandPalette() {
+	void showKeyboard() {
+		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.GONE);
 		getHeight(true);
-	}
-
-	boolean isCommandPaletteShown() {
-		return view != null && view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 	@Override
@@ -62,9 +59,8 @@ class MainLayoutTray extends BaseMainLayout {
 	}
 
 	@Override
-	void hideTextEditingPalette() {
-		view.findViewById(R.id.text_editing_container).setVisibility(LinearLayout.GONE);
-		getHeight(true);
+	boolean isCommandPaletteShown() {
+		return view != null && view.findViewById(R.id.main_command_keys).getVisibility() == LinearLayout.VISIBLE;
 	}
 
 	@Override

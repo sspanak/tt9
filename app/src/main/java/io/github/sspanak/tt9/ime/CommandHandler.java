@@ -108,7 +108,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
-		mainView.hideCommandPalette();
+		mainView.showKeyboard();
 		resetStatus();
 
 		new AddWordDialog(getFinalContext(), mLanguage, textField.getSurroundingWord(mLanguage)).show();
@@ -263,7 +263,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 			return false;
 		}
 
-		mainView.hideCommandPalette();
+		mainView.showKeyboard();
 		if (voiceInputOps.isListening()) {
 			stopVoiceInput();
 		} else {
