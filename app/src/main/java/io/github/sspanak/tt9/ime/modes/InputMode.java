@@ -145,12 +145,11 @@ abstract public class InputMode {
 	// Utility
 	abstract public int getId();
 	public boolean containsGeneratedSuggestions() { return false; }
-	@NonNull public String getSequence() { return digitSequence; }
-	public void setSequence(@NonNull String sequence) { digitSequence = sequence; }
+	public boolean isTyping() { return !digitSequence.isEmpty(); }
+	public int getFirstKey() { return digitSequence.isEmpty() ? -1 : digitSequence.charAt(0) - '0'; }
 	public int getSequenceLength() { return digitSequence.length(); } // The number of key presses for the current word.
-	public int getAutoAcceptTimeout() {
-		return autoAcceptTimeout;
-	}
+	public int getAutoAcceptTimeout() { return autoAcceptTimeout; }
+	public void setSequence(@NonNull String sequence) { digitSequence = sequence; }
 
 	/**
 	 * Switches to a new language if the input mode supports it. If the InputMode return "false",
