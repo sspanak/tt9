@@ -67,10 +67,6 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
-		if (super.onHotkey(keyCode, repeat, validateOnly)) {
-			return true;
-		}
-
 		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
 			return false;
 		}
