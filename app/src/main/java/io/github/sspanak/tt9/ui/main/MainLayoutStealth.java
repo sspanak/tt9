@@ -13,14 +13,19 @@ class MainLayoutStealth extends BaseMainLayout {
 		isCommandPaletteShown = true;
 		isTextEditingPaletteShown = false;
 	}
-	@Override void hideCommandPalette() { isCommandPaletteShown = false; }
-	@Override boolean isCommandPaletteShown() { return isCommandPaletteShown; }
+
+	@Override
+	void showKeyboard() {
+		isCommandPaletteShown = false;
+		isTextEditingPaletteShown = false;
+	}
 
 	@Override void showTextEditingPalette() {
 		isTextEditingPaletteShown = true;
 		isCommandPaletteShown = false;
 	}
-	@Override void hideTextEditingPalette() { isTextEditingPaletteShown = false; }
+
+	@Override boolean isCommandPaletteShown() { return isCommandPaletteShown; }
 	@Override boolean isTextEditingPaletteShown() { return isTextEditingPaletteShown; }
 	@Override void setWidth(int w, int g) {}
 	@Override void render() {}

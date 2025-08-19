@@ -36,18 +36,37 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 
 	@Override void showCommandPalette() {}
-	@Override void hideCommandPalette() {}
 	@Override boolean isCommandPaletteShown() { return false; }
+
+
+	@Override
+	void showKeyboard() {
+		isTextEditingShown = false;
+
+		// keyboard
+		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.VISIBLE);
+		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.VISIBLE);
+
+		// text editing
+		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.GONE);
+		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.GONE);
+
+		renderKeys();
+	}
 
 
 	@Override
 	void showTextEditingPalette() {
 		isTextEditingShown = true;
 
+		// keyboard
 		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.GONE);
 		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.GONE);
 
+		// text editing
 		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.VISIBLE);
 		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.VISIBLE);
 		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.VISIBLE);
@@ -55,20 +74,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		renderKeys();
 	}
 
-	@Override
-	void hideTextEditingPalette() {
-		isTextEditingShown = false;
-
-		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.VISIBLE);
-
-		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.GONE);
-
-		renderKeys();
-	}
 
 	@Override
 	boolean isTextEditingPaletteShown() {

@@ -189,7 +189,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		if (!validateOnly) {
+		if (!validateOnly && !hideTextEditingPalette()) {
 			showTextEditingPalette();
 			forceShowWindow();
 		}

@@ -44,9 +44,9 @@ class MainLayoutSmall extends MainLayoutTray {
 	}
 
 	@Override
-	void hideCommandPalette() {
-		super.hideCommandPalette();
+	void showKeyboard() {
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+		super.showKeyboard();
 	}
 
 	@Override

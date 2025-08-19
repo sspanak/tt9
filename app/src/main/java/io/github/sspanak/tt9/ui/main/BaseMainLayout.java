@@ -299,10 +299,9 @@ abstract class BaseMainLayout {
 
 
 	abstract void showCommandPalette();
-	abstract void hideCommandPalette();
-	abstract boolean isCommandPaletteShown();
+	abstract void showKeyboard();
 	abstract void showTextEditingPalette();
-	abstract void hideTextEditingPalette();
+	abstract boolean isCommandPaletteShown();
 	abstract boolean isTextEditingPaletteShown();
 
 
