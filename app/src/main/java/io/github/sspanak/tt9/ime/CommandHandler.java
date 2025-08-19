@@ -28,12 +28,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 
 	@Override
-	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
-		return mainView.isCommandPaletteShown() && Math.abs(keyCode) != Math.abs(settings.getKeyCommandPalette());
-	}
-
-
-	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		if (statusBar.isErrorShown()) {
 			resetStatus();
