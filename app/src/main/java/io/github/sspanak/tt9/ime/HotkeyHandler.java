@@ -11,6 +11,8 @@ import io.github.sspanak.tt9.util.Ternary;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public abstract class HotkeyHandler extends CommandHandler {
+	private boolean waitingForSpaceTrim = false;
+
 	@Override
 	protected void onInit() {
 		super.onInit();
@@ -22,6 +24,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 	@Override
 	public Ternary onBack() {
+		waitingForSpaceTrim = false;
 		if (super.onBack() == Ternary.TRUE) {
 			return Ternary.TRUE;
 		} else if (settings.isMainLayoutNumpad()) {
@@ -32,8 +35,16 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	@Override
+	protected boolean onNumber(int key, boolean hold, int repeat) {
+		stopWaitingForSpaceTrimKey();
+		return super.onNumber(key, hold, repeat);
+	}
+
+
 	@Override public boolean onOK() {
 		suggestionOps.cancelDelayedAccept();
+		stopWaitingForSpaceTrimKey();
 
 		if (!suggestionOps.isEmpty()) {
 			if (mInputMode.shouldReplacePreviousSuggestion(suggestionOps.getCurrent())) {
@@ -447,23 +458,37 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
+	@Override
+	protected void waitForSpaceTrimKey() {
+		waitingForSpaceTrim = true;
+	}
+
+
+	@Override
+	protected void stopWaitingForSpaceTrimKey() {
+		waitingForSpaceTrim = false;
+	}
+
 	private boolean onTrimTrailingSpace(boolean validateOnly) {
-		if (!settings.getAutoSpace() || !suggestionOps.isEmpty()) {
+		if (!waitingForSpaceTrim || !settings.getAutoSpace() || !suggestionOps.isEmpty()) {
 			return false;
 		}
 
 		String after = textField.getStringAfterCursor(1);
 		if (!after.isEmpty() && after.charAt(0) != '\n') {
+			stopWaitingForSpaceTrimKey();
 			return false;
 		}
 
 		String before = textField.getStringBeforeCursor(2);
-		if (before.length() != 2 || !Character.isWhitespace(before.charAt(1)) || Character.isWhitespace(before.charAt(0))) {
+		if (before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
+			stopWaitingForSpaceTrimKey();
 			return false;
 		}
 
 		if (!validateOnly) {
 			textField.deleteChars(1);
+			stopWaitingForSpaceTrimKey();
 		}
 
 		return true;

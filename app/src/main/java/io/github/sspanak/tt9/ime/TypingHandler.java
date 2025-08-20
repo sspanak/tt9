@@ -27,6 +27,7 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Text;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
@@ -349,21 +350,30 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
-		// Logger.d("onUpdateSelection", "oldSelStart: " + oldSelStart + " oldSelEnd: " + oldSelEnd + " newSelStart: " + newSelStart + " oldSelEnd: " + oldSelEnd + " candidatesStart: " + candidatesStart + " candidatesEnd: " + candidatesEnd);
+//		Logger.d("onUpdateSelection", "old (" + oldSelStart + ", " + oldSelEnd + ") => new (" + newSelStart + ", " + newSelEnd + "); candidates = (" + candidatesStart + ", " + candidatesEnd + ")");
 
 		super.onUpdateSelection(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd);
 		textSelection.onSelectionUpdate(newSelStart, newSelEnd);
 
 		// in case the app has modified the InputField and moved the cursor without notifying us...
 		if (appHacks.onUpdateSelection(mInputMode, suggestionOps, oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+			stopWaitingForSpaceTrimKey();
 			return;
 		}
 
 		// If the cursor moves while composing a word (usually, because the user has touched the screen outside the word), we must
 		// end typing end accept the word. Otherwise, the cursor would jump back at the end of the word, after the next key press.
 		// This is confusing from user perspective, so we want to avoid it.
-		if (CursorOps.isMovedManually(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+		if (CursorOps.isMovedWhileTyping(newSelStart, newSelEnd, candidatesStart, candidatesEnd)) {
+			stopWaitingForSpaceTrimKey();
 			mInputMode.onCursorMove(suggestionOps.acceptIncomplete());
+			return;
+		}
+
+		// Prevent deleting a space using the left arrow key, if the user has moved the cursor to another
+		// location. This prevents undesired deletion of the space, in the middle of the text.
+		if (CursorOps.isMovedFar(newSelStart, newSelEnd, oldSelStart, oldSelEnd)) {
+			stopWaitingForSpaceTrimKey();
 		}
 	}
 
@@ -385,6 +395,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 			autoCorrectSpace(word, true, fromKey);
 			updateShiftState(true, false);
 			resetKeyRepeat();
+		}
+
+		if (!Characters.getSpace(mLanguage).equals(word)) {
+			waitForSpaceTrimKey();
 		}
 	}
 

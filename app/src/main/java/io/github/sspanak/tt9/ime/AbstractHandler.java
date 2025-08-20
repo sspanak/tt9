@@ -16,6 +16,9 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract public boolean onOK();
 	abstract public boolean onText(String text, boolean validateOnly); // used for "#", "*" and whatnot
 
+	abstract protected void waitForSpaceTrimKey();
+	abstract protected void stopWaitingForSpaceTrimKey();
+
 	// lifecycle
 	abstract protected void onInit();
 	abstract protected boolean onStart(EditorInfo inputField);
