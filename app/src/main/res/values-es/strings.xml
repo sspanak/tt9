@@ -90,7 +90,7 @@
 	<string name="pref_category_setup">Configuración inicial</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>
-	<string name="function_edit_text">Editar texto</string>
+	<string name="function_edit_text">Herramientas del portapapeles</string>
 	<string name="function_filter_suggestions">Filtrar sugerencias</string>
 	<string name="function_filter_suggestions_not_available">No es posible filtrar en este idioma.</string>
 	<string name="function_previous_suggestion">Sugerencia previa</string>

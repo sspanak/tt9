@@ -181,7 +181,7 @@
 	<string name="function_backspace">Backspace</string>
 	<string name="function_show_command_palette">Show Command List</string>
 	<string name="function_filter_clear">Clear Filter</string>
-	<string name="function_edit_text">Edit Text</string>
+	<string name="function_edit_text">Show Clipboard Tools</string>
 	<string name="function_filter_suggestions">Filter Suggestions</string>
 	<string name="function_filter_suggestions_not_available">Filtering is not possible in this language.</string>
 	<string name="function_previous_suggestion">Previous Suggestion</string>

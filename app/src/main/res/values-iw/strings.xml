@@ -226,7 +226,7 @@
 	<string name="function_already_assigned">המקש \"%1$s\" כבר מוקצה לפונקציה \"%2$s\". האם ברצונך להקצות אותו ל-“%3$s”?</string>
 	<string name="function_assign_instructions">* לחצו או החזיקו מקש כדי להקצות אותו לפונקציה \"%1$s\". \n\n* לחצו 0 כדי לבטל. \n\n* לחצו 2 כדי להשבית את הפונקציה.</string>
 	<string name="function_filter_clear">נקה מסנן</string>
-	<string name="function_edit_text">ערוך טקסט</string>
+	<string name="function_edit_text">כלי לוח הגזירים</string>
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
 	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>

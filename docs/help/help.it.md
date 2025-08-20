@@ -129,8 +129,8 @@ _La modalità predittiva non è disponibile nei campi password._
 
 _Nei campi a soli numeri, cambiare modalità non è possibile. In questi casi, il tasto torna alla sua funzione predefinita (cioè digita "#")._
 
-#### Tasto Modifica Testo:
-Mostra il pannello di modifica del testo, che consente di selezionare, tagliare, copiare e incollare testo. È possibile chiudere il pannello premendo di nuovo il tasto "✱" o, nella maggior parte delle applicazioni, premendo il tasto Indietro. Per dettagli, vedere [sotto](#modifica-testo).
+#### Tasto Strumenti degli appunti:
+Mostra il pannello degli strumenti degli appunti, che consente di selezionare, tagliare, copiare e incollare testo. È possibile chiudere il pannello premendo di nuovo il tasto "✱" o, nella maggior parte delle applicazioni, il tasto Indietro. Per maggiori dettagli, vedi [sotto](#strumenti-degli-appunti).
 
 #### Tasto Lingua Successiva (Default: tenere premuto #):
 Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
@@ -167,7 +167,7 @@ Di seguito è riportato un elenco dei comandi possibili:
 - **Mostra la schermata delle impostazioni (Combinazione predefinita: tenere premuto ✱, tasto 1).** Uguale a premere [Mostra Impostazioni](#tasto-mostra-impostazioni).
 - **Aggiungi una parola (Combinazione predefinita: tenere premuto ✱, tasto 2).** Uguale a premere [Aggiungi Parola](#tasto-aggiungi-parola).
 - **Input Vocale (Combinazione predefinita: tenere premuto ✱, tasto 3).** Uguale a premere [Input Vocale](#tasto-input-vocale).
-- **Modifica Testo (Combinazione predefinita: tenere premuto ✱, tasto 5).** Uguale a premere [Modifica Testo](#tasto-modifica-testo).
+- **Strumenti degli appunti (Combinazione predefinita: tenere premuto ✱, tasto 5).** Uguale a premere [Strumenti degli appunti](#tasto-strumenti-degli-appunti).
 - **Seleziona una Tastiera Diversa (Combinazione predefinita: tenere premuto ✱, tasto 8).** Uguale a premere [Seleziona Tastiera](#tasto-seleziona-tastiera).
 
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
@@ -230,8 +230,8 @@ L’impostazione predefinita di 100% offre un buon equilibrio tra dimensioni dei
 
 _Se lo spazio disponibile sullo schermo è limitato, TT9 ignorerà questa impostazione e ridurrà automaticamente l’altezza, per lasciare spazio all'applicazione corrente._
 
-## Modifica Testo
-Dal pannello di Modifica Testo, puoi selezionare, tagliare, copiare e incollare testo, come su una tastiera per computer. Per uscire da Modifica Testo, premi il tasto "✱" o il tasto Indietro (eccetto in browser, Spotify e altre applicazioni). Oppure premi il tasto lettere sulla Tastiera su Schermo.
+## Strumenti degli appunti
+Dal pannello degli strumenti degli appunti puoi selezionare, tagliare, copiare e incollare testo, come su una tastiera del computer. Per uscire dal pannello degli appunti, premi il tasto "✱" o il tasto Indietro (eccetto nei browser, in Spotify e in altre applicazioni). In alternativa, premi un tasto lettera sulla tastiera su schermo.
 
 Di seguito è riportato un elenco dei possibili comandi di testo:
 1. Seleziona il carattere precedente (come Shift+Freccia Sinistra su una tastiera per computer)

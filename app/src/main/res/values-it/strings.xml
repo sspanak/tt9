@@ -197,7 +197,7 @@
 	<string name="punctuation_order_save">Salva l’ordine per %1$s</string>
 	<string name="punctuation_order_forbidden_char">Carattere vietato:%1$s</string>
 	<string name="punctuation_order_forbidden_chars">Caratteri vietati:%1$s</string>
-	<string name="function_edit_text">Modifica testo</string>
+	<string name="function_edit_text">Strumenti degli appunti</string>
 	<string name="function_filter_suggestions">Filtrare suggerimenti</string>
 	<string name="function_filter_suggestions_not_available">Il filtraggio non è possibile in questa lingua.</string>
 	<string name="pref_category_geometry">Geometria</string>

@@ -129,8 +129,8 @@ _Le mode Prédictif n'est pas disponible dans les champs de mot de passe._
 
 _Dans les champs numériques uniquement, changer de mode est impossible. Dans ce cas, la touche revient à sa fonction par défaut (c’est-à-dire taper "#")._
 
-#### Touche Modifier le Texte :
-Affiche le panneau de modification de texte, permettant de sélectionner, couper, copier et coller du texte. Vous pouvez fermer le panneau en appuyant à nouveau sur la touche "✱" ou, dans la plupart des applications, en appuyant sur le bouton Retour. Détails disponibles [ci-dessous](#édition-de-texte).
+#### Touche Outils du presse-papiers :
+Affiche le panneau avec des outils du presse-papiers, permettant de sélectionner, couper, copier et coller du texte. Vous pouvez fermer le panneau en appuyant à nouveau sur la touche "✱" ou, dans la plupart des applications, en appuyant sur le bouton Retour. Détails disponibles [ci-dessous](#outils-de-presse-papiers).
 
 #### Touche Langue Suivante (par défaut : appui long sur #) :
 Changer la langue de saisie lorsque plusieurs langues ont été activées dans les paramètres.
@@ -167,7 +167,7 @@ Voici une liste des commandes possibles :
 - **Afficher l’Écran des Paramètres (Combo par défaut : appui long sur ✱, touche 1).** Identique à l’appui sur [Afficher les Paramètres](#touche-afficher-les-paramètres).
 - **Ajouter un Mot (Combo par défaut : appui long sur ✱, touche 2).** Identique à l’appui sur [Ajouter un Mot](#touche-ajouter-un-mot).
 - **Saisie Vocale (Combo par défaut : appui long sur ✱, touche 3).** Identique à l’appui sur [Saisie Vocale](#touche-saisie-vocale).
-- **Modifier le Texte (Combo par défaut : appui long sur ✱, touche 5).** Identique à l’appui sur [Modifier le Texte](#touche-modifier-le-texte).
+- **Outils du presse-papiers (Combo par défaut : appui long sur ✱, touche 5).** Identique à l’appui sur [Outils du presse-papiers](#touche-outils-du-presse-papiers).
 - **Sélectionner un Clavier Différent (Combo par défaut : appui long sur ✱, touche 8).** Identique à l’appui sur [Sélectionner le Clavier](#touche-sélectionner-le-clavier).
 
 _Cette touche ne fait rien lorsque l'Affichage de l'Écran est réglé sur "Pavé Virtuel", car toutes les touches pour toutes les fonctions possibles sont déjà disponibles à l’écran._
@@ -230,8 +230,8 @@ La valeur par défaut de 100 % est un bon compromis entre une taille de bouton u
 
 _Si l'espace disponible à l'écran est limité, TT9 ignorera ce paramètre et réduira automatiquement sa hauteur, pour laisser suffisamment de place à l'application en cours._
 
-## Édition de texte
-Depuis le panneau d'édition de texte, vous pouvez sélectionner, couper, copier et coller du texte, de la même manière qu'avec un clavier d'ordinateur. Pour quitter l'édition de texte, appuyez sur la touche « ✱ » ou sur la touche Retour (sauf dans les navigateurs Web, Spotify et quelques autres applications). Ou appuyez sur la touche de lettres du clavier à l'écran.
+## Outils de presse-papiers
+Depuis le panneau des outils du presse-papiers, vous pouvez sélectionner, couper, copier et coller du texte, de la même manière qu'avec un clavier d'ordinateur. Pour quitter les outils de presse-papiers, appuyez sur la touche « ✱ » ou sur la touche Retour (sauf dans les navigateurs Web, Spotify et quelques autres applications). Ou appuyez sur la touche de lettres du clavier à l'écran.
 
 Voici une liste des commandes de texte possibles :
 1. Sélectionner le caractère précédent (comme Shift+Gauche sur un clavier d'ordinateur)

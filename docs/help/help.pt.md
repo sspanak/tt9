@@ -129,8 +129,8 @@ _O modo Preditivo não está disponível em campos de senha._
 
 _Em campos apenas numéricos, mudar de modo é impossível. Neste caso, a tecla retorna à sua função padrão (ou seja, digitar "#")._
 
-#### Tecla de Editar Texto:
-Exibe o painel de edição de texto, permitindo selecionar, recortar, copiar e colar texto. Você pode fechar o painel pressionando a tecla "✱" novamente ou, na maioria dos aplicativos, pressionando o botão Voltar. Mais detalhes disponíveis [abaixo](#edição-de-texto).
+#### Tecla de Ferramentas da área de transferência:
+Exibe o painel de ferramentas da área de transferência, permitindo selecionar, recortar, copiar e colar texto. É possível fechar o painel pressionando novamente a tecla "✱" ou, na maioria dos aplicativos, a tecla Voltar. Mais detalhes estão disponíveis [abaixo](#ferramentas-da-área-de-transferência).
 
 #### Tecla Próximo Idioma (padrão: pressione e segure #):
 Alterar o idioma de digitação quando vários idiomas estiverem ativados nas Configurações.
@@ -167,7 +167,7 @@ Aqui está uma lista de comandos possíveis:
 - **Exibir Tela de Configurações (Combinação padrão: pressione e segure ✱, tecla 1)**. Igual ao pressionar [Exibir Configurações](#tecla-exibir-configurações).
 - **Adicionar Palavra (Combinação padrão: pressione e segure ✱, tecla 2)**. Igual ao pressionar [Adicionar Palavra](#tecla-adicionar-palavra).
 - **Entrada por Voz (Combinação padrão: pressione e segure ✱, tecla 3)**. Igual ao pressionar [Entrada por Voz](#tecla-entrada-por-voz).
-- **Editar Texto (Combinação padrão: pressione e segure ✱, tecla 5)**. Igual ao pressionar [Editar Texto](#tecla-de-editar-texto).
+- **Ferramentas da área de transferência (Combinação padrão: pressione e segure ✱, tecla 5)**. Igual ao pressionar [Ferramentas da área de transferência](#tecla-de-ferramentas-da-área-de-transferência).
 - **Selecionar um Teclado Diferente (Combinação padrão: pressione e segure ✱, tecla 8)**. Igual ao pressionar [Selecionar Teclado](#tecla-selecionar-teclado).
 
 _Esta tecla não faz nada quando a Exibição de Tela está configurada para “Teclado Virtual”, pois todas as teclas para todas as funções possíveis já estão disponíveis na tela._
@@ -230,8 +230,8 @@ A configuração padrão de 100% é um bom equilíbrio entre tamanho de botão u
 
 _Se o espaço disponível na tela for limitado, o TT9 ignorará essa configuração e reduzirá automaticamente sua altura para deixar espaço suficiente para o aplicativo atual._
 
-## Edição de Texto
-No painel de Edição de Texto, você pode selecionar, recortar, copiar e colar texto, semelhante ao que é possível em um teclado de computador. Para sair da Edição de Texto, pressione a tecla "✱" ou a tecla Voltar (exceto em navegadores, Spotify e alguns outros aplicativos). Ou pressione a tecla de letras no Teclado na Tela.
+## Ferramentas da área de transferência
+No painel de ferramentas da área de transferência, é possível selecionar, recortar, copiar e colar texto, assim como em um teclado de computador. Para sair do painel de ferramentas da área de transferência, pressione a tecla "✱" ou a tecla Voltar (exceto em navegadores, no Spotify e em alguns outros aplicativos). Como alternativa, pressione uma tecla de letra no teclado na tela.
 
 Abaixo está uma lista dos comandos de texto possíveis:
 1. Selecionar o caractere anterior (como Shift+Esquerda em um teclado de computador)

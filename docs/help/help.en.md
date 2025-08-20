@@ -129,8 +129,8 @@ _Predictive mode is not available in password fields._
 
 _In number-only fields, changing the mode is not possible. In such cases, the key reverts to its default function (i.e. type "#")._
 
-#### Edit Text Key:
-Show the text editing panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#text-editing).
+#### Clipboard Tools Key:
+Show the clipboard tools panel, which allows you to select, cut, copy, and paste text. You can close the panel by pressing the "✱" key again or, in most applications, by pressing the Back button. Details are available [below](#clipboard-tools).
 
 #### Next Language Key (Default: hold #):
 Change the typing language, when multiple languages have been enabled from the Settings.
@@ -167,7 +167,7 @@ Below is a list of the possible commands:
 - **Show the Settings Screen (Default Combo: hold ✱, 1-key).** Same as pressing [Show Settings](#show-settings-key).
 - **Add a Word (Default Combo: hold ✱, 2-key).** Same as pressing [Add Word](#add-word-key).
 - **Voice Input (Default Combo: hold ✱, 3-key).** Same as pressing [Voice Input](#voice-input-key).
-- **Edit Text (Default Combo: hold ✱, 5-key).** Same as pressing [Edit Text](#edit-text-key)
+- **Clipboard Tools (Default Combo: hold ✱, 5-key).** Same as pressing [Clipboard Tools](#clipboard-tools-key)
 - **Select a Different Keyboard (Default Combo: hold ✱, 8-key).** Same as pressing [Select Keyboard](#select-keyboard-key).
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
@@ -230,8 +230,8 @@ The default setting of 100% is a good balance between usable button size and scr
 
 _If the available screen space is limited, TT9 will ignore this setting and reduce its height automatically, to leave enough room for the current application._
 
-## Text Editing
-From the Text Editing panel, you can select, cut, copy, and paste text, similar to what is possible with a computer keyboard. To exit Text Editing, press the "✱" key, or the Back key (except in web browsers, Spotify, and a few more applications). Or press the letters key on the On-screen Keyboard.
+## Clipboard Tools
+From the Clipboard Tools panel, you can select, cut, copy, and paste text, similar to what is possible with a computer keyboard. To exit the panel, press the "✱" key, or the Back key (except in web browsers, Spotify, and a few more applications). Or press the letters key on the On-screen Keyboard.
 
 Below is a list of the possible text commands:
 1. Select the previous character (like Shift+Left on a computer keyboard)
@@ -429,7 +429,7 @@ If you are still learning to use T9 and need to switch back occasionally or find
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
 
 #### I can't change the language on a touchscreen phone
-First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-located-above-ok) to change the language.
+First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-key-at-the-bottom-of-the-left-column) to change the language.
 
 #### I can't add contractions like "I've" or "don't" to the dictionary
 All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibilty—it allows you to combine any word with any contraction, and saves a significant amount of storage space.

@@ -129,8 +129,8 @@ _El modo predictivo no está disponible en campos de contraseñas._
 
 _En campos de solo números, cambiar el modo no es posible. En tales casos, la tecla vuelve a su función predeterminada (es decir, escribir "#")._
 
-#### Tecla de Editar Texto:
-Mostrar el panel de edición de texto, que permite seleccionar, cortar, copiar y pegar texto. Puede cerrar el panel presionando la tecla "✱" de nuevo o, en la mayoría de las aplicaciones, presionando el botón Atrás. Los detalles están disponibles [a continuación](#edición-de-texto).
+#### Tecla de Herramientas del portapapeles:
+Mostrar el panel de herramientas del portapapeles, que permite seleccionar, cortar, copiar y pegar texto. Puede cerrar el panel volviendo a presionar la tecla "✱" o, en la mayoría de las aplicaciones, la tecla Atrás. Más detalles están disponibles [a continuación](#herramientas-del-portapapeles).
 
 #### Tecla de Idioma Siguiente (Por Defecto: mantener presionado #):
 Cambiar el idioma de escritura cuando se hayan habilitado varios idiomas en la configuración.
@@ -167,7 +167,7 @@ A continuación se muestra una lista de los posibles comandos:
 - **Mostrar la pantalla de Ajustes (Combinación por Defecto: mantener presionado ✱, tecla 1).** Igual que presionar [Mostrar Ajustes](#tecla-de-mostrar-ajustes).
 - **Agregar una palabra (Combinación por Defecto: mantener presionado ✱, tecla 2).** Igual que presionar [Agregar Palabra](#tecla-de-agregar-palabra).
 - **Entrada por voz (Combinación por Defecto: mantener presionado ✱, tecla 3).** Igual que presionar [Entrada por Voz](#tecla-de-entrada-por-voz).
-- **Editar Texto (Combinación por Defecto: mantener presionado ✱, tecla 5).** Igual que presionar [Editar Texto](#tecla-de-editar-texto).
+- **Herramientas del portapapeles (Combinación por Defecto: mantener presionado ✱, tecla 5).** Igual que presionar [Herramientas del portapapeles](#tecla-de-herramientas-del-portapapeles).
 - **Seleccionar un teclado diferente (Combinación por Defecto: mantener presionado ✱, tecla 8).** Igual que presionar [Seleccionar Teclado](#tecla-de-seleccionar-teclado).
 
 _Esta tecla no hace nada cuando el diseño de pantalla está configurado en "Teclado Virtual" porque todas las teclas para todas las funciones posibles ya están disponibles en la pantalla._
@@ -230,8 +230,8 @@ La configuración predeterminada del 100% es un buen equilibrio entre el tamaño
 
 _Si el espacio de pantalla disponible es limitado, TT9 ignorará esta configuración y reducirá su altura automáticamente, para dejar suficiente espacio para la aplicación actual._
 
-## Edición de Texto
-Desde el panel de Edición de Texto, puedes seleccionar, cortar, copiar y pegar texto, similar a lo que es posible con un teclado de computadora. Para salir de la Edición de Texto, presiona la tecla "✱", o la tecla Atrás (excepto en navegadores web, Spotify y algunas otras aplicaciones). O presiona la tecla de letras en el teclado en pantalla.
+## Herramientas del portapapeles
+Desde el panel de herramientas del portapapeles, puede seleccionar, cortar, copiar y pegar texto, igual que en un teclado de computadora. Para salir de este panel, presione la tecla "✱", la tecla Atrás (excepto en navegadores web, Spotify y algunas otras aplicaciones) o una tecla de letras en el teclado en pantalla.
 
 A continuación, se muestra una lista de los posibles comandos de texto:
 1. Seleccionar el carácter anterior (como Shift+Izquierda en un teclado de computadora)

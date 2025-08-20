@@ -129,8 +129,8 @@ _Der Prädiktive Modus ist in Passwortfeldern nicht verfügbar._
 
 _In reinen Zahlenfeldern ist ein Wechsel des Modus nicht möglich. In solchen Fällen kehrt die Taste zu ihrer Standardfunktion zurück (d. h. „#“ tippen)._
 
-#### Text bearbeiten Taste:
-Zeigt das Textbearbeitungsfenster, das es Ihnen ermöglicht, Text auszuwählen, zu schneiden, zu kopieren und einzufügen. Sie können das Fenster schließen, indem Sie erneut die „✱“-Taste drücken oder in den meisten Anwendungen die Zurück-Taste drücken. Details sind [unten](#textbearbeitung) verfügbar.
+#### Zwischenablage-Werkzeuge Taste:
+Zeigt das Zwischenablage-Werkzeugfeld, mit dem Sie Text auswählen, ausschneiden, kopieren und einfügen können. Sie können das Fenster schließen, indem Sie erneut die „✱“-Taste drücken oder in den meisten Anwendungen die Zurück-Taste drücken. Details sind [unten](#zwischenablage-werkzeuge) verfügbar.
 
 #### Nächste Sprache Taste (Standard: Halten #):
 Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
@@ -167,7 +167,7 @@ Im Folgenden finden Sie eine Liste der möglichen Befehle:
 - **Einstellungsbildschirm anzeigen (Standardkombination: Halten ✱, Taste 1).** Entspricht dem Drücken der Taste [Einstellungen anzeigen](#einstellungen-anzeigen-taste).
 - **Wort hinzufügen (Standardkombination: Halten ✱, Taste 2).** Entspricht dem Drücken der Taste [Wort hinzufügen](#wort-hinzufügen-taste).
 - **Spracheingabe (Standardkombination: Halten ✱, Taste 3).** Entspricht dem Drücken der Taste [Spracheingabe](#spracheingabe-taste).
-- **Text bearbeiten (Standardkombination: Halten ✱, Taste 5).** Entspricht dem Drücken der Taste [Text bearbeiten](#text-bearbeiten-taste).
+- **Zwischenablage-Werkzeuge (Standardkombination: Halten ✱, Taste 5).** Entspricht dem Drücken der Taste [Zwischenablage-Werkzeuge](#zwischenablage-werkzeuge-taste).
 - **Andere Tastatur auswählen (Standardkombination: Halten ✱, Taste 8).** Entspricht dem Drücken der Taste [Tastatur auswählen](#tastatur-auswählen-taste).
 
 _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tastatur“ eingestellt ist, da alle Tasten für alle möglichen Funktionen bereits auf dem Bildschirm verfügbar sind._
@@ -230,8 +230,8 @@ Die Standardeinstellung von 100 % ist ein guter Kompromiss zwischen Bedienbarkei
 
 _Wenn der verfügbare Bildschirmplatz begrenzt ist, ignoriert TT9 diese Einstellung und reduziert automatisch seine Höhe, um der aktuellen Anwendung genug Platz zu lassen._
 
-## Textbearbeitung
-Im Textbearbeitungsfenster können Sie Text wie auf einer Computertastatur auswählen, ausschneiden, kopieren und einfügen. Um die Textbearbeitung zu beenden, drücken Sie die „✱“-Taste oder die Zurück-Taste (außer in Webbrowsern, Spotify und einigen anderen Apps) oder die Buchstabentaste auf der Bildschirmtastatur.
+## Zwischenablage-Werkzeuge
+Im Zwischenablage-Werkzeugfeld können Sie Text wie auf einer Computertastatur auswählen, ausschneiden, kopieren und einfügen. Um das Werkzeugfeld zu schließen, drücken Sie die „✱“-Taste, die Zurück-Taste (außer in Webbrowsern, Spotify und einigen anderen Apps) oder eine Buchstabentaste auf der Bildschirmtastatur.
 
 Nachfolgend eine Liste der möglichen Textbefehle:
 1. Vorheriges Zeichen auswählen (wie Umschalt + Links auf einer Computertastatur)

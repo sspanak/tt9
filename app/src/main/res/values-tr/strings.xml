@@ -146,7 +146,7 @@
 
 	<string name="function_show_command_palette">Komut listesini göster</string>
 	<string name="function_filter_clear">Filtre temizle</string>
-	<string name="function_edit_text">Metin düzenleme</string>
+	<string name="function_edit_text">Pano araçları</string>
 	<string name="function_filter_suggestions">Tahminleri filtrele</string>
 	<string name="function_filter_suggestions_not_available">Bu dilde filtreleme mümkün değil.</string>
 	<string name="function_previous_suggestion">Önceki tahmin</string>
