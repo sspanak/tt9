@@ -123,7 +123,7 @@
 	<string name="function_backspace">Стерти</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Очистити фільтр</string>
-	<string name="function_edit_text">Редагувати тексту</string>
+	<string name="function_edit_text">Інструменти буфера обміну</string>
 	<string name="function_filter_suggestions">Фільтрувати пропозиції</string>
 	<string name="function_filter_suggestions_not_available">Фільтрація неможлива цією мовою.</string>
 	<string name="function_previous_suggestion">Попередня пропозиція</string>

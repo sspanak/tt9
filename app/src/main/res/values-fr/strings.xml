@@ -78,7 +78,7 @@
 	<string name="function_backspace">Retour arrière</string>
 	<string name="function_show_command_palette">Liste des commandes</string>
 	<string name="function_filter_clear">Supprimer le filtre</string>
-	<string name="function_edit_text">Modifier le texte</string>
+	<string name="function_edit_text">Outils du presse-papiers</string>
 	<string name="function_filter_suggestions">Filtrer les mots</string>
 	<string name="function_filter_suggestions_not_available">Le filtrage n\'est pas possible dans cette langue.</string>
 	<string name="function_previous_suggestion">Mot précédent</string>

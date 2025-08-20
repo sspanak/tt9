@@ -226,7 +226,7 @@
 	<string name="function_already_assigned">A tecla \"%1$s\" já está atribuída à função \"%2$s\". Deseja atribuí-la a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Pressione ou segure uma tecla para atribuí-la à função \"%1$s\".\n\n* Pressione 0 para cancelar.\n\n* Pressione 2 para desativar a função.</string>
 	<string name="function_filter_clear">Limpar Filtro</string>
-	<string name="function_edit_text">Editar Texto</string>
+	<string name="function_edit_text">Ferramentas da área de transferência</string>
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
 	<string name="pref_drag_resize">Redimensionar arrastando</string>

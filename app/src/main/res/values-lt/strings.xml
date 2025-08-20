@@ -91,7 +91,7 @@
 	<string name="function_backspace">Trinti</string>
 	<string name="function_show_command_palette">Rodyti komandų sąrašą</string>
 	<string name="function_filter_clear">Panaikinti filtrą</string>
-	<string name="function_edit_text">Redaguoti tekstą</string>
+	<string name="function_edit_text">Iškarpinės įrankiai</string>
 	<string name="function_filter_suggestions">Filtruoti pasiūlymus</string>
 	<string name="function_filter_suggestions_not_available">Filtravimas šia kalba nėra galimas.</string>
 	<string name="function_previous_suggestion">Ankstesnis pasiūlytas žodis</string>

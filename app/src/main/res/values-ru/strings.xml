@@ -79,7 +79,7 @@
 	<string name="function_backspace">Стереть</string>
 	<string name="function_show_command_palette">Список команд</string>
 	<string name="function_filter_clear">Удалить фильтр</string>
-	<string name="function_edit_text">Редактировать текста</string>
+	<string name="function_edit_text">Инструменты буфера обмена</string>
 	<string name="function_filter_suggestions">Фильтровать слова</string>
 	<string name="function_filter_suggestions_not_available">Фильтрация невозможна на этом языке.</string>
 	<string name="function_previous_suggestion">Предыдущее слово</string>

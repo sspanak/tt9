@@ -129,8 +129,8 @@ _Tahmin modu parola alanlarında kullanılamaz._
 
 _Sadece sayı alanlarında, mod değiştirme mümkün değildir. Böyle durumlarda, tuş varsayılan işlevine (örneğin "#" yaz) geri döner._
 
-#### Metin Düzenleme Tușu:
-Metin düzenleme panelini gösterir, bu panel seçme, kesme, kopyalama ve yapıştırma işlemlerini yapmanıza olanak tanır. Paneli kapatmak için tekrar "✱" tușuna basın veya çoğu uygulamada Geri tușuna basın. Detaylar [aşağıda](#metin-düzenleme) bulunmaktadır.
+#### Panoya Araçları tuşu:
+Pano Araçları paneli açılır ve bu panel metin seçme, kesme, kopyalama ve yapıştırma işlemlerini yapmanıza olanak tanır. Paneli kapatmak için yeniden "✱" tuşuna veya çoğu uygulamada Geri tuşuna basabilirsiniz. Ayrıntılar için [aşağıda](#pano-araçları) bakın.
 
 #### Sonraki Dil Tușu (Varsayılan: # basılı tut):
 Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
@@ -167,7 +167,7 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 - **Ayarlar Ekranını Göster (Varsayılan Kombinasyon: ✱ basılı tut, 1-tușu).** [Ayarlar Tușu](#ayarlar-tușu)'na basmakla aynıdır.
 - **Kelime Ekle (Varsayılan Kombinasyon: ✱ basılı tut, 2-tușu).** [Kelime Ekle Tușu](#kelime-ekle-tușu)'na basmakla aynıdır.
 - **Sesli Giriş (Varsayılan Kombinasyon: ✱ basılı tut, 3-tușu).** [Sesli Giriş Tușu](#sesli-giriş-tușu)'na basmakla aynıdır.
-- **Metin Düzenle (Varsayılan Kombinasyon: ✱ basılı tut, 5-tușu).** [Metin Düzenleme Tușu](#metin-düzenleme-tușu)'na basmakla aynıdır.
+- **Pano araçları (Varsayılan Kombinasyon: ✱ basılı tut, 5-tușu).** [Panoya Araçları tuşu](#panoya-araçları-tuşu)'na basmakla aynıdır.
 - **Farklı bir Klavye Seç (Varsayılan Kombinasyon: ✱ basılı tut, 8-tușu).** [Klavye Seç Tușu](#klavye-seç-tușu)'na basmakla aynıdır.
 
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
@@ -230,8 +230,8 @@ Varsayılan ayar olan %100, kullanılabilir tuș boyutu ve kapladığı ekran al
 
 _Eğer mevcut ekran alanı sınırlıysa, TT9 bu ayarı göz ardı edecek ve yüksekliğini otomatik olarak azaltarak mevcut uygulama için yeterli alan bırakacaktır._
 
-## Metin Düzenleme
-Metin Düzenleme panelinden, bilgisayar klavyesinde olduğu gibi metni seçebilir, kesebilir, kopyalayabilir ve yapıştırabilirsiniz. Metin Düzenlemeyi kapatmak için "✱" tușuna veya Geri tușuna basın (web tarayıcıları, Spotify ve bazı diğer uygulamalar hariç). Ekran Üzeri Klavyede ise harfler tușuna basabilirsiniz.
+## Pano araçları
+Pano Araçları panelinde, bilgisayar klavyesinde yapıldığı gibi metin seçebilir, kesebilir, kopyalayabilir ve yapıştırabilirsiniz. Panelden çıkmak için "✱" tuşuna veya Geri tuşuna basabilirsiniz (web tarayıcıları, Spotify ve bazı diğer uygulamalar hariç). Alternatif olarak, ekran klavyesinde herhangi bir harf tuşuna basabilirsiniz.
 
 Așağıda olası metin komutlarının bir listesi bulunmaktadır:
 1. Önceki karakteri seç (bilgisayar klavyesinde Shift+Sol gibi)
