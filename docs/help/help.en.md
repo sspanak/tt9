@@ -210,7 +210,7 @@ _Predictive mode only._
 - **Press:** Open the copy-pasting and text editing options.
 - **Hold:** Activate the Voice Input.
 
-#### Left F4 key (located above "OK")
+#### Left F4 key (the key at the bottom of the left column)
 - **Press:** Cycle the input modes (abc → Predictive → 123).
 - **Hold:** Change the typing language, when multiple languages have been enabled from the Settings.
 - **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
