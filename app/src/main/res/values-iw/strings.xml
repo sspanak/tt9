@@ -22,11 +22,12 @@
 	<string name="pref_category_fn_key_order">סדר מקשי פונקציה</string>
 	<string name="pref_category_hacks">הגדרות תאימות</string>
 	<string name="pref_category_appearance">מראה</string>
+	<string name="pref_category_keypad_onscreen">מקשים על המסך</string>
 	<string name="pref_category_predictive_mode">מצב חיזוי</string>
 	<string name="pref_category_function_keys">בחר מקשי קיצור</string>
 	<string name="pref_category_keypad">מקלדת</string>
 
-	<string name="pref_category_typing_modes">מצבי הקלדה</string>
+	<string name="pref_category_typing">הקלדה</string>
 	<string name="pref_abc_auto_accept">בחירת אותיות אוטומטית</string>
 	<string name="pref_abc_auto_accept_off">כבויה</string>
 	<string name="pref_abc_auto_accept_fastest">מאוד מהיר</string>
@@ -67,7 +68,7 @@
 	<string name="pref_suggestion_font_size">גודל גופן להצעות</string>
 	<string name="pref_suggestion_smooth_scroll">גלילה חלקה של הצעות</string>
 	<string name="pref_upside_down_keys">להפוך את סדר המקשים</string>
-	<string name="pref_upside_down_keys_summary">הפעל את ההגדרה אם המקלדת כוללת את המספרים 7-8-9 בשורה הראשונה, במקום 1-2-3.</string>
+	<string name="pref_upside_down_keys_summary">עבור מקשי מספר במחשב עם 7–8–9 למעלה, במקום 1–2–3.</string>
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
 	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית בשורה %1$d עבור \"%2$s\".</string>
 	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
@@ -240,4 +241,5 @@
 	<string name="pref_quick_switch_language">החלפה מהירה של שפות</string>
 	<string name="punctuation_order_initial">תווי התחלה</string>
 	<string name="punctuation_order_group">תוים מקובצים (לא חובה)</string>
+	<string name="pref_category_keypad_hardware">מקשים פיזיים</string>
 </resources>

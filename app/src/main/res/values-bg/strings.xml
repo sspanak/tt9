@@ -108,7 +108,7 @@
 	<string name="dictionary_loading_indeterminate">Зареждане на речник</string>
 	<string name="dictionary_load_no_internet">Неуспешно изтегляне на речника за език „%1$s“. Проверете връзката с интернет.</string>
 	<string name="dictionary_load_cancelled">Зареждането е отменено.</string>
-	<string name="pref_category_typing_modes">Режими на писане</string>
+	<string name="pref_category_typing">Писане</string>
 	<string name="pref_abc_auto_accept">Автоматичен избор на буква</string>
 	<string name="pref_abc_auto_accept_off">Изключен</string>
 	<string name="pref_abc_auto_accept_fastest">Много бърз</string>
@@ -123,6 +123,8 @@
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
 	<string name="pref_auto_text_case_summary">Автоматично започвайте изречения с главна буква. (Не е възможно на всички езици)</string>
+	<string name="pref_category_keypad_hardware">Хардуерни клавиши</string>
+	<string name="pref_category_keypad_onscreen">Екранни клавиши</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="pref_drag_resize_summary">Позволява преоразмеряване и местене на клавиатурата чрез влачене на лентата на състоянието или клавиша за настройки.</string>
@@ -132,7 +134,7 @@
 	<string name="pref_suggestion_font_size">Размер на шрифта за предложенията</string>
 	<string name="pref_suggestion_smooth_scroll">Плавно превъртане на списъка с думи</string>
 	<string name="pref_upside_down_keys">Бутони в обратен ред</string>
-	<string name="pref_upside_down_keys_summary">Включете настройката, ако на първият ред са 7–8–9, вместо 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">За компютърни клавиатури със 7–8–9 на първия ред вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Изтрий неизбраните</string>
 	<string name="pref_category_setup">Начална настройка</string>
 	<string name="key_channel_down">Предишен канал</string>

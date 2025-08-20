@@ -56,8 +56,10 @@
 	<string name="dictionary_loading_indeterminate">Chargement du dictionnaire</string>
 	<string name="dictionary_load_no_internet">Échec du téléchargement du dictionnaire pour la langue « %1$s ». Vérifiez la connexion Internet.</string>
 	<string name="dictionary_load_cancelled">Chargement est annulé.</string>
+	<string name="pref_category_keypad_hardware">Touches matérielles</string>
+	<string name="pref_category_keypad_onscreen">Touches à l’écran</string>
 	<string name="pref_category_predictive_mode">Saisie intuitive</string>
-	<string name="pref_category_typing_modes">Modes de saisie</string>
+	<string name="pref_category_typing">Saisie</string>
 	<string name="pref_abc_auto_accept">Sélection de lettre automatique</string>
 	<string name="pref_abc_auto_accept_off">Désactivée</string>
 	<string name="pref_abc_auto_accept_fastest">Très rapide</string>
@@ -113,7 +115,7 @@
 	<string name="pref_suggestion_font_size">Taille de police des suggestions</string>
 	<string name="pref_suggestion_smooth_scroll">Défilement fluide de la liste de mots</string>
 	<string name="pref_upside_down_keys">Inverser l\'ordre des clés</string>
-	<string name="pref_upside_down_keys_summary">Activez le paramètre s\'il y a 7–8–9 sur le premier rang, au lieu de 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Pour les pavés numériques d’ordinateur avec 7–8–9 sur la première rangée au lieu de 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>

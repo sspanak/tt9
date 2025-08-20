@@ -23,12 +23,14 @@
 	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
 	<string name="pref_category_hacks">Сумістність</string>
 	<string name="pref_category_appearance">Зовнішній вигляд</string>
+	<string name="pref_category_keypad_hardware">Екранні клавіші</string>
+	<string name="pref_category_keypad_onscreen">Апаратні клавіші</string>
 	<string name="pref_category_predictive_mode">Предиктивний режим</string>
 	<string name="pref_category_function_keys">Гарячі клавіші</string>
 	<string name="pref_category_keypad">Клавіатура</string>
 	<string name="pref_category_setup">Початкові налаштування</string>
 
-	<string name="pref_category_typing_modes">Режими введення</string>
+	<string name="pref_category_typing">Введення</string>
 	<string name="pref_abc_auto_accept">Автоматичний вибір літери</string>
 	<string name="pref_abc_auto_accept_off">Вимкнено</string>
 	<string name="pref_abc_auto_accept_fastest">Дуже швидко</string>
@@ -67,7 +69,7 @@
 	<string name="pref_suggestion_font_size">Розмір шрифту пропозицій</string>
 	<string name="pref_suggestion_smooth_scroll">Плавне гортання пропозицій</string>
 	<string name="pref_upside_down_keys">Зворотній порядок клавіш</string>
-	<string name="pref_upside_down_keys_summary">Використовуйте це налаштування, якщо у вас в першому ряді 7–8–9 замість 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Для комп’ютерних клавіатур, де у верхньому ряду 7–8–9 замість 1–2–3.</string>
 
 	<string name="pref_numpad_shape_long_space">Довгий пробіл</string>
 	<string name="pref_numpad_width">Ширина</string>

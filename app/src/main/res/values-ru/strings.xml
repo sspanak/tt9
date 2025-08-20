@@ -46,6 +46,8 @@
 	<string name="dictionary_loading_indeterminate">Загрузка словаря</string>
 	<string name="dictionary_load_no_internet">Не удалось загрузить словарь для языка «%1$s». Проверьте подключение к Интернету.</string>
 	<string name="dictionary_load_cancelled">Загрузка отменена.</string>
+	<string name="pref_category_keypad_hardware">Аппаратные клавиши</string>
+	<string name="pref_category_keypad_onscreen">Экранные клавиши</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="char_space">Пробел</string>
@@ -57,7 +59,7 @@
 	<string name="pref_category_hacks">Cовместимость</string>
 	<string name="pref_category_appearance">Внешний вид</string>
 	<string name="pref_category_function_keys">Горячие клавиши</string>
-	<string name="pref_category_typing_modes">Режимы ввода</string>
+	<string name="pref_category_typing">Ввод</string>
 	<string name="pref_abc_auto_accept">Автоматический выбор буквы</string>
 	<string name="pref_abc_auto_accept_off">Выключено</string>
 	<string name="pref_abc_auto_accept_fastest">Очень быстро</string>
@@ -109,7 +111,7 @@
 	<string name="pref_suggestion_font_size">Размер шрифта подсказок</string>
 	<string name="pref_suggestion_smooth_scroll">Плавная прокрутка списка слов</string>
 	<string name="pref_upside_down_keys">Перевернутая клавиатура</string>
-	<string name="pref_upside_down_keys_summary">Используйте настройку, если в первом ряду 7–8–9 вместо 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Для компьютерных клавиатур, где в верхнем ряду 7–8–9 вместо 1–2–3.</string>
 	<string name="dictionary_truncate_unselected">Удалить невыбранные</string>
 	<string name="pref_category_setup">Начальная настройка</string>
 	<string name="key_channel_down">Предыдущий канал</string>

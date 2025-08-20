@@ -21,7 +21,7 @@
 	<string name="pref_haptic_feedback_summary">Vibrieren beim Drücken einer virtuellen Taste. (Nicht auf allen Geräten möglich)</string>
 	<string name="pref_help">Hilfe</string>
 	<string name="pref_dark_theme">Dunkles Thema</string>
-	<string name="pref_category_typing_modes">Eingabemodi</string>
+	<string name="pref_category_typing">Eingabe</string>
 	<string name="pref_abc_auto_accept">Automatische Buchstabenauswahl</string>
 	<string name="pref_abc_auto_accept_off">Aus</string>
 	<string name="pref_abc_auto_accept_fastest">Sehr schnell</string>
@@ -52,7 +52,7 @@
 	<string name="pref_suggestion_font_size">Schriftgröße der Vorschläge</string>
 	<string name="pref_suggestion_smooth_scroll">Sanftes Scrollen der Wortliste</string>
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
-	<string name="pref_upside_down_keys_summary">Aktivieren Sie, wenn die Tastatur in der ersten Zeile 7–8–9 anstelle von 1–2–3 hat.</string>
+	<string name="pref_upside_down_keys_summary">Für Computer-Ziffernblöcke mit 7–8–9 in der ersten Reihe anstelle von 1–2–3.</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_bad_char">Laden fehlgeschlagen. Ungültiges Wort in Zeile %1$d der Sprache „%2$s“.</string>
 	<string name="dictionary_load_error">Fehler beim Laden des Wörterbuchs für die Sprache „%1$s“ (%2$s).</string>
@@ -71,6 +71,8 @@
 	<string name="pref_category_hacks">Kompatibilität</string>
 	<string name="dictionary_loading_indeterminate">Lade Wörterbuch</string>
 	<string name="pref_category_appearance">Erscheinungsbild</string>
+	<string name="pref_category_keypad_hardware">Hardwaretasten</string>
+	<string name="pref_category_keypad_onscreen">Bildschirmtasten</string>
 	<string name="pref_category_predictive_mode">Textvorerkennung</string>
 	<string name="pref_category_function_keys">Tastenkürzel</string>
 	<string name="pref_category_keypad">Tastenfeld</string>

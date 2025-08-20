@@ -36,11 +36,13 @@
 	<string name="pref_category_fn_key_order">Function Key Order</string>
 	<string name="pref_category_hacks">Compatibility</string>
 	<string name="pref_category_keypad">Keypad</string>
+	<string name="pref_category_keypad_hardware">Hardware Keys</string>
+	<string name="pref_category_keypad_onscreen">On-Screen Keys</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_premium">Premium Subscription</string>
 	<string name="pref_category_punctuation_order">Punctuation Order</string>
 	<string name="pref_category_setup">Initial Setup</string>
-	<string name="pref_category_typing_modes">Typing Modes</string>
+	<string name="pref_category_typing">Typing</string>
 	<string name="pref_category_usage_stats" translatable="false">Usage Stats</string>
 
 	<string name="pref_abc_auto_accept">Automatic Letter Selection</string>
@@ -108,7 +110,7 @@
 	<string name="pref_suggestion_font_size">Suggestion Font Size</string>
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
-	<string name="pref_upside_down_keys_summary">Enable if the keypad has 7–8–9 on the first row, instead of 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
 
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word on line %1$d of language \"%2$s\".</string>

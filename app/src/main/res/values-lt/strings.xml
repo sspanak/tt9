@@ -21,12 +21,14 @@
 	<string name="pref_category_fn_key_order">Funkcinių klavišų tvarka</string>
 	<string name="pref_category_hacks">Suderinamumas</string>
 	<string name="pref_category_appearance">Išvaizda</string>
+	<string name="pref_category_keypad_hardware">Aparatiniai klavišai</string>
+	<string name="pref_category_keypad_onscreen">Ekrano klavišai</string>
 	<string name="pref_category_predictive_mode">Nuspėjamumas</string>
 	<string name="pref_category_function_keys">Spartieji mygtukai</string>
 	<string name="pref_category_keypad">Mygtukai</string>
 	<string name="pref_category_setup">Pradiniai nustatymai</string>
 
-	<string name="pref_category_typing_modes">Įvedimo režimai</string>
+	<string name="pref_category_typing">Įvedimas</string>
 	<string name="pref_abc_auto_accept">Automatinis raidės pasirinkimas</string>
 	<string name="pref_abc_auto_accept_off">Išjungtas</string>
 	<string name="pref_abc_auto_accept_fastest">Labai greitas</string>
@@ -61,7 +63,7 @@
 	<string name="pref_suggestion_font_size">Siūlymų šrifto dydis</string>
 	<string name="pref_suggestion_smooth_scroll">Sklandus žodžių sąrašo slinkimas</string>
 	<string name="pref_upside_down_keys">Atvirkštinė klavišų tvarka</string>
-	<string name="pref_upside_down_keys_summary">Įjunkite šį nustatymą jei pirmoje eilutėje turite 7–8–9, o ne 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Kompiuterių skaičių klaviatūroms, kuriose pirmoje eilėje yra 7–8–9 vietoje 1–2–3.</string>
 
 	<string name="pref_numpad_shape_long_space">Ilga tarpo juosta</string>
 	<string name="pref_numpad_width">Plotis</string>
