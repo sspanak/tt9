@@ -20,7 +20,7 @@
 	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets. (Niet mogelijk op alle apparaten)</string>
 	<string name="pref_help">Helpen</string>
 	<string name="pref_dark_theme">Donker thema</string>
-	<string name="pref_category_typing_modes">Typen modi</string>
+	<string name="pref_category_typing">Invoer</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
 	<string name="pref_abc_auto_accept_off">Uit</string>
 	<string name="pref_abc_auto_accept_fastest">Zeer snel</string>
@@ -52,7 +52,7 @@
 	<string name="pref_suggestion_font_size">Lettergrootte van suggesties</string>
 	<string name="pref_suggestion_smooth_scroll">Vloeiend suggesties scrollen</string>
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
-	<string name="pref_upside_down_keys_summary">Activeer als het toetsenbord 7–8–9 op de eerste rij heeft, in plaats van 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Voor computer toetsenborden met 7–8–9 op de eerste rij in plaats van 1–2–3.</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_bad_char">Laden mislukt. Ongeldig woord op regel %1$d van taal \"%2$s\".</string>
 	<string name="dictionary_load_error">Het laden van het woordenboek voor de taal \"%1$s\" is mislukt (%2$s).</string>
@@ -74,6 +74,8 @@
 	<string name="pref_category_hacks">Compatibiliteit</string>
 	<string name="dictionary_loading_indeterminate">Woordenboek laden</string>
 	<string name="pref_category_appearance">Uiterlijk</string>
+	<string name="pref_category_keypad_hardware">Fysieke toetsen</string>
+	<string name="pref_category_keypad_onscreen">Toetsen op het scherm</string>
 	<string name="pref_category_predictive_mode">Tekstvoorspelling</string>
 	<string name="pref_category_function_keys">Sneltoetsen</string>
 	<string name="pref_category_keypad">Toetsenbord</string>

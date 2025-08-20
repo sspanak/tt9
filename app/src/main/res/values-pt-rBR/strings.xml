@@ -22,12 +22,14 @@
 	<string name="pref_category_fn_key_order">Ordem das teclas de função</string>
 	<string name="pref_category_hacks">Compatibilidade</string>
 	<string name="pref_category_appearance">Aparência</string>
+	<string name="pref_category_keypad_hardware">Teclas físicas</string>
+	<string name="pref_category_keypad_onscreen">Teclas na tela</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
 	<string name="pref_category_function_keys">Atalhos</string>
 	<string name="pref_category_keypad">Teclado</string>
 
 	<string name="pref_category_setup">Configuração inicial</string>
-	<string name="pref_category_typing_modes">Modos de digitação</string>
+	<string name="pref_category_typing">Digitando</string>
 	<string name="pref_abc_auto_accept">Seleção automática de letras</string>
 	<string name="pref_abc_auto_accept_off">Desligada</string>
 	<string name="pref_abc_auto_accept_fastest">Muito rápido</string>
@@ -113,7 +115,7 @@
 	<string name="key_volume_up">Aumentar o volume</string>
 	<string name="char_newline">Nova Linha</string>
 	<string name="char_space">Espaço</string>
-	<string name="pref_upside_down_keys_summary">Utilize essa opção se você possuir as teclas 7–8–9 na linha de cima, ao invés de 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Para teclados numéricos de computador com 7–8–9 na primeira linha em vez de 1–2–3.</string>
 	<string name="pref_suggestion_font_size">Tamanho da fonte das sugestões</string>
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>

@@ -21,7 +21,7 @@
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
 	<string name="pref_help">Yardım</string>
 	<string name="pref_dark_theme">Karanlık Tema</string>
-	<string name="pref_category_typing_modes">Yazma Modları</string>
+	<string name="pref_category_typing">Girdi</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>
 	<string name="pref_abc_auto_accept_off">Devre Dışı</string>
 	<string name="pref_abc_auto_accept_fastest">Çok Hızlı</string>
@@ -68,6 +68,8 @@
 	<string name="pref_category_hacks">Uyumluluk</string>
 	<string name="dictionary_loading_indeterminate">Sözlüğü yükle</string>
 	<string name="pref_category_appearance">Görünüş</string>
+	<string name="pref_category_keypad_hardware">Donanım tuşları</string>
+	<string name="pref_category_keypad_onscreen">Ekran tuşları</string>
 	<string name="pref_category_predictive_mode">Tahmin modu</string>
 	<string name="pref_category_function_keys">Klavye Kısayolları</string>
 	<string name="pref_category_keypad">Tuş Takımı</string>
@@ -142,7 +144,7 @@
 	<string name="pref_suggestion_font_size">Öneri yazı tipi boyutu</string>
 	<string name="pref_suggestion_smooth_scroll">Akıcı öneri kaydırma</string>
 	<string name="pref_upside_down_keys">Tuş Düzenini Tersine Çevir</string>
-	<string name="pref_upside_down_keys_summary">Eğer ilk satırda 1–2–3 yerine 7–8–9 kullanıyorsanız bunu aktif edin.</string>
+	<string name="pref_upside_down_keys_summary">Bilgisayar sayısal tuş takımlarında, ilk sırada 1–2–3 yerine 7–8–9 olanlar için.</string>
 
 	<string name="function_show_command_palette">Komut listesini göster</string>
 	<string name="function_filter_clear">Filtre temizle</string>

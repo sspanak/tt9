@@ -25,6 +25,8 @@
 	<string name="pref_category_hacks">Compatibilidad</string>
 	<string name="pref_category_appearance">Apariencia</string>
 	<string name="pref_category_function_keys">Teclas de acceso rápido</string>
+	<string name="pref_category_keypad_hardware">Teclas físicas</string>
+	<string name="pref_category_keypad_onscreen">Teclas en pantalla</string>
 	<string name="pref_category_predictive_mode">Texto predictivo</string>
 	<string name="pref_category_keypad">Teclado</string>
 	<string name="pref_auto_capitals_after_newline">Mayúsculas automáticas en cada línea</string>
@@ -63,7 +65,7 @@
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Comienza automáticamente las oraciones con una letra mayúscula. (No es posible en todos los idiomas)</string>
-	<string name="pref_category_typing_modes">Modos de escritura</string>
+	<string name="pref_category_typing">Escribiendo</string>
 	<string name="pref_abc_auto_accept">Selección automática de letra</string>
 	<string name="pref_abc_auto_accept_off">Apagada</string>
 	<string name="pref_abc_auto_accept_fastest">Muy rápido</string>
@@ -86,7 +88,7 @@
 	<string name="pref_suggestion_font_size">Tamaño de fuente de las sugerencias</string>
 	<string name="pref_suggestion_smooth_scroll">Desplazamiento suave de sugerencias</string>
 	<string name="pref_upside_down_keys">Orden de teclas inverso</string>
-	<string name="pref_upside_down_keys_summary">Habilite la configuración si hay 7–8–9 en la primera fila, en lugar de 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Para teclados numéricos de ordenador con 7–8–9 en la primera fila en lugar de 1–2–3.</string>
 	<string name="pref_category_setup">Configuración inicial</string>
 	<string name="function_show_command_palette">Lista de comandos</string>
 	<string name="function_filter_clear">Limpiar el filtro</string>

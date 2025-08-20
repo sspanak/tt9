@@ -23,7 +23,7 @@
 	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale. (Non possibile su tutti i dispositivi)</string>
 	<string name="pref_help">Aiuto</string>
 	<string name="pref_dark_theme">Tema scuro</string>
-	<string name="pref_category_typing_modes">Modalità di digitazione</string>
+	<string name="pref_category_typing">Digitazione</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
 	<string name="pref_abc_auto_accept_off">Spenta</string>
 	<string name="pref_abc_auto_accept_fastest">Molto veloce</string>
@@ -65,6 +65,8 @@
 	<string name="pref_category_fn_key_order">Ordine dei tasti funzione</string>
 	<string name="pref_category_hacks">Compatibilità</string>
 	<string name="pref_category_appearance">Aspetto</string>
+	<string name="pref_category_keypad_hardware">Tasti hardware</string>
+	<string name="pref_category_keypad_onscreen">Tasti sullo schermo</string>
 	<string name="pref_category_predictive_mode">Scrittura facilitata</string>
 	<string name="pref_category_function_keys">Scorciatoie da tastiera</string>
 	<string name="dictionary_loading_indeterminate">Caricamento del dizionario</string>
@@ -96,7 +98,7 @@
 	<string name="pref_suggestion_font_size">Dimensione carattere suggerimenti</string>
 	<string name="pref_suggestion_smooth_scroll">Scorrimento fluido dei suggerimenti</string>
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
-	<string name="pref_upside_down_keys_summary">Abilita l\'impostazione se ci sono 7–8–9 sulla prima riga, invece di 1–2–3.</string>
+	<string name="pref_upside_down_keys_summary">Per tastierini numerici dei computer con 7–8–9 nella prima fila invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
 	<string name="pref_dark_theme_yes">Si</string>
 	<string name="pref_dark_theme_no">No</string>
