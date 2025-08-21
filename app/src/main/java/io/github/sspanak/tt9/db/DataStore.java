@@ -61,7 +61,7 @@ public class DataStore {
 
 
 	public static void normalizeNext() {
-		runInThread(() -> words.normalizeNext());
+		words.normalizeNext();
 	}
 
 
@@ -156,7 +156,7 @@ public class DataStore {
 
 
 	public static void saveWordPairs() {
-		runInThread(() -> pairs.save());
+		pairs.save();
 	}
 
 
