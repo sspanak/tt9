@@ -438,4 +438,4 @@ For example, you can type: 've by pressing: 183; or: 'll, using: 155. This means
 
 A more complex example in French: "Qu'est-ce que c'est" = 781 (qu'), 378123 (est-ce), 783 (que), 21378 (c'est).
 
-_Notable exceptions to the rule are "can't" and "don't" in English. Here, 't is not a separate word, but nevertheless you can still type them as described above.
+_Notable exceptions to the rule are "can't" and "don't" in English. Here, 't is not a separate word, but nevertheless you can still type them as described above._
