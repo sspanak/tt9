@@ -36,7 +36,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null);
-	@NonNull private final Handler shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
+	@Nullable private Handler shiftStateDebounceHandler;
 
 	// input
 	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -109,6 +109,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void onFinishTyping() {
+		if (shiftStateDebounceHandler != null) {
+			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
+			shiftStateDebounceHandler = null;
+		}
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
 		setInputField(null);
@@ -464,7 +468,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void updateShiftStateDebounced(boolean determineTextCase, boolean onlyWhenLetters) {
-		shiftStateDebounceHandler.removeCallbacksAndMessages(null);
+		if (shiftStateDebounceHandler == null) {
+			shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
+		} else {
+			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
+		}
 		shiftStateDebounceHandler.postDelayed(() -> updateShiftState(determineTextCase, onlyWhenLetters), SettingsStore.SHIFT_STATE_DEBOUNCE_TIME);
 	}
 
