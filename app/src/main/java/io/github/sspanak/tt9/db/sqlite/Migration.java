@@ -6,13 +6,17 @@ import io.github.sspanak.tt9.languages.EmojiLanguage;
 class Migration {
 	static final Migration[] LIST = {
 		new Migration(
-			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN fileHash TEXT NOT NULL DEFAULT 0"
+			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN fileHash TEXT NOT NULL DEFAULT 0",
+			827
 		),
 		new Migration(
-			"ALTER TABLE " + Tables.LANGUAGES_META + " RENAME COLUMN  normalizationPending TO _delete_me_0"
+			// DROP COLUMN is supported in SQLite 3.35.0 which comes with API 34+, so...
+			"ALTER TABLE " + Tables.LANGUAGES_META + " RENAME COLUMN  normalizationPending TO _delete_me_0",
+			827
 		),
 		new Migration(
-			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN positionsToNormalize TEXT NULL"
+			"ALTER TABLE " + Tables.LANGUAGES_META + " ADD COLUMN positionsToNormalize TEXT NULL",
+			827
 		),
 		new Migration(
 			// enforce the new Vietnamese layout
@@ -25,6 +29,7 @@ class Migration {
 			1009
 		),
 		new Migration(
+			// fix custom emoji with an incorrect sequence accidentally caused when introducing Sequences()
 			"UPDATE " + Tables.CUSTOM_WORDS + " SET sequence = " + new Sequences().CUSTOM_EMOJI_SEQUENCE + " WHERE langId = " + new EmojiLanguage().getId(),
 			1202
 		)
