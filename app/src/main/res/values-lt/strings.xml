@@ -54,6 +54,7 @@
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
+	<string name="pref_layout">Išdėstymo tipas</string>
 	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
@@ -163,7 +164,7 @@
 	<string name="dictionary_update_update">Įkelti</string>
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite pavaišinti mane alumi.</string>
-	<string name="pref_layout">Klaviatūros išdėstymas ekrane</string>
+	<string name="pref_category_layout">Klaviatūros išdėstymas ekrane</string>
 	<string name="pref_numpad_key_font_size">Klavišų šrifto dydis</string>
 	<string name="pref_numpad_key_height">Aukštis</string>
 	<string name="pref_numpad_fn_key_width">Raidžių klavišų plotis</string>

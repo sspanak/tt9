@@ -38,6 +38,7 @@
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_keypad_hardware">Hardware Keys</string>
 	<string name="pref_category_keypad_onscreen">On-Screen Keys</string>
+	<string name="pref_category_layout">On-screen Layout</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
 	<string name="pref_category_premium">Premium Subscription</string>
 	<string name="pref_category_punctuation_order">Punctuation Order</string>
@@ -87,7 +88,7 @@
 	<string name="pref_haptic_feedback">Vibration</string>
 	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed. (Not possible on all devices)</string>
 	<string name="pref_help">Help</string>
-	<string name="pref_layout">On-screen Layout</string>
+	<string name="pref_layout">Layout Type</string>
 	<string name="pref_layout_numpad">Virtual numpad</string>
 	<string name="pref_layout_small">Function keys</string>
 	<string name="pref_layout_stealth">Invisible</string>

@@ -10,19 +10,27 @@
 		app:key="pref_font_size"
 		app:title="@string/pref_font_size" />
 
-	<DropDownPreference
-		app:key="pref_layout_type"
-		app:title="@string/pref_layout" />
 
-	<Preference
-		app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
-		app:key="screen_fn_key_order"
-		app:title="@string/pref_category_fn_key_order" />
+	<PreferenceCategory app:title="@string/pref_category_layout">
+		<DropDownPreference
+			app:key="pref_layout_type"
+			app:title="@string/pref_layout" />
 
-	<SwitchPreferenceCompat
-		app:key="pref_drag_resize"
-		app:title="@string/pref_drag_resize"
-		app:summary="@string/pref_drag_resize_summary" />
+		<SwitchPreferenceCompat
+			app:key="pref_arrow_keys_visible"
+			app:title="@string/pref_arrow_keys_visible"
+			app:summary="@string/pref_arrow_keys_visible_summary" />
+
+		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
+			app:key="screen_fn_key_order"
+			app:title="@string/pref_category_fn_key_order" />
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
+			app:key="pref_drag_resize"
+			app:title="@string/pref_drag_resize"
+			app:summary="@string/pref_drag_resize_summary" />
+	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_geometry">
 		<DropDownPreference
@@ -52,28 +60,23 @@
 		<DropDownPreference
 			app:key="pref_suggestion_font_size"
 			app:title="@string/pref_suggestion_font_size" />
-
-		<SwitchPreferenceCompat
-			app:key="pref_arrow_keys_visible"
-			app:title="@string/pref_arrow_keys_visible"
-			app:summary="@string/pref_arrow_keys_visible_summary" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
-		<SwitchPreferenceCompat
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_suggestion_smooth_scroll"
 			app:title="@string/pref_suggestion_smooth_scroll"/>
 
-		<SwitchPreferenceCompat
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_alternative_suggestion_scrolling"
 			app:title="@string/pref_alternative_suggestion_scrolling"
 			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
 
-		<SwitchPreferenceCompat
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
 
-		<SwitchPreferenceCompat
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="hack_precalculate_navbar_height_v3"
 			app:title="@string/pref_hack_precalculate_navbar_height"
 			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />

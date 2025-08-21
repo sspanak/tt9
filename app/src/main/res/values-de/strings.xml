@@ -14,6 +14,7 @@
 
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
+	<string name="pref_layout">Layout-Typ</string>
 	<string name="pref_layout_numpad">Ziffernblock</string>
 	<string name="pref_layout_small">Funktionstasten</string>
 	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
@@ -139,7 +140,7 @@
 	<string name="dictionary_export_finished_more_info">Wörter exportiert nach: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">CSV wird exportiert…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV wird exportiert (%1$s)…</string>
-	<string name="pref_layout">Layout auf dem Bildschirm</string>
+	<string name="pref_category_layout">Layout auf dem Bildschirm</string>
 	<string name="pref_numpad_key_font_size">Schriftgröße der Tasten</string>
 	<string name="pref_numpad_key_height">Höhe</string>
 	<string name="pref_numpad_fn_key_width">Breite der Buchstabentasten</string>

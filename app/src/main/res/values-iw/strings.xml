@@ -50,6 +50,7 @@
 	<string name="pref_dark_theme">ערכת נושא שחורה</string>
 	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>
 	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
+	<string name="pref_layout">סוג פריסה</string>
 	<string name="pref_layout_numpad">לוח מספרים</string>
 	<string name="pref_layout_small">מקשי פונקציה</string>
 	<string name="pref_layout_stealth">מצב בלתי נראה</string>
@@ -153,7 +154,7 @@
 	<string name="dictionary_export_finished_more_info">המילים יוצאות ל: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">מייצא CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">מייצא CSV (%1$s)…</string>
-	<string name="pref_layout">תצורת המקלדת על המסך</string>
+	<string name="pref_category_layout">תצורת המקלדת על המסך</string>
 	<string name="pref_numpad_key_font_size">גודל גופן המקשים</string>
 	<string name="pref_numpad_key_height">גובה</string>
 	<string name="pref_numpad_fn_key_width">רוחב מקשי האותיות</string>

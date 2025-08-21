@@ -52,6 +52,7 @@
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
+	<string name="pref_layout">Tipo de layout</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
 	<string name="pref_layout_stealth">Modo invisível</string>
@@ -155,7 +156,7 @@
 	<string name="dictionary_export_finished_more_info">Palavras exportadas para: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
-	<string name="pref_layout">Layout na tela</string>
+	<string name="pref_category_layout">Layout na tela</string>
 	<string name="pref_numpad_key_font_size">Tamanho da fonte das teclas</string>
 	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_numpad_fn_key_width">Largura das teclas de letras</string>
