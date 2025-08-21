@@ -13,6 +13,7 @@
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
+	<string name="pref_layout">Indelingstype</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
@@ -140,7 +141,7 @@
 	<string name="dictionary_export_finished_more_info">Woorden geëxporteerd naar: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">CSV exporteren…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV exporteren (%1$s)…</string>
-	<string name="pref_layout">Indeling op het scherm</string>
+	<string name="pref_category_layout">Indeling op het scherm</string>
 	<string name="pref_numpad_key_font_size">Lettergrootte van toetsen</string>
 	<string name="pref_numpad_key_height">Hoogte</string>
 	<string name="pref_numpad_fn_key_width">Breedte van lettertoetsen</string>

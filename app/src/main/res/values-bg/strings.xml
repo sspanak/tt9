@@ -13,6 +13,7 @@
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
+	<string name="pref_layout">Вид на подредбата</string>
 	<string name="pref_layout_numpad">Цифрова клавиатура</string>
 	<string name="pref_layout_small">Функционални клавиши</string>
 	<string name="pref_layout_stealth">Невидим режим</string>
@@ -152,7 +153,7 @@
 	<string name="dictionary_export_finished_more_info">Думите са експортирани в: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">Експортиране на CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експортиране на CSV (%1$s)…</string>
-	<string name="pref_layout">Екранна подредба</string>
+	<string name="pref_category_layout">Екранна подредба</string>
 	<string name="pref_numpad_key_font_size">Размер на шрифта на клавишите</string>
 	<string name="pref_numpad_key_height">Височина</string>
 	<string name="pref_numpad_fn_key_width">Ширина на клавишите с букви</string>

@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
@@ -33,6 +34,13 @@ public class ItemSelectLayoutType extends ItemDropDown {
 		super.populateIntegers(items);
 		super.setValue(String.valueOf(activity.getSettings().getMainViewLayout()));
 
+		return this;
+	}
+
+	public ItemSelectLayoutType addOnChangePreference(@Nullable Preference preference) {
+		if ( preference instanceof SwitchWhenUIVisible) {
+			onChangeReactiveItems.add((ItemLayoutChangeReactive) preference);
+		}
 		return this;
 	}
 

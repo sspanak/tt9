@@ -5,6 +5,7 @@
 	<string name="add_word_confirm">¿Agregar la palabra \"%1$s\" a %2$s?</string>
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
+	<string name="pref_layout">Tipo de distribución</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de función</string>
 	<string name="pref_layout_stealth">Modo invisible</string>
@@ -154,7 +155,7 @@
 	<string name="dictionary_export_finished_more_info">Palabras exportadas a: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
-	<string name="pref_layout">Distribución del teclado en pantalla</string>
+	<string name="pref_category_layout">Distribución del teclado en pantalla</string>
 	<string name="pref_numpad_key_font_size">Tamaño de fuente de las teclas</string>
 	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_numpad_fn_key_width">Anchura de las teclas de letras</string>

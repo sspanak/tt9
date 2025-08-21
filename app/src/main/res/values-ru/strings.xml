@@ -13,6 +13,7 @@
 	<string name="add_word_title">Добавить слово</string>
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
+	<string name="pref_layout">Вид раскладки</string>
 	<string name="pref_layout_numpad">Цифровая клавиатура</string>
 	<string name="pref_layout_small">Функциональные клавиши</string>
 	<string name="pref_layout_stealth">Невидимый режим</string>
@@ -154,7 +155,7 @@
 	<string name="dictionary_export_finished_more_info">Слова экспортированы в: «%1$s».</string>
 	<string name="dictionary_export_generating_csv">Экспорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Экспорт CSV (%1$s)…</string>
-	<string name="pref_layout">Экранная раскладка</string>
+	<string name="pref_category_layout">Экранная раскладка</string>
 	<string name="pref_numpad_key_font_size">Размер шрифта клавиш</string>
 	<string name="pref_numpad_key_height">Высота</string>
 	<string name="pref_numpad_fn_key_width">Ширина буквенных клавиш</string>

@@ -47,7 +47,12 @@ public class AppearanceScreen extends BaseScreenFragment {
 			.addOnChangeItem(numpadKeyHeight)
 			.addOnChangeItem(numpadShape)
 			.addOnChangeItem(showArrows)
-			.addOnChangeItem(suggestionFontSize);
+			.addOnChangeItem(suggestionFontSize)
+			.addOnChangePreference(findPreference("hack_precalculate_navbar_height_v3"))
+			.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
+			.addOnChangePreference(findPreference("pref_clear_insets"))
+			.addOnChangePreference(findPreference("pref_drag_resize"))
+			.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
 
 
 		ItemDropDown[] items = {

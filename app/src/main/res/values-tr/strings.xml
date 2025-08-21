@@ -14,6 +14,7 @@
 
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
+	<string name="pref_layout">Düzen türü</string>
 	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
@@ -134,7 +135,7 @@
 	<string name="dictionary_export_finished_more_info">Kelimeler şu dizine aktarıldı: „%1$s“.</string>
 	<string name="dictionary_export_generating_csv">CSV dışa aktarılıyor…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV dışa aktarılıyor (%1$s)…</string>
-	<string name="pref_layout">Ekran Düzeni</string>
+	<string name="pref_category_layout">Ekran Düzeni</string>
 	<string name="pref_numpad_key_font_size">Tuş yazı tipi boyutu</string>
 	<string name="pref_numpad_key_height">Yükseklik</string>
 	<string name="pref_numpad_fn_key_width">Harf tuşlarının genişliği</string>
