@@ -26,7 +26,7 @@
 			android:summary="@string/pref_backspace_acceleration_summary" />
 	</PreferenceCategory>
 
-	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen">
+	<PreferenceCategory android:title="@string/pref_category_keypad_onscreen" android:key="category_virtual_keys">
 		<SwitchPreferenceCompat
 			android:key="pref_haptic_feedback"
 			android:title="@string/pref_haptic_feedback"
