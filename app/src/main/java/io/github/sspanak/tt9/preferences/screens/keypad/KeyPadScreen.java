@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.keypad;
 
+import androidx.preference.PreferenceCategory;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -15,8 +17,23 @@ public class KeyPadScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
-		(new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)).populate().enableClickHandler().preview();
+		createPhysicalKeysSection();
+		createVirtualKeysSection();
 		resetFontSize(false);
+	}
+
+	private void createPhysicalKeysSection() {
+		(new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)).populate().enableClickHandler().preview();
+	}
+
+	private void createVirtualKeysSection() {
+		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
+
+		// hide the entire category when the settings shows no interest in it
+		final boolean isVisible = activity.getSettings().isMainLayoutNumpad() || activity.getSettings().isMainLayoutSmall();
+		final PreferenceCategory category = findPreference("category_virtual_keys");
+		if (category != null) {
+			category.setVisible(isVisible);
+		}
 	}
 }
