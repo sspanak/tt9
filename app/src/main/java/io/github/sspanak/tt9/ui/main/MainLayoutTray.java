@@ -21,14 +21,18 @@ class MainLayoutTray extends BaseMainLayout {
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
-			height = resources.getDimensionPixelSize(R.dimen.status_bar_height);
-
-			if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
-				height += resources.getDimensionPixelSize(R.dimen.main_small_command_palette_height);
-			}
+			height = resources.getDimensionPixelSize(R.dimen.status_bar_height) + getPanelHeight(resources);
 		}
 
 		return height;
+	}
+
+	protected int getPanelHeight(@NonNull Resources resources) {
+		if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
+			return resources.getDimensionPixelSize(R.dimen.main_small_command_palette_height);
+		} else {
+			return 0;
+		}
 	}
 
 	protected void setSoftKeysVisibility() {

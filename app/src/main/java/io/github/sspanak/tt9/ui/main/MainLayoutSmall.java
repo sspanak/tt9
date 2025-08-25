@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.content.res.Resources;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -18,19 +19,24 @@ class MainLayoutSmall extends MainLayoutTray {
 
 	@Override
 	int getHeight(boolean forceRecalculate) {
+		height = super.getHeight(forceRecalculate);
+
 		if (height <= 0 || forceRecalculate) {
-			height = super.getHeight(forceRecalculate);
-
-			if (!isCommandPaletteShown() && !isTextEditingPaletteShown()) {
-				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);
-			}
-
 			if (tt9.getSettings().getMessengerReplyExtraPadding()) {
 				height += tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_extra_height_for_messenger);
 			}
 		}
 
 		return height;
+	}
+
+	@Override
+	protected int getPanelHeight(@NonNull Resources resources) {
+		if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
+			return super.getPanelHeight(resources);
+		} else {
+			return tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);
+		}
 	}
 
 	@Override

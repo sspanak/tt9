@@ -39,38 +39,46 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override boolean isCommandPaletteShown() { return false; }
 
 
+	protected void toggleKeyboardColumns(boolean show) {
+		if (view == null) {
+			return;
+		}
+
+		int visibility = show ? LinearLayout.VISIBLE : LinearLayout.GONE;
+
+		view.findViewById(R.id.numpad_column_1).setVisibility(visibility);
+		view.findViewById(R.id.numpad_column_2).setVisibility(visibility);
+		view.findViewById(R.id.numpad_column_3).setVisibility(visibility);
+	}
+
+
+	protected void toggleTextEditingColumns(boolean show) {
+		if (view == null) {
+			return;
+		}
+
+		int visibility = show ? LinearLayout.VISIBLE : LinearLayout.GONE;
+
+		view.findViewById(R.id.numpad_column_101).setVisibility(visibility);
+		view.findViewById(R.id.numpad_column_102).setVisibility(visibility);
+		view.findViewById(R.id.numpad_column_103).setVisibility(visibility);
+		isTextEditingShown = show;
+	}
+
+
+
 	@Override
 	void showKeyboard() {
-		isTextEditingShown = false;
-
-		// keyboard
-		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.VISIBLE);
-
-		// text editing
-		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.GONE);
-
+		toggleKeyboardColumns(true);
+		toggleTextEditingColumns(false);
 		renderKeys();
 	}
 
 
 	@Override
 	void showTextEditingPalette() {
-		isTextEditingShown = true;
-
-		// keyboard
-		view.findViewById(R.id.numpad_column_1).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_2).setVisibility(LinearLayout.GONE);
-		view.findViewById(R.id.numpad_column_3).setVisibility(LinearLayout.GONE);
-
-		// text editing
-		view.findViewById(R.id.numpad_column_101).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_102).setVisibility(LinearLayout.VISIBLE);
-		view.findViewById(R.id.numpad_column_103).setVisibility(LinearLayout.VISIBLE);
-
+		toggleKeyboardColumns(false);
+		toggleTextEditingColumns(true);
 		renderKeys();
 	}
 

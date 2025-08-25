@@ -22,6 +22,11 @@
 			layout="@layout/panel_small_text_editing"
 			android:id="@+id/text_editing_container"
 			android:visibility="gone" />
+
+		<include
+			layout="@layout/panel_small_emoji_categories"
+			android:id="@+id/panel_small_emoji_categories"
+			android:visibility="gone" />
 	</LinearLayout>
 
 	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">
