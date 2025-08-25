@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class ResizableMainView extends MainView implements View.OnAttachStateChangeListener {
+public class ResizableMainView extends StaticMainView implements View.OnAttachStateChangeListener {
 	private Vibration vibration;
 
 	private int height;
@@ -213,7 +213,7 @@ public class ResizableMainView extends MainView implements View.OnAttachStateCha
 		return false;
 	}
 
-	private void fitMain() {
+	protected void fitMain() {
 		if (main == null || main instanceof MainLayoutStealth) {
 			return;
 		}

@@ -8,7 +8,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
-import io.github.sspanak.tt9.ui.main.ResizableMainView;
+import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -17,14 +17,14 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 abstract class UiHandler extends AbstractHandler {
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected SettingsStore settings;
-	protected ResizableMainView mainView = null;
+	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
 
 
 	@Override
 	protected void onInit() {
 		if (mainView == null) {
-			mainView = new ResizableMainView(getFinalContext());
+			mainView = new MainView(getFinalContext());
 			initTray();
 		} else {
 			mainView.destroy();

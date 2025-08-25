@@ -13,9 +13,7 @@ class MainLayoutStealth extends BaseMainLayout {
 		isCommandPaletteShown = true;
 		isTextEditingPaletteShown = false;
 	}
-
-	@Override
-	void showKeyboard() {
+	@Override void showKeyboard() {
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
 	}

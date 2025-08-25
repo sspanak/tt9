@@ -8,18 +8,34 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
-public class MainView {
-	private final static String LOG_TAG = MainView.class.getSimpleName();
+public class StaticMainView {
+	private final static String LOG_TAG = StaticMainView.class.getSimpleName();
 
 	protected final TraditionalT9 tt9;
 	@Nullable protected BaseMainLayout main;
 	private boolean darkTheme;
 
 
-	protected MainView(TraditionalT9 tt9) {
+	protected StaticMainView(TraditionalT9 tt9) {
 		this.tt9 = tt9;
 		forceCreate();
 	}
+
+
+	protected BaseMainLayout getViewInstance(SettingsStore settings) {
+		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
+			return new MainLayoutNumpad(tt9);
+		} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
+			return new MainLayoutSmall(tt9);
+		} else if (settings.isMainLayoutTray() && (main == null || !main.getClass().equals(MainLayoutTray.class))) {
+			return new MainLayoutTray(tt9);
+		} else if (settings.isMainLayoutStealth() && !(main instanceof MainLayoutStealth)) {
+			return new MainLayoutStealth(tt9);
+		}
+
+		return null;
+	}
+
 
 	public boolean create() {
 		SettingsStore settings = tt9.getSettings();
@@ -29,20 +45,13 @@ public class MainView {
 			main = null;
 		}
 
-		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
-			main = new MainLayoutNumpad(tt9);
-		} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
-			main = new MainLayoutSmall(tt9);
-		} else if (settings.isMainLayoutTray() && (main == null || !main.getClass().equals(MainLayoutTray.class))) {
-			main = new MainLayoutTray(tt9);
-		} else if (settings.isMainLayoutStealth() && !(main instanceof MainLayoutStealth)) {
-			main = new MainLayoutStealth(tt9);
-		} else {
+		final BaseMainLayout newMain = getViewInstance(settings);
+		if (newMain == null) {
 			return false;
 		}
 
+		main = newMain;
 		main.render();
-
 		return true;
 	}
 
