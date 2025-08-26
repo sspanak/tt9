@@ -18,11 +18,9 @@
 			<LinearLayout style="@style/TTheme.Numpad.CentralBlock">
 				<LinearLayout style="@style/TTheme.Numpad.CentralBlock.Digits1to9">
 					<include layout="@layout/panel_numpad_digits" />
-					<include layout="@layout/panel_numpad_text_editing" />
-					<include layout="@layout/panel_numpad_emoji_categories" />
 				</LinearLayout>
 
-				<include layout="@layout/panel_long_spacebar" />
+				<include layout="@layout/panel_numpad_long_spacebar" />
 			</LinearLayout>
 
 			<include layout="@layout/panel_numpad_right" />

@@ -39,29 +39,7 @@ class MainLayoutNumpad extends BaseMainLayout {
 	@Override boolean isCommandPaletteShown() { return false; }
 
 
-	protected void toggleKeyboardColumns(boolean show) {
-		if (view == null) {
-			return;
-		}
-
-		int visibility = show ? LinearLayout.VISIBLE : LinearLayout.GONE;
-
-		view.findViewById(R.id.numpad_column_1).setVisibility(visibility);
-		view.findViewById(R.id.numpad_column_2).setVisibility(visibility);
-		view.findViewById(R.id.numpad_column_3).setVisibility(visibility);
-	}
-
-
 	protected void toggleTextEditingColumns(boolean show) {
-		if (view == null) {
-			return;
-		}
-
-		int visibility = show ? LinearLayout.VISIBLE : LinearLayout.GONE;
-
-		view.findViewById(R.id.numpad_column_101).setVisibility(visibility);
-		view.findViewById(R.id.numpad_column_102).setVisibility(visibility);
-		view.findViewById(R.id.numpad_column_103).setVisibility(visibility);
 		isTextEditingShown = show;
 	}
 
@@ -69,7 +47,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showKeyboard() {
-		toggleKeyboardColumns(true);
 		toggleTextEditingColumns(false);
 		renderKeys();
 	}
@@ -77,7 +54,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
-		toggleKeyboardColumns(false);
 		toggleTextEditingColumns(true);
 		renderKeys();
 	}
@@ -246,20 +222,6 @@ class MainLayoutNumpad extends BaseMainLayout {
 		addKey(R.id.soft_key_9, table);
 		addKey(R.id.soft_key_punctuation_1, table);
 		addKey(R.id.soft_key_punctuation_2, table);
-
-		// text editing panel
-		addKey(R.id.soft_key_100, table);
-		addKey(R.id.soft_key_101, table);
-		addKey(R.id.soft_key_102, table);
-		addKey(R.id.soft_key_103, table);
-		addKey(R.id.soft_key_104, table);
-		addKey(R.id.soft_key_105, table);
-		addKey(R.id.soft_key_106, table);
-		addKey(R.id.soft_key_107, table);
-		addKey(R.id.soft_key_108, table);
-		addKey(R.id.soft_key_109, table);
-		addKey(R.id.soft_key_punctuation_101, table);
-		addKey(R.id.soft_key_punctuation_102, table);
 
 		// Long space panel
 		addKey(R.id.soft_key_200, table);
