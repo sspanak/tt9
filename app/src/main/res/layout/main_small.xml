@@ -11,22 +11,12 @@
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
 		<include layout="@layout/panel_small_status_bar" />
 		<LinearLayout style="@style/TTheme.MainSmall.MessengerPaddingHack" android:id="@+id/main_small_messenger_padding_hack"/>
-		<include layout="@layout/panel_small_function_keys" android:id="@+id/main_soft_keys" />
+		<include layout="@layout/panel_small_main_keys" android:id="@+id/main_soft_keys" />
+		<LinearLayout style="@style/TTheme.CommandPalette.Wrapper" android:id="@+id/main_command_keys" android:visibility="gone">
+			<include layout="@layout/panel_small_command_keys" />
+		</LinearLayout>
 
-		<include
-			layout="@layout/panel_small_command_palette"
-			android:id="@+id/main_command_keys"
-			android:visibility="gone" />
-
-		<include
-			layout="@layout/panel_small_text_editing"
-			android:id="@+id/text_editing_container"
-			android:visibility="gone" />
-
-		<include
-			layout="@layout/panel_small_emoji_categories"
-			android:id="@+id/panel_small_emoji_categories"
-			android:visibility="gone" />
+<!--		<include layout="@layout/panel_small_command_keys" android:id="@+id/main_command_keys" android:visibility="gone" />-->
 	</LinearLayout>
 
 	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">

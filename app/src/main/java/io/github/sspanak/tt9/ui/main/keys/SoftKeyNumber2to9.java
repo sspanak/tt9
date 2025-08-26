@@ -25,6 +25,10 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 	@Override
 	protected String getHoldText() {
+		if (isFnPanelOn()) {
+			return super.getHoldText();
+		}
+
 		if (tt9 == null || tt9.isInputModeNumeric()) {
 			return null;
 		}
@@ -35,7 +39,9 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 	@Override
 	protected String getTitle() {
-		if (tt9 != null && !tt9.isInputModeNumeric()) {
+		if (isFnPanelOn()) {
+			return super.getTitle();
+		} else if (tt9 != null && !tt9.isInputModeNumeric()) {
 			return getKeyChars(tt9, getNumber(getId()));
 		} else {
 			return getLocalizedNumber(getNumber(getId()));
@@ -45,7 +51,11 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 	@Override
 	protected float getTitleScale() {
-		return super.getTitleScale() * (isBopomofo() ? TITLE_SCALE_BOPOMOFO : 1);
+		if (isFnPanelOn()) {
+			return super.getTitleScale();
+		} else {
+			return super.getTitleScale() * (isBopomofo() ? TITLE_SCALE_BOPOMOFO : 1);
+		}
 	}
 
 

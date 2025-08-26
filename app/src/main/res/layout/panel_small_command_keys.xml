@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:showIn="@layout/main_small">
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_1" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_2" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_3" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_4" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_5" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_6" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_7" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_8" />
+
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextEditingSmall
+		style="@style/TTheme.CommandPalette.Key"
+		android:id="@+id/soft_key_9" />
+</merge>

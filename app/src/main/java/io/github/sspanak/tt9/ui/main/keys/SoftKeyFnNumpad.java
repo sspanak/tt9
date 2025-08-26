@@ -10,7 +10,7 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyNumber extends BaseSoftKeyWithIcons {
+public class SoftKeyFnNumpad extends BaseSoftKeyWithIcons {
 	protected static final float TITLE_SCALE_BOPOMOFO = 0.7f;
 
 	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
@@ -36,9 +36,9 @@ public class SoftKeyNumber extends BaseSoftKeyWithIcons {
 	}};
 
 
-	public SoftKeyNumber(Context context) { super(context); }
-	public SoftKeyNumber(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyNumber(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyFnNumpad(Context context) { super(context); }
+	public SoftKeyFnNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyFnNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	@Override

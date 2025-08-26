@@ -30,6 +30,7 @@ class MainLayoutSmall extends MainLayoutTray {
 		return height;
 	}
 
+
 	@Override
 	protected int getPanelHeight(@NonNull Resources resources) {
 		if (isCommandPaletteShown() || isTextEditingPaletteShown()) {
@@ -38,6 +39,7 @@ class MainLayoutSmall extends MainLayoutTray {
 			return tt9.getResources().getDimensionPixelSize(R.dimen.main_small_main_key_wrapper_height);
 		}
 	}
+
 
 	@Override
 	protected void setSoftKeysVisibility() {
@@ -49,11 +51,27 @@ class MainLayoutSmall extends MainLayoutTray {
 		}
 	}
 
+
+	@Override
+	void showCommandPalette() {
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		super.showCommandPalette();
+	}
+
+
 	@Override
 	void showKeyboard() {
 		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
 		super.showKeyboard();
 	}
+
+
+	@Override
+	void showTextEditingPalette() {
+		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		super.showTextEditingPalette();
+	}
+
 
 	@Override
 	protected void enableClickHandlers() {
@@ -65,6 +83,7 @@ class MainLayoutSmall extends MainLayoutTray {
 			}
 		}
 	}
+
 
 	@NonNull
 	@Override

@@ -17,6 +17,10 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 
 	@Override
 	protected String getTitle() {
+		if (isFnPanelOn()) {
+			return super.getTitle();
+		}
+
 		if (tt9 == null || tt9.isInputModeNumeric()) {
 			return LARGE_LABEL_NUMERIC;
 		}
@@ -31,12 +35,20 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 
 	@Override
 	protected float getTitleScale() {
-		return super.getTitleScale() * (isBopomofo() ? TITLE_SCALE_BOPOMOFO : 1);
+		if (isFnPanelOn()) {
+			return super.getTitleScale();
+		} else {
+			return super.getTitleScale() * (isBopomofo() ? TITLE_SCALE_BOPOMOFO : 1);
+		}
 	}
 
 
 	@Override
 	protected String getHoldText() {
+		if (isFnPanelOn()) {
+			return super.getHoldText();
+		}
+
 		if (tt9 == null || tt9.isNumericModeStrict()) {
 			return null;
 		}
