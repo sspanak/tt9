@@ -48,7 +48,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 				&& !tt9.isInputModeABC()
 				&& !tt9.isInputModeNumeric()
 				&& !tt9.isVoiceInputActive()
-				&& !tt9.isTextEditingActive()
+				&& !tt9.isFnPanelVisible()
 			);
 		}
 
