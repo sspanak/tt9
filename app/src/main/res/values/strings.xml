@@ -40,7 +40,6 @@
 	<string name="pref_category_keypad_onscreen">On-Screen Keys</string>
 	<string name="pref_category_layout">On-screen Layout</string>
 	<string name="pref_category_predictive_mode">Predictive Mode</string>
-	<string name="pref_category_premium">Premium Subscription</string>
 	<string name="pref_category_punctuation_order">Punctuation Order</string>
 	<string name="pref_category_setup">Initial Setup</string>
 	<string name="pref_category_typing">Typing</string>
