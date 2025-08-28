@@ -13,28 +13,40 @@ import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
 
-public class DonatePreference extends Preference {
-	public static final String NAME = "donate_link";
+public class ProfitPreference extends Preference {
+	public static final String NAME = "screen_profit";
 
-
-	public DonatePreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+	public ProfitPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
+		init(context);
 	}
 
-	public DonatePreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+	public ProfitPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		init(context);
 	}
 
-	public DonatePreference(@NonNull Context context, @Nullable AttributeSet attrs) {
+	public ProfitPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
+		init(context);
 	}
 
-	public DonatePreference(@NonNull Context context) {
+	public ProfitPreference(@NonNull Context context) {
 		super(context);
+		init(context);
+	}
+
+
+	protected void init(@NonNull Context context) {
+		setTitle(context.getString(R.string.donate_title));
+		String appName = context.getString(R.string.app_name_short);
+		setSummary(
+			context.getString(R.string.donate_summary, appName) + " " + context.getString(R.string.donate_hold_to_open)
+		);
 	}
 
 
@@ -45,16 +57,8 @@ public class DonatePreference extends Preference {
 	}
 
 
-	public DonatePreference populate(SettingsStore settings, boolean isTT9On) {
-		boolean isVisible = isTT9On && !settings.getDemoMode() && settings.getDonationsVisible();
-		Context context = getContext();
-
-		if (isVisible) {
-			String appName = context.getString(R.string.app_name_short);
-			setSummary(
-				context.getString(R.string.donate_summary, appName) + " " + context.getString(R.string.donate_hold_to_open)
-			);
-		}
+	public ProfitPreference populate(@NonNull PreferencesActivity activity, boolean isTT9On) {
+		boolean isVisible = isTT9On && !activity.getSettings().getDemoMode() && activity.getSettings().getDonationsVisible();
 		setVisible(isVisible);
 		setIconSpaceReserved(false);
 

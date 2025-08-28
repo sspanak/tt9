@@ -38,11 +38,6 @@ class Migration {
 	final String query;
 	final int oldVersion;
 
-	private Migration(String query) {
-		this.oldVersion = Integer.MAX_VALUE;
-		this.query = query;
-	}
-
 	private Migration(String query, int oldVersion) {
 		this.oldVersion = oldVersion;
 		this.query = query;

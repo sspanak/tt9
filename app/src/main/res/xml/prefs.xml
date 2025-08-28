@@ -33,17 +33,11 @@
 		app:title="@string/pref_category_setup" />
 
 	<PreferenceCategory
-		android:title="@string/pref_category_about"
+		app:title="@string/pref_category_about"
 		app:singleLineTitle="true">
 
-		<io.github.sspanak.tt9.preferences.screens.main.DonatePreference
-			app:key="donate_link"
-			app:title="@string/donate_title"
-			app:isPreferenceVisible="false" />
-
-		<Preference
-			app:key="screen_premium"
-			app:title="@string/pref_category_premium"
+		<io.github.sspanak.tt9.preferences.screens.main.ProfitPreference
+			app:key="screen_profit"
 			app:isPreferenceVisible="false" />
 
 		<Preference
