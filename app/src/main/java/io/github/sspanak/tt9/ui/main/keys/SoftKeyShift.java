@@ -42,7 +42,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 			&& !tt9.isVoiceInputActive()
 			&& !tt9.isInputModePhone()
 			&& !tt9.isNumericModeSigned()
-			&& !tt9.isTextEditingActive()
+			&& !tt9.isFnPanelVisible()
 		);
 		super.render();
 	}

@@ -33,7 +33,7 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 		if (tt9 != null) {
 			setEnabled(
 				(
-					(tt9.isAddingWordsSupported() && !tt9.isTextEditingActive())
+					(tt9.isAddingWordsSupported() && !tt9.isFnPanelVisible())
 					|| hasLettersOnAllKeys()
 				)
 				&& !tt9.isVoiceInputActive()

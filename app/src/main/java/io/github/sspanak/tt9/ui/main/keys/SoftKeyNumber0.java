@@ -19,12 +19,12 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 	}
 
 
-	private boolean isTransparentWhenTextEditing() {
-		return tt9 != null && tt9.isTextEditingActive() && hasLettersOnAllKeys();
+	private boolean shouldBeTransparent() {
+		return tt9 != null && tt9.isFnPanelVisible() && hasLettersOnAllKeys();
 	}
 
 
-	protected boolean isHiddenWhenLongSpace() {
+	protected boolean shouldHide() {
 		return tt9 != null
 			&& tt9.getSettings().isNumpadShapeLongSpace()
 			&& !tt9.isInputModeNumeric()
@@ -40,7 +40,7 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 	@Override
 	protected String getHoldText() {
-		if (tt9 == null || isHiddenWhenLongSpace()) {
+		if (tt9 == null || shouldHide()) {
 			return null;
 		}
 
@@ -89,9 +89,9 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 	private void setVisibility() {
 		getOverlayWrapper();
-		if (isHiddenWhenLongSpace()) {
+		if (shouldHide()) {
 			overlay.setVisibility(GONE);
-		} else if (isTransparentWhenTextEditing()) {
+		} else if (shouldBeTransparent()) {
 			overlay.setVisibility(INVISIBLE);
 		} else {
 			overlay.setVisibility(VISIBLE);

@@ -104,7 +104,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 			&& !tt9.isVoiceInputActive()
 			&& !tt9.isNumericModeStrict()
 			&& !tt9.isInputModePhone()
-			&& !tt9.isTextEditingActive()
+			&& !tt9.isFnPanelVisible()
 		);
 
 		super.render();

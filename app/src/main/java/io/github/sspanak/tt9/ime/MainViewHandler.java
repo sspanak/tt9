@@ -86,6 +86,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 		return stem != null && !stem.isEmpty();
 	}
 
+	public boolean isFnPanelVisible() {
+		return mainView != null && mainView.isTextEditingPaletteShown();
+	}
+
+
 	public boolean isInputLimited() {
 		return inputType.isLimited();
 	}
