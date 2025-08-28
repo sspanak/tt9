@@ -39,6 +39,6 @@ public class SoftKeyPunctuationRight extends SoftKeyPunctuation {
 
 	@Override
 	protected int getCentralIcon() {
-		return isTextEditingOn() && !isHiddenWhenLongSpace() ? R.drawable.ic_fn_redo : -1;
+		return isTextEditingOn() && !shouldHide() ? R.drawable.ic_fn_redo : -1;
 	}
 }
