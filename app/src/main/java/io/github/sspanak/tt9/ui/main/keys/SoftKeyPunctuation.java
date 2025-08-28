@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.ViewParent;
 import android.widget.RelativeLayout;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -22,12 +23,16 @@ abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
 	}
 
 
-	protected boolean isHiddenWhenLongSpace() {
-		return
-			tt9 != null
-			&& tt9.getSettings().isNumpadShapeLongSpace()
-			&& !tt9.isInputModeNumeric()
-			&& !hasLettersOnAllKeys();
+	protected boolean shouldHide() {
+		final boolean isLongSpaceKey = getId() == R.id.soft_key_punctuation_201 || getId() == R.id.soft_key_punctuation_202;
+		final boolean isShapeLongSpace = tt9 != null && tt9.getSettings().isNumpadShapeLongSpace();
+		final boolean isInputModeNumeric = tt9 != null && tt9.isInputModeNumeric();
+
+		if (isInputModeNumeric || hasLettersOnAllKeys()) {
+			return isLongSpaceKey;
+		}
+
+		return (isLongSpaceKey && !isShapeLongSpace) || (!isLongSpaceKey && isShapeLongSpace);
 	}
 
 
@@ -61,7 +66,7 @@ abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
 
 	@Override
 	public void render() {
-		boolean isHidden = isHiddenWhenLongSpace();
+		final boolean isHidden = shouldHide();
 		setVisibility(isHidden ? GONE : VISIBLE);
 
 		ViewParent parent = getParent();
