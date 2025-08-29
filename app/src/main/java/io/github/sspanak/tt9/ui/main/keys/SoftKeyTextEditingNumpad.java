@@ -25,7 +25,12 @@ public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
 	}
 
 
-	@Override protected String getTitle() { return isTextEditingActive() ? "" : super.getTitle(); }
+	@Override protected String getTitle() {
+		if (isTextEditingActive()) {
+			return (getNumber(getId()) == 0) ? "␣" : "";
+		}
+		return super.getTitle();
+	}
 	@Override protected String getHoldText() { return isTextEditingActive() ? "" : super.getHoldText(); }
 
 

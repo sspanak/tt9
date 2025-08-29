@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.TextTools;
 
-public class SoftKeyNumber0 extends SoftKeyFnNumpad {
+public class SoftKeyNumber0 extends SoftKeyNumber {
 	private static final String CHARS_NUMERIC_MODE = "+%$";
 
 	public SoftKeyNumber0(Context context) { super(context); }
@@ -20,15 +20,23 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 
 	private boolean shouldBeTransparent() {
-		return tt9 != null && tt9.isFnPanelVisible() && hasLettersOnAllKeys();
+		return tt9 != null && tt9.isTextEditingActive() && hasLettersOnAllKeys();
 	}
 
 
 	protected boolean shouldHide() {
-		return tt9 != null
-			&& tt9.getSettings().isNumpadShapeLongSpace()
-			&& !tt9.isInputModeNumeric()
-			&& !hasLettersOnAllKeys();
+		if (tt9 == null || tt9.isInputModeNumeric()) {
+			return false;
+		}
+
+		final boolean isKeypadLong = tt9.getSettings().isNumpadShapeLongSpace();
+		final boolean isKeyLong = this instanceof SoftKeyNumber0Long;
+
+		if (hasLettersOnAllKeys()) {
+			return isKeyLong;
+		}
+
+		return isKeypadLong != isKeyLong;
 	}
 
 
@@ -40,6 +48,10 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 	@Override
 	protected String getHoldText() {
+		if (isFnPanelOn()) {
+			return super.getHoldText();
+		}
+
 		if (tt9 == null || shouldHide()) {
 			return null;
 		}
@@ -60,6 +72,10 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 	@Override
 	protected String getTitle() {
+		if (isFnPanelOn()) {
+			return super.getTitle();
+		}
+
 		if (tt9 == null || tt9.isInputModeNumeric()) {
 			return "0";
 		}
@@ -74,7 +90,7 @@ public class SoftKeyNumber0 extends SoftKeyFnNumpad {
 
 	@Override
 	protected float getTitleScale() {
-		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric())) {
+		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric() && !isFnPanelOn())) {
 			return super.getTitleScale();
 		}
 
