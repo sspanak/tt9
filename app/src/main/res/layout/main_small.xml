@@ -15,8 +15,6 @@
 		<LinearLayout style="@style/TTheme.CommandPalette.Wrapper" android:id="@+id/main_command_keys" android:visibility="gone">
 			<include layout="@layout/panel_small_command_keys" />
 		</LinearLayout>
-
-<!--		<include layout="@layout/panel_small_command_keys" android:id="@+id/main_command_keys" android:visibility="gone" />-->
 	</LinearLayout>
 
 	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">

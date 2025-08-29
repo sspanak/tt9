@@ -26,6 +26,12 @@
 			<include layout="@layout/panel_numpad_right" />
 
 		</LinearLayout>
+
+		<include
+			layout="@layout/panel_extra"
+			android:id="@+id/main_panel_extra"
+			android:visibility="gone" />
+
 	</LinearLayout>
 
 	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">

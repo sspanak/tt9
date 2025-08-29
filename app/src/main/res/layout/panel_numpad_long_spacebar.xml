@@ -16,6 +16,7 @@
 			style="@style/TTheme.Numpad.Key.Number"
 			android:id="@+id/soft_key_200" />
 		<include layout="@layout/key_overlay_number_hold_text" />
+		<include layout="@layout/key_overlay_icons" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.ShortPunctuation.Overlay.Wrapper">
