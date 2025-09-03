@@ -487,7 +487,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		if (!validateOnly) {
-			textField.deleteChars(1);
+			textField.deleteChars(mLanguage, 1);
 			stopWaitingForSpaceTrimKey();
 		}
 

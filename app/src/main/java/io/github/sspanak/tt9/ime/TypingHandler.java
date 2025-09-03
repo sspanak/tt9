@@ -269,7 +269,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			charsToDelete = charsToDelete > 0 ? charsToDelete : Math.max(textField.getPaddedWordBeforeCursorLength(), 1);
 		}
 
-		textField.deleteChars(charsToDelete);
+		textField.deleteChars(mLanguage, charsToDelete);
 	}
 
 

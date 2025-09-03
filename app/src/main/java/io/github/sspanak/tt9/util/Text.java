@@ -1,7 +1,9 @@
+
 package io.github.sspanak.tt9.util;
 
 import androidx.annotation.NonNull;
 
+import java.text.BreakIterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
@@ -237,6 +239,22 @@ public class Text extends TextTools {
 	public int codePointLength() {
 		return text == null ? 0 : text.codePointCount(0, text.length());
 	}
+
+
+	/**
+	 * Returns the length of the last grapheme (a user-perceived character). This allows for correctly
+	 * deleting graphemes consisting of multiple Java chars. Example: 🏴‍☠️ (pirate flag) = 5 chars.
+	 */
+	public int lastGraphemeLength() {
+		if (text == null || text.length() <= 1) {
+			return 1;
+		}
+
+		BreakIterator bi = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : Locale.getDefault());
+		bi.setText(text);
+		final int end = bi.last();
+		return end - bi.preceding(end);
+}
 
 
 	/**
