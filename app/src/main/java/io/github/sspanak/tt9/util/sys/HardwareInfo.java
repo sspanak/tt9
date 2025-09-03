@@ -31,10 +31,14 @@ public class HardwareInfo {
 	}
 
 
+	public static float getScreenPixelDensity(Context context) {
+		return getResources(context).getDisplayMetrics().density;
+	}
+
+
 	public static int getScreenWidth(Context context) {
 		return getResources(context).getDisplayMetrics().widthPixels;
 	}
-
 
 
 	public static int getScreenHeight(Context context) {
@@ -43,12 +47,12 @@ public class HardwareInfo {
 
 
 	public static float getScreenHeightDp(Context context) {
-		return getScreenHeight(context) / getResources(context).getDisplayMetrics().density;
+		return getScreenHeight(context) / getScreenPixelDensity(context);
 	}
 
 
 	public static float getScreenWidthDp(Context context) {
-		return getScreenWidth(context) / getResources(context).getDisplayMetrics().density;
+		return getScreenWidth(context) / getScreenPixelDensity(context);
 	}
 
 
