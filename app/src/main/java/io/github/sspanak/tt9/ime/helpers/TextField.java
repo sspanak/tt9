@@ -72,6 +72,11 @@ public class TextField extends InputField {
 	}
 
 
+	@NonNull public Text getTextBeforeCursor(@Nullable Language language, int numberOfChars) {
+		return new Text(language, getStringBeforeCursor(numberOfChars));
+	}
+
+
 	@NonNull public Text getTextBeforeCursor() {
 		return new Text(getStringBeforeCursor());
 	}
@@ -139,7 +144,7 @@ public class TextField extends InputField {
 	 * It can either send a delete key event to delete a single character or use the faster
 	 * "deleteSurroundingText()" to delete a region of text or a Unicode character.
 	 */
-	public void deleteChars(int numberOfChars) {
+	public void deleteChars(Language language, int numberOfChars) {
 		InputConnection connection = getConnection();
 		if (numberOfChars <= 0 || connection == null) {
 			return;
@@ -152,11 +157,8 @@ public class TextField extends InputField {
 		}
 
 		if (numberOfChars == 1) {
-			// if we are about to delete a surrogate pair, make sure to delete both Java chars
-			String before = getStringBeforeCursor(2);
-			if (before.length() > 1 && Character.isSurrogatePair(before.charAt(0), before.charAt(1))) {
-				numberOfChars = 2;
-			}
+			// Make sure we don't break complex letters or emojis. (for example, 🏴󠁧󠁢󠁷󠁬󠁳󠁿 = 14 chars!)
+			numberOfChars = getTextBeforeCursor(language, 30).lastGraphemeLength();
 		}
 
 		composingText = composingText.length() > numberOfChars ? composingText.subSequence(0, composingText.length() - numberOfChars) : "";
