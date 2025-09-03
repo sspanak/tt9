@@ -63,14 +63,15 @@ public class AutoSpace {
 			return false;
 		}
 
-		String previousChars = textField.getStringBeforeCursor(2);
-		Text nextChars = textField.getTextAfterCursor(2);
+		// grab more characters, not to confuse emoji components with letters
+		final Text previousChars = textField.getTextBeforeCursor(language, 10);
+		final Text nextChars = textField.getTextAfterCursor(2);
 
 		return
 			!nextChars.startsWithWhitespace()
 			&& (
 				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
-				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
+				|| shouldAddAfterPunctuation(previousChars.toString(), nextChars, nextKey)
 			);
 	}
 
@@ -134,13 +135,13 @@ public class AutoSpace {
 	/**
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, String previousChars, Text nextChars, int nextKey) {
+	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, Text previousChars, Text nextChars, int nextKey) {
 		return
 			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
 			&& isLanguageWithAlphabet
 			&& nextKey != 1
 			&& (nextChars.isEmpty() || nextChars.startsWithNewline())
-			&& Text.previousIsLetter(previousChars);
+			&& previousChars.endsWithLetter();
 	}
 
 

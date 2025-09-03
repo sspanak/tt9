@@ -2,6 +2,7 @@
 package io.github.sspanak.tt9.util;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.text.BreakIterator;
 import java.util.List;
@@ -15,8 +16,8 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class Text extends TextTools {
-	private final Language language;
-	private final String text;
+	@Nullable private final Language language;
+	@Nullable private final String text;
 
 	private static final Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
 	private static final Pattern PREVIOUS_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)(?![\\r\\n])$");
@@ -25,13 +26,13 @@ public class Text extends TextTools {
 	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
 
 
-	public Text(Language language, String text) {
+	public Text(@Nullable Language language, @Nullable String text) {
 		this.language = language;
 		this.text = text;
 	}
 
 
-	public Text(String text) {
+	public Text(@Nullable String text) {
 		this.language = null;
 		this.text = text;
 	}
@@ -61,6 +62,24 @@ public class Text extends TextTools {
 
 	public boolean endsWithGraphic() {
 		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
+	}
+
+
+	public boolean endsWithLetter() {
+		if (text == null || text.isEmpty() || Character.isWhitespace(text.charAt(text.length() - 1))) {
+			return false;
+		}
+
+		BreakIterator bi = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : Locale.getDefault());
+		bi.setText(text);
+
+		for (int end = bi.last(), i = bi.preceding(end); i < end; i++) {
+			if (!Character.isAlphabetic(text.charAt(i))) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 
@@ -246,8 +265,12 @@ public class Text extends TextTools {
 	 * deleting graphemes consisting of multiple Java chars. Example: 🏴‍☠️ (pirate flag) = 5 chars.
 	 */
 	public int lastGraphemeLength() {
-		if (text == null || text.length() <= 1) {
-			return 1;
+		if (text == null) {
+			return 0;
+		}
+
+		if (text.length() <= 1) {
+			return text.length();
 		}
 
 		BreakIterator bi = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : Locale.getDefault());
