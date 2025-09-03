@@ -246,8 +246,12 @@ public class Text extends TextTools {
 	 * deleting graphemes consisting of multiple Java chars. Example: 🏴‍☠️ (pirate flag) = 5 chars.
 	 */
 	public int lastGraphemeLength() {
-		if (text == null || text.length() <= 1) {
-			return 1;
+		if (text == null) {
+			return 0;
+		}
+
+		if (text.length() <= 1) {
+			return text.length();
 		}
 
 		BreakIterator bi = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : Locale.getDefault());
