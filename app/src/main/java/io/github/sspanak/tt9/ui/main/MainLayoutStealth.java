@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 
-class MainLayoutStealth extends BaseMainLayout {
+class MainLayoutStealth extends MainLayoutExtraPanel {
 	private boolean isCommandPaletteShown = false;
 	private boolean isTextEditingPaletteShown = false;
 

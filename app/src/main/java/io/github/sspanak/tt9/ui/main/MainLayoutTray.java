@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -11,7 +10,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 
-class MainLayoutTray extends BaseMainLayout {
+class MainLayoutTray extends MainLayoutExtraPanel {
 	protected int height;
 	protected boolean isCommandPaletteShown = false;
 	protected boolean isTextEditingPaletteShown = false;
@@ -43,21 +42,24 @@ class MainLayoutTray extends BaseMainLayout {
 
 	protected void setSoftKeysVisibility() {
 		if (view != null) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+			togglePanel(R.id.main_soft_keys, false);
 		}
 	}
 
 
 	void showCommandPalette() {
+		super.showCommandPalette();
 		isCommandPaletteShown = true;
 		isTextEditingPaletteShown = false;
-		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
+		togglePanel(R.id.main_command_keys, true);
 		getHeight(true);
 		renderKeys();
 	}
 
 
 	void showKeyboard() {
+		super.showKeyboard();
+		togglePanel(R.id.main_command_keys, false);
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
 		getHeight(true);
@@ -67,9 +69,10 @@ class MainLayoutTray extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
+		super.showTextEditingPalette();
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = true;
-		view.findViewById(R.id.main_command_keys).setVisibility(LinearLayout.VISIBLE);
+		togglePanel(R.id.main_command_keys, true);
 		getHeight(true);
 		renderKeys();
 	}

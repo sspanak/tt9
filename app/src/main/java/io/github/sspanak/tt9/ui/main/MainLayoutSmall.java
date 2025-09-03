@@ -1,7 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -44,31 +43,29 @@ class MainLayoutSmall extends MainLayoutTray {
 	@Override
 	protected void setSoftKeysVisibility() {
 		if (view != null) {
-			view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
-			view.findViewById(R.id.main_small_messenger_padding_hack).setVisibility(
-				tt9.getSettings().getMessengerReplyExtraPadding() ? LinearLayout.VISIBLE : LinearLayout.GONE
-			);
+			togglePanel(R.id.main_soft_keys, true);
+			togglePanel(R.id.main_small_messenger_padding_hack, tt9.getSettings().getMessengerReplyExtraPadding());
 		}
 	}
 
 
 	@Override
 	void showCommandPalette() {
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		togglePanel(R.id.main_soft_keys, false);
 		super.showCommandPalette();
 	}
 
 
 	@Override
 	void showKeyboard() {
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.VISIBLE);
+		togglePanel(R.id.main_soft_keys, true);
 		super.showKeyboard();
 	}
 
 
 	@Override
 	void showTextEditingPalette() {
-		view.findViewById(R.id.main_soft_keys).setVisibility(LinearLayout.GONE);
+		togglePanel(R.id.main_soft_keys, false);
 		super.showTextEditingPalette();
 	}
 

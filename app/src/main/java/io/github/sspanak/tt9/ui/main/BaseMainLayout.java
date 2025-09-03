@@ -298,6 +298,14 @@ abstract class BaseMainLayout {
 	}
 
 
+	protected void togglePanel(int panelId, boolean show) {
+		ViewGroup keysContainer = view != null && view.findViewById(panelId) != null ? view.findViewById(panelId) : null;
+		if (keysContainer != null) {
+			keysContainer.setVisibility(show ? ViewGroup.VISIBLE : ViewGroup.GONE);
+		}
+	}
+
+
 	abstract void showCommandPalette();
 	abstract void showKeyboard();
 	abstract void showTextEditingPalette();

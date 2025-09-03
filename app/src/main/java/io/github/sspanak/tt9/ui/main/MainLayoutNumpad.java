@@ -20,7 +20,7 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-class MainLayoutNumpad extends BaseMainLayout {
+class MainLayoutNumpad extends MainLayoutExtraPanel {
 	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
 
 	@NonNull private String lastFnKeyOrder = "";
@@ -44,9 +44,10 @@ class MainLayoutNumpad extends BaseMainLayout {
 	}
 
 
-
 	@Override
 	void showKeyboard() {
+		super.showKeyboard();
+		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(false);
 		renderKeys();
 	}
@@ -54,6 +55,8 @@ class MainLayoutNumpad extends BaseMainLayout {
 
 	@Override
 	void showTextEditingPalette() {
+		super.showTextEditingPalette();
+		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(true);
 		renderKeys();
 	}
