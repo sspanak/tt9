@@ -233,7 +233,7 @@ ext.parseLanguageDefintion = { File languageFile, String dictionariesDir, String
 	}
 
 	String[] localeParts = localeString.split(("[-_]"))
-	Locale locale = new Locale(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
+	Locale locale = Locale.of(localeParts[0], localeParts.length > 1 ? localeParts[1] : "")
 
 	if (!hasSounds && locale != null) {
 		layoutSounds.forEach { sound, sequence ->
