@@ -152,7 +152,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			updateShiftStateDebounced(mInputMode.getSuggestions().isEmpty(), false);
 		}
 
-		if (settings.getBackspaceRecomposing() && repeat == 0 && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
+		if (settings.getBackspaceRecomposing() && repeat == 0 && !isFnPanelVisible() && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
 			final String previousWord = mInputMode.recompose();
 			if (textField.recompose(previousWord)) {
 				getSuggestions(previousWord);
