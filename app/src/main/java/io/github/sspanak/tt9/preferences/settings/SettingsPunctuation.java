@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -52,17 +53,18 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	private boolean noDefault0Chars(Language language) {
+	private boolean noDefault0Chars(@NonNull Language language) {
 		return prefs.getString(CHARS_0_PREFIX + language.getId(), null) == null;
 	}
 
 
-	private boolean noDefault1Chars(Language language) {
+	private boolean noDefault1Chars(@NonNull Language language) {
 		return prefs.getString(CHARS_1_PREFIX + language.getId(), null) == null;
 	}
 
 
-	public char[] getMandatoryChars0(Language language) {
+	@NonNull
+	public char[] getMandatoryChars0(@Nullable Language language) {
 		return LanguageKind.isCyrillic(language) || LanguageKind.isLatinBased(language) ? MANDATORY_CHARS_1_EU : new char[0];
 	}
 
@@ -88,23 +90,23 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	@NonNull public String getChars1(Language language) {
+	@NonNull public String getChars1(@Nullable Language language) {
 		return String.join("", getChars1AsList(language));
 	}
 
 
-	@NonNull public String getChars0(Language language) {
+	@NonNull public String getChars0(@Nullable Language language) {
 		return String.join("", getChars0AsList(language));
 	}
 
 
-	@NonNull public String getCharsExtra(Language language, String listKey) {
+	@NonNull public String getCharsExtra(@NonNull Language language, @NonNull String listKey) {
 		return prefs.getString(listKey + "_" + language.getId(), "");
 	}
 
 
 	@NonNull
-	public ArrayList<String> getChars1AsList(Language language) {
+	public ArrayList<String> getChars1AsList(@Nullable Language language) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
@@ -117,7 +119,7 @@ class SettingsPunctuation extends SettingsInput {
 
 
 	@NonNull
-	public ArrayList<String> getChars0AsList(Language language) {
+	public ArrayList<String> getChars0AsList(@Nullable Language language) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
@@ -136,13 +138,14 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	public ArrayList<String> getCharsExtraAsList(Language language, String listKey) {
+	@NonNull
+	public ArrayList<String> getCharsExtraAsList(@NonNull Language language, @NonNull String listKey) {
 		return getCharsAsList(getCharsExtra(language, listKey), new ArrayList<>());
 	}
 
 
 	@NonNull
-	public ArrayList<String> getOrderedKeyChars(Language language, int number) {
+	public ArrayList<String> getOrderedKeyChars(@Nullable Language language, int number) {
 		if (language == null) {
 			return new ArrayList<>();
 		}
@@ -173,7 +176,8 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 
-	private ArrayList<String> getCharsAsList(String chars, ArrayList<String> defaultValue) {
+	@NonNull
+	private ArrayList<String> getCharsAsList(@Nullable String chars, @NonNull ArrayList<String> defaultValue) {
 		if (chars == null) {
 			return defaultValue;
 		}
@@ -186,20 +190,20 @@ class SettingsPunctuation extends SettingsInput {
 		return charsList;
 	}
 
-	public boolean getIncludeNewlineInChars0(Language language) {
+	public boolean getIncludeNewlineInChars0(@NonNull Language language) {
 		return prefs.getBoolean("punctuation_order_include_newline_" + language.getId(), true);
 	}
 
-	public void setIncludeNewlineInChars0(Language language, boolean include) {
+	public void setIncludeNewlineInChars0(@NonNull Language language, boolean include) {
 		prefsEditor.putBoolean("punctuation_order_include_newline_" + language.getId(), include);
 		prefsEditor.apply();
 	}
 
-	public boolean getIncludeTabInChars0(Language language) {
+	public boolean getIncludeTabInChars0(@NonNull Language language) {
 		return prefs.getBoolean("punctuation_order_include_tab_" + language.getId(), true);
 	}
 
-	public void setIncludeTabInChars0(Language language, boolean include) {
+	public void setIncludeTabInChars0(@NonNull Language language, boolean include) {
 		prefsEditor.putBoolean("punctuation_order_include_tab_" + language.getId(), include);
 		prefsEditor.apply();
 	}
