@@ -32,7 +32,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 		final boolean isKeypadLong = tt9.getSettings().isNumpadShapeLongSpace();
 		final boolean isKeyLong = this instanceof SoftKeyNumber0Long;
 
-		if (hasLettersOnAllKeys()) {
+		if (hasLettersOnAllKeys() || isFnPanelOn()) {
 			return isKeyLong;
 		}
 
@@ -90,7 +90,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 	@Override
 	protected float getTitleScale() {
-		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric() && !isFnPanelOn())) {
+		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric() && !tt9.isTextEditingActive())) {
 			return super.getTitleScale();
 		}
 

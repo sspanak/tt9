@@ -116,6 +116,10 @@ public class StaticMainView {
 		return main != null && main.isCommandPaletteShown();
 	}
 
+	public boolean isFnPanelVisible() {
+		return main != null && main.isFnPanelVisible();
+	}
+
 	public boolean isTextEditingPaletteShown() {
 		return main != null && main.isTextEditingPaletteShown();
 	}

@@ -24,7 +24,7 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-abstract class BaseMainLayout {
+abstract public class BaseMainLayout {
 	protected int e2ePaddingBottomLandscape = -1;
 	protected int e2ePaddingBottomPortrait = -1;
 
@@ -311,6 +311,16 @@ abstract class BaseMainLayout {
 	abstract void showTextEditingPalette();
 	abstract boolean isCommandPaletteShown();
 	abstract boolean isTextEditingPaletteShown();
+
+
+	/**
+	 * Determines if any function panel is visible. This method can be overridden by plugin layouts
+	 * to include their own panels.
+	 */
+
+	protected boolean isFnPanelVisible() {
+		return isCommandPaletteShown() || isTextEditingPaletteShown();
+	}
 
 
 	/**

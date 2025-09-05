@@ -87,7 +87,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 	public boolean isFnPanelVisible() {
-		return mainView != null && mainView.isTextEditingPaletteShown();
+		return mainView != null && mainView.isFnPanelVisible();
 	}
 
 
