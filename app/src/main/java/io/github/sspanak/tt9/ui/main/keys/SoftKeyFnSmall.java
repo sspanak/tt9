@@ -26,7 +26,7 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 	}
 
 	private boolean isNOOP() {
-		return getId() == R.id.soft_key_7 || getId() == R.id.soft_key_9;
+		return getId() == R.id.soft_key_7 || getId() == R.id.soft_key_9 || getId() == R.id.soft_key_0;
 	}
 
 	protected boolean isVisible() {
