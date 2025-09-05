@@ -36,4 +36,5 @@ abstract public class AbstractHandler extends InputMethodService {
 	abstract protected SuggestionOps getSuggestionOps();
 	abstract protected boolean shouldBeOff();
 	abstract protected TraditionalT9 getFinalContext();
+	abstract public boolean isFnPanelVisible();
 }
