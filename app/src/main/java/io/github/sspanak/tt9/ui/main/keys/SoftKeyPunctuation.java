@@ -27,12 +27,13 @@ abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
 		final boolean isLongSpaceKey = getId() == R.id.soft_key_punctuation_201 || getId() == R.id.soft_key_punctuation_202;
 		final boolean isShapeLongSpace = tt9 != null && tt9.getSettings().isNumpadShapeLongSpace();
 		final boolean isInputModeNumeric = tt9 != null && tt9.isInputModeNumeric();
+		final boolean isFnPanelOn = tt9 != null && tt9.isFnPanelVisible();
 
-		if (isInputModeNumeric || hasLettersOnAllKeys()) {
+		if (isInputModeNumeric || hasLettersOnAllKeys() || isFnPanelOn) {
 			return isLongSpaceKey;
 		}
 
-		return (isLongSpaceKey && !isShapeLongSpace) || (!isLongSpaceKey && isShapeLongSpace);
+		return isShapeLongSpace != isLongSpaceKey;
 	}
 
 

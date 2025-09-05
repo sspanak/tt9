@@ -12,7 +12,7 @@ public class SoftKeyTextEditingSmall extends SoftKeyFnSmall {
 
 	@Override
 	protected boolean isVisible() {
-		return (tt9 != null && tt9.isTextEditingActive()) || super.isVisible();
+		return (tt9 != null && tt9.isTextEditingActive() && getId() != R.id.soft_key_0) || super.isVisible();
 	}
 
 	@Override

@@ -16,6 +16,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -313,6 +314,35 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 
 
 	@Override
+	void renderKeys() {
+		super.renderKeys();
+
+		// toggle the long space row
+		if (!tt9.getSettings().isNumpadShapeLongSpace() || tt9.isInputModeNumeric() || isFnPanelVisible() || (tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys())) {
+			showLongSpace(false, 0);
+			return;
+		}
+
+		// set the same height as other numeric keys
+		int numericKeyHeight = 0;
+
+		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyNumber2to9) {
+				numericKeyHeight = key.getHeight();
+				break;
+			}
+		}
+
+		// or calculate it if no numeric keys are found (should not happen)
+		if (numericKeyHeight <= 0) {
+			numericKeyHeight = calculateKeyHeight()[0];
+		}
+
+		showLongSpace(true, numericKeyHeight);
+	}
+
+
+	@Override
 	void render() {
 		final int[] keyHeights = calculateKeyHeight();
 
@@ -324,13 +354,6 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		setBackgroundBlending();
-
-		boolean hasLettersOnAllKeys = tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys();
-		showLongSpace(
-			tt9.getSettings().isNumpadShapeLongSpace() && !tt9.isInputModeNumeric() && !hasLettersOnAllKeys,
-			keyHeights[0]
-		);
-
 		renderKeys();
 	}
 }
