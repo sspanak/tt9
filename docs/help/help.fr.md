@@ -167,7 +167,9 @@ Voici une liste des commandes possibles :
 - **Afficher l’Écran des Paramètres (Combo par défaut : appui long sur ✱, touche 1).** Identique à l’appui sur [Afficher les Paramètres](#touche-afficher-les-paramètres).
 - **Ajouter un Mot (Combo par défaut : appui long sur ✱, touche 2).** Identique à l’appui sur [Ajouter un Mot](#touche-ajouter-un-mot).
 - **Saisie Vocale (Combo par défaut : appui long sur ✱, touche 3).** Identique à l’appui sur [Saisie Vocale](#touche-saisie-vocale).
+- **Annuler (Combo par défaut : appui long sur ✱, touche 4).** Identique à l’appui sur [Touche Annuler](#touche-annuler).
 - **Outils du presse-papiers (Combo par défaut : appui long sur ✱, touche 5).** Identique à l’appui sur [Outils du presse-papiers](#touche-outils-du-presse-papiers).
+- **Rétablir (Combo par défaut : appui long sur ✱, touche 6).** Identique à l’appui sur [Touche Rétablir](#touche-rétablir).
 - **Sélectionner un Clavier Différent (Combo par défaut : appui long sur ✱, touche 8).** Identique à l’appui sur [Sélectionner le Clavier](#touche-sélectionner-le-clavier).
 
 _Cette touche ne fait rien lorsque l'Affichage de l'Écran est réglé sur "Pavé Virtuel", car toutes les touches pour toutes les fonctions possibles sont déjà disponibles à l’écran._

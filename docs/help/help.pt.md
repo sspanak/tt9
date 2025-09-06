@@ -167,7 +167,9 @@ Aqui está uma lista de comandos possíveis:
 - **Exibir Tela de Configurações (Combinação padrão: pressione e segure ✱, tecla 1)**. Igual ao pressionar [Exibir Configurações](#tecla-exibir-configurações).
 - **Adicionar Palavra (Combinação padrão: pressione e segure ✱, tecla 2)**. Igual ao pressionar [Adicionar Palavra](#tecla-adicionar-palavra).
 - **Entrada por Voz (Combinação padrão: pressione e segure ✱, tecla 3)**. Igual ao pressionar [Entrada por Voz](#tecla-entrada-por-voz).
+- **Tecla Desfazer (Combinação padrão: pressione e segure ✱, tecla 4)**. Igual ao pressionar [Tecla Desfazer](#tecla-desfazer).
 - **Ferramentas da área de transferência (Combinação padrão: pressione e segure ✱, tecla 5)**. Igual ao pressionar [Ferramentas da área de transferência](#tecla-de-ferramentas-da-área-de-transferência).
+- **Tecla Refazer (Combinação padrão: pressione e segure ✱, tecla 6)**. Igual ao pressionar [Tecla Refazer](#tecla-refazer).
 - **Selecionar um Teclado Diferente (Combinação padrão: pressione e segure ✱, tecla 8)**. Igual ao pressionar [Selecionar Teclado](#tecla-selecionar-teclado).
 
 _Esta tecla não faz nada quando a Exibição de Tela está configurada para “Teclado Virtual”, pois todas as teclas para todas as funções possíveis já estão disponíveis na tela._

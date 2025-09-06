@@ -167,7 +167,9 @@ A continuación se muestra una lista de los posibles comandos:
 - **Mostrar la pantalla de Ajustes (Combinación por Defecto: mantener presionado ✱, tecla 1).** Igual que presionar [Mostrar Ajustes](#tecla-de-mostrar-ajustes).
 - **Agregar una palabra (Combinación por Defecto: mantener presionado ✱, tecla 2).** Igual que presionar [Agregar Palabra](#tecla-de-agregar-palabra).
 - **Entrada por voz (Combinación por Defecto: mantener presionado ✱, tecla 3).** Igual que presionar [Entrada por Voz](#tecla-de-entrada-por-voz).
+- **Deshacer (Combinación por Defecto: mantener presionado ✱, tecla 4).** Igual que presionar [Tecla de Deshacer](#tecla-de-deshacer).
 - **Herramientas del portapapeles (Combinación por Defecto: mantener presionado ✱, tecla 5).** Igual que presionar [Herramientas del portapapeles](#tecla-de-herramientas-del-portapapeles).
+- **Rehacer (Combinación por Defecto: mantener presionado ✱, tecla 6).** Igual que presionar [Tecla de Rehacer](#tecla-de-rehacer).
 - **Seleccionar un teclado diferente (Combinación por Defecto: mantener presionado ✱, tecla 8).** Igual que presionar [Seleccionar Teclado](#tecla-de-seleccionar-teclado).
 
 _Esta tecla no hace nada cuando el diseño de pantalla está configurado en "Teclado Virtual" porque todas las teclas para todas las funciones posibles ya están disponibles en la pantalla._
