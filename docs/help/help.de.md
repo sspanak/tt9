@@ -167,7 +167,9 @@ Im Folgenden finden Sie eine Liste der möglichen Befehle:
 - **Einstellungsbildschirm anzeigen (Standardkombination: Halten ✱, Taste 1).** Entspricht dem Drücken der Taste [Einstellungen anzeigen](#einstellungen-anzeigen-taste).
 - **Wort hinzufügen (Standardkombination: Halten ✱, Taste 2).** Entspricht dem Drücken der Taste [Wort hinzufügen](#wort-hinzufügen-taste).
 - **Spracheingabe (Standardkombination: Halten ✱, Taste 3).** Entspricht dem Drücken der Taste [Spracheingabe](#spracheingabe-taste).
+- **Rückgängig (Standardkombination: ✱ halten, Taste 4).** Entspricht dem Drücken [Rückgängig-Taste](#rückgängig-taste)
 - **Zwischenablage-Werkzeuge (Standardkombination: Halten ✱, Taste 5).** Entspricht dem Drücken der Taste [Zwischenablage-Werkzeuge](#zwischenablage-werkzeuge-taste).
+- **Wiederholen (Standardkombination: ✱ halten, Taste 6).** Entspricht dem Drücken [Wiederholen-Taste](#wiederholen-taste)
 - **Andere Tastatur auswählen (Standardkombination: Halten ✱, Taste 8).** Entspricht dem Drücken der Taste [Tastatur auswählen](#tastatur-auswählen-taste).
 
 _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tastatur“ eingestellt ist, da alle Tasten für alle möglichen Funktionen bereits auf dem Bildschirm verfügbar sind._

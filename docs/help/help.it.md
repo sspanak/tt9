@@ -167,7 +167,9 @@ Di seguito è riportato un elenco dei comandi possibili:
 - **Mostra la schermata delle impostazioni (Combinazione predefinita: tenere premuto ✱, tasto 1).** Uguale a premere [Mostra Impostazioni](#tasto-mostra-impostazioni).
 - **Aggiungi una parola (Combinazione predefinita: tenere premuto ✱, tasto 2).** Uguale a premere [Aggiungi Parola](#tasto-aggiungi-parola).
 - **Input Vocale (Combinazione predefinita: tenere premuto ✱, tasto 3).** Uguale a premere [Input Vocale](#tasto-input-vocale).
+- **Annulla (Combinazione predefinita: tenere premuto ✱, tasto 4).** Uguale a premere [Tasto Annulla](#tasto-annulla).
 - **Strumenti degli appunti (Combinazione predefinita: tenere premuto ✱, tasto 5).** Uguale a premere [Strumenti degli appunti](#tasto-strumenti-degli-appunti).
+- **Ripristina (Combinazione predefinita: tenere premuto ✱, tasto 6).** Uguale a premere [Tasto Ripristina](#tasto-ripristina).
 - **Seleziona una Tastiera Diversa (Combinazione predefinita: tenere premuto ✱, tasto 8).** Uguale a premere [Seleziona Tastiera](#tasto-seleziona-tastiera).
 
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
