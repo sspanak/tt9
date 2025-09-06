@@ -167,7 +167,9 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 - **Ayarlar Ekranını Göster (Varsayılan Kombinasyon: ✱ basılı tut, 1-tușu).** [Ayarlar Tușu](#ayarlar-tușu)'na basmakla aynıdır.
 - **Kelime Ekle (Varsayılan Kombinasyon: ✱ basılı tut, 2-tușu).** [Kelime Ekle Tușu](#kelime-ekle-tușu)'na basmakla aynıdır.
 - **Sesli Giriş (Varsayılan Kombinasyon: ✱ basılı tut, 3-tușu).** [Sesli Giriş Tușu](#sesli-giriş-tușu)'na basmakla aynıdır.
+- **Geri al (Varsayılan Kombinasyon: ✱ basılı tut, 4-tușu).** [Geri Alma Tuşu](#geri-alma-tuşu)'na basmakla aynıdır.
 - **Pano araçları (Varsayılan Kombinasyon: ✱ basılı tut, 5-tușu).** [Panoya Araçları tuşu](#panoya-araçları-tuşu)'na basmakla aynıdır.
+- **Yinele (Varsayılan Kombinasyon: ✱ basılı tut, 6-tușu).** [Yinele Tuşu](#yinele-tuşu)'na basmakla aynıdır.
 - **Farklı bir Klavye Seç (Varsayılan Kombinasyon: ✱ basılı tut, 8-tușu).** [Klavye Seç Tușu](#klavye-seç-tușu)'na basmakla aynıdır.
 
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
