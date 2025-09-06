@@ -69,6 +69,12 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	@Override
+	protected boolean navigateBack() {
+		return hideCommandPalette() || super.navigateBack();
+	}
+
+
 	protected void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
