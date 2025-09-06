@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
 import android.Manifest;
+import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
@@ -37,6 +38,33 @@ abstract class VoiceHandler extends TypingHandler {
 		stopVoiceInput();
 		return super.onNumber(key, hold, repeat);
 	}
+
+
+	/**
+	 * Prevents Pound and Star keys from working as hotkeys when some function or panel is active.
+	 * For example, it is confusing to change the language, open the settings or trigger some other function
+	 * on, when the command palette is open or voice input is active. For this reason, we disable the Pound key
+	 * and make the Star key stop voice input instead of navigating back.
+	 */
+	@Override
+	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
+		return switch (keyCode) {
+			case KeyEvent.KEYCODE_STAR -> validateOnly || navigateBack();
+			case KeyEvent.KEYCODE_POUND -> true; // ignore the pound key when a function is active
+			default -> false;
+		};
+	}
+
+
+	protected boolean navigateBack() {
+		if (!voiceInputOps.isListening()) {
+			return false;
+		}
+
+		stopVoiceInput();
+		return true;
+	}
+
 
 	public void toggleVoiceInput() {
 		if (voiceInputOps.isListening() || !voiceInputOps.isAvailable()) {

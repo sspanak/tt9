@@ -37,7 +37,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 	@Override
 	protected Ternary onBack() {
-		if (goBackFromTextEditing()) {
+		if (navigateBack()) {
 			return Ternary.TRUE;
 		} else {
 			return super.onBack();
@@ -83,6 +83,19 @@ abstract public class TextEditingHandler extends VoiceHandler {
 	}
 
 
+	protected boolean navigateBack() {
+		if (!hideTextEditingPalette()) {
+			return super.navigateBack();
+		}
+
+		if (settings.isMainLayoutSmall() || settings.isMainLayoutTray()) {
+			mainView.showCommandPalette();
+		}
+
+		return true;
+	}
+
+
 	private void cut() {
 		if (copy()) {
 			suggestionOps.clear();
@@ -125,19 +138,6 @@ abstract public class TextEditingHandler extends VoiceHandler {
 		mainView.showTextEditingPalette();
 		Clipboard.setOnChangeListener(this, this::resetStatus);
 		resetStatus();
-	}
-
-
-	public boolean goBackFromTextEditing() {
-		if (!hideTextEditingPalette()) {
-			return false;
-		}
-
-		if (settings.isMainLayoutSmall() || settings.isMainLayoutTray()) {
-			mainView.showCommandPalette();
-		}
-
-		return true;
 	}
 
 
