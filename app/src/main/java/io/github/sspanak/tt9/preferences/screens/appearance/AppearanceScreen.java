@@ -22,7 +22,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 		resetFontSize(true);
 	}
 
-	private void createMainSection() {
+	protected void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
