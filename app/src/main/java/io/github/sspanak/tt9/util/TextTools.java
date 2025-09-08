@@ -20,7 +20,6 @@ public class TextTools {
 	private static final Pattern IS_JAPANESE_TEXT = Pattern.compile("[\\p{script=Hiragana}\\p{script=Katakana}\\p{script=Han}]+");
 	private static final Pattern IS_THAI_TEXT = Pattern.compile("[\\u0E00-\\u0E7F]+");
 	private static final Pattern NEXT_TO_WORD = Pattern.compile("\\b$");
-	private static final Pattern PREVIOUS_IS_LETTER = Pattern.compile("[\\p{L}\\p{M}](?!\\n)$");
 	private static final Pattern START_OF_SENTENCE = Pattern.compile("(?<!\\.)(^|[.?!؟¿¡])\\s+$");
 
 
@@ -130,11 +129,6 @@ public class TextTools {
 
 	public static boolean nextIsPunctuation(String str) {
 		return str != null && !str.isEmpty() && NEXT_IS_PUNCTUATION.matcher(str).find();
-	}
-
-
-	public static boolean previousIsLetter(String str) {
-		return str != null && PREVIOUS_IS_LETTER.matcher(str).find();
 	}
 
 

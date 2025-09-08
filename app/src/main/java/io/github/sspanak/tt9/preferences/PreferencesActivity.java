@@ -140,9 +140,12 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 	 * fragment will be returned.
 	 */
 	protected BaseScreenFragment getScreen(@Nullable String name) {
-		if (name == null) {
-			return new MainSettingsScreen(this);
+		BaseScreenFragment screen = super.getScreen(this, name);
+		if (screen != null) {
+			return screen;
 		}
+
+		name = name != null ? name : "";
 
 		return switch (name) {
 			case AppearanceScreen.NAME -> new AppearanceScreen(this);
@@ -158,7 +161,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 			case PunctuationScreen.NAME -> new PunctuationScreen(this);
 			case SetupScreen.NAME -> new SetupScreen(this);
 			case UsageStatsScreen.NAME -> new UsageStatsScreen(this);
-			default -> super.getScreen(this, name);
+			default -> new MainSettingsScreen(this);
 		};
 	}
 
