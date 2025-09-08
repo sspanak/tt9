@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyNumber0 extends SoftKeyNumber {
 	private static final String CHARS_NUMERIC_MODE = "+%$";
@@ -84,22 +85,22 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return TextTools.removeNonLettersFromListAndJoin(tt9.getLanguage().getKeyCharacters(0));
 		}
 
-		return "␣";
+		return Characters.SPACE;
 	}
 
 
 	@Override
 	protected float getTitleScale() {
-		if (isKorean() || (tt9 != null && tt9.isInputModeNumeric() && !tt9.isTextEditingActive())) {
-			return super.getTitleScale();
-		}
-
 		if (isBopomofo()) {
 			return super.getTitleScale() * TITLE_SCALE_BOPOMOFO;
 		}
 
 		// scale up the space character, because it is too small
-		return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
+		if (Characters.SPACE.equals(getTitle())) {
+			return 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY();
+		}
+
+		return super.getTitleScale();
 	}
 
 
