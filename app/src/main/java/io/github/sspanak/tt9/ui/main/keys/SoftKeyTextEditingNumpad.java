@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
 	public SoftKeyTextEditingNumpad(Context context) { super(context); }
@@ -27,7 +28,7 @@ public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
 
 	@Override protected String getTitle() {
 		if (isTextEditingActive()) {
-			return (getNumber(getId()) == 0) ? "␣" : "";
+			return (getNumber(getId()) == 0) ? Characters.SPACE : "";
 		}
 		return super.getTitle();
 	}
