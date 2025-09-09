@@ -26,7 +26,7 @@ public class KeyPadScreen extends BaseScreenFragment {
 		(new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)).populate().enableClickHandler().preview();
 	}
 
-	private void createVirtualKeysSection() {
+	protected void createVirtualKeysSection() {
 		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
 
 		// hide the entire category when the settings shows no interest in it
