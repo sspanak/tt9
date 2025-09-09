@@ -22,7 +22,9 @@ class ItemHapticFeedback extends ItemClickable {
 	}
 
 	ItemHapticFeedback populate() {
-		((SwitchPreferenceCompat) item).setChecked(settings.getHapticFeedback());
+		if (item != null) {
+			((SwitchPreferenceCompat) item).setChecked(settings.getHapticFeedback());
+		}
 		return this;
 	}
 }
