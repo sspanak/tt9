@@ -14,7 +14,7 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 	public SoftKeyFnSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 	@Override protected void handleHold() { preventRepeat(); }
-	@Override protected String getTitle() { return getNumber(getId()) + ""; }
+	@Override protected String getTitle() { return getNumber() + ""; }
 	@Override protected float getTitleScale() { return 1; }
 
 	private boolean isVoiceInput() {

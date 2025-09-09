@@ -8,7 +8,7 @@
 		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettings
 			style="@style/TTheme.Numpad.Key.Large"
 			android:id="@+id/soft_key_settings" />
-		<include layout="@layout/key_overlay_settings" />
+		<include layout="@layout/key_overlay_side_text" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_2">

@@ -64,8 +64,9 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber0
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_0" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_text" />
 		</RelativeLayout>
 
 	</LinearLayout>
