@@ -11,12 +11,15 @@ public class SoftKeySettings extends BaseSwipeableKey {
 
 	public SoftKeySettings(Context context) {
 		super(context);
+		isSwipeable = true;
 	}
 	public SoftKeySettings(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		isSwipeable = true;
 	}
 	public SoftKeySettings(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		isSwipeable = true;
 	}
 
 	private boolean isDragResizeOn() {

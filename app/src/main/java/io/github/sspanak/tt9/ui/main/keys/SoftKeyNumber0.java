@@ -61,7 +61,7 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 			return CHARS_NUMERIC_MODE;
 		}
 
-		return super.getLocalizedNumber(getNumber(getId()));
+		return super.getLocalizedNumber(getNumber());
 	}
 
 
@@ -113,7 +113,6 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	private void setEnabled() {
 		setEnabled(tt9 != null && !(tt9.isTextEditingActive() && hasLettersOnAllKeys()));
 	}
-
 
 	@Override
 	public void render() {
