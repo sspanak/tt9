@@ -11,6 +11,8 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class AddWordsWithoutConfirmationSwitch extends SwitchPreferenceCompat {
+	public static final String NAME = "add_word_no_confirmation";
+
 	public AddWordsWithoutConfirmationSwitch(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(context);
@@ -32,7 +34,7 @@ public class AddWordsWithoutConfirmationSwitch extends SwitchPreferenceCompat {
 	}
 
 	private void init(Context context) {
-		setKey("add_word_no_confirmation");
+		setKey(NAME);
 		setTitle(R.string.add_word_no_confirmation);
 		setVisible(!new SettingsStore(context).isMainLayoutStealth());
 	}
