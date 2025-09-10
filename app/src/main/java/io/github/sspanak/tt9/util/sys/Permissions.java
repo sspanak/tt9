@@ -54,13 +54,13 @@ public class Permissions {
 		}
 	}
 
-	private void requestPermission(String permission) {
+	protected void requestPermission(String permission) {
 		if (DeviceInfo.AT_LEAST_ANDROID_6) {
 			activity.requestPermissions(new String[] { permission }, 0);
 		}
 	}
 
-	private boolean isRefused(String permission) {
+	protected boolean isRefused(String permission) {
 		return
 			DeviceInfo.AT_LEAST_ANDROID_6
 			&& activity.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED;
