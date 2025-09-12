@@ -126,7 +126,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Löschung bestätigen</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Sind Sie sicher, dass Sie \"%1$s\" löschen möchten?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" wurde gelöscht.</string>
-	<string name="dictionary_update_message">" Wörterbuchupdate verfügbar für „%1$s“."</string>
+	<string name="dictionary_update_message">Wörterbuchupdate verfügbar für „%1$s“.</string>
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Spenden</string>
 	<string name="donate_summary">Wenn Ihnen %1$s gefällt, könnten Sie mir ein Bier spendieren.</string>

@@ -151,7 +151,7 @@
 	<string name="pref_hack_always_on_top_summary">No permitir que otras aplicaciones cubran %1$s o lo empujen fuera de la pantalla.</string>
 	<string name="pref_hack_key_pad_debounce_time">Protección contra la repetición accidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Apagado</string>
-	<string name="dictionary_export_finished">" Exportación completada"</string>
+	<string name="dictionary_export_finished">Exportación completada</string>
 	<string name="dictionary_export_finished_more_info">Palabras exportadas a: \"%1$s\".</string>
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
