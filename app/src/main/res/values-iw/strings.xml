@@ -128,7 +128,7 @@
 	<string name="dictionary_export_custom_words">יצוא</string>
 	<string name="dictionary_export_custom_words_summary">ייצוא CSV עם כל המילים שנוספו ל: \"%1$s\".</string>
 	<string name="dictionary_export_failed">נכשל בייצוא</string>
-	<string name="dictionary_export_failed_more_info">"למידע נוסף, הפעל מצב איתור באגים וראה את הלוגים. "</string>
+	<string name="dictionary_export_failed_more_info">למידע נוסף, הפעל מצב איתור באגים וראה את הלוגים.</string>
 	<string name="dictionary_import_failed">הייבוא נכשל.</string>
 	<string name="dictionary_import_finished">הייבוא הושלם.</string>
 	<string name="dictionary_import_error_browsing_error">שגיאת בורר הקבצים של Android.</string>

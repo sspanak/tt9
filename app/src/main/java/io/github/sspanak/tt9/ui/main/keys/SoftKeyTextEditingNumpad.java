@@ -28,7 +28,7 @@ public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
 
 	@Override protected String getTitle() {
 		if (isTextEditingActive()) {
-			return (getNumber(getId()) == 0) ? Characters.SPACE : "";
+			return (getNumber() == 0) ? Characters.SPACE : "";
 		}
 		return super.getTitle();
 	}

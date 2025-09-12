@@ -122,7 +122,7 @@
 	<string name="delete_words_deleted_confirm_deletion_title">Silmeyi Onayla</string>
 	<string name="delete_words_deleted_confirm_deletion_question">\"%1$s\" kelimesini silmeyi onaylıyor musunuz?</string>
 	<string name="delete_words_deleted_x">\"%1$s\" kelimesi başarıyla silindi.</string>
-	<string name="dictionary_update_message">" „%1$s“ sözlüğü için bir güncelleme mevcut."</string>
+	<string name="dictionary_update_message">„%1$s“ sözlüğü için bir güncelleme mevcut.</string>
 	<string name="dictionary_update_update">Yükle</string>
 	<string name="donate_title">Destekte bulun</string>
 	<string name="pref_drag_resize_summary">Durum Çubuğunu veya Ayarlar tuşunu sürükleyerek klavyeyi yeniden boyutlandırmayı ve taşımayı etkinleştir.</string>

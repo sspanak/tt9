@@ -7,7 +7,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class ItemShowArrows extends ItemSwitch implements ItemLayoutChangeReactive {
 	public final static String NAME = "pref_arrow_keys_visible";
-	private final SettingsStore settings;
+	protected final SettingsStore settings;
 
 	public ItemShowArrows(SwitchPreferenceCompat item, SettingsStore settings) {
 		super(item);

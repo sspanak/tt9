@@ -17,9 +17,18 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	private final Handler waitForSwipe = new Handler();
 
 
-	public SoftKeyBackspace(Context context) { super(context); }
-	public SoftKeyBackspace(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyBackspace(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyBackspace(Context context) {
+		super(context);
+		isSwipeable = true;
+	}
+	public SoftKeyBackspace(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		isSwipeable = true;
+	}
+	public SoftKeyBackspace(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		isSwipeable = true;
+	}
 
 
 	private boolean isFastDeleteOn() {

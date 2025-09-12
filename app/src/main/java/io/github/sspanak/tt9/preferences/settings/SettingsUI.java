@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -40,7 +41,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean getAddWordsNoConfirmation() {
-		return prefs.getBoolean("add_word_no_confirmation", false);
+		return prefs.getBoolean(AddWordsWithoutConfirmationSwitch.NAME, false);
 	}
 
 	public boolean getNotificationsApproved() {

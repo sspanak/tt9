@@ -26,6 +26,7 @@
 	<io.github.sspanak.tt9.preferences.screens.languages.QuickSwitchLanguagePreference />
 
 	<PreferenceCategory
+		app:key="category_added_words"
 		app:title="@string/pref_category_custom_words"
 		app:singleLineTitle="true">
 

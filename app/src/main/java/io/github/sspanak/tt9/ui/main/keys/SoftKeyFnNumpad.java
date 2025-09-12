@@ -10,11 +10,12 @@ import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyFnNumpad extends BaseSoftKeyWithIcons {
+public class SoftKeyFnNumpad extends BaseSwipeableKey {
 	protected static final float TITLE_SCALE_BOPOMOFO = 0.7f;
 
 	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
-		put(R.id.soft_key_0, 0);
+		put(R.id.soft_key_0, 0); // short space
+		put(R.id.soft_key_200, 0); // long space
 		put(R.id.soft_key_1, 1);
 		put(R.id.soft_key_2, 2);
 		put(R.id.soft_key_3, 3);
@@ -67,6 +68,11 @@ public class SoftKeyFnNumpad extends BaseSoftKeyWithIcons {
 		tt9.onKeyUp(keyCode, new KeyEvent(KeyEvent.ACTION_UP, keyCode));
 
 		return true;
+	}
+
+
+	protected int getNumber() {
+		return getNumber(getId());
 	}
 
 

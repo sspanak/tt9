@@ -70,12 +70,12 @@ public class LanguagesScreen extends BaseScreenFragment {
 		);
 
 		clickables.clear();
-		clickables.add(loadItem);
-		clickables.add(exportDictionaryItem);
-		clickables.add(truncateUnselectedItem);
-		clickables.add(truncateAllItem);
+		addClickable(loadItem);
+		addClickable(exportDictionaryItem);
+		addClickable(truncateUnselectedItem);
+		addClickable(truncateAllItem);
 
-		clickables.add(new ItemDeleteCustomWords(findPreference(ItemDeleteCustomWords.NAME)));
+		addClickable(new ItemDeleteCustomWords(findPreference(ItemDeleteCustomWords.NAME)));
 
 		exportCustomWordsItem = new ItemExportCustomWords(
 			findPreference(ItemExportCustomWords.NAME),
@@ -83,7 +83,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 			this::onActionStart,
 			this::onActionFinish
 		);
-		clickables.add(exportCustomWordsItem);
+		addClickable(exportCustomWordsItem);
 
 		importCustomWordsItem = new ItemImportCustomWords(
 			findPreference(ItemImportCustomWords.NAME),
@@ -91,7 +91,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 			this::onActionStart,
 			this::onActionFinish
 		);
-		clickables.add(importCustomWordsItem);
+		addClickable(importCustomWordsItem);
 
 		ItemClickable.enableAllClickHandlers(clickables);
 		refreshItems();
@@ -108,7 +108,21 @@ public class LanguagesScreen extends BaseScreenFragment {
 	}
 
 
-	private void refreshItems() {
+	protected void addClickable(ItemClickable item) {
+		clickables.add(item);
+	}
+
+
+	protected boolean isProcessorRunning() {
+		return
+			CustomWordsExporter.getInstance().isRunning()
+			|| DictionaryExporter.getInstance().isRunning()
+			|| CustomWordsImporter.getInstance(activity).isRunning()
+			|| DictionaryDeleter.getInstance(activity).isRunning();
+	}
+
+
+	protected void refreshItems() {
 		new ItemSelectLanguage(activity, findPreference(ItemSelectLanguage.NAME)).populate();
 		loadItem.refreshStatus();
 		exportDictionaryItem.refreshStatus();
@@ -120,12 +134,7 @@ public class LanguagesScreen extends BaseScreenFragment {
 		if (DictionaryLoader.getInstance(activity).isRunning()) {
 			loadItem.refreshStatus();
 			ItemClickable.disableOthers(clickables, loadItem);
-		} else if (
-			CustomWordsExporter.getInstance().isRunning()
-			|| DictionaryExporter.getInstance().isRunning()
-			|| CustomWordsImporter.getInstance(activity).isRunning()
-			|| DictionaryDeleter.getInstance(activity).isRunning()
-		) {
+		} else if (isProcessorRunning()) {
 			onActionStart();
 		} else {
 			onActionFinish();
@@ -133,11 +142,11 @@ public class LanguagesScreen extends BaseScreenFragment {
 	}
 
 
-	private void onActionStart() {
+	protected void onActionStart() {
 		ItemClickable.disableAll(clickables);
 	}
 
-	private void onActionFinish() {
+	protected void onActionFinish() {
 		ItemClickable.enableAll(clickables);
 	}
 

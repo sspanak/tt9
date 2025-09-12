@@ -60,7 +60,9 @@ abstract public class ItemClickable {
 
 
 	public void enableClickHandler() {
-		item.setOnPreferenceClickListener(this::debounceClick);
+		if (item != null) {
+			item.setOnPreferenceClickListener(this::debounceClick);
+		}
 	}
 
 

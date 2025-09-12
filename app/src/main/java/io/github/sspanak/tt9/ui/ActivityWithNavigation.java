@@ -70,6 +70,7 @@ abstract public class ActivityWithNavigation extends EdgeToEdgeActivity {
 	}
 
 
+	@NonNull
 	final public SettingsStore getSettings() {
 		if (settings == null) {
 			settings = new SettingsStore(this);

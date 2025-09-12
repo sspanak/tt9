@@ -10,6 +10,14 @@ abstract public class ItemSwitch {
 		this.item = item;
 	}
 
+	public ItemSwitch setEnabled(boolean yes) {
+		if (item != null) {
+			item.setEnabled(yes);
+		}
+
+		return this;
+	}
+
 	public ItemSwitch enableClickHandler() {
 		if (item != null) {
 			item.setOnPreferenceChangeListener(this::onClick);

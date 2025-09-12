@@ -12,6 +12,8 @@ import io.github.sspanak.tt9.util.Timer;
 abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 	private static final String LOG_TAG = BaseSwipeableKey.class.getSimpleName();
 
+	protected boolean isSwipeable = false;
+
 	private float HOLD_DURATION_THRESHOLD;
 	protected float SWIPE_X_THRESHOLD;
 	protected float SWIPE_Y_THRESHOLD;
@@ -19,7 +21,7 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 	private boolean isHolding = false;
 	private boolean isSwipingX = false;
 	private boolean isSwipingY = false;
-	private boolean notSwiped = false;
+	private boolean notSwiped = true;
 
 	private float startX;
 	private float startY;
@@ -108,6 +110,10 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		if (!isSwipeable) {
+			return super.onTouch(v, event);
+		}
+
 		switch(event.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
 				Timer.start(LOG_TAG);
@@ -128,6 +134,10 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 
 	@Override
 	public boolean onLongClick(View view) {
+		if (!isSwipeable) {
+			return super.onLongClick(view);
+		}
+
 		if (System.currentTimeMillis() - startTime < HOLD_DURATION_THRESHOLD) {
 			return false;
 		}
@@ -198,8 +208,10 @@ abstract public class BaseSwipeableKey extends BaseSoftKeyWithSideText {
 
 	@Override
 	public void render() {
-		// readjust the action detection delays for keys that set them dynamically
-		resetTimeThreshold();
+		if (isSwipeable) {
+			// readjust the action detection delays for keys that set them dynamically
+			resetTimeThreshold();
+		}
 		super.render();
 	}
 }

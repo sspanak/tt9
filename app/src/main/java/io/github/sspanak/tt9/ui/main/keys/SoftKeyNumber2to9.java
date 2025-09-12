@@ -33,7 +33,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 			return null;
 		}
 
-		return getLocalizedNumber(getNumber(getId()));
+		return getLocalizedNumber(getNumber());
 	}
 
 
@@ -42,9 +42,9 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 		if (isFnPanelOn()) {
 			return super.getTitle();
 		} else if (tt9 != null && !tt9.isInputModeNumeric()) {
-			return getKeyChars(tt9, getNumber(getId()));
+			return getKeyChars(tt9, getNumber());
 		} else {
-			return getLocalizedNumber(getNumber(getId()));
+			return getLocalizedNumber(getNumber());
 		}
 	}
 

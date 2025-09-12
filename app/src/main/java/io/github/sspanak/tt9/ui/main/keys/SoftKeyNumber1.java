@@ -61,6 +61,6 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 			return HOLD_LABEL_NUMERIC_WHEN_LETTERS;
 		}
 
-		return super.getLocalizedNumber(getNumber(getId()));
+		return super.getLocalizedNumber(getNumber());
 	}
 }

@@ -9,9 +9,18 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyLF4 extends BaseSwipeableKey {
-	public SoftKeyLF4(Context context) { super(context); }
-	public SoftKeyLF4(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyLF4(Context context) {
+		super(context);
+		isSwipeable = true;
+	}
+	public SoftKeyLF4(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		isSwipeable = true;
+	}
+	public SoftKeyLF4(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+		isSwipeable = true;
+	}
 
 	private boolean areThereManyLanguages() {
 		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
