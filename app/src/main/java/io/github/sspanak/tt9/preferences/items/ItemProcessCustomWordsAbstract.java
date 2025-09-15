@@ -17,11 +17,6 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 		this.activity = activity;
 		this.onStart = onStart;
 		this.onFinish = onFinish;
-
-		AbstractFileProcessor processor = getProcessor();
-		processor.setFailureHandler(() -> onFinishProcessing(null));
-		processor.setStartHandler(() -> activity.runOnUiThread(this::setBusy));
-		processor.setSuccessHandler(this::onFinishProcessing);
 	}
 
 
@@ -42,11 +37,19 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 
 	@Override
 	protected boolean onClick(Preference p) {
+		setDefaultHandlers();
 		setBusy();
 		if (!onStartProcessing()) {
 			setAndNotifyReady();
 		}
 		return true;
+	}
+
+
+	protected void setDefaultHandlers() {
+		getProcessor().setFailureHandler(() -> onFinishProcessing(null));
+		getProcessor().setStartHandler(() -> activity.runOnUiThread(this::setBusy));
+		getProcessor().setSuccessHandler(this::onFinishProcessing);
 	}
 
 
@@ -62,6 +65,9 @@ abstract public class ItemProcessCustomWordsAbstract extends ItemClickable {
 					getFailureTitle(),
 					getFailureMessage()
 				);
+				if (item != null) {
+					item.setSummary(getFailureMessage());
+				}
 			} else {
 				DictionaryProgressNotification.getInstance(activity).showMessage(
 					getSuccessTitle(),

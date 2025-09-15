@@ -19,26 +19,23 @@ public class ItemImportCustomWords extends ItemProcessCustomWordsAbstract {
 	final public static String NAME = "dictionary_import_custom";
 
 	private ActivityResultLauncher<Intent> importCustomWordsLauncher;
-	private CustomWordsImporter importer;
-
 	private String lastError;
 
 	public ItemImportCustomWords(Preference item, PreferencesActivity activity, Runnable onStart, Runnable onFinish) {
 		super(item, activity, onStart, onFinish);
+		getProcessor();
 	}
 
 	@Override
 	protected CustomWordsImporter getProcessor() {
-		if (importer == null) {
-			importer = CustomWordsImporter.getInstance(activity);
-			importer.setFailureHandler(this::onFailure);
-			importer.setProgressHandler(this::onProgress);
-		}
-		return importer;
+		return CustomWordsImporter.getInstance(activity);
 	}
 
 	@Override
 	protected boolean onClick(Preference p) {
+		setDefaultHandlers();
+		getProcessor().setFailureHandler(this::onFailure);
+		getProcessor().setProgressHandler(this::onProgress);
 		browseFiles();
 		return true;
 	}
