@@ -43,4 +43,11 @@ public class CustomWord {
 
 		return results;
 	}
+
+
+	@NonNull
+	@Override
+	public String toString() {
+		return language.getId() + ",'" + word + "'," + sequence;
+	}
 }

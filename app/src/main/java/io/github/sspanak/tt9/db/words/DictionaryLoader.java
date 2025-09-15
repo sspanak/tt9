@@ -187,20 +187,21 @@ public class DictionaryLoader {
 			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
 			logLoadingStep("Dictionary file imported", language, Timer.restart());
 
-			DeleteOps.purgeCustomWords(sqlite.getDb(), language.getId());
-			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
-			logLoadingStep("Removed custom words, which are already in the dictionary", language, Timer.restart());
+			Tables.createPositionIndex(sqlite.getDb(), language);
+			progress = progress + (98f - progress) / 2f;
+			sendProgressMessage(language, progress, 0);
+			Tables.createWordIndex(sqlite.getDb(), language);
+			sendProgressMessage(language, progress = 98, 0);
+			logLoadingStep("Indexes restored", language, Timer.restart());
+
+			int purgedWords = DeleteOps.purgeCustomWords(sqlite.getDb(), language.getId());
+			sendProgressMessage(language, ++progress, 0);
+			logLoadingStep("Removed " + purgedWords + " custom words, which are already in the dictionary", language, Timer.restart());
 
 			InsertOps.restoreCustomWords(sqlite.getDb(), language);
 			InsertOps.restoreCustomWords(sqlite.getDb(), new EmojiLanguage());
-			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			sendProgressMessage(language, ++progress, 0);
 			logLoadingStep("Custom words restored", language, Timer.restart());
-
-			Tables.createPositionIndex(sqlite.getDb(), language);
-			sendProgressMessage(language, progress + (100f - progress) / 2f, 0);
-			Tables.createWordIndex(sqlite.getDb(), language);
-			sendProgressMessage(language, 100, 0);
-			logLoadingStep("Indexes restored", language, Timer.restart());
 
 			sqlite.finishTransaction();
 			SlowQueryStats.clear();

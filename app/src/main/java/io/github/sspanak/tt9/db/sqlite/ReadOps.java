@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
+import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
@@ -42,6 +45,48 @@ public class ReadOps {
 		} catch (SQLiteDoneException e) {
 			return false;
 		}
+	}
+
+
+	/**
+	 * Checks which of the given words exist in the database for the given language and return them (case-insensitive).
+	 */
+	@NonNull
+	public Set<String> exists(@NonNull SQLiteDatabase db, @Nullable Language language, @Nullable ArrayList<CustomWord> words) {
+		Set<String> foundWords = new HashSet<>();
+
+		if (language == null || words == null || words.isEmpty()) {
+			return foundWords;
+		}
+
+		String factoryWordsSql = "SELECT COUNT(*) " +
+			"FROM " + Tables.getWords(language.getId()) + " AS w" +
+			" JOIN " + Tables.getWordPositions(language.getId()) + " AS wp ON w.position >= wp.start AND w.position <= wp.`end`" +
+			" WHERE wp.sequence = ? AND LOWER(w.word) = ?";
+
+		String customWordsSql = "SELECT COUNT(*) " +
+			"FROM " + Tables.CUSTOM_WORDS +
+			" WHERE langId = ? AND sequence = ? AND LOWER(word) = ?";
+
+		SQLiteStatement factoryWordsQuery = CompiledQueryCache.get(db, factoryWordsSql);
+		SQLiteStatement customWordsQuery = CompiledQueryCache.get(db, customWordsSql);
+		customWordsQuery.bindLong(1, language.getId());
+
+		for (CustomWord word : words) {
+			factoryWordsQuery.bindString(1, word.sequence);
+			factoryWordsQuery.bindString(2, word.word.toLowerCase(language.getLocale()));
+			if (factoryWordsQuery.simpleQueryForLong() > 0) {
+				foundWords.add(word.word);
+			}
+
+			customWordsQuery.bindString(2, word.sequence);
+			customWordsQuery.bindString(3, word.word.toLowerCase(language.getLocale()));
+			if (customWordsQuery.simpleQueryForLong() > 0) {
+				foundWords.add(word.word);
+			}
+		}
+
+		return foundWords;
 	}
 
 
