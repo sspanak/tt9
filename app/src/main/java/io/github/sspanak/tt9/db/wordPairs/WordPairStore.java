@@ -105,11 +105,15 @@ public class WordPairStore extends BaseSyncStore {
 			HashMap<WordPair, WordPair> languagePairs = entry.getValue();
 
 			sqlite.beginTransaction();
-			DeleteOps.deleteWordPairs(sqlite.getDb(), langId);
-			InsertOps.insertWordPairs(sqlite.getDb(), langId, languagePairs.values());
-			sqlite.finishTransaction();
+			try {
+				DeleteOps.deleteWordPairs(sqlite.getDb(), langId);
+				InsertOps.insertWordPairs(sqlite.getDb(), langId, languagePairs.values());
+				sqlite.finishTransaction();
+			} catch (Exception e) {
+				sqlite.failTransaction();
+				Logger.e(LOG_TAG, "Failed to save word pairs for language: " + langId + ". " + e);
+			}
 		}
-
 
 		long currentTime = Timer.stop(SAVE_TIMER_NAME);
 		slowestSaveTime = Math.max(slowestSaveTime, currentTime);
