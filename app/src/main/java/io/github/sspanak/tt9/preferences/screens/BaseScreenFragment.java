@@ -47,7 +47,6 @@ abstract public class BaseScreenFragment extends PreferenceFragmentCompat {
 	@Override
 	public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 		LanguageCollection.init(getContext());
-		setHasOptionsMenu(true); // enable "back" in "onOptionsItemSelected()"
 		setPreferencesFromResource(getXml(), rootKey);
 
 		if (activity == null) {
