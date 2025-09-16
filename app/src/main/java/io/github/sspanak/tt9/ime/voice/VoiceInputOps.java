@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
@@ -22,6 +23,7 @@ public class VoiceInputOps {
 	private final static String LOG_TAG = VoiceInputOps.class.getSimpleName();
 
 	private final Context ims;
+	private final HashMap<Integer, Boolean> isOfflineModeDisabled;
 	private Language language;
 	private final VoiceListener listener;
 	private final SpeechRecognizerSupportLegacy recognizerSupport;
@@ -37,6 +39,7 @@ public class VoiceInputOps {
 		ConsumerCompat<String> onStop,
 		ConsumerCompat<VoiceInputError> onError
 	) {
+		isOfflineModeDisabled = new HashMap<>();
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
 		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
 
@@ -60,14 +63,11 @@ public class VoiceInputOps {
 	}
 
 
-	static Intent createIntent(@NonNull Language language) {
-		return createIntent(getLocale(language));
-	}
-
-
 	private void createRecognizer(@Nullable Language language) {
-		if (DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(language)) {
-			Logger.d(LOG_TAG, "Creating on-device SpeechRecognizer...");
+		boolean isLanguageAllowedOffline = language != null && !Boolean.TRUE.equals(isOfflineModeDisabled.get(language.getId()));
+
+		if (isLanguageAllowedOffline && DeviceInfo.AT_LEAST_ANDROID_13 && recognizerSupport.isLanguageSupportedOffline(language)) {
+			Logger.d(LOG_TAG, "Creating offline SpeechRecognizer...");
 			speechRecognizer = SpeechRecognizer.createOnDeviceSpeechRecognizer(ims);
 		} else if (recognizerSupport.isRecognitionAvailable) {
 			Logger.d(LOG_TAG, "Creating online SpeechRecognizer...");
@@ -174,20 +174,23 @@ public class VoiceInputOps {
 	}
 
 
-	public boolean downloadLanguage(Language language) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_13 || !recognizerSupport.isLanguageSupportedOffline(language) || isListening()) {
-			return false;
+	public boolean enableOfflineMode(@NonNull Language language, boolean yes) {
+		boolean isCurrentlyAllowed = !Boolean.TRUE.equals(isOfflineModeDisabled.get(language.getId()));
+
+		if (yes != isCurrentlyAllowed) {
+			isOfflineModeDisabled.put(language.getId(), !yes);
 		}
 
-		createRecognizer(language);
-		if (speechRecognizer == null) {
-			return false;
+		return isCurrentlyAllowed != yes;
+	}
+
+
+	public void enableOfflineMode() {
+		for (Integer langId : isOfflineModeDisabled.keySet()) {
+			isOfflineModeDisabled.put(langId, false);
 		}
 
-		speechRecognizer.triggerModelDownload(createIntent(language));
-		destroy();
-
-		return true;
+		Logger.d(LOG_TAG, "Re-enabled offline voice input for all languages");
 	}
 
 
