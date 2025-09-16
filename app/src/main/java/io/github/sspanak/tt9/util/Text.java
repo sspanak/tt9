@@ -25,6 +25,33 @@ public class Text extends TextTools {
 	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
 	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
 
+	private static final Pattern EMOJI_AT_END = Pattern.compile( getEmojiClass() + "$");
+	private static final Pattern EMOJI_AT_START = Pattern.compile("^" + getEmojiClass());
+
+	private static final String WORD_CLASS = "\\p{L}\\p{M}\\u200D\\u200C";
+	private static final Pattern WORD_AT_END = Pattern.compile("([" + WORD_CLASS + "]+)$");
+	private static final Pattern WORD_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + WORD_CLASS + "']+)$");
+	private static final Pattern WORD_WITH_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"]+)$");
+	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"']+)$");
+	private static final Pattern WORD_AT_START = Pattern.compile("^([" + WORD_CLASS + "]+)");
+	private static final Pattern WORD_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + WORD_CLASS + "']+)");
+	private static final Pattern WORD_WITH_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"]+)");
+	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"']+)");
+
+
+	private static String getEmojiClass() {
+		String modern = "[\\p{Extended_Pictographic}\\p{Emoji_Modifier}\\uFE0F\\u200D]+";
+
+		try {
+			Pattern p = Pattern.compile(modern);
+			if (p.matcher("❤️").find()) {
+				return modern;
+			}
+		} catch (Exception ignored) {}
+
+		return "[\\p{So}\\p{Sk}\\u200d\\uFE0F\\u20E3]+";
+	}
+
 
 	public Text(@Nullable Language language, @Nullable String text) {
 		this.language = language;
@@ -57,11 +84,6 @@ public class Text extends TextTools {
 		}
 
 		return true;
-	}
-
-
-	public boolean endsWithGraphic() {
-		return text != null && !text.isEmpty() && Characters.isGraphic(text.charAt(text.length() - 1));
 	}
 
 
@@ -202,48 +224,6 @@ public class Text extends TextTools {
 	}
 
 
-	public String leaveEndingGraphics() {
-		if (text == null) {
-			return "";
-		}
-
-		StringBuilder sb = new StringBuilder(text.length());
-
-		for (int i = text.length() - 1; i >= 0; i--) {
-			char ch = text.charAt(i);
-
-			if (Characters.isGraphic(ch)) {
-				sb.insert(0, ch);
-			} else {
-				break;
-			}
-		}
-
-		return sb.toString();
-	}
-
-
-	public String leaveStartingGraphics() {
-		if (text == null) {
-			return "";
-		}
-
-		StringBuilder sb = new StringBuilder(text.length());
-
-		for (int i = 0, end = text.length(); i < end; i++) {
-			char ch = text.charAt(i);
-
-			if (Characters.isGraphic(ch)) {
-				sb.append(ch);
-			} else {
-				break;
-			}
-		}
-
-		return sb.toString();
-	}
-
-
 	/**
 	 * Returns the number of regular 8-bit chars
 	 */
@@ -367,44 +347,69 @@ public class Text extends TextTools {
 
 
 	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {
-		if (text == null) {
+		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
-		StringBuilder sub = new StringBuilder();
-
-		for (int i = text.length() - 1; i >= 0; i--) {
-			char ch = text.charAt(i);
-
-			if (Character.isAlphabetic(ch) || (keepApostrophe && ch == '\'') || (keepQuote && ch == '"')) {
-				sub.insert(0, ch);
-			} else {
-				break;
-			}
+		Pattern pattern;
+		if (keepApostrophe && keepQuote) {
+			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END;
+		} else if (keepQuote) {
+			pattern = WORD_WITH_QUOTES_AT_END;
+		} else if (keepApostrophe) {
+			pattern = WORD_WITH_APOSTROPHES_AT_END;
+		} else {
+			pattern = WORD_AT_END;
 		}
 
-		return sub.toString();
+		Matcher matcher = pattern.matcher(text);
+
+		return matcher.find() ? matcher.group(1) : "";
+	}
+
+
+	public String subStringEndingEmoji() {
+		if (text == null || text.isEmpty()) {
+			return "";
+		}
+
+		Matcher matcher = EMOJI_AT_END.matcher(text);
+
+		return matcher.find() ? matcher.group(0) : "";
 	}
 
 
 	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
-		if (text == null) {
+		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
-		StringBuilder sub = new StringBuilder();
+		Pattern pattern;
 
-		for (int i = 0, end = text.length(); i < end; i++) {
-			char ch = text.charAt(i);
-
-			if (Character.isAlphabetic(ch) || (keepApostrophe && ch == '\'') || (keepQuote && ch == '"')) {
-				sub.append(ch);
-			} else {
-				break;
-			}
+		if (keepApostrophe && keepQuote) {
+			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START;
+		} else if (keepQuote) {
+			pattern = WORD_WITH_QUOTES_AT_START;
+		} else if (keepApostrophe) {
+			pattern = WORD_WITH_APOSTROPHES_AT_START;
+		} else {
+			pattern = WORD_AT_START;
 		}
 
-		return sub.toString();
+		Matcher matcher = pattern.matcher(text);
+
+		return matcher.find() ? matcher.group(1) : "";
+	}
+
+
+	public String subStringStartingEmoji() {
+		if (text == null || text.isEmpty()) {
+			return "";
+		}
+
+		Matcher matcher = EMOJI_AT_START.matcher(text);
+
+		return matcher.find() ? matcher.group(0) : "";
 	}
 
 
