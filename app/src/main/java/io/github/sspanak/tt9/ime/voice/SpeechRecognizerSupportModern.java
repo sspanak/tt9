@@ -69,11 +69,16 @@ class SpeechRecognizerSupportModern extends SpeechRecognizerSupportLegacy implem
 	public void onSupportResult(@NonNull RecognitionSupport recognitionSupport) {
 		recognizer.destroy();
 
-		List<String> locales = recognitionSupport.getSupportedOnDeviceLanguages();
-		if (locales.contains(locale)) {
+		List<String> installed = recognitionSupport.getInstalledOnDeviceLanguages();
+		List<String> missing = recognitionSupport.getSupportedOnDeviceLanguages();
+
+		if (installed.contains(locale)) {
 			availableOfflineLanguages.add(locale);
 			missingOfflineLanguages.remove(locale);
-		} else {
+		} else if (missing.contains(locale)) {
+			availableOfflineLanguages.remove(locale);
+			missingOfflineLanguages.remove(locale);
+		}	else {
 			availableOfflineLanguages.remove(locale);
 			missingOfflineLanguages.add(locale);
 		}
