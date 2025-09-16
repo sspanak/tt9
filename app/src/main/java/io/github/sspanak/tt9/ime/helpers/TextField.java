@@ -87,35 +87,32 @@ public class TextField extends InputField {
 	 * Returns the word next or around the cursor. Scanning length is up to 50 chars in each direction.
 	 */
 	@NonNull public String getSurroundingWord(Language language) {
-		Text before = getTextBeforeCursor();
-		Text after = getTextAfterCursor(50);
+		// Hebrew and Ukrainian use the respective special characters as letters
+		boolean keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
+		boolean keepQuote = LanguageKind.isHebrew(language);
 
-		// emoji
-		boolean beforeEndsWithGraphics = before.endsWithGraphic();
-		boolean afterStartsWithGraphics = after.startsWithGraphic();
+		final Text textBefore = new Text(language, getStringBeforeCursor());
+		final Text textAfter = new Text(language, getStringAfterCursor(50));
 
-		if (beforeEndsWithGraphics && afterStartsWithGraphics) {
-			return before.leaveEndingGraphics() + after.leaveStartingGraphics();
+		final String emojiBefore = textBefore.subStringEndingEmoji();
+		final String emojiAfter = textAfter.subStringStartingEmoji();
+
+		// emoji + emoji or void
+		if (!emojiBefore.isEmpty()) {
+			return emojiBefore + emojiAfter;
 		}
 
-		if (afterStartsWithGraphics) {
-			return after.leaveStartingGraphics();
+		final String wordBefore = textBefore.subStringEndingWord(keepApostrophe, keepQuote);
+
+		// void + emoji
+		if (!emojiAfter.isEmpty() && wordBefore.isEmpty()) {
+			return emojiAfter;
 		}
 
-		if (beforeEndsWithGraphics) {
-			return before.leaveEndingGraphics();
-		}
+		final String wordAfter = textAfter.subStringStartingWord(keepApostrophe, keepQuote);
 
-		// text
-		boolean keepApostrophe = false;
-		boolean keepQuote = false;
-		if (language != null) {
-			// Hebrew and Ukrainian use the respective special characters as letters
-			keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
-			keepQuote = LanguageKind.isHebrew(language);
-		}
-
-		return before.subStringEndingWord(keepApostrophe, keepQuote) + after.subStringStartingWord(keepApostrophe, keepQuote);
+		// word or void + word or void
+		return wordBefore + wordAfter;
 	}
 
 
