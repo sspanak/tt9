@@ -95,6 +95,24 @@ class ModeWords extends ModeCheonjiin {
 
 
 	@Override
+	protected void onNumberPress(int nextNumber) {
+		if (!language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length() && !predictions.getList().isEmpty() && predictions.getList().get(0).startsWith(stem)) {
+			// For alphabet-based languages, in case we are currently showing:
+			// > word + ... | ... a | ... b | ... c |
+			// where "a" appeared as pre-selected because it was the first in the list, do auto-select
+			// "worda" before processing the next keypress, to prevent any potential database "wordb" or "wordc"
+			// matches unexpectedly overriding the current choice.
+			// See the video in: https://github.com/sspanak/tt9/issues/854 for more info.
+			final String newStem = predictions.getList().get(0);
+			Logger.d(LOG_TAG, "Extending stem: " + stem + " -> " + newStem);
+			stem = newStem;
+		}
+
+		super.onNumberPress(nextNumber);
+	}
+
+
+	@Override
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
 		suggestions.add(language.getKeyNumeral(number));
@@ -249,6 +267,7 @@ class ModeWords extends ModeCheonjiin {
 			return false;
 		}
 	}
+
 
 	/**
 	 * getWordStem
