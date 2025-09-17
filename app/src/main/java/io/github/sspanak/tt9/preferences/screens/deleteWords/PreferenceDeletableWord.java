@@ -10,15 +10,16 @@ import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.DataStore;
-import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.db.entities.CustomWord;
+import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.UI;
 import io.github.sspanak.tt9.util.Logger;
 
 public class PreferenceDeletableWord extends ScreenPreference {
 	private DeletableWordsList parent;
+	private Language language;
 	private String word;
 
 
@@ -39,9 +40,12 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	}
 
 
-	void setWord(String word) {
-		this.word = word;
-		setTitle(word);
+	void setWord(CustomWord word) {
+		this.word = word.word;
+		this.language = word.language;
+		setTitle(
+			Logger.isDebugLevel() ? word.word + " / " + word.sequence + " / " + word.language.getName() : word.word
+		);
 	}
 
 
@@ -61,12 +65,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 
 
 	private void onDeletionConfirmed() {
-		SettingsStore settings = new SettingsStore(getContext());
-		DataStore.deleteCustomWord(
-			this::onWordDeleted,
-			LanguageCollection.getLanguage(settings.getInputLanguage()),
-			Logger.isDebugLevel() ? word.replaceFirst(" / .+$", "") : word // strip debug info, if any
-		);
+		DataStore.deleteCustomWord(this::onWordDeleted, language, word);
 	}
 
 

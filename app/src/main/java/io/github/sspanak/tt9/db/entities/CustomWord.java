@@ -14,6 +14,20 @@ public class CustomWord {
 	public final String word;
 	public final String sequence;
 
+	public CustomWord(@NonNull String word, @NonNull String sequence, int langId) {
+		language = LanguageCollection.getLanguage(langId);
+		if (language == null || word.isEmpty() || sequence.isEmpty()) {
+			throw new IllegalArgumentException("Word, digit sequence and language must be provided.");
+		}
+
+		if (sequence.contains("1") || sequence.contains("0")) {
+			throw new IllegalArgumentException("Custom word: '" + word + "' contains punctuation.");
+		}
+
+		this.sequence = sequence;
+		this.word = word;
+	}
+
 	public CustomWord(@NonNull String word, NaturalLanguage language) throws InvalidLanguageCharactersException, IllegalArgumentException {
 		if (word.isEmpty() || language == null) {
 			throw new IllegalArgumentException("Word and language must be provided.");

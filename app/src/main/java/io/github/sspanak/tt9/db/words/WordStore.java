@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.BaseSyncStore;
 import io.github.sspanak.tt9.db.entities.AddWordResult;
+import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.entities.NormalizationList;
 import io.github.sspanak.tt9.db.entities.Word;
 import io.github.sspanak.tt9.db.entities.WordList;
@@ -98,8 +99,8 @@ public class WordStore extends BaseSyncStore {
 	}
 
 
-	@NonNull public ArrayList<String> getSimilarCustom(String wordFilter, int maxWords, boolean withDebugInfo) {
-		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords, withDebugInfo) : new ArrayList<>();
+	@NonNull public ArrayList<CustomWord> getSimilarCustom(String wordFilter, int maxWords) {
+		return checkOrNotify() ? readOps.getCustomWords(sqlite.getDb(), wordFilter, maxWords) : new ArrayList<>();
 	}
 
 
