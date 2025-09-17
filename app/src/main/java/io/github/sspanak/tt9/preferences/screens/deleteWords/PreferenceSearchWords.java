@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
+import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.preferences.items.SearchPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
@@ -18,7 +19,7 @@ public class PreferenceSearchWords extends SearchPreference {
 	public static final String NAME = "dictionary_delete_words_search";
 	private static final String LOG_TAG = PreferenceSearchWords.class.getSimpleName();
 
-	private ConsumerCompat<ArrayList<String>> onWords;
+	private ConsumerCompat<ArrayList<CustomWord>> onWords;
 	private ConsumerCompat<Long> onTotalWords;
 
 	@NonNull private String lastSearchTerm = "";
@@ -32,7 +33,7 @@ public class PreferenceSearchWords extends SearchPreference {
 
 	@Override
 	protected void onTextChange() {
-		search(text, Logger.isDebugLevel());
+		search(text);
 	}
 
 	@NonNull
@@ -40,21 +41,21 @@ public class PreferenceSearchWords extends SearchPreference {
 		return lastSearchTerm;
 	}
 
-	void search(String word, boolean withDebugInfo) {
+	void search(String word) {
 		lastSearchTerm = word == null || word.trim().isEmpty() ? "" : word.trim();
 
 		if (onWords == null) {
 			Logger.w(LOG_TAG, "No handler set for the word change event.");
 		} else if (lastSearchTerm.isEmpty()) {
 			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX, withDebugInfo);
+			DataStore.getCustomWords(onWords, lastSearchTerm, SettingsStore.CUSTOM_WORDS_SEARCH_RESULTS_MAX);
 		} else {
 			DataStore.countCustomWords(onTotalWords);
-			DataStore.getCustomWords(onWords, lastSearchTerm, -1, withDebugInfo);
+			DataStore.getCustomWords(onWords, lastSearchTerm, -1);
 		}
 	}
 
-	void setOnWordsHandler(ConsumerCompat<ArrayList<String>> onWords) {
+	void setOnWordsHandler(ConsumerCompat<ArrayList<CustomWord>> onWords) {
 		this.onWords = onWords;
 	}
 

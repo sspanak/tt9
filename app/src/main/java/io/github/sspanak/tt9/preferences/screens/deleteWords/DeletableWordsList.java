@@ -7,6 +7,7 @@ import androidx.preference.PreferenceCategory;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.preferences.custom.PreferencePlainText;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -36,7 +37,7 @@ class DeletableWordsList {
 		}
 	}
 
-	private void addWord(String word) {
+	private void addWord(CustomWord word) {
 		if (item != null) {
 			PreferenceDeletableWord pref = new PreferenceDeletableWord(item.getContext());
 			pref.setParent(this);
@@ -46,8 +47,8 @@ class DeletableWordsList {
 		}
 	}
 
-	void addWords(ArrayList<String> words) {
-		for (String word : words) {
+	void addWords(ArrayList<CustomWord> words) {
+		for (CustomWord word : words) {
 			addWord(word);
 		}
 	}
@@ -61,7 +62,7 @@ class DeletableWordsList {
 		}
 	}
 
-	void setResult(@NonNull String searchTerm, ArrayList<String> words) {
+	void setResult(@NonNull String searchTerm, ArrayList<CustomWord> words) {
 		clear();
 
 		if (words == null || words.isEmpty()) {

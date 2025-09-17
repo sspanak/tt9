@@ -13,6 +13,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import io.github.sspanak.tt9.db.entities.AddWordResult;
+import io.github.sspanak.tt9.db.entities.CustomWord;
 import io.github.sspanak.tt9.db.wordPairs.WordPairStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.db.words.WordStore;
@@ -121,10 +122,9 @@ public class DataStore {
 	}
 
 
-	public static void getCustomWords(ConsumerCompat<ArrayList<String>> dataHandler, String wordFilter, int maxWords, boolean withDebugInfo) {
+	public static void getCustomWords(ConsumerCompat<ArrayList<CustomWord>> dataHandler, String wordFilter, int maxWords) {
 		runInThread(() -> {
-			ArrayList<String> data = words.getSimilarCustom(wordFilter, maxWords, withDebugInfo);
-			asyncReturn.post(() -> dataHandler.accept(data));
+			asyncReturn.post(() -> dataHandler.accept(words.getSimilarCustom(wordFilter, maxWords)));
 		});
 	}
 
