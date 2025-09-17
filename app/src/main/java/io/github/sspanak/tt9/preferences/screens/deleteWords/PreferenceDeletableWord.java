@@ -44,7 +44,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 		this.word = word.word;
 		this.language = word.language;
 		setTitle(
-			Logger.isDebugLevel() ? word.word + " / " + word.sequence + " / " + word.language.getName() : word.word
+			Logger.isDebugLevel() ? word.word + " / " + word.sequence + " / " + word.language.getName() : word.word + " / " + word.language.getName()
 		);
 	}
 
