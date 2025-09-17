@@ -8,19 +8,20 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.NaturalLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
+import io.github.sspanak.tt9.util.TextTools;
 
 public class CustomWord {
 	public final NaturalLanguage language;
 	public final String word;
 	public final String sequence;
 
-	public CustomWord(@NonNull String word, @NonNull String sequence, int langId) {
+	public CustomWord(@NonNull String word, @NonNull String sequence, int langId) throws IllegalArgumentException {
 		language = LanguageCollection.getLanguage(langId);
 		if (language == null || word.isEmpty() || sequence.isEmpty()) {
 			throw new IllegalArgumentException("Word, digit sequence and language must be provided.");
 		}
 
-		if (sequence.contains("1") || sequence.contains("0")) {
+		if (TextTools.containsPunctuation(word)) {
 			throw new IllegalArgumentException("Custom word: '" + word + "' contains punctuation.");
 		}
 
@@ -37,22 +38,19 @@ public class CustomWord {
 		this.language = language;
 		this.sequence = language.getDigitSequenceForWord(word);
 
-		if (sequence.contains("1") || sequence.contains("0")) {
+		if (TextTools.containsPunctuation(word)) {
 			throw new IllegalArgumentException("Custom word: '" + word + "' contains punctuation.");
 		}
 	}
 
 	@NonNull
 	public static ArrayList<CustomWord> guessLanguage(@NonNull String word, @NonNull ArrayList<Integer> languageIds) {
-		ArrayList<Language> languages = LanguageCollection.getAll(languageIds);
-
 		ArrayList<CustomWord> results = new ArrayList<>();
 
-		for (Language lang : languages) {
+		for (Language lang : LanguageCollection.getAll(languageIds)) {
 			try {
 				results.add(new CustomWord(word, (NaturalLanguage) lang));
-			} catch (InvalidLanguageCharactersException | IllegalArgumentException ignored) {
-			}
+			} catch (InvalidLanguageCharactersException | IllegalArgumentException ignored) {}
 		}
 
 		return results;
