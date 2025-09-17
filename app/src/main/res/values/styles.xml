@@ -102,7 +102,7 @@
 	<!-- status bar -->
 	<style name="TTheme.MainSmall.StatusBar.Wrapper" parent="">
 		<item name="android:layoutDirection">locale</item>
-		<item name="android:layout_height">@dimen/status_bar_height</item>
+		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_width">match_parent</item>
 	</style>
 
@@ -130,12 +130,6 @@
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
 		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
-
-		<!--
-		for some reason the RecyclerView displays the text smaller than the TextView,
-		so we to make the suggestions slightly bigger than the regular Status Bar text.
-		-->
-		<item name="android:textSize">@dimen/main_small_suggestion_text_size</item>
 	</style>
 
 	<!--*******************************************

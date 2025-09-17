@@ -16,7 +16,6 @@
 
 	<!-- Main Small -->
 	<dimen name="main_small_suggestion_spacing_horizontal">6sp</dimen>
-	<dimen name="main_small_suggestion_text_size">18sp</dimen>
 
 	<dimen name="main_small_main_key_wrapper_height">46dp</dimen> <!-- key height + margin -->
 	<dimen name="main_small_main_key_wrapper_extra_height_for_messenger">50dp</dimen> <!-- empirically found the correct amount -->
