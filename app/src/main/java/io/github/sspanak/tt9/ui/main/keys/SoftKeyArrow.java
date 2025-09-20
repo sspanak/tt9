@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyArrow extends SoftKey {
+public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	private boolean hold;
 
 	public SoftKeyArrow(Context context) { super(context); }

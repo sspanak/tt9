@@ -6,7 +6,7 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class SoftKeyOk extends SoftKey {
+public class SoftKeyOk extends BaseSoftKeyCustomizable {
 	public SoftKeyOk(Context context) { super(context); }
 	public SoftKeyOk(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

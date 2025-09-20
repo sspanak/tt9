@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
-public class BaseSoftKeyWithIcons extends SoftKey {
+public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	private Drawable icon = null;
 	private Drawable holdIcon = null;
 
