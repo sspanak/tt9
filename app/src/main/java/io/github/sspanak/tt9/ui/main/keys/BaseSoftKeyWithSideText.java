@@ -13,15 +13,20 @@ public class BaseSoftKeyWithSideText extends BaseSoftKeyWithIcons {
 	protected String getBottomText() { return null; }
 	protected String getLeftText() { return null; }
 
+	protected float getTopElementScale() { return getHoldElementScale(); }
+	protected float getRightElementScale() { return getHoldElementScale(); }
+	protected float getBottomElementScale() { return getHoldElementScale(); }
+	protected float getLeftElementScale() { return getHoldElementScale(); }
+
 	@Override
 	public void render() {
 		boolean isKeyEnabled = isEnabled();
 
 		getOverlayWrapper();
-		renderOverlayText("overlay_top_text", getTopText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_right_text", getRightText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_bottom_text", getBottomText(), getHoldElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_left_text", getLeftText(), getHoldElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_top_text", getTopText(), getTopElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_right_text", getRightText(), getRightElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_bottom_text", getBottomText(), getBottomElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_left_text", getLeftText(), getLeftElementScale(), isKeyEnabled);
 		super.render();
 	}
 }

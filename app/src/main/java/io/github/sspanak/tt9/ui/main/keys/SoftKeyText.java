@@ -9,7 +9,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-abstract public class SoftKeyText extends BaseSoftKeyWithIcons {
+abstract public class SoftKeyText extends BaseSwipeableKey {
 	public SoftKeyText(Context context) { super(context); }
 	public SoftKeyText(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyText(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

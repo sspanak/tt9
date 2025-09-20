@@ -53,7 +53,8 @@
 	<dimen name="numpad_key_overlay_hold_icon_size">15dp</dimen>
 	<dimen name="numpad_key_overlay_hold_text_size">13dp</dimen>
 
-	<dimen name="numpad_key_overlay_side_text_spacing">2dp</dimen>
+	<dimen name="numpad_key_overlay_side_char_spacing">2dp</dimen>
+	<dimen name="numpad_key_overlay_side_text_spacing_horizontal">4dp</dimen>
 	<dimen name="numpad_key_overlay_hold_icon_spacing_top">1dp</dimen>
 	<dimen name="numpad_key_overlay_hold_icon_spacing_right">1dp</dimen>
 	<dimen name="numpad_key_overlay_hold_text_spacing_top">2dp</dimen>

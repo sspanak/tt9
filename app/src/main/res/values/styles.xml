@@ -366,25 +366,45 @@
 		<item name="android:textColor">@color/key_num_alternative_text</item>
 	</style>
 
+	<!-- Overlay: Side Chars -->
+	<style name="TTheme.Numpad.Key.Overlay.Chars.Top" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">top|center</item>
+		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_char_spacing</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Chars.Right" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">center|right</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_char_spacing</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Chars.Bottom" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">bottom|center</item>
+		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_side_char_spacing</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.Chars.Left" parent="TTheme.Numpad.Key.Overlay.Text">
+		<item name="android:gravity">center|left</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_char_spacing</item>
+	</style>
+
+
 	<!-- Overlay: Side Text -->
 	<style name="TTheme.Numpad.Key.Overlay.Text.Top" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">top|center</item>
-		<item name="android:layout_marginTop">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Right" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">center|right</item>
-		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_text_spacing</item>
+		<item name="android:layout_marginRight">@dimen/numpad_key_overlay_side_text_spacing_horizontal</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Bottom" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">bottom|center</item>
-		<item name="android:layout_marginBottom">@dimen/numpad_key_overlay_side_text_spacing</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.Overlay.Text.Left" parent="TTheme.Numpad.Key.Overlay.Text">
 		<item name="android:gravity">center|left</item>
-		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_spacing</item>
+		<item name="android:layout_marginLeft">@dimen/numpad_key_overlay_side_text_spacing_horizontal</item>
 	</style>
 
 

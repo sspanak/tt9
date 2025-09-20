@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+	<ImageView
+		style="@style/TTheme.Numpad.Key.Overlay.Icon"
+		android:tag="overlay_icon"
+		android:contentDescription="@null" />
+
+	<TextView style="@style/TTheme.Numpad.Key.Overlay.Chars.Top" android:tag="overlay_top_text" />
+	<TextView style="@style/TTheme.Numpad.Key.Overlay.Chars.Right" android:tag="overlay_right_text" />
+	<TextView style="@style/TTheme.Numpad.Key.Overlay.Chars.Bottom" android:tag="overlay_bottom_text" />
+	<TextView style="@style/TTheme.Numpad.Key.Overlay.Chars.Left" android:tag="overlay_left_text" />
+</merge>

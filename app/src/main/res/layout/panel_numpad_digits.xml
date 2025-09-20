@@ -31,6 +31,7 @@
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_text_1" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_side_text" />
 		</RelativeLayout>
 	</LinearLayout>
 
@@ -66,7 +67,7 @@
 				android:id="@+id/soft_key_0" />
 			<include layout="@layout/key_overlay_icons" />
 			<include layout="@layout/key_overlay_number_hold_text" />
-			<include layout="@layout/key_overlay_side_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 	</LinearLayout>
@@ -103,6 +104,7 @@
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_text_2" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_side_text" />
 		</RelativeLayout>
 	</LinearLayout>
 </merge>
