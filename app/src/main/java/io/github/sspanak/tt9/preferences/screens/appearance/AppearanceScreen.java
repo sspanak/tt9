@@ -56,7 +56,6 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 
 		ItemDropDown[] items = {
-			new ItemSelectTheme(findPreference(ItemSelectTheme.NAME), activity),
 			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
 			selectLayout,
 			numpadKeyHeight,
