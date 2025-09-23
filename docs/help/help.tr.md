@@ -90,13 +90,11 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
 - **Tahmin modunda:**
   - **Bas:** noktalama işaretleri yaz.
   - **Çoklu basış:** emoji yaz.
-  - **1-1-3 bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
   - **Basılı tut:** "1" yaz.
 - **Cheonjiin modunda (Korece):**
   - **Bas:** "ㅣ" ünlüsünü yaz.
   - **Basılı tut:** noktalama işaretleri yaz.
   - **Basılı tut, ardından bas:** emoji yaz.
-  - **1 basılı tut, ardından 1'e ve 3'e bas:** özel eklenen emojiyi yaz (bazı emojiler [Kelime Ekle tuşu](#kelime-ekle-tușu) kullanarak eklenmelidir).
 
 #### 2-9 tușu:
 - **123 modunda:** ilgili sayıyı yaz.
@@ -106,8 +104,6 @@ _**Not 2:** Mesajlaşma uygulamalarında OK ile mesaj göndermek için, uygulama
 
 #### Kelime Ekle Tușu:
 Mevcut dil için sözlüğe yeni bir kelime ekleyin.
-
-Yeni emojiler de ekleyebilir ve ardından 1-1-3 basarak erişebilirsiniz. Seçili dilden bağımsız olarak, tüm emojiler tüm dillerde kullanılabilir.
 
 #### Silme Tușu (Geri, Sil veya Backspace):
 Sadece metni siler.
@@ -294,7 +290,7 @@ Her şeyi seçiminize bakılmaksızın silmek için "Hepsini Sil" seçeneğini k
 Her durumda, eklediğiniz özel kelimeler korunacak ve ilgili sözlüğü yeniden yüklediğinizde geri yüklenecektir.
 
 #### Eklenen Kelimeler
-"Export" seçeneği, eklediğiniz tüm kelimeleri, eklenen emojiler dahil olmak üzere, tüm diller için bir CSV dosyasına dışa aktarmanıza olanak tanır. Ardından bu CSV dosyasını Traditional T9'u iyileştirmek için kullanabilirsiniz! GitHub'a gidip kelimeleri [yeni bir konu](https://github.com/sspanak/tt9/issues) veya [pull request](https://github.com/sspanak/tt9/pulls) açarak paylaşabilirsiniz. Gözden geçirildikten ve onaylandıktan sonra bir sonraki sürüme ekleneceklerdir.
+"Dışa Aktar" seçeneği, tüm diller için eklenen tüm kelimelerle bir CSV dosyası oluşturmanıza olanak tanır. Ardından bu CSV dosyasını Traditional T9'u iyileştirmek için kullanabilirsiniz! GitHub'a gidip kelimeleri [yeni bir konu](https://github.com/sspanak/tt9/issues) veya [pull request](https://github.com/sspanak/tt9/pulls) açarak paylaşabilirsiniz. Gözden geçirildikten ve onaylandıktan sonra bir sonraki sürüme ekleneceklerdir.
 
 "Import" ile daha önce dışa aktardığınız bir CSV'yi içe aktarabilirsiniz. Ancak bazı kısıtlamalar vardır:
 - Yalnızca harflerden oluşan kelimeleri içe aktarabilirsiniz. Kesme işaretleri, kısa çizgiler, diğer noktalama işaretleri veya özel karakterler kabul edilmez.

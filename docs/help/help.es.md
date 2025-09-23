@@ -90,13 +90,11 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
 - **En modo Predictivo:**
   - **Presione:** escribir caracteres de puntuación.
   - **Presione varias veces:** escribir emojis.
-  - **Presione 1-1-3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
   - **Mantenga presionado:** escribir "1".
 - **En modo Cheonjiin (Coreano):**
   - **Presione:** escribir la vocal "ㅣ".
   - **Mantenga presionado:** escribir caracteres de puntuación.
   - **Mantene, luego presione:** escribir emojis.
-  - **Mantenga presionado 1, presione 1, presione 3:** escribir emoji personalizados agregados (debe haber agregado algunos usando la [Tecla de Agregar Palabra](#tecla-de-agregar-palabra)).
 
 #### Teclas del 2 al 9:
 - **En modo 123:** escribir el número correspondiente.
@@ -106,8 +104,6 @@ _**Nota 2:** Para enviar mensajes con OK en aplicaciones de mensajería, debes h
 
 #### Tecla de Agregar Palabra:
 Agregar una nueva palabra al diccionario para el idioma actual.
-
-También puede agregar nuevos emojis y luego acceder a ellos presionando 1-1-3. Independientemente del idioma seleccionado, todos los emojis estarán disponibles en todos los idiomas.
 
 #### Tecla de Borrar (Atrás, Del o Retroceso):
 Simplemente elimina el texto.
@@ -294,7 +290,7 @@ Para eliminar todo, independientemente de la selección, utiliza "Eliminar todo"
 En todos los casos, tus palabras agregadas de forma personalizada se preservarán y se restaurarán una vez que recargues el diccionario respectivo.
 
 #### Palabras añadidas
-La opción "Exportar" te permite exportar todas las palabras añadidas, para todos los idiomas, incluidos los emoji añadidos, a un archivo CSV. Luego, puedes usar el archivo CSV para mejorar Traditional T9. Ve a GitHub y comparte las palabras en un [nuevo issue](https://github.com/sspanak/tt9/issues) o [pull request](https://github.com/sspanak/tt9/pulls). Después de ser revisadas y aprobadas, se incluirán en la próxima versión.
+La opción "Exportar" permite crear un archivo CSV con todas las palabras añadidas para todos los idiomas. Luego, puedes usar el archivo CSV para mejorar Traditional T9. Ve a GitHub y comparte las palabras en un [nuevo issue](https://github.com/sspanak/tt9/issues) o [pull request](https://github.com/sspanak/tt9/pulls). Después de ser revisadas y aprobadas, se incluirán en la próxima versión.
 
 Con "Importar", puedes importar un CSV exportado previamente. Sin embargo, hay algunas restricciones:
 - Solo puedes importar palabras que consistan en letras. No se permiten apóstrofes, guiones, otras puntuaciones o caracteres especiales.

@@ -90,13 +90,11 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
 - **In Predictive mode:**
   - **Press:** type punctuation and sentence characters.
   - **Press multiple times:** type emoji.
-  - **Press 1-1-3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
   - **Hold:** type "1".
 - **In Cheonjiin mode (Korean):**
   - **Press:** type the "ㅣ" vowel.
   - **Hold:** type punctuation and sentence characters.
   - **Hold, then press:** type emoji.
-  - **Hold 1, press 1, press 3:** type custom added emoji (you must have added some using [the Add Word key](#add-word-key)).
 
 #### 2- to 9-key:
 - **In 123 mode:** type the respective number.
@@ -106,8 +104,6 @@ _**Note 2:** To send messages with OK in messaging applications, you must enable
 
 #### Add Word Key:
 Add a new word to the dictionary for the current language.
-
-You can also add new emojis and then access them by pressing 1-1-3. Regardless of the currently selected language, all emojis will be available in all languages.
 
 #### Backspace Key (Back, Del, or Backspace):
 Just deletes text.
@@ -294,7 +290,7 @@ To delete everything, regardless of the selection, use "Delete All".
 In all cases, your custom-added words will be preserved and restored once you reload the respective dictionary.
 
 #### Added Words
-The "Export" option allows you to export all added words, for all languages, including any added emoji, to a CSV file. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
+The "Export" option allows you to create a CSV file with all added words for all languages. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
 
 With "Import", you can import a previously exported CSV. However, there are some restrictions:
 - You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.

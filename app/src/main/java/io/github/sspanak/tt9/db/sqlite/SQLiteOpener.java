@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.BuildConfig;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.util.Logger;
@@ -25,7 +24,6 @@ public class SQLiteOpener extends SQLiteOpenHelper {
 	private SQLiteOpener(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		allLanguages = new ArrayList<>(LanguageCollection.getAll());
-		allLanguages.add(new EmojiLanguage());
 	}
 
 

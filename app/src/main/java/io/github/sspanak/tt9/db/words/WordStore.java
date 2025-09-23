@@ -17,7 +17,6 @@ import io.github.sspanak.tt9.db.sqlite.DeleteOps;
 import io.github.sspanak.tt9.db.sqlite.InsertOps;
 import io.github.sspanak.tt9.db.sqlite.ReadOps;
 import io.github.sspanak.tt9.db.sqlite.UpdateOps;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -122,7 +121,6 @@ public class WordStore extends BaseSyncStore {
 		try {
 			sqlite.beginTransaction();
 			DeleteOps.deleteCustomWord(sqlite.getDb(), language.getId(), word);
-			DeleteOps.deleteCustomWord(sqlite.getDb(), new EmojiLanguage().getId(), word);
 			sqlite.finishTransaction();
 		} catch (Exception e) {
 			sqlite.failTransaction();
@@ -143,8 +141,6 @@ public class WordStore extends BaseSyncStore {
 		if (!checkOrNotify()) {
 			return new AddWordResult(AddWordResult.CODE_GENERAL_ERROR, word);
 		}
-
-		language = Text.isGraphic(word) ? new EmojiLanguage() : language;
 
 		try {
 			if (readOps.exists(sqlite.getDb(), language, word)) {

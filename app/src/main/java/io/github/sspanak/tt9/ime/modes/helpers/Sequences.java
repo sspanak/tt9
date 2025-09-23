@@ -10,13 +10,11 @@ public class Sequences {
 	public static final int CHARS_0_KEY = 0;
 	public static final int CHARS_0_CODE = CHARS_0_KEY + '0';
 	public static final int CHARS_1_KEY = 1;
-	public static final int CUSTOM_EMOJI_KEY = 3;
 
 	public final int PUNCTUATION_PREFIX_LENGTH;
 
 	@NonNull public final String CHARS_1_SEQUENCE;
 	@NonNull public final String EMOJI_SEQUENCE;
-	@NonNull public final String CUSTOM_EMOJI_SEQUENCE;
 	@NonNull public final String CHARS_GROUP_1_SEQUENCE;
 
 	@NonNull public final String CHARS_0_SEQUENCE;
@@ -35,7 +33,6 @@ public class Sequences {
 		PUNCTUATION_PREFIX_LENGTH = CHARS_1_PREFIX.length();
 
 		EMOJI_SEQUENCE = CHARS_1_SEQUENCE + CHARS_1_KEY;
-		CUSTOM_EMOJI_SEQUENCE = EMOJI_SEQUENCE + CUSTOM_EMOJI_KEY;
 		CHARS_GROUP_1_SEQUENCE = CHARS_1_SEQUENCE + 'G' + CHARS_1_KEY;
 
 		CHARS_0_SEQUENCE = CHARS_0_PREFIX + CHARS_0_KEY;
@@ -44,9 +41,7 @@ public class Sequences {
 	}
 
 	public boolean startsWithEmojiSequence(String sequence) {
-		return
-			sequence != null
-			&& (sequence.startsWith(EMOJI_SEQUENCE) || sequence.startsWith(CUSTOM_EMOJI_SEQUENCE));
+		return sequence != null && sequence.startsWith(EMOJI_SEQUENCE);
 	}
 
 	public boolean isAnySpecialCharSequence(String sequence) {

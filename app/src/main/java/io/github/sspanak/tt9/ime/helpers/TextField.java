@@ -94,24 +94,9 @@ public class TextField extends InputField {
 		final Text textBefore = new Text(language, getStringBeforeCursor());
 		final Text textAfter = new Text(language, getStringAfterCursor(50));
 
-		final String emojiBefore = textBefore.subStringEndingEmoji();
-		final String emojiAfter = textAfter.subStringStartingEmoji();
-
-		// emoji + emoji or void
-		if (!emojiBefore.isEmpty()) {
-			return emojiBefore + emojiAfter;
-		}
-
 		final String wordBefore = textBefore.subStringEndingWord(keepApostrophe, keepQuote);
-
-		// void + emoji
-		if (!emojiAfter.isEmpty() && wordBefore.isEmpty()) {
-			return emojiAfter;
-		}
-
 		final String wordAfter = textAfter.subStringStartingWord(keepApostrophe, keepQuote);
 
-		// word or void + word or void
 		return wordBefore + wordAfter;
 	}
 

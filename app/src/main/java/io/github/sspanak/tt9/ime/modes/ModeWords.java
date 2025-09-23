@@ -11,7 +11,6 @@ import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.modes.predictions.WordPredictions;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
@@ -314,7 +313,7 @@ class ModeWords extends ModeCheonjiin {
 			.setIsStemFuzzy(isStemFuzzy)
 			.setStem(stem)
 			.setDigitSequence(digitSequence)
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
+			.setLanguage(language)
 			.load();
 	}
 
@@ -455,10 +454,7 @@ class ModeWords extends ModeCheonjiin {
 
 		if (digitSequence.isEmpty()) {
 			return false;
-		} else if (
-			digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE) ||
-			(seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY && nextDigit != Sequences.CUSTOM_EMOJI_KEY)
-		) {
+		} else if (seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY) {
 			return true;
 		}
 
@@ -499,12 +495,10 @@ class ModeWords extends ModeCheonjiin {
 		return
 			!digitSequence.isEmpty()
 			&& predictions.noDbWords()
-			&& (
-				// when no custom emoji, assume the last digit is the beginning of a new word
-				digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)
-				// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
-				|| (digitSequence.contains(seq.CHARS_1_SEQUENCE) && !digitSequence.equals(seq.CHARS_1_SEQUENCE) && !digitSequence.startsWith(seq.EMOJI_SEQUENCE))
-			);
+			// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
+			&& digitSequence.contains(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.equals(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 

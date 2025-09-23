@@ -215,14 +215,12 @@ class ModeCheonjiin extends InputMode {
 		}
 
 		String currentSeq = digitSequence;
-		if (shouldDisplayCustomEmojis()) {
-			currentSeq = digitSequence.substring(PUNCTUATION_SEQUENCE_PREFIX.length());
-		} else if (!previousJamoSequence.isEmpty()) {
+		if (!previousJamoSequence.isEmpty()) {
 			currentSeq = previousJamoSequence;
 		}
 
 		predictions
-			.setLanguage(shouldDisplayCustomEmojis() ? new EmojiLanguage(seq) : language)
+			.setLanguage(language)
 			.setDigitSequence(currentSeq)
 			.load();
 	}
@@ -245,12 +243,7 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplayEmojis() {
-		return !isEmailMode && digitSequence.startsWith(seq.EMOJI_SEQUENCE) && !digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
-	}
-
-
-	protected boolean shouldDisplayCustomEmojis() {
-		return !isEmailMode && digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE);
+		return !isEmailMode && digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 

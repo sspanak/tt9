@@ -25,9 +25,6 @@ public class Text extends TextTools {
 	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
 	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
 
-	private static final Pattern EMOJI_AT_END = Pattern.compile( getEmojiClass() + "$");
-	private static final Pattern EMOJI_AT_START = Pattern.compile("^" + getEmojiClass());
-
 	private static final String WORD_CLASS = "\\p{L}\\p{M}\\u200D\\u200C";
 	private static final Pattern WORD_AT_END = Pattern.compile("([" + WORD_CLASS + "]+)$");
 	private static final Pattern WORD_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + WORD_CLASS + "']+)$");
@@ -37,20 +34,6 @@ public class Text extends TextTools {
 	private static final Pattern WORD_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + WORD_CLASS + "']+)");
 	private static final Pattern WORD_WITH_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"]+)");
 	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"']+)");
-
-
-	private static String getEmojiClass() {
-		String modern = "[\\p{Extended_Pictographic}\\p{Emoji_Modifier}\\uFE0F\\u200D]+";
-
-		try {
-			Pattern p = Pattern.compile(modern);
-			if (p.matcher("❤️").find()) {
-				return modern;
-			}
-		} catch (Exception ignored) {}
-
-		return "[\\p{So}\\p{Sk}\\u200d\\uFE0F\\u20E3]+";
-	}
 
 
 	public Text(@Nullable Language language, @Nullable String text) {
@@ -368,17 +351,6 @@ public class Text extends TextTools {
 	}
 
 
-	public String subStringEndingEmoji() {
-		if (text == null || text.isEmpty()) {
-			return "";
-		}
-
-		Matcher matcher = EMOJI_AT_END.matcher(text);
-
-		return matcher.find() ? matcher.group(0) : "";
-	}
-
-
 	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null || text.isEmpty()) {
 			return "";
@@ -399,17 +371,6 @@ public class Text extends TextTools {
 		Matcher matcher = pattern.matcher(text);
 
 		return matcher.find() ? matcher.group(1) : "";
-	}
-
-
-	public String subStringStartingEmoji() {
-		if (text == null || text.isEmpty()) {
-			return "";
-		}
-
-		Matcher matcher = EMOJI_AT_START.matcher(text);
-
-		return matcher.find() ? matcher.group(0) : "";
 	}
 
 
