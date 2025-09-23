@@ -50,7 +50,7 @@ abstract class VoiceHandler extends TypingHandler {
 	public boolean onHotkey(int keyCode, boolean repeat, boolean validateOnly) {
 		return switch (keyCode) {
 			case KeyEvent.KEYCODE_STAR -> validateOnly || navigateBack();
-			case KeyEvent.KEYCODE_POUND -> true; // ignore the pound key when a function is active
+			case KeyEvent.KEYCODE_POUND -> isFnPanelVisible(); // ignore the pound key when a function is active
 			default -> false;
 		};
 	}
