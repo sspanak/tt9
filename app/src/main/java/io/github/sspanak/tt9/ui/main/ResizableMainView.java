@@ -177,6 +177,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			settings.setMainViewLayout(SettingsStore.LAYOUT_TRAY);
 			height = heightTray;
 			tt9.onCreateInputView();
+			fitMain();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {

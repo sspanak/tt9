@@ -130,6 +130,8 @@
 		<item name="android:layout_height">match_parent</item>
 		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
 		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
+
+		<item name="android:textSize">@dimen/status_bar_text_size</item>
 	</style>
 
 	<!--*******************************************
