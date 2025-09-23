@@ -90,13 +90,11 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
 - **Im Prädiktiven Modus:**
   - **Drücken:** tippt Satzzeichen
   - **Mehrfaches Drücken:** tippt Emoji
-  - **Drücken von 1-1-3:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
   - **Halten:** tippt „1“.
 - **Im Cheonjiin-Modus (Koreanisch):**
   - **Drücken:** tippt den Vokal "ㅣ".
   - **Halten:** tippt Satzzeichen.
   - **Halten, dann drücken:** tippt Emoji.
-  - **Halten 1, 1 drücken, 3 drücken:** tippt benutzerdefinierte Emojis (diese müssen zuvor über die [Wort hinzufügen-Taste](#wort-hinzufügen-taste) hinzugefügt worden sein)
 
 #### 2- bis 9-Taste:
 - **Im 123 Modus:** tippt die entsprechende Zahl
@@ -106,8 +104,6 @@ _**Hinweis 2:** Um Nachrichten mit OK in Nachrichtenanwendungen zu senden, müss
 
 #### Wort hinzufügen Taste:
 Fügt ein neues Wort zum Wörterbuch für die aktuelle Sprache hinzu.
-
-Sie können auch neue Emojis hinzufügen und dann durch Drücken von 1-1-3 darauf zugreifen. Unabhängig von der aktuell ausgewählten Sprache sind alle Emojis in allen Sprachen verfügbar.
 
 #### Rückschritt Taste (Zurück, Löschen oder Rückschritt):
 Löscht Text.
@@ -294,7 +290,7 @@ Um alles zu löschen, unabhängig von der Auswahl, verwenden Sie „Alles lösch
 In allen Fällen bleiben Ihre selbst hinzugefügten Wörter erhalten und werden wiederhergestellt, sobald Sie das jeweilige Wörterbuch neu laden.
 
 #### Hinzugefügte Wörter
-Die Option „Exportieren“ ermöglicht es, alle hinzugefügten Wörter für alle Sprachen, einschließlich hinzugefügter Emojis, in eine CSV-Datei zu exportieren. Diese CSV-Datei kann dann verwendet werden, um Traditional T9 zu verbessern! Gehen Sie zu GitHub und teilen Sie die Wörter in einem [neuen Issue](https://github.com/sspanak/tt9/issues) oder [Pull-Request](https://github.com/sspanak/tt9/pulls). Nach einer Überprüfung werden sie in der nächsten Version aufgenommen.
+Die Option „Exportieren“ ermöglicht es Ihnen, eine CSV-Datei mit allen hinzugefügten Wörtern für alle Sprachen zu erstellen. Diese CSV-Datei kann dann verwendet werden, um Traditional T9 zu verbessern! Gehen Sie zu GitHub und teilen Sie die Wörter in einem [neuen Issue](https://github.com/sspanak/tt9/issues) oder [Pull-Request](https://github.com/sspanak/tt9/pulls). Nach einer Überprüfung werden sie in der nächsten Version aufgenommen.
 
 Mit „Importieren“ können Sie eine zuvor exportierte CSV-Datei importieren. Es gibt jedoch einige Einschränkungen:
 - Es können nur Wörter aus Buchstaben importiert werden. Apostrophe, Bindestriche, andere Satzzeichen oder Sonderzeichen sind nicht erlaubt.

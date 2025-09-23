@@ -20,7 +20,6 @@ import io.github.sspanak.tt9.db.entities.WordList;
 import io.github.sspanak.tt9.db.entities.WordPositionsStringBuilder;
 import io.github.sspanak.tt9.db.wordPairs.WordPair;
 import io.github.sspanak.tt9.db.words.SlowQueryStats;
-import io.github.sspanak.tt9.languages.EmojiLanguage;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
@@ -154,9 +153,8 @@ public class ReadOps {
 
 		String table = customWords || language == null ? Tables.CUSTOM_WORDS : Tables.getWords(language.getId());
 		String[] columns = customWords || language == null ? new String[]{"word", "langId"} : new String[]{"word", "frequency"};
-		String where = customWords || language == null ? "langId <> " + new EmojiLanguage().getId() : null;
 
-		try (Cursor cursor = db.query(table, columns, where, null, null, null, null)) {
+		try (Cursor cursor = db.query(table, columns, null, null, null, null, null)) {
 			while (cursor.moveToNext()) {
 				words
 					.append(cursor.getString(0))

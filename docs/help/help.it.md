@@ -90,13 +90,11 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
 - **In modalità Predittiva:**
   - **Premere:** digita caratteri di punteggiatura
   - **Premere più volte:** digita emoji
-  - **Premere 1-1-3:** digita emoji aggiunti personalizzati (è necessario averne aggiunti alcuni utilizzando [il Tasto Aggiungi Parola](#tasto-aggiungi-parola))
   - **Tenere premuto:** digita "1".
 - **In modalità Cheonjiin (Coreano):**
   - **Premere:** digita la vocale "ㅣ".
   - **Tenere premuto:** digita caratteri di punteggiatura.
   - **Tenere premuto, quindi premere:** digita emoji.
-  - **Tenere premuto 1, premere 1, poi 3:** digita emoji aggiunti personalizzati (è necessario averne aggiunti alcuni utilizzando [il Tasto Aggiungi Parola](#tasto-aggiungi-parola))
 
 #### Tasti da 2 a 9:
 - **In modalità 123:** digita il rispettivo numero
@@ -106,8 +104,6 @@ _**Nota 2:** Per inviare messaggi con OK nelle applicazioni di messaggistica, è
 
 #### Tasto Aggiungi Parola:
 Aggiunge una nuova parola al dizionario per la lingua corrente.
-
-È anche possibile aggiungere nuove emoji e accedervi premendo 1-1-3. Indipendentemente dalla lingua selezionata, tutte le emoji saranno disponibili in tutte le lingue.
 
 #### Tasto Backspace (Indietro, Canc, o Backspace):
 Cancella semplicemente il testo.
@@ -294,7 +290,7 @@ Per cancellare tutto, indipendentemente dalla selezione, usa "Cancella Tutto".
 In tutti i casi, le parole aggiunte personalizzate verranno conservate e ripristinate una volta ricaricato il dizionario.
 
 #### Parole Aggiunte
-L'opzione "Esporta" ti permette di esportare tutte le parole aggiunte, per tutte le lingue, inclusi eventuali emoji, in un file CSV. Successivamente, puoi utilizzare il file CSV per migliorare Traditional T9! Vai su GitHub e condividi le parole in una [nuova issue](https://github.com/sspanak/tt9/issues) o una [pull request](https://github.com/sspanak/tt9/pulls). Dopo la revisione e l’approvazione, saranno incluse nella prossima versione.
+L’opzione "Esporta" consente di creare un file CSV con tutte le parole aggiunte per tutte le lingue. Successivamente, puoi utilizzare il file CSV per migliorare Traditional T9! Vai su GitHub e condividi le parole in una [nuova issue](https://github.com/sspanak/tt9/issues) o una [pull request](https://github.com/sspanak/tt9/pulls). Dopo la revisione e l’approvazione, saranno incluse nella prossima versione.
 
 Con "Importa", puoi importare un CSV precedentemente esportato. Tuttavia, ci sono alcune restrizioni:
 - È possibile importare solo parole composte da lettere. Apostrofi, trattini, altri segni di punteggiatura o caratteri speciali non sono ammessi.

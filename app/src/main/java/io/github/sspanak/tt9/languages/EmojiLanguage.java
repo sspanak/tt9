@@ -12,10 +12,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class EmojiLanguage extends Language {
 	private final Sequences seq;
 
-	public EmojiLanguage() {
-		this(null);
-	}
-
 	public EmojiLanguage(Sequences sequences) {
 		id = Integer.parseInt(new Sequences().EMOJI_SEQUENCE); // always use the unprefixed sequence for ID
 		locale = Locale.ROOT;
@@ -29,11 +25,7 @@ public class EmojiLanguage extends Language {
 	@NonNull
 	@Override
 	public String getDigitSequenceForWord(String word) {
-		if (!isValidWord(word)) {
-			return "";
-		}
-
-		return Characters.isBuiltInEmoji(word) ? seq.EMOJI_SEQUENCE : seq.CUSTOM_EMOJI_SEQUENCE;
+		return isValidWord(word) && Characters.isBuiltInEmoji(word) ? seq.EMOJI_SEQUENCE : "";
 	}
 
 	@NonNull
@@ -53,9 +45,7 @@ public class EmojiLanguage extends Language {
 	}
 
 	public static String validateEmojiSequence(@NonNull Sequences seq, @NonNull String sequence, int next) {
-		if (sequence.startsWith(seq.CUSTOM_EMOJI_SEQUENCE) || (sequence.equals(seq.EMOJI_SEQUENCE) && next == Sequences.CUSTOM_EMOJI_KEY)) {
-			return seq.CUSTOM_EMOJI_SEQUENCE;
-		} else if (sequence.startsWith(seq.EMOJI_SEQUENCE) && (next > 1 || sequence.length() - seq.PUNCTUATION_PREFIX_LENGTH == Characters.getMaxEmojiLevel() + 1)) {
+		if (sequence.startsWith(seq.EMOJI_SEQUENCE) && (next > 1 || sequence.length() - seq.PUNCTUATION_PREFIX_LENGTH == Characters.getMaxEmojiLevel() + 1)) {
 			return sequence;
 		} else {
 			return sequence + next;

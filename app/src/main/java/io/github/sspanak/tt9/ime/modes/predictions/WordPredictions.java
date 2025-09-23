@@ -94,7 +94,7 @@ public class WordPredictions extends Predictions {
 
 	@Override
 	protected boolean isRetryAllowed() {
-		return !seq.CUSTOM_EMOJI_SEQUENCE.equals(digitSequence);
+		return true;
 	}
 
 	/**
@@ -115,16 +115,12 @@ public class WordPredictions extends Predictions {
 		}
 
 		words.clear();
-		if (digitSequence.equals(seq.CUSTOM_EMOJI_SEQUENCE)) {
-			words.addAll(dbWords);
-		} else {
-			suggestStem();
-			dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
-			dbWords = rearrangeByPairFrequency(dbWords);
-			suggestMissingWords(generatePossibleStemVariations(dbWords));
-			suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
-			words = insertPunctuationCompletions(words);
-		}
+		suggestStem();
+		dbWords = localeWordsSorter.shouldSort(stem, digitSequence) ? localeWordsSorter.sort(dbWords) : dbWords;
+		dbWords = rearrangeByPairFrequency(dbWords);
+		suggestMissingWords(generatePossibleStemVariations(dbWords));
+		suggestMissingWords(dbWords.isEmpty() ? generateWordVariations(inputWord) : dbWords);
+		words = insertPunctuationCompletions(words);
 
 		onWordsChanged.run();
 	}
