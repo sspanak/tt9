@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.text.BreakIterator;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.languages.Language;
@@ -112,6 +113,7 @@ class SettingsPunctuation extends SettingsInput {
 		}
 
 		return getCharsAsList(
+			language,
 			prefs.getString(CHARS_1_PREFIX + language.getId(), null),
 			language.getKeyCharacters(1)
 		);
@@ -134,13 +136,13 @@ class SettingsPunctuation extends SettingsInput {
 
 		}
 
-		return getCharsAsList(safeChars, language.getKeyCharacters(0));
+		return getCharsAsList(language, safeChars, language.getKeyCharacters(0));
 	}
 
 
 	@NonNull
 	public ArrayList<String> getCharsExtraAsList(@NonNull Language language, @NonNull String listKey) {
-		return getCharsAsList(getCharsExtra(language, listKey), new ArrayList<>());
+		return getCharsAsList(language, getCharsExtra(language, listKey), new ArrayList<>());
 	}
 
 
@@ -177,14 +179,17 @@ class SettingsPunctuation extends SettingsInput {
 
 
 	@NonNull
-	private ArrayList<String> getCharsAsList(@Nullable String chars, @NonNull ArrayList<String> defaultValue) {
+	private ArrayList<String> getCharsAsList(@Nullable Language language, @Nullable String chars, @NonNull ArrayList<String> defaultValue) {
 		if (chars == null) {
 			return defaultValue;
 		}
 
+		BreakIterator iterator = BreakIterator.getCharacterInstance(language != null ? language.getLocale() : null);
+		iterator.setText(chars);
+
 		ArrayList<String> charsList = new ArrayList<>();
-		for (int i = 0; i < chars.length(); i++) {
-			charsList.add(String.valueOf(chars.charAt(i)));
+		for (int start = iterator.first(), end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()) {
+			charsList.add(chars.substring(start, end));
 		}
 
 		return charsList;
