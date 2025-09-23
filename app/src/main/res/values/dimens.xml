@@ -11,7 +11,6 @@
 	<dimen name="key_text_size">21dp</dimen>
 
 	<!-- Status Bar -->
-	<dimen name="status_bar_height">26sp</dimen>
 	<dimen name="status_bar_text_size">16sp</dimen>
 
 	<!-- Main Small -->

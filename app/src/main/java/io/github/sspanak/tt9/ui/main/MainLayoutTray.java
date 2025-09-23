@@ -42,7 +42,10 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 
 
 	private int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
-		return Math.round(resources.getDimensionPixelSize(R.dimen.status_bar_height) * settings.getSuggestionFontScale());
+		float textSize = resources.getDimension(R.dimen.status_bar_text_size);
+		float padding = textSize * 0.45f;
+		padding = padding < 1 ? 1 : padding;
+		return Math.round((padding + textSize) * settings.getSuggestionFontScale());
 	}
 
 
