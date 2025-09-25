@@ -27,9 +27,9 @@
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-			<io.github.sspanak.tt9.ui.main.keys.SoftKeyPunctuationLeftPremium
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeftPremium
 				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_punctuation_1" />
+				android:id="@+id/soft_key_text_1" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 	</LinearLayout>
@@ -99,9 +99,9 @@
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-			<io.github.sspanak.tt9.ui.main.keys.SoftKeyPunctuationRightPremium
+			<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextRightPremium
 				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_punctuation_2" />
+				android:id="@+id/soft_key_text_2" />
 			<include layout="@layout/key_overlay_icons" />
 		</RelativeLayout>
 	</LinearLayout>
