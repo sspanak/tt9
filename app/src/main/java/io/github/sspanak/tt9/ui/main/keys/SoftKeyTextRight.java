@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyTextRight extends SoftKeyText {
@@ -18,13 +18,7 @@ public class SoftKeyTextRight extends SoftKeyText {
 		if (tt9.isInputModeNumeric()) return ".";
 		if (tt9.isTextEditingActive()) return "↷";
 
-		if (LanguageKind.isArabic(tt9.getLanguage())) return Characters.AR_QUESTION_MARK;
-		if (LanguageKind.isGreek(tt9.getLanguage())) return Characters.GR_QUESTION_MARK;
-		if (LanguageKind.isChinese(tt9.getLanguage()) || LanguageKind.isJapanese(tt9.getLanguage())) {
-			return Characters.ZH_QUESTION_MARK;
-		}
-
-		return "?";
+		return Characters.getChar(tt9.getLanguage(), SettingsStore.SOFT_KEY_TEXT_RIGHT_DEFAULT);
 	}
 
 	@Override

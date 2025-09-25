@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyTextLeft extends SoftKeyText {
@@ -19,11 +19,7 @@ public class SoftKeyTextLeft extends SoftKeyText {
 		if (tt9.isInputModeNumeric()) return ",";
 		if (tt9.isTextEditingActive()) return "↶";
 
-		if (LanguageKind.isChinese(tt9.getLanguage()) || LanguageKind.isJapanese(tt9.getLanguage())) {
-			return Characters.ZH_EXCLAMATION_MARK;
-		}
-
-		return "!";
+		return Characters.getChar(tt9.getLanguage(), SettingsStore.SOFT_KEY_TEXT_LEFT_DEFAULT);
 	}
 
 	@Override
