@@ -9,10 +9,10 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
-	public SoftKeyPunctuation(Context context) { super(context); }
-	public SoftKeyPunctuation(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyPunctuation(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+abstract public class SoftKeyText extends BaseSoftKeyWithIcons {
+	public SoftKeyText(Context context) { super(context); }
+	public SoftKeyText(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyText(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	abstract protected String getKeyChar();
@@ -24,7 +24,7 @@ abstract public class SoftKeyPunctuation extends BaseSoftKeyWithIcons {
 
 
 	protected boolean shouldHide() {
-		final boolean isLongSpaceKey = getId() == R.id.soft_key_punctuation_201 || getId() == R.id.soft_key_punctuation_202;
+		final boolean isLongSpaceKey = getId() == R.id.soft_key_text_201 || getId() == R.id.soft_key_text_202;
 		final boolean isShapeLongSpace = tt9 != null && tt9.getSettings().isNumpadShapeLongSpace();
 		final boolean isInputModeNumeric = tt9 != null && tt9.isInputModeNumeric();
 		final boolean isFnPanelOn = tt9 != null && tt9.isFnPanelVisible();

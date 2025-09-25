@@ -224,13 +224,13 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		addKey(R.id.soft_key_7, table);
 		addKey(R.id.soft_key_8, table);
 		addKey(R.id.soft_key_9, table);
-		addKey(R.id.soft_key_punctuation_1, table);
-		addKey(R.id.soft_key_punctuation_2, table);
+		addKey(R.id.soft_key_text_1, table);
+		addKey(R.id.soft_key_text_2, table);
 
 		// Long space panel
 		addKey(R.id.soft_key_200, table);
-		addKey(R.id.soft_key_punctuation_201, table);
-		addKey(R.id.soft_key_punctuation_202, table);
+		addKey(R.id.soft_key_text_201, table);
+		addKey(R.id.soft_key_text_202, table);
 
 		return keys;
 	}

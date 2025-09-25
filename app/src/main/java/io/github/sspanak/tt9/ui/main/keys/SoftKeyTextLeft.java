@@ -7,10 +7,10 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyPunctuationLeft extends SoftKeyPunctuation {
-	public SoftKeyPunctuationLeft(Context context) { super(context); }
-	public SoftKeyPunctuationLeft(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyPunctuationLeft(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+public class SoftKeyTextLeft extends SoftKeyText {
+	public SoftKeyTextLeft(Context context) { super(context); }
+	public SoftKeyTextLeft(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyTextLeft(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected String getKeyChar() {

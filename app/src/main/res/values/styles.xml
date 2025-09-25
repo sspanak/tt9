@@ -308,7 +308,7 @@
 		<item name="android:layout_width">0dp</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.ShortPunctuation.Overlay.Wrapper" parent="TTheme.Numpad.Key.Number">
+	<style name="TTheme.Numpad.Key.ShortText.Overlay.Wrapper" parent="TTheme.Numpad.Key.Number">
 		<item name="android:layout_weight">1</item>
 		<item name="android:layout_width">0dp</item>
 	</style>
