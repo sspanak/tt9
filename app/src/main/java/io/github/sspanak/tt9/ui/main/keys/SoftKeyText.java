@@ -45,13 +45,7 @@ abstract public class SoftKeyText extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected String getTitle() {
-		String keyChar = getKeyChar();
-		return switch (keyChar) {
-			case "*" -> "✱";
-			case Characters.ZH_QUESTION_MARK -> "?";
-			case Characters.ZH_EXCLAMATION_MARK -> "!";
-			default -> keyChar;
-		};
+		return Characters.getCharReadable(getKeyChar());
 	}
 
 

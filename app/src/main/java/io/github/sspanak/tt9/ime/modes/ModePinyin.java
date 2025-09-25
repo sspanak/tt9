@@ -27,12 +27,7 @@ public class ModePinyin extends ModeIdeograms {
 
 	@Override
 	protected String getPreferredChar() {
-		final String preferredChar = settings.getDoubleZeroChar();
-		return switch (preferredChar) {
-			case "." -> Characters.ZH_FULL_STOP;
-			case "," -> Characters.ZH_COMMA_LIST;
-			default -> preferredChar;
-		};
+		return Characters.getChar(language, settings.getDoubleZeroChar());
 	}
 
 

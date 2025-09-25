@@ -25,6 +25,8 @@ public class SettingsStatic extends SettingsHotkeys {
 	public final static float SOFT_KEY_AMOUNT_OF_KEY_SIZE_FOR_SWIPE = 0.5f; // 1 = full key size
 	public final static int SOFT_KEY_DOUBLE_CLICK_DELAY = 500; // ms
 	public final static int SOFT_KEY_REPEAT_DELAY = 40; // ms
+	public static final String SOFT_KEY_TEXT_LEFT_DEFAULT = "!";
+	public static final String SOFT_KEY_TEXT_RIGHT_DEFAULT = "?";
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_HEIGHT = 360; // dp
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_NORMAL_WIDTH = 640; // dp
 	public final static float SOFT_KEY_SCALE_SCREEN_COMPENSATION_MAX = 1.4f;
