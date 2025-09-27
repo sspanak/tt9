@@ -178,7 +178,7 @@
 	</style>
 
 
-	<!-- Fn keys (command palette or text-editing palette) -->
+	<!-- Fn keys (command palette or text-editing palette or developer commands) -->
 	<style name="TTheme.CommandPalette.Wrapper" parent="">
 		<item name="android:layout_height">@dimen/main_small_command_palette_height</item>
 		<item name="android:layout_width">match_parent</item>
