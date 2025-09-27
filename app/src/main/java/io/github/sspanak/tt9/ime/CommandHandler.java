@@ -45,6 +45,36 @@ abstract public class CommandHandler extends TextEditingHandler {
 	}
 
 
+	private void onCommand(int key) {
+		switch (key) {
+			case 1:
+				showSettings();
+				break;
+			case 2:
+				addWord();
+				break;
+			case 3:
+				toggleVoiceInput();
+				break;
+			case 4:
+				undo();
+				break;
+			case 5:
+				showTextEditingPalette();
+				break;
+			case 6:
+				redo();
+				break;
+			case 7:
+				showDeveloperCommands();
+				break;
+			case 8:
+				selectKeyboard();
+				break;
+		}
+	}
+
+
 	@Override
 	protected boolean navigateBack() {
 		return hideCommandPalette() || super.navigateBack();
@@ -59,6 +89,18 @@ abstract public class CommandHandler extends TextEditingHandler {
 		} else {
 			statusBar.setText(mInputMode);
 		}
+
+		if (mainView.isTextEditingPaletteShown()) {
+			String preview = Clipboard.getPreview(this);
+			statusBar.setText(preview.isEmpty() ? getString(R.string.commands_select_command) : "[ \"" + preview + "\" ]");
+			return;
+		}
+		if (mainView.isDeveloperCommandsShown()) {
+			statusBar.setText(R.string.developer_select_command);
+			return;
+		}
+
+		statusBar.setText(mInputMode);
 	}
 
 
@@ -315,5 +357,28 @@ abstract public class CommandHandler extends TextEditingHandler {
 
 	protected boolean redo() {
 		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
+	}
+
+	public void showDeveloperCommands() {
+		if (mainView.isDeveloperCommandsShown()) {
+			return;
+		}
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mInputMode.reset();
+		mainView.showDeveloperCommands();
+		resetStatus();
+	}
+	
+	public boolean hideDeveloperCommands() {
+		if (!mainView.isDeveloperCommandsShown()) {
+			return false;
+		}
+		mainView.showKeyboard();
+		if (voiceInputOps.isListening()) {
+			stopVoiceInput();
+		} else {
+			resetStatus();
+		}
 	}
 }
