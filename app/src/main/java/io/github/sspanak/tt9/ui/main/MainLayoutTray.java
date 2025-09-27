@@ -15,6 +15,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 	protected int height;
 	protected boolean isCommandPaletteShown = false;
 	protected boolean isTextEditingPaletteShown = false;
+	protected boolean isDeveloperCommandsShown = false;
 
 
 	MainLayoutTray(TraditionalT9 tt9) {
@@ -60,6 +61,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		super.showCommandPalette();
 		isCommandPaletteShown = true;
 		isTextEditingPaletteShown = false;
+		isDeveloperCommandsShown = false;
 		togglePanel(R.id.main_command_keys, true);
 		getHeight(true);
 		renderKeys();
@@ -71,6 +73,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		togglePanel(R.id.main_command_keys, false);
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
+		isDeveloperCommandsShown = false;
 		getHeight(true);
 		renderKeys();
 	}
@@ -81,7 +84,19 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		super.showTextEditingPalette();
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = true;
+		isDeveloperCommandsShown = false;
 		togglePanel(R.id.main_command_keys, true);
+		getHeight(true);
+		renderKeys();
+	}
+
+	@Override
+	void showDeveloperCommands() {
+		super.showDeveloperCommands();
+		isCommandPaletteShown = false;
+		isTextEditingPaletteShown = false;
+		isDeveloperCommandsShown = true;
+		togglePanel(R.id.developer_command_keys, true);
 		getHeight(true);
 		renderKeys();
 	}
@@ -98,6 +113,10 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		return isTextEditingPaletteShown;
 	}
 
+	@Override
+	boolean isDeveloperCommandsShown() {
+		return isDeveloperCommandsShown;
+	}
 
 	@NonNull
 	@Override

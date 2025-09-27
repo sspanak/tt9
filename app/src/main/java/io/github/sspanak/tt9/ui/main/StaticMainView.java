@@ -123,4 +123,7 @@ public class StaticMainView {
 	public boolean isTextEditingPaletteShown() {
 		return main != null && main.isTextEditingPaletteShown();
 	}
+	public boolean isDeveloperCommandsShown() {
+		return main != null && main.isDeveloperCommandsShown();
+	}
 }
