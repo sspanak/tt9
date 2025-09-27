@@ -326,11 +326,13 @@ abstract public class BaseMainLayout {
 	}
 
 
+	abstract void showDeveloperCommands();
 	abstract void showCommandPalette();
 	abstract void showKeyboard();
 	abstract void showTextEditingPalette();
 	abstract boolean isCommandPaletteShown();
 	abstract boolean isTextEditingPaletteShown();
+	abstract boolean isDeveloperCommandsShown();
 
 
 	/**
@@ -339,7 +341,7 @@ abstract public class BaseMainLayout {
 	 */
 
 	protected boolean isFnPanelVisible() {
-		return isCommandPaletteShown() || isTextEditingPaletteShown();
+		return isCommandPaletteShown() || isTextEditingPaletteShown() || isDeveloperCommandsShown();
 	}
 
 
