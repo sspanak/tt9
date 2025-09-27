@@ -62,6 +62,9 @@ abstract public class CommandHandler extends TextEditingHandler {
 			case 6:
 				redo();
 				break;
+			case 7:
+				showDeveloperCommads();
+				break;
 			case 8:
 				selectKeyboard();
 				break;
@@ -84,6 +87,10 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (mainView.isTextEditingPaletteShown()) {
 			String preview = Clipboard.getPreview(this);
 			statusBar.setText(preview.isEmpty() ? getString(R.string.commands_select_command) : "[ \"" + preview + "\" ]");
+			return;
+		}
+		if (mainView.isDeveloperCommandsShown()) {
+			statusBar.setText(R.string.developer_select_command);
 			return;
 		}
 
@@ -283,3 +290,25 @@ abstract public class CommandHandler extends TextEditingHandler {
 		return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_Z, true, true);
 	}
 }
+	public void showDeveloperCommands() {
+		if (mainView.isDeveloperCommandsShown()) {
+			return;
+		}
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		mInputMode.reset();
+		mainView.showDeveloperCommands();
+		resetStatus;
+	}
+	
+	public boolean hideDeveloperCommands() {
+		if (!mainView.isDeveloperCommandsShown()) {
+			return false;
+		}
+		mainView.showKeyboard();
+		if (voiceInputOps.isListening()) {
+			stopVoiceInput();
+		} else {
+			resetStatus();
+		}
+	}
