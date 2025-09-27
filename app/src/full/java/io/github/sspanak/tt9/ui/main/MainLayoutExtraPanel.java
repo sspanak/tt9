@@ -22,4 +22,9 @@ abstract class MainLayoutExtraPanel extends BaseMainLayout {
 	void showCommandPalette() {
 		togglePanel(R.id.main_panel_extra, false);
 	}
+
+	@Override
+	void showDeveloperCommands() {
+		togglePanel(R.id.main_panel_extra, false);
+	}
 }
