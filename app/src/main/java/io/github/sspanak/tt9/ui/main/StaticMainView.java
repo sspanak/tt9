@@ -122,6 +122,12 @@ public class StaticMainView {
 		return main != null && main.shouldEnableBackgroundBlending();
 	}
 
+	public void showDeveloperCommands() {
+		if (main != null) {
+			main.showDeveloperCommands();
+		}
+	}
+
 	public boolean isCommandPaletteShown() {
 		return main != null && main.isCommandPaletteShown();
 	}

@@ -71,6 +71,13 @@ class MainLayoutSmall extends MainLayoutTray {
 
 
 	@Override
+	void showDeveloperCommands() {
+		togglePanel(R.id.main_soft_keys, false);
+		super.showDeveloperCommands();
+	}
+
+
+	@Override
 	protected void enableClickHandlers() {
 		super.enableClickHandlers();
 
