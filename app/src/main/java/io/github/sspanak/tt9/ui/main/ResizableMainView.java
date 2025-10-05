@@ -255,6 +255,12 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	}
 
 	@Override
+	public void showDeveloperCommands() {
+		super.showDeveloperCommands();
+		fitMain();
+	}
+
+	@Override
 	public void render() {
 		super.render();
 		fitMain();

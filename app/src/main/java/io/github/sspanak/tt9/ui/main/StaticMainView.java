@@ -112,6 +112,12 @@ public class StaticMainView {
 		}
 	}
 
+	public void showDeveloperCommands() {
+		if (main != null) {
+			main.showDeveloperCommands();
+		}
+	}
+
 	public boolean isCommandPaletteShown() {
 		return main != null && main.isCommandPaletteShown();
 	}

@@ -20,10 +20,6 @@
 			<include layout="@layout/panel_small_command_keys" />
 		</LinearLayout>
 
-		<LinearLayout style="@style/TTheme.DeveloperCommands.Wrapper" android:id="@+id/developer_command_keys" android:visibility="gone">
-			<include layout="@layout/panel_small_developer_keys"/>
-		</LinearLayout>
-
 		<include
 			layout="@layout/panel_extra"
 			android:id="@+id/main_panel_extra"
