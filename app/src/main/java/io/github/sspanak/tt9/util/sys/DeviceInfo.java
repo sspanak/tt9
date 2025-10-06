@@ -1,8 +1,10 @@
 package io.github.sspanak.tt9.util.sys;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,26 @@ public class DeviceInfo extends HardwareInfo {
 
 	public static boolean isLandscapeOrientation(Context context) {
 		return getResources(context).getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+
+	public static boolean isZenMode(Context context) {
+		if (context == null || !AT_LEAST_ANDROID_6) {
+			return false;
+		}
+
+		NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		return nm != null && nm.getCurrentInterruptionFilter() != NotificationManager.INTERRUPTION_FILTER_ALL;
+	}
+
+
+	public static boolean isMuted(Context context) {
+		if (context == null || !AT_LEAST_ANDROID_6) {
+			return false;
+		}
+
+		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		return am != null && am.getStreamVolume(AudioManager.STREAM_RING) == 0;
 	}
 
 
