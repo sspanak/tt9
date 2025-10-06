@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -25,11 +23,9 @@ public class ItemSelectSettingsFontSize extends ItemDropDown {
 			return this;
 		}
 
-		LinkedHashMap<Integer, String> sizes = new LinkedHashMap<>();
-		sizes.put(SettingsStore.FONT_SIZE_DEFAULT, screen.getString(R.string.pref_font_size_default));
-		sizes.put(SettingsStore.FONT_SIZE_LARGE, screen.getString(R.string.pref_font_size_large));
-
-		super.populateIntegers(sizes);
+		add(SettingsStore.FONT_SIZE_DEFAULT, R.string.pref_font_size_default);
+		add(SettingsStore.FONT_SIZE_LARGE, R.string.pref_font_size_large);
+		commitOptions();
 		setValue(String.valueOf(new SettingsStore(screen.getContext()).getSettingsFontSize()));
 
 		return this;

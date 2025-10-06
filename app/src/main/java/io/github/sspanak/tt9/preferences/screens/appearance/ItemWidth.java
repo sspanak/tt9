@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.preference.DropDownPreference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -19,11 +17,7 @@ public class ItemWidth extends ItemDropDown implements ItemLayoutChangeReactive 
 
 	@Override
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		for (int i = SettingsStore.MIN_WIDTH_PERCENT; i <= 100; i += 5) {
-			options.put(i, i + " ％");
-		}
-		super.populateIntegers(options);
+		populatePercentRange(SettingsStore.MIN_WIDTH_PERCENT, 100, 5);
 
 		float currentValue = settings.getWidthPercent();
 		currentValue = Math.round(currentValue / 5f) * 5f;

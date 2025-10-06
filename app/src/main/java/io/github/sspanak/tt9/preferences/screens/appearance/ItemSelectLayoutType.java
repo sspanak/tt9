@@ -6,7 +6,6 @@ import androidx.preference.DropDownPreference;
 import androidx.preference.Preference;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
@@ -25,13 +24,11 @@ public class ItemSelectLayoutType extends ItemDropDown {
 	}
 
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> items = new LinkedHashMap<>();
-		items.put(SettingsUI.LAYOUT_STEALTH, activity.getString(R.string.pref_layout_stealth));
-		items.put(SettingsUI.LAYOUT_TRAY, activity.getString(R.string.pref_layout_tray));
-		items.put(SettingsUI.LAYOUT_SMALL, activity.getString(R.string.pref_layout_small));
-		items.put(SettingsUI.LAYOUT_NUMPAD, activity.getString(R.string.pref_layout_numpad));
-
-		super.populateIntegers(items);
+		add(SettingsUI.LAYOUT_STEALTH, R.string.pref_layout_stealth);
+		add(SettingsUI.LAYOUT_TRAY, R.string.pref_layout_tray);
+		add(SettingsUI.LAYOUT_SMALL, R.string.pref_layout_small);
+		add(SettingsUI.LAYOUT_NUMPAD, R.string.pref_layout_numpad);
+		commitOptions();
 		super.setValue(String.valueOf(activity.getSettings().getMainViewLayout()));
 
 		return this;

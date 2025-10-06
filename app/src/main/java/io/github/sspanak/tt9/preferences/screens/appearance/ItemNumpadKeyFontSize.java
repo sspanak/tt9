@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.preference.DropDownPreference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -18,12 +16,8 @@ public class ItemNumpadKeyFontSize extends ItemDropDown implements ItemLayoutCha
 
 	@Override
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		for (int i = 80; i <= 130; i += 5) {
-			options.put(i, i + " ％");
-		}
-		super.populateIntegers(options);
-		super.setValue(String.valueOf(settings.getNumpadKeyFontSizePercent()));
+		populatePercentRange(80, 130, 5);
+		setValue(String.valueOf(settings.getNumpadKeyFontSizePercent()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;

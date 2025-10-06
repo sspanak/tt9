@@ -1,10 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
-import android.content.Context;
-
 import androidx.preference.DropDownPreference;
-
-import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
@@ -26,15 +22,11 @@ public class ItemNumpadShape extends ItemDropDown implements ItemLayoutChangeRea
 			return this;
 		}
 
-		Context context = item.getContext();
-
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		options.put(SettingsStore.NUMPAD_SHAPE_SQUARE, context.getString(R.string.pref_numpad_shape_square));
-		options.put(SettingsStore.NUMPAD_SHAPE_V, context.getString(R.string.pref_numpad_shape_v));
-		options.put(SettingsStore.NUMPAD_SHAPE_LONG_SPACE, context.getString(R.string.pref_numpad_shape_long_space));
-
-		super.populateIntegers(options);
-		super.setValue(String.valueOf(settings.getNumpadShape()));
+		add(SettingsStore.NUMPAD_SHAPE_SQUARE, R.string.pref_numpad_shape_square);
+		add(SettingsStore.NUMPAD_SHAPE_V, R.string.pref_numpad_shape_v);
+		add(SettingsStore.NUMPAD_SHAPE_LONG_SPACE, R.string.pref_numpad_shape_long_space);
+		commitOptions();
+		setValue(String.valueOf(settings.getNumpadShape()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;

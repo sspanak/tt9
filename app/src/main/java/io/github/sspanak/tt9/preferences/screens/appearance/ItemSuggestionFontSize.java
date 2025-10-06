@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.preference.DropDownPreference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -18,12 +16,8 @@ public class ItemSuggestionFontSize extends ItemDropDown implements ItemLayoutCh
 
 	@Override
 	public ItemDropDown populate() {
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		for (int i = 70; i <= 150; i += 5) {
-			options.put(i, i + " ％");
-		}
-		super.populateIntegers(options);
-		super.setValue(String.valueOf(settings.getSuggestionFontSizePercent()));
+		populatePercentRange(70, 150, 5);
+		setValue(String.valueOf(settings.getSuggestionFontSizePercent()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
