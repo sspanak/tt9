@@ -55,6 +55,7 @@ public class InputConnectionAsync {
 
 
 	private static <T> T runAsync(Callable<T> task, TaskType type) {
+		new Error().printStackTrace();
 		Timer.start(LOG_TAG);
 		Future<T> future = executor.submit(task);
 		try {

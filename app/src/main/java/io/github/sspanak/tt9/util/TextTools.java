@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.util;
 
+import androidx.annotation.Nullable;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,7 +103,7 @@ public class TextTools {
 	}
 
 
-	public static int indexOfIgnoreCase(List<String> list, String str) {
+	public static int indexOfIgnoreCase(@Nullable List<String> list, @Nullable String str) {
 		for (int i = 0, size = list != null && str != null ? list.size() : 0; i < size; i++) {
 			if (list.get(i).equalsIgnoreCase(str)) {
 				return i;
