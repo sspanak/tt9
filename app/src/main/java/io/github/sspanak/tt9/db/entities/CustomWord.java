@@ -18,7 +18,7 @@ public class CustomWord {
 	public CustomWord(@NonNull String word, @NonNull String sequence, int langId) throws IllegalArgumentException {
 		language = LanguageCollection.getLanguage(langId);
 		if (language == null || word.isEmpty() || sequence.isEmpty()) {
-			throw new IllegalArgumentException("Word, digit sequence and language must be provided.");
+			throw new IllegalArgumentException("Cannot create CustomWord out of language: " + language + ", word: '" + word + "', sequence: '" + sequence + "'");
 		}
 
 		if (TextTools.containsPunctuation(word)) {
