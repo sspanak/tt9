@@ -64,8 +64,7 @@ public class AutoSpace {
 			return false;
 		}
 
-		// grab more characters, not to confuse emoji components with letters
-		final String previousChars = textField.getStringBeforeCursor(10);
+		final String previousChars = textField.getStringBeforeCursorCached();
 
 		// If the InputConnection timed out, assume we are right after a word and we want a space.
 		// It should be the more convenient option.
@@ -73,7 +72,7 @@ public class AutoSpace {
 			return true;
 		}
 
-		final Text nextChars = textField.getTextAfterCursor(language, 2);
+		final Text nextChars = textField.getTextAfterCursorCached(language);
 
 		return
 			!nextChars.startsWithWhitespace()
@@ -98,7 +97,7 @@ public class AutoSpace {
 			return false;
 		}
 
-		String previousChars = textField.getStringBeforeCursor(2);
+		String previousChars = textField.getStringBeforeCursorCached();
 
 		// if we can't figure out what is before, do not assume we are near punctuation to avoid
 		// unexpected spaces
@@ -174,7 +173,7 @@ public class AutoSpace {
 		}
 
 
-		String previousChars = textField.getStringBeforeCursor(3);
+		String previousChars = textField.getStringBeforeCursorCached();
 
 		// if we can't figure out what is before, better not delete anything
 		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {

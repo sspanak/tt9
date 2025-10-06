@@ -11,12 +11,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.Timer;
 
 public class InputConnectionAsync {
 	private static final String LOG_TAG = InputConnectionAsync.class.getSimpleName();
-	private static final long DEFAULT_TIMEOUT_MS = 50;
 	public static final String TIMEOUT_SENTINEL = "\u001F";
 
 	private static final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -55,19 +54,15 @@ public class InputConnectionAsync {
 
 
 	private static <T> T runAsync(Callable<T> task, TaskType type) {
-		new Error().printStackTrace();
-		Timer.start(LOG_TAG);
 		Future<T> future = executor.submit(task);
 		try {
-			T retval = future.get(InputConnectionAsync.DEFAULT_TIMEOUT_MS, TimeUnit.MILLISECONDS);
-			Logger.d(LOG_TAG, type.name() + " completed in: " + Timer.stop(LOG_TAG) + " ms");
-			return retval;
+			return future.get(SettingsStore.INPUT_CONNECTION_MAX_WAIT, TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {
 			future.cancel(true);
-			Logger.w(LOG_TAG, type.name() + " timed out after: " + InputConnectionAsync.DEFAULT_TIMEOUT_MS + " ms");
+			Logger.w(LOG_TAG, type.name() + " timed out");
 			return getTimeout(type);
 		} catch (Exception e) {
-			Logger.w(LOG_TAG, type.name() + " failed after: " + Timer.stop(LOG_TAG) + " ms. " + e);
+			Logger.w(LOG_TAG, type.name() + " failed. " + e);
 			return null;
 		}
 	}
