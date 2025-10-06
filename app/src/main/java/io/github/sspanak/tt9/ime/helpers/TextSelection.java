@@ -7,20 +7,23 @@ import android.view.inputmethod.InputConnection;
 
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.hacks.InputType;
+
 public class TextSelection {
 	@Nullable private final InputMethodService ims;
 	private int currentStart = 0;
 	private int currentEnd = 0;
+	private final boolean isInputField;
 
-
-	public TextSelection(@Nullable InputMethodService ims) {
+	public TextSelection(@Nullable InputMethodService ims, @Nullable InputType inputType) {
 		this.ims = ims;
+		isInputField = inputType != null && !inputType.isLimited();
 		detectCursorPosition();
 	}
 
 
 	private InputConnection getConnection() {
-		return ims != null ? ims.getCurrentInputConnection() : null;
+		return isInputField && ims != null ? ims.getCurrentInputConnection() : null;
 	}
 
 
