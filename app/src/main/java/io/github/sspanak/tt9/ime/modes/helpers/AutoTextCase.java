@@ -73,7 +73,7 @@ public class AutoTextCase {
 		}
 
 		// start of text
-		final String before = textField.getStringBeforeCursorCached();
+		final String before = textField.getStringBeforeCursor();
 		if (before.isEmpty() || settings.getAutoCapitalsAfterNewline() && before.endsWith("\n")) {
 			return InputMode.CASE_CAPITALIZE;
 		}

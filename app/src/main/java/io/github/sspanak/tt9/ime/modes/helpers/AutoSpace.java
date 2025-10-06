@@ -64,7 +64,7 @@ public class AutoSpace {
 			return false;
 		}
 
-		final String previousChars = textField.getStringBeforeCursorCached();
+		final String previousChars = textField.getStringBeforeCursor(10);
 
 		// If the InputConnection timed out, assume we are right after a word and we want a space.
 		// It should be the more convenient option.
@@ -72,7 +72,7 @@ public class AutoSpace {
 			return true;
 		}
 
-		final Text nextChars = textField.getTextAfterCursorCached(language);
+		final Text nextChars = textField.getTextAfterCursor(language, 2);
 
 		return
 			!nextChars.startsWithWhitespace()
@@ -97,7 +97,7 @@ public class AutoSpace {
 			return false;
 		}
 
-		String previousChars = textField.getStringBeforeCursorCached();
+		String previousChars = textField.getStringBeforeCursor(2);
 
 		// if we can't figure out what is before, do not assume we are near punctuation to avoid
 		// unexpected spaces
@@ -173,7 +173,7 @@ public class AutoSpace {
 		}
 
 
-		String previousChars = textField.getStringBeforeCursorCached();
+		String previousChars = textField.getStringBeforeCursor(3);
 
 		// if we can't figure out what is before, better not delete anything
 		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
