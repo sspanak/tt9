@@ -49,7 +49,7 @@ public class ModeIdeograms extends ModeWords {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new IdeogramPredictions(settings, textField, seq);
+		predictions = new IdeogramPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -77,7 +77,7 @@ public class ModeIdeograms extends ModeWords {
 	@Override
 	public void beforeDeleteText() {
 		String textBefore = textField.getComposingText();
-		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getStringBeforeCursor(1) : textBefore;
+		lastTextBeforeDelete = textBefore.isEmpty() ? textField.getTextBeforeCursor(language, 1).toString() : textBefore;
 	}
 
 
@@ -87,9 +87,9 @@ public class ModeIdeograms extends ModeWords {
 			return null;
 		}
 
-		String before = textField.getStringBeforeCursor(lastAcceptedWord.length());
+		Text before = textField.getTextBeforeCursor(language, lastAcceptedWord.length());
 		char after = lastTextBeforeDelete.isEmpty() ? 0 : lastTextBeforeDelete.charAt(0);
-		if (lastAcceptedWord.equals(before) && Character.isWhitespace(after)) {
+		if (lastAcceptedWord.equals(before.toString()) && Character.isWhitespace(after)) {
 			reset();
 			digitSequence = lastAcceptedSequence;
 			return lastAcceptedWord;

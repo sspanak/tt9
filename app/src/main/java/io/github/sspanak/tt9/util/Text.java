@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -38,13 +39,12 @@ public class Text extends TextTools {
 
 	public Text(@Nullable Language language, @Nullable String text) {
 		this.language = language;
-		this.text = text;
+		this.text = InputConnectionAsync.TIMEOUT_SENTINEL.equals(text) ? null : text;
 	}
 
 
 	public Text(@Nullable String text) {
-		this.language = null;
-		this.text = text;
+		this(null, text);
 	}
 
 

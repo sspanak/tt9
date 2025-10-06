@@ -15,7 +15,7 @@ public class KanaPredictions extends IdeogramPredictions {
 	private final int STEM_PREFIX_LENGTH;
 
 	public KanaPredictions(SettingsStore settings, TextField textField, Sequences sequences, boolean isKatakana) {
-		super(settings, textField, sequences);
+		super(settings, textField);
 
 		SEQUENCE_PREFIX = isKatakana ? "0" : "01";
 		STEM_PREFIX = isKatakana ? "Qk" : "Qh";

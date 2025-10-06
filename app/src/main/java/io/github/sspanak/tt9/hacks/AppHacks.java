@@ -83,7 +83,7 @@ public class AppHacks {
 			&& !Key.isHardwareBackspace(settings.getKeyBackspace())
 			&& inputMode.getSuggestions().isEmpty()
 			&& textSelection.isEmpty()
-			&& textField.getStringBeforeCursor(1).isEmpty();
+			&& textField.getTextBeforeCursor(null, 1).isEmpty();
 	}
 
 

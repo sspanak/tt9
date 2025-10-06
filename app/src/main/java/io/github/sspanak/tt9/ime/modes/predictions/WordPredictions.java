@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -17,7 +16,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 public class WordPredictions extends Predictions {
 	protected final TextField textField;
 	private LocaleWordsSorter localeWordsSorter;
-	private final Sequences seq;
 
 	private String inputWord;
 	private boolean isStemFuzzy;
@@ -26,12 +24,11 @@ public class WordPredictions extends Predictions {
 	protected String penultimateWord;
 
 
-	public WordPredictions(SettingsStore settings, TextField textField, Sequences sequences) {
+	public WordPredictions(SettingsStore settings, TextField textField) {
 		super(settings);
 		lastEnforcedTopWord = "";
 		localeWordsSorter = new LocaleWordsSorter(null);
 		penultimateWord = "";
-		seq = sequences;
 		stem = "";
 		this.textField = textField;
 	}
@@ -349,12 +346,12 @@ public class WordPredictions extends Predictions {
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
 		// We are in the middle of a word or at the beginning of a new one. Pairing makes no sense.
-		Text after = textField.getTextAfterCursor(1);
+		Text after = textField.getTextAfterCursor(language, 1);
 		if (after.startsWithWord()) {
 			return "";
 		}
 
-		Text before = textField.getTextBeforeCursor();
+		Text before = textField.getTextBeforeCursor(language, 50);
 
 		// We are at the end of word. The user is probably typing a compound word. We do not want to
 		// pair with the first part of the compound word.

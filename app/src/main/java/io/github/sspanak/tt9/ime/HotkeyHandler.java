@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -479,13 +480,13 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		String after = textField.getStringAfterCursor(1);
-		if (!after.isEmpty() && after.charAt(0) != '\n') {
+		if (!after.isEmpty() && (after.charAt(0) != '\n' || after.equals(InputConnectionAsync.TIMEOUT_SENTINEL))) {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}
 
 		String before = textField.getStringBeforeCursor(2);
-		if (before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
+		if (before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) || before.length() != 2 || Character.isWhitespace(before.charAt(0)) || before.charAt(1) != Characters.getSpace(mLanguage).charAt(0)) {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}

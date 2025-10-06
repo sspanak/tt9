@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime.modes.helpers;
 import java.util.Set;
 
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -64,14 +65,21 @@ public class AutoSpace {
 		}
 
 		// grab more characters, not to confuse emoji components with letters
-		final Text previousChars = textField.getTextBeforeCursor(language, 10);
-		final Text nextChars = textField.getTextAfterCursor(2);
+		final String previousChars = textField.getStringBeforeCursor(10);
+
+		// If the InputConnection timed out, assume we are right after a word and we want a space.
+		// It should be the more convenient option.
+		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
+			return true;
+		}
+
+		final Text nextChars = textField.getTextAfterCursor(language, 2);
 
 		return
 			!nextChars.startsWithWhitespace()
 			&& (
-				shouldAddAfterWord(isWordAcceptedManually, previousChars, nextChars, nextKey)
-				|| shouldAddAfterPunctuation(previousChars.toString(), nextChars, nextKey)
+				shouldAddAfterWord(isWordAcceptedManually, new Text(language, previousChars), nextChars, nextKey)
+				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
 			);
 	}
 
@@ -91,6 +99,13 @@ public class AutoSpace {
 		}
 
 		String previousChars = textField.getStringBeforeCursor(2);
+
+		// if we can't figure out what is before, do not assume we are near punctuation to avoid
+		// unexpected spaces
+		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
+			return false;
+		}
+
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
@@ -160,6 +175,12 @@ public class AutoSpace {
 
 
 		String previousChars = textField.getStringBeforeCursor(3);
+
+		// if we can't figure out what is before, better not delete anything
+		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
+			return false;
+		}
+
 		char prePenultimateChar = previousChars.length() < 3 ? 0 : previousChars.charAt(previousChars.length() - 3);
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -49,7 +50,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, String beforeCursor, String digitSequence) {
+	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, TextField textField, String digitSequence) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -72,24 +73,19 @@ public class AutoTextCase {
 		}
 
 		// start of text
-		if (
-			beforeCursor != null
-			&& (
-				beforeCursor.isEmpty()
-				|| (settings.getAutoCapitalsAfterNewline() && beforeCursor.endsWith("\n"))
-			)
-		) {
+		final String before = textField.getStringBeforeCursor();
+		if (before.isEmpty() || settings.getAutoCapitalsAfterNewline() && before.endsWith("\n")) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
 		// start of sentence, excluding after "..."
-		if (Text.isStartOfSentence(beforeCursor)) {
+		if (Text.isStartOfSentence(before)) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 
 		// 1. Stay in lowercase within the same sentence, in case the user has selected lowercase.
 		// or 2. Prevent English "I", inserted in the middle of a word, from being uppercase.
-		if (currentTextCase == InputMode.CASE_LOWER || (sequences.isEnglishI(language, digitSequence) && Text.isNextToWord(beforeCursor))) {
+		if (currentTextCase == InputMode.CASE_LOWER || (sequences.isEnglishI(language, digitSequence) && Text.isNextToWord(before))) {
 			return InputMode.CASE_LOWER;
 		}
 
