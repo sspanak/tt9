@@ -40,20 +40,23 @@ public class TextField extends InputField {
 
 
 	public boolean isEmpty() {
-		return getStringBeforeCursor(1).isEmpty() && getStringAfterCursor(1).isEmpty();
+		final String after = getStringAfterCursor(1);
+		final String before = getStringBeforeCursor(1);
+
+		return
+			(after.isEmpty() || after.equals(InputConnectionAsync.TIMEOUT_SENTINEL))
+			&& (before.isEmpty() || before.equals(InputConnectionAsync.TIMEOUT_SENTINEL));
 	}
 
 
 	@NonNull public String getStringAfterCursor(int numberOfChars) {
-		InputConnection connection = getConnection();
-		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextAfterCursor(numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextAfterCursor(getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	@NonNull public String getStringBeforeCursor(int numberOfChars) {
-		InputConnection connection = getConnection();
-		CharSequence chars = connection != null && numberOfChars > 0 ? connection.getTextBeforeCursor(numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextBeforeCursor(getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
@@ -67,18 +70,21 @@ public class TextField extends InputField {
 	}
 
 
-	@NonNull public Text getTextAfterCursor(int numberOfChars) {
-		return new Text(getStringAfterCursor(numberOfChars));
+	/**
+	 * Similar to getStringBeforeCursor(), but returns a Text object instead of a String. On
+	 * InputConnection timeout, the Text will be empty.
+	 */
+	@NonNull public Text getTextAfterCursor(@Nullable Language language, int numberOfChars) {
+		return new Text(language, getStringAfterCursor(numberOfChars));
 	}
 
 
+	/**
+	 * Similar to getStringAfterCursor(), but returns a Text object instead of a String. On
+	 * InputConnection timeout, the Text will be empty.
+	 */
 	@NonNull public Text getTextBeforeCursor(@Nullable Language language, int numberOfChars) {
 		return new Text(language, getStringBeforeCursor(numberOfChars));
-	}
-
-
-	@NonNull public Text getTextBeforeCursor() {
-		return new Text(getStringBeforeCursor());
 	}
 
 
@@ -91,8 +97,8 @@ public class TextField extends InputField {
 		boolean keepApostrophe = LanguageKind.isHebrew(language) || LanguageKind.isUkrainian(language);
 		boolean keepQuote = LanguageKind.isHebrew(language);
 
-		final Text textBefore = new Text(language, getStringBeforeCursor());
-		final Text textAfter = new Text(language, getStringAfterCursor(50));
+		final Text textBefore = getTextBeforeCursor(language, 50);
+		final Text textAfter = getTextAfterCursor(language, 50);
 
 		final String wordBefore = textBefore.subStringEndingWord(keepApostrophe, keepQuote);
 		final String wordAfter = textAfter.subStringStartingWord(keepApostrophe, keepQuote);
@@ -107,11 +113,11 @@ public class TextField extends InputField {
 	 * The scanning length is up to the maximum returned by getTextBeforeCursor().
 	 */
 	public int getPaddedWordBeforeCursorLength() {
-		if (getTextAfterCursor(1).startsWithWord()) {
+		if (getTextAfterCursor(null, 1).startsWithWord()) {
 			return 0;
 		}
 
-		Text before = getTextBeforeCursor();
+		Text before = getTextBeforeCursor(null, 50);
 		if (before.isEmpty()) {
 			return 0;
 		}
@@ -140,7 +146,9 @@ public class TextField extends InputField {
 
 		if (numberOfChars == 1) {
 			// Make sure we don't break complex letters or emojis. (for example, 🏴󠁧󠁢󠁷󠁬󠁳󠁿 = 14 chars!)
-			numberOfChars = getTextBeforeCursor(language, 30).lastGraphemeLength();
+			// However, if the connection lags, we still delete at least one char as a last resort.
+			String before = getStringBeforeCursor(30);
+			numberOfChars = before.equals(InputConnectionAsync.TIMEOUT_SENTINEL) ? 1 : new Text(language, before).lastGraphemeLength();
 		}
 
 		composingText = composingText.length() > numberOfChars ? composingText.subSequence(0, composingText.length() - numberOfChars) : "";
@@ -334,9 +342,8 @@ public class TextField extends InputField {
 
 	public boolean moveCursor(boolean backward) {
 		if (
-			getConnection() == null
-			|| (backward && getStringBeforeCursor(1).isEmpty())
-			|| (!backward && getStringAfterCursor(1).isEmpty())
+			(backward && getTextBeforeCursor(null, 1).isEmpty())
+			|| (!backward && getTextAfterCursor(null, 1).isEmpty())
 		) {
 			return false;
 		}

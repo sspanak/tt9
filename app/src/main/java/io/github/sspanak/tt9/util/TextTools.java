@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class TextTools {
@@ -124,12 +125,12 @@ public class TextTools {
 
 
 	public static boolean isStartOfSentence(String str) {
-		return str != null && START_OF_SENTENCE.matcher(str).find();
+		return str != null && !str.equals(InputConnectionAsync.TIMEOUT_SENTINEL) && START_OF_SENTENCE.matcher(str).find();
 	}
 
 
 	public static boolean isNextToWord(String str) {
-		return str != null && NEXT_TO_WORD.matcher(str).find();
+		return str != null && !str.equals(InputConnectionAsync.TIMEOUT_SENTINEL) && NEXT_TO_WORD.matcher(str).find();
 	}
 
 

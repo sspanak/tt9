@@ -52,7 +52,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new WordPredictions(settings, textField, seq);
+		predictions = new WordPredictions(settings, textField);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
@@ -154,7 +154,7 @@ class ModeWords extends ModeCheonjiin {
 		}
 
 		boolean includeApostrophes = LanguageKind.isUkrainian(language) || LanguageKind.isHebrew(language);
-		String previousWord = textField.getTextBeforeCursor().getPreviousWord(false, includeApostrophes);
+		String previousWord = textField.getTextBeforeCursor(language, 50).getPreviousWord(false, includeApostrophes);
 		if (previousWord.length() < 2 || previousWord.contains(" ")) {
 			Logger.d(LOG_TAG, "Not recomposing invalid word: '" + previousWord + "'");
 			textCase = settings.getTextCase();
@@ -383,7 +383,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public void determineNextWordTextCase(int nextDigit) {
 		final String nextSequence = nextDigit >= 0 ? digitSequence + nextDigit : digitSequence;
-		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField.getStringBeforeCursor(), nextSequence);
+		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField, nextSequence);
 	}
 
 	private void determineTextFieldTextCase() {

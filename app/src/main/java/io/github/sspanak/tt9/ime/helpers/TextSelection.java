@@ -115,13 +115,8 @@ public class TextSelection {
 
 
 	private void detectCursorPosition() {
-		InputConnection connection = getConnection();
-		if (connection == null) {
-			return;
-		}
-
-		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
-		if (extractedText != null) {
+		ExtractedText extractedText = InputConnectionAsync.getExtractedText(getConnection(), new ExtractedTextRequest(), 0);
+		if (extractedText != null && extractedText.text != InputConnectionAsync.TIMEOUT_SENTINEL) {
 			currentStart = extractedText.startOffset + extractedText.selectionStart;
 			currentEnd = extractedText.startOffset + extractedText.selectionEnd;
 		}
@@ -129,13 +124,8 @@ public class TextSelection {
 
 
 	public CharSequence getSelectedText() {
-		InputConnection connection = getConnection();
-		if (connection == null) {
-			return "";
-		}
-
-		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
-		if (extractedText == null) {
+		ExtractedText extractedText = InputConnectionAsync.getExtractedText(getConnection(), new ExtractedTextRequest(), 0);
+		if (extractedText == null || extractedText.text == InputConnectionAsync.TIMEOUT_SENTINEL) {
 			return "";
 		}
 

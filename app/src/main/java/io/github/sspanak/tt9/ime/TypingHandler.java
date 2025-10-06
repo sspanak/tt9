@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.db.words.DictionaryLoader;
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
+import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.InputModeValidator;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -81,6 +82,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.set(null);
 
 		return true;
+	}
+
+
+	@Override
+	public void onDestroy() {
+		InputConnectionAsync.destroy();
+		super.onDestroy();
 	}
 
 
