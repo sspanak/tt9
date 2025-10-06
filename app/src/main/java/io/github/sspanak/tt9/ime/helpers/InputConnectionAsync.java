@@ -18,9 +18,14 @@ public class InputConnectionAsync {
 	private static final String LOG_TAG = InputConnectionAsync.class.getSimpleName();
 	public static final String TIMEOUT_SENTINEL = "\u001F";
 
-	private static final ExecutorService executor = Executors.newSingleThreadExecutor();
+	private static ExecutorService executor = Executors.newSingleThreadExecutor();
 	private enum TaskType { GET_TEXT_BEFORE_CURSOR, GET_TEXT_AFTER_CURSOR, GET_EXTRACTED_TEXT }
 
+	private static void initExecutor() {
+		if (executor.isShutdown() || executor.isTerminated()) {
+			executor = Executors.newSingleThreadExecutor();
+		}
+	}
 
 	public static void destroy() {
 		executor.shutdownNow();
@@ -28,16 +33,19 @@ public class InputConnectionAsync {
 
 
 	public static CharSequence getTextBeforeCursor(InputConnection connection, int length, int flags) {
+		initExecutor();
 		return connection != null ? runAsync(() -> connection.getTextBeforeCursor(length, flags), TaskType.GET_TEXT_BEFORE_CURSOR) : null;
 	}
 
 
 	public static CharSequence getTextAfterCursor(InputConnection connection, int length, int flags) {
+		initExecutor();
 		return connection != null ? runAsync(() -> connection.getTextAfterCursor(length, flags), TaskType.GET_TEXT_AFTER_CURSOR) : null;
 	}
 
 
 	public static ExtractedText getExtractedText(InputConnection connection, ExtractedTextRequest request, int flags) {
+		initExecutor();
 		return connection != null ? runAsync(() -> connection.getExtractedText(request, flags), TaskType.GET_EXTRACTED_TEXT) : null;
 	}
 
