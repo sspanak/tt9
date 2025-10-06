@@ -236,10 +236,14 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// accept the previously typed word (if any)
 		String lastWord = suggestionOps.acceptIncomplete();
-		mInputMode.onAcceptSuggestion(lastWord);
-		autoCorrectSpace(lastWord, false, -1);
+		if (!lastWord.isEmpty()) {
+			textField.clearCache();
+			mInputMode.onAcceptSuggestion(lastWord);
+			autoCorrectSpace(lastWord, false, -1);
+		}
 
 		// "type" and accept the new word
+		textField.clearCache();
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		autoCorrectSpace(text, true, -1);
@@ -391,6 +395,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void onAcceptSuggestionAutomatically(String word) {
+		textField.clearCache();
 		mInputMode.onAcceptSuggestion(word, true);
 		autoCorrectSpace(word, false, mInputMode.getFirstKey());
 		mInputMode.determineNextWordTextCase(-1);
@@ -402,6 +407,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
+		textField.clearCache();
 		mInputMode.onAcceptSuggestion(word);
 		if (!word.isEmpty()) {
 			autoCorrectSpace(word, true, fromKey);

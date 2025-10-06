@@ -26,6 +26,9 @@ public class TextField extends InputField {
 	private final boolean isComposingSupported;
 	private final boolean isNonText;
 
+	@Nullable private String previousStringCache = null;
+	@Nullable private Text nextTextCache = null;
+
 
 	public TextField(@Nullable InputMethodService ims, SettingsStore settings, EditorInfo inputField) {
 		super(ims, inputField);
@@ -71,6 +74,18 @@ public class TextField extends InputField {
 
 
 	/**
+	 * Provides a cached version of getStringBeforeCursor() to avoid multiple calls to the InputConnection.
+	 * The cache is cleared using clearCache() when needed. The default length is the same as getStringBeforeCursor().
+	 */
+	@NonNull public String getStringBeforeCursorCached() {
+		if (previousStringCache == null) {
+			previousStringCache = getStringBeforeCursor();
+		}
+		return previousStringCache;
+	}
+
+
+	/**
 	 * Similar to getStringBeforeCursor(), but returns a Text object instead of a String. On
 	 * InputConnection timeout, the Text will be empty.
 	 */
@@ -85,6 +100,30 @@ public class TextField extends InputField {
 	 */
 	@NonNull public Text getTextBeforeCursor(@Nullable Language language, int numberOfChars) {
 		return new Text(language, getStringBeforeCursor(numberOfChars));
+	}
+
+
+	/**
+	 * Provides a cached version of getTextAfterCursor() to avoid multiple calls to the InputConnection.
+	 * The default length is 2 characters. Once the text is cached, subsequent calls will return the
+	 * same Text object even if the Language changes.
+	 * The cache is cleared using clearCache() when needed.
+	 */
+	@NonNull public Text getTextAfterCursorCached(@Nullable Language language) {
+		if (nextTextCache == null) {
+			nextTextCache = getTextAfterCursor(language, 2);
+		}
+		return nextTextCache;
+	}
+
+
+	/**
+	 * Clears any cached text before or after the cursor.
+	 * Should be called when the text field changes, for example after typing or deleting characters.
+	 */
+	public void clearCache() {
+		previousStringCache = null;
+		nextTextCache = null;
 	}
 
 
