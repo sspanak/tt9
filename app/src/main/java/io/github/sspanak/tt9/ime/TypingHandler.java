@@ -35,7 +35,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
-	@NonNull protected TextSelection textSelection = new TextSelection(null);
+	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null);
 	@Nullable private Handler shiftStateDebounceHandler;
 
@@ -73,10 +73,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (restart && !languageChanged && mInputMode.getId() == determineInputModeId()) {
 			return false;
 		}
-
 		settings.setDefaultCharOrder(mLanguage, false);
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
+		textField.clearCache();
 		determineTextCase();
 		updateShiftState(true, false);
 		suggestionOps.set(null);
@@ -100,7 +100,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		InputMethodService context = field != null ? this : null;
 		inputType = new InputType(context, field);
 		textField = new TextField(context, settings, field);
-		textSelection = new TextSelection(context);
+		textSelection = new TextSelection(context, inputType);
 
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
@@ -204,6 +204,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
 		if (mInputMode.getSuggestions().isEmpty()) {
+			textField.clearCache();
 			mInputMode.determineNextWordTextCase(key);
 		}
 
