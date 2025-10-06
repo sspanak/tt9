@@ -346,12 +346,12 @@ public class WordPredictions extends Predictions {
 	@NonNull
 	protected String getPenultimateWord(@NonNull String currentWord) {
 		// We are in the middle of a word or at the beginning of a new one. Pairing makes no sense.
-		Text after = textField.getTextAfterCursorCached(language);
+		Text after = textField.getTextAfterCursor(language, 1);
 		if (after.startsWithWord()) {
 			return "";
 		}
 
-		Text before = new Text(language, textField.getStringBeforeCursorCached());
+		Text before = new Text(language, textField.getStringBeforeCursor());
 		if (before.isEmpty()) {
 			return Characters.START_OF_TEXT;
 		}
