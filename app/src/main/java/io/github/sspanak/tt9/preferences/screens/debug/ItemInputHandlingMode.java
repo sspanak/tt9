@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.debug;
 
 import androidx.preference.DropDownPreference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -22,13 +20,11 @@ public class ItemInputHandlingMode extends ItemDropDown {
 	}
 
 	public ItemInputHandlingMode populate() {
-		LinkedHashMap<Integer, String> values = new LinkedHashMap<>();
-		values.put(NORMAL, "Normal");
-		values.put(RETURN_FALSE, "Return False");
-		values.put(CALL_SUPER, "Call Super");
-
-		super.populateIntegers(values);
-		super.setValue(String.valueOf(settings.getInputHandlingMode()));
+		add(NORMAL, "Normal");
+		add(RETURN_FALSE, "Return False");
+		add(CALL_SUPER, "Call Super");
+		commitOptions();
+		setValue(String.valueOf(settings.getInputHandlingMode()));
 
 		return this;
 	}

@@ -1,11 +1,8 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
-import android.content.Context;
 import android.view.Gravity;
 
 import androidx.preference.DropDownPreference;
-
-import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
@@ -27,15 +24,12 @@ public class ItemAlignment extends ItemDropDown implements ItemLayoutChangeReact
 			return this;
 		}
 
-		Context context = item.getContext();
+		add(Gravity.START, R.string.virtual_numpad_alignment_left);
+		add(Gravity.CENTER_HORIZONTAL, R.string.virtual_numpad_alignment_center);
+		add(Gravity.END, R.string.virtual_numpad_alignment_right);
+		commitOptions();
+		setValue(String.valueOf(settings.getAlignment()));
 
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
-		options.put(Gravity.START, context.getString(R.string.virtual_numpad_alignment_left));
-		options.put(Gravity.CENTER_HORIZONTAL, context.getString(R.string.virtual_numpad_alignment_center));
-		options.put(Gravity.END, context.getString(R.string.virtual_numpad_alignment_right));
-
-		super.populateIntegers(options);
-		super.setValue(String.valueOf(settings.getAlignment()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;

@@ -23,16 +23,15 @@ public class ItemNumpadFnKeyScale extends ItemDropDown implements ItemLayoutChan
 			return this;
 		}
 
-		LinkedHashMap<String, String> options = new LinkedHashMap<>();
-		options.put("1", "100 ％");
-		options.put("0.85", "115 ％");
-		options.put("0.75", "125 ％");
-		options.put("0.675", "135 ％");
-		options.put("0.576", "145 ％");
-		options.put("0.477", "155 ％"); // whatever...
+		add("1", "100 ％");
+		add("0.85", "115 ％");
+		add("0.75", "125 ％");
+		add("0.675", "135 ％");
+		add("0.576", "145 ％");
+		add("0.477", "155 ％"); // whatever...
+		commitOptions();
 
-		super.populate(options);
-		super.setValue(getClosestOption(settings.getNumpadFnKeyScale(), options));
+		setValue(getClosestOption(settings.getNumpadFnKeyScale(), values));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;

@@ -2,8 +2,6 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import androidx.preference.DropDownPreference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.preferences.items.ItemDropDown;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -21,12 +19,11 @@ public class ItemNumpadKeyHeight extends ItemDropDown implements ItemLayoutChang
 	public ItemDropDown populate() {
 		int baseSize = settings.getNumpadKeyDefaultHeight();
 
-		LinkedHashMap<Integer, String> options = new LinkedHashMap<>();
 		for (int i = 70; i <= 150; i += 5) {
-			options.put((int) Math.round(baseSize * i / 100.0), i + " ％");
+			add(String.valueOf(Math.round(baseSize * i / 100.0)), i + " ％");
 		}
-		super.populateIntegers(options);
-		super.setValue(settings.getNumpadKeyHeight() + "");
+		commitOptions();
+		setValue(String.valueOf(settings.getNumpadKeyHeight()));
 		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
