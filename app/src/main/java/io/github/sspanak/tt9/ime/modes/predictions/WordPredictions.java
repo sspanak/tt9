@@ -352,11 +352,14 @@ public class WordPredictions extends Predictions {
 		}
 
 		Text before = textField.getTextBeforeCursor(language, 50);
+		if (before.isEmpty()) {
+			return Characters.START_OF_TEXT;
+		}
 
-		// We are at the end of word. The user is probably typing a compound word. We do not want to
+		// We are at the end of a word. The user is probably typing a compound word. We do not want to
 		// pair with the first part of the compound word.
-		if (before.length() > currentWord.length() && before.toString().endsWith(currentWord) && Character.isAlphabetic(before.toString().charAt(before.length() - currentWord.length() - 1))) {
-			return "";
+		if (before.endsWithLetter()) {
+			return Characters.END_OF_TEXT;
 		}
 
 		return before.getPreviousWord(

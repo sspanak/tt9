@@ -15,6 +15,8 @@ public class Characters extends Emoji {
 	public static final String PLACEHOLDER = "\u200A";
 	public static final String TAB = "Тab"; // "T" is cyrillic to avoid corruption when typing the word "Tab"
 	public static final String SPACE = "␣";
+	public static final String START_OF_TEXT = "\u0002";
+	public static final String END_OF_TEXT = "\u0003";
 
 
 	public static final ArrayList<String> Currency = new ArrayList<>(Arrays.asList(
