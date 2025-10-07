@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
+import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -39,6 +40,11 @@ public abstract class HotkeyHandler extends CommandHandler {
 	@Override
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		stopWaitingForSpaceTrimKey();
+
+		if (hold && onHotkey(-Key.numberToCode(key), false, false)) {
+			return true;
+		}
+
 		return super.onNumber(key, hold, repeat);
 	}
 
