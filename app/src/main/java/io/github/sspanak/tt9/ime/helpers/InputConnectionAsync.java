@@ -4,6 +4,8 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.Nullable;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,51 +20,51 @@ public class InputConnectionAsync {
 	private static final String LOG_TAG = InputConnectionAsync.class.getSimpleName();
 	public static final String TIMEOUT_SENTINEL = "\u001F";
 
-	private static ExecutorService executor = Executors.newSingleThreadExecutor();
+	@Nullable private static ExecutorService executor;
 	private enum TaskType { GET_TEXT_BEFORE_CURSOR, GET_TEXT_AFTER_CURSOR, GET_EXTRACTED_TEXT }
 
-	private static void initExecutor() {
-		if (executor.isShutdown() || executor.isTerminated()) {
-			executor = Executors.newSingleThreadExecutor();
+	private InputConnectionAsync() {} // avoid instantiation to prevent executor memory leaks
+
+	public static void destroy() {
+		if (executor != null) {
+			executor.shutdownNow();
 		}
 	}
 
-	public static void destroy() {
-		executor.shutdownNow();
-	}
-
-
 	public static CharSequence getTextBeforeCursor(InputConnection connection, int length, int flags) {
-		initExecutor();
 		return connection != null ? runAsync(() -> connection.getTextBeforeCursor(length, flags), TaskType.GET_TEXT_BEFORE_CURSOR) : null;
 	}
 
-
 	public static CharSequence getTextAfterCursor(InputConnection connection, int length, int flags) {
-		initExecutor();
 		return connection != null ? runAsync(() -> connection.getTextAfterCursor(length, flags), TaskType.GET_TEXT_AFTER_CURSOR) : null;
 	}
 
-
 	public static ExtractedText getExtractedText(InputConnection connection, ExtractedTextRequest request, int flags) {
-		initExecutor();
 		return connection != null ? runAsync(() -> connection.getExtractedText(request, flags), TaskType.GET_EXTRACTED_TEXT) : null;
 	}
-
 
 	private static <T> T getTimeout(TaskType taskType) {
 		if (taskType == TaskType.GET_EXTRACTED_TEXT) {
 			ExtractedText et = new ExtractedText();
 			et.text = TIMEOUT_SENTINEL;
 			return (T) et;
-		} else {
+		} else if (taskType == TaskType.GET_TEXT_BEFORE_CURSOR || taskType == TaskType.GET_TEXT_AFTER_CURSOR) {
 			return (T) TIMEOUT_SENTINEL;
+		} else {
+			return null;
 		}
 	}
 
+	private static ExecutorService getExecutor() {
+		if (executor == null || executor.isShutdown() || executor.isTerminated()) {
+			executor = Executors.newSingleThreadExecutor();
+		}
+
+		return executor;
+	}
 
 	private static <T> T runAsync(Callable<T> task, TaskType type) {
-		Future<T> future = executor.submit(task);
+		Future<T> future = getExecutor().submit(task);
 		try {
 			return future.get(SettingsStore.INPUT_CONNECTION_MAX_WAIT, TimeUnit.MILLISECONDS);
 		} catch (TimeoutException e) {

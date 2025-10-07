@@ -480,7 +480,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		}
 
 		String after = textField.getStringAfterCursor(1);
-		if (!after.isEmpty() && (after.charAt(0) != '\n' || after.equals(InputConnectionAsync.TIMEOUT_SENTINEL))) {
+		if (!after.isEmpty() && after.charAt(0) != '\n') {
 			stopWaitingForSpaceTrimKey();
 			return false;
 		}
