@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CommandCollection;
 
 public class SoftKeyTextEditingSmall extends SoftKeyFnSmall {
 	public SoftKeyTextEditingSmall(Context context) { super(context); }
@@ -21,17 +22,6 @@ public class SoftKeyTextEditingSmall extends SoftKeyFnSmall {
 			return super.getBottomIconId();
 		}
 
-		final int keyId = getId();
-		if (keyId == R.id.soft_key_1) return R.drawable.ic_dpad_left;
-		if (keyId == R.id.soft_key_2) return R.drawable.ic_txt_select_none;
-		if (keyId == R.id.soft_key_3) return R.drawable.ic_dpad_right;
-		if (keyId == R.id.soft_key_4) return R.drawable.ic_txt_word_back;
-		if (keyId == R.id.soft_key_5) return R.drawable.ic_txt_select_all;
-		if (keyId == R.id.soft_key_6) return R.drawable.ic_txt_word_forward;
-		if (keyId == R.id.soft_key_7) return R.drawable.ic_txt_cut;
-		if (keyId == R.id.soft_key_8) return R.drawable.ic_txt_copy;
-		if (keyId == R.id.soft_key_9) return R.drawable.ic_txt_paste;
-
-		return -1;
+		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();
 	}
 }

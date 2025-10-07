@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
+import io.github.sspanak.tt9.commands.CmdSuggestionNext;
+import io.github.sspanak.tt9.commands.CmdSuggestionPrevious;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyArrow extends BaseSoftKeyCustomizable {
@@ -51,11 +54,11 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	}
 
 	private boolean onLeft() {
-		return tt9.onKeyScrollSuggestion(false, true) || tt9.onKeyMoveCursor(true);
+		return CmdSuggestionPrevious.run(tt9) || CmdMoveCursor.run(tt9, true);
 	}
 
 	private boolean onRight() {
-		return tt9.onKeyScrollSuggestion(false, false) || tt9.onKeyMoveCursor(false);
+		return CmdSuggestionNext.run(tt9) || CmdMoveCursor.run(tt9, false);
 	}
 
 	@Override

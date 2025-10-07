@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdNextLanguage;
+import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
@@ -33,28 +36,24 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (validateTT9Handler() && tt9.onKeyNextLanguage(false)) {
+		if (CmdNextLanguage.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return notSwiped() && validateTT9Handler() && tt9.onKeyNextInputMode(false);
+		return notSwiped() && CmdNextInputMode.run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.nextKeyboard();
-		}
+		CmdNextInputMode.run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
-		if (validateTT9Handler()) {
-			tt9.selectKeyboard();
-		}
+		CmdSelectKeyboard.run(tt9);
 	}
 
 	@Override
@@ -69,7 +68,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	protected int getHoldIcon() {
-		return areThereManyLanguages() ? R.drawable.ic_fn_next_language : -1;
+		return areThereManyLanguages() ? new CmdNextLanguage().getIcon() : -1;
 	}
 
 	@Override

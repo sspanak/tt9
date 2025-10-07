@@ -2,13 +2,14 @@ package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.AttributeSet;
 import android.view.KeyEvent;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdSpaceKorean;
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -19,22 +20,18 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 	private static final int CANCEL_KEY = 0;
 	private static final int UNASSIGN_KEY = 2;
 
-	private static SettingsStore settings;
+	private final SettingsStore settings;
 
 	private int lastKeyDownCode = KeyEvent.KEYCODE_UNKNOWN;
 	private int lastLongPressCode = KeyEvent.KEYCODE_UNKNOWN;
 
 
-	public PreferenceHotkey(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); init(context); }
-	public PreferenceHotkey(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(context); }
-	public PreferenceHotkey(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); init(context); }
-	public PreferenceHotkey(@NonNull Context context) { super(context); init(context); }
-
-
-	private void init(Context context) {
-		if (settings == null) {
-			settings = new SettingsStore(context);
-		}
+	public PreferenceHotkey(@NonNull Context context, @NonNull SettingsStore settings, @NonNull Command command) {
+		super(context);
+		this.settings = settings;
+		setKey(command.getId());
+		setTitle(command.getName());
+		populate();
 	}
 
 
@@ -142,8 +139,8 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 
 		// "Shift" and "Korean Space" can be the same key. It is properly handled in HotkeyHandler.
 		if (
-			(getKey().equals(SettingsStore.FUNC_SPACE_KOREAN) && otherFunction.equals(SettingsStore.FUNC_SHIFT))
-			|| (getKey().equals(SettingsStore.FUNC_SHIFT) && otherFunction.equals(SettingsStore.FUNC_SPACE_KOREAN))
+			(getKey().equals(CmdSpaceKorean.ID) && otherFunction.equals(CmdShift.ID))
+			|| (getKey().equals(CmdShift.ID) && otherFunction.equals(CmdSpaceKorean.ID))
 		) {
 			return false;
 		}

@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 
 import androidx.appcompat.content.res.AppCompatResources;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdEditText;
+import io.github.sspanak.tt9.commands.CmdVoiceInput;
+import io.github.sspanak.tt9.commands.CommandCollection;
 
 public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 	public SoftKeyFnSmall(Context context) { super(context);}
@@ -14,19 +16,19 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 	public SoftKeyFnSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}
 
 	@Override protected void handleHold() { preventRepeat(); }
-	@Override protected String getTitle() { return getNumber() + ""; }
+	@Override protected String getTitle() { return String.valueOf(getNumber()); }
 	@Override protected float getTitleScale() { return 1; }
 
 	private boolean isVoiceInput() {
-		return getId() == R.id.soft_key_3;
+		return CommandCollection.indexOf(CommandCollection.COLLECTION_PALETTE, CmdVoiceInput.ID) == getId();
 	}
 
 	private boolean isTextEditing() {
-		return getId() == R.id.soft_key_5;
+		return CommandCollection.indexOf(CommandCollection.COLLECTION_PALETTE, CmdEditText.ID) == getId();
 	}
 
 	private boolean isNOOP() {
-		return getId() == R.id.soft_key_7 || getId() == R.id.soft_key_9 || getId() == R.id.soft_key_0;
+		return !CommandCollection.getAll(CommandCollection.COLLECTION_PALETTE).containsKey(getId());
 	}
 
 	protected boolean isVisible() {
@@ -41,28 +43,15 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 		}
 	}
 
-
 	protected int getBottomIconId() {
-		final int keyId = getId();
-
-		if (keyId == R.id.soft_key_1) return R.drawable.ic_fn_settings;
-		if (keyId == R.id.soft_key_2) return R.drawable.ic_fn_add_word;
-		if (keyId == R.id.soft_key_3) return R.drawable.ic_fn_voice;
-		if (keyId == R.id.soft_key_4) return R.drawable.ic_fn_undo;
-		if (keyId == R.id.soft_key_5) return R.drawable.ic_txt_cut;
-		if (keyId == R.id.soft_key_6) return R.drawable.ic_fn_redo;
-		if (keyId == R.id.soft_key_8) return R.drawable.ic_fn_next_keyboard;
-
-		return -1;
+		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_PALETTE, getId()).getIcon();
 	}
-
 
 	private void setBottomIcon() {
 		final int iconId = getBottomIconId();
 		final Drawable icon = iconId > 0 && tt9 != null ? AppCompatResources.getDrawable(tt9.getApplicationContext(), iconId) : null;
 		setCompoundDrawablesWithIntrinsicBounds(null, null, null, icon);
 	}
-
 
 	@Override
 	public void render() {

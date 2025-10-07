@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdShowSettings;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
 
 public class SoftKeySettings extends BaseSwipeableKey {
@@ -37,8 +38,8 @@ public class SoftKeySettings extends BaseSwipeableKey {
 
 	@Override
 	protected boolean handleRelease() {
-		if (notSwiped() && validateTT9Handler()) {
-			tt9.showSettings();
+		if (notSwiped()) {
+			CmdShowSettings.run(tt9);
 		}
 		return true;
 	}
@@ -66,7 +67,7 @@ public class SoftKeySettings extends BaseSwipeableKey {
 
 	@Override
 	protected int getCentralIcon() {
-		return R.drawable.ic_fn_settings;
+		return new CmdShowSettings().getIcon();
 	}
 
 	@Override

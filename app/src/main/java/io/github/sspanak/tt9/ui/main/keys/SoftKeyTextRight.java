@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdRedo;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -16,14 +16,14 @@ public class SoftKeyTextRight extends SoftKeyText {
 		if (tt9 == null) return "";
 		if (tt9.isInputModePhone()) return "#";
 		if (tt9.isInputModeNumeric()) return ".";
-		if (tt9.isTextEditingActive()) return "↷";
+		if (tt9.isTextEditingActive()) return CmdRedo.iconTxt;
 
 		return Characters.getChar(tt9.getLanguage(), SettingsStore.SOFT_KEY_TEXT_RIGHT_DEFAULT);
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return tt9 != null && tt9.isTextEditingActive() ? tt9.onKeyRedo(false) : super.handleRelease();
+		return tt9 != null && tt9.isTextEditingActive() ? CmdRedo.run(tt9) : super.handleRelease();
 	}
 
 	@Override
@@ -33,6 +33,6 @@ public class SoftKeyTextRight extends SoftKeyText {
 
 	@Override
 	protected int getCentralIcon() {
-		return isTextEditingOn() && !shouldHide() ? R.drawable.ic_fn_redo : -1;
+		return isTextEditingOn() && !shouldHide() ? new CmdRedo().getIcon() : -1;
 	}
 }
