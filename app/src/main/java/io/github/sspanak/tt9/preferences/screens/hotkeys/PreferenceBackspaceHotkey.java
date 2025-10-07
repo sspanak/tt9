@@ -2,16 +2,16 @@ package io.github.sspanak.tt9.preferences.screens.hotkeys;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceBackspaceHotkey extends PreferenceHotkey {
-	public PreferenceBackspaceHotkey(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
-	public PreferenceBackspaceHotkey(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-	public PreferenceBackspaceHotkey(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
-	public PreferenceBackspaceHotkey(@NonNull Context context) { super(context); }
+	public PreferenceBackspaceHotkey(@NonNull Context context, @NonNull SettingsStore settings, @NonNull Command command) {
+		super(context, settings, command);
+	}
 
 	@Override
 	protected boolean onAssign(DialogInterface dialog, int keyCode) {

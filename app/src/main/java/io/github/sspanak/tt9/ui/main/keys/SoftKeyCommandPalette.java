@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdCommandPalette;
 
 public class SoftKeyCommandPalette extends SoftKeySettings {
 	public SoftKeyCommandPalette(Context context) { super(context); }
@@ -12,14 +12,11 @@ public class SoftKeyCommandPalette extends SoftKeySettings {
 
 	@Override
 	protected boolean handleRelease() {
-		if (notSwiped() && validateTT9Handler()) {
-			tt9.onKeyCommandPalette(false);
-		}
-		return true;
+		return notSwiped() && CmdCommandPalette.run(tt9);
 	}
 
 	@Override
 	protected int getNoEmojiTitle() {
-		return R.string.virtual_key_command_palette;
+		return new CmdCommandPalette().getIconText();
 	}
 }

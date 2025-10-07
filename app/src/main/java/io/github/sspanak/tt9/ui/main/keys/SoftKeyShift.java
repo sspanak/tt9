@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdShift;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 
 public class SoftKeyShift extends BaseSoftKeyWithIcons {
@@ -22,15 +22,15 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	@Override protected int getCentralIcon() {
 		final int textCase = tt9 != null ? tt9.getDisplayTextCase() : InputMode.CASE_UNDEFINED;
 		return switch (textCase) {
-			case InputMode.CASE_CAPITALIZE -> R.drawable.ic_fn_shift_caps;
-			case InputMode.CASE_UPPER -> R.drawable.ic_fn_shift_up;
-			default -> R.drawable.ic_fn_shift_low;
+			case InputMode.CASE_CAPITALIZE -> new CmdShift().getIconCaps();
+			case InputMode.CASE_UPPER -> new CmdShift().getIconUp();
+			default -> new CmdShift().getIcon();
 		};
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return validateTT9Handler() && tt9.onKeyNextTextCase(false);
+		return CmdShift.run(tt9);
 	}
 
 	@Override

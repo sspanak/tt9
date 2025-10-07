@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdEditText;
+import io.github.sspanak.tt9.commands.CmdTxtCut;
+import io.github.sspanak.tt9.commands.CmdVoiceInput;
 
 public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 	public SoftKeyRF3(Context context) { super(context); }
@@ -29,7 +32,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return;
 		}
 
-		tt9.toggleVoiceInput();
+		CmdVoiceInput.run(tt9);
 	}
 
 
@@ -40,11 +43,9 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 		}
 
 		if (tt9.isVoiceInputActive() || isTextEditingMissing()) {
-			tt9.toggleVoiceInput();
-		} else if (isTextEditingActive()) {
-			tt9.hideTextEditingPalette();
+			CmdVoiceInput.run(tt9);
 		} else {
-			tt9.showTextEditingPalette();
+			CmdEditText.run(tt9);
 		}
 
 		return true;
@@ -58,10 +59,10 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 		}
 
 		if (isVoiceInputActive() || (isTextEditingMissing() && !isVoiceInputMissing())) {
-			return R.drawable.ic_fn_voice_off;
+			return new CmdVoiceInput().getIconOff();
 		}
 
-		return R.drawable.ic_txt_cut;
+		return new CmdTxtCut().getIcon();
 	}
 
 
@@ -82,7 +83,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return -1;
 		}
 
-		return R.drawable.ic_fn_voice;
+		return new CmdVoiceInput().getIcon();
 	}
 
 

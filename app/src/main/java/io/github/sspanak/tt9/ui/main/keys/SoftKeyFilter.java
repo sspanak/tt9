@@ -3,7 +3,8 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdFilterClear;
+import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFilter extends BaseSoftKeyWithIcons {
@@ -14,7 +15,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (validateTT9Handler() && tt9.onKeyFilterClear(false)) {
+		if (CmdFilterClear.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 			ignoreLastPressedKey();
 		}
@@ -22,21 +23,19 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return
-			validateTT9Handler()
-			&& tt9.onKeyFilterSuggestions(false, getLastPressedKey() == getId());
+		return CmdFilterSuggestions.run(tt9, getLastPressedKey() == getId());
 	}
 
 	@Override protected int getCentralIcon() {
 		if (tt9 != null) {
-			if (tt9.isFilteringFuzzy()) return R.drawable.ic_fn_filter_fuzzy;
-			if (tt9.isFilteringOn()) return R.drawable.ic_fn_filter_exact;
+			if (tt9.isFilteringFuzzy()) return new CmdFilterSuggestions().getIconFuzzy();
+			if (tt9.isFilteringOn()) return new CmdFilterSuggestions().getIconExact();
 		}
-		return R.drawable.ic_fn_filter;
+		return new CmdFilterSuggestions().getIcon();
 	}
 
 	@Override protected int getHoldIcon() {
-		return R.drawable.ic_fn_filter_off;
+		return new CmdFilterClear().getIcon();
 	}
 
 	@Override
