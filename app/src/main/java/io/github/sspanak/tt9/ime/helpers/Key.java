@@ -124,6 +124,7 @@ public class Key {
 		};
 	}
 
+
 	public static int numberToCode(int number) {
 		if (number >= 0 && number <= 9) {
 			return KeyEvent.KEYCODE_0 + number;

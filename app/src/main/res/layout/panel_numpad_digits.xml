@@ -6,24 +6,27 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber1
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_1" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_4" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_7" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
@@ -41,24 +44,27 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_2" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_5" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_8" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
@@ -79,24 +85,27 @@
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_3" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_6" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
 			<io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9
 				style="@style/TTheme.Numpad.Key.Number"
 				android:id="@+id/soft_key_9" />
-			<include layout="@layout/key_overlay_number_hold_text" />
 			<include layout="@layout/key_overlay_icons" />
+			<include layout="@layout/key_overlay_number_hold_text" />
+			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
 		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">

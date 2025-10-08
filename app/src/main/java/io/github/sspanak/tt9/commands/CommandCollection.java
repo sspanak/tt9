@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -14,11 +15,34 @@ public class CommandCollection {
 	public static final int COLLECTION_PALETTE = 2;
 	public static final int COLLECTION_TEXT_EDITING = 3;
 
+	private static final HashMap<String, Command> searchCache = new HashMap<>();
+
 	private static final ArrayList<Command> hotkeys = new ArrayList<>();
 	private static final LinkedHashMap<Integer, Command> palette = new LinkedHashMap<>();
 	private static final HashMap<String, Integer> reversePalette = new HashMap<>();
 	private static final LinkedHashMap<Integer, Command> textEditing = new LinkedHashMap<>();
 	private static final HashMap<String, Integer> reverseTextEditing = new HashMap<>();
+
+
+	@Nullable
+	public static Command getById(int collectionType, @Nullable String commandId) {
+		Collection<Command> commands = collectionType == COLLECTION_HOTKEYS ? getHotkeyCommands() : getAll(collectionType).values();
+
+		final String cacheKey = collectionType + "_" + commandId;
+		Command cached = searchCache.get(cacheKey);
+		if (cached != null) {
+			return cached;
+		}
+
+		for (Command cmd : commands) {
+			if (cmd.getId().equals(commandId)) {
+				searchCache.put(cacheKey, cmd);
+				return cmd;
+			}
+		}
+
+		return null;
+	}
 
 
 	@NonNull
