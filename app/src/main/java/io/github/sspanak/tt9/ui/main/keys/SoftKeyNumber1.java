@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.util.TextTools;
 
 public class SoftKeyNumber1 extends SoftKeyNumber {
@@ -53,6 +54,10 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 			return null;
 		}
 
+		if (getHoldCommand() != null) {
+			return "";
+		}
+
 		if (tt9.isInputModeNumeric()) {
 			return LARGE_LABEL_TEXT;
 		}
@@ -61,6 +66,13 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 			return HOLD_LABEL_NUMERIC_WHEN_LETTERS;
 		}
 
-		return super.getLocalizedNumber(getNumber());
+		return getLocalizedNumber(getNumber());
+	}
+
+
+	@Override
+	protected int getHoldIcon() {
+		Command holdCommand = getHoldCommand();
+		return isFnPanelOn() || holdCommand == null ? super.getHoldIcon() : holdCommand.getIcon();
 	}
 }

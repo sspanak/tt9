@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -33,7 +34,14 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 			return null;
 		}
 
-		return getLocalizedNumber(getNumber());
+		return getHoldCommand() != null ? "" : getLocalizedNumber(getNumber());
+	}
+
+
+	@Override
+	protected int getHoldIcon() {
+		Command holdCommand = getHoldCommand();
+		return isFnPanelOn() || holdCommand == null ? super.getHoldIcon() : holdCommand.getIcon();
 	}
 
 

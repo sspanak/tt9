@@ -19,7 +19,7 @@ public class ItemDropDown {
 	}
 
 
-	protected void add(int key, String value) {
+	public void add(int key, String value) {
 		add(String.valueOf(key), value);
 	}
 
@@ -34,11 +34,12 @@ public class ItemDropDown {
 	}
 
 
-	public void add(String key, String value) {
+	public ItemDropDown add(String key, String value) {
 		if (values == null) {
 			values = new LinkedHashMap<>();
 		}
 		values.put(key, value);
+		return this;
 	}
 
 

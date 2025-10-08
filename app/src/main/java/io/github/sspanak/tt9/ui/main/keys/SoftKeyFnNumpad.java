@@ -5,13 +5,19 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 
+import androidx.annotation.Nullable;
+
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.Command;
+import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFnNumpad extends BaseSwipeableKey {
 	protected static final float TITLE_SCALE_BOPOMOFO = 0.7f;
+
+	private Command holdCommand = null;
 
 	private final static SparseArray<Integer> NUMBERS = new SparseArray<>() {{
 		put(R.id.soft_key_0, 0); // short space
@@ -98,6 +104,22 @@ public class SoftKeyFnNumpad extends BaseSwipeableKey {
 		} else {
 			return String.valueOf(number);
 		}
+	}
+
+
+	@Nullable
+	protected Command getHoldCommand() {
+		if (tt9 == null) {
+			return null;
+		}
+
+		String currentCommandId = tt9.getSettings().getFunction(-Key.numberToCode(getNumber()));
+		if (holdCommand == null || !holdCommand.getId().equals(currentCommandId)) {
+			holdCommand = CommandCollection.getById(CommandCollection.COLLECTION_HOTKEYS, currentCommandId);
+			resetIconCache();
+		}
+
+		return holdCommand;
 	}
 
 
