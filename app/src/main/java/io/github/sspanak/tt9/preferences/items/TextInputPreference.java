@@ -2,8 +2,8 @@ package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
-import android.os.Handler;
-import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -14,12 +14,10 @@ import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.colors.AccentSystemColor;
 import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
 
-abstract public class TextInputPreference extends ScreenPreference {
-	@NonNull private final Handler listener = new Handler(Looper.getMainLooper());
+abstract public class TextInputPreference extends ScreenPreference implements TextWatcher {
 	protected EditText textField;
 	@NonNull protected String text = "";
 
@@ -44,18 +42,13 @@ abstract public class TextInputPreference extends ScreenPreference {
 		setTextField(holder);
 		if (textField != null) {
 			ignoreEnter();
-			checkTextChange();
+			textField.addTextChangedListener(this);
 		}
 	}
 
 
 	@Override protected int getDefaultLayout() { return R.layout.pref_input_text; }
 	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
-
-
-	protected int getChangeHandlerDebounceTime() {
-		return SettingsStore.TEXT_INPUT_DEBOUNCE_TIME;
-	}
 
 
 	protected void setError(String error) {
@@ -94,17 +87,20 @@ abstract public class TextInputPreference extends ScreenPreference {
 
 	/**
 	 * Internal text change detector that calls the onTextChange() when needed.
-	 * IMPORTANT: do not call this method more than once per instance to avoid creating multiple
-	 * listeners and memory leaks.
 	 */
-	private void checkTextChange() {
-		String newText = textField != null ? textField.getText().toString() : "";
+	@Override
+	public void afterTextChanged(Editable txt) {
+		String newText = txt != null ? txt.toString() : "";
 		if (!text.equals(newText)) {
 			text = newText;
 			onTextChange();
 		}
-		listener.postDelayed(this::checkTextChange, getChangeHandlerDebounceTime());
 	}
+
+
+	// unused
+	@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+	@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
 
 	/**

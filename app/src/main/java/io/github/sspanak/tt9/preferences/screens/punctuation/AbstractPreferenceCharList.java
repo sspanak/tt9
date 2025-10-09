@@ -34,12 +34,6 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 		}
 	}
 
-
-	@Override
-	protected int getChangeHandlerDebounceTime() {
-		return SettingsStore.TEXT_INPUT_PUNCTUATION_ORDER_DEBOUNCE_TIME;
-	}
-
 	protected SettingsStore getSettings() {
 		if (settings == null) {
 			settings = new SettingsStore(getContext());

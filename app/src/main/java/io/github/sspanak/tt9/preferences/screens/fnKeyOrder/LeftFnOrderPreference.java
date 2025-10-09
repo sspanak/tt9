@@ -47,10 +47,6 @@ public class LeftFnOrderPreference extends TextInputPreference {
 		textChangeHandler = handler;
 	}
 
-	protected int getChangeHandlerDebounceTime() {
-		return SettingsStore.TEXT_INPUT_PUNCTUATION_ORDER_DEBOUNCE_TIME;
-	}
-
 	@Override
 	protected void onTextChange() {
 		textChangeHandler.run();
