@@ -19,6 +19,7 @@ public class SettingsStatic extends SettingsHotkeys {
 	public final static int DICTIONARY_IMPORT_BATCH_SIZE = 5000; // words
 	public final static int DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME = 250; // ms
 	public final static long INPUT_CONNECTION_MAX_WAIT = 50; // ms
+	public final static int LANGUAGE_SEARCH_DEBOUNCE_TIME = 500; // ms
 	public final static int RESIZE_THROTTLING_TIME = 60; // ms
 	public final static int SHIFT_STATE_DEBOUNCE_TIME = 175; // ms
 	public final static byte SLOW_QUERY_TIME = 50; // ms
@@ -39,8 +40,6 @@ public class SettingsStatic extends SettingsHotkeys {
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;
 	public final static int SUGGESTIONS_TRANSLATE_ANIMATION_DURATION = 0;
-	public final static int TEXT_INPUT_DEBOUNCE_TIME = 500; // ms
-	public final static int TEXT_INPUT_PUNCTUATION_ORDER_DEBOUNCE_TIME = 100; // ms
 	public final static int WORD_BACKGROUND_TASKS_DELAY = 15000; // ms
 	public final static int WORD_FREQUENCY_MAX = 25500;
 	public final static int WORD_FREQUENCY_NORMALIZATION_DIVIDER = 100; // normalized frequency = WORD_FREQUENCY_MAX / WORD_FREQUENCY_NORMALIZATION_DIVIDER
