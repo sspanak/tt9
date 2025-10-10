@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.items;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
@@ -10,9 +11,12 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.languages.LanguageCollection;
+import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
 import io.github.sspanak.tt9.util.colors.AccentSystemColor;
 import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
@@ -51,6 +55,10 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
 
 
+	/**
+	 * Sets or clears an error message in the EditText field, if available.
+	 * Also changes the text field border color to accent or error color.
+	 */
 	protected void setError(String error) {
 		if (textField == null) {
 			return;
@@ -69,18 +77,57 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	}
 
 
-	protected void setText(CharSequence newText) {
-		if (textField != null && newText != null && !text.equals(newText.toString())) {
-			textField.setText(newText);
+	/**
+	 * Sets the text both internally and in the EditText field, if available.
+	 * Does not trigger onTextChange().
+	 */
+	protected void setText(@Nullable CharSequence newText) {
+		if (newText != null && !text.equals(newText.toString())) {
 			text = newText.toString();
+		}
+
+		if (textField != null) {
+			textField.setText(newText);
 		}
 	}
 
 
-	protected void setTextField(@NonNull PreferenceViewHolder holder) {
+	/**
+	 * Override this to set a custom icon. The default is no icon.
+	 */
+	protected int getIconResource() {
+		return 0;
+	}
+
+
+	private void setTextField(@NonNull PreferenceViewHolder holder) {
 		EditText editText = holder.itemView.findViewById(R.id.input_text_input_field);
 		if (editText != null) {
-			this.textField = editText;
+			textField = editText;
+			textField.setText(text);
+			setTextFieldIcon(getIconResource());
+		}
+	}
+
+
+	/**
+	 * Sets an icon in the text field, if available. Note, that this is different from the preference icon.
+	 */
+	private void setTextFieldIcon(int icon) {
+		if (icon == 0) {
+			return;
+		}
+
+		final Context context = getContext();
+		final Drawable searchIcon = AppCompatResources.getDrawable(context, icon);
+		if (searchIcon != null) {
+			searchIcon.setTint(context.getResources().getColor(R.color.keyboard_text));
+		}
+
+		if (LanguageKind.isRTL(LanguageCollection.getDefault())) {
+			textField.setCompoundDrawablesWithIntrinsicBounds(null, null, searchIcon, null);
+		} else {
+			textField.setCompoundDrawablesWithIntrinsicBounds(searchIcon, null, null, null);
 		}
 	}
 
