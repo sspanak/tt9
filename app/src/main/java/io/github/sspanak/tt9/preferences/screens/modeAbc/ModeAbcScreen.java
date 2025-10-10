@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.modeAbc;
 
+import androidx.preference.Preference;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -16,8 +18,11 @@ public class ModeAbcScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		new ItemSelectAbcAutoAccceptTime(findPreference(ItemSelectAbcAutoAccceptTime.NAME), activity).populate().enableClickHandler().preview();
 		resetFontSize(false);
+		Preference dropDown = findPreference(DropDownAbcAutoAcceptTime.NAME);
+		if (dropDown instanceof DropDownAbcAutoAcceptTime) {
+			((DropDownAbcAutoAcceptTime) dropDown).populate(activity.getSettings()).preview();
+		}
 	}
 }
 

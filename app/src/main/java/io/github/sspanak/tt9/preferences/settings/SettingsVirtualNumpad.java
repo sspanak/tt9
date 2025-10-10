@@ -8,6 +8,10 @@ import androidx.annotation.NonNull;
 import java.util.HashMap;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
 public class SettingsVirtualNumpad extends SettingsUI {
@@ -62,7 +66,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public int getNumpadKeyHeight() {
-		return getStringifiedInt("pref_numpad_key_height", getNumpadKeyDefaultHeight());
+		return getStringifiedInt(DropDownKeyHeight.NAME, getNumpadKeyDefaultHeight());
 	}
 
 	public float getNumpadFnKeyDefaultScale() {
@@ -77,15 +81,15 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public float getNumpadFnKeyScale() {
-		return getStringifiedFloat("pref_numpad_fn_key_width", getNumpadFnKeyDefaultScale());
+		return getStringifiedFloat(DropDownNumpadFnKeyScale.NAME, getNumpadFnKeyDefaultScale());
 	}
 
 	public int getNumpadKeyFontSizePercent() {
-		return isMainLayoutNumpad() ? getStringifiedInt("pref_numpad_key_font_size", 100) : 100;
+		return isMainLayoutNumpad() ? getStringifiedInt(DropDownNumpadKeyFontSize.NAME, 100) : 100;
 	}
 
 	public int getNumpadShape() {
-		return getStringifiedInt("pref_numpad_shape", NUMPAD_SHAPE_SQUARE);
+		return getStringifiedInt(DropDownNumpadShape.NAME, NUMPAD_SHAPE_SQUARE);
 	}
 
 	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
