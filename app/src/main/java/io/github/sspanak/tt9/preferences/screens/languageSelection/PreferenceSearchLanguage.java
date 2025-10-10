@@ -1,6 +1,8 @@
 package io.github.sspanak.tt9.preferences.screens.languageSelection;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -10,8 +12,11 @@ import androidx.preference.Preference;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.preferences.items.SearchPreference;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class PreferenceSearchLanguage extends SearchPreference {
+	@NonNull private final Handler textChangeListener = new Handler(Looper.getMainLooper());
+
 	@NonNull private ArrayList<PreferenceSwitchLanguage> languageItems = new ArrayList<>();
 	private Preference noResultItem;
 
@@ -39,6 +44,12 @@ public class PreferenceSearchLanguage extends SearchPreference {
 
 	@Override
 	protected void onTextChange() {
+		textChangeListener.removeCallbacksAndMessages(null);
+		textChangeListener.postDelayed(this::onTextChangeDebounced, SettingsStore.LANGUAGE_SEARCH_DEBOUNCE_TIME);
+	}
+
+
+	protected void onTextChangeDebounced() {
 		String word = text.trim().toLowerCase();
 		String wordInTheMiddle = " " + word;
 		String wordInParenthesis = "(" + word;

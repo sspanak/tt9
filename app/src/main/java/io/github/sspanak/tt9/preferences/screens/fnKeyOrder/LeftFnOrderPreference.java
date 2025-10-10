@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.preferences.screens.fnKeyOrder;
 import android.content.Context;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,6 +39,8 @@ public class LeftFnOrderPreference extends TextInputPreference {
 	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
 		super.onBindViewHolder(holder);
 		populate();
+
+		EditText textField = getTextField();
 		if (textField != null) {
 			textField.setInputType(InputType.TYPE_CLASS_NUMBER);
 		}
@@ -45,10 +48,6 @@ public class LeftFnOrderPreference extends TextInputPreference {
 
 	void setTextChangeHandler(@NonNull Runnable handler) {
 		textChangeHandler = handler;
-	}
-
-	protected int getChangeHandlerDebounceTime() {
-		return SettingsStore.TEXT_INPUT_PUNCTUATION_ORDER_DEBOUNCE_TIME;
 	}
 
 	@Override

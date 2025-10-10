@@ -35,8 +35,8 @@ abstract public class ScreenPreference extends Preference {
 	}
 
 	@Override
-	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-		super.onBindViewHolder(holder);
+	public void onAttached() {
+		super.onAttached();
 
 		boolean largeFont = new SettingsStore(getContext()).getSettingsFontSize() == SettingsStore.FONT_SIZE_LARGE;
 		int layout = largeFont ? getLargeLayout() : getDefaultLayout();
