@@ -3,15 +3,10 @@
 
 	<io.github.sspanak.tt9.preferences.screens.appearance.SelectThemePreference />
 
-	<DropDownPreference
-		app:key="pref_font_size"
-		app:title="@string/pref_font_size" />
-
+	<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize app:title="@string/pref_font_size" />
 
 	<PreferenceCategory app:title="@string/pref_category_layout">
-		<DropDownPreference
-			app:key="pref_layout_type"
-			app:title="@string/pref_layout" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
 
 		<SwitchPreferenceCompat
 			app:key="pref_arrow_keys_visible"
@@ -30,33 +25,13 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_geometry">
-		<DropDownPreference
-			app:key="pref_numpad_shape"
-			app:title="@string/pref_numpad_shape" />
-
-		<DropDownPreference
-			app:key="pref_numpad_alignment"
-			app:title="@string/pref_numpad_alignment" />
-
-		<DropDownPreference
-			app:key="pref_numpad_width"
-			app:title="@string/pref_numpad_width" />
-
-		<DropDownPreference
-			app:key="pref_numpad_key_height"
-			app:title="@string/pref_numpad_key_height" />
-
-		<DropDownPreference
-			app:key="pref_numpad_key_font_size"
-			app:title="@string/pref_numpad_key_font_size" />
-
-		<DropDownPreference
-			app:key="pref_numpad_fn_key_width"
-			app:title="@string/pref_numpad_fn_key_width" />
-
-		<DropDownPreference
-			app:key="pref_suggestion_font_size"
-			app:title="@string/pref_suggestion_font_size" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape app:title="@string/pref_numpad_shape" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment app:title="@string/pref_numpad_alignment" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth app:title="@string/pref_numpad_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight app:title="@string/pref_numpad_key_height" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize app:title="@string/pref_numpad_key_font_size" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale app:title="@string/pref_numpad_fn_key_width" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize app:title="@string/pref_suggestion_font_size" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
