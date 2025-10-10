@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.screens.appearance;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.items.ItemDropDown;
+import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
@@ -28,35 +28,37 @@ public class AppearanceScreen extends BaseScreenFragment {
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
 		(new ItemPrecalculateNavbarHeight(activity.getSettings(), findPreference(ItemPrecalculateNavbarHeight.NAME))).populate();
 
-		ItemAlignment alignment = new ItemAlignment(findPreference(ItemAlignment.NAME), activity.getSettings());
-		ItemNumpadKeyHeight numpadKeyHeight = new ItemNumpadKeyHeight(findPreference(ItemNumpadKeyHeight.NAME), activity.getSettings());
-		ItemWidth keyboardWidth = new ItemWidth(findPreference(ItemWidth.NAME), activity.getSettings());
-		ItemNumpadShape numpadShape = new ItemNumpadShape(findPreference(ItemNumpadShape.NAME), activity.getSettings());
+		DropDownAlignment alignment = findPreference(DropDownAlignment.NAME);
+		DropDownKeyHeight numpadKeyHeight = findPreference(DropDownKeyHeight.NAME);
+		DropDownWidth keyboardWidth = findPreference(DropDownWidth.NAME);
+		DropDownNumpadShape numpadShape = findPreference(DropDownNumpadShape.NAME);
 		ItemShowArrows showArrows = new ItemShowArrows(findPreference(ItemShowArrows.NAME), activity.getSettings());
-		ItemNumpadFnKeyScale fnKeyWidth = new ItemNumpadFnKeyScale(findPreference(ItemNumpadFnKeyScale.NAME), activity.getSettings());
-		ItemNumpadKeyFontSize numpadKeyFontSize = new ItemNumpadKeyFontSize(findPreference(ItemNumpadKeyFontSize.NAME), activity.getSettings());
-		ItemSuggestionFontSize suggestionFontSize = new ItemSuggestionFontSize(findPreference(ItemSuggestionFontSize.NAME), activity.getSettings());
+		DropDownNumpadFnKeyScale fnKeyWidth = findPreference(DropDownNumpadFnKeyScale.NAME);
+		DropDownNumpadKeyFontSize numpadKeyFontSize = findPreference(DropDownNumpadKeyFontSize.NAME);
+		DropDownSuggestionFontSize suggestionFontSize = findPreference(DropDownSuggestionFontSize.NAME);
 		ItemFnKeyOrder fnKeyOrder = new ItemFnKeyOrder(activity.getSettings(), findPreference(ItemFnKeyOrder.NAME));
 
-		ItemSelectLayoutType selectLayout = new ItemSelectLayoutType(findPreference(ItemSelectLayoutType.NAME), activity)
-			.addOnChangeItem(alignment)
-			.addOnChangeItem(fnKeyOrder)
-			.addOnChangeItem(fnKeyWidth)
-			.addOnChangeItem(keyboardWidth)
-			.addOnChangeItem(numpadKeyFontSize)
-			.addOnChangeItem(numpadKeyHeight)
-			.addOnChangeItem(numpadShape)
-			.addOnChangeItem(showArrows)
-			.addOnChangeItem(suggestionFontSize)
-			.addOnChangePreference(findPreference("hack_precalculate_navbar_height_v3"))
-			.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
-			.addOnChangePreference(findPreference("pref_clear_insets"))
-			.addOnChangePreference(findPreference("pref_drag_resize"))
-			.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
+		DropDownLayoutType selectLayout = findPreference(DropDownLayoutType.NAME);
+		if (selectLayout != null) {
+			selectLayout
+				.addOnChangeItem(alignment)
+				.addOnChangeItem(fnKeyOrder)
+				.addOnChangeItem(fnKeyWidth)
+				.addOnChangeItem(keyboardWidth)
+				.addOnChangeItem(numpadKeyFontSize)
+				.addOnChangeItem(numpadKeyHeight)
+				.addOnChangeItem(numpadShape)
+				.addOnChangeItem(showArrows)
+				.addOnChangeItem(suggestionFontSize)
+				.addOnChangePreference(findPreference("hack_precalculate_navbar_height_v3"))
+				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
+				.addOnChangePreference(findPreference("pref_clear_insets"))
+				.addOnChangePreference(findPreference("pref_drag_resize"))
+				.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
+		}
 
-
-		ItemDropDown[] items = {
-			new ItemSelectSettingsFontSize(findPreference(ItemSelectSettingsFontSize.NAME), this),
+		EnhancedDropDownPreference[] items = {
+			findPreference(DropDownSettingsFontSize.NAME),
 			selectLayout,
 			numpadKeyHeight,
 			alignment,
@@ -67,8 +69,13 @@ public class AppearanceScreen extends BaseScreenFragment {
 			suggestionFontSize
 		};
 
-		for (ItemDropDown item : items) {
-			item.populate().preview().enableClickHandler();
+		for (EnhancedDropDownPreference item : items) {
+			if (item instanceof DropDownSettingsFontSize) {
+				((DropDownSettingsFontSize) item).setScreen(this);
+			} // not else-if, we want both!
+			if (item != null) {
+				item.populate(activity.getSettings()).preview();
+			}
 		}
 
 		showArrows.populate();

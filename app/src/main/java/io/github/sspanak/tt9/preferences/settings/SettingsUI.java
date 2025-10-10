@@ -8,6 +8,12 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownDarkTheme;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth;
 import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -82,7 +88,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getAlignment() {
-		return getStringifiedInt("pref_numpad_alignment", Gravity.CENTER_HORIZONTAL);
+		return getStringifiedInt(DropDownAlignment.NAME, Gravity.CENTER_HORIZONTAL);
 	}
 
 	public void setAlignment(int alignment) {
@@ -90,7 +96,7 @@ public class SettingsUI extends SettingsTyping {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
 		}
 
-		prefsEditor.putString("pref_numpad_alignment", Integer.toString(alignment));
+		prefsEditor.putString(DropDownAlignment.NAME, Integer.toString(alignment));
 		prefsEditor.apply();
 	}
 
@@ -104,7 +110,7 @@ public class SettingsUI extends SettingsTyping {
 
 	public int getSettingsFontSize() {
 		int defaultSize = DeviceInfo.IS_QIN_F21 || DeviceInfo.IS_LG_X100S ? FONT_SIZE_LARGE : FONT_SIZE_DEFAULT;
-		return getStringifiedInt("pref_font_size", defaultSize);
+		return getStringifiedInt(DropDownSettingsFontSize.NAME, defaultSize);
 	}
 
 	public float getSuggestionFontScale() {
@@ -112,7 +118,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getSuggestionFontSizePercent() {
-		return getStringifiedInt("pref_suggestion_font_size", 100);
+		return getStringifiedInt(DropDownSuggestionFontSize.NAME, 100);
 	}
 
 	public boolean getSuggestionSmoothScroll() {
@@ -120,7 +126,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getTheme() {
-		return getStringifiedInt("pref_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+		return getStringifiedInt(DropDownDarkTheme.NAME, DropDownDarkTheme.DEFAULT);
 	}
 
 	public int getDefaultWidthPercent() {
@@ -145,7 +151,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public int getWidthPercent() {
-		return getStringifiedInt("pref_numpad_width", getDefaultWidthPercent());
+		return getStringifiedInt(DropDownWidth.NAME, getDefaultWidthPercent());
 	}
 
 	public void setMainViewLayout(int layout) {
@@ -154,12 +160,12 @@ public class SettingsUI extends SettingsTyping {
 			return;
 		}
 
-		prefsEditor.putString("pref_layout_type", Integer.toString(layout));
+		prefsEditor.putString(DropDownLayoutType.NAME, Integer.toString(layout));
 		prefsEditor.apply();
 	}
 
 	public int getMainViewLayout() {
-		return getStringifiedInt("pref_layout_type", DEFAULT_LAYOUT);
+		return getStringifiedInt(DropDownLayoutType.NAME, DEFAULT_LAYOUT);
 	}
 
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
