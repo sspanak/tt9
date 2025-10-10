@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.widget.EditText;
@@ -18,11 +17,12 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.custom.ScreenPreference;
+import io.github.sspanak.tt9.util.TextChangeWatcher;
 import io.github.sspanak.tt9.util.colors.AccentSystemColor;
 import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
 
-abstract public class TextInputPreference extends ScreenPreference implements TextWatcher {
-	protected EditText textField;
+abstract public class TextInputPreference extends ScreenPreference {
+	@Nullable PreferenceViewHolder viewHolder;
 	@NonNull protected String text = "";
 
 
@@ -43,11 +43,17 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	@Override
 	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
 		super.onBindViewHolder(holder);
-		setTextField(holder);
-		if (textField != null) {
-			ignoreEnter();
-			textField.addTextChangedListener(this);
+		this.viewHolder = holder;
+		setTextField(getTextField());
+	}
+
+
+	@Nullable
+	protected EditText getTextField() {
+		if (viewHolder == null) {
+			return null;
 		}
+		return viewHolder.itemView.findViewById(R.id.input_text_input_field);
 	}
 
 
@@ -55,11 +61,15 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
 
 
+	abstract protected void onTextChange();
+
+
 	/**
 	 * Sets or clears an error message in the EditText field, if available.
 	 * Also changes the text field border color to accent or error color.
 	 */
 	protected void setError(String error) {
+		EditText textField = getTextField();
 		if (textField == null) {
 			return;
 		}
@@ -86,8 +96,9 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 			text = newText.toString();
 		}
 
-		if (textField != null) {
-			textField.setText(newText);
+		EditText textView = getTextField();
+		if (textView != null) {
+			textView.setText(newText);
 		}
 	}
 
@@ -100,12 +111,12 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	}
 
 
-	private void setTextField(@NonNull PreferenceViewHolder holder) {
-		EditText editText = holder.itemView.findViewById(R.id.input_text_input_field);
-		if (editText != null) {
-			textField = editText;
+	private void setTextField(EditText textField) {
+		if (textField != null) {
+			setTextChangedListener(textField);
+			ignoreEnter(textField);
+			setTextFieldIcon(textField, getIconResource());
 			textField.setText(text);
-			setTextFieldIcon(getIconResource());
 		}
 	}
 
@@ -113,7 +124,7 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	/**
 	 * Sets an icon in the text field, if available. Note, that this is different from the preference icon.
 	 */
-	private void setTextFieldIcon(int icon) {
+	private void setTextFieldIcon(@NonNull EditText textField, int icon) {
 		if (icon == 0) {
 			return;
 		}
@@ -132,11 +143,26 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	}
 
 
+	private void setTextChangedListener(@Nullable EditText textField) {
+		if (textField == null) {
+			return;
+		}
+
+		Object tag = textField.getTag();
+		if (tag instanceof TextChangeWatcher) {
+			textField.removeTextChangedListener((TextChangeWatcher) tag);
+		}
+
+		TextChangeWatcher watcher = new TextChangeWatcher(this::checkTextChange);
+		textField.addTextChangedListener(watcher);
+		textField.setTag(watcher);
+	}
+
+
 	/**
 	 * Internal text change detector that calls the onTextChange() when needed.
 	 */
-	@Override
-	public void afterTextChanged(Editable txt) {
+	private void checkTextChange(Editable txt) {
 		String newText = txt != null ? txt.toString() : "";
 		if (!text.equals(newText)) {
 			text = newText;
@@ -145,19 +171,11 @@ abstract public class TextInputPreference extends ScreenPreference implements Te
 	}
 
 
-	// unused
-	@Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-	@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-
 	/**
 	 * This prevents IllegalStateException "focus search returned a view that wasn't able to take focus!",
 	 * which is thrown when the EditText is focused and it receives a simulated ENTER key event.
 	 */
-	private void ignoreEnter() {
+	private void ignoreEnter(@NonNull EditText textField) {
 		textField.setOnKeyListener((v, keyCode, e) -> keyCode == KeyEvent.KEYCODE_ENTER);
 	}
-
-
-	abstract protected void onTextChange();
 }
