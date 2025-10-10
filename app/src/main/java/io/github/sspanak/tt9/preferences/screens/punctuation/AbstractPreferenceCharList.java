@@ -5,7 +5,6 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.PreferenceViewHolder;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.languages.Language;
@@ -25,15 +24,6 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 	AbstractPreferenceCharList(@NonNull Context context) { super(context); }
 
 
-	@Override
-	public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-		super.onBindViewHolder(holder);
-		if (!isInitialized && holder.itemView.findViewById(R.id.input_text_input_field) != null) {
-			isInitialized = true;
-			onLanguageChange(language);
-		}
-	}
-
 	protected SettingsStore getSettings() {
 		if (settings == null) {
 			settings = new SettingsStore(getContext());
@@ -51,9 +41,6 @@ abstract class AbstractPreferenceCharList extends TextInputPreference {
 
 	void onLanguageChange(Language language) {
 		this.language = language;
-		if (!isInitialized) {
-			return;
-		}
 
 		String all = getChars();
 		char[] mandatory = getMandatoryChars();
