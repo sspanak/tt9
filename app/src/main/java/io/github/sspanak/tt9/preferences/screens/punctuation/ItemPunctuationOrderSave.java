@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.punctuation;
 
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
@@ -15,8 +16,8 @@ public class ItemPunctuationOrderSave extends ItemClickable {
 		this.clickHandler = clickHandler;
 	}
 
-	ItemPunctuationOrderSave setLanguage(Language language) {
-		if (item != null) {
+	ItemPunctuationOrderSave setLanguage(@Nullable Language language) {
+		if (item != null && language != null) {
 			item.setTitle(item.getContext().getString(R.string.punctuation_order_save, language.getName()));
 		}
 		return this;
