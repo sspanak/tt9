@@ -24,7 +24,7 @@ class ItemSelectZeroKeyCharacter extends ItemDropDown {
 		items.put(".", ".");
 		items.put(",", ",");
 		items.put("\\n", context.getString(R.string.char_newline)); // SharedPreferences return a corrupted string when using the real "\n"... :(
-		items.put(" ", context.getString(R.string.char_space));
+		items.put("", context.getString(R.string.char_space));
 
 		super.populate(items);
 		return this;

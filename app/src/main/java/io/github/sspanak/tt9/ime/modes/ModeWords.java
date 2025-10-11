@@ -319,13 +319,20 @@ class ModeWords extends ModeCheonjiin {
 
 
 	protected boolean loadPreferredChar() {
-		if (digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
-			suggestions.clear();
-			suggestions.add(getPreferredChar());
-			return true;
+		if (!digitSequence.equals(seq.PREFERRED_CHAR_SEQUENCE)) {
+			return false;
 		}
 
-		return false;
+		String preferredChar = getPreferredChar();
+		if (preferredChar == null || preferredChar.isEmpty()) {
+			digitSequence = seq.CHARS_0_SEQUENCE;
+			autoAcceptTimeout = -1;
+			return false;
+		}
+
+		suggestions.clear();
+		suggestions.add(getPreferredChar());
+		return true;
 	}
 
 
@@ -455,6 +462,12 @@ class ModeWords extends ModeCheonjiin {
 		if (digitSequence.isEmpty()) {
 			return false;
 		} else if (seq.startsWithEmojiSequence(digitSequence) && nextDigit != Sequences.CHARS_1_KEY) {
+			return true;
+		}
+
+		// no preferred char is set, so typing "00" should just yield two spaces
+		boolean isTherePreferredChar = getPreferredChar() != null && !getPreferredChar().isEmpty();
+		if (!isTherePreferredChar && nextDigit == Sequences.CHARS_0_KEY && digitSequence.equals(seq.CHARS_0_SEQUENCE)) {
 			return true;
 		}
 

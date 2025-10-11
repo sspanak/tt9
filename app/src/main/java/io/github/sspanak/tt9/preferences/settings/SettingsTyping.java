@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
 
@@ -23,6 +25,7 @@ class SettingsTyping extends SettingsPunctuation {
 		return prefs.getBoolean("backspace_recomposing", true);
 	}
 
+	@NonNull
 	public String getDoubleZeroChar() {
 		String character = prefs.getString("pref_double_zero_char", ".");
 
