@@ -5,7 +5,9 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptions;
 
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
@@ -34,6 +36,22 @@ class SettingsTyping extends SettingsPunctuation {
 
 		// SharedPreferences return a corrupted string when using the real "\n"... :(
 		return  character.equals("\\n") ? "\n" : character;
+	}
+
+	public boolean areEmojisEnabled() {
+		return getOneKeyEmojiMode() != OneKeyEmojiOptions.OPTIONS.NONE;
+	}
+
+	public OneKeyEmojiOptions.OPTIONS getOneKeyEmojiMode() {
+		try {
+			return OneKeyEmojiOptions.OPTIONS.valueOf(prefs.getString(DropDownOneKeyEmoji.NAME, OneKeyEmojiOptions.DEFAULT));
+		} catch (IllegalArgumentException e) {
+			return OneKeyEmojiOptions.OPTIONS.valueOf(OneKeyEmojiOptions.DEFAULT);
+		}
+	}
+
+	public void setDoubleOneEmojiMode(OneKeyEmojiOptions.OPTIONS mode) {
+		prefsEditor.putString(DropDownOneKeyEmoji.NAME, mode.toString()).apply();
 	}
 
 	public boolean getPredictiveMode() {
