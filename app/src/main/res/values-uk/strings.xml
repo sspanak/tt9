@@ -73,6 +73,7 @@
 
 	<string name="pref_numpad_shape_long_space">Довгий пробіл</string>
 	<string name="pref_numpad_width">Ширина</string>
+	<string name="pref_one_key_emoji_simple">Короткий список</string>
 	<string name="pref_predict_word_pairs">Запам’ятовувати пари слів</string>
 	<string name="pref_predict_word_pairs_summary">Запам\'ятовувати часто вживані фрази для покращення пропозицій слів.</string>
 	<string name="pref_privacy_policy">Політика конфіденційності</string>
@@ -247,4 +248,6 @@
 	<string name="pref_quick_switch_language">Швидке перемикання мов</string>
 	<string name="punctuation_order_initial">Початкові символи</string>
 	<string name="punctuation_order_group">Груповані символи (необов’язково)</string>
+	<string name="pref_one_key_emoji">Емодзі на клавіші 1</string>
+	<string name="pref_one_key_emoji_none">Без емодзі</string>
 </resources>

@@ -44,6 +44,7 @@
 	<string name="pref_choose_languages">Talen</string>
 	<string name="pref_numpad_shape_long_space">Lange spatiebalk</string>
 	<string name="pref_numpad_width">Breedte</string>
+	<string name="pref_one_key_emoji_simple">Korte lijst</string>
 	<string name="pref_predict_word_pairs">Woordenparen leren</string>
 	<string name="pref_predict_word_pairs_summary">Veelgebruikte zinnen onthouden om de nauwkeurigheid van suggesties te verbeteren.</string>
 	<string name="pref_privacy_policy">Privacybeleid</string>
@@ -237,4 +238,6 @@
 	<string name="pref_quick_switch_language">Snel schakelen tussen talen</string>
 	<string name="punctuation_order_initial">Initiële tekens</string>
 	<string name="punctuation_order_group">Gegroepeerde tekens (optioneel)</string>
+	<string name="pref_one_key_emoji">Emoji op de 1-toets</string>
+	<string name="pref_one_key_emoji_none">Geen emoji</string>
 </resources>
