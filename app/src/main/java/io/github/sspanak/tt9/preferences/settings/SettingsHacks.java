@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
+import io.github.sspanak.tt9.preferences.screens.appearance.PrecalculateNavbarHeightSwitch;
 import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
 import io.github.sspanak.tt9.preferences.screens.debug.DropDownLogLevel;
 import io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime;
@@ -83,7 +84,7 @@ class SettingsHacks extends BaseSettings {
 	 * @see <a href="https://github.com/sspanak/tt9/issues/755">extra space at the bottom of the layout</a>
 	 */
 	public boolean getPrecalculateNavbarHeight() {
-		return prefs.getBoolean("hack_precalculate_navbar_height_v3", !DeviceInfo.IS_SAMSUNG);
+		return prefs.getBoolean(PrecalculateNavbarHeightSwitch.NAME, !DeviceInfo.IS_SAMSUNG);
 	}
 
 
