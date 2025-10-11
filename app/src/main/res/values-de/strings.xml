@@ -44,6 +44,7 @@
 	<string name="pref_choose_languages">Sprachen</string>
 	<string name="pref_numpad_shape_long_space">Lange Leertaste</string>
 	<string name="pref_numpad_width">Breite</string>
+	<string name="pref_one_key_emoji_simple">Kurze Liste</string>
 	<string name="pref_predict_word_pairs">Wortpaare lernen</string>
 	<string name="pref_predict_word_pairs_summary">Häufig verwendete Phrasen merken, um die Genauigkeit der Vorschläge zu verbessern.</string>
 	<string name="pref_privacy_policy">Datenschutzerklärung</string>
@@ -238,4 +239,6 @@
 	<string name="pref_quick_switch_language">Schneller Sprachwechsel</string>
 	<string name="punctuation_order_initial">Anfangszeichen</string>
 	<string name="punctuation_order_group">Gruppierte Zeichen (optional)</string>
+	<string name="pref_one_key_emoji">Emojis auf der 1-Taste</string>
+	<string name="pref_one_key_emoji_none">Keine Emojis</string>
 </resources>
