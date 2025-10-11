@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.Key;
@@ -20,12 +21,12 @@ public class AppHacks {
 	private static boolean previousWasMessengerChat = false;
 
 
-	private final InputType inputType;
-	private final TextField textField;
-	private final TextSelection textSelection;
+	@Nullable private final InputType inputType;
+	@Nullable private final TextField textField;
+	@Nullable private final TextSelection textSelection;
 
 
-	public AppHacks(InputType inputType, TextField textField, TextSelection textSelection) {
+	public AppHacks(@Nullable InputType inputType, @Nullable TextField textField, @Nullable TextSelection textSelection) {
 		this.inputType = inputType;
 		this.textField = textField;
 		this.textSelection = textSelection;
@@ -37,6 +38,10 @@ public class AppHacks {
 	 * Performs extra operations when setting composing text for apps that do not do it properly themselves.
 	 */
 	public void setComposingText(@NonNull String word) {
+		if (inputType == null || textField == null) {
+			return;
+		}
+
 		if (inputType.isWhatsApp() && Text.isGraphic(word)) {
 			textField.setComposingText("");
 		}
@@ -51,6 +56,10 @@ public class AppHacks {
 	 * Also, performs extra operations when setting composing text for apps that do not do it properly themselves.
 	 */
 	public void setComposingTextWithHighlightedStem(@NonNull String word, InputMode inputMode) {
+		if (inputType == null || textField == null) {
+			return;
+		}
+
 		if (inputType.isKindleInvertedTextField()) {
 			textField.setComposingText(word);
 			return;
@@ -70,6 +79,10 @@ public class AppHacks {
 	 * returned, you must not attempt to delete text. This function has already done everything necessary.
 	 */
 	public boolean onBackspace(@NonNull SettingsStore settings, @NonNull InputMode inputMode) {
+		if (inputType == null || textField == null || textSelection == null) {
+			return false;
+		}
+
 		if (inputType.isKindleInvertedTextField()) {
 			inputMode.clearWordStem();
 		} else if (inputType.isTermux()) {
@@ -93,7 +106,7 @@ public class AppHacks {
 	 * Returns "true" if the action was handled, "false" otherwise.
 	 */
 	public boolean onAction(int action) {
-		if (inputType.isSonimSearchField(action)) {
+		if (inputType != null && textField != null && inputType.isSonimSearchField(action)) {
 			return textField.sendDownUpKeyEvents(KeyEvent.KEYCODE_ENTER);
 		}
 
@@ -106,6 +119,10 @@ public class AppHacks {
 	 * moving the usual way.
 	 */
 	public boolean onMoveCursor(boolean backward) {
+		if (inputType == null || textField == null) {
+			return false;
+		}
+
 		if (inputType.isRustDesk() || inputType.isTermux()) {
 			return textField.sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
 		}
@@ -134,7 +151,7 @@ public class AppHacks {
 		int candidatesStart,
 		int candidatesEnd
 	) {
-		if (CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
+		if (textField != null && CursorOps.isInputReset(oldSelStart, oldSelEnd, newSelStart, newSelEnd, candidatesStart, candidatesEnd) && textField.isEmpty()) {
 			inputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
 			inputMode.reset();
 			return true;
@@ -151,6 +168,10 @@ public class AppHacks {
 	 * it does nothing and return "false", signaling the system we have ignored the key press.
 	 */
 	public boolean onEnter() {
+		if (inputType == null || textField == null) {
+			return false;
+		}
+
 		if (inputType.isTermux() || inputType.isMultilineTextInNonSystemApp()) {
 			// Termux supports only ENTER, so we convert DPAD_CENTER for it.
 			// Any extra installed apps are likely not designed for hardware keypads, so again,

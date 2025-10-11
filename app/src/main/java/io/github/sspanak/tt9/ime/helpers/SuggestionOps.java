@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
+import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -23,13 +24,15 @@ public class SuggestionOps {
 	@NonNull private final ConsumerCompat<String> onDelayedAccept;
 
 	@Nullable protected SuggestionsBar suggestionBar;
+	@Nullable private AppHacks appHacks;
 	@NonNull private TextField textField;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
+		this.appHacks = appHacks;
 		this.textField = textField != null ? textField : new TextField(ims, null, null);
 
 		if (settings != null && mainView != null && onSuggestionClick != null) {
@@ -44,7 +47,8 @@ public class SuggestionOps {
 	}
 
 
-	public void setTextField(@NonNull TextField textField) {
+	public void setDependencies(@NonNull AppHacks appHacks, @NonNull TextField textField) {
+		this.appHacks = appHacks;
 		this.textField = textField;
 	}
 
@@ -67,7 +71,11 @@ public class SuggestionOps {
 
 	public void clear() {
 		set(null);
-		textField.setComposingText("");
+		if (appHacks == null) {
+			textField.setComposingText("");
+		} else {
+			appHacks.setComposingText("");
+		}
 		textField.finishComposingText();
 	}
 
@@ -151,7 +159,11 @@ public class SuggestionOps {
 	public void commitCurrent(boolean entireSuggestion, boolean clearList) {
 		if (!isEmpty()) {
 			if (entireSuggestion) {
-				textField.setComposingText(getCurrent());
+				if (appHacks == null) {
+					textField.setComposingText(getCurrent());
+				} else {
+					appHacks.setComposingText(getCurrent());
+				}
 			}
 			textField.finishComposingText();
 		}
