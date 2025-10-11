@@ -31,6 +31,7 @@ public class DropDownZeroKeyCharacter extends EnhancedDropDownPreference {
 		add("", R.string.char_space);
 		commitOptions();
 		setValue(settings.getDoubleZeroChar());
+		setDefaultValue(DEFAULT);
 
 		return this;
 	}

@@ -243,7 +243,10 @@ class ModeCheonjiin extends InputMode {
 
 
 	protected boolean shouldDisplayEmojis() {
-		return !isEmailMode && digitSequence.startsWith(seq.EMOJI_SEQUENCE);
+		return
+			!isEmailMode
+			&& settings.areEmojisEnabled()
+			&& digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
 
