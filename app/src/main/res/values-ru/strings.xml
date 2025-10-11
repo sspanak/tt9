@@ -29,6 +29,7 @@
 	<string name="dictionary_truncate_title">Удалить все</string>
 	<string name="pref_numpad_shape_long_space">Длинный пробел</string>
 	<string name="pref_numpad_width">Ширина</string>
+	<string name="pref_one_key_emoji_simple">Краткий список</string>
 	<string name="pref_predict_word_pairs">Запоминать пары слов</string>
 	<string name="pref_predict_word_pairs_summary">Запоминать часто используемые фразы для улучшения предложений слов.</string>
 	<string name="pref_privacy_policy">Политика конфиденциальности</string>
@@ -236,4 +237,6 @@
 	<string name="pref_quick_switch_language">Быстрое переключение языков</string>
 	<string name="punctuation_order_initial">Начальные символы</string>
 	<string name="punctuation_order_group">Группированные символы (необязательно)</string>
+	<string name="pref_one_key_emoji">Эмодзи на клавише 1</string>
+	<string name="pref_one_key_emoji_none">Без эмодзи</string>
 </resources>

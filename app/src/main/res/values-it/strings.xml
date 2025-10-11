@@ -47,6 +47,7 @@
 
 	<string name="pref_numpad_shape_long_space">Barra spaziatrice lunga</string>
 	<string name="pref_numpad_width">Larghezza</string>
+	<string name="pref_one_key_emoji_simple">Elenco breve</string>
 	<string name="pref_predict_word_pairs">Memorizzare coppie di parole</string>
 	<string name="pref_predict_word_pairs_summary">Ricordare frasi comunemente usate per migliorare i suggerimenti di parole.</string>
 	<string name="pref_privacy_policy">Informativa sulla privacy</string>
@@ -239,5 +240,7 @@
 	<string name="pref_quick_switch_language">Cambio rapido lingua</string>
 	<string name="punctuation_order_initial">Caratteri iniziali</string>
 	<string name="punctuation_order_group">Caratteri raggruppati (opzionale)</string>
+	<string name="pref_one_key_emoji">Emoji sul tasto 1</string>
+	<string name="pref_one_key_emoji_none">Nessuna emoji</string>
 </resources>
 

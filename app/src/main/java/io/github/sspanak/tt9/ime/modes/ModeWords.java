@@ -471,6 +471,11 @@ class ModeWords extends ModeCheonjiin {
 			return true;
 		}
 
+		// when emojis are disabled, we just type punctuation marks on every key press
+		if (!settings.areEmojisEnabled() && seq.startsWithEmojiSequence(digitSequence + nextDigit)) {
+			return true;
+		}
+
 		// Prevent typing the preferred character when the user has scrolled the special char suggestions.
 		// For example, it makes more sense to allow typing "+ " with 0 + scroll + 0, instead of clearing
 		// the "+" and replacing it with the preferred character.

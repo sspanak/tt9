@@ -1,9 +1,8 @@
 package io.github.sspanak.tt9.preferences.screens.modePredictive;
 
-import androidx.preference.Preference;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class ModePredictiveScreen extends BaseScreenFragment {
@@ -18,9 +17,13 @@ public class ModePredictiveScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		Preference selectZeroKeyCharacter = findPreference(DropDownZeroKeyCharacter.NAME);
-		if (selectZeroKeyCharacter instanceof DropDownZeroKeyCharacter) {
-			((DropDownZeroKeyCharacter) selectZeroKeyCharacter).populate(activity.getSettings()).preview();
+		EnhancedDropDownPreference[] dropdowns = {
+			findPreference(DropDownOneKeyEmoji.NAME),
+			findPreference(DropDownZeroKeyCharacter.NAME),
+		};
+
+		for (EnhancedDropDownPreference dropdown : dropdowns) {
+			if (dropdown != null) dropdown.populate(activity.getSettings()).preview();
 		}
 
 		resetFontSize(false);

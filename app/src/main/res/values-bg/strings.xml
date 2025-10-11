@@ -28,6 +28,7 @@
 	<string name="dictionary_truncate_title">Изтрий всички</string>
 	<string name="pref_numpad_shape_long_space">Дълъг интервал</string>
 	<string name="pref_numpad_width">Ширина</string>
+	<string name="pref_one_key_emoji_simple">Кратък списък</string>
 	<string name="pref_predict_word_pairs">Запомняне на двойки думи</string>
 	<string name="pref_predict_word_pairs_summary">Запомняй често ползвани фрази, за по-точно подсказване на думи.</string>
 	<string name="pref_privacy_policy">Политика за поверителност</string>
@@ -236,4 +237,6 @@
 	<string name="punctuation_order_initial">Начални символи</string>
 	<string name="punctuation_order_group">Групирани символи (по избор)</string>
 	<string name="punctuation_order_include_newline">Добави нов ред</string>
+	<string name="pref_one_key_emoji">Емотикони на бутон „1“</string>
+	<string name="pref_one_key_emoji_none">Без емотикони</string>
 </resources>
