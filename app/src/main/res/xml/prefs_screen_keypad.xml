@@ -39,9 +39,7 @@
 			android:key="screen_hotkeys"
 			android:title="@string/pref_category_function_keys" />
 
-		<DropDownPreference
-			android:key="pref_key_pad_debounce_time"
-			android:title="@string/pref_hack_key_pad_debounce_time" />
+		<io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime android:title="@string/pref_hack_key_pad_debounce_time" />
 
 		<SwitchPreferenceCompat
 			android:defaultValue="false"

@@ -4,11 +4,14 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
+import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
+
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
 
 	public int getAbcAutoAcceptTimeout() {
-		int time = getStringifiedInt("pref_abc_auto_accept_time", 800);
+		int time = getStringifiedInt(DropDownAbcAutoAcceptTime.NAME, DropDownAbcAutoAcceptTime.DEFAULT);
 		return time > 0 ? time + getKeyPadDebounceTime() : time;
 	}
 	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
@@ -27,7 +30,7 @@ class SettingsTyping extends SettingsPunctuation {
 
 	@NonNull
 	public String getDoubleZeroChar() {
-		String character = prefs.getString("pref_double_zero_char", ".");
+		String character = prefs.getString(DropDownZeroKeyCharacter.NAME, DropDownZeroKeyCharacter.DEFAULT);
 
 		// SharedPreferences return a corrupted string when using the real "\n"... :(
 		return  character.equals("\\n") ? "\n" : character;

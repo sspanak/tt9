@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.ui.UI;
 
 public class PunctuationScreen extends BaseScreenFragment {
 	public static final String NAME = "Punctuation";
-	private ItemPunctuationOrderLanguage languageList;
+	@Nullable private DropDownPunctuationOrderLanguage languageList;
 	private ItemRestoreDefaultPunctuation restoreDefaults;
 	private ItemPunctuationOrderSave saveOrder;
 	private final ArrayList<AbstractPreferenceCharList> charLists = new ArrayList<>();
@@ -54,26 +54,29 @@ public class PunctuationScreen extends BaseScreenFragment {
 		}
 
 		initLanguageList();
-		Language initalLanguage = LanguageCollection.getLanguage(languageList.getValue());
+		Language initalLanguage = languageList != null ? LanguageCollection.getLanguage(languageList.getValue()) : null;
 		initResetDefaults(initalLanguage);
 		initSaveButton(initalLanguage);
 		initIncludeSwitches(initalLanguage);
-		loadCharLists();
+		loadCharLists(initalLanguage);
 		resetFontSize(false);
 	}
 
 
 	private void initLanguageList() {
-		languageList = (new ItemPunctuationOrderLanguage(activity.getSettings(), findPreference(ItemPunctuationOrderLanguage.NAME)));
+		languageList = findPreference(DropDownPunctuationOrderLanguage.NAME);
+		if (languageList == null) {
+			return;
+		}
+
 		languageList
-			.onChange(this::onLanguageChanged)
-			.enableClickHandler()
-			.populate()
+			.setOnChangeHandler(this::onLanguageChanged)
+			.populate(activity.getSettings())
 			.preview();
 	}
 
 
-	private void initIncludeSwitches(Language language) {
+	private void initIncludeSwitches(@Nullable Language language) {
 		PreferenceIncludeTab includeTab = findPreference(PreferenceIncludeTab.NAME);
 		if (includeTab != null && language != null) {
 			includeTab.setLanguage(activity.getSettings(), language);
@@ -88,7 +91,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	}
 
 
-	private void initSaveButton(Language initialLanguage) {
+	private void initSaveButton(@Nullable Language initialLanguage) {
 		Preference item = findPreference(ItemPunctuationOrderSave.NAME);
 		if (item != null) {
 			saveOrder = new ItemPunctuationOrderSave(item, this::onSaveOrdering).setLanguage(initialLanguage);
@@ -97,7 +100,7 @@ public class PunctuationScreen extends BaseScreenFragment {
 	}
 
 
-	private void initResetDefaults(Language initialLanguage) {
+	private void initResetDefaults(@Nullable Language initialLanguage) {
 		Preference item = findPreference(ItemRestoreDefaultPunctuation.NAME);
 		if (item == null) {
 			return;
@@ -139,12 +142,16 @@ public class PunctuationScreen extends BaseScreenFragment {
 	}
 
 
-	private void loadCharLists() {
+	private void loadCharLists(@Nullable Language initialLanguage) {
+		if (initialLanguage == null) {
+			 return;
+		}
+
 		if (activity != null) {
 			for (Language lang : LanguageCollection.getAll(activity.getSettings().getEnabledLanguageIds())) {
 				activity.getSettings().setDefaultCharOrder(lang, false);
 			}
 		}
-		onLanguageChanged(languageList.getValue());
+		onLanguageChanged(String.valueOf(initialLanguage.getId()));
 	}
 }

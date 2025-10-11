@@ -20,8 +20,6 @@ public class DebugScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		(new ItemLogLevel(findPreference(ItemLogLevel.NAME))).populate().preview().enableClickHandler();
-		(new ItemInputHandlingMode(findPreference(ItemInputHandlingMode.NAME), activity.getSettings())).populate().preview().enableClickHandler();
 		(new ItemText(activity, findPreference(DEVICE_INFO_CONTAINER))).populate(new DeviceInfo().toString()).enableClickHandler();
 		(new ItemExportLogcat(findPreference(ItemExportLogcat.NAME), activity)).enableClickHandler();
 		(new ItemDemoMode(findPreference(ItemDemoMode.NAME), activity)).populate().enableClickHandler();

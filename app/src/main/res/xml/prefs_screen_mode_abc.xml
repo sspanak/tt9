@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<DropDownPreference
-		android:defaultValue="800"
-		android:key="pref_abc_auto_accept_time"
-		android:title="@string/pref_abc_auto_accept" />
+	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
 </androidx.preference.PreferenceScreen>

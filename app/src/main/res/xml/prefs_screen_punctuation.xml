@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
-	<DropDownPreference
-		android:key="punctuation_order_language"
-		android:title="@string/language" />
+	<io.github.sspanak.tt9.preferences.screens.punctuation.DropDownPunctuationOrderLanguage android:title="@string/language" />
 
 	<PreferenceCategory
 		android:title="@string/punctuation_order_key_1">

@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.modePredictive;
 
+import androidx.preference.Preference;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
@@ -16,7 +18,11 @@ public class ModePredictiveScreen extends BaseScreenFragment {
 
 	@Override
 	protected void onCreate() {
-		new ItemSelectZeroKeyCharacter(findPreference(ItemSelectZeroKeyCharacter.NAME), activity).populate().enableClickHandler().preview();
+		Preference selectZeroKeyCharacter = findPreference(DropDownZeroKeyCharacter.NAME);
+		if (selectZeroKeyCharacter instanceof DropDownZeroKeyCharacter) {
+			((DropDownZeroKeyCharacter) selectZeroKeyCharacter).populate(activity.getSettings()).preview();
+		}
+
 		resetFontSize(false);
 	}
 }

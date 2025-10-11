@@ -2,7 +2,9 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
-import io.github.sspanak.tt9.preferences.screens.debug.ItemInputHandlingMode;
+import io.github.sspanak.tt9.preferences.screens.debug.DropDownInputHandlingMode;
+import io.github.sspanak.tt9.preferences.screens.debug.DropDownLogLevel;
+import io.github.sspanak.tt9.preferences.screens.keypad.DropDownKeyPadDebounceTime;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
@@ -22,7 +24,7 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public int getLogLevel() {
-		return getStringifiedInt("pref_log_level", Logger.LEVEL);
+		return getStringifiedInt(DropDownLogLevel.NAME, Logger.LEVEL);
 	}
 
 	public boolean getEnableSystemLogs() {
@@ -30,7 +32,7 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public int getInputHandlingMode() {
-		return getStringifiedInt("pref_input_handling_mode", ItemInputHandlingMode.NORMAL);
+		return getStringifiedInt(DropDownInputHandlingMode.NAME, DropDownInputHandlingMode.NORMAL);
 	}
 
 
@@ -54,7 +56,7 @@ class SettingsHacks extends BaseSettings {
 	public int getKeyPadDebounceTime() {
 		int defaultTime = DeviceInfo.IS_CAT_S22_FLIP ? 50 : 0;
 		defaultTime = DeviceInfo.IS_QIN_F21 ? 20 : defaultTime;
-		return getStringifiedInt("pref_key_pad_debounce_time", defaultTime);
+		return getStringifiedInt(DropDownKeyPadDebounceTime.NAME, defaultTime);
 	}
 
 	public boolean getSystemLogs() {

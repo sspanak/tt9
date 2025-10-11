@@ -1,9 +1,11 @@
 package io.github.sspanak.tt9.preferences.screens.keypad;
 
+import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
+import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class KeyPadScreen extends BaseScreenFragment {
@@ -23,7 +25,10 @@ public class KeyPadScreen extends BaseScreenFragment {
 	}
 
 	private void createPhysicalKeysSection() {
-		(new ItemKeyPadDebounceTime(findPreference(ItemKeyPadDebounceTime.NAME), activity)).populate().enableClickHandler().preview();
+		Preference debounceTime = findPreference(DropDownKeyPadDebounceTime.NAME);
+		if (debounceTime instanceof DropDownKeyPadDebounceTime) {
+			((DropDownKeyPadDebounceTime) debounceTime).populate(activity.getSettings()).preview();
+		}
 	}
 
 	protected void createVirtualKeysSection() {
