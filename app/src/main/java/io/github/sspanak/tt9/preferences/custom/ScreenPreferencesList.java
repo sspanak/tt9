@@ -57,10 +57,6 @@ public class ScreenPreferencesList {
 	}
 
 	private void add(@NonNull Preference pref, boolean includeCategories) {
-		if (!pref.isVisible()) {
-			return;
-		}
-
 		if (pref instanceof PreferenceCategory) {
 			addCategory((PreferenceCategory) pref);
 		}
