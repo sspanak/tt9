@@ -26,7 +26,6 @@ public class AppearanceScreen extends BaseScreenFragment {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
-		(new ItemPrecalculateNavbarHeight(activity.getSettings(), findPreference(ItemPrecalculateNavbarHeight.NAME))).populate();
 
 		DropDownAlignment alignment = findPreference(DropDownAlignment.NAME);
 		DropDownKeyHeight numpadKeyHeight = findPreference(DropDownKeyHeight.NAME);
@@ -50,7 +49,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 				.addOnChangeItem(numpadShape)
 				.addOnChangeItem(showArrows)
 				.addOnChangeItem(suggestionFontSize)
-				.addOnChangePreference(findPreference("hack_precalculate_navbar_height_v3"))
+				.addOnChangePreference(findPreference(PrecalculateNavbarHeightSwitch.NAME))
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
