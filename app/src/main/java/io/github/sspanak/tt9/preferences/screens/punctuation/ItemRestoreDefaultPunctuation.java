@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.preferences.screens.punctuation;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import io.github.sspanak.tt9.R;
@@ -22,9 +23,9 @@ class ItemRestoreDefaultPunctuation extends ItemClickable {
 		this.settings = settings;
 	}
 
-	ItemRestoreDefaultPunctuation setLanguage(Language language) {
+	ItemRestoreDefaultPunctuation setLanguage(@Nullable Language language) {
 		this.language = language;
-		if (item != null) {
+		if (item != null && language != null) {
 			item.setTitle(item.getContext().getString(R.string.punctuation_order_restore_default_for, language.getName()));
 		}
 		return this;

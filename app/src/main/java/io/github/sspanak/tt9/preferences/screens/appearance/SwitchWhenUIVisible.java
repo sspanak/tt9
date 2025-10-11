@@ -24,6 +24,5 @@ public class SwitchWhenUIVisible extends SwitchPreferenceCompat implements ItemL
 	@Override
 	public void onLayoutChange(int mainViewLayout) {
 		setVisible(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
-		setIconSpaceReserved(false);
 	}
 }

@@ -358,7 +358,7 @@ public class WordPredictions extends Predictions {
 
 		// We are at the end of a word. The user is probably typing a compound word. We do not want to
 		// pair with the first part of the compound word.
-		if (before.endsWithLetter()) {
+		if (before.length() > currentWord.length() && before.toString().endsWith(currentWord) && Character.isAlphabetic(before.toString().charAt(before.length() - currentWord.length() - 1))) {
 			return Characters.END_OF_TEXT;
 		}
 

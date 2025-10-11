@@ -48,8 +48,7 @@
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
 
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="hack_precalculate_navbar_height_v3"
+		<io.github.sspanak.tt9.preferences.screens.appearance.PrecalculateNavbarHeightSwitch
 			app:title="@string/pref_hack_precalculate_navbar_height"
 			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />
 
