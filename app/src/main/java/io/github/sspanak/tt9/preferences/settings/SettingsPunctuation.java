@@ -71,8 +71,8 @@ class SettingsPunctuation extends SettingsInput {
 
 
 	public void saveChars1(@NonNull Language language, @NonNull String chars) {
-		prefsEditor.putString(CHARS_1_PREFIX + language.getId(), chars);
-		prefsEditor.apply();
+		getPrefsEditor().putString(CHARS_1_PREFIX + language.getId(), chars);
+		getPrefsEditor().apply();
 	}
 
 
@@ -80,14 +80,14 @@ class SettingsPunctuation extends SettingsInput {
 		String safeChars = chars
 			.replace("\n", "⏎")
 			.replace("\t", Characters.TAB);
-		prefsEditor.putString(CHARS_0_PREFIX + language.getId(), safeChars);
-		prefsEditor.apply();
+		getPrefsEditor().putString(CHARS_0_PREFIX + language.getId(), safeChars);
+		getPrefsEditor().apply();
 	}
 
 
 	public void saveCharsExtra(@NonNull Language language, @NonNull String listKey, @NonNull String chars) {
-		prefsEditor.putString(listKey + "_" + language.getId(), chars);
-		prefsEditor.apply();
+		getPrefsEditor().putString(listKey + "_" + language.getId(), chars);
+		getPrefsEditor().apply();
 	}
 
 
@@ -200,8 +200,8 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 	public void setIncludeNewlineInChars0(@NonNull Language language, boolean include) {
-		prefsEditor.putBoolean("punctuation_order_include_newline_" + language.getId(), include);
-		prefsEditor.apply();
+		getPrefsEditor().putBoolean("punctuation_order_include_newline_" + language.getId(), include);
+		getPrefsEditor().apply();
 	}
 
 	public boolean getIncludeTabInChars0(@NonNull Language language) {
@@ -209,7 +209,7 @@ class SettingsPunctuation extends SettingsInput {
 	}
 
 	public void setIncludeTabInChars0(@NonNull Language language, boolean include) {
-		prefsEditor.putBoolean("punctuation_order_include_tab_" + language.getId(), include);
-		prefsEditor.apply();
+		getPrefsEditor().putBoolean("punctuation_order_include_tab_" + language.getId(), include);
+		getPrefsEditor().apply();
 	}
 }

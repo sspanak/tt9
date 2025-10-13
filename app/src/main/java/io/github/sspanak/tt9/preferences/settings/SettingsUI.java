@@ -59,11 +59,11 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public void setNotificationsApproved(boolean yes) {
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			"pref_asked_for_notifications_version",
 			Integer.toString(yes ? Integer.MAX_VALUE : BuildConfig.VERSION_CODE)
 		);
-		prefsEditor.apply();
+		getPrefsEditor().apply();
 	}
 
 	public boolean isStatusIconEnabled() {
@@ -96,8 +96,8 @@ public class SettingsUI extends SettingsTyping {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid numpad key alignment: " + alignment);
 		}
 
-		prefsEditor.putString(DropDownAlignment.NAME, Integer.toString(alignment));
-		prefsEditor.apply();
+		getPrefsEditor().putString(DropDownAlignment.NAME, Integer.toString(alignment));
+		getPrefsEditor().apply();
 	}
 
 	public boolean getQuickSwitchLanguage() {
@@ -160,8 +160,8 @@ public class SettingsUI extends SettingsTyping {
 			return;
 		}
 
-		prefsEditor.putString(DropDownLayoutType.NAME, Integer.toString(layout));
-		prefsEditor.apply();
+		getPrefsEditor().putString(DropDownLayoutType.NAME, Integer.toString(layout));
+		getPrefsEditor().apply();
 	}
 
 	public int getMainViewLayout() {

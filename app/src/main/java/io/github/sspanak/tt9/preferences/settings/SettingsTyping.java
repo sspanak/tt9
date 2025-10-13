@@ -51,7 +51,7 @@ class SettingsTyping extends SettingsPunctuation {
 	}
 
 	public void setDoubleOneEmojiMode(OneKeyEmojiOptions.OPTIONS mode) {
-		prefsEditor.putString(DropDownOneKeyEmoji.NAME, mode.toString()).apply();
+		getPrefsEditor().putString(DropDownOneKeyEmoji.NAME, mode.toString()).apply();
 	}
 
 	public boolean getPredictiveMode() {

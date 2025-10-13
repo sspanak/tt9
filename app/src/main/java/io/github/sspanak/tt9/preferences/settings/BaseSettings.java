@@ -10,13 +10,20 @@ class BaseSettings {
 
 	protected final Context context;
 	protected final SharedPreferences prefs;
-	protected final SharedPreferences.Editor prefsEditor;
+	private SharedPreferences.Editor prefsEditor;
 
 
 	BaseSettings(Context context) {
 		this.context = context;
 		prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		prefsEditor = prefs.edit();
+	}
+
+	public SharedPreferences.Editor getPrefsEditor() {
+		if (prefsEditor == null) {
+			prefsEditor = prefs.edit();
+		}
+
+		return prefsEditor;
 	}
 
 	protected int getStringifiedInt(String key, int defaultValue) {

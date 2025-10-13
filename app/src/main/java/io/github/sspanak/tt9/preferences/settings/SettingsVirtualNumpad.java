@@ -52,7 +52,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	public FnKeyOrderValidator setFnKeyOrder(String left, String right) {
 		FnKeyOrderValidator validator = new FnKeyOrderValidator(left, right);
 		if (validator.validate()) {
-			prefsEditor
+			getPrefsEditor()
 				.putString("pref_rfn_key_order", right)
 				.putString("pref_lfn_key_order", left)
 				.apply();
