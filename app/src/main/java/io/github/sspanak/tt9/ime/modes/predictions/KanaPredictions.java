@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
@@ -14,7 +13,7 @@ public class KanaPredictions extends IdeogramPredictions {
 	@NonNull private final String STEM_PREFIX;
 	private final int STEM_PREFIX_LENGTH;
 
-	public KanaPredictions(SettingsStore settings, TextField textField, Sequences sequences, boolean isKatakana) {
+	public KanaPredictions(SettingsStore settings, TextField textField, boolean isKatakana) {
 		super(settings, textField);
 
 		SEQUENCE_PREFIX = isKatakana ? "0" : "01";

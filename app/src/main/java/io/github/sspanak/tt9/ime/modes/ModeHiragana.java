@@ -14,7 +14,7 @@ public class ModeHiragana extends ModeKanji {
 
 	@Override
 	protected void initPredictions() {
-		predictions = new KanaPredictions(settings, textField, seq, false);
+		predictions = new KanaPredictions(settings, textField, false);
 		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
