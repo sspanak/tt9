@@ -14,10 +14,12 @@ public class TextSelection {
 	private int currentStart = 0;
 	private int currentEnd = 0;
 	private final boolean isInputField;
+	private final boolean isUs;
 
 	public TextSelection(@Nullable InputMethodService ims, @Nullable InputType inputType) {
 		this.ims = ims;
 		isInputField = inputType != null && !inputType.isLimited();
+		isUs = inputType != null && inputType.isUs();
 		detectCursorPosition();
 	}
 
@@ -89,12 +91,7 @@ public class TextSelection {
 
 
 	private int getNextWordPosition(boolean backward) {
-		InputConnection connection = getConnection();
-		if (connection == null) {
-			return currentEnd + (backward ? -1 : 1);
-		}
-
-		ExtractedText extractedText = connection.getExtractedText(new ExtractedTextRequest(), 0);
+		ExtractedText extractedText = InputConnectionAsync.getExtractedText(isUs, getConnection(), new ExtractedTextRequest(), 0);
 		if (extractedText == null) {
 			return currentEnd + (backward ? -1 : 1);
 		}
@@ -118,7 +115,7 @@ public class TextSelection {
 
 
 	private void detectCursorPosition() {
-		ExtractedText extractedText = InputConnectionAsync.getExtractedText(getConnection(), new ExtractedTextRequest(), 0);
+		ExtractedText extractedText = InputConnectionAsync.getExtractedText(isUs, getConnection(), new ExtractedTextRequest(), 0);
 		if (extractedText != null && extractedText.text != InputConnectionAsync.TIMEOUT_SENTINEL) {
 			currentStart = extractedText.startOffset + extractedText.selectionStart;
 			currentEnd = extractedText.startOffset + extractedText.selectionEnd;
@@ -127,7 +124,7 @@ public class TextSelection {
 
 
 	public CharSequence getSelectedText() {
-		ExtractedText extractedText = InputConnectionAsync.getExtractedText(getConnection(), new ExtractedTextRequest(), 0);
+		ExtractedText extractedText = InputConnectionAsync.getExtractedText(isUs, getConnection(), new ExtractedTextRequest(), 0);
 		if (extractedText == null || extractedText.text == InputConnectionAsync.TIMEOUT_SENTINEL) {
 			return "";
 		}

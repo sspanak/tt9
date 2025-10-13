@@ -25,6 +25,7 @@ public class TextField extends InputField {
 	@NonNull private CharSequence composingText = "";
 	private final boolean isComposingSupported;
 	private final boolean isNonText;
+	private final boolean isUs;
 
 
 	public TextField(@Nullable InputMethodService ims, SettingsStore settings, EditorInfo inputField) {
@@ -36,6 +37,7 @@ public class TextField extends InputField {
 			&& !inputType.isRustDesk() && !inputType.isRedditSearchField() // stupid apps
 			&& (settings == null || settings.getAllowComposingText()); // disabled in settings
 		isNonText = !inputType.isText();
+		isUs = inputType.isUs();
 	}
 
 
@@ -50,13 +52,13 @@ public class TextField extends InputField {
 
 
 	@NonNull public String getStringAfterCursor(int numberOfChars) {
-		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextAfterCursor(getConnection(), numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextAfterCursor(isUs, getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
 
 	@NonNull public String getStringBeforeCursor(int numberOfChars) {
-		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextBeforeCursor(getConnection(), numberOfChars, 0) : null;
+		CharSequence chars = numberOfChars > 0 ? InputConnectionAsync.getTextBeforeCursor(isUs, getConnection(), numberOfChars, 0) : null;
 		return chars != null ? chars.toString() : "";
 	}
 
