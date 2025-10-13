@@ -28,13 +28,13 @@ abstract class UiHandler extends AbstractHandler {
 			initTray();
 		} else {
 			mainView.destroy();
-			setInputView(mainView.getView());
+			mainView.getView();
 		}
 	}
 
 
 	protected void initTray() {
-		setInputView(mainView.getView());
+		mainView.getView();
 		createSuggestionBar();
 		getSuggestionOps().setDarkTheme();
 		statusBar = new StatusBar(this, settings, mainView.getView(), this::resetStatus);

@@ -59,8 +59,14 @@ public class TraditionalT9 extends PremiumHandler {
 		initTray();
 		statusBar.setText(mInputMode);
 		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
+		mainView.render();
 
 		return mainView.getView();
+	}
+
+
+	public void setCurrentView() {
+		setInputView(onCreateInputView());
 	}
 
 
@@ -124,8 +130,12 @@ public class TraditionalT9 extends PremiumHandler {
 		zombieChecks = 0;
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
-		LanguageCollection.init(this);
-		DataStore.init(this);
+
+		new Thread(() -> {
+			LanguageCollection.init(getApplicationContext());
+			DataStore.init(getApplicationContext());
+		}).start();
+
 		super.onInit();
 	}
 

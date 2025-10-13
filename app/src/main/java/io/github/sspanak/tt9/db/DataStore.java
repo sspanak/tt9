@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.db;
 import android.content.Context;
 import android.os.CancellationSignal;
 import android.os.Handler;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 
@@ -25,7 +26,7 @@ import io.github.sspanak.tt9.util.Logger;
 public class DataStore {
 	private final static String LOG_TAG = DataStore.class.getSimpleName();
 
-	private static final Handler asyncReturn = new Handler();
+	private static final Handler returnToMain = new Handler(Looper.getMainLooper());
 	private static final ExecutorService executor = Executors.newCachedThreadPool();
 
 	private static Future<?> getWordsTask;
@@ -105,7 +106,7 @@ public class DataStore {
 	private static void getWordsSync(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, boolean orderByLength, int minWords, int maxWords) {
 		try {
 			ArrayList<String> data = words.getMany(getWordsCancellationSignal, language, sequence, onlyExactSequence, filter, orderByLength, minWords, maxWords);
-			asyncReturn.post(() -> dataHandler.accept(data));
+			returnToMain.post(() -> dataHandler.accept(data));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Error fetching words: " + e.getMessage());
 		}
@@ -123,16 +124,14 @@ public class DataStore {
 
 
 	public static void getCustomWords(ConsumerCompat<ArrayList<CustomWord>> dataHandler, String wordFilter, int maxWords) {
-		runInThread(() -> {
-			asyncReturn.post(() -> dataHandler.accept(words.getSimilarCustom(wordFilter, maxWords)));
-		});
+		runInThread(() -> returnToMain.post(() -> dataHandler.accept(words.getSimilarCustom(wordFilter, maxWords))));
 	}
 
 
 	public static void countCustomWords(ConsumerCompat<Long> dataHandler) {
 		runInThread(() -> {
 			long data = words.countCustom();
-			asyncReturn.post(() -> dataHandler.accept(data));
+			returnToMain.post(() -> dataHandler.accept(data));
 		});
 	}
 
@@ -140,7 +139,7 @@ public class DataStore {
 	public static void exists(ConsumerCompat<ArrayList<Integer>> dataHandler, ArrayList<Language> languages) {
 		runInThread(() -> {
 			ArrayList<Integer> data = words.exists(languages);
-			asyncReturn.post(() -> dataHandler.accept(data));
+			returnToMain.post(() -> dataHandler.accept(data));
 		});
 	}
 

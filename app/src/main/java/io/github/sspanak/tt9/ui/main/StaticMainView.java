@@ -51,7 +51,7 @@ public class StaticMainView {
 		}
 
 		main = newMain;
-		main.render();
+
 		return true;
 	}
 
