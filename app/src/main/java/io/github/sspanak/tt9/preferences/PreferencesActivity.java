@@ -43,13 +43,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 		getSettings();
 		applyTheme();
 		Logger.setLevel(settings.getLogLevel());
-
-		LanguageCollection.init(this);
-		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
-		DataStore.init(this);
-
-		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
-		validateFunctionKeys();
+		new Thread(this::initSecondaryTasks).start();
 
 		super.onCreate(savedInstanceState);
 
@@ -59,6 +53,16 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 		getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 		buildLayout();
+	}
+
+
+	private void initSecondaryTasks() {
+		LanguageCollection.init(this);
+		try (LegacyDb db = new LegacyDb(this)) { db.clear(); }
+		DataStore.init(this);
+
+		InputModeValidator.validateEnabledLanguages(settings.getEnabledLanguageIds());
+		validateFunctionKeys();
 	}
 
 

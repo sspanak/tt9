@@ -16,9 +16,11 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 public class LanguageCollection {
 	private static LanguageCollection self;
 
-	private final HashMap<Integer, NaturalLanguage> languages = new HashMap<>();
+	private final HashMap<Integer, NaturalLanguage> languages;
 
 	private LanguageCollection(Context context) {
+		languages = new HashMap<>();
+
 		for (LanguageDefinition definition : LanguageDefinition.getAll(context.getAssets())) {
 			try {
 				NaturalLanguage lang = NaturalLanguage.fromDefinition(definition);

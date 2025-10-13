@@ -4,6 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -37,22 +38,23 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	}
 
 
+	@Nullable
+	@Override
+	public View getView() {
+		final View view = super.getView();
+		if (view != null) {
+			view.removeOnAttachStateChangeListener(this);
+			view.addOnAttachStateChangeListener(this);
+			vibration = new Vibration(tt9.getSettings(), view);
+		}
+
+		return view;
+	}
+
+
 	@Override
 	public boolean create() {
-		if (!super.create()) {
-			return false;
-		}
-
-		if (main == null) {
-			return false;
-		}
-
-		main.getView().removeOnAttachStateChangeListener(this);
-		main.getView().addOnAttachStateChangeListener(this);
-
-		vibration = new Vibration(tt9.getSettings(), main.getView());
-
-		return true;
+		return super.create() && main != null;
 	}
 
 
@@ -151,13 +153,13 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		if (settings.isMainLayoutTray()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
 			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else {
@@ -176,14 +178,14 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		if (settings.isMainLayoutSmall()) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_TRAY);
 			height = heightTray;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			fitMain();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (!changeHeight(delta, heightSmall, heightNumpad)) {
 			settings.setMainViewLayout(SettingsStore.LAYOUT_SMALL);
 			height = heightSmall;
-			tt9.onCreateInputView();
+			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		}
