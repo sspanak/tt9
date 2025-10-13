@@ -61,8 +61,8 @@ class SettingsInput extends SettingsHacks {
 			return;
 		}
 
-		prefsEditor.putStringSet("pref_languages", validLanguageIds);
-		prefsEditor.apply();
+		getPrefsEditor().putStringSet("pref_languages", validLanguageIds);
+		getPrefsEditor().apply();
 	}
 
 
@@ -73,8 +73,8 @@ class SettingsInput extends SettingsHacks {
 
 	public void saveInputLanguage(int language) {
 		if (Validators.validateInputLanguage(language, "saveInputLanguage")){
-			prefsEditor.putInt("pref_input_language", language);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_input_language", language);
+			getPrefsEditor().apply();
 		}
 	}
 
@@ -87,8 +87,8 @@ class SettingsInput extends SettingsHacks {
 	public void saveInputMode(int mode) {
 		boolean isModeValid = Validators.validateInputMode(mode, LOG_TAG, "Not saving invalid input mode: " + mode);
 		if (isModeValid) {
-			prefsEditor.putInt("pref_input_mode", mode);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_input_mode", mode);
+			getPrefsEditor().apply();
 		}
 	}
 
@@ -101,8 +101,8 @@ class SettingsInput extends SettingsHacks {
 	public void saveTextCase(int textCase) {
 		boolean isTextCaseValid = Validators.validateTextCase(textCase, LOG_TAG,"Not saving invalid text case: " + textCase);
 		if (isTextCaseValid) {
-			prefsEditor.putInt("pref_text_case", textCase);
-			prefsEditor.apply();
+			getPrefsEditor().putInt("pref_text_case", textCase);
+			getPrefsEditor().apply();
 		}
 	}
 }

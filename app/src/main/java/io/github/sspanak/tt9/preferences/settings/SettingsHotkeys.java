@@ -49,7 +49,7 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 		// no default keys
 		String[] unassigned = {CmdAddWord.ID, CmdEditText.ID, CmdSelectKeyboard.ID, CmdShowSettings.ID, CmdUndo.ID, CmdRedo.ID, CmdVoiceInput.ID};
 		for (String key : unassigned) {
-			prefsEditor.putString(key, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
+			getPrefsEditor().putString(key, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		}
 
 		// backspace
@@ -58,45 +58,45 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
 			|| isMainLayoutNumpad()
 		) {
-			prefsEditor.putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
+			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		} else {
-			prefsEditor.putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_BACK));
+			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_BACK));
 		}
 
 		// filter clear
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			CmdFilterClear.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_DOWN) ? KeyEvent.KEYCODE_DPAD_DOWN : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// filter
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			CmdFilterSuggestions.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_UP) ? KeyEvent.KEYCODE_DPAD_UP : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// previous suggestion
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			CmdSuggestionPrevious.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_LEFT) ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
 		// next suggestion
-		prefsEditor.putString(
+		getPrefsEditor().putString(
 			CmdSuggestionNext.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DPAD_RIGHT) ? KeyEvent.KEYCODE_DPAD_RIGHT : KeyEvent.KEYCODE_UNKNOWN)
 		);
 
-		prefsEditor.putString(CmdCommandPalette.ID, String.valueOf(-KeyEvent.KEYCODE_STAR)); // negative means "hold"
-		prefsEditor.putString(CmdNextInputMode.ID, String.valueOf(KeyEvent.KEYCODE_POUND));
-		prefsEditor.putString(CmdNextLanguage.ID, String.valueOf(-KeyEvent.KEYCODE_POUND)); // negative means "hold"
-		prefsEditor.putString(CmdShift.ID, String.valueOf(KeyEvent.KEYCODE_STAR));
-		prefsEditor.putString(
+		getPrefsEditor().putString(CmdCommandPalette.ID, String.valueOf(-KeyEvent.KEYCODE_STAR)); // negative means "hold"
+		getPrefsEditor().putString(CmdNextInputMode.ID, String.valueOf(KeyEvent.KEYCODE_POUND));
+		getPrefsEditor().putString(CmdNextLanguage.ID, String.valueOf(-KeyEvent.KEYCODE_POUND)); // negative means "hold"
+		getPrefsEditor().putString(CmdShift.ID, String.valueOf(KeyEvent.KEYCODE_STAR));
+		getPrefsEditor().putString(
 			CmdSpaceKorean.ID,
 			String.valueOf(KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_SPACE) ? KeyEvent.KEYCODE_SPACE : KeyEvent.KEYCODE_STAR)
 		);
 
-		prefsEditor.putBoolean(HOTKEY_VERSION, true).apply();
+		getPrefsEditor().putBoolean(HOTKEY_VERSION, true).apply();
 	}
 
 
@@ -108,7 +108,7 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 	public void setFunctionKey(String functionName, int keyCode) {
 		if (isValidFunction(functionName)) {
 			Logger.d(LOG_TAG, "Setting hotkey for function: '" + functionName + "' to " + keyCode);
-			prefsEditor.putString(functionName, String.valueOf(keyCode)).apply();
+			getPrefsEditor().putString(functionName, String.valueOf(keyCode)).apply();
 		} else {
 			Logger.w(LOG_TAG,"Not setting a hotkey for invalid function: '" + functionName + "'");
 		}

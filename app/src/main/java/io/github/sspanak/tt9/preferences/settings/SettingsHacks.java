@@ -69,7 +69,7 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public void setDonationsVisible(boolean yes) {
-		prefsEditor.putBoolean("pref_show_donations", yes).apply();
+		getPrefsEditor().putBoolean("pref_show_donations", yes).apply();
 	}
 
 	public boolean getAllowComposingText() {
@@ -101,6 +101,6 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	public void setMessengerReplyExtraPadding(boolean enabled) {
-		prefsEditor.putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
+		getPrefsEditor().putBoolean("hack_messenger_reply_extra_padding", enabled).apply();
 	}
 }
