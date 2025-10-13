@@ -31,16 +31,16 @@ public class InputConnectionAsync {
 		}
 	}
 
-	public static CharSequence getTextBeforeCursor(InputConnection connection, int length, int flags) {
-		return connection != null ? runAsync(() -> connection.getTextBeforeCursor(length, flags), TaskType.GET_TEXT_BEFORE_CURSOR) : null;
+	public static CharSequence getTextBeforeCursor(boolean isUs, InputConnection connection, int length, int flags) {
+		return connection != null ? run(isUs, () -> connection.getTextBeforeCursor(length, flags), TaskType.GET_TEXT_BEFORE_CURSOR) : null;
 	}
 
-	public static CharSequence getTextAfterCursor(InputConnection connection, int length, int flags) {
-		return connection != null ? runAsync(() -> connection.getTextAfterCursor(length, flags), TaskType.GET_TEXT_AFTER_CURSOR) : null;
+	public static CharSequence getTextAfterCursor(boolean isUs, InputConnection connection, int length, int flags) {
+		return connection != null ? run(isUs, () -> connection.getTextAfterCursor(length, flags), TaskType.GET_TEXT_AFTER_CURSOR) : null;
 	}
 
-	public static ExtractedText getExtractedText(InputConnection connection, ExtractedTextRequest request, int flags) {
-		return connection != null ? runAsync(() -> connection.getExtractedText(request, flags), TaskType.GET_EXTRACTED_TEXT) : null;
+	public static ExtractedText getExtractedText(boolean isUs, InputConnection connection, ExtractedTextRequest request, int flags) {
+		return connection != null ? run(isUs, () -> connection.getExtractedText(request, flags), TaskType.GET_EXTRACTED_TEXT) : null;
 	}
 
 	private static <T> T getTimeout(TaskType taskType) {
@@ -63,6 +63,12 @@ public class InputConnectionAsync {
 		return executor;
 	}
 
+
+	private static <T> T run(boolean isUs, Callable<T> task, TaskType type) {
+		return isUs ? runSync(task) : runAsync(task, type);
+	}
+
+
 	private static <T> T runAsync(Callable<T> task, TaskType type) {
 		Future<T> future = getExecutor().submit(task);
 		try {
@@ -73,6 +79,16 @@ public class InputConnectionAsync {
 			return getTimeout(type);
 		} catch (Exception e) {
 			Logger.w(LOG_TAG, type.name() + " failed. " + e);
+			return null;
+		}
+	}
+
+
+	private static <T> T runSync(Callable<T> task) {
+		try {
+			return task.call();
+		} catch (Exception e) {
+			Logger.w(LOG_TAG, "Task failed. " + e);
 			return null;
 		}
 	}
