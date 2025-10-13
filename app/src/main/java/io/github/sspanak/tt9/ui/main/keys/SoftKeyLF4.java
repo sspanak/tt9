@@ -6,6 +6,7 @@ import android.view.Gravity;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdNextKeyboard;
 import io.github.sspanak.tt9.commands.CmdNextLanguage;
 import io.github.sspanak.tt9.commands.CmdSelectKeyboard;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -48,7 +49,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
-		CmdNextInputMode.run(tt9);
+		CmdNextKeyboard.run(tt9);
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
-import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class KeyPadScreen extends BaseScreenFragment {

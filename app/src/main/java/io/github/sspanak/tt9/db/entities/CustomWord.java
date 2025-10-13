@@ -11,20 +11,21 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersExcep
 import io.github.sspanak.tt9.util.TextTools;
 
 public class CustomWord {
-	public final NaturalLanguage language;
-	public final String word;
-	public final String sequence;
+	@NonNull public final NaturalLanguage language;
+	@NonNull public final String word;
+	@NonNull public final String sequence;
 
 	public CustomWord(@NonNull String word, @NonNull String sequence, int langId) throws IllegalArgumentException {
-		language = LanguageCollection.getLanguage(langId);
-		if (language == null || word.isEmpty() || sequence.isEmpty()) {
-			throw new IllegalArgumentException("Cannot create CustomWord out of language: " + language + ", word: '" + word + "', sequence: '" + sequence + "'");
+		NaturalLanguage lang = LanguageCollection.getLanguage(langId);
+		if (lang == null || word.isEmpty() || sequence.isEmpty()) {
+			throw new IllegalArgumentException("Cannot create CustomWord out of language: " + lang + ", word: '" + word + "', sequence: '" + sequence + "'");
 		}
 
 		if (TextTools.containsPunctuation(word)) {
 			throw new IllegalArgumentException("Custom word: '" + word + "' contains punctuation.");
 		}
 
+		this.language = lang;
 		this.sequence = sequence;
 		this.word = word;
 	}

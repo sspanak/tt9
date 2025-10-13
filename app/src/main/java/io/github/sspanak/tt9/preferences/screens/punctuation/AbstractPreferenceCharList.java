@@ -14,7 +14,6 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 abstract class AbstractPreferenceCharList extends TextInputPreference {
 	@NonNull protected String currentChars = "";
 	protected Language language;
-	private boolean isInitialized = false;
 	protected static SettingsStore settings;
 
 

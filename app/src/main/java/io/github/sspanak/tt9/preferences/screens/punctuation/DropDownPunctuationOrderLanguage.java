@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 
-class DropDownPunctuationOrderLanguage extends EnhancedDropDownPreference {
+public class DropDownPunctuationOrderLanguage extends EnhancedDropDownPreference {
 	public static final String NAME = "punctuation_order_language";
 
 	private ConsumerCompat<String> onChangeCallback;
