@@ -26,6 +26,8 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 public class TraditionalT9 extends PremiumHandler {
 	private static final String LOG_TAG = "MAIN";
 
+	private Thread asyncInitThread;
+
 	@NonNull private final Handler backgroundTasks = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler zombieDetector = new Handler(Looper.getMainLooper());
 	@NonNull private final Handler heartbeatDetector = new Handler(Looper.getMainLooper());
@@ -131,10 +133,8 @@ public class TraditionalT9 extends PremiumHandler {
 		settings.setDemoMode(false);
 		Logger.setLevel(settings.getLogLevel());
 
-		new Thread(() -> {
-			LanguageCollection.init(getApplicationContext());
-			DataStore.init(getApplicationContext());
-		}).start();
+		asyncInitThread = asyncInitThread == null ? new Thread(this::runHeavyInitTasks) : asyncInitThread;
+		asyncInitThread.start();
 
 		super.onInit();
 	}
@@ -149,6 +149,17 @@ public class TraditionalT9 extends PremiumHandler {
 				startZombieCheck();
 			}
 			return false;
+		}
+
+		try {
+			if (asyncInitThread != null && asyncInitThread.isAlive()) {
+				asyncInitThread.join();
+			}
+		} catch (InterruptedException e) {
+			Logger.w(LOG_TAG, "Async initialization failed. " + e.getMessage() + ". Retrying on main thread.");
+			runHeavyInitTasks();
+		} finally {
+			asyncInitThread = null;
 		}
 
 		AppHacks.onStart(settings, field);
@@ -337,11 +348,20 @@ public class TraditionalT9 extends PremiumHandler {
 	}
 
 
+	private void runHeavyInitTasks() {
+		LanguageCollection.init(getApplicationContext());
+		DataStore.init(getApplicationContext());
+		Logger.d(LOG_TAG, "Heavy initialization tasks completed successfully");
+	}
+
+
 	private void runBackgroundTasks() {
-		voiceInputOps.enableOfflineMode();
-		if (!DictionaryLoader.getInstance(this).isRunning()) {
-			DataStore.saveWordPairs();
-			DataStore.normalizeNext();
-		}
+		new Thread(() -> {
+			voiceInputOps.enableOfflineMode();
+			if (!DictionaryLoader.getInstance(this).isRunning()) {
+				DataStore.saveWordPairs();
+				DataStore.normalizeNext();
+			}
+		}).start();
 	}
 }
