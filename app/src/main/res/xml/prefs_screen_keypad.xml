@@ -54,6 +54,12 @@
 			android:key="pref_allow_composing_text"
 			android:summary="@string/pref_allow_composing_text_summary"
 			android:title="@string/pref_allow_composing_text" />
+
+		<SwitchPreferenceCompat
+			android:defaultValue="true"
+			android:key="pref_hold_to_type"
+			android:summary="@string/pref_hold_to_type_summary"
+			android:title="@string/pref_hold_to_type" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

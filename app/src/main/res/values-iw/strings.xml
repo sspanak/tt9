@@ -50,6 +50,7 @@
 	<string name="pref_dark_theme">ערכת נושא שחורה</string>
 	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>
 	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
+	<string name="pref_hold_to_type_summary">מאפשר להקליד ספרות או להפעיל פונקציות של האפליקציה על ידי החזקת מקשי המספרים. השבת אם המכשיר מזהה בטעות לחיצות קצרות כהחזקה.</string>
 	<string name="pref_layout">סוג פריסה</string>
 	<string name="pref_layout_numpad">לוח מספרים</string>
 	<string name="pref_layout_small">מקשי פונקציה</string>
@@ -246,4 +247,5 @@
 	<string name="pref_category_keypad_hardware">מקשים פיזיים</string>
 	<string name="pref_one_key_emoji">אימוג’ים במקש 1</string>
 	<string name="pref_one_key_emoji_none">ללא אימוג’ים</string>
+	<string name="pref_hold_to_type">החזקת מקשי המספרים</string>
 </resources>

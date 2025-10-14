@@ -13,6 +13,7 @@
 	<string name="add_word_title">Ajouter un mot</string>
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
+	<string name="pref_hold_to_type_summary">Permet de taper des chiffres ou d’activer des fonctions en maintenant les touches numériques. Désactivez si l’appareil détecte à tort les pressions courtes comme des maintiens.</string>
 	<string name="pref_layout">Type de disposition</string>
 	<string name="pref_layout_numpad">Pavé numérique</string>
 	<string name="pref_layout_small">Touches de fonction</string>
@@ -239,4 +240,5 @@
 	<string name="punctuation_order_group">Caractères groupés (optionnel)</string>
 	<string name="pref_one_key_emoji">Émojis sur la touche 1</string>
 	<string name="pref_one_key_emoji_none">Aucun émoji</string>
+	<string name="pref_hold_to_type">Maintenir touches numériques</string>
 </resources>

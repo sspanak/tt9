@@ -13,6 +13,7 @@
 	<string name="add_word_title">Добавяне на дума</string>
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
+	<string name="pref_hold_to_type_summary">Позволява писане на числа или активиране на функции при задържане на цифровите клавиши. Изключете, ако устройството разпознава неправилно кратки натискания като задържане.</string>
 	<string name="pref_layout">Вид на подредбата</string>
 	<string name="pref_layout_numpad">Цифрова клавиатура</string>
 	<string name="pref_layout_small">Функционални клавиши</string>
@@ -239,4 +240,5 @@
 	<string name="punctuation_order_include_newline">Добави нов ред</string>
 	<string name="pref_one_key_emoji">Емотикони на бутон „1“</string>
 	<string name="pref_one_key_emoji_none">Без емотикони</string>
+	<string name="pref_hold_to_type">Задържане на цифрови клавиши</string>
 </resources>

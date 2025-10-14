@@ -42,12 +42,18 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 
 
 	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && tt9.getSettings().getHoldToType() && !shouldHide();
+	}
+
+
+	@Override
 	protected String getHoldText() {
 		if (isFnPanelOn()) {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || shouldHide()) {
+		if (tt9 == null || !isHoldEnabled()) {
 			return null;
 		}
 

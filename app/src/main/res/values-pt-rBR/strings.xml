@@ -52,6 +52,7 @@
 	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
+	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
 	<string name="pref_layout">Tipo de layout</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
@@ -246,4 +247,5 @@
 	<string name="punctuation_order_group">Caracteres agrupados (opcional)</string>
 	<string name="pref_one_key_emoji">Emojis na tecla 1</string>
 	<string name="pref_one_key_emoji_none">Sem emojis</string>
+	<string name="pref_hold_to_type">Manter teclas numéricas</string>
 </resources>
