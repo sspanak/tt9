@@ -5,10 +5,10 @@
 		android:tag="overlay_icon"
 		android:contentDescription="@null" />
 
-	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.HoldIcon.Wrapper">
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.TopRightIcon.Wrapper">
 		<ImageView
-			style="@style/TTheme.Numpad.Key.LF4.Overlay.HoldIcon"
-			android:tag="overlay_hold_icon"
+			style="@style/TTheme.Numpad.Key.LF4.Overlay.CornerIcon"
+			android:tag="overlay_top_right_icon"
 			android:contentDescription="@null" />
 	</RelativeLayout>
 </merge>

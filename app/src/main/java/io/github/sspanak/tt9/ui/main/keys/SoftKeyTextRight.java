@@ -23,7 +23,7 @@ public class SoftKeyTextRight extends SoftKeyText {
 
 	@Override
 	protected boolean handleRelease() {
-		return tt9 != null && tt9.isTextEditingActive() ? CmdRedo.run(tt9) : super.handleRelease();
+		return tt9 != null && tt9.isTextEditingActive() ? new CmdRedo().run(tt9) : super.handleRelease();
 	}
 
 	@Override

@@ -39,7 +39,7 @@ public class SoftKeySettings extends BaseSwipeableKey {
 	@Override
 	protected boolean handleRelease() {
 		if (notSwiped()) {
-			CmdShowSettings.run(tt9);
+			new CmdShowSettings().run(tt9);
 		}
 		return true;
 	}

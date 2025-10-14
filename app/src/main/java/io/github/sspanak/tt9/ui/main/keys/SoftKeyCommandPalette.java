@@ -12,7 +12,7 @@ public class SoftKeyCommandPalette extends SoftKeySettings {
 
 	@Override
 	protected boolean handleRelease() {
-		return notSwiped() && CmdCommandPalette.run(tt9);
+		return notSwiped() && new CmdCommandPalette().run(tt9);
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 			return;
 		}
 
-		CmdVoiceInput.run(tt9);
+		new CmdVoiceInput().run(tt9);
 	}
 
 
@@ -43,9 +43,9 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 		}
 
 		if (tt9.isVoiceInputActive() || isTextEditingMissing()) {
-			CmdVoiceInput.run(tt9);
+			new CmdVoiceInput().run(tt9);
 		} else {
-			CmdEditText.run(tt9);
+			new CmdEditText().run(tt9);
 		}
 
 		return true;
@@ -78,8 +78,8 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 
 
 	@Override
-	protected int getHoldIcon() {
-		if (isVoiceInputActive() || isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
+	protected int getCornerIcon(int position) {
+		if (position != ICON_POSITION_TOP_RIGHT || isVoiceInputActive() || isTextEditingActive() || isTextEditingMissing() || isVoiceInputMissing()) {
 			return -1;
 		}
 

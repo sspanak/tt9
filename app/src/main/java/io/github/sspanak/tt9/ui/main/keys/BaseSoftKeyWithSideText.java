@@ -13,10 +13,10 @@ public class BaseSoftKeyWithSideText extends BaseSoftKeyWithIcons {
 	protected String getBottomText() { return null; }
 	protected String getLeftText() { return null; }
 
-	protected float getTopElementScale() { return getHoldElementScale(); }
-	protected float getRightElementScale() { return getHoldElementScale(); }
-	protected float getBottomElementScale() { return getHoldElementScale(); }
-	protected float getLeftElementScale() { return getHoldElementScale(); }
+	protected float getTopElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getRightElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getBottomElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
+	protected float getLeftElementScale() { return getCornerElementScale(ICON_POSITION_TOP_RIGHT); }
 
 	@Override
 	public void render() {

@@ -15,7 +15,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (CmdFilterClear.run(tt9)) {
+		if (new CmdFilterClear().run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 			ignoreLastPressedKey();
 		}
@@ -23,7 +23,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return CmdFilterSuggestions.run(tt9, getLastPressedKey() == getId());
+		return new CmdFilterSuggestions().run(tt9, getLastPressedKey() == getId());
 	}
 
 	@Override protected int getCentralIcon() {
@@ -34,8 +34,8 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 		return new CmdFilterSuggestions().getIcon();
 	}
 
-	@Override protected int getHoldIcon() {
-		return new CmdFilterClear().getIcon();
+	@Override protected int getCornerIcon(int position) {
+		return position == ICON_POSITION_TOP_RIGHT ? new CmdFilterClear().getIcon() : super.getCornerIcon(position);
 	}
 
 	@Override

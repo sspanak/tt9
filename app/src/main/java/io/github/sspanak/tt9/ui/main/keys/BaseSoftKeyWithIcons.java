@@ -11,10 +11,16 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
-public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
-	private Drawable icon = null;
-	private Drawable holdIcon = null;
+import java.util.Arrays;
 
+public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
+	private Drawable icon = null; // central icon
+
+	public static final int ICON_POSITION_TOP_RIGHT = 0;
+	public static final int ICON_POSITION_TOP_LEFT = 1;
+	public static final int ICON_POSITION_BOTTOM_RIGHT = 2;
+	public static final int ICON_POSITION_BOTTOM_LEFT = 3;
+	private final Drawable[] cornerIcon = { null, null, null, null };
 
 	public BaseSoftKeyWithIcons(Context context) { super(context); }
 	public BaseSoftKeyWithIcons(Context context, AttributeSet attrs) { super(context, attrs); }
@@ -53,29 +59,40 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 
 
 	/**
-	 * Returns the hold icon resource ID. If the key does not have a hold icon, return -1. The scale
-	 * is controlled by super.getHoldElementScale().
+	 * Returns the resource ID of the respective icon. If the key does not have an icon at that position,
+	 * return -1. The scale is controlled by super.getCornerElementScale().
 	 */
-	protected int getHoldIcon() { return -1; }
-
-
-	/**
-	 * A fail-safe method to get the hold icon drawable.
-	 */
-	private Drawable getHoldIconCompat() {
-		if (holdIcon == null && getHoldIcon() > 0) {
-			holdIcon = AppCompatResources.getDrawable(getContext(), getHoldIcon());
-		} else if (getHoldIcon() <= 0) {
-			holdIcon = null;
-		}
-
-		return holdIcon;
+	protected int getCornerIcon(int position) {
+		return -1;
 	}
 
 
+	/**
+	 * A fail-safe method to get the icon drawable for the respective positions.
+	 */
+	private Drawable getCornerIconCompat(int position) {
+		if (position < 0 || position >= cornerIcon.length) {
+			return null;
+		} else if (cornerIcon[position] == null && getCornerIcon(position) > 0) {
+			cornerIcon[position] = AppCompatResources.getDrawable(getContext(), getCornerIcon(position));
+		} else if (getCornerIcon(position) <= 0) {
+			cornerIcon[position] = null;
+		}
+
+		return cornerIcon[position];
+	}
+
+
+	@Override
+	protected float getCornerElementScale(int position) {
+		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
+		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
+		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
+	}
+
 	protected void resetIconCache() {
 		icon = null;
-		holdIcon = null;
+		Arrays.fill(cornerIcon, null);
 	}
 
 
@@ -112,7 +129,10 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 
 		getOverlayWrapper();
 		renderOverlayDrawable("overlay_icon", getCentralIconCompat(), getCentralIconScale(), isKeyEnabled);
-		renderOverlayDrawable("overlay_hold_icon", getHoldIconCompat(), getHoldElementScale(), isKeyEnabled && isHoldEnabled());
+		renderOverlayDrawable("overlay_top_right_icon", getCornerIconCompat(ICON_POSITION_TOP_RIGHT), getCornerElementScale(ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderOverlayDrawable("overlay_top_left_icon", getCornerIconCompat(ICON_POSITION_TOP_LEFT), getCornerElementScale(ICON_POSITION_TOP_LEFT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_right_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_RIGHT), getCornerElementScale(ICON_POSITION_BOTTOM_RIGHT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_left_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_LEFT), getCornerElementScale(ICON_POSITION_BOTTOM_LEFT), isKeyEnabled);
 
 		super.render();
 	}

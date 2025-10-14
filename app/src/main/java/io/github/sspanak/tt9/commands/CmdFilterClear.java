@@ -8,7 +8,7 @@ public class CmdFilterClear implements Command {
 	public int getIcon() { return R.drawable.ic_fn_filter_off; }
 	public int getName() { return R.string.function_filter_clear; }
 
-	public static boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
+	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
 		return tt9 != null && tt9.onKeyFilterClear(false);
 	}
 }

@@ -9,9 +9,11 @@ public class CmdShowSettings implements Command {
 	public String getId() { return ID; }
 	public int getIcon() { return io.github.sspanak.tt9.R.drawable.ic_fn_settings; }
 	public int getName() { return io.github.sspanak.tt9.R.string.function_show_settings; }
-	public static void run(@Nullable TraditionalT9 tt9) {
+	public boolean run(@Nullable TraditionalT9 tt9) {
 		if (tt9 != null) {
 			tt9.showSettings();
+			return true;
 		}
+		return false;
 	}
 }

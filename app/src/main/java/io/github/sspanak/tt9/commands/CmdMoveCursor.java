@@ -6,7 +6,7 @@ public class CmdMoveCursor implements Command {
 	public int getIcon() { return -1; }
 	public int getName() { return 0; }
 
-	public static boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9, boolean backward) {
+	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9, boolean backward) {
 		return tt9 != null && tt9.onKeyMoveCursor(backward);
 	}
 }

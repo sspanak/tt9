@@ -8,7 +8,7 @@ public class CmdSuggestionNext implements Command {
 	public int getIcon() { return R.drawable.ic_dpad_right; }
 	public int getName() { return R.string.function_next_suggestion; }
 
-	public static boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
+	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
 		return tt9 != null && tt9.onKeyScrollSuggestion(false, false);
 	}
 }

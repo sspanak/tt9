@@ -54,11 +54,11 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	}
 
 	private boolean onLeft() {
-		return CmdSuggestionPrevious.run(tt9) || CmdMoveCursor.run(tt9, true);
+		return new CmdSuggestionPrevious().run(tt9) || new CmdMoveCursor().run(tt9, true);
 	}
 
 	private boolean onRight() {
-		return CmdSuggestionNext.run(tt9) || CmdMoveCursor.run(tt9, false);
+		return new CmdSuggestionNext().run(tt9) || new CmdMoveCursor().run(tt9, false);
 	}
 
 	@Override

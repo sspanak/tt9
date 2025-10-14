@@ -6,9 +6,12 @@ public class CmdNextKeyboard implements Command {
 	public int getIcon() { return -1; }
 	public int getName() { return 0; }
 
-	public static void run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
+	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
 		if (tt9 != null) {
 			tt9.nextKeyboard();
+			return true;
 		}
+
+		return false;
 	}
 }

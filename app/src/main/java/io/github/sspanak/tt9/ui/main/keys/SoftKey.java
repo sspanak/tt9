@@ -167,12 +167,10 @@ public class SoftKey extends BaseClickableKey {
 	}
 
 	/**
-	 * Similar to getTitleScale(), adjusts the font size of the hold text or icon
+	 * Similar to getTitleScale(), adjusts the font size of the corner text or icon
 	 */
-	protected float getHoldElementScale() {
-		float keyboardSizeScale = Math.min(1, Math.max(getTT9Width(), getTT9Height()));
-		float settingsScale = tt9 != null ? tt9.getSettings().getNumpadKeyFontSizePercent() / 100f : 1;
-		return keyboardSizeScale * Math.min(getScreenScaleX(), getScreenScaleY()) * settingsScale;
+	protected float getCornerElementScale(int position) {
+		return 1;
 	}
 
 
@@ -245,6 +243,6 @@ public class SoftKey extends BaseClickableKey {
 		boolean isKeyEnabled = isEnabled();
 		renderTitle(isKeyEnabled);
 		getOverlayWrapper();
-		renderOverlayText("overlay_hold_text", getHoldText(), getHoldElementScale(), isKeyEnabled && isHoldEnabled());
+		renderOverlayText("overlay_hold_text", getHoldText(), getCornerElementScale(BaseSoftKeyWithIcons.ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
 	}
 }

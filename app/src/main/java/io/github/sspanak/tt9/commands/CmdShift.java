@@ -10,7 +10,7 @@ public class CmdShift implements Command {
 	public int getIconUp() { return R.drawable.ic_fn_shift_up; }
 	public int getName() { return R.string.virtual_key_shift; }
 
-	public static boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
+	public boolean run(io.github.sspanak.tt9.ime.TraditionalT9 tt9) {
 		return tt9 != null && tt9.onKeyNextTextCase(false);
 	}
 }

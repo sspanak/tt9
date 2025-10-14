@@ -37,24 +37,24 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (CmdNextLanguage.run(tt9)) {
+		if (new CmdNextLanguage().run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 		}
 	}
 
 	@Override
 	protected boolean handleRelease() {
-		return notSwiped() && CmdNextInputMode.run(tt9);
+		return notSwiped() && new CmdNextInputMode().run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
-		CmdNextKeyboard.run(tt9);
+		new CmdNextKeyboard().run(tt9);
 	}
 
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
-		CmdSelectKeyboard.run(tt9);
+		new CmdSelectKeyboard().run(tt9);
 	}
 
 	@Override
@@ -68,13 +68,16 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
-	protected int getHoldIcon() {
-		return areThereManyLanguages() ? new CmdNextLanguage().getIcon() : -1;
+	protected int getCornerIcon(int position) {
+		return position == ICON_POSITION_TOP_RIGHT && areThereManyLanguages() ? new CmdNextLanguage().getIcon() : -1;
 	}
 
 	@Override
-	protected float getHoldElementScale() {
-		return super.getHoldElementScale() * 0.75f;
+	protected float getCornerElementScale(int position) {
+		if (position == ICON_POSITION_TOP_RIGHT) {
+			return super.getCornerElementScale(ICON_POSITION_TOP_RIGHT) * 0.75f;
+		}
+		return super.getCornerElementScale(position);
 	}
 
 	@Override
