@@ -4,7 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.commands.CmdShift;
+import io.github.sspanak.tt9.commands.CmdSpaceKorean;
 import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.util.chars.Characters;
 
 public class SoftKeyShift extends BaseSoftKeyWithIcons {
 	public SoftKeyShift(Context context) {
@@ -19,7 +21,22 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 		super(context, attrs, defStyleAttr);
 	}
 
+	private boolean isShiftEnabled() {
+		return tt9 != null
+			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
+			&& !tt9.isVoiceInputActive()
+			&& !tt9.isInputModeNumeric()
+			&& !tt9.isFnPanelVisible();
+	}
+
+	@Override protected String getTitle() { return hasLettersOnAllKeys() ? Characters.SPACE : ""; }
+	@Override protected float getTitleScale() { return hasLettersOnAllKeys() ? 1.3f * Math.min(1, getTT9Height()) * getScreenScaleY() : super.getTitleScale(); }
+
 	@Override protected int getCentralIcon() {
+		if (hasLettersOnAllKeys()) {
+			return 0;
+		}
+
 		final int textCase = tt9 != null ? tt9.getDisplayTextCase() : InputMode.CASE_UNDEFINED;
 		return switch (textCase) {
 			case InputMode.CASE_CAPITALIZE -> new CmdShift().getIconCaps();
@@ -30,20 +47,13 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return CmdShift.run(tt9);
+		return hasLettersOnAllKeys() ? CmdSpaceKorean.run(tt9) : CmdShift.run(tt9);
 	}
 
 	@Override
 	public void render() {
 		resetIconCache();
-		setEnabled(
-			tt9 != null
-			&& tt9.getLanguage() != null && tt9.getLanguage().hasUpperCase()
-			&& !tt9.isVoiceInputActive()
-			&& !tt9.isInputModePhone()
-			&& !tt9.isNumericModeSigned()
-			&& !tt9.isFnPanelVisible()
-		);
+		setEnabled(isShiftEnabled() || hasLettersOnAllKeys());
 		super.render();
 	}
 }
