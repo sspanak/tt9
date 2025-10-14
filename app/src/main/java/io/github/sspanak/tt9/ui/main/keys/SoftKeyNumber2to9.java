@@ -45,9 +45,9 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 
 	@Override
-	protected int getHoldIcon() {
-		if (isFnPanelOn()) {
-			return super.getHoldIcon();
+	protected int getCornerIcon(int position) {
+		if (position != ICON_POSITION_TOP_RIGHT || isFnPanelOn()) {
+			return super.getCornerIcon(position);
 		}
 
 		if (!isHoldEnabled()) {
@@ -55,7 +55,7 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 		}
 
 		final Command holdCommand = getHoldCommand();
-		return holdCommand != null ? holdCommand.getIcon() : super.getHoldIcon();
+		return holdCommand != null ? holdCommand.getIcon() : super.getCornerIcon(position);
 	}
 
 

@@ -14,7 +14,7 @@ public class SoftKeyAddWord extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return CmdAddWord.run(tt9);
+		return new CmdAddWord().run(tt9);
 	}
 
 	@Override

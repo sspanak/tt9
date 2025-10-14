@@ -14,6 +14,11 @@ public class CmdBackspace implements Command {
 	public String getIconTxt(boolean rtl) { return rtl ? "⌦" : "⌫"; }
 	public int getName() { return io.github.sspanak.tt9.R.string.function_backspace; }
 
+	public boolean run(@Nullable TraditionalT9 tt9) {
+		deleteText(tt9, 1);
+		return true;
+	}
+
 	public static void deleteText(@Nullable TraditionalT9 tt9, int repeatCount) {
 		if (tt9 != null && !tt9.onBackspace(repeatCount)) {
 			// Limited or special numeric field (e.g. formatted money or dates) cannot always return

@@ -47,7 +47,7 @@ public class SoftKeyShift extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return hasLettersOnAllKeys() ? CmdSpaceKorean.run(tt9) : CmdShift.run(tt9);
+		return hasLettersOnAllKeys() ? new CmdSpaceKorean().run(tt9) : new CmdShift().run(tt9);
 	}
 
 	@Override

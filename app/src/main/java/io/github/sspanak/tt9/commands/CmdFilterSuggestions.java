@@ -13,7 +13,7 @@ public class CmdFilterSuggestions implements Command {
 	public int getIconFuzzy() { return R.drawable.ic_fn_filter_fuzzy; }
 	public int getName() { return R.string.function_filter_suggestions; }
 
-	public static boolean run(@Nullable TraditionalT9 tt9, boolean repeat) {
+	public boolean run(@Nullable TraditionalT9 tt9, boolean repeat) {
 		return tt9 != null && tt9.onKeyFilterSuggestions(false, repeat);
 	}
 }

@@ -10,7 +10,7 @@ public class CmdAddWord implements Command {
 	public int getIcon() { return io.github.sspanak.tt9.R.drawable.ic_fn_add_word; }
 	public int getName() { return io.github.sspanak.tt9.R.string.function_add_word; }
 
-	public static boolean run(@Nullable TraditionalT9 tt9) {
+	public boolean run(@Nullable TraditionalT9 tt9) {
 		if (tt9 == null) {
 			return false;
 		}

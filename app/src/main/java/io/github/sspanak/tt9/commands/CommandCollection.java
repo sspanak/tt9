@@ -26,6 +26,10 @@ public class CommandCollection {
 
 	@Nullable
 	public static Command getById(int collectionType, @Nullable String commandId) {
+		if (NullCommand.ID.equals(commandId)) {
+			return new NullCommand();
+		}
+
 		Collection<Command> commands = collectionType == COLLECTION_HOTKEYS ? getHotkeyCommands() : getAll(collectionType).values();
 
 		final String cacheKey = collectionType + "_" + commandId;

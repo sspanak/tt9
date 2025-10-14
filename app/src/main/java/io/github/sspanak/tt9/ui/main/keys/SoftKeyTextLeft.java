@@ -24,7 +24,7 @@ public class SoftKeyTextLeft extends SoftKeyText {
 
 	@Override
 	protected boolean handleRelease() {
-		return isTextEditingOn() ? CmdUndo.run(tt9) : super.handleRelease();
+		return isTextEditingOn() ? new CmdUndo().run(tt9) : super.handleRelease();
 	}
 
 	@Override

@@ -329,21 +329,39 @@
 		<item name="android:tint">@color/key_fn_text</item>
 	</style>
 
-	<!-- Overlay: Hold Icon -->
-	<style name="TTheme.Numpad.Key.Overlay.HoldIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.Element">
-		<item name="android:gravity">top|right</item>
+	<!-- Overlay: Icons -->
+	<style name="TTheme.Numpad.Key.Overlay.CornerIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:paddingTop">@dimen/numpad_key_overlay_hold_icon_spacing_top</item>
 		<item name="android:paddingRight">@dimen/numpad_key_overlay_hold_icon_spacing_right</item>
+		<item name="android:paddingBottom">@dimen/numpad_key_overlay_hold_icon_spacing_right</item>
+		<item name="android:paddingLeft">@dimen/numpad_key_overlay_hold_icon_spacing_right</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.Overlay.HoldIcon" parent="TTheme.Numpad.Key.Overlay.Element">
+	<style name="TTheme.Numpad.Key.Overlay.CornerIcon" parent="TTheme.Numpad.Key.Overlay.Element">
 		<item name="android:layout_height">@dimen/numpad_key_overlay_hold_icon_size</item>
 		<item name="android:layout_width">@dimen/numpad_key_overlay_hold_icon_size</item>
 
 		<item name="android:tint">@color/key_fn_alternative_text</item>
 	</style>
 
-	<style name="TTheme.Numpad.Key.LF4.Overlay.HoldIcon" parent="TTheme.Numpad.Key.Overlay.HoldIcon">
+	<style name="TTheme.Numpad.Key.Overlay.TopRightIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.CornerIcon.Wrapper">
+		<item name="android:gravity">top|right</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.TopLeftIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.CornerIcon.Wrapper">
+		<item name="android:gravity">top|left</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.BottomLeftIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.CornerIcon.Wrapper">
+		<item name="android:gravity">bottom|left</item>
+	</style>
+
+	<style name="TTheme.Numpad.Key.Overlay.BottomRightIcon.Wrapper" parent="TTheme.Numpad.Key.Overlay.CornerIcon.Wrapper">
+		<item name="android:gravity">bottom|right</item>
+	</style>
+
+	<!-- Overlay: Icon (LF4) -->
+	<style name="TTheme.Numpad.Key.LF4.Overlay.CornerIcon" parent="TTheme.Numpad.Key.Overlay.CornerIcon">
 		<item name="android:tint">@color/key_lf4_alternative_text</item>
 	</style>
 

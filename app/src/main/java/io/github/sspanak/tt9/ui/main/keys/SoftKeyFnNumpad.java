@@ -124,8 +124,11 @@ public class SoftKeyFnNumpad extends BaseSwipeableKey {
 
 
 	@Override
-	protected float getHoldElementScale() {
-		float defaultScale = super.getHoldElementScale();
-		return tt9 != null && LanguageKind.isArabic(tt9.getLanguage()) ? defaultScale * 1.25f : defaultScale;
+	protected float getCornerElementScale(int position) {
+		if (position == ICON_POSITION_TOP_RIGHT && tt9 != null && LanguageKind.isArabic(tt9.getLanguage())) {
+			return super.getCornerElementScale(ICON_POSITION_TOP_RIGHT) * 1.25f;
+		}
+
+		return super.getCornerElementScale(position);
 	}
 }
