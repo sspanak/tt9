@@ -14,6 +14,7 @@
 
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
+	<string name="pref_hold_to_type_summary">Sayı tuşlarını basılı tutarak rakam yazmaya veya uygulama işlevlerini etkinleştirmeye izin verir. Cihaz kısa basışları yanlışlıkla basılı tutma olarak algılıyorsa kapatın.</string>
 	<string name="pref_layout">Düzen türü</string>
 	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
@@ -244,4 +245,5 @@
 	<string name="punctuation_order_group">Gruplanmış karakterler (isteğe bağlı)</string>
 	<string name="pref_one_key_emoji">1 tuşundaki emojiler</string>
 	<string name="pref_one_key_emoji_none">Emoji yok</string>
+	<string name="pref_hold_to_type">Sayı tuşlarını basılı tut</string>
 </resources>

@@ -49,6 +49,14 @@ class SettingsHacks extends BaseSettings {
 	}
 
 	/**
+	 * Protection for lagging devices that detect key press as a long press.
+	 * See <a href="https://github.com/sspanak/tt9/issues/882">#882</a> for more info.
+	 */
+	public boolean getHoldToType() {
+		return prefs.getBoolean("pref_hold_to_type", true);
+	}
+
+	/**
 	 * Protection against faulty devices, that sometimes send two (or more) click events
 	 * per a single key press, which absolutely undesirable side effects.
 	 * There were reports about this on <a href="https://github.com/sspanak/tt9/issues/117">Kyocera KYF31</a>

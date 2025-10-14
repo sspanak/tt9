@@ -54,6 +54,7 @@
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
+	<string name="pref_hold_to_type_summary">Leisti įvesti skaičius arba aktyvuoti programos funkcijas laikant nuspaustus skaitmeninius klavišus. Išjungti, jei įrenginys klaidingai aptinka trumpus paspaudimus kaip laikymą.</string>
 	<string name="pref_layout">Išdėstymo tipas</string>
 	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
@@ -248,4 +249,5 @@
 	<string name="punctuation_order_group">Grupuoti simboliai (pasirinktinai)</string>
 	<string name="pref_one_key_emoji">Jaustukai 1 klaviše</string>
 	<string name="pref_one_key_emoji_none">Be jaustukų</string>
+	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
 </resources>

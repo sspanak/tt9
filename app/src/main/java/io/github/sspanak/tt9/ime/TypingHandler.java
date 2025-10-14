@@ -183,6 +183,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected boolean onNumber(int key, boolean hold, int repeat) {
 		suggestionOps.cancelDelayedAccept();
 
+		hold = hold && settings.getHoldToType();
+
 		// In Korean, the next char may "steal" components from the previous one, in which case,
 		// we must replace the previous char with a one containing less strokes.
 		if (mInputMode.shouldReplaceLastLetter(key, hold)) {

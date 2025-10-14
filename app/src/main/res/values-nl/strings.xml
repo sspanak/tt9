@@ -13,6 +13,7 @@
 	<string name="add_word_title">Woord toevoegen</string>
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
+	<string name="pref_hold_to_type_summary">Sta toe cijfers te typen of app-functies te activeren door cijfertoetsen ingedrukt te houden. Schakel uit als het apparaat korte drukken ten onrechte als vasthouden detecteert.</string>
 	<string name="pref_layout">Indelingstype</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
@@ -240,4 +241,5 @@
 	<string name="punctuation_order_group">Gegroepeerde tekens (optioneel)</string>
 	<string name="pref_one_key_emoji">Emoji op de 1-toets</string>
 	<string name="pref_one_key_emoji_none">Geen emoji</string>
+	<string name="pref_hold_to_type">Cijfertoetsen ingedrukt houden</string>
 </resources>

@@ -25,23 +25,37 @@ public class SoftKeyNumber2to9 extends SoftKeyNumber {
 
 
 	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && tt9.getSettings().getHoldToType() && !tt9.isInputModeNumeric();
+	}
+
+
+	@Override
 	protected String getHoldText() {
 		if (isFnPanelOn()) {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || tt9.isInputModeNumeric()) {
+		if (!isHoldEnabled() || getHoldCommand() != null) {
 			return null;
 		}
 
-		return getHoldCommand() != null ? "" : getLocalizedNumber(getNumber());
+		return getLocalizedNumber(getNumber());
 	}
 
 
 	@Override
 	protected int getHoldIcon() {
-		Command holdCommand = getHoldCommand();
-		return isFnPanelOn() || holdCommand == null ? super.getHoldIcon() : holdCommand.getIcon();
+		if (isFnPanelOn()) {
+			return super.getHoldIcon();
+		}
+
+		if (!isHoldEnabled()) {
+			return -1;
+		}
+
+		final Command holdCommand = getHoldCommand();
+		return holdCommand != null ? holdCommand.getIcon() : super.getHoldIcon();
 	}
 
 

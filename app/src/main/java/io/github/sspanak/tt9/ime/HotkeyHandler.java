@@ -89,7 +89,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return true;
 		}
 
-		if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+		if (keyCode == KeyEvent.KEYCODE_UNKNOWN || (keyCode < 0 && Key.isNumber(-keyCode) && !settings.getHoldToType())) {
 			return false;
 		}
 

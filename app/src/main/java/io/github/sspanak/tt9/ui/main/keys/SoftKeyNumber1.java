@@ -45,17 +45,19 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 
 
 	@Override
+	public boolean isHoldEnabled() {
+		return tt9 != null && tt9.getSettings().getHoldToType() && !tt9.isNumericModeStrict();
+	}
+
+
+	@Override
 	protected String getHoldText() {
 		if (isFnPanelOn()) {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || tt9.isNumericModeStrict()) {
+		if (tt9 == null || !isHoldEnabled() || getHoldCommand() != null) {
 			return null;
-		}
-
-		if (getHoldCommand() != null) {
-			return "";
 		}
 
 		if (tt9.isInputModeNumeric()) {
@@ -72,7 +74,15 @@ public class SoftKeyNumber1 extends SoftKeyNumber {
 
 	@Override
 	protected int getHoldIcon() {
-		Command holdCommand = getHoldCommand();
-		return isFnPanelOn() || holdCommand == null ? super.getHoldIcon() : holdCommand.getIcon();
+		if (isFnPanelOn()) {
+			return super.getHoldIcon();
+		}
+
+		if (!isHoldEnabled()) {
+			return -1;
+		}
+
+		final Command holdCommand = getHoldCommand();
+		return holdCommand != null ? holdCommand.getIcon() : super.getHoldIcon();
 	}
 }
