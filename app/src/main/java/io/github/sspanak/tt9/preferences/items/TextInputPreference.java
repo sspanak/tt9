@@ -21,7 +21,7 @@ import io.github.sspanak.tt9.util.TextChangeWatcher;
 import io.github.sspanak.tt9.util.colors.AccentSystemColor;
 import io.github.sspanak.tt9.util.colors.ErrorSystemColor;
 
-abstract public class TextInputPreference extends ScreenPreference {
+public class TextInputPreference extends ScreenPreference {
 	@Nullable PreferenceViewHolder viewHolder;
 	@NonNull protected String text = "";
 
@@ -61,7 +61,13 @@ abstract public class TextInputPreference extends ScreenPreference {
 	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
 
 
-	abstract protected void onTextChange();
+	/**
+	 * Called when the text in the EditText field changes. The new text can then be retrieved with
+	 * getText(). Override if needed.
+	 */
+	protected void onTextChange() {
+		// Override to handle text changes
+	}
 
 
 	/**
@@ -91,7 +97,7 @@ abstract public class TextInputPreference extends ScreenPreference {
 	 * Sets the text both internally and in the EditText field, if available.
 	 * Does not trigger onTextChange().
 	 */
-	protected void setText(@Nullable CharSequence newText) {
+	public void setText(@Nullable CharSequence newText) {
 		if (newText != null && !text.equals(newText.toString())) {
 			text = newText.toString();
 		}
