@@ -89,7 +89,7 @@
 	<string name="function_backspace">Backspace</string>
 	<string name="function_next_suggestion">Próxima Sugestão</string>
 	<string name="function_next_language">Próximo Idioma</string>
-	<string name="function_next_mode">Modo de Entrada</string>
+	<string name="function_next_mode">Próximo modo de entrada</string>
 	<string name="function_reassign">Reatribuir</string>
 	<string name="function_add_word">Adicionar palavra</string>
 	<string name="function_show_settings">Entrar em Configurações</string>

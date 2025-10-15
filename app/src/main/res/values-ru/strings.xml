@@ -90,7 +90,7 @@
 	<string name="function_previous_suggestion">Предыдущее слово</string>
 	<string name="function_next_suggestion">Следующее слово</string>
 	<string name="function_next_language">Следующий язык</string>
-	<string name="function_next_mode">Режим ввода</string>
+	<string name="function_next_mode">Следующий режим ввода</string>
 	<string name="function_reassign">Назначить заново</string>
 	<string name="function_add_word">Добавить слово</string>
 	<string name="function_show_settings">Настройки</string>

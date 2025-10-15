@@ -133,7 +133,7 @@
 	<string name="function_previous_suggestion">Попередня пропозиція</string>
 	<string name="function_next_suggestion">Наступна пропозиція</string>
 	<string name="function_next_language">Наступна мова</string>
-	<string name="function_next_mode">Режим вводу</string>
+	<string name="function_next_mode">Наступний режим введення</string>
 	<string name="function_reassign">Перепризначити</string>
 	<string name="function_add_word">Додати слово</string>
 	<string name="function_show_settings">Показати налаштування</string>
