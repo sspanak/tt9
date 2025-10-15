@@ -93,7 +93,7 @@
 	<string name="function_previous_suggestion">Предишна дума</string>
 	<string name="function_next_suggestion">Следваща дума</string>
 	<string name="function_next_language">Следващ eзик</string>
-	<string name="function_next_mode">Режим на писане</string>
+	<string name="function_next_mode">Следващ режим на писане</string>
 	<string name="function_show_settings">Настройки</string>
 	<string name="function_reset_keys_title">Възстанови стандартните бутони</string>
 	<string name="function_reset_keys_done">Възстановени са стандартните „бързи“ бутони.</string>

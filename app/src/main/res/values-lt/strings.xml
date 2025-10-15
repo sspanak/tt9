@@ -102,7 +102,7 @@
 	<string name="function_previous_suggestion">Ankstesnis pasiūlytas žodis</string>
 	<string name="function_next_suggestion">Sekantis pasiūlytas žodis</string>
 	<string name="function_next_language">Rašymo kalba</string>
-	<string name="function_next_mode">Rašymo būdas</string>
+	<string name="function_next_mode">Kitas įvedimo režimas</string>
 	<string name="function_reassign">Perpriskirti</string>
 	<string name="function_add_word">Pridėti žodį</string>
 	<string name="function_show_settings">Rodyti nustatymus</string>

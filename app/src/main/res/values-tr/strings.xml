@@ -157,7 +157,7 @@
 	<string name="function_previous_suggestion">Önceki tahmin</string>
 	<string name="function_next_suggestion">Sonraki tahmin</string>
 	<string name="function_next_language">Sonraki dil</string>
-	<string name="function_next_mode">Giriş yöntemi</string>
+	<string name="function_next_mode">Sonraki giriş modu</string>
 	<string name="function_reassign">Yeniden ata</string>
 	<string name="function_add_word">Kelime ekle</string>
 	<string name="function_show_settings">Ayarları göster</string>

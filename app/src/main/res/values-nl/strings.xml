@@ -173,7 +173,7 @@
 	<string name="virtual_numpad_alignment_center">In het midden</string>
 	<string name="virtual_numpad_alignment_left">Links</string>
 	<string name="virtual_numpad_alignment_right">Rechts</string>
-	<string name="function_next_mode">Invoermodus</string>
+	<string name="function_next_mode">Volgende invoermodus</string>
 	<string name="function_select_keyboard">Toetsenbordkeuze</string>
 	<string name="add_word_no_confirmation">Toevoegen zonder bevestiging</string>
 	<string name="dictionary_import_custom_words">Importeren</string>
