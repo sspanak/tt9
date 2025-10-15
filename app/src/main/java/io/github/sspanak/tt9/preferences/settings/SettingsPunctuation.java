@@ -41,9 +41,14 @@ class SettingsPunctuation extends SettingsInput {
 			String chars = new String(FORBIDDEN_CHARS_0) + String.join("", language.getKeyCharacters(0));
 			chars = chars.replace(" ", Characters.getSpace(language));
 			final int splitPosition = 7;
-			saveChars0(language, String.join("", chars.substring(0, splitPosition)));
+			if (chars.length() < splitPosition) {
+				saveChars0(language, chars);
+				saveCharsExtra(language, CHARS_AFTER_GROUP_0, "");
+			} else {
+				saveChars0(language, String.join("", chars.substring(0, splitPosition)));
+				saveCharsExtra(language, CHARS_AFTER_GROUP_0, chars.substring(splitPosition));
+			}
 			saveCharsExtra(language, CHARS_GROUP_0, String.join("", Characters.getCurrencies(language)));
-			saveCharsExtra(language, CHARS_AFTER_GROUP_0, chars.substring(splitPosition));
 		}
 
 		if (overwrite || noDefault1Chars(language)) {
