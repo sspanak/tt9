@@ -47,6 +47,8 @@ def load_entries(file_path):
 
 def group_entries(entries):
     groups = defaultdict(list)
+    # @todo: This is wrong. Grouping must be by digit sequence, otherwise it produces incorrect ordering.
+    # For example: "你好   NIHAo   1227" in a group of 3 "NIHAo" < "理好 LIHAo   9" in a group of 4 "LIHAo"
     for entry in entries:
         groups[entry['latin']].append(entry)
     return groups
