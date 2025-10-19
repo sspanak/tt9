@@ -62,7 +62,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = false;
 		togglePanel(R.id.main_command_keys, true);
 		getHeight(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -72,7 +72,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isCommandPaletteShown = false;
 		isTextEditingPaletteShown = false;
 		getHeight(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -83,7 +83,7 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		isTextEditingPaletteShown = true;
 		togglePanel(R.id.main_command_keys, true);
 		getHeight(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -117,6 +117,6 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setBackgroundBlending();
 		enableClickHandlers();
-		renderKeys();
+		renderKeys(false);
 	}
 }
