@@ -31,8 +31,6 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
-		dynamicKeys.add(R.id.soft_key_filter);
-		dynamicKeys.add(R.id.soft_key_shift);
 	}
 
 
@@ -50,7 +48,7 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		super.showKeyboard();
 		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(false);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -59,7 +57,7 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		super.showTextEditingPalette();
 		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(true);
-		renderKeys();
+		renderKeys(false);
 	}
 
 
@@ -314,8 +312,8 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 
 
 	@Override
-	void renderKeys() {
-		super.renderKeys();
+	void renderKeys(boolean onlyDynamic) {
+		super.renderKeys(onlyDynamic);
 
 		// toggle the long space row
 		if (!tt9.getSettings().isNumpadShapeLongSpace() || tt9.isInputModeNumeric() || isFnPanelVisible() || (tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys())) {
@@ -354,6 +352,6 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		setBackgroundBlending();
-		renderKeys();
+		renderKeys(false);
 	}
 }

@@ -26,6 +26,11 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 		return new CmdFilterSuggestions().run(tt9, getLastPressedKey() == getId());
 	}
 
+	@Override
+	public boolean isDynamic() {
+		return true;
+	}
+
 	@Override protected int getCentralIcon() {
 		if (tt9 != null) {
 			if (tt9.isFilteringFuzzy()) return new CmdFilterSuggestions().getIconFuzzy();

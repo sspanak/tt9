@@ -91,7 +91,7 @@ public class StaticMainView {
 			return;
 		}
 
-		main.renderDynamicKeys();
+		main.renderKeys(true);
 	}
 
 	public void showCommandPalette() {
