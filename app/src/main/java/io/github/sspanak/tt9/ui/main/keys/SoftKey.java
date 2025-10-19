@@ -90,6 +90,17 @@ public class SoftKey extends BaseClickableKey {
 	}
 
 
+	/**
+	 * isDynamic
+	 * Returns true if the key should be rendered more often to reflect dynamic state changes. This is
+	 * used to determine whether BaseMainLayout.renderDynamicKeys() should include this key or not.
+	 * For example, Shift key changes its appearance, while typing, based on the current text case.
+	 */
+	public boolean isDynamic() {
+		return false;
+	}
+
+
 	public void setHeight(int height) {
 		if (height <= 0) {
 			return;
