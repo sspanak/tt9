@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 
 /**
@@ -11,4 +12,5 @@ public class BaseSoftKeyCustomizable extends SoftKey {
 	public BaseSoftKeyCustomizable(Context context) { super(context); }
 	public BaseSoftKeyCustomizable(Context context, AttributeSet attrs) { super(context, attrs); }
 	public BaseSoftKeyCustomizable(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	protected ColorStateList getCentralIconColor() { return null; }
 }

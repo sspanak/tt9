@@ -1,10 +1,12 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.TextViewCompat;
 
 import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
@@ -51,6 +53,16 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 		final int iconId = getBottomIconId();
 		final Drawable icon = iconId > 0 && tt9 != null ? AppCompatResources.getDrawable(tt9.getApplicationContext(), iconId) : null;
 		setCompoundDrawablesWithIntrinsicBounds(null, null, null, icon);
+		if (icon != null) {
+			setBottomIconColor();
+		}
+	}
+
+	private void setBottomIconColor() {
+		ColorStateList color = getCentralIconColor();
+		if (color != null) {
+			TextViewCompat.setCompoundDrawableTintList(this, getCentralIconColor());
+		}
 	}
 
 	@Override
