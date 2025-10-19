@@ -35,5 +35,5 @@ ext.LANGUAGE_VALIDATION_DIR = layout.buildDirectory.dir("langValidation")
 
 ext.CSV_DELIMITER = '	' // TAB
 ext.DICTIONARY_OUTPUT_EXTENSION = 'zip'
-ext.MAX_WORD_FREQUENCY = 999
+ext.MAX_WORD_FREQUENCY = 9999
 ext.MAX_ERRORS = 50

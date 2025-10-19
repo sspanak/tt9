@@ -95,7 +95,7 @@ Constraints:
 - No header.
 - The separator is `TAB`.
 - The frequency is optional. If missing, it is assumed to be 0.
-- The frequency must be an integer between 0 and 999, when present.
+- The frequency must be an integer between 0 and 9999, when present.
 
 _The TXT format constraints listed above also apply._
 
@@ -118,7 +118,7 @@ Constraints:
 - The first element is the language character or word
 - The second element is the phonetic representation with Latin letters. It must be a combination of the `sounds` in the respective YAML definition.
 - The third element, frequency, is optional. If missing, it is assumed to be 0.
-- The frequency must be an integer between 0 and 999, when present.
+- The frequency must be an integer between 0 and 9999, when present.
 
 Example definition:
 ```yaml
