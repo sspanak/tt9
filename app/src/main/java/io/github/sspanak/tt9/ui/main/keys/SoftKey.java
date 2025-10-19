@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -196,6 +197,16 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
+	 * Overrides the default color of the corner text elements in the styles. Return null to
+	 * preserve the default colors.
+	 */
+	@Nullable
+	protected ColorStateList getCornerElementColor() {
+		return null;
+	}
+
+
+	/**
 	 * Renders the central text of the key and styles it based on "isEnabled".
 	 */
 	private void renderTitle(boolean isEnabled) {
@@ -227,12 +238,14 @@ public class SoftKey extends BaseClickableKey {
 			return;
 		}
 
-		View element = ((RelativeLayout) getParent()).findViewWithTag(elementTag);
+		View element = overlay.findViewWithTag(elementTag);
 		if (!(element instanceof TextView el)) {
 			return;
 		}
 
-		el.setTextColor(el.getTextColors().withAlpha(isEnabled ? 255 : 110));
+		ColorStateList color = getCornerElementColor();
+		color = color != null ? color : el.getTextColors();
+		el.setTextColor(color.withAlpha(isEnabled ? 255 : 110));
 
 		if (text == null || scale == 1) {
 			el.setText(text);
