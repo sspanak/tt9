@@ -370,6 +370,17 @@ _I problemi di Xiaomi sono stati discussi in [questa issue su GitHub](https://gi
 
 ## Domande Frequenti
 
+#### Perché non aggiungi la lingua X?
+Mi piacerebbe molto, ma ho bisogno del tuo aiuto. Supportare più di 40 lingue da solo è impossibile. Poiché non parlo la tua lingua, è difficile per me trovare risorse affidabili online, e qui i madrelingua come te possono fare la differenza.
+In realtà, oltre il 90% delle lingue presenti è stato aggiunto da o con l’aiuto di utenti appassionati.
+
+Per aggiungere una nuova lingua, ho bisogno di una lista di parole corretta ortograficamente, preferibilmente tratta da una fonte ufficiale o accademica (ad esempio, “Grande Dizionario della Lingua X”). Queste liste garantiscono suggerimenti di qualità quando si scrive.
+
+Se non esiste un dizionario del genere, puoi fornire una lista di parole disponibile gratuitamente. Idealmente dovrebbe contenere tra 300.000 e 500.000 parole, ma se la lingua ha molte flessioni (tempo, genere, numero, ecc.), potrebbero servire fino a un milione di parole.
+
+#### Ci sono parole sbagliate o mancanti nella lingua XYZ. Perché non le correggi?
+Come detto sopra, non parlo la tua lingua e potrei non accorgermi di questi errori. Ma con il tuo aiuto, possiamo correggerli e migliorare il dizionario per tutti.
+
 #### Non puoi aggiungere la funzione X?
 No.
 

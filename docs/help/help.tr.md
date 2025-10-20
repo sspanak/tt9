@@ -370,6 +370,17 @@ Bu, Android 10'da Google'ın asla düzeltmediği [bilinen bir sorun](https://iss
 
 ## Sıkça Sorulan Sorular
 
+#### Neden X dilini eklemiyorsun?
+Eklemeyi çok isterim, ancak yardımına ihtiyacım var. 40’tan fazla dili tek başıma desteklemek benim için imkânsız. Senin dilini konuşmadığım için internette doğru kaynakları bulmak zor oluyor. İşte bu noktada, senin gibi ana dil konuşurları çok yardımcı olabiliyor.
+Aslında mevcut dillerin %90’ından fazlası kullanıcıların katkılarıyla eklendi.
+
+Yeni bir dil eklemek için, yazım hatası olmayan bir kelime listesine ihtiyacım var. Tercihen, saygın bir üniversite veya dil enstitüsü tarafından hazırlanmış resmi bir sözlükten alınmış olmalı (örneğin, “X Dilinin Büyük Sözlüğü”). Böyle listeler, yazarken en kaliteli önerileri sağlar.
+
+Böyle bir sözlük yoksa, ücretsiz indirilebilen bir kelime listesi de kabul edilir. Liste genellikle 300.000–500.000 kelime içermelidir, ancak dilde çok fazla çekim varsa (zaman, cinsiyet, sayı vb.), 1 milyon kelimeye kadar gerekebilir.
+
+#### XYZ dilinde yanlış veya eksik kelimeler var. Neden düzeltmiyorsun?
+Yukarıda belirttiğim gibi, senin dilini konuşmadığım için bu hataları fark etmem zor. Ama senin yardımınla bunları düzeltebilir ve sözlüğü daha iyi hâle getirebiliriz.
+
 #### Özellik X'i ekleyemez misiniz?
 Hayır.
 

@@ -371,6 +371,17 @@ Es ist [ein bekanntes Problem](https://issuetracker.google.com/issues/158198432)
 
 ## Häufig gestellte Fragen
 
+#### Warum fügst du Sprache X nicht hinzu?
+Ich würde das gerne tun, aber ich brauche deine Hilfe. Mehr als 40 Sprachen alleine zu unterstützen ist unmöglich. Da ich deine Sprache nicht spreche, ist es schwierig, zuverlässige Ressourcen im Internet zu finden. Hier können Muttersprachler wie du wirklich helfen.
+Tatsächlich wurden über 90 % der vorhandenen Sprachen von oder mit der Hilfe engagierter Nutzer hinzugefügt.
+
+Um eine neue Sprache hinzuzufügen, brauche ich eine Rechtschreib-geprüfte Wortliste, vorzugsweise aus einer offiziellen oder akademischen Quelle (zum Beispiel „Großes Wörterbuch der Sprache X“). Solche Listen liefern die besten Wortvorschläge beim Tippen.
+
+Wenn es kein solches Wörterbuch gibt, kannst du auch eine frei herunterladbare Wortliste bereitstellen. Ideal sind 300.000–500.000 Wörter. Wenn deine Sprache viele Beugungen hat (z. B. Änderungen durch Zeit, Geschlecht oder Zahl), werden etwa 1 Million Wörter benötigt.
+
+#### Es gibt falsch geschriebene oder fehlende Wörter in Sprache XYZ. Warum behebst du sie nicht?
+Wie oben erwähnt: Ich spreche deine Sprache nicht und bemerke solche Fehler möglicherweise gar nicht. Aber mit deiner Hilfe können wir sie beheben und das Wörterbuch für alle verbessern.
+
 #### Kannst du nicht Funktion X hinzufügen?
 Nein.
 
