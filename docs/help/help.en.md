@@ -371,6 +371,19 @@ It is [a known problem](https://issuetracker.google.com/issues/158198432) on And
 
 ## Frequently Asked Questions
 
+#### Why don’t you add language X?
+I’d love to — but I need your help. Supporting over 40 languages alone is impossible. Since I don’t speak your language, it’s difficult to find reliable resources online. This is where native speakers like you can make a difference!
+In fact, over 90% of the existing languages were added by or with the help of enthusiastic users.
+
+To add a new one, I need a spell-checked word list, preferably from an official or academic source (for example, a “Big Dictionary of X”). Such lists give the best typing suggestions.
+
+If no such dictionary exists, you can provide any freely downloadable word list. The ideal size is 300k–500k words, but if your language has many inflections (changes by tense, gender, or number), about 1 million words may be needed.
+
+
+#### There are misspelled or missing words in language XYZ. Why don’t you fix them?
+As above — I don’t speak your language, so I might not notice such errors.
+But with your help, we can fix them and make the dictionary better for everyone!
+
 #### Can't you add feature X?
 No.
 

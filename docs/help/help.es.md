@@ -370,6 +370,17 @@ Es [un problema conocido](https://issuetracker.google.com/issues/158198432) en A
 
 ## Preguntas Frecuentes
 
+#### ¿Por qué no agregas el idioma X?
+Me encantaría hacerlo, pero necesito tu ayuda. Es imposible mantener más de 40 idiomas por mi cuenta. Como no hablo tu idioma, me resulta difícil encontrar recursos fiables en Internet. Aquí es donde los hablantes nativos como tú pueden marcar la diferencia.
+De hecho, más del 90 % de los idiomas actuales fueron añadidos por o con la ayuda de usuarios entusiastas.
+
+Para agregar uno nuevo, necesito una lista de palabras revisada ortográficamente, preferiblemente de una fuente oficial o académica (por ejemplo, “Gran diccionario del idioma X”). Este tipo de listas ofrecen las mejores sugerencias al escribir.
+
+Si no existe tal diccionario, puedes proporcionar una lista de palabras disponible para descargar gratuitamente. Lo ideal es que tenga entre 300 000 y 500 000 palabras, pero si el idioma tiene muchas inflexiones (por tiempo, género o número), se pueden necesitar alrededor de 1 millón.
+
+#### Hay palabras mal escritas o faltantes en el idioma XYZ. ¿Por qué no las corriges?
+Como dije antes, no hablo tu idioma, así que puede que no note esos errores. Pero con tu ayuda, podemos corregirlos y mejorar el diccionario para todos.
+
 #### ¿No puedes añadir la función X?
 No.
 

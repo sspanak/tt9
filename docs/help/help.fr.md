@@ -370,6 +370,17 @@ C'est [un problème connu](https://issuetracker.google.com/issues/158198432) sou
 
 ## Questions Fréquemment Posées
 
+#### Pourquoi n’ajoutes-tu pas la langue X ?
+J’aimerais beaucoup le faire, mais j’ai besoin de ton aide. Il m’est impossible de gérer plus de 40 langues tout seul. Comme je ne parle pas ta langue, il m’est difficile de trouver des ressources fiables en ligne. C’est là que les locuteurs natifs comme toi peuvent vraiment aider.
+En fait, plus de 90 % des langues existantes ont été ajoutées par ou avec l’aide d’utilisateurs enthousiastes.
+
+Pour ajouter une nouvelle langue, j’ai besoin d’une liste de mots vérifiée, de préférence issue d’une source officielle ou académique (par exemple, « Grand dictionnaire de la langue X »). Ce type de liste offre les meilleures suggestions de mots pendant la saisie.
+
+S’il n’existe pas un tel dictionnaire, tu peux fournir une liste de mots téléchargeable gratuitement. L’idéal est une liste de 300 000 à 500 000 mots, mais si la langue a beaucoup de variations (temps, genre, nombre, etc.), environ 1 million de mots peut être nécessaire.
+
+#### Il y a des mots mal orthographiés ou manquants dans la langue XYZ. Pourquoi ne les corriges-tu pas ?
+Comme indiqué ci-dessus, je ne parle pas ta langue et je ne remarque donc pas forcément ces erreurs. Mais avec ton aide, nous pouvons les corriger et améliorer le dictionnaire pour tout le monde.
+
 #### Ne peux-tu pas ajouter la fonctionnalité X ?
 Non.
 
