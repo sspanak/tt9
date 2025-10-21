@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
@@ -13,11 +12,6 @@ public class SoftKeyNumber0 extends SoftKeyNumber {
 	public SoftKeyNumber0(Context context) { super(context); }
 	public SoftKeyNumber0(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyNumber0(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
-
-
-	public static boolean isMe(int keyId) {
-		return keyId == R.id.soft_key_0;
-	}
 
 
 	private boolean shouldBeTransparent() {

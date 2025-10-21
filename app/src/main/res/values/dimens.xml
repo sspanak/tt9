@@ -22,6 +22,8 @@
 	<dimen name="main_small_command_palette_key_text_size">18dp</dimen>
 
 	<!-- Preferences, default text size -->
+	<dimen name="preview_header_height">52dp</dimen>
+
 	<dimen name="pref_custom_min_height">48dp</dimen>
 	<dimen name="pref_custom_spacing_horizontal">16dp</dimen>
 	<dimen name="pref_custom_spacing_vertical">12dp</dimen>

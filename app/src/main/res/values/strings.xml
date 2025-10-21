@@ -4,12 +4,16 @@
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>
+	<string name="click_here_for_preview">Click here for preview</string>
 	<string name="completed">Completed</string>
+	<string name="delete">Delete</string>
 	<string name="english_only" translatable="false">English only</string>
-	<string name="loading">Loading…</string>
 	<string name="language">Language</string>
+	<string name="list_item_none" translatable="false">--</string>
+	<string name="loading">Loading…</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
+	<string name="system_night_mode" translatable="false">n</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
 
@@ -28,6 +32,7 @@
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_category_colors">Colors</string>
 	<string name="pref_category_custom_words">Added Words</string>
 	<string name="pref_category_geometry">Geometry</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>
@@ -68,10 +73,7 @@
 	<string name="pref_backspace_recomposing">Word Re-Composition</string>
 	<string name="pref_backspace_recomposing_summary">Press Backspace at word end to edit the word. (Not possible in some apps and with mixed-language text)</string>
 	<string name="pref_choose_languages">Languages</string>
-	<string name="pref_dark_theme">Dark Theme</string>
-	<string name="pref_dark_theme_yes">Yes</string>
-	<string name="pref_dark_theme_no">No</string>
-	<string name="pref_dark_theme_auto">Auto</string>
+
 	<string name="pref_drag_resize">Drag to Resize</string>
 	<string name="pref_drag_resize_summary">Allow resizing and moving the keyboard by dragging the Status Bar or the Settings key.</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
@@ -89,6 +91,7 @@
 	<string name="pref_help">Help</string>
 	<string name="pref_hold_to_type">Number Key Holding</string>
 	<string name="pref_hold_to_type_summary">Allow typing numbers or running app functions by holding number keys. Turn off if the device misdetects short presses as holds.</string>
+	<string name="pref_keyboard_preview">Preview</string>
 	<string name="pref_layout">Layout Type</string>
 	<string name="pref_layout_numpad">Virtual numpad</string>
 	<string name="pref_layout_small">Function keys</string>
@@ -116,6 +119,12 @@
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
+
+	<!-- Colors -->
+	<string name="pref_color_scheme">Theme</string>
+	<string name="pref_dark_theme_auto">Auto</string>
+	<string name="pref_color_scheme_device_dark">System Dark</string>
+	<string name="pref_color_scheme_device_light">System Light</string>
 
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word on line %1$d of language \"%2$s\".</string>
@@ -156,7 +165,6 @@
 	<string name="dictionary_import_progress">Importing CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importing CSV…</string>
 
-	<string name="delete_words_delete">Delete</string>
 	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>
@@ -240,7 +248,6 @@
 
 	<string name="key_key">Key</string>
 	<string name="key_hold_key">(hold)</string>
-	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
 	<string name="key_channel_down">Previous Channel</string>

@@ -17,6 +17,7 @@
 	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
 	<string name="pref_hold_to_type_summary">Consente di digitare numeri o attivare funzioni dell’app tenendo premuti i tasti numerici. Disattivare se il dispositivo rileva per errore pressioni brevi come pressioni prolungate.</string>
+	<string name="pref_keyboard_preview">Anteprima</string>
 	<string name="pref_layout">Tipo di layout</string>
 	<string name="pref_layout_numpad">Tastierino numerico</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
@@ -24,7 +25,6 @@
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
 	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale. (Non possibile su tutti i dispositivi)</string>
 	<string name="pref_help">Aiuto</string>
-	<string name="pref_dark_theme">Tema scuro</string>
 	<string name="pref_category_typing">Digitazione</string>
 	<string name="pref_abc_auto_accept">Selezione automatica delle lettere</string>
 	<string name="pref_abc_auto_accept_off">Spenta</string>
@@ -55,6 +55,7 @@
 	<string name="pref_quick_switch_language_summary">Premendo il tasto della lingua si passa automaticamente alla lingua successiva invece di mostrare un popup con tutte le lingue abilitate.</string>
 	<string name="pref_status_icon">Icona di stato</string>
 	<string name="pref_status_icon_summary">Mostrare un\'icona quando la digitazione è attiva.</string>
+	<string name="pref_color_scheme_device_light">Chiaro di sistema</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>
 	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
@@ -63,6 +64,7 @@
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 	<string name="pref_category_abc_mode">Modalità ABC</string>
+	<string name="pref_category_colors">Colori</string>
 	<string name="pref_category_custom_words">Parole aggiunte</string>
 	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
 	<string name="pref_category_fn_key_order">Ordine dei tasti funzione</string>
@@ -103,8 +105,7 @@
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Per tastierini numerici dei computer con 7–8–9 nella prima fila invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
-	<string name="pref_dark_theme_yes">Si</string>
-	<string name="pref_dark_theme_no">No</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
 	<string name="dictionary_truncate_title">Elimina tutti</string>
 	<string name="dictionary_truncate_unselected">Elimina tutti non selezionati</string>
@@ -122,7 +123,7 @@
 	<string name="dictionary_import_error_file_too_long">Le parole superano il numero massimo consentito di %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Formato di parola imprevisto: \"%1$s\" alla linea %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Lo spazio di archiviazione delle parole aggiunte è pieno. Non è possibile importare altre parole.</string>
-	<string name="delete_words_delete">Elimina</string>
+	<string name="delete">Elimina</string>
 	<string name="delete_words_link_summary">Trova ed elimina parole errate o non necessarie.</string>
 	<string name="search_results">Parole trovate</string>
 	<string name="search_results_void">Nessun risultato.</string>
@@ -244,5 +245,7 @@
 	<string name="pref_one_key_emoji">Emoji sul tasto 1</string>
 	<string name="pref_one_key_emoji_none">Nessuna emoji</string>
 	<string name="pref_hold_to_type">Tenere premuti i tasti numerici</string>
+	<string name="pref_color_scheme_device_dark">Scuro di sistema</string>
+	<string name="click_here_for_preview">Fai clic qui per l’anteprima</string>
 </resources>
 

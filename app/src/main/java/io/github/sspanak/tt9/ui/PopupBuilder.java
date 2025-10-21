@@ -115,11 +115,11 @@ public class PopupBuilder {
 	}
 
 
-	public void show() {
+	public Dialog show() {
 		if (DeviceInfo.AT_LEAST_ANDROID_12) {
-			builder12.show();
+			return builder12.show();
 		} else {
-			builderLegacy.show();
+			return builderLegacy.show();
 		}
 	}
 

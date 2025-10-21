@@ -42,7 +42,7 @@ public class PreferenceHotkey extends ScreenPreference implements DialogInterfac
 	}
 
 
-	@Override protected int getLargeLayout() {
+	@Override public int getLargeLayout() {
 		return DeviceInfo.AT_LEAST_ANDROID_12 ? getDefaultLayout() : R.layout.pref_default_large;
 	}
 

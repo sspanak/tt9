@@ -48,7 +48,7 @@ public class DropDownSettingsFontSize extends EnhancedDropDownPreference {
 
 	@Override
 	protected boolean onChange(Preference preference, Object newSize) {
-		if (super.onChange(preference, newSize) && screen != null) {
+		if (screen != null) {
 			screen.resetFontSize(true);
 			return true;
 		}

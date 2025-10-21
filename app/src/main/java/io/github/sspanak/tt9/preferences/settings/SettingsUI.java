@@ -1,15 +1,11 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.view.Gravity;
-
-import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
-import io.github.sspanak.tt9.preferences.screens.appearance.DropDownDarkTheme;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
@@ -70,15 +66,6 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21 || !DeviceInfo.noKeyboard(context));
 	}
 
-	public boolean getDarkTheme() {
-		int theme = getTheme();
-		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-			return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-		} else {
-			return theme == AppCompatDelegate.MODE_NIGHT_YES;
-		}
-	}
-
 	public boolean getDragResize() {
 		return prefs.getBoolean("pref_drag_resize", true);
 	}
@@ -123,10 +110,6 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getSuggestionSmoothScroll() {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
-	}
-
-	public int getTheme() {
-		return getStringifiedInt(DropDownDarkTheme.NAME, DropDownDarkTheme.DEFAULT);
 	}
 
 	public int getDefaultWidthPercent() {

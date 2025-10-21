@@ -17,6 +17,7 @@
 	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_colors">Cores</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
 	<string name="pref_category_fn_key_order">Ordem das teclas de função</string>
@@ -49,10 +50,10 @@
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
 	<string name="pref_backspace_recomposing_summary">Pressionar Backspace no fim da palavra para editar. (Não funciona em alguns apps e com texto em vários idiomas)</string>
 	<string name="pref_choose_languages">Idiomas</string>
-	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
+	<string name="pref_keyboard_preview">Visualizar</string>
 	<string name="pref_layout">Tipo de layout</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
@@ -70,6 +71,7 @@
 	<string name="pref_quick_switch_language_summary">Pressionar a tecla de idioma alterna automaticamente para o próximo idioma, em vez de mostrar um pop-up com todos os idiomas habilitados.</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
+	<string name="pref_color_scheme_device_light">Claro do sistema</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
 	<string name="dictionary_load_bad_char">Falha no carregamento. Palavra inválida na linha %1$d do idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
@@ -123,8 +125,7 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
-	<string name="pref_dark_theme_yes">Sim</string>
-	<string name="pref_dark_theme_no">Não</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>
@@ -139,7 +140,7 @@
 	<string name="dictionary_import_error_file_too_long">O número de palavras excede o máximo permitido de %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Formato de palavra inesperado: \"%1$s\" na linha %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">O armazenamento de palavras adicionadas está cheio. Você não pode importar mais palavras.</string>
-	<string name="delete_words_delete">Excluir</string>
+	<string name="delete">Excluir</string>
 	<string name="delete_words_link_summary">Encontrar e excluir palavras escritas incorretamente ou desnecessárias.</string>
 	<string name="search_results">Palavras encontradas</string>
 	<string name="search_results_void">Sem resultados.</string>
@@ -248,4 +249,6 @@
 	<string name="pref_one_key_emoji">Emojis na tecla 1</string>
 	<string name="pref_one_key_emoji_none">Sem emojis</string>
 	<string name="pref_hold_to_type">Manter teclas numéricas</string>
+	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
+	<string name="click_here_for_preview">Clique aqui para visualizar</string>
 </resources>

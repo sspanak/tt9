@@ -57,8 +57,8 @@ public class TextInputPreference extends ScreenPreference {
 	}
 
 
-	@Override protected int getDefaultLayout() { return R.layout.pref_input_text; }
-	@Override protected int getLargeLayout() { return R.layout.pref_input_text_large; }
+	@Override public int getDefaultLayout() { return R.layout.pref_input_text; }
+	@Override public int getLargeLayout() { return R.layout.pref_input_text_large; }
 
 
 	/**

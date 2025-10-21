@@ -31,11 +31,6 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	}
 
 
-	public static boolean isMe(int keyId) {
-		return keyId == R.id.soft_key_backspace || keyId == R.id.soft_key_numpad_backspace;
-	}
-
-
 	private boolean isFastDeleteOn() {
 		return tt9 != null && tt9.getSettings().getBackspaceAcceleration();
 	}

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
-
-	<io.github.sspanak.tt9.preferences.screens.appearance.SelectThemePreference />
-
-	<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize app:title="@string/pref_font_size" />
+	<PreferenceCategory app:key="category_keyboard_color_scheme" app:title="@string/pref_category_colors">
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme />
+	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_layout">
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
@@ -24,7 +23,7 @@
 			app:summary="@string/pref_drag_resize_summary" />
 	</PreferenceCategory>
 
-	<PreferenceCategory app:title="@string/pref_category_geometry">
+	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape app:title="@string/pref_numpad_shape" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment app:title="@string/pref_numpad_alignment" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth app:title="@string/pref_numpad_width" />
@@ -35,6 +34,13 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize app:title="@string/pref_font_size" />
+
+		<SwitchPreferenceCompat
+			app:key="pref_status_icon"
+			app:title="@string/pref_status_icon"
+			app:summary="@string/pref_status_icon_summary" />
+
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_suggestion_smooth_scroll"
 			app:title="@string/pref_suggestion_smooth_scroll"/>
@@ -51,11 +57,6 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.PrecalculateNavbarHeightSwitch
 			app:title="@string/pref_hack_precalculate_navbar_height"
 			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />
-
-		<SwitchPreferenceCompat
-			app:key="pref_status_icon"
-			app:title="@string/pref_status_icon"
-			app:summary="@string/pref_status_icon_summary" />
 
 	</PreferenceCategory>
 

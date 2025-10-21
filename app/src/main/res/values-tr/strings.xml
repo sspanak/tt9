@@ -15,6 +15,7 @@
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
 	<string name="pref_hold_to_type_summary">Sayı tuşlarını basılı tutarak rakam yazmaya veya uygulama işlevlerini etkinleştirmeye izin verir. Cihaz kısa basışları yanlışlıkla basılı tutma olarak algılıyorsa kapatın.</string>
+	<string name="pref_keyboard_preview">Önizleme</string>
 	<string name="pref_layout">Düzen türü</string>
 	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
@@ -22,7 +23,6 @@
 	<string name="pref_layout_tray">Sadece Tahminler</string>
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
 	<string name="pref_help">Yardım</string>
-	<string name="pref_dark_theme">Karanlık Tema</string>
 	<string name="pref_category_typing">Girdi</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>
 	<string name="pref_abc_auto_accept_off">Devre Dışı</string>
@@ -53,6 +53,7 @@
 	<string name="pref_quick_switch_language_summary">Dil tuşuna basıldığında, etkin diller listesini göstermek yerine otomatik olarak bir sonraki dile geçilir.</string>
 	<string name="pref_status_icon">Durum</string>
 	<string name="pref_status_icon_summary">Klavye girişi etkin olduğunda bir simge göster.</string>
+	<string name="pref_color_scheme_device_light">Sistem açık</string>
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>
 	<string name="dictionary_load_bad_char">Yükleme başarısız. \"%2$s\" dilinde %1$d. satırda geçersiz kelime.</string>
 	<string name="dictionary_load_error">“%1$s” dili için sözlük yüklenemedi (%2$s).</string>
@@ -65,6 +66,7 @@
 	<string name="dictionary_load_title">Seçilenleri yükle</string>
 	<string name="dictionary_not_found">Yükleme başarısız oldu. \"%1$s\" sözlüğü bulunamadı.</string>
 	<string name="pref_category_abc_mode">ABC Modu</string>
+	<string name="pref_category_colors">Renkler</string>
 	<string name="pref_category_custom_words">Eklenen sözcükler</string>
 	<string name="pref_category_delete_words">Eklenen sözcükleri sil</string>
 	<string name="pref_category_fn_key_order">Fonksiyon tuşlarının sırası</string>
@@ -98,8 +100,7 @@
 	<string name="pref_category_setup">İlk Kurulum</string>
 	<string name="pref_font_size_large">Büyük</string>
 	<string name="completed">Tamamlandı</string>
-	<string name="pref_dark_theme_yes">Evet</string>
-	<string name="pref_dark_theme_no">Hayır</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Otomatik</string>
 	<string name="dictionary_truncate_title">Hepsini Sil</string>
 	<string name="dictionary_truncate_unselected">Seçilmeyenleri Sil</string>
@@ -117,7 +118,7 @@
 	<string name="dictionary_import_error_file_too_long">Kelime sayısı izin verilen maksimum %1$d\'i aşıyor.</string>
 	<string name="dictionary_import_error_malformed_line">Beklenmeyen kelime formatı: \"%1$s\" satır %2$d\'de.</string>
 	<string name="dictionary_import_error_too_many_words">Eklenen kelime depolama alanı dolu. Daha fazla kelime içe aktaramazsınız.</string>
-	<string name="delete_words_delete">Sil</string>
+	<string name="delete">Sil</string>
 	<string name="delete_words_link_summary">Yanlış yazılan ya da gereksiz kelimeleri bulun ve silin.</string>
 	<string name="search_results">Ara</string>
 	<string name="search_results_void">Eşleşme bulunamadı.</string>
@@ -246,4 +247,6 @@
 	<string name="pref_one_key_emoji">1 tuşundaki emojiler</string>
 	<string name="pref_one_key_emoji_none">Emoji yok</string>
 	<string name="pref_hold_to_type">Sayı tuşlarını basılı tut</string>
+	<string name="pref_color_scheme_device_dark">Sistem koyu</string>
+	<string name="click_here_for_preview">Önizleme için buraya tıklayın</string>
 </resources>

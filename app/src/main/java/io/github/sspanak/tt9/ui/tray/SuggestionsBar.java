@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.tray;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -38,6 +39,7 @@ public class SuggestionsBar {
 
 	private int defaultBackgroundColor = Color.TRANSPARENT;
 	private int backgroundColor;
+	private int suggestionSeparatorColor;
 
 	private double lastClickTime = 0;
 	private int lastScrollIndex = 0;
@@ -104,7 +106,7 @@ public class SuggestionsBar {
 		mView.setAdapter(mSuggestionsAdapter);
 		mView.setHasFixedSize(true); // Optimizes performance
 
-		setDarkTheme();
+		setColorScheme();
 	}
 
 
@@ -113,6 +115,7 @@ public class SuggestionsBar {
 			return;
 		}
 
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
 		// Extra XML is required instead of a ColorDrawable object, because setting the highlight color
 		// erases the borders defined using the ColorDrawable.
 		Drawable separatorDrawable = ContextCompat.getDrawable(context, R.drawable.suggestion_separator);
@@ -120,8 +123,15 @@ public class SuggestionsBar {
 			return;
 		}
 
+		separatorDrawable.setColorFilter(suggestionSeparatorColor, PorterDuff.Mode.SRC_ATOP);
+
 		DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
 		separator.setDrawable(separatorDrawable);
+
+		int decorations = mView.getItemDecorationCount();
+		if (decorations > 0) {
+			mView.removeItemDecorationAt(decorations - 1);
+		}
 		mView.addItemDecoration(separator);
 	}
 
@@ -401,22 +411,20 @@ public class SuggestionsBar {
 
 
 	/**
-	 * setDarkTheme
-	 * Changes the suggestion colors according to the theme. Due to the fact we change the colors
-	 * dynamically based on the selected index and whether the suggestions are empty or not, we
-	 * need to set them manually.
+	 * setColorScheme
+	 * Changes the suggestion colors according to the current color scheme.
 	 */
-	public void setDarkTheme() {
+	public void setColorScheme() {
 		if (mView == null) {
 			return;
 		}
 
-		Context context = mView.getContext();
-
-		defaultBackgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
-		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text));
-		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
-		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
+		defaultBackgroundColor = settings.getKeyboardBackground();
+		mSuggestionsAdapter.setColorDefault(settings.getKeyboardTextColor());
+		mSuggestionsAdapter.setColorHighlight(settings.getSuggestionSelectedColor());
+		mSuggestionsAdapter.setBackgroundHighlight(settings.getSuggestionSelectedBackground());
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
+		initSeparator(mView.getContext());
 
 		setBackground(true);
 	}

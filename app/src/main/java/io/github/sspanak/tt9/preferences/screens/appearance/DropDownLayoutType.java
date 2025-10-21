@@ -62,6 +62,6 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 			item.onLayoutChange(newLayout);
 		}
 
-		return super.onChange(preference, newKey);
+		return true;
 	}
 }

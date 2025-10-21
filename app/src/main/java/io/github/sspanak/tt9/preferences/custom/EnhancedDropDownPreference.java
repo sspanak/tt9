@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	@NonNull protected final LinkedHashMap<String, String> values = new LinkedHashMap<>();
+	@Nullable private ConsumerCompat<String> externalChangeListener = null;
 
 	public EnhancedDropDownPreference(@NonNull Context context) { super(context); init(context); }
 	public EnhancedDropDownPreference(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); init(context); }
@@ -35,17 +37,45 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	@Override
 	public void onAttached() {
 		super.onAttached();
-		setOnPreferenceChangeListener(this::onChange);
+		setOnPreferenceChangeListener(this::handleChange);
 	}
 
 
-	protected boolean onChange(Preference preference, Object newKey) {
+	/**
+	 * Internal change handler. Manages updating the preview and calling external listeners, if any,
+	 * and calling onChange() for subclasses.
+	 */
+	protected final boolean handleChange(Preference preference, Object newValue) {
 		if (preference instanceof EnhancedDropDownPreference) {
-			((DropDownPreference) preference).setValue(newKey.toString());
+			((DropDownPreference) preference).setValue(newValue.toString());
 			preview();
 		}
 
+		if (!onChange(preference, newValue)) {
+			return false;
+		}
+
+		if (externalChangeListener != null) {
+			externalChangeListener.accept(newValue.toString());
+		}
+
 		return true;
+	}
+
+
+	/**
+	 * Change handler for subclasses to override. Return false to prevent calling external listeners.
+	 */
+	protected boolean onChange(Preference preference, Object newKey) {
+		return true;
+	}
+
+
+	/**
+	 * Set an external listener to be called when the preference value changes.
+	 */
+	public void setOnChangeListener(@Nullable ConsumerCompat<String> listener) {
+		externalChangeListener = listener;
 	}
 
 
@@ -92,13 +122,18 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	}
 
 
+	public boolean isEmpty() {
+		return values.isEmpty();
+	}
+
+
 	final public EnhancedDropDownPreference preview() {
 		setSummary(values.get(getValue()));
 		return this;
 	}
 
 
-	final public EnhancedDropDownPreference sort() {
+	public EnhancedDropDownPreference sort() {
 		if (!DeviceInfo.AT_LEAST_ANDROID_7 || values.size() <= 1) {
 			return this;
 		}

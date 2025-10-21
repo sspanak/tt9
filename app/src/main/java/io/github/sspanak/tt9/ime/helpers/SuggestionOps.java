@@ -227,9 +227,9 @@ public class SuggestionOps {
 	}
 
 
-	public void setDarkTheme() {
+	public void setColorScheme() {
 		if (suggestionBar != null) {
-			suggestionBar.setDarkTheme();
+			suggestionBar.setColorScheme();
 		}
 	}
 }

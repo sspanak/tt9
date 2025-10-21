@@ -48,13 +48,12 @@
 	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
 	<string name="pref_backspace_recomposing_summary">Paspauskite Backspace žodžio pabaigoje, kad redaguotumėte. (Negalima kai kuriose programose ir su daugiakalbiu tekstu)</string>
 	<string name="pref_choose_languages">Kalbos</string>
-	<string name="pref_dark_theme">Tamsi išvaizda</string>
-	<string name="pref_dark_theme_yes">Taip</string>
-	<string name="pref_dark_theme_no">Ne</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
 	<string name="pref_hold_to_type_summary">Leisti įvesti skaičius arba aktyvuoti programos funkcijas laikant nuspaustus skaitmeninius klavišus. Išjungti, jei įrenginys klaidingai aptinka trumpus paspaudimus kaip laikymą.</string>
+	<string name="pref_keyboard_preview">Peržiūra</string>
 	<string name="pref_layout">Išdėstymo tipas</string>
 	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
 	<string name="pref_layout_small">Funkcijos klavišai</string>
@@ -76,6 +75,7 @@
 	<string name="pref_quick_switch_language_summary">Paspaudus kalbos klavišą, automatiškai perjungiama į kitą kalbą, užuot rodžius iškylantį langą su visomis įjungtomis kalbomis.</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
+	<string name="pref_color_scheme_device_light">Sisteminė šviesi</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%2$s\" kalbos nepavyko. Klaida %1$d eilutėje, netinkamas žodis.</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" kalbos žodyną (%2$s).</string>
@@ -132,6 +132,7 @@
 
 	<string name="char_newline">Nauja eilutė</string>
 	<string name="char_space">Tarpas</string>
+	<string name="pref_category_colors">Spalvos</string>
 	<string name="pref_category_custom_words">Pridėtos žodžiai</string>
 	<string name="pref_category_delete_words">Trinti pridėtus žodžius</string>
 	<string name="pref_hack_always_on_top">Visada viršuje</string>
@@ -155,7 +156,7 @@
 	<string name="dictionary_import_error_file_too_long">Žodžių skaičius viršija leistiną maksimumą %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Nenumatytas žodžio formatas: „%1$s“ eilutėje %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Pridėtų žodžių saugykla yra pilna. Daugiau žodžių importuoti negalite.</string>
-	<string name="delete_words_delete">Ištrinti</string>
+	<string name="delete">Ištrinti</string>
 	<string name="delete_words_link_summary">Raskite ir ištrinkite neteisingai parašytus arba nereikalingus žodžius.</string>
 	<string name="search_results">Paieškos rezultatai</string>
 	<string name="search_results_void">Jokių rezultatų.</string>
@@ -250,4 +251,6 @@
 	<string name="pref_one_key_emoji">Jaustukai 1 klaviše</string>
 	<string name="pref_one_key_emoji_none">Be jaustukų</string>
 	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
+	<string name="pref_color_scheme_device_dark">Sisteminė tamsi</string>
+	<string name="click_here_for_preview">Spustelėkite čia, kad peržiūrėtumėte</string>
 </resources>
