@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.tray;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -38,6 +39,7 @@ public class SuggestionsBar {
 
 	private int defaultBackgroundColor = Color.TRANSPARENT;
 	private int backgroundColor;
+	private int suggestionSeparatorColor;
 
 	private double lastClickTime = 0;
 	private int lastScrollIndex = 0;
@@ -113,12 +115,15 @@ public class SuggestionsBar {
 			return;
 		}
 
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
 		// Extra XML is required instead of a ColorDrawable object, because setting the highlight color
 		// erases the borders defined using the ColorDrawable.
 		Drawable separatorDrawable = ContextCompat.getDrawable(context, R.drawable.suggestion_separator);
 		if (separatorDrawable == null) {
 			return;
 		}
+
+		separatorDrawable.setColorFilter(suggestionSeparatorColor, PorterDuff.Mode.SRC_ATOP);
 
 		DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
 		separator.setDrawable(separatorDrawable);
@@ -413,10 +418,12 @@ public class SuggestionsBar {
 
 		Context context = mView.getContext();
 
-		defaultBackgroundColor = ContextCompat.getColor(context, R.color.keyboard_background);
-		mSuggestionsAdapter.setColorDefault(ContextCompat.getColor(context, R.color.keyboard_text));
-		mSuggestionsAdapter.setColorHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_text));
-		mSuggestionsAdapter.setBackgroundHighlight(ContextCompat.getColor(context, R.color.suggestion_selected_background));
+		// resolve the colors again, in case the theme changed
+		defaultBackgroundColor = settings.getKeyboardBackground();
+		mSuggestionsAdapter.setColorDefault(settings.getKeyboardTextColor());
+		mSuggestionsAdapter.setColorHighlight(settings.getSuggestionSelectedColor());
+		mSuggestionsAdapter.setBackgroundHighlight(settings.getSuggestionSelectedBackground());
+		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
 
 		setBackground(true);
 	}
