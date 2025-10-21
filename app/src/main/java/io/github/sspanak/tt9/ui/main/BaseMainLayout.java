@@ -16,7 +16,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -33,7 +32,6 @@ abstract public class BaseMainLayout {
 
 	protected View view = null;
 	@NonNull protected final ArrayList<SoftKey> keys = new ArrayList<>();
-	@NonNull protected final HashSet<Integer> dynamicKeys = new HashSet<>();
 
 
 	BaseMainLayout(TraditionalT9 tt9, int xml) {
@@ -330,26 +328,14 @@ abstract public class BaseMainLayout {
 	abstract void render();
 
 	/**
-	 * Render specific keys to update their state. If the list is empty, no keys are rendered. If the
-	 * list is null, all keys are rendered.
+	 * Tells all layout keys to re-render themselves. If onlyDynamic is true, only keys that
+	 * return true from isDynamic() will be re-rendered.
 	 */
-	private void renderKeys(@Nullable HashSet<Integer> keyIds) {
-		if (keyIds != null && keyIds.isEmpty()) {
-			return;
-		}
-
+	void renderKeys(boolean onlyDynamic) {
 		for (SoftKey key : getKeys()) {
-			if (keyIds == null || keyIds.contains(key.getId())) {
+			if (!onlyDynamic || key.isDynamic()) {
 				key.render();
 			}
 		}
-	}
-
-	void renderKeys() {
-		renderKeys(null);
-	}
-
-	void renderDynamicKeys() {
-		renderKeys(dynamicKeys);
 	}
 }

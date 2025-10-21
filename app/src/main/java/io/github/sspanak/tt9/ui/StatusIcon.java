@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class StatusIcon {
 	private static final HashMap<String, Integer> ICONS = new HashMap<>();
+	private static int cachedResourceId = 0;
 	public final int resourceId;
 
 
@@ -19,7 +20,12 @@ public class StatusIcon {
 		if (ICONS.isEmpty()) {
 			generateIconsCache();
 		}
-		resourceId = resolveResourcePerMode(settings, mode, language, textCase);
+		cachedResourceId = resourceId = resolveResourcePerMode(settings, mode, language, textCase);
+	}
+
+
+	public static int getCachedResourceId() {
+		return cachedResourceId;
 	}
 
 
