@@ -48,6 +48,17 @@ public class SoftKeyFnNumpad extends BaseSwipeableKey {
 	public SoftKeyFnNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
+	public static boolean isMe(int keyId) {
+		return
+			keyId == R.id.soft_key_settings
+			|| keyId == R.id.soft_key_add_word
+			|| keyId == R.id.soft_key_shift
+			|| keyId == R.id.soft_key_numpad_backspace
+			|| keyId == R.id.soft_key_filter
+			|| keyId == R.id.soft_key_rf3;
+	}
+
+
 	@Override
 	protected void handleHold() {
 		preventRepeat();

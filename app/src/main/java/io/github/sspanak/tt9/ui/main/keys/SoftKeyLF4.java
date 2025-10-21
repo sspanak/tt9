@@ -26,6 +26,10 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 		isSwipeable = true;
 	}
 
+	public static boolean isMe(int keyId) {
+		return keyId == R.id.soft_key_lf4;
+	}
+
 	private boolean areThereManyLanguages() {
 		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
 	}

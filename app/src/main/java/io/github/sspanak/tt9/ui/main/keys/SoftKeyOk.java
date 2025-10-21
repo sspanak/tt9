@@ -4,12 +4,19 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class SoftKeyOk extends BaseSoftKeyCustomizable {
 	public SoftKeyOk(Context context) { super(context); }
 	public SoftKeyOk(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	public static boolean isMe(int keyId) {
+		return keyId == R.id.soft_key_ok || keyId == R.id.soft_key_numpad_ok;
+	}
+
 
 	@Override protected String getTitle() {
 		CharSequence layoutTitle = getText();
