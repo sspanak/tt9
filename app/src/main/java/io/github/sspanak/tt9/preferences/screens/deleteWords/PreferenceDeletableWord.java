@@ -29,8 +29,8 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	public PreferenceDeletableWord(@NonNull Context context) { super(context); }
 
 
-	@Override protected int getDefaultLayout() { return R.layout.pref_deletable_word; }
-	@Override protected int getLargeLayout() { return R.layout.pref_deletable_word_large; }
+	@Override public int getDefaultLayout() { return R.layout.pref_deletable_word; }
+	@Override public int getLargeLayout() { return R.layout.pref_deletable_word_large; }
 
 
 	void setParent(DeletableWordsList parent) {
@@ -59,7 +59,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 			.setTitle(context.getString(R.string.delete_words_deleted_confirm_deletion_title))
 			.setMessage(context.getString(R.string.delete_words_deleted_confirm_deletion_question, word))
 			.setNegativeButton(true, null)
-			.setPositiveButton(context.getString(R.string.delete_words_delete), this::onDeletionConfirmed)
+			.setPositiveButton(context.getString(R.string.delete), this::onDeletionConfirmed)
 			.show();
 	}
 

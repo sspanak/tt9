@@ -44,7 +44,7 @@
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.DeleteWordsScreen"
 			app:key="screen_delete_words"
-			app:title="@string/delete_words_delete"
+			app:title="@string/delete"
 			app:summary="@string/delete_words_link_summary"/>
 
 	</PreferenceCategory>

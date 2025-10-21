@@ -14,13 +14,13 @@
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_hold_to_type_summary">Позволява писане на числа или активиране на функции при задържане на цифровите клавиши. Изключете, ако устройството разпознава неправилно кратки натискания като задържане.</string>
+	<string name="pref_keyboard_preview">Преглед</string>
 	<string name="pref_layout">Вид на подредбата</string>
 	<string name="pref_layout_numpad">Цифрова клавиатура</string>
 	<string name="pref_layout_small">Функционални клавиши</string>
 	<string name="pref_layout_stealth">Невидим режим</string>
 	<string name="pref_layout_tray">Само списък с думи</string>
 	<string name="pref_help">Помощ</string>
-	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_auto_capitals_after_newline">Автоматични главни букви на всеки ред</string>
 	<string name="pref_auto_capitals_after_newline_summary">Започвай всеки ред с главна буква, дори и да е в средата на изречение.</string>
 	<string name="pref_backspace_recomposing">Редактиране на думи</string>
@@ -37,6 +37,7 @@
 	<string name="pref_quick_switch_language_summary">Натискането на клавиша за език автоматично превключва към следващия език, вместо да показва изскачащ списък с всички активирани езици.</string>
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
+	<string name="pref_color_scheme_device_light">Системна светла</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума на ред %1$d за език „%2$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
@@ -48,6 +49,7 @@
 	<string name="dictionary_not_found">Неуспешно зареждане. Липсва речник за „%1$s“.</string>
 	<string name="dictionary_truncated">Речникът е изтрит успешно.</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_colors">Цветове</string>
 	<string name="pref_category_custom_words">Добавени думи</string>
 	<string name="pref_category_delete_words">Изтрий добавени думи</string>
 	<string name="pref_category_fn_key_order">Ред на функционалните клавиши</string>
@@ -70,7 +72,7 @@
 	<string name="dictionary_import_error_file_too_long">Думите надвишават максимално допустимия брой от %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Неочакван формат на дума: „%1$s“ на ред %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилището за добавени думи е пълно. Не можете да импортирате повече думи.</string>
-	<string name="delete_words_delete">Изтрий</string>
+	<string name="delete">Изтрий</string>
 	<string name="delete_words_link_summary">Намери и изтрий на неправилно написани или ненужни думи.</string>
 	<string name="search_results">Намерени думи</string>
 	<string name="search_results_void">Няма резултати.</string>
@@ -145,8 +147,7 @@
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
-	<string name="pref_dark_theme_yes">Да</string>
-	<string name="pref_dark_theme_no">Не</string>
+	<string name="pref_color_scheme">Цветова схема</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Да се добави ли „%1$s“ към %2$s?</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайно повтарящи бутони</string>
@@ -241,4 +242,6 @@
 	<string name="pref_one_key_emoji">Емотикони на бутон „1“</string>
 	<string name="pref_one_key_emoji_none">Без емотикони</string>
 	<string name="pref_hold_to_type">Задържане на цифрови клавиши</string>
+	<string name="pref_color_scheme_device_dark">Системна тъмна</string>
+	<string name="click_here_for_preview">Щракнете тук за предварителен преглед</string>
 </resources>

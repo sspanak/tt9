@@ -29,12 +29,13 @@ public class DropDownLogLevel extends EnhancedDropDownPreference {
 
 	@Override
 	protected boolean onChange(Preference preference, Object newKey) {
-		if (super.onChange(preference, newKey)) {
+		try {
 			Logger.setLevel(Integer.parseInt(newKey.toString()));
 			return true;
+		} catch (NumberFormatException e) {
+			Logger.w(NAME, "Invalid log level: " + newKey);
+			return false;
 		}
-
-		return false;
 	}
 
 	@Override

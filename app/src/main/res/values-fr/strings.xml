@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_hold_to_type_summary">Permet de taper des chiffres ou d’activer des fonctions en maintenant les touches numériques. Désactivez si l’appareil détecte à tort les pressions courtes comme des maintiens.</string>
+	<string name="pref_keyboard_preview">Aperçu</string>
 	<string name="pref_layout">Type de disposition</string>
 	<string name="pref_layout_numpad">Pavé numérique</string>
 	<string name="pref_layout_small">Touches de fonction</string>
@@ -21,7 +22,6 @@
 	<string name="pref_layout_tray">Seulement liste de mots</string>
 	<string name="pref_haptic_feedback_summary">Vibrer lors de l\'appui sur une touche virtuelle. (Non possible sur tous les appareils)</string>
 	<string name="pref_help">Aide</string>
-	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>
 	<string name="pref_backspace_recomposing">Recomposition de mots</string>
@@ -37,6 +37,7 @@
 	<string name="pref_quick_switch_language_summary">Appuyer sur la touche de langue passe automatiquement à la langue suivante au lieu d\'afficher une fenêtre contextuelle avec toutes les langues activées.</string>
 	<string name="pref_status_icon">Icône d\'état</string>
 	<string name="pref_status_icon_summary">Afficher une icône lorsque la saisie au clavier est active</string>
+	<string name="pref_color_scheme_device_light">Clair du système</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
@@ -47,6 +48,7 @@
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_abc_mode">Saisie ABC</string>
+	<string name="pref_category_colors">Couleurs</string>
 	<string name="pref_category_custom_words">Mots ajoutés</string>
 	<string name="pref_category_delete_words">Supprimer des mots ajoutés</string>
 	<string name="pref_category_fn_key_order">Ordre des touches de fonction</string>
@@ -122,8 +124,7 @@
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>
-	<string name="pref_dark_theme_yes">Oui</string>
-	<string name="pref_dark_theme_no">Non</string>
+	<string name="pref_color_scheme">Thème</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 	<string name="dictionary_export">Exporter les sélectionées</string>
@@ -138,7 +139,7 @@
 	<string name="dictionary_import_error_file_too_long">Le nombre de mots dépasse le nombre maximal autorisé de %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Format de mot inattendu : « %1$s » à la ligne %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Le stockage des mots ajoutés est plein. Vous ne pouvez plus importer de mots.</string>
-	<string name="delete_words_delete">Supprimer</string>
+	<string name="delete">Supprimer</string>
 	<string name="delete_words_link_summary">Trouver et supprimer des mots mal orthographiés ou inutiles.</string>
 	<string name="search_results">Mots trouvés</string>
 	<string name="search_results_void">Aucun résultat.</string>
@@ -241,4 +242,6 @@
 	<string name="pref_one_key_emoji">Émojis sur la touche 1</string>
 	<string name="pref_one_key_emoji_none">Aucun émoji</string>
 	<string name="pref_hold_to_type">Maintenir touches numériques</string>
+	<string name="pref_color_scheme_device_dark">Sombre du système</string>
+	<string name="click_here_for_preview">Cliquez ici pour aperçu</string>
 </resources>

@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_hold_to_type_summary">Sta toe cijfers te typen of app-functies te activeren door cijfertoetsen ingedrukt te houden. Schakel uit als het apparaat korte drukken ten onrechte als vasthouden detecteert.</string>
+	<string name="pref_keyboard_preview">Voorbeeld</string>
 	<string name="pref_layout">Indelingstype</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
@@ -21,7 +22,6 @@
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets. (Niet mogelijk op alle apparaten)</string>
 	<string name="pref_help">Helpen</string>
-	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_category_typing">Invoer</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
 	<string name="pref_abc_auto_accept_off">Uit</string>
@@ -56,6 +56,7 @@
 	<string name="pref_suggestion_smooth_scroll">Vloeiend suggesties scrollen</string>
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
 	<string name="pref_upside_down_keys_summary">Voor computer toetsenborden met 7–8–9 op de eerste rij in plaats van 1–2–3.</string>
+	<string name="pref_color_scheme_device_light">Systeem licht</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_bad_char">Laden mislukt. Ongeldig woord op regel %1$d van taal \"%2$s\".</string>
 	<string name="dictionary_load_error">Het laden van het woordenboek voor de taal \"%1$s\" is mislukt (%2$s).</string>
@@ -71,6 +72,7 @@
 	<string name="dictionary_truncate_unselected">Verwijder de niet-geselecteerde</string>
 	<string name="dictionary_truncated">Woordenboek succesvol gewist.</string>
 	<string name="pref_category_abc_mode">ABC-modus</string>
+	<string name="pref_category_colors">Kleuren</string>
 	<string name="pref_category_custom_words">Toegevoegde woorden</string>
 	<string name="pref_category_delete_words">Verwijder toegevoegde woorden</string>
 	<string name="pref_category_fn_key_order">Volgorde van functietoetsen</string>
@@ -106,8 +108,7 @@
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
-	<string name="pref_dark_theme_yes">Ja</string>
-	<string name="pref_dark_theme_no">Nee</string>
+	<string name="pref_color_scheme">Thema</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Geselecteerde exporteren</string>
 	<string name="dictionary_export_custom_words">Exporteren</string>
@@ -121,7 +122,7 @@
 	<string name="dictionary_import_error_file_too_long">Woorden overschrijden het maximaal toegestane aantal van %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Onverwacht woordformaat: \"%1$s\" op regel %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">De opslag voor toegevoegde woorden is vol. U kunt geen woorden meer importeren.</string>
-	<string name="delete_words_delete">Verwijderen</string>
+	<string name="delete">Verwijderen</string>
 	<string name="delete_words_link_summary">Zoek en verwijder verkeerd gespelde of onnodige woorden.</string>
 	<string name="search_results">Zoekresultaten</string>
 	<string name="search_results_void">Geen resultaten.</string>
@@ -242,4 +243,6 @@
 	<string name="pref_one_key_emoji">Emoji op de 1-toets</string>
 	<string name="pref_one_key_emoji_none">Geen emoji</string>
 	<string name="pref_hold_to_type">Cijfertoetsen ingedrukt houden</string>
+	<string name="pref_color_scheme_device_dark">Systeem donker</string>
+	<string name="click_here_for_preview">Klik hier voor voorbeeld</string>
 </resources>

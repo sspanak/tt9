@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_hold_to_type_summary">Позволяет вводить цифры или запускать функции приложения при удержании цифровых клавиш. Отключите, если устройство ошибочно распознаёт короткие нажатия как удержание.</string>
+	<string name="pref_keyboard_preview">Предпросмотр</string>
 	<string name="pref_layout">Вид раскладки</string>
 	<string name="pref_layout_numpad">Цифровая клавиатура</string>
 	<string name="pref_layout_small">Функциональные клавиши</string>
@@ -21,7 +22,6 @@
 	<string name="pref_layout_tray">Только список слов</string>
 	<string name="pref_haptic_feedback_summary">Вибрировать при нажатии виртуальной клавиши. (Невозможно на всех устройствах)</string>
 	<string name="pref_help">Помощь</string>
-	<string name="pref_dark_theme">Темная тема</string>
 	<string name="pref_auto_capitals_after_newline">Автоматические заглавные буквы на каждой строке</string>
 	<string name="pref_auto_capitals_after_newline_summary">Начинать каждую строку с заглавной буквы, даже если она в середине предложения.</string>
 	<string name="pref_backspace_recomposing">Редактирование слов</string>
@@ -37,6 +37,7 @@
 	<string name="pref_quick_switch_language_summary">Нажатие клавиши языка автоматически переключает на следующий язык вместо отображения всплывающего окна со всеми включенными языками.</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
+	<string name="pref_color_scheme_device_light">Системный светлый</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
@@ -56,6 +57,7 @@
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
 	<string name="pref_category_abc_mode">Режим AБВ</string>
+	<string name="pref_category_colors">Цвета</string>
 	<string name="pref_category_custom_words">Добавленные слова</string>
 	<string name="pref_category_delete_words">Удалить добавленные слова</string>
 	<string name="pref_category_fn_key_order">Порядок функциональных клавиш</string>
@@ -122,8 +124,7 @@
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
-	<string name="pref_dark_theme_yes">Да</string>
-	<string name="pref_dark_theme_no">Нет</string>
+	<string name="pref_color_scheme">Тема</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
 	<string name="dictionary_export">Экспортировать выбранные</string>
@@ -138,7 +139,7 @@
 	<string name="dictionary_import_error_file_too_long">Количество слов превышает максимально допустимое значение %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Неожиданный формат слова: «%1$s» на строке %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилище добавленных слов заполнено. Вы не можете импортировать больше слов.</string>
-	<string name="delete_words_delete">Удалить</string>
+	<string name="delete">Удалить</string>
 	<string name="delete_words_link_summary">Найти и удалить ошибочно написанные или ненужные слова.</string>
 	<string name="search_results">Найденные слова</string>
 	<string name="search_results_void">Нет результатов.</string>
@@ -241,4 +242,6 @@
 	<string name="pref_one_key_emoji">Эмодзи на клавише 1</string>
 	<string name="pref_one_key_emoji_none">Без эмодзи</string>
 	<string name="pref_hold_to_type">Удержание цифровых клавиш</string>
+	<string name="pref_color_scheme_device_dark">Системный тёмный</string>
+	<string name="click_here_for_preview">Нажмите здесь для просмотра</string>
 </resources>

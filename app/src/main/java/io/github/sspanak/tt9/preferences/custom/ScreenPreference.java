@@ -14,7 +14,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Logger;
 
-abstract public class ScreenPreference extends Preference {
+abstract public class ScreenPreference extends Preference implements LargePreference {
 	private int SMALL_LAYOUT = 0;
 
 	public ScreenPreference(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
@@ -43,7 +43,9 @@ abstract public class ScreenPreference extends Preference {
 	}
 
 	public static int getLargeLayout(Preference pref) {
-		if (pref instanceof PreferenceCategory) {
+		if (pref instanceof LargePreference) {
+			return ((LargePreference) pref).getLargeLayout();
+		} else if (pref instanceof PreferenceCategory) {
 			return R.layout.pref_category_large;
 		} else if (pref instanceof SwitchPreferenceCompat) {
 			return R.layout.pref_switch_large;
@@ -55,7 +57,9 @@ abstract public class ScreenPreference extends Preference {
 	}
 
 	public static int getDefaultLayout(Preference pref) {
-		if (pref instanceof PreferenceCategory) {
+		if (pref instanceof LargePreference) {
+			return ((LargePreference) pref).getDefaultLayout();
+		} else if (pref instanceof PreferenceCategory) {
 			return new PreferenceCategory(pref.getContext()).getLayoutResource();
 		} else if (pref instanceof SwitchPreferenceCompat) {
 			return new SwitchPreferenceCompat(pref.getContext()).getLayoutResource();
@@ -84,13 +88,11 @@ abstract public class ScreenPreference extends Preference {
 	}
 
 
-	protected int getDefaultLayout() {
+	public int getDefaultLayout() {
 		if (SMALL_LAYOUT == 0) {
 			SMALL_LAYOUT = new Preference(getContext()).getLayoutResource();
 		}
 
 		return SMALL_LAYOUT;
 	}
-
-	abstract protected int getLargeLayout();
 }

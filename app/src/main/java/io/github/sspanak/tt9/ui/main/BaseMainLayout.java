@@ -71,7 +71,6 @@ abstract public class BaseMainLayout {
 			ContextThemeWrapper themedContext = new ThemedContextBuilder()
 				.setConfiguration(tt9.getResources().getConfiguration())
 				.setContext(tt9)
-				.setSettings(tt9.getSettings())
 				.setTheme(R.style.TTheme)
 				.build();
 			view = View.inflate(themedContext, xml, null);
@@ -257,7 +256,7 @@ abstract public class BaseMainLayout {
 	}
 
 
-	private boolean shouldEnableBackgroundBlending() {
+	public boolean shouldEnableBackgroundBlending() {
 		if (view == null || tt9 == null) {
 			return true;
 		}
@@ -278,12 +277,13 @@ abstract public class BaseMainLayout {
 
 		boolean yes = shouldEnableBackgroundBlending();
 
-		view.setBackgroundColor(
-				yes ? view.getContext().getResources().getColor(R.color.keyboard_background) : Color.TRANSPARENT
-		);
+		// super wrapper of everything
+		view.setBackgroundColor(yes ? tt9.getSettings().getKeyboardBackground() : Color.TRANSPARENT);
 
+		// top separator
 		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;
 
+		// transparent space when the width < 100%
 		View leftBumperTopSeparator = view.findViewById(R.id.bumper_left_top_separator);
 		if (leftBumperTopSeparator != null) {
 			leftBumperTopSeparator.setVisibility(separatorVisibility);
@@ -292,6 +292,12 @@ abstract public class BaseMainLayout {
 		View rightBumperTopSeparator = view.findViewById(R.id.bumper_right_top_separator);
 		if (rightBumperTopSeparator != null) {
 			rightBumperTopSeparator.setVisibility(separatorVisibility);
+		}
+
+		// keys container
+		View container = view.findViewById(R.id.keyboard_container);
+		if (container != null) {
+			container.setBackgroundColor(tt9.getSettings().getKeyboardBackground());
 		}
 	}
 

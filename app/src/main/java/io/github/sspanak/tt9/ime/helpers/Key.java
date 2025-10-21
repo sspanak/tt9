@@ -136,7 +136,7 @@ public class Key {
 	@SuppressLint("GestureBackNavigation") // we are not handling anything here, the warning makes no sense
 	public static String codeToName(@NonNull Context context, int keyCode) {
 		return switch (keyCode) {
-			case KeyEvent.KEYCODE_UNKNOWN -> context.getString(R.string.key_none);
+			case KeyEvent.KEYCODE_UNKNOWN -> context.getString(R.string.list_item_none);
 			case KeyEvent.KEYCODE_POUND -> "#";
 			case KeyEvent.KEYCODE_STAR -> "✱";
 			case KeyEvent.KEYCODE_BACK -> context.getString(R.string.key_back);

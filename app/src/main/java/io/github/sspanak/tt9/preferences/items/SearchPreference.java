@@ -24,7 +24,7 @@ abstract public class SearchPreference extends TextInputPreference {
 	}
 
 
-	@Override protected int getLargeLayout() {
+	@Override public int getLargeLayout() {
 		return DeviceInfo.AT_LEAST_ANDROID_12 ? R.layout.pref_input_text : R.layout.pref_input_text_large;
 	}
 

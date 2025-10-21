@@ -18,6 +18,7 @@
 	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_colors">Кольори</string>
 	<string name="pref_category_custom_words">Додані слова</string>
 	<string name="pref_category_delete_words">Видалити додані слова</string>
 	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
@@ -49,9 +50,7 @@
 	<string name="pref_backspace_recomposing">Редагування слів</string>
 	<string name="pref_backspace_recomposing_summary">Натисніть Backspace в кінці слова, щоб його відредагувати. (Не працює в деяких програмах і з багатомовним текстом)</string>
 	<string name="pref_choose_languages">Мови</string>
-	<string name="pref_dark_theme">Темна тема</string>
-	<string name="pref_dark_theme_yes">Так</string>
-	<string name="pref_dark_theme_no">Ні</string>
+	<string name="pref_color_scheme">Тема</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="pref_drag_resize_summary">Увімкнути зміну розміру та переміщення клавіатури перетягуванням рядка стану або клавіші налаштувань.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
@@ -60,6 +59,7 @@
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
 	<string name="pref_hold_to_type_summary">Дозволяє вводити цифри або запускати функції додатку, утримуючи цифрові клавіші. Вимкніть, якщо пристрій помилково визначає короткі натискання як утримування.</string>
+	<string name="pref_keyboard_preview">Перегляд</string>
 	<string name="pref_layout">Тип розкладки</string>
 	<string name="pref_layout_numpad">Цифрова клавіатура</string>
 	<string name="pref_layout_small">Функціональні клавіші</string>
@@ -81,6 +81,7 @@
 	<string name="pref_quick_switch_language_summary">Натискання клавіші мови автоматично перемикає на наступну мову замість відображення спливаючого вікна з усіма активними мовами.</string>
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
+	<string name="pref_color_scheme_device_light">Системний світлий</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово у рядку %1$d мови \"%2$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
@@ -110,7 +111,7 @@
 	<string name="dictionary_import_error_file_too_long">Кількість слів перевищує максимально дозволену кількість %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Несподіваний формат слова: \"%1$s\" у рядку %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
-	<string name="delete_words_delete">Видалити</string>
+	<string name="delete">Видалити</string>
 	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
 	<string name="search_results">Знайдені слова</string>
 	<string name="search_results_void">Немає результатів.</string>
@@ -252,4 +253,6 @@
 	<string name="pref_one_key_emoji">Емодзі на клавіші 1</string>
 	<string name="pref_one_key_emoji_none">Без емодзі</string>
 	<string name="pref_hold_to_type">Утримання цифрових клавіш</string>
+	<string name="pref_color_scheme_device_dark">Системний темний</string>
+	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>
 </resources>
