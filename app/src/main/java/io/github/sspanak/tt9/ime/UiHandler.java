@@ -52,7 +52,8 @@ abstract class UiHandler extends AbstractHandler {
 		statusBar.setText(inputMode);
 		mainView.showKeyboard();
 		mainView.render();
-		SystemSettings.setNavigationBarDarkTheme(getWindow().getWindow(), settings.getDarkTheme());
+
+		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings.getKeyboardBackground(), mainView.isBackgroundBlendingEnabled());
 
 		if (!isInputViewShown()) {
 			updateInputViewShown();
