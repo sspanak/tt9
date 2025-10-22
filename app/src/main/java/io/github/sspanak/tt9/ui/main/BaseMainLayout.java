@@ -257,7 +257,7 @@ abstract public class BaseMainLayout {
 	}
 
 
-	private boolean shouldEnableBackgroundBlending() {
+	public boolean shouldEnableBackgroundBlending() {
 		if (view == null || tt9 == null) {
 			return true;
 		}
@@ -277,9 +277,8 @@ abstract public class BaseMainLayout {
 		}
 
 		boolean yes = shouldEnableBackgroundBlending();
-
 		view.setBackgroundColor(
-				yes ? view.getContext().getResources().getColor(R.color.keyboard_background) : Color.TRANSPARENT
+			yes ? tt9.getSettings().getKeyboardBackground() : Color.TRANSPARENT
 		);
 
 		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;

@@ -4,12 +4,13 @@ import android.content.Context;
 import android.os.LocaleList;
 import android.provider.Settings;
 import android.view.Window;
-import android.view.WindowInsetsController;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Locale;
 
@@ -70,24 +71,18 @@ public class SystemSettings {
 		return null;
 	}
 
-	/**
-	 * Even though the background changes automatically on Android 15, thanks to edge-to-edge,
-	 * the text/icon color remains the device default. This function allows us to change it.
-	 * {@code @see:} <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
-	 */
-	public static void setNavigationBarDarkTheme(@Nullable Window window, boolean dark) {
-		if (!DeviceInfo.AT_LEAST_ANDROID_11) {
+	public static void setNavigationBarBackground(@Nullable Window window, int backgroundColor, boolean enableBlending) {
+		if (!DeviceInfo.AT_LEAST_ANDROID_11 || window == null) {
 			return;
 		}
 
-		WindowInsetsController insetsController = window != null ? window.getInsetsController() : null;
-		if (insetsController == null) {
-			return;
-		}
+		window.setNavigationBarContrastEnforced(!enableBlending);
 
-		insetsController.setSystemBarsAppearance(
-			dark ? 0 : WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS,
-			WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
-		);
+		// See: <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
+		if (enableBlending) {
+			final boolean light = ColorUtils.calculateLuminance(backgroundColor) > 0.5;
+			WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
+			insetsController.setAppearanceLightNavigationBars(light);
+		}
 	}
 }
