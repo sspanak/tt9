@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="TTheme" parent="Theme.Material3.DynamicColors.DayNight" />
+	<style name="TTheme" parent="Theme.Material3.DynamicColors.DayNight">
+		<item name="colorKeyboardBackground">@color/keyboard_background</item>
+		<item name="colorKeyboardText">@color/keyboard_text</item>
+
+		<item name="colorKeyNumBackground">@color/key_num_background</item>
+		<item name="colorKeyNumRipple">@color/key_num_ripple</item>
+		<item name="colorKeyNumText">@color/key_num_text</item>
+		<item name="colorKeyNumAlternativeText">@color/key_num_alternative_text</item>
+
+		<item name="colorKeyFnBackground">@color/key_fn_background</item>
+		<item name="colorKeyFnRipple">@color/key_fn_ripple</item>
+		<item name="colorKeyFnText">@color/key_fn_text</item>
+		<item name="colorKeyFnAlternativeText">@color/key_fn_alternative_text</item>
+
+		<item name="colorKeyLF4Background">@color/key_lf4_background</item>
+		<item name="colorKeyLF4Ripple">@color/key_lf4_ripple</item>
+		<item name="colorKeyLF4Text">@color/key_lf4_text</item>
+		<item name="colorKeyLF4AlternativeText">@color/key_lf4_alternative_text</item>
+
+		<item name="colorKeyOkBackground">@color/key_ok_background</item>
+		<item name="colorKeyOkRipple">@color/key_ok_ripple</item>
+		<item name="colorKeyOkText">@color/key_ok_text</item>
+
+		<item name="colorSuggestionSelectedBackground">@color/suggestion_selected_background</item>
+		<item name="colorSuggestionSelectedText">@color/suggestion_selected_text</item>
+		<item name="colorSuggestionSeparator">@color/suggestion_separator</item>
+	</style>
 
 	<!--*******************************************
 		Add Word

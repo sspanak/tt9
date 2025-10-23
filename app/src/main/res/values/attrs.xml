@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<attr name="colorKeyboardBackground" />
+	<attr name="colorKeyboardText" />
+
+	<attr name="colorKeyNumBackground" />
+	<attr name="colorKeyNumRipple" />
+	<attr name="colorKeyNumText" />
+	<attr name="colorKeyNumAlternativeText" />
+
+	<attr name="colorKeyFnBackground" />
+	<attr name="colorKeyFnRipple" />
+	<attr name="colorKeyFnText" />
+	<attr name="colorKeyFnAlternativeText" />
+
+	<attr name="colorKeyLF4Background" />
+	<attr name="colorKeyLF4Ripple" />
+	<attr name="colorKeyLF4Text" />
+	<attr name="colorKeyLF4AlternativeText" />
+
+	<attr name="colorKeyOkBackground" />
+	<attr name="colorKeyOkRipple" />
+	<attr name="colorKeyOkText" />
+
+	<attr name="colorSuggestionSelectedBackground" />
+	<attr name="colorSuggestionSelectedText" />
+	<attr name="colorSuggestionSeparator" />
+</resources>

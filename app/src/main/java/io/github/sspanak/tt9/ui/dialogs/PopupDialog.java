@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.PopupBuilder;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
@@ -29,7 +28,6 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 		this.context = new ThemedContextBuilder()
 				.setConfiguration(tt9.getResources().getConfiguration())
 				.setContext(tt9.getApplicationContext())
-				.setSettings(new SettingsStore(tt9))
 				// The main theme does not work on Android <= 11 and the _AddWord theme does not work on 12+.
 				// Not sure why since they inherit from the same parent, but it is what it is.
 				.setTheme(DeviceInfo.AT_LEAST_ANDROID_12 ? R.style.TTheme : theme)

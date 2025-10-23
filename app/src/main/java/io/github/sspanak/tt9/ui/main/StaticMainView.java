@@ -13,7 +13,6 @@ public class StaticMainView {
 
 	protected final TraditionalT9 tt9;
 	@Nullable protected BaseMainLayout main;
-	private boolean darkTheme;
 
 
 	protected StaticMainView(TraditionalT9 tt9) {
@@ -38,14 +37,7 @@ public class StaticMainView {
 
 
 	public boolean create() {
-		SettingsStore settings = tt9.getSettings();
-
-		if (darkTheme != settings.getDarkTheme()) {
-			darkTheme = settings.getDarkTheme();
-			main = null;
-		}
-
-		final BaseMainLayout newMain = getViewInstance(settings);
+		final BaseMainLayout newMain = getViewInstance(tt9.getSettings());
 		if (newMain == null) {
 			return false;
 		}

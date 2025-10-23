@@ -9,10 +9,11 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.ColorUtils;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Locale;
+
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 
 public class SystemSettings {
@@ -71,7 +72,7 @@ public class SystemSettings {
 		return null;
 	}
 
-	public static void setNavigationBarBackground(@Nullable Window window, int backgroundColor, boolean enableBlending) {
+	public static void setNavigationBarBackground(@Nullable Window window, @NonNull SettingsStore settings, boolean enableBlending) {
 		if (!DeviceInfo.AT_LEAST_ANDROID_11 || window == null) {
 			return;
 		}
@@ -80,9 +81,8 @@ public class SystemSettings {
 
 		// See: <a href="https://stackoverflow.com/a/77240330">the only working solution</a>.
 		if (enableBlending) {
-			final boolean light = ColorUtils.calculateLuminance(backgroundColor) > 0.5;
 			WindowInsetsControllerCompat insetsController = new WindowInsetsControllerCompat(window, window.getDecorView());
-			insetsController.setAppearanceLightNavigationBars(light);
+			insetsController.setAppearanceLightNavigationBars(!settings.getDarkTheme());
 		}
 	}
 }

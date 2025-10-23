@@ -215,7 +215,7 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 
 
 	private void applyTheme() {
-		AppCompatDelegate.setDefaultNightMode(settings.getTheme());
+		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 	}
 
 

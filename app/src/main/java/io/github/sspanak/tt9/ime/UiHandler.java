@@ -52,7 +52,7 @@ abstract class UiHandler extends AbstractHandler {
 		mainView.showKeyboard();
 		mainView.render();
 
-		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings.getKeyboardBackground(), mainView.isBackgroundBlendingEnabled());
+		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings, mainView.isBackgroundBlendingEnabled());
 
 		if (!isInputViewShown()) {
 			updateInputViewShown();

@@ -53,7 +53,8 @@ public class DropDownDarkTheme extends EnhancedDropDownPreference {
 
 	protected boolean onChange(Preference p, Object newKey) {
 		super.onChange(p, newKey);
-		AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newKey.toString()));
+		// @todo: apply the colors the new way
+//		AppCompatDelegate.setDefaultNightMode(Integer.parseInt(newKey.toString()));
 		return true;
 	}
 }
