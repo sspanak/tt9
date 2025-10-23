@@ -71,7 +71,6 @@ abstract public class BaseMainLayout {
 			ContextThemeWrapper themedContext = new ThemedContextBuilder()
 				.setConfiguration(tt9.getResources().getConfiguration())
 				.setContext(tt9)
-				.setSettings(tt9.getSettings())
 				.setTheme(R.style.TTheme)
 				.build();
 			view = View.inflate(themedContext, xml, null);

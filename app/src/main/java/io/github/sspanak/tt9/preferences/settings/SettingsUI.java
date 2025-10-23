@@ -1,10 +1,7 @@
 package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.view.Gravity;
-
-import androidx.appcompat.app.AppCompatDelegate;
 
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
@@ -68,15 +65,6 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean isStatusIconEnabled() {
 		return prefs.getBoolean("pref_status_icon", DeviceInfo.IS_QIN_F21 || !DeviceInfo.noKeyboard(context));
-	}
-
-	public boolean getDarkTheme() {
-		int theme = getTheme();
-		if (theme == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM) {
-			return (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
-		} else {
-			return theme == AppCompatDelegate.MODE_NIGHT_YES;
-		}
 	}
 
 	public boolean getDragResize() {
