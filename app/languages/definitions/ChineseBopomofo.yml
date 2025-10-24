@@ -2,7 +2,7 @@ locale: zh-TW
 dictionaryFile: zh-bopomofo.csv
 iconABC: ic_lang_zh_bopomofo
 iconT9: ic_lang_zh_traditional
-name: 中文 / 繁體 / small
+name: 中文 / 繁體_chw+edu
 abcString: ㄅㄆㄇ
 hasSpaceBetweenWords: no
 hasUpperCase: no
