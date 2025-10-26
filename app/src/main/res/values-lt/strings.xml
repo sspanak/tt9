@@ -48,9 +48,6 @@
 	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
 	<string name="pref_backspace_recomposing_summary">Paspauskite Backspace žodžio pabaigoje, kad redaguotumėte. (Negalima kai kuriose programose ir su daugiakalbiu tekstu)</string>
 	<string name="pref_choose_languages">Kalbos</string>
-	<string name="pref_dark_theme">Tamsi išvaizda</string>
-	<string name="pref_dark_theme_yes">Taip</string>
-	<string name="pref_dark_theme_no">Ne</string>
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>

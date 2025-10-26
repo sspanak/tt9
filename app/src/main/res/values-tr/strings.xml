@@ -22,7 +22,6 @@
 	<string name="pref_layout_tray">Sadece Tahminler</string>
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
 	<string name="pref_help">Yardım</string>
-	<string name="pref_dark_theme">Karanlık Tema</string>
 	<string name="pref_category_typing">Girdi</string>
 	<string name="pref_abc_auto_accept">Otomatik Harf Seçimi</string>
 	<string name="pref_abc_auto_accept_off">Devre Dışı</string>
@@ -98,8 +97,6 @@
 	<string name="pref_category_setup">İlk Kurulum</string>
 	<string name="pref_font_size_large">Büyük</string>
 	<string name="completed">Tamamlandı</string>
-	<string name="pref_dark_theme_yes">Evet</string>
-	<string name="pref_dark_theme_no">Hayır</string>
 	<string name="pref_dark_theme_auto">Otomatik</string>
 	<string name="dictionary_truncate_title">Hepsini Sil</string>
 	<string name="dictionary_truncate_unselected">Seçilmeyenleri Sil</string>

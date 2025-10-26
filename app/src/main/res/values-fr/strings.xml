@@ -21,7 +21,6 @@
 	<string name="pref_layout_tray">Seulement liste de mots</string>
 	<string name="pref_haptic_feedback_summary">Vibrer lors de l\'appui sur une touche virtuelle. (Non possible sur tous les appareils)</string>
 	<string name="pref_help">Aide</string>
-	<string name="pref_dark_theme">Thème sombre</string>
 	<string name="pref_auto_capitals_after_newline">Majuscules automatiques sur chaque ligne</string>
 	<string name="pref_auto_capitals_after_newline_summary">Commencer chaque ligne avec une majuscule, même si elle est au milieu d\'une phrase.</string>
 	<string name="pref_backspace_recomposing">Recomposition de mots</string>
@@ -122,8 +121,6 @@
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>
-	<string name="pref_dark_theme_yes">Oui</string>
-	<string name="pref_dark_theme_no">Non</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 	<string name="dictionary_export">Exporter les sélectionées</string>

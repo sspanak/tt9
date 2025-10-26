@@ -54,14 +54,7 @@ public class SoftKeyFnSmall extends SoftKeyFnNumpad {
 		final Drawable icon = iconId > 0 && tt9 != null ? AppCompatResources.getDrawable(tt9.getApplicationContext(), iconId) : null;
 		setCompoundDrawablesWithIntrinsicBounds(null, null, null, icon);
 		if (icon != null) {
-			setBottomIconColor();
-		}
-	}
-
-	private void setBottomIconColor() {
-		ColorStateList color = getCentralIconColor();
-		if (color != null) {
-			TextViewCompat.setCompoundDrawableTintList(this, getCentralIconColor());
+			TextViewCompat.setCompoundDrawableTintList(this, ColorStateList.valueOf(centralIconColor));
 		}
 	}
 

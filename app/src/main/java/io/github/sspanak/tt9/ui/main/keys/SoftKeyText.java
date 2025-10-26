@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 import android.view.ViewParent;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
@@ -13,6 +15,15 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 	public SoftKeyText(Context context) { super(context); }
 	public SoftKeyText(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyText(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyBackgroundColor();
+		cornerElementColor = settings.getKeyCornerElementColor();
+		rippleColor = settings.getKeyRippleColor();
+		centralIconColor = textColor = settings.getKeyTextColor();
+	}
 
 
 	abstract protected String getKeyChar();

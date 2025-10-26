@@ -40,6 +40,14 @@ public class StatusBar {
 	}
 
 
+	public StatusBar setColorScheme() {
+		if (statusView != null) {
+			statusView.setTextColor(settings.getKeyboardTextColor());
+		}
+		return this;
+	}
+
+
 	public void setError(String error) {
 		setText("❌  " + error);
 	}

@@ -49,9 +49,6 @@
 	<string name="pref_backspace_recomposing">Редагування слів</string>
 	<string name="pref_backspace_recomposing_summary">Натисніть Backspace в кінці слова, щоб його відредагувати. (Не працює в деяких програмах і з багатомовним текстом)</string>
 	<string name="pref_choose_languages">Мови</string>
-	<string name="pref_dark_theme">Темна тема</string>
-	<string name="pref_dark_theme_yes">Так</string>
-	<string name="pref_dark_theme_no">Ні</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="pref_drag_resize_summary">Увімкнути зміну розміру та переміщення клавіатури перетягуванням рядка стану або клавіші налаштувань.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>

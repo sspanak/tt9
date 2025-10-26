@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
 import io.github.sspanak.tt9.commands.CmdNextKeyboard;
@@ -26,8 +28,12 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 		isSwipeable = true;
 	}
 
-	public static boolean isMe(int keyId) {
-		return keyId == R.id.soft_key_lf4;
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyLf4BackgroundColor();
+		cornerElementColor = settings.getKeyLf4CornerElementColor();
+		rippleColor = settings.getKeyLf4RippleColor();
+		centralIconColor = textColor = settings.getKeyLf4TextColor();
 	}
 
 	private boolean areThereManyLanguages() {

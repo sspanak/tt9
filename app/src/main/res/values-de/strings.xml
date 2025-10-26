@@ -22,7 +22,6 @@
 	<string name="pref_layout_tray">Nur Wortliste</string>
 	<string name="pref_haptic_feedback_summary">Vibrieren beim Drücken einer virtuellen Taste. (Nicht auf allen Geräten möglich)</string>
 	<string name="pref_help">Hilfe</string>
-	<string name="pref_dark_theme">Dunkles Thema</string>
 	<string name="pref_category_typing">Eingabe</string>
 	<string name="pref_abc_auto_accept">Automatische Buchstabenauswahl</string>
 	<string name="pref_abc_auto_accept_off">Aus</string>
@@ -102,8 +101,6 @@
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
-	<string name="pref_dark_theme_yes">Ja</string>
-	<string name="pref_dark_theme_no">Nein</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_truncate_title">Alle löschen</string>
 	<string name="dictionary_truncate_unselected">Lösche die nicht ausgewählten</string>

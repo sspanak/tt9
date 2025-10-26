@@ -276,12 +276,14 @@ abstract public class BaseMainLayout {
 		}
 
 		boolean yes = shouldEnableBackgroundBlending();
-		view.setBackgroundColor(
-			yes ? tt9.getSettings().getKeyboardBackground() : Color.TRANSPARENT
-		);
 
+		// super wrapper of everything
+		view.setBackgroundColor(yes ? tt9.getSettings().getKeyboardBackground() : Color.TRANSPARENT);
+
+		// top separator
 		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;
 
+		// transparent space when the width < 100%
 		View leftBumperTopSeparator = view.findViewById(R.id.bumper_left_top_separator);
 		if (leftBumperTopSeparator != null) {
 			leftBumperTopSeparator.setVisibility(separatorVisibility);
@@ -290,6 +292,12 @@ abstract public class BaseMainLayout {
 		View rightBumperTopSeparator = view.findViewById(R.id.bumper_right_top_separator);
 		if (rightBumperTopSeparator != null) {
 			rightBumperTopSeparator.setVisibility(separatorVisibility);
+		}
+
+		// keys container
+		View container = view.findViewById(R.id.keyboard_container);
+		if (container != null) {
+			container.setBackgroundColor(tt9.getSettings().getKeyboardBackground());
 		}
 	}
 

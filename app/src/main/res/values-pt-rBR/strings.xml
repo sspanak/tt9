@@ -49,7 +49,6 @@
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
 	<string name="pref_backspace_recomposing_summary">Pressionar Backspace no fim da palavra para editar. (Não funciona em alguns apps e com texto em vários idiomas)</string>
 	<string name="pref_choose_languages">Idiomas</string>
-	<string name="pref_dark_theme">Modo Escuro</string>
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
@@ -123,8 +122,6 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
-	<string name="pref_dark_theme_yes">Sim</string>
-	<string name="pref_dark_theme_no">Não</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>

@@ -47,7 +47,6 @@
 	<string name="pref_backspace_recomposing">עריכת מילים</string>
 	<string name="pref_backspace_recomposing_summary">ללחוץ על Backspace בסוף מילה כדי לערוך אותה. (לא אפשרי בחלק מהאפליקציות ובטקסט רב-לשוני)</string>
 	<string name="pref_choose_languages">שפות</string>
-	<string name="pref_dark_theme">ערכת נושא שחורה</string>
 	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>
 	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
 	<string name="pref_hold_to_type_summary">מאפשר להקליד ספרות או להפעיל פונקציות של האפליקציה על ידי החזקת מקשי המספרים. השבת אם המכשיר מזהה בטעות לחיצות קצרות כהחזקה.</string>
@@ -123,8 +122,6 @@
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
 	<string name="pref_category_setup">הגדרה ראשונית</string>
-	<string name="pref_dark_theme_yes">כן</string>
-	<string name="pref_dark_theme_no">לא</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
 	<string name="dictionary_export">ייצוא שנבחר</string>
 	<string name="dictionary_export_custom_words">יצוא</string>

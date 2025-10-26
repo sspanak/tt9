@@ -6,7 +6,6 @@ import android.view.Gravity;
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
-import io.github.sspanak.tt9.preferences.screens.appearance.DropDownDarkTheme;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
@@ -111,10 +110,6 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getSuggestionSmoothScroll() {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
-	}
-
-	public int getTheme() {
-		return getStringifiedInt(DropDownDarkTheme.NAME, DropDownDarkTheme.DEFAULT);
 	}
 
 	public int getDefaultWidthPercent() {

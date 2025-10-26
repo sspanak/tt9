@@ -20,7 +20,6 @@
 	<string name="pref_layout_stealth">Невидим режим</string>
 	<string name="pref_layout_tray">Само списък с думи</string>
 	<string name="pref_help">Помощ</string>
-	<string name="pref_dark_theme">Тъмен облик</string>
 	<string name="pref_auto_capitals_after_newline">Автоматични главни букви на всеки ред</string>
 	<string name="pref_auto_capitals_after_newline_summary">Започвай всеки ред с главна буква, дори и да е в средата на изречение.</string>
 	<string name="pref_backspace_recomposing">Редактиране на думи</string>
@@ -145,8 +144,6 @@
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
-	<string name="pref_dark_theme_yes">Да</string>
-	<string name="pref_dark_theme_no">Не</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Да се добави ли „%1$s“ към %2$s?</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайно повтарящи бутони</string>

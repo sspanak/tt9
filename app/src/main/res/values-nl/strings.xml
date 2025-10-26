@@ -21,7 +21,6 @@
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets. (Niet mogelijk op alle apparaten)</string>
 	<string name="pref_help">Helpen</string>
-	<string name="pref_dark_theme">Donker thema</string>
 	<string name="pref_category_typing">Invoer</string>
 	<string name="pref_abc_auto_accept">Automatische letterselectie</string>
 	<string name="pref_abc_auto_accept_off">Uit</string>
@@ -106,8 +105,6 @@
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
-	<string name="pref_dark_theme_yes">Ja</string>
-	<string name="pref_dark_theme_no">Nee</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Geselecteerde exporteren</string>
 	<string name="dictionary_export_custom_words">Exporteren</string>

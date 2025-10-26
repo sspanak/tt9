@@ -36,7 +36,6 @@
 	<string name="pref_backspace_recomposing">Recomposición de palabras</string>
 	<string name="pref_backspace_recomposing_summary">Pulsar Backspace al final de la palabra para editarla. (No funciona en algunas apps ni con texto multilingüe)</string>
 	<string name="pref_choose_languages">Idiomas</string>
-	<string name="pref_dark_theme">Tema oscuro</string>
 	<string name="char_space">Espacio</string>
 	<string name="dictionary_truncating">Borrando…</string>
 	<string name="function_add_word_not_available">No es posible agregar palabras en este idioma.</string>
@@ -123,8 +122,6 @@
 	<string name="key_channel_up">Siguiente canal</string>
 	<string name="key_volume_down">Bajar volumen</string>
 	<string name="key_volume_up">Subir Volumen</string>
-	<string name="pref_dark_theme_yes">Sí</string>
-	<string name="pref_dark_theme_no">No</string>
 	<string name="pref_dark_theme_auto">Automática</string>
 	<string name="dictionary_export">Exportar seleccionados</string>
 	<string name="dictionary_export_custom_words">Exportar</string>

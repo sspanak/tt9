@@ -68,10 +68,7 @@
 	<string name="pref_backspace_recomposing">Word Re-Composition</string>
 	<string name="pref_backspace_recomposing_summary">Press Backspace at word end to edit the word. (Not possible in some apps and with mixed-language text)</string>
 	<string name="pref_choose_languages">Languages</string>
-	<string name="pref_dark_theme">Dark Theme</string>
-	<string name="pref_dark_theme_yes">Yes</string>
-	<string name="pref_dark_theme_no">No</string>
-	<string name="pref_dark_theme_auto">Auto</string>
+
 	<string name="pref_drag_resize">Drag to Resize</string>
 	<string name="pref_drag_resize_summary">Allow resizing and moving the keyboard by dragging the Status Bar or the Settings key.</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
@@ -116,6 +113,12 @@
 	<string name="pref_suggestion_smooth_scroll">Smooth Suggestion Scrolling</string>
 	<string name="pref_upside_down_keys">Reverse Key Order</string>
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
+
+	<!-- Colors -->
+	<string name="pref_color_scheme">Color Theme</string>
+	<string name="pref_dark_theme_auto">Auto</string>
+	<string name="pref_color_scheme_device_dark">Device Dark</string>
+	<string name="pref_color_scheme_device_light">Device Light</string>
 
 	<string name="dictionary_cancel_load">Cancel Loading</string>
 	<string name="dictionary_load_bad_char">Loading failed. Invalid word on line %1$d of language \"%2$s\".</string>

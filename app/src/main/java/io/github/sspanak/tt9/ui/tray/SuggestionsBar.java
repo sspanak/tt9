@@ -106,7 +106,7 @@ public class SuggestionsBar {
 		mView.setAdapter(mSuggestionsAdapter);
 		mView.setHasFixedSize(true); // Optimizes performance
 
-		setDarkTheme();
+		setColorScheme();
 	}
 
 
@@ -406,19 +406,14 @@ public class SuggestionsBar {
 
 
 	/**
-	 * setDarkTheme
-	 * Changes the suggestion colors according to the theme. Due to the fact we change the colors
-	 * dynamically based on the selected index and whether the suggestions are empty or not, we
-	 * need to set them manually.
+	 * setColorScheme
+	 * Changes the suggestion colors according to the current color scheme.
 	 */
-	public void setDarkTheme() {
+	public void setColorScheme() {
 		if (mView == null) {
 			return;
 		}
 
-		Context context = mView.getContext();
-
-		// resolve the colors again, in case the theme changed
 		defaultBackgroundColor = settings.getKeyboardBackground();
 		mSuggestionsAdapter.setColorDefault(settings.getKeyboardTextColor());
 		mSuggestionsAdapter.setColorHighlight(settings.getSuggestionSelectedColor());

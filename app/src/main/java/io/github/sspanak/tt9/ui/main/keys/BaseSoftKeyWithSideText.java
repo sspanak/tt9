@@ -23,10 +23,10 @@ public class BaseSoftKeyWithSideText extends BaseSoftKeyWithIcons {
 		boolean isKeyEnabled = isEnabled();
 
 		getOverlayWrapper();
-		renderOverlayText("overlay_top_text", getTopText(), getTopElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_right_text", getRightText(), getRightElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_bottom_text", getBottomText(), getBottomElementScale(), isKeyEnabled);
-		renderOverlayText("overlay_left_text", getLeftText(), getLeftElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_top_text", getTopText(), cornerElementColor, getTopElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_right_text", getRightText(), cornerElementColor, getRightElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_bottom_text", getBottomText(), cornerElementColor, getBottomElementScale(), isKeyEnabled);
+		renderOverlayText("overlay_left_text", getLeftText(), cornerElementColor, getLeftElementScale(), isKeyEnabled);
 		super.render();
 	}
 }

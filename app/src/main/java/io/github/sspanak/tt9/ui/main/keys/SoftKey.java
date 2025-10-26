@@ -12,24 +12,52 @@ import android.view.ViewParent;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsColors;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SoftKey extends BaseClickableKey {
-	protected RelativeLayout overlay = null;
-
 	private static float screenScaleX = 0;
 	private static float screenScaleY = 0;
+
+	protected RelativeLayout overlay = null;
+
+	protected int textColor = SettingsColors.DEFAULT_TEXT_COLOR;
+	protected int cornerElementColor = textColor;
+	@NonNull protected ColorStateList backgroundColor = ColorStateList.valueOf(SettingsColors.DEFAULT_BACKGROUND_COLOR);
+	@NonNull protected ColorStateList rippleColor = ColorStateList.valueOf(SettingsColors.DEFAULT_RIPPLE_COLOR);
 
 
 	public SoftKey(Context context) { super(context); }
 	public SoftKey(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+
+	@Override
+	public void setTT9(TraditionalT9 tt9) {
+		super.setTT9(tt9);
+		if (tt9 != null) {
+			initColors(tt9.getSettings());
+		}
+	}
+
+
+	/**
+	 * Loads the current color scheme from the settings, so that we can use them in render().
+	 */
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyFnBackgroundColor();
+		rippleColor = settings.getKeyFnRippleColor();
+		textColor = settings.getKeyFnTextColor();
+		cornerElementColor = settings.getKeyFnCornerElementColor();
+	}
 
 
 	/**
@@ -124,7 +152,6 @@ public class SoftKey extends BaseClickableKey {
 	}
 
 
-
 	/**
 	 * getTitle
 	 * Generates the name of the key, for example: "OK", "Backspace", "1", etc...
@@ -197,16 +224,6 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
-	 * Overrides the default color of the corner text elements in the styles. Return null to
-	 * preserve the default colors.
-	 */
-	@Nullable
-	protected ColorStateList getCornerElementColor() {
-		return null;
-	}
-
-
-	/**
 	 * Renders the central text of the key and styles it based on "isEnabled".
 	 */
 	private void renderTitle(boolean isEnabled) {
@@ -233,7 +250,7 @@ public class SoftKey extends BaseClickableKey {
 	 * Renders text in the given overlay element, with optional scaling and alpha. The overlay
 	 * text elements are either the "hold" text or the "swipe" text.
 	 */
-	protected void renderOverlayText(String elementTag, @Nullable String text, float scale, boolean isEnabled) {
+	protected void renderOverlayText(String elementTag, @Nullable String text, int color, float scale, boolean isEnabled) {
 		if (overlay == null) {
 			return;
 		}
@@ -243,9 +260,8 @@ public class SoftKey extends BaseClickableKey {
 			return;
 		}
 
-		ColorStateList color = getCornerElementColor();
-		color = color != null ? color : el.getTextColors();
-		el.setTextColor(color.withAlpha(isEnabled ? 255 : 110));
+		el.setTextColor(color);
+		el.setAlpha(isEnabled ? 1 : 0.4f);
 
 		if (text == null || scale == 1) {
 			el.setText(text);
@@ -260,13 +276,17 @@ public class SoftKey extends BaseClickableKey {
 
 	/**
 	 * render
-	 * Sets the key labels and icons using. Potentially, it can also adjust padding and margins and
+	 * Sets the key labels, colors and icons using. Potentially, it can also adjust padding and margins and
 	 * other visual properties of the key.
 	 */
 	public void render() {
+		setBackgroundTintList(backgroundColor);
+		setRippleColor(rippleColor);
+		setTextColor(textColor);
+
 		boolean isKeyEnabled = isEnabled();
 		renderTitle(isKeyEnabled);
 		getOverlayWrapper();
-		renderOverlayText("overlay_hold_text", getHoldText(), getCornerElementScale(BaseSoftKeyWithIcons.ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderOverlayText("overlay_hold_text", getHoldText(), cornerElementColor, getCornerElementScale(BaseSoftKeyWithIcons.ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
 	}
 }

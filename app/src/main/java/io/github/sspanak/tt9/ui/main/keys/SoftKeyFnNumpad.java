@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.KeyEvent;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
@@ -12,6 +13,7 @@ import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.languages.LanguageKind;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFnNumpad extends BaseSwipeableKey {
@@ -48,16 +50,13 @@ public class SoftKeyFnNumpad extends BaseSwipeableKey {
 	public SoftKeyFnNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
-	public static boolean isMe(int keyId) {
-		return
-			keyId == R.id.soft_key_settings
-			|| keyId == R.id.soft_key_add_word
-			|| keyId == R.id.soft_key_shift
-			|| keyId == R.id.soft_key_numpad_backspace
-			|| keyId == R.id.soft_key_filter
-			|| keyId == R.id.soft_key_rf3;
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		backgroundColor = settings.getKeyBackgroundColor();
+		cornerElementColor = settings.getKeyCornerElementColor();
+		rippleColor = settings.getKeyRippleColor();
+		centralIconColor = textColor = settings.getKeyTextColor();
 	}
-
 
 	@Override
 	protected void handleHold() {

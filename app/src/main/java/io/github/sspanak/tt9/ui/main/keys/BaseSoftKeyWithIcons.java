@@ -1,19 +1,23 @@
 package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import java.util.Arrays;
 
+import io.github.sspanak.tt9.preferences.settings.SettingsColors;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+
 public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	private Drawable icon = null; // central icon
+	protected int centralIconColor = SettingsColors.DEFAULT_TEXT_COLOR;
 
 	public static final int ICON_POSITION_TOP_RIGHT = 0;
 	public static final int ICON_POSITION_TOP_LEFT = 1;
@@ -25,6 +29,12 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	public BaseSoftKeyWithIcons(Context context, AttributeSet attrs) { super(context, attrs); }
 	public BaseSoftKeyWithIcons(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
+
+	@Override
+	protected void initColors(@NonNull SettingsStore settings) {
+		super.initColors(settings);
+		centralIconColor = textColor;
+	}
 
 	/**
 	 * Returns the central icon resource ID. If the key does not have a central icon, return -1. The scale
@@ -100,7 +110,7 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	 * Renders one of the key icons. It could be either the central icon, in the place of the main title,
 	 * or a hold icon, displayed in the upper right corner.
 	 */
-	private void renderOverlayDrawable(String elementTag, @Nullable Drawable drawable, @Nullable ColorStateList colors, float scale, boolean isEnabled) {
+	private void renderOverlayDrawable(String elementTag, @Nullable Drawable drawable, int color, float scale, boolean isEnabled) {
 		if (overlay == null) {
 			return;
 		}
@@ -111,12 +121,8 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 		}
 
 		el.setImageDrawable(drawable);
+		el.setColorFilter(color);
 		el.setAlpha(isEnabled ? 1 : 0.4f);
-		if (colors != null) {
-			el.setColorFilter(colors.getDefaultColor());
-		} else {
-			el.clearColorFilter();
-		}
 
 		if (drawable != null) {
 			el.setScaleX(scale);
@@ -129,11 +135,11 @@ public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 		boolean isKeyEnabled = isEnabled();
 
 		getOverlayWrapper();
-		renderOverlayDrawable("overlay_icon", getCentralIconCompat(), getCentralIconColor(), getCentralIconScale(), isKeyEnabled);
-		renderOverlayDrawable("overlay_top_right_icon", getCornerIconCompat(ICON_POSITION_TOP_RIGHT), getCornerElementColor(), getCornerElementScale(ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
-		renderOverlayDrawable("overlay_top_left_icon", getCornerIconCompat(ICON_POSITION_TOP_LEFT), getCornerElementColor(), getCornerElementScale(ICON_POSITION_TOP_LEFT), isKeyEnabled);
-		renderOverlayDrawable("overlay_bottom_right_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_RIGHT), getCornerElementColor(), getCornerElementScale(ICON_POSITION_BOTTOM_RIGHT), isKeyEnabled);
-		renderOverlayDrawable("overlay_bottom_left_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_LEFT), getCornerElementColor(), getCornerElementScale(ICON_POSITION_BOTTOM_LEFT), isKeyEnabled);
+		renderOverlayDrawable("overlay_icon", getCentralIconCompat(), centralIconColor, getCentralIconScale(), isKeyEnabled);
+		renderOverlayDrawable("overlay_top_right_icon", getCornerIconCompat(ICON_POSITION_TOP_RIGHT), cornerElementColor, getCornerElementScale(ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderOverlayDrawable("overlay_top_left_icon", getCornerIconCompat(ICON_POSITION_TOP_LEFT), cornerElementColor, getCornerElementScale(ICON_POSITION_TOP_LEFT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_right_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_RIGHT), cornerElementColor, getCornerElementScale(ICON_POSITION_BOTTOM_RIGHT), isKeyEnabled);
+		renderOverlayDrawable("overlay_bottom_left_icon", getCornerIconCompat(ICON_POSITION_BOTTOM_LEFT), cornerElementColor, getCornerElementScale(ICON_POSITION_BOTTOM_LEFT), isKeyEnabled);
 
 		super.render();
 	}
