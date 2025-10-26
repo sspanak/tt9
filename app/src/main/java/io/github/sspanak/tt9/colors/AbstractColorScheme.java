@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsColors;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
 
@@ -25,26 +24,26 @@ abstract public class AbstractColorScheme {
 
 
 	// keyboard panel
-	protected int keyboardBackground = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int keyboardText = SettingsColors.DEFAULT_TEXT_COLOR;
+	protected int keyboardBackground;
+	protected int keyboardText;
 
 	public int getKeyboardBackground() { return keyboardBackground; }
 	public int getKeyboardText() { return keyboardText; }
 
 	// suggestions
-	protected int suggestionSelectedBackground = SettingsColors.DEFAULT_TEXT_COLOR; // invert to simulate highlight
-	protected int suggestionSelectedColor = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int suggestionSeparatorColor = SettingsColors.DEFAULT_BACKGROUND_COLOR;
+	protected int suggestionSelectedBackground;
+	protected int suggestionSelectedColor;
+	protected int suggestionSeparatorColor;
 
 	public int getSuggestionSelectedBackground() { return suggestionSelectedBackground; }
 	public int getSuggestionSelectedColor() { return suggestionSelectedColor; }
 	public int getSuggestionSeparatorColor() { return suggestionSeparatorColor; }
 
 	// standard keys
-	protected int keyBackground = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int keyRipple = SettingsColors.DEFAULT_RIPPLE_COLOR;
-	protected int keyText = SettingsColors.DEFAULT_TEXT_COLOR;
-	protected int keyAlternativeText = keyText;
+	protected int keyBackground;
+	protected int keyRipple;
+	protected int keyText;
+	protected int keyAlternativeText;
 
 	public int getKeyBackground() { return keyBackground; }
 	public int getKeyRipple() { return keyRipple; }
@@ -52,10 +51,10 @@ abstract public class AbstractColorScheme {
 	public int getKeyAlternativeText() { return keyAlternativeText; }
 
 	// fn keys
-	protected int keyFnBackground = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int keyFnRipple = SettingsColors.DEFAULT_RIPPLE_COLOR;
-	protected int keyFnText = SettingsColors.DEFAULT_TEXT_COLOR;
-	protected int keyFnAlternativeText = keyFnText;
+	protected int keyFnBackground;
+	protected int keyFnRipple;
+	protected int keyFnText;
+	protected int keyFnAlternativeText;
 
 	public int getKeyFnBackground() { return keyFnBackground; }
 	public int getKeyFnRipple() { return keyFnRipple; }
@@ -63,10 +62,10 @@ abstract public class AbstractColorScheme {
 	public int getKeyFnAlternativeText() { return keyFnAlternativeText; }
 
 	// LF4 key
-	protected int keyLf4Background = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int keyLf4Ripple = SettingsColors.DEFAULT_RIPPLE_COLOR;
-	protected int keyLf4Text = SettingsColors.DEFAULT_TEXT_COLOR;
-	protected int keyLf4AlternativeText = keyLf4Text;
+	protected int keyLf4Background;
+	protected int keyLf4Ripple;
+	protected int keyLf4Text;
+	protected int keyLf4AlternativeText;
 
 	public int getKeyLf4Background() { return keyLf4Background; }
 	public int getKeyLf4Ripple() { return keyLf4Ripple; }
@@ -74,8 +73,8 @@ abstract public class AbstractColorScheme {
 	public int getKeyLf4AlternativeText() { return keyLf4AlternativeText; }
 
 	// OK key
-	protected int keyOkBackground = SettingsColors.DEFAULT_BACKGROUND_COLOR;
-	protected int keyOkText = SettingsColors.DEFAULT_TEXT_COLOR;
+	protected int keyOkBackground;
+	protected int keyOkText;
 	protected int keyOkRipple;
 
 	public int getKeyOkBackground() { return keyOkBackground; }
@@ -100,7 +99,8 @@ abstract public class AbstractColorScheme {
 	}
 
 
-	private void resolveColors(@NonNull ContextThemeWrapper styledCtx) {
+	// @todo: resolve the colors again when the Configuration changes (e.g., night mode)
+	protected void resolveColors(@NonNull ContextThemeWrapper styledCtx) {
 		int[] definitions = new int[] {
 			R.attr.colorKeyboardBackground,
 			R.attr.colorKeyboardText,

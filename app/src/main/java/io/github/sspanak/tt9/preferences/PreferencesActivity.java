@@ -215,6 +215,8 @@ public class PreferencesActivity extends PremiumPreferencesActivity implements P
 
 
 	private void applyTheme() {
+		// @todo: apply the colors based on the selected color scheme
+		// @todo: apply the colors to the popup windows
 		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
 	}
 

@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.R;
 
 
-// @todo: the colors do not auto-switch when the system theme changes. Fix it.
 public class ColorSchemeSystem extends AbstractColorScheme {
 	public static final int ID = 0;
 

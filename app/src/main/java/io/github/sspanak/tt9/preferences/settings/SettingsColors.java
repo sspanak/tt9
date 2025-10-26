@@ -56,9 +56,11 @@ public class SettingsColors extends SettingsHotkeys {
 			.apply();
 	}
 
+
 	public boolean getDarkTheme() {
 		return ColorUtils.calculateLuminance(getKeyboardBackground()) < 0.5;
 	}
+
 
 	// Keyboard Panel
 	public int getKeyboardBackground() {
