@@ -1,5 +1,7 @@
 package io.github.sspanak.tt9.ime;
 
+import android.view.inputmethod.EditorInfo;
+
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -11,10 +13,10 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	@Override
-	protected void initTray() {
-		super.initTray();
+	protected boolean onStart(EditorInfo field) {
 		detectRTL();
 		suggestionOps.setLanguage(LanguageCollection.getLanguage(settings.getInputLanguage()));
+		return super.onStart(field);
 	}
 
 
