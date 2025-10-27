@@ -3,8 +3,6 @@ package io.github.sspanak.tt9.db.words;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.inputmethodservice.InputMethodService;
-import android.os.Bundle;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 
@@ -31,7 +29,6 @@ import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
 import io.github.sspanak.tt9.ui.notifications.DictionaryUpdateNotification;
-import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Timer;
 
@@ -43,14 +40,11 @@ public class DictionaryLoader {
 	private final AssetManager assets;
 	private final SQLiteOpener sqlite;
 
-	@NonNull private static final Handler asyncHandler = new Handler();
-	@NonNull private final ConsumerCompat<Bundle> onStatusChange;
+	@NonNull private final DictionaryLoadingBar loadingBar;
 	private Thread loadThread;
 
 	private final HashMap<Integer, Long> lastAutoLoadAttemptTime = new HashMap<>();
 	private int currentFile = 0;
-	private long lastProgressUpdate = 0;
-
 
 
 	public static DictionaryLoader getInstance(Context context) {
@@ -64,7 +58,7 @@ public class DictionaryLoader {
 
 	private DictionaryLoader(Context context) {
 		assets = context.getAssets();
-		onStatusChange = DictionaryLoadingBar.getInstance(context)::show;
+		loadingBar = DictionaryLoadingBar.getInstance(context);
 		sqlite = SQLiteOpener.getInstance(context);
 	}
 
@@ -90,12 +84,12 @@ public class DictionaryLoader {
 		currentFile = 0;
 		Timer.start(IMPORT_TIMER);
 
-		sendStartMessage(languages.size());
+		loadingBar.showStart(languages.size());
 
 		// SQLite does not support parallel queries, so let's import them one by one
 		for (Language lang : languages) {
 			if (loadThread.isInterrupted()) {
-				sendProgressMessage(lang, 0, 0);
+				sendProgressMessage(lang, 0);
 				break;
 			}
 			importAll(context, lang);
@@ -143,7 +137,13 @@ public class DictionaryLoader {
 	}
 
 
-	public void stop() {
+	public void abort() {
+		stop();
+		loadingBar.showCancelled();
+	}
+
+
+	private void stop() {
 		loadThread.interrupt();
 		Timer.stop(IMPORT_TIMER);
 	}
@@ -157,7 +157,7 @@ public class DictionaryLoader {
 	private void importAll(Context context, Language language) {
 		if (language == null) {
 			Logger.e(LOG_TAG, "Failed loading a dictionary for NULL language.");
-			sendError(InvalidLanguageException.class.getSimpleName(), -1);
+			loadingBar.showError(InvalidLanguageException.class.getSimpleName(), null, -1);
 			return;
 		}
 
@@ -169,35 +169,35 @@ public class DictionaryLoader {
 			sqlite.beginTransaction();
 
 			Tables.dropIndexes(sqlite.getDb(), language);
-			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			sendProgressMessage(language, ++progress);
 			logLoadingStep("Indexes dropped", language, Timer.restart());
 
 			DeleteOps.delete(sqlite.getDb(), language.getId());
-			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			sendProgressMessage(language, ++progress);
 			logLoadingStep("Storage cleared", language, Timer.restart());
 
 			int lettersCount = importLetters(language);
-			sendProgressMessage(language, ++progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			sendProgressMessage(language, ++progress);
 			logLoadingStep("Letters imported", language, Timer.restart());
 
 			importWordFile(context, language, lettersCount, progress, 88);
 			progress = 88;
-			sendProgressMessage(language, progress, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+			sendProgressMessage(language, progress);
 			logLoadingStep("Dictionary file imported", language, Timer.restart());
 
 			Tables.createPositionIndex(sqlite.getDb(), language);
 			progress = progress + (98f - progress) / 2f;
-			sendProgressMessage(language, progress, 0);
+			sendProgressMessage(language, progress);
 			Tables.createWordIndex(sqlite.getDb(), language);
-			sendProgressMessage(language, progress = 98, 0);
+			sendProgressMessage(language, progress = 98);
 			logLoadingStep("Indexes restored", language, Timer.restart());
 
 			int purgedWords = DeleteOps.purgeCustomWords(sqlite.getDb(), language.getId());
-			sendProgressMessage(language, ++progress, 0);
+			sendProgressMessage(language, ++progress);
 			logLoadingStep("Removed " + purgedWords + " custom words, which are already in the dictionary", language, Timer.restart());
 
 			InsertOps.restoreCustomWords(sqlite.getDb(), language);
-			sendProgressMessage(language, ++progress, 0);
+			sendProgressMessage(language, ++progress);
 			logLoadingStep("Custom words restored", language, Timer.restart());
 
 			sqlite.finishTransaction();
@@ -211,7 +211,7 @@ public class DictionaryLoader {
 			stop();
 			sqlite.failTransaction();
 			lastAutoLoadAttemptTime.put(language.getId(), null);
-			sendImportError(DictionaryImportException.class.getSimpleName(), language.getId(), e.line);
+			loadingBar.showError(DictionaryImportException.class.getSimpleName(), language, e.line);
 
 			Logger.e(
 				LOG_TAG,
@@ -222,7 +222,7 @@ public class DictionaryLoader {
 		} catch (Exception | Error e) {
 			stop();
 			sqlite.failTransaction();
-			sendError(e.getClass().getSimpleName(), language.getId());
+			loadingBar.showError(e.getClass().getSimpleName(), language, -1);
 
 			if (e instanceof UnknownHostException) {
 				lastAutoLoadAttemptTime.put(language.getId(), System.currentTimeMillis());
@@ -275,7 +275,6 @@ public class DictionaryLoader {
 		try (BufferedReader ignored = wordFile.getReader()) {
 			while (wordFile.notEOF()) {
 				if (loadThread.isInterrupted()) {
-					sendProgressMessage(language, 0, 0);
 					throw new DictionaryImportAbortedException();
 				}
 
@@ -293,7 +292,7 @@ public class DictionaryLoader {
 					throw new DictionaryImportException(e.getMessage(), wordCount);
 				}
 
-				sendProgressMessage(language, minProgress + progressRatio * wordCount, SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME);
+				sendProgressMessage(language, minProgress + progressRatio * wordCount);
 			}
 		}
 
@@ -315,45 +314,8 @@ public class DictionaryLoader {
 	}
 
 
-	private void sendStartMessage(int fileCount) {
-		Bundle progressMsg = new Bundle();
-		progressMsg.putInt("fileCount", fileCount);
-		progressMsg.putInt("progress", 1);
-		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
-	}
-
-
-	private void sendProgressMessage(Language language, float progress, int progressUpdateInterval) {
-		long now = System.currentTimeMillis();
-		if (now - lastProgressUpdate < progressUpdateInterval) {
-			return;
-		}
-
-		lastProgressUpdate = now;
-
-		Bundle progressMsg = new Bundle();
-		progressMsg.putInt("languageId", language.getId());
-		progressMsg.putLong("time", Timer.get(IMPORT_TIMER));
-		progressMsg.putInt("progress", Math.round(progress));
-		progressMsg.putInt("currentFile", currentFile);
-		asyncHandler.post(() -> onStatusChange.accept(progressMsg));
-	}
-
-
-	private void sendError(String message, int langId) {
-		Bundle errorMsg = new Bundle();
-		errorMsg.putString("error", message);
-		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
-	}
-
-
-	private void sendImportError(String message, int langId, long fileLine) {
-		Bundle errorMsg = new Bundle();
-		errorMsg.putString("error", message);
-		errorMsg.putLong("fileLine", fileLine + 1);
-		errorMsg.putInt("languageId", langId);
-		asyncHandler.post(() -> onStatusChange.accept(errorMsg));
+	private void sendProgressMessage(Language language, float progress) {
+		loadingBar.showProgress(language, Timer.get(IMPORT_TIMER), currentFile, Math.round(progress));
 	}
 
 

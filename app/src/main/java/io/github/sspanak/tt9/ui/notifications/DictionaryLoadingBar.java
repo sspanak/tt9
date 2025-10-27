@@ -1,7 +1,11 @@
 package io.github.sspanak.tt9.ui.notifications;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,16 +20,20 @@ import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.NullLanguage;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageCharactersException;
 import io.github.sspanak.tt9.languages.exceptions.InvalidLanguageException;
+import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 
 public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	private static DictionaryLoadingBar self;
 
 	private boolean isStopped = false;
+	private long lastProgressUpdate = 0;
 	private boolean hasFailed = false;
 	private String shortMessage = "";
+
 	private Runnable onStatusChange = null;
 	private Runnable onStatusChange2 = null;
+	@Nullable private Handler statusHandler;
 
 
 	public static DictionaryLoadingBar getInstance(Context context) {
@@ -57,11 +65,6 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	public void setFileCount(int count) {
-		maxProgress = count * 100;
-	}
-
-
 	public void setOnStatusChange(Runnable onStatusChange) {
 		this.onStatusChange = onStatusChange;
 	}
@@ -82,36 +85,47 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	public void show(Bundle data) {
-		String error = data.getString("error", null);
-		int fileCount = data.getInt("fileCount", -1);
-		int progress = data.getInt("progress", -1);
+	public void showStart(int fileCount) {
+		maxProgress = fileCount * 100;
+		hasFailed = false;
+		isStopped = false;
+	}
 
-		if (error != null) {
-			hasFailed = true;
-			showError(
-				error,
-				data.getInt("languageId", -1),
-				data.getLong("fileLine", -1)
-			);
-			if (onStatusChange != null) onStatusChange.run();
-			if (onStatusChange2 != null) onStatusChange2.run();
-		} else if (progress >= 0) {
-			hasFailed = false;
-			if (fileCount >= 0) {
-				setFileCount(fileCount);
-			}
 
-			showProgress(
-				data.getLong("time", 0),
-				data.getInt("currentFile", 0),
-				data.getInt("progress", 0),
-				data.getInt("languageId", -1)
-			);
-
-			if (onStatusChange != null) onStatusChange.run();
-			if (onStatusChange2 != null) onStatusChange2.run();
+	public void showCancelled() {
+		if (hasFailed) {
+			return;
 		}
+
+		hide();
+		isStopped = true;
+		generateCancelMsg();
+		notifyChange(0);
+	}
+
+
+	public void showError(@NonNull String errorMessage, @Nullable Language language, long lineNumber) {
+		hasFailed = true;
+		generateErrorMsg(errorMessage, language, lineNumber);
+		notifyChange(0);
+	}
+
+
+	public void showProgress(@Nullable Language language, long time, int currentFile, int currentFileProgress) {
+		if (hasFailed || isStopped) {
+			return;
+		}
+
+		progress = 100 * currentFile + currentFileProgress;
+
+		if (progress < maxProgress && lastProgressUpdate + SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME > System.currentTimeMillis()) {
+			return;
+		}
+
+		generateProgressMsg(time, currentFileProgress, language != null ? language.getId() : -1);
+		notifyChange(progress >= maxProgress ? SettingsStore.DICTIONARY_IMPORT_PROGRESS_UPDATE_TIME : 0);
+
+		lastProgressUpdate = System.currentTimeMillis();
 	}
 
 
@@ -126,45 +140,23 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 	}
 
 
-	private String generateShortMessage(int languageId, int progress) {
+	private String generateShortMsg(int languageId, int progress) {
 		Language lang = LanguageCollection.getLanguage(languageId);
 		lang = lang != null ? lang : new NullLanguage();
 		return resources.getString(R.string.dictionary_loading_short, lang.getCode().toUpperCase(lang.getLocale()), progress) + "%";
 	}
 
 
-	private void showProgress(long time, int currentFile, int currentFileProgress, int languageId) {
-		if (currentFileProgress <= 0) {
-			hide();
-			isStopped = true;
-			title = "";
-			message = resources.getString(R.string.dictionary_load_cancelled);
-			return;
-		}
-
-		isStopped = false;
-		progress = 100 * currentFile + currentFileProgress;
-
-		if (progress >= maxProgress) {
-			progress = maxProgress = 0;
-			title = generateTitle(-1);
-
-			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
-			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
-			shortMessage = resources.getString(R.string.completed);
-		} else {
-			title = generateTitle(languageId);
-			message = currentFileProgress + "%";
-			shortMessage = generateShortMessage(languageId, currentFileProgress);
-		}
+	private void generateCancelMsg() {
+		title = "";
+		message = resources.getString(R.string.dictionary_load_cancelled);
+		progress = maxProgress = 0;
 
 		renderMessage();
 	}
 
 
-	private void showError(String errorType, int langId, long line) {
-		Language lang = LanguageCollection.getLanguage(langId);
-
+	private void generateErrorMsg(@NonNull String errorType, @Nullable Language lang, long line) {
 		if (lang == null || errorType.equals(InvalidLanguageException.class.getSimpleName())) {
 			message = resources.getString(R.string.add_word_invalid_language);
 		} else if (errorType.equals(DictionaryImportException.class.getSimpleName()) || errorType.equals(InvalidLanguageCharactersException.class.getSimpleName())) {
@@ -181,5 +173,45 @@ public class DictionaryLoadingBar extends DictionaryProgressNotification {
 		progress = maxProgress = 0;
 
 		renderError();
+	}
+
+
+	private void generateProgressMsg(long time, int currentFileProgress, int languageId) {
+		isStopped = false;
+
+		if (progress >= maxProgress) {
+			progress = maxProgress = 0;
+			title = generateTitle(-1);
+
+			String timeFormat = time > 60000 ? " (%1.0fs)" : " (%1.1fs)";
+			message = resources.getString(R.string.completed) + String.format(Locale.ENGLISH, timeFormat, time / 1000.0);
+			shortMessage = resources.getString(R.string.completed);
+		} else {
+			title = generateTitle(languageId);
+			message = currentFileProgress + "%";
+			shortMessage = generateShortMsg(languageId, currentFileProgress);
+		}
+
+		renderMessage();
+	}
+
+
+	private void notifyChange(int delay) {
+		if (statusHandler == null) {
+			Looper looper = Looper.getMainLooper();
+			statusHandler = looper != null ? new Handler(looper) : null;
+		}
+
+		if (statusHandler == null) {
+			return;
+		}
+
+		if (delay > 0) {
+			if (onStatusChange != null) statusHandler.postDelayed(onStatusChange, delay);
+			if (onStatusChange2 != null) statusHandler.postDelayed(onStatusChange2, delay);
+		} else {
+			if (onStatusChange != null) statusHandler.post(onStatusChange);
+			if (onStatusChange2 != null) statusHandler.post(onStatusChange2);
+		}
 	}
 }
