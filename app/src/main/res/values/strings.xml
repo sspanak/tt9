@@ -116,7 +116,7 @@
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
 
 	<!-- Colors -->
-	<string name="pref_color_scheme">Color Theme</string>
+	<string name="pref_color_scheme">Keyboard Color Theme</string>
 	<string name="pref_dark_theme_auto">Auto</string>
 	<string name="pref_color_scheme_device_dark">Device Dark</string>
 	<string name="pref_color_scheme_device_light">Device Light</string>

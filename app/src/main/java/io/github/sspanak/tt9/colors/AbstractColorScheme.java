@@ -14,11 +14,11 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 
 abstract public class AbstractColorScheme {
-	private boolean systemNightMode;
+	private final boolean systemNightMode;
 
 	abstract public int getId();
 	abstract public int getName();
-	public boolean isDefault() { return false; }
+	public boolean isSystem() { return false; }
 
 	protected AbstractColorScheme(@NonNull Context context, int themeResId, @Nullable Boolean nightMode) {
 		systemNightMode = SystemSettings.isNightModeOn(context);

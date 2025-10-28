@@ -25,7 +25,7 @@ public class ColorSchemeSystem extends AbstractColorScheme {
 	}
 
 	@Override
-	public boolean isDefault() {
+	public boolean isSystem() {
 		return true;
 	}
 }

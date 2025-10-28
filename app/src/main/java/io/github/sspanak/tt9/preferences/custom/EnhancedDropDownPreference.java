@@ -98,7 +98,7 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	}
 
 
-	final public EnhancedDropDownPreference sort() {
+	public EnhancedDropDownPreference sort() {
 		if (!DeviceInfo.AT_LEAST_ANDROID_7 || values.size() <= 1) {
 			return this;
 		}

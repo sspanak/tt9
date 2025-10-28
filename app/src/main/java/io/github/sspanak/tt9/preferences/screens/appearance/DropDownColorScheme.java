@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import java.util.LinkedHashMap;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
 import io.github.sspanak.tt9.colors.CollectionColorScheme;
@@ -55,11 +57,8 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public void populate(@NonNull Context context, @NonNull SettingsStore settings) {
 		this.settings = settings;
 
-		for (AbstractColorScheme scheme : CollectionColorScheme.getAll(context)) {
-			add(scheme.getId(), scheme.getName());
-		}
+		addSortedOptions(CollectionColorScheme.getAll(context));
 		commitOptions();
-
 		setValue(validateSchemeId(settings.getColorSchemeId()));
 		preview();
 	}
@@ -85,6 +84,27 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 		}
 
 		return true;
+	}
+
+
+	private void addSortedOptions(@NonNull AbstractColorScheme[] schemes) {
+		for (AbstractColorScheme scheme : schemes) {
+			if (!scheme.isSystem()) {
+				add(scheme.getId(), scheme.getName());
+			}
+		}
+
+		sort();
+		LinkedHashMap<String, String> nonSystemSchemes = new LinkedHashMap<>(values);
+		values.clear();
+
+		for (AbstractColorScheme scheme : schemes) {
+			if (scheme.isSystem()) {
+				add(scheme.getId(), scheme.getName());
+			}
+		}
+
+		values.putAll(nonSystemSchemes);
 	}
 
 

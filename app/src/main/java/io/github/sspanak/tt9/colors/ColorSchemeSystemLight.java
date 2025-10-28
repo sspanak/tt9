@@ -22,4 +22,9 @@ public class ColorSchemeSystemLight extends AbstractColorScheme {
 	public int getName() {
 		return R.string.pref_color_scheme_device_light;
 	}
+
+	@Override
+	public boolean isSystem() {
+		return true;
+	}
 }
