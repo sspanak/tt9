@@ -69,6 +69,7 @@
 	<string name="pref_quick_switch_language_summary">Pressionar a tecla de idioma alterna automaticamente para o próximo idioma, em vez de mostrar um pop-up com todos os idiomas habilitados.</string>
 	<string name="pref_status_icon">Ícone de status</string>
 	<string name="pref_status_icon_summary">Mostrar um ícone quando a digitação estiver ativa.</string>
+	<string name="pref_color_scheme_device_light">Claro do sistema</string>
 	<string name="dictionary_cancel_load">Cancelar Carregamento</string>
 	<string name="dictionary_load_bad_char">Falha no carregamento. Palavra inválida na linha %1$d do idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Falha no carregamento do dicionário para o idioma \"%1$s\" (%2$s).</string>
@@ -122,6 +123,7 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
+	<string name="pref_color_scheme">Cores do teclado</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>
@@ -245,4 +247,5 @@
 	<string name="pref_one_key_emoji">Emojis na tecla 1</string>
 	<string name="pref_one_key_emoji_none">Sem emojis</string>
 	<string name="pref_hold_to_type">Manter teclas numéricas</string>
+	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
 </resources>

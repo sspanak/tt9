@@ -36,6 +36,7 @@
 	<string name="pref_quick_switch_language_summary">Натискането на клавиша за език автоматично превключва към следващия език, вместо да показва изскачащ списък с всички активирани езици.</string>
 	<string name="pref_status_icon">Икона за състояние</string>
 	<string name="pref_status_icon_summary">Показвай икона, когато въвеждането с клавиатура е активно.</string>
+	<string name="pref_color_scheme_device_light">Системни светли</string>
 	<string name="dictionary_cancel_load">Отмени зареждането</string>
 	<string name="dictionary_load_bad_char">Неуспешно зареждане. Невалидна дума на ред %1$d за език „%2$s“.</string>
 	<string name="dictionary_load_error">Несупешно зареждане на речник за език „%1$s“ (%2$s).</string>
@@ -144,6 +145,7 @@
 	<string name="key_volume_down">Намаляне на звук</string>
 	<string name="key_volume_up">Усилване на звук</string>
 	<string name="dictionary_truncating">Изтриване…</string>
+	<string name="pref_color_scheme">Цветове на клавиатурата</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="add_word_confirm">Да се добави ли „%1$s“ към %2$s?</string>
 	<string name="pref_hack_key_pad_debounce_time">Защита от случайно повтарящи бутони</string>
@@ -238,4 +240,5 @@
 	<string name="pref_one_key_emoji">Емотикони на бутон „1“</string>
 	<string name="pref_one_key_emoji_none">Без емотикони</string>
 	<string name="pref_hold_to_type">Задържане на цифрови клавиши</string>
+	<string name="pref_color_scheme_device_dark">Системни тъмни</string>
 </resources>

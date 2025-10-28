@@ -71,6 +71,7 @@
 	<string name="pref_suggestion_smooth_scroll">גלילה חלקה של הצעות</string>
 	<string name="pref_upside_down_keys">להפוך את סדר המקשים</string>
 	<string name="pref_upside_down_keys_summary">עבור מקשי מספר במחשב עם 7–8–9 למעלה, במקום 1–2–3.</string>
+	<string name="pref_color_scheme_device_light">בהיר של המערכת</string>
 	<string name="dictionary_cancel_load">ביטול טעינה</string>
 	<string name="dictionary_load_bad_char">הטעינה נכשלה. מילה לא חוקית בשורה %1$d עבור \"%2$s\".</string>
 	<string name="dictionary_load_error">נכשלה טעינת המילון עבור \"%1$s\" (%2$s).</string>
@@ -122,6 +123,7 @@
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
 	<string name="pref_category_setup">הגדרה ראשונית</string>
+	<string name="pref_color_scheme">צבעי מקלדת</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
 	<string name="dictionary_export">ייצוא שנבחר</string>
 	<string name="dictionary_export_custom_words">יצוא</string>
@@ -245,4 +247,5 @@
 	<string name="pref_one_key_emoji">אימוג’ים במקש 1</string>
 	<string name="pref_one_key_emoji_none">ללא אימוג’ים</string>
 	<string name="pref_hold_to_type">החזקת מקשי המספרים</string>
+	<string name="pref_color_scheme_device_dark">כהה של המערכת</string>
 </resources>

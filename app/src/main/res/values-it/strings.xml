@@ -54,6 +54,7 @@
 	<string name="pref_quick_switch_language_summary">Premendo il tasto della lingua si passa automaticamente alla lingua successiva invece di mostrare un popup con tutte le lingue abilitate.</string>
 	<string name="pref_status_icon">Icona di stato</string>
 	<string name="pref_status_icon_summary">Mostrare un\'icona quando la digitazione è attiva.</string>
+	<string name="pref_color_scheme_device_light">Chiaro di sistema</string>
 	<string name="dictionary_cancel_load">Annullare il caricamento</string>
 	<string name="dictionary_loaded">Caricamento del dizionario terminato.</string>
 	<string name="dictionary_loading">Caricamento del dizionario (%1$s)…</string>
@@ -102,6 +103,7 @@
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Per tastierini numerici dei computer con 7–8–9 nella prima fila invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
+	<string name="pref_color_scheme">Colori tastiera</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
 	<string name="dictionary_truncate_title">Elimina tutti</string>
 	<string name="dictionary_truncate_unselected">Elimina tutti non selezionati</string>
@@ -241,5 +243,6 @@
 	<string name="pref_one_key_emoji">Emoji sul tasto 1</string>
 	<string name="pref_one_key_emoji_none">Nessuna emoji</string>
 	<string name="pref_hold_to_type">Tenere premuti i tasti numerici</string>
+	<string name="pref_color_scheme_device_dark">Scuro di sistema</string>
 </resources>
 

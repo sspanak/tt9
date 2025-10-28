@@ -36,6 +36,7 @@
 	<string name="pref_quick_switch_language_summary">Нажатие клавиши языка автоматически переключает на следующий язык вместо отображения всплывающего окна со всеми включенными языками.</string>
 	<string name="pref_status_icon">Иконка состояния</string>
 	<string name="pref_status_icon_summary">Показывать иконку, когда активен режим ввода с клавиатуры.</string>
+	<string name="pref_color_scheme_device_light">Системный светлый</string>
 	<string name="dictionary_cancel_load">Отменить загрузку</string>
 	<string name="dictionary_load_error">Ошибка загрузки словаря для языка «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Загрузка словаря завершена.</string>
@@ -121,6 +122,7 @@
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
+	<string name="pref_color_scheme">Цвета клавиатуры</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
 	<string name="dictionary_export">Экспортировать выбранные</string>
@@ -238,4 +240,5 @@
 	<string name="pref_one_key_emoji">Эмодзи на клавише 1</string>
 	<string name="pref_one_key_emoji_none">Без эмодзи</string>
 	<string name="pref_hold_to_type">Удержание цифровых клавиш</string>
+	<string name="pref_color_scheme_device_dark">Системный тёмный</string>
 </resources>

@@ -55,6 +55,7 @@
 	<string name="pref_suggestion_smooth_scroll">Sanftes Scrollen der Wortliste</string>
 	<string name="pref_upside_down_keys">Die Reihenfolge der Tasten umkehren</string>
 	<string name="pref_upside_down_keys_summary">Für Computer-Ziffernblöcke mit 7–8–9 in der ersten Reihe anstelle von 1–2–3.</string>
+	<string name="pref_color_scheme_device_light">Systemhell</string>
 	<string name="dictionary_cancel_load">Laden abbrechen</string>
 	<string name="dictionary_load_bad_char">Laden fehlgeschlagen. Ungültiges Wort in Zeile %1$d der Sprache „%2$s“.</string>
 	<string name="dictionary_load_error">Fehler beim Laden des Wörterbuchs für die Sprache „%1$s“ (%2$s).</string>
@@ -101,6 +102,7 @@
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
+	<string name="pref_color_scheme">Tastaturfarben</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_truncate_title">Alle löschen</string>
 	<string name="dictionary_truncate_unselected">Lösche die nicht ausgewählten</string>
@@ -240,4 +242,5 @@
 	<string name="pref_one_key_emoji">Emojis auf der 1-Taste</string>
 	<string name="pref_one_key_emoji_none">Keine Emojis</string>
 	<string name="pref_hold_to_type">Zahlentasten halten</string>
+	<string name="pref_color_scheme_device_dark">Systemdunkel</string>
 </resources>

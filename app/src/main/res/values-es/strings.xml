@@ -64,6 +64,7 @@
 	<string name="pref_quick_switch_language_summary">Al presionar la tecla de idioma, se cambia automáticamente al siguiente idioma en lugar de mostrar una ventana emergente con todos los idiomas habilitados.</string>
 	<string name="pref_status_icon">Icono de estado</string>
 	<string name="pref_status_icon_summary">Mostrar un icono cuando la escritura esté activa.</string>
+	<string name="pref_color_scheme_device_light">Claro del sistema</string>
 	<string name="dictionary_cancel_load">Cancelar la carga</string>
 	<string name="pref_auto_text_case">Mayúsculas automáticas</string>
 	<string name="pref_auto_text_case_summary">Comienza automáticamente las oraciones con una letra mayúscula. (No es posible en todos los idiomas)</string>
@@ -122,6 +123,7 @@
 	<string name="key_channel_up">Siguiente canal</string>
 	<string name="key_volume_down">Bajar volumen</string>
 	<string name="key_volume_up">Subir Volumen</string>
+	<string name="pref_color_scheme">Colores del teclado</string>
 	<string name="pref_dark_theme_auto">Automática</string>
 	<string name="dictionary_export">Exportar seleccionados</string>
 	<string name="dictionary_export_custom_words">Exportar</string>
@@ -238,4 +240,5 @@
 	<string name="pref_one_key_emoji">Emojis en la tecla 1</string>
 	<string name="pref_one_key_emoji_none">Sin emojis</string>
 	<string name="pref_hold_to_type">Mantener teclas numéricas</string>
+	<string name="pref_color_scheme_device_dark">Oscuro del sistema</string>
 </resources>

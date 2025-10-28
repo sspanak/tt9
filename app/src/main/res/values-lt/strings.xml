@@ -48,6 +48,7 @@
 	<string name="pref_backspace_recomposing">Žodžių redagavimas</string>
 	<string name="pref_backspace_recomposing_summary">Paspauskite Backspace žodžio pabaigoje, kad redaguotumėte. (Negalima kai kuriose programose ir su daugiakalbiu tekstu)</string>
 	<string name="pref_choose_languages">Kalbos</string>
+	<string name="pref_color_scheme">Klaviatūros spalvos</string>
 	<string name="pref_dark_theme_auto">Automatiškai</string>
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
@@ -73,6 +74,7 @@
 	<string name="pref_quick_switch_language_summary">Paspaudus kalbos klavišą, automatiškai perjungiama į kitą kalbą, užuot rodžius iškylantį langą su visomis įjungtomis kalbomis.</string>
 	<string name="pref_status_icon">Būsenos piktograma</string>
 	<string name="pref_status_icon_summary">Rodyti piktogramą, kai aktyvus klaviatūros įvedimas</string>
+	<string name="pref_color_scheme_device_light">Sisteminė šviesi</string>
 	<string name="dictionary_cancel_load">Atšaukti įkėlimą</string>
 	<string name="dictionary_load_bad_char">Įkelti \"%2$s\" kalbos nepavyko. Klaida %1$d eilutėje, netinkamas žodis.</string>
 	<string name="dictionary_load_error">Klaida įkeliant \"%1$s\" kalbos žodyną (%2$s).</string>
@@ -247,4 +249,5 @@
 	<string name="pref_one_key_emoji">Jaustukai 1 klaviše</string>
 	<string name="pref_one_key_emoji_none">Be jaustukų</string>
 	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
+	<string name="pref_color_scheme_device_dark">Sisteminė tamsi</string>
 </resources>

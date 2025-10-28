@@ -55,6 +55,7 @@
 	<string name="pref_suggestion_smooth_scroll">Vloeiend suggesties scrollen</string>
 	<string name="pref_upside_down_keys">De volgorde van de toetsen omkeren</string>
 	<string name="pref_upside_down_keys_summary">Voor computer toetsenborden met 7–8–9 op de eerste rij in plaats van 1–2–3.</string>
+	<string name="pref_color_scheme_device_light">Systeem licht</string>
 	<string name="dictionary_cancel_load">Laden annuleren</string>
 	<string name="dictionary_load_bad_char">Laden mislukt. Ongeldig woord op regel %1$d van taal \"%2$s\".</string>
 	<string name="dictionary_load_error">Het laden van het woordenboek voor de taal \"%1$s\" is mislukt (%2$s).</string>
@@ -105,6 +106,7 @@
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
+	<string name="pref_color_scheme">Kleuren van toetsenbord</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Geselecteerde exporteren</string>
 	<string name="dictionary_export_custom_words">Exporteren</string>
@@ -239,4 +241,5 @@
 	<string name="pref_one_key_emoji">Emoji op de 1-toets</string>
 	<string name="pref_one_key_emoji_none">Geen emoji</string>
 	<string name="pref_hold_to_type">Cijfertoetsen ingedrukt houden</string>
+	<string name="pref_color_scheme_device_dark">Systeem donker</string>
 </resources>

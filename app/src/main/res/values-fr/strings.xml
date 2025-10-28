@@ -36,6 +36,7 @@
 	<string name="pref_quick_switch_language_summary">Appuyer sur la touche de langue passe automatiquement à la langue suivante au lieu d\'afficher une fenêtre contextuelle avec toutes les langues activées.</string>
 	<string name="pref_status_icon">Icône d\'état</string>
 	<string name="pref_status_icon_summary">Afficher une icône lorsque la saisie au clavier est active</string>
+	<string name="pref_color_scheme_device_light">Clair du système</string>
 	<string name="dictionary_cancel_load">Annuler le chargement</string>
 	<string name="dictionary_load_error">Echec du chargement de dictionnaire pour langue «%1$s» (%2$s).</string>
 	<string name="dictionary_loaded">Chargement du dictionnaire terminé.</string>
@@ -121,6 +122,7 @@
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>
+	<string name="pref_color_scheme">Couleurs du clavier</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 	<string name="dictionary_export">Exporter les sélectionées</string>
@@ -238,4 +240,5 @@
 	<string name="pref_one_key_emoji">Émojis sur la touche 1</string>
 	<string name="pref_one_key_emoji_none">Aucun émoji</string>
 	<string name="pref_hold_to_type">Maintenir touches numériques</string>
+	<string name="pref_color_scheme_device_dark">Sombre du système</string>
 </resources>

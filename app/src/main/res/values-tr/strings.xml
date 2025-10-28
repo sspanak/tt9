@@ -52,6 +52,7 @@
 	<string name="pref_quick_switch_language_summary">Dil tuşuna basıldığında, etkin diller listesini göstermek yerine otomatik olarak bir sonraki dile geçilir.</string>
 	<string name="pref_status_icon">Durum</string>
 	<string name="pref_status_icon_summary">Klavye girişi etkin olduğunda bir simge göster.</string>
+	<string name="pref_color_scheme_device_light">Sistem açık</string>
 	<string name="dictionary_cancel_load">Yüklemeyi İptal Et</string>
 	<string name="dictionary_load_bad_char">Yükleme başarısız. \"%2$s\" dilinde %1$d. satırda geçersiz kelime.</string>
 	<string name="dictionary_load_error">“%1$s” dili için sözlük yüklenemedi (%2$s).</string>
@@ -97,6 +98,7 @@
 	<string name="pref_category_setup">İlk Kurulum</string>
 	<string name="pref_font_size_large">Büyük</string>
 	<string name="completed">Tamamlandı</string>
+	<string name="pref_color_scheme">Klavye renkleri</string>
 	<string name="pref_dark_theme_auto">Otomatik</string>
 	<string name="dictionary_truncate_title">Hepsini Sil</string>
 	<string name="dictionary_truncate_unselected">Seçilmeyenleri Sil</string>
@@ -243,4 +245,5 @@
 	<string name="pref_one_key_emoji">1 tuşundaki emojiler</string>
 	<string name="pref_one_key_emoji_none">Emoji yok</string>
 	<string name="pref_hold_to_type">Sayı tuşlarını basılı tut</string>
+	<string name="pref_color_scheme_device_dark">Sistem koyu</string>
 </resources>

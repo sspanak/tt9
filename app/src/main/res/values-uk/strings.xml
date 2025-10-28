@@ -49,6 +49,7 @@
 	<string name="pref_backspace_recomposing">Редагування слів</string>
 	<string name="pref_backspace_recomposing_summary">Натисніть Backspace в кінці слова, щоб його відредагувати. (Не працює в деяких програмах і з багатомовним текстом)</string>
 	<string name="pref_choose_languages">Мови</string>
+	<string name="pref_color_scheme">Кольори клавіатури</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="pref_drag_resize_summary">Увімкнути зміну розміру та переміщення клавіатури перетягуванням рядка стану або клавіші налаштувань.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
@@ -78,6 +79,7 @@
 	<string name="pref_quick_switch_language_summary">Натискання клавіші мови автоматично перемикає на наступну мову замість відображення спливаючого вікна з усіма активними мовами.</string>
 	<string name="pref_status_icon">Іконка статусу</string>
 	<string name="pref_status_icon_summary">Показати іконку, коли активне введення з клавіатури.</string>
+	<string name="pref_color_scheme_device_light">Системний світлий</string>
 	<string name="dictionary_cancel_load">Скасувати завантаження</string>
 	<string name="dictionary_load_bad_char">Завантаження не вдалося. Невірне слово у рядку %1$d мови \"%2$s\".</string>
 	<string name="dictionary_load_error">Не вдалося завантажити словник для мови \"%1$s\" (%2$s).</string>
@@ -249,4 +251,5 @@
 	<string name="pref_one_key_emoji">Емодзі на клавіші 1</string>
 	<string name="pref_one_key_emoji_none">Без емодзі</string>
 	<string name="pref_hold_to_type">Утримання цифрових клавіш</string>
+	<string name="pref_color_scheme_device_dark">Системний темний</string>
 </resources>
