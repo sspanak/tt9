@@ -5,10 +5,11 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
-import io.github.sspanak.tt9.colors.ColorSchemeSystem;
+import io.github.sspanak.tt9.colors.CollectionColorScheme;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme;
 
 public class SettingsColors extends SettingsHotkeys {
@@ -16,12 +17,13 @@ public class SettingsColors extends SettingsHotkeys {
 	public static final int DEFAULT_RIPPLE_COLOR = Color.LTGRAY;
 	public static final int DEFAULT_TEXT_COLOR = Color.BLACK;
 
-	private final AbstractColorScheme defaultColorScheme;
+	@Nullable
+	private static AbstractColorScheme colorScheme;
 
 
 	protected SettingsColors(Context context) {
 		super(context);
-		defaultColorScheme = new ColorSchemeSystem(context);
+		colorScheme = CollectionColorScheme.get(context, getColorSchemeId());
 	}
 
 
@@ -31,28 +33,9 @@ public class SettingsColors extends SettingsHotkeys {
 
 
 	public void setColorScheme(@NonNull AbstractColorScheme scheme) {
+		colorScheme = scheme;
 		getPrefsEditor()
 			.putString(DropDownColorScheme.NAME, String.valueOf(scheme.getId()))
-			.putInt("pref_keyboard_background_color", scheme.getKeyboardBackground())
-			.putInt("pref_keyboard_text_color", scheme.getKeyboardText())
-			.putInt("pref_suggestion_selected_background", scheme.getSuggestionSelectedBackground())
-			.putInt("pref_suggestion_selected_color", scheme.getSuggestionSelectedColor())
-			.putInt("pref_suggestion_separator_color", scheme.getSuggestionSeparatorColor())
-			.putInt("pref_key_background_color", scheme.getKeyBackground())
-			.putInt("pref_key_corner_element_color", scheme.getKeyAlternativeText())
-			.putInt("pref_key_ripple_color", scheme.getKeyRipple())
-			.putInt("pref_key_text_color", scheme.getKeyText())
-			.putInt("pref_key_fn_background_color", scheme.getKeyFnBackground())
-			.putInt("pref_key_fn_corner_element_color", scheme.getKeyFnAlternativeText())
-			.putInt("pref_key_fn_ripple_color", scheme.getKeyFnRipple())
-			.putInt("pref_key_fn_text_color", scheme.getKeyFnText())
-			.putInt("pref_key_lf4_background_color", scheme.getKeyLf4Background())
-			.putInt("pref_key_lf4_corner_element_color", scheme.getKeyLf4AlternativeText())
-			.putInt("pref_key_lf4_ripple_color", scheme.getKeyLf4Ripple())
-			.putInt("pref_key_lf4_text_color", scheme.getKeyLf4Text())
-			.putInt("pref_key_ok_background_color", scheme.getKeyOkBackground())
-			.putInt("pref_key_ok_text_color", scheme.getKeyOkText())
-			.putInt("pref_key_ok_ripple_color", scheme.getKeyOkRipple())
 			.apply();
 	}
 
@@ -64,125 +47,145 @@ public class SettingsColors extends SettingsHotkeys {
 
 	// Keyboard Panel
 	public int getKeyboardBackground() {
-		return getColor("pref_keyboard_background_color", defaultColorScheme.getKeyboardBackground());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyboardBackground();
 	}
 
 
 	public int getKeyboardTextColor() {
-		return getColor("pref_keyboard_text_color", defaultColorScheme.getKeyboardText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyboardText();
 	}
 
 
 	// Suggestions
 	public int getSuggestionSelectedBackground() {
-		return getColor("pref_suggestion_selected_background", defaultColorScheme.getSuggestionSelectedBackground());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getSuggestionSelectedBackground();
 	}
 
 
 	public int getSuggestionSelectedColor() {
-		return getColor("pref_suggestion_selected_color", defaultColorScheme.getSuggestionSelectedColor());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getSuggestionSelectedColor();
 	}
 
 
 	public int getSuggestionSeparatorColor() {
-		return getColor("pref_suggestion_separator_color", defaultColorScheme.getSuggestionSeparatorColor());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getSuggestionSeparatorColor();
 	}
 
 
 	// Default key
 	@NonNull
 	public ColorStateList getKeyBackgroundColor() {
-		return getStringifiedColorStateList("pref_key_background_color", defaultColorScheme.getKeyBackground());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyRippleColor() {
-		return getStringifiedColorStateList("pref_key_ripple_color", defaultColorScheme.getKeyRipple());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyRipple());
 	}
 
 
 	public int getKeyTextColor() {
-		return getColor("pref_key_text_color", defaultColorScheme.getKeyText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyText();
 	}
 
 
 	public int getKeyCornerElementColor() {
-		return getColor("pref_key_corner_element_color", defaultColorScheme.getKeyAlternativeText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyAlternativeText();
 	}
 
 
 	// Fn Key
 	@NonNull
 	public ColorStateList getKeyFnBackgroundColor() {
-		return getStringifiedColorStateList("pref_key_fn_background_color", defaultColorScheme.getKeyFnBackground());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyFnBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyFnRippleColor() {
-		return getStringifiedColorStateList("pref_key_fn_ripple_color", defaultColorScheme.getKeyFnRipple());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyFnRipple());
 	}
 
 
 	public int getKeyFnTextColor() {
-		return getColor("pref_key_fn_text_color", defaultColorScheme.getKeyFnText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyFnText();
 	}
 
 	public int getKeyFnCornerElementColor() {
-		return getColor("pref_key_fn_corner_element_color", defaultColorScheme.getKeyFnAlternativeText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyFnAlternativeText();
 	}
 
 
 	// LF4 Key
 	@NonNull
 	public ColorStateList getKeyLf4BackgroundColor() {
-		return getStringifiedColorStateList("pref_key_lf4_background_color", defaultColorScheme.getKeyLf4Background());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyLf4Background());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyLf4RippleColor() {
-		return getStringifiedColorStateList("pref_key_lf4_ripple_color", defaultColorScheme.getKeyLf4Ripple());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyLf4Ripple());
 	}
 
 
 	public int getKeyLf4TextColor() {
-		return getColor("pref_key_lf4_text_color", defaultColorScheme.getKeyLf4Text());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyLf4Text();
 	}
 
 
 	public int getKeyLf4CornerElementColor() {
-		return getColor("pref_key_lf4_corner_element_color", defaultColorScheme.getKeyLf4AlternativeText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyLf4AlternativeText();
 	}
 
 
 	// OK Key
 	@NonNull
 	public ColorStateList getKeyOkBackgroundColor() {
-		return getStringifiedColorStateList("pref_key_ok_background_color", defaultColorScheme.getKeyOkBackground());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyOkBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyOkRippleColor() {
-		return getStringifiedColorStateList("pref_key_ok_ripple_color", defaultColorScheme.getKeyOkRipple());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyOkRipple());
 	}
 
 
 	public int getKeyOkTextColor() {
-		return getColor("pref_key_ok_text_color", defaultColorScheme.getKeyOkText());
+		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		return colorScheme.getKeyOkText();
 	}
 
 
 	// Helpers
-	private int getColor(@NonNull String key, int defaultColor) {
-		return prefs.getInt(key, defaultColor);
-	}
-
-
-	@NonNull
-	private ColorStateList getStringifiedColorStateList(@NonNull String key, int defaultColor) {
-		return ColorStateList.valueOf(getColor(key, defaultColor));
-	}
+//	private int getColor(@NonNull String key, int defaultColor) {
+//		return prefs.getInt(key, defaultColor);
+//	}
+//
+//
+//	@NonNull
+//	private ColorStateList getStringifiedColorStateList(@NonNull String key, int defaultColor) {
+//		return ColorStateList.valueOf(getColor(key, defaultColor));
+//	}
 }

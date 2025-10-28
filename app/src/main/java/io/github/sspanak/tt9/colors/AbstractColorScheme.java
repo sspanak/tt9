@@ -10,15 +10,18 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.ThemedContextBuilder;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 
 abstract public class AbstractColorScheme {
+	private boolean systemNightMode;
+
 	abstract public int getId();
 	abstract public int getName();
 	public boolean isDefault() { return false; }
 
-
 	protected AbstractColorScheme(@NonNull Context context, int themeResId, @Nullable Boolean nightMode) {
+		systemNightMode = SystemSettings.isNightModeOn(context);
 		resolveColors(getStyledContext(context, themeResId, nightMode));
 	}
 
@@ -99,7 +102,6 @@ abstract public class AbstractColorScheme {
 	}
 
 
-	// @todo: resolve the colors again when the Configuration changes (e.g., night mode)
 	protected void resolveColors(@NonNull ContextThemeWrapper styledCtx) {
 		int[] definitions = new int[] {
 			R.attr.colorKeyboardBackground,
@@ -158,5 +160,10 @@ abstract public class AbstractColorScheme {
 		} catch (Exception e) {
 			Logger.e(getClass().getSimpleName(), "Failed to resolve color scheme colors. " + e);
 		}
+	}
+
+
+	boolean nightModeMatches(@NonNull Context context) {
+		return systemNightMode == SystemSettings.isNightModeOn(context);
 	}
 }

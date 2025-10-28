@@ -13,12 +13,19 @@ import androidx.core.view.WindowInsetsControllerCompat;
 
 import java.util.Locale;
 
+import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 
 public class SystemSettings {
 	private static InputMethodManager inputManager;
 	private static String packageName;
+
+
+	public static boolean isNightModeOn(@NonNull Context context) {
+		return context.getString(R.string.system_night_mode).equals("y");
+	}
+
 
 	public static boolean isTT9Enabled(Context context) {
 		inputManager = inputManager == null ? (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE) : inputManager;

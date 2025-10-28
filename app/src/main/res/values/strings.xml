@@ -10,6 +10,7 @@
 	<string name="language">Language</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
+	<string name="system_night_mode" translatable="false">n</string>
 
 	<string name="error_unexpected">Unexpected error occurred.</string>
 
