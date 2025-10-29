@@ -29,8 +29,8 @@ public class PreferenceDeletableWord extends ScreenPreference {
 	public PreferenceDeletableWord(@NonNull Context context) { super(context); }
 
 
-	@Override protected int getDefaultLayout() { return R.layout.pref_deletable_word; }
-	@Override protected int getLargeLayout() { return R.layout.pref_deletable_word_large; }
+	@Override public int getDefaultLayout() { return R.layout.pref_deletable_word; }
+	@Override public int getLargeLayout() { return R.layout.pref_deletable_word_large; }
 
 
 	void setParent(DeletableWordsList parent) {
