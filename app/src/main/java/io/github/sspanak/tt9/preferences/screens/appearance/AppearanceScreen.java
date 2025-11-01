@@ -1,8 +1,11 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
+import androidx.preference.SwitchPreferenceCompat;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
+import io.github.sspanak.tt9.preferences.custom.KeyboardPreview;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
@@ -19,8 +22,10 @@ public class AppearanceScreen extends BaseScreenFragment {
 	protected void onCreate() {
 		createMainSection();
 		createHacksSection();
+		enablePreviewOnChange();
 		resetFontSize(true);
 	}
+
 
 	protected void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
@@ -80,6 +85,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 		showArrows.populate();
 	}
 
+
 	private void createHacksSection() {
 		ItemSwitch[] items = {
 			new ItemAlternativeSuggestionScrolling(findPreference(ItemAlternativeSuggestionScrolling.NAME), activity.getSettings()),
@@ -88,6 +94,40 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 		for (ItemSwitch item : items) {
 			item.populate().enableClickHandler();
+		}
+	}
+
+
+	private void enablePreviewOnChange() {
+		KeyboardPreview preview = new KeyboardPreview(
+			findPreference("keyboard_preview_1"),
+			findPreference("keyboard_preview_2"),
+			R.string.click_here_for_preview
+		);
+
+		EnhancedDropDownPreference[] items = {
+			findPreference(DropDownColorScheme.NAME),
+			findPreference(DropDownLayoutType.NAME),
+			findPreference(DropDownAlignment.NAME),
+			findPreference(DropDownWidth.NAME),
+			findPreference(DropDownNumpadShape.NAME),
+			findPreference(DropDownNumpadFnKeyScale.NAME),
+			findPreference(DropDownNumpadKeyFontSize.NAME),
+			findPreference(DropDownSuggestionFontSize.NAME),
+		};
+
+		for (EnhancedDropDownPreference item : items) {
+			if (item != null) {
+				item.setOnChangeListener((v) -> preview.preview());
+			}
+		}
+
+		SwitchPreferenceCompat arrowKeysSwitch = findPreference("pref_arrow_keys_visible");
+		if (arrowKeysSwitch != null) {
+			arrowKeysSwitch.setOnPreferenceChangeListener((p, v) -> {
+				preview.preview();
+				return true;
+			});
 		}
 	}
 }

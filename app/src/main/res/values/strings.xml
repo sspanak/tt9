@@ -4,6 +4,7 @@
 	<string name="app_name" translatable="false">Traditional T9</string>
 	<string name="app_name_short" translatable="false">TT9</string>
 	<string name="app_settings">TT9 Settings</string>
+	<string name="click_here_for_preview">Click here for preview</string>
 	<string name="completed">Completed</string>
 	<string name="english_only" translatable="false">English only</string>
 	<string name="loading">Loading…</string>
@@ -29,6 +30,7 @@
 	<string name="pref_category_about">About</string>
 	<string name="pref_category_abc_mode">ABC Mode</string>
 	<string name="pref_category_appearance">Appearance</string>
+	<string name="pref_category_colors">Colors</string>
 	<string name="pref_category_custom_words">Added Words</string>
 	<string name="pref_category_geometry">Geometry</string>
 	<string name="pref_category_debug_options" translatable="false">Debug Options</string>

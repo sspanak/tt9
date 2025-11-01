@@ -21,7 +21,6 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public static final String DEFAULT = String.valueOf(ColorSchemeSystem.ID);
 
 	@Nullable private SettingsStore settings;
-	@Nullable private Runnable onChangeListener = null;
 
 	public DropDownColorScheme(@NonNull Context context) { super(context); }
 	public DropDownColorScheme(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
@@ -64,24 +63,13 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	}
 
 
-	public void setOnChangeListener(@Nullable Runnable listener) {
-		onChangeListener = listener;
-	}
-
-
 	protected boolean onChange(Preference p, Object newKey) {
-		super.onChange(p, newKey);
-
 		if (settings == null) {
 			return false;
 		}
 
 		AbstractColorScheme scheme = CollectionColorScheme.get(getContext(), newKey.toString());
 		settings.setColorScheme(scheme);
-
-		if (onChangeListener != null) {
-			onChangeListener.run();
-		}
 
 		return true;
 	}

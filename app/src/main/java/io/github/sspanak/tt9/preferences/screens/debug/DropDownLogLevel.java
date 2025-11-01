@@ -29,12 +29,8 @@ public class DropDownLogLevel extends EnhancedDropDownPreference {
 
 	@Override
 	protected boolean onChange(Preference preference, Object newKey) {
-		if (super.onChange(preference, newKey)) {
-			Logger.setLevel(Integer.parseInt(newKey.toString()));
-			return true;
-		}
-
-		return false;
+		Logger.setLevel(Integer.parseInt(newKey.toString()));
+		return true;
 	}
 
 	@Override

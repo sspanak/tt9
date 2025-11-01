@@ -246,4 +246,5 @@
 	<string name="pref_one_key_emoji_none">Emoji yok</string>
 	<string name="pref_hold_to_type">Sayı tuşlarını basılı tut</string>
 	<string name="pref_color_scheme_device_dark">Sistem koyu</string>
+	<string name="click_here_for_preview">Önizleme için buraya tıklayın</string>
 </resources>

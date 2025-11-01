@@ -69,8 +69,8 @@ public class PunctuationScreen extends BaseScreenFragment {
 			return;
 		}
 
+		languageList.setOnChangeListener(this::onLanguageChanged);
 		languageList
-			.setOnChangeHandler(this::onLanguageChanged)
 			.populate(activity.getSettings())
 			.preview();
 	}

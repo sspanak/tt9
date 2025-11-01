@@ -241,4 +241,5 @@
 	<string name="pref_one_key_emoji_none">Sin emojis</string>
 	<string name="pref_hold_to_type">Mantener teclas numéricas</string>
 	<string name="pref_color_scheme_device_dark">Oscuro del sistema</string>
+	<string name="click_here_for_preview">Haz clic aquí para ver la vista previa</string>
 </resources>

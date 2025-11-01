@@ -250,4 +250,5 @@
 	<string name="pref_one_key_emoji_none">Be jaustukų</string>
 	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
 	<string name="pref_color_scheme_device_dark">Sisteminė tamsi</string>
+	<string name="click_here_for_preview">Spustelėkite čia, kad peržiūrėtumėte</string>
 </resources>
