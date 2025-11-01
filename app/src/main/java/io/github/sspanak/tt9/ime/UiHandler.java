@@ -44,6 +44,7 @@ abstract class UiHandler extends AbstractHandler {
 	public void initUi(InputMode inputMode) {
 		if (mainView.create()) {
 			initTray();
+			setCurrentView();
 		} else {
 			getSuggestionOps().setDarkTheme();
 		}
@@ -56,6 +57,11 @@ abstract class UiHandler extends AbstractHandler {
 		if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
+	}
+
+
+	public void setCurrentView() {
+		setInputView(onCreateInputView());
 	}
 
 

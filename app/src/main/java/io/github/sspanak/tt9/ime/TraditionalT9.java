@@ -67,11 +67,6 @@ public class TraditionalT9 extends PremiumHandler {
 	}
 
 
-	public void setCurrentView() {
-		setInputView(onCreateInputView());
-	}
-
-
 	@Override
 	public void onComputeInsets(Insets outInsets) {
 		super.onComputeInsets(outInsets);
