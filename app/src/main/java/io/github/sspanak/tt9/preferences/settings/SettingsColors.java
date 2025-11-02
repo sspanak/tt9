@@ -24,7 +24,6 @@ public class SettingsColors extends SettingsHotkeys {
 
 	protected SettingsColors(Context context) {
 		super(context);
-		colorScheme = CollectionColorScheme.get(context, getColorSchemeId());
 	}
 
 
@@ -188,5 +187,10 @@ public class SettingsColors extends SettingsHotkeys {
 		}
 
 		return CollectionColorScheme.get(context, getColorSchemeId());
+	}
+
+
+	public void reloadColorScheme() {
+		colorScheme = null;
 	}
 }

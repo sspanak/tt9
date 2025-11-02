@@ -30,6 +30,24 @@ public class AppearanceScreen extends BaseScreenFragment {
 	}
 
 
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		if (activity != null) {
+			activity.getSettings().reloadColorScheme(); // clear any invalid preview cache
+		}
+	}
+
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		if (activity != null) {
+			activity.getSettings().reloadColorScheme(); // clear any invalid preview cache
+		}
+	}
+
+
 	protected void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
