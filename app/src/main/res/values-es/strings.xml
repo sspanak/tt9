@@ -123,7 +123,6 @@
 	<string name="key_channel_up">Siguiente canal</string>
 	<string name="key_volume_down">Bajar volumen</string>
 	<string name="key_volume_up">Subir Volumen</string>
-	<string name="pref_color_scheme">Colores del teclado</string>
 	<string name="pref_dark_theme_auto">Automática</string>
 	<string name="dictionary_export">Exportar seleccionados</string>
 	<string name="dictionary_export_custom_words">Exportar</string>

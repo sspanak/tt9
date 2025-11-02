@@ -122,7 +122,6 @@
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
-	<string name="pref_color_scheme">Цвета клавиатуры</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
 	<string name="dictionary_export">Экспортировать выбранные</string>

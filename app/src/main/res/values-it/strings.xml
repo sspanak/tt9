@@ -103,7 +103,6 @@
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Per tastierini numerici dei computer con 7–8–9 nella prima fila invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
-	<string name="pref_color_scheme">Colori tastiera</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
 	<string name="dictionary_truncate_title">Elimina tutti</string>
 	<string name="dictionary_truncate_unselected">Elimina tutti non selezionati</string>

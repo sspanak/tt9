@@ -102,7 +102,6 @@
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
-	<string name="pref_color_scheme">Tastaturfarben</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_truncate_title">Alle löschen</string>
 	<string name="dictionary_truncate_unselected">Lösche die nicht ausgewählten</string>

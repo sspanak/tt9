@@ -123,7 +123,6 @@
 	<string name="char_newline">שורה חדשה</string>
 	<string name="char_space">רווח</string>
 	<string name="pref_category_setup">הגדרה ראשונית</string>
-	<string name="pref_color_scheme">צבעי מקלדת</string>
 	<string name="pref_dark_theme_auto">אוטומטי</string>
 	<string name="dictionary_export">ייצוא שנבחר</string>
 	<string name="dictionary_export_custom_words">יצוא</string>

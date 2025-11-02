@@ -123,7 +123,6 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
-	<string name="pref_color_scheme">Cores do teclado</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>

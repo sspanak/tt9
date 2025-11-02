@@ -7,8 +7,9 @@
 	<string name="click_here_for_preview">Click here for preview</string>
 	<string name="completed">Completed</string>
 	<string name="english_only" translatable="false">English only</string>
-	<string name="loading">Loading…</string>
 	<string name="language">Language</string>
+	<string name="list_item_none" translatable="false">--</string>
+	<string name="loading">Loading…</string>
 	<string name="search_results">Search Results</string>
 	<string name="search_results_void">No results.</string>
 	<string name="system_night_mode" translatable="false">n</string>
@@ -118,7 +119,7 @@
 	<string name="pref_upside_down_keys_summary">For computer numpads with 7–8–9 on the first row, instead of 1–2–3.</string>
 
 	<!-- Colors -->
-	<string name="pref_color_scheme">Keyboard Color Theme</string>
+	<string name="pref_color_scheme">Theme</string>
 	<string name="pref_dark_theme_auto">Auto</string>
 	<string name="pref_color_scheme_device_dark">System Dark</string>
 	<string name="pref_color_scheme_device_light">System Light</string>
@@ -246,7 +247,6 @@
 
 	<string name="key_key">Key</string>
 	<string name="key_hold_key">(hold)</string>
-	<string name="key_none" translatable="false">--</string>
 	<string name="key_back">Back</string>
 	<string name="key_call">Call</string>
 	<string name="key_channel_down">Previous Channel</string>
