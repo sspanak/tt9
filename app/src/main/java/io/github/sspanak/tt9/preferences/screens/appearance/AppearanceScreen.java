@@ -11,6 +11,9 @@ import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class AppearanceScreen extends BaseScreenFragment {
 	final public static String NAME = "Appearance";
+
+	private KeyboardPreview preview;
+
 	public AppearanceScreen() { init(); }
 	public AppearanceScreen(PreferencesActivity activity) { init(activity); }
 
@@ -98,15 +101,33 @@ public class AppearanceScreen extends BaseScreenFragment {
 	}
 
 
+	private KeyboardPreview getPreview() {
+		if (preview == null) {
+			preview = new KeyboardPreview(
+				findPreference("keyboard_preview_1"),
+				findPreference("keyboard_preview_2"),
+				R.string.click_here_for_preview
+			);
+		}
+
+		return preview;
+	}
+
+
+	protected void onThemeChange() {
+		getPreview().preview();
+	}
+
+
 	private void enablePreviewOnChange() {
-		KeyboardPreview preview = new KeyboardPreview(
-			findPreference("keyboard_preview_1"),
-			findPreference("keyboard_preview_2"),
-			R.string.click_here_for_preview
-		);
+		getPreview();
+
+		DropDownColorScheme colorScheme = findPreference(DropDownColorScheme.NAME);
+		if (colorScheme != null) {
+			colorScheme.setOnChangeListener((v) -> onThemeChange());
+		}
 
 		EnhancedDropDownPreference[] items = {
-			findPreference(DropDownColorScheme.NAME),
 			findPreference(DropDownLayoutType.NAME),
 			findPreference(DropDownAlignment.NAME),
 			findPreference(DropDownWidth.NAME),
@@ -118,14 +139,14 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 		for (EnhancedDropDownPreference item : items) {
 			if (item != null) {
-				item.setOnChangeListener((v) -> preview.preview());
+				item.setOnChangeListener((v) -> getPreview().preview());
 			}
 		}
 
 		SwitchPreferenceCompat arrowKeysSwitch = findPreference("pref_arrow_keys_visible");
 		if (arrowKeysSwitch != null) {
 			arrowKeysSwitch.setOnPreferenceChangeListener((p, v) -> {
-				preview.preview();
+				getPreview().preview();
 				return true;
 			});
 		}

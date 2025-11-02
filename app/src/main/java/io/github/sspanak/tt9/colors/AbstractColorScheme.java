@@ -14,15 +14,35 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 
 abstract public class AbstractColorScheme {
+	@NonNull private final String displayName;
 	private final boolean systemNightMode;
 
 	abstract public int getId();
 	abstract public int getName();
+	@NonNull public String getDisplayName() { return displayName; }
 	public boolean isSystem() { return false; }
 
 	protected AbstractColorScheme(@NonNull Context context, int themeResId, @Nullable Boolean nightMode) {
+		displayName = context.getString(getName());
 		systemNightMode = SystemSettings.isNightModeOn(context);
 		resolveColors(getStyledContext(context, themeResId, nightMode));
+	}
+
+
+	public static boolean isGreaterThan(@Nullable AbstractColorScheme a, @Nullable AbstractColorScheme b) {
+		if (a == null) {
+			return false;
+		}
+
+		if (b == null) {
+			return true;
+		}
+
+		if (a.isSystem()) {
+			return true;
+		}
+
+		return a.getDisplayName().compareTo(b.getDisplayName()) <= 0;
 	}
 
 

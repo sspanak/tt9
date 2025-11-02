@@ -7,8 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
-import java.util.LinkedHashMap;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
 import io.github.sspanak.tt9.colors.CollectionColorScheme;
@@ -20,7 +18,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_theme";
 	public static final String DEFAULT = String.valueOf(ColorSchemeSystem.ID);
 
-	@Nullable private SettingsStore settings;
+	@Nullable protected SettingsStore settings;
 
 	public DropDownColorScheme(@NonNull Context context) { super(context); }
 	public DropDownColorScheme(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
@@ -32,6 +30,22 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	protected void init(@NonNull Context context) {
 		super.init(context);
 		populate(context, new SettingsStore(context));
+	}
+
+
+	public void populate(@NonNull Context context, @NonNull SettingsStore settings) {
+		this.settings = settings;
+
+		addOptions(context);
+		commitOptions();
+		setValue(validateSchemeId(loadValue(settings)));
+		preview();
+	}
+
+
+	@Override
+	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
+		return this;
 	}
 
 
@@ -47,19 +61,15 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	}
 
 
-	@Override
-	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
-		return this;
+	protected void addOptions(@NonNull Context context) {
+		for (AbstractColorScheme scheme : CollectionColorScheme.getAll(context)) {
+			add(scheme.getId(), scheme.getName());
+		}
 	}
 
 
-	public void populate(@NonNull Context context, @NonNull SettingsStore settings) {
-		this.settings = settings;
-
-		addSortedOptions(CollectionColorScheme.getAll(context));
-		commitOptions();
-		setValue(validateSchemeId(settings.getColorSchemeId()));
-		preview();
+	protected String loadValue(@NonNull SettingsStore settings) {
+		return settings.getColorSchemeId();
 	}
 
 
@@ -72,27 +82,6 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 		settings.setColorScheme(scheme);
 
 		return true;
-	}
-
-
-	private void addSortedOptions(@NonNull AbstractColorScheme[] schemes) {
-		for (AbstractColorScheme scheme : schemes) {
-			if (!scheme.isSystem()) {
-				add(scheme.getId(), scheme.getName());
-			}
-		}
-
-		sort();
-		LinkedHashMap<String, String> nonSystemSchemes = new LinkedHashMap<>(values);
-		values.clear();
-
-		for (AbstractColorScheme scheme : schemes) {
-			if (scheme.isSystem()) {
-				add(scheme.getId(), scheme.getName());
-			}
-		}
-
-		values.putAll(nonSystemSchemes);
 	}
 
 

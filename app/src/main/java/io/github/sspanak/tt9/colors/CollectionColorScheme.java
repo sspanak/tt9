@@ -27,7 +27,29 @@ public class CollectionColorScheme {
 			}
 		}
 
-		return all;
+		return sort(all);
+	}
+
+
+	private static AbstractColorScheme[] sort(@NonNull AbstractColorScheme[] schemes) {
+		if (schemes.length <= 1) {
+			return schemes;
+		}
+
+		AbstractColorScheme[] sorted = new AbstractColorScheme[schemes.length];
+		System.arraycopy(schemes, 0, sorted, 0, schemes.length);
+
+		for (int i = 0; i < schemes.length - 1; i++) {
+			if (!AbstractColorScheme.isGreaterThan(sorted[i], sorted[i + 1])) {
+				AbstractColorScheme tmp1 = sorted[i];
+				AbstractColorScheme tmp2 = sorted[i + 1];
+				sorted[i] = tmp2;
+				sorted[i + 1] = tmp1;
+				i = 0;
+			}
+		}
+
+		return sorted;
 	}
 
 
