@@ -15,7 +15,7 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract public class AbstractColorScheme {
 	@NonNull private final String displayName;
-	private final boolean systemNightMode;
+	private final boolean nightModeTag;
 
 	abstract public int getId();
 	abstract public int getName();
@@ -24,7 +24,7 @@ abstract public class AbstractColorScheme {
 
 	protected AbstractColorScheme(@NonNull Context context, int themeResId, @Nullable Boolean nightMode) {
 		displayName = context.getString(getName());
-		systemNightMode = SystemSettings.isNightModeOn(context);
+		nightModeTag = SystemSettings.isNightModeOn(context);
 		resolveColors(getStyledContext(context, themeResId, nightMode));
 	}
 
@@ -43,6 +43,11 @@ abstract public class AbstractColorScheme {
 		}
 
 		return a.getDisplayName().compareTo(b.getDisplayName()) <= 0;
+	}
+
+
+	public boolean getNightModeTag() {
+		return nightModeTag;
 	}
 
 
@@ -180,10 +185,5 @@ abstract public class AbstractColorScheme {
 		} catch (Exception e) {
 			Logger.e(getClass().getSimpleName(), "Failed to resolve color scheme colors. " + e);
 		}
-	}
-
-
-	boolean nightModeMatches(@NonNull Context context) {
-		return systemNightMode == SystemSettings.isNightModeOn(context);
 	}
 }

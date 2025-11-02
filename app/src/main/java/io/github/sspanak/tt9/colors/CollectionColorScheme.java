@@ -3,7 +3,6 @@ package io.github.sspanak.tt9.colors;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.util.Logger;
 
@@ -80,15 +79,5 @@ public class CollectionColorScheme {
 			intId = ColorSchemeSystem.ID;
 		}
 		return get(context, intId);
-	}
-
-
-	@NonNull
-	public static AbstractColorScheme invalidate(@NonNull Context context, @Nullable AbstractColorScheme scheme) {
-		if (scheme == null) {
-			return get(context, ColorSchemeSystem.ID);
-		}
-
-		return scheme.nightModeMatches(context) ? scheme : get(context, scheme.getId());
 	}
 }

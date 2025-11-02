@@ -11,6 +11,7 @@ import androidx.core.graphics.ColorUtils;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
 import io.github.sspanak.tt9.colors.CollectionColorScheme;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme;
+import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class SettingsColors extends SettingsHotkeys {
 	public static final int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -47,32 +48,32 @@ public class SettingsColors extends SettingsHotkeys {
 
 	// Keyboard Panel
 	public int getKeyboardBackground() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyboardBackground();
 	}
 
 
 	public int getKeyboardTextColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyboardText();
 	}
 
 
 	// Suggestions
 	public int getSuggestionSelectedBackground() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getSuggestionSelectedBackground();
 	}
 
 
 	public int getSuggestionSelectedColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getSuggestionSelectedColor();
 	}
 
 
 	public int getSuggestionSeparatorColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getSuggestionSeparatorColor();
 	}
 
@@ -80,26 +81,26 @@ public class SettingsColors extends SettingsHotkeys {
 	// Default key
 	@NonNull
 	public ColorStateList getKeyBackgroundColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyRippleColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyRipple());
 	}
 
 
 	public int getKeyTextColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyText();
 	}
 
 
 	public int getKeyCornerElementColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyAlternativeText();
 	}
 
@@ -107,25 +108,25 @@ public class SettingsColors extends SettingsHotkeys {
 	// Fn Key
 	@NonNull
 	public ColorStateList getKeyFnBackgroundColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyFnBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyFnRippleColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyFnRipple());
 	}
 
 
 	public int getKeyFnTextColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyFnText();
 	}
 
 	public int getKeyFnCornerElementColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyFnAlternativeText();
 	}
 
@@ -133,26 +134,26 @@ public class SettingsColors extends SettingsHotkeys {
 	// LF4 Key
 	@NonNull
 	public ColorStateList getKeyLf4BackgroundColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyLf4Background());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyLf4RippleColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyLf4Ripple());
 	}
 
 
 	public int getKeyLf4TextColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyLf4Text();
 	}
 
 
 	public int getKeyLf4CornerElementColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyLf4AlternativeText();
 	}
 
@@ -160,32 +161,32 @@ public class SettingsColors extends SettingsHotkeys {
 	// OK Key
 	@NonNull
 	public ColorStateList getKeyOkBackgroundColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyOkBackground());
 	}
 
 
 	@NonNull
 	public ColorStateList getKeyOkRippleColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyOkRipple());
 	}
 
 
 	public int getKeyOkTextColor() {
-		colorScheme = CollectionColorScheme.invalidate(context, colorScheme);
+		colorScheme = invalidateScheme(colorScheme);
 		return colorScheme.getKeyOkText();
 	}
 
 
 	// Helpers
-//	private int getColor(@NonNull String key, int defaultColor) {
-//		return prefs.getInt(key, defaultColor);
-//	}
-//
-//
-//	@NonNull
-//	private ColorStateList getStringifiedColorStateList(@NonNull String key, int defaultColor) {
-//		return ColorStateList.valueOf(getColor(key, defaultColor));
-//	}
+
+	@NonNull
+	protected AbstractColorScheme invalidateScheme(@Nullable AbstractColorScheme scheme) {
+		if (scheme != null && scheme.getNightModeTag() == SystemSettings.isNightModeOn(context)) {
+			return scheme;
+		}
+
+		return CollectionColorScheme.get(context, getColorSchemeId());
+	}
 }
