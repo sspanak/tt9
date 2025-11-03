@@ -19,7 +19,7 @@ public class SettingsColors extends SettingsHotkeys {
 	public static final int DEFAULT_TEXT_COLOR = Color.BLACK;
 
 	@Nullable
-	private static AbstractColorScheme colorScheme;
+	protected static AbstractColorScheme colorScheme;
 
 
 	protected SettingsColors(Context context) {
