@@ -7,12 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
 import io.github.sspanak.tt9.colors.CollectionColorScheme;
 import io.github.sspanak.tt9.colors.ColorSchemeSystem;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.Logger;
 
 public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_theme";
@@ -29,7 +33,12 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	@Override
 	protected void init(@NonNull Context context) {
 		super.init(context);
-		populate(context, new SettingsStore(context));
+
+		try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
+			executor.submit(() -> populate(context, new SettingsStore(context)));
+		} catch (Exception e) {
+			Logger.e(DropDownColorScheme.NAME, "Failed to populate DropDownColorScheme preference. " + e.getMessage());
+		}
 	}
 
 
@@ -63,7 +72,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 
 	protected void addOptions(@NonNull Context context) {
 		for (AbstractColorScheme scheme : CollectionColorScheme.getAll(context)) {
-			add(scheme.getId(), scheme.getName());
+			add(scheme.getId(), scheme.getDisplayName());
 		}
 	}
 
