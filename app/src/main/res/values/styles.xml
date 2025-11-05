@@ -51,6 +51,16 @@
 
 	<style name="TTheme.Preferences" parent="Theme.AppCompat.DayNight" />
 
+	<style name="TTheme.Preferences.KeyboardPreview">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style name="TTheme.Preferences.KeyboardPreview.DummyTextField">
+		<item name="android:layout_width">1dp</item>
+		<item name="android:layout_height">1dp</item>
+	</style>
+
 	<style name="TTheme.Keyboard" parent="TTheme">
 		<item name="android:background">?attr/colorKeyboardBackground</item>
 	</style>

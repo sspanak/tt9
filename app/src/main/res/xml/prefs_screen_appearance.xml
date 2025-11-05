@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto" app:orderingFromXml="true">
-	<io.github.sspanak.tt9.preferences.items.TextInputPreference app:key="keyboard_preview_1"/>
-	<io.github.sspanak.tt9.preferences.items.TextInputPreference app:key="keyboard_preview_2"/>
-
 	<PreferenceCategory app:key="category_keyboard_color_scheme" app:title="@string/pref_category_colors">
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme />
 	</PreferenceCategory>

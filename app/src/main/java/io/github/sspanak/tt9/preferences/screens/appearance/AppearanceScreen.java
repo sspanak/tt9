@@ -1,18 +1,27 @@
 package io.github.sspanak.tt9.preferences.screens.appearance;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.Preference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.PreferencesActivity;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
-import io.github.sspanak.tt9.preferences.custom.KeyboardPreview;
+import io.github.sspanak.tt9.preferences.custom.KeyboardPreviewSwitchPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
 
 public class AppearanceScreen extends BaseScreenFragment {
 	final public static String NAME = "Appearance";
 
-	private KeyboardPreview preview;
+	private KeyboardPreviewSwitchPreference preview;
 
 	public AppearanceScreen() { init(); }
 	public AppearanceScreen(PreferencesActivity activity) { init(activity); }
@@ -27,6 +36,24 @@ public class AppearanceScreen extends BaseScreenFragment {
 		createHacksSection();
 		enablePreviewOnChange();
 		resetFontSize(true);
+	}
+
+
+	@NonNull
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		View root = inflater.inflate(R.layout.prefs_screen_with_preview_header, container, false);
+
+		preview = new KeyboardPreviewSwitchPreference(activity);
+		preview.bindView(root.findViewById(R.id.static_preview_header));
+
+		View prefs = super.onCreateView(inflater, container, savedInstanceState);
+		FrameLayout prefsContainer = root.findViewById(R.id.preferences_container);
+		if (prefsContainer != null) {
+			prefsContainer.addView(prefs);
+		}
+
+		return root;
 	}
 
 
@@ -119,30 +146,10 @@ public class AppearanceScreen extends BaseScreenFragment {
 	}
 
 
-	private KeyboardPreview getPreview() {
-		if (preview == null) {
-			preview = new KeyboardPreview(
-				findPreference("keyboard_preview_1"),
-				findPreference("keyboard_preview_2"),
-				R.string.click_here_for_preview
-			);
-		}
-
-		return preview;
-	}
-
-
-	protected void onThemeChange() {
-		getPreview().preview();
-	}
-
-
 	private void enablePreviewOnChange() {
-		getPreview();
-
 		DropDownColorScheme colorScheme = findPreference(DropDownColorScheme.NAME);
 		if (colorScheme != null) {
-			colorScheme.setOnChangeListener((v) -> onThemeChange());
+			colorScheme.setOnChangeListener(this::onThemeChange);
 		}
 
 		EnhancedDropDownPreference[] items = {
@@ -157,16 +164,35 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 		for (EnhancedDropDownPreference item : items) {
 			if (item != null) {
-				item.setOnChangeListener((v) -> getPreview().preview());
+				item.setOnChangeListener(this::previewDropDownChange);
 			}
 		}
 
-		SwitchPreferenceCompat arrowKeysSwitch = findPreference("pref_arrow_keys_visible");
-		if (arrowKeysSwitch != null) {
-			arrowKeysSwitch.setOnPreferenceChangeListener((p, v) -> {
-				getPreview().preview();
-				return true;
-			});
+		SwitchPreferenceCompat[] switches = {
+			findPreference("pref_arrow_keys_visible"),
+			findPreference("pref_status_icon"),
+		};
+
+		for ( SwitchPreferenceCompat sw : switches) {
+			if (sw != null) {
+				sw.setOnPreferenceChangeListener(this::previewSwitchChange);
+			}
 		}
+	}
+
+
+	protected void onThemeChange(String s) {
+		previewDropDownChange(null);
+	}
+
+
+	private void previewDropDownChange(String s) {
+		preview.resume();
+	}
+
+
+	private boolean previewSwitchChange(Preference p, Object o) {
+		previewDropDownChange(null);
+		return true;
 	}
 }

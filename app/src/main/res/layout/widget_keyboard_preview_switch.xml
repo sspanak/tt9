@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	style="@style/TTheme.Preferences.KeyboardPreview"
+	tools:ignore="LabelFor">
+
+	<androidx.appcompat.widget.SwitchCompat style="@style/TTheme.Preferences.KeyboardPreview" android:id="@+id/switchWidget" />
+	<EditText style="@style/TTheme.Preferences.KeyboardPreview.DummyTextField" android:id="@+id/preview_text_field_1" />
+	<EditText style="@style/TTheme.Preferences.KeyboardPreview.DummyTextField" android:id="@+id/preview_text_field_2" />
+
+</FrameLayout>
