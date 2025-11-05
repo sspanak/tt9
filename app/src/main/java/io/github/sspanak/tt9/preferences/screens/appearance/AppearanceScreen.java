@@ -66,6 +66,9 @@ public class AppearanceScreen extends BaseScreenFragment {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+		if (preview != null) {
+			preview.stop();
+		}
 		if (activity != null) {
 			activity.getSettings().reloadColorScheme(); // clear any invalid preview cache
 		}
@@ -75,6 +78,9 @@ public class AppearanceScreen extends BaseScreenFragment {
 	@Override
 	public void onPause() {
 		super.onPause();
+		if (preview != null) {
+			preview.stop();
+		}
 		if (activity != null) {
 			activity.getSettings().reloadColorScheme(); // clear any invalid preview cache
 		}

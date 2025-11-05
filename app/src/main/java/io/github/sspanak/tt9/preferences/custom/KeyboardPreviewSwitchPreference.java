@@ -84,6 +84,12 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 	}
 
 
+	public void stop() {
+		switchSwitch(false);
+		toggleKeyboard();
+	}
+
+
 	@Override
 	protected void onClick() {
 		super.onClick();
