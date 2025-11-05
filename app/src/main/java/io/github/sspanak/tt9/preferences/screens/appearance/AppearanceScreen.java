@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.custom.KeyboardPreviewSwitchPreference;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.screens.BaseScreenFragment;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class AppearanceScreen extends BaseScreenFragment {
 	final public static String NAME = "Appearance";
@@ -42,6 +43,11 @@ public class AppearanceScreen extends BaseScreenFragment {
 	@NonNull
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		// The preview switch is not accessible on devices without touch screen, so omit it.
+		if (DeviceInfo.noTouchScreen(activity)) {
+			return super.onCreateView(inflater, container, savedInstanceState);
+		}
+
 		View root = inflater.inflate(R.layout.prefs_screen_with_preview_header, container, false);
 
 		preview = new KeyboardPreviewSwitchPreference(activity);

@@ -45,7 +45,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public void populate(@NonNull Context context, @NonNull SettingsStore settings) {
 		this.settings = settings;
 
-		addOptions(context);
+		addOptions(context); // @todo: see why this happens twice
 		commitOptions();
 		setValue(validateSchemeId(loadValue(settings)));
 		preview();
