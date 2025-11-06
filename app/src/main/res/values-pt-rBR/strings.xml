@@ -17,6 +17,7 @@
 	<string name="commands_select_command">Selecionar um comando</string>
 	<string name="pref_category_about">Sobre</string>
 	<string name="pref_category_abc_mode">Modo ABC</string>
+	<string name="pref_category_colors">Cores</string>
 	<string name="pref_category_custom_words">Palavras adicionadas</string>
 	<string name="pref_category_delete_words">Excluir palavras adicionadas</string>
 	<string name="pref_category_fn_key_order">Ordem das teclas de função</string>
@@ -52,6 +53,7 @@
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
+	<string name="pref_keyboard_preview">Visualizar</string>
 	<string name="pref_layout">Tipo de layout</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
 	<string name="pref_layout_small">Teclas de função</string>
@@ -123,6 +125,7 @@
 	<string name="pref_suggestion_smooth_scroll">Rolagem suave de sugestões</string>
 	<string name="pref_upside_down_keys">Inverter ordem das teclas</string>
 	<string name="dictionary_truncate_unselected">Limpar Não Selecionados</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automático</string>
 	<string name="dictionary_truncating">Excluindo…</string>
 	<string name="dictionary_export">Exportar selecionados</string>

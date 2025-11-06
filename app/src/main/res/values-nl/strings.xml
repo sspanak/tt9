@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Een commando selecteren</string>
 	<string name="pref_category_about">Over de applicatie</string>
 	<string name="pref_hold_to_type_summary">Sta toe cijfers te typen of app-functies te activeren door cijfertoetsen ingedrukt te houden. Schakel uit als het apparaat korte drukken ten onrechte als vasthouden detecteert.</string>
+	<string name="pref_keyboard_preview">Voorbeeld</string>
 	<string name="pref_layout">Indelingstype</string>
 	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
 	<string name="pref_layout_small">Functieknoppen</string>
@@ -71,6 +72,7 @@
 	<string name="dictionary_truncate_unselected">Verwijder de niet-geselecteerde</string>
 	<string name="dictionary_truncated">Woordenboek succesvol gewist.</string>
 	<string name="pref_category_abc_mode">ABC-modus</string>
+	<string name="pref_category_colors">Kleuren</string>
 	<string name="pref_category_custom_words">Toegevoegde woorden</string>
 	<string name="pref_category_delete_words">Verwijder toegevoegde woorden</string>
 	<string name="pref_category_fn_key_order">Volgorde van functietoetsen</string>
@@ -106,6 +108,7 @@
 	<string name="dictionary_truncating">Verwijderen…</string>
 	<string name="pref_font_size_large">Groot</string>
 	<string name="completed">Voltooid</string>
+	<string name="pref_color_scheme">Thema</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_export">Geselecteerde exporteren</string>
 	<string name="dictionary_export_custom_words">Exporteren</string>

@@ -17,6 +17,7 @@
 	<string name="commands_select_command">Selezionare un comando</string>
 	<string name="pref_category_about">Sull\'applicazione</string>
 	<string name="pref_hold_to_type_summary">Consente di digitare numeri o attivare funzioni dell’app tenendo premuti i tasti numerici. Disattivare se il dispositivo rileva per errore pressioni brevi come pressioni prolungate.</string>
+	<string name="pref_keyboard_preview">Anteprima</string>
 	<string name="pref_layout">Tipo di layout</string>
 	<string name="pref_layout_numpad">Tastierino numerico</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
@@ -63,6 +64,7 @@
 	<string name="dictionary_load_title">Carica le selezionate</string>
 	<string name="dictionary_not_found">Impossibile caricare. Dizionario per “%1$s” non trovato.</string>
 	<string name="pref_category_abc_mode">Modalità ABC</string>
+	<string name="pref_category_colors">Colori</string>
 	<string name="pref_category_custom_words">Parole aggiunte</string>
 	<string name="pref_category_delete_words">Elimina parole aggiunte</string>
 	<string name="pref_category_fn_key_order">Ordine dei tasti funzione</string>
@@ -103,6 +105,7 @@
 	<string name="pref_upside_down_keys">Invertire l\'ordine delle chiavi</string>
 	<string name="pref_upside_down_keys_summary">Per tastierini numerici dei computer con 7–8–9 nella prima fila invece di 1–2–3.</string>
 	<string name="pref_category_setup">Configurazione iniziale</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automatica</string>
 	<string name="dictionary_truncate_title">Elimina tutti</string>
 	<string name="dictionary_truncate_unselected">Elimina tutti non selezionati</string>

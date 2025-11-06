@@ -15,6 +15,7 @@
 	<string name="commands_select_command">Bir komut seç</string>
 	<string name="pref_category_about">Hakkında</string>
 	<string name="pref_hold_to_type_summary">Sayı tuşlarını basılı tutarak rakam yazmaya veya uygulama işlevlerini etkinleştirmeye izin verir. Cihaz kısa basışları yanlışlıkla basılı tutma olarak algılıyorsa kapatın.</string>
+	<string name="pref_keyboard_preview">Önizleme</string>
 	<string name="pref_layout">Düzen türü</string>
 	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
@@ -65,6 +66,7 @@
 	<string name="dictionary_load_title">Seçilenleri yükle</string>
 	<string name="dictionary_not_found">Yükleme başarısız oldu. \"%1$s\" sözlüğü bulunamadı.</string>
 	<string name="pref_category_abc_mode">ABC Modu</string>
+	<string name="pref_category_colors">Renkler</string>
 	<string name="pref_category_custom_words">Eklenen sözcükler</string>
 	<string name="pref_category_delete_words">Eklenen sözcükleri sil</string>
 	<string name="pref_category_fn_key_order">Fonksiyon tuşlarının sırası</string>
@@ -98,6 +100,7 @@
 	<string name="pref_category_setup">İlk Kurulum</string>
 	<string name="pref_font_size_large">Büyük</string>
 	<string name="completed">Tamamlandı</string>
+	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Otomatik</string>
 	<string name="dictionary_truncate_title">Hepsini Sil</string>
 	<string name="dictionary_truncate_unselected">Seçilmeyenleri Sil</string>

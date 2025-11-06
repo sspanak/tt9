@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_hold_to_type_summary">Позволяет вводить цифры или запускать функции приложения при удержании цифровых клавиш. Отключите, если устройство ошибочно распознаёт короткие нажатия как удержание.</string>
+	<string name="pref_keyboard_preview">Предпросмотр</string>
 	<string name="pref_layout">Вид раскладки</string>
 	<string name="pref_layout_numpad">Цифровая клавиатура</string>
 	<string name="pref_layout_small">Функциональные клавиши</string>
@@ -56,6 +57,7 @@
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
 	<string name="pref_category_abc_mode">Режим AБВ</string>
+	<string name="pref_category_colors">Цвета</string>
 	<string name="pref_category_custom_words">Добавленные слова</string>
 	<string name="pref_category_delete_words">Удалить добавленные слова</string>
 	<string name="pref_category_fn_key_order">Порядок функциональных клавиш</string>
@@ -122,6 +124,7 @@
 	<string name="key_volume_down">Уменьшить громкости</string>
 	<string name="key_volume_up">Увеличить громкости</string>
 	<string name="dictionary_truncating">Удаление…</string>
+	<string name="pref_color_scheme">Тема</string>
 	<string name="pref_dark_theme_auto">Автоматически</string>
 	<string name="add_word_confirm">Добавить слово «%1$s» в %2$s?</string>
 	<string name="dictionary_export">Экспортировать выбранные</string>

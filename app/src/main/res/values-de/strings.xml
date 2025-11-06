@@ -15,6 +15,7 @@
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_hold_to_type_summary">Ermöglicht, Zahlen zu tippen oder App-Funktionen zu starten, indem die Zahlentasten gehalten werden. Deaktivieren, wenn das Gerät kurze Tastendrücke fälschlicherweise als Halten erkennt.</string>
+	<string name="pref_keyboard_preview">Vorschau</string>
 	<string name="pref_layout">Layout-Typ</string>
 	<string name="pref_layout_numpad">Ziffernblock</string>
 	<string name="pref_layout_small">Funktionstasten</string>
@@ -68,6 +69,7 @@
 	<string name="dictionary_load_title">Ausgewählte laden</string>
 	<string name="dictionary_not_found">Wird nicht geladen. Wörterbuch für \"%1$s\" nicht gefunden.</string>
 	<string name="pref_category_abc_mode">ABC-Modus</string>
+	<string name="pref_category_colors">Farben</string>
 	<string name="pref_category_custom_words">Hinzugefügte Wörter</string>
 	<string name="pref_category_delete_words">Hinzugefügte Wörter löschen</string>
 	<string name="pref_category_fn_key_order">Reihenfolge der Funktionstasten</string>
@@ -102,6 +104,7 @@
 	<string name="pref_category_setup">Ersteinrichtung</string>
 	<string name="pref_font_size_large">Große</string>
 	<string name="completed">Abgeschlossen</string>
+	<string name="pref_color_scheme">Thema</string>
 	<string name="pref_dark_theme_auto">Automatisch</string>
 	<string name="dictionary_truncate_title">Alle löschen</string>
 	<string name="dictionary_truncate_unselected">Lösche die nicht ausgewählten</string>

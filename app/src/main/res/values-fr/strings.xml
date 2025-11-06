@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Sélectionner une commande</string>
 	<string name="pref_category_about">À propos de l\'application</string>
 	<string name="pref_hold_to_type_summary">Permet de taper des chiffres ou d’activer des fonctions en maintenant les touches numériques. Désactivez si l’appareil détecte à tort les pressions courtes comme des maintiens.</string>
+	<string name="pref_keyboard_preview">Aperçu</string>
 	<string name="pref_layout">Type de disposition</string>
 	<string name="pref_layout_numpad">Pavé numérique</string>
 	<string name="pref_layout_small">Touches de fonction</string>
@@ -47,6 +48,7 @@
 	<string name="dictionary_not_found">Echec du chargement. Dictionnaire «%1$s» introuvable.</string>
 	<string name="pref_category_function_keys">Raccourcis clavier</string>
 	<string name="pref_category_abc_mode">Saisie ABC</string>
+	<string name="pref_category_colors">Couleurs</string>
 	<string name="pref_category_custom_words">Mots ajoutés</string>
 	<string name="pref_category_delete_words">Supprimer des mots ajoutés</string>
 	<string name="pref_category_fn_key_order">Ordre des touches de fonction</string>
@@ -122,6 +124,7 @@
 	<string name="dictionary_truncate_unselected">Supprimer les non sélectionnés</string>
 	<string name="pref_category_setup">Configuration initiale</string>
 	<string name="dictionary_truncating">Suppression…</string>
+	<string name="pref_color_scheme">Thème</string>
 	<string name="pref_dark_theme_auto">Automatique</string>
 	<string name="add_word_confirm">Ajouter mot « %1$s » à %2$s?</string>
 	<string name="dictionary_export">Exporter les sélectionées</string>

@@ -18,6 +18,7 @@
 	<string name="commands_select_command">Вибрати команду</string>
 	<string name="pref_category_about">Про програму</string>
 	<string name="pref_category_abc_mode">Режим АБВ</string>
+	<string name="pref_category_colors">Кольори</string>
 	<string name="pref_category_custom_words">Додані слова</string>
 	<string name="pref_category_delete_words">Видалити додані слова</string>
 	<string name="pref_category_fn_key_order">Порядок функціональних клавіш</string>
@@ -49,6 +50,7 @@
 	<string name="pref_backspace_recomposing">Редагування слів</string>
 	<string name="pref_backspace_recomposing_summary">Натисніть Backspace в кінці слова, щоб його відредагувати. (Не працює в деяких програмах і з багатомовним текстом)</string>
 	<string name="pref_choose_languages">Мови</string>
+	<string name="pref_color_scheme">Тема</string>
 	<string name="pref_dark_theme_auto">Автоматично</string>
 	<string name="pref_drag_resize_summary">Увімкнути зміну розміру та переміщення клавіатури перетягуванням рядка стану або клавіші налаштувань.</string>
 	<string name="pref_double_zero_char">Символ при подвійному натискання клавіші 0</string>
@@ -57,6 +59,7 @@
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
 	<string name="pref_hold_to_type_summary">Дозволяє вводити цифри або запускати функції додатку, утримуючи цифрові клавіші. Вимкніть, якщо пристрій помилково визначає короткі натискання як утримування.</string>
+	<string name="pref_keyboard_preview">Перегляд</string>
 	<string name="pref_layout">Тип розкладки</string>
 	<string name="pref_layout_numpad">Цифрова клавіатура</string>
 	<string name="pref_layout_small">Функціональні клавіші</string>
