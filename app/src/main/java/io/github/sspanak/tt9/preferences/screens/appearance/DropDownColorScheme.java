@@ -7,16 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.colors.AbstractColorScheme;
 import io.github.sspanak.tt9.colors.CollectionColorScheme;
 import io.github.sspanak.tt9.colors.ColorSchemeSystem;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
-import io.github.sspanak.tt9.util.Logger;
 
 public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_theme";
@@ -32,23 +28,18 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
-		try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
-			executor.submit(() -> populateSync(getContext(), settings));
-		} catch (Exception e) {
-			Logger.e(DropDownColorScheme.NAME, "Failed to populate DropDownColorScheme preference. " + e.getMessage());
-		}
-
-		return this;
-	}
-
-
-	protected void populateSync(@NonNull Context context, @NonNull SettingsStore settings) {
 		this.settings = settings;
 
-		addOptions(context);
+		if (!values.isEmpty()) {
+			values.clear();
+		}
+
+		addOptions(getContext());
 		commitOptions();
 		setValue(validateSchemeId(loadValue(settings)));
 		preview();
+
+		return this;
 	}
 
 
