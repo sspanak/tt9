@@ -20,9 +20,10 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 	public static final String NAME = "pref_keyboard_preview_switch";
 	private static final int PREVIEW_RESUME_DELAY = 500; //ms
 
-	private SwitchCompat switchView;
-	private EditText text1;
-	private EditText text2;
+	@Nullable private Runnable onBeforePreviewCallback;
+	@Nullable private SwitchCompat switchView;
+	@Nullable private EditText text1;
+	@Nullable private EditText text2;
 
 
 	public KeyboardPreviewSwitchPreference(@NonNull Context context) {
@@ -90,6 +91,11 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 	}
 
 
+	public void setOnBeforePreviewCallback(@Nullable Runnable callback) {
+		this.onBeforePreviewCallback = callback;
+	}
+
+
 	@Override
 	protected void onClick() {
 		super.onClick();
@@ -100,6 +106,7 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 
 	private void toggleKeyboard() {
 		if (switchView != null && switchView.isChecked()) {
+			if (onBeforePreviewCallback != null) onBeforePreviewCallback.run();
 			showKeyboard();
 		} else {
 			hideKeyboard();
@@ -136,7 +143,10 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 			imm.hideSoftInputFromWindow(text1.getWindowToken(), 0);
 		}
 		text1.clearFocus();
-		text2.clearFocus();
+
+		if (text2 != null) {
+			text2.clearFocus();
+		}
 	}
 
 

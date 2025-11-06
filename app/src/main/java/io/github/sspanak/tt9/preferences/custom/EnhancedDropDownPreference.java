@@ -122,6 +122,11 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 	}
 
 
+	public boolean isEmpty() {
+		return values.isEmpty();
+	}
+
+
 	final public EnhancedDropDownPreference preview() {
 		setSummary(values.get(getValue()));
 		return this;
