@@ -122,7 +122,7 @@
 	<string name="dictionary_import_error_file_too_long">Die Anzahl der Wörter überschreitet die maximal erlaubte Anzahl von %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Unerwartetes Wortformat: \"%1$s\" in Zeile %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Der Speicher für hinzugefügte Wörter ist voll. Sie können keine weiteren Wörter importieren.</string>
-	<string name="delete_words_delete">Löschen</string>
+	<string name="delete">Löschen</string>
 	<string name="delete_words_link_summary">Finde und lösche falsch geschriebene oder überflüssige Wörter.</string>
 	<string name="search_results">Suchergebnisse</string>
 	<string name="search_results_void">Keine Ergebnisse.</string>

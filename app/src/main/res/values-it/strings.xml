@@ -123,7 +123,7 @@
 	<string name="dictionary_import_error_file_too_long">Le parole superano il numero massimo consentito di %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Formato di parola imprevisto: \"%1$s\" alla linea %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Lo spazio di archiviazione delle parole aggiunte è pieno. Non è possibile importare altre parole.</string>
-	<string name="delete_words_delete">Elimina</string>
+	<string name="delete">Elimina</string>
 	<string name="delete_words_link_summary">Trova ed elimina parole errate o non necessarie.</string>
 	<string name="search_results">Parole trovate</string>
 	<string name="search_results_void">Nessun risultato.</string>

@@ -42,7 +42,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	}
 
 
-	private void populateSync(@NonNull Context context, @NonNull SettingsStore settings) {
+	protected void populateSync(@NonNull Context context, @NonNull SettingsStore settings) {
 		this.settings = settings;
 
 		addOptions(context);

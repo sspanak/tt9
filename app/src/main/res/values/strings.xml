@@ -6,6 +6,7 @@
 	<string name="app_settings">TT9 Settings</string>
 	<string name="click_here_for_preview">Click here for preview</string>
 	<string name="completed">Completed</string>
+	<string name="delete">Delete</string>
 	<string name="english_only" translatable="false">English only</string>
 	<string name="language">Language</string>
 	<string name="list_item_none" translatable="false">--</string>
@@ -164,7 +165,6 @@
 	<string name="dictionary_import_progress">Importing CSV (%1$s)…</string>
 	<string name="dictionary_import_running">Importing CSV…</string>
 
-	<string name="delete_words_delete">Delete</string>
 	<string name="delete_words_link_summary">Find and delete misspelled or unneeded words.</string>
 	<string name="delete_words_deleted_confirm_deletion_title">Confirm Deletion</string>
 	<string name="delete_words_deleted_confirm_deletion_question">Are you sure you want to delete \"%1$s\"?</string>

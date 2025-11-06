@@ -156,7 +156,7 @@
 	<string name="dictionary_import_error_file_too_long">Žodžių skaičius viršija leistiną maksimumą %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Nenumatytas žodžio formatas: „%1$s“ eilutėje %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Pridėtų žodžių saugykla yra pilna. Daugiau žodžių importuoti negalite.</string>
-	<string name="delete_words_delete">Ištrinti</string>
+	<string name="delete">Ištrinti</string>
 	<string name="delete_words_link_summary">Raskite ir ištrinkite neteisingai parašytus arba nereikalingus žodžius.</string>
 	<string name="search_results">Paieškos rezultatai</string>
 	<string name="search_results_void">Jokių rezultatų.</string>

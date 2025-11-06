@@ -72,7 +72,7 @@
 	<string name="dictionary_import_error_file_too_long">Думите надвишават максимално допустимия брой от %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Неочакван формат на дума: „%1$s“ на ред %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилището за добавени думи е пълно. Не можете да импортирате повече думи.</string>
-	<string name="delete_words_delete">Изтрий</string>
+	<string name="delete">Изтрий</string>
 	<string name="delete_words_link_summary">Намери и изтрий на неправилно написани или ненужни думи.</string>
 	<string name="search_results">Намерени думи</string>
 	<string name="search_results_void">Няма резултати.</string>

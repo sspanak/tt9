@@ -59,7 +59,7 @@ public class PreferenceDeletableWord extends ScreenPreference {
 			.setTitle(context.getString(R.string.delete_words_deleted_confirm_deletion_title))
 			.setMessage(context.getString(R.string.delete_words_deleted_confirm_deletion_question, word))
 			.setNegativeButton(true, null)
-			.setPositiveButton(context.getString(R.string.delete_words_delete), this::onDeletionConfirmed)
+			.setPositiveButton(context.getString(R.string.delete), this::onDeletionConfirmed)
 			.show();
 	}
 

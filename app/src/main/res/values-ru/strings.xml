@@ -139,7 +139,7 @@
 	<string name="dictionary_import_error_file_too_long">Количество слов превышает максимально допустимое значение %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Неожиданный формат слова: «%1$s» на строке %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Хранилище добавленных слов заполнено. Вы не можете импортировать больше слов.</string>
-	<string name="delete_words_delete">Удалить</string>
+	<string name="delete">Удалить</string>
 	<string name="delete_words_link_summary">Найти и удалить ошибочно написанные или ненужные слова.</string>
 	<string name="search_results">Найденные слова</string>
 	<string name="search_results_void">Нет результатов.</string>

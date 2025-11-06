@@ -139,7 +139,7 @@
 	<string name="dictionary_import_error_file_too_long">El número de palabras excede el límite máximo permitido de %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Formato de palabra inesperado: \"%1$s\" en la línea %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">El almacenamiento de palabras añadidas está lleno. No puede importar más palabras.</string>
-	<string name="delete_words_delete">Eliminar</string>
+	<string name="delete">Eliminar</string>
 	<string name="delete_words_link_summary">Buscar y eliminar palabras mal escritas o innecesarias.</string>
 	<string name="search_results">Palabras encontradas</string>
 	<string name="search_results_void">Sin resultados.</string>

@@ -118,7 +118,7 @@
 	<string name="dictionary_import_error_file_too_long">Kelime sayısı izin verilen maksimum %1$d\'i aşıyor.</string>
 	<string name="dictionary_import_error_malformed_line">Beklenmeyen kelime formatı: \"%1$s\" satır %2$d\'de.</string>
 	<string name="dictionary_import_error_too_many_words">Eklenen kelime depolama alanı dolu. Daha fazla kelime içe aktaramazsınız.</string>
-	<string name="delete_words_delete">Sil</string>
+	<string name="delete">Sil</string>
 	<string name="delete_words_link_summary">Yanlış yazılan ya da gereksiz kelimeleri bulun ve silin.</string>
 	<string name="search_results">Ara</string>
 	<string name="search_results_void">Eşleşme bulunamadı.</string>

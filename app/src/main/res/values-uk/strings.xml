@@ -111,7 +111,7 @@
 	<string name="dictionary_import_error_file_too_long">Кількість слів перевищує максимально дозволену кількість %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Несподіваний формат слова: \"%1$s\" у рядку %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">Сховище доданих слів заповнено. Ви не можете імпортувати більше слів.</string>
-	<string name="delete_words_delete">Видалити</string>
+	<string name="delete">Видалити</string>
 	<string name="delete_words_link_summary">Знайти та видалити неправильно написані або зайві слова.</string>
 	<string name="search_results">Знайдені слова</string>
 	<string name="search_results_void">Немає результатів.</string>

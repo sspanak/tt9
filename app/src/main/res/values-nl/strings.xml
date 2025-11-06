@@ -122,7 +122,7 @@
 	<string name="dictionary_import_error_file_too_long">Woorden overschrijden het maximaal toegestane aantal van %1$d.</string>
 	<string name="dictionary_import_error_malformed_line">Onverwacht woordformaat: \"%1$s\" op regel %2$d.</string>
 	<string name="dictionary_import_error_too_many_words">De opslag voor toegevoegde woorden is vol. U kunt geen woorden meer importeren.</string>
-	<string name="delete_words_delete">Verwijderen</string>
+	<string name="delete">Verwijderen</string>
 	<string name="delete_words_link_summary">Zoek en verwijder verkeerd gespelde of onnodige woorden.</string>
 	<string name="search_results">Zoekresultaten</string>
 	<string name="search_results_void">Geen resultaten.</string>
