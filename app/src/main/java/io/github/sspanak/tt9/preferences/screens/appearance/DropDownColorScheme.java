@@ -31,30 +31,24 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 
 
 	@Override
-	protected void init(@NonNull Context context) {
-		super.init(context);
-
+	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
-			executor.submit(() -> populate(context, new SettingsStore(context)));
+			executor.submit(() -> populateSync(getContext(), settings));
 		} catch (Exception e) {
 			Logger.e(DropDownColorScheme.NAME, "Failed to populate DropDownColorScheme preference. " + e.getMessage());
 		}
+
+		return this;
 	}
 
 
-	public void populate(@NonNull Context context, @NonNull SettingsStore settings) {
+	private void populateSync(@NonNull Context context, @NonNull SettingsStore settings) {
 		this.settings = settings;
 
-		addOptions(context); // @todo: see why this happens twice
+		addOptions(context);
 		commitOptions();
 		setValue(validateSchemeId(loadValue(settings)));
 		preview();
-	}
-
-
-	@Override
-	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
-		return this;
 	}
 
 

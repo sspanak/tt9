@@ -64,8 +64,8 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 
 	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
+	public void onPause() {
+		super.onPause();
 		if (preview != null) {
 			preview.stop();
 		}
@@ -76,8 +76,18 @@ public class AppearanceScreen extends BaseScreenFragment {
 
 
 	@Override
-	public void onPause() {
-		super.onPause();
+	public void onResume() {
+		super.onResume();
+		DropDownColorScheme colorScheme = findPreference(DropDownColorScheme.NAME);
+		if (colorScheme != null && activity != null) {
+			colorScheme.populate(activity.getSettings());
+		}
+	}
+
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
 		if (preview != null) {
 			preview.stop();
 		}
@@ -185,7 +195,7 @@ public class AppearanceScreen extends BaseScreenFragment {
 			findPreference("pref_status_icon"),
 		};
 
-		for ( SwitchPreferenceCompat sw : switches) {
+		for (SwitchPreferenceCompat sw : switches) {
 			if (sw != null) {
 				sw.setOnPreferenceChangeListener(this::previewSwitchChange);
 			}

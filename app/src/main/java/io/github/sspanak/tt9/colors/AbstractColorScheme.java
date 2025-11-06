@@ -35,22 +35,6 @@ abstract public class AbstractColorScheme {
 	}
 
 
-	public static boolean isGreaterThan(@Nullable AbstractColorScheme a, @Nullable AbstractColorScheme b) {
-		if (a == null) {
-			return false;
-		}
-
-		if (b == null) {
-			return true;
-		}
-
-		if (a.isSystem()) {
-			return true;
-		}
-
-		return a.getDisplayName().compareTo(b.getDisplayName()) <= 0;
-	}
-
 
 	public boolean getNightModeTag() {
 		return nightModeTag;
