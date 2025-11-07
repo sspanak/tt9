@@ -40,6 +40,11 @@ public class SettingsColors extends SettingsHotkeys {
 	}
 
 
+	public void setPreviewScheme(@NonNull AbstractColorScheme scheme) {
+		colorScheme = scheme;
+	}
+
+
 	public boolean getDarkTheme() {
 		return ColorUtils.calculateLuminance(getKeyboardBackground()) < 0.5;
 	}
