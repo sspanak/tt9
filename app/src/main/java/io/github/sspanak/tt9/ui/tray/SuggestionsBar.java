@@ -127,6 +127,11 @@ public class SuggestionsBar {
 
 		DividerItemDecoration separator = new DividerItemDecoration(mView.getContext(), RecyclerView.HORIZONTAL);
 		separator.setDrawable(separatorDrawable);
+
+		int decorations = mView.getItemDecorationCount();
+		if (decorations > 0) {
+			mView.removeItemDecorationAt(decorations - 1);
+		}
 		mView.addItemDecoration(separator);
 	}
 
@@ -419,6 +424,7 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.setColorHighlight(settings.getSuggestionSelectedColor());
 		mSuggestionsAdapter.setBackgroundHighlight(settings.getSuggestionSelectedBackground());
 		suggestionSeparatorColor = settings.getSuggestionSeparatorColor();
+		initSeparator(mView.getContext());
 
 		setBackground(true);
 	}

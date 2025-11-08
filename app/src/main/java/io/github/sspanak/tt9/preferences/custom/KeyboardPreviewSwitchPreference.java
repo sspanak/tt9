@@ -125,7 +125,9 @@ public class KeyboardPreviewSwitchPreference extends Preference {
 		otherField.clearFocus();
 
 		targetField.post(() -> {
+			targetField.setText("");
 			targetField.requestFocus();
+
 			InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 			if (imm != null) {
 				imm.showSoftInput(targetField, InputMethodManager.SHOW_FORCED);
