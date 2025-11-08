@@ -21,7 +21,7 @@ abstract public class ScreenWithPreviewKeyboardHeaderFragment extends BaseScreen
 	@Override
 	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		// The preview switch is not accessible on devices without touch screen, so omit it.
-		if (DeviceInfo.noTouchScreen(activity)) {
+		if (activity == null || DeviceInfo.noTouchScreen(activity)) {
 			return super.onCreateView(inflater, container, savedInstanceState);
 		}
 
