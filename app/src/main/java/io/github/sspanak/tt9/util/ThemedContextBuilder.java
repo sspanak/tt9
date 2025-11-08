@@ -24,7 +24,7 @@ public class ThemedContextBuilder {
 		return this;
 	}
 
-  public ThemedContextBuilder setNightMode(boolean yes) {
+	public ThemedContextBuilder setNightMode(boolean yes) {
 		nightModeFlag = yes ? Configuration.UI_MODE_NIGHT_YES : Configuration.UI_MODE_NIGHT_NO;
 		return this;
 	}
@@ -41,7 +41,7 @@ public class ThemedContextBuilder {
 
 	/**
 	 * getThemedContext
-	 * 1. Creates a themed context with the correct colors.xml that matches the system.
+	 * 1. Creates a themed context with the correct "res/values-XXX/colors.xml" that matches the system.
 	 * 2. Fixes this error log: "View class SoftKeyXXX is an AppCompat widget that can only be used
 	 * with a Theme.AppCompat theme (or descendant)."
 	 */

@@ -67,6 +67,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	}
 
 
+	@Override
 	protected boolean onChange(Preference p, Object newKey) {
 		if (settings == null) {
 			return false;

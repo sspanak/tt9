@@ -95,6 +95,4 @@ abstract public class ScreenPreference extends Preference implements LargePrefer
 
 		return SMALL_LAYOUT;
 	}
-
-	abstract public int getLargeLayout();
 }
