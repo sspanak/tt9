@@ -147,7 +147,7 @@ abstract public class AbstractColorScheme {
 		};
 
 		try (TypedArray colors = styledCtx.obtainStyledAttributes(definitions)) {
-			keyboardBackground = colors.getColor(0, keyBackground);
+			keyboardBackground = colors.getColor(0, keyboardBackground);
 			keyboardText = colors.getColor(1, keyboardText);
 
 			suggestionSelectedBackground = colors.getColor(2, suggestionSelectedBackground);

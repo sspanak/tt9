@@ -3,7 +3,7 @@
     <item android:top="2dp" android:bottom="2dp"> <!-- padding -->
         <shape>
             <size android:width="1dp" />
-            <solid android:color="@android:color/white" />
+            <solid android:color="?attr/colorSuggestionSeparator" />
         </shape>
     </item>
 </layer-list>
