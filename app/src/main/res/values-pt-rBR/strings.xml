@@ -27,6 +27,7 @@
 	<string name="pref_category_keypad_onscreen">Teclas na tela</string>
 	<string name="pref_category_predictive_mode">Modo Predictivo</string>
 	<string name="pref_category_function_keys">Atalhos</string>
+	<string name="pref_category_key_appearance">Teclas</string>
 	<string name="pref_category_keypad">Teclado</string>
 
 	<string name="pref_category_setup">Configuração inicial</string>
@@ -53,6 +54,7 @@
 	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
+	<string name="pref_key_shadows">Sombras abaixo das teclas</string>
 	<string name="pref_keyboard_preview">Visualizar</string>
 	<string name="pref_layout">Tipo de layout</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
@@ -160,7 +162,7 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_category_layout">Layout na tela</string>
-	<string name="pref_numpad_key_font_size">Tamanho da fonte das teclas</string>
+	<string name="pref_numpad_key_font_size">Tamanho da fonte</string>
 	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_numpad_fn_key_width">Largura das teclas de letras</string>
 	<string name="pref_font_size">Tamanho da fonte das configurações</string>

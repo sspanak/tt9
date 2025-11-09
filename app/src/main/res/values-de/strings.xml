@@ -15,6 +15,7 @@
 	<string name="commands_select_command">Einen Befehl auswählen</string>
 	<string name="pref_category_about">Über die Anwendung</string>
 	<string name="pref_hold_to_type_summary">Ermöglicht, Zahlen zu tippen oder App-Funktionen zu starten, indem die Zahlentasten gehalten werden. Deaktivieren, wenn das Gerät kurze Tastendrücke fälschlicherweise als Halten erkennt.</string>
+	<string name="pref_key_shadows">Schatten unter den Tasten</string>
 	<string name="pref_keyboard_preview">Vorschau</string>
 	<string name="pref_layout">Layout-Typ</string>
 	<string name="pref_layout_numpad">Ziffernblock</string>
@@ -80,6 +81,7 @@
 	<string name="pref_category_keypad_onscreen">Bildschirmtasten</string>
 	<string name="pref_category_predictive_mode">Textvorerkennung</string>
 	<string name="pref_category_function_keys">Tastenkürzel</string>
+	<string name="pref_category_key_appearance">Tasten</string>
 	<string name="pref_category_keypad">Tastenfeld</string>
 	<string name="char_space">Leerzeichen</string>
 	<string name="function_add_word">Wort hinzufügen</string>
@@ -144,7 +146,7 @@
 	<string name="dictionary_export_generating_csv">CSV wird exportiert…</string>
 	<string name="dictionary_export_generating_csv_for_language">CSV wird exportiert (%1$s)…</string>
 	<string name="pref_category_layout">Layout auf dem Bildschirm</string>
-	<string name="pref_numpad_key_font_size">Schriftgröße der Tasten</string>
+	<string name="pref_numpad_key_font_size">Schriftgröße</string>
 	<string name="pref_numpad_key_height">Höhe</string>
 	<string name="pref_numpad_fn_key_width">Breite der Buchstabentasten</string>
 	<string name="pref_font_size">Schriftgröße der Einstellungen</string>
