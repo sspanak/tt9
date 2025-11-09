@@ -25,6 +25,7 @@
 	<string name="pref_category_keypad_onscreen">Ekrano klavišai</string>
 	<string name="pref_category_predictive_mode">Nuspėjamumas</string>
 	<string name="pref_category_function_keys">Spartieji mygtukai</string>
+	<string name="pref_category_key_appearance">Klavišai</string>
 	<string name="pref_category_keypad">Mygtukai</string>
 	<string name="pref_category_setup">Pradiniai nustatymai</string>
 
@@ -53,6 +54,7 @@
 	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
 	<string name="pref_hold_to_type_summary">Leisti įvesti skaičius arba aktyvuoti programos funkcijas laikant nuspaustus skaitmeninius klavišus. Išjungti, jei įrenginys klaidingai aptinka trumpus paspaudimus kaip laikymą.</string>
+	<string name="pref_key_shadows">Šešėliai po klavišais</string>
 	<string name="pref_keyboard_preview">Peržiūra</string>
 	<string name="pref_layout">Išdėstymo tipas</string>
 	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
@@ -168,7 +170,7 @@
 	<string name="donate_title">Paaukoti</string>
 	<string name="donate_summary">Jei jums patinka %1$s, galite pavaišinti mane alumi.</string>
 	<string name="pref_category_layout">Klaviatūros išdėstymas ekrane</string>
-	<string name="pref_numpad_key_font_size">Klavišų šrifto dydis</string>
+	<string name="pref_numpad_key_font_size">Šrifto dydis</string>
 	<string name="pref_numpad_key_height">Aukštis</string>
 	<string name="pref_numpad_fn_key_width">Raidžių klavišų plotis</string>
 	<string name="pref_font_size">Nustatymų šrifto dydis</string>

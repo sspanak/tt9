@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Изберете команда</string>
 	<string name="pref_category_about">За приложението</string>
 	<string name="pref_hold_to_type_summary">Позволява писане на числа или активиране на функции при задържане на цифровите клавиши. Изключете, ако устройството разпознава неправилно кратки натискания като задържане.</string>
+	<string name="pref_key_shadows">Сенки под клавишите</string>
 	<string name="pref_keyboard_preview">Преглед</string>
 	<string name="pref_layout">Вид на подредбата</string>
 	<string name="pref_layout_numpad">Цифрова клавиатура</string>
@@ -131,6 +132,7 @@
 	<string name="pref_category_keypad_hardware">Хардуерни клавиши</string>
 	<string name="pref_category_keypad_onscreen">Екранни клавиши</string>
 	<string name="pref_category_predictive_mode">Подсказващ режим</string>
+	<string name="pref_category_key_appearance">Клавиши</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="pref_drag_resize_summary">Позволява преоразмеряване и местене на клавиатурата чрез влачене на лентата на състоянието или клавиша за настройки.</string>
 	<string name="pref_double_zero_char">Символ при двойно натисната „0“</string>
@@ -157,7 +159,7 @@
 	<string name="dictionary_export_generating_csv">Експортиране на CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Експортиране на CSV (%1$s)…</string>
 	<string name="pref_category_layout">Екранна подредба</string>
-	<string name="pref_numpad_key_font_size">Размер на шрифта на клавишите</string>
+	<string name="pref_numpad_key_font_size">Размер на шрифта</string>
 	<string name="pref_numpad_key_height">Височина</string>
 	<string name="pref_numpad_fn_key_width">Ширина на клавишите с букви</string>
 	<string name="pref_font_size">Размер на шрифта в настройките</string>

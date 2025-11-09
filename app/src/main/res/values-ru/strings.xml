@@ -14,6 +14,7 @@
 	<string name="commands_select_command">Выбрать команду</string>
 	<string name="pref_category_about">О приложении</string>
 	<string name="pref_hold_to_type_summary">Позволяет вводить цифры или запускать функции приложения при удержании цифровых клавиш. Отключите, если устройство ошибочно распознаёт короткие нажатия как удержание.</string>
+	<string name="pref_key_shadows">Тени под клавишами</string>
 	<string name="pref_keyboard_preview">Предпросмотр</string>
 	<string name="pref_layout">Вид раскладки</string>
 	<string name="pref_layout_numpad">Цифровая клавиатура</string>
@@ -53,6 +54,7 @@
 	<string name="pref_category_keypad_hardware">Аппаратные клавиши</string>
 	<string name="pref_category_keypad_onscreen">Экранные клавиши</string>
 	<string name="pref_category_predictive_mode">Режим подсказки</string>
+	<string name="pref_category_key_appearance">Клавиши</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="char_space">Пробел</string>
 	<string name="char_newline">Новая строка</string>
@@ -159,7 +161,7 @@
 	<string name="dictionary_export_generating_csv">Экспорт CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Экспорт CSV (%1$s)…</string>
 	<string name="pref_category_layout">Экранная раскладка</string>
-	<string name="pref_numpad_key_font_size">Размер шрифта клавиш</string>
+	<string name="pref_numpad_key_font_size">Размер шрифта</string>
 	<string name="pref_numpad_key_height">Высота</string>
 	<string name="pref_numpad_fn_key_width">Ширина буквенных клавиш</string>
 	<string name="pref_font_size">Размер шрифта в настройках</string>

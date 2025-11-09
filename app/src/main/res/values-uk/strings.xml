@@ -27,6 +27,7 @@
 	<string name="pref_category_keypad_hardware">Апаратні клавіші</string>
 	<string name="pref_category_predictive_mode">Предиктивний режим</string>
 	<string name="pref_category_function_keys">Гарячі клавіші</string>
+	<string name="pref_category_key_appearance">Клавіші</string>
 	<string name="pref_category_keypad">Клавіатура</string>
 	<string name="pref_category_setup">Початкові налаштування</string>
 
@@ -59,6 +60,7 @@
 	<string name="pref_hack_key_pad_debounce_time">Захист від випадкового повторення натискань</string>
 	<string name="pref_hack_key_pad_debounce_off">Вимкнено</string>
 	<string name="pref_hold_to_type_summary">Дозволяє вводити цифри або запускати функції додатку, утримуючи цифрові клавіші. Вимкніть, якщо пристрій помилково визначає короткі натискання як утримування.</string>
+	<string name="pref_key_shadows">Тіні під клавішами</string>
 	<string name="pref_keyboard_preview">Перегляд</string>
 	<string name="pref_layout">Тип розкладки</string>
 	<string name="pref_layout_numpad">Цифрова клавіатура</string>
@@ -170,7 +172,7 @@
 	<string name="dictionary_export_generating_csv_for_language">Експорт CSV (%1$s)…</string>
 	<string name="pref_category_keypad_onscreen">Екранні клавіші</string>
 	<string name="pref_category_layout">Екранна розкладка</string>
-	<string name="pref_numpad_key_font_size">Розмір шрифту клавіш</string>
+	<string name="pref_numpad_key_font_size">Розмір шрифту</string>
 	<string name="pref_numpad_key_height">Висота</string>
 	<string name="pref_numpad_fn_key_width">Ширина літерних клавіш</string>
 	<string name="pref_font_size">Розмір шрифту у налаштуваннях</string>

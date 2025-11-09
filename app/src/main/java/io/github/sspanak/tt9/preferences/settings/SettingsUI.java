@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows;
 import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -17,6 +18,9 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class SettingsUI extends SettingsTyping {
 	public final static int FONT_SIZE_DEFAULT = 0;
 	public final static int FONT_SIZE_LARGE = 2;
+
+	public final static float KEY_SHADOW_ELEVATION = 3f;
+	public final static float KEY_SHADOW_TRANSLATION = 2f;
 
 	public final static int LAYOUT_STEALTH = 0;
 	public final static int LAYOUT_TRAY = 2;
@@ -93,6 +97,10 @@ public class SettingsUI extends SettingsTyping {
 		}
 
 		return prefs.getBoolean("pref_quick_switch_language", DEFAULT_QUICK_SWITCH_LANGUAGE);
+	}
+
+	public boolean getKeyShadows() {
+		return prefs.getBoolean(SwitchKeyShadows.NAME, SwitchKeyShadows.DEFAULT);
 	}
 
 	public int getSettingsFontSize() {

@@ -40,6 +40,7 @@
 	<string name="pref_category_function_keys">Select Hotkeys</string>
 	<string name="pref_category_fn_key_order">Function Key Order</string>
 	<string name="pref_category_hacks">Compatibility</string>
+	<string name="pref_category_key_appearance">Keys</string>
 	<string name="pref_category_keypad">Keypad</string>
 	<string name="pref_category_keypad_hardware">Hardware Keys</string>
 	<string name="pref_category_keypad_onscreen">On-Screen Keys</string>
@@ -91,6 +92,7 @@
 	<string name="pref_help">Help</string>
 	<string name="pref_hold_to_type">Number Key Holding</string>
 	<string name="pref_hold_to_type_summary">Allow typing numbers or running app functions by holding number keys. Turn off if the device misdetects short presses as holds.</string>
+	<string name="pref_key_shadows">Shadows Below Keys</string>
 	<string name="pref_keyboard_preview">Preview</string>
 	<string name="pref_layout">Layout Type</string>
 	<string name="pref_layout_numpad">Virtual numpad</string>
