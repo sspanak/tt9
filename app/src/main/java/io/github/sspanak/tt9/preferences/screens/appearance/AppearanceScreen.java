@@ -67,6 +67,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 				.addOnChangeItem(showArrows)
 				.addOnChangeItem(suggestionFontSize)
 				.addOnChangePreference(findPreference(PrecalculateNavbarHeightSwitch.NAME))
+				.addOnChangePreference(findPreference(SwitchKeyShadows.NAME))
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
@@ -133,6 +134,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		}
 
 		SwitchPreferenceCompat[] switches = {
+			findPreference(SwitchKeyShadows.NAME),
 			findPreference("pref_arrow_keys_visible"),
 			findPreference("pref_status_icon"),
 		};

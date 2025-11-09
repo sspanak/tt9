@@ -6,6 +6,7 @@
 	<string name="add_word_no_selection">Mueve el cursor dentro de una palabra para añadirla.</string>
 	<string name="add_word_blank">Palabra en blanco no agregada.</string>
 	<string name="pref_hold_to_type_summary">Permite escribir números o activar funciones de la app manteniendo pulsadas las teclas numéricas. Desactive si el dispositivo detecta erróneamente pulsaciones cortas como mantenidas.</string>
+	<string name="pref_key_shadows">Sombras bajo las teclas</string>
 	<string name="pref_keyboard_preview">Vista previa</string>
 	<string name="pref_layout">Tipo de distribución</string>
 	<string name="pref_layout_numpad">Teclado numérico</string>
@@ -32,6 +33,7 @@
 	<string name="pref_category_keypad_hardware">Teclas físicas</string>
 	<string name="pref_category_keypad_onscreen">Teclas en pantalla</string>
 	<string name="pref_category_predictive_mode">Texto predictivo</string>
+	<string name="pref_category_key_appearance">Teclas</string>
 	<string name="pref_category_keypad">Teclado</string>
 	<string name="pref_auto_capitals_after_newline">Mayúsculas automáticas en cada línea</string>
 	<string name="pref_auto_capitals_after_newline_summary">Comenzar cada línea con una letra mayúscula, incluso si está en medio de una oración.</string>
@@ -159,7 +161,7 @@
 	<string name="dictionary_export_generating_csv">Exportando CSV…</string>
 	<string name="dictionary_export_generating_csv_for_language">Exportando CSV (%1$s)…</string>
 	<string name="pref_category_layout">Distribución del teclado en pantalla</string>
-	<string name="pref_numpad_key_font_size">Tamaño de fuente de las teclas</string>
+	<string name="pref_numpad_key_font_size">Tamaño de fuente</string>
 	<string name="pref_numpad_key_height">Altura</string>
 	<string name="pref_numpad_fn_key_width">Anchura de las teclas de letras</string>
 	<string name="pref_font_size">Tamaño de fuente de configuración</string>

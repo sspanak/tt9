@@ -242,7 +242,7 @@
 
 	<!-- The keyboard itself -->
 	<style name="TTheme.Numpad" parent="TTheme.MainSmall">
-		<item name="android:paddingBottom">@dimen/numpad_keys_spacing_bottom</item>
+		<item name="android:paddingBottom">@dimen/numpad_keys_padding_bottom</item>
 	</style>
 
 

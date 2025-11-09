@@ -275,6 +275,20 @@ public class SoftKey extends BaseClickableKey {
 
 
 	/**
+	 * Renders or removes the under-shadow, that acts like a border and gives a 3D effect,
+	 * increasing visual separation of the keys. Also, allows for toggling between Material2 and
+	 * Material3 style regardless of the Android version.
+	 */
+	private void renderShadow() {
+		final boolean shadows = tt9 != null && tt9.getSettings().getKeyShadows();
+		post(() -> {
+			setElevation(shadows ? SettingsStore.KEY_SHADOW_ELEVATION : 0);
+			setTranslationZ(shadows ? SettingsStore.KEY_SHADOW_TRANSLATION : 0);
+		});
+	}
+
+
+	/**
 	 * render
 	 * Sets the key labels, colors and icons using. Potentially, it can also adjust padding and margins and
 	 * other visual properties of the key.
@@ -288,5 +302,6 @@ public class SoftKey extends BaseClickableKey {
 		renderTitle(isKeyEnabled);
 		getOverlayWrapper();
 		renderOverlayText("overlay_hold_text", getHoldText(), cornerElementColor, getCornerElementScale(BaseSoftKeyWithIcons.ICON_POSITION_TOP_RIGHT), isKeyEnabled && isHoldEnabled());
+		renderShadow();
 	}
 }
