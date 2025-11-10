@@ -24,7 +24,6 @@ import io.github.sspanak.tt9.util.Logger;
 public class EarlyInitProvider extends ContentProvider {
 	private static final int AUTO_REMOVE_TIMEOUT = 30_000; // ms
 	private static final String LOG_TAG = EarlyInitProvider.class.getName();
-	private static final int EXIT_CODE = 10;
 
 	@Override
 	public boolean onCreate() {
@@ -48,7 +47,7 @@ public class EarlyInitProvider extends ContentProvider {
 			Logger.e(LOG_TAG, "Caught privileged options exception!");
 
 			stopService(getContext());
-			Process.killProcess(Process.myPid());
+			stopSelf();
 		} else if (defaultHandler != null) {
 			Thread.setDefaultUncaughtExceptionHandler(defaultHandler);
 			defaultHandler.uncaughtException(thread, throwable);
@@ -72,6 +71,9 @@ public class EarlyInitProvider extends ContentProvider {
 	}
 
 
+	/**
+	 * Kills the IME service or any zombies left behind.
+	 */
 	private void stopService(@Nullable Context context) {
 		if (context == null) {
 			Logger.e(LOG_TAG, "Could not send 'stopService' to main. Context is null.");
@@ -83,6 +85,14 @@ public class EarlyInitProvider extends ContentProvider {
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Could not stop IME service privileged options error. " + e.getMessage());
 		}
+	}
+
+
+	/**
+	 * Kills the current process after a short delay to allow the service to stop cleanly.
+	 */
+	private void stopSelf() {
+		new Handler(Looper.getMainLooper()).postDelayed(() -> Process.killProcess(Process.myPid()),500);
 	}
 
 
