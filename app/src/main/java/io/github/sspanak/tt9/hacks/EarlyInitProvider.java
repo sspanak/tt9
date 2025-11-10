@@ -112,7 +112,7 @@ public class EarlyInitProvider extends ContentProvider {
 
 	@Nullable
 	@Override
-	public String getType(@NonNull Uri uri) { return ""; }
+	public String getType(@NonNull Uri uri) { return null; }
 
 	@Nullable
 	@Override
