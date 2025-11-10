@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.util.Logger;
  */
 public class EarlyInitProvider extends ContentProvider {
 	private static final int AUTO_REMOVE_TIMEOUT = 30_000; // ms
+	private static final int SELF_KILL_TIMEOUT = 500; // ms
 	private static final String LOG_TAG = EarlyInitProvider.class.getName();
 
 	@Override
@@ -45,7 +46,6 @@ public class EarlyInitProvider extends ContentProvider {
 	private void crashHandler(Thread.UncaughtExceptionHandler defaultHandler, Thread thread, Throwable throwable) {
 		if (isPrivilegedOptionsError(throwable)) {
 			Logger.e(LOG_TAG, "Caught privileged options exception!");
-
 			stopService(getContext());
 			stopSelf();
 		} else if (defaultHandler != null) {
@@ -92,7 +92,7 @@ public class EarlyInitProvider extends ContentProvider {
 	 * Kills the current process after a short delay to allow the service to stop cleanly.
 	 */
 	private void stopSelf() {
-		new Handler(Looper.getMainLooper()).postDelayed(() -> Process.killProcess(Process.myPid()),500);
+		new Handler(Looper.getMainLooper()).postDelayed(() -> Process.killProcess(Process.myPid()), SELF_KILL_TIMEOUT);
 	}
 
 
