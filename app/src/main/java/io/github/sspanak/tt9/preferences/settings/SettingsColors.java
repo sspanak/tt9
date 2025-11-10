@@ -14,10 +14,10 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class SettingsColors extends SettingsHotkeys {
-	public static final int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
-	public static final int DEFAULT_BORDER_COLOR = Color.TRANSPARENT;
-	public static final int DEFAULT_RIPPLE_COLOR = Color.LTGRAY;
-	public static final int DEFAULT_TEXT_COLOR = Color.BLACK;
+	public static final int DEFAULT_KEY_BACKGROUND_COLOR = Color.WHITE;
+	public static final int DEFAULT_KEY_BORDER_COLOR = Color.TRANSPARENT;
+	public static final int DEFAULT_KEY_RIPPLE_COLOR = Color.LTGRAY;
+	public static final int DEFAULT_KEY_TEXT_COLOR = Color.BLACK;
 
 	@Nullable
 	protected static AbstractColorScheme colorScheme;

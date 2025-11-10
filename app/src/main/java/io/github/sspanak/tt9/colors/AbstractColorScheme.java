@@ -35,7 +35,6 @@ abstract public class AbstractColorScheme {
 	}
 
 
-
 	public boolean getNightModeTag() {
 		return nightModeTag;
 	}

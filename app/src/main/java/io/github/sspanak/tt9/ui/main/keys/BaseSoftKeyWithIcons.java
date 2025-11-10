@@ -17,7 +17,7 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
 public class BaseSoftKeyWithIcons extends BaseSoftKeyCustomizable {
 	private Drawable icon = null; // central icon
-	protected int centralIconColor = SettingsColors.DEFAULT_TEXT_COLOR;
+	protected int centralIconColor = SettingsColors.DEFAULT_KEY_TEXT_COLOR;
 
 	public static final int ICON_POSITION_TOP_RIGHT = 0;
 	public static final int ICON_POSITION_TOP_LEFT = 1;
