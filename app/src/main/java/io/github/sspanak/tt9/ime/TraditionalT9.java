@@ -132,9 +132,6 @@ public class TraditionalT9 extends PremiumHandler {
 		asyncInitThread.start();
 
 		super.onInit();
-
-		// remove the PrivilegedOptions exception handler set in EarlyInitProvider
-		Thread.setDefaultUncaughtExceptionHandler(null);
 	}
 
 

@@ -26,21 +26,16 @@ public class EarlyInitProvider extends ContentProvider {
 	private static final String LOG_TAG = EarlyInitProvider.class.getName();
 	private static final int EXIT_CODE = 10;
 
-	private volatile Context context;
-	private volatile Thread.UncaughtExceptionHandler defaultHandler;
-
-
 	@Override
 	public boolean onCreate() {
-		context = getContext();
-		defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
-		Thread.setDefaultUncaughtExceptionHandler(this::crashHandler);
-		autoRemoveCrashHandler();
+		final Thread.UncaughtExceptionHandler defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
+		Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> crashHandler(defaultHandler, thread, throwable));
+		scheduleRemoveCrashHandler(defaultHandler);
 		return true;
 	}
 
 
-	private void autoRemoveCrashHandler() {
+	private void scheduleRemoveCrashHandler(Thread.UncaughtExceptionHandler defaultHandler) {
 		new Handler(Looper.getMainLooper()).postDelayed(
 			() -> Thread.setDefaultUncaughtExceptionHandler(defaultHandler),
 			AUTO_REMOVE_TIMEOUT
@@ -48,17 +43,17 @@ public class EarlyInitProvider extends ContentProvider {
 	}
 
 
-	private void crashHandler(Thread t, Throwable throwable) {
+	private void crashHandler(Thread.UncaughtExceptionHandler defaultHandler, Thread thread, Throwable throwable) {
 		if (isPrivilegedOptionsError(throwable)) {
 			Logger.e(LOG_TAG, "Caught privileged options exception!");
 
-			context = context == null ? getContext() : context;
-			stopService(context);
+			stopService(getContext());
 			Process.killProcess(Process.myPid());
-			System.exit(EXIT_CODE);
-		} else {
+		} else if (defaultHandler != null) {
 			Thread.setDefaultUncaughtExceptionHandler(defaultHandler);
-			passThroughException(t, throwable);
+			defaultHandler.uncaughtException(thread, throwable);
+		} else {
+			Logger.e(LOG_TAG, "Total startup failure. " + throwable.getMessage());
 		}
 	}
 
@@ -87,15 +82,6 @@ public class EarlyInitProvider extends ContentProvider {
 			context.stopService(new Intent(context, TraditionalT9.class));
 		} catch (Exception e) {
 			Logger.e(LOG_TAG, "Could not stop IME service privileged options error. " + e.getMessage());
-		}
-	}
-
-
-	private void passThroughException(Thread t, Throwable e) {
-		if (defaultHandler != null) {
-			defaultHandler.uncaughtException(t, e);
-		} else {
-			Logger.e(LOG_TAG, "Total startup failure. " + e.getMessage());
 		}
 	}
 
