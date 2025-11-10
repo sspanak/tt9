@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class SwitchKeyShadows extends SwitchWhenUIVisible{
+public class SwitchKeyShadows extends SwitchWhenUIVisible {
 	public static final String NAME = "pref_key_shadows";
 	public static final boolean DEFAULT = !DeviceInfo.AT_LEAST_ANDROID_12;
 
