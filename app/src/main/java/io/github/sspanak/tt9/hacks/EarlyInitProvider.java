@@ -57,7 +57,7 @@ public class EarlyInitProvider extends ContentProvider {
 			Process.killProcess(Process.myPid());
 			System.exit(EXIT_CODE);
 		} else {
-			Thread.setDefaultUncaughtExceptionHandler(null);
+			Thread.setDefaultUncaughtExceptionHandler(defaultHandler);
 			passThroughException(t, throwable);
 		}
 	}
