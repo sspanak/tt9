@@ -113,12 +113,44 @@ abstract class VoiceHandler extends TypingHandler {
 			return text;
 		}
 
-		// Use the capitalization decision made at the start of voice input
-		if (shouldCapitalizeVoiceInput) {
-			return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+		// Capitalize first letter if needed based on context before voice input
+		String result = text;
+		if (shouldCapitalizeVoiceInput && !result.isEmpty()) {
+			result = Character.toUpperCase(result.charAt(0)) + result.substring(1);
 		}
 
-		return text;
+		// Also capitalize after sentence-ending punctuation within the text
+		if (settings.getAutoTextCase()) {
+			result = capitalizeSentences(result);
+		}
+
+		return result;
+	}
+
+
+	private String capitalizeSentences(String text) {
+		if (text == null || text.isEmpty()) {
+			return text;
+		}
+
+		StringBuilder result = new StringBuilder(text);
+
+		for (int i = 0; i < result.length(); i++) {
+			char c = result.charAt(i);
+
+			// If this character is a letter, check if we should capitalize it
+			if (Character.isLetter(c)) {
+				// Get the text before this position
+				String before = result.substring(0, i);
+
+				// Use existing logic to check if this is the start of a sentence
+				if (TextTools.isStartOfSentence(before)) {
+					result.setCharAt(i, Character.toUpperCase(c));
+				}
+			}
+		}
+
+		return result.toString();
 	}
 
 
