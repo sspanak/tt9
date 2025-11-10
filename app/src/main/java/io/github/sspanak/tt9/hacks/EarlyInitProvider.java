@@ -42,7 +42,7 @@ public class EarlyInitProvider extends ContentProvider {
 
 	private void autoRemoveCrashHandler() {
 		new Handler(Looper.getMainLooper()).postDelayed(
-			() -> Thread.setDefaultUncaughtExceptionHandler(null),
+			() -> Thread.setDefaultUncaughtExceptionHandler(defaultHandler),
 			AUTO_REMOVE_TIMEOUT
 		);
 	}
