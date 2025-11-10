@@ -20,6 +20,7 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 	@Override
 	protected void initColors(@NonNull SettingsStore settings) {
 		backgroundColor = settings.getKeyBackgroundColor();
+		borderColor = settings.getKeyBorderColor();
 		cornerElementColor = settings.getKeyCornerElementColor();
 		rippleColor = settings.getKeyRippleColor();
 		centralIconColor = textColor = settings.getKeyTextColor();
