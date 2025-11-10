@@ -26,7 +26,7 @@ public class EarlyInitProvider extends ContentProvider {
 	private static final String LOG_TAG = EarlyInitProvider.class.getName();
 	private static final int EXIT_CODE = 10;
 
-	private Context context;
+	private volatile Context context;
 	private Thread.UncaughtExceptionHandler defaultHandler;
 
 
