@@ -30,6 +30,7 @@ public class VoiceInputOps {
 	private SpeechRecognizer speechRecognizer;
 
 	private final ConsumerCompat<String> onStopListening;
+	private final ConsumerCompat<String> onPartialResult;
 	private final ConsumerCompat<VoiceInputError> onListeningError;
 
 
@@ -37,13 +38,15 @@ public class VoiceInputOps {
 		@NonNull Context ims,
 		Runnable onStart,
 		ConsumerCompat<String> onStop,
+		ConsumerCompat<String> onPartial,
 		ConsumerCompat<VoiceInputError> onError
 	) {
 		isOfflineModeDisabled = new HashMap<>();
-		listener = new VoiceListener(ims, onStart, this::onStop, this::onError);
+		listener = new VoiceListener(ims, onStart, this::onStop, this::onPartial, this::onError);
 		recognizerSupport = DeviceInfo.AT_LEAST_ANDROID_13 ? new SpeechRecognizerSupportModern(ims) : new SpeechRecognizerSupportLegacy(ims);
 
 		onStopListening = onStop != null ? onStop : result -> {};
+		onPartialResult = onPartial != null ? onPartial : result -> {};
 		onListeningError = onError != null ? onError : error -> {};
 
 		this.ims = ims;
@@ -59,6 +62,7 @@ public class VoiceInputOps {
 		Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, locale);
 		intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+		intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
 		return intent;
 	}
 
@@ -197,6 +201,13 @@ public class VoiceInputOps {
 	private void onStop(ArrayList<String> results) {
 		destroy();
 		onStopListening.accept(results.isEmpty() ? null : results.get(0));
+	}
+
+
+	private void onPartial(ArrayList<String> results) {
+		String text = results.isEmpty() ? null : results.get(0);
+		Logger.d(LOG_TAG, "Partial result: " + text);
+		onPartialResult.accept(text);
 	}
 
 

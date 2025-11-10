@@ -23,6 +23,7 @@ abstract class VoiceHandler extends TypingHandler {
 			this,
 			this::onVoiceInputStarted,
 			this::onVoiceInputStopped,
+			this::onVoiceInputPartial,
 			this::onVoiceInputError
 		);
 	}
@@ -96,11 +97,25 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputStopped(String text) {
+		Logger.d(LOG_TAG, "Voice input stopped: " + text);
 		onText(text, false);
 		resetStatus();
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
 		 }
+	}
+
+
+	private void onVoiceInputPartial(String text) {
+		Logger.d(LOG_TAG, "Voice input partial: " + text);
+
+		// Skip empty partial results
+		if (text == null || text.isEmpty()) {
+			return;
+		}
+
+		// Use composing text for partial results - this allows replacement without duplication
+		textField.setComposingText(text, 1);
 	}
 
 

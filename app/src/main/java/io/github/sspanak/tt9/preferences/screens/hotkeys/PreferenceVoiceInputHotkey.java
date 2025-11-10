@@ -15,7 +15,7 @@ public class PreferenceVoiceInputHotkey extends PreferenceHotkey {
 
 	@Override
 	public void populate() {
-		boolean isAvailable = new VoiceInputOps(getContext(), null, null, null).isAvailable();
+		boolean isAvailable = new VoiceInputOps(getContext(), null, null, null, null).isAvailable();
 		setVisible(isAvailable);
 		if (isAvailable) {
 			super.populate();
