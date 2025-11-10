@@ -30,10 +30,7 @@ public class DropDownColorScheme extends EnhancedDropDownPreference {
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
 		this.settings = settings;
 
-		if (!values.isEmpty()) {
-			values.clear();
-		}
-
+		values.clear();
 		addOptions(getContext());
 		commitOptions();
 		setValue(validateSchemeId(loadValue(settings)));
