@@ -27,7 +27,7 @@ public class EarlyInitProvider extends ContentProvider {
 	private static final int EXIT_CODE = 10;
 
 	private volatile Context context;
-	private Thread.UncaughtExceptionHandler defaultHandler;
+	private volatile Thread.UncaughtExceptionHandler defaultHandler;
 
 
 	@Override
