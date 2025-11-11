@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-public class PrecalculateNavbarHeightSwitch extends SwitchWhenUIVisible implements ItemLayoutChangeReactive {
+public class PrecalculateNavbarHeightSwitch extends SwitchWhenUIVisible {
 	public static final String NAME = "hack_precalculate_navbar_height_v3";
 
 

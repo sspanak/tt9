@@ -44,6 +44,14 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
 
+		ItemCategory categoryColors = new ItemCategory(findPreference("category_keyboard_color_scheme"));
+		ItemCategory categoryGeometry = new ItemCategory(findPreference("category_keyboard_geometry"));
+		ItemCategory categoryKeys = new ItemCategory(findPreference("category_keyboard_keys"));
+
+		categoryColors.onLayoutChange(activity.getSettings().getMainViewLayout());
+		categoryGeometry.onLayoutChange(activity.getSettings().getMainViewLayout());
+		categoryKeys.onLayoutChange(activity.getSettings().getMainViewLayout());
+
 		DropDownAlignment alignment = findPreference(DropDownAlignment.NAME);
 		DropDownKeyHeight numpadKeyHeight = findPreference(DropDownKeyHeight.NAME);
 		DropDownWidth keyboardWidth = findPreference(DropDownWidth.NAME);
@@ -57,17 +65,17 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		DropDownLayoutType selectLayout = findPreference(DropDownLayoutType.NAME);
 		if (selectLayout != null) {
 			selectLayout
-				.addOnChangeItem(alignment)
+				.addOnChangeItem(new ItemCategory(findPreference("category_keyboard_color_scheme")))
+				.addOnChangeItem(new ItemCategory(findPreference("category_keyboard_geometry")))
+				.addOnChangeItem(new ItemCategory(findPreference("category_keyboard_keys")))
 				.addOnChangeItem(fnKeyOrder)
 				.addOnChangeItem(fnKeyWidth)
-				.addOnChangeItem(keyboardWidth)
 				.addOnChangeItem(numpadKeyFontSize)
 				.addOnChangeItem(numpadKeyHeight)
 				.addOnChangeItem(numpadShape)
 				.addOnChangeItem(showArrows)
 				.addOnChangeItem(suggestionFontSize)
 				.addOnChangePreference(findPreference(PrecalculateNavbarHeightSwitch.NAME))
-				.addOnChangePreference(findPreference(SwitchKeyShadows.NAME))
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
