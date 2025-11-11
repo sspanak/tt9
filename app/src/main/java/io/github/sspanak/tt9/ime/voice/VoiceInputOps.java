@@ -205,9 +205,9 @@ public class VoiceInputOps {
 
 
 	private void onPartial(ArrayList<String> results) {
-		String text = results.isEmpty() ? null : results.get(0);
-		Logger.d(LOG_TAG, "Partial result: " + text);
-		onPartialResult.accept(text);
+		if (!results.isEmpty()) {
+			onPartialResult.accept(results.get(0));
+		}
 	}
 
 

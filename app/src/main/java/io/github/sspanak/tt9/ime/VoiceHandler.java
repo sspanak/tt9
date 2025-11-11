@@ -4,17 +4,21 @@ import android.Manifest;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
-import io.github.sspanak.tt9.util.TextTools;
+import io.github.sspanak.tt9.util.Text;
 
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
+	private AutoTextCase autoTextCase;
 	protected VoiceInputOps voiceInputOps;
-	private boolean shouldCapitalizeVoiceInput = false;
+	private String beforeSpeech = "";
 
 
 	@Override
@@ -78,6 +82,8 @@ abstract class VoiceHandler extends TypingHandler {
 		statusBar.setText(R.string.loading);
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
+		beforeSpeech = textField.getStringBeforeCursor();
 		voiceInputOps.listen(mLanguage);
 	}
 
@@ -87,20 +93,10 @@ abstract class VoiceHandler extends TypingHandler {
 			statusBar.setText(R.string.voice_input_stopping);
 			voiceInputOps.stop();
 		}
-		shouldCapitalizeVoiceInput = false;
 	}
 
 
 	private void onVoiceInputStarted() {
-		// Determine capitalization once at the start based on current context
-		shouldCapitalizeVoiceInput = false;
-		if (settings.getAutoTextCase()) {
-			String before = textField.getStringBeforeCursor();
-			shouldCapitalizeVoiceInput = before.isEmpty()
-				|| (settings.getAutoCapitalsAfterNewline() && before.endsWith("\n"))
-				|| TextTools.isStartOfSentence(before);
-		}
-
 		if (!mainView.isCommandPaletteShown()) {
 			mainView.render(); // disable the function keys
 		}
@@ -108,56 +104,33 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 
-	private String applyAutoCapitalization(String text) {
-		if (text == null || text.isEmpty()) {
-			return text;
+	private String applyAutoCapitalization(String str) {
+		if (str == null || str.isEmpty() || autoTextCase == null) {
+			return str;
 		}
 
-		// Capitalize first letter if needed based on context before voice input
-		String result = text;
-		if (shouldCapitalizeVoiceInput && !result.isEmpty()) {
-			result = Character.toUpperCase(result.charAt(0)) + result.substring(1);
+		StringBuilder output = new StringBuilder(str.length());
+
+		for (String word : str.split(" ")) {
+			Text text = new Text(mLanguage, word);
+			int textCase = autoTextCase.determineNextWordTextCase(mLanguage, mInputMode.getTextCase(), inputType.determineTextCase(), textField, "", beforeSpeech + output);
+
+			String correctedWord = switch (textCase) {
+				case InputMode.CASE_UPPER -> text.toUpperCase();
+				case InputMode.CASE_CAPITALIZE -> text.capitalize();
+				case InputMode.CASE_LOWER -> text.toLowerCase();
+				default -> text.toString();
+			};
+
+			output.append(correctedWord).append(" ");
 		}
 
-		// Also capitalize after sentence-ending punctuation within the text
-		if (settings.getAutoTextCase()) {
-			result = capitalizeSentences(result);
-		}
-
-		return result;
-	}
-
-
-	private String capitalizeSentences(String text) {
-		if (text == null || text.isEmpty()) {
-			return text;
-		}
-
-		StringBuilder result = new StringBuilder(text);
-
-		for (int i = 0; i < result.length(); i++) {
-			char c = result.charAt(i);
-
-			// If this character is a letter, check if we should capitalize it
-			if (Character.isLetter(c)) {
-				// Get the text before this position
-				String before = result.substring(0, i);
-
-				// Use existing logic to check if this is the start of a sentence
-				if (TextTools.isStartOfSentence(before)) {
-					result.setCharAt(i, Character.toUpperCase(c));
-				}
-			}
-		}
-
-		return result.toString();
+		return output.toString();
 	}
 
 
 	private void onVoiceInputStopped(String text) {
-		Logger.d(LOG_TAG, "Voice input stopped: " + text);
 		onText(applyAutoCapitalization(text), false);
-		shouldCapitalizeVoiceInput = false;
 		resetStatus();
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
@@ -166,21 +139,11 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputPartial(String text) {
-		Logger.d(LOG_TAG, "Voice input partial: " + text);
-
-		// Skip empty partial results
-		if (text == null || text.isEmpty()) {
-			return;
-		}
-
-		// Use composing text for partial results - this allows replacement without duplication
 		textField.setComposingText(applyAutoCapitalization(text), 1);
 	}
 
 
 	private void onVoiceInputError(VoiceInputError error) {
-		shouldCapitalizeVoiceInput = false;
-
 		if (error.isLanguageMissing() && voiceInputOps.enableOfflineMode(mLanguage, false)) {
 			Logger.i(LOG_TAG, "Voice input package for language '" + mLanguage.getName() + "' is missing. Enforcing online mode for the current session.");
 			voiceInputOps.listen(mLanguage);

@@ -390,7 +390,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	public void determineNextWordTextCase(int nextDigit) {
 		final String nextSequence = nextDigit >= 0 ? digitSequence + nextDigit : digitSequence;
-		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField, nextSequence);
+		textCase = autoTextCase.determineNextWordTextCase(language, textCase, textFieldTextCase, textField, nextSequence, null);
 	}
 
 	private void determineTextFieldTextCase() {

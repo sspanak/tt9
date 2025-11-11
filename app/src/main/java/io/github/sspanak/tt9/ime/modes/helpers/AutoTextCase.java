@@ -50,7 +50,7 @@ public class AutoTextCase {
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, TextField textField, String digitSequence) {
+	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, TextField textField, String digitSequence, String beforeCursor) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -73,7 +73,7 @@ public class AutoTextCase {
 		}
 
 		// start of text
-		final String before = textField.getStringBeforeCursor();
+		final String before = beforeCursor == null ? textField.getStringBeforeCursor() : beforeCursor;
 		if (before.isEmpty() || settings.getAutoCapitalsAfterNewline() && before.endsWith("\n")) {
 			return InputMode.CASE_CAPITALIZE;
 		}
