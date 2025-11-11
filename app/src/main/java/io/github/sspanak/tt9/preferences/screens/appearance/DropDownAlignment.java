@@ -11,18 +11,13 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class DropDownAlignment extends EnhancedDropDownPreference implements ItemLayoutChangeReactive {
+public class DropDownAlignment extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_numpad_alignment";
 
 	public DropDownAlignment(@NonNull Context context) { super(context); }
 	public DropDownAlignment(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public DropDownAlignment(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) { super(context, attrs, defStyle); }
 	public DropDownAlignment(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
-
-	public void onLayoutChange(int mainViewLayout) {
-			setIconSpaceReserved(false);
-			setVisible(mainViewLayout != SettingsStore.LAYOUT_STEALTH);
-	}
 
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
@@ -31,8 +26,6 @@ public class DropDownAlignment extends EnhancedDropDownPreference implements Ite
 		add(Gravity.END, R.string.virtual_numpad_alignment_right);
 		commitOptions();
 		setValue(String.valueOf(settings.getAlignment()));
-
-		onLayoutChange(settings.getMainViewLayout());
 
 		return this;
 	}
