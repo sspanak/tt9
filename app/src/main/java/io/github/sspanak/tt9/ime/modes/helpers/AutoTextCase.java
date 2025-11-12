@@ -25,10 +25,9 @@ public class AutoTextCase {
 	}
 
 	/**
-	 * adjustSuggestionTextCase
-	 * In addition to uppercase/lowercase, here we use the result from determineNextWordTextCase(),
-	 * to conveniently start sentences with capitals or whatnot.
-	 *
+	 * Changes the text case of a word. Usually, used together with determineNextWordTextCase(), which
+	 * would inspect the current text field, the app Shift state, whether we are at the beginning of a
+	 * sentence, and other factors to determine the correct text case for the next word.
 	 * Also, by default we preserve any mixed case words in the dictionary,
 	 * for example: "dB", "Mb", proper names, German nouns, that always start with a capital,
 	 * or Dutch words such as: "'s-Hertogenbosch".
@@ -45,12 +44,34 @@ public class AutoTextCase {
 
 
 	/**
+	 * Uses determineNextWordTextCase() and adjustSuggestionTextCase() to adjust the text case
+	 * of all words in a paragraph.	Useful for voice input results.
+	 */
+	public String adjustParagraphTextCase(@NonNull Language language, @Nullable String paragraph, @NonNull String textBeforeSpeech, int inputModeTextCase, int textFieldTextCase) {
+		if (paragraph == null || paragraph.isEmpty()) {
+			return paragraph;
+		}
+
+		final String dummySequence = "";
+		final StringBuilder output = new StringBuilder(paragraph.length());
+
+		for (String word : paragraph.split(" ")) {
+			final int textCase = determineNextWordTextCase(language, inputModeTextCase, textFieldTextCase, null, dummySequence, textBeforeSpeech + output);
+			final String adjusted = adjustSuggestionTextCase(new Text(language, word), textCase);
+			output.append(adjusted).append(" ");
+		}
+
+		return output.toString();
+	}
+
+
+	/**
 	 * determineNextWordTextCase
 	 * Dynamically determine text case of words as the user types, to reduce key presses.
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(Language language, int currentTextCase, int textFieldTextCase, TextField textField, String digitSequence, String beforeCursor) {
+	public int determineNextWordTextCase(@NonNull Language language, int currentTextCase, int textFieldTextCase, @Nullable TextField textField, @NonNull String digitSequence, @Nullable String beforeCursor) {
 		if (
 			// When the setting is off, don't do any changes.
 			!settings.getAutoTextCase()
@@ -73,8 +94,8 @@ public class AutoTextCase {
 		}
 
 		// start of text
-		final String before = beforeCursor == null ? textField.getStringBeforeCursor() : beforeCursor;
-		if (before.isEmpty() || settings.getAutoCapitalsAfterNewline() && before.endsWith("\n")) {
+		String before = beforeCursor == null && textField != null ? textField.getStringBeforeCursor() : beforeCursor;
+		if (before == null || before.isEmpty() || (settings.getAutoCapitalsAfterNewline() && before.endsWith("\n"))) {
 			return InputMode.CASE_CAPITALIZE;
 		}
 

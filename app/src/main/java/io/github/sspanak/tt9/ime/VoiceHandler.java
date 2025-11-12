@@ -6,13 +6,11 @@ import android.view.KeyEvent;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
-import io.github.sspanak.tt9.util.Text;
 
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
@@ -104,33 +102,17 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 
-	private String applyAutoCapitalization(String str) {
-		if (str == null || str.isEmpty() || autoTextCase == null) {
+	private String autoCapitalize(String str) {
+		if (autoTextCase == null) {
 			return str;
 		}
 
-		StringBuilder output = new StringBuilder(str.length());
-
-		for (String word : str.split(" ")) {
-			Text text = new Text(mLanguage, word);
-			int textCase = autoTextCase.determineNextWordTextCase(mLanguage, mInputMode.getTextCase(), inputType.determineTextCase(), textField, "", beforeSpeech + output);
-
-			String correctedWord = switch (textCase) {
-				case InputMode.CASE_UPPER -> text.toUpperCase();
-				case InputMode.CASE_CAPITALIZE -> text.capitalize();
-				case InputMode.CASE_LOWER -> text.toLowerCase();
-				default -> text.toString();
-			};
-
-			output.append(correctedWord).append(" ");
-		}
-
-		return output.toString();
+		return autoTextCase.adjustParagraphTextCase(mLanguage, str, beforeSpeech, mInputMode.getTextCase(), inputType.determineTextCase());
 	}
 
 
 	private void onVoiceInputStopped(String text) {
-		onText(applyAutoCapitalization(text), false);
+		onText(autoCapitalize(text), false);
 		resetStatus();
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
@@ -139,7 +121,7 @@ abstract class VoiceHandler extends TypingHandler {
 
 
 	private void onVoiceInputPartial(String text) {
-		textField.setComposingText(applyAutoCapitalization(text), 1);
+		textField.setComposingText(autoCapitalize(text), 1);
 	}
 
 
