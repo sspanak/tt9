@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -55,7 +56,7 @@ public class SuggestionsBar {
 	private SuggestionsAdapter mSuggestionsAdapter;
 	private Vibration vibration;
 
-	private final Handler delayedDisplayHandler = new Handler();
+	private final Handler displayHandler = new Handler(Looper.getMainLooper());
 
 
 	public SuggestionsBar(@NonNull SettingsStore settings, @NonNull ResizableMainView mainView, @NonNull Runnable onItemClick) {
@@ -296,6 +297,11 @@ public class SuggestionsBar {
 
 
 	private void render() {
+		displayHandler.post(this::renderSync);
+	}
+
+
+	private void renderSync() {
 		if (mView == null) {
 			return;
 		}
@@ -386,8 +392,8 @@ public class SuggestionsBar {
 		mSuggestionsAdapter.setSelection(selectedIndex);
 
 		if (settings.getSuggestionScrollingDelay() > 0) {
-			delayedDisplayHandler.removeCallbacksAndMessages(null);
-			delayedDisplayHandler.postDelayed(this::renderScroll, settings.getSuggestionScrollingDelay());
+			displayHandler.removeCallbacksAndMessages(null);
+			displayHandler.postDelayed(this::renderScroll, settings.getSuggestionScrollingDelay());
 		} else {
 			renderScroll();
 		}

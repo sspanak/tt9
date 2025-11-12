@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.preferences.screens.deleteWords;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 
@@ -55,11 +56,11 @@ public class PreferenceSearchWords extends SearchPreference {
 		}
 	}
 
-	void setOnWordsHandler(ConsumerCompat<ArrayList<CustomWord>> onWords) {
-		this.onWords = onWords;
+	void setOnWordsHandler(@NonNull Activity activity, ConsumerCompat<ArrayList<CustomWord>> onWords) {
+		this.onWords = (words) -> activity.runOnUiThread(() -> onWords.accept(words));
 	}
 
-	void setOnTotalWordsHandler(ConsumerCompat<Long> onTotalWords) {
-		this.onTotalWords = onTotalWords;
+	void setOnTotalWordsHandler(@NonNull Activity activity, ConsumerCompat<Long> onTotalWords) {
+		this.onTotalWords = (total) -> activity.runOnUiThread(() -> onTotalWords.accept(total));
 	}
 }
