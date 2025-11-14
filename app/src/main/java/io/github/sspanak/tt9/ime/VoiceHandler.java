@@ -4,6 +4,8 @@ import android.Manifest;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
+import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.ime.voice.VoiceInputError;
 import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.ui.dialogs.RequestPermissionDialog;
@@ -12,7 +14,9 @@ import io.github.sspanak.tt9.util.Ternary;
 
 abstract class VoiceHandler extends TypingHandler {
 	private final static String LOG_TAG = VoiceHandler.class.getSimpleName();
+	private AutoTextCase autoTextCase;
 	protected VoiceInputOps voiceInputOps;
+	private String beforeSpeech = "";
 
 
 	@Override
@@ -23,6 +27,7 @@ abstract class VoiceHandler extends TypingHandler {
 			this,
 			this::onVoiceInputStarted,
 			this::onVoiceInputStopped,
+			this::onVoiceInputPartial,
 			this::onVoiceInputError
 		);
 	}
@@ -75,6 +80,8 @@ abstract class VoiceHandler extends TypingHandler {
 		statusBar.setText(R.string.loading);
 		suggestionOps.cancelDelayedAccept();
 		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
+		beforeSpeech = textField.getStringBeforeCursor();
 		voiceInputOps.listen(mLanguage);
 	}
 
@@ -95,12 +102,26 @@ abstract class VoiceHandler extends TypingHandler {
 	}
 
 
+	private String autoCapitalize(String str) {
+		if (autoTextCase == null) {
+			return str;
+		}
+
+		return autoTextCase.adjustParagraphTextCase(mLanguage, str, beforeSpeech, mInputMode.getTextCase(), inputType.determineTextCase());
+	}
+
+
 	private void onVoiceInputStopped(String text) {
-		onText(text, false);
+		onText(autoCapitalize(text), false);
 		resetStatus();
 		 if (!mainView.isCommandPaletteShown()) {
 			 mainView.render(); // re-enable the function keys
 		 }
+	}
+
+
+	private void onVoiceInputPartial(String text) {
+		textField.setComposingText(autoCapitalize(text), 1);
 	}
 
 
