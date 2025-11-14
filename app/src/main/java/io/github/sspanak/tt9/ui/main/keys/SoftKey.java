@@ -2,6 +2,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -29,10 +30,11 @@ public class SoftKey extends BaseClickableKey {
 
 	protected RelativeLayout overlay = null;
 
-	protected int textColor = SettingsColors.DEFAULT_TEXT_COLOR;
+	protected int textColor = SettingsColors.DEFAULT_KEY_TEXT_COLOR;
 	protected int cornerElementColor = textColor;
-	@NonNull protected ColorStateList backgroundColor = ColorStateList.valueOf(SettingsColors.DEFAULT_BACKGROUND_COLOR);
-	@NonNull protected ColorStateList rippleColor = ColorStateList.valueOf(SettingsColors.DEFAULT_RIPPLE_COLOR);
+	@NonNull protected ColorStateList backgroundColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_BACKGROUND_COLOR);
+	@NonNull protected ColorStateList borderColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_BORDER_COLOR);
+	@NonNull protected ColorStateList rippleColor = ColorStateList.valueOf(SettingsColors.DEFAULT_KEY_RIPPLE_COLOR);
 
 
 	public SoftKey(Context context) { super(context); }
@@ -54,6 +56,7 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected void initColors(@NonNull SettingsStore settings) {
 		backgroundColor = settings.getKeyFnBackgroundColor();
+		borderColor = settings.getKeyFnBorderColor();
 		rippleColor = settings.getKeyFnRippleColor();
 		textColor = settings.getKeyFnTextColor();
 		cornerElementColor = settings.getKeyFnCornerElementColor();
@@ -282,6 +285,8 @@ public class SoftKey extends BaseClickableKey {
 	public void render() {
 		setBackgroundTintList(backgroundColor);
 		setRippleColor(rippleColor);
+		setStrokeColor(borderColor);
+		setStrokeWidth(borderColor.getDefaultColor() == Color.TRANSPARENT ? 0 : 2);
 		setTextColor(textColor);
 
 		boolean isKeyEnabled = isEnabled();

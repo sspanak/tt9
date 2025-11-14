@@ -16,6 +16,7 @@ public class SoftKeyOk extends BaseSoftKeyCustomizable {
 	@Override
 	protected void initColors(@NonNull SettingsStore settings) {
 		backgroundColor = settings.getKeyOkBackgroundColor();
+		borderColor = settings.getKeyOkBorderColor();
 		rippleColor = settings.getKeyOkRippleColor();
 		textColor = settings.getKeyOkTextColor();
 	}

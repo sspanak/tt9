@@ -31,6 +31,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	@Override
 	protected void initColors(@NonNull SettingsStore settings) {
 		backgroundColor = settings.getKeyLf4BackgroundColor();
+		borderColor = settings.getKeyLf4BorderColor();
 		cornerElementColor = settings.getKeyLf4CornerElementColor();
 		rippleColor = settings.getKeyLf4RippleColor();
 		centralIconColor = textColor = settings.getKeyLf4TextColor();

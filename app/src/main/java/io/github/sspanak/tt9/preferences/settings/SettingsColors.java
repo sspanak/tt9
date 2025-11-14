@@ -14,9 +14,10 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 public class SettingsColors extends SettingsHotkeys {
-	public static final int DEFAULT_BACKGROUND_COLOR = Color.WHITE;
-	public static final int DEFAULT_RIPPLE_COLOR = Color.LTGRAY;
-	public static final int DEFAULT_TEXT_COLOR = Color.BLACK;
+	public static final int DEFAULT_KEY_BACKGROUND_COLOR = Color.WHITE;
+	public static final int DEFAULT_KEY_BORDER_COLOR = Color.TRANSPARENT;
+	public static final int DEFAULT_KEY_RIPPLE_COLOR = Color.LTGRAY;
+	public static final int DEFAULT_KEY_TEXT_COLOR = Color.BLACK;
 
 	@Nullable
 	protected static AbstractColorScheme colorScheme;
@@ -91,6 +92,13 @@ public class SettingsColors extends SettingsHotkeys {
 
 
 	@NonNull
+	public ColorStateList getKeyBorderColor() {
+		colorScheme = invalidateScheme(colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyBorder());
+	}
+
+
+	@NonNull
 	public ColorStateList getKeyRippleColor() {
 		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyRipple());
@@ -114,6 +122,13 @@ public class SettingsColors extends SettingsHotkeys {
 	public ColorStateList getKeyFnBackgroundColor() {
 		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyFnBackground());
+	}
+
+
+	@NonNull
+	public ColorStateList getKeyFnBorderColor() {
+		colorScheme = invalidateScheme(colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyFnBorder());
 	}
 
 
@@ -144,6 +159,13 @@ public class SettingsColors extends SettingsHotkeys {
 
 
 	@NonNull
+	public ColorStateList getKeyLf4BorderColor() {
+		colorScheme = invalidateScheme(colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyLf4Border());
+	}
+
+
+	@NonNull
 	public ColorStateList getKeyLf4RippleColor() {
 		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyLf4Ripple());
@@ -167,6 +189,13 @@ public class SettingsColors extends SettingsHotkeys {
 	public ColorStateList getKeyOkBackgroundColor() {
 		colorScheme = invalidateScheme(colorScheme);
 		return ColorStateList.valueOf(colorScheme.getKeyOkBackground());
+	}
+
+
+	@NonNull
+	public ColorStateList getKeyOkBorderColor() {
+		colorScheme = invalidateScheme(colorScheme);
+		return ColorStateList.valueOf(colorScheme.getKeyOkBorder());
 	}
 
 
