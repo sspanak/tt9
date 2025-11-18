@@ -98,6 +98,14 @@ abstract public class BaseMainLayout {
 	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
 	protected void preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+		// In limited mode, sometimes, getInsets() incorrectly returns 0, when the navigation bar is
+		// visible. To prevent undesired misalignment, after we already know there should be padding,
+		// we wait until we have valid insets to apply.
+		if (tt9.isInputLimited() && insets.bottom == 0) {
+			return;
+		}
+
 		v.setPadding(insets.left, 0, insets.right, insets.bottom);
 
 		// cache the padding for use when the insets are not available
