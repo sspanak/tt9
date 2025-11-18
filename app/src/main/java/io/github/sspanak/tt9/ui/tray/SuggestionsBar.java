@@ -297,11 +297,6 @@ public class SuggestionsBar {
 
 
 	private void render() {
-		displayHandler.post(this::renderSync);
-	}
-
-
-	private void renderSync() {
 		if (mView == null) {
 			return;
 		}
