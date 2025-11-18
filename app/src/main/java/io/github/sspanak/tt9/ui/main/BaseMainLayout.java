@@ -1,8 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.graphics.Color;
-import android.graphics.Insets;
-import android.os.Build;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +10,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
+import androidx.core.graphics.Insets;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
@@ -95,27 +93,16 @@ abstract public class BaseMainLayout {
 	 * Apply the padding to prevent edge-to-edge on Android 15+. Without padding,
 	 * the bottom of the View will be cut off by the system navigation bar.
 	 */
-	@RequiresApi(api = Build.VERSION_CODES.VANILLA_ICE_CREAM)
 	protected void preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
-		Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+		final WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets);
+		final Insets insets = insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars());
 
-		// In limited mode, sometimes, getInsets() incorrectly returns 0, when the navigation bar is
-		// visible. To prevent undesired misalignment, after we already know there should be padding,
-		// we wait until we have valid insets to apply.
-		if (tt9.isInputLimited() && insets.bottom == 0) {
-			return;
-		}
-
-		v.setPadding(insets.left, 0, insets.right, insets.bottom);
-
-		// cache the padding for use when the insets are not available
-		if (e2ePaddingBottomLandscape < 0 || e2ePaddingBottomPortrait < 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
-			if (isLandscape) {
-				e2ePaddingBottomLandscape = insets.bottom;
-			} else {
-				e2ePaddingBottomPortrait = insets.bottom;
-			}
+		if (DeviceInfo.isLandscapeOrientation(view.getContext())) {
+			e2ePaddingBottomLandscape = e2ePaddingBottomLandscape < 0 ? insets.bottom : e2ePaddingBottomLandscape;
+			v.setPadding(insets.left, 0, insets.right, e2ePaddingBottomLandscape);
+		} else {
+			e2ePaddingBottomPortrait = e2ePaddingBottomPortrait < 0 ? insets.bottom : e2ePaddingBottomPortrait;
+			v.setPadding(insets.left, 0, insets.right, e2ePaddingBottomPortrait);
 		}
 	}
 
