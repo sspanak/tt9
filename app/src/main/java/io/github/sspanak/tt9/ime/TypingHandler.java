@@ -37,7 +37,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null);
+
 	@Nullable private Handler shiftStateDebounceHandler;
+	@Nullable private Handler suggestionHandler;
 
 	// input
 	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
@@ -119,6 +121,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		if (shiftStateDebounceHandler != null) {
 			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
 			shiftStateDebounceHandler = null;
+		}
+		if (suggestionHandler != null) {
+			suggestionHandler.removeCallbacksAndMessages(null);
+			suggestionHandler = null;
 		}
 		suggestionOps.cancelDelayedAccept();
 		mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
@@ -431,9 +437,19 @@ public abstract class TypingHandler extends KeyPadHandler {
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
 		} else {
 			mInputMode
-				.setOnSuggestionsUpdated(this::handleSuggestions)
+				.setOnSuggestionsUpdated(this::handleSuggestionsFromThread)
 				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
 		}
+	}
+
+
+	protected void handleSuggestionsFromThread() {
+		if (suggestionHandler == null) {
+			suggestionHandler = new Handler(Looper.getMainLooper());
+		} else {
+			suggestionHandler.removeCallbacksAndMessages(null);
+		}
+		suggestionHandler.post(this::handleSuggestions);
 	}
 
 
