@@ -10,11 +10,14 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.StatusIcon;
 import io.github.sspanak.tt9.ui.main.MainView;
 import io.github.sspanak.tt9.ui.tray.StatusBar;
+import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
 abstract class UiHandler extends AbstractHandler {
+	private final static String LOG_TAG = "UiHandler";
+
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected SettingsStore settings;
 	protected MainView mainView = null;
@@ -56,7 +59,18 @@ abstract class UiHandler extends AbstractHandler {
 		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings, mainView.isBackgroundBlendingEnabled());
 
 		if (!isInputViewShown()) {
-			updateInputViewShown();
+			// Fixes: https://github.com/sspanak/tt9/issues/920.
+			// Anyway, it is probably the right way to go for all apps.
+			if (!isShowInputRequested()) {
+				forceShowWindow();
+			}
+
+			if (!isShowInputRequested()) {
+				Logger.d(LOG_TAG, "InputMethodManager refused show request. Forcing visibility with showWindow().");
+				showWindow(true); // this is really for #920
+			} else {
+				updateInputViewShown();
+			}
 		}
 	}
 
