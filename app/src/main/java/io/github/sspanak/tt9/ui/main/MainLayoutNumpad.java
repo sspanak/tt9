@@ -25,6 +25,8 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
 
 	@NonNull private String lastFnKeyOrder = "";
+	private int lastLFnWrapperId = -1;
+	private int lastRFnWrapperId = -1;
 	private int height;
 	private boolean isTextEditingShown = false;
 
@@ -99,6 +101,11 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	}
 
 
+	private int getLastFnKeyHeight(int keyHeight) {
+		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
+	}
+
+
 	private void setKeyHeight(int defaultHeight, int leftHeight, int rightHeight) {
 		if (view == null || defaultHeight <= 0) {
 			return;
@@ -110,11 +117,12 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		for (SoftKey key : getKeys()) {
 			final View wrapper = (View) key.getParent();
 			final View container = wrapper != null ? (View) wrapper.getParent() : null;
+			final boolean isLastInColumn = wrapper != null && (wrapper.getId() == lastLFnWrapperId || wrapper.getId() == lastRFnWrapperId);
 
 			if (container != null && container.equals(leftColumn)) {
-				key.setHeight(leftHeight);
+				key.setHeight(isLastInColumn ? getLastFnKeyHeight(leftHeight) : leftHeight);
 			}	else if (container != null && container.equals(rightColumn)) {
-				key.setHeight(rightHeight);
+				key.setHeight(isLastInColumn ? getLastFnKeyHeight(rightHeight) : rightHeight);
 			} else {
 				key.setHeight(defaultHeight);
 			}
@@ -123,8 +131,7 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 
 
 	private int getKeyColumnHeight(int keyHeight) {
-		int lastKeyHeight = tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
-		return keyHeight * 3 + lastKeyHeight;
+		return keyHeight * 3 + getLastFnKeyHeight(keyHeight);
 	}
 
 
@@ -261,8 +268,8 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		}
 
 		hideUnusedFnKeys(keyWrappers, lfnOrder, rfnOrder);
-		reorderFnColumn(left, lfnOrder, keyWrappers);
-		reorderFnColumn(right, rfnOrder, keyWrappers);
+		lastLFnWrapperId = reorderFnColumn(left, lfnOrder, keyWrappers);
+		lastRFnWrapperId = reorderFnColumn(right, rfnOrder, keyWrappers);
 
 		lastFnKeyOrder = newOrder;
 		Logger.d(LOG_TAG, "Reordered keys: '" + lastFnKeyOrder + "'");
@@ -291,9 +298,11 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	}
 
 
-	private void reorderFnColumn(@NonNull ViewGroup column, @NonNull String order, @NonNull Map<Integer, View> keyWrappers) {
+	private int reorderFnColumn(@NonNull ViewGroup column, @NonNull String order, @NonNull Map<Integer, View> keyWrappers) {
+		Integer viewId = null;
+
 		for (char keyId : order.toCharArray()) {
-			Integer viewId = SettingsVirtualNumpad.KEY_ORDER_MAP.get(keyId);
+			viewId = SettingsVirtualNumpad.KEY_ORDER_MAP.get(keyId);
 			if (viewId == null) {
 				continue;
 			}
@@ -308,6 +317,8 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 			column.addView(key);
 			key.setVisibility(View.VISIBLE);
 		}
+
+		return viewId != null ? viewId : -1;
 	}
 
 
