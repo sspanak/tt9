@@ -39,15 +39,6 @@ public class SoftKeyOk extends BaseSoftKeyCustomizable {
 	}
 
 	@Override
-	public void setHeight(int height) {
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
-			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER);
-		}
-
-		super.setHeight(height);
-	}
-
-	@Override
 	protected float getTitleScale() {
 		return tt9 != null && tt9.getSettings().isMainLayoutNumpad() ? super.getTitleScale() : 1;
 	}
