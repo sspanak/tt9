@@ -36,7 +36,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
-	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null);
+	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null);
 
 	@Nullable private Handler shiftStateDebounceHandler;
 	@Nullable private Handler suggestionHandler;
@@ -51,7 +51,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	protected void createSuggestionBar() {
-		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, textField, this::onAcceptSuggestionsDelayed, this::onOK);
+		suggestionOps = new SuggestionOps(this, settings, mainView, appHacks, textField, statusBar, this::onAcceptSuggestionsDelayed, this::onOK);
 	}
 
 
@@ -105,7 +105,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		// changing the TextField and notifying all interested classes is an atomic operation
 		appHacks = new AppHacks(inputType, textField, textSelection);
-		suggestionOps.setDependencies(appHacks, textField);
+		suggestionOps.setDependencies(appHacks, textField, statusBar);
 	}
 
 

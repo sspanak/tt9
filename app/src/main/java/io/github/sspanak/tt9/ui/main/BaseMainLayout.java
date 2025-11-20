@@ -273,7 +273,7 @@ abstract public class BaseMainLayout {
 		boolean yes = shouldEnableBackgroundBlending();
 
 		// super wrapper of everything
-		view.setBackgroundColor(yes ? tt9.getSettings().getKeyboardBackground() : Color.TRANSPARENT);
+		view.setBackgroundColor(yes ? tt9.getSettings().getKeyboardBackground() | 0xFF000000 : Color.TRANSPARENT);
 
 		// top separator
 		final int separatorVisibility = yes ? View.VISIBLE : View.GONE;
@@ -292,7 +292,7 @@ abstract public class BaseMainLayout {
 		// keys container
 		View container = view.findViewById(R.id.keyboard_container);
 		if (container != null) {
-			container.setBackgroundColor(tt9.getSettings().getKeyboardBackground());
+			container.setBackgroundColor(tt9.getSettings().getKeyboardBackground() | 0xFF000000);
 		}
 	}
 

@@ -17,6 +17,7 @@ import io.github.sspanak.tt9.ui.notifications.DictionaryLoadingBar;
 import io.github.sspanak.tt9.util.Logger;
 
 public class StatusBar {
+	private boolean isShown = true;
 	@Nullable private final TextView statusView;
 	@NonNull private final SettingsStore settings;
 	@Nullable private String statusText;
@@ -76,6 +77,14 @@ public class StatusBar {
 	}
 
 
+	public void setShown(boolean yes) {
+		if (isShown != yes) {
+			isShown = yes;
+			render();
+		}
+	}
+
+
 	private void onLoading() {
 		setText("[ " + loadingBar.getShortMessage() + " ]");
 		if (loadingBar.isCancelled() || loadingBar.isFailed() || !loadingBar.inProgress()) {
@@ -91,6 +100,11 @@ public class StatusBar {
 
 		if (statusText == null) {
 			Logger.w("StatusBar.render", "Not displaying NULL status");
+			return;
+		}
+
+		if (!isShown) {
+			statusView.setText(null);
 			return;
 		}
 
