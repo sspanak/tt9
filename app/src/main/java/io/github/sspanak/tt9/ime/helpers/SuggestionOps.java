@@ -14,6 +14,7 @@ import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.ResizableMainView;
+import io.github.sspanak.tt9.ui.tray.StatusBar;
 import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Text;
@@ -26,13 +27,15 @@ public class SuggestionOps {
 	@Nullable protected SuggestionsBar suggestionBar;
 	@Nullable private AppHacks appHacks;
 	@NonNull private TextField textField;
+	@Nullable private StatusBar statusBar;
 
 
-	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable TextField textField, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
+	public SuggestionOps(@Nullable InputMethodService ims, @Nullable SettingsStore settings, @Nullable ResizableMainView mainView, @Nullable AppHacks appHacks, @Nullable TextField textField, @Nullable StatusBar statusBar, @Nullable ConsumerCompat<String> onDelayedAccept, @Nullable Runnable onSuggestionClick) {
 		delayedAcceptHandler = new Handler(Looper.getMainLooper());
 		this.onDelayedAccept = onDelayedAccept != null ? onDelayedAccept : s -> {};
 
 		this.appHacks = appHacks;
+		this.statusBar = statusBar;
 		this.textField = textField != null ? textField : new TextField(ims, null, null);
 
 		if (settings != null && mainView != null && onSuggestionClick != null) {
@@ -47,9 +50,10 @@ public class SuggestionOps {
 	}
 
 
-	public void setDependencies(@NonNull AppHacks appHacks, @NonNull TextField textField) {
+	public void setDependencies(@NonNull AppHacks appHacks, @NonNull TextField textField, @NonNull StatusBar statusBar) {
 		this.appHacks = appHacks;
 		this.textField = textField;
+		this.statusBar = statusBar;
 	}
 
 
@@ -83,11 +87,17 @@ public class SuggestionOps {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, 0, false);
 		}
+		if (statusBar != null) {
+			statusBar.setShown(suggestions == null || suggestions.isEmpty());
+		}
 	}
 
 	public void set(ArrayList<String> suggestions, boolean containsGenerated) {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, 0, containsGenerated);
+		}
+		if (statusBar != null) {
+			statusBar.setShown(suggestions == null || suggestions.isEmpty());
 		}
 	}
 
@@ -95,6 +105,9 @@ public class SuggestionOps {
 	public void set(ArrayList<String> suggestions, int selectIndex, boolean containsGenerated) {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, selectIndex, containsGenerated);
+		}
+		if (statusBar != null) {
+			statusBar.setShown(suggestions == null || suggestions.isEmpty());
 		}
 	}
 
