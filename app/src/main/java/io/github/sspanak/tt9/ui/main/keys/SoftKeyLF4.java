@@ -97,15 +97,6 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	@Override
-	public void setHeight(int height) {
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
-			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER);
-		}
-
-		super.setHeight(height);
-	}
-
-	@Override
 	public void render() {
 		if (tt9 != null && tt9.isInputModeNumeric()) {
 			resetIconCache();
