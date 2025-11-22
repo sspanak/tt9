@@ -118,11 +118,18 @@ public class TextInputPreference extends ScreenPreference {
 
 
 	private void setTextField(EditText textField) {
-		if (textField != null) {
-			setTextChangedListener(textField);
-			ignoreEnter(textField);
-			setTextFieldIcon(textField, getIconResource());
+		if (textField == null) {
+			return;
+		}
+
+		setTextChangedListener(textField);
+		ignoreEnter(textField);
+		setTextFieldIcon(textField, getIconResource());
+
+		// avoid unnecessary setText() to save resources, and because it moves the cursor to the start
+		if (!text.contentEquals(textField.getText())) {
 			textField.setText(text);
+			textField.setSelection(text.length()); // move cursor to the end
 		}
 	}
 
