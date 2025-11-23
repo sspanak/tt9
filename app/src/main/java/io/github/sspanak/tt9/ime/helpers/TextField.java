@@ -102,8 +102,8 @@ public class TextField extends InputField {
 		final Text textBefore = getTextBeforeCursor(language, 50);
 		final Text textAfter = getTextAfterCursor(language, 50);
 
-		final String wordBefore = textBefore.subStringEndingWord(keepApostrophe, keepQuote);
-		final String wordAfter = textAfter.subStringStartingWord(keepApostrophe, keepQuote);
+		final String wordBefore = textBefore.subStringEndingAlphanumeric(keepApostrophe, keepQuote);
+		final String wordAfter = textAfter.subStringStartingAlphanumeric(keepApostrophe, keepQuote);
 
 		return wordBefore + wordAfter;
 	}
