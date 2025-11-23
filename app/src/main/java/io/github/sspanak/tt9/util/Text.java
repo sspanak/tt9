@@ -17,8 +17,15 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class Text extends TextTools {
-	@Nullable private final Language language;
-	@Nullable private final String text;
+	private static final String ALPHANUMERIC_CLASS = "1-9\\p{L}\\p{M}\\u200D\\u200C";
+	private static final Pattern ALPHANUMERIC_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "]+)$");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "']+)$");
+	private static final Pattern ALPHANUMERIC_WITH_QUOTES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "\"]+)$");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_END = Pattern.compile("([" + ALPHANUMERIC_CLASS + "\"']+)$");
+	private static final Pattern ALPHANUMERIC_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "]+)");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "']+)");
+	private static final Pattern ALPHANUMERIC_WITH_QUOTES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "\"]+)");
+	private static final Pattern ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + ALPHANUMERIC_CLASS + "\"']+)");
 
 	private static final Pattern QUICK_DELETE_GROUP = Pattern.compile("(?:([\\s\\u3000]{2,})|([.,、。，،]{2,})|([^、。，\\s\\u3000]*.))$");
 	private static final Pattern PREVIOUS_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)(?![\\r\\n])$");
@@ -26,15 +33,8 @@ public class Text extends TextTools {
 	private static final Pattern PENULTIMATE_WORD = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}]+)[\\s'][^\\s']*$");
 	private static final Pattern PENULTIMATE_WORD_WITH_APOSTROPHES = Pattern.compile("(?<=\\s|^)([\\p{L}\\p{Mc}\\p{Mn}\\p{Me}\\x{200D}\\x{200C}']+)\\s\\S*$");
 
-	private static final String WORD_CLASS = "\\p{L}\\p{M}\\u200D\\u200C";
-	private static final Pattern WORD_AT_END = Pattern.compile("([" + WORD_CLASS + "]+)$");
-	private static final Pattern WORD_WITH_APOSTROPHES_AT_END = Pattern.compile("([" + WORD_CLASS + "']+)$");
-	private static final Pattern WORD_WITH_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"]+)$");
-	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END = Pattern.compile("([" + WORD_CLASS + "\"']+)$");
-	private static final Pattern WORD_AT_START = Pattern.compile("^([" + WORD_CLASS + "]+)");
-	private static final Pattern WORD_WITH_APOSTROPHES_AT_START = Pattern.compile("^([" + WORD_CLASS + "']+)");
-	private static final Pattern WORD_WITH_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"]+)");
-	private static final Pattern WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START = Pattern.compile("^([" + WORD_CLASS + "\"']+)");
+	@Nullable private final Language language;
+	@Nullable private final String text;
 
 
 	public Text(@Nullable Language language, @Nullable String text) {
@@ -329,20 +329,20 @@ public class Text extends TextTools {
 	}
 
 
-	public String subStringEndingWord(boolean keepApostrophe, boolean keepQuote) {
+	public String subStringEndingAlphanumeric(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
 
 		Pattern pattern;
 		if (keepApostrophe && keepQuote) {
-			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_END;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_END;
 		} else if (keepQuote) {
-			pattern = WORD_WITH_QUOTES_AT_END;
+			pattern = ALPHANUMERIC_WITH_QUOTES_AT_END;
 		} else if (keepApostrophe) {
-			pattern = WORD_WITH_APOSTROPHES_AT_END;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AT_END;
 		} else {
-			pattern = WORD_AT_END;
+			pattern = ALPHANUMERIC_AT_END;
 		}
 
 		Matcher matcher = pattern.matcher(text);
@@ -351,7 +351,7 @@ public class Text extends TextTools {
 	}
 
 
-	public String subStringStartingWord(boolean keepApostrophe, boolean keepQuote) {
+	public String subStringStartingAlphanumeric(boolean keepApostrophe, boolean keepQuote) {
 		if (text == null || text.isEmpty()) {
 			return "";
 		}
@@ -359,13 +359,13 @@ public class Text extends TextTools {
 		Pattern pattern;
 
 		if (keepApostrophe && keepQuote) {
-			pattern = WORD_WITH_APOSTROPHES_AND_QUOTES_AT_START;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AND_QUOTES_AT_START;
 		} else if (keepQuote) {
-			pattern = WORD_WITH_QUOTES_AT_START;
+			pattern = ALPHANUMERIC_WITH_QUOTES_AT_START;
 		} else if (keepApostrophe) {
-			pattern = WORD_WITH_APOSTROPHES_AT_START;
+			pattern = ALPHANUMERIC_WITH_APOSTROPHES_AT_START;
 		} else {
-			pattern = WORD_AT_START;
+			pattern = ALPHANUMERIC_AT_START;
 		}
 
 		Matcher matcher = pattern.matcher(text);
