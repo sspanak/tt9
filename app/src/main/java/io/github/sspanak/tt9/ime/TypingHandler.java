@@ -155,23 +155,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		mInputMode.beforeDeleteText();
 
-		boolean noTextSelection = textSelection.isEmpty(); // loading words after deleting selected text is confusing
-		if (repeat == 0 && mInputMode.onBackspace() && noTextSelection) {
-			getSuggestions(null);
+		// load new words only if there is no selected text, because it would be confusing
+		if (repeat == 0 && mInputMode.onBackspace() && textSelection.isEmpty()) {
+			getSuggestions(null, () -> recompose(repeat, false));
 		} else {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
 			updateShiftStateDebounced(mInputMode.getSuggestions().isEmpty(), false);
-		}
-
-		if (settings.getBackspaceRecomposing() && repeat == 0 && !isFnPanelVisible() && noTextSelection && suggestionOps.isEmpty() && !DictionaryLoader.getInstance(this).isRunning()) {
-			final String previousWord = mInputMode.recompose();
-			if (textField.recompose(previousWord)) {
-				getSuggestions(previousWord);
-			} else {
-				mInputMode.reset();
-			}
+			recompose(repeat, !textSelection.isEmpty());
 		}
 
 		return true;
@@ -223,7 +215,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
-			getSuggestions(null);
+			getSuggestions(null, null);
 		}
 
 		return true;
@@ -369,6 +361,24 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
+	/**
+	 * Try to recompose the current word after a backspace operation. If successful, load new
+	 * suggestions. Otherwise, reset the InputMode.
+	 */
+	private void recompose(int backspaceRepeat, boolean isTextSelected) {
+		if (!settings.getBackspaceRecomposing() || backspaceRepeat > 0 || isFnPanelVisible() || isTextSelected || !suggestionOps.isEmpty() || DictionaryLoader.getInstance(this).isRunning()) {
+			return;
+		}
+
+		final String previousWord = mInputMode.recompose();
+		if (textField.recompose(previousWord)) {
+			getSuggestions(previousWord, null);
+		} else {
+			mInputMode.reset();
+		}
+	}
+
+
 	@Override
 	public void onUpdateSelection(int oldSelStart, int oldSelEnd, int newSelStart, int newSelEnd, int candidatesStart, int candidatesEnd) {
 //		Logger.d("onUpdateSelection", "old (" + oldSelStart + ", " + oldSelEnd + ") => new (" + newSelStart + ", " + newSelEnd + "); candidates = (" + candidatesStart + ", " + candidatesEnd + ")");
@@ -431,25 +441,42 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void getSuggestions(@Nullable String currentWord) {
+	/**
+	 * Ask the InputMode to load suggestions for the current state. No action is taken if the dictionary
+	 * is still loading. Note that onComplete is called even if the loading was skipped.
+	 */
+	protected void getSuggestions(@Nullable String currentWord, @Nullable Runnable onComplete) {
 		if (InputModeKind.isPredictive(mInputMode) && DictionaryLoader.getInstance(this).isRunning()) {
 			mInputMode.reset();
 			UI.toastShortSingle(this, R.string.dictionary_loading_please_wait);
+			if (onComplete != null) {
+				onComplete.run();
+			}
 		} else {
 			mInputMode
-				.setOnSuggestionsUpdated(this::handleSuggestionsFromThread)
+				.setOnSuggestionsUpdated(() -> handleSuggestionsFromThread(onComplete))
 				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
 		}
 	}
 
 
 	protected void handleSuggestionsFromThread() {
+		handleSuggestionsFromThread(null);
+	}
+
+
+	protected void handleSuggestionsFromThread(@Nullable Runnable onComplete) {
 		if (suggestionHandler == null) {
 			suggestionHandler = new Handler(Looper.getMainLooper());
 		} else {
 			suggestionHandler.removeCallbacksAndMessages(null);
 		}
-		suggestionHandler.post(this::handleSuggestions);
+		suggestionHandler.post(() -> {
+			handleSuggestions();
+			if (onComplete != null) {
+				onComplete.run();
+			}
+		});
 	}
 
 
