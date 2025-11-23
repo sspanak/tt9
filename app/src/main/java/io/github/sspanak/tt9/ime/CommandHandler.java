@@ -192,8 +192,20 @@ abstract public class CommandHandler extends TextEditingHandler {
 			.copy(mInputMode);
 
 		if (mInputMode.isTyping()) {
-			getSuggestions(null);
+			getSuggestions(null, this::onAfterLanguageChange);
+		} else {
+			onAfterLanguageChange();
 		}
+
+		if (InputModeKind.isPredictive(mInputMode)) {
+			DictionaryLoader.autoLoad(this, mLanguage);
+		}
+
+		forceShowWindow();
+	}
+
+
+	private void onAfterLanguageChange() {
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
 		setStatusIcon(mInputMode, mLanguage);
 		statusBar.setText(mInputMode);
@@ -202,12 +214,6 @@ abstract public class CommandHandler extends TextEditingHandler {
 		if (settings.isMainLayoutStealth() && !settings.isStatusIconEnabled()) {
 			UI.toastShortSingle(this, mInputMode.getClass().getSimpleName(), mInputMode.toString());
 		}
-
-		if (InputModeKind.isPredictive(mInputMode)) {
-			DictionaryLoader.autoLoad(this, mLanguage);
-		}
-
-		forceShowWindow();
 	}
 
 
