@@ -32,7 +32,7 @@ public class LanguageCollection {
 	}
 
 
-	public static void init(Context context) {
+	public static synchronized void init(Context context) {
 		if (self == null) {
 			self = new LanguageCollection(context);
 		}
