@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.preferences.custom.EnhancedDropDownPreference;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class DropDownWidth extends EnhancedDropDownPreference {
 	public static final String NAME = "pref_numpad_width";
@@ -21,7 +22,7 @@ public class DropDownWidth extends EnhancedDropDownPreference {
 	public DropDownWidth populate(@NonNull SettingsStore settings) {
 		commitPercentRange(SettingsStore.MIN_WIDTH_PERCENT, 100, 5);
 
-		float currentValue = settings.getWidthPercent();
+		float currentValue = settings.getWidthPercent(DeviceInfo.isLandscapeOrientation(getContext()));
 		currentValue = Math.round(currentValue / 5f) * 5f;
 		currentValue = Math.max(Math.min(currentValue, 100f), 50f);
 

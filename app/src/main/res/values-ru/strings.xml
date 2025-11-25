@@ -183,7 +183,6 @@
 	<string name="voice_input_error_no_network">Нет подключения к Интернету</string>
 	<string name="voice_input_error_not_available">Голосовой ввод недоступен</string>
 	<string name="voice_input_stopping">Отключение микрофона…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Убирает пустоту под клавишами. Отключите на Samsung, чтобы избежать перекрытия навигационной панели.</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
 	<string name="pref_numpad_alignment">Выравнивание</string>
 	<string name="virtual_numpad_alignment_center">Посередине</string>
@@ -230,9 +229,9 @@
 	<string name="function_already_assigned">Клавиша «%1$s» уже назначена на функцию «%2$s». Назначить её на «%3$s»?</string>
 	<string name="function_assign_instructions">* Нажмите или удерживайте клавишу, чтобы назначить её на функцию «%1$s».\n\n* Нажмите 0, чтобы отменить.\n\n* Нажмите 2, чтобы отключить функцию.</string>
 	<string name="pref_allow_composing_text">Показывать текст при вводе</string>
+	<string name="pref_bottom_padding_portrait">Нижний отступ (портрет)</string>
 	<string name="pref_drag_resize">Изменять размер перетаскиванием</string>
 	<string name="function_undo">Отменить (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Пересчитать нижний отступ</string>
 	<string name="fn_key_order_column_2">Столбец 2</string>
 	<string name="fn_key_order_error_wrong_key_count">В столбце может быть не более 4 клавиш.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Разрешены только коды клавиш от 1 до 8.</string>

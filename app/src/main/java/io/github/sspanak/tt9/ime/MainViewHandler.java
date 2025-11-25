@@ -11,6 +11,7 @@ import io.github.sspanak.tt9.ime.voice.VoiceInputOps;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.MainView;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 /**
  * Informational methods for the on-screen keyboard
@@ -194,7 +195,7 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public float getNormalizedWidth() {
 		if (normalizedWidth < 0) {
-			normalizedWidth = settings.getWidthPercent() / 100f;
+			normalizedWidth = settings.getWidthPercent(!DeviceInfo.isLandscapeOrientation(this)) / 100f;
 		}
 		return normalizedWidth;
 	}

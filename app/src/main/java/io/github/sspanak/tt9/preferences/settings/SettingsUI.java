@@ -6,6 +6,7 @@ import android.view.Gravity;
 import io.github.sspanak.tt9.BuildConfig;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment;
+import io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
@@ -56,6 +57,14 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean shouldAskForNotifications() {
 		return DeviceInfo.AT_LEAST_ANDROID_13 && getStringifiedInt("pref_asked_for_notifications_version", 0) < BuildConfig.VERSION_CODE;
+	}
+
+	public int getBottomPaddingPortrait() {
+		return getStringifiedInt(DropDownBottomPaddingPortrait.NAME, DropDownBottomPaddingPortrait.DEFAULT);
+	}
+
+	public int getBottomPaddingPortraitDp() {
+		return Math.round(getBottomPaddingPortrait() * DeviceInfo.getScreenPixelDensity(context));
 	}
 
 	public void setNotificationsApproved(boolean yes) {
@@ -120,8 +129,8 @@ public class SettingsUI extends SettingsTyping {
 		return prefs.getBoolean("pref_suggestion_smooth_scroll", !DeviceInfo.noTouchScreen(context));
 	}
 
-	public int getDefaultWidthPercent() {
-		if (!DeviceInfo.isLandscapeOrientation(context)) {
+	public int getDefaultWidthPercent(boolean isPortrait) {
+		if (isPortrait) {
 			return 100;
 		}
 
@@ -141,8 +150,8 @@ public class SettingsUI extends SettingsTyping {
 		return DEFAULT_WIDTH_LANDSCAPE = Math.round(width / 5) * 5;
 	}
 
-	public int getWidthPercent() {
-		return getStringifiedInt(DropDownWidth.NAME, getDefaultWidthPercent());
+	public int getWidthPercent(boolean isPortrait) {
+		return getStringifiedInt(DropDownWidth.NAME, getDefaultWidthPercent(isPortrait));
 	}
 
 	public void setMainViewLayout(int layout) {

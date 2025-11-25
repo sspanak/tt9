@@ -183,7 +183,6 @@
 	<string name="voice_input_error_no_network">Sin conexión a Internet</string>
 	<string name="voice_input_error_not_available">La entrada de voz no está disponible</string>
 	<string name="voice_input_stopping">Apagando el micrófono…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Evita espacio vacío bajo teclas. Desactivar en Samsung para evitar superposición con la barra de navegación.</string>
 	<string name="pref_haptic_feedback">Vibración</string>
 	<string name="pref_numpad_alignment">Alineación</string>
 	<string name="virtual_numpad_alignment_center">En el centro</string>
@@ -230,9 +229,9 @@
 	<string name="function_already_assigned">La tecla \"%1$s\" ya está asignada a la función \"%2$s\". ¿Desea asignarla a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
 	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
+	<string name="pref_bottom_padding_portrait">Espacio inferior (vertical)</string>
 	<string name="pref_drag_resize">Redimensionar arrastrando</string>
 	<string name="function_undo">Deshacer</string>
-	<string name="pref_hack_precalculate_navbar_height">Recalcular el relleno inferior</string>
 	<string name="fn_key_order_column_2">Columna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La columna puede contener como máximo 4 teclas.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Solo se permiten los códigos de tecla del 1 al 8.</string>

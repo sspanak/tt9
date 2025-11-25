@@ -185,7 +185,6 @@
 	<string name="voice_input_error_no_network">İnternet bağlantısı yok</string>
 	<string name="voice_input_error_not_available">Sesli giriş kullanılamıyor</string>
 	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Tuşların altındaki boşluğu önle. Sistem gezinme çubuğuyla çakışmayı önlemek için Samsung\'da devre dışı bırakın.</string>
 	<string name="pref_haptic_feedback">Titreşim</string>
 	<string name="pref_numpad_alignment">Hizalama</string>
 	<string name="virtual_numpad_alignment_center">Ortada</string>
@@ -235,9 +234,9 @@
 	<string name="function_assign_instructions">* \"%1$s\" işlevine atamak için bir tuşa basın veya basılı tutun.\n\n* İptal etmek için 0\'a basın.\n\n* İşlevi devre dışı bırakmak için 2\'ye basın.</string>
 	<string name="key_hold_key">(basılı tut)</string>
 	<string name="pref_allow_composing_text">Yazılan metni göster</string>
+	<string name="pref_bottom_padding_portrait">Alttaki boşluk (dikey)</string>
 	<string name="pref_drag_resize">Sürükleyerek yeniden boyutlandır</string>
 	<string name="function_undo">Geri al (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Alt boşluğu yeniden hesapla</string>
 	<string name="fn_key_order_column_2">Sütun 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Sütun en fazla 4 tuş içerebilir.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Yalnızca 1–8 arası tuş kodlarına izin verilir.</string>

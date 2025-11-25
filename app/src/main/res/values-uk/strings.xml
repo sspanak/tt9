@@ -194,7 +194,6 @@
 	<string name="voice_input_error_no_network">Немає підключення до Інтернету</string>
 	<string name="voice_input_error_not_available">Голосовий ввід недоступний</string>
 	<string name="voice_input_stopping">Вимикання мікрофона…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Уникає порожнечі під клавішами. Вимкніть на Samsung, щоб уникнути накладання на панель навігації.</string>
 	<string name="pref_haptic_feedback">Вібрація</string>
 	<string name="pref_numpad_alignment">Вирівнювання</string>
 	<string name="virtual_numpad_alignment_center">Посередині</string>
@@ -241,9 +240,9 @@
 	<string name="function_already_assigned">\"%1$s\" tuşu zaten \"%2$s\" işlevine atanmış. Onu \"%3$s\" işlevine atamak ister misiniz?</string>
 	<string name="function_assign_instructions">* Натисніть або утримуйте клавішу, щоб призначити її функції «%1$s».\n\n* Натисніть 0, щоб скасувати.\n\n* Натисніть 2, щоб вимкнути функцію.</string>
 	<string name="pref_allow_composing_text">Показувати текст під час введення</string>
+	<string name="pref_bottom_padding_portrait">Проміжок знизу (портрет)</string>
 	<string name="pref_drag_resize">Змінювати розмір перетягуванням</string>
 	<string name="function_undo">Скасувати (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Перерахувати нижній відступ</string>
 	<string name="fn_key_order_column_2">Стовпець 2</string>
 	<string name="fn_key_order_error_wrong_key_count">У стовпці може бути щонайбільше 4 клавіші.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Дозволено лише коди клавіш від 1 до 8.</string>

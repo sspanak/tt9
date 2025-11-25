@@ -192,7 +192,6 @@
 	<string name="voice_input_error_no_network">Nėra interneto ryšio</string>
 	<string name="voice_input_error_not_available">Balso įvestis nėra prieinama</string>
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Venkite tuščios vietos po klavišais. Išjunkite „Samsung“ įrenginiuose, kad išvengtumėte persidengimo su navigacijos juosta.</string>
 	<string name="pref_haptic_feedback">Vibracija</string>
 	<string name="pref_numpad_alignment">Lygiavimas</string>
 	<string name="virtual_numpad_alignment_center">Centre</string>
@@ -239,9 +238,9 @@
 	<string name="function_already_assigned">Klavišas „%1$s“ jau priskirtas funkcijai „%2$s“. Ar norite jį priskirti „%3$s“?</string>
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
+	<string name="pref_bottom_padding_portrait">Tarpas apačioje (portretas)</string>
 	<string name="pref_drag_resize">Keisti dydį tempiant</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Perskaičiuoti apatinį paraštę</string>
 	<string name="fn_key_order_column_2">Stulpelis 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Stulpelyje gali būti daugiausiai 4 klavišai.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Leidžiami tik klavišų kodai nuo 1 iki 8.</string>

@@ -76,15 +76,9 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	 * Returns the adjusted height of a single key.
 	 */
 	private int[] calculateKeyHeight() {
-		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9.getApplicationContext());
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 
-		int bottomPadding = 0;
-		if (DeviceInfo.AT_LEAST_ANDROID_15) {
-			bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
-			bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(tt9.getApplicationContext(), tt9.getSettings(), isLandscape) : bottomPadding;
-		}
-
-		final int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext()) - bottomPadding;
+		final int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
 		final double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
 		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
 
@@ -354,13 +348,14 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	@Override
 	void render() {
 		final int[] keyHeights = calculateKeyHeight();
+		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
 		getView();
 		reorderFnKeys();
 		enableClickHandlers();
 		setKeyHeight(keyHeights[0], keyHeights[1], keyHeights[2]);
-		preventEdgeToEdge();
-		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
+		setPadding();
+		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
 		setBackgroundBlending();
 		renderKeys(false);

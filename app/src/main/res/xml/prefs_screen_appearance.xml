@@ -28,6 +28,7 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownAlignment app:title="@string/pref_numpad_alignment" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth app:title="@string/pref_numpad_width" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight app:title="@string/pref_numpad_key_height" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownBottomPaddingPortrait app:title="@string/pref_bottom_padding_portrait" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize app:title="@string/pref_suggestion_font_size" />
 	</PreferenceCategory>
 
@@ -57,10 +58,6 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.PrecalculateNavbarHeightSwitch
-			app:title="@string/pref_hack_precalculate_navbar_height"
-			app:summary="@string/pref_hack_precalculate_navbar_height_summary" />
 
 	</PreferenceCategory>
 

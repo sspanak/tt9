@@ -183,7 +183,6 @@
 	<string name="voice_input_error_no_network">אין חיבור לאינטרנט</string>
 	<string name="voice_input_error_not_available">קלט קולי אינו זמין</string>
 	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">\tלמנוע רווח ריק מתחת למקשים. יש להשבית בסמסונג כדי למנוע חפיפה עם סרגל הניווט של המערכת.</string>
 	<string name="pref_haptic_feedback">רטט</string>
 	<string name="pref_numpad_alignment">יישור</string>
 	<string name="virtual_numpad_alignment_center">באמצע</string>
@@ -236,9 +235,9 @@
 	<string name="function_edit_text">כלי לוח הגזירים</string>
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
+	<string name="pref_bottom_padding_portrait">ריווח מתחת (תצוגה אנכית)</string>
 	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>
 	<string name="function_undo">ביטול (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">חשב מחדש ריווח תחתון</string>
 	<string name="fn_key_order_column_2">עמודה 2</string>
 	<string name="fn_key_order_error_wrong_key_count">העמודה יכולה להכיל לכל היותר 4 מקשים.</string>
 	<string name="fn_key_order_error_unsupported_key_code">רק קודי מקשים 1–8 מותרים.</string>

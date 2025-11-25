@@ -185,7 +185,6 @@
 	<string name="voice_input_error_no_network">Sem conexão com a Internet</string>
 	<string name="voice_input_error_not_available">A entrada de voz não está disponível</string>
 	<string name="voice_input_stopping">Desligando o microfone…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Evita espaço sob as teclas. Desative no Samsung para evitar sobreposição com a barra de navegação.</string>
 	<string name="pref_haptic_feedback">Vibração</string>
 	<string name="pref_numpad_alignment">Alinhamento</string>
 	<string name="virtual_numpad_alignment_center">No meio</string>
@@ -237,9 +236,9 @@
 	<string name="function_edit_text">Ferramentas da área de transferência</string>
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
+	<string name="pref_bottom_padding_portrait">Espaçamento inferior (retrato)</string>
 	<string name="pref_drag_resize">Redimensionar arrastando</string>
 	<string name="function_undo">Desfazer</string>
-	<string name="pref_hack_precalculate_navbar_height">Recalcular o espaçamento inferior</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Apenas os códigos de tecla de 1 a 8 são permitidos.</string>

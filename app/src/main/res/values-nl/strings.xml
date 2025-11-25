@@ -135,6 +135,7 @@
 	<string name="dictionary_update_update">Laden</string>
 	<string name="donate_title">Doneer</string>
 	<string name="donate_summary">Als je %1$s leuk vindt, kun je me trakteren op een biertje.</string>
+	<string name="pref_bottom_padding_portrait">Ruimte eronder (staand)</string>
 	<string name="pref_drag_resize">Grootte wijzigen door te slepen</string>
 	<string name="pref_drag_resize_summary">Grootte wijzigen en toetsenbord verplaatsen door de statusbalk of de instellingenknop te slepen.</string>
 	<string name="pref_double_zero_char">Teken bij dubbelklikken op toets \"0\"</string>
@@ -170,7 +171,6 @@
 	<string name="voice_input_error_no_network">Geen internetverbinding</string>
 	<string name="voice_input_error_not_available">Spraakopvoer is niet beschikbaar</string>
 	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Voorkom lege ruimte onder toetsen. Schakel uit op Samsung om overlap met navigatiebalk te voorkomen.</string>
 	<string name="pref_haptic_feedback">Trilling</string>
 	<string name="pref_numpad_alignment">Uitlijning</string>
 	<string name="virtual_numpad_alignment_center">In het midden</string>
@@ -233,7 +233,6 @@
 	<string name="function_filter_clear">Filter wissen</string>
 	<string name="pref_allow_composing_text">Compositietekst weergeven</string>
 	<string name="function_undo">Ongedaan maken</string>
-	<string name="pref_hack_precalculate_navbar_height">Onderrand opnieuw berekenen</string>
 	<string name="fn_key_order_column_2">Kolom 2</string>
 	<string name="fn_key_order_error_wrong_key_count">De kolom mag maximaal 4 toetsen bevatten.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Alleen toetscodes 1–8 zijn toegestaan.</string>

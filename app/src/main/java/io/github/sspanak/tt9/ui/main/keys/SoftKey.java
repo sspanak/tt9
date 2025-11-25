@@ -83,7 +83,7 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getScreenScaleX() {
 		if (screenScaleX == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
+			boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 			float width = isLandscape ? DeviceInfo.getScreenWidthDp(getContext()) : DeviceInfo.getScreenHeightDp(getContext());
 
 			screenScaleX = Math.min(
@@ -100,7 +100,7 @@ public class SoftKey extends BaseClickableKey {
 	 */
 	protected float getScreenScaleY() {
 		if (screenScaleY == 0) {
-			boolean isLandscape = DeviceInfo.isLandscapeOrientation(getContext());
+			boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 			float height = isLandscape ? DeviceInfo.getScreenHeightDp(getContext()) : DeviceInfo.getScreenWidthDp(getContext());
 
 			screenScaleY = Math.min(
