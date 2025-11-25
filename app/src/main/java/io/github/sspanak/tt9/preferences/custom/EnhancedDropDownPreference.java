@@ -113,9 +113,14 @@ abstract public class EnhancedDropDownPreference extends DropDownPreference {
 
 
 	final public void commitPercentRange(int start, int end, int step) {
+		commitRange(start, end, step, " ％");
+	}
+
+
+	final public void commitRange(int start, int end, int step, @Nullable String suffix) {
 		if (start < end && step > 0) {
 			for (int i = start; i <= end; i += step) {
-				add(i, i + " ％");
+				add(i, suffix != null ? i + suffix : String.valueOf(i));
 			}
 		}
 		commitOptions();

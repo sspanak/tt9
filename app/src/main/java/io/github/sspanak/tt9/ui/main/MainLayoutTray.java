@@ -10,6 +10,7 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class MainLayoutTray extends MainLayoutExtraPanel {
 	protected int height;
@@ -111,10 +112,12 @@ class MainLayoutTray extends MainLayoutExtraPanel {
 
 	@Override
 	void render() {
+		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
+
 		getView();
 		setSoftKeysVisibility();
-		preventEdgeToEdge();
-		setWidth(tt9.getSettings().getWidthPercent(), tt9.getSettings().getAlignment());
+		setPadding();
+		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
 		setBackgroundBlending();
 		enableClickHandlers();
 		renderKeys(false);

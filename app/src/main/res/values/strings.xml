@@ -75,6 +75,7 @@
 	<string name="pref_backspace_recomposing_summary">Press Backspace at word end to edit the word. (Not possible in some apps and with mixed-language text)</string>
 	<string name="pref_choose_languages">Languages</string>
 
+	<string name="pref_bottom_padding_portrait">Space Below (Portrait)</string>
 	<string name="pref_drag_resize">Drag to Resize</string>
 	<string name="pref_drag_resize_summary">Allow resizing and moving the keyboard by dragging the Status Bar or the Settings key.</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
@@ -86,7 +87,6 @@
 	<string name="pref_hack_always_on_top_summary">Prevent other apps from covering %1$s or pushing it off the screen.</string>
 	<string name="pref_hack_key_pad_debounce_time">Accidental Key Repeat Protection</string>
 	<string name="pref_hack_key_pad_debounce_off">Off</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Prevent blank space under the keys. Disable on Samsung to prevent overlapping with the system navigation bar.</string>
 	<string name="pref_haptic_feedback">Vibration</string>
 	<string name="pref_haptic_feedback_summary">Vibrate when a virtual key is pressed. (Not possible on all devices)</string>
 	<string name="pref_help">Help</string>
@@ -293,5 +293,4 @@
 	<string name="voice_input_error_network_failed">Network connection failed</string>
 	<string name="voice_input_error_no_network">No Internet connection</string>
 	<string name="voice_input_error_not_available">Voice input is not available</string>
-	<string name="pref_hack_precalculate_navbar_height">Recalculate Bottom Padding</string>
 </resources>

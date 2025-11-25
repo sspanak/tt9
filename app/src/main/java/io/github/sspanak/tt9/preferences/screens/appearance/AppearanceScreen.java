@@ -61,6 +61,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		DropDownNumpadKeyFontSize numpadKeyFontSize = findPreference(DropDownNumpadKeyFontSize.NAME);
 		DropDownSuggestionFontSize suggestionFontSize = findPreference(DropDownSuggestionFontSize.NAME);
 		ItemFnKeyOrder fnKeyOrder = new ItemFnKeyOrder(activity.getSettings(), findPreference(ItemFnKeyOrder.NAME));
+		DropDownBottomPaddingPortrait bottomPadding = findPreference(DropDownBottomPaddingPortrait.NAME);
 
 		DropDownLayoutType selectLayout = findPreference(DropDownLayoutType.NAME);
 		if (selectLayout != null) {
@@ -75,7 +76,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 				.addOnChangeItem(numpadShape)
 				.addOnChangeItem(showArrows)
 				.addOnChangeItem(suggestionFontSize)
-				.addOnChangePreference(findPreference(PrecalculateNavbarHeightSwitch.NAME))
+				.addOnChangePreference(bottomPadding)
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
@@ -91,7 +92,8 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 			numpadShape,
 			fnKeyWidth,
 			numpadKeyFontSize,
-			suggestionFontSize
+			suggestionFontSize,
+			bottomPadding
 		};
 
 		for (EnhancedDropDownPreference item : items) {
@@ -128,6 +130,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		EnhancedDropDownPreference[] items = {
 			findPreference(DropDownLayoutType.NAME),
 			findPreference(DropDownAlignment.NAME),
+			findPreference(DropDownBottomPaddingPortrait.NAME),
 			findPreference(DropDownWidth.NAME),
 			findPreference(DropDownNumpadShape.NAME),
 			findPreference(DropDownNumpadFnKeyScale.NAME),

@@ -70,7 +70,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	@Override public void onViewDetachedFromWindow(@NonNull View v) {}
 	@Override public void onViewAttachedToWindow(@NonNull View v) {
 		if (main != null) {
-			main.preventEdgeToEdge();
+			main.setPadding();
 			setHeight(height, heightSmall, heightNumpad);
 		}
 	}

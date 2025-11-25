@@ -3,14 +3,14 @@ package io.github.sspanak.tt9.util.sys;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.graphics.Rect;
+import android.inputmethodservice.InputMethodService;
 import android.media.AudioManager;
 import android.os.Build;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-
-import io.github.sspanak.tt9.R;
-import io.github.sspanak.tt9.preferences.settings.SettingsStore;
+import androidx.annotation.Nullable;
 
 public class DeviceInfo extends HardwareInfo {
 	public static final boolean AT_LEAST_ANDROID_6 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
@@ -26,8 +26,30 @@ public class DeviceInfo extends HardwareInfo {
 	public static final boolean AT_LEAST_ANDROID_15 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
 
 
-	public static boolean isLandscapeOrientation(Context context) {
-		return getResources(context).getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	/**
+	 * This isn't a reliable method because due to an Android, IMEs may not always receive orientation
+	 * changes in the configuration. Use with caution.
+	 */
+	public static boolean isLandscapeOrientation(@NonNull Context context) {
+		return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+
+	/**
+	 * The preferred method to check the orientation.
+	 */
+	public static boolean isLandscapeOrientation(@Nullable InputMethodService ime) {
+		if (ime == null) {
+			return false;
+		}
+
+		if (!AT_LEAST_ANDROID_11) {
+			return ime.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+		}
+
+		WindowManager wm = ime.getSystemService(WindowManager.class);
+		Rect bounds = wm.getCurrentWindowMetrics().getBounds();
+		return bounds.width() > bounds.height();
 	}
 
 
@@ -48,25 +70,5 @@ public class DeviceInfo extends HardwareInfo {
 
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 		return am != null && am.getStreamVolume(AudioManager.STREAM_RING) == 0;
-	}
-
-
-	public static int getNavigationBarHeight(@NonNull Context context, @NonNull SettingsStore settings, boolean isLandscape) {
-		if (!settings.getPrecalculateNavbarHeight()) {
-			return 0;
-		}
-
-		Resources resources = getResources(context);
-
-		// navBarMode = 0: 3-button, 1 = 2-button, 2 = gesture
-		int resourceId = resources.getIdentifier("config_navBarInteractionMode", "integer", "android");
-		int navBarMode = resourceId > 0 ? resources.getInteger(resourceId) : 0;
-
-		int navBarHeight = resources.getDimensionPixelSize(R.dimen.android_navigation_bar_height);
-		if (isLandscape) {
-			return navBarMode == 0 ? 0 : navBarHeight;
-		} else {
-			return navBarHeight;
-		}
 	}
 }

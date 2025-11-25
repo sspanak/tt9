@@ -182,7 +182,6 @@
 	<string name="voice_input_error_network_failed">Проблем с мрежовата връзка</string>
 	<string name="voice_input_stopping">Изключване на микрофона…</string>
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш. (Не е възможно на всички устройства)</string>
-	<string name="pref_hack_precalculate_navbar_height_summary">Избягва празно място под клавишите. Изключете на Samsung за да няма застъпване с навигационната лента.</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
 	<string name="pref_numpad_alignment">Подравняване</string>
 	<string name="virtual_numpad_alignment_center">В средата</string>
@@ -230,9 +229,9 @@
 	<string name="function_already_assigned">Бутон „%1$s“ е зададен за функция „%2$s“. Искате ли да го зададете за „%3$s“?</string>
 	<string name="function_assign_instructions">* Натиснете или задръжте клавиш, за да го присвоите на функцията „%1$s“.\n\n* Натиснете 0, за да отмените.\n\n* Натиснете 2, за да деактивирате функцията.</string>
 	<string name="pref_allow_composing_text">Показвай текст при съставяне</string>
+	<string name="pref_bottom_padding_portrait">Долно отстояние (портрет)</string>
 	<string name="pref_drag_resize">Оразмеряване чрез влачене</string>
 	<string name="function_undo">Отмяна (Undo)</string>
-	<string name="pref_hack_precalculate_navbar_height">Преизчисли долното отстояние</string>
 	<string name="fn_key_order_column_2">Колона 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Колоната може да съдържа най-много 4 клавиша.</string>
 	<string name="fn_key_order_error_unsupported_key_code">Разрешени са само кодове на клавиши от 1 до 8.</string>

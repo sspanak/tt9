@@ -22,8 +22,7 @@ import io.github.sspanak.tt9.util.ThemedContextBuilder;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 abstract public class BaseMainLayout {
-	protected int e2ePaddingBottomLandscape = -1;
-	protected int e2ePaddingBottomPortrait = -1;
+	private int lastLandscapeBottomInset = -1;
 
 	protected final TraditionalT9 tt9;
 	private final int xml;
@@ -81,7 +80,7 @@ abstract public class BaseMainLayout {
 
 	protected WindowInsets onApplyInsets(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		if (DeviceInfo.AT_LEAST_ANDROID_15) {
-			preventEdgeToEdge(v, windowInsets);
+			setPadding(v, windowInsets);
 			return WindowInsets.CONSUMED;
 		} else {
 			return windowInsets;
@@ -90,20 +89,25 @@ abstract public class BaseMainLayout {
 
 
 	/**
-	 * Apply the padding to prevent edge-to-edge on Android 15+. Without padding,
+	 * Apply proper padding to prevent edge-to-edge on Android 15+. Without padding,
 	 * the bottom of the View will be cut off by the system navigation bar.
 	 */
-	protected void preventEdgeToEdge(@NonNull View v, @NonNull WindowInsets windowInsets) {
+	protected void setPadding(@NonNull View v, @NonNull WindowInsets windowInsets) {
 		final WindowInsetsCompat insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets);
 		final Insets insets = insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars());
+		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 
-		if (DeviceInfo.isLandscapeOrientation(view.getContext())) {
-			e2ePaddingBottomLandscape = e2ePaddingBottomLandscape < 0 ? insets.bottom : e2ePaddingBottomLandscape;
-			v.setPadding(insets.left, 0, insets.right, e2ePaddingBottomLandscape);
+		int bottomPadding;
+
+		if (tt9 == null) {
+			bottomPadding = insets.bottom;
+		} else if (isLandscape) {
+			bottomPadding = lastLandscapeBottomInset = insets.bottom;
 		} else {
-			e2ePaddingBottomPortrait = e2ePaddingBottomPortrait < 0 ? insets.bottom : e2ePaddingBottomPortrait;
-			v.setPadding(insets.left, 0, insets.right, e2ePaddingBottomPortrait);
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitDp();
 		}
+
+		v.setPadding(insets.left, 0, insets.right, bottomPadding);
 	}
 
 
@@ -111,15 +115,19 @@ abstract public class BaseMainLayout {
 	 * Similar to the above method, but reuses the last known padding. Useful for when the Main View
 	 * is re-created and it is not yet possible to get the new window insets.
  	 */
-	public void preventEdgeToEdge() {
-		if (tt9 == null || view == null || !DeviceInfo.AT_LEAST_ANDROID_15) {
+	public void setPadding() {
+		if (tt9 == null || view == null) {
 			return;
 		}
 
-		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
+		int bottomPadding;
 
-		int bottomPadding = isLandscape ? e2ePaddingBottomLandscape : e2ePaddingBottomPortrait;
-		bottomPadding = bottomPadding < 0 ? DeviceInfo.getNavigationBarHeight(view.getContext(), tt9.getSettings(), isLandscape) : bottomPadding;
+		if (DeviceInfo.isLandscapeOrientation(tt9)) {
+			bottomPadding = lastLandscapeBottomInset >= 0 ? lastLandscapeBottomInset : view.getPaddingBottom();
+		} else {
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitDp();
+		}
+
 		view.setPadding(view.getPaddingLeft(), 0, view.getPaddingRight(), bottomPadding);
 	}
 
@@ -256,8 +264,8 @@ abstract public class BaseMainLayout {
 			return true;
 		}
 
-		boolean isLandscape = DeviceInfo.isLandscapeOrientation(view.getContext());
-		int width = tt9.getSettings().getWidthPercent();
+		boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
+		int width = tt9.getSettings().getWidthPercent(!isLandscape);
 
 		return
 			DeviceInfo.AT_LEAST_ANDROID_15
