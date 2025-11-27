@@ -422,6 +422,14 @@ _**Touchpal**_
 
 Se você discorda ou deseja explicar seu ponto de vista, participe da [discussão aberta](https://github.com/sspanak/tt9/issues/647) no GitHub. Apenas lembre-se de ser respeitoso com os outros. Postagens de ódio não serão toleradas.
 
+#### O Android me alertou que o teclado pode coletar meus dados pessoais, incluindo números de cartão de crédito e senhas
+Este é um aviso padrão do Android exibido ao instalar e ativar qualquer teclado, não apenas o Traditional T9. Fique tranquilo: tudo o que o(a) senhor(a) digitar permanece em seu dispositivo. O mecanismo de digitação é totalmente open source, permitindo que o código seja inspecionado no GitHub para confirmar que sua privacidade está protegida.
+
+_Caso ainda tenha alguma preocupação, consulte a Política de Privacidade do aplicativo._
+
+#### Meu aplicativo bancário não aceita o Traditional T9
+Isto não é um problema do TT9. Os bancos frequentemente restringem teclados não padronizados ou de código aberto por não desejarem assumir riscos e presumirem que eles possam ser inseguros. Alguns vão além e fornecem seus próprios teclados, chegando a bloquear o teclado padrão do Google, o Gboard. Infelizmente, neste caso, a única opção é alternar para o teclado original do dispositivo.
+
 #### A vibração não está funcionando (apenas em dispositivos touchscreen)
 As opções de economia de bateria, otimização e a função "Não perturbe" podem impedir a vibração. Verifique nas Configurações do sistema do seu dispositivo se alguma dessas opções está ativada. Em alguns dispositivos, é possível configurar a otimização da bateria individualmente para cada aplicativo em Configurações do sistema → Aplicativos. Se o seu dispositivo permitir, desative a otimização para o TT9.
 
