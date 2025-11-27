@@ -422,6 +422,14 @@ _**Touchpal**_
 
 Se non sei d'accordo o vuoi spiegare il tuo punto di vista, partecipa alla [discussione aperta](https://github.com/sspanak/tt9/issues/647) su GitHub. Ricorda solo di essere rispettoso verso gli altri. I messaggi di odio non saranno tollerati.
 
+#### Android mi ha avvisato che la tastiera potrebbe raccogliere i miei dati personali, inclusi numeri di carte di credito e password
+Si tratta di un avviso standard di Android che viene mostrato quando si installa e si attiva qualsiasi tastiera, non soltanto Traditional T9. Può essere certo che tutto ciò che digita rimane sul dispositivo. Il motore di digitazione è completamente open source; è quindi possibile esaminarne il codice su GitHub e verificare che la privacy sia adeguatamente tutelata.
+
+_Qualora avesse ulteriori dubbi, La invitiamo a consultare l’Informativa sulla Privacy dell’app._
+
+#### La mia app bancaria non accetta Traditional T9
+Ciò non rappresenta un problema di TT9. Le banche spesso limitano l’uso di tastiere non standard o open source, poiché non intendono correre rischi e presumono che tali tastiere possano essere insicure. Alcuni istituti forniscono persino un proprio tastierino, arrivando a bloccare la tastiera standard di Google, Gboard. In questo caso, purtroppo, l’unica soluzione consiste nell’utilizzare la tastiera originale del dispositivo.
+
 #### La vibrazione non funziona (solo per dispositivi touchscreen)
 Le opzioni di risparmio energetico, ottimizzazione e la funzione "Non disturbare" possono impedire la vibrazione. Controlla nelle Impostazioni di sistema del tuo dispositivo se una di queste opzioni è attivata. Su alcuni dispositivi, è possibile configurare l'ottimizzazione della batteria per ogni singola applicazione da Impostazioni di sistema → Applicazioni. Se il tuo dispositivo lo consente, disattiva l'ottimizzazione per TT9.
 
