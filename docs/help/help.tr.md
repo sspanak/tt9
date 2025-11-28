@@ -422,6 +422,14 @@ _**Touchpal**_
 
 Eğer aynı fikirde değilseniz veya bakış açınızı açıklamak isterseniz, GitHub'daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Sadece diğer kullanıcılara saygılı olun. Nefret içerikli mesajlara izin verilmeyecektir.
 
+#### Android, klavyenin kredi kartı numaraları ve parolalar dahil olmak üzere kişisel verilerimi toplayabileceği konusunda beni uyardı
+Bu, yalnızca Traditional T9 için değil, herhangi bir klavye yüklendiğinde ve etkinleştirildiğinde görüntülenen standart bir Android uyarısıdır. Yazdığınız her şeyin cihazınızda kaldığından emin olabilirsiniz. Yazma motoru tamamen açık kaynaklıdır; bu nedenle kodunu GitHub üzerinden inceleyebilir ve gizliliğinizin korunduğunu doğrulayabilirsiniz.
+
+_Hâlâ herhangi bir endişeniz varsa, lütfen uygulamanın Gizlilik Politikasını inceleyiniz._
+
+#### Banka uygulamam Traditional T9’u kabul etmiyor
+Bu durum TT9 ile ilgili bir sorun değildir. Bankalar, risk almak istemedikleri ve bu tür klavyeleri güvensiz varsaydıkları için genellikle standart dışı veya açık kaynaklı klavyeleri kısıtlamaktadır. Bazıları daha da ileri giderek kendi klavyelerini sunmakta ve hatta Google’ın standart klavyesi olan Gboard’u engellemektedir. Ne yazık ki bu durumda tek seçenek, cihazın orijinal klavyesine geçmektir.
+
 #### Titreşim çalışmıyor (yalnızca dokunmatik ekran cihazları)
 Pil tasarrufu, optimizasyon seçenekleri ve "Rahatsız Etmeyin" modu titreşimi engelleyebilir. Cihazınızın Sistem Ayarlarında bu seçeneklerden herhangi birinin açık olup olmadığını kontrol edin. Bazı cihazlarda, pil optimizasyonunu her uygulama için ayrı ayrı ayarlamak mümkündür. Bunu yapmak için Sistem Ayarları → Uygulamalar bölümüne gidin. Eğer cihazınız destekliyorsa, TT9 için optimizasyonu kapatın.
 

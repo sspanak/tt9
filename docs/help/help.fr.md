@@ -422,6 +422,14 @@ _**Touchpal**_
 
 Si vous n'êtes pas d'accord ou souhaitez expliquer votre point de vue, rejoignez [la discussion ouverte](https://github.com/sspanak/tt9/issues/647) sur GitHub. N'oubliez pas de rester respectueux envers les autres. Les messages haineux ne seront pas tolérés.
 
+#### Android m’a averti que le clavier pouvait collecter mes données personnelles, y compris les numéros de carte de crédit et les mots de passe
+Il s’agit d’un avertissement standard d’Android affiché lors de l’installation et de l’activation de tout clavier, pas uniquement Traditional T9. Soyez assuré que toutes vos saisies demeurent sur votre appareil. Le moteur de saisie est entièrement open source, ce qui vous permet d’en examiner le code sur GitHub et de vérifier que votre confidentialité est préservée.
+
+_Si vous avez encore des préoccupations, veuillez consulter la politique de confidentialité de l’application._
+
+#### Mon application bancaire n’accepte pas Traditional T9
+Il ne s’agit pas d’un problème lié à TT9. Les banques restreignent fréquemment les claviers non standard ou open source, car elles ne souhaitent prendre aucun risque et partent du principe qu’ils peuvent être peu sûrs. Certaines vont même jusqu’à fournir leur propre clavier, bloquant parfois le clavier standard de Google, Gboard. Malheureusement, dans ce cas, la seule solution consiste à utiliser le clavier d’origine de l’appareil.
+
 #### La vibration ne fonctionne pas (appareils à écran tactile uniquement)
 Les options d'économie de batterie, d'optimisation et la fonction "Ne pas déranger" peuvent empêcher la vibration. Vérifiez si l'une de ces options est activée dans les paramètres système de votre appareil. Sur certains appareils, il est possible de configurer l'optimisation de la batterie individuellement pour chaque application via Paramètres système → Applications. Si votre appareil le permet, désactivez l'optimisation pour TT9.
 

@@ -379,7 +379,6 @@ To add a new one, I need a spell-checked word list, preferably from an official 
 
 If no such dictionary exists, you can provide any freely downloadable word list. The ideal size is 300k–500k words, but if your language has many inflections (changes by tense, gender, or number), about 1 million words may be needed.
 
-
 #### There are misspelled or missing words in language XYZ. Why don’t you fix them?
 As above — I don’t speak your language, so I might not notice such errors.
 But with your help, we can fix them and make the dictionary better for everyone!
@@ -424,6 +423,14 @@ _**Touchpal**_
 - Dictionary loading speed is fast. Touchpal wins this point.
 
 If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
+
+#### Android warned me that the keyboard may collect my personal data, including credit card numbers and passwords
+It is a standard Android warning displayed when you install and activate any keyboard, not just Traditional T9. Rest assured, everything you type remains on your device. The typing engine is fully open source, so you can inspect its code on GitHub and confirm that your privacy is protected.
+
+_If you still have any concerns, please refer to the app's Privacy Policy._
+
+#### My banking app does not accept Traditional T9
+It is not a problem with TT9. Banks often restrict non-standard or open-source keyboards because they don't want to take risks and assume such keyboards may be insecure. Some go further and provide their own keyboards, even blocking Google's standard keyboard, Gboard. Unfortunately, in this case, the only option is to switch to the original device keyboard.
 
 #### Vibration is not working (touchscreen devices only)
 Battery-saving and optimization options and the "Do not disturb" function prevent vibration. Check if any of them are on in your device's System Settings. On some devices, it is possible to configure the battery-optimization options individually, per each application from System Settings → Applications. If yours permits this, turn off the optimizations for TT9.
