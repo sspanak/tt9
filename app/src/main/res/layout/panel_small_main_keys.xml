@@ -10,8 +10,7 @@
 		android:id="@+id/soft_key_command_palette"
 		style="@style/TTheme.MainSmall.Key"
 		android:layout_weight="3"
-		android:focusable="false"
-		android:text="☰" />
+		android:focusable="false" />
 
 	<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
 		android:id="@+id/soft_key_ok"

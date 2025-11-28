@@ -5,18 +5,25 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.commands.CmdCommandPalette;
 
-public class SoftKeyCommandPalette extends SoftKeySettings {
+public class SoftKeyCommandPalette extends BaseKeyboardResizeKey {
+	private final CmdCommandPalette command = new CmdCommandPalette();
+
 	public SoftKeyCommandPalette(Context context) { super(context); }
 	public SoftKeyCommandPalette(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyCommandPalette(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected boolean handleRelease() {
-		return notSwiped() && new CmdCommandPalette().run(tt9);
+		return super.handleRelease() || command.run(tt9);
 	}
 
 	@Override
 	protected int getNoEmojiTitle() {
-		return new CmdCommandPalette().getIconText();
+		return command.getIconText();
+	}
+
+	@Override
+	protected String getTitle() {
+		return command.getIconEmojiText();
 	}
 }

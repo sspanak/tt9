@@ -9,6 +9,7 @@ public class CmdCommandPalette implements Command {
 	public static final String ID = "key_command_palette";
 	public String getId() { return ID; }
 	public int getIconText() { return R.string.virtual_key_command_palette; }
+	public String getIconEmojiText() { return "☰"; }
 	public int getIcon() { return R.drawable.ic_fn_command_palette; }
 	public int getName() { return io.github.sspanak.tt9.R.string.function_show_command_palette; }
 
