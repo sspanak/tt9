@@ -246,7 +246,7 @@ abstract public class CommandHandler extends TextEditingHandler {
 	public void showSettings() {
 		suggestionOps.cancelDelayedAccept();
 		stopVoiceInput();
-		UI.showSettingsScreen(this);
+		UI.showSettingsScreen(this, null);
 	}
 
 
