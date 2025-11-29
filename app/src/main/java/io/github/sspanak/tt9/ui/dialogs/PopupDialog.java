@@ -19,6 +19,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 	protected final ContextThemeWrapper context;
 	private final MainView mainView;
 
+	protected boolean cancelable;
 	protected Dialog popup;
 	protected String title;
 	protected String message;
@@ -33,6 +34,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 				.setTheme(DeviceInfo.AT_LEAST_ANDROID_12 ? R.style.TTheme : theme)
 				.build();
 
+		cancelable = true;
 		mainView = tt9.getMainView();
 	}
 
@@ -58,7 +60,7 @@ abstract public class PopupDialog implements DialogInterface.OnKeyListener {
 		}
 
 		popup = popupBuilder
-			.setCancelable(true)
+			.setCancelable(cancelable)
 			.setTitle(title)
 			.setMessage(message)
 			.setNegativeButton(true, onCancel)
