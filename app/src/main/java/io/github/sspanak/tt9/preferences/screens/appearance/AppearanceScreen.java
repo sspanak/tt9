@@ -146,7 +146,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 		SwitchPreferenceCompat[] switches = {
 			findPreference(SwitchKeyShadows.NAME),
-			findPreference("pref_arrow_keys_visible"),
+			findPreference(ItemShowArrows.NAME),
 			findPreference("pref_status_icon"),
 		};
 

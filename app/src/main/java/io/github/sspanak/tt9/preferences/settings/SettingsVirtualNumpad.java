@@ -12,6 +12,7 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
+import io.github.sspanak.tt9.preferences.screens.appearance.ItemShowArrows;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
 public class SettingsVirtualNumpad extends SettingsUI {
@@ -38,7 +39,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public boolean areArrowKeysHidden() {
-		return !prefs.getBoolean("pref_arrow_keys_visible", true);
+		return !prefs.getBoolean(ItemShowArrows.NAME, true);
 	}
 
 	@NonNull public String getLfnKeyOrder() {
