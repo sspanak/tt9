@@ -141,7 +141,7 @@ abstract class UiHandler extends AbstractHandler {
 
 	/**
 	 * Fixes: <a href="https://github.com/sspanak/tt9/issues/920">this Firefox bug</a>. Note that
-	 * this should not be seldom used, because it may force the UI to appear in calculators or other
+	 * this should be seldom used, because it may force the UI to appear in calculators or other
 	 * apps where it is not wanted.
 	 */
 	private void hyperForceShowWindow() {
