@@ -32,7 +32,6 @@ import io.github.sspanak.tt9.util.chars.Characters;
 
 public abstract class TypingHandler extends KeyPadHandler {
 	// internal settings/data
-	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
 	@NonNull protected InputType inputType = new InputType(null, null);
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);

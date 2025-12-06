@@ -24,6 +24,7 @@ public class DeviceInfo extends HardwareInfo {
 	public static final boolean AT_LEAST_ANDROID_13 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU;
 	public static final boolean AT_LEAST_ANDROID_14 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
 	public static final boolean AT_LEAST_ANDROID_15 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM;
+	public static final boolean AT_LEAST_ANDROID_16 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA;
 
 
 	/**
