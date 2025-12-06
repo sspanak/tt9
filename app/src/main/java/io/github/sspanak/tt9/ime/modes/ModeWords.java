@@ -442,8 +442,9 @@ class ModeWords extends ModeCheonjiin {
 		autoTextCase.skipNext();
 	}
 
+
 	@Override
-	public boolean shouldReplaceLastLetter(int n, boolean h) {
+	protected boolean shouldReplaceLastLetter(int n) {
 		return false;
 	}
 
