@@ -134,7 +134,11 @@ class ModeCheonjiin extends InputMode {
 			disablePredictions = true;
 			onNumberHold(number);
 		} else {
-			basicReset();
+			if (shouldReplaceLastLetter(number)) {
+				replaceLastLetter();
+			} else {
+				basicReset();
+			}
 			disablePredictions = false;
 			onNumberPress(number);
 		}
@@ -290,13 +294,24 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
+	/**
+	 * Forces immediate acceptance of the replaced Jamo matching the shorter sequence, then schedules
+	 * restoration of the auto-accept behavior.
+	 */
 	private void onReplacementPredictions() {
 		autoAcceptTimeout = 0;
 		onPredictions();
-		predictions.setWordsChangedHandler(this::onPredictions);
+		predictions.setWordsChangedHandler(this::onAfterReplacementPredictions);
+	}
 
+
+	/**
+	 * After a replacement has been auto-accepted restore the normal accept behavior.
+	 */
+	private void onAfterReplacementPredictions() {
 		autoAcceptTimeout = -1;
-		loadSuggestions(null);
+		onPredictions();
+		predictions.setWordsChangedHandler(this::onPredictions);
 	}
 
 
@@ -306,8 +321,7 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	@Override
-	public void replaceLastLetter() {
+	private void replaceLastLetter() {
 		previousJamoSequence = Cheonjiin.stripRepeatingEndingDigits(digitSequence);
 		if (previousJamoSequence.isEmpty() || previousJamoSequence.length() == digitSequence.length()) {
 			previousJamoSequence = "";
@@ -320,9 +334,12 @@ class ModeCheonjiin extends InputMode {
 	}
 
 
-	@Override
-	public boolean shouldReplaceLastLetter(int nextKey, boolean hold) {
-		return !hold && !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextKey);
+	/**
+	 * In Korean typing, the next char may "steal" components from the previous one, in which case,
+	 * we must replace the previous char with a one containing less strokes.
+	 */
+	protected boolean shouldReplaceLastLetter(int nextNumber) {
+		return !shouldDisplayEmojis() && Cheonjiin.isThereMediaVowel(digitSequence) && Cheonjiin.isVowelDigit(nextNumber);
 	}
 
 
@@ -367,6 +384,7 @@ class ModeCheonjiin extends InputMode {
 			mustReload = true;
 		} else if (!previousJamoSequence.isEmpty()) {
 			digitSequenceStash = digitSequence;
+			mustReload = true;
 		}
 
 		reset();
