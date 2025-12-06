@@ -104,6 +104,14 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean isFirefoxText() {
+		return
+			isAppField("org.mozilla.firefox", EditorInfo.TYPE_CLASS_TEXT)
+			|| isAppField("org.mozilla.fennec_fdroid", EditorInfo.TYPE_CLASS_TEXT)
+			|| isAppField("org.mozilla.focus", EditorInfo.TYPE_CLASS_TEXT);
+	}
+
+
 	public boolean isLgX100SDialer() {
 		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return

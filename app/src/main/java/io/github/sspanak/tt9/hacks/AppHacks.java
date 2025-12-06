@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.Timer;
+import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class AppHacks {
 	private final static String TYPING_SESSION_TIMER = "TYPING_SESSION_TIMER";
@@ -30,6 +31,15 @@ public class AppHacks {
 		this.inputType = inputType;
 		this.textField = textField;
 		this.textSelection = textSelection;
+	}
+
+
+	/**
+	 * Allows absolutely all brutal methods to show the keyboard, ignoring the framework flags, and
+	 * incorrect app behavior (e.g. not requesting the keyboard when focusing a text field).
+	 */
+	public boolean isHyperForceShowNeeded() {
+		return DeviceInfo.AT_LEAST_ANDROID_16 && inputType != null && inputType.isFirefoxText();
 	}
 
 
