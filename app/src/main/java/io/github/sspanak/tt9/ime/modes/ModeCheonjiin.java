@@ -283,12 +283,6 @@ class ModeCheonjiin extends InputMode {
 	 * Gets the currently available Predictions and sends them over to the external caller.
 	 */
 	protected void onPredictions() {
-		// in case the user hasn't added any custom emoji, do not allow advancing to the empty character group
-		if (predictions.getList().isEmpty() && digitSequence.startsWith(seq.EMOJI_SEQUENCE)) {
-			digitSequence = seq.EMOJI_SEQUENCE;
-			return;
-		}
-
 		suggestions.clear();
 		suggestions.addAll(predictions.getList());
 
