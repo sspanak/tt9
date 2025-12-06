@@ -89,9 +89,7 @@ public class DataStore {
 
 	public static void getWords(ConsumerCompat<ArrayList<String>> dataHandler, Language language, String sequence, boolean onlyExactSequence, String filter, boolean orderByLength, int minWords, int maxWords) {
 		if (getWordsTask != null && !getWordsTask.isDone()) {
-			dataHandler.accept(new ArrayList<>());
 			getWordsCancellationSignal.cancel();
-			return;
 		}
 
 		getWordsCancellationSignal = new CancellationSignal();
