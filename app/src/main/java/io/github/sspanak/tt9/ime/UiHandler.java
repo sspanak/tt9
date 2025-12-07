@@ -2,8 +2,10 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -18,8 +20,10 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
-	protected int displayTextCase = InputMode.CASE_UNDEFINED;
+	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
 	protected SettingsStore settings;
+
+	protected int displayTextCase = InputMode.CASE_UNDEFINED;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
 
@@ -58,19 +62,14 @@ abstract class UiHandler extends AbstractHandler {
 
 		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings, mainView.isBackgroundBlendingEnabled());
 
-		if (!isInputViewShown()) {
-			// Fixes: https://github.com/sspanak/tt9/issues/920.
-			// Anyway, it is probably the right way to go for all apps.
-			if (!isShowInputRequested()) {
-				forceShowWindow();
-			}
+		if (isInputViewShown()) {
+			return;
+		}
 
-			if (!isShowInputRequested()) {
-				Logger.d(LOG_TAG, "InputMethodManager refused show request. Forcing visibility with showWindow().");
-				showWindow(true); // this is really for #920
-			} else {
-				updateInputViewShown();
-			}
+		if (appHacks.isHyperForceShowNeeded()) {
+			hyperForceShowWindow();
+		} else {
+			updateInputViewShown();
 		}
 	}
 
@@ -135,6 +134,23 @@ abstract class UiHandler extends AbstractHandler {
 		if (DeviceInfo.AT_LEAST_ANDROID_9) {
 			requestShowSelf(DeviceInfo.isSonimGen2(getApplicationContext()) ? 0 : InputMethodManager.SHOW_IMPLICIT);
 		} else {
+			showWindow(true);
+		}
+	}
+
+
+	/**
+	 * Fixes: <a href="https://github.com/sspanak/tt9/issues/920">this Firefox bug</a>. Note that
+	 * this should be seldom used, because it may force the UI to appear in calculators or other
+	 * apps where it is not wanted.
+	 */
+	private void hyperForceShowWindow() {
+		if (!isShowInputRequested()) {
+			forceShowWindow();
+		}
+
+		if (!isShowInputRequested()) {
+			Logger.d(LOG_TAG, "InputMethodManager refused show request. Forcing visibility with showWindow().");
 			showWindow(true);
 		}
 	}
