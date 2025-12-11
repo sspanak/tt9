@@ -57,7 +57,7 @@ public class AutoSpace {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| nextKey == 0
-			|| !settings.getAutoSpace()
+			|| !settings.getAutoSpacePredictive()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
@@ -90,7 +90,7 @@ public class AutoSpace {
 	public boolean shouldAddBeforePunctuation(InputType inputType, TextField textField) {
 		if (
 			!isLanguageWithSpaceBetweenWords
-			|| !settings.getAutoSpace()
+			|| !settings.getAutoSpacePredictive()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
@@ -108,7 +108,7 @@ public class AutoSpace {
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
-		if (previousChar == '¡' || previousChar == '¿' && settings.getAutoSpace()) {
+		if (previousChar == '¡' || previousChar == '¿' && settings.getAutoSpacePredictive()) {
 			return true;
 		}
 
@@ -165,7 +165,7 @@ public class AutoSpace {
 	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
 		if (
 			!isLanguageWithSpaceBetweenWords
-			|| !settings.getAutoSpace()
+			|| !settings.getAutoSpacePredictive()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {

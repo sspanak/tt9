@@ -63,12 +63,12 @@ abstract public class InputMode {
 				return new ModeWords(settings, language, inputType, textField);
 			case MODE_HIRAGANA:
 				if (LanguageKind.isJapanese(language)) return new ModeHiragana(settings, language, inputType, textField);
-				return new ModeABC(settings, language, inputType);
+				return new ModeABC(settings, language, inputType, textField);
 			case MODE_KATAKANA:
 				if (LanguageKind.isJapanese(language)) return new ModeKatakana(settings, language, inputType, textField);
-				return new ModeABC(settings, language, inputType);
+				return new ModeABC(settings, language, inputType, textField);
 			case MODE_ABC:
-				return new ModeABC(settings, language, inputType);
+				return new ModeABC(settings, language, inputType, textField);
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:
