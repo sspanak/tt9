@@ -8,20 +8,20 @@
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:dependency="pref_predictive_mode"
-		android:key="auto_space"
+		android:key="auto_space_predictive"
 		android:summary="@string/pref_auto_space_summary"
 		android:title="@string/pref_auto_space" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="true"
 		android:dependency="pref_predictive_mode"
-		android:key="auto_text_case"
+		android:key="auto_text_case_predictive"
 		android:summary="@string/pref_auto_text_case_summary"
 		android:title="@string/pref_auto_text_case" />
 
 	<SwitchPreferenceCompat
 		android:defaultValue="false"
-		android:dependency="auto_text_case"
+		android:dependency="auto_text_case_predictive"
 		android:key="auto_capitals_after_newline"
 		android:summary="@string/pref_auto_capitals_after_newline_summary"
 		android:title="@string/pref_auto_capitals_after_newline" />

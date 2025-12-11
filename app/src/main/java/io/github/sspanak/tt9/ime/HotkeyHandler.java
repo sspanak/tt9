@@ -481,7 +481,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 	private boolean onTrimTrailingSpace(boolean validateOnly) {
-		if (!waitingForSpaceTrim || !settings.getAutoSpace() || !suggestionOps.isEmpty()) {
+		if (!waitingForSpaceTrim || !settings.getAutoSpacePredictive() || !suggestionOps.isEmpty()) {
 			return false;
 		}
 
