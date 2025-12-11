@@ -1,11 +1,9 @@
 package io.github.sspanak.tt9.preferences.custom;
 
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 
 import io.github.sspanak.tt9.preferences.items.TextInputPreference;
-import io.github.sspanak.tt9.util.Logger;
 
 public class KeyboardPreview {
 	@Nullable	private final TextInputPreference text1;
@@ -25,22 +23,6 @@ public class KeyboardPreview {
 			text1.setTitle(titleResId);
 			text2.setTitle(titleResId);
 			text2.setVisible(false);
-		}
-	}
-
-
-	public KeyboardPreview(@Nullable Preference text1, @Nullable Preference text2, int titleResId) {
-		if (text1 instanceof TextInputPreference && text2 instanceof TextInputPreference) {
-			this.text1 = (TextInputPreference) text1;
-			this.text1.setTitle(titleResId);
-
-			this.text2 = (TextInputPreference) text2;
-			this.text2.setTitle(titleResId);
-			this.text2.setVisible(false);
-		} else {
-			Logger.w(KeyboardPreview.class.getSimpleName(), "Cannot create preview: one or more TextInputPreference is null");
-			this.text1 = null;
-			this.text2 = null;
 		}
 	}
 

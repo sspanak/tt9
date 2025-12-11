@@ -11,7 +11,6 @@ import android.view.KeyEvent;
 import androidx.annotation.NonNull;
 
 public class HardwareInfo {
-	public static final String ID = Build.MANUFACTURER + "_" + Build.MODEL;
 	public static final boolean IS_CAT_S22_FLIP = Build.MANUFACTURER.equals("Cat") && Build.MODEL.contains("S22");
 	public static final boolean IS_LG_X100S = Build.MANUFACTURER.equals("LGE") && Build.MODEL.contains("X100S");
 	public static final boolean IS_QIN_F21 = Build.MANUFACTURER.equals("DuoQin") && Build.MODEL.contains("F21");

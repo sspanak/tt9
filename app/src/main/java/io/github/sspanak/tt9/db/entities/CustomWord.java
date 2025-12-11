@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.db.entities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CustomWord {
 		this.word = word;
 	}
 
-	public CustomWord(@NonNull String word, NaturalLanguage language) throws InvalidLanguageCharactersException, IllegalArgumentException {
+	public CustomWord(@NonNull String word, @Nullable NaturalLanguage language) throws InvalidLanguageCharactersException, IllegalArgumentException {
 		if (word.isEmpty() || language == null) {
 			throw new IllegalArgumentException("Word and language must be provided.");
 		}
