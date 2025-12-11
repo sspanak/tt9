@@ -143,7 +143,7 @@ public class CustomWordsImporter extends AbstractFileProcessor {
 					return false;
 				}
 
-				if (customWord.language == null || customWord.language.isTranscribed() || readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
+				if (customWord.language.isTranscribed() || readOps.exists(sqlite.getDb(), customWord.language, customWord.word)) {
 					ignoredWords++;
 				} else {
 					InsertOps.insertCustomWord(sqlite.getDb(), customWord.language, customWord.sequence, customWord.word);

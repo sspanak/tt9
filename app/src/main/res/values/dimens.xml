@@ -5,8 +5,6 @@
 	to ignore the Android text size scale. We can't allow scaling because it breaks the layout.
 	-->
 
-	<dimen name="android_navigation_bar_height">48dp</dimen>
-
 	<!-- standard text size for keys -->
 	<dimen name="key_text_size">21dp</dimen>
 
