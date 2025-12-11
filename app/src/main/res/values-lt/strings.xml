@@ -51,7 +51,8 @@
 	<string name="pref_choose_languages">Kalbos</string>
 	<string name="pref_color_scheme">Tema</string>
 	<string name="pref_dark_theme_auto">Automatiškai</string>
-	<string name="pref_drag_resize_summary">Įgalinti klaviatūros dydžio keitimą ir perkėlimą tempiant būsenos juostą arba nustatymų klavišą.</string>
+	<string name="pref_drag_resize_summary">Vilkti būsenos juostą arba nustatymų klavišą, kad būtų galima sumažinti klaviatūrą arba pakoreguoti jos padėtį ekrane.</string>
+	<string name="pref_double_tap_resize_summary">Du kartus bakstelėti būsenos juostą, kad būtų padidinta arba sumažinta klaviatūra, kai nerodoma pasiūlymų.</string>
 	<string name="pref_double_zero_char">Įterpiamas simbolis, kai du kartus paspaudžiamas \"0\" mygtukas</string>
 	<string name="pref_hold_to_type_summary">Leisti įvesti skaičius arba aktyvuoti programos funkcijas laikant nuspaustus skaitmeninius klavišus. Išjungti, jei įrenginys klaidingai aptinka trumpus paspaudimus kaip laikymą.</string>
 	<string name="pref_key_shadows">Šešėliai po klavišais</string>
@@ -239,7 +240,7 @@
 	<string name="function_assign_instructions">* Paspauskite arba palaikykite klavišą, kad priskirtumėte jį funkcijai „%1$s“.\n\n* Paspauskite 0, kad atšauktumėte.\n\n* Paspauskite 2, kad išjungtumėte funkciją.</string>
 	<string name="pref_allow_composing_text">Rodyti rašomą tekstą</string>
 	<string name="pref_bottom_padding_portrait">Tarpas apačioje (portretas)</string>
-	<string name="pref_drag_resize">Keisti dydį tempiant</string>
+	<string name="pref_drag_resize">Vilkti norint pakeisti dydį</string>
 	<string name="function_undo">Atšaukti (Undo)</string>
 	<string name="fn_key_order_column_2">Stulpelis 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Stulpelyje gali būti daugiausiai 4 klavišai.</string>
@@ -254,4 +255,5 @@
 	<string name="pref_hold_to_type">Laikyti skaitmeninius klavišus</string>
 	<string name="pref_color_scheme_device_dark">Sisteminė tamsi</string>
 	<string name="click_here_for_preview">Spustelėkite čia, kad peržiūrėtumėte</string>
+	<string name="pref_double_tap_resize">Dvigubas bakstelėjimas dydžiui keisti</string>
 </resources>

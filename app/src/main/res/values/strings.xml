@@ -77,7 +77,9 @@
 
 	<string name="pref_bottom_padding_portrait">Space Below (Portrait)</string>
 	<string name="pref_drag_resize">Drag to Resize</string>
-	<string name="pref_drag_resize_summary">Allow resizing and moving the keyboard by dragging the Status Bar or the Settings key.</string>
+	<string name="pref_drag_resize_summary">Drag the Status Bar or the Settings key to minimize the keyboard or adjust its position on the screen.</string>
+	<string name="pref_double_tap_resize">Double-Tap to Resize</string>
+	<string name="pref_double_tap_resize_summary">Double-tap the Status Bar to maximize or minimize the keyboard when no suggestions are shown.</string>
 	<string name="pref_double_zero_char">Character for Double 0-key Press</string>
 	<string name="pref_numpad_fn_key_width">Letter Keys Width</string>
 	<string name="pref_font_size">Settings Font Size</string>

@@ -21,6 +21,12 @@
 			app:key="pref_drag_resize"
 			app:title="@string/pref_drag_resize"
 			app:summary="@string/pref_drag_resize_summary" />
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
+			app:key="pref_double_tap_resize"
+			app:title="@string/pref_double_tap_resize"
+			app:summary="@string/pref_double_tap_resize_summary"
+			app:defaultValue="false" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">

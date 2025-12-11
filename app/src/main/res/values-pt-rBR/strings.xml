@@ -51,7 +51,8 @@
 	<string name="pref_backspace_recomposing">Recomposição de palavras</string>
 	<string name="pref_backspace_recomposing_summary">Pressionar Backspace no fim da palavra para editar. (Não funciona em alguns apps e com texto em vários idiomas)</string>
 	<string name="pref_choose_languages">Idiomas</string>
-	<string name="pref_drag_resize_summary">Permitir redimensionar e mover o teclado arrastando a Barra de Status ou a tecla de Configurações.</string>
+	<string name="pref_drag_resize_summary">Arrastar a barra de status ou a tecla de Configurações para minimizar o teclado ou ajustar sua posição na tela.</string>
+	<string name="pref_double_tap_resize_summary">Tocar duas vezes na barra de status para maximizar ou minimizar o teclado quando não houver sugestões.</string>
 	<string name="pref_double_zero_char">Caractere para toque duplo na tecla 0</string>
 	<string name="pref_hold_to_type_summary">Permite digitar números ou ativar funções do app mantendo pressionadas as teclas numéricas. Desative se o dispositivo detectar incorretamente toques curtos como pressionamentos longos.</string>
 	<string name="pref_key_shadows">Sombras abaixo das teclas</string>
@@ -237,7 +238,7 @@
 	<string name="function_previous_suggestion">Sugestão Anterior</string>
 	<string name="pref_allow_composing_text">Mostrar texto em composição</string>
 	<string name="pref_bottom_padding_portrait">Espaçamento inferior (retrato)</string>
-	<string name="pref_drag_resize">Redimensionar arrastando</string>
+	<string name="pref_drag_resize">Arrastar para redimensionar</string>
 	<string name="function_undo">Desfazer</string>
 	<string name="fn_key_order_column_2">Coluna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">A coluna pode conter no máximo 4 teclas.</string>
@@ -252,4 +253,5 @@
 	<string name="pref_hold_to_type">Manter teclas numéricas</string>
 	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
 	<string name="click_here_for_preview">Clique aqui para visualizar</string>
+	<string name="pref_double_tap_resize">Toque duplo para redimensionar</string>
 </resources>

@@ -219,6 +219,8 @@ _La tecla mostrará un pequeño ícono de globo cuando haya habilitado más de u
 ### Redimensionar el Panel del Teclado Mientras Escribes
 En algunos casos, puede que el teclado virtual ocupe demasiado espacio en la pantalla, impidiéndote ver lo que estás escribiendo o algunos elementos de la aplicación. Si es así, puedes redimensionarlo manteniendo presionada y arrastrando la tecla de Configuración/Paleta de Comandos o arrastrando la Barra de Estado (donde se muestra el idioma actual o el modo de escritura). Cuando la altura se vuelva demasiado pequeña, el diseño cambiará automáticamente a "Teclas de Función" o "Solo lista de sugerencias". Respectivamente, al redimensionar hacia arriba, el diseño cambiará a "Teclado Virtual". También puedes tocar dos veces la barra de estado para minimizar o maximizar instantáneamente.
 
+_El cambio de tamaño mediante doble toque está desactivado de forma predeterminada. Puede activarlo en: Ajustes → Apariencia._
+
 _Redimensionar T9 Tradicional también redimensiona la aplicación actual. Hacer ambas cosas es computacionalmente muy costoso. Puede causar parpadeos o retrasos en muchos teléfonos, incluso en los de gama alta._
 
 ### Cambiar la Altura de las Teclas

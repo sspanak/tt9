@@ -219,6 +219,8 @@ _Il tasto mostrerà una piccola icona a forma di globo quando hai abilitato più
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
 A volte potresti trovare che il Tastierino Virtuale occupi troppo spazio, impedendoti di vedere cosa stai digitando o alcuni elementi dell’app. Se è così, puoi ridimensionarlo tenendo premuto e trascinando il tasto Impostazioni/Tavolozza Comandi o trascinando la Barra di Stato (dove è visualizzata la lingua corrente o modalità di digitazione). Quando l’altezza diventa troppo ridotta, il layout cambierà automaticamente a "Tasti Funzione" o "Solo Lista Suggerimenti". Analogamente, ingrandendo il layout tornerà al "Tastierino Virtuale". È anche possibile fare doppio tap sulla barra di stato per minimizzare o massimizzare istantaneamente.
 
+_Il ridimensionamento tramite doppio tocco è disattivato per impostazione predefinita. È possibile abilitarlo in: Impostazioni → Aspetto._
+
 _Ridimensionare Traditional T9 ridimensiona anche l'applicazione corrente, ma questa operazione è molto impegnativa. Potrebbe causare sfarfallii o rallentamenti su molti telefoni, anche di fascia alta._
 
 ### Modificare l'Altezza dei Tasti
