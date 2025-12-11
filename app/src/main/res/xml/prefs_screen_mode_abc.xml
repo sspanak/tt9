@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime android:title="@string/pref_abc_auto_accept" />
+
+	<SwitchPreferenceCompat
+		android:defaultValue="false"
+		android:key="auto_space_abc"
+		android:summary="@string/pref_auto_space_summary"
+		android:title="@string/pref_auto_space" />
+
 	<SwitchPreferenceCompat
 		android:defaultValue="false"
 		android:key="auto_text_case_abc"

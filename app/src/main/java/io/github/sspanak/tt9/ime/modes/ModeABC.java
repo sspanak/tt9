@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.helpers.AutoSpace;
 import io.github.sspanak.tt9.ime.modes.helpers.AutoTextCase;
 import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
@@ -22,7 +23,9 @@ class ModeABC extends InputMode {
 	private boolean shouldSelectNextLetter = false;
 
 	// text analysis
+	@NonNull private final AutoSpace autoSpace;
 	@NonNull private final AutoTextCase autoTextCase;
+	@Nullable private final InputType inputType;
 	@Nullable private final TextField textField;
 	private final int textFieldTextCase;
 
@@ -31,12 +34,14 @@ class ModeABC extends InputMode {
 
 	protected ModeABC(@NonNull SettingsStore settings, @Nullable Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, inputType);
-		setLanguage(lang);
-		defaultTextCase();
-
+		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
+		this.inputType = inputType;
 		this.textField = textField;
 		textFieldTextCase = inputType == null ? CASE_UNDEFINED : inputType.determineTextCase();
+
+		setLanguage(lang);
+		defaultTextCase();
 	}
 
 
@@ -75,6 +80,7 @@ class ModeABC extends InputMode {
 	}
 
 
+	/******** AUTO-CAPITALIZATION ********/
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
 		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
@@ -96,6 +102,26 @@ class ModeABC extends InputMode {
 		autoTextCase.skipNext();
 	}
 
+	/******** AUTO-SPACE ********/
+	@Override
+	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
+		return autoSpace.shouldAddTrailingSpace(textField, inputType, this, isWordAcceptedManually, nextKey);
+	}
+
+
+	@Override
+	public boolean shouldAddPrecedingSpace() {
+		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
+	}
+
+
+	@Override
+	public boolean shouldDeletePrecedingSpace() {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
+	}
+
+
+	/******** GENERAL ********/
 
 	private void refreshSuggestions() {
 		if (digitSequence.isEmpty()) {
@@ -113,6 +139,8 @@ class ModeABC extends InputMode {
 		}
 
 		super.setLanguage(newLanguage);
+
+		autoSpace.setLanguage(newLanguage);
 
 		allowedTextCases.clear();
 		allowedTextCases.add(CASE_LOWER);
