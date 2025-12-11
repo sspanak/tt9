@@ -85,7 +85,8 @@
 	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de desplazamiento en ambos lados de la lista de sugerencias de palabras.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
-	<string name="pref_drag_resize_summary">\tHabilitar el redimensionamiento y movimiento del teclado arrastrando la barra de estado o la tecla de Configuración.</string>
+	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>
+	<string name="pref_double_tap_resize_summary">Tocar dos veces la barra de estado para maximizar o minimizar el teclado cuando no se muestran sugerencias.</string>
 	<string name="pref_double_zero_char">Carácter cuando se presiona \"0\" dos veces</string>
 	<string name="dictionary_load_bad_char">Error al cargar. Palabra inválida en la línea %1$d del idioma \"%2$s\".</string>
 	<string name="dictionary_load_error">Error al cargar el diccionario para el idioma \"%1$s\" (%2$s).</string>
@@ -230,7 +231,7 @@
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
 	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
 	<string name="pref_bottom_padding_portrait">Espacio inferior (vertical)</string>
-	<string name="pref_drag_resize">Redimensionar arrastrando</string>
+	<string name="pref_drag_resize">Arrastrar para cambiar el tamaño</string>
 	<string name="function_undo">Deshacer</string>
 	<string name="fn_key_order_column_2">Columna 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La columna puede contener como máximo 4 teclas.</string>
@@ -245,4 +246,5 @@
 	<string name="pref_hold_to_type">Mantener teclas numéricas</string>
 	<string name="pref_color_scheme_device_dark">Oscuro del sistema</string>
 	<string name="click_here_for_preview">Haz clic aquí para ver la vista previa</string>
+	<string name="pref_double_tap_resize">Doble toque para cambiar el tamaño</string>
 </resources>

@@ -219,6 +219,8 @@ _La touche affichera une petite icône de globe si vous avez activé plus d'une 
 ### Redimensionner le panneau du clavier pendant la saisie
 Dans certains cas, vous pouvez trouver que le pavé numérique virtuel occupe trop d'espace à l'écran, vous empêchant de voir ce que vous tapez ou certains éléments de l'application. Si c'est le cas, vous pouvez le redimensionner en maintenant enfoncée et en faisant glisser la touche Paramètres/Palette de commandes ou en faisant glisser la barre d'état (elle affiche la langue ou le mode de saisie actuel). Lorsque la hauteur devient trop petite, la disposition sera automatiquement changée en « touches de fonction » ou en « liste de suggestions uniquement ». Respectivement, en redimensionnant vers le haut, la disposition reviendra au « pavé numérique virtuel ». Vous pouvez également double-cliquer sur la barre d'état pour minimiser ou maximiser instantanément.
 
+_Le redimensionnement par double pression est désactivé par défaut. Vous pouvez l’activer ici : Paramètres → Apparence._
+
 _Redimensionner Traditional T9 entraîne également le redimensionnement de l'application en cours. Faire les deux est très exigeant en ressources et peut provoquer un scintillement ou des ralentissements sur de nombreux téléphones, même ceux de gamme supérieure._
 
 ### Changer la hauteur des touches

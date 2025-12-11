@@ -219,6 +219,8 @@ _Ayarlar → Diller kısmından birden fazla dili etkinleştirdiyseniz, tuşta k
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
 Bazı durumlarda, Sanal Tuș Takımının çok fazla ekran alanı kapladığını, yazdıklarınızı veya bazı uygulama öğelerini göremediğinizi fark edebilirsiniz. Bu durumda, Ayarlar/Komut Paleti tușunu basılı tutarak veya Durum Çubuğunu (mevcut dil veya yazma modunun gösterildiği alan) sürükleyerek yeniden boyutlandırabilirsiniz. Yükseklik çok küçük hale geldiğinde, düzen otomatik olarak "İşlev tușları" veya yalnızca "Öneri listesi" olarak değișecektir. Yukarı doğru yeniden boyutlandırdığınızda ise düzen "Sanal Tuș Takımı"na geçer. Durum çubuğuna iki kez dokunarak hızlıca minimize veya maximize edebilirsiniz.
 
+_Çift dokunarak yeniden boyutlandırma varsayılan olarak kapalıdır. Bu özelliği şu bölümden etkinleştirebilirsiniz: Ayarlar → Görünüm._
+
 _Traditional T9'u yeniden boyutlandırmak, aynı zamanda mevcut uygulamanın yeniden boyutlandırılmasına neden olur. Her ikisini birden yapmak hesaplama açısından oldukça maliyetlidir. Birçok telefonda, hatta üst düzey olanlarda bile titreme veya takılma olabilir._
 
 ### Tuș Yüksekliğini Değiștirme

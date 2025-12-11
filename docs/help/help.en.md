@@ -219,6 +219,8 @@ _The key will display a small globe icon when you have enabled multiple language
 ### Resizing the Keyboard Panel While Typing
 In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you can resize it by either holding and dragging the Settings/Command Palette key or by dragging the Status Bar (it is where the current language or typing mode is displayed). When the height becomes too small, the layout will automatically be switched to "Function keys" or "Suggestion list only". Respectively, when resizing up, the layout will change to "Virtual Keypad". You can also double-tap the status bar to minimize or maximize instantly.
 
+_Resizing by double-tapping is off by default. You can enable it from: Settings → Appearance._
+
 _Resizing Traditional T9 also results in resizing the current application. Doing both is computationally very expensive. It may cause flickering or stuttering on many phones, even higher-end ones._
 
 ### Changing the Key Height

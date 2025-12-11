@@ -117,7 +117,8 @@
 	<string name="key_volume_down">Baisser le volume</string>
 	<string name="key_volume_up">Augmenter le volume</string>
 	<string name="char_newline">Nouvelle ligne</string>
-	<string name="pref_drag_resize_summary">Activer le redimensionnement et le déplacement du clavier en faisant glisser la barre d’état ou la touche Paramètres.</string>
+	<string name="pref_drag_resize_summary">Faire glisser la barre d’état ou la touche Réglages pour minimiser le clavier ou ajuster sa position à l’écran.</string>
+	<string name="pref_double_tap_resize_summary">Toucher deux fois la barre d’état pour agrandir ou réduire le clavier lorsqu’aucune suggestion n’est affichée.</string>
 	<string name="pref_double_zero_char">Caractère lorsque «0» est appuyé deux fois</string>
 	<string name="pref_suggestion_font_size">Taille de police des suggestions</string>
 	<string name="pref_suggestion_smooth_scroll">Défilement fluide de la liste de mots</string>
@@ -230,7 +231,7 @@
 	<string name="key_hold_key">(maintenir)</string>
 	<string name="pref_allow_composing_text">Afficher texte en cours</string>
 	<string name="pref_bottom_padding_portrait">Espacement inférieur (portrait)</string>
-	<string name="pref_drag_resize">Redimensionner en faisant glisser</string>
+	<string name="pref_drag_resize">Faire glisser pour redimensionner</string>
 	<string name="function_undo">Annuler (Undo)</string>
 	<string name="fn_key_order_column_2">Colonne 2</string>
 	<string name="fn_key_order_error_wrong_key_count">La colonne peut contenir au maximum 4 touches.</string>
@@ -245,4 +246,5 @@
 	<string name="pref_hold_to_type">Maintenir touches numériques</string>
 	<string name="pref_color_scheme_device_dark">Sombre du système</string>
 	<string name="click_here_for_preview">Cliquez ici pour aperçu</string>
+	<string name="pref_double_tap_resize">Double-tapoter pour redimensionner</string>
 </resources>

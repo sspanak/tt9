@@ -49,7 +49,8 @@
 	<string name="pref_backspace_recomposing">עריכת מילים</string>
 	<string name="pref_backspace_recomposing_summary">ללחוץ על Backspace בסוף מילה כדי לערוך אותה. (לא אפשרי בחלק מהאפליקציות ובטקסט רב-לשוני)</string>
 	<string name="pref_choose_languages">שפות</string>
-	<string name="pref_drag_resize_summary">לאפשר שינוי גודל והזזת המקלדת על ידי גרירת שורת המצב או מקש ההגדרות.</string>
+	<string name="pref_drag_resize_summary">לגרור את שורת המצב או את מקש ההגדרות כדי למזער את המקלדת או להתאים את מיקומה על המסך.</string>
+	<string name="pref_double_tap_resize_summary">הקשה פעמיים על שורת המצב כדי להגדיל או להקטין את המקלדת כשאין הצעות מוצגות.</string>
 	<string name="pref_double_zero_char">תו ללחיצה מרובה על מקש 0</string>
 	<string name="pref_hold_to_type_summary">מאפשר להקליד ספרות או להפעיל פונקציות של האפליקציה על ידי החזקת מקשי המספרים. השבת אם המכשיר מזהה בטעות לחיצות קצרות כהחזקה.</string>
 	<string name="pref_key_shadows">צללים מתחת למקשים</string>
@@ -236,7 +237,7 @@
 	<string name="function_previous_suggestion">הצעה קודמת</string>
 	<string name="pref_allow_composing_text">הצגת טקסט בהרכבה</string>
 	<string name="pref_bottom_padding_portrait">ריווח מתחת (תצוגה אנכית)</string>
-	<string name="pref_drag_resize">שינוי גודל על ידי גרירה</string>
+	<string name="pref_drag_resize">גרירה לשינוי גודל</string>
 	<string name="function_undo">ביטול (Undo)</string>
 	<string name="fn_key_order_column_2">עמודה 2</string>
 	<string name="fn_key_order_error_wrong_key_count">העמודה יכולה להכיל לכל היותר 4 מקשים.</string>
@@ -252,4 +253,5 @@
 	<string name="pref_hold_to_type">החזקת מקשי המספרים</string>
 	<string name="pref_color_scheme_device_dark">כהה של המערכת</string>
 	<string name="click_here_for_preview">לחץ כאן לתצוגה מקדימה</string>
+	<string name="pref_double_tap_resize">הקשה כפולה לשינוי גודל</string>
 </resources>

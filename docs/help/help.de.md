@@ -219,6 +219,8 @@ _Die Taste zeigt ein kleines Globus-Symbol an, wenn Sie mehr als eine Sprache un
 ### Tastaturfeld beim Tippen anpassen
 In manchen Fällen nimmt das virtuelle Tastenfeld möglicherweise zu viel Platz ein, wodurch Sie Ihren Text oder Anwendungsinhalte nicht sehen können. Sie können die Größe anpassen, indem Sie die Einstellungen-/Befehlspalette-Taste gedrückt halten und ziehen oder die Statusleiste ziehen (dort wird die aktuelle Sprache oder der Eingabemodus angezeigt). Wenn die Höhe zu klein wird, wechselt das Layout automatisch zu „Funktionstasten“ oder „nur Vorschlagsliste“. Beim Vergrößern wechselt das Layout wieder zum „Virtuellen Tastenfeld“. Durch Doppeltippen auf die Statusleiste können Sie das Tastenfeld sofort minimieren oder maximieren.
 
+_Das Ändern der Größe per Doppeltippen ist standardmäßig deaktiviert. Sie können es hier aktivieren: Einstellungen → Erscheinungsbild._
+
 _Das Anpassen der Größe von Traditional T9 führt auch zur Anpassung der aktuellen Anwendung. Beide Aktionen zusammen sind rechnerisch sehr aufwendig und können auf vielen Telefonen zu Flackern oder Ruckeln führen, selbst auf leistungsfähigeren Geräten._
 
 ### Höhe der Tasten ändern

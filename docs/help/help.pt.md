@@ -219,6 +219,8 @@ _A tecla exibirá um pequeno ícone de globo se você tiver ativado mais de um i
 ### Redimensionar o Painel do Teclado Durante a Digitação
 Em alguns casos, você pode achar que o Teclado Virtual está ocupando muito espaço na tela, impedindo que você veja o que está digitando ou alguns elementos do aplicativo. Se for o caso, redimensione-o mantendo pressionado e arrastando a tecla de Configurações/Paleta de Comandos ou arrastando a Barra de Status (onde o idioma atual ou modo de digitação são exibidos). Quando a altura ficar muito pequena, o layout mudará automaticamente para "Teclas de Função" ou "Somente Lista de Sugestões". Ao redimensionar para cima, o layout mudará para "Teclado Virtual". Você também pode dar um duplo toque na barra de status para minimizar ou maximizar instantaneamente.
 
+_O redimensionamento por toque duplo está desativado por padrão. Você pode ativá-lo em: Configurações → Aparência._
+
 _Redimensionar o Traditional T9 também redimensiona o aplicativo atual. Fazer ambos é computacionalmente muito caro e pode causar cintilação ou travamento em muitos celulares, inclusive de ponta._
 
 ### Alterando a Altura das Teclas

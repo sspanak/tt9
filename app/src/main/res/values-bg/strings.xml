@@ -135,6 +135,7 @@
 	<string name="pref_category_key_appearance">Клавиши</string>
 	<string name="pref_category_keypad">Клавиатура</string>
 	<string name="pref_drag_resize_summary">Позволява преоразмеряване и местене на клавиатурата чрез влачене на лентата на състоянието или клавиша за настройки.</string>
+	<string name="pref_double_tap_resize_summary">Позволява свиване и разширяване на клавиатурата, чрез двойно докосване на лентата за състояние, когато няма предложения.</string>
 	<string name="pref_double_zero_char">Символ при двойно натисната „0“</string>
 	<string name="char_newline">Нов ред</string>
 	<string name="char_space">Интервал</string>
@@ -245,4 +246,5 @@
 	<string name="pref_hold_to_type">Задържане на цифрови клавиши</string>
 	<string name="pref_color_scheme_device_dark">Системна тъмна</string>
 	<string name="click_here_for_preview">Щракнете тук за предварителен преглед</string>
+	<string name="pref_double_tap_resize">Оразмеряване чрез двойно докосване</string>
 </resources>

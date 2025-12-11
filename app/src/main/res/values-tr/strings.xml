@@ -130,7 +130,8 @@
 	<string name="dictionary_update_message">„%1$s“ sözlüğü için bir güncelleme mevcut.</string>
 	<string name="dictionary_update_update">Yükle</string>
 	<string name="donate_title">Destekte bulun</string>
-	<string name="pref_drag_resize_summary">Durum Çubuğunu veya Ayarlar tuşunu sürükleyerek klavyeyi yeniden boyutlandırmayı ve taşımayı etkinleştir.</string>
+	<string name="pref_drag_resize_summary">Durum çubuğunu veya Ayarlar tuşunu sürükleyerek klavyeyi küçültmek veya ekrandaki konumunu ayarlamak.</string>
+	<string name="pref_double_tap_resize_summary">Öneriler gösterilmediğinde, durum çubuğuna iki kez dokunarak klavyeyi büyütmek veya küçültmek.</string>
 	<string name="pref_double_zero_char">"0" tuşuna iki kere basıldığında yazılacak karakter</string>
 	<string name="pref_hack_always_on_top">Her zaman en üstte tut</string>
 	<string name="pref_hack_always_on_top_summary">Diğer uygulamaların %1$s ekranını kaplamasına veya ekranın dışına itmesine izin vermeyin.</string>
@@ -235,7 +236,7 @@
 	<string name="key_hold_key">(basılı tut)</string>
 	<string name="pref_allow_composing_text">Yazılan metni göster</string>
 	<string name="pref_bottom_padding_portrait">Alttaki boşluk (dikey)</string>
-	<string name="pref_drag_resize">Sürükleyerek yeniden boyutlandır</string>
+	<string name="pref_drag_resize">Yeniden boyutlandırmak için sürükle</string>
 	<string name="function_undo">Geri al (Undo)</string>
 	<string name="fn_key_order_column_2">Sütun 2</string>
 	<string name="fn_key_order_error_wrong_key_count">Sütun en fazla 4 tuş içerebilir.</string>
@@ -250,4 +251,5 @@
 	<string name="pref_hold_to_type">Sayı tuşlarını basılı tut</string>
 	<string name="pref_color_scheme_device_dark">Sistem koyu</string>
 	<string name="click_here_for_preview">Önizleme için buraya tıklayın</string>
+	<string name="pref_double_tap_resize">Yeniden boyutlandırmak için çift dokunma</string>
 </resources>
