@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
-import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -267,17 +266,13 @@ public class TextField extends InputField {
 	/**
 	 * setComposingTextWithHighlightedStem
 	 * <p>
-	 * Sets the composing text, but makes the "stem" substring bold. If "highlightMore" is true,
-	 * the "stem" part will be in bold and italic.
+	 * Sets the composing text, but makes the "stem" substring bold. If "isStemFilterFuzzy" is true,
+	 * the "stem" part will be in bold and italic for additional highlighting.
 	 */
-	public void setComposingTextWithHighlightedStem(CharSequence word, String stem, boolean highlightMore) {
+	public void setComposingTextWithHighlightedStem(@NonNull CharSequence word, @Nullable String stem, boolean isStemFilterFuzzy) {
 		setComposingText(
-			stem.isEmpty() ? word : highlightText(word, 0, stem.length(), highlightMore)
+			stem == null || stem.isEmpty() ? word : highlightText(word, 0, stem.length(), isStemFilterFuzzy)
 		);
-	}
-
-	public void setComposingTextWithHighlightedStem(CharSequence word, InputMode inputMode) {
-		setComposingTextWithHighlightedStem(word, inputMode.getWordStem(), inputMode.isStemFilterFuzzy());
 	}
 
 

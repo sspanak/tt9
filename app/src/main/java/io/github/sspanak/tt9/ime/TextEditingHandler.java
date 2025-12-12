@@ -122,7 +122,7 @@ abstract public class TextEditingHandler extends VoiceHandler {
 			return;
 		}
 
-		onAcceptSuggestionAutomatically(suggestionOps.acceptIncomplete());
+		mInputMode.reset();
 		textField.setText(clipboardText);
 	}
 
