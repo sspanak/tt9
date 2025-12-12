@@ -29,7 +29,7 @@ class ModeABC extends InputMode {
 	@Override public int getId() { return MODE_ABC; }
 
 
-	protected ModeABC(@Nullable SettingsStore settings, @Nullable Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
+	protected ModeABC(@NonNull SettingsStore settings, @Nullable Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, inputType);
 		setLanguage(lang);
 		defaultTextCase();

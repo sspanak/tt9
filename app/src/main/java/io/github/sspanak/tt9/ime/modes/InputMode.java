@@ -52,7 +52,12 @@ abstract public class InputMode {
 	}
 
 
-	public static InputMode getInstance(SettingsStore settings, @Nullable Language language, InputType inputType, TextField textField, int mode) {
+	public static InputMode getInstance(@Nullable SettingsStore settings, @Nullable Language language, @Nullable InputType inputType, @Nullable TextField textField, int mode) {
+		if (settings == null) {
+			mode = MODE_PASSTHROUGH;
+			Logger.w(InputMode.class.getSimpleName(), "Cannot create a new InputMode without Settings. Defaulting to MODE_PASSTHROUGH.");
+		}
+
 		switch (mode) {
 			case MODE_PREDICTIVE:
 				if (LanguageKind.isChineseBopomofo(language)) return new ModeBopomofo(settings, language, inputType, textField);
@@ -72,7 +77,7 @@ abstract public class InputMode {
 			case MODE_PASSTHROUGH:
 				return new ModePassthrough(settings, inputType);
 			default:
-				Logger.w("InputMode", "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
+				Logger.w(InputMode.class.getSimpleName(), "Defaulting to mode: " + Mode123.class.getName() + " for unknown InputMode: " + mode);
 			case MODE_123:
 				return new Mode123(settings, language, inputType);
 		}
