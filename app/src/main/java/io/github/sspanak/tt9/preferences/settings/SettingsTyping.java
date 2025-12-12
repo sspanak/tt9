@@ -16,6 +16,9 @@ class SettingsTyping extends SettingsPunctuation {
 		int time = getStringifiedInt(DropDownAbcAutoAcceptTime.NAME, DropDownAbcAutoAcceptTime.DEFAULT);
 		return time > 0 ? time + getKeyPadDebounceTime() : time;
 	}
+	public boolean getAutoSpaceAbc() {
+		return prefs.getBoolean("auto_space_abc", false);
+	}
 	public boolean getAutoTextCaseAbc() {
 		return prefs.getBoolean("auto_text_case_abc", false);
 	}

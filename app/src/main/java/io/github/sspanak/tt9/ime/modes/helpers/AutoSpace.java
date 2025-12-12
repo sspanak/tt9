@@ -1,10 +1,15 @@
 package io.github.sspanak.tt9.ime.modes.helpers;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import java.util.Set;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.TextField;
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.languages.NullLanguage;
@@ -23,14 +28,14 @@ public class AutoSpace {
 	private static final Set<Character> NO_PRECEDING_SPACE_CHARS_NOT_FRENCH = Set.of(';', ':', '!', '?', '»');
 
 	private Language language;
-	private final SettingsStore settings;
+	@Nullable private final SettingsStore settings;
 
 	private boolean isLanguageFrench;
 	private boolean isLanguageWithAlphabet;
 	private boolean isLanguageWithSpaceBetweenWords;
 
 
-	public AutoSpace(SettingsStore settingsStore) {
+	public AutoSpace(@Nullable SettingsStore settingsStore) {
 		language = new NullLanguage();
 		settings = settingsStore;
 		isLanguageWithAlphabet = false;
@@ -53,11 +58,13 @@ public class AutoSpace {
 	 * suggestion. This allows faster typing, without pressing space. See the helper functions for
 	 * the list of rules.
 	 */
-	public boolean shouldAddTrailingSpace(TextField textField, InputType inputType, boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(@Nullable TextField textField, @Nullable InputType inputType, @NonNull InputMode mode, boolean isWordAcceptedManually, int nextKey) {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| nextKey == 0
-			|| !settings.getAutoSpacePredictive()
+			|| inputType == null
+			|| textField == null
+			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
@@ -77,7 +84,7 @@ public class AutoSpace {
 		return
 			!nextChars.startsWithWhitespace()
 			&& (
-				shouldAddAfterWord(isWordAcceptedManually, new Text(language, previousChars), nextChars, nextKey)
+				shouldAddAfterWord(!InputModeKind.isABC(mode), isWordAcceptedManually, new Text(language, previousChars), nextChars, nextKey)
 				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
 			);
 	}
@@ -87,10 +94,12 @@ public class AutoSpace {
 	 * Determines the special French rules for space before punctuation, as well as some standard ones.
 	 * For example, should we transform "word?" to "word ?", or "something(" to "something ("
 	 */
-	public boolean shouldAddBeforePunctuation(InputType inputType, TextField textField) {
+	public boolean shouldAddBeforePunctuation(@Nullable InputType inputType, @Nullable TextField textField) {
 		if (
 			!isLanguageWithSpaceBetweenWords
-			|| !settings.getAutoSpacePredictive()
+			|| inputType == null
+			|| textField == null
+			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
@@ -108,7 +117,7 @@ public class AutoSpace {
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
-		if (previousChar == '¡' || previousChar == '¿' && settings.getAutoSpacePredictive()) {
+		if ((previousChar == '¡' || previousChar == '¿') && !Character.isWhitespace(penultimateChar) && penultimateChar != 0) {
 			return true;
 		}
 
@@ -121,12 +130,20 @@ public class AutoSpace {
 	}
 
 
+	private boolean isOff() {
+		return
+			settings == null
+			|| (settings.getInputMode() == InputMode.MODE_PREDICTIVE && !settings.getAutoSpacePredictive())
+			|| (settings.getInputMode() == InputMode.MODE_ABC && !settings.getAutoSpaceAbc());
+	}
+
+
 	/**
 	 * Determines whether to automatically adding a space after certain punctuation signs makes sense.
 	 * The rules are similar to the ones in the standard Android keyboard (with some exceptions,
 	 * because we are not using a QWERTY keyboard here).
 	 */
-	private boolean shouldAddAfterPunctuation(String previousChars, Text nextChars, int nextKey) {
+	private boolean shouldAddAfterPunctuation(@NonNull String previousChars, @NonNull Text nextChars, int nextKey) {
 		char penultimateChar = previousChars.length() < 2 ? 0 : previousChars.charAt(previousChars.length() - 2);
 		char previousChar = previousChars.isEmpty() ? 0 : previousChars.charAt(previousChars.length() - 1);
 
@@ -149,9 +166,10 @@ public class AutoSpace {
 	/**
 	 * Similar to "shouldAddAfterPunctuation()", but determines whether to add a space after words.
 	 */
-	private boolean shouldAddAfterWord(boolean isWordAcceptedManually, Text previousChars, Text nextChars, int nextKey) {
+	private boolean shouldAddAfterWord(boolean isWordInput, boolean isWordAcceptedManually, @NonNull Text previousChars, @NonNull Text nextChars, int nextKey) {
 		return
-			isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
+			isWordInput // in ABC and likes, no space is needed between letters, because it becomes more difficult to use the same key several times in a row
+			&& isWordAcceptedManually // Do not add space when auto-accepting words, because it feels very confusing when typing.
 			&& isLanguageWithAlphabet
 			&& nextKey != 1
 			&& (nextChars.isEmpty() || nextChars.startsWithNewline())
@@ -162,10 +180,12 @@ public class AutoSpace {
 	/**
 	 * Determines whether to transform: "word ." to: "word."
 	 */
-	public boolean shouldDeletePrecedingSpace(InputType inputType, TextField textField) {
+	public boolean shouldDeletePrecedingSpace(@Nullable InputType inputType, @Nullable TextField textField) {
 		if (
 			!isLanguageWithSpaceBetweenWords
-			|| !settings.getAutoSpacePredictive()
+			|| inputType == null
+			|| textField == null
+			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {

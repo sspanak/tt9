@@ -12,12 +12,12 @@ import io.github.sspanak.tt9.util.Text;
 
 public class AutoTextCase {
 	@NonNull private final Sequences sequences;
-	@Nullable private final SettingsStore settings;
+	@NonNull private final SettingsStore settings;
 	private final boolean isUs;
 	private boolean skipNext;
 
 
-	public AutoTextCase(@Nullable SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
+	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
 		isUs = inputType != null && inputType.isUs();
@@ -72,10 +72,6 @@ public class AutoTextCase {
 	 * dictionary context.
 	 */
 	public int determineNextLetterTextCase(int textFieldTextCase, @Nullable String beforeCursor) {
-		if (settings == null) {
-			return InputMode.CASE_LOWER;
-		}
-
 		final int settingsTextCase = settings.getTextCase();
 
 		if (isUs || settingsTextCase == InputMode.CASE_UPPER) {
@@ -115,7 +111,7 @@ public class AutoTextCase {
 	public int determineNextWordTextCase(@NonNull Language language, int currentTextCase, int textFieldTextCase, @Nullable TextField textField, @Nullable String digitSequence, @Nullable String beforeCursor) {
 		if (
 			// When the setting is off or invalid, don't do any changes.
-			settings == null || !settings.getAutoTextCasePredictive()
+			!settings.getAutoTextCasePredictive()
 			// If the user has explicitly selected uppercase, we respect that.
 			|| currentTextCase == InputMode.CASE_UPPER
 			// we do not have text fields that expect sentences, so disable the feature to save some resources

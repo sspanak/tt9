@@ -398,7 +398,7 @@ class ModeCheonjiin extends InputMode {
 
 	@Override
 	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace.shouldAddTrailingSpace(textField, inputType, isWordAcceptedManually, nextKey);
+		return autoSpace.shouldAddTrailingSpace(textField, inputType, this, isWordAcceptedManually, nextKey);
 	}
 
 
