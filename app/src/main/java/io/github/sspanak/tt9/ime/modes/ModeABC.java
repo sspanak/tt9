@@ -32,7 +32,7 @@ class ModeABC extends InputMode {
 	@Override public int getId() { return MODE_ABC; }
 
 
-	protected ModeABC(@NonNull SettingsStore settings, @Nullable Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
+	protected ModeABC(@NonNull SettingsStore settings, @NonNull Language lang, @Nullable InputType inputType, @Nullable TextField textField) {
 		super(settings, inputType);
 		autoSpace = new AutoSpace(settings);
 		autoTextCase = new AutoTextCase(settings, new Sequences(), inputType);
@@ -83,7 +83,11 @@ class ModeABC extends InputMode {
 	/******** AUTO-CAPITALIZATION ********/
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
-		return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+		if (language.hasUpperCase()) {
+			return newTextCase == CASE_UPPER ? word.toUpperCase(language.getLocale()) : word.toLowerCase(language.getLocale());
+		} else {
+			return word;
+		}
 	}
 
 
@@ -93,7 +97,7 @@ class ModeABC extends InputMode {
 			return;
 		}
 		final String strBefore = textField != null ? textField.getStringBeforeCursor(10) : null;
-		textCase = autoTextCase.determineNextLetterTextCase(textFieldTextCase, strBefore);
+		textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, strBefore);
 	}
 
 
