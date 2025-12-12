@@ -65,7 +65,7 @@ public class AppHacks {
 	 * A compatibility function for text fields that do not support SpannableString. Effectively disables highlighting.
 	 * Also, performs extra operations when setting composing text for apps that do not do it properly themselves.
 	 */
-	public void setComposingTextWithHighlightedStem(@NonNull String word, InputMode inputMode) {
+	public void setComposingTextWithHighlightedStem(@NonNull String word, @Nullable String stem, boolean isStemFilterFuzzy) {
 		if (inputType == null || textField == null) {
 			return;
 		}
@@ -79,7 +79,7 @@ public class AppHacks {
 			textField.setComposingText("");
 		}
 
-		textField.setComposingTextWithHighlightedStem(word, inputMode);
+		textField.setComposingTextWithHighlightedStem(word, stem, isStemFilterFuzzy);
 	}
 
 
@@ -104,7 +104,7 @@ public class AppHacks {
 		return
 			Key.exists(settings.getKeyBackspace())
 			&& !Key.isHardwareBackspace(settings.getKeyBackspace())
-			&& inputMode.getSuggestions().isEmpty()
+			&& inputMode.noSuggestions()
 			&& textSelection.isEmpty()
 			&& textField.getTextBeforeCursor(null, 1).isEmpty();
 	}
