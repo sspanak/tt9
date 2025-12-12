@@ -396,7 +396,7 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected String adjustSuggestionTextCase(String word, int newTextCase) {
-		return autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase);
+		return language.hasUpperCase() ? autoTextCase.adjustSuggestionTextCase(new Text(language, word), newTextCase) : word;
 	}
 
 	@Override
