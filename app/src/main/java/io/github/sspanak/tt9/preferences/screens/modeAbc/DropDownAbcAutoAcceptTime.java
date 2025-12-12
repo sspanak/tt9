@@ -28,7 +28,7 @@ public class DropDownAbcAutoAcceptTime extends EnhancedDropDownPreference {
 		add(DEFAULT, R.string.pref_abc_auto_accept_normal);
 		add("1200", R.string.pref_abc_auto_accept_slow);
 		commitOptions();
-		setValue(String.valueOf(settings.getAbcAutoAcceptTimeout()));
+		setValue(String.valueOf(settings.getAutoAcceptTimeoutAbc()));
 		setDefaultValue(String.valueOf(DEFAULT));
 
 		return this;

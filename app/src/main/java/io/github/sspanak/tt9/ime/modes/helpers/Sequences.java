@@ -58,7 +58,7 @@ public class Sequences {
 			|| sequence.equals(CHARS_GROUP_1_SEQUENCE);
 	}
 
-	public boolean isEnglishI(@Nullable Language language, @NonNull String digitSequence) {
-		return LanguageKind.isEnglish(language) && digitSequence.equals("4");
+	public boolean isEnglishI(@Nullable Language language, @Nullable String digitSequence) {
+		return digitSequence != null && LanguageKind.isEnglish(language) && digitSequence.equals("4");
 	}
 }

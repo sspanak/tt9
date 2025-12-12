@@ -12,17 +12,18 @@ import io.github.sspanak.tt9.util.Text;
 
 public class AutoTextCase {
 	@NonNull private final Sequences sequences;
-	@NonNull private final SettingsStore settings;
+	@Nullable private final SettingsStore settings;
 	private final boolean isUs;
 	private boolean skipNext;
 
 
-	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
+	public AutoTextCase(@Nullable SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
 		isUs = inputType != null && inputType.isUs();
 		skipNext = false;
 	}
+
 
 	/**
 	 * Changes the text case of a word. Usually, used together with determineNextWordTextCase(), which
@@ -66,15 +67,55 @@ public class AutoTextCase {
 
 
 	/**
+	 * The analog of determineNextWordTextCase() for modes like ABC, where letters are input one by
+	 * one. We use very similar, but not exactly the same logic, due to the lack of real words, and
+	 * dictionary context.
+	 */
+	public int determineNextLetterTextCase(int textFieldTextCase, @Nullable String beforeCursor) {
+		if (settings == null) {
+			return InputMode.CASE_LOWER;
+		}
+
+		final int settingsTextCase = settings.getTextCase();
+
+		if (isUs || settingsTextCase == InputMode.CASE_UPPER) {
+			return settingsTextCase;
+		}
+
+		if (skipNext) {
+			skipNext = false;
+			return settingsTextCase;
+		}
+
+		// lowercase also takes priority but not as strict as uppercase
+		if (textFieldTextCase != InputMode.CASE_UNDEFINED && settingsTextCase != InputMode.CASE_LOWER) {
+			return textFieldTextCase;
+		}
+
+		// start of text or sentence
+		if (textFieldTextCase == InputMode.CASE_UPPER || beforeCursor == null || beforeCursor.isEmpty() || Text.isStartOfSentence(beforeCursor)) {
+			return InputMode.CASE_UPPER;
+		}
+
+		// beginning of a new word in a text field that requires capitalization
+		if (textFieldTextCase == InputMode.CASE_CAPITALIZE && !Text.isNextToWord(beforeCursor)) {
+			return InputMode.CASE_UPPER;
+		}
+
+		return InputMode.CASE_LOWER;
+	}
+
+
+	/**
 	 * determineNextWordTextCase
 	 * Dynamically determine text case of words as the user types, to reduce key presses.
 	 * For example, this function will return CASE_LOWER by default, but CASE_UPPER at the beginning
 	 * of a sentence.
 	 */
-	public int determineNextWordTextCase(@NonNull Language language, int currentTextCase, int textFieldTextCase, @Nullable TextField textField, @NonNull String digitSequence, @Nullable String beforeCursor) {
+	public int determineNextWordTextCase(@NonNull Language language, int currentTextCase, int textFieldTextCase, @Nullable TextField textField, @Nullable String digitSequence, @Nullable String beforeCursor) {
 		if (
-			// When the setting is off, don't do any changes.
-			!settings.getAutoTextCase()
+			// When the setting is off or invalid, don't do any changes.
+			settings == null || !settings.getAutoTextCasePredictive()
 			// If the user has explicitly selected uppercase, we respect that.
 			|| currentTextCase == InputMode.CASE_UPPER
 			// we do not have text fields that expect sentences, so disable the feature to save some resources
@@ -117,6 +158,7 @@ public class AutoTextCase {
 	public void skipNext() {
 		skipNext = true;
 	}
+
 
 	public void doNotSkipNext() {
 		skipNext = false;

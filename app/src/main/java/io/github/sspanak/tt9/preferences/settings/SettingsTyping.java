@@ -12,14 +12,18 @@ import io.github.sspanak.tt9.preferences.screens.modePredictive.OneKeyEmojiOptio
 class SettingsTyping extends SettingsPunctuation {
 	SettingsTyping(Context context) { super(context); }
 
-	public int getAbcAutoAcceptTimeout() {
+	public int getAutoAcceptTimeoutAbc() {
 		int time = getStringifiedInt(DropDownAbcAutoAcceptTime.NAME, DropDownAbcAutoAcceptTime.DEFAULT);
 		return time > 0 ? time + getKeyPadDebounceTime() : time;
 	}
-	public boolean getAutoSpace() { return prefs.getBoolean("auto_space", true); }
-	public boolean getAutoTextCase() { return prefs.getBoolean("auto_text_case", true); }
+	public boolean getAutoTextCaseAbc() {
+		return prefs.getBoolean("auto_text_case_abc", false);
+	}
+
+	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
+	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
 	public boolean getAutoCapitalsAfterNewline() {
-		return getAutoTextCase() && prefs.getBoolean("auto_capitals_after_newline", false);
+		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
 	}
 
 	public boolean getBackspaceAcceleration() {

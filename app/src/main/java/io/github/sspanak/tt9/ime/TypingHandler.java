@@ -196,10 +196,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 			autoCorrectSpace(lastWord, false, key);
 		}
 
-		// Auto-adjust the text case before each word, if the InputMode supports it.
-		if (mInputMode.getSuggestions().isEmpty()) {
-			mInputMode.determineNextWordTextCase(key);
-		}
+		// Auto-adjust the text case before each word/char, if the InputMode supports it.
+		mInputMode.determineNextWordTextCase(key);
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
 			forceShowWindow();
