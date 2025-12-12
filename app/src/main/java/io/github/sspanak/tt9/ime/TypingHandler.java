@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
@@ -36,13 +37,16 @@ public abstract class TypingHandler extends KeyPadHandler {
 	@NonNull protected TextField textField = new TextField(null, null, null);
 	@NonNull protected TextSelection textSelection = new TextSelection(null, null);
 	@NonNull protected SuggestionOps suggestionOps = new SuggestionOps(null, null, null, null, null, null, null, null);
-
 	@Nullable private Handler shiftStateDebounceHandler;
-	@Nullable private Handler suggestionHandler;
 
 	// input
 	@NonNull protected ArrayList<Integer> allowedInputModes = new ArrayList<>();
 	@NonNull protected InputMode mInputMode = InputMode.getInstance(null, null, null, null, InputMode.MODE_PASSTHROUGH);
+
+	// output
+	@Nullable private Handler suggestionHandler;
+	@NonNull private final AtomicInteger suggestionRequestAtomicId = new AtomicInteger();
+	private volatile int suggestionRequestId = 0;
 
 	// language
 	protected ArrayList<Integer> mEnabledLanguages;
@@ -57,6 +61,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected boolean shouldBeOff() {
 		return getCurrentInputConnection() == null || InputModeKind.isPassthrough(mInputMode);
 	}
+
 
 	@Override
 	protected boolean onStart(EditorInfo field) {
@@ -161,7 +166,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
-			updateShiftStateDebounced(mInputMode.getSuggestions().isEmpty(), false);
+			updateShiftStateDebounced(mInputMode.noSuggestions(), false);
 			recompose(repeat, !textSelection.isEmpty());
 		}
 
@@ -197,7 +202,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		// Auto-adjust the text case before each word, if the InputMode supports it.
-		if (mInputMode.getSuggestions().isEmpty()) {
+		if (mInputMode.noSuggestions()) {
 			mInputMode.determineNextWordTextCase(key);
 		}
 
@@ -206,7 +211,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			return false;
 		}
 
-		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.getSuggestions().isEmpty()) {
+		if (mInputMode.shouldSelectNextSuggestion() && !mInputMode.noSuggestions()) {
 			scrollSuggestions(false);
 			suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout());
 		} else {
@@ -404,9 +409,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void onAcceptSuggestionAutomatically(String word) {
-		mInputMode.onAcceptSuggestion(word, true);
-		autoCorrectSpace(word, false, mInputMode.getFirstKey());
+	private void onAcceptPreviousSuggestion() {
+		String lastWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength() - 1);
+		if (Characters.PLACEHOLDER.equals(lastWord)) {
+			lastWord = "";
+		}
+
+		suggestionOps.commitCurrent(false, true);
+		mInputMode.onAcceptSuggestion(lastWord, true);
+		autoCorrectSpace(lastWord, false, mInputMode.getFirstKey());
 		mInputMode.determineNextWordTextCase(-1);
 	}
 
@@ -448,6 +459,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 				onComplete.run();
 			}
 		} else {
+			suggestionRequestId = suggestionRequestAtomicId.incrementAndGet();
 			mInputMode
 				.setOnSuggestionsUpdated(() -> handleSuggestionsFromThread(onComplete))
 				.loadSuggestions(currentWord == null ? suggestionOps.getCurrent() : currentWord);
@@ -463,48 +475,59 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void handleSuggestionsFromThread(@Nullable Runnable onComplete) {
 		if (suggestionHandler == null) {
 			suggestionHandler = new Handler(Looper.getMainLooper());
-		} else {
-			suggestionHandler.removeCallbacksAndMessages(null);
 		}
+
 		suggestionHandler.post(() -> {
-			handleSuggestions();
-			if (onComplete != null) {
+			if (handleSuggestions() && onComplete != null) {
 				onComplete.run();
 			}
 		});
 	}
 
 
-	protected void handleSuggestions() {
+	private boolean handleSuggestions() {
+		// ensure we are processing the latest request
+		if (suggestionRequestId != suggestionRequestAtomicId.get()) {
+			return false;
+		}
+
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
-			String lastWord = suggestionOps.acceptPrevious(mLanguage, mInputMode.getSequenceLength());
-			onAcceptSuggestionAutomatically(lastWord);
+			onAcceptPreviousSuggestion();
 		}
 
-		// display the word suggestions
-		suggestionOps.set(mInputMode.getSuggestions(), mInputMode.containsGeneratedSuggestions());
+		// the above may take a couple of milliseconds, ensure mInputMode.suggestions have not been
+		// modified by another thread in the meantime
+		if (suggestionRequestId != suggestionRequestAtomicId.get()) {
+			return false;
+		}
 
-		// flush the first suggestion, if the InputMode has requested it
+		final ArrayList<String> suggestions = mInputMode.getSuggestions();
+		suggestionOps.set(suggestions, mInputMode.containsGeneratedSuggestions());
+
+		// either accept the first one automatically (when switching from punctuation to text
+		// or vice versa), or schedule auto-accept in N seconds (in ABC mode)
 		if (suggestionOps.scheduleDelayedAccept(mInputMode.getAutoAcceptTimeout())) {
-			return;
+			return true;
 		}
 
-		// Otherwise, put the first suggestion in the text field,
-		// but cut it off to the length of the sequence (how many keys were pressed),
-		// for a more intuitive experience.
+		// We have not accepted anything yet, which means the user is composing a word.
+		// put the first suggestion in the text field, but cut it off to the length of the sequence
+		// (the count of key presses), for a more intuitive experience.
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
-		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode);
+		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 
-		if (mInputMode.getSuggestions().isEmpty()) {
+		if (suggestions.isEmpty()) {
 			updateShiftStateDebounced(true, false);
 		} else {
 			updateShiftStateDebounced(false, true);
 		}
 
 		forceShowWindow();
+
+		return true;
 	}
 
 
@@ -512,7 +535,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		suggestionOps.cancelDelayedAccept();
 		suggestionOps.scrollTo(backward ? -1 : 1);
 		mInputMode.setWordStem(suggestionOps.getCurrent(), true);
-		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode);
+		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 	}
 
 

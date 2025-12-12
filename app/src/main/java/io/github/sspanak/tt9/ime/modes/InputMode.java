@@ -137,6 +137,10 @@ abstract public class InputMode {
 		return newSuggestions;
 	}
 
+	public boolean noSuggestions() {
+		return suggestions.isEmpty();
+	}
+
 	public InputMode setOnSuggestionsUpdated(@NonNull Runnable onSuggestionsUpdated) {
 		this.onSuggestionsUpdated = onSuggestionsUpdated;
 		return this;

@@ -155,20 +155,6 @@ public class SuggestionOps {
 	}
 
 
-	public String acceptPrevious(Language language, int sequenceLength) {
-		if (sequenceLength <= 0) {
-			set(null);
-		}
-
-		String lastComposingText = getCurrent(language, sequenceLength - 1);
-		if (Characters.PLACEHOLDER.equals(lastComposingText)) {
-			return "";
-		}
-		commitCurrent(false, true);
-		return lastComposingText;
-	}
-
-
 	public void commitCurrent(boolean entireSuggestion, boolean clearList) {
 		if (!isEmpty()) {
 			if (entireSuggestion) {
