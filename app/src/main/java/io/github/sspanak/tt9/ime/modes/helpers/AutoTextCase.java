@@ -71,10 +71,10 @@ public class AutoTextCase {
 	 * one. We use very similar, but not exactly the same logic, due to the lack of real words, and
 	 * dictionary context.
 	 */
-	public int determineNextLetterTextCase(int textFieldTextCase, @Nullable String beforeCursor) {
+	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, @Nullable String beforeCursor) {
 		final int settingsTextCase = settings.getTextCase();
 
-		if (isUs || settingsTextCase == InputMode.CASE_UPPER) {
+		if (isUs || settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
 			return settingsTextCase;
 		}
 
@@ -116,6 +116,8 @@ public class AutoTextCase {
 			|| currentTextCase == InputMode.CASE_UPPER
 			// we do not have text fields that expect sentences, so disable the feature to save some resources
 			|| isUs
+			// save resources if the language has no uppercase letters
+			|| !language.hasUpperCase()
 		) {
 			return currentTextCase;
 		}

@@ -53,9 +53,9 @@ abstract public class InputMode {
 
 
 	public static InputMode getInstance(@Nullable SettingsStore settings, @Nullable Language language, @Nullable InputType inputType, @Nullable TextField textField, int mode) {
-		if (settings == null) {
+		if (mode != MODE_PASSTHROUGH && (settings == null || language == null)) {
 			mode = MODE_PASSTHROUGH;
-			Logger.w(InputMode.class.getSimpleName(), "Cannot create a new InputMode without Settings. Defaulting to MODE_PASSTHROUGH.");
+			Logger.w(InputMode.class.getSimpleName(), "Cannot create a new InputMode without Settings and Language. Defaulting to MODE_PASSTHROUGH.");
 		}
 
 		switch (mode) {
@@ -64,7 +64,7 @@ abstract public class InputMode {
 				if (LanguageKind.isChinesePinyin(language)) return new ModePinyin(settings, language, inputType, textField);
 				if (LanguageKind.isJapanese(language)) return new ModeKanji(settings, language, inputType, textField);
 				if (LanguageKind.isKorean(language)) return new ModeCheonjiin(settings, inputType, textField);
-				if (language != null && language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
+				if (language.isTranscribed()) return new ModeIdeograms(settings, language, inputType, textField);
 				return new ModeWords(settings, language, inputType, textField);
 			case MODE_HIRAGANA:
 				if (LanguageKind.isJapanese(language)) return new ModeHiragana(settings, language, inputType, textField);
