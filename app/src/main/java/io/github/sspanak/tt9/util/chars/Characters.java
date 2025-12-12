@@ -109,7 +109,7 @@ public class Characters extends Emoji {
 	 * Returns a language-specific question mark.
 	 */
 	private static String getQuestionMark(@Nullable Language language) {
-		if (LanguageKind.isArabic(language)) {
+		if (LanguageKind.isArabicBased(language)) {
 			return AR_QUESTION_MARK;
 		}
 		if (LanguageKind.isGreek(language)) {
