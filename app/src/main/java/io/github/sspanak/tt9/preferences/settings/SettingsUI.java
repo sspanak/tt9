@@ -63,8 +63,26 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt(DropDownBottomPaddingPortrait.NAME, DropDownBottomPaddingPortrait.DEFAULT);
 	}
 
-	public int getBottomPaddingPortraitDp() {
+	public int getBottomPaddingPortraitPx() {
 		return Math.round(getBottomPaddingPortrait() * DeviceInfo.getScreenPixelDensity(context));
+	}
+
+	/**
+	 * Samsung devices with Android 15+ SOMETIMES report bottom inset = navigational bar height, but
+	 * but they still move up the IME window up, the Android 14 way. So, if we apply our bottom padding,
+	 * we end up with double padding. To avoid this, we read the reported device bottom inset and
+	 * overwrite the default bottom padding accordingly.
+	 * Safe to call on non-Samsung devices and pre-Android 15 devices. It will just do nothing.
+	 */
+	public void setSamsungBottomPaddingPortrait(int paddingDp) {
+		if (
+			DeviceInfo.IS_SAMSUNG
+			&& DeviceInfo.AT_LEAST_ANDROID_15
+			&& paddingDp > 0
+			&& getStringifiedInt(DropDownBottomPaddingPortrait.NAME, -1) == -1
+		) {
+			getPrefsEditor().putString(DropDownBottomPaddingPortrait.NAME, Integer.toString(paddingDp)).apply();
+		}
 	}
 
 	public void setNotificationsApproved(boolean yes) {

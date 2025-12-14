@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class DropDownBottomPaddingPortrait extends EnhancedDropDownPreference implements ItemLayoutChangeReactive {
 	public static final String NAME = "pref_bottom_padding_portrait";
 	private static final int DEFAULT_API_35 = 48;
-	public static final int DEFAULT = DeviceInfo.AT_LEAST_ANDROID_15 && !DeviceInfo.IS_SAMSUNG ? DEFAULT_API_35 : 0;
+	public static final int DEFAULT = DeviceInfo.AT_LEAST_ANDROID_15 ? DEFAULT_API_35 : 0;
 
 	public DropDownBottomPaddingPortrait(@NonNull Context context) { super(context); }
 	public DropDownBottomPaddingPortrait(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
