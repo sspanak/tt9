@@ -104,7 +104,8 @@ abstract public class BaseMainLayout {
 		} else if (isLandscape) {
 			bottomPadding = lastLandscapeBottomInset = insets.bottom;
 		} else {
-			bottomPadding = tt9.getSettings().getBottomPaddingPortraitDp();
+			tt9.getSettings().setSamsungBottomPaddingPortrait(Math.round(insets.bottom / DeviceInfo.getScreenPixelDensity(view.getContext())));
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitPx();
 		}
 
 		v.setPadding(insets.left, 0, insets.right, bottomPadding);
@@ -125,7 +126,7 @@ abstract public class BaseMainLayout {
 		if (DeviceInfo.isLandscapeOrientation(tt9)) {
 			bottomPadding = lastLandscapeBottomInset >= 0 ? lastLandscapeBottomInset : view.getPaddingBottom();
 		} else {
-			bottomPadding = tt9.getSettings().getBottomPaddingPortraitDp();
+			bottomPadding = tt9.getSettings().getBottomPaddingPortraitPx();
 		}
 
 		view.setPadding(view.getPaddingLeft(), 0, view.getPaddingRight(), bottomPadding);
