@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,15 +16,31 @@ class SettingsInput extends SettingsHacks {
 	SettingsInput(Context context) { super(context); }
 
 
-	public ArrayList<Integer> getEnabledLanguageIds() {
-		Set<String> languagesPref = getEnabledLanguagesIdsAsStrings();
+	public boolean areEnabledLanguagesMoreThanN(int N) {
+		final Set<String> langs = prefs.getStringSet("pref_languages", null);
+		return langs != null && langs.size() > N;
+	}
 
-		ArrayList<Integer>languageIds = new ArrayList<>();
-		for (String languageId : languagesPref) {
-			languageIds.add(Integer.valueOf(languageId));
+
+	@NonNull
+	public ArrayList<Integer> getEnabledLanguageIds() {
+		final Set<String> rawLangIds = prefs.getStringSet("pref_languages", null);
+		final HashSet<String> langIds = new HashSet<>(rawLangIds != null ? rawLangIds : Collections.emptySet());
+
+		final ArrayList<Integer>list = new ArrayList<>();
+		for (String languageId : langIds) {
+			try {
+				list.add(Integer.parseInt(languageId));
+			} catch (NumberFormatException e) {
+				Logger.w(LOG_TAG, "Ignoring invalid language ID in preferences: '" + languageId + "'");
+			}
 		}
 
-		return languageIds;
+		if (list.isEmpty()) {
+			list.add(LanguageCollection.getDefault().getId());
+		}
+
+		return list;
 	}
 
 
@@ -33,15 +51,6 @@ class SettingsInput extends SettingsHacks {
 		}
 
 		saveEnabledLanguageIds(idsAsStrings);
-	}
-
-
-	public Set<String> getEnabledLanguagesIdsAsStrings() {
-		Set<String> defaultLanguages =  new HashSet<>(Collections.singletonList(
-			String.valueOf(LanguageCollection.getDefault().getId())
-		));
-
-		return new HashSet<>(prefs.getStringSet("pref_languages", defaultLanguages));
 	}
 
 

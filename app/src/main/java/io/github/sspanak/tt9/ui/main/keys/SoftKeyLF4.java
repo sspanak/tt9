@@ -38,7 +38,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 	}
 
 	private boolean areThereManyLanguages() {
-		return tt9 != null && tt9.getSettings().getEnabledLanguageIds().size() > 1;
+		return tt9 != null && tt9.getSettings().areEnabledLanguagesMoreThanN(1);
 	}
 
 	private boolean isKeySmall() {
@@ -109,6 +109,7 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 			setPaddingRelative(0, 20, 0, 0);
 			setGravity(Gravity.CENTER);
 		} else {
+			setPadding(0, 0, 0, 0);
 			setGravity(Gravity.CENTER);
 		}
 

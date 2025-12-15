@@ -124,7 +124,7 @@ public class SettingsUI extends SettingsTyping {
 
 	public boolean getQuickSwitchLanguage() {
 		if (DEFAULT_QUICK_SWITCH_LANGUAGE == null) {
-			DEFAULT_QUICK_SWITCH_LANGUAGE = !isMainLayoutStealth() && getEnabledLanguagesIdsAsStrings().size() <= 2;
+			DEFAULT_QUICK_SWITCH_LANGUAGE = !isMainLayoutStealth() && !areEnabledLanguagesMoreThanN(2);
 		}
 
 		return prefs.getBoolean("pref_quick_switch_language", DEFAULT_QUICK_SWITCH_LANGUAGE);
