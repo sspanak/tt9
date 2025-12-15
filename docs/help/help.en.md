@@ -30,7 +30,63 @@ You can enable the notifications by going to Settings → Languages and toggling
 
 _If you decide to keep them off, TT9 will continue to work without problems, but you will have to manage the dictionaries manually._
 
-## Hotkeys
+## Settings
+On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+
+### How to access the Settings?
+
+#### Method 1
+Click on the Traditional T9 launcher icon.
+
+#### Method 2 (using a touchscreen)
+- Tap on a text or a number field to wake up TT9.
+- Use the on-screen gear button.
+
+#### Method 3 (using a physical keyboard)
+- Start typing in a text or a number field to wake up TT9.
+- Open the commands list using the on-screen tools button or by pressing the assigned hotkey [Default: Hold ✱].
+- Press the 2-key.
+
+### Navigating Around the Settings
+If you have a device with a hardware keypad, there are two ways of navigating around the Settings.
+
+1. Use the Up/Down keys for scrolling and OK for opening or activating an option.
+2. Press the 1-9 keys to select the respective option and double-press them to open/activate it. Double-pressing will work no matter where you are on the screen. For example, even if you are at the top double-pressing the 3-key will activate the third option. Finally, the 0-key is a convenient shortcut for scrolling to the end but does not open the last option.
+
+### Language Options
+
+#### Loading a Dictionary
+After enabling one or more new languages, you must load the respective dictionaries for Predictive Mode. Once a dictionary is loaded, it will stay there until you use one of the "delete" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
+
+It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), and then re-enable all languages you used before.
+
+Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you often use uncommon words.
+
+#### Automatic Dictionary Loading
+
+If you skip or forget to load a dictionary from the Settings screen, it will happen automatically later, when you go to an application where you can type, and switch to Predictive Mode. You will be prompted to wait until it completes and after that, you can start typing right away.
+
+If you delete one or more dictionaries, they will NOT reload automatically. You will have to do so manually. Only dictionaries for newly enabled languages will load automatically.
+
+#### Deleting a Dictionary
+If you have stopped using languages X or Y, you could disable them and also use "Delete Unselected", to free some storage space.
+
+To delete everything, regardless of the selection, use "Delete All".
+
+In all cases, your custom-added words will be preserved and restored once you reload the respective dictionary.
+
+#### Added Words
+The "Export" option allows you to create a CSV file with all added words for all languages. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
+
+With "Import", you can import a previously exported CSV. However, there are some restrictions:
+- You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.
+- Emojis are not allowed.
+- One CSV file can contain a maximum of 250 words.
+- You can import up to 1000 words, meaning you can import at most 4 files X 250 words. Beyond that limit, you can still add words while typing.
+
+Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
+
+## Hardware Hotkeys
 
 All hotkeys can be reconfigured or disabled from Settings → Keypad → Select Hotkeys.
 
@@ -170,22 +226,6 @@ Below is a list of the possible commands:
 
 _This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
 
-## Voice Input
-The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself; instead, it asks your phone to do it.
-
-_The Voice Input button is hidden on devices that do not support it._
-
-### Devices with Google
-On devices with Google Services, TT9 will use the Google infrastructure to convert your words to text. On Android 12 or earlier, you must connect to a Wi-Fi network or enable mobile data for this method to work. On Android 13 or higher, TT9 can perform speech recognition both online and offline, using the device's language packages. For offline usage, make sure to download all desired languages from: Android Settings → System → On-device recognition → Add a Language.
-
-_The language packages installed for Google Voice, other voice assistants, or keyboards are not guaranteed to work with Traditional T9. Installing the global packages on the "On-device recognition" screen is the recommended way._
-
-### Devices without Google
-On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment, and it will usually recognize only simple phrases, such as "open calendar" or "play music" and similar.
-
-### Other devices
-Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox". Alternatively, you can try installing the Google Go application: "com.google.android.apps.searchlite".
-
 ## On-screen Keypad
 On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual Numpad".
 
@@ -246,83 +286,47 @@ Below is a list of the possible text commands:
 
 For easier editing, backspace, space, and OK keys are also active.
 
-## Settings Screen
-On the Settings screen, you can choose languages for typing, configure the keypad hotkeys, change the application appearance, or improve compatibility with your phone.
+## Voice Input
+The voice input function allows for speech-to-text input, similar to Gboard. Like all other keyboards, Traditional T9 does not perform speech recognition by itself; instead, it asks your phone to do it.
 
-### How to access the Settings?
+_The Voice Input button is hidden on devices that do not support it._
 
-#### Method 1
-Click on the Traditional T9 launcher icon.
+### Devices with Google
+On devices with Google Services, TT9 will use the Google infrastructure to convert your words to text. On Android 12 or earlier, you must connect to a Wi-Fi network or enable mobile data for this method to work. On Android 13 or higher, TT9 can perform speech recognition both online and offline, using the device's language packages. For offline usage, make sure to download all desired languages from: Android Settings → System → On-device recognition → Add a Language.
 
-#### Method 2 (using a touchscreen)
-- Tap on a text or a number field to wake up TT9.
-- Use the on-screen gear button.
+_The language packages installed for Google Voice, other voice assistants, or keyboards are not guaranteed to work with Traditional T9. Installing the global packages on the "On-device recognition" screen is the recommended way._
 
-#### Method 3 (using a physical keyboard)
-- Start typing in a text or a number field to wake up TT9.
-- Open the commands list using the on-screen tools button or by pressing the assigned hotkey [Default: Hold ✱].
-- Press the 2-key.
+### Devices without Google
+On devices without Google, if the device has a voice assistant app or the native keyboard supports voice input, whichever is available will be used for speech recognition. Note that this method is considerably less capable than Google. It will not work in a noisy environment, and it will usually recognize only simple phrases, such as "open calendar" or "play music" and similar.
 
-### Navigating Around the Settings
-If you have a device with a hardware keypad, there are two ways of navigating around the Settings.
+### Other devices
+Other phones without Google will generally not support voice input. Chinese phones do not have speech recognition capabilities due to Chinese security policies. On these phones, it may be possible to enable voice input support by installing the Google application, package name: "com.google.android.googlequicksearchbox". Alternatively, you can try installing the Google Go application: "com.google.android.apps.searchlite".
 
-1. Use the Up/Down keys for scrolling and OK for opening or activating an option.
-2. Press the 1-9 keys to select the respective option and double-press them to open/activate it. Double-pressing will work no matter where you are on the screen. For example, even if you are at the top double-pressing the 3-key will activate the third option. Finally, the 0-key is a convenient shortcut for scrolling to the end but does not open the last option.
-
-### Language Options
-
-#### Loading a Dictionary
-After enabling one or more new languages, you must load the respective dictionaries for Predictive Mode. Once a dictionary is loaded, it will stay there until you use one of the "delete" options. This means you can enable and disable languages without reloading their dictionaries every time. Just do it once, only the first time.
-
-It also means that if you need to start using language X, you can safely disable all other languages, load only dictionary X (and save time!), and then re-enable all languages you used before.
-
-Have in mind reloading a dictionary will reset the suggestion popularity to the factory defaults. However, there should be nothing to worry about. For the most part, you will see little to no difference in the suggestion order, unless you often use uncommon words.
-
-#### Automatic Dictionary Loading
-
-If you skip or forget to load a dictionary from the Settings screen, it will happen automatically later, when you go to an application where you can type, and switch to Predictive Mode. You will be prompted to wait until it completes and after that, you can start typing right away.
-
-If you delete one or more dictionaries, they will NOT reload automatically. You will have to do so manually. Only dictionaries for newly enabled languages will load automatically.
-
-#### Deleting a Dictionary
-If you have stopped using languages X or Y, you could disable them and also use "Delete Unselected", to free some storage space.
-
-To delete everything, regardless of the selection, use "Delete All".
-
-In all cases, your custom-added words will be preserved and restored once you reload the respective dictionary.
-
-#### Added Words
-The "Export" option allows you to create a CSV file with all added words for all languages. Then, you can use the CSV file to make Traditional T9 better! Go to GitHub and share the words in a [new issue](https://github.com/sspanak/tt9/issues) or [pull request](https://github.com/sspanak/tt9/pulls). After being reviewed and approved, they will be included in the next version.
-
-With "Import", you can import a previously exported CSV. However, there are some restrictions:
-- You can import only words consisting of letters. Apostrophes, dashes, other punctuation, or special characters are not allowed.
-- Emojis are not allowed.
-- One CSV file can contain a maximum of 250 words.
-- You can import up to 1000 words, meaning you can import at most 4 files X 250 words. Beyond that limit, you can still add words while typing.
-
-Using "Delete", you can search for and delete misspelled words or others that you don't want in the dictionary.
-
-### Compatibility Options
+## Troubleshooting
 For several applications or devices, it is possible to enable special options, which will make Traditional T9 work better with them. You can find them at the end of each settings screen, under the Compatibility section.
 
-#### Alternative suggestion scrolling method
+### Alternative suggestion scrolling method
 _In: Settings → Appearance._
 
-On some devices, in Predictive Mode, you may not be able may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
+On some devices, in Predictive Mode, you may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
 
-#### Always on top
+### Always on top
 _In: Settings → Appearance._
 
 On some phones, especially Sonim XP3plus (XP3900), Traditional T9 may not appear when you start to type, or it may be partially covered by the soft keys. In other cases, there may be white bars around it. The problem may occur in one particular application or all of them. To prevent it, enable the "Always on Top" option.
 
-#### Recalculate Bottom Padding
+### Bottom Space (Portrait Orientation)
 _In: Settings → Appearance._
 
-Android 15 introduced the edge-to-edge feature, which may occasionally cause unnecessary blank space to appear under the keyboard keys. Turn on this option to ensure the bottom padding is calculated for every app and removed when unnecessary.
+On Samsung devices with Android 15 or higher, Traditional T9 may appear too low on the screen. When this happens, the system Navigation Bar would cover the last keyboard row, making the keys unusable. Attempting to type a space, press OK, or change the input mode would close the keyboard. Increasing "Bottom Space" to 48dp will resolve the problem.
 
-On Samsung Galaxy devices that come with Android 15 or that have received an upgrade to it, this option may cause TT9 to overlap with the System Navigation Bar, especially when configured to have 2 or 3 keys. If this happens, turn off the option to allow enough space for the Navigation Bar.
+In other cases, an unnecessary blank space may appear below the key block. Reducing "Bottom Space" to 0dp will eliminate it.
 
-#### Key repeat protection
+_See bug [#950](https://github.com/sspanak/tt9/issues/950) for more information._
+
+_Very rarely, non-Samsung devices may exhibit the same problems. See [#755](https://github.com/sspanak/tt9/issues/755)._
+
+### Key repeat protection
 _In: Settings → Keypad._
 
 CAT S22 Flip and Qin F21 phones are known for their low-quality keypads, which degrade quickly over time and start registering multiple clicks for a single key press. You may notice this when typing or navigating the phone menus.
@@ -334,20 +338,20 @@ _**Note:** The higher the value you set, the slower you will have to type. TT9 w
 
 _**Note 2:** Besides the above, Qin phones may also fail to detect long presses. Unfortunately, in this case, nothing can be done._
 
-#### Show Composing Text
+### Show Composing Text
 _In: Settings → Keypad._
 
 If you have trouble typing in Deezer or Smouldering Durtles, because the suggestions disappear quickly before you can see them, disable this option. It will cause the current word to remain hidden until you press OK or Space, or until you tap on the suggestion list.
 
 The problem occurs because Deezer and Smouldering Durtles sometimes modify the text you type causing TT9 to malfunction.
 
-#### Telegram/Snapchat stickers and emoji panels won't open
+### Telegram/Snapchat stickers and emoji panels won't open
 This happens if you are using one of the small-sized layouts. Currently, there is no permanent fix, but you can use the following workaround:
 - Go to Settings → Appearance and enable On-Screen Numpad.
 - Go back to the chat and click the emoji or the stickers button. They will now appear.
 - You can now go back to the settings and disable the on-screen numpad. The emoji and sticker panels will remain accessible until you restart the app or the phone.
 
-#### Traditional T9 does not appear immediately in some applications
+### Traditional T9 does not appear immediately in some applications (non-touchscreen phones only)
 If you have opened an application where you can type, but TT9 does not appear automatically, just start typing and it will. Alternatively, pressing the hotkeys to change [the input mode](#next-input-mode-key-default-press-) or the [language](#next-language-key-default-hold-) can also bring up TT9, when it is hidden.
 
 On some devices, TT9 may remain invisible, no matter what you do. In such cases, you have to enable [Always on Top](#always-on-top).
@@ -356,24 +360,34 @@ On some devices, TT9 may remain invisible, no matter what you do. In such cases,
 
 For these reasons, to stick with the expected Android standards, the control is in your hands. Just press a key to "touch" the screen and keep typing.
 
-#### On the Qin F21 Pro, holding 2-key or 8-key turns up or down the volume instead of typing a number
+### On the Qin F21 Pro, holding 2-key or 8-key turns up or down the volume instead of typing a number
 To mitigate this problem, go to Settings → Appearance, and enable "Status Icon". TT9 should detect Qin F21 and enable the settings automatically, but in case auto-detection fails, or you have disabled the icon for some reason, you need to have it enabled, for all keys to work properly.
 
 **Long explanation.** Qin F21 Pro (and possibly F22, too), has a hotkey application that allows assigning Volume Up and Volume Down functions to number keys. By default, the hotkey manager is enabled, and holding 2-key increases the volume, holding 8-key decreases it. However, when there is no status icon, the manager assumes no keyboard is active and adjusts the volume, instead of letting Traditional T9 handle the key and type a number. So, enabling the icon just bypasses the hotkey manager and everything works fine.
 
-#### General problems on Xiaomi phones
+### General problems on Xiaomi phones
 Xiaomi has introduced several non-standard permissions on their phones, which prevent Traditional T9's virtual on-screen keyboard from working properly. More precisely, the "Show Settings" and the "Add Word" keys may not perform their respective functions. To fix this, you must grant the "Display pop-up window" and "Display pop-up window while running in the background" permissions to TT9 from your phone's settings. [This guide](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) for another application explains how to do it.
 
 It is also highly recommended to grant the "Permanent notification" permission. This is similar to the "Notifications" permission introduced in Android 13. See [above](#notes-for-android-13-or-higher) for more information on why you need it.
 
 _The Xiaomi problems have been discussed in [this GitHub issue](https://github.com/sspanak/tt9/issues/490)._
 
-#### Voice Input takes a very long time to stop
+### Voice Input takes a very long time to stop
 It is [a known problem](https://issuetracker.google.com/issues/158198432) on Android 10 that Google never fixed. It is not possible to mitigate it on the TT9 side. To stop the Voice Input operation, stay quiet for a couple of seconds. Android turns off the microphone automatically when it can not detect any speech.
+
+### My banking app does not accept Traditional T9
+It is not a problem with TT9. Banks often restrict non-standard or open-source keyboards because they don't want to take risks and assume such keyboards may be insecure. Some go further and provide their own keyboards, even blocking Google's standard keyboard, Gboard. Unfortunately, in this case, the only option is to switch to the original device keyboard.
+
+### Vibration is not working (touchscreen devices only)
+Battery-saving and optimization options and the "Do not disturb" function prevent vibration. Check if any of them are on in your device's System Settings. On some devices, it is possible to configure the battery-optimization options individually, per each application from System Settings → Applications. If yours permits this, turn off the optimizations for TT9.
+
+Another reason vibration does not work is that it may be disabled on the system level. See if your device has "vibrate on touch" or "vibrate on key press" options in System Settings → Accessibility and enable them. Xiaomi and Oneplus devices allow for even more granular vibration control. Make sure all relevant settings are on.
+
+In the end, vibration does not work reliably on some devices. Fixing this will require permission and access to more device functions. However, being a privacy-first keyboard, TT9 will not request such access.
 
 ## Frequently Asked Questions
 
-#### Why don’t you add language X?
+### Why don’t you add language X?
 I’d love to — but I need your help. Supporting over 40 languages alone is impossible. Since I don’t speak your language, it’s difficult to find reliable resources online. This is where native speakers like you can make a difference!
 In fact, over 90% of the existing languages were added by or with the help of enthusiastic users.
 
@@ -381,23 +395,23 @@ To add a new one, I need a spell-checked word list, preferably from an official 
 
 If no such dictionary exists, you can provide any freely downloadable word list. The ideal size is 300k–500k words, but if your language has many inflections (changes by tense, gender, or number), about 1 million words may be needed.
 
-#### There are misspelled or missing words in language XYZ. Why don’t you fix them?
+### There are misspelled or missing words in language XYZ. Why don’t you fix them?
 As above — I don’t speak your language, so I might not notice such errors.
 But with your help, we can fix them and make the dictionary better for everyone!
 
-#### Can't you add feature X?
+### Can't you add feature X?
 No.
 
 Everyone has their preferences. Some want larger keys, some in a different order, some want a shortcut key for typing ".com," and some miss their old phone or keyboard. But please understand that I am doing voluntary work in my free time. It is impossible to fulfill thousands of different wishes, some of which contradict each other.
 
 Henry Ford once said, "It can be any color the customer wants, as long as it is black." Similarly, Traditional T9 is unadorned, effective, and free but you get what you get.
 
-#### Can't you make it more similar to Sony Ericsson or Xperia, Nokia C2, Samsung, some other software keyboard, etc?
+### Can't you make it more similar to Sony Ericsson or Xperia, Nokia C2, Samsung, some other software keyboard, etc?
 No.
 
 Traditional T9 is not meant to be a replacement or a clone app. It has its own unique design, inspired mainly by the Nokia 3310 and 6303i. And while it captures the feel of the classics, it provides its own experience that won’t replicate any device exactly.
 
-#### You should copy Touchpal, it's the greatest keyboard in the world!
+### You should copy Touchpal, it's the greatest keyboard in the world!
 No, I should not. See the previous points.
 
 Touchpal used to be the greatest keyboard back in 2015 when it had no real competition. However, things have changed since then. See the side-by-side comparison between Traditional T9 and Touchpal:
@@ -426,33 +440,23 @@ _**Touchpal**_
 
 If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
 
-#### Android warned me that the keyboard may collect my personal data, including credit card numbers and passwords
+### Android warned me that the keyboard may collect my personal data, including credit card numbers and passwords
 It is a standard Android warning displayed when you install and activate any keyboard, not just Traditional T9. Rest assured, everything you type remains on your device. The typing engine is fully open source, so you can inspect its code on GitHub and confirm that your privacy is protected.
 
 _If you still have any concerns, please refer to the app's Privacy Policy._
 
-#### My banking app does not accept Traditional T9
-It is not a problem with TT9. Banks often restrict non-standard or open-source keyboards because they don't want to take risks and assume such keyboards may be insecure. Some go further and provide their own keyboards, even blocking Google's standard keyboard, Gboard. Unfortunately, in this case, the only option is to switch to the original device keyboard.
-
-#### Vibration is not working (touchscreen devices only)
-Battery-saving and optimization options and the "Do not disturb" function prevent vibration. Check if any of them are on in your device's System Settings. On some devices, it is possible to configure the battery-optimization options individually, per each application from System Settings → Applications. If yours permits this, turn off the optimizations for TT9.
-
-Another reason vibration does not work is that it may be disabled on the system level. See if your device has "vibrate on touch" or "vibrate on key press" options in System Settings → Accessibility and enable them. Xiaomi and Oneplus devices allow for even more granular vibration control. Make sure all relevant settings are on.
-
-In the end, vibration does not work reliably on some devices. Fixing this will require permission and access to more device functions. However, being a privacy-first keyboard, TT9 will not request such access.
-
-#### I need to use a QWERTY layout (touchscreen devices only)
+### I need to use a QWERTY layout (touchscreen devices only)
 Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like layout.
 
 If you are still learning to use T9 and need to switch back occasionally or find it more convenient to type new words using QWERTY, swipe up the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
 
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
 
-#### I can't change the language on a touchscreen phone
+### I can't change the language on a touchscreen phone
 First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-key-at-the-bottom-of-the-left-column) to change the language.
 
-#### I can't add contractions like "I've" or "don't" to the dictionary
-All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibilty—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
+### How to add contractions like "I've" or "don't" to the dictionary?
+All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibility—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
 
 For example, you can type: 've by pressing: 183; or: 'll, using: 155. This means, "I'll" = 4155 and "we've" = 93183. You can also type things like "google.com", by pressing: 466453 (google) 1266 (.com).
 
