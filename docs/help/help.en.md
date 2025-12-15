@@ -456,7 +456,7 @@ Most other keyboards allow switching back to Traditional T9 by holding the space
 First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-key-at-the-bottom-of-the-left-column) to change the language.
 
 ### How to add contractions like "I've" or "don't" to the dictionary?
-All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibilty—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
+All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibility—it allows you to combine any word with any contraction, and saves a significant amount of storage space.
 
 For example, you can type: 've by pressing: 183; or: 'll, using: 155. This means, "I'll" = 4155 and "we've" = 93183. You can also type things like "google.com", by pressing: 466453 (google) 1266 (.com).
 
