@@ -30,7 +30,7 @@ Di default, le notifiche per le nuove app installate sono disabilitate. Si consi
 
 _Se si decide di tenerle disattivate, TT9 continuerà a funzionare senza problemi, ma sarà necessario gestire i dizionari manualmente._
 
-## Schermata Impostazioni
+## Impostazioni
 Nella schermata delle impostazioni, puoi scegliere le lingue per la digitazione, configurare i tasti rapidi del tastierino, cambiare l'aspetto dell'applicazione o migliorare la compatibilità con il telefono.
 
 ### Come accedere alle Impostazioni?

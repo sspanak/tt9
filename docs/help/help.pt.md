@@ -30,7 +30,7 @@ Você pode ativar as notificações indo em Configurações → Idiomas e ativan
 
 _Se optar por mantê-las desativadas, o TT9 continuará funcionando sem problemas, mas você terá que gerenciar os dicionários manualmente._
 
-## Tela de Configurações
+## Configurações
 Na tela de Configurações, você pode escolher idiomas para digitação, configurar atalhos do teclado, mudar a aparência do aplicativo ou melhorar a compatibilidade com seu telefone.
 
 ### Como acessar as Configurações?

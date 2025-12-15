@@ -30,7 +30,7 @@ Vous pouvez activer les notifications en allant dans Paramètres → Langues et 
 
 _Si vous choisissez de les garder désactivées, TT9 continuera de fonctionner sans problème, mais vous devrez gérer manuellement les dictionnaires._
 
-## Écran des paramètres
+## Paramètres
 Sur l’écran des paramètres, vous pouvez choisir les langues de saisie, configurer les touches de raccourci du pavé numérique, changer l'apparence de l'application ou améliorer la compatibilité avec votre téléphone.
 
 ### Comment accéder aux paramètres ?
