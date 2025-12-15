@@ -23,6 +23,7 @@ import io.github.sspanak.tt9.util.chars.Characters;
 class ModeWords extends ModeCheonjiin {
 	private final String LOG_TAG = getClass().getSimpleName();
 
+	private boolean ignoreNextSpace = false;
 	private String lastAcceptedWord = "";
 
 	// stem filter
@@ -95,6 +96,16 @@ class ModeWords extends ModeCheonjiin {
 
 	@Override
 	protected void onNumberPress(int nextNumber) {
+		// In East Asian languages, Spacebar must accept the current word, or type a space when there
+		// is no word. Here, we handle the case when 0-key is Space, and not the Space hotkey in
+		// HotkeyHandler, which could be a different key, assigned by the user.
+		if (ignoreNextSpace && nextNumber == Sequences.CHARS_0_KEY) {
+			ignoreNextSpace = false;
+			return;
+		}
+
+		ignoreNextSpace = false;
+
 		if (!language.isTranscribed() && containsGeneratedSuggestions() && digitSequence.length() - 1 == stem.length() && !predictions.getList().isEmpty() && predictions.getList().get(0).startsWith(stem)) {
 			// For alphabet-based languages, in case we are currently showing:
 			// > word + ... | ... a | ... b | ... c |
@@ -114,6 +125,7 @@ class ModeWords extends ModeCheonjiin {
 	@Override
 	protected void onNumberHold(int number) {
 		autoAcceptTimeout = 0;
+		ignoreNextSpace = false;
 		suggestions.add(language.getKeyNumeral(number));
 	}
 
@@ -456,6 +468,10 @@ class ModeWords extends ModeCheonjiin {
 	 */
 	@Override
 	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextDigit, boolean hold) {
+		if (!language.hasSpaceBetweenWords() && nextDigit == Sequences.CHARS_0_KEY && !digitSequence.isEmpty() && !seq.isAnySpecialCharSequence(digitSequence)) {
+			ignoreNextSpace = true;
+		}
+
 		if (hold) {
 			return true;
 		}
