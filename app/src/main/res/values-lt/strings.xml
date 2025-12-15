@@ -58,8 +58,7 @@
 	<string name="pref_key_shadows">Šešėliai po klavišais</string>
 	<string name="pref_keyboard_preview">Peržiūra</string>
 	<string name="pref_layout">Išdėstymo tipas</string>
-	<string name="pref_layout_numpad">Skaičių klaviatūra</string>
-	<string name="pref_layout_small">Funkcijos klavišai</string>
+    <string name="pref_layout_small">Funkcijos klavišai</string>
 	<string name="pref_layout_stealth">Nematomas režimas</string>
 	<string name="pref_layout_tray">Tik žodžių sąrašas</string>
 	<string name="pref_haptic_feedback_summary">Vibruoti paspaudus virtualų klavišą. (Neįmanoma visuose įrenginiuose)</string>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/TTheme.FullScreenContainer">
+
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_left">
+		<View android:id="@+id/bumper_left_top_separator" style="@style/TTheme.Bumper.TopSeparator" />
+	</LinearLayout>
+
+	<LinearLayout style="@style/TTheme.Numpad" android:id="@+id/keyboard_container">
+		<View style="@style/TTheme.Keyboard.TopSeparator" />
+		<include layout="@layout/panel_numpad_status_bar" />
+
+		<LinearLayout style="@style/TTheme.Classic.Key.Container" android:id="@+id/main_soft_keys">
+
+			<include layout="@layout/panel_classic_fn_keys" />
+
+			<LinearLayout style="@style/TTheme.Classic.CentralBlock">
+				<LinearLayout style="@style/TTheme.Numpad.CentralBlock.Digits1to9">
+					<include layout="@layout/panel_numpad_digits" />
+				</LinearLayout>
+
+				<include layout="@layout/panel_numpad_long_spacebar" />
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<include
+			layout="@layout/panel_extra"
+			android:id="@+id/main_panel_extra"
+			android:visibility="gone" />
+
+	</LinearLayout>
+
+	<LinearLayout style="@style/TTheme.FullScreenContainer.SideBumper" android:id="@+id/bumper_right">
+		<View android:id="@+id/bumper_right_top_separator" style="@style/TTheme.Bumper.TopSeparator" />
+	</LinearLayout>
+
+</LinearLayout>

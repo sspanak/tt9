@@ -27,6 +27,7 @@ public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_TRAY = 2;
 	public final static int LAYOUT_SMALL = 3;
 	public final static int LAYOUT_NUMPAD = 4;
+	public final static int LAYOUT_CLASSIC = 5;
 
 	private final int DEFAULT_LAYOUT;
 
@@ -39,7 +40,7 @@ public class SettingsUI extends SettingsTyping {
 		super(context);
 
 		if (DeviceInfo.noKeyboard(context)) {
-			DEFAULT_LAYOUT = LAYOUT_NUMPAD;
+			DEFAULT_LAYOUT = LAYOUT_CLASSIC; // @todo: use classic when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
 		} else if (DeviceInfo.noBackspaceKey() && !DeviceInfo.noTouchScreen(context)) {
 			DEFAULT_LAYOUT = LAYOUT_SMALL;
 		} else {
@@ -177,7 +178,7 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public void setMainViewLayout(int layout) {
-		if (layout != LAYOUT_STEALTH && layout != LAYOUT_TRAY && layout != LAYOUT_SMALL && layout != LAYOUT_NUMPAD) {
+		if (layout != LAYOUT_STEALTH && layout != LAYOUT_TRAY && layout != LAYOUT_SMALL && layout != LAYOUT_NUMPAD && layout != LAYOUT_CLASSIC) {
 			Logger.w(getClass().getSimpleName(), "Ignoring invalid main view layout: " + layout);
 			return;
 		}
@@ -190,6 +191,7 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt(DropDownLayoutType.NAME, DEFAULT_LAYOUT);
 	}
 
+	public boolean isMainLayoutClassic() { return getMainViewLayout() == LAYOUT_CLASSIC; }
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
 	public boolean isMainLayoutTray() { return getMainViewLayout() == LAYOUT_TRAY; }
 	public boolean isMainLayoutSmall() { return getMainViewLayout() == LAYOUT_SMALL; }

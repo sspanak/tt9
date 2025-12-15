@@ -22,7 +22,9 @@ public class StaticMainView {
 
 
 	protected BaseMainLayout getViewInstance(SettingsStore settings) {
-		if (settings.isMainLayoutNumpad() && !(main instanceof MainLayoutNumpad)) {
+		if (settings.isMainLayoutClassic() && (main == null || !main.getClass().equals(MainLayoutClassic.class))) {
+			return new MainLayoutClassic(tt9);
+		} else if (settings.isMainLayoutNumpad() && (main == null || !main.getClass().equals(MainLayoutNumpad.class))) {
 			return new MainLayoutNumpad(tt9);
 		} else if (settings.isMainLayoutSmall() && (main == null || !main.getClass().equals(MainLayoutSmall.class))) {
 			return new MainLayoutSmall(tt9);

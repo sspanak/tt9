@@ -18,8 +18,7 @@
 	<string name="pref_key_shadows">Tuşların altındaki gölgeler</string>
 	<string name="pref_keyboard_preview">Önizleme</string>
 	<string name="pref_layout">Düzen türü</string>
-	<string name="pref_layout_numpad">Sanal Tuş Takımı</string>
-	<string name="pref_layout_small">İşlevsel Tuşlar</string>
+    <string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>

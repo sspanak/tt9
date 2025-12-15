@@ -16,19 +16,15 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
-class MainLayoutNumpad extends MainLayoutExtraPanel {
+class MainLayoutNumpad extends MainLayoutClassic {
 	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
 
 	@NonNull private String lastFnKeyOrder = "";
 	private int lastLFnWrapperId = -1;
 	private int lastRFnWrapperId = -1;
-	private int height;
-	private boolean isTextEditingShown = false;
 
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
@@ -39,43 +35,14 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	@Override void showCommandPalette() {}
 	@Override boolean isCommandPaletteShown() { return false; }
 
-
-	protected void toggleTextEditingColumns(boolean show) {
-		isTextEditingShown = show;
-	}
-
-
-	@Override
-	void showKeyboard() {
-		super.showKeyboard();
-		togglePanel(R.id.main_soft_keys, true);
-		toggleTextEditingColumns(false);
-		renderKeys(false);
-	}
-
-
-	@Override
-	void showTextEditingPalette() {
-		super.showTextEditingPalette();
-		togglePanel(R.id.main_soft_keys, true);
-		toggleTextEditingColumns(true);
-		renderKeys(false);
-	}
-
-
-	@Override
-	boolean isTextEditingPaletteShown() {
-		return isTextEditingShown;
-	}
-
-
 	/**
 	 * Uses the key height from the settings, but if the keyboard takes up too much screen space, it
 	 * will be adjusted limited to 60% of the screen height in landscape mode and 75% in portrait mode.
 	 * This prevents Android from auto-closing the keyboard in some apps that have a lot of content.
 	 * Returns the adjusted height of a single key.
 	 */
-	private int[] calculateKeyHeight() {
+	@Override
+	protected int[] calculateKeyHeight() {
 		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
 
 		final int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
@@ -95,12 +62,14 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	}
 
 
-	private int getLastFnKeyHeight(int keyHeight) {
+	@Override
+	protected int getLastSideKeyHeight(int keyHeight) {
 		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
 	}
 
 
-	private void setKeyHeight(int defaultHeight, int leftHeight, int rightHeight) {
+	@Override
+	protected void setKeyHeight(int defaultHeight, int leftHeight, int rightHeight) {
 		if (view == null || defaultHeight <= 0) {
 			return;
 		}
@@ -114,18 +83,13 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 			final boolean isLastInColumn = wrapper != null && (wrapper.getId() == lastLFnWrapperId || wrapper.getId() == lastRFnWrapperId);
 
 			if (container != null && container.equals(leftColumn)) {
-				key.setHeight(isLastInColumn ? getLastFnKeyHeight(leftHeight) : leftHeight);
+				key.setHeight(isLastInColumn ? getLastSideKeyHeight(leftHeight) : leftHeight);
 			}	else if (container != null && container.equals(rightColumn)) {
-				key.setHeight(isLastInColumn ? getLastFnKeyHeight(rightHeight) : rightHeight);
+				key.setHeight(isLastInColumn ? getLastSideKeyHeight(rightHeight) : rightHeight);
 			} else {
 				key.setHeight(defaultHeight);
 			}
 		}
-	}
-
-
-	private int getKeyColumnHeight(int keyHeight) {
-		return keyHeight * 3 + getLastFnKeyHeight(keyHeight);
 	}
 
 
@@ -166,26 +130,9 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 	}
 
 
-	private void showLongSpace(boolean yes, int keyHeight) {
-		LinearLayout longSpacePanel = view != null ? view.findViewById(R.id.panel_long_spacebar) : null;
-		if (longSpacePanel != null) {
-			longSpacePanel.setVisibility(yes ? LinearLayout.VISIBLE : LinearLayout.GONE);
-			LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) longSpacePanel.getLayoutParams();
-			params.height = keyHeight;
-			longSpacePanel.setLayoutParams(params);
-		}
-	}
-
-
 	@Override
-	protected void enableClickHandlers() {
-		super.enableClickHandlers();
-
-		for (SoftKey key : getKeys()) {
-			if (key instanceof SoftKeySettings) {
-				((SoftKeySettings) key).setMainView(tt9.getMainView());
-			}
-		}
+	protected int getKeyColumnHeight(int keyHeight) {
+		return keyHeight * 3 + getLastSideKeyHeight(keyHeight);
 	}
 
 
@@ -196,8 +143,7 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 			return keys;
 		}
 
-		// status bar
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
+		super.getKeys();
 
 		// left Fn
 		addKey(R.id.soft_key_settings);
@@ -210,26 +156,6 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		addKey(R.id.soft_key_filter);
 		addKey(R.id.soft_key_rf3);
 		addKey(R.id.soft_key_numpad_ok);
-
-		// digits panel
-		ViewGroup table = view.findViewById(R.id.main_soft_keys);
-		addKey(R.id.soft_key_0, table);
-		addKey(R.id.soft_key_1, table);
-		addKey(R.id.soft_key_2, table);
-		addKey(R.id.soft_key_3, table);
-		addKey(R.id.soft_key_4, table);
-		addKey(R.id.soft_key_5, table);
-		addKey(R.id.soft_key_6, table);
-		addKey(R.id.soft_key_7, table);
-		addKey(R.id.soft_key_8, table);
-		addKey(R.id.soft_key_9, table);
-		addKey(R.id.soft_key_text_1, table);
-		addKey(R.id.soft_key_text_2, table);
-
-		// Long space panel
-		addKey(R.id.soft_key_200, table);
-		addKey(R.id.soft_key_text_201, table);
-		addKey(R.id.soft_key_text_202, table);
 
 		return keys;
 	}
@@ -313,35 +239,6 @@ class MainLayoutNumpad extends MainLayoutExtraPanel {
 		}
 
 		return viewId != null ? viewId : -1;
-	}
-
-
-	@Override
-	void renderKeys(boolean onlyDynamic) {
-		super.renderKeys(onlyDynamic);
-
-		// toggle the long space row
-		if (!tt9.getSettings().isNumpadShapeLongSpace() || tt9.isInputModeNumeric() || isFnPanelVisible() || (tt9.getLanguage() != null && tt9.getLanguage().hasLettersOnAllKeys())) {
-			showLongSpace(false, 0);
-			return;
-		}
-
-		// set the same height as other numeric keys
-		int numericKeyHeight = 0;
-
-		for (SoftKey key : getKeys()) {
-			if (key instanceof SoftKeyNumber2to9) {
-				numericKeyHeight = key.getHeight();
-				break;
-			}
-		}
-
-		// or calculate it if no numeric keys are found (should not happen)
-		if (numericKeyHeight <= 0) {
-			numericKeyHeight = calculateKeyHeight()[0];
-		}
-
-		showLongSpace(true, numericKeyHeight);
 	}
 
 

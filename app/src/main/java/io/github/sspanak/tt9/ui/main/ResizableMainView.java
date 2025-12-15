@@ -18,6 +18,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	private float resizeStartY;
 	private long lastResizeTime;
 
+	private int heightClassic;
 	private int heightNumpad;
 	private int heightSmall;
 	private int heightTray;
@@ -32,6 +33,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	private void calculateSnapHeights() {
 		boolean forceRecalculate = DeviceInfo.AT_LEAST_ANDROID_15;
 
+		heightClassic = new MainLayoutClassic(tt9).getHeight(forceRecalculate);
 		heightNumpad = new MainLayoutNumpad(tt9).getHeight(forceRecalculate);
 		heightSmall = new MainLayoutSmall(tt9).getHeight(forceRecalculate);
 		heightTray = new MainLayoutTray(tt9).getHeight(forceRecalculate);
@@ -71,7 +73,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 	@Override public void onViewAttachedToWindow(@NonNull View v) {
 		if (main != null) {
 			main.setPadding();
-			setHeight(height, heightSmall, heightNumpad);
+			setHeight(height, heightSmall, main instanceof MainLayoutNumpad ? heightNumpad : heightClassic);
 		}
 	}
 
@@ -83,7 +85,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 
 
 	public void onAlign(float deltaX) {
-		if (!(main instanceof MainLayoutNumpad)) {
+		if (!(main instanceof MainLayoutNumpad) && !(main instanceof MainLayoutClassic)) {
 			return;
 		}
 
@@ -157,7 +159,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
-			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
+			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD); // @todo: use preferred numpad style with/without Fn keys
 			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
 			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();
@@ -224,9 +226,12 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		calculateSnapHeights();
 		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
-		if (main instanceof MainLayoutNumpad) {
+		 if (main instanceof MainLayoutNumpad) {
 			heightLow = heightSmall;
 			heightHigh = heightNumpad;
+		} else if (main instanceof MainLayoutClassic) {
+			heightLow = heightSmall;
+			heightHigh = heightClassic;
 		} else if (main instanceof MainLayoutSmall) {
 			heightLow = 0;
 			heightHigh = Math.max(heightSmall, heightMain); // make room for the command palette

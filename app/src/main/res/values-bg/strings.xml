@@ -17,8 +17,7 @@
 	<string name="pref_key_shadows">Сенки под клавишите</string>
 	<string name="pref_keyboard_preview">Преглед</string>
 	<string name="pref_layout">Вид на подредбата</string>
-	<string name="pref_layout_numpad">Цифрова клавиатура</string>
-	<string name="pref_layout_small">Функционални клавиши</string>
+    <string name="pref_layout_small">Функционални клавиши</string>
 	<string name="pref_layout_stealth">Невидим режим</string>
 	<string name="pref_layout_tray">Само списък с думи</string>
 	<string name="pref_help">Помощ</string>

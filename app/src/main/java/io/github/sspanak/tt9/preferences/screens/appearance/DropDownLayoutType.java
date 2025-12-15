@@ -29,6 +29,7 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 		add(SettingsUI.LAYOUT_STEALTH, R.string.pref_layout_stealth);
 		add(SettingsUI.LAYOUT_TRAY, R.string.pref_layout_tray);
 		add(SettingsUI.LAYOUT_SMALL, R.string.pref_layout_small);
+		add(SettingsUI.LAYOUT_CLASSIC, R.string.pref_layout_classic);
 		add(SettingsUI.LAYOUT_NUMPAD, R.string.pref_layout_numpad);
 		commitOptions();
 		super.setValue(String.valueOf(settings.getMainViewLayout()));
@@ -61,6 +62,8 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 		for (ItemLayoutChangeReactive item : onChangeReactiveItems) {
 			item.onLayoutChange(newLayout);
 		}
+
+		// @todo: set preferred virtual numpad; default = if current is with Fn keys, then with Fn keys, else: classic
 
 		return true;
 	}

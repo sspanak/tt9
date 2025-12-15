@@ -17,8 +17,7 @@
 	<string name="pref_key_shadows">Schaduwen onder toetsen</string>
 	<string name="pref_keyboard_preview">Voorbeeld</string>
 	<string name="pref_layout">Indelingstype</string>
-	<string name="pref_layout_numpad">Numeriek toetsenbord</string>
-	<string name="pref_layout_small">Functieknoppen</string>
+    <string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>
 	<string name="pref_haptic_feedback_summary">Trillen bij het indrukken van een virtuele toets. (Niet mogelijk op alle apparaten)</string>

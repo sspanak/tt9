@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/classic_row_function_keys"
+	android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal">
+
+<!--	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_1">-->
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettings
+			android:layout_height="@dimen/numpad_key_height" android:layout_width="0dp" android:layout_weight="1"
+			android:id="@+id/soft_key_settings" />
+<!--		<include layout="@layout/key_overlay_side_chars" />-->
+<!--	</RelativeLayout>-->
+
+<!--	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_8">-->
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
+			android:layout_height="@dimen/numpad_key_height" android:layout_width="0dp" android:layout_weight="1"
+			android:id="@+id/soft_key_numpad_ok" />
+<!--	</RelativeLayout>-->
+
+<!--	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper" android:id="@+id/soft_key_wrapper_5">-->
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyBackspace
+			android:layout_height="@dimen/numpad_key_height" android:layout_width="0dp" android:layout_weight="1"
+			android:id="@+id/soft_key_numpad_backspace" />
+<!--	</RelativeLayout>-->
+</LinearLayout>
