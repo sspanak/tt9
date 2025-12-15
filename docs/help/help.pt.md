@@ -30,7 +30,63 @@ Você pode ativar as notificações indo em Configurações → Idiomas e ativan
 
 _Se optar por mantê-las desativadas, o TT9 continuará funcionando sem problemas, mas você terá que gerenciar os dicionários manualmente._
 
-## Atalhos de Teclado
+## Tela de Configurações
+Na tela de Configurações, você pode escolher idiomas para digitação, configurar atalhos do teclado, mudar a aparência do aplicativo ou melhorar a compatibilidade com seu telefone.
+
+### Como acessar as Configurações?
+
+#### Método 1
+Clique no ícone de inicialização do Traditional T9.
+
+#### Método 2 (usando uma tela sensível ao toque)
+- Toque em um campo de texto ou número para ativar o TT9.
+- Use o botão de engrenagem na tela.
+
+#### Método 3 (usando um teclado físico)
+- Comece a digitar em um campo de texto ou número para ativar o TT9.
+- Abra a lista de comandos usando o botão de ferramentas na tela ou pressionando a tecla de atalho atribuída [Padrão: Segure ✱].
+- Pressione a tecla 2.
+
+### Navegando nas Configurações
+Se você tem um dispositivo com teclado físico, há duas formas de navegar nas Configurações.
+
+1. Use as teclas Cima/Baixo para rolar e OK para abrir ou ativar uma opção.
+2. Pressione as teclas 1-9 para selecionar a opção correspondente e pressione-as duas vezes para abrir/ativar. O duplo toque funcionará independentemente de onde você esteja na tela. Por exemplo, mesmo se estiver no topo, ao pressionar duas vezes a tecla 3, a terceira opção será ativada. Finalmente, a tecla 0 é um atalho conveniente para rolar até o final, mas não abre a última opção.
+
+### Opções de Idioma
+
+#### Carregar um Dicionário
+Depois de habilitar um ou mais idiomas novos, você deve carregar os respectivos dicionários para o Modo Preditivo. Uma vez carregado, o dicionário permanecerá até que você use uma das opções de "excluir". Isso significa que você pode habilitar e desabilitar idiomas sem recarregar seus dicionários sempre. Basta fazer isso uma vez, apenas na primeira vez.
+
+Isso também significa que, se você precisar começar a usar o idioma X, poderá desativar com segurança todos os outros idiomas, carregar apenas o dicionário X (e economizar tempo!) e, em seguida, reativar todos os idiomas que usava antes.
+
+Lembre-se de que recarregar um dicionário redefinirá a popularidade das sugestões para os padrões de fábrica. No entanto, não há motivo para preocupação. Na maioria dos casos, você verá pouca ou nenhuma diferença na ordem das sugestões, a menos que use palavras incomuns com frequência.
+
+#### Carregamento Automático de Dicionário
+
+Se você pular ou esquecer de carregar um dicionário na tela de Configurações, isso acontecerá automaticamente mais tarde, ao abrir um aplicativo onde é possível digitar e alternar para o Modo Preditivo. Você será solicitado a esperar até que o processo seja concluído e, após isso, poderá começar a digitar imediatamente.
+
+Se você excluir um ou mais dicionários, eles NÃO serão recarregados automaticamente. Você terá que fazer isso manualmente. Somente dicionários de idiomas recentemente habilitados carregarão automaticamente.
+
+#### Excluindo um Dicionário
+Se você parou de usar os idiomas X ou Y, pode desativá-los e usar "Excluir Não Selecionados" para liberar espaço de armazenamento.
+
+Para excluir tudo, independentemente da seleção, use "Excluir Todos".
+
+Em todos os casos, as palavras adicionadas por você serão preservadas e restauradas assim que você recarregar o dicionário respectivo.
+
+#### Palavras Adicionadas
+A opção "Exportar" permite criar um arquivo CSV com todas as palavras adicionadas para todos os idiomas. Em seguida, você pode usar o arquivo CSV para melhorar o Traditional T9! Acesse o GitHub e compartilhe as palavras em uma [nova issue](https://github.com/sspanak/tt9/issues) ou [pull request](https://github.com/sspanak/tt9/pulls). Após revisão e aprovação, elas serão incluídas na próxima versão.
+
+Com "Importar", você pode importar um CSV exportado anteriormente. No entanto, há algumas restrições:
+- Você só pode importar palavras que consistam em letras. Apóstrofos, hífens, outras pontuações ou caracteres especiais não são permitidos.
+- Emojis não são permitidos.
+- Um arquivo CSV pode conter no máximo 250 palavras.
+- É possível importar até 1000 palavras, o que significa que você pode importar no máximo 4 arquivos X 250 palavras. Além desse limite, ainda é possível adicionar palavras ao digitar.
+
+Usando "Excluir", você pode buscar e deletar palavras com erros ortográficos ou outras que não deseja no dicionário.
+
+## Teclas de atalho de hardware
 
 Todos os atalhos de teclado podem ser reconfigurados ou desativados em Configurações → Teclado → Selecionar Atalhos.
 
@@ -170,22 +226,6 @@ Aqui está uma lista de comandos possíveis:
 
 _Esta tecla não faz nada quando a Exibição de Tela está configurada para “Teclado Virtual”, pois todas as teclas para todas as funções possíveis já estão disponíveis na tela._
 
-## Entrada por Voz
-A função de entrada por voz permite converter fala em texto, similar ao Gboard. Como todos os outros teclados, o Traditional T9 não realiza o reconhecimento de voz por conta própria; em vez disso, solicita ao seu telefone que faça isso.
-
-_O botão de Entrada por Voz fica oculto em dispositivos que não a suportam._
-
-### Dispositivos com Google
-Em dispositivos com os Serviços do Google, o TT9 usará a infraestrutura do Google para converter sua fala em texto. No Android 12 ou anterior, você deve estar conectado a uma rede Wi-Fi ou ativar os dados móveis para que esse método funcione. No Android 13 ou superior, o TT9 pode realizar o reconhecimento de voz tanto online quanto offline, usando os pacotes de idiomas do dispositivo. Para uso offline, certifique-se de baixar todos os idiomas desejados em: Configurações do Android → Sistema → Reconhecimento no dispositivo → Adicionar idioma.
-
-_Os pacotes de idioma instalados para o Google Voice, outros assistentes de voz ou teclados não são garantidos para funcionar com o Traditional T9. Recomenda-se instalar os pacotes globais na tela "Reconhecimento no dispositivo"._
-
-### Dispositivos sem Google
-Em dispositivos sem Google, se houver um app de assistente de voz ou o teclado nativo suportar entrada por voz, o que estiver disponível será usado para reconhecimento de voz. No entanto, esse método é consideravelmente menos eficaz do que o do Google. Ele não funcionará em ambientes barulhentos e normalmente reconhecerá apenas frases simples, como "abrir calendário" ou "tocar música".
-
-### Outros dispositivos
-Outros telefones sem Google geralmente não suportam entrada por voz. Telefones chineses não possuem capacidades de reconhecimento de fala devido a políticas de segurança chinesas. Nestes dispositivos, pode ser possível ativar o suporte à entrada por voz instalando o aplicativo do Google, nome do pacote: "com.google.android.googlequicksearchbox". Como alternativa, você pode tentar instalar o aplicativo Google Go: "com.google.android.apps.searchlite".
-
 ## Teclado na Tela
 Em telefones apenas com tela sensível ao toque, um teclado completo na tela está disponível e será ativado automaticamente. Se, por algum motivo, seu telefone não foi detectado como tendo touchscreen, ative-o indo em Configurações → Aparência → Layout na Tela e selecione "Teclado Numérico Virtual".
 
@@ -246,83 +286,47 @@ Abaixo está uma lista dos comandos de texto possíveis:
 
 Para facilitar a edição, as teclas backspace, espaço e OK também estão ativas.
 
-## Tela de Configurações
-Na tela de Configurações, você pode escolher idiomas para digitação, configurar atalhos do teclado, mudar a aparência do aplicativo ou melhorar a compatibilidade com seu telefone.
+## Entrada por Voz
+A função de entrada por voz permite converter fala em texto, similar ao Gboard. Como todos os outros teclados, o Traditional T9 não realiza o reconhecimento de voz por conta própria; em vez disso, solicita ao seu telefone que faça isso.
 
-### Como acessar as Configurações?
+_O botão de Entrada por Voz fica oculto em dispositivos que não a suportam._
 
-#### Método 1
-Clique no ícone de inicialização do Traditional T9.
+### Dispositivos com Google
+Em dispositivos com os Serviços do Google, o TT9 usará a infraestrutura do Google para converter sua fala em texto. No Android 12 ou anterior, você deve estar conectado a uma rede Wi-Fi ou ativar os dados móveis para que esse método funcione. No Android 13 ou superior, o TT9 pode realizar o reconhecimento de voz tanto online quanto offline, usando os pacotes de idiomas do dispositivo. Para uso offline, certifique-se de baixar todos os idiomas desejados em: Configurações do Android → Sistema → Reconhecimento no dispositivo → Adicionar idioma.
 
-#### Método 2 (usando uma tela sensível ao toque)
-- Toque em um campo de texto ou número para ativar o TT9.
-- Use o botão de engrenagem na tela.
+_Os pacotes de idioma instalados para o Google Voice, outros assistentes de voz ou teclados não são garantidos para funcionar com o Traditional T9. Recomenda-se instalar os pacotes globais na tela "Reconhecimento no dispositivo"._
 
-#### Método 3 (usando um teclado físico)
-- Comece a digitar em um campo de texto ou número para ativar o TT9.
-- Abra a lista de comandos usando o botão de ferramentas na tela ou pressionando a tecla de atalho atribuída [Padrão: Segure ✱].
-- Pressione a tecla 2.
+### Dispositivos sem Google
+Em dispositivos sem Google, se houver um app de assistente de voz ou o teclado nativo suportar entrada por voz, o que estiver disponível será usado para reconhecimento de voz. No entanto, esse método é consideravelmente menos eficaz do que o do Google. Ele não funcionará em ambientes barulhentos e normalmente reconhecerá apenas frases simples, como "abrir calendário" ou "tocar música".
 
-### Navegando nas Configurações
-Se você tem um dispositivo com teclado físico, há duas formas de navegar nas Configurações.
+### Outros dispositivos
+Outros telefones sem Google geralmente não suportam entrada por voz. Telefones chineses não possuem capacidades de reconhecimento de fala devido a políticas de segurança chinesas. Nestes dispositivos, pode ser possível ativar o suporte à entrada por voz instalando o aplicativo do Google, nome do pacote: "com.google.android.googlequicksearchbox". Como alternativa, você pode tentar instalar o aplicativo Google Go: "com.google.android.apps.searchlite".
 
-1. Use as teclas Cima/Baixo para rolar e OK para abrir ou ativar uma opção.
-2. Pressione as teclas 1-9 para selecionar a opção correspondente e pressione-as duas vezes para abrir/ativar. O duplo toque funcionará independentemente de onde você esteja na tela. Por exemplo, mesmo se estiver no topo, ao pressionar duas vezes a tecla 3, a terceira opção será ativada. Finalmente, a tecla 0 é um atalho conveniente para rolar até o final, mas não abre a última opção.
-
-### Opções de Idioma
-
-#### Carregar um Dicionário
-Depois de habilitar um ou mais idiomas novos, você deve carregar os respectivos dicionários para o Modo Preditivo. Uma vez carregado, o dicionário permanecerá até que você use uma das opções de "excluir". Isso significa que você pode habilitar e desabilitar idiomas sem recarregar seus dicionários sempre. Basta fazer isso uma vez, apenas na primeira vez.
-
-Isso também significa que, se você precisar começar a usar o idioma X, poderá desativar com segurança todos os outros idiomas, carregar apenas o dicionário X (e economizar tempo!) e, em seguida, reativar todos os idiomas que usava antes.
-
-Lembre-se de que recarregar um dicionário redefinirá a popularidade das sugestões para os padrões de fábrica. No entanto, não há motivo para preocupação. Na maioria dos casos, você verá pouca ou nenhuma diferença na ordem das sugestões, a menos que use palavras incomuns com frequência.
-
-#### Carregamento Automático de Dicionário
-
-Se você pular ou esquecer de carregar um dicionário na tela de Configurações, isso acontecerá automaticamente mais tarde, ao abrir um aplicativo onde é possível digitar e alternar para o Modo Preditivo. Você será solicitado a esperar até que o processo seja concluído e, após isso, poderá começar a digitar imediatamente.
-
-Se você excluir um ou mais dicionários, eles NÃO serão recarregados automaticamente. Você terá que fazer isso manualmente. Somente dicionários de idiomas recentemente habilitados carregarão automaticamente.
-
-#### Excluindo um Dicionário
-Se você parou de usar os idiomas X ou Y, pode desativá-los e usar "Excluir Não Selecionados" para liberar espaço de armazenamento.
-
-Para excluir tudo, independentemente da seleção, use "Excluir Todos".
-
-Em todos os casos, as palavras adicionadas por você serão preservadas e restauradas assim que você recarregar o dicionário respectivo.
-
-#### Palavras Adicionadas
-A opção "Exportar" permite criar um arquivo CSV com todas as palavras adicionadas para todos os idiomas. Em seguida, você pode usar o arquivo CSV para melhorar o Traditional T9! Acesse o GitHub e compartilhe as palavras em uma [nova issue](https://github.com/sspanak/tt9/issues) ou [pull request](https://github.com/sspanak/tt9/pulls). Após revisão e aprovação, elas serão incluídas na próxima versão.
-
-Com "Importar", você pode importar um CSV exportado anteriormente. No entanto, há algumas restrições:
-- Você só pode importar palavras que consistam em letras. Apóstrofos, hífens, outras pontuações ou caracteres especiais não são permitidos.
-- Emojis não são permitidos.
-- Um arquivo CSV pode conter no máximo 250 palavras.
-- É possível importar até 1000 palavras, o que significa que você pode importar no máximo 4 arquivos X 250 palavras. Além desse limite, ainda é possível adicionar palavras ao digitar.
-
-Usando "Excluir", você pode buscar e deletar palavras com erros ortográficos ou outras que não deseja no dicionário.
-
-### Opções de Compatibilidade
+## Solução de problemas
 Para diversos aplicativos ou dispositivos, é possível habilitar opções especiais, que farão o Traditional T9 funcionar melhor com eles. Você pode encontrá-las ao final de cada tela de configurações, na seção Compatibilidade.
 
-#### Método alternativo de rolagem de sugestões
+### Método alternativo de rolagem de sugestões
 _Em: Configurações → Aparência._
 
 Em alguns dispositivos, no Modo Preditivo, pode ser que você não consiga rolar a lista até o final, ou precise rolar para trás e para frente várias vezes até que a última sugestão apareça. O problema ocorre às vezes no Android 9 ou anterior. Habilite a opção se estiver enfrentando esse problema.
 
-#### Sempre no topo
+### Sempre no topo
 _Em: Configurações → Aparência._
 
 Em alguns celulares, especialmente Sonim XP3plus (XP3900), o Traditional T9 pode não aparecer ao começar a digitar ou pode ser parcialmente coberto pelas teclas de navegação na tela. Em outros casos, podem aparecer barras brancas ao redor. O problema pode ocorrer em um aplicativo específico ou em todos. Para evitar isso, ative a opção "Sempre no Topo".
 
-#### Recalcular Espaçamento Inferior
+### Espaço inferior (orientação retrato)
 _Em: Configurações → Aparência._
 
-O Android 15 introduziu o recurso de tela de ponta a ponta, que pode ocasionalmente causar a aparição de um espaço em branco desnecessário abaixo das teclas do teclado. Ative esta opção para garantir que o espaçamento inferior seja calculado para cada aplicativo e removido quando não for necessário.
+Em dispositivos Samsung com Android 15 ou superior, o Traditional T9 pode aparecer muito abaixo na tela. Quando isso ocorre, a barra de navegação do sistema cobre a última linha do teclado, tornando as teclas inutilizáveis. Ao tentar digitar um espaço, pressionar OK ou alterar o modo de entrada, o teclado é fechado. Aumentar o valor de “Espaço inferior” para 48 dp resolverá o problema.
 
-Em dispositivos Samsung Galaxy com Android 15 ou que receberam a atualização, essa opção pode fazer com que o TT9 se sobreponha à Barra de Navegação do Sistema, especialmente quando ela estiver configurada com 2 ou 3 botões. Se isso acontecer, desative a opção para permitir espaço suficiente para a barra de navegação.
+Em outros casos, pode surgir um espaço em branco desnecessário abaixo do bloco de teclas. Reduzir “Espaço inferior” para 0 dp eliminará esse espaço.
 
-#### Proteção contra repetição de teclas
+_Veja o bug [#950](https://github.com/sspanak/tt9/issues/950) para mais informações._
+
+_Em casos muito raros, dispositivos que não são da Samsung podem apresentar os mesmos problemas. Consulte [#755](https://github.com/sspanak/tt9/issues/755)._
+
+### Proteção contra repetição de teclas
 _Em: Configurações → Teclado._
 
 Os telefones CAT S22 Flip e Qin F21 são conhecidos por seus teclados de baixa qualidade, que se degradam rapidamente ao longo do tempo e começam a registrar múltiplos cliques para uma única pressão de tecla. Você pode notar isso ao digitar ou navegar nos menus do telefone.
@@ -333,20 +337,20 @@ _**Nota:** Quanto maior o valor configurado, mais lento você precisará digitar
 
 _**Nota 2:** Além do problema acima, os celulares Qin também podem falhar ao detectar pressões longas. Infelizmente, neste caso, nada pode ser feito._
 
-#### Mostrar texto em composição
+### Mostrar texto em composição
 _Em: Configurações → Teclado._
 
 Se você está tendo problemas para digitar no Deezer ou Smouldering Durtles porque as sugestões desaparecem rapidamente antes que você possa vê-las, desative esta opção. Isso fará com que a palavra atual permaneça oculta até que você pressione OK ou Espaço, ou até que toque na lista de sugestões.
 
 O problema ocorre porque Deezer e Smouldering Durtles às vezes modificam o texto que você digita, causando um mau funcionamento do TT9.
 
-#### Painéis de figurinhas e emojis do Telegram/Snapchat não abrem
+### Painéis de figurinhas e emojis do Telegram/Snapchat não abrem
 Isso ocorre se você estiver usando um dos layouts de tamanho reduzido. Atualmente, não há uma correção permanente, mas você pode usar o seguinte procedimento:
 - Vá para Configurações → Aparência e ative o Teclado Numérico na Tela.
 - Volte para o chat e clique no botão de emoji ou de figurinhas. Agora eles aparecerão.
 - Agora você pode voltar para as configurações e desativar o teclado numérico na tela. Os painéis de emoji e figurinhas permanecerão acessíveis até que você reinicie o aplicativo ou o telefone.
 
-#### O Traditional T9 não aparece imediatamente em alguns aplicativos
+### O Traditional T9 não aparece imediatamente em alguns aplicativos (apenas para telefones sem tela sensível ao toque)
 Se você abriu um aplicativo onde pode digitar, mas o TT9 não aparece automaticamente, basta começar a digitar para que ele apareça. Alternativamente, pressionar as teclas de atalho para mudar [o modo de entrada](#tecla-de-alterar-o-modo-de-entrada-padrão-pressione) ou o [idioma](#tecla-próximo-idioma-padrão-pressione-e-segure) também pode fazer o TT9 aparecer, caso esteja oculto.
 
 Em alguns dispositivos, o TT9 pode permanecer invisível, não importando o que você faça. Nesses casos, você precisará ativar a opção [Sempre no Topo](#sempre-no-topo).
@@ -355,24 +359,34 @@ Em alguns dispositivos, o TT9 pode permanecer invisível, não importando o que 
 
 Por esses motivos, para manter os padrões esperados do Android, o controle está em suas mãos. Basta pressionar uma tecla para "tocar" na tela e continuar digitando.
 
-#### No Qin F21 Pro, segurar a tecla 2 ou 8 aumenta ou diminui o volume em vez de digitar um número
+### No Qin F21 Pro, segurar a tecla 2 ou 8 aumenta ou diminui o volume em vez de digitar um número
 Para mitigar esse problema, vá para Configurações → Aparência e ative "Ícone de Status". O TT9 deve detectar o Qin F21 e habilitar as configurações automaticamente, mas, caso a detecção automática falhe, ou você tenha desativado o ícone por algum motivo, é necessário mantê-lo ativo para que todas as teclas funcionem corretamente.
 
 **Explicação longa.** O Qin F21 Pro (e possivelmente o F22) possui um aplicativo de atalho que permite atribuir funções de Aumentar e Diminuir Volume às teclas numéricas. Por padrão, o gerenciador de atalhos está ativado, e segurar a tecla 2 aumenta o volume, enquanto segurar a tecla 8 o diminui. No entanto, quando não há ícone de status, o gerenciador assume que nenhum teclado está ativo e ajusta o volume, em vez de deixar o Traditional T9 gerenciar a tecla e digitar um número. Então, ativar o ícone apenas ignora o gerenciador de atalhos, e tudo funciona normalmente.
 
-#### Problemas gerais em telefones Xiaomi
+### Problemas gerais em telefones Xiaomi
 A Xiaomi introduziu várias permissões não padrão em seus celulares, o que impede o teclado virtual na tela do Traditional T9 de funcionar corretamente. Mais especificamente, as teclas "Exibir Configurações" e "Adicionar Palavra" podem não executar suas funções respectivas. Para corrigir isso, você deve conceder as permissões "Exibir janela pop-up" e "Exibir janela pop-up em segundo plano" ao TT9 nas configurações do seu telefone. [Este guia](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) para outro aplicativo explica como fazer isso.
 
 É também altamente recomendável conceder a permissão "Notificação Permanente". Isso é semelhante à permissão "Notificações" introduzida no Android 13. Veja [acima](#observação-para-android-13-ou-superior) para mais informações sobre por que você precisa dela.
 
 _Os problemas com Xiaomi foram discutidos nesta [issue do GitHub](https://github.com/sspanak/tt9/issues/490)._
 
-#### A Entrada por Voz demora muito para parar
+### A Entrada por Voz demora muito para parar
 Esse é [um problema conhecido](https://issuetracker.google.com/issues/158198432) no Android 10 que o Google nunca corrigiu. Não é possível mitigar isso pelo lado do TT9. Para parar a operação de Entrada por Voz, permaneça em silêncio por alguns segundos. O Android desliga o microfone automaticamente quando não detecta nenhuma fala.
+
+### Meu aplicativo bancário não aceita o Traditional T9
+Isto não é um problema do TT9. Os bancos frequentemente restringem teclados não padronizados ou de código aberto por não desejarem assumir riscos e presumirem que eles possam ser inseguros. Alguns vão além e fornecem seus próprios teclados, chegando a bloquear o teclado padrão do Google, o Gboard. Infelizmente, neste caso, a única opção é alternar para o teclado original do dispositivo.
+
+### A vibração não está funcionando (apenas em dispositivos touchscreen)
+As opções de economia de bateria, otimização e a função "Não perturbe" podem impedir a vibração. Verifique nas Configurações do sistema do seu dispositivo se alguma dessas opções está ativada. Em alguns dispositivos, é possível configurar a otimização da bateria individualmente para cada aplicativo em Configurações do sistema → Aplicativos. Se o seu dispositivo permitir, desative a otimização para o TT9.
+
+Outro motivo pelo qual a vibração pode não funcionar é que ela pode estar desativada no nível do sistema. Verifique se o seu dispositivo possui as opções "Vibrar ao tocar" ou "Vibrar ao pressionar teclas" em Configurações do sistema → Acessibilidade e ative-as. Os dispositivos Xiaomi e OnePlus permitem um controle de vibração ainda mais detalhado. Certifique-se de que todas as configurações relevantes estejam ativadas.
+
+Por fim, a vibração pode não funcionar de forma confiável em alguns dispositivos. Para corrigir isso, seriam necessárias permissões adicionais e acesso a mais funções do dispositivo. No entanto, como o TT9 é um teclado que prioriza a privacidade, ele não solicitará esse tipo de acesso.
 
 ## Perguntas Frequentes
 
-#### Por que você não adiciona o idioma X?
+### Por que você não adiciona o idioma X?
 Eu adoraria, mas preciso da sua ajuda. Manter mais de 40 idiomas sozinho é impossível. Como não falo o seu idioma, é difícil encontrar recursos confiáveis na internet, e é aí que falantes nativos como você podem ajudar.
 Na verdade, mais de 90% dos idiomas disponíveis foram adicionados por ou com a ajuda de usuários entusiastas.
 
@@ -380,22 +394,22 @@ Para adicionar um novo idioma, preciso de uma lista de palavras revisada ortogra
 
 Se não houver um dicionário assim, você pode fornecer uma lista de palavras disponível para download gratuito. O ideal é que contenha entre 300 mil e 500 mil palavras, mas se o idioma tiver muitas variações (tempo, gênero, número, etc.), pode ser necessário cerca de 1 milhão.
 
-#### Existem palavras incorretas ou faltando no idioma XYZ. Por que você não corrige isso?
+### Existem palavras incorretas ou faltando no idioma XYZ. Por que você não corrige isso?
 Como mencionei acima, eu não falo o seu idioma, então talvez nem perceba esses erros. Mas com a sua ajuda, podemos corrigi-los e melhorar o dicionário para todos.
 
-#### Você não pode adicionar a funcionalidade X?
+### Você não pode adicionar a funcionalidade X?
 Não.
 
 Cada pessoa tem suas preferências. Alguns querem teclas maiores, outros em uma ordem diferente, alguns querem uma tecla de atalho para digitar ".com", e outros sentem falta do seu antigo telefone ou teclado. Mas, por favor, entenda que estou trabalhando nisso voluntariamente no meu tempo livre. É impossível atender a milhares de pedidos diferentes, alguns dos quais até se contradizem.
 
 Henry Ford disse uma vez: "O cliente pode ter o carro da cor que quiser, desde que seja preto." Da mesma forma, o Traditional T9 é simples, eficaz e gratuito, mas o que você vê é o que você recebe.
 
-#### Você não pode torná-lo mais parecido com Sony Ericsson ou Xperia, Nokia C2, Samsung ou outro teclado de software?
+### Você não pode torná-lo mais parecido com Sony Ericsson ou Xperia, Nokia C2, Samsung ou outro teclado de software?
 Não.
 
 O Traditional T9 não foi feito para ser um substituto ou um aplicativo clone. Ele tem um design único, inspirado principalmente no Nokia 3310 e 6303i. E, embora capture a essência dos clássicos, ele oferece sua própria experiência, que não replica exatamente nenhum dispositivo.
 
-#### Você deveria copiar o Touchpal, é o melhor teclado do mundo!
+### Você deveria copiar o Touchpal, é o melhor teclado do mundo!
 Não, eu não deveria. Veja os pontos anteriores.
 
 O Touchpal costumava ser o melhor teclado em 2015, quando não tinha concorrência real. No entanto, as coisas mudaram desde então. Veja a comparação lado a lado entre Traditional T9 e Touchpal:
@@ -424,32 +438,22 @@ _**Touchpal**_
 
 Se você discorda ou deseja explicar seu ponto de vista, participe da [discussão aberta](https://github.com/sspanak/tt9/issues/647) no GitHub. Apenas lembre-se de ser respeitoso com os outros. Postagens de ódio não serão toleradas.
 
-#### O Android me alertou que o teclado pode coletar meus dados pessoais, incluindo números de cartão de crédito e senhas
+### O Android me alertou que o teclado pode coletar meus dados pessoais, incluindo números de cartão de crédito e senhas
 Este é um aviso padrão do Android exibido ao instalar e ativar qualquer teclado, não apenas o Traditional T9. Fique tranquilo: tudo o que o(a) senhor(a) digitar permanece em seu dispositivo. O mecanismo de digitação é totalmente open source, permitindo que o código seja inspecionado no GitHub para confirmar que sua privacidade está protegida.
 
 _Caso ainda tenha alguma preocupação, consulte a Política de Privacidade do aplicativo._
 
-#### Meu aplicativo bancário não aceita o Traditional T9
-Isto não é um problema do TT9. Os bancos frequentemente restringem teclados não padronizados ou de código aberto por não desejarem assumir riscos e presumirem que eles possam ser inseguros. Alguns vão além e fornecem seus próprios teclados, chegando a bloquear o teclado padrão do Google, o Gboard. Infelizmente, neste caso, a única opção é alternar para o teclado original do dispositivo.
-
-#### A vibração não está funcionando (apenas em dispositivos touchscreen)
-As opções de economia de bateria, otimização e a função "Não perturbe" podem impedir a vibração. Verifique nas Configurações do sistema do seu dispositivo se alguma dessas opções está ativada. Em alguns dispositivos, é possível configurar a otimização da bateria individualmente para cada aplicativo em Configurações do sistema → Aplicativos. Se o seu dispositivo permitir, desative a otimização para o TT9.
-
-Outro motivo pelo qual a vibração pode não funcionar é que ela pode estar desativada no nível do sistema. Verifique se o seu dispositivo possui as opções "Vibrar ao tocar" ou "Vibrar ao pressionar teclas" em Configurações do sistema → Acessibilidade e ative-as. Os dispositivos Xiaomi e OnePlus permitem um controle de vibração ainda mais detalhado. Certifique-se de que todas as configurações relevantes estejam ativadas.
-
-Por fim, a vibração pode não funcionar de forma confiável em alguns dispositivos. Para corrigir isso, seriam necessárias permissões adicionais e acesso a mais funções do dispositivo. No entanto, como o TT9 é um teclado que prioriza a privacidade, ele não solicitará esse tipo de acesso.
-
-#### Preciso usar um layout QWERTY (apenas em dispositivos touchscreen)
+### Preciso usar um layout QWERTY (apenas em dispositivos touchscreen)
 O Traditional T9 é um teclado T9 e, como tal, não fornece um layout no estilo QWERTY.
 
 Se você ainda está aprendendo a usar o T9 e precisa mudar de volta ocasionalmente, ou acha mais conveniente digitar novas palavras usando o QWERTY, deslize a tecla F4 Esquerda para cima para alternar para um teclado diferente. Veja a [visão geral das teclas virtuais](#visão-geral-das-teclas-virtuais) para mais informações.
 
 A maioria dos outros teclados permite alternar de volta para o Traditional T9 segurando a barra de espaço ou a tecla de "mudar idioma". Verifique o respectivo manual ou guia do teclado para mais informações.
 
-#### Não consigo mudar o idioma em um telefone com tela sensível ao toque
+### Não consigo mudar o idioma em um telefone com tela sensível ao toque
 Primeiro, certifique-se de que ativou todos os idiomas desejados em Configurações → Idiomas. Em seguida, pressione e segure a [tecla F4 esquerda](#tecla-f4-esquerda-a-tecla-inferior-esquerda) para mudar o idioma.
 
-#### Não consigo adicionar contrações como "I've" ou "don't" ao dicionário
+### Como adicionar contrações como “I've” ou “don't” ao dicionário?
 Todas as contrações em todos os idiomas já estão disponíveis como palavras separadas, então você não precisa adicionar nada. Isso proporciona máxima flexibilidade — permite combinar qualquer palavra com qualquer contração e ainda economiza bastante espaço de armazenamento.
 
 Por exemplo, você pode digitar 've pressionando: 183; ou 'll usando: 155. Isso significa que "I'll" = 4155 e "we've" = 93183. Você também pode digitar coisas como "google.com", pressionando: 466453 (google) 1266 (.com).
