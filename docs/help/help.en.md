@@ -308,7 +308,7 @@ For several applications or devices, it is possible to enable special options, w
 ### Alternative suggestion scrolling method
 _In: Settings → Appearance._
 
-On some devices, in Predictive Mode, you may not be able may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
+On some devices, in Predictive Mode, you may not be able to scroll the list to the end, or you may need to scroll backward and forward several times until the last suggestion appears. The problem occurs sometimes on Android 9 or earlier. Enable the option, if you are experiencing this issue.
 
 ### Always on top
 _In: Settings → Appearance._
