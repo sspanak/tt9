@@ -4,16 +4,12 @@ import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.TextField;
-import io.github.sspanak.tt9.ime.modes.helpers.Sequences;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.util.chars.Characters;
 
 public class ModePinyin extends ModeIdeograms {
-	private boolean ignoreNextSpace = false;
-
-
 	protected ModePinyin(SettingsStore settings, Language lang, InputType inputType, TextField textField) {
 		super(settings, lang, inputType, textField);
 	}
@@ -28,37 +24,5 @@ public class ModePinyin extends ModeIdeograms {
 	@Override
 	protected String getPreferredChar() {
 		return Characters.getChar(language, settings.getDoubleZeroChar());
-	}
-
-
-	@Override
-	protected void onNumberPress(int number) {
-		if (ignoreNextSpace && number == Sequences.CHARS_0_KEY) {
-			ignoreNextSpace = false;
-			return;
-		}
-
-		ignoreNextSpace = false;
-		super.onNumberPress(number);
-	}
-
-
-	@Override
-	protected void onNumberHold(int number) {
-		ignoreNextSpace = false;
-		super.onNumberHold(number);
-	}
-
-
-	@Override
-	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextDigit, boolean hold) {
-		// In East Asian languages, Space must accept the current word, or type a space when there is no word.
-		// Here, we handle the case when 0-key is Space, unlike the Space hotkey in HotkeyHandler,
-		// which could be a different key, assigned by the user.
-		if (nextDigit == Sequences.CHARS_0_KEY && !digitSequence.isEmpty() && !seq.isAnySpecialCharSequence(digitSequence)) {
-			ignoreNextSpace = true;
-		}
-
-		return super.shouldAcceptPreviousSuggestion(currentWord, nextDigit, hold);
 	}
 }
