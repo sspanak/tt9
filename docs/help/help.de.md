@@ -30,9 +30,65 @@ Sie können die Benachrichtigungen aktivieren, indem Sie zu Einstellungen → Sp
 
 _Wenn Sie sich entscheiden, die Benachrichtigungen deaktiviert zu lassen, funktioniert TT9 weiterhin einwandfrei. Sie müssen jedoch die Wörterbücher manuell verwalten._
 
-## Hotkeys
+## Einstellungsbildschirm
+Im Einstellungsbildschirm können Sie Sprachen für die Eingabe wählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
 
-Alle Hotkeys können in den Einstellungen → Tastatur → Hotkeys auswählen konfiguriert oder deaktiviert werden.
+### Wie greife ich auf die Einstellungen zu?
+
+#### Methode 1
+Tippen Sie auf das Traditional T9-Symbol.
+
+#### Methode 2 (mit Touchscreen)
+- Tippen Sie auf ein Text- oder Zahlenfeld, um TT9 zu aktivieren.
+- Verwenden Sie die Zahnrad-Taste auf dem Bildschirm.
+
+#### Methode 3 (mit physischer Tastatur)
+- Beginnen Sie in einem Text- oder Zahlenfeld zu tippen, um TT9 zu aktivieren.
+- Öffnen Sie die Befehlsliste über die Bildschirmtools-Taste oder durch Drücken der zugewiesenen Hotkey-Taste [Standard: Halten ✱].
+- Drücken Sie die 2-Taste.
+
+### Navigation in den Einstellungen
+Wenn Sie ein Gerät mit Hardwaretastatur haben, gibt es zwei Möglichkeiten zur Navigation in den Einstellungen.
+
+1. Verwenden Sie die Hoch-/Runter-Tasten zum Scrollen und OK zum Öffnen oder Aktivieren einer Option.
+2. Drücken Sie die Tasten 1–9, um die jeweilige Option auszuwählen, und doppeltippen Sie darauf, um sie zu öffnen/aktivieren. Doppeltippen funktioniert überall auf dem Bildschirm. Beispielsweise wird durch Doppeltippen der 3-Taste die dritte Option aktiviert. Die 0-Taste ist eine praktische Abkürzung zum Scrollen ans Ende, öffnet jedoch nicht die letzte Option.
+
+### Sprachoptionen
+
+#### Wörterbuch laden
+Nach der Aktivierung einer oder mehrerer neuer Sprachen müssen die jeweiligen Wörterbücher für den prädiktiven Modus geladen werden. Einmal geladene Wörterbücher bleiben gespeichert, bis Sie eine der „Löschen“-Optionen verwenden. Dies bedeutet, dass Sie Sprachen aktivieren und deaktivieren können, ohne deren Wörterbücher jedes Mal neu laden zu müssen. Nur beim ersten Mal ist dies erforderlich.
+
+Wenn Sie Sprache X verwenden möchten, können Sie sicher alle anderen Sprachen deaktivieren, nur das Wörterbuch X laden (Zeit sparen!) und anschließend die zuvor genutzten Sprachen wieder aktivieren.
+
+Das Neuladen eines Wörterbuchs setzt die Beliebtheit von Vorschlägen auf die Werkseinstellungen zurück. Dies sollte jedoch keine Bedenken auslösen. In den meisten Fällen werden Sie kaum Änderungen in der Reihenfolge der Vorschläge bemerken, es sei denn, Sie verwenden häufig ungewöhnliche Wörter.
+
+#### Automatisches Laden von Wörterbüchern
+
+Falls Sie das Laden eines Wörterbuchs im Einstellungsbildschirm überspringen oder vergessen, wird dies automatisch geschehen, wenn Sie in einer Anwendung den prädiktiven Modus aktivieren. Sie werden gebeten, zu warten, bis das Laden abgeschlossen ist, und können dann direkt mit dem Tippen beginnen.
+
+Gelöschte Wörterbücher werden NICHT automatisch neu geladen. Sie müssen dies manuell durchführen. Nur Wörterbücher für neu aktivierte Sprachen werden automatisch geladen.
+
+#### Wörterbuch löschen
+Falls Sie Sprachen X oder Y nicht mehr verwenden, können Sie diese deaktivieren und auch „Nicht ausgewählte löschen“ verwenden, um Speicherplatz freizugeben.
+
+Um alles zu löschen, unabhängig von der Auswahl, verwenden Sie „Alles löschen“.
+
+In allen Fällen bleiben Ihre selbst hinzugefügten Wörter erhalten und werden wiederhergestellt, sobald Sie das jeweilige Wörterbuch neu laden.
+
+#### Hinzugefügte Wörter
+Die Option „Exportieren“ ermöglicht es Ihnen, eine CSV-Datei mit allen hinzugefügten Wörtern für alle Sprachen zu erstellen. Diese CSV-Datei kann dann verwendet werden, um Traditional T9 zu verbessern! Gehen Sie zu GitHub und teilen Sie die Wörter in einem [neuen Issue](https://github.com/sspanak/tt9/issues) oder [Pull-Request](https://github.com/sspanak/tt9/pulls). Nach einer Überprüfung werden sie in der nächsten Version aufgenommen.
+
+Mit „Importieren“ können Sie eine zuvor exportierte CSV-Datei importieren. Es gibt jedoch einige Einschränkungen:
+- Es können nur Wörter aus Buchstaben importiert werden. Apostrophe, Bindestriche, andere Satzzeichen oder Sonderzeichen sind nicht erlaubt.
+- Emojis sind nicht erlaubt.
+- Eine CSV-Datei kann maximal 250 Wörter enthalten.
+- Sie können bis zu 1000 Wörter importieren, also maximal 4 Dateien x 250 Wörter. Über dieses Limit hinaus können Sie beim Tippen weiterhin Wörter hinzufügen.
+
+Mit „Löschen“ können Sie nach falsch geschriebenen Wörtern suchen und diese oder andere unerwünschte Wörter aus dem Wörterbuch entfernen.
+
+## Hardware-Tastenkürzel
+
+Alle Tastenkürzel können in den Einstellungen → Tastatur → Tastenkürzel auswählen konfiguriert oder deaktiviert werden.
 
 ### Eingabetasten
 
@@ -246,84 +302,31 @@ Nachfolgend eine Liste der möglichen Textbefehle:
 
 Für eine einfachere Bearbeitung sind auch Rückschritt-, Leer- und OK-Tasten aktiv.
 
-## Einstellungsbildschirm
-Im Einstellungsbildschirm können Sie Sprachen für die Eingabe wählen, die Hotkeys der Tastatur konfigurieren, das Erscheinungsbild der Anwendung ändern oder die Kompatibilität mit Ihrem Telefon verbessern.
-
-### Wie greife ich auf die Einstellungen zu?
-
-#### Methode 1
-Tippen Sie auf das Traditional T9-Symbol.
-
-#### Methode 2 (mit Touchscreen)
-- Tippen Sie auf ein Text- oder Zahlenfeld, um TT9 zu aktivieren.
-- Verwenden Sie die Zahnrad-Taste auf dem Bildschirm.
-
-#### Methode 3 (mit physischer Tastatur)
-- Beginnen Sie in einem Text- oder Zahlenfeld zu tippen, um TT9 zu aktivieren.
-- Öffnen Sie die Befehlsliste über die Bildschirmtools-Taste oder durch Drücken der zugewiesenen Hotkey-Taste [Standard: Halten ✱].
-- Drücken Sie die 2-Taste.
-
-### Navigation in den Einstellungen
-Wenn Sie ein Gerät mit Hardwaretastatur haben, gibt es zwei Möglichkeiten zur Navigation in den Einstellungen.
-
-1. Verwenden Sie die Hoch-/Runter-Tasten zum Scrollen und OK zum Öffnen oder Aktivieren einer Option.
-2. Drücken Sie die Tasten 1–9, um die jeweilige Option auszuwählen, und doppeltippen Sie darauf, um sie zu öffnen/aktivieren. Doppeltippen funktioniert überall auf dem Bildschirm. Beispielsweise wird durch Doppeltippen der 3-Taste die dritte Option aktiviert. Die 0-Taste ist eine praktische Abkürzung zum Scrollen ans Ende, öffnet jedoch nicht die letzte Option.
-
-### Sprachoptionen
-
-#### Wörterbuch laden
-Nach der Aktivierung einer oder mehrerer neuer Sprachen müssen die jeweiligen Wörterbücher für den prädiktiven Modus geladen werden. Einmal geladene Wörterbücher bleiben gespeichert, bis Sie eine der „Löschen“-Optionen verwenden. Dies bedeutet, dass Sie Sprachen aktivieren und deaktivieren können, ohne deren Wörterbücher jedes Mal neu laden zu müssen. Nur beim ersten Mal ist dies erforderlich.
-
-Wenn Sie Sprache X verwenden möchten, können Sie sicher alle anderen Sprachen deaktivieren, nur das Wörterbuch X laden (Zeit sparen!) und anschließend die zuvor genutzten Sprachen wieder aktivieren.
-
-Das Neuladen eines Wörterbuchs setzt die Beliebtheit von Vorschlägen auf die Werkseinstellungen zurück. Dies sollte jedoch keine Bedenken auslösen. In den meisten Fällen werden Sie kaum Änderungen in der Reihenfolge der Vorschläge bemerken, es sei denn, Sie verwenden häufig ungewöhnliche Wörter.
-
-#### Automatisches Laden von Wörterbüchern
-
-Falls Sie das Laden eines Wörterbuchs im Einstellungsbildschirm überspringen oder vergessen, wird dies automatisch geschehen, wenn Sie in einer Anwendung den prädiktiven Modus aktivieren. Sie werden gebeten, zu warten, bis das Laden abgeschlossen ist, und können dann direkt mit dem Tippen beginnen.
-
-Gelöschte Wörterbücher werden NICHT automatisch neu geladen. Sie müssen dies manuell durchführen. Nur Wörterbücher für neu aktivierte Sprachen werden automatisch geladen.
-
-#### Wörterbuch löschen
-Falls Sie Sprachen X oder Y nicht mehr verwenden, können Sie diese deaktivieren und auch „Nicht ausgewählte löschen“ verwenden, um Speicherplatz freizugeben.
-
-Um alles zu löschen, unabhängig von der Auswahl, verwenden Sie „Alles löschen“.
-
-In allen Fällen bleiben Ihre selbst hinzugefügten Wörter erhalten und werden wiederhergestellt, sobald Sie das jeweilige Wörterbuch neu laden.
-
-#### Hinzugefügte Wörter
-Die Option „Exportieren“ ermöglicht es Ihnen, eine CSV-Datei mit allen hinzugefügten Wörtern für alle Sprachen zu erstellen. Diese CSV-Datei kann dann verwendet werden, um Traditional T9 zu verbessern! Gehen Sie zu GitHub und teilen Sie die Wörter in einem [neuen Issue](https://github.com/sspanak/tt9/issues) oder [Pull-Request](https://github.com/sspanak/tt9/pulls). Nach einer Überprüfung werden sie in der nächsten Version aufgenommen.
-
-Mit „Importieren“ können Sie eine zuvor exportierte CSV-Datei importieren. Es gibt jedoch einige Einschränkungen:
-- Es können nur Wörter aus Buchstaben importiert werden. Apostrophe, Bindestriche, andere Satzzeichen oder Sonderzeichen sind nicht erlaubt.
-- Emojis sind nicht erlaubt.
-- Eine CSV-Datei kann maximal 250 Wörter enthalten.
-- Sie können bis zu 1000 Wörter importieren, also maximal 4 Dateien x 250 Wörter. Über dieses Limit hinaus können Sie beim Tippen weiterhin Wörter hinzufügen.
-
-Mit „Löschen“ können Sie nach falsch geschriebenen Wörtern suchen und diese oder andere unerwünschte Wörter aus dem Wörterbuch entfernen.
-
-### Kompatibilitätsoptionen
+## Fehlerbehebung
 Für verschiedene Anwendungen oder Geräte ist es möglich, spezielle Optionen zu aktivieren, die Traditional T9 besser kompatibel machen. Diese finden Sie am Ende jeder Einstellungsseite unter dem Abschnitt Kompatibilität.
 
-#### Alternative Methode zum Scrollen durch Vorschläge
+### Alternative Methode zum Scrollen durch Vorschläge
 _In: Einstellungen → Erscheinungsbild._
 
 Auf einigen Geräten kann es im prädiktiven Modus vorkommen, dass die Liste nicht bis zum Ende gescrollt werden kann oder mehrmals vor- und zurückgescrollt werden muss, bis der letzte Vorschlag erscheint. Dieses Problem tritt manchmal bei Android 9 oder älter auf. Aktivieren Sie die Option, falls Sie dieses Problem haben.
 
-#### Immer im Vordergrund
+### Immer im Vordergrund
 _In: Einstellungen → Erscheinungsbild._
 
 Auf einigen Telefonen, insbesondere dem Sonim XP3plus (XP3900), wird Traditional T9 möglicherweise nicht angezeigt, wenn Sie zu tippen beginnen, oder es wird teilweise von den Softkeys verdeckt. In anderen Fällen können weiße Balken darum erscheinen. Das Problem kann in einer bestimmten Anwendung oder in allen auftreten. Um dies zu verhindern, aktivieren Sie die Option „Immer im Vordergrund“.
 
-#### Unteren Abstand neu berechnen
+### Unterer Abstand (Hochformat)
 _In: Einstellungen → Erscheinungsbild._
 
-Android 15 hat die Edge-to-Edge-Funktion eingeführt, die gelegentlich dazu führen kann, dass unter den Tastaturtasten unnötiger Leerraum erscheint. Aktivieren Sie diese Option, um sicherzustellen, dass der untere Abstand für jede App neu berechnet und bei Bedarf entfernt wird.
+Auf Samsung-Geräten mit Android 15 oder höher kann Traditional T9 zu weit unten auf dem Bildschirm angezeigt werden. In diesem Fall überdeckt die System-Navigationsleiste die letzte Tastaturzeile, wodurch die Tasten nicht mehr nutzbar sind. Der Versuch, ein Leerzeichen einzugeben, OK zu drücken oder den Eingabemodus zu ändern, schließt die Tastatur. Durch Erhöhen des „Unteren Abstands“ auf 48 dp wird dieses Problem behoben.
 
-Auf Samsung Galaxy-Geräten mit Android 15 oder nach einem Upgrade darauf kann diese Option dazu führen, dass sich TT9 mit der Systemnavigationsleiste überlappt, insbesondere wenn diese auf 2 oder 3 Tasten eingestellt ist. Falls dies geschieht, deaktivieren Sie die Option, um genügend Platz für die Navigationsleiste zu lassen.
+In anderen Fällen kann unterhalb des Tastenblocks ein unnötiger leerer Bereich erscheinen. Durch Reduzieren des „Unteren Abstands“ auf 0 dp wird dieser entfernt.
 
+_Siehe Bug [#950](https://github.com/sspanak/tt9/issues/950) für weitere Informationen._
 
-#### Schutz vor Tastenwiederholung
+_In sehr seltenen Fällen können bei Nicht-Samsung-Geräten dieselben Probleme auftreten. Siehe [#755](https://github.com/sspanak/tt9/issues/755)._
+
+### Schutz vor Tastenwiederholung
 _In: Einstellungen → Tastenfeld._
 
 Die Telefone CAT S22 Flip und Qin F21 sind für ihre minderwertigen Tastenfelder bekannt, die im Laufe der Zeit schnell abnutzen und bei einem Tastendruck mehrere Klicks registrieren. Dies kann beim Tippen oder Navigieren in den Telefonmenüs auffallen.
@@ -334,20 +337,20 @@ _**Hinweis:** Je höher der Wert, desto langsamer müssen Sie tippen. TT9 ignori
 
 _**Hinweis 2:** Neben dem oben genannten können Qin-Telefone möglicherweise auch lange Tastendrücke nicht erkennen. In diesem Fall lässt sich leider nichts tun._
 
-#### Zusammengesetzten Text anzeigen
+### Zusammengesetzten Text anzeigen
 _In: Einstellungen → Tastenfeld._
 
 Wenn du Probleme hast, in Deezer oder Smouldering Durtles zu tippen, weil die Vorschläge schnell verschwinden, bevor du sie sehen kannst, deaktiviere diese Option. Dadurch bleibt das aktuelle Wort verborgen, bis du OK oder die Leertaste drückst oder auf die Vorschlagsliste tippst.
 
 Das Problem tritt auf, weil Deezer und Smouldering Durtles manchmal den eingegebenen Text ändern, wodurch TT9 nicht richtig funktioniert.
 
-#### Telegram/Snapchat Sticker und Emoji-Panels lassen sich nicht öffnen
+### Telegram/Snapchat Sticker und Emoji-Panels lassen sich nicht öffnen
 Dies passiert, wenn Sie eines der kleineren Layouts verwenden. Es gibt derzeit keine dauerhafte Lösung, aber Sie können den folgenden Workaround nutzen:
 - Gehen Sie zu Einstellungen → Erscheinungsbild und aktivieren Sie „Bildschirm-Ziffernblock“.
 - Gehen Sie zurück zum Chat und klicken Sie auf die Emoji- oder die Sticker-Taste. Sie werden jetzt angezeigt.
 - Sie können nun in die Einstellungen zurückkehren und den Bildschirm-Ziffernblock wieder deaktivieren. Die Emoji- und Sticker-Panels bleiben zugänglich, bis Sie die App oder das Telefon neu starten.
 
-#### Traditional T9 erscheint nicht sofort in einigen Anwendungen
+### Traditional T9 erscheint nicht sofort in einigen Anwendungen (nur für Telefone ohne Touchscreen)
 Wenn Sie eine Anwendung geöffnet haben, in der Sie tippen können, und TT9 nicht automatisch erscheint, beginnen Sie einfach mit dem Tippen, und es wird angezeigt. Alternativ können Sie auch die Hotkeys drücken, um den [Eingabemodus](#nächster-vorschlag-taste-standard-steuerkreuz-rechts) oder die [Sprache](#nächste-sprache-taste-standard-halten) zu wechseln. Dadurch wird TT9 angezeigt, wenn es verborgen ist.
 
 Auf einigen Geräten bleibt TT9 möglicherweise unsichtbar, egal was Sie tun. In solchen Fällen müssen Sie [Immer im Vordergrund](#immer-im-vordergrund) aktivieren.
@@ -356,24 +359,34 @@ Auf einigen Geräten bleibt TT9 möglicherweise unsichtbar, egal was Sie tun. In
 
 Um sich an den Android-Standard zu halten, liegt die Kontrolle in Ihren Händen. Drücken Sie einfach eine Taste, um den Bildschirm zu „berühren“ und tippen Sie weiter.
 
-#### Auf dem Qin F21 Pro erhöht oder verringert das Halten der 2- oder 8-Taste die Lautstärke anstatt eine Zahl zu tippen
+### Auf dem Qin F21 Pro erhöht oder verringert das Halten der 2- oder 8-Taste die Lautstärke anstatt eine Zahl zu tippen
 Um dieses Problem zu lindern, gehen Sie zu Einstellungen → Erscheinungsbild und aktivieren Sie das „Statussymbol“. TT9 sollte das Qin F21 automatisch erkennen und die Einstellungen aktivieren. Falls die automatische Erkennung fehlschlägt oder Sie das Symbol aus irgendeinem Grund deaktiviert haben, müssen Sie es aktivieren, damit alle Tasten ordnungsgemäß funktionieren.
 
 **Lange Erklärung.** Das Qin F21 Pro (möglicherweise auch F22) hat eine Hotkey-Anwendung, die das Zuweisen der Lautstärkeregelung an Zahlentasten ermöglicht. Standardmäßig ist der Hotkey-Manager aktiviert, und das Halten der 2-Taste erhöht die Lautstärke, das Halten der 8-Taste verringert sie. Wenn jedoch kein Statussymbol vorhanden ist, geht der Manager davon aus, dass keine Tastatur aktiv ist und regelt die Lautstärke, anstatt die Taste für Traditional T9 zu verwenden, um eine Zahl zu tippen. Durch Aktivieren des Symbols wird der Hotkey-Manager umgangen und alles funktioniert ordnungsgemäß.
 
-#### Allgemeine Probleme auf Xiaomi-Telefonen
+### Allgemeine Probleme auf Xiaomi-Telefonen
 Xiaomi hat mehrere nicht-standardmäßige Berechtigungen eingeführt, die das ordnungsgemäße Funktionieren von Traditional T9s virtueller Bildschirmtastatur verhindern können. Genauer gesagt funktionieren die Tasten „Einstellungen anzeigen“ und „Wort hinzufügen“ möglicherweise nicht wie vorgesehen. Um dies zu beheben, müssen Sie die Berechtigungen „Pop-up-Fenster anzeigen“ und „Pop-up-Fenster im Hintergrund anzeigen“ für TT9 in den Einstellungen Ihres Telefons erteilen. [Dieser Leitfaden](https://parental-control.flashget.com/how-to-enable-display-pop-up-windows-while-running-in-the-background-on-flashget-kids-on-xiaomi) für eine andere Anwendung erklärt, wie Sie dies tun.
 
 Es wird auch dringend empfohlen, die Berechtigung „Dauerhafte Benachrichtigung“ zu erteilen. Dies ähnelt der Benachrichtigungsberechtigung, die in Android 13 eingeführt wurde. Weitere Informationen finden Sie [oben](#hinweise-für-android-13-oder-höher).
 
 _Die Xiaomi-Probleme wurden in [diesem GitHub-Problem](https://github.com/sspanak/tt9/issues/490) besprochen._
 
-#### Spracheingabe dauert sehr lange, um zu stoppen
+### Spracheingabe dauert sehr lange, um zu stoppen
 Es ist [ein bekanntes Problem](https://issuetracker.google.com/issues/158198432) unter Android 10, das Google nie behoben hat. Es ist auf der TT9-Seite nicht möglich, das zu lindern. Um den Sprachbefehl zu beenden, bleiben Sie ein paar Sekunden lang ruhig. Android schaltet das Mikrofon automatisch aus, wenn keine Sprache erkannt wird.
+
+### Meine Banking-App akzeptiert Traditional T9 nicht
+Dies stellt kein Problem von TT9 dar. Banken beschränken häufig nicht standardisierte oder quelloffene Tastaturen, weil sie keinerlei Risiko eingehen und automatisch von mangelnder Sicherheit ausgehen. Manche Anbieter gehen noch weiter und stellen eigene Tastaturen bereit, wobei sogar Googles Standardtastatur Gboard blockiert wird. In diesem Fall bleibt Ihnen leider nur die Möglichkeit, auf die ursprüngliche Geräteeingabetastatur zurückzugreifen.
+
+### Vibration funktioniert nicht (nur Touchscreen-Geräte)
+Energiespar- und Optimierungsoptionen sowie die "Nicht stören"-Funktion verhindern Vibrationen. Überprüfen Sie in den Systemeinstellungen Ihres Geräts, ob eine dieser Optionen aktiviert ist. Auf einigen Geräten ist es möglich, die Batterieoptimierung individuell für jede Anwendung in den Systemeinstellungen → Anwendungen zu konfigurieren. Falls Ihr Gerät dies erlaubt, deaktivieren Sie die Optimierung für TT9.
+
+Ein weiterer Grund, warum die Vibration nicht funktioniert, könnte sein, dass sie auf Systemebene deaktiviert ist. Prüfen Sie, ob Ihr Gerät die Optionen "Vibration bei Berührung" oder "Vibration bei Tastendruck" in den Systemeinstellungen → Bedienungshilfen bietet, und aktivieren Sie sie. Xiaomi- und OnePlus-Geräte ermöglichen eine noch detailliertere Vibrationssteuerung. Stellen Sie sicher, dass alle relevanten Einstellungen aktiviert sind.
+
+Letztendlich funktioniert die Vibration auf einigen Geräten nicht zuverlässig. Um dies zu beheben, wären zusätzliche Berechtigungen und der Zugriff auf mehr Gerätefunktionen erforderlich. Da TT9 jedoch eine datenschutzfreundliche Tastatur ist, wird ein solcher Zugriff nicht angefordert.
 
 ## Häufig gestellte Fragen
 
-#### Warum fügst du Sprache X nicht hinzu?
+### Warum fügst du Sprache X nicht hinzu?
 Ich würde das gerne tun, aber ich brauche deine Hilfe. Mehr als 40 Sprachen alleine zu unterstützen ist unmöglich. Da ich deine Sprache nicht spreche, ist es schwierig, zuverlässige Ressourcen im Internet zu finden. Hier können Muttersprachler wie du wirklich helfen.
 Tatsächlich wurden über 90 % der vorhandenen Sprachen von oder mit der Hilfe engagierter Nutzer hinzugefügt.
 
@@ -381,22 +394,22 @@ Um eine neue Sprache hinzuzufügen, brauche ich eine Rechtschreib-geprüfte Wort
 
 Wenn es kein solches Wörterbuch gibt, kannst du auch eine frei herunterladbare Wortliste bereitstellen. Ideal sind 300.000–500.000 Wörter. Wenn deine Sprache viele Beugungen hat (z. B. Änderungen durch Zeit, Geschlecht oder Zahl), werden etwa 1 Million Wörter benötigt.
 
-#### Es gibt falsch geschriebene oder fehlende Wörter in Sprache XYZ. Warum behebst du sie nicht?
+### Es gibt falsch geschriebene oder fehlende Wörter in Sprache XYZ. Warum behebst du sie nicht?
 Wie oben erwähnt: Ich spreche deine Sprache nicht und bemerke solche Fehler möglicherweise gar nicht. Aber mit deiner Hilfe können wir sie beheben und das Wörterbuch für alle verbessern.
 
-#### Kannst du nicht Funktion X hinzufügen?
+### Kannst du nicht Funktion X hinzufügen?
 Nein.
 
 Jeder hat seine eigenen Vorlieben. Manche möchten größere Tasten, manche eine andere Anordnung, manche eine Schnellzugriffstaste für ".com", und manche vermissen ihr altes Telefon oder ihre alte Tastatur. Aber bitte versteht, dass ich dies in meiner Freizeit freiwillig mache. Es ist unmöglich, Tausende von unterschiedlichen Wünschen zu erfüllen, von denen einige sich sogar widersprechen.
 
 Henry Ford sagte einmal: „Es kann jede Farbe haben, die der Kunde will, solange sie schwarz ist.“ Ebenso ist Traditional T9 schlicht, effektiv und kostenlos – aber du bekommst, was du bekommst.
 
-#### Kannst du es nicht mehr wie Sony Ericsson oder Xperia, Nokia C2, Samsung oder eine andere Software-Tastatur machen?
+### Kannst du es nicht mehr wie Sony Ericsson oder Xperia, Nokia C2, Samsung oder eine andere Software-Tastatur machen?
 Nein.
 
 Traditional T9 ist nicht als Ersatz oder Klon-App gedacht. Es hat sein eigenes einzigartiges Design, das hauptsächlich von den Nokia 3310 und 6303i inspiriert wurde. Während es das Gefühl der Klassiker einfängt, bietet es eine eigene Erfahrung, die kein Gerät exakt nachahmen wird.
 
-#### Du solltest Touchpal kopieren, es ist die beste Tastatur der Welt!
+### Du solltest Touchpal kopieren, es ist die beste Tastatur der Welt!
 Nein, sollte ich nicht. Siehe die vorherigen Punkte.
 
 Touchpal war 2015 vielleicht die beste Tastatur, als es noch keine echte Konkurrenz gab. Aber seitdem hat sich viel verändert. Sieh dir den Vergleich zwischen Traditional T9 und Touchpal an:
@@ -425,32 +438,22 @@ _**Touchpal**_
 
 Wenn du anderer Meinung bist oder deine Sichtweise erklären möchtest, beteilige dich an [der offenen Diskussion](https://github.com/sspanak/tt9/issues/647) auf GitHub. Bitte sei respektvoll gegenüber anderen. Hasskommentare werden nicht toleriert.
 
-#### Android hat mich darauf hingewiesen, dass die Tastatur möglicherweise meine personenbezogenen Daten sammelt, einschließlich Kreditkartennummern und Passwörtern
+### Android hat mich darauf hingewiesen, dass die Tastatur möglicherweise meine personenbezogenen Daten sammelt, einschließlich Kreditkartennummern und Passwörtern
 Dies ist ein standardmäßiger Android-Hinweis, der angezeigt wird, wenn Sie eine beliebige Tastatur installieren und aktivieren, nicht nur Traditional T9. Sie können sicher sein, dass sämtliche Eingaben auf Ihrem Gerät verbleiben. Die Eingabetechnologie ist vollständig quelloffen; Sie können den Code auf GitHub einsehen und sich vergewissern, dass Ihre Privatsphäre geschützt ist.
 
 _Sollten dennoch Bedenken bestehen, konsultieren Sie bitte die Datenschutzrichtlinie der App._
 
-#### Meine Banking-App akzeptiert Traditional T9 nicht
-Dies stellt kein Problem von TT9 dar. Banken beschränken häufig nicht standardisierte oder quelloffene Tastaturen, weil sie keinerlei Risiko eingehen und automatisch von mangelnder Sicherheit ausgehen. Manche Anbieter gehen noch weiter und stellen eigene Tastaturen bereit, wobei sogar Googles Standardtastatur Gboard blockiert wird. In diesem Fall bleibt Ihnen leider nur die Möglichkeit, auf die ursprüngliche Geräteeingabetastatur zurückzugreifen.
-
-#### Vibration funktioniert nicht (nur Touchscreen-Geräte)
-Energiespar- und Optimierungsoptionen sowie die "Nicht stören"-Funktion verhindern Vibrationen. Überprüfen Sie in den Systemeinstellungen Ihres Geräts, ob eine dieser Optionen aktiviert ist. Auf einigen Geräten ist es möglich, die Batterieoptimierung individuell für jede Anwendung in den Systemeinstellungen → Anwendungen zu konfigurieren. Falls Ihr Gerät dies erlaubt, deaktivieren Sie die Optimierung für TT9.
-
-Ein weiterer Grund, warum die Vibration nicht funktioniert, könnte sein, dass sie auf Systemebene deaktiviert ist. Prüfen Sie, ob Ihr Gerät die Optionen "Vibration bei Berührung" oder "Vibration bei Tastendruck" in den Systemeinstellungen → Bedienungshilfen bietet, und aktivieren Sie sie. Xiaomi- und OnePlus-Geräte ermöglichen eine noch detailliertere Vibrationssteuerung. Stellen Sie sicher, dass alle relevanten Einstellungen aktiviert sind.
-
-Letztendlich funktioniert die Vibration auf einigen Geräten nicht zuverlässig. Um dies zu beheben, wären zusätzliche Berechtigungen und der Zugriff auf mehr Gerätefunktionen erforderlich. Da TT9 jedoch eine datenschutzfreundliche Tastatur ist, wird ein solcher Zugriff nicht angefordert.
-
-#### Ich muss ein QWERTY-Layout verwenden (nur Touchscreen-Geräte)
+### Ich muss ein QWERTY-Layout verwenden (nur Touchscreen-Geräte)
 Traditional T9 ist eine T9-Tastatur und bietet daher kein QWERTY-Layout.
 
 Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
 
 Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, indem Sie die Leertaste oder die „Sprache wechseln“-Taste gedrückt halten. Sehen Sie im jeweiligen Handbuch nach.
 
-#### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
+### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
 Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [linke F4-Taste](#linke-f4-taste-die-untere-linke-taste), um die Sprache zu ändern.
 
-#### Ich kann keine Kontraktionen wie "I've" oder "don't" zum Wörterbuch hinzufügen
+### Wie fügt man Kontraktionen wie „I've“ oder „don't“ zum Wörterbuch hinzu?
 Alle Kontraktionen in allen Sprachen sind bereits als separate Wörter verfügbar, daher müssen Sie nichts hinzufügen. Dies bietet maximale Flexibilität – Sie können jedes Wort mit jeder Kontraktion kombinieren und gleichzeitig erheblich Speicherplatz sparen.
 
 Zum Beispiel können Sie 've eingeben, indem Sie: 183 drücken; oder 'll mit: 155. Das bedeutet: "I'll" = 4155 und "we've" = 93183. Sie können auch Begriffe wie "google.com" eingeben, indem Sie: 466453 (google) 1266 (.com) drücken.
