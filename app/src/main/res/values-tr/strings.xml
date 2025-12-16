@@ -18,7 +18,8 @@
 	<string name="pref_key_shadows">Tuşların altındaki gölgeler</string>
 	<string name="pref_keyboard_preview">Önizleme</string>
 	<string name="pref_layout">Düzen türü</string>
-    <string name="pref_layout_small">İşlevsel Tuşlar</string>
+	<string name="pref_layout_numpad">Sayısal tuş takımı (Fn tuşlarıyla)</string>
+	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>
 	<string name="pref_haptic_feedback_summary">Sanal bir tuşa basıldığında titremek. (Tüm cihazlarda mümkün değil)</string>
@@ -251,4 +252,5 @@
 	<string name="pref_color_scheme_device_dark">Sistem koyu</string>
 	<string name="click_here_for_preview">Önizleme için buraya tıklayın</string>
 	<string name="pref_double_tap_resize">Yeniden boyutlandırmak için çift dokunma</string>
+	<string name="pref_layout_classic">Sayısal tuş takımı (retro)</string>
 </resources>

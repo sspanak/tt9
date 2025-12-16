@@ -64,7 +64,8 @@
 	<string name="pref_key_shadows">Тіні під клавішами</string>
 	<string name="pref_keyboard_preview">Перегляд</string>
 	<string name="pref_layout">Тип розкладки</string>
-    <string name="pref_layout_small">Функціональні клавіші</string>
+	<string name="pref_layout_numpad">Цифрова клавіатура (з клавішами Fn)</string>
+	<string name="pref_layout_small">Функціональні клавіші</string>
 	<string name="pref_layout_stealth">Невидимий режим</string>
 	<string name="pref_layout_tray">Лише список слів</string>
 	<string name="pref_haptic_feedback_summary">Вібрувати при натисканні віртуальної клавіші. (Неможливо на всіх пристроях)</string>
@@ -257,4 +258,5 @@
 	<string name="pref_color_scheme_device_dark">Системний темний</string>
 	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>
 	<string name="pref_double_tap_resize">Подвійне торкання для зміни розміру</string>
+	<string name="pref_layout_classic">Цифрова клавіатура (ретро)</string>
 </resources>

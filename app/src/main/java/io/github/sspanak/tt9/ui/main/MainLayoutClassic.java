@@ -222,13 +222,11 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: translations
-
 		// @todo: toggle the Preferences properly
 		// @todo: review all usages of SettingsUI.isMainLayoutNumpad()
 		// @todo: review all usages of SettingsUI.LAYOUT_NUMPAD
 
-		// @todo: move the left/right arrows to the Fn key row
+		// @todo: move the left/right arrows to the Fn key row (+ create a new status bar)?
 		// @todo: add up/down swipe functions to OK + setting to toggle them
 
 		// @todo: styles for the Fn key row

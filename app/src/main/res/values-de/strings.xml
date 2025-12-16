@@ -18,6 +18,7 @@
 	<string name="pref_key_shadows">Schatten unter den Tasten</string>
 	<string name="pref_keyboard_preview">Vorschau</string>
 	<string name="pref_layout">Layout-Typ</string>
+	<string name="pref_layout_numpad">Ziffernblock (mit Fn-Tasten</string>
 	<string name="pref_layout_small">Funktionstasten</string>
 	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
 	<string name="pref_layout_tray">Nur Wortliste</string>
@@ -248,4 +249,5 @@
 	<string name="pref_color_scheme_device_dark">Systemdunkel</string>
 	<string name="click_here_for_preview">Hier klicken für Vorschau</string>
 	<string name="pref_double_tap_resize">Durch Doppeltippen die Größe ändern</string>
+	<string name="pref_layout_classic">Ziffernblock (Retro)</string>
 </resources>

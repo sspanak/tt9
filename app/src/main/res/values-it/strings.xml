@@ -20,7 +20,8 @@
 	<string name="pref_key_shadows">Ombre sotto i tasti</string>
 	<string name="pref_keyboard_preview">Anteprima</string>
 	<string name="pref_layout">Tipo di layout</string>
-    <string name="pref_layout_small">Tasti di funzione</string>
+	<string name="pref_layout_numpad">Tastierino numerico (con tasti Fn)</string>
+	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
 	<string name="pref_haptic_feedback_summary">Vibrare alla pressione di un tasto virtuale. (Non possibile su tutti i dispositivi)</string>
@@ -249,5 +250,6 @@
 	<string name="pref_color_scheme_device_dark">Scuro di sistema</string>
 	<string name="click_here_for_preview">Fai clic qui per l’anteprima</string>
 	<string name="pref_double_tap_resize">Doppio tocco per ridimensionare</string>
+	<string name="pref_layout_classic">Tastierino numerico (retrò)</string>
 </resources>
 

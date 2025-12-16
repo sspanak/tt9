@@ -58,7 +58,8 @@
 	<string name="pref_key_shadows">Sombras abaixo das teclas</string>
 	<string name="pref_keyboard_preview">Visualizar</string>
 	<string name="pref_layout">Tipo de layout</string>
-    <string name="pref_layout_small">Teclas de função</string>
+	<string name="pref_layout_numpad">Teclado numérico (com teclas Fn)</string>
+	<string name="pref_layout_small">Teclas de função</string>
 	<string name="pref_layout_stealth">Modo invisível</string>
 	<string name="pref_layout_tray">Apenas lista de palavras</string>
 	<string name="pref_haptic_feedback_summary">Vibrar ao pressionar uma tecla virtual. (Não é possível em todos os dispositivos)</string>
@@ -253,4 +254,5 @@
 	<string name="pref_color_scheme_device_dark">Escuro do sistema</string>
 	<string name="click_here_for_preview">Clique aqui para visualizar</string>
 	<string name="pref_double_tap_resize">Toque duplo para redimensionar</string>
+	<string name="pref_layout_classic">Teclado numérico (retrô)</string>
 </resources>

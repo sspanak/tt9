@@ -97,7 +97,7 @@
 	<string name="pref_key_shadows">Shadows Below Keys</string>
 	<string name="pref_keyboard_preview">Preview</string>
 	<string name="pref_layout">Layout Type</string>
-	<string name="pref_layout_classic">Virtual numpad (classic)</string>
+	<string name="pref_layout_classic">Virtual numpad (retro)</string>
 	<string name="pref_layout_numpad">Virtual numpad (with Fn keys)</string>
 	<string name="pref_layout_small">Function keys</string>
 	<string name="pref_layout_stealth">Invisible</string>

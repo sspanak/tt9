@@ -17,7 +17,8 @@
 	<string name="pref_key_shadows">Тени под клавишами</string>
 	<string name="pref_keyboard_preview">Предпросмотр</string>
 	<string name="pref_layout">Вид раскладки</string>
-    <string name="pref_layout_small">Функциональные клавиши</string>
+	<string name="pref_layout_numpad">Цифровая клавиатура (с клавишами Fn)</string>
+	<string name="pref_layout_small">Функциональные клавиши</string>
 	<string name="pref_layout_stealth">Невидимый режим</string>
 	<string name="pref_layout_tray">Только список слов</string>
 	<string name="pref_haptic_feedback_summary">Вибрировать при нажатии виртуальной клавиши. (Невозможно на всех устройствах)</string>
@@ -246,4 +247,5 @@
 	<string name="pref_color_scheme_device_dark">Системный тёмный</string>
 	<string name="click_here_for_preview">Нажмите здесь для просмотра</string>
 	<string name="pref_double_tap_resize">Двойное касание для изменения размера</string>
+	<string name="pref_layout_classic">Цифровая клавиатура (ретро)</string>
 </resources>
