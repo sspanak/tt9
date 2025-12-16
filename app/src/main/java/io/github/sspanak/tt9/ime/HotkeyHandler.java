@@ -73,12 +73,13 @@ public abstract class HotkeyHandler extends CommandHandler {
 				forceShowWindow();
 			}
 
-			updateShiftState(true, false);
+			// we don't want to use cached beforeCursor, because the action might have changed it
+			updateShiftState(null, true, false);
 			return actionPerformed;
 		}
 
 		actionPerformed = appHacks.onAction(action) || textField.performAction(action);
-		updateShiftState(true, false);
+		updateShiftState(null, true, false);
 
 		return actionPerformed;
 	}
