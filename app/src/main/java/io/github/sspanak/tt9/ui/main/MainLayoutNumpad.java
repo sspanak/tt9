@@ -50,7 +50,7 @@ class MainLayoutNumpad extends MainLayoutClassic {
 	}
 
 
-	protected int getLastSideKeyHeight(int keyHeight) {
+	private int getLastSideKeyHeight(int keyHeight) {
 		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
 	}
 
@@ -225,8 +225,9 @@ class MainLayoutNumpad extends MainLayoutClassic {
 
 	@Override
 	void render() {
-		super.render();
+		getView();
 		reorderFnKeys();
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
+		super.render();
 	}
 }
