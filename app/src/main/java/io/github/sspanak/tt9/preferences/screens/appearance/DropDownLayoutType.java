@@ -19,6 +19,8 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 
 	private final ArrayList<ItemLayoutChangeReactive> onChangeReactiveItems = new ArrayList<>();
 
+	@Nullable private SettingsStore settings;
+
 	public DropDownLayoutType(@NonNull Context context) { super(context); }
 	public DropDownLayoutType(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public DropDownLayoutType(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) { super(context, attrs, defStyle); }
@@ -26,6 +28,8 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
+		this.settings = settings;
+
 		add(SettingsUI.LAYOUT_STEALTH, R.string.pref_layout_stealth);
 		add(SettingsUI.LAYOUT_TRAY, R.string.pref_layout_tray);
 		add(SettingsUI.LAYOUT_SMALL, R.string.pref_layout_small);
@@ -63,7 +67,9 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 			item.onLayoutChange(newLayout);
 		}
 
-		// @todo: set preferred virtual numpad; default = if current is with Fn keys, then with Fn keys, else: classic
+		if (settings != null) {
+			settings.setPreferredLargeLayout(newLayout);
+		}
 
 		return true;
 	}

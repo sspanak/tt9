@@ -159,7 +159,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 			main.requestPreventEdgeToEdge();
 			vibration.vibrate();
 		} else if (settings.isMainLayoutSmall()) {
-			settings.setMainViewLayout(SettingsStore.LAYOUT_NUMPAD);
+			settings.setMainViewLayout(settings.getPreferredLargeLayout());
 			height = (int) Math.max(Math.max(heightNumpad * 0.6, heightSmall * 1.1), height + delta);
 			tt9.setCurrentView();
 			main.requestPreventEdgeToEdge();

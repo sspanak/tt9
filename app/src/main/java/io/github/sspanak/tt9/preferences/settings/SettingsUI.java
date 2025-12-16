@@ -30,6 +30,7 @@ public class SettingsUI extends SettingsTyping {
 	public final static int LAYOUT_CLASSIC = 5;
 
 	private final int DEFAULT_LAYOUT;
+	private final int DEFAULT_LARGE_LAYOUT;
 
 	public final static int MIN_WIDTH_PERCENT = 50;
 	private int DEFAULT_WIDTH_LANDSCAPE = 0;
@@ -39,8 +40,10 @@ public class SettingsUI extends SettingsTyping {
 	SettingsUI(Context context) {
 		super(context);
 
+		DEFAULT_LARGE_LAYOUT = LAYOUT_CLASSIC;
+
 		if (DeviceInfo.noKeyboard(context)) {
-			DEFAULT_LAYOUT = LAYOUT_CLASSIC; // @todo: use classic when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
+			DEFAULT_LAYOUT = DEFAULT_LARGE_LAYOUT;
 		} else if (DeviceInfo.noBackspaceKey() && !DeviceInfo.noTouchScreen(context)) {
 			DEFAULT_LAYOUT = LAYOUT_SMALL;
 		} else {
@@ -189,6 +192,20 @@ public class SettingsUI extends SettingsTyping {
 
 	public int getMainViewLayout() {
 		return getStringifiedInt(DropDownLayoutType.NAME, DEFAULT_LAYOUT);
+	}
+
+	public int getPreferredLargeLayout() {
+		final int layout = prefs.getInt("pref_preferred_large_layout", DEFAULT_LARGE_LAYOUT);
+		return layout != LAYOUT_CLASSIC && layout != LAYOUT_NUMPAD ? DEFAULT_LARGE_LAYOUT : layout;
+	}
+
+	public void setPreferredLargeLayout(int layout) {
+		if (layout != LAYOUT_CLASSIC && layout != LAYOUT_NUMPAD) {
+			Logger.w(getClass().getSimpleName(), "Ignoring invalid preferred large layout: " + layout);
+			return;
+		}
+
+		getPrefsEditor().putInt("pref_preferred_large_layout", layout).apply();
 	}
 
 	public boolean isMainLayoutLarge() {

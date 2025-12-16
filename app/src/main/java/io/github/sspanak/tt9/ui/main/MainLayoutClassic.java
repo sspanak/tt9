@@ -219,15 +219,17 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: remember the numpad style with/without Fn keys when toggling the size with double-tap
-
-		// @todo: move the left/right arrows to the Fn key row (+ create a new status bar)?
-		// @todo: add up/down swipe functions to OK + setting to toggle them
+		// @todo: move the left/right arrows to the Fn key row (+ create a new status bar) + make them optional
+		// @todo: styles for the suggestions bar
 
 		// @todo: styles for the Fn key row
-		// @todo: styles for the suggestions bar
+		// @todo: add up/down swipe functions to OK + make it optional
 		// @todo: replace the Settings key with a Command Palette key
 
+		// @todo: add Shift and LF4 keys
+		// @todo: make "!" and "?" optional
+
+		// @todo: set Settings.UI.DEFAULT_LARGE_LAYOUT to CLASSIC when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
 		// @todo: add a large command palette
 
 		getView();
