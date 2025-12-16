@@ -13,14 +13,14 @@ import io.github.sspanak.tt9.util.Text;
 public class AutoTextCase {
 	@NonNull private final Sequences sequences;
 	@NonNull private final SettingsStore settings;
-	private final boolean isUs;
+	private final boolean isSpecialized;
 	private boolean skipNext;
 
 
 	public AutoTextCase(@NonNull SettingsStore settingsStore, @NonNull Sequences sequences, @Nullable InputType inputType) {
 		this.sequences = sequences;
 		settings = settingsStore;
-		isUs = inputType != null && inputType.isUs();
+		isSpecialized = inputType != null && (inputType.isSpecialized() || inputType.isUs());
 		skipNext = false;
 	}
 
@@ -74,7 +74,7 @@ public class AutoTextCase {
 	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, @Nullable String beforeCursor) {
 		final int settingsTextCase = settings.getTextCase();
 
-		if (isUs || settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
+		if (isSpecialized || settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
 			return settingsTextCase;
 		}
 
@@ -114,8 +114,8 @@ public class AutoTextCase {
 			!settings.getAutoTextCasePredictive()
 			// If the user has explicitly selected uppercase, we respect that.
 			|| currentTextCase == InputMode.CASE_UPPER
-			// we do not have text fields that expect sentences, so disable the feature to save some resources
-			|| isUs
+			// preserve the text case in special input fields, like email, urls, passwords, or our own
+			|| isSpecialized
 			// save resources if the language has no uppercase letters
 			|| !language.hasUpperCase()
 		) {
