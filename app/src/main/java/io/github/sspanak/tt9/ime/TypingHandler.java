@@ -183,22 +183,31 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		hold = hold && settings.getHoldToType();
 
+
+		String previousChars = null;
+
 		// Automatically accept the previous word, when the next one is a space or punctuation,
 		// instead of requiring "OK" before that.
 		// First pass, analyze the incoming key press and decide whether it could be the start of
 		// a new word. In case we do accept it, we preserve the suggestion list instead of clearing,
 		// to prevent flashing while the next suggestions are being loaded.
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent(), key, hold)) {
-
 			// WARNING! Ensure the code after "acceptIncompleteAndKeepList()" does not depend on
 			// the suggestions in SuggestionOps, since we don't clear that list.
 			String lastWord = suggestionOps.acceptIncompleteAndKeepList();
 			mInputMode.onAcceptSuggestion(lastWord);
-			autoCorrectSpace(lastWord, false, key);
+			String[] surroundingChars = autoCorrectSpace(
+				lastWord,
+				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
+				false,
+				key
+			);
+
+			previousChars = surroundingChars[0];
 		}
 
 		// Auto-adjust the text case before each word/char, if the InputMode supports it.
-		mInputMode.determineNextWordTextCase(key);
+		mInputMode.determineNextWordTextCase(previousChars, key);
 
 		if (!mInputMode.onNumber(key, hold, repeat)) {
 			forceShowWindow();
@@ -227,17 +236,27 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		suggestionOps.cancelDelayedAccept();
 
+		String[] surroundingChars;
+
 		// accept the previously typed word (if any)
 		String lastWord = suggestionOps.acceptIncomplete();
-		if (!lastWord.isEmpty()) {
+		if (lastWord.isEmpty()) {
+			surroundingChars = textField.getSurroundingStringForAutoAssistance(settings, mInputMode);
+		} else {
 			mInputMode.onAcceptSuggestion(lastWord);
-			autoCorrectSpace(lastWord, false, -1);
+			surroundingChars = autoCorrectSpace(
+				lastWord,
+				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
+				false,
+				-1
+			);
 		}
 
 		// "type" and accept the new word
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
-		autoCorrectSpace(text, true, -1);
+		surroundingChars[0] += text;
+		autoCorrectSpace(text, surroundingChars, true, -1);
 
 		forceShowWindow();
 		updateShiftState(true, false);
@@ -246,18 +265,37 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	private void autoCorrectSpace(String currentWord, boolean isWordAcceptedManually, int nextKey) {
-		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace()) {
+	@NonNull
+	private String[] autoCorrectSpace(@Nullable String currentWord, @NonNull String[] surroundingChars, boolean isWordAcceptedManually, int nextKey) {
+		if (currentWord == null || currentWord.isEmpty() || !settings.isAutoAssistanceOn(mInputMode)) {
+			return surroundingChars;
+		}
+
+		String previousChars = surroundingChars[0];
+		String nextChars = surroundingChars[1];
+
+		if (!inputType.isRustDesk() && mInputMode.shouldDeletePrecedingSpace(previousChars)) {
 			textField.deletePrecedingSpace(currentWord);
+			if (previousChars.endsWith(" " + currentWord) && previousChars.length() > currentWord.length()) {
+				final int precedingSpace = previousChars.length() - currentWord.length() - 1;
+				previousChars = previousChars.substring(0, precedingSpace) + currentWord;
+			}
 		}
 
-		if (mInputMode.shouldAddPrecedingSpace()) {
+		if (mInputMode.shouldAddPrecedingSpace(previousChars)) {
 			textField.addPrecedingSpace(currentWord);
+			if (previousChars.endsWith(currentWord)) {
+				final int startOfWord = previousChars.length() - currentWord.length();
+				previousChars = previousChars.substring(0, startOfWord) + " " + currentWord;
+			}
 		}
 
-		if (mInputMode.shouldAddTrailingSpace(isWordAcceptedManually, nextKey)) {
+		if (mInputMode.shouldAddTrailingSpace(previousChars, nextChars, isWordAcceptedManually, nextKey)) {
 			textField.setText(" ");
+			nextChars = " " + nextChars;
 		}
+
+		return new String[] { previousChars, nextChars };
 	}
 
 
@@ -411,19 +449,31 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		suggestionOps.commitCurrent(false, true);
 		mInputMode.onAcceptSuggestion(lastWord, true);
-		autoCorrectSpace(lastWord, false, mInputMode.getFirstKey());
-		mInputMode.determineNextWordTextCase(-1);
+		String[] surroundingChars = autoCorrectSpace(
+			lastWord,
+			textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
+			false,
+			mInputMode.getFirstKey()
+		);
+		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
 	}
+
 
 	private void onAcceptSuggestionsDelayed(String word) {
 		onAcceptSuggestionManually(word, -1);
 		forceShowWindow();
 	}
 
+
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
 		mInputMode.onAcceptSuggestion(word);
 		if (!word.isEmpty()) {
-			autoCorrectSpace(word, true, fromKey);
+			autoCorrectSpace(
+				word,
+				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
+				true,
+				fromKey
+			);
 			updateShiftState(true, false);
 			resetKeyRepeat();
 		}
@@ -537,7 +587,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		}
 
 		if (determineTextCase) {
-			mInputMode.determineNextWordTextCase(-1);
+			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor(), -1);
 		}
 
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());

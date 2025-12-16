@@ -92,12 +92,10 @@ class ModeABC extends InputMode {
 
 
 	@Override
-	public void determineNextWordTextCase(int nextDigit) {
-		if (!settings.getAutoTextCaseAbc()) {
-			return;
+	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {
+		if (settings.getAutoTextCaseAbc()) {
+			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, beforeCursor);
 		}
-		final String strBefore = textField != null ? textField.getStringBeforeCursor(10) : null;
-		textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, strBefore);
 	}
 
 
@@ -108,20 +106,20 @@ class ModeABC extends InputMode {
 
 	/******** AUTO-SPACE ********/
 	@Override
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) {
-		return autoSpace.shouldAddTrailingSpace(textField, inputType, this, isWordAcceptedManually, nextKey);
+	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
+		return autoSpace.shouldAddTrailingSpace(inputType, this, previousChars, nextChars, isWordAcceptedManually, nextKey);
 	}
 
 
 	@Override
-	public boolean shouldAddPrecedingSpace() {
-		return autoSpace.shouldAddBeforePunctuation(inputType, textField);
+	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldAddBeforePunctuation(inputType, previousChars);
 	}
 
 
 	@Override
-	public boolean shouldDeletePrecedingSpace() {
-		return autoSpace.shouldDeletePrecedingSpace(inputType, textField);
+	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) {
+		return autoSpace.shouldDeletePrecedingSpace(inputType, previousChars);
 	}
 
 

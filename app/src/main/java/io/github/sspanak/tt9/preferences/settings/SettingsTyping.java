@@ -3,7 +3,10 @@ package io.github.sspanak.tt9.preferences.settings;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.ime.modes.InputMode;
+import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.preferences.screens.modeAbc.DropDownAbcAutoAcceptTime;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownOneKeyEmoji;
 import io.github.sspanak.tt9.preferences.screens.modePredictive.DropDownZeroKeyCharacter;
@@ -27,6 +30,12 @@ class SettingsTyping extends SettingsPunctuation {
 	public boolean getAutoTextCasePredictive() { return prefs.getBoolean("auto_text_case_predictive", true); }
 	public boolean getAutoCapitalsAfterNewline() {
 		return getAutoTextCasePredictive() && prefs.getBoolean("auto_capitals_after_newline", false);
+	}
+
+	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
+		return
+			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive())) ||
+			(InputModeKind.isABC(mode) && (getAutoSpaceAbc() || getAutoTextCaseAbc()));
 	}
 
 	public boolean getBackspaceAcceleration() {

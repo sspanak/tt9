@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import io.github.sspanak.tt9.hacks.InputType;
+import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
 import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
@@ -68,6 +69,18 @@ public class TextField extends InputField {
 	 */
 	@NonNull public String getStringBeforeCursor() {
 		return getStringBeforeCursor(50);
+	}
+
+
+	@NonNull public String[] getSurroundingStringForAutoAssistance(@NonNull SettingsStore settings, @Nullable InputMode mode) {
+		if (settings.isAutoAssistanceOn(mode)) {
+			return new String[] {
+				getStringBeforeCursor(50),
+				getStringAfterCursor(2)
+			};
+		} else {
+			return new String[] { "", "" };
+		}
 	}
 
 

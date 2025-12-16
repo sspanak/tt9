@@ -7,7 +7,6 @@ import java.util.Set;
 
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
-import io.github.sspanak.tt9.ime.helpers.TextField;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.Language;
@@ -58,12 +57,11 @@ public class AutoSpace {
 	 * suggestion. This allows faster typing, without pressing space. See the helper functions for
 	 * the list of rules.
 	 */
-	public boolean shouldAddTrailingSpace(@Nullable TextField textField, @Nullable InputType inputType, @NonNull InputMode mode, boolean isWordAcceptedManually, int nextKey) {
+	public boolean shouldAddTrailingSpace(@Nullable InputType inputType, @NonNull InputMode mode, @NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| nextKey == 0
 			|| inputType == null
-			|| textField == null
 			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
@@ -71,21 +69,19 @@ public class AutoSpace {
 			return false;
 		}
 
-		final String previousChars = textField.getStringBeforeCursor(10);
-
 		// If the InputConnection timed out, assume we are right after a word and we want a space.
 		// It should be the more convenient option.
 		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
 			return true;
 		}
 
-		final Text nextChars = textField.getTextAfterCursor(language, 2);
+		final Text nextText = new Text(language, nextChars);
 
 		return
-			!nextChars.startsWithWhitespace()
+			!nextText.startsWithWhitespace()
 			&& (
-				shouldAddAfterWord(!InputModeKind.isABC(mode), isWordAcceptedManually, new Text(language, previousChars), nextChars, nextKey)
-				|| shouldAddAfterPunctuation(previousChars, nextChars, nextKey)
+				shouldAddAfterWord(!InputModeKind.isABC(mode), isWordAcceptedManually, new Text(language, previousChars), nextText, nextKey)
+				|| shouldAddAfterPunctuation(previousChars, nextText, nextKey)
 			);
 	}
 
@@ -94,19 +90,16 @@ public class AutoSpace {
 	 * Determines the special French rules for space before punctuation, as well as some standard ones.
 	 * For example, should we transform "word?" to "word ?", or "something(" to "something ("
 	 */
-	public boolean shouldAddBeforePunctuation(@Nullable InputType inputType, @Nullable TextField textField) {
+	public boolean shouldAddBeforePunctuation(@Nullable InputType inputType, @NonNull String previousChars) {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| inputType == null
-			|| textField == null
 			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
 			return false;
 		}
-
-		String previousChars = textField.getStringBeforeCursor(2);
 
 		// if we can't figure out what is before, do not assume we are near punctuation to avoid
 		// unexpected spaces
@@ -180,20 +173,16 @@ public class AutoSpace {
 	/**
 	 * Determines whether to transform: "word ." to: "word."
 	 */
-	public boolean shouldDeletePrecedingSpace(@Nullable InputType inputType, @Nullable TextField textField) {
+	public boolean shouldDeletePrecedingSpace(@Nullable InputType inputType, @NonNull String previousChars) {
 		if (
 			!isLanguageWithSpaceBetweenWords
 			|| inputType == null
-			|| textField == null
 			|| isOff()
 			|| inputType.isSpecialized()
 			|| inputType.isUs()
 		) {
 			return false;
 		}
-
-
-		String previousChars = textField.getStringBeforeCursor(3);
 
 		// if we can't figure out what is before, better not delete anything
 		if (previousChars.equals(InputConnectionAsync.TIMEOUT_SENTINEL)) {
