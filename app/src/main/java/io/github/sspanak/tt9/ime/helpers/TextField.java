@@ -72,6 +72,14 @@ public class TextField extends InputField {
 	}
 
 
+	/**
+	 * getSurroundingStringForAutoAssistance
+	 * Returns just enough characters for AutoSpace and AutoText case classes to perform their work.
+	 * Elements:
+	 * 	[0] - up to 50 characters before the cursor
+	 * 	[1] - up to 2 characters after the cursor
+	 * When auto-assistance is disabled for the given input mode, returns two empty strings.
+	 */
 	@NonNull public String[] getSurroundingStringForAutoAssistance(@NonNull SettingsStore settings, @Nullable InputMode mode) {
 		if (settings.isAutoAssistanceOn(mode)) {
 			return new String[] {

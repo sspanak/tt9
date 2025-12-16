@@ -79,7 +79,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 		resetKeyRepeat();
 		mInputMode = determineInputMode();
 		determineTextCase();
-		updateShiftState(true, false);
+		updateShiftState(null, true, false); // don't use beforeCursor cache on start up
 		suggestionOps.set(null);
 
 		return true;
@@ -162,7 +162,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 			suggestionOps.commitCurrent(false, true);
 			mInputMode.reset();
 			deleteText(settings.getBackspaceAcceleration() && repeat > 0);
-			updateShiftStateDebounced(mInputMode.noSuggestions(), false);
+			updateShiftStateDebounced(null, mInputMode.noSuggestions(), false); // backspace may change the text too much, so no beforeCursor cache for now
 			recompose(repeat, !textSelection.isEmpty());
 		}
 
@@ -256,10 +256,10 @@ public abstract class TypingHandler extends KeyPadHandler {
 		mInputMode.onAcceptSuggestion(text);
 		textField.setText(text);
 		surroundingChars[0] += text;
-		autoCorrectSpace(text, surroundingChars, true, -1);
+		String beforeCursor = autoCorrectSpace(text, surroundingChars, true, -1)[0];
 
 		forceShowWindow();
-		updateShiftState(true, false);
+		updateShiftState(beforeCursor, true, false);
 
 		return true;
 	}
@@ -441,7 +441,7 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	private void onAcceptPreviousSuggestion() {
+	private String onAcceptPreviousSuggestion() {
 		String lastWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength() - 1);
 		if (Characters.PLACEHOLDER.equals(lastWord)) {
 			lastWord = "";
@@ -449,13 +449,15 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 		suggestionOps.commitCurrent(false, true);
 		mInputMode.onAcceptSuggestion(lastWord, true);
-		String[] surroundingChars = autoCorrectSpace(
+		String beforeCursor = autoCorrectSpace(
 			lastWord,
 			textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
 			false,
 			mInputMode.getFirstKey()
-		);
-		mInputMode.determineNextWordTextCase(surroundingChars[0], -1);
+		)[0];
+		mInputMode.determineNextWordTextCase(beforeCursor, -1);
+
+		return beforeCursor;
 	}
 
 
@@ -468,13 +470,13 @@ public abstract class TypingHandler extends KeyPadHandler {
 	protected void onAcceptSuggestionManually(String word, int fromKey) {
 		mInputMode.onAcceptSuggestion(word);
 		if (!word.isEmpty()) {
-			autoCorrectSpace(
+			String beforeCursor = autoCorrectSpace(
 				word,
 				textField.getSurroundingStringForAutoAssistance(settings, mInputMode),
 				true,
 				fromKey
-			);
-			updateShiftState(true, false);
+			)[0];
+			updateShiftState(beforeCursor, true, false);
 			resetKeyRepeat();
 		}
 
@@ -534,8 +536,9 @@ public abstract class TypingHandler extends KeyPadHandler {
 		// Second pass, analyze the available suggestions and decide if combining them with the
 		// last key press makes up a compound word like: (it)'s, (I)'ve, l'(oiseau), or it is
 		// just the end of a sentence, like: "word." or "another?"
+		String beforeCursor = null;
 		if (mInputMode.shouldAcceptPreviousSuggestion(suggestionOps.getCurrent())) {
-			onAcceptPreviousSuggestion();
+			beforeCursor = onAcceptPreviousSuggestion();
 		}
 
 		final ArrayList<String> suggestions = mInputMode.getSuggestions();
@@ -553,10 +556,11 @@ public abstract class TypingHandler extends KeyPadHandler {
 		String trimmedWord = suggestionOps.getCurrent(mLanguage, mInputMode.getSequenceLength());
 		appHacks.setComposingTextWithHighlightedStem(trimmedWord, mInputMode.getWordStem(), mInputMode.isStemFilterFuzzy());
 
+		beforeCursor = beforeCursor != null ? beforeCursor + trimmedWord : trimmedWord;
 		if (suggestions.isEmpty()) {
-			updateShiftStateDebounced(true, false);
+			updateShiftStateDebounced(beforeCursor, true, false);
 		} else {
-			updateShiftStateDebounced(false, true);
+			updateShiftStateDebounced(beforeCursor, false, true);
 		}
 
 		forceShowWindow();
@@ -571,23 +575,24 @@ public abstract class TypingHandler extends KeyPadHandler {
 	}
 
 
-	protected void updateShiftStateDebounced(boolean determineTextCase, boolean onlyWhenLetters) {
+	protected void updateShiftStateDebounced(@Nullable String beforeCursor, boolean determineTextCase, boolean onlyWhenLetters) {
 		if (shiftStateDebounceHandler == null) {
 			shiftStateDebounceHandler = new Handler(Looper.getMainLooper());
 		} else {
 			shiftStateDebounceHandler.removeCallbacksAndMessages(null);
 		}
-		shiftStateDebounceHandler.postDelayed(() -> updateShiftState(determineTextCase, onlyWhenLetters), SettingsStore.SHIFT_STATE_DEBOUNCE_TIME);
+		shiftStateDebounceHandler.postDelayed(() -> updateShiftState(beforeCursor, determineTextCase, onlyWhenLetters), SettingsStore.SHIFT_STATE_DEBOUNCE_TIME);
 	}
 
 
-	protected void updateShiftState(boolean determineTextCase, boolean onlyWhenLetters) {
+	protected void updateShiftState(@Nullable String beforeCursor, boolean determineTextCase, boolean onlyWhenLetters) {
 		if (onlyWhenLetters && !new Text(suggestionOps.getCurrent()).isAlphabetic()) {
 			return;
 		}
 
 		if (determineTextCase) {
-			mInputMode.determineNextWordTextCase(textField.getStringBeforeCursor(), -1);
+			beforeCursor = beforeCursor != null ? beforeCursor : textField.getStringBeforeCursor();
+			mInputMode.determineNextWordTextCase(beforeCursor, -1);
 		}
 
 		getDisplayTextCase(mLanguage, mInputMode.getTextCase());
