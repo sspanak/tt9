@@ -191,6 +191,11 @@ public class SettingsUI extends SettingsTyping {
 		return getStringifiedInt(DropDownLayoutType.NAME, DEFAULT_LAYOUT);
 	}
 
+	public boolean isMainLayoutLarge() {
+		final int layout = getMainViewLayout();
+		return layout == LAYOUT_CLASSIC || layout == LAYOUT_NUMPAD;
+	}
+
 	public boolean isMainLayoutClassic() { return getMainViewLayout() == LAYOUT_CLASSIC; }
 	public boolean isMainLayoutNumpad() { return getMainViewLayout() == LAYOUT_NUMPAD; }
 	public boolean isMainLayoutTray() { return getMainViewLayout() == LAYOUT_TRAY; }

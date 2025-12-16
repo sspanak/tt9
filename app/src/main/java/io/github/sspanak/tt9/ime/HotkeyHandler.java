@@ -29,7 +29,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		waitingForSpaceTrim = false;
 		if (super.onBack() == Ternary.TRUE) {
 			return Ternary.TRUE;
-		} else if (settings.isMainLayoutNumpad()) {
+		} else if (settings.isMainLayoutLarge()) {
 			return Ternary.ALTERNATIVE;
 		} else {
 			return Ternary.FALSE;

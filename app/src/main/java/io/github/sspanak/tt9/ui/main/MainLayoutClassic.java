@@ -19,8 +19,6 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeft;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class MainLayoutClassic extends MainLayoutExtraPanel {
-	private static final String LOG_TAG = MainLayoutClassic.class.getSimpleName();
-
 	protected int height;
 	protected boolean isTextEditingShown = false;
 
@@ -81,13 +79,12 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
 
 		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(), maxKeyHeight);
-		final int sideKeyHeight = getLastSideKeyHeight(defaultHeight);
+		final int textKeyHeight = getTextKeyHeight(defaultHeight);
 
-		return new int[] {defaultHeight, sideKeyHeight, sideKeyHeight};
+		return new int[] {defaultHeight, textKeyHeight, textKeyHeight};
 	}
 
-
-	protected int getLastSideKeyHeight(int keyHeight) {
+	protected int getTextKeyHeight(int keyHeight) {
 		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_INNER) : keyHeight;
 	}
 
@@ -110,7 +107,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 
 
 	protected int getKeyColumnHeight(int keyHeight) {
-		return keyHeight * 4 + getLastSideKeyHeight(keyHeight);
+		return keyHeight * 4 + getTextKeyHeight(keyHeight);
 	}
 
 
@@ -223,7 +220,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
 		// @todo: toggle the Preferences properly
-		// @todo: review all usages of SettingsUI.isMainLayoutNumpad()
 		// @todo: review all usages of SettingsUI.LAYOUT_NUMPAD
 
 		// @todo: move the left/right arrows to the Fn key row (+ create a new status bar)?

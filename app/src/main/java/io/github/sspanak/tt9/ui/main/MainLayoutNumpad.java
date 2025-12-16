@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyText;
 import io.github.sspanak.tt9.util.Logger;
 
 class MainLayoutNumpad extends MainLayoutClassic {
@@ -49,7 +50,6 @@ class MainLayoutNumpad extends MainLayoutClassic {
 	}
 
 
-	@Override
 	protected int getLastSideKeyHeight(int keyHeight) {
 		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;
 	}
@@ -61,10 +61,17 @@ class MainLayoutNumpad extends MainLayoutClassic {
 			return;
 		}
 
+		final int textKeyHeight = getTextKeyHeight(defaultHeight);
+
 		final View leftColumn = view.findViewById(R.id.numpad_column_fn_left);
 		final View rightColumn = view.findViewById(R.id.numpad_column_fn_right);
 
 		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyText) {
+				key.setHeight(textKeyHeight);
+				continue;
+			}
+
 			final View wrapper = (View) key.getParent();
 			final View container = wrapper != null ? (View) wrapper.getParent() : null;
 			final boolean isLastInColumn = wrapper != null && (wrapper.getId() == lastLFnWrapperId || wrapper.getId() == lastRFnWrapperId);

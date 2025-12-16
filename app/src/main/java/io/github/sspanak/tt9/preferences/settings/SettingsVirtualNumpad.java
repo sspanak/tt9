@@ -86,7 +86,7 @@ public class SettingsVirtualNumpad extends SettingsUI {
 	}
 
 	public int getNumpadKeyFontSizePercent() {
-		return isMainLayoutNumpad() ? getStringifiedInt(DropDownNumpadKeyFontSize.NAME, 100) : 100;
+		return isMainLayoutLarge() ? getStringifiedInt(DropDownNumpadKeyFontSize.NAME, 100) : 100;
 	}
 
 	public int getNumpadShape() {

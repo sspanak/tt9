@@ -40,7 +40,7 @@ public class SoftKeyOk extends BaseSoftKeyCustomizable {
 
 	@Override
 	protected float getTitleScale() {
-		return tt9 != null && tt9.getSettings().isMainLayoutNumpad() ? super.getTitleScale() : 1;
+		return tt9 != null && tt9.getSettings().isMainLayoutLarge() ? super.getTitleScale() : 1;
 	}
 
 	@Override
