@@ -27,7 +27,7 @@ class SettingsInput extends SettingsHacks {
 		final Set<String> rawLangIds = prefs.getStringSet("pref_languages", null);
 		final HashSet<String> langIds = new HashSet<>(rawLangIds != null ? rawLangIds : Collections.emptySet());
 
-		final ArrayList<Integer>list = new ArrayList<>();
+		final ArrayList<Integer> list = new ArrayList<>();
 		for (String languageId : langIds) {
 			try {
 				list.add(Integer.parseInt(languageId));
