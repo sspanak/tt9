@@ -1,6 +1,5 @@
 package io.github.sspanak.tt9.ui.main;
 
-import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -17,7 +16,6 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.util.Logger;
-import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 class MainLayoutNumpad extends MainLayoutClassic {
 	private static final String LOG_TAG = MainLayoutNumpad.class.getSimpleName();
@@ -35,21 +33,10 @@ class MainLayoutNumpad extends MainLayoutClassic {
 	@Override void showCommandPalette() {}
 	@Override boolean isCommandPaletteShown() { return false; }
 
-	/**
-	 * Uses the key height from the settings, but if the keyboard takes up too much screen space, it
-	 * will be adjusted limited to 60% of the screen height in landscape mode and 75% in portrait mode.
-	 * This prevents Android from auto-closing the keyboard in some apps that have a lot of content.
-	 * Returns the adjusted height of a single key.
-	 */
+
 	@Override
 	protected int[] calculateKeyHeight() {
-		final boolean isLandscape = DeviceInfo.isLandscapeOrientation(tt9);
-
-		final int screenHeight = DeviceInfo.getScreenHeight(tt9.getApplicationContext());
-		final double maxScreenHeight = isLandscape ? screenHeight * 0.6 : screenHeight * 0.75;
-		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
-
-		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(), maxKeyHeight);
+		final int defaultHeight = super.calculateKeyHeight()[0];
 
 		// in case some of the Fn keys are hidden, we need to stretch the rest
 		final int lfnCount = tt9.getSettings().getLfnKeyOrder().length();
@@ -114,22 +101,6 @@ class MainLayoutNumpad extends MainLayoutClassic {
 	}
 
 
-	int getHeight(boolean forceRecalculate) {
-		if (height <= 0 || forceRecalculate) {
-			Resources resources = tt9.getResources();
-
-			height =
-				Math.round(resources.getDimension(R.dimen.numpad_status_bar_spacing_top))
-				+ resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom)
-				+ resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height)
-				+ getKeyColumnHeight(calculateKeyHeight()[0])
-				+ Math.round(resources.getDimension(R.dimen.numpad_keys_spacing_bottom));
-		}
-
-		return height;
-	}
-
-
 	@Override
 	protected int getKeyColumnHeight(int keyHeight) {
 		return keyHeight * 3 + getLastSideKeyHeight(keyHeight);
@@ -144,6 +115,9 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		}
 
 		super.getKeys();
+
+		// status bar
+		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		// left Fn
 		addKey(R.id.soft_key_settings);
@@ -244,17 +218,8 @@ class MainLayoutNumpad extends MainLayoutClassic {
 
 	@Override
 	void render() {
-		final int[] keyHeights = calculateKeyHeight();
-		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
-
-		getView();
+		super.render();
 		reorderFnKeys();
-		enableClickHandlers();
-		setKeyHeight(keyHeights[0], keyHeights[1], keyHeights[2]);
-		setPadding();
-		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
-		setBackgroundBlending();
-		renderKeys(false);
 	}
 }

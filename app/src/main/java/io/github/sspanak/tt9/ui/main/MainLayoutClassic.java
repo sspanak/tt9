@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyText;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeft;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class MainLayoutClassic extends MainLayoutExtraPanel {
@@ -80,8 +81,9 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int maxKeyHeight = (int) Math.round(maxScreenHeight / 5);
 
 		final int defaultHeight = Math.min(tt9.getSettings().getNumpadKeyHeight(), maxKeyHeight);
+		final int sideKeyHeight = getLastSideKeyHeight(defaultHeight);
 
-		return new int[] {defaultHeight, defaultHeight, defaultHeight};
+		return new int[] {defaultHeight, sideKeyHeight, sideKeyHeight};
 	}
 
 
@@ -90,14 +92,19 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
-
 	protected void setKeyHeight(int defaultHeight, int leftHeight, int rightHeight) {
 		if (defaultHeight <= 0) {
 			return;
 		}
 
 		for (SoftKey key : getKeys()) {
-			key.setHeight(key instanceof SoftKeyText ? getLastSideKeyHeight(leftHeight) : defaultHeight);
+			if (key instanceof SoftKeyTextLeft) {
+				key.setHeight(leftHeight);
+			} else if (key instanceof SoftKeyText) {
+				key.setHeight(rightHeight);
+			} else {
+				key.setHeight(defaultHeight);
+			}
 		}
 	}
 
@@ -107,6 +114,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
+	@Override
 	int getHeight(boolean forceRecalculate) {
 		if (height <= 0 || forceRecalculate) {
 			Resources resources = tt9.getResources();
@@ -152,9 +160,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		if (!keys.isEmpty() || view == null) {
 			return keys;
 		}
-
-		// status bar
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
 
 		// function keys
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.classic_row_function_keys)));
@@ -217,7 +222,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: sort out duplication with MainLayoutNumpad.render()
 		// @todo: translations
 
 		// @todo: toggle the Preferences properly
@@ -225,7 +229,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		// @todo: review all usages of SettingsUI.LAYOUT_NUMPAD
 
 		// @todo: move the left/right arrows to the Fn key row
-		// @todo: add up/down arrows to the Fn key row + setting to toggle them
+		// @todo: add up/down swipe functions to OK + setting to toggle them
 
 		// @todo: styles for the Fn key row
 		// @todo: styles for the suggestions bar
