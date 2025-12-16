@@ -177,9 +177,9 @@ abstract public class InputMode {
 	public boolean shouldAcceptPreviousSuggestion(String unacceptedText) { return false; }
 	public boolean shouldAcceptPreviousSuggestion(String currentWord, int nextKey, boolean hold) { return false; }
 	public boolean shouldReplacePreviousSuggestion(@Nullable String currentWord) { return Characters.PLACEHOLDER.equals(currentWord); }
-	public boolean shouldAddTrailingSpace(boolean isWordAcceptedManually, int nextKey) { return false; }
-	public boolean shouldAddPrecedingSpace() { return false; }
-	public boolean shouldDeletePrecedingSpace() { return false; }
+	public boolean shouldAddTrailingSpace(@NonNull String previousChars, @NonNull String nextChars, boolean isWordAcceptedManually, int nextKey) { return false; }
+	public boolean shouldAddPrecedingSpace(@NonNull String previousChars) { return false; }
+	public boolean shouldDeletePrecedingSpace(@NonNull String previousChars) { return false; }
 	public boolean shouldIgnoreText(String text) { return text == null || text.isEmpty(); }
 	public boolean shouldSelectNextSuggestion() { return false; }
 
@@ -223,7 +223,7 @@ abstract public class InputMode {
 		return true;
 	}
 
-	public void determineNextWordTextCase(int nextDigit) {}
+	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {}
 	public void skipNextTextCaseDetection() {}
 
 	// Based on the internal logic of the mode (punctuation or grammar rules), re-adjust the text case for when getSuggestions() is called.
