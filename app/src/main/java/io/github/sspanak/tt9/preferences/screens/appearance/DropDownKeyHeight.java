@@ -18,7 +18,7 @@ public class DropDownKeyHeight extends EnhancedDropDownPreference implements Ite
 	public DropDownKeyHeight(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); }
 
 	public void onLayoutChange(int mainViewLayout) {
-		setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+		setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC || mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 		setIconSpaceReserved(false);
 	}
 

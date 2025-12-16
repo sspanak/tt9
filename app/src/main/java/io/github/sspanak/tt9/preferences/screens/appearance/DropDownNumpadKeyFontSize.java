@@ -32,7 +32,7 @@ public class DropDownNumpadKeyFontSize extends EnhancedDropDownPreference implem
 	}
 
 	public void onLayoutChange(int mainViewLayout) {
-		setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+		setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC || mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 		setIconSpaceReserved(false);
 	}
 }

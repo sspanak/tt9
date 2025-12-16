@@ -36,7 +36,7 @@ public class DropDownNumpadShape extends EnhancedDropDownPreference implements I
 	}
 
 	public void onLayoutChange(int mainViewLayout) {
-		setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD || mainViewLayout == SettingsStore.LAYOUT_CLASSIC);
+		setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC || mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 		setIconSpaceReserved(false);
 	}
 }

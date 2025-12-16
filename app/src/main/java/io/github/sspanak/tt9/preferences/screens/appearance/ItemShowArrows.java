@@ -28,7 +28,7 @@ public class ItemShowArrows extends ItemSwitch implements ItemLayoutChangeReacti
 
 	public void onLayoutChange(int mainViewLayout) {
 		if (item != null) {
-			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+			item.setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC || mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
 			item.setIconSpaceReserved(false);
 		}
 	}
