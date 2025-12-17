@@ -219,8 +219,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: move the left/right arrows to the Fn key row (+ create a new status bar) + make them optional
-		// @todo: styles for the suggestions bar
+		// @todo: move the left/right arrows to the Fn key row + make them optional
 
 		// @todo: styles for the Fn key row
 		// @todo: add up/down swipe functions to OK + make it optional

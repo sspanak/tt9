@@ -9,7 +9,7 @@
 
 	<LinearLayout style="@style/TTheme.Numpad" android:id="@+id/keyboard_container">
 		<View style="@style/TTheme.Keyboard.TopSeparator" />
-		<include layout="@layout/panel_numpad_status_bar" />
+		<include layout="@layout/panel_classic_status_bar" />
 
 		<LinearLayout style="@style/TTheme.Classic.Key.Container" android:id="@+id/main_soft_keys">
 

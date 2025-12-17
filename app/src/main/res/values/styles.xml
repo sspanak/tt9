@@ -287,27 +287,7 @@
 
 
 	<!--*******************************************
-		Numpad Classic: Blocks and Columns
-	*******************************************-->
-
-	<style name="TTheme.Classic.Key.Container" parent="">
-		<item name="android:gravity">bottom</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">wrap_content</item>
-		<item name="android:orientation">vertical</item>
-	</style>
-
-
-	<style name="TTheme.Classic.CentralBlock" parent="">
-		<item name="android:gravity">bottom</item>
-		<item name="android:layout_height">match_parent</item>
-		<item name="android:layout_width">match_parent</item>
-		<item name="android:orientation">vertical</item>
-	</style>
-
-
-	<!--*******************************************
-		Numpad with Fn Keys: Blocks and Columns
+		Numpad Blocks and Columns
 	*******************************************-->
 
 	<!-- Fn + Digit keys container -->
@@ -534,4 +514,25 @@
 		<item name="rippleColor">?attr/colorKeyOkRipple</item>
 	</style>
 
+
+	<!--*******************************************
+		Classic Numpad (shares styles with Numpad)
+	*******************************************-->
+
+	<!--*******************************************
+		Classic Blocks and Columns
+	*******************************************-->
+	<style name="TTheme.Classic.Key.Container" parent="">
+		<item name="android:gravity">bottom</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="TTheme.Classic.CentralBlock" parent="">
+		<item name="android:gravity">bottom</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:orientation">vertical</item>
+	</style>
 </resources>
