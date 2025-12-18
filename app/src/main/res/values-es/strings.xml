@@ -82,7 +82,7 @@
 	<string name="pref_allow_composing_text_summary">Mostrar las palabras en los campos de texto al escribirlas. Desactivar cuando una aplicación interrumpa la escritura.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
-	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de desplazamiento en ambos lados de la lista de sugerencias de palabras.</string>
+	<string name="pref_arrow_keys_visible_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias y mover el cursor de texto.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>

@@ -1,6 +1,7 @@
 package io.github.sspanak.tt9.ui.main;
 
 import android.content.res.Resources;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -14,8 +15,8 @@ import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyText;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeft;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextRight;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class MainLayoutClassic extends MainLayoutExtraPanel {
@@ -97,7 +98,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		for (SoftKey key : getKeys()) {
 			if (key instanceof SoftKeyTextLeft) {
 				key.setHeight(leftHeight);
-			} else if (key instanceof SoftKeyText) {
+			} else if (key instanceof SoftKeyTextRight) {
 				key.setHeight(rightHeight);
 			} else {
 				key.setHeight(defaultHeight);
@@ -158,8 +159,24 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 			return keys;
 		}
 
+		addNumericKeys();
+
 		// function keys
-		keys.addAll(getKeysFromContainer(view.findViewById(R.id.classic_row_function_keys)));
+		ViewGroup table = view.findViewById(R.id.main_soft_keys);
+		addKey(R.id.soft_key_command_palette, table);
+		addKey(R.id.soft_key_left_arrow, table);
+		addKey(R.id.soft_key_numpad_ok, table);
+		addKey(R.id.soft_key_right_arrow, table);
+		addKey(R.id.soft_key_numpad_backspace, table);
+
+		return keys;
+	}
+
+
+	protected void addNumericKeys() {
+		if (view == null) {
+			return;
+		}
 
 		// digits panel
 		ViewGroup table = view.findViewById(R.id.main_soft_keys);
@@ -180,8 +197,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		addKey(R.id.soft_key_200, table);
 		addKey(R.id.soft_key_text_201, table);
 		addKey(R.id.soft_key_text_202, table);
-
-		return keys;
 	}
 
 
@@ -214,24 +229,42 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
+	protected void beforeRender() {
+		if (view == null) {
+			return;
+		}
+
+		final int fnKeyWeight = tt9.getSettings().areArrowKeysHidden() ? 2 : 1;
+
+		final View backspace = view.findViewById(R.id.soft_key_numpad_backspace);
+		if (backspace instanceof SoftKey) {
+			((SoftKey) backspace).setWeight(fnKeyWeight);
+		}
+
+		final View commandPalette = view.findViewById(R.id.soft_key_command_palette);
+		if (commandPalette instanceof SoftKey) {
+			((SoftKey) commandPalette).setWeight(fnKeyWeight);
+		}
+	}
+
+
 	@Override
 	void render() {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: move the left/right arrows to the Fn key row + make them optional
-
-		// @todo: styles for the Fn key row
 		// @todo: add up/down swipe functions to OK + make it optional
 		// @todo: replace the Settings key with a Command Palette key
+
+		// @todo: add a large command palette
 
 		// @todo: add Shift and LF4 keys
 		// @todo: make "!" and "?" optional
 
 		// @todo: set Settings.UI.DEFAULT_LARGE_LAYOUT to CLASSIC when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
-		// @todo: add a large command palette
 
 		getView();
+		beforeRender();
 		enableClickHandlers();
 		setKeyHeight(keyHeights[0], keyHeights[1], keyHeights[2]);
 		setPadding();

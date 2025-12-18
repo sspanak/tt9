@@ -15,6 +15,7 @@ import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.preferences.settings.SettingsVirtualNumpad;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyArrow;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyText;
 import io.github.sspanak.tt9.util.Logger;
 
@@ -67,6 +68,10 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		final View rightColumn = view.findViewById(R.id.numpad_column_fn_right);
 
 		for (SoftKey key : getKeys()) {
+			if (key instanceof SoftKeyArrow) {
+				continue;
+			}
+
 			if (key instanceof SoftKeyText) {
 				key.setHeight(textKeyHeight);
 				continue;
@@ -121,7 +126,7 @@ class MainLayoutNumpad extends MainLayoutClassic {
 			return keys;
 		}
 
-		super.getKeys();
+		addNumericKeys();
 
 		// status bar
 		keys.addAll(getKeysFromContainer(view.findViewById(R.id.status_bar_container)));
@@ -224,10 +229,8 @@ class MainLayoutNumpad extends MainLayoutClassic {
 
 
 	@Override
-	void render() {
-		getView();
+	protected void beforeRender() {
 		reorderFnKeys();
 		setKeyColumnWidth(tt9.getSettings().getNumpadFnKeyScale());
-		super.render();
 	}
 }

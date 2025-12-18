@@ -34,7 +34,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Alternatieve suggestiescrolmethode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Inschakelen als je soms niet alle suggesties kunt zien of problemen hebt met het scrollen.</string>
 	<string name="pref_arrow_keys_visible">Pijltoetsen</string>
-	<string name="pref_arrow_keys_visible_summary">Scrolltoetsen aan beide zijden van de woordenvoorstellijst weergeven.</string>
+	<string name="pref_arrow_keys_visible_summary">Linker- en rechterpijltoetsen tonen om suggesties te scrollen en de tekstcursor te verplaatsen.</string>
 	<string name="pref_auto_space">Automatische spatie</string>
 	<string name="pref_auto_space_summary">Automatisch een spatie toevoegen na interpunctie of woorden.</string>
 	<string name="pref_auto_text_case">Automatische hoofdletters</string>

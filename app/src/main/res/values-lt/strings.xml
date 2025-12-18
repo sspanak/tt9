@@ -39,7 +39,7 @@
 	<string name="pref_allow_composing_text_summary">Rodyti žodžius teksto laukuose rašant. Išjungti, kai programa nutraukia rašymą.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
-	<string name="pref_arrow_keys_visible_summary">Rodyti slinkties klavišus abiejose žodžių pasiūlymų sąrašo pusėse.</string>
+	<string name="pref_arrow_keys_visible_summary">Rodyti kairės/dešinės rodyklių klavišus pasiūlymams slinkti ir teksto žymekliui perkelti.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>

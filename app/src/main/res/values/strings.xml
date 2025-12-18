@@ -62,7 +62,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Alternative Suggestion Scrolling Method</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Enable if sometimes you can not see all suggestions or have trouble scrolling them.</string>
 	<string name="pref_arrow_keys_visible">Arrow Keys</string>
-	<string name="pref_arrow_keys_visible_summary">Show scroll keys on both sides of the word suggestion list.</string>
+	<string name="pref_arrow_keys_visible_summary">Show left/right arrow keys for scrolling the suggestions and moving the text cursor.</string>
 	<string name="pref_auto_space">Automatic Space</string>
 	<string name="pref_auto_space_summary">Automatically add a space after punctuation or words.</string>
 	<string name="pref_auto_text_case">Automatic Capitalization</string>

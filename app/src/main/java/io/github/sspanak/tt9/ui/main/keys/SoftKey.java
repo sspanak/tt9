@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -152,6 +153,23 @@ public class SoftKey extends BaseClickableKey {
 			layout.height = height;
 			overlay.setLayoutParams(layout);
 		}
+	}
+
+
+	public void setWeight(float weight) {
+		if (weight < 0) {
+			return;
+		}
+
+		getOverlayWrapper();
+		if (overlay == null) {
+			setWeight(weight);
+			return;
+		}
+
+		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) overlay.getLayoutParams();
+		params.weight = weight;
+		overlay.setLayoutParams(params);
 	}
 
 

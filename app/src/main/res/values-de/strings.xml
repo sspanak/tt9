@@ -34,7 +34,7 @@
 	<string name="pref_allow_composing_text_summary">Wörter in Textfeldern beim Tippen anzeigen. Deaktivieren, wenn eine App das Tippen unterbricht.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
-	<string name="pref_arrow_keys_visible_summary">Bildlauf-Tasten auf beiden Seiten der Wortvorschlagsliste anzeigen.</string>
+	<string name="pref_arrow_keys_visible_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen und den Textcursor zu bewegen.</string>
 	<string name="pref_auto_space">Automatischer Abstand</string>
 	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>

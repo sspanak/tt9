@@ -16,8 +16,6 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	public SoftKeyArrow(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyArrow(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
-	@Override public void setHeight(int height) {}
-
 	@Override
 	protected boolean handlePress() {
 		hold = false;
@@ -63,7 +61,14 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 	@Override
 	public void render() {
-		setVisibility(tt9 != null && tt9.getSettings().areArrowKeysHidden() ? GONE : VISIBLE);
+		final int visibility = tt9 != null && tt9.getSettings().areArrowKeysHidden() ? GONE : VISIBLE;
+
+		setVisibility(visibility);
+		getOverlayWrapper();
+		if (overlay != null) {
+			overlay.setVisibility(visibility);
+		}
+
 		super.render();
 	}
 }
