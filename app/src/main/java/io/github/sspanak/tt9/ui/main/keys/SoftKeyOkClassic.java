@@ -12,14 +12,14 @@ import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class SoftKeyOkWithWithArrows extends SoftKeyOk {
+public class SoftKeyOkClassic extends SoftKeyOk {
 	@NonNull private final CmdFilterClear clear = new CmdFilterClear();
 	@NonNull private final CmdFilterSuggestions filter = new CmdFilterSuggestions();
 	@NonNull private final CmdMoveCursor moveCursor = new CmdMoveCursor();
 
-	public SoftKeyOkWithWithArrows(Context context) { super(context); }
-	public SoftKeyOkWithWithArrows(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyOkWithWithArrows(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyOkClassic(Context context) { super(context); }
+	public SoftKeyOkClassic(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyOkClassic(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	@Override
