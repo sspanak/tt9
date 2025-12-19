@@ -9,8 +9,10 @@
 
 		<SwitchPreferenceCompat
 			app:key="pref_arrow_keys_visible"
-			app:title="@string/pref_arrow_keys_visible"
-			app:summary="@string/pref_arrow_keys_visible_summary" />
+			app:title="@string/pref_arrows_left_right"
+			app:summary="@string/pref_arrows_left_right_summary" />
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchArrowsUpDown />
 
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"

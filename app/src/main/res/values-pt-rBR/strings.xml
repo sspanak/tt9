@@ -41,7 +41,7 @@
 	<string name="pref_allow_composing_text_summary">Exibir as palavras nos campos de texto ao digitá-las. Desativar quando um app interromper a digitação.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
-	<string name="pref_arrow_keys_visible_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões e mover o cursor de texto.</string>
+	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões e mover o cursor de texto.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
 	<string name="pref_auto_text_case">Maiúsculas automáticas</string>
@@ -226,7 +226,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrado</string>
 	<string name="pref_numpad_shape_v">Forma em V</string>
-	<string name="pref_arrow_keys_visible">Teclas de seta</string>
+	<string name="pref_arrows_left_right">Teclas de seta</string>
 	<string name="donate_hold_to_open">Pressione e segure para abrir no navegador.</string>
 	<string name="fn_key_order_error_duplicate_key">Teclas duplicadas não são permitidas.</string>
 	<string name="fn_key_order_legend">Legenda:</string>

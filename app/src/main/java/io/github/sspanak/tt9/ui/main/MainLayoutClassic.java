@@ -258,7 +258,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 			return;
 		}
 
-		final int fnKeyWeight = tt9.getSettings().areArrowKeysHidden() ? 2 : 1;
+		final int fnKeyWeight = tt9.getSettings().getArrowsLeftRight() ? 2 : 1;
 
 		final View backspace = view.findViewById(R.id.soft_key_numpad_backspace);
 		if (backspace instanceof SoftKey) {

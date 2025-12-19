@@ -3,11 +3,16 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import androidx.annotation.NonNull;
+
 import io.github.sspanak.tt9.commands.CmdFilterClear;
 import io.github.sspanak.tt9.commands.CmdFilterSuggestions;
 import io.github.sspanak.tt9.ui.Vibration;
 
 public class SoftKeyFilter extends BaseSoftKeyWithIcons {
+	@NonNull private final CmdFilterClear clear = new CmdFilterClear();
+	@NonNull private final CmdFilterSuggestions filter = new CmdFilterSuggestions();
+
 	public SoftKeyFilter(Context context) { super(context); }
 	public SoftKeyFilter(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyFilter(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
@@ -15,7 +20,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 	@Override
 	protected void handleHold() {
 		preventRepeat();
-		if (new CmdFilterClear().run(tt9)) {
+		if (clear.run(tt9)) {
 			vibrate(Vibration.getHoldVibration());
 			ignoreLastPressedKey();
 		}
@@ -23,7 +28,7 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 
 	@Override
 	protected boolean handleRelease() {
-		return new CmdFilterSuggestions().run(tt9, getLastPressedKey() == getId());
+		return filter.run(tt9, getLastPressedKey() == getId());
 	}
 
 	@Override
@@ -33,29 +38,20 @@ public class SoftKeyFilter extends BaseSoftKeyWithIcons {
 
 	@Override protected int getCentralIcon() {
 		if (tt9 != null) {
-			if (tt9.isFilteringFuzzy()) return new CmdFilterSuggestions().getIconFuzzy();
-			if (tt9.isFilteringOn()) return new CmdFilterSuggestions().getIconExact();
+			if (tt9.isFilteringFuzzy()) return filter.getIconFuzzy();
+			if (tt9.isFilteringOn()) return filter.getIconExact();
 		}
-		return new CmdFilterSuggestions().getIcon();
+		return filter.getIcon();
 	}
 
 	@Override protected int getCornerIcon(int position) {
-		return position == ICON_POSITION_TOP_RIGHT ? new CmdFilterClear().getIcon() : super.getCornerIcon(position);
+		return position == ICON_POSITION_TOP_RIGHT ? clear.getIcon() : super.getCornerIcon(position);
 	}
 
 	@Override
 	public void render() {
 		resetIconCache();
-		if (tt9 != null) {
-			setEnabled(
-				tt9.isFilteringSupported()
-				&& !tt9.isInputModeABC()
-				&& !tt9.isInputModeNumeric()
-				&& !tt9.isVoiceInputActive()
-				&& !tt9.isFnPanelVisible()
-			);
-		}
-
+		setEnabled(filter.isAvailable(tt9));
 		super.render();
 	}
 }

@@ -6,6 +6,7 @@ import android.view.inputmethod.EditorInfo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.ime.helpers.CursorOps;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.SuggestionOps;
@@ -128,13 +129,21 @@ public class AppHacks {
 	 * Handles applications that always report no text around the cursor, preventing the cursor from
 	 * moving the usual way.
 	 */
-	public boolean onMoveCursor(boolean backward) {
+	public boolean onMoveCursor(int direction) {
 		if (inputType == null || textField == null) {
 			return false;
 		}
 
+		final int keyCode = switch (direction) {
+			case CmdMoveCursor.CURSOR_MOVE_UP -> KeyEvent.KEYCODE_DPAD_UP;
+			case CmdMoveCursor.CURSOR_MOVE_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN;
+			case CmdMoveCursor.CURSOR_MOVE_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT;
+			case CmdMoveCursor.CURSOR_MOVE_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT;
+			default -> KeyEvent.KEYCODE_UNKNOWN;
+		};
+
 		if (inputType.isRustDesk() || inputType.isTermux()) {
-			return textField.sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+			return textField.sendDownUpKeyEvents(keyCode);
 		}
 
 		return false;

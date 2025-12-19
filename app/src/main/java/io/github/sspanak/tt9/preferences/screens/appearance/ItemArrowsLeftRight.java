@@ -5,11 +5,11 @@ import androidx.preference.SwitchPreferenceCompat;
 import io.github.sspanak.tt9.preferences.items.ItemSwitch;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class ItemShowArrows extends ItemSwitch implements ItemLayoutChangeReactive {
+public class ItemArrowsLeftRight extends ItemSwitch implements ItemLayoutChangeReactive {
 	public final static String NAME = "pref_arrow_keys_visible";
 	protected final SettingsStore settings;
 
-	public ItemShowArrows(SwitchPreferenceCompat item, SettingsStore settings) {
+	public ItemArrowsLeftRight(SwitchPreferenceCompat item, SettingsStore settings) {
 		super(item);
 		this.settings = settings;
 	}
@@ -22,7 +22,7 @@ public class ItemShowArrows extends ItemSwitch implements ItemLayoutChangeReacti
 
 	@Override
 	protected boolean getDefaultValue() {
-		return !settings.areArrowKeysHidden();
+		return !settings.getArrowsLeftRight();
 	}
 
 

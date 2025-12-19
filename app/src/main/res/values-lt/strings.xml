@@ -39,7 +39,7 @@
 	<string name="pref_allow_composing_text_summary">Rodyti žodžius teksto laukuose rašant. Išjungti, kai programa nutraukia rašymą.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
-	<string name="pref_arrow_keys_visible_summary">Rodyti kairės/dešinės rodyklių klavišus pasiūlymams slinkti ir teksto žymekliui perkelti.</string>
+	<string name="pref_arrows_left_right_summary">Rodyti kairės/dešinės rodyklių klavišus pasiūlymams slinkti ir teksto žymekliui perkelti.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
@@ -231,7 +231,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Kvadratas</string>
 	<string name="pref_numpad_shape_v">V formos</string>
-	<string name="pref_arrow_keys_visible">Rodyklių klavišai</string>
+	<string name="pref_arrows_left_right">Rodyklių klavišai</string>
 	<string name="donate_hold_to_open">Paspauskite ir laikykite, kad atidarytumėte naršyklėje.</string>
 	<string name="fn_key_order_error_duplicate_key">Pasikartojantys klavišai neleidžiami.</string>
 	<string name="fn_key_order_legend">Legenda:</string>

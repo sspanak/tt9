@@ -19,9 +19,10 @@
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOk
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyOkWithFilter
 			style="@style/TTheme.Numpad.Key.OK"
 			android:id="@+id/soft_key_numpad_ok" />
+		<include layout="@layout/key_overlay_side_chars" />
 	</RelativeLayout>
 
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper.HalfWidth">

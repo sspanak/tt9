@@ -16,4 +16,14 @@ public class CmdFilterSuggestions implements Command {
 	public boolean run(@Nullable TraditionalT9 tt9, boolean repeat) {
 		return tt9 != null && tt9.onKeyFilterSuggestions(false, repeat);
 	}
+
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return
+			tt9 != null
+			&& tt9.isFilteringSupported()
+			&& !tt9.isInputModeABC()
+			&& !tt9.isInputModeNumeric()
+			&& !tt9.isVoiceInputActive()
+			&& !tt9.isFnPanelVisible();
+	}
 }

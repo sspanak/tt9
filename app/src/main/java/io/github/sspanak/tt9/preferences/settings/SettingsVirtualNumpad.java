@@ -12,7 +12,8 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
-import io.github.sspanak.tt9.preferences.screens.appearance.ItemShowArrows;
+import io.github.sspanak.tt9.preferences.screens.appearance.ItemArrowsLeftRight;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchArrowsUpDown;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
 public class SettingsVirtualNumpad extends SettingsUI {
@@ -38,8 +39,12 @@ public class SettingsVirtualNumpad extends SettingsUI {
 		super(context);
 	}
 
-	public boolean areArrowKeysHidden() {
-		return !prefs.getBoolean(ItemShowArrows.NAME, true);
+	public boolean getArrowsLeftRight() {
+		return !prefs.getBoolean(ItemArrowsLeftRight.NAME, true);
+	}
+
+	public boolean getArrowsUpDown() {
+		return prefs.getBoolean(SwitchArrowsUpDown.NAME, SwitchArrowsUpDown.DEFAULT);
 	}
 
 	@NonNull public String getLfnKeyOrder() {

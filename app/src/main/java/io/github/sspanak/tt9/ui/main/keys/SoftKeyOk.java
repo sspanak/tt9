@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 
-public class SoftKeyOk extends BaseSoftKeyCustomizable {
+public class SoftKeyOk extends BaseSwipeableKey {
 	public SoftKeyOk(Context context) { super(context); }
 	public SoftKeyOk(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyOk(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

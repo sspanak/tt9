@@ -52,16 +52,16 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 	}
 
 	private boolean onLeft() {
-		return new CmdSuggestionPrevious().run(tt9) || new CmdMoveCursor().run(tt9, true);
+		return new CmdSuggestionPrevious().run(tt9) || new CmdMoveCursor().run(tt9, CmdMoveCursor.CURSOR_MOVE_LEFT);
 	}
 
 	private boolean onRight() {
-		return new CmdSuggestionNext().run(tt9) || new CmdMoveCursor().run(tt9, false);
+		return new CmdSuggestionNext().run(tt9) || new CmdMoveCursor().run(tt9, CmdMoveCursor.CURSOR_MOVE_RIGHT);
 	}
 
 	@Override
 	public void render() {
-		final int visibility = tt9 != null && tt9.getSettings().areArrowKeysHidden() ? GONE : VISIBLE;
+		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? GONE : VISIBLE;
 
 		setVisibility(visibility);
 		getOverlayWrapper();
