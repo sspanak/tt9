@@ -38,12 +38,16 @@ public class SoftKeyOkWithWithArrows extends SoftKeyOk {
 
 	@Override
 	protected void handleEndSwipeY(float position, float delta) {
+		if (!isSwipeable) {
+			return;
+		}
+
 		if (delta < 0) {
-			if (!isSwipeable || !filter.run(tt9, getLastPressedKey() == getId())) {
+			if (!filter.run(tt9, getLastPressedKey() == getId())) {
 				moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_UP);
 			}
 		} else {
-			if (!isSwipeable || !clear.run(tt9)) {
+			if (!clear.run(tt9)) {
 				moveCursor.run(tt9, CmdMoveCursor.CURSOR_MOVE_DOWN);
 			}
 		}
@@ -58,12 +62,12 @@ public class SoftKeyOkWithWithArrows extends SoftKeyOk {
 
 	@Override
 	protected String getTopText() {
-		return getContext().getString(R.string.key_dpad_up);
+		return isSwipeable ? getContext().getString(R.string.key_dpad_up) : "";
 	}
 
 
 	@Override
 	protected String getBottomText() {
-		return getContext().getString(R.string.key_dpad_down);
+		return isSwipeable ? getContext().getString(R.string.key_dpad_down) : "";
 	}
 }
