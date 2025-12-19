@@ -12,7 +12,7 @@
 			app:title="@string/pref_arrows_left_right"
 			app:summary="@string/pref_arrows_left_right_summary" />
 
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchArrowsUpDown />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown />
 
 		<Preference
 			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
