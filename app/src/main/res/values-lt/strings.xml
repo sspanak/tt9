@@ -40,6 +40,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Alternatyvus slinkimo būdas per pasiūlytus žodžius</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Įjunkite, jei kartais nematote viso žodžių sąrašo arba kyla problemų juos pasirenkant.</string>
 	<string name="pref_arrows_left_right_summary">Rodyti kairės/dešinės rodyklių klavišus pasiūlymams slinkti ir teksto žymekliui perkelti.</string>
+	<string name="pref_arrows_up_down_summary">Leisti perbraukti OK klavišą aukštyn/žemyn, kad būtų filtruojami pasiūlymai arba vertikaliai perkeliamas teksto žymeklis.</string>
 	<string name="pref_auto_space">Automatinis tarpas</string>
 	<string name="pref_auto_space_summary">Po žodžių ir skyrybos ženklų automatiškai pridėti tarpą.</string>
 	<string name="pref_auto_text_case">Automatinis didžiųjų raidžių rašymas</string>
@@ -257,4 +258,5 @@
 	<string name="click_here_for_preview">Spustelėkite čia, kad peržiūrėtumėte</string>
 	<string name="pref_double_tap_resize">Dvigubas bakstelėjimas dydžiui keisti</string>
 	<string name="pref_layout_classic">Skaičių klaviatūra (retro)</string>
+	<string name="pref_arrows_up_down">OK klavišo perbraukimas aukštyn/žemyn</string>
 </resources>

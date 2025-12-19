@@ -125,6 +125,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички.</string>
 	<string name="pref_arrows_left_right_summary">Показване на стрелки наляво/надясно за превъртане на предложенията и преместване на текстовия курсор.</string>
+	<string name="pref_arrows_up_down_summary">Разрешаване на плъзгане нагоре/надолу на клавиша OK за филтриране на предложенията или вертикално преместване на текстовия курсор.</string>
 	<string name="pref_auto_space">Автоматичен интервал</string>
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
 	<string name="pref_auto_text_case">Автоматични главни букви</string>
@@ -248,4 +249,5 @@
 	<string name="click_here_for_preview">Щракнете тук за предварителен преглед</string>
 	<string name="pref_double_tap_resize">Оразмеряване чрез двойно докосване</string>
 	<string name="pref_layout_classic">Цифрова клавиатура (ретро)</string>
+	<string name="pref_arrows_up_down">Плъзгане нагоре/надолу на клавиша OK</string>
 </resources>

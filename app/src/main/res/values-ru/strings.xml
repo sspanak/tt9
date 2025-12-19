@@ -77,6 +77,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Альтернативный метод прокрутки слов</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включите, если иногда вы не видите все слова или у вас возникают проблемы с их прокруткой.</string>
 	<string name="pref_arrows_left_right_summary">Показывать клавиши со стрелками влево/вправо для прокрутки подсказок и перемещения текстового курсора.</string>
+	<string name="pref_arrows_up_down_summary">Разрешить свайп вверх/вниз по клавише OK для фильтрации подсказок или вертикального перемещения текстового курсора.</string>
 	<string name="pref_auto_space">Авто пробел</string>
 	<string name="pref_auto_space_summary">Автоматически добавлять пробел после слов и знаков препинания.</string>
 	<string name="pref_auto_text_case">Авто заглавные буквы</string>
@@ -248,4 +249,5 @@
 	<string name="click_here_for_preview">Нажмите здесь для просмотра</string>
 	<string name="pref_double_tap_resize">Двойное касание для изменения размера</string>
 	<string name="pref_layout_classic">Цифровая клавиатура (ретро)</string>
+	<string name="pref_arrows_up_down">Свайп вверх/вниз по клавише OK</string>
 </resources>

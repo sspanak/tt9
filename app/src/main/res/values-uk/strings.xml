@@ -42,6 +42,7 @@
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
 	<string name="pref_arrows_left_right_summary">Показувати клавіші зі стрілками вліво/вправо для прокручування пропозицій і переміщення текстового курсора.</string>
+	<string name="pref_arrows_up_down_summary">Дозволити свайп вгору/вниз по клавіші OK для фільтрування пропозицій або вертикального переміщення текстового курсора.</string>
 	<string name="pref_auto_space">Автоматичний пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
 	<string name="pref_auto_text_case">Автоматична велика літера</string>
@@ -259,4 +260,5 @@
 	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>
 	<string name="pref_double_tap_resize">Подвійне торкання для зміни розміру</string>
 	<string name="pref_layout_classic">Цифрова клавіатура (ретро)</string>
+	<string name="pref_arrows_up_down">Свайп вгору/вниз по клавіші OK</string>
 </resources>
