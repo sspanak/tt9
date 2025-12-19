@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.commands.CmdNextInputMode;
+import io.github.sspanak.tt9.commands.CmdVoiceInput;
 import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.ime.TraditionalT9;
@@ -111,6 +112,12 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 	@Override
 	protected void handleEndSwipeX(float position, float delta) {
 		Command cmd = getSwipeCommand(delta < 0);
+
+		// avoid executing commands during voice input, to prevent undesired actions
+		if (tt9 != null && tt9.isVoiceInputActive() && !(cmd instanceof CmdVoiceInput)) {
+			return;
+		}
+
 		if (cmd != null) {
 			swipeCommandRan = cmd.run(tt9);
 		}
