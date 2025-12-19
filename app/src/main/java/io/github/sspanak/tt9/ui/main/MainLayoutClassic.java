@@ -21,6 +21,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class MainLayoutClassic extends MainLayoutExtraPanel {
 	protected int height;
+	protected boolean isCommandPaletteShown = false;
 	protected boolean isTextEditingShown = false;
 
 
@@ -28,17 +29,30 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		super(tt9, R.layout.main_classic);
 	}
 
+
 	protected MainLayoutClassic(TraditionalT9 tt9, int layoutResId) {
 		super(tt9, layoutResId);
 	}
 
 
-	@Override void showCommandPalette() {}
-	@Override boolean isCommandPaletteShown() { return false; }
+	@Override
+	void showCommandPalette() {
+		super.showCommandPalette();
+		togglePanel(R.id.main_soft_keys, true);
+		toggleTextEditingColumns(false);
+		toggleCommandPaletteColumns(true);
+		renderKeys(false);
+	}
 
 
-	protected void toggleTextEditingColumns(boolean show) {
-		isTextEditingShown = show;
+	protected void toggleCommandPaletteColumns(boolean show) {
+		isCommandPaletteShown = show;
+	}
+
+
+	@Override
+	boolean isCommandPaletteShown() {
+		return isCommandPaletteShown;
 	}
 
 
@@ -47,6 +61,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		super.showKeyboard();
 		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(false);
+		toggleCommandPaletteColumns(false);
 		renderKeys(false);
 	}
 
@@ -55,8 +70,14 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	void showTextEditingPalette() {
 		super.showTextEditingPalette();
 		togglePanel(R.id.main_soft_keys, true);
+		toggleCommandPaletteColumns(false);
 		toggleTextEditingColumns(true);
 		renderKeys(false);
+	}
+
+
+	protected void toggleTextEditingColumns(boolean show) {
+		isTextEditingShown = show;
 	}
 
 
@@ -229,6 +250,9 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
+	/**
+	 * Do layout-specific rendering work before the main rendering happens.
+	 */
 	protected void beforeRender() {
 		if (view == null) {
 			return;
@@ -255,8 +279,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 
 		// @todo: add up/down swipe functions to OK + make it optional
 		// @todo: replace the Settings key with a Command Palette key
-
-		// @todo: add a large command palette
 
 		// @todo: add Shift and LF4 keys
 		// @todo: make "!" and "?" optional
