@@ -278,7 +278,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
 		// @todo: add up/down swipe functions to OK + make it optional
-		// @todo: replace the Settings key with a Command Palette key
 
 		// @todo: add Shift and LF4 keys
 		// @todo: make "!" and "?" optional

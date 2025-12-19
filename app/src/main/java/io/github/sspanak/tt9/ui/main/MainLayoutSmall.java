@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
-import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPaletteSmall;
 
 class MainLayoutSmall extends MainLayoutTray {
 	MainLayoutSmall(TraditionalT9 tt9) {
@@ -75,8 +75,8 @@ class MainLayoutSmall extends MainLayoutTray {
 		super.enableClickHandlers();
 
 		for (SoftKey key : getKeys()) {
-			if (key instanceof SoftKeyCommandPalette) {
-				((SoftKeyCommandPalette) key).setMainView(tt9.getMainView());
+			if (key instanceof SoftKeyCommandPaletteSmall) {
+				((SoftKeyCommandPaletteSmall) key).setMainView(tt9.getMainView());
 			}
 		}
 	}

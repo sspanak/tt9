@@ -5,12 +5,12 @@ import android.util.AttributeSet;
 
 import io.github.sspanak.tt9.commands.CmdCommandPalette;
 
-public class SoftKeyCommandPalette extends BaseKeyboardResizeKey {
+public class SoftKeyCommandPaletteSmall extends BaseKeyboardResizeKey {
 	private final CmdCommandPalette command = new CmdCommandPalette();
 
-	public SoftKeyCommandPalette(Context context) { super(context); }
-	public SoftKeyCommandPalette(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyCommandPalette(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyCommandPaletteSmall(Context context) { super(context); }
+	public SoftKeyCommandPaletteSmall(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyCommandPaletteSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	@Override
 	protected boolean handleRelease() {
