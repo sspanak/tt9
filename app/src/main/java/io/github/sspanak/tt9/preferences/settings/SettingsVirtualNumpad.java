@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.preferences.screens.appearance.ItemArrowsLeftRight;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchArrowsUpDown;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
-public class SettingsVirtualNumpad extends SettingsUI {
+abstract public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	public final static int NUMPAD_SHAPE_SQUARE = 0;
 	public final static int NUMPAD_SHAPE_V = 1;
 	public final static int NUMPAD_SHAPE_LONG_SPACE = 2;

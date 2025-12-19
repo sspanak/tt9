@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.util.TextTools;
 
-public class SoftKeyNumber1 extends SoftKeyNumber {
+public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 	private static final String LARGE_LABEL_NUMERIC = "1";
 	private static final String LARGE_LABEL_TEXT = ",:-)";
 	private static final String HOLD_LABEL_NUMERIC_WHEN_LETTERS = "1 :-)";

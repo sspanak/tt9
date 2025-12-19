@@ -13,7 +13,7 @@ import io.github.sspanak.tt9.colors.CollectionColorScheme;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownColorScheme;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
-public class SettingsColors extends SettingsHotkeys {
+abstract public class SettingsColors extends SettingsHotkeys {
 	public static final int DEFAULT_KEY_BACKGROUND_COLOR = Color.WHITE;
 	public static final int DEFAULT_KEY_BORDER_COLOR = Color.TRANSPARENT;
 	public static final int DEFAULT_KEY_RIPPLE_COLOR = Color.LTGRAY;

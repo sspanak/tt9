@@ -277,10 +277,12 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: add up/down swipe functions to OK + make it optional
+		// @todo: remove the large command palette
+		// @todo: revert the first key to settings
 
 		// @todo: add Shift and LF4 keys
 		// @todo: make "!" and "?" optional
+		// @todo: ensure proper key locking when voice input, or text editing is active
 
 		// @todo: set Settings.UI.DEFAULT_LARGE_LAYOUT to CLASSIC when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
 
