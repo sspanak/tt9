@@ -6,13 +6,13 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
+public class SoftKeyTextEditingNumpad extends SoftKeyNumberNumpad {
 	public SoftKeyTextEditingNumpad(Context context) { super(context); }
 	public SoftKeyTextEditingNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyTextEditingNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 	protected boolean isFnPanelOn() {
-		return isTextEditingActive() || super.isFnPanelOn();
+		return isTextEditingActive();
 	}
 
 	protected void handleHold() {

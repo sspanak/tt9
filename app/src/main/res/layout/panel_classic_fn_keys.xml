@@ -5,7 +5,7 @@
 	android:id="@+id/classic_row_function_keys">
 
 	<RelativeLayout style="@style/TTheme.Classic.Key.Overlay.Wrapper">
-		<io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPaletteNumpad
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeySettings
 			android:id="@+id/soft_key_command_palette"
 			style="@style/TTheme.Numpad.Key.Large" />
 		<include layout="@layout/key_overlay_side_chars" />

@@ -277,9 +277,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: remove the large command palette
-		// @todo: revert the first key to settings
-
 		// @todo: add Shift and LF4 keys
 		// @todo: make "!" and "?" optional
 		// @todo: ensure proper key locking when voice input, or text editing is active
