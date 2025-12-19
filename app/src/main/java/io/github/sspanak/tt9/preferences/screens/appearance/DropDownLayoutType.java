@@ -67,7 +67,7 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 			item.onLayoutChange(newLayout);
 		}
 
-		if (settings != null) {
+		if (settings != null && (newLayout == SettingsUI.LAYOUT_CLASSIC || newLayout == SettingsUI.LAYOUT_NUMPAD)) {
 			settings.setPreferredLargeLayout(newLayout);
 		}
 
