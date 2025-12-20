@@ -174,7 +174,7 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 	 */
 	private void moveCursor(float screenX) {
 		float delta = previousX - screenX;
-		if (tt9 == null || Math.abs(delta) <= tt9.getSettings().MOVE_CURSOR_WITH_SPACE_THRESHOLD) {
+		if (tt9 == null || Math.abs(delta) <= tt9.getSettings().getMoveCursorWithSpaceThreshold()) {
 			return;
 		}
 

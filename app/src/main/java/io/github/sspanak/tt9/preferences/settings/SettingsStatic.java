@@ -2,7 +2,7 @@ package io.github.sspanak.tt9.preferences.settings;
 
 import android.content.Context;
 
-abstract public class SettingsStatic extends SettingsColors {
+public class SettingsStatic extends SettingsColors {
 	protected SettingsStatic(Context context) { super(context); }
 
 	/************* internal settings *************/

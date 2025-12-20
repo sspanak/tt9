@@ -25,7 +25,7 @@ import io.github.sspanak.tt9.commands.Command;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.util.Logger;
 
-abstract public class SettingsHotkeys extends SettingsVirtualNumpad {
+public class SettingsHotkeys extends SettingsVirtualNumpad {
 	private static final String HOTKEY_VERSION = "hotkeys_v6";
 
 
