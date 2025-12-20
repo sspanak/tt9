@@ -36,6 +36,7 @@ abstract public class SettingsStatic extends SettingsColors {
 	public final static int SOFT_KEY_TITLE_MAX_CHARS_INDIC = 3;
 	public final static float SOFT_KEY_V_SHAPE_RATIO_INNER = 1.1f;
 	public final static float SOFT_KEY_V_SHAPE_RATIO_OUTER = (float) Math.pow(SOFT_KEY_V_SHAPE_RATIO_INNER, 2);
+	public final static float SOFT_KEY_V_SHAPE_RATIO_CLASSIC = (SOFT_KEY_V_SHAPE_RATIO_OUTER + SOFT_KEY_V_SHAPE_RATIO_INNER) * 0.5f;
 	public final static int SUGGESTIONS_MAX = 20;
 	public final static int SUGGESTIONS_MIN = 8;
 	public final static int SUGGESTIONS_SELECT_ANIMATION_DURATION = 66;

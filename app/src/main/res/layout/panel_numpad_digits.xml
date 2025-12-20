@@ -29,13 +29,15 @@
 			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
-		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-			<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeftPremium
-				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_text_1" />
-			<include layout="@layout/key_overlay_icons" />
-			<include layout="@layout/key_overlay_side_text" />
-		</RelativeLayout>
+		<LinearLayout style="@style/TTheme.Numpad.CentralBlock.TwoKeyBlock" android:id="@+id/numpad_two_key_block_left">
+			<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper.HalfWidth">
+				<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeftPremium
+					style="@style/TTheme.Numpad.Key.Number"
+					android:id="@+id/soft_key_text_1" />
+				<include layout="@layout/key_overlay_icons" />
+				<include layout="@layout/key_overlay_side_text" />
+			</RelativeLayout>
+		</LinearLayout>
 	</LinearLayout>
 
 	<!-- 2-5-8 -->
@@ -108,12 +110,14 @@
 			<include layout="@layout/key_overlay_side_chars" />
 		</RelativeLayout>
 
-		<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper">
-			<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextRightPremium
-				style="@style/TTheme.Numpad.Key.Number"
-				android:id="@+id/soft_key_text_2" />
-			<include layout="@layout/key_overlay_icons" />
-			<include layout="@layout/key_overlay_side_text" />
-		</RelativeLayout>
+		<LinearLayout style="@style/TTheme.Numpad.CentralBlock.TwoKeyBlock" android:id="@+id/numpad_two_key_block_right">
+			<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper.HalfWidth">
+				<io.github.sspanak.tt9.ui.main.keys.SoftKeyTextRightPremium
+					style="@style/TTheme.Numpad.Key.Number"
+					android:id="@+id/soft_key_text_2" />
+				<include layout="@layout/key_overlay_icons" />
+				<include layout="@layout/key_overlay_side_text" />
+			</RelativeLayout>
+		</LinearLayout>
 	</LinearLayout>
 </merge>

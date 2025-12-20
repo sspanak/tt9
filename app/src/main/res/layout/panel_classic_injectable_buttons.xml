@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="0dp"
+	android:layout_height="0dp"
+	android:visibility="gone">
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper.HalfWidth" android:id="@+id/soft_key_wrapper_shift">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyShift
+			style="@style/TTheme.Numpad.Key.Large"
+			android:id="@+id/soft_key_shift" />
+		<include layout="@layout/key_overlay_icons" />
+	</RelativeLayout>
+
+	<RelativeLayout style="@style/TTheme.Numpad.Key.Overlay.Wrapper.HalfWidth" android:id="@+id/soft_key_wrapper_lf4">
+		<io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4
+			style="@style/TTheme.Numpad.Key.LF4"
+			android:id="@+id/soft_key_lf4" />
+		<include layout="@layout/key_overlay_lf4" />
+	</RelativeLayout>
+</LinearLayout>

@@ -334,6 +334,13 @@
 		<item name="android:visibility">gone</item>
 	</style>
 
+	<style name="TTheme.Numpad.CentralBlock.TwoKeyBlock" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">horizontal</item>
+	</style>
+
 	<!--*******************************************
 		Numpad Key Overlays
 	*******************************************-->
@@ -344,6 +351,12 @@
 		<item name="android:layout_width">match_parent</item>
 		<item name="android:layout_margin">0dp</item>
 		<item name="android:padding">0dp</item>
+	</style>
+
+
+	<style name="TTheme.Numpad.Key.Overlay.Wrapper.HalfWidth" parent="TTheme.Numpad.Key.Overlay.Wrapper">
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_width">0dp</item>
 	</style>
 
 	<style name="TTheme.Numpad.Key.LongSpace.Overlay.Wrapper" parent="TTheme.Numpad.Key.Overlay.Wrapper">

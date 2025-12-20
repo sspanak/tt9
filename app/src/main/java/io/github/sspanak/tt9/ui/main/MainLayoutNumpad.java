@@ -50,6 +50,10 @@ class MainLayoutNumpad extends MainLayoutClassic {
 		return new int[] {defaultHeight, lfnHeight, rfnHeight};
 	}
 
+	@Override
+	protected int getTextKeyHeight(int keyHeight) {
+		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_INNER) : keyHeight;
+	}
 
 	private int getLastSideKeyHeight(int keyHeight) {
 		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_OUTER) : keyHeight;

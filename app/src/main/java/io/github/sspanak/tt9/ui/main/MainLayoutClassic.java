@@ -13,8 +13,10 @@ import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.ime.TraditionalT9;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.main.keys.SoftKey;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyLF4;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyNumber2to9;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeySettings;
+import io.github.sspanak.tt9.ui.main.keys.SoftKeyShift;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextLeft;
 import io.github.sspanak.tt9.ui.main.keys.SoftKeyTextRight;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
@@ -107,7 +109,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 	protected int getTextKeyHeight(int keyHeight) {
-		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_INNER) : keyHeight;
+		return tt9.getSettings().isNumpadShapeV() ? Math.round(keyHeight * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_CLASSIC) : keyHeight;
 	}
 
 
@@ -117,9 +119,9 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		}
 
 		for (SoftKey key : getKeys()) {
-			if (key instanceof SoftKeyTextLeft) {
+			if (key instanceof SoftKeyTextLeft || key instanceof SoftKeyShift) {
 				key.setHeight(leftHeight);
-			} else if (key instanceof SoftKeyTextRight) {
+			} else if (key instanceof SoftKeyTextRight || key instanceof SoftKeyLF4) {
 				key.setHeight(rightHeight);
 			} else {
 				key.setHeight(defaultHeight);
@@ -182,13 +184,17 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 
 		addNumericKeys();
 
-		// function keys
+		// top function keys
 		ViewGroup table = view.findViewById(R.id.main_soft_keys);
 		addKey(R.id.soft_key_command_palette, table);
 		addKey(R.id.soft_key_left_arrow, table);
 		addKey(R.id.soft_key_numpad_ok, table);
 		addKey(R.id.soft_key_right_arrow, table);
 		addKey(R.id.soft_key_numpad_backspace, table);
+
+		// bottom function keys
+		addKey(R.id.soft_key_shift, table);
+		addKey(R.id.soft_key_lf4, table);
 
 		return keys;
 	}
@@ -251,23 +257,61 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 
 
 	/**
-	 * Do layout-specific rendering work before the main rendering happens.
+	 * Fits the Backspace and Command Palette keys depending on whether the left/right arrow keys
+	 * are shown.
 	 */
-	protected void beforeRender() {
-		if (view == null) {
-			return;
-		}
-
+	private void adjustTopFnKeysWidth(@NonNull View mainView) {
 		final int fnKeyWeight = tt9.getSettings().getArrowsLeftRight() ? 2 : 1;
 
-		final View backspace = view.findViewById(R.id.soft_key_numpad_backspace);
+		final View backspace = mainView.findViewById(R.id.soft_key_numpad_backspace);
 		if (backspace instanceof SoftKey) {
 			((SoftKey) backspace).setWeight(fnKeyWeight);
 		}
 
-		final View commandPalette = view.findViewById(R.id.soft_key_command_palette);
+		final View commandPalette = mainView.findViewById(R.id.soft_key_command_palette);
 		if (commandPalette instanceof SoftKey) {
 			((SoftKey) commandPalette).setWeight(fnKeyWeight);
+		}
+	}
+
+
+	/**
+	 * Moves the bottom function keys (Shift and LF4) into the correct container (long or short
+	 * spacebar), depending on the current layout shape setting.
+	 */
+	private void injectBottomFnKeys(@NonNull View mainView) {
+		final View shiftWrapper = mainView.findViewById(R.id.soft_key_wrapper_shift);
+		final View lf4Wrapper = mainView.findViewById(R.id.soft_key_wrapper_lf4);
+
+		ViewGroup leftBlock;
+		ViewGroup rightBlock;
+
+		if (tt9.getSettings().isNumpadShapeLongSpace()) {
+			leftBlock = rightBlock = mainView.findViewById(R.id.panel_long_spacebar);
+		} else {
+			leftBlock = mainView.findViewById(R.id.numpad_two_key_block_left);
+			rightBlock = mainView.findViewById(R.id.numpad_two_key_block_right);
+		}
+
+		if (leftBlock != null && shiftWrapper != null && shiftWrapper.getParent() != leftBlock) {
+			((ViewGroup) shiftWrapper.getParent()).removeView(shiftWrapper);
+			leftBlock.addView(shiftWrapper, 0);
+		}
+
+		if (rightBlock != null && lf4Wrapper != null && lf4Wrapper.getParent() != rightBlock) {
+			((ViewGroup) lf4Wrapper.getParent()).removeView(lf4Wrapper);
+			rightBlock.addView(lf4Wrapper, rightBlock.getChildCount());
+		}
+	}
+
+
+	/**
+	 * Do layout-specific rendering work before the main rendering happens.
+	 */
+	protected void beforeRender() {
+		if (view != null) {
+			adjustTopFnKeysWidth(view);
+			injectBottomFnKeys(view);
 		}
 	}
 
@@ -276,9 +320,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	void render() {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
-
-		// @todo: add Shift and LF4 keys
-		// @todo: set Settings.UI.DEFAULT_LARGE_LAYOUT to CLASSIC when screen <= 5.5". https://stackoverflow.com/questions/35780980/getting-the-actual-screen-height-android
 
 		getView();
 		beforeRender();
