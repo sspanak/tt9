@@ -22,7 +22,7 @@ public class ItemShowArrowsLeftRight extends ItemSwitch implements ItemLayoutCha
 
 	@Override
 	protected boolean getDefaultValue() {
-		return !settings.getArrowsLeftRight();
+		return settings.getArrowsLeftRight();
 	}
 
 

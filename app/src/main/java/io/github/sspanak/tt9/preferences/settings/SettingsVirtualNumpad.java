@@ -40,7 +40,7 @@ abstract public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	}
 
 	public boolean getArrowsLeftRight() {
-		return !prefs.getBoolean(ItemShowArrowsLeftRight.NAME, true);
+		return prefs.getBoolean(ItemShowArrowsLeftRight.NAME, true);
 	}
 
 	public boolean getArrowsUpDown() {

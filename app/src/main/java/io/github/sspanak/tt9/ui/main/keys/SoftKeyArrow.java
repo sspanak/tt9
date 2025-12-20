@@ -61,7 +61,7 @@ public class SoftKeyArrow extends BaseSoftKeyCustomizable {
 
 	@Override
 	public void render() {
-		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? GONE : VISIBLE;
+		final int visibility = tt9 != null && tt9.getSettings().getArrowsLeftRight() ? VISIBLE : GONE;
 
 		setVisibility(visibility);
 		getOverlayWrapper();

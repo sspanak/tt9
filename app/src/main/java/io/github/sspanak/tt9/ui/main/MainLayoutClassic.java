@@ -261,7 +261,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	 * are shown.
 	 */
 	private void adjustTopFnKeysWidth(@NonNull View mainView) {
-		final int fnKeyWeight = tt9.getSettings().getArrowsLeftRight() ? 2 : 1;
+		final int fnKeyWeight = tt9.getSettings().getArrowsLeftRight() ? 1 : 2;
 
 		final View backspace = mainView.findViewById(R.id.soft_key_numpad_backspace);
 		if (backspace instanceof SoftKey) {
@@ -320,6 +320,8 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	void render() {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
+
+		// @todo: in 123, and when long space, Shift and LF4 become invisible
 
 		getView();
 		beforeRender();
