@@ -6,7 +6,7 @@
 	tools:ignore="HardcodedText,KeyboardInaccessibleWidget"
 	tools:showIn="@layout/main_small">
 
-	<io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPaletteSmall
+	<io.github.sspanak.tt9.ui.main.keys.SoftKeyCommandPalette
 		android:id="@+id/soft_key_command_palette"
 		style="@style/TTheme.MainSmall.Key"
 		android:layout_weight="3"

@@ -53,6 +53,7 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 		return isShapeLongSpace != isLongSpaceKey;
 	}
 
+
 	@Override
 	protected boolean handleRelease() {
 		return tt9 != null && tt9.onText(getKeyChar(), false);
