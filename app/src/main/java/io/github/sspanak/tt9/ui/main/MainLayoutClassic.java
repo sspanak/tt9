@@ -44,6 +44,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		toggleTextEditingColumns(false);
 		toggleCommandPaletteColumns(true);
 		renderKeys(false);
+		afterRender();
 	}
 
 
@@ -65,6 +66,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		toggleTextEditingColumns(false);
 		toggleCommandPaletteColumns(false);
 		renderKeys(false);
+		afterRender();
 	}
 
 
@@ -75,6 +77,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		toggleCommandPaletteColumns(false);
 		toggleTextEditingColumns(true);
 		renderKeys(false);
+		afterRender();
 	}
 
 
