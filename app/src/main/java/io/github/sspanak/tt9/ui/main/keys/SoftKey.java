@@ -164,9 +164,16 @@ public class SoftKey extends BaseClickableKey {
 		getOverlayWrapper();
 		View targetView = overlay != null ? overlay : this;
 
-		LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) targetView.getLayoutParams();
-		params.weight = weight;
-		targetView.setLayoutParams(params);
+		LinearLayout.LayoutParams newParams;
+		ViewGroup.LayoutParams currentParams = targetView.getLayoutParams();
+		if (currentParams instanceof LinearLayout.LayoutParams params) {
+			newParams = params;
+		} else {
+			newParams = new LinearLayout.LayoutParams(currentParams);
+		}
+
+		newParams.weight = weight;
+		targetView.setLayoutParams(newParams);
 	}
 
 
