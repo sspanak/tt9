@@ -276,6 +276,21 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 
 
 	/**
+	 * Determines whether the long spacebar layout is currently visualized. Even if the setting is on,
+	 * in 123 mode or in Korean, the long spacebar is never shown, so we need to check the actual view
+	 * state.
+	 */
+	private boolean isLongSpaceOn() {
+		if (view == null || tt9 == null || !tt9.getSettings().isNumpadShapeLongSpace()) {
+			return false;
+		}
+
+		final View longSpaceSideKey = view.findViewById(R.id.soft_key_text_201);
+		return longSpaceSideKey != null && longSpaceSideKey.getVisibility() == View.VISIBLE;
+	}
+
+
+	/**
 	 * Moves the bottom function keys (Shift and LF4) into the correct container (long or short
 	 * spacebar), depending on the current layout shape setting.
 	 */
@@ -286,7 +301,7 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		ViewGroup leftBlock;
 		ViewGroup rightBlock;
 
-		if (tt9.getSettings().isNumpadShapeLongSpace()) {
+		if (isLongSpaceOn()) {
 			leftBlock = rightBlock = mainView.findViewById(R.id.panel_long_spacebar);
 		} else {
 			leftBlock = mainView.findViewById(R.id.numpad_two_key_block_left);
@@ -311,6 +326,15 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	protected void beforeRender() {
 		if (view != null) {
 			adjustTopFnKeysWidth(view);
+		}
+	}
+
+
+	/**
+	 * Do layout-specific rendering work after the main rendering happens.
+	 */
+	protected void afterRender() {
+		if (view != null) {
 			injectBottomFnKeys(view);
 		}
 	}
@@ -322,7 +346,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
 		// @todo: swap the swipe icon positions
-		// @todo: in 123 and Korean, and when long space, Shift and LF4 become invisible
 		// @todo: clean up the code using the inspector
 
 		getView();
@@ -333,5 +356,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		setWidth(tt9.getSettings().getWidthPercent(isPortrait), tt9.getSettings().getAlignment());
 		setBackgroundBlending();
 		renderKeys(false);
+		afterRender();
 	}
 }
