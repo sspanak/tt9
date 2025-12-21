@@ -24,14 +24,14 @@ public class SettingsCustomKeyActions extends SettingsUI {
 	public static final String CUSTOM_ACTION_KEY_8 = "_8";
 	public static final String CUSTOM_ACTION_KEY_9 = "_9";
 
-	protected static final HashMap<String, String> classicLayoutDefaultsSwipeRight = new HashMap<>() {{
+	protected static final HashMap<String, String> classicLayoutDefaultsSwipeLeft = new HashMap<>() {{
 		put(CUSTOM_ACTION_KEY_1, CmdAddWord.ID);
 		put(CUSTOM_ACTION_KEY_4, CmdUndo.ID);
+		put(CUSTOM_ACTION_KEY_5, CmdEditText.ID);
 	}};
 
-	protected static final HashMap<String, String> classicLayoutDefaultsSwipeLeft = new HashMap<>() {{
+	protected static final HashMap<String, String> classicLayoutDefaultsSwipeRight = new HashMap<>() {{
 		put(CUSTOM_ACTION_KEY_3, CmdVoiceInput.ID);
-		put(CUSTOM_ACTION_KEY_5, CmdEditText.ID);
 		put(CUSTOM_ACTION_KEY_6, CmdRedo.ID);
 	}};
 

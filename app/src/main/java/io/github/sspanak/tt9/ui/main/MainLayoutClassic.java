@@ -345,7 +345,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		final int[] keyHeights = calculateKeyHeight();
 		final boolean isPortrait = !DeviceInfo.isLandscapeOrientation(tt9);
 
-		// @todo: swap the swipe icon positions
 		// @todo: clean up the code using the inspector
 
 		getView();
