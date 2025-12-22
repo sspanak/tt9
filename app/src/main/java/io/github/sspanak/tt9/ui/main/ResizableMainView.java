@@ -229,7 +229,7 @@ public class ResizableMainView extends StaticMainView implements View.OnAttachSt
 		calculateSnapHeights();
 		int heightLow, heightHigh, heightMain = main.getHeight(true);
 
-		 if (main instanceof MainLayoutNumpad) {
+		if (main instanceof MainLayoutNumpad) {
 			heightLow = heightSmall;
 			heightHigh = heightNumpad;
 		} else if (main instanceof MainLayoutClassic) {

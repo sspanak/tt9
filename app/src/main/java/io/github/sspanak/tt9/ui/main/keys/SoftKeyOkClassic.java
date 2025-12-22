@@ -3,7 +3,7 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import org.jspecify.annotations.NonNull;
+import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.R;
 import io.github.sspanak.tt9.commands.CmdFilterClear;
@@ -23,7 +23,7 @@ public class SoftKeyOkClassic extends SoftKeyOk {
 
 
 	@Override
-	protected void initColors(@androidx.annotation.NonNull SettingsStore settings) {
+	protected void initColors(@NonNull SettingsStore settings) {
 		super.initColors(settings);
 		cornerElementColor = textColor;
 	}
