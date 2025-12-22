@@ -147,7 +147,7 @@ public class SoftKeyNumberSwipeable extends SoftKeyNumber {
 			resetIconCache();
 		}
 
-		return cachedCommand;
+		return cachedCommand != null && cachedCommand.isAvailable(tt9) ? cachedCommand : null;
 	}
 
 

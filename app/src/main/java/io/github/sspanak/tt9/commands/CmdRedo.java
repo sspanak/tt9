@@ -11,4 +11,9 @@ public class CmdRedo implements Command {
 	public int getIcon() { return io.github.sspanak.tt9.R.drawable.ic_fn_redo; }
 	public int getName() { return io.github.sspanak.tt9.R.string.function_redo; }
 	public boolean run(@Nullable TraditionalT9 tt9) { return tt9 != null && tt9.onKeyRedo(false); }
+
+	@Override
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && !tt9.isInputLimited();
+	}
 }

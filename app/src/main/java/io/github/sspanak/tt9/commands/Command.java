@@ -12,5 +12,6 @@ public interface Command {
 	int getIcon();
 	int getName();
 	default String getName(@NonNull Context context) { return context.getString(getName()); }
+	default boolean isAvailable(@Nullable TraditionalT9 tt9) { return true; }
 	default boolean run(@Nullable TraditionalT9 tt9) { return false; }
 }

@@ -1,5 +1,9 @@
 package io.github.sspanak.tt9.commands;
 
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.ime.TraditionalT9;
+
 public class CmdVoiceInput implements Command {
 	public static final String ID = "key_voice_input";
 	public String getId() { return ID; }
@@ -13,5 +17,18 @@ public class CmdVoiceInput implements Command {
 			return true;
 		}
 		return false;
+	}
+
+	public boolean isActive(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isVoiceInputActive();
+	}
+
+	@Override
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return !isMissing(tt9);
+	}
+
+	public boolean isMissing(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isVoiceInputMissing();
 	}
 }
