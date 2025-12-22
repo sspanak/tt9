@@ -57,7 +57,7 @@
 	<string name="pref_key_shadows">צללים מתחת למקשים</string>
 	<string name="pref_keyboard_preview">תצוגה מקדימה</string>
 	<string name="pref_layout">סוג פריסה</string>
-	<string name="pref_layout_numpad">לוח ספרות (עם מקשי Fn)</string>
+	<string name="pref_layout_numpad">לוח ספרות (מודרני)</string>
 	<string name="pref_layout_small">מקשי פונקציה</string>
 	<string name="pref_layout_stealth">מצב בלתי נראה</string>
 	<string name="pref_layout_tray">רשימת מילים בלבד</string>

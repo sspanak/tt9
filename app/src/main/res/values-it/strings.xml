@@ -20,7 +20,7 @@
 	<string name="pref_key_shadows">Ombre sotto i tasti</string>
 	<string name="pref_keyboard_preview">Anteprima</string>
 	<string name="pref_layout">Tipo di layout</string>
-	<string name="pref_layout_numpad">Tastierino numerico (con tasti Fn)</string>
+	<string name="pref_layout_numpad">Tastierino numerico (moderno)</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>

@@ -17,7 +17,7 @@
 	<string name="pref_key_shadows">Schaduwen onder toetsen</string>
 	<string name="pref_keyboard_preview">Voorbeeld</string>
 	<string name="pref_layout">Indelingstype</string>
-	<string name="pref_layout_numpad">Numpad (met Fn-toetsen)</string>
+	<string name="pref_layout_numpad">Numpad (modern)</string>
 	<string name="pref_layout_small">Functieknoppen</string>
 	<string name="pref_layout_stealth">Onzichtbare modus</string>
 	<string name="pref_layout_tray">Alleen suggestielijst</string>

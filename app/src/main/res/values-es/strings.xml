@@ -9,7 +9,7 @@
 	<string name="pref_key_shadows">Sombras bajo las teclas</string>
 	<string name="pref_keyboard_preview">Vista previa</string>
 	<string name="pref_layout">Tipo de distribución</string>
-	<string name="pref_layout_numpad">Teclado numérico (con teclas Fn)</string>
+	<string name="pref_layout_numpad">Teclado numérico (moderno)</string>
 	<string name="pref_layout_small">Teclas de función</string>
 	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>

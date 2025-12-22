@@ -18,7 +18,7 @@
 	<string name="pref_key_shadows">Tuşların altındaki gölgeler</string>
 	<string name="pref_keyboard_preview">Önizleme</string>
 	<string name="pref_layout">Düzen türü</string>
-	<string name="pref_layout_numpad">Sayısal tuş takımı (Fn tuşlarıyla)</string>
+	<string name="pref_layout_numpad">Sayısal tuş takımı (modern)</string>
 	<string name="pref_layout_small">İşlevsel Tuşlar</string>
 	<string name="pref_layout_stealth">Görünmez</string>
 	<string name="pref_layout_tray">Sadece Tahminler</string>

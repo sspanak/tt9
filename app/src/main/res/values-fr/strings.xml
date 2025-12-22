@@ -17,7 +17,7 @@
 	<string name="pref_key_shadows">Ombres sous les touches</string>
 	<string name="pref_keyboard_preview">Aperçu</string>
 	<string name="pref_layout">Type de disposition</string>
-	<string name="pref_layout_numpad">Pavé numérique (avec touches Fn)</string>
+	<string name="pref_layout_numpad">Pavé numérique (moderne)</string>
 	<string name="pref_layout_small">Touches de fonction</string>
 	<string name="pref_layout_stealth">Invisible</string>
 	<string name="pref_layout_tray">Seulement liste de mots</string>
