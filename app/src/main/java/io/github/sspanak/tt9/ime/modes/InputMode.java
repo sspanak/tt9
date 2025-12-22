@@ -135,7 +135,7 @@ abstract public class InputMode {
 	@NonNull
 	public ArrayList<String> getSuggestions() {
 		ArrayList<String> newSuggestions = new ArrayList<>();
-		for (String s : suggestions) {
+		for (String s : new ArrayList<>(suggestions)) { // new list prevents concurrent modification
 			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 		}
 
