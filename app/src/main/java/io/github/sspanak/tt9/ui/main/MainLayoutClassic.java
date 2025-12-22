@@ -23,7 +23,6 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class MainLayoutClassic extends MainLayoutExtraPanel {
 	protected int height;
-	protected boolean isCommandPaletteShown = false;
 	protected boolean isTextEditingShown = false;
 
 
@@ -37,26 +36,8 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	}
 
 
-	@Override
-	void showCommandPalette() {
-		super.showCommandPalette();
-		togglePanel(R.id.main_soft_keys, true);
-		toggleTextEditingColumns(false);
-		toggleCommandPaletteColumns(true);
-		renderKeys(false);
-		afterRender();
-	}
-
-
-	protected void toggleCommandPaletteColumns(boolean show) {
-		isCommandPaletteShown = show;
-	}
-
-
-	@Override
-	boolean isCommandPaletteShown() {
-		return isCommandPaletteShown;
-	}
+	@Override void showCommandPalette() {}
+	@Override boolean isCommandPaletteShown() { return false; }
 
 
 	@Override

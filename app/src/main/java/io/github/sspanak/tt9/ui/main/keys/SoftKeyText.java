@@ -35,11 +35,6 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 	}
 
 
-	private boolean shouldBeInvisible() {
-		return tt9 != null && tt9.isCommandPaletteActive();
-	}
-
-
 	protected boolean shouldHide() {
 		final boolean isLongSpaceKey = getId() == R.id.soft_key_text_201 || getId() == R.id.soft_key_text_202;
 		final boolean isShapeLongSpace = tt9 != null && tt9.getSettings().isNumpadShapeLongSpace();
@@ -69,23 +64,11 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 	@Override
 	public void render() {
 		final boolean isHidden = shouldHide();
-		final boolean isInvisible = shouldBeInvisible();
-
-		int visibility;
-
-		if (isHidden) {
-			visibility = GONE;
-		} else if (isInvisible) {
-			visibility = INVISIBLE;
-		} else {
-			visibility = VISIBLE;
-		}
-
-		setVisibility(visibility);
+		setVisibility(isHidden ? GONE : VISIBLE);
 
 		final ViewParent parent = getParent();
 		if (parent instanceof RelativeLayout) {
-			((RelativeLayout) parent).setVisibility(visibility);
+			((RelativeLayout) parent).setVisibility(isHidden ? RelativeLayout.GONE : RelativeLayout.VISIBLE);
 		}
 
 		super.render();
