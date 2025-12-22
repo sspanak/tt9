@@ -9,7 +9,7 @@
 	<string name="pref_key_shadows">Sombras bajo las teclas</string>
 	<string name="pref_keyboard_preview">Vista previa</string>
 	<string name="pref_layout">Tipo de distribución</string>
-	<string name="pref_layout_numpad">Teclado numérico</string>
+	<string name="pref_layout_numpad">Teclado numérico (moderno)</string>
 	<string name="pref_layout_small">Teclas de función</string>
 	<string name="pref_layout_stealth">Modo invisible</string>
 	<string name="pref_layout_tray">Solo lista de palabras</string>
@@ -82,7 +82,8 @@
 	<string name="pref_allow_composing_text_summary">Mostrar las palabras en los campos de texto al escribirlas. Desactivar cuando una aplicación interrumpa la escritura.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
-	<string name="pref_arrow_keys_visible_summary">Mostrar teclas de desplazamiento en ambos lados de la lista de sugerencias de palabras.</string>
+	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias y mover el cursor de texto.</string>
+	<string name="pref_arrows_up_down_summary">Permitir deslizar hacia arriba/abajo la tecla OK para filtrar sugerencias o mover el cursor de texto verticalmente.</string>
 	<string name="pref_auto_space">Espacio automático</string>
 	<string name="pref_auto_space_summary">Insertar un espacio automático después de palabras y signos de puntuación.</string>
 	<string name="pref_drag_resize_summary">Arrastrar la barra de estado o la tecla de ajustes para minimizar el teclado o ajustar su posición en la pantalla.</string>
@@ -222,7 +223,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Cuadrado</string>
 	<string name="pref_numpad_shape_v">Forma de V</string>
-	<string name="pref_arrow_keys_visible">Teclas de flecha</string>
+	<string name="pref_arrows_left_right">Teclas de flecha</string>
 	<string name="donate_hold_to_open">Mantén presionado para abrir en un navegador.</string>
 	<string name="fn_key_order_error_duplicate_key">No se permiten teclas duplicadas.</string>
 	<string name="fn_key_order_legend">Leyenda:</string>
@@ -247,4 +248,6 @@
 	<string name="pref_color_scheme_device_dark">Oscuro del sistema</string>
 	<string name="click_here_for_preview">Haz clic aquí para ver la vista previa</string>
 	<string name="pref_double_tap_resize">Doble toque para cambiar el tamaño</string>
+	<string name="pref_layout_classic">Teclado numérico (retro)</string>
+	<string name="pref_arrows_up_down">Deslizar arriba/abajo en la tecla OK</string>
 </resources>

@@ -41,6 +41,13 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 		return tt9 != null && tt9.getSettings().areEnabledLanguagesMoreThanN(1);
 	}
 
+	private boolean isKeyHidden() {
+		return
+			tt9 != null
+			&& tt9.getSettings().isMainLayoutClassic()
+			&& tt9.isFnPanelVisible();
+	}
+
 	private boolean isKeySmall() {
 		return Math.max(getTT9Height(), getTT9Width()) < 0.9f;
 	}
@@ -98,6 +105,14 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 
 	@Override
 	public void render() {
+		getOverlayWrapper();
+		if (isKeyHidden()) {
+			overlay.setVisibility(GONE);
+			return;
+		} else {
+			overlay.setVisibility(VISIBLE);
+		}
+
 		if (tt9 != null && tt9.isInputModeNumeric()) {
 			resetIconCache();
 		}
@@ -112,7 +127,6 @@ public class SoftKeyLF4 extends BaseSwipeableKey {
 			setPadding(0, 0, 0, 0);
 			setGravity(Gravity.CENTER);
 		}
-
 
 		setEnabled(
 			tt9 != null

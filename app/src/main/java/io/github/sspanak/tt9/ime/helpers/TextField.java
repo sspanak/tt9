@@ -13,6 +13,7 @@ import android.view.inputmethod.InputConnection;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputMode;
 import io.github.sspanak.tt9.languages.Language;
@@ -358,15 +359,27 @@ public class TextField extends InputField {
 	}
 
 
-	public boolean moveCursor(boolean backward) {
+	public boolean moveCursor(int direction) {
+		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
+		final boolean forward = direction == CmdMoveCursor.CURSOR_MOVE_RIGHT;
+
 		if (
 			(backward && getTextBeforeCursor(null, 1).isEmpty())
-			|| (!backward && getTextAfterCursor(null, 1).isEmpty())
+			|| (forward && getTextAfterCursor(null, 1).isEmpty())
 		) {
 			return false;
 		}
 
-		sendDownUpKeyEvents(backward ? KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT);
+		final int keyCode = switch (direction) {
+			case CmdMoveCursor.CURSOR_MOVE_UP -> KeyEvent.KEYCODE_DPAD_UP;
+			case CmdMoveCursor.CURSOR_MOVE_DOWN -> KeyEvent.KEYCODE_DPAD_DOWN;
+			case CmdMoveCursor.CURSOR_MOVE_LEFT -> KeyEvent.KEYCODE_DPAD_LEFT;
+			case CmdMoveCursor.CURSOR_MOVE_RIGHT -> KeyEvent.KEYCODE_DPAD_RIGHT;
+			default -> KeyEvent.KEYCODE_UNKNOWN;
+		};
+
+
+		sendDownUpKeyEvents(keyCode);
 
 		return true;
 	}

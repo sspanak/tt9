@@ -3,6 +3,7 @@ package io.github.sspanak.tt9.ime;
 import android.view.KeyEvent;
 
 import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdMoveCursor;
 import io.github.sspanak.tt9.ime.helpers.InputConnectionAsync;
 import io.github.sspanak.tt9.ime.helpers.Key;
 import io.github.sspanak.tt9.ime.helpers.TextField;
@@ -29,7 +30,7 @@ public abstract class HotkeyHandler extends CommandHandler {
 		waitingForSpaceTrim = false;
 		if (super.onBack() == Ternary.TRUE) {
 			return Ternary.TRUE;
-		} else if (settings.isMainLayoutNumpad()) {
+		} else if (settings.isMainLayoutLarge()) {
 			return Ternary.ALTERNATIVE;
 		} else {
 			return Ternary.FALSE;
@@ -217,12 +218,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 	}
 
 
-	public boolean onKeyMoveCursor(boolean backward) {
+	public boolean onKeyMoveCursor(int direction) {
+		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
+
 		if (textSelection.isEmpty()) {
 			return
-				appHacks.onMoveCursor(backward)
+				appHacks.onMoveCursor(direction)
 				|| (backward && onTrimTrailingSpace(false))
-				|| textField.moveCursor(backward);
+				|| textField.moveCursor(direction);
 		} else {
 			textSelection.clear(backward);
 			return true;

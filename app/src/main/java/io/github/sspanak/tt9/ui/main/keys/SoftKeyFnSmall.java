@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 import io.github.sspanak.tt9.commands.CommandCollection;
 
-public class SoftKeyFnSmall extends SoftKeyFnNumpad {
+public class SoftKeyFnSmall extends SoftKeyNumberNumpad {
 	public SoftKeyFnSmall(Context context) { super(context);}
 	public SoftKeyFnSmall(Context context, AttributeSet attrs) { super(context, attrs);}
 	public SoftKeyFnSmall(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr);}

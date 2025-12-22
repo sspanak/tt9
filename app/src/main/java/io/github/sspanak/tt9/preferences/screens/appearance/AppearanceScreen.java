@@ -56,7 +56,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		DropDownKeyHeight numpadKeyHeight = findPreference(DropDownKeyHeight.NAME);
 		DropDownWidth keyboardWidth = findPreference(DropDownWidth.NAME);
 		DropDownNumpadShape numpadShape = findPreference(DropDownNumpadShape.NAME);
-		ItemShowArrows showArrows = new ItemShowArrows(findPreference(ItemShowArrows.NAME), activity.getSettings());
+		ItemShowArrowsLeftRight showArrows = new ItemShowArrowsLeftRight(findPreference(ItemShowArrowsLeftRight.NAME), activity.getSettings());
 		DropDownNumpadFnKeyScale fnKeyWidth = findPreference(DropDownNumpadFnKeyScale.NAME);
 		DropDownNumpadKeyFontSize numpadKeyFontSize = findPreference(DropDownNumpadKeyFontSize.NAME);
 		DropDownSuggestionFontSize suggestionFontSize = findPreference(DropDownSuggestionFontSize.NAME);
@@ -78,6 +78,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 				.addOnChangeItem(suggestionFontSize)
 				.addOnChangePreference(bottomPadding)
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
+				.addOnChangePreference(findPreference(SwitchShowArrowsUpDown.NAME))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
 				.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
@@ -146,7 +147,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 		SwitchPreferenceCompat[] switches = {
 			findPreference(SwitchKeyShadows.NAME),
-			findPreference(ItemShowArrows.NAME),
+			findPreference(ItemShowArrowsLeftRight.NAME),
 			findPreference("pref_status_icon"),
 		};
 

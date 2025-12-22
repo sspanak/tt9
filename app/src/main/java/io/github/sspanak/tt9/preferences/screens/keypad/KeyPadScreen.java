@@ -34,7 +34,7 @@ public class KeyPadScreen extends BaseScreenFragment {
 		(new ItemHapticFeedback(findPreference(ItemHapticFeedback.NAME), activity.getSettings())).populate().enableClickHandler();
 
 		// hide the entire category when the settings shows no interest in it
-		final boolean isVisible = activity.getSettings().isMainLayoutNumpad() || activity.getSettings().isMainLayoutSmall();
+		final boolean isVisible = activity.getSettings().isMainLayoutLarge() || activity.getSettings().isMainLayoutSmall();
 		final PreferenceCategory category = findPreference("category_virtual_keys");
 		if (category != null) {
 			category.setVisible(isVisible);

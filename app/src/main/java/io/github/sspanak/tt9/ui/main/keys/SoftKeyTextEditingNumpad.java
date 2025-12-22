@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.commands.CommandCollection;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
+public class SoftKeyTextEditingNumpad extends SoftKeyNumberNumpad {
 	public SoftKeyTextEditingNumpad(Context context) { super(context); }
 	public SoftKeyTextEditingNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyTextEditingNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
@@ -39,7 +39,7 @@ public class SoftKeyTextEditingNumpad extends SoftKeyFnNumpad {
 	@Override
 	protected int getCentralIcon() {
 		if (!isTextEditingActive()) {
-			return -1;
+			return super.getCentralIcon();
 		}
 
 		return CommandCollection.getByKeyId(CommandCollection.COLLECTION_TEXT_EDITING, getId()).getIcon();

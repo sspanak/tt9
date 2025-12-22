@@ -20,7 +20,7 @@
 	<string name="pref_key_shadows">Ombre sotto i tasti</string>
 	<string name="pref_keyboard_preview">Anteprima</string>
 	<string name="pref_layout">Tipo di layout</string>
-	<string name="pref_layout_numpad">Tastierino numerico</string>
+	<string name="pref_layout_numpad">Tastierino numerico (moderno)</string>
 	<string name="pref_layout_small">Tasti di funzione</string>
 	<string name="pref_layout_stealth">Invisibile</string>
 	<string name="pref_layout_tray">Solo elenco delle parole</string>
@@ -36,7 +36,8 @@
 	<string name="pref_allow_composing_text_summary">Mostra le parole nei campi di testo durante la digitazione. Disattiva quando un\'app interrompe la digitazione.</string>
 	<string name="pref_alternative_suggestion_scrolling">Metodo alternativo di scorrimento delle suggerimenti</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli.</string>
-	<string name="pref_arrow_keys_visible_summary">Mostra i tasti di scorrimento su entrambi i lati della lista dei suggerimenti di parole.</string>
+	<string name="pref_arrows_left_right_summary">Mostrare i tasti freccia sinistra/destra per scorrere i suggerimenti e spostare il cursore di testo.</string>
+	<string name="pref_arrows_up_down_summary">Consentire lo scorrimento verso l’alto/il basso sul tasto OK per filtrare i suggerimenti o spostare verticalmente il cursore di testo.</string>
 	<string name="pref_auto_space">Spazio automatico</string>
 	<string name="pref_auto_space_summary">Aggiungere automaticamente uno spazio dopo la punteggiatura o le parole.</string>
 	<string name="pref_auto_text_case">Maiuscole automatiche</string>
@@ -212,7 +213,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrato</string>
 	<string name="pref_numpad_shape_v">Forma a V</string>
-	<string name="pref_arrow_keys_visible">Tasti freccia</string>
+	<string name="pref_arrows_left_right">Tasti freccia</string>
 	<string name="donate_hold_to_open">Tieni premuto per aprire nel browser.</string>
 	<string name="key_key">Tasto</string>
 	<string name="fn_key_order_error_duplicate_key">Non sono consentiti tasti duplicati.</string>
@@ -250,5 +251,7 @@
 	<string name="pref_color_scheme_device_dark">Scuro di sistema</string>
 	<string name="click_here_for_preview">Fai clic qui per l’anteprima</string>
 	<string name="pref_double_tap_resize">Doppio tocco per ridimensionare</string>
+	<string name="pref_layout_classic">Tastierino numerico (retrò)</string>
+	<string name="pref_arrows_up_down">Scorrimento su/giù del tasto OK</string>
 </resources>
 

@@ -18,7 +18,7 @@ import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyNumber2to9 extends SoftKeyNumber {
+public class SoftKeyNumber2to9 extends SoftKeyNumberSwipeable {
 	public SoftKeyNumber2to9(Context context) { super(context); }
 	public SoftKeyNumber2to9(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyNumber2to9(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }

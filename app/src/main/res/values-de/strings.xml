@@ -18,7 +18,7 @@
 	<string name="pref_key_shadows">Schatten unter den Tasten</string>
 	<string name="pref_keyboard_preview">Vorschau</string>
 	<string name="pref_layout">Layout-Typ</string>
-	<string name="pref_layout_numpad">Ziffernblock</string>
+	<string name="pref_layout_numpad">Ziffernblock (modern)</string>
 	<string name="pref_layout_small">Funktionstasten</string>
 	<string name="pref_layout_stealth">Unsichtbarer Modus</string>
 	<string name="pref_layout_tray">Nur Wortliste</string>
@@ -34,7 +34,8 @@
 	<string name="pref_allow_composing_text_summary">Wörter in Textfeldern beim Tippen anzeigen. Deaktivieren, wenn eine App das Tippen unterbricht.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternative Wort-Scroll-Methode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Aktivieren Sie, wenn Sie manchmal nicht alle Vorschläge sehen können oder Probleme beim Scrollen haben.</string>
-	<string name="pref_arrow_keys_visible_summary">Bildlauf-Tasten auf beiden Seiten der Wortvorschlagsliste anzeigen.</string>
+	<string name="pref_arrows_left_right_summary">Linke/rechte Pfeiltasten anzeigen, um durch Vorschläge zu scrollen und den Textcursor zu bewegen.</string>
+	<string name="pref_arrows_up_down_summary">Wischen nach oben/unten auf der OK-Taste erlauben, um Vorschläge zu filtern oder den Textcursor vertikal zu bewegen.</string>
 	<string name="pref_auto_space">Automatischer Abstand</string>
 	<string name="pref_auto_space_summary">Automatisch ein Leerzeichen nach Satzzeichen oder Wörtern hinzufügen.</string>
 	<string name="pref_auto_text_case">Automatische Großbuchstaben</string>
@@ -214,7 +215,7 @@
 	<string name="pref_numpad_shape">Form</string>
 	<string name="pref_numpad_shape_square">Quadrat</string>
 	<string name="pref_numpad_shape_v">V-Form</string>
-	<string name="pref_arrow_keys_visible">Pfeiltasten</string>
+	<string name="pref_arrows_left_right">Pfeiltasten</string>
 	<string name="donate_hold_to_open">Drücken und halten, um in einem Browser zu öffnen.</string>
 	<string name="key_key">Taste</string>
 	<string name="fn_key_order_error_duplicate_key">Doppelte Tasten sind nicht erlaubt.</string>
@@ -249,4 +250,6 @@
 	<string name="pref_color_scheme_device_dark">Systemdunkel</string>
 	<string name="click_here_for_preview">Hier klicken für Vorschau</string>
 	<string name="pref_double_tap_resize">Durch Doppeltippen die Größe ändern</string>
+	<string name="pref_layout_classic">Ziffernblock (Retro)</string>
+	<string name="pref_arrows_up_down">OK-Taste nach oben/unten wischen</string>
 </resources>

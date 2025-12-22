@@ -62,21 +62,11 @@ abstract public class SoftKeyText extends BaseSwipeableKey {
 
 
 	@Override
-	public void setHeight(int height) {
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad() && tt9.getSettings().isNumpadShapeV()) {
-			height = Math.round(height * SettingsStore.SOFT_KEY_V_SHAPE_RATIO_INNER);
-		}
-
-		super.setHeight(height);
-	}
-
-
-	@Override
 	public void render() {
 		final boolean isHidden = shouldHide();
 		setVisibility(isHidden ? GONE : VISIBLE);
 
-		ViewParent parent = getParent();
+		final ViewParent parent = getParent();
 		if (parent instanceof RelativeLayout) {
 			((RelativeLayout) parent).setVisibility(isHidden ? RelativeLayout.GONE : RelativeLayout.VISIBLE);
 		}

@@ -69,6 +69,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public boolean isCommandPaletteActive() {
+		return mainView != null && mainView.isCommandPaletteShown();
+	}
+
+
 	public boolean isDragResizeOn() {
 		return dragResize;
 	}

@@ -56,7 +56,7 @@ public class SettingsHotkeys extends SettingsVirtualNumpad {
 		if (
 			KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_CLEAR)
 			|| KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_DEL)
-			|| isMainLayoutNumpad()
+			|| isMainLayoutLarge()
 		) {
 			getPrefsEditor().putString(CmdBackspace.ID, String.valueOf(KeyEvent.KEYCODE_UNKNOWN));
 		} else {

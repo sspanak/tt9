@@ -99,7 +99,7 @@ public class SuggestionsBar {
 		mSuggestionsAdapter = new SuggestionsAdapter(
 			context,
 			this::handleItemClick,
-			settings.isMainLayoutNumpad() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
+			settings.isMainLayoutLarge() ? R.layout.suggestion_list_numpad : R.layout.suggestion_list,
 			R.id.suggestion_list_item,
 			visibleSuggestions
 		);

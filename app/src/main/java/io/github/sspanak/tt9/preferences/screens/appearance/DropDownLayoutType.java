@@ -19,6 +19,8 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 
 	private final ArrayList<ItemLayoutChangeReactive> onChangeReactiveItems = new ArrayList<>();
 
+	@Nullable private SettingsStore settings;
+
 	public DropDownLayoutType(@NonNull Context context) { super(context); }
 	public DropDownLayoutType(@NonNull Context context, @Nullable AttributeSet attrs) { super(context, attrs); }
 	public DropDownLayoutType(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) { super(context, attrs, defStyle); }
@@ -26,9 +28,12 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 
 	@Override
 	public EnhancedDropDownPreference populate(@NonNull SettingsStore settings) {
+		this.settings = settings;
+
 		add(SettingsUI.LAYOUT_STEALTH, R.string.pref_layout_stealth);
 		add(SettingsUI.LAYOUT_TRAY, R.string.pref_layout_tray);
 		add(SettingsUI.LAYOUT_SMALL, R.string.pref_layout_small);
+		add(SettingsUI.LAYOUT_CLASSIC, R.string.pref_layout_classic);
 		add(SettingsUI.LAYOUT_NUMPAD, R.string.pref_layout_numpad);
 		commitOptions();
 		super.setValue(String.valueOf(settings.getMainViewLayout()));
@@ -60,6 +65,10 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 		int newLayout = Integer.parseInt(newKey.toString());
 		for (ItemLayoutChangeReactive item : onChangeReactiveItems) {
 			item.onLayoutChange(newLayout);
+		}
+
+		if (settings != null && (newLayout == SettingsUI.LAYOUT_CLASSIC || newLayout == SettingsUI.LAYOUT_NUMPAD)) {
+			settings.setPreferredLargeLayout(newLayout);
 		}
 
 		return true;

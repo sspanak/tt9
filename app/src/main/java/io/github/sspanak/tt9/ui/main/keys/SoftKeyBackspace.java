@@ -137,7 +137,7 @@ public class SoftKeyBackspace extends BaseSwipeableKey {
 	protected float getTitleScale() {
 		float scale = 1.1f;
 
-		if (tt9 != null && tt9.getSettings().isMainLayoutNumpad()) {
+		if (tt9 != null && tt9.getSettings().isMainLayoutLarge()) {
 			scale *= super.getTitleScale();
 		}
 

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
 
-public class SoftKeyNumber0 extends SoftKeyNumber {
+public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 	private static final String CHARS_NUMERIC_MODE = "+%$";
 
 	public SoftKeyNumber0(Context context) { super(context); }

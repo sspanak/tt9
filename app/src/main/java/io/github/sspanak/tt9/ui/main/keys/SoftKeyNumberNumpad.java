@@ -16,7 +16,7 @@ import io.github.sspanak.tt9.languages.LanguageKind;
 import io.github.sspanak.tt9.preferences.settings.SettingsStore;
 import io.github.sspanak.tt9.ui.Vibration;
 
-public class SoftKeyFnNumpad extends BaseSwipeableKey {
+public class SoftKeyNumberNumpad extends BaseSwipeableKey {
 	protected static final float TITLE_SCALE_BOPOMOFO = 0.7f;
 
 	private Command holdCommand = null;
@@ -45,9 +45,9 @@ public class SoftKeyFnNumpad extends BaseSwipeableKey {
 	}};
 
 
-	public SoftKeyFnNumpad(Context context) { super(context); }
-	public SoftKeyFnNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
-	public SoftKeyFnNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+	public SoftKeyNumberNumpad(Context context) { super(context); }
+	public SoftKeyNumberNumpad(Context context, AttributeSet attrs) { super(context, attrs); }
+	public SoftKeyNumberNumpad(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
 
 
 	@Override

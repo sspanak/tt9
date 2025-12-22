@@ -3,12 +3,14 @@ package io.github.sspanak.tt9.ui.main.keys;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import io.github.sspanak.tt9.R;
+import io.github.sspanak.tt9.commands.CmdBack;
 import io.github.sspanak.tt9.commands.CmdEditText;
 import io.github.sspanak.tt9.commands.CmdTxtCut;
 import io.github.sspanak.tt9.commands.CmdVoiceInput;
 
 public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
+	private final CmdBack back = new CmdBack();
+
 	public SoftKeyRF3(Context context) { super(context); }
 	public SoftKeyRF3(Context context, AttributeSet attrs) { super(context, attrs); }
 	public SoftKeyRF3(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
@@ -55,7 +57,7 @@ public class SoftKeyRF3 extends BaseSoftKeyWithIcons {
 	@Override
 	protected int getCentralIcon() {
 		if (isTextEditingActive()) {
-			return R.drawable.ic_keyboard;
+			return back.getIcon();
 		}
 
 		if (isVoiceInputActive() || (isTextEditingMissing() && !isVoiceInputMissing())) {
