@@ -27,6 +27,6 @@ public class SwitchShowArrowsUpDown extends SwitchWhenUIVisible {
 
 	@Override
 	public void onLayoutChange(int mainViewLayout) {
-		setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC || mainViewLayout == SettingsStore.LAYOUT_NUMPAD);
+		setVisible(mainViewLayout == SettingsStore.LAYOUT_CLASSIC);
 	}
 }
