@@ -34,7 +34,7 @@ class SettingsTyping extends SettingsPunctuation {
 
 	public boolean isAutoAssistanceOn(@Nullable InputMode mode) {
 		return
-			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive())) ||
+			(InputModeKind.isPredictive(mode) && (getAutoSpacePredictive() || getAutoTextCasePredictive() || getPredictWordPairs())) ||
 			(InputModeKind.isABC(mode) && (getAutoSpaceAbc() || getAutoTextCaseAbc()));
 	}
 
