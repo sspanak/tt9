@@ -6,17 +6,8 @@
 
 	<PreferenceCategory app:title="@string/pref_category_layout">
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_drag_resize"
-			app:title="@string/pref_drag_resize"
-			app:summary="@string/pref_drag_resize_summary" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
-			app:key="pref_double_tap_resize"
-			app:title="@string/pref_double_tap_resize"
-			app:summary="@string/pref_double_tap_resize_summary"
-			app:defaultValue="false" />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize />
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:key="category_keyboard_geometry" app:title="@string/pref_category_geometry">
@@ -32,11 +23,7 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale app:title="@string/pref_numpad_fn_key_width" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize app:title="@string/pref_numpad_key_font_size" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows />
-		<SwitchPreferenceCompat
-			app:key="pref_arrow_keys_visible"
-			app:title="@string/pref_arrows_left_right"
-			app:summary="@string/pref_arrows_left_right_summary" />
-
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchLeftRightArrows />
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown />
 
 		<Preference
@@ -53,16 +40,16 @@
 			app:title="@string/pref_status_icon"
 			app:summary="@string/pref_status_icon_summary" />
 
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
 			app:key="pref_suggestion_smooth_scroll"
 			app:title="@string/pref_suggestion_smooth_scroll"/>
 
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
 			app:key="pref_alternative_suggestion_scrolling"
 			app:title="@string/pref_alternative_suggestion_scrolling"
 			app:summary="@string/pref_alternative_suggestion_scrolling_summary"/>
 
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenVisibleLayout
 			app:key="pref_clear_insets"
 			app:title="@string/pref_hack_always_on_top" />
 

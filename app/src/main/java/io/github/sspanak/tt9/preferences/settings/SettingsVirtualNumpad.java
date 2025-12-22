@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownKeyHeight;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadShape;
-import io.github.sspanak.tt9.preferences.screens.appearance.ItemShowArrowsLeftRight;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchLeftRightArrows;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown;
 import io.github.sspanak.tt9.preferences.screens.fnKeyOrder.FnKeyOrderValidator;
 
@@ -40,7 +40,7 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 	}
 
 	public boolean getArrowsLeftRight() {
-		return prefs.getBoolean(ItemShowArrowsLeftRight.NAME, true);
+		return prefs.getBoolean(SwitchLeftRightArrows.NAME, SwitchLeftRightArrows.DEFAULT);
 	}
 
 	public boolean getArrowsUpDown() {

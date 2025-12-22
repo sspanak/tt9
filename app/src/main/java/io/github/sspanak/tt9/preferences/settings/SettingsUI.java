@@ -11,6 +11,8 @@ import io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSettingsFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownSuggestionFontSize;
 import io.github.sspanak.tt9.preferences.screens.appearance.DropDownWidth;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDoubleTapResize;
+import io.github.sspanak.tt9.preferences.screens.appearance.SwitchDragResize;
 import io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows;
 import io.github.sspanak.tt9.preferences.screens.languages.AddWordsWithoutConfirmationSwitch;
 import io.github.sspanak.tt9.util.Logger;
@@ -102,11 +104,11 @@ public class SettingsUI extends SettingsTyping {
 	}
 
 	public boolean getDragResize() {
-		return prefs.getBoolean("pref_drag_resize", true);
+		return prefs.getBoolean(SwitchDragResize.NAME, SwitchDragResize.DEFAULT);
 	}
 
 	public boolean getDoubleTapResize() {
-		return prefs.getBoolean("pref_double_tap_resize", false);
+		return prefs.getBoolean(SwitchDoubleTapResize.NAME, SwitchDoubleTapResize.DEFAULT);
 	}
 
 	public boolean getHapticFeedback() {

@@ -41,7 +41,6 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 	protected void createMainSection() {
 		(new ItemStatusIcon(findPreference(ItemStatusIcon.NAME), activity.getSettings())).populate();
-		(new ItemDragResize(findPreference(ItemDragResize.NAME), activity.getSettings())).populate();
 		(new ItemSuggestionSmoothScroll(findPreference(ItemSuggestionSmoothScroll.NAME), activity.getSettings())).populate();
 
 		ItemCategory categoryColors = new ItemCategory(findPreference("category_keyboard_color_scheme"));
@@ -56,12 +55,14 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 		DropDownKeyHeight numpadKeyHeight = findPreference(DropDownKeyHeight.NAME);
 		DropDownWidth keyboardWidth = findPreference(DropDownWidth.NAME);
 		DropDownNumpadShape numpadShape = findPreference(DropDownNumpadShape.NAME);
-		ItemShowArrowsLeftRight showArrows = new ItemShowArrowsLeftRight(findPreference(ItemShowArrowsLeftRight.NAME), activity.getSettings());
 		DropDownNumpadFnKeyScale fnKeyWidth = findPreference(DropDownNumpadFnKeyScale.NAME);
 		DropDownNumpadKeyFontSize numpadKeyFontSize = findPreference(DropDownNumpadKeyFontSize.NAME);
 		DropDownSuggestionFontSize suggestionFontSize = findPreference(DropDownSuggestionFontSize.NAME);
 		ItemFnKeyOrder fnKeyOrder = new ItemFnKeyOrder(activity.getSettings(), findPreference(ItemFnKeyOrder.NAME));
 		DropDownBottomPaddingPortrait bottomPadding = findPreference(DropDownBottomPaddingPortrait.NAME);
+		SwitchLeftRightArrows leftRightArrows = findPreference(SwitchLeftRightArrows.NAME);
+		SwitchDoubleTapResize doubleTapResize = findPreference(SwitchDoubleTapResize.NAME);
+		SwitchDragResize dragResize = findPreference(SwitchDragResize.NAME);
 
 		DropDownLayoutType selectLayout = findPreference(DropDownLayoutType.NAME);
 		if (selectLayout != null) {
@@ -74,18 +75,18 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 				.addOnChangeItem(numpadKeyFontSize)
 				.addOnChangeItem(numpadKeyHeight)
 				.addOnChangeItem(numpadShape)
-				.addOnChangeItem(showArrows)
 				.addOnChangeItem(suggestionFontSize)
 				.addOnChangePreference(bottomPadding)
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference(SwitchShowArrowsUpDown.NAME))
+				.addOnChangePreference(leftRightArrows)
 				.addOnChangePreference(findPreference("pref_clear_insets"))
-				.addOnChangePreference(findPreference("pref_double_tap_resize"))
-				.addOnChangePreference(findPreference("pref_drag_resize"))
+				.addOnChangePreference(doubleTapResize)
+				.addOnChangePreference(dragResize)
 				.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
 		}
 
-		EnhancedDropDownPreference[] items = {
+		EnhancedDropDownPreference[] dropdowns = {
 			findPreference(DropDownSettingsFontSize.NAME),
 			selectLayout,
 			numpadKeyHeight,
@@ -98,7 +99,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 			bottomPadding
 		};
 
-		for (EnhancedDropDownPreference item : items) {
+		for (EnhancedDropDownPreference item : dropdowns) {
 			if (item instanceof DropDownSettingsFontSize) {
 				((DropDownSettingsFontSize) item).setScreen(this);
 			} // not else-if, we want both!
@@ -107,7 +108,17 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 			}
 		}
 
-		showArrows.populate();
+		SwitchWhenLargeTouchscreenLayout[] switches = {
+			leftRightArrows,
+			dragResize,
+			doubleTapResize
+		};
+
+		for (SwitchWhenLargeTouchscreenLayout item : switches) {
+			if (item != null) {
+				item.populate(activity.getSettings());
+			}
+		}
 	}
 
 
@@ -148,7 +159,8 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 
 		SwitchPreferenceCompat[] switches = {
 			findPreference(SwitchKeyShadows.NAME),
-			findPreference(ItemShowArrowsLeftRight.NAME),
+			findPreference(SwitchLeftRightArrows.NAME),
+			findPreference(SwitchShowArrowsUpDown.NAME),
 			findPreference("pref_status_icon"),
 		};
 

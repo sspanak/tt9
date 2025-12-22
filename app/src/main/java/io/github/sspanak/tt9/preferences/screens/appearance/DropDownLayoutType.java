@@ -47,7 +47,7 @@ public class DropDownLayoutType extends EnhancedDropDownPreference {
 	}
 
 	public DropDownLayoutType addOnChangePreference(@Nullable Preference preference) {
-		if (preference instanceof SwitchWhenUIVisible) {
+		if (preference instanceof ItemLayoutChangeReactive) {
 			onChangeReactiveItems.add((ItemLayoutChangeReactive) preference);
 		}
 		return this;
