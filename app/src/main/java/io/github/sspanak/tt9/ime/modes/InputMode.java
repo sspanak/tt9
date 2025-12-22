@@ -134,8 +134,11 @@ abstract public class InputMode {
 
 	@NonNull
 	public ArrayList<String> getSuggestions() {
-		ArrayList<String> newSuggestions = new ArrayList<>();
-		for (String s : new ArrayList<>(suggestions)) { // new list prevents concurrent modification
+		// The new list prevents concurrent modification. With a maximum size of 20 Strings, copying
+		// should take microseconds, so any performance impact is negligible.
+		ArrayList<String> thisThreadSuggestions = new ArrayList<>(suggestions);
+		ArrayList<String> newSuggestions = new ArrayList<>(thisThreadSuggestions.size());
+		for (String s : thisThreadSuggestions) {
 			newSuggestions.add(adjustSuggestionTextCase(s, textCase));
 		}
 
