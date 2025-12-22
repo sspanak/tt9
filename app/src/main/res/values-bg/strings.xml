@@ -124,7 +124,7 @@
 	<string name="pref_allow_composing_text_summary">Думите ще бъдат видими в текстовите полета, докато пишете. Изключете за приложения, които прекъсват нормалното писане.</string>
 	<string name="pref_alternative_suggestion_scrolling">Алтернативен метод за превъртане на думи</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Включете, ако понякога не виждате целия списък с думи или не може да стигнете до всички.</string>
-	<string name="pref_arrows_left_right_summary">Показване на стрелки наляво/надясно за превъртане на предложенията и преместване на текстовия курсор.</string>
+	<string name="pref_arrows_left_right_summary">Показване на стрелки наляво/надясно за превъртане на предложенията или хоризонтално преместване на текстовия курсор.</string>
 	<string name="pref_arrows_up_down_summary">Разрешаване на плъзгане нагоре/надолу на клавиша OK за филтриране на предложенията или вертикално преместване на текстовия курсор.</string>
 	<string name="pref_auto_space">Автоматичен интервал</string>
 	<string name="pref_auto_space_summary">Добавяй автоматично интервал след препинателни знаци и думи.</string>
@@ -223,7 +223,7 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-образна</string>
-	<string name="pref_arrows_left_right">Клавиши стрелки</string>
+	<string name="pref_arrows_left_right">Стрелки наляво/надясно</string>
 	<string name="donate_hold_to_open">Натиснете и задръжте, за да отворите в браузъра.</string>
 	<string name="fn_key_order_error_duplicate_key">Не са разрешени повтарящи се клавиши.</string>
 	<string name="fn_key_order_legend">Легенда:</string>
@@ -249,5 +249,5 @@
 	<string name="click_here_for_preview">Щракнете тук за предварителен преглед</string>
 	<string name="pref_double_tap_resize">Оразмеряване чрез двойно докосване</string>
 	<string name="pref_layout_classic">Цифрова клавиатура (ретро)</string>
-	<string name="pref_arrows_up_down">Плъзгане нагоре/надолу на клавиша OK</string>
+	<string name="pref_arrows_up_down">Стрелки нагоре/надолу</string>
 </resources>

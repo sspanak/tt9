@@ -41,7 +41,7 @@
 	<string name="pref_allow_composing_text_summary">Exibir as palavras nos campos de texto ao digitá-las. Desativar quando um app interromper a digitação.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de rolagem de sugestões</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Ative se às vezes não conseguir ver todas as sugestões ou tiver problemas para rolá-las.</string>
-	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões e mover o cursor de texto.</string>
+	<string name="pref_arrows_left_right_summary">Mostrar as teclas de seta esquerda/direita para rolar as sugestões ou mover o cursor de texto horizontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Permitir deslizar para cima/baixo na tecla OK para filtrar sugestões ou mover o cursor de texto verticalmente.</string>
 	<string name="pref_auto_space">Espaçamento automático</string>
 	<string name="pref_auto_space_summary">Insere um espaçamento após ponto final.</string>
@@ -227,7 +227,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrado</string>
 	<string name="pref_numpad_shape_v">Forma em V</string>
-	<string name="pref_arrows_left_right">Teclas de seta</string>
+	<string name="pref_arrows_left_right">Setas esquerda/direita</string>
 	<string name="donate_hold_to_open">Pressione e segure para abrir no navegador.</string>
 	<string name="fn_key_order_error_duplicate_key">Teclas duplicadas não são permitidas.</string>
 	<string name="fn_key_order_legend">Legenda:</string>
@@ -256,5 +256,5 @@
 	<string name="click_here_for_preview">Clique aqui para visualizar</string>
 	<string name="pref_double_tap_resize">Toque duplo para redimensionar</string>
 	<string name="pref_layout_classic">Teclado numérico (retrô)</string>
-	<string name="pref_arrows_up_down">Deslizar para cima/baixo na tecla OK</string>
+	<string name="pref_arrows_up_down">Setas para cima/baixo</string>
 </resources>

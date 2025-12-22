@@ -34,8 +34,8 @@
 	<string name="pref_allow_composing_text_summary">Yazarken kelimeleri metin alanlarında göster. Bir uygulama yazmayı kesintiye uğrattığında devre dışı bırak.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatif Kaydırmalı Tahmin</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Tüm önerileri göremediğiniz ya da tahminlerde kaydırma yapamadığınız zaman etkinleştirin.</string>
-	<string name="pref_arrows_left_right_summary">Öneriler arasında gezinmek ve metin imlecini hareket ettirmek için sol/sağ ok tuşlarını göster.</string>
-	<string name="pref_arrows_up_down_summary">Önerileri filtrelemek veya metin imlecini dikey olarak hareket ettirmek için OK tuşunda yukarı/aşağı kaydırmaya izin ver.</string>
+	<string name="pref_arrows_left_right_summary">Öneriler arasında gezinmek veya metin imlecini yatay olarak hareket ettirmek için sol/sağ ok tuşlarını göster.</string>
+	<string name="pref_arrows_up_down_summary">OK tuşunda yukarı/aşağı kaydırmaya izin vererek önerileri filtrelemek veya metin imlecini dikey olarak hareket ettirmek.</string>
 	<string name="pref_auto_space">Otomatik Boşluk</string>
 	<string name="pref_auto_space_summary">Seçimlerin sonrasında otomatik olarak boşluk ekler.</string>
 	<string name="pref_auto_text_case">Otomatik Büyük Harf</string>
@@ -225,7 +225,7 @@
 	<string name="pref_numpad_shape">Şekil</string>
 	<string name="pref_numpad_shape_square">Kare</string>
 	<string name="pref_numpad_shape_v">V-şekli</string>
-	<string name="pref_arrows_left_right">Ok tuşları</string>
+	<string name="pref_arrows_left_right">Sol/sağ oklar</string>
 	<string name="donate_summary">Eğer %1$s\'ı beğendiyseniz bana bir bira ısmarlayabilirsiniz</string>
 	<string name="donate_hold_to_open">Tarayıcıda açmak için basılı tutun.</string>
 	<string name="key_key">Tuş</string>
@@ -254,5 +254,5 @@
 	<string name="click_here_for_preview">Önizleme için buraya tıklayın</string>
 	<string name="pref_double_tap_resize">Yeniden boyutlandırmak için çift dokunma</string>
 	<string name="pref_layout_classic">Sayısal tuş takımı (retro)</string>
-	<string name="pref_arrows_up_down">OK tuşunda yukarı/aşağı kaydırma</string>
+	<string name="pref_arrows_up_down">Yukarı/aşağı oklar</string>
 </resources>

@@ -41,7 +41,7 @@
 	<string name="pref_allow_composing_text_summary">Відображати слова в текстових полях під час введення. Вимикати, коли застосунок перериває введен</string>
 	<string name="pref_alternative_suggestion_scrolling">Альтернативний метод прокрутки пропозицій</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Увімкніть, якщо ви іноді не бачите всіх пропозицій або не можете їх прокрутити.</string>
-	<string name="pref_arrows_left_right_summary">Показувати клавіші зі стрілками вліво/вправо для прокручування пропозицій і переміщення текстового курсора.</string>
+	<string name="pref_arrows_left_right_summary">Показувати клавіші зі стрілками вліво/вправо для прокручування пропозицій або горизонтального переміщення текстового курсора.</string>
 	<string name="pref_arrows_up_down_summary">Дозволити свайп вгору/вниз по клавіші OK для фільтрування пропозицій або вертикального переміщення текстового курсора.</string>
 	<string name="pref_auto_space">Автоматичний пробіл</string>
 	<string name="pref_auto_space_summary">Автоматично додавати пробіл після розділових знаків або слів.</string>
@@ -234,7 +234,7 @@
 	<string name="pref_numpad_shape">Форма</string>
 	<string name="pref_numpad_shape_square">Квадрат</string>
 	<string name="pref_numpad_shape_v">V-подібна</string>
-	<string name="pref_arrows_left_right">Клавіші зі стрілками</string>
+	<string name="pref_arrows_left_right">Стрілки вліво/вправо</string>
 	<string name="donate_hold_to_open">Натисніть і утримуйте, щоб відкрити в браузері.</string>
 	<string name="fn_key_order_error_duplicate_key">Повторювані клавіші не дозволені.</string>
 	<string name="fn_key_order_legend">Умовні позначення:</string>
@@ -260,5 +260,5 @@
 	<string name="click_here_for_preview">Натисніть тут, щоб переглянути</string>
 	<string name="pref_double_tap_resize">Подвійне торкання для зміни розміру</string>
 	<string name="pref_layout_classic">Цифрова клавіатура (ретро)</string>
-	<string name="pref_arrows_up_down">Свайп вгору/вниз по клавіші OK</string>
+	<string name="pref_arrows_up_down">Стрілки вгору/вниз</string>
 </resources>
