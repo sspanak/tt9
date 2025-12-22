@@ -114,12 +114,15 @@ public class AutoTextCase {
 			!settings.getAutoTextCasePredictive()
 			// If the user has explicitly selected uppercase, we respect that.
 			|| currentTextCase == InputMode.CASE_UPPER
-			// preserve the text case in special input fields, like email, urls, passwords, or our own
-			|| isSpecialized
 			// save resources if the language has no uppercase letters
 			|| !language.hasUpperCase()
 		) {
 			return currentTextCase;
+		}
+
+		// preserve the text case in special input fields, like email, urls, passwords, or our own
+		if (isSpecialized) {
+			return textFieldTextCase;
 		}
 
 		if (skipNext) {
