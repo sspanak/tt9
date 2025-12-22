@@ -1,5 +1,9 @@
 package io.github.sspanak.tt9.commands;
 
+import androidx.annotation.Nullable;
+
+import io.github.sspanak.tt9.ime.TraditionalT9;
+
 public class CmdEditText implements Command {
 	public static final String ID = "key_edit_text";
 	public String getId() { return ID; }
@@ -15,5 +19,18 @@ public class CmdEditText implements Command {
 			tt9.showTextEditingPalette();
 			return true;
 		}
+	}
+
+	public boolean isActive(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isTextEditingActive();
+	}
+
+	@Override
+	public boolean isAvailable(@Nullable TraditionalT9 tt9) {
+		return !isMissing(tt9);
+	}
+
+	public boolean isMissing(@Nullable TraditionalT9 tt9) {
+		return tt9 != null && tt9.isInputLimited();
 	}
 }
