@@ -45,7 +45,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 		super.showKeyboard();
 		togglePanel(R.id.main_soft_keys, true);
 		toggleTextEditingColumns(false);
-		toggleCommandPaletteColumns(false);
 		renderKeys(false);
 		afterRender();
 	}
@@ -55,7 +54,6 @@ public class MainLayoutClassic extends MainLayoutExtraPanel {
 	void showTextEditingPalette() {
 		super.showTextEditingPalette();
 		togglePanel(R.id.main_soft_keys, true);
-		toggleCommandPaletteColumns(false);
 		toggleTextEditingColumns(true);
 		renderKeys(false);
 		afterRender();
