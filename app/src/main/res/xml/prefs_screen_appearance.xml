@@ -7,18 +7,6 @@
 	<PreferenceCategory app:title="@string/pref_category_layout">
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownLayoutType app:title="@string/pref_layout" />
 
-		<SwitchPreferenceCompat
-			app:key="pref_arrow_keys_visible"
-			app:title="@string/pref_arrows_left_right"
-			app:summary="@string/pref_arrows_left_right_summary" />
-
-		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown />
-
-		<Preference
-			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
-			app:key="screen_fn_key_order"
-			app:title="@string/pref_category_fn_key_order" />
-
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchWhenUIVisible
 			app:key="pref_drag_resize"
 			app:title="@string/pref_drag_resize"
@@ -44,6 +32,17 @@
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadFnKeyScale app:title="@string/pref_numpad_fn_key_width" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.DropDownNumpadKeyFontSize app:title="@string/pref_numpad_key_font_size" />
 		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchKeyShadows />
+		<SwitchPreferenceCompat
+			app:key="pref_arrow_keys_visible"
+			app:title="@string/pref_arrows_left_right"
+			app:summary="@string/pref_arrows_left_right_summary" />
+
+		<io.github.sspanak.tt9.preferences.screens.appearance.SwitchShowArrowsUpDown />
+
+		<Preference
+			app:fragment="io.github.sspanak.tt9.preferences.FnKeyOrderScreen"
+			app:key="screen_fn_key_order"
+			app:title="@string/pref_category_fn_key_order" />
 	</PreferenceCategory>
 
 	<PreferenceCategory app:title="@string/pref_category_hacks">

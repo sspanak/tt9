@@ -39,8 +39,8 @@
 	<string name="pref_allow_composing_text_summary">הצגת המילים בשדות טקסט בעת ההקלדה. השבת כאשר אפליקציה מפריעה להקלדה.</string>
 	<string name="pref_alternative_suggestion_scrolling">שיטת גלילת מילים אלטרנטיבית</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">הפעל אם לפעמים אי אפשר לראות את כל ההצעות או יש בעיות בגלילתן.</string>
-	<string name="pref_arrows_left_right_summary">הצגת מקשי חצים שמאלה/ימינה לגלילת ההצעות ולהזזת סמן הטקסט.</string>
-	<string name="pref_arrows_up_down_summary">לאפשר החלקה למעלה/למטה על מקש OK כדי לסנן הצעות או להזיז את סמן הטקסט אנכית.</string>
+	<string name="pref_arrows_left_right_summary">הצגת מקשי חצים שמאלה/ימינה לגלילת ההצעות או להזזת סמן הטקסט אופקית.</string>
+	<string name="pref_arrows_up_down_summary">לאפשר החלקה למעלה/למטה על מקש OK לסינון הצעות או להזזת סמן הטקסט אנכית.</string>
 	<string name="pref_auto_space">רווח אוטומטי</string>
 	<string name="pref_auto_space_summary">הוסף רווח אוטומטית לאחר סימני פיסוק או מילים.</string>
 	<string name="pref_auto_text_case">שימוש אוטומטי באותיות רישיות</string>
@@ -225,7 +225,7 @@
 	<string name="pref_numpad_shape">צורה</string>
 	<string name="pref_numpad_shape_square">ריבוע</string>
 	<string name="pref_numpad_shape_v">צורת V</string>
-	<string name="pref_arrows_left_right">מקשי חצים</string>
+	<string name="pref_arrows_left_right">חצים שמאלה/ימינה</string>
 	<string name="donate_summary">אם אתה אוהב %1$s, אתה יכול לקנות לי בירה.</string>
 	<string name="donate_hold_to_open">לחצו והחזיקו כדי לפתוח בדפדפן.</string>
 	<string name="fn_key_order_error_duplicate_key">לא ניתן להשתמש באותם מקשים פעמיים.</string>
@@ -256,5 +256,5 @@
 	<string name="click_here_for_preview">לחץ כאן לתצוגה מקדימה</string>
 	<string name="pref_double_tap_resize">הקשה כפולה לשינוי גודל</string>
 	<string name="pref_layout_classic">לוח ספרות (רטרו)</string>
-	<string name="pref_arrows_up_down">החלקה למעלה/למטה במקש OK</string>
+	<string name="pref_arrows_up_down">חצים למעלה/למטה</string>
 </resources>

@@ -75,7 +75,7 @@
 	<string name="pref_allow_composing_text_summary">Afficher les mots dans les champs de texte en les tapant. Désactiver lorsqu\'une application interrompt la saisie.</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir tous les mots ou vous avez des difficultés à les défiler.</string>
-	<string name="pref_arrows_left_right_summary">Afficher les flèches gauche/droite pour faire défiler les suggestions et déplacer le curseur de texte.</string>
+	<string name="pref_arrows_left_right_summary">Afficher les flèches gauche/droite pour faire défiler les suggestions ou déplacer le curseur de texte horizontalement.</string>
 	<string name="pref_arrows_up_down_summary">Autoriser le balayage vers le haut/bas sur la touche OK pour filtrer les suggestions ou déplacer le curseur de texte verticalement.</string>
 	<string name="pref_auto_space">Espace automatique</string>
 	<string name="pref_auto_text_case">Majuscules automatiques</string>
@@ -221,7 +221,7 @@
 	<string name="pref_numpad_shape">Forme</string>
 	<string name="pref_numpad_shape_square">Carré</string>
 	<string name="pref_numpad_shape_v">Forme en V</string>
-	<string name="pref_arrows_left_right">Touches fléchées</string>
+	<string name="pref_arrows_left_right">Flèches gauche/droite</string>
 	<string name="donate_hold_to_open">Appuyez et maintenez pour ouvrir dans un navigateur.</string>
 	<string name="key_key">Touche</string>
 	<string name="fn_key_order_error_duplicate_key">Les touches en double ne sont pas autorisées.</string>
@@ -249,5 +249,5 @@
 	<string name="click_here_for_preview">Cliquez ici pour aperçu</string>
 	<string name="pref_double_tap_resize">Double-tapoter pour redimensionner</string>
 	<string name="pref_layout_classic">Pavé numérique (rétro)</string>
-	<string name="pref_arrows_up_down">Balayage haut/bas de la touche OK</string>
+	<string name="pref_arrows_up_down">Flèches haut/bas</string>
 </resources>

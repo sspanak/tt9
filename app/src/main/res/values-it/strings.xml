@@ -36,7 +36,7 @@
 	<string name="pref_allow_composing_text_summary">Mostra le parole nei campi di testo durante la digitazione. Disattiva quando un\'app interrompe la digitazione.</string>
 	<string name="pref_alternative_suggestion_scrolling">Metodo alternativo di scorrimento delle suggerimenti</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Abilitare se a volte non riesci a vedere tutti i suggerimenti o hai problemi a scorrerli.</string>
-	<string name="pref_arrows_left_right_summary">Mostrare i tasti freccia sinistra/destra per scorrere i suggerimenti e spostare il cursore di testo.</string>
+	<string name="pref_arrows_left_right_summary">Mostrare i tasti freccia sinistra/destra per scorrere i suggerimenti o spostare il cursore di testo orizzontalmente.</string>
 	<string name="pref_arrows_up_down_summary">Consentire lo scorrimento verso l’alto/il basso sul tasto OK per filtrare i suggerimenti o spostare verticalmente il cursore di testo.</string>
 	<string name="pref_auto_space">Spazio automatico</string>
 	<string name="pref_auto_space_summary">Aggiungere automaticamente uno spazio dopo la punteggiatura o le parole.</string>
@@ -213,7 +213,7 @@
 	<string name="pref_numpad_shape">Forma</string>
 	<string name="pref_numpad_shape_square">Quadrato</string>
 	<string name="pref_numpad_shape_v">Forma a V</string>
-	<string name="pref_arrows_left_right">Tasti freccia</string>
+	<string name="pref_arrows_left_right">Frecce sinistra/destra</string>
 	<string name="donate_hold_to_open">Tieni premuto per aprire nel browser.</string>
 	<string name="key_key">Tasto</string>
 	<string name="fn_key_order_error_duplicate_key">Non sono consentiti tasti duplicati.</string>
@@ -252,6 +252,6 @@
 	<string name="click_here_for_preview">Fai clic qui per l’anteprima</string>
 	<string name="pref_double_tap_resize">Doppio tocco per ridimensionare</string>
 	<string name="pref_layout_classic">Tastierino numerico (retrò)</string>
-	<string name="pref_arrows_up_down">Scorrimento su/giù del tasto OK</string>
+	<string name="pref_arrows_up_down">Frecce su/giù</string>
 </resources>
 

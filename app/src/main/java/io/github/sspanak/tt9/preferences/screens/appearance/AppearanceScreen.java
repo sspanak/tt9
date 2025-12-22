@@ -80,6 +80,7 @@ public class AppearanceScreen extends ScreenWithPreviewKeyboardHeaderFragment {
 				.addOnChangePreference(findPreference("pref_alternative_suggestion_scrolling"))
 				.addOnChangePreference(findPreference(SwitchShowArrowsUpDown.NAME))
 				.addOnChangePreference(findPreference("pref_clear_insets"))
+				.addOnChangePreference(findPreference("pref_double_tap_resize"))
 				.addOnChangePreference(findPreference("pref_drag_resize"))
 				.addOnChangePreference(findPreference("pref_suggestion_smooth_scroll"));
 		}
