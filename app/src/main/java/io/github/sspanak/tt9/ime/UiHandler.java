@@ -24,8 +24,28 @@ abstract class UiHandler extends AbstractHandler {
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;
+	protected boolean isMainViewShown = false;
 	protected MainView mainView = null;
 	protected StatusBar statusBar = null;
+
+
+	@Override
+	public boolean onEvaluateInputViewShown() {
+		super.onEvaluateInputViewShown();
+		if (!SystemSettings.isTT9Selected(this)) {
+			isMainViewShown = false;
+			return false;
+		}
+
+		setInputField(getCurrentInputEditorInfo());
+		return isMainViewShown = shouldBeVisible();
+	}
+
+
+	@Override
+	public boolean onEvaluateFullscreenMode() {
+		return false;
+	}
 
 
 	@Override
@@ -62,13 +82,9 @@ abstract class UiHandler extends AbstractHandler {
 
 		SystemSettings.setNavigationBarBackground(getWindow().getWindow(), settings, mainView.isBackgroundBlendingEnabled());
 
-		if (isInputViewShown()) {
-			return;
-		}
-
-		if (appHacks.isHyperForceShowNeeded()) {
-			hyperForceShowWindow();
-		} else {
+		if (appHacks.isBrutalForceShowNeeded()) {
+			brutalForceShowWindow();
+		} else if (!isInputViewShown()) {
 			updateInputViewShown();
 		}
 	}
@@ -140,16 +156,19 @@ abstract class UiHandler extends AbstractHandler {
 
 
 	/**
-	 * Fixes: <a href="https://github.com/sspanak/tt9/issues/920">this Firefox bug</a>. Note that
-	 * this should be seldom used, because it may force the UI to appear in calculators or other
-	 * apps where it is not wanted.
+	 * Shows the IME window using brutal force, ignoring IME flags and state, and any (invalid) app
+	 * requests for passthrough mode. Note that this should not be randomly used, because it will
+	 * cause the UI to appear in calculators, banking apps or others where it is not desired.
+	 * Reported problems (in chronological order):
+	 *	- <a href="https://github.com/sspanak/tt9/issues/920">Google search field in Firefox on Android 16</a>
+	 *	- <a href="https://github.com/sspanak/tt9/issues/963">Gmail reply/forward on Android 16</a>
 	 */
-	private void hyperForceShowWindow() {
-		if (!isShowInputRequested()) {
+	private void brutalForceShowWindow() {
+		if (!isShowInputRequested() || !isMainViewShown) {
 			forceShowWindow();
 		}
 
-		if (!isShowInputRequested()) {
+		if (!isShowInputRequested() || !isMainViewShown) {
 			Logger.d(LOG_TAG, "InputMethodManager refused show request. Forcing visibility with showWindow().");
 			showWindow(true);
 		}

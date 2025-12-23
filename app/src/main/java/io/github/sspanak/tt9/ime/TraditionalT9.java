@@ -36,24 +36,6 @@ public class TraditionalT9 extends PremiumHandler {
 
 
 	@Override
-	public boolean onEvaluateInputViewShown() {
-		super.onEvaluateInputViewShown();
-		if (!SystemSettings.isTT9Selected(this)) {
-			return false;
-		}
-
-		setInputField(getCurrentInputEditorInfo());
-		return shouldBeVisible();
-	}
-
-
-	@Override
-	public boolean onEvaluateFullscreenMode() {
-		return false;
-	}
-
-
-	@Override
 	public View onCreateInputView() {
 		// This may get called even when not switching IMEs, but we can't reuse the previous view
 		// because it will cause: "IllegalStateException: The specified child already has a parent"
@@ -137,6 +119,8 @@ public class TraditionalT9 extends PremiumHandler {
 
 	@Override
 	protected boolean onStart(EditorInfo field) {
+		Logger.setLevel(settings.getLogLevel());
+
 		if (SystemSettings.isTT9Selected(this)) {
 			startHeartbeatCheck();
 		} else {
@@ -164,8 +148,6 @@ public class TraditionalT9 extends PremiumHandler {
 			setStatusIcon(mInputMode, mLanguage);
 			return false;
 		}
-
-		Logger.setLevel(settings.getLogLevel());
 
 		if (InputModeKind.isPassthrough(mInputMode)) {
 			onStop();
