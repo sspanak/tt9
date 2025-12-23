@@ -39,8 +39,11 @@ public class AppHacks {
 	 * Allows absolutely all brutal methods to show the keyboard, ignoring the framework flags, and
 	 * incorrect app behavior (e.g. not requesting the keyboard when focusing a text field).
 	 */
-	public boolean isHyperForceShowNeeded() {
-		return DeviceInfo.AT_LEAST_ANDROID_16 && inputType != null && inputType.isFirefoxText();
+	public boolean isBrutalForceShowNeeded() {
+		return
+			DeviceInfo.AT_LEAST_ANDROID_16
+			&& inputType != null
+			&& (inputType.isFirefoxText() || inputType.isGmailComposeMail());
 	}
 
 

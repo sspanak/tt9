@@ -112,6 +112,14 @@ public class InputType extends StandardInputType {
 	}
 
 
+	public boolean isGmailComposeMail() {
+		final String GMAIL = "com.google.android.gm";
+		return
+			isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_FLAG_MULTI_LINE | EditorInfo.TYPE_TEXT_FLAG_AUTO_CORRECT)
+			|| isAppField(GMAIL, EditorInfo.TYPE_CLASS_TEXT | EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+	}
+
+
 	public boolean isLgX100SDialer() {
 		int imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_ENTER_ACTION;
 		return
