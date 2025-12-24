@@ -1,15 +1,15 @@
-TT9 is a 12-key T9 keyboard for devices with a hardware numpad. It supports predictive text typing in 40+ languages, configurable hotkeys, text editing with undo/redo, and an on-screen keypad that can turn your smartphone into a Nokia from the 2000s. And, best of all, it doesn't spy on you!
+TT9 is a Nokia-style 12-key T9 keyboard. It provides predictive text input in 40+ languages, configurable hotkeys, clipboard, undo/redo, and extensive customization. It works on touchscreens, hardware keypads, and TV remote controls. And best of all, it doesn't spy on you!
 
 Supported languages: Arabic, Bulgarian, Catalan, Simplified Chinese (Pinyin), Croatian, Czech, Danish, Dutch, English, Estonian, Farsi, Finnish, French, German, Greek, Gujarati (phonetic), Hebrew, Hindi (phonetic), Hinglish, Hungarian, Indonesian, Irish, Italian, Japanese (Romaji), Kiswahili, Korean, Latvian, Lithuanian, Norwegian, Polish, Portuguese (European and Brazilian), Romanian, Russian, Serbian (Cyrillic) Slovak, Slovenian, Spanish, Swedish, Moroccan Tamazight (Latin and Tifinagh), Thai, Turkish, Ukrainian, Vietnamese, Yiddish.
 
 Philosophy:
-- No ads, no premium or paid features. It's all free.
-- No spying, no tracking, no telemetry or reports. No nothing!
-- No unnecessary bells or whistles. It only does its job, typing.
-- No unnecessary permissions. The Full version operates entirely offline, the Lite version connects only to download dictionaries from GitHub. Voice Input may require Internet access depending on the available voice services.
-- Open-source, so you can verify all the above yourself.
+- No spying, tracking, telemetry, reports, or data collection of any sort.
+- No ads or unnecessary bells and whistles. It only does its job, typing.
+- No unnecessary network connections. The Full version operates entirely offline, and the Lite version connects only to download dictionaries from GitHub. Voice Input may require Internet access, depending on the available voice services.
+- Open-source, permitting you to verify all the above yourself.
 - Created with help from the entire community.
-- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs and stickers, backgrounds, or other customizations. "It can be any color you like, as long as it is black."
-- Not intended as a clone of Touchpal, Sony Ericsson, KaiOS, Samsung, etc. It is understandable to miss your favorite old phone or keyboard app, but TT9 has its own unique design, inspired by the Nokia 3310 and 6303i. While it captures the feel of the classics, it offers its own experience and won’t replicate any device exactly.
+- Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
+- Not intended as a clone of Touchpal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
+
 
 Thank you for understanding, and enjoy TT9!
