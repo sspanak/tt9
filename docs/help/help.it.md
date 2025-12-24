@@ -226,35 +226,71 @@ Di seguito è riportato un elenco dei comandi possibili:
 
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
 
-## Tastierino su Schermo
-Sui telefoni solo touchscreen, è disponibile un tastierino su schermo completamente funzionale, che verrà abilitato automaticamente. Se, per qualche motivo, il tuo telefono non è stato rilevato come touchscreen, attivalo andando su Impostazioni → Aspetto → Layout su Schermo e selezionando "Tastierino Virtuale".
+## Tastierino a Schermo
+Sui dispositivi dotati esclusivamente di touchscreen è disponibile un tastierino a schermo completamente funzionale, attivato automaticamente. Se il dispositivo non viene rilevato come touchscreen, è possibile abilitarlo manualmente da Impostazioni → Aspetto → Layout a schermo selezionando «Tastierino numerico virtuale».
 
-Se hai sia un touchscreen che un tastierino fisico e preferisci avere più spazio sullo schermo, disabilita i tasti software da Impostazioni → Aspetto.
+Sui dispositivi con touchscreen e tastiera hardware, i tasti a schermo possono essere disattivati per liberare spazio sullo schermo. Questa opzione è disponibile in Impostazioni → Aspetto.
 
-Si consiglia anche di disabilitare il comportamento speciale del tasto "Indietro" come "Backspace". È utile solo con un tastierino hardware. Di solito ciò avviene automaticamente, ma se non accade, vai su Impostazioni → Tastierino → Seleziona Tasti Rapidi → Tasto Backspace, quindi seleziona l'opzione "--".
+Si consiglia inoltre di disattivare il comportamento speciale che associa il tasto «Indietro» alla funzione «Backspace», poiché risulta utile solo quando si utilizza una tastiera hardware. Questa impostazione viene solitamente gestita automaticamente. In caso contrario, accedere a Impostazioni → Tastierino → Seleziona tasti di scelta rapida → Tasto Backspace e selezionare l’opzione «--».
 
-### Panoramica dei Tasti Virtuali
-La tastiera su schermo funziona come il tastierino numerico di un telefono con tasti fisici. Se un tasto offre una sola funzione, ha un'etichetta (o un'icona) che indica quella funzione. Se il tasto ha una funzione secondaria da attivare tenendolo premuto, avrà due etichette (o icone).
+### Layout a schermo Retro e Modern
+Sono disponibili due layout di tastierino virtuale: Retro e Modern.
 
-Di seguito è riportata una descrizione dei tasti con più di una funzione.
+Il layout Retro include un D-pad con un tasto OK centrale nella parte superiore e i tasti numerici sottostanti, ricordando da vicino le tastiere dei telefoni dei primi anni 2000. È adatto agli utenti che cercano un’esperienza tradizionale, ai dispositivi con schermi più piccoli e alle persone con pollici più grandi. Può inoltre risultare familiare a chi ha utilizzato applicazioni T9 ormai dismesse come Old Keyboard o Big Old Keyboard.
 
-#### Tasto F2 destro (secondo tasto dall'alto nella colonna di destra)
-_Solo in modalità predittiva._
+Il layout Modern mantiene l’aspetto e il comportamento standard di Android, utilizzando al contempo un layout di digitazione a 12 tasti. Presenta un blocco centrale di tasti numerici (0–9) per l’inserimento del testo, con tasti funzione come Maiusc, Backspace, cambio lingua e OK (Invio) disposti in colonne a sinistra e a destra.
 
-- **Premere:** Filtra l'elenco dei suggerimenti. Vedi [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per sapere come funziona il filtro delle parole.
-- **Tenere premuto:** Cancella il filtro, se attivo.
+### Panoramica dei tasti virtuali
+Il tastierino a schermo funziona allo stesso modo di una tastiera fisica per telefoni. I tasti con una sola funzione mostrano un’etichetta o un’icona centrale. I tasti con una funzione aggiuntiva tramite pressione prolungata mostrano un’etichetta o un’icona secondaria nell’angolo in alto a destra.
 
-#### Tasto F3 destro (terzo tasto dall'alto nella colonna di destra)
-- **Premere:** Apre le opzioni per copiare, incollare e modificare il testo.
-- **Tenere premuto:** Attiva l'immissione vocale.
+#### Tasti 0–9
+I tasti numerici vengono utilizzati per digitare parole e inserire cifre. Il layout Retro consente inoltre gesti di scorrimento verso sinistra e verso destra su alcuni tasti. Quando disponibili, tali funzioni sono indicate da icone nell’angolo inferiore sinistro o destro del tasto.
 
-#### Tasto F4 sinistro (il tasto in basso a sinistra)
-- **Premere:** Cambia modalità di input (abc → Predittiva → 123).
-- **Tenere premuto:** Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
-- **Scorrere orizzontalmente:** Passa all'ultima tastiera utilizzata, diversa da TT9.
-- **Scorrere verticalmente:** Apre il dialogo Cambia tastiera di Android, dove è possibile selezionare tra tutte le tastiere installate.
+Nella versione Google Play, i gesti di scorrimento possono essere personalizzati o disattivati sia per il layout Retro sia per quello Modern. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
 
-_Il tasto mostrerà una piccola icona a forma di globo quando hai abilitato più di una lingua in Impostazioni → Lingue. L'icona indica che è possibile cambiare lingua tenendo premuto il tasto._
+#### Tasti di testo personalizzati («!» e «?»)
+Per impostazione predefinita, questi tasti inseriscono i rispettivi segni di punteggiatura. Nei campi di input numerici o telefonici, possono inserire caratteri alternativi come l’asterisco, il cancelletto o il punto decimale.
+
+Nella versione Google Play, questi tasti possono essere personalizzati. È possibile modificare il carattere predefinito e assegnare azioni ai gesti di scorrimento verso l’alto, il basso, sinistra e destra. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
+
+#### Tasto modalità di input
+- **Pressione:** Scorre le modalità di input (abc → Predittivo → 123).
+- **Pressione prolungata:** Cambia la lingua di digitazione quando sono abilitate più lingue dalle Impostazioni.
+- **Scorrimento orizzontale:** Passa all’ultima tastiera utilizzata diversa da TT9.
+- **Scorrimento verticale:** Apre la finestra di dialogo Android per il cambio tastiera, consentendo di selezionare tra tutte le tastiere installate.
+
+Il tasto mostra una piccola icona a forma di globo quando sono state abilitate più lingue da Impostazioni → Lingue. L’icona indica che è possibile cambiare lingua tenendo premuto il tasto.
+
+_Nel layout Retro, si trova in basso a destra._
+
+_Nel layout Modern, si trova in basso a sinistra._
+
+#### Backspace
+Elimina i caratteri quando viene premuto. Quando Impostazioni → Tastierino → Eliminazione rapida è attivato, è possibile scorrere all’indietro per eliminare la parola precedente.
+
+#### Tasto filtro
+- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up) per il funzionamento del filtro delle parole.
+- **Pressione prolungata:** Cancella il filtro, se attivo.
+
+_Il tasto è disponibile solo nel layout Modern. Posizione: secondo tasto dall’alto._
+
+_Il filtraggio è possibile solo in modalità Predittiva._
+
+#### Strumenti appunti / Tasto input vocale
+- **Pressione:** Apre le opzioni di copia, incolla e modifica del testo.
+- **Pressione prolungata:** Attiva l’input vocale.
+
+_Il tasto è disponibile solo nel layout Modern. Posizione: terzo tasto dall’alto._
+
+#### Tasto OK
+- **Pressione:** Equivale alla pressione del tasto INVIO sulle altre tastiere.
+
+Il layout Retro consente inoltre di abilitare i gesti di scorrimento da Impostazioni → Aspetto → Tasti.
+
+- **Scorrimento verso l’alto senza suggerimenti:** Sposta il cursore verso l’alto (equivalente a D-PAD su).
+- **Scorrimento verso il basso senza suggerimenti:** Sposta il cursore verso il basso (equivalente a D-PAD giù).
+- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up).
+- **Scorrimento verso il basso con suggerimenti:** Cancella il filtro dei suggerimenti.
 
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
 A volte potresti trovare che il Tastierino Virtuale occupi troppo spazio, impedendoti di vedere cosa stai digitando o alcuni elementi dell’app. Se è così, puoi ridimensionarlo tenendo premuto e trascinando il tasto Impostazioni/Tavolozza Comandi o trascinando la Barra di Stato (dove è visualizzata la lingua corrente o modalità di digitazione). Quando l’altezza diventa troppo ridotta, il layout cambierà automaticamente a "Tasti Funzione" o "Solo Lista Suggerimenti". Analogamente, ingrandendo il layout tornerà al "Tastierino Virtuale". È anche possibile fare doppio tap sulla barra di stato per minimizzare o massimizzare istantaneamente.

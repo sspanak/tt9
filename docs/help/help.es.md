@@ -227,34 +227,70 @@ A continuación se muestra una lista de los posibles comandos:
 _Esta tecla no hace nada cuando el diseño de pantalla está configurado en "Teclado Virtual" porque todas las teclas para todas las funciones posibles ya están disponibles en la pantalla._
 
 ## Teclado en Pantalla
-En teléfonos solo con pantalla táctil, hay un teclado en pantalla totalmente funcional disponible que se activará automáticamente. Si, por alguna razón, tu teléfono no fue detectado como táctil, habilítalo yendo a Configuración → Apariencia → Disposición en Pantalla y seleccionando "Teclado Numérico Virtual".
+En dispositivos exclusivamente táctiles, hay disponible un teclado en pantalla totalmente funcional que se activa automáticamente. Si el dispositivo no se detecta como táctil, puede habilitarse manualmente desde Configuración → Apariencia → Diseño en pantalla seleccionando «Teclado numérico virtual».
 
-Si tienes tanto una pantalla táctil como un teclado físico y prefieres tener más espacio en la pantalla, desactiva las teclas de software desde Configuración → Apariencia.
+En dispositivos con pantalla táctil y teclado físico, las teclas en pantalla pueden desactivarse para liberar espacio. Esta opción se encuentra en Configuración → Apariencia.
 
-También se recomienda desactivar el comportamiento especial de la tecla "Atrás" para que funcione como "Retroceso". Solo es útil para un teclado físico. Por lo general, esto también sucederá automáticamente, pero si no es así, ve a Configuración → Teclado → Seleccionar Teclas de Función → Tecla Retroceso, luego selecciona la opción "--".
+También se recomienda desactivar el comportamiento especial que asigna la tecla «Atrás» a «Retroceso», ya que solo es útil cuando se utiliza un teclado físico. Esto suele gestionarse automáticamente. Si no es así, vaya a Configuración → Teclado → Seleccionar teclas rápidas → Tecla de retroceso y seleccione la opción «--».
 
-### Descripción General de las Teclas Virtuales
-El teclado en pantalla funciona igual que el teclado numérico de un teléfono con teclas físicas. Si una tecla tiene una sola función, tiene una etiqueta (o ícono) que indica esa función. Si la tecla tiene una función secundaria al mantenerla pulsada, tendrá dos etiquetas (o íconos).
+### Diseños en pantalla Retro y Modern
+Hay dos diseños de teclado virtual disponibles: Retro y Modern.
 
-A continuación, se describe las teclas con más de una función.
+El diseño Retro incluye un D-pad con una tecla OK central en la parte superior y teclas numéricas debajo, similar a los teclados de los teléfonos de principios de los años 2000. Es adecuado para usuarios que buscan una experiencia tradicional, para dispositivos con pantallas pequeñas y para personas con pulgares grandes. También puede resultar familiar para quienes hayan usado aplicaciones T9 antiguas ya descontinuadas como Old Keyboard o Big Old Keyboard.
 
-#### Tecla F2 derecha (segunda tecla desde arriba en la columna derecha)
-_Solo en el modo predictivo._
+El diseño Modern conserva la apariencia estándar de Android y utiliza un diseño de escritura de 12 teclas. Cuenta con un bloque central de teclas numéricas (0–9) para la entrada de texto, con teclas de función como Mayús, Retroceso, cambio de idioma y OK (Enter) dispuestas en columnas a la izquierda y a la derecha.
 
-- **Presionar:** Filtrar la lista de sugerencias. Consulte [arriba](#tecla-de-filtrar-sugerencias-por-defecto-flecha-arriba-del-d-pad) cómo funciona el filtrado de palabras.
-- **Mantener pulsado:** Borra el filtro si está activo.
+### Descripción general de las teclas virtuales
+El teclado en pantalla funciona de la misma manera que un teclado físico de teléfono. Las teclas con una sola función muestran una etiqueta o icono central. Las teclas con una función adicional mediante pulsación prolongada muestran una etiqueta o icono secundario en la esquina superior derecha.
 
-#### Tecla F3 derecha (tercera tecla desde arriba en la columna derecha)
-- **Presionar:** Abre las opciones de copiar, pegar y editar texto.
+#### Teclas 0–9
+Las teclas numéricas se utilizan para escribir palabras y para introducir dígitos. El diseño Retro también permite gestos de deslizamiento hacia la izquierda y la derecha en algunas teclas. Cuando están disponibles, estas funciones se indican mediante iconos en la esquina inferior izquierda o derecha de la tecla.
+
+En la versión de Google Play, los gestos de deslizamiento pueden personalizarse o desactivarse tanto en el diseño Retro como en el Modern. Esto se configura desde Configuración → Teclado → Funciones de las teclas.
+
+#### Teclas de texto personalizadas («!» y «?»)
+De forma predeterminada, estas teclas insertan sus signos de puntuación correspondientes. En campos de entrada numéricos o telefónicos, pueden insertar caracteres alternativos como asterisco, signo de almohadilla o punto decimal.
+
+En la versión de Google Play, estas teclas pueden personalizarse. Puede cambiar el carácter predeterminado y asignar acciones para deslizar hacia arriba, abajo, izquierda y derecha. Esto se configura desde Configuración → Teclado → Funciones de las teclas.
+
+#### Tecla de modo de entrada
+- **Pulsar:** Alterna entre los modos de entrada (abc → Predictivo → 123).
+- **Mantener pulsado:** Cambia el idioma de escritura cuando hay varios idiomas habilitados en Configuración.
+- **Deslizamiento horizontal:** Cambia al último teclado utilizado que no sea TT9.
+- **Deslizamiento vertical:** Abre el diálogo de Android para cambiar de teclado, donde se pueden seleccionar todos los teclados instalados.
+
+La tecla mostrará un pequeño icono de globo cuando haya varios idiomas habilitados desde Configuración → Idiomas. El icono indica que es posible cambiar el idioma manteniendo pulsada la tecla.
+
+_En el diseño Retro, es la tecla inferior derecha._
+
+_En el diseño Modern, es la tecla inferior izquierda._
+
+#### Retroceso
+Elimina caracteres al pulsarla. Cuando Configuración → Teclado → Eliminación rápida está habilitado, puede deslizar hacia atrás para borrar la palabra anterior.
+
+#### Tecla de filtro
+- **Pulsar:** Filtra la lista de sugerencias. Consulte [arriba](#filter-suggestions-key-default-d-pad-up) cómo funciona el filtrado de palabras.
+- **Mantener pulsado:** Borra el filtro, si está activo.
+
+_Esta tecla solo está disponible en el diseño Modern. Ubicación: segunda tecla desde arriba._
+
+_El filtrado solo es posible en el modo predictivo._
+
+#### Herramientas del portapapeles / Tecla de entrada por voz
+- **Pulsar:** Abre las opciones de copiar, pegar y edición de texto.
 - **Mantener pulsado:** Activa la entrada por voz.
 
-#### Tecla F4 izquierda (la tecla inferior izquierda)
-- **Presionar:** Cambia entre los modos de entrada (abc → Predictivo → 123).
-- **Mantener pulsado:** Cambiar el idioma de escritura cuando se hayan habilitado varios idiomas en la configuración.
-- **Deslizar horizontalmente:** Cambia al último teclado usado, diferente al TT9.
-- **Deslizar verticalmente:** Abre el diálogo de cambio de teclado de Android, donde puede seleccionar entre todos los teclados instalados.
+_Esta tecla solo está disponible en el diseño Modern. Ubicación: tercera tecla desde arriba._
 
-_La tecla mostrará un pequeño ícono de globo cuando haya habilitado más de un idioma en Configuración → Idiomas. El ícono indica que es posible cambiar el idioma manteniendo pulsada la tecla._
+#### Tecla OK
+- **Pulsar:** Equivale a pulsar la tecla ENTER en otros teclados.
+
+El diseño Retro permite además habilitar gestos de deslizamiento desde Configuración → Apariencia → Teclas.
+
+- **Deslizar hacia arriba sin sugerencias:** Mover el cursor hacia arriba (igual que D-PAD arriba).
+- **Deslizar hacia abajo sin sugerencias:** Mover el cursor hacia abajo (igual que D-PAD abajo).
+- **Deslizar hacia arriba con sugerencias:** Filtrar la lista de sugerencias. Consulte [arriba](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar hacia abajo con sugerencias:** Borrar el filtro de sugerencias.
 
 ### Redimensionar el Panel del Teclado Mientras Escribes
 En algunos casos, puede que el teclado virtual ocupe demasiado espacio en la pantalla, impidiéndote ver lo que estás escribiendo o algunos elementos de la aplicación. Si es así, puedes redimensionarlo manteniendo presionada y arrastrando la tecla de Configuración/Paleta de Comandos o arrastrando la Barra de Estado (donde se muestra el idioma actual o el modo de escritura). Cuando la altura se vuelva demasiado pequeña, el diseño cambiará automáticamente a "Teclas de Función" o "Solo lista de sugerencias". Respectivamente, al redimensionar hacia arriba, el diseño cambiará a "Teclado Virtual". También puedes tocar dos veces la barra de estado para minimizar o maximizar instantáneamente.

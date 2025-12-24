@@ -226,35 +226,71 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
 
-## Ekran Üzeri Tuș Takımı
-Yalnızca dokunmatik ekranlı telefonlarda, tamamen işlevsel bir ekran üstü tuș takımı mevcuttur ve otomatik olarak etkinleșir. Bir şekilde telefonunuzun dokunmatik ekranı olduğunun algılanmadığını düşünüyorsanız, Ayarlar → Görünüm → Ekran Üzeri Düzen yoluyla "Sanal Numpad" seçeneğini etkinleștirin.
+## Ekran Üzeri Tuş Takımı
+Yalnızca dokunmatik ekrana sahip cihazlarda, tam işlevli bir ekran üzeri tuş takımı mevcuttur ve otomatik olarak etkinleştirilir. Cihaz dokunmatik ekranlı olarak algılanmazsa, Ayarlar → Görünüm → Ekran Üzeri Düzen bölümünden “Sanal Sayısal Tuş Takımı” seçilerek manuel olarak etkinleştirin.
 
-Eğer dokunmatik ekranınız ve donanım tuș takımınız varsa ve daha fazla ekran alanına ihtiyaç duyuyorsanız, Ayarlar → Görünüm bölümünden yazılım tușlarını devre dıșı bırakabilirsiniz.
+Hem dokunmatik ekrana hem de donanım tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
 
-"Geri" tușunun "Geri Sil" olarak özel davranıșını devre dıșı bırakmanız da önerilir. Bu özellik sadece donanım tuș takımı için yararlıdır. Genellikle otomatik olarak da gerçekleșir, ancak olmuyorsa Ayarlar → Tuș Takımı → Kısayol Tușları Seç → Geri Sil tușuna gidin ve "--" seçeneğini seçin.
+Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca donanım tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
 
-### Sanal Tușlara Genel Bakış
-Ekran klavyesi, fiziksel tuşlara sahip bir telefonun numpad’i ile aynı şekilde çalışır. Bir tuş yalnızca tek bir işlev sağlıyorsa, bu işlevi belirten bir etikete (veya simgeye) sahiptir. Eğer bir tuş, "basılı tutma" yoluyla ikinci bir işlev sağlıyorsa, iki etikete (veya simgeye) sahip olacaktır.
+### Retro ve Modern Ekran Üzeri Düzenler
+İki sanal tuş takımı düzeni mevcuttur: Retro ve Modern.
 
-Aşağıda birden fazla işlevi olan tuşların açıklamaları yer almaktadır.
+Retro düzen, üst kısımda ortasında OK tuşu bulunan bir yön tuşu (D-pad) ve altında sayısal tuşlar içerir. Bu düzen, 2000’li yılların başındaki telefon tuş takımlarına oldukça benzer. Geleneksel bir deneyim arayan kullanıcılar, küçük ekranlı cihazlar ve daha büyük başparmaklara sahip kişiler için uygundur. Ayrıca Old Keyboard veya Big Old Keyboard gibi artık kullanılmayan eski T9 klavye uygulamalarına aşina olanlara da hitap edebilir.
 
-#### Sağ F2 Tuşu (sağ sütundaki en üstten ikinci tuş)
-_Yalnızca tahmin modunda._
+Modern düzen, 12 tuşlu bir yazım düzeni kullanırken Android’in standart görünümünü ve hissini korur. Metin girişi için ortada 0–9 rakam tuşlarından oluşan bir blok bulunur; Shift, Backspace, dil değiştirme ve OK (Enter) gibi işlev tuşları ise sol ve sağ sütunlara yerleştirilmiştir.
 
-- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığını görmek için [yukarıdaki](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) açıklamaya bakın.
-- **Basılı tut:** Eğer aktifse filtreyi temizler.
+### Sanal Tuşlara Genel Bakış
+Ekran üzeri tuş takımı, donanım telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
 
-#### Sağ F3 Tuşu (sağ sütundaki en üstten üçüncü tuş)
+#### 0–9 Tuşları
+Sayı tuşları kelime yazmak ve rakam girmek için kullanılır. Retro düzende bazı tuşlarda sola ve sağa kaydırma hareketleri de kullanılabilir. Bu işlevler mevcut olduğunda, tuşun sol alt veya sağ alt köşesindeki simgelerle belirtilir.
+
+Google Play sürümünde, kaydırma hareketleri hem Retro hem de Modern düzen için özelleştirilebilir veya devre dışı bırakılabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılabilir.
+
+#### Özel Metin Tuşları ("!" ve "?")
+Varsayılan olarak bu tuşlar kendi noktalama işaretlerini ekler. Sayısal veya telefon giriş alanlarında, yıldız, diyez veya ondalık ayırıcı gibi alternatif karakterler ekleyebilirler.
+
+Google Play sürümünde bu tuşlar özelleştirilebilir. Varsayılan karakter değiştirilebilir ve yukarı, aşağı, sola ve sağa kaydırma eylemleri atanabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılandırılabilir.
+
+#### Giriş Modu Tuşu
+- **Bas:** Giriş modları arasında geçiş yapar (abc → Öngörülü → 123).
+- **Basılı tut:** Ayarlardan birden fazla dil etkinleştirildiğinde yazım dilini değiştirir.
+- **Yatay kaydırma:** TT9 dışındaki en son kullanılan klavyeye geçer.
+- **Dikey kaydırma:** Yüklü tüm klavyeler arasında seçim yapabileceğiniz Android Klavye Değiştir iletişim kutusunu açar.
+
+Ayarlar → Diller bölümünden birden fazla dil etkinleştirildiğinde, tuş küçük bir küre simgesi gösterir. Bu simge, tuşa basılı tutarak dil değiştirilebileceğini belirtir.
+
+_Retro düzende, sağ alt köşedeki tuştur._
+
+_Modern düzende, sol alt köşedeki tuştur._
+
+#### Backspace
+Basılıp bırakıldığında karakterleri siler. Ayarlar → Tuş Takımı → Hızlı Silme etkinleştirildiğinde, geri kaydırarak önceki kelime silinebilir.
+
+#### Filtre Tuşu
+- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Basılı tut:** Etkinse filtreyi temizler.
+
+_Tuş yalnızca Modern düzende mevcuttur. Konum: üstten ikinci tuş._
+
+_Filtreleme yalnızca Öngörülü modda mümkündür._
+
+#### Pano Araçları / Sesli Giriş Tuşu
 - **Bas:** Kopyalama, yapıştırma ve metin düzenleme seçeneklerini açar.
 - **Basılı tut:** Sesli girişi etkinleştirir.
 
-#### Sol F4 tuşu (sol alt köşedeki tuş)
-- **Bas:** Giriş modlarını döngüsel olarak değiştirir (abc → Tahmin → 123).
-- **Basılı tut:** Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
-- **Yatay kaydırma:** TT9 dışında kullanılan son klavyeye geçiş yapar.
-- **Dikey kaydırma:** Tüm yüklü klavyeler arasından seçim yapabileceğiniz Android Klavye Değiştirme diyalog penceresini açar.
+_Tuş yalnızca Modern düzende mevcuttur. Konum: üstten üçüncü tuş._
 
-_Ayarlar → Diller kısmından birden fazla dili etkinleştirdiyseniz, tuşta küçük bir küre simgesi görüntülenir. Simge, tuşu basılı tutarak dil değiştirebileceğinizi gösterir._
+#### OK Tuşu
+- **Bas:** Diğer klavyelerde ENTER tuşuna basmakla aynıdır.
+
+Retro düzende ayrıca Ayarlar → Görünüm → Tuşlar bölümünden kaydırma hareketleri etkinleştirilebilir.
+
+- **Öneri yokken yukarı kaydırma:** İmleci yukarı taşır (D-PAD yukarı ile aynı).
+- **Öneri yokken aşağı kaydırma:** İmleci aşağı taşır (D-PAD aşağı ile aynı).
+- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Öneri varken aşağı kaydırma:** Öneri filtresini temizler.
 
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
 Bazı durumlarda, Sanal Tuș Takımının çok fazla ekran alanı kapladığını, yazdıklarınızı veya bazı uygulama öğelerini göremediğinizi fark edebilirsiniz. Bu durumda, Ayarlar/Komut Paleti tușunu basılı tutarak veya Durum Çubuğunu (mevcut dil veya yazma modunun gösterildiği alan) sürükleyerek yeniden boyutlandırabilirsiniz. Yükseklik çok küçük hale geldiğinde, düzen otomatik olarak "İşlev tușları" veya yalnızca "Öneri listesi" olarak değișecektir. Yukarı doğru yeniden boyutlandırdığınızda ise düzen "Sanal Tuș Takımı"na geçer. Durum çubuğuna iki kez dokunarak hızlıca minimize veya maximize edebilirsiniz.

@@ -227,34 +227,70 @@ Below is a list of the possible commands:
 _This key does not do anything when the Screen Layout is set to "Virtual Keypad" because all keys for all possible functions are already available on the screen._
 
 ## On-screen Keypad
-On touchscreen-only phones, a fully functional on-screen keypad is available and it will be enabled automatically. If, for some reason, your phone was not detected to have a touchscreen, enable it by going to Settings → Appearance → On-Screen Layout, and selecting "Virtual Numpad".
+On touchscreen-only devices, a fully functional on-screen keypad is available and enabled automatically. If the device is not detected as having a touchscreen, enable it manually from Settings → Appearance → On-Screen Layout by selecting "Virtual Numpad".
 
-If you do have both a touchscreen and a hardware keypad and prefer having more screen space, disable the software keys from Settings → Appearance.
+On devices with both a touchscreen and a hardware keypad, the on-screen keys can be disabled to free up screen space. This option is available under Settings → Appearance.
 
-It is also recommended to disable the special behavior of the "Back" key working as "Backspace". It is useful only for a hardware keypad. Usually, it will happen automatically too, but if it does not, go to Settings → Keypad → Select Hotkeys → Backspace key, then select the "--" option.
+It is also recommended to disable the special behavior that maps the "Back" key to "Backspace", as this is useful only when using a hardware keypad. This is usually handled automatically. If not, go to Settings → Keypad → Select Hotkeys → Backspace key and select the "--" option.
+
+### Retro and Modern On-Screen Layouts
+Two virtual keypad layouts are available: Retro and Modern.
+
+The Retro layout includes a D-pad with a central OK key at the top and number keys below, closely resembling keypads found on early 2000s phones. It is suitable for users seeking a traditional experience, for devices with smaller screens, and for people with larger thumbs. It may also appeal to those familiar with discontinued old T9 keyboard apps such as Old Keyboard or Big Old Keyboard.
+
+The Modern layout preserves the standard Android look and feel while using a 12-key typing layout. It features a central block of number keys (0–9) for text input, with function keys such as Shift, Backspace, language switch, and OK (Enter) arranged in columns on the left and right.
 
 ### Virtual Keys Overview
-The on-screen keypad works the same as the numpad of a phone with hardware keys. If a key provides a single function, it has one label (or icon) indicating that function. If the key provides a secondary "hold" function, it will have two labels (or icons).
+The on-screen keypad works the same way as a hardware phone keypad. Keys with a single function display a central label or icon. Keys with an additional long-press function show a secondary label or icon in the top-right corner.
 
-Below is a description of the keys with more than one function.
+#### 0-9 Keys
+Number keys are used for typing words and entering digits. The Retro layout also allows for swipe left and swipe right gestures on some keys. When available, these functions are indicated by icons in the bottom-left or bottom-right corner of the key.
 
-#### Right F2 key (the second key from the top in the right column)
-_Predictive mode only._
+In the Google Play version, the swipe gestures can be customized or disabled both for the Retro and the Modern layout. You can do this from Settings → Keypad → Key Functions.
 
+#### Custom Text Keys ("!" and "?")
+By default, these keys insert their respective punctuation marks. In numeric or phone input fields, they may insert alternative characters such as an asterisk, pound sign, or decimal point.
+
+In the Google Play version, these keys can be customized. You may change the default character and assign swipe up, swipe down, swipe left, and swipe right actions. This can be configured from Settings → Keypad → Key Functions.
+
+#### Input Mode Key
+- **Press:** Cycle the input modes (abc → Predictive → 123).
+- **Hold:** Change the typing language when multiple languages have been enabled from the Settings.
+- **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
+- **Vertical swipe:** Open the Android Change Keyboard dialog, where you can select between all installed keyboards.
+
+The key will display a small globe icon when you have enabled multiple languages from Settings → Languages. The icon indicates it is possible to change the language by holding the key.
+
+_In Retro layout, it is the bottom-right key._
+
+_In Modern layout, it is the bottom-left key._
+
+#### Backspace
+Deletes characters when pressed. When Settings → Keypad → Fast Delete is enabled, you can swipe back to delete the previous word.
+
+#### Filter Key
 - **Press:** Filter the suggestion list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
 - **Hold:** Clear the filter, if active.
 
-#### Right F3 key (the third key from the top in the right column)
+_The key is available only in the Modern layout. Location: second key from the top._
+
+_Filtering is possible in only Predictive mode._
+
+#### Clipboard Tools / Voice Input Key
 - **Press:** Open the copy-pasting and text editing options.
 - **Hold:** Activate the Voice Input.
 
-#### Left F4 key (the key at the bottom of the left column)
-- **Press:** Cycle the input modes (abc → Predictive → 123).
-- **Hold:** Change the typing language, when multiple languages have been enabled from the Settings.
-- **Horizontal swipe:** Switch to the last used keyboard, other than TT9.
-- **Vertical swipe:** Open the Android Change Keyboard dialog where you can select between all installed keyboards.
+_The key is available only in the Modern layout. Location: third key from the top._
 
-_The key will display a small globe icon when you have enabled multiple languages from Settings -> Languages. The icon indicates it is possible to change the language by holding the key._
+#### OK Key
+- **Press:**: Same as pressing the ENTER key on other keyboards.
+
+The Retro layout additionally allows enabling swipe gestures from Settings → Appearance → Keys.
+
+- **Swipe up when no suggestions:** Move the cursor up (same as D-PAD up).
+- **Swipe down when no suggestions:** Move the cursor down (same as D-PAD down).
+- **Swipe up when there are suggestions:** Filter the suggestions list. See [above](#filter-suggestions-key-default-d-pad-up) how word filtering works.
+- **Swipe down when there are suggestions:** Clear the suggestion filter.
 
 ### Resizing the Keyboard Panel While Typing
 In some cases, you may find that the Virtual Keypad is taking up too much screen space, preventing you from seeing what you are typing or some application elements. If so, you can resize it by either holding and dragging the Settings/Command Palette key or by dragging the Status Bar (it is where the current language or typing mode is displayed). When the height becomes too small, the layout will automatically be switched to "Function keys" or "Suggestion list only". Respectively, when resizing up, the layout will change to "Virtual Keypad". You can also double-tap the status bar to minimize or maximize instantly.
@@ -437,7 +473,7 @@ If you are still learning to use T9 and need to switch back occasionally or find
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
 
 ### I can't change the language on a touchscreen phone
-First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#left-f4-key-the-key-at-the-bottom-of-the-left-column) to change the language.
+First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#input-mode-key) to change the language.
 
 ### How to add contractions like "I've" or "don't" to the dictionary?
 All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibility—it allows you to combine any word with any contraction, and saves a significant amount of storage space.

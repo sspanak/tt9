@@ -227,34 +227,70 @@ Im Folgenden finden Sie eine Liste der möglichen Befehle:
 _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tastatur“ eingestellt ist, da alle Tasten für alle möglichen Funktionen bereits auf dem Bildschirm verfügbar sind._
 
 ## Bildschirmtastatur
-Auf reinen Touchscreen-Telefonen ist eine voll funktionsfähige Bildschirmtastatur verfügbar, die automatisch aktiviert wird. Falls Ihr Telefon aus irgendeinem Grund nicht als Touchscreen-Gerät erkannt wurde, aktivieren Sie die Funktion unter Einstellungen → Erscheinungsbild → Bildschirm-Layout und wählen Sie „Virtuelles Tastenfeld“.
+Auf Geräten mit ausschließlich Touchscreen steht eine vollständig funktionsfähige Bildschirmtastatur zur Verfügung, die automatisch aktiviert wird. Wird das Gerät nicht als Touchscreen erkannt, kann sie manuell unter Einstellungen → Erscheinungsbild → Bildschirm-Layout durch Auswahl von „Virtuelles Ziffernfeld“ aktiviert werden.
 
-Falls Sie sowohl einen Touchscreen als auch eine Hardwaretastatur haben und mehr Bildschirmfläche wünschen, können Sie die Softwaretasten unter Einstellungen → Erscheinungsbild deaktivieren.
+Auf Geräten mit Touchscreen und Hardware-Tastatur können die Bildschirmtasten deaktiviert werden, um Platz auf dem Bildschirm zu schaffen. Diese Option finden Sie unter Einstellungen → Erscheinungsbild.
 
-Es wird auch empfohlen, das spezielle Verhalten der "Zurück"-Taste als "Rückschritt" zu deaktivieren. Dies ist nur für eine Hardwaretastatur sinnvoll. In der Regel geschieht dies auch automatisch, aber falls nicht, gehen Sie zu Einstellungen → Tastatur → Hotkeys auswählen → Rückschritt-Taste und wählen die Option "--" aus.
+Es wird außerdem empfohlen, das spezielle Verhalten zu deaktivieren, bei dem die „Zurück“-Taste der Funktion „Rücktaste“ zugeordnet ist, da dies nur bei Verwendung einer Hardware-Tastatur sinnvoll ist. Dies wird in der Regel automatisch gehandhabt. Falls nicht, gehen Sie zu Einstellungen → Tastenfeld → Tastenkombinationen auswählen → Rücktaste und wählen Sie die Option „--“.
+
+### Retro- und moderne Bildschirm-Layouts
+Es stehen zwei virtuelle Tastenfeld-Layouts zur Verfügung: Retro und Modern.
+
+Das Retro-Layout umfasst ein Steuerkreuz (D-Pad) mit einer zentralen OK-Taste oben sowie darunter angeordneten Zahlentasten und ähnelt stark den Tastaturen früher Mobiltelefone aus den frühen 2000er-Jahren. Es eignet sich für Nutzer, die ein klassisches Bedienerlebnis bevorzugen, für Geräte mit kleineren Bildschirmen sowie für Personen mit größeren Daumen. Es kann auch für Nutzer interessant sein, die mit eingestellten T9-Tastatur-Apps wie Old Keyboard oder Big Old Keyboard vertraut sind.
+
+Das Modern-Layout bewahrt das typische Erscheinungsbild von Android und verwendet gleichzeitig ein 12-Tasten-Tipplayout. Es verfügt über einen zentralen Block von Zahlentasten (0–9) zur Texteingabe, während Funktionstasten wie Umschalt, Rücktaste, Sprachwechsel und OK (Eingabe) in Spalten links und rechts angeordnet sind.
 
 ### Übersicht der virtuellen Tasten
-Die Bildschirmtastatur funktioniert genauso wie das Nummernfeld eines Telefons mit physischen Tasten. Wenn eine Taste nur eine Funktion bietet, hat sie ein Label (oder Symbol), das diese Funktion anzeigt. Wenn die Taste eine sekundäre "Halten"-Funktion bietet, hat sie zwei Labels (oder Symbole).
+Die Bildschirmtastatur funktioniert genauso wie eine physische Telefontastatur. Tasten mit nur einer Funktion zeigen eine zentrale Beschriftung oder ein Symbol an. Tasten mit einer zusätzlichen Langdruck-Funktion zeigen eine sekundäre Beschriftung oder ein Symbol in der oberen rechten Ecke.
 
-Unten finden Sie eine Beschreibung der Tasten mit mehr als einer Funktion.
+#### Tasten 0–9
+Die Zahlentasten werden zum Schreiben von Wörtern und zur Eingabe von Ziffern verwendet. Das Retro-Layout ermöglicht zusätzlich Wischgesten nach links und rechts auf bestimmten Tasten. Falls verfügbar, werden diese Funktionen durch Symbole in der unteren linken oder rechten Ecke der Taste angezeigt.
 
-#### Rechte F2-Taste (zweite Taste von oben in der rechten Spalte)
-_Nur im Vorhersagemodus._
+In der Google-Play-Version können die Wischgesten sowohl für das Retro- als auch für das Modern-Layout angepasst oder deaktiviert werden. Dies erfolgt über Einstellungen → Tastenfeld → Tastenfunktionen.
 
-- **Drücken:** Die Vorschlagsliste filtern. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben), wie das Wortfiltern funktioniert.
-- **Halten:** Löscht den Filter, falls aktiv.
+#### Benutzerdefinierte Texttasten („!“ und „?“)
+Standardmäßig fügen diese Tasten die entsprechenden Satzzeichen ein. In numerischen oder Telefon-Eingabefeldern können sie alternative Zeichen wie Sternchen, Raute oder Dezimalpunkt einfügen.
 
-#### Rechte F3-Taste (dritte Taste von oben in der rechten Spalte)
-- **Drücken:** Öffnet die Optionen für Kopieren, Einfügen und Textbearbeitung.
-- **Halten:** Aktiviert die Spracheingabe.
+In der Google-Play-Version können diese Tasten angepasst werden. Sie können das Standardzeichen ändern und Aktionen für Wischen nach oben, unten, links und rechts zuweisen. Dies wird unter Einstellungen → Tastenfeld → Tastenfunktionen konfiguriert.
 
-#### Linke F4-Taste (die untere linke Taste)
-- **Drücken:** Wechselt die Eingabemodi (abc → Vorhersage → 123).
-- **Halten:** Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
-- **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur, abgesehen von TT9.
-- **Vertikal wischen:** Öffnet den Android-Tastaturwechsel-Dialog, in dem Sie zwischen allen installierten Tastaturen wählen können.
+#### Eingabemodus-Taste
+- **Drücken:** Durchläuft die Eingabemodi (abc → Prädiktiv → 123).
+- **Gedrückt halten:** Wechselt die Eingabesprache, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
+- **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur außer TT9.
+- **Vertikal wischen:** Öffnet den Android-Dialog „Tastatur wechseln“, in dem alle installierten Tastaturen ausgewählt werden können.
 
-_Die Taste zeigt ein kleines Globus-Symbol an, wenn Sie mehr als eine Sprache unter Einstellungen → Sprachen aktiviert haben. Das Symbol zeigt an, dass es möglich ist, die Sprache durch Halten der Taste zu ändern._
+Die Taste zeigt ein kleines Globus-Symbol an, wenn mehrere Sprachen unter Einstellungen → Sprachen aktiviert wurden. Das Symbol weist darauf hin, dass ein Sprachwechsel durch Gedrückthalten der Taste möglich ist.
+
+_Im Retro-Layout befindet sich die Taste unten rechts._
+
+_Im Modern-Layout befindet sich die Taste unten links._
+
+#### Rücktaste
+Löscht Zeichen bei Betätigung. Wenn Einstellungen → Tastenfeld → Schnelles Löschen aktiviert ist, können Sie durch Zurückwischen das vorherige Wort löschen.
+
+#### Filtertaste
+- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#filter-suggestions-key-default-d-pad-up) zur Funktionsweise der Wortfilterung.
+- **Gedrückt halten:** Löscht den Filter, sofern aktiv.
+
+_Diese Taste ist nur im Modern-Layout verfügbar. Position: zweite Taste von oben._
+
+_Das Filtern ist nur im prädiktiven Modus möglich._
+
+#### Zwischenablage / Spracheingabe-Taste
+- **Drücken:** Öffnet Optionen zum Kopieren, Einfügen und Bearbeiten von Text.
+- **Gedrückt halten:** Aktiviert die Spracheingabe.
+
+_Diese Taste ist nur im Modern-Layout verfügbar. Position: dritte Taste von oben._
+
+#### OK-Taste
+- **Drücken:** Entspricht dem Drücken der ENTER-Taste auf anderen Tastaturen.
+
+Im Retro-Layout können zusätzlich Wischgesten über Einstellungen → Erscheinungsbild → Tasten aktiviert werden.
+
+- **Nach oben wischen ohne Vorschläge:** Cursor nach oben bewegen (entspricht D-PAD nach oben).
+- **Nach unten wischen ohne Vorschläge:** Cursor nach unten bewegen (entspricht D-PAD nach unten).
+- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#filter-suggestions-key-default-d-pad-up).
+- **Nach unten wischen bei vorhandenen Vorschlägen:** Vorschlagsfilter löschen.
 
 ### Tastaturfeld beim Tippen anpassen
 In manchen Fällen nimmt das virtuelle Tastenfeld möglicherweise zu viel Platz ein, wodurch Sie Ihren Text oder Anwendungsinhalte nicht sehen können. Sie können die Größe anpassen, indem Sie die Einstellungen-/Befehlspalette-Taste gedrückt halten und ziehen oder die Statusleiste ziehen (dort wird die aktuelle Sprache oder der Eingabemodus angezeigt). Wenn die Höhe zu klein wird, wechselt das Layout automatisch zu „Funktionstasten“ oder „nur Vorschlagsliste“. Beim Vergrößern wechselt das Layout wieder zum „Virtuellen Tastenfeld“. Durch Doppeltippen auf die Statusleiste können Sie das Tastenfeld sofort minimieren oder maximieren.

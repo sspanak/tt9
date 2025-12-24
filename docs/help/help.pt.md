@@ -227,34 +227,70 @@ Aqui está uma lista de comandos possíveis:
 _Esta tecla não faz nada quando a Exibição de Tela está configurada para “Teclado Virtual”, pois todas as teclas para todas as funções possíveis já estão disponíveis na tela._
 
 ## Teclado na Tela
-Em telefones apenas com tela sensível ao toque, um teclado completo na tela está disponível e será ativado automaticamente. Se, por algum motivo, seu telefone não foi detectado como tendo touchscreen, ative-o indo em Configurações → Aparência → Layout na Tela e selecione "Teclado Numérico Virtual".
+Em dispositivos apenas com tela sensível ao toque, um teclado na tela totalmente funcional está disponível e é ativado automaticamente. Caso o dispositivo não seja detectado como tendo tela sensível ao toque, ative-o manualmente em Configurações → Aparência → Layout na Tela, selecionando “Teclado Numérico Virtual”.
 
-Se você tiver tanto um touchscreen quanto um teclado físico e preferir ter mais espaço na tela, desative as teclas de software em Configurações → Aparência.
+Em dispositivos com tela sensível ao toque e teclado físico, as teclas na tela podem ser desativadas para liberar espaço na tela. Essa opção está disponível em Configurações → Aparência.
 
-Recomenda-se também desativar o comportamento especial da tecla "Voltar" funcionando como "Backspace". Isso é útil apenas para teclados físicos. Geralmente, isso acontecerá automaticamente, mas se não, vá para Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção "--".
+Também é recomendável desativar o comportamento especial que mapeia a tecla “Voltar” para “Backspace”, pois isso é útil apenas ao utilizar um teclado físico. Normalmente, isso é feito automaticamente. Caso contrário, acesse Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção “--”.
+
+### Layouts na Tela: Retrô e Moderno
+Dois layouts de teclado virtual estão disponíveis: Retrô e Moderno.
+
+O layout Retrô inclui um direcional (D-pad) com uma tecla OK central na parte superior e teclas numéricas abaixo, lembrando os teclados encontrados em telefones do início dos anos 2000. É adequado para usuários que buscam uma experiência tradicional, para dispositivos com telas menores e para pessoas com polegares maiores. Também pode agradar a quem está familiarizado com aplicativos antigos de teclado T9 descontinuados, como Old Keyboard ou Big Old Keyboard.
+
+O layout Moderno preserva a aparência e o comportamento padrão do Android, utilizando um layout de digitação com 12 teclas. Ele apresenta um bloco central de teclas numéricas (0–9) para entrada de texto, com teclas de função como Shift, Backspace, troca de idioma e OK (Enter) organizadas em colunas à esquerda e à direita.
 
 ### Visão Geral das Teclas Virtuais
-O teclado na tela funciona da mesma forma que o teclado numérico de um telefone com teclas físicas. Se uma tecla oferece uma única função, ela terá um único rótulo (ou ícone) indicando essa função. Se a tecla tiver uma função secundária ativada ao pressionar e segurar, ela terá dois rótulos (ou ícones).
+O teclado na tela funciona da mesma forma que um teclado físico de telefone. Teclas com uma única função exibem um rótulo ou ícone central. Teclas com uma função adicional por pressionamento prolongado exibem um rótulo ou ícone secundário no canto superior direito.
 
-Abaixo está uma descrição das teclas com mais de uma função.
+#### Teclas 0–9
+As teclas numéricas são usadas para digitar palavras e inserir números. O layout Retrô também permite gestos de deslizar para a esquerda e para a direita em algumas teclas. Quando disponíveis, essas funções são indicadas por ícones no canto inferior esquerdo ou inferior direito da tecla.
 
-#### Tecla F2 Direita (segunda tecla de cima para baixo na coluna direita)
-_Somente no modo preditivo._
+Na versão do Google Play, os gestos de deslizar podem ser personalizados ou desativados tanto no layout Retrô quanto no Moderno. Isso pode ser feito em Configurações → Teclado → Funções das Teclas.
 
-- **Pressionar:** Filtra a lista de sugestões. Veja [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima) como funciona o filtro de palavras.
-- **Pressionar e segurar:** Limpa o filtro, se ativo.
+#### Teclas de Texto Personalizado ("!" e "?")
+Por padrão, essas teclas inserem seus respectivos sinais de pontuação. Em campos numéricos ou de telefone, elas podem inserir caracteres alternativos, como asterisco, cerquilha ou ponto decimal.
 
-#### Tecla F3 Direita (terceira tecla de cima para baixo na coluna direita)
-- **Pressionar:** Abre as opções de copiar, colar e editar texto.
-- **Pressionar e segurar:** Ativa a entrada por voz.
+Na versão do Google Play, essas teclas podem ser personalizadas. É possível alterar o caractere padrão e atribuir ações para deslizar para cima, para baixo, para a esquerda e para a direita. Isso pode ser configurado em Configurações → Teclado → Funções das Teclas.
 
-#### Tecla F4 Esquerda (a tecla inferior esquerda)
+#### Tecla de Modo de Entrada
 - **Pressionar:** Alterna os modos de entrada (abc → Preditivo → 123).
-- **Pressionar e segurar:** Alterar o idioma de digitação quando vários idiomas estiverem ativados nas configurações.
-- **Deslizar horizontalmente:** Alterna para o último teclado usado, diferente do TT9.
-- **Deslizar verticalmente:** Abre o diálogo de troca de teclado do Android, onde você pode selecionar entre todos os teclados instalados.
+- **Manter pressionado:** Altera o idioma de digitação quando vários idiomas estiverem ativados nas Configurações.
+- **Deslizar horizontalmente:** Alterna para o último teclado utilizado, exceto o TT9.
+- **Deslizar verticalmente:** Abre o diálogo do Android para alterar o teclado, onde é possível selecionar entre todos os teclados instalados.
 
-_A tecla exibirá um pequeno ícone de globo se você tiver ativado mais de um idioma em Configurações → Idiomas. O ícone indica que é possível mudar o idioma pressionando e segurando a tecla._
+A tecla exibirá um pequeno ícone de globo quando vários idiomas estiverem ativados em Configurações → Idiomas. O ícone indica que é possível alterar o idioma mantendo a tecla pressionada.
+
+_No layout Retrô, é a tecla no canto inferior direito._
+
+_No layout Moderno, é a tecla no canto inferior esquerdo._
+
+#### Backspace
+Remove caracteres quando pressionada. Quando Configurações → Teclado → Exclusão Rápida está ativado, é possível deslizar para trás para excluir a palavra anterior.
+
+#### Tecla de Filtro
+- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up) como funciona a filtragem de palavras.
+- **Manter pressionado:** Limpa o filtro, se estiver ativo.
+
+_A tecla está disponível apenas no layout Moderno. Localização: segunda tecla a partir do topo._
+
+_A filtragem é possível apenas no modo Preditivo._
+
+#### Ferramentas da Área de Transferência / Tecla de Entrada por Voz
+- **Pressionar:** Abre as opções de copiar, colar e edição de texto.
+- **Manter pressionado:** Ativa a entrada por voz.
+
+_A tecla está disponível apenas no layout Moderno. Localização: terceira tecla a partir do topo._
+
+#### Tecla OK
+- **Pressionar:** Equivale a pressionar a tecla ENTER em outros teclados.
+
+O layout Retrô permite ainda ativar gestos de deslizar em Configurações → Aparência → Teclas.
+
+- **Deslizar para cima sem sugestões:** Move o cursor para cima (igual ao D-PAD para cima).
+- **Deslizar para baixo sem sugestões:** Move o cursor para baixo (igual ao D-PAD para baixo).
+- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar para baixo com sugestões:** Limpa o filtro de sugestões.
 
 ### Redimensionar o Painel do Teclado Durante a Digitação
 Em alguns casos, você pode achar que o Teclado Virtual está ocupando muito espaço na tela, impedindo que você veja o que está digitando ou alguns elementos do aplicativo. Se for o caso, redimensione-o mantendo pressionado e arrastando a tecla de Configurações/Paleta de Comandos ou arrastando a Barra de Status (onde o idioma atual ou modo de digitação são exibidos). Quando a altura ficar muito pequena, o layout mudará automaticamente para "Teclas de Função" ou "Somente Lista de Sugestões". Ao redimensionar para cima, o layout mudará para "Teclado Virtual". Você também pode dar um duplo toque na barra de status para minimizar ou maximizar instantaneamente.
