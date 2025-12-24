@@ -409,34 +409,18 @@ No.
 
 Traditional T9 no está diseñado para ser un reemplazo o una aplicación clon. Tiene un diseño único, inspirado principalmente en los Nokia 3310 y 6303i. Y aunque captura la esencia de los clásicos, ofrece una experiencia propia que no replicará exactamente ningún dispositivo.
 
-### ¡Deberías copiar Touchpal, es el mejor teclado del mundo!
-No, no debería. Consulta los puntos anteriores.
+### ¡Deberían copiar TouchPal; era el mejor teclado!
+No. Consulte los puntos anteriores.
 
-Touchpal solía ser el mejor teclado en 2015 cuando no tenía competencia real. Sin embargo, desde entonces las cosas han cambiado. Consulta la comparación entre Traditional T9 y Touchpal:
+TouchPal era un teclado rápido y con buena capacidad de respuesta, que ofrecía amplias opciones de temas, personalización y compatibilidad con varios idiomas. Fue popular alrededor de 2015, cuando la competencia era limitada. Sin embargo, nunca fue un verdadero teclado T9: el diseño de 12 teclas solo estaba disponible en algunos idiomas y estaba pensado exclusivamente para pantallas táctiles.
 
-_**Traditional T9**_
-- Respeta tu privacidad.
-- No contiene anuncios y es gratuito.
-- Es compatible con una amplia variedad de dispositivos: teléfonos básicos y televisores con teclados físicos, así como smartphones y tablets solo con pantalla táctil.
-- Ofrece un diseño T9 de 12 teclas adecuado para cada idioma.
-- Mejora las sugerencias de palabras. Por ejemplo, si intentas escribir expresiones textónimas como "go in", aprenderá a no sugerir "go go" o "in in", sino la expresión significativa que tenías en mente.
-- Todo lo que escribes permanece en tu teléfono. No se envía ninguna información a ningún servidor.
-- Es de código abierto, lo que te permite revisar todo el código fuente y los diccionarios, contribuir al proyecto para mejorarlo (muchos usuarios han ayudado corrigiendo errores y agregando nuevos idiomas y traducciones) o incluso crear un mod según tus preferencias y visión.
-- Tiene un diseño limpio y altamente legible que se integra con el sistema. No hay elementos innecesarios que distraigan, permitiéndote concentrarte en escribir.
-- La velocidad de carga del diccionario es lenta.
+Con el tiempo, comenzó a perder el foco en lo más importante: la escritura. Se introdujeron anuncios, empezó a solicitar permisos de forma agresiva y a recopilar datos sensibles de los usuarios. Finalmente, fue retirado de Play Store.
 
-_**Touchpal**_
-- Solicita acceso a todo tu dispositivo y contactos de manera agresiva; escribe archivos aleatorios en diferentes lugares; finalmente, fue prohibido en la Play Store porque actuaba como un virus.
-- Está lleno de anuncios.
-- Solo es compatible con dispositivos con pantalla táctil.
-- No es un teclado T9 real. Solo ofrece un diseño T9 en algunos idiomas. Además, algunos diseños son incorrectos (por ejemplo, en búlgaro falta una letra y algunas están intercambiadas entre la tecla 8 y la tecla 9).
-- Al escribir textónimos seguidos, solo sugiere la última palabra que seleccionaste. Por ejemplo, al intentar escribir "go in", mostrará "go go" o "in in".
-- Las sugerencias basadas en la nube podrían mejorar la precisión. Sin embargo, para que esto funcione, tú y todos los demás usuarios deben enviar todo lo que escriben a los servidores de Touchpal para su procesamiento.
-- Código cerrado. No hay forma de comprobar qué hace en segundo plano.
-- Incluye muchos temas, colores, GIFs y otras distracciones que no tienen relación con la escritura.
-- La velocidad de carga del diccionario es rápida. Touchpal gana en este aspecto.
+En cambio, la [filosofía](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) de TT9 se basa en los principios del software de código abierto. Su código fuente y sus diccionarios están disponibles públicamente para su revisión. La privacidad del usuario se respeta desde el diseño. Las contribuciones de la comunidad han ayudado a mejorar el proyecto, incluyendo correcciones de errores, nuevos idiomas y traducciones. Los usuarios también pueden crear sus propias versiones modificadas.
 
-Si no estás de acuerdo o quieres explicar tu punto de vista, únete a [la discusión abierta](https://github.com/sspanak/tt9/issues/647) en GitHub. Solo recuerda ser respetuoso con los demás. No se tolerarán publicaciones de odio.
+TT9 no ofrece elementos como formas de teclas personalizables, sino un diseño limpio y legible centrado en una escritura eficiente. No reproduce el estilo visual de TouchPal, pero funciona en teléfonos modernos con Android 16, en dispositivos de inspiración nostálgica con teclados físicos como Qin F21, Cat S22 Flip y Sonim XP3800, e incluso en mandos a distancia de televisores.
+
+Si no está de acuerdo o desea explicar su punto de vista, participe en la [discusión abierta](https://github.com/sspanak/tt9/issues/647) en GitHub. Recuerde mantener un tono respetuoso. No se tolerarán mensajes de odio.
 
 ### Android me advirtió que el teclado podría recopilar mis datos personales, incluidos números de tarjetas de crédito y contraseñas
 Este es un aviso estándar de Android que aparece al instalar y activar cualquier teclado, no únicamente Traditional T9. Puede estar seguro de que todo lo que escriba permanece en su dispositivo. El motor de escritura es completamente de código abierto; por ello, puede revisar su código en GitHub y confirmar que su privacidad está protegida.

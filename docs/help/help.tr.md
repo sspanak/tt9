@@ -409,34 +409,18 @@ Hayır.
 
 Traditional T9, bir kopya uygulama ya da eski bir klavyenin birebir ikamesi olmak için tasarlanmadı. Kendine özgü bir tasarımı vardır ve temel olarak Nokia 3310 ve 6303i modellerinden ilham almıştır. Klasik telefonların hissini verse de, tam olarak hiçbir cihazı taklit etmez.
 
-### Touchpal'ı kopyalamalısınız, o dünyanın en iyi klavyesi!
-Hayır, kopyalamamalıyım. Önceki maddelere bakın.
+### TouchPal’i kopyalamalısınız; en iyi klavyeydi!
+Hayır. Önceki maddelere bakınız.
 
-Touchpal, 2015 yılında rakipsiz olduğu dönemde gerçekten en iyi klavyelerden biriydi. Ancak o zamandan beri işler değişti. İşte Traditional T9 ve Touchpal'ın karşılaştırması:
+TouchPal, kapsamlı tema seçenekleri, özelleştirme olanakları ve çok dilli destek sunan hızlı ve duyarlı bir klavyeydi. Rekabetin sınırlı olduğu 2015 civarında popülerdi. Ancak hiçbir zaman gerçek bir T9 klavyesi olmadı: 12 tuşlu düzen yalnızca bazı dillerde mevcuttu ve yalnızca dokunmatik ekranlar için tasarlanmıştı.
 
-_**Traditional T9**_
-- Gizliliğinize saygı duyar.
-- Reklam içermez ve tamamen ücretsizdir.
-- Geniş bir cihaz yelpazesini destekler: tuşlu telefonlar, donanım klavyeli televizyonlar ve yalnızca dokunmatik ekrana sahip akıllı telefonlar ve tabletler.
-- Her dil için tam uyumlu 12 tuşlu bir T9 düzeni sunar.
-- Gelişmiş kelime önerileri sağlar. Örneğin, "go in" gibi bir textonym ifadesi yazmaya çalışırsanız, "go go" veya "in in" yerine anlamlı olan ifadeyi öğrenerek önerir.
-- Yazdığınız her şey cihazınızda kalır. Hiçbir veri herhangi bir yere gönderilmez.
-- Açık kaynaklıdır, böylece tüm kaynak kodunu ve sözlükleri inceleyebilir, projeye katkıda bulunarak geliştirebilir (birçok kullanıcı hataları düzeltmeye ve yeni diller ile çeviriler eklemeye yardımcı oldu) veya kendi isteğinize göre bir mod oluşturabilirsiniz.
-- Sisteme uyum sağlayan sade ve okunaklı bir tasarıma sahiptir. Gereksiz süslemeler içermez, böylece yazmaya odaklanabilirsiniz.
-- Sözlük yükleme hızı düşüktür.
+Zamanla en önemli unsur olan yazma deneyiminden uzaklaşmaya başladı. Reklamlar eklendi, izin talepleri giderek daha agresif hale geldi ve hassas kullanıcı verileri toplanmaya başlandı. Sonunda Play Store’dan kaldırıldı.
 
-_**Touchpal**_
-- Cihazınızdaki tüm verilere ve kişilerinize erişmek için ısrarcıdır; rastgele dosyalar oluşturur; en sonunda bir virüs gibi davrandığı için Play Store'dan kaldırılmıştır.
-- Reklamlarla doludur.
-- Sadece dokunmatik ekranlı cihazları destekler.
-- Gerçek bir T9 klavyesi değildir. Yalnızca bazı dillerde T9 düzeni sunar. Ayrıca, bazı düzenler hatalıdır (örneğin, Bulgarca'da bir harf eksik ve bazı harfler 8 ve 9 tuşları arasında yanlış sıralanmıştır).
-- Arka arkaya textonym yazarken yalnızca son seçtiğiniz kelimeyi önerir. Örneğin, "go in" yazmaya çalıştığınızda, ya "go go" ya da "in in" şeklinde önerir.
-- Bulut tabanlı öneriler doğruluğu artırabilir, ancak bunun çalışması için sizin ve diğer tüm kullanıcıların yazdıkları her şeyi Touchpal sunucularına göndermesi gerekir.
-- Kapalı kaynaklıdır. Arka planda ne yaptığını kontrol etmenin hiçbir yolu yoktur.
-- Klavyeyle ilgisi olmayan birçok tema, renk, GIF ve dikkat dağıtıcı unsur içerir.
-- Sözlük yükleme hızı yüksektir. Bu noktada Touchpal kazanıyor.
+Buna karşılık, TT9’un [felsefesi](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) açık kaynak ilkelerine dayanmaktadır. Kaynak kodu ve sözlükleri herkese açıktır ve incelenebilir. Kullanıcı gizliliği tasarım aşamasından itibaren gözetilmektedir. Topluluk katkıları, hata düzeltmeleri, yeni diller ve çeviriler dahil olmak üzere projenin gelişmesine yardımcı olmuştur. Kullanıcılar ayrıca kendi değiştirilmiş sürümlerini oluşturmakta özgürdür.
 
-Eğer aynı fikirde değilseniz veya bakış açınızı açıklamak isterseniz, GitHub'daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Sadece diğer kullanıcılara saygılı olun. Nefret içerikli mesajlara izin verilmeyecektir.
+TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi donanım tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
+
+Katılmıyorsanız veya görüşünüzü açıklamak istiyorsanız, GitHub’daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Lütfen diğer kullanıcılara karşı saygılı olun. Nefret içerikli paylaşımlara izin verilmez.
 
 ### Android, klavyenin kredi kartı numaraları ve parolalar dahil olmak üzere kişisel verilerimi toplayabileceği konusunda beni uyardı
 Bu, yalnızca Traditional T9 için değil, herhangi bir klavye yüklendiğinde ve etkinleştirildiğinde görüntülenen standart bir Android uyarısıdır. Yazdığınız her şeyin cihazınızda kaldığından emin olabilirsiniz. Yazma motoru tamamen açık kaynaklıdır; bu nedenle kodunu GitHub üzerinden inceleyebilir ve gizliliğinizin korunduğunu doğrulayabilirsiniz.

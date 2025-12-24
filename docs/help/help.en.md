@@ -411,32 +411,16 @@ No.
 
 Traditional T9 is not meant to be a replacement or a clone app. It has its own unique design, inspired mainly by the Nokia 3310 and 6303i. And while it captures the feel of the classics, it provides its own experience that won’t replicate any device exactly.
 
-### You should copy Touchpal, it's the greatest keyboard in the world!
-No, I should not. See the previous points.
+### You should copy TouchPal; it was the greatest keyboard!
+No. See the previous points.
 
-Touchpal used to be the greatest keyboard back in 2015 when it had no real competition. However, things have changed since then. See the side-by-side comparison between Traditional T9 and Touchpal:
+TouchPal was a fast and responsive keyboard that offered extensive theming, customization, and multi-language support. It was popular around 2015, when competition was limited. However, it was never a true T9 keyboard: the 12-key layout was available only in some languages, and it was designed exclusively for touchscreens.
 
-_**Traditional T9**_
-- Respects your privacy.
-- Contains no ads and it's free.
-- Supports a wide range of devices: dumbphones and TVs with hardware keypads or keyboards, as well as touchscreen-only smartphones and tablets.
-- Offers a proper 12-key T9 layout for every language.
-- Provides enhanced word suggestions. For example, if you try to type textonym expressions like "go in", it will learn not to suggest "go go" or "in in", but the meaningful expression you had in mind.
-- Everything you type remains on your phone. No information is sent anywhere.
-- Is open source, allowing you to review all the source code and the dictionaries, or contribute to the project and make it better (many users have helped with fixing bugs and adding new languages and translations), or even create a mod based on your preferences and vision.
-- Has a clean and highly readable design that blends with the system. There are no unnecessary bells and whistles so that you can focus on typing.
-- Dictionary loading speed is slow.
+Over time, it began losing focus on the most important—typing. Ads were introduced, it started asking for permissions aggressively, and began collecting sensitive user data. Eventually, it was removed from the Play Store.
 
-_**Touchpal**_
-- Aggressively asks for access to your entire device and to your contacts; writes random files everywhere; ultimately, it got banned from the Play Store because it acts like a virus.
-- Is full of ads.
-- Supports only touchscreen devices.
-- Is not a true T9 keyboard. It offers a T9 layout only in some languages. Moreover, some layouts are incorrect (e.g. Bulgarian is missing a letter and some letters are wrongly swapped between the 8-key and the 9-key).
-- When typing textonyms one after another, it only suggests the last word you selected. For example, when you try to type "go in", it will display either "go go" or "in in".
-- Cloud-based suggestions could be used to improve accuracy. However, for this to work, you and all other users must send everything you type to the Touchpal servers for processing.
-- Closed source. There is no way to check what it does in the background.
-- Includes many themes, colors, GIFs, and other distractions unrelated to typing.
-- Dictionary loading speed is fast. Touchpal wins this point.
+By contrast, TT9's [philosophy](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) is based on the open-source principles. Its source code and dictionaries are publicly available and can be reviewed. User privacy is respected by design. Contributions from the community have helped improve the project, including bug fixes, new languages, and translations. Users are also free to create their own modified versions.
+
+TT9 does not offer things like customizable key shapes, but instead provides a clean and readable layout focused on efficient typing. It does not replicate TouchPal’s visual style, but it works on modern Android 16 smartphones, on nostalgia-inspired devices with hardware keypads such as Qin F21, Cat S22 Flip, Sonim XP3800, and even TV remote controls.
 
 If you disagree or would like to explain your point of view, join [the open discussion](https://github.com/sspanak/tt9/issues/647) on GitHub. Just remember to be respectful to the others. Hate posts will not be tolerated.
 
