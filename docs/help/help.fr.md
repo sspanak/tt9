@@ -386,7 +386,7 @@ Enfin, la vibration ne fonctionne pas de manière fiable sur certains appareils.
 
 ## Questions Fréquemment Posées
 
-### Pourquoi n’ajoutes-tu pas la langue X ?
+### Pourquoi n’ajoutez-vous pas la langue X ?
 J’aimerais beaucoup le faire, mais j’ai besoin de ton aide. Il m’est impossible de gérer plus de 40 langues tout seul. Comme je ne parle pas ta langue, il m’est difficile de trouver des ressources fiables en ligne. C’est là que les locuteurs natifs comme toi peuvent vraiment aider.
 En fait, plus de 90 % des langues existantes ont été ajoutées par ou avec l’aide d’utilisateurs enthousiastes.
 
@@ -394,17 +394,17 @@ Pour ajouter une nouvelle langue, j’ai besoin d’une liste de mots vérifiée
 
 S’il n’existe pas un tel dictionnaire, tu peux fournir une liste de mots téléchargeable gratuitement. L’idéal est une liste de 300 000 à 500 000 mots, mais si la langue a beaucoup de variations (temps, genre, nombre, etc.), environ 1 million de mots peut être nécessaire.
 
-### Il y a des mots mal orthographiés ou manquants dans la langue XYZ. Pourquoi ne les corriges-tu pas ?
+### Il y a des mots mal orthographiés ou manquants dans la langue XYZ. Pourquoi ne sont-ils pas corrigés ?
 Comme indiqué ci-dessus, je ne parle pas ta langue et je ne remarque donc pas forcément ces erreurs. Mais avec ton aide, nous pouvons les corriger et améliorer le dictionnaire pour tout le monde.
 
-### Ne peux-tu pas ajouter la fonctionnalité X ?
+### Ne pouvez-vous pas ajouter la fonctionnalité X ?
 Non.
 
 Chacun a ses préférences. Certains veulent des touches plus grandes, d'autres dans un ordre différent, certains veulent une touche de raccourci pour taper ".com", et d'autres regrettent leur ancien téléphone ou clavier. Mais veuillez comprendre que je fais ce travail bénévolement sur mon temps libre. Il est impossible de satisfaire des milliers de demandes différentes, dont certaines se contredisent même.
 
 Henry Ford a dit un jour : "Le client peut choisir n'importe quelle couleur, tant que c'est noir." De la même manière, Traditional T9 est simple, efficace et gratuit, mais vous obtenez ce qui est proposé.
 
-### Ne peux-tu pas le rendre plus similaire à Sony Ericsson ou Xperia, Nokia C2, Samsung, ou un autre clavier logiciel ?
+### Ne pouvez-vous pas le rendre plus similaire à mon appareil préféré (par exemple Sony Ericsson, Xperia, Nokia C2, Samsung) ou à mon application de clavier préférée ?
 Non.
 
 Traditional T9 n'est pas conçu pour être un substitut ou une application clonée. Il possède un design unique, principalement inspiré des Nokia 3310 et 6303i. Et bien qu'il capture l'essence des classiques, il offre une expérience propre qui ne répliquera exactement aucun appareil.

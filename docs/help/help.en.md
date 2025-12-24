@@ -406,7 +406,7 @@ Everyone has their preferences. Some want larger keys, some in a different order
 
 Henry Ford once said, "It can be any color the customer wants, as long as it is black." Similarly, Traditional T9 is unadorned, effective, and free but you get what you get.
 
-### Can't you make it more similar to Sony Ericsson or Xperia, Nokia C2, Samsung, some other software keyboard, etc?
+### Can't you make it more similar to my favorite device (e.g. Sony Ericsson, Xperia, Nokia C2, Samsung), or my favorite keyboard app?
 No.
 
 Traditional T9 is not meant to be a replacement or a clone app. It has its own unique design, inspired mainly by the Nokia 3310 and 6303i. And while it captures the feel of the classics, it provides its own experience that won’t replicate any device exactly.

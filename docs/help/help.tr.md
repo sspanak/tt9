@@ -386,7 +386,7 @@ Son olarak, bazı cihazlarda titreşim güvenilir şekilde çalışmayabilir. Bu
 
 ## Sıkça Sorulan Sorular
 
-### Neden X dilini eklemiyorsun?
+### Neden X dilini eklemiyorsunuz?
 Eklemeyi çok isterim, ancak yardımına ihtiyacım var. 40’tan fazla dili tek başıma desteklemek benim için imkânsız. Senin dilini konuşmadığım için internette doğru kaynakları bulmak zor oluyor. İşte bu noktada, senin gibi ana dil konuşurları çok yardımcı olabiliyor.
 Aslında mevcut dillerin %90’ından fazlası kullanıcıların katkılarıyla eklendi.
 
@@ -394,17 +394,17 @@ Yeni bir dil eklemek için, yazım hatası olmayan bir kelime listesine ihtiyac�
 
 Böyle bir sözlük yoksa, ücretsiz indirilebilen bir kelime listesi de kabul edilir. Liste genellikle 300.000–500.000 kelime içermelidir, ancak dilde çok fazla çekim varsa (zaman, cinsiyet, sayı vb.), 1 milyon kelimeye kadar gerekebilir.
 
-### XYZ dilinde yanlış veya eksik kelimeler var. Neden düzeltmiyorsun?
+### XYZ dilinde hatalı yazılmış veya eksik kelimeler var. Bunları neden düzeltmiyorsunuz?
 Yukarıda belirttiğim gibi, senin dilini konuşmadığım için bu hataları fark etmem zor. Ama senin yardımınla bunları düzeltebilir ve sözlüğü daha iyi hâle getirebiliriz.
 
-### Özellik X'i ekleyemez misiniz?
+### X özelliğini ekleyemez misiniz?
 Hayır.
 
 Herkesin kendi tercihleri vardır. Kimisi daha büyük tuşlar ister, kimisi farklı bir düzen, kimisi ".com" yazmak için bir kısayol tuşu ister ve kimisi de eski telefonunu veya klavyesini özler. Ancak lütfen anlayın ki, bu projeyi boş zamanlarımda gönüllü olarak yürütüyorum. Birbirleriyle çelişen binlerce farklı isteği yerine getirmek imkansızdır.
 
 Henry Ford bir keresinde şöyle demiştir: "Müşteri istediği herhangi bir rengi seçebilir, yeter ki siyah olsun." Benzer şekilde, Traditional T9 sade, etkili ve ücretsizdir; ne alıyorsanız onu kullanırsınız.
 
-### Neden Sony Ericsson, Xperia, Nokia C2, Samsung veya başka bir yazılım klavyesine daha çok benzetmiyorsunuz?
+### Uygulamayı favori cihazıma (ör. Sony Ericsson, Xperia, Nokia C2, Samsung) veya favori klavye uygulamama daha benzer hâle getiremez misiniz?
 Hayır.
 
 Traditional T9, bir kopya uygulama ya da eski bir klavyenin birebir ikamesi olmak için tasarlanmadı. Kendine özgü bir tasarımı vardır ve temel olarak Nokia 3310 ve 6303i modellerinden ilham almıştır. Klasik telefonların hissini verse de, tam olarak hiçbir cihazı taklit etmez.

@@ -386,7 +386,7 @@ Por último, la vibración no funciona de manera confiable en algunos dispositiv
 
 ## Preguntas Frecuentes
 
-### ¿Por qué no agregas el idioma X?
+### ¿Por qué no añaden el idioma X?
 Me encantaría hacerlo, pero necesito tu ayuda. Es imposible mantener más de 40 idiomas por mi cuenta. Como no hablo tu idioma, me resulta difícil encontrar recursos fiables en Internet. Aquí es donde los hablantes nativos como tú pueden marcar la diferencia.
 De hecho, más del 90 % de los idiomas actuales fueron añadidos por o con la ayuda de usuarios entusiastas.
 
@@ -394,17 +394,17 @@ Para agregar uno nuevo, necesito una lista de palabras revisada ortográficament
 
 Si no existe tal diccionario, puedes proporcionar una lista de palabras disponible para descargar gratuitamente. Lo ideal es que tenga entre 300 000 y 500 000 palabras, pero si el idioma tiene muchas inflexiones (por tiempo, género o número), se pueden necesitar alrededor de 1 millón.
 
-### Hay palabras mal escritas o faltantes en el idioma XYZ. ¿Por qué no las corriges?
+### Hay palabras mal escritas o faltantes en el idioma XYZ. ¿Por qué no se corrigen?
 Como dije antes, no hablo tu idioma, así que puede que no note esos errores. Pero con tu ayuda, podemos corregirlos y mejorar el diccionario para todos.
 
-### ¿No puedes añadir la función X?
+### ¿No pueden añadir la función X?
 No.
 
 Cada persona tiene sus propias preferencias. Algunos quieren teclas más grandes, otros un orden diferente, algunos quieren una tecla de acceso rápido para escribir ".com" y otros extrañan su antiguo teléfono o teclado. Pero por favor, entiende que hago esto voluntariamente en mi tiempo libre. Es imposible cumplir con miles de solicitudes diferentes, algunas de las cuales incluso se contradicen entre sí.
 
 Henry Ford dijo una vez: "Puede ser de cualquier color que el cliente quiera, siempre que sea negro." De manera similar, Traditional T9 es simple, efectivo y gratuito, pero obtienes lo que ves.
 
-### ¿No puedes hacer que se parezca más a Sony Ericsson o Xperia, Nokia C2, Samsung u otro teclado de software?
+### ¿No pueden hacerlo más similar a mi dispositivo favorito (p. ej., Sony Ericsson, Xperia, Nokia C2, Samsung) o a mi aplicación de teclado favorita?
 No.
 
 Traditional T9 no está diseñado para ser un reemplazo o una aplicación clon. Tiene un diseño único, inspirado principalmente en los Nokia 3310 y 6303i. Y aunque captura la esencia de los clásicos, ofrece una experiencia propia que no replicará exactamente ningún dispositivo.
