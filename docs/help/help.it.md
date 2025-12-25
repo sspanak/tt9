@@ -226,35 +226,71 @@ Di seguito è riportato un elenco dei comandi possibili:
 
 _Questo tasto non fa nulla quando il Layout dello Schermo è impostato su "Tastierino Virtuale" perché tutti i tasti per tutte le funzioni possibili sono già disponibili sullo schermo._
 
-## Tastierino su Schermo
-Sui telefoni solo touchscreen, è disponibile un tastierino su schermo completamente funzionale, che verrà abilitato automaticamente. Se, per qualche motivo, il tuo telefono non è stato rilevato come touchscreen, attivalo andando su Impostazioni → Aspetto → Layout su Schermo e selezionando "Tastierino Virtuale".
+## Tastierino a Schermo
+Sui dispositivi dotati esclusivamente di touchscreen è disponibile un tastierino a schermo completamente funzionale, attivato automaticamente. Se il dispositivo non viene rilevato come touchscreen, è possibile abilitarlo manualmente da Impostazioni → Aspetto → Layout a schermo selezionando «Tastierino numerico virtuale».
 
-Se hai sia un touchscreen che un tastierino fisico e preferisci avere più spazio sullo schermo, disabilita i tasti software da Impostazioni → Aspetto.
+Sui dispositivi con touchscreen e tastiera hardware, i tasti a schermo possono essere disattivati per liberare spazio sullo schermo. Questa opzione è disponibile in Impostazioni → Aspetto.
 
-Si consiglia anche di disabilitare il comportamento speciale del tasto "Indietro" come "Backspace". È utile solo con un tastierino hardware. Di solito ciò avviene automaticamente, ma se non accade, vai su Impostazioni → Tastierino → Seleziona Tasti Rapidi → Tasto Backspace, quindi seleziona l'opzione "--".
+Si consiglia inoltre di disattivare il comportamento speciale che associa il tasto «Indietro» alla funzione «Backspace», poiché risulta utile solo quando si utilizza una tastiera hardware. Questa impostazione viene solitamente gestita automaticamente. In caso contrario, accedere a Impostazioni → Tastierino → Seleziona tasti di scelta rapida → Tasto Backspace e selezionare l’opzione «--».
 
-### Panoramica dei Tasti Virtuali
-La tastiera su schermo funziona come il tastierino numerico di un telefono con tasti fisici. Se un tasto offre una sola funzione, ha un'etichetta (o un'icona) che indica quella funzione. Se il tasto ha una funzione secondaria da attivare tenendolo premuto, avrà due etichette (o icone).
+### Layout a schermo Retro e Modern
+Sono disponibili due layout di tastierino virtuale: Retro e Modern.
 
-Di seguito è riportata una descrizione dei tasti con più di una funzione.
+Il layout Retro include un D-pad con un tasto OK centrale nella parte superiore e i tasti numerici sottostanti, ricordando da vicino le tastiere dei telefoni dei primi anni 2000. È adatto agli utenti che cercano un’esperienza tradizionale, ai dispositivi con schermi più piccoli e alle persone con pollici più grandi. Può inoltre risultare familiare a chi ha utilizzato applicazioni T9 ormai dismesse come Old Keyboard o Big Old Keyboard.
 
-#### Tasto F2 destro (secondo tasto dall'alto nella colonna di destra)
-_Solo in modalità predittiva._
+Il layout Modern mantiene l’aspetto e il comportamento standard di Android, utilizzando al contempo un layout di digitazione a 12 tasti. Presenta un blocco centrale di tasti numerici (0–9) per l’inserimento del testo, con tasti funzione come Maiusc, Backspace, cambio lingua e OK (Invio) disposti in colonne a sinistra e a destra.
 
-- **Premere:** Filtra l'elenco dei suggerimenti. Vedi [sopra](#tasto-filtro-suggerimenti-default-d-pad-su) per sapere come funziona il filtro delle parole.
-- **Tenere premuto:** Cancella il filtro, se attivo.
+### Panoramica dei tasti virtuali
+Il tastierino a schermo funziona allo stesso modo di una tastiera fisica per telefoni. I tasti con una sola funzione mostrano un’etichetta o un’icona centrale. I tasti con una funzione aggiuntiva tramite pressione prolungata mostrano un’etichetta o un’icona secondaria nell’angolo in alto a destra.
 
-#### Tasto F3 destro (terzo tasto dall'alto nella colonna di destra)
-- **Premere:** Apre le opzioni per copiare, incollare e modificare il testo.
-- **Tenere premuto:** Attiva l'immissione vocale.
+#### Tasti 0–9
+I tasti numerici vengono utilizzati per digitare parole e inserire cifre. Il layout Retro consente inoltre gesti di scorrimento verso sinistra e verso destra su alcuni tasti. Quando disponibili, tali funzioni sono indicate da icone nell’angolo inferiore sinistro o destro del tasto.
 
-#### Tasto F4 sinistro (il tasto in basso a sinistra)
-- **Premere:** Cambia modalità di input (abc → Predittiva → 123).
-- **Tenere premuto:** Cambiare la lingua di digitazione quando sono state abilitate più lingue nelle impostazioni.
-- **Scorrere orizzontalmente:** Passa all'ultima tastiera utilizzata, diversa da TT9.
-- **Scorrere verticalmente:** Apre il dialogo Cambia tastiera di Android, dove è possibile selezionare tra tutte le tastiere installate.
+Nella versione Google Play, i gesti di scorrimento possono essere personalizzati o disattivati sia per il layout Retro sia per quello Modern. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
 
-_Il tasto mostrerà una piccola icona a forma di globo quando hai abilitato più di una lingua in Impostazioni → Lingue. L'icona indica che è possibile cambiare lingua tenendo premuto il tasto._
+#### Tasti di testo personalizzati («!» e «?»)
+Per impostazione predefinita, questi tasti inseriscono i rispettivi segni di punteggiatura. Nei campi di input numerici o telefonici, possono inserire caratteri alternativi come l’asterisco, il cancelletto o il punto decimale.
+
+Nella versione Google Play, questi tasti possono essere personalizzati. È possibile modificare il carattere predefinito e assegnare azioni ai gesti di scorrimento verso l’alto, il basso, sinistra e destra. Questa configurazione è disponibile in Impostazioni → Tastierino → Funzioni dei tasti.
+
+#### Tasto modalità di input
+- **Pressione:** Scorre le modalità di input (abc → Predittivo → 123).
+- **Pressione prolungata:** Cambia la lingua di digitazione quando sono abilitate più lingue dalle Impostazioni.
+- **Scorrimento orizzontale:** Passa all’ultima tastiera utilizzata diversa da TT9.
+- **Scorrimento verticale:** Apre la finestra di dialogo Android per il cambio tastiera, consentendo di selezionare tra tutte le tastiere installate.
+
+Il tasto mostra una piccola icona a forma di globo quando sono state abilitate più lingue da Impostazioni → Lingue. L’icona indica che è possibile cambiare lingua tenendo premuto il tasto.
+
+_Nel layout Retro, si trova in basso a destra._
+
+_Nel layout Modern, si trova in basso a sinistra._
+
+#### Backspace
+Elimina i caratteri quando viene premuto. Quando Impostazioni → Tastierino → Eliminazione rapida è attivato, è possibile scorrere all’indietro per eliminare la parola precedente.
+
+#### Tasto filtro
+- **Pressione:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up) per il funzionamento del filtro delle parole.
+- **Pressione prolungata:** Cancella il filtro, se attivo.
+
+_Il tasto è disponibile solo nel layout Modern. Posizione: secondo tasto dall’alto._
+
+_Il filtraggio è possibile solo in modalità Predittiva._
+
+#### Strumenti appunti / Tasto input vocale
+- **Pressione:** Apre le opzioni di copia, incolla e modifica del testo.
+- **Pressione prolungata:** Attiva l’input vocale.
+
+_Il tasto è disponibile solo nel layout Modern. Posizione: terzo tasto dall’alto._
+
+#### Tasto OK
+- **Pressione:** Equivale alla pressione del tasto INVIO sulle altre tastiere.
+
+Il layout Retro consente inoltre di abilitare i gesti di scorrimento da Impostazioni → Aspetto → Tasti.
+
+- **Scorrimento verso l’alto senza suggerimenti:** Sposta il cursore verso l’alto (equivalente a D-PAD su).
+- **Scorrimento verso il basso senza suggerimenti:** Sposta il cursore verso il basso (equivalente a D-PAD giù).
+- **Scorrimento verso l’alto con suggerimenti:** Filtra l’elenco dei suggerimenti. Vedere [sopra](#filter-suggestions-key-default-d-pad-up).
+- **Scorrimento verso il basso con suggerimenti:** Cancella il filtro dei suggerimenti.
 
 ### Ridimensionamento del Pannello Tastiera Durante la Digitazione
 A volte potresti trovare che il Tastierino Virtuale occupi troppo spazio, impedendoti di vedere cosa stai digitando o alcuni elementi dell’app. Se è così, puoi ridimensionarlo tenendo premuto e trascinando il tasto Impostazioni/Tavolozza Comandi o trascinando la Barra di Stato (dove è visualizzata la lingua corrente o modalità di digitazione). Quando l’altezza diventa troppo ridotta, il layout cambierà automaticamente a "Tasti Funzione" o "Solo Lista Suggerimenti". Analogamente, ingrandendo il layout tornerà al "Tastierino Virtuale". È anche possibile fare doppio tap sulla barra di stato per minimizzare o massimizzare istantaneamente.
@@ -386,7 +422,7 @@ Infine, la vibrazione non funziona in modo affidabile su alcuni dispositivi. Per
 
 ## Domande Frequenti
 
-### Perché non aggiungi la lingua X?
+### Perché non aggiungete la lingua X?
 Mi piacerebbe molto, ma ho bisogno del tuo aiuto. Supportare più di 40 lingue da solo è impossibile. Poiché non parlo la tua lingua, è difficile per me trovare risorse affidabili online, e qui i madrelingua come te possono fare la differenza.
 In realtà, oltre il 90% delle lingue presenti è stato aggiunto da o con l’aiuto di utenti appassionati.
 
@@ -394,49 +430,33 @@ Per aggiungere una nuova lingua, ho bisogno di una lista di parole corretta orto
 
 Se non esiste un dizionario del genere, puoi fornire una lista di parole disponibile gratuitamente. Idealmente dovrebbe contenere tra 300.000 e 500.000 parole, ma se la lingua ha molte flessioni (tempo, genere, numero, ecc.), potrebbero servire fino a un milione di parole.
 
-### Ci sono parole sbagliate o mancanti nella lingua XYZ. Perché non le correggi?
+### Nella lingua XYZ ci sono parole errate o mancanti. Perché non vengono corrette?
 Come detto sopra, non parlo la tua lingua e potrei non accorgermi di questi errori. Ma con il tuo aiuto, possiamo correggerli e migliorare il dizionario per tutti.
 
-### Non puoi aggiungere la funzione X?
+### Non potete aggiungere la funzionalità X?
 No.
 
 Ognuno ha le proprie preferenze. Alcuni vogliono tasti più grandi, altri in un ordine diverso, alcuni vogliono un tasto di scelta rapida per digitare ".com" e altri sentono la mancanza del loro vecchio telefono o tastiera. Ma per favore, capisci che sto lavorando a questo progetto nel mio tempo libero e su base volontaria. È impossibile soddisfare migliaia di richieste diverse, alcune delle quali si contraddicono tra loro.
 
 Henry Ford una volta disse: "Il cliente può avere l'auto di qualsiasi colore desideri, purché sia nera." Allo stesso modo, Traditional T9 è essenziale, efficace e gratuito, ma quello che vedi è quello che ottieni.
 
-### Non puoi renderlo più simile a Sony Ericsson o Xperia, Nokia C2, Samsung o a un'altra tastiera software?
+### Non potete renderlo più simile al mio dispositivo preferito (ad esempio Sony Ericsson, Xperia, Nokia C2, Samsung) o alla mia app di tastiera preferita?
 No.
 
 Traditional T9 non è pensato per essere un sostituto o un'app clone. Ha un design unico, ispirato principalmente al Nokia 3310 e 6303i. E sebbene catturi l'essenza dei classici, offre un'esperienza propria che non replica esattamente nessun dispositivo.
 
-### Dovresti copiare Touchpal, è la migliore tastiera del mondo!
-No, non dovrei. Vedi i punti precedenti.
+### Dovreste copiare TouchPal; era la migliore tastiera!
+No. Vedere i punti precedenti.
 
-Touchpal era la migliore tastiera nel 2015, quando non aveva una vera concorrenza. Tuttavia, da allora le cose sono cambiate. Ecco un confronto tra Traditional T9 e Touchpal:
+TouchPal era una tastiera veloce e reattiva, con ampie possibilità di temi, personalizzazione e supporto multilingue. Era popolare intorno al 2015, quando la concorrenza era limitata. Tuttavia, non è mai stata una vera tastiera T9: il layout a 12 tasti era disponibile solo per alcune lingue ed era progettato esclusivamente per touchscreen.
 
-_**Traditional T9**_
-- Rispetta la tua privacy.
-- Non contiene pubblicità ed è gratuito.
-- Supporta un'ampia gamma di dispositivi: telefoni base e TV con tastiere hardware, oltre a smartphone e tablet solo touchscreen.
-- Offre un vero layout T9 a 12 tasti per ogni lingua.
-- Fornisce suggerimenti di parole migliorati. Ad esempio, se provi a digitare espressioni con textonimi come "go in", imparerà a non suggerire "go go" o "in in", ma l'espressione corretta che avevi in mente.
-- Tutto ciò che digiti rimane sul tuo telefono. Nessuna informazione viene inviata altrove.
-- È open source, permettendoti di controllare tutto il codice sorgente e i dizionari, contribuire al progetto per migliorarlo (molti utenti hanno aiutato correggendo bug e aggiungendo nuove lingue e traduzioni) o persino creare una versione modificata in base alle tue preferenze e visione.
-- Ha un design pulito e altamente leggibile che si integra con il sistema. Non ci sono elementi superflui che distraggono, permettendoti di concentrarti sulla digitazione.
-- La velocità di caricamento del dizionario è lenta.
+Con il tempo, ha iniziato a perdere l’attenzione sull’aspetto più importante: la digitazione. Sono stati introdotti annunci pubblicitari, le richieste di autorizzazioni sono diventate aggressive e ha iniziato a raccogliere dati sensibili degli utenti. Alla fine, è stata rimossa dal Play Store.
 
-_**Touchpal**_
-- Chiede in modo aggressivo l'accesso a tutto il tuo dispositivo e ai tuoi contatti; scrive file casuali ovunque; alla fine è stato bandito dal Play Store perché si comportava come un virus.
-- Pieno di pubblicità.
-- Supporta solo dispositivi touchscreen.
-- Non è una vera tastiera T9. Offre un layout T9 solo in alcune lingue. Inoltre, alcuni layout sono errati (ad esempio, nel layout bulgaro manca una lettera e alcune lettere sono scambiate tra il tasto 8 e il tasto 9).
-- Quando si digitano textonimi consecutivi, suggerisce solo l'ultima parola selezionata. Ad esempio, se provi a digitare "go in", mostrerà solo "go go" o "in in".
-- I suggerimenti basati sul cloud potrebbero migliorare la precisione. Tuttavia, affinché ciò funzioni, tu e tutti gli altri utenti dovreste inviare tutto ciò che digitate ai server di Touchpal per l'elaborazione.
-- Codice chiuso. Non c'è modo di verificare cosa faccia in background.
-- Include molti temi, colori, GIF e altre distrazioni non legate alla digitazione.
-- La velocità di caricamento del dizionario è veloce. Touchpal vince questo punto.
+Al contrario, la [filosofia](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) di TT9 si basa sui principi dell’open source. Il codice sorgente e i dizionari sono disponibili pubblicamente e possono essere esaminati. La privacy degli utenti è rispettata fin dalla progettazione. I contributi della comunità hanno migliorato il progetto, includendo correzioni di bug, nuove lingue e traduzioni. Gli utenti possono inoltre creare le proprie versioni modificate.
 
-Se non sei d'accordo o vuoi spiegare il tuo punto di vista, partecipa alla [discussione aperta](https://github.com/sspanak/tt9/issues/647) su GitHub. Ricorda solo di essere rispettoso verso gli altri. I messaggi di odio non saranno tollerati.
+TT9 non offre funzionalità come forme dei tasti personalizzabili, ma propone un layout pulito e leggibile, focalizzato su una digitazione efficiente. Non replica lo stile visivo di TouchPal, ma funziona su smartphone moderni con Android 16, su dispositivi con tastiera hardware di ispirazione nostalgica come Qin F21, Cat S22 Flip e Sonim XP3800, e persino su telecomandi TV.
+
+Se non sei d’accordo o desideri spiegare il tuo punto di vista, partecipa alla [discussione aperta](https://github.com/sspanak/tt9/issues/647) su GitHub. Ricorda di mantenere un atteggiamento rispettoso. I messaggi d’odio non saranno tollerati.
 
 ### Android mi ha avvisato che la tastiera potrebbe raccogliere i miei dati personali, inclusi numeri di carte di credito e password
 Si tratta di un avviso standard di Android che viene mostrato quando si installa e si attiva qualsiasi tastiera, non soltanto Traditional T9. Può essere certo che tutto ciò che digita rimane sul dispositivo. Il motore di digitazione è completamente open source; è quindi possibile esaminarne il codice su GitHub e verificare che la privacy sia adeguatamente tutelata.
@@ -446,12 +466,12 @@ _Qualora avesse ulteriori dubbi, La invitiamo a consultare l’Informativa sulla
 ### Ho bisogno di usare un layout QWERTY (solo dispositivi touchscreen)
 Traditional T9 è una tastiera T9 e, in quanto tale, non fornisce un layout simile al QWERTY.
 
-Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri verso l'alto il tasto F4 sinistro per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
+Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri verso l'alto il tasto modalità di input per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
 
 La maggior parte delle altre tastiere permette di tornare a Traditional T9 tenendo premuta la barra spaziatrice o il tasto "cambia lingua". Controlla il rispettivo manuale per ulteriori informazioni.
 
 ### Non riesco a cambiare lingua su un telefono touchscreen
-Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto sinistro F4](#tasto-f4-sinistro-il-tasto-in-basso-a-sinistra) per cambiare lingua.
+Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto modalità di input](#tasto-modalità-di-input) per cambiare lingua.
 
 ### Come aggiungere contrazioni come «I've» o «don't» al dizionario?
 Tutte le contrazioni in tutte le lingue sono già disponibili come parole separate, quindi non è necessario aggiungere nulla. Questo garantisce la massima flessibilità: puoi combinare qualsiasi parola con qualsiasi contrazione e risparmiare molto spazio di archiviazione.

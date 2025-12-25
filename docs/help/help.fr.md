@@ -227,34 +227,70 @@ Voici une liste des commandes possibles :
 _Cette touche ne fait rien lorsque l'Affichage de l'Écran est réglé sur "Pavé Virtuel", car toutes les touches pour toutes les fonctions possibles sont déjà disponibles à l’écran._
 
 ## Pavé numérique à l'écran
-Sur les téléphones entièrement tactiles, un pavé numérique complet est disponible et sera activé automatiquement. Si, pour une raison quelconque, votre téléphone n'a pas été détecté comme ayant un écran tactile, activez-le en allant dans Paramètres → Apparence → Disposition à l'écran et en sélectionnant « Pavé numérique virtuel ».
+Sur les appareils exclusivement tactiles, un clavier à l’écran entièrement fonctionnel est disponible et activé automatiquement. Si l’appareil n’est pas détecté comme tactile, il peut être activé manuellement depuis Paramètres → Apparence → Disposition à l’écran en sélectionnant « Pavé numérique virtuel ».
 
-Si vous disposez d'un écran tactile et d'un pavé numérique matériel et préférez avoir plus d'espace à l'écran, désactivez les touches logicielles dans Paramètres → Apparence.
+Sur les appareils disposant à la fois d’un écran tactile et d’un clavier matériel, les touches à l’écran peuvent être désactivées afin de libérer de l’espace. Cette option est disponible dans Paramètres → Apparence.
 
-Il est également recommandé de désactiver le comportement spécial de la touche « Retour » fonctionnant comme « Effacer ». Cette option est utile uniquement pour un clavier matériel. Habituellement, cela se fait automatiquement, mais si ce n'est pas le cas, allez dans Paramètres → Clavier → Sélectionner les raccourcis → Touche Effacer, puis sélectionnez l'option « -- ».
+Il est également recommandé de désactiver le comportement spécial qui associe la touche « Retour » à « Retour arrière », car cela n’est utile que lors de l’utilisation d’un clavier matériel. Cette opération est généralement effectuée automatiquement. Dans le cas contraire, accédez à Paramètres → Clavier → Sélectionner les raccourcis → Touche Retour arrière et sélectionnez l’option « -- ».
+
+### Dispositions à l’écran Retro et Modern
+Deux dispositions de clavier virtuel sont disponibles : Retro et Modern.
+
+La disposition Retro comprend un pavé directionnel (D-pad) avec une touche OK centrale en haut et des touches numériques en dessous, rappelant fortement les claviers des téléphones du début des années 2000. Elle convient aux utilisateurs recherchant une expérience traditionnelle, aux appareils dotés de petits écrans et aux personnes ayant de grands pouces. Elle peut également séduire les utilisateurs familiers avec d’anciennes applications de clavier T9 aujourd’hui abandonnées, telles que Old Keyboard ou Big Old Keyboard.
+
+La disposition Modern conserve l’apparence et le comportement standard d’Android tout en utilisant une disposition de saisie à 12 touches. Elle comporte un bloc central de touches numériques (0–9) pour la saisie de texte, avec des touches de fonction telles que Maj, Retour arrière, changement de langue et OK (Entrée) disposées en colonnes à gauche et à droite.
 
 ### Aperçu des touches virtuelles
-Le clavier à l'écran fonctionne de la même manière que le pavé numérique d'un téléphone avec des touches physiques. Si une touche offre une seule fonction, elle comporte une seule étiquette (ou icône) indiquant cette fonction. Si la touche offre une fonction secondaire lorsque vous la maintenez enfoncée, elle comportera deux étiquettes (ou icônes).
+Le clavier à l’écran fonctionne de la même manière qu’un clavier matériel de téléphone. Les touches ayant une seule fonction affichent une étiquette ou une icône centrale. Les touches disposant d’une fonction supplémentaire par appui long affichent une étiquette ou une icône secondaire dans le coin supérieur droit.
 
-Voici une description des touches ayant plus d'une fonction.
+#### Touches 0–9
+Les touches numériques sont utilisées pour saisir des mots et des chiffres. La disposition Retro permet également des gestes de balayage vers la gauche et vers la droite sur certaines touches. Lorsque ces fonctions sont disponibles, elles sont indiquées par des icônes dans le coin inférieur gauche ou droit de la touche.
 
-#### Touche F2 droite (deuxième touche en partant du haut dans la colonne de droite)
-_Mode prédictif uniquement._
+Dans la version Google Play, les gestes de balayage peuvent être personnalisés ou désactivés pour les dispositions Retro et Modern. Cela peut être configuré depuis Paramètres → Clavier → Fonctions des touches.
 
-- **Appuyer :** Filtre la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut) pour savoir comment fonctionne le filtrage des mots.
-- **Maintenir enfoncé :** Supprime le filtre, s'il est actif.
+#### Touches de texte personnalisées (« ! » et « ? »)
+Par défaut, ces touches insèrent les signes de ponctuation correspondants. Dans les champs de saisie numériques ou téléphoniques, elles peuvent insérer des caractères alternatifs tels qu’un astérisque, un dièse ou un point décimal.
 
-#### Touche F3 droite (troisième touche en partant du haut dans la colonne de droite)
-- **Appuyer :** Ouvre les options de copier-coller et d'édition de texte.
-- **Maintenir enfoncé :** Active l'entrée vocale.
+Dans la version Google Play, ces touches peuvent être personnalisées. Il est possible de modifier le caractère par défaut et d’assigner des actions aux balayages vers le haut, le bas, la gauche et la droite. Cette configuration s’effectue depuis Paramètres → Clavier → Fonctions des touches.
 
-#### Touche F4 gauche (la touche en bas à gauche)
-- **Appuyer :** Alterne entre les modes de saisie (abc → Prédictif → 123).
-- **Maintenir enfoncé :** Changer la langue de saisie lorsque plusieurs langues ont été activées dans les paramètres.
-- **Balayer horizontalement :** Passe au dernier clavier utilisé, autre que TT9.
-- **Balayer verticalement :** Ouvre la boîte de dialogue de changement de clavier Android où vous pouvez sélectionner parmi tous les claviers installés.
+#### Touche de mode de saisie
+- **Appui :** Fait défiler les modes de saisie (abc → Prédictif → 123).
+- **Appui long :** Change la langue de saisie lorsque plusieurs langues sont activées dans les paramètres.
+- **Balayage horizontal :** Bascule vers le dernier clavier utilisé autre que TT9.
+- **Balayage vertical :** Ouvre la boîte de dialogue Android de changement de clavier, permettant de sélectionner parmi tous les claviers installés.
 
-_La touche affichera une petite icône de globe si vous avez activé plus d'une langue dans Paramètres → Langues. L'icône indique qu'il est possible de changer de langue en maintenant la touche enfoncée._
+La touche affiche une petite icône en forme de globe lorsque plusieurs langues ont été activées depuis Paramètres → Langues. Cette icône indique qu’il est possible de changer de langue en maintenant la touche enfoncée.
+
+_Dans la disposition Retro, il s’agit de la touche en bas à droite._
+
+_Dans la disposition Modern, il s’agit de la touche en bas à gauche._
+
+#### Retour arrière
+Supprime des caractères lorsqu’elle est pressée. Lorsque Paramètres → Clavier → Suppression rapide est activé, un balayage vers l’arrière permet de supprimer le mot précédent.
+
+#### Touche de filtrage
+- **Appui :** Filtre la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up) pour le fonctionnement du filtrage des mots.
+- **Appui long :** Efface le filtre, s’il est actif.
+
+_Cette touche est disponible uniquement dans la disposition Modern. Emplacement : deuxième touche à partir du haut._
+
+_Le filtrage n’est possible qu’en mode prédictif._
+
+#### Outils du presse-papiers / Touche de saisie vocale
+- **Appui :** Ouvre les options de copie, collage et d’édition de texte.
+- **Appui long :** Active la saisie vocale.
+
+_Cette touche est disponible uniquement dans la disposition Modern. Emplacement : troisième touche à partir du haut._
+
+#### Touche OK
+- **Appui :** Équivaut à appuyer sur la touche ENTRÉE des autres claviers.
+
+La disposition Retro permet en outre d’activer des gestes de balayage depuis Paramètres → Apparence → Touches.
+
+- **Balayage vers le haut sans suggestions :** Déplacer le curseur vers le haut (équivalent au D-PAD haut).
+- **Balayage vers le bas sans suggestions :** Déplacer le curseur vers le bas (équivalent au D-PAD bas).
+- **Balayage vers le haut avec suggestions :** Filtrer la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up).
+- **Balayage vers le bas avec suggestions :** Effacer le filtre des suggestions.
 
 ### Redimensionner le panneau du clavier pendant la saisie
 Dans certains cas, vous pouvez trouver que le pavé numérique virtuel occupe trop d'espace à l'écran, vous empêchant de voir ce que vous tapez ou certains éléments de l'application. Si c'est le cas, vous pouvez le redimensionner en maintenant enfoncée et en faisant glisser la touche Paramètres/Palette de commandes ou en faisant glisser la barre d'état (elle affiche la langue ou le mode de saisie actuel). Lorsque la hauteur devient trop petite, la disposition sera automatiquement changée en « touches de fonction » ou en « liste de suggestions uniquement ». Respectivement, en redimensionnant vers le haut, la disposition reviendra au « pavé numérique virtuel ». Vous pouvez également double-cliquer sur la barre d'état pour minimiser ou maximiser instantanément.
@@ -386,7 +422,7 @@ Enfin, la vibration ne fonctionne pas de manière fiable sur certains appareils.
 
 ## Questions Fréquemment Posées
 
-### Pourquoi n’ajoutes-tu pas la langue X ?
+### Pourquoi n’ajoutez-vous pas la langue X ?
 J’aimerais beaucoup le faire, mais j’ai besoin de ton aide. Il m’est impossible de gérer plus de 40 langues tout seul. Comme je ne parle pas ta langue, il m’est difficile de trouver des ressources fiables en ligne. C’est là que les locuteurs natifs comme toi peuvent vraiment aider.
 En fait, plus de 90 % des langues existantes ont été ajoutées par ou avec l’aide d’utilisateurs enthousiastes.
 
@@ -394,49 +430,33 @@ Pour ajouter une nouvelle langue, j’ai besoin d’une liste de mots vérifiée
 
 S’il n’existe pas un tel dictionnaire, tu peux fournir une liste de mots téléchargeable gratuitement. L’idéal est une liste de 300 000 à 500 000 mots, mais si la langue a beaucoup de variations (temps, genre, nombre, etc.), environ 1 million de mots peut être nécessaire.
 
-### Il y a des mots mal orthographiés ou manquants dans la langue XYZ. Pourquoi ne les corriges-tu pas ?
+### Il y a des mots mal orthographiés ou manquants dans la langue XYZ. Pourquoi ne sont-ils pas corrigés ?
 Comme indiqué ci-dessus, je ne parle pas ta langue et je ne remarque donc pas forcément ces erreurs. Mais avec ton aide, nous pouvons les corriger et améliorer le dictionnaire pour tout le monde.
 
-### Ne peux-tu pas ajouter la fonctionnalité X ?
+### Ne pouvez-vous pas ajouter la fonctionnalité X ?
 Non.
 
 Chacun a ses préférences. Certains veulent des touches plus grandes, d'autres dans un ordre différent, certains veulent une touche de raccourci pour taper ".com", et d'autres regrettent leur ancien téléphone ou clavier. Mais veuillez comprendre que je fais ce travail bénévolement sur mon temps libre. Il est impossible de satisfaire des milliers de demandes différentes, dont certaines se contredisent même.
 
 Henry Ford a dit un jour : "Le client peut choisir n'importe quelle couleur, tant que c'est noir." De la même manière, Traditional T9 est simple, efficace et gratuit, mais vous obtenez ce qui est proposé.
 
-### Ne peux-tu pas le rendre plus similaire à Sony Ericsson ou Xperia, Nokia C2, Samsung, ou un autre clavier logiciel ?
+### Ne pouvez-vous pas le rendre plus similaire à mon appareil préféré (par exemple Sony Ericsson, Xperia, Nokia C2, Samsung) ou à mon application de clavier préférée ?
 Non.
 
 Traditional T9 n'est pas conçu pour être un substitut ou une application clonée. Il possède un design unique, principalement inspiré des Nokia 3310 et 6303i. Et bien qu'il capture l'essence des classiques, il offre une expérience propre qui ne répliquera exactement aucun appareil.
 
-### Tu devrais copier Touchpal, c'est le meilleur clavier du monde !
-Non, je ne devrais pas. Voir les points précédents.
+### Vous devriez copier TouchPal ; c’était le meilleur clavier !
+Non. Voir les points précédents.
 
-Touchpal était autrefois le meilleur clavier en 2015 lorsqu'il n'avait pas de réelle concurrence. Cependant, les choses ont changé depuis. Voici une comparaison entre Traditional T9 et Touchpal :
+TouchPal était un clavier rapide et réactif, offrant de nombreuses options de thèmes, de personnalisation et de prise en charge multilingue. Il était populaire vers 2015, à une époque où la concurrence était limitée. Toutefois, il n’a jamais été un véritable clavier T9 : la disposition à 12 touches n’était disponible que pour certaines langues et était conçue exclusivement pour les écrans tactiles.
 
-_**Traditional T9**_
-- Respecte votre vie privée.
-- Ne contient pas de publicités et est gratuit.
-- Compatible avec un large éventail d'appareils : téléphones basiques et téléviseurs avec claviers physiques, ainsi que smartphones et tablettes uniquement tactiles.
-- Offre un véritable clavier T9 à 12 touches adapté à chaque langue.
-- Fournit des suggestions de mots améliorées. Par exemple, si vous essayez de taper des expressions textonymes comme "go in", il apprendra à ne pas suggérer "go go" ou "in in", mais l'expression correcte que vous aviez en tête.
-- Tout ce que vous tapez reste sur votre téléphone. Aucune information n'est envoyée ailleurs.
-- Est open source, vous permettant de consulter tout le code source et les dictionnaires, de contribuer au projet pour l'améliorer (de nombreux utilisateurs ont aidé à corriger des bugs et à ajouter de nouvelles langues et traductions) ou même de créer un mod basé sur vos préférences et votre vision.
-- A un design propre et très lisible qui s'intègre au système. Il n'y a pas d'éléments inutiles pour vous distraire, vous permettant ainsi de vous concentrer sur la saisie.
-- La vitesse de chargement du dictionnaire est lente.
+Avec le temps, l’application a perdu de vue l’essentiel — la saisie. Des publicités ont été ajoutées, les demandes d’autorisations sont devenues agressives et des données sensibles ont commencé à être collectées. Finalement, TouchPal a été retiré du Play Store.
 
-_**Touchpal**_
-- Demande agressivement l'accès à tout votre appareil et à vos contacts ; écrit des fichiers aléatoires partout ; il a finalement été banni du Play Store parce qu'il se comportait comme un virus.
-- Rempli de publicités.
-- Ne prend en charge que les appareils à écran tactile.
-- N'est pas un vrai clavier T9. Il propose un agencement T9 uniquement pour certaines langues. De plus, certains agencements sont incorrects (par exemple, le bulgare manque d'une lettre et certaines lettres sont mal placées entre la touche 8 et la touche 9).
-- Lors de la saisie de textonymes à la suite, il ne suggère que le dernier mot sélectionné. Par exemple, si vous essayez de taper "go in", il affichera soit "go go" soit "in in".
-- Les suggestions basées sur le cloud pourraient améliorer la précision. Cependant, pour que cela fonctionne, vous et tous les autres utilisateurs devez envoyer tout ce que vous tapez aux serveurs de Touchpal pour traitement.
-- Code fermé. Il n'y a aucun moyen de vérifier ce qu'il fait en arrière-plan.
-- Inclut de nombreux thèmes, couleurs, GIFs et autres distractions sans rapport avec la saisie.
-- La vitesse de chargement du dictionnaire est rapide. Touchpal remporte ce point.
+À l’inverse, la [philosophie](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) de TT9 repose sur les principes de l’open source. Son code source et ses dictionnaires sont accessibles publiquement et peuvent être examinés. Le respect de la vie privée des utilisateurs est intégré dès la conception. Les contributions de la communauté ont permis d’améliorer le projet, notamment par des corrections de bogues, l’ajout de nouvelles langues et des traductions. Les utilisateurs peuvent également créer leurs propres versions modifiées.
 
-Si vous n'êtes pas d'accord ou souhaitez expliquer votre point de vue, rejoignez [la discussion ouverte](https://github.com/sspanak/tt9/issues/647) sur GitHub. N'oubliez pas de rester respectueux envers les autres. Les messages haineux ne seront pas tolérés.
+TT9 ne propose pas de fonctionnalités telles que des formes de touches personnalisables, mais offre une disposition claire et lisible axée sur une saisie efficace. Il ne reproduit pas le style visuel de TouchPal, mais fonctionne sur les smartphones modernes sous Android 16, sur des appareils à clavier matériel d’inspiration nostalgique comme le Qin F21, le Cat S22 Flip et le Sonim XP3800, ainsi que sur des télécommandes de télévision.
+
+Si vous n’êtes pas d’accord ou souhaitez exposer votre point de vue, rejoignez la [discussion ouverte](https://github.com/sspanak/tt9/issues/647) sur GitHub. Merci de rester respectueux envers les autres. Les messages haineux ne seront pas tolérés.
 
 ### Android m’a averti que le clavier pouvait collecter mes données personnelles, y compris les numéros de carte de crédit et les mots de passe
 Il s’agit d’un avertissement standard d’Android affiché lors de l’installation et de l’activation de tout clavier, pas uniquement Traditional T9. Soyez assuré que toutes vos saisies demeurent sur votre appareil. Le moteur de saisie est entièrement open source, ce qui vous permet d’en examiner le code sur GitHub et de vérifier que votre confidentialité est préservée.
@@ -446,12 +466,12 @@ _Si vous avez encore des préoccupations, veuillez consulter la politique de con
 ### J'ai besoin d'utiliser un clavier QWERTY (uniquement pour les appareils tactiles)
 Traditional T9 est un clavier T9 et en tant que tel, il ne propose pas de disposition de type QWERTY.
 
-Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, glisser vers le haut la touche F4 Gauche pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
+Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, glisser vers le haut la touche de mode de saisie pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
 
 La plupart des autres claviers permettent de revenir à Traditional T9 en maintenant la barre d'espace ou la touche « changer de langue ». Consultez la documentation ou le manuel respectif pour plus d'informations.
 
 ### Je ne peux pas changer de langue sur un téléphone tactile
-Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche F4 gauche](#touche-f4-gauche-la-touche-en-bas-à-gauche) pour changer de langue.
+Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche de mode de saisie](#touche-de-mode-de-saisie) pour changer de langue.
 
 ### Comment ajouter des contractions telles que « I've » ou « don't » au dictionnaire ?
 Toutes les contractions dans toutes les langues sont déjà disponibles sous forme de mots séparés, donc vous n'avez rien à ajouter. Cela offre une flexibilité maximale : vous pouvez combiner n'importe quel mot avec n'importe quelle contraction, et cela permet également de gagner beaucoup d'espace de stockage.

@@ -227,34 +227,70 @@ Aqui está uma lista de comandos possíveis:
 _Esta tecla não faz nada quando a Exibição de Tela está configurada para “Teclado Virtual”, pois todas as teclas para todas as funções possíveis já estão disponíveis na tela._
 
 ## Teclado na Tela
-Em telefones apenas com tela sensível ao toque, um teclado completo na tela está disponível e será ativado automaticamente. Se, por algum motivo, seu telefone não foi detectado como tendo touchscreen, ative-o indo em Configurações → Aparência → Layout na Tela e selecione "Teclado Numérico Virtual".
+Em dispositivos apenas com tela sensível ao toque, um teclado na tela totalmente funcional está disponível e é ativado automaticamente. Caso o dispositivo não seja detectado como tendo tela sensível ao toque, ative-o manualmente em Configurações → Aparência → Layout na Tela, selecionando “Teclado Numérico Virtual”.
 
-Se você tiver tanto um touchscreen quanto um teclado físico e preferir ter mais espaço na tela, desative as teclas de software em Configurações → Aparência.
+Em dispositivos com tela sensível ao toque e teclado físico, as teclas na tela podem ser desativadas para liberar espaço na tela. Essa opção está disponível em Configurações → Aparência.
 
-Recomenda-se também desativar o comportamento especial da tecla "Voltar" funcionando como "Backspace". Isso é útil apenas para teclados físicos. Geralmente, isso acontecerá automaticamente, mas se não, vá para Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção "--".
+Também é recomendável desativar o comportamento especial que mapeia a tecla “Voltar” para “Backspace”, pois isso é útil apenas ao utilizar um teclado físico. Normalmente, isso é feito automaticamente. Caso contrário, acesse Configurações → Teclado → Selecionar Teclas de Atalho → Tecla Backspace e selecione a opção “--”.
+
+### Layouts na Tela: Retrô e Moderno
+Dois layouts de teclado virtual estão disponíveis: Retrô e Moderno.
+
+O layout Retrô inclui um direcional (D-pad) com uma tecla OK central na parte superior e teclas numéricas abaixo, lembrando os teclados encontrados em telefones do início dos anos 2000. É adequado para usuários que buscam uma experiência tradicional, para dispositivos com telas menores e para pessoas com polegares maiores. Também pode agradar a quem está familiarizado com aplicativos antigos de teclado T9 descontinuados, como Old Keyboard ou Big Old Keyboard.
+
+O layout Moderno preserva a aparência e o comportamento padrão do Android, utilizando um layout de digitação com 12 teclas. Ele apresenta um bloco central de teclas numéricas (0–9) para entrada de texto, com teclas de função como Shift, Backspace, troca de idioma e OK (Enter) organizadas em colunas à esquerda e à direita.
 
 ### Visão Geral das Teclas Virtuais
-O teclado na tela funciona da mesma forma que o teclado numérico de um telefone com teclas físicas. Se uma tecla oferece uma única função, ela terá um único rótulo (ou ícone) indicando essa função. Se a tecla tiver uma função secundária ativada ao pressionar e segurar, ela terá dois rótulos (ou ícones).
+O teclado na tela funciona da mesma forma que um teclado físico de telefone. Teclas com uma única função exibem um rótulo ou ícone central. Teclas com uma função adicional por pressionamento prolongado exibem um rótulo ou ícone secundário no canto superior direito.
 
-Abaixo está uma descrição das teclas com mais de uma função.
+#### Teclas 0–9
+As teclas numéricas são usadas para digitar palavras e inserir números. O layout Retrô também permite gestos de deslizar para a esquerda e para a direita em algumas teclas. Quando disponíveis, essas funções são indicadas por ícones no canto inferior esquerdo ou inferior direito da tecla.
 
-#### Tecla F2 Direita (segunda tecla de cima para baixo na coluna direita)
-_Somente no modo preditivo._
+Na versão do Google Play, os gestos de deslizar podem ser personalizados ou desativados tanto no layout Retrô quanto no Moderno. Isso pode ser feito em Configurações → Teclado → Funções das Teclas.
 
-- **Pressionar:** Filtra a lista de sugestões. Veja [acima](#tecla-de-filtro-de-sugestões-padrão-seta-para-cima) como funciona o filtro de palavras.
-- **Pressionar e segurar:** Limpa o filtro, se ativo.
+#### Teclas de Texto Personalizado ("!" e "?")
+Por padrão, essas teclas inserem seus respectivos sinais de pontuação. Em campos numéricos ou de telefone, elas podem inserir caracteres alternativos, como asterisco, cerquilha ou ponto decimal.
 
-#### Tecla F3 Direita (terceira tecla de cima para baixo na coluna direita)
-- **Pressionar:** Abre as opções de copiar, colar e editar texto.
-- **Pressionar e segurar:** Ativa a entrada por voz.
+Na versão do Google Play, essas teclas podem ser personalizadas. É possível alterar o caractere padrão e atribuir ações para deslizar para cima, para baixo, para a esquerda e para a direita. Isso pode ser configurado em Configurações → Teclado → Funções das Teclas.
 
-#### Tecla F4 Esquerda (a tecla inferior esquerda)
+#### Tecla de Modo de Entrada
 - **Pressionar:** Alterna os modos de entrada (abc → Preditivo → 123).
-- **Pressionar e segurar:** Alterar o idioma de digitação quando vários idiomas estiverem ativados nas configurações.
-- **Deslizar horizontalmente:** Alterna para o último teclado usado, diferente do TT9.
-- **Deslizar verticalmente:** Abre o diálogo de troca de teclado do Android, onde você pode selecionar entre todos os teclados instalados.
+- **Manter pressionado:** Altera o idioma de digitação quando vários idiomas estiverem ativados nas Configurações.
+- **Deslizar horizontalmente:** Alterna para o último teclado utilizado, exceto o TT9.
+- **Deslizar verticalmente:** Abre o diálogo do Android para alterar o teclado, onde é possível selecionar entre todos os teclados instalados.
 
-_A tecla exibirá um pequeno ícone de globo se você tiver ativado mais de um idioma em Configurações → Idiomas. O ícone indica que é possível mudar o idioma pressionando e segurando a tecla._
+A tecla exibirá um pequeno ícone de globo quando vários idiomas estiverem ativados em Configurações → Idiomas. O ícone indica que é possível alterar o idioma mantendo a tecla pressionada.
+
+_No layout Retrô, é a tecla no canto inferior direito._
+
+_No layout Moderno, é a tecla no canto inferior esquerdo._
+
+#### Backspace
+Remove caracteres quando pressionada. Quando Configurações → Teclado → Exclusão Rápida está ativado, é possível deslizar para trás para excluir a palavra anterior.
+
+#### Tecla de Filtro
+- **Pressionar:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up) como funciona a filtragem de palavras.
+- **Manter pressionado:** Limpa o filtro, se estiver ativo.
+
+_A tecla está disponível apenas no layout Moderno. Localização: segunda tecla a partir do topo._
+
+_A filtragem é possível apenas no modo Preditivo._
+
+#### Ferramentas da Área de Transferência / Tecla de Entrada por Voz
+- **Pressionar:** Abre as opções de copiar, colar e edição de texto.
+- **Manter pressionado:** Ativa a entrada por voz.
+
+_A tecla está disponível apenas no layout Moderno. Localização: terceira tecla a partir do topo._
+
+#### Tecla OK
+- **Pressionar:** Equivale a pressionar a tecla ENTER em outros teclados.
+
+O layout Retrô permite ainda ativar gestos de deslizar em Configurações → Aparência → Teclas.
+
+- **Deslizar para cima sem sugestões:** Move o cursor para cima (igual ao D-PAD para cima).
+- **Deslizar para baixo sem sugestões:** Move o cursor para baixo (igual ao D-PAD para baixo).
+- **Deslizar para cima com sugestões:** Filtra a lista de sugestões. Consulte [acima](#filter-suggestions-key-default-d-pad-up).
+- **Deslizar para baixo com sugestões:** Limpa o filtro de sugestões.
 
 ### Redimensionar o Painel do Teclado Durante a Digitação
 Em alguns casos, você pode achar que o Teclado Virtual está ocupando muito espaço na tela, impedindo que você veja o que está digitando ou alguns elementos do aplicativo. Se for o caso, redimensione-o mantendo pressionado e arrastando a tecla de Configurações/Paleta de Comandos ou arrastando a Barra de Status (onde o idioma atual ou modo de digitação são exibidos). Quando a altura ficar muito pequena, o layout mudará automaticamente para "Teclas de Função" ou "Somente Lista de Sugestões". Ao redimensionar para cima, o layout mudará para "Teclado Virtual". Você também pode dar um duplo toque na barra de status para minimizar ou maximizar instantaneamente.
@@ -386,7 +422,7 @@ Por fim, a vibração pode não funcionar de forma confiável em alguns disposit
 
 ## Perguntas Frequentes
 
-### Por que você não adiciona o idioma X?
+### Por que vocês não adicionam o idioma X?
 Eu adoraria, mas preciso da sua ajuda. Manter mais de 40 idiomas sozinho é impossível. Como não falo o seu idioma, é difícil encontrar recursos confiáveis na internet, e é aí que falantes nativos como você podem ajudar.
 Na verdade, mais de 90% dos idiomas disponíveis foram adicionados por ou com a ajuda de usuários entusiastas.
 
@@ -394,49 +430,33 @@ Para adicionar um novo idioma, preciso de uma lista de palavras revisada ortogra
 
 Se não houver um dicionário assim, você pode fornecer uma lista de palavras disponível para download gratuito. O ideal é que contenha entre 300 mil e 500 mil palavras, mas se o idioma tiver muitas variações (tempo, gênero, número, etc.), pode ser necessário cerca de 1 milhão.
 
-### Existem palavras incorretas ou faltando no idioma XYZ. Por que você não corrige isso?
+### Há palavras com erros ou ausentes no idioma XYZ. Por que isso não é corrigido?
 Como mencionei acima, eu não falo o seu idioma, então talvez nem perceba esses erros. Mas com a sua ajuda, podemos corrigi-los e melhorar o dicionário para todos.
 
-### Você não pode adicionar a funcionalidade X?
+### Não é possível adicionar o recurso X?
 Não.
 
 Cada pessoa tem suas preferências. Alguns querem teclas maiores, outros em uma ordem diferente, alguns querem uma tecla de atalho para digitar ".com", e outros sentem falta do seu antigo telefone ou teclado. Mas, por favor, entenda que estou trabalhando nisso voluntariamente no meu tempo livre. É impossível atender a milhares de pedidos diferentes, alguns dos quais até se contradizem.
 
 Henry Ford disse uma vez: "O cliente pode ter o carro da cor que quiser, desde que seja preto." Da mesma forma, o Traditional T9 é simples, eficaz e gratuito, mas o que você vê é o que você recebe.
 
-### Você não pode torná-lo mais parecido com Sony Ericsson ou Xperia, Nokia C2, Samsung ou outro teclado de software?
+### Não é possível torná-lo mais semelhante ao meu dispositivo favorito (por exemplo, Sony Ericsson, Xperia, Nokia C2, Samsung) ou ao meu aplicativo de teclado favorito?
 Não.
 
 O Traditional T9 não foi feito para ser um substituto ou um aplicativo clone. Ele tem um design único, inspirado principalmente no Nokia 3310 e 6303i. E, embora capture a essência dos clássicos, ele oferece sua própria experiência, que não replica exatamente nenhum dispositivo.
 
-### Você deveria copiar o Touchpal, é o melhor teclado do mundo!
-Não, eu não deveria. Veja os pontos anteriores.
+### Vocês deveriam copiar o TouchPal; ele foi o melhor teclado!
+Não. Consulte os pontos anteriores.
 
-O Touchpal costumava ser o melhor teclado em 2015, quando não tinha concorrência real. No entanto, as coisas mudaram desde então. Veja a comparação lado a lado entre Traditional T9 e Touchpal:
+O TouchPal era um teclado rápido e responsivo, que oferecia amplas opções de temas, personalização e suporte a vários idiomas. Ele foi popular por volta de 2015, quando a concorrência era limitada. No entanto, nunca foi um verdadeiro teclado T9: o layout de 12 teclas estava disponível apenas em alguns idiomas e foi projetado exclusivamente para telas sensíveis ao toque.
 
-_**Traditional T9**_
-- Respeita sua privacidade.
-- Não contém anúncios e é gratuito.
-- Suporta uma ampla variedade de dispositivos: celulares básicos e TVs com teclados físicos, além de smartphones e tablets apenas com tela sensível ao toque.
-- Oferece um layout T9 de 12 teclas adequado para cada idioma.
-- Fornece sugestões de palavras aprimoradas. Por exemplo, se você tentar digitar expressões com textônimos como "go in", ele aprenderá a não sugerir "go go" ou "in in", mas sim a expressão significativa que você tinha em mente.
-- Tudo o que você digita permanece no seu telefone. Nenhuma informação é enviada para lugar nenhum.
-- É de código aberto, permitindo que você revise todo o código-fonte e os dicionários, contribua para o projeto para torná-lo melhor (muitos usuários ajudaram corrigindo bugs e adicionando novos idiomas e traduções) ou até mesmo crie uma versão modificada com base em suas preferências e visão.
-- Tem um design limpo e altamente legível que se integra ao sistema. Não há elementos desnecessários que distraiam, permitindo que você se concentre na digitação.
-- A velocidade de carregamento do dicionário é lenta.
+Com o tempo, passou a perder o foco no mais importante — a digitação. Anúncios foram introduzidos, as solicitações de permissões tornaram-se agressivas e o aplicativo começou a coletar dados sensíveis dos usuários. Eventualmente, foi removido da Play Store.
 
-_**Touchpal**_
-- Solicita agressivamente acesso a todo o seu dispositivo e contatos; grava arquivos aleatórios em qualquer lugar; no final, foi banido da Play Store porque se comportava como um vírus.
-- Está cheio de anúncios.
-- Suporta apenas dispositivos com tela sensível ao toque.
-- Não é um verdadeiro teclado T9. Oferece um layout T9 apenas em alguns idiomas. Além disso, alguns layouts estão incorretos (por exemplo, no layout búlgaro falta uma letra e algumas letras estão trocadas entre a tecla 8 e a tecla 9).
-- Ao digitar textônimos consecutivos, ele sugere apenas a última palavra selecionada. Por exemplo, se você tentar digitar "go in", ele mostrará apenas "go go" ou "in in".
-- Sugestões baseadas em nuvem poderiam ser usadas para melhorar a precisão. No entanto, para que isso funcione, você e todos os outros usuários precisariam enviar tudo o que digitam para os servidores do Touchpal para processamento.
-- Código fechado. Não há como verificar o que ele faz em segundo plano.
-- Inclui muitos temas, cores, GIFs e outras distrações que não têm relação com a digitação.
-- A velocidade de carregamento do dicionário é rápida. O Touchpal vence neste ponto.
+Em contraste, a [filosofia](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) do TT9 é baseada em princípios de código aberto. Seu código-fonte e seus dicionários estão disponíveis publicamente para revisão. A privacidade do usuário é respeitada desde a concepção. Contribuições da comunidade ajudaram a melhorar o projeto, incluindo correções de erros, novos idiomas e traduções. Os usuários também são livres para criar suas próprias versões modificadas.
 
-Se você discorda ou deseja explicar seu ponto de vista, participe da [discussão aberta](https://github.com/sspanak/tt9/issues/647) no GitHub. Apenas lembre-se de ser respeitoso com os outros. Postagens de ódio não serão toleradas.
+O TT9 não oferece recursos como formas de teclas personalizáveis, mas fornece um layout limpo e legível, focado em uma digitação eficiente. Ele não reproduz o estilo visual do TouchPal, porém funciona em smartphones modernos com Android 16, em dispositivos de inspiração nostálgica com teclados físicos como Qin F21, Cat S22 Flip e Sonim XP3800, e até mesmo em controles remotos de TV.
+
+Se você discordar ou quiser explicar seu ponto de vista, participe da [discussão aberta](https://github.com/sspanak/tt9/issues/647) no GitHub. Lembre-se de manter o respeito pelos outros. Postagens de ódio não serão toleradas.
 
 ### O Android me alertou que o teclado pode coletar meus dados pessoais, incluindo números de cartão de crédito e senhas
 Este é um aviso padrão do Android exibido ao instalar e ativar qualquer teclado, não apenas o Traditional T9. Fique tranquilo: tudo o que o(a) senhor(a) digitar permanece em seu dispositivo. O mecanismo de digitação é totalmente open source, permitindo que o código seja inspecionado no GitHub para confirmar que sua privacidade está protegida.
@@ -446,12 +466,12 @@ _Caso ainda tenha alguma preocupação, consulte a Política de Privacidade do a
 ### Preciso usar um layout QWERTY (apenas em dispositivos touchscreen)
 O Traditional T9 é um teclado T9 e, como tal, não fornece um layout no estilo QWERTY.
 
-Se você ainda está aprendendo a usar o T9 e precisa mudar de volta ocasionalmente, ou acha mais conveniente digitar novas palavras usando o QWERTY, deslize a tecla F4 Esquerda para cima para alternar para um teclado diferente. Veja a [visão geral das teclas virtuais](#visão-geral-das-teclas-virtuais) para mais informações.
+Se você ainda está aprendendo a usar o T9 e precisa mudar de volta ocasionalmente, ou acha mais conveniente digitar novas palavras usando o QWERTY, deslize a Tecla de Modo de Entrada para cima para alternar para um teclado diferente. Veja a [visão geral das teclas virtuais](#visão-geral-das-teclas-virtuais) para mais informações.
 
 A maioria dos outros teclados permite alternar de volta para o Traditional T9 segurando a barra de espaço ou a tecla de "mudar idioma". Verifique o respectivo manual ou guia do teclado para mais informações.
 
 ### Não consigo mudar o idioma em um telefone com tela sensível ao toque
-Primeiro, certifique-se de que ativou todos os idiomas desejados em Configurações → Idiomas. Em seguida, pressione e segure a [tecla F4 esquerda](#tecla-f4-esquerda-a-tecla-inferior-esquerda) para mudar o idioma.
+Primeiro, certifique-se de que ativou todos os idiomas desejados em Configurações → Idiomas. Em seguida, pressione e segure a [Tecla de Modo de Entrada](#tecla-de-modo-de-entrada) para mudar o idioma.
 
 ### Como adicionar contrações como “I've” ou “don't” ao dicionário?
 Todas as contrações em todos os idiomas já estão disponíveis como palavras separadas, então você não precisa adicionar nada. Isso proporciona máxima flexibilidade — permite combinar qualquer palavra com qualquer contração e ainda economiza bastante espaço de armazenamento.

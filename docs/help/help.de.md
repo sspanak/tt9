@@ -227,34 +227,70 @@ Im Folgenden finden Sie eine Liste der möglichen Befehle:
 _Diese Taste hat keine Funktion, wenn das Bildschirm-Layout auf „Virtuelle Tastatur“ eingestellt ist, da alle Tasten für alle möglichen Funktionen bereits auf dem Bildschirm verfügbar sind._
 
 ## Bildschirmtastatur
-Auf reinen Touchscreen-Telefonen ist eine voll funktionsfähige Bildschirmtastatur verfügbar, die automatisch aktiviert wird. Falls Ihr Telefon aus irgendeinem Grund nicht als Touchscreen-Gerät erkannt wurde, aktivieren Sie die Funktion unter Einstellungen → Erscheinungsbild → Bildschirm-Layout und wählen Sie „Virtuelles Tastenfeld“.
+Auf Geräten mit ausschließlich Touchscreen steht eine vollständig funktionsfähige Bildschirmtastatur zur Verfügung, die automatisch aktiviert wird. Wird das Gerät nicht als Touchscreen erkannt, kann sie manuell unter Einstellungen → Erscheinungsbild → Bildschirm-Layout durch Auswahl von „Virtuelles Ziffernfeld“ aktiviert werden.
 
-Falls Sie sowohl einen Touchscreen als auch eine Hardwaretastatur haben und mehr Bildschirmfläche wünschen, können Sie die Softwaretasten unter Einstellungen → Erscheinungsbild deaktivieren.
+Auf Geräten mit Touchscreen und Hardware-Tastatur können die Bildschirmtasten deaktiviert werden, um Platz auf dem Bildschirm zu schaffen. Diese Option finden Sie unter Einstellungen → Erscheinungsbild.
 
-Es wird auch empfohlen, das spezielle Verhalten der "Zurück"-Taste als "Rückschritt" zu deaktivieren. Dies ist nur für eine Hardwaretastatur sinnvoll. In der Regel geschieht dies auch automatisch, aber falls nicht, gehen Sie zu Einstellungen → Tastatur → Hotkeys auswählen → Rückschritt-Taste und wählen die Option "--" aus.
+Es wird außerdem empfohlen, das spezielle Verhalten zu deaktivieren, bei dem die „Zurück“-Taste der Funktion „Rücktaste“ zugeordnet ist, da dies nur bei Verwendung einer Hardware-Tastatur sinnvoll ist. Dies wird in der Regel automatisch gehandhabt. Falls nicht, gehen Sie zu Einstellungen → Tastenfeld → Tastenkombinationen auswählen → Rücktaste und wählen Sie die Option „--“.
+
+### Retro- und moderne Bildschirm-Layouts
+Es stehen zwei virtuelle Tastenfeld-Layouts zur Verfügung: Retro und Modern.
+
+Das Retro-Layout umfasst ein Steuerkreuz (D-Pad) mit einer zentralen OK-Taste oben sowie darunter angeordneten Zahlentasten und ähnelt stark den Tastaturen früher Mobiltelefone aus den frühen 2000er-Jahren. Es eignet sich für Nutzer, die ein klassisches Bedienerlebnis bevorzugen, für Geräte mit kleineren Bildschirmen sowie für Personen mit größeren Daumen. Es kann auch für Nutzer interessant sein, die mit eingestellten T9-Tastatur-Apps wie Old Keyboard oder Big Old Keyboard vertraut sind.
+
+Das Modern-Layout bewahrt das typische Erscheinungsbild von Android und verwendet gleichzeitig ein 12-Tasten-Tipplayout. Es verfügt über einen zentralen Block von Zahlentasten (0–9) zur Texteingabe, während Funktionstasten wie Umschalt, Rücktaste, Sprachwechsel und OK (Eingabe) in Spalten links und rechts angeordnet sind.
 
 ### Übersicht der virtuellen Tasten
-Die Bildschirmtastatur funktioniert genauso wie das Nummernfeld eines Telefons mit physischen Tasten. Wenn eine Taste nur eine Funktion bietet, hat sie ein Label (oder Symbol), das diese Funktion anzeigt. Wenn die Taste eine sekundäre "Halten"-Funktion bietet, hat sie zwei Labels (oder Symbole).
+Die Bildschirmtastatur funktioniert genauso wie eine physische Telefontastatur. Tasten mit nur einer Funktion zeigen eine zentrale Beschriftung oder ein Symbol an. Tasten mit einer zusätzlichen Langdruck-Funktion zeigen eine sekundäre Beschriftung oder ein Symbol in der oberen rechten Ecke.
 
-Unten finden Sie eine Beschreibung der Tasten mit mehr als einer Funktion.
+#### Tasten 0–9
+Die Zahlentasten werden zum Schreiben von Wörtern und zur Eingabe von Ziffern verwendet. Das Retro-Layout ermöglicht zusätzlich Wischgesten nach links und rechts auf bestimmten Tasten. Falls verfügbar, werden diese Funktionen durch Symbole in der unteren linken oder rechten Ecke der Taste angezeigt.
 
-#### Rechte F2-Taste (zweite Taste von oben in der rechten Spalte)
-_Nur im Vorhersagemodus._
+In der Google-Play-Version können die Wischgesten sowohl für das Retro- als auch für das Modern-Layout angepasst oder deaktiviert werden. Dies erfolgt über Einstellungen → Tastenfeld → Tastenfunktionen.
 
-- **Drücken:** Die Vorschlagsliste filtern. Siehe [oben](#vorschläge-filtern-taste-standard-steuerkreuz-oben), wie das Wortfiltern funktioniert.
-- **Halten:** Löscht den Filter, falls aktiv.
+#### Benutzerdefinierte Texttasten („!“ und „?“)
+Standardmäßig fügen diese Tasten die entsprechenden Satzzeichen ein. In numerischen oder Telefon-Eingabefeldern können sie alternative Zeichen wie Sternchen, Raute oder Dezimalpunkt einfügen.
 
-#### Rechte F3-Taste (dritte Taste von oben in der rechten Spalte)
-- **Drücken:** Öffnet die Optionen für Kopieren, Einfügen und Textbearbeitung.
-- **Halten:** Aktiviert die Spracheingabe.
+In der Google-Play-Version können diese Tasten angepasst werden. Sie können das Standardzeichen ändern und Aktionen für Wischen nach oben, unten, links und rechts zuweisen. Dies wird unter Einstellungen → Tastenfeld → Tastenfunktionen konfiguriert.
 
-#### Linke F4-Taste (die untere linke Taste)
-- **Drücken:** Wechselt die Eingabemodi (abc → Vorhersage → 123).
-- **Halten:** Die Eingabesprache ändern, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
-- **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur, abgesehen von TT9.
-- **Vertikal wischen:** Öffnet den Android-Tastaturwechsel-Dialog, in dem Sie zwischen allen installierten Tastaturen wählen können.
+#### Eingabemodus-Taste
+- **Drücken:** Durchläuft die Eingabemodi (abc → Prädiktiv → 123).
+- **Gedrückt halten:** Wechselt die Eingabesprache, wenn mehrere Sprachen in den Einstellungen aktiviert wurden.
+- **Horizontal wischen:** Wechselt zur zuletzt verwendeten Tastatur außer TT9.
+- **Vertikal wischen:** Öffnet den Android-Dialog „Tastatur wechseln“, in dem alle installierten Tastaturen ausgewählt werden können.
 
-_Die Taste zeigt ein kleines Globus-Symbol an, wenn Sie mehr als eine Sprache unter Einstellungen → Sprachen aktiviert haben. Das Symbol zeigt an, dass es möglich ist, die Sprache durch Halten der Taste zu ändern._
+Die Taste zeigt ein kleines Globus-Symbol an, wenn mehrere Sprachen unter Einstellungen → Sprachen aktiviert wurden. Das Symbol weist darauf hin, dass ein Sprachwechsel durch Gedrückthalten der Taste möglich ist.
+
+_Im Retro-Layout befindet sich die Taste unten rechts._
+
+_Im Modern-Layout befindet sich die Taste unten links._
+
+#### Rücktaste
+Löscht Zeichen bei Betätigung. Wenn Einstellungen → Tastenfeld → Schnelles Löschen aktiviert ist, können Sie durch Zurückwischen das vorherige Wort löschen.
+
+#### Filtertaste
+- **Drücken:** Filtert die Vorschlagsliste. Siehe [oben](#filter-suggestions-key-default-d-pad-up) zur Funktionsweise der Wortfilterung.
+- **Gedrückt halten:** Löscht den Filter, sofern aktiv.
+
+_Diese Taste ist nur im Modern-Layout verfügbar. Position: zweite Taste von oben._
+
+_Das Filtern ist nur im prädiktiven Modus möglich._
+
+#### Zwischenablage / Spracheingabe-Taste
+- **Drücken:** Öffnet Optionen zum Kopieren, Einfügen und Bearbeiten von Text.
+- **Gedrückt halten:** Aktiviert die Spracheingabe.
+
+_Diese Taste ist nur im Modern-Layout verfügbar. Position: dritte Taste von oben._
+
+#### OK-Taste
+- **Drücken:** Entspricht dem Drücken der ENTER-Taste auf anderen Tastaturen.
+
+Im Retro-Layout können zusätzlich Wischgesten über Einstellungen → Erscheinungsbild → Tasten aktiviert werden.
+
+- **Nach oben wischen ohne Vorschläge:** Cursor nach oben bewegen (entspricht D-PAD nach oben).
+- **Nach unten wischen ohne Vorschläge:** Cursor nach unten bewegen (entspricht D-PAD nach unten).
+- **Nach oben wischen bei vorhandenen Vorschlägen:** Vorschlagsliste filtern. Siehe [oben](#filter-suggestions-key-default-d-pad-up).
+- **Nach unten wischen bei vorhandenen Vorschlägen:** Vorschlagsfilter löschen.
 
 ### Tastaturfeld beim Tippen anpassen
 In manchen Fällen nimmt das virtuelle Tastenfeld möglicherweise zu viel Platz ein, wodurch Sie Ihren Text oder Anwendungsinhalte nicht sehen können. Sie können die Größe anpassen, indem Sie die Einstellungen-/Befehlspalette-Taste gedrückt halten und ziehen oder die Statusleiste ziehen (dort wird die aktuelle Sprache oder der Eingabemodus angezeigt). Wenn die Höhe zu klein wird, wechselt das Layout automatisch zu „Funktionstasten“ oder „nur Vorschlagsliste“. Beim Vergrößern wechselt das Layout wieder zum „Virtuellen Tastenfeld“. Durch Doppeltippen auf die Statusleiste können Sie das Tastenfeld sofort minimieren oder maximieren.
@@ -386,7 +422,7 @@ Letztendlich funktioniert die Vibration auf einigen Geräten nicht zuverlässig.
 
 ## Häufig gestellte Fragen
 
-### Warum fügst du Sprache X nicht hinzu?
+### Warum fügen Sie Sprache X nicht hinzu?
 Ich würde das gerne tun, aber ich brauche deine Hilfe. Mehr als 40 Sprachen alleine zu unterstützen ist unmöglich. Da ich deine Sprache nicht spreche, ist es schwierig, zuverlässige Ressourcen im Internet zu finden. Hier können Muttersprachler wie du wirklich helfen.
 Tatsächlich wurden über 90 % der vorhandenen Sprachen von oder mit der Hilfe engagierter Nutzer hinzugefügt.
 
@@ -394,49 +430,33 @@ Um eine neue Sprache hinzuzufügen, brauche ich eine Rechtschreib-geprüfte Wort
 
 Wenn es kein solches Wörterbuch gibt, kannst du auch eine frei herunterladbare Wortliste bereitstellen. Ideal sind 300.000–500.000 Wörter. Wenn deine Sprache viele Beugungen hat (z. B. Änderungen durch Zeit, Geschlecht oder Zahl), werden etwa 1 Million Wörter benötigt.
 
-### Es gibt falsch geschriebene oder fehlende Wörter in Sprache XYZ. Warum behebst du sie nicht?
+### In der Sprache XYZ gibt es falsch geschriebene oder fehlende Wörter. Warum werden diese nicht korrigiert?
 Wie oben erwähnt: Ich spreche deine Sprache nicht und bemerke solche Fehler möglicherweise gar nicht. Aber mit deiner Hilfe können wir sie beheben und das Wörterbuch für alle verbessern.
 
-### Kannst du nicht Funktion X hinzufügen?
+### Können Sie Funktion X nicht hinzufügen?
 Nein.
 
 Jeder hat seine eigenen Vorlieben. Manche möchten größere Tasten, manche eine andere Anordnung, manche eine Schnellzugriffstaste für ".com", und manche vermissen ihr altes Telefon oder ihre alte Tastatur. Aber bitte versteht, dass ich dies in meiner Freizeit freiwillig mache. Es ist unmöglich, Tausende von unterschiedlichen Wünschen zu erfüllen, von denen einige sich sogar widersprechen.
 
 Henry Ford sagte einmal: „Es kann jede Farbe haben, die der Kunde will, solange sie schwarz ist.“ Ebenso ist Traditional T9 schlicht, effektiv und kostenlos – aber du bekommst, was du bekommst.
 
-### Kannst du es nicht mehr wie Sony Ericsson oder Xperia, Nokia C2, Samsung oder eine andere Software-Tastatur machen?
+### Können Sie die App nicht meinem bevorzugten Gerät (z. B. Sony Ericsson, Xperia, Nokia C2, Samsung) oder meiner bevorzugten Tastatur-App ähnlicher gestalten?
 Nein.
 
 Traditional T9 ist nicht als Ersatz oder Klon-App gedacht. Es hat sein eigenes einzigartiges Design, das hauptsächlich von den Nokia 3310 und 6303i inspiriert wurde. Während es das Gefühl der Klassiker einfängt, bietet es eine eigene Erfahrung, die kein Gerät exakt nachahmen wird.
 
-### Du solltest Touchpal kopieren, es ist die beste Tastatur der Welt!
-Nein, sollte ich nicht. Siehe die vorherigen Punkte.
+### Sie sollten TouchPal kopieren; es war die beste Tastatur!
+Nein. Siehe die vorherigen Punkte.
 
-Touchpal war 2015 vielleicht die beste Tastatur, als es noch keine echte Konkurrenz gab. Aber seitdem hat sich viel verändert. Sieh dir den Vergleich zwischen Traditional T9 und Touchpal an:
+TouchPal war eine schnelle und reaktionsschnelle Tastatur mit umfangreichen Design-, Anpassungs- und Mehrsprachenfunktionen. Sie war um das Jahr 2015 beliebt, als der Wettbewerb noch begrenzt war. Allerdings war sie nie eine echte T9-Tastatur: Das 12-Tasten-Layout war nur für einige Sprachen verfügbar und ausschließlich für Touchscreens konzipiert.
 
-_**Traditional T9**_
-- Respektiert deine Privatsphäre.
-- Enthält keine Werbung und ist kostenlos.
-- Unterstützt eine breite Palette von Geräten: Tastenhandys und Fernseher mit Hardware-Tastaturen sowie reine Touchscreen-Smartphones und Tablets.
-- Bietet ein echtes 12-Tasten-T9-Layout für jede Sprache.
-- Verbessert Wortvorschläge. Zum Beispiel, wenn du textonyme Ausdrücke wie „go in“ tippst, wird es lernen, nicht „go go“ oder „in in“ vorzuschlagen, sondern den beabsichtigten Ausdruck.
-- Alles, was du tippst, bleibt auf deinem Gerät. Es werden keine Informationen gesendet.
-- Ist Open Source, sodass du den Quellcode und die Wörterbücher einsehen oder zum Projekt beitragen kannst.
-- Hat ein klares und gut lesbares Design, das sich in das System einfügt. Es gibt keine unnötigen Spielereien, sodass du dich aufs Tippen konzentrieren kannst.
-- Die Ladegeschwindigkeit des Wörterbuchs ist langsam.
+Im Laufe der Zeit verlagerte sich der Fokus weg vom Wesentlichen – dem Tippen. Werbung wurde eingeführt, Berechtigungen wurden zunehmend aggressiv angefordert, und es begann die Erfassung sensibler Nutzerdaten. Schließlich wurde TouchPal aus dem Play Store entfernt.
 
-_**Touchpal**_
-- Fordert aggressiv Zugriff auf dein gesamtes Gerät und deine Kontakte, schreibt zufällige Dateien überall; wurde schließlich aus dem Play Store verbannt, weil es sich wie ein Virus verhielt.
-- Enthält viele Anzeigen.
-- Unterstützt nur Touchscreen-Geräte.
-- Ist keine echte T9-Tastatur. Es bietet ein T9-Layout nur in einigen Sprachen an. Zudem sind einige Layouts fehlerhaft (z. B. fehlt im bulgarischen Layout ein Buchstabe, und einige Buchstaben sind zwischen der 8er- und 9er-Taste vertauscht).
-- Beim Eingeben von Textonymen schlägt es nur das zuletzt gewählte Wort vor. Zum Beispiel wird bei „go in“ entweder „go go“ oder „in in“ angezeigt.
-- Cloud-basierte Vorschläge könnten die Genauigkeit verbessern. Damit das funktioniert, müssen jedoch du und alle anderen Nutzer alles, was ihr tippt, an die Touchpal-Server senden.
-- Geschlossene Quelle. Es gibt keine Möglichkeit zu überprüfen, was im Hintergrund passiert.
-- Enthält viele Themes, Farben, GIFs und andere Ablenkungen, die nichts mit dem Tippen zu tun haben.
-- Die Ladegeschwindigkeit des Wörterbuchs ist schnell. Touchpal gewinnt diesen Punkt.
+Im Gegensatz dazu basiert die [Philosophie](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) von TT9 auf Open-Source-Prinzipien. Der Quellcode und die Wörterbücher sind öffentlich zugänglich und überprüfbar. Der Schutz der Privatsphäre der Nutzer ist von Anfang an berücksichtigt. Beiträge aus der Community haben zur Verbesserung des Projekts beigetragen, darunter Fehlerbehebungen, neue Sprachen und Übersetzungen. Nutzer können zudem eigene modifizierte Versionen erstellen.
 
-Wenn du anderer Meinung bist oder deine Sichtweise erklären möchtest, beteilige dich an [der offenen Diskussion](https://github.com/sspanak/tt9/issues/647) auf GitHub. Bitte sei respektvoll gegenüber anderen. Hasskommentare werden nicht toleriert.
+TT9 bietet keine anpassbaren Tastenformen, sondern ein klares und gut lesbares Layout mit Fokus auf effizientes Tippen. Es ahmt den visuellen Stil von TouchPal nicht nach, funktioniert jedoch auf modernen Android-16-Smartphones, auf nostalgisch inspirierten Geräten mit Hardware-Tastaturen wie dem Qin F21, Cat S22 Flip, Sonim XP3800 sowie sogar auf TV-Fernbedienungen.
+
+Wenn Sie anderer Meinung sind oder Ihren Standpunkt erläutern möchten, beteiligen Sie sich an der [offenen Diskussion](https://github.com/sspanak/tt9/issues/647) auf GitHub. Bitte bleiben Sie dabei respektvoll. Hassbeiträge werden nicht toleriert.
 
 ### Android hat mich darauf hingewiesen, dass die Tastatur möglicherweise meine personenbezogenen Daten sammelt, einschließlich Kreditkartennummern und Passwörtern
 Dies ist ein standardmäßiger Android-Hinweis, der angezeigt wird, wenn Sie eine beliebige Tastatur installieren und aktivieren, nicht nur Traditional T9. Sie können sicher sein, dass sämtliche Eingaben auf Ihrem Gerät verbleiben. Die Eingabetechnologie ist vollständig quelloffen; Sie können den Code auf GitHub einsehen und sich vergewissern, dass Ihre Privatsphäre geschützt ist.
@@ -446,12 +466,12 @@ _Sollten dennoch Bedenken bestehen, konsultieren Sie bitte die Datenschutzrichtl
 ### Ich muss ein QWERTY-Layout verwenden (nur Touchscreen-Geräte)
 Traditional T9 ist eine T9-Tastatur und bietet daher kein QWERTY-Layout.
 
-Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
+Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die Eingabemodus-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
 
 Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, indem Sie die Leertaste oder die „Sprache wechseln“-Taste gedrückt halten. Sehen Sie im jeweiligen Handbuch nach.
 
 ### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
-Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [linke F4-Taste](#linke-f4-taste-die-untere-linke-taste), um die Sprache zu ändern.
+Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [Eingabemodus-Taste](#eingabemodus-taste), um die Sprache zu ändern.
 
 ### Wie fügt man Kontraktionen wie „I've“ oder „don't“ zum Wörterbuch hinzu?
 Alle Kontraktionen in allen Sprachen sind bereits als separate Wörter verfügbar, daher müssen Sie nichts hinzufügen. Dies bietet maximale Flexibilität – Sie können jedes Wort mit jeder Kontraktion kombinieren und gleichzeitig erheblich Speicherplatz sparen.

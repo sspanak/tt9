@@ -226,35 +226,71 @@ Birçok telefonda kısayol tuşları için yalnızca iki veya üç "boș" tuş b
 
 _Ekran Düzeni "Sanal Tuș Takımı" olarak ayarlandığında bu tuș hiçbir şey yapmaz çünkü tüm işlevler için tüm tușlar zaten ekranda mevcuttur._
 
-## Ekran Üzeri Tuș Takımı
-Yalnızca dokunmatik ekranlı telefonlarda, tamamen işlevsel bir ekran üstü tuș takımı mevcuttur ve otomatik olarak etkinleșir. Bir şekilde telefonunuzun dokunmatik ekranı olduğunun algılanmadığını düşünüyorsanız, Ayarlar → Görünüm → Ekran Üzeri Düzen yoluyla "Sanal Numpad" seçeneğini etkinleștirin.
+## Ekran Üzeri Tuş Takımı
+Yalnızca dokunmatik ekrana sahip cihazlarda, tam işlevli bir ekran üzeri tuş takımı mevcuttur ve otomatik olarak etkinleştirilir. Cihaz dokunmatik ekranlı olarak algılanmazsa, Ayarlar → Görünüm → Ekran Üzeri Düzen bölümünden “Sanal Sayısal Tuş Takımı” seçilerek manuel olarak etkinleştirin.
 
-Eğer dokunmatik ekranınız ve donanım tuș takımınız varsa ve daha fazla ekran alanına ihtiyaç duyuyorsanız, Ayarlar → Görünüm bölümünden yazılım tușlarını devre dıșı bırakabilirsiniz.
+Hem dokunmatik ekrana hem de donanım tuş takımına sahip cihazlarda, ekran üzeri tuşlar ekran alanını boşaltmak için devre dışı bırakılabilir. Bu seçenek Ayarlar → Görünüm altında bulunur.
 
-"Geri" tușunun "Geri Sil" olarak özel davranıșını devre dıșı bırakmanız da önerilir. Bu özellik sadece donanım tuș takımı için yararlıdır. Genellikle otomatik olarak da gerçekleșir, ancak olmuyorsa Ayarlar → Tuș Takımı → Kısayol Tușları Seç → Geri Sil tușuna gidin ve "--" seçeneğini seçin.
+Ayrıca, “Geri” tuşunun “Backspace” olarak eşlenmesine neden olan özel davranışın devre dışı bırakılması önerilir; bu davranış yalnızca donanım tuş takımı kullanıldığında faydalıdır. Bu işlem genellikle otomatik olarak yapılır. Aksi takdirde Ayarlar → Tuş Takımı → Kısayol Tuşlarını Seç → Backspace Tuşu yolunu izleyin ve “--” seçeneğini seçin.
 
-### Sanal Tușlara Genel Bakış
-Ekran klavyesi, fiziksel tuşlara sahip bir telefonun numpad’i ile aynı şekilde çalışır. Bir tuş yalnızca tek bir işlev sağlıyorsa, bu işlevi belirten bir etikete (veya simgeye) sahiptir. Eğer bir tuş, "basılı tutma" yoluyla ikinci bir işlev sağlıyorsa, iki etikete (veya simgeye) sahip olacaktır.
+### Retro ve Modern Ekran Üzeri Düzenler
+İki sanal tuş takımı düzeni mevcuttur: Retro ve Modern.
 
-Aşağıda birden fazla işlevi olan tuşların açıklamaları yer almaktadır.
+Retro düzen, üst kısımda ortasında OK tuşu bulunan bir yön tuşu (D-pad) ve altında sayısal tuşlar içerir. Bu düzen, 2000’li yılların başındaki telefon tuş takımlarına oldukça benzer. Geleneksel bir deneyim arayan kullanıcılar, küçük ekranlı cihazlar ve daha büyük başparmaklara sahip kişiler için uygundur. Ayrıca Old Keyboard veya Big Old Keyboard gibi artık kullanılmayan eski T9 klavye uygulamalarına aşina olanlara da hitap edebilir.
 
-#### Sağ F2 Tuşu (sağ sütundaki en üstten ikinci tuş)
-_Yalnızca tahmin modunda._
+Modern düzen, 12 tuşlu bir yazım düzeni kullanırken Android’in standart görünümünü ve hissini korur. Metin girişi için ortada 0–9 rakam tuşlarından oluşan bir blok bulunur; Shift, Backspace, dil değiştirme ve OK (Enter) gibi işlev tuşları ise sol ve sağ sütunlara yerleştirilmiştir.
 
-- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığını görmek için [yukarıdaki](#öneri-filtreleme-tuşu-varsayılan-d-pad-yukarı) açıklamaya bakın.
-- **Basılı tut:** Eğer aktifse filtreyi temizler.
+### Sanal Tuşlara Genel Bakış
+Ekran üzeri tuş takımı, donanım telefon tuş takımıyla aynı şekilde çalışır. Tek işlevli tuşlar ortada bir etiket veya simge gösterir. Uzun basma ile ek işlevi olan tuşlar, sağ üst köşede ikincil bir etiket veya simge gösterir.
 
-#### Sağ F3 Tuşu (sağ sütundaki en üstten üçüncü tuş)
+#### 0–9 Tuşları
+Sayı tuşları kelime yazmak ve rakam girmek için kullanılır. Retro düzende bazı tuşlarda sola ve sağa kaydırma hareketleri de kullanılabilir. Bu işlevler mevcut olduğunda, tuşun sol alt veya sağ alt köşesindeki simgelerle belirtilir.
+
+Google Play sürümünde, kaydırma hareketleri hem Retro hem de Modern düzen için özelleştirilebilir veya devre dışı bırakılabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılabilir.
+
+#### Özel Metin Tuşları ("!" ve "?")
+Varsayılan olarak bu tuşlar kendi noktalama işaretlerini ekler. Sayısal veya telefon giriş alanlarında, yıldız, diyez veya ondalık ayırıcı gibi alternatif karakterler ekleyebilirler.
+
+Google Play sürümünde bu tuşlar özelleştirilebilir. Varsayılan karakter değiştirilebilir ve yukarı, aşağı, sola ve sağa kaydırma eylemleri atanabilir. Bu ayarlar Ayarlar → Tuş Takımı → Tuş İşlevleri bölümünden yapılandırılabilir.
+
+#### Giriş Modu Tuşu
+- **Bas:** Giriş modları arasında geçiş yapar (abc → Öngörülü → 123).
+- **Basılı tut:** Ayarlardan birden fazla dil etkinleştirildiğinde yazım dilini değiştirir.
+- **Yatay kaydırma:** TT9 dışındaki en son kullanılan klavyeye geçer.
+- **Dikey kaydırma:** Yüklü tüm klavyeler arasında seçim yapabileceğiniz Android Klavye Değiştir iletişim kutusunu açar.
+
+Ayarlar → Diller bölümünden birden fazla dil etkinleştirildiğinde, tuş küçük bir küre simgesi gösterir. Bu simge, tuşa basılı tutarak dil değiştirilebileceğini belirtir.
+
+_Retro düzende, sağ alt köşedeki tuştur._
+
+_Modern düzende, sol alt köşedeki tuştur._
+
+#### Backspace
+Basılıp bırakıldığında karakterleri siler. Ayarlar → Tuş Takımı → Hızlı Silme etkinleştirildiğinde, geri kaydırarak önceki kelime silinebilir.
+
+#### Filtre Tuşu
+- **Bas:** Öneri listesini filtreler. Kelime filtrelemenin nasıl çalıştığı için [yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Basılı tut:** Etkinse filtreyi temizler.
+
+_Tuş yalnızca Modern düzende mevcuttur. Konum: üstten ikinci tuş._
+
+_Filtreleme yalnızca Öngörülü modda mümkündür._
+
+#### Pano Araçları / Sesli Giriş Tuşu
 - **Bas:** Kopyalama, yapıştırma ve metin düzenleme seçeneklerini açar.
 - **Basılı tut:** Sesli girişi etkinleştirir.
 
-#### Sol F4 tuşu (sol alt köşedeki tuş)
-- **Bas:** Giriş modlarını döngüsel olarak değiştirir (abc → Tahmin → 123).
-- **Basılı tut:** Birden fazla dil Ayarlardan etkinleştirildiğinde yazma dilini değiştirmek.
-- **Yatay kaydırma:** TT9 dışında kullanılan son klavyeye geçiş yapar.
-- **Dikey kaydırma:** Tüm yüklü klavyeler arasından seçim yapabileceğiniz Android Klavye Değiştirme diyalog penceresini açar.
+_Tuş yalnızca Modern düzende mevcuttur. Konum: üstten üçüncü tuş._
 
-_Ayarlar → Diller kısmından birden fazla dili etkinleştirdiyseniz, tuşta küçük bir küre simgesi görüntülenir. Simge, tuşu basılı tutarak dil değiştirebileceğinizi gösterir._
+#### OK Tuşu
+- **Bas:** Diğer klavyelerde ENTER tuşuna basmakla aynıdır.
+
+Retro düzende ayrıca Ayarlar → Görünüm → Tuşlar bölümünden kaydırma hareketleri etkinleştirilebilir.
+
+- **Öneri yokken yukarı kaydırma:** İmleci yukarı taşır (D-PAD yukarı ile aynı).
+- **Öneri yokken aşağı kaydırma:** İmleci aşağı taşır (D-PAD aşağı ile aynı).
+- **Öneri varken yukarı kaydırma:** Öneri listesini filtreler. [Yukarıya](#filter-suggestions-key-default-d-pad-up) bakın.
+- **Öneri varken aşağı kaydırma:** Öneri filtresini temizler.
 
 ### Yazarken Klavye Panelini Yeniden Boyutlandırma
 Bazı durumlarda, Sanal Tuș Takımının çok fazla ekran alanı kapladığını, yazdıklarınızı veya bazı uygulama öğelerini göremediğinizi fark edebilirsiniz. Bu durumda, Ayarlar/Komut Paleti tușunu basılı tutarak veya Durum Çubuğunu (mevcut dil veya yazma modunun gösterildiği alan) sürükleyerek yeniden boyutlandırabilirsiniz. Yükseklik çok küçük hale geldiğinde, düzen otomatik olarak "İşlev tușları" veya yalnızca "Öneri listesi" olarak değișecektir. Yukarı doğru yeniden boyutlandırdığınızda ise düzen "Sanal Tuș Takımı"na geçer. Durum çubuğuna iki kez dokunarak hızlıca minimize veya maximize edebilirsiniz.
@@ -386,7 +422,7 @@ Son olarak, bazı cihazlarda titreşim güvenilir şekilde çalışmayabilir. Bu
 
 ## Sıkça Sorulan Sorular
 
-### Neden X dilini eklemiyorsun?
+### Neden X dilini eklemiyorsunuz?
 Eklemeyi çok isterim, ancak yardımına ihtiyacım var. 40’tan fazla dili tek başıma desteklemek benim için imkânsız. Senin dilini konuşmadığım için internette doğru kaynakları bulmak zor oluyor. İşte bu noktada, senin gibi ana dil konuşurları çok yardımcı olabiliyor.
 Aslında mevcut dillerin %90’ından fazlası kullanıcıların katkılarıyla eklendi.
 
@@ -394,49 +430,33 @@ Yeni bir dil eklemek için, yazım hatası olmayan bir kelime listesine ihtiyac�
 
 Böyle bir sözlük yoksa, ücretsiz indirilebilen bir kelime listesi de kabul edilir. Liste genellikle 300.000–500.000 kelime içermelidir, ancak dilde çok fazla çekim varsa (zaman, cinsiyet, sayı vb.), 1 milyon kelimeye kadar gerekebilir.
 
-### XYZ dilinde yanlış veya eksik kelimeler var. Neden düzeltmiyorsun?
+### XYZ dilinde hatalı yazılmış veya eksik kelimeler var. Bunları neden düzeltmiyorsunuz?
 Yukarıda belirttiğim gibi, senin dilini konuşmadığım için bu hataları fark etmem zor. Ama senin yardımınla bunları düzeltebilir ve sözlüğü daha iyi hâle getirebiliriz.
 
-### Özellik X'i ekleyemez misiniz?
+### X özelliğini ekleyemez misiniz?
 Hayır.
 
 Herkesin kendi tercihleri vardır. Kimisi daha büyük tuşlar ister, kimisi farklı bir düzen, kimisi ".com" yazmak için bir kısayol tuşu ister ve kimisi de eski telefonunu veya klavyesini özler. Ancak lütfen anlayın ki, bu projeyi boş zamanlarımda gönüllü olarak yürütüyorum. Birbirleriyle çelişen binlerce farklı isteği yerine getirmek imkansızdır.
 
 Henry Ford bir keresinde şöyle demiştir: "Müşteri istediği herhangi bir rengi seçebilir, yeter ki siyah olsun." Benzer şekilde, Traditional T9 sade, etkili ve ücretsizdir; ne alıyorsanız onu kullanırsınız.
 
-### Neden Sony Ericsson, Xperia, Nokia C2, Samsung veya başka bir yazılım klavyesine daha çok benzetmiyorsunuz?
+### Uygulamayı favori cihazıma (ör. Sony Ericsson, Xperia, Nokia C2, Samsung) veya favori klavye uygulamama daha benzer hâle getiremez misiniz?
 Hayır.
 
 Traditional T9, bir kopya uygulama ya da eski bir klavyenin birebir ikamesi olmak için tasarlanmadı. Kendine özgü bir tasarımı vardır ve temel olarak Nokia 3310 ve 6303i modellerinden ilham almıştır. Klasik telefonların hissini verse de, tam olarak hiçbir cihazı taklit etmez.
 
-### Touchpal'ı kopyalamalısınız, o dünyanın en iyi klavyesi!
-Hayır, kopyalamamalıyım. Önceki maddelere bakın.
+### TouchPal’i kopyalamalısınız; en iyi klavyeydi!
+Hayır. Önceki maddelere bakınız.
 
-Touchpal, 2015 yılında rakipsiz olduğu dönemde gerçekten en iyi klavyelerden biriydi. Ancak o zamandan beri işler değişti. İşte Traditional T9 ve Touchpal'ın karşılaştırması:
+TouchPal, kapsamlı tema seçenekleri, özelleştirme olanakları ve çok dilli destek sunan hızlı ve duyarlı bir klavyeydi. Rekabetin sınırlı olduğu 2015 civarında popülerdi. Ancak hiçbir zaman gerçek bir T9 klavyesi olmadı: 12 tuşlu düzen yalnızca bazı dillerde mevcuttu ve yalnızca dokunmatik ekranlar için tasarlanmıştı.
 
-_**Traditional T9**_
-- Gizliliğinize saygı duyar.
-- Reklam içermez ve tamamen ücretsizdir.
-- Geniş bir cihaz yelpazesini destekler: tuşlu telefonlar, donanım klavyeli televizyonlar ve yalnızca dokunmatik ekrana sahip akıllı telefonlar ve tabletler.
-- Her dil için tam uyumlu 12 tuşlu bir T9 düzeni sunar.
-- Gelişmiş kelime önerileri sağlar. Örneğin, "go in" gibi bir textonym ifadesi yazmaya çalışırsanız, "go go" veya "in in" yerine anlamlı olan ifadeyi öğrenerek önerir.
-- Yazdığınız her şey cihazınızda kalır. Hiçbir veri herhangi bir yere gönderilmez.
-- Açık kaynaklıdır, böylece tüm kaynak kodunu ve sözlükleri inceleyebilir, projeye katkıda bulunarak geliştirebilir (birçok kullanıcı hataları düzeltmeye ve yeni diller ile çeviriler eklemeye yardımcı oldu) veya kendi isteğinize göre bir mod oluşturabilirsiniz.
-- Sisteme uyum sağlayan sade ve okunaklı bir tasarıma sahiptir. Gereksiz süslemeler içermez, böylece yazmaya odaklanabilirsiniz.
-- Sözlük yükleme hızı düşüktür.
+Zamanla en önemli unsur olan yazma deneyiminden uzaklaşmaya başladı. Reklamlar eklendi, izin talepleri giderek daha agresif hale geldi ve hassas kullanıcı verileri toplanmaya başlandı. Sonunda Play Store’dan kaldırıldı.
 
-_**Touchpal**_
-- Cihazınızdaki tüm verilere ve kişilerinize erişmek için ısrarcıdır; rastgele dosyalar oluşturur; en sonunda bir virüs gibi davrandığı için Play Store'dan kaldırılmıştır.
-- Reklamlarla doludur.
-- Sadece dokunmatik ekranlı cihazları destekler.
-- Gerçek bir T9 klavyesi değildir. Yalnızca bazı dillerde T9 düzeni sunar. Ayrıca, bazı düzenler hatalıdır (örneğin, Bulgarca'da bir harf eksik ve bazı harfler 8 ve 9 tuşları arasında yanlış sıralanmıştır).
-- Arka arkaya textonym yazarken yalnızca son seçtiğiniz kelimeyi önerir. Örneğin, "go in" yazmaya çalıştığınızda, ya "go go" ya da "in in" şeklinde önerir.
-- Bulut tabanlı öneriler doğruluğu artırabilir, ancak bunun çalışması için sizin ve diğer tüm kullanıcıların yazdıkları her şeyi Touchpal sunucularına göndermesi gerekir.
-- Kapalı kaynaklıdır. Arka planda ne yaptığını kontrol etmenin hiçbir yolu yoktur.
-- Klavyeyle ilgisi olmayan birçok tema, renk, GIF ve dikkat dağıtıcı unsur içerir.
-- Sözlük yükleme hızı yüksektir. Bu noktada Touchpal kazanıyor.
+Buna karşılık, TT9’un [felsefesi](https://github.com/sspanak/tt9/?tab=readme-ov-file#-philosophy) açık kaynak ilkelerine dayanmaktadır. Kaynak kodu ve sözlükleri herkese açıktır ve incelenebilir. Kullanıcı gizliliği tasarım aşamasından itibaren gözetilmektedir. Topluluk katkıları, hata düzeltmeleri, yeni diller ve çeviriler dahil olmak üzere projenin gelişmesine yardımcı olmuştur. Kullanıcılar ayrıca kendi değiştirilmiş sürümlerini oluşturmakta özgürdür.
 
-Eğer aynı fikirde değilseniz veya bakış açınızı açıklamak isterseniz, GitHub'daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Sadece diğer kullanıcılara saygılı olun. Nefret içerikli mesajlara izin verilmeyecektir.
+TT9, özelleştirilebilir tuş şekilleri gibi özellikler sunmaz; bunun yerine verimli yazmaya odaklanan temiz ve okunabilir bir düzen sağlar. TouchPal’in görsel stilini taklit etmez, ancak Android 16 çalıştıran modern akıllı telefonlarda, Qin F21, Cat S22 Flip ve Sonim XP3800 gibi donanım tuş takımlı nostaljik cihazlarda ve hatta TV uzaktan kumandalarında çalışır.
+
+Katılmıyorsanız veya görüşünüzü açıklamak istiyorsanız, GitHub’daki [açık tartışmaya](https://github.com/sspanak/tt9/issues/647) katılabilirsiniz. Lütfen diğer kullanıcılara karşı saygılı olun. Nefret içerikli paylaşımlara izin verilmez.
 
 ### Android, klavyenin kredi kartı numaraları ve parolalar dahil olmak üzere kişisel verilerimi toplayabileceği konusunda beni uyardı
 Bu, yalnızca Traditional T9 için değil, herhangi bir klavye yüklendiğinde ve etkinleştirildiğinde görüntülenen standart bir Android uyarısıdır. Yazdığınız her şeyin cihazınızda kaldığından emin olabilirsiniz. Yazma motoru tamamen açık kaynaklıdır; bu nedenle kodunu GitHub üzerinden inceleyebilir ve gizliliğinizin korunduğunu doğrulayabilirsiniz.
@@ -446,12 +466,12 @@ _Hâlâ herhangi bir endişeniz varsa, lütfen uygulamanın Gizlilik Politikası
 ### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
-T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
+T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 
 ### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
-Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [Sol F4 tuşunu](#sol-f4-tuşu-sol-alt-köşedeki-tuş) basılı tutun.
+Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [giriş modu tuşunu](#giriş-modu-tuşu) basılı tutun.
 
 ### “I've” veya “don't” gibi kısaltmalar sözlüğe nasıl eklenir?
 Tüm dillerdeki kısaltmalar zaten ayrı kelimeler olarak mevcut, bu yüzden herhangi bir şey eklemenize gerek yok. Bu maksimum esneklik sağlar — istediğiniz herhangi bir kelimeyi herhangi bir kısaltma ile birleştirebilir ve aynı zamanda önemli miktarda depolama alanı tasarrufu elde edersiniz.
