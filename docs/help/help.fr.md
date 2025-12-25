@@ -227,34 +227,70 @@ Voici une liste des commandes possibles :
 _Cette touche ne fait rien lorsque l'Affichage de l'Écran est réglé sur "Pavé Virtuel", car toutes les touches pour toutes les fonctions possibles sont déjà disponibles à l’écran._
 
 ## Pavé numérique à l'écran
-Sur les téléphones entièrement tactiles, un pavé numérique complet est disponible et sera activé automatiquement. Si, pour une raison quelconque, votre téléphone n'a pas été détecté comme ayant un écran tactile, activez-le en allant dans Paramètres → Apparence → Disposition à l'écran et en sélectionnant « Pavé numérique virtuel ».
+Sur les appareils exclusivement tactiles, un clavier à l’écran entièrement fonctionnel est disponible et activé automatiquement. Si l’appareil n’est pas détecté comme tactile, il peut être activé manuellement depuis Paramètres → Apparence → Disposition à l’écran en sélectionnant « Pavé numérique virtuel ».
 
-Si vous disposez d'un écran tactile et d'un pavé numérique matériel et préférez avoir plus d'espace à l'écran, désactivez les touches logicielles dans Paramètres → Apparence.
+Sur les appareils disposant à la fois d’un écran tactile et d’un clavier matériel, les touches à l’écran peuvent être désactivées afin de libérer de l’espace. Cette option est disponible dans Paramètres → Apparence.
 
-Il est également recommandé de désactiver le comportement spécial de la touche « Retour » fonctionnant comme « Effacer ». Cette option est utile uniquement pour un clavier matériel. Habituellement, cela se fait automatiquement, mais si ce n'est pas le cas, allez dans Paramètres → Clavier → Sélectionner les raccourcis → Touche Effacer, puis sélectionnez l'option « -- ».
+Il est également recommandé de désactiver le comportement spécial qui associe la touche « Retour » à « Retour arrière », car cela n’est utile que lors de l’utilisation d’un clavier matériel. Cette opération est généralement effectuée automatiquement. Dans le cas contraire, accédez à Paramètres → Clavier → Sélectionner les raccourcis → Touche Retour arrière et sélectionnez l’option « -- ».
+
+### Dispositions à l’écran Retro et Modern
+Deux dispositions de clavier virtuel sont disponibles : Retro et Modern.
+
+La disposition Retro comprend un pavé directionnel (D-pad) avec une touche OK centrale en haut et des touches numériques en dessous, rappelant fortement les claviers des téléphones du début des années 2000. Elle convient aux utilisateurs recherchant une expérience traditionnelle, aux appareils dotés de petits écrans et aux personnes ayant de grands pouces. Elle peut également séduire les utilisateurs familiers avec d’anciennes applications de clavier T9 aujourd’hui abandonnées, telles que Old Keyboard ou Big Old Keyboard.
+
+La disposition Modern conserve l’apparence et le comportement standard d’Android tout en utilisant une disposition de saisie à 12 touches. Elle comporte un bloc central de touches numériques (0–9) pour la saisie de texte, avec des touches de fonction telles que Maj, Retour arrière, changement de langue et OK (Entrée) disposées en colonnes à gauche et à droite.
 
 ### Aperçu des touches virtuelles
-Le clavier à l'écran fonctionne de la même manière que le pavé numérique d'un téléphone avec des touches physiques. Si une touche offre une seule fonction, elle comporte une seule étiquette (ou icône) indiquant cette fonction. Si la touche offre une fonction secondaire lorsque vous la maintenez enfoncée, elle comportera deux étiquettes (ou icônes).
+Le clavier à l’écran fonctionne de la même manière qu’un clavier matériel de téléphone. Les touches ayant une seule fonction affichent une étiquette ou une icône centrale. Les touches disposant d’une fonction supplémentaire par appui long affichent une étiquette ou une icône secondaire dans le coin supérieur droit.
 
-Voici une description des touches ayant plus d'une fonction.
+#### Touches 0–9
+Les touches numériques sont utilisées pour saisir des mots et des chiffres. La disposition Retro permet également des gestes de balayage vers la gauche et vers la droite sur certaines touches. Lorsque ces fonctions sont disponibles, elles sont indiquées par des icônes dans le coin inférieur gauche ou droit de la touche.
 
-#### Touche F2 droite (deuxième touche en partant du haut dans la colonne de droite)
-_Mode prédictif uniquement._
+Dans la version Google Play, les gestes de balayage peuvent être personnalisés ou désactivés pour les dispositions Retro et Modern. Cela peut être configuré depuis Paramètres → Clavier → Fonctions des touches.
 
-- **Appuyer :** Filtre la liste des suggestions. Voir [ci-dessus](#touche-de-filtrage-des-suggestions-par-défaut-flèche-vers-le-haut) pour savoir comment fonctionne le filtrage des mots.
-- **Maintenir enfoncé :** Supprime le filtre, s'il est actif.
+#### Touches de texte personnalisées (« ! » et « ? »)
+Par défaut, ces touches insèrent les signes de ponctuation correspondants. Dans les champs de saisie numériques ou téléphoniques, elles peuvent insérer des caractères alternatifs tels qu’un astérisque, un dièse ou un point décimal.
 
-#### Touche F3 droite (troisième touche en partant du haut dans la colonne de droite)
-- **Appuyer :** Ouvre les options de copier-coller et d'édition de texte.
-- **Maintenir enfoncé :** Active l'entrée vocale.
+Dans la version Google Play, ces touches peuvent être personnalisées. Il est possible de modifier le caractère par défaut et d’assigner des actions aux balayages vers le haut, le bas, la gauche et la droite. Cette configuration s’effectue depuis Paramètres → Clavier → Fonctions des touches.
 
-#### Touche F4 gauche (la touche en bas à gauche)
-- **Appuyer :** Alterne entre les modes de saisie (abc → Prédictif → 123).
-- **Maintenir enfoncé :** Changer la langue de saisie lorsque plusieurs langues ont été activées dans les paramètres.
-- **Balayer horizontalement :** Passe au dernier clavier utilisé, autre que TT9.
-- **Balayer verticalement :** Ouvre la boîte de dialogue de changement de clavier Android où vous pouvez sélectionner parmi tous les claviers installés.
+#### Touche de mode de saisie
+- **Appui :** Fait défiler les modes de saisie (abc → Prédictif → 123).
+- **Appui long :** Change la langue de saisie lorsque plusieurs langues sont activées dans les paramètres.
+- **Balayage horizontal :** Bascule vers le dernier clavier utilisé autre que TT9.
+- **Balayage vertical :** Ouvre la boîte de dialogue Android de changement de clavier, permettant de sélectionner parmi tous les claviers installés.
 
-_La touche affichera une petite icône de globe si vous avez activé plus d'une langue dans Paramètres → Langues. L'icône indique qu'il est possible de changer de langue en maintenant la touche enfoncée._
+La touche affiche une petite icône en forme de globe lorsque plusieurs langues ont été activées depuis Paramètres → Langues. Cette icône indique qu’il est possible de changer de langue en maintenant la touche enfoncée.
+
+_Dans la disposition Retro, il s’agit de la touche en bas à droite._
+
+_Dans la disposition Modern, il s’agit de la touche en bas à gauche._
+
+#### Retour arrière
+Supprime des caractères lorsqu’elle est pressée. Lorsque Paramètres → Clavier → Suppression rapide est activé, un balayage vers l’arrière permet de supprimer le mot précédent.
+
+#### Touche de filtrage
+- **Appui :** Filtre la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up) pour le fonctionnement du filtrage des mots.
+- **Appui long :** Efface le filtre, s’il est actif.
+
+_Cette touche est disponible uniquement dans la disposition Modern. Emplacement : deuxième touche à partir du haut._
+
+_Le filtrage n’est possible qu’en mode prédictif._
+
+#### Outils du presse-papiers / Touche de saisie vocale
+- **Appui :** Ouvre les options de copie, collage et d’édition de texte.
+- **Appui long :** Active la saisie vocale.
+
+_Cette touche est disponible uniquement dans la disposition Modern. Emplacement : troisième touche à partir du haut._
+
+#### Touche OK
+- **Appui :** Équivaut à appuyer sur la touche ENTRÉE des autres claviers.
+
+La disposition Retro permet en outre d’activer des gestes de balayage depuis Paramètres → Apparence → Touches.
+
+- **Balayage vers le haut sans suggestions :** Déplacer le curseur vers le haut (équivalent au D-PAD haut).
+- **Balayage vers le bas sans suggestions :** Déplacer le curseur vers le bas (équivalent au D-PAD bas).
+- **Balayage vers le haut avec suggestions :** Filtrer la liste des suggestions. Voir [ci-dessus](#filter-suggestions-key-default-d-pad-up).
+- **Balayage vers le bas avec suggestions :** Effacer le filtre des suggestions.
 
 ### Redimensionner le panneau du clavier pendant la saisie
 Dans certains cas, vous pouvez trouver que le pavé numérique virtuel occupe trop d'espace à l'écran, vous empêchant de voir ce que vous tapez ou certains éléments de l'application. Si c'est le cas, vous pouvez le redimensionner en maintenant enfoncée et en faisant glisser la touche Paramètres/Palette de commandes ou en faisant glisser la barre d'état (elle affiche la langue ou le mode de saisie actuel). Lorsque la hauteur devient trop petite, la disposition sera automatiquement changée en « touches de fonction » ou en « liste de suggestions uniquement ». Respectivement, en redimensionnant vers le haut, la disposition reviendra au « pavé numérique virtuel ». Vous pouvez également double-cliquer sur la barre d'état pour minimiser ou maximiser instantanément.
@@ -430,12 +466,12 @@ _Si vous avez encore des préoccupations, veuillez consulter la politique de con
 ### J'ai besoin d'utiliser un clavier QWERTY (uniquement pour les appareils tactiles)
 Traditional T9 est un clavier T9 et en tant que tel, il ne propose pas de disposition de type QWERTY.
 
-Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, glisser vers le haut la touche F4 Gauche pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
+Si vous apprenez encore à utiliser T9 et que vous devez parfois revenir en arrière, ou si vous trouvez plus pratique de taper de nouveaux mots en utilisant QWERTY, glisser vers le haut la touche de mode de saisie pour passer à un autre clavier. Pour plus d'informations, voir [l'aperçu des touches virtuelles](#aperçu-des-touches-virtuelles).
 
 La plupart des autres claviers permettent de revenir à Traditional T9 en maintenant la barre d'espace ou la touche « changer de langue ». Consultez la documentation ou le manuel respectif pour plus d'informations.
 
 ### Je ne peux pas changer de langue sur un téléphone tactile
-Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche F4 gauche](#touche-f4-gauche-la-touche-en-bas-à-gauche) pour changer de langue.
+Tout d'abord, assurez-vous d'avoir activé toutes les langues souhaitées dans Paramètres → Langues. Ensuite, maintenez la [touche de mode de saisie](#touche-de-mode-de-saisie) pour changer de langue.
 
 ### Comment ajouter des contractions telles que « I've » ou « don't » au dictionnaire ?
 Toutes les contractions dans toutes les langues sont déjà disponibles sous forme de mots séparés, donc vous n'avez rien à ajouter. Cela offre une flexibilité maximale : vous pouvez combiner n'importe quel mot avec n'importe quelle contraction, et cela permet également de gagner beaucoup d'espace de stockage.

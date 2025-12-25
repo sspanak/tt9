@@ -466,12 +466,12 @@ _Qualora avesse ulteriori dubbi, La invitiamo a consultare l’Informativa sulla
 ### Ho bisogno di usare un layout QWERTY (solo dispositivi touchscreen)
 Traditional T9 è una tastiera T9 e, in quanto tale, non fornisce un layout simile al QWERTY.
 
-Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri verso l'alto il tasto F4 sinistro per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
+Se stai ancora imparando a usare T9 e hai bisogno di tornare indietro occasionalmente, oppure trovi più conveniente digitare nuove parole usando QWERTY, scorri verso l'alto il tasto modalità di input per passare a una tastiera diversa. Vedi [panoramica dei tasti virtuali](#panoramica-dei-tasti-virtuali) per ulteriori informazioni.
 
 La maggior parte delle altre tastiere permette di tornare a Traditional T9 tenendo premuta la barra spaziatrice o il tasto "cambia lingua". Controlla il rispettivo manuale per ulteriori informazioni.
 
 ### Non riesco a cambiare lingua su un telefono touchscreen
-Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto sinistro F4](#tasto-f4-sinistro-il-tasto-in-basso-a-sinistra) per cambiare lingua.
+Innanzitutto, assicurati di aver abilitato tutte le lingue desiderate in Impostazioni → Lingue. Poi tieni premuto il [tasto modalità di input](#tasto-modalità-di-input) per cambiare lingua.
 
 ### Come aggiungere contrazioni come «I've» o «don't» al dizionario?
 Tutte le contrazioni in tutte le lingue sono già disponibili come parole separate, quindi non è necessario aggiungere nulla. Questo garantisce la massima flessibilità: puoi combinare qualsiasi parola con qualsiasi contrazione e risparmiare molto spazio di archiviazione.

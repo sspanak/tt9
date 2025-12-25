@@ -466,12 +466,12 @@ _Sollten dennoch Bedenken bestehen, konsultieren Sie bitte die Datenschutzrichtl
 ### Ich muss ein QWERTY-Layout verwenden (nur Touchscreen-Geräte)
 Traditional T9 ist eine T9-Tastatur und bietet daher kein QWERTY-Layout.
 
-Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die linke F4-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
+Falls Sie noch lernen, T9 zu verwenden, und gelegentlich zurückwechseln müssen, oder es Ihnen praktischer erscheint, neue Wörter über QWERTY einzugeben, wischen Sie die Eingabemodus-Taste nach oben, um zu einer anderen Tastatur zu wechseln. Weitere Informationen finden Sie in der [Übersicht über die virtuellen Tasten](#übersicht-der-virtuellen-tasten). Denken Sie daran, den anderen gegenüber respektvoll zu sein. Hassbeiträge werden nicht toleriert.
 
 Die meisten anderen Tastaturen erlauben das Zurückwechseln zu Traditional T9, indem Sie die Leertaste oder die „Sprache wechseln“-Taste gedrückt halten. Sehen Sie im jeweiligen Handbuch nach.
 
 ### Ich kann die Sprache auf einem Touchscreen-Telefon nicht ändern
-Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [linke F4-Taste](#linke-f4-taste-die-untere-linke-taste), um die Sprache zu ändern.
+Stellen Sie zuerst sicher, dass Sie alle gewünschten Sprachen unter Einstellungen → Sprachen aktiviert haben. Halten Sie dann die [Eingabemodus-Taste](#eingabemodus-taste), um die Sprache zu ändern.
 
 ### Wie fügt man Kontraktionen wie „I've“ oder „don't“ zum Wörterbuch hinzu?
 Alle Kontraktionen in allen Sprachen sind bereits als separate Wörter verfügbar, daher müssen Sie nichts hinzufügen. Dies bietet maximale Flexibilität – Sie können jedes Wort mit jeder Kontraktion kombinieren und gleichzeitig erheblich Speicherplatz sparen.

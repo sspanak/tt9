@@ -466,12 +466,12 @@ _Si aun así tiene alguna inquietud, consulte la Política de Privacidad de la a
 ### Necesito usar un diseño QWERTY (solo dispositivos con pantalla táctil)
 Traditional T9 es un teclado T9 y, como tal, no proporciona un diseño similar a QWERTY.
 
-Si aún estás aprendiendo a usar T9 y necesitas cambiar de vez en cuando, o encuentras más conveniente escribir nuevas palabras usando QWERTY, desliza hacia la tecla F4 izquierda para cambiar a un teclado diferente. Consulta la [visión general de teclas virtuales](#descripción-general-de-las-teclas-virtuales) para obtener más información.
+Si aún estás aprendiendo a usar T9 y necesitas cambiar de vez en cuando, o encuentras más conveniente escribir nuevas palabras usando QWERTY, desliza hacia la tecla de modo de entrada para cambiar a un teclado diferente. Consulta la [visión general de teclas virtuales](#descripción-general-de-las-teclas-virtuales) para obtener más información.
 
 La mayoría de los otros teclados permiten cambiar de nuevo a Traditional T9 manteniendo presionada la barra espaciadora o la tecla de "cambiar idioma". Consulta el respectivo readme o manual para más información.
 
 ### No puedo cambiar el idioma en un teléfono con pantalla táctil
-Primero, asegúrese de haber habilitado todos los idiomas deseados desde Configuración → Idiomas. Luego mantenga pulsada la [tecla izquierda F4](#tecla-f4-izquierda-la-tecla-inferior-izquierda) para cambiar el idioma.
+Primero, asegúrese de haber habilitado todos los idiomas deseados desde Configuración → Idiomas. Luego mantenga pulsada la [tecla de modo de entrada](#tecla-de-modo-de-entrada) para cambiar el idioma.
 
 ### ¿Cómo añadir contracciones como «I've» o «don't» al diccionario?
 Todas las contracciones en todos los idiomas ya están disponibles como palabras separadas, por lo que no es necesario añadir nada. Esto proporciona la máxima flexibilidad: le permite combinar cualquier palabra con cualquier contracción y ahorra una cantidad significativa de espacio de almacenamiento.

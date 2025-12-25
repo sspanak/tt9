@@ -468,12 +468,12 @@ _If you still have any concerns, please refer to the app's Privacy Policy._
 ### I need to use a QWERTY layout (touchscreen devices only)
 Traditional T9 is a T9 keyboard and as such, it does not provide a QWERTY-like layout.
 
-If you are still learning to use T9 and need to switch back occasionally or find it more convenient to type new words using QWERTY, swipe up the Left F4 key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
+If you are still learning to use T9 and need to switch back occasionally or find it more convenient to type new words using QWERTY, swipe up the Input Mode key to switch to a different keyboard. See the [virtual keys overview](#virtual-keys-overview) for more information.
 
 Most other keyboards allow switching back to Traditional T9 by holding the spacebar or the "change language" key. Check the respective readme or manual for more info.
 
 ### I can't change the language on a touchscreen phone
-First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Left F4 key](#input-mode-key) to change the language.
+First, ensure you have enabled all desired languages from Settings → Languages. Then hold the [Input Mode key](#input-mode-key) to change the language.
 
 ### How to add contractions like "I've" or "don't" to the dictionary?
 All contractions in all languages are available as separate words, so you do not need to add anything. This provides maximum flexibility—it allows you to combine any word with any contraction, and saves a significant amount of storage space.

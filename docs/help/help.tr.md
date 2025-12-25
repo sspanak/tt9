@@ -466,12 +466,12 @@ _Hâlâ herhangi bir endişeniz varsa, lütfen uygulamanın Gizlilik Politikası
 ### QWERTY Düzeni Kullanmak İstiyorum (yalnızca dokunmatik ekran cihazları)
 Traditional T9, bir T9 klavyesidir ve bu nedenle QWERTY benzeri bir düzen sağlamaz.
 
-T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için Sol F4 tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
+T9 kullanmayı öğreniyorsanız ve ara sıra geri dönmeniz gerekiyorsa veya yeni kelimeleri QWERTY ile yazmak daha uygun geliyorsa, farklı bir klavyeye geçmek için giriş modu tuşuna yukarı kaydırabilirsiniz. Daha fazla bilgi için [sanal tuşlar genel bakışına](#sanal-tușlara-genel-bakış) bakın.
 
 Çoğu diğer klavye, space tuşuna veya "dil değiştirme" tuşuna basılı tutarak tekrar Traditional T9'a geçiş yapmanıza izin verir. İlgili kılavuz veya kullanım kılavuzuna göz atın.
 
 ### Dokunmatik ekranlı bir telefonda dili değiştiremiyorum
-Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [Sol F4 tuşunu](#sol-f4-tuşu-sol-alt-köşedeki-tuş) basılı tutun.
+Öncelikle Ayarlar → Diller kısmından tüm istediğiniz dilleri etkinleştirdiğinizden emin olun. Ardından, dili değiştirmek için [giriş modu tuşunu](#giriş-modu-tuşu) basılı tutun.
 
 ### “I've” veya “don't” gibi kısaltmalar sözlüğe nasıl eklenir?
 Tüm dillerdeki kısaltmalar zaten ayrı kelimeler olarak mevcut, bu yüzden herhangi bir şey eklemenize gerek yok. Bu maksimum esneklik sağlar — istediğiniz herhangi bir kelimeyi herhangi bir kısaltma ile birleştirebilir ve aynı zamanda önemli miktarda depolama alanı tasarrufu elde edersiniz.
