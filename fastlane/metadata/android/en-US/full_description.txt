@@ -9,7 +9,7 @@ Philosophy:
 - Open-source, permitting you to verify all the above yourself.
 - Created with help from the entire community.
 - Things it will (probably) never have: QWERTY layout, swipe-typing, GIFs, and stickers.
-- Not intended as a clone of Touchpal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
+- Not intended as a clone of TouchPal, Sony Ericsson, KaiOS, Samsung, etc. While it captures the feel of the classics, TT9 offers its own experience and won’t replicate any device or app exactly.
 
 
 Thank you for understanding, and enjoy TT9!
