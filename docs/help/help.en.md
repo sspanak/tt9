@@ -274,7 +274,7 @@ Deletes characters when pressed. When Settings → Keypad → Fast Delete is ena
 
 _The key is available only in the Modern layout. Location: second key from the top._
 
-_Filtering is possible in only Predictive mode._
+_Filtering is possible only in Predictive mode._
 
 #### Clipboard Tools / Voice Input Key
 - **Press:** Open the copy-pasting and text editing options.
