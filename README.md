@@ -10,6 +10,7 @@ This is a modernized version of the [original project](https://github.com/Clam-/
         <td> <img src="screenshots/1.png"> </td>
         <td rowspan="2"> <img src="screenshots/3.png"> </td>
         <td rowspan="2"> <img src="screenshots/4.png"> </td>
+        <td rowspan="2"> <img src="screenshots/7.png"> </td>
         <td rowspan="2"> <img src="screenshots/5.png"> </td>
     </tr>
     <tr>
