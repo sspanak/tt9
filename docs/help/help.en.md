@@ -283,7 +283,7 @@ _Filtering is possible in only Predictive mode._
 _The key is available only in the Modern layout. Location: third key from the top._
 
 #### OK Key
-- **Press:**: Same as pressing the ENTER key on other keyboards.
+- **Press:** Same as pressing the ENTER key on other keyboards.
 
 The Retro layout additionally allows enabling swipe gestures from Settings → Appearance → Keys.
 
