@@ -260,7 +260,7 @@
 	<style name="TTheme.Numpad.TopBar" parent="">
 		<item name="android:gravity">center_horizontal</item>
 		<item name="android:layout_width">match_parent</item>
-		<item name="android:layout_height">@dimen/numpad_suggestion_height</item>
+		<item name="android:layout_height">wrap_content</item>
 		<item name="android:layout_marginTop">@dimen/numpad_status_bar_spacing_top</item>
 		<item name="android:layout_marginBottom">@dimen/numpad_status_bar_spacing_bottom</item>
 	</style>
@@ -268,7 +268,7 @@
 	<!-- status + suggestions container -->
 	<style name="TTheme.Numpad.StatusBar.Wrapper" parent="">
 		<item name="android:layoutDirection">locale</item>
-		<item name="android:layout_height">match_parent</item>
+		<item name="android:layout_height">@dimen/numpad_suggestion_height</item>
 		<item name="android:layout_width">0dp</item>
 		<item name="android:layout_weight">1</item>
 	</style>
@@ -532,9 +532,8 @@
 		Classic Numpad (shares styles with Numpad)
 	*******************************************-->
 
-	<!--*******************************************
-		Classic Blocks and Columns
-	*******************************************-->
+	<!-- Classic Blocks and Columns -->
+
 	<style name="TTheme.Classic.Key.Container" parent="">
 		<item name="android:gravity">bottom</item>
 		<item name="android:layout_width">match_parent</item>
@@ -556,11 +555,8 @@
 	</style>
 
 
-	<!--*******************************************
-		Classic Numpad Key Overlays
-	*******************************************-->
+	<!-- Classic Numpad Key Overlays -->
 
-	<!-- Key Overlay (allows for a central icon and corner labels or icons) -->
 	<style name="TTheme.Classic.Key.Overlay.Wrapper" parent="">
 		<item name="android:layout_gravity">center_vertical</item>
 		<item name="android:layout_height">@dimen/numpad_key_height</item>
