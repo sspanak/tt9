@@ -185,6 +185,7 @@
 	<string name="voice_input_stopping">Désactivation du microphone…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
 	<string name="pref_numpad_alignment">Alignement</string>
+	<string name="tutorial_classic_voice_input">Balayer vers la droite pour activer la saisie vocale.</string>
 	<string name="virtual_numpad_alignment_center">Au milieu</string>
 	<string name="virtual_numpad_alignment_left">À gauche</string>
 	<string name="virtual_numpad_alignment_right">À droite</string>
@@ -250,4 +251,8 @@
 	<string name="pref_double_tap_resize">Double-tapoter pour redimensionner</string>
 	<string name="pref_layout_classic">Pavé numérique (rétro)</string>
 	<string name="pref_arrows_up_down">Flèches haut/bas</string>
+	<string name="tutorial_close">Compris !</string>
+	<string name="tutorial_classic_title">Premiers pas</string>
+	<string name="tutorial_classic_OK_swipe">Lorsqu’il n’y a pas de suggestions, balayer vers le haut/bas pour déplacer le curseur.\n\nLorsqu’il y a des suggestions, balayer vers le haut pour les filtrer ou vers le bas pour effacer le filtre.</string>
+	<string name="tutorial_classic_add_word">Balayer vers la gauche pour ajouter un mot.</string>
 </resources>

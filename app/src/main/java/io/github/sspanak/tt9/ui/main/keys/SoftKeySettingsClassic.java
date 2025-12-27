@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import io.github.sspanak.tt9.commands.CmdBack;
 import io.github.sspanak.tt9.commands.Command;
 
-public class SoftKeySettingsClassic extends SoftKeySettings {
+public class SoftKeySettingsClassic extends SoftKeyTutorial {
 	private final CmdBack back = new CmdBack();
 
 	public SoftKeySettingsClassic(Context context) { super(context); }

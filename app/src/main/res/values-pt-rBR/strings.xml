@@ -189,6 +189,7 @@
 	<string name="voice_input_stopping">Desligando o microfone…</string>
 	<string name="pref_haptic_feedback">Vibração</string>
 	<string name="pref_numpad_alignment">Alinhamento</string>
+	<string name="tutorial_classic_voice_input">Deslize para a direita para ativar a entrada por voz.</string>
 	<string name="virtual_numpad_alignment_center">No meio</string>
 	<string name="virtual_numpad_alignment_left">À esquerda</string>
 	<string name="virtual_numpad_alignment_right">À direita</string>
@@ -257,4 +258,8 @@
 	<string name="pref_double_tap_resize">Toque duplo para redimensionar</string>
 	<string name="pref_layout_classic">Teclado numérico (retrô)</string>
 	<string name="pref_arrows_up_down">Setas para cima/baixo</string>
+	<string name="tutorial_close">Entendi!</string>
+	<string name="tutorial_classic_title">Primeiros passos</string>
+	<string name="tutorial_classic_OK_swipe">Quando não houver sugestões, deslize para cima/baixo para mover o cursor.\n\nQuando houver sugestões, deslize para cima para filtrá-las ou para baixo para limpar o filtro.</string>
+	<string name="tutorial_classic_add_word">Deslize para a esquerda para adicionar uma palavra.</string>
 </resources>

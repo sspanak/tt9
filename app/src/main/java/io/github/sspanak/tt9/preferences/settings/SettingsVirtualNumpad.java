@@ -100,4 +100,24 @@ public class SettingsVirtualNumpad extends SettingsCustomKeyActions {
 
 	public boolean isNumpadShapeLongSpace() { return getNumpadShape() == NUMPAD_SHAPE_LONG_SPACE; }
 	public boolean isNumpadShapeV() { return getNumpadShape() == NUMPAD_SHAPE_V; }
+
+
+	public boolean getTutorialSeen() {
+		if (isMainLayoutClassic()) {
+			return prefs.getBoolean("pref_tutorial_classic_seen", false);
+		} else if (isMainLayoutNumpad()) {
+			return prefs.getBoolean("pref_tutorial_fn_keys_seen", false);
+		} else {
+			return false;
+		}
+	}
+
+
+	public void setTutorialSeen() {
+		if (isMainLayoutClassic()) {
+			getPrefsEditor().putBoolean("pref_tutorial_classic_seen", true).apply();
+		} else if (isMainLayoutNumpad()) {
+			getPrefsEditor().putBoolean("pref_tutorial_fn_keys_seen", true).apply();
+		}
+	}
 }

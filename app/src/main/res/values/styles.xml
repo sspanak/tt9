@@ -570,4 +570,84 @@
 		<item name="android:layout_weight">1</item>
 	</style>
 
+
+	<!--*******************************************
+		Classic Numpad Tutorial
+	*******************************************-->
+
+	<style name="TTheme.Classic.Tutorial" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:orientation">vertical</item>
+		<item name="android:background">@color/tutorial_background_color</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.ConstraintWrapper" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">0dp</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.GuideVertical" parent="">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.GuideVertical.Left">
+		<item name="layout_constraintGuide_percent">0.475</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.GuideVertical.Right">
+		<item name="layout_constraintGuide_percent">0.525</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.KeyboardImage" parent="">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">match_parent</item>
+		<item name="android:scaleType">fitCenter</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.OverlayText" parent="">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_width">0dp</item>
+		<item name="android:padding">8dp</item>
+		<item name="layout_constraintTop_toTopOf">parent</item>
+		<item name="layout_constraintBottom_toBottomOf">parent</item>
+
+		<item name="android:textColor">@color/tutorial_button_text_color</item>
+		<item name="android:background">@color/tutorial_text_balloon_background</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.OverlayText.OK">
+		<item name="layout_constraintStart_toStartOf">parent</item>
+		<item name="layout_constraintEnd_toEndOf">parent</item>
+
+		<item name="layout_constraintVertical_bias">0.3</item>
+		<item name="layout_constraintWidth_percent">0.85</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.OverlayText.AddWord">
+		<item name="android:gravity">start</item>
+		<item name="android:textAlignment">viewStart</item>
+
+		<item name="layout_constraintStart_toStartOf">parent</item>
+		<item name="layout_constraintEnd_toStartOf">@id/guide_left</item>
+		<item name="layout_constraintVertical_bias">1</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.OverlayText.VoiceInput">
+		<item name="android:gravity">end</item>
+		<item name="android:textAlignment">viewEnd</item>
+		<item name="layout_constraintStart_toEndOf">@id/guide_right</item>
+		<item name="layout_constraintEnd_toEndOf">parent</item>
+		<item name="layout_constraintVertical_bias">1</item>
+	</style>
+
+	<style name="TTheme.Classic.Tutorial.Button" parent="Widget.AppCompat.Button">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_margin">16dp</item>
+		<item name="android:layout_gravity">end</item>
+	</style>
 </resources>

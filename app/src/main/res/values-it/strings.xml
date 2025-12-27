@@ -174,6 +174,7 @@
 	<string name="voice_input_stopping">Spegnimento del microfono…</string>
 	<string name="pref_haptic_feedback">Vibrazione</string>
 	<string name="pref_numpad_alignment">Allineamento</string>
+	<string name="tutorial_classic_voice_input">Scorri verso destra per attivare l’input vocale.</string>
 	<string name="virtual_numpad_alignment_center">Al centro</string>
 	<string name="virtual_numpad_alignment_left">A sinistra</string>
 	<string name="virtual_numpad_alignment_right">A destra</string>
@@ -253,5 +254,9 @@
 	<string name="pref_double_tap_resize">Doppio tocco per ridimensionare</string>
 	<string name="pref_layout_classic">Tastierino numerico (retrò)</string>
 	<string name="pref_arrows_up_down">Frecce su/giù</string>
+	<string name="tutorial_close">Ho capito!</string>
+	<string name="tutorial_classic_title">Primi passi</string>
+	<string name="tutorial_classic_OK_swipe">Quando non ci sono suggerimenti, scorri verso l’alto/il basso per spostare il cursore.\n\nQuando ci sono suggerimenti, scorri verso l’alto per filtrarli o verso il basso per rimuovere il filtro.</string>
+	<string name="tutorial_classic_add_word">Scorri verso sinistra per aggiungere una parola.</string>
 </resources>
 

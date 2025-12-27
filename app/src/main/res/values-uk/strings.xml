@@ -198,6 +198,7 @@
 	<string name="voice_input_stopping">Вимикання мікрофона…</string>
 	<string name="pref_haptic_feedback">Вібрація</string>
 	<string name="pref_numpad_alignment">Вирівнювання</string>
+	<string name="tutorial_classic_voice_input">Свайп вправо — увімкнути голосове введення.</string>
 	<string name="virtual_numpad_alignment_center">Посередині</string>
 	<string name="virtual_numpad_alignment_left">Ліворуч</string>
 	<string name="virtual_numpad_alignment_right">Праворуч</string>
@@ -261,4 +262,8 @@
 	<string name="pref_double_tap_resize">Подвійне торкання для зміни розміру</string>
 	<string name="pref_layout_classic">Цифрова клавіатура (ретро)</string>
 	<string name="pref_arrows_up_down">Стрілки вгору/вниз</string>
+	<string name="tutorial_close">Зрозуміло!</string>
+	<string name="tutorial_classic_title">Перші кроки</string>
+	<string name="tutorial_classic_OK_swipe">Коли немає пропозицій, свайп вгору/вниз переміщує курсор.\n\nКоли є пропозиції, свайп вгору фільтрує їх, а свайп вниз очищає фільтр.</string>
+	<string name="tutorial_classic_add_word">Свайп вліво — додати слово.</string>
 </resources>

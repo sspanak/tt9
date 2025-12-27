@@ -173,6 +173,7 @@
 	<string name="voice_input_stopping">Mikrofon ausschalten…</string>
 	<string name="pref_haptic_feedback">Vibration</string>
 	<string name="pref_numpad_alignment">Ausrichtung</string>
+	<string name="tutorial_classic_voice_input">Nach rechts wischen, um die Spracheingabe zu aktivieren.</string>
 	<string name="virtual_numpad_alignment_center">In der Mitte</string>
 	<string name="virtual_numpad_alignment_left">Links</string>
 	<string name="virtual_numpad_alignment_right">Rechts</string>
@@ -252,4 +253,8 @@
 	<string name="pref_double_tap_resize">Durch Doppeltippen die Größe ändern</string>
 	<string name="pref_layout_classic">Ziffernblock (Retro)</string>
 	<string name="pref_arrows_up_down">Pfeile oben/unten</string>
+	<string name="tutorial_close">Verstanden!</string>
+	<string name="tutorial_classic_title">Erste Schritte</string>
+	<string name="tutorial_classic_OK_swipe">Wenn es keine Vorschläge gibt, nach oben/unten wischen, um den Cursor zu bewegen.\n\nWenn Vorschläge vorhanden sind, nach oben wischen, um sie zu filtern, oder nach unten, um den Filter zu entfernen.</string>
+	<string name="tutorial_classic_add_word">Nach links wischen, um ein Wort hinzuzufügen.</string>
 </resources>

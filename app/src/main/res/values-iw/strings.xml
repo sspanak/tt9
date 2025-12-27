@@ -187,6 +187,7 @@
 	<string name="voice_input_stopping">מכבה את המיקרופון…</string>
 	<string name="pref_haptic_feedback">רטט</string>
 	<string name="pref_numpad_alignment">יישור</string>
+	<string name="tutorial_classic_voice_input">החלקה ימינה להפעלת קלט קולי.</string>
 	<string name="virtual_numpad_alignment_center">באמצע</string>
 	<string name="virtual_numpad_alignment_left">שמאלה</string>
 	<string name="virtual_numpad_alignment_right">ימינה</string>
@@ -257,4 +258,8 @@
 	<string name="pref_double_tap_resize">הקשה כפולה לשינוי גודל</string>
 	<string name="pref_layout_classic">לוח ספרות (רטרו)</string>
 	<string name="pref_arrows_up_down">חצים למעלה/למטה</string>
+	<string name="tutorial_close">הבנתי!</string>
+	<string name="tutorial_classic_title">צעדים ראשונים</string>
+	<string name="tutorial_classic_OK_swipe">כאשר אין הצעות, החלקה למעלה/למטה להזזת הסמן.\n\nכאשר יש הצעות, החלקה למעלה לסינון ההצעות או למטה לניקוי הסינון.</string>
+	<string name="tutorial_classic_add_word">החלקה שמאלה כדי להוסיף מילה.</string>
 </resources>
