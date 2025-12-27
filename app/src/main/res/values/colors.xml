@@ -39,4 +39,7 @@
 	<color name="suggestion_selected_background">#8cb7f9</color> <!-- 8ed0fe / 7ecbff / #FFB27E / 73c7ff / 7ecfe2 / 8ac8f1 -->
 	<color name="suggestion_selected_text">#000</color>
 	<color name="suggestion_separator">#888888</color>
+
+	<color name="tutorial_button_background_color">#FFF</color>
+	<color name="tutorial_button_text_color">#000</color>
 </resources>

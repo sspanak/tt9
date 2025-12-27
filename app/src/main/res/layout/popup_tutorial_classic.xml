@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layoutDirection="ltr"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintDimensionRatio="716:1268"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+
+		<ImageView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scaleType="fitCenter"
+			android:src="@drawable/tutorial_classic" />
+
+		<Button
+			style="@style/Widget.AppCompat.Button"
+			android:id="@+id/tutorial_close_button"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:text="@string/tutorial_close"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.95"
+
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.023"
+			app:layout_constraintWidth_percent="0.1" />
+
+		<TextView
+			style="@style/TTheme.Classic.Tutorial.OverlayText"
+			android:text="@string/tutorial_classic_OK_swipe"
+
+			android:layout_width="0dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+
+			app:layout_constraintHorizontal_bias="0.491"
+			app:layout_constraintVertical_bias="0.355"
+			app:layout_constraintWidth_percent="0.85" />
+
+		<TextView
+			style="@style/TTheme.Classic.Tutorial.OverlayText"
+			android:text="@string/tutorial_classic_add_word"
+			android:layout_width="0dp"
+			android:gravity="start"
+
+			android:textAlignment="viewStart"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintEnd_toStartOf="@id/maxWidth80"
+			app:layout_constraintTop_toTopOf="parent"
+
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintVertical_bias="0.976" />
+
+		<TextView
+			style="@style/TTheme.Classic.Tutorial.OverlayText"
+			android:layout_width="0dp"
+			android:text="@string/tutorial_classic_voice_input"
+
+			android:gravity="end"
+			android:textAlignment="viewEnd"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="1.0"
+			app:layout_constraintStart_toEndOf="@id/minWidth20"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.865" />
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/maxWidth80"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.8" />
+
+
+		<androidx.constraintlayout.widget.Guideline
+			android:id="@+id/minWidth20"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			app:layout_constraintGuide_percent="0.2" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

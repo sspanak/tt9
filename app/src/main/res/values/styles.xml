@@ -570,4 +570,14 @@
 		<item name="android:layout_weight">1</item>
 	</style>
 
+	<!-- Classic Numpad Tutorial -->
+
+	<style name="TTheme.Classic.Tutorial.OverlayText" parent="">
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:padding">8dp</item>
+
+		<item name="android:textColor">@color/tutorial_button_text_color</item>
+		<item name="android:background">@color/tutorial_button_background_color</item>
+	</style>
+
 </resources>
