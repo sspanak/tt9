@@ -117,6 +117,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 	}
 
 
+	public boolean isNumericModeDecimal() {
+		return InputModeKind.is123(mInputMode) && inputType.isDecimal();
+	}
+
+
 	public boolean isNumericModeSigned() {
 		return InputModeKind.is123(mInputMode) && inputType.isSignedNumber();
 	}
