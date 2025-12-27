@@ -22,7 +22,11 @@ public class SoftKeySettings extends BaseKeyboardResizeKey {
 
 	@Override
 	protected boolean handleRelease() {
-		return super.handleRelease() || getCommand().run(tt9);
+		if (super.handleRelease()) {
+			return true;
+		}
+
+		return getCommand().run(tt9);
 	}
 
 	@Override

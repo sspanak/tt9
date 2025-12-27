@@ -9,21 +9,16 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 public class BaseKeyboardResizeKey extends BaseSwipeableKey {
 	private ResizableMainView mainView;
 
-	public BaseKeyboardResizeKey(Context context) {
-		super(context);
-		isSwipeable = true;
-	}
-	public BaseKeyboardResizeKey(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		isSwipeable = true;
-	}
-	public BaseKeyboardResizeKey(Context context, AttributeSet attrs, int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		isSwipeable = true;
+	public BaseKeyboardResizeKey(Context context) { super(context); }
+	public BaseKeyboardResizeKey(Context context, AttributeSet attrs) { super(context, attrs); }
+	public BaseKeyboardResizeKey(Context context, AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); }
+
+	protected boolean isSwipeable() {
+		return isDragResizeOn();
 	}
 
 	private boolean isDragResizeOn() {
-		return isSwipeable && tt9 != null && tt9.isDragResizeOn();
+		return tt9 != null && tt9.isDragResizeOn();
 	}
 
 	public void setMainView(ResizableMainView mainView) {
@@ -31,8 +26,8 @@ public class BaseKeyboardResizeKey extends BaseSwipeableKey {
 	}
 
 	@Override protected float getHoldDurationThreshold() { return 1000; } // prevent holding
-	@Override protected float getSwipeXThreshold() { return isDragResizeOn() ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f : Integer.MAX_VALUE; }
-	@Override protected float getSwipeYThreshold() { return isDragResizeOn() ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f : Integer.MAX_VALUE; }
+	@Override protected float getSwipeXThreshold() { return isSwipeable ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) * 0.75f : Integer.MAX_VALUE; }
+	@Override protected float getSwipeYThreshold() { return isSwipeable ? getResources().getDimensionPixelSize(R.dimen.numpad_key_height) / 4.0f : Integer.MAX_VALUE; }
 
 	@Override
 	protected boolean handleRelease() {
@@ -61,31 +56,33 @@ public class BaseKeyboardResizeKey extends BaseSwipeableKey {
 
 	@Override
 	protected String getTopText() {
-		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_up) : "";
+		return isSwipeable ? getContext().getString(R.string.key_dpad_up) : "";
 	}
 
 	@Override
 	protected String getRightText() {
-		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_right) : "";
+		return isSwipeable ? getContext().getString(R.string.key_dpad_right) : "";
 	}
 
 	@Override
 	protected String getBottomText() {
-		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_down) : "";
+		return isSwipeable ? getContext().getString(R.string.key_dpad_down) : "";
 	}
 
 	@Override
 	protected String getLeftText() {
-		return isDragResizeOn() ? getContext().getString(R.string.key_dpad_left) : "";
+		return isSwipeable ? getContext().getString(R.string.key_dpad_left) : "";
 	}
 
 	@Override
 	protected float getCentralIconScale() {
-		return isDragResizeOn() ? super.getCentralIconScale() * 0.9f : super.getCentralIconScale();
+		return isSwipeable ? super.getCentralIconScale() * 0.9f : super.getCentralIconScale();
 	}
 
 	@Override
 	public void render() {
+		resetIconCache();
+		isSwipeable = isSwipeable();
 		resetSwipeThresholds();
 		super.render();
 	}
