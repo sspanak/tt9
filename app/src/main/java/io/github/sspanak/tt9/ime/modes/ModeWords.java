@@ -537,6 +537,7 @@ class ModeWords extends ModeCheonjiin {
 			// emojis and punctuation breaks words, unless there are database matches ('s, qu', по-, etc...)
 			&& digitSequence.contains(seq.CHARS_1_SEQUENCE)
 			&& !digitSequence.equals(seq.CHARS_1_SEQUENCE)
+			&& !digitSequence.equals(seq.CHARS_GROUP_1_SEQUENCE)
 			&& !digitSequence.startsWith(seq.EMOJI_SEQUENCE);
 	}
 
