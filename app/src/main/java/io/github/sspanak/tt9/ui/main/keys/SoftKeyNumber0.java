@@ -57,12 +57,14 @@ public class SoftKeyNumber0 extends SoftKeyNumberSwipeable {
 			return null;
 		}
 
-		if (tt9.isTextEditingActive() || tt9.isNumericModeStrict()) {
+		if (tt9.isTextEditingActive()) {
 			return "";
-		} if (tt9.isNumericModeSigned()) {
+		} else if (tt9.isNumericModeSigned()) {
 			return "+/-";
 		} else if (tt9.isInputModePhone()) {
 			return "+";
+		} else if (tt9.isNumericModeStrict()) {
+			return "";
 		} else if (tt9.isInputModeNumeric() || hasLettersOnAllKeys()) {
 			return CHARS_NUMERIC_MODE;
 		}

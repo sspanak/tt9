@@ -60,8 +60,8 @@ public abstract class TypingHandler extends KeyPadHandler {
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
-		boolean restart = textField.equals(getCurrentInputConnection(), field);
+	protected boolean onStart(EditorInfo field, boolean restarting) {
+		boolean restart = restarting || textField.equals(getCurrentInputConnection(), field);
 
 		setInputField(field);
 

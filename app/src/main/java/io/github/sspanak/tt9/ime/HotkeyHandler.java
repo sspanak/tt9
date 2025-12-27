@@ -219,6 +219,10 @@ public abstract class HotkeyHandler extends CommandHandler {
 
 
 	public boolean onKeyMoveCursor(int direction) {
+		suggestionOps.cancelDelayedAccept();
+		mInputMode.onAcceptSuggestion(suggestionOps.acceptIncomplete());
+		resetKeyRepeat();
+
 		final boolean backward = direction == CmdMoveCursor.CURSOR_MOVE_LEFT;
 
 		if (textSelection.isEmpty()) {

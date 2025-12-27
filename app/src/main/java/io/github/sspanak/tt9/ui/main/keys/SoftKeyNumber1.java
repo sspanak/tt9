@@ -46,7 +46,7 @@ public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 
 	@Override
 	public boolean isHoldEnabled() {
-		return tt9 != null && tt9.getSettings().getHoldToType() && !tt9.isNumericModeStrict();
+		return tt9 != null && tt9.getSettings().getHoldToType();
 	}
 
 
@@ -56,7 +56,7 @@ public class SoftKeyNumber1 extends SoftKeyNumberSwipeable {
 			return super.getHoldText();
 		}
 
-		if (tt9 == null || !isHoldEnabled() || getHoldCommand() != null) {
+		if (tt9 == null || !isHoldEnabled() || getHoldCommand() != null || (tt9.isNumericModeStrict() && !tt9.isNumericModeDecimal())) {
 			return null;
 		}
 

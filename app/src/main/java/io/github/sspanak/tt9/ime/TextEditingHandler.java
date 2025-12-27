@@ -13,10 +13,10 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
+	protected boolean onStart(EditorInfo field, boolean restarting) {
 		detectRTL();
 		suggestionOps.setLanguage(LanguageCollection.getLanguage(settings.getInputLanguage()));
-		return super.onStart(field);
+		return super.onStart(field, restarting);
 	}
 
 

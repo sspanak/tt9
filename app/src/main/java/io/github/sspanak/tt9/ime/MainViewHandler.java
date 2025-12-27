@@ -37,10 +37,10 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
+	protected boolean onStart(EditorInfo field, boolean restarting) {
 		resetNormalizedDimensions();
 		dragResize = settings.getDragResize();
-		return super.onStart(field);
+		return super.onStart(field, restarting);
 	}
 
 
@@ -114,6 +114,11 @@ abstract public class MainViewHandler extends HotkeyHandler {
 
 	public boolean isNumericModeStrict() {
 		return InputModeKind.is123(mInputMode) && inputType.isNumeric() && !inputType.isPhoneNumber();
+	}
+
+
+	public boolean isNumericModeDecimal() {
+		return InputModeKind.is123(mInputMode) && inputType.isDecimal();
 	}
 
 
