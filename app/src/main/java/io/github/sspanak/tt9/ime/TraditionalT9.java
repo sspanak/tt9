@@ -66,13 +66,13 @@ public class TraditionalT9 extends PremiumHandler {
 			LOG_TAG,
 			"===> Start Up; packageName: " + inputField.packageName + " inputType: " + inputField.inputType + " actionId: " + inputField.actionId + " imeOptions: " + inputField.imeOptions + " privateImeOptions: " + inputField.privateImeOptions + " extras: " + inputField.extras
 		);
-		onStart(inputField);
+		onStart(inputField, restarting);
 	}
 
 
 	@Override
 	public void onStartInputView(EditorInfo inputField, boolean restarting) {
-		onStart(inputField);
+		onStart(inputField, restarting);
 	}
 
 
@@ -118,7 +118,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 
 	@Override
-	protected boolean onStart(EditorInfo field) {
+	protected boolean onStart(EditorInfo field, boolean restarting) {
 		Logger.setLevel(settings.getLogLevel());
 
 		if (SystemSettings.isTT9Selected(this)) {
@@ -143,7 +143,7 @@ public class TraditionalT9 extends PremiumHandler {
 
 		AppHacks.onStart(settings, field);
 
-		if (isDead || !super.onStart(field)) {
+		if (isDead || !super.onStart(field, restarting)) {
 			getDisplayTextCase();
 			setStatusIcon(mInputMode, mLanguage);
 			return false;
