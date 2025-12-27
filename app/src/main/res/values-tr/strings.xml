@@ -189,6 +189,7 @@
 	<string name="voice_input_stopping">Mikrofon kapatılıyor…</string>
 	<string name="pref_haptic_feedback">Titreşim</string>
 	<string name="pref_numpad_alignment">Hizalama</string>
+	<string name="tutorial_classic_voice_input">Sesli girişi etkinleştirmek için sağa kaydırın.</string>
 	<string name="virtual_numpad_alignment_center">Ortada</string>
 	<string name="virtual_numpad_alignment_left">Sola</string>
 	<string name="virtual_numpad_alignment_right">Sağa</string>
@@ -255,4 +256,8 @@
 	<string name="pref_double_tap_resize">Yeniden boyutlandırmak için çift dokunma</string>
 	<string name="pref_layout_classic">Sayısal tuş takımı (retro)</string>
 	<string name="pref_arrows_up_down">Yukarı/aşağı oklar</string>
+	<string name="tutorial_close">Anladım!</string>
+	<string name="tutorial_classic_title">İlk adımlar</string>
+	<string name="tutorial_classic_OK_swipe">Öneri yokken, imleci hareket ettirmek için yukarı/aşağı kaydırın.\n\nÖneriler varken, filtrelemek için yukarı, filtreyi temizlemek için aşağı kaydırın.</string>
+	<string name="tutorial_classic_add_word">Bir kelime eklemek için sola kaydırın.</string>
 </resources>

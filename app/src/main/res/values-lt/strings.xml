@@ -196,6 +196,7 @@
 	<string name="voice_input_stopping">Išjungiamas mikrofonas…</string>
 	<string name="pref_haptic_feedback">Vibracija</string>
 	<string name="pref_numpad_alignment">Lygiavimas</string>
+	<string name="tutorial_classic_voice_input">Braukite dešinėn, kad įjungtumėte balso įvestį.</string>
 	<string name="virtual_numpad_alignment_center">Centre</string>
 	<string name="virtual_numpad_alignment_left">Kairėje</string>
 	<string name="virtual_numpad_alignment_right">Dešinėje</string>
@@ -259,4 +260,8 @@
 	<string name="pref_double_tap_resize">Dvigubas bakstelėjimas dydžiui keisti</string>
 	<string name="pref_layout_classic">Skaičių klaviatūra (retro)</string>
 	<string name="pref_arrows_up_down">Rodyklės aukštyn/žemyn</string>
+	<string name="tutorial_close">Supratau!</string>
+	<string name="tutorial_classic_title">Pirmieji žingsniai</string>
+	<string name="tutorial_classic_OK_swipe">Kai nėra pasiūlymų, braukite aukštyn/žemyn, kad perkeltumėte žymeklį.\n\nKai yra pasiūlymų, braukite aukštyn, kad juos filtruotumėte, arba žemyn, kad išvalytumėte filtrą.</string>
+	<string name="tutorial_classic_add_word">Braukite kairėn, kad pridėtumėte žodį.</string>
 </resources>

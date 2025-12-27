@@ -175,6 +175,7 @@
 	<string name="voice_input_stopping">Microfoon uitschakelen…</string>
 	<string name="pref_haptic_feedback">Trilling</string>
 	<string name="pref_numpad_alignment">Uitlijning</string>
+	<string name="tutorial_classic_voice_input">Veeg naar rechts om spraakinvoer te activeren.</string>
 	<string name="virtual_numpad_alignment_center">In het midden</string>
 	<string name="virtual_numpad_alignment_left">Links</string>
 	<string name="virtual_numpad_alignment_right">Rechts</string>
@@ -251,4 +252,8 @@
 	<string name="pref_double_tap_resize">Dubbel tikken om te vergroten/verkleinen</string>
 	<string name="pref_layout_classic">Numpad (retro)</string>
 	<string name="pref_arrows_up_down">Pijlen omhoog/omlaag</string>
+	<string name="tutorial_close">Begrepen!</string>
+	<string name="tutorial_classic_title">Eerste stappen</string>
+	<string name="tutorial_classic_OK_swipe">Wanneer er geen suggesties zijn, veeg omhoog/omlaag om de cursor te verplaatsen.\n\nWanneer er suggesties zijn, veeg omhoog om ze te filteren of omlaag om het filter te wissen.</string>
+	<string name="tutorial_classic_add_word">Veeg naar links om een woord toe te voegen.</string>
 </resources>

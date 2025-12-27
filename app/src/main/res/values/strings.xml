@@ -277,6 +277,12 @@
 	<string name="char_newline">New Line</string>
 	<string name="char_space">Space</string>
 
+	<string name="tutorial_close">Got it!</string>
+	<string name="tutorial_classic_title">First Steps</string>
+	<string name="tutorial_classic_OK_swipe">When no suggestions, swipe up/down to move the cursor.\n\nWhen there are suggestions, swipe up to filter them, or swipe down to clear the filter.</string>
+	<string name="tutorial_classic_add_word">Swipe left to add a word.</string>
+	<string name="tutorial_classic_voice_input">Swipe right to activate voice input.</string>
+
 	<string name="virtual_numpad_alignment_center">Middle</string>
 	<string name="virtual_numpad_alignment_left">Left</string>
 	<string name="virtual_numpad_alignment_right">Right</string>

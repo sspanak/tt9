@@ -186,6 +186,7 @@
 	<string name="pref_haptic_feedback_summary">Вибрация при натискане на виртуален клавиш. (Не е възможно на всички устройства)</string>
 	<string name="pref_haptic_feedback">Вибрация</string>
 	<string name="pref_numpad_alignment">Подравняване</string>
+	<string name="tutorial_classic_voice_input">Плъзнете надясно, за да активирате гласово въвеждане.</string>
 	<string name="virtual_numpad_alignment_center">В средата</string>
 	<string name="virtual_numpad_alignment_left">Вляво</string>
 	<string name="virtual_numpad_alignment_right">Вдясно</string>
@@ -250,4 +251,8 @@
 	<string name="pref_double_tap_resize">Оразмеряване чрез двойно докосване</string>
 	<string name="pref_layout_classic">Цифрова клавиатура (ретро)</string>
 	<string name="pref_arrows_up_down">Стрелки нагоре/надолу</string>
+	<string name="tutorial_close">Разбрах!</string>
+	<string name="tutorial_classic_title">Първи стъпки</string>
+	<string name="tutorial_classic_OK_swipe">Когато няма предложения, плъзнете нагоре/надолу, за да преместите курсора.\n\nКогато има предложения, плъзнете нагоре, за да ги филтрирате, или надолу, за да изчистите филтъра.</string>
+	<string name="tutorial_classic_add_word">Плъзнете наляво, за да добавите дума.</string>
 </resources>
