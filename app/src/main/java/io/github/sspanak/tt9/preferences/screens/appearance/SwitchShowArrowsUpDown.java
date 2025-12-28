@@ -12,7 +12,7 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 
 public class SwitchShowArrowsUpDown extends SwitchWhenVisibleLayout {
 	public final static String NAME = "pref_arrows_up_down";
-	public final static boolean DEFAULT = false;
+	public final static boolean DEFAULT = true;
 
 	public SwitchShowArrowsUpDown(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) { super(context, attrs, defStyleAttr, defStyleRes); init(); }
 	public SwitchShowArrowsUpDown(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) { super(context, attrs, defStyleAttr); init(); }

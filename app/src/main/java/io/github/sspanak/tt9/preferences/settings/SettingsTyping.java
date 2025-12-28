@@ -20,10 +20,10 @@ class SettingsTyping extends SettingsPunctuation {
 		return time > 0 ? time + getKeyPadDebounceTime() : time;
 	}
 	public boolean getAutoSpaceAbc() {
-		return prefs.getBoolean("auto_space_abc", false);
+		return prefs.getBoolean("auto_space_abc_v2", true);
 	}
 	public boolean getAutoTextCaseAbc() {
-		return prefs.getBoolean("auto_text_case_abc", false);
+		return prefs.getBoolean("auto_text_case_abc_v2", true);
 	}
 
 	public boolean getAutoSpacePredictive() { return prefs.getBoolean("auto_space_predictive", true); }
