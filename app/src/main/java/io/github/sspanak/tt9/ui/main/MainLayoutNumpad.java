@@ -1,5 +1,6 @@
 package io.github.sspanak.tt9.ui.main;
 
+import android.content.res.Resources;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -29,6 +30,12 @@ class MainLayoutNumpad extends MainLayoutClassic {
 
 	MainLayoutNumpad(TraditionalT9 tt9) {
 		super(tt9, R.layout.main_numpad);
+	}
+
+
+	@Override
+	protected int getStatusBarHeight(@NonNull Resources resources, @NonNull SettingsStore settings) {
+		return resources.getDimensionPixelSize(R.dimen.numpad_status_bar_spacing_bottom) + resources.getDimensionPixelSize(R.dimen.numpad_suggestion_height);
 	}
 
 
