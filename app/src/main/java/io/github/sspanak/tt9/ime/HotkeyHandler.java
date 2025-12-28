@@ -451,7 +451,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || undo();
+		if (validateOnly) {
+			return true;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptCurrent();
+
+		return undo();
 	}
 
 
@@ -460,7 +467,14 @@ public abstract class HotkeyHandler extends CommandHandler {
 			return false;
 		}
 
-		return validateOnly || redo();
+		if (validateOnly) {
+			return true;
+		}
+
+		suggestionOps.cancelDelayedAccept();
+		suggestionOps.acceptCurrent();
+
+		return redo();
 	}
 
 

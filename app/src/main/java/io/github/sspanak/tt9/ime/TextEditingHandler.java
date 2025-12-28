@@ -2,6 +2,8 @@ package io.github.sspanak.tt9.ime;
 
 import android.view.inputmethod.EditorInfo;
 
+import java.util.LinkedList;
+
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
 import io.github.sspanak.tt9.languages.LanguageKind;
@@ -48,6 +50,10 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	private void onCommand(int key) {
+		if (!suggestionOps.isEmpty() && key != 9) {
+			suggestionOps.acceptCurrent();
+		}
+
 		switch (key) {
 			case 0:
 				if (!InputModeKind.isNumeric(mInputMode)) {
@@ -117,13 +123,19 @@ abstract public class TextEditingHandler extends VoiceHandler {
 
 
 	private void paste() {
-		String clipboardText = Clipboard.paste(this);
-		if (clipboardText.isEmpty()) {
+		if (!suggestionOps.isEmpty()) {
+			suggestionOps.clear();
+			return;
+		}
+
+		LinkedList<CharSequence> clips = Clipboard.getAll(this);
+		if (clips.isEmpty()) {
 			return;
 		}
 
 		mInputMode.reset();
-		textField.setText(clipboardText);
+		suggestionOps.setClipboardItems(clips);
+		appHacks.setComposingTextWithHighlightedStem(suggestionOps.getCurrent(), null, false);
 	}
 
 
@@ -148,8 +160,9 @@ abstract public class TextEditingHandler extends VoiceHandler {
 			return false;
 		}
 
-		mainView.showKeyboard();
 		Clipboard.clearListener(this);
+		suggestionOps.acceptCurrent();
+		mainView.showKeyboard();
 		resetStatus();
 		return true;
 	}

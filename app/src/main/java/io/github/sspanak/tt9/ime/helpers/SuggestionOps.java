@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.languages.Language;
@@ -19,6 +20,7 @@ import io.github.sspanak.tt9.ui.tray.SuggestionsBar;
 import io.github.sspanak.tt9.util.ConsumerCompat;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.chars.Characters;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionOps {
 	@NonNull private final Handler delayedAcceptHandler;
@@ -83,6 +85,7 @@ public class SuggestionOps {
 		textField.finishComposingText();
 	}
 
+
 	public void set(ArrayList<String> suggestions) {
 		if (suggestionBar != null) {
 			suggestionBar.setMany(suggestions, 0, false);
@@ -109,6 +112,19 @@ public class SuggestionOps {
 		if (statusBar != null) {
 			statusBar.setShown(suggestions == null || suggestions.isEmpty());
 		}
+	}
+
+
+	public void setClipboardItems(LinkedList<CharSequence> clips) {
+		ArrayList<String> clipStrings = new ArrayList<>(clips.size());
+		for (int i = clips.size() - 1; i >= 0; i--) {
+			String preview = Clipboard.getPreview(i, SuggestionsBar.CLIPBOARD_SUGGESTION_SUFFIX);
+			if (preview != null) {
+				clipStrings.add(preview);
+			}
+		}
+
+		set(clipStrings);
 	}
 
 
