@@ -12,7 +12,6 @@ import io.github.sspanak.tt9.ui.dialogs.AddWordDialog;
 import io.github.sspanak.tt9.ui.dialogs.ChangeLanguageDialog;
 import io.github.sspanak.tt9.util.Logger;
 import io.github.sspanak.tt9.util.Ternary;
-import io.github.sspanak.tt9.util.sys.Clipboard;
 import io.github.sspanak.tt9.util.sys.DeviceInfo;
 import io.github.sspanak.tt9.util.sys.SystemSettings;
 
@@ -78,16 +77,11 @@ abstract public class CommandHandler extends TextEditingHandler {
 	protected void resetStatus() {
 		if (mainView.isCommandPaletteShown()) {
 			statusBar.setText(R.string.commands_select_command);
-			return;
+		} else if (mainView.isTextEditingPaletteShown()) {
+			statusBar.setText(R.string.commands_select_command);
+		} else {
+			statusBar.setText(mInputMode);
 		}
-
-		if (mainView.isTextEditingPaletteShown()) {
-			String preview = Clipboard.getPreview(this);
-			statusBar.setText(preview.isEmpty() ? getString(R.string.commands_select_command) : "[ \"" + preview + "\" ]");
-			return;
-		}
-
-		statusBar.setText(mInputMode);
 	}
 
 

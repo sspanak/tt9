@@ -27,8 +27,10 @@ import io.github.sspanak.tt9.ui.main.ResizableMainView;
 import io.github.sspanak.tt9.util.Text;
 import io.github.sspanak.tt9.util.TextTools;
 import io.github.sspanak.tt9.util.chars.Characters;
+import io.github.sspanak.tt9.util.sys.Clipboard;
 
 public class SuggestionsBar {
+	public static final String CLIPBOARD_SUGGESTION_SUFFIX = "\u200B...\u200B";
 	public static final String SHOW_GROUP_0_SUGGESTION = "(…\u200A)";
 	public static final String SHOW_GROUP_1_SUGGESTION = "(…\u200B)";
 
@@ -164,6 +166,11 @@ public class SuggestionsBar {
 	@NonNull
 	public String get(int id) {
 		String suggestion = getRaw(id);
+
+		// clipboard abbreviated suggestion
+		if (suggestion.endsWith(CLIPBOARD_SUGGESTION_SUFFIX) && suggestions != null) {
+			suggestion = Clipboard.get(suggestions.size() - id - 1);
+		}
 
 		// show more...
 		if (suggestion.equals(SHOW_MORE_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_1_SUGGESTION) || suggestion.equalsIgnoreCase(SHOW_GROUP_0_SUGGESTION)) {
