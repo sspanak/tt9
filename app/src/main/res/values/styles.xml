@@ -554,6 +554,26 @@
 		<item name="android:orientation">vertical</item>
 	</style>
 
+	<!-- Classic Status Bar -->
+
+	<style name="TTheme.Classic.StatusBar.Wrapper" parent="">
+		<item name="android:layoutDirection">locale</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:minHeight">@dimen/numpad_suggestion_min_width</item>
+	</style>
+
+	<style name="TTheme.Classic.StatusBar.SuggestionList.Item" parent="">
+		<item name="android:gravity">center</item>
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:minWidth">@dimen/numpad_suggestion_min_width</item>
+		<item name="android:minHeight">@dimen/numpad_suggestion_min_width</item>
+		<item name="android:paddingLeft">@dimen/main_small_suggestion_spacing_horizontal</item>
+		<item name="android:paddingRight">@dimen/main_small_suggestion_spacing_horizontal</item>
+
+		<item name="android:textSize">@dimen/numpad_suggestion_text_size</item>
+	</style>
 
 	<!-- Classic Numpad Key Overlays -->
 

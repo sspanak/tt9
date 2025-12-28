@@ -7,8 +7,8 @@
 	android:focusableInTouchMode="false">
 
 	<TextView
-		android:id="@+id/suggestion_list_item"
 		style="@style/TTheme.MainSmall.StatusBar.SuggestionList.Item"
+		android:id="@+id/suggestion_list_item"
 		android:defaultFocusHighlightEnabled="false"
 		android:focusable="false"
 		android:focusableInTouchMode="false"
