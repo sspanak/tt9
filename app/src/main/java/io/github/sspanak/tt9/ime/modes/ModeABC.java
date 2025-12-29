@@ -176,7 +176,7 @@ class ModeABC extends InputMode {
 
 
 	@Override public void onAcceptSuggestion(@NonNull String w) { reset(); }
-	@Override public boolean shouldAcceptPreviousSuggestion(String w) { return !shouldSelectNextLetter; }
+	@Override public boolean shouldAcceptPreviousSuggestion(String word) { return !shouldSelectNextLetter && !Characters.PLACEHOLDER.equals(word); }
 	@Override public boolean shouldSelectNextSuggestion() { return shouldSelectNextLetter; }
 
 
