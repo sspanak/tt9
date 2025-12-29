@@ -22,24 +22,24 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class VoiceInputOps {
 	private final static String LOG_TAG = VoiceInputOps.class.getSimpleName();
 
-	private final Context ims;
-	private final HashMap<Integer, Boolean> isOfflineModeDisabled;
-	private Language language;
-	private final VoiceListener listener;
-	private final SpeechRecognizerSupportLegacy recognizerSupport;
-	private SpeechRecognizer speechRecognizer;
+	@NonNull private final Context ims;
+	@NonNull private final HashMap<Integer, Boolean> isOfflineModeDisabled;
+	@Nullable private Language language;
+	@NonNull private final VoiceListener listener;
+	@NonNull private final SpeechRecognizerSupportLegacy recognizerSupport;
+	@Nullable private SpeechRecognizer speechRecognizer;
 
-	private final ConsumerCompat<String> onStopListening;
-	private final ConsumerCompat<String> onPartialResult;
-	private final ConsumerCompat<VoiceInputError> onListeningError;
+	@NonNull private final ConsumerCompat<String> onStopListening;
+	@NonNull private final ConsumerCompat<String> onPartialResult;
+	@NonNull private final ConsumerCompat<VoiceInputError> onListeningError;
 
 
 	public VoiceInputOps(
 		@NonNull Context ims,
-		Runnable onStart,
-		ConsumerCompat<String> onStop,
-		ConsumerCompat<String> onPartial,
-		ConsumerCompat<VoiceInputError> onError
+		@Nullable Runnable onStart,
+		@Nullable ConsumerCompat<String> onStop,
+		@Nullable ConsumerCompat<String> onPartial,
+		@Nullable ConsumerCompat<VoiceInputError> onError
 	) {
 		isOfflineModeDisabled = new HashMap<>();
 		listener = new VoiceListener(ims, onStart, this::onStop, this::onPartial, this::onError);
@@ -123,6 +123,11 @@ public class VoiceInputOps {
 
 
 	private void listen() {
+		if (language == null) {
+			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_INVALID_LANGUAGE));
+			return;
+		}
+
 		if (!isAvailable()) {
 			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
 			return;
@@ -134,6 +139,11 @@ public class VoiceInputOps {
 		}
 
 		createRecognizer(language);
+
+		if (speechRecognizer == null) {
+			onListeningError.accept(new VoiceInputError(ims, VoiceInputError.ERROR_NOT_AVAILABLE));
+			return;
+		}
 
 		String locale = getLocale(language);
 
@@ -149,7 +159,7 @@ public class VoiceInputOps {
 
 	public void stop() {
 		this.language = null;
-		if (isAvailable() && isListening()) {
+		if (speechRecognizer != null && isAvailable() && isListening()) {
 			speechRecognizer.stopListening();
 		}
 	}
@@ -198,13 +208,13 @@ public class VoiceInputOps {
 	}
 
 
-	private void onStop(ArrayList<String> results) {
+	private void onStop(@NonNull ArrayList<String> results) {
 		destroy();
 		onStopListening.accept(results.isEmpty() ? null : results.get(0));
 	}
 
 
-	private void onPartial(ArrayList<String> results) {
+	private void onPartial(@NonNull ArrayList<String> results) {
 		if (!results.isEmpty()) {
 			onPartialResult.accept(results.get(0));
 		}
