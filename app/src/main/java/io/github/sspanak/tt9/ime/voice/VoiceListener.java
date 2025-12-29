@@ -6,6 +6,7 @@ import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -15,17 +16,17 @@ class VoiceListener implements RecognitionListener {
 	private boolean listening = false;
 
 	@NonNull private final Context context;
-	private final Runnable onStart;
-	private final ConsumerCompat<ArrayList<String>> onStop;
-	private final ConsumerCompat<ArrayList<String>> onPartial;
-	private final ConsumerCompat<VoiceInputError> onError;
+	@NonNull private final Runnable onStart;
+	@NonNull private final ConsumerCompat<ArrayList<String>> onStop;
+	@NonNull private final ConsumerCompat<ArrayList<String>> onPartial;
+	@NonNull private final ConsumerCompat<VoiceInputError> onError;
 
 	VoiceListener(
 		@NonNull Context context,
-		Runnable onStart,
-		ConsumerCompat<ArrayList<String>> onStop,
-		ConsumerCompat<ArrayList<String>> onPartial,
-		ConsumerCompat<VoiceInputError> onError
+		@Nullable Runnable onStart,
+		@Nullable ConsumerCompat<ArrayList<String>> onStop,
+		@Nullable ConsumerCompat<ArrayList<String>> onPartial,
+		@Nullable ConsumerCompat<VoiceInputError> onError
 	) {
 		this.context = context;
 		this.onStart = onStart != null ? onStart : () -> {};
