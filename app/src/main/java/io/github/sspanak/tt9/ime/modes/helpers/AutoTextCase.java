@@ -71,7 +71,7 @@ public class AutoTextCase {
 	 * one. We use very similar, but not exactly the same logic, due to the lack of real words, and
 	 * dictionary context.
 	 */
-	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, @Nullable String beforeCursor) {
+	public int determineNextLetterTextCase(@NonNull Language language, int textFieldTextCase, int modeTextCase, @Nullable String beforeCursor) {
 		final int settingsTextCase = settings.getTextCase();
 
 		if (isSpecialized || settingsTextCase == InputMode.CASE_UPPER || !language.hasUpperCase()) {
@@ -94,7 +94,7 @@ public class AutoTextCase {
 		}
 
 		// beginning of a new word in a text field that requires capitalization
-		if (textFieldTextCase == InputMode.CASE_CAPITALIZE && !Text.isNextToWord(beforeCursor)) {
+		if ((textFieldTextCase == InputMode.CASE_CAPITALIZE || modeTextCase == InputMode.CASE_CAPITALIZE) && !Text.isNextToWord(beforeCursor)) {
 			return InputMode.CASE_UPPER;
 		}
 
