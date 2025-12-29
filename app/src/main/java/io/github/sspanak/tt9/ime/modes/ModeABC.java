@@ -93,8 +93,25 @@ class ModeABC extends InputMode {
 	@Override
 	public void determineNextWordTextCase(@Nullable String beforeCursor, int nextDigit) {
 		if (settings.getAutoTextCaseAbc()) {
-			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, beforeCursor);
+			textCase = autoTextCase.determineNextLetterTextCase(language, textFieldTextCase, textCase, beforeCursor);
 		}
+	}
+
+
+	@Override
+	public boolean nextTextCase(@Nullable String currentWord, int displayTextCase) {
+		if (suggestions.isEmpty()) {
+			return super.nextTextCase(currentWord, displayTextCase);
+		}
+
+		for (int newTextCase : allowedTextCases) {
+			if (newTextCase != textCase && newTextCase != InputMode.CASE_CAPITALIZE) {
+				textCase = newTextCase;
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 
@@ -102,6 +119,7 @@ class ModeABC extends InputMode {
 	public void skipNextTextCaseDetection() {
 		autoTextCase.skipNext();
 	}
+
 
 	/******** AUTO-SPACE ********/
 	@Override
