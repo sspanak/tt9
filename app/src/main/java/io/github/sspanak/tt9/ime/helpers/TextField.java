@@ -24,19 +24,17 @@ import io.github.sspanak.tt9.util.Text;
 
 public class TextField extends InputField {
 	@NonNull private CharSequence composingText = "";
-	private final boolean isComposingSupported;
+
+	private boolean isComposingSupported;
 	private final boolean isNonText;
 	private final boolean isUs;
 
 
-	public TextField(@Nullable InputMethodService ims, SettingsStore settings, EditorInfo inputField) {
+	public TextField(@Nullable InputMethodService ims, EditorInfo inputField) {
 		super(ims, inputField);
 
 		InputType inputType = new InputType(ims, inputField);
-		isComposingSupported =
-			!inputType.isNumeric() && !inputType.isLimited() // unsupported input fields
-			&& !inputType.isRustDesk() && !inputType.isRedditSearchField() // stupid apps
-			&& (settings == null || settings.getAllowComposingText()); // disabled in settings
+		isComposingSupported = !inputType.isNumeric() && !inputType.isLimited() && !inputType.isRustDesk(); // unsupported input fields
 		isNonText = !inputType.isText();
 		isUs = inputType.isUs();
 	}
@@ -227,6 +225,11 @@ public class TextField extends InputField {
 		connection.commitText(" " + word, 1);
 
 		connection.endBatchEdit();
+	}
+
+
+	public void disableComposing() {
+		isComposingSupported = false;
 	}
 
 

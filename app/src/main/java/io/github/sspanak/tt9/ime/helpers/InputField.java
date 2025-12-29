@@ -4,6 +4,7 @@ import android.inputmethodservice.InputMethodService;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -15,13 +16,25 @@ import io.github.sspanak.tt9.util.sys.DeviceInfo;
 public class InputField {
 	public static final int IME_ACTION_ENTER = EditorInfo.IME_MASK_ACTION + 1;
 
+	@NonNull public final String id;
 	@Nullable protected final InputMethodService ims;
 	@Nullable protected final EditorInfo field;
 
 
 	protected InputField(@Nullable InputMethodService ims, @Nullable EditorInfo inputField) {
+		id = generateId(inputField);
 		this.ims = ims;
 		field = inputField;
+	}
+
+
+	@NonNull
+	private static String generateId(@Nullable EditorInfo inputField) {
+		if (inputField == null) {
+			return "";
+		}
+
+		return inputField.packageName + ":" + inputField.inputType + ":" + inputField.imeOptions;
 	}
 
 
@@ -34,7 +47,7 @@ public class InputField {
 	public boolean equals(InputConnection inputConnection, EditorInfo inputField) {
 		return
 			inputConnection != null && inputConnection == getConnection()
-			&& field != null && field == inputField;
+			&& id.equals(generateId(inputField));
 	}
 
 

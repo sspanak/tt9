@@ -30,7 +30,6 @@
 	<string name="pref_abc_auto_accept_fast">Snel</string>
 	<string name="pref_abc_auto_accept_normal">Gematigd</string>
 	<string name="pref_abc_auto_accept_slow">Langzaam</string>
-	<string name="pref_allow_composing_text_summary">Woorden weergeven in tekstvelden tijdens het typen. Uitschakelen wanneer een app het typen onderbreekt.</string>
 	<string name="pref_alternative_suggestion_scrolling">Alternatieve suggestiescrolmethode</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Inschakelen als je soms niet alle suggesties kunt zien of problemen hebt met het scrollen.</string>
 	<string name="pref_arrows_left_right">Pijlen links/rechts</string>
@@ -143,6 +142,7 @@
 	<string name="pref_double_zero_char">Teken bij dubbelklikken op toets \"0\"</string>
 	<string name="pref_hack_always_on_top">Altijd bovenaan</string>
 	<string name="pref_hack_always_on_top_summary">Andere applicaties niet toestaan om %1$s te bedekken of van het scherm te duwen.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Wanneer een app problemen veroorzaakt bij het typen, woorden verbergen tijdens het typen en ze tonen na het indrukken van OK of Spatie.</string>
 	<string name="pref_hack_key_pad_debounce_time">Bescherming tegen het per ongeluk herhalen van toetsen</string>
 	<string name="pref_hack_key_pad_debounce_off">Uit</string>
 	<string name="dictionary_export_finished">Export voltooid</string>
@@ -234,7 +234,6 @@
 	<string name="function_next_suggestion">Volgende suggestie</string>
 	<string name="function_next_language">Volgende taal</string>
 	<string name="function_filter_clear">Filter wissen</string>
-	<string name="pref_allow_composing_text">Compositietekst weergeven</string>
 	<string name="function_undo">Ongedaan maken</string>
 	<string name="fn_key_order_column_2">Kolom 2</string>
 	<string name="fn_key_order_error_wrong_key_count">De kolom mag maximaal 4 toetsen bevatten.</string>
@@ -256,4 +255,5 @@
 	<string name="tutorial_classic_title">Eerste stappen</string>
 	<string name="tutorial_classic_OK_swipe">Wanneer er geen suggesties zijn, veeg omhoog/omlaag om de cursor te verplaatsen.\n\nWanneer er suggesties zijn, veeg omhoog om ze te filteren of omlaag om het filter te wissen.</string>
 	<string name="tutorial_classic_add_word">Veeg naar links om een woord toe te voegen.</string>
+	<string name="pref_hack_auto_disable_composing">Samenstellen van tekst automatisch uitschakelen</string>
 </resources>

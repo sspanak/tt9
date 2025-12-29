@@ -20,7 +20,7 @@ import io.github.sspanak.tt9.util.sys.SystemSettings;
 abstract class UiHandler extends AbstractHandler {
 	private final static String LOG_TAG = "UiHandler";
 
-	@NonNull protected AppHacks appHacks = new AppHacks(null, null, null);
+	@NonNull protected final AppHacks appHacks = new AppHacks();
 	protected SettingsStore settings;
 
 	protected int displayTextCase = InputMode.CASE_UNDEFINED;

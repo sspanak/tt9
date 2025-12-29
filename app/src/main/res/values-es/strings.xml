@@ -79,7 +79,6 @@
 	<string name="pref_abc_auto_accept_fast">Rápido</string>
 	<string name="pref_abc_auto_accept_normal">Moderado</string>
 	<string name="pref_abc_auto_accept_slow">Lento</string>
-	<string name="pref_allow_composing_text_summary">Mostrar las palabras en los campos de texto al escribirlas. Desactivar cuando una aplicación interrumpa la escritura.</string>
 	<string name="pref_alternative_suggestion_scrolling">Método alternativo de desplazamiento de sugerencias</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Habilítelo si a veces no puedes ver todas las sugerencias o tienes problemas para desplazarte por ellas.</string>
 	<string name="pref_arrows_left_right_summary">Mostrar las teclas de flecha izquierda/derecha para desplazarse por las sugerencias o mover el cursor de texto horizontalmente.</string>
@@ -156,6 +155,7 @@
 	<string name="donate_summary">Si te gusta %1$s, puedes invitarme a una cerveza.</string>
 	<string name="pref_hack_always_on_top">Siempre encima</string>
 	<string name="pref_hack_always_on_top_summary">No permitir que otras aplicaciones cubran %1$s o lo empujen fuera de la pantalla.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Cuando una app causa problemas de escritura, ocultar las palabras mientras escribes y mostrarlas después de pulsar OK o Espacio.</string>
 	<string name="pref_hack_key_pad_debounce_time">Protección contra la repetición accidental de teclas</string>
 	<string name="pref_hack_key_pad_debounce_off">Apagado</string>
 	<string name="dictionary_export_finished">Exportación completada</string>
@@ -231,7 +231,6 @@
 	<string name="fn_key_order_preview_tip">Sugerencia: Después de reorganizar las teclas en la columna 1, toca la columna 2 para ver el resultado al instante (o viceversa).</string>
 	<string name="function_already_assigned">La tecla \"%1$s\" ya está asignada a la función \"%2$s\". ¿Desea asignarla a \"%3$s\"?</string>
 	<string name="function_assign_instructions">* Presione o mantenga pulsada una tecla para asignarla a la función \"%1$s\".\n\n* Presione 0 para cancelar.\n\n* Presione 2 para desactivar la función.</string>
-	<string name="pref_allow_composing_text">Mostrar texto en composición</string>
 	<string name="pref_bottom_padding_portrait">Espacio inferior (vertical)</string>
 	<string name="pref_drag_resize">Arrastrar para cambiar el tamaño</string>
 	<string name="function_undo">Deshacer</string>
@@ -255,4 +254,5 @@
 	<string name="tutorial_classic_title">Primeros pasos</string>
 	<string name="tutorial_classic_OK_swipe">Cuando no hay sugerencias, desliza hacia arriba/abajo para mover el cursor.\n\nCuando hay sugerencias, desliza hacia arriba para filtrarlas o hacia abajo para borrar el filtro.</string>
 	<string name="tutorial_classic_add_word">Desliza hacia la izquierda para añadir una palabra.</string>
+	<string name="pref_hack_auto_disable_composing">Desactivar automáticamente la composición de texto</string>
 </resources>

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import io.github.sspanak.tt9.db.DataStore;
 import io.github.sspanak.tt9.db.words.DictionaryLoader;
-import io.github.sspanak.tt9.hacks.AppHacks;
 import io.github.sspanak.tt9.hacks.InputType;
 import io.github.sspanak.tt9.ime.modes.InputModeKind;
 import io.github.sspanak.tt9.languages.LanguageCollection;
@@ -141,7 +140,7 @@ public class TraditionalT9 extends PremiumHandler {
 			asyncInitThread = null;
 		}
 
-		AppHacks.onStart(settings, field);
+		appHacks.onBeforeStart(this, settings, mLanguage, field, restarting);
 
 		if (isDead || !super.onStart(field, restarting)) {
 			getDisplayTextCase();

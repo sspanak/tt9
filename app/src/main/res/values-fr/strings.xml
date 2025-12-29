@@ -72,7 +72,6 @@
 	<string name="pref_abc_auto_accept_fast">Rapide</string>
 	<string name="pref_abc_auto_accept_normal">Modérée</string>
 	<string name="pref_abc_auto_accept_slow">Lente</string>
-	<string name="pref_allow_composing_text_summary">Afficher les mots dans les champs de texte en les tapant. Désactiver lorsqu\'une application interrompt la saisie.</string>
 	<string name="pref_alternative_suggestion_scrolling">Méthode alternative de défilement des mots</string>
 	<string name="pref_alternative_suggestion_scrolling_summary">Activez si parfois vous ne pouvez pas voir tous les mots ou vous avez des difficultés à les défiler.</string>
 	<string name="pref_arrows_left_right_summary">Afficher les flèches gauche/droite pour faire défiler les suggestions ou déplacer le curseur de texte horizontalement.</string>
@@ -154,6 +153,7 @@
 	<string name="dictionary_update_update">Charger</string>
 	<string name="donate_title">Donner</string>
 	<string name="donate_summary">Si vous aimez %1$s, vous pouvez m\'offrir une bière.</string>
+	<string name="pref_hack_auto_disable_composing_summary">Lorsqu’une application provoque des problèmes de saisie, masquer les mots pendant la frappe et les afficher après avoir appuyé sur OK ou Espace.</string>
 	<string name="pref_hack_key_pad_debounce_time">Protection contre la répétition accidentelle des touches</string>
 	<string name="pref_hack_key_pad_debounce_off">Désactivée</string>
 	<string name="dictionary_export_finished">Exportation terminée</string>
@@ -231,7 +231,6 @@
 	<string name="function_already_assigned">La touche \"%1$s\" est déjà attribuée à la fonction \"%2$s\". Voulez-vous l’attribuer à \"%3$s\" ?</string>
 	<string name="function_assign_instructions">* Appuyez ou maintenez une touche pour l’attribuer à la fonction \"%1$s\".\n\n* Appuyez sur 0 pour annuler.\n\n* Appuyez sur 2 pour désactiver la fonction.</string>
 	<string name="key_hold_key">(maintenir)</string>
-	<string name="pref_allow_composing_text">Afficher texte en cours</string>
 	<string name="pref_bottom_padding_portrait">Espacement inférieur (portrait)</string>
 	<string name="pref_drag_resize">Faire glisser pour redimensionner</string>
 	<string name="function_undo">Annuler (Undo)</string>
@@ -255,4 +254,5 @@
 	<string name="tutorial_classic_title">Premiers pas</string>
 	<string name="tutorial_classic_OK_swipe">Lorsqu’il n’y a pas de suggestions, balayer vers le haut/bas pour déplacer le curseur.\n\nLorsqu’il y a des suggestions, balayer vers le haut pour les filtrer ou vers le bas pour effacer le filtre.</string>
 	<string name="tutorial_classic_add_word">Balayer vers la gauche pour ajouter un mot.</string>
+	<string name="pref_hack_auto_disable_composing">Désactiver automatiquement la composition de texte</string>
 </resources>
